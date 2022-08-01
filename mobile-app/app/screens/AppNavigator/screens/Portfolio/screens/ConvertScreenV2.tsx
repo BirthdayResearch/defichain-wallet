@@ -1,39 +1,32 @@
-import { InputHelperText } from '@components/InputHelperText'
-import { WalletTextInput } from '@components/WalletTextInput'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
-import { StyleProp, ViewStyle } from 'react-native'
 import { useSelector } from 'react-redux'
 import { View } from '@components'
-import { Button } from '@components/Button'
-import { IconButton } from '@components/IconButton'
-import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import {
   ThemedIcon,
   ThemedScrollViewV2,
-  ThemedSectionTitle,
-  ThemedText,
+  ThemedSectionTitleV2,
+  ThemedTextInputV2,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
-  ThemedView,
   ThemedViewV2
 } from '@components/themed'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
-import { tailwind } from '@tailwind'
+import { getColor, tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { PortfolioParamList } from '../PortfolioNavigator'
-import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
-import { InfoRow, InfoType } from '@components/InfoRow'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { InfoTextLink } from '@components/InfoTextLink'
 import { tokensSelector } from '@store/wallet'
 import { getNativeIcon } from '@components/icons/assets'
+import { ButtonV2 } from '@components/ButtonV2'
+import { TransactionCard } from '@components/TransactionCard'
+import { ClearButtonV2 } from '@components/WalletTextInputV2'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<PortfolioParamList, 'ConvertScreen'>
@@ -46,6 +39,9 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
   const client = useWhaleApiClient()
   const logger = useLogger()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  // const toast = useToast()
+  // const [showToast, setShowToast] = useState(false)
+  // const TOAST_DURATION = 2000
 
   // global state
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -57,8 +53,10 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
   const [convAmount, setConvAmount] = useState<string>('0')
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [amount, setAmount] = useState<string>('')
-
-  const UTXOIcon = getNativeIcon('_UTXO')
+  const [hasError, setHasError] = useState<boolean>(false)
+  const [showMaxUTXOWarning, setShowMaxUTXOWarning] = useState<boolean>(false)
+  const [transactionCardStatus, setTransactionCardStatus] = useState<'error' | 'active' | undefined>()
+  const [isInputFocus, setIsInputFocus] = useState<boolean>(false)
 
   useEffect(() => {
     client.fee.estimate()
@@ -70,9 +68,30 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
     const [source, target] = getDFIBalances(mode, tokens)
     setSourceToken(source)
     setTargetToken(target)
-    const conversion = new BigNumber(amount).isNaN() ? '0' : new BigNumber(amount).toString()
+    const sourceNum = new BigNumber(source?.amount !== undefined && source.amount !== '' ? source.amount : 0)
+    const conversionNum = new BigNumber(amount).isNaN() ? new BigNumber(0) : new BigNumber(amount)
+    const conversion = conversionNum.toString()
     setConvAmount(conversion)
+    setHasError(conversionNum.gt(sourceNum))
+    setShowMaxUTXOWarning(isUtxoToAccount(mode) && !sourceNum.isZero() && conversionNum.toFixed(8) === sourceNum.toFixed(8))
   }, [mode, JSON.stringify(tokens), amount])
+
+  useEffect(() => {
+    setTransactionCardStatus(hasError ? 'error' : isInputFocus ? 'active' : undefined)
+  }, [hasError, isInputFocus])
+
+  // useEffect(() => {
+  //   if (showToast) {
+  //     // const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percentage}}% of available {{unit}} entered'
+  //     toast.show(translate('screens/ConvertScreen', 'Address copied'), {
+  //       type: 'wallet_toast',
+  //       placement: 'top',
+  //       duration: TOAST_DURATION
+  //     })
+  //   } else {
+  //     toast.hideAll()
+  //   }
+  // }, [showToast])
 
   if (sourceToken === undefined || targetToken === undefined) {
     return <></>
@@ -99,120 +118,94 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
 
   return (
     <ThemedScrollViewV2 style={tailwind('w-full flex-col flex-1')} testID='convert_screen'>
-      <View style={tailwind('flex-col items-center')}>
-        <ThemedTouchableOpacityV2
-          style={tailwind('border-0 pt-12 items-center flex-wrap')}
-          onPress={() => setMode(mode === 'utxosToAccount' ? 'accountToUtxos' : 'utxosToAccount')}
-        >
-          <UTXOIcon height={64} width={64} />
-          <ThemedViewV2
-            style={tailwind('absolute bottom-0 w-8 h-8 rounded-full items-center justify-center ml-16')}
-            light={tailwind('bg-mono-light-v2-900')} dark={tailwind('bg-mono-dark-v2-900')}
-          >
-            <ThemedIcon
-              iconType='MaterialCommunityIcons' name='arrow-u-left-top' size={20}
-              light={tailwind('text-mono-dark-v2-900')} dark={tailwind('text-mono-light-v2-900')}
-            />
-          </ThemedViewV2>
-        </ThemedTouchableOpacityV2>
+      <View style={tailwind('items-center px-4 pb-16')}>
+        <ConvertToggleButton onPress={() => setMode(isUtxoToAccount(mode) ? 'accountToUtxos' : 'utxosToAccount')} />
 
         <ThemedTextV2 style={tailwind('font-semibold-v2 text-lg mt-2')}>
           {translate('screens/ConvertScreen', 'Convert DFI')}
         </ThemedTextV2>
 
-        <View style={tailwind('mt-1 flex-row items-center')}>
-          <ThemedTextV2
-            style={tailwind('font-normal-v2 text-xs')}
-            light={tailwind('text-mono-light-v2-700')} dark={tailwind('text-mono-dark-v2-700')}
-          >
-            {`(${translate('screens/ConvertScreen', sourceToken.unit)}`}
-          </ThemedTextV2>
-          <ThemedIcon
-            iconType='Feather' name='arrow-right' style={tailwind('px-1')}
-            light={tailwind('text-mono-light-v2-700')} dark={tailwind('text-mono-dark-v2-700')}
-          />
-          <ThemedTextV2
-            style={tailwind('font-normal-v2 text-xs')}
-            light={tailwind('text-mono-light-v2-700')} dark={tailwind('text-mono-dark-v2-700')}
-          >
-            {`${translate('screens/ConvertScreen', targetToken.unit)})`}
-          </ThemedTextV2>
-        </View>
+        <ConversionLabel sourceUnit={sourceToken.unit} targetUnit={targetToken.unit} />
 
-        <View style={tailwind('px-4')}>
-          <ConversionIOCard
-            balance={new BigNumber(sourceToken.amount)}
-            current={amount}
-            mode='input'
+        <View style={tailwind('w-full flex-col pt-12')}>
+          <ThemedSectionTitleV2
+            testID='convert_title'
+            text={translate('screens/ConvertScreen', 'I WANT TO CONVERT')}
+          />
+          <TransactionCard
+            maxValue={new BigNumber(sourceToken.amount)} status={transactionCardStatus}
             onChange={setAmount}
-            style={tailwind('mt-1')}
-            unit={sourceToken.unit}
-            title={translate('screens/ConvertScreen', 'How much {{symbol}} to convert?', { symbol: sourceToken.unit })}
-            onClearButtonPress={() => setAmount('')}
-          />
-
-          <ToggleModeButton onPress={() => setMode(mode === 'utxosToAccount' ? 'accountToUtxos' : 'utxosToAccount')} />
-
-          <ConversionReceiveCard
-            amount={new BigNumber(convAmount).toFixed(8)}
-            balance={BigNumber.maximum(new BigNumber(targetToken.amount).plus(convAmount), 0).toFixed(8)}
-            unit={targetToken.unit}
-            title={translate('screens/ConvertScreen', 'After conversion, you will receive')}
-          />
-
-          <InfoTextLink
-            text='UTXO vs Token, what is the difference?'
-            textStyle={tailwind('text-sm')}
-            containerStyle={tailwind('my-4')}
-            onPress={() => navigation.navigate('TokensVsUtxo')}
-            testId='token_vs_utxo_info'
-          />
-
-          {isUtxoToAccount(mode) && <ReservedDFIInfoText style={tailwind('mt-0')} />}
+          >
+            <ConversionInputField
+              amount={amount} onChangeText={(text) => setAmount(text)}
+              setFocused={(isFocus) => setIsInputFocus(isFocus)}
+            />
+          </TransactionCard>
+          <ThemedTextV2
+            style={tailwind('font-normal-v2 text-xs px-5 pt-2')}
+            light={tailwind('text-mono-light-v2-500', {
+                          'text-red-v2': hasError,
+                          'text-orange-v2': showMaxUTXOWarning && !hasError
+                        })}
+            dark={tailwind('text-mono-dark-v2-500', {
+                          'text-red-v2': hasError,
+                          'text-orange-v2': showMaxUTXOWarning && !hasError
+                        })}
+          >
+            {hasError
+? translate('screens/ConvertScreen', 'Available: {{amount}} {{unit}}. Insufficient balance', {
+              amount: new BigNumber(sourceToken.amount).toFixed(8),
+              unit: sourceToken.unit
+            })
+: showMaxUTXOWarning
+? translate('screens/ConvertScreen', 'A small amount of UTXO is reserved for fees')
+              : translate('screens/ConvertScreen', 'Available: {{amount}} {{unit}}', {
+                amount: new BigNumber(sourceToken.amount).toFixed(8),
+                unit: sourceToken.unit
+              })}
+          </ThemedTextV2>
         </View>
 
-        <ThemedSectionTitle
-          testID='title_transaction_details'
-          text={translate('screens/ConvertScreen', 'TRANSACTION DETAILS')}
-          style={tailwind('px-4 mt-6 pb-2 text-xs text-gray-500 font-medium')}
-        />
-        <InfoRow
-          type={InfoType.EstimatedFee}
-          value={fee.toString()}
-          testID='transaction_fee'
-          suffix='DFI'
-        />
-        <ThemedText
-          light={tailwind('text-gray-600')}
-          dark={tailwind('text-gray-300')}
-          style={tailwind('mt-2 px-4 text-sm')}
-        >
-          {translate('screens/ConvertScreen', 'Review full transaction details in the next screen')}
-        </ThemedText>
+        {canConvert(convAmount, sourceToken.amount) && (
+          <View style={tailwind('flex-col w-full')}>
+            <ConversionResultCard
+              unit={targetToken.unit} convertAmount={convAmount}
+              targetAmount={targetToken.amount}
+            />
 
-        <Button
-          disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob || hasPendingBroadcastJob}
-          label={translate('components/Button', 'CONTINUE')}
-          onPress={() => convert(sourceToken, targetToken)}
-          testID='button_continue_convert'
-          title='Convert'
-          margin='my-14 mx-4'
-        />
+            <ThemedTextV2
+              style={tailwind('font-normal-v2 text-xs text-center pt-12 pb-5')}
+              light={tailwind('text-mono-light-v2-500')} dark={tailwind('text-mono-dark-v2-500')}
+            >
+              {`${translate('screens/ConvertScreen', 'Review full details in the next screen')}`}
+            </ThemedTextV2>
+          </View>
+        )}
+
+        <View style={tailwind('w-full px-7', { 'mt-56': !canConvert(convAmount, sourceToken.amount) })}>
+          <ButtonV2
+            fill='fill' label={translate('components/Button', 'Continue')}
+            disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob || hasPendingBroadcastJob}
+            styleProps='w-full'
+            onPress={() => convert(sourceToken, targetToken)}
+            testID='button_continue_convert'
+          />
+        </View>
       </View>
     </ThemedScrollViewV2>
   )
 }
 
 function getDFIBalances (mode: ConversionMode, tokens: AddressToken[]): [source: ConversionIO, target: ConversionIO] {
-  const source: AddressToken = mode === 'utxosToAccount'
+  const source: AddressToken = isUtxoToAccount(mode)
     ? tokens.find(tk => tk.id === '0_utxo') as AddressToken
     : tokens.find(tk => tk.id === '0') as AddressToken
-  const sourceUnit = mode === 'utxosToAccount' ? 'UTXO' : 'Token'
+  const sourceUnit = isUtxoToAccount(mode) ? 'UTXO' : 'Token'
 
-  const target: AddressToken = mode === 'utxosToAccount'
+  const target: AddressToken = isUtxoToAccount(mode)
     ? tokens.find(tk => tk.id === '0') as AddressToken
     : tokens.find(tk => tk.id === '0_utxo') as AddressToken
-  const targetUnit = mode === 'utxosToAccount' ? 'Token' : 'UTXO'
+  const targetUnit = isUtxoToAccount(mode) ? 'Token' : 'UTXO'
 
   return [
     {
@@ -227,91 +220,112 @@ function getDFIBalances (mode: ConversionMode, tokens: AddressToken[]): [source:
   ]
 }
 
-function ConversionIOCard (props: { style?: StyleProp<ViewStyle>, mode: 'input' | 'output', unit: 'UTXO' | 'Token', current: string, balance: BigNumber, onChange: (amount: string) => void, title: string, onClearButtonPress: () => void }): JSX.Element {
+function ConvertToggleButton (props: { onPress: () => void }): JSX.Element {
+  const UTXOIcon = getNativeIcon('_UTXO')
   return (
-    <View style={[tailwind('flex-col w-full'), props.style]}>
-      <ThemedView
-        dark={tailwind('')}
-        light={tailwind('')}
-        style={tailwind('flex-row w-full items-center')}
+    <ThemedTouchableOpacityV2
+      style={tailwind('border-0 pt-12 items-center flex-wrap')}
+      onPress={props.onPress} testID='convert_toggle_button'
+    >
+      <UTXOIcon height={64} width={64} />
+      <ThemedViewV2
+        style={tailwind('absolute bottom-0 w-8 h-8 rounded-full items-center justify-center right-0 -mr-4')}
+        light={tailwind('bg-mono-light-v2-900')} dark={tailwind('bg-mono-dark-v2-900')}
       >
-        <WalletTextInput
-          editable={props.mode === 'input'}
-          onChange={event => {
-            props.onChange(event.nativeEvent.text)
-          }}
-          placeholder={translate('screens/ConvertScreen', 'Enter an amount')}
-          style={tailwind('flex-grow w-2/5 text-gray-500 px-1')}
-          testID={`text_input_convert_from_${props.mode}`}
-          value={props.current}
-          inputType='numeric'
-          title={props.title}
-          titleTestID={`text_input_convert_from_${props.mode}_text`}
-          displayClearButton={props.current !== ''}
-          onClearButtonPress={props.onClearButtonPress}
+        <ThemedIcon
+          iconType='MaterialCommunityIcons' name='arrow-u-left-top' size={20}
+          light={tailwind('text-mono-dark-v2-900')} dark={tailwind('text-mono-light-v2-900')}
+        />
+      </ThemedViewV2>
+    </ThemedTouchableOpacityV2>
+  )
+}
+
+function ConversionLabel (props: { sourceUnit: string, targetUnit: string }): JSX.Element {
+  return (
+    <View style={tailwind('mt-1 flex-row items-center')}>
+      <ThemedTextV2
+        style={tailwind('font-normal-v2 text-xs')} testID='convert_source'
+        light={tailwind('text-mono-light-v2-700')} dark={tailwind('text-mono-dark-v2-700')}
+      >
+        {`(${translate('screens/ConvertScreen', props.sourceUnit)}`}
+      </ThemedTextV2>
+      <ThemedIcon
+        iconType='Feather' name='arrow-right' style={tailwind('px-1')}
+        light={tailwind('text-mono-light-v2-700')} dark={tailwind('text-mono-dark-v2-700')}
+      />
+      <ThemedTextV2
+        style={tailwind('font-normal-v2 text-xs')} testID='convert_target'
+        light={tailwind('text-mono-light-v2-700')} dark={tailwind('text-mono-dark-v2-700')}
+      >
+        {`${translate('screens/ConvertScreen', props.targetUnit)})`}
+      </ThemedTextV2>
+    </View>
+  )
+}
+
+function ConversionInputField (props: { amount: string, setFocused: (isFocus: boolean) => void, onChangeText: (text: string) => void }): JSX.Element {
+  return (
+    <ThemedViewV2
+      style={tailwind('flex-row items-center justify-between pb-5 border-b-0.5')}
+      light={tailwind('border-mono-light-v2-300')} dark={tailwind('border-mono-dark-v2-300')}
+    >
+      <ThemedTextInputV2
+        value={props.amount}
+        onFocus={() => props.setFocused(true)}
+        onBlur={() => props.setFocused(false)}
+        style={tailwind('font-normal-v2 flex-1')}
+        selectionColor={getColor('brand-v2-500')}
+        onChangeText={props.onChangeText}
+        placeholder='0.00'
+        keyboardType='numeric'
+      />
+      <ClearButtonV2
+        onPress={() => props.onChangeText('0')}
+        testID='conversion_clear_button'
+      />
+    </ThemedViewV2>
+  )
+}
+
+function ConversionResultCard (props: { unit: string, convertAmount: string, targetAmount: string }): JSX.Element {
+  return (
+    <ThemedViewV2
+      style={tailwind('flex-col w-full p-5 mt-6 rounded-lg-v2 border-0.5')} testID='convert_result_card'
+      light={tailwind('border-mono-light-v2-300')} dark={tailwind('border-mono-dark-v2-300')}
+    >
+      <ThemedViewV2
+        style={tailwind('flex-row border-b-0.5 items-center pb-5')}
+        light={tailwind('border-mono-light-v2-300')} dark={tailwind('border-mono-dark-v2-300')}
+      >
+        <ThemedTextV2
+          style={tailwind('font-normal-v2 text-sm pr-2')}
+          light={tailwind('text-mono-light-v2-500')} dark={tailwind('text-mono-dark-v2-500')}
         >
-          {props.mode === 'input' &&
-            <SetAmountButton
-              amount={props.balance}
-              onPress={props.onChange}
-              type={AmountButtonTypes.half}
-            />}
-
-          {props.mode === 'input' &&
-            <SetAmountButton
-              amount={props.balance}
-              onPress={props.onChange}
-              type={AmountButtonTypes.max}
-            />}
-        </WalletTextInput>
-      </ThemedView>
-      <InputHelperText
-        testID='source_balance'
-        label={`${translate('screens/ConvertScreen', 'Available')}: `}
-        content={props.balance.toFixed(8)}
-        suffix=' DFI'
-      />
-    </View>
-  )
-}
-
-function ConversionReceiveCard (props: { style?: StyleProp<ViewStyle>, unit: string, amount: string, balance: string, title: string }): JSX.Element {
-  return (
-    <View style={[tailwind('flex-col w-full mt-6'), props.style]}>
-      <WalletTextInput
-        editable={false}
-        titleTestID='text_input_convert_from_to_text'
-        title={props.title}
-        inputType='numeric'
-        value={`${props.amount} ${props.unit}`}
-        style={tailwind('h-8')}
-      />
-      <InputHelperText
-        testID='target_balance'
-        label={`${translate('screens/ConvertScreen', 'You will have')}: `}
-        content={props.balance}
-        suffix={` ${props.unit}`}
-      />
-    </View>
-  )
-}
-
-function ToggleModeButton (props: { onPress: () => void }): JSX.Element {
-  return (
-    <View style={tailwind('justify-center items-center mt-2')}>
-      <ThemedView
-        light={tailwind('border-gray-200')}
-        dark={tailwind('border-gray-700')}
-        style={tailwind('border-b w-full relative top-2/4')}
-      />
-      <IconButton
-        iconName='swap-vert'
-        iconSize={24}
-        iconType='MaterialIcons'
-        onPress={props.onPress}
-        testID='button_convert_mode_toggle'
-      />
-    </View>
+          {`${translate('screens/ConvertScreen', 'Available {{unit}}', { unit: props.unit })}`}
+        </ThemedTextV2>
+        <ThemedTextV2
+          style={tailwind('flex-1 font-normal-v2 text-sm text-right')} testID='convert_available_amount'
+          light={tailwind('text-mono-light-v2-800')} dark={tailwind('text-mono-dark-v2-800')}
+        >
+          {new BigNumber(props.convertAmount).toFixed(8)}
+        </ThemedTextV2>
+      </ThemedViewV2>
+      <ThemedViewV2 style={tailwind('flex-row items-center pt-5')}>
+        <ThemedTextV2
+          style={tailwind('font-normal-v2 text-sm pr-2')}
+          light={tailwind('text-mono-light-v2-500')} dark={tailwind('text-mono-dark-v2-500')}
+        >
+          {`${translate('screens/ConvertScreen', 'Resulting {{unit}}', { unit: props.unit })}`}
+        </ThemedTextV2>
+        <ThemedTextV2
+          style={tailwind('flex-1 font-semibold-v2 text-sm text-right')} testID='convert_result_amount'
+          light={tailwind('text-mono-light-v2-800')} dark={tailwind('text-mono-dark-v2-800')}
+        >
+          {BigNumber.maximum(new BigNumber(props.targetAmount).plus(props.convertAmount), 0).toFixed(8)}
+        </ThemedTextV2>
+      </ThemedViewV2>
+    </ThemedViewV2>
   )
 }
 
