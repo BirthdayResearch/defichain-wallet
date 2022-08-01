@@ -17,7 +17,7 @@ import { ocean } from '@store/ocean'
 import { tailwind } from '@tailwind'
 import { getAppLanguages, translate } from '@translations'
 import { useCallback } from 'react'
-import { Platform, Text } from 'react-native'
+import { Text } from 'react-native'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
 import { SettingsParamList } from './SettingsNavigatorV2'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
@@ -264,7 +264,7 @@ function PrivacyLockToggle ({
 }: { disabled?: boolean, value: boolean, onToggle: (newValue: boolean) => void, authenticationName?: string }): JSX.Element {
   return (
     <View
-      style={tailwind('flex py-4.5 flex-row items-center justify-between', { 'py-3.5': Platform.OS === 'android' })}
+      style={tailwind('flex py-4.5 flex-row items-center justify-between')}
     >
       <ThemedTextV2
         light={tailwind('text-mono-light-v2-900')}
