@@ -18,7 +18,7 @@ export function RowThemeItemV2 (props: { border?: boolean }): JSX.Element {
     <ThemedViewV2
       light={tailwind('border-mono-light-v2-300')}
       dark={tailwind('border-mono-dark-v2-300')}
-      style={tailwind(`flex flex-row items-center justify-between ${Platform.OS === 'android' ? 'py-1.5' : 'py-4.5'} `, {
+      style={tailwind(`flex flex-row items-center justify-between ${Platform.OS === 'android' ? 'py-3.5' : 'py-4.5'} `, {
         'border-b-0.5': props.border
       })}
       testID='theme_row'
