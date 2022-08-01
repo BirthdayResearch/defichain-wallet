@@ -219,7 +219,7 @@ function CurrencySwitcher ({ currency }: { currency: string }): JSX.Element {
       dark={tailwind('border-mono-dark-v2-900')}
     >
       <ThemedTextV2
-        style={tailwind('text-xs font-normal-v2')}
+        style={tailwind('text-xs text-center font-normal-v2')}
         testID='portfolio_active_currency'
       >
         {currency}
