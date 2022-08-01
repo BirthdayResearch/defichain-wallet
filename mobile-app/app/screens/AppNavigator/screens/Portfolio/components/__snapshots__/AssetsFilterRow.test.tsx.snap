@@ -4,7 +4,10 @@ exports[`Portfolio Filter Buttons should match snapshot for Assets filter Button
 <View
   style={
     Array [
-      undefined,
+      Object {
+        "marginBottom": 32,
+        "marginTop": 32,
+      },
       Object {
         "backgroundColor": "rgba(242, 242, 242, 1)",
       },
@@ -15,8 +18,6 @@ exports[`Portfolio Filter Buttons should match snapshot for Assets filter Button
   <RCTScrollView
     contentContainerStyle={
       Object {
-        "marginBottom": 24,
-        "marginTop": 32,
         "paddingLeft": 20,
       }
     }

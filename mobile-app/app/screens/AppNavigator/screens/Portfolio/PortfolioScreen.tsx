@@ -479,7 +479,8 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     <View ref={containerRef} style={tailwind('flex-1')}>
       <ThemedScrollViewV2
         ref={ref}
-        contentContainerStyle={tailwind('pb-12')} testID='portfolio_list'
+        contentContainerStyle={tailwind('pb-12')}
+        testID='portfolio_list'
         refreshControl={
           <RefreshControl
             onRefresh={onRefresh}
@@ -608,7 +609,7 @@ function AssetSortRow (props: { isSorted: boolean, assetSortType: PortfolioSortT
 
   return (
     <View
-      style={tailwind('px-10 flex flex-row justify-between pt-5')}
+      style={tailwind('px-10 flex flex-row justify-between')}
       testID='toggle_sorting_assets'
     >
       <ThemedTextV2

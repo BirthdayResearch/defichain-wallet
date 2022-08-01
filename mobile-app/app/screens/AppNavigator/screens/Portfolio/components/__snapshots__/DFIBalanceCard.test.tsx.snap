@@ -9,7 +9,6 @@ exports[`DFI Balance Card should match snapshot 1`] = `
         "borderBottomRightRadius": 10,
         "borderTopLeftRadius": 10,
         "borderTopRightRadius": 10,
-        "marginBottom": 4,
         "marginLeft": 20,
         "marginRight": 20,
         "marginTop": 8,

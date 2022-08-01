@@ -58,12 +58,12 @@ export function PortfolioCard ({
               ))}
             </>
           )
-: (
-  <>
-    {hasFetchedToken &&
-      <EmptyTokensScreen type={buttonGroupOptions?.activeButtonGroup} />}
-  </>
-          )}
+        : (
+          <>
+            {hasFetchedToken &&
+              <EmptyTokensScreen type={buttonGroupOptions?.activeButtonGroup} />}
+          </>
+        )}
       </View>
     </ThemedViewV2>
   )
@@ -81,7 +81,7 @@ function PortfolioItemRow ({
       onPress={onPress}
       dark={tailwind('bg-mono-dark-v2-00')}
       light={tailwind('bg-mono-light-v2-00')}
-      style={tailwind('px-5 py-4.5 rounded-lg-v2 my-1 border-0')}
+      style={tailwind('px-5 py-4.5 rounded-lg-v2 mt-2 border-0')}
       testID={testID}
     >
       <View style={tailwind('flex flex-row items-start')}>

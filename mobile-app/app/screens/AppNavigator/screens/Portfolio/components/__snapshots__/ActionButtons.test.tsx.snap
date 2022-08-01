@@ -1,289 +1,286 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DFI Action Buttons should match snapshot for Action Buttons component 1`] = `
-<RCTScrollView
-  contentContainerStyle={
-    Object {
-      "paddingLeft": 20,
-      "paddingRight": 20,
-    }
-  }
-  horizontal={true}
-  showsHorizontalScrollIndicator={false}
-  style={
-    Object {
-      "flexBasis": "0%",
-      "flexGrow": 1,
-      "flexShrink": 1,
-      "marginTop": 32,
-    }
-  }
+<View
+  testID="action_button_group"
 >
-  <View>
-    <View
-      style={
-        Object {
-          "alignItems": "center",
-        }
+  <RCTScrollView
+    contentContainerStyle={
+      Object {
+        "marginTop": 32,
+        "paddingLeft": 20,
+        "paddingRight": 20,
       }
-    >
+    }
+    horizontal={true}
+    showsHorizontalScrollIndicator={false}
+  >
+    <View>
       <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "rgba(255, 255, 255, 1)",
-            "borderBottomLeftRadius": 9999,
-            "borderBottomRightRadius": 9999,
-            "borderTopLeftRadius": 9999,
-            "borderTopRightRadius": 9999,
-            "height": 60,
-            "justifyContent": "center",
-            "marginLeft": 10,
-            "marginRight": 10,
-            "opacity": 1,
-            "width": 60,
           }
         }
-        testID="send_balance_button"
       >
-        <Text />
-      </View>
-      <Text
-        style={
-          Array [
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+              "alignItems": "center",
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomLeftRadius": 9999,
+              "borderBottomRightRadius": 9999,
+              "borderTopLeftRadius": 9999,
+              "borderTopRightRadius": 9999,
+              "height": 60,
+              "justifyContent": "center",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "opacity": 1,
+              "width": 60,
+            }
+          }
+          testID="send_balance_button"
+        >
+          <Text />
+        </View>
+        <Text
+          style={
             Array [
               Object {
-                "fontFamily": "SoraRegular",
-                "fontSize": 12,
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
                 "fontWeight": "400",
-                "lineHeight": 16,
-                "marginTop": 8,
-                "textAlign": "center",
+                "lineHeight": 24,
               },
-              Object {
-                "color": "rgba(18, 18, 18, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Send
-      </Text>
-    </View>
-    <View
-      style={
-        Object {
-          "alignItems": "center",
-        }
-      }
-    >
+              Array [
+                Object {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                  "marginTop": 8,
+                  "textAlign": "center",
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Send
+        </Text>
+      </View>
       <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "rgba(255, 255, 255, 1)",
-            "borderBottomLeftRadius": 9999,
-            "borderBottomRightRadius": 9999,
-            "borderTopLeftRadius": 9999,
-            "borderTopRightRadius": 9999,
-            "height": 60,
-            "justifyContent": "center",
-            "marginLeft": 10,
-            "marginRight": 10,
-            "opacity": 1,
-            "width": 60,
           }
         }
-        testID="receive_balance_button"
       >
-        <Text />
-      </View>
-      <Text
-        style={
-          Array [
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+              "alignItems": "center",
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomLeftRadius": 9999,
+              "borderBottomRightRadius": 9999,
+              "borderTopLeftRadius": 9999,
+              "borderTopRightRadius": 9999,
+              "height": 60,
+              "justifyContent": "center",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "opacity": 1,
+              "width": 60,
+            }
+          }
+          testID="receive_balance_button"
+        >
+          <Text />
+        </View>
+        <Text
+          style={
             Array [
               Object {
-                "fontFamily": "SoraRegular",
-                "fontSize": 12,
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
                 "fontWeight": "400",
-                "lineHeight": 16,
-                "marginTop": 8,
-                "textAlign": "center",
+                "lineHeight": 24,
               },
-              Object {
-                "color": "rgba(18, 18, 18, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Receive
-      </Text>
-    </View>
-    <View
-      style={
-        Object {
-          "alignItems": "center",
-        }
-      }
-    >
+              Array [
+                Object {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                  "marginTop": 8,
+                  "textAlign": "center",
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Receive
+        </Text>
+      </View>
       <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "rgba(255, 255, 255, 1)",
-            "borderBottomLeftRadius": 9999,
-            "borderBottomRightRadius": 9999,
-            "borderTopLeftRadius": 9999,
-            "borderTopRightRadius": 9999,
-            "height": 60,
-            "justifyContent": "center",
-            "marginLeft": 10,
-            "marginRight": 10,
-            "opacity": 1,
-            "width": 60,
           }
         }
-        testID="swap_tokens_button"
       >
-        <Text />
-      </View>
-      <Text
-        style={
-          Array [
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+              "alignItems": "center",
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomLeftRadius": 9999,
+              "borderBottomRightRadius": 9999,
+              "borderTopLeftRadius": 9999,
+              "borderTopRightRadius": 9999,
+              "height": 60,
+              "justifyContent": "center",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "opacity": 1,
+              "width": 60,
+            }
+          }
+          testID="swap_tokens_button"
+        >
+          <Text />
+        </View>
+        <Text
+          style={
             Array [
               Object {
-                "fontFamily": "SoraRegular",
-                "fontSize": 12,
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
                 "fontWeight": "400",
-                "lineHeight": 16,
-                "marginTop": 8,
-                "textAlign": "center",
+                "lineHeight": 24,
               },
-              Object {
-                "color": "rgba(18, 18, 18, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Swap
-      </Text>
-    </View>
-    <View
-      style={
-        Object {
-          "alignItems": "center",
-        }
-      }
-    >
+              Array [
+                Object {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                  "marginTop": 8,
+                  "textAlign": "center",
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Swap
+        </Text>
+      </View>
       <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "rgba(255, 255, 255, 1)",
-            "borderBottomLeftRadius": 9999,
-            "borderBottomRightRadius": 9999,
-            "borderTopLeftRadius": 9999,
-            "borderTopRightRadius": 9999,
-            "height": 60,
-            "justifyContent": "center",
-            "marginLeft": 10,
-            "marginRight": 10,
-            "opacity": 1,
-            "width": 60,
           }
         }
-        testID="transaction_button"
       >
-        <Text />
-      </View>
-      <Text
-        style={
-          Array [
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
             Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+              "alignItems": "center",
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomLeftRadius": 9999,
+              "borderBottomRightRadius": 9999,
+              "borderTopLeftRadius": 9999,
+              "borderTopRightRadius": 9999,
+              "height": 60,
+              "justifyContent": "center",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "opacity": 1,
+              "width": 60,
+            }
+          }
+          testID="transaction_button"
+        >
+          <Text />
+        </View>
+        <Text
+          style={
             Array [
               Object {
-                "fontFamily": "SoraRegular",
-                "fontSize": 12,
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
                 "fontWeight": "400",
-                "lineHeight": 16,
-                "marginTop": 8,
-                "textAlign": "center",
+                "lineHeight": 24,
               },
-              Object {
-                "color": "rgba(18, 18, 18, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Transactions
-      </Text>
+              Array [
+                Object {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                  "marginTop": 8,
+                  "textAlign": "center",
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Transactions
+        </Text>
+      </View>
     </View>
-  </View>
-</RCTScrollView>
+  </RCTScrollView>
+</View>
 `;

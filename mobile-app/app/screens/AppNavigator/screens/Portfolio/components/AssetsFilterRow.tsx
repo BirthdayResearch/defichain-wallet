@@ -45,9 +45,9 @@ export function AssetsFilterRow (props: AssetsFilterRowProps): JSX.Element {
     }
   ]
   return (
-    <ThemedViewV2 testID='portfolio_button_group'>
+    <ThemedViewV2 testID='portfolio_button_group' style={tailwind('my-8')}>
       <ScrollView
-        contentContainerStyle={tailwind('pl-5 mt-8 mb-6')}
+        contentContainerStyle={tailwind('pl-5')}
         horizontal
         showsHorizontalScrollIndicator={false}
       >
@@ -60,7 +60,8 @@ export function AssetsFilterRow (props: AssetsFilterRowProps): JSX.Element {
             testID={`portfolio_button_group_${button.id}`}
             additionalStyles={!(filterButtonGroup.length === index) ? tailwind('mr-3') : undefined}
           />
-          ))}
+          )
+        )}
       </ScrollView>
     </ThemedViewV2>
   )
