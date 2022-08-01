@@ -38,7 +38,7 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
     >
       <View style={tailwind('flex-col rounded-lg-v2 overflow-hidden')}>
         <TouchableOpacity
-          style={tailwind('px-5 py-4.5 flex flex-row items-start')}
+          style={tailwind('px-5 py-4.5 flex flex-row items-center')}
           onPress={() => navigation.navigate({
             name: 'Balance',
             params: { token: DFIUnified, usdAmount },

@@ -50,7 +50,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         Object {
-          "alignItems": "flex-start",
+          "alignItems": "center",
           "display": "flex",
           "flexDirection": "row",
           "opacity": 1,

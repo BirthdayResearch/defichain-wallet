@@ -1226,7 +1226,7 @@ exports[`portfolio page should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "alignItems": "flex-start",
+                "alignItems": "center",
                 "display": "flex",
                 "flexDirection": "row",
                 "opacity": 1,
@@ -1529,7 +1529,7 @@ exports[`portfolio page should match snapshot 1`] = `
           <View
             style={
               Object {
-                "alignItems": "flex-start",
+                "alignItems": "center",
                 "display": "flex",
                 "flexDirection": "row",
               }
@@ -1816,7 +1816,7 @@ exports[`portfolio page should match snapshot 1`] = `
           <View
             style={
               Object {
-                "alignItems": "flex-start",
+                "alignItems": "center",
                 "display": "flex",
                 "flexDirection": "row",
               }
