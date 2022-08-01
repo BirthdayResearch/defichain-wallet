@@ -1,3 +1,4 @@
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { createStackNavigator } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
@@ -15,6 +16,8 @@ import { CompositeSwapScreen, OwnedTokenState, TokenState } from './CompositeSwa
 import { CompositeSwapForm, ConfirmCompositeSwapScreen } from './CompositeSwap/ConfirmCompositeSwapScreen'
 import { WalletToken } from '@store/wallet'
 import { ConversionParam } from '../Portfolio/PortfolioNavigator'
+import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
+import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 
 export interface DexParamList {
   DexScreen: undefined
@@ -84,6 +87,11 @@ const DexStack = createStackNavigator<DexParamList>()
 
 export function DexNavigator (): JSX.Element {
   const headerContainerTestId = 'dex_header_container'
+  const navigation = useNavigation<NavigationProp<DexParamList>>()
+  const goToNetworkSelect = (): void => {
+    navigation.navigate('NetworkSelectionScreen')
+  }
+  const screenOptions = useNavigatorScreenOptions()
 
   return (
     <DexStack.Navigator
@@ -137,12 +145,11 @@ export function DexNavigator (): JSX.Element {
         component={RemoveLiquidityScreen}
         name='RemoveLiquidity'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Remove Liquidity')}
-              containerTestID={headerContainerTestId}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate('screens/DexScreen', 'Remove Liquidity')
         }}
       />
 
