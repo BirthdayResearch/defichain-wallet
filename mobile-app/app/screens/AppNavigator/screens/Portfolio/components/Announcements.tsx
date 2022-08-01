@@ -1,4 +1,4 @@
-import { ThemedIcon, ThemedText, ThemedTextV2, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedText, ThemedTextV2, ThemedView, ThemedViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { useGetAnnouncementsQuery } from '@store/website'
 import { AnnouncementData } from '@shared-types/website'
@@ -202,7 +202,7 @@ export function AnnouncementBannerV2 ({
   const { isLight } = useThemeContext()
   const isOtherAnnouncement = announcement.type === undefined || announcement.type === 'OTHER_ANNOUNCEMENT'
   return (
-    <ThemedView
+    <ThemedViewV2
       testID={testID}
       style={tailwind('mt-9 relative mx-5 px-5 py-3 flex flex-row items-center border-0.5 rounded-xl-v2', {
         'border-mono-light-v2-900': isOtherAnnouncement && isLight,
@@ -242,7 +242,7 @@ export function AnnouncementBannerV2 ({
           </TouchableOpacity>
         )}
       {announcement.id !== undefined && (
-        <ThemedView
+        <ThemedViewV2
           style={tailwind('absolute -top-2 -right-2 rounded-full')}
         >
           <ThemedIcon
@@ -265,9 +265,9 @@ export function AnnouncementBannerV2 ({
               'text-red-v2': announcement.type === 'EMERGENCY'
             })}
           />
-        </ThemedView>
+        </ThemedViewV2>
       )}
-    </ThemedView>
+    </ThemedViewV2>
   )
 }
 

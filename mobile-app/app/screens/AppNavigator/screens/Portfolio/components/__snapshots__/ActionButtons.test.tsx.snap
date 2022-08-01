@@ -4,8 +4,6 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
 <RCTScrollView
   contentContainerStyle={
     Object {
-      "marginBottom": 32,
-      "marginTop": 32,
       "paddingLeft": 20,
       "paddingRight": 20,
     }
@@ -17,6 +15,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
       "flexBasis": "0%",
       "flexGrow": 1,
       "flexShrink": 1,
+      "marginTop": 32,
     }
   }
 >
