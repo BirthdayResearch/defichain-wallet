@@ -1208,11 +1208,29 @@ exports[`portfolio page should match snapshot 1`] = `
           }
         >
           <View
+            accessibilityState={
+              Object {
+                "disabled": false,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
               Object {
                 "alignItems": "flex-start",
                 "display": "flex",
                 "flexDirection": "row",
+                "opacity": 1,
                 "paddingBottom": 18,
                 "paddingLeft": 20,
                 "paddingRight": 20,

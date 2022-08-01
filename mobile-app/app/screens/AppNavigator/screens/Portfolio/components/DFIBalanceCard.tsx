@@ -20,6 +20,7 @@ interface DFIBalaceCardProps {
 }
 
 export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): JSX.Element {
+  const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const DFIUnified = useSelector((state: RootState) => unifiedDFISelector(state.wallet))
@@ -36,7 +37,15 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
       testID='dfi_balance_card'
     >
       <View style={tailwind('flex-col flex-1 rounded-lg-v2 overflow-hidden')}>
-        <View style={tailwind('px-5 py-4.5 flex flex-row items-start')}>
+        <TouchableOpacity
+          style={tailwind('px-5 py-4.5 flex flex-row items-start')}
+          onPress={() => navigation.navigate({
+            name: 'Balance',
+            params: { token: DFIUnified, usdAmount },
+            merge: true
+          })}
+          disabled={!new BigNumber(DFIUtxo.amount ?? 0).plus(DFIToken.amount ?? 0).gt(0)}
+        >
           <View style={tailwind('w-7/12 flex-row items-center')}>
             <DFIIcon width={36} height={36} />
             <TokenNameTextV2 displaySymbol='DFI' name='DeFiChain' testID='total_dfi_label' />
@@ -78,7 +87,7 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
               </View>
             )}
           </View>
-        </View>
+        </TouchableOpacity>
         {hasFetchedToken && !new BigNumber(DFIUtxo.amount ?? 0).plus(DFIToken.amount ?? 0).gt(0) && (
           <GetDFIBtn />
         )}
