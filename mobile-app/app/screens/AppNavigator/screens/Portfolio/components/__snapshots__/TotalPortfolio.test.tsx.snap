@@ -7,7 +7,6 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
       Object {
         "borderBottomLeftRadius": 15,
         "borderBottomRightRadius": 15,
-        "marginBottom": 8,
         "paddingBottom": 20,
         "paddingLeft": 20,
         "paddingRight": 20,
@@ -62,14 +61,11 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
               "lineHeight": 24,
             },
             Array [
-              Array [
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "flexDirection": "row",
-                },
-                undefined,
-              ],
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+              },
               Object {
                 "color": "rgba(18, 18, 18, 1)",
               },
