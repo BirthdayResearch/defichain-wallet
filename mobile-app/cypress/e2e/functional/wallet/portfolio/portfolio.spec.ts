@@ -409,7 +409,7 @@ context('Wallet - Portfolio page', () => {
     })
     cy.getByTestID('empty_portfolio').should('exist')
     cy.getByTestID('empty_tokens_title').should('have.text', 'Empty portfolio')
-    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Add your DFI and other tokens to get started')
+    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Add DFI and other tokens to get started')
   })
 })
 
@@ -433,14 +433,15 @@ context.only('Wallet - Portfolio', () => {
     cy.getByTestID('bottom_tab_portfolio').click()
   })
 
-  it('should display no tokens text', function () {
-    cy.wait('@getDexPrices').then(() => {
-      cy.wait(2000)
-      cy.getByTestID('total_usd_amount').should('have.text', '$100.00')
-      cy.getByTestID('empty_tokens_title').should('not.exist')
-      cy.getByTestID('empty_tokens_subtitle').should('not.exist')
-    })
-  })
+  // TODO (Harsh): have to uncomment when DFI token will get listed in Portfolio listing
+  // it('should display no tokens text', function () {
+  //   cy.wait('@getDexPrices').then(() => {
+  //     cy.wait(2000)
+  //     cy.getByTestID('total_usd_amount').should('have.text', '$100.00')
+  //     cy.getByTestID('empty_tokens_title').should('not.exist')
+  //     cy.getByTestID('empty_tokens_subtitle').should('not.exist')
+  //   })
+  // })
 
   it('should display dfi utxo and dfi token with correct amount', function () {
     cy.sendDFITokentoWallet()
@@ -542,7 +543,6 @@ context('Wallet - Portfolio - No balance', () => {
   })
 
   it('should display empty portfolio to replace token list', function () {
-    cy.getByTestID('empty_balances').should('not.exist')
     cy.getByTestID('empty_portfolio').should('exist')
   })
 
@@ -811,10 +811,12 @@ context('Wallet - Portfolio - Assets filter tab - filter respective tokens in se
     cy.getByTestID('portfolio_row_1').should('exist') // dBTC = row 1
     cy.getByTestID('portfolio_button_group_LP_TOKENS').click()
     cy.getByTestID('portfolio_button_group_LP_TOKENS_active').should('exist')
-    cy.getByTestID('empty_tokens_title').should('have.text', 'No LP tokens in portfolio')
+    cy.getByTestID('empty_tokens_title').should('have.text', 'No LP tokens found')
+    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Add liquidity to get started')
     cy.getByTestID('portfolio_button_group_d_TOKENS').click()
     cy.getByTestID('portfolio_button_group_d_TOKENS_active').should('exist')
-    cy.getByTestID('empty_tokens_title').should('have.text', 'No dTokens in portfolio')
+    cy.getByTestID('empty_tokens_title').should('have.text', 'No dTokens found')
+    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Mint dTokens to get started')
   })
   it('should exist in All tokens and dTokens tabs, should not exist in LP tokens and Crypto tabs', function () {
     cy.intercept('**/address/**/tokens?size=*', {
@@ -838,10 +840,12 @@ context('Wallet - Portfolio - Assets filter tab - filter respective tokens in se
     cy.getByTestID('portfolio_row_14').should('exist') // DUSD = row 14
     cy.getByTestID('portfolio_button_group_LP_TOKENS').click()
     cy.getByTestID('portfolio_button_group_LP_TOKENS_active').should('exist')
-    cy.getByTestID('empty_tokens_title').should('have.text', 'No LP tokens in portfolio')
+    cy.getByTestID('empty_tokens_title').should('have.text', 'No LP tokens found')
+    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Add liquidity to get started')
     cy.getByTestID('portfolio_button_group_CRYPTO').click()
     cy.getByTestID('portfolio_button_group_CRYPTO_active').should('exist')
-    cy.getByTestID('empty_tokens_title').should('have.text', 'No Crypto in portfolio')
+    cy.getByTestID('empty_tokens_title').should('have.text', 'No crypto found')
+    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Add crypto to get started')
     cy.getByTestID('portfolio_button_group_d_TOKENS').click()
     cy.getByTestID('portfolio_button_group_d_TOKENS_active').should('exist')
     cy.getByTestID('portfolio_row_14').should('exist') // DUSD = row 14
@@ -931,7 +935,6 @@ context('Wallet - Portfolio - Your Assets - All tokens tab', function () {
         data: []
       }
     })
-    cy.getByTestID('empty_balances').should('not.exist')
     cy.getByTestID('empty_portfolio').should('not.exist')
     cy.getByTestID('toggle_sorting_assets').should('exist')
   })

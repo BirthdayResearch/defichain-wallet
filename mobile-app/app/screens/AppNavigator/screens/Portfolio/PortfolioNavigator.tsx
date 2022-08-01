@@ -112,6 +112,7 @@ export interface PortfolioParamList {
   TransactionDetailScreen: {
     tx: VMTransaction
   }
+
   [key: string]: undefined | object
 }
 
@@ -153,18 +154,27 @@ export function PortfolioNavigator (): JSX.Element {
         name='PortfolioScreen'
         options={{
           ...screenOptions,
-          headerBackgroundContainerStyle: tailwind('overflow-hidden', { 'bg-mono-light-v2-00': isLight, 'bg-mono-dark-v2-00': !isLight }),
+          headerBackgroundContainerStyle: tailwind('overflow-hidden', {
+            'bg-mono-light-v2-00': isLight,
+            'bg-mono-dark-v2-00': !isLight
+          }),
           headerBackground: () => (
             <Image
               source={isLight ? GridBackgroundImageLight : GridBackgroundImageDark}
-              style={{ height: 220, width: '100%' }}
+              style={{
+                height: 220,
+                width: '100%'
+              }}
               resizeMode='cover'
             />
           ),
           headerLeft: () => (
             <HeaderSettingButton />
           ),
-          headerLeftContainerStyle: tailwind('pl-5', { 'pb-2': Platform.OS === 'ios', 'pb-1.5': Platform.OS !== 'ios' }),
+          headerLeftContainerStyle: tailwind('pl-5', {
+            'pb-2': Platform.OS === 'ios',
+            'pb-1.5': Platform.OS !== 'ios'
+          }),
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
@@ -335,6 +345,7 @@ export function PortfolioNavigator (): JSX.Element {
         component={NetworkSelectionScreenV2}
         name='NetworkSelectionScreen'
         options={{
+          ...screenOptions,
           headerTitle: translate('screens/NetworkSelectionScreen', 'Network'),
           headerBackTitleVisible: false,
           headerRight: undefined
@@ -387,10 +398,12 @@ export function PortfolioNavigator (): JSX.Element {
         component={AddressBookScreenV2}
         name='AddressBookScreen'
         options={{
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
           headerBackTitleVisible: false,
-          headerTitle: () => (
-            <></>
-          )
+          headerTitle: translate('screens/Settings', 'Address Book')
         }}
       />
 

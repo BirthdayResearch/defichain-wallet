@@ -1298,11 +1298,14 @@
     "Wallet Address": "Dirección de la billetera"
   },
   "components/EmptyPortfolio": {
-    "No LP tokens in portfolio": "No tienes LP en el portafolio",
-    "No Crypto in portfolio": "No tienes cripto en el portafolio",
-    "No dTokens in portfolio": "No tienes dTokens en el portafolio",
     "Empty portfolio": "Portafolio vacío",
-    "Add your DFI and other tokens to get started": "Añade tus DFI y otros tokens para empezar"
+    "Add DFI and other tokens to get started": "Add DFI and other tokens to get started",
+    "No LP tokens found": "No LP tokens found",
+    "Add liquidity to get started": "Add liquidity to get started",
+    "No crypto found": "No crypto found",
+    "Add crypto to get started": "Add crypto to get started",
+    "No dTokens found": "No dTokens found",
+    "Mint dTokens to get started": "Mint dTokens to get started"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "TIPO DE PRESTAMO",

@@ -1292,11 +1292,14 @@
     "Wallet Address": "Indirizzo del Wallet"
   },
   "components/EmptyPortfolio": {
-    "No LP tokens in portfolio": "Nessun token di liquidità nel portafoglio",
-    "No Crypto in portfolio": "Nessuna Crypto nel portafoglio",
-    "No dTokens in portfolio": "Nessun dTokens in portafoglio",
     "Empty portfolio": "Portfolio leer",
-    "Add your DFI and other tokens to get started": "Füge deine DFI und andere Token hinzu, um zu starten"
+    "Add DFI and other tokens to get started": "Add DFI and other tokens to get started",
+    "No LP tokens found": "No LP tokens found",
+    "Add liquidity to get started": "Add liquidity to get started",
+    "No crypto found": "No crypto found",
+    "Add crypto to get started": "Add crypto to get started",
+    "No dTokens found": "No dTokens found",
+    "Mint dTokens to get started": "Mint dTokens to get started"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "SCHEMA DI PRESTITO",

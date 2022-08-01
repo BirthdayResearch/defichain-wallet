@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import * as React from 'react'
-import { Linking, Platform, TouchableOpacity } from 'react-native'
+import { Linking, TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
 import NumberFormat from 'react-number-format'
@@ -351,7 +351,7 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
     <ThemedViewV2
       light={tailwind('border-mono-light-v2-300')}
       dark={tailwind('border-mono-dark-v2-300')}
-      style={tailwind('pt-8 pb-5 mx-5', { 'border-b-0.5': props.border, 'py-2': Platform.OS === 'android' })}
+      style={tailwind('pt-8 pb-5 mx-5', { 'border-b-0.5': props.border })}
     >
       <View style={tailwind('flex-row items-center')}>
         {

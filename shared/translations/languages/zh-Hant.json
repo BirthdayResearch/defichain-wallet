@@ -1273,11 +1273,14 @@
     "Wallet Address": "錢包地址"
   },
   "components/EmptyPortfolio": {
-    "No LP tokens in portfolio": "資產組合中沒有資金池代幣",
-    "No Crypto in portfolio": "資產組合中沒有加密貨幣",
-    "No dTokens in portfolio": "資產組合中沒有dTokens 代幣",
     "Empty portfolio": "沒有資產",
-    "Add your DFI and other tokens to get started": "添加您的 DFI 和其他代幣以開始使用"
+    "Add DFI and other tokens to get started": "Add DFI and other tokens to get started",
+    "No LP tokens found": "No LP tokens found",
+    "Add liquidity to get started": "Add liquidity to get started",
+    "No crypto found": "No crypto found",
+    "Add crypto to get started": "Add crypto to get started",
+    "No dTokens found": "No dTokens found",
+    "Mint dTokens to get started": "Mint dTokens to get started"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "貸款計劃",

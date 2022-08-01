@@ -6,73 +6,65 @@ import { View } from '@components'
 import { tailwind } from '@tailwind'
 import { RootState } from '@store'
 import { useSelector } from 'react-redux'
-import { EmptyBalances } from './EmptyBalances'
-import { EmptyPortfolio } from './EmptyPortfolio'
+import { EmptyTokensScreen } from './EmptyTokensScreen'
 import { TokenIcon } from './TokenIcon'
 import { TokenNameTextV2 } from './TokenNameTextV2'
 import { TokenAmountTextV2 } from './TokenAmountTextV2'
+import { ButtonGroupTabKey } from './AssetsFilterRow'
 
-export enum ButtonGroupTabKey {
-  AllTokens = 'ALL_TOKENS',
-  LPTokens = 'LP_TOKENS',
-  Crypto = 'CRYPTO',
-  dTokens = 'd_TOKENS'
-}
 interface PortfolioCardProps {
   isZeroBalance: boolean
   filteredTokens: PortfolioRowToken[]
-  dstTokens: PortfolioRowToken[]
   navigation: StackNavigationProp<PortfolioParamList>
   buttonGroupOptions?: {
     onButtonGroupPress: (key: ButtonGroupTabKey) => void
-    activeButtonGroup: string
+    activeButtonGroup: ButtonGroupTabKey
     setActiveButtonGroup: (key: ButtonGroupTabKey) => void
   }
   denominationCurrency: string
-  tabButtonLabel: string
 }
 
 export function PortfolioCard ({
   isZeroBalance,
   filteredTokens,
-  dstTokens,
   navigation,
-  tabButtonLabel,
+  buttonGroupOptions,
   denominationCurrency
 }: PortfolioCardProps): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
 
-  // return empty component if there are DFI but no other tokens
-  if (!isZeroBalance && dstTokens.length === 0) {
-    return <></>
-  }
-
   // return empty portfolio if no DFI and other tokens
   if (isZeroBalance) {
-    return <EmptyPortfolio />
+    return <EmptyTokensScreen type={ButtonGroupTabKey.AllTokens} />
   }
 
   return (
     <ThemedViewV2>
       <View testID='card_balance_row_container' style={tailwind('mx-5')}>
-        {filteredTokens.map((item) => (
-          <PortfolioItemRow
-            key={item.symbol}
-            onPress={() => navigation.navigate({
-              name: 'Balance',
-              params: { token: item, usdAmount: item.usdAmount },
-              merge: true
-            })}
-            token={item}
-            denominationCurrency={denominationCurrency}
-          />
-        ))}
+        {filteredTokens.length > 0
+          ? (
+            <>
+              {filteredTokens.map((item) => (
+                <PortfolioItemRow
+                  key={item.symbol}
+                  onPress={() => navigation.navigate({
+                    name: 'Balance',
+                    params: { token: item, usdAmount: item.usdAmount },
+                    merge: true
+                  })}
+                  token={item}
+                  denominationCurrency={denominationCurrency}
+                />
+              ))}
+            </>
+          )
+: (
+  <>
+    {hasFetchedToken &&
+      <EmptyTokensScreen type={buttonGroupOptions?.activeButtonGroup} />}
+  </>
+          )}
       </View>
-      {
-        // display empty balance component if tokens under selected tab does not exist
-        filteredTokens.length === 0 && hasFetchedToken && tabButtonLabel !== '' &&
-          <EmptyBalances type={tabButtonLabel} />
-      }
     </ThemedViewV2>
   )
 }

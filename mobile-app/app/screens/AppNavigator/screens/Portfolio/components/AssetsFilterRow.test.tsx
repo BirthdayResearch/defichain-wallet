@@ -7,7 +7,6 @@ describe('Portfolio Filter Buttons', () => {
   it('should match snapshot for Assets filter Buttons component', async () => {
     const setActiveButtonGroup = jest.fn()
     const onButtonPress = jest.fn()
-    const setTabButtonLabel = jest.fn()
     const activeButtonGroup = 'ALL TOKENS'
 
     const rendered = render(
@@ -15,7 +14,6 @@ describe('Portfolio Filter Buttons', () => {
         setActiveButtonGroup={setActiveButtonGroup}
         onButtonGroupPress={onButtonPress}
         activeButtonGroup={activeButtonGroup}
-        setTabButtonLabel={setTabButtonLabel}
       />
     )
     expect(rendered.toJSON()).toMatchSnapshot()
