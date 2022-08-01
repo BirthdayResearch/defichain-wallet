@@ -27,7 +27,7 @@ export function TransactionCard ({ maxValue, onChange, status, children }: React
       dark={tailwind('bg-mono-dark-v2-00', {
         'border-0.5 border-mono-dark-v2-800': status === 'active'
       })}
-      style={tailwind('rounded-lg-v2 p-5', {
+      style={tailwind('rounded-lg-v2 px-5 py-4', {
         'border-0.5 border-red-v2': status === 'error'
       })}
     >
@@ -63,8 +63,8 @@ interface SetAmountButtonProps {
 function SetAmountButton ({
   type,
   onPress,
-  amount
-  // hasBorder,
+  amount,
+  hasBorder
 }: SetAmountButtonProps): JSX.Element {
   const decimalPlace = 8
   let value = amount.toFixed(decimalPlace)
@@ -92,13 +92,19 @@ function SetAmountButton ({
       }}
       testID={`${type}_amount_button`}
     >
-      <ThemedTextV2
-        light={tailwind('text-mono-light-v2-700')}
-        dark={tailwind('text-mono-dark-v2-700')}
-        style={tailwind('font-bold text-xs')}
+      <ThemedViewV2 
+        light={tailwind('border-mono-light-v2-300')}
+        dark={tailwind('border-mono-light-v2-300')}
+        style={tailwind({ 'border-r-0.5': hasBorder })}
       >
-        {translate('component/max', type)}
-      </ThemedTextV2>
+        <ThemedTextV2
+          light={tailwind('text-mono-light-v2-700')}
+          dark={tailwind('text-mono-dark-v2-700')}
+          style={tailwind('font-bold text-xs px-6')}
+        >
+          {translate('component/max', type)}
+        </ThemedTextV2>
+      </ThemedViewV2>
     </ThemedTouchableOpacityV2>
   )
 }
