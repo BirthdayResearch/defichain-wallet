@@ -2,7 +2,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { PortfolioParamList } from '@screens/AppNavigator/screens/Portfolio/PortfolioNavigator'
 import { DFITokenSelector, DFIUtxoSelector, unifiedDFISelector } from '@store/wallet'
 import { tailwind } from '@tailwind'
-import { TouchableOpacity, Text, View } from 'react-native'
+import { TouchableOpacity, Text, View, Platform } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { ThemedViewV2 } from '@components/themed'
 import { getNativeIcon } from '@components/icons/assets'
@@ -38,7 +38,7 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
     >
       <View style={tailwind('flex-col rounded-lg-v2 overflow-hidden')}>
         <TouchableOpacity
-          style={tailwind('px-5 py-4.5 flex flex-row items-center')}
+          style={tailwind('px-5 py-4.5 flex flex-row items-start')}
           onPress={() => navigation.navigate({
             name: 'Balance',
             params: { token: DFIUnified, usdAmount },
@@ -50,7 +50,7 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
             <DFIIcon width={36} height={36} />
             <TokenNameTextV2 displaySymbol='DFI' name='DeFiChain' testID='total_dfi_label' />
           </View>
-          <View style={tailwind('w-5/12 flex-row justify-end')}>
+          <View style={tailwind('w-5/12 flex-row justify-end', { 'pt-0.5': Platform.OS === 'android' })}>
             {hasFetchedToken
             ? (
               <TokenAmountTextV2

@@ -1226,7 +1226,7 @@ exports[`portfolio page should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "alignItems": "center",
+                "alignItems": "flex-start",
                 "display": "flex",
                 "flexDirection": "row",
                 "opacity": 1,
@@ -1391,10 +1391,15 @@ exports[`portfolio page should match snapshot 1`] = `
                         "lineHeight": 24,
                       },
                       Array [
-                        Object {
-                          "justifyContent": "flex-end",
-                          "textAlign": "right",
-                        },
+                        Array [
+                          Object {
+                            "justifyContent": "flex-end",
+                            "textAlign": "right",
+                          },
+                          Object {
+                            "marginBottom": 3,
+                          },
+                        ],
                         Object {
                           "color": "rgba(18, 18, 18, 1)",
                         },
@@ -1418,7 +1423,6 @@ exports[`portfolio page should match snapshot 1`] = `
                             "fontSize": 14,
                             "fontWeight": "600",
                             "lineHeight": 20,
-                            "marginBottom": 4,
                             "textAlign": "right",
                           },
                           Object {
@@ -1529,7 +1533,7 @@ exports[`portfolio page should match snapshot 1`] = `
           <View
             style={
               Object {
-                "alignItems": "center",
+                "alignItems": "flex-start",
                 "display": "flex",
                 "flexDirection": "row",
               }
@@ -1688,10 +1692,15 @@ exports[`portfolio page should match snapshot 1`] = `
                         "lineHeight": 24,
                       },
                       Array [
-                        Object {
-                          "justifyContent": "flex-end",
-                          "textAlign": "right",
-                        },
+                        Array [
+                          Object {
+                            "justifyContent": "flex-end",
+                            "textAlign": "right",
+                          },
+                          Object {
+                            "marginBottom": 3,
+                          },
+                        ],
                         Object {
                           "color": "rgba(18, 18, 18, 1)",
                         },
@@ -1715,7 +1724,6 @@ exports[`portfolio page should match snapshot 1`] = `
                             "fontSize": 14,
                             "fontWeight": "600",
                             "lineHeight": 20,
-                            "marginBottom": 4,
                             "textAlign": "right",
                           },
                           Object {
@@ -1816,7 +1824,7 @@ exports[`portfolio page should match snapshot 1`] = `
           <View
             style={
               Object {
-                "alignItems": "center",
+                "alignItems": "flex-start",
                 "display": "flex",
                 "flexDirection": "row",
               }
@@ -2017,10 +2025,15 @@ exports[`portfolio page should match snapshot 1`] = `
                         "lineHeight": 24,
                       },
                       Array [
-                        Object {
-                          "justifyContent": "flex-end",
-                          "textAlign": "right",
-                        },
+                        Array [
+                          Object {
+                            "justifyContent": "flex-end",
+                            "textAlign": "right",
+                          },
+                          Object {
+                            "marginBottom": 3,
+                          },
+                        ],
                         Object {
                           "color": "rgba(18, 18, 18, 1)",
                         },
@@ -2044,7 +2057,6 @@ exports[`portfolio page should match snapshot 1`] = `
                             "fontSize": 14,
                             "fontWeight": "600",
                             "lineHeight": 20,
-                            "marginBottom": 4,
                             "textAlign": "right",
                           },
                           Object {

@@ -11,6 +11,7 @@ import { TokenIcon } from './TokenIcon'
 import { TokenNameTextV2 } from './TokenNameTextV2'
 import { TokenAmountTextV2 } from './TokenAmountTextV2'
 import { ButtonGroupTabKey } from './AssetsFilterRow'
+import { Platform } from 'react-native'
 
 interface PortfolioCardProps {
   isZeroBalance: boolean
@@ -75,12 +76,12 @@ function PortfolioItemRow ({
       style={tailwind('px-5 py-4.5 rounded-lg-v2 mt-2 border-0')}
       testID={testID}
     >
-      <View style={tailwind('flex flex-row items-center')}>
+      <View style={tailwind('flex flex-row items-start')}>
         <View style={tailwind('w-7/12 flex-row items-center')}>
           <TokenIcon testID={`${testID}_icon`} token={token} height={36} width={36} />
           <TokenNameTextV2 displaySymbol={token.displaySymbol} name={token.name} testID={testID} />
         </View>
-        <View style={tailwind('w-5/12 flex-row justify-end')}>
+        <View style={tailwind('w-5/12 flex-row justify-end', { 'pt-0.5': Platform.OS === 'android' })}>
           <TokenAmountTextV2
             tokenAmount={token.amount}
             usdAmount={token.usdAmount}
