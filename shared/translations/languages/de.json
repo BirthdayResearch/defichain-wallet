@@ -1569,16 +1569,16 @@
     "Continue": "Weiter"
   },
   "screens/ReceiveDTokenScreen": {
-    "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!": "Mindest… {{MinimumBtcAmount}}!",
-    "DEPOSIT ADDRESS": "EINZAHL ADRESSE",
-    "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "Sende NUR …… Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.",
+    "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!": "Bitte beachte den Mindesteinzahlungsbetrag von {{MinimumBtcAmount}}!",
+    "DEPOSIT ADDRESS": "Einzahlungsadresse",
+    "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "Sende ausschließlich native Bitcoin (BTC) an deine unten angezeigte BTC Einzahlungsadresse oder scanne den QR-Code. Wir werden dir anschließend dBTC in deine Wallet transferieren.",
     "Bitcoin Deposit": "Bitcoin Einzahlung"
   },
   "screens/DfxButtons": {
-    "Buy & Staking": "Kauf & Staking",
-    "DFI.Tax": "DFI.Steuern",
-    "Defichain Income": "Defichain Einkommen",
-    "Deposit Bitcoin": "Bitcoin Einzahlung",
+    "Buy & Staking": "Kauf & \nStaking",
+    "DFI.Tax": "DFI.tax",
+    "Defichain Income": "Defichain \nIncome",
+    "Deposit Bitcoin": "Bitcoin einzahlen",
     "Dobby": "Dobby",
     "Sell": "Verkaufen"
   }

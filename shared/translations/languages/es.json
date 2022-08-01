@@ -1571,9 +1571,17 @@
     "Continue": "Continúa"
   },
   "screens/ReceiveDTokenScreen": {
-    "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!": "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!",
-    "DEPOSIT ADDRESS": "",
-    "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "",
-    "Bitcoin Deposit": ""
+    "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!": "Por favor, ten en cuenta que el depósito mínimo de BTC es {{MinimumBtcAmount}}!",
+    "DEPOSIT ADDRESS": "Dirección de depósito",
+    "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "Envia SOLO Bitcoin nativo (BTC) a tu billetera de depósito mostrada abajo o escanea el código QR. Luego te transferiremos dBTC a tu billetera DFX.",
+    "Bitcoin Deposit": "Depósito de Bitcoin"
+  },
+  "screens/DfxButtons": {
+    "DFI.Tax": "DFI.tax",
+    "Defichain Income": "Defichain \nIncome",
+    "Dobby": "Dobby",
+    "Buy & Staking": "Compra & \nStaking",
+    "Sell": "Venta",
+    "Deposit Bitcoin": "Deposita Bitcoin"
   }
 }

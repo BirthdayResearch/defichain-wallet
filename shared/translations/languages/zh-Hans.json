@@ -1525,8 +1525,17 @@
     "Continue": "继续"
   },
   "screens/ReceiveDTokenScreen": {
-    "DEPOSIT ADDRESS": "",
-    "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "",
-    "Bitcoin Deposit": ""
+    "DEPOSIT ADDRESS": "存款地址",
+    "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "只需发送原生比特币（BTC）到你下面的BTC存款地址或扫描QR码。然后，我们将把dBTC转移到你的钱包。",
+    "Bitcoin Deposit": "比特币存款",
+    "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!": "请注意最低存款金额为 {{MinimumBtcAmount}}!"
+  },
+  "screens/DfxButtons": {
+    "DFI.Tax": "DFI.tax",
+    "Defichain Income": "Defichain \nIncome",
+    "Dobby": "Dobby",
+    "Sell": "Sell",
+    "Buy & Staking": "Buy &\nStaking",
+    "Deposit Bitcoin": "Deposit Bitcoin"
   }
 }
