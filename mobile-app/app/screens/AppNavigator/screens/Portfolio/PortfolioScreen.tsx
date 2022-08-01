@@ -378,11 +378,11 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
                     light={tailwind('text-mono-light-v2-900')}
                     iconType='Feather'
                     name='x-circle'
-                    size={20}
+                    size={24}
                   />
                 </ThemedTouchableOpacityV2>
                 <ThemedText
-                  style={tailwind('text-xl font-normal-v2 pt-0.5')}
+                  style={tailwind('text-xl font-normal-v2')}
                 >
                   {translate('screens/PortfolioScreen', 'Sort Assets')}
                 </ThemedText>
@@ -604,7 +604,7 @@ function AssetSortRow (props: { isSorted: boolean, assetSortType: PortfolioSortT
 
   return (
     <View
-      style={tailwind('px-4 flex flex-row justify-between pt-5')}
+      style={tailwind('px-10 flex flex-row justify-between pt-5')}
       testID='toggle_sorting_assets'
     >
       <ThemedTextV2

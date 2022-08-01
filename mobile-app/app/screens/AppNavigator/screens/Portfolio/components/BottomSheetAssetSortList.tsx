@@ -58,7 +58,7 @@ export const BottomSheetAssetSortList = ({
       <ThemedTouchableOpacityV2
         dark={tailwind('border-mono-dark-v2-300')}
         light={tailwind('border-mono-light-v2-300')}
-        style={tailwind('px-5 py-3 flex-row  items-center justify-between border-b-0.5 py-2.5', { 'border-t-0.5': index === 0 })}
+        style={tailwind('py-3 flex-row  items-center justify-between border-b-0.5 py-2.5', { 'border-t-0.5': index === 0 })}
         testID={`select_asset_${getDisplayedSortText(item)}`}
         key={index}
         onPress={() => {
@@ -72,7 +72,7 @@ export const BottomSheetAssetSortList = ({
         </ThemedTextV2>
         {selectedAssetSortType === item && (
           <ThemedIcon
-            size={18}
+            size={20}
             name='check-circle'
             iconType='MaterialIcons'
             light={tailwind('text-green-v2')}
@@ -86,6 +86,7 @@ export const BottomSheetAssetSortList = ({
     <FlatList
       keyExtractor={(item) => item}
       data={assetSortList}
+      contentContainerStyle={tailwind('px-5')}
       renderItem={renderItem}
     />
   )
