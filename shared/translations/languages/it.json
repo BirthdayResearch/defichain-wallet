@@ -289,7 +289,13 @@
     "Review full transaction details in the next screen": "Controlla tutti i dettagli della transazione nella prossima schermata",
     "Estimated fee": "Commissione stimata",
     "You will have": "Riceverai",
-    "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE"
+    "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
+    "I WANT TO CONVERT": "I WANT TO CONVERT",
+    "Available: {{amount}} {{unit}}. Insufficient balance": "Available: {{amount}} {{unit}}. Insufficient balance",
+    "Available: {{amount}} {{unit}}": "Available: {{amount}} {{unit}}",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percentage}}% of available {{unit}} entered": "{{percentage}}% of available {{unit}} entered"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Conferma la conversione DFI",
@@ -806,7 +812,8 @@
     "Max": "Max"
   },
   "components/Button": {
-    "CONTINUE": "CONTINUA"
+    "CONTINUE": "CONTINUA",
+    "Continue": "Continua"
   },
   "screens/SlippageTolerance": {
     "Custom": "Personalizza",

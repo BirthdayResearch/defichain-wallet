@@ -278,7 +278,13 @@
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
     "Estimated fee": "Voraussichtliche Gebühr",
     "You will have": "Neuer Kontostand",
-    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS"
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
+    "I WANT TO CONVERT": "ICH MÖCHTE FOLGENDES UMWANDELN",
+    "Available: {{amount}} {{unit}}. Insufficient balance": "Verfügbar: {{amount}} {{unit}}. Unzureichendes Guthaben",
+    "Available: {{amount}} {{unit}}": "Verfügbar: {{amount}} {{unit}}",
+    "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
+    "Max available {{unit}} entered": "Max. verfügbare {{unit}} eingegeben",
+    "{{percentage}}% of available {{unit}} entered": "{{percentage}}% der verfügbaren {{unit}} eingegeben"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Bestätige DFI-Konvertierung",
@@ -788,7 +794,8 @@
     "Max": "Max"
   },
   "components/Button": {
-    "CONTINUE": "WEITER"
+    "CONTINUE": "WEITER",
+    "Continue": "Weiter"
   },
   "screens/SlippageTolerance": {
     "Custom": "Anpassen",
@@ -1634,6 +1641,6 @@
     "Receive": "Empfangen",
     "Swap": "Tausch",
     "Transactions": "Transaktionen",
-    "Future swap":"Future swap"
+    "Future swap": "Future swap"
   }
 }

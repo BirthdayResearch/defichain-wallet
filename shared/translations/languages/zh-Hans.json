@@ -278,7 +278,13 @@
     "Review full transaction details in the next screen": "请在下一步确认交易明细",
     "Estimated fee": "所需费用(大约)",
     "You will have": "你将会收到",
-    "TRANSACTION DETAILS": "交易明细"
+    "TRANSACTION DETAILS": "交易明细",
+    "I WANT TO CONVERT": "I WANT TO CONVERT",
+    "Available: {{amount}} {{unit}}. Insufficient balance": "Available: {{amount}} {{unit}}. Insufficient balance",
+    "Available: {{amount}} {{unit}}": "Available: {{amount}} {{unit}}",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percentage}}% of available {{unit}} entered": "{{percentage}}% of available {{unit}} entered"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "确认要转换 DFI",
@@ -791,7 +797,8 @@
     "Max": "最高值"
   },
   "components/Button": {
-    "CONTINUE": "继续"
+    "CONTINUE": "继续",
+    "Continue": "继续"
   },
   "screens/SlippageTolerance": {
     "Custom": "自订",
