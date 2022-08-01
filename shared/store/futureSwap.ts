@@ -65,7 +65,7 @@ export const hasFutureSwap = createSelector((state: FutureSwapState) => state.fu
   return swap.length > 0
 })
 
-export const FutureSwapSelector = createSelector([selectFutureSwapState, selectLoansState], (futureSwaps, loans): FutureSwapData[] => {
+export const futureSwapSelector = createSelector([selectFutureSwapState, selectLoansState], (futureSwaps, loans): FutureSwapData[] => {
   return Object.values(futureSwaps.futureSwaps.reduce((swaps: { [key: string]: FutureSwapData }, swap) => {
     const [sourceAmount, sourceSymbol] = swap.source.split('@') // ['123', 'DUSD']
     const destinationSymbol = swap.destination

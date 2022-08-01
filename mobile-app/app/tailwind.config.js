@@ -189,6 +189,12 @@ module.exports = {
       },
       margin: {
         0.75: 3
+      },
+      width: {
+        15: 60
+      },
+      height: {
+        15: 60
       }
     }
   }

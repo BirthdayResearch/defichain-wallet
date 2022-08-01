@@ -1664,5 +1664,12 @@
     "Wallet created!": "Cartera creada!",
     "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "Accede a finanzas descentralizadas con el grado de seguridad, fuerza e inmutabilidad de Bitcoin.",
     "Continue": "Continúa"
+  },
+  "components/ActionButtons": {
+    "Send": "Enviar",
+    "Receive": "Recibir",
+    "Swap": "Cambiar",
+    "Transactions": "Transacciones",
+    "Future swap": "Future swap"
   }
 }
