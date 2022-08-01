@@ -10,7 +10,7 @@ export function PortfolioSkeletonLoader (props: JSX.IntrinsicAttributes & IConte
     <ThemedViewV2
       dark={tailwind('bg-mono-dark-v2-00')}
       light={tailwind('bg-mono-light-v2-00')}
-      style={tailwind('py-4 my-1 items-center justify-center rounded-lg-v2')}
+      style={tailwind('py-4 mt-2 items-center justify-center rounded-lg-v2')}
       testID='portfolio_skeleton_loader'
     >
       <ContentLoader
