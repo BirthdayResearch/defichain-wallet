@@ -513,8 +513,6 @@ exports[`portfolio page should match snapshot 1`] = `
       <RCTScrollView
         contentContainerStyle={
           Object {
-            "marginBottom": 32,
-            "marginTop": 32,
             "paddingLeft": 20,
             "paddingRight": 20,
           }
@@ -526,6 +524,7 @@ exports[`portfolio page should match snapshot 1`] = `
             "flexBasis": "0%",
             "flexGrow": 1,
             "flexShrink": 1,
+            "marginTop": 32,
           }
         }
       >
