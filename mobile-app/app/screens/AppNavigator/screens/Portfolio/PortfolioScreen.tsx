@@ -1,5 +1,13 @@
 import { useIsFocused, useScrollToTop } from '@react-navigation/native'
-import { ThemedIcon, ThemedScrollViewV2, ThemedText, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
+import {
+  ThemedIcon,
+  ThemedScrollViewV2,
+  ThemedText,
+  ThemedTextV2,
+  ThemedTouchableOpacityV2,
+  ThemedViewV2
+} from '@components/themed'
+
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
@@ -16,12 +24,11 @@ import { PortfolioParamList } from './PortfolioNavigator'
 import { Announcements } from '@screens/AppNavigator/screens/Portfolio/components/Announcements'
 import { DFIBalanceCard } from '@screens/AppNavigator/screens/Portfolio/components/DFIBalanceCard'
 import { translate } from '@translations'
-import { Platform, RefreshControl, View, TouchableOpacity } from 'react-native'
+import { Platform, RefreshControl, View } from 'react-native'
 import { RootState } from '@store'
 import { useTokenPrice } from './hooks/TokenPrice'
 import { PortfolioButtonGroupTabKey, TotalPortfolio } from './components/TotalPortfolio'
 import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance'
-import { BottomSheetWithNav } from '@components/BottomSheetWithNav'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { activeVaultsSelector, fetchCollateralTokens, fetchLoanTokens, fetchVaults } from '@store/loans'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
@@ -34,6 +41,7 @@ import { BottomSheetAssetSortList, PortfolioSortType } from './components/Bottom
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { ActionButtons } from './components/ActionButtons'
 import { AddressSelectionButtonV2 } from './components/AddressSelectionButtonV2'
+import { AssetsFilterRow } from '@screens/AppNavigator/screens/Portfolio/components/AssetsFilterRow'
 import {
   BottomSheetAddressDetailV2
 } from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetAddressDetailV2'
@@ -211,7 +219,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   }, [dstTokens, allTokens, lockedTokens])
 
   const [filteredTokens, setFilteredTokens] = useState(combinedTokens)
-
   // portfolio tab items
   const onPortfolioButtonGroupChange = (portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey): void => {
     setDenominationCurrency(portfolioButtonGroupTabKey)
@@ -239,7 +246,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   // Asset sort bottom sheet list
   const [assetSortType, setAssetSortType] = useState<PortfolioSortType>(PortfolioSortType.HighestDenominationValue) // to display selected sorted type text
   const [isSorted, setIsSorted] = useState<boolean>(false) // to display acsending/descending icon
-  const [hideIcon, setHideIcon] = useState(false)
   const [showAssetSortBottomSheet, setShowAssetSortBottomSheet] = useState(false)
   const modifiedDenominationCurrency = useMemo(() => denominationCurrency === 'USDT' ? 'USD' : denominationCurrency, [denominationCurrency])
   const sortTokensAssetOnType = useCallback((assetSortType: PortfolioSortType): PortfolioRowToken[] => {
@@ -278,11 +284,8 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   useEffect(() => {
     if (assetSortType.includes('Lowest')) {
       setIsSorted(true)
-    } else if (assetSortType.includes('A to Z') || assetSortType.includes('Z to A')) {
-      setHideIcon(true)
     } else {
       setIsSorted(false)
-      setHideIcon(false)
     }
   }, [assetSortType])
 
@@ -345,11 +348,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
       {
         stackScreenName: 'AssetSortList',
         component: BottomSheetAssetSortList({
-          headerLabel: translate('screens/PortfolioScreen', 'Sort assets by'),
-          onCloseButtonPress: () => {
-            setShowAssetSortBottomSheet(false)
-            dismissModal(true)
-          },
           onButtonPress: (item: PortfolioSortType) => {
             setAssetSortType(item)
             sortTokensAssetOnType(item)
@@ -361,13 +359,36 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         }),
         option: {
           headerStatusBarHeight: 1,
-          headerBackgroundContainerStyle: tailwind('border-b', {
-            'border-gray-200': isLight,
-            'border-gray-700': !isLight,
-            '-top-5': Platform.OS !== 'web'
-          }),
-          header: () => null,
-          headerBackTitleVisible: false
+          headerTitle: '',
+          headerBackTitleVisible: false,
+          header: (): JSX.Element => {
+            return (
+              <ThemedViewV2
+                style={tailwind('flex flex-col px-5 pt-3 pb-5 rounded-t-xl-v2')}
+              >
+                <ThemedTouchableOpacityV2
+                  onPress={() => {
+                    setShowAssetSortBottomSheet(false)
+                    dismissModal(true)
+                  }}
+                  style={tailwind('self-end pt-2.5')}
+                >
+                  <ThemedIcon
+                    dark={tailwind('text-mono-dark-v2-900')}
+                    light={tailwind('text-mono-light-v2-900')}
+                    iconType='Feather'
+                    name='x-circle'
+                    size={24}
+                  />
+                </ThemedTouchableOpacityV2>
+                <ThemedText
+                  style={tailwind('text-xl font-normal-v2')}
+                >
+                  {translate('screens/PortfolioScreen', 'Sort Assets')}
+                </ThemedText>
+              </ThemedViewV2>
+            )
+          }
         }
       }
     ]
@@ -454,12 +475,22 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     ]
   }, [address, isLight])
 
+  const [tabButtonLabel, setTabButtonLabel] = useState('')
+  const setButtonLabel = (buttonGroupTabKey: ButtonGroupTabKey): void => {
+    switch (buttonGroupTabKey) {
+      case (ButtonGroupTabKey.LPTokens):
+        return setTabButtonLabel(ButtonGroupTabKey.LPTokens)
+      case (ButtonGroupTabKey.Crypto):
+        return setTabButtonLabel(ButtonGroupTabKey.Crypto)
+      case (ButtonGroupTabKey.dTokens):
+        return setTabButtonLabel(ButtonGroupTabKey.dTokens)
+    }
+  }
   return (
     <View ref={containerRef} style={tailwind('flex-1')}>
       <ThemedScrollViewV2
         ref={ref}
-        light={tailwind('bg-gray-50')}
-        contentContainerStyle={tailwind('pb-8')} testID='portfolio_list'
+        contentContainerStyle={tailwind('pb-12')} testID='portfolio_list'
         refreshControl={
           <RefreshControl
             onRefresh={onRefresh}
@@ -472,7 +503,10 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           dark={tailwind('bg-mono-dark-v2-00')}
           style={tailwind('px-5 pb-3 flex flex-row items-center')}
         >
-          <AddressSelectionButtonV2 address={address} addressLength={addressLength} onPress={() => expandModal(false)} />
+          <AddressSelectionButtonV2
+            address={address} addressLength={addressLength}
+            onPress={() => expandModal(false)}
+          />
           <ThemedTouchableOpacityV2
             testID='toggle_balance'
             style={tailwind('ml-2')}
@@ -501,6 +535,12 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         />
         <ActionButtons />
         <Announcements />
+        <AssetsFilterRow
+          activeButtonGroup={activeButtonGroup}
+          setTabButtonLabel={setButtonLabel}
+          onButtonGroupPress={handleButtonFilter}
+          setActiveButtonGroup={setActiveButtonGroup}
+        />
         {/* to show bottom sheet for asset sort */}
         <AssetSortRow
           assetSortType={assetSortType}
@@ -509,7 +549,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             expandModal(true)
           }}
           isSorted={isSorted}
-          hideIcon={hideIcon}
           modifiedDenominationCurrency={modifiedDenominationCurrency}
         />
         <DFIBalanceCard denominationCurrency={denominationCurrency} />
@@ -525,11 +564,12 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
               filteredTokens={sortTokensAssetOnType(assetSortType)}
               navigation={navigation}
               buttonGroupOptions={{
-              activeButtonGroup: activeButtonGroup,
-              setActiveButtonGroup: setActiveButtonGroup,
-              onButtonGroupPress: handleButtonFilter
-            }}
+                activeButtonGroup: activeButtonGroup,
+                setActiveButtonGroup: setActiveButtonGroup,
+                onButtonGroupPress: handleButtonFilter
+              }}
               denominationCurrency={denominationCurrency}
+              tabButtonLabel={tabButtonLabel}
              />)}
         {Platform.OS === 'web'
           ? (
@@ -551,7 +591,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
           )
           : (
             <>
-              <BottomSheetWithNav
+              <BottomSheetWithNavV2
                 modalRef={bottomSheetSortRef}
                 screenList={assetSortBottomSheetScreen}
                 snapPoints={modalSortingSnapPoints}
@@ -568,9 +608,9 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
   )
 }
 
-function AssetSortRow (props: { hideIcon: boolean, isSorted: boolean, assetSortType: PortfolioSortType, modifiedDenominationCurrency: string, onPress: () => void }): JSX.Element {
-  const highestCurrencyValue = translate('screens/PortfolioScreen', 'Highest {{modifiedDenominationCurrency}} value', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
-  const lowestCurrencyValue = translate('screens/PortfolioScreen', 'Lowest {{modifiedDenominationCurrency}} value', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
+function AssetSortRow (props: { isSorted: boolean, assetSortType: PortfolioSortType, modifiedDenominationCurrency: string, onPress: () => void }): JSX.Element {
+  const highestCurrencyValue = translate('screens/PortfolioScreen', 'Highest value ({{modifiedDenominationCurrency}})', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
+  const lowestCurrencyValue = translate('screens/PortfolioScreen', 'Lowest value ({{modifiedDenominationCurrency}})', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
   const getDisplayedSortText = useCallback((text: PortfolioSortType): string => {
     if (text === PortfolioSortType.HighestDenominationValue) {
       return highestCurrencyValue
@@ -582,46 +622,37 @@ function AssetSortRow (props: { hideIcon: boolean, isSorted: boolean, assetSortT
 
   return (
     <View
-      style={tailwind('px-4 flex flex-row justify-between pt-5')}
+      style={tailwind('px-10 flex flex-row justify-between pt-5')}
       testID='toggle_sorting_assets'
     >
-      <ThemedText
-        style={tailwind('text-xs text-gray-400 pr-1')}
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
+      <ThemedTextV2
+        style={tailwind('text-xs pr-1 font-normal-v2')}
+        light={tailwind('text-mono-light-v2-500')}
+        dark={tailwind('text-mono-dark-v2-500')}
       >
-        {translate('screens/PortfolioScreen', 'AVAILABLE ASSETS')}
-      </ThemedText>
-      <TouchableOpacity
+        {translate('screens/PortfolioScreen', 'ASSETS')}
+      </ThemedTextV2>
+      <ThemedTouchableOpacityV2
         style={tailwind('flex flex-row items-center')}
         onPress={props.onPress}
         testID='your_assets_dropdown_arrow'
       >
-        <ThemedText
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
-          style={tailwind('text-xs font-medium')}
+        <ThemedTextV2
+          light={tailwind('text-mono-light-v2-800')}
+          dark={tailwind('text-mono-dark-v2-800')}
+          style={tailwind('text-xs font-normal-v2')}
         >
           {translate('screens/PortfolioScreen', getDisplayedSortText(props.assetSortType))}
-        </ThemedText>
-        {!props.hideIcon && (
-          <ThemedIcon
-            style={tailwind('ml-1 font-medium')}
-            light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
-            iconType='MaterialCommunityIcons'
-            name={!props.isSorted ? 'sort-variant' : 'sort-reverse-variant'}
-            size={16}
-          />
-        )}
+        </ThemedTextV2>
         <ThemedIcon
-          light={tailwind('text-primary-500')}
-          dark={tailwind('text-darkprimary-500')}
-          iconType='MaterialIcons'
-          name='arrow-drop-down'
+          style={tailwind('ml-1 font-medium')}
+          light={tailwind('text-mono-light-v2-800')}
+          dark={tailwind('text-mono-dark-v2-800')}
+          iconType='Feather'
+          name='menu'
           size={16}
         />
-      </TouchableOpacity>
+      </ThemedTouchableOpacityV2>
     </View>
   )
 }
