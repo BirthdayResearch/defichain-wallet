@@ -74,9 +74,9 @@ function AssetsFilterItem (props: AssetsFilterItemProps): JSX.Element {
    return (
      <ThemedTouchableOpacityV2
        onPress={props.onPress}
-       dark={tailwind({ 'bg-mono-dark-v2-900 ': props.isActive, 'border border-mono-dark-v2-700': !props.isActive })}
-       light={tailwind({ 'bg-mono-light-v2-900': props.isActive, 'border border-mono-light-v2-700': !props.isActive })}
-       style={[tailwind('rounded-2xl text-center  py-2 px-4'), props.additionalStyles]}
+       dark={tailwind({ 'bg-mono-dark-v2-900 border-mono-dark-v2-900': props.isActive, 'border-mono-dark-v2-700': !props.isActive })}
+       light={tailwind({ 'bg-mono-light-v2-900': props.isActive, 'border-mono-light-v2-700': !props.isActive })}
+       style={[tailwind('rounded-2xl text-center py-2 px-4 border'), props.additionalStyles]}
        testID={`${props.testID}${props.isActive ? '_active' : ''}`}
      >
        <ThemedTextV2
