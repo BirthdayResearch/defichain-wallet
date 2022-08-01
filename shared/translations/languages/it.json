@@ -104,6 +104,8 @@
     "Sort assets by": "Ordina gli asset per",
     "Highest {{modifiedDenominationCurrency}} value": "Valore {{modifiedDenominationCurrency}} più alto",
     "Lowest {{modifiedDenominationCurrency}} value": "Valore {{modifiedDenominationCurrency}} più basso",
+    "Highest value ({{modifiedDenominationCurrency}})": "Highest value ({{modifiedDenominationCurrency}})",
+    "Lowest value ({{modifiedDenominationCurrency}})": "Lowest value ({{modifiedDenominationCurrency}})",
     "Highest token amount": "Importo del token più alto",
     "Lowest token amount": "Importo del token più basso",
     "A to Z": "Da A a Z",

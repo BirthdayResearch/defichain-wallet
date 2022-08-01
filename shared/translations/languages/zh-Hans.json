@@ -99,6 +99,8 @@
     "Sort assets by": "按资产进行排序",
     "Highest {{modifiedDenominationCurrency}} value": "最高{{modifiedDenominationCurrency}}价值",
     "Lowest {{modifiedDenominationCurrency}} value": "最低{{modifiedDenominationCurrency}}价值",
+    "Highest value ({{modifiedDenominationCurrency}})": "最高价值({{modifiedDenominationCurrency}})",
+    "Lowest value ({{modifiedDenominationCurrency}})": "最低价值({{modifiedDenominationCurrency}})",
     "Highest token amount": "最高代币数量",
     "Lowest token amount": "最低代币数量",
     "A to Z": "A 到 Z",

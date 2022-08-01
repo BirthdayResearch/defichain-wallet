@@ -99,6 +99,8 @@
     "Sort assets by": "Aktiva anordnen",
     "Highest {{modifiedDenominationCurrency}} value": "Höchster {{modifiedDenominationCurrency}}-Wert",
     "Lowest {{modifiedDenominationCurrency}} value": "Niedrigster {{modifiedDenominationCurrency}}-Wert",
+    "Highest value ({{modifiedDenominationCurrency}})": "Höchster Wert ({{modifiedDenominationCurrency}})",
+    "Lowest value ({{modifiedDenominationCurrency}})": "Niedrigster Wert ({{modifiedDenominationCurrency}})",
     "Highest token amount": "Höchster Tokenbetrag",
     "Lowest token amount": "Niedrigster Tokenbetrag",
     "A to Z": "A bis Z",

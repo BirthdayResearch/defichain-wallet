@@ -102,6 +102,8 @@
     "Sort assets by": "Ordenar activos por",
     "Highest {{modifiedDenominationCurrency}} value": "Valor {{modifiedDenominationCurrency}} mayor",
     "Lowest {{modifiedDenominationCurrency}} value": "Valor {{modifiedDenominationCurrency}} menor",
+    "Highest value ({{modifiedDenominationCurrency}})": "Mayor valor ({{modifiedDenominationCurrency}})",
+    "Lowest value ({{modifiedDenominationCurrency}})": "Menor valor ({{modifiedDenominationCurrency}})",
     "Highest token amount": "Cantidad token más alta",
     "Lowest token amount": "Cantidad token más baja",
     "A to Z": "A a Z",
