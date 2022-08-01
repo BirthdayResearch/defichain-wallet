@@ -10,7 +10,7 @@ import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { AddLiquidityScreen } from './DexAddLiquidity'
 import { ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
 import { RemoveLiquidityConfirmScreen } from './DexConfirmRemoveLiquidity'
-import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
+import { RemoveLiquidityScreenV2 } from './DexRemoveLiquidityV2'
 import { DexScreen } from './DexScreen'
 import { CompositeSwapScreen, OwnedTokenState, TokenState } from './CompositeSwap/CompositeSwapScreen'
 import { CompositeSwapForm, ConfirmCompositeSwapScreen } from './CompositeSwap/ConfirmCompositeSwapScreen'
@@ -142,7 +142,7 @@ export function DexNavigator (): JSX.Element {
       />
 
       <DexStack.Screen
-        component={RemoveLiquidityScreen}
+        component={RemoveLiquidityScreenV2}
         name='RemoveLiquidity'
         options={{
           ...screenOptions,
