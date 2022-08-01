@@ -168,9 +168,9 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
           >
             {
               translate('screens/ConvertScreen', hasError
-? 'Available: {{amount}} {{unit}}. Insufficient balance'
+                ? 'Available: {{amount}} {{unit}}. Insufficient balance'
                 : showMaxUTXOWarning
-? 'A small amount of UTXO is reserved for fees'
+                  ? 'A small amount of UTXO is reserved for fees'
                   : 'Available: {{amount}} {{unit}}', {
                 amount: new BigNumber(sourceToken.amount).toFixed(8),
                 unit: sourceToken.unit
@@ -293,10 +293,14 @@ function ConversionInputField (props: { amount: string, setFocused: (isFocus: bo
         placeholder='0.00'
         keyboardType='numeric'
       />
-      <ClearButtonV2
-        onPress={() => props.onChangeText('0')}
-        testID='conversion_clear_button'
-      />
+      {props.amount !== undefined && props.amount !== ''
+        ? (
+          <ClearButtonV2
+            onPress={() => props.onChangeText('')}
+            testID='conversion_clear_button'
+          />
+              )
+        : null}
     </ThemedViewV2>
   )
 }
