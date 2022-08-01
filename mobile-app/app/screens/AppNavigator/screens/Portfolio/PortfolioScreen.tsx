@@ -32,7 +32,7 @@ import { LockedBalance, useTokenLockedBalance } from './hooks/TokenLockedBalance
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { activeVaultsSelector, fetchCollateralTokens, fetchLoanTokens, fetchVaults } from '@store/loans'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { PortfolioCard, ButtonGroupTabKey } from './components/PortfolioCard'
+import { PortfolioCard } from './components/PortfolioCard'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { fetchExecutionBlock, fetchFutureSwaps } from '@store/futureSwap'
@@ -41,7 +41,7 @@ import { BottomSheetAssetSortList, PortfolioSortType } from './components/Bottom
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { ActionButtons } from './components/ActionButtons'
 import { AddressSelectionButtonV2 } from './components/AddressSelectionButtonV2'
-import { AssetsFilterRow } from '@screens/AppNavigator/screens/Portfolio/components/AssetsFilterRow'
+import { AssetsFilterRow, ButtonGroupTabKey } from '@screens/AppNavigator/screens/Portfolio/components/AssetsFilterRow'
 import {
   BottomSheetAddressDetailV2
 } from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetAddressDetailV2'
@@ -475,17 +475,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     ]
   }, [address, isLight])
 
-  const [tabButtonLabel, setTabButtonLabel] = useState('')
-  const setButtonLabel = (buttonGroupTabKey: ButtonGroupTabKey): void => {
-    switch (buttonGroupTabKey) {
-      case (ButtonGroupTabKey.LPTokens):
-        return setTabButtonLabel(ButtonGroupTabKey.LPTokens)
-      case (ButtonGroupTabKey.Crypto):
-        return setTabButtonLabel(ButtonGroupTabKey.Crypto)
-      case (ButtonGroupTabKey.dTokens):
-        return setTabButtonLabel(ButtonGroupTabKey.dTokens)
-    }
-  }
   return (
     <View ref={containerRef} style={tailwind('flex-1')}>
       <ThemedScrollViewV2
@@ -537,7 +526,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         <Announcements />
         <AssetsFilterRow
           activeButtonGroup={activeButtonGroup}
-          setTabButtonLabel={setButtonLabel}
           onButtonGroupPress={handleButtonFilter}
           setActiveButtonGroup={setActiveButtonGroup}
         />
@@ -568,7 +556,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
                 onButtonGroupPress: handleButtonFilter
               }}
               denominationCurrency={denominationCurrency}
-              tabButtonLabel={tabButtonLabel}
              />)}
         {Platform.OS === 'web'
           ? (

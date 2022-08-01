@@ -10,13 +10,8 @@ import { EmptyTokensScreen } from './EmptyTokensScreen'
 import { TokenIcon } from './TokenIcon'
 import { TokenNameTextV2 } from './TokenNameTextV2'
 import { TokenAmountTextV2 } from './TokenAmountTextV2'
+import { ButtonGroupTabKey } from './AssetsFilterRow'
 
-export enum ButtonGroupTabKey {
-  AllTokens = 'ALL_TOKENS',
-  LPTokens = 'LP_TOKENS',
-  Crypto = 'CRYPTO',
-  dTokens = 'd_TOKENS'
-}
 interface PortfolioCardProps {
   isZeroBalance: boolean
   filteredTokens: PortfolioRowToken[]
@@ -27,7 +22,6 @@ interface PortfolioCardProps {
     setActiveButtonGroup: (key: ButtonGroupTabKey) => void
   }
   denominationCurrency: string
-  tabButtonLabel: string
 }
 
 export function PortfolioCard ({

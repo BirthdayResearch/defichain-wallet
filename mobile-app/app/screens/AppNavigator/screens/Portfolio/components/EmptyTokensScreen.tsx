@@ -6,7 +6,7 @@ import { EmptyPortfolioIcon } from '../assets/EmptyPortfolioIcon'
 import { EmptyDTokenIcon } from '../assets/EmptyDTokenIcon'
 import { EmptyLPTokenIcon } from '../assets/EmptyLPTokenIcon'
 import { EmptyCryptoIcon } from '../assets/EmptyCryptoIcon'
-import { ButtonGroupTabKey } from './PortfolioCard'
+import { ButtonGroupTabKey } from './AssetsFilterRow'
 
 interface EmptyBalancesProps {
   type?: ButtonGroupTabKey
