@@ -1,21 +1,25 @@
 import { ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { ScrollView, StyleProp, ViewStyle } from 'react-native'
 import { tailwind } from '@tailwind'
-import { ButtonGroupTabKey } from '@screens/AppNavigator/screens/Portfolio/components/PortfolioCard'
 import { translate } from '@translations'
+
+export enum ButtonGroupTabKey {
+  AllTokens = 'ALL_TOKENS',
+  LPTokens = 'LP_TOKENS',
+  Crypto = 'CRYPTO',
+  dTokens = 'd_TOKENS'
+}
 
 interface AssetsFilterRowProps {
   onButtonGroupPress: (key: ButtonGroupTabKey) => void
   activeButtonGroup: string
   setActiveButtonGroup: (key: ButtonGroupTabKey) => void
-  setTabButtonLabel: (key: ButtonGroupTabKey) => void
 }
 
 export function AssetsFilterRow (props: AssetsFilterRowProps): JSX.Element {
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
       props.setActiveButtonGroup(buttonGroupTabKey)
       props.onButtonGroupPress(buttonGroupTabKey)
-      props.setTabButtonLabel(buttonGroupTabKey)
   }
 
   const filterButtonGroup = [
@@ -25,9 +29,9 @@ export function AssetsFilterRow (props: AssetsFilterRowProps): JSX.Element {
       handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.AllTokens)
     },
     {
-      id: ButtonGroupTabKey.LPTokens,
-      label: translate('screens/PortfolioScreen', 'LP tokens'),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.LPTokens)
+      id: ButtonGroupTabKey.dTokens,
+      label: translate('screens/PortfolioScreen', 'dTokens'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.dTokens)
     },
     {
       id: ButtonGroupTabKey.Crypto,
@@ -35,15 +39,15 @@ export function AssetsFilterRow (props: AssetsFilterRowProps): JSX.Element {
       handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.Crypto)
     },
     {
-      id: ButtonGroupTabKey.dTokens,
-      label: translate('screens/PortfolioScreen', 'dTokens'),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.dTokens)
+      id: ButtonGroupTabKey.LPTokens,
+      label: translate('screens/PortfolioScreen', 'LP tokens'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.LPTokens)
     }
   ]
   return (
-    <ThemedViewV2 testID='portfolio_button_group'>
+    <ThemedViewV2 testID='portfolio_button_group' style={tailwind('my-8')}>
       <ScrollView
-        contentContainerStyle={tailwind('pl-5 mt-8 mb-6')}
+        contentContainerStyle={tailwind('pl-5')}
         horizontal
         showsHorizontalScrollIndicator={false}
       >
@@ -56,7 +60,8 @@ export function AssetsFilterRow (props: AssetsFilterRowProps): JSX.Element {
             testID={`portfolio_button_group_${button.id}`}
             additionalStyles={!(filterButtonGroup.length === index) ? tailwind('mr-3') : undefined}
           />
-          ))}
+          )
+        )}
       </ScrollView>
     </ThemedViewV2>
   )

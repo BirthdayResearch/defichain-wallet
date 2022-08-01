@@ -98,7 +98,9 @@
     "This icon indicates that the price is provided by Oracles instead of the DEX": "這個圖標顯示的價格是由預言機產生而不是 DEX 提供的",
     "Sort assets by": "按資產進行排序",
     "Highest {{modifiedDenominationCurrency}} value": "最高{{modifiedDenominationCurrency}}價值",
-    "Lowest {{modifiedDenominationCurrency}} value": "最低{{modifiedDenominationCurrency}}价值",
+    "Lowest {{modifiedDenominationCurrency}} value": "最低{{modifiedDenominationCurrency}}價值",
+    "Highest value ({{modifiedDenominationCurrency}})": "最高价價值({{modifiedDenominationCurrency}})",
+    "Lowest value ({{modifiedDenominationCurrency}})": "最低價值({{modifiedDenominationCurrency}})",
     "Highest token amount": "最高代币数量",
     "Lowest token amount": "最低代币数量",
     "A to Z": "A 到 Z",
@@ -116,7 +118,8 @@
     "Receive DFI in DeFiChain Wallet": "在 DeFiChain 錢包中接收 DFI",
     "DFI price": "DFI 價格",
     "WALLET ADDRESS": "錢包地址",
-    "Share": "分享"
+    "Share": "分享",
+    "Get DFI now!": "Get DFI now!"
   },
   "screens/MarketplaceScreen": {
     "Marketplace": "市場",
@@ -1266,11 +1269,14 @@
     "Wallet Address": "錢包地址"
   },
   "components/EmptyPortfolio": {
-    "No LP tokens in portfolio": "資產組合中沒有資金池代幣",
-    "No Crypto in portfolio": "資產組合中沒有加密貨幣",
-    "No dTokens in portfolio": "資產組合中沒有dTokens 代幣",
     "Empty portfolio": "沒有資產",
-    "Add your DFI and other tokens to get started": "添加您的 DFI 和其他代幣以開始使用"
+    "Add DFI and other tokens to get started": "Add DFI and other tokens to get started",
+    "No LP tokens found": "No LP tokens found",
+    "Add liquidity to get started": "Add liquidity to get started",
+    "No crypto found": "No crypto found",
+    "Add crypto to get started": "Add crypto to get started",
+    "No dTokens found": "No dTokens found",
+    "Mint dTokens to get started": "Mint dTokens to get started"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "貸款計劃",
