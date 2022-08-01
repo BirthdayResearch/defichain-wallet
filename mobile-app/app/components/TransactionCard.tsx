@@ -11,7 +11,7 @@ interface TransactionCardProps {
 }
 
 export enum AmountButtonTypes {
-  twenty = '25%',
+  twentyFive = '25%',
   half = '50%',
   seventyFive = '75%',
   max = 'MAX'
@@ -36,7 +36,7 @@ export function TransactionCard ({ maxValue, onChange, status, children }: React
         style={tailwind('flex flex-row bg-transparent justify-around items-center pt-2')}
       >
         {
-          [AmountButtonTypes.twenty, AmountButtonTypes.half, AmountButtonTypes.seventyFive, AmountButtonTypes.max].map((type, index, { length }) => {
+          [AmountButtonTypes.twentyFive, AmountButtonTypes.half, AmountButtonTypes.seventyFive, AmountButtonTypes.max].map((type, index, { length }) => {
             return (
               <SetAmountButton
                 key={type}
@@ -70,7 +70,7 @@ function SetAmountButton ({
   let value = amount.toFixed(decimalPlace)
 
   switch (type) {
-    case (AmountButtonTypes.twenty):
+    case (AmountButtonTypes.twentyFive):
       value = amount.multipliedBy(0.25).toFixed(decimalPlace)
       break
     case (AmountButtonTypes.half):
