@@ -1,4 +1,4 @@
-import { ThemedViewV2, ThemedTouchableOpacityV2 } from '@components/themed'
+import { ThemedTouchableOpacityV2 } from '@components/themed'
 import { PortfolioParamList } from '../PortfolioNavigator'
 import { PortfolioRowToken } from '../PortfolioScreen'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -38,34 +38,25 @@ export function PortfolioCard ({
     return <EmptyTokensScreen type={ButtonGroupTabKey.AllTokens} />
   }
 
+  if (filteredTokens.length === 0 && hasFetchedToken) {
+    return <EmptyTokensScreen type={buttonGroupOptions?.activeButtonGroup} />
+  }
+
   return (
-    <ThemedViewV2>
-      <View testID='card_balance_row_container' style={tailwind('mx-5')}>
-        {filteredTokens.length > 0
-          ? (
-            <>
-              {filteredTokens.map((item) => (
-                <PortfolioItemRow
-                  key={item.symbol}
-                  onPress={() => navigation.navigate({
-                    name: 'Balance',
-                    params: { token: item, usdAmount: item.usdAmount },
-                    merge: true
-                  })}
-                  token={item}
-                  denominationCurrency={denominationCurrency}
-                />
-              ))}
-            </>
-          )
-        : (
-          <>
-            {hasFetchedToken &&
-              <EmptyTokensScreen type={buttonGroupOptions?.activeButtonGroup} />}
-          </>
-        )}
-      </View>
-    </ThemedViewV2>
+    <View testID='card_balance_row_container' style={tailwind('mx-5')}>
+      {filteredTokens.map((item) => (
+        <PortfolioItemRow
+          key={item.symbol}
+          onPress={() => navigation.navigate({
+            name: 'Balance',
+            params: { token: item, usdAmount: item.usdAmount },
+            merge: true
+          })}
+          token={item}
+          denominationCurrency={denominationCurrency}
+        />
+      ))}
+    </View>
   )
 }
 

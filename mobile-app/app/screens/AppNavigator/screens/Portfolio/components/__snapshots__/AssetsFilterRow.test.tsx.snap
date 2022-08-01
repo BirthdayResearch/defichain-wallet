@@ -122,7 +122,7 @@ exports[`Portfolio Filter Buttons should match snapshot for Assets filter Button
             "textAlign": "center",
           }
         }
-        testID="portfolio_button_group_LP_TOKENS"
+        testID="portfolio_button_group_d_TOKENS"
       >
         <Text
           style={
@@ -148,7 +148,7 @@ exports[`Portfolio Filter Buttons should match snapshot for Assets filter Button
             ]
           }
         >
-          LP tokens
+          dTokens
         </Text>
       </View>
       <View
@@ -248,7 +248,7 @@ exports[`Portfolio Filter Buttons should match snapshot for Assets filter Button
             "textAlign": "center",
           }
         }
-        testID="portfolio_button_group_d_TOKENS"
+        testID="portfolio_button_group_LP_TOKENS"
       >
         <Text
           style={
@@ -274,7 +274,7 @@ exports[`Portfolio Filter Buttons should match snapshot for Assets filter Button
             ]
           }
         >
-          dTokens
+          LP tokens
         </Text>
       </View>
     </View>

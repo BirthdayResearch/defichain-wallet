@@ -29,9 +29,9 @@ export function AssetsFilterRow (props: AssetsFilterRowProps): JSX.Element {
       handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.AllTokens)
     },
     {
-      id: ButtonGroupTabKey.LPTokens,
-      label: translate('screens/PortfolioScreen', 'LP tokens'),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.LPTokens)
+      id: ButtonGroupTabKey.dTokens,
+      label: translate('screens/PortfolioScreen', 'dTokens'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.dTokens)
     },
     {
       id: ButtonGroupTabKey.Crypto,
@@ -39,9 +39,9 @@ export function AssetsFilterRow (props: AssetsFilterRowProps): JSX.Element {
       handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.Crypto)
     },
     {
-      id: ButtonGroupTabKey.dTokens,
-      label: translate('screens/PortfolioScreen', 'dTokens'),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.dTokens)
+      id: ButtonGroupTabKey.LPTokens,
+      label: translate('screens/PortfolioScreen', 'LP tokens'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.LPTokens)
     }
   ]
   return (

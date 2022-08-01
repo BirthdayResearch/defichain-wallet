@@ -36,7 +36,7 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
       style={tailwind('mx-5 mt-2 rounded-lg-v2')}
       testID='dfi_balance_card'
     >
-      <View style={tailwind('flex-col flex-1 rounded-lg-v2 overflow-hidden')}>
+      <View style={tailwind('flex-col rounded-lg-v2 overflow-hidden')}>
         <TouchableOpacity
           style={tailwind('px-5 py-4.5 flex flex-row items-start')}
           onPress={() => navigation.navigate({
