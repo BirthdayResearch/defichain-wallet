@@ -1,24 +1,22 @@
 import { memo, useCallback } from 'react'
-import {
-  ThemedIcon,
-  ThemedTouchableOpacityV2,
-  ThemedTextV2
-} from '@components/themed'
-import { Platform } from 'react-native'
+import { ThemedFlatList, ThemedIcon, ThemedText, ThemedView, ThemedTouchableOpacity } from '@components/themed'
+import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
+import { Platform, TouchableOpacity } from 'react-native'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { ThemedFlatListV2 } from '@components/themed/ThemedFlatListV2'
-import { ThemedBottomSheetFlatList } from '@components/themed/ThemedBottomSheetFlatList'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 
 export interface BottomSheetAssetSortProps {
+  headerLabel: string
+  onCloseButtonPress: () => void
   onButtonPress: (item: PortfolioSortType) => void
   modifiedDenominationCurrency: string
   selectedAssetSortType: PortfolioSortType
 }
 
 export enum PortfolioSortType {
-  HighestDenominationValue = 'Highest value (denomination)',
-  LowestDenominationValue = 'Lowest value (denomination)',
+  HighestDenominationValue = 'Highest denomination value',
+  LowestDenominationValue = 'Lowest denomination value',
   HighestTokenAmount = 'Highest token amount',
   LowestTokenAmount = 'Lowest token amount',
   AtoZ = 'A to Z',
@@ -26,18 +24,21 @@ export enum PortfolioSortType {
 }
 
 export const BottomSheetAssetSortList = ({
+  headerLabel,
+  onCloseButtonPress,
   onButtonPress,
   modifiedDenominationCurrency,
   selectedAssetSortType
 }: BottomSheetAssetSortProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
+  const { isLight } = useThemeContext()
   const flatListComponents = {
-    mobile: ThemedBottomSheetFlatList,
-    web: ThemedFlatListV2
+    mobile: BottomSheetFlatList,
+    web: ThemedFlatList
   }
   const FlatList = Platform.OS === 'web' ? flatListComponents.web : flatListComponents.mobile
   const assetSortList: PortfolioSortType[] = Object.values(PortfolioSortType)
-  const highestCurrencyValue = translate('screens/PortfolioScreen', 'Highest value ({{modifiedDenominationCurrency}})', { modifiedDenominationCurrency })
-  const lowestCurrencyValue = translate('screens/PortfolioScreen', 'Lowest value ({{modifiedDenominationCurrency}})', { modifiedDenominationCurrency })
+  const highestCurrencyValue = translate('screens/PortfolioScreen', 'Highest {{modifiedDenominationCurrency}} value', { modifiedDenominationCurrency })
+  const lowestCurrencyValue = translate('screens/PortfolioScreen', 'Lowest {{modifiedDenominationCurrency}} value', { modifiedDenominationCurrency })
   const getDisplayedSortText = useCallback((text: PortfolioSortType): string => {
     if (text === PortfolioSortType.HighestDenominationValue) {
       return highestCurrencyValue
@@ -55,30 +56,45 @@ export const BottomSheetAssetSortList = ({
     index: number
   }): JSX.Element => {
     return (
-      <ThemedTouchableOpacityV2
-        dark={tailwind('border-mono-dark-v2-300')}
-        light={tailwind('border-mono-light-v2-300')}
-        style={tailwind('py-3 flex-row  items-center justify-between border-b-0.5 py-2.5', { 'border-t-0.5': index === 0 })}
+      <ThemedTouchableOpacity
+        style={tailwind('px-4 py-3 flex-row justify-between')}
         testID={`select_asset_${getDisplayedSortText(item)}`}
         key={index}
         onPress={() => {
           onButtonPress(item)
         }}
       >
-        <ThemedTextV2
-          style={tailwind('py-2 text-sm font-normal-v2')}
-        >
+        <ThemedText>
           {translate('screens/PortfolioScreen', getDisplayedSortText(item))}
-        </ThemedTextV2>
+        </ThemedText>
         {selectedAssetSortType === item && (
           <ThemedIcon
-            size={20}
-            name='check-circle'
+            size={24}
+            name='check'
             iconType='MaterialIcons'
-            light={tailwind('text-green-v2')}
-            dark={tailwind('text-green-v2')}
+            light={tailwind('text-primary-500')}
+            dark={tailwind('text-darkprimary-500')}
           />)}
-      </ThemedTouchableOpacityV2>
+      </ThemedTouchableOpacity>
+    )
+  }
+
+  const headerComponent = (): JSX.Element => {
+    return (
+      <ThemedView
+        light={tailwind('bg-white border-gray-200')}
+        dark={tailwind('bg-gray-800 border-gray-700')}
+        style={tailwind('flex flex-row justify-between items-center px-4 py-2 border-b', { 'py-3.5 border-t -mb-px': Platform.OS === 'android' })} // border top on android to handle 1px of horizontal transparent line when scroll past header
+      >
+        <ThemedText
+          style={tailwind('text-lg font-medium')}
+        >
+          {translate('screens/PortfolioScreen', headerLabel)}
+        </ThemedText>
+        <TouchableOpacity onPress={onCloseButtonPress}>
+          <ThemedIcon iconType='MaterialIcons' name='close' size={20} />
+        </TouchableOpacity>
+      </ThemedView>
     )
   }
 
@@ -86,8 +102,12 @@ export const BottomSheetAssetSortList = ({
     <FlatList
       keyExtractor={(item) => item}
       data={assetSortList}
-      contentContainerStyle={tailwind('px-5')}
       renderItem={renderItem}
+      ListHeaderComponent={headerComponent}
+      style={tailwind({
+        'bg-gray-800': !isLight,
+        'bg-white': isLight
+      })}
     />
   )
 })
