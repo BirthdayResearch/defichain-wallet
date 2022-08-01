@@ -1,0 +1,282 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Portfolio Filter Buttons should match snapshot for Assets filter Buttons component 1`] = `
+<View
+  style={
+    Array [
+      undefined,
+      Object {
+        "backgroundColor": "rgba(242, 242, 242, 1)",
+      },
+    ]
+  }
+  testID="portfolio_button_group"
+>
+  <RCTScrollView
+    contentContainerStyle={
+      Object {
+        "marginBottom": 24,
+        "marginTop": 32,
+        "paddingLeft": 20,
+      }
+    }
+    horizontal={true}
+    showsHorizontalScrollIndicator={false}
+  >
+    <View>
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "borderBottomColor": "rgba(89, 89, 89, 1)",
+            "borderBottomLeftRadius": 16,
+            "borderBottomRightRadius": 16,
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(89, 89, 89, 1)",
+            "borderLeftWidth": 1,
+            "borderRightColor": "rgba(89, 89, 89, 1)",
+            "borderRightWidth": 1,
+            "borderTopColor": "rgba(89, 89, 89, 1)",
+            "borderTopLeftRadius": 16,
+            "borderTopRightRadius": 16,
+            "borderTopWidth": 1,
+            "marginRight": 12,
+            "opacity": 1,
+            "paddingBottom": 8,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 8,
+            "textAlign": "center",
+          }
+        }
+        testID="portfolio_button_group_ALL_TOKENS"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                  "textAlign": "center",
+                },
+                Object {
+                  "color": "rgba(89, 89, 89, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          All tokens
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "borderBottomColor": "rgba(89, 89, 89, 1)",
+            "borderBottomLeftRadius": 16,
+            "borderBottomRightRadius": 16,
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(89, 89, 89, 1)",
+            "borderLeftWidth": 1,
+            "borderRightColor": "rgba(89, 89, 89, 1)",
+            "borderRightWidth": 1,
+            "borderTopColor": "rgba(89, 89, 89, 1)",
+            "borderTopLeftRadius": 16,
+            "borderTopRightRadius": 16,
+            "borderTopWidth": 1,
+            "marginRight": 12,
+            "opacity": 1,
+            "paddingBottom": 8,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 8,
+            "textAlign": "center",
+          }
+        }
+        testID="portfolio_button_group_LP_TOKENS"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                  "textAlign": "center",
+                },
+                Object {
+                  "color": "rgba(89, 89, 89, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          LP tokens
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "borderBottomColor": "rgba(89, 89, 89, 1)",
+            "borderBottomLeftRadius": 16,
+            "borderBottomRightRadius": 16,
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(89, 89, 89, 1)",
+            "borderLeftWidth": 1,
+            "borderRightColor": "rgba(89, 89, 89, 1)",
+            "borderRightWidth": 1,
+            "borderTopColor": "rgba(89, 89, 89, 1)",
+            "borderTopLeftRadius": 16,
+            "borderTopRightRadius": 16,
+            "borderTopWidth": 1,
+            "marginRight": 12,
+            "opacity": 1,
+            "paddingBottom": 8,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 8,
+            "textAlign": "center",
+          }
+        }
+        testID="portfolio_button_group_CRYPTO"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                  "textAlign": "center",
+                },
+                Object {
+                  "color": "rgba(89, 89, 89, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Crypto
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "borderBottomColor": "rgba(89, 89, 89, 1)",
+            "borderBottomLeftRadius": 16,
+            "borderBottomRightRadius": 16,
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(89, 89, 89, 1)",
+            "borderLeftWidth": 1,
+            "borderRightColor": "rgba(89, 89, 89, 1)",
+            "borderRightWidth": 1,
+            "borderTopColor": "rgba(89, 89, 89, 1)",
+            "borderTopLeftRadius": 16,
+            "borderTopRightRadius": 16,
+            "borderTopWidth": 1,
+            "marginRight": 12,
+            "opacity": 1,
+            "paddingBottom": 8,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 8,
+            "textAlign": "center",
+          }
+        }
+        testID="portfolio_button_group_d_TOKENS"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                  "textAlign": "center",
+                },
+                Object {
+                  "color": "rgba(89, 89, 89, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          dTokens
+        </Text>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

@@ -45,6 +45,7 @@ import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
 import { AddressBookScreenV2 } from './screens/AddressBookScreenV2'
+import { NetworkSelectionScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreenV2'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -128,7 +129,7 @@ export function PortfolioNavigator (): JSX.Element {
   const { isFeatureAvailable } = useFeatureFlagContext()
   const { isLight } = useThemeContext()
   const goToNetworkSelect = (): void => {
-    navigation.navigate('NetworkDetails')
+    navigation.navigate('NetworkSelectionScreen')
   }
   const screenOptions = useNavigatorScreenOptions()
   return (
@@ -328,6 +329,16 @@ export function PortfolioNavigator (): JSX.Element {
           headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
           headerBackTitleVisible: false,
           headerBackTestID: 'network_details_header_back'
+        }}
+      />
+
+      <PortfolioStack.Screen
+        component={NetworkSelectionScreenV2}
+        name='NetworkSelectionScreen'
+        options={{
+          headerTitle: translate('screens/NetworkSelectionScreen', 'Network'),
+          headerBackTitleVisible: false,
+          headerRight: undefined
         }}
       />
 
