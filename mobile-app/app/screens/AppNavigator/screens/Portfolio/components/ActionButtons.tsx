@@ -1,4 +1,3 @@
-import { View } from '@components'
 import { IconName, IconType, ThemedIcon, ThemedTextV2, ThemedTouchableOpacityV2 } from '@components/themed'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
@@ -6,7 +5,7 @@ import { RootState } from '@store'
 import { futureSwapSelector } from '@store/futureSwap'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { ScrollView, Text } from 'react-native'
+import { ScrollView, Text, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { PortfolioParamList } from '../PortfolioNavigator'
 
@@ -26,56 +25,57 @@ export function ActionButtons (): JSX.Element {
   const futureSwaps = useSelector((state: RootState) => futureSwapSelector(state))
 
   return (
-    <ScrollView
-      contentContainerStyle={tailwind('px-5')}
-      style={tailwind('flex-1 mt-8')}
-      showsHorizontalScrollIndicator={false}
-      horizontal
-    >
-      <ActionButton
-        name={translate('components/ActionButtons', 'Send')}
-        icon='arrow-up-right'
-        iconType='Feather'
-        iconSize={28}
-        testID='send_balance_button'
-        onPress={() => navigation.navigate('Send')}
-      />
-      <ActionButton
-        name={translate('components/ActionButtons', 'Receive')}
-        icon='arrow-down-left'
-        iconType='Feather'
-        iconSize={28}
-        testID='receive_balance_button'
-        onPress={() => navigation.navigate('Receive')}
-      />
-      {isFeatureAvailable('future_swap') && futureSwaps.length > 0 &&
+    <View testID='action_button_group'>
+      <ScrollView
+        contentContainerStyle={tailwind('px-5 mt-8 flex-row')}
+        showsHorizontalScrollIndicator={false}
+        horizontal
+      >
         <ActionButton
-          name={translate('components/ActionButtons', 'Future swap')}
-          icon='clock'
+          name={translate('components/ActionButtons', 'Send')}
+          icon='arrow-up-right'
           iconType='Feather'
-          badge={futureSwaps.length > 9 ? '9+' : futureSwaps.length}
-          testID='future_swap_button'
-          onPress={() => navigation.navigate('FutureSwapScreen')}
-        />}
-      <ActionButton
-        name={translate('components/ActionButtons', 'Swap')}
-        icon='repeat'
-        iconType='Feather'
-        testID='swap_tokens_button'
-        onPress={() => navigation.navigate({
-          name: 'CompositeSwap',
-          params: {},
-          merge: true
-        })}
-      />
-      <ActionButton
-        name={translate('components/ActionButtons', 'Transactions')}
-        icon='calendar'
-        testID='transaction_button'
-        iconType='Feather'
-        onPress={() => navigation.navigate('TransactionsScreen')}
-      />
-    </ScrollView>
+          iconSize={28}
+          testID='send_balance_button'
+          onPress={() => navigation.navigate('Send')}
+        />
+        <ActionButton
+          name={translate('components/ActionButtons', 'Receive')}
+          icon='arrow-down-left'
+          iconType='Feather'
+          iconSize={28}
+          testID='receive_balance_button'
+          onPress={() => navigation.navigate('Receive')}
+        />
+        {isFeatureAvailable('future_swap') && futureSwaps.length > 0 &&
+          <ActionButton
+            name={translate('components/ActionButtons', 'Future swap')}
+            icon='clock'
+            iconType='Feather'
+            badge={futureSwaps.length > 9 ? '9+' : futureSwaps.length}
+            testID='future_swap_button'
+            onPress={() => navigation.navigate('FutureSwapScreen')}
+          />}
+        <ActionButton
+          name={translate('components/ActionButtons', 'Swap')}
+          icon='repeat'
+          iconType='Feather'
+          testID='swap_tokens_button'
+          onPress={() => navigation.navigate({
+            name: 'CompositeSwap',
+            params: {},
+            merge: true
+          })}
+        />
+        <ActionButton
+          name={translate('components/ActionButtons', 'Transactions')}
+          icon='calendar'
+          testID='transaction_button'
+          iconType='Feather'
+          onPress={() => navigation.navigate('TransactionsScreen')}
+        />
+      </ScrollView>
+    </View>
   )
 }
 

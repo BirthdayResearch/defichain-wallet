@@ -98,7 +98,9 @@
     "This icon indicates that the price is provided by Oracles instead of the DEX": "這個圖標顯示的價格是由預言機產生而不是 DEX 提供的",
     "Sort assets by": "按資產進行排序",
     "Highest {{modifiedDenominationCurrency}} value": "最高{{modifiedDenominationCurrency}}價值",
-    "Lowest {{modifiedDenominationCurrency}} value": "最低{{modifiedDenominationCurrency}}价值",
+    "Lowest {{modifiedDenominationCurrency}} value": "最低{{modifiedDenominationCurrency}}價值",
+    "Highest value ({{modifiedDenominationCurrency}})": "最高价價值({{modifiedDenominationCurrency}})",
+    "Lowest value ({{modifiedDenominationCurrency}})": "最低價值({{modifiedDenominationCurrency}})",
     "Highest token amount": "最高代币数量",
     "Lowest token amount": "最低代币数量",
     "A to Z": "A 到 Z",
@@ -116,7 +118,8 @@
     "Receive DFI in DeFiChain Wallet": "在 DeFiChain 錢包中接收 DFI",
     "DFI price": "DFI 價格",
     "WALLET ADDRESS": "錢包地址",
-    "Share": "分享"
+    "Share": "分享",
+    "Get DFI now!": "Get DFI now!"
   },
   "screens/MarketplaceScreen": {
     "Marketplace": "市場",

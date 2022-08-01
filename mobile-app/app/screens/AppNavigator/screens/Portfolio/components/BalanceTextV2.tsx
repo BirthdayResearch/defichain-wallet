@@ -20,7 +20,7 @@ export function BalanceTextV2 ({ symbol, value, style, children, containerStyle,
 
   return (
     <ThemedTextV2 // first layer of text component to make sure children component display inline with `value` even when it is wrapped to multi-line
-      style={[tailwind('flex flex-row items-center'), containerStyle]} // for non-mobile center styling
+      style={containerStyle ?? tailwind('flex flex-row items-center')} // for non-mobile center styling
     >
       <ThemedTextV2 // second layer of text component to target exact `value` by using testID in e2e
         style={style}
