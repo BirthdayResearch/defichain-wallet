@@ -471,6 +471,7 @@ exports[`portfolio page should match snapshot 1`] = `
                             "fontSize": 12,
                             "fontWeight": "400",
                             "lineHeight": 16,
+                            "textAlign": "center",
                           },
                           Object {
                             "color": "rgba(18, 18, 18, 1)",
