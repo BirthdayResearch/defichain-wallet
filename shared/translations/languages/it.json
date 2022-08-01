@@ -295,7 +295,7 @@
     "Available: {{amount}} {{unit}}": "Available: {{amount}} {{unit}}",
     "Review full details in the next screen": "Review full details in the next screen",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
-    "{{percentage}}% of available {{unit}} entered": "{{percentage}}% of available {{unit}} entered"
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Conferma la conversione DFI",

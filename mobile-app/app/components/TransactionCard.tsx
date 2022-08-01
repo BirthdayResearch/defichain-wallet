@@ -6,7 +6,7 @@ import { View } from '@components'
 
 interface TransactionCardProps {
   maxValue: BigNumber
-  onChange: (amount: string) => void
+  onChange: (amount: string, type: AmountButtonTypes) => void
   status?: 'error' | 'active'
 }
 
@@ -60,7 +60,7 @@ export function TransactionCard ({
 
 interface SetAmountButtonProps {
   type: AmountButtonTypes
-  onPress: (amount: string) => void
+  onPress: (amount: string, type: AmountButtonTypes) => void
   amount: BigNumber
   hasBorder?: boolean
 }
@@ -93,7 +93,7 @@ function SetAmountButton ({
     <ThemedTouchableOpacityV2
       style={tailwind('border-0')}
       onPress={() => {
-        onPress(value)
+        onPress(value, type)
       }}
       testID={`${type}_amount_button`}
     >

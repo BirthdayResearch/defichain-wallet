@@ -25,8 +25,9 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { tokensSelector } from '@store/wallet'
 import { getNativeIcon } from '@components/icons/assets'
 import { ButtonV2 } from '@components/ButtonV2'
-import { TransactionCard } from '@components/TransactionCard'
+import { AmountButtonTypes, TransactionCard } from '@components/TransactionCard'
 import { ClearButtonV2 } from '@components/WalletTextInputV2'
+import { useToast } from 'react-native-toast-notifications'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<PortfolioParamList, 'ConvertScreen'>
@@ -39,9 +40,10 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
   const client = useWhaleApiClient()
   const logger = useLogger()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  // const toast = useToast()
-  // const [showToast, setShowToast] = useState(false)
-  // const TOAST_DURATION = 2000
+  const toast = useToast()
+  const [showToast, setShowToast] = useState(false)
+  const [percentageType, setPercentageType] = useState<string | undefined>()
+  const TOAST_DURATION = 2000
 
   // global state
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -80,18 +82,24 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
     setTransactionCardStatus(hasError ? 'error' : isInputFocus ? 'active' : undefined)
   }, [hasError, isInputFocus])
 
-  // useEffect(() => {
-  //   if (showToast) {
-  //     // const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percentage}}% of available {{unit}} entered'
-  //     toast.show(translate('screens/ConvertScreen', 'Address copied'), {
-  //       type: 'wallet_toast',
-  //       placement: 'top',
-  //       duration: TOAST_DURATION
-  //     })
-  //   } else {
-  //     toast.hideAll()
-  //   }
-  // }, [showToast])
+  useEffect(() => {
+    if (showToast && percentageType !== undefined) {
+      const isMax = percentageType === AmountButtonTypes.max
+      const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
+      const toastOption = {
+        unit: sourceToken?.unit,
+        percent: percentageType
+      }
+      toast.show(translate('screens/ConvertScreen', toastMessage, toastOption), {
+        type: 'wallet_toast',
+        placement: 'top',
+        duration: TOAST_DURATION
+      })
+      setTimeout(() => setShowToast(false), TOAST_DURATION)
+    } else {
+      toast.hideAll()
+    }
+  }, [showToast])
 
   if (sourceToken === undefined || targetToken === undefined) {
     return <></>
@@ -116,6 +124,12 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
     })
   }
 
+  function onPercentagePress (amount: string, type: AmountButtonTypes): void {
+    setAmount(amount)
+    setPercentageType(type)
+    setShowToast(true)
+  }
+
   return (
     <ThemedScrollViewV2 style={tailwind('w-full flex-col flex-1')} testID='convert_screen'>
       <View style={tailwind('items-center px-4 pb-16')}>
@@ -134,7 +148,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
           />
           <TransactionCard
             maxValue={new BigNumber(sourceToken.amount)} status={transactionCardStatus}
-            onChange={setAmount}
+            onChange={onPercentagePress}
           >
             <ConversionInputField
               amount={amount} onChangeText={(text) => setAmount(text)}
@@ -144,25 +158,24 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
           <ThemedTextV2
             style={tailwind('font-normal-v2 text-xs px-5 pt-2')}
             light={tailwind('text-mono-light-v2-500', {
-                          'text-red-v2': hasError,
-                          'text-orange-v2': showMaxUTXOWarning && !hasError
-                        })}
+              'text-red-v2': hasError,
+              'text-orange-v2': showMaxUTXOWarning && !hasError
+            })}
             dark={tailwind('text-mono-dark-v2-500', {
-                          'text-red-v2': hasError,
-                          'text-orange-v2': showMaxUTXOWarning && !hasError
-                        })}
+              'text-red-v2': hasError,
+              'text-orange-v2': showMaxUTXOWarning && !hasError
+            })}
           >
-            {hasError
-? translate('screens/ConvertScreen', 'Available: {{amount}} {{unit}}. Insufficient balance', {
-              amount: new BigNumber(sourceToken.amount).toFixed(8),
-              unit: sourceToken.unit
-            })
-: showMaxUTXOWarning
-? translate('screens/ConvertScreen', 'A small amount of UTXO is reserved for fees')
-              : translate('screens/ConvertScreen', 'Available: {{amount}} {{unit}}', {
+            {
+              translate('screens/ConvertScreen', hasError
+? 'Available: {{amount}} {{unit}}. Insufficient balance'
+                : showMaxUTXOWarning
+? 'A small amount of UTXO is reserved for fees'
+                  : 'Available: {{amount}} {{unit}}', {
                 amount: new BigNumber(sourceToken.amount).toFixed(8),
                 unit: sourceToken.unit
-              })}
+              })
+            }
           </ThemedTextV2>
         </View>
 

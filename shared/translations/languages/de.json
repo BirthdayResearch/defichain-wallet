@@ -284,7 +284,7 @@
     "Available: {{amount}} {{unit}}": "Verfügbar: {{amount}} {{unit}}",
     "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
     "Max available {{unit}} entered": "Max. verfügbare {{unit}} eingegeben",
-    "{{percentage}}% of available {{unit}} entered": "{{percentage}}% der verfügbaren {{unit}} eingegeben"
+    "{{percent}} of available {{unit}} entered": "{{percent}} der verfügbaren {{unit}} eingegeben"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Bestätige DFI-Konvertierung",
