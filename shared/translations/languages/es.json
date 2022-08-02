@@ -708,7 +708,11 @@
   "screens/common": {
     "CANCEL": "CANCELA",
     "Cancel": "Cancela",
-    "TRY AGAIN": "VOLVER A INTENTAR"
+    "TRY AGAIN": "VOLVER A INTENTAR",
+    "From": "De",
+    "To": "A",
+    "Converting": "Convirtiendo",
+    "Converted": "Converted"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Crea una nueva contraseña para tu billetera",

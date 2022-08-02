@@ -689,7 +689,11 @@
   "screens/common": {
     "CANCEL": "ABBRECHEN",
     "Cancel": "Abbrechen",
-    "TRY AGAIN": "ERNEUT VERSUCHEN"
+    "TRY AGAIN": "ERNEUT VERSUCHEN",
+    "From": "Von",
+    "To": "In",
+    "Converting": "Umwandeln",
+    "Converted": "Umgewandelt"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Erstelle neues Passwort für deine Wallet",
@@ -1640,6 +1644,6 @@
     "Receive": "Empfangen",
     "Swap": "Tausch",
     "Transactions": "Transaktionen",
-    "Future swap":"Future swap"
+    "Future swap": "Future swap"
   }
 }

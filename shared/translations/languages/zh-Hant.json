@@ -692,7 +692,11 @@
   "screens/common": {
     "CANCEL": "取消",
     "Cancel": "取消",
-    "TRY AGAIN": "再試一次"
+    "TRY AGAIN": "再試一次",
+    "From": "從",
+    "To": "到",
+    "Converting": "轉換中",
+    "Converted": "Converted"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "為您的錢包創建新的密碼",
