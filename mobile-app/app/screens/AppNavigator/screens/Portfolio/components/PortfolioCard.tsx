@@ -1,4 +1,4 @@
-import { ThemedViewV2, ThemedTouchableOpacityV2 } from '@components/themed'
+import { ThemedTouchableOpacityV2 } from '@components/themed'
 import { PortfolioParamList } from '../PortfolioNavigator'
 import { PortfolioRowToken } from '../PortfolioScreen'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -11,6 +11,7 @@ import { TokenIcon } from './TokenIcon'
 import { TokenNameTextV2 } from './TokenNameTextV2'
 import { TokenAmountTextV2 } from './TokenAmountTextV2'
 import { ButtonGroupTabKey } from './AssetsFilterRow'
+import { Platform } from 'react-native'
 
 interface PortfolioCardProps {
   isZeroBalance: boolean
@@ -38,34 +39,25 @@ export function PortfolioCard ({
     return <EmptyTokensScreen type={ButtonGroupTabKey.AllTokens} />
   }
 
+  if (filteredTokens.length === 0 && hasFetchedToken) {
+    return <EmptyTokensScreen type={buttonGroupOptions?.activeButtonGroup} />
+  }
+
   return (
-    <ThemedViewV2>
-      <View testID='card_balance_row_container' style={tailwind('mx-5')}>
-        {filteredTokens.length > 0
-          ? (
-            <>
-              {filteredTokens.map((item) => (
-                <PortfolioItemRow
-                  key={item.symbol}
-                  onPress={() => navigation.navigate({
-                    name: 'Balance',
-                    params: { token: item, usdAmount: item.usdAmount },
-                    merge: true
-                  })}
-                  token={item}
-                  denominationCurrency={denominationCurrency}
-                />
-              ))}
-            </>
-          )
-: (
-  <>
-    {hasFetchedToken &&
-      <EmptyTokensScreen type={buttonGroupOptions?.activeButtonGroup} />}
-  </>
-          )}
-      </View>
-    </ThemedViewV2>
+    <View testID='card_balance_row_container' style={tailwind('mx-5')}>
+      {filteredTokens.map((item) => (
+        <PortfolioItemRow
+          key={item.symbol}
+          onPress={() => navigation.navigate({
+            name: 'Balance',
+            params: { token: item, usdAmount: item.usdAmount },
+            merge: true
+          })}
+          token={item}
+          denominationCurrency={denominationCurrency}
+        />
+      ))}
+    </View>
   )
 }
 
@@ -81,7 +73,7 @@ function PortfolioItemRow ({
       onPress={onPress}
       dark={tailwind('bg-mono-dark-v2-00')}
       light={tailwind('bg-mono-light-v2-00')}
-      style={tailwind('px-5 py-4.5 rounded-lg-v2 my-1 border-0')}
+      style={tailwind('px-5 py-4.5 rounded-lg-v2 mt-2 border-0')}
       testID={testID}
     >
       <View style={tailwind('flex flex-row items-start')}>
@@ -89,7 +81,7 @@ function PortfolioItemRow ({
           <TokenIcon testID={`${testID}_icon`} token={token} height={36} width={36} />
           <TokenNameTextV2 displaySymbol={token.displaySymbol} name={token.name} testID={testID} />
         </View>
-        <View style={tailwind('w-5/12 flex-row justify-end')}>
+        <View style={tailwind('w-5/12 flex-row justify-end', { 'pt-0.5': Platform.OS === 'android' })}>
           <TokenAmountTextV2
             tokenAmount={token.amount}
             usdAmount={token.usdAmount}

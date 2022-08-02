@@ -99,6 +99,8 @@
     "Sort assets by": "Aktiva anordnen",
     "Highest {{modifiedDenominationCurrency}} value": "Höchster {{modifiedDenominationCurrency}}-Wert",
     "Lowest {{modifiedDenominationCurrency}} value": "Niedrigster {{modifiedDenominationCurrency}}-Wert",
+    "Highest value ({{modifiedDenominationCurrency}})": "Höchster Wert ({{modifiedDenominationCurrency}})",
+    "Lowest value ({{modifiedDenominationCurrency}})": "Niedrigster Wert ({{modifiedDenominationCurrency}})",
     "Highest token amount": "Höchster Tokenbetrag",
     "Lowest token amount": "Niedrigster Tokenbetrag",
     "A to Z": "A bis Z",
@@ -116,7 +118,8 @@
     "Receive DFI in DeFiChain Wallet": "Empfange DFI auf der DeFiChain Wallet",
     "DFI price": "DFI-Preise",
     "WALLET ADDRESS": "WALLETADRESSE",
-    "Share": "Teilen"
+    "Share": "Teilen",
+    "Get DFI now!": "Jetzt DFI kaufen!"
   },
   "screens/MarketplaceScreen": {
     "Marketplace": "Marktplatz",
@@ -176,7 +179,7 @@
     "Address {{index}}": "Adresse {{index}}",
     "Add new address": "Neue Adresse hinzufügen",
     "Add New Address": "Neue Adresse hinzufügen",
-    "Add Address": "Adresse Hinzufügen",
+    "Add Address": "Adresse hinzufügen",
     "Address": "Adresse",
     "ADDRESS": "ADRESSE",
     "Wallet address": "Walletadresse",
