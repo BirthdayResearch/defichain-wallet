@@ -130,10 +130,15 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
     setShowToast(true)
   }
 
+  function onTogglePress (): void {
+    setMode(isUtxoToAccount(mode) ? 'accountToUtxos' : 'utxosToAccount')
+    setAmount('')
+  }
+
   return (
     <ThemedScrollViewV2 style={tailwind('w-full flex-col flex-1')} testID='convert_screen'>
       <View style={tailwind('items-center px-4 pb-16')}>
-        <ConvertToggleButton onPress={() => setMode(isUtxoToAccount(mode) ? 'accountToUtxos' : 'utxosToAccount')} />
+        <ConvertToggleButton onPress={onTogglePress} />
 
         <ThemedTextV2 style={tailwind('font-semibold-v2 text-lg mt-2')}>
           {translate('screens/ConvertScreen', 'Convert DFI')}
@@ -299,7 +304,7 @@ function ConversionInputField (props: { amount: string, setFocused: (isFocus: bo
             onPress={() => props.onChangeText('')}
             testID='conversion_clear_button'
           />
-              )
+        )
         : null}
     </ThemedViewV2>
   )
