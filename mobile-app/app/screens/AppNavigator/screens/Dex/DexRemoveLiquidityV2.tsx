@@ -22,7 +22,7 @@ import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { tokenSelector, tokensSelector } from '@store/wallet'
-import { ViewPoolShareDetails } from './components/ViewPoolShareDetails'
+import { ViewPoolRemoveLiquidityDetails } from './components/ViewPoolRemoveLiquidityDetails'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
@@ -90,7 +90,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   return (
     <ThemedScrollView style={tailwind('w-full flex-col flex-1')}>
       <View>
-        <ViewPoolShareDetails
+        <ViewPoolRemoveLiquidityDetails
           pairData={pair}
           poolInfo={pairInfo}
           totalPooledTokenA={totalTokenA}
