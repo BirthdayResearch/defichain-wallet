@@ -115,6 +115,7 @@ context('Wallet - Addresses', () => {
   context('Wallet - Addresses transfer dfi between addresses', () => {
     let address: string
     it('should able to transfer dfi between addresses', function () {
+      cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('switch_account_button').should('exist').click().wait(1000)
       cy.getByTestID('address_row_text_1').invoke('text').then((sendAddress: string) => {
         address = sendAddress

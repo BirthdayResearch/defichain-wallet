@@ -60,7 +60,8 @@ context('Mainnet - Wallet', () => {
   })
 
   it('should have displayed default tokens', function () {
-    cy.getByTestID('details_dfi').click()
+    cy.getByTestID('dfi_total_balance_amount').contains('0.00000000')
+    cy.getByTestID('dfi_balance_card').should('exist').click()
     cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
     cy.getByTestID('dfi_total_balance_amount').contains('0.00000000')
@@ -127,7 +128,8 @@ context('Mainnet - Wallet', () => {
       cy.fetchWalletBalance()
       cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('portfolio_list').should('exist')
-      cy.getByTestID('details_dfi').click()
+      cy.getByTestID('dfi_total_balance_amount').contains('20.00000000')
+      cy.getByTestID('dfi_balance_card').should('exist').click()
       cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
       cy.getByTestID('dfi_token_amount').contains('10')
       cy.getByTestID('dfi_total_balance_amount').contains('20')
