@@ -12,19 +12,19 @@ import { PortfolioButtonGroupTabKey } from '@screens/AppNavigator/screens/Portfo
 import BigNumber from 'bignumber.js'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 
-interface TokenIconPoolPairProps {
+interface ViewPoolShareDetailsProps {
     pairData: PoolPairData
     poolInfo: WalletToken
     totalPooledTokenA: string
     totalPooledTokenB: string
 }
 
-export function TokenIconPoolPair ({
+export function ViewPoolShareDetails ({
     pairData,
     poolInfo,
     totalPooledTokenA,
     totalPooledTokenB
-}: TokenIconPoolPairProps): JSX.Element {
+}: ViewPoolShareDetailsProps): JSX.Element {
   const TokenIconA = getNativeIcon(pairData.tokenA.displaySymbol)
   const TokenIconB = getNativeIcon(pairData.tokenB.displaySymbol)
 
