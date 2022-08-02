@@ -60,7 +60,12 @@ export interface DexParamList {
     summary: AddLiquiditySummary
     conversion?: ConversionParam
   }
-  RemoveLiquidity: { pair: PoolPairData }
+  RemoveLiquidity: {
+    pair: PoolPairData
+    pairInfo: WalletToken
+    totalTokenA: string
+    totalTokenB: string
+  }
   ConfirmRemoveLiquidity: {
     amount: BigNumber
     fee: BigNumber

@@ -27,13 +27,15 @@ export function TransactionCard ({ maxValue, onChange, status, children }: React
       dark={tailwind('bg-mono-dark-v2-00', {
         'border-0.5 border-mono-dark-v2-800': status === 'active'
       })}
-      style={tailwind('rounded-lg-v2 p-5', {
+      style={tailwind('rounded-lg-v2', {
         'border-0.5 border-red-v2': status === 'error'
       })}
     >
-      {children}
+      <View style={tailwind('pb-4.5 border-b border-mono-dark-v2-300 p-4.5')}>
+        {children}
+      </View>
       <View
-        style={tailwind('flex flex-row bg-transparent justify-around items-center pt-2')}
+        style={tailwind('flex flex-row bg-transparent justify-around items-center p-2.5')}
       >
         {
           [AmountButtonTypes.twentyFive, AmountButtonTypes.half, AmountButtonTypes.seventyFive, AmountButtonTypes.max].map((type, index, { length }) => {
@@ -63,8 +65,8 @@ interface SetAmountButtonProps {
 function SetAmountButton ({
   type,
   onPress,
-  amount
-  // hasBorder,
+  amount,
+  hasBorder
 }: SetAmountButtonProps): JSX.Element {
   const decimalPlace = 8
   let value = amount.toFixed(decimalPlace)
@@ -86,11 +88,13 @@ function SetAmountButton ({
 
   return (
     <ThemedTouchableOpacityV2
-      style={tailwind('border-0')}
       onPress={() => {
         onPress(value)
       }}
       testID={`${type}_amount_button`}
+      style={tailwind({ 'border-r-0.5': hasBorder })}
+      light={tailwind('border-mono-light-v2-300')}
+      dark={tailwind('border-mono-dark-v2-300')}
     >
       <ThemedTextV2
         light={tailwind('text-mono-light-v2-700')}

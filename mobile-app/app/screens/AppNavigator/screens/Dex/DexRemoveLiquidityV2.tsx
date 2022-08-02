@@ -22,6 +22,7 @@ import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { tokenSelector, tokensSelector } from '@store/wallet'
+import { TokenIconPoolPair } from './components/TokenIconPoolPair'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
@@ -44,7 +45,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
 
   // gather required data
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const { pair } = props.route.params
+  const { pair, pairInfo, totalTokenA, totalTokenB } = props.route.params
   const lmToken = tokens.find(token => token.symbol === pair.symbol) as AddressToken
   const tokenAPerLmToken = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
   const tokenBPerLmToken = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
@@ -88,6 +89,14 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
 
   return (
     <ThemedScrollView style={tailwind('w-full flex-col flex-1')}>
+      <View>
+        <TokenIconPoolPair
+          pairData={pair}
+          poolInfo={pairInfo}
+          totalPooledTokenA={totalTokenA}
+          totalPooledTokenB={totalTokenB}
+        />
+      </View>
       <ThemedView style={tailwind('w-full mt-6')}>
         <ThemedText
           style={tailwind('text-base ml-4 mb-2')}

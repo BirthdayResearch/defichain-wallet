@@ -45,7 +45,7 @@ interface PoolPairCardProps {
   availablePairs: Array<DexItem<PoolPairData>>
   yourPairs: Array<DexItem<WalletToken>>
   onAdd: (data: PoolPairData) => void
-  onRemove: (data: PoolPairData) => void
+  onRemove: (data: PoolPairData, info: WalletToken, tokenApool: string, tokenBpool: string) => void
   onSwap: (data: PoolPairData) => void
   type: 'your' | 'available'
   setIsSearching: (isSearching: boolean) => void
@@ -198,7 +198,7 @@ interface PoolCardProps {
   isFavouritePoolpair: (id: string) => boolean
   setFavouritePoolpair: (id: string) => void
   onAdd: (data: PoolPairData) => void
-  onRemove: (data: PoolPairData) => void
+  onRemove: (data: PoolPairData, info: WalletToken, tokenApool: string, tokenBpool: string) => void
   onSwap: (data: PoolPairData) => void
   type: 'your' | 'available'
   index: number
@@ -384,7 +384,7 @@ const PoolCard = ({
         <View style={tailwind('mb-2')}>
           <ActionSection
             onAdd={() => onAdd(mappedPair)}
-            onRemove={() => onRemove(mappedPair)}
+            onRemove={() => onRemove(mappedPair, yourPair as WalletToken, tokenATotal.toFixed(8), tokenBTotal.toFixed(8))}
             onSwap={() => onSwap(mappedPair)}
             symbol={symbol}
             type={type}
