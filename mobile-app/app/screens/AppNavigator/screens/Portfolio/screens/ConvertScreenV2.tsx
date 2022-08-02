@@ -87,7 +87,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
       const isMax = percentageType === AmountButtonTypes.max
       const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
       const toastOption = {
-        unit: sourceToken?.unit,
+        unit: getDisplayUnit(sourceToken?.unit),
         percent: percentageType
       }
       toast.show(translate('screens/ConvertScreen', toastMessage, toastOption), {
@@ -178,7 +178,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
                   ? 'A small amount of UTXO is reserved for fees'
                   : 'Available: {{amount}} {{unit}}', {
                 amount: new BigNumber(sourceToken.amount).toFixed(8),
-                unit: sourceToken.unit
+                unit: getDisplayUnit(sourceToken.unit)
               })
             }
           </ThemedTextV2>
@@ -187,7 +187,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
         {canConvert(convAmount, sourceToken.amount) && (
           <View style={tailwind('flex-col w-full')}>
             <ConversionResultCard
-              unit={targetToken.unit} convertAmount={convAmount}
+              unit={getDisplayUnit(targetToken.unit)} convertAmount={convAmount}
               targetAmount={targetToken.amount}
             />
 
@@ -310,7 +310,7 @@ function ConversionInputField (props: { amount: string, setFocused: (isFocus: bo
   )
 }
 
-function ConversionResultCard (props: { unit: string, convertAmount: string, targetAmount: string }): JSX.Element {
+function ConversionResultCard (props: { unit: string | undefined, convertAmount: string, targetAmount: string }): JSX.Element {
   return (
     <ThemedViewV2
       style={tailwind('flex-col w-full p-5 mt-6 rounded-lg-v2 border-0.5')} testID='convert_result_card'
@@ -367,4 +367,11 @@ function getConvertibleUtxoAmount (mode: ConversionMode, source: AddressToken): 
 
 function isUtxoToAccount (mode: ConversionMode): boolean {
   return mode === 'utxosToAccount'
+}
+
+function getDisplayUnit (unit?: string): string | undefined {
+  if (unit === 'Token') {
+    return 'tokens'
+  }
+  return unit
 }
