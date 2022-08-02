@@ -66,8 +66,8 @@ export function ViewPoolDetailsModal ({
               <TokenIconB style={tailwind('ml-5 z-40')} width={32} height={32} />
             </View>
             <ThemedTextV2
-              dark={tailwind('text-gray-50')}
-              light={tailwind('text-gray-900')}
+              dark={tailwind('text-mono-dark-v2-900')}
+              light={tailwind('text-mono-light-v2-900')}
               style={tailwind('pl-1 text-2xl font-semibold')}
             >
               {`${pairData.tokenA.displaySymbol}-${pairData.tokenB.displaySymbol}`}
