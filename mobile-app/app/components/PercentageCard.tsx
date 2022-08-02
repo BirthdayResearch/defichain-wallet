@@ -18,7 +18,7 @@ export enum AmountButtonTypes {
 }
 
 export function PercentageCard ({ maxValue, onChange, status, children }: React.PropsWithChildren<PercentageCardProps>): JSX.Element {
-  const [isFocus, setIsFocus] = useState(false)
+  // const [isFocus, setIsFocus] = useState(false)
   return (
     <ThemedViewV2
       light={tailwind('bg-mono-light-v2-00', {
@@ -34,7 +34,7 @@ export function PercentageCard ({ maxValue, onChange, status, children }: React.
     >
       <ThemedViewV2
         light={tailwind('bg-mono-light-v2-00')}
-        dark={tailwind('bg-mono-dark-v2-00',)}
+        dark={tailwind('bg-mono-dark-v2-00')}
         style={tailwind('px-5 pt-2 rounded-t-2xl-v2 bg-red-200')}
       >
         {children}
@@ -69,7 +69,7 @@ interface SetAmountButtonProps {
   hasBorder?: boolean
 }
 
-function SetAmountButton({
+function SetAmountButton ({
   type,
   onPress,
   amount,
