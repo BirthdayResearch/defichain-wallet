@@ -137,8 +137,6 @@ context('Wallet - Send', function () {
         cy.getByTestID('send_balance_button').click().wait(3000)
         cy.getByTestID('select_token_input').click()
         cy.getByTestID('select_DFI').click().wait(3000)
-        // cy.getByTestID('dfi_balance_card_touchable').click()
-        // cy.getByTestID('send_button').click()
         cy.getByTestID('address_input').clear().type(address)
         cy.getByTestID('amount_input').clear().type('1')
         cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
