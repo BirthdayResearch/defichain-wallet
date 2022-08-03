@@ -672,11 +672,17 @@
     "Sent (Pending confirmation)": "Gesendet (Bestätigung ausstehend)",
     "Broadcasting...": "Übertrage...",
     "OK": "OK",
-    "Insufficient UTXO DFI": "Nicht ausreichend UTXO-DFI",
-    "Not enough balance": "Guthaben zu niedrig",
+    "Insufficient UTXO DFI.": "Nicht ausreichend UTXO-DFI",
+    "Insufficient balance. Top up to proceed.": "Insufficient balance. Top up to proceed.",
     "Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.": "Tauschpreis ist höher als die durch die Slippage-Toleranz erlaubte Spanne. Erhöhe den Toleranzprozentsatz, um fortzufahren.",
     "Preparing broadcast": "Übertragung wird vorbereitet",
-    "Waiting for transaction": "Warten auf Transaktion"
+    "Waiting for transaction": "Warten auf Transaktion",
+    "Insufficient DFI collateral (≥50%)": "Insufficient DFI collateral (≥50%)",
+    "Insufficient liquidity.": "Insufficient liquidity.",
+    "Cannot payback loan due to invalid price.": "Cannot payback loan due to invalid price.",
+    "No live fixed prices for loan token.": "No live fixed prices for loan token.",
+    "Vault does not meet min. collateral ratio. Add collateral to proceed.": "Vault does not meet min. collateral ratio. Add collateral to proceed.",
+    "Input amount is too low. Increase the amount to continue.": "Input amount is too low. Increase the amount to continue."
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Kameranutzung erlauben",

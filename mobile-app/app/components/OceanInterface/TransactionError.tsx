@@ -20,7 +20,8 @@ export enum ErrorCodes {
   LackOfLiquidity = 5,
   PaybackLoanInvalidPrice = 6,
   NoLiveFixedPrices = 7,
-  VaultNotEnoughCollateralization = 8
+  VaultNotEnoughCollateralization = 8,
+  DustValue = 9
 }
 
 export interface ErrorMapping {
@@ -118,12 +119,12 @@ function errorMessageMapping (err: string): ErrorMapping {
   if (err === 'not enough balance after combing all prevouts') {
     return {
       code: ErrorCodes.InsufficientUTXO,
-      message: 'Insufficient UTXO DFI'
+      message: 'Insufficient UTXO DFI.'
     }
   } else if (err.includes('amount') && err.includes('is less than')) {
     return {
       code: ErrorCodes.InsufficientBalance,
-      message: 'Not enough balance'
+      message: 'Insufficient balance. Top up to proceed.'
     }
   } else if (err.includes('Price is higher than indicated.')) {
     return {
@@ -133,7 +134,7 @@ function errorMessageMapping (err: string): ErrorMapping {
   } else if (err.includes('no prevouts available to create a transaction')) {
     return {
       code: ErrorCodes.InsufficientUTXO,
-      message: 'Insufficient UTXO DFI'
+      message: 'Insufficient UTXO DFI.'
     }
   } else if (err.includes('At least 50% of the vault must be in DFI when taking a loan')) {
     return {
@@ -143,22 +144,27 @@ function errorMessageMapping (err: string): ErrorMapping {
   } else if (err.includes('Lack of liquidity')) {
     return {
       code: ErrorCodes.LackOfLiquidity,
-      message: 'Pool does not have enough liquidity'
+      message: 'Insufficient liquidity.'
     }
   } else if (err.includes('Cannot payback loan while any of the asset\'s price is invalid')) {
     return {
       code: ErrorCodes.PaybackLoanInvalidPrice,
-      message: 'Cannot payback loan due to invalid price'
+      message: 'Cannot payback loan due to invalid price.'
     }
   } else if (err.includes('No live fixed prices')) {
     return {
       code: ErrorCodes.NoLiveFixedPrices,
-      message: 'No live fixed prices for loan token'
+      message: 'No live fixed prices for loan token.'
     }
   } else if (err.includes('Vault does not have enough collateralization ratio defined by loan scheme')) {
     return {
       code: ErrorCodes.VaultNotEnoughCollateralization,
-      message: 'Vault does not have enough col. ratio'
+      message: 'Vault does not meet min. collateral ratio. Add collateral to proceed.'
+    }
+  } else if (err.includes('dust (code 64)')) {
+    return {
+      code: ErrorCodes.DustValue,
+      message: 'Input amount is too low. Increase the amount to continue.'
     }
   }
 

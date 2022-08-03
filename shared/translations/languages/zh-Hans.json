@@ -675,11 +675,17 @@
     "Sent (Pending confirmation)": "已发出尚未完全确认",
     "Broadcasting...": "播送...",
     "OK": "好了",
-    "Insufficient UTXO DFI": "不足够的UTXO DFI",
-    "Not enough balance": "余额不足",
+    "Insufficient UTXO DFI.": "不足够的UTXO DFI",
+    "Insufficient balance. Top up to proceed.": "Insufficient balance. Top up to proceed.",
     "Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.": "兑换价格已超出滑点设置的容许范围。调整容许滑点百分比再继续进行。",
     "Preparing broadcast": "准备传输",
-    "Waiting for transaction": "等待交易"
+    "Waiting for transaction": "等待交易",
+    "Insufficient DFI collateral (≥50%)": "Insufficient DFI collateral (≥50%)",
+    "Insufficient liquidity.": "Insufficient liquidity.",
+    "Cannot payback loan due to invalid price.": "Cannot payback loan due to invalid price.",
+    "No live fixed prices for loan token.": "No live fixed prices for loan token.",
+    "Vault does not meet min. collateral ratio. Add collateral to proceed.": "Vault does not meet min. collateral ratio. Add collateral to proceed.",
+    "Input amount is too low. Increase the amount to continue.": "Input amount is too low. Increase the amount to continue."
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "请许可程序使用相机",
