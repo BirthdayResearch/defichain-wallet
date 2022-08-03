@@ -458,8 +458,6 @@
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "Le taux d'intérêt total appliqué sur un prêt est obtenu en prenant le taux d'intérêt du vault + le taux d'intérêt du token, et est calculé sur une base annuelle.",
     "What is collateral factor?": "Qu'est-ce que le facteur de garantie ?",
     "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "Le facteur de garantie détermine le degré de contribution de chaque token de garantie. Par exemple, si un token est accepté avec un facteur de garantie de 70 %, une valeur de 100 $ du token contribuera à 70 $ de valeur de garantie dans un vault.",
-    "Why is there a 5% fee when paying DUSD loans with DFI?": "Pourquoi y a-t-il des frais de 5 % lors du remboursement des prêts DUSD avec DFI ?",
-    "Per DFIP 2206-C, when DUSD loans are paid back in DFI, a 5% fees will be charged to users. This is an interim measure to incentivize arbitrage traders to use DUSD to pay back their loans which will reduce the DUSD supply in the market.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 5% additional fee is applied to the DFI/DUSD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, the value of DFI in a DUSD payment is calculated by taking $10*(1-0.05), effectively reducing the value of DFI by 5% to $9.50 in such a scenario.": "Conformément au DFIP 2206-C, lorsque les prêts DUSD sont remboursés en DFI, des frais de fourniture de 5% seront facturés aux utilisateurs. Il s'agit d'une mesure provisoire visant à inciter les arbitres à utiliser les DUSD pour rembourser leurs prêts, ce qui réduira l'offre de DUSD sur le marché. Lors du calcul de l'équivalent DFI à payer pour un prêt en DUSD, des frais supplémentaires de 5 % sont appliqués à la valeur oracle DFI/DUSD.\n\nPour illustrer, si le prix oracle DFI/USD est de 10 $ aujourd'hui, la valeur du DFI dans un paiement DUSD est calculée en prenant 10 $*(1-0,05), ce qui réduit effectivement la valeur du DFI de 5 % à 9,50 $ dans un tel scénario.",
     "What is vault share?": "Qu'est-ce qu'une part de vault?",
     "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "La part de vault représente la proportion de tokens de garantie déposés dans un vault. Tous les vaults doivent contenir au moins 50 % de DFI et/ou de DUSD comme tokens de garantie. Cette exigence est vérifiée à deux occasions — lorsque vous mintez de nouveaux dTokens et lorsque vous retirez des garanties de votre vault."
   },
@@ -685,11 +683,17 @@
     "Sent (Pending confirmation)": "Envoyée (en attente de confirmation)",
     "Broadcasting...": "Envoi...",
     "OK": "OK",
-    "Insufficient UTXO DFI": "UTXO DFI insuffisant",
-    "Not enough balance": "Pas assez de solde",
+    "Insufficient UTXO DFI.": "UTXO DFI insuffisant.",
+    "Insufficient balance. Top up to proceed.": "Solde insuffisant. Compléter pour procéder.",
     "Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.": "Le prix d'échange est supérieur à la fourchette autorisée par la tolérance de glissement. Augmentez le pourcentage de tolérance pour continuer.",
     "Preparing broadcast": "Préparation de l'envoi",
-    "Waiting for transaction": "Attente de la transaction"
+    "Waiting for transaction": "Attente de la transaction",
+    "Insufficient DFI collateral. (≥50%)": "Garantie DFI insuffisante. (≥50%)",
+    "Insufficient liquidity.": "Liquidité insuffisante.",
+    "Unable to payback loan due to invalid price.": "Impossible de rembourser le prêt en raison d'un prix invalide.",
+    "No live fixed prices for loan token.": "Pas de prix fixe en direct pour le token de prêt.",
+    "Vault does not meet min. collateral ratio. Add collateral to proceed.": "Le vault ne respecte pas le ratio de garantie minimum. Ajouter une garantie pour continuer.",
+    "Input amount is too low. Increase the amount to continue.": "Le montant entré est trop faible. Augmenter le montant pour continuer."
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Demande d'accès à votre caméra",
