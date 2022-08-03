@@ -24,14 +24,13 @@ import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/typ
 import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/BottomSheetWithNavV2'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { ViewPoolHeader } from './components/ViewPoolHeader'
-import { ViewPoolShareDetails } from './components/ViewPoolShareDetails'
+import { ViewPoolDetails } from './components/ViewPoolDetails'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
 export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   const logger = useLogger()
   const client = useWhaleApiClient()
-
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -136,9 +135,8 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
     return [
       {
         stackScreenName: 'ViewPoolShare',
-        component: ViewPoolShareDetails({
-          tokenA: pair.tokenA.displaySymbol,
-          tokenB: pair.tokenB.displaySymbol,
+        component: ViewPoolDetails({
+          dataRoutes: 'remove',
           pairData: pair,
           poolInfo: pairInfo,
           totalPooledTokenA: totalTokenA,
