@@ -24,7 +24,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.defichain.app.dfx",
-      "buildNumber": "1.15.8.0",
+      "buildNumber": "1.15.8.1",
       "infoPlist": {
         "NSFaceIDUsageDescription": "This app uses FaceID to enable privacy lock on device."
       }
