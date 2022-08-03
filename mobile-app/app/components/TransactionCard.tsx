@@ -26,14 +26,14 @@ export function TransactionCard ({ maxValue, onChange, status, children }: React
       dark={tailwind('bg-mono-dark-v2-00', {
         'border-0.5 border-mono-dark-v2-800': status === 'active'
       })}
-      style={tailwind('rounded-2xl-v2', {
+      style={tailwind('rounded-lg-v2', {
         'border-0.5 border-red-v2': status === 'error'
       })}
     >
       <ThemedViewV2
         light={tailwind('bg-mono-light-v2-00')}
         dark={tailwind('bg-mono-dark-v2-00')}
-        style={tailwind('px-5 pt-2 rounded-t-2xl-v2')}
+        style={tailwind('px-5 pt-2 rounded-t-lg-v2')}
       >
         {children}
       </ThemedViewV2>
