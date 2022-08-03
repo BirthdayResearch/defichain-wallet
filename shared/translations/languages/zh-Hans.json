@@ -680,7 +680,7 @@
     "Waiting for transaction": "等待交易",
     "Insufficient DFI collateral (≥50%)": "Insufficient DFI collateral (≥50%)",
     "Insufficient liquidity.": "Insufficient liquidity.",
-    "Cannot payback loan due to invalid price.": "Cannot payback loan due to invalid price.",
+    "Unable to payback loan due to invalid price.": "Unable to payback loan due to invalid price.",
     "No live fixed prices for loan token.": "No live fixed prices for loan token.",
     "Vault does not meet min. collateral ratio. Add collateral to proceed.": "Vault does not meet min. collateral ratio. Add collateral to proceed.",
     "Input amount is too low. Increase the amount to continue.": "Input amount is too low. Increase the amount to continue."

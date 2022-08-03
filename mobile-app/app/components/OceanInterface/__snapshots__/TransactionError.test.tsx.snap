@@ -331,7 +331,7 @@ exports[`info text should match snapshot for error Cannot payback loan while any
           ]
         }
       >
-        Cannot payback loan due to invalid price.
+        Unable to payback loan due to invalid price.
       </Text>
     </View>
   </View>

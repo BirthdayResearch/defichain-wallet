@@ -149,7 +149,7 @@ function errorMessageMapping (err: string): ErrorMapping {
   } else if (err.includes('Cannot payback loan while any of the asset\'s price is invalid')) {
     return {
       code: ErrorCodes.PaybackLoanInvalidPrice,
-      message: 'Cannot payback loan due to invalid price.'
+      message: 'Unable to payback loan due to invalid price.'
     }
   } else if (err.includes('No live fixed prices')) {
     return {
