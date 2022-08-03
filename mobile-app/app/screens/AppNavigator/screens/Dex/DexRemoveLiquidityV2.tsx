@@ -1,13 +1,12 @@
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import Slider from '@react-native-community/slider'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
-import { useEffect, useState, useCallback, useRef, useMemo, memo } from 'react'
-import { StyleProp, TouchableOpacity, ViewStyle, Platform, TextStyle, View } from 'react-native'
+import { useEffect, useState, useCallback, useRef, useMemo } from 'react'
+import { Platform, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Button } from '@components/Button'
-import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView, ThemedTextV2, ThemedTouchableOpacityV2, ThemedIcon, ThemedViewV2 } from '@components/themed'
+import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView, ThemedTouchableOpacityV2, ThemedIcon } from '@components/themed'
 import { TokenBalanceRow } from '@components/TokenBalanceRow'
 import { WalletTextInput } from '@components/WalletTextInput'
 import { TokenIconPair } from '@components/TokenIconPair'
@@ -20,17 +19,12 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { tokenSelector, tokensSelector, WalletToken } from '@store/wallet'
-import { getNativeIcon } from '@components/icons/assets'
+import { tokenSelector, tokensSelector } from '@store/wallet'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/BottomSheetWithNavV2'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { PortfolioButtonGroupTabKey } from '@screens/AppNavigator/screens/Portfolio/components/TotalPortfolio'
-import { useDenominationCurrency } from '@screens/AppNavigator/screens/Portfolio/hooks/PortfolioCurrency'
-import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
-import { ViewPoolAmountRow } from './components/ViewPoolAmountRow'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { ViewPoolHeader } from './components/ViewPoolHeader'
+import { ViewPoolShareDetails } from './components/ViewPoolShareDetails'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
@@ -142,7 +136,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
     return [
       {
         stackScreenName: 'ViewPoolShare',
-        component: ViewPoolContentsDetails({
+        component: ViewPoolShareDetails({
           tokenA: pair.tokenA.displaySymbol,
           tokenB: pair.tokenB.displaySymbol,
           pairData: pair,
@@ -170,11 +164,6 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
           >
             {translate('screens/RemoveLiquidity', 'Drag or enter amount to remove')}
           </ThemedText>
-          <AmountSlider
-            current={Number(percentage)}
-            onChange={setInputPercentage}
-            viewStyle={tailwind('p-4')}
-          />
           <ThemedView
             dark={tailwind('bg-gray-800')}
             light={tailwind('bg-white')}
@@ -289,54 +278,6 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   )
 }
 
-function AmountSlider (props: { current: number, onChange: (percentage: string) => void, viewStyle: StyleProp<ViewStyle> }): JSX.Element {
-  return (
-    <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-200')}
-      style={[tailwind('flex-row items-center'), props.viewStyle]}
-    >
-      <TouchableOpacity
-        onPress={() => props.onChange('0.00')}
-        testID='button_slider_min'
-      >
-        <ThemedText
-          dark={tailwind('text-gray-300')}
-          light={tailwind('text-gray-500')}
-          style={tailwind(' text-xs')}
-        >
-          {translate('components/slider', 'None')}
-        </ThemedText>
-      </TouchableOpacity>
-
-      <View style={tailwind('flex-1 ml-4 mr-4')}>
-        <Slider
-          maximumValue={100}
-          minimumTrackTintColor='#ff00af'
-          minimumValue={0}
-          onSlidingComplete={(val) => props.onChange(new BigNumber(val).toFixed(2))}
-          testID='slider_remove_liq_percentage'
-          thumbTintColor='#ff00af'
-          value={isNaN(props.current) ? 0 : props.current}
-        />
-      </View>
-
-      <TouchableOpacity
-        onPress={() => props.onChange('100.00')}
-        testID='button_slider_max'
-      >
-        <ThemedText
-          dark={tailwind('text-gray-400')}
-          light={tailwind('text-gray-500')}
-          style={tailwind('text-xs')}
-        >
-          {translate('components/slider', 'Max')}
-        </ThemedText>
-      </TouchableOpacity>
-    </ThemedView>
-  )
-}
-
 function HelperText (props: { displayedPercentage: string }): JSX.Element {
   return (
     <ThemedView
@@ -362,130 +303,3 @@ function ContinueButton (props: { enabled: boolean, onPress: () => void }): JSX.
     />
   )
 }
-
-interface ViewPoolContentsDetailsProps {
-  tokenA: string
-  tokenB: string
-  pairData: PoolPairData
-  poolInfo: WalletToken
-  totalPooledTokenA: string
-  totalPooledTokenB: string
-  infoIconStyle?: StyleProp<TextStyle>
-}
-
-const ViewPoolContentsDetails = (props: ViewPoolContentsDetailsProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
-  const TokenIconA = getNativeIcon(props.tokenA)
-  const TokenIconB = getNativeIcon(props.tokenB)
-
-  const { denominationCurrency } = useDenominationCurrency()
-    const { getTokenPrice } = useTokenPrice()
-    const getUSDValue = (
-      amount: BigNumber,
-      symbol: string,
-      isLPs: boolean = false
-    ): BigNumber => {
-      return getTokenPrice(symbol, amount, isLPs)
-  }
-
-  return (
-    <ThemedViewV2
-      light={tailwind('bg-mono-light-v2-100')}
-      dark={tailwind('bg-mono-dark-v2-100')}
-      style={tailwind('px-5 h-full')}
-    >
-      <View style={tailwind('flex-row mb-3')}>
-        <View>
-          <TokenIconA style={tailwind('absolute z-50')} width={32} height={32} />
-          <TokenIconB style={tailwind('ml-5 z-40')} width={32} height={32} />
-        </View>
-        <ThemedTextV2
-          dark={tailwind('text-mono-dark-v2-900')}
-          light={tailwind('text-mono-light-v2-900')}
-          style={tailwind('pl-1 text-2xl font-semibold')}
-        >
-          {`${props.tokenA}-${props.tokenB}`}
-        </ThemedTextV2>
-      </View>
-
-      <View style={tailwind('mt-5')}>
-        <View style={tailwind('mb-3')}>
-          <ViewPoolAmountRow
-            label={translate('screens/RemoveLiquidity', 'Pool share')}
-            amount={props.poolInfo.amount}
-            valueThemeProps={{
-              dark: tailwind('text-mono-dark-v2-900'),
-              light: tailwind('text-mono-light-v2-900')
-            }}
-            suffix={` ${props.poolInfo.displaySymbol}`}
-            testID='Pool_share_amount'
-          />
-          <ViewPoolAmountRow
-            amount='3.123'
-            valueThemeProps={{
-              dark: tailwind('text-mono-dark-v2-700'),
-              light: tailwind('text-mono-light-v2-700')
-            }}
-            prefix='('
-            suffix='%)'
-            testID='Pool_share_amount'
-          />
-        </View>
-        <View style={tailwind('mb-3')}>
-          <ViewPoolAmountRow
-            label={translate('screens/RemoveLiquidity', `Pooled ${props.pairData.tokenA.displaySymbol}`)}
-            amount={props.totalPooledTokenA}
-            valueThemeProps={{
-              dark: tailwind('text-mono-dark-v2-900'),
-              light: tailwind('text-mono-light-v2-900')
-            }}
-            testID='Pool_share_amount'
-          />
-          <ViewPoolAmountRow
-            amount={getUSDValue(new BigNumber(props.totalPooledTokenA), props.pairData.tokenA.symbol).toFixed(2)}
-            valueThemeProps={{
-              dark: tailwind('text-mono-dark-v2-700'),
-              light: tailwind('text-mono-light-v2-700')
-            }}
-            prefix={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
-            suffix={denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${denominationCurrency}` : undefined}
-            testID='Pool_share_amount'
-          />
-        </View>
-        <View style={tailwind('mb-3')}>
-          <ViewPoolAmountRow
-            label={translate('screens/RemoveLiquidity', `Pooled ${props.pairData.tokenB.displaySymbol}`)}
-            amount={props.totalPooledTokenB}
-            valueThemeProps={{
-              dark: tailwind('text-mono-dark-v2-900'),
-              light: tailwind('text-mono-light-v2-900')
-            }}
-            testID='Pool_share_amount'
-          />
-          <ViewPoolAmountRow
-            amount={getUSDValue(new BigNumber(props.totalPooledTokenB), props.pairData.tokenB.symbol).toFixed(2)}
-            valueThemeProps={{
-              dark: tailwind('text-mono-dark-v2-700'),
-              light: tailwind('text-mono-light-v2-700')
-            }}
-            prefix={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
-            suffix={denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${denominationCurrency}` : undefined}
-            testID='Pool_share_amount'
-          />
-        </View>
-        {props.pairData?.apr?.total !== undefined && props.pairData?.apr?.total !== null && (
-          <ViewPoolAmountRow
-            label='APR'
-            amount={new BigNumber(isNaN(props.pairData.apr.total) ? 0 : props.pairData.apr.total).times(100).toFixed(2)}
-            valueThemeProps={{
-              dark: tailwind('text-darksuccess-500'),
-              light: tailwind('text-success-500')
-            }}
-            valueTextStyle={tailwind('font-semibold-v2')}
-            suffix='%'
-            testID='Pool_share_amount'
-          />
-        )}
-      </View>
-    </ThemedViewV2>
-  )
-})

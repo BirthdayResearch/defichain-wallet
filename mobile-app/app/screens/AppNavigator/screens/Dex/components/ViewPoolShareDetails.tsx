@@ -1,25 +1,39 @@
-import { View, StyleProp, TextStyle } from 'react-native'
+import { StyleProp, TextStyle, View } from 'react-native'
+import { memo } from 'react'
 import { tailwind } from '@tailwind'
-import { translate } from '@translations'
-import { ViewPoolDetailsModal } from './ViewPoolDetailsModal'
-import { ViewPoolAmountRow } from './ViewPoolAmountRow'
-import { WalletToken } from '@store/wallet'
+import BigNumber from 'bignumber.js'
+import { getNativeIcon } from '@components/icons/assets'
+import { ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { WalletToken } from '@store/wallet'
 import { PortfolioButtonGroupTabKey } from '@screens/AppNavigator/screens/Portfolio/components/TotalPortfolio'
 import { useDenominationCurrency } from '@screens/AppNavigator/screens/Portfolio/hooks/PortfolioCurrency'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
-import BigNumber from 'bignumber.js'
+import { ViewPoolAmountRow } from './ViewPoolAmountRow'
+import { translate } from '@translations'
 
-interface PoolInfoModalProps {
-    pairData: PoolPairData
-    poolInfo: WalletToken
-    totalPooledTokenA: string
-    totalPooledTokenB: string
-    infoIconStyle?: StyleProp<TextStyle>
+interface ViewPoolContentsDetailsProps {
+  tokenA: string
+  tokenB: string
+  pairData: PoolPairData
+  poolInfo: WalletToken
+  totalPooledTokenA: string
+  totalPooledTokenB: string
+  infoIconStyle?: StyleProp<TextStyle>
 }
 
-export function ViewPoolRemoveLiquidityDetails ({ pairData, poolInfo, totalPooledTokenA, totalPooledTokenB }: PoolInfoModalProps): JSX.Element {
-    const { denominationCurrency } = useDenominationCurrency()
+export const ViewPoolShareDetails = ({
+    tokenA,
+    tokenB,
+    pairData,
+    poolInfo,
+    totalPooledTokenA,
+    totalPooledTokenB
+  }: ViewPoolContentsDetailsProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
+  const TokenIconA = getNativeIcon(tokenA)
+  const TokenIconB = getNativeIcon(tokenB)
+
+  const { denominationCurrency } = useDenominationCurrency()
     const { getTokenPrice } = useTokenPrice()
     const getUSDValue = (
       amount: BigNumber,
@@ -27,13 +41,29 @@ export function ViewPoolRemoveLiquidityDetails ({ pairData, poolInfo, totalPoole
       isLPs: boolean = false
     ): BigNumber => {
       return getTokenPrice(symbol, amount, isLPs)
-    }
+  }
 
-    return (
-      <ViewPoolDetailsModal
-        pairData={pairData}
-        triggerLabel={translate('screens/RemoveLiquidity', 'View pool share')}
-      >
+  return (
+    <ThemedViewV2
+      light={tailwind('bg-mono-light-v2-100')}
+      dark={tailwind('bg-mono-dark-v2-100')}
+      style={tailwind('px-5 h-full')}
+    >
+      <View style={tailwind('flex-row mb-3')}>
+        <View>
+          <TokenIconA style={tailwind('absolute z-50')} width={32} height={32} />
+          <TokenIconB style={tailwind('ml-5 z-40')} width={32} height={32} />
+        </View>
+        <ThemedTextV2
+          dark={tailwind('text-mono-dark-v2-900')}
+          light={tailwind('text-mono-light-v2-900')}
+          style={tailwind('pl-1 text-2xl font-semibold')}
+        >
+          {`${tokenA}-${tokenB}`}
+        </ThemedTextV2>
+      </View>
+
+      <View style={tailwind('mt-5')}>
         <View style={tailwind('mb-3')}>
           <ViewPoolAmountRow
             label={translate('screens/RemoveLiquidity', 'Pool share')}
@@ -111,6 +141,7 @@ export function ViewPoolRemoveLiquidityDetails ({ pairData, poolInfo, totalPoole
             testID='Pool_share_amount'
           />
         )}
-      </ViewPoolDetailsModal>
-    )
-}
+      </View>
+    </ThemedViewV2>
+  )
+})
