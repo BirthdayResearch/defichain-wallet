@@ -6,7 +6,6 @@ import { HeaderTitle } from '@components/HeaderTitle'
 import { PriceRateProps } from '@components/PricesSection'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
-import { AddLiquidityScreen } from './DexAddLiquidity'
 import { ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
 import { RemoveLiquidityConfirmScreen } from './DexConfirmRemoveLiquidity'
 import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
@@ -15,6 +14,10 @@ import { CompositeSwapScreen, OwnedTokenState, TokenState } from './CompositeSwa
 import { CompositeSwapForm, ConfirmCompositeSwapScreen } from './CompositeSwap/ConfirmCompositeSwapScreen'
 import { WalletToken } from '@store/wallet'
 import { ConversionParam } from '../Portfolio/PortfolioNavigator'
+import { AddLiquidityScreenV2 } from './DexAddLiquidityV2'
+import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
+import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 
 export interface DexParamList {
   DexScreen: undefined
@@ -84,6 +87,11 @@ const DexStack = createStackNavigator<DexParamList>()
 
 export function DexNavigator (): JSX.Element {
   const headerContainerTestId = 'dex_header_container'
+  const screenOptions = useNavigatorScreenOptions()
+  const navigation = useNavigation<NavigationProp<DexParamList>>()
+  const goToNetworkSelect = (): void => {
+    navigation.navigate('NetworkSelectionScreen')
+  }
 
   return (
     <DexStack.Navigator
@@ -108,15 +116,14 @@ export function DexNavigator (): JSX.Element {
       />
 
       <DexStack.Screen
-        component={AddLiquidityScreen}
+        component={AddLiquidityScreenV2}
         name='AddLiquidity'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Add Liquidity')}
-              containerTestID={headerContainerTestId}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate('screens/DexScreen', 'Add Liquidity')
         }}
       />
 
