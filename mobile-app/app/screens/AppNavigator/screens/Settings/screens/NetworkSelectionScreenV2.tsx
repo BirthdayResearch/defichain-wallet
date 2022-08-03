@@ -77,17 +77,22 @@ export function NetworkSelectionScreenV2 (): JSX.Element {
         <NumberRowV2
           lhs={{
             value: translate('screens/NetworkDetails', 'Total masternodes'),
-            testID: 'network_details_total_masternodes'
+            testID: 'network_details_total_masternodes',
+            lightTextStyle: tailwind('text-mono-light-v2-900'),
+            darkTextStyle: tailwind('text-mono-dark-v2-900')
           }}
           rhs={{
             value: masternodeCount ?? '',
-            testID: 'network_details_total_masternodes'
+            testID: 'network_details_total_masternodes',
+            lightTextStyle: tailwind('text-mono-light-v2-700'),
+            darkTextStyle: tailwind('text-mono-dark-v2-700')
           }}
           containerStyle={{
             style: tailwind('pt-4.5 flex-row items-start w-full bg-transparent'),
             light: tailwind('bg-transparent'),
             dark: tailwind('bg-transparent')
           }}
+          
         />
       </ThemedViewV2>
     </ThemedScrollViewV2>
