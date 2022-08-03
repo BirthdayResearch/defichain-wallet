@@ -7,10 +7,13 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
   <RCTScrollView
     contentContainerStyle={
       Object {
+        "display": "flex",
         "flexDirection": "row",
+        "justifyContent": "space-between",
         "marginTop": 32,
         "paddingLeft": 20,
         "paddingRight": 20,
+        "width": "100%",
       }
     }
     horizontal={true}

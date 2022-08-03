@@ -52,6 +52,7 @@ import {
 import {
   BottomSheetHeaderBackButton
 } from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetHeaderBackButton'
+import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
@@ -597,6 +598,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
 function AssetSortRow (props: { isSorted: boolean, assetSortType: PortfolioSortType, modifiedDenominationCurrency: string, onPress: () => void }): JSX.Element {
   const highestCurrencyValue = translate('screens/PortfolioScreen', 'Highest value ({{modifiedDenominationCurrency}})', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
   const lowestCurrencyValue = translate('screens/PortfolioScreen', 'Lowest value ({{modifiedDenominationCurrency}})', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
+  const { language } = useLanguageContext()
   const getDisplayedSortText = useCallback((text: PortfolioSortType): string => {
     if (text === PortfolioSortType.HighestDenominationValue) {
       return highestCurrencyValue
@@ -604,7 +606,7 @@ function AssetSortRow (props: { isSorted: boolean, assetSortType: PortfolioSortT
       return lowestCurrencyValue
     }
     return text
-  }, [props.modifiedDenominationCurrency])
+  }, [props.modifiedDenominationCurrency, language])
 
   return (
     <View
