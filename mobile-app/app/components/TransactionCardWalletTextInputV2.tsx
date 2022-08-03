@@ -89,12 +89,12 @@ export const TransactionCardWalletTextInputV2 = forwardRef<any, WalletTextInputP
         >
           <TextInput
             // onFocus={() => setIsFocus(true)}
-            // onBlur={() => {
-            //   if (onBlur !== undefined) {
-            //     onBlur()
-            //   }
-            //   setIsFocus(false)
-            // }}
+            onBlur={() => {
+              if (onBlur !== undefined) {
+                onBlur()
+              }
+              // setIsFocus(false)
+            }}
             ref={ref}
             editable={editable}
             style={tailwind('font-normal-v2 flex-1 h-5')}
