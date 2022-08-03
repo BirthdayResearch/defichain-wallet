@@ -1,4 +1,4 @@
-import { ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
+import { ThemedViewV2, ThemedTextV2, ThemedTouchableOpacityV2 } from '@components/themed'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -16,12 +16,7 @@ export enum AmountButtonTypes {
   max = 'MAX'
 }
 
-export function TransactionCard ({
-  maxValue,
-  onChange,
-  status,
-  children
-}: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
+export function TransactionCard ({ maxValue, onChange, status, children }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
   return (
     <ThemedViewV2
       light={tailwind('bg-mono-light-v2-00', {
@@ -38,7 +33,7 @@ export function TransactionCard ({
       <ThemedViewV2
         light={tailwind('bg-mono-light-v2-00')}
         dark={tailwind('bg-mono-dark-v2-00')}
-        style={tailwind('px-5 pt-2 rounded-t-2xl-v2')}
+        style={tailwind('px-5 pt-2 rounded-t-lg-v2')}
       >
         {children}
       </ThemedViewV2>
