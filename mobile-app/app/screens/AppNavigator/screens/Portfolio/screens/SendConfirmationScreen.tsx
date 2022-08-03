@@ -252,7 +252,8 @@ async function send ({
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
-      title: translate('screens/SendConfirmationScreen', 'Sending', { symbol: token.displaySymbol }),
+      title: translate('screens/SendConfirmationScreen', 'Sending {{symbol}}', { symbol: token.displaySymbol }),
+      drawerTitle: translate('screens/SendConfirmationScreen', 'Sending {{symbol}}', { symbol: token.displaySymbol }),
       description: translate('screens/SendConfirmationScreen', 'Sending {{amount}} {{symbol}}', {
         amount: amount.toFixed(8),
         symbol: token.displaySymbol

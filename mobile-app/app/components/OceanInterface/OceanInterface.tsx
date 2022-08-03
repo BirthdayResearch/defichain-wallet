@@ -120,7 +120,7 @@ export function OceanInterface (): JSX.Element | null {
           }
           setTx({
             ...transaction,
-            title: translate('screens/OceanInterface', 'Waiting for transaction')
+            title: transaction.drawerTitle ?? translate('screens/OceanInterface', 'Waiting for transaction')
           })
           if (transaction.onBroadcast !== undefined) {
             transaction.onBroadcast()
