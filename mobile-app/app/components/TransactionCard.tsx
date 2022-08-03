@@ -24,7 +24,8 @@ export function TransactionCard ({ maxValue, onChange, status, children }: React
         'border-0.5 border-red-v2': status === 'error'
       })}
       dark={tailwind('bg-mono-dark-v2-00', {
-        'border-0.5 border-mono-dark-v2-800': status === 'active'
+        'border-0.5 border-mono-dark-v2-800': status === 'active',
+        'border-0.5 border-red-v2': status === 'error'
       })}
       style={tailwind('rounded-lg-v2', {
         'border-0.5 border-red-v2': status === 'error'
