@@ -5,10 +5,10 @@ exports[`Transaction Card should match snapshot 1`] = `
   style={
     Array [
       Object {
-        "borderBottomLeftRadius": 20,
-        "borderBottomRightRadius": 20,
-        "borderTopLeftRadius": 20,
-        "borderTopRightRadius": 20,
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
       },
       Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -20,8 +20,9 @@ exports[`Transaction Card should match snapshot 1`] = `
     style={
       Array [
         Object {
-          "borderTopLeftRadius": 20,
-          "borderTopRightRadius": 20,
+          "borderTopLeftRadius": 10,
+          "borderTopRightRadius": 10,
+          "marginRight": 1,
           "paddingLeft": 20,
           "paddingRight": 20,
           "paddingTop": 8,
@@ -150,8 +151,8 @@ exports[`Transaction Card should match snapshot 1`] = `
                   "fontSize": 12,
                   "fontWeight": "700",
                   "lineHeight": 16,
-                  "paddingLeft": 24,
-                  "paddingRight": 24,
+                  "paddingLeft": 28,
+                  "paddingRight": 28,
                 },
                 Object {
                   "color": "rgba(89, 89, 89, 1)",
@@ -220,8 +221,8 @@ exports[`Transaction Card should match snapshot 1`] = `
                   "fontSize": 12,
                   "fontWeight": "700",
                   "lineHeight": 16,
-                  "paddingLeft": 24,
-                  "paddingRight": 24,
+                  "paddingLeft": 28,
+                  "paddingRight": 28,
                 },
                 Object {
                   "color": "rgba(89, 89, 89, 1)",
@@ -290,8 +291,8 @@ exports[`Transaction Card should match snapshot 1`] = `
                   "fontSize": 12,
                   "fontWeight": "700",
                   "lineHeight": 16,
-                  "paddingLeft": 24,
-                  "paddingRight": 24,
+                  "paddingLeft": 28,
+                  "paddingRight": 28,
                 },
                 Object {
                   "color": "rgba(89, 89, 89, 1)",
@@ -358,8 +359,8 @@ exports[`Transaction Card should match snapshot 1`] = `
                   "fontSize": 12,
                   "fontWeight": "700",
                   "lineHeight": 16,
-                  "paddingLeft": 24,
-                  "paddingRight": 24,
+                  "paddingLeft": 28,
+                  "paddingRight": 28,
                 },
                 Object {
                   "color": "rgba(89, 89, 89, 1)",
