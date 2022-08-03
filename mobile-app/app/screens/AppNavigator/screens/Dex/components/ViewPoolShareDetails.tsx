@@ -12,9 +12,7 @@ import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/Tok
 import { ViewPoolAmountRow } from './ViewPoolAmountRow'
 import { translate } from '@translations'
 
-interface ViewPoolContentsDetailsProps {
-  tokenA: string
-  tokenB: string
+interface ViewPoolShareDetailsProps {
   pairData: PoolPairData
   poolInfo: WalletToken
   totalPooledTokenA: string
@@ -22,15 +20,13 @@ interface ViewPoolContentsDetailsProps {
 }
 
 export const ViewPoolShareDetails = ({
-    tokenA,
-    tokenB,
     pairData,
     poolInfo,
     totalPooledTokenA,
     totalPooledTokenB
-  }: ViewPoolContentsDetailsProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
-  const TokenIconA = getNativeIcon(tokenA)
-  const TokenIconB = getNativeIcon(tokenB)
+  }: ViewPoolShareDetailsProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
+  const TokenIconA = getNativeIcon(pairData.tokenA.displaySymbol)
+  const TokenIconB = getNativeIcon(pairData.tokenB.displaySymbol)
 
   const { denominationCurrency } = useDenominationCurrency()
     const { getTokenPrice } = useTokenPrice()
@@ -56,9 +52,9 @@ export const ViewPoolShareDetails = ({
         <ThemedTextV2
           dark={tailwind('text-mono-dark-v2-900')}
           light={tailwind('text-mono-light-v2-900')}
-          style={tailwind('pl-1 text-2xl font-semibold')}
+          style={tailwind('pl-1 text-2xl font-semibold-v2')}
         >
-          {`${tokenA}-${tokenB}`}
+          {poolInfo.displaySymbol}
         </ThemedTextV2>
       </View>
 
@@ -72,7 +68,7 @@ export const ViewPoolShareDetails = ({
               light: tailwind('text-mono-light-v2-900')
             }}
             suffix={` ${poolInfo.displaySymbol}`}
-            testID='Pool_share_amount'
+            testID={`${poolInfo.displaySymbol}_pool_share_amount`}
           />
           <ViewPoolAmountRow
             amount='3.123'
@@ -82,7 +78,7 @@ export const ViewPoolShareDetails = ({
             }}
             prefix='('
             suffix='%)'
-            testID='Pool_share_amount_percentage'
+            testID={`${poolInfo.displaySymbol}_pool_share_amount_percentage`}
           />
         </View>
         <View style={tailwind('mb-3')}>
@@ -93,7 +89,7 @@ export const ViewPoolShareDetails = ({
               dark: tailwind('text-mono-dark-v2-900'),
               light: tailwind('text-mono-light-v2-900')
             }}
-            testID='Pool_share_amount'
+            testID={`Pooled_${pairData.tokenA.displaySymbol}`}
           />
           <ViewPoolAmountRow
             amount={getUSDValue(new BigNumber(totalPooledTokenA), pairData.tokenA.symbol).toFixed(2)}
@@ -103,7 +99,7 @@ export const ViewPoolShareDetails = ({
             }}
             prefix={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
             suffix={denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${denominationCurrency}` : undefined}
-            testID='Pool_share_amount'
+            testID={`Pooled_${pairData.tokenA.displaySymbol}_${denominationCurrency}`}
           />
         </View>
         <View style={tailwind('mb-3')}>
@@ -114,7 +110,7 @@ export const ViewPoolShareDetails = ({
               dark: tailwind('text-mono-dark-v2-900'),
               light: tailwind('text-mono-light-v2-900')
             }}
-            testID='Pool_share_amount'
+            testID={`Pooled_${pairData.tokenB.displaySymbol}`}
           />
           <ViewPoolAmountRow
             amount={getUSDValue(new BigNumber(totalPooledTokenB), pairData.tokenB.symbol).toFixed(2)}
@@ -124,7 +120,7 @@ export const ViewPoolShareDetails = ({
             }}
             prefix={denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}
             suffix={denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${denominationCurrency}` : undefined}
-            testID='Pool_share_amount'
+            testID={`Pooled_${pairData.tokenB.displaySymbol}_${denominationCurrency}`}
           />
         </View>
         {pairData?.apr?.total !== undefined && pairData?.apr?.total !== null && (
@@ -137,7 +133,7 @@ export const ViewPoolShareDetails = ({
             }}
             valueTextStyle={tailwind('font-semibold-v2')}
             suffix='%'
-            testID='Pool_share_amount'
+            testID={`${poolInfo.displaySymbol}_Apr`}
           />
         )}
       </View>
