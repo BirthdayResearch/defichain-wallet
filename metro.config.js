@@ -16,9 +16,9 @@ module.exports = (async () => {
         resolver: {
             assetExts: assetExts.filter((ext) => ext !== 'svg'),
             sourceExts: [...sourceExts, 'svg'],
-            // stream: require.resolve('stream-browserify'),
+            // stream: require.resolve('stream-browserify')
             extraNodeModules: {
-                // ...defaultConfig.resolver.extraNodeModules,
+                // ...defaultConfig.resolver.extraNodeModules
                 stream: require.resolve('stream-browserify'),
             }
         },
