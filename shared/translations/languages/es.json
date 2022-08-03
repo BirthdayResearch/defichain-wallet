@@ -315,7 +315,11 @@
     "Transaction type": "Tipo de transacción",
     "Convert": "Convertir",
     "{{token}} to receive": "{{token}} a recibir",
-    "CONFIRM TRANSACTION": "CONFIRMAR TRANSACCIÓN"
+    "CONFIRM TRANSACTION": "CONFIRMAR TRANSACCIÓN",
+    "You are converting to {{unit}}": "You are converting to {{unit}}",
+    "Transaction fee": "Transaction fee",
+    "Resulting Tokens": "Resultando Tokens",
+    "Resulting UTXO": "Resultando UTXO"
   },
   "screens/SettingsNavigator": {
     "Settings": "Configuración"

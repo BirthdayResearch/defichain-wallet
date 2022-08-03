@@ -305,7 +305,11 @@
     "Transaction type": "交易類型",
     "Convert": "轉換",
     "{{token}} to receive": "{{token}} 將會收到",
-    "CONFIRM TRANSACTION": "確認交易"
+    "CONFIRM TRANSACTION": "確認交易",
+    "You are converting to {{unit}}": "You are converting to {{unit}}",
+    "Transaction fee": "Transaction fee",
+    "Resulting Tokens": "轉換後 Tokens",
+    "Resulting UTXO": "轉換後 UTXO"
   },
   "screens/SettingsNavigator": {
     "Settings": "設定"

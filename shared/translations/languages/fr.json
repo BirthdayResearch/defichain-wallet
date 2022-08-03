@@ -315,7 +315,11 @@
     "Transaction type": "Type de transaction",
     "Convert": "Convertir",
     "{{token}} to receive": "{{token}} restants",
-    "CONFIRM TRANSACTION": "VALIDEZ LA TRANSACTION"
+    "CONFIRM TRANSACTION": "VALIDEZ LA TRANSACTION",
+    "You are converting to {{unit}}": "Vous convertissez en {{unit}}",
+    "Transaction fee": "Transaction fee",
+    "Resulting Tokens": "Tokens restants",
+    "Resulting UTXO": "UTXO restants"
   },
   "screens/SettingsNavigator": {
     "Settings": "Paramètres"
