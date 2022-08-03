@@ -92,7 +92,6 @@ export function NetworkSelectionScreenV2 (): JSX.Element {
             light: tailwind('bg-transparent'),
             dark: tailwind('bg-transparent')
           }}
-          
         />
       </ThemedViewV2>
     </ThemedScrollViewV2>

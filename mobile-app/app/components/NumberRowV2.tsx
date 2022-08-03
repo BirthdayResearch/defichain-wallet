@@ -81,12 +81,12 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
         <View style={tailwind('flex flex-row justify-end flex-wrap items-center')}>
           {
             props.rhs.usdAmount !== undefined &&
-            (<ActiveUSDValueV2
-              price={props.rhs.usdAmount}
-              containerStyle={tailwind('justify-end pb-5')}
-              testId={`${props.rhs.testID}_rhsUsdAmount`}
-              style={props.rhs.usdTextStyle}
-            />)
+              (<ActiveUSDValueV2
+                price={props.rhs.usdAmount}
+                containerStyle={tailwind('justify-end pb-5')}
+                testId={`${props.rhs.testID}_rhsUsdAmount`}
+                style={props.rhs.usdTextStyle}
+              />)
           }
           {
             props.rhs.isOraclePrice === true && (

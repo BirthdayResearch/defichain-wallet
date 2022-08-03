@@ -16,7 +16,7 @@ export const PoolPairTextSectionV2 = React.memo(({
 }: PoolPairTextSectionProps): JSX.Element => {
   return (
     <View style={tailwind('flex-row')}>
-      <PoolPairIconV2 symbolA={symbolA} symbolB={symbolB} customSize={customSize}/>
+      <PoolPairIconV2 symbolA={symbolA} symbolB={symbolB} customSize={customSize} />
     </View>
   )
 })
@@ -31,7 +31,7 @@ export function PoolPairIconV2 (props: {
   return (
     <>
       <IconA height={props.customSize ?? 40} width={props.customSize ?? 40} style={tailwind('relative z-10')} />
-      <IconB height={props.customSize ?? 40} width={props.customSize ?? 40}style={tailwind('-ml-3.5 mr-2')} />
+      <IconB height={props.customSize ?? 40} width={props.customSize ?? 40} style={tailwind('-ml-3.5 mr-2')} />
     </>
   )
 }

@@ -71,7 +71,7 @@ export function OnboardingNetworkSelectScreen (): JSX.Element {
         <NumberRowV2
           lhs={{
             value: translate('screens/NetworkDetails', 'Total masternodes'),
-            testID: 'network_details_total_masternodes',
+            testID: 'network_details_total_masternodes'
           }}
           rhs={{
             value: masternodeCount ?? '',
