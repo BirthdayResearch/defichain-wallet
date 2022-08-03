@@ -104,7 +104,8 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID(`portfolio_row_${tokenId}_symbol`).contains(token)
     cy.getByTestID(`portfolio_row_${tokenId}_amount`).contains(availableAmount)
-    cy.getByTestID(`${token}_locked_amount_text`).contains(lockedAmount)
+    cy.getByTestID(`portfolio_row_${tokenId}`).click()
+    cy.getByTestID(`${token}_locked_amount`).contains(lockedAmount)
   }
 
   before(function () {
@@ -158,10 +159,10 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
 
   it('should update locked DFI in portfolio screen', function () {
     cy.getByTestID('bottom_tab_portfolio').click()
-    cy.getByTestID('details_dfi').click()
-    cy.getByTestID('dfi_locked_amount').contains('10.00000000')
-    cy.getByTestID('dfi_locked_value_amount').contains('≈ $100,000.00')
-    cy.getByTestID('dfi_total_balance_amount').invoke('text').then(text => {
+    cy.getByTestID('dfi_balance_card').click()
+    cy.getByTestID('DFI_locked_amount').contains('10.00000000')
+    cy.getByTestID('DFI_locked_value_amount').contains('$100,000.00')
+    cy.getByTestID('token_detail_amount').invoke('text').then(text => {
       checkValueWithinRange(text, '8.9', 0.1)
     })
   })
@@ -186,8 +187,10 @@ context('Wallet - Loans - Add/Remove Collateral', () => {
   })
 
   it('should display locked collateral token in portfolio even though it has no balance', function () {
-    validateCollateralInPortfolio('dBTC', '1', '0.00000000', '10.00000000')
-    validateCollateralInPortfolio('dETH', '2', '0.00000000', '10.00000000')
+    cy.getByTestID('bottom_tab_portfolio').click()
+    validateCollateralInPortfolio('BTC', '1', '0.00000000', '10.00000000')
+    cy.getByTestID('bottom_tab_portfolio').click()
+    validateCollateralInPortfolio('ETH', '2', '0.00000000', '10.00000000')
   })
 
   it('should update vault details', function () {
