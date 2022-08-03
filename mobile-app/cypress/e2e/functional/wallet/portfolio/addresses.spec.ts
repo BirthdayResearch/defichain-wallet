@@ -321,6 +321,7 @@ context('Wallet - should be able to discover Wallet Addresses', () => {
     cy.verifyMnemonicOnSettingsPage(recoveryWords, recoveryWords)
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.sendDFItoWallet().wait(5000)
+    cy.getByTestID('dfi_total_balance_amount').contains('10.00000000')
     cy.getByTestID('dfi_balance_card').click()
     cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
     cy.getByTestID('dfi_token_amount').contains('0.00000000')
