@@ -138,7 +138,7 @@ exports[`info text should match snapshot for error At least 50% of the vault mus
           ]
         }
       >
-        Insufficient DFI collateral (≥50%)
+        Insufficient DFI collateral. (≥50%)
       </Text>
     </View>
   </View>

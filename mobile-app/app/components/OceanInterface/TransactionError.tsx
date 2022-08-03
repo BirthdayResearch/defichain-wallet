@@ -139,7 +139,7 @@ function errorMessageMapping (err: string): ErrorMapping {
   } else if (err.includes('At least 50% of the vault must be in DFI when taking a loan')) {
     return {
       code: ErrorCodes.InsufficientDFIInVault,
-      message: 'Insufficient DFI collateral (≥50%)'
+      message: 'Insufficient DFI collateral. (≥50%)'
     }
   } else if (err.includes('Lack of liquidity')) {
     return {

@@ -675,7 +675,7 @@
     "Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.": "Tauschpreis ist höher als die durch die Slippage-Toleranz erlaubte Spanne. Erhöhe den Toleranzprozentsatz, um fortzufahren.",
     "Preparing broadcast": "Übertragung wird vorbereitet",
     "Waiting for transaction": "Warten auf Transaktion",
-    "Insufficient DFI collateral (≥50%)": "Unzureichende DFI-Sicherheiten. (≥50%)",
+    "Insufficient DFI collateral. (≥50%)": "Unzureichende DFI-Sicherheiten. (≥50%)",
     "Insufficient liquidity.": "Unzureichende Liquidität.",
     "Unable to payback loan due to invalid price.": "Darlehen kann wegen ungültigem Preis nicht zurückgezahlt werden.",
     "No live fixed prices for loan token.": "Kein aktueller fester Preis für Darlehenstoken.",
