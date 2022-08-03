@@ -406,7 +406,7 @@ function DexInputCard (
         </ThemedViewV2>
       </TransactionCard>
 
-      <View style={tailwind('pb-6')}>
+      <View style={tailwind('pt-0.5 pb-6')}>
         {props.showErrMsg
           ? (
             <ThemedTextV2
