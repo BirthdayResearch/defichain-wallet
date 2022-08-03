@@ -34,7 +34,7 @@ export function TransactionCard ({ maxValue, onChange, status, children }: React
       <ThemedViewV2
         light={tailwind('bg-mono-light-v2-00')}
         dark={tailwind('bg-mono-dark-v2-00')}
-        style={tailwind('px-5 pt-2 rounded-t-lg-v2')}
+        style={tailwind('pl-5 pr-5 pt-2 mr-px rounded-t-lg-v2')}
       >
         {children}
       </ThemedViewV2>
@@ -108,7 +108,7 @@ function SetAmountButton ({
         <ThemedTextV2
           light={tailwind('text-mono-light-v2-700')}
           dark={tailwind('text-mono-dark-v2-700')}
-          style={tailwind('font-bold text-xs px-6')}
+          style={tailwind('font-bold text-xs px-7')}
         >
           {translate('component/max', type)}
         </ThemedTextV2>
