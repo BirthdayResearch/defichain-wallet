@@ -254,8 +254,6 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
           </ThemedTextV2>
         </View>
 
-        <View>
-
           <DexInputCard
             balance={balanceA}
             current={tokenAAmount}
@@ -281,10 +279,8 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
             status={tokenBTransactionCardStatus}
             showErrMsg={hasBError}
           />
-        </View>
-
         {/*  TODO */}
-        {/* do a hook for text input */}
+        {/* TODO: do a hook for text input */}
         <ReservedDFIInfoText />
         {
           isConversionRequired &&
@@ -386,7 +382,7 @@ function DexInputCard (
   }): JSX.Element {
   const Icon = getNativeIcon(props.symbol)
   return (
-    <View style={tailwind('mb-4')}>
+    <View style={tailwind('pb-4')}>
       <TransactionCard
         maxValue={props.balance}
         onChange={(amount) => {
@@ -425,7 +421,7 @@ function DexInputCard (
             <ThemedTextV2
               light={tailwind('text-red-v2')}
               dark={tailwind('text-red-v2')}
-              style={tailwind('mt-1 mb-4 text-sm px-4')}
+              style={tailwind('pt-1 pb-4 px-4 text-sm')}
             >
               {`${translate('screens/AddLiquidity', 'Insufficient balance')}`}
             </ThemedTextV2>
@@ -444,7 +440,7 @@ function DexInputCard (
   )
 }
 
-function ContinueButton(props: { enabled: boolean, onPress: () => Promise<void>, isProcessing: boolean }): JSX.Element {
+function ContinueButton (props: { enabled: boolean, onPress: () => Promise<void>, isProcessing: boolean }): JSX.Element {
   return (
     <SubmitButtonGroupV2
       isDisabled={!props.enabled}
@@ -459,7 +455,7 @@ function ContinueButton(props: { enabled: boolean, onPress: () => Promise<void>,
 }
 
 // just leave it as it is now, will be moved to network drawer
-function canAddLiquidity(pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenBAmount: BigNumber, balanceA: BigNumber | undefined, balanceB: BigNumber | undefined): boolean {
+function canAddLiquidity (pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenBAmount: BigNumber, balanceA: BigNumber | undefined, balanceB: BigNumber | undefined): boolean {
   if (tokenAAmount.isNaN() || tokenBAmount.isNaN()) {
     // empty string, use still input-ing
     return false
