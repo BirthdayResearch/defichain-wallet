@@ -107,7 +107,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     })
   }
 
-  async function onSubmit (): Promise<void> {
+  async function onSubmit(): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
@@ -254,39 +254,39 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
           </ThemedTextV2>
         </View>
 
-          <DexInputCard
-            balance={balanceA}
-            current={tokenAAmount}
-            onChange={(amount) => {
-              buildSummary('primary', amount)
-            }}
-            symbol={pair?.tokenA?.displaySymbol}
-            type='primary'
-            setIsInputFocus={setIsInputAFocus}
-            status={tokenATransactionCardStatus}
-            showErrMsg={hasAError}
-          />
+        <DexInputCard
+          balance={balanceA}
+          current={tokenAAmount}
+          onChange={(amount) => {
+            buildSummary('primary', amount)
+          }}
+          symbol={pair?.tokenA?.displaySymbol}
+          type='primary'
+          setIsInputFocus={setIsInputAFocus}
+          status={tokenATransactionCardStatus}
+          showErrMsg={hasAError}
+        />
 
-          <DexInputCard
-            balance={balanceB}
-            current={tokenBAmount}
-            onChange={(amount) => {
-              buildSummary('secondary', amount)
-            }}
-            symbol={pair?.tokenB?.displaySymbol}
-            type='secondary'
-            setIsInputFocus={setIsInputBFocus}
-            status={tokenBTransactionCardStatus}
-            showErrMsg={hasBError}
-          />
+        <DexInputCard
+          balance={balanceB}
+          current={tokenBAmount}
+          onChange={(amount) => {
+            buildSummary('secondary', amount)
+          }}
+          symbol={pair?.tokenB?.displaySymbol}
+          type='secondary'
+          setIsInputFocus={setIsInputBFocus}
+          status={tokenBTransactionCardStatus}
+          showErrMsg={hasBError}
+        />
         {/*  TODO */}
         {/* TODO: do a hook for text input */}
         <ReservedDFIInfoText />
         {
           isConversionRequired &&
-            <View style={tailwind('pt-2')}>
-              <ConversionInfoText />
-            </View>
+          <View style={tailwind('pt-2')}>
+            <ConversionInfoText />
+          </View>
         }
       </View>
 
@@ -412,10 +412,7 @@ function DexInputCard (
         </ThemedViewV2>
       </TransactionCard>
 
-      <View
-        // light={tailwind('bg-red-200')}
-        style={tailwind('pt-2')}
-      >
+      <View style={tailwind('pt-2')}>
         {props.showErrMsg
           ? (
             <ThemedTextV2
@@ -440,7 +437,7 @@ function DexInputCard (
   )
 }
 
-function ContinueButton (props: { enabled: boolean, onPress: () => Promise<void>, isProcessing: boolean }): JSX.Element {
+function ContinueButton(props: { enabled: boolean, onPress: () => Promise<void>, isProcessing: boolean }): JSX.Element {
   return (
     <SubmitButtonGroupV2
       isDisabled={!props.enabled}
@@ -455,7 +452,7 @@ function ContinueButton (props: { enabled: boolean, onPress: () => Promise<void>
 }
 
 // just leave it as it is now, will be moved to network drawer
-function canAddLiquidity (pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenBAmount: BigNumber, balanceA: BigNumber | undefined, balanceB: BigNumber | undefined): boolean {
+function canAddLiquidity(pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenBAmount: BigNumber, balanceA: BigNumber | undefined, balanceB: BigNumber | undefined): boolean {
   if (tokenAAmount.isNaN() || tokenBAmount.isNaN()) {
     // empty string, use still input-ing
     return false
