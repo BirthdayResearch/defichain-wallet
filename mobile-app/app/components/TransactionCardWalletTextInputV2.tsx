@@ -84,7 +84,7 @@ export const TransactionCardWalletTextInputV2 = forwardRef<any, WalletTextInputP
         style={tailwind('flex-col w-full border-0.5 rounded-lg-v2')}
       >
         <View
-          style={[tailwind('flex-row items-center py-2 pl-5 pr-3 justify-between'), props.multiline === true && { minHeight: 54 }, inputContainerStyle]}
+          style={[tailwind('flex-row items-center py-2 pl-5 pr-4 justify-between'), props.multiline === true && { minHeight: 54 }, inputContainerStyle]}
         >
           <TextInput
             onBlur={() => {

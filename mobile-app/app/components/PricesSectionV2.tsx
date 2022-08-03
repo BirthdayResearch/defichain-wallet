@@ -46,11 +46,11 @@ export function PricesSectionV2 ({ priceRates, isCompact = false, testID }: { pr
                 testID: `${testID}_${index}`,
                 suffix: priceRate.bSymbol,
                 lightTextStyle: rowStyle.rhsThemedProps.light,
-                darkTextStyle: rowStyle.rhsThemedProps.dark,
+                darkTextStyle: rowStyle.rhsThemedProps.dark
               }}
               {...(isCompact && {
                 lhsThemedProps: rowStyle.lhsThemedProps,
-                rhsThemedProps: rowStyle.rhsThemedProps,
+                rhsThemedProps: rowStyle.rhsThemedProps
               })}
             />
           )
@@ -59,4 +59,3 @@ export function PricesSectionV2 ({ priceRates, isCompact = false, testID }: { pr
     </>
   )
 }
-

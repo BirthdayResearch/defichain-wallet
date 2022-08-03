@@ -59,14 +59,13 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   const [hasBError, setHasBError] = useState(false)
   const [isInputAFocus, setIsInputAFocus] = useState(false)
   const [isInputBFocus, setIsInputBFocus] = useState(false)
-  const [convertUTXOMsg, setConvertUTXOMsg] = useState<boolean>(false) // TODO: waiting for the P's hook
+  // const [convertUTXOMsg, setConvertUTXOMsg] = useState<boolean>(false) // TODO: waiting for the P's hook
 
   // this component UI state
   const [tokenAAmount, setTokenAAmount] = useState<string>('')
   const [tokenBAmount, setTokenBAmount] = useState<string>('')
   const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
   const [canContinue, setCanContinue] = useState(false)
-  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
 
   // derived from props
   const [balanceA, setBalanceA] = useState(new BigNumber(0))
@@ -108,7 +107,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     })
   }
 
-  async function onSubmit(): Promise<void> {
+  async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
@@ -184,11 +183,11 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     setTokenBTransactionCardStatus(hasBError ? 'error' : isInputBFocus ? 'active' : undefined)
   }, [hasAError, hasBError, isInputAFocus, isInputBFocus])
 
-  useEffect(() => {
-    client.fee.estimate()
-      .then((f) => setFee(new BigNumber(f)))
-      .catch(logger.error)
-  }, [])
+  // useEffect(() => {
+  //   client.fee.estimate()
+  //     .then((f) => setFee(new BigNumber(f)))
+  //     .catch(logger.error)
+  // }, [])
 
   useEffect(() => {
     if (pair === undefined) {
@@ -238,10 +237,10 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   const sharesUsdAmount = getTokenPrice(pair.aSymbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.aSymbol, new BigNumber(tokenBAmount)))
 
   return (
-    <ThemedScrollView contentContainerStyle={tailwind('py-8')} style={tailwind('w-full flex-1')}>
+    <ThemedScrollView contentContainerStyle={tailwind('py-8')} style={tailwind('w-full')}>
       <View style={tailwind('px-5')}>
-        <View style={tailwind('items-center mb-6')}>
-          <View style={tailwind('flex-row mb-2')}>
+        <View style={tailwind('items-center pb-6')}>
+          <View style={tailwind('flex-row pb-2')}>
             <PoolPairTextSectionV2
               symbolA={pair?.tokenA?.displaySymbol}
               symbolB={pair?.tokenB?.displaySymbol}
@@ -255,39 +254,43 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
           </ThemedTextV2>
         </View>
 
-        <DexInputCard
-          balance={balanceA}
-          current={tokenAAmount}
-          onChange={(amount) => {
-            buildSummary('primary', amount)
-          }}
-          symbol={pair?.tokenA?.displaySymbol}
-          type='primary'
-          setIsInputFocus={setIsInputAFocus}
-          status={tokenATransactionCardStatus}
-          showErrMsg={hasAError}
-        />
+        <View>
 
-        <DexInputCard
-          balance={balanceB}
-          current={tokenBAmount}
-          onChange={(amount) => {
-            buildSummary('secondary', amount)
-          }}
-          symbol={pair?.tokenB?.displaySymbol}
-          type='secondary'
-          setIsInputFocus={setIsInputBFocus}
-          status={tokenBTransactionCardStatus}
-          showErrMsg={hasBError}
-        />
+          <DexInputCard
+            balance={balanceA}
+            current={tokenAAmount}
+            onChange={(amount) => {
+              buildSummary('primary', amount)
+            }}
+            symbol={pair?.tokenA?.displaySymbol}
+            type='primary'
+            setIsInputFocus={setIsInputAFocus}
+            status={tokenATransactionCardStatus}
+            showErrMsg={hasAError}
+          />
+
+          <DexInputCard
+            balance={balanceB}
+            current={tokenBAmount}
+            onChange={(amount) => {
+              buildSummary('secondary', amount)
+            }}
+            symbol={pair?.tokenB?.displaySymbol}
+            type='secondary'
+            setIsInputFocus={setIsInputBFocus}
+            status={tokenBTransactionCardStatus}
+            showErrMsg={hasBError}
+          />
+        </View>
 
         {/*  TODO */}
         {/* do a hook for text input */}
         <ReservedDFIInfoText />
-        {isConversionRequired &&
-          <View style={tailwind('mt-2')}>
-            <ConversionInfoText />
-          </View>
+        {
+          isConversionRequired &&
+            <View style={tailwind('pt-2')}>
+              <ConversionInfoText />
+            </View>
         }
       </View>
 
@@ -332,7 +335,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                 value: translate('components/PricesSection', 'Shares to add'), // TODO: update label upon confirmation
                 testID: 'shares_to_add',
                 lightTextStyle: tailwind('text-mono-light-v2-500'),
-                darkTextStyle: tailwind('text-mono-dark-v2-500'),
+                darkTextStyle: tailwind('text-mono-dark-v2-500')
               }}
               rhs={{
                 value: lmTokenAmount.toFixed(8),
@@ -370,8 +373,8 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   )
 }
 
-function DexInputCard (props:
-  {
+function DexInputCard (
+  props: {
     balance: BigNumber,
     type: 'primary' | 'secondary',
     symbol: string,
@@ -413,29 +416,35 @@ function DexInputCard (props:
         </ThemedViewV2>
       </TransactionCard>
 
-      {props.showErrMsg
-        ? (
-          <ThemedTextV2
-            light={tailwind('text-red-v2')}
-            dark={tailwind('text-red-v2')}
-            style={tailwind('text-xs font-normal-v2 pl-4')}
-          >
-            {`${translate('screens/AddLiquidity', 'Insufficient balance')}`}
-          </ThemedTextV2>
-        )
-        : (
-          <InputHelperTextV2
-          testID={`token_balance_${props.type}`}
-          label={`${translate('screens/AddLiquidity', 'Available')}: `}
-          content={BigNumber.max(props.balance, 0).toFixed(8)}
-          suffix={` ${props.symbol}`}
-        />
-        )}
+      <View
+        // light={tailwind('bg-red-200')}
+        style={tailwind('pt-2')}
+      >
+        {props.showErrMsg
+          ? (
+            <ThemedTextV2
+              light={tailwind('text-red-v2')}
+              dark={tailwind('text-red-v2')}
+              style={tailwind('mt-1 mb-4 text-sm px-4')}
+            >
+              {`${translate('screens/AddLiquidity', 'Insufficient balance')}`}
+            </ThemedTextV2>
+          )
+          : (
+            <InputHelperTextV2
+              testID={`token_balance_${props.type}`}
+              label={`${translate('screens/AddLiquidity', 'Available')}: `}
+              content={BigNumber.max(props.balance, 0).toFixed(8)}
+              suffix={` ${props.symbol}`}
+            />
+          )}
+      </View>
     </View>
+
   )
 }
 
-function ContinueButton (props: { enabled: boolean, onPress: () => Promise<void>, isProcessing: boolean }): JSX.Element {
+function ContinueButton(props: { enabled: boolean, onPress: () => Promise<void>, isProcessing: boolean }): JSX.Element {
   return (
     <SubmitButtonGroupV2
       isDisabled={!props.enabled}
@@ -450,7 +459,7 @@ function ContinueButton (props: { enabled: boolean, onPress: () => Promise<void>
 }
 
 // just leave it as it is now, will be moved to network drawer
-function canAddLiquidity (pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenBAmount: BigNumber, balanceA: BigNumber | undefined, balanceB: BigNumber | undefined): boolean {
+function canAddLiquidity(pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenBAmount: BigNumber, balanceA: BigNumber | undefined, balanceB: BigNumber | undefined): boolean {
   if (tokenAAmount.isNaN() || tokenBAmount.isNaN()) {
     // empty string, use still input-ing
     return false
