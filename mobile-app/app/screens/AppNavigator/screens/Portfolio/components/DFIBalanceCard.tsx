@@ -44,6 +44,7 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
             params: { token: DFIUnified, usdAmount },
             merge: true
           })}
+          activeOpacity={0.7}
           disabled={!new BigNumber(DFIUtxo.amount ?? 0).plus(DFIToken.amount ?? 0).gt(0)}
         >
           <View style={tailwind('w-7/12 flex-row items-center')}>
