@@ -9,7 +9,6 @@ import {
   ThemedIcon,
   ThemedScrollViewV2,
   ThemedSectionTitleV2,
-  ThemedTextInputV2,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
   ThemedViewV2
@@ -18,7 +17,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
-import { getColor, tailwind } from '@tailwind'
+import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { PortfolioParamList } from '../PortfolioNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
@@ -26,8 +25,8 @@ import { tokensSelector } from '@store/wallet'
 import { getNativeIcon } from '@components/icons/assets'
 import { ButtonV2 } from '@components/ButtonV2'
 import { AmountButtonTypes, TransactionCard } from '@components/TransactionCard'
-import { ClearButtonV2 } from '@components/WalletTextInputV2'
 import { useToast } from 'react-native-toast-notifications'
+import { TransactionCardWalletTextInputV2 } from '@components/TransactionCardWalletTextInputV2'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<PortfolioParamList, 'ConvertScreen'>
@@ -155,9 +154,18 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
             maxValue={new BigNumber(sourceToken.amount)} status={transactionCardStatus}
             onChange={onPercentagePress}
           >
-            <ConversionInputField
-              amount={amount} onChangeText={(text) => setAmount(text)}
-              setFocused={(isFocus) => setIsInputFocus(isFocus)}
+            <TransactionCardWalletTextInputV2
+              inputType='numeric'
+              displayClearButton={amount !== ''}
+              displayFocusStyle
+              onChangeText={setAmount}
+              value={amount}
+              hasBottomSheet={false}
+              onFocus={() => setIsInputFocus(true)}
+              onBlur={() => setIsInputFocus(false)}
+              onClearButtonPress={() => setAmount('')}
+              inputContainerStyle={tailwind('pb-5 pt-3 px-0')}
+              placeholder='0.00'
             />
           </TransactionCard>
           <ThemedTextV2
@@ -279,34 +287,6 @@ function ConversionLabel (props: { sourceUnit: string, targetUnit: string }): JS
         {`${translate('screens/ConvertScreen', props.targetUnit)})`}
       </ThemedTextV2>
     </View>
-  )
-}
-
-function ConversionInputField (props: { amount: string, setFocused: (isFocus: boolean) => void, onChangeText: (text: string) => void }): JSX.Element {
-  return (
-    <ThemedViewV2
-      style={tailwind('flex-row items-center justify-between pb-5 border-b-0.5')}
-      light={tailwind('border-mono-light-v2-300')} dark={tailwind('border-mono-dark-v2-300')}
-    >
-      <ThemedTextInputV2
-        value={props.amount}
-        onFocus={() => props.setFocused(true)}
-        onBlur={() => props.setFocused(false)}
-        style={tailwind('font-normal-v2 flex-1')}
-        selectionColor={getColor('brand-v2-500')}
-        onChangeText={props.onChangeText}
-        placeholder='0.00'
-        keyboardType='numeric'
-      />
-      {props.amount !== undefined && props.amount !== ''
-        ? (
-          <ClearButtonV2
-            onPress={() => props.onChangeText('')}
-            testID='conversion_clear_button'
-          />
-        )
-        : null}
-    </ThemedViewV2>
   )
 }
 
