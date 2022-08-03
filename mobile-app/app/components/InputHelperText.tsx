@@ -1,5 +1,5 @@
 import { tailwind } from '@tailwind'
-import { ThemedView, ThemedText } from '@components/themed'
+import { ThemedView, ThemedText, ThemedViewV2, ThemedTextV2 } from '@components/themed'
 import NumberFormat from 'react-number-format'
 import { StyleProp, ViewProps } from 'react-native'
 import { TextProps } from '@components'
@@ -50,5 +50,43 @@ export function InputHelperText (props: InputHelperTextProps): JSX.Element {
         props.suffixType === 'component' && (props.children)
       }
     </ThemedView>
+  )
+}
+export function InputHelperTextV2 (props: InputHelperTextProps): JSX.Element {
+  return (
+    <ThemedViewV2
+      light={tailwind('bg-transparent')}
+      dark={tailwind('bg-transparent')}
+      style={tailwind('flex-1 flex-row flex-wrap mt-1 mb-4 text-sm px-4')}
+    >
+      <ThemedTextV2
+        light={tailwind('text-mono-light-v2-500')}
+        dark={tailwind('text-mono-light-v2-500')}
+        style={[tailwind('text-xs font-normal-v2'), props.labelStyleProps]}
+      >
+        {`${props.label}`}
+      </ThemedTextV2>
+
+      <NumberFormat
+        decimalScale={8}
+        displayType='text'
+        renderText={(value) => (
+          <ThemedTextV2
+            light={tailwind('text-mono-light-v2-500')}
+            dark={tailwind('text-mono-light-v2-500')}
+            style={[tailwind('text-xs font-normal-v2'), props.styleProps]}
+            testID={props.testID}
+          >
+            {value}
+          </ThemedTextV2>
+        )}
+        suffix={props.suffixType !== 'component' ? props.suffix : ''}
+        thousandSeparator
+        value={props.content}
+      />
+      {
+        props.suffixType === 'component' && (props.children)
+      }
+    </ThemedViewV2>
   )
 }

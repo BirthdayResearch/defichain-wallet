@@ -37,7 +37,6 @@ interface IWalletTextInputProps {
 }
 
 export const TransactionCardWalletTextInputV2 = forwardRef<any, WalletTextInputProps>(function (props: WalletTextInputProps, ref: React.Ref<any>): JSX.Element {
-  // const [isFocus, setIsFocus] = useState(false)
   const {
     title,
     titleTestID,
@@ -88,12 +87,10 @@ export const TransactionCardWalletTextInputV2 = forwardRef<any, WalletTextInputP
           style={[tailwind('flex-row items-center py-2 pl-5 pr-3 justify-between'), props.multiline === true && { minHeight: 54 }, inputContainerStyle]}
         >
           <TextInput
-            // onFocus={() => setIsFocus(true)}
             onBlur={() => {
               if (onBlur !== undefined) {
                 onBlur()
               }
-              // setIsFocus(false)
             }}
             ref={ref}
             editable={editable}
