@@ -267,6 +267,7 @@ context('Wallet - Send - Max Values', function () {
     it(`should be able to send to address ${address}`, function () {
       cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('portfolio_list').should('exist')
+      cy.getByTestID('dfi_total_balance_amount').contains('10.00000000')
       cy.getByTestID('dfi_balance_card').should('exist')
       cy.getByTestID('action_button_group').should('exist')
       cy.getByTestID('send_balance_button').click().wait(3000)
