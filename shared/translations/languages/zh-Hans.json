@@ -448,7 +448,6 @@
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "总利率是由：由金库利率和代币利率整体以每年率计算。",
     "What is collateral factor?": "抵押因素是什么？",
     "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "抵押品因素决定每个抵押代币的贡献程度。例如，如果一个代币以70%的抵押因素被接受，价值100美元的代币将贡献该金库中70美元的抵押品价值。",
-    "Why is there a 5% fee when paying DUSD loans with DFI?": "为什么用 DFI 支付 DUSD 贷款时要收取 5% 的费用？",
     "What is vault share?": "金库份额是什么？",
     "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "金库库份额代表存放在金库中的抵押代币的比例。所有金库都必须包含至少 50% 的 DFI 和/或 DUSD 作为抵押代币。当您铸造新的 dToken 时，和当您从您的金库中提取抵押品时，均会被要求达到这项要求。"
   },
