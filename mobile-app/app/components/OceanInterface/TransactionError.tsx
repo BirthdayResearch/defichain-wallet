@@ -81,7 +81,7 @@ export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): J
             {canExpand && (
               <TouchableOpacity
                 onPress={() => setExpand(!expand)}
-                testID='details_dfi'
+                testID='toggle_ocean_error'
               >
                 <ThemedIcon
                   light={tailwind('text-mono-light-v2-900')}

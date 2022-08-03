@@ -27,18 +27,20 @@ context('Wallet - Pool Pair Rewards', () => {
     it('should not have any DFI tokens', function () {
       cy.wait(3000)
       cy.getByTestID('bottom_tab_portfolio').click()
-      cy.getByTestID('details_dfi').should('not.exist')
+      cy.getByTestID('dfi_total_balance_amount').contains('0.00000000')
     })
 
     it('should receive LP tokens DFI tokens and receive rewards', function () {
       cy.sendDFItoWallet()
         .sendTokenToWallet(['BTC-DFI']).wait(10000)
-      cy.getByTestID('details_dfi').click()
+      cy.getByTestID('dfi_total_balance_amount').should('exist')
+      cy.getByTestID('dfi_balance_card').click()
       cy.getByTestID('dfi_token_amount').should('exist')
       cy.getByTestID('dfi_token_amount').then(($txt: any) => {
         const balanceAmount = $txt[0].textContent.replace(' DFI', '').replace(',', '')
         expect(new BigNumber(balanceAmount).toNumber()).be.gt(0)
       })
+      cy.go('back')
     })
 
     it('should be able to send LP tokens', function () {
@@ -59,7 +61,8 @@ context('Wallet - Pool Pair Rewards', () => {
       cy.exitWallet()
       cy.restoreMnemonicWords(walletA.recoveryWords)
       cy.getByTestID('portfolio_row_17_amount').contains('10')
-      cy.getByTestID('details_dfi').click()
+      cy.getByTestID('dfi_total_balance_amount').should('exist')
+      cy.getByTestID('dfi_balance_card').click()
       cy.getByTestID('dfi_token_amount').then(($txt: any) => {
         const balanceAmount = $txt[0].textContent.replace(' DFI', '').replace(',', '')
         expect(new BigNumber(balanceAmount).toNumber()).be.gt(0)
