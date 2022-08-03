@@ -2,12 +2,11 @@ import { ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@component
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { View } from '@components'
 
 interface TransactionCardProps {
   maxValue: BigNumber
   onChange: (amount: string, type: AmountButtonTypes) => void
-  status?: 'error' | 'active'
+  status?: string
 }
 
 export enum AmountButtonTypes {
@@ -32,13 +31,21 @@ export function TransactionCard ({
       dark={tailwind('bg-mono-dark-v2-00', {
         'border-0.5 border-mono-dark-v2-800': status === 'active'
       })}
-      style={tailwind('rounded-lg-v2 p-5', {
+      style={tailwind('rounded-lg-v2', {
         'border-0.5 border-red-v2': status === 'error'
       })}
     >
-      {children}
-      <View
-        style={tailwind('flex flex-row bg-transparent justify-around items-center pt-2')}
+      <ThemedViewV2
+        light={tailwind('bg-mono-light-v2-00')}
+        dark={tailwind('bg-mono-dark-v2-00')}
+        style={tailwind('px-5 pt-2 rounded-t-2xl-v2')}
+      >
+        {children}
+      </ThemedViewV2>
+      <ThemedViewV2
+        light={tailwind('border-mono-light-v2-300')}
+        dark={tailwind('border-mono-dark-v2-300')}
+        style={tailwind('flex flex-row justify-around items-center pt-2 pb-4 border-t-0.5')}
       >
         {
           [AmountButtonTypes.twentyFive, AmountButtonTypes.half, AmountButtonTypes.seventyFive, AmountButtonTypes.max].map((type, index, { length }) => {
@@ -53,7 +60,7 @@ export function TransactionCard ({
             )
           })
         }
-      </View>
+      </ThemedViewV2>
     </ThemedViewV2>
   )
 }
@@ -68,8 +75,8 @@ interface SetAmountButtonProps {
 function SetAmountButton ({
   type,
   onPress,
-  amount
-  // hasBorder,
+  amount,
+  hasBorder
 }: SetAmountButtonProps): JSX.Element {
   const decimalPlace = 8
   let value = amount.toFixed(decimalPlace)
@@ -97,13 +104,19 @@ function SetAmountButton ({
       }}
       testID={`${type}_amount_button`}
     >
-      <ThemedTextV2
-        light={tailwind('text-mono-light-v2-700')}
-        dark={tailwind('text-mono-dark-v2-700')}
-        style={tailwind('font-bold text-xs')}
+      <ThemedViewV2
+        light={tailwind('border-mono-light-v2-300')}
+        dark={tailwind('border-mono-light-v2-300')}
+        style={tailwind({ 'border-r-0.5': hasBorder })}
       >
-        {translate('component/max', type)}
-      </ThemedTextV2>
+        <ThemedTextV2
+          light={tailwind('text-mono-light-v2-700')}
+          dark={tailwind('text-mono-dark-v2-700')}
+          style={tailwind('font-bold text-xs px-6')}
+        >
+          {translate('component/max', type)}
+        </ThemedTextV2>
+      </ThemedViewV2>
     </ThemedTouchableOpacityV2>
   )
 }
