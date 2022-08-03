@@ -3,14 +3,14 @@ import { render } from '@testing-library/react-native'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { ThemedTextV2, ThemedViewV2 } from './themed'
-import { PercentageCard } from './PercentageCard'
+import { TransactionCard } from './TransactionCard'
 
 jest.mock('@shared-contexts/ThemeProvider')
 
 describe('Transaction Card', () => {
   it('should match snapshot', async () => {
     const rendered = render(
-      <PercentageCard
+      <TransactionCard
         maxValue={new BigNumber(100)}
         onChange={() => { }}
       >
@@ -21,7 +21,7 @@ describe('Transaction Card', () => {
         >
           <ThemedTextV2>{translate('', 'Sample Text')}</ThemedTextV2>
         </ThemedViewV2>
-      </PercentageCard>)
+      </TransactionCard>)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })

@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 
-interface PercentageCardProps {
+interface TransactionCardProps {
   maxValue: BigNumber
   onChange: (amount: string, type: AmountButtonTypes) => void
   status?: string
@@ -16,7 +16,7 @@ export enum AmountButtonTypes {
   max = 'MAX'
 }
 
-export function PercentageCard ({ maxValue, onChange, status, children }: React.PropsWithChildren<PercentageCardProps>): JSX.Element {
+export function TransactionCard ({ maxValue, onChange, status, children }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
   return (
     <ThemedViewV2
       light={tailwind('bg-mono-light-v2-00', {
