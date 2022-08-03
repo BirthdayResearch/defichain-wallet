@@ -109,7 +109,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
       return
     }
     navigation.navigate({
-      name: 'ConvertConfirmationScreen',
+      name: 'ConvertConfirmationScreenV2',
       params: {
         sourceUnit: sourceToken.unit,
         sourceBalance: BigNumber.maximum(new BigNumber(sourceToken.amount).minus(convAmount), 0),

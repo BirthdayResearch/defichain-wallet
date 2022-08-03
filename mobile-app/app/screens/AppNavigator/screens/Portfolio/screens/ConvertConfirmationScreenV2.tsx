@@ -1,0 +1,154 @@
+import { ThemedScrollViewV2, ThemedViewV2 } from '@components/themed'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { StackScreenProps } from '@react-navigation/stack'
+import BigNumber from 'bignumber.js'
+import { Dispatch, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
+import { PortfolioParamList } from '../PortfolioNavigator'
+import { ConversionMode } from './ConvertScreen'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
+import { dfiConversionCrafter } from '@api/transaction/dfi_converter'
+import { useAppDispatch } from '@hooks/useAppDispatch'
+import { SummaryTitleV2 } from '@components/SummaryTitleV2'
+import { BorderType, SummaryRow } from '@components/SummaryRow'
+import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
+import { View } from 'react-native'
+
+type Props = StackScreenProps<PortfolioParamList, 'ConvertConfirmationScreen'>
+
+export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
+  const {
+    sourceUnit,
+    sourceBalance,
+    targetUnit,
+    targetBalance,
+    mode,
+    amount,
+    fee
+  } = route.params
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const dispatch = useAppDispatch()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
+  const [isOnPage, setIsOnPage] = useState<boolean>(true)
+  const logger = useLogger()
+
+  useEffect(() => {
+    setIsOnPage(true)
+    return () => {
+      setIsOnPage(false)
+    }
+  }, [])
+
+  async function onSubmit (): Promise<void> {
+    if (hasPendingJob || hasPendingBroadcastJob) {
+      return
+    }
+    setIsSubmitting(true)
+    await constructSignedConversionAndSend({
+      mode,
+      amount
+    }, dispatch, () => {
+      onTransactionBroadcast(isOnPage, navigation.dispatch)
+    }, logger)
+    setIsSubmitting(false)
+  }
+
+  function onCancel (): void {
+    if (!isSubmitting) {
+      navigation.navigate({
+        name: 'Convert',
+        params: {
+          mode
+        },
+        merge: true
+      })
+    }
+  }
+
+  return (
+    <ThemedScrollViewV2 style={tailwind('pb-4')}>
+      <ThemedViewV2 style={tailwind('flex-col px-5 py-8')}>
+        <SummaryTitleV2
+          title={translate('screens/ConvertConfirmScreen', 'You are converting to {{unit}}', { unit: getDisplayUnit(targetUnit) })}
+          amount={amount}
+          testID='convert_value'
+          iconA='_UTXO'
+        />
+
+        <SummaryRow
+          title={translate('screens/ConvertConfirmScreen', 'Transaction fee')}
+          value={`${fee.toFixed(8)} DFI`}
+          borderType={BorderType.Top}
+          containerStyle='pt-5 mt-8'
+          testID='transaction_fee'
+        />
+        <SummaryRow
+          title={translate('screens/ConvertConfirmScreen', 'Resulting Tokens', { unit: sourceUnit })}
+          value={`${getResultingValue('Token', fee, sourceBalance, sourceUnit, targetBalance, targetUnit)} DFI`}
+          valueTextStyle='font-semibold-v2'
+          containerStyle='pt-5'
+          subValue={`(${getResultingPercentage('Token', sourceBalance, sourceUnit, targetBalance)}%)`}
+          testID='resulting_source'
+        />
+        <SummaryRow
+          title={translate('screens/ConvertConfirmScreen', 'Resulting UTXO', { unit: targetUnit })}
+          value={`${getResultingValue('UTXO', fee, sourceBalance, sourceUnit, targetBalance, targetUnit)} DFI`}
+          valueTextStyle='font-semibold-v2'
+          borderType={BorderType.Bottom}
+          containerStyle='py-5'
+          subValue={`(${getResultingPercentage('UTXO', sourceBalance, sourceUnit, targetBalance)}%)`}
+          testID='resulting_target'
+        />
+
+        <View style={tailwind('mt-20')}>
+          <SubmitButtonGroupV2
+            isDisabled={false} title='convert'
+            label={translate('screens/ConvertConfirmScreen', 'Convert')}
+            displayCancelBtn onSubmit={onSubmit}
+            onCancel={onCancel}
+          />
+        </View>
+      </ThemedViewV2>
+    </ThemedScrollViewV2>
+  )
+}
+
+async function constructSignedConversionAndSend ({
+  mode,
+  amount
+}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
+  try {
+    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast)))
+  } catch (e) {
+    logger.error(e)
+  }
+}
+
+function getResultingValue (desireUnit: string, fee: BigNumber, balanceA: BigNumber, unitA: string, balanceB: BigNumber, unitB: string): string {
+  const balance = desireUnit === unitA ? balanceA : balanceB
+  const unit = desireUnit === unitA ? unitA : unitB
+
+  return BigNumber.max(balance.minus(unit === 'UTXO' ? fee : 0), 0).toFixed(8)
+}
+
+function getResultingPercentage (desireUnit: string, balanceA: BigNumber, unitA: string, balanceB: BigNumber): string {
+  const amount = desireUnit === unitA ? balanceA : balanceB
+  const totalAmount = balanceA.plus(balanceB)
+
+  return new BigNumber(amount).div(totalAmount).multipliedBy(100).toFixed(2)
+}
+
+function getDisplayUnit (unit?: string): string | undefined {
+  if (unit === 'Token') {
+    return 'token'
+  }
+  return unit
+}
