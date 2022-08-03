@@ -42,7 +42,6 @@ interface ExtPoolPairData extends PoolPairData {
 export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   const logger = useLogger()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
-  const client = useWhaleApiClient()
   const dispatch = useAppDispatch()
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
@@ -183,12 +182,6 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     setTokenBTransactionCardStatus(hasBError ? 'error' : isInputBFocus ? 'active' : undefined)
   }, [hasAError, hasBError, isInputAFocus, isInputBFocus])
 
-  // useEffect(() => {
-  //   client.fee.estimate()
-  //     .then((f) => setFee(new BigNumber(f)))
-  //     .catch(logger.error)
-  // }, [])
-
   useEffect(() => {
     if (pair === undefined) {
       return
@@ -279,18 +272,19 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
           status={tokenBTransactionCardStatus}
           showErrMsg={hasBError}
         />
+        
         {/*  TODO */}
         {/* TODO: do a hook for text input */}
-        <ReservedDFIInfoText />
+        {/* <ReservedDFIInfoText />
         {
           isConversionRequired &&
           <View style={tailwind('pt-2')}>
             <ConversionInfoText />
           </View>
-        }
+        } */}
       </View>
 
-      <View style={tailwind('p-5')}>
+      <View style={tailwind('pb-2 px-5')}>
         <ThemedViewV2
           light={tailwind('border-mono-light-v2-300')}
           dark={tailwind('border-mono-dark-v2-300')}
@@ -382,7 +376,7 @@ function DexInputCard (
   }): JSX.Element {
   const Icon = getNativeIcon(props.symbol)
   return (
-    <View style={tailwind('pb-4')}>
+    <>
       <TransactionCard
         maxValue={props.balance}
         onChange={(amount) => {
@@ -412,13 +406,13 @@ function DexInputCard (
         </ThemedViewV2>
       </TransactionCard>
 
-      <View style={tailwind('pt-2')}>
+      <View style={tailwind('pb-6')}>
         {props.showErrMsg
           ? (
             <ThemedTextV2
               light={tailwind('text-red-v2')}
               dark={tailwind('text-red-v2')}
-              style={tailwind('pt-1 pb-4 px-4 text-sm')}
+              style={tailwind('px-4 text-sm')}
             >
               {`${translate('screens/AddLiquidity', 'Insufficient balance')}`}
             </ThemedTextV2>
@@ -432,8 +426,7 @@ function DexInputCard (
             />
           )}
       </View>
-    </View>
-
+    </>
   )
 }
 

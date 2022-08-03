@@ -57,7 +57,7 @@ export function InputHelperTextV2 (props: InputHelperTextProps): JSX.Element {
     <ThemedViewV2
       light={tailwind('bg-transparent')}
       dark={tailwind('bg-transparent')}
-      style={tailwind('flex-1 flex-row flex-wrap mt-1 mb-4 text-sm px-4')}
+      style={tailwind('flex flex-row pt-1 text-sm px-4')}
     >
       <ThemedTextV2
         light={tailwind('text-mono-light-v2-500')}
