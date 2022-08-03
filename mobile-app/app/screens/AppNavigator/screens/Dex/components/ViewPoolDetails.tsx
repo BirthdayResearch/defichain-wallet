@@ -44,7 +44,7 @@ export const ViewPoolDetails = ({
         <ThemedTextV2
           dark={tailwind('text-mono-dark-v2-900')}
           light={tailwind('text-mono-light-v2-900')}
-          style={tailwind('pl-1 text-2xl font-semibold-v2')}
+          style={tailwind('pl-1 text-xl font-semibold-v2')}
         >
           {poolInfo.displaySymbol}
         </ThemedTextV2>
