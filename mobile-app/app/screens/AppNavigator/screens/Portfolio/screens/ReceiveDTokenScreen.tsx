@@ -174,7 +174,7 @@ export function ReceiveDTokenScreen ({
               modalStyle={tailwind('text-lg')}
               testID='portfolio_button_group'
               darkThemeStyle={tailwind('bg-dfxblue-800 rounded')}
-              customButtonGroupStyle={tailwind('px-14 py-1 rounded')}
+              customButtonGroupStyle={tailwind('px-14 py-1 mb-0 rounded')}
               customActiveStyle={{
                 dark: tailwind(activeButton === CryptoButtonGroupTabKey.DFI ? 'bg-dfxdfi-500' : 'bg-dfxbtc-500')
               }}
