@@ -103,7 +103,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     })
   }
 
-  async function onSubmit(): Promise<void> {
+  async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
@@ -269,8 +269,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
           status={tokenBTransactionCardStatus}
           showErrMsg={hasBError}
         />
-        
-        {/*  TODO */}
+
         {/* TODO: do a hook for text input */}
         {/* <ReservedDFIInfoText />
         {
@@ -362,13 +361,13 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
 
 function DexInputCard (
   props: {
-    balance: BigNumber,
-    type: 'primary' | 'secondary',
-    symbol: string,
-    onChange: (amount: string) => void,
-    current: string,
-    status?: string,
-    setIsInputFocus: any, // TODO: double check type
+    balance: BigNumber
+    type: 'primary' | 'secondary'
+    symbol: string
+    onChange: (amount: string) => void
+    current: string
+    status?: string
+    setIsInputFocus: any // TODO: double check type
     showErrMsg: boolean
   }): JSX.Element {
   const Icon = getNativeIcon(props.symbol)
@@ -427,7 +426,7 @@ function DexInputCard (
   )
 }
 
-function ContinueButton(props: { enabled: boolean, onPress: () => Promise<void>, isProcessing: boolean }): JSX.Element {
+function ContinueButton (props: { enabled: boolean, onPress: () => Promise<void>, isProcessing: boolean }): JSX.Element {
   return (
     <SubmitButtonGroupV2
       isDisabled={!props.enabled}
@@ -442,7 +441,7 @@ function ContinueButton(props: { enabled: boolean, onPress: () => Promise<void>,
 }
 
 // just leave it as it is now, will be moved to network drawer
-function canAddLiquidity(pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenBAmount: BigNumber, balanceA: BigNumber | undefined, balanceB: BigNumber | undefined): boolean {
+function canAddLiquidity (pair: ExtPoolPairData, tokenAAmount: BigNumber, tokenBAmount: BigNumber, balanceA: BigNumber | undefined, balanceB: BigNumber | undefined): boolean {
   if (tokenAAmount.isNaN() || tokenBAmount.isNaN()) {
     // empty string, use still input-ing
     return false
