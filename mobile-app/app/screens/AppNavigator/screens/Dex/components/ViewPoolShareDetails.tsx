@@ -1,4 +1,4 @@
-import { StyleProp, TextStyle, View } from 'react-native'
+import { View } from 'react-native'
 import { memo } from 'react'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
@@ -19,7 +19,6 @@ interface ViewPoolContentsDetailsProps {
   poolInfo: WalletToken
   totalPooledTokenA: string
   totalPooledTokenB: string
-  infoIconStyle?: StyleProp<TextStyle>
 }
 
 export const ViewPoolShareDetails = ({
@@ -83,7 +82,7 @@ export const ViewPoolShareDetails = ({
             }}
             prefix='('
             suffix='%)'
-            testID='Pool_share_amount'
+            testID='Pool_share_amount_percentage'
           />
         </View>
         <View style={tailwind('mb-3')}>

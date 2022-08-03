@@ -271,6 +271,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
               modalRef={bottomSheetRef}
               screenList={ViewPoolContents}
               snapPoints={modalSortingSnapPoints}
+              enablePanDown
             />
           )}
       </ThemedScrollView>
