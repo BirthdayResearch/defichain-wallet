@@ -8,6 +8,7 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import BigNumber from 'bignumber.js'
+import { checkValueWithinRange } from '../../support/walletCommands'
 
 interface DexItem {
   type: 'your' | 'available'
@@ -61,10 +62,8 @@ context('Mainnet - Wallet', () => {
 
   it('should have displayed default tokens', function () {
     cy.getByTestID('dfi_total_balance_amount').contains('0.00000000')
-    cy.getByTestID('dfi_balance_card').should('exist').click()
-    cy.getByTestID('dfi_utxo_amount').contains('0.00000000')
-    cy.getByTestID('dfi_token_amount').contains('0.00000000')
-    cy.getByTestID('dfi_total_balance_amount').contains('0.00000000')
+    cy.getByTestID('dfi_total_balance_usd_amount').contains('$0.00000000')
+    cy.getByTestID('dfi_balance_card').should('exist')
   })
 
   context('Settings - Mnemonic Verification', () => {
@@ -128,7 +127,9 @@ context('Mainnet - Wallet', () => {
       cy.fetchWalletBalance()
       cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('portfolio_list').should('exist')
-      cy.getByTestID('dfi_total_balance_amount').contains('20.00000000')
+      cy.getByTestID('dfi_total_balance_amount').invoke('text').then(text => {
+        checkValueWithinRange(text, '20', 0.1)
+      })
       cy.getByTestID('dfi_balance_card').should('exist').click()
       cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
       cy.getByTestID('dfi_token_amount').contains('10')

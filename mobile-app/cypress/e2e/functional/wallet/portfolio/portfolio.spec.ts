@@ -1076,17 +1076,12 @@ context('Wallet - Portfolio - Skeleton Loader', () => {
           {}
         ]
       },
-      delay: 5000
+      delay: 3000
     })
-    cy.getByTestID('dfi_total_balance_amount').should('exist')
-    cy.getByTestID('dfi_balance_card').should('exist').click()
     cy.getByTestID('total_portfolio_skeleton_loader').should('exist')
-    cy.getByTestID('dfi_balance_skeleton_loader').should('exist')
-    cy.getByTestID('dfi_utxo_percentage_skeleton_loader').should('exist')
-    cy.getByTestID('dfi_token_percentage_skeleton_loader').should('exist')
-    cy.getByTestID('dfi_USD_balance_skeleton_loader').should('exist')
-    cy.getByTestID('dfi_breakdown_row_skeleton_loader').should('exist')
     cy.getByTestID('portfolio_skeleton_loader').should('exist')
+    cy.getByTestID('dfi_balance_skeleton_loader').should('exist')
+    cy.getByTestID('dfi_USD_balance_skeleton_loader').should('exist')
   })
 
   it('should not display skeleton loader when API has return', () => {
@@ -1094,10 +1089,7 @@ context('Wallet - Portfolio - Skeleton Loader', () => {
     cy.wait('@getTokens').then(() => {
       cy.getByTestID('total_portfolio_skeleton_loader').should('not.exist')
       cy.getByTestID('dfi_balance_skeleton_loader').should('not.exist')
-      cy.getByTestID('dfi_utxo_percentage_skeleton_loader').should('not.exist')
-      cy.getByTestID('dfi_token_percentage_skeleton_loader').should('not.exist')
       cy.getByTestID('dfi_USD_balance_skeleton_loader').should('not.exist')
-      cy.getByTestID('dfi_breakdown_row_skeleton_loader').should('not.exist')
       cy.getByTestID('portfolio_skeleton_loader').should('not.exist')
     })
   })
