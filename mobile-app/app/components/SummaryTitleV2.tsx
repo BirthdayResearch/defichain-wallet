@@ -43,15 +43,15 @@ export function SummaryTitleV2 (props: SummaryTitleProps): JSX.Element {
         <View style={tailwind('flex-row items-center mt-2')}>
 
           {IconB !== undefined
-? (
-  <View style={tailwind('flex-row')}>
-    <IconA height={32} width={32} style={tailwind('z-10')} />
-    <IconB height={32} width={32} style={tailwind('-ml-3')} />
-  </View>
-          )
-: (
-  <IconA height={32} width={32} />
-          )}
+            ? (
+              <View style={tailwind('flex-row')}>
+                <IconA height={32} width={32} style={tailwind('z-10')} />
+                <IconB height={32} width={32} style={tailwind('-ml-3')} />
+              </View>
+            )
+            : (
+              <IconA height={32} width={32} />
+            )}
 
           <NumberFormat
             decimalScale={8}
@@ -72,6 +72,7 @@ export function SummaryTitleV2 (props: SummaryTitleProps): JSX.Element {
 
         <View style={tailwind('flex-row items-center mt-5')}>
           <ThemedTextV2
+            style={tailwind('text-xs font-normal-v2')}
             dark={tailwind('text-mono-dark-v2-500')} light={tailwind('text-mono-light-v2-500')}
           >
             {translate('screens/common', 'From')}
@@ -96,28 +97,29 @@ export function SummaryTitleV2 (props: SummaryTitleProps): JSX.Element {
         </View>
 
         {props.toAddress !== undefined
-? (
-  <View style={tailwind('flex-row items-center mt-4')} testID='summary_to_view'>
-    <ThemedTextV2
-      dark={tailwind('text-mono-dark-v2-500')} light={tailwind('text-mono-light-v2-500')}
-    >
-      {translate('screens/common', 'To')}
-    </ThemedTextV2>
-    <ThemedViewV2
-      style={tailwind('flex-1 rounded-full px-2 py-1 ml-2')}
-      dark={tailwind('bg-mono-dark-v2-200')}
-      light={tailwind('bg-mono-light-v2-200')}
-    >
-      <ThemedTextV2
-        style={tailwind('text-sm font-normal-v2 ')}
-        ellipsizeMode='middle' numberOfLines={1} testID='summary_to_value'
-      >
-        {props.toAddress}
-      </ThemedTextV2>
-    </ThemedViewV2>
-  </View>
-        )
-: null}
+          ? (
+            <View style={tailwind('flex-row items-center mt-4')} testID='summary_to_view'>
+              <ThemedTextV2
+                style={tailwind('text-xs font-normal-v2')}
+                dark={tailwind('text-mono-dark-v2-500')} light={tailwind('text-mono-light-v2-500')}
+              >
+                {translate('screens/common', 'To')}
+              </ThemedTextV2>
+              <ThemedViewV2
+                style={tailwind('flex-1 rounded-full px-2 py-1 ml-2')}
+                dark={tailwind('bg-mono-dark-v2-200')}
+                light={tailwind('bg-mono-light-v2-200')}
+              >
+                <ThemedTextV2
+                  style={tailwind('text-sm font-normal-v2 ')}
+                  ellipsizeMode='middle' numberOfLines={1} testID='summary_to_value'
+                >
+                  {props.toAddress}
+                </ThemedTextV2>
+              </ThemedViewV2>
+            </View>
+          )
+          : null}
       </View>
     </>
   )
