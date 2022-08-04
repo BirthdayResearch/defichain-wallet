@@ -25,6 +25,7 @@ import { InfoText } from '@components/InfoText'
 import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 // import BtcIconSvg from '@assets/images/dfx_buttons/crypto/Bitcoin_icon.svg'
 import BtcTodBtc from '@assets/images/dfx_buttons/crypto/BTC_to_dBTC.svg'
+import BigNumber from 'bignumber.js'
 
 export async function onShare (address: string, logger: NativeLoggingProps): Promise<void> {
   try {
@@ -58,9 +59,11 @@ export function ReceiveDTokenScreen ({
 
   const [bitcoinAddress, setBitcoinAddress] = useState('')
   const activeAddress = activeButton === CryptoButtonGroupTabKey.DFI ? address : bitcoinAddress
+  // route.name() = 'DeFiChain'
   const [isLoading, setIsLoading] = useState(false)
   const defaultFee = 1.2
-  const [fee, setFee] = useState(defaultFee)
+  const [fee, setFee] = useState<BigNumber>(new BigNumber(defaultFee))
+  const [refBonus, setRefBonus] = useState<BigNumber>(new BigNumber(0))
   const { openDfxServices } = useDFXAPIContext()
   const [showToast, setShowToast] = useState(false)
   const toast = useToast()
@@ -107,10 +110,13 @@ export function ReceiveDTokenScreen ({
 
   const cryptoRoute: CryptoRoute = {
     active: true,
-    asset: {} as Asset,
     blockchain: Blockchain.BITCOIN,
     type: BuyType.WALLET,
-    id: ''
+    id: '',
+    fee: 0,
+    volume: 0,
+    annualVolume: 0,
+    refBonus: 0
   }
 
   useEffect(() => {
@@ -123,7 +129,8 @@ export function ReceiveDTokenScreen ({
       if (route != null) {
         // if route exists, get bitcoin address and set state
         setBitcoinAddress(route?.deposit?.address ?? '')
-        setFee(route?.fee)
+        setFee(new BigNumber(route?.fee ?? defaultFee))
+        setRefBonus(new BigNumber(route?.refBonus ?? 0))
         setIsLoading(false)
       } else {
         // if route doesn't exist, automatically create a bitcoin route
@@ -135,7 +142,8 @@ export function ReceiveDTokenScreen ({
           // post bitcoin route
           postCryptoRoute(cryptoRoute).then((route) => {
             setBitcoinAddress(route?.deposit?.address ?? '')
-            setFee(route?.fee)
+            setFee(new BigNumber(route?.fee ?? defaultFee))
+            setRefBonus(new BigNumber(route?.refBonus ?? 0))
           }).catch((error) => {
             logger.error(error)
           }).finally(() => {
@@ -231,7 +239,7 @@ export function ReceiveDTokenScreen ({
                 style={tailwind('font-medium text-center')}
                 testID='wallet_address'
               >
-                {activeButton === CryptoButtonGroupTabKey.DFI ? 'WALLET ADDRESS' : 'BTC ' + translate('screens/ReceiveDTokenScreen', 'DEPOSIT ADDRESS')}
+                {activeButton === CryptoButtonGroupTabKey.DFI ? translate('screens/ReceiveScreen', 'WALLET ADDRESS') : 'BTC ' + translate('screens/ReceiveDTokenScreen', 'DEPOSIT ADDRESS')}
               </ThemedTextBasic>
               <ThemedText
                 dark={tailwind('text-gray-100')}
@@ -312,10 +320,11 @@ export function ReceiveDTokenScreen ({
           />
           <InfoRow
             type={InfoType.FiatFee}
-            value={fee.toString()}
+            value={`${new BigNumber(fee.minus(refBonus)).toString()}`}
             testID='fiat_fee'
-            suffix='%'
+            suffix={(refBonus.toNumber() !== 0 ? `%  (${refBonus.toString()}% ${translate('ReceiveDTokenScreen', 'Ref bonus')})` : '%')}
           />
+          <View style={tailwind('mb-6')} />
         </>
       )}
 

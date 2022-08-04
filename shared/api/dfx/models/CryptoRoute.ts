@@ -8,13 +8,14 @@ export enum Blockchain {
 
 export interface CryptoRoute {
   id: string
-  active?: boolean
+  active: boolean
   fee: number
   type: string
   blockchain: Blockchain
   deposit?: Deposit
-  asset: Asset
+  asset?: Asset
   staking?: StakingRoute
-  volume?: number
-  annualVolume?: number
-}
+  volume: number
+  annualVolume: number
+  refBonus: number
+ }

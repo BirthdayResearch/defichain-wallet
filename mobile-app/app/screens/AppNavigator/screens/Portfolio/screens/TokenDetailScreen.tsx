@@ -25,7 +25,6 @@ import { PortfolioParamList } from '../PortfolioNavigator'
 import { ConversionMode } from './ConvertScreen'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { CryptoButtonGroupTabKey } from './ReceiveDTokenScreen'
 
 interface TokenActionItems {
   title: string
@@ -165,11 +164,7 @@ export function TokenDetailScreen ({
             <TokenActionRow
               icon='arrow-downward'
               onPress={() => token.avatarSymbol === 'dBTC'
-                ? navigation.navigate({
-                    name: 'ReceiveDTokenScreen',
-                    params: { crypto: CryptoButtonGroupTabKey.BTC },
-                    merge: true
-                  })
+                ? navigation.navigate('ReceiveDTokenScreen')
                 : navigation.navigate('Receive')}
               testID='receive_button'
               title={`${translate('screens/TokenDetailScreen', 'Receive {{token}}', { token: token.displaySymbol })}`}
