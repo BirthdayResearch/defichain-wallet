@@ -7,7 +7,6 @@ import { BarCodeScanner } from '@components/BarCodeScanner'
 import { HeaderTitle } from '@components/HeaderTitle'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { SettingsNavigator } from '../Settings/SettingsNavigator'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { PortfolioScreen } from './PortfolioScreen'
 import { ConvertConfirmationScreen } from './screens/ConvertConfirmationScreen'
@@ -32,8 +31,7 @@ import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
 import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
 import { GetDFIScreen } from './screens/GetDFIScreen'
 import { MarketplaceScreen } from './screens/MarketplaceScreen'
-import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
-import { SettingsNavigatorV2 } from '../Settings/SettingsNavigatorV2'
+import { SettingsNavigator } from '../Settings/SettingsNavigator'
 import { TransactionsScreen } from '@screens/AppNavigator/screens/Transactions/TransactionsScreen'
 import { TransactionDetailScreen } from '@screens/AppNavigator/screens/Transactions/screens/TransactionDetailScreen'
 import { VMTransaction } from '@screens/AppNavigator/screens/Transactions/screens/stateProcessor'
@@ -127,7 +125,6 @@ const PortfolioStack = createStackNavigator<PortfolioParamList>()
 export function PortfolioNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const headerContainerTestId = 'portfolio_header_container'
-  const { isFeatureAvailable } = useFeatureFlagContext()
   const { isLight } = useThemeContext()
   const goToNetworkSelect = (): void => {
     navigation.navigate('NetworkSelectionScreen')
@@ -141,7 +138,7 @@ export function PortfolioNavigator (): JSX.Element {
       }}
     >
       <PortfolioStack.Screen
-        component={isFeatureAvailable('setting_v2') ? SettingsNavigatorV2 : SettingsNavigator}
+        component={SettingsNavigator}
         name={translate('PortfolioNavigator', 'Settings')}
         options={{
           headerShown: false

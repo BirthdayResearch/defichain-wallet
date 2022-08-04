@@ -2,7 +2,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { ThemedScrollViewV2, ThemedViewV2, ThemedTextV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { SettingsParamList } from '../SettingsNavigatorV2'
+import { SettingsParamList } from '../SettingsNavigator'
 
 type Props = StackScreenProps<SettingsParamList, 'RecoveryWordsScreen'>
 

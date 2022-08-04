@@ -25,7 +25,7 @@ import { ButtonGroupV2 } from '../../Dex/components/ButtonGroupV2'
 import { SearchInputV2 } from '@components/SearchInputV2'
 import { FavoriteCheckIcon, FavoriteUnCheckIcon } from '../../Settings/assets/FavoriteIcon'
 import { RefreshIcon } from '@screens/WalletNavigator/assets/RefreshIcon'
-import { SettingsParamList } from '../../Settings/SettingsNavigatorV2'
+import { SettingsParamList } from '../../Settings/SettingsNavigator'
 import { RandomAvatar } from '../components/RandomAvatar'
 
 type Props = StackScreenProps<SettingsParamList, 'AddressBookScreen'>
