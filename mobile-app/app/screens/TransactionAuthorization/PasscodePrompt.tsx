@@ -66,7 +66,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         <ThemedTextV2
           style={tailwind('text-center font-normal-v2 pt-1.5 px-10', { 'mb-16 pb-3': props.status === TransactionStatus.PIN })}
         >
-          {props.title}
+          {props.transaction?.displayTitle ?? props.title}
         </ThemedTextV2>
         {props.status === TransactionStatus.SIGNING &&
           <>
@@ -229,7 +229,7 @@ function SuccessIndicator (): JSX.Element {
   )
 }
 
-function ReadOnlyPinInput ({ pinLength, pin }: {pinLength: number, pin: string}): JSX.Element {
+function ReadOnlyPinInput ({ pinLength, pin }: { pinLength: number, pin: string }): JSX.Element {
   return (
     <PinTextInputV2
       cellCount={pinLength}
