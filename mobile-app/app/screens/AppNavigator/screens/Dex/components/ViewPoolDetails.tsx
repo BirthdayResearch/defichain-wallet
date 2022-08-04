@@ -2,7 +2,6 @@ import { View } from 'react-native'
 import { memo } from 'react'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
-import { getNativeIcon } from '@components/icons/assets'
 import { ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WalletToken } from '@store/wallet'
@@ -11,6 +10,7 @@ import { useDenominationCurrency } from '@screens/AppNavigator/screens/Portfolio
 import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
 import { ViewPoolAmountRow } from './ViewPoolAmountRow'
 import { translate } from '@translations'
+import { PoolPairTextSectionV2 } from './PoolPairCards/PoolPairTextSectionV2'
 
 interface ViewPoolDetailsProps {
   dataRoutes: 'add' | 'remove'
@@ -27,9 +27,6 @@ export const ViewPoolDetails = ({
     totalPooledTokenA,
     totalPooledTokenB
   }: ViewPoolDetailsProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
-  const TokenIconA = getNativeIcon(pairData.tokenA.displaySymbol)
-  const TokenIconB = getNativeIcon(pairData.tokenB.displaySymbol)
-
   return (
     <ThemedViewV2
       light={tailwind('bg-mono-light-v2-100')}
@@ -38,8 +35,11 @@ export const ViewPoolDetails = ({
     >
       <View style={tailwind('flex-row mb-3')}>
         <View>
-          <TokenIconA style={tailwind('absolute z-50')} width={32} height={32} />
-          <TokenIconB style={tailwind('ml-5 z-40')} width={32} height={32} />
+          <PoolPairTextSectionV2
+            symbolA={pairData.tokenA.displaySymbol}
+            symbolB={pairData.tokenB.displaySymbol}
+            customSize={32}
+          />
         </View>
         <ThemedTextV2
           dark={tailwind('text-mono-dark-v2-900')}
