@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js'
-
 import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
 import { ThemedTextV2, ThemedViewV2 } from './themed'
@@ -96,30 +95,28 @@ export function SummaryTitleV2 (props: SummaryTitleProps): JSX.Element {
           </ThemedViewV2>
         </View>
 
-        {props.toAddress !== undefined
-          ? (
-            <View style={tailwind('flex-row items-center mt-4')} testID='summary_to_view'>
+        {props.toAddress !== undefined && (
+          <View style={tailwind('flex-row items-center mt-4')} testID='summary_to_view'>
+            <ThemedTextV2
+              style={tailwind('text-xs font-normal-v2')}
+              dark={tailwind('text-mono-dark-v2-500')} light={tailwind('text-mono-light-v2-500')}
+            >
+              {translate('screens/common', 'To')}
+            </ThemedTextV2>
+            <ThemedViewV2
+              style={tailwind('flex-1 rounded-full px-2 py-1 ml-2')}
+              dark={tailwind('bg-mono-dark-v2-200')}
+              light={tailwind('bg-mono-light-v2-200')}
+            >
               <ThemedTextV2
-                style={tailwind('text-xs font-normal-v2')}
-                dark={tailwind('text-mono-dark-v2-500')} light={tailwind('text-mono-light-v2-500')}
+                style={tailwind('text-sm font-normal-v2')}
+                ellipsizeMode='middle' numberOfLines={1} testID='summary_to_value'
               >
-                {translate('screens/common', 'To')}
+                {props.toAddress}
               </ThemedTextV2>
-              <ThemedViewV2
-                style={tailwind('flex-1 rounded-full px-2 py-1 ml-2')}
-                dark={tailwind('bg-mono-dark-v2-200')}
-                light={tailwind('bg-mono-light-v2-200')}
-              >
-                <ThemedTextV2
-                  style={tailwind('text-sm font-normal-v2 ')}
-                  ellipsizeMode='middle' numberOfLines={1} testID='summary_to_value'
-                >
-                  {props.toAddress}
-                </ThemedTextV2>
-              </ThemedViewV2>
-            </View>
-          )
-          : null}
+            </ThemedViewV2>
+          </View>
+        )}
       </View>
     </>
   )
