@@ -589,14 +589,14 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
 function AssetSortRow (props: { isSorted: boolean, assetSortType: PortfolioSortType, modifiedDenominationCurrency: string, onPress: () => void }): JSX.Element {
   const highestCurrencyValue = translate('screens/PortfolioScreen', 'Highest value ({{modifiedDenominationCurrency}})', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
   const lowestCurrencyValue = translate('screens/PortfolioScreen', 'Lowest value ({{modifiedDenominationCurrency}})', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
-  const getDisplayedSortText = (text: PortfolioSortType): string => {
+  const getDisplayedSortText = useCallback((text: PortfolioSortType): string => {
     if (text === PortfolioSortType.HighestDenominationValue) {
       return highestCurrencyValue
     } else if (text === PortfolioSortType.LowestDenominationValue) {
       return lowestCurrencyValue
     }
     return text
-  }
+  }, [props.modifiedDenominationCurrency])
 
   return (
     <View
