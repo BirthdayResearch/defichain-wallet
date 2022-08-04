@@ -711,7 +711,11 @@
   "screens/common": {
     "CANCEL": "ANNULLA",
     "Cancel": "Annulla",
-    "TRY AGAIN": "RIPROVA"
+    "TRY AGAIN": "RIPROVA",
+    "From": "Da",
+    "To": "A",
+    "Converting": "Conversione",
+    "Converted": "Converted"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Crea un nuovo codice di accesso per il tuo wallet",
