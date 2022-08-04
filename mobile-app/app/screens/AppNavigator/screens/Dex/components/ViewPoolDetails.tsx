@@ -130,7 +130,7 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
     <View style={tailwind('mt-5')}>
       <View style={tailwind('mb-3')}>
         <ViewPoolAmountRow
-          label={translate('screens/RemoveLiquidity', 'Pool share')}
+          label={translate('screens/RemoveLiquidity', 'Your LP Tokens')}
           amount={pairInfo.amount}
           valueThemeProps={{
             dark: tailwind('text-mono-dark-v2-900'),
@@ -152,7 +152,9 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
       </View>
       <View style={tailwind('mb-3')}>
         <ViewPoolAmountRow
-          label={translate('screens/RemoveLiquidity', `Pooled ${pairData.tokenA.displaySymbol}`)}
+          label={translate('screens/RemoveLiquidity', 'Token in {{token}}', {
+            token: pairData.tokenA.displaySymbol
+          })}
           amount={tokenATotal.toFixed(8)}
           valueThemeProps={{
             dark: tailwind('text-mono-dark-v2-900'),
@@ -173,7 +175,9 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
       </View>
       <View style={tailwind('mb-3')}>
         <ViewPoolAmountRow
-          label={translate('screens/RemoveLiquidity', `Pooled ${pairData.tokenB.displaySymbol}`)}
+          label={translate('screens/RemoveLiquidity', 'Token in {{token}}', {
+            token: pairData.tokenB.displaySymbol
+          })}
           amount={tokenBTotal.toFixed(8)}
           valueThemeProps={{
             dark: tailwind('text-mono-dark-v2-900'),
