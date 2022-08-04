@@ -510,7 +510,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
               light={tailwind('text-mono-light-v2-900')}
               name={`${isBalancesDisplayed ? 'eye' : 'eye-off'}`}
               size={18}
-              testID='toggle_usd_breakdown_icon'
             />
           </ThemedTouchableOpacityV2>
         </ThemedViewV2>
