@@ -136,7 +136,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
 
   return (
     <ThemedScrollViewV2 style={tailwind('w-full flex-col flex-1')} testID='convert_screen'>
-      <View style={tailwind('items-center px-4 pb-16')}>
+      <View style={tailwind('items-center px-5 pb-16')}>
         <ConvertToggleButton onPress={onTogglePress} />
 
         <ThemedTextV2 style={tailwind('font-semibold-v2 text-lg mt-2')}>
@@ -145,7 +145,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
 
         <ConversionLabel sourceUnit={sourceToken.unit} targetUnit={targetToken.unit} />
 
-        <View style={tailwind('w-full flex-col pt-12')}>
+        <View style={tailwind('w-full flex-col mt-12')}>
           <ThemedSectionTitleV2
             testID='convert_title'
             text={translate('screens/ConvertScreen', 'I WANT TO CONVERT')}
@@ -251,7 +251,7 @@ function ConvertToggleButton (props: { onPress: () => void }): JSX.Element {
   return (
     <ThemedTouchableOpacityV2
       style={tailwind('border-0 pt-12 items-center flex-wrap')}
-      onPress={props.onPress} testID='convert_toggle_button'
+      onPress={props.onPress} testID='button_convert_mode_toggle'
     >
       <UTXOIcon height={64} width={64} />
       <ThemedViewV2
