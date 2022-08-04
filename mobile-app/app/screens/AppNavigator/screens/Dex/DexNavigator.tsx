@@ -63,8 +63,6 @@ export interface DexParamList {
   RemoveLiquidity: {
     pair: PoolPairData
     pairInfo: WalletToken
-    totalTokenA: string
-    totalTokenB: string
   }
   ConfirmRemoveLiquidity: {
     amount: BigNumber
