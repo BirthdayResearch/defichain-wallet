@@ -1,3 +1,4 @@
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { createStackNavigator } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
@@ -8,16 +9,14 @@ import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
 import { RemoveLiquidityConfirmScreen } from './DexConfirmRemoveLiquidity'
-import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
+import { RemoveLiquidityScreenV2 } from './DexRemoveLiquidityV2'
 import { DexScreen } from './DexScreen'
 import { CompositeSwapScreen, OwnedTokenState, TokenState } from './CompositeSwap/CompositeSwapScreen'
 import { CompositeSwapForm, ConfirmCompositeSwapScreen } from './CompositeSwap/ConfirmCompositeSwapScreen'
 import { WalletToken } from '@store/wallet'
 import { ConversionParam } from '../Portfolio/PortfolioNavigator'
-import { AddLiquidityScreenV2 } from './DexAddLiquidityV2'
 import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
 
 export interface DexParamList {
   DexScreen: undefined
@@ -60,7 +59,12 @@ export interface DexParamList {
     summary: AddLiquiditySummary
     conversion?: ConversionParam
   }
-  RemoveLiquidity: { pair: PoolPairData }
+  RemoveLiquidity: {
+    pair: PoolPairData
+    pairInfo: WalletToken
+    totalTokenA: string
+    totalTokenB: string
+  }
   ConfirmRemoveLiquidity: {
     amount: BigNumber
     fee: BigNumber
@@ -87,11 +91,11 @@ const DexStack = createStackNavigator<DexParamList>()
 
 export function DexNavigator (): JSX.Element {
   const headerContainerTestId = 'dex_header_container'
-  const screenOptions = useNavigatorScreenOptions()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const goToNetworkSelect = (): void => {
     navigation.navigate('NetworkSelectionScreen')
   }
+  const screenOptions = useNavigatorScreenOptions()
 
   return (
     <DexStack.Navigator
@@ -141,15 +145,14 @@ export function DexNavigator (): JSX.Element {
       />
 
       <DexStack.Screen
-        component={RemoveLiquidityScreen}
+        component={RemoveLiquidityScreenV2}
         name='RemoveLiquidity'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Remove Liquidity')}
-              containerTestID={headerContainerTestId}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate('screens/DexScreen', 'Remove Liquidity')
         }}
       />
 

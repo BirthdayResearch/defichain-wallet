@@ -130,7 +130,7 @@ export function EditLoanSchemeScreen ({ route, navigation }: Props): JSX.Element
 
 function VaultSection (props: { vault: LoanVaultActive }): JSX.Element {
   const { vault } = props
-  const colRatio = new BigNumber(vault.collateralRatio)
+  const colRatio = new BigNumber(vault.informativeRatio)
   const minColRatio = new BigNumber(vault.loanScheme.minColRatio)
   const totalLoanValue = new BigNumber(vault.loanValue)
   const totalCollateralValue = new BigNumber(vault.collateralValue)
@@ -175,8 +175,8 @@ function VaultSection (props: { vault: LoanVaultActive }): JSX.Element {
       />
       <VaultSectionTextRow
         testID='text_total_collateral_value'
-        value={new BigNumber(vault.collateralRatio === '-1' ? NaN : vault.collateralRatio).toFixed(2)}
-        suffix={vault.collateralRatio === '-1' ? translate('screens/EditCollateralScreen', 'N/A') : '%'}
+        value={new BigNumber(vault.informativeRatio === '-1' ? NaN : vault.informativeRatio).toFixed(2)}
+        suffix={vault.informativeRatio === '-1' ? translate('screens/EditCollateralScreen', 'N/A') : '%'}
         suffixType='text'
         lhs={translate('screens/EditCollateralScreen', 'Collateralization ratio')}
         rhsThemedProps={colors}

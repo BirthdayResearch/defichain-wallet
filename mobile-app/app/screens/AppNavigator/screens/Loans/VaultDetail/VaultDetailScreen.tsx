@@ -137,7 +137,7 @@ function VaultIdSection ({
   testID
 }: { vault: LoanVault, testID: string }): JSX.Element {
   const { getVaultsUrl } = useDeFiScanContext()
-  const colRatio = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.collateralRatio
+  const colRatio = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.informativeRatio
   const totalLoanAmount = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.loanValue
   const totalCollateralValue = vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.collateralValue
   const vaultState = useVaultStatus(vault.state, new BigNumber(colRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber(totalLoanAmount), new BigNumber(totalCollateralValue))
@@ -189,7 +189,7 @@ function VaultIdSection ({
       {
         vault.state !== LoanVaultState.IN_LIQUIDATION && vaultState.status !== VaultStatus.Empty && vaultState.status !== VaultStatus.Ready && (
           <CollateralizationRatioDisplay
-            collateralizationRatio={vault.collateralRatio}
+            collateralizationRatio={vault.informativeRatio}
             minCollateralizationRatio={vault.loanScheme.minColRatio}
             totalLoanAmount={vault.loanValue}
             nextCollateralizationRatio={nextCollateralizationRatio?.toFixed(8)}

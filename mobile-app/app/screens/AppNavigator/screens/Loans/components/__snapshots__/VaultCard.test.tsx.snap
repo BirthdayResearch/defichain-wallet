@@ -453,14 +453,14 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                   "lineHeight": 20,
                 },
                 Object {
-                  "color": "rgba(2, 179, 27, 1)",
+                  "color": "rgba(255, 0, 0, 1)",
                 },
               ],
             ]
           }
           testID="vault_col_ratio"
         >
-          
+          0.00%
         </Text>
       </View>
       <View
@@ -609,7 +609,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
           indeterminate={false}
           indeterminateAnimationDuration={1000}
           onLayout={[Function]}
-          progress={NaN}
+          progress={0}
           style={
             Array [
               Object {
@@ -636,15 +636,99 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                     "translateX": 0,
                   },
                   Object {
-                    "translateX": NaN,
+                    "translateX": 1,
                   },
                   Object {
-                    "scaleX": NaN,
+                    "scaleX": 0.0001,
                   },
                 ],
               }
             }
           />
+        </View>
+        <View
+          style={
+            Array [
+              Array [
+                Object {
+                  "bottom": 0,
+                  "height": 16,
+                  "position": "absolute",
+                  "width": 1,
+                },
+                Object {
+                  "left": "0.00%",
+                },
+              ],
+              Object {
+                "backgroundColor": "rgba(0, 0, 0, 1)",
+              },
+            ]
+          }
+        />
+        <View
+          style={
+            Array [
+              Object {
+                "bottom": 0,
+                "position": "absolute",
+              },
+              Object {
+                "left": "-0.17%",
+              },
+            ]
+          }
+        >
+          <RNSVGSvgView
+            align="xMidYMid"
+            bbHeight="16"
+            bbWidth="1"
+            focusable={false}
+            height="16"
+            meetOrSlice={0}
+            minX={0}
+            minY={0}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "borderWidth": 0,
+                },
+                Object {
+                  "flex": 0,
+                  "height": 16,
+                  "width": 1,
+                },
+              ]
+            }
+            vbHeight={16}
+            vbWidth={1}
+            width="1"
+          >
+            <RNSVGGroup>
+              <RNSVGLine
+                propList={
+                  Array [
+                    "stroke",
+                    "strokeWidth",
+                    "strokeDasharray",
+                  ]
+                }
+                stroke={4278190080}
+                strokeDasharray={
+                  Array [
+                    "3",
+                    "2",
+                  ]
+                }
+                strokeWidth="10"
+                x1="0"
+                x2="0"
+                y1="0"
+                y2="100"
+              />
+            </RNSVGGroup>
+          </RNSVGSvgView>
         </View>
       </View>
       <View
@@ -1544,14 +1628,14 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                   "lineHeight": 20,
                 },
                 Object {
-                  "color": "rgba(2, 179, 27, 1)",
+                  "color": "rgba(255, 0, 0, 1)",
                 },
               ],
             ]
           }
           testID="vault_col_ratio"
         >
-          
+          0.00%
         </Text>
       </View>
       <View
@@ -1700,7 +1784,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
           indeterminate={false}
           indeterminateAnimationDuration={1000}
           onLayout={[Function]}
-          progress={NaN}
+          progress={0}
           style={
             Array [
               Object {
@@ -1727,15 +1811,99 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                     "translateX": 0,
                   },
                   Object {
-                    "translateX": NaN,
+                    "translateX": 1,
                   },
                   Object {
-                    "scaleX": NaN,
+                    "scaleX": 0.0001,
                   },
                 ],
               }
             }
           />
+        </View>
+        <View
+          style={
+            Array [
+              Array [
+                Object {
+                  "bottom": 0,
+                  "height": 16,
+                  "position": "absolute",
+                  "width": 1,
+                },
+                Object {
+                  "left": "0.00%",
+                },
+              ],
+              Object {
+                "backgroundColor": "rgba(0, 0, 0, 1)",
+              },
+            ]
+          }
+        />
+        <View
+          style={
+            Array [
+              Object {
+                "bottom": 0,
+                "position": "absolute",
+              },
+              Object {
+                "left": "-0.17%",
+              },
+            ]
+          }
+        >
+          <RNSVGSvgView
+            align="xMidYMid"
+            bbHeight="16"
+            bbWidth="1"
+            focusable={false}
+            height="16"
+            meetOrSlice={0}
+            minX={0}
+            minY={0}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "borderWidth": 0,
+                },
+                Object {
+                  "flex": 0,
+                  "height": 16,
+                  "width": 1,
+                },
+              ]
+            }
+            vbHeight={16}
+            vbWidth={1}
+            width="1"
+          >
+            <RNSVGGroup>
+              <RNSVGLine
+                propList={
+                  Array [
+                    "stroke",
+                    "strokeWidth",
+                    "strokeDasharray",
+                  ]
+                }
+                stroke={4278190080}
+                strokeDasharray={
+                  Array [
+                    "3",
+                    "2",
+                  ]
+                }
+                strokeWidth="10"
+                x1="0"
+                x2="0"
+                y1="0"
+                y2="100"
+              />
+            </RNSVGGroup>
+          </RNSVGSvgView>
         </View>
       </View>
       <View
@@ -2664,14 +2832,14 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                   "lineHeight": 20,
                 },
                 Object {
-                  "color": "rgba(2, 179, 27, 1)",
+                  "color": "rgba(255, 0, 0, 1)",
                 },
               ],
             ]
           }
           testID="vault_col_ratio"
         >
-          
+          0.00%
         </Text>
       </View>
       <View
@@ -2820,7 +2988,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
           indeterminate={false}
           indeterminateAnimationDuration={1000}
           onLayout={[Function]}
-          progress={NaN}
+          progress={0}
           style={
             Array [
               Object {
@@ -2847,15 +3015,99 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                     "translateX": 0,
                   },
                   Object {
-                    "translateX": NaN,
+                    "translateX": 1,
                   },
                   Object {
-                    "scaleX": NaN,
+                    "scaleX": 0.0001,
                   },
                 ],
               }
             }
           />
+        </View>
+        <View
+          style={
+            Array [
+              Array [
+                Object {
+                  "bottom": 0,
+                  "height": 16,
+                  "position": "absolute",
+                  "width": 1,
+                },
+                Object {
+                  "left": "0.00%",
+                },
+              ],
+              Object {
+                "backgroundColor": "rgba(0, 0, 0, 1)",
+              },
+            ]
+          }
+        />
+        <View
+          style={
+            Array [
+              Object {
+                "bottom": 0,
+                "position": "absolute",
+              },
+              Object {
+                "left": "-0.17%",
+              },
+            ]
+          }
+        >
+          <RNSVGSvgView
+            align="xMidYMid"
+            bbHeight="16"
+            bbWidth="1"
+            focusable={false}
+            height="16"
+            meetOrSlice={0}
+            minX={0}
+            minY={0}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "borderWidth": 0,
+                },
+                Object {
+                  "flex": 0,
+                  "height": 16,
+                  "width": 1,
+                },
+              ]
+            }
+            vbHeight={16}
+            vbWidth={1}
+            width="1"
+          >
+            <RNSVGGroup>
+              <RNSVGLine
+                propList={
+                  Array [
+                    "stroke",
+                    "strokeWidth",
+                    "strokeDasharray",
+                  ]
+                }
+                stroke={4278190080}
+                strokeDasharray={
+                  Array [
+                    "3",
+                    "2",
+                  ]
+                }
+                strokeWidth="10"
+                x1="0"
+                x2="0"
+                y1="0"
+                y2="100"
+              />
+            </RNSVGGroup>
+          </RNSVGSvgView>
         </View>
       </View>
       <View

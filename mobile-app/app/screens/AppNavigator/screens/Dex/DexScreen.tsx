@@ -88,10 +88,10 @@ export function DexScreen (): JSX.Element {
     })
   }
 
-  const onRemove = (data: PoolPairData): void => {
+  const onRemove = (data: PoolPairData, info: WalletToken, tokenApool: string, tokenBpool: string): void => {
     navigation.navigate({
       name: 'RemoveLiquidity',
-      params: { pair: data },
+      params: { pair: data, pairInfo: info, totalTokenA: tokenApool, totalTokenB: tokenBpool },
       merge: true
     })
   }
