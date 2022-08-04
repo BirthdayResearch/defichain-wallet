@@ -145,7 +145,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
 
         <ConversionLabel sourceUnit={sourceToken.unit} targetUnit={targetToken.unit} />
 
-        <View style={tailwind('w-full flex-col mt-12')}>
+        <View style={tailwind('w-full flex-col mt-6')}>
           <ThemedSectionTitleV2
             testID='convert_title'
             text={translate('screens/ConvertScreen', 'I WANT TO CONVERT')}
