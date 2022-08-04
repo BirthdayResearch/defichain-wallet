@@ -460,8 +460,6 @@
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "Der Gesamtzinssatz für ein Darlehen ergibt sich aus dem Vault-Zinssatz und dem Token-Zinssatz und wird auf jährlicher Basis berechnet.",
     "What is collateral factor?": "Was ist der Beleihungsfaktor?",
     "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "Der Beleihungsfaktor bestimmt den Grad des Beitrags jedes Beleihungswertes. Wenn beispielsweise ein Token mit einem Besicherungsfaktor von 70 % akzeptiert wird, würden Token im Wert von 100 $ davon zu einem Besicherungswert von 70 $ in einem Vault führen.",
-    "Why is there a 5% fee when paying DUSD loans with DFI?": "Warum wird bei der Rückzahlung von DUSD-Darlehen mit DFI eine Gebühr von 5 % erhoben?",
-    "Per DFIP 2206-C, when DUSD loans are paid back in DFI, a 5% fees will be charged to users. This is an interim measure to incentivize arbitrage traders to use DUSD to pay back their loans which will reduce the DUSD supply in the market.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 5% additional fee is applied to the DFI/DUSD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, the value of DFI in a DUSD payment is calculated by taking $10*(1-0.05), effectively reducing the value of DFI by 5% to $9.50 in such a scenario.": "Gemäß DFIP 2206-C wird bei der Rückzahlung von DUSD-Darlehen in DFI eine Gebühr von 5% erhoben. Dies ist eine vorläufige Maßnahme, um Anreize für Arbitrageure zu schaffen, ihre Darlehen mit DUSD zurückzuzahlen, wodurch das DUSD-Angebot auf dem Markt verringert wird.\n\nBei der Berechnung, wie viel DFI-Gegenwert für ein DUSD-Darlehen zu zahlen ist, wird eine zusätzliche Gebühr von 5 % auf den DFI/DUSD-Preisorakelwert erhoben. Zur Veranschaulichung: Wenn der Preisorakelwert von DFI/USD heute 10,- $ beträgt, wird der Wert von DFI bei einer DUSD-Zahlung berechnet, indem 10,- $ * (1-0,05) genommen wird, was den Wert von DFI in einem solchen Fall effektiv um 5% auf 9,50 $ reduziert.",
     "What is vault share?": "Was ist ein Vaultanteil?",
     "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "Der Vaultanteil gibt den Anteil der in einem Vault hinterlegten Sicherheiten-Token an. Alle Vaults müssen mindestens 50 % DFI und/oder DUSD als Sicherheiten-Token enthalten. Diese Anforderung wird zweimal überprüft — wenn du neue dToken mintest und wenn du Sicherheiten aus deinem Vault entnimmst."
   },
@@ -685,11 +683,17 @@
     "Sent (Pending confirmation)": "Gesendet (Bestätigung ausstehend)",
     "Broadcasting...": "Übertrage...",
     "OK": "OK",
-    "Insufficient UTXO DFI": "Nicht ausreichend UTXO-DFI",
-    "Not enough balance": "Guthaben zu niedrig",
+    "Insufficient UTXO DFI.": "Nicht ausreichend UTXO-DFI.",
+    "Insufficient balance. Top up to proceed.": "Unzureichendes Guthaben. Aufstocken, um fortzufahren.",
     "Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.": "Tauschpreis ist höher als die durch die Slippage-Toleranz erlaubte Spanne. Erhöhe den Toleranzprozentsatz, um fortzufahren.",
     "Preparing broadcast": "Übertragung wird vorbereitet",
-    "Waiting for transaction": "Warten auf Transaktion"
+    "Waiting for transaction": "Warten auf Transaktion",
+    "Insufficient DFI collateral. (≥50%)": "Unzureichende DFI-Sicherheiten. (≥50%)",
+    "Insufficient liquidity.": "Unzureichende Liquidität.",
+    "Unable to payback loan due to invalid price.": "Darlehen kann wegen ungültigem Preis nicht zurückgezahlt werden.",
+    "No live fixed prices for loan token.": "Kein aktueller fester Preis für Darlehenstoken.",
+    "Vault does not meet min. collateral ratio. Add collateral to proceed.": "Vault erfüllt die Mindestbesicherungsquote nicht. Sicherheiten hinzufügen, um fortzufahren.",
+    "Input amount is too low. Increase the amount to continue.": "Der eingegebene Betrag ist zu niedrig. Erhöhe den Betrag, um fortzufahren."
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Kameranutzung erlauben",
