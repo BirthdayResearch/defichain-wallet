@@ -1,7 +1,13 @@
 import { forwardRef, useCallback } from 'react'
 import { Platform, StyleProp, Text, TextInputProps, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { useBottomSheetInternal } from '@gorhom/bottom-sheet'
-import { ThemedIcon, ThemedProps, ThemedSectionTitleV2, ThemedTextInputV2, ThemedViewV2 } from '@components/themed'
+import {
+  ThemedViewV2,
+  ThemedIcon,
+  ThemedProps,
+  ThemedSectionTitleV2,
+  ThemedTextInputV2
+} from '@components/themed'
 import { getColor, tailwind } from '@tailwind'
 import { MaterialIcons } from '@expo/vector-icons'
 
@@ -139,7 +145,7 @@ export const TransactionCardWalletTextInputV2 = forwardRef<any, WalletTextInputP
   )
 })
 
-export function ClearButtonV2 (props: { onPress?: () => void, testID?: string, iconThemedProps?: ThemedProps }): JSX.Element {
+export function ClearButtonV2 (props: {onPress?: () => void, testID?: string, iconThemedProps?: ThemedProps}): JSX.Element {
   return (
     <TouchableOpacity
       testID={props.testID}
