@@ -17,6 +17,7 @@ import { WalletToken } from '@store/wallet'
 import { ConversionParam } from '../Portfolio/PortfolioNavigator'
 import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
+import { AddLiquidityScreenV2 } from './DexAddLiquidityV2'
 
 export interface DexParamList {
   DexScreen: undefined
