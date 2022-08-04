@@ -345,8 +345,10 @@ function DexInputCard (
           dark={tailwind('border-mono-dark-v2-300')}
           style={tailwind('flex flex-row items-center py-2')}
         >
-          <IconA height={20} width={20} style={tailwind('relative z-50')} />
-          <IconB height={20} width={20} style={tailwind('absolute ml-3 z-40')} />
+          <View style={tailwind('z-50')}>
+            <IconA height={20} width={20} style={tailwind('relative z-50')} />
+            <IconB height={20} width={20} style={tailwind('absolute ml-3 z-40')} />
+          </View>
           <TransactionCardWalletTextInputV2
             onFocus={isFocus}
             onBlur={isFocus}

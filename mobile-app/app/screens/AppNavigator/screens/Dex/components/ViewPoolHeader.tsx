@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import { tailwind } from '@tailwind'
 import { ThemedTextV2, ThemedIcon, ThemedTouchableOpacityV2 } from '@components/themed'
-import { PoolPairTextSectionV2 } from './PoolPairCards/PoolPairTextSectionV2'
+import { getNativeIcon } from '@components/icons/assets'
 
 interface ViewPoolHeaderProps {
     tokenASymbol: string
@@ -11,14 +11,13 @@ interface ViewPoolHeaderProps {
 }
 
 export function ViewPoolHeader ({ tokenASymbol, tokenBSymbol, headerLabel, onPress }: ViewPoolHeaderProps): JSX.Element {
+    const TokenIconA = getNativeIcon(tokenASymbol)
+    const TokenIconB = getNativeIcon(tokenBSymbol)
     return (
       <View style={tailwind('items-center')}>
         <View>
-          <PoolPairTextSectionV2
-            symbolA={tokenASymbol}
-            symbolB={tokenBSymbol}
-            customSize={56}
-          />
+          <TokenIconA style={tailwind('absolute z-50')} width={56} height={56} />
+          <TokenIconB style={tailwind('ml-9 z-40')} width={56} height={56} />
         </View>
         <ThemedTextV2
           dark={tailwind('text-mono-dark-v2-900')}
