@@ -273,7 +273,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
             )}
         </View>
 
-        <View style={tailwind('mt-5')}>
+        <View style={tailwind('mt-5 mx-4')}>
           <ButtonV2
             fill='fill' label={translate('components/Button', 'Continue')}
             styleProps='w-full'
