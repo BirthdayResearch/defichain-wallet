@@ -280,15 +280,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     setAssetSortType(PortfolioSortType.HighestDenominationValue) // reset sorting state upon denominationCurrency change
   }, [denominationCurrency])
 
-  // conditions to display sort icons
-  useEffect(() => {
-    if (assetSortType.includes('Lowest')) {
-      setIsSorted(true)
-    } else {
-      setIsSorted(false)
-    }
-  }, [assetSortType])
-
   // token tab items
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllTokens)
   const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
@@ -349,6 +340,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         stackScreenName: 'AssetSortList',
         component: BottomSheetAssetSortList({
           onButtonPress: (item: PortfolioSortType) => {
+            setIsSorted(true)
             setAssetSortType(item)
             sortTokensAssetOnType(item)
             setShowAssetSortBottomSheet(false)
@@ -628,7 +620,7 @@ function AssetSortRow (props: { isSorted: boolean, assetSortType: PortfolioSortT
           dark={tailwind('text-mono-dark-v2-800')}
           style={tailwind('text-xs font-normal-v2')}
         >
-          {translate('screens/PortfolioScreen', getDisplayedSortText(props.assetSortType))}
+          {translate('screens/PortfolioScreen', props.isSorted ? getDisplayedSortText(props.assetSortType) : 'Sort by')}
         </ThemedTextV2>
         <ThemedIcon
           style={tailwind('ml-1 font-medium')}
