@@ -55,7 +55,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   const [hasInputAmount, setHasInputAmount] = useState(false)
 
   // gather required data
-  const { pair, pairInfo, totalTokenA, totalTokenB } = props.route.params
+  const { pair, pairInfo } = props.route.params
   const tokenA = useSelector((state: RootState) => tokenSelector(state.wallet, pair.tokenA.id))
   const tokenB = useSelector((state: RootState) => tokenSelector(state.wallet, pair.tokenB.id))
 
@@ -135,9 +135,9 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
         component: ViewPoolDetails({
           dataRoutes: 'remove',
           pairData: pair,
-          poolInfo: pairInfo,
-          totalPooledTokenA: totalTokenA,
-          totalPooledTokenB: totalTokenB
+          pairInfo: pairInfo
+          // totalPooledTokenA: totalTokenA,
+          // totalPooledTokenB: totalTokenB
         }),
         option: BottomSheetHeader
       }

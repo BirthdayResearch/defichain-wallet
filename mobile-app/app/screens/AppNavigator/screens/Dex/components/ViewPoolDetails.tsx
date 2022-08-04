@@ -3,6 +3,7 @@ import { memo } from 'react'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
 import { ThemedTextV2, ThemedViewV2 } from '@components/themed'
+import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WalletToken } from '@store/wallet'
 import { PortfolioButtonGroupTabKey } from '@screens/AppNavigator/screens/Portfolio/components/TotalPortfolio'
@@ -11,21 +12,19 @@ import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/Tok
 import { ViewPoolAmountRow } from './ViewPoolAmountRow'
 import { translate } from '@translations'
 import { PoolPairTextSectionV2 } from './PoolPairCards/PoolPairTextSectionV2'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
 
 interface ViewPoolDetailsProps {
   dataRoutes: 'add' | 'remove'
   pairData: PoolPairData
-  poolInfo: WalletToken
-  totalPooledTokenA: string
-  totalPooledTokenB: string
+  pairInfo: WalletToken
 }
 
 export const ViewPoolDetails = ({
     dataRoutes,
     pairData,
-    poolInfo,
-    totalPooledTokenA,
-    totalPooledTokenB
+    pairInfo
   }: ViewPoolDetailsProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   return (
     <ThemedViewV2
@@ -46,7 +45,7 @@ export const ViewPoolDetails = ({
           light={tailwind('text-mono-light-v2-900')}
           style={tailwind('pl-1 text-xl font-semibold-v2')}
         >
-          {poolInfo.displaySymbol}
+          {pairInfo.displaySymbol}
         </ThemedTextV2>
       </View>
 
@@ -54,17 +53,13 @@ export const ViewPoolDetails = ({
         ? (
           <AddLiquidityDetails
             pairData={pairData}
-            poolInfo={poolInfo}
-            totalPooledTokenA={totalPooledTokenA}
-            totalPooledTokenB={totalPooledTokenB}
+            pairInfo={pairInfo}
           />
           )
           : (
             <RemoveLiquidityDetails
               pairData={pairData}
-              poolInfo={poolInfo}
-              totalPooledTokenA={totalPooledTokenA}
-              totalPooledTokenB={totalPooledTokenB}
+              pairInfo={pairInfo}
             />
        )}
     </ThemedViewV2>
@@ -74,12 +69,10 @@ export const ViewPoolDetails = ({
 // Update this for the add liquidity details
 interface AddLiquidityDetailsProps {
   pairData: PoolPairData
-  poolInfo: WalletToken
-  totalPooledTokenA: string
-  totalPooledTokenB: string
+  pairInfo: WalletToken
 }
 
-function AddLiquidityDetails ({ poolInfo, pairData, totalPooledTokenA, totalPooledTokenB }: AddLiquidityDetailsProps): JSX.Element {
+function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps): JSX.Element {
   // const { denominationCurrency } = useDenominationCurrency()
   // const { getTokenPrice } = useTokenPrice()
   // const getUSDValue = (
@@ -104,12 +97,26 @@ function AddLiquidityDetails ({ poolInfo, pairData, totalPooledTokenA, totalPool
 
 interface RemoveLiquidityDetailsProps {
   pairData: PoolPairData
-  poolInfo: WalletToken
-  totalPooledTokenA: string
-  totalPooledTokenB: string
+  pairInfo: WalletToken
 }
 
-function RemoveLiquidityDetails ({ poolInfo, pairData, totalPooledTokenA, totalPooledTokenB }: RemoveLiquidityDetailsProps): JSX.Element {
+function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsProps): JSX.Element {
+  const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet)
+  const poolPairData = pairs.find(
+    (pr) => pr.data.symbol === (pairInfo as AddressToken).symbol
+  )
+  const mappedPair = poolPairData?.data
+  const toRemove = new BigNumber(1)
+    .times((pairInfo).amount)
+    .decimalPlaces(8, BigNumber.ROUND_DOWN)
+  const ratioToTotal = toRemove.div(mappedPair?.totalLiquidity?.token ?? 1)
+  const tokenATotal = ratioToTotal
+    .times(mappedPair?.tokenA.reserve ?? 0)
+    .decimalPlaces(8, BigNumber.ROUND_DOWN)
+  const tokenBTotal = ratioToTotal
+    .times(mappedPair?.tokenB.reserve ?? 0)
+    .decimalPlaces(8, BigNumber.ROUND_DOWN)
+
   const { denominationCurrency } = useDenominationCurrency()
   const { getTokenPrice } = useTokenPrice()
   const getUSDValue = (
@@ -124,13 +131,13 @@ function RemoveLiquidityDetails ({ poolInfo, pairData, totalPooledTokenA, totalP
       <View style={tailwind('mb-3')}>
         <ViewPoolAmountRow
           label={translate('screens/RemoveLiquidity', 'Pool share')}
-          amount={poolInfo.amount}
+          amount={pairInfo.amount}
           valueThemeProps={{
             dark: tailwind('text-mono-dark-v2-900'),
             light: tailwind('text-mono-light-v2-900')
           }}
-          suffix={` ${poolInfo.displaySymbol}`}
-          testID={`${poolInfo.displaySymbol}_pool_share_amount`}
+          suffix={` ${pairInfo.displaySymbol}`}
+          testID={`${pairInfo.displaySymbol}_pool_share_amount`}
         />
         <ViewPoolAmountRow
           amount='3.123'
@@ -140,13 +147,13 @@ function RemoveLiquidityDetails ({ poolInfo, pairData, totalPooledTokenA, totalP
           }}
           prefix='('
           suffix='%)'
-          testID={`${poolInfo.displaySymbol}_pool_share_amount_percentage`}
+          testID={`${pairInfo.displaySymbol}_pool_share_amount_percentage`}
         />
       </View>
       <View style={tailwind('mb-3')}>
         <ViewPoolAmountRow
           label={translate('screens/RemoveLiquidity', `Pooled ${pairData.tokenA.displaySymbol}`)}
-          amount={totalPooledTokenA}
+          amount={tokenATotal.toFixed(8)}
           valueThemeProps={{
             dark: tailwind('text-mono-dark-v2-900'),
             light: tailwind('text-mono-light-v2-900')
@@ -154,7 +161,7 @@ function RemoveLiquidityDetails ({ poolInfo, pairData, totalPooledTokenA, totalP
           testID={`Pooled_${pairData.tokenA.displaySymbol}`}
         />
         <ViewPoolAmountRow
-          amount={getUSDValue(new BigNumber(totalPooledTokenA), pairData.tokenA.symbol).toFixed(2)}
+          amount={getUSDValue(new BigNumber(tokenATotal), pairData.tokenA.symbol).toFixed(2)}
           valueThemeProps={{
             dark: tailwind('text-mono-dark-v2-700'),
             light: tailwind('text-mono-light-v2-700')
@@ -167,7 +174,7 @@ function RemoveLiquidityDetails ({ poolInfo, pairData, totalPooledTokenA, totalP
       <View style={tailwind('mb-3')}>
         <ViewPoolAmountRow
           label={translate('screens/RemoveLiquidity', `Pooled ${pairData.tokenB.displaySymbol}`)}
-          amount={totalPooledTokenB}
+          amount={tokenBTotal.toFixed(8)}
           valueThemeProps={{
             dark: tailwind('text-mono-dark-v2-900'),
             light: tailwind('text-mono-light-v2-900')
@@ -175,7 +182,7 @@ function RemoveLiquidityDetails ({ poolInfo, pairData, totalPooledTokenA, totalP
           testID={`Pooled_${pairData.tokenB.displaySymbol}`}
         />
         <ViewPoolAmountRow
-          amount={getUSDValue(new BigNumber(totalPooledTokenB), pairData.tokenB.symbol).toFixed(2)}
+          amount={getUSDValue(new BigNumber(tokenBTotal), pairData.tokenB.symbol).toFixed(2)}
           valueThemeProps={{
             dark: tailwind('text-mono-dark-v2-700'),
             light: tailwind('text-mono-light-v2-700')
@@ -195,7 +202,7 @@ function RemoveLiquidityDetails ({ poolInfo, pairData, totalPooledTokenA, totalP
           }}
           valueTextStyle={tailwind('font-semibold-v2')}
           suffix='%'
-          testID={`${poolInfo.displaySymbol}_Apr`}
+          testID={`${pairInfo.displaySymbol}_Apr`}
         />
       )}
     </View>
