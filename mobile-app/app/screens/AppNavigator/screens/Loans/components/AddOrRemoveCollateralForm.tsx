@@ -94,7 +94,7 @@ export const AddOrRemoveCollateralForm = memo(({ route }: Props): JSX.Element =>
     resultingColRatio
   } = useResultingCollateralizationRatioByCollateral({
     collateralValue: collateralValue,
-    collateralRatio: new BigNumber(vault.collateralRatio ?? NaN),
+    collateralRatio: new BigNumber(vault.informativeRatio ?? NaN),
     minCollateralRatio: new BigNumber(vault.loanScheme.minColRatio),
     totalLoanAmount: new BigNumber(vault.loanValue),
     numOfColorBars: COLOR_BARS_COUNT,
