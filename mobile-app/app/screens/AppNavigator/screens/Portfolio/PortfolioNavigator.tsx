@@ -26,7 +26,6 @@ import { FutureSwapData } from '@store/futureSwap'
 import { FutureSwapScreen } from './screens/FutureSwapScreen'
 import { ConfirmWithdrawFutureSwapScreen } from './screens/ConfirmWithdrawFutureSwapScreen'
 import { WithdrawFutureSwapScreen } from './screens/WithdrawFutureSwapScreen'
-import { AddLiquidityScreen } from '../Dex/DexAddLiquidity'
 import { ConfirmAddLiquidityScreen } from '../Dex/DexConfirmAddLiquidity'
 import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
 import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
@@ -46,6 +45,7 @@ import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
 import { AddressBookScreenV2 } from './screens/AddressBookScreenV2'
 import { NetworkSelectionScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreenV2'
+import { AddLiquidityScreenV2 } from '../Dex/DexAddLiquidityV2'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -403,7 +403,6 @@ export function PortfolioNavigator (): JSX.Element {
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false,
           headerTitle: translate('screens/Settings', 'Address Book')
         }}
       />
@@ -423,16 +422,14 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={AddLiquidityScreen}
+        component={AddLiquidityScreenV2}
         name='AddLiquidity'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Add Liquidity')}
-              containerTestID={headerContainerTestId}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false
+          headerTitle: translate('screens/DexScreen', 'Add Liquidity')
         }}
       />
 

@@ -7,7 +7,6 @@ import { HeaderTitle } from '@components/HeaderTitle'
 import { PriceRateProps } from '@components/PricesSection'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
-import { AddLiquidityScreen } from './DexAddLiquidity'
 import { ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
 import { RemoveLiquidityConfirmScreen } from './DexConfirmRemoveLiquidity'
 import { RemoveLiquidityScreenV2 } from './DexRemoveLiquidityV2'
@@ -121,15 +120,14 @@ export function DexNavigator (): JSX.Element {
       />
 
       <DexStack.Screen
-        component={AddLiquidityScreen}
+        component={AddLiquidityScreenV2}
         name='AddLiquidity'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Add Liquidity')}
-              containerTestID={headerContainerTestId}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate('screens/DexScreen', 'Add Liquidity')
         }}
       />
 
