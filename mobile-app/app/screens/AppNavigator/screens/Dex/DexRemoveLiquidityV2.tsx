@@ -136,8 +136,6 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
           dataRoutes: 'remove',
           pairData: pair,
           pairInfo: pairInfo
-          // totalPooledTokenA: totalTokenA,
-          // totalPooledTokenB: totalTokenB
         }),
         option: BottomSheetHeader
       }
