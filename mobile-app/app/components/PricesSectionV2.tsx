@@ -7,13 +7,13 @@ export interface PriceRateProps {
   label: string
   value: string
   aSymbol: string
-  bSymbol: string
+  bSymbol?: string
   symbolUSDValue?: BigNumber
   hasBorder?: boolean
   usdTextStyle?: { [key: string]: string }
 }
 
-export function PricesSectionV2 ({ priceRates, isCompact = false, testID }: { priceRates: PriceRateProps[], testID: string, sectionTitle?: string, isCompact?: boolean }): JSX.Element {
+export function PricesSectionV2 ({ priceRates, isCompact = false, testID, equalSymbol = true }: { priceRates: PriceRateProps[], testID: string, sectionTitle?: string, isCompact?: boolean, equalSymbol?: boolean }): JSX.Element {
   const rowStyle = {
     lhsThemedProps: {
       light: tailwind('text-mono-light-v2-800'),
@@ -42,7 +42,8 @@ export function PricesSectionV2 ({ priceRates, isCompact = false, testID }: { pr
                 usdTextStyle: priceRate.usdTextStyle
               }}
               lhs={{
-                value: `${priceRate.label} =`,
+                // value: `${priceRate.label} =`,
+                value: equalSymbol ? `${priceRate.label} =` : `${priceRate.label}`,
                 testID: `${testID}_${index}`,
                 suffix: priceRate.bSymbol,
                 lightTextStyle: rowStyle.rhsThemedProps.light,

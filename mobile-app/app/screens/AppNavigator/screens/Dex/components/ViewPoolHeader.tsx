@@ -12,7 +12,7 @@ interface ViewPoolHeaderProps {
 
 export function ViewPoolHeader ({ tokenASymbol, tokenBSymbol, headerLabel, onPress }: ViewPoolHeaderProps): JSX.Element {
     return (
-      <View style={tailwind('items-center my-8')}>
+      <View style={tailwind('items-center')}>
         <View>
           <PoolPairTextSectionV2
             symbolA={tokenASymbol}
