@@ -155,10 +155,10 @@ export function SvgButton (props: SvgButtonProps): JSX.Element {
 
   return (
     <TouchableOpacity style={styles.button} {...props}>
-      <View style={tailwind('mt-1 mb-1 justify-center items-center')}>
-        <props.Svg width={50} height={50} />
+      <View style={tailwind('justify-center items-center')}>
+        <props.Svg width={54} height={54} />
         <ThemedText
-          style={tailwind('h-12 mt-1 text-center text-sm')}
+          style={tailwind('h-8 mt-1 text-center text-xs')}
         >
           {props.label}
         </ThemedText>
