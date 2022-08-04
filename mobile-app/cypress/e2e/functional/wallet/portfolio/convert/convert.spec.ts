@@ -17,6 +17,14 @@ function createDFIWallet (): void {
   cy.getByTestID('button_convert_mode_toggle').click()
 }
 
+function validateConvertResult (targetUnit: string, availableAmount: number, resultingAmount: number): void {
+  cy.getByTestID('convert_result_card').should('exist')
+  cy.getByTestID('convert_available_label').contains(targetUnit)
+  cy.getByTestID('convert_resulting_label').contains(targetUnit)
+  cy.getByTestID('convert_available_amount').contains(availableAmount)
+  cy.getByTestID('convert_result_amount').contains(resultingAmount)
+}
+
 context('Wallet - Convert DFI', () => {
   before(function () {
     createDFIWallet()
@@ -25,65 +33,67 @@ context('Wallet - Convert DFI', () => {
   it('should have form validation', function () {
     cy.getByTestID('button_continue_convert').should('have.attr', 'aria-disabled')
     cy.getByTestID('source_balance').contains(19.9)
-    cy.getByTestID('target_balance').contains(10)
-    cy.getByTestID('text_input_convert_from_input_text').contains('How much UTXO to convert?')
-    cy.getByTestID('text_input_convert_from_to_text').contains('After conversion, you will receive')
-    cy.getByTestID('text_input_convert_from_input').type('1')
-    cy.getByTestID('text_input_convert_from_input_clear_button').click()
+    cy.getByTestID('convert_source').contains('UTXO')
+    cy.getByTestID('convert_target').contains('Token')
+    cy.getByTestID('convert_input').type('1')
+    cy.getByTestID('convert_input_clear_button').click()
     cy.getByTestID('button_continue_convert').should('have.attr', 'aria-disabled')
-    cy.getByTestID('text_input_convert_from_input').type('1')
+    cy.getByTestID('convert_input').type('1')
     cy.getByTestID('source_balance').contains(19.9)
-    cy.getByTestID('target_balance').contains(11)
+    validateConvertResult('tokens', 1.0, 11)
     cy.getByTestID('button_continue_convert').should('not.have.attr', 'disabled')
   })
 
   it('should swap conversion', function () {
     cy.getByTestID('button_convert_mode_toggle').click().wait(4000)
     cy.getByTestID('source_balance').contains(10)
-    cy.getByTestID('target_balance').contains(21)
-    cy.getByTestID('text_input_convert_from_input_text').contains('How much Token to convert?')
-    cy.getByTestID('text_input_convert_from_to_text').contains('After conversion, you will receive')
+    cy.getByTestID('convert_source').contains('Token')
+    cy.getByTestID('convert_target').contains('UTXO')
     cy.getByTestID('button_continue_convert').should('not.have.attr', 'disabled')
-  })
-
-  it('should click tokens vs info screen', function () {
-    cy.getByTestID('convert_screen').within(() => {
-      cy.getByTestID('token_vs_utxo_info').click()
-    })
-    cy.getByTestID('token_vs_utxo_screen').should('exist')
-    cy.go('back')
   })
 
   it('should test amount buttons when UTXO to account conversion', function () {
     cy.getByTestID('button_convert_mode_toggle').click().wait(4000)
+    cy.getByTestID('25%_amount_button').click()
+    cy.getByTestID('convert_input').should('have.value', '4.97500000')
+    validateConvertResult('tokens', 4.975, 14.975)
     cy.getByTestID('50%_amount_button').click()
-    cy.getByTestID('text_input_convert_from_input').should('have.value', '9.95000000')
-    cy.getByTestID('target_balance').contains(19.95)
+    cy.getByTestID('convert_input').should('have.value', '9.95000000')
+    validateConvertResult('tokens', 9.95, 19.95)
+    cy.getByTestID('75%_amount_button').click()
+    cy.getByTestID('convert_input').should('have.value', '14.92500000')
+    validateConvertResult('tokens', 14.925, 24.925)
     cy.getByTestID('MAX_amount_button').click()
-    cy.getByTestID('text_input_convert_from_input').should('have.value', '19.90000000')
-    cy.getByTestID('target_balance').contains(29.9)
+    cy.getByTestID('convert_input').should('have.value', '19.90000000')
+    validateConvertResult('tokens', 19.9, 29.9)
   })
 
   it('should display info on reserved UTXO when UTXO to account conversion', function () {
-    cy.getByTestID('reserved_info_text').should('be.visible')
+    cy.getByTestID('source_balance').contains('A small amount of UTXO is reserved for fees')
   })
 
   it('should test amount buttons when account to UTXO conversion', function () {
     cy.getByTestID('button_convert_mode_toggle').click().wait(4000)
+    cy.getByTestID('25%_amount_button').click()
+    cy.getByTestID('convert_input').should('have.value', '2.50000000')
+    validateConvertResult('UTXO', 2.5, 22.5)
     cy.getByTestID('50%_amount_button').click()
-    cy.getByTestID('text_input_convert_from_input').should('have.value', '5.00000000')
-    cy.getByTestID('target_balance').contains(25)
+    cy.getByTestID('convert_input').should('have.value', '5.00000000')
+    validateConvertResult('UTXO', 5, 25)
+    cy.getByTestID('75%_amount_button').click()
+    cy.getByTestID('convert_input').should('have.value', '7.50000000')
+    validateConvertResult('UTXO', 7.5, 27.5)
     cy.getByTestID('MAX_amount_button').click()
-    cy.getByTestID('text_input_convert_from_input').should('have.value', '10.00000000')
-    cy.getByTestID('target_balance').contains(30)
+    cy.getByTestID('convert_input').should('have.value', '10.00000000')
+    validateConvertResult('UTXO', 10, 30)
   })
 
   it('should test account to UTXO conversion', function () {
-    cy.getByTestID('text_input_convert_from_input').clear().type('1').blur()
+    cy.getByTestID('convert_input').clear().type('1').blur()
     cy.getByTestID('button_continue_convert').click()
     cy.getByTestID('button_confirm_convert').should('not.have.attr', 'disabled')
     cy.getByTestID('button_cancel_convert').click()
-    cy.getByTestID('text_input_convert_from_input').should('exist')
+    cy.getByTestID('convert_input').should('exist')
 
     cy.getByTestID('button_continue_convert').click()
 

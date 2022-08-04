@@ -166,6 +166,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
               onClearButtonPress={() => setAmount('')}
               inputContainerStyle={tailwind('pb-5 pt-3 px-0')}
               placeholder='0.00'
+              testID='convert_input'
             />
           </TransactionCard>
           <ThemedTextV2
@@ -178,6 +179,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
               'text-red-v2': hasError,
               'text-orange-v2': showMaxUTXOWarning && !hasError
             })}
+            testID='source_balance'
           >
             {
               translate('screens/ConvertScreen', hasError
@@ -301,7 +303,7 @@ function ConversionResultCard (props: { unit: string | undefined, convertAmount:
         light={tailwind('border-mono-light-v2-300')} dark={tailwind('border-mono-dark-v2-300')}
       >
         <ThemedTextV2
-          style={tailwind('font-normal-v2 text-sm pr-2')}
+          style={tailwind('font-normal-v2 text-sm pr-2')} testID='convert_available_label'
           light={tailwind('text-mono-light-v2-500')} dark={tailwind('text-mono-dark-v2-500')}
         >
           {`${translate('screens/ConvertScreen', 'Available {{unit}}', { unit: props.unit })}`}
@@ -315,7 +317,7 @@ function ConversionResultCard (props: { unit: string | undefined, convertAmount:
       </ThemedViewV2>
       <ThemedViewV2 style={tailwind('flex-row items-center pt-5')}>
         <ThemedTextV2
-          style={tailwind('font-normal-v2 text-sm pr-2')}
+          style={tailwind('font-normal-v2 text-sm pr-2')} testID='convert_resulting_label'
           light={tailwind('text-mono-light-v2-500')} dark={tailwind('text-mono-dark-v2-500')}
         >
           {`${translate('screens/ConvertScreen', 'Resulting {{unit}}', { unit: props.unit })}`}

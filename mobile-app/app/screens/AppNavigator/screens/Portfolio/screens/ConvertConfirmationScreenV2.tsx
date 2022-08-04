@@ -110,9 +110,11 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
 
         <View style={tailwind('mt-20')}>
           <SubmitButtonGroupV2
-            isDisabled={false} title='convert'
+            isDisabled={false}
+            title='convert'
             label={translate('screens/ConvertConfirmScreen', 'Convert')}
-            displayCancelBtn onSubmit={onSubmit}
+            displayCancelBtn
+            onSubmit={onSubmit}
             onCancel={onCancel}
           />
         </View>
