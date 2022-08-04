@@ -1574,7 +1574,8 @@
     "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!": "Por favor, ten en cuenta que el depósito mínimo de BTC es {{MinimumBtcAmount}}!",
     "DEPOSIT ADDRESS": "Dirección de depósito",
     "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "Envia SOLO Bitcoin nativo (BTC) a tu billetera de depósito mostrada abajo o escanea el código QR. Luego te transferiremos dBTC a tu billetera DFX.",
-    "Bitcoin Deposit": "Depósito de Bitcoin"
+    "Bitcoin Deposit": "Depósito de Bitcoin",
+    "Ref bonus": "Bonificación de referidos"
   },
   "screens/DfxButtons": {
     "DFI.Tax": "DFI.tax",

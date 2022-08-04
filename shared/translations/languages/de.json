@@ -1572,7 +1572,8 @@
     "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!": "Bitte beachte den Mindesteinzahlungsbetrag von {{MinimumBtcAmount}}!",
     "DEPOSIT ADDRESS": "Einzahlungsadresse",
     "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "Sende ausschließlich native Bitcoin (BTC) an deine unten angezeigte BTC Einzahlungsadresse oder scanne den QR-Code. Wir werden dir anschließend dBTC in deine Wallet transferieren.",
-    "Bitcoin Deposit": "Bitcoin Einzahlung"
+    "Bitcoin Deposit": "Bitcoin Einzahlung",
+    "Ref bonus": "Ref-Bonus"
   },
   "screens/DfxButtons": {
     "Buy & Staking": "Kauf & \nStaking",
