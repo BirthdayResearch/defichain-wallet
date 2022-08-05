@@ -254,9 +254,9 @@ export function VaultInput ({
   displayMaxLoanAmount = false,
   interestPerBlock
 }: VaultInputProps): JSX.Element {
-  const vaultState = useVaultStatus(vault.state, new BigNumber(vault.collateralRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber(vault.loanValue), new BigNumber(vault.collateralValue))
+  const vaultState = useVaultStatus(vault.state, new BigNumber(vault.informativeRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber(vault.loanValue), new BigNumber(vault.collateralValue))
   const colors = useCollateralizationRatioColor({
-    colRatio: new BigNumber(vault.collateralRatio),
+    colRatio: new BigNumber(vault.informativeRatio),
     minColRatio: new BigNumber(vault.loanScheme.minColRatio),
     totalLoanAmount: new BigNumber(vault.loanValue),
     totalCollateralValue: new BigNumber(vault.collateralValue)
@@ -314,10 +314,10 @@ export function VaultInput ({
           />
         </View>
         <NumberFormat
-          value={new BigNumber(vault.collateralRatio === '-1' ? NaN : vault.collateralRatio).toFixed(2)}
+          value={new BigNumber(vault.informativeRatio === '-1' ? NaN : vault.informativeRatio).toFixed(2)}
           decimalScale={2}
           thousandSeparator
-          suffix={vault.collateralRatio === '-1' ? translate('screens/PaybackLoanScreen', 'N/A') : '%'}
+          suffix={vault.informativeRatio === '-1' ? translate('screens/PaybackLoanScreen', 'N/A') : '%'}
           displayType='text'
           renderText={(value) => (
             <ThemedText
