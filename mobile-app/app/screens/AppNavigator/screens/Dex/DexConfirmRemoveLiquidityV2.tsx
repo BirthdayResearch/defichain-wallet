@@ -199,7 +199,7 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
       <View style={tailwind('py-14')}>
         <SubmitButtonGroupV2
           isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-          label={translate('screens/ConfirmRemoveLiquidity', 'REMOVE')}
+          label={translate('screens/ConfirmRemoveLiquidity', 'Remove liquidity')}
           isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
           processingLabel={translate('screens/ConfirmRemoveLiquidity', 'REMOVING')}
           onSubmit={onSubmit}
