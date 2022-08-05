@@ -16,8 +16,7 @@ module.exports = (() => {
   };
 
   config.resolver.extraNodeModules.stream = require.resolve('stream-browserify')
-
-  console.log("config.cacheVersion -->  ", config.cacheVersion)
+//   console.log("config.cacheVersion -->  ", config.cacheVersion)
 
   return config;
 })();
