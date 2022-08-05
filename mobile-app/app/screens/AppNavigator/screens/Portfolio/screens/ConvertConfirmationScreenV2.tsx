@@ -1,4 +1,4 @@
-import { ThemedScrollViewV2, ThemedViewV2 } from '@components/themed'
+import { ThemedScrollViewV2, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
@@ -16,11 +16,11 @@ import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { dfiConversionCrafter } from '@api/transaction/dfi_converter'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { SummaryTitleV2 } from '@components/SummaryTitleV2'
-import { BorderType, SummaryRow } from '@components/SummaryRow'
 import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
 import { View } from 'react-native'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useAddressLabel } from '@hooks/useAddressLabel'
+import { NumberRowV2 } from '@components/NumberRowV2'
 
 type Props = StackScreenProps<PortfolioParamList, 'ConvertConfirmationScreen'>
 
@@ -88,31 +88,103 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
           fromAddress={address}
           fromAddressLabel={addressLabel}
         />
+        <NumberRowV2
+          containerStyle={{
+            style: tailwind('flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-8'),
+            light: tailwind('bg-transparent border-mono-light-v2-300'),
+            dark: tailwind('bg-transparent border-mono-dark-v2-300')
+          }}
+          lhs={{
+            value: translate('screens/ConvertConfirmScreen', 'Transaction fee'),
+            testID: 'transaction_fee_label',
+            themedProps: {
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
+            }
+          }}
+          rhs={{
+            value: `${fee.toFixed(8)} DFI`,
+            testID: 'transaction_fee_value',
+            themedProps: {
+              light: tailwind('text-mono-light-v2-900'),
+              dark: tailwind('text-mono-dark-v2-900')
+            }
+          }}
+        />
 
-        <SummaryRow
-          title={translate('screens/ConvertConfirmScreen', 'Transaction fee')}
-          value={`${fee.toFixed(8)} DFI`}
-          borderType={BorderType.Top}
-          containerStyle='pt-5 mt-8'
-          testID='transaction_fee'
+        <NumberRowV2
+          containerStyle={{
+            style: tailwind('flex-row items-start w-full bg-transparent mt-5'),
+            light: tailwind('bg-transparent'),
+            dark: tailwind('bg-transparent')
+          }}
+          lhs={{
+            value: translate('screens/ConvertConfirmScreen', 'Resulting Tokens'),
+            testID: 'resulting_tokens_label',
+            themedProps: {
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
+            }
+          }} rhs={{
+          value: `${getResultingValue('Token', fee, sourceBalance, sourceUnit, targetBalance, targetUnit)} DFI`,
+          testID: 'resulting_tokens_value',
+          themedProps: {
+            light: tailwind('text-mono-light-v2-900 font-semibold-v2'),
+            dark: tailwind('text-mono-dark-v2-900 font-semibold-v2')
+          }
+        }}
         />
-        <SummaryRow
-          title={translate('screens/ConvertConfirmScreen', 'Resulting Tokens', { unit: sourceUnit })}
-          value={`${getResultingValue('Token', fee, sourceBalance, sourceUnit, targetBalance, targetUnit)} DFI`}
-          valueTextStyle='font-semibold-v2'
-          containerStyle='pt-5'
-          subValue={`(${getResultingPercentage('Token', sourceBalance, sourceUnit, targetBalance)}%)`}
-          testID='resulting_token'
+
+        <ThemedTextV2
+          style={tailwind('w-full text-right text-sm font-normal-v2 mt-1')}
+          light={tailwind('text-mono-light-v2-700')}
+          dark={tailwind('text-mono-dark-v2-700')}
+          testID='resultin_tokens_sub_value'
+        >
+          {
+            `(${getResultingPercentage('Token', sourceBalance, sourceUnit, targetBalance)}%)`
+          }
+        </ThemedTextV2>
+
+        <NumberRowV2
+          containerStyle={{
+            style: tailwind('flex-row items-start w-full bg-transparent mt-5'),
+            light: tailwind('bg-transparent'),
+            dark: tailwind('bg-transparent')
+          }}
+          lhs={{
+            value: translate('screens/ConvertConfirmScreen', 'Resulting UTXO'),
+            testID: 'resulting_utxo_label',
+            themedProps: {
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
+            }
+          }} rhs={{
+          value: `${getResultingValue('UTXO', fee, sourceBalance, sourceUnit, targetBalance, targetUnit)} DFI`,
+          testID: 'resulting_utxo_value',
+          themedProps: {
+            light: tailwind('text-mono-light-v2-900 font-semibold-v2'),
+            dark: tailwind('text-mono-dark-v2-900 font-semibold-v2')
+          }
+        }}
         />
-        <SummaryRow
-          title={translate('screens/ConvertConfirmScreen', 'Resulting UTXO', { unit: targetUnit })}
-          value={`${getResultingValue('UTXO', fee, sourceBalance, sourceUnit, targetBalance, targetUnit)} DFI`}
-          valueTextStyle='font-semibold-v2'
-          borderType={BorderType.Bottom}
-          containerStyle='py-5'
-          subValue={`(${getResultingPercentage('UTXO', sourceBalance, sourceUnit, targetBalance)}%)`}
-          testID='resulting_utxo'
-        />
+
+        <ThemedViewV2
+          style={tailwind('w-full mt-1 pb-5 border-b-0.5')}
+          light={tailwind('border-mono-light-v2-300')}
+          dark={tailwind('border-mono-dark-v2-300')}
+        >
+          <ThemedTextV2
+            style={tailwind('w-full text-right text-sm font-normal-v2')}
+            light={tailwind('text-mono-light-v2-700')}
+            dark={tailwind('text-mono-dark-v2-700')}
+            testID='resulting_utxo_sub_value'
+          >
+            {
+              `(${getResultingPercentage('UTXO', sourceBalance, sourceUnit, targetBalance)}%)`
+            }
+          </ThemedTextV2>
+        </ThemedViewV2>
 
         <View style={tailwind('mt-20')}>
           <SubmitButtonGroupV2
@@ -156,7 +228,7 @@ function getResultingPercentage (desireUnit: string, balanceA: BigNumber, unitA:
 
 function getDisplayUnit (unit?: string): string | undefined {
   if (unit === 'Token') {
-    return 'token'
+    return 'tokens'
   }
   return unit
 }
