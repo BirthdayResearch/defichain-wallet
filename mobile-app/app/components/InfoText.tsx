@@ -1,6 +1,6 @@
 import { tailwind } from '@tailwind'
 import { TextProps } from '.'
-import { ThemedIcon, ThemedProps, ThemedText, ThemedView } from './themed'
+import { ThemedIcon, ThemedProps, ThemedText, ThemedTextV2, ThemedView, ThemedViewV2 } from './themed'
 
 interface InfoTextProp extends ThemedProps, TextProps {
   text: string
@@ -43,5 +43,33 @@ export function InfoText (props: InfoTextProp): JSX.Element {
         {props.text}
       </ThemedText>
     </ThemedView>
+  )
+}
+
+interface InfoTextPropV2 extends ThemedProps, TextProps {
+  text: string
+  type?: InfoTextType
+}
+
+export type InfoTextTypeV2 = 'warning' | 'error' | 'success'
+
+export function InfoTextV2 (props: InfoTextPropV2): JSX.Element {
+  const {
+    type = 'warning',
+    style,
+    light = tailwind({ 'bg-warning-50 border-warning-200': type === 'warning', 'bg-error-50 border-error-200': type === 'error', 'bg-success-50 border-success-200': type === 'success' }),
+    dark = tailwind({ 'bg-darkwarning-50 border-darkwarning-200': type === 'warning', 'bg-darkerror-50 border-darkerror-200': type === 'error', 'bg-success-50 border-success-200': type === 'success' }),
+    ...otherProps
+  } = props
+
+  return (
+    <ThemedTextV2
+      style={tailwind('text-xs pl-2 font-normal-v2 flex-1')}
+      light={tailwind('text-orange-v2')}
+      dark={tailwind('text-orange-v2')}
+      {...otherProps}
+    >
+      {props.text}
+    </ThemedTextV2>
   )
 }

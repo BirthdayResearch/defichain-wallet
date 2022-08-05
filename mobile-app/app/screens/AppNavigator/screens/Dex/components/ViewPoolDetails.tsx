@@ -12,9 +12,10 @@ import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/Tok
 import { ViewPoolAmountRow } from './ViewPoolAmountRow'
 import { translate } from '@translations'
 import { PoolPairTextSectionV2 } from './PoolPairCards/PoolPairTextSectionV2'
+import { getPrecisedCurrencyValue, getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-
+import { NumberRowV2 } from '@components/NumberRowV2'
 interface ViewPoolDetailsProps {
   dataRoutes: 'add' | 'remove'
   pairData: PoolPairData
@@ -22,10 +23,10 @@ interface ViewPoolDetailsProps {
 }
 
 export const ViewPoolDetails = ({
-    dataRoutes,
-    pairData,
-    pairInfo
-  }: ViewPoolDetailsProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
+  dataRoutes,
+  pairData,
+  pairInfo
+}: ViewPoolDetailsProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   return (
     <ThemedViewV2
       light={tailwind('bg-mono-light-v2-100')}
@@ -55,43 +56,139 @@ export const ViewPoolDetails = ({
             pairData={pairData}
             pairInfo={pairInfo}
           />
-          )
-          : (
-            <RemoveLiquidityDetails
-              pairData={pairData}
-              pairInfo={pairInfo}
-            />
-       )}
+        )
+        : (
+          <RemoveLiquidityDetails
+            pairData={pairData}
+            pairInfo={pairInfo}
+          />
+        )}
     </ThemedViewV2>
   )
 })
 
-// Update this for the add liquidity details
 interface AddLiquidityDetailsProps {
   pairData: PoolPairData
   pairInfo: WalletToken
 }
 
-function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps): JSX.Element {
-  // const { denominationCurrency } = useDenominationCurrency()
-  // const { getTokenPrice } = useTokenPrice()
-  // const getUSDValue = (
-  //   amount: BigNumber,
-  //   symbol: string,
-  //   isLPs: boolean = false
-  // ): BigNumber => {
-  //   return getTokenPrice(symbol, amount, isLPs)
-  // }
+function AddLiquidityDetails({ pairInfo, pairData }: AddLiquidityDetailsProps): JSX.Element {
+  const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet)
+  const poolPairData = pairs.find(
+    (pr) => pr.data.symbol === (pairInfo as AddressToken).symbol
+  )
+  const mappedPair = poolPairData?.data
+  const toRemove = new BigNumber(1)
+    .times((pairInfo).amount)
+    .decimalPlaces(8, BigNumber.ROUND_DOWN)
+  const ratioToTotal = toRemove.div(mappedPair?.totalLiquidity?.token ?? 1)
+  const tokenATotal = ratioToTotal
+    .times(mappedPair?.tokenA.reserve ?? 0)
+    .decimalPlaces(8, BigNumber.ROUND_DOWN)
+  const tokenBTotal = ratioToTotal
+    .times(mappedPair?.tokenB.reserve ?? 0)
+    .decimalPlaces(8, BigNumber.ROUND_DOWN)
+
+  const { denominationCurrency } = useDenominationCurrency()
+  const { getTokenPrice } = useTokenPrice()
+  const volume24H = pairData?.volume?.h24 ?? 0
+
   return (
-    <View style={tailwind('mt-5')}>
-      <ThemedTextV2
-        dark={tailwind('text-mono-dark-v2-900')}
-        light={tailwind('text-mono-light-v2-900')}
-        style={tailwind('pl-1 text-2xl font-semibold-v2')}
-      >
-        Add liquidity
-      </ThemedTextV2>
-    </View>
+    <ThemedViewV2 
+      style={tailwind('mt-5')}>
+      <View style={tailwind('mb-3')}>
+        <NumberRowV2
+          lhs={{
+            value: translate('screens/RemoveLiquidity', 'Volume (24H)'),
+            testID: 'shares_to_add',
+            lightTextStyle: tailwind('text-mono-light-v2-700'),
+            darkTextStyle: tailwind('text-mono-dark-v2-700')
+          }}
+          rhs={{
+            value: getPrecisedCurrencyValue(volume24H),
+            testID: `volume_24h_${pairInfo.displaySymbol}`,
+            usdTextStyle: tailwind('text-sm'),
+            prefix: '$'
+          }}
+          testID={`${pairInfo.displaySymbol}_pool_share_amount`}
+        />
+      </View>
+      <View style={tailwind('mb-3')}>
+        <NumberRowV2
+          lhs={{
+            value: translate('screens/RemoveLiquidity', 'Total liquidity'),
+            testID: 'shares_to_add',
+            lightTextStyle: tailwind('text-mono-light-v2-700'),
+            darkTextStyle: tailwind('text-mono-dark-v2-700')
+          }}
+          rhs={{
+            value: getPrecisedTokenValue(pairData.totalLiquidity.usd ?? new BigNumber(0)),
+            testID: `total_liquidity_${pairInfo.displaySymbol}_amount`,
+            usdTextStyle: tailwind('text-sm'),
+            prefix: '$'
+          }}
+          testID={`total_liquidity_${pairInfo.displaySymbol}`}
+        />
+      </View>
+      <View style={tailwind('mb-3')}>
+        <NumberRowV2
+          lhs={{
+            value: translate('screens/RemoveLiquidity', 'Tokens in {{token}}', {
+              token: pairData.tokenA.displaySymbol
+            }),
+            testID: 'shares_to_add',
+            lightTextStyle: tailwind('text-mono-light-v2-700'),
+            darkTextStyle: tailwind('text-mono-dark-v2-700'),
+            prefix: `${denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}`,
+            suffix: `${denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${denominationCurrency}` : undefined}`
+          }}
+          rhs={{
+            value: tokenATotal.isNaN() ? new BigNumber(0).toFixed(8) : tokenATotal.toFixed(8),
+            testID: `Pooled_${pairData.tokenA.displaySymbol}_${denominationCurrency}`,
+            usdTextStyle: tailwind('text-sm'),
+            usdAmount: tokenATotal.isNaN() ? new BigNumber(0) : getTokenPrice(pairData.tokenA.symbol, tokenATotal)
+          }}
+          
+          testID={`${pairInfo.displaySymbol}_pool_share_amount`}
+        />
+       </View>
+      <View style={tailwind('mb-3')}>
+        <NumberRowV2
+          lhs={{
+            value: translate('screens/RemoveLiquidity', 'Tokens in {{token}}', {
+              token: pairData.tokenB.displaySymbol
+            }),
+            testID: `Pooled_${pairData.tokenB.displaySymbol}`,
+            lightTextStyle: tailwind('text-mono-light-v2-700'),
+            darkTextStyle: tailwind('text-mono-dark-v2-700'),
+            prefix: `${denominationCurrency === PortfolioButtonGroupTabKey.USDT ? '$' : undefined}`,
+            suffix: `${denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${denominationCurrency}` : undefined}`
+          }}
+          rhs={{
+            value: tokenBTotal.isNaN() ? new BigNumber(0).toFixed(8) : tokenBTotal.toFixed(8),
+            testID: `Pooled_${pairData.tokenB.displaySymbol}_${denominationCurrency}`,
+            usdTextStyle: tailwind('text-sm'),
+            usdAmount: tokenBTotal.isNaN() ? new BigNumber(0) : getTokenPrice(pairData.tokenB.symbol, tokenBTotal)
+          }}
+          
+          testID={`${pairInfo.displaySymbol}_pool_share_amount`}
+        />
+       </View>
+
+      {pairData?.apr?.total !== undefined && pairData?.apr?.total !== null && (
+        <ViewPoolAmountRow
+          label='APR'
+          amount={new BigNumber(isNaN(pairData.apr.total) ? 0 : pairData.apr.total).times(100).toFixed(2)}
+          valueThemeProps={{
+            dark: tailwind('text-darksuccess-500'),
+            light: tailwind('text-success-500')
+          }} 
+          valueTextStyle={tailwind('font-semibold-v2')}
+          suffix='%'
+          testID={`${pairInfo.displaySymbol}_Apr`}
+        />
+      )}
+    </ThemedViewV2>
   )
 }
 
@@ -125,7 +222,7 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
     <View style={tailwind('mt-5')}>
       <View style={tailwind('mb-3')}>
         <ViewPoolAmountRow
-          label={translate('screens/RemoveLiquidity', 'Your LP Tokens')}
+          label={translate('screens/AddLiquidity', 'Your LP Tokens')}  // TODO: add transactions
           amount={pairInfo.amount}
           valueThemeProps={{
             dark: tailwind('text-mono-dark-v2-900'),
@@ -147,7 +244,7 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
       </View>
       <View style={tailwind('mb-3')}>
         <ViewPoolAmountRow
-          label={translate('screens/RemoveLiquidity', 'Token in {{token}}', {
+          label={translate('screens/AddLiquidity', 'Token in {{token}}', {
             token: pairData.tokenA.displaySymbol
           })}
           amount={tokenATotal.toFixed(8)}
@@ -170,7 +267,7 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
       </View>
       <View style={tailwind('mb-3')}>
         <ViewPoolAmountRow
-          label={translate('screens/RemoveLiquidity', 'Token in {{token}}', {
+          label={translate('screens/AddLiquidity', 'Token in {{token}}', {
             token: pairData.tokenB.displaySymbol
           })}
           amount={tokenBTotal.toFixed(8)}

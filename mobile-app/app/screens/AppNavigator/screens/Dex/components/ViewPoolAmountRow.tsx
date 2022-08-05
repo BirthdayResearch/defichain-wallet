@@ -33,11 +33,11 @@ export function ViewPoolAmountRow ({
     suffix
   }: ViewPoolAmountRowProps): JSX.Element {
     return (
-      <View style={tailwind('flex-row justify-between items-start')}>
+      <View style={tailwind('flex-row justify-between items-start mb-3')}>
         <ThemedTextV2
           light={labelThemeProps.light}
           dark={labelThemeProps.dark}
-          style={[tailwind('text-sm font-normal-v2'), labelTextStyle]}
+          style={[tailwind('text-sm font-normal-v2 mb-4'), labelTextStyle]}
         >
           {label}
         </ThemedTextV2>

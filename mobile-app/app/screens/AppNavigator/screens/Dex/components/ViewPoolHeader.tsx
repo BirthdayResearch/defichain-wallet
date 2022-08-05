@@ -26,7 +26,7 @@ export function ViewPoolHeader ({ tokenASymbol, tokenBSymbol, headerLabel, onPre
         >
           {`${tokenASymbol}-${tokenBSymbol}`}
         </ThemedTextV2>
-        <ThemedTouchableOpacityV2 style={tailwind('flex-row')} onPress={onPress}>
+        <ThemedTouchableOpacityV2 style={tailwind('flex-row mt-1')} onPress={onPress}>
           <ThemedIcon
             size={16}
             name='info-outline'

@@ -2,7 +2,7 @@ import { StyleProp, View, ViewProps, ViewStyle } from 'react-native'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
-import { ThemedProps, ThemedText, ThemedTextV2, ThemedView } from './themed'
+import { ThemedProps, ThemedText, ThemedTextV2 } from './themed'
 import { IconTooltip } from './tooltip/IconTooltip'
 import { ActiveUSDValueV2 } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2'
 
@@ -34,7 +34,7 @@ export interface NumberRowElement {
 
 export function NumberRowV2 (props: INumberRowProps): JSX.Element {
   return (
-    <ThemedView
+    <View
       {
       ...((props.containerStyle != null)
         ? props.containerStyle
@@ -95,6 +95,6 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
           }
         </View>
       </View>
-    </ThemedView>
+    </View>
   )
 }
