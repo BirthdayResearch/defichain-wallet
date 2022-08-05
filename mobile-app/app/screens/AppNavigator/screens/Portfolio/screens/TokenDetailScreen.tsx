@@ -117,7 +117,7 @@ export function TokenDetailScreen ({
     destination,
     pair,
     token
-  }: { destination: 'AddLiquidity' | 'RemoveLiquidity', pair: PoolPairData, token?: WalletToken }): void => {
+  }: { destination: 'AddLiquidity' | 'RemoveLiquidity', pair: PoolPairData, token: WalletToken }): void => {
     navigation.navigate(translate('BottomTabNavigator', 'Portfolio'), {
       screen: destination,
       initial: false,
@@ -268,7 +268,8 @@ export function TokenDetailScreen ({
                   iconType='Feather'
                   onPress={() => onNavigateLiquidity({
                     destination: 'AddLiquidity',
-                    pair
+                    pair,
+                    token
                   })}
                   testID='add_liquidity_button'
                   title={translate('screens/TokenDetailScreen', 'Add liquidity')}
@@ -284,7 +285,8 @@ export function TokenDetailScreen ({
                   <ButtonV2
                     onPress={() => onNavigateLiquidity({
                       destination: 'AddLiquidity',
-                      pair
+                      pair,
+                      token
                     })}
                     testID='add_liquidity_button'
                     label={translate('screens/TokenDetailScreen', 'Add liquidity')}

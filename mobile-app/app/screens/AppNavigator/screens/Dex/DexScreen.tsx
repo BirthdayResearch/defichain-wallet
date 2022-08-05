@@ -80,10 +80,10 @@ export function DexScreen (): JSX.Element {
     }
   ]
 
-  const onAdd = (data: PoolPairData): void => {
+  const onAdd = (data: PoolPairData, info: WalletToken): void => {
     navigation.navigate({
       name: 'AddLiquidity',
-      params: { pair: data },
+      params: { pair: data, pairInfo: info },
       merge: true
     })
   }

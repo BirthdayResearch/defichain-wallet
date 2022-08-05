@@ -54,6 +54,7 @@ export interface DexParamList {
   }
   AddLiquidity: {
     pair: PoolPairData
+    pairInfo: WalletToken
   }
   ConfirmAddLiquidity: {
     pair: PoolPairData
