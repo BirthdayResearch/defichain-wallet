@@ -709,7 +709,11 @@
   "screens/common": {
     "CANCEL": "取消",
     "Cancel": "取消",
-    "TRY AGAIN": "再试一次"
+    "TRY AGAIN": "再试一次",
+    "From": "从",
+    "To": "到",
+    "Converting": "转换中",
+    "Converted": "Converted"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "为您的钱包创建新的密码",

@@ -718,7 +718,11 @@
   "screens/common": {
     "CANCEL": "ANNULER",
     "Cancel": "Annuler",
-    "TRY AGAIN": "RÉESSAYER"
+    "TRY AGAIN": "RÉESSAYER",
+    "From": "Des",
+    "To": "Contre des",
+    "Converting": "Conversion",
+    "Converted": "Converti"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Créez un nouveau code d'accès pour votre portefeuille",
