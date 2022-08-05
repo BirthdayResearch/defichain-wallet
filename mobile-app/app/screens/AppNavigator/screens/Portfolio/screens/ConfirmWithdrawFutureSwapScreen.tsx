@@ -177,6 +177,11 @@ async function withdrawFutureSwap ({
         amountToWithdraw: source.amountToWithdraw.toFixed(8),
         sourceDisplaySymbol: source.displaySymbol
       }),
+      drawerMessages: {
+        preparing: translate('screens/ConfirmWithdrawFutureSwapScreen', 'Preparing your transaction…'),
+        waiting: translate('screens/ConfirmWithdrawFutureSwapScreen', 'Withdrawing tokens…'),
+        complete: translate('screens/ConfirmWithdrawFutureSwapScreen', 'Withdrawal completed')
+      },
       onBroadcast
     }))
   } catch (e) {

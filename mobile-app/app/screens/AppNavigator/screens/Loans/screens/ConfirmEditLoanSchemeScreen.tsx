@@ -227,6 +227,11 @@ async function editLoanScheme ({
         mincolRatio: loanScheme.minColRatio,
         ir: loanScheme.interestRate
       }),
+      drawerMessages: {
+        preparing: translate('screens/ConfirmEditLoanSchemeScreen', 'Preparing your transaction…'),
+        waiting: translate('screens/ConfirmEditLoanSchemeScreen', 'Saving changes to loan scheme…'),
+        complete: translate('screens/ConfirmEditLoanSchemeScreen', 'Vault edited')
+      },
       onBroadcast,
       onConfirmation
     }))
