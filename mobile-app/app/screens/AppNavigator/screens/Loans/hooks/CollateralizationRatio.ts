@@ -75,7 +75,7 @@ export function useResultingCollateralizationRatioByCollateral ({
   displayedColorBars: number
 } {
   const hasCollateralRatio = !new BigNumber(collateralRatio).isNaN() && new BigNumber(collateralRatio).isPositive()
-  const resultingColRatio = collateralValue === '' || !hasCollateralRatio
+  const resultingColRatio = collateralValue === '' || !hasCollateralRatio || new BigNumber(collateralValue).isZero()
   ? new BigNumber(collateralRatio)
   : totalCollateralValueInUSD.dividedBy(totalLoanAmount).multipliedBy(100)
 
