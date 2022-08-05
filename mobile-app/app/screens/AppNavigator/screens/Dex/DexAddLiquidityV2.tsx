@@ -290,7 +290,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
             key='prices'
             testID='pricerate_value'
             priceRates={[{
-              label: translate('components/PricesSection', '1 {{token}}', {
+              label: translate('components/PricesSection', '1 {{token}} =', {
                 token: pair.tokenA.displaySymbol
               }),
               value: pair.aToBRate.toFixed(8),
@@ -300,7 +300,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
               usdTextStyle: tailwind('text-sm')
             },
             {
-              label: translate('components/PricesSection', '1 {{token}}', {
+              label: translate('components/PricesSection', '1 {{token}} =', {
                 token: pair.tokenB.displaySymbol
               }),
               value: pair.bToARate.toFixed(8),
@@ -371,6 +371,7 @@ function DexInputCard (
     showErrMsg: boolean
   }): JSX.Element {
   const Icon = getNativeIcon(props.symbol)
+  const isFocus = props.setIsInputFocus
   return (
     <>
       <TransactionCard
@@ -387,8 +388,8 @@ function DexInputCard (
         >
           <Icon height={20} width={20} />
           <TransactionCardWalletTextInputV2
-            onFocus={props.setIsInputFocus}
-            onBlur={props.setIsInputFocus}
+            onFocus={isFocus}
+            onBlur={isFocus}
             onChangeText={txt => props.onChange(txt)}
             placeholder='0.00'
             style={tailwind('flex-grow w-2/5')}

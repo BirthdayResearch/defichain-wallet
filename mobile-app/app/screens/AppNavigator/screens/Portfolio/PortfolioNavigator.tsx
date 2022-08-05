@@ -27,7 +27,7 @@ import { FutureSwapScreen } from './screens/FutureSwapScreen'
 import { ConfirmWithdrawFutureSwapScreen } from './screens/ConfirmWithdrawFutureSwapScreen'
 import { WithdrawFutureSwapScreen } from './screens/WithdrawFutureSwapScreen'
 import { ConfirmAddLiquidityScreen } from '../Dex/DexConfirmAddLiquidity'
-import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
+import { RemoveLiquidityScreenV2 } from '../Dex/DexRemoveLiquidityV2'
 import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
 import { GetDFIScreen } from './screens/GetDFIScreen'
 import { MarketplaceScreen } from './screens/MarketplaceScreen'
@@ -461,7 +461,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={RemoveLiquidityScreen}
+        component={RemoveLiquidityScreenV2}
         name='RemoveLiquidity'
         options={{
           headerTitle: () => (

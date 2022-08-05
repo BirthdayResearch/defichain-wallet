@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Summary Row should match snapshot 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "flex-start",
+        "flexBasis": "0%",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "width": "100%",
+      },
+      Object {
+        "backgroundColor": "transparent",
+        "borderBottomColor": "rgba(204, 204, 204, 1)",
+        "borderLeftColor": "rgba(204, 204, 204, 1)",
+        "borderRightColor": "rgba(204, 204, 204, 1)",
+        "borderTopColor": "rgba(204, 204, 204, 1)",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "width": "41.666667%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "SoraRegular",
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 20,
+              "marginRight": 4,
+            },
+            Object {
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
+      }
+      testID="testId_label"
+    >
+      title
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "flexBasis": "0%",
+        "flexDirection": "column",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "justifyContent": "flex-end",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "SoraSemiBold",
+              "fontSize": 14,
+              "fontWeight": "600",
+              "lineHeight": 20,
+              "textAlign": "right",
+            },
+            Object {
+              "color": "rgba(18, 18, 18, 1)",
+            },
+          ],
+        ]
+      }
+      testID="testId_value"
+    >
+      value
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          Array [
+            Object {
+              "fontFamily": "SoraRegular",
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 20,
+              "paddingTop": 4,
+              "textAlign": "right",
+            },
+            Object {
+              "color": "rgba(89, 89, 89, 1)",
+            },
+          ],
+        ]
+      }
+      testID="testId_sub_value"
+    >
+      subValue
+    </Text>
+  </View>
+</View>
+`;
