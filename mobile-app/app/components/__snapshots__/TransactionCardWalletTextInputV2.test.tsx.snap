@@ -79,7 +79,7 @@ exports[`wallet text input should render with default keyboard 1`] = `
             "justifyContent": "space-between",
             "paddingBottom": 8,
             "paddingLeft": 20,
-            "paddingRight": 12,
+            "paddingRight": 16,
             "paddingTop": 8,
           },
           false,
@@ -91,7 +91,6 @@ exports[`wallet text input should render with default keyboard 1`] = `
         editable={true}
         keyboardType="default"
         onBlur={[Function]}
-        onFocus={[Function]}
         placeholder="bar"
         placeholderTextColor="rgba(115, 115, 115, 1)"
         selectionColor="rgba(255, 0, 140, 1)"
@@ -216,7 +215,7 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
             "justifyContent": "space-between",
             "paddingBottom": 8,
             "paddingLeft": 20,
-            "paddingRight": 12,
+            "paddingRight": 16,
             "paddingTop": 8,
           },
           false,
@@ -228,7 +227,6 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
         editable={true}
         keyboardType="default"
         onBlur={[Function]}
-        onFocus={[Function]}
         placeholder="bar"
         placeholderTextColor="rgba(115, 115, 115, 1)"
         selectionColor="rgba(255, 0, 140, 1)"

@@ -42,8 +42,7 @@ export function PricesSectionV2 ({ priceRates, isCompact = false, testID, equalS
                 usdTextStyle: priceRate.usdTextStyle
               }}
               lhs={{
-                // value: `${priceRate.label} =`,
-                value: equalSymbol ? `${priceRate.label} =` : `${priceRate.label}`,
+                value: `${priceRate.label}`,
                 testID: `${testID}_${index}`,
                 suffix: priceRate.bSymbol,
                 lightTextStyle: rowStyle.rhsThemedProps.light,

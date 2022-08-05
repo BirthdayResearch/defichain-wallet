@@ -108,7 +108,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
     }
   }, [])
 
-  const BottomSheetHeader = {
+  const bottomSheetHeader = {
     headerStatusBarHeight: 1,
     headerTitle: '',
     headerBackTitleVisible: false,
@@ -128,7 +128,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
     }
   }
 
-  const ViewPoolContents = useMemo(() => {
+  const viewPoolContents = useMemo(() => {
     return [
       {
         stackScreenName: 'ViewPoolShare',
@@ -137,7 +137,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
           pairData: pair,
           pairInfo: pairInfo
         }),
-        option: BottomSheetHeader
+        option: bottomSheetHeader
       }
     ]
   }, [isLight])
@@ -165,18 +165,14 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   }, [tokenToRemove, pairInfo.amount])
 
   useEffect(() => {
-    if (tokenToRemove.length > 0) {
-      setHasInputAmount(true)
-    } else {
-      setHasInputAmount(false)
-    }
+    setHasInputAmount(tokenToRemove.length > 0)
   }, [tokenToRemove])
 
-  const sharesUsdAmount = getTokenPrice(pair.tokenA.displaySymbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.tokenB.displaySymbol, new BigNumber(tokenBAmount)))
+  const sharesUsdAmount = getTokenPrice(pair.symbol, new BigNumber(amount), true)
 
   return (
     <View ref={containerRef} style={tailwind('flex-1')}>
-      <ThemedScrollView ref={ref} contentContainerStyle={tailwind('py-8 mx-5 justify-between', { 'h-full': !hasInputAmount })} style={tailwind('w-full')}>
+      <ThemedScrollView ref={ref} contentContainerStyle={tailwind('py-8 mx-5 justify-between')} style={tailwind('w-full')}>
         <View>
           <ViewPoolHeader
             tokenASymbol={pair.tokenA.displaySymbol}
@@ -193,7 +189,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
               onChange={(amount) => {
                 buildSummary(amount)
               }}
-              symbol={pair?.tokenA?.displaySymbol}
+              symbol={pair.tokenA.displaySymbol}
               type='primary'
               setIsInputFocus={setIsInputFocus}
               status={tokenTransactionCardStatus}
@@ -207,11 +203,10 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
                   <ThemedViewV2
                     light={tailwind('border-mono-light-v2-300')}
                     dark={tailwind('border-mono-dark-v2-300')}
-                    style={tailwind('px-5 py-5 border rounded-2xl-v2')}
+                    style={tailwind('p-5 border rounded-2xl-v2')}
                   >
                     <PricesSectionV2
                       key='prices'
-                      equalSymbol={false}
                       testID='pricerate_value'
                       priceRates={[
                       {
@@ -285,7 +280,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
           ? (
             <BottomSheetWebWithNavV2
               modalRef={containerRef}
-              screenList={ViewPoolContents}
+              screenList={viewPoolContents}
               isModalDisplayed={isModalDisplayed}
               // eslint-disable-next-line react-native/no-inline-styles
               modalStyle={{
@@ -303,7 +298,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
           : (
             <BottomSheetWithNavV2
               modalRef={bottomSheetRef}
-              screenList={ViewPoolContents}
+              screenList={viewPoolContents}
               snapPoints={modalSortingSnapPoints}
               enablePanDown
             />

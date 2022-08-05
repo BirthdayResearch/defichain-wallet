@@ -116,16 +116,11 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
   const tokenBTotal = ratioToTotal
     .times(mappedPair?.tokenB.reserve ?? 0)
     .decimalPlaces(8, BigNumber.ROUND_DOWN)
+  const lpPercentage = Number(pairInfo.amount) / Number(pairData.totalLiquidity.token)
 
   const { denominationCurrency } = useDenominationCurrency()
   const { getTokenPrice } = useTokenPrice()
-  const getUSDValue = (
-    amount: BigNumber,
-    symbol: string,
-    isLPs: boolean = false
-  ): BigNumber => {
-    return getTokenPrice(symbol, amount, isLPs)
-  }
+
   return (
     <View style={tailwind('mt-5')}>
       <View style={tailwind('mb-3')}>
@@ -140,7 +135,7 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
           testID={`${pairInfo.displaySymbol}_pool_share_amount`}
         />
         <ViewPoolAmountRow
-          amount='3.123'
+          amount={new BigNumber(lpPercentage).toFixed(2)}
           valueThemeProps={{
             dark: tailwind('text-mono-dark-v2-700'),
             light: tailwind('text-mono-light-v2-700')
@@ -163,7 +158,7 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
           testID={`Pooled_${pairData.tokenA.displaySymbol}`}
         />
         <ViewPoolAmountRow
-          amount={getUSDValue(new BigNumber(tokenATotal), pairData.tokenA.symbol).toFixed(2)}
+          amount={getTokenPrice(pairData.tokenA.symbol, tokenATotal).toFixed(2)}
           valueThemeProps={{
             dark: tailwind('text-mono-dark-v2-700'),
             light: tailwind('text-mono-light-v2-700')
@@ -186,7 +181,7 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
           testID={`Pooled_${pairData.tokenB.displaySymbol}`}
         />
         <ViewPoolAmountRow
-          amount={getUSDValue(new BigNumber(tokenBTotal), pairData.tokenB.symbol).toFixed(2)}
+          amount={getTokenPrice(pairData.tokenA.symbol, tokenBTotal).toFixed(2)}
           valueThemeProps={{
             dark: tailwind('text-mono-dark-v2-700'),
             light: tailwind('text-mono-light-v2-700')
