@@ -307,7 +307,7 @@
     "{{token}} to receive": "Verbleibende {{token}}",
     "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN",
     "You are converting to {{unit}}": "Du wandelst in {{unit}} um",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "Transaktionsgebühren",
     "Resulting Tokens": "Verbleibende Tokens",
     "Resulting UTXO": "Verbleibende UTXO"
   },
