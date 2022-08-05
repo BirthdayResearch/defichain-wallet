@@ -28,8 +28,7 @@ export interface NumberRowElement {
   prefix?: string
   suffix?: string
   testID: string
-  lightTextStyle?: { [key: string]: string }
-  darkTextStyle?: { [key: string]: string }
+  themedProps?: ThemedProps & { style?: ThemedProps & StyleProp<ViewStyle> }
 }
 
 export function NumberRowV2 (props: INumberRowProps): JSX.Element {
@@ -46,9 +45,8 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
         <View style={tailwind('flex-row items-end justify-start')}>
           <ThemedTextV2
             style={tailwind('text-sm font-normal-v2')}
-            light={props.lhs.lightTextStyle}
-            dark={props.lhs.darkTextStyle}
             testID={`${props.lhs.testID}_label`}
+            {...props.lhs.themedProps}
           >
             {props.lhs.value}
           </ThemedTextV2>
@@ -69,6 +67,7 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
                   light={props.rhs.lightTextStyle}
                   dark={props.rhs.darkTextStyle}
                   testID={props.rhs.testID}
+                  {...props.rhs.themedProps}
                 >
                   {val}
                 </ThemedText>

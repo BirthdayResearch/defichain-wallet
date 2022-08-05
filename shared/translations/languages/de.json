@@ -281,7 +281,16 @@
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
     "Estimated fee": "Voraussichtliche Gebühr",
     "You will have": "Neuer Kontostand",
-    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS"
+    "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
+    "I WANT TO CONVERT": "ICH MÖCHTE FOLGENDES UMWANDELN",
+    "Available: {{amount}} {{unit}}. Insufficient balance": "Verfügbar: {{amount}} {{unit}}. Unzureichendes Guthaben",
+    "Available: {{amount}} {{unit}}": "Verfügbar: {{amount}} {{unit}}",
+    "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
+    "Max available {{unit}} entered": "Max. verfügbare {{unit}} eingegeben",
+    "{{percent}} of available {{unit}} entered": "{{percent}} der verfügbaren {{unit}} eingegeben",
+    "A small amount of UTXO is reserved for fees": "Ein geringer UTXO-Betrag ist für Gebühren reserviert",
+    "Available {{unit}}": "Verfügbar {{unit}}",
+    "Resulting {{unit}}": "Verbleibende {{unit}}"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Bestätige DFI-Konvertierung",
@@ -296,7 +305,11 @@
     "Transaction type": "Transaktionsart",
     "Convert": "Umwandeln",
     "{{token}} to receive": "Verbleibende {{token}}",
-    "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN"
+    "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN",
+    "You are converting to {{unit}}": "Du wandelst in {{unit}} um",
+    "Transaction fee": "Transaktionsgebühren",
+    "Resulting Tokens": "Verbleibende Tokens",
+    "Resulting UTXO": "Verbleibende UTXO"
   },
   "screens/SettingsNavigator": {
     "Settings": "Einstellungen"
@@ -799,7 +812,8 @@
     "Max": "Max"
   },
   "components/Button": {
-    "CONTINUE": "WEITER"
+    "CONTINUE": "WEITER",
+    "Continue": "Weiter"
   },
   "screens/SlippageTolerance": {
     "Custom": "Anpassen",

@@ -10,8 +10,7 @@ import { translate } from '@translations'
 import { SettingsNavigator } from '../Settings/SettingsNavigator'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { PortfolioScreen } from './PortfolioScreen'
-import { ConvertConfirmationScreen } from './screens/ConvertConfirmationScreen'
-import { ConversionMode, ConvertScreen } from './screens/ConvertScreen'
+import { ConversionMode } from './screens/ConvertScreen'
 import { ReceiveScreen } from './screens/ReceiveScreen'
 import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
 import { SendScreen } from './screens/SendScreen'
@@ -45,7 +44,10 @@ import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
 import { AddressBookScreenV2 } from './screens/AddressBookScreenV2'
 import { NetworkSelectionScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreenV2'
-import { AddLiquidityScreenV2 } from '../Dex/DexAddLiquidityV2'
+import { ConvertScreenV2 } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
+import {
+  ConvertConfirmationScreenV2
+} from '@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreenV2'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -277,30 +279,26 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={ConvertScreen}
+        component={ConvertScreenV2}
         name='Convert'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/ConvertScreen', 'Convert DFI')}
-              containerTestID={headerContainerTestId}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false
+          headerTitle: translate('screens/ConvertScreen', 'Convert')
         }}
       />
 
       <PortfolioStack.Screen
-        component={ConvertConfirmationScreen}
-        name='ConvertConfirmationScreen'
+        component={ConvertConfirmationScreenV2}
+        name='ConvertConfirmationScreenV2'
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/ConvertConfirmScreen', 'Confirm DFI Conversion')}
-              containerTestID={headerContainerTestId}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate('screens/ConvertConfirmScreen', 'Confirm')
         }}
       />
 
