@@ -43,7 +43,7 @@ context('Wallet - Loans - Vault Details', () => {
   it('should verify vault details page', function () {
     cy.getByTestID('vault_card_0').click()
     checkVaultDetailValues('ACTIVE', vaultId, '$1,500.00', '$100', '5')
-    cy.getByTestID('vault_id_section_col_ratio').contains('1,500%')
+    cy.getByTestID('vault_id_section_col_ratio').contains('1,499.99%')
     cy.getByTestID('vault_id_section_min_ratio').contains('150%')
   })
 
@@ -56,7 +56,7 @@ context('Wallet - Loans - Vault Details', () => {
     cy.getByTestID('vault_detail_tabs_DETAILS').click()
     cy.getByTestID('text_min_col_ratio').contains('150')
     cy.getByTestID('text_vault_interest_ratio').contains('5.00')
-    cy.getByTestID('text_col_ratio').contains('1,500.00%')
+    cy.getByTestID('text_col_ratio').contains('1,499.99%')
     cy.getByTestID('text_collateral_value').contains('$1,500.00')
     cy.getByTestID('text_active_loans').contains('1')
     cy.getByTestID('text_total_loan_value').contains('$100')
@@ -296,7 +296,7 @@ context('Wallet - Loans - Health Bar', () => {
   })
 
   it('should display col ratio from vault API', function () {
-    cy.getByTestID('vault_card_0_col_ratio').contains('994')
+    cy.getByTestID('vault_card_0_col_ratio').contains('993.92')
   })
 
   it('should calculate next ratio using next price from oracle', function () {

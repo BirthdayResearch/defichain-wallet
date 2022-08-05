@@ -37,7 +37,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>()
   const vault = props.vault as LoanVaultActive
   const { getVaultsUrl } = useDeFiScanContext()
-  const vaultState = useVaultStatus(vault.state, new BigNumber(vault.collateralRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber(vault.loanValue), new BigNumber(vault.collateralValue))
+  const vaultState = useVaultStatus(vault.state, new BigNumber(vault.informativeRatio), new BigNumber(vault.loanScheme.minColRatio), new BigNumber(vault.loanValue), new BigNumber(vault.collateralValue))
   const nextCollateralizationRatio = useNextCollateralizationRatio(vault.collateralAmounts, vault.loanAmounts)
   const canUseOperations = useLoanOperations(vault?.state)
   const onCardPress = (): void => {
@@ -140,7 +140,7 @@ export function VaultCard (props: VaultCardProps): JSX.Element {
           ![VaultStatus.Empty, VaultStatus.Ready, VaultStatus.Unknown, VaultStatus.Liquidated].includes(vaultState.status) && (
             <CollateralizationRatioDisplay
               testID={props.testID}
-              collateralizationRatio={vault.collateralRatio}
+              collateralizationRatio={vault.informativeRatio}
               minCollateralizationRatio={vault.loanScheme.minColRatio}
               totalLoanAmount={vault.loanValue}
               nextCollateralizationRatio={nextCollateralizationRatio?.toFixed(8)}
