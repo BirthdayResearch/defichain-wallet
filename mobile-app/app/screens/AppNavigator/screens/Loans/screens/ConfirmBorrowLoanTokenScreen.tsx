@@ -347,9 +347,9 @@ async function borrowLoanToken ({
         symbol: loanToken.token.displaySymbol
       }),
       drawerMessages: {
-        preparing: translate('screens/ConfirmBorrowLoanTokenScreen', 'Preparing loan…'),
-        waiting: translate('screens/ConfirmBorrowLoanTokenScreen', 'Processing loan…'),
-        complete: translate('screens/ConfirmBorrowLoanTokenScreen', 'Loan processed')
+        preparing: translate('screens/OceanInterface', 'Preparing loan…'),
+        waiting: translate('screens/OceanInterface', 'Processing loan…'),
+        complete: translate('screens/OceanInterface', 'Loan processed')
       },
       onBroadcast,
       onConfirmation

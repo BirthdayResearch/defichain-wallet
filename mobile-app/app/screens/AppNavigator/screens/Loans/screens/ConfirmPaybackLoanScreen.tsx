@@ -387,9 +387,9 @@ async function paybackLoanToken ({
         paymentSymbol: paymentToken.tokenDisplaySymbol
       }),
       drawerMessages: {
-        preparing: translate('screens/ConfirmPaybackLoanScreen', 'Preparing loan payment…'),
-        waiting: translate('screens/ConfirmPaybackLoanScreen', 'Processing loan payment…'),
-        complete: translate('screens/ConfirmPaybackLoanScreen', 'Payment completed')
+        preparing: translate('screens/OceanInterface', 'Preparing loan payment…'),
+        waiting: translate('screens/OceanInterface', 'Processing loan payment…'),
+        complete: translate('screens/OceanInterface', 'Payment completed')
       },
       onBroadcast,
       onConfirmation

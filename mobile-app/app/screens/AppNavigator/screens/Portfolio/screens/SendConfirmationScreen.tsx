@@ -258,9 +258,9 @@ async function send ({
         symbol: token.displaySymbol
       }),
       drawerMessages: {
-        preparing: translate('screens/SendConfirmationScreen', 'Preparing to send…'),
-        waiting: translate('screens/SendConfirmationScreen', 'Sending tokens…'),
-        complete: translate('screens/SendConfirmationScreen', 'Tokens sent')
+        preparing: translate('screens/OceanInterface', 'Preparing to send…'),
+        waiting: translate('screens/OceanInterface', 'Sending tokens…'),
+        complete: translate('screens/OceanInterface', 'Tokens sent')
       },
       onBroadcast
     }))

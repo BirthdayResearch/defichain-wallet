@@ -178,9 +178,9 @@ async function withdrawFutureSwap ({
         sourceDisplaySymbol: source.displaySymbol
       }),
       drawerMessages: {
-        preparing: translate('screens/ConfirmWithdrawFutureSwapScreen', 'Preparing withdrawal…'),
-        waiting: translate('screens/ConfirmWithdrawFutureSwapScreen', 'Withdrawing tokens…'),
-        complete: translate('screens/ConfirmWithdrawFutureSwapScreen', 'Withdrawal completed')
+        preparing: translate('screens/OceanInterface', 'Preparing withdrawal…'),
+        waiting: translate('screens/OceanInterface', 'Withdrawing tokens…'),
+        complete: translate('screens/OceanInterface', 'Withdrawal completed')
       },
       onBroadcast
     }))

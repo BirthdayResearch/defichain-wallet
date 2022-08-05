@@ -209,9 +209,9 @@ async function constructSignedBidAndSend (
         token: displaySymbol
       }),
       drawerMessages: {
-        preparing: translate('screens/PlaceBidScreen', 'Preparing to place bid…'),
-        waiting: translate('screens/PlaceBidScreen', 'Placing bid…'),
-        complete: translate('screens/PlaceBidScreen', 'Bid placement completed')
+        preparing: translate('screens/OceanInterface', 'Preparing to place bid…'),
+        waiting: translate('screens/OceanInterface', 'Placing bid…'),
+        complete: translate('screens/OceanInterface', 'Bid placement completed')
       },
       onBroadcast
     }))

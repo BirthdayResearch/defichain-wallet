@@ -344,9 +344,9 @@ async function constructSignedSwapAndSend (
         symbolB: cSwapForm.tokenTo.displaySymbol
       }),
       drawerMessages: {
-        preparing: translate('screens/ConfirmCompositeSwapScreen', 'Preparing to swap tokens…'),
-        waiting: translate('screens/ConfirmCompositeSwapScreen', 'Swapping tokens…'),
-        complete: translate('screens/ConfirmCompositeSwapScreen', 'Tokens swapped')
+        preparing: translate('screens/OceanInterface', 'Preparing to swap tokens…'),
+        waiting: translate('screens/OceanInterface', 'Swapping tokens…'),
+        complete: translate('screens/OceanInterface', 'Tokens swapped')
       },
       onBroadcast
     }))
@@ -400,9 +400,9 @@ async function constructSignedFutureSwapAndSend (
         percentageChange: futureSwap.oraclePriceText
       }),
       drawerMessages: {
-        preparing: translate('screens/ConfirmCompositeSwapScreen', 'Preparing your transaction…'),
-        waiting: translate('screens/ConfirmCompositeSwapScreen', 'Processing future swap transaction…'),
-        complete: translate('screens/ConfirmCompositeSwapScreen', 'Future Swap confirmed and will be executed at block #{{block}}', { block: futureSwap.executionBlock })
+        preparing: translate('screens/OceanInterface', 'Preparing your transaction…'),
+        waiting: translate('screens/OceanInterface', 'Processing future swap transaction…'),
+        complete: translate('screens/OceanInterface', 'Future Swap confirmed and will be executed at block #{{block}}', { block: futureSwap.executionBlock })
       },
       onBroadcast
     }))

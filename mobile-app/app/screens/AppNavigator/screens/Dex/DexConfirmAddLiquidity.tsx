@@ -313,9 +313,9 @@ async function constructSignedAddLiqAndSend (
         symbolB: addLiqForm.tokenBSymbol
       }),
       drawerMessages: {
-        preparing: translate('screens/ConfirmAddLiq', 'Preparing to add liquidity…'),
-        waiting: translate('screens/ConfirmAddLiq', 'Adding tokens to liquidity pool…'),
-        complete: translate('screens/ConfirmAddLiq', 'Added tokens to liquidity pool')
+        preparing: translate('screens/OceanInterface', 'Preparing to add liquidity…'),
+        waiting: translate('screens/OceanInterface', 'Adding tokens to liquidity pool…'),
+        complete: translate('screens/OceanInterface', 'Added tokens to liquidity pool')
       },
       onBroadcast
     }))

@@ -155,9 +155,9 @@ async function closeVault (
         vaultId
       }),
       drawerMessages: {
-        preparing: translate('screens/CloseVaultScreen', 'Preparing to close vault…'),
-        waiting: translate('screens/CloseVaultScreen', 'Closing vault…'),
-        complete: translate('screens/CloseVaultScreen', 'Vault successfully closed')
+        preparing: translate('screens/OceanInterface', 'Preparing to close vault…'),
+        waiting: translate('screens/OceanInterface', 'Closing vault…'),
+        complete: translate('screens/OceanInterface', 'Vault successfully closed')
       },
       onBroadcast,
       onConfirmation

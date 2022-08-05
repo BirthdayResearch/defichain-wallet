@@ -217,9 +217,9 @@ async function constructSignedRemoveLiqAndSend (pair: PoolPairData, amount: BigN
       amount: amount.toFixed(8)
     }),
     drawerMessages: {
-      preparing: translate('screens/ConfirmAddLiq', 'Preparing to remove liquidity…'),
-      waiting: translate('screens/ConfirmAddLiq', 'Removing tokens from liquidity pool…'),
-      complete: translate('screens/ConfirmAddLiq', 'Removed tokens from liquidity pool')
+      preparing: translate('screens/OceanInterface', 'Preparing to remove liquidity…'),
+      waiting: translate('screens/OceanInterface', 'Removing tokens from liquidity pool…'),
+      complete: translate('screens/OceanInterface', 'Removed tokens from liquidity pool')
     },
     onBroadcast
   }))
