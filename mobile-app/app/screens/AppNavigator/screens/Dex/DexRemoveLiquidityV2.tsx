@@ -67,7 +67,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
-    navigation.navigate('RemoveLiquidityConfirmScreen', { amount, pair, tokenAAmount, tokenBAmount, fee, tokenA, tokenB })
+    navigation.navigate('RemoveLiquidityConfirmScreen', { amount, pair, pairInfo, tokenAAmount, tokenBAmount, fee, tokenA, tokenB })
   }
 
   useEffect(() => {
@@ -257,7 +257,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
                     testID='transaction_details_hint_text'
                     light={tailwind('text-mono-light-v2-500')}
                     dark={tailwind('text-mono-dark-v2-500')}
-                    style={tailwind('text-xs font-normal-v2 pt-4')}
+                    style={tailwind('text-xs font-normal-v2 pt-14')}
                   >
                     {translate('screens/RemoveLiquidity', 'Review full details in the next screen')}
                   </ThemedTextV2>
