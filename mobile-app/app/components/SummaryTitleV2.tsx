@@ -6,9 +6,7 @@ import { View } from '.'
 import { ViewProps } from 'react-native'
 import { getNativeIcon } from '@components/icons/assets'
 import { translate } from '@translations'
-import { useWalletContext } from '@shared-contexts/WalletContext'
 import { RandomAvatar } from '@screens/AppNavigator/screens/Portfolio/components/RandomAvatar'
-import { useAddressLabel } from '@hooks/useAddressLabel'
 
 type SummaryTitleProps = React.PropsWithChildren<ViewProps> & ISummaryTitleProps
 
@@ -16,6 +14,8 @@ interface ISummaryTitleProps {
   title: string
   amount: BigNumber
   testID: string
+  fromAddress: string
+  fromAddressLabel?: string | null
   toAddress?: string
   iconA: string
   iconB?: string
@@ -24,8 +24,6 @@ interface ISummaryTitleProps {
 export function SummaryTitleV2 (props: SummaryTitleProps): JSX.Element {
   const IconA = getNativeIcon(props.iconA)
   const IconB = props.iconB !== undefined ? getNativeIcon(props.iconB) : undefined
-  const { address } = useWalletContext()
-  const addressLabel = useAddressLabel(address)
 
   return (
     <>
@@ -80,7 +78,7 @@ export function SummaryTitleV2 (props: SummaryTitleProps): JSX.Element {
             dark={tailwind('bg-mono-dark-v2-200')} light={tailwind('bg-mono-light-v2-200')}
             style={tailwind('rounded-full px-2 py-1 flex flex-row items-center overflow-hidden ml-2')}
           >
-            <RandomAvatar name={address} size={20} />
+            <RandomAvatar name={props.fromAddress} size={20} />
             <ThemedTextV2
               ellipsizeMode='middle'
               numberOfLines={1}
@@ -90,7 +88,7 @@ export function SummaryTitleV2 (props: SummaryTitleProps): JSX.Element {
               }]}
               testID='wallet_address'
             >
-              {addressLabel != null ? addressLabel : address}
+              {props.fromAddressLabel ?? props.fromAddress}
             </ThemedTextV2>
           </ThemedViewV2>
         </View>

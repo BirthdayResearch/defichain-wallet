@@ -19,6 +19,8 @@ import { SummaryTitleV2 } from '@components/SummaryTitleV2'
 import { BorderType, SummaryRow } from '@components/SummaryRow'
 import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
 import { View } from 'react-native'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useAddressLabel } from '@hooks/useAddressLabel'
 
 type Props = StackScreenProps<PortfolioParamList, 'ConvertConfirmationScreen'>
 
@@ -32,6 +34,8 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
     amount,
     fee
   } = route.params
+  const { address } = useWalletContext()
+  const addressLabel = useAddressLabel(address)
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const dispatch = useAppDispatch()
@@ -79,8 +83,10 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
         <SummaryTitleV2
           title={translate('screens/ConvertConfirmScreen', 'You are converting to {{unit}}', { unit: getDisplayUnit(targetUnit) })}
           amount={amount}
-          testID='convert_value'
+          testID='text_convert_amount'
           iconA='_UTXO'
+          fromAddress={address}
+          fromAddressLabel={addressLabel}
         />
 
         <SummaryRow
@@ -96,7 +102,7 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
           valueTextStyle='font-semibold-v2'
           containerStyle='pt-5'
           subValue={`(${getResultingPercentage('Token', sourceBalance, sourceUnit, targetBalance)}%)`}
-          testID='resulting_source'
+          testID='resulting_token'
         />
         <SummaryRow
           title={translate('screens/ConvertConfirmScreen', 'Resulting UTXO', { unit: targetUnit })}
@@ -105,7 +111,7 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
           borderType={BorderType.Bottom}
           containerStyle='py-5'
           subValue={`(${getResultingPercentage('UTXO', sourceBalance, sourceUnit, targetBalance)}%)`}
-          testID='resulting_target'
+          testID='resulting_utxo'
         />
 
         <View style={tailwind('mt-20')}>
