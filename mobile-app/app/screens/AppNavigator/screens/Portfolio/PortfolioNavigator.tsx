@@ -48,6 +48,7 @@ import { ConvertScreenV2 } from '@screens/AppNavigator/screens/Portfolio/screens
 import {
   ConvertConfirmationScreenV2
 } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreenV2'
+import { AddLiquidityScreenV2 } from '../Dex/DexAddLiquidityV2'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
