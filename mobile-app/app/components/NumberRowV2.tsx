@@ -24,6 +24,7 @@ export interface NumberRowElement {
   prefix?: string
   suffix?: string
   testID: string
+  themedProps?: ThemedProps & { style?: ThemedProps & StyleProp<ViewStyle> }
 }
 
 export function NumberRowV2 (props: INumberRowProps): JSX.Element {
@@ -45,6 +46,7 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
             light={tailwind('text-mono-light-v2-900')}
             dark={tailwind('text-mono-dark-v2-900')}
             testID={`${props.lhs.testID}_label`}
+            {...props.lhs.themedProps}
           >
             {props.lhs.value}
           </ThemedText>
@@ -65,6 +67,7 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
                   light={tailwind('text-mono-light-v2-700')}
                   dark={tailwind('text-mono-dark-v2-700')}
                   testID={props.rhs.testID}
+                  {...props.rhs.themedProps}
                 >
                   {val}
                 </ThemedText>
