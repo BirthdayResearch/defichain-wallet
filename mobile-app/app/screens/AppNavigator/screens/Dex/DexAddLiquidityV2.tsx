@@ -3,9 +3,9 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { View } from '@components'
-import { ThemedScrollView, ThemedTextV2, ThemedViewV2 } from '@components/themed'
+import { ThemedIcon, ThemedScrollView, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
@@ -20,11 +20,17 @@ import { useAppDispatch } from '@hooks/useAppDispatch'
 import { TransactionCard } from '@components/TransactionCard'
 import { getNativeIcon } from '@components/icons/assets'
 import { TransactionCardWalletTextInputV2 } from '@components/TransactionCardWalletTextInputV2'
-import { PoolPairTextSectionV2 } from './components/PoolPairCards/PoolPairTextSectionV2'
 import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
 import { PricesSectionV2 } from '@components/PricesSectionV2'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
 import { NumberRowV2 } from '@components/NumberRowV2'
+import { Platform } from 'react-native'
+import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
+import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/BottomSheetWithNavV2'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { ViewPoolHeader } from './components/ViewPoolHeader'
+import { ViewPoolDetails } from './components/ViewPoolDetails'
+import { ReservedDFIInfoTextV2 } from '@components/ReservedDFIInfoText'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -47,6 +53,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const { getTokenPrice } = useTokenPrice()
+  const { pair: pairData, pairInfo } = props.route.params
 
   // transaction card component UI
   const [tokenATransactionCardStatus, setTokenATransactionCardStatus] = useState<'error' | 'active' | ' undefined'>()
@@ -55,7 +62,12 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   const [hasBError, setHasBError] = useState(false)
   const [isInputAFocus, setIsInputAFocus] = useState(false)
   const [isInputBFocus, setIsInputBFocus] = useState(false)
-  // const [convertUTXOMsg, setConvertUTXOMsg] = useState<boolean>(false) // TODO: waiting for the P's hook
+  const ref = useRef(null)
+  const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
+  const [isModalDisplayed, setIsModalDisplayed] = useState(false)
+  const containerRef = useRef(null)
+  const { isLight } = useThemeContext()
+  const modalSortingSnapPoints = { ios: ['50%'], android: ['50%'] }
 
   // this component UI state
   const [tokenAAmount, setTokenAAmount] = useState<string>('')
@@ -77,6 +89,42 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     },
     deps: [pair, tokenAAmount, tokenBAmount, balanceA, balanceB]
   })
+
+  const expandModal = useCallback(() => {
+    if (Platform.OS === 'web') {
+      setIsModalDisplayed(true)
+    } else {
+      bottomSheetRef.current?.present()
+    }
+  }, [])
+
+  const dismissModal = useCallback(() => {
+    if (Platform.OS === 'web') {
+      setIsModalDisplayed(false)
+    } else {
+      bottomSheetRef.current?.close()
+    }
+  }, [])
+
+  const BottomSheetHeader = {
+    headerStatusBarHeight: 1,
+    headerTitle: '',
+    headerBackTitleVisible: false,
+    headerStyle: tailwind('rounded-t-xl-v2', {
+      'bg-mono-light-v2-100': isLight,
+      'bg-mono-dark-v2-100': !isLight
+    }),
+    headerRight: (): JSX.Element => {
+      return (
+        <ThemedTouchableOpacityV2
+          style={tailwind('border-0 mr-5 mt-5')} onPress={() => dismissModal()}
+          testID='close_bottom_sheet_button'
+        >
+          <ThemedIcon iconType='Feather' name='x-circle' size={20} />
+        </ThemedTouchableOpacityV2>
+      )
+    }
+  }
 
   const buildSummary = useCallback((ref: EditingAmount, amountString: string): void => {
     const refAmount = amountString.length === 0 || isNaN(+amountString) ? new BigNumber(0) : new BigNumber(amountString)
@@ -103,7 +151,21 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     })
   }
 
-  async function onSubmit (): Promise<void> {
+  const ViewPoolContents = useMemo(() => {
+    return [
+      {
+        stackScreenName: 'ViewPoolShare',
+        component: ViewPoolDetails({
+          dataRoutes: 'add',
+          pairData: pairData,
+          pairInfo: pairInfo
+        }),
+        option: BottomSheetHeader
+      }
+    ]
+  }, [isLight, pair])
+
+  async function onSubmit(): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
@@ -227,139 +289,161 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   const sharesUsdAmount = getTokenPrice(pair.aSymbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.aSymbol, new BigNumber(tokenBAmount)))
 
   return (
-    <ThemedScrollView contentContainerStyle={tailwind('py-8')} style={tailwind('w-full')}>
-      <View style={tailwind('px-5')}>
-        <View style={tailwind('items-center pb-6')}>
-          <View style={tailwind('flex-row pb-2')}>
-            <PoolPairTextSectionV2
-              symbolA={pair?.tokenA?.displaySymbol}
-              symbolB={pair?.tokenB?.displaySymbol}
-              customSize={56}
+    <View style={tailwind('flex-1')}>
+      <ThemedScrollView ref={ref} contentContainerStyle={tailwind('py-8')} style={tailwind('w-full')}>
+        <View style={tailwind('px-5')}>
+          <View style={tailwind('items-center pb-6')}>
+            <ViewPoolHeader
+              tokenASymbol={pair.tokenA.displaySymbol}
+              tokenBSymbol={pair.tokenB.displaySymbol}
+              headerLabel={translate('screens/RemoveLiquidity', 'View pool share')}
+              onPress={() => expandModal()}
             />
           </View>
-          <ThemedTextV2
-            style={tailwind('text-lg font-semibold-v2')}
-          >
-            {pair?.displaySymbol}
-          </ThemedTextV2>
+
+          <AddLiquidityInputCard
+            balance={balanceA}
+            current={tokenAAmount}
+            onChange={(amount) => {
+              buildSummary('primary', amount)
+            }}
+            symbol={pair?.tokenA?.displaySymbol}
+            type='primary'
+            setIsInputFocus={setIsInputAFocus}
+            status={tokenATransactionCardStatus}
+            showErrMsg={hasAError}
+          />
+
+          <AddLiquidityInputCard
+            balance={balanceB}
+            current={tokenBAmount}
+            onChange={(amount) => {
+              buildSummary('secondary', amount)
+            }}
+            symbol={pair?.tokenB?.displaySymbol}
+            type='secondary'
+            setIsInputFocus={setIsInputBFocus}
+            status={tokenBTransactionCardStatus}
+            showErrMsg={hasBError}
+          // TODO: for small fees message with hook
+          />
+          {/* TODO: hook to display small fees msg from props */}
+          {
+            pair?.tokenB?.displaySymbol === 'DFI' && (
+              <ReservedDFIInfoTextV2 />
+            )
+          }
         </View>
 
-        <DexInputCard
-          balance={balanceA}
-          current={tokenAAmount}
-          onChange={(amount) => {
-            buildSummary('primary', amount)
-          }}
-          symbol={pair?.tokenA?.displaySymbol}
-          type='primary'
-          setIsInputFocus={setIsInputAFocus}
-          status={tokenATransactionCardStatus}
-          showErrMsg={hasAError}
-        />
-
-        <DexInputCard
-          balance={balanceB}
-          current={tokenBAmount}
-          onChange={(amount) => {
-            buildSummary('secondary', amount)
-          }}
-          symbol={pair?.tokenB?.displaySymbol}
-          type='secondary'
-          setIsInputFocus={setIsInputBFocus}
-          status={tokenBTransactionCardStatus}
-          showErrMsg={hasBError}
-        />
-
-        {/* TODO: do a hook for text input */}
-        {/* <ReservedDFIInfoText />
-        {
-          isConversionRequired &&
-          <View style={tailwind('pt-2')}>
-            <ConversionInfoText />
-          </View>
-        } */}
-      </View>
-
-      <View style={tailwind('pb-2 px-5')}>
-        <ThemedViewV2
-          light={tailwind('border-mono-light-v2-300')}
-          dark={tailwind('border-mono-dark-v2-300')}
-          style={tailwind('px-5 pt-5 border rounded-2xl-v2')}
-        >
-          <PricesSectionV2
-            key='prices'
-            testID='pricerate_value'
-            priceRates={[{
-              label: translate('components/PricesSection', '1 {{token}} =', {
-                token: pair.tokenA.displaySymbol
-              }),
-              value: pair.aToBRate.toFixed(8),
-              aSymbol: pair.tokenA.displaySymbol,
-              bSymbol: pair.tokenB.displaySymbol,
-              symbolUSDValue: getTokenPrice(pair.bSymbol, pair.aToBRate),
-              usdTextStyle: tailwind('text-sm')
-            },
-            {
-              label: translate('components/PricesSection', '1 {{token}} =', {
-                token: pair.tokenB.displaySymbol
-              }),
-              value: pair.bToARate.toFixed(8),
-              aSymbol: pair.tokenB.displaySymbol,
-              bSymbol: pair.tokenA.displaySymbol,
-              symbolUSDValue: getTokenPrice(pair.aSymbol, pair.bToARate),
-              usdTextStyle: tailwind('text-sm')
-            }
-            ]}
-          />
+        <View style={tailwind('pb-2 px-5')}>
           <ThemedViewV2
             light={tailwind('border-mono-light-v2-300')}
             dark={tailwind('border-mono-dark-v2-300')}
-            style={tailwind('pt-5 border-t-0.5')}
+            style={tailwind('px-5 pt-5 border rounded-2xl-v2')}
           >
-            <NumberRowV2
-              lhs={{
-                value: translate('components/PricesSection', 'Shares to add'), // TODO: update label upon confirmation
-                testID: 'shares_to_add',
-                lightTextStyle: tailwind('text-mono-light-v2-500'),
-                darkTextStyle: tailwind('text-mono-dark-v2-500')
-              }}
-              rhs={{
-                value: lmTokenAmount.toFixed(8),
-                testID: 'shares_to_add_value',
-                usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,
-                textStyle: tailwind('font-bold-v2'),
+            <PricesSectionV2
+              key='prices'
+              testID='pricerate_value'
+              priceRates={[{
+                label: translate('components/PricesSection', '1 {{token}}', {
+                  token: pair.tokenA.displaySymbol
+                }),
+                value: pair.aToBRate.toFixed(8),
+                aSymbol: pair.tokenA.displaySymbol,
+                bSymbol: pair.tokenB.displaySymbol,
+                symbolUSDValue: getTokenPrice(pair.bSymbol, pair.aToBRate),
                 usdTextStyle: tailwind('text-sm')
-              }}
+              },
+              {
+                label: translate('components/PricesSection', '1 {{token}}', {
+                  token: pair.tokenB.displaySymbol
+                }),
+                value: pair.bToARate.toFixed(8),
+                aSymbol: pair.tokenB.displaySymbol,
+                bSymbol: pair.tokenA.displaySymbol,
+                symbolUSDValue: getTokenPrice(pair.aSymbol, pair.bToARate),
+                usdTextStyle: tailwind('text-sm')
+              }
+              ]}
             />
+            <ThemedViewV2
+              light={tailwind('border-mono-light-v2-300')}
+              dark={tailwind('border-mono-dark-v2-300')}
+              style={tailwind('pt-5 border-t-0.5')}
+            >
+              <NumberRowV2
+                lhs={{
+                  value: translate('components/PricesSection', 'Shares to add'), // TODO: update label upon confirmation
+                  testID: 'shares_to_add',
+                  lightTextStyle: tailwind('text-mono-light-v2-500'),
+                  darkTextStyle: tailwind('text-mono-dark-v2-500'),
+                }}
+                rhs={{
+                  value: lmTokenAmount.toFixed(8),
+                  testID: 'shares_to_add_value',
+                  usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,
+                  textStyle: tailwind('font-bold-v2'),
+                  usdTextStyle: tailwind('text-sm')
+                }}
+              />
+            </ThemedViewV2>
           </ThemedViewV2>
-        </ThemedViewV2>
-      </View>
+        </View>
 
-      <View style={tailwind('items-center')}>
-        <ThemedTextV2
-          testID='transaction_details_hint_text'
-          light={tailwind('text-mono-light-v2-500')}
-          dark={tailwind('text-mono-dark-v2-500')}
-          style={tailwind('text-xs font-normal-v2 pt-4')}
-        >
-          {isConversionRequired
-            ? translate('screens/AddLiquidity', 'Authorize transaction in the next screen to convert')
-            : translate('screens/AddLiquidity', 'Review full details in the next screen')}
-        </ThemedTextV2>
-      </View>
+        <View style={tailwind('mx-8')}>
+          <View style={tailwind('items-center')}>
+            <ThemedTextV2
+              testID='transaction_details_hint_text'
+              light={tailwind('text-mono-light-v2-500')}
+              dark={tailwind('text-mono-dark-v2-500')}
+              style={tailwind('text-xs font-normal-v2 pt-4 text-center')}
+            >
+              {isConversionRequired
+                ? translate('screens/AddLiquidity', 'By continuing, the required amonunt of DFI will be converted')
+                : translate('screens/AddLiquidity', 'Review full details in the next screen')}
+            </ThemedTextV2>
+          </View>
 
-      <View style={tailwind('mx-8')}>
-        <ContinueButton
-          isProcessing={hasPendingJob || hasPendingBroadcastJob}
-          enabled={canContinue}
-          onPress={onSubmit}
-        />
-      </View>
-    </ThemedScrollView>
+          <ContinueButton
+            isProcessing={hasPendingJob || hasPendingBroadcastJob}
+            enabled={canContinue}
+            onPress={onSubmit}
+          />
+
+          {Platform.OS === 'web'
+            ? (
+              <BottomSheetWebWithNavV2
+                modalRef={containerRef}
+                screenList={ViewPoolContents}
+                isModalDisplayed={isModalDisplayed}
+                // eslint-disable-next-line react-native/no-inline-styles
+                modalStyle={{
+                  position: 'absolute',
+                  bottom: '0',
+                  height: '404px',
+                  width: '375px',
+                  zIndex: 50,
+                  borderTopLeftRadius: 15,
+                  borderTopRightRadius: 15,
+                  overflow: 'hidden'
+                }}
+              />
+            )
+            : (
+              <BottomSheetWithNavV2
+                modalRef={bottomSheetRef}
+                screenList={ViewPoolContents}
+                snapPoints={modalSortingSnapPoints}
+                enablePanDown
+              />
+            )}
+        </View>
+      </ThemedScrollView>
+    </View>
   )
 }
 
-function DexInputCard (
+function AddLiquidityInputCard (
   props: {
     balance: BigNumber
     type: 'primary' | 'secondary'
