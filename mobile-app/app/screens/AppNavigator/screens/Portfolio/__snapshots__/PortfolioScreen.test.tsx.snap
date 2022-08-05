@@ -514,12 +514,11 @@ exports[`portfolio page should match snapshot 1`] = `
           contentContainerStyle={
             Object {
               "display": "flex",
-              "flexDirection": "row",
               "justifyContent": "space-between",
               "marginTop": 32,
+              "minWidth": "100%",
               "paddingLeft": 20,
               "paddingRight": 20,
-              "width": "100%",
             }
           }
           horizontal={true}
