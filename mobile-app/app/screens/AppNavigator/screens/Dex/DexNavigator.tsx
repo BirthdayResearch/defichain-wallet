@@ -7,9 +7,6 @@ import { HeaderTitle } from '@components/HeaderTitle'
 import { PriceRateProps } from '@components/PricesSection'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
-import { ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
-import { RemoveLiquidityConfirmScreen } from './DexConfirmRemoveLiquidity'
-import { RemoveLiquidityScreenV2 } from './DexRemoveLiquidityV2'
 import { DexScreen } from './DexScreen'
 import { CompositeSwapScreen, OwnedTokenState, TokenState } from './CompositeSwap/CompositeSwapScreen'
 import { CompositeSwapForm, ConfirmCompositeSwapScreen } from './CompositeSwap/ConfirmCompositeSwapScreen'
@@ -18,6 +15,9 @@ import { ConversionParam } from '../Portfolio/PortfolioNavigator'
 import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { AddLiquidityScreenV2 } from './DexAddLiquidityV2'
+import { ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
+import { RemoveLiquidityScreenV2 } from './DexRemoveLiquidityV2'
+import { RemoveLiquidityConfirmScreenV2 } from './DexConfirmRemoveLiquidityV2'
 
 export interface DexParamList {
   DexScreen: undefined
@@ -68,6 +68,7 @@ export interface DexParamList {
     amount: BigNumber
     fee: BigNumber
     pair: PoolPairData
+    pairInfo: WalletToken
     tokenAAmount: string
     tokenBAmount: string
     tokenA?: WalletToken
@@ -156,7 +157,7 @@ export function DexNavigator (): JSX.Element {
       />
 
       <DexStack.Screen
-        component={RemoveLiquidityConfirmScreen}
+        component={RemoveLiquidityConfirmScreenV2}
         name='RemoveLiquidityConfirmScreen'
         options={{
           headerTitle: () => (
