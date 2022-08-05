@@ -15,7 +15,6 @@ interface SummaryRowProps {
 }
 
 export enum BorderType {
-  None,
   Top,
   Bottom
 }
@@ -41,13 +40,17 @@ export function SummaryRow (props: SummaryRowProps): JSX.Element {
       </View>
 
       <View style={tailwind('flex-1 flex-col justify-end')}>
-        <ThemedTextV2 style={tailwind('font-normal-v2 text-sm text-right', props.valueTextStyle)}>
+        <ThemedTextV2
+          style={tailwind('font-normal-v2 text-sm text-right', props.valueTextStyle)}
+          testID={`${props.testID}_value`}
+        >
           {props.value}
         </ThemedTextV2>
         {props.subValue !== undefined && (
           <ThemedTextV2
             style={tailwind('font-normal-v2 text-sm text-right pt-1')}
             dark={tailwind('text-mono-dark-v2-700')} light={tailwind('text-mono-light-v2-700')}
+            testID={`${props.testID}_sub_value`}
           >
             {props.subValue}
           </ThemedTextV2>
@@ -57,19 +60,20 @@ export function SummaryRow (props: SummaryRowProps): JSX.Element {
             <ThemedTextV2
               style={tailwind('font-normal-v2 text-sm text-right py-1 pr-1')}
               dark={tailwind('text-mono-dark-v2-700')} light={tailwind('text-mono-light-v2-700')}
+              testID={`${props.testID}_convert_status`}
             >
               {translate('screens/common', props.converted ? 'Converted' : 'Converting')}
             </ThemedTextV2>
             {props.converted
-? (
-  <ThemedIcon
-    iconType='MaterialIcons' name='check-circle' size={20}
-    light={tailwind('text-green-v2')} dark={tailwind('text-green-v2')}
-  />
-            )
-: (
-  <ThemedActivityIndicatorV2 />
-            )}
+              ? (
+                <ThemedIcon
+                  iconType='MaterialIcons' name='check-circle' size={20}
+                  light={tailwind('text-green-v2')} dark={tailwind('text-green-v2')}
+                />
+              )
+              : (
+                <ThemedActivityIndicatorV2 />
+              )}
           </View>
         )}
       </View>
