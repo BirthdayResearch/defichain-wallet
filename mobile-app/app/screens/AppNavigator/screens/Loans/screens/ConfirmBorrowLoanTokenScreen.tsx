@@ -349,7 +349,7 @@ async function borrowLoanToken ({
       drawerMessages: {
         preparing: translate('screens/ConfirmBorrowLoanTokenScreen', 'Preparing loan…'),
         waiting: translate('screens/ConfirmBorrowLoanTokenScreen', 'Processing loan…'),
-        complete: translate('screens/ConfirmBorrowLoanTokenScreen', 'Transaction completed')
+        complete: translate('screens/ConfirmBorrowLoanTokenScreen', 'Loan processed')
       },
       onBroadcast,
       onConfirmation

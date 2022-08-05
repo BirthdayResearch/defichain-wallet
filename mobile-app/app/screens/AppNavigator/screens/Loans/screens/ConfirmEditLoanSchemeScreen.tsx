@@ -228,9 +228,9 @@ async function editLoanScheme ({
         ir: loanScheme.interestRate
       }),
       drawerMessages: {
-        preparing: translate('screens/ConfirmEditLoanSchemeScreen', 'Preparing your transaction…'),
+        preparing: translate('screens/ConfirmEditLoanSchemeScreen', 'Preparing changes to loan scheme…'),
         waiting: translate('screens/ConfirmEditLoanSchemeScreen', 'Saving changes to loan scheme…'),
-        complete: translate('screens/ConfirmEditLoanSchemeScreen', 'Vault edited')
+        complete: translate('screens/ConfirmEditLoanSchemeScreen', 'Loan scheme saved')
       },
       onBroadcast,
       onConfirmation

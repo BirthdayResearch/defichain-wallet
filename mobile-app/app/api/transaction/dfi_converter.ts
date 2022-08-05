@@ -45,7 +45,7 @@ export function dfiConversionCrafter (amount: BigNumber, mode: ConversionMode, o
     drawerMessages: {
       preparing: translate('screens/ConvertConfirmScreen', 'Preparing to convert…'),
       waiting: translate('screens/ConvertConfirmScreen', 'Converting {{symbolA}} to {{symbolB}', { symbolA, symbolB }),
-      complete: translate('screens/ConvertConfirmScreen', 'Transaction completed')
+      complete: translate('screens/ConvertConfirmScreen', 'Conversion completed')
     },
     description: translate('screens/ConvertConfirmScreen', 'Converting {{amount}} {{symbolA}} to {{symbolB}}', { amount: amount.toFixed(8), symbolA, symbolB }),
     onBroadcast,

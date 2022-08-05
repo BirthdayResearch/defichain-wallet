@@ -315,7 +315,7 @@ async function constructSignedAddLiqAndSend (
       drawerMessages: {
         preparing: translate('screens/ConfirmAddLiq', 'Preparing to add liquidity…'),
         waiting: translate('screens/ConfirmAddLiq', 'Adding tokens to liquidity pool…'),
-        complete: translate('screens/ConfirmAddLiq', 'Added Liquidity Pool')
+        complete: translate('screens/ConfirmAddLiq', 'Added tokens to liquidity pool')
       },
       onBroadcast
     }))
