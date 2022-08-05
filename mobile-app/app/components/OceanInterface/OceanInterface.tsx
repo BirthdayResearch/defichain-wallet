@@ -109,7 +109,7 @@ export function OceanInterface (): JSX.Element | null {
       setTx({
         ...transaction,
         broadcasted: false,
-        title: translate('screens/OceanInterface', 'Preparing broadcast')
+        title: transaction.drawerMessages?.preparing ?? translate('screens/OceanInterface', 'Preparing broadcast')
       })
       broadcastTransaction(transaction.tx, client, 0, logger)
         .then(async () => {
@@ -120,7 +120,7 @@ export function OceanInterface (): JSX.Element | null {
           }
           setTx({
             ...transaction,
-            title: transaction.drawerTitle ?? translate('screens/OceanInterface', 'Waiting for transaction')
+            title: transaction.drawerMessages?.waiting ?? translate('screens/OceanInterface', 'Waiting for transaction')
           })
           if (transaction.onBroadcast !== undefined) {
             transaction.onBroadcast()
@@ -129,17 +129,17 @@ export function OceanInterface (): JSX.Element | null {
           let oceanStatusCode: TransactionStatusCode
           try {
             await waitForTxConfirmation(transaction.tx.txId, client, logger)
-            title = 'Transaction confirmed'
+            title = transaction.drawerMessages?.complete ?? translate('screens/OceanInterface', 'Transaction confirmed')
             oceanStatusCode = TransactionStatusCode.success
           } catch (e) {
             logger.error(e)
-            title = 'Sent (Pending confirmation)'
+            title = translate('screens/OceanInterface', 'Sent (Pending confirmation)')
             oceanStatusCode = TransactionStatusCode.pending
           }
           setTx({
             ...transaction,
+            title,
             broadcasted: true,
-            title: translate('screens/OceanInterface', title),
             oceanStatusCode
           })
           if (transaction.onConfirmation !== undefined) {

@@ -386,6 +386,11 @@ async function paybackLoanToken ({
         symbol: loanToken.displaySymbol,
         paymentSymbol: paymentToken.tokenDisplaySymbol
       }),
+      drawerMessages: {
+        preparing: translate('screens/ConfirmPaybackLoanScreen', 'Preparing loan payment…'),
+        waiting: translate('screens/ConfirmPaybackLoanScreen', 'Processing loan payment…'),
+        complete: translate('screens/ConfirmPaybackLoanScreen', 'Payment completed')
+      },
       onBroadcast,
       onConfirmation
     }))

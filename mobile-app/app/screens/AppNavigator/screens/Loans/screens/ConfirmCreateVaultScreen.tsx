@@ -257,6 +257,11 @@ async function createVault ({
         amount: loanScheme.minColRatio,
         ir: loanScheme.interestRate
       }),
+      drawerMessages: {
+        preparing: translate('screens/ConfirmCreateVaultScreen', 'Preparing to create vault…'),
+        waiting: translate('screens/ConfirmCreateVaultScreen', 'Creating vault…'),
+        complete: translate('screens/ConfirmCreateVaultScreen', 'Vault created')
+      },
       onBroadcast,
       onConfirmation
     }))

@@ -54,6 +54,11 @@ export const useSignBidAndSend = (): {
             amount: props.tokenAmount.amount,
             token: props.displaySymbol
           }),
+          drawerMessages: {
+            preparing: translate('screens/PlaceBidScreen', 'Preparing to place bid…'),
+            waiting: translate('screens/PlaceBidScreen', 'Placing bid…'),
+            complete: translate('screens/PlaceBidScreen', 'Bid placement completed')
+          },
           onBroadcast: props.onBroadcast
         }))
       } catch (e) {

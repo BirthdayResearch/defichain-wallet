@@ -216,6 +216,11 @@ async function constructSignedRemoveLiqAndSend (pair: PoolPairData, amount: BigN
       symbol: symbol,
       amount: amount.toFixed(8)
     }),
+    drawerMessages: {
+      preparing: translate('screens/ConfirmAddLiq', 'Preparing to remove liquidity…'),
+      waiting: translate('screens/ConfirmAddLiq', 'Removing tokens from liquidity pool…'),
+      complete: translate('screens/ConfirmAddLiq', 'Transaction completed')
+    },
     onBroadcast
   }))
 }

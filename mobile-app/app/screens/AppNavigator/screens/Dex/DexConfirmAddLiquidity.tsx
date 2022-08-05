@@ -312,6 +312,11 @@ async function constructSignedAddLiqAndSend (
         amountB: addLiqForm.tokenBAmount.toFixed(8),
         symbolB: addLiqForm.tokenBSymbol
       }),
+      drawerMessages: {
+        preparing: translate('screens/ConfirmAddLiq', 'Preparing to add liquidity…'),
+        waiting: translate('screens/ConfirmAddLiq', 'Adding tokens to liquidity pool…'),
+        complete: translate('screens/ConfirmAddLiq', 'Added Liquidity Pool')
+      },
       onBroadcast
     }))
   } catch (e) {

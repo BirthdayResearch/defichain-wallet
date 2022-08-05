@@ -355,6 +355,11 @@ async function modifyCollateral ({
         amount: tokenAmount.toFixed(8),
         symbol: token.displaySymbol
       }),
+      drawerMessages: {
+        preparing: translate('screens/EditCollateralScreen', isAdd ? 'Preparing to add collaterals…' : 'Preparing to remove collaterals…'),
+        waiting: translate('screens/EditCollateralScreen', isAdd ? 'Adding collaterals to vault…' : 'Removing collaterals from vault…'),
+        complete: translate('screens/EditCollateralScreen', isAdd ? 'Collaterals added' : 'Collaterals removed')
+      },
       onConfirmation,
       onBroadcast
     }))

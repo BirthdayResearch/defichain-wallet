@@ -253,11 +253,15 @@ async function send ({
     dispatch(transactionQueue.actions.push({
       sign: signer,
       title: translate('screens/SendConfirmationScreen', 'Sending {{symbol}}', { symbol: token.displaySymbol }),
-      drawerTitle: translate('screens/SendConfirmationScreen', 'Sending {{symbol}}', { symbol: token.displaySymbol }),
       description: translate('screens/SendConfirmationScreen', 'Sending {{amount}} {{symbol}}', {
         amount: amount.toFixed(8),
         symbol: token.displaySymbol
       }),
+      drawerMessages: {
+        preparing: translate('screens/SendConfirmationScreen', 'Preparing to send…'),
+        waiting: translate('screens/SendConfirmationScreen', 'Sending tokens…'),
+        complete: translate('screens/SendConfirmationScreen', 'Tokens sent')
+      },
       onBroadcast
     }))
   } catch (e) {

@@ -42,7 +42,11 @@ export function dfiConversionCrafter (amount: BigNumber, mode: ConversionMode, o
   return {
     sign: async (account: WhaleWalletAccount) => await dfiConversionSigner(account, amount, mode),
     title: translate('screens/ConvertConfirmScreen', 'Converting DFI'),
-    drawerTitle: translate('screens/ConvertConfirmScreen', 'Converting {{symbolA}} to {{symbolB}}', { amount: amount.toFixed(8), symbolA, symbolB }),
+    drawerMessages: {
+      preparing: translate('screens/ConvertConfirmScreen', 'Preparing to convert…'),
+      waiting: translate('screens/ConvertConfirmScreen', 'Converting DFI…'),
+      complete: translate('screens/ConvertConfirmScreen', 'Transaction completed')
+    },
     description: translate('screens/ConvertConfirmScreen', 'Converting {{amount}} {{symbolA}} to {{symbolB}}', { amount: amount.toFixed(8), symbolA, symbolB }),
     onBroadcast,
     submitButtonLabel: submitButtonLabel !== undefined ? translate('screens/ConvertConfirmScreen', submitButtonLabel) : undefined

@@ -346,6 +346,11 @@ async function borrowLoanToken ({
         amount: amountToBorrow.toFixed(8),
         symbol: loanToken.token.displaySymbol
       }),
+      drawerMessages: {
+        preparing: translate('screens/ConfirmBorrowLoanTokenScreen', 'Preparing loan…'),
+        waiting: translate('screens/ConfirmBorrowLoanTokenScreen', 'Processing loan…'),
+        complete: translate('screens/ConfirmBorrowLoanTokenScreen', 'Transaction completed')
+      },
       onBroadcast,
       onConfirmation
     }))

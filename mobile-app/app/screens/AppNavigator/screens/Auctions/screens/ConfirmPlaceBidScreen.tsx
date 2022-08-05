@@ -208,6 +208,11 @@ async function constructSignedBidAndSend (
         amount: tokenAmount.amount,
         token: displaySymbol
       }),
+      drawerMessages: {
+        preparing: translate('screens/PlaceBidScreen', 'Preparing to place bid…'),
+        waiting: translate('screens/PlaceBidScreen', 'Placing bid…'),
+        complete: translate('screens/PlaceBidScreen', 'Bid placement completed')
+      },
       onBroadcast
     }))
   } catch (e) {

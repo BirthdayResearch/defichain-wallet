@@ -10,7 +10,11 @@ export interface OceanTransaction {
   broadcasted: boolean
   tx: CTransactionSegWit
   title?: string
-  drawerTitle?: string
+  drawerMessages?: {
+    preparing?: string
+    waiting?: string
+    complete?: string
+  }
   submitButtonLabel?: string
   onBroadcast?: () => any
   onConfirmation?: () => any
