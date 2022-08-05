@@ -103,7 +103,8 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
             }
           }}
           rhs={{
-            value: `${fee.toFixed(8)} DFI`,
+            value: fee.toFixed(8),
+            suffix: 'DFI',
             testID: 'transaction_fee_value',
             themedProps: {
               light: tailwind('text-mono-light-v2-900'),
@@ -126,7 +127,8 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
               dark: tailwind('text-mono-dark-v2-500')
             }
           }} rhs={{
-          value: `${getResultingValue('Token', fee, sourceBalance, sourceUnit, targetBalance, targetUnit)} DFI`,
+          value: getResultingValue('Token', fee, sourceBalance, sourceUnit, targetBalance, targetUnit),
+          suffix: 'DFI',
           testID: 'resulting_tokens_value',
           themedProps: {
             light: tailwind('text-mono-light-v2-900 font-semibold-v2'),
@@ -139,7 +141,7 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
           style={tailwind('w-full text-right text-sm font-normal-v2 mt-1')}
           light={tailwind('text-mono-light-v2-700')}
           dark={tailwind('text-mono-dark-v2-700')}
-          testID='resultin_tokens_sub_value'
+          testID='resulting_tokens_sub_value'
         >
           {
             `(${getResultingPercentage('Token', sourceBalance, sourceUnit, targetBalance)}%)`
@@ -160,7 +162,8 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
               dark: tailwind('text-mono-dark-v2-500')
             }
           }} rhs={{
-          value: `${getResultingValue('UTXO', fee, sourceBalance, sourceUnit, targetBalance, targetUnit)} DFI`,
+          value: getResultingValue('UTXO', fee, sourceBalance, sourceUnit, targetBalance, targetUnit),
+          suffix: 'DFI',
           testID: 'resulting_utxo_value',
           themedProps: {
             light: tailwind('text-mono-light-v2-900 font-semibold-v2'),

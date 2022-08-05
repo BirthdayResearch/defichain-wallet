@@ -43,7 +43,7 @@ export function dfiConversionCrafter (amount: BigNumber, mode: ConversionMode, o
     title: translate('screens/ConvertConfirmScreen', 'Converting DFI'),
     displayTitle: translate('screens/ConvertConfirmScreen', 'Convert {{amount}} DFI to {{target}}', {
       amount: amount.toFixed(8),
-      target: mode === 'utxosToAccount' ? 'token' : 'UTXO'
+      target: mode === 'utxosToAccount' ? 'tokens' : 'UTXO'
     }),
     onBroadcast,
     submitButtonLabel: submitButtonLabel !== undefined ? translate('screens/ConvertConfirmScreen', submitButtonLabel) : undefined
