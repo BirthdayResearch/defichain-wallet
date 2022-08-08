@@ -19,9 +19,10 @@ import { DexParamList } from './DexNavigator'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { SummaryTitleV2 } from '@components/SummaryTitleV2'
-import { SummaryRow } from '@components/SummaryRow'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useAddressLabel } from '@hooks/useAddressLabel'
+import { NumberRowV2 } from '@components/NumberRowV2'
+import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmRemoveLiquidity'>
 
@@ -35,6 +36,7 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
     tokenBAmount
   } = route.params
   const dispatch = useAppDispatch()
+  const { getTokenPrice } = useTokenPrice()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -43,6 +45,7 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
   const { address } = useWalletContext()
   const addressLabel = useAddressLabel(address)
 
+  const sharesUsdAmount = getTokenPrice(pair.symbol, new BigNumber(amount), true)
   useEffect(() => {
     setIsOnPage(true)
     return () => {
@@ -84,64 +87,139 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
           iconB={pair.tokenB.displaySymbol}
           fromAddress={address}
           amount={amount}
-          testID='text_remove_amount'
+          testID='text_remove_liquidity_amount'
           title={translate('screens/ConfirmRemoveLiquidity', 'You are removing LP tokens')}
           fromAddressLabel={addressLabel}
         />
       </ThemedViewV2>
 
       <ThemedViewV2
-        dark={tailwind('bg-mono-dark-v2-100 border-t-0.5 border-gray-700')}
-        light={tailwind('bg-mono-light-v2-100 border-t-0.5 border-gray-300')}
+        dark={tailwind('bg-mono-dark-v2-100 border-t-0.5 border-mono-dark-v2-300')}
+        light={tailwind('bg-mono-light-v2-100 border-t-0.5 border-mono-light-v2-300')}
         style={tailwind('py-5')}
       >
-        <SummaryRow
-          value={`${fee.toFixed(8)} DFI`}
-          testID='text_fee'
-          title={translate('screens/ConfirmRemoveLiquidity', 'Transaction fee')}
-        />
-
-        <SummaryRow
-          value={new BigNumber(resultingPool).toFixed(8)}
-          testID='text_fee'
-          title={translate('screens/ConfirmRemoveLiquidity', 'Resulting pool share')}
-          containerStyle='mt-6'
+        <View style={tailwind('mb-5')}>
+          <NumberRowV2
+            lhs={{
+              value: translate('screens/ConfirmRemoveLiquidity', 'Transaction fee'),
+              themedProps: {
+                light: tailwind('text-mono-light-v2-500'),
+                dark: tailwind('text-mono-dark-v2-500')
+              },
+              testID: 'transaction_fee_title'
+            }}
+            rhs={{
+              value: fee.toFixed(8),
+              themedProps: {
+                light: tailwind('text-mono-light-v2-800'),
+                dark: tailwind('text-mono-dark-v2-800')
+              },
+              suffix: 'DFI',
+              testID: 'transaction_fee_title_amount'
+            }}
+            testID='transaction_fee'
+          />
+        </View>
+        <NumberRowV2
+          lhs={{
+            value: translate('screens/ConfirmRemoveLiquidity', 'Resulting pool share'),
+            themedProps: {
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
+            },
+            testID: 'resulting_pool_share_title'
+          }}
+          rhs={{
+            value: new BigNumber(resultingPool).toFixed(8),
+            themedProps: {
+              light: tailwind('text-mono-light-v2-800'),
+              dark: tailwind('text-mono-dark-v2-800')
+            },
+            testID: 'resulting_pool_share_amount'
+          }}
+          testID='resulting_pool_share'
         />
       </ThemedViewV2>
 
       <ThemedViewV2
-        dark={tailwind('bg-mono-dark-v2-100 border-t-0.5 border-b-0.5 border-gray-700')}
-        light={tailwind('bg-mono-light-v2-100 border-t-0.5 border-b-0.5 border-gray-300')}
+        dark={tailwind('bg-mono-dark-v2-100 border-t-0.5 border-b-0.5 border-mono-dark-v2-300')}
+        light={tailwind('bg-mono-light-v2-100 border-t-0.5 border-b-0.5 border-mono-light-v2-300')}
         style={tailwind('py-5')}
       >
-        <SummaryRow
-          value={BigNumber.max(tokenAAmount, 0).toFixed(8)}
-          testID='text_fee'
-          title={translate('screens/RemoveLiquidity', '{{token}} to receive', {
-            token: pair.tokenA.displaySymbol
-          })}
+        <NumberRowV2
+          lhs={{
+            value: translate('screens/RemoveLiquidity', '{{token}} to receive', {
+              token: pair.tokenA.displaySymbol
+            }),
+            themedProps: {
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
+            },
+            testID: `${pair.tokenA.symbol}_to_receive_title`
+          }}
+          rhs={{
+            value: BigNumber.max(tokenAAmount, 0).toFixed(8),
+            themedProps: {
+              light: tailwind('text-mono-light-v2-800'),
+              dark: tailwind('text-mono-dark-v2-800')
+            },
+            testID: `${pair.tokenA.symbol}_to_receive_value`,
+            usdAmount: getTokenPrice(pair.tokenA.symbol, new BigNumber(tokenAAmount)),
+            usdTextStyle: tailwind('text-sm')
+          }}
+          testID={`${pair.tokenA.symbol}_to_receive`}
         />
 
-        <SummaryRow
-          value={BigNumber.max(tokenBAmount, 0).toFixed(8)}
-          testID='text_fee'
-          title={translate('screens/RemoveLiquidity', '{{token}} to receive', {
-            token: pair.tokenB.displaySymbol
-          })}
-          containerStyle='mt-6'
+        <NumberRowV2
+          lhs={{
+            value: translate('screens/RemoveLiquidity', '{{token}} to receive', {
+              token: pair.tokenB.displaySymbol
+            }),
+            themedProps: {
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
+            },
+            testID: `${pair.tokenB.symbol}_to_receive_title`
+          }}
+          rhs={{
+            value: BigNumber.max(tokenBAmount, 0).toFixed(8),
+            themedProps: {
+              light: tailwind('text-mono-light-v2-800'),
+              dark: tailwind('text-mono-dark-v2-800')
+            },
+            testID: `${pair.tokenB.symbol}_to_receive_value`,
+            usdAmount: getTokenPrice(pair.tokenB.symbol, new BigNumber(tokenBAmount)),
+            usdTextStyle: tailwind('text-sm')
+          }}
+          testID={`${pair.tokenB.symbol}_to_receive`}
         />
 
-        <SummaryRow
-          value={new BigNumber(amount).toFixed(8)}
-          testID='text_fee'
-          title={translate('screens/ConfirmRemoveLiquidity', 'LP tokens to remove')}
-          containerStyle='mt-6'
+        <NumberRowV2
+          lhs={{
+            value: translate('screens/ConfirmRemoveLiquidity', 'LP tokens to remove'),
+            themedProps: {
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
+            },
+            testID: 'lp_tokens_to_remove_title'
+          }}
+          rhs={{
+            value: new BigNumber(amount).toFixed(8),
+            themedProps: {
+              light: tailwind('text-mono-light-v2-800'),
+              dark: tailwind('text-mono-dark-v2-800')
+            },
+            testID: 'lp_tokens_to_remove_amount',
+            usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,
+            usdTextStyle: tailwind('text-sm')
+          }}
+          testID='lp_tokens_to_remove'
         />
       </ThemedViewV2>
       <View style={tailwind('py-14')}>
         <SubmitButtonGroupV2
           isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-          label={translate('screens/ConfirmRemoveLiquidity', 'REMOVE')}
+          label={translate('screens/ConfirmRemoveLiquidity', 'Remove liquidity')}
           isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
           processingLabel={translate('screens/ConfirmRemoveLiquidity', 'REMOVING')}
           onSubmit={onSubmit}

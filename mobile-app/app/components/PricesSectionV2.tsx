@@ -45,8 +45,10 @@ export function PricesSectionV2 ({ priceRates, isCompact = false, testID, equalS
                 value: `${priceRate.label}`,
                 testID: `${testID}_${index}`,
                 suffix: priceRate.bSymbol,
-                lightTextStyle: rowStyle.rhsThemedProps.light,
-                darkTextStyle: rowStyle.rhsThemedProps.dark
+                themedProps: {
+                  light: rowStyle.rhsThemedProps.light,
+                  dark: rowStyle.rhsThemedProps.dark
+                }
               }}
               {...(isCompact && {
                 lhsThemedProps: rowStyle.lhsThemedProps,

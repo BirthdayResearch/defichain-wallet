@@ -161,12 +161,11 @@ export function DexNavigator (): JSX.Element {
         component={RemoveLiquidityConfirmScreenV2}
         name='RemoveLiquidityConfirmScreen'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Confirm Removal')}
-              containerTestID={headerContainerTestId}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate('screens/DexScreen', 'Confirm')
         }}
       />
 

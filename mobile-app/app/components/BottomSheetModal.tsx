@@ -28,8 +28,8 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
     triggerComponent,
     alertInfo,
     snapPoints = ['100%', '50%'],
-    light = tailwind('bg-mono-light-v2-100 text-black'),
-    dark = tailwind('bg-mono-dark-v2-100 text-white text-opacity-90'),
+    light = tailwind('bg-gray-100 text-black'),
+    dark = tailwind('bg-gray-600 text-white text-opacity-90'),
     enableScroll,
     ...otherModalProps
   } = props
@@ -72,23 +72,23 @@ export const BottomSheetModal = (props: Props): JSX.Element => {
             <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
           )}
           backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
-            <View {...backgroundProps} style={[backgroundProps.style, tailwind(`${isLight ? 'border-gray-200' : 'border-gray-700'} rounded-lg-v2`)]} />
+            <View {...backgroundProps} style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'} rounded`)]} />
           )}
           handleComponent={handleComponent}
           {...otherModalProps}
         >
           <ScrollView
-            contentContainerStyle={tailwind(`pb-7 px-5 relative ${handleComponent === null ? 'pt-7' : 'pt-5'}`)}
+            contentContainerStyle={tailwind(`pb-7 relative ${handleComponent === null ? 'pt-7' : 'pt-2'}`)}
             scrollEnabled={enableScroll}
           >
-            <View style={[tailwind('flex-row justify-end w-full z-10'), closeButtonStyle]}>
+            <View style={[tailwind('absolute flex-row justify-end right-5 top-3 w-full z-10'), closeButtonStyle]}>
               <TouchableOpacity onPress={closeModal}>
                 <ThemedIcon
-                  dark={tailwind('text-mono-dark-v2-900')}
-                  light={tailwind('text-mono-light-v2-900')}
-                  iconType='Feather'
-                  name='x-circle'
                   size={24}
+                  name='close'
+                  iconType='MaterialIcons'
+                  dark={tailwind('text-white text-opacity-70')}
+                  light={tailwind('text-gray-600')}
                 />
               </TouchableOpacity>
             </View>

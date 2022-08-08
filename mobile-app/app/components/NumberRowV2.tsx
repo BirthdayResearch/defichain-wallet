@@ -88,7 +88,7 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
                 containerStyle={tailwind('justify-end pb-5')}
                 testId={`${props.rhs.testID}_rhsUsdAmount`}
                 style={props.rhs.usdTextStyle}
-              />)
+               />)
           }
           {
             props.rhs.isOraclePrice === true && (
