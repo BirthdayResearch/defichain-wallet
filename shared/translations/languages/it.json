@@ -294,7 +294,7 @@
     "You will have": "Riceverai",
     "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
     "I WANT TO CONVERT": "I WANT TO CONVERT",
-    "Available: {{amount}} {{unit}}. Insufficient balance": "Available: {{amount}} {{unit}}. Insufficient balance",
+    "Insufficient balance": "Insufficient balance",
     "Available: {{amount}} {{unit}}": "Available: {{amount}} {{unit}}",
     "Review full details in the next screen": "Review full details in the next screen",
     "Max available {{unit}} entered": "Max available {{unit}} entered",

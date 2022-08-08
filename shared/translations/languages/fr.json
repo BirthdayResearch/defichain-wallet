@@ -293,7 +293,7 @@
     "You will have": "Vous aurez",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
     "I WANT TO CONVERT": "JE VEUX CONVERTIR",
-    "Available: {{amount}} {{unit}}. Insufficient balance": "Disponible: {{amount}} {{unit}}. Solde insuffisant",
+    "Insufficient balance": "Solde insuffisant",
     "Available: {{amount}} {{unit}}": "Disponible: {{amount}} {{unit}}",
     "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
     "Max available {{unit}} entered": "Max. de {{unit}} disponibles saisis",

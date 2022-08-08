@@ -183,7 +183,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
           >
             {
               translate('screens/ConvertScreen', hasError
-                ? 'Available: {{amount}} {{unit}}. Insufficient balance'
+                ? 'Insufficient balance'
                 : showMaxUTXOWarning
                   ? 'A small amount of UTXO is reserved for fees'
                   : 'Available: {{amount}} {{unit}}', {
