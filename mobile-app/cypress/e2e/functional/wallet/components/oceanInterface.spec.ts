@@ -11,7 +11,7 @@ context('Wallet - Ocean Interface', () => {
   })
 
   it('should able to convert page', function () {
-    cy.getByTestID('text_input_convert_from_input').clear().type('1').blur()
+    cy.getByTestID('convert_input').clear().type('1').blur()
     cy.getByTestID('button_continue_convert').click()
     cy.getByTestID('button_confirm_convert').click()
     cy.getByTestID('pin_authorize').type('000000').wait(5000)
