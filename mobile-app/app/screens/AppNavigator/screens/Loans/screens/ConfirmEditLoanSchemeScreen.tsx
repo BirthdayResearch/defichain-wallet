@@ -227,6 +227,11 @@ async function editLoanScheme ({
         mincolRatio: loanScheme.minColRatio,
         ir: loanScheme.interestRate
       }),
+      drawerMessages: {
+        preparing: translate('screens/OceanInterface', 'Preparing changes to loan scheme…'),
+        waiting: translate('screens/OceanInterface', 'Saving changes to loan scheme…'),
+        complete: translate('screens/OceanInterface', 'Loan scheme saved')
+      },
       onBroadcast,
       onConfirmation
     }))

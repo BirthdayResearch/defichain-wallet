@@ -407,7 +407,7 @@ context('Wallet - DEX - Composite Swap with Conversion', () => {
     cy.getByTestID('text_input_tokenA').type('11.00000000')
     cy.getByTestID('button_confirm_submit').click().wait(3000)
     cy.getByTestID('txn_authorization_description')
-      .contains(`Converting ${new BigNumber('1').toFixed(8)} UTXO to Token`)
+      .contains(`Converting ${new BigNumber('1').toFixed(8)} UTXO to DFI`)
     cy.closeOceanInterface().wait(3000)
     cy.getByTestID('conversion_tag').should('exist')
 

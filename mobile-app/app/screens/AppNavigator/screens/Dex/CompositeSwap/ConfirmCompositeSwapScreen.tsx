@@ -89,7 +89,8 @@ export function ConfirmCompositeSwapScreen ({ route }: Props): JSX.Element {
         isSourceLoanToken: futureSwap.isSourceLoanToken,
         fromTokenDisplaySymbol: swap.tokenFrom.displaySymbol,
         toTokenDisplaySymbol: swap.tokenTo.displaySymbol,
-        oraclePriceText: futureSwap.oraclePriceText
+        oraclePriceText: futureSwap.oraclePriceText,
+        executionBlock: futureSwap.executionBlock
       }
       await constructSignedFutureSwapAndSend(futureSwapForm, dispatch, () => {
         onTransactionBroadcast(isOnPage, navigation.dispatch)
@@ -342,6 +343,11 @@ async function constructSignedSwapAndSend (
         amountB: cSwapForm.amountTo.toFixed(8),
         symbolB: cSwapForm.tokenTo.displaySymbol
       }),
+      drawerMessages: {
+        preparing: translate('screens/OceanInterface', 'Preparing to swap tokens…'),
+        waiting: translate('screens/OceanInterface', 'Swapping tokens…'),
+        complete: translate('screens/OceanInterface', 'Tokens swapped')
+      },
       onBroadcast
     }))
   } catch (e) {
@@ -357,6 +363,7 @@ interface FutureSwapForm {
   fromTokenDisplaySymbol: string
   toTokenDisplaySymbol: string
   oraclePriceText: string
+  executionBlock: number
 }
 
 async function constructSignedFutureSwapAndSend (
@@ -392,6 +399,11 @@ async function constructSignedFutureSwapAndSend (
         toTokenDisplaySymbol: futureSwap.toTokenDisplaySymbol,
         percentageChange: futureSwap.oraclePriceText
       }),
+      drawerMessages: {
+        preparing: translate('screens/OceanInterface', 'Preparing your transaction…'),
+        waiting: translate('screens/OceanInterface', 'Processing future swap transaction…'),
+        complete: translate('screens/OceanInterface', 'Future Swap confirmed and will be executed at block #{{block}}', { block: futureSwap.executionBlock })
+      },
       onBroadcast
     }))
   } catch (e) {
