@@ -150,13 +150,17 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
     if (
       (pairIndex === 0 && (bestPath[pairIndex + 1]?.tokenA.displaySymbol === pairWithDexFee.tokenA.displaySymbol || bestPath[pairIndex + 1]?.tokenB.displaySymbol === pairWithDexFee.tokenB.displaySymbol)) ||
       (pairIndex !== -1 && bestPath[pairIndex - 1]?.tokenB.displaySymbol === pairWithDexFee.tokenA.displaySymbol)) {
+      const [tokenADisplaySymbol, tokenBDisplaySymbol] = bestPath[pairIndex + 1]?.tokenA.displaySymbol === pairWithDexFee.tokenA.displaySymbol
+        ? [pairWithDexFee.tokenB.displaySymbol, pairWithDexFee.tokenA.displaySymbol]
+        : [pairWithDexFee.tokenA.displaySymbol, pairWithDexFee.tokenB.displaySymbol]
+
       return {
         dexStabilizationType: 'composite-dusd-with-fee',
         pair: {
-          tokenADisplaySymbol: pairWithDexFee.tokenA.displaySymbol,
-          tokenBDisplaySymbol: pairWithDexFee.tokenB.displaySymbol
+          tokenADisplaySymbol,
+          tokenBDisplaySymbol
         },
-        dexStabilizationFee: getDexStabilizationFee(pairWithDexFee.tokenA.displaySymbol, pairWithDexFee.tokenB.displaySymbol)
+        dexStabilizationFee: getDexStabilizationFee(tokenADisplaySymbol, tokenBDisplaySymbol)
       }
     }
   }, [])
@@ -206,7 +210,7 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
     const compositeSwapDexStabilization = getCompositeSwapDexStabilization(bestPath, [
       { tokenADisplaySymbol: 'DUSD', tokenBDisplaySymbol: 'DFI' },
       { tokenADisplaySymbol: 'DUSD', tokenBDisplaySymbol: 'dUSDT' },
-       { tokenADisplaySymbol: 'DUSD', tokenBDisplaySymbol: 'dUSDC' }
+      { tokenADisplaySymbol: 'DUSD', tokenBDisplaySymbol: 'dUSDC' }
     ])
 
     return compositeSwapDexStabilization ?? _dexStabilization
