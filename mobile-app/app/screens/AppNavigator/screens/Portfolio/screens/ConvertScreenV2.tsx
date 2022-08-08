@@ -188,7 +188,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
           </ThemedTextV2>
         </View>
 
-        {!(new BigNumber(amount).isZero()) && new BigNumber(amount).isPositive() && (
+        {amount.length > 0 && (
           <View style={tailwind('flex-col w-full')}>
             <ConversionResultCard
               unit={getDisplayUnit(targetToken.unit)} oriTargetAmount={targetToken.amount}
