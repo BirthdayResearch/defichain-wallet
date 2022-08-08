@@ -162,8 +162,8 @@ context('Wallet - Convert UTXO to Account', function () {
     cy.getByTestID('button_continue_convert').click()
     cy.getByTestID('button_confirm_convert').click().wait(2000)
     // Check for authorization page description
-    cy.getByTestID('txn_authorization_title')
-      .contains(`Convert ${new BigNumber(oldAmount).toFixed(8)} DFI to tokens`)
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Converting ${new BigNumber(oldAmount).toFixed(8)} UTXO to DFI`)
 
     // Cancel send on authorisation page
     cy.getByTestID('cancel_authorization').click()
@@ -175,8 +175,8 @@ context('Wallet - Convert UTXO to Account', function () {
     cy.getByTestID('button_confirm_convert').should('not.have.attr', 'disabled')
     cy.getByTestID('button_confirm_convert').click()
     // Check for authorization page description
-    cy.getByTestID('txn_authorization_title')
-      .contains(`Convert ${new BigNumber(newAmount).toFixed(8)} DFI to tokens`)
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Converting ${new BigNumber(newAmount).toFixed(8)} UTXO to DFI`)
     cy.closeOceanInterface().wait(5000)
 
     cy.getByTestID('dfi_total_balance_amount').contains('29.999')
@@ -222,8 +222,8 @@ context('Wallet - Convert Account to UTXO', function () {
 
     cy.getByTestID('button_confirm_convert').click().wait(2000)
     // Check for authorization page description
-    cy.getByTestID('txn_authorization_title')
-      .contains(`Convert ${new BigNumber(oldAmount).toFixed(8)} DFI to UTXO`)
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Converting ${new BigNumber(oldAmount).toFixed(8)} DFI to UTXO`)
     // Cancel send on authorisation page
     cy.getByTestID('cancel_authorization').click()
     cy.getByTestID('button_cancel_convert').click()
@@ -234,8 +234,8 @@ context('Wallet - Convert Account to UTXO', function () {
     cy.getByTestID('button_confirm_convert').should('not.have.attr', 'disabled')
     cy.getByTestID('button_confirm_convert').click()
     // Check for authorization page description
-    cy.getByTestID('txn_authorization_title')
-      .contains(`Convert ${new BigNumber(newAmount).toFixed(8)} DFI to UTXO`)
+    cy.getByTestID('txn_authorization_description')
+      .contains(`Converting ${new BigNumber(newAmount).toFixed(8)} DFI to UTXO`)
     cy.closeOceanInterface().wait(5000)
 
     cy.getByTestID('dfi_total_balance_amount').contains('29.999')

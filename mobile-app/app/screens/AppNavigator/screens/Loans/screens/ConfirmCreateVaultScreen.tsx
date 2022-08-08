@@ -257,6 +257,11 @@ async function createVault ({
         amount: loanScheme.minColRatio,
         ir: loanScheme.interestRate
       }),
+      drawerMessages: {
+        preparing: translate('screens/OceanInterface', 'Preparing to create vault…'),
+        waiting: translate('screens/OceanInterface', 'Creating vault…'),
+        complete: translate('screens/OceanInterface', 'Vault created')
+      },
       onBroadcast,
       onConfirmation
     }))

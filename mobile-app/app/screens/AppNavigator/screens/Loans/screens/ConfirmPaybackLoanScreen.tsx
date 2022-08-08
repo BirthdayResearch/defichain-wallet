@@ -386,6 +386,11 @@ async function paybackLoanToken ({
         symbol: loanToken.displaySymbol,
         paymentSymbol: paymentToken.tokenDisplaySymbol
       }),
+      drawerMessages: {
+        preparing: translate('screens/OceanInterface', 'Preparing loan payment…'),
+        waiting: translate('screens/OceanInterface', 'Processing loan payment…'),
+        complete: translate('screens/OceanInterface', 'Payment completed')
+      },
       onBroadcast,
       onConfirmation
     }))
