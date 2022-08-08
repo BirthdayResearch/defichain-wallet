@@ -43,7 +43,7 @@ export function TransactionCard ({ maxValue, onChange, status, containerStyle, c
       <ThemedViewV2
         light={tailwind('border-mono-light-v2-300')}
         dark={tailwind('border-mono-dark-v2-300')}
-        style={[tailwind('flex flex-row justify-around items-center pt-2'), containerStyle]}
+        style={[tailwind('flex flex-row justify-around items-center py-2.5'), containerStyle]}
       >
         {
           [AmountButtonTypes.twentyFive, AmountButtonTypes.half, AmountButtonTypes.seventyFive, AmountButtonTypes.max].map((type, index, { length }) => {
