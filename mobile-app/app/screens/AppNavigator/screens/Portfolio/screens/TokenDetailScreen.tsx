@@ -394,8 +394,8 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
                 <ThemedIcon
                   light={tailwind('text-mono-light-v2-700')}
                   dark={tailwind('text-mono-dark-v2-700')}
-                  iconType='MaterialIcons'
-                  name='open-in-new'
+                  iconType='Feather'
+                  name='external-link'
                   size={16}
                 />
               </View>
