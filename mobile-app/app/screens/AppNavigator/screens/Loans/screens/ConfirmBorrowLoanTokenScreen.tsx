@@ -346,6 +346,11 @@ async function borrowLoanToken ({
         amount: amountToBorrow.toFixed(8),
         symbol: loanToken.token.displaySymbol
       }),
+      drawerMessages: {
+        preparing: translate('screens/OceanInterface', 'Preparing loan…'),
+        waiting: translate('screens/OceanInterface', 'Processing loan…'),
+        complete: translate('screens/OceanInterface', 'Loan processed')
+      },
       onBroadcast,
       onConfirmation
     }))
