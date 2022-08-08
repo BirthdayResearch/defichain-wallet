@@ -319,7 +319,8 @@
     "You are converting to {{unit}}": "Vous convertissez en {{unit}}",
     "Transaction fee": "Transaction fee",
     "Resulting Tokens": "Tokens restants",
-    "Resulting UTXO": "UTXO restants"
+    "Resulting UTXO": "UTXO restants",
+    "Convert {{amount}} DFI to {{target}}": "Conversion de {{amount}} DFI en {{target}}"
   },
   "screens/SettingsNavigator": {
     "Settings": "Paramètres"
