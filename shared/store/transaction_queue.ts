@@ -6,6 +6,11 @@ export interface DfTxSigner {
   sign: (account: WhaleWalletAccount) => Promise<CTransactionSegWit>
   title?: string
   description?: string
+  drawerMessages?: {
+    preparing?: string
+    waiting?: string
+    complete?: string
+  }
   onBroadcast?: () => any
   onConfirmation?: () => any
   onError?: () => any
