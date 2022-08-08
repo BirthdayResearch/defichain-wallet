@@ -85,7 +85,7 @@ function CollateralizationRatioText (props: { colRatio: string, minColRatio: str
         )
         : (
           <NumberFormat
-            value={props.colRatio}
+            value={new BigNumber(props.colRatio).toFixed(2)}
             decimalScale={2}
             thousandSeparator
             displayType='text'
@@ -153,7 +153,7 @@ function MinAndNextRatioText (props: { minColRatio: string, nextColRatio: string
               {translate('components/CollateralizationRatioDisplay', 'Next:')}
             </ThemedText>
             <NumberFormat
-              value={props.nextColRatio}
+              value={new BigNumber(props.nextColRatio).toFixed(2)}
               decimalScale={2}
               thousandSeparator
               displayType='text'

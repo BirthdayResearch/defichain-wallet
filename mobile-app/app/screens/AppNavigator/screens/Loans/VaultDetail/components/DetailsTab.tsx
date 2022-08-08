@@ -20,7 +20,7 @@ export function DetailsTab ({ vault }: { vault: LoanVaultActive }): JSX.Element 
         vaultInterest={new BigNumber(vault.loanScheme.interestRate)}
       />
       <CollateralizationRatioSection
-        collateralizationRatio={new BigNumber(vault.collateralRatio)}
+        collateralizationRatio={new BigNumber(vault.informativeRatio)}
         nextCollateralizationRatio={new BigNumber(nextCollateralizationRatio)}
         totalCollateralsValue={new BigNumber(vault.collateralValue)}
         numberOfLoans={vault.loanAmounts.length}
