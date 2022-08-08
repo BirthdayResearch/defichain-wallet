@@ -204,7 +204,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
           </View>
         )}
 
-        <View style={tailwind('w-full px-7', { 'mt-56': !canConvert(convAmount, sourceToken.amount) })}>
+        <View style={tailwind('w-full px-7', { 'mt-56': amount.length === 0 })}>
           <ButtonV2
             fill='fill' label={translate('components/Button', 'Continue')}
             disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob || hasPendingBroadcastJob}
