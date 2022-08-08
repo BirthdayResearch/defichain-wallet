@@ -7,6 +7,11 @@ export interface DfTxSigner {
   title?: string
   displayTitle?: string
   description?: string
+  drawerMessages?: {
+    preparing?: string
+    waiting?: string
+    complete?: string
+  }
   onBroadcast?: () => any
   onConfirmation?: () => any
   onError?: () => any
