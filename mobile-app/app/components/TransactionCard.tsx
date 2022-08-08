@@ -2,11 +2,13 @@ import { ThemedViewV2, ThemedTextV2, ThemedTouchableOpacityV2 } from '@component
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
+import { StyleProp, ViewStyle } from 'react-native'
 
 interface TransactionCardProps {
   maxValue: BigNumber
   onChange: (amount: string, type: AmountButtonTypes) => void
   status?: string
+  containerStyle: StyleProp<ViewStyle>
 }
 
 export enum AmountButtonTypes {
@@ -16,7 +18,7 @@ export enum AmountButtonTypes {
   max = 'MAX'
 }
 
-export function TransactionCard ({ maxValue, onChange, status, children }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
+export function TransactionCard ({ maxValue, onChange, status, containerStyle, children }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
   return (
     <ThemedViewV2
       light={tailwind('bg-mono-light-v2-00', {
@@ -41,7 +43,7 @@ export function TransactionCard ({ maxValue, onChange, status, children }: React
       <ThemedViewV2
         light={tailwind('border-mono-light-v2-300')}
         dark={tailwind('border-mono-dark-v2-300')}
-        style={tailwind('flex flex-row justify-around items-center pt-2 pb-4 border-t-0.5')}
+        style={[tailwind('flex flex-row justify-around items-center pt-2'), containerStyle]}
       >
         {
           [AmountButtonTypes.twentyFive, AmountButtonTypes.half, AmountButtonTypes.seventyFive, AmountButtonTypes.max].map((type, index, { length }) => {
