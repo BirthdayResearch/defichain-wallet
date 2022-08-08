@@ -17,6 +17,7 @@ interface NumberRowProps extends ThemedProps {
 interface RhsNumberRowElement extends NumberRowElement {
   usdAmount?: BigNumber
   isOraclePrice?: boolean
+  subValue?: NumberRowElement
 }
 
 export interface NumberRowElement {
@@ -31,13 +32,13 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
   return (
     <ThemedView
       {
-      ...((props.containerStyle != null)
-        ? props.containerStyle
-        : {
-          style: tailwind('flex-row items-start w-full bg-transparent'),
-          light: tailwind('bg-transparent'),
-          dark: tailwind('bg-transparent')
-        })}
+        ...((props.containerStyle != null)
+          ? props.containerStyle
+          : {
+            style: tailwind('flex-row items-start w-full bg-transparent'),
+            light: tailwind('bg-transparent'),
+            dark: tailwind('bg-transparent')
+          })}
     >
       <View style={tailwind('w-5/12')}>
         <View style={tailwind('flex-row items-end justify-start')}>
@@ -90,6 +91,28 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
             props.rhs.isOraclePrice === true && (
               <IconTooltip />
             )
+          }
+          {
+            props.rhs.subValue !== undefined &&
+              <NumberFormat
+                decimalScale={8}
+                displayType='text'
+                prefix={props.rhs.subValue.prefix}
+                suffix={props.rhs.subValue.suffix}
+                renderText={(val: string) => (
+                  <ThemedText
+                    style={tailwind('text-right font-normal-v2 text-sm mt-1')}
+                    light={tailwind('text-mono-light-v2-700')}
+                    dark={tailwind('text-mono-dark-v2-700')}
+                    testID={props.rhs.subValue?.testID}
+                    {...props.rhs.subValue?.themedProps}
+                  >
+                    {val}
+                  </ThemedText>
+              )}
+                thousandSeparator
+                value={props.rhs.subValue.value}
+              />
           }
         </View>
       </View>
