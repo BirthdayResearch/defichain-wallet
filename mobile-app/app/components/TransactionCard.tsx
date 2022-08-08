@@ -104,7 +104,7 @@ function SetAmountButton ({
     >
       <ThemedViewV2
         light={tailwind('border-mono-light-v2-300')}
-        dark={tailwind('border-mono-light-v2-300')}
+        dark={tailwind('border-mono-dark-v2-300')}
         style={tailwind({ 'border-r-0.5': hasBorder })}
       >
         <ThemedTextV2
