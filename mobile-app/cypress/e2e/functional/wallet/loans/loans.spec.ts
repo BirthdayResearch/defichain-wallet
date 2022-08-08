@@ -236,7 +236,7 @@ context('Wallet - Loans - Take Loans', () => {
 
   it('should verify vault card', function () {
     cy.checkVaultTag('ACTIVE', VaultStatus.Healthy, 'vault_card_0_status', walletTheme.isDark)
-    cy.getByTestID('vault_card_0_col_ratio').contains('1,500%')
+    cy.getByTestID('vault_card_0_col_ratio').contains('1,499.99%')
     cy.getByTestID('vault_card_0_min_ratio').contains('150%')
     cy.getByTestID('vault_card_0_total_loan').contains('$100')
     cy.getByTestID('vault_card_0_loan_symbol_DUSD').should('exist')
@@ -252,7 +252,7 @@ context('Wallet - Loans - Take Loans', () => {
     cy.getByTestID('loan_outstanding_balance').contains('100')
     cy.getByTestID('vault_id').contains(vaultId)
     cy.checkVaultTag('ACTIVE', VaultStatus.Healthy, 'vault_status_tag', walletTheme.isDark)
-    cy.getByTestID('loan_col_ratio').contains('1,500.00%')
+    cy.getByTestID('loan_col_ratio').contains('1,499.99%')
     cy.getByTestID('loan_min_col').contains('150.00%')
     cy.getByTestID('loan_add_input').type('1000').blur()
     cy.getByTestID('loan_add_input_error').contains('This amount may place the vault in liquidation')
@@ -286,7 +286,7 @@ context('Wallet - Loans - Take Loans', () => {
 
   it('should verify vault card after adding loans', function () {
     cy.checkVaultTag('ACTIVE', VaultStatus.AtRisk, 'vault_card_0_status', walletTheme.isDark)
-    cy.getByTestID('vault_card_0_col_ratio').contains('201%')
+    cy.getByTestID('vault_card_0_col_ratio').contains('200.53%')
     cy.getByTestID('vault_card_0_min_ratio').contains('150%')
     cy.getByTestID('vault_card_0_total_loan').contains('$748')
     cy.getByTestID('vault_card_0_loan_symbol_DUSD').should('exist')
@@ -325,7 +325,7 @@ context('Wallet - Loans - Take Loans', () => {
     cy.closeOceanInterface()
     cy.getByTestID('loans_tabs_YOUR_VAULTS').click()
     cy.checkVaultTag('ACTIVE', VaultStatus.NearLiquidation, 'vault_card_0_status', walletTheme.isDark)
-    cy.getByTestID('vault_card_0_col_ratio').contains('158%')
+    cy.getByTestID('vault_card_0_col_ratio').contains('157.96%')
     cy.getByTestID('vault_card_0_min_ratio').contains('150%')
     cy.getByTestID('vault_card_0_total_loan').contains('$823')
     cy.getByTestID('vault_card_0_loan_symbol_DUSD').should('exist')

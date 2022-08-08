@@ -106,7 +106,7 @@ export function ConfirmBorrowLoanTokenScreen ({
       <SummaryVaultDetails
         vaultId={vault.vaultId}
         collateralAmount={new BigNumber(vault.collateralValue)}
-        collateralRatio={new BigNumber(vault.collateralRatio)}
+        collateralRatio={new BigNumber(vault.informativeRatio)}
       />
       <SummaryTransactionResults
         resultCollateralRatio={resultingColRatio}
