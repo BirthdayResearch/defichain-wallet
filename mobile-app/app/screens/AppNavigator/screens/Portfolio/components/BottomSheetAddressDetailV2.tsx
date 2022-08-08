@@ -162,7 +162,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
     return (
       <ThemedTouchableOpacityV2
         key={item}
-        style={tailwind('p-4 flex flex-row items-center justify-between border-0 mx-5 rounded-lg-v2 h-20')}
+        style={tailwind('p-5 flex flex-row items-center justify-between border-0 mx-5 rounded-lg-v2 h-20')}
         dark={tailwind('bg-mono-dark-v2-00')}
         light={tailwind('bg-mono-light-v2-00')}
         onPress={async () => {
@@ -328,34 +328,19 @@ function ActiveAddress ({
   address,
   onPress
 }: { address: string, onPress: () => void }): JSX.Element {
-  const { getAddressUrl } = useDeFiScanContext()
   return (
     <View style={tailwind('flex-row w-full mt-1 items-center justify-center')}>
       <ThemedTouchableOpacityV2
-        style={tailwind('border-0 w-5/12')}
+        style={tailwind('border-0 w-4/6')}
         onPress={onPress}
       >
         <ThemedTextV2
-          ellipsizeMode='middle'
-          style={tailwind('font-normal-v2 text-sm ')}
-          numberOfLines={1}
+          style={tailwind('font-normal-v2 text-center text-sm')}
+          numberOfLines={2}
           testID='active_address'
         >
           {address}
         </ThemedTextV2>
-      </ThemedTouchableOpacityV2>
-      <ThemedTouchableOpacityV2
-        onPress={async () => await openURL(getAddressUrl(address))}
-        style={tailwind('border-0 ml-1')}
-      >
-        <ThemedIcon
-          size={16}
-          name='external-link'
-          dark={tailwind('text-mono-dark-v2-700')}
-          light={tailwind('text-mono-light-v2-700')}
-          style={tailwind('font-normal')}
-          iconType='Feather'
-        />
       </ThemedTouchableOpacityV2>
     </View>
   )
