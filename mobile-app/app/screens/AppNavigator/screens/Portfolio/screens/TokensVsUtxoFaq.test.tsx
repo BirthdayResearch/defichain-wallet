@@ -1,10 +1,11 @@
 import { render } from '@testing-library/react-native'
-import { LiquidityMiningFaqV2 } from './LiquidityMiningFaqV2'
+import { TokensVsUtxoFaq } from './TokensVsUtxoFaq'
 
 jest.mock('@shared-contexts/ThemeProvider')
-describe('Liquidity Mining V2 FAQ screen', () => {
+
+describe('Tokens vs Utxo FAQ V2 screen', () => {
   it('should match snapshot', async () => {
-    const rendered = render(<LiquidityMiningFaqV2 />)
+    const rendered = render(<TokensVsUtxoFaq />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })

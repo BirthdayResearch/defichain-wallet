@@ -14,12 +14,10 @@ import { ConversionMode, ConvertScreen } from './screens/ConvertScreen'
 import { ReceiveScreen } from './screens/ReceiveScreen'
 import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
 import { SendScreen } from './screens/SendScreen'
-import { TokensVsUtxoScreen } from './screens/TokensVsUtxoScreen'
 import { AddressControlScreen } from './components/AddressControlScreen'
 import { AboutScreen } from '../Settings/screens/AboutScreen'
 import { CompositeSwapScreen } from '../Dex/CompositeSwap/CompositeSwapScreen'
 import { ConfirmCompositeSwapScreen } from '../Dex/CompositeSwap/ConfirmCompositeSwapScreen'
-import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { LocalAddress } from '@store/userPreferences'
 import { FutureSwapData } from '@store/futureSwap'
 import { FutureSwapScreen } from './screens/FutureSwapScreen'
@@ -42,8 +40,10 @@ import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-d
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
-import { AddressBookScreenV2 } from './screens/AddressBookScreenV2'
-import { NetworkSelectionScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreenV2'
+import { AddressBookScreen } from './screens/AddressBookScreenV2'
+import { NetworkSelectionScreen } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreen'
+import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
+import { TokensVsUtxoFaq } from './screens/TokensVsUtxoFaq'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -316,7 +316,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={TokensVsUtxoScreen}
+        component={TokensVsUtxoFaq}
         name='TokensVsUtxo'
         options={{
           headerTitle: () => (
@@ -340,7 +340,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={NetworkSelectionScreenV2}
+        component={NetworkSelectionScreen}
         name='NetworkSelectionScreen'
         options={{
           ...screenOptions,
@@ -393,7 +393,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={AddressBookScreenV2}
+        component={AddressBookScreen}
         name='AddressBookScreen'
         options={{
           ...screenOptions,

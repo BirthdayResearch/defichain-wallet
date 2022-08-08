@@ -5,26 +5,26 @@ import { CommunityScreen } from './screens/CommunityScreen'
 import { LanguageSelectionScreen } from './screens/LanguageSelectionScreen'
 import { NetworkDetails } from './screens/NetworkDetails'
 import { SettingsScreen } from './SettingsScreen'
-import { KnowledgeBaseScreenV2 } from './screens/KnowledgeBaseScreenV2'
+import { KnowledgeBaseScreen } from './screens/KnowledgeBaseScreen'
 import { FeatureFlagScreen } from './screens/FeatureFlagScreen'
-import { ServiceProviderScreenV2 } from './screens/ServiceProviderScreenV2'
+import { ServiceProviderScreen } from './screens/ServiceProviderScreen'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
-import { AuctionsFaqV2 } from '../Auctions/screens/AuctionsFaqV2'
-import { PasscodeFaqV2 } from '@screens/WalletNavigator/screens/CreateWallet/PasscodeFaqV2'
-import { LoansFaqV2 } from '../Loans/screens/LoansFaqV2'
-import { RecoveryWordsFaqV2 } from '@screens/WalletNavigator/screens/CreateWallet/RecoveryWordsFaqV2'
-import { DexFaqV2 } from '@screens/WalletNavigator/screens/CreateWallet/DexFaqV2'
-import { LiquidityMiningFaqV2 } from '@screens/WalletNavigator/screens/CreateWallet/LiquidityMiningFaqV2'
-import { TokensVsUtxoFaqV2 } from '../Portfolio/screens/TokensVsUtxoFaqV2'
-import { ChangePinScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/ChangePinScreenV2'
-import { ConfirmPinScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/ConfirmPinScreenV2'
-import { RecoveryWordsScreenV2 } from './screens/RecoveryWordsScreenV2'
-import { AddressBookScreenV2 } from '../Portfolio/screens/AddressBookScreenV2'
+import { AuctionsFaq } from '../Auctions/screens/AuctionsFaq'
+import { PasscodeFaq } from '@screens/WalletNavigator/screens/CreateWallet/PasscodeFaq'
+import { LoansFaq } from '../Loans/screens/LoansFaq'
+import { RecoveryWordsFaq } from '@screens/WalletNavigator/screens/CreateWallet/RecoveryWordsFaq'
+import { DexFaq } from '@screens/WalletNavigator/screens/CreateWallet/DexFaq'
+import { LiquidityMiningFaq } from '@screens/WalletNavigator/screens/CreateWallet/LiquidityMiningFaq'
+import { TokensVsUtxoFaq } from '../Portfolio/screens/TokensVsUtxoFaq'
+import { ChangePinScreen } from '@screens/AppNavigator/screens/Settings/screens/ChangePinScreen'
+import { ConfirmPinScreen } from '@screens/AppNavigator/screens/Settings/screens/ConfirmPinScreen'
+import { RecoveryWordsScreen } from './screens/RecoveryWordsScreen'
+import { AddressBookScreen } from '../Portfolio/screens/AddressBookScreenV2'
 import { LocalAddress } from '@store/userPreferences'
-import { AddOrEditAddressBookScreenV2 } from '../Portfolio/screens/AddOrEditAddressBookScreenV2'
-import { NetworkSelectionScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreenV2'
+import { AddOrEditAddressBookScreen } from '../Portfolio/screens/AddOrEditAddressBookScreen'
+import { NetworkSelectionScreen } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreen'
 
 export interface SettingsParamList {
   SettingsScreen: undefined
@@ -52,10 +52,10 @@ export interface SettingsParamList {
 const SettingsStack = createStackNavigator<SettingsParamList>()
 
 export function SettingsNavigator (): JSX.Element {
-  const navigationV2 = useNavigation<NavigationProp<SettingsParamList>>()
+  const navigation = useNavigation<NavigationProp<SettingsParamList>>()
 
   const goToNetworkSelect = (): void => {
-    navigationV2.navigate('NetworkSelectionScreen')
+    navigation.navigate('NetworkSelectionScreen')
   }
   const screenOptions = useNavigatorScreenOptions()
 
@@ -86,7 +86,7 @@ export function SettingsNavigator (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={RecoveryWordsScreenV2}
+        component={RecoveryWordsScreen}
         name='RecoveryWordsScreen'
         options={{
           headerTitle: translate('screens/Settings', 'Recovery Words')
@@ -94,7 +94,7 @@ export function SettingsNavigator (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={ServiceProviderScreenV2}
+        component={ServiceProviderScreen}
         name='ServiceProviderScreen'
         options={{
           headerTitle: translate('screens/ServiceProviderScreen', 'Provider')
@@ -110,7 +110,7 @@ export function SettingsNavigator (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={ChangePinScreenV2}
+        component={ChangePinScreen}
         name='ChangePinScreen'
         options={{
           headerTitle: translate('screens/WalletNavigator', 'Create Passcode'),
@@ -119,7 +119,7 @@ export function SettingsNavigator (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={ConfirmPinScreenV2}
+        component={ConfirmPinScreen}
         name='ConfirmPinScreen'
         options={{
           headerTitle: translate('screens/WalletNavigator', 'Verify Passcode'),
@@ -128,7 +128,7 @@ export function SettingsNavigator (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={NetworkSelectionScreenV2}
+        component={NetworkSelectionScreen}
         name='NetworkSelectionScreen'
         options={{
           headerTitle: translate('screens/NetworkSelectionScreen', 'Network'),
@@ -146,7 +146,7 @@ export function SettingsNavigator (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={AddressBookScreenV2}
+        component={AddressBookScreen}
         name='AddressBookScreen'
         options={{
           headerTitle: translate('screens/Settings', 'Address Book')
@@ -154,7 +154,7 @@ export function SettingsNavigator (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={AddOrEditAddressBookScreenV2}
+        component={AddOrEditAddressBookScreen}
         name='AddOrEditAddressBookScreen'
         options={{
           headerTitle: translate('screens/AddOrEditAddressBookScreen', 'Add Address')
@@ -179,7 +179,7 @@ export function SettingsNavigator (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={KnowledgeBaseScreenV2}
+        component={KnowledgeBaseScreen}
         name='KnowledgeBaseScreen'
         options={{
           headerTitle: translate('screens/AboutScreen', 'FAQ')
@@ -187,7 +187,7 @@ export function SettingsNavigator (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={PasscodeFaqV2}
+        component={PasscodeFaq}
         name='PasscodeFaq'
         options={{
           headerTitle: translate('components/PasscodeFaq', 'About Passcode')
@@ -195,7 +195,7 @@ export function SettingsNavigator (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={LoansFaqV2}
+        component={LoansFaq}
         name='LoansFaq'
         options={{
           headerTitle: translate('components/LoansFaq', 'About Loans')
@@ -203,7 +203,7 @@ export function SettingsNavigator (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={AuctionsFaqV2}
+        component={AuctionsFaq}
         name='AuctionsFaq'
         options={{
           headerTitle: translate('components/AuctionsFaq', 'About Auctions')
@@ -211,7 +211,7 @@ export function SettingsNavigator (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={RecoveryWordsFaqV2}
+        component={RecoveryWordsFaq}
         name='RecoveryWordsFaq'
         options={{
           headerTitle: translate('components/RecoveryWordFaq', 'About Recovery Words')
@@ -219,7 +219,7 @@ export function SettingsNavigator (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={DexFaqV2}
+        component={DexFaq}
         name='DexFaq'
         options={{
           headerTitle: translate('components/DexFaq', 'About DEX')
@@ -227,7 +227,7 @@ export function SettingsNavigator (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={LiquidityMiningFaqV2}
+        component={LiquidityMiningFaq}
         name='LiquidityMiningFaq'
         options={{
           headerTitle: translate('components/LiquidityMiningFaq', 'About Liquidity Mining')
@@ -235,7 +235,7 @@ export function SettingsNavigator (): JSX.Element {
       />
 
       <SettingsStack.Screen
-        component={TokensVsUtxoFaqV2}
+        component={TokensVsUtxoFaq}
         name='TokensVsUtxo'
         options={{
           headerTitle: translate('components/UtxoVsTokenFaq', 'About UTXO And Tokens')

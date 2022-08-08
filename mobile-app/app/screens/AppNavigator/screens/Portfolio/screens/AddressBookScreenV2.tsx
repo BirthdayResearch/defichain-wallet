@@ -35,7 +35,7 @@ export enum ButtonGroupTabKey {
   YourAddress = 'YOUR_ADDRESS'
 }
 
-export function AddressBookScreenV2 ({ route, navigation }: Props): JSX.Element {
+export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const { selectedAddress, onAddressSelect } = route.params
   const { isLight } = useThemeContext()
   const { network } = useNetworkContext()
