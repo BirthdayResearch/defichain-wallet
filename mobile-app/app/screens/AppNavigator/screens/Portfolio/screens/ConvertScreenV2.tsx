@@ -40,8 +40,6 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
   const logger = useLogger()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const toast = useToast()
-  const [showToast, setShowToast] = useState(false)
-  const [percentageType, setPercentageType] = useState<string | undefined>()
   const TOAST_DURATION = 2000
 
   // global state
@@ -81,25 +79,6 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
     setTransactionCardStatus(hasError ? 'error' : isInputFocus ? 'active' : undefined)
   }, [hasError, isInputFocus])
 
-  useEffect(() => {
-    if (showToast && percentageType !== undefined) {
-      const isMax = percentageType === AmountButtonTypes.max
-      const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
-      const toastOption = {
-        unit: getDisplayUnit(sourceToken?.unit),
-        percent: percentageType
-      }
-      toast.show(translate('screens/ConvertScreen', toastMessage, toastOption), {
-        type: 'wallet_toast',
-        placement: 'top',
-        duration: TOAST_DURATION
-      })
-      setTimeout(() => setShowToast(false), TOAST_DURATION)
-    } else {
-      toast.hideAll()
-    }
-  }, [showToast])
-
   if (sourceToken === undefined || targetToken === undefined) {
     return <></>
   }
@@ -125,8 +104,22 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
 
   function onPercentagePress (amount: string, type: AmountButtonTypes): void {
     setAmount(amount)
-    setPercentageType(type)
-    setShowToast(true)
+    showToast(type)
+  }
+
+  function showToast (type: AmountButtonTypes): void {
+    toast.hideAll()
+    const isMax = type === AmountButtonTypes.max
+    const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
+    const toastOption = {
+      unit: getDisplayUnit(sourceToken?.unit),
+      percent: type
+    }
+    toast.show(translate('screens/ConvertScreen', toastMessage, toastOption), {
+      type: 'wallet_toast',
+      placement: 'top',
+      duration: TOAST_DURATION
+    })
   }
 
   function onTogglePress (): void {
@@ -195,7 +188,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
           </ThemedTextV2>
         </View>
 
-        {canConvert(convAmount, sourceToken.amount) && (
+        {!(new BigNumber(amount).isZero()) && new BigNumber(amount).isPositive() && (
           <View style={tailwind('flex-col w-full')}>
             <ConversionResultCard
               unit={getDisplayUnit(targetToken.unit)} oriTargetAmount={targetToken.amount}
@@ -327,8 +320,6 @@ function ConversionResultCard (props: { unit: string | undefined, oriTargetAmoun
           style={tailwind('flex-1 font-semibold-v2 text-sm text-right')} testID='convert_result_amount'
           light={tailwind('text-mono-light-v2-800')} dark={tailwind('text-mono-dark-v2-800')}
         >
-          {/* {BigNumber.maximum(new BigNumber(props.targetAmount).plus(props.convertAmount), 0).toFixed(8)} */}
-          {/* {new BigNumber(props.totalTargetAmount).toFixed(8)} */}
           {props.totalTargetAmount}
         </ThemedTextV2>
       </ThemedViewV2>
