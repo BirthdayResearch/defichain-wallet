@@ -1,4 +1,4 @@
-import { ThemedScrollViewV2, ThemedTextV2, ThemedViewV2 } from '@components/themed'
+import { ThemedScrollViewV2, ThemedViewV2 } from '@components/themed'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
@@ -133,26 +133,21 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
           themedProps: {
             light: tailwind('text-mono-light-v2-900 font-semibold-v2'),
             dark: tailwind('text-mono-dark-v2-900 font-semibold-v2')
+          },
+          subValue: {
+            value: getResultingPercentage('Token', sourceBalance, sourceUnit, targetBalance),
+            prefix: '(',
+            suffix: '%)',
+            testID: 'resulting_tokens_sub_value'
           }
         }}
         />
 
-        <ThemedTextV2
-          style={tailwind('w-full text-right text-sm font-normal-v2 mt-1')}
-          light={tailwind('text-mono-light-v2-700')}
-          dark={tailwind('text-mono-dark-v2-700')}
-          testID='resulting_tokens_sub_value'
-        >
-          {
-            `(${getResultingPercentage('Token', sourceBalance, sourceUnit, targetBalance)}%)`
-          }
-        </ThemedTextV2>
-
         <NumberRowV2
           containerStyle={{
-            style: tailwind('flex-row items-start w-full bg-transparent mt-5'),
-            light: tailwind('bg-transparent'),
-            dark: tailwind('bg-transparent')
+            style: tailwind('flex-row items-start w-full bg-transparent mt-5 border-b-0.5 pb-5'),
+            light: tailwind('bg-transparent border-mono-light-v2-300'),
+            dark: tailwind('bg-transparent border-mono-dark-v2-300')
           }}
           lhs={{
             value: translate('screens/ConvertConfirmScreen', 'Resulting UTXO'),
@@ -168,26 +163,15 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
           themedProps: {
             light: tailwind('text-mono-light-v2-900 font-semibold-v2'),
             dark: tailwind('text-mono-dark-v2-900 font-semibold-v2')
+          },
+          subValue: {
+            value: getResultingPercentage('UTXO', sourceBalance, sourceUnit, targetBalance),
+            prefix: '(',
+            suffix: '%)',
+            testID: 'resulting_utxo_sub_value'
           }
         }}
         />
-
-        <ThemedViewV2
-          style={tailwind('w-full mt-1 pb-5 border-b-0.5')}
-          light={tailwind('border-mono-light-v2-300')}
-          dark={tailwind('border-mono-dark-v2-300')}
-        >
-          <ThemedTextV2
-            style={tailwind('w-full text-right text-sm font-normal-v2')}
-            light={tailwind('text-mono-light-v2-700')}
-            dark={tailwind('text-mono-dark-v2-700')}
-            testID='resulting_utxo_sub_value'
-          >
-            {
-              `(${getResultingPercentage('UTXO', sourceBalance, sourceUnit, targetBalance)}%)`
-            }
-          </ThemedTextV2>
-        </ThemedViewV2>
 
         <View style={tailwind('mt-20')}>
           <SubmitButtonGroupV2
