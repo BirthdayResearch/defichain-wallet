@@ -197,8 +197,8 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
         {canConvert(convAmount, sourceToken.amount) && (
           <View style={tailwind('flex-col w-full')}>
             <ConversionResultCard
-              unit={getDisplayUnit(targetToken.unit)} convertAmount={convAmount}
-              targetAmount={targetToken.amount}
+              unit={getDisplayUnit(targetToken.unit)} oriTargetAmount={targetToken.amount}
+              totalTargetAmount={BigNumber.maximum(new BigNumber(targetToken.amount).plus(convAmount), 0).toFixed(8)}
             />
 
             <ThemedTextV2
@@ -292,7 +292,7 @@ function ConversionLabel (props: { sourceUnit: string, targetUnit: string }): JS
   )
 }
 
-function ConversionResultCard (props: { unit: string | undefined, convertAmount: string, targetAmount: string }): JSX.Element {
+function ConversionResultCard (props: { unit: string | undefined, oriTargetAmount: string, totalTargetAmount: string }): JSX.Element {
   return (
     <ThemedViewV2
       style={tailwind('flex-col w-full p-5 mt-6 rounded-lg-v2 border-0.5')} testID='convert_result_card'
@@ -312,7 +312,7 @@ function ConversionResultCard (props: { unit: string | undefined, convertAmount:
           style={tailwind('flex-1 font-normal-v2 text-sm text-right')} testID='convert_available_amount'
           light={tailwind('text-mono-light-v2-800')} dark={tailwind('text-mono-dark-v2-800')}
         >
-          {new BigNumber(props.convertAmount).toFixed(8)}
+          {new BigNumber(props.oriTargetAmount).toFixed(8)}
         </ThemedTextV2>
       </ThemedViewV2>
       <ThemedViewV2 style={tailwind('flex-row items-center pt-5')}>
@@ -326,7 +326,9 @@ function ConversionResultCard (props: { unit: string | undefined, convertAmount:
           style={tailwind('flex-1 font-semibold-v2 text-sm text-right')} testID='convert_result_amount'
           light={tailwind('text-mono-light-v2-800')} dark={tailwind('text-mono-dark-v2-800')}
         >
-          {BigNumber.maximum(new BigNumber(props.targetAmount).plus(props.convertAmount), 0).toFixed(8)}
+          {/* {BigNumber.maximum(new BigNumber(props.targetAmount).plus(props.convertAmount), 0).toFixed(8)} */}
+          {/* {new BigNumber(props.totalTargetAmount).toFixed(8)} */}
+          {props.totalTargetAmount}
         </ThemedTextV2>
       </ThemedViewV2>
     </ThemedViewV2>
