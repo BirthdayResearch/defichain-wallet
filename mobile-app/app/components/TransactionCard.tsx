@@ -8,7 +8,7 @@ interface TransactionCardProps {
   maxValue: BigNumber
   onChange: (amount: string, type: AmountButtonTypes) => void
   status?: string
-  containerStyle: StyleProp<ViewStyle>
+  containerStyle?: StyleProp<ViewStyle>
 }
 
 export enum AmountButtonTypes {
