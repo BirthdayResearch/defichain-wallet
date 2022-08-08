@@ -78,8 +78,10 @@ export function NetworkSelectionScreenV2 (): JSX.Element {
           lhs={{
             value: translate('screens/NetworkDetails', 'Total masternodes'),
             testID: 'network_details_total_masternodes',
-            lightTextStyle: tailwind('text-mono-light-v2-900'),
-            darkTextStyle: tailwind('text-mono-dark-v2-900')
+            themedProps: {
+              light: tailwind('text-mono-light-v2-900'),
+              dark: tailwind('text-mono-dark-v2-900')
+            }
           }}
           rhs={{
             value: masternodeCount ?? '',

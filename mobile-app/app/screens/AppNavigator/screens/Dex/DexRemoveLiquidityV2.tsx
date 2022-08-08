@@ -347,6 +347,7 @@ function DexInputCard (
           props.onChange(amount)
         }}
         status={props.status}
+        containerStyle={tailwind('border-t-0.5')}
       >
         <ThemedViewV2
           light={tailwind('border-mono-light-v2-300')}

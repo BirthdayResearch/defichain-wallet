@@ -30,6 +30,7 @@ type Props = StackScreenProps<DexParamList, 'ConfirmRemoveLiquidity'>
 export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
   const {
     pair,
+    pairInfo,
     amount,
     fee,
     tokenAAmount,
@@ -71,7 +72,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
     if (!isSubmitting) {
       navigation.navigate({
         name: 'RemoveLiquidity',
-        params: { pair },
+        params: { pair, pairInfo },
         merge: true
       })
     }
