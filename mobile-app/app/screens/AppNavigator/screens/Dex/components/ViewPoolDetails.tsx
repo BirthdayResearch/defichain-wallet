@@ -97,8 +97,8 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
             value: translate('screens/RemoveLiquidity', 'Volume (24H)'),
             testID: 'shares_to_add',
             themedProps: {
-              light: tailwind('text-mono-light-v2-700'),
-              dark: tailwind('text-mono-dark-v2-700')
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
             }
           }}
           rhs={{
@@ -116,8 +116,8 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
             value: translate('screens/RemoveLiquidity', 'Total liquidity'),
             testID: 'shares_to_add',
             themedProps: {
-              light: tailwind('text-mono-light-v2-700'),
-              dark: tailwind('text-mono-dark-v2-700')
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
             }
           }}
           rhs={{
@@ -135,8 +135,8 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
             token: pairData.tokenA.displaySymbol
           }),
           themedProps: {
-            light: tailwind('text-mono-light-v2-700'),
-            dark: tailwind('text-mono-dark-v2-700')
+            light: tailwind('text-mono-light-v2-500'),
+            dark: tailwind('text-mono-dark-v2-500')
           },
           testID: 'shares_to_add'
         }}
@@ -158,8 +158,8 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
           }),
           testID: `Pooled_${pairData.tokenB.displaySymbol}`,
           themedProps: {
-            light: tailwind('text-mono-light-v2-700'),
-            dark: tailwind('text-mono-dark-v2-700')
+            light: tailwind('text-mono-light-v2-500'),
+            dark: tailwind('text-mono-dark-v2-500')
           }
         }}
         rhs={{
@@ -230,22 +230,26 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
           lhs={{
             value: translate('screens/RemoveLiquidity', 'Your LP Tokens'),
             themedProps: {
-              light: tailwind('text-mono-light-v2-700'),
-              dark: tailwind('text-mono-dark-v2-700')
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
             },
             testID: 'lp_tokens_title'
           }}
           rhs={{
             value: pairInfo.amount,
+            themedProps: {
+              light: tailwind('text-mono-light-v2-800'),
+              dark: tailwind('text-mono-dark-v2-800')
+            },
             testID: `lp_${pairData.tokenA.displaySymbol}_tokens_value`
           }}
           testID={`${pairInfo.displaySymbol}_lp_tokens`}
         />
-        <ViewPoolAmountRow
-          amount={new BigNumber(lpPercentage).toFixed(3)}
+        <ViewPoolAmountRow // TODO: Change to NumberRowV2
+          amount={new BigNumber(lpPercentage).toFixed(2)}
           valueThemeProps={{
-            dark: tailwind('text-mono-dark-v2-700'),
-            light: tailwind('text-mono-light-v2-700')
+            dark: tailwind('text-mono-dark-v2-500'),
+            light: tailwind('text-mono-light-v2-500')
           }}
           prefix='('
           suffix='%)'
@@ -254,59 +258,75 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
       </View>
       <NumberRowV2
         lhs={{
-          value: translate('screens/RemoveLiquidity', 'Token in {{token}}', {
+          value: translate('screens/RemoveLiquidity', 'Tokens in {{token}}', {
             token: pairData.tokenA.displaySymbol
           }),
           themedProps: {
-            light: tailwind('text-mono-light-v2-700'),
-            dark: tailwind('text-mono-dark-v2-700')
+            light: tailwind('text-mono-light-v2-500'),
+            dark: tailwind('text-mono-dark-v2-500')
           },
           testID: `token_in_${pairData.tokenA.displaySymbol}_title`
         }}
         rhs={{
           value: tokenATotal.toFixed(8),
-          testID: `token_in_${pairData.tokenA.displaySymbol}_value`,
+          themedProps: {
+            light: tailwind('text-mono-light-v2-800'),
+            dark: tailwind('text-mono-dark-v2-800')
+          },
           usdAmount: getUSDValue(
             new BigNumber(tokenATotal),
             pairData.tokenA.symbol
           ),
-          usdTextStyle: tailwind('text-sm')
+          usdTextStyle: tailwind('text-sm'),
+          testID: `token_in_${pairData.tokenA.displaySymbol}_value`
         }}
         testID={`token_in_${pairData.tokenA.displaySymbol}`}
       />
 
       <NumberRowV2
         lhs={{
-          value: translate('screens/RemoveLiquidity', 'Token in {{token}}', {
+          value: translate('screens/RemoveLiquidity', 'Tokens in {{token}}', {
           token: pairData.tokenB.displaySymbol
           }),
           themedProps: {
-            light: tailwind('text-mono-light-v2-700'),
-            dark: tailwind('text-mono-dark-v2-700')
+            light: tailwind('text-mono-light-v2-500'),
+            dark: tailwind('text-mono-dark-v2-500')
           },
           testID: `token_in_${pairData.tokenB.displaySymbol}_title`
         }}
         rhs={{
           value: tokenBTotal.toFixed(8),
-          testID: `token_in_${pairData.tokenB.displaySymbol}_value`,
+          themedProps: {
+            light: tailwind('text-mono-light-v2-800'),
+            dark: tailwind('text-mono-dark-v2-800')
+          },
           usdAmount: getUSDValue(
             new BigNumber(tokenBTotal),
             pairData.tokenB.symbol
           ),
-          usdTextStyle: tailwind('text-sm')
+          usdTextStyle: tailwind('text-sm'),
+          testID: `token_in_${pairData.tokenB.displaySymbol}_value`
         }}
         testID={`token_in_${pairData.tokenB.displaySymbol}`}
       />
       {pairData?.apr?.total !== undefined && pairData?.apr?.total !== null && (
-        <ViewPoolAmountRow
-          label='APR'
-          amount={new BigNumber(isNaN(pairData.apr.total) ? 0 : pairData.apr.total).times(100).toFixed(2)}
-          valueThemeProps={{
-            dark: tailwind('text-darksuccess-500'),
-            light: tailwind('text-success-500')
+        <NumberRowV2
+          lhs={{
+            value: translate('screens/RemoveLiquidity', 'APR'),
+            themedProps: {
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
+            },
+            testID: `${pairInfo.displaySymbol}_apr_tite`
           }}
-          valueTextStyle={tailwind('font-semibold-v2')}
-          suffix='%'
+          rhs={{
+            value: new BigNumber(isNaN(pairData.apr.total) ? 0 : pairData.apr.total).times(100).toFixed(2),
+            themedProps: {
+              light: tailwind('text-darksuccess-500 font-semibold-v2'),
+              dark: tailwind('text-success-500 font-semibold-v2')
+            },
+            testID: `${pairInfo.displaySymbol}_apr_value`
+          }}
           testID={`${pairInfo.displaySymbol}_apr`}
         />
       )}

@@ -94,8 +94,8 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
       </ThemedViewV2>
 
       <ThemedViewV2
-        dark={tailwind('bg-mono-dark-v2-100 border-t-0.5 border-gray-700')}
-        light={tailwind('bg-mono-light-v2-100 border-t-0.5 border-gray-300')}
+        dark={tailwind('bg-mono-dark-v2-100 border-t-0.5 border-mono-dark-v2-300')}
+        light={tailwind('bg-mono-light-v2-100 border-t-0.5 border-mono-light-v2-300')}
         style={tailwind('py-5')}
       >
         <View style={tailwind('mb-5')}>
@@ -103,13 +103,17 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
             lhs={{
               value: translate('screens/ConfirmRemoveLiquidity', 'Transaction fee'),
               themedProps: {
-                light: tailwind('text-mono-light-v2-700'),
-                dark: tailwind('text-mono-dark-v2-700')
+                light: tailwind('text-mono-light-v2-500'),
+                dark: tailwind('text-mono-dark-v2-500')
               },
               testID: 'transaction_fee_title'
             }}
             rhs={{
               value: fee.toFixed(8),
+              themedProps: {
+                light: tailwind('text-mono-light-v2-800'),
+                dark: tailwind('text-mono-dark-v2-800')
+              },
               suffix: 'DFI',
               testID: 'transaction_fee_title_amount'
             }}
@@ -120,13 +124,17 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
           lhs={{
             value: translate('screens/ConfirmRemoveLiquidity', 'Resulting pool share'),
             themedProps: {
-              light: tailwind('text-mono-light-v2-700'),
-              dark: tailwind('text-mono-dark-v2-700')
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
             },
             testID: 'resulting_pool_share_title'
           }}
           rhs={{
             value: new BigNumber(resultingPool).toFixed(8),
+            themedProps: {
+              light: tailwind('text-mono-light-v2-800'),
+              dark: tailwind('text-mono-dark-v2-800')
+            },
             testID: 'resulting_pool_share_amount'
           }}
           testID='resulting_pool_share'
@@ -134,8 +142,8 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
       </ThemedViewV2>
 
       <ThemedViewV2
-        dark={tailwind('bg-mono-dark-v2-100 border-t-0.5 border-b-0.5 border-gray-700')}
-        light={tailwind('bg-mono-light-v2-100 border-t-0.5 border-b-0.5 border-gray-300')}
+        dark={tailwind('bg-mono-dark-v2-100 border-t-0.5 border-b-0.5 border-mono-dark-v2-300')}
+        light={tailwind('bg-mono-light-v2-100 border-t-0.5 border-b-0.5 border-mono-light-v2-300')}
         style={tailwind('py-5')}
       >
         <NumberRowV2
@@ -144,13 +152,17 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
               token: pair.tokenA.displaySymbol
             }),
             themedProps: {
-              light: tailwind('text-mono-light-v2-700'),
-              dark: tailwind('text-mono-dark-v2-700')
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
             },
             testID: `${pair.tokenA.symbol}_to_receive_title`
           }}
           rhs={{
             value: BigNumber.max(tokenAAmount, 0).toFixed(8),
+            themedProps: {
+              light: tailwind('text-mono-light-v2-800'),
+              dark: tailwind('text-mono-dark-v2-800')
+            },
             testID: `${pair.tokenA.symbol}_to_receive_value`,
             usdAmount: getTokenPrice(pair.tokenA.symbol, new BigNumber(tokenAAmount)),
             usdTextStyle: tailwind('text-sm')
@@ -164,13 +176,17 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
               token: pair.tokenB.displaySymbol
             }),
             themedProps: {
-              light: tailwind('text-mono-light-v2-700'),
-              dark: tailwind('text-mono-dark-v2-700')
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
             },
             testID: `${pair.tokenB.symbol}_to_receive_title`
           }}
           rhs={{
             value: BigNumber.max(tokenBAmount, 0).toFixed(8),
+            themedProps: {
+              light: tailwind('text-mono-light-v2-800'),
+              dark: tailwind('text-mono-dark-v2-800')
+            },
             testID: `${pair.tokenB.symbol}_to_receive_value`,
             usdAmount: getTokenPrice(pair.tokenB.symbol, new BigNumber(tokenBAmount)),
             usdTextStyle: tailwind('text-sm')
@@ -182,13 +198,17 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
           lhs={{
             value: translate('screens/ConfirmRemoveLiquidity', 'LP tokens to remove'),
             themedProps: {
-              light: tailwind('text-mono-light-v2-700'),
-              dark: tailwind('text-mono-dark-v2-700')
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
             },
             testID: 'lp_tokens_to_remove_title'
           }}
           rhs={{
             value: new BigNumber(amount).toFixed(8),
+            themedProps: {
+              light: tailwind('text-mono-light-v2-800'),
+              dark: tailwind('text-mono-dark-v2-800')
+            },
             testID: 'lp_tokens_to_remove_amount',
             usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,
             usdTextStyle: tailwind('text-sm')

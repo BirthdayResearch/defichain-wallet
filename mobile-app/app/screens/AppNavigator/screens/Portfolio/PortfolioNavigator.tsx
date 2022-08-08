@@ -463,12 +463,11 @@ export function PortfolioNavigator (): JSX.Element {
         component={RemoveLiquidityScreenV2}
         name='RemoveLiquidity'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Remove Liquidity')}
-              containerTestID={headerContainerTestId}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate('screens/DexScreen', 'Remove Liquidity')
         }}
       />
 

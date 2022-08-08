@@ -164,7 +164,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   }, [tokenToRemove, pairInfo.amount])
 
   useEffect(() => {
-    setHasInputAmount(tokenToRemove.length > 0)
+    setHasInputAmount(new BigNumber(tokenToRemove).isGreaterThan(0))
   }, [tokenToRemove])
 
   const sharesUsdAmount = getTokenPrice(pair.symbol, new BigNumber(amount), true)
@@ -210,13 +210,17 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
                           token: pair.tokenA.displaySymbol
                         }),
                         themedProps: {
-                          light: tailwind('text-mono-light-v2-700'),
-                          dark: tailwind('text-mono-dark-v2-700')
+                          light: tailwind('text-mono-light-v2-500'),
+                          dark: tailwind('text-mono-dark-v2-500')
                         },
                         testID: `${pair.tokenA.displaySymbol}_to_receive_title`
                       }}
                       rhs={{
                         value: BigNumber.max(tokenAAmount, 0).toFixed(8),
+                        themedProps: {
+                          light: tailwind('text-mono-light-v2-800'),
+                          dark: tailwind('text-mono-dark-v2-800')
+                        },
                         usdAmount: getTokenPrice(pair.tokenA.symbol, tokenAAmount),
                         usdTextStyle: tailwind('text-sm'),
                         testID: `${pair.tokenA.displaySymbol}_to_receive_value`
@@ -229,13 +233,17 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
                           token: pair.tokenB.displaySymbol
                         }),
                         themedProps: {
-                          light: tailwind('text-mono-light-v2-700'),
-                          dark: tailwind('text-mono-dark-v2-700')
+                          light: tailwind('text-mono-light-v2-500'),
+                          dark: tailwind('text-mono-dark-v2-500')
                         },
                         testID: `${pair.tokenB.displaySymbol}_to_receive_title`
                       }}
                       rhs={{
                         value: BigNumber.max(tokenBAmount, 0).toFixed(8),
+                        themedProps: {
+                          light: tailwind('text-mono-light-v2-800'),
+                          dark: tailwind('text-mono-dark-v2-800')
+                        },
                         usdAmount: getTokenPrice(pair.tokenB.symbol, tokenBAmount),
                         usdTextStyle: tailwind('text-sm'),
                         testID: `${pair.tokenB.displaySymbol}_to_receive_value`
@@ -251,13 +259,17 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
                         lhs={{
                           value: translate('screens/RemoveLiquidity', 'LP tokens to remove'),
                           themedProps: {
-                            light: tailwind('text-mono-light-v2-700'),
-                            dark: tailwind('text-mono-dark-v2-700')
+                            light: tailwind('text-mono-light-v2-500'),
+                            dark: tailwind('text-mono-dark-v2-500')
                           },
                           testID: 'lp_token_to_remove_title'
                         }}
                         rhs={{
                           value: new BigNumber(amount).toFixed(8),
+                          themedProps: {
+                            light: tailwind('text-mono-light-v2-800'),
+                            dark: tailwind('text-mono-dark-v2-800')
+                          },
                           usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,
                           usdTextStyle: tailwind('text-sm'),
                           testID: 'Lp_token_to_remove_amount'
