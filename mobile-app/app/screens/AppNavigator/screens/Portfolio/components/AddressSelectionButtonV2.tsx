@@ -2,6 +2,7 @@ import { ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@component
 import { tailwind } from '@tailwind'
 import { RandomAvatar } from './RandomAvatar'
 import { useAddressLabel } from '@hooks/useAddressLabel'
+import { Platform } from 'react-native'
 
 interface AddressSelectionButtonProps {
   address: string
@@ -31,7 +32,7 @@ export function AddressSelectionButtonV2 (props: AddressSelectionButtonProps): J
       <ThemedTextV2
         ellipsizeMode='middle'
         numberOfLines={1}
-        style={[tailwind('text-sm font-semibold-v2 ml-2'), { minWidth: 10, maxWidth: 124 }]}
+        style={[tailwind('text-sm font-semibold-v2 ml-2'), { minWidth: 10, maxWidth: Platform.OS === 'android' ? 134 : 124 }]}
         testID='wallet_address'
       >
         {addressLabel != null ? addressLabel : props.address}
