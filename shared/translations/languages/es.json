@@ -836,7 +836,11 @@
     "{{tokenA}} price in {{tokenB}}": "{{tokenA}} precio en {{tokenB}}",
     "{{tokenB}} price in {{tokenA}}": "{{tokenB}} precio en {{tokenA}}",
     "Transaction type": "Tipo de transacción",
-    "Remove liquidity": "Eliminar liquidez"
+    "Remove liquidity": "Eliminar liquidez",
+    "You are removing LP tokens": "You are removing LP tokens",
+    "Transaction fee": "Transaction fee",
+    "Resulting pool share": "Resulting pool share",
+    "LP tokens to remove": "LP tokens to remove"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "Eliminando liquidez",
@@ -854,7 +858,12 @@
     "{{tokenB}} price in {{tokenA}}": "{{tokenB}} precio en {{tokenA}}",
     "Drag or enter amount to remove": "Arrastra o introduce una cantidad a eliminar",
     "You are removing": "Eliminando",
-    "from liquidity pool": "de la piscina de liquidez"
+    "from liquidity pool": "de la piscina de liquidez",
+    "I WANT TO REMOVE": "I WANT TO REMOVE",
+    "Your LP Tokens": "Your LP Tokens",
+    "Tokens in {{token}}": "Tokens in {{token}}",
+    "{{token}} to receive": "{{token}} to receive",
+    "LP tokens to remove": "LP tokens to remove"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "Red de la billetera",

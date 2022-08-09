@@ -820,7 +820,11 @@
     "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 相當於 {{tokenB}} 等值",
     "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 相當於 {{tokenA}} 等值",
     "Transaction type": "交易類型",
-    "Remove liquidity": "退出流動"
+    "Remove liquidity": "退出流動",
+    "You are removing LP tokens": "You are removing LP tokens",
+    "Transaction fee": "Transaction fee",
+    "Resulting pool share": "Resulting pool share",
+    "LP tokens to remove": "LP tokens to remove"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "退出流動資金",
@@ -839,7 +843,12 @@
     "Drag or enter amount to remove": "向左右滑動退出流動池股份",
     "You are removing": "您要退出的",
     "from liquidity pool": "從流動資金池中",
-    "Max": "最高值"
+    "Max": "最高值",
+    "I WANT TO REMOVE": "I WANT TO REMOVE",
+    "Your LP Tokens": "Your LP Tokens",
+    "Tokens in {{token}}": "Tokens in {{token}}",
+    "{{token}} to receive": "{{token}} to receive",
+    "LP tokens to remove": "LP tokens to remove"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "錢包網絡",

@@ -369,6 +369,13 @@ function RemoveLiquidityInputCard (
     const isFocus = props.setIsInputFocus
   return (
     <>
+      <ThemedTextV2
+        light={tailwind('text-mono-light-v2-500')}
+        dark={tailwind('text-mono-dark-v2-500')}
+        style={tailwind('px-4 text-xs pb-2')}
+      >
+        {translate('screens/RemoveLiquidity', 'I WANT TO REMOVE')}
+      </ThemedTextV2>
       <TransactionCard
         maxValue={props.balance}
         onChange={(amount) => {

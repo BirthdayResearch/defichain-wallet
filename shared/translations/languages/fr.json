@@ -852,6 +852,7 @@
     "Drag or enter amount to remove": "Faites glisser le curseur ou entrez le montant à retirer.",
     "You are removing": "Vous retirez",
     "from liquidity pool": "du pool de liquidité",
+    "I WANT TO REMOVE": "JE VEUX RETIRER",
     "Your LP Tokens": "Mes tokens PL",
     "Tokens in {{token}}": "Tokens en {{token}}",
     "{{token}} to receive": "{{token}} restants",
