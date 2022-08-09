@@ -162,7 +162,7 @@ export const BottomSheetAddressDetailV2 = (props: BottomSheetAddressDetailProps)
     return (
       <ThemedTouchableOpacityV2
         key={item}
-        style={tailwind('p-5 flex flex-row items-center justify-between border-0 mx-5 rounded-lg-v2 h-20')}
+        style={tailwind('px-5 py-4.5 flex flex-row items-center justify-between border-0 mx-5 rounded-lg-v2 h-20')}
         dark={tailwind('bg-mono-dark-v2-00')}
         light={tailwind('bg-mono-light-v2-00')}
         onPress={async () => {
