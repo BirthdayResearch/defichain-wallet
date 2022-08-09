@@ -179,8 +179,8 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
           label='APR'
           amount={new BigNumber(isNaN(pairData.apr.total) ? 0 : pairData.apr.total).times(100).toFixed(2)}
           valueThemeProps={{
-            dark: tailwind('text-darksuccess-500'),
-            light: tailwind('text-success-500')
+            dark: tailwind('text-green-v2'),
+            light: tailwind('text-green-v2')
           }}
           valueTextStyle={tailwind('font-semibold-v2')}
           suffix='%'
@@ -322,8 +322,8 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
           rhs={{
             value: new BigNumber(isNaN(pairData.apr.total) ? 0 : pairData.apr.total).times(100).toFixed(2),
             themedProps: {
-              light: tailwind('text-darksuccess-500 font-semibold-v2'),
-              dark: tailwind('text-success-500 font-semibold-v2')
+              light: tailwind('text-green-v2 font-semibold-v2'),
+              dark: tailwind('text-green-v2 font-semibold-v2')
             },
             testID: `${pairInfo.displaySymbol}_apr_value`
           }}
