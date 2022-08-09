@@ -152,7 +152,8 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
           />
           <TransactionCard
             maxValue={new BigNumber(sourceToken.amount)} status={transactionCardStatus}
-            onChange={onPercentagePress}
+            onPercentageChange={onPercentagePress}
+            onChange={() => {}}
           >
             <TransactionCardWalletTextInputV2
               inputType='numeric'

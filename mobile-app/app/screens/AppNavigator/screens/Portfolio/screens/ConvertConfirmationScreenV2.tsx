@@ -104,7 +104,7 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
           }}
           rhs={{
             value: fee.toFixed(8),
-            suffix: 'DFI',
+            suffix: ' DFI',
             testID: 'transaction_fee_value',
             themedProps: {
               light: tailwind('text-mono-light-v2-900'),
@@ -128,7 +128,7 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
             }
           }} rhs={{
           value: getResultingValue('Token', fee, sourceBalance, sourceUnit, targetBalance, targetUnit),
-          suffix: 'DFI',
+          suffix: ' DFI',
           testID: 'resulting_tokens_value',
           themedProps: {
             light: tailwind('text-mono-light-v2-900 font-semibold-v2'),
@@ -163,7 +163,7 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
             }
           }} rhs={{
           value: getResultingValue('UTXO', fee, sourceBalance, sourceUnit, targetBalance, targetUnit),
-          suffix: 'DFI',
+          suffix: ' DFI',
           testID: 'resulting_utxo_value',
           themedProps: {
             light: tailwind('text-mono-light-v2-900 font-semibold-v2'),

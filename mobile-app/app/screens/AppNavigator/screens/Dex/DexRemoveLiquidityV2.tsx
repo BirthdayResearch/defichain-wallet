@@ -360,6 +360,7 @@ function DexInputCard (
         }}
         status={props.status}
         containerStyle={tailwind('border-t-0.5')}
+        onPercentageChange={() => {}}
       >
         <ThemedViewV2
           light={tailwind('border-mono-light-v2-300')}
