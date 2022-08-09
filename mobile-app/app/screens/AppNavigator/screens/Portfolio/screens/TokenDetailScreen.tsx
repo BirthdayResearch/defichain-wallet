@@ -374,7 +374,7 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
         }
         <View style={tailwind('flex-col ml-3')}>
           <ThemedTextV2
-            style={tailwind('text-sm font-bold-v2')}
+            style={tailwind('font-bold-v2')}
           >
             {props.token.displaySymbol}
           </ThemedTextV2>
