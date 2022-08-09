@@ -16,19 +16,25 @@ function createAddLiquidityToWallet (): void {
     .invoke('text').should(text => expect(text).to.contains('10.00000000'))
 
   cy.getByTestID('pool_pair_remove_dETH-DFI').click().wait(1000)
-
-  cy.getByTestID('price_a').contains('0.00000000')
-  cy.getByTestID('price_b').contains('0.00000000')
+  cy.getByTestID('remove_liquidity_calculation_summary').should('not.exist')
 }
 
-function validatePriceSection (testID: string): void {
-  cy.getByTestID(`${testID}_0`).should('have.text', '≈ 0.01000000')
-  cy.getByTestID(`${testID}_0_label`).contains('1 dETH')
-  cy.getByTestID(`${testID}_0_suffix`).should('have.text', 'DFI')
+function validatePriceSectionInfo (testID: string): void {
+  cy.getByTestID(`${testID}_0`).should('exist')
+  cy.getByTestID(`${testID}_0_label`).contains('dETH to receive')
+  cy.getByTestID(`${testID}_1`).should('exist')
+  cy.getByTestID(`${testID}_1_label`).contains('DFI to receive')
+}
 
-  cy.getByTestID(`${testID}_1`).should('have.text', '≈ 100.00000000')
-  cy.getByTestID(`${testID}_1_label`).contains('1 DFI')
-  cy.getByTestID(`${testID}_1_suffix`).should('have.text', 'dETH')
+function validatePriceSelectionOnPercentage (): void {
+  cy.getByTestID('25%_amount_button').click().wait(200)
+  cy.getByTestID('tokens_remove_amount_input').should('have.value', '2.50000000')
+
+  cy.getByTestID('50%_amount_button').click().wait(200)
+  cy.getByTestID('tokens_remove_amount_input').should('have.value', '5.00000000')
+
+  cy.getByTestID('75%_amount_button').click().wait(200)
+  cy.getByTestID('tokens_remove_amount_input').should('have.value', '7.50000000')
 }
 
 context('Wallet - DEX - Remove Liquidity', () => {
@@ -41,67 +47,33 @@ context('Wallet - DEX - Remove Liquidity', () => {
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click().wait(1000)
     cy.getByTestID('pool_pair_remove_dETH-DFI').click().wait(1000)
-    cy.getByTestID('button_slider_max').click().wait(1000)
+    cy.getByTestID('75%_amount_button').click().wait(200)
     cy.getByTestID('button_continue_remove_liq').click()
     cy.getByTestID('button_confirm_remove').click().wait(2000)
     cy.closeOceanInterface()
   })
 
-  it('should display price based on pool tokenA:tokenB ratio regardless removal amount', function () {
-    cy.wait(1000)
-    validatePriceSection('pricerate_value')
-  })
-
-  /*
-  //  unable to trigger slider change event for react: https://github.com/cypress-io/cypress/issues/1570
-  it('Slider - should be draggable with 0.01% precision', function () {
-    cy.getByTestID('slider_remove_liq_percentage').invoke('val', '11.1').trigger('change').wait(100)
-    cy.getByTestID('text_slider_percentage').invoke('text').should(t => expect(t).equals('11.10 %'))
-
-    cy.getByTestID('slider_remove_liq_percentage').invoke('val', '99.9949999').trigger('change').wait(100)
-    cy.getByTestID('text_slider_percentage').invoke('text').should(t => expect(t).equals('99.99 %'))
-  })
-  */
-
   it('should disable continue button by default', () => {
     cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
   })
 
-  it('should disable continue button when input is invalid', () => {
-    cy.getByTestID('text_input_percentage').clear().type('0')
+  it('should disable continue button when input is invalid but enable when input is valid', () => {
+    cy.getByTestID('tokens_remove_amount_input').clear().type('10000')
     cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
-    cy.getByTestID('text_input_percentage').clear().type('123')
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
-    cy.getByTestID('text_input_percentage').clear().type('100.000000000001')
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
-    cy.getByTestID('text_input_percentage').clear().type('1.23.456.789')
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
-    cy.getByTestID('text_input_percentage').clear().type('cake')
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
+    cy.getByTestID('tokens_remove_amount_input').clear().type('2')
+    cy.getByTestID('button_continue_remove_liq').should('not.have.attr', 'aria-disabled')
   })
 
-  it('should be able to continue when input valid percentage', () => {
-    cy.getByTestID('text_input_percentage').clear().type('1.23')
-    cy.getByTestID('button_continue_remove_liq').should('not.have.attr', 'disabled')
-    cy.getByTestID('text_input_percentage').clear().type('32.1')
-    cy.getByTestID('button_continue_remove_liq').should('not.have.attr', 'disabled')
-    cy.getByTestID('text_input_percentage').clear().type('100.00000000')
-    cy.getByTestID('button_continue_remove_liq').should('not.have.attr', 'disabled')
+  it('should show correct calculation summary when input is valid', () => {
+    validatePriceSectionInfo('pricerate_value')
+    cy.getByTestID('pricerate_value_0_label').contains('dETH to receive')
+    cy.getByTestID('pricerate_value_0_rhsUsdAmount').should('have.text', '$2,000.00')
+    cy.getByTestID('pricerate_value_1_label').contains('DFI to receive')
+    cy.getByTestID('pricerate_value_1_rhsUsdAmount').should('have.text', '$2,000.00')
   })
 
-  it('Slider "None" / "All" button', function () {
-    cy.getByTestID('button_slider_max').click().wait(1000)
-    cy.getByTestID('text_input_percentage').invoke('val').then(text => {
-      expect(text).to.equal('100.00')
-    })
-    cy.getByTestID('button_slider_min').click().wait(1000)
-    cy.getByTestID('text_input_percentage').invoke('val').then(text => {
-      expect(text).to.equal('0.00')
-    })
-    cy.getByTestID('price_a').contains('0.00000000')
-    cy.getByTestID('price_b').contains('0.00000000')
-
-    cy.getByTestID('button_continue_remove_liq').should('have.attr', 'aria-disabled')
+  it('should show correct calculation summary based on percentage input', () => {
+    validatePriceSelectionOnPercentage()
   })
 })
 
@@ -117,28 +89,21 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
   })
 
   it('Should be able to remove liquidity', function () {
-    cy.getByTestID('button_slider_max').click().wait(1000)
-    cy.getByTestID('price_a').invoke('text').then((valueA) => {
+    cy.getByTestID('MAX_amount_button').click().wait(200)
+    cy.getByTestID('pricerate_value_0').invoke('text').then((valueA) => {
       expect(new BigNumber(valueA).toNumber()).be.gte(new BigNumber('99').toNumber())
-      cy.getByTestID('price_b').invoke('text').then((valueB) => {
+      cy.getByTestID('pricerate_value_1').invoke('text').then((valueB) => {
         expect(new BigNumber(valueB).toNumber()).be.gte(new BigNumber('0.99').toNumber())
         cy.getByTestID('button_continue_remove_liq').click()
         cy.getByTestID('button_cancel_remove').click()
-        cy.getByTestID('button_slider_max').should('exist')
+        cy.getByTestID('remove_liquidity_calculation_summary').should('exist')
         cy.getByTestID('button_continue_remove_liq').click()
-
-        cy.getByTestID('confirm_title').should('have.text', 'You are removing')
-        cy.getByTestID('text_remove_amount').should('have.text', '10.00000000')
-        cy.getByTestID('text_remove_amount_suffix').should('have.text', ' dETH-DFI')
-
-        // Transaction Details section
-        cy.getByTestID('text_transaction_type').should('have.text', 'Remove liquidity')
-
-        cy.getByTestID('a_amount').should('have.text', new BigNumber(valueA).toFixed(8))
-        cy.getByTestID('b_amount').should('have.text', new BigNumber(valueB).toFixed(8))
-
-        // Prices section
-        validatePriceSection('confirm_pricerate_value')
+        cy.getByTestID('confirm_title').should('have.text', 'You are removing LP tokens')
+        cy.getByTestID('text_remove_liquidity_amount').should('have.text', '10.00000000')
+        cy.getByTestID('confirm_pricerate_value_0_label').contains('dETH to receive')
+        cy.getByTestID('confirm_pricerate_value_0').should('have.text', new BigNumber(valueA).toFixed(8))
+        cy.getByTestID('confirm_pricerate_value_1_label').contains('DFI to receive')
+        cy.getByTestID('confirm_pricerate_value_1').should('have.text', new BigNumber(valueB).toFixed(8))
 
         cy.getByTestID('button_confirm_remove').click().wait(2000)
         cy.closeOceanInterface()
@@ -149,24 +114,24 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
   it('should be able to remove correct liquidity when user cancel a tx and updated some inputs', function () {
     const oldAmount = '5.00000000'
     const newAmount = '10.00000000'
-    cy.getByTestID('text_input_percentage').clear().type('50')
-    cy.getByTestID('price_a').invoke('text').then((value) => {
+    cy.getByTestID('50%_amount_button').click().wait(200)
+    cy.getByTestID('pricerate_value_0').invoke('text').then((value) => {
       expect(new BigNumber(value).toNumber()).be.gte(new BigNumber('49').toNumber())
     })
-    cy.getByTestID('price_b').invoke('text').then((value) => {
+    cy.getByTestID('pricerate_value_1').invoke('text').then((value) => {
       expect(new BigNumber(value).toNumber()).be.gte(new BigNumber('0.49').toNumber())
     })
     cy.getByTestID('button_continue_remove_liq').click()
 
-    cy.getByTestID('confirm_title').should('have.text', 'You are removing')
-    cy.getByTestID('text_remove_amount').should('have.text', oldAmount)
-    cy.getByTestID('text_remove_amount_suffix').should('have.text', ' dETH-DFI')
-    cy.getByTestID('a_amount').should('exist')
-    cy.getByTestID('b_amount').should('exist')
-    cy.getByTestID('text_fee').should('exist')
+    cy.getByTestID('confirm_title').should('have.text', 'You are removing LP tokens')
+    cy.getByTestID('text_remove_liquidity_amount').should('have.text', oldAmount)
+    validatePriceSectionInfo('pricerate_value')
 
     // Prices section
-    validatePriceSection('confirm_pricerate_value')
+    cy.getByTestID('pricerate_value_0_label').contains('dETH to receive')
+    cy.getByTestID('pricerate_value_0_rhsUsdAmount').should('have.text', '$5,000.00')
+    cy.getByTestID('pricerate_value_1_label').contains('DFI to receive')
+    cy.getByTestID('pricerate_value_1_rhsUsdAmount').should('have.text', '$5,000.00')
 
     cy.getByTestID('button_confirm_remove').click().wait(2000)
     // Check for authorization page description
@@ -177,21 +142,18 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
     cy.getByTestID('cancel_authorization').click()
     cy.getByTestID('button_cancel_remove').click()
     // Update input values
-    cy.getByTestID('text_input_percentage').clear().type('100')
-    cy.getByTestID('price_a').invoke('text').then((value) => {
+    cy.getByTestID('MAX_amount_button').click().wait(200)
+    cy.getByTestID('pricerate_value_0').invoke('text').then((value) => {
       expect(new BigNumber(value).toNumber()).be.gte(new BigNumber('99').toNumber())
     })
-    cy.getByTestID('price_b').invoke('text').then((value) => {
+    cy.getByTestID('pricerate_value_1').invoke('text').then((value) => {
       expect(new BigNumber(value).toNumber()).be.gte(new BigNumber('0.99').toNumber())
     })
     cy.getByTestID('button_continue_remove_liq').click()
 
-    cy.getByTestID('confirm_title').should('have.text', 'You are removing')
-    cy.getByTestID('text_remove_amount').should('have.text', newAmount)
-    cy.getByTestID('text_remove_amount_suffix').should('have.text', ' dETH-DFI')
-    cy.getByTestID('a_amount').should('exist')
-    cy.getByTestID('b_amount').should('exist')
-    cy.getByTestID('text_fee').should('exist')
+    cy.getByTestID('confirm_title').should('have.text', 'You are removing LP tokens')
+    cy.getByTestID('text_remove_liquidity_amount').should('have.text', newAmount)
+    validatePriceSectionInfo('pricerate_value')
     cy.getByTestID('button_confirm_remove').click().wait(2000)
     // Check for authorization page description
     cy.getByTestID('txn_authorization_description')

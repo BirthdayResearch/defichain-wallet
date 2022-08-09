@@ -1,4 +1,4 @@
-import { ThemedViewV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedProps } from '@components/themed'
+import { ThemedViewV2, ThemedTextV2, ThemedTouchableOpacityV2 } from '@components/themed'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'

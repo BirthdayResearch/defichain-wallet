@@ -6,7 +6,7 @@ import { NumberRowV2 } from './NumberRowV2'
 export interface PriceRateProps {
   label: string
   value: string
-  aSymbol: string
+  aSymbol?: string
   bSymbol?: string
   symbolUSDValue?: BigNumber
   hasBorder?: boolean
@@ -35,7 +35,7 @@ export function PricesSectionV2 ({ priceRates, isCompact = false, testID, equalS
               rhs={{
                 value: priceRate.value,
                 testID: `${testID}_${index}`,
-                suffix: ` ${priceRate.bSymbol}`,
+                suffix: (priceRate.bSymbol != null) ? ` ${priceRate.bSymbol}` : '',
                 usdAmount: priceRate.symbolUSDValue,
                 lightTextStyle: rowStyle.lhsThemedProps.light,
                 darkTextStyle: rowStyle.lhsThemedProps.dark,
