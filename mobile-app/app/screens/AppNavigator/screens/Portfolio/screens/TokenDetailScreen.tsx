@@ -31,7 +31,6 @@ import { InfoTextLinkV2 } from '@components/InfoTextLink'
 import { TokenBreakdownDetailsV2 } from '../components/TokenBreakdownDetailsV2'
 import { getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
 import { PortfolioButtonGroupTabKey } from '../components/TotalPortfolio'
-import { openURL } from '@api/linking'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { ThemedTouchableListItem } from '@components/themed/ThemedTouchableListItem'
 import { PoolPairTextSectionV2 } from '../../Dex/components/PoolPairCards/PoolPairTextSectionV2'
@@ -183,7 +182,11 @@ export function TokenDetailScreen ({
               style={tailwind('pt-1')}
             >
               <InfoTextLinkV2
-                onPress={async () => await openURL('https://defichain.com/dfi')}
+                onPress={() => navigation.navigate(translate('BottomTabNavigator', 'Portfolio'), {
+                  screen: 'TokensVsUtxoFaq',
+                  merge: true,
+                  initial: false
+                })}
                 text='Learn more about DFI'
                 testId='dfi_learn_more'
               />
