@@ -40,7 +40,7 @@ import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-d
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
-import { AddressBookScreen } from './screens/AddressBookScreenV2'
+import { AddressBookScreen } from './screens/AddressBookScreen'
 import { NetworkSelectionScreen } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { TokensVsUtxoFaq } from './screens/TokensVsUtxoFaq'

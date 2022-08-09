@@ -4,7 +4,7 @@ import { KnowledgeBaseScreen } from './KnowledgeBaseScreen'
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@contexts/FeatureFlagContext')
 
-describe('knowledge base V2 screen', () => {
+describe('knowledge base screen', () => {
   it('should render', async () => {
     const navigation: any = {
       navigate: jest.fn()
