@@ -1,4 +1,4 @@
-import { ThemedViewV2, ThemedTextV2, ThemedTouchableOpacityV2 } from '@components/themed'
+import { ThemedViewV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedProps } from '@components/themed'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -6,7 +6,8 @@ import { StyleProp, ViewStyle } from 'react-native'
 
 interface TransactionCardProps {
   maxValue: BigNumber
-  onChange: (amount: string, type: AmountButtonTypes) => void
+  onChange: (amount: string) => void
+  onPercentageChange: (amount: string, type: AmountButtonTypes) => void
   status?: string
   containerStyle?: StyleProp<ViewStyle>
 }
@@ -18,7 +19,7 @@ export enum AmountButtonTypes {
   max = 'MAX'
 }
 
-export function TransactionCard ({ maxValue, onChange, status, containerStyle, children }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
+export function TransactionCard ({ maxValue, onChange, onPercentageChange, status, containerStyle, children }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
   return (
     <ThemedViewV2
       light={tailwind('bg-mono-light-v2-00', {
@@ -52,6 +53,7 @@ export function TransactionCard ({ maxValue, onChange, status, containerStyle, c
                 key={type}
                 amount={maxValue}
                 onPress={onChange}
+                onPercentagePress={onPercentageChange}
                 type={type}
                 hasBorder={length - 1 !== index}
               />
@@ -65,7 +67,8 @@ export function TransactionCard ({ maxValue, onChange, status, containerStyle, c
 
 interface SetAmountButtonProps {
   type: AmountButtonTypes
-  onPress: (amount: string, type: AmountButtonTypes) => void
+  onPress: (amount: string) => void
+  onPercentagePress: (amount: string, type: AmountButtonTypes) => void
   amount: BigNumber
   hasBorder?: boolean
 }
@@ -73,6 +76,7 @@ interface SetAmountButtonProps {
 function SetAmountButton ({
   type,
   onPress,
+  onPercentagePress,
   amount,
   hasBorder
 }: SetAmountButtonProps): JSX.Element {
@@ -98,7 +102,8 @@ function SetAmountButton ({
     <ThemedTouchableOpacityV2
       style={tailwind('border-0')}
       onPress={() => {
-        onPress(value, type)
+        onPress(value)
+        onPercentagePress(value, type)
       }}
       testID={`${type}_amount_button`}
     >

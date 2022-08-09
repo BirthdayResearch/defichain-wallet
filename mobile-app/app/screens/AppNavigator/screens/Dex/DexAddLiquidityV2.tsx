@@ -17,10 +17,9 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useAppDispatch } from '@hooks/useAppDispatch'
-import { TransactionCard } from '@components/TransactionCard'
+import { AmountButtonTypes, TransactionCard } from '@components/TransactionCard'
 import { getNativeIcon } from '@components/icons/assets'
 import { TransactionCardWalletTextInputV2 } from '@components/TransactionCardWalletTextInputV2'
-import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
 import { PricesSectionV2 } from '@components/PricesSectionV2'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
 import { NumberRowV2 } from '@components/NumberRowV2'
@@ -31,6 +30,9 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { ViewPoolHeader } from './components/ViewPoolHeader'
 import { ViewPoolDetails } from './components/ViewPoolDetails'
 import { ReservedDFIInfoTextV2 } from '@components/ReservedDFIInfoText'
+import { ButtonV2 } from '@components/ButtonV2'
+import { useToast } from 'react-native-toast-notifications'
+import { useDisplayUtxoWarning } from './hook/useDisplayUtxoWarning'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -55,7 +57,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   const { getTokenPrice } = useTokenPrice()
   const { pair: pairData, pairInfo } = props.route.params
 
-  // transaction card component UI
+  // transaction card component
   const [tokenATransactionCardStatus, setTokenATransactionCardStatus] = useState<'error' | 'active' | ' undefined'>()
   const [tokenBTransactionCardStatus, setTokenBTransactionCardStatus] = useState<'error' | 'active' | ' undefined'>()
   const [hasAError, setHasAError] = useState(false)
@@ -68,6 +70,9 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   const containerRef = useRef(null)
   const { isLight } = useThemeContext()
   const modalSortingSnapPoints = { ios: ['50%'], android: ['50%'] }
+  const { getDisplayUtxoWarningStatus } = useDisplayUtxoWarning()
+  const [showUTXOFeesAMsg, setShowUTXOFeesAMsg] = useState<boolean>(false)
+  const [showUTXOFeesBMsg, setShowUTXOFeesBMsg] = useState<boolean>(false)
 
   // this component UI state
   const [tokenAAmount, setTokenAAmount] = useState<string>('')
@@ -89,6 +94,12 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     },
     deps: [pair, tokenAAmount, tokenBAmount, balanceA, balanceB]
   })
+
+  const toast = useToast()
+  const [selectedToken, setSelectedToken] = useState<string | undefined>('')
+  const [showToast, setShowToast] = useState(false)
+  const [percentageType, setPercentageType] = useState<string | undefined>()
+  const TOAST_DURATION = 2000
 
   const expandModal = useCallback(() => {
     if (Platform.OS === 'web') {
@@ -165,6 +176,11 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     ]
   }, [isLight, pair])
 
+  function onPercentagePress(amount: string, type: AmountButtonTypes): void {
+    setPercentageType(type)
+    setShowToast(true)
+  }
+
   async function onSubmit(): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
@@ -179,6 +195,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
         mode: 'utxosToAccount',
         amount: conversionAmount
       }, dispatch, () => {
+        // onbroadcast starts = called 
         navigation.navigate({
           name: 'ConfirmAddLiquidity',
           params: {
@@ -188,7 +205,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
               tokenBAmount: new BigNumber(tokenBAmount),
               percentage: sharePercentage,
               tokenABalance: balanceA,
-              tokenBBalance: balanceB
+              tokenBBalance: balanceB,
             },
             pair,
             conversion: {
@@ -196,7 +213,8 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
               DFIToken,
               DFIUtxo,
               conversionAmount
-            }
+            },
+            pairInfo,
           },
           merge: true
         })
@@ -211,15 +229,64 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
             tokenBAmount: new BigNumber(tokenBAmount),
             percentage: sharePercentage,
             tokenABalance: balanceA,
-            tokenBBalance: balanceB
+            tokenBBalance: balanceB,
           },
-          pair
+          pair,
+          pairInfo
         },
         merge: true
       })
     }
   }
 
+  // show toast for selected 50% or MAX percentage for tokens
+  useEffect(() => {
+    if (showToast && percentageType !== undefined) {
+      const isMax = percentageType === AmountButtonTypes.max
+      const isHalf = percentageType === AmountButtonTypes.half
+      const toastOption = {
+        unit: selectedToken,
+        percent: percentageType
+      }
+      if (isMax) {
+        const toastMessage = 'Max available {{unit}} entered'
+        toast.show(translate('screens/ConvertScreen', toastMessage, toastOption), {
+          type: 'wallet_toast',
+          placement: 'top',
+          duration: TOAST_DURATION
+        })
+      } else if (isHalf) {
+        const toastMessage = '{{percent}} of available {{unit}} entered'
+        toast.show(translate('screens/ConvertScreen', toastMessage, toastOption), {
+          type: 'wallet_toast',
+          placement: 'top',
+          duration: TOAST_DURATION
+        })
+      }
+      setTimeout(() => setShowToast(false), TOAST_DURATION)
+    } else {
+      toast.hideAll()
+    }
+  }, [showToast])
+
+  // display UTXO fees msg only for DFI tokens in input card
+  useEffect(() => {
+    if (pair !== undefined && getDisplayUtxoWarningStatus(new BigNumber(tokenAAmount), pair?.tokenA.displaySymbol)) {
+      return setShowUTXOFeesAMsg(true)
+    } else {
+      return setShowUTXOFeesAMsg(false)
+    }
+  }, [tokenAAmount])
+
+  useEffect(() => {
+    if (pair !== undefined && getDisplayUtxoWarningStatus(new BigNumber(tokenBAmount), pair?.tokenB.displaySymbol)) {
+      return setShowUTXOFeesBMsg(true)
+    } else {
+      return setShowUTXOFeesBMsg(false)
+    }
+  }, [tokenBAmount])
+
+  // display err msg for insufficient balance
   useEffect(() => {
     if (new BigNumber(tokenAAmount).isGreaterThan(balanceA)) {
       setHasAError(true)
@@ -236,6 +303,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     }
   }, [tokenBAmount, balanceB])
 
+  // set focus on current transaction card
   useEffect(() => {
     setTokenATransactionCardStatus(hasAError ? 'error' : isInputAFocus ? 'active' : undefined)
     setTokenBTransactionCardStatus(hasBError ? 'error' : isInputBFocus ? 'active' : undefined)
@@ -306,33 +374,31 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
             current={tokenAAmount}
             onChange={(amount) => {
               buildSummary('primary', amount)
+              setSelectedToken(pair?.tokenA?.displaySymbol) // display toast symbol
             }}
+            onPercentageChange={onPercentagePress}
             symbol={pair?.tokenA?.displaySymbol}
             type='primary'
             setIsInputFocus={setIsInputAFocus}
             status={tokenATransactionCardStatus}
-            showErrMsg={hasAError}
+            showInsufficientTokenMsg={hasAError}
+            showUTXOFeesMsg={showUTXOFeesAMsg}
           />
-
           <AddLiquidityInputCard
             balance={balanceB}
             current={tokenBAmount}
             onChange={(amount) => {
               buildSummary('secondary', amount)
+              setSelectedToken(pair?.tokenB?.displaySymbol) // display toast symbol
             }}
+            onPercentageChange={onPercentagePress}
             symbol={pair?.tokenB?.displaySymbol}
             type='secondary'
             setIsInputFocus={setIsInputBFocus}
             status={tokenBTransactionCardStatus}
-            showErrMsg={hasBError}
-          // TODO: for small fees message with hook
+            showInsufficientTokenMsg={hasBError}
+            showUTXOFeesMsg={showUTXOFeesBMsg}
           />
-          {/* TODO: hook to display small fees msg from props */}
-          {
-            pair?.tokenB?.displaySymbol === 'DFI' && (
-              <ReservedDFIInfoTextV2 />
-            )
-          }
         </View>
 
         <View style={tailwind('pb-2 px-5')}>
@@ -375,8 +441,10 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                 lhs={{
                   value: translate('components/PricesSection', 'Shares to add'), // TODO: update label upon confirmation
                   testID: 'shares_to_add',
-                  lightTextStyle: tailwind('text-mono-light-v2-500'),
-                  darkTextStyle: tailwind('text-mono-dark-v2-500'),
+                  themedProps: {
+                    light: tailwind('text-mono-light-v2-500'),
+                    dark: tailwind('text-mono-dark-v2-500'),
+                  }
                 }}
                 rhs={{
                   value: lmTokenAmount.toFixed(8),
@@ -398,17 +466,24 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
               dark={tailwind('text-mono-dark-v2-500')}
               style={tailwind('text-xs font-normal-v2 pt-4 text-center')}
             >
-              {isConversionRequired
-                ? translate('screens/AddLiquidity', 'By continuing, the required amonunt of DFI will be converted')
-                : translate('screens/AddLiquidity', 'Review full details in the next screen')}
+              {isConversionRequired ? (
+                translate('screens/AddLiquidity', 'By continuing, the required amount of DFI will be converted')
+              )
+                : (
+                  translate('screens/AddLiquidity', 'Review full details in the next screen')
+                )}
             </ThemedTextV2>
           </View>
 
-          <ContinueButton
-            isProcessing={hasPendingJob || hasPendingBroadcastJob}
-            enabled={canContinue}
-            onPress={onSubmit}
-          />
+          <View style={tailwind('mt-5 mx-4')}>
+            <ButtonV2
+              fill='fill' label={translate('components/Button', 'Continue')}
+              styleProps='w-full'
+              disabled={!canContinue}
+              onPress={onSubmit}
+              testID='button_continue_convert'
+            />
+          </View>
 
           {Platform.OS === 'web'
             ? (
@@ -448,11 +523,13 @@ function AddLiquidityInputCard (
     balance: BigNumber
     type: 'primary' | 'secondary'
     symbol: string
+    onPercentageChange: (amount: string, type: AmountButtonTypes) => void
     onChange: (amount: string) => void
     current: string
     status?: string
-    setIsInputFocus: any // TODO: double check type
-    showErrMsg: boolean
+    setIsInputFocus: any // TODO: type checking
+    showInsufficientTokenMsg: boolean
+    showUTXOFeesMsg: boolean
   }): JSX.Element {
   const Icon = getNativeIcon(props.symbol)
   const isFocus = props.setIsInputFocus
@@ -463,7 +540,9 @@ function AddLiquidityInputCard (
         onChange={(amount) => {
           props.onChange(amount)
         }}
+        onPercentageChange={props.onPercentageChange}
         status={props.status}
+        containerStyle={tailwind('border-t-0.5')}
       >
         <ThemedViewV2
           light={tailwind('border-mono-light-v2-300')}
@@ -487,41 +566,31 @@ function AddLiquidityInputCard (
         </ThemedViewV2>
       </TransactionCard>
 
-      <View style={tailwind('pt-0.5 pb-6')}>
-        {props.showErrMsg
-          ? (
-            <ThemedTextV2
-              light={tailwind('text-red-v2')}
-              dark={tailwind('text-red-v2')}
-              style={tailwind('px-4 text-sm')}
-            >
-              {`${translate('screens/AddLiquidity', 'Insufficient balance')}`}
-            </ThemedTextV2>
-          )
-          : (
-            <InputHelperTextV2
-              testID={`token_balance_${props.type}`}
-              label={`${translate('screens/AddLiquidity', 'Available')}: `}
-              content={BigNumber.max(props.balance, 0).toFixed(8)}
-              suffix={` ${props.symbol}`}
-            />
-          )}
+      <View style={tailwind('pb-6')}>
+        {!props.showInsufficientTokenMsg && !props.showInsufficientTokenMsg && !props.showUTXOFeesMsg && (
+          <InputHelperTextV2
+            testID={`token_balance_${props.type}`}
+            label={`${translate('screens/AddLiquidity', 'Available')}: `}
+            content={BigNumber.max(props.balance, 0).toFixed(8)}
+            suffix={` ${props.symbol}`}
+        />
+        )}
+        {props.showInsufficientTokenMsg && (
+          <ThemedTextV2
+            light={tailwind('text-red-v2')}
+            dark={tailwind('text-red-v2')}
+            style={tailwind('px-4 pt-1 text-xs font-normal-v2')}
+          >
+            {translate('screens/AddLiquidity', 'Insufficient balance')}
+          </ThemedTextV2>
+        )}
+        {props.showUTXOFeesMsg && !props.showInsufficientTokenMsg && (
+          <View style={tailwind('pl-2 pt-1')}>
+            <ReservedDFIInfoTextV2 />
+          </View>
+        )}
       </View>
     </>
-  )
-}
-
-function ContinueButton (props: { enabled: boolean, onPress: () => Promise<void>, isProcessing: boolean }): JSX.Element {
-  return (
-    <SubmitButtonGroupV2
-      isDisabled={!props.enabled}
-      label={translate('components/Button', 'CONTINUE')}
-      processingLabel={translate('components/Button', 'CONTINUE')}
-      onSubmit={props.onPress}
-      title='continue_add_liq'
-      isProcessing={props.isProcessing}
-      displayCancelBtn={false}
-    />
   )
 }
 

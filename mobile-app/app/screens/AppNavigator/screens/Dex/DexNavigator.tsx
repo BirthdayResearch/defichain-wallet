@@ -60,6 +60,7 @@ export interface DexParamList {
     pair: PoolPairData
     summary: AddLiquiditySummary
     conversion?: ConversionParam
+    pairInfo: WalletToken
   }
   RemoveLiquidity: {
     pair: PoolPairData
@@ -136,12 +137,11 @@ export function DexNavigator (): JSX.Element {
         component={ConfirmAddLiquidityScreen}
         name='ConfirmAddLiquidity'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Confirm Add Liquidity')}
-              containerTestID={headerContainerTestId}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate('screens/DexScreen', 'Confirm')
         }}
       />
 

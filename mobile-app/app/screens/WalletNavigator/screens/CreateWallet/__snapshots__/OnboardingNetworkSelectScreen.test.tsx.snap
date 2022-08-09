@@ -654,19 +654,24 @@ exports[`onboarding network selection screen should render 1`] = `
       </View>
     </View>
     <View
+      dark={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+      light={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
       style={
-        Array [
-          Object {
-            "alignItems": "flex-start",
-            "backgroundColor": "transparent",
-            "flexDirection": "row",
-            "paddingTop": 18,
-            "width": "100%",
-          },
-          Object {
-            "backgroundColor": "transparent",
-          },
-        ]
+        Object {
+          "alignItems": "flex-start",
+          "backgroundColor": "transparent",
+          "flexDirection": "row",
+          "paddingTop": 18,
+          "width": "100%",
+        }
       }
     >
       <View
@@ -744,13 +749,16 @@ exports[`onboarding network selection screen should render 1`] = `
                     "lineHeight": 24,
                   },
                   Array [
-                    Object {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                      "textAlign": "right",
-                    },
+                    Array [
+                      Object {
+                        "fontFamily": "SoraRegular",
+                        "fontSize": 14,
+                        "fontWeight": "400",
+                        "lineHeight": 20,
+                        "textAlign": "right",
+                      },
+                      undefined,
+                    ],
                     Object {
                       "color": "rgba(89, 89, 89, 1)",
                     },

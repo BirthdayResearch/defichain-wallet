@@ -49,6 +49,7 @@ import {
   ConvertConfirmationScreenV2
 } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreenV2'
 import { AddLiquidityScreenV2 } from '../Dex/DexAddLiquidityV2'
+import { ConfirmAddLiquidityScreenV2 } from '../Dex/DexConfirmAddLiquidityV2'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -433,15 +434,14 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={ConfirmAddLiquidityScreen}
+        component={ConfirmAddLiquidityScreenV2}
         name='ConfirmAddLiquidity'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Confirm Add Liquidity')}
-              containerTestID={headerContainerTestId}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate('screens/DexScreen', 'Confirm')
         }}
       />
 
