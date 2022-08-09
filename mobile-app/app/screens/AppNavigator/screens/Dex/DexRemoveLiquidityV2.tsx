@@ -112,7 +112,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
           duration: TOAST_DURATION
         })
       } else {
-        const toastMessage = '{{percent}}% of {{unit}} entered'
+        const toastMessage = '{{percent}} of available {{unit}} entered'
         toast.show(translate('screens/ConvertScreen', toastMessage, toastOption), {
           type: 'wallet_toast',
           placement: 'top',
@@ -301,7 +301,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
                     dark={tailwind('text-mono-dark-v2-500')}
                     style={tailwind('text-xs font-normal-v2 pt-14')}
                   >
-                    {translate('screens/RemoveLiquidity', 'Review full details in the next screen')}
+                    {translate('screens/ConvertScreen', 'Review full details in the next screen')}
                   </ThemedTextV2>
                 </View>
               </View>
