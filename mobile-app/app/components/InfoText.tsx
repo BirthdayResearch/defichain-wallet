@@ -64,7 +64,7 @@ export function InfoTextV2 (props: InfoTextPropV2): JSX.Element {
 
   return (
     <ThemedTextV2
-      style={tailwind('text-xs pl-2 font-normal-v2 flex-1')}
+      style={tailwind('text-xs pl-2 font-normal-v2')}
       light={tailwind('text-orange-v2')}
       dark={tailwind('text-orange-v2')}
       {...otherProps}

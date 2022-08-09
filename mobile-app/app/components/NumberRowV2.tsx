@@ -37,12 +37,10 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
     <View
       {
         ...((props.containerStyle != null)
-          ? props.containerStyle
-          : {
-            style: tailwind('flex-row items-start w-full bg-transparent'),
-            light: tailwind('bg-transparent'),
-            dark: tailwind('bg-transparent')
-          })}
+        ? props.containerStyle
+        : {
+          style: tailwind('flex-row items-start w-full')
+        })}
     >
       <View style={tailwind('w-5/12')}>
         <View style={tailwind('flex-row items-end justify-start')}>
@@ -63,7 +61,7 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
               decimalScale={8}
               displayType='text'
               prefix={props.rhs.prefix}
-              suffix={props.rhs.suffix !== undefined ? ` ${props.rhs.suffix}` : undefined}
+              suffix={props.rhs.suffix !== undefined ? `${props.rhs.suffix}` : undefined}
               renderText={(val: string) => (
                 <ThemedText
                   style={[tailwind('text-right font-normal-v2 text-sm'), props.rhs.textStyle]}
