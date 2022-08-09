@@ -173,7 +173,6 @@ export function TokenDetailScreen ({
           usdAmount={usdAmount ?? new BigNumber(0)}
           pair={pair}
         />
-
         {
           token.symbol === 'DFI' && (
             <ThemedViewV2
@@ -189,6 +188,7 @@ export function TokenDetailScreen ({
                 })}
                 text='Learn more about DFI'
                 testId='dfi_learn_more'
+                textStyle={tailwind('px-0')}
               />
             </ThemedViewV2>
           )
