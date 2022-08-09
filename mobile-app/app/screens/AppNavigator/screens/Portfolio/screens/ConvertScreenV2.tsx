@@ -108,11 +108,15 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
   }
 
   function showToast (type: AmountButtonTypes): void {
+    if (sourceToken === undefined) {
+      return
+    }
+
     toast.hideAll()
-    const isMax = type === AmountButtonTypes.max
+    const isMax = type === AmountButtonTypes.Max
     const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
     const toastOption = {
-      unit: getDisplayUnit(sourceToken?.unit),
+      unit: getDisplayUnit(sourceToken.unit),
       percent: type
     }
     toast.show(translate('screens/ConvertScreen', toastMessage, toastOption), {
@@ -204,7 +208,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
           </View>
         )}
 
-        <View style={tailwind('w-full px-7', { 'mt-56': amount.length === 0 })}>
+        <View style={[tailwind('w-full px-7'), { marginTop: amount.length === 0 ? 229 : 0 }]}>
           <ButtonV2
             fill='fill' label={translate('components/Button', 'Continue')}
             disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob || hasPendingBroadcastJob}
@@ -347,7 +351,7 @@ function isUtxoToAccount (mode: ConversionMode): boolean {
   return mode === 'utxosToAccount'
 }
 
-function getDisplayUnit (unit?: string): string | undefined {
+export function getDisplayUnit (unit: 'UTXO' | 'Token'): 'UTXO' | 'tokens' {
   if (unit === 'Token') {
     return 'tokens'
   }

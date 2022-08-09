@@ -21,6 +21,7 @@ import { View } from 'react-native'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useAddressLabel } from '@hooks/useAddressLabel'
 import { NumberRowV2 } from '@components/NumberRowV2'
+import { getDisplayUnit } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
 
 type Props = StackScreenProps<PortfolioParamList, 'ConvertConfirmationScreen'>
 
@@ -211,11 +212,4 @@ function getResultingPercentage (desireUnit: string, balanceA: BigNumber, unitA:
   const totalAmount = balanceA.plus(balanceB)
 
   return new BigNumber(amount).div(totalAmount).multipliedBy(100).toFixed(2)
-}
-
-function getDisplayUnit (unit?: string): string | undefined {
-  if (unit === 'Token') {
-    return 'tokens'
-  }
-  return unit
 }

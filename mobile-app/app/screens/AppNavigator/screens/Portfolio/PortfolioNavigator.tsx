@@ -69,7 +69,7 @@ export interface PortfolioParamList {
     mode: ConversionMode
     sourceUnit: string
     sourceBalance: BigNumber
-    targetUnit: string
+    targetUnit: 'UTXO' | 'Token'
     targetBalance: BigNumber
     fee: BigNumber
   }
