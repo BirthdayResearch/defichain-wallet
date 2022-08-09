@@ -3,12 +3,9 @@ import NumberFormat from 'react-number-format'
 import { tailwind } from '@tailwind'
 import { ThemedTextV2, ThemedViewV2 } from './themed'
 import { View } from '.'
-import { ViewProps } from 'react-native'
 import { getNativeIcon } from '@components/icons/assets'
 import { translate } from '@translations'
 import { RandomAvatar } from '@screens/AppNavigator/screens/Portfolio/components/RandomAvatar'
-
-type SummaryTitleProps = React.PropsWithChildren<ViewProps> & ISummaryTitleProps
 
 interface ISummaryTitleProps {
   title: string
@@ -21,7 +18,7 @@ interface ISummaryTitleProps {
   iconB?: string
 }
 
-export function SummaryTitleV2 (props: SummaryTitleProps): JSX.Element {
+export function SummaryTitleV2 (props: ISummaryTitleProps): JSX.Element {
   const IconA = getNativeIcon(props.iconA)
   const IconB = props.iconB !== undefined ? getNativeIcon(props.iconB) : undefined
 
@@ -76,7 +73,7 @@ export function SummaryTitleV2 (props: SummaryTitleProps): JSX.Element {
           </ThemedTextV2>
           <ThemedViewV2
             dark={tailwind('bg-mono-dark-v2-200')} light={tailwind('bg-mono-light-v2-200')}
-            style={tailwind('rounded-full px-2 py-1 flex flex-row items-center overflow-hidden ml-2')}
+            style={tailwind('rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2')}
           >
             <RandomAvatar name={props.fromAddress} size={20} />
             <ThemedTextV2
@@ -102,7 +99,7 @@ export function SummaryTitleV2 (props: SummaryTitleProps): JSX.Element {
               {translate('screens/common', 'To')}
             </ThemedTextV2>
             <ThemedViewV2
-              style={tailwind('flex-1 rounded-full px-2 py-1 ml-2')}
+              style={tailwind('flex-1 rounded-full px-2.5 py-1 ml-2')}
               dark={tailwind('bg-mono-dark-v2-200')}
               light={tailwind('bg-mono-light-v2-200')}
             >
