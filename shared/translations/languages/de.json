@@ -1130,7 +1130,7 @@
     "Fiat": "Gebühr",
     "Fee": "Gebühr",
     "Each transaction will be subject to a small amount of fees.": "Für jede Transaktion fällt eine geringe Gebühr an.",
-    "btcfee.text": "• DFX ist ein vollständig regulierter Schweizer Finanzintermediär. Insbesondere die Einhaltung der Verordnung zur Bekämpfung von Geldwäsche und Terrorismusfinanzierung (AML/CFT) erfordert aufwändige Prozesse, die in enger Abstimmung mit unseren Kanzleien entwickelt und laufend erneuert werden müssen.\n\n  • Jeder Benutzer muss mittels KYC-Verfahren identifiziert werden.\n\n  • Um schnelle Bitcoin-Einzahlungen zu ermöglichen, müssen wir die Liquidität auf der DeFiChain aufrechterhalten, um verpackte Bitcoin direkt in die Wallets der Benutzer zu transferieren\n\n  • DFX baut die technische Infrastruktur auf, um Bitcoin-Einzahlungen zu ermöglichen, damit verpackte Bitcoins in die DFX-Geldbörsen der Benutzer übertragen und sofort nach Erhalt verwendet werden können."
+    "btcfee.text": "• DFX ist ein vollständig regulierter, schweizer Finanzintermediär. Insbesondere die Einhaltung der Verordnung zur Bekämpfung von Geldwäsche und Terrorismusfinanzierung (AML/CFT) erfordert aufwändige Prozesse, die in enger Abstimmung mit unseren Kanzleien entwickelt und laufend erneuert werden müssen.\n\n  • Jeder Benutzer muss mittels Verifikationsverfahren (KYC) identifiziert werden.\n\n  • Um schnelle Bitcoin-Einzahlungen ermöglichen zu können, halten wir auf der DeFiChain Liquidität vor um Bitcoin auf der DeFiChain, dBTC, innerhalb kürzester Zeit in die Wallets der Kunden transferieren zu können.\n\n  • Hierfür baut DFX ebenfalls die technische Infrastruktur auf."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
