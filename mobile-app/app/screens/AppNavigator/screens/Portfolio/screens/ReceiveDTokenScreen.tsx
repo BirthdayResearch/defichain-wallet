@@ -25,6 +25,7 @@ import { InfoText } from '@components/InfoText'
 import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 // import BtcIconSvg from '@assets/images/dfx_buttons/crypto/Bitcoin_icon.svg'
 import BtcTodBtc from '@assets/images/dfx_buttons/crypto/BTC_to_dBTC.svg'
+import { HeaderTitle } from '@components/HeaderTitle'
 
 export async function onShare (address: string, logger: NativeLoggingProps): Promise<void> {
   try {
@@ -58,7 +59,6 @@ export function ReceiveDTokenScreen ({
 
   const [bitcoinAddress, setBitcoinAddress] = useState('')
   const activeAddress = activeButton === CryptoButtonGroupTabKey.DFI ? address : bitcoinAddress
-  // route.name() = 'DeFiChain'
   const [isLoading, setIsLoading] = useState(false)
   const defaultFee = 1.2
   const [fee, setFee] = useState(defaultFee)
@@ -89,24 +89,6 @@ export function ReceiveDTokenScreen ({
     }
   ]
 
-  // const onSubmit = (route: CryptoRoute) => {
-  //   setIsSaving(true)
-  //   setError(undefined)
-
-  //   // re-activate the route, if it already existed
-  //   const existingRoute = routes?.find((r) => !r.active)
-  //   if (existingRoute) {
-  //     existingRoute.active = true
-  //   }
-
-  //   route.type = BuyType.WALLET;
-
-  //   (existingRoute ? putCryptoRoute(existingRoute) : postCryptoRoute(route))
-  //     .then(onRouteCreated)
-  //     .catch((error: ApiError) => setError(error.statusCode === 409 ? "model.route.conflict" : ""))
-  //     .finally(() => setIsSaving(false))
-  // }
-
   const cryptoRoute: CryptoRoute = {
     active: true,
     blockchain: Blockchain.BITCOIN,
@@ -117,6 +99,19 @@ export function ReceiveDTokenScreen ({
     annualVolume: 0,
     refBonus: 0
   }
+
+  useEffect(() => {
+    if (route.params?.fromReceiveScreen ?? false) {
+      navigation.setOptions({
+        headerTitle: () => (
+          <HeaderTitle
+            text={activeButton === CryptoButtonGroupTabKey.DFI ? translate('screens/ReceiveScreen', 'Receive') : translate('screens/ReceiveDTokenScreen', 'Bitcoin Deposit')}
+          // containerTestID={headerContainerTestId}
+          />
+        )
+      })
+    }
+  }, [activeButton, navigation])
 
   useEffect(() => {
     setIsLoading(true)

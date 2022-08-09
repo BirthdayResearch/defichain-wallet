@@ -44,7 +44,7 @@ import { CryptoButtonGroupTabKey, ReceiveDTokenScreen } from './screens/ReceiveD
 export interface PortfolioParamList {
   PortfolioScreen: undefined
   ReceiveScreen: undefined
-  ReceiveDTokenScreen: { crypto?: CryptoButtonGroupTabKey }
+  ReceiveDTokenScreen: { crypto?: CryptoButtonGroupTabKey, fromReceiveScreen?: boolean }
   SellScreen: { token?: WalletToken }
   SellConfirmationScreen: undefined
   UserDetailsScreen: undefined
