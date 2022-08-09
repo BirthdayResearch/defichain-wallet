@@ -154,6 +154,11 @@ async function closeVault (
       description: translate('screens/CloseVaultScreen', 'You are about to close vault {{vaultId}}', {
         vaultId
       }),
+      drawerMessages: {
+        preparing: translate('screens/OceanInterface', 'Preparing to close vault…'),
+        waiting: translate('screens/OceanInterface', 'Closing vault…'),
+        complete: translate('screens/OceanInterface', 'Vault successfully closed')
+      },
       onBroadcast,
       onConfirmation
     }))

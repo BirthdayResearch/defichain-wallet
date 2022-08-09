@@ -330,7 +330,7 @@ context('Wallet - Send - with Conversion', function () {
       cy.getByTestID('transaction_details_info_text').should('contain', 'Authorize transaction in the next screen to convert')
       cy.getByTestID('button_confirm_send_continue').click()
       cy.getByTestID('txn_authorization_description')
-        .contains(`Converting ${new BigNumber('2.1').toFixed(8)} Token to UTXO`)
+        .contains(`Converting ${new BigNumber('2.1').toFixed(8)} DFI to UTXO`)
       cy.closeOceanInterface().wait(3000)
       cy.getByTestID('conversion_tag').should('exist')
       cy.getByTestID('text_send_amount').should('contain', '12.00000000')

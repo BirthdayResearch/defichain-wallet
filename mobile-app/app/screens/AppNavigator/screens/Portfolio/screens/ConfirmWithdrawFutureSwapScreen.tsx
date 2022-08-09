@@ -177,6 +177,11 @@ async function withdrawFutureSwap ({
         amountToWithdraw: source.amountToWithdraw.toFixed(8),
         sourceDisplaySymbol: source.displaySymbol
       }),
+      drawerMessages: {
+        preparing: translate('screens/OceanInterface', 'Preparing withdrawal…'),
+        waiting: translate('screens/OceanInterface', 'Withdrawing tokens…'),
+        complete: translate('screens/OceanInterface', 'Withdrawal completed')
+      },
       onBroadcast
     }))
   } catch (e) {
