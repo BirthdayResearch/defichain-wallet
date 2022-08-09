@@ -1,13 +1,7 @@
 import { forwardRef, useCallback } from 'react'
 import { Platform, StyleProp, Text, TextInputProps, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { useBottomSheetInternal } from '@gorhom/bottom-sheet'
-import {
-  ThemedViewV2,
-  ThemedIcon,
-  ThemedProps,
-  ThemedSectionTitleV2,
-  ThemedTextInputV2
-} from '@components/themed'
+import { ThemedIcon, ThemedProps, ThemedSectionTitleV2, ThemedTextInputV2, ThemedViewV2 } from '@components/themed'
 import { getColor, tailwind } from '@tailwind'
 import { MaterialIcons } from '@expo/vector-icons'
 
@@ -37,7 +31,6 @@ interface IWalletTextInputProps {
 }
 
 export const TransactionCardWalletTextInputV2 = forwardRef<any, WalletTextInputProps>(function (props: WalletTextInputProps, ref: React.Ref<any>): JSX.Element {
-  // const [isFocus, setIsFocus] = useState(false)
   const {
     title,
     titleTestID,
@@ -88,12 +81,10 @@ export const TransactionCardWalletTextInputV2 = forwardRef<any, WalletTextInputP
           style={[tailwind('flex-row items-center py-2 pl-5 pr-3 justify-between'), props.multiline === true && { minHeight: 54 }, inputContainerStyle]}
         >
           <TextInput
-            // onFocus={() => setIsFocus(true)}
             onBlur={() => {
               if (onBlur !== undefined) {
                 onBlur()
               }
-              // setIsFocus(false)
             }}
             ref={ref}
             editable={editable}
@@ -145,7 +136,7 @@ export const TransactionCardWalletTextInputV2 = forwardRef<any, WalletTextInputP
   )
 })
 
-export function ClearButtonV2 (props: {onPress?: () => void, testID?: string, iconThemedProps?: ThemedProps}): JSX.Element {
+export function ClearButtonV2 (props: { onPress?: () => void, testID?: string, iconThemedProps?: ThemedProps }): JSX.Element {
   return (
     <TouchableOpacity
       testID={props.testID}
