@@ -293,8 +293,7 @@ function ConversionResultCard (props: { unit: string | undefined, oriTargetAmoun
       light={tailwind('border-mono-light-v2-300')} dark={tailwind('border-mono-dark-v2-300')}
     >
       <ThemedViewV2
-        style={tailwind('flex-row border-b-0.5 items-center pb-5')}
-        light={tailwind('border-mono-light-v2-300')} dark={tailwind('border-mono-dark-v2-300')}
+        style={tailwind('flex-row items-center pb-5')}
       >
         <ThemedTextV2
           style={tailwind('font-normal-v2 text-sm pr-2')} testID='convert_available_label'
@@ -309,7 +308,10 @@ function ConversionResultCard (props: { unit: string | undefined, oriTargetAmoun
           {new BigNumber(props.oriTargetAmount).toFixed(8)}
         </ThemedTextV2>
       </ThemedViewV2>
-      <ThemedViewV2 style={tailwind('flex-row items-center pt-5')}>
+      <ThemedViewV2
+        style={tailwind('flex-row items-center pt-5 border-t-0.5')}
+        light={tailwind('border-mono-light-v2-300')} dark={tailwind('border-mono-dark-v2-300')}
+      >
         <ThemedTextV2
           style={tailwind('font-normal-v2 text-sm pr-2')} testID='convert_resulting_label'
           light={tailwind('text-mono-light-v2-500')} dark={tailwind('text-mono-dark-v2-500')}
