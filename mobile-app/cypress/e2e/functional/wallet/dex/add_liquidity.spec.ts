@@ -275,7 +275,7 @@ context('Wallet - DEX - Add Liquidity with Conversion', () => {
     cy.getByTestID('token_input_primary').type('11')
     cy.getByTestID('button_confirm_continue_add_liq').click()
     cy.getByTestID('txn_authorization_description')
-      .contains(`Converting ${new BigNumber('1').toFixed(8)} UTXO to Token`)
+      .contains(`Converting ${new BigNumber('1').toFixed(8)} UTXO to DFI`)
     cy.closeOceanInterface().wait(3000)
     cy.getByTestID('conversion_tag').should('exist')
 
