@@ -25,7 +25,6 @@ import { InfoText } from '@components/InfoText'
 import { useDFXAPIContext } from '@shared-contexts/DFXAPIContextProvider'
 // import BtcIconSvg from '@assets/images/dfx_buttons/crypto/Bitcoin_icon.svg'
 import BtcTodBtc from '@assets/images/dfx_buttons/crypto/BTC_to_dBTC.svg'
-import BigNumber from 'bignumber.js'
 
 export async function onShare (address: string, logger: NativeLoggingProps): Promise<void> {
   try {
@@ -62,8 +61,8 @@ export function ReceiveDTokenScreen ({
   // route.name() = 'DeFiChain'
   const [isLoading, setIsLoading] = useState(false)
   const defaultFee = 1.2
-  const [fee, setFee] = useState<BigNumber>(new BigNumber(defaultFee))
-  const [refBonus, setRefBonus] = useState<BigNumber>(new BigNumber(0))
+  const [fee, setFee] = useState(defaultFee)
+  const [refBonus, setRefBonus] = useState(0)
   const { openDfxServices } = useDFXAPIContext()
   const [showToast, setShowToast] = useState(false)
   const toast = useToast()
@@ -129,8 +128,8 @@ export function ReceiveDTokenScreen ({
       if (route != null) {
         // if route exists, get bitcoin address and set state
         setBitcoinAddress(route?.deposit?.address ?? '')
-        setFee(new BigNumber(route?.fee ?? defaultFee))
-        setRefBonus(new BigNumber(route?.refBonus ?? 0))
+        setFee(route?.fee ?? defaultFee)
+        setRefBonus(route?.refBonus ?? 0)
         setIsLoading(false)
       } else {
         // if route doesn't exist, automatically create a bitcoin route
@@ -142,8 +141,8 @@ export function ReceiveDTokenScreen ({
           // post bitcoin route
           postCryptoRoute(cryptoRoute).then((route) => {
             setBitcoinAddress(route?.deposit?.address ?? '')
-            setFee(new BigNumber(route?.fee ?? defaultFee))
-            setRefBonus(new BigNumber(route?.refBonus ?? 0))
+            setFee(route?.fee ?? defaultFee)
+            setRefBonus(route?.refBonus ?? 0)
           }).catch((error) => {
             logger.error(error)
           }).finally(() => {
@@ -182,9 +181,9 @@ export function ReceiveDTokenScreen ({
               modalStyle={tailwind('text-lg')}
               testID='portfolio_button_group'
               darkThemeStyle={tailwind('bg-dfxblue-800 rounded')}
-              customButtonGroupStyle={tailwind('px-14 py-1 mb-0 rounded')}
+              customButtonGroupStyle={tailwind('px-14 py-1 h-8 rounded')}
               customActiveStyle={{
-                dark: tailwind(activeButton === CryptoButtonGroupTabKey.DFI ? 'bg-dfxdfi-500' : 'bg-dfxbtc-500')
+                dark: tailwind(activeButton === CryptoButtonGroupTabKey.DFI ? 'bg-dfxdfi-500' : 'bg-dfxbtc-500', 'h-10')
               }}
             />
           </View>
@@ -255,79 +254,82 @@ export function ReceiveDTokenScreen ({
           )}
       </ThemedView>
 
-      <ThemedView
-        style={tailwind('flex flex-row mt-6 mb-4')}
-      >
-
-        <TouchableOpacity
-          onPress={() => {
-            copyToClipboard()
-            Clipboard.setString(activeAddress)
-          }}
-          style={tailwind('flex flex-1 flex-row justify-center text-center items-center')}
-          testID='copy_button'
-        >
-          <ThemedIcon
-            dark={tailwind('text-dfxred-500')}
-            iconType='MaterialIcons'
-            light={tailwind('text-primary-500')}
-            name='content-copy'
-            size={18}
-            style={tailwind('self-center')}
-          />
-
-          <ThemedText
-            dark={tailwind('text-dfxred-500')}
-            light={tailwind('text-primary-500')}
-            style={tailwind('ml-2 uppercase font-medium')}
-          >
-            {translate('screens/ReceiveScreen', 'COPY')}
-          </ThemedText>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={async () => {
-            await onShare(activeAddress, logger)
-          }}
-          style={tailwind('flex flex-1 flex-row justify-center text-center items-center')}
-          testID='share_button'
-        >
-          <ThemedIcon
-            dark={tailwind('text-dfxred-500')}
-            iconType='MaterialIcons'
-            light={tailwind('text-primary-500')}
-            name='share'
-            size={18}
-            style={tailwind('self-center')}
-          />
-
-          <ThemedText
-            dark={tailwind('text-dfxred-500')}
-            light={tailwind('text-primary-500')}
-            style={tailwind('ml-2 uppercase font-medium')}
-          >
-            {translate('screens/ReceiveScreen', 'SHARE')}
-          </ThemedText>
-        </TouchableOpacity>
-      </ThemedView>
-
-      {activeButton === CryptoButtonGroupTabKey.BTC && (
+      {(bitcoinAddress !== '' || activeButton === CryptoButtonGroupTabKey.DFI) && (
         <>
-          <InfoText
-            testID='dfx_kyc_info'
-            text={translate('screens/ReceiveDTokenScreen', 'Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!', { MinimumBtcAmount })}
-            style={tailwind('mb-4')}
-          />
-          <InfoRow
-            type={InfoType.FiatFee}
-            value={`${new BigNumber(fee.minus(refBonus)).toString()}`}
-            testID='fiat_fee'
-            suffix={(refBonus.toNumber() !== 0 ? `%  (${refBonus.toString()}% ${translate('ReceiveDTokenScreen', 'Ref bonus')})` : '%')}
-          />
-          <View style={tailwind('mb-6')} />
+          <ThemedView
+            style={tailwind('flex flex-row mt-6 mb-4')}
+          >
+
+            <TouchableOpacity
+              onPress={() => {
+                copyToClipboard()
+                Clipboard.setString(activeAddress)
+              }}
+              style={tailwind('flex flex-1 flex-row justify-center text-center items-center')}
+              testID='copy_button'
+            >
+              <ThemedIcon
+                dark={tailwind('text-dfxred-500')}
+                iconType='MaterialIcons'
+                light={tailwind('text-primary-500')}
+                name='content-copy'
+                size={18}
+                style={tailwind('self-center')}
+              />
+
+              <ThemedText
+                dark={tailwind('text-dfxred-500')}
+                light={tailwind('text-primary-500')}
+                style={tailwind('ml-2 uppercase font-medium')}
+              >
+                {translate('screens/ReceiveScreen', 'COPY')}
+              </ThemedText>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={async () => {
+                await onShare(activeAddress, logger)
+              }}
+              style={tailwind('flex flex-1 flex-row justify-center text-center items-center')}
+              testID='share_button'
+            >
+              <ThemedIcon
+                dark={tailwind('text-dfxred-500')}
+                iconType='MaterialIcons'
+                light={tailwind('text-primary-500')}
+                name='share'
+                size={18}
+                style={tailwind('self-center')}
+              />
+
+              <ThemedText
+                dark={tailwind('text-dfxred-500')}
+                light={tailwind('text-primary-500')}
+                style={tailwind('ml-2 uppercase font-medium')}
+              >
+                {translate('screens/ReceiveScreen', 'SHARE')}
+              </ThemedText>
+            </TouchableOpacity>
+          </ThemedView>
+
+          {activeButton === CryptoButtonGroupTabKey.BTC && (
+            <>
+              <InfoText
+                testID='dfx_kyc_info'
+                text={translate('screens/ReceiveDTokenScreen', 'Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!', { MinimumBtcAmount })}
+                style={tailwind('mt-2 mb-4')}
+              />
+              <InfoRow
+                type={InfoType.BtcFee}
+                value={fee}
+                testID='fiat_fee'
+                suffix={(refBonus !== 0 ? `%  (${refBonus.toString()}% ${translate('ReceiveDTokenScreen', 'Ref bonus')})` : '%')}
+              />
+              <View style={tailwind('mb-6')} />
+            </>
+          )}
         </>
       )}
-
     </ThemedScrollView>
   )
 }

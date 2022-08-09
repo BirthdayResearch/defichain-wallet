@@ -19,7 +19,8 @@ export enum InfoType {
   EstimatedFee,
   VaultFee,
   ExecutionBlock,
-  FiatFee
+  FiatFee,
+  BtcFee,
 }
 
 export function InfoRow (props: InfoRowProps): JSX.Element {
@@ -39,6 +40,10 @@ export function InfoRow (props: InfoRowProps): JSX.Element {
     [InfoType.FiatFee, {
       title: 'Fee',
       message: 'Each transaction will be subject to a small amount of fees.'
+    }],
+    [InfoType.BtcFee, {
+      title: 'BTC Fee',
+      message: 'btcfee.text'
     }]
   ])
 
@@ -53,7 +58,7 @@ export function InfoRow (props: InfoRowProps): JSX.Element {
           <ThemedText style={tailwind('text-sm mr-1')} testID={`${props.testID}_label`} {...props.lhsThemedProps}>
             {translate('components/BottomSheetInfo', alertInfo.get(props.type)?.title ?? '')}
           </ThemedText>
-          <BottomSheetInfo alertInfo={alertInfo.get(props.type)} name={alertInfo.get(props.type)?.title} />
+          <BottomSheetInfo alertInfo={alertInfo.get(props.type)} name={alertInfo.get(props.type)?.title} scrollEnabled={props.type === InfoType.BtcFee} />
         </View>
       </View>
 
@@ -71,7 +76,7 @@ export function InfoRow (props: InfoRowProps): JSX.Element {
             >
               {val}
             </ThemedText>
-          )}
+            )}
           thousandSeparator
           value={props.value}
         />
@@ -87,10 +92,10 @@ export function InfoRow (props: InfoRowProps): JSX.Element {
               {props.suffix}
             </ThemedText>
           )
-: typeof props.suffix !== 'undefined' &&
-            (
-              props.suffix
-            )}
+          : typeof props.suffix !== 'undefined' &&
+          (
+            props.suffix
+          )}
       </View>
     </ThemedView>
   )

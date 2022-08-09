@@ -1122,7 +1122,11 @@
     "Min. next bid": "Mínimo para la siguiente oferta",
     "The minimum bid a user must place in order to take part in the auction.": "La mínima oferta que un ofertante puede ejecutar para poder participar en la subasta.",
     "The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.": "El ratio de colateralización representa la cantidad de colateral depositada en la bóveda con respecto a la cantidad del prestamo acumulado, se expresa en porcentage.",
-    "Settlement block": "Settlement block"
+    "Settlement block": "Settlement block",
+    "BTC Fee": "Comisión BTC",
+    "Fee": "Tarifa",
+    "Each transaction will be subject to a small amount of fees.": "Cada transacción estará sujeta a una pequeña cantidad de tarifas.",
+    "btcfee.text": "• DFX è un intermediario finanziario svizzero completamente regolamentato. Il rispetto della normativa in particolare in materia di contrasto al riciclaggio e al finanziamento del terrorismo (AML/CFT) richiede processi elaborati che devono essere sviluppati e continuamente rinnovati in stretto coordinamento con i nostri studi legali.\n\n  • Ogni utente deve essere identificato tramite procedure KYC.\n\n  • Per consentire depositi bitcoin veloci, dobbiamo mantenere la liquidità sulla DeFiChain per trasferire i bitcoin incartati direttamente nei portafogli degli utenti\n\n  • DFX sta costruendo l'infrastruttura tecnica per consentire ai depositi di Bitcoin di trasferire i Bitcoin incartati ai portafogli DFX degli utenti e di utilizzarli immediatamente dopo la ricezione."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Identificador de la bóveda",
@@ -1530,8 +1534,6 @@
     "please select": "por favor selecciona",
     "Enter your desired payout amount": "Teclea la cantidad de pago deseada",
     "Available to sell": "Disponible para vender",
-    "Fee": "Comisión",
-    "Each transaction will be subject to a small amount of fees.": "Cada transacción concurrirá en una pequeña comisión.",
     "Transfer to your bank account": "Transferencia a mi cuenta bancaria",
     "Your Currency": "Su moneda",
     "Select account to cash out": "Seleccionar cuenta para cobrar",

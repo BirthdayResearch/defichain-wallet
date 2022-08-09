@@ -1082,7 +1082,11 @@
     "Annual vault interest": "金庫年利息",
     "Min. next bid": "最低標價",
     "The minimum bid a user must place in order to take part in the auction.": "用戶參與拍賣必須提交的最低標價。",
-    "Settlement block": "Settlement block"
+    "Settlement block": "Settlement block",
+    "BTC Fee": "比特幣費用",
+    "Fee": "費用",
+    "Each transaction will be subject to a small amount of fees.": "每筆交易都將收取少量費用。",
+    "btcfee.text": "• DFX 是一家受全面監管的瑞士金融中介機構。 遵守特別是打擊洗錢和恐怖主義融資 (AML/CFT) 的法規需要與我們的律師事務所密切合作制定並不斷更新的複雜流程。\n\n  • 必須通過KYC 程序識別每個用戶。\n\n  • 為了實現快速的比特幣存款，我們需要保持 DeFiChain 的流動性，以便將打包的比特幣直接轉移到用戶的錢包中\n\n  • DFX 正在構建技術基礎設施，使比特幣存款能夠將打包的比特幣轉移到用戶的 DFX 錢包並在收到後立即使用。"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金庫編號",
@@ -1485,8 +1489,6 @@
     "please select": "請選擇",
     "Enter your desired payout amount": "輸入您想要的付款金額",
     "Available to sell": "可出售",
-    "Fee": "費用",
-    "Each transaction will be subject to a small amount of fees.": "每筆交易需要支付少量的費用.",
     "Transfer to your bank account": "轉賬到我的銀行賬戶",
     "Your Currency": "您的貨幣",
     "Select account to cash out": "選擇要提現的賬戶",

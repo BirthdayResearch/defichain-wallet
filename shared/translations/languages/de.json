@@ -1125,7 +1125,12 @@
     "Annual vault interest": "Jährlicher Vault-Zins",
     "Min. next bid": "Nächstes Mind. Gebot",
     "The minimum bid a user must place in order to take part in the auction.": "Das Mindestgebot, das ein Nutzer abgeben muss, um an der Auktion teilnehmen zu können.",
-    "Settlement block": "Ausführungsblock"
+    "Settlement block": "Ausführungsblock",
+    "BTC Fee": "BTC Gebühr",
+    "Fiat": "Gebühr",
+    "Fee": "Gebühr",
+    "Each transaction will be subject to a small amount of fees.": "Für jede Transaktion fällt eine geringe Gebühr an.",
+    "btcfee.text": "• DFX ist ein vollständig regulierter Schweizer Finanzintermediär. Insbesondere die Einhaltung der Verordnung zur Bekämpfung von Geldwäsche und Terrorismusfinanzierung (AML/CFT) erfordert aufwändige Prozesse, die in enger Abstimmung mit unseren Kanzleien entwickelt und laufend erneuert werden müssen.\n\n  • Jeder Benutzer muss mittels KYC-Verfahren identifiziert werden.\n\n  • Um schnelle Bitcoin-Einzahlungen zu ermöglichen, müssen wir die Liquidität auf der DeFiChain aufrechterhalten, um verpackte Bitcoin direkt in die Wallets der Benutzer zu transferieren\n\n  • DFX baut die technische Infrastruktur auf, um Bitcoin-Einzahlungen zu ermöglichen, damit verpackte Bitcoins in die DFX-Geldbörsen der Benutzer übertragen und sofort nach Erhalt verwendet werden können."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
@@ -1528,8 +1533,6 @@
     "please select": "bitte auswählen",
     "Enter your desired payout amount": "Gebe deinen gewünschten Auszahlungsbetrag an",
     "Available to sell": "Zum Verkauf verfügbar",
-    "Fee": "Gebühr",
-    "Each transaction will be subject to a small amount of fees.": "Jede Transaktion unterliegt einer geringen Gebühr.",
     "Transfer to your bank account": "Auf dein Bankkonto auszahlen",
     "Your Currency": "Deine Währung",
     "Select account to cash out": "Konto für Auszahlung auswählen",
