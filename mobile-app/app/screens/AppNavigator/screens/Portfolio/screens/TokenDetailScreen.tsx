@@ -414,7 +414,7 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
                   displayType='text'
                   renderText={(value) => (
                     <ThemedTextV2
-                      style={tailwind('flex-wrap mr-1 font-semibold-v2 text-right')}
+                      style={tailwind('flex-wrap font-semibold-v2 text-right')}
                       testID='token_detail_amount'
                     >
                       {value}
