@@ -4,17 +4,21 @@ exports[`Liquidity Mining FAQ screen should match snapshot 1`] = `
 <RCTScrollView
   contentContainerStyle={
     Object {
-      "paddingBottom": 32,
-      "paddingLeft": 24,
-      "paddingRight": 24,
-      "paddingTop": 24,
+      "paddingBottom": 64,
+      "paddingLeft": 20,
+      "paddingRight": 20,
+      "paddingTop": 32,
     }
   }
   style={
     Array [
-      undefined,
       Object {
-        "backgroundColor": "rgba(250, 250, 250, 1)",
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      Object {
+        "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
   }
@@ -32,52 +36,28 @@ exports[`Liquidity Mining FAQ screen should match snapshot 1`] = `
           },
           Array [
             Object {
-              "fontFamily": "SemiBoldFont",
-              "fontSize": 18,
-              "fontWeight": "600",
-              "lineHeight": 28,
+              "fontFamily": "SoraRegular",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
             },
             Object {
-              "color": "rgba(0, 0, 0, 1)",
+              "color": "rgba(18, 18, 18, 1)",
             },
           ],
         ]
       }
     >
-      Liquidity Mining
-    </Text>
-    <Text
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "fontSize": 14,
-              "lineHeight": 20,
-              "marginTop": 8,
-            },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
-            },
-          ],
-        ]
-      }
-    >
-      Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.
-
-Liquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).
+      Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn, be rewarded with fees and token based on their share of the total pool liquidity.
     </Text>
     <RCTScrollView
       style={
         Array [
           undefined,
           Object {
-            "backgroundColor": "rgba(250, 250, 250, 1)",
+            "backgroundColor": "rgba(242, 242, 242, 1)",
           },
         ]
       }
@@ -95,14 +75,16 @@ Liquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the
               },
               Array [
                 Object {
-                  "fontFamily": "MediumFont",
+                  "fontFamily": "SoraRegular",
                   "fontSize": 12,
-                  "fontWeight": "500",
+                  "fontWeight": "400",
                   "lineHeight": 16,
                   "marginTop": 32,
+                  "paddingLeft": 20,
+                  "paddingRight": 20,
                 },
                 Object {
-                  "color": "rgba(163, 163, 163, 1)",
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
@@ -117,21 +99,13 @@ Liquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the
               Object {
                 "borderBottomLeftRadius": 8,
                 "borderBottomRightRadius": 8,
-                "borderBottomWidth": 1,
-                "borderLeftWidth": 1,
-                "borderRightWidth": 1,
                 "borderTopLeftRadius": 8,
                 "borderTopRightRadius": 8,
-                "borderTopWidth": 1,
                 "marginTop": 8,
                 "overflow": "hidden",
               },
               Object {
                 "backgroundColor": "rgba(255, 255, 255, 1)",
-                "borderBottomColor": "rgba(229, 229, 229, 1)",
-                "borderLeftColor": "rgba(229, 229, 229, 1)",
-                "borderRightColor": "rgba(229, 229, 229, 1)",
-                "borderTopColor": "rgba(229, 229, 229, 1)",
               },
             ]
           }
@@ -160,12 +134,12 @@ Liquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the
                   Array [
                     Array [
                       Object {
-                        "alignItems": "center",
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
                         "paddingBottom": 16,
-                        "paddingLeft": 16,
-                        "paddingRight": 16,
                         "paddingTop": 16,
                       },
                       false,
@@ -174,10 +148,10 @@ Liquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the
                       },
                     ],
                     Object {
-                      "borderBottomColor": "rgba(229, 229, 229, 1)",
-                      "borderLeftColor": "rgba(229, 229, 229, 1)",
-                      "borderRightColor": "rgba(229, 229, 229, 1)",
-                      "borderTopColor": "rgba(229, 229, 229, 1)",
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
                     },
                   ]
                 }
@@ -192,21 +166,17 @@ Liquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the
                         "lineHeight": 24,
                       },
                       Array [
-                        Array [
-                          Object {
-                            "flexBasis": "0%",
-                            "flexGrow": 1,
-                            "flexShrink": 1,
-                            "fontSize": 14,
-                            "lineHeight": 20,
-                          },
-                          Object {
-                            "fontFamily": "SemiBoldFont",
-                            "fontWeight": "600",
-                          },
-                        ],
                         Object {
-                          "color": "rgba(23, 23, 23, 1)",
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraSemiBold",
+                          "fontSize": 14,
+                          "fontWeight": "600",
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(18, 18, 18, 1)",
                         },
                       ],
                     ]
@@ -233,20 +203,20 @@ Liquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the
                     Array [
                       Array [
                         Object {
+                          "marginLeft": 20,
+                          "marginRight": 20,
                           "paddingBottom": 16,
-                          "paddingLeft": 16,
-                          "paddingRight": 16,
-                          "paddingTop": 0,
+                          "paddingTop": 16,
                         },
                         Object {
                           "borderBottomWidth": 1,
                         },
                       ],
                       Object {
-                        "borderBottomColor": "rgba(229, 229, 229, 1)",
-                        "borderLeftColor": "rgba(229, 229, 229, 1)",
-                        "borderRightColor": "rgba(229, 229, 229, 1)",
-                        "borderTopColor": "rgba(229, 229, 229, 1)",
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
                       },
                     ]
                   }
@@ -273,11 +243,13 @@ Liquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -316,12 +288,12 @@ Once an amount is entered on one side of the pair, the app automatically balance
                   Array [
                     Array [
                       Object {
-                        "alignItems": "center",
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
                         "paddingBottom": 16,
-                        "paddingLeft": 16,
-                        "paddingRight": 16,
                         "paddingTop": 16,
                       },
                       Object {
@@ -330,10 +302,10 @@ Once an amount is entered on one side of the pair, the app automatically balance
                       false,
                     ],
                     Object {
-                      "borderBottomColor": "rgba(229, 229, 229, 1)",
-                      "borderLeftColor": "rgba(229, 229, 229, 1)",
-                      "borderRightColor": "rgba(229, 229, 229, 1)",
-                      "borderTopColor": "rgba(229, 229, 229, 1)",
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
                     },
                   ]
                 }
@@ -348,18 +320,17 @@ Once an amount is entered on one side of the pair, the app automatically balance
                         "lineHeight": 24,
                       },
                       Array [
-                        Array [
-                          Object {
-                            "flexBasis": "0%",
-                            "flexGrow": 1,
-                            "flexShrink": 1,
-                            "fontSize": 14,
-                            "lineHeight": 20,
-                          },
-                          false,
-                        ],
                         Object {
-                          "color": "rgba(115, 115, 115, 1)",
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 14,
+                          "fontWeight": "400",
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(89, 89, 89, 1)",
                         },
                       ],
                     ]
@@ -391,18 +362,18 @@ Once an amount is entered on one side of the pair, the app automatically balance
                     Array [
                       Array [
                         Object {
+                          "marginLeft": 20,
+                          "marginRight": 20,
                           "paddingBottom": 16,
-                          "paddingLeft": 16,
-                          "paddingRight": 16,
-                          "paddingTop": 0,
+                          "paddingTop": 16,
                         },
                         false,
                       ],
                       Object {
-                        "borderBottomColor": "rgba(229, 229, 229, 1)",
-                        "borderLeftColor": "rgba(229, 229, 229, 1)",
-                        "borderRightColor": "rgba(229, 229, 229, 1)",
-                        "borderTopColor": "rgba(229, 229, 229, 1)",
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
                       },
                     ]
                   }
@@ -429,11 +400,13 @@ Once an amount is entered on one side of the pair, the app automatically balance
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -472,12 +445,12 @@ Similarly, liquidity tokens can only be sent to another DFI wallet address.
                   Array [
                     Array [
                       Object {
-                        "alignItems": "center",
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
                         "paddingBottom": 16,
-                        "paddingLeft": 16,
-                        "paddingRight": 16,
                         "paddingTop": 16,
                       },
                       Object {
@@ -486,10 +459,10 @@ Similarly, liquidity tokens can only be sent to another DFI wallet address.
                       false,
                     ],
                     Object {
-                      "borderBottomColor": "rgba(229, 229, 229, 1)",
-                      "borderLeftColor": "rgba(229, 229, 229, 1)",
-                      "borderRightColor": "rgba(229, 229, 229, 1)",
-                      "borderTopColor": "rgba(229, 229, 229, 1)",
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
                     },
                   ]
                 }
@@ -504,18 +477,17 @@ Similarly, liquidity tokens can only be sent to another DFI wallet address.
                         "lineHeight": 24,
                       },
                       Array [
-                        Array [
-                          Object {
-                            "flexBasis": "0%",
-                            "flexGrow": 1,
-                            "flexShrink": 1,
-                            "fontSize": 14,
-                            "lineHeight": 20,
-                          },
-                          false,
-                        ],
                         Object {
-                          "color": "rgba(115, 115, 115, 1)",
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 14,
+                          "fontWeight": "400",
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(89, 89, 89, 1)",
                         },
                       ],
                     ]
@@ -547,18 +519,18 @@ Similarly, liquidity tokens can only be sent to another DFI wallet address.
                     Array [
                       Array [
                         Object {
+                          "marginLeft": 20,
+                          "marginRight": 20,
                           "paddingBottom": 16,
-                          "paddingLeft": 16,
-                          "paddingRight": 16,
-                          "paddingTop": 0,
+                          "paddingTop": 16,
                         },
                         false,
                       ],
                       Object {
-                        "borderBottomColor": "rgba(229, 229, 229, 1)",
-                        "borderLeftColor": "rgba(229, 229, 229, 1)",
-                        "borderRightColor": "rgba(229, 229, 229, 1)",
-                        "borderTopColor": "rgba(229, 229, 229, 1)",
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
                       },
                     ]
                   }
@@ -585,11 +557,13 @@ Similarly, liquidity tokens can only be sent to another DFI wallet address.
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -631,12 +605,12 @@ View more at DeFiChain.com
                   Array [
                     Array [
                       Object {
-                        "alignItems": "center",
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
                         "paddingBottom": 16,
-                        "paddingLeft": 16,
-                        "paddingRight": 16,
                         "paddingTop": 16,
                       },
                       Object {
@@ -645,10 +619,10 @@ View more at DeFiChain.com
                       false,
                     ],
                     Object {
-                      "borderBottomColor": "rgba(229, 229, 229, 1)",
-                      "borderLeftColor": "rgba(229, 229, 229, 1)",
-                      "borderRightColor": "rgba(229, 229, 229, 1)",
-                      "borderTopColor": "rgba(229, 229, 229, 1)",
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
                     },
                   ]
                 }
@@ -663,18 +637,17 @@ View more at DeFiChain.com
                         "lineHeight": 24,
                       },
                       Array [
-                        Array [
-                          Object {
-                            "flexBasis": "0%",
-                            "flexGrow": 1,
-                            "flexShrink": 1,
-                            "fontSize": 14,
-                            "lineHeight": 20,
-                          },
-                          false,
-                        ],
                         Object {
-                          "color": "rgba(115, 115, 115, 1)",
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 14,
+                          "fontWeight": "400",
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(89, 89, 89, 1)",
                         },
                       ],
                     ]
@@ -706,18 +679,18 @@ View more at DeFiChain.com
                     Array [
                       Array [
                         Object {
+                          "marginLeft": 20,
+                          "marginRight": 20,
                           "paddingBottom": 16,
-                          "paddingLeft": 16,
-                          "paddingRight": 16,
-                          "paddingTop": 0,
+                          "paddingTop": 16,
                         },
                         false,
                       ],
                       Object {
-                        "borderBottomColor": "rgba(229, 229, 229, 1)",
-                        "borderLeftColor": "rgba(229, 229, 229, 1)",
-                        "borderRightColor": "rgba(229, 229, 229, 1)",
-                        "borderTopColor": "rgba(229, 229, 229, 1)",
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
                       },
                     ]
                   }
@@ -744,11 +717,13 @@ View more at DeFiChain.com
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -785,22 +760,22 @@ View more at DeFiChain.com
                   Array [
                     Array [
                       Object {
-                        "alignItems": "center",
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
                         "paddingBottom": 16,
-                        "paddingLeft": 16,
-                        "paddingRight": 16,
                         "paddingTop": 16,
                       },
                       false,
                       false,
                     ],
                     Object {
-                      "borderBottomColor": "rgba(229, 229, 229, 1)",
-                      "borderLeftColor": "rgba(229, 229, 229, 1)",
-                      "borderRightColor": "rgba(229, 229, 229, 1)",
-                      "borderTopColor": "rgba(229, 229, 229, 1)",
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
                     },
                   ]
                 }
@@ -815,18 +790,17 @@ View more at DeFiChain.com
                         "lineHeight": 24,
                       },
                       Array [
-                        Array [
-                          Object {
-                            "flexBasis": "0%",
-                            "flexGrow": 1,
-                            "flexShrink": 1,
-                            "fontSize": 14,
-                            "lineHeight": 20,
-                          },
-                          false,
-                        ],
                         Object {
-                          "color": "rgba(115, 115, 115, 1)",
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 14,
+                          "fontWeight": "400",
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(89, 89, 89, 1)",
                         },
                       ],
                     ]
@@ -858,18 +832,18 @@ View more at DeFiChain.com
                     Array [
                       Array [
                         Object {
+                          "marginLeft": 20,
+                          "marginRight": 20,
                           "paddingBottom": 16,
-                          "paddingLeft": 16,
-                          "paddingRight": 16,
-                          "paddingTop": 0,
+                          "paddingTop": 16,
                         },
                         false,
                       ],
                       Object {
-                        "borderBottomColor": "rgba(229, 229, 229, 1)",
-                        "borderLeftColor": "rgba(229, 229, 229, 1)",
-                        "borderRightColor": "rgba(229, 229, 229, 1)",
-                        "borderTopColor": "rgba(229, 229, 229, 1)",
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
                       },
                     ]
                   }
@@ -896,11 +870,13 @@ View more at DeFiChain.com
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]

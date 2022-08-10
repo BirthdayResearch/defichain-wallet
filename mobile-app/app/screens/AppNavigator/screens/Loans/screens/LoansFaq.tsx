@@ -1,5 +1,5 @@
-import { ThemedScrollView, ThemedText } from '@components/themed'
-import { AccordionContent, WalletAccordion } from '@components/WalletAccordion'
+import { ThemedScrollViewV2, ThemedTextV2 } from '@components/themed'
+import { WalletAccordionV2, AccordionContent } from '@components/WalletAccordionV2'
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -20,7 +20,7 @@ export function LoansFaq ({ route }: Props): JSX.Element {
     {
       title: translate('components/LoansFaq', 'What is the collateralization ratio used for?'),
       content: [{
-        text: translate('components/LoansFaq', 'The collateralization ratio determines the state of the vault. A ratio below the minimum collaterization ratio results in liquidation, upon which, a vault\'s collateral will be sent for auction.'),
+        text: translate('components/LoansFaq', 'The collateralization ratio determines the state of the vault. A ratio below the minimum collateralization ratio results in liquidation, upon which, a vault\'s collateral will be sent for auction.'),
         type: 'paragraph'
       }, {
         text: translate('components/LoansFaq', 'Indicators have been included to help visualise the health of your vault, where:'),
@@ -95,28 +95,23 @@ export function LoansFaq ({ route }: Props): JSX.Element {
   ]
 
   return (
-    <ThemedScrollView
-      contentContainerStyle={tailwind('p-6 pb-8')}
+    <ThemedScrollViewV2
+      contentContainerStyle={tailwind('pt-8 px-5 pb-16')}
+      style={tailwind('flex-1')}
       testID='loans_faq'
     >
-      <ThemedText
-        style={tailwind('text-lg font-semibold')}
-      >
-        {translate('components/LoansFaq', 'Decentralized Loans')}
-      </ThemedText>
-
-      <ThemedText
-        style={tailwind('mt-2 text-sm')}
+      <ThemedTextV2
+        style={tailwind('text-base font-normal-v2 px-5')}
       >
         {translate('components/LoansFaq', 'The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collateral before you can take a loan.')}
-      </ThemedText>
+      </ThemedTextV2>
 
-      <WalletAccordion
+      <WalletAccordionV2
         testID='loans_faq_accordion'
         activeSections={activeSessions}
         title={translate('components/LoansFaq', 'FREQUENTLY ASKED QUESTIONS')}
         content={faqContent}
       />
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }

@@ -3,15 +3,17 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { useState } from 'react'
 import { MnemonicEncrypted } from '@api/wallet'
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
-import { View } from '@components/index'
-import { PinTextInput } from '@components/PinTextInput'
-import { ThemedActivityIndicator, ThemedScrollView, ThemedText } from '@components/themed'
+import { View, Text } from '@components/index'
+import { PinTextInputV2 } from '@components/PinTextInputV2'
+import { ThemedActivityIndicatorV2, ThemedScrollViewV2, ThemedTextV2 } from '@components/themed'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
+import { useWalletPersistenceContext, WalletPersistenceDataI } from '@shared-contexts/WalletPersistenceContext'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { SettingsParamList } from '../SettingsNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { MaterialIcons } from '@expo/vector-icons'
+import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
 
 type Props = StackScreenProps<SettingsParamList, 'ConfirmPinScreen'>
 
@@ -28,6 +30,7 @@ export function ConfirmPinScreen ({ route }: Props): JSX.Element {
   const [newPin, setNewPin] = useState('')
   const [invalid, setInvalid] = useState<boolean>(false)
   const [spinnerMessage, setSpinnerMessage] = useState<string>()
+  const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
   function verifyPin (input: string): void {
     if (input.length !== pin.length) {
@@ -42,33 +45,40 @@ export function ConfirmPinScreen ({ route }: Props): JSX.Element {
     }
 
     const copy = { words, network, pin }
-    setSpinnerMessage(translate('screens/PinConfirmation', 'It may take a few seconds to update your passcode...'))
+    setSpinnerMessage(translate('screens/PinConfirmation', 'It may take a few seconds to update your passcode.'))
     setTimeout(() => {
       MnemonicEncrypted.toData(copy.words, copy.network, copy.pin)
         .then(async encrypted => {
           await MnemonicStorage.set(words, pin)
-          await setWallet(encrypted)
-          navigation.dispatch(StackActions.popToTop())
+          passcodeChangeSuccess(encrypted)
         })
         .catch(logger.error)
     }, 50) // allow UI render the spinner before async task
   }
 
+   function passcodeChangeSuccess (encrypted: WalletPersistenceDataI<EncryptedProviderData>): void {
+    setTimeout(() => {
+       setWallet(encrypted)
+         .then(() => navigation.dispatch(StackActions.popToTop()))
+    }, 500) // Show passcode change success message
+    setSpinnerMessage(translate('screens/PinConfirmation', 'Passcode updated!'))
+    setIsSuccess(true)
+  }
+
   return (
-    <ThemedScrollView
-      dark={tailwind('bg-gray-900')}
-      light={tailwind('bg-white')}
+    <ThemedScrollViewV2
       style={tailwind('w-full flex-1 flex-col')}
     >
-      <View style={tailwind('px-6 py-4 mb-6 mt-8')}>
-        <ThemedText
-          style={tailwind('text-center font-semibold')}
+      <View style={tailwind('px-10 mt-12', { 'mb-10 pb-9': spinnerMessage === undefined })}>
+        <ThemedTextV2
+          style={tailwind('text-center font-normal-v2')}
         >
-          {translate('screens/PinConfirmation', 'Enter your passcode again to verify')}
-        </ThemedText>
+          {translate('screens/PinConfirmation', 'Keep the passcode for your wallet confidential.')}
+        </ThemedTextV2>
+        {spinnerMessage !== undefined && !isSuccess && <ThemedActivityIndicatorV2 style={[tailwind('py-2 my-5'), { transform: [{ scale: 1.5 }] }]} />}
+        {isSuccess && <SuccessIndicator />}
       </View>
-
-      <PinTextInput
+      <PinTextInputV2
         cellCount={6}
         onChange={(pin) => {
           setNewPin(pin)
@@ -77,37 +87,56 @@ export function ConfirmPinScreen ({ route }: Props): JSX.Element {
         testID='pin_confirm_input'
         value={newPin}
       />
-
-      <View style={tailwind('flex-row justify-center mt-6')}>
+      <View style={tailwind('mt-5 px-12')}>
         {
-          (spinnerMessage !== undefined)
-            ? (
-              <View style={tailwind('items-center px-4')}>
-                <ThemedActivityIndicator style={tailwind('mb-4')} />
+          (spinnerMessage !== undefined) &&
+            (
+              <ThemedTextV2
+                style={tailwind('font-normal-v2 text-sm text-center')}
+                light={tailwind('text-mono-light-v2-700')}
+                dark={tailwind('text-mono-dark-v2-700')}
+              >
+                {spinnerMessage}
+              </ThemedTextV2>
+            )
+        }
 
-                <ThemedText
-                  style={tailwind('ml-2 font-semibold text-sm text-center w-4/6 px-4')}
-                >
-                  {spinnerMessage}
-                </ThemedText>
-              </View>
-              )
-            : null
+        {
+          (spinnerMessage === undefined && !invalid) && (
+            <ThemedTextV2
+              style={tailwind('font-normal-v2 text-sm text-center')}
+              light={tailwind('text-mono-light-v2-700')}
+              dark={tailwind('text-mono-dark-v2-700')}
+            >
+              {translate('screens/PinConfirmation', 'Enter passcode for verification')}
+            </ThemedTextV2>
+          )
         }
 
         {
           invalid && (
-            <ThemedText
-              dark={tailwind('text-darkerror-500')}
-              light={tailwind('text-error-500')}
-              style={tailwind('text-center font-semibold text-sm')}
+            <Text
+              style={tailwind('text-center font-normal-v2 text-sm text-red-v2')}
               testID='wrong_passcode_text'
             >
               {translate('screens/PinConfirmation', 'Wrong passcode entered')}
-            </ThemedText>
+            </Text>
           )
         }
       </View>
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
+  )
+}
+
+function SuccessIndicator (): JSX.Element {
+  return (
+    <View style={tailwind('flex flex-col items-center my-5')}>
+      <MaterialIcons
+        size={36}
+        name='check-circle'
+        iconType='MaterialIcons'
+        style={tailwind('text-green-v2 w-9 h-9')}
+      />
+    </View>
   )
 }
