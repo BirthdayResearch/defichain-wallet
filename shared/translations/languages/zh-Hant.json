@@ -270,7 +270,16 @@
     "Review full transaction details in the next screen": "請在下一步確認交易明細",
     "Estimated fee": "所需費用(大約)",
     "You will have": "你將會收到",
-    "TRANSACTION DETAILS": "交易明細"
+    "TRANSACTION DETAILS": "交易明細",
+    "I WANT TO CONVERT": "I WANT TO CONVERT",
+    "Insufficient balance": "Insufficient balance",
+    "Available: ": "可轉換資金: ",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "A small amount of UTXO is reserved for fees": "保留少量 UTXO 用於交易費用",
+    "Available {{unit}}": "可轉換資金 {{unit}}",
+    "Resulting {{unit}}": "轉換後 {{unit}}"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "確認要轉換 DFI",
@@ -285,7 +294,12 @@
     "Transaction type": "交易類型",
     "Convert": "轉換",
     "{{token}} to receive": "{{token}} 將會收到",
-    "CONFIRM TRANSACTION": "確認交易"
+    "CONFIRM TRANSACTION": "確認交易",
+    "You are converting to {{unit}}": "You are converting to {{unit}}",
+    "Transaction fee": "Transaction fee",
+    "Resulting Tokens": "轉換後 Tokens",
+    "Resulting UTXO": "轉換後 UTXO",
+    "Convert {{amount}} DFI to {{target}}": "轉換 {{amount}} DFI 至 {{target}}"
   },
   "screens/SettingsNavigator": {
     "Settings": "設定"
@@ -730,7 +744,11 @@
   "screens/common": {
     "CANCEL": "取消",
     "Cancel": "取消",
-    "TRY AGAIN": "再試一次"
+    "TRY AGAIN": "再試一次",
+    "From": "從",
+    "To": "到",
+    "Converting": "轉換中",
+    "Converted": "Converted"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "為您的錢包創建新的密碼",
@@ -833,7 +851,8 @@
     "Max": "最高值"
   },
   "components/Button": {
-    "CONTINUE": "繼續"
+    "CONTINUE": "繼續",
+    "Continue": "繼續"
   },
   "screens/SlippageTolerance": {
     "Custom": "自訂",

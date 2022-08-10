@@ -281,7 +281,16 @@
     "Review full transaction details in the next screen": "Controlla tutti i dettagli della transazione nella prossima schermata",
     "Estimated fee": "Commissione stimata",
     "You will have": "Riceverai",
-    "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE"
+    "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
+    "I WANT TO CONVERT": "I WANT TO CONVERT",
+    "Insufficient balance": "Insufficient balance",
+    "Available: ": "Disponibile: ",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "A small amount of UTXO is reserved for fees": "A small amount of UTXO is reserved for fees",
+    "Available {{unit}}": "Disponibile {{unit}}",
+    "Resulting {{unit}}": "Risultato {{unit}}"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Conferma la conversione DFI",
@@ -296,7 +305,12 @@
     "Transaction type": "Tipo di transazione",
     "Convert": "Converti",
     "{{token}} to receive": "{{token}} da ricevere",
-    "CONFIRM TRANSACTION": "CONFERMA LA TRANSAZIONE"
+    "CONFIRM TRANSACTION": "CONFERMA LA TRANSAZIONE",
+    "You are converting to {{unit}}": "You are converting to {{unit}}",
+    "Transaction fee": "Transaction fee",
+    "Resulting Tokens": "Risultato Tokens",
+    "Resulting UTXO": "Risultato UTXO",
+    "Convert {{amount}} DFI to {{target}}": "Conversione {{amount}} DFI in {{target}}"
   },
   "screens/SettingsNavigator": {
     "Settings": "Impostazioni"
@@ -745,7 +759,11 @@
   "screens/common": {
     "CANCEL": "ANNULLA",
     "Cancel": "Annulla",
-    "TRY AGAIN": "RIPROVA"
+    "TRY AGAIN": "RIPROVA",
+    "From": "Da",
+    "To": "A",
+    "Converting": "Conversione",
+    "Converted": "Converted"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Crea un nuovo codice di accesso per il tuo wallet",
@@ -847,7 +865,8 @@
     "Max": "Max"
   },
   "components/Button": {
-    "CONTINUE": "CONTINUA"
+    "CONTINUE": "CONTINUA",
+    "Continue": "Continua"
   },
   "screens/SlippageTolerance": {
     "Custom": "Personalizza",

@@ -280,7 +280,16 @@
     "Review full transaction details in the next screen": "Revisa todos los detalles de la transacción en el próximo paso",
     "Estimated fee": "Comisión estimada",
     "You will have": "Recibirás",
-    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN"
+    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
+    "I WANT TO CONVERT": "I WANT TO CONVERT",
+    "Insufficient balance": "Insufficient balance",
+    "Available: ": "Disponible: ",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "A small amount of UTXO is reserved for fees": "Una cantidad pequeña de UTXO es reservada para las tarifas",
+    "Available {{unit}}": "Disponible {{unit}}",
+    "Resulting {{unit}}": "Resultando {{unit}}"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Confirme la conversión de DFIs",
@@ -295,7 +304,12 @@
     "Transaction type": "Tipo de transacción",
     "Convert": "Convertir",
     "{{token}} to receive": "{{token}} a recibir",
-    "CONFIRM TRANSACTION": "CONFIRMAR TRANSACCIÓN"
+    "CONFIRM TRANSACTION": "CONFIRMAR TRANSACCIÓN",
+    "You are converting to {{unit}}": "You are converting to {{unit}}",
+    "Transaction fee": "Transaction fee",
+    "Resulting Tokens": "Resultando Tokens",
+    "Resulting UTXO": "Resultando UTXO",
+    "Convert {{amount}} DFI to {{target}}": "Convirtiendo {{amount}} DFI a {{target}}"
   },
   "screens/SettingsNavigator": {
     "Settings": "Configuración"
@@ -746,7 +760,11 @@
   "screens/common": {
     "CANCEL": "CANCELA",
     "Cancel": "Cancela",
-    "TRY AGAIN": "VOLVER A INTENTAR"
+    "TRY AGAIN": "VOLVER A INTENTAR",
+    "From": "De",
+    "To": "A",
+    "Converting": "Convirtiendo",
+    "Converted": "Converted"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Crea una nueva contraseña para tu billetera",
@@ -848,7 +866,8 @@
     "Max": "Máximo"
   },
   "components/Button": {
-    "CONTINUE": "CONTINUA"
+    "CONTINUE": "CONTINUA",
+    "Continue": "Continua"
   },
   "screens/SlippageTolerance": {
     "Custom": "Personalizado",

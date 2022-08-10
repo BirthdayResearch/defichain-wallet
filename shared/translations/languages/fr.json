@@ -280,7 +280,16 @@
     "Review full transaction details in the next screen": "Examinez tous les détails de la transaction à l'étape suivante",
     "Estimated fee": "Frais estimés",
     "You will have": "Vous aurez",
-    "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION"
+    "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
+    "I WANT TO CONVERT": "JE VEUX CONVERTIR",
+    "Insufficient balance": "Solde insuffisant",
+    "Available: ": "Disponible: ",
+    "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
+    "Max available {{unit}} entered": "Max. de {{unit}} disponibles saisis",
+    "{{percent}} of available {{unit}} entered": "{{percent}} des {{unit}} disponibles saisis",
+    "A small amount of UTXO is reserved for fees": "Une petite quantité d'UTXO est réservée aux frais.",
+    "Available {{unit}}": "{{unit}} Disponible",
+    "Resulting {{unit}}": "{{unit}} Restants"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "Confirmation de la conversion DFI",
@@ -295,7 +304,12 @@
     "Transaction type": "Type de transaction",
     "Convert": "Convertir",
     "{{token}} to receive": "{{token}} restants",
-    "CONFIRM TRANSACTION": "VALIDEZ LA TRANSACTION"
+    "CONFIRM TRANSACTION": "VALIDEZ LA TRANSACTION",
+    "You are converting to {{unit}}": "Vous convertissez en {{unit}}",
+    "Transaction fee": "Transaction fee",
+    "Resulting Tokens": "Tokens restants",
+    "Resulting UTXO": "UTXO restants",
+    "Convert {{amount}} DFI to {{target}}": "Conversion de {{amount}} DFI en {{target}}"
   },
   "screens/SettingsNavigator": {
     "Settings": "Paramètres"
@@ -739,7 +753,11 @@
   "screens/common": {
     "CANCEL": "ANNULER",
     "Cancel": "Annuler",
-    "TRY AGAIN": "RÉESSAYER"
+    "TRY AGAIN": "RÉESSAYER",
+    "From": "Des",
+    "To": "Contre des",
+    "Converting": "Conversion",
+    "Converted": "Converti"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Créez un nouveau code d'accès pour votre portefeuille",
@@ -841,7 +859,8 @@
     "Max": "Max"
   },
   "components/Button": {
-    "CONTINUE": "SUIVANT"
+    "CONTINUE": "SUIVANT",
+    "Continue": "Suivant"
   },
   "screens/SlippageTolerance": {
     "Custom": "Personnaliser",
