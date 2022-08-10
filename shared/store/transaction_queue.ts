@@ -5,7 +5,6 @@ import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 export interface DfTxSigner {
   sign: (account: WhaleWalletAccount) => Promise<CTransactionSegWit>
   title?: string
-  displayTitle?: string
   description?: string
   drawerMessages?: {
     preparing?: string

@@ -132,8 +132,11 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
   }
 
   return (
-    <ThemedScrollViewV2 style={tailwind('w-full flex-col flex-1')} testID='convert_screen'>
-      <View style={tailwind('items-center px-5 pb-16')}>
+    <ThemedScrollViewV2
+      style={tailwind('w-full flex-col flex-1')} testID='convert_screen'
+      contentContainerStyle={tailwind('flex-grow justify-between pb-12')}
+    >
+      <View style={tailwind('items-center px-5')}>
         <ConvertToggleButton onPress={onTogglePress} />
 
         <ThemedTextV2 style={tailwind('font-semibold-v2 text-lg mt-2')}>
@@ -208,15 +211,15 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
           </View>
         )}
 
-        <View style={[tailwind('w-full px-7'), { marginTop: amount.length === 0 ? 229 : 0 }]}>
-          <ButtonV2
-            fill='fill' label={translate('components/Button', 'Continue')}
-            disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob || hasPendingBroadcastJob}
-            styleProps='w-full'
-            onPress={() => convert(sourceToken, targetToken)}
-            testID='button_continue_convert'
-          />
-        </View>
+      </View>
+      <View style={tailwind('w-full px-7')}>
+        <ButtonV2
+          fill='fill' label={translate('components/Button', 'Continue')}
+          disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob || hasPendingBroadcastJob}
+          styleProps='w-full'
+          onPress={() => convert(sourceToken, targetToken)}
+          testID='button_continue_convert'
+        />
       </View>
     </ThemedScrollViewV2>
   )
