@@ -106,7 +106,8 @@
     "A to Z": "A 到 Z",
     "Z to A": "Z 到 A",
     "AVAILABLE ASSETS": "可用资产",
-    "Asset value": "资产价值"
+    "Asset value": "资产价值",
+    "Sort by": "Sort by"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "获取 DFI",

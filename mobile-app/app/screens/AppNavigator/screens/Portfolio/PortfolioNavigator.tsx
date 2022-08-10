@@ -10,7 +10,6 @@ import { translate } from '@translations'
 import { SettingsNavigator } from '../Settings/SettingsNavigator'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { PortfolioScreen } from './PortfolioScreen'
-import { ConversionMode } from './screens/ConvertScreen'
 import { ReceiveScreen } from './screens/ReceiveScreen'
 import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
 import { SendScreen } from './screens/SendScreen'
@@ -45,7 +44,8 @@ import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
 import { AddressBookScreenV2 } from './screens/AddressBookScreenV2'
 import { NetworkSelectionScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreenV2'
-import { ConvertScreenV2 } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
+import { TokensVsUtxoFaqV2 } from '@screens/AppNavigator/screens/Portfolio/screens/TokensVsUtxoFaqV2'
+import { ConversionMode, ConvertScreenV2 } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
 import {
   ConvertConfirmationScreenV2
 } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreenV2'
@@ -541,6 +541,13 @@ export function PortfolioNavigator (): JSX.Element {
             />
           ),
           headerBackTitleVisible: false
+        }}
+      />
+      <PortfolioStack.Screen
+        component={TokensVsUtxoFaqV2}
+        name='TokensVsUtxoFaq'
+        options={{
+          headerTitle: translate('components/UtxoVsTokenFaq', 'About UTXO And Tokens')
         }}
       />
     </PortfolioStack.Navigator>

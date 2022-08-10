@@ -425,7 +425,7 @@ exports[`onboarding network selection screen should render 1`] = `
           Object {
             "alignItems": "flex-start",
             "backgroundColor": "transparent",
-            "borderBottomWidth": 1,
+            "borderBottomWidth": 0.5,
             "flexDirection": "row",
             "paddingBottom": 18,
             "width": "100%",
@@ -526,7 +526,7 @@ exports[`onboarding network selection screen should render 1`] = `
           Object {
             "alignItems": "flex-start",
             "backgroundColor": "transparent",
-            "borderBottomWidth": 1,
+            "borderBottomWidth": 0.5,
             "flexDirection": "row",
             "paddingBottom": 18,
             "paddingTop": 18,
