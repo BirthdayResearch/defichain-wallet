@@ -46,6 +46,7 @@ import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
 import { AddressBookScreenV2 } from './screens/AddressBookScreenV2'
 import { NetworkSelectionScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreenV2'
+import { TokensVsUtxoFaqV2 } from '@screens/AppNavigator/screens/Portfolio/screens/TokensVsUtxoFaqV2'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -542,6 +543,13 @@ export function PortfolioNavigator (): JSX.Element {
             />
           ),
           headerBackTitleVisible: false
+        }}
+      />
+      <PortfolioStack.Screen
+        component={TokensVsUtxoFaqV2}
+        name='TokensVsUtxoFaq'
+        options={{
+          headerTitle: translate('components/UtxoVsTokenFaq', 'About UTXO And Tokens')
         }}
       />
     </PortfolioStack.Navigator>

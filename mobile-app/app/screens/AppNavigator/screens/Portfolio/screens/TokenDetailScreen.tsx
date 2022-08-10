@@ -31,7 +31,6 @@ import { InfoTextLinkV2 } from '@components/InfoTextLink'
 import { TokenBreakdownDetailsV2 } from '../components/TokenBreakdownDetailsV2'
 import { getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
 import { PortfolioButtonGroupTabKey } from '../components/TotalPortfolio'
-import { openURL } from '@api/linking'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { ThemedTouchableListItem } from '@components/themed/ThemedTouchableListItem'
 import { PoolPairTextSectionV2 } from '../../Dex/components/PoolPairCards/PoolPairTextSectionV2'
@@ -174,7 +173,6 @@ export function TokenDetailScreen ({
           usdAmount={usdAmount ?? new BigNumber(0)}
           pair={pair}
         />
-
         {
           token.symbol === 'DFI' && (
             <ThemedViewV2
@@ -183,9 +181,14 @@ export function TokenDetailScreen ({
               style={tailwind('pt-1')}
             >
               <InfoTextLinkV2
-                onPress={async () => await openURL('https://defichain.com/dfi')}
+                onPress={() => navigation.navigate(translate('BottomTabNavigator', 'Portfolio'), {
+                  screen: 'TokensVsUtxoFaq',
+                  merge: true,
+                  initial: false
+                })}
                 text='Learn more about DFI'
                 testId='dfi_learn_more'
+                textStyle={tailwind('px-0')}
               />
             </ThemedViewV2>
           )
@@ -372,9 +375,9 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
             <Icon height={40} width={40} />
           )
         }
-        <View style={tailwind('flex-col ml-2')}>
+        <View style={tailwind('flex-col ml-3')}>
           <ThemedTextV2
-            style={tailwind('text-sm font-bold-v2')}
+            style={tailwind('font-semibold-v2')}
           >
             {props.token.displaySymbol}
           </ThemedTextV2>
@@ -394,8 +397,8 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
                 <ThemedIcon
                   light={tailwind('text-mono-light-v2-700')}
                   dark={tailwind('text-mono-dark-v2-700')}
-                  iconType='MaterialIcons'
-                  name='open-in-new'
+                  iconType='Feather'
+                  name='external-link'
                   size={16}
                 />
               </View>
@@ -414,7 +417,7 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
                   displayType='text'
                   renderText={(value) => (
                     <ThemedTextV2
-                      style={tailwind('flex-wrap mr-1 text-sm font-semibold-v2 text-right')}
+                      style={tailwind('flex-wrap font-semibold-v2 text-right')}
                       testID='token_detail_amount'
                     >
                       {value}
