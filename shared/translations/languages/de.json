@@ -284,7 +284,7 @@
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "I WANT TO CONVERT": "ICH MÖCHTE FOLGENDES UMWANDELN",
     "Insufficient balance": "Unzureichendes Guthaben",
-    "Available: {{amount}} {{unit}}": "Verfügbar: {{amount}} {{unit}}",
+    "Available: ": "Verfügbar: ",
     "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
     "Max available {{unit}} entered": "Max. verfügbare {{unit}} eingegeben",
     "{{percent}} of available {{unit}} entered": "{{percent}} der verfügbaren {{unit}} eingegeben",

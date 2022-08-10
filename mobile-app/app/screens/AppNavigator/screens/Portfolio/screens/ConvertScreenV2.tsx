@@ -27,6 +27,7 @@ import { ButtonV2 } from '@components/ButtonV2'
 import { AmountButtonTypes, TransactionCard } from '@components/TransactionCard'
 import { useToast } from 'react-native-toast-notifications'
 import { TransactionCardWalletTextInputV2 } from '@components/TransactionCardWalletTextInputV2'
+import NumberFormat from 'react-number-format'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<PortfolioParamList, 'ConvertScreen'>
@@ -170,29 +171,49 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
               testID='convert_input'
             />
           </TransactionCard>
-          <ThemedTextV2
-            style={tailwind('font-normal-v2 text-xs px-5 pt-2')}
-            light={tailwind('text-mono-light-v2-500', {
-              'text-red-v2': hasError,
-              'text-orange-v2': showMaxUTXOWarning && !hasError
-            })}
-            dark={tailwind('text-mono-dark-v2-500', {
-              'text-red-v2': hasError,
-              'text-orange-v2': showMaxUTXOWarning && !hasError
-            })}
-            testID='source_balance'
-          >
-            {
-              translate('screens/ConvertScreen', hasError
-                ? 'Insufficient balance'
-                : showMaxUTXOWarning
-                  ? 'A small amount of UTXO is reserved for fees'
-                  : 'Available: {{amount}} {{unit}}', {
-                amount: new BigNumber(sourceToken.amount).toFixed(8),
-                unit: getDisplayUnit(sourceToken.unit)
-              })
-            }
-          </ThemedTextV2>
+          <View style={tailwind('flex-row items-center px-5 pt-2')}>
+            <ThemedTextV2
+              style={tailwind('font-normal-v2 text-xs')}
+              light={tailwind('text-mono-light-v2-500', {
+                'text-red-v2': hasError,
+                'text-orange-v2': showMaxUTXOWarning && !hasError
+              })}
+              dark={tailwind('text-mono-dark-v2-500', {
+                'text-red-v2': hasError,
+                'text-orange-v2': showMaxUTXOWarning && !hasError
+              })}
+              testID='source_balance_label'
+            >
+              {
+                translate('screens/ConvertScreen', hasError
+                  ? 'Insufficient balance'
+                  : showMaxUTXOWarning
+                    ? 'A small amount of UTXO is reserved for fees'
+                    : 'Available: ', {
+                  amount: new BigNumber(sourceToken.amount).toFixed(8),
+                  unit: getDisplayUnit(sourceToken.unit)
+                })
+              }
+            </ThemedTextV2>
+            {!hasError && !showMaxUTXOWarning && (
+              <NumberFormat
+                decimalScale={8}
+                displayType='text'
+                suffix={` ${getDisplayUnit(sourceToken.unit)}`}
+                renderText={(value) => (
+                  <ThemedTextV2
+                    style={tailwind('font-normal-v2 text-xs')}
+                    light={tailwind('text-mono-light-v2-500')} dark={tailwind('text-mono-dark-v2-500')}
+                    testID='source_balance'
+                  >
+                    {value}
+                  </ThemedTextV2>
+                )}
+                thousandSeparator
+                value={new BigNumber(sourceToken.amount).toFixed(8)}
+              />
+            )}
+          </View>
         </View>
 
         {amount.length > 0 && (
@@ -308,12 +329,21 @@ function ConversionResultCard (props: { unit: string | undefined, oriTargetAmoun
         >
           {`${translate('screens/ConvertScreen', 'Available {{unit}}', { unit: props.unit })}`}
         </ThemedTextV2>
-        <ThemedTextV2
-          style={tailwind('flex-1 font-normal-v2 text-sm text-right')} testID='convert_available_amount'
-          light={tailwind('text-mono-light-v2-800')} dark={tailwind('text-mono-dark-v2-800')}
-        >
-          {new BigNumber(props.oriTargetAmount).toFixed(8)}
-        </ThemedTextV2>
+        <NumberFormat
+          decimalScale={8}
+          displayType='text'
+          renderText={(value) => (
+            <ThemedTextV2
+              style={tailwind('flex-1 font-normal-v2 text-sm text-right')}
+              light={tailwind('text-mono-light-v2-800')} dark={tailwind('text-mono-dark-v2-800')}
+              testID='convert_available_amount'
+            >
+              {value}
+            </ThemedTextV2>
+          )}
+          thousandSeparator
+          value={new BigNumber(props.oriTargetAmount).toFixed(8)}
+        />
       </ThemedViewV2>
       <ThemedViewV2
         style={tailwind('flex-row items-center pt-5 border-t-0.5')}
@@ -325,12 +355,21 @@ function ConversionResultCard (props: { unit: string | undefined, oriTargetAmoun
         >
           {`${translate('screens/ConvertScreen', 'Resulting {{unit}}', { unit: props.unit })}`}
         </ThemedTextV2>
-        <ThemedTextV2
-          style={tailwind('flex-1 font-semibold-v2 text-sm text-right')} testID='convert_result_amount'
-          light={tailwind('text-mono-light-v2-800')} dark={tailwind('text-mono-dark-v2-800')}
-        >
-          {props.totalTargetAmount}
-        </ThemedTextV2>
+        <NumberFormat
+          decimalScale={8}
+          displayType='text'
+          renderText={(value) => (
+            <ThemedTextV2
+              style={tailwind('flex-1 font-semibold-v2 text-sm text-right')}
+              light={tailwind('text-mono-light-v2-800')} dark={tailwind('text-mono-dark-v2-800')}
+              testID='convert_result_amount'
+            >
+              {value}
+            </ThemedTextV2>
+          )}
+          thousandSeparator
+          value={props.totalTargetAmount}
+        />
       </ThemedViewV2>
     </ThemedViewV2>
   )

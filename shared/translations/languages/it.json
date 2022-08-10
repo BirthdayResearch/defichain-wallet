@@ -295,7 +295,7 @@
     "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
     "I WANT TO CONVERT": "I WANT TO CONVERT",
     "Insufficient balance": "Insufficient balance",
-    "Available: {{amount}} {{unit}}": "Available: {{amount}} {{unit}}",
+    "Available: ": "Disponibile: ",
     "Review full details in the next screen": "Review full details in the next screen",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
