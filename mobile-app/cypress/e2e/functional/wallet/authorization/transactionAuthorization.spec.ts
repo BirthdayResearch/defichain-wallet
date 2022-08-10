@@ -38,7 +38,7 @@ context('Wallet - Transaction Authorization with Error', () => {
         'x-not-found': 'true'
       }
     }).as('sendToAddress')
-    cy.getByTestID('text_input_convert_from_input').clear().type('1')
+    cy.getByTestID('convert_input').clear().type('1')
     cy.getByTestID('button_continue_convert').click()
     cy.getByTestID('button_confirm_convert').click().wait(2000)
     cy.closeOceanInterface()

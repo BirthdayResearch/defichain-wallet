@@ -9,8 +9,6 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { PortfolioScreen } from './PortfolioScreen'
-import { ConvertConfirmationScreen } from './screens/ConvertConfirmationScreen'
-import { ConversionMode, ConvertScreen } from './screens/ConvertScreen'
 import { ReceiveScreen } from './screens/ReceiveScreen'
 import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
 import { SendScreen } from './screens/SendScreen'
@@ -44,6 +42,14 @@ import { AddressBookScreen } from './screens/AddressBookScreen'
 import { NetworkSelectionScreen } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { TokensVsUtxoFaq } from './screens/TokensVsUtxoFaq'
+import {
+  ConversionMode,
+  ConvertScreenV2,
+  ConvertTokenUnit
+} from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
+import {
+  ConvertConfirmationScreenV2
+} from '@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreenV2'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -62,9 +68,9 @@ export interface PortfolioParamList {
   ConvertConfirmationScreen: {
     amount: BigNumber
     mode: ConversionMode
-    sourceUnit: string
+    sourceUnit: ConvertTokenUnit
     sourceBalance: BigNumber
-    targetUnit: string
+    targetUnit: ConvertTokenUnit
     targetBalance: BigNumber
     fee: BigNumber
   }
@@ -274,30 +280,26 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={ConvertScreen}
+        component={ConvertScreenV2}
         name='Convert'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/ConvertScreen', 'Convert DFI')}
-              containerTestID={headerContainerTestId}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false
+          headerTitle: translate('screens/ConvertScreen', 'Convert')
         }}
       />
 
       <PortfolioStack.Screen
-        component={ConvertConfirmationScreen}
-        name='ConvertConfirmationScreen'
+        component={ConvertConfirmationScreenV2}
+        name='ConvertConfirmationScreenV2'
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/ConvertConfirmScreen', 'Confirm DFI Conversion')}
-              containerTestID={headerContainerTestId}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate('screens/ConvertConfirmScreen', 'Confirm')
         }}
       />
 
@@ -545,6 +547,7 @@ export function PortfolioNavigator (): JSX.Element {
         component={TokensVsUtxoFaq}
         name='TokensVsUtxoFaq'
         options={{
+          ...screenOptions,
           headerTitle: translate('components/UtxoVsTokenFaq', 'About UTXO And Tokens')
         }}
       />
