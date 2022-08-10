@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DEX FAQ V2 screen should match snapshot 1`] = `
+exports[`DEX FAQ screen should match snapshot 1`] = `
 <RCTScrollView
   contentContainerStyle={
     Object {

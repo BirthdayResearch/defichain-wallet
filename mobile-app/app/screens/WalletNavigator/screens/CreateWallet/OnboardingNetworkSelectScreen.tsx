@@ -62,7 +62,7 @@ export function OnboardingNetworkSelectScreen (): JSX.Element {
           lhs={{ value: translate('screens/NetworkDetails', 'Last synced') }}
           rhs={{ value: syncFormattedDate, testID: 'network_details_last_sync' }}
           containerStyle={{
-            style: tailwind('pb-4.5 border-b flex-row items-start w-full bg-transparent'),
+            style: tailwind('pb-4.5 border-b-0.5 flex-row items-start w-full bg-transparent'),
             light: tailwind('border-mono-light-v2-300'),
             dark: tailwind('border-mono-dark-v2-300')
           }}
@@ -100,7 +100,7 @@ function BlocksInfoRow ({ blockCount }: { blockCount?: number }): JSX.Element {
 
   return (
     <ThemedViewV2
-      style={tailwind('flex-row items-start w-full bg-transparent py-4.5 border-b')}
+      style={tailwind('flex-row items-start w-full bg-transparent py-4.5 border-b-0.5')}
       light={tailwind('border-mono-light-v2-300')}
       dark={tailwind('border-mono-dark-v2-300')}
     >

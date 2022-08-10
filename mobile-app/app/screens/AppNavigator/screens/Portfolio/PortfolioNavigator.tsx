@@ -541,6 +541,13 @@ export function PortfolioNavigator (): JSX.Element {
           headerBackTitleVisible: false
         }}
       />
+      <PortfolioStack.Screen
+        component={TokensVsUtxoFaq}
+        name='TokensVsUtxoFaq'
+        options={{
+          headerTitle: translate('components/UtxoVsTokenFaq', 'About UTXO And Tokens')
+        }}
+      />
     </PortfolioStack.Navigator>
   )
 }

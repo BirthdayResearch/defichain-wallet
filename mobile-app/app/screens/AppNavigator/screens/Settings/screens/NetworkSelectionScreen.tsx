@@ -106,7 +106,7 @@ function BlocksInfoRow ({ blockCount }: { blockCount?: number }): JSX.Element {
 
   return (
     <ThemedViewV2
-      style={tailwind('flex-row items-start w-full bg-transparent py-4.5 border-b')}
+      style={tailwind('flex-row items-start w-full bg-transparent py-4.5 border-b-0.5')}
       light={tailwind('border-mono-light-v2-300')}
       dark={tailwind('border-mono-dark-v2-300')}
     >

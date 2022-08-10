@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`knowledge base V2 screen should render 1`] = `
+exports[`knowledge base screen should render 1`] = `
 <RCTScrollView
   contentContainerStyle={
     Object {

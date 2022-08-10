@@ -1172,7 +1172,7 @@ exports[`portfolio page should match snapshot 1`] = `
               ]
             }
           >
-            Highest value (USD)
+            Sort by
           </Text>
           <Text />
         </View>

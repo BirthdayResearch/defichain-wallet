@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Liquidity Mining V2 FAQ screen should match snapshot 1`] = `
+exports[`Liquidity Mining FAQ screen should match snapshot 1`] = `
 <RCTScrollView
   contentContainerStyle={
     Object {
