@@ -1,18 +1,16 @@
 import { render } from '@testing-library/react-native'
-import { TransactionCardWalletTextInputV2 } from './TransactionCardWalletTextInputV2'
-
-import { InputType } from './WalletTextInputV2'
+import { InputType, WalletTransactionCardTextInput } from './WalletTransactionCardTextInput'
 
 jest.mock('@shared-contexts/ThemeProvider')
 const WalletInputType: InputType[] = ['default', 'numeric']
 
-describe('wallet text input', () => {
+describe('wallet transactional card text input', () => {
   WalletInputType.forEach(type => {
     it(`should render with ${type} keyboard`, async () => {
       const value = ''
       const onClear = jest.fn
       const rendered = render(
-        <TransactionCardWalletTextInputV2
+        <WalletTransactionCardTextInput
           title='foo'
           titleTestID='titleTestID'
           placeholder='bar'
