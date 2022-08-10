@@ -2,11 +2,12 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useEffect, useState } from 'react'
 import { View } from '@components/index'
-import { PinTextInput } from '@components/PinTextInput'
-import { ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import { PinTextInputV2 } from '@components/PinTextInputV2'
+import { ThemedScrollViewV2, ThemedTextV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { SettingsParamList } from '../SettingsNavigator'
+import { LearnMoreCTA } from '@screens/WalletNavigator/screens/components/LearnModeCTA'
 
 type Props = StackScreenProps<SettingsParamList, 'ChangePinScreen'>
 
@@ -34,55 +35,33 @@ export function ChangePinScreen ({ route }: Props): JSX.Element {
   }
 
   return (
-    <ThemedScrollView
-      dark={tailwind('bg-gray-900')}
-      light={tailwind('bg-white')}
+    <ThemedScrollViewV2
       style={tailwind('w-full flex-1 flex-col')}
       testID='screen_create_pin'
     >
-      <View style={tailwind('px-6 py-4 mb-8 mt-8')}>
-        <ThemedText
-          style={tailwind('text-center font-semibold')}
+      <View style={tailwind('px-10 my-12')}>
+        <ThemedTextV2
+          style={tailwind('text-center font-normal-v2')}
         >
-          {translate('screens/ChangePinScreen', 'Create new passcode for your wallet')}
-        </ThemedText>
+          {translate('screens/ChangePinScreen', 'Keep the passcode for your wallet confidential.')}
+        </ThemedTextV2>
+        <LearnMoreCTA onPress={goToPasscodeFaq} testId='passcode_faq_link' />
       </View>
-
-      <PinTextInput
+      <PinTextInputV2
         cellCount={6}
         onChange={setNewPin}
         testID='pin_input'
         value={newPin}
       />
-
-      <View style={tailwind('p-4 flex-row mt-2 justify-center items-center')}>
-        <ThemedIcon
-          iconType='MaterialIcons'
-          name='lock-outline'
-          size={18}
-        />
-
-        <ThemedText
-          style={tailwind('text-center text-sm font-semibold ml-2')}
+      <View style={tailwind('mt-5 px-12')}>
+        <ThemedTextV2
+          style={tailwind('text-center text-sm font-normal-v2')}
+          light={tailwind('text-mono-light-v2-700')}
+          dark={tailwind('text-mono-dark-v2-700')}
         >
-          {translate('screens/PinCreation', 'Keep your passcode private')}
-        </ThemedText>
+          {translate('screens/PinCreation', 'Create new passcode')}
+        </ThemedTextV2>
       </View>
-      <ThemedTouchableOpacity
-        onPress={goToPasscodeFaq}
-        light={tailwind('border-0')}
-        dark={tailwind('border-0')}
-        style={tailwind('p-4 flex-row mt-2 mb-8 justify-center items-center')}
-        testID='passcode_faq_link'
-      >
-        <ThemedText
-          style={tailwind('text-center text-sm font-semibold')}
-          light={tailwind('text-primary-500')}
-          dark={tailwind('text-darkprimary-500')}
-        >
-          {translate('screens/PinCreation', 'Learn more about passcode')}
-        </ThemedText>
-      </ThemedTouchableOpacity>
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }

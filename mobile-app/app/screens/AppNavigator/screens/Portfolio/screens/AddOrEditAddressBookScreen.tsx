@@ -1,9 +1,5 @@
 import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
-import { View } from '@components'
-import { HeaderTitle } from '@components/HeaderTitle'
-import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { ThemedIcon, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
-import { WalletTextInput } from '@components/WalletTextInput'
+import { ThemedIcon, ThemedScrollViewV2, ThemedSectionTitleV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { fromAddress } from '@defichain/jellyfish-address'
 import { useWalletAddress } from '@hooks/useWalletAddress'
 import { useAppDispatch } from '@hooks/useAppDispatch'
@@ -15,12 +11,20 @@ import { RootState } from '@store'
 import { authentication, Authentication } from '@store/authentication'
 import { userPreferences } from '@store/userPreferences'
 import { tailwind } from '@tailwind'
+import { openURL } from '@api/linking'
 import { translate } from '@translations'
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { PortfolioParamList } from '../PortfolioNavigator'
+import { SettingsParamList } from '../../Settings/SettingsNavigator'
+import { WalletTextInputV2 } from '@components/WalletTextInputV2'
+import { Text, TouchableOpacity, View } from 'react-native'
+import { ButtonV2 } from '@components/ButtonV2'
+import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
+import { useToast } from 'react-native-toast-notifications'
+import { debounce } from 'lodash'
+import * as Clipboard from 'expo-clipboard'
 
-type Props = StackScreenProps<PortfolioParamList, 'AddOrEditAddressBookScreen'>
+type Props = StackScreenProps<SettingsParamList, 'AddOrEditAddressBookScreen'>
 
 export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const {
@@ -32,6 +36,7 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
   } = route.params
   const [labelInput, setLabelInput] = useState(addressLabel?.label)
   const [addressInput, setAddressInput] = useState<string | undefined>(address)
+  const [isEditable, setIsEditable] = useState(isAddNew)
   const { networkName } = useNetworkContext()
   const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
   const [labelInputErrorMessage, setLabelInputErrorMessage] = useState('')
@@ -40,12 +45,8 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
   const [walletAddress, setWalletAddress] = useState<string[]>([])
 
   const validateLabelInput = (input: string): boolean => {
-    if (input !== undefined && input.trim().length > 40) {
-      setLabelInputErrorMessage('Address label is too long (max 40 characters)')
-      return false
-    }
-    if (input.trim() === '') {
-      setLabelInputErrorMessage('Please enter an address label')
+    if (input.trim() === '' || (input !== undefined && input.trim().length > 40)) {
+      setLabelInputErrorMessage('Required field. Please enter a label. Maximum of 40 characters.')
       return false
     }
     setLabelInputErrorMessage('')
@@ -56,7 +57,7 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
     navigation.navigate({
       name: 'BarCodeScanner',
       params: {
-        onQrScanned: (value) => {
+        onQrScanned: (value: string) => {
           setAddressInput(value)
         }
       },
@@ -100,7 +101,8 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
   const { data: { type: encryptionType } } = useWalletNodeContext()
   const isEncrypted = encryptionType === 'MNEMONIC_ENCRYPTED'
   const logger = useLogger()
-  const handleSubmit = async (): Promise<void> => {
+
+  const handleSubmit = useCallback(async (): Promise<void> => {
     if (!isEncrypted ||
       addressInput === undefined ||
       labelInput === undefined ||
@@ -133,20 +135,36 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
         navigation.pop()
       },
       onError: e => logger.error(e),
-      title: translate('screens/Settings', 'Sign to save address'),
+      title: translate('screens/AddOrEditAddressBookScreen', isAddNew ? 'Add address to address book?\n{{address}}' : 'Update address label for\n{{address}}', { address: addressInput }),
       message: translate('screens/Settings', 'Enter passcode to continue'),
-      loading: translate('screens/Settings', 'Verifying access')
+      loading: translate('screens/AddOrEditAddressBookScreen', isAddNew ? 'It may take a few seconds to save' : 'It may take a few seconds to update'),
+      successMessage: translate('screens/AddOrEditAddressBookScreen', isAddNew ? 'Address saved!' : 'Address label updated!')
     }
     dispatch(authentication.actions.prompt(auth))
-  }
+  }, [navigation, dispatch, isEncrypted, addressInput, labelInput])
+
+  const onDelete = useCallback(async (address: string): Promise<void> => {
+    if (!isEncrypted) {
+      return
+    }
+    const auth: Authentication<string[]> = {
+      consume: async passphrase => await MnemonicStorage.get(passphrase),
+      onAuthenticated: async () => {
+        dispatch(userPreferences.actions.deleteFromAddressBook(address))
+        navigation.pop()
+      },
+      onError: e => logger.error(e),
+      title: translate('screens/AddOrEditAddressBookScreen', 'Are you sure you want to delete the address?'),
+      message: translate('screens/Settings', 'Enter passcode to continue'),
+      loading: translate('screens/AddOrEditAddressBookScreen', 'It may take a few seconds to delete'),
+      successMessage: translate('screens/AddOrEditAddressBookScreen', 'Address deleted!')
+    }
+    dispatch(authentication.actions.prompt(auth))
+  }, [navigation, dispatch, isEncrypted])
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: () => (
-        <HeaderTitle
-          text={translate('screens/AddOrEditAddressBookScreen', title)}
-        />
-      )
+      headerTitle: translate('screens/AddOrEditAddressBookScreen', title)
     })
   }, [navigation])
 
@@ -171,14 +189,18 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
   }, [fetchWalletAddresses])
 
   return (
-    <ThemedView style={tailwind('p-4 pt-6 flex-1')}>
-      <View style={tailwind('mb-6')}>
-        <WalletTextInput
+    <ThemedScrollViewV2
+      contentContainerStyle={tailwind('px-5 pb-16')}
+      style={tailwind('flex-1')}
+    >
+      {isAddNew
+      ? (
+        <WalletTextInputV2
           value={addressInput}
           autoCapitalize='none'
           multiline
           inputType='default'
-          displayClearButton={addressInput !== '' && addressInput !== undefined}
+          displayClearButton={addressInput !== '' && addressInput !== undefined && isAddNew}
           onChangeText={(text: string) => {
             setAddressInput(text)
             validateAddressInput(text)
@@ -187,37 +209,45 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
             setAddressInput('')
             validateAddressInput('')
           }}
-          placeholder={translate('screens/AddOrEditAddressBookScreen', 'Wallet address')}
-          style={tailwind('w-6/12 flex-grow')}
+          title={translate('screens/AddOrEditAddressBookScreen', 'ADDRESS')}
+          placeholder={translate('screens/AddOrEditAddressBookScreen', 'Enter address')}
+          style={tailwind('font-normal-v2 py-2.5 flex-1')}
           valid={addressInputErrorMessage === ''}
+          inputContainerStyle={tailwind('px-5')}
           inlineText={{
             type: 'error',
-            text: translate('screens/AddOrEditAddressBookScreen', addressInputErrorMessage)
+            text: translate('screens/AddOrEditAddressBookScreen', addressInputErrorMessage),
+            style: tailwind('px-5')
           }}
-          title={translate('screens/AddOrEditAddressBookScreen', 'Enter address')}
           testID='address_book_address_input'
         >
-          <ThemedTouchableOpacity
-            dark={tailwind('bg-gray-800 border-gray-400')}
-            light={tailwind('bg-white border-gray-300')}
-            onPress={onQrButtonPress}
-            style={tailwind('w-9 p-1.5 border rounded')}
-            testID='qr_code_button'
-          >
-            <ThemedIcon
-              dark={tailwind('text-darkprimary-500')}
-              iconType='MaterialIcons'
-              light={tailwind('text-primary-500')}
-              name='qr-code-scanner'
-              size={24}
-            />
-          </ThemedTouchableOpacity>
-        </WalletTextInput>
-      </View>
-      <WalletTextInput
+          {(addressInput ?? '')?.trim().length === 0 && (
+            <TouchableOpacity
+              onPress={onQrButtonPress}
+              testID='qr_code_button'
+            >
+              <ThemedIcon
+                light={tailwind('text-mono-light-v2-700')}
+                dark={tailwind('text-mono-dark-v2-700')}
+                style={tailwind('ml-2')}
+                iconType='MaterialIcons'
+                name='qr-code'
+                size={20}
+              />
+            </TouchableOpacity>
+          )}
+        </WalletTextInputV2>)
+      : (
+        <>
+          {addressInput !== undefined && addressInput?.trim().length > 0 &&
+            <CopyAddressComponent address={addressInput} />}
+        </>
+      )}
+      <WalletTextInputV2
         value={labelInput}
         inputType='default'
-        displayClearButton={labelInput !== '' && labelInput !== undefined}
+        editable={isAddNew || isEditable}
+        displayClearButton={labelInput !== '' && labelInput !== undefined && isEditable}
         onChangeText={(text: string) => {
           setLabelInput(text)
           validateLabelInput(text)
@@ -226,34 +256,160 @@ export function AddOrEditAddressBookScreen ({ route, navigation }: Props): JSX.E
           setLabelInput('')
           validateLabelInput('')
         }}
-        placeholder={translate('screens/AddOrEditAddressBookScreen', 'Address label')}
-        style={tailwind('h-9 w-6/12 flex-grow')}
+        inputContainerStyle={tailwind('px-5')}
+        placeholder={translate('screens/AddOrEditAddressBookScreen', 'Enter label')}
+        style={tailwind('font-normal-v2 flex-1 py-2.5')}
+        title={translate('screens/AddOrEditAddressBookScreen', 'LABEL')}
         valid={labelInputErrorMessage === ''}
         inlineText={{
           type: 'error',
-          text: translate('screens/AddOrEditAddressBookScreen', labelInputErrorMessage)
+          text: translate('screens/AddOrEditAddressBookScreen', labelInputErrorMessage),
+          style: tailwind('px-5')
         }}
-        title={translate('screens/AddOrEditAddressBookScreen', 'Enter address label')}
         testID='address_book_label_input'
-      />
-      <ThemedText
-        style={tailwind('text-xs mt-1')}
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
       >
-        {translate('screens/AddOrEditAddressBookScreen', 'Required field, max. 40 characters')}
-      </ThemedText>
+        {!isEditable && (
+          <TouchableOpacity
+            onPress={() => {
+              setIsEditable(true)
+            }}
+            style={tailwind('ml-5')}
+            testID='address_book_edit_label'
+          >
+            <ThemedIcon
+              dark={tailwind('text-mono-dark-v2-700')}
+              light={tailwind('text-mono-light-v2-700')}
+              iconType='Feather'
+              name='edit-2'
+              size={20}
+            />
+          </TouchableOpacity>
+        )}
+      </WalletTextInputV2>
+      {labelInputErrorMessage === '' && (
+        <ThemedTextV2
+          style={tailwind('font-normal-v2 text-xs mt-2 px-5')}
+          light={tailwind('text-mono-light-v2-500')}
+          dark={tailwind('text-mono-dark-v2-500')}
+        >
+          {translate('screens/AddOrEditAddressBookScreen', 'Maximum of 40 characters.')}
+        </ThemedTextV2>
+      )}
+      {!isEditable && address !== undefined
+        ? (
+          <>
+            <ThemedTouchableOpacityV2
+              light={tailwind('bg-mono-light-v2-00')}
+              dark={tailwind('bg-mono-dark-v2-00 ')}
+              style={tailwind('border-0 p-4.5 flex-row justify-center rounded-lg-v2 mt-6')}
+              testID='delete_address'
+              onPress={async () => await onDelete(address)}
+            >
+              <Text
+                style={tailwind('font-normal-v2 text-sm text-red-v2')}
+              >
+                {translate('screens/AddOrEditAddressBookScreen', 'Delete address')}
+              </Text>
+            </ThemedTouchableOpacityV2>
+            <ThemedTextV2
+              light={tailwind('text-mono-light-v2-500')}
+              dark={tailwind('text-mono-dark-v2-500')}
+              style={tailwind('font-normal-v2 mt-2 text-xs text-center')}
+            >
+              {translate('screens/ServiceProviderScreen', 'This will delete the whitelisted address\nfrom your address book.')}
+            </ThemedTextV2>
+          </>)
+      : <ButtonV2
+          disabled={isSaveDisabled()}
+          label={translate('screens/AddOrEditAddressBookScreen', isAddNew ? 'Save address' : 'Save changes')}
+          onPress={handleSubmit}
+          testID='save_address_label'
+          styleProps='mx-7 mt-12'
+        />}
+    </ThemedScrollViewV2>
+  )
+}
 
-      <View style={tailwind('mt-4 -mx-4')}>
-        <SubmitButtonGroup
-          isDisabled={isSaveDisabled()}
-          isCancelDisabled={false}
-          label={translate('screens/AddOrEditAddressBookScreen', 'CONTINUE')}
-          displayCancelBtn={false}
-          onSubmit={handleSubmit}
-          title='save_address_label'
-        />
-      </View>
-    </ThemedView>
+function CopyAddressComponent (props: { address: string }): JSX.Element {
+  const { getAddressUrl } = useDeFiScanContext()
+  const [showToast, setShowToast] = useState(false)
+  const toast = useToast()
+  const TOAST_DURATION = 2000
+
+  const copyToClipboard = useCallback(debounce(() => {
+    if (showToast) {
+      return
+    }
+    setShowToast(true)
+    setTimeout(() => setShowToast(false), TOAST_DURATION)
+  }, 500), [showToast])
+
+  useEffect(() => {
+    if (showToast) {
+      toast.show(translate('components/toaster', 'Copied'), {
+        type: 'wallet_toast',
+        placement: 'top',
+        duration: TOAST_DURATION
+      })
+    } else {
+      toast.hideAll()
+    }
+  }, [showToast, props.address])
+
+  return (
+    <ThemedViewV2
+      light={tailwind('bg-transparent')}
+      dark={tailwind('bg-transparent')}
+      style={tailwind('w-full flex-col')}
+    >
+      <ThemedSectionTitleV2
+        text={translate('screens/AddOrEditAddressBookScreen', 'ADDRESS')}
+      />
+      <ThemedViewV2
+        light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-00')}
+        dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-00')}
+        style={tailwind('flex flex-col border-0.5 rounded-lg-v2')}
+      >
+        <View
+          style={tailwind('flex flex-row items-center py-4.5 px-5 justify-between')}
+        >
+          <TouchableOpacity
+            onPress={async () => {
+              copyToClipboard()
+              await Clipboard.setStringAsync(props.address)
+            }}
+            style={tailwind('w-10/12')}
+          >
+            <ThemedTextV2
+              style={tailwind('font-normal-v2 text-sm')}
+            >
+              {props.address}&nbsp;&nbsp;
+              <ThemedIcon
+                dark={tailwind('text-mono-dark-v2-700')}
+                light={tailwind('text-mono-light-v2-700')}
+                style={tailwind('pt-1')}
+                iconType='Feather'
+                name='copy'
+                size={12}
+              />
+            </ThemedTextV2>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={async () => {
+              await openURL(getAddressUrl(props.address))
+            }}
+            style={tailwind('items-end')}
+          >
+            <ThemedIcon
+              dark={tailwind('text-mono-dark-v2-700')}
+              light={tailwind('text-mono-light-v2-700')}
+              iconType='Feather'
+              name='external-link'
+              size={20}
+            />
+          </TouchableOpacity>
+        </View>
+      </ThemedViewV2>
+    </ThemedViewV2>
   )
 }

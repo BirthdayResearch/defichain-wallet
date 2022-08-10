@@ -1,39 +1,34 @@
 import { View } from '@components'
-import { ThemedFlatList, ThemedIcon, ThemedSectionTitle, ThemedText, ThemedTouchableOpacity, ThemedView } from '@components/themed'
-import { StackScreenProps } from '@react-navigation/stack'
+import { ThemedIcon, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2, ThemedSectionTitleV2 } from '@components/themed'
+import { StackNavigationOptions, StackScreenProps } from '@react-navigation/stack'
 import { RootState } from '@store'
-import { hasTxQueued } from '@store/transaction_queue'
-import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { LocalAddress, selectAddressBookArray, selectLocalWalletAddressArray, setUserPreferences, userPreferences } from '@store/userPreferences'
-import { tailwind } from '@tailwind'
+import { getColor, tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Keyboard, Platform, TouchableOpacity, ScrollView } from 'react-native'
+import { createRef, useCallback, useEffect, useState } from 'react'
+import { Platform, TouchableOpacity, Image, StyleProp, ViewStyle, ScrollView, TextInput } from 'react-native'
 import { useSelector } from 'react-redux'
-import { PortfolioParamList } from '../PortfolioNavigator'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { NoTokensLight } from '../assets/NoTokensLight'
-import { NoTokensDark } from '../assets/NoTokensDark'
-import { AddressListEditButton } from '../components/AddressListEditButton'
-import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
-import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { MnemonicStorage } from '@api/wallet/mnemonic_storage'
-import { authentication, Authentication } from '@store/authentication'
-import { Button } from '@components/Button'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { debounce } from 'lodash'
 import { openURL } from '@api/linking'
-import { SearchInput } from '@components/SearchInput'
-import { ButtonGroup } from '../../Dex/components/ButtonGroup'
-import { DiscoverWalletAddress } from '../components/AddressControlScreen'
 import { Logging } from '@api'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { RandomAvatar } from '../components/RandomAvatar'
 import { useWalletAddress } from '@hooks/useWalletAddress'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import LightEmptyAddress from '@assets/images/empty-address-light.png'
+import DarkEmptyAddress from '@assets/images/empty-address-dark.png'
+import { ButtonV2 } from '@components/ButtonV2'
+import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
+import { ButtonGroupV2 } from '../../Dex/components/ButtonGroupV2'
+import { SearchInputV2 } from '@components/SearchInputV2'
+import { FavoriteCheckIcon, FavoriteUnCheckIcon } from '../../Settings/assets/FavoriteIcon'
+import { RefreshIcon } from '@screens/WalletNavigator/assets/RefreshIcon'
+import { SettingsParamList } from '../../Settings/SettingsNavigator'
+import { RandomAvatar } from '../components/RandomAvatar'
 
-type Props = StackScreenProps<PortfolioParamList, 'AddressBookScreen'>
+type Props = StackScreenProps<SettingsParamList, 'AddressBookScreen'>
 
 export enum ButtonGroupTabKey {
   Whitelisted = 'WHITELISTED',
@@ -42,22 +37,21 @@ export enum ButtonGroupTabKey {
 
 export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const { selectedAddress, onAddressSelect } = route.params
+  const { isLight } = useThemeContext()
   const { network } = useNetworkContext()
   const dispatch = useAppDispatch()
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
-  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const userPreferencesFromStore = useSelector((state: RootState) => state.userPreferences)
   const addressBook: LocalAddress[] = useSelector((state: RootState) => selectAddressBookArray(state.userPreferences))
   const walletAddressFromStore: LocalAddress[] = useSelector((state: RootState) => selectLocalWalletAddressArray(state.userPreferences)) // not all wallet address are stored in userPreference
   const [walletAddress, setWalletAddress] = useState<LocalAddress[]>(walletAddressFromStore) // combine labeled wallet address with jellyfish's api wallet
-  const [isEditing, setIsEditing] = useState(false)
   const [isSearchFocus, setIsSearchFocus] = useState(false)
-  const [favouriteAddress, setFavouriteAddress] = useState(addressBook.filter(address => address.isFavourite === true))
+  const { headerStyle }: StackNavigationOptions = useNavigatorScreenOptions()
   const { getAddressUrl } = useDeFiScanContext()
   const {
     wallet,
     addressLength
   } = useWalletContext()
+  const searchRef = createRef<TextInput>()
   const { fetchWalletAddresses } = useWalletAddress()
   const [filteredAddressBook, setFilteredAddressBook] = useState<LocalAddress[]>(addressBook)
   const [filteredWalletAddress, setFilteredWalletAddress] = useState<LocalAddress[]>(walletAddress)
@@ -66,20 +60,15 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     {
       id: ButtonGroupTabKey.Whitelisted,
       label: translate('screens/AddressBookScreen', 'Whitelisted'),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.Whitelisted)
+      handleOnPress: () => setActiveButtonGroup(ButtonGroupTabKey.Whitelisted)
     },
     {
       id: ButtonGroupTabKey.YourAddress,
-      label: translate('screens/AddressBookScreen', 'Your address(es)'),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.YourAddress)
+      label: translate('screens/AddressBookScreen', 'Your address'),
+      handleOnPress: () => setActiveButtonGroup(ButtonGroupTabKey.YourAddress)
     }
   ]
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.Whitelisted)
-
-  const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
-    setActiveButtonGroup(buttonGroupTabKey)
-    setIsEditing(false)
-  }
 
   useEffect(() => {
     // combine redux store and jellyfish wallet
@@ -115,27 +104,14 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
   const [searchString, setSearchString] = useState('')
   const filterAddress = useCallback(debounce((searchString: string): void => {
     setFilteredAddressBook(sortByFavourite(addressBook).filter(address =>
-      address.label.toLowerCase().includes(searchString.trim().toLowerCase()) ||
-      address.address.includes(searchString.trim().toLowerCase())
+      address.label.toLowerCase().includes(searchString?.trim().toLowerCase()) ||
+      address.address.includes(searchString?.trim().toLowerCase())
     ))
     setFilteredWalletAddress(sortByFavourite(walletAddress).filter(address =>
-      address.label.toLowerCase().includes(searchString.trim().toLowerCase()) ||
-      address.address.includes(searchString.trim().toLowerCase())
+      address.label.toLowerCase().includes(searchString?.trim().toLowerCase()) ||
+      address.address.includes(searchString?.trim().toLowerCase())
     ))
-  }, 200), [addressBook, walletAddress, activeButtonGroup])
-
-  // disable address selection touchableopacity from settings page
-  const disableAddressSelect = selectedAddress === undefined && onAddressSelect === undefined
-
-  const onChangeAddress = (address: string): void => {
-    if (hasPendingJob || hasPendingBroadcastJob) {
-      return
-    }
-    // condition to make address component unclickable from settings page
-    if (address !== undefined && onAddressSelect !== undefined) {
-      onAddressSelect(address)
-    }
-  }
+  }, 200), [addressBook, walletAddress, searchString, activeButtonGroup])
 
   // Favourite
   const onFavouriteAddress = async (localAddress: LocalAddress): Promise<void> => {
@@ -170,7 +146,7 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
 
   useEffect(() => {
     // update on search, on tab change
-    if (searchString.trim().length !== 0) {
+    if (searchString?.trim().length !== 0) {
       filterAddress(searchString)
       return
     }
@@ -182,199 +158,125 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: (): JSX.Element => (
-        <SearchInput
-          value={searchString}
-          placeholder={translate('screens/AddressBookScreen', 'Search address book')}
-          showClearButton={searchString !== ''}
-          onClearInput={() => setSearchString('')}
-          onChangeText={(text: string) => {
-            setSearchString(text)
-          }}
-          onFocus={() => {
-            setIsSearchFocus(true)
-            setIsEditing(false)
-          }}
-          testID='address_search_input'
-        />
-      ),
-      headerRight: (): JSX.Element => {
-        return !isSearchFocus
-        ? (
-          <TouchableOpacity
-            onPress={goToAddAddressForm}
-            testID='add_new_address'
-            disabled={activeButtonGroup === ButtonGroupTabKey.YourAddress}
-          >
-            <ThemedIcon
-              size={28}
-              name='plus'
-              style={tailwind('mr-2')}
-              light={tailwind(['text-primary-500', { 'text-gray-300': activeButtonGroup === ButtonGroupTabKey.YourAddress }])}
-              dark={tailwind(['text-darkprimary-500', { 'text-gray-600': activeButtonGroup === ButtonGroupTabKey.YourAddress }])}
-              iconType='MaterialCommunityIcons'
-            />
-          </TouchableOpacity>
-        )
-        : (
-          <TouchableOpacity
-            onPress={() => {
-              Keyboard.dismiss()
-              setIsSearchFocus(false)
-              setSearchString('')
-            }}
-            testID='cancel_search_button'
-          >
-            <ThemedIcon
-              size={28}
-              name='close'
-              style={tailwind('mr-2')}
-              light={tailwind('text-primary-500')}
-              dark={tailwind('text-darkprimary-500')}
-              iconType='MaterialCommunityIcons'
-            />
-          </TouchableOpacity>
-        )
-      }
+      headerStyle: [...(headerStyle as Array<StyleProp<ViewStyle>>), tailwind('rounded-b-none border-b-0'), { shadowOpacity: 0 }]
     })
-  }, [searchString, activeButtonGroup, isSearchFocus])
-
-  useEffect(() => {
-    setFavouriteAddress(addressBook.filter(address => address.isFavourite === true))
-  }, [addressBook])
+  }, [])
 
   const AddressListItem = useCallback(({
     item,
     index,
-    testIDSuffix
-  }: { item: LocalAddress, index: number, testIDSuffix: string }): JSX.Element => {
+    testIDSuffix,
+    selectedAddress,
+    onAddressSelect
+  }: { item: LocalAddress, index: number, testIDSuffix: string, selectedAddress?: string, onAddressSelect?: ((address: string) => void) }): JSX.Element => {
+    // condition to hide icon from send page
+    const enableAddressSelect = selectedAddress !== undefined && onAddressSelect !== undefined
+    const onChangeAddress = (address: string): void => {
+      if (enableAddressSelect) {
+        onAddressSelect(address)
+      }
+    }
     return (
-      <ThemedTouchableOpacity
+      <ThemedTouchableOpacityV2
         key={item.address}
-        style={tailwind('px-4 py-3 flex flex-row items-center justify-between')}
-        onPress={async () => {
-          if (!isEditing) {
-            onChangeAddress(item.address)
-          }
-        }}
+        light={tailwind('bg-mono-light-v2-00')}
+        dark={tailwind('bg-mono-dark-v2-00')}
+        style={tailwind('py-4.5 pl-5 pr-4 mb-2 rounded-lg-v2')}
         testID={`address_row_${index}_${testIDSuffix}`}
-        disabled={hasPendingJob || hasPendingBroadcastJob || isEditing || disableAddressSelect}
+        onPress={async () => {
+          onChangeAddress(item.address)
+        }}
       >
         <View style={tailwind('flex flex-row items-center flex-grow', { 'flex-auto': Platform.OS === 'web' })}>
-          {item.isMine &&
-            <View style={tailwind('mr-2')}>
-              <RandomAvatar name={item.address} size={24} />
-            </View>}
-          <View style={tailwind('mr-2 flex-auto')}>
-            <View style={tailwind('flex flex-row items-center')}>
-              {item.label !== '' &&
-                <ThemedText style={tailwind('text-sm pr-1')} testID={`address_row_label_${index}_${testIDSuffix}`}>
-                  {item.label}
-                </ThemedText>}
-              {!isEditing && (
-                <ThemedIcon
-                  size={16}
-                  name='open-in-new'
-                  iconType='MaterialIcons'
-                  light={tailwind('text-primary-500')}
-                  dark={tailwind('text-darkprimary-500')}
-                  onPress={async () => await openURL(getAddressUrl(item.address))}
-                />
-              )}
-            </View>
-            <ThemedText
-              style={tailwind('text-sm w-full')}
-              light={tailwind('text-gray-500')}
-              dark={tailwind('text-gray-400')}
-              ellipsizeMode='middle'
-              numberOfLines={1}
-              testID={`address_row_text_${index}_${testIDSuffix}`}
-            >
-              {item.address}
-            </ThemedText>
-          </View>
-          {isEditing
+          {item.isMine
             ? (
-              <>
-                <TouchableOpacity onPress={() => navigation.navigate({
+              <View style={tailwind('mr-3')}>
+                <RandomAvatar name={item.address} size={36} />
+              </View>
+              )
+            : (
+              <TouchableOpacity
+                activeOpacity={0.7}
+                style={tailwind('mr-4')}
+                onPress={async () => await onFavouriteAddress(item)}
+                testID={`address_row_star_${index}_${testIDSuffix}`}
+                disabled={enableAddressSelect}
+              >
+                {item.isFavourite === true
+                ? <FavoriteCheckIcon
+                    size={24}
+                    testID={`address_row_${index}_is_favourite_${testIDSuffix}`}
+                  />
+                : <FavoriteUnCheckIcon
+                    size={24}
+                    testID={`address_row_${index}_not_favourite_${testIDSuffix}`}
+                  />}
+              </TouchableOpacity>
+            )}
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={async () => {
+              if (activeButtonGroup === ButtonGroupTabKey.Whitelisted) {
+                setSearchString('')
+                setIsSearchFocus(false)
+                navigation.navigate({
                   name: 'AddOrEditAddressBookScreen',
                   params: {
-                    title: 'Edit Address',
+                    title: 'Address Details',
                     isAddNew: false,
                     address: item.address,
                     addressLabel: item,
-                    onSaveButtonPress: () => {
-                      setIsEditing(false)
-                      setSearchString('')
-                    }
+                    onSaveButtonPress: () => {}
                   },
                   merge: true
-                })}
+                })
+              } else {
+                await openURL(getAddressUrl(item.address))
+              }
+            }}
+            testID={`address_action_${item.address}`}
+            style={tailwind('flex flex-row items-center flex-auto')}
+            disabled={enableAddressSelect}
+          >
+            <View style={tailwind('flex flex-auto mr-1')}>
+              {item.label !== '' &&
+                <ThemedTextV2
+                  style={tailwind('font-semibold-v2 text-sm')}
+                  testID={`address_row_label_${index}_${testIDSuffix}`}
                 >
-                  <ThemedIcon
-                    size={24}
-                    name='edit'
-                    iconType='MaterialIcons'
-                    style={tailwind('mr-2 font-bold')}
-                    light={tailwind('text-gray-600')}
-                    dark={tailwind('text-gray-300')}
-                    testID={`address_edit_indicator_${item.address}`}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={async () => await onDelete(item.address)}>
-                  <ThemedIcon
-                    size={24}
-                    name='delete'
-                    iconType='MaterialIcons'
-                    light={tailwind('text-gray-600')}
-                    dark={tailwind('text-gray-300')}
-                    testID={`address_delete_indicator_${item.address}`}
-                  />
-                </TouchableOpacity>
-              </>
-            )
-            : item.address === selectedAddress
-              ? (
-                <ThemedIcon
-                  size={24}
-                  name='check'
-                  iconType='MaterialIcons'
-                  light={tailwind('text-success-600')}
-                  dark={tailwind('text-darksuccess-600')}
-                  testID={`address_active_indicator_${item.address}`}
-                />
-              )
-              : !item.isMine && (
-                <TouchableOpacity
-                  style={tailwind('pl-4 py-2')}
-                  onPress={async () => await onFavouriteAddress(item)}
-                  testID={`address_row_favourite_${index}_${testIDSuffix}`}
-                >
-                  <ThemedIcon
-                    iconType='MaterialIcons'
-                    name={item.isFavourite === true ? 'star' : 'star-outline'}
-                    size={20}
-                    light={tailwind(
-                      item.isFavourite === true ? 'text-warning-500' : 'text-gray-600'
-                    )}
-                    dark={tailwind(
-                      item.isFavourite === true ? 'text-darkwarning-500' : 'text-gray-300'
-                    )}
-                    testID={item.isFavourite === true ? `address_row_${index}_is_favourite_${testIDSuffix}` : `address_row_${index}_not_favourite_${testIDSuffix}`}
-                  />
-                </TouchableOpacity>
-              )}
+                  {item.label}
+                </ThemedTextV2>}
+              <ThemedTextV2
+                style={tailwind('font-normal-v2 text-xs w-10/12 mt-1')}
+                light={tailwind('text-mono-light-v2-700')}
+                dark={tailwind('text-mono-dark-v2-700')}
+                ellipsizeMode='middle'
+                numberOfLines={1}
+                testID={`address_row_text_${index}_${testIDSuffix}`}
+              >
+                {item.address}
+              </ThemedTextV2>
+            </View>
+            {!enableAddressSelect && (
+              <ThemedIcon
+                dark={tailwind('text-mono-dark-v2-700')}
+                light={tailwind('text-mono-light-v2-700')}
+                iconType='Feather'
+                name={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? 'chevron-right' : 'external-link'}
+                size={18}
+              />
+            )}
+          </TouchableOpacity>
         </View>
-      </ThemedTouchableOpacity>
+      </ThemedTouchableOpacityV2>
     )
-  }, [filteredAddressBook, filteredWalletAddress, isEditing, activeButtonGroup])
+  }, [filteredAddressBook, filteredWalletAddress, activeButtonGroup])
 
   const goToAddAddressForm = (): void => {
-    setIsEditing(false)
     navigation.navigate({
       name: 'AddOrEditAddressBookScreen',
       params: {
-        title: 'Add New Address',
+        title: 'Add Address',
         isAddNew: true,
         onSaveButtonPress: (address?: string) => {
           if (onAddressSelect !== undefined && address !== undefined) {
@@ -386,206 +288,170 @@ export function AddressBookScreen ({ route, navigation }: Props): JSX.Element {
     })
   }
 
-  const HeaderComponent = useMemo(() => {
-    return (
-      <ThemedView
-        light={tailwind('bg-gray-50 border-gray-200')}
-        dark={tailwind('bg-gray-900 border-gray-700')}
-        style={tailwind('flex flex-col items-center px-4 pt-6 pb-2 border-b')}
+  return (
+    <ThemedViewV2
+      style={tailwind('h-full')}
+    >
+      <ThemedViewV2
+        light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-100')}
+        dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-100')}
+        style={tailwind('flex flex-col items-center pt-1 rounded-b-2xl border-b')}
       >
-        <View style={tailwind('mb-4 w-full')}>
-          <ButtonGroup
+        <View style={tailwind('w-full px-5')}>
+          <ButtonGroupV2
             buttons={buttonGroup}
             activeButtonGroupItem={activeButtonGroup}
-            labelStyle={tailwind('font-medium text-xs text-center py-0.5')}
             testID='address_button_group'
+            lightThemeStyle={tailwind('bg-transparent')}
+            darkThemeStyle={tailwind('bg-transparent')}
           />
         </View>
-        <View style={tailwind('flex flex-row items-center justify-between w-full')}>
-          <View style={tailwind('flex flex-row items-center')}>
-            <WalletCounterDisplay addressLength={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? filteredAddressBook.length : filteredWalletAddress.length} />
-            {activeButtonGroup === ButtonGroupTabKey.YourAddress && <DiscoverWalletAddress size={18} />}
-          </View>
-          {(addressBook.length > 0 && activeButtonGroup === ButtonGroupTabKey.Whitelisted) &&
-            <AddressListEditButton isEditing={isEditing} handleOnPress={() => setIsEditing(!isEditing)} />}
-        </View>
-      </ThemedView>
-    )
-  }, [filteredAddressBook, filteredWalletAddress, isEditing, activeButtonGroup])
-
-  // Passcode prompt
-  const { data: { type: encryptionType } } = useWalletNodeContext()
-  const isEncrypted = encryptionType === 'MNEMONIC_ENCRYPTED'
-  const logger = useLogger()
-  const onDelete = useCallback(async (address: string): Promise<void> => {
-    if (!isEncrypted) {
-      return
-    }
-
-    const auth: Authentication<string[]> = {
-      consume: async passphrase => await MnemonicStorage.get(passphrase),
-      onAuthenticated: async () => {
-        dispatch(userPreferences.actions.deleteFromAddressBook(address))
-        setIsEditing(false)
-        setSearchString('')
-      },
-      onError: e => logger.error(e),
-      title: translate('screens/Settings', 'Sign to delete address'),
-      message: translate('screens/Settings', 'Enter passcode to continue'),
-      loading: translate('screens/Settings', 'Verifying access')
-    }
-    dispatch(authentication.actions.prompt(auth))
-  }, [navigation, dispatch, isEncrypted])
-
-  if (isSearchFocus) {
-    return (
-      <ThemedView style={tailwind('flex-1')}>
-        <View style={tailwind('pt-6 px-4')}>
-          {searchString.trim().length === 0
-            ? (
-              <ThemedText
-                style={tailwind('text-sm')}
-                light={tailwind('text-gray-500')}
-                dark={tailwind('text-gray-400')}
-              >
-                {translate('screens/AddressBookScreen', 'Search with label or address')}
-              </ThemedText>
-            )
-            : (
-              <SearchResultTextWithCounter searchString={searchString} length={filteredAddressBook.length + filteredWalletAddress.length} />
-            )}
-        </View>
-        {searchString.trim().length === 0 && favouriteAddress.length > 0 &&
-          (
-            <ThemedFlatList
-              data={favouriteAddress}
-              renderItem={({ item, index }) => AddressListItem({
-              item,
-              index,
-              testIDSuffix: 'favourite_address'
-            })}
-              ListHeaderComponent={() => (
-                <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'FAVOURITE ADDRESS(ES)')} />
-            )}
+      </ThemedViewV2>
+      <ScrollView
+        contentContainerStyle={tailwind('pb-8')}
+        style={tailwind('px-5 h-full')}
+      >
+        <View
+          style={tailwind('flex flex-row items-center mt-8')}
+        >
+          <View style={tailwind('flex-1')}>
+            <SearchInputV2
+              value={searchString}
+              ref={searchRef}
+              containerStyle={[
+                tailwind('border-0.5'),
+                tailwind(isSearchFocus ? { 'border-mono-light-v2-800': isLight, 'border-mono-dark-v2-800': !isLight } : { 'border-mono-light-v2-00': isLight, 'border-mono-dark-v2-00': !isLight })
+              ]}
+              placeholder={translate('screens/AddressBookScreen', 'Search address book')}
+              showClearButton={searchString !== ''}
+              onClearInput={() => {
+                setSearchString('')
+                searchRef?.current?.focus()
+              }}
+              onChangeText={(text: string) => {
+                setSearchString(text)
+              }}
+              onFocus={() => {
+                setIsSearchFocus(true)
+              }}
+              onBlur={() => {
+                setIsSearchFocus(false)
+              }}
+              testID='address_search_input'
             />
-        )}
-        {searchString.trim().length > 0 &&
-          (
-            <ScrollView contentContainerStyle={tailwind('pb-8')}>
-              {filteredAddressBook.length !== 0 && <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'WHITELISTED')} />}
-              {filteredAddressBook.map((item: LocalAddress, index: number) => (
-                <AddressListItem
-                  item={item}
-                  key={index}
-                  index={index}
-                  testIDSuffix='address_book'
-                />)
-              )}
-              {filteredWalletAddress.length !== 0 && <ThemedSectionTitle text={translate('screens/AddressBookScreen', 'YOUR ADDRESS(ES)')} />}
-              {filteredWalletAddress.map((item: LocalAddress, index: number) => (
-                <AddressListItem
-                  item={item}
-                  key={index}
-                  index={index}
-                  testIDSuffix='wallet_address'
-                />)
-              )}
-            </ScrollView>
+          </View>
+          <View style={tailwind('ml-3')}>
+            {activeButtonGroup === ButtonGroupTabKey.Whitelisted
+              ? (
+                <ThemedTouchableOpacityV2
+                  onPress={goToAddAddressForm}
+                  light={tailwind('bg-mono-light-v2-900')}
+                  dark={tailwind('bg-mono-dark-v2-900')}
+                  testID='add_new_address'
+                  style={tailwind('flex h-10 w-10 flex-row items-center justify-center rounded-full')}
+                >
+                  <ThemedIcon
+                    size={24}
+                    name='plus'
+                    light={tailwind('text-mono-light-v2-00')}
+                    dark={tailwind('text-mono-dark-v2-00')}
+                    iconType='Feather'
+                  />
+                </ThemedTouchableOpacityV2>
+              )
+              : <DiscoverWalletAddressV2 size={24} />}
+          </View>
+        </View>
+        {(isSearchFocus || searchString?.trim().length !== 0) && (
+          <View style={tailwind('px-5 mt-6 mb-2')}>
+            <ThemedTextV2
+              light={tailwind('text-mono-light-v2-700')}
+              dark={tailwind('text-mono-dark-v2-700')}
+              style={tailwind('font-normal-v2 text-xs')}
+              testID='search_title'
+            >
+              {searchString?.trim().length > 0
+              ? translate('screens/AddressBookScreen', 'Search results for “{{input}}”', { input: searchString?.trim() })
+            : translate('screens/AddressBookScreen', 'Search with label or address')}
+            </ThemedTextV2>
+          </View>
           )}
-      </ThemedView>
-    )
-  }
-  return (
-    <ThemedFlatList
-      light={tailwind('bg-gray-50')}
-      keyExtractor={(item) => item.address}
-      stickyHeaderIndices={[0]}
-      data={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? filteredAddressBook : filteredWalletAddress}
-      renderItem={({ item, index }) => AddressListItem({
-        item,
-        index,
-        testIDSuffix: `${activeButtonGroup}`
-      })}
-      ListHeaderComponent={HeaderComponent} // Address counter
-      ListEmptyComponent={activeButtonGroup === ButtonGroupTabKey.Whitelisted && filteredAddressBook.length === 0 ? <EmptyDisplay onPress={goToAddAddressForm} /> : <></>}
-    />
+        {(activeButtonGroup === ButtonGroupTabKey.Whitelisted && filteredAddressBook.length === 0 && !isSearchFocus && searchString?.trim().length === 0)
+        ? (
+          <EmptyDisplay onPress={goToAddAddressForm} />
+        )
+        : (
+          <>
+            {!isSearchFocus && searchString?.trim().length === 0 && (
+              <ThemedSectionTitleV2
+                testID='addresses_title'
+                text={translate('screens/AddressBookScreen', 'ADDRESS(ES)')}
+              />
+            )}
+            {(activeButtonGroup === ButtonGroupTabKey.Whitelisted ? filteredAddressBook : filteredWalletAddress).map((item: LocalAddress, index: number) => (
+              <AddressListItem
+                item={item}
+                key={item.address}
+                index={index}
+                testIDSuffix={activeButtonGroup === ButtonGroupTabKey.Whitelisted ? 'WHITELISTED' : 'YOUR_ADDRESS'}
+                selectedAddress={selectedAddress}
+                onAddressSelect={onAddressSelect}
+              />)
+            )}
+          </>
+        )}
+      </ScrollView>
+    </ThemedViewV2>
   )
 }
 
 function EmptyDisplay ({ onPress }: { onPress: () => void }): JSX.Element {
   const { isLight } = useThemeContext()
   return (
-    <ThemedView
-      style={tailwind('px-8 pt-24 pb-2 text-center')}
+    <View
+      style={tailwind('px-5 text-center mt-10')}
       testID='empty_address_book'
     >
-      <View style={tailwind('items-center pb-4')}>
-        {
-          isLight ? <NoTokensLight /> : <NoTokensDark />
-        }
+      <View style={tailwind('items-center pb-8')}>
+        <Image
+          style={{ width: 200, height: 136 }}
+          source={isLight ? LightEmptyAddress : DarkEmptyAddress}
+        />
       </View>
-      <ThemedText testID='empty_tokens_title' style={tailwind('text-2xl font-semibold text-center')}>
+      <ThemedTextV2
+        testID='empty_tokens_title'
+        style={tailwind('text-xl font-semibold-v2 text-center')}
+      >
         {translate('screens/AddressBookScreen', 'No saved addresses')}
-      </ThemedText>
-      <ThemedText testID='empty_tokens_subtitle' style={tailwind('px-8 pb-4 text-center opacity-60')}>
-        {translate('screens/AddressBookScreen', 'Add your preferred address')}
-      </ThemedText>
-      <Button
-        label={translate('screens/AddressBookScreen', 'ADD ADDRESS')}
+      </ThemedTextV2>
+      <ThemedTextV2
+        testID='empty_tokens_subtitle'
+        style={tailwind('font-normal-v2 text-center mt-2')}
+      >
+        {translate('screens/AddressBookScreen', 'Add your preferred / commonly-used address.')}
+      </ThemedTextV2>
+      <ButtonV2
+        label={translate('screens/AddressBookScreen', 'Add address')}
         onPress={onPress}
         testID='button_add_address'
-        title='Add address'
-        margin='m-0 mb-4'
+        styleProps='mx-1 mt-11'
       />
-    </ThemedView>
-  )
-}
-
-function WalletCounterDisplay ({ addressLength }: { addressLength: number }): JSX.Element {
-  return (
-    <ThemedText
-      light={tailwind('text-gray-400')}
-      dark={tailwind('text-gray-500')}
-      style={tailwind('text-xs font-medium mr-1.5 my-0.5')}
-      testID='address_detail_address_count'
-    >
-      {translate('screens/AddressBookScreen', '{{length}} ADDRESS(ES)', { length: addressLength })}
-    </ThemedText>
-  )
-}
-
-function SearchResultTextWithCounter ({ searchString, length }: {searchString: string, length: number}): JSX.Element {
-  return (
-    <View
-      style={tailwind('justify-between flex-row items-center')}
-    >
-      <View style={tailwind('w-10/12')}>
-        <ThemedText
-          light={tailwind('text-gray-900')}
-          dark={tailwind('text-gray-50')}
-          style={tailwind('text-sm')}
-          ellipsizeMode='middle'
-          numberOfLines={1}
-        >
-          {translate('screens/AddressBookScreen', 'Search results for')}
-          <ThemedText
-            light={tailwind('text-gray-900')}
-            dark={tailwind('text-gray-50')}
-            style={tailwind('text-sm font-medium')}
-            testID='search_result_text_search_string'
-          >
-            {` “${searchString}”`}
-          </ThemedText>
-        </ThemedText>
-      </View>
-      <ThemedText
-        light={tailwind('text-gray-400')}
-        dark={tailwind('text-gray-500')}
-        style={tailwind('text-xs')}
-        testID='search_result_count'
-      >
-        {translate('screens/AddressBookScreen', '{{length}} results', { length })}
-      </ThemedText>
     </View>
+  )
+}
+
+export function DiscoverWalletAddressV2 ({ size = 24 }: { size?: number }): JSX.Element {
+  const { discoverWalletAddresses } = useWalletContext()
+  const { isLight } = useThemeContext()
+  return (
+    <ThemedTouchableOpacityV2
+      onPress={discoverWalletAddresses}
+      testID='discover_wallet_addresses'
+      light={tailwind('bg-mono-light-v2-900')}
+      dark={tailwind('bg-mono-dark-v2-900')}
+      style={tailwind('flex h-10 w-10 flex-row items-center justify-center rounded-full')}
+    >
+      <RefreshIcon size={size} color={getColor(isLight ? 'mono-light-v2-00' : 'mono-dark-v2-00')} />
+    </ThemedTouchableOpacityV2>
   )
 }

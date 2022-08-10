@@ -1,9 +1,10 @@
 import {
   ThemedIcon,
-  ThemedScrollView,
-  ThemedSectionTitle,
-  ThemedText,
-  ThemedTouchableOpacity
+  ThemedScrollViewV2,
+  ThemedSectionTitleV2,
+  ThemedTextV2,
+  ThemedTouchableOpacityV2,
+  ThemedViewV2
 } from '@components/themed'
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
@@ -15,17 +16,9 @@ type Props = StackScreenProps<SettingsParamList, 'KnowledgeBaseScreen'>
 export function KnowledgeBaseScreen ({ navigation }: Props): JSX.Element {
   const knowledgeBaseItems = [
     {
-      label: 'Recovery words',
-      testID: 'recovery_words_faq',
-      onPress: () => navigation.navigate('RecoveryWordsFaq')
-    }, {
-      label: 'Passcode',
-      testID: 'passcode_faq',
-      onPress: () => navigation.navigate('PasscodeFaq')
-    }, {
-      label: 'UTXO vs Token',
-      testID: 'utxo_and_token_faq',
-      onPress: () => navigation.navigate('TokensVsUtxo')
+      label: 'Auctions',
+      testID: 'auctions_faq',
+      onPress: () => navigation.navigate('AuctionsFaq')
     },
     {
       label: 'DEX',
@@ -33,7 +26,7 @@ export function KnowledgeBaseScreen ({ navigation }: Props): JSX.Element {
       onPress: () => navigation.navigate('DexFaq')
     },
     {
-      label: 'Liquidity Mining',
+      label: 'Liquidity mining',
       testID: 'liquidity_mining_faq',
       onPress: () => navigation.navigate('LiquidityMiningFaq')
     },
@@ -48,49 +41,68 @@ export function KnowledgeBaseScreen ({ navigation }: Props): JSX.Element {
       })
     },
     {
-      label: 'Auctions',
-      testID: 'auctions_faq',
-      onPress: () => navigation.navigate('AuctionsFaq')
+      label: 'Passcode',
+      testID: 'passcode_faq',
+      onPress: () => navigation.navigate('PasscodeFaq')
+    },
+    {
+      label: 'Recovery words',
+      testID: 'recovery_words_faq',
+      onPress: () => navigation.navigate('RecoveryWordsFaq')
+    },
+    {
+      label: 'UTXO and Tokens',
+      testID: 'utxo_and_token_faq',
+      onPress: () => navigation.navigate('TokensVsUtxo')
     }
   ]
 
   return (
-    <ThemedScrollView
-      style={tailwind('flex-1 pb-8')}
+    <ThemedScrollViewV2
+      style={tailwind('flex-1')}
+      contentContainerStyle={tailwind('px-5 pb-16')}
       testID='knowledge_base_screen'
     >
-      <ThemedSectionTitle
+      <ThemedSectionTitleV2
         testID='knowledge_base_title'
-        text={translate('screens/KnowledgeBase', 'LEARN ABOUT')}
+        text={translate('screens/KnowledgeBase', 'LEARN MORE')}
       />
-
-      {knowledgeBaseItems.map((each) =>
-        <NavigateItemRow key={each.label} {...each} />
-      )}
-    </ThemedScrollView>
+      <ThemedViewV2
+        dark={tailwind('bg-mono-dark-v2-00')}
+        light={tailwind('bg-mono-light-v2-00')}
+        style={tailwind('rounded-lg-v2')}
+      >
+        {knowledgeBaseItems.map((each, index) =>
+          <NavigateItemRow key={each.label} {...each} border={index < knowledgeBaseItems.length - 1} />
+        )}
+      </ThemedViewV2>
+    </ThemedScrollViewV2>
   )
 }
 
 function NavigateItemRow ({
   testID,
   label,
-  onPress
-}: { testID: string, label: string, onPress: () => void }): JSX.Element {
+  onPress,
+  border
+}: { testID: string, label: string, onPress: () => void, border: boolean }): JSX.Element {
   return (
-    <ThemedTouchableOpacity
+    <ThemedTouchableOpacityV2
       onPress={onPress}
-      style={tailwind('flex p-4 pr-2 flex-row items-center justify-between')}
+      style={tailwind('flex ml-5 mr-4 py-4.5 flex-row items-center justify-between', { 'border-b': border })}
       testID={testID}
     >
-      <ThemedText style={tailwind('font-medium')}>
+      <ThemedTextV2 style={tailwind('text-sm font-normal-v2')}>
         {translate('screens/KnowledgeBase', label)}
-      </ThemedText>
+      </ThemedTextV2>
 
       <ThemedIcon
-        iconType='MaterialIcons'
+        dark={tailwind('text-mono-dark-v2-900')}
+        light={tailwind('text-mono-light-v2-900')}
+        iconType='Feather'
         name='chevron-right'
         size={24}
       />
-    </ThemedTouchableOpacity>
+    </ThemedTouchableOpacityV2>
   )
 }

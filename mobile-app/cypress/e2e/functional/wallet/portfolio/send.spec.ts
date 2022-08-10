@@ -431,7 +431,7 @@ context('Wallet - Send - Address book', function () {
       cy.getByTestID('address_book_label_input_error').should('not.exist')
       cy.getByTestID('address_book_address_input').clear().type(addresses[index]).blur()
       cy.getByTestID('address_book_address_input_error').should('not.exist')
-      cy.getByTestID('button_confirm_save_address_label').click().wait(1000)
+      cy.getByTestID('save_address_label').click().wait(1000)
       cy.getByTestID('pin_authorize').type('000000').wait(2000)
       validateMatchAddress(addresses[index], labels[index])
       cy.getByTestID('address_book_button').click()
@@ -467,17 +467,17 @@ context('Wallet - Send - Address book', function () {
 
   it('should be able to validate add new address form', function () {
     cy.getByTestID('button_add_address').click()
-    cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+    cy.getByTestID('save_address_label').should('have.attr', 'aria-disabled')
     cy.getByTestID('address_book_label_input').type('foo')
-    cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+    cy.getByTestID('save_address_label').should('have.attr', 'aria-disabled')
     cy.getByTestID('address_book_address_input').type('fake address')
-    cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+    cy.getByTestID('save_address_label').should('have.attr', 'aria-disabled')
     cy.getByTestID('address_book_address_input_error').contains('Please enter a valid address')
     cy.getByTestID('address_book_label_input_clear_button').click()
-    cy.getByTestID('address_book_label_input_error').contains('Please enter an address label')
+    cy.getByTestID('address_book_label_input_error').contains('Required field. Please enter a label. Maximum of 40 characters.')
     cy.getByTestID('address_book_address_input').clear()
     cy.getByTestID('address_book_address_input_error').contains('Please enter a valid address')
-    cy.getByTestID('button_confirm_save_address_label').should('have.attr', 'aria-disabled')
+    cy.getByTestID('save_address_label').should('have.attr', 'aria-disabled')
   })
 
   it('should be able to add new address', function () {
