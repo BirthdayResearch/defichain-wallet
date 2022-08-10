@@ -229,6 +229,7 @@ export function SendScreenV2 ({
                         onChange={onChange}
                         placeholder='0'
                         placeholderTextColor={getColor(isLight ? 'mono-light-v2-900' : 'mono-dark-v2-900')}
+                        testID='amount_input'
                       />
                     )}
                     rules={{

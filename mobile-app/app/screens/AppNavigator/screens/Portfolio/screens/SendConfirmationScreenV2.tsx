@@ -8,7 +8,6 @@ import { WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import { Dispatch, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { ThemedActivityIndicatorV2, ThemedIcon, ThemedScrollViewV2, ThemedText, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { RootState } from '@store'
@@ -25,6 +24,7 @@ import { SummaryTitleV2 } from '@components/SummaryTitleV2'
 import { NumberRowV2 } from '@components/NumberRowV2'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useAddressLabel } from '@hooks/useAddressLabel'
+import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
 
 type Props = StackScreenProps<PortfolioParamList, 'SendConfirmationScreen'>
 
@@ -211,17 +211,17 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
         (
           <LpAcknowledgeSwitch isAcknowledge={isAcknowledge} onSwitch={(val) => setIsAcknowledge(val)} />
         )}
-
-      <SubmitButtonGroup
+      <SubmitButtonGroupV2
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob || (token.isLPS && !isAcknowledge)}
         isCancelDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/SendConfirmationScreen', 'CONFIRM SEND')}
+        label={translate('screens/SendConfirmationScreen', 'SEND')}
         isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         processingLabel={translate('screens/SendConfirmationScreen', getSubmitLabel())}
         onCancel={onCancel}
         onSubmit={onSubmit}
         displayCancelBtn
         title='send'
+        buttonStyle='mx-5'
       />
     </ThemedScrollViewV2>
   )

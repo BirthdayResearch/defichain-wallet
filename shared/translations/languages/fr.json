@@ -278,6 +278,9 @@
     "Transaction type": "Type de transaction",
     "Amount to send": "Montant à envoyer"
   },
+  "screens/TokenSelectionScreen": {
+    "Search token": "Rechercher de token"
+  },
   "screens/ConvertScreen": {
     "Convert DFI": "Convertir DFI",
     "Scan recipient QR": "Scanner le QR du destinataire",

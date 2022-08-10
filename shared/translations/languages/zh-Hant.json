@@ -268,6 +268,9 @@
     "Transaction type": "交易類型",
     "Amount to send": "發送金額"
   },
+  "screens/TokenSelectionScreen": {
+    "Search token": "搜索代幣"
+  },
   "screens/ConvertScreen": {
     "Convert DFI": "轉換DFI",
     "Scan recipient QR": "掃一掃收方地址QR二維條碼",

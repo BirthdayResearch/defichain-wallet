@@ -12,7 +12,7 @@ export function useDisplayUtxoWarning (): {
   const reservedDFI = 0.1
 
   const getDisplayUtxoWarningStatus = useCallback((amountInDFI: BigNumber) => {
-    if (new BigNumber(amountInDFI).isNaN()) {
+    if (new BigNumber(amountInDFI).isNaN() || new BigNumber(amountInDFI).isZero()) {
       return false
     }
 

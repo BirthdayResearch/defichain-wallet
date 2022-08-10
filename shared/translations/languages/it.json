@@ -279,6 +279,9 @@
     "Transaction type": "Tipo di transazione",
     "Amount to send": "Importo da inviare"
   },
+  "screens/TokenSelectionScreen": {
+    "Search token": "Search token"
+  },
   "screens/ConvertScreen": {
     "Convert DFI": "Converti DFI",
     "Scan recipient QR": "Scansione QR del destinatario",
