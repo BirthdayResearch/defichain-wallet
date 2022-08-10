@@ -67,7 +67,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
           style={tailwind('text-center font-normal-v2 pt-1.5 px-10', { 'mb-16 pb-3': props.status === TransactionStatus.PIN })}
           testID='txn_authorization_title'
         >
-          {props.transaction?.displayTitle ?? props.title}
+          {props.transaction?.title ?? props.title}
         </ThemedTextV2>
         {props.status === TransactionStatus.SIGNING &&
           <>

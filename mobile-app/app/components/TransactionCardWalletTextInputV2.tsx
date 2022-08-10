@@ -3,7 +3,6 @@ import { Platform, StyleProp, Text, TextInputProps, TouchableOpacity, View, View
 import { useBottomSheetInternal } from '@gorhom/bottom-sheet'
 import { ThemedIcon, ThemedProps, ThemedSectionTitleV2, ThemedTextInputV2, ThemedViewV2 } from '@components/themed'
 import { getColor, tailwind } from '@tailwind'
-import { MaterialIcons } from '@expo/vector-icons'
 
 type WalletTextInputProps = React.PropsWithChildren<TextInputProps> & IWalletTextInputProps
 export type InputType = 'default' | 'numeric'
@@ -93,11 +92,13 @@ export const TransactionCardWalletTextInputV2 = forwardRef<any, WalletTextInputP
             {...otherProps}
           />
           {displayTickIcon === true &&
-            <MaterialIcons
+            <ThemedIcon
               size={16}
               name='check-circle'
               iconType='MaterialIcons'
-              style={tailwind('text-green-v2 ml-2')}
+              light={tailwind('text-green-v2')}
+              dark={tailwind('text-green-v2')}
+              style={tailwind('ml-2')}
               testID={props.testID !== undefined ? `${props.testID}_check_button` : undefined}
             />}
           {
