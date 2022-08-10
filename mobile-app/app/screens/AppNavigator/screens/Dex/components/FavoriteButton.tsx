@@ -18,7 +18,7 @@ export function FavoriteButton ({ poolpairId }: {poolpairId: string}): JSX.Eleme
         name={isFavouritePair ? 'star' : 'star-outline'}
         dark={tailwind('text-mono-dark-v2-900')}
         light={tailwind('text-mono-light-v2-900')}
-        style={tailwind('font-bold-v2')}
+        style={tailwind('text-center')}
         size={12}
       />
     </ThemedTouchableOpacityV2>

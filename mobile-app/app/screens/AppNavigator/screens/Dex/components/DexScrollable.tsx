@@ -55,7 +55,7 @@ function DexScrollableCard ({
   poolpair,
   style
 }: DexScrollableCardProps): JSX.Element {
-  const pairSymbols = `${poolpair.tokenA.symbol}-${poolpair.tokenB.symbol}`
+  const [symbolA, symbolB] = [poolpair.tokenA.displaySymbol, poolpair.tokenB.displaySymbol]
   return (
     <ThemedViewV2
       style={[tailwind('px-5 py-4 rounded-lg-v2'), style]}
@@ -64,8 +64,8 @@ function DexScrollableCard ({
     >
       <View style={tailwind('flex flex-row items-center')}>
         <PoolPairTextSectionV2
-          symbolA={poolpair.tokenA.symbol}
-          symbolB={poolpair.tokenB.symbol}
+          symbolA={symbolA}
+          symbolB={symbolB}
         />
         <View style={tailwind('flex flex-col')}>
           <ThemedTextV2
@@ -74,8 +74,9 @@ function DexScrollableCard ({
             style={tailwind('text-xs font-normal-v2 w-20')}
             dark={tailwind('text-mono-dark-v2-700')}
             light={tailwind('text-mono-light-v2-700')}
+            testID={`${symbolA}-${symbolB}`}
           >
-            {pairSymbols}
+            {`${symbolA}-${symbolB}`}
           </ThemedTextV2>
           <TotalLiquidityValue
             value={poolpair.totalLiquidity.usd}

@@ -249,7 +249,10 @@ export function DexScreen (): JSX.Element {
   useEffect(() => {
     const sorted = pairs
       .map(item => item)
-      .sort((a, b) => parseInt(b.data.totalLiquidity.usd ?? '0') - parseInt(a.data.totalLiquidity.usd ?? '0'))
+      .sort((firstPair, secondPair) =>
+      new BigNumber(secondPair.data.totalLiquidity.usd ?? 0).minus(firstPair.data.totalLiquidity.usd ?? 0).toNumber() ??
+      new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber()
+      )
       .slice(0, 4)
     setTopVolumePairs(sorted)
   }, [pairs])
