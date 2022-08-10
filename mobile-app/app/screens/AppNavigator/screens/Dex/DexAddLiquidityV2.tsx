@@ -3,7 +3,7 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Dispatch, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { View } from '@components'
 import { ThemedIcon, ThemedScrollView, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -95,10 +95,8 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     deps: [pair, tokenAAmount, tokenBAmount, balanceA, balanceB]
   })
 
-  const toast = useToast()
   const [selectedToken, setSelectedToken] = useState<string | undefined>('')
-  const [showToast, setShowToast] = useState(false)
-  const [percentageType, setPercentageType] = useState<string | undefined>()
+  const toast = useToast()
   const TOAST_DURATION = 2000
 
   const expandModal = useCallback(() => {
@@ -176,9 +174,8 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     ]
   }, [isLight, pair])
 
-  function onPercentagePress(amount: string, type: AmountButtonTypes): void {
-    setPercentageType(type)
-    setShowToast(true)
+  function onPercentagePress(_amount: string, type: AmountButtonTypes, displaySymbol: string): void {
+    showToast(type, displaySymbol)
   }
 
   async function onSubmit(): Promise<void> {
@@ -239,35 +236,20 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     }
   }
 
-  // show toast for selected 50% or MAX percentage for tokens
-  useEffect(() => {
-    if (showToast && percentageType !== undefined) {
-      const isMax = percentageType === AmountButtonTypes.max
-      const isHalf = percentageType === AmountButtonTypes.half
+  function showToast (type: AmountButtonTypes, displaySymbol: string): void {
+    toast.hideAll() // hides old toast everytime user presses on new percentage
+    const isMax = type === AmountButtonTypes.Max
+      const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
       const toastOption = {
-        unit: selectedToken,
-        percent: percentageType
+        unit: displaySymbol,
+        percent: type
       }
-      if (isMax) {
-        const toastMessage = 'Max available {{unit}} entered'
-        toast.show(translate('screens/ConvertScreen', toastMessage, toastOption), {
-          type: 'wallet_toast',
-          placement: 'top',
-          duration: TOAST_DURATION
-        })
-      } else if (isHalf) {
-        const toastMessage = '{{percent}} of available {{unit}} entered'
-        toast.show(translate('screens/ConvertScreen', toastMessage, toastOption), {
-          type: 'wallet_toast',
-          placement: 'top',
-          duration: TOAST_DURATION
-        })
-      }
-      setTimeout(() => setShowToast(false), TOAST_DURATION)
-    } else {
-      toast.hideAll()
-    }
-  }, [showToast])
+      toast.show(translate('screens/ConvertScreen', toastMessage, toastOption), {
+        type: 'wallet_toast',
+        placement: 'top',
+        duration: TOAST_DURATION
+      })
+  }
 
   // display UTXO fees msg only for DFI tokens in input card
   useEffect(() => {
@@ -374,30 +356,34 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
             current={tokenAAmount}
             onChange={(amount) => {
               buildSummary('primary', amount)
-              setSelectedToken(pair?.tokenA?.displaySymbol) // display toast symbol
             }}
-            onPercentageChange={onPercentagePress}
-            symbol={pair?.tokenA?.displaySymbol}
+            onPercentageChange={(amount, type) => 
+              onPercentagePress(amount, type, pair.tokenA.displaySymbol
+            )}
+            symbol={pair.tokenA.displaySymbol}
             type='primary'
             setIsInputFocus={setIsInputAFocus}
             status={tokenATransactionCardStatus}
             showInsufficientTokenMsg={hasAError}
             showUTXOFeesMsg={showUTXOFeesAMsg}
+            setSelectedToken={setSelectedToken}
           />
           <AddLiquidityInputCard
             balance={balanceB}
             current={tokenBAmount}
             onChange={(amount) => {
               buildSummary('secondary', amount)
-              setSelectedToken(pair?.tokenB?.displaySymbol) // display toast symbol
             }}
-            onPercentageChange={onPercentagePress}
-            symbol={pair?.tokenB?.displaySymbol}
+            onPercentageChange={(amount, type) => 
+              onPercentagePress(amount, type, pair.tokenB.displaySymbol
+            )}
+            symbol={pair.tokenB.displaySymbol}
             type='secondary'
             setIsInputFocus={setIsInputBFocus}
             status={tokenBTransactionCardStatus}
             showInsufficientTokenMsg={hasBError}
             showUTXOFeesMsg={showUTXOFeesBMsg}
+            setSelectedToken={setSelectedToken}
           />
         </View>
 
@@ -530,15 +516,16 @@ function AddLiquidityInputCard (
     setIsInputFocus: any // TODO: type checking
     showInsufficientTokenMsg: boolean
     showUTXOFeesMsg: boolean
+    setSelectedToken: Dispatch<React.SetStateAction<string | undefined>>
   }): JSX.Element {
   const Icon = getNativeIcon(props.symbol)
-  const isFocus = props.setIsInputFocus
   return (
     <>
       <TransactionCard
         maxValue={props.balance}
         onChange={(amount) => {
           props.onChange(amount)
+          props.setSelectedToken(props.symbol)
         }}
         onPercentageChange={props.onPercentageChange}
         status={props.status}
@@ -551,8 +538,8 @@ function AddLiquidityInputCard (
         >
           <Icon height={20} width={20} />
           <TransactionCardWalletTextInputV2
-            onFocus={isFocus}
-            onBlur={isFocus}
+            onFocus={props.setIsInputFocus}
+            onBlur={props.setIsInputFocus}
             onChangeText={txt => props.onChange(txt)}
             placeholder='0.00'
             style={tailwind('flex-grow w-2/5')}

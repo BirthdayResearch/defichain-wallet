@@ -1,4 +1,4 @@
-import { ThemedViewV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedProps } from '@components/themed'
+import { ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -23,8 +23,8 @@ export function TransactionCard ({
   maxValue,
   onChange,
   status,
-  containerStyle,
   onPercentageChange,
+  containerStyle,
   children
 }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
   return (
