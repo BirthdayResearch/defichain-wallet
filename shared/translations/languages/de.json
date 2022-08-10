@@ -106,7 +106,8 @@
     "A to Z": "A bis Z",
     "Z to A": "Z bis A",
     "AVAILABLE ASSETS": "VERFÜGBARE AKTIVA",
-    "Asset value": "Wert der Aktiva"
+    "Asset value": "Wert der Aktiva",
+    "Sort by": "Sortieren nach"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "DFI erhalten",
