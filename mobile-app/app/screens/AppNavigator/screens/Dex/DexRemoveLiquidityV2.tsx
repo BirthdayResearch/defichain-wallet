@@ -20,18 +20,21 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { ViewPoolHeader } from './components/ViewPoolHeader'
 import { ViewPoolDetails } from './components/ViewPoolDetails'
 import { TransactionCardWalletTextInputV2 } from '@components/TransactionCardWalletTextInputV2'
-import { TransactionCard } from '@components/TransactionCard'
+import { TransactionCard, AmountButtonTypes } from '@components/TransactionCard'
 import { getNativeIcon } from '@components/icons/assets'
 import { InputHelperTextV2 } from '@components/InputHelperText'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
 import { NumberRowV2 } from '@components/NumberRowV2'
 import { ButtonV2 } from '@components/ButtonV2'
+import { useToast } from 'react-native-toast-notifications'
+import { PricesSectionV2 } from '@components/PricesSectionV2'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
 export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   const logger = useLogger()
   const client = useWhaleApiClient()
+  const toast = useToast()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
@@ -49,6 +52,8 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   const [hasError, setHasError] = useState(false)
   const [isInputFocus, setIsInputFocus] = useState(false)
   const [tokenToRemove, setTokenToRemove] = useState<string>('')
+  const [percentageType, setPercentageType] = useState<string | undefined>()
+  const TOAST_DURATION = 2000
 
   // breakdown summary state
   const [hasInputAmount, setHasInputAmount] = useState(false)
@@ -83,6 +88,31 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
       !hasPendingBroadcastJob
     )
   }, [tokenToRemove])
+
+  function onPercentagePress (amount: string, type: AmountButtonTypes): void {
+    setPercentageType(amount)
+    showToast(type)
+  }
+
+  function showToast (type: AmountButtonTypes): void {
+    if (percentageType === undefined) {
+      return
+    }
+
+    toast.hideAll()
+
+    const isMax = type === AmountButtonTypes.max
+    const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
+      const toastOption = {
+        unit: 'LP tokens',
+        percent: type
+      }
+    toast.show(translate('screens/screens/RemoveLiquidity', toastMessage, toastOption), {
+      type: 'wallet_toast',
+      placement: 'top',
+      duration: TOAST_DURATION
+    })
+  }
 
   const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
@@ -170,8 +200,8 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   const sharesUsdAmount = getTokenPrice(pair.symbol, new BigNumber(amount), true)
 
   return (
-    <View ref={containerRef} style={tailwind('flex-1')}>
-      <ThemedScrollView ref={ref} contentContainerStyle={tailwind('py-8 mx-5 justify-between')} style={tailwind('w-full')}>
+    <View ref={containerRef} style={tailwind('flex-col flex-1')}>
+      <ThemedScrollView ref={ref} contentContainerStyle={tailwind('flex-grow py-8 mx-5 justify-between')} style={tailwind('w-full')}>
         <View>
           <ViewPoolHeader
             tokenASymbol={pair.tokenA.displaySymbol}
@@ -180,7 +210,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
             onPress={() => expandModal()}
           />
           <View style={tailwind('mt-8')}>
-            <DexInputCard
+            <RemoveLiquidityInputCard
               tokenA={pair.tokenA.displaySymbol}
               tokenB={pair.tokenB.displaySymbol}
               balance={new BigNumber(pairInfo.amount)}
@@ -188,6 +218,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
               onChange={(amount) => {
                 buildSummary(amount)
               }}
+              onPercentageChange={onPercentagePress}
               symbol={pair.tokenA.displaySymbol}
               type='primary'
               setIsInputFocus={setIsInputFocus}
@@ -197,88 +228,61 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
           </View>
           {hasInputAmount &&
             (
-              <>
-                <View style={tailwind('pb-2')}>
+              <View style={tailwind('pb-2')} testID='remove_liquidity_calculation_summary'>
+                <ThemedViewV2
+                  light={tailwind('border-mono-light-v2-300')}
+                  dark={tailwind('border-mono-dark-v2-300')}
+                  style={tailwind('pt-5 px-5 border rounded-2xl-v2')}
+                >
+                  <PricesSectionV2
+                    key='prices'
+                    testID='pricerate_value'
+                    priceRates={[{
+                      label: translate('screens/RemoveLiquidity', '{{token}} to receive', {
+                        token: pair.tokenA.displaySymbol
+                      }),
+                      value: BigNumber.max(tokenAAmount, 0).toFixed(8),
+                      symbolUSDValue: getTokenPrice(pair.tokenA.symbol, tokenAAmount),
+                      usdTextStyle: tailwind('text-sm')
+                    },
+                    {
+                      label: translate('screens/RemoveLiquidity', '{{token}} to receive', {
+                        token: pair.tokenB.displaySymbol
+                      }),
+                      value: BigNumber.max(tokenBAmount, 0).toFixed(8),
+                      symbolUSDValue: getTokenPrice(pair.tokenB.symbol, tokenBAmount),
+                      usdTextStyle: tailwind('text-sm')
+                    }
+                    ]}
+                  />
                   <ThemedViewV2
                     light={tailwind('border-mono-light-v2-300')}
                     dark={tailwind('border-mono-dark-v2-300')}
-                    style={tailwind('p-5 border rounded-2xl-v2')}
+                    style={tailwind('pt-5 border-t-0.5')}
                   >
                     <NumberRowV2
                       lhs={{
-                        value: translate('screens/RemoveLiquidity', '{{token}} to receive', {
-                          token: pair.tokenA.displaySymbol
-                        }),
+                        value: translate('screens/RemoveLiquidity', 'LP tokens to remove'),
                         themedProps: {
                           light: tailwind('text-mono-light-v2-500'),
                           dark: tailwind('text-mono-dark-v2-500')
                         },
-                        testID: `${pair.tokenA.displaySymbol}_to_receive_title`
+                        testID: 'lp_tokens_to_remove_title'
                       }}
                       rhs={{
-                        value: BigNumber.max(tokenAAmount, 0).toFixed(8),
+                        value: new BigNumber(amount).toFixed(8),
                         themedProps: {
-                          light: tailwind('text-mono-light-v2-800'),
-                          dark: tailwind('text-mono-dark-v2-800')
+                          light: tailwind('text-mono-light-v2-900'),
+                          dark: tailwind('text-mono-dark-v2-900')
                         },
-                        usdAmount: getTokenPrice(pair.tokenA.symbol, tokenAAmount),
+                        usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,
                         usdTextStyle: tailwind('text-sm'),
-                        testID: `${pair.tokenA.displaySymbol}_to_receive_value`
+                        testID: 'Lp_tokens_to_remove_amount'
                       }}
-                      testID={`${pair.tokenA.displaySymbol}_to_receive`}
+                      testID='lp_tokens_to_remove'
                     />
-                    <NumberRowV2
-                      lhs={{
-                        value: translate('screens/RemoveLiquidity', '{{token}} to receive', {
-                          token: pair.tokenB.displaySymbol
-                        }),
-                        themedProps: {
-                          light: tailwind('text-mono-light-v2-500'),
-                          dark: tailwind('text-mono-dark-v2-500')
-                        },
-                        testID: `${pair.tokenB.displaySymbol}_to_receive_title`
-                      }}
-                      rhs={{
-                        value: BigNumber.max(tokenBAmount, 0).toFixed(8),
-                        themedProps: {
-                          light: tailwind('text-mono-light-v2-800'),
-                          dark: tailwind('text-mono-dark-v2-800')
-                        },
-                        usdAmount: getTokenPrice(pair.tokenB.symbol, tokenBAmount),
-                        usdTextStyle: tailwind('text-sm'),
-                        testID: `${pair.tokenB.displaySymbol}_to_receive_value`
-                      }}
-                      testID={`${pair.tokenB.displaySymbol}_to_receive`}
-                    />
-                    <ThemedViewV2
-                      light={tailwind('border-mono-light-v2-300')}
-                      dark={tailwind('border-mono-dark-v2-300')}
-                      style={tailwind('pt-5 border-t-0.5')}
-                    >
-                      <NumberRowV2
-                        lhs={{
-                          value: translate('screens/RemoveLiquidity', 'LP tokens to remove'),
-                          themedProps: {
-                            light: tailwind('text-mono-light-v2-500'),
-                            dark: tailwind('text-mono-dark-v2-500')
-                          },
-                          testID: 'lp_token_to_remove_title'
-                        }}
-                        rhs={{
-                          value: new BigNumber(amount).toFixed(8),
-                          themedProps: {
-                            light: tailwind('text-mono-light-v2-800'),
-                            dark: tailwind('text-mono-dark-v2-800')
-                          },
-                          usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,
-                          usdTextStyle: tailwind('text-sm'),
-                          testID: 'Lp_token_to_remove_amount'
-                        }}
-                        testID='lp_token_to_remove'
-                      />
-                    </ThemedViewV2>
                   </ThemedViewV2>
-                </View>
+                </ThemedViewV2>
                 <View style={tailwind('items-center')}>
                   <ThemedTextV2
                     testID='transaction_details_hint_text'
@@ -286,10 +290,10 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
                     dark={tailwind('text-mono-dark-v2-500')}
                     style={tailwind('text-xs font-normal-v2 pt-14')}
                   >
-                    {translate('screens/RemoveLiquidity', 'Review full details in the next screen')}
+                    {translate('screens/ConvertScreen', 'Review full details in the next screen')}
                   </ThemedTextV2>
                 </View>
-              </>
+              </View>
             )}
         </View>
 
@@ -299,7 +303,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
             styleProps='w-full'
             disabled={!valid}
             onPress={removeLiquidity}
-            testID='button_continue_convert'
+            testID='button_continue_remove_liq'
           />
         </View>
 
@@ -335,17 +339,18 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   )
 }
 
-function DexInputCard (
+function RemoveLiquidityInputCard (
   props: {
     tokenA: string
     tokenB: string
     balance: BigNumber
     type: 'primary' | 'secondary'
     symbol: string
+    onPercentageChange: (amount: string, type: AmountButtonTypes) => void
     onChange: (amount: string) => void
     current: string
     status?: string
-    setIsInputFocus: any // TODO: double check type
+    setIsInputFocus: any // TODO: type checking
     showErrMsg: boolean
   }): JSX.Element {
     const IconA = getNativeIcon(props.tokenA)
@@ -353,6 +358,13 @@ function DexInputCard (
     const isFocus = props.setIsInputFocus
   return (
     <>
+      <ThemedTextV2
+        light={tailwind('text-mono-light-v2-500')}
+        dark={tailwind('text-mono-dark-v2-500')}
+        style={tailwind('px-4 text-xs pb-2')}
+      >
+        {translate('screens/RemoveLiquidity', 'I WANT TO REMOVE')}
+      </ThemedTextV2>
       <TransactionCard
         maxValue={props.balance}
         onChange={(amount) => {
@@ -360,7 +372,7 @@ function DexInputCard (
         }}
         status={props.status}
         containerStyle={tailwind('border-t-0.5')}
-        onPercentageChange={() => {}}
+        onPercentageChange={props.onPercentageChange}
       >
         <ThemedViewV2
           light={tailwind('border-mono-light-v2-300')}
@@ -381,8 +393,7 @@ function DexInputCard (
             inputType='numeric'
             displayClearButton={props.current !== ''}
             onClearButtonPress={() => props.onChange('')}
-            titleTestID={`token_input_${props.type}_title`}
-            testID={`token_input_${props.type}`}
+            testID='tokens_remove_amount_input'
           />
         </ThemedViewV2>
       </TransactionCard>

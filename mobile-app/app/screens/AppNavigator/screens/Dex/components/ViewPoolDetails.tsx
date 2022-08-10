@@ -179,8 +179,8 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
           label='APR'
           amount={new BigNumber(isNaN(pairData.apr.total) ? 0 : pairData.apr.total).times(100).toFixed(2)}
           valueThemeProps={{
-            dark: tailwind('text-darksuccess-500'),
-            light: tailwind('text-success-500')
+            dark: tailwind('text-green-v2'),
+            light: tailwind('text-green-v2')
           }}
           valueTextStyle={tailwind('font-semibold-v2')}
           suffix='%'
@@ -238,15 +238,16 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
           rhs={{
             value: pairInfo.amount,
             themedProps: {
-              light: tailwind('text-mono-light-v2-800'),
-              dark: tailwind('text-mono-dark-v2-800')
+              light: tailwind('text-mono-light-v2-900'),
+              dark: tailwind('text-mono-dark-v2-900')
             },
             testID: `lp_${pairData.tokenA.displaySymbol}_tokens_value`
           }}
           testID={`${pairInfo.displaySymbol}_lp_tokens`}
         />
         <ViewPoolAmountRow // TODO: Change to NumberRowV2
-          amount={new BigNumber(lpPercentage).toFixed(2)}
+          // amount={new BigNumber(lpPercentage).toFixed(2)}
+          amount={getPrecisedCurrencyValue(lpPercentage)}
           valueThemeProps={{
             dark: tailwind('text-mono-dark-v2-500'),
             light: tailwind('text-mono-light-v2-500')
@@ -270,8 +271,8 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
         rhs={{
           value: tokenATotal.toFixed(8),
           themedProps: {
-            light: tailwind('text-mono-light-v2-800'),
-            dark: tailwind('text-mono-dark-v2-800')
+            light: tailwind('text-mono-light-v2-900'),
+            dark: tailwind('text-mono-dark-v2-900')
           },
           usdAmount: getUSDValue(
             new BigNumber(tokenATotal),
@@ -297,8 +298,8 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
         rhs={{
           value: tokenBTotal.toFixed(8),
           themedProps: {
-            light: tailwind('text-mono-light-v2-800'),
-            dark: tailwind('text-mono-dark-v2-800')
+            light: tailwind('text-mono-light-v2-900'),
+            dark: tailwind('text-mono-dark-v2-900')
           },
           usdAmount: getUSDValue(
             new BigNumber(tokenBTotal),
@@ -322,9 +323,10 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
           rhs={{
             value: new BigNumber(isNaN(pairData.apr.total) ? 0 : pairData.apr.total).times(100).toFixed(2),
             themedProps: {
-              light: tailwind('text-darksuccess-500 font-semibold-v2'),
-              dark: tailwind('text-success-500 font-semibold-v2')
+              light: tailwind('text-green-v2 font-semibold-v2'),
+              dark: tailwind('text-green-v2 font-semibold-v2')
             },
+            suffix: '%',
             testID: `${pairInfo.displaySymbol}_apr_value`
           }}
           testID={`${pairInfo.displaySymbol}_apr`}
