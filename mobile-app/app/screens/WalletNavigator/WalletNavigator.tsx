@@ -17,8 +17,8 @@ import { getDefaultThemeV2 } from '@constants/ThemeV2'
 import { PinCreation } from '@screens/WalletNavigator/screens/CreateWallet/PinCreation'
 import { PinConfirmation } from '@screens/WalletNavigator/screens/CreateWallet/PinConfirmation'
 import { OnboardingNetworkSelectScreen } from './screens/CreateWallet/OnboardingNetworkSelectScreen'
-import { RecoveryWordsFaqV2 } from './screens/CreateWallet/RecoveryWordsFaqV2'
-import { PasscodeFaqV2 } from './screens/CreateWallet/PasscodeFaqV2'
+import { RecoveryWordsFaq } from './screens/CreateWallet/RecoveryWordsFaq'
+import { PasscodeFaq } from './screens/CreateWallet/PasscodeFaq'
 import { Onboarding } from '@screens/WalletNavigator/screens/Onboarding'
 import { WalletCreateRestoreSuccess } from './screens/CreateWallet/WalletCreateRestoreSuccess'
 import { WalletPersistenceDataI } from '@shared-contexts/WalletPersistenceContext'
@@ -163,7 +163,7 @@ export function WalletNavigator (): JSX.Element {
         />
 
         <WalletStack.Screen
-          component={RecoveryWordsFaqV2}
+          component={RecoveryWordsFaq}
           name='RecoveryWordsFaq'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'About Recovery Words'),
@@ -172,7 +172,7 @@ export function WalletNavigator (): JSX.Element {
         />
 
         <WalletStack.Screen
-          component={PasscodeFaqV2}
+          component={PasscodeFaq}
           name='PasscodeFaq'
           options={{
             headerTitle: translate('screens/WalletNavigator', 'About Passcode'),

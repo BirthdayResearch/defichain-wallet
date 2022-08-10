@@ -149,9 +149,9 @@ exports[`Transaction Card should match snapshot 1`] = `
               },
               Array [
                 Object {
-                  "fontFamily": "BoldFont",
+                  "fontFamily": "SoraSemiBold",
                   "fontSize": 12,
-                  "fontWeight": "700",
+                  "fontWeight": "600",
                   "lineHeight": 16,
                   "paddingLeft": 28,
                   "paddingRight": 28,
@@ -219,9 +219,9 @@ exports[`Transaction Card should match snapshot 1`] = `
               },
               Array [
                 Object {
-                  "fontFamily": "BoldFont",
+                  "fontFamily": "SoraSemiBold",
                   "fontSize": 12,
-                  "fontWeight": "700",
+                  "fontWeight": "600",
                   "lineHeight": 16,
                   "paddingLeft": 28,
                   "paddingRight": 28,
@@ -289,9 +289,9 @@ exports[`Transaction Card should match snapshot 1`] = `
               },
               Array [
                 Object {
-                  "fontFamily": "BoldFont",
+                  "fontFamily": "SoraSemiBold",
                   "fontSize": 12,
-                  "fontWeight": "700",
+                  "fontWeight": "600",
                   "lineHeight": 16,
                   "paddingLeft": 28,
                   "paddingRight": 28,
@@ -357,9 +357,9 @@ exports[`Transaction Card should match snapshot 1`] = `
               },
               Array [
                 Object {
-                  "fontFamily": "BoldFont",
+                  "fontFamily": "SoraSemiBold",
                   "fontSize": 12,
-                  "fontWeight": "700",
+                  "fontWeight": "600",
                   "lineHeight": 16,
                   "paddingLeft": 28,
                   "paddingRight": 28,

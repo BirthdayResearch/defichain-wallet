@@ -106,7 +106,8 @@
     "A to Z": "A bis Z",
     "Z to A": "Z bis A",
     "AVAILABLE ASSETS": "VERFÜGBARE AKTIVA",
-    "Asset value": "Wert der Aktiva"
+    "Asset value": "Wert der Aktiva",
+    "Sort by": "Sortieren nach"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "DFI erhalten",
@@ -284,7 +285,7 @@
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "I WANT TO CONVERT": "ICH MÖCHTE FOLGENDES UMWANDELN",
     "Insufficient balance": "Unzureichendes Guthaben",
-    "Available: {{amount}} {{unit}}": "Verfügbar: {{amount}} {{unit}}",
+    "Available: ": "Verfügbar: ",
     "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
     "Max available {{unit}} entered": "Max. verfügbare {{unit}} eingegeben",
     "{{percent}} of available {{unit}} entered": "{{percent}} der verfügbaren {{unit}} eingegeben",
@@ -1357,9 +1358,9 @@
     "Wallet Address": "Walletadresse"
   },
   "components/EmptyPortfolio": {
-    "Empty portfolio": "Leeres portfolio",
-    "Add DFI and other tokens to get started": "Füge DFI und andere Token hinzu, um zu loszulegen",
-    "No LP tokens found": "Keine LM-Token gefunden",
+    "Empty portfolio": "Leeres Portfolio",
+    "Add DFI and other tokens to get started": "Füge DFI und andere Token hinzu, um loszulegen",
+    "No LP tokens found": "Keine Liquiditätspool-Token gefunden",
     "Add liquidity to get started": "Liquidität für den Einstieg hinzufügen",
     "No crypto found": "Keine Kryptowährung gefunden",
     "Add crypto to get started": "Krypto für den Einstieg hinzufügen",

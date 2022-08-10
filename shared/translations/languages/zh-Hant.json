@@ -106,7 +106,8 @@
     "A to Z": "A 到 Z",
     "Z to A": "Z 到 A",
     "AVAILABLE ASSETS": "可用資產",
-    "Asset value": "資產價值"
+    "Asset value": "資產價值",
+    "Sort by": "Sort by"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "獲取 DFI",
@@ -284,7 +285,7 @@
     "TRANSACTION DETAILS": "交易明細",
     "I WANT TO CONVERT": "I WANT TO CONVERT",
     "Insufficient balance": "Insufficient balance",
-    "Available: {{amount}} {{unit}}": "Available: {{amount}} {{unit}}",
+    "Available: ": "可轉換資金: ",
     "Review full details in the next screen": "Review full details in the next screen",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",

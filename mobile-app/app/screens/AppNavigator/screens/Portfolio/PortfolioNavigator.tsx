@@ -1,542 +1,215 @@
+import { ThemedScrollViewV2, ThemedViewV2 } from '@components/themed'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
-import { WalletToken } from '@store/wallet'
+import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
-import { Image, Platform } from 'react-native'
-import { BarCodeScanner } from '@components/BarCodeScanner'
-import { HeaderTitle } from '@components/HeaderTitle'
+import { Dispatch, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store'
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { SettingsNavigator } from '../Settings/SettingsNavigator'
-import { NetworkDetails } from '../Settings/screens/NetworkDetails'
-import { PortfolioScreen } from './PortfolioScreen'
-import { ConversionMode } from './screens/ConvertScreen'
-import { ReceiveScreen } from './screens/ReceiveScreen'
-import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
-import { SendScreen } from './screens/SendScreen'
-import { TokensVsUtxoScreen } from './screens/TokensVsUtxoScreen'
-import { AddressControlScreen } from './components/AddressControlScreen'
-import { AboutScreen } from '../Settings/screens/AboutScreen'
-import { CompositeSwapScreen } from '../Dex/CompositeSwap/CompositeSwapScreen'
-import { ConfirmCompositeSwapScreen } from '../Dex/CompositeSwap/ConfirmCompositeSwapScreen'
-import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
-import { LocalAddress } from '@store/userPreferences'
-import { FutureSwapData } from '@store/futureSwap'
-import { FutureSwapScreen } from './screens/FutureSwapScreen'
-import { ConfirmWithdrawFutureSwapScreen } from './screens/ConfirmWithdrawFutureSwapScreen'
-import { WithdrawFutureSwapScreen } from './screens/WithdrawFutureSwapScreen'
-import { RemoveLiquidityScreenV2 } from '../Dex/DexRemoveLiquidityV2'
-import { RemoveLiquidityConfirmScreenV2 } from '../Dex/DexConfirmRemoveLiquidityV2'
-import { GetDFIScreen } from './screens/GetDFIScreen'
-import { MarketplaceScreen } from './screens/MarketplaceScreen'
-import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
-import { SettingsNavigatorV2 } from '../Settings/SettingsNavigatorV2'
-import { TransactionsScreen } from '@screens/AppNavigator/screens/Transactions/TransactionsScreen'
-import { TransactionDetailScreen } from '@screens/AppNavigator/screens/Transactions/screens/TransactionDetailScreen'
-import { VMTransaction } from '@screens/AppNavigator/screens/Transactions/screens/stateProcessor'
-import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import GridBackgroundImageLight from '@assets/images/onboarding/grid-background-light.png'
-import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-dark.png'
-import { HeaderSettingButton } from './components/HeaderSettingButton'
-import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
-import { TokenDetailScreen } from './screens/TokenDetailScreen'
-import { AddressBookScreenV2 } from './screens/AddressBookScreenV2'
-import { NetworkSelectionScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreenV2'
-import { ConvertScreenV2 } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
-import {
-  ConvertConfirmationScreenV2
-} from '@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreenV2'
-import { ConfirmAddLiquidityScreenV2 } from '../Dex/DexConfirmAddLiquidityV2'
-import { AddLiquidityScreenV2 } from '../Dex/DexAddLiquidityV2'
+import { PortfolioParamList } from '../PortfolioNavigator'
+import { ConversionMode } from './ConvertScreen'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
+import { dfiConversionCrafter } from '@api/transaction/dfi_converter'
+import { useAppDispatch } from '@hooks/useAppDispatch'
+import { SummaryTitleV2 } from '@components/SummaryTitleV2'
+import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
+import { View } from 'react-native'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useAddressLabel } from '@hooks/useAddressLabel'
+import { NumberRowV2 } from '@components/NumberRowV2'
+import { ConvertTokenUnit, getDisplayUnit } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
 
-export interface PortfolioParamList {
-  PortfolioScreen: undefined
-  ReceiveScreen: undefined
-  MarketplaceScreen: undefined
-  SendScreen: { token?: WalletToken }
-  SendConfirmationScreen: {
-    token: WalletToken
-    destination: string
-    amount: BigNumber
-    fee: BigNumber
-    conversion?: ConversionParam
-  }
-  TokenDetailScreen: { token: WalletToken }
-  ConvertScreen: { mode: ConversionMode }
-  ConvertConfirmationScreen: {
-    amount: BigNumber
-    mode: ConversionMode
-    sourceUnit: string
-    sourceBalance: BigNumber
-    targetUnit: 'UTXO' | 'Token'
-    targetBalance: BigNumber
-    fee: BigNumber
-  }
-  BarCodeScanner: { onQrScanned: (value: string) => void }
-  TokenVsUtxoScreen: undefined
-  AddressBookScreen: {
-    selectedAddress?: string
-    onAddressSelect?: (address: string) => void
-  }
-  AddOrEditAddressBookScreen: {
-    title: string
-    onSaveButtonPress: (address?: string) => void
-    addressLabel?: LocalAddress
-    address?: string
-    isAddNew: boolean
-  }
-  FutureSwapScreen: undefined
-  FutureSwapDetailScreen: {
-    futureSwap: FutureSwapData
-    executionBlock: number
-  }
-  WithdrawFutureSwapScreen: {
-    futureSwap: FutureSwapData
-    executionBlock: number
-  }
-  ConfirmWithdrawFutureSwapScreen: {
-    source: {
-      amountToWithdraw: BigNumber
-      remainingAmount: BigNumber
-      remainingAmountInUSD: BigNumber
-      tokenId: string
-      displaySymbol: string
-      isLoanToken: boolean
-    }
-    destination: {
-      tokenId: string
-    }
-    fee: BigNumber
-    executionBlock: number
-  }
-  TransactionsScreen: undefined
-  TransactionDetailScreen: {
-    tx: VMTransaction
-  }
+type Props = StackScreenProps<PortfolioParamList, 'ConvertConfirmationScreen'>
 
-  [key: string]: undefined | object
-}
-
-export interface ConversionParam {
-  isConversionRequired: boolean
-  conversionAmount: BigNumber
-  DFIUtxo: WalletToken
-  DFIToken: WalletToken
-}
-
-const PortfolioStack = createStackNavigator<PortfolioParamList>()
-
-export function PortfolioNavigator (): JSX.Element {
+export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
+  const {
+    sourceUnit,
+    sourceBalance,
+    targetUnit,
+    targetBalance,
+    mode,
+    amount,
+    fee
+  } = route.params
+  const { address } = useWalletContext()
+  const addressLabel = useAddressLabel(address)
+  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
+  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
+  const dispatch = useAppDispatch()
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
-  const headerContainerTestId = 'portfolio_header_container'
-  const { isFeatureAvailable } = useFeatureFlagContext()
-  const { isLight } = useThemeContext()
-  const goToNetworkSelect = (): void => {
-    navigation.navigate('NetworkSelectionScreen')
+  const [isOnPage, setIsOnPage] = useState<boolean>(true)
+  const logger = useLogger()
+
+  useEffect(() => {
+    setIsOnPage(true)
+    return () => {
+      setIsOnPage(false)
+    }
+  }, [])
+
+  async function onSubmit (): Promise<void> {
+    if (hasPendingJob || hasPendingBroadcastJob) {
+      return
+    }
+    setIsSubmitting(true)
+    await constructSignedConversionAndSend({
+      mode,
+      amount
+    }, dispatch, () => {
+      onTransactionBroadcast(isOnPage, navigation.dispatch)
+    }, logger)
+    setIsSubmitting(false)
   }
-  const screenOptions = useNavigatorScreenOptions()
+
+  function onCancel (): void {
+    if (!isSubmitting) {
+      navigation.navigate({
+        name: 'Convert',
+        params: {
+          mode
+        },
+        merge: true
+      })
+    }
+  }
+
   return (
-    <PortfolioStack.Navigator
-      initialRouteName='PortfolioScreen'
-      screenOptions={{
-        headerTitleAlign: 'center'
-      }}
-    >
-      <PortfolioStack.Screen
-        component={isFeatureAvailable('setting_v2') ? SettingsNavigatorV2 : SettingsNavigator}
-        name={translate('PortfolioNavigator', 'Settings')}
-        options={{
-          headerShown: false
-        }}
-      />
+    <ThemedScrollViewV2 style={tailwind('pb-4')}>
+      <ThemedViewV2 style={tailwind('flex-col px-5 py-8')}>
+        <SummaryTitleV2
+          title={translate('screens/ConvertConfirmScreen', 'You are converting to {{unit}}', { unit: getDisplayUnit(targetUnit) })}
+          amount={amount}
+          testID='text_convert_amount'
+          iconA='_UTXO'
+          fromAddress={address}
+          fromAddressLabel={addressLabel}
+        />
+        <NumberRowV2
+          containerStyle={{
+            style: tailwind('flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-8'),
+            light: tailwind('bg-transparent border-mono-light-v2-300'),
+            dark: tailwind('bg-transparent border-mono-dark-v2-300')
+          }}
+          lhs={{
+            value: translate('screens/ConvertConfirmScreen', 'Transaction fee'),
+            testID: 'transaction_fee_label',
+            themedProps: {
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
+            }
+          }}
+          rhs={{
+            value: fee.toFixed(8),
+            suffix: 'DFI',
+            testID: 'transaction_fee_value',
+            themedProps: {
+              light: tailwind('text-mono-light-v2-900'),
+              dark: tailwind('text-mono-dark-v2-900')
+            }
+          }}
+        />
 
-      <PortfolioStack.Screen
-        component={PortfolioScreen}
-        name='PortfolioScreen'
-        options={{
-          ...screenOptions,
-          headerBackgroundContainerStyle: tailwind('overflow-hidden', {
-            'bg-mono-light-v2-00': isLight,
-            'bg-mono-dark-v2-00': !isLight
-          }),
-          headerBackground: () => (
-            <Image
-              source={isLight ? GridBackgroundImageLight : GridBackgroundImageDark}
-              style={{
-                height: 220,
-                width: '100%'
-              }}
-              resizeMode='cover'
-            />
-          ),
-          headerLeft: () => (
-            <HeaderSettingButton />
-          ),
-          headerLeftContainerStyle: tailwind('pl-5', {
-            'pb-2': Platform.OS === 'ios',
-            'pb-1.5': Platform.OS !== 'ios'
-          }),
-          headerRight: () => (
-            <HeaderNetworkStatus onPress={goToNetworkSelect} />
-          ),
-          headerTitle: () => (
-            <></>
-          )
+        <NumberRowV2
+          containerStyle={{
+            style: tailwind('flex-row items-start w-full bg-transparent mt-5'),
+            light: tailwind('bg-transparent'),
+            dark: tailwind('bg-transparent')
+          }}
+          lhs={{
+            value: translate('screens/ConvertConfirmScreen', 'Resulting Tokens'),
+            testID: 'resulting_tokens_label',
+            themedProps: {
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
+            }
+          }} rhs={{
+          value: getResultingValue(ConvertTokenUnit.Token, fee, sourceBalance, sourceUnit, targetBalance, targetUnit),
+          suffix: 'DFI',
+          testID: 'resulting_tokens_value',
+          themedProps: {
+            light: tailwind('text-mono-light-v2-900 font-semibold-v2'),
+            dark: tailwind('text-mono-dark-v2-900 font-semibold-v2')
+          },
+          subValue: {
+            value: getResultingPercentage(ConvertTokenUnit.Token, sourceBalance, sourceUnit, targetBalance),
+            prefix: '(',
+            suffix: '%)',
+            testID: 'resulting_tokens_sub_value'
+          }
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={ReceiveScreen}
-        name='Receive'
-        options={{
-          ...screenOptions,
-          headerRight: () => (
-            <HeaderNetworkStatus onPress={goToNetworkSelect} />
-          ),
-          headerTitle: translate('screens/ReceiveScreen', 'Receive')
+        <NumberRowV2
+          containerStyle={{
+            style: tailwind('flex-row items-start w-full bg-transparent mt-5 border-b-0.5 pb-5'),
+            light: tailwind('bg-transparent border-mono-light-v2-300'),
+            dark: tailwind('bg-transparent border-mono-dark-v2-300')
+          }}
+          lhs={{
+            value: translate('screens/ConvertConfirmScreen', 'Resulting UTXO'),
+            testID: 'resulting_utxo_label',
+            themedProps: {
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
+            }
+          }} rhs={{
+          value: getResultingValue(ConvertTokenUnit.UTXO, fee, sourceBalance, sourceUnit, targetBalance, targetUnit),
+          suffix: 'DFI',
+          testID: 'resulting_utxo_value',
+          themedProps: {
+            light: tailwind('text-mono-light-v2-900 font-semibold-v2'),
+            dark: tailwind('text-mono-dark-v2-900 font-semibold-v2')
+          },
+          subValue: {
+            value: getResultingPercentage(ConvertTokenUnit.UTXO, sourceBalance, sourceUnit, targetBalance),
+            prefix: '(',
+            suffix: '%)',
+            testID: 'resulting_utxo_sub_value'
+          }
         }}
-      />
+        />
 
-      <PortfolioStack.Screen
-        component={AddressControlScreen}
-        name='AddressControlScreen'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/AddressControlScreen', 'Wallet Address')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
-          headerRightContainerStyle: tailwind('px-2 py-2'),
-          headerBackTitleVisible: false
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={GetDFIScreen}
-        name='GetDFIScreen'
-        options={{
-          ...screenOptions,
-          headerRight: () => (
-            <HeaderNetworkStatus onPress={goToNetworkSelect} />
-          ),
-          headerBackTitleVisible: false,
-          headerTitle: translate('screens/ReceiveScreen', 'Get DFI')
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={MarketplaceScreen}
-        name='MarketplaceScreen'
-        options={{
-          ...screenOptions,
-          headerRight: () => (
-            <HeaderNetworkStatus onPress={goToNetworkSelect} />
-          ),
-          headerBackTitleVisible: false,
-          headerTitle: translate('screens/MarketplaceScreen', 'Marketplace')
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={SendScreen}
-        name='Send'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/SendScreen', 'Send')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
-          headerBackTitleVisible: false
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={SendConfirmationScreen}
-        name='SendConfirmationScreen'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/SendConfirmationScreen', 'Confirm Send')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
-          headerBackTitleVisible: false
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={TokenDetailScreen}
-        name='Balance'
-        options={{
-          ...screenOptions,
-          headerRight: () => (
-            <HeaderNetworkStatus onPress={goToNetworkSelect} />
-          ),
-          headerTitle: translate('screens/TokenDetailScreen', 'Balance')
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={ConvertScreenV2}
-        name='Convert'
-        options={{
-          ...screenOptions,
-          headerRight: () => (
-            <HeaderNetworkStatus onPress={goToNetworkSelect} />
-          ),
-          headerTitle: translate('screens/ConvertScreen', 'Convert')
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={ConvertConfirmationScreenV2}
-        name='ConvertConfirmationScreenV2'
-        options={{
-          ...screenOptions,
-          headerRight: () => (
-            <HeaderNetworkStatus onPress={goToNetworkSelect} />
-          ),
-          headerTitle: translate('screens/ConvertConfirmScreen', 'Confirm')
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={BarCodeScanner}
-        name='BarCodeScanner'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/ConvertScreen', 'Scan recipient QR')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
-          headerBackTitleVisible: false
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={TokensVsUtxoScreen}
-        name='TokensVsUtxo'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/ConvertScreen', 'UTXO vs Token')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
-          headerBackTitleVisible: false
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={NetworkDetails}
-        name='NetworkDetails'
-        options={{
-          headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
-          headerBackTitleVisible: false,
-          headerBackTestID: 'network_details_header_back'
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={NetworkSelectionScreenV2}
-        name='NetworkSelectionScreen'
-        options={{
-          ...screenOptions,
-          headerTitle: translate('screens/NetworkSelectionScreen', 'Network'),
-          headerBackTitleVisible: false,
-          headerRight: undefined
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={AboutScreen}
-        name='AboutScreen'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/AboutScreen', 'About')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
-          headerBackTitleVisible: false
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={CompositeSwapScreen}
-        name='CompositeSwap'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Swap tokens')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
-          headerBackTitleVisible: false
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={ConfirmCompositeSwapScreen}
-        name='ConfirmCompositeSwapScreen'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Confirm swap')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
-          headerBackTitleVisible: false
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={AddressBookScreenV2}
-        name='AddressBookScreen'
-        options={{
-          ...screenOptions,
-          headerRight: () => (
-            <HeaderNetworkStatus onPress={goToNetworkSelect} />
-          ),
-          headerTitle: translate('screens/Settings', 'Address Book')
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={AddOrEditAddressBookScreen}
-        name='AddOrEditAddressBookScreen'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/AddOrEditAddressBookScreen', 'Add New Address')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
-          headerBackTitleVisible: false
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={AddLiquidityScreenV2}
-        name='AddLiquidity'
-        options={{
-          ...screenOptions,
-          headerRight: () => (
-            <HeaderNetworkStatus onPress={goToNetworkSelect} />
-          ),
-          headerTitle: translate('screens/AddLiquidity', 'Add Liquidity')
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={ConfirmAddLiquidityScreenV2}
-        name='ConfirmAddLiquidity'
-        options={{
-          ...screenOptions,
-          headerRight: () => (
-            <HeaderNetworkStatus onPress={goToNetworkSelect} />
-          ),
-          headerTitle: translate('screens/ConfirmAddLiq', 'Confirm')
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={WithdrawFutureSwapScreen}
-        name='WithdrawFutureSwapScreen'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/WithdrawFutureSwapScreen', 'Withdraw from future swap')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
-          headerBackTitleVisible: false
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={RemoveLiquidityScreenV2}
-        name='RemoveLiquidity'
-        options={{
-          ...screenOptions,
-          headerRight: () => (
-            <HeaderNetworkStatus onPress={goToNetworkSelect} />
-          ),
-          headerTitle: translate('screens/DexScreen', 'Remove Liquidity')
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={FutureSwapScreen}
-        name='FutureSwapScreen'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/FutureSwapScreen', 'Future Swap')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
-          headerBackTitleVisible: false
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={ConfirmWithdrawFutureSwapScreen}
-        name='ConfirmWithdrawFutureSwapScreen'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/ConfirmWithdrawFutureSwapScreen', 'Confirm withdrawal')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
-          headerBackTitleVisible: false
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={RemoveLiquidityConfirmScreenV2}
-        name='RemoveLiquidityConfirmScreen'
-        options={{
-          ...screenOptions,
-          headerRight: () => (
-            <HeaderNetworkStatus onPress={goToNetworkSelect} />
-          ),
-          headerTitle: translate('screens/DexScreen', 'Confirm')
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={TransactionsScreen}
-        name='TransactionsScreen'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/TransactionsScreen', 'Transactions')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
-          headerBackTitleVisible: false
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={TransactionDetailScreen}
-        name='TransactionDetail'
-        options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/TransactionDetailScreen', 'Transaction')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
-          headerBackTitleVisible: false
-        }}
-      />
-    </PortfolioStack.Navigator>
+        <View style={tailwind('mt-20')}>
+          <SubmitButtonGroupV2
+            isDisabled={false}
+            title='convert'
+            label={translate('screens/ConvertConfirmScreen', 'Convert')}
+            displayCancelBtn
+            onSubmit={onSubmit}
+            onCancel={onCancel}
+          />
+        </View>
+      </ThemedViewV2>
+    </ThemedScrollViewV2>
   )
+}
+
+async function constructSignedConversionAndSend ({
+  mode,
+  amount
+}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
+  try {
+    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast)))
+  } catch (e) {
+    logger.error(e)
+  }
+}
+
+function getResultingValue (desireUnit: string, fee: BigNumber, balanceA: BigNumber, unitA: string, balanceB: BigNumber, unitB: string): string {
+  const balance = desireUnit === unitA ? balanceA : balanceB
+  const unit = desireUnit === unitA ? unitA : unitB
+
+  return BigNumber.max(balance.minus(unit === ConvertTokenUnit.UTXO ? fee : 0), 0).toFixed(8)
+}
+
+function getResultingPercentage (desireUnit: string, balanceA: BigNumber, unitA: string, balanceB: BigNumber): string {
+  const amount = desireUnit === unitA ? balanceA : balanceB
+  const totalAmount = balanceA.plus(balanceB)
+
+  return new BigNumber(amount).div(totalAmount).multipliedBy(100).toFixed(2)
 }
