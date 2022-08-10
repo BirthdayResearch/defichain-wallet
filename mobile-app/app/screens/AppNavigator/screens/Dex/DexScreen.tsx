@@ -249,14 +249,7 @@ export function DexScreen (): JSX.Element {
   useEffect(() => {
     const sorted = pairs
       .map(item => item)
-      .sort((a, b) => {
-        if (a.data.totalLiquidity.usd !== undefined && b.data.totalLiquidity.usd !== undefined) {
-          if (new BigNumber(a.data.totalLiquidity.usd).gt(b.data.totalLiquidity.usd)) {
-            return 0
-          }
-        }
-        return -1
-      })
+      .sort((a, b) => parseInt(b.data.totalLiquidity.usd ?? '0') - parseInt(a.data.totalLiquidity.usd ?? '0'))
       .slice(0, 4)
     setTopVolumePairs(sorted)
   }, [pairs])
@@ -329,11 +322,11 @@ function TopVolumeSection ({ topVolumePairs }: {topVolumePairs: Array<DexItem<Po
       sectionHeading='TOP VOLUME'
       sectionStyle={tailwind('my-6')}
     >
-      {topVolumePairs.map((pair, index) => (
+      {topVolumePairs.map((pair) => (
         <DexScrollable.Card
           key={pair.data.id}
           poolpair={pair.data}
-          style={tailwind({ 'ml-2': index !== topVolumePairs.length })}
+          style={tailwind('mr-2')}
         />
       ))}
     </DexScrollable>

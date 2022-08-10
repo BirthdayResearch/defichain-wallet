@@ -20,7 +20,7 @@ export function SwapButtonV2 (): JSX.Element {
       <ThemedTextV2
         light={tailwind('text-mono-light-v2-900')}
         dark={tailwind('text-mono-dark-v2-900')}
-        style={tailwind('font-semibold-v2 text-xs')}
+        style={tailwind('font-semibold-v2 text-xs text-center')}
         testID='composite_swap'
       >
         {translate('screens/DexScreen', 'Swap')}
