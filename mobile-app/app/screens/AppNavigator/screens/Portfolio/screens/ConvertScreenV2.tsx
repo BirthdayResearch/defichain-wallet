@@ -33,13 +33,18 @@ export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<PortfolioParamList, 'ConvertScreen'>
 
 interface ConversionIO extends AddressToken {
-  unit: 'UTXO' | 'Token'
+  unit: ConvertTokenUnit
 }
 
 enum InlineTextStatus {
   Default,
   Warning,
   Error
+}
+
+export enum ConvertTokenUnit {
+  UTXO = 'UTXO',
+  Token = 'Token'
 }
 
 export function ConvertScreenV2 (props: Props): JSX.Element {
@@ -260,12 +265,12 @@ function getDFIBalances (mode: ConversionMode, tokens: AddressToken[]): [source:
   const source: AddressToken = isUtxoToAccount(mode)
     ? tokens.find(tk => tk.id === '0_utxo') as AddressToken
     : tokens.find(tk => tk.id === '0') as AddressToken
-  const sourceUnit = isUtxoToAccount(mode) ? 'UTXO' : 'Token'
+  const sourceUnit = isUtxoToAccount(mode) ? ConvertTokenUnit.UTXO : ConvertTokenUnit.Token
 
   const target: AddressToken = isUtxoToAccount(mode)
     ? tokens.find(tk => tk.id === '0') as AddressToken
     : tokens.find(tk => tk.id === '0_utxo') as AddressToken
-  const targetUnit = isUtxoToAccount(mode) ? 'Token' : 'UTXO'
+  const targetUnit = isUtxoToAccount(mode) ? ConvertTokenUnit.Token : ConvertTokenUnit.UTXO
 
   return [
     {
@@ -403,8 +408,8 @@ function isUtxoToAccount (mode: ConversionMode): boolean {
   return mode === 'utxosToAccount'
 }
 
-export function getDisplayUnit (unit: 'UTXO' | 'Token'): 'UTXO' | 'tokens' {
-  if (unit === 'Token') {
+export function getDisplayUnit (unit: ConvertTokenUnit): 'UTXO' | 'tokens' {
+  if (unit === ConvertTokenUnit.Token) {
     return 'tokens'
   }
   return unit

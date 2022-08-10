@@ -42,7 +42,11 @@ import { AddressBookScreen } from './screens/AddressBookScreen'
 import { NetworkSelectionScreen } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { TokensVsUtxoFaq } from './screens/TokensVsUtxoFaq'
-import { ConversionMode, ConvertScreenV2 } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
+import {
+  ConversionMode,
+  ConvertScreenV2,
+  ConvertTokenUnit
+} from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
 import {
   ConvertConfirmationScreenV2
 } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreenV2'
@@ -64,9 +68,9 @@ export interface PortfolioParamList {
   ConvertConfirmationScreen: {
     amount: BigNumber
     mode: ConversionMode
-    sourceUnit: string
+    sourceUnit: ConvertTokenUnit
     sourceBalance: BigNumber
-    targetUnit: 'UTXO' | 'Token'
+    targetUnit: ConvertTokenUnit
     targetBalance: BigNumber
     fee: BigNumber
   }
