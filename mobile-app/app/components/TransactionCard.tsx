@@ -7,7 +7,7 @@ import { StyleProp, ViewStyle } from 'react-native'
 interface TransactionCardProps {
   maxValue: BigNumber
   onChange: (amount: string, type: AmountButtonTypes) => void
-  status?: string
+  status?: TransactionCardStatus
   containerStyle?: StyleProp<ViewStyle>
 }
 
@@ -16,6 +16,12 @@ export enum AmountButtonTypes {
   Half = '50%',
   SeventyFive = '75%',
   Max = 'MAX'
+}
+
+export enum TransactionCardStatus {
+  Default,
+  Active,
+  Error
 }
 
 export function TransactionCard ({
@@ -28,13 +34,13 @@ export function TransactionCard ({
   return (
     <ThemedViewV2
       light={tailwind('bg-mono-light-v2-00', {
-        'border-0.5 border-mono-light-v2-800': status === 'active'
+        'border-0.5 border-mono-light-v2-800': status === TransactionCardStatus.Active
       })}
       dark={tailwind('bg-mono-dark-v2-00', {
-        'border-0.5 border-mono-dark-v2-800': status === 'active'
+        'border-0.5 border-mono-dark-v2-800': status === TransactionCardStatus.Active
       })}
       style={tailwind('rounded-lg-v2', {
-        'border-0.5 border-red-v2': status === 'error'
+        'border-0.5 border-red-v2': status === TransactionCardStatus.Error
       })}
     >
       <ThemedViewV2

@@ -24,15 +24,27 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { tokensSelector } from '@store/wallet'
 import { getNativeIcon } from '@components/icons/assets'
 import { ButtonV2 } from '@components/ButtonV2'
-import { AmountButtonTypes, TransactionCard } from '@components/TransactionCard'
+import { AmountButtonTypes, TransactionCard, TransactionCardStatus } from '@components/TransactionCard'
 import { useToast } from 'react-native-toast-notifications'
-import { TransactionCardWalletTextInputV2 } from '@components/TransactionCardWalletTextInputV2'
+import NumberFormat from 'react-number-format'
+import { WalletTransactionCardTextInput } from '@components/WalletTransactionCardTextInput'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<PortfolioParamList, 'ConvertScreen'>
 
 interface ConversionIO extends AddressToken {
-  unit: 'UTXO' | 'Token'
+  unit: ConvertTokenUnit
+}
+
+enum InlineTextStatus {
+  Default,
+  Warning,
+  Error
+}
+
+export enum ConvertTokenUnit {
+  UTXO = 'UTXO',
+  Token = 'Token'
 }
 
 export function ConvertScreenV2 (props: Props): JSX.Element {
@@ -52,9 +64,8 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
   const [convAmount, setConvAmount] = useState<string>('0')
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [amount, setAmount] = useState<string>('')
-  const [hasError, setHasError] = useState<boolean>(false)
-  const [showMaxUTXOWarning, setShowMaxUTXOWarning] = useState<boolean>(false)
-  const [transactionCardStatus, setTransactionCardStatus] = useState<'error' | 'active' | undefined>()
+  const [inlineTextStatus, setInlineTextStatus] = useState<InlineTextStatus>(InlineTextStatus.Default)
+  const [transactionCardStatus, setTransactionCardStatus] = useState<TransactionCardStatus>()
   const [isInputFocus, setIsInputFocus] = useState<boolean>(false)
 
   useEffect(() => {
@@ -71,13 +82,18 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
     const conversionNum = new BigNumber(amount).isNaN() ? new BigNumber(0) : new BigNumber(amount)
     const conversion = conversionNum.toString()
     setConvAmount(conversion)
-    setHasError(conversionNum.gt(sourceNum))
-    setShowMaxUTXOWarning(isUtxoToAccount(mode) && !sourceNum.isZero() && conversionNum.toFixed(8) === sourceNum.toFixed(8))
+    if (conversionNum.gt(sourceNum)) {
+      setInlineTextStatus(InlineTextStatus.Error)
+    } else if (isUtxoToAccount(mode) && !sourceNum.isZero() && conversionNum.toFixed(8) === sourceNum.toFixed(8)) {
+      setInlineTextStatus(InlineTextStatus.Warning)
+    } else {
+      setInlineTextStatus(InlineTextStatus.Default)
+    }
   }, [mode, JSON.stringify(tokens), amount])
 
   useEffect(() => {
-    setTransactionCardStatus(hasError ? 'error' : isInputFocus ? 'active' : undefined)
-  }, [hasError, isInputFocus])
+    setTransactionCardStatus(inlineTextStatus === InlineTextStatus.Error ? TransactionCardStatus.Error : isInputFocus ? TransactionCardStatus.Active : TransactionCardStatus.Default)
+  }, [inlineTextStatus, isInputFocus])
 
   if (sourceToken === undefined || targetToken === undefined) {
     return <></>
@@ -155,7 +171,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
             onChange={onPercentagePress}
             containerStyle={tailwind('border-t-0.5')}
           >
-            <TransactionCardWalletTextInputV2
+            <WalletTransactionCardTextInput
               inputType='numeric'
               displayClearButton={amount !== ''}
               displayFocusStyle
@@ -170,29 +186,49 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
               testID='convert_input'
             />
           </TransactionCard>
-          <ThemedTextV2
-            style={tailwind('font-normal-v2 text-xs px-5 pt-2')}
-            light={tailwind('text-mono-light-v2-500', {
-              'text-red-v2': hasError,
-              'text-orange-v2': showMaxUTXOWarning && !hasError
-            })}
-            dark={tailwind('text-mono-dark-v2-500', {
-              'text-red-v2': hasError,
-              'text-orange-v2': showMaxUTXOWarning && !hasError
-            })}
-            testID='source_balance'
-          >
-            {
-              translate('screens/ConvertScreen', hasError
-                ? 'Insufficient balance'
-                : showMaxUTXOWarning
-                  ? 'A small amount of UTXO is reserved for fees'
-                  : 'Available: {{amount}} {{unit}}', {
-                amount: new BigNumber(sourceToken.amount).toFixed(8),
-                unit: getDisplayUnit(sourceToken.unit)
-              })
-            }
-          </ThemedTextV2>
+          <View style={tailwind('flex-row items-center px-5 pt-2')}>
+            <ThemedTextV2
+              style={tailwind('font-normal-v2 text-xs')}
+              light={tailwind('text-mono-light-v2-500', {
+                'text-red-v2': inlineTextStatus === InlineTextStatus.Error,
+                'text-orange-v2': inlineTextStatus === InlineTextStatus.Warning
+              })}
+              dark={tailwind('text-mono-dark-v2-500', {
+                'text-red-v2': inlineTextStatus === InlineTextStatus.Error,
+                'text-orange-v2': inlineTextStatus === InlineTextStatus.Warning
+              })}
+              testID='source_balance_label'
+            >
+              {
+                translate('screens/ConvertScreen', inlineTextStatus === InlineTextStatus.Error
+                  ? 'Insufficient balance'
+                  : inlineTextStatus === InlineTextStatus.Warning
+                    ? 'A small amount of UTXO is reserved for fees'
+                    : 'Available: ', {
+                  amount: new BigNumber(sourceToken.amount).toFixed(8),
+                  unit: getDisplayUnit(sourceToken.unit)
+                })
+              }
+            </ThemedTextV2>
+            {inlineTextStatus === InlineTextStatus.Default && (
+              <NumberFormat
+                decimalScale={8}
+                displayType='text'
+                suffix={` ${getDisplayUnit(sourceToken.unit)}`}
+                renderText={(value) => (
+                  <ThemedTextV2
+                    style={tailwind('font-normal-v2 text-xs')}
+                    light={tailwind('text-mono-light-v2-500')} dark={tailwind('text-mono-dark-v2-500')}
+                    testID='source_balance'
+                  >
+                    {value}
+                  </ThemedTextV2>
+                )}
+                thousandSeparator
+                value={new BigNumber(sourceToken.amount).toFixed(8)}
+              />
+            )}
+          </View>
         </View>
 
         {amount.length > 0 && (
@@ -229,12 +265,12 @@ function getDFIBalances (mode: ConversionMode, tokens: AddressToken[]): [source:
   const source: AddressToken = isUtxoToAccount(mode)
     ? tokens.find(tk => tk.id === '0_utxo') as AddressToken
     : tokens.find(tk => tk.id === '0') as AddressToken
-  const sourceUnit = isUtxoToAccount(mode) ? 'UTXO' : 'Token'
+  const sourceUnit = isUtxoToAccount(mode) ? ConvertTokenUnit.UTXO : ConvertTokenUnit.Token
 
   const target: AddressToken = isUtxoToAccount(mode)
     ? tokens.find(tk => tk.id === '0') as AddressToken
     : tokens.find(tk => tk.id === '0_utxo') as AddressToken
-  const targetUnit = isUtxoToAccount(mode) ? 'Token' : 'UTXO'
+  const targetUnit = isUtxoToAccount(mode) ? ConvertTokenUnit.Token : ConvertTokenUnit.UTXO
 
   return [
     {
@@ -308,12 +344,21 @@ function ConversionResultCard (props: { unit: string | undefined, oriTargetAmoun
         >
           {`${translate('screens/ConvertScreen', 'Available {{unit}}', { unit: props.unit })}`}
         </ThemedTextV2>
-        <ThemedTextV2
-          style={tailwind('flex-1 font-normal-v2 text-sm text-right')} testID='convert_available_amount'
-          light={tailwind('text-mono-light-v2-800')} dark={tailwind('text-mono-dark-v2-800')}
-        >
-          {new BigNumber(props.oriTargetAmount).toFixed(8)}
-        </ThemedTextV2>
+        <NumberFormat
+          decimalScale={8}
+          displayType='text'
+          renderText={(value) => (
+            <ThemedTextV2
+              style={tailwind('flex-1 font-normal-v2 text-sm text-right')}
+              light={tailwind('text-mono-light-v2-800')} dark={tailwind('text-mono-dark-v2-800')}
+              testID='convert_available_amount'
+            >
+              {value}
+            </ThemedTextV2>
+          )}
+          thousandSeparator
+          value={new BigNumber(props.oriTargetAmount).toFixed(8)}
+        />
       </ThemedViewV2>
       <ThemedViewV2
         style={tailwind('flex-row items-center pt-5 border-t-0.5')}
@@ -325,12 +370,21 @@ function ConversionResultCard (props: { unit: string | undefined, oriTargetAmoun
         >
           {`${translate('screens/ConvertScreen', 'Resulting {{unit}}', { unit: props.unit })}`}
         </ThemedTextV2>
-        <ThemedTextV2
-          style={tailwind('flex-1 font-semibold-v2 text-sm text-right')} testID='convert_result_amount'
-          light={tailwind('text-mono-light-v2-800')} dark={tailwind('text-mono-dark-v2-800')}
-        >
-          {props.totalTargetAmount}
-        </ThemedTextV2>
+        <NumberFormat
+          decimalScale={8}
+          displayType='text'
+          renderText={(value) => (
+            <ThemedTextV2
+              style={tailwind('flex-1 font-semibold-v2 text-sm text-right')}
+              light={tailwind('text-mono-light-v2-800')} dark={tailwind('text-mono-dark-v2-800')}
+              testID='convert_result_amount'
+            >
+              {value}
+            </ThemedTextV2>
+          )}
+          thousandSeparator
+          value={props.totalTargetAmount}
+        />
       </ThemedViewV2>
     </ThemedViewV2>
   )
@@ -354,8 +408,8 @@ function isUtxoToAccount (mode: ConversionMode): boolean {
   return mode === 'utxosToAccount'
 }
 
-export function getDisplayUnit (unit: 'UTXO' | 'Token'): 'UTXO' | 'tokens' {
-  if (unit === 'Token') {
+export function getDisplayUnit (unit: ConvertTokenUnit): 'UTXO' | 'tokens' {
+  if (unit === ConvertTokenUnit.Token) {
     return 'tokens'
   }
   return unit

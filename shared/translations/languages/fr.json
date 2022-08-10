@@ -106,7 +106,8 @@
     "A to Z": "A à Z",
     "Z to A": "Z à A",
     "AVAILABLE ASSETS": "ACTIFS DISPONIBLES",
-    "Asset value": "Valeur des actifs"
+    "Asset value": "Valeur des actifs",
+    "Sort by": "Trier par"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Obtenir DFI",
@@ -294,7 +295,7 @@
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
     "I WANT TO CONVERT": "JE VEUX CONVERTIR",
     "Insufficient balance": "Solde insuffisant",
-    "Available: {{amount}} {{unit}}": "Disponible: {{amount}} {{unit}}",
+    "Available: ": "Disponible: ",
     "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
     "Max available {{unit}} entered": "Max. de {{unit}} disponibles saisis",
     "{{percent}} of available {{unit}} entered": "{{percent}} des {{unit}} disponibles saisis",
