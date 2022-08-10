@@ -26,8 +26,8 @@ import { getNativeIcon } from '@components/icons/assets'
 import { ButtonV2 } from '@components/ButtonV2'
 import { AmountButtonTypes, TransactionCard } from '@components/TransactionCard'
 import { useToast } from 'react-native-toast-notifications'
-import { TransactionCardWalletTextInputV2 } from '@components/TransactionCardWalletTextInputV2'
 import NumberFormat from 'react-number-format'
+import { WalletTransactionCardTextInput } from '@components/WalletTransactionCardTextInput'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<PortfolioParamList, 'ConvertScreen'>
@@ -156,7 +156,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
             onChange={onPercentagePress}
             containerStyle={tailwind('border-t-0.5')}
           >
-            <TransactionCardWalletTextInputV2
+            <WalletTransactionCardTextInput
               inputType='numeric'
               displayClearButton={amount !== ''}
               displayFocusStyle
