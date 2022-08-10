@@ -1,5 +1,5 @@
 import { tailwind } from '@tailwind'
-import { Platform, View } from 'react-native'
+import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { BalanceTextV2 } from './BalanceTextV2'
@@ -29,7 +29,7 @@ export function TokenAmountTextV2 ({
       renderText={(value) =>
         <View style={tailwind('flex flex-1')}>
           <BalanceTextV2
-            containerStyle={[tailwind('justify-end text-right'), { marginBottom: Platform.OS === 'android' ? 2 : 3 }]}
+            containerStyle={[tailwind('text-sm font-semibold-v2 justify-end text-right mb-1')]}
             style={tailwind('text-sm font-semibold-v2 flex-wrap text-right')}
             testID={`${testID}_amount`}
             value={value}

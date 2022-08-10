@@ -7,7 +7,6 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2
 } from '@components/themed'
-
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
@@ -42,16 +41,10 @@ import { useAppDispatch } from '@hooks/useAppDispatch'
 import { ActionButtons } from './components/ActionButtons'
 import { AddressSelectionButtonV2 } from './components/AddressSelectionButtonV2'
 import { AssetsFilterRow, ButtonGroupTabKey } from '@screens/AppNavigator/screens/Portfolio/components/AssetsFilterRow'
-import {
-  BottomSheetAddressDetailV2
-} from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetAddressDetailV2'
+import { BottomSheetAddressDetailV2 } from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetAddressDetailV2'
 import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/BottomSheetWithNavV2'
-import {
-  CreateOrEditAddressLabelFormV2
-} from '@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelFormV2'
-import {
-  BottomSheetHeaderBackButton
-} from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetHeaderBackButton'
+import { CreateOrEditAddressLabelFormV2 } from '@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelFormV2'
+import { BottomSheetHeaderBackButton } from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetHeaderBackButton'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
@@ -597,14 +590,14 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
 function AssetSortRow (props: { isSorted: boolean, assetSortType: PortfolioSortType, modifiedDenominationCurrency: string, onPress: () => void }): JSX.Element {
   const highestCurrencyValue = translate('screens/PortfolioScreen', 'Highest value ({{modifiedDenominationCurrency}})', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
   const lowestCurrencyValue = translate('screens/PortfolioScreen', 'Lowest value ({{modifiedDenominationCurrency}})', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
-  const getDisplayedSortText = useCallback((text: PortfolioSortType): string => {
+  const getDisplayedSortText = (text: PortfolioSortType): string => {
     if (text === PortfolioSortType.HighestDenominationValue) {
       return highestCurrencyValue
     } else if (text === PortfolioSortType.LowestDenominationValue) {
       return lowestCurrencyValue
     }
     return text
-  }, [props.modifiedDenominationCurrency])
+  }
 
   return (
     <View

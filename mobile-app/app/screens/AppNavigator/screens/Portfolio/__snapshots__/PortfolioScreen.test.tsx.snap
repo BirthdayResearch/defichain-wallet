@@ -513,8 +513,10 @@ exports[`portfolio page should match snapshot 1`] = `
         <RCTScrollView
           contentContainerStyle={
             Object {
-              "flexDirection": "row",
+              "display": "flex",
+              "justifyContent": "space-between",
               "marginTop": 32,
+              "minWidth": "100%",
               "paddingLeft": 20,
               "paddingRight": 20,
             }
@@ -1177,20 +1179,15 @@ exports[`portfolio page should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
-              "borderBottomLeftRadius": 10,
-              "borderBottomRightRadius": 10,
-              "borderTopLeftRadius": 10,
-              "borderTopRightRadius": 10,
-              "marginLeft": 20,
-              "marginRight": 20,
-              "marginTop": 8,
-            },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
-          ]
+          Object {
+            "borderBottomLeftRadius": 10,
+            "borderBottomRightRadius": 10,
+            "borderTopLeftRadius": 10,
+            "borderTopRightRadius": 10,
+            "marginLeft": 20,
+            "marginRight": 20,
+            "marginTop": 8,
+          }
         }
         testID="dfi_balance_card"
       >
@@ -1227,6 +1224,7 @@ exports[`portfolio page should match snapshot 1`] = `
             style={
               Object {
                 "alignItems": "flex-start",
+                "backgroundColor": "rgba(255, 255, 255, 1)",
                 "display": "flex",
                 "flexDirection": "row",
                 "opacity": 1,
@@ -1393,11 +1391,13 @@ exports[`portfolio page should match snapshot 1`] = `
                       Array [
                         Array [
                           Object {
+                            "fontFamily": "SoraSemiBold",
+                            "fontSize": 14,
+                            "fontWeight": "600",
                             "justifyContent": "flex-end",
+                            "lineHeight": 20,
+                            "marginBottom": 4,
                             "textAlign": "right",
-                          },
-                          Object {
-                            "marginBottom": 3,
                           },
                         ],
                         Object {
@@ -1694,11 +1694,13 @@ exports[`portfolio page should match snapshot 1`] = `
                       Array [
                         Array [
                           Object {
+                            "fontFamily": "SoraSemiBold",
+                            "fontSize": 14,
+                            "fontWeight": "600",
                             "justifyContent": "flex-end",
+                            "lineHeight": 20,
+                            "marginBottom": 4,
                             "textAlign": "right",
-                          },
-                          Object {
-                            "marginBottom": 3,
                           },
                         ],
                         Object {
@@ -2027,11 +2029,13 @@ exports[`portfolio page should match snapshot 1`] = `
                       Array [
                         Array [
                           Object {
+                            "fontFamily": "SoraSemiBold",
+                            "fontSize": 14,
+                            "fontWeight": "600",
                             "justifyContent": "flex-end",
+                            "lineHeight": 20,
+                            "marginBottom": 4,
                             "textAlign": "right",
-                          },
-                          Object {
-                            "marginBottom": 3,
                           },
                         ],
                         Object {
