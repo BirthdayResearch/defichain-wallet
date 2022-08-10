@@ -111,7 +111,8 @@
     "A to Z": "Da A a Z",
     "Z to A": "Da Z a A",
     "AVAILABLE ASSETS": "ASSET DISPONIBILI",
-    "Asset value": "Valore degli asset"
+    "Asset value": "Valore degli asset",
+    "Sort by": "Sort by"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Get DFI",
