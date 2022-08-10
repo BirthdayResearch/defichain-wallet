@@ -543,6 +543,7 @@ export function PortfolioNavigator (): JSX.Element {
         component={TokensVsUtxoFaq}
         name='TokensVsUtxoFaq'
         options={{
+          ...screenOptions,
           headerTitle: translate('components/UtxoVsTokenFaq', 'About UTXO And Tokens')
         }}
       />
