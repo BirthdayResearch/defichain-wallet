@@ -28,6 +28,7 @@ import { EmptyActivePoolpair } from './components/EmptyActivePoolPair'
 import { debounce } from 'lodash'
 import { ButtonGroupTabKey, PoolPairCards } from './components/PoolPairCards/PoolPairCards'
 import { SwapButton } from './components/SwapButton'
+import { DexScrollable } from '@screens/AppNavigator/screens/Dex/components/DexScrollable'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -243,6 +244,23 @@ export function DexScreen (): JSX.Element {
     setDisplayGuidelines(false)
   }
 
+  // Top Volume pairs
+  const [topVolumePairs, setTopVolumePairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
+  useEffect(() => {
+    const sorted = pairs
+      .map(item => item)
+      .sort((a, b) => {
+        if (a.data.totalLiquidity.usd !== undefined && b.data.totalLiquidity.usd !== undefined) {
+          if (new BigNumber(a.data.totalLiquidity.usd).gt(b.data.totalLiquidity.usd)) {
+            return 0
+          }
+        }
+        return -1
+      })
+      .slice(0, 4)
+    setTopVolumePairs(sorted)
+  }, [pairs])
+
   if (!isLoaded) {
     return <></>
   }
@@ -254,6 +272,7 @@ export function DexScreen (): JSX.Element {
   return (
     <>
       <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
+      <TopVolumeSection topVolumePairs={topVolumePairs} />
       <View style={tailwind('flex-1')}>
         {activeTab === TabKey.AvailablePoolPair &&
           (!hasFetchedPoolpairData || isSearching) && (
@@ -300,5 +319,23 @@ export function DexScreen (): JSX.Element {
         )}
       </View>
     </>
+  )
+}
+
+function TopVolumeSection ({ topVolumePairs }: {topVolumePairs: Array<DexItem<PoolPairData>>}): JSX.Element {
+  return (
+    <DexScrollable
+      testId='DEX_TOP_VOLUME'
+      sectionHeading='TOP VOLUME'
+      sectionStyle={tailwind('my-6')}
+    >
+      {topVolumePairs.map((pair, index) => (
+        <DexScrollable.Card
+          key={pair.data.id}
+          poolpair={pair.data}
+          style={tailwind({ 'ml-2': index !== topVolumePairs.length })}
+        />
+      ))}
+    </DexScrollable>
   )
 }

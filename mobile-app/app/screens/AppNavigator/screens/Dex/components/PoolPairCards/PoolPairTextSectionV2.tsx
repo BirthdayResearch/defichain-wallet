@@ -27,8 +27,8 @@ export function PoolPairIconV2 (props: {
   const IconB = props.symbolB === 'DFI' ? getNativeIcon('_UTXO') : getNativeIcon(props.symbolB)
   return (
     <>
-      <IconA height={40} width={40} style={tailwind('relative z-10')} />
-      <IconB height={40} width={40} style={tailwind('-ml-3.5 mr-2')} />
+      <IconA height={36} width={36} style={tailwind('relative z-10')} />
+      <IconB height={36} width={36} style={tailwind('-ml-3.5 mr-2')} />
     </>
   )
 }
