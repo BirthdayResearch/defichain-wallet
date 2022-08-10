@@ -3,6 +3,7 @@ import { ThemedIcon, ThemedText } from './themed'
 import { BottomSheetModal } from './BottomSheetModal'
 import { translate } from '@translations'
 import { StyleProp, TextStyle, View } from 'react-native'
+import { useLanguageContext } from '@shared-contexts/LanguageProvider'
 
 export interface BottomSheetAlertInfo {
   title: string
@@ -12,16 +13,21 @@ interface BottomSheetInfoProps {
   name?: string
   alertInfo?: BottomSheetAlertInfo
   infoIconStyle?: StyleProp<TextStyle>
+  scrollEnabled?: boolean
 }
 
 export function BottomSheetInfo ({
   name,
   alertInfo,
-  infoIconStyle
+  infoIconStyle,
+  scrollEnabled
 }: BottomSheetInfoProps): JSX.Element {
+  const { language } = useLanguageContext()
+
   return (
     <BottomSheetModal
       name={name}
+      index={0}
       snapPoints={['30%']}
       alertInfo={alertInfo}
       triggerComponent={
@@ -34,7 +40,7 @@ export function BottomSheetInfo ({
           style={infoIconStyle}
         />
       }
-      enableScroll={false}
+      enableScroll={scrollEnabled}
     >
       <View style={tailwind('px-6 pt-0')}>
         <View
@@ -63,10 +69,18 @@ export function BottomSheetInfo ({
             dark={tailwind('text-gray-200')}
             light={tailwind('text-gray-700')}
           >
-            {translate('components/BottomSheetInfo', alertInfo?.message ?? '')}
+            {(language === 'en' || language === undefined) ? btcTextEn : translate('components/BottomSheetInfo', alertInfo?.message ?? '')}
           </ThemedText>
         </View>
       </View>
     </BottomSheetModal>
   )
 }
+
+const btcTextEn = `• DFX is a fully-regulated Swiss financial intermediary. Compliance with the regulation in particular to combat money laundering and terrorist financing (AML/CFT) requires elaborate processes that have to be developed and continuously renewed in close coordination with our law firms.
+
+ • Each user must be identified by means of KYC procedures.
+
+ • To enable fast bitcoin deposits, we need to maintain liquidity on the DeFiChain to transfer wrapped Bitcoin directly into users' wallets
+
+ • DFX is building the technical infrastructure to enable Bitcoin deposits to allow wrapped Bitcoin to be transferred to users' DFX wallets and used immediately upon receipt.`

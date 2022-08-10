@@ -610,7 +610,14 @@ function BalanceActionSection ({
   return (
     <View style={tailwind('flex flex-row mx-4')}>
       <BalanceActionButton type='SEND' onPress={() => navigation.navigate('Send')} disabled={isZeroBalance} />
-      <BalanceActionButton type='RECEIVE' onPress={() => navigation.navigate('Receive')} />
+      <BalanceActionButton
+        type='RECEIVE'
+        onPress={() => navigation.navigate({
+          name: 'ReceiveDTokenScreen',
+          params: { fromReceiveScreen: true },
+          merge: true
+        })}
+      />
     </View>
   )
 }

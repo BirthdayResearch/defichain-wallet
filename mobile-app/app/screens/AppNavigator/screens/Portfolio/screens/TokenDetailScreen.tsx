@@ -163,7 +163,9 @@ export function TokenDetailScreen ({
 
             <TokenActionRow
               icon='arrow-downward'
-              onPress={() => navigation.navigate('Receive')}
+              onPress={() => token.avatarSymbol === 'dBTC'
+                ? navigation.navigate('ReceiveDTokenScreen')
+                : navigation.navigate('Receive')}
               testID='receive_button'
               title={`${translate('screens/TokenDetailScreen', 'Receive {{token}}', { token: token.displaySymbol })}`}
             />

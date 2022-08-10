@@ -1133,7 +1133,11 @@
     "Annual vault interest": "Intérêts annuels du Vault",
     "Min. next bid": "Surenchère min.",
     "The minimum bid a user must place in order to take part in the auction.": "Offre minimale qu'un utilisateur doit placer pour pouvoir participer à l'enchère.",
-    "Settlement block": "Bloc d’exécution"
+    "Settlement block": "Bloc d’exécution",
+    "BTC Fee": "Frais BTC",
+    "Fee": "Frais",
+    "Each transaction will be subject to a small amount of fees.": "Chaque transaction sera soumise à un petit montant de frais.",
+    "btcfee.text": "• DFX est un intermédiaire financier sous réglementation suisse. La conformité avec le régulateur, en particulier dans la lutte anti-blanchiment et financement du terrorisme (AML/CFT), nécessite des procédures élaborées, développées et renouvelées en permanence avec l'aide des conseillers juridiques.\n\n  • Chaque utilisateur doit être identifié par le KYC.\n\n  • Nous devons maintenir la liquidité sur DeFiChain pour permettre le traitement des dépôts et pouvoir transférer rapidement les wrapped Bitcoin sur le wallet des utilisateurs.\n\n  • DFX développe elle-même l'infrastructure technique qui permet les dépôts en Bitcoin et l'envoi immédiat des wrapped Bitcoin sur le wallet DFX des utilisateurs."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault ID",
@@ -1540,8 +1544,6 @@
     "please select": "veuillez sélectionner",
     "Enter your desired payout amount": "Entrez le montant souhaité du virement",
     "Available to sell": "Disponible à la vente",
-    "Fee": "Frais",
-    "Each transaction will be subject to a small amount of fees.": "Chaque transaction sera soumise à un petit montant de frais.",
     "Transfer to your bank account": "Virement sur mon compte bancaire",
     "Your Currency": "Votre devise",
     "Select account to cash out": "Sélectionnez le compte à retirer",
@@ -1579,5 +1581,20 @@
     "Wallet created!": "Portefeuille créé ! ",
     "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "Accéder à la finance décentralisée avec une sécurité, une solidité et une immuabilité de niveau Bitcoin.",
     "Continue": "Suivant"
+  },
+  "screens/ReceiveDTokenScreen": {
+    "DEPOSIT ADDRESS": "Adresse de dépôt",
+    "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "Envoyez UNIQUEMENT des bitcoins natifs (BTC) sur votre adresse de  dépôt BTC inscrite ci-dessous, ou scannez le QR code. Nous transférerons ensuite les dBTC sur votre wallet DFX.",
+    "Bitcoin Deposit": "Dépôt Bitcoin",
+    "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!": "Notez que le dépôt MINIMUM est de {{MinimumBtcAmount}}!",
+    "Ref bonus": "Bonus de parrainage"
+  },
+  "screens/DfxButtons": {
+    "DFI.Tax": "DFI.tax",
+    "Defichain Income": "Defichain \nIncome",
+    "Dobby": "Dobby",
+    "Buy & Staking": "Achat & \nStaking",
+    "Sell": "Vente",
+    "Deposit Bitcoin": "Déposer Bitcoins"
   }
 }

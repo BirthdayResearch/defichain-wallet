@@ -1125,7 +1125,12 @@
     "Annual vault interest": "Jährlicher Vault-Zins",
     "Min. next bid": "Nächstes Mind. Gebot",
     "The minimum bid a user must place in order to take part in the auction.": "Das Mindestgebot, das ein Nutzer abgeben muss, um an der Auktion teilnehmen zu können.",
-    "Settlement block": "Ausführungsblock"
+    "Settlement block": "Ausführungsblock",
+    "BTC Fee": "BTC Gebühr",
+    "Fiat": "Gebühr",
+    "Fee": "Gebühr",
+    "Each transaction will be subject to a small amount of fees.": "Für jede Transaktion fällt eine geringe Gebühr an.",
+    "btcfee.text": "• DFX ist ein vollständig regulierter, schweizer Finanzintermediär. Insbesondere die Einhaltung der Verordnung zur Bekämpfung von Geldwäsche und Terrorismusfinanzierung (AML/CFT) erfordert aufwändige Prozesse, die in enger Abstimmung mit unseren Kanzleien entwickelt und laufend erneuert werden müssen.\n\n  • Jeder Benutzer muss mittels Verifikationsverfahren (KYC) identifiziert werden.\n\n  • Um schnelle Bitcoin-Einzahlungen ermöglichen zu können, halten wir auf der DeFiChain Liquidität vor um Bitcoin auf der DeFiChain, dBTC, innerhalb kürzester Zeit in die Wallets der Kunden transferieren zu können.\n\n  • Hierfür baut DFX ebenfalls die technische Infrastruktur auf."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
@@ -1528,8 +1533,6 @@
     "please select": "bitte auswählen",
     "Enter your desired payout amount": "Gebe deinen gewünschten Auszahlungsbetrag an",
     "Available to sell": "Zum Verkauf verfügbar",
-    "Fee": "Gebühr",
-    "Each transaction will be subject to a small amount of fees.": "Jede Transaktion unterliegt einer geringen Gebühr.",
     "Transfer to your bank account": "Auf dein Bankkonto auszahlen",
     "Your Currency": "Deine Währung",
     "Select account to cash out": "Konto für Auszahlung auswählen",
@@ -1567,5 +1570,20 @@
     "Wallet created!": "Wallet erstellt!",
     "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "Zugang zu dezentralem Finanzwesen mit Sicherheit, Stärke und Unveränderlichkeit auf Bitcoin-Niveau.",
     "Continue": "Weiter"
+  },
+  "screens/ReceiveDTokenScreen": {
+    "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!": "Bitte beachte den Mindesteinzahlungsbetrag von {{MinimumBtcAmount}}!",
+    "DEPOSIT ADDRESS": "Einzahlungsadresse",
+    "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "Sende ausschließlich native Bitcoin (BTC) an deine unten angezeigte BTC Einzahlungsadresse oder scanne den QR-Code. Wir werden dir anschließend dBTC in deine Wallet transferieren.",
+    "Bitcoin Deposit": "Bitcoin Einzahlung",
+    "Ref bonus": "Ref-Bonus"
+  },
+  "screens/DfxButtons": {
+    "Buy & Staking": "Kauf & \nStaking",
+    "DFI.Tax": "DFI.tax",
+    "Defichain Income": "Defichain \nIncome",
+    "Deposit Bitcoin": "Bitcoin einzahlen",
+    "Dobby": "Dobby",
+    "Sell": "Verkaufen"
   }
 }

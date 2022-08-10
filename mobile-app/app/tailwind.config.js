@@ -160,6 +160,12 @@ module.exports = {
           400: '#9AA5B8',
           500: '#65728A'
         },
+        dfxbtc: {
+          500: '#EC9937'
+        },
+        dfxdfi: {
+          500: '#D748A7'
+        },
         'brand-v2': { // TODO: (thabrad) check if LW uses correct syntax
           500: '#FF008C'
         },

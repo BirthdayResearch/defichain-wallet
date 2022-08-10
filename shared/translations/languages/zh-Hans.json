@@ -1080,7 +1080,11 @@
     "Annual vault interest": "金库年利息",
     "Min. next bid": "最低标价",
     "The minimum bid a user must place in order to take part in the auction.": "用户参与拍卖必须提交的最低标价。",
-    "Settlement block": "Settlement block"
+    "Settlement block": "Settlement block",
+    "BTC Fee": "比特币费用",
+    "Fee": "费用",
+    "Each transaction will be subject to a small amount of fees.": "每笔交易都将收取少量费用。",
+    "btcfee.text": "• DFX 是一家受全面监管的瑞士金融中介机构。 遵守特别是打击洗钱和恐怖主义融资 (AML/CFT) 的法规需要与我们的律师事务所密切合作制定并不断更新的复杂流程。\n\n  • 必须通过KYC 程序识别每个用户。\n\n  • 为了实现快速的比特币存款，我们需要保持 DeFiChain 的流动性，以便将打包的比特币直接转移到用户的钱包中\n\n  • DFX 正在构建技术基础设施，使比特币存款能够将打包的比特币转移到用户的 DFX 钱包并在收到后立即使用。"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金库编号",
@@ -1484,8 +1488,6 @@
     "please select": "请选择",
     "Enter your desired payout amount": "输入您想要的付款金额",
     "Available to sell": "可出售",
-    "Fee": "费用",
-    "Each transaction will be subject to a small amount of fees.": "每笔交易需要支付少量的费用.",
     "Transfer to your bank account": "转账到我的银行账户",
     "Your Currency": "您的货币",
     "Select account to cash out": "选择要提现的账户",
@@ -1523,5 +1525,20 @@
     "Wallet created!": "钱包已创建！",
     "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "透过去中心化金融按触如同比特币级别般安全、强度和不可随意变更的特性。",
     "Continue": "继续"
+  },
+  "screens/ReceiveDTokenScreen": {
+    "DEPOSIT ADDRESS": "存款地址",
+    "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "只需发送原生比特币（BTC）到你下面的BTC存款地址或扫描QR码。然后，我们将把dBTC转移到你的钱包。",
+    "Bitcoin Deposit": "比特币存款",
+    "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!": "请注意最低存款金额为 {{MinimumBtcAmount}}!",
+    "Ref bonus": "参考奖金"
+  },
+  "screens/DfxButtons": {
+    "DFI.Tax": "DFI.tax",
+    "Defichain Income": "Defichain \nIncome",
+    "Dobby": "Dobby",
+    "Sell": "Sell",
+    "Buy & Staking": "Buy &\nStaking",
+    "Deposit Bitcoin": "Deposit Bitcoin"
   }
 }
