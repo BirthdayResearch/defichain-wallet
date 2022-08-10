@@ -3,8 +3,8 @@ import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { ThemedProps, ThemedText, ThemedView } from './themed'
-import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 import { IconTooltip } from './tooltip/IconTooltip'
+import { ActiveUSDValueV2 } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2'
 
 type INumberRowProps = React.PropsWithChildren<ViewProps> & NumberRowProps
 
@@ -81,7 +81,7 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
         <View style={tailwind('flex flex-row justify-end flex-wrap items-center')}>
           {
             props.rhs.usdAmount !== undefined &&
-              <ActiveUSDValue
+              <ActiveUSDValueV2
                 price={props.rhs.usdAmount}
                 containerStyle={tailwind('justify-end')}
                 testId={`${props.rhs.testID}_rhsUsdAmount`}

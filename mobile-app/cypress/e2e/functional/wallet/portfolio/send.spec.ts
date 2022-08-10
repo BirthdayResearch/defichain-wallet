@@ -1,6 +1,24 @@
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import BigNumber from 'bignumber.js'
-import { checkValueWithinRange } from '../../../../support/walletCommands'
+
+const validateAmountButtonResult = (value: string, usdValue: string): void => {
+  cy.getByTestID('amount_input').should('have.value', value)
+
+  const usdValueWithThousandSep = Number(usdValue).toLocaleString(undefined, {
+    minimumFractionDigits: 2, maximumFractionDigits: 2
+  })
+  cy.getByTestID('amount_input_in_usd').should('have.text', `$${usdValueWithThousandSep}`)
+}
+
+const validateInfotext = (infoTextType: 'insufficient_balance' | 'lp_warning' | 'utxo_warning' | 'minimal_fee_warning'): void => {
+  const infoText = {
+    insufficient_balance: 'Insufficient balance',
+    lp_warning: 'Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds',
+    utxo_warning: 'A small amount of UTXO is reserved for fees',
+    minimal_fee_warning: 'There is a minimal fee for the transaction'
+  }
+  cy.getByTestID('info_text').should('have.text', infoText[infoTextType])
+}
 
 context('Wallet - Send', function () {
   let whale: WhaleApiClient
@@ -30,7 +48,6 @@ context('Wallet - Send', function () {
       cy.getByTestID('portfolio_list').should('exist')
       cy.getByTestID('action_button_group').should('exist')
       cy.getByTestID('send_balance_button').click().wait(3000)
-      cy.getByTestID('select_token_input').click()
       cy.getByTestID('select_DFI').click().wait(3000)
       cy.getByTestID('qr_code_button').click()
       cy.url().should('include', 'app/BarCodeScanner')
@@ -42,7 +59,7 @@ context('Wallet - Send', function () {
       cy.getByTestID('address_input').type(addresses[0])
       cy.getByTestID('amount_input').type('0.1')
       cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
-      cy.getByTestID('amount_input_clear_button').click()
+      cy.getByTestID('amount_input').clear()
 
       // Invalid address
       cy.getByTestID('address_input').type('z')
@@ -64,37 +81,38 @@ context('Wallet - Send', function () {
       cy.getByTestID('qr_code_button').should('be.visible')
     })
 
-    it('should contain info text when sending UTXO', function () {
-      cy.getByTestID('reserved_info_text').should('be.visible')
+    it('should be able to display info text when sending UTXO', function () {
+      // zero
+      cy.getByTestID('amount_input').clear().type('0')
+      validateInfotext('minimal_fee_warning')
+
+      // invalid
+      cy.getByTestID('amount_input').clear().type('xx')
+      validateInfotext('minimal_fee_warning')
+
+      // max amount
+      cy.getByTestID('MAX_amount_button').click()
+      validateInfotext('utxo_warning')
+
+      // over max amount
+      cy.getByTestID('amount_input').clear().type('12')
+      validateInfotext('insufficient_balance')
     })
 
-    it('should be able to compute for max values', function () {
-      cy.getByTestID('transaction_fee').then(($txt: any) => {
-        const transactionFee = $txt[0].textContent.replace(' DFI', '')
-        cy.getByTestID('max_value').then(($txt: any) => {
-          const maxValue = $txt[0].textContent.replace(' DFI', '')
-          expect(new BigNumber(transactionFee).plus(maxValue).toFixed(0)).eq('10')
-          cy.getByTestID('amount_input').clear()
-          cy.getByTestID('MAX_amount_button').click()
-          cy.getByTestID('amount_input').should('have.value', maxValue)
-          cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
-        })
-      })
-    })
-
-    it('should be able to compute half of max values', function () {
-      cy.getByTestID('transaction_fee').then(($txt: any) => {
-        const transactionFee = $txt[0].textContent.replace(' DFI', '')
-        cy.getByTestID('max_value').then(($txt: any) => {
-          const maxValue = $txt[0].textContent.replace(' DFI', '')
-          const halfValue = new BigNumber(maxValue).div(2)
-          expect(new BigNumber(halfValue).multipliedBy(2).plus(transactionFee).toFixed(0)).eq('10')
-          cy.getByTestID('amount_input').clear()
-          cy.getByTestID('50%_amount_button').click()
-          cy.getByTestID('amount_input').invoke('val').then(text => {
-            checkValueWithinRange(text, halfValue.toFixed(8), 0.1)
-          })
-          cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
+    it('should be able to compute amount from amount buttons', function () {
+      const amountButtons = {
+        '25%': 0.25,
+        '50%': 0.50,
+        '75%': 0.75,
+        MAX: 1
+      }
+      const amountButtonList = Object.keys(amountButtons) as Array<keyof typeof amountButtons>
+      amountButtonList.forEach((key) => {
+        cy.getByTestID('available_balance').invoke('text').then((text) => {
+          cy.getByTestID(`${key}_amount_button`).click()
+          const availableBalance = new BigNumber(text)
+          const inputAfterButtonPress = availableBalance.multipliedBy(amountButtons[key])
+          validateAmountButtonResult(inputAfterButtonPress.toFixed(8), inputAfterButtonPress.multipliedBy(10000).toFixed(2))
         })
       })
     })
@@ -135,7 +153,6 @@ context('Wallet - Send', function () {
         cy.getByTestID('bottom_tab_portfolio').click()
         cy.getByTestID('portfolio_list').should('exist')
         cy.getByTestID('send_balance_button').click().wait(3000)
-        cy.getByTestID('select_token_input').click()
         cy.getByTestID('select_DFI').click().wait(3000)
         cy.getByTestID('address_input').clear().type(address)
         cy.getByTestID('amount_input').clear().type('1')
@@ -166,17 +183,35 @@ context('Wallet - Send', function () {
       cy.getByTestID('bottom_tab_portfolio').click()
       cy.getByTestID('portfolio_list').should('exist')
       cy.getByTestID('send_balance_button').click().wait(3000)
-      cy.getByTestID('select_token_input').click()
       cy.getByTestID('select_DFI').click().wait(3000)
       cy.getByTestID('address_input').clear().type(oldAddress)
       cy.getByTestID('amount_input').clear().type(oldAmount)
       cy.getByTestID('button_confirm_send_continue').should('not.have.attr', 'disabled')
       cy.getByTestID('button_confirm_send_continue').click()
+
+      // Summary title
       cy.getByTestID('confirm_title').contains('You are sending')
-      cy.getByTestID('button_confirm_send').click().wait(3000)
+      cy.getByTestID('text_send_amount').should('have.text', new BigNumber(oldAmount).toFixed(8))
+
+      // Address
+      cy.getByTestID('summary_to_value').should('have.text', oldAddress)
+
+      // Transaction details
+      cy.getByTestID('transaction_fee_label').should('have.text', 'Transaction fee')
+      cy.getByTestID('transaction_fee_value').should('exist')
+      cy.getByTestID('text_amount_label').should('have.text', 'Amount to send')
+      cy.getByTestID('text_amount').contains(oldAmount)
+      const usdValueWithThousandSep = Number(new BigNumber(oldAmount).multipliedBy(10000).toFixed(2)).toLocaleString(undefined, {
+        minimumFractionDigits: 2, maximumFractionDigits: 2
+      })
+      cy.getByTestID('text_amount_rhsUsdAmount').should('have.text', `$${usdValueWithThousandSep}`)
+
+      // text_amount_rhsUsdAmount PIERRE
+      cy.getByTestID('button_confirm_send').click().wait(5000)
+
       // Check for authorization page description
-      cy.getByTestID('txn_authorization_description')
-        .contains(`Sending ${new BigNumber(oldAmount).toFixed(8)} DFI`)
+      cy.getByTestID('txn_authorization_title')
+        .contains(`Sending ${new BigNumber(oldAmount).toFixed(8)} DFI to ${oldAddress}`)
       // Cancel send on authorisation page
       cy.getByTestID('cancel_authorization').click()
       // Check for correct amount
@@ -197,8 +232,8 @@ context('Wallet - Send', function () {
       cy.getByTestID('confirm_title').contains('You are sending')
       cy.getByTestID('button_confirm_send').click().wait(3000)
       // Check for authorization page description
-      cy.getByTestID('txn_authorization_description')
-        .contains(`Sending ${new BigNumber(newAmount).toFixed(8)} DFI`)
+      cy.getByTestID('txn_authorization_title')
+        .contains(`Sending ${new BigNumber(newAmount).toFixed(8)} DFI to ${newAddress}`)
       cy.closeOceanInterface()
     })
   })
@@ -231,7 +266,7 @@ context('Wallet - Send', function () {
         cy.getByTestID('portfolio_row_17').should('exist')
         cy.getByTestID('portfolio_row_17_amount').contains(10).click()
         cy.getByTestID('send_button').click()
-        cy.getByTestID('lp_info_text').should('exist')
+        validateInfotext('minimal_fee_warning')
         cy.getByTestID('address_input').type(address)
         cy.getByTestID('MAX_amount_button').click()
         cy.getByTestID('button_confirm_send_continue').click()
@@ -271,7 +306,6 @@ context('Wallet - Send - Max Values', function () {
       cy.getByTestID('dfi_balance_card').should('exist')
       cy.getByTestID('action_button_group').should('exist')
       cy.getByTestID('send_balance_button').click().wait(3000)
-      cy.getByTestID('select_token_input').click()
       cy.getByTestID('select_DFI').click().wait(3000)
       cy.getByTestID('address_input').clear().type(address)
       cy.getByTestID('MAX_amount_button').click()
@@ -279,7 +313,11 @@ context('Wallet - Send - Max Values', function () {
       cy.getByTestID('button_confirm_send_continue').click()
       cy.getByTestID('confirm_title').contains('You are sending')
       cy.getByTestID('text_send_amount').contains('9.90000000')
-      cy.getByTestID('text_send_amount_suffix').contains('DFI')
+      cy.getByTestID('text_amount').contains('9.90000000 DFI')
+      const usdValueWithThousandSep = Number(new BigNumber(9.90).multipliedBy(10000).toFixed(2)).toLocaleString(undefined, {
+        minimumFractionDigits: 2, maximumFractionDigits: 2
+      })
+      cy.getByTestID('text_amount_rhsUsdAmount').should('have.text', `$${usdValueWithThousandSep}`)
       cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.closeOceanInterface()
       cy.getByTestID('bottom_tab_portfolio').click()
@@ -294,7 +332,7 @@ context('Wallet - Send - Max Values', function () {
   })
 })
 
-context('Wallet - Send - with Conversion', function () {
+context.only('Wallet - Send - with Conversion', function () {
   let whale: WhaleApiClient
 
   const addresses = ['bcrt1qh5callw3zuxtnks96ejtekwue04jtnm84f04fn', 'bcrt1q6ey8k3w0ll3cn5sg628nxthymd3une2my04j4n']
@@ -317,22 +355,28 @@ context('Wallet - Send - with Conversion', function () {
       cy.getByTestID('dfi_balance_card').should('exist')
       cy.getByTestID('action_button_group').should('exist')
       cy.getByTestID('send_balance_button').click().wait(3000)
-      cy.getByTestID('select_token_input').click()
       cy.getByTestID('select_DFI').click().wait(3000)
       cy.getByTestID('address_input').clear().type(address)
-      cy.getByTestID('transaction_details_info_text').should('contain', 'Review full transaction details in the next screen')
       cy.getByTestID('amount_input').type('12')
-      cy.getByTestID('conversion_info_text').should('exist')
-      cy.getByTestID('conversion_info_text').should('contain', 'Conversion will be required. Your passcode will be asked to authorize both transactions.')
-      cy.getByTestID('text_amount_to_convert_label').should('exist')
-      cy.getByTestID('text_amount_to_convert_label').should('contain', 'UTXO to be converted')
-      cy.getByTestID('text_amount_to_convert').should('contain', '2.10000000')
-      cy.getByTestID('transaction_details_info_text').should('contain', 'Authorize transaction in the next screen to convert')
+      cy.getByTestID('transaction_details_info_text').should('contain', 'By continuing, the required amount of DFI will be converted')
+
       cy.getByTestID('button_confirm_send_continue').click()
       cy.getByTestID('txn_authorization_title')
         .contains(`Convert ${new BigNumber('2.1').toFixed(8)} DFI to UTXO`)
       cy.closeOceanInterface().wait(3000)
-      cy.getByTestID('conversion_tag').should('exist')
+
+      cy.getByTestID('amount_to_convert_label').should('have.text', 'Amount to convert')
+      cy.getByTestID('amount_to_convert_value').should('contain', '2.10000000 DFI')
+      cy.getByTestID('conversion_status').should('have.text', 'Converted')
+      cy.getByTestID('transaction_fee_label').should('have.text', 'Transaction fee')
+      cy.getByTestID('transaction_fee_value').should('exist')
+
+      cy.getByTestID('text_amount').should('have.text', '12.00000000 DFI')
+      const usdValueWithThousandSep = Number(new BigNumber(12).multipliedBy(10000).toFixed(2)).toLocaleString(undefined, {
+        minimumFractionDigits: 2, maximumFractionDigits: 2
+      })
+      cy.getByTestID('text_amount_rhsUsdAmount').should('have.text', `$${usdValueWithThousandSep}`)
+
       cy.getByTestID('text_send_amount').should('contain', '12.00000000')
       cy.getByTestID('button_confirm_send').click().wait(3000)
       cy.closeOceanInterface()

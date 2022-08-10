@@ -63,6 +63,7 @@ export interface PortfolioParamList {
     token: WalletToken
     destination: string
     amount: BigNumber
+    amountInUsd: BigNumber
     fee: BigNumber
     conversion?: ConversionParam
   }

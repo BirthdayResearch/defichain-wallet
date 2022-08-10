@@ -1,30 +1,30 @@
+import { Dispatch, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import BigNumber from 'bignumber.js'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { StackScreenProps } from '@react-navigation/stack'
+import { tailwind } from '@tailwind'
+import { translate } from '@translations'
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction/dist'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { StackScreenProps } from '@react-navigation/stack'
-import { WalletToken } from '@store/wallet'
-import BigNumber from 'bignumber.js'
-import { Dispatch, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { ThemedActivityIndicatorV2, ThemedIcon, ThemedScrollViewV2, ThemedText, ThemedTextV2, ThemedViewV2 } from '@components/themed'
-import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { RootState } from '@store'
-import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
-import { tailwind } from '@tailwind'
-import { translate } from '@translations'
-import { PortfolioParamList } from '../PortfolioNavigator'
-import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
-import { Switch, View } from '@components'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { RootState } from '@store'
+import { WalletToken } from '@store/wallet'
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
+import { useAddressLabel } from '@hooks/useAddressLabel'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { Switch, View } from '@components'
+import { ThemedActivityIndicatorV2, ThemedIcon, ThemedScrollViewV2, ThemedText, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { SummaryTitleV2 } from '@components/SummaryTitleV2'
 import { NumberRowV2 } from '@components/NumberRowV2'
-import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useAddressLabel } from '@hooks/useAddressLabel'
 import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
+import { PortfolioParamList } from '../PortfolioNavigator'
 
 type Props = StackScreenProps<PortfolioParamList, 'SendConfirmationScreen'>
 
@@ -36,13 +36,13 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
     token,
     destination,
     amount,
+    amountInUsd,
     fee,
     conversion
   } = route.params
   const logger = useLogger()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const dispatch = useAppDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
@@ -85,16 +85,6 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
     }
   }
 
-  function getSubmitLabel (): string {
-    if (!hasPendingBroadcastJob && !hasPendingJob) {
-      return 'CONFIRM SEND'
-    }
-    if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
-      return currentBroadcastJob.submitButtonLabel
-    }
-    return 'SENDING'
-  }
-
   return (
     <ThemedScrollViewV2 style={tailwind('pb-4')}>
       <ThemedViewV2 style={tailwind('flex-col px-5 py-8')}>
@@ -118,7 +108,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
               }}
               lhs={{
                 value: translate('screens/ConvertConfirmScreen', 'Amount to convert'),
-                testID: 'amount_to_convert_label',
+                testID: 'amount_to_convert',
                 themedProps: {
                   light: tailwind('text-mono-light-v2-500'),
                   dark: tailwind('text-mono-dark-v2-500')
@@ -139,6 +129,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
                 style={tailwind('mr-1.5')}
                 light={tailwind('text-mono-light-v2-500')}
                 dark={tailwind('text-mono-dark-v2-500')}
+                testID='conversion_status'
               >
                 {conversion?.isConversionRequired && conversion?.isConverted !== true ? 'Converting' : 'Converted'}
               </ThemedTextV2>
@@ -164,7 +155,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
           }}
           lhs={{
             value: translate('screens/ConvertConfirmScreen', 'Transaction fee'),
-            testID: 'transaction_fee_label',
+            testID: 'transaction_fee',
             themedProps: {
               light: tailwind('text-mono-light-v2-500'),
               dark: tailwind('text-mono-dark-v2-500')
@@ -188,7 +179,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
           }}
           lhs={{
             value: translate('screens/SendConfirmationScreen', 'Amount to send'),
-            testID: 'test_idhere',
+            testID: 'text_amount',
             themedProps: {
               light: tailwind('text-mono-light-v2-500'),
               dark: tailwind('text-mono-dark-v2-500')
@@ -198,7 +189,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
             value: amount.toFixed(8),
             testID: 'text_amount',
             suffix: token.displaySymbol,
-            usdAmount: new BigNumber(12345678.12345678),
+            usdAmount: amountInUsd,
             themedProps: {
               style: tailwind('font-semibold-v2 text-sm'),
               light: tailwind('text-mono-light-v2-900'),
@@ -214,9 +205,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
       <SubmitButtonGroupV2
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob || (token.isLPS && !isAcknowledge)}
         isCancelDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/SendConfirmationScreen', 'SEND')}
-        isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        processingLabel={translate('screens/SendConfirmationScreen', getSubmitLabel())}
+        label={translate('screens/SendConfirmationScreen', 'Send')}
         onCancel={onCancel}
         onSubmit={onSubmit}
         displayCancelBtn
@@ -287,11 +276,16 @@ async function send ({
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
-      title: translate('screens/SendConfirmationScreen', 'Sending', { symbol: token.displaySymbol }),
-      description: translate('screens/SendConfirmationScreen', 'Sending {{amount}} {{symbol}}', {
+      title: translate('screens/ConvertConfirmScreen', 'Sending {{amount}} {{displaySymbol}} to {{toAddress}}', {
         amount: amount.toFixed(8),
-        symbol: token.displaySymbol
+        displaySymbol: token.displaySymbol,
+        toAddress: address
       }),
+      drawerMessages: {
+        preparing: translate('screens/OceanInterface', 'Preparing to send…'),
+        waiting: translate('screens/OceanInterface', 'Sending tokens…'),
+        complete: translate('screens/OceanInterface', 'Tokens sent')
+      },
       onBroadcast
     }))
   } catch (e) {
