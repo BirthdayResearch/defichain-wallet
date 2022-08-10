@@ -24,7 +24,7 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { tokensSelector } from '@store/wallet'
 import { getNativeIcon } from '@components/icons/assets'
 import { ButtonV2 } from '@components/ButtonV2'
-import { AmountButtonTypes, TransactionCard } from '@components/TransactionCard'
+import { AmountButtonTypes, BorderStatus, TransactionCard } from '@components/TransactionCard'
 import { useToast } from 'react-native-toast-notifications'
 import NumberFormat from 'react-number-format'
 import { WalletTransactionCardTextInput } from '@components/WalletTransactionCardTextInput'
@@ -65,7 +65,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [amount, setAmount] = useState<string>('')
   const [inlineTextStatus, setInlineTextStatus] = useState<InlineTextStatus>(InlineTextStatus.Default)
-  const [transactionCardStatus, setTransactionCardStatus] = useState<'error' | 'active' | undefined>()
+  const [transactionCardStatus, setTransactionCardStatus] = useState<BorderStatus>()
   const [isInputFocus, setIsInputFocus] = useState<boolean>(false)
 
   useEffect(() => {
@@ -92,7 +92,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
   }, [mode, JSON.stringify(tokens), amount])
 
   useEffect(() => {
-    setTransactionCardStatus(inlineTextStatus === InlineTextStatus.Error ? 'error' : isInputFocus ? 'active' : undefined)
+    setTransactionCardStatus(inlineTextStatus === InlineTextStatus.Error ? BorderStatus.Error : isInputFocus ? BorderStatus.Active : BorderStatus.Default)
   }, [inlineTextStatus, isInputFocus])
 
   if (sourceToken === undefined || targetToken === undefined) {
