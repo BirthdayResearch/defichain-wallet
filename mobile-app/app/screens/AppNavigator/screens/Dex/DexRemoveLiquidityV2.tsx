@@ -211,8 +211,8 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   const sharesUsdAmount = getTokenPrice(pair.symbol, new BigNumber(amount), true)
 
   return (
-    <View ref={containerRef} style={tailwind('flex-1')}>
-      <ThemedScrollView ref={ref} contentContainerStyle={tailwind('py-8 mx-5 justify-between')} style={tailwind('w-full')}>
+    <View ref={containerRef} style={tailwind('flex-col flex-1')}>
+      <ThemedScrollView ref={ref} contentContainerStyle={tailwind('flex-grow py-8 mx-5 justify-between')} style={tailwind('w-full')}>
         <View>
           <ViewPoolHeader
             tokenASymbol={pair.tokenA.displaySymbol}
