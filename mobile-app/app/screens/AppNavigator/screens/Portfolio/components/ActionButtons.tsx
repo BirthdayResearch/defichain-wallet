@@ -37,7 +37,13 @@ export function ActionButtons (): JSX.Element {
           iconType='Feather'
           iconSize={28}
           testID='send_balance_button'
-          onPress={() => navigation.navigate('Send')}
+          onPress={() => {
+            navigation.navigate({
+              name: 'TokenSelectionScreen',
+              params: {},
+              merge: true
+            })
+          }}
         />
         <ActionButton
           name={translate('components/ActionButtons', 'Receive')}
@@ -102,7 +108,7 @@ function ActionButton (props: ActionButtonsProps): JSX.Element {
               {props.badge}
             </Text>
           </View>
-      )}
+        )}
       </ThemedTouchableOpacityV2>
       <ThemedTextV2
         style={tailwind('text-xs font-normal-v2 text-center mt-2')}

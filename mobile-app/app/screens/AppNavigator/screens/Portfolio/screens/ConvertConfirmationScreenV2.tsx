@@ -128,20 +128,20 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
               dark: tailwind('text-mono-dark-v2-500')
             }
           }} rhs={{
-          value: getResultingValue('Token', fee, sourceBalance, sourceUnit, targetBalance, targetUnit),
-          suffix: 'DFI',
-          testID: 'resulting_tokens_value',
-          themedProps: {
-            light: tailwind('text-mono-light-v2-900 font-semibold-v2'),
-            dark: tailwind('text-mono-dark-v2-900 font-semibold-v2')
-          },
-          subValue: {
-            value: getResultingPercentage('Token', sourceBalance, sourceUnit, targetBalance),
-            prefix: '(',
-            suffix: '%)',
-            testID: 'resulting_tokens_sub_value'
-          }
-        }}
+            value: getResultingValue('Token', fee, sourceBalance, sourceUnit, targetBalance, targetUnit),
+            suffix: 'DFI',
+            testID: 'resulting_tokens_value',
+            themedProps: {
+              light: tailwind('text-mono-light-v2-900 font-semibold-v2'),
+              dark: tailwind('text-mono-dark-v2-900 font-semibold-v2')
+            },
+            subValue: {
+              value: getResultingPercentage('Token', sourceBalance, sourceUnit, targetBalance),
+              prefix: '(',
+              suffix: '%)',
+              testID: 'resulting_tokens_sub_value'
+            }
+          }}
         />
 
         <NumberRowV2
@@ -158,20 +158,20 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
               dark: tailwind('text-mono-dark-v2-500')
             }
           }} rhs={{
-          value: getResultingValue('UTXO', fee, sourceBalance, sourceUnit, targetBalance, targetUnit),
-          suffix: 'DFI',
-          testID: 'resulting_utxo_value',
-          themedProps: {
-            light: tailwind('text-mono-light-v2-900 font-semibold-v2'),
-            dark: tailwind('text-mono-dark-v2-900 font-semibold-v2')
-          },
-          subValue: {
-            value: getResultingPercentage('UTXO', sourceBalance, sourceUnit, targetBalance),
-            prefix: '(',
-            suffix: '%)',
-            testID: 'resulting_utxo_sub_value'
-          }
-        }}
+            value: getResultingValue('UTXO', fee, sourceBalance, sourceUnit, targetBalance, targetUnit),
+            suffix: 'DFI',
+            testID: 'resulting_utxo_value',
+            themedProps: {
+              light: tailwind('text-mono-light-v2-900 font-semibold-v2'),
+              dark: tailwind('text-mono-dark-v2-900 font-semibold-v2')
+            },
+            subValue: {
+              value: getResultingPercentage('UTXO', sourceBalance, sourceUnit, targetBalance),
+              prefix: '(',
+              suffix: '%)',
+              testID: 'resulting_utxo_sub_value'
+            }
+          }}
         />
 
         <View style={tailwind('mt-20')}>
@@ -194,7 +194,7 @@ async function constructSignedConversionAndSend ({
   amount
 }: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
   try {
-    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast)))
+    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, () => { })))
   } catch (e) {
     logger.error(e)
   }
