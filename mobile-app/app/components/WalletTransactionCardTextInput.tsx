@@ -29,7 +29,7 @@ interface IWalletTextInputProps {
   displayTickIcon?: boolean
 }
 
-export const TransactionCardWalletTextInputV2 = forwardRef<any, WalletTextInputProps>(function (props: WalletTextInputProps, ref: React.Ref<any>): JSX.Element {
+export const WalletTransactionCardTextInput = forwardRef<any, WalletTextInputProps>(function (props: WalletTextInputProps, ref: React.Ref<any>): JSX.Element {
   const {
     title,
     titleTestID,

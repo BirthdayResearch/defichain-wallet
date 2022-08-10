@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react-native'
-import { InputType, TransactionCardWalletTextInputV2 } from './TransactionCardWalletTextInputV2'
+import { InputType, WalletTransactionCardTextInput } from './WalletTransactionCardTextInput'
 
 jest.mock('@shared-contexts/ThemeProvider')
 const WalletInputType: InputType[] = ['default', 'numeric']
@@ -10,7 +10,7 @@ describe('wallet transactional card text input', () => {
       const value = ''
       const onClear = jest.fn
       const rendered = render(
-        <TransactionCardWalletTextInputV2
+        <WalletTransactionCardTextInput
           title='foo'
           titleTestID='titleTestID'
           placeholder='bar'
