@@ -109,7 +109,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
           fromAddress={address}
           amount={lmTokenAmount}
           testID='text_remove_amount'
-          title={translate('screens/ConfirmAddLiquidity', 'You will receive LP tokens')}
+          title={translate('screens/ConfirmAddLiq', 'You will receive LP tokens')}
           fromAddressLabel={addressLabel}
         />
       </ThemedViewV2>
@@ -122,7 +122,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
         >
           <NumberRowV2
             lhs={{
-              value: translate('screens/RemoveLiquidity', 'Amount to convert'),
+              value: translate('screens/ConfirmAddLiq', 'Amount to convert'),
               testID: 'transaction_fee',
               themedProps: {
                 light: tailwind('text-mono-light-v2-500'),
@@ -145,7 +145,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
         <View style={tailwind('mb-6')}>
           <NumberRowV2
             lhs={{
-              value: translate('screens/RemoveLiquidity', 'Transaction fee'),
+              value: translate('screens/ConfirmAddLiq', 'Transaction fee'),
               testID: 'transaction_fee',
               themedProps: {
                 light: tailwind('text-mono-light-v2-500'),
@@ -161,7 +161,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
         </View>
         <NumberRowV2
           lhs={{
-            value: translate('screens/RemoveLiquidity', 'Resulting pool share'),
+            value: translate('screens/ConfirmAddLiq', 'Resulting pool share'),
             testID: 'transaction_fee',
             themedProps: {
               light: tailwind('text-mono-light-v2-500'),
@@ -182,7 +182,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
       >
         <NumberRowV2
           lhs={{
-            value: translate('screens/RemoveLiquidity', '{{token}} to supply', {
+            value: translate('screens/ConfirmAddLiq', '{{token}} to supply', {
               token: pair.tokenA.displaySymbol
             }),
             testID: `${pair.tokenA.displaySymbol}_token_to_supply`,
@@ -199,7 +199,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
         />
         <NumberRowV2
           lhs={{
-            value: translate('screens/RemoveLiquidity', '{{token}} to supply', {
+            value: translate('screens/ConfirmAddLiq', '{{token}} to supply', {
               token: pair.tokenB.displaySymbol
             }),
             testID: `${pair.tokenB.displaySymbol}_token_to_supply`,
@@ -216,7 +216,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
         />
         <NumberRowV2
           lhs={{
-            value: translate('screens/RemoveLiquidity', 'Resulting LP tokens'),
+            value: translate('screens/ConfirmAddLiq', 'Resulting LP tokens'),
             testID: 'resulting_LP_tokens',
             themedProps: {
               light: tailwind('text-mono-light-v2-500'),
@@ -237,9 +237,9 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
       <View style={tailwind('py-14')}>
         <SubmitButtonGroupV2
           isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-          label={translate('screens/ConfirmRemoveLiquidity', 'Add liquidity')}
+          label={translate('screens/ConfirmAddLiq', 'Add liquidity')}
           isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-          processingLabel={translate('screens/ConfirmRemoveLiquidity', 'REMOVING')}
+          processingLabel={translate('screens/ConfirmAddLiq', 'ADDING')}
           onSubmit={addLiquidity}
           onCancel={onCancel}
           displayCancelBtn

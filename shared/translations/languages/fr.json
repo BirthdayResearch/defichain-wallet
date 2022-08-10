@@ -795,7 +795,17 @@
     "UTXO to be converted": "UTXO à convertir",
     "Authorize transaction in the next screen to convert": "Autoriser la transaction à l'étape suivante pour convertir",
     "Estimated fee": "Frais estimés",
-    "Pooled {{symbol}}": "{{symbol}} du pool"
+    "Pooled {{symbol}}": "{{symbol}} du pool",
+    "View pool share": "View pool share",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Insufficient balance": "Insufficient balance",
+    "APR": "APR",
+    "Shares to add": "Shares to add",
+    "Volume (24H):": "Volume (24H)",
+    "Total liquidity": "Total liquidity",
+    "Tokens in {{symbol}}": "Tokens in {{symbol}}",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "Vous ajoutez",
@@ -815,7 +825,15 @@
     "Transaction type": "Type de transaction",
     "Add liquidity": "Ajout de liquidité",
     "Convert & add liquidity": "Convertir et ajouter des liquidités",
-    "CONFIRM ADD LIQUIDITY": "CONFIRMER AJOUTER LIQUIDITÉ"
+    "CONFIRM ADD LIQUIDITY": "CONFIRMER AJOUTER LIQUIDITÉ",
+    "Your LP Tokens": "Mes tokens PL",
+    "You will receive LP tokens": "You will receive LP tokens",
+    "Amount to convert": "Amount to convert",
+    "Transaction fee": "Transaction fee",
+    "Resulting pool share": "Resulting pool share",
+    "{{token}} to supply": "{{token}} to supply",
+    "Resulting LP tokens": "Tokens PL résultants",
+    "Confirm": "Confirm"
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "Vous retirez",

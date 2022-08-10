@@ -3,7 +3,7 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
-import { Dispatch, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { View } from '@components'
 import { ThemedIcon, ThemedScrollView, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -57,6 +57,10 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   const { getTokenPrice } = useTokenPrice()
   const { pair: pairData, pairInfo } = props.route.params
 
+  // breakdown summary state 
+  const [hasAInputAmount, setHasAInputAmount] = useState(false)
+  const [hasBInputAmount, setHasBInputAmount] = useState(false)
+
   // transaction card component
   const [tokenATransactionCardStatus, setTokenATransactionCardStatus] = useState<'error' | 'active' | ' undefined'>()
   const [tokenBTransactionCardStatus, setTokenBTransactionCardStatus] = useState<'error' | 'active' | ' undefined'>()
@@ -95,7 +99,6 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     deps: [pair, tokenAAmount, tokenBAmount, balanceA, balanceB]
   })
 
-  const [selectedToken, setSelectedToken] = useState<string | undefined>('')
   const toast = useToast()
   const TOAST_DURATION = 2000
 
@@ -237,19 +240,36 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   }
 
   function showToast (type: AmountButtonTypes, displaySymbol: string): void {
-    toast.hideAll() // hides old toast everytime user presses on new percentage
+    toast.hideAll() // hides old toast everytime user clicks on a new percentage
     const isMax = type === AmountButtonTypes.Max
-      const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
-      const toastOption = {
-        unit: displaySymbol,
-        percent: type
-      }
-      toast.show(translate('screens/ConvertScreen', toastMessage, toastOption), {
-        type: 'wallet_toast',
-        placement: 'top',
-        duration: TOAST_DURATION
-      })
+    const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
+    const toastOption = {
+      unit: displaySymbol,
+      percent: type
+    }
+    toast.show(translate('screens/AddLiquidity', toastMessage, toastOption), {
+      type: 'wallet_toast',
+      placement: 'top',
+      duration: TOAST_DURATION
+    })
   }
+
+  // handle breadkown summary state 
+  useEffect(() => {
+    if (new BigNumber(tokenAAmount).isGreaterThan(0)) {
+      setHasAInputAmount(true)
+    } else {
+      setHasAInputAmount(false)
+    }
+  }, [tokenAAmount])
+  
+  useEffect(() => {
+    if (new BigNumber(tokenBAmount).isGreaterThan(0)) {
+      setHasBInputAmount(true)
+    } else {
+      setHasBInputAmount(false)
+    }
+  }, [tokenBAmount])
 
   // display UTXO fees msg only for DFI tokens in input card
   useEffect(() => {
@@ -346,7 +366,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
             <ViewPoolHeader
               tokenASymbol={pair.tokenA.displaySymbol}
               tokenBSymbol={pair.tokenB.displaySymbol}
-              headerLabel={translate('screens/RemoveLiquidity', 'View pool share')}
+              headerLabel={translate('screens/AddLiquidity', 'View pool share')}
               onPress={() => expandModal()}
             />
           </View>
@@ -357,7 +377,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
             onChange={(amount) => {
               buildSummary('primary', amount)
             }}
-            onPercentageChange={(amount, type) => 
+            onPercentageChange={(amount, type) =>
               onPercentagePress(amount, type, pair.tokenA.displaySymbol
             )}
             symbol={pair.tokenA.displaySymbol}
@@ -366,7 +386,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
             status={tokenATransactionCardStatus}
             showInsufficientTokenMsg={hasAError}
             showUTXOFeesMsg={showUTXOFeesAMsg}
-            setSelectedToken={setSelectedToken}
+            hasInputAmount={hasAInputAmount}
           />
           <AddLiquidityInputCard
             balance={balanceB}
@@ -374,7 +394,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
             onChange={(amount) => {
               buildSummary('secondary', amount)
             }}
-            onPercentageChange={(amount, type) => 
+            onPercentageChange={(amount, type) =>
               onPercentagePress(amount, type, pair.tokenB.displaySymbol
             )}
             symbol={pair.tokenB.displaySymbol}
@@ -383,84 +403,87 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
             status={tokenBTransactionCardStatus}
             showInsufficientTokenMsg={hasBError}
             showUTXOFeesMsg={showUTXOFeesBMsg}
-            setSelectedToken={setSelectedToken}
+            hasInputAmount={hasBInputAmount}
           />
         </View>
 
-        <View style={tailwind('pb-2 px-5')}>
-          <ThemedViewV2
-            light={tailwind('border-mono-light-v2-300')}
-            dark={tailwind('border-mono-dark-v2-300')}
-            style={tailwind('px-5 pt-5 border rounded-2xl-v2')}
-          >
-            <PricesSectionV2
-              key='prices'
-              testID='pricerate_value'
-              priceRates={[{
-                label: translate('components/PricesSection', '1 {{token}}', {
-                  token: pair.tokenA.displaySymbol
-                }),
-                value: pair.aToBRate.toFixed(8),
-                aSymbol: pair.tokenA.displaySymbol,
-                bSymbol: pair.tokenB.displaySymbol,
-                symbolUSDValue: getTokenPrice(pair.bSymbol, pair.aToBRate),
-                usdTextStyle: tailwind('text-sm')
-              },
-              {
-                label: translate('components/PricesSection', '1 {{token}}', {
-                  token: pair.tokenB.displaySymbol
-                }),
-                value: pair.bToARate.toFixed(8),
-                aSymbol: pair.tokenB.displaySymbol,
-                bSymbol: pair.tokenA.displaySymbol,
-                symbolUSDValue: getTokenPrice(pair.aSymbol, pair.bToARate),
-                usdTextStyle: tailwind('text-sm')
-              }
-              ]}
-            />
-            <ThemedViewV2
-              light={tailwind('border-mono-light-v2-300')}
-              dark={tailwind('border-mono-dark-v2-300')}
-              style={tailwind('pt-5 border-t-0.5')}
-            >
-              <NumberRowV2
-                lhs={{
-                  value: translate('components/PricesSection', 'Shares to add'), // TODO: update label upon confirmation
-                  testID: 'shares_to_add',
-                  themedProps: {
-                    light: tailwind('text-mono-light-v2-500'),
-                    dark: tailwind('text-mono-dark-v2-500'),
+        {hasAInputAmount && hasBInputAmount && (
+          <>
+            <View style={tailwind('pb-2 px-5')}>
+              <ThemedViewV2
+                light={tailwind('border-mono-light-v2-300')}
+                dark={tailwind('border-mono-dark-v2-300')}
+                style={tailwind('px-5 pt-5 border rounded-2xl-v2')}
+              >
+                <PricesSectionV2
+                  key='prices'
+                  testID='pricerate_value'
+                  priceRates={[{
+                    label: translate('components/PricesSection', '1 {{token}}', {
+                      token: pair.tokenA.displaySymbol
+                    }),
+                    value: pair.aToBRate.toFixed(8),
+                    aSymbol: pair.tokenA.displaySymbol,
+                    bSymbol: pair.tokenB.displaySymbol,
+                    symbolUSDValue: getTokenPrice(pair.bSymbol, pair.aToBRate),
+                    usdTextStyle: tailwind('text-sm')
+                  },
+                  {
+                    label: translate('components/PricesSection', '1 {{token}}', {
+                      token: pair.tokenB.displaySymbol
+                    }),
+                    value: pair.bToARate.toFixed(8),
+                    aSymbol: pair.tokenB.displaySymbol,
+                    bSymbol: pair.tokenA.displaySymbol,
+                    symbolUSDValue: getTokenPrice(pair.aSymbol, pair.bToARate),
+                    usdTextStyle: tailwind('text-sm')
                   }
-                }}
-                rhs={{
-                  value: lmTokenAmount.toFixed(8),
-                  testID: 'shares_to_add_value',
-                  usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,
-                  textStyle: tailwind('font-bold-v2'),
-                  usdTextStyle: tailwind('text-sm')
-                }}
-              />
-            </ThemedViewV2>
-          </ThemedViewV2>
-        </View>
+                  ]}
+                />
+                <ThemedViewV2
+                  light={tailwind('border-mono-light-v2-300')}
+                  dark={tailwind('border-mono-dark-v2-300')}
+                  style={tailwind('pt-5 border-t-0.5')}
+                >
+                  <NumberRowV2
+                    lhs={{
+                      value: translate('screens/AddLiquidity', 'Shares to add'),
+                      testID: 'shares_to_add',
+                      themedProps: {
+                        light: tailwind('text-mono-light-v2-500'),
+                        dark: tailwind('text-mono-dark-v2-500'),
+                      }
+                    }}
+                    rhs={{
+                      value: lmTokenAmount.toFixed(8),
+                      testID: 'shares_to_add_value',
+                      usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,
+                      textStyle: tailwind('font-bold-v2'),
+                      usdTextStyle: tailwind('text-sm')
+                    }}
+                  />
+                </ThemedViewV2>
+              </ThemedViewV2>
+            </View>
+            <View style={tailwind('items-center')}>
+              <ThemedTextV2
+                testID='transaction_details_hint_text'
+                light={tailwind('text-mono-light-v2-500')}
+                dark={tailwind('text-mono-dark-v2-500')}
+                style={tailwind('text-xs font-normal-v2 pt-4 text-center')}
+              >
+                {isConversionRequired ? (
+                  translate('screens/AddLiquidity', 'By continuing, the required amount of DFI will be converted')
+                )
+                  : (
+                    translate('screens/AddLiquidity', 'Review full details in the next screen')
+                  )}
+              </ThemedTextV2>
+            </View>
+          </>
+        )}
 
         <View style={tailwind('mx-8')}>
-          <View style={tailwind('items-center')}>
-            <ThemedTextV2
-              testID='transaction_details_hint_text'
-              light={tailwind('text-mono-light-v2-500')}
-              dark={tailwind('text-mono-dark-v2-500')}
-              style={tailwind('text-xs font-normal-v2 pt-4 text-center')}
-            >
-              {isConversionRequired ? (
-                translate('screens/AddLiquidity', 'By continuing, the required amount of DFI will be converted')
-              )
-                : (
-                  translate('screens/AddLiquidity', 'Review full details in the next screen')
-                )}
-            </ThemedTextV2>
-          </View>
-
           <View style={tailwind('mt-5 mx-4')}>
             <ButtonV2
               fill='fill' label={translate('components/Button', 'Continue')}
@@ -516,16 +539,18 @@ function AddLiquidityInputCard (
     setIsInputFocus: any // TODO: type checking
     showInsufficientTokenMsg: boolean
     showUTXOFeesMsg: boolean
-    setSelectedToken: Dispatch<React.SetStateAction<string | undefined>>
+    hasInputAmount?: boolean
   }): JSX.Element {
   const Icon = getNativeIcon(props.symbol)
+
+  useEffect(() => {
+  }, [props.balance])
   return (
     <>
       <TransactionCard
         maxValue={props.balance}
         onChange={(amount) => {
           props.onChange(amount)
-          props.setSelectedToken(props.symbol)
         }}
         onPercentageChange={props.onPercentageChange}
         status={props.status}
@@ -554,13 +579,13 @@ function AddLiquidityInputCard (
       </TransactionCard>
 
       <View style={tailwind('pb-6')}>
-        {!props.showInsufficientTokenMsg && !props.showInsufficientTokenMsg && !props.showUTXOFeesMsg && (
+        {!props.showInsufficientTokenMsg && !props.showUTXOFeesMsg && (
           <InputHelperTextV2
             testID={`token_balance_${props.type}`}
             label={`${translate('screens/AddLiquidity', 'Available')}: `}
             content={BigNumber.max(props.balance, 0).toFixed(8)}
             suffix={` ${props.symbol}`}
-        />
+          />
         )}
         {props.showInsufficientTokenMsg && (
           <ThemedTextV2
@@ -571,7 +596,7 @@ function AddLiquidityInputCard (
             {translate('screens/AddLiquidity', 'Insufficient balance')}
           </ThemedTextV2>
         )}
-        {props.showUTXOFeesMsg && !props.showInsufficientTokenMsg && (
+        {!props.showInsufficientTokenMsg && props.showUTXOFeesMsg && (
           <View style={tailwind('pl-2 pt-1')}>
             <ReservedDFIInfoTextV2 />
           </View>

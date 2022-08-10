@@ -786,7 +786,17 @@
     "UTXO to be converted": "要轉換的 UTXO",
     "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换",
     "Estimated fee": "所需费用（大约）",
-    "Pooled {{symbol}}": "池中总 {{symbol}}"
+    "Pooled {{symbol}}": "池中总 {{symbol}}",
+    "View pool share": "View pool share",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Insufficient balance": "Insufficient balance",
+    "APR": "APR",
+    "Shares to add": "Shares to add",
+    "Volume (24H):": "Volume (24H)",
+    "Total liquidity": "Total liquidity",
+    "Tokens in {{symbol}}": "Tokens in {{symbol}}",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "您正要增加流动资金",
@@ -806,7 +816,15 @@
     "Transaction type": "交易类型",
     "Add liquidity": "增加流动资金",
     "Convert & add liquidity": "转换并增加流动资金",
-    "CONFIRM ADD LIQUIDITY": "确认增加流动资金"
+    "CONFIRM ADD LIQUIDITY": "确认增加流动资金",
+    "Your LP Tokens": "您的 LP 代币",
+    "You will receive LP tokens": "您将会收到 LP 代币",
+    "Amount to convert": "Amount to convert",
+    "Transaction fee": "Transaction fee",
+    "Resulting pool share": "Resulting pool share",
+    "{{token}} to supply": "{{token}} to supply",
+    "Resulting LP tokens": "加入后产生的 LP 代币",
+    "Confirm": "Confirm"
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "您正要退出",
