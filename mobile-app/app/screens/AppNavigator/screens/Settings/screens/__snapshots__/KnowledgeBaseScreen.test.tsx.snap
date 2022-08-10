@@ -2,16 +2,22 @@
 
 exports[`knowledge base screen should render 1`] = `
 <RCTScrollView
+  contentContainerStyle={
+    Object {
+      "paddingBottom": 64,
+      "paddingLeft": 20,
+      "paddingRight": 20,
+    }
+  }
   style={
     Array [
       Object {
         "flexBasis": "0%",
         "flexGrow": 1,
         "flexShrink": 1,
-        "paddingBottom": 32,
       },
       Object {
-        "backgroundColor": "rgba(250, 250, 250, 1)",
+        "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
   }
@@ -29,426 +35,446 @@ exports[`knowledge base screen should render 1`] = `
           },
           Array [
             Object {
-              "color": "rgba(115, 115, 115, 1)",
-              "fontFamily": "MediumFont",
+              "fontFamily": "SoraRegular",
               "fontSize": 12,
-              "fontWeight": "500",
+              "fontWeight": "400",
               "lineHeight": 16,
               "paddingBottom": 8,
-              "paddingLeft": 16,
-              "paddingRight": 16,
+              "paddingLeft": 20,
+              "paddingRight": 20,
               "paddingTop": 24,
             },
             Object {
-              "backgroundColor": "rgba(250, 250, 250, 1)",
               "color": "rgba(115, 115, 115, 1)",
             },
           ],
         ]
       }
       testID="knowledge_base_title"
-      text="LEARN ABOUT"
+      text="LEARN MORE"
     >
-      LEARN ABOUT
+      LEARN MORE
     </Text>
     <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(229, 229, 229, 1)",
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(229, 229, 229, 1)",
-          "borderRightColor": "rgba(229, 229, 229, 1)",
-          "borderTopColor": "rgba(229, 229, 229, 1)",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "opacity": 1,
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 8,
-          "paddingTop": 16,
-        }
+        Array [
+          Object {
+            "borderBottomLeftRadius": 10,
+            "borderBottomRightRadius": 10,
+            "borderTopLeftRadius": 10,
+            "borderTopRightRadius": 10,
+          },
+          Object {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
       }
-      testID="recovery_words_faq"
     >
-      <Text
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+          Object {
+            "alignItems": "center",
+            "borderBottomColor": "rgba(204, 204, 204, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(204, 204, 204, 1)",
+            "borderRightColor": "rgba(204, 204, 204, 1)",
+            "borderTopColor": "rgba(204, 204, 204, 1)",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginLeft": 20,
+            "marginRight": 16,
+            "opacity": 1,
+            "paddingBottom": 18,
+            "paddingTop": 18,
+          }
+        }
+        testID="auctions_faq"
+      >
+        <Text
+          style={
             Array [
               Object {
-                "fontFamily": "MediumFont",
-                "fontWeight": "500",
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
               },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Recovery words
-      </Text>
-      <Text />
-    </View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(229, 229, 229, 1)",
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(229, 229, 229, 1)",
-          "borderRightColor": "rgba(229, 229, 229, 1)",
-          "borderTopColor": "rgba(229, 229, 229, 1)",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "opacity": 1,
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 8,
-          "paddingTop": 16,
-        }
-      }
-      testID="passcode_faq"
-    >
-      <Text
+              Array [
+                Object {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Auctions
+        </Text>
+        <Text />
+      </View>
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+          Object {
+            "alignItems": "center",
+            "borderBottomColor": "rgba(204, 204, 204, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(204, 204, 204, 1)",
+            "borderRightColor": "rgba(204, 204, 204, 1)",
+            "borderTopColor": "rgba(204, 204, 204, 1)",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginLeft": 20,
+            "marginRight": 16,
+            "opacity": 1,
+            "paddingBottom": 18,
+            "paddingTop": 18,
+          }
+        }
+        testID="dex_faq"
+      >
+        <Text
+          style={
             Array [
               Object {
-                "fontFamily": "MediumFont",
-                "fontWeight": "500",
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
               },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Passcode
-      </Text>
-      <Text />
-    </View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(229, 229, 229, 1)",
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(229, 229, 229, 1)",
-          "borderRightColor": "rgba(229, 229, 229, 1)",
-          "borderTopColor": "rgba(229, 229, 229, 1)",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "opacity": 1,
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 8,
-          "paddingTop": 16,
-        }
-      }
-      testID="utxo_and_token_faq"
-    >
-      <Text
+              Array [
+                Object {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          DEX
+        </Text>
+        <Text />
+      </View>
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+          Object {
+            "alignItems": "center",
+            "borderBottomColor": "rgba(204, 204, 204, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(204, 204, 204, 1)",
+            "borderRightColor": "rgba(204, 204, 204, 1)",
+            "borderTopColor": "rgba(204, 204, 204, 1)",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginLeft": 20,
+            "marginRight": 16,
+            "opacity": 1,
+            "paddingBottom": 18,
+            "paddingTop": 18,
+          }
+        }
+        testID="liquidity_mining_faq"
+      >
+        <Text
+          style={
             Array [
               Object {
-                "fontFamily": "MediumFont",
-                "fontWeight": "500",
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
               },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        UTXO vs Token
-      </Text>
-      <Text />
-    </View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(229, 229, 229, 1)",
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(229, 229, 229, 1)",
-          "borderRightColor": "rgba(229, 229, 229, 1)",
-          "borderTopColor": "rgba(229, 229, 229, 1)",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "opacity": 1,
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 8,
-          "paddingTop": 16,
-        }
-      }
-      testID="dex_faq"
-    >
-      <Text
+              Array [
+                Object {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Liquidity mining
+        </Text>
+        <Text />
+      </View>
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+          Object {
+            "alignItems": "center",
+            "borderBottomColor": "rgba(204, 204, 204, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(204, 204, 204, 1)",
+            "borderRightColor": "rgba(204, 204, 204, 1)",
+            "borderTopColor": "rgba(204, 204, 204, 1)",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginLeft": 20,
+            "marginRight": 16,
+            "opacity": 1,
+            "paddingBottom": 18,
+            "paddingTop": 18,
+          }
+        }
+        testID="loans_faq"
+      >
+        <Text
+          style={
             Array [
               Object {
-                "fontFamily": "MediumFont",
-                "fontWeight": "500",
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
               },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        DEX
-      </Text>
-      <Text />
-    </View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(229, 229, 229, 1)",
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(229, 229, 229, 1)",
-          "borderRightColor": "rgba(229, 229, 229, 1)",
-          "borderTopColor": "rgba(229, 229, 229, 1)",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "opacity": 1,
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 8,
-          "paddingTop": 16,
-        }
-      }
-      testID="liquidity_mining_faq"
-    >
-      <Text
+              Array [
+                Object {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Loans
+        </Text>
+        <Text />
+      </View>
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+          Object {
+            "alignItems": "center",
+            "borderBottomColor": "rgba(204, 204, 204, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(204, 204, 204, 1)",
+            "borderRightColor": "rgba(204, 204, 204, 1)",
+            "borderTopColor": "rgba(204, 204, 204, 1)",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginLeft": 20,
+            "marginRight": 16,
+            "opacity": 1,
+            "paddingBottom": 18,
+            "paddingTop": 18,
+          }
+        }
+        testID="passcode_faq"
+      >
+        <Text
+          style={
             Array [
               Object {
-                "fontFamily": "MediumFont",
-                "fontWeight": "500",
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
               },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Liquidity Mining
-      </Text>
-      <Text />
-    </View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(229, 229, 229, 1)",
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(229, 229, 229, 1)",
-          "borderRightColor": "rgba(229, 229, 229, 1)",
-          "borderTopColor": "rgba(229, 229, 229, 1)",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "opacity": 1,
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 8,
-          "paddingTop": 16,
-        }
-      }
-      testID="loans_faq"
-    >
-      <Text
+              Array [
+                Object {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Passcode
+        </Text>
+        <Text />
+      </View>
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+          Object {
+            "alignItems": "center",
+            "borderBottomColor": "rgba(204, 204, 204, 1)",
+            "borderBottomWidth": 1,
+            "borderLeftColor": "rgba(204, 204, 204, 1)",
+            "borderRightColor": "rgba(204, 204, 204, 1)",
+            "borderTopColor": "rgba(204, 204, 204, 1)",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginLeft": 20,
+            "marginRight": 16,
+            "opacity": 1,
+            "paddingBottom": 18,
+            "paddingTop": 18,
+          }
+        }
+        testID="recovery_words_faq"
+      >
+        <Text
+          style={
             Array [
               Object {
-                "fontFamily": "MediumFont",
-                "fontWeight": "500",
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
               },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Loans
-      </Text>
-      <Text />
-    </View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(229, 229, 229, 1)",
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(229, 229, 229, 1)",
-          "borderRightColor": "rgba(229, 229, 229, 1)",
-          "borderTopColor": "rgba(229, 229, 229, 1)",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "opacity": 1,
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 8,
-          "paddingTop": 16,
-        }
-      }
-      testID="auctions_faq"
-    >
-      <Text
+              Array [
+                Object {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Recovery words
+        </Text>
+        <Text />
+      </View>
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+          Object {
+            "alignItems": "center",
+            "borderBottomColor": "rgba(204, 204, 204, 1)",
+            "borderLeftColor": "rgba(204, 204, 204, 1)",
+            "borderRightColor": "rgba(204, 204, 204, 1)",
+            "borderTopColor": "rgba(204, 204, 204, 1)",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginLeft": 20,
+            "marginRight": 16,
+            "opacity": 1,
+            "paddingBottom": 18,
+            "paddingTop": 18,
+          }
+        }
+        testID="utxo_and_token_faq"
+      >
+        <Text
+          style={
             Array [
               Object {
-                "fontFamily": "MediumFont",
-                "fontWeight": "500",
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
               },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Auctions
-      </Text>
-      <Text />
+              Array [
+                Object {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                Object {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          UTXO and Tokens
+        </Text>
+        <Text />
+      </View>
     </View>
   </View>
 </RCTScrollView>

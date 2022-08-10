@@ -1,6 +1,7 @@
 import { tailwind } from '@tailwind'
 import { ThemedTextV2 } from '@components/themed'
 import { View } from '@components'
+import { Platform } from 'react-native'
 
 export function TokenNameTextV2 ({
   testID,
@@ -10,7 +11,7 @@ export function TokenNameTextV2 ({
   return (
     <View style={tailwind('ml-2 flex-auto')}>
       <ThemedTextV2
-        style={tailwind('font-semibold-v2 text-sm mb-1')}
+        style={tailwind('font-semibold-v2 text-sm mb-1', { 'mt-0.5': Platform.OS === 'android' })}
         testID={`${testID}_symbol`}
       >
         {displaySymbol}

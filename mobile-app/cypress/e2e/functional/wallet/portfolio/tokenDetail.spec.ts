@@ -333,8 +333,8 @@ context('Wallet - Token Detail - DFI - UTXO and Token', () => {
       .wait(10000)
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('portfolio_list').should('exist')
-    cy.getByTestID('dfi_balance_card_touchable').should('exist')
-    cy.getByTestID('dfi_balance_card_touchable').click()
+    cy.getByTestID('dfi_total_balance_amount').should('exist').contains('20.00000000')
+    cy.getByTestID('dfi_balance_card').should('exist').click()
   })
 
   it('should be able to click token DFI', function () {
@@ -381,8 +381,8 @@ context('Wallet - Token Detail - DFI - with collateral, UTXO and Token', () => {
       .sendTokenToWallet(['BTC', 'ETH']).wait(6000)
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('portfolio_list').should('exist')
-    cy.getByTestID('dfi_balance_card_touchable').should('exist')
-    cy.getByTestID('dfi_balance_card_touchable').click()
+    cy.getByTestID('dfi_total_balance_amount').should('exist').contains('30.00000000')
+    cy.getByTestID('dfi_balance_card').should('exist').click()
   })
 
   it('should be able to click on DFI token', function () {
@@ -394,7 +394,7 @@ context('Wallet - Token Detail - DFI - with collateral, UTXO and Token', () => {
     }).wait(3000)
     validateLockedToken('DFI', '2.12300000')
     validateAvailableToken('DFI', '30')
-    cy.getByTestID('dfi_utxo_percentage').contains('66.67%')
+    cy.getByTestID('dfi_utxo_percentage').contains('66.66%')
     cy.getByTestID('dfi_token_percentage').contains('33.33%')
     cy.getByTestID('dfi_utxo_amount').contains('20.00000000')
     cy.getByTestID('dfi_token_amount').contains('10.00000000')
@@ -423,12 +423,6 @@ context('Wallet - Token Detail - DFI - with collateral, UTXO and Token', () => {
 
 context('Wallet - Token Detail - Failed API', () => {
   beforeEach(function () {
-    cy.createEmptyWallet(true)
-    cy.getByTestID('dfi_balance_card_touchable').should('exist')
-    cy.getByTestID('dfi_balance_card_touchable').click()
-  })
-
-  it('should not display any value when API failed', function () {
     cy.intercept('**/regtest/address/**', {
       statusCode: 404,
       body: '404 Not Found!',
@@ -436,9 +430,12 @@ context('Wallet - Token Detail - Failed API', () => {
         'x-not-found': 'true'
       }
     })
-    cy.getByTestID('dfi_utxo_percentage_breakdown_row_skeleton_loader').should('exist')
-    cy.getByTestID('dfi_token_percentage_breakdown_row_skeleton_loader').should('exist')
-    cy.getByTestID('dfi_utxo_breakdown_row_skeleton_loader').should('exist')
-    cy.getByTestID('dfi_token_breakdown_row_skeleton_loader').should('exist')
+    cy.createEmptyWallet(true)
+  })
+
+  it('should not display any value when API failed', function () {
+    cy.getByTestID('dfi_balance_card').should('exist').click()
+    cy.getByTestID('dfi_balance_skeleton_loader').should('exist')
+    cy.getByTestID('dfi_USD_balance_skeleton_loader').should('exist')
   })
 })

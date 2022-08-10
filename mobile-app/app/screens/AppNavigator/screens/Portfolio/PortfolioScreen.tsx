@@ -7,7 +7,6 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2
 } from '@components/themed'
-
 import { useDisplayBalancesContext } from '@contexts/DisplayBalancesContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
@@ -42,16 +41,10 @@ import { useAppDispatch } from '@hooks/useAppDispatch'
 import { ActionButtons } from './components/ActionButtons'
 import { AddressSelectionButtonV2 } from './components/AddressSelectionButtonV2'
 import { AssetsFilterRow, ButtonGroupTabKey } from '@screens/AppNavigator/screens/Portfolio/components/AssetsFilterRow'
-import {
-  BottomSheetAddressDetailV2
-} from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetAddressDetailV2'
+import { BottomSheetAddressDetailV2 } from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetAddressDetailV2'
 import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/BottomSheetWithNavV2'
-import {
-  CreateOrEditAddressLabelFormV2
-} from '@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelFormV2'
-import {
-  BottomSheetHeaderBackButton
-} from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetHeaderBackButton'
+import { CreateOrEditAddressLabelFormV2 } from '@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelFormV2'
+import { BottomSheetHeaderBackButton } from '@screens/AppNavigator/screens/Portfolio/components/BottomSheetHeaderBackButton'
 
 type Props = StackScreenProps<PortfolioParamList, 'PortfolioScreen'>
 
@@ -280,15 +273,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
     setAssetSortType(PortfolioSortType.HighestDenominationValue) // reset sorting state upon denominationCurrency change
   }, [denominationCurrency])
 
-  // conditions to display sort icons
-  useEffect(() => {
-    if (assetSortType.includes('Lowest')) {
-      setIsSorted(true)
-    } else {
-      setIsSorted(false)
-    }
-  }, [assetSortType])
-
   // token tab items
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllTokens)
   const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
@@ -349,6 +333,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         stackScreenName: 'AssetSortList',
         component: BottomSheetAssetSortList({
           onButtonPress: (item: PortfolioSortType) => {
+            setIsSorted(true)
             setAssetSortType(item)
             sortTokensAssetOnType(item)
             setShowAssetSortBottomSheet(false)
@@ -510,7 +495,6 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
               light={tailwind('text-mono-light-v2-900')}
               name={`${isBalancesDisplayed ? 'eye' : 'eye-off'}`}
               size={18}
-              testID='toggle_usd_breakdown_icon'
             />
           </ThemedTouchableOpacityV2>
         </ThemedViewV2>
@@ -598,14 +582,14 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
 function AssetSortRow (props: { isSorted: boolean, assetSortType: PortfolioSortType, modifiedDenominationCurrency: string, onPress: () => void }): JSX.Element {
   const highestCurrencyValue = translate('screens/PortfolioScreen', 'Highest value ({{modifiedDenominationCurrency}})', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
   const lowestCurrencyValue = translate('screens/PortfolioScreen', 'Lowest value ({{modifiedDenominationCurrency}})', { modifiedDenominationCurrency: props.modifiedDenominationCurrency })
-  const getDisplayedSortText = useCallback((text: PortfolioSortType): string => {
+  const getDisplayedSortText = (text: PortfolioSortType): string => {
     if (text === PortfolioSortType.HighestDenominationValue) {
       return highestCurrencyValue
     } else if (text === PortfolioSortType.LowestDenominationValue) {
       return lowestCurrencyValue
     }
     return text
-  }, [props.modifiedDenominationCurrency])
+  }
 
   return (
     <View
@@ -629,7 +613,7 @@ function AssetSortRow (props: { isSorted: boolean, assetSortType: PortfolioSortT
           dark={tailwind('text-mono-dark-v2-800')}
           style={tailwind('text-xs font-normal-v2')}
         >
-          {translate('screens/PortfolioScreen', getDisplayedSortText(props.assetSortType))}
+          {translate('screens/PortfolioScreen', props.isSorted ? getDisplayedSortText(props.assetSortType) : 'Sort by')}
         </ThemedTextV2>
         <ThemedIcon
           style={tailwind('ml-1 font-medium')}

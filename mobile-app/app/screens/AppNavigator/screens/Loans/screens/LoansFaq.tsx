@@ -1,5 +1,5 @@
-import { ThemedScrollView, ThemedText } from '@components/themed'
-import { AccordionContent, WalletAccordion } from '@components/WalletAccordion'
+import { ThemedScrollViewV2, ThemedTextV2 } from '@components/themed'
+import { WalletAccordionV2, AccordionContent } from '@components/WalletAccordionV2'
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -20,7 +20,7 @@ export function LoansFaq ({ route }: Props): JSX.Element {
     {
       title: translate('components/LoansFaq', 'What is the collateralization ratio used for?'),
       content: [{
-        text: translate('components/LoansFaq', 'The collateralization ratio determines the state of the vault. A ratio below the minimum collaterization ratio results in liquidation, upon which, a vault\'s collateral will be sent for auction.'),
+        text: translate('components/LoansFaq', 'The collateralization ratio determines the state of the vault. A ratio below the minimum collateralization ratio results in liquidation, upon which, a vault\'s collateral will be sent for auction.'),
         type: 'paragraph'
       }, {
         text: translate('components/LoansFaq', 'Indicators have been included to help visualise the health of your vault, where:'),
@@ -91,39 +91,27 @@ export function LoansFaq ({ route }: Props): JSX.Element {
         text: translate('components/LoansFaq', 'The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you\'re minting new dTokens and when you are withdrawing collateral from your vault.'),
         type: 'paragraph'
       }]
-    },
-    {
-      title: translate('components/LoansFaq', 'Why is there a 5% fee when paying DUSD loans with DFI?'),
-      content: [{
-        text: translate('components/LoansFaq', 'Per DFIP 2206-C, when DUSD loans are paid back in DFI, a 5% fees will be charged to users. This is an interim measure to incentivize arbitrage traders to use DUSD to pay back their loans which will reduce the DUSD supply in the market.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 5% additional fee is applied to the DFI/DUSD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, the value of DFI in a DUSD payment is calculated by taking $10*(1-0.05), effectively reducing the value of DFI by 5% to $9.50 in such a scenario.'),
-        type: 'paragraph'
-      }]
     }
   ]
 
   return (
-    <ThemedScrollView
-      contentContainerStyle={tailwind('p-6 pb-8')}
+    <ThemedScrollViewV2
+      contentContainerStyle={tailwind('pt-8 px-5 pb-16')}
+      style={tailwind('flex-1')}
       testID='loans_faq'
     >
-      <ThemedText
-        style={tailwind('text-lg font-semibold')}
-      >
-        {translate('components/LoansFaq', 'Decentralized Loans')}
-      </ThemedText>
-
-      <ThemedText
-        style={tailwind('mt-2 text-sm')}
+      <ThemedTextV2
+        style={tailwind('text-base font-normal-v2 px-5')}
       >
         {translate('components/LoansFaq', 'The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collateral before you can take a loan.')}
-      </ThemedText>
+      </ThemedTextV2>
 
-      <WalletAccordion
+      <WalletAccordionV2
         testID='loans_faq_accordion'
         activeSections={activeSessions}
         title={translate('components/LoansFaq', 'FREQUENTLY ASKED QUESTIONS')}
         content={faqContent}
       />
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }

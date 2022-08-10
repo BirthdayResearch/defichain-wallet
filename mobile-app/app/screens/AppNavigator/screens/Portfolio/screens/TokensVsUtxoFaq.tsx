@@ -3,7 +3,7 @@ import { WalletAccordionV2, AccordionContent } from '@components/WalletAccordion
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 
-export function TokensVsUtxoFaqV2 (): JSX.Element {
+export function TokensVsUtxoFaq (): JSX.Element {
   const faqContent: AccordionContent[] = [
     {
       title: translate('components/UtxoVsTokenFaq', 'What are UTXOs?'),

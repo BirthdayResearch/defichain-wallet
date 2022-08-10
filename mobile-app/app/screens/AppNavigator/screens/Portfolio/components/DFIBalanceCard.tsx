@@ -4,7 +4,7 @@ import { DFITokenSelector, DFIUtxoSelector, unifiedDFISelector } from '@store/wa
 import { tailwind } from '@tailwind'
 import { TouchableOpacity, Text, View, Platform } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { ThemedViewV2 } from '@components/themed'
+import { ThemedTouchableOpacityV2 } from '@components/themed'
 import { getNativeIcon } from '@components/icons/assets'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
@@ -30,20 +30,21 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
   const DFIIcon = getNativeIcon('_UTXO')
 
   return (
-    <ThemedViewV2
-      light={tailwind('bg-mono-light-v2-00')}
-      dark={tailwind('bg-mono-dark-v2-00')}
+    <View
       style={tailwind('mx-5 mt-2 rounded-lg-v2')}
       testID='dfi_balance_card'
     >
       <View style={tailwind('flex-col rounded-lg-v2 overflow-hidden')}>
-        <TouchableOpacity
+        <ThemedTouchableOpacityV2
+          light={tailwind('bg-mono-light-v2-00')}
+          dark={tailwind('bg-mono-dark-v2-00')}
           style={tailwind('px-5 py-4.5 flex flex-row items-start')}
           onPress={() => navigation.navigate({
             name: 'Balance',
             params: { token: DFIUnified, usdAmount },
             merge: true
           })}
+          activeOpacity={0.7}
           disabled={!new BigNumber(DFIUtxo.amount ?? 0).plus(DFIToken.amount ?? 0).gt(0)}
         >
           <View style={tailwind('w-7/12 flex-row items-center')}>
@@ -87,12 +88,12 @@ export function DFIBalanceCard ({ denominationCurrency }: DFIBalaceCardProps): J
               </View>
             )}
           </View>
-        </TouchableOpacity>
+        </ThemedTouchableOpacityV2>
         {hasFetchedToken && !new BigNumber(DFIUtxo.amount ?? 0).plus(DFIToken.amount ?? 0).gt(0) && (
           <GetDFIBtn />
         )}
       </View>
-    </ThemedViewV2>
+    </View>
   )
 }
 

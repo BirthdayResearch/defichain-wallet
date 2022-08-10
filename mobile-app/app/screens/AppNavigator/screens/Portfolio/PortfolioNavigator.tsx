@@ -7,7 +7,6 @@ import { BarCodeScanner } from '@components/BarCodeScanner'
 import { HeaderTitle } from '@components/HeaderTitle'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { SettingsNavigator } from '../Settings/SettingsNavigator'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { PortfolioScreen } from './PortfolioScreen'
 import { ConvertConfirmationScreen } from './screens/ConvertConfirmationScreen'
@@ -15,12 +14,10 @@ import { ConversionMode, ConvertScreen } from './screens/ConvertScreen'
 import { ReceiveScreen } from './screens/ReceiveScreen'
 import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
 import { SendScreen } from './screens/SendScreen'
-import { TokensVsUtxoScreen } from './screens/TokensVsUtxoScreen'
 import { AddressControlScreen } from './components/AddressControlScreen'
 import { AboutScreen } from '../Settings/screens/AboutScreen'
 import { CompositeSwapScreen } from '../Dex/CompositeSwap/CompositeSwapScreen'
 import { ConfirmCompositeSwapScreen } from '../Dex/CompositeSwap/ConfirmCompositeSwapScreen'
-import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { LocalAddress } from '@store/userPreferences'
 import { FutureSwapData } from '@store/futureSwap'
 import { FutureSwapScreen } from './screens/FutureSwapScreen'
@@ -32,8 +29,7 @@ import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
 import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
 import { GetDFIScreen } from './screens/GetDFIScreen'
 import { MarketplaceScreen } from './screens/MarketplaceScreen'
-import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
-import { SettingsNavigatorV2 } from '../Settings/SettingsNavigatorV2'
+import { SettingsNavigator } from '../Settings/SettingsNavigator'
 import { TransactionsScreen } from '@screens/AppNavigator/screens/Transactions/TransactionsScreen'
 import { TransactionDetailScreen } from '@screens/AppNavigator/screens/Transactions/screens/TransactionDetailScreen'
 import { VMTransaction } from '@screens/AppNavigator/screens/Transactions/screens/stateProcessor'
@@ -44,8 +40,10 @@ import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-d
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
-import { AddressBookScreenV2 } from './screens/AddressBookScreenV2'
-import { NetworkSelectionScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreenV2'
+import { AddressBookScreen } from './screens/AddressBookScreen'
+import { NetworkSelectionScreen } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreen'
+import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
+import { TokensVsUtxoFaq } from './screens/TokensVsUtxoFaq'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -127,7 +125,6 @@ const PortfolioStack = createStackNavigator<PortfolioParamList>()
 export function PortfolioNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const headerContainerTestId = 'portfolio_header_container'
-  const { isFeatureAvailable } = useFeatureFlagContext()
   const { isLight } = useThemeContext()
   const goToNetworkSelect = (): void => {
     navigation.navigate('NetworkSelectionScreen')
@@ -141,7 +138,7 @@ export function PortfolioNavigator (): JSX.Element {
       }}
     >
       <PortfolioStack.Screen
-        component={isFeatureAvailable('setting_v2') ? SettingsNavigatorV2 : SettingsNavigator}
+        component={SettingsNavigator}
         name={translate('PortfolioNavigator', 'Settings')}
         options={{
           headerShown: false
@@ -319,7 +316,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={TokensVsUtxoScreen}
+        component={TokensVsUtxoFaq}
         name='TokensVsUtxo'
         options={{
           headerTitle: () => (
@@ -343,7 +340,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={NetworkSelectionScreenV2}
+        component={NetworkSelectionScreen}
         name='NetworkSelectionScreen'
         options={{
           ...screenOptions,
@@ -396,7 +393,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={AddressBookScreenV2}
+        component={AddressBookScreen}
         name='AddressBookScreen'
         options={{
           ...screenOptions,
@@ -542,6 +539,13 @@ export function PortfolioNavigator (): JSX.Element {
             />
           ),
           headerBackTitleVisible: false
+        }}
+      />
+      <PortfolioStack.Screen
+        component={TokensVsUtxoFaq}
+        name='TokensVsUtxoFaq'
+        options={{
+          headerTitle: translate('components/UtxoVsTokenFaq', 'About UTXO And Tokens')
         }}
       />
     </PortfolioStack.Navigator>

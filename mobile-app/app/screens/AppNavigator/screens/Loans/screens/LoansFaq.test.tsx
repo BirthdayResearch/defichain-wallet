@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-
 import { LoansFaq } from './LoansFaq'
 
 jest.mock('@shared-contexts/ThemeProvider')
@@ -7,7 +6,7 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn()
 }))
 
-describe('LoansFaq FAQ screen', () => {
+describe('LoansFaq FAQ V2 screen', () => {
   it('should match snapshot', async () => {
     const navigation: any = {
       navigate: jest.fn()
