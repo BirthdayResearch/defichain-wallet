@@ -61,18 +61,6 @@
     "Available pool pairs": "Verfügbare Pool-Paare",
     "Your shared {{symbol}}": "Dein {{symbol}}-Anteil"
   },
-  "screens/DexGuidelines": {
-    "Guidelines": "Richtlinien",
-    "CONTINUE": "WEITER",
-    "Decentralized Exchange": "Dezentrale Börse",
-    "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "Nimm teil am Liquidität Bereitstellen für den Betrieb der dezentralen Börse (DEX). Gebrauche deine Token, um hohe Renditen zu erzielen (bis zu 100%).",
-    "Add liquidity": "Liquidität hinzufügen",
-    "Swap tokens": "Token-Tausch",
-    "Withdraw at any time": "Entfernen der Liquidität zu jeder Zeit",
-    "Earn high yields by supplying token pairs to the liquidity pool.": "Erziele hohe Erträge durch die Bereitstellung von Handelspaaren zum Liquiditätspool.",
-    "Conveniently swap participating tokens within the liquidity pool.": "Bequemer Umtausch von im Liquiditätspool vertretenen Token.",
-    "You have full control over your tokens unlike any other.": "Nur du hast volle Kontrolle über deine Token."
-  },
   "screens/PortfolioScreen": {
     "Balances": "Guthaben",
     "Portfolio": "Portfolio",

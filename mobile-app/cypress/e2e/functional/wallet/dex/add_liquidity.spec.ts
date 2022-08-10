@@ -3,12 +3,10 @@ import BigNumber from 'bignumber.js'
 function setupWallet (): void {
   cy.createEmptyWallet(true)
   cy.getByTestID('bottom_tab_dex').click()
-  cy.getByTestID('close_dex_guidelines').click()
   cy.sendDFItoWallet()
     .sendDFITokentoWallet()
     .sendTokenToWallet(['BTC']).wait(3000)
 
-  cy.getByTestID('bottom_tab_dex').click()
   cy.getByTestID('dex_search_icon').click()
   cy.getByTestID('dex_search_input').type('BTC')
   cy.getByTestID('pool_pair_add_dBTC-DFI').click()
@@ -20,13 +18,11 @@ function setupWallet (): void {
 function setupWalletForConversion (): void {
   cy.createEmptyWallet(true)
   cy.getByTestID('bottom_tab_dex').click()
-  cy.getByTestID('close_dex_guidelines').click()
   cy.sendDFItoWallet()
     .sendDFITokentoWallet()
     .sendTokenToWallet(['BTC']).wait(3000)
     .sendTokenToWallet(['BTC']).wait(3000)
 
-  cy.getByTestID('bottom_tab_dex').click()
   cy.getByTestID('dex_search_icon').click()
   cy.getByTestID('dex_search_input').type('BTC')
   cy.getByTestID('pool_pair_add_dBTC-DFI').click()

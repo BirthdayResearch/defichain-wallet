@@ -47,7 +47,6 @@ context('Wallet - DEX - Future Swap', () => {
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('close_dex_guidelines').click()
     cy.getByTestID('composite_swap').click()
   })
 
@@ -285,7 +284,6 @@ context('Wallet - Future Swap -> Display -> Withdraw flow', () => {
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('close_dex_guidelines').click()
     cy.getByTestID('composite_swap').click()
     cy.wait(5000)
   })
