@@ -36,6 +36,12 @@ interface ConversionIO extends AddressToken {
   unit: 'UTXO' | 'Token'
 }
 
+enum InlineTextStatus {
+  Default,
+  Warning,
+  Error
+}
+
 export function ConvertScreenV2 (props: Props): JSX.Element {
   const client = useWhaleApiClient()
   const logger = useLogger()
@@ -53,8 +59,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
   const [convAmount, setConvAmount] = useState<string>('0')
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [amount, setAmount] = useState<string>('')
-  const [hasError, setHasError] = useState<boolean>(false)
-  const [showMaxUTXOWarning, setShowMaxUTXOWarning] = useState<boolean>(false)
+  const [inlineTextStatus, setInlineTextStatus] = useState<InlineTextStatus>(InlineTextStatus.Default)
   const [transactionCardStatus, setTransactionCardStatus] = useState<'error' | 'active' | undefined>()
   const [isInputFocus, setIsInputFocus] = useState<boolean>(false)
 
@@ -72,13 +77,18 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
     const conversionNum = new BigNumber(amount).isNaN() ? new BigNumber(0) : new BigNumber(amount)
     const conversion = conversionNum.toString()
     setConvAmount(conversion)
-    setHasError(conversionNum.gt(sourceNum))
-    setShowMaxUTXOWarning(isUtxoToAccount(mode) && !sourceNum.isZero() && conversionNum.toFixed(8) === sourceNum.toFixed(8))
+    if (conversionNum.gt(sourceNum)) {
+      setInlineTextStatus(InlineTextStatus.Error)
+    } else if (isUtxoToAccount(mode) && !sourceNum.isZero() && conversionNum.toFixed(8) === sourceNum.toFixed(8)) {
+      setInlineTextStatus(InlineTextStatus.Warning)
+    } else {
+      setInlineTextStatus(InlineTextStatus.Default)
+    }
   }, [mode, JSON.stringify(tokens), amount])
 
   useEffect(() => {
-    setTransactionCardStatus(hasError ? 'error' : isInputFocus ? 'active' : undefined)
-  }, [hasError, isInputFocus])
+    setTransactionCardStatus(inlineTextStatus === InlineTextStatus.Error ? 'error' : isInputFocus ? 'active' : undefined)
+  }, [inlineTextStatus, isInputFocus])
 
   if (sourceToken === undefined || targetToken === undefined) {
     return <></>
@@ -175,19 +185,19 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
             <ThemedTextV2
               style={tailwind('font-normal-v2 text-xs')}
               light={tailwind('text-mono-light-v2-500', {
-                'text-red-v2': hasError,
-                'text-orange-v2': showMaxUTXOWarning && !hasError
+                'text-red-v2': inlineTextStatus === InlineTextStatus.Error,
+                'text-orange-v2': inlineTextStatus === InlineTextStatus.Warning
               })}
               dark={tailwind('text-mono-dark-v2-500', {
-                'text-red-v2': hasError,
-                'text-orange-v2': showMaxUTXOWarning && !hasError
+                'text-red-v2': inlineTextStatus === InlineTextStatus.Error,
+                'text-orange-v2': inlineTextStatus === InlineTextStatus.Warning
               })}
               testID='source_balance_label'
             >
               {
-                translate('screens/ConvertScreen', hasError
+                translate('screens/ConvertScreen', inlineTextStatus === InlineTextStatus.Error
                   ? 'Insufficient balance'
-                  : showMaxUTXOWarning
+                  : inlineTextStatus === InlineTextStatus.Warning
                     ? 'A small amount of UTXO is reserved for fees'
                     : 'Available: ', {
                   amount: new BigNumber(sourceToken.amount).toFixed(8),
@@ -195,7 +205,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
                 })
               }
             </ThemedTextV2>
-            {!hasError && !showMaxUTXOWarning && (
+            {inlineTextStatus === InlineTextStatus.Default && (
               <NumberFormat
                 decimalScale={8}
                 displayType='text'
