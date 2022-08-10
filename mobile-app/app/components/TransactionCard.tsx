@@ -13,22 +13,27 @@ interface TransactionCardProps {
 }
 
 export enum AmountButtonTypes {
-  twentyFive = '25%',
-  half = '50%',
-  seventyFive = '75%',
-  max = 'MAX'
+  TwentyFive = '25%',
+  Half = '50%',
+  SeventyFive = '75%',
+  Max = 'MAX'
 }
 
-export function TransactionCard ({ maxValue, onChange, onPercentageChange, status, containerStyle, children }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
+export function TransactionCard ({
+  maxValue,
+  onChange,
+  status,
+  containerStyle,
+  onPercentageChange,
+  children
+}: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
   return (
     <ThemedViewV2
       light={tailwind('bg-mono-light-v2-00', {
-        'border-0.5 border-mono-light-v2-800': status === 'active',
-        'border-0.5 border-red-v2': status === 'error'
+        'border-0.5 border-mono-light-v2-800': status === 'active'
       })}
       dark={tailwind('bg-mono-dark-v2-00', {
-        'border-0.5 border-mono-dark-v2-800': status === 'active',
-        'border-0.5 border-red-v2': status === 'error'
+        'border-0.5 border-mono-dark-v2-800': status === 'active'
       })}
       style={tailwind('rounded-lg-v2', {
         'border-0.5 border-red-v2': status === 'error'
@@ -47,7 +52,7 @@ export function TransactionCard ({ maxValue, onChange, onPercentageChange, statu
         style={[tailwind('flex flex-row justify-around items-center py-2.5'), containerStyle]}
       >
         {
-          [AmountButtonTypes.twentyFive, AmountButtonTypes.half, AmountButtonTypes.seventyFive, AmountButtonTypes.max].map((type, index, { length }) => {
+          [AmountButtonTypes.TwentyFive, AmountButtonTypes.Half, AmountButtonTypes.SeventyFive, AmountButtonTypes.Max].map((type, index, { length }) => {
             return (
               <SetAmountButton
                 key={type}
@@ -84,16 +89,16 @@ function SetAmountButton ({
   let value = amount.toFixed(decimalPlace)
 
   switch (type) {
-    case (AmountButtonTypes.twentyFive):
+    case (AmountButtonTypes.TwentyFive):
       value = amount.multipliedBy(0.25).toFixed(decimalPlace)
       break
-    case (AmountButtonTypes.half):
+    case (AmountButtonTypes.Half):
       value = amount.multipliedBy(0.5).toFixed(decimalPlace)
       break
-    case (AmountButtonTypes.seventyFive):
+    case (AmountButtonTypes.SeventyFive):
       value = amount.multipliedBy(0.75).toFixed(decimalPlace)
       break
-    case (AmountButtonTypes.max):
+    case (AmountButtonTypes.Max):
       value = amount.toFixed(decimalPlace)
       break
   }
@@ -115,7 +120,7 @@ function SetAmountButton ({
         <ThemedTextV2
           light={tailwind('text-mono-light-v2-700')}
           dark={tailwind('text-mono-dark-v2-700')}
-          style={tailwind('font-bold text-xs px-7')}
+          style={tailwind('font-semibold-v2 text-xs px-7')}
         >
           {translate('component/max', type)}
         </ThemedTextV2>

@@ -72,12 +72,12 @@ export const TransactionCardWalletTextInputV2 = forwardRef<any, WalletTextInputP
       style={tailwind(`${containerStyle ?? 'w-full flex-col'}`)}
     >
       {title !== undefined &&
-      (
-        <ThemedSectionTitleV2
-          testID={titleTestID}
-          text={title}
-        />
-      )}
+        (
+          <ThemedSectionTitleV2
+            testID={titleTestID}
+            text={title}
+          />
+        )}
       <ThemedViewV2
         light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-00', { 'border-red-v2': !valid })}
         dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-00', { 'border-red-v2': !valid })}
@@ -142,7 +142,7 @@ export const TransactionCardWalletTextInputV2 = forwardRef<any, WalletTextInputP
   )
 })
 
-export function ClearButtonV2 (props: {onPress?: () => void, testID?: string, iconThemedProps?: ThemedProps}): JSX.Element {
+export function ClearButtonV2 (props: { onPress?: () => void, testID?: string, iconThemedProps?: ThemedProps }): JSX.Element {
   return (
     <TouchableOpacity
       testID={props.testID}
