@@ -36,7 +36,7 @@ export function TransactionDetail ({
         { 'border-success-500': oceanStatusCode === TransactionStatusCode.success },
         { 'border-warning-500': oceanStatusCode === TransactionStatusCode.pending }
       )}
-      style={tailwind('w-full rounded-lg-v2 flex flex-row py-3 items-center border-0.5',
+      style={tailwind('w-full rounded-lg-v2 flex flex-row items-center border-0.5',
         {
           'pl-5': broadcasted,
           'px-5': !broadcasted
@@ -64,7 +64,7 @@ export function TransactionDetail ({
           )
       }
 
-      <View style={tailwind('flex-auto px-4 justify-center w-8/12')}>
+      <View style={tailwind('flex-auto px-4 justify-center w-8/12 py-3')}>
         <ThemedTextV2
           light={tailwind('text-mono-light-v2-900')}
           dark={tailwind('text-mono-dark-v2-900')}

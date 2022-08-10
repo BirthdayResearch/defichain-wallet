@@ -15,7 +15,7 @@ export function TransactionCloseButton (props: TransactionCloseButtonProps): JSX
       <ThemedIcon
         light={tailwind('text-mono-light-v2-700')}
         dark={tailwind('text-mono-dark-v2-700')}
-        style={tailwind('font-bold-v2 px-5 py-3')}
+        style={tailwind('font-bold-v2 px-5 py-6')}
         iconType='MaterialIcons'
         name='close'
         size={18}
