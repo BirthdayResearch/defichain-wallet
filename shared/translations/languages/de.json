@@ -283,7 +283,7 @@
     "You will have": "Neuer Kontostand",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "I WANT TO CONVERT": "ICH MÖCHTE FOLGENDES UMWANDELN",
-    "Available: {{amount}} {{unit}}. Insufficient balance": "Verfügbar: {{amount}} {{unit}}. Unzureichendes Guthaben",
+    "Insufficient balance": "Unzureichendes Guthaben",
     "Available: {{amount}} {{unit}}": "Verfügbar: {{amount}} {{unit}}",
     "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
     "Max available {{unit}} entered": "Max. verfügbare {{unit}} eingegeben",
@@ -309,7 +309,8 @@
     "You are converting to {{unit}}": "Du wandelst in {{unit}} um",
     "Transaction fee": "Transaktionsgebühren",
     "Resulting Tokens": "Verbleibende Tokens",
-    "Resulting UTXO": "Verbleibende UTXO"
+    "Resulting UTXO": "Verbleibende UTXO",
+    "Convert {{amount}} DFI to {{target}}": "Wandle {{amount}} DFI in {{target}} um"
   },
   "screens/SettingsNavigator": {
     "Settings": "Einstellungen"

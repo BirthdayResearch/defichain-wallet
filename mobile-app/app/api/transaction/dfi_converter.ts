@@ -42,12 +42,15 @@ export function dfiConversionCrafter (amount: BigNumber, mode: ConversionMode, o
   return {
     sign: async (account: WhaleWalletAccount) => await dfiConversionSigner(account, amount, mode),
     title: translate('screens/ConvertConfirmScreen', 'Converting DFI'),
+    displayTitle: translate('screens/ConvertConfirmScreen', 'Convert {{amount}} DFI to {{target}}', {
+      amount: amount.toFixed(8),
+      target: mode === 'utxosToAccount' ? 'tokens' : 'UTXO'
+    }),
     drawerMessages: {
       preparing: translate('screens/OceanInterface', 'Preparing to convert…'),
       waiting: translate('screens/OceanInterface', 'Converting {{symbolA}} to {{symbolB}}', { symbolA, symbolB }),
       complete: translate('screens/OceanInterface', 'Conversion completed')
     },
-    description: translate('screens/ConvertConfirmScreen', 'Converting {{amount}} {{symbolA}} to {{symbolB}}', { amount: amount.toFixed(8), symbolA, symbolB }),
     onBroadcast,
     submitButtonLabel: submitButtonLabel !== undefined ? translate('screens/ConvertConfirmScreen', submitButtonLabel) : undefined
   }

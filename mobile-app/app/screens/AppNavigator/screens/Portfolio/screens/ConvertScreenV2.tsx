@@ -40,8 +40,6 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
   const logger = useLogger()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const toast = useToast()
-  const [showToast, setShowToast] = useState(false)
-  const [percentageType, setPercentageType] = useState<string | undefined>()
   const TOAST_DURATION = 2000
 
   // global state
@@ -81,25 +79,6 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
     setTransactionCardStatus(hasError ? 'error' : isInputFocus ? 'active' : undefined)
   }, [hasError, isInputFocus])
 
-  useEffect(() => {
-    if (showToast && percentageType !== undefined) {
-      const isMax = percentageType === AmountButtonTypes.max
-      const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
-      const toastOption = {
-        unit: getDisplayUnit(sourceToken?.unit),
-        percent: percentageType
-      }
-      toast.show(translate('screens/ConvertScreen', toastMessage, toastOption), {
-        type: 'wallet_toast',
-        placement: 'top',
-        duration: TOAST_DURATION
-      })
-      setTimeout(() => setShowToast(false), TOAST_DURATION)
-    } else {
-      toast.hideAll()
-    }
-  }, [showToast])
-
   if (sourceToken === undefined || targetToken === undefined) {
     return <></>
   }
@@ -125,8 +104,26 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
 
   function onPercentagePress (amount: string, type: AmountButtonTypes): void {
     setAmount(amount)
-    setPercentageType(type)
-    setShowToast(true)
+    showToast(type)
+  }
+
+  function showToast (type: AmountButtonTypes): void {
+    if (sourceToken === undefined) {
+      return
+    }
+
+    toast.hideAll()
+    const isMax = type === AmountButtonTypes.Max
+    const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
+    const toastOption = {
+      unit: getDisplayUnit(sourceToken.unit),
+      percent: type
+    }
+    toast.show(translate('screens/ConvertScreen', toastMessage, toastOption), {
+      type: 'wallet_toast',
+      placement: 'top',
+      duration: TOAST_DURATION
+    })
   }
 
   function onTogglePress (): void {
@@ -184,7 +181,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
           >
             {
               translate('screens/ConvertScreen', hasError
-                ? 'Available: {{amount}} {{unit}}. Insufficient balance'
+                ? 'Insufficient balance'
                 : showMaxUTXOWarning
                   ? 'A small amount of UTXO is reserved for fees'
                   : 'Available: {{amount}} {{unit}}', {
@@ -195,11 +192,11 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
           </ThemedTextV2>
         </View>
 
-        {canConvert(convAmount, sourceToken.amount) && (
+        {amount.length > 0 && (
           <View style={tailwind('flex-col w-full')}>
             <ConversionResultCard
-              unit={getDisplayUnit(targetToken.unit)} convertAmount={convAmount}
-              targetAmount={targetToken.amount}
+              unit={getDisplayUnit(targetToken.unit)} oriTargetAmount={targetToken.amount}
+              totalTargetAmount={BigNumber.maximum(new BigNumber(targetToken.amount).plus(convAmount), 0).toFixed(8)}
             />
 
             <ThemedTextV2
@@ -211,7 +208,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
           </View>
         )}
 
-        <View style={tailwind('w-full px-7', { 'mt-56': !canConvert(convAmount, sourceToken.amount) })}>
+        <View style={[tailwind('w-full px-7'), { marginTop: amount.length === 0 ? 229 : 0 }]}>
           <ButtonV2
             fill='fill' label={translate('components/Button', 'Continue')}
             disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob || hasPendingBroadcastJob}
@@ -293,15 +290,14 @@ function ConversionLabel (props: { sourceUnit: string, targetUnit: string }): JS
   )
 }
 
-function ConversionResultCard (props: { unit: string | undefined, convertAmount: string, targetAmount: string }): JSX.Element {
+function ConversionResultCard (props: { unit: string | undefined, oriTargetAmount: string, totalTargetAmount: string }): JSX.Element {
   return (
     <ThemedViewV2
       style={tailwind('flex-col w-full p-5 mt-6 rounded-lg-v2 border-0.5')} testID='convert_result_card'
       light={tailwind('border-mono-light-v2-300')} dark={tailwind('border-mono-dark-v2-300')}
     >
       <ThemedViewV2
-        style={tailwind('flex-row border-b-0.5 items-center pb-5')}
-        light={tailwind('border-mono-light-v2-300')} dark={tailwind('border-mono-dark-v2-300')}
+        style={tailwind('flex-row items-center pb-5')}
       >
         <ThemedTextV2
           style={tailwind('font-normal-v2 text-sm pr-2')} testID='convert_available_label'
@@ -313,10 +309,13 @@ function ConversionResultCard (props: { unit: string | undefined, convertAmount:
           style={tailwind('flex-1 font-normal-v2 text-sm text-right')} testID='convert_available_amount'
           light={tailwind('text-mono-light-v2-800')} dark={tailwind('text-mono-dark-v2-800')}
         >
-          {new BigNumber(props.convertAmount).toFixed(8)}
+          {new BigNumber(props.oriTargetAmount).toFixed(8)}
         </ThemedTextV2>
       </ThemedViewV2>
-      <ThemedViewV2 style={tailwind('flex-row items-center pt-5')}>
+      <ThemedViewV2
+        style={tailwind('flex-row items-center pt-5 border-t-0.5')}
+        light={tailwind('border-mono-light-v2-300')} dark={tailwind('border-mono-dark-v2-300')}
+      >
         <ThemedTextV2
           style={tailwind('font-normal-v2 text-sm pr-2')} testID='convert_resulting_label'
           light={tailwind('text-mono-light-v2-500')} dark={tailwind('text-mono-dark-v2-500')}
@@ -327,7 +326,7 @@ function ConversionResultCard (props: { unit: string | undefined, convertAmount:
           style={tailwind('flex-1 font-semibold-v2 text-sm text-right')} testID='convert_result_amount'
           light={tailwind('text-mono-light-v2-800')} dark={tailwind('text-mono-dark-v2-800')}
         >
-          {BigNumber.maximum(new BigNumber(props.targetAmount).plus(props.convertAmount), 0).toFixed(8)}
+          {props.totalTargetAmount}
         </ThemedTextV2>
       </ThemedViewV2>
     </ThemedViewV2>
@@ -352,7 +351,7 @@ function isUtxoToAccount (mode: ConversionMode): boolean {
   return mode === 'utxosToAccount'
 }
 
-function getDisplayUnit (unit?: string): string | undefined {
+export function getDisplayUnit (unit: 'UTXO' | 'Token'): 'UTXO' | 'tokens' {
   if (unit === 'Token') {
     return 'tokens'
   }

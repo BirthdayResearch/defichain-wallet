@@ -294,7 +294,7 @@
     "You will have": "Riceverai",
     "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
     "I WANT TO CONVERT": "I WANT TO CONVERT",
-    "Available: {{amount}} {{unit}}. Insufficient balance": "Available: {{amount}} {{unit}}. Insufficient balance",
+    "Insufficient balance": "Insufficient balance",
     "Available: {{amount}} {{unit}}": "Available: {{amount}} {{unit}}",
     "Review full details in the next screen": "Review full details in the next screen",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
@@ -320,7 +320,8 @@
     "You are converting to {{unit}}": "You are converting to {{unit}}",
     "Transaction fee": "Transaction fee",
     "Resulting Tokens": "Risultato Tokens",
-    "Resulting UTXO": "Risultato UTXO"
+    "Resulting UTXO": "Risultato UTXO",
+    "Convert {{amount}} DFI to {{target}}": "Conversione {{amount}} DFI in {{target}}"
   },
   "screens/SettingsNavigator": {
     "Settings": "Impostazioni"

@@ -283,7 +283,7 @@
     "You will have": "你將會收到",
     "TRANSACTION DETAILS": "交易明細",
     "I WANT TO CONVERT": "I WANT TO CONVERT",
-    "Available: {{amount}} {{unit}}. Insufficient balance": "Available: {{amount}} {{unit}}. Insufficient balance",
+    "Insufficient balance": "Insufficient balance",
     "Available: {{amount}} {{unit}}": "Available: {{amount}} {{unit}}",
     "Review full details in the next screen": "Review full details in the next screen",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
@@ -309,7 +309,8 @@
     "You are converting to {{unit}}": "You are converting to {{unit}}",
     "Transaction fee": "Transaction fee",
     "Resulting Tokens": "轉換後 Tokens",
-    "Resulting UTXO": "轉換後 UTXO"
+    "Resulting UTXO": "轉換後 UTXO",
+    "Convert {{amount}} DFI to {{target}}": "轉換 {{amount}} DFI 至 {{target}}"
   },
   "screens/SettingsNavigator": {
     "Settings": "設定"
