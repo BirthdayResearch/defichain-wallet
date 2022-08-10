@@ -53,7 +53,6 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   const [isInputFocus, setIsInputFocus] = useState(false)
   const [tokenToRemove, setTokenToRemove] = useState<string>('')
   const [percentageType, setPercentageType] = useState<string | undefined>()
-  const [showToast, setShowToast] = useState(false)
   const TOAST_DURATION = 2000
 
   // breakdown summary state
@@ -91,39 +90,29 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   }, [tokenToRemove])
 
   function onPercentagePress (amount: string, type: AmountButtonTypes): void {
-    setPercentageType(type)
-    setShowToast(true)
+    setPercentageType(amount)
+    showToast(type)
   }
 
-  // show toast for selected percentage input
-  useEffect(() => {
-    if (showToast && percentageType !== undefined) {
-      const isMax = percentageType === AmountButtonTypes.max
+  function showToast (type: AmountButtonTypes): void {
+    if (percentageType === undefined) {
+      return
+    }
+
+    toast.hideAll()
+
+    const isMax = type === AmountButtonTypes.max
+    const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
       const toastOption = {
         unit: 'LP tokens',
-        percent: percentageType
+        percent: type
       }
-
-      if (isMax) {
-        const toastMessage = 'Max available {{unit}} entered'
-        toast.show(translate('screens/ConvertScreen', toastMessage, toastOption), {
-          type: 'wallet_toast',
-          placement: 'top',
-          duration: TOAST_DURATION
-        })
-      } else {
-        const toastMessage = '{{percent}} of available {{unit}} entered'
-        toast.show(translate('screens/ConvertScreen', toastMessage, toastOption), {
-          type: 'wallet_toast',
-          placement: 'top',
-          duration: TOAST_DURATION
-        })
-      }
-      setTimeout(() => setShowToast(false), TOAST_DURATION)
-    } else {
-      toast.hideAll()
-    }
-  }, [showToast])
+    toast.show(translate('screens/screens/RemoveLiquidity', toastMessage, toastOption), {
+      type: 'wallet_toast',
+      placement: 'top',
+      duration: TOAST_DURATION
+    })
+  }
 
   const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
@@ -283,8 +272,8 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
                       rhs={{
                         value: new BigNumber(amount).toFixed(8),
                         themedProps: {
-                          light: tailwind('text-mono-light-v2-800'),
-                          dark: tailwind('text-mono-dark-v2-800')
+                          light: tailwind('text-mono-light-v2-900'),
+                          dark: tailwind('text-mono-dark-v2-900')
                         },
                         usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,
                         usdTextStyle: tailwind('text-sm'),

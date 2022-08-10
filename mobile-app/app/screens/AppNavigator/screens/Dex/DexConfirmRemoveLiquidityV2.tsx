@@ -81,7 +81,7 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-100')}
         light={tailwind('bg-mono-light-v2-100')}
-        style={tailwind('flex-col px-4 py-8 mb-4')}
+        style={tailwind('flex-col py-8 mb-4')}
       >
         <SummaryTitleV2
           iconA={pair.tokenA.displaySymbol}
@@ -112,8 +112,8 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
             rhs={{
               value: new BigNumber(fee).toFixed(8),
               themedProps: {
-                light: tailwind('text-mono-light-v2-800'),
-                dark: tailwind('text-mono-dark-v2-800')
+                light: tailwind('text-mono-light-v2-900'),
+                dark: tailwind('text-mono-dark-v2-900')
               },
               suffix: ' DFI',
               testID: 'transaction_fee_title_amount'
@@ -133,8 +133,8 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
           rhs={{
             value: new BigNumber(resultingPool).toFixed(8),
             themedProps: {
-              light: tailwind('text-mono-light-v2-800'),
-              dark: tailwind('text-mono-dark-v2-800')
+              light: tailwind('text-mono-light-v2-900'),
+              dark: tailwind('text-mono-dark-v2-900')
             },
             testID: 'resulting_pool_share_amount'
           }}
