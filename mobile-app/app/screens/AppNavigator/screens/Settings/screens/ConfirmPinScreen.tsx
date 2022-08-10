@@ -7,12 +7,13 @@ import { View, Text } from '@components/index'
 import { PinTextInputV2 } from '@components/PinTextInputV2'
 import { ThemedActivityIndicatorV2, ThemedScrollViewV2, ThemedTextV2 } from '@components/themed'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
+import { useWalletPersistenceContext, WalletPersistenceDataI } from '@shared-contexts/WalletPersistenceContext'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { SettingsParamList } from '../SettingsNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { MaterialIcons } from '@expo/vector-icons'
+import { EncryptedProviderData } from '@defichain/jellyfish-wallet-encrypted'
 
 type Props = StackScreenProps<SettingsParamList, 'ConfirmPinScreen'>
 
@@ -49,13 +50,13 @@ export function ConfirmPinScreen ({ route }: Props): JSX.Element {
       MnemonicEncrypted.toData(copy.words, copy.network, copy.pin)
         .then(async encrypted => {
           await MnemonicStorage.set(words, pin)
-          await passcodeChangeSuccess(encrypted)
+          passcodeChangeSuccess(encrypted)
         })
         .catch(logger.error)
     }, 50) // allow UI render the spinner before async task
   }
 
-   function passcodeChangeSuccess (encrypted: any): void {
+   function passcodeChangeSuccess (encrypted: WalletPersistenceDataI<EncryptedProviderData>): void {
     setTimeout(() => {
        setWallet(encrypted)
          .then(() => navigation.dispatch(StackActions.popToTop()))
@@ -63,6 +64,7 @@ export function ConfirmPinScreen ({ route }: Props): JSX.Element {
     setSpinnerMessage(translate('screens/PinConfirmation', 'Passcode updated!'))
     setIsSuccess(true)
   }
+
   return (
     <ThemedScrollViewV2
       style={tailwind('w-full flex-1 flex-col')}
