@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react-native'
 import BigNumber from 'bignumber.js'
 import { useTokenPrice } from './TokenPrice'
 import { DexItem, wallet } from '@store/wallet'

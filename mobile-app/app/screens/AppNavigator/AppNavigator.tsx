@@ -46,7 +46,7 @@ export function AppNavigator (): JSX.Element {
 }
 
 const LinkingConfiguration: LinkingOptions<ReactNavigation.RootParamList> = {
-  prefixes: [Linking.makeUrl('/')],
+  prefixes: [Linking.createURL('/')],
   config: {
     screens: {
       App: {
