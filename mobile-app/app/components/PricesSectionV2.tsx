@@ -15,12 +15,12 @@ export interface PriceRateProps {
 export function PricesSectionV2 ({ priceRates, isCompact = false, testID, equalSymbol = true }: { priceRates: PriceRateProps[], testID: string, sectionTitle?: string, isCompact?: boolean, equalSymbol?: boolean }): JSX.Element {
   const rowStyle = {
     lhsThemedProps: {
-      light: tailwind('text-mono-light-v2-900'),
-      dark: tailwind('text-mono-dark-v2-900')
-    },
-    rhsThemedProps: {
       light: tailwind('text-mono-light-v2-500'),
       dark: tailwind('text-mono-dark-v2-500')
+    },
+    rhsThemedProps: {
+      light: tailwind('text-mono-light-v2-900'),
+      dark: tailwind('text-mono-dark-v2-900')
     }
   }
 
@@ -31,23 +31,23 @@ export function PricesSectionV2 ({ priceRates, isCompact = false, testID, equalS
           return (
             <NumberRowV2
               key={priceRate.label}
-              rhs={{
-                value: priceRate.value,
-                testID: `${testID}_${index}`,
-                suffix: (priceRate.bSymbol != null) ? ` ${priceRate.bSymbol}` : '',
-                usdAmount: priceRate.symbolUSDValue,
-                lightTextStyle: rowStyle.lhsThemedProps.light,
-                darkTextStyle: rowStyle.lhsThemedProps.dark,
-                usdTextStyle: priceRate.usdTextStyle
-              }}
               lhs={{
                 value: `${priceRate.label}`,
                 testID: `${testID}_${index}`,
                 suffix: priceRate.bSymbol,
                 themedProps: {
-                  light: rowStyle.rhsThemedProps.light,
-                  dark: rowStyle.rhsThemedProps.dark
+                  light: rowStyle.lhsThemedProps.light,
+                  dark: rowStyle.lhsThemedProps.dark
                 }
+              }}
+              rhs={{
+                value: priceRate.value,
+                testID: `${testID}_${index}`,
+                suffix: (priceRate.bSymbol != null) ? ` ${priceRate.bSymbol}` : '',
+                usdAmount: priceRate.symbolUSDValue,
+                lightTextStyle: rowStyle.rhsThemedProps.light,
+                darkTextStyle: rowStyle.rhsThemedProps.dark,
+                usdTextStyle: priceRate.usdTextStyle
               }}
               {...(isCompact && {
                 lhsThemedProps: rowStyle.lhsThemedProps,

@@ -359,61 +359,58 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   const sharesUsdAmount = getTokenPrice(pair.aSymbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.aSymbol, new BigNumber(tokenBAmount)))
 
   return (
-    <View style={tailwind('flex-1')}>
-      <ThemedScrollView ref={ref} contentContainerStyle={tailwind('py-8')} style={tailwind('w-full')}>
-        <View style={tailwind('px-5')}>
-          <View style={tailwind('items-center pb-6')}>
-            <ViewPoolHeader
-              tokenASymbol={pair.tokenA.displaySymbol}
-              tokenBSymbol={pair.tokenB.displaySymbol}
-              headerLabel={translate('screens/AddLiquidity', 'View pool share')}
-              onPress={() => expandModal()}
+    <View style={tailwind('flex-col flex-1')}>
+      <ThemedScrollView ref={ref} contentContainerStyle={tailwind('flex-grow py-8 mx-5 justify-between')} style={tailwind('w-full')}>
+        <View>
+          <ViewPoolHeader
+            tokenASymbol={pair.tokenA.displaySymbol}
+            tokenBSymbol={pair.tokenB.displaySymbol}
+            headerLabel={translate('screens/AddLiquidity', 'View pool share')}
+            onPress={() => expandModal()}
+          />
+          <View style={tailwind('mt-8')}>
+            <AddLiquidityInputCard
+              balance={balanceA}
+              current={tokenAAmount}
+              onChange={(amount) => {
+                buildSummary('primary', amount)
+              }}
+              onPercentageChange={(amount, type) =>
+                onPercentagePress(amount, type, pair.tokenA.displaySymbol
+                )}
+              symbol={pair.tokenA.displaySymbol}
+              type='primary'
+              setIsInputFocus={setIsInputAFocus}
+              status={tokenATransactionCardStatus}
+              showInsufficientTokenMsg={hasAError}
+              showUTXOFeesMsg={showUTXOFeesAMsg}
+              hasInputAmount={hasAInputAmount}
+            />
+            <AddLiquidityInputCard
+              balance={balanceB}
+              current={tokenBAmount}
+              onChange={(amount) => {
+                buildSummary('secondary', amount)
+              }}
+              onPercentageChange={(amount, type) =>
+                onPercentagePress(amount, type, pair.tokenB.displaySymbol)
+              }
+              symbol={pair.tokenB.displaySymbol}
+              type='secondary'
+              setIsInputFocus={setIsInputBFocus}
+              status={tokenBTransactionCardStatus}
+              showInsufficientTokenMsg={hasBError}
+              showUTXOFeesMsg={showUTXOFeesBMsg}
+              hasInputAmount={hasBInputAmount}
             />
           </View>
 
-          <AddLiquidityInputCard
-            balance={balanceA}
-            current={tokenAAmount}
-            onChange={(amount) => {
-              buildSummary('primary', amount)
-            }}
-            onPercentageChange={(amount, type) =>
-              onPercentagePress(amount, type, pair.tokenA.displaySymbol
-            )}
-            symbol={pair.tokenA.displaySymbol}
-            type='primary'
-            setIsInputFocus={setIsInputAFocus}
-            status={tokenATransactionCardStatus}
-            showInsufficientTokenMsg={hasAError}
-            showUTXOFeesMsg={showUTXOFeesAMsg}
-            hasInputAmount={hasAInputAmount}
-          />
-          <AddLiquidityInputCard
-            balance={balanceB}
-            current={tokenBAmount}
-            onChange={(amount) => {
-              buildSummary('secondary', amount)
-            }}
-            onPercentageChange={(amount, type) =>
-              onPercentagePress(amount, type, pair.tokenB.displaySymbol
-            )}
-            symbol={pair.tokenB.displaySymbol}
-            type='secondary'
-            setIsInputFocus={setIsInputBFocus}
-            status={tokenBTransactionCardStatus}
-            showInsufficientTokenMsg={hasBError}
-            showUTXOFeesMsg={showUTXOFeesBMsg}
-            hasInputAmount={hasBInputAmount}
-          />
-        </View>
-
-        {hasAInputAmount && hasBInputAmount && (
-          <>
-            <View style={tailwind('pb-2 px-5')}>
+          {hasAInputAmount && hasBInputAmount && (
+            <>
               <ThemedViewV2
                 light={tailwind('border-mono-light-v2-300')}
                 dark={tailwind('border-mono-dark-v2-300')}
-                style={tailwind('px-5 pt-5 border rounded-2xl-v2')}
+                style={tailwind('pt-5 px-5 border rounded-2xl-v2')}
               >
                 <PricesSectionV2
                   key='prices'
@@ -447,11 +444,11 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                 >
                   <NumberRowV2
                     lhs={{
-                      value: translate('screens/AddLiquidity', 'Shares to add'),
+                      value: translate('screens/AddLiquidity', 'Resulting LP tokens'),
                       testID: 'shares_to_add',
                       themedProps: {
-                        light: tailwind('text-mono-light-v2-500'),
-                        dark: tailwind('text-mono-dark-v2-500'),
+                        light: tailwind('text-mono-light-v2-700'),
+                        dark: tailwind('text-mono-dark-v2-700'),
                       }
                     }}
                     rhs={{
@@ -464,35 +461,33 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                   />
                 </ThemedViewV2>
               </ThemedViewV2>
-            </View>
-            <View style={tailwind('items-center')}>
-              <ThemedTextV2
-                testID='transaction_details_hint_text'
-                light={tailwind('text-mono-light-v2-500')}
-                dark={tailwind('text-mono-dark-v2-500')}
-                style={tailwind('text-xs font-normal-v2 pt-4 text-center')}
-              >
-                {isConversionRequired ? (
-                  translate('screens/AddLiquidity', 'By continuing, the required amount of DFI will be converted')
-                )
-                  : (
-                    translate('screens/AddLiquidity', 'Review full details in the next screen')
-                  )}
-              </ThemedTextV2>
-            </View>
-          </>
-        )}
+              <View style={tailwind('items-center pt-12 px-5')}>
+                <ThemedTextV2
+                  testID='transaction_details_hint_text'
+                  light={tailwind('text-mono-light-v2-500')}
+                  dark={tailwind('text-mono-dark-v2-500')}
+                  style={tailwind('text-xs font-normal-v2 text-center')}
+                >
+                  {isConversionRequired ? (
+                    translate('screens/AddLiquidity', 'By continuing, the required amount of DFI will be converted')
+                  )
+                    : (
+                      translate('screens/AddLiquidity', 'Review full details in the next screen')
+                    )}
+                </ThemedTextV2>
+              </View>
+            </>
+          )}
+        </View>
 
-        <View style={tailwind('mx-8')}>
-          <View style={tailwind('mt-5 mx-4')}>
-            <ButtonV2
-              fill='fill' label={translate('components/Button', 'Continue')}
-              styleProps='w-full'
-              disabled={!canContinue}
-              onPress={onSubmit}
-              testID='button_continue_convert'
-            />
-          </View>
+        <View style={tailwind('mt-5 mx-4')}>
+          <ButtonV2
+            fill='fill' label={translate('components/Button', 'Continue')}
+            styleProps='w-full'
+            disabled={!canContinue}
+            onPress={onSubmit}
+            testID='button_continue_convert'
+          />
 
           {Platform.OS === 'web'
             ? (
@@ -578,7 +573,7 @@ function AddLiquidityInputCard (
         </ThemedViewV2>
       </TransactionCard>
 
-      <View style={tailwind('pb-6')}>
+      <View style={tailwind('pt-0.5 pb-6')}>
         {!props.showInsufficientTokenMsg && !props.showUTXOFeesMsg && (
           <InputHelperTextV2
             testID={`token_balance_${props.type}`}
