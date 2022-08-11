@@ -282,7 +282,16 @@
     "Review full transaction details in the next screen": "请在下一步确认交易明细",
     "Estimated fee": "所需费用(大约)",
     "You will have": "你将会收到",
-    "TRANSACTION DETAILS": "交易明细"
+    "TRANSACTION DETAILS": "交易明细",
+    "I WANT TO CONVERT": "I WANT TO CONVERT",
+    "Insufficient balance": "Insufficient balance",
+    "Available: ": "可转换资金: ",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "A small amount of UTXO is reserved for fees": "保留少量 UTXO 用于交易费用",
+    "Available {{unit}}": "可转换资金 {{unit}}",
+    "Resulting {{unit}}": "转换后 {{unit}}"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm DFI Conversion": "确认要转换 DFI",
@@ -297,7 +306,12 @@
     "Transaction type": "交易类型",
     "Convert": "转换",
     "{{token}} to receive": "{{token}} 将会收到",
-    "CONFIRM TRANSACTION": "确认发出"
+    "CONFIRM TRANSACTION": "确认发出",
+    "You are converting to {{unit}}": "You are converting to {{unit}}",
+    "Transaction fee": "Transaction fee",
+    "Resulting Tokens": "转换后 Tokens",
+    "Resulting UTXO": "转换后 UTXO",
+    "Convert {{amount}} DFI to {{target}}": "转换 {{amount}} DFI 至 {{target}}"
   },
   "screens/SettingsNavigator": {
     "Settings": "设置"
@@ -742,7 +756,11 @@
   "screens/common": {
     "CANCEL": "取消",
     "Cancel": "取消",
-    "TRY AGAIN": "再试一次"
+    "TRY AGAIN": "再试一次",
+    "From": "从",
+    "To": "到",
+    "Converting": "转换中",
+    "Converted": "Converted"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "为您的钱包创建新的密码",
@@ -844,7 +862,8 @@
     "Max": "最高值"
   },
   "components/Button": {
-    "CONTINUE": "继续"
+    "CONTINUE": "继续",
+    "Continue": "继续"
   },
   "screens/SlippageTolerance": {
     "Custom": "自订",
@@ -1316,7 +1335,7 @@
     "Wallet Address": "钱包地址"
   },
   "components/EmptyPortfolio": {
-    "Empty portfolio":  "没有资产",
+    "Empty portfolio": "没有资产",
     "Add DFI and other tokens to get started": "Add DFI and other tokens to get started",
     "No LP tokens found": "No LP tokens found",
     "Add liquidity to get started": "Add liquidity to get started",
