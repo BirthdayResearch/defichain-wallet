@@ -434,75 +434,73 @@ function AddressRow ({
 }: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void, inputFooter?: React.ReactElement }): JSX.Element {
   const defaultValue = ''
   return (
-    <>
-      <Controller
-        control={control}
-        defaultValue={defaultValue}
-        name='address'
-        render={({
-          field: {
-            value,
-            onChange
-          }
-        }) => (
-          <View style={tailwind('flex-row w-full')}>
-            <WalletTextInputV2
-              autoCapitalize='none'
-              multiline
-              onChange={onChange}
-              onChangeText={onAddressChange}
-              placeholder={translate('screens/SendScreen', 'Paste address')}
-              style={tailwind('w-3/5 flex-grow pb-1')}
-              testID='address_input'
-              value={value}
-              displayClearButton={value !== defaultValue}
-              onClearButtonPress={onClearButtonPress}
-              title={translate('screens/SendScreen', 'SEND TO')}
-              titleTestID='title_to_address'
-              inputType='default'
-              inputFooter={inputFooter}
+    <Controller
+      control={control}
+      defaultValue={defaultValue}
+      name='address'
+      render={({
+        field: {
+          value,
+          onChange
+        }
+      }) => (
+        <View style={tailwind('flex-row w-full')}>
+          <WalletTextInputV2
+            autoCapitalize='none'
+            multiline
+            onChange={onChange}
+            onChangeText={onAddressChange}
+            placeholder={translate('screens/SendScreen', 'Paste address')}
+            style={tailwind('w-3/5 flex-grow pb-1')}
+            testID='address_input'
+            value={value}
+            displayClearButton={value !== defaultValue}
+            onClearButtonPress={onClearButtonPress}
+            title={translate('screens/SendScreen', 'SEND TO')}
+            titleTestID='title_to_address'
+            inputType='default'
+            inputFooter={inputFooter}
+          >
+            <ThemedTouchableOpacity
+              dark={tailwind('bg-black')}
+              light={tailwind('bg-white')}
+              onPress={onContactButtonPress}
+              style={tailwind('w-9 p-1.5 mr-1 rounded')}
+              testID='address_book_button'
             >
-              <ThemedTouchableOpacity
-                dark={tailwind('bg-black')}
-                light={tailwind('bg-white')}
-                onPress={onContactButtonPress}
-                style={tailwind('w-9 p-1.5 mr-1 rounded')}
-                testID='address_book_button'
-              >
-                <ThemedIcon
-                  iconType='MaterialCommunityIcons'
-                  dark={tailwind('text-mono-dark-v2-700')}
-                  light={tailwind('text-mono-light-v2-700')}
-                  name='account-multiple'
-                  size={24}
-                />
-              </ThemedTouchableOpacity>
-              <ThemedTouchableOpacity
-                dark={tailwind('bg-black')}
-                light={tailwind('bg-white')}
-                onPress={onQrButtonPress}
-                style={tailwind('w-9 p-1.5 rounded')}
-                testID='qr_code_button'
-              >
-                <ThemedIcon
-                  dark={tailwind('text-mono-dark-v2-700')}
-                  light={tailwind('text-mono-light-v2-700')}
-                  iconType='MaterialIcons'
-                  name='qr-code'
-                  size={24}
-                />
-              </ThemedTouchableOpacity>
-            </WalletTextInputV2>
-          </View>
-        )}
-        rules={{
-          required: true,
-          validate: {
-            isValidAddress: (address) => DeFiAddress.from(networkName, address).valid
-          }
-        }}
-      />
-    </>
+              <ThemedIcon
+                iconType='MaterialCommunityIcons'
+                dark={tailwind('text-mono-dark-v2-700')}
+                light={tailwind('text-mono-light-v2-700')}
+                name='account-multiple'
+                size={24}
+              />
+            </ThemedTouchableOpacity>
+            <ThemedTouchableOpacity
+              dark={tailwind('bg-black')}
+              light={tailwind('bg-white')}
+              onPress={onQrButtonPress}
+              style={tailwind('w-9 p-1.5 rounded')}
+              testID='qr_code_button'
+            >
+              <ThemedIcon
+                dark={tailwind('text-mono-dark-v2-700')}
+                light={tailwind('text-mono-light-v2-700')}
+                iconType='MaterialIcons'
+                name='qr-code'
+                size={24}
+              />
+            </ThemedTouchableOpacity>
+          </WalletTextInputV2>
+        </View>
+      )}
+      rules={{
+        required: true,
+        validate: {
+          isValidAddress: (address) => DeFiAddress.from(networkName, address).valid
+        }
+      }}
+    />
   )
 }
 
