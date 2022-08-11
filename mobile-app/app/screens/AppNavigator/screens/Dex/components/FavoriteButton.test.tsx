@@ -8,7 +8,7 @@ jest.mock('@react-navigation/native', () => ({
 
 describe('Favorite Button', () => {
   it('should match snapshot', () => {
-    const rendered = render(<FavoriteButton poolpairId='1' />)
+    const rendered = render(<FavoriteButton pairId='1' />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })
