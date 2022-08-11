@@ -83,9 +83,8 @@ export function TransactionCard ({
 
 interface SetAmountButtonProps {
   type: AmountButtonTypes
-  // onPress: (amount: string) => void
   onPercentagePress: (amount: string, type: AmountButtonTypes) => void
-  onPress: (amount: string, type: AmountButtonTypes) => void
+  onPress: (amount: string) => void
   amount: BigNumber
   hasBorder?: boolean
 }
@@ -119,7 +118,7 @@ function SetAmountButton ({
     <ThemedTouchableOpacityV2
       style={tailwind('border-0')}
       onPress={() => {
-        onPress(value, type)
+        onPress(value)
         onPercentagePress(value, type)
       }}
       testID={`${type}_amount_button`}

@@ -7,10 +7,11 @@ interface ViewPoolHeaderProps {
     tokenASymbol: string
     tokenBSymbol: string
     headerLabel: string
+    testID?: string
     onPress: () => void
 }
 
-export function ViewPoolHeader ({ tokenASymbol, tokenBSymbol, headerLabel, onPress }: ViewPoolHeaderProps): JSX.Element {
+export function ViewPoolHeader ({ tokenASymbol, tokenBSymbol, headerLabel, testID, onPress }: ViewPoolHeaderProps): JSX.Element {
     const TokenIconA = getNativeIcon(tokenASymbol)
     const TokenIconB = getNativeIcon(tokenBSymbol)
     return (
@@ -26,7 +27,7 @@ export function ViewPoolHeader ({ tokenASymbol, tokenBSymbol, headerLabel, onPre
         >
           {`${tokenASymbol}-${tokenBSymbol}`}
         </ThemedTextV2>
-        <ThemedTouchableOpacityV2 style={tailwind('flex-row mt-1')} onPress={onPress}>
+        <ThemedTouchableOpacityV2 style={tailwind('flex-row mt-1')} onPress={onPress} testID={testID}>
           <ThemedIcon
             size={16}
             name='info-outline'

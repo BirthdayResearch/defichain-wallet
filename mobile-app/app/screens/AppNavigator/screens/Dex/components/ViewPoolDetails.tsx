@@ -44,6 +44,7 @@ export const ViewPoolDetails = ({
           dark={tailwind('text-mono-dark-v2-900')}
           light={tailwind('text-mono-light-v2-900')}
           style={tailwind('pl-1 text-xl font-semibold-v2')}
+          testID='view_pool_details_title'
         >
           {pairInfo.displaySymbol}
         </ThemedTextV2>
@@ -241,12 +242,10 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
               light: tailwind('text-mono-light-v2-900'),
               dark: tailwind('text-mono-dark-v2-900')
             },
-            testID: `lp_${pairData.tokenA.displaySymbol}_tokens_value`
+            testID: 'lp_tokens_value'
           }}
-          testID={`${pairInfo.displaySymbol}_lp_tokens`}
         />
-        <ViewPoolAmountRow // TODO: Change to NumberRowV2
-          // amount={new BigNumber(lpPercentage).toFixed(2)}
+        <ViewPoolAmountRow
           amount={getPrecisedCurrencyValue(lpPercentage)}
           valueThemeProps={{
             dark: tailwind('text-mono-dark-v2-500'),
@@ -254,7 +253,7 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
           }}
           prefix='('
           suffix='%)'
-          testID={`lp_${pairData.tokenA.displaySymbol}_tokens_percentage_amount`}
+          testID='lp_tokens_percentage'
         />
       </View>
       <NumberRowV2
@@ -281,7 +280,6 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
           usdTextStyle: tailwind('text-sm'),
           testID: `token_in_${pairData.tokenA.displaySymbol}_value`
         }}
-        testID={`token_in_${pairData.tokenA.displaySymbol}`}
       />
 
       <NumberRowV2
@@ -318,7 +316,7 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
               light: tailwind('text-mono-light-v2-500'),
               dark: tailwind('text-mono-dark-v2-500')
             },
-            testID: `${pairInfo.displaySymbol}_apr_tite`
+            testID: `${pairInfo.displaySymbol}_apr_title`
           }}
           rhs={{
             value: new BigNumber(isNaN(pairData.apr.total) ? 0 : pairData.apr.total).times(100).toFixed(2),
@@ -329,7 +327,6 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
             suffix: '%',
             testID: `${pairInfo.displaySymbol}_apr_value`
           }}
-          testID={`${pairInfo.displaySymbol}_apr`}
         />
       )}
     </ThemedViewV2>

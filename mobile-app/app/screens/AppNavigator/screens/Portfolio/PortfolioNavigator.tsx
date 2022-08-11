@@ -35,6 +35,8 @@ import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-d
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
+import { ConfirmAddLiquidityScreenV2 } from '../Dex/DexConfirmAddLiquidityV2'
+import { AddLiquidityScreenV2 } from '../Dex/DexAddLiquidityV2'
 import { AddressBookScreen } from './screens/AddressBookScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { TokensVsUtxoFaq } from './screens/TokensVsUtxoFaq'
@@ -52,8 +54,6 @@ import { SendScreen } from './screens/SendScreen'
 import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { NetworkSelectionScreenV2 } from '../Settings/screens/NetworkSelectionScreenV2'
-import { AddLiquidityScreenV2 } from '../Dex/DexAddLiquidityV2'
-import { ConfirmAddLiquidityScreenV2 } from '../Dex/DexConfirmAddLiquidityV2'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined

@@ -20,7 +20,7 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { ViewPoolHeader } from './components/ViewPoolHeader'
 import { ViewPoolDetails } from './components/ViewPoolDetails'
 import { TransactionCardWalletTextInputV2 } from '@components/TransactionCardWalletTextInputV2'
-import { TransactionCard, AmountButtonTypes } from '@components/TransactionCard'
+import { TransactionCard, AmountButtonTypes, TransactionCardStatus } from '@components/TransactionCard'
 import { getNativeIcon } from '@components/icons/assets'
 import { InputHelperTextV2 } from '@components/InputHelperText'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
@@ -48,7 +48,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
 
   // transaction card component UI
-  const [tokenTransactionCardStatus, setTokenTransactionCardStatus] = useState<'error' | 'active' | ' undefined'>()
+  const [transactionCardStatus, setTransactionCardStatus] = useState<TransactionCardStatus>()
   const [hasError, setHasError] = useState(false)
   const [isInputFocus, setIsInputFocus] = useState(false)
   const [tokenToRemove, setTokenToRemove] = useState<string>('')
@@ -64,7 +64,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   const tokenB = useSelector((state: RootState) => tokenSelector(state.wallet, pair.tokenB.id))
 
   useEffect(() => {
-    setTokenTransactionCardStatus(hasError ? 'error' : isInputFocus ? 'active' : undefined)
+    setTransactionCardStatus(hasError ? TransactionCardStatus.Error : isInputFocus ? TransactionCardStatus.Active : TransactionCardStatus.Default)
   }, [hasError, isInputFocus])
 
   const removeLiquidity = (): void => {
@@ -101,7 +101,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
 
     toast.hideAll()
 
-    const isMax = type === AmountButtonTypes.max
+    const isMax = type === AmountButtonTypes.Max
     const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
       const toastOption = {
         unit: 'LP tokens',
@@ -208,6 +208,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
             tokenBSymbol={pair.tokenB.displaySymbol}
             headerLabel={translate('screens/RemoveLiquidity', 'View pool share')}
             onPress={() => expandModal()}
+            testID='view_pool_button'
           />
           <View style={tailwind('mt-8')}>
             <RemoveLiquidityInputCard
@@ -220,9 +221,8 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
               }}
               onPercentageChange={onPercentagePress}
               symbol={pair.tokenA.displaySymbol}
-              type='primary'
               setIsInputFocus={setIsInputFocus}
-              status={tokenTransactionCardStatus}
+              status={transactionCardStatus}
               showErrMsg={hasError}
             />
           </View>
@@ -344,12 +344,11 @@ function RemoveLiquidityInputCard (
     tokenA: string
     tokenB: string
     balance: BigNumber
-    type: 'primary' | 'secondary'
     symbol: string
     onPercentageChange: (amount: string, type: AmountButtonTypes) => void
     onChange: (amount: string) => void
     current: string
-    status?: string
+    status?: TransactionCardStatus
     setIsInputFocus: any // TODO: type checking
     showErrMsg: boolean
   }): JSX.Element {
@@ -411,7 +410,7 @@ function RemoveLiquidityInputCard (
           )
           : (
             <InputHelperTextV2
-              testID={`token_balance_${props.type}`}
+              testID={`token_balance_${props.tokenA}-${props.tokenB}`}
               label={`${translate('screens/AddLiquidity', 'Available')}: `}
               content={BigNumber.max(props.balance, 0).toFixed(8)}
               suffix=' LP tokens'
