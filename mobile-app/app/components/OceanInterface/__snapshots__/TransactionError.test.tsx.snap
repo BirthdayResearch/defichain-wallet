@@ -20,10 +20,7 @@ exports[`info text should match snapshot for error At least 50% of the vault mus
         "borderTopWidth": 0.5,
         "flexDirection": "row",
         "justifyContent": "space-between",
-        "paddingBottom": 12,
         "paddingLeft": 20,
-        "paddingRight": 20,
-        "paddingTop": 12,
         "width": "100%",
       },
       Object {
@@ -39,6 +36,8 @@ exports[`info text should match snapshot for error At least 50% of the vault mus
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
         "width": "75%",
       }
     }
@@ -173,6 +172,10 @@ exports[`info text should match snapshot for error At least 50% of the vault mus
             Object {
               "fontFamily": "SoraBold",
               "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
             Object {
               "color": "rgba(89, 89, 89, 1)",
@@ -213,10 +216,7 @@ exports[`info text should match snapshot for error Cannot payback loan while any
         "borderTopWidth": 0.5,
         "flexDirection": "row",
         "justifyContent": "space-between",
-        "paddingBottom": 12,
         "paddingLeft": 20,
-        "paddingRight": 20,
-        "paddingTop": 12,
         "width": "100%",
       },
       Object {
@@ -232,6 +232,8 @@ exports[`info text should match snapshot for error Cannot payback loan while any
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
         "width": "75%",
       }
     }
@@ -366,6 +368,10 @@ exports[`info text should match snapshot for error Cannot payback loan while any
             Object {
               "fontFamily": "SoraBold",
               "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
             Object {
               "color": "rgba(89, 89, 89, 1)",
@@ -406,10 +412,7 @@ exports[`info text should match snapshot for error Error: Not found, code: 404, 
         "borderTopWidth": 0.5,
         "flexDirection": "row",
         "justifyContent": "space-between",
-        "paddingBottom": 12,
         "paddingLeft": 20,
-        "paddingRight": 20,
-        "paddingTop": 12,
         "width": "100%",
       },
       Object {
@@ -425,6 +428,8 @@ exports[`info text should match snapshot for error Error: Not found, code: 404, 
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
         "width": "75%",
       }
     }
@@ -559,6 +564,10 @@ exports[`info text should match snapshot for error Error: Not found, code: 404, 
             Object {
               "fontFamily": "SoraBold",
               "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
             Object {
               "color": "rgba(89, 89, 89, 1)",
@@ -599,10 +608,7 @@ exports[`info text should match snapshot for error Lack of liquidity 1`] = `
         "borderTopWidth": 0.5,
         "flexDirection": "row",
         "justifyContent": "space-between",
-        "paddingBottom": 12,
         "paddingLeft": 20,
-        "paddingRight": 20,
-        "paddingTop": 12,
         "width": "100%",
       },
       Object {
@@ -618,6 +624,8 @@ exports[`info text should match snapshot for error Lack of liquidity 1`] = `
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
         "width": "75%",
       }
     }
@@ -752,6 +760,10 @@ exports[`info text should match snapshot for error Lack of liquidity 1`] = `
             Object {
               "fontFamily": "SoraBold",
               "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
             Object {
               "color": "rgba(89, 89, 89, 1)",
@@ -792,10 +804,7 @@ exports[`info text should match snapshot for error No live fixed prices 1`] = `
         "borderTopWidth": 0.5,
         "flexDirection": "row",
         "justifyContent": "space-between",
-        "paddingBottom": 12,
         "paddingLeft": 20,
-        "paddingRight": 20,
-        "paddingTop": 12,
         "width": "100%",
       },
       Object {
@@ -811,6 +820,8 @@ exports[`info text should match snapshot for error No live fixed prices 1`] = `
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
         "width": "75%",
       }
     }
@@ -945,6 +956,10 @@ exports[`info text should match snapshot for error No live fixed prices 1`] = `
             Object {
               "fontFamily": "SoraBold",
               "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
             Object {
               "color": "rgba(89, 89, 89, 1)",
@@ -985,10 +1000,7 @@ exports[`info text should match snapshot for error Swap price is higher than the
         "borderTopWidth": 0.5,
         "flexDirection": "row",
         "justifyContent": "space-between",
-        "paddingBottom": 12,
         "paddingLeft": 20,
-        "paddingRight": 20,
-        "paddingTop": 12,
         "width": "100%",
       },
       Object {
@@ -1004,6 +1016,8 @@ exports[`info text should match snapshot for error Swap price is higher than the
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
         "width": "75%",
       }
     }
@@ -1138,6 +1152,10 @@ exports[`info text should match snapshot for error Swap price is higher than the
             Object {
               "fontFamily": "SoraBold",
               "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
             Object {
               "color": "rgba(89, 89, 89, 1)",
@@ -1178,10 +1196,7 @@ exports[`info text should match snapshot for error UnknownError 1`] = `
         "borderTopWidth": 0.5,
         "flexDirection": "row",
         "justifyContent": "space-between",
-        "paddingBottom": 12,
         "paddingLeft": 20,
-        "paddingRight": 20,
-        "paddingTop": 12,
         "width": "100%",
       },
       Object {
@@ -1197,6 +1212,8 @@ exports[`info text should match snapshot for error UnknownError 1`] = `
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
         "width": "75%",
       }
     }
@@ -1318,10 +1335,7 @@ exports[`info text should match snapshot for error Vault does not have enough co
         "borderTopWidth": 0.5,
         "flexDirection": "row",
         "justifyContent": "space-between",
-        "paddingBottom": 12,
         "paddingLeft": 20,
-        "paddingRight": 20,
-        "paddingTop": 12,
         "width": "100%",
       },
       Object {
@@ -1337,6 +1351,8 @@ exports[`info text should match snapshot for error Vault does not have enough co
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
         "width": "75%",
       }
     }
@@ -1471,6 +1487,10 @@ exports[`info text should match snapshot for error Vault does not have enough co
             Object {
               "fontFamily": "SoraBold",
               "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
             Object {
               "color": "rgba(89, 89, 89, 1)",
@@ -1511,10 +1531,7 @@ exports[`info text should match snapshot for error amount is less than 1`] = `
         "borderTopWidth": 0.5,
         "flexDirection": "row",
         "justifyContent": "space-between",
-        "paddingBottom": 12,
         "paddingLeft": 20,
-        "paddingRight": 20,
-        "paddingTop": 12,
         "width": "100%",
       },
       Object {
@@ -1530,6 +1547,8 @@ exports[`info text should match snapshot for error amount is less than 1`] = `
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
         "width": "75%",
       }
     }
@@ -1664,6 +1683,10 @@ exports[`info text should match snapshot for error amount is less than 1`] = `
             Object {
               "fontFamily": "SoraBold",
               "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
             Object {
               "color": "rgba(89, 89, 89, 1)",
@@ -1704,10 +1727,7 @@ exports[`info text should match snapshot for error no prevouts available to crea
         "borderTopWidth": 0.5,
         "flexDirection": "row",
         "justifyContent": "space-between",
-        "paddingBottom": 12,
         "paddingLeft": 20,
-        "paddingRight": 20,
-        "paddingTop": 12,
         "width": "100%",
       },
       Object {
@@ -1723,6 +1743,8 @@ exports[`info text should match snapshot for error no prevouts available to crea
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
         "width": "75%",
       }
     }
@@ -1857,6 +1879,10 @@ exports[`info text should match snapshot for error no prevouts available to crea
             Object {
               "fontFamily": "SoraBold",
               "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
             Object {
               "color": "rgba(89, 89, 89, 1)",
@@ -1897,10 +1923,7 @@ exports[`info text should match snapshot for error not enough balance after comb
         "borderTopWidth": 0.5,
         "flexDirection": "row",
         "justifyContent": "space-between",
-        "paddingBottom": 12,
         "paddingLeft": 20,
-        "paddingRight": 20,
-        "paddingTop": 12,
         "width": "100%",
       },
       Object {
@@ -1916,6 +1939,8 @@ exports[`info text should match snapshot for error not enough balance after comb
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
         "width": "75%",
       }
     }
@@ -2050,6 +2075,10 @@ exports[`info text should match snapshot for error not enough balance after comb
             Object {
               "fontFamily": "SoraBold",
               "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
             Object {
               "color": "rgba(89, 89, 89, 1)",
