@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Favorite Button V2 should match snapshot 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "rgba(242, 242, 242, 1)",
+      "borderBottomLeftRadius": 9999,
+      "borderBottomRightRadius": 9999,
+      "borderTopLeftRadius": 9999,
+      "borderTopRightRadius": 9999,
+      "display": "flex",
+      "height": 20,
+      "justifyContent": "center",
+      "opacity": 1,
+      "width": 20,
+    }
+  }
+>
+  <Text />
+</View>
+`;
