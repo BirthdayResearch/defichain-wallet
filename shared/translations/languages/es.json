@@ -60,7 +60,8 @@
     "ADD": "AÑADIR",
     "Prices": "Precios",
     "Available pool pairs": "Pares del pool disponibles",
-    "Your shared {{symbol}}": "Tus activos compartidos {{symbol}}"
+    "Your shared {{symbol}}": "Tus activos compartidos {{symbol}}",
+    "Confirm": "Confirm"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Instrucciones",

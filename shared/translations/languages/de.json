@@ -59,7 +59,8 @@
     "ADD": "HINZUFÜGEN",
     "Prices": "Preise",
     "Available pool pairs": "Verfügbare Pool-Paare",
-    "Your shared {{symbol}}": "Dein {{symbol}}-Anteil"
+    "Your shared {{symbol}}": "Dein {{symbol}}-Anteil",
+    "Confirm": "Bestätigen"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Richtlinien",

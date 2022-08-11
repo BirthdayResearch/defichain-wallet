@@ -60,7 +60,8 @@
     "Prices": "Prezzi",
     "Available pool pairs": "Pool-Pairs disponibili",
     "Your shared {{symbol}}": "I tuoi shared {{symbol}}",
-    "Total liquidity": "Liquidita' Totale"
+    "Total liquidity": "Liquidita' Totale",
+    "Confirm": "Confirm"
   },
   "screens/DexGuidelines": {
     "Guidelines": "Linee Guida",

@@ -59,7 +59,8 @@
     "ADD": "增加",
     "Prices": "價格",
     "Available pool pairs": "可選流動池",
-    "Your shared {{symbol}}": "您的股份 {{symbol}}"
+    "Your shared {{symbol}}": "您的股份 {{symbol}}",
+    "Confirm": "Confirm"
   },
   "screens/DexGuidelines": {
     "Guidelines": "使用指南",

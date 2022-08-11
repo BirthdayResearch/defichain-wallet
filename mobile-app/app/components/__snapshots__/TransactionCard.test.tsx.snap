@@ -19,16 +19,23 @@ exports[`Transaction Card should match snapshot 1`] = `
   <View
     style={
       Array [
-        Object {
-          "borderTopLeftRadius": 10,
-          "borderTopRightRadius": 10,
-          "marginRight": 1,
-          "paddingLeft": 20,
-          "paddingRight": 20,
-          "paddingTop": 8,
-        },
+        Array [
+          Object {
+            "borderTopLeftRadius": 10,
+            "borderTopRightRadius": 10,
+            "marginRight": 1,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+            "paddingTop": 8,
+          },
+          undefined,
+        ],
         Object {
           "backgroundColor": "rgba(255, 255, 255, 1)",
+          "borderBottomColor": "rgba(204, 204, 204, 1)",
+          "borderLeftColor": "rgba(204, 204, 204, 1)",
+          "borderRightColor": "rgba(204, 204, 204, 1)",
+          "borderTopColor": "rgba(204, 204, 204, 1)",
         },
       ]
     }
@@ -149,15 +156,9 @@ exports[`Transaction Card should match snapshot 1`] = `
               },
               Array [
                 Object {
-<<<<<<< HEAD
                   "fontFamily": "SoraSemiBold",
                   "fontSize": 12,
                   "fontWeight": "600",
-=======
-                  "fontFamily": "BoldFont",
-                  "fontSize": 12,
-                  "fontWeight": "700",
->>>>>>> chloe/add-liquidity-2.0
                   "lineHeight": 16,
                   "paddingLeft": 28,
                   "paddingRight": 28,
@@ -225,15 +226,9 @@ exports[`Transaction Card should match snapshot 1`] = `
               },
               Array [
                 Object {
-<<<<<<< HEAD
                   "fontFamily": "SoraSemiBold",
                   "fontSize": 12,
                   "fontWeight": "600",
-=======
-                  "fontFamily": "BoldFont",
-                  "fontSize": 12,
-                  "fontWeight": "700",
->>>>>>> chloe/add-liquidity-2.0
                   "lineHeight": 16,
                   "paddingLeft": 28,
                   "paddingRight": 28,
@@ -301,15 +296,9 @@ exports[`Transaction Card should match snapshot 1`] = `
               },
               Array [
                 Object {
-<<<<<<< HEAD
                   "fontFamily": "SoraSemiBold",
                   "fontSize": 12,
                   "fontWeight": "600",
-=======
-                  "fontFamily": "BoldFont",
-                  "fontSize": 12,
-                  "fontWeight": "700",
->>>>>>> chloe/add-liquidity-2.0
                   "lineHeight": 16,
                   "paddingLeft": 28,
                   "paddingRight": 28,
@@ -375,15 +364,9 @@ exports[`Transaction Card should match snapshot 1`] = `
               },
               Array [
                 Object {
-<<<<<<< HEAD
                   "fontFamily": "SoraSemiBold",
                   "fontSize": 12,
                   "fontWeight": "600",
-=======
-                  "fontFamily": "BoldFont",
-                  "fontSize": 12,
-                  "fontWeight": "700",
->>>>>>> chloe/add-liquidity-2.0
                   "lineHeight": 16,
                   "paddingLeft": 28,
                   "paddingRight": 28,

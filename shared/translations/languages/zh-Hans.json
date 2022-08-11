@@ -59,7 +59,8 @@
     "ADD": "增加",
     "Prices": "价格",
     "Available pool pairs": "可选流动池",
-    "Your shared {{symbol}}": "您的股份 {{symbol}}"
+    "Your shared {{symbol}}": "您的股份 {{symbol}}",
+    "Confirm": "Confirm"
   },
   "screens/DexGuidelines": {
     "Guidelines": "使用指南",
@@ -879,6 +880,7 @@
     "Removing {{amount}} {{symbol}}": "退出 {{amount}} {{symbol}}",
     "Review full transaction details in the next screen": "请在下一步确认交易明细",
     "PRICE DETAILS": "价格明细",
+    "View pool share": "View pool share",
     "{{symbolA}} per {{symbolB}}": "每退出 {{symbolA}} 相当于 {{symbolB}} 等值",
     "{{symbolB}} per {{symbolA}}": "每退出 {{symbolB}} 相当于 {{symbolA}} 等值",
     "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 相当于 {{tokenB}} 等值",
