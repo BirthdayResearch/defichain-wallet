@@ -253,7 +253,7 @@ export function DexScreen (): JSX.Element {
       new BigNumber(secondPair.data.totalLiquidity.usd ?? 0).minus(firstPair.data.totalLiquidity.usd ?? 0).toNumber() ??
       new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber()
       )
-      .slice(0, 4)
+      .slice(0, 5)
     setTopVolumePairs(sorted)
   }, [pairs])
 
@@ -325,10 +325,10 @@ function TopVolumeSection ({ topVolumePairs }: {topVolumePairs: Array<DexItem<Po
       sectionHeading='TOP VOLUME'
       sectionStyle={tailwind('my-6')}
     >
-      {topVolumePairs.map((pair) => (
+      {topVolumePairs.map((pairItem, index) => (
         <DexScrollable.Card
-          key={pair.data.id}
-          poolpair={pair.data}
+          key={`${pairItem.data.id}_${index}`}
+          poolpair={pairItem.data}
           style={tailwind('mr-2')}
         />
       ))}
