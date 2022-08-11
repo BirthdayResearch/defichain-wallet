@@ -3,6 +3,7 @@ import { Platform, View } from 'react-native'
 import BigNumber from 'bignumber.js'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
+import { useToast } from 'react-native-toast-notifications'
 import { StackScreenProps } from '@react-navigation/stack'
 import { getColor, tailwind } from '@tailwind'
 import { debounce } from 'lodash'
@@ -24,7 +25,7 @@ import { useAppDispatch } from '@hooks/useAppDispatch'
 import { useWalletAddress } from '@hooks/useWalletAddress'
 import {
   ThemedIcon,
-  ThemedScrollView,
+  ThemedScrollViewV2,
   ThemedText,
   ThemedTextInputV2,
   ThemedTextV2,
@@ -35,7 +36,7 @@ import {
 import { getNativeIcon } from '@components/icons/assets'
 import { WalletTextInputV2 } from '@components/WalletTextInputV2'
 import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
-import { TransactionCard } from '@components/TransactionCard'
+import { AmountButtonTypes, TransactionCard } from '@components/TransactionCard'
 import { useTokenPrice } from '../hooks/TokenPrice'
 import { ActiveUSDValueV2 } from '../../Loans/VaultDetail/components/ActiveUSDValueV2'
 import { PortfolioParamList } from '../PortfolioNavigator'
@@ -67,6 +68,8 @@ export function SendScreenV2 ({
   const { getTokenPrice } = useTokenPrice()
   const { fetchWalletAddresses } = useWalletAddress()
   const { getDisplayUtxoWarningStatus } = useDisplayUtxoWarning()
+  const toast = useToast()
+  const TOAST_DURATION = 2000
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
@@ -180,6 +183,25 @@ export function SendScreenV2 ({
     debounceMatchAddress()
   }, [address, addressBook])
 
+  function showToast (type: AmountButtonTypes): void {
+    if (token?.displaySymbol === undefined) {
+      return
+    }
+
+    toast.hideAll()
+    const isMax = type === AmountButtonTypes.Max
+    const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
+    const toastOption = {
+      unit: token.displaySymbol,
+      percent: type
+    }
+    toast.show(translate('screens/SendScreen', toastMessage, toastOption), {
+      type: 'wallet_toast',
+      placement: 'top',
+      duration: TOAST_DURATION
+    })
+  }
+
   async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob || token === undefined || !formState.isValid) {
       return
@@ -235,7 +257,7 @@ export function SendScreenV2 ({
 
   return (
     <View style={tailwind('h-full')}>
-      <ThemedScrollView contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'>
+      <ThemedScrollViewV2 contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'>
         {token === undefined &&
           <ThemedText style={tailwind('px-5')}>
             {translate('screens/SendScreen', 'Select a token you want to send to get started')}
@@ -255,7 +277,7 @@ export function SendScreenV2 ({
                   }
                 }) => (
                   <ThemedTextInputV2
-                    style={tailwind('text-3xl outline-0 text-center')}
+                    style={tailwind('text-3xl text-center')}
                     light={tailwind('text-mono-light-v2-900')}
                     dark={tailwind('text-mono-dark-v2-900')}
                     keyboardType='numeric'
@@ -286,7 +308,8 @@ export function SendScreenV2 ({
                   merge: true
                 })
               }}
-              onAmountChange={async (amount) => {
+              onAmountChange={async (amount: string, type: AmountButtonTypes) => {
+                showToast(type)
                 setValue('amount', amount, { shouldDirty: true })
                 await trigger('amount')
               }}
@@ -379,7 +402,7 @@ export function SendScreenV2 ({
             buttonStyle='mt-5'
           />
         </View>
-      </ThemedScrollView>
+      </ThemedScrollViewV2>
     </View>
   )
 }
@@ -470,7 +493,7 @@ function AddressRow ({
 interface AmountForm {
   token: WalletToken
   onPress: () => void
-  onAmountChange: (amount: string) => Promise<void>
+  onAmountChange: (amount: string, type: AmountButtonTypes) => Promise<void>
 }
 
 function AmountCard ({

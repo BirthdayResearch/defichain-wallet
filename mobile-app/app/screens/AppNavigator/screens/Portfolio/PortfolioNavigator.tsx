@@ -248,6 +248,7 @@ export function PortfolioNavigator (): JSX.Element {
         component={SendScreenV2}
         name='Send'
         options={{
+          ...screenOptions,
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/SendScreen', 'Send')}
@@ -262,6 +263,7 @@ export function PortfolioNavigator (): JSX.Element {
         component={TokenSelectionScreen}
         name='TokenSelectionScreen'
         options={{
+          ...screenOptions,
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/TokenSelectionScreen', 'Send')}
@@ -276,6 +278,7 @@ export function PortfolioNavigator (): JSX.Element {
         component={SendConfirmationScreenV2}
         name='SendConfirmationScreen'
         options={{
+          ...screenOptions,
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/SendConfirmationScreen', 'Confirm Send')}

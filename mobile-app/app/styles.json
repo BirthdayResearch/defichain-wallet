@@ -7509,9 +7509,6 @@
 	"bg-origin-content": {
 		"backgroundOrigin": "content-box"
 	},
-	"outline-0": {
-		"outlineWidth": 0
-	},
 	"p-0": {
 		"paddingTop": 0,
 		"paddingRight": 0,
