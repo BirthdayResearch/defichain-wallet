@@ -77,6 +77,24 @@ context('Wallet - Send', function () {
       cy.getByTestID('button_confirm_send_continue').should('have.attr', 'aria-disabled')
     })
 
+    it('should be able to search for tokens', function () {
+      cy.getByTestID('select_token_input').click()
+
+      // empty result
+      cy.getByTestID('token_search_input').clear().type('xxx').wait(2000)
+      cy.getByTestID('empty_search_result_text').should('have.text', 'Search results for “xxx“')
+      cy.getByTestID('select_DFI').should('not.exist')
+      cy.getByTestID('select_dBTC-DFI').should('not.exist')
+
+      // has result
+      cy.getByTestID('token_search_input').clear().type('btc').wait(2000)
+      cy.getByTestID('empty_search_result_text').should('not.exist')
+      cy.getByTestID('select_DFI').should('not.exist')
+      cy.getByTestID('select_dBTC-DFI').should('exist')
+      cy.getByTestID('token_search_input').clear().wait(2000)
+      cy.getByTestID('select_DFI').click().wait(3000)
+    })
+
     it('should be able to display elements', function () {
       cy.getByTestID('qr_code_button').should('be.visible')
     })
@@ -108,7 +126,7 @@ context('Wallet - Send', function () {
       }
       const amountButtonList = Object.keys(amountButtons) as Array<keyof typeof amountButtons>
       amountButtonList.forEach((key) => {
-        cy.getByTestID('available_balance').invoke('text').then((text) => {
+        cy.getByTestID('max_value').invoke('text').then((text) => {
           cy.getByTestID(`${key}_amount_button`).click()
           const availableBalance = new BigNumber(text)
           const inputAfterButtonPress = availableBalance.multipliedBy(amountButtons[key])

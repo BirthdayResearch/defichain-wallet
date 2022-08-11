@@ -87,7 +87,7 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
             onChangeText={(text: string) => {
               setSearchString(text)
             }}
-            testID='address_search_input'
+            testID='token_search_input'
           />
 
           {(!hasFetchedToken || filteredTokensWithBalance.length > 0) &&
@@ -107,6 +107,7 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
               style={tailwind('text-xs pl-5 mt-8')}
               light={tailwind('text-mono-light-v2-700')}
               dark={tailwind('text-mono-dark-v2-700')}
+              testID='empty_search_result_text'
             >
               {translate('screens/TokenSelectionScreen', 'Search results for “{{searchTerm}}“', { searchTerm: debouncedSearchTerm })}
             </ThemedTextV2>}
