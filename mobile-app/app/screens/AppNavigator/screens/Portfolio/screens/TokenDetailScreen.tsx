@@ -433,7 +433,7 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
                   suffix={denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${denominationCurrency}` : undefined}
                   renderText={(value) => (
                     <ThemedTextV2
-                      style={tailwind('flex-wrap mr-1 text-sm font-normal-v2 text-right')}
+                      style={tailwind('flex-wrap text-sm font-normal-v2 text-right')}
                       light={tailwind('text-mono-light-v2-700')}
                       dark={tailwind('text-mono-dark-v2-700')}
                       testID='token_detail_usd_amount'
