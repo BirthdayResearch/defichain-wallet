@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react-native'
-import { SwapButtonV2 } from './SwapButtonV2'
+import { DexActionButton } from './DexActionButton'
 
 jest.mock('@shared-contexts/ThemeProvider')
 jest.mock('@react-navigation/native', () => ({
@@ -47,7 +47,9 @@ describe('Swap Button V2', () => {
       }
     }
 
-    const rendered = render(<SwapButtonV2 pair={pair} />)
+    const onPress = jest.fn()
+
+    const rendered = render(<DexActionButton onPress={() => onPress()} label='Swap' pair={pair} />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })

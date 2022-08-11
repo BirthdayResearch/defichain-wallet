@@ -5,7 +5,7 @@ import { tailwind } from '@tailwind'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { PoolPairTextSectionV2 } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolPairTextSectionV2'
 import { View } from '@components'
-import { SwapButtonV2 } from '@screens/AppNavigator/screens/Dex/components/SwapButtonV2'
+import { DexActionButton } from '@screens/AppNavigator/screens/Dex/components/DexActionButton'
 import BigNumber from 'bignumber.js'
 import NumberFormat from 'react-number-format'
 import { FavoriteButton } from '@screens/AppNavigator/screens/Dex/components/FavoriteButton'
@@ -49,11 +49,15 @@ export function DexScrollable (props: PropsWithChildren<DexScrollableProps>): JS
 interface DexScrollableCardProps {
   poolpair: PoolPairData
   style?: StyleProp<ViewStyle>
+  label: string
+  onPress: (data: PoolPairData) => void
 }
 
 function DexScrollableCard ({
   poolpair,
-  style
+  style,
+  onPress,
+  label
 }: DexScrollableCardProps): JSX.Element {
   const [symbolA, symbolB] = [poolpair.tokenA.displaySymbol, poolpair.tokenB.displaySymbol]
   return (
@@ -86,7 +90,11 @@ function DexScrollableCard ({
         </View>
       </View>
       <View style={tailwind('flex flex-row items-end justify-between mt-4')}>
-        <SwapButtonV2 pair={poolpair} />
+        <DexActionButton
+          pair={poolpair}
+          onPress={onPress}
+          label={label}
+        />
         <FavoriteButton pairId={poolpair.id} />
       </View>
     </ThemedViewV2>
