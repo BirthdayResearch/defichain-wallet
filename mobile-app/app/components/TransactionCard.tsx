@@ -48,12 +48,9 @@ export function TransactionCard ({
       })}
     >
       <ThemedViewV2
-        light={tailwind('bg-mono-light-v2-00')}
-        dark={tailwind('bg-mono-dark-v2-00')}
-// <<<<<<< HEAD
-//         style={tailwind('px-5 mr-px rounded-t-lg-v2')}
-// =======
-        style={tailwind('pl-5 pr-5 pt-2 mr-px rounded-t-lg-v2')}
+        light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-300')}
+        dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-300')}
+        style={[tailwind('pl-5 pr-5 pt-2 mr-px rounded-t-lg-v2'), containerStyle]}  
       >
         {children}
       </ThemedViewV2>

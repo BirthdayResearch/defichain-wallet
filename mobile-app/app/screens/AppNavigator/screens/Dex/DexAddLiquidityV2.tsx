@@ -17,7 +17,7 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useAppDispatch } from '@hooks/useAppDispatch'
-import { AmountButtonTypes, TransactionCard } from '@components/TransactionCard'
+import { AmountButtonTypes, TransactionCard, TransactionCardStatus } from '@components/TransactionCard'
 import { getNativeIcon } from '@components/icons/assets'
 import { TransactionCardWalletTextInputV2 } from '@components/TransactionCardWalletTextInputV2'
 import { PricesSectionV2 } from '@components/PricesSectionV2'
@@ -62,8 +62,8 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   const [hasBInputAmount, setHasBInputAmount] = useState(false)
 
   // transaction card component
-  const [tokenATransactionCardStatus, setTokenATransactionCardStatus] = useState<'error' | 'active' | ' undefined'>()
-  const [tokenBTransactionCardStatus, setTokenBTransactionCardStatus] = useState<'error' | 'active' | ' undefined'>()
+  const [tokenATransactionCardStatus, setTokenATransactionCardStatus] = useState<TransactionCardStatus>()
+  const [tokenBTransactionCardStatus, setTokenBTransactionCardStatus] = useState<TransactionCardStatus>()
   const [hasAError, setHasAError] = useState(false)
   const [hasBError, setHasBError] = useState(false)
   const [isInputAFocus, setIsInputAFocus] = useState(false)
@@ -307,8 +307,8 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
 
   // set focus on current transaction card
   useEffect(() => {
-    setTokenATransactionCardStatus(hasAError ? 'error' : isInputAFocus ? 'active' : undefined)
-    setTokenBTransactionCardStatus(hasBError ? 'error' : isInputBFocus ? 'active' : undefined)
+    setTokenATransactionCardStatus(hasAError ? TransactionCardStatus.Error : isInputAFocus ? TransactionCardStatus.Active : undefined)
+    setTokenBTransactionCardStatus(hasBError ? TransactionCardStatus.Error : isInputBFocus ? TransactionCardStatus.Active : undefined)
   }, [hasAError, hasBError, isInputAFocus, isInputBFocus])
 
   useEffect(() => {
@@ -372,12 +372,12 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
             <AddLiquidityInputCard
               balance={balanceA}
               current={tokenAAmount}
-              onChange={(amount) => {
+              onChange={(amount) => 
                 buildSummary('primary', amount)
+              }
+              onPercentageChange={(amount, type) => {
+                onPercentagePress(amount, type, pair.tokenA.displaySymbol)
               }}
-              onPercentageChange={(amount, type) =>
-                onPercentagePress(amount, type, pair.tokenA.displaySymbol
-                )}
               symbol={pair.tokenA.displaySymbol}
               type='primary'
               setIsInputFocus={setIsInputAFocus}
@@ -392,9 +392,10 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
               onChange={(amount) => {
                 buildSummary('secondary', amount)
               }}
-              onPercentageChange={(amount, type) =>
+              onPercentageChange={(amount, type) => {
+                buildSummary('secondary', amount)
                 onPercentagePress(amount, type, pair.tokenB.displaySymbol)
-              }
+              }}
               symbol={pair.tokenB.displaySymbol}
               type='secondary'
               setIsInputFocus={setIsInputBFocus}
@@ -438,7 +439,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                   ]}
                 />
                 <ThemedViewV2
-                  light={tailwind('border-mono-light-v2-300')}
+                  light={tailwind('border-mono-light-v2-300 bg-red-200')}
                   dark={tailwind('border-mono-dark-v2-300')}
                   style={tailwind('pt-5 border-t-0.5')}
                 >
@@ -530,16 +531,13 @@ function AddLiquidityInputCard (
     onPercentageChange: (amount: string, type: AmountButtonTypes) => void
     onChange: (amount: string) => void
     current: string
-    status?: string
+    status?: TransactionCardStatus
     setIsInputFocus: any // TODO: type checking
     showInsufficientTokenMsg: boolean
     showUTXOFeesMsg: boolean
     hasInputAmount?: boolean
   }): JSX.Element {
   const Icon = getNativeIcon(props.symbol)
-
-  useEffect(() => {
-  }, [props.balance])
   return (
     <>
       <TransactionCard
@@ -548,8 +546,8 @@ function AddLiquidityInputCard (
           props.onChange(amount)
         }}
         onPercentageChange={props.onPercentageChange}
+        containerStyle={tailwind('border-b-0.5')}
         status={props.status}
-        containerStyle={tailwind('border-t-0.5')}
       >
         <ThemedViewV2
           light={tailwind('border-mono-light-v2-300')}

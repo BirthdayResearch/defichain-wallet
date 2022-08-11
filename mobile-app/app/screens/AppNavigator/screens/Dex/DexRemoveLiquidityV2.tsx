@@ -370,7 +370,7 @@ function RemoveLiquidityInputCard (
           props.onChange(amount)
         }}
         status={props.status}
-        containerStyle={tailwind('border-t-0.5')}
+        containerStyle={tailwind('border-b-0.5')}
         onPercentageChange={props.onPercentageChange}
       >
         <ThemedViewV2
