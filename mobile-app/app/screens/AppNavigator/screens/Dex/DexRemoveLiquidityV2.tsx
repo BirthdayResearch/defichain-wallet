@@ -91,6 +91,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
 
   function onPercentagePress (amount: string, type: AmountButtonTypes): void {
     setPercentageType(amount)
+    buildSummary(amount)
     showToast(type)
   }
 
@@ -346,7 +347,7 @@ function RemoveLiquidityInputCard (
     balance: BigNumber
     symbol: string
     onPercentageChange: (amount: string, type: AmountButtonTypes) => void
-    onChange: (amount: string) => void
+    onChange: (amount: string, type?: AmountButtonTypes) => void
     current: string
     status?: TransactionCardStatus
     setIsInputFocus: any // TODO: type checking
@@ -366,12 +367,9 @@ function RemoveLiquidityInputCard (
       </ThemedTextV2>
       <TransactionCard
         maxValue={props.balance}
-        onChange={(amount) => {
-          props.onChange(amount)
-        }}
+        onChange={props.onPercentageChange}
         status={props.status}
         containerStyle={tailwind('border-b-0.5')}
-        onPercentageChange={props.onPercentageChange}
       >
         <ThemedViewV2
           light={tailwind('border-mono-light-v2-300')}
