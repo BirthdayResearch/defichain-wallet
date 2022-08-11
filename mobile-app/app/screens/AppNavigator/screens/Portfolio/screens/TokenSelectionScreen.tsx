@@ -109,7 +109,7 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
               light={tailwind('text-mono-light-v2-700')}
               dark={tailwind('text-mono-dark-v2-700')}
             >
-              {translate('screens/TokenSelectionScreen', 'Search results for "{{searchTerm}}"', { searchTerm: debouncedSearchTerm })}
+              {translate('screens/TokenSelectionScreen', 'Search results for “{{searchTerm}}“', { searchTerm: debouncedSearchTerm })}
             </ThemedTextV2>}
 
         </ThemedViewV2>

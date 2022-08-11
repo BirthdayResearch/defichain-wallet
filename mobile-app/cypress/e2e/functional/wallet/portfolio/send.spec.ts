@@ -205,8 +205,6 @@ context('Wallet - Send', function () {
         minimumFractionDigits: 2, maximumFractionDigits: 2
       })
       cy.getByTestID('text_amount_rhsUsdAmount').should('have.text', `$${usdValueWithThousandSep}`)
-
-      // text_amount_rhsUsdAmount PIERRE
       cy.getByTestID('button_confirm_send').click().wait(5000)
 
       // Check for authorization page description

@@ -275,10 +275,10 @@
     "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "Sende Liquiditätspool-Token nur an DeFiChain-Walletadressen. Das Senden an eine Börse oder eine zentrale Einrichtung führt zu einem unwiederbringlichen Verlust der Einlagen.",
     "Transaction type": "Transaktionsart",
     "Amount to send": "Zu sendender Betrag",
-    "Converting": "Converting",
+    "Converting": "Umwandeln",
     "Converted": "Converti",
     "Transaction fee": "Transaktionsgebühren",
-    "Amount to convert": "Amount to convert",
+    "Amount to convert": "Umzuwandelnder Betrag",
     "Send": "Senden",
     "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Sending {{amount}} {{displaySymbol}} to {{toAddress}}"
   },
@@ -286,8 +286,8 @@
     "Search token": "Token durchsuchen",
     "No assets found": "Keine Aktiva gefunden",
     "Add assets to get started": "Aktiva zum Einstieg hinzufügen",
-    "Search results for \"{{searchTerm}}\"": "Search results for \"{{searchTerm}}\"",
-    "AVAILABLE": "AVAILABLE"
+    "Search results for “{{searchTerm}}“": "Suchergebnisse für “{{searchTerm}}”",
+    "AVAILABLE": "VERFÜGBAR"
   },
   "screens/ConvertScreen": {
     "Convert DFI": "DFI umwandeln",

@@ -286,7 +286,7 @@
     "Search token": "搜索代幣",
     "No assets found": "No assets found",
     "Add assets to get started": "Add assets to get started",
-    "Search results for \"{{searchTerm}}\"": "Search results for \"{{searchTerm}}\"",
+    "Search results for “{{searchTerm}}“": "Search results for “{{searchTerm}}“",
     "AVAILABLE": "AVAILABLE"
   },
   "screens/ConvertScreen": {
