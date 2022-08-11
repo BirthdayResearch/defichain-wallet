@@ -38,11 +38,13 @@ export function ActionButtons (): JSX.Element {
           iconSize={28}
           testID='send_balance_button'
           onPress={() => {
-            navigation.navigate({
-              name: 'TokenSelectionScreen',
-              params: {},
-              merge: true
-            })
+            isFeatureAvailable('send_v2')
+              ? navigation.navigate({
+                name: 'TokenSelectionScreen',
+                params: {},
+                merge: true
+              })
+              : navigation.navigate('Send')
           }}
         />
         <ActionButton

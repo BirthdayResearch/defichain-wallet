@@ -51,6 +51,9 @@ import {
 import { SendScreenV2 } from './screens/SendScreenV2'
 import { TokenSelectionScreen } from './screens/TokenSelectionScreen'
 import { SendConfirmationScreenV2 } from './screens/SendConfirmationScreenV2'
+import { SendScreen } from './screens/SendScreen'
+import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -137,6 +140,7 @@ export function PortfolioNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const headerContainerTestId = 'portfolio_header_container'
   const { isLight } = useThemeContext()
+  const { isFeatureAvailable } = useFeatureFlagContext()
   const goToNetworkSelect = (): void => {
     navigation.navigate('NetworkSelectionScreen')
   }
@@ -245,7 +249,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={SendScreenV2}
+        component={isFeatureAvailable('send_v2') ? SendScreenV2 : SendScreen}
         name='Send'
         options={{
           ...screenOptions,
@@ -275,7 +279,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={SendConfirmationScreenV2}
+        component={isFeatureAvailable('send_v2') ? SendConfirmationScreenV2 : SendConfirmationScreen}
         name='SendConfirmationScreen'
         options={{
           ...screenOptions,
