@@ -5,7 +5,7 @@ import {
   ThemedIcon,
   ThemedSectionTitleV2,
   ThemedTextV2,
-  ThemedTouchableOpacityV2,
+  ThemedTouchableListItem,
   ThemedViewV2
 } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -100,16 +100,17 @@ function CommunityItemRow ({
     <ThemedViewV2
       dark={tailwind('bg-mono-dark-v2-00')}
       light={tailwind('bg-mono-light-v2-00')}
-      style={tailwind({
+      style={tailwind('px-5', {
         'rounded-t-lg-v2': first,
         'rounded-b-lg-v2': last
       })}
     >
 
-      <ThemedTouchableOpacityV2
+      <ThemedTouchableListItem
         onPress={handlePress}
         testID={item.id}
-        style={tailwind('flex-row py-4.5 mx-5 items-center ', { 'border-b-0.5': !last })}
+        showTopBorder={!first}
+        styleProps='flex-row items-center py-4.5'
       >
 
         <ThemedTextV2 style={tailwind('flex-1 font-normal-v2 text-sm mr-4')}>
@@ -124,7 +125,7 @@ function CommunityItemRow ({
           size={16}
         />
 
-      </ThemedTouchableOpacityV2>
+      </ThemedTouchableListItem>
     </ThemedViewV2>
   )
 }

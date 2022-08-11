@@ -59,7 +59,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
     <ThemedViewV2
       light={tailwind('bg-mono-light-v2-00')}
       dark={tailwind('bg-mono-dark-v2-00')}
-      style={tailwind('px-5 pb-5 pt-2 rounded-b-xl-v2')}
+      style={tailwind('px-5 py-5 rounded-b-xl-v2')}
       testID='total_portfolio_card'
     >
       {
