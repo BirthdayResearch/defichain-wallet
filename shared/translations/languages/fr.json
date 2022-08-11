@@ -874,7 +874,8 @@
     "You are removing LP tokens": "Vous retirez des tokens PL",
     "Transaction fee": "Frais de transaction",
     "Resulting pool share": "Part de pool qui en résulte",
-    "LP tokens to remove": "Tokens PL à retirer"
+    "LP tokens to remove": "Tokens PL à retirer",
+    "Removing {{amount}} LP tokens from {{symbol}} pool": "Retrait de {{amount}} tokens PL du pool {{symbol}}"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "Retrait de liquidité...",
@@ -886,6 +887,7 @@
     "Removing {{amount}} {{symbol}}": "Retrait de {{amount}} {{symbol}}",
     "Review full transaction details in the next screen": "Examinez les détails de la transaction à l'étape suivante.",
     "PRICE DETAILS": "DÉTAILS DU PRIX",
+    "View pool share": "Voir part de pool",
     "{{symbolA}} per {{symbolB}}": "{{symbolA}} par {{symbolB}}",
     "{{symbolB}} per {{symbolA}}": "{{symbolB}} par {{symbolA}}",
     "{{tokenA}} price in {{tokenB}}": "Prix d'un {{tokenA}} en {{tokenB}}",
@@ -897,7 +899,11 @@
     "Your LP Tokens": "Mes tokens PL",
     "Tokens in {{token}}": "Tokens en {{token}}",
     "{{token}} to receive": "{{token}} restants",
-    "LP tokens to remove": "Tokens PL à retirer"
+    "LP tokens to remove": "Tokens PL à retirer",
+    "Available": "Disponible",
+    "Insufficient balance": "Solde insuffisant",
+    "Max available LP tokens entered": "Max. de tokens PL ajoutés disponibles",
+    "{{percent}} of available LP tokens entered": "{{percent}} des tokens PL ajoutés disponibles"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "Réseau du portefeuille",

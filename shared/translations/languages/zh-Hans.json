@@ -856,6 +856,7 @@
     "Estimated fee": "所需费用（大约）",
     "REMOVE": "退出",
     "PRICE DETAILS": "价格明细",
+    "View pool share": "View pool share",
     "{{symbolA}} per {{symbolB}}": "每退出 {{symbolA}} 相当于 {{symbolB}} 等值",
     "{{symbolB}} per {{symbolA}}": "每退出 {{symbolB}} 相当于 {{symbolA}} 等值",
     "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 相当于 {{tokenB}} 等值",
@@ -865,7 +866,8 @@
     "You are removing LP tokens": "You are removing LP tokens",
     "Transaction fee": "Transaction fee",
     "Resulting pool share": "Resulting pool share",
-    "LP tokens to remove": "LP tokens to remove"
+    "LP tokens to remove": "要删除的 LP 代币",
+    "Removing {{amount}} LP tokens from {{symbol}} pool": "Removing {{amount}} LP tokens from {{symbol}} pool"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "退出流动资金",
@@ -888,7 +890,11 @@
     "Your LP Tokens": "Your LP Tokens",
     "Tokens in {{token}}": "Tokens in {{token}}",
     "{{token}} to receive": "{{token}} to receive",
-    "LP tokens to remove": "LP tokens to remove"
+    "LP tokens to remove": "要删除的 LP 代币",
+    "Available": "可发送资金",
+    "Insufficient balance": "Insufficient balance",
+    "Max available LP tokens entered": "输入的最高额可用 LP 代币",
+    "{{percent}} of available LP tokens entered": "输入了 {{percent}} of 的可用 LP 代币"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "钱包网络",

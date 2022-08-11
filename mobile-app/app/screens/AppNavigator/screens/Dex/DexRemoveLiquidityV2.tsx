@@ -96,12 +96,12 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   function showToast (type: AmountButtonTypes): void {
     toast.hideAll()
     const isMax = type === AmountButtonTypes.Max
-    const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
+    const toastMessage = isMax ? 'Max available LP tokens entered' : '{{percent}} of available LP tokens entered'
       const toastOption = {
         unit: 'LP tokens',
         percent: type
       }
-    toast.show(translate('screens/screens/RemoveLiquidity', toastMessage, toastOption), {
+    toast.show(translate('screens/RemoveLiquidity', toastMessage, toastOption), {
       type: 'wallet_toast',
       placement: 'top',
       duration: TOAST_DURATION
@@ -395,13 +395,13 @@ function RemoveLiquidityInputCard (
               dark={tailwind('text-red-v2')}
               style={tailwind('px-4 text-xs pt-1 font-normal-v2')}
             >
-              {`${translate('screens/AddLiquidity', 'Insufficient balance')}`}
+              {`${translate('screens/RemoveLiquidity', 'Insufficient balance')}`}
             </ThemedTextV2>
           )
           : (
             <InputHelperTextV2
               testID={`token_balance_${props.tokenA}-${props.tokenB}`}
-              label={`${translate('screens/AddLiquidity', 'Available')}: `}
+              label={`${translate('screens/RemoveLiquidity', 'Available')}: `}
               content={BigNumber.max(props.balance, 0).toFixed(8)}
               suffix=' LP tokens'
             />

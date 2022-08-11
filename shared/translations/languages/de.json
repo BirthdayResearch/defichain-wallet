@@ -862,7 +862,8 @@
     "You are removing LP tokens": "Du entfernst LP-Token",
     "Transaction fee": "Transaktionsgebühren",
     "Resulting pool share": "Resultierender Poolanteil",
-    "LP tokens to remove": "Zu entfernende LP-Token"
+    "LP tokens to remove": "Zu entfernende LP-Token",
+    "Removing {{amount}} LP tokens from {{symbol}} pool": "Entnahme von {{amount}} LP-Token aus dem {{symbol}}-Pool"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "Entferne Liquidität",
@@ -874,6 +875,7 @@
     "Removing {{amount}} {{symbol}}": "Entferne {{amount}} {{symbol}}",
     "Review full transaction details in the next screen": "Nächste Ansicht mit detaillierter Gesamtanzeige der Transaktion",
     "PRICE DETAILS": "PREISDETAILS",
+    "View pool share": "Pool-Anteil anzeigen",
     "{{symbolA}} per {{symbolB}}": "{{symbolA}} pro {{symbolB}}",
     "{{symbolB}} per {{symbolA}}": "{{symbolB}} pro {{symbolA}}",
     "{{tokenA}} price in {{tokenB}}": "{{tokenA}}-Preis in {{tokenB}}",
@@ -885,7 +887,11 @@
     "Your LP Tokens": "Deine LP-Token",
     "Tokens in {{token}}": "Token in {{token}}",
     "{{token}} to receive": "Verbleibende {{token}}",
-    "LP tokens to remove": "Zu entfernende LP-Token"
+    "LP tokens to remove": "Zu entfernende LP-Token",
+    "Available": "Verfügbar",
+    "Insufficient balance": "Unzureichendes Guthaben",
+    "Max available LP tokens entered": "Max. verfügbare hinzugefügten LP-Token",
+    "{{percent}} of available LP tokens entered": "{{percent}} der verfügbaren hinzugefügten LP-Token"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "Wallet-Netzwerk",
