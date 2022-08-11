@@ -1,15 +1,31 @@
+import { useEffect, useState, useMemo } from 'react'
+import { Platform, View } from 'react-native'
+import BigNumber from 'bignumber.js'
+import { Control, Controller, useForm } from 'react-hook-form'
+import { useSelector } from 'react-redux'
+import { useToast } from 'react-native-toast-notifications'
+import { StackScreenProps } from '@react-navigation/stack'
+import { getColor, tailwind } from '@tailwind'
+import { debounce } from 'lodash'
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
-import { StackScreenProps } from '@react-navigation/stack'
+import { translate } from '@translations'
+import { useNetworkContext } from '@shared-contexts/NetworkContext'
+import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
+import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { RootState } from '@store'
 import { DFITokenSelector, DFIUtxoSelector, tokensSelector, WalletToken } from '@store/wallet'
-import BigNumber from 'bignumber.js'
-import { useEffect, useState, useMemo } from 'react'
-import { Control, Controller, useForm } from 'react-hook-form'
-import { Platform, View } from 'react-native'
-import { useSelector } from 'react-redux'
+import { LocalAddress } from '@store/userPreferences'
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { hasTxQueued } from '@store/transaction_queue'
+import { useDisplayUtxoWarning } from '@hooks/wallet/DisplayUtxoWarning'
+import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
+import { useAppDispatch } from '@hooks/useAppDispatch'
+import { useWalletAddress } from '@hooks/useWalletAddress'
 import {
   ThemedIcon,
-  ThemedScrollView,
+  ThemedScrollViewV2,
   ThemedText,
   ThemedTextInputV2,
   ThemedTextV2,
@@ -17,28 +33,13 @@ import {
   ThemedTouchableOpacityV2,
   ThemedView
 } from '@components/themed'
-import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { RootState } from '@store'
-import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { hasTxQueued } from '@store/transaction_queue'
-import { getColor, tailwind } from '@tailwind'
-import { translate } from '@translations'
-import { PortfolioParamList } from '../PortfolioNavigator'
-import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
-import { debounce } from 'lodash'
-import { useAppDispatch } from '@hooks/useAppDispatch'
 import { getNativeIcon } from '@components/icons/assets'
 import { WalletTextInputV2 } from '@components/WalletTextInputV2'
 import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
-import { TransactionCard } from '@components/TransactionCard'
-import { useWalletAddress } from '@hooks/useWalletAddress'
-import { LocalAddress } from '@store/userPreferences'
+import { AmountButtonTypes, TransactionCard } from '@components/TransactionCard'
 import { useTokenPrice } from '../hooks/TokenPrice'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { ActiveUSDValueV2 } from '../../Loans/VaultDetail/components/ActiveUSDValueV2'
-import { useDisplayUtxoWarning } from '@hooks/wallet/DisplayUtxoWarning'
+import { PortfolioParamList } from '../PortfolioNavigator'
 
 type Props = StackScreenProps<PortfolioParamList, 'SendScreenV2'>
 
@@ -67,6 +68,8 @@ export function SendScreenV2 ({
   const { getTokenPrice } = useTokenPrice()
   const { fetchWalletAddresses } = useWalletAddress()
   const { getDisplayUtxoWarningStatus } = useDisplayUtxoWarning()
+  const toast = useToast()
+  const TOAST_DURATION = 2000
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
@@ -124,6 +127,41 @@ export function SendScreenV2 ({
     return getTokenPrice(token.symbol, amountToSend, token.isLPS)
   }, [amountToSend, token])
 
+  const { infoText, infoTextThemedProps } = useMemo(() => {
+    let infoText, themedProps
+
+    if (new BigNumber(amountToSend).isGreaterThan(token?.amount ?? 0)) {
+      infoText = 'Insufficient balance'
+      themedProps = {
+        dark: tailwind('text-red-v2'),
+        light: tailwind('text-red-v2')
+      }
+    } else if (token?.isLPS === true && new BigNumber(amountToSend).isGreaterThan(0)) {
+      infoText = 'Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds'
+      themedProps = {
+        dark: tailwind('text-orange-v2'),
+        light: tailwind('text-orange-v2')
+      }
+    } else if (isReservedUtxoUsed) {
+      infoText = 'A small amount of UTXO is reserved for fees'
+      themedProps = {
+        dark: tailwind('text-orange-v2'),
+        light: tailwind('text-orange-v2')
+      }
+    } else {
+      infoText = 'There is a minimal fee for the transaction'
+      themedProps = {
+        light: tailwind('text-mono-light-v2-500'),
+        dark: tailwind('text-mono-dark-v2-500')
+      }
+    }
+
+    return {
+      infoText: translate('screens/SendScreen', infoText),
+      infoTextThemedProps: { ...themedProps, style: tailwind('text-xs mt-2 ml-5') }
+    }
+  }, [token, isReservedUtxoUsed, amountToSend])
+
   useEffect(() => {
     void fetchWalletAddresses().then((walletAddresses) => setJellyfishWalletAddresses(walletAddresses))
   }, [fetchWalletAddresses])
@@ -145,6 +183,25 @@ export function SendScreenV2 ({
     debounceMatchAddress()
   }, [address, addressBook])
 
+  function showToast (type: AmountButtonTypes): void {
+    if (token?.displaySymbol === undefined) {
+      return
+    }
+
+    toast.hideAll()
+    const isMax = type === AmountButtonTypes.Max
+    const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
+    const toastOption = {
+      unit: token.displaySymbol,
+      percent: type
+    }
+    toast.show(translate('screens/SendScreen', toastMessage, toastOption), {
+      type: 'wallet_toast',
+      placement: 'top',
+      duration: TOAST_DURATION
+    })
+  }
+
   async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob || token === undefined || !formState.isValid) {
       return
@@ -155,6 +212,7 @@ export function SendScreenV2 ({
       destination: values.address,
       token,
       amount: new BigNumber(values.amount),
+      amountInUsd: amountInUSDValue,
       fee
     }
 
@@ -199,159 +257,129 @@ export function SendScreenV2 ({
 
   return (
     <View style={tailwind('h-full')}>
-      <ThemedScrollView contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'>
-        {token === undefined
-          ? (
-            <ThemedText style={tailwind('px-5')}>
-              {translate('screens/SendScreen', 'Select a token you want to send to get started')}
-            </ThemedText>
-          )
-          : (
-            <>
-              <View style={tailwind('px-5')}>
-                <View style={tailwind('my-12 items-center')}>
-                  <Controller
-                    control={control}
-                    defaultValue='0'
-                    name='amount'
-                    render={({
-                      field: {
-                        onChange,
-                        value
-                      }
-                    }) => (
-                      <ThemedTextInputV2
-                        style={tailwind('text-3xl outline-0 text-center')}
-                        light={tailwind('text-mono-light-v2-900')}
-                        dark={tailwind('text-mono-dark-v2-900')}
-                        keyboardType='numeric'
-                        value={value}
-                        onChange={onChange}
-                        placeholder='0'
-                        placeholderTextColor={getColor(isLight ? 'mono-light-v2-900' : 'mono-dark-v2-900')}
-                      />
-                    )}
-                    rules={{
-                      required: true,
-                      pattern: /^\d*\.?\d*$/,
-                      max: BigNumber.max(token.amount, 0).toFixed(8),
-                      validate: {
-                        greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
-                      }
-                    }}
-                  />
-                  <ActiveUSDValueV2 price={amountInUSDValue} />
-                </View>
+      <ThemedScrollViewV2 contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'>
+        {token === undefined &&
+          <ThemedText style={tailwind('px-5')}>
+            {translate('screens/SendScreen', 'Select a token you want to send to get started')}
+          </ThemedText>}
 
-                <AmountCard
-                  onPress={() => {
-                    navigation.navigate({
-                      name: 'TokenSelectionScreen',
-                      params: {},
-                      merge: true
-                    })
-                  }}
-                  onAmountChange={async (amount) => {
-                    setValue('amount', amount, { shouldDirty: true })
-                    await trigger('amount')
-                  }}
-                  token={token}
-                />
-
-                {token?.isLPS && new BigNumber(amountToSend).isGreaterThan(0)
-                  ? (
-                    <ThemedTextV2
-                      style={tailwind('text-xs mt-2 ml-5')}
-                      dark={tailwind('text-orange-v2')}
-                      light={tailwind('text-orange-v2')}
-                      testID='lp_info_text'
-                    >
-                      Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds
-                    </ThemedTextV2>
-                  )
-                  : isReservedUtxoUsed
-                    ? (
-                      <ThemedTextV2
-                        style={tailwind('text-xs mt-2 ml-5')}
-                        dark={tailwind('text-orange-v2')}
-                        light={tailwind('text-orange-v2')}
-                      >
-                        A small amount of UTXO is reserved for fees
-                      </ThemedTextV2>
-                    )
-                    : (
-                      <ThemedTextV2
-                        style={tailwind('text-xs mt-2 ml-5')}
-                        light={tailwind('text-mono-light-v2-500')}
-                        dark={tailwind('text-mono-dark-v2-500')}
-                      >
-                        There is a minimal fee for the transaction
-                      </ThemedTextV2>
-                    )}
-                <AddressRow
-                  control={control}
-                  networkName={networkName}
-                  onContactButtonPress={() => navigation.navigate({
-                    name: 'AddressBookScreen',
-                    params: {
-                      selectedAddress: getValues('address'),
-                      onAddressSelect: async (savedAddres: string) => {
-                        setValue('address', savedAddres, { shouldDirty: true })
-                        await trigger('address')
-                        navigation.goBack()
-                      }
-                    },
-                    merge: true
-                  })}
-                  onQrButtonPress={() => navigation.navigate({
-                    name: 'BarCodeScanner',
-                    params: {
-                      onQrScanned: async (value) => {
-                        setValue('address', value, { shouldDirty: true })
-                        await trigger('address')
-                      }
-                    },
-                    merge: true
-                  })}
-                  onClearButtonPress={async () => {
-                    setValue('address', '')
-                    await trigger('address')
-                  }}
-                  onAddressChange={async (address) => {
-                    setValue('address', address, { shouldDirty: true })
-                    await trigger('address')
-                  }}
-                  inputFooter={
-                    <>
-                      {matchedAddress !== undefined && (
-                        <ThemedView
-                          style={tailwind('mx-2 mb-2 p-1 rounded-2xl flex flex-row self-start', { 'items-end': Platform.OS === 'ios' })}
-                          light={tailwind('bg-gray-50')}
-                          dark={tailwind('bg-gray-900')}
-                        >
-                          <ThemedIcon
-                            name='account-check'
-                            iconType='MaterialCommunityIcons'
-                            size={18}
-                            light={tailwind('text-gray-400')}
-                            dark={tailwind('text-gray-500')}
-                          />
-                          <ThemedText
-                            style={tailwind('text-xs ml-1 pt-px')}
-                            light={tailwind('text-gray-500')}
-                            dark={tailwind('text-gray-400')}
-                            testID='address_input_footer'
-                          >
-                            {matchedAddress.label}
-                          </ThemedText>
-                        </ThemedView>
-                      )}
-                    </>
+        {token !== undefined && (
+          <View style={tailwind('px-5')}>
+            <View style={tailwind('my-12 items-center')}>
+              <Controller
+                control={control}
+                defaultValue='0'
+                name='amount'
+                render={({
+                  field: {
+                    onChange,
+                    value
                   }
-                />
-              </View>
-            </>
-          )}
+                }) => (
+                  <ThemedTextInputV2
+                    style={tailwind('text-3xl text-center')}
+                    light={tailwind('text-mono-light-v2-900')}
+                    dark={tailwind('text-mono-dark-v2-900')}
+                    keyboardType='numeric'
+                    value={value}
+                    onChange={onChange}
+                    placeholder='0'
+                    placeholderTextColor={getColor(isLight ? 'mono-light-v2-900' : 'mono-dark-v2-900')}
+                    testID='amount_input'
+                  />
+                )}
+                rules={{
+                  required: true,
+                  pattern: /^\d*\.?\d*$/,
+                  max: BigNumber.max(token.amount, 0).toFixed(8),
+                  validate: {
+                    greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
+                  }
+                }}
+              />
+              <ActiveUSDValueV2 price={amountInUSDValue} testId='amount_input_in_usd' />
+            </View>
+
+            <AmountCard
+              onPress={() => {
+                navigation.navigate({
+                  name: 'TokenSelectionScreen',
+                  params: {},
+                  merge: true
+                })
+              }}
+              onAmountChange={async (amount: string, type: AmountButtonTypes) => {
+                showToast(type)
+                setValue('amount', amount, { shouldDirty: true })
+                await trigger('amount')
+              }}
+              token={token}
+            />
+            <ThemedTextV2 {...infoTextThemedProps} testID='info_text'>{infoText}</ThemedTextV2>
+
+            <AddressRow
+              control={control}
+              networkName={networkName}
+              onContactButtonPress={() => navigation.navigate({
+                name: 'AddressBookScreen',
+                params: {
+                  selectedAddress: getValues('address'),
+                  onAddressSelect: async (savedAddres: string) => {
+                    setValue('address', savedAddres, { shouldDirty: true })
+                    await trigger('address')
+                    navigation.goBack()
+                  }
+                },
+                merge: true
+              })}
+              onQrButtonPress={() => navigation.navigate({
+                name: 'BarCodeScanner',
+                params: {
+                  onQrScanned: async (value) => {
+                    setValue('address', value, { shouldDirty: true })
+                    await trigger('address')
+                  }
+                },
+                merge: true
+              })}
+              onClearButtonPress={async () => {
+                setValue('address', '')
+                await trigger('address')
+              }}
+              onAddressChange={async (address) => {
+                setValue('address', address, { shouldDirty: true })
+                await trigger('address')
+              }}
+              inputFooter={
+                <>
+                  {matchedAddress !== undefined && (
+                    <ThemedView
+                      style={tailwind('mx-2 mb-2 p-1 rounded-2xl flex flex-row self-start', { 'items-end': Platform.OS === 'ios' })}
+                      light={tailwind('bg-gray-50')}
+                      dark={tailwind('bg-gray-900')}
+                    >
+                      <ThemedIcon
+                        name='account-check'
+                        iconType='MaterialCommunityIcons'
+                        size={18}
+                        light={tailwind('text-gray-400')}
+                        dark={tailwind('text-gray-500')}
+                      />
+                      <ThemedText
+                        style={tailwind('text-xs ml-1 pt-px')}
+                        light={tailwind('text-gray-500')}
+                        dark={tailwind('text-gray-400')}
+                        testID='address_input_footer'
+                      >
+                        {matchedAddress.label}
+                      </ThemedText>
+                    </ThemedView>
+                  )}
+                </>
+              }
+            />
+          </View>
+        )}
 
         <View style={tailwind('mt-24 mx-12 items-center')}>
           {(formState.isValid && token !== undefined) &&
@@ -374,7 +402,7 @@ export function SendScreenV2 ({
             buttonStyle='mt-5'
           />
         </View>
-      </ThemedScrollView>
+      </ThemedScrollViewV2>
     </View>
   )
 }
@@ -465,7 +493,7 @@ function AddressRow ({
 interface AmountForm {
   token: WalletToken
   onPress: () => void
-  onAmountChange: (amount: string) => Promise<void>
+  onAmountChange: (amount: string, type: AmountButtonTypes) => Promise<void>
 }
 
 function AmountCard ({
@@ -481,25 +509,30 @@ function AmountCard ({
         style={tailwind('pl-5 pb-2 text-xs font-normal-v2')}
         light={tailwind('text-mono-light-v2-500')}
         dark={tailwind('text-mono-dark-v2-500')}
-      >I WANT TO SEND
+      >{translate('screens/SendScreen', 'I WANT TO SEND')}
       </ThemedTextV2>
       <TransactionCard
         maxValue={maxAmount}
         onChange={onAmountChange}
+        containerStyle={tailwind('rounded-t-lg-v2')}
       >
         <ThemedTouchableOpacityV2
           style={tailwind('flex flex-row items-center justify-between px-5 pt-5 mb-2 pb-2')}
           onPress={onPress}
+          testID='select_token_input'
         >
           <View style={tailwind('flex flex-row items-center')}>
             <Icon height={32} width={32} />
             <View style={tailwind('flex ml-2')}>
-              <ThemedTextV2 style={tailwind('font-bold')}>{`${maxAmount.toFixed(8)} ${token.displaySymbol}`}</ThemedTextV2>
+              <ThemedTextV2>
+                <ThemedTextV2 style={tailwind('font-bold')} testID='max_value'>{maxAmount.toFixed(8)}</ThemedTextV2>
+                <ThemedTextV2 style={tailwind('font-bold')} testID='max_value_display_symbol'>{` ${token.displaySymbol}`}</ThemedTextV2>
+              </ThemedTextV2>
               <ThemedTextV2
                 light={tailwind('text-mono-light-v2-500')}
                 dark={tailwind('text-mono-dark-v2-500')}
                 style={tailwind('text-xs')}
-              >Available
+              >{translate('screens/SendScreen', 'Available')}
               </ThemedTextV2>
             </View>
           </View>

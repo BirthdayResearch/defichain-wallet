@@ -1,3 +1,4 @@
+import { useState, useMemo } from 'react'
 import { View, Image } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
@@ -6,16 +7,17 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import { tailwind } from '@tailwind'
 import { RootState } from '@store'
-import { tokensSelector, WalletToken } from '@store/wallet'
-import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
-import { ThemedFlatListV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
-import { PortfolioParamList } from '../PortfolioNavigator'
-import { getNativeIcon } from '@components/icons/assets'
-import { ActiveUSDValueV2 } from '../../Loans/VaultDetail/components/ActiveUSDValueV2'
-import { SearchInputV2 } from '@components/SearchInputV2'
-import ImageEmptyAssets from '@assets/images/send/empty-assets.png'
-import { ButtonV2 } from '@components/ButtonV2'
 import { translate } from '@translations'
+import { tokensSelector, WalletToken } from '@store/wallet'
+import { useDebounce } from '@hooks/useDebounce'
+import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
+import ImageEmptyAssets from '@assets/images/send/empty-assets.png'
+import { ThemedFlatListV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
+import { getNativeIcon } from '@components/icons/assets'
+import { SearchInputV2 } from '@components/SearchInputV2'
+import { ButtonV2 } from '@components/ButtonV2'
+import { PortfolioParamList } from '../PortfolioNavigator'
+import { ActiveUSDValueV2 } from '../../Loans/VaultDetail/components/ActiveUSDValueV2'
 
 export interface TokenSelectionItem extends BottomSheetToken {
   usdAmount: BigNumber
@@ -39,8 +41,15 @@ type Props = StackScreenProps<PortfolioParamList, 'TokenSelectionScreen'>
 export function TokenSelectionScreen (_props: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  const [searchString, setSearchString] = useState('')
   const { getTokenPrice } = useTokenPrice()
+
+  const debouncedSearchTerm = useDebounce(searchString, 250)
+
   const tokensWithBalance = getTokensWithBalance(tokens, getTokenPrice)
+  const filteredTokensWithBalance = useMemo(() => {
+    return filterTokensBySearchTerm(tokensWithBalance, debouncedSearchTerm)
+  }, [tokensWithBalance, debouncedSearchTerm])
 
   if (tokensWithBalance.length === 0) {
     return <EmptyAsset navigation={navigation} />
@@ -50,20 +59,20 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
     <ThemedFlatListV2
       testID='token_selection_screen'
       style={tailwind('mb-4')}
-      data={tokensWithBalance}
+      data={filteredTokensWithBalance}
       renderItem={({ item }: { item: TokenSelectionItem }): JSX.Element => {
         return (
           <TokenSelectionRow
             item={item}
             onPress={() => {
-            navigation.navigate({
-              name: 'Send',
-              params: {
-                token: tokens.find(t => item.tokenId === t.id)
-              },
-              merge: true
-            })
-          }}
+              navigation.navigate({
+                name: 'Send',
+                params: {
+                  token: tokens.find(t => item.tokenId === t.id)
+                },
+                merge: true
+              })
+            }}
           />
         )
       }}
@@ -74,11 +83,11 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
         <ThemedViewV2 style={tailwind('mx-5 mt-8')}>
           <SearchInputV2
             value={undefined}
-            placeholder='Search token to send'
+            placeholder={translate('screens/TokenSelectionScreen', 'Search token')}
             showClearButton={false}
             onClearInput={() => { }}
             onChangeText={(text: string) => {
-              // setSearchString(text)
+              setSearchString(text)
             }}
             onFocus={() => {
               // setIsSearchFocus(true)
@@ -86,13 +95,22 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
             }}
             testID='address_search_input'
           />
-          <ThemedTextV2
-            style={tailwind('text-xs pl-5 mt-6 mb-2')}
-            light={tailwind('text-mono-light-v2-500')}
-            dark={tailwind('text-mono-dark-v2-500')}
-          >
-            AVAILABLE
-          </ThemedTextV2>
+          {filteredTokensWithBalance.length > 0 &&
+            <ThemedTextV2
+              style={tailwind('text-xs pl-5 mt-6 mb-2')}
+              light={tailwind('text-mono-light-v2-500')}
+              dark={tailwind('text-mono-dark-v2-500')}
+            >
+              {translate('screens/TokenSelectionScreen', 'AVAILABLE')}
+            </ThemedTextV2>}
+          {filteredTokensWithBalance.length === 0 &&
+            <ThemedTextV2
+              style={tailwind('text-xs pl-5 mt-8')}
+              light={tailwind('text-mono-light-v2-700')}
+              dark={tailwind('text-mono-dark-v2-700')}
+            >
+              {translate('screens/TokenSelectionScreen', 'Search results for “{{searchTerm}}“', { searchTerm: debouncedSearchTerm })}
+            </ThemedTextV2>}
 
         </ThemedViewV2>
       }
@@ -121,7 +139,7 @@ const TokenSelectionRow = ({ item, onPress }: TokenSelectionRowProps): JSX.Eleme
         <Icon />
         <View style={tailwind('ml-2')}>
           <ThemedTextV2
-            style={tailwind('font-bold')}
+            style={tailwind('font-semibold-v2 text-sm')}
             testID={`token_symbol_${item.token.displaySymbol}`}
           >
             {item.token.displaySymbol}
@@ -142,7 +160,7 @@ const TokenSelectionRow = ({ item, onPress }: TokenSelectionRowProps): JSX.Eleme
           displayType='text'
           renderText={value =>
             <ThemedTextV2
-              style={tailwind('font-bold')}
+              style={tailwind('font-semibold-v2 text-xs')}
               testID={`select_${item.token.displaySymbol}_value`}
             >
               {value}
@@ -162,17 +180,17 @@ function EmptyAsset ({ navigation }: { navigation: NavigationProp<PortfolioParam
     <View style={tailwind('flex items-center justify-between mx-12 h-full')}>
       <View style={tailwind('flex items-center')}>
         <Image source={ImageEmptyAssets} style={[tailwind('mt-12'), { width: 204, height: 96 }]} />
-        <ThemedTextV2 style={tailwind('font-semibold-v2 text-xl mt-8')}>
-          No assets found
+        <ThemedTextV2 testID='no_asset_text' style={tailwind('font-semibold-v2 text-xl mt-8')}>
+          {translate('screens/TokenSelectionScreen', 'No assets found')}
         </ThemedTextV2>
-        <ThemedTextV2 style={tailwind('mt-2')}>
-          Add asset to get started
+        <ThemedTextV2 testID='no_asset_sub_text' style={tailwind('mt-2')}>
+          {translate('screens/TokenSelectionScreen', 'Add assets to get started')}
         </ThemedTextV2>
       </View>
       <ButtonV2
         onPress={() => navigation.navigate('GetDFIScreen')}
         styleProps='w-full mb-14 pb-1'
-        label={translate('screens/TokenDetailScreen', 'Get DFI')}
+        label={translate('screens/GetDFIScreen', 'Get DFI')}
       />
     </View>
   )
@@ -198,4 +216,8 @@ function getTokensWithBalance (tokens: WalletToken[], getTokenPrice: (symbol: st
     }
     return token
   }).sort((a, b) => b.usdAmount.minus(a.usdAmount).toNumber())
+}
+
+function filterTokensBySearchTerm (tokens: TokenSelectionItem[], searchTerm: string): TokenSelectionItem[] {
+  return tokens.filter(t => [t.token.displaySymbol, t.token.name].some((searchItem) => searchItem.toLowerCase().includes(searchTerm.trim().toLowerCase())))
 }

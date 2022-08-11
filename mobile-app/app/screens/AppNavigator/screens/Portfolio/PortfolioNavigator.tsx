@@ -35,19 +35,25 @@ import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-d
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
-import { NetworkSelectionScreenV2 } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreenV2'
-import { ConvertScreenV2, ConvertTokenUnit } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
+import { AddressBookScreen } from './screens/AddressBookScreen'
+import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
+import { TokensVsUtxoFaq } from './screens/TokensVsUtxoFaq'
+import {
+  ConvertScreenV2,
+  ConvertTokenUnit
+} from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
 import {
   ConvertConfirmationScreenV2
 } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreenV2'
-import { ConfirmAddLiquidityScreenV2 } from '../Dex/DexConfirmAddLiquidityV2'
-import { AddLiquidityScreenV2 } from '../Dex/DexAddLiquidityV2'
+import { SendScreenV2 } from './screens/SendScreenV2'
 import { TokenSelectionScreen } from './screens/TokenSelectionScreen'
 import { SendConfirmationScreenV2 } from './screens/SendConfirmationScreenV2'
-import { SendScreenV2 } from './screens/SendScreenV2'
-import { TokensVsUtxoFaq } from './screens/TokensVsUtxoFaq'
-import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
-import { AddressBookScreen } from './screens/AddressBookScreen'
+import { SendScreen } from './screens/SendScreen'
+import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { NetworkSelectionScreenV2 } from '../Settings/screens/NetworkSelectionScreenV2'
+import { AddLiquidityScreenV2 } from '../Dex/DexAddLiquidityV2'
+import { ConfirmAddLiquidityScreenV2 } from '../Dex/DexConfirmAddLiquidityV2'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -60,6 +66,7 @@ export interface PortfolioParamList {
     token: WalletToken
     destination: string
     amount: BigNumber
+    amountInUsd: BigNumber
     fee: BigNumber
     conversion?: ConversionParam
   }
@@ -70,7 +77,7 @@ export interface PortfolioParamList {
     mode: ConversionMode
     sourceUnit: ConvertTokenUnit
     sourceBalance: BigNumber
-    targetUnit: 'UTXO' | 'Token'
+    targetUnit: ConvertTokenUnit
     targetBalance: BigNumber
     fee: BigNumber
   }
@@ -133,6 +140,7 @@ export function PortfolioNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const headerContainerTestId = 'portfolio_header_container'
   const { isLight } = useThemeContext()
+  const { isFeatureAvailable } = useFeatureFlagContext()
   const goToNetworkSelect = (): void => {
     navigation.navigate('NetworkSelectionScreen')
   }
@@ -241,9 +249,10 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={SendScreenV2}
+        component={isFeatureAvailable('send_v2') ? SendScreenV2 : SendScreen}
         name='Send'
         options={{
+          ...screenOptions,
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/SendScreen', 'Send')}
@@ -258,6 +267,7 @@ export function PortfolioNavigator (): JSX.Element {
         component={TokenSelectionScreen}
         name='TokenSelectionScreen'
         options={{
+          ...screenOptions,
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/TokenSelectionScreen', 'Send')}
@@ -269,9 +279,10 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={SendConfirmationScreenV2}
+        component={isFeatureAvailable('send_v2') ? SendConfirmationScreenV2 : SendConfirmationScreen}
         name='SendConfirmationScreen'
         options={{
+          ...screenOptions,
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/SendConfirmationScreen', 'Confirm Send')}
