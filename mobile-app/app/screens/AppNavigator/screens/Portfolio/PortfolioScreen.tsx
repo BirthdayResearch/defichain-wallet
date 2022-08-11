@@ -476,7 +476,7 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
         <ThemedViewV2
           light={tailwind('bg-mono-light-v2-00')}
           dark={tailwind('bg-mono-dark-v2-00')}
-          style={tailwind('px-5 pb-3 flex flex-row items-center')}
+          style={tailwind('px-5 flex flex-row items-center')}
         >
           <AddressSelectionButtonV2
             address={address} addressLength={addressLength}
