@@ -284,7 +284,8 @@
     "Transaction fee": "Transaktionsgebühren",
     "Amount to convert": "Umzuwandelnder Betrag",
     "Send": "Senden",
-    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Senden von {{amount}} {{displaySymbol}} an {{toAddress}}"
+    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Senden von {{amount}} {{displaySymbol}} an {{toAddress}}",
+    "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "Ich nehme zur Kenntnis, dass das Senden von Liquiditätspool-Token an Adressen, die nicht DeFiChain-kompatible Wallets sind, zu einem irreversiblen Verlust von Guthaben führen kann."
   },
   "screens/TokenSelectionScreen": {
     "Search token": "Token durchsuchen",

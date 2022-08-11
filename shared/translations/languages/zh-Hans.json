@@ -281,7 +281,8 @@
     "Transaction fee": "Transaction fee",
     "Amount to convert": "Amount to convert",
     "Send": "Send",
-    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "发送 {{amount}} {{displaySymbol}} 到 {{toAddress}}"
+    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "发送 {{amount}} {{displaySymbol}} 到 {{toAddress}}",
+    "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds."
   },
   "screens/TokenSelectionScreen": {
     "Search token": "搜索代币",

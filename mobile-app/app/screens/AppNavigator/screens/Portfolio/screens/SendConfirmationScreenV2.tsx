@@ -1,9 +1,10 @@
 import { Dispatch, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import BigNumber from 'bignumber.js'
+import Checkbox from 'expo-checkbox'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
-import { tailwind } from '@tailwind'
+import { tailwind, getColor } from '@tailwind'
 import { translate } from '@translations'
 import { DeFiAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
@@ -19,8 +20,8 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { useAddressLabel } from '@hooks/useAddressLabel'
 import { useAppDispatch } from '@hooks/useAppDispatch'
-import { Switch, View } from '@components'
-import { ThemedActivityIndicatorV2, ThemedIcon, ThemedScrollViewV2, ThemedText, ThemedTextV2, ThemedViewV2 } from '@components/themed'
+import { View } from '@components'
+import { ThemedActivityIndicatorV2, ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { SummaryTitleV2 } from '@components/SummaryTitleV2'
 import { NumberRowV2 } from '@components/NumberRowV2'
 import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
@@ -223,19 +224,21 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
 
 function LpAcknowledgeSwitch (props: { isAcknowledge: boolean, onSwitch: (val: boolean) => void }): JSX.Element {
   return (
-    <View style={tailwind('mx-4 mt-8 flex flex-row items-center')}>
-      <Switch
+    <View style={tailwind('mx-4 my-8 flex flex-row items-center')}>
+      <Checkbox
         value={props.isAcknowledge}
         onValueChange={props.onSwitch}
+        style={tailwind('h-6 w-6 mt-1 rounded')}
+        color={props.isAcknowledge ? getColor('brand-v2-500') : undefined}
         testID='lp_ack_switch'
       />
-      <ThemedText
-        light={tailwind('text-gray-700')}
-        dark={tailwind('text-gray-300')}
-        style={tailwind('ml-2 flex-1 text-xs')}
+      <ThemedTextV2
+        style={tailwind('ml-4 flex-1 text-xs')}
+        light={tailwind('text-mono-light-v2-700')}
+        dark={tailwind('text-mono-dark-v2-700')}
       >
-        {translate('screens/SendConfirmationScreen', 'Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.')}
-      </ThemedText>
+        {translate('screens/SendConfirmationScreen', 'I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.')}
+      </ThemedTextV2>
     </View>
   )
 }

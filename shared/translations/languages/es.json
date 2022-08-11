@@ -268,7 +268,6 @@
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "By continuing, the required amount of DFI will be converted": "Si continuas, la cantidad requerida de DFI será convertida"
-  
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Confirmar envío",
@@ -295,7 +294,8 @@
     "Transaction fee": "Transaction fee",
     "Amount to convert": "Amount to convert",
     "Send": "Send",
-    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Sending {{amount}} {{displaySymbol}} to {{toAddress}}"
+    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Sending {{amount}} {{displaySymbol}} to {{toAddress}}",
+    "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "Confirmo que comprendo que mandando LP tokens a billeteras que no son compatibles con DeFiChain puede resultar en la perdida irreversible de fondos."
   },
   "screens/TokenSelectionScreen": {
     "Search token": "Search token",
