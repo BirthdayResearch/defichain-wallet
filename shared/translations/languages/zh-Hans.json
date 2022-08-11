@@ -254,7 +254,8 @@
     "SEND TO": "SEND TO",
     "Paste address": "Paste address",
     "I WANT TO SEND": "I WANT TO SEND",
-    "Review full details in the next screen": "Review full details in the next screen"
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Verified": "Verified"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "确认发出",
@@ -280,7 +281,7 @@
     "Transaction fee": "Transaction fee",
     "Amount to convert": "Amount to convert",
     "Send": "Send",
-    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Sending {{amount}} {{displaySymbol}} to {{toAddress}}"
+    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "发送 {{amount}} {{displaySymbol}} 到 {{toAddress}}"
   },
   "screens/TokenSelectionScreen": {
     "Search token": "搜索代币",

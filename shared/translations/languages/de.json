@@ -254,7 +254,11 @@
     "SEND TO": "AN FOLGENDE ADRESSE SENDEN",
     "Paste address": "Adresse einfügen",
     "I WANT TO SEND": "ICH MÖCHTE",
-    "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht"
+    "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
+    "Verified": "Bestätigt",
+    "{{percent}} of available {{unit}} entered": "{{percent}} der verfügbaren {{unit}} eingegeben",
+    "Max available {{unit}} entered": "Max. verfügbare {{unit}} eingegeben",
+    "By continuing, the required amount of DFI will be converted": "Wenn du fortfährst, wird die erforderliche Summe an DFI umgewandelt"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Senden bestätigen",
@@ -276,11 +280,11 @@
     "Transaction type": "Transaktionsart",
     "Amount to send": "Zu sendender Betrag",
     "Converting": "Umwandeln",
-    "Converted": "Converti",
+    "Converted": "Umgewandelt",
     "Transaction fee": "Transaktionsgebühren",
     "Amount to convert": "Umzuwandelnder Betrag",
     "Send": "Senden",
-    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Sending {{amount}} {{displaySymbol}} to {{toAddress}}"
+    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Senden von {{amount}} {{displaySymbol}} an {{toAddress}}"
   },
   "screens/TokenSelectionScreen": {
     "Search token": "Token durchsuchen",

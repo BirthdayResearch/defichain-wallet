@@ -265,7 +265,8 @@
     "SEND TO": "SEND TO",
     "Paste address": "Paste address",
     "I WANT TO SEND": "I WANT TO SEND",
-    "Review full details in the next screen": "Review full details in the next screen"
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Verified": "Verified"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Conferma Invio",
