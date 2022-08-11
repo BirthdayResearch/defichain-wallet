@@ -28,7 +28,7 @@ import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/typ
 import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/BottomSheetWithNavV2'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { ViewPoolHeader } from './components/ViewPoolHeader'
-import { ViewPoolDetails } from './components/ViewPoolDetails'
+import { ViewPoolDetails, DataRoutes } from './components/ViewPoolDetails'
 import { ReservedDFIInfoTextV2 } from '@components/ReservedDFIInfoText'
 import { ButtonV2 } from '@components/ButtonV2'
 import { useToast } from 'react-native-toast-notifications'
@@ -168,7 +168,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
       {
         stackScreenName: 'ViewPoolShare',
         component: ViewPoolDetails({
-          dataRoutes: 'add',
+          dataRoutes: DataRoutes.AddLiquidity,
           pairData: pairData,
           pairInfo: pairInfo
         }),

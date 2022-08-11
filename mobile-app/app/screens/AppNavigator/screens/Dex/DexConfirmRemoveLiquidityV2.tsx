@@ -81,7 +81,7 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-100')}
         light={tailwind('bg-mono-light-v2-100')}
-        style={tailwind('flex-col py-8 mb-4')}
+        style={tailwind('flex-col pt-8 mb-9')}
       >
         <SummaryTitleV2
           iconA={pair.tokenA.displaySymbol}
@@ -180,8 +180,8 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
           rhs={{
             value: new BigNumber(amount).toFixed(8),
             themedProps: {
-              light: tailwind('text-mono-light-v2-800'),
-              dark: tailwind('text-mono-dark-v2-800')
+              light: tailwind('text-mono-light-v2-900'),
+              dark: tailwind('text-mono-dark-v2-900')
             },
             testID: 'lp_tokens_to_remove_amount',
             usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,
@@ -227,8 +227,7 @@ async function constructSignedRemoveLiqAndSend (pair: PoolPairData, amount: BigN
 
   dispatch(transactionQueue.actions.push({
     sign: signer,
-    title: translate('screens/RemoveLiquidity', 'Removing Liquidity'),
-    description: translate('screens/RemoveLiquidity', 'Removing {{amount}} LP tokens from {{symbol}}', {
+    title: translate('screens/RemoveLiquidity', 'Removing {{amount}} LP tokens from {{symbol}}', {
       symbol: symbol,
       amount: amount.toFixed(8)
     }),
