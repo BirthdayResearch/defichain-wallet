@@ -5,7 +5,6 @@ import { AppIcon } from '@components/icons/AppIcon'
 import {
   ThemedIcon,
   ThemedScrollViewV2,
-  ThemedText,
   ThemedTextV2,
   ThemedTouchableListItem,
   ThemedTouchableOpacityV2,
@@ -147,9 +146,9 @@ export function AboutScreen (): JSX.Element {
             onPress={() => navigation.navigate('FeatureFlagScreen')}
             style={tailwind('border-0')}
           >
-            <ThemedText style={tailwind('mt-1 mb-1 text-2xs font-bold-v2 text-black uppercase')}>
+            <ThemedTextV2 style={tailwind('mt-1 mb-1 text-2xs font-bold-v2 uppercase')}>
               {translate('screens/AboutScreen', 'Try Beta features')}
-            </ThemedText>
+            </ThemedTextV2>
           </ThemedTouchableOpacityV2>
         )}
 
@@ -160,16 +159,16 @@ export function AboutScreen (): JSX.Element {
           imageStyle={tailwind('h-56')}
         >
           <View style={tailwind('flex-col mt-16')}>
-            <ThemedText
+            <ThemedTextV2
               style={tailwind('text-2xs leading-4 font-normal-v2 uppercase text-center')}
             >
               {translate('screens/AboutScreen', 'Developed by')}
-            </ThemedText>
-            <ThemedText
+            </ThemedTextV2>
+            <ThemedTextV2
               style={tailwind('text-2xs leading-4 font-normal-v2 uppercase text-center')}
             >
               {translate('screens/AboutScreen', 'Birthday Research')}
-            </ThemedText>
+            </ThemedTextV2>
           </View>
 
           <View style={tailwind('flex-row justify-center pt-11')}>
@@ -289,15 +288,15 @@ function SocialIcon ({
 
   return (
     <ThemedTouchableOpacityV2
-      dark={tailwind('bg-gray-100')}
-      light={tailwind('bg-gray-900')}
+      dark={tailwind('bg-mono-dark-v2-900')}
+      light={tailwind('bg-mono-light-v2-900')}
       onPress={handlePress}
       style={tailwind('justify-center items-center rounded-full w-10 h-10 mx-4 border-0')}
       testID={testID}
     >
       <ThemedIcon
-        dark={tailwind('text-black')}
-        light={tailwind('text-white')} style={tailwind('text-gray-100 pl-px')}
+        dark={tailwind('text-mono-dark-v2-00')}
+        light={tailwind('text-mono-light-v2-00')} style={tailwind('pl-px')}
         iconType='MaterialCommunityIcons' name={iconName} size={24}
       />
     </ThemedTouchableOpacityV2>
