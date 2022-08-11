@@ -118,6 +118,30 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       description: 'Display redesigned Portfolio flow for LW 2.0',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
+    }, {
+      id: 'add_liquidity_v2',
+      name: 'Add liquidity 2.0',
+      stage: 'public',
+      version: '>2.1.0',
+      description: 'Display redesigned Add liquidity flow for LW 2.0',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
+    }, {
+      id: 'remove_liquidity_v2',
+      name: 'Remove liquidity 2.0',
+      stage: 'public',
+      version: '>2.1.0',
+      description: 'Display redesigned Remove liquidity flow for LW 2.0',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
+    }, {
+      id: 'send_v2',
+      name: 'Send 2.0',
+      stage: 'public',
+      version: '>2.1.0',
+      description: 'Display redesigned Send flow for LW 2.0',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
     }
   ])
 }
