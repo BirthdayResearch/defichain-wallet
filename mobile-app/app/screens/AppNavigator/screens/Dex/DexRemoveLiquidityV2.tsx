@@ -208,6 +208,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
             tokenBSymbol={pair.tokenB.displaySymbol}
             headerLabel={translate('screens/RemoveLiquidity', 'View pool share')}
             onPress={() => expandModal()}
+            testID='view_pool_button'
           />
           <View style={tailwind('mt-8')}>
             <RemoveLiquidityInputCard
@@ -220,7 +221,6 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
               }}
               onPercentageChange={onPercentagePress}
               symbol={pair.tokenA.displaySymbol}
-              type='primary'
               setIsInputFocus={setIsInputFocus}
               status={transactionCardStatus}
               showErrMsg={hasError}
@@ -344,7 +344,6 @@ function RemoveLiquidityInputCard (
     tokenA: string
     tokenB: string
     balance: BigNumber
-    type: 'primary' | 'secondary'
     symbol: string
     onPercentageChange: (amount: string, type: AmountButtonTypes) => void
     onChange: (amount: string) => void
@@ -411,7 +410,7 @@ function RemoveLiquidityInputCard (
           )
           : (
             <InputHelperTextV2
-              testID={`token_balance_${props.type}`}
+              testID={`token_balance_${props.tokenA}-${props.tokenB}`}
               label={`${translate('screens/AddLiquidity', 'Available')}: `}
               content={BigNumber.max(props.balance, 0).toFixed(8)}
               suffix=' LP tokens'
