@@ -41,7 +41,6 @@ exports[`portfolio page should match snapshot 1`] = `
               "alignItems": "center",
               "display": "flex",
               "flexDirection": "row",
-              "paddingBottom": 12,
               "paddingLeft": 20,
               "paddingRight": 20,
             },
@@ -320,7 +319,7 @@ exports[`portfolio page should match snapshot 1`] = `
               "paddingBottom": 20,
               "paddingLeft": 20,
               "paddingRight": 20,
-              "paddingTop": 8,
+              "paddingTop": 20,
             },
             Object {
               "backgroundColor": "rgba(255, 255, 255, 1)",
