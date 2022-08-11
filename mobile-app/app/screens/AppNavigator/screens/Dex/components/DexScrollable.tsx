@@ -121,7 +121,7 @@ function TotalLiquidityValue ({
     light={tailwind('text-mono-light-v2-900')}
     testID={`${testId}-total_liquidity`}
   >
-    {valueToUnitSuffix !== undefined && `$${valueToUnitSuffix}`}
+    {`$${valueToUnitSuffix}`}
   </ThemedTextV2>
         )
 : (
