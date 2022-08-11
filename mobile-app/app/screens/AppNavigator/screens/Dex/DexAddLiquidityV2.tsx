@@ -554,7 +554,7 @@ function AddLiquidityInputCard (
         <ThemedViewV2
           light={tailwind('border-mono-light-v2-300')}
           dark={tailwind('border-mono-dark-v2-300')}
-          style={tailwind('flex flex-row items-center py-2')}
+          style={tailwind('flex-row items-center py-2')}
         >
           <Icon height={20} width={20} />
           <TransactionCardWalletTextInputV2
@@ -562,7 +562,7 @@ function AddLiquidityInputCard (
             onBlur={props.setIsInputFocus}
             onChangeText={txt => props.onChange(txt)}
             placeholder='0.00'
-            style={tailwind('flex-grow w-2/5')}
+            style={tailwind('flex-grow w-2/5 font-normal-v2 text-xs')}
             value={props.current}
             inputType='numeric'
             displayClearButton={props.current !== ''}

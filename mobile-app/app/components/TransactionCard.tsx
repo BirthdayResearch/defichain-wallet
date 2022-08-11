@@ -42,7 +42,7 @@ export function TransactionCard ({
       <ThemedViewV2
         light={tailwind('bg-mono-light-v2-00')}
         dark={tailwind('bg-mono-dark-v2-00')}
-        style={tailwind('rounded-t-lg-v2')}
+        style={tailwind('px-5 mr-px rounded-t-lg-v2')}
       >
         {children}
       </ThemedViewV2>
