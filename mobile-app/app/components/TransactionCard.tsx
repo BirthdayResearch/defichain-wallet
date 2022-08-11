@@ -9,6 +9,7 @@ interface TransactionCardProps {
   onChange: (amount: string, type: AmountButtonTypes) => void
   status?: TransactionCardStatus
   containerStyle?: StyleProp<ViewStyle>
+  amountButtonsStyle?: StyleProp<ViewStyle>
 }
 
 export enum AmountButtonTypes {
@@ -29,6 +30,7 @@ export function TransactionCard ({
   onChange,
   status,
   containerStyle,
+  amountButtonsStyle,
   children
 }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
   return (
@@ -46,14 +48,14 @@ export function TransactionCard ({
       <ThemedViewV2
         light={tailwind('bg-mono-light-v2-00')}
         dark={tailwind('bg-mono-dark-v2-00')}
-        style={tailwind('rounded-t-lg-v2')}
+        style={containerStyle}
       >
         {children}
       </ThemedViewV2>
       <ThemedViewV2
         light={tailwind('border-mono-light-v2-300')}
         dark={tailwind('border-mono-dark-v2-300')}
-        style={[tailwind('flex flex-row justify-around items-center py-2.5'), containerStyle]}
+        style={[tailwind('flex flex-row justify-around items-center py-2.5'), amountButtonsStyle]}
       >
         {
           Object.values(AmountButtonTypes).map((type, index, { length }) => {

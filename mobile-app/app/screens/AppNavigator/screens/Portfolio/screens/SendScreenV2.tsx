@@ -514,6 +514,7 @@ function AmountCard ({
       <TransactionCard
         maxValue={maxAmount}
         onChange={onAmountChange}
+        containerStyle={tailwind('rounded-t-lg-v2')}
       >
         <ThemedTouchableOpacityV2
           style={tailwind('flex flex-row items-center justify-between px-5 pt-5 mb-2 pb-2')}
