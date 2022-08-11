@@ -256,7 +256,15 @@
     "Select a token you want to send to get started": "Sélectionnez un token que vous voulez envoyer pour commencer.",
     "Choose token to send": "Choisissez le token à envoyer",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
-    "*Registered address": "*Adresse enregistrée"
+    "*Registered address": "*Adresse enregistrée",
+    "There is a minimal fee for the transaction": "There is a minimal fee for the transaction",
+    "A small amount of UTXO is reserved for fees": "A small amount of UTXO is reserved for fees",
+    "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds": "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds",
+    "Insufficient balance": "Insufficient balance",
+    "SEND TO": "SEND TO",
+    "Paste address": "Paste address",
+    "I WANT TO SEND": "I WANT TO SEND",
+    "Review full details in the next screen": "Review full details in the next screen"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Confirmer l'envoi",
@@ -276,7 +284,20 @@
     "Convert & send": "Convertir et envoyer",
     "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "Envoyez les tokens du pool de liquidité uniquement vers des portefeuilles compatibles avec DeFiChain. Sinon, l'envoi vers d'autres échanges peut entraîner une perte irréversible des fonds.",
     "Transaction type": "Type de transaction",
-    "Amount to send": "Montant à envoyer"
+    "Amount to send": "Montant à envoyer",
+    "Converting": "Converting",
+    "Converted": "Converted",
+    "Transaction fee": "Transaction fee",
+    "Amount to convert": "Amount to convert",
+    "Send": "Send",
+    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Sending {{amount}} {{displaySymbol}} to {{toAddress}}"
+  },
+  "screens/TokenSelectionScreen": {
+    "Search token": "Rechercher de token",
+    "No assets found": "No assets found",
+    "Add assets to get started": "Add assets to get started",
+    "Search results for “{{searchTerm}}“": "Search results for “{{searchTerm}}“",
+    "AVAILABLE": "AVAILABLE"
   },
   "screens/ConvertScreen": {
     "Convert DFI": "Convertir DFI",

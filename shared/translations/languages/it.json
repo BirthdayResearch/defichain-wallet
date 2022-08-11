@@ -257,7 +257,15 @@
     "Select a token you want to send to get started": "Seleziona un token che vuoi inviare, per iniziare",
     "Choose token to send": "Scegliere il token da inviare",
     "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
-    "*Registered address": "*Indirizzo registrato"
+    "*Registered address": "*Indirizzo registrato",
+    "There is a minimal fee for the transaction": "There is a minimal fee for the transaction",
+    "A small amount of UTXO is reserved for fees": "A small amount of UTXO is reserved for fees",
+    "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds": "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds",
+    "Insufficient balance": "Insufficient balance",
+    "SEND TO": "SEND TO",
+    "Paste address": "Paste address",
+    "I WANT TO SEND": "I WANT TO SEND",
+    "Review full details in the next screen": "Review full details in the next screen"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Conferma Invio",
@@ -277,7 +285,20 @@
     "Convert & send": "Converti e invia",
     "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "Invia i token del Liquidity Pool solo agli indirizzi del DeFiChain Wallet. L'invio ad uno scambio o ad un ente centrale comporterà la perdita irreversibile dei fondi.",
     "Transaction type": "Tipo di transazione",
-    "Amount to send": "Importo da inviare"
+    "Amount to send": "Importo da inviare",
+    "Converting": "Converting",
+    "Converted": "Converted",
+    "Transaction fee": "Transaction fee",
+    "Amount to convert": "Amount to convert",
+    "Send": "Send",
+    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Sending {{amount}} {{displaySymbol}} to {{toAddress}}"
+  },
+  "screens/TokenSelectionScreen": {
+    "Search token": "Search token",
+    "No assets found": "No assets found",
+    "Add assets to get started": "Add assets to get started",
+    "Search results for “{{searchTerm}}“": "Search results for “{{searchTerm}}“",
+    "AVAILABLE": "AVAILABLE"
   },
   "screens/ConvertScreen": {
     "Convert DFI": "Converti DFI",
@@ -296,7 +317,6 @@
     "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
     "I WANT TO CONVERT": "I WANT TO CONVERT",
     "Insufficient balance": "Insufficient balance",
-    "Available: {{amount}} {{unit}}": "Available: {{amount}} {{unit}}",
     "Available: ": "Disponibile: ",
     "Review full details in the next screen": "Review full details in the next screen",
     "Max available {{unit}} entered": "Max available {{unit}} entered",

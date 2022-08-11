@@ -9,9 +9,8 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { PortfolioScreen } from './PortfolioScreen'
+import { ConversionMode } from './screens/ConvertScreen'
 import { ReceiveScreen } from './screens/ReceiveScreen'
-import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
-import { SendScreen } from './screens/SendScreen'
 import { AddressControlScreen } from './components/AddressControlScreen'
 import { AboutScreen } from '../Settings/screens/AboutScreen'
 import { CompositeSwapScreen } from '../Dex/CompositeSwap/CompositeSwapScreen'
@@ -21,7 +20,9 @@ import { FutureSwapData } from '@store/futureSwap'
 import { FutureSwapScreen } from './screens/FutureSwapScreen'
 import { ConfirmWithdrawFutureSwapScreen } from './screens/ConfirmWithdrawFutureSwapScreen'
 import { WithdrawFutureSwapScreen } from './screens/WithdrawFutureSwapScreen'
+import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
 import { RemoveLiquidityScreenV2 } from '../Dex/DexRemoveLiquidityV2'
+import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
 import { RemoveLiquidityConfirmScreenV2 } from '../Dex/DexConfirmRemoveLiquidityV2'
 import { GetDFIScreen } from './screens/GetDFIScreen'
 import { MarketplaceScreen } from './screens/MarketplaceScreen'
@@ -36,30 +37,38 @@ import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-d
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
-import { ConfirmAddLiquidityScreenV2 } from '../Dex/DexConfirmAddLiquidityV2'
-import { AddLiquidityScreenV2 } from '../Dex/DexAddLiquidityV2'
 import { AddressBookScreen } from './screens/AddressBookScreen'
-import { NetworkSelectionScreen } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { TokensVsUtxoFaq } from './screens/TokensVsUtxoFaq'
 import {
-  ConversionMode,
   ConvertScreenV2,
   ConvertTokenUnit
 } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
 import {
   ConvertConfirmationScreenV2
 } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreenV2'
+import { SendScreenV2 } from './screens/SendScreenV2'
+import { TokenSelectionScreen } from './screens/TokenSelectionScreen'
+import { SendConfirmationScreenV2 } from './screens/SendConfirmationScreenV2'
+import { SendScreen } from './screens/SendScreen'
+import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { NetworkSelectionScreen } from '../Settings/screens/NetworkSelectionScreen'
+import { AddLiquidityScreenV2 } from '../Dex/DexAddLiquidityV2'
+import { ConfirmAddLiquidityScreenV2 } from '../Dex/DexConfirmAddLiquidityV2'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
   ReceiveScreen: undefined
   MarketplaceScreen: undefined
   SendScreen: { token?: WalletToken }
+  SendScreenV2: { token?: WalletToken }
+  TokenSelectionScreen: {}
   SendConfirmationScreen: {
     token: WalletToken
     destination: string
     amount: BigNumber
+    amountInUsd: BigNumber
     fee: BigNumber
     conversion?: ConversionParam
   }
@@ -121,6 +130,7 @@ export interface PortfolioParamList {
 
 export interface ConversionParam {
   isConversionRequired: boolean
+  isConverted?: boolean
   conversionAmount: BigNumber
   DFIUtxo: WalletToken
   DFIToken: WalletToken
@@ -132,6 +142,7 @@ export function PortfolioNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const headerContainerTestId = 'portfolio_header_container'
   const { isLight } = useThemeContext()
+  const { isFeatureAvailable } = useFeatureFlagContext()
   const goToNetworkSelect = (): void => {
     navigation.navigate('NetworkSelectionScreen')
   }
@@ -240,9 +251,10 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={SendScreen}
+        component={isFeatureAvailable('send_v2') ? SendScreenV2 : SendScreen}
         name='Send'
         options={{
+          ...screenOptions,
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/SendScreen', 'Send')}
@@ -254,9 +266,25 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={SendConfirmationScreen}
+        component={TokenSelectionScreen}
+        name='TokenSelectionScreen'
+        options={{
+          ...screenOptions,
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/TokenSelectionScreen', 'Send')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <PortfolioStack.Screen
+        component={isFeatureAvailable('send_v2') ? SendConfirmationScreenV2 : SendConfirmationScreen}
         name='SendConfirmationScreen'
         options={{
+          ...screenOptions,
           headerTitle: () => (
             <HeaderTitle
               text={translate('screens/SendConfirmationScreen', 'Confirm Send')}
@@ -459,7 +487,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={RemoveLiquidityScreenV2}
+        component={isFeatureAvailable('remove_liquidity_v2') ? RemoveLiquidityScreenV2 : RemoveLiquidityScreen}
         name='RemoveLiquidity'
         options={{
           ...screenOptions,
@@ -499,7 +527,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={RemoveLiquidityConfirmScreenV2}
+        component={isFeatureAvailable('remove_liquidity_v2') ? RemoveLiquidityConfirmScreenV2 : RemoveLiquidityConfirmScreen}
         name='RemoveLiquidityConfirmScreen'
         options={{
           ...screenOptions,

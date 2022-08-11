@@ -10,6 +10,7 @@ interface TransactionCardProps {
   onPercentageChange: (amount: string, type: AmountButtonTypes) => void
   status?: TransactionCardStatus
   containerStyle?: StyleProp<ViewStyle>
+  amountButtonsStyle?: StyleProp<ViewStyle>
 }
 
 export enum AmountButtonTypes {
@@ -28,9 +29,10 @@ export enum TransactionCardStatus {
 export function TransactionCard ({
   maxValue,
   onChange,
-  status,
   onPercentageChange,
+  status,
   containerStyle,
+  amountButtonsStyle,
   children
 }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
   return (
@@ -55,10 +57,10 @@ export function TransactionCard ({
       <ThemedViewV2
         light={tailwind('border-mono-light-v2-300')}
         dark={tailwind('border-mono-dark-v2-300')}
-        style={[tailwind('flex flex-row justify-around items-center py-2.5'), containerStyle]}
+        style={[tailwind('flex flex-row justify-around items-center py-2.5'), amountButtonsStyle]}
       >
         {
-          [AmountButtonTypes.TwentyFive, AmountButtonTypes.Half, AmountButtonTypes.SeventyFive, AmountButtonTypes.Max].map((type, index, { length }) => {
+          Object.values(AmountButtonTypes).map((type, index, { length }) => {
             return (
               <SetAmountButton
                 key={type}
@@ -78,8 +80,8 @@ export function TransactionCard ({
 
 interface SetAmountButtonProps {
   type: AmountButtonTypes
-  onPress: (amount: string) => void
   onPercentagePress: (amount: string, type: AmountButtonTypes) => void
+  onPress: (amount: string, type: AmountButtonTypes) => void
   amount: BigNumber
   hasBorder?: boolean
 }
@@ -113,7 +115,7 @@ function SetAmountButton ({
     <ThemedTouchableOpacityV2
       style={tailwind('border-0')}
       onPress={() => {
-        onPress(value)
+        onPress(value, type)
         onPercentagePress(value, type)
       }}
       testID={`${type}_amount_button`}

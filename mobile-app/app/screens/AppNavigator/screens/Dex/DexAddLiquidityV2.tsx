@@ -57,7 +57,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   const { getTokenPrice } = useTokenPrice()
   const { pair: pairData, pairInfo } = props.route.params
 
-  // breakdown summary state 
+  // breakdown summary state
   const [hasAInputAmount, setHasAInputAmount] = useState(false)
   const [hasBInputAmount, setHasBInputAmount] = useState(false)
 
@@ -177,11 +177,11 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     ]
   }, [isLight, pair])
 
-  function onPercentagePress(_amount: string, type: AmountButtonTypes, displaySymbol: string): void {
+  function onPercentagePress (_amount: string, type: AmountButtonTypes, displaySymbol: string): void {
     showToast(type, displaySymbol)
   }
 
-  async function onSubmit(): Promise<void> {
+  async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
@@ -195,7 +195,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
         mode: 'utxosToAccount',
         amount: conversionAmount
       }, dispatch, () => {
-        // onbroadcast starts = called 
+        // onbroadcast starts = called
         navigation.navigate({
           name: 'ConfirmAddLiquidity',
           params: {
@@ -205,7 +205,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
               tokenBAmount: new BigNumber(tokenBAmount),
               percentage: sharePercentage,
               tokenABalance: balanceA,
-              tokenBBalance: balanceB,
+              tokenBBalance: balanceB
             },
             pair,
             conversion: {
@@ -214,7 +214,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
               DFIUtxo,
               conversionAmount
             },
-            pairInfo,
+            pairInfo
           },
           merge: true
         })
@@ -229,7 +229,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
             tokenBAmount: new BigNumber(tokenBAmount),
             percentage: sharePercentage,
             tokenABalance: balanceA,
-            tokenBBalance: balanceB,
+            tokenBBalance: balanceB
           },
           pair,
           pairInfo
@@ -254,7 +254,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     })
   }
 
-  // handle breadkown summary state 
+  // handle breadkown summary state
   useEffect(() => {
     if (new BigNumber(tokenAAmount).isGreaterThan(0)) {
       setHasAInputAmount(true)
@@ -262,7 +262,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
       setHasAInputAmount(false)
     }
   }, [tokenAAmount])
-  
+
   useEffect(() => {
     if (new BigNumber(tokenBAmount).isGreaterThan(0)) {
       setHasBInputAmount(true)
@@ -393,8 +393,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                 buildSummary('secondary', amount)
               }}
               onPercentageChange={(amount, type) =>
-                onPercentagePress(amount, type, pair.tokenB.displaySymbol)
-              }
+                onPercentagePress(amount, type, pair.tokenB.displaySymbol)}
               symbol={pair.tokenB.displaySymbol}
               type='secondary'
               setIsInputFocus={setIsInputBFocus}
@@ -448,7 +447,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                       testID: 'shares_to_add',
                       themedProps: {
                         light: tailwind('text-mono-light-v2-700'),
-                        dark: tailwind('text-mono-dark-v2-700'),
+                        dark: tailwind('text-mono-dark-v2-700')
                       }
                     }}
                     rhs={{
@@ -468,7 +467,8 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                   dark={tailwind('text-mono-dark-v2-500')}
                   style={tailwind('text-xs font-normal-v2 text-center')}
                 >
-                  {isConversionRequired ? (
+                  {isConversionRequired
+? (
                     translate('screens/AddLiquidity', 'By continuing, the required amount of DFI will be converted')
                   )
                     : (
@@ -537,6 +537,7 @@ function AddLiquidityInputCard (
     hasInputAmount?: boolean
   }): JSX.Element {
   const Icon = getNativeIcon(props.symbol)
+  const isFocus = props.setIsInputFocus
 
   useEffect(() => {
   }, [props.balance])
@@ -554,15 +555,15 @@ function AddLiquidityInputCard (
         <ThemedViewV2
           light={tailwind('border-mono-light-v2-300')}
           dark={tailwind('border-mono-dark-v2-300')}
-          style={tailwind('flex flex-row items-center py-2')}
+          style={tailwind('flex-row items-center py-2')}
         >
           <Icon height={20} width={20} />
           <TransactionCardWalletTextInputV2
-            onFocus={props.setIsInputFocus}
-            onBlur={props.setIsInputFocus}
+            onFocus={isFocus}
+            onBlur={isFocus}
             onChangeText={txt => props.onChange(txt)}
             placeholder='0.00'
-            style={tailwind('flex-grow w-2/5')}
+            style={tailwind('flex-grow w-2/5 font-normal-v2 text-xs')}
             value={props.current}
             inputType='numeric'
             displayClearButton={props.current !== ''}
