@@ -58,10 +58,10 @@ export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): J
     <ThemedViewV2
       dark={tailwind('bg-mono-dark-v2-00')}
       light={tailwind('bg-mono-light-v2-00')}
-      style={tailwind('flex-row items-center justify-between w-full rounded-lg-v2 px-5 py-3 border-0.5 border-error-500')}
+      style={tailwind('flex-row items-center justify-between w-full rounded-lg-v2 pl-5 border-0.5 border-error-500')}
     >
       <View
-        style={tailwind('flex flex-row items-center justify-between w-9/12')}
+        style={tailwind('flex flex-row items-center justify-between w-9/12 py-3')}
       >
         <ThemedIcon
           dark={tailwind('text-darkerror-500')}

@@ -24,12 +24,13 @@ import { InfoRow, InfoType } from '@components/InfoRow'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { InfoTextLink } from '@components/InfoTextLink'
 import { tokensSelector } from '@store/wallet'
+import { ConvertTokenUnit } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
 
 export type ConversionMode = 'utxosToAccount' | 'accountToUtxos'
 type Props = StackScreenProps<PortfolioParamList, 'ConvertScreen'>
 
 interface ConversionIO extends AddressToken {
-  unit: 'UTXO' | 'Token'
+  unit: ConvertTokenUnit
 }
 
 export function ConvertScreen (props: Props): JSX.Element {
@@ -154,16 +155,23 @@ function getDFIBalances (mode: ConversionMode, tokens: AddressToken[]): [source:
   const source: AddressToken = mode === 'utxosToAccount'
     ? tokens.find(tk => tk.id === '0_utxo') as AddressToken
     : tokens.find(tk => tk.id === '0') as AddressToken
-  const sourceUnit = mode === 'utxosToAccount' ? 'UTXO' : 'Token'
+  const sourceUnit = mode === 'utxosToAccount' ? ConvertTokenUnit.UTXO : ConvertTokenUnit.Token
 
   const target: AddressToken = mode === 'utxosToAccount'
     ? tokens.find(tk => tk.id === '0') as AddressToken
     : tokens.find(tk => tk.id === '0_utxo') as AddressToken
-  const targetUnit = mode === 'utxosToAccount' ? 'Token' : 'UTXO'
+  const targetUnit = mode === 'utxosToAccount' ? ConvertTokenUnit.Token : ConvertTokenUnit.UTXO
 
   return [
-    { ...source, unit: sourceUnit, amount: getConvertibleUtxoAmount(mode, source) },
-    { ...target, unit: targetUnit }
+    {
+      ...source,
+      unit: sourceUnit,
+      amount: getConvertibleUtxoAmount(mode, source)
+    },
+    {
+      ...target,
+      unit: targetUnit
+    }
   ]
 }
 

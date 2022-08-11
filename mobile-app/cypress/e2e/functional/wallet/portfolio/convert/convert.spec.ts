@@ -69,7 +69,7 @@ context('Wallet - Convert DFI', () => {
   })
 
   it('should display info on reserved UTXO when UTXO to account conversion', function () {
-    cy.getByTestID('source_balance').contains('A small amount of UTXO is reserved for fees')
+    cy.getByTestID('source_balance_label').contains('A small amount of UTXO is reserved for fees')
   })
 
   it('should test amount buttons when account to UTXO conversion', function () {

@@ -1,5 +1,5 @@
-import { ThemedScrollView, ThemedText } from '@components/themed'
-import { AccordionContent, WalletAccordion } from '@components/WalletAccordion'
+import { ThemedScrollViewV2, ThemedTextV2 } from '@components/themed'
+import { AccordionContent, WalletAccordionV2 } from '@components/WalletAccordionV2'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 
@@ -43,28 +43,23 @@ export function LiquidityMiningFaq (): JSX.Element {
   ]
 
   return (
-    <ThemedScrollView
-      contentContainerStyle={tailwind('p-6 pb-8')}
+    <ThemedScrollViewV2
+      contentContainerStyle={tailwind('pt-8 px-5 pb-16')}
+      style={tailwind('flex-1')}
       testID='liquidity_mining_faq'
     >
-      <ThemedText
-        style={tailwind('text-lg font-semibold')}
+      <ThemedTextV2
+        style={tailwind('text-base font-normal-v2 px-5')}
       >
-        {translate('components/LiquidityMiningFaq', 'Liquidity Mining')}
-      </ThemedText>
+        {translate('components/LiquidityMiningFaq', 'Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn, be rewarded with fees and token based on their share of the total pool liquidity.')}
+      </ThemedTextV2>
 
-      <ThemedText
-        style={tailwind('mt-2 text-sm')}
-      >
-        {translate('components/LiquidityMiningFaq', 'Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).')}
-      </ThemedText>
-
-      <WalletAccordion
+      <WalletAccordionV2
         testID='recovery_words_faq_accordion'
         activeSections={[0]}
         title={translate('components/LiquidityMiningFaq', 'FREQUENTLY ASKED QUESTIONS')}
         content={faqContent}
       />
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }

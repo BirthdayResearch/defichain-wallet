@@ -21,7 +21,7 @@ import { View } from 'react-native'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useAddressLabel } from '@hooks/useAddressLabel'
 import { NumberRowV2 } from '@components/NumberRowV2'
-import { getDisplayUnit } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
+import { ConvertTokenUnit, getDisplayUnit } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
 
 type Props = StackScreenProps<PortfolioParamList, 'ConvertConfirmationScreen'>
 
@@ -105,7 +105,7 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
           }}
           rhs={{
             value: fee.toFixed(8),
-            suffix: ' DFI',
+            suffix: 'DFI',
             testID: 'transaction_fee_value',
             themedProps: {
               light: tailwind('text-mono-light-v2-900'),
@@ -128,15 +128,15 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
               dark: tailwind('text-mono-dark-v2-500')
             }
           }} rhs={{
-          value: getResultingValue('Token', fee, sourceBalance, sourceUnit, targetBalance, targetUnit),
-          suffix: ' DFI',
+          value: getResultingValue(ConvertTokenUnit.Token, fee, sourceBalance, sourceUnit, targetBalance, targetUnit),
+          suffix: 'DFI',
           testID: 'resulting_tokens_value',
           themedProps: {
             light: tailwind('text-mono-light-v2-900 font-semibold-v2'),
             dark: tailwind('text-mono-dark-v2-900 font-semibold-v2')
           },
           subValue: {
-            value: getResultingPercentage('Token', sourceBalance, sourceUnit, targetBalance),
+            value: getResultingPercentage(ConvertTokenUnit.Token, sourceBalance, sourceUnit, targetBalance),
             prefix: '(',
             suffix: '%)',
             testID: 'resulting_tokens_sub_value'
@@ -158,15 +158,15 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
               dark: tailwind('text-mono-dark-v2-500')
             }
           }} rhs={{
-          value: getResultingValue('UTXO', fee, sourceBalance, sourceUnit, targetBalance, targetUnit),
-          suffix: ' DFI',
+          value: getResultingValue(ConvertTokenUnit.UTXO, fee, sourceBalance, sourceUnit, targetBalance, targetUnit),
+          suffix: 'DFI',
           testID: 'resulting_utxo_value',
           themedProps: {
             light: tailwind('text-mono-light-v2-900 font-semibold-v2'),
             dark: tailwind('text-mono-dark-v2-900 font-semibold-v2')
           },
           subValue: {
-            value: getResultingPercentage('UTXO', sourceBalance, sourceUnit, targetBalance),
+            value: getResultingPercentage(ConvertTokenUnit.UTXO, sourceBalance, sourceUnit, targetBalance),
             prefix: '(',
             suffix: '%)',
             testID: 'resulting_utxo_sub_value'
@@ -194,7 +194,7 @@ async function constructSignedConversionAndSend ({
   amount
 }: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
   try {
-    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, () => { })))
+    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast)))
   } catch (e) {
     logger.error(e)
   }
@@ -204,7 +204,7 @@ function getResultingValue (desireUnit: string, fee: BigNumber, balanceA: BigNum
   const balance = desireUnit === unitA ? balanceA : balanceB
   const unit = desireUnit === unitA ? unitA : unitB
 
-  return BigNumber.max(balance.minus(unit === 'UTXO' ? fee : 0), 0).toFixed(8)
+  return BigNumber.max(balance.minus(unit === ConvertTokenUnit.UTXO ? fee : 0), 0).toFixed(8)
 }
 
 function getResultingPercentage (desireUnit: string, balanceA: BigNumber, unitA: string, balanceB: BigNumber): string {

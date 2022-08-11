@@ -27,7 +27,7 @@ export function ActionButtons (): JSX.Element {
   return (
     <View testID='action_button_group'>
       <ScrollView
-        contentContainerStyle={tailwind('px-5 mt-8 flex-row')}
+        contentContainerStyle={tailwind('flex justify-between min-w-full px-5 mt-8')}
         showsHorizontalScrollIndicator={false}
         horizontal
       >

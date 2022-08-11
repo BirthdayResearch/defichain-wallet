@@ -8,7 +8,7 @@ interface TransactionCardProps {
   maxValue: BigNumber
   onChange: (amount: string) => void
   onPercentageChange: (amount: string, type: AmountButtonTypes) => void
-  status?: string
+  status?: TransactionCardStatus
   containerStyle?: StyleProp<ViewStyle>
 }
 
@@ -19,30 +19,39 @@ export enum AmountButtonTypes {
   Max = 'MAX'
 }
 
+export enum TransactionCardStatus {
+  Default,
+  Active,
+  Error
+}
+
 export function TransactionCard ({
   maxValue,
   onChange,
-  status,
   onPercentageChange,
+  status,
   containerStyle,
   children
 }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
   return (
     <ThemedViewV2
       light={tailwind('bg-mono-light-v2-00', {
-        'border-0.5 border-mono-light-v2-800': status === 'active'
+        'border-0.5 border-mono-light-v2-800': status === TransactionCardStatus.Active
       })}
       dark={tailwind('bg-mono-dark-v2-00', {
-        'border-0.5 border-mono-dark-v2-800': status === 'active'
+        'border-0.5 border-mono-dark-v2-800': status === TransactionCardStatus.Active
       })}
       style={tailwind('rounded-lg-v2', {
-        'border-0.5 border-red-v2': status === 'error'
+        'border-0.5 border-red-v2': status === TransactionCardStatus.Error
       })}
     >
       <ThemedViewV2
         light={tailwind('bg-mono-light-v2-00')}
         dark={tailwind('bg-mono-dark-v2-00')}
-        style={tailwind('px-5 mr-px rounded-t-lg-v2')}
+// <<<<<<< HEAD
+//         style={tailwind('px-5 mr-px rounded-t-lg-v2')}
+// =======
+        style={tailwind('pl-5 pr-5 pt-2 mr-px rounded-t-lg-v2')}
       >
         {children}
       </ThemedViewV2>
@@ -72,8 +81,9 @@ export function TransactionCard ({
 
 interface SetAmountButtonProps {
   type: AmountButtonTypes
-  onPress: (amount: string) => void
+  // onPress: (amount: string) => void
   onPercentagePress: (amount: string, type: AmountButtonTypes) => void
+  onPress: (amount: string, type: AmountButtonTypes) => void
   amount: BigNumber
   hasBorder?: boolean
 }
@@ -107,7 +117,7 @@ function SetAmountButton ({
     <ThemedTouchableOpacityV2
       style={tailwind('border-0')}
       onPress={() => {
-        onPress(value)
+        onPress(value, type)
         onPercentagePress(value, type)
       }}
       testID={`${type}_amount_button`}

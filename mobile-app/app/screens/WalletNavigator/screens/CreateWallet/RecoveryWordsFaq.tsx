@@ -1,5 +1,5 @@
-import { ThemedScrollView, ThemedText } from '@components/themed'
-import { AccordionContent, WalletAccordion } from '@components/WalletAccordion'
+import { ThemedScrollViewV2, ThemedTextV2 } from '@components/themed'
+import { AccordionContent, WalletAccordionV2 } from '@components/WalletAccordionV2'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 
@@ -13,9 +13,9 @@ export function RecoveryWordsFaq (): JSX.Element {
       }]
     },
     {
-      title: translate('components/RecoveryWordFaq', 'Can I use the 24-words from xxx that I created from xxx?'),
+      title: translate('components/RecoveryWordFaq', 'Can I use the 24-word from xxx that I created from xxx?'),
       content: [{
-        text: translate('components/RecoveryWordFaq', 'You can only reuse the 24-words only if it\'s created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.SWISS (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per computer / device / app is encouraged.'),
+        text: translate('components/RecoveryWordFaq', 'You can only reuse the 24-words if it\'s created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.Swiss (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per device / computer / app is encouraged.'),
         type: 'paragraph'
       }]
     },
@@ -36,28 +36,23 @@ export function RecoveryWordsFaq (): JSX.Element {
   ]
 
   return (
-    <ThemedScrollView
-      contentContainerStyle={tailwind('p-6 pb-8')}
+    <ThemedScrollViewV2
+      contentContainerStyle={tailwind('pt-8 px-5 pb-16')}
+      style={tailwind('flex-1')}
       testID='recovery_words_faq'
     >
-      <ThemedText
-        style={tailwind('text-lg font-semibold')}
-      >
-        {translate('components/RecoveryWordFaq', 'Recovery words')}
-      </ThemedText>
-
-      <ThemedText
-        style={tailwind('mt-2 text-sm')}
+      <ThemedTextV2
+        style={tailwind('text-base font-normal-v2 px-5')}
       >
         {translate('components/RecoveryWordFaq', 'Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.')}
-      </ThemedText>
+      </ThemedTextV2>
 
-      <WalletAccordion
+      <WalletAccordionV2
         testID='recovery_words_faq_accordion'
         activeSections={[0]}
         title={translate('components/RecoveryWordFaq', 'FREQUENTLY ASKED QUESTIONS')}
         content={faqContent}
       />
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }
