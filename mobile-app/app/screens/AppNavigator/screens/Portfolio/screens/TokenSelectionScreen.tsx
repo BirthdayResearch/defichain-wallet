@@ -16,6 +16,7 @@ import { ThemedFlatListV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 
 import { getNativeIcon } from '@components/icons/assets'
 import { SearchInputV2 } from '@components/SearchInputV2'
 import { ButtonV2 } from '@components/ButtonV2'
+import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { PortfolioParamList } from '../PortfolioNavigator'
 import { ActiveUSDValueV2 } from '../../Loans/VaultDetail/components/ActiveUSDValueV2'
 
@@ -41,9 +42,9 @@ type Props = StackScreenProps<PortfolioParamList, 'TokenSelectionScreen'>
 export function TokenSelectionScreen (_props: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const [searchString, setSearchString] = useState('')
   const { getTokenPrice } = useTokenPrice()
-
   const debouncedSearchTerm = useDebounce(searchString, 250)
 
   const tokensWithBalance = getTokensWithBalance(tokens, getTokenPrice)
@@ -51,7 +52,7 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
     return filterTokensBySearchTerm(tokensWithBalance, debouncedSearchTerm)
   }, [tokensWithBalance, debouncedSearchTerm])
 
-  if (tokensWithBalance.length === 0) {
+  if (hasFetchedToken && tokensWithBalance.length === 0) {
     return <EmptyAsset navigation={navigation} />
   }
 
@@ -76,9 +77,6 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
           />
         )
       }}
-      ListEmptyComponent={
-        <View style={tailwind('flex items-center justify-center')} />
-      }
       ListHeaderComponent={
         <ThemedViewV2 style={tailwind('mx-5 mt-8')}>
           <SearchInputV2
@@ -91,7 +89,8 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
             }}
             testID='address_search_input'
           />
-          {filteredTokensWithBalance.length > 0 &&
+
+          {(!hasFetchedToken || filteredTokensWithBalance.length > 0) &&
             <ThemedTextV2
               style={tailwind('text-xs pl-5 mt-6 mb-2')}
               light={tailwind('text-mono-light-v2-500')}
@@ -99,7 +98,11 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
             >
               {translate('screens/TokenSelectionScreen', 'AVAILABLE')}
             </ThemedTextV2>}
-          {filteredTokensWithBalance.length === 0 &&
+
+          {!hasFetchedToken &&
+            <SkeletonLoader row={5} screen={SkeletonLoaderScreen.TokenSelection} />}
+
+          {hasFetchedToken && filteredTokensWithBalance.length === 0 &&
             <ThemedTextV2
               style={tailwind('text-xs pl-5 mt-8')}
               light={tailwind('text-mono-light-v2-700')}
