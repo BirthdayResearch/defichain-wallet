@@ -19,7 +19,7 @@ import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/Botto
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { ViewPoolHeader } from './components/ViewPoolHeader'
 import { ViewPoolDetails } from './components/ViewPoolDetails'
-import { TransactionCardWalletTextInputV2 } from '@components/TransactionCardWalletTextInputV2'
+import { WalletTransactionCardTextInput } from '@components/WalletTransactionCardTextInput'
 import { TransactionCard, AmountButtonTypes, TransactionCardStatus } from '@components/TransactionCard'
 import { getNativeIcon } from '@components/icons/assets'
 import { InputHelperTextV2 } from '@components/InputHelperText'
@@ -373,12 +373,11 @@ function RemoveLiquidityInputCard (
             <IconA height={20} width={20} style={tailwind('relative z-50')} />
             <IconB height={20} width={20} style={tailwind('absolute ml-3 z-40')} />
           </View>
-          <TransactionCardWalletTextInputV2
+          <WalletTransactionCardTextInput
             onFocus={isFocus}
             onBlur={isFocus}
             onChangeText={txt => props.onChange(txt)}
             placeholder='0.00'
-            style={tailwind('flex-grow w-2/5')}
             value={props.current}
             inputType='numeric'
             displayClearButton={props.current !== ''}
