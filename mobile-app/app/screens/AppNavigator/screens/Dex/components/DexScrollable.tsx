@@ -71,6 +71,7 @@ function DexScrollableCard ({
           symbolA={symbolA}
           symbolB={symbolB}
           iconSize={36}
+          iconStyle={tailwind('-ml-4 mr-2')}
         />
         <View style={tailwind('flex flex-col')}>
           <ThemedTextV2
@@ -83,10 +84,12 @@ function DexScrollableCard ({
           >
             {`${symbolA}-${symbolB}`}
           </ThemedTextV2>
-          <TotalLiquidityValue
-            value={poolpair.totalLiquidity.usd}
-            testId={`${poolpair.tokenA.symbol}-${poolpair.tokenB.symbol}`}
-          />
+          {poolpair.totalLiquidity.usd !== undefined && (
+            <TotalLiquidityValue
+              value={poolpair.totalLiquidity.usd}
+              testId={`${poolpair.tokenA.symbol}-${poolpair.tokenB.symbol}`}
+            />
+          )}
         </View>
       </View>
       <View style={tailwind('flex flex-row items-end justify-between mt-4')}>
@@ -104,9 +107,10 @@ function DexScrollableCard ({
 function TotalLiquidityValue ({
   value,
   testId
-}: { value: string | undefined, testId: string }): JSX.Element {
+}: { value: string, testId: string }): JSX.Element {
   const isSixDigits = new BigNumber(value ?? 0).gte(new BigNumber(1000000))
   const valueToUnitSuffix = useUnitSuffix({ 6: 'M' }, value)
+
   return (
     <>
       {isSixDigits

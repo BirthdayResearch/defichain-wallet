@@ -6,7 +6,7 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn()
 }))
 
-describe('Swap Button V2', () => {
+describe('Dex Action Button', () => {
   it('should match snapshot', () => {
     const pair = {
       id: '15',
