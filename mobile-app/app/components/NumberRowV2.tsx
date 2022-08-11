@@ -5,7 +5,6 @@ import { tailwind } from '@tailwind'
 import { ThemedProps, ThemedText, ThemedTextV2 } from './themed'
 import { IconTooltip } from './tooltip/IconTooltip'
 import { ActiveUSDValueV2 } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2'
-import { ActiveUSDValueV2 } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2'
 
 type INumberRowProps = React.PropsWithChildren<ViewProps> & NumberRowProps
 
