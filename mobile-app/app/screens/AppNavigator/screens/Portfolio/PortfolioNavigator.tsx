@@ -12,8 +12,6 @@ import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { PortfolioScreen } from './PortfolioScreen'
 import { ConversionMode } from './screens/ConvertScreen'
 import { ReceiveScreen } from './screens/ReceiveScreen'
-import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
-import { SendScreen } from './screens/SendScreen'
 import { TokensVsUtxoScreen } from './screens/TokensVsUtxoScreen'
 import { AddressControlScreen } from './components/AddressControlScreen'
 import { AboutScreen } from '../Settings/screens/AboutScreen'
@@ -49,12 +47,17 @@ import {
 } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreenV2'
 import { ConfirmAddLiquidityScreenV2 } from '../Dex/DexConfirmAddLiquidityV2'
 import { AddLiquidityScreenV2 } from '../Dex/DexAddLiquidityV2'
+import { TokenSelectionScreen } from './screens/TokenSelectionScreen'
+import { SendConfirmationScreenV2 } from './screens/SendConfirmationScreenV2'
+import { SendScreenV2 } from './screens/SendScreenV2'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
   ReceiveScreen: undefined
   MarketplaceScreen: undefined
   SendScreen: { token?: WalletToken }
+  SendScreenV2: { token?: WalletToken }
+  TokenSelectionScreen: {}
   SendConfirmationScreen: {
     token: WalletToken
     destination: string
@@ -120,6 +123,7 @@ export interface PortfolioParamList {
 
 export interface ConversionParam {
   isConversionRequired: boolean
+  isConverted?: boolean
   conversionAmount: BigNumber
   DFIUtxo: WalletToken
   DFIToken: WalletToken
@@ -240,7 +244,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={SendScreen}
+        component={SendScreenV2}
         name='Send'
         options={{
           headerTitle: () => (
@@ -254,7 +258,21 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={SendConfirmationScreen}
+        component={TokenSelectionScreen}
+        name='TokenSelectionScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/TokenSelectionScreen', 'Send')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <PortfolioStack.Screen
+        component={SendConfirmationScreenV2}
         name='SendConfirmationScreen'
         options={{
           headerTitle: () => (

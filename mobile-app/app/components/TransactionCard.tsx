@@ -42,7 +42,7 @@ export function TransactionCard ({
       <ThemedViewV2
         light={tailwind('bg-mono-light-v2-00')}
         dark={tailwind('bg-mono-dark-v2-00')}
-        style={tailwind('pl-5 pr-5 pt-2 mr-px rounded-t-lg-v2')}
+        style={tailwind('rounded-t-lg-v2')}
       >
         {children}
       </ThemedViewV2>
@@ -52,7 +52,7 @@ export function TransactionCard ({
         style={[tailwind('flex flex-row justify-around items-center py-2.5'), containerStyle]}
       >
         {
-          [AmountButtonTypes.TwentyFive, AmountButtonTypes.Half, AmountButtonTypes.SeventyFive, AmountButtonTypes.Max].map((type, index, { length }) => {
+          Object.values(AmountButtonTypes).map((type, index, { length }) => {
             return (
               <SetAmountButton
                 key={type}

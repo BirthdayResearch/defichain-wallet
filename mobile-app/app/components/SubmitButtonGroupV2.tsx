@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { TRY_AGAIN_TIMER_COUNT, UNEXPECTED_FAILURE } from '@screens/TransactionAuthorization/api/transaction_types'
 import { useNonInitialEffect } from '@hooks/useNonInitialEffect'
 import { ButtonV2 } from '@components/ButtonV2'
+import { tailwind } from '@tailwind'
 
 interface SubmitButtonGroupItems {
   isDisabled: boolean
@@ -16,18 +17,20 @@ interface SubmitButtonGroupItems {
   displayCancelBtn: boolean
   isProcessing?: boolean
   processingLabel?: string
+  buttonStyle?: string
   onSubmit: () => Promise<void>
   onCancel?: () => void
 }
 
 export function SubmitButtonGroupV2 ({
+  buttonStyle,
   isDisabled,
   isCancelDisabled,
   displayCancelBtn,
   title,
   label,
-  isProcessing,
-  processingLabel,
+  // isProcessing,
+  // processingLabel,
   onSubmit,
   onCancel
 }: SubmitButtonGroupItems): JSX.Element {
@@ -88,7 +91,7 @@ export function SubmitButtonGroupV2 ({
   // }
 
   return (
-    <View>
+    <View style={tailwind('w-full')}>
       {tryAgain
         ? (
           <Button
@@ -107,6 +110,7 @@ export function SubmitButtonGroupV2 ({
             label={translate('screens/common', label)}
             onPress={submit}
             testID={`button_confirm_${title}`}
+            styleProps={buttonStyle}
            />
         )}
 
