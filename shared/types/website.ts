@@ -123,5 +123,8 @@ export type FEATURE_FLAG_ID =
   | 'dusd_dfi_high_fee'
   | 'setting_v2'
   | 'portfolio_v2'
+  | 'add_liquidity_v2'
+  | 'remove_liquidity_v2'
+  | 'send_v2'
 
 export type FEATURE_FLAG_STAGE = 'alpha' | 'beta' | 'public'
