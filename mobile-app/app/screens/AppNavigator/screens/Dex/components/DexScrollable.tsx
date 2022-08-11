@@ -30,7 +30,7 @@ export function DexScrollable (props: PropsWithChildren<DexScrollableProps>): JS
     <ThemedViewV2 testID={testId} style={[tailwind('flex flex-col'), sectionStyle]}>
       <ThemedTextV2
         dark={tailwind('text-mono-dark-v2-500')}
-        light={tailwind('text-mono-dark-v2-500')}
+        light={tailwind('text-mono-light-v2-500')}
         style={tailwind('font-normal-v2 text-xs uppercase pl-10 mb-2')}
       >
         {sectionHeading}
@@ -66,6 +66,7 @@ function DexScrollableCard ({
         <PoolPairTextSectionV2
           symbolA={symbolA}
           symbolB={symbolB}
+          iconSize={36}
         />
         <View style={tailwind('flex flex-col')}>
           <ThemedTextV2
@@ -85,8 +86,8 @@ function DexScrollableCard ({
         </View>
       </View>
       <View style={tailwind('flex flex-row items-end justify-between mt-4')}>
-        <SwapButtonV2 />
-        <FavoriteButton poolpairId={poolpair.id} />
+        <SwapButtonV2 pair={poolpair} />
+        <FavoriteButton pairId={poolpair.id} />
       </View>
     </ThemedViewV2>
   )

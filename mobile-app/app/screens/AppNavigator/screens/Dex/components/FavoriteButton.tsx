@@ -2,24 +2,36 @@ import { useFavouritePoolpairs } from '@screens/AppNavigator/screens/Dex/hook/Fa
 import { ThemedIcon, ThemedTouchableOpacityV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 
-export function FavoriteButton ({ poolpairId }: {poolpairId: string}): JSX.Element {
+export function FavoriteButton ({ pairId }: {pairId: string}): JSX.Element {
   const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
-  const isFavouritePair = isFavouritePoolpair(poolpairId)
+  const isFavouritePair = isFavouritePoolpair(pairId)
 
   return (
     <ThemedTouchableOpacityV2
-      onPress={() => setFavouritePoolpair(poolpairId)}
+      onPress={() => setFavouritePoolpair(pairId)}
       style={tailwind('rounded-full  flex items-center justify-center w-5 h-5')}
-      dark={tailwind('bg-mono-dark-v2-100')}
-      light={tailwind('bg-mono-light-v2-100')}
+      dark={tailwind({
+        'bg-mono-dark-v2-100': !isFavouritePair,
+        'bg-brand-v2-500': isFavouritePair
+      })}
+      light={tailwind({
+        'bg-mono-light-v2-100': !isFavouritePair,
+        'bg-brand-v2-500': isFavouritePair
+      })}
     >
       <ThemedIcon
         iconType='MaterialIcons'
-        name={isFavouritePair ? 'star' : 'star-outline'}
-        dark={tailwind('text-mono-dark-v2-900')}
-        light={tailwind('text-mono-light-v2-900')}
+        name='star'
+        dark={tailwind({
+          'text-mono-dark-v2-900': !isFavouritePair,
+          'text-mono-light-v2-100': isFavouritePair
+        })}
+        light={tailwind({
+          'text-mono-light-v2-900': !isFavouritePair,
+          'text-mono-light-v2-100': isFavouritePair
+        })}
         style={tailwind('text-center')}
-        size={12}
+        size={14}
       />
     </ThemedTouchableOpacityV2>
   )

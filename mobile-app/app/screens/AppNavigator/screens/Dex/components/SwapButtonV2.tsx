@@ -3,8 +3,9 @@ import { DexParamList } from '@screens/AppNavigator/screens/Dex/DexNavigator'
 import { tailwind } from '@tailwind'
 import { ThemedTextV2, ThemedTouchableOpacityV2 } from '@components/themed'
 import { translate } from '@translations'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 
-export function SwapButtonV2 (): JSX.Element {
+export function SwapButtonV2 ({ pair }: {pair: PoolPairData}): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   return (
     <ThemedTouchableOpacityV2
@@ -13,7 +14,7 @@ export function SwapButtonV2 (): JSX.Element {
       light={tailwind('bg-mono-light-v2-100')}
       onPress={() => navigation.navigate({
         name: 'CompositeSwap',
-        params: {},
+        params: { pair },
         merge: true
       })}
     >

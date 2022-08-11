@@ -322,7 +322,7 @@ function TopVolumeSection ({ topVolumePairs }: {topVolumePairs: Array<DexItem<Po
   return (
     <DexScrollable
       testId='DEX_TOP_VOLUME'
-      sectionHeading='TOP VOLUME'
+      sectionHeading='TOP LIQUIDITY'
       sectionStyle={tailwind('my-6')}
     >
       {topVolumePairs.map((pairItem, index) => (
