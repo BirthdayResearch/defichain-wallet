@@ -89,10 +89,6 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
             onChangeText={(text: string) => {
               setSearchString(text)
             }}
-            onFocus={() => {
-              // setIsSearchFocus(true)
-              // setIsEditing(false)
-            }}
             testID='address_search_input'
           />
           {filteredTokensWithBalance.length > 0 &&

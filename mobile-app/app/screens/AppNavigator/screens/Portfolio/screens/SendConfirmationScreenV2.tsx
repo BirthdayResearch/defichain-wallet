@@ -135,7 +135,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
                   translate('screens/ConvertConfirmScreen',
                     conversion?.isConversionRequired && conversion?.isConverted !== true
                       ? 'Converting'
-: 'Converted')
+                      : 'Converted')
                 }
               </ThemedTextV2>
               {conversion?.isConversionRequired && conversion?.isConverted !== true && <ThemedActivityIndicatorV2 />}
@@ -143,7 +143,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
                 conversion?.isConversionRequired && conversion?.isConverted === true &&
                   <ThemedIcon
                     light={tailwind('text-success-600')}
-                    dark={tailwind('text-darksuccess-500')}
+                    dark={tailwind('text-darksuccess-600')}
                     iconType='MaterialIcons'
                     name='check-circle'
                     size={20}
