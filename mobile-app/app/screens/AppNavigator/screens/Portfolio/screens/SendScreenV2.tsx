@@ -518,13 +518,14 @@ function AmountCard ({
         <ThemedTouchableOpacityV2
           style={tailwind('flex flex-row items-center justify-between px-5 pt-5 mb-2 pb-2')}
           onPress={onPress}
+          testID='select_token_input'
         >
           <View style={tailwind('flex flex-row items-center')}>
             <Icon height={32} width={32} />
             <View style={tailwind('flex ml-2')}>
               <ThemedTextV2>
-                <ThemedTextV2 style={tailwind('font-bold')} testID='availa'>{maxAmount.toFixed(8)}</ThemedTextV2>
-                <ThemedTextV2 style={tailwind('font-bold')}>{` ${token.displaySymbol}`}</ThemedTextV2>
+                <ThemedTextV2 style={tailwind('font-bold')} testID='max_value'>{maxAmount.toFixed(8)}</ThemedTextV2>
+                <ThemedTextV2 style={tailwind('font-bold')} testID='max_value_display_symbol'>{` ${token.displaySymbol}`}</ThemedTextV2>
               </ThemedTextV2>
               <ThemedTextV2
                 light={tailwind('text-mono-light-v2-500')}

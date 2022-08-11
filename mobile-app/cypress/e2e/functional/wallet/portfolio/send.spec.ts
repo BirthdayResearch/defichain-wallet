@@ -332,7 +332,7 @@ context('Wallet - Send - Max Values', function () {
   })
 })
 
-context.only('Wallet - Send - with Conversion', function () {
+context('Wallet - Send - with Conversion', function () {
   let whale: WhaleApiClient
 
   const addresses = ['bcrt1qh5callw3zuxtnks96ejtekwue04jtnm84f04fn', 'bcrt1q6ey8k3w0ll3cn5sg628nxthymd3une2my04j4n']
@@ -402,24 +402,22 @@ context('Wallet - Send - Switch token', function () {
 
   it('should be able to select token', function () {
     cy.getByTestID('send_balance_button').click()
-    cy.getByTestID('select_token_placeholder').should('exist')
-    cy.getByTestID('button_confirm_send_continue').should('have.attr', 'aria-disabled')
-    cy.getByTestID('select_token_input').click()
-    cy.getByTestID('select_DFI_value').should('have.text', '20.00000000')
+    cy.getByTestID('select_DFI_value').should('have.text', '19.90000000')
     cy.getByTestID('select_dBTC_value').should('have.text', '10.00000000')
     cy.getByTestID('select_dETH_value').should('have.text', '10.00000000')
     cy.wait(3000) // timeout to allow max. one block-cycle of re-render
     cy.getByTestID('select_DFI').click()
-    cy.getByTestID('selected_token').should('have.text', 'DFI')
-    cy.getByTestID('max_value').contains('DFI')
+    cy.getByTestID('button_confirm_send_continue').should('have.attr', 'aria-disabled')
+    cy.getByTestID('max_value').should('have.text', '19.90000000')
+    cy.getByTestID('max_value_display_symbol').contains('DFI')
   })
 
   it('should be able to switch token', function () {
     cy.getByTestID('select_token_input').click()
     cy.wait(3000) // timeout to allow max. one block-cycle of re-render
     cy.getByTestID('select_dBTC').click()
-    cy.getByTestID('selected_token').should('have.text', 'dBTC')
-    cy.getByTestID('max_value').contains('dBTC')
+    cy.getByTestID('max_value').should('have.text', '10.00000000')
+    cy.getByTestID('max_value_display_symbol').contains('dBTC')
     cy.getByTestID('button_confirm_send_continue').should('have.attr', 'aria-disabled')
   })
 
@@ -429,8 +427,8 @@ context('Wallet - Send - Switch token', function () {
     cy.getByTestID('portfolio_row_2').should('exist')
     cy.getByTestID('portfolio_row_2_amount').contains(10).click()
     cy.getByTestID('send_button').click()
-    cy.getByTestID('selected_token').should('have.text', 'dETH')
-    cy.getByTestID('max_value').contains('dETH')
+    cy.getByTestID('max_value').should('have.text', '10.00000000')
+    cy.getByTestID('max_value_display_symbol').contains('dETH')
   })
 
   it('should be able to enable/disable token selection', function () {
@@ -440,17 +438,17 @@ context('Wallet - Send - Switch token', function () {
     // No token
     cy.getByTestID('action_button_group').should('exist')
     cy.getByTestID('send_balance_button').click().wait(3000)
-    cy.getByTestID('select_token_input').should('have.attr', 'aria-disabled')
+    cy.getByTestID('no_asset_text').should('exist')
+    cy.getByTestID('no_asset_sub_text').should('exist')
 
     // With DFI
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.sendDFITokentoWallet().wait(3000)
     cy.getByTestID('action_button_group').should('exist')
     cy.getByTestID('send_balance_button').click().wait(3000)
-    cy.getByTestID('select_token_input').click()
     cy.getByTestID('select_DFI').click().wait(3000)
-    cy.getByTestID('select_token_placeholder').should('not.exist')
-    cy.getByTestID('selected_token').should('have.text', 'DFI')
+    cy.getByTestID('max_value').should('have.text', '9.90000000')
+    cy.getByTestID('max_value_display_symbol').contains('DFI')
   })
 })
 
@@ -462,7 +460,6 @@ context('Wallet - Send - Address book', function () {
       .wait(6000)
     cy.getByTestID('action_button_group').should('exist')
     cy.getByTestID('send_balance_button').click().wait(3000)
-    cy.getByTestID('select_token_input').click()
     cy.getByTestID('select_DFI').click().wait(3000)
     cy.getByTestID('address_book_button').click()
     cy.wrap(labels).each((_v, index: number) => {
@@ -502,7 +499,6 @@ context('Wallet - Send - Address book', function () {
   it('should be able to open address book', function () {
     cy.getByTestID('action_button_group').should('exist')
     cy.getByTestID('send_balance_button').click().wait(3000)
-    cy.getByTestID('select_token_input').click()
     cy.getByTestID('select_DFI').click().wait(3000)
     cy.getByTestID('address_book_button').click()
     cy.getByTestID('address_row_0_WHITELISTED').should('not.exist')
@@ -587,7 +583,7 @@ context('Wallet - Send - Address book', function () {
     cy.wait(1000)
     cy.blockAllFeatureFlag()
     cy.getByTestID('setting_exit_wallet').click()
-    cy.on('window:confirm', () => {})
+    cy.on('window:confirm', () => { })
     cy.getByTestID('onboarding_carousel').should('exist')
     cy.getByTestID('get_started_button').should('exist')
     cy.getByTestID('restore_wallet_button').should('exist').then(() => {
@@ -606,7 +602,7 @@ context('Wallet - Send - Address book', function () {
     cy.wrap(Array(MAX_PASSCODE_ATTEMPT)).each(() => {
       cy.getByTestID('pin_authorize').type('696969').wait(2000)
     })
-    cy.on('window:confirm', () => {})
+    cy.on('window:confirm', () => { })
     cy.getByTestID('onboarding_carousel').should('exist')
     cy.getByTestID('get_started_button').should('exist')
     cy.getByTestID('restore_wallet_button').should('exist').then(() => {

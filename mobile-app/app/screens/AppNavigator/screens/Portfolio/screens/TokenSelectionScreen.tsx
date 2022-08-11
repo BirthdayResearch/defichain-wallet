@@ -180,10 +180,10 @@ function EmptyAsset ({ navigation }: { navigation: NavigationProp<PortfolioParam
     <View style={tailwind('flex items-center justify-between mx-12 h-full')}>
       <View style={tailwind('flex items-center')}>
         <Image source={ImageEmptyAssets} style={[tailwind('mt-12'), { width: 204, height: 96 }]} />
-        <ThemedTextV2 style={tailwind('font-semibold-v2 text-xl mt-8')}>
+        <ThemedTextV2 testID='no_asset_text' style={tailwind('font-semibold-v2 text-xl mt-8')}>
           {translate('screens/TokenSelectionScreen', 'No assets found')}
         </ThemedTextV2>
-        <ThemedTextV2 style={tailwind('mt-2')}>
+        <ThemedTextV2 testID='no_asset_sub_text' style={tailwind('mt-2')}>
           {translate('screens/TokenSelectionScreen', 'Add assets to get started')}
         </ThemedTextV2>
       </View>
