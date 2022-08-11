@@ -52,7 +52,6 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   const [hasError, setHasError] = useState(false)
   const [isInputFocus, setIsInputFocus] = useState(false)
   const [tokenToRemove, setTokenToRemove] = useState<string>('')
-  const [percentageType, setPercentageType] = useState<string | undefined>()
   const TOAST_DURATION = 2000
 
   // breakdown summary state
@@ -90,18 +89,12 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   }, [tokenToRemove])
 
   function onPercentagePress (amount: string, type: AmountButtonTypes): void {
-    setPercentageType(amount)
     buildSummary(amount)
     showToast(type)
   }
 
   function showToast (type: AmountButtonTypes): void {
-    if (percentageType === undefined) {
-      return
-    }
-
     toast.hideAll()
-
     const isMax = type === AmountButtonTypes.Max
     const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
       const toastOption = {
@@ -347,7 +340,7 @@ function RemoveLiquidityInputCard (
     balance: BigNumber
     symbol: string
     onPercentageChange: (amount: string, type: AmountButtonTypes) => void
-    onChange: (amount: string, type?: AmountButtonTypes) => void
+    onChange: (amount: string) => void
     current: string
     status?: TransactionCardStatus
     setIsInputFocus: any // TODO: type checking
