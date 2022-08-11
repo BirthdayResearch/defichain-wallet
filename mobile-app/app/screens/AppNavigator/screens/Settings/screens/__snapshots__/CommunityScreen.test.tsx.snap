@@ -122,6 +122,8 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
             Object {
               "borderTopLeftRadius": 10,
               "borderTopRightRadius": 10,
+              "paddingLeft": 20,
+              "paddingRight": 20,
             },
             Object {
               "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -130,64 +132,81 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         }
       >
         <View
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
-            Object {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderBottomWidth": 0.5,
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "flexDirection": "row",
-              "marginLeft": 20,
-              "marginRight": 20,
-              "opacity": 1,
-              "paddingBottom": 18,
-              "paddingTop": 18,
-            }
+            Array [
+              Object {},
+              Object {
+                "borderBottomColor": "rgba(204, 204, 204, 1)",
+                "borderLeftColor": "rgba(204, 204, 204, 1)",
+                "borderRightColor": "rgba(204, 204, 204, 1)",
+                "borderTopColor": "rgba(204, 204, 204, 1)",
+              },
+            ]
           }
           testID="announcements"
         >
-          <Text
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "flexBasis": "0%",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                    "marginRight": 16,
-                  },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "rgba(204, 204, 204, 1)",
+                "borderBottomWidth": 0,
+                "borderLeftColor": "rgba(204, 204, 204, 1)",
+                "borderLeftWidth": 0,
+                "borderRightColor": "rgba(204, 204, 204, 1)",
+                "borderRightWidth": 0,
+                "borderTopColor": "rgba(204, 204, 204, 1)",
+                "borderTopWidth": 0,
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "opacity": 1,
+                "paddingBottom": 18,
+                "paddingTop": 18,
+              }
             }
           >
-            Announcements
-          </Text>
-          <Text />
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "flexBasis": "0%",
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                      "marginRight": 16,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Announcements
+            </Text>
+            <Text />
+          </View>
         </View>
       </View>
     </View>
@@ -198,7 +217,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       <View
         style={
           Array [
-            Object {},
+            Object {
+              "paddingLeft": 20,
+              "paddingRight": 20,
+            },
             Object {
               "backgroundColor": "rgba(255, 255, 255, 1)",
             },
@@ -206,64 +228,83 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         }
       >
         <View
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
-            Object {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderBottomWidth": 0.5,
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "flexDirection": "row",
-              "marginLeft": 20,
-              "marginRight": 20,
-              "opacity": 1,
-              "paddingBottom": 18,
-              "paddingTop": 18,
-            }
+            Array [
+              Object {
+                "borderTopWidth": 0.5,
+              },
+              Object {
+                "borderBottomColor": "rgba(204, 204, 204, 1)",
+                "borderLeftColor": "rgba(204, 204, 204, 1)",
+                "borderRightColor": "rgba(204, 204, 204, 1)",
+                "borderTopColor": "rgba(204, 204, 204, 1)",
+              },
+            ]
           }
           testID="faq"
         >
-          <Text
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "flexBasis": "0%",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                    "marginRight": 16,
-                  },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "rgba(204, 204, 204, 1)",
+                "borderBottomWidth": 0,
+                "borderLeftColor": "rgba(204, 204, 204, 1)",
+                "borderLeftWidth": 0,
+                "borderRightColor": "rgba(204, 204, 204, 1)",
+                "borderRightWidth": 0,
+                "borderTopColor": "rgba(204, 204, 204, 1)",
+                "borderTopWidth": 0,
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "opacity": 1,
+                "paddingBottom": 18,
+                "paddingTop": 18,
+              }
             }
           >
-            Frequently asked questions
-          </Text>
-          <Text />
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "flexBasis": "0%",
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                      "marginRight": 16,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Frequently asked questions
+            </Text>
+            <Text />
+          </View>
         </View>
       </View>
     </View>
@@ -274,7 +315,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       <View
         style={
           Array [
-            Object {},
+            Object {
+              "paddingLeft": 20,
+              "paddingRight": 20,
+            },
             Object {
               "backgroundColor": "rgba(255, 255, 255, 1)",
             },
@@ -282,64 +326,83 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         }
       >
         <View
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
-            Object {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderBottomWidth": 0.5,
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "flexDirection": "row",
-              "marginLeft": 20,
-              "marginRight": 20,
-              "opacity": 1,
-              "paddingBottom": 18,
-              "paddingTop": 18,
-            }
+            Array [
+              Object {
+                "borderTopWidth": 0.5,
+              },
+              Object {
+                "borderBottomColor": "rgba(204, 204, 204, 1)",
+                "borderLeftColor": "rgba(204, 204, 204, 1)",
+                "borderRightColor": "rgba(204, 204, 204, 1)",
+                "borderTopColor": "rgba(204, 204, 204, 1)",
+              },
+            ]
           }
           testID="gh"
         >
-          <Text
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "flexBasis": "0%",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                    "marginRight": 16,
-                  },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "rgba(204, 204, 204, 1)",
+                "borderBottomWidth": 0,
+                "borderLeftColor": "rgba(204, 204, 204, 1)",
+                "borderLeftWidth": 0,
+                "borderRightColor": "rgba(204, 204, 204, 1)",
+                "borderRightWidth": 0,
+                "borderTopColor": "rgba(204, 204, 204, 1)",
+                "borderTopWidth": 0,
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "opacity": 1,
+                "paddingBottom": 18,
+                "paddingTop": 18,
+              }
             }
           >
-            Report issue on GitHub
-          </Text>
-          <Text />
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "flexBasis": "0%",
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                      "marginRight": 16,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Report issue on GitHub
+            </Text>
+            <Text />
+          </View>
         </View>
       </View>
     </View>
@@ -350,7 +413,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       <View
         style={
           Array [
-            Object {},
+            Object {
+              "paddingLeft": 20,
+              "paddingRight": 20,
+            },
             Object {
               "backgroundColor": "rgba(255, 255, 255, 1)",
             },
@@ -358,64 +424,83 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         }
       >
         <View
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
-            Object {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderBottomWidth": 0.5,
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "flexDirection": "row",
-              "marginLeft": 20,
-              "marginRight": 20,
-              "opacity": 1,
-              "paddingBottom": 18,
-              "paddingTop": 18,
-            }
+            Array [
+              Object {
+                "borderTopWidth": 0.5,
+              },
+              Object {
+                "borderBottomColor": "rgba(204, 204, 204, 1)",
+                "borderLeftColor": "rgba(204, 204, 204, 1)",
+                "borderRightColor": "rgba(204, 204, 204, 1)",
+                "borderTopColor": "rgba(204, 204, 204, 1)",
+              },
+            ]
           }
           testID="tg_en"
         >
-          <Text
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "flexBasis": "0%",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                    "marginRight": 16,
-                  },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "rgba(204, 204, 204, 1)",
+                "borderBottomWidth": 0,
+                "borderLeftColor": "rgba(204, 204, 204, 1)",
+                "borderLeftWidth": 0,
+                "borderRightColor": "rgba(204, 204, 204, 1)",
+                "borderRightWidth": 0,
+                "borderTopColor": "rgba(204, 204, 204, 1)",
+                "borderTopWidth": 0,
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "opacity": 1,
+                "paddingBottom": 18,
+                "paddingTop": 18,
+              }
             }
           >
-            Telegram (EN)
-          </Text>
-          <Text />
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "flexBasis": "0%",
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                      "marginRight": 16,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Telegram (EN)
+            </Text>
+            <Text />
+          </View>
         </View>
       </View>
     </View>
@@ -426,7 +511,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       <View
         style={
           Array [
-            Object {},
+            Object {
+              "paddingLeft": 20,
+              "paddingRight": 20,
+            },
             Object {
               "backgroundColor": "rgba(255, 255, 255, 1)",
             },
@@ -434,64 +522,83 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         }
       >
         <View
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
-            Object {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderBottomWidth": 0.5,
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "flexDirection": "row",
-              "marginLeft": 20,
-              "marginRight": 20,
-              "opacity": 1,
-              "paddingBottom": 18,
-              "paddingTop": 18,
-            }
+            Array [
+              Object {
+                "borderTopWidth": 0.5,
+              },
+              Object {
+                "borderBottomColor": "rgba(204, 204, 204, 1)",
+                "borderLeftColor": "rgba(204, 204, 204, 1)",
+                "borderRightColor": "rgba(204, 204, 204, 1)",
+                "borderTopColor": "rgba(204, 204, 204, 1)",
+              },
+            ]
           }
           testID="tg_de"
         >
-          <Text
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "flexBasis": "0%",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                    "marginRight": 16,
-                  },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "rgba(204, 204, 204, 1)",
+                "borderBottomWidth": 0,
+                "borderLeftColor": "rgba(204, 204, 204, 1)",
+                "borderLeftWidth": 0,
+                "borderRightColor": "rgba(204, 204, 204, 1)",
+                "borderRightWidth": 0,
+                "borderTopColor": "rgba(204, 204, 204, 1)",
+                "borderTopWidth": 0,
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "opacity": 1,
+                "paddingBottom": 18,
+                "paddingTop": 18,
+              }
             }
           >
-            Telegram (DE)
-          </Text>
-          <Text />
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "flexBasis": "0%",
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                      "marginRight": 16,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Telegram (DE)
+            </Text>
+            <Text />
+          </View>
         </View>
       </View>
     </View>
@@ -505,6 +612,8 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
             Object {
               "borderBottomLeftRadius": 10,
               "borderBottomRightRadius": 10,
+              "paddingLeft": 20,
+              "paddingRight": 20,
             },
             Object {
               "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -513,63 +622,83 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
         }
       >
         <View
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
-            Object {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "flexDirection": "row",
-              "marginLeft": 20,
-              "marginRight": 20,
-              "opacity": 1,
-              "paddingBottom": 18,
-              "paddingTop": 18,
-            }
+            Array [
+              Object {
+                "borderTopWidth": 0.5,
+              },
+              Object {
+                "borderBottomColor": "rgba(204, 204, 204, 1)",
+                "borderLeftColor": "rgba(204, 204, 204, 1)",
+                "borderRightColor": "rgba(204, 204, 204, 1)",
+                "borderTopColor": "rgba(204, 204, 204, 1)",
+              },
+            ]
           }
           testID="wechat"
         >
-          <Text
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "flexBasis": "0%",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                    "marginRight": 16,
-                  },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "rgba(204, 204, 204, 1)",
+                "borderBottomWidth": 0,
+                "borderLeftColor": "rgba(204, 204, 204, 1)",
+                "borderLeftWidth": 0,
+                "borderRightColor": "rgba(204, 204, 204, 1)",
+                "borderRightWidth": 0,
+                "borderTopColor": "rgba(204, 204, 204, 1)",
+                "borderTopWidth": 0,
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "opacity": 1,
+                "paddingBottom": 18,
+                "paddingTop": 18,
+              }
             }
           >
-            WeChat
-          </Text>
-          <Text />
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "flexBasis": "0%",
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 14,
+                      "fontWeight": "400",
+                      "lineHeight": 20,
+                      "marginRight": 16,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              WeChat
+            </Text>
+            <Text />
+          </View>
         </View>
       </View>
     </View>
