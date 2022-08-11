@@ -245,7 +245,7 @@ export function DexScreen (): JSX.Element {
   }
 
   // Top Volume pairs
-  const [topVolumePairs, setTopVolumePairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
+  const [topLiquidityPairs, setTopLiquidityPairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
   useEffect(() => {
     const sorted = pairs
       .map(item => item)
@@ -254,7 +254,7 @@ export function DexScreen (): JSX.Element {
       new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber()
       )
       .slice(0, 5)
-    setTopVolumePairs(sorted)
+    setTopLiquidityPairs(sorted)
   }, [pairs])
 
   if (!isLoaded) {
@@ -268,7 +268,7 @@ export function DexScreen (): JSX.Element {
   return (
     <>
       <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
-      <TopVolumeSection topVolumePairs={topVolumePairs} />
+      <TopLiquiditySection topLiquidityPairs={topLiquidityPairs} />
       <View style={tailwind('flex-1')}>
         {activeTab === TabKey.AvailablePoolPair &&
           (!hasFetchedPoolpairData || isSearching) && (
@@ -318,14 +318,14 @@ export function DexScreen (): JSX.Element {
   )
 }
 
-function TopVolumeSection ({ topVolumePairs }: {topVolumePairs: Array<DexItem<PoolPairData>>}): JSX.Element {
+function TopLiquiditySection ({ topLiquidityPairs }: {topLiquidityPairs: Array<DexItem<PoolPairData>>}): JSX.Element {
   return (
     <DexScrollable
-      testId='DEX_TOP_VOLUME'
+      testId='DEX_TOP_LIQUIDITY'
       sectionHeading='TOP LIQUIDITY'
       sectionStyle={tailwind('my-6')}
     >
-      {topVolumePairs.map((pairItem, index) => (
+      {topLiquidityPairs.map((pairItem, index) => (
         <DexScrollable.Card
           key={`${pairItem.data.id}_${index}`}
           poolpair={pairItem.data}
