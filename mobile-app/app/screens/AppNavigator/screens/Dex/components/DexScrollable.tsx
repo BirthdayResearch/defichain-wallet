@@ -5,11 +5,11 @@ import { tailwind } from '@tailwind'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { PoolPairTextSectionV2 } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolPairTextSectionV2'
 import { View } from '@components'
-import { UnitSuffixPrefix } from '@screens/AppNavigator/screens/Dex/components/UnitSuffix'
 import { SwapButtonV2 } from '@screens/AppNavigator/screens/Dex/components/SwapButtonV2'
 import BigNumber from 'bignumber.js'
 import NumberFormat from 'react-number-format'
 import { FavoriteButton } from '@screens/AppNavigator/screens/Dex/components/FavoriteButton'
+import { useUnitSuffix } from '@hooks/useUnitSuffix'
 
 interface DexScrollableProps {
   containerStyle?: StyleProp<ViewStyle>
@@ -98,6 +98,7 @@ function TotalLiquidityValue ({
   testId
 }: { value: string | undefined, testId: string }): JSX.Element {
   const isSixDigits = new BigNumber(value ?? 0).gte(new BigNumber(1000000))
+  const valueToUnitSuffix = useUnitSuffix({ 6: 'M' }, value)
   return (
     <>
       {isSixDigits
@@ -108,11 +109,7 @@ function TotalLiquidityValue ({
     light={tailwind('text-mono-light-v2-900')}
     testID={`${testId}-total_liquidity`}
   >
-    <UnitSuffixPrefix
-      units={{ 6: 'M' }}
-      value={value}
-      prefix='$'
-    />
+    {valueToUnitSuffix !== undefined && `$${valueToUnitSuffix}`}
   </ThemedTextV2>
         )
 : (
