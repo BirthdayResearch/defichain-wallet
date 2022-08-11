@@ -48,7 +48,6 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
-  // const expectedBalance = BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)).minus(fee), 0).toFixed(8)
   const [isAcknowledge, setIsAcknowledge] = useState(false)
 
   useEffect(() => {
