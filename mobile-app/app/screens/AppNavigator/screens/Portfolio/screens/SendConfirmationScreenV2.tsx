@@ -107,7 +107,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
                 dark: tailwind('bg-transparent border-mono-dark-v2-300')
               }}
               lhs={{
-                value: translate('screens/ConvertConfirmScreen', 'Amount to convert'),
+                value: translate('screens/SendConfirmationScreen', 'Amount to convert'),
                 testID: 'amount_to_convert',
                 themedProps: {
                   light: tailwind('text-mono-light-v2-500'),
@@ -131,7 +131,12 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
                 dark={tailwind('text-mono-dark-v2-500')}
                 testID='conversion_status'
               >
-                {conversion?.isConversionRequired && conversion?.isConverted !== true ? 'Converting' : 'Converted'}
+                {
+                  translate('screens/ConvertConfirmScreen',
+                    conversion?.isConversionRequired && conversion?.isConverted !== true
+                      ? 'Converting'
+: 'Converted')
+                }
               </ThemedTextV2>
               {conversion?.isConversionRequired && conversion?.isConverted !== true && <ThemedActivityIndicatorV2 />}
               {
@@ -154,7 +159,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
             dark: tailwind('bg-transparent border-mono-dark-v2-300')
           }}
           lhs={{
-            value: translate('screens/ConvertConfirmScreen', 'Transaction fee'),
+            value: translate('screens/SendConfirmationScreen', 'Transaction fee'),
             testID: 'transaction_fee',
             themedProps: {
               light: tailwind('text-mono-light-v2-500'),
@@ -276,7 +281,7 @@ async function send ({
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
-      title: translate('screens/ConvertConfirmScreen', 'Sending {{amount}} {{displaySymbol}} to {{toAddress}}', {
+      title: translate('screens/SendConfirmationScreen', 'Sending {{amount}} {{displaySymbol}} to {{toAddress}}', {
         amount: amount.toFixed(8),
         displaySymbol: token.displaySymbol,
         toAddress: address

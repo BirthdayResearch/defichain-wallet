@@ -101,7 +101,7 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
               light={tailwind('text-mono-light-v2-500')}
               dark={tailwind('text-mono-dark-v2-500')}
             >
-              AVAILABLE
+              {translate('screens/TokenSelectionScreen', 'AVAILABLE')}
             </ThemedTextV2>}
           {filteredTokensWithBalance.length === 0 &&
             <ThemedTextV2
@@ -181,16 +181,16 @@ function EmptyAsset ({ navigation }: { navigation: NavigationProp<PortfolioParam
       <View style={tailwind('flex items-center')}>
         <Image source={ImageEmptyAssets} style={[tailwind('mt-12'), { width: 204, height: 96 }]} />
         <ThemedTextV2 style={tailwind('font-semibold-v2 text-xl mt-8')}>
-          No assets found
+          {translate('screens/TokenSelectionScreen', 'No assets found')}
         </ThemedTextV2>
         <ThemedTextV2 style={tailwind('mt-2')}>
-          Add asset to get started
+          {translate('screens/TokenSelectionScreen', 'Add assets to get started')}
         </ThemedTextV2>
       </View>
       <ButtonV2
         onPress={() => navigation.navigate('GetDFIScreen')}
         styleProps='w-full mb-14 pb-1'
-        label={translate('screens/TokenDetailScreen', 'Get DFI')}
+        label={translate('screens/GetDFIScreen', 'Get DFI')}
       />
     </View>
   )

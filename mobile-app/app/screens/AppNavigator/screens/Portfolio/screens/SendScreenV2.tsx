@@ -486,7 +486,7 @@ function AmountCard ({
         style={tailwind('pl-5 pb-2 text-xs font-normal-v2')}
         light={tailwind('text-mono-light-v2-500')}
         dark={tailwind('text-mono-dark-v2-500')}
-      >I WANT TO SEND
+      >{translate('screens/SendScreen', 'I WANT TO SEND')}
       </ThemedTextV2>
       <TransactionCard
         maxValue={maxAmount}
@@ -507,7 +507,7 @@ function AmountCard ({
                 light={tailwind('text-mono-light-v2-500')}
                 dark={tailwind('text-mono-dark-v2-500')}
                 style={tailwind('text-xs')}
-              >Available
+              >{translate('screens/SendScreen', 'Available')}
               </ThemedTextV2>
             </View>
           </View>
