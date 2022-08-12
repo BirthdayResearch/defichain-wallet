@@ -44,12 +44,10 @@ import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen
 import { TokensVsUtxoFaq } from './screens/TokensVsUtxoFaq'
 import {
   ConversionMode,
-  ConvertScreenV2,
+  ConvertScreen,
   ConvertTokenUnit
-} from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
-import {
-  ConvertConfirmationScreenV2
-} from '@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreenV2'
+} from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreen'
+import { ConvertConfirmationScreen } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreen'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -280,7 +278,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={ConvertScreenV2}
+        component={ConvertScreen}
         name='Convert'
         options={{
           ...screenOptions,
@@ -292,8 +290,8 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={ConvertConfirmationScreenV2}
-        name='ConvertConfirmationScreenV2'
+        component={ConvertConfirmationScreen}
+        name='ConvertConfirmationScreen'
         options={{
           ...screenOptions,
           headerRight: () => (
