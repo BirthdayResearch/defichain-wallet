@@ -15,8 +15,6 @@ interface SubmitButtonGroupItems {
   title: string
   label: string
   displayCancelBtn: boolean
-  isProcessing?: boolean
-  processingLabel?: string
   buttonStyle?: string
   onSubmit: () => Promise<void>
   onCancel?: () => void
@@ -29,14 +27,11 @@ export function SubmitButtonGroupV2 ({
   displayCancelBtn,
   title,
   label,
-  // isProcessing,
-  // processingLabel,
   onSubmit,
   onCancel
 }: SubmitButtonGroupItems): JSX.Element {
   const error = useSelector((state: RootState) => state.transactionQueue.err)
   const [intervalId, setIntervalId] = useState<ReturnType<typeof setInterval> | null>(null)
-  // const [counter, setCounter] = useState<number | null>(null)
   const [tryAgain, setTryAgain] = useState(false)
 
   // avoid setting up try again button on initial load
@@ -54,7 +49,6 @@ export function SubmitButtonGroupV2 ({
 
   const submit = (): void => {
     let count = TRY_AGAIN_TIMER_COUNT
-    // setCounter(count)
     if (intervalId !== null) {
       clearInterval(intervalId)
       setIntervalId(null)
@@ -62,12 +56,10 @@ export function SubmitButtonGroupV2 ({
     void onSubmit()
     const id: ReturnType<typeof setInterval> = setInterval(() => {
       count -= 1
-      // setCounter(count)
       if (count < 0) {
         updateTryAgainStat()
         clearInterval(id)
         setIntervalId(null)
-        // setCounter(null)
       }
     }, 1000)
     setIntervalId(id)
