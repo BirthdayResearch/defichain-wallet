@@ -50,13 +50,15 @@ interface DexScrollableCardProps {
   style?: StyleProp<ViewStyle>
   label: string
   onPress: (data: PoolPairData) => void
+  testId: string
 }
 
 function DexScrollableCard ({
   poolpair,
   style,
   onPress,
-  label
+  label,
+  testId
 }: DexScrollableCardProps): JSX.Element {
   const [symbolA, symbolB] = [poolpair.tokenA.displaySymbol, poolpair.tokenB.displaySymbol]
   return (
@@ -97,6 +99,7 @@ function DexScrollableCard ({
           onPress={onPress}
           label={label}
           style={tailwind('flex w-full w-36')}
+          testId={`Dex_Scrollable_Card_${testId}`}
         />
       </View>
     </ThemedViewV2>

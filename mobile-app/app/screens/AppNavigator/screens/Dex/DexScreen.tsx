@@ -336,6 +336,7 @@ function TopLiquiditySection ({ pairs, onPress }: DexScrollableSectionProps): JS
           style={tailwind('mr-2')}
           onPress={onPress}
           label={translate('screens/DexScreen', 'Swap')}
+          testId='Composite_Swap'
         />
       ))}
     </DexScrollable>
