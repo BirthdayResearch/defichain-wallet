@@ -7,14 +7,14 @@ interface PoolPairTextSectionProps {
   symbolA: string
   symbolB: string
   iconSize?: number
-  iconStyle?: StyleProp<ViewStyle>
+  iconBStyle?: StyleProp<ViewStyle>
 }
 
 export const PoolPairTextSectionV2 = React.memo(({
   symbolA,
   symbolB,
   iconSize = 40,
-  iconStyle = tailwind('-ml-3.5 mr-2')
+  iconBStyle = tailwind('-ml-3.5 mr-2')
 }: PoolPairTextSectionProps): JSX.Element => {
   return (
     <View style={tailwind('flex-row')}>
@@ -22,7 +22,7 @@ export const PoolPairTextSectionV2 = React.memo(({
         symbolA={symbolA}
         symbolB={symbolB}
         iconSize={iconSize}
-        iconStyle={iconStyle}
+        iconBStyle={iconBStyle}
       />
     </View>
   )
@@ -31,7 +31,7 @@ export function PoolPairIconV2 (props: {
   symbolA: string
   symbolB: string
   iconSize: number
-  iconStyle: StyleProp<ViewStyle>
+  iconBStyle: StyleProp<ViewStyle>
 }): JSX.Element {
   // To display dark pink DFI symbol for LP tokens
   const IconA = props.symbolA === 'DFI' ? getNativeIcon('_UTXO') : getNativeIcon(props.symbolA)
@@ -39,7 +39,7 @@ export function PoolPairIconV2 (props: {
   return (
     <>
       <IconA height={props.iconSize} width={props.iconSize} style={tailwind('relative z-10')} />
-      <IconB height={props.iconSize} width={props.iconSize} style={props.iconStyle} />
+      <IconB height={props.iconSize} width={props.iconSize} style={props.iconBStyle} />
     </>
   )
 }
