@@ -259,6 +259,11 @@ export function PortfolioNavigator (): JSX.Element {
               containerTestID={headerContainerTestId}
             />
           ),
+          ...(isFeatureAvailable('send_v2')) && {
+            headerRight: () => (
+              <HeaderNetworkStatus onPress={goToNetworkSelect} />
+            )
+          },
           headerBackTitleVisible: false
         }}
       />
@@ -274,6 +279,11 @@ export function PortfolioNavigator (): JSX.Element {
               containerTestID={headerContainerTestId}
             />
           ),
+          ...(isFeatureAvailable('send_v2')) && {
+            headerRight: () => (
+              <HeaderNetworkStatus onPress={goToNetworkSelect} />
+            )
+          },
           headerBackTitleVisible: false
         }}
       />
@@ -289,6 +299,11 @@ export function PortfolioNavigator (): JSX.Element {
               containerTestID={headerContainerTestId}
             />
           ),
+          ...(isFeatureAvailable('send_v2')) && {
+            headerRight: () => (
+              <HeaderNetworkStatus onPress={goToNetworkSelect} />
+            )
+          },
           headerBackTitleVisible: false
         }}
       />
