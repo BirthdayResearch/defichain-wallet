@@ -169,6 +169,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
           <TransactionCard
             maxValue={new BigNumber(sourceToken.amount)} status={transactionCardStatus}
             onChange={onPercentagePress}
+            onPercentageChange={() => {}}
             containerStyle={tailwind('rounded-t-lg-v2 px-5 pt-2 mr-px')}
             amountButtonsStyle={tailwind('border-t-0.5')}
           >

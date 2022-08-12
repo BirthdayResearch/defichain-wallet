@@ -213,7 +213,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
               onChange={(amount) => {
                 buildSummary(amount)
               }}
-              onPercentageChange={onPercentagePress}
+              onPercentageChange={(amount, type) => onPercentagePress(amount, type)}
               symbol={pair.tokenA.displaySymbol}
               setIsInputFocus={setIsInputFocus}
               status={transactionCardStatus}
@@ -361,6 +361,7 @@ function RemoveLiquidityInputCard (
       <TransactionCard
         maxValue={props.balance}
         onChange={props.onPercentageChange}
+        onPercentageChange={() => {}}
         status={props.status}
         containerStyle={tailwind('border-b-0.5')}
       >
