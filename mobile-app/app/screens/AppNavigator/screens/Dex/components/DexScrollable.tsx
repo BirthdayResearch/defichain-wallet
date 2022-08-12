@@ -96,7 +96,7 @@ function DexScrollableCard ({
           pair={poolpair}
           onPress={onPress}
           label={label}
-          style={tailwind('flex w-full')}
+          style={tailwind('flex w-full w-36')}
         />
       </View>
     </ThemedViewV2>
