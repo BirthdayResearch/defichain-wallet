@@ -269,6 +269,7 @@
     "Amount to send": "發送金額"
   },
   "screens/ConvertScreen": {
+    "Convert": "轉換",
     "Convert DFI": "轉換DFI",
     "Scan recipient QR": "掃一掃收方地址QR二維條碼",
     "Balance": "總資金",
@@ -294,6 +295,7 @@
     "Resulting {{unit}}": "轉換後 {{unit}}"
   },
   "screens/ConvertConfirmScreen": {
+    "Confirm": "確認",
     "Confirm DFI Conversion": "確認要轉換 DFI",
     "You are converting": "您正要轉換",
     "AFTER CONVERSION, YOU WILL HAVE": "轉換後您會有",
