@@ -126,7 +126,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
             />
             <View style={tailwind('flex flex-row text-right items-center justify-end')}>
               <ThemedTextV2
-                style={tailwind('mr-1.5')}
+                style={tailwind('mr-1.5 font-normal-v2')}
                 light={tailwind('text-mono-light-v2-500')}
                 dark={tailwind('text-mono-dark-v2-500')}
                 testID='conversion_status'
@@ -232,7 +232,7 @@ function LpAcknowledgeSwitch (props: { isAcknowledge: boolean, onSwitch: (val: b
         testID='lp_ack_switch'
       />
       <ThemedTextV2
-        style={tailwind('ml-4 flex-1 text-xs')}
+        style={tailwind('ml-4 flex-1 text-xs font-normal-v2')}
         light={tailwind('text-mono-light-v2-700')}
         dark={tailwind('text-mono-dark-v2-700')}
       >

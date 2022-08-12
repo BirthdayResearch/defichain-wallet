@@ -92,7 +92,7 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
 
           {(!hasFetchedToken || filteredTokensWithBalance.length > 0) &&
             <ThemedTextV2
-              style={tailwind('text-xs pl-5 mt-6 mb-2')}
+              style={tailwind('text-xs pl-5 mt-6 mb-2 font-normal-v2')}
               light={tailwind('text-mono-light-v2-500')}
               dark={tailwind('text-mono-dark-v2-500')}
             >
@@ -104,7 +104,7 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
 
           {hasFetchedToken && filteredTokensWithBalance.length === 0 &&
             <ThemedTextV2
-              style={tailwind('text-xs pl-5 mt-8')}
+              style={tailwind('text-xs pl-5 mt-8 font-normal-v2')}
               light={tailwind('text-mono-light-v2-700')}
               dark={tailwind('text-mono-dark-v2-700')}
               testID='empty_search_result_text'
@@ -147,7 +147,7 @@ const TokenSelectionRow = ({ item, onPress }: TokenSelectionRowProps): JSX.Eleme
           <ThemedTextV2
             light={tailwind('text-mono-light-v2-700')}
             dark={tailwind('text-mono-dark-v2-700')}
-            style={tailwind(['text-xs', { hidden: item.token.name === '' }])}
+            style={tailwind(['text-xs font-normal-v2', { hidden: item.token.name === '' }])}
           >
             {item.token.name}
           </ThemedTextV2>
@@ -183,7 +183,7 @@ function EmptyAsset ({ navigation }: { navigation: NavigationProp<PortfolioParam
         <ThemedTextV2 testID='no_asset_text' style={tailwind('font-semibold-v2 text-xl mt-8')}>
           {translate('screens/TokenSelectionScreen', 'No assets found')}
         </ThemedTextV2>
-        <ThemedTextV2 testID='no_asset_sub_text' style={tailwind('mt-2')}>
+        <ThemedTextV2 testID='no_asset_sub_text' style={tailwind('mt-2 font-normal-v2')}>
           {translate('screens/TokenSelectionScreen', 'Add assets to get started')}
         </ThemedTextV2>
       </View>

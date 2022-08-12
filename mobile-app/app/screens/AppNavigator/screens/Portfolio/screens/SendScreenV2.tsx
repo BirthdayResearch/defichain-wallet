@@ -158,7 +158,7 @@ export function SendScreenV2 ({
 
     return {
       infoText: translate('screens/SendScreen', infoText),
-      infoTextThemedProps: { ...themedProps, style: tailwind('text-xs mt-2 ml-5') }
+      infoTextThemedProps: { ...themedProps, style: tailwind('text-xs mt-2 ml-5 font-normal-v2') }
     }
   }, [token, isReservedUtxoUsed, amountToSend])
 
@@ -286,7 +286,7 @@ export function SendScreenV2 ({
                   }
                 }) => (
                   <ThemedTextInputV2
-                    style={tailwind('text-3xl text-center')}
+                    style={tailwind('text-3xl text-center font-semibold-v2')}
                     light={tailwind('text-mono-light-v2-900')}
                     dark={tailwind('text-mono-dark-v2-900')}
                     keyboardType='numeric'
@@ -371,7 +371,7 @@ export function SendScreenV2 ({
                   size={16}
                 />
                 <ThemedTextV2
-                  style={tailwind('text-xs mx-1')}
+                  style={tailwind('text-xs mx-1 font-normal-v2')}
                   light={tailwind('text-mono-light-v2-500')}
                   dark={tailwind('text-mono-dark-v2-500')}
                 >
@@ -390,7 +390,7 @@ export function SendScreenV2 ({
                     <RandomAvatar name={matchedAddress.address} size={12} />
                   </ThemedViewV2>
                   <ThemedTextV2
-                    style={tailwind('text-xs ml-1')}
+                    style={tailwind('text-xs ml-1 font-normal-v2')}
                     light={tailwind('text-mono-light-v2-500')}
                     dark={tailwind('text-mono-dark-v2-500')}
                     testID='address_input_footer'
@@ -409,7 +409,7 @@ export function SendScreenV2 ({
               testID='transaction_details_info_text'
               light={tailwind('text-mono-light-v2-500')}
               dark={tailwind('text-mono-dark-v2-500')}
-              style={tailwind('mt-2 text-xs text-center')}
+              style={tailwind('mt-2 text-xs text-center font-normal-v2')}
             >
               {isConversionRequired
                 ? translate('screens/SendScreen', 'By continuing, the required amount of DFI will be converted')
@@ -545,13 +545,13 @@ function AmountCard ({
             <Icon height={32} width={32} />
             <View style={tailwind('flex ml-2')}>
               <ThemedTextV2>
-                <ThemedTextV2 style={tailwind('font-bold')} testID='max_value'>{maxAmount.toFixed(8)}</ThemedTextV2>
-                <ThemedTextV2 style={tailwind('font-bold')} testID='max_value_display_symbol'>{` ${token.displaySymbol}`}</ThemedTextV2>
+                <ThemedTextV2 style={tailwind('font-semibold-v2')} testID='max_value'>{maxAmount.toFixed(8)}</ThemedTextV2>
+                <ThemedTextV2 style={tailwind('font-semibold-v2')} testID='max_value_display_symbol'>{` ${token.displaySymbol}`}</ThemedTextV2>
               </ThemedTextV2>
               <ThemedTextV2
                 light={tailwind('text-mono-light-v2-500')}
                 dark={tailwind('text-mono-dark-v2-500')}
-                style={tailwind('text-xs')}
+                style={tailwind('text-xs font-normal-v2')}
               >{translate('screens/SendScreen', 'Available')}
               </ThemedTextV2>
             </View>
