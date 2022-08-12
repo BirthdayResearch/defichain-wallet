@@ -140,9 +140,9 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
                       : 'Converted')
                 }
               </ThemedTextV2>
-              {conversion?.isConversionRequired && conversion?.isConverted !== true && <ThemedActivityIndicatorV2 />}
+              {conversion?.isConverted !== true && <ThemedActivityIndicatorV2 />}
               {
-                conversion?.isConversionRequired && conversion?.isConverted === true &&
+                conversion?.isConverted === true &&
                   <ThemedIcon
                     light={tailwind('text-success-600')}
                     dark={tailwind('text-darksuccess-600')}
