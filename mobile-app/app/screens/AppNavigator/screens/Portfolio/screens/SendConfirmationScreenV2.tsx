@@ -106,9 +106,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
           >
             <NumberRowV2
               containerStyle={{
-                style: tailwind('flex-row items-start w-full bg-transparent '),
-                light: tailwind('bg-transparent'),
-                dark: tailwind('bg-transparent')
+                style: tailwind('flex-row items-start w-full bg-transparent')
               }}
               lhs={{
                 value: translate('screens/SendConfirmationScreen', 'Amount to convert'),

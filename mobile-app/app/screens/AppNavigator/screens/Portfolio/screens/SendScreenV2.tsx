@@ -129,7 +129,9 @@ export function SendScreenV2 ({
   }, [amountToSend, token])
 
   const { infoText, infoTextThemedProps } = useMemo(() => {
-    let infoText; let themedProps; let status = TransactionCardStatus.Default
+    let infoText
+    let themedProps
+    let status = TransactionCardStatus.Default
 
     if (new BigNumber(amountToSend).isGreaterThan(token?.amount ?? 0)) {
       infoText = 'Insufficient balance'

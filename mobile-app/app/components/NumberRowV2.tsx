@@ -31,14 +31,9 @@ export interface NumberRowElement {
 export function NumberRowV2 (props: INumberRowProps): JSX.Element {
   return (
     <ThemedView
-      {
-        ...((props.containerStyle != null)
-          ? props.containerStyle
-          : {
-            style: tailwind('flex-row items-start w-full bg-transparent'),
-            light: tailwind('bg-transparent'),
-            dark: tailwind('bg-transparent')
-          })}
+      style={props.containerStyle?.style ?? tailwind('flex-row items-start w-full bg-transparent')}
+      light={props.containerStyle?.light ?? tailwind('bg-transparent')}
+      dark={props.containerStyle?.dark ?? tailwind('bg-transparent')}
     >
       <View style={tailwind('w-5/12')}>
         <View style={tailwind('flex-row items-end justify-start')}>
