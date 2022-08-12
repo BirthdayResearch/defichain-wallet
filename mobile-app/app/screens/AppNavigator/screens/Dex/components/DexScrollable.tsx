@@ -71,7 +71,7 @@ function DexScrollableCard ({
           symbolA={symbolA}
           symbolB={symbolB}
           iconSize={36}
-          iconStyle={tailwind('-ml-4 mr-2')}
+          iconBStyle={tailwind('-ml-4 mr-2')}
         />
         <View style={tailwind('flex flex-col')}>
           <ThemedTextV2
