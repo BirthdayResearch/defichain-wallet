@@ -504,7 +504,7 @@
     "Transaction": "Transaktion",
     "Type": "Type",
     "Amount": "Montant",
-    "Block": "Block",
+    "Block": "Bloc",
     "Date": "Date",
     "Received": "Reçues",
     "Sent": "Envoyés"
@@ -1174,7 +1174,7 @@
     "VAULT DETAILS": "DÉTAILS DU VAULT",
     "Vault ID": "Vault ID",
     "Owner ID": "ID du propriétaire",
-    "Liquidation height": "Hauteur de block de liquidation",
+    "Liquidation height": "Hauteur de bloc de liquidation",
     "ADDITIONAL DETAILS": "DÉTAILS ADDITIONNELS",
     "Collateral value (USD)": "Valeur de la garantie (USD)",
     "Auction start": "Ouverture de l'enchère",
@@ -1224,7 +1224,7 @@
   "components/AuctionTimeProgress": {
     "Auction ends in": "L'enchère se termine dans",
     "Auction time left": "Temps restant",
-    "{{block}} blks": "{{block}} Blocs",
+    "{{block}} blks": "{{block}} blocs",
     "~{{time}} left": "~{{time}} restant",
     "Auction time remaining": "Temps restant"
   },
@@ -1631,7 +1631,7 @@
     "Total auction value (USD)": "Valeur totale mise en vente (USD)",
     "Vault ID": "Vault n°",
     "Vault owner ID": "ID du propriétaire du vault",
-    "Liquidation Height": "Hauteur de block de liquidation",
+    "Liquidation Height": "Hauteur de bloc de liquidation",
     "CONFIRM PLACE BID": "CONFIRMER ENCHÈRE",
     "Sign Transaction": "Autoriser la transaction",
     "Placing {{amount}} {{token}} as bid for auction.": "Placer une enchère de {{amount}} {{token}}.",
