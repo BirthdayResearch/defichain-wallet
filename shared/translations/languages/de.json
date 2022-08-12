@@ -834,7 +834,7 @@
     "ADDING": "WIRD HINZUGEFÜGT",
     "Pooled {{symbol}}": "{{symbol}} im Pool",
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "Füge {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} hinzu",
-    "Adding {{amountA}} LP tokens to  {{symbolA}}-{{symbolB}}": "Hinzufügen von xxx LP-Token zu {{symbolA}}-{{symbolB}} Liquiditätspool",
+    "Adding {{amountA}} LP tokens to {{symbolA}}-{{symbolB}}": "Hinzufügen von xxx LP-Token zu {{symbolA}}-{{symbolB}} Liquiditätspool",
     "PRICE DETAILS": "PREISDETAILS",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} Preis pro {{tokenB}}",
     "Your pooled {{symbol}}": "Deine {{symbol}} im Pool",
