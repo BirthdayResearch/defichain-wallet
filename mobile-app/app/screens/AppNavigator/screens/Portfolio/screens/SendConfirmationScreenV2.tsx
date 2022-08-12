@@ -21,7 +21,7 @@ import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { useAddressLabel } from '@hooks/useAddressLabel'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { View } from '@components'
-import { ThemedActivityIndicatorV2, ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedViewV2 } from '@components/themed'
+import { ThemedActivityIndicatorV2, ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedView, ThemedViewV2 } from '@components/themed'
 import { SummaryTitleV2 } from '@components/SummaryTitleV2'
 import { NumberRowV2 } from '@components/NumberRowV2'
 import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
@@ -99,12 +99,16 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
         />
 
         {conversion?.isConversionRequired === true &&
-          <>
+          <ThemedView
+            style={tailwind('border-t-0.5 pt-5 mt-8 mb-2')}
+            light={tailwind('bg-transparent border-mono-light-v2-300')}
+            dark={tailwind('bg-transparent border-mono-dark-v2-300')}
+          >
             <NumberRowV2
               containerStyle={{
-                style: tailwind('flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-8'),
-                light: tailwind('bg-transparent border-mono-light-v2-300'),
-                dark: tailwind('bg-transparent border-mono-dark-v2-300')
+                style: tailwind('flex-row items-start w-full bg-transparent '),
+                light: tailwind('bg-transparent'),
+                dark: tailwind('bg-transparent')
               }}
               lhs={{
                 value: translate('screens/SendConfirmationScreen', 'Amount to convert'),
@@ -126,7 +130,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
             />
             <View style={tailwind('flex flex-row text-right items-center justify-end')}>
               <ThemedTextV2
-                style={tailwind('mr-1.5 font-normal-v2')}
+                style={tailwind('mr-1.5 text-sm font-normal-v2')}
                 light={tailwind('text-mono-light-v2-500')}
                 dark={tailwind('text-mono-dark-v2-500')}
                 testID='conversion_status'
@@ -150,11 +154,11 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
                   />
               }
             </View>
-          </>}
+          </ThemedView>}
 
         <NumberRowV2
           containerStyle={{
-            style: tailwind('flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-8'),
+            style: tailwind('flex-row items-start w-full bg-transparent border-t-0.5 pt-5', { 'mt-8': conversion?.isConversionRequired !== true }),
             light: tailwind('bg-transparent border-mono-light-v2-300'),
             dark: tailwind('bg-transparent border-mono-dark-v2-300')
           }}
