@@ -15,8 +15,13 @@ import { getPrecisedCurrencyValue, getPrecisedTokenValue } from '../../Auctions/
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { NumberRowV2 } from '@components/NumberRowV2'
+
+export enum DataRoutes {
+  AddLiquidity = 'ADD_LIQUIDITY',
+  RemoveLiquidity = 'REMOVE_LIQUIDITY',
+}
 interface ViewPoolDetailsProps {
-  dataRoutes: 'add' | 'remove'
+  dataRoutes: DataRoutes
   pairData: PoolPairData
   pairInfo: WalletToken
 }
@@ -50,7 +55,7 @@ export const ViewPoolDetails = ({
         </ThemedTextV2>
       </View>
 
-      {dataRoutes === 'add'
+      {dataRoutes === DataRoutes.AddLiquidity
         ? (
           <AddLiquidityDetails
             pairData={pairData}

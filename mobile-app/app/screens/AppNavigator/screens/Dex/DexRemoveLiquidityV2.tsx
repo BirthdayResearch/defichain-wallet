@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js'
 import { useEffect, useState, useCallback, useRef, useMemo } from 'react'
 import { Platform, View } from 'react-native'
 import { useSelector } from 'react-redux'
-import { ThemedScrollView, ThemedTextV2, ThemedViewV2, ThemedTouchableOpacityV2, ThemedIcon } from '@components/themed'
+import { ThemedScrollViewV2, ThemedTextV2, ThemedViewV2, ThemedTouchableOpacityV2, ThemedIcon } from '@components/themed'
 import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -18,8 +18,8 @@ import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/typ
 import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/BottomSheetWithNavV2'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { ViewPoolHeader } from './components/ViewPoolHeader'
-import { ViewPoolDetails } from './components/ViewPoolDetails'
-import { TransactionCardWalletTextInputV2 } from '@components/TransactionCardWalletTextInputV2'
+import { ViewPoolDetails, DataRoutes } from './components/ViewPoolDetails'
+import { WalletTransactionCardTextInput } from '@components/WalletTransactionCardTextInput'
 import { TransactionCard, AmountButtonTypes, TransactionCardStatus } from '@components/TransactionCard'
 import { getNativeIcon } from '@components/icons/assets'
 import { InputHelperTextV2 } from '@components/InputHelperText'
@@ -52,7 +52,6 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   const [hasError, setHasError] = useState(false)
   const [isInputFocus, setIsInputFocus] = useState(false)
   const [tokenToRemove, setTokenToRemove] = useState<string>('')
-  const [percentageType, setPercentageType] = useState<string | undefined>()
   const TOAST_DURATION = 2000
 
   // breakdown summary state
@@ -90,17 +89,12 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   }, [tokenToRemove])
 
   function onPercentagePress (amount: string, type: AmountButtonTypes): void {
-    setPercentageType(amount)
+    buildSummary(amount)
     showToast(type)
   }
 
   function showToast (type: AmountButtonTypes): void {
-    if (percentageType === undefined) {
-      return
-    }
-
     toast.hideAll()
-
     const isMax = type === AmountButtonTypes.Max
     const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
       const toastOption = {
@@ -162,7 +156,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
       {
         stackScreenName: 'ViewPoolShare',
         component: ViewPoolDetails({
-          dataRoutes: 'remove',
+          dataRoutes: DataRoutes.RemoveLiquidity,
           pairData: pair,
           pairInfo: pairInfo
         }),
@@ -201,7 +195,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
 
   return (
     <View ref={containerRef} style={tailwind('flex-col flex-1')}>
-      <ThemedScrollView ref={ref} contentContainerStyle={tailwind('flex-grow py-8 mx-5 justify-between')} style={tailwind('w-full')}>
+      <ThemedScrollViewV2 ref={ref} contentContainerStyle={tailwind('flex-grow py-8 mx-5 justify-between')} style={tailwind('w-full')}>
         <View>
           <ViewPoolHeader
             tokenASymbol={pair.tokenA.displaySymbol}
@@ -334,7 +328,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
               enablePanDown
             />
           )}
-      </ThemedScrollView>
+      </ThemedScrollViewV2>
     </View>
   )
 }
@@ -360,18 +354,15 @@ function RemoveLiquidityInputCard (
       <ThemedTextV2
         light={tailwind('text-mono-light-v2-500')}
         dark={tailwind('text-mono-dark-v2-500')}
-        style={tailwind('px-4 text-xs pb-2')}
+        style={tailwind('px-4 text-xs pb-2 font-normal-v2')}
       >
         {translate('screens/RemoveLiquidity', 'I WANT TO REMOVE')}
       </ThemedTextV2>
       <TransactionCard
         maxValue={props.balance}
-        onChange={(amount) => {
-          props.onChange(amount)
-        }}
+        onChange={props.onPercentageChange}
         status={props.status}
         containerStyle={tailwind('border-b-0.5')}
-        onPercentageChange={props.onPercentageChange}
       >
         <ThemedViewV2
           light={tailwind('border-mono-light-v2-300')}
@@ -382,12 +373,11 @@ function RemoveLiquidityInputCard (
             <IconA height={20} width={20} style={tailwind('relative z-50')} />
             <IconB height={20} width={20} style={tailwind('absolute ml-3 z-40')} />
           </View>
-          <TransactionCardWalletTextInputV2
+          <WalletTransactionCardTextInput
             onFocus={isFocus}
             onBlur={isFocus}
             onChangeText={txt => props.onChange(txt)}
             placeholder='0.00'
-            style={tailwind('flex-grow w-2/5')}
             value={props.current}
             inputType='numeric'
             displayClearButton={props.current !== ''}
@@ -403,7 +393,7 @@ function RemoveLiquidityInputCard (
             <ThemedTextV2
               light={tailwind('text-red-v2')}
               dark={tailwind('text-red-v2')}
-              style={tailwind('px-4 text-sm')}
+              style={tailwind('px-4 text-xs pt-1 font-normal-v2')}
             >
               {`${translate('screens/AddLiquidity', 'Insufficient balance')}`}
             </ThemedTextV2>

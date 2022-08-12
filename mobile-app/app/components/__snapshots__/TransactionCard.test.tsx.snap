@@ -149,9 +149,15 @@ exports[`Transaction Card should match snapshot 1`] = `
               },
               Array [
                 Object {
+<<<<<<< HEAD
+                  "fontFamily": "SoraSemiBold",
+                  "fontSize": 12,
+                  "fontWeight": "600",
+=======
                   "fontFamily": "BoldFont",
                   "fontSize": 12,
                   "fontWeight": "700",
+>>>>>>> chloe/add-liquidity-2.0
                   "lineHeight": 16,
                   "paddingLeft": 28,
                   "paddingRight": 28,
@@ -219,9 +225,15 @@ exports[`Transaction Card should match snapshot 1`] = `
               },
               Array [
                 Object {
+<<<<<<< HEAD
+                  "fontFamily": "SoraSemiBold",
+                  "fontSize": 12,
+                  "fontWeight": "600",
+=======
                   "fontFamily": "BoldFont",
                   "fontSize": 12,
                   "fontWeight": "700",
+>>>>>>> chloe/add-liquidity-2.0
                   "lineHeight": 16,
                   "paddingLeft": 28,
                   "paddingRight": 28,
@@ -289,9 +301,15 @@ exports[`Transaction Card should match snapshot 1`] = `
               },
               Array [
                 Object {
+<<<<<<< HEAD
+                  "fontFamily": "SoraSemiBold",
+                  "fontSize": 12,
+                  "fontWeight": "600",
+=======
                   "fontFamily": "BoldFont",
                   "fontSize": 12,
                   "fontWeight": "700",
+>>>>>>> chloe/add-liquidity-2.0
                   "lineHeight": 16,
                   "paddingLeft": 28,
                   "paddingRight": 28,
@@ -357,9 +375,15 @@ exports[`Transaction Card should match snapshot 1`] = `
               },
               Array [
                 Object {
+<<<<<<< HEAD
+                  "fontFamily": "SoraSemiBold",
+                  "fontSize": 12,
+                  "fontWeight": "600",
+=======
                   "fontFamily": "BoldFont",
                   "fontSize": 12,
                   "fontWeight": "700",
+>>>>>>> chloe/add-liquidity-2.0
                   "lineHeight": 16,
                   "paddingLeft": 28,
                   "paddingRight": 28,

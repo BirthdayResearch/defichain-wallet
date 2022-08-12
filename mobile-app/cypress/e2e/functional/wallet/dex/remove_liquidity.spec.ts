@@ -255,7 +255,7 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
     cy.getByTestID('lp_tokens_to_remove_amount').should('have.text', oldAmount)
     cy.getByTestID('button_confirm_remove').click().wait(2000)
     // Check for authorization page description
-    cy.getByTestID('txn_authorization_description')
+    cy.getByTestID('txn_authorization_title')
       .contains(`Removing ${new BigNumber(oldAmount).toFixed(8)} LP tokens from ${tokensPair}`)
 
     // Cancel send on authorisation page
@@ -282,7 +282,7 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
     cy.getByTestID('text_remove_liquidity_amount').should('have.text', newAmount)
     cy.getByTestID('button_confirm_remove').click().wait(2000)
     // Check for authorization page description
-    cy.getByTestID('txn_authorization_description')
+    cy.getByTestID('txn_authorization_title')
       .contains(`Removing ${new BigNumber(newAmount).toFixed(8)} LP tokens from ${tokensPair}`)
     cy.closeOceanInterface()
   })

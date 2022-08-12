@@ -16,9 +16,11 @@ import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { AddLiquidityScreenV2 } from './DexAddLiquidityV2'
 import { ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
+import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
 import { RemoveLiquidityScreenV2 } from './DexRemoveLiquidityV2'
+import { RemoveLiquidityConfirmScreen } from './DexConfirmRemoveLiquidity'
 import { RemoveLiquidityConfirmScreenV2 } from './DexConfirmRemoveLiquidityV2'
-
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 export interface DexParamList {
   DexScreen: undefined
   CompositeSwapScreen: {
@@ -98,6 +100,7 @@ export function DexNavigator (): JSX.Element {
     navigation.navigate('NetworkSelectionScreen')
   }
   const screenOptions = useNavigatorScreenOptions()
+  const { isFeatureAvailable } = useFeatureFlagContext()
 
   return (
     <DexStack.Navigator
@@ -146,7 +149,7 @@ export function DexNavigator (): JSX.Element {
       />
 
       <DexStack.Screen
-        component={RemoveLiquidityScreenV2}
+        component={isFeatureAvailable('remove_liquidity_v2') ? RemoveLiquidityScreenV2 : RemoveLiquidityScreen}
         name='RemoveLiquidity'
         options={{
           ...screenOptions,
@@ -158,7 +161,7 @@ export function DexNavigator (): JSX.Element {
       />
 
       <DexStack.Screen
-        component={RemoveLiquidityConfirmScreenV2}
+        component={isFeatureAvailable('remove_liquidity_v2') ? RemoveLiquidityConfirmScreenV2 : RemoveLiquidityConfirmScreen}
         name='RemoveLiquidityConfirmScreen'
         options={{
           ...screenOptions,

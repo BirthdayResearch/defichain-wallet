@@ -6,8 +6,7 @@ import { StyleProp, ViewStyle } from 'react-native'
 
 interface TransactionCardProps {
   maxValue: BigNumber
-  onChange: (amount: string) => void
-  onPercentageChange: (amount: string, type: AmountButtonTypes) => void
+  onChange: (amount: string, type: AmountButtonTypes) => void
   status?: TransactionCardStatus
   containerStyle?: StyleProp<ViewStyle>
   amountButtonsStyle?: StyleProp<ViewStyle>
@@ -29,7 +28,6 @@ export enum TransactionCardStatus {
 export function TransactionCard ({
   maxValue,
   onChange,
-  onPercentageChange,
   status,
   containerStyle,
   amountButtonsStyle,
@@ -50,7 +48,7 @@ export function TransactionCard ({
       <ThemedViewV2
         light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-300')}
         dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-300')}
-        style={[tailwind('pl-5 pr-5 pt-2 mr-px rounded-t-lg-v2'), containerStyle]}  
+        style={[tailwind('pl-5 pr-5 pt-2 mr-px rounded-t-lg-v2'), containerStyle]}
       >
         {children}
       </ThemedViewV2>
@@ -66,7 +64,6 @@ export function TransactionCard ({
                 key={type}
                 amount={maxValue}
                 onPress={onChange}
-                onPercentagePress={onPercentageChange}
                 type={type}
                 hasBorder={length - 1 !== index}
               />
@@ -80,8 +77,7 @@ export function TransactionCard ({
 
 interface SetAmountButtonProps {
   type: AmountButtonTypes
-  onPercentagePress: (amount: string, type: AmountButtonTypes) => void
-  onPress: (amount: string) => void
+  onPress: (amount: string, type: AmountButtonTypes) => void
   amount: BigNumber
   hasBorder?: boolean
 }
@@ -89,7 +85,6 @@ interface SetAmountButtonProps {
 function SetAmountButton ({
   type,
   onPress,
-  onPercentagePress,
   amount,
   hasBorder
 }: SetAmountButtonProps): JSX.Element {
@@ -115,8 +110,7 @@ function SetAmountButton ({
     <ThemedTouchableOpacityV2
       style={tailwind('border-0')}
       onPress={() => {
-        onPress(value)
-        onPercentagePress(value, type)
+        onPress(value, type)
       }}
       testID={`${type}_amount_button`}
     >
