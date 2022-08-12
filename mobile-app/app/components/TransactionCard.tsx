@@ -13,6 +13,7 @@ interface TransactionCardProps {
   amountButtonsStyle?: StyleProp<ViewStyle>
 }
 
+// hello
 export enum AmountButtonTypes {
   TwentyFive = '25%',
   Half = '50%',
