@@ -15,6 +15,14 @@ import { CompositeSwapScreen, OwnedTokenState, TokenState } from './CompositeSwa
 import { CompositeSwapForm, ConfirmCompositeSwapScreen } from './CompositeSwap/ConfirmCompositeSwapScreen'
 import { WalletToken } from '@store/wallet'
 import { ConversionParam } from '../Portfolio/PortfolioNavigator'
+import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
+import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { tailwind } from '@tailwind'
+import { ThemedTextV2 } from '@components/themed'
+import { StyleProp, ViewStyle } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { NetworkSelectionScreen } from '../Settings/screens/NetworkSelectionScreen'
 
 export interface DexParamList {
   DexScreen: undefined
@@ -83,7 +91,13 @@ export interface AddLiquiditySummary {
 const DexStack = createStackNavigator<DexParamList>()
 
 export function DexNavigator (): JSX.Element {
+  const navigation = useNavigation<NavigationProp<DexParamList>>()
   const headerContainerTestId = 'dex_header_container'
+  const screenOptions = useNavigatorScreenOptions()
+  const goToNetworkSelect = (): void => {
+    navigation.navigate('NetworkSelectionScreen')
+  }
+  const insets = useSafeAreaInsets()
 
   return (
     <DexStack.Navigator
@@ -98,12 +112,38 @@ export function DexNavigator (): JSX.Element {
         component={DexScreen}
         name='DexScreen'
         options={{
+          ...screenOptions,
+          headerLeft: undefined,
+          headerLeftContainerStyle: null,
+          headerTitleAlign: 'left',
+          headerBackTitleVisible: false,
+          headerTitleContainerStyle: tailwind('mt-4 ml-5'),
+          headerStyle: [screenOptions.headerStyle, tailwind('rounded-b-none border-b-0'), { shadowOpacity: 0, height: 96 + insets.top }],
           headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Decentralized Exchange')}
-              containerTestID={headerContainerTestId}
-            />
+            <ThemedTextV2
+              style={[
+                screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
+                tailwind('text-left text-3xl font-semibold-v2'),
+                { fontSize: 28 }
+              ]}
+            >
+              {translate('screens/DexScreen', 'Decentralized Exchange')}
+            </ThemedTextV2>
+          ),
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           )
+        }}
+      />
+
+      <DexStack.Screen
+        component={NetworkSelectionScreen}
+        name='NetworkSelectionScreen'
+        options={{
+          ...screenOptions,
+          headerTitle: translate('screens/NetworkSelectionScreen', 'Network'),
+          headerBackTitleVisible: false,
+          headerRight: undefined
         }}
       />
 

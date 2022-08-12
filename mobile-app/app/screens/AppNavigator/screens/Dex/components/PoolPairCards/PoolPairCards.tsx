@@ -159,7 +159,7 @@ export function PoolPairCards ({
     <ThemedFlatList
       light={tailwind('bg-gray-50')}
       dark={tailwind('bg-gray-900')}
-      contentContainerStyle={tailwind('p-4 pb-2')}
+      contentContainerStyle={tailwind('py-4 px-5 pb-2')}
       ref={ref}
       data={type === 'your' ? filteredYourPairs : sortedPairs}
       numColumns={1}
