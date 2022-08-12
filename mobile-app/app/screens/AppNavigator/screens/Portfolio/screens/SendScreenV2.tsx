@@ -259,6 +259,11 @@ export function SendScreenV2 ({
     }
   }
 
+  const onAmountChange = async (amount: string): Promise<void> => {
+    setValue('amount', amount, { shouldDirty: true })
+    await trigger('amount')
+  }
+
   return (
     <View style={tailwind('h-full')}>
       <ThemedScrollViewV2 contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'>
@@ -287,6 +292,7 @@ export function SendScreenV2 ({
                     keyboardType='numeric'
                     value={value}
                     onChange={onChange}
+                    onChangeText={onAmountChange}
                     placeholder='0'
                     placeholderTextColor={getColor(isLight ? 'mono-light-v2-900' : 'mono-dark-v2-900')}
                     testID='amount_input'
