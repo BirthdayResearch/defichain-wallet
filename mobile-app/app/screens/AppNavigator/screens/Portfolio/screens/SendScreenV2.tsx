@@ -277,7 +277,7 @@ export function SendScreenV2 ({
             <View style={tailwind('my-12 items-center')}>
               <Controller
                 control={control}
-                defaultValue='0'
+                defaultValue=''
                 name='amount'
                 render={({
                   field: {
@@ -293,7 +293,7 @@ export function SendScreenV2 ({
                     value={value}
                     onChange={onChange}
                     onChangeText={onAmountChange}
-                    placeholder='0'
+                    placeholder='0.00'
                     placeholderTextColor={getColor(isLight ? 'mono-light-v2-900' : 'mono-dark-v2-900')}
                     testID='amount_input'
                   />
