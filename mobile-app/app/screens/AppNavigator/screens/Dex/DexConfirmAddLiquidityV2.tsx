@@ -8,9 +8,9 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
-import { ThemedScrollViewV2, ThemedViewV2 } from '@components/themed'
+import { ThemedActivityIndicatorV2, ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { RootState } from '@store'
-import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -29,7 +29,6 @@ type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const {
     fee,
     percentage,
@@ -101,7 +100,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-100')}
         light={tailwind('bg-mono-light-v2-100')}
-        style={tailwind('flex-col px-4 py-4 mb-4')}
+        style={tailwind('flex-col py-4 mb-4')}
       >
         <SummaryTitleV2
           iconA={pair.tokenA.displaySymbol}
@@ -134,6 +133,32 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
               testID: `${pair.tokenA.displaySymbol}_to_supply`,
             }}
           />
+          <View style={tailwind('flex flex-row text-right items-center justify-end')}>
+            <ThemedTextV2
+              style={tailwind('mr-1.5 font-normal-v2')}
+              light={tailwind('text-mono-light-v2-500')}
+              dark={tailwind('text-mono-dark-v2-500')}
+              testID='conversion_status'
+            >
+              {
+                translate('screens/ConvertConfirmScreen',
+                  conversion?.isConversionRequired && conversion?.isConverted !== true
+                    ? 'Converting'
+                    : 'Converted')
+              }
+            </ThemedTextV2>
+            {conversion?.isConversionRequired && conversion?.isConverted !== true && <ThemedActivityIndicatorV2 />}
+            {
+              conversion?.isConversionRequired && conversion?.isConverted === true &&
+              <ThemedIcon
+                light={tailwind('text-success-600')}
+                dark={tailwind('text-darksuccess-500')}
+                iconType='MaterialIcons'
+                name='check-circle'
+                size={20}
+              />
+            }
+          </View>
         </ThemedViewV2>
       )}
 
@@ -285,12 +310,17 @@ async function constructSignedAddLiqAndSend (
     dispatch(transactionQueue.actions.push({
       sign: signer,
       title: translate('screens/ConfirmAddLiq', 'Adding Liquidity'),
-      description: translate('screens/ConfirmAddLiq', 'Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}', {
+      description: translate('screens/ConfirmAddLiq', 'Adding {{amountA}} LP tokens to {{symbolA}}-{{symbolB}}', {
         amountA: addLiqForm.tokenAAmount.toFixed(8),
         symbolA: addLiqForm.tokenASymbol,
-        amountB: addLiqForm.tokenBAmount.toFixed(8),
         symbolB: addLiqForm.tokenBSymbol
       }),
+      drawerMessages: {
+        waiting: translate('screens/OceanInterface', 'Adding to {{symbolA}}-{{symbolB}} liquidity', {
+          symbolA: addLiqForm.tokenASymbol,
+          symbolB: addLiqForm.tokenBSymbol
+        }),
+      },
       onBroadcast
     }))
   } catch (e) {
