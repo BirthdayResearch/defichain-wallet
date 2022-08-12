@@ -302,7 +302,7 @@
     "Search token": "Search token",
     "No assets found": "No assets found",
     "Add assets to get started": "Add assets to get started",
-    "Search results for “{{searchTerm}}“": "Search results for “{{searchTerm}}“",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
     "AVAILABLE": "AVAILABLE"
   },
   "screens/ConvertScreen": {

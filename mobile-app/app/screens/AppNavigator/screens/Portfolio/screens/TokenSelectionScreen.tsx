@@ -10,6 +10,7 @@ import { RootState } from '@store'
 import { translate } from '@translations'
 import { tokensSelector, WalletToken } from '@store/wallet'
 import { useDebounce } from '@hooks/useDebounce'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
 import ImageEmptyAssets from '@assets/images/send/empty-assets.png'
 import { ThemedFlatListV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
@@ -40,12 +41,15 @@ export interface BottomSheetToken {
 type Props = StackScreenProps<PortfolioParamList, 'TokenSelectionScreen'>
 
 export function TokenSelectionScreen (_props: Props): JSX.Element {
+  const { isLight } = useThemeContext()
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const { hasFetchedToken } = useSelector((state: RootState) => (state.wallet))
   const [searchString, setSearchString] = useState('')
   const { getTokenPrice } = useTokenPrice()
   const debouncedSearchTerm = useDebounce(searchString, 250)
+
+  const [isSearchFocus, setIsSearchFocus] = useState(false)
 
   const tokensWithBalance = getTokensWithBalance(tokens, getTokenPrice)
   const filteredTokensWithBalance = useMemo(() => {
@@ -81,16 +85,26 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
         <ThemedViewV2 style={tailwind('mx-5 mt-8')}>
           <SearchInputV2
             value={undefined}
+            containerStyle={[
+              tailwind('border-0.5'),
+              tailwind(isSearchFocus ? { 'border-mono-light-v2-800': isLight, 'border-mono-dark-v2-800': !isLight } : { 'border-mono-light-v2-00': isLight, 'border-mono-dark-v2-00': !isLight })
+            ]}
             placeholder={translate('screens/TokenSelectionScreen', 'Search token')}
             showClearButton={false}
             onClearInput={() => { }}
             onChangeText={(text: string) => {
               setSearchString(text)
             }}
+            onFocus={() => {
+              setIsSearchFocus(true)
+            }}
+            onBlur={() => {
+              setIsSearchFocus(false)
+            }}
             testID='token_search_input'
           />
 
-          {(!hasFetchedToken || filteredTokensWithBalance.length > 0) &&
+          {(!hasFetchedToken || debouncedSearchTerm.trim() === '') &&
             <ThemedTextV2
               style={tailwind('text-xs pl-5 mt-6 mb-2 font-normal-v2')}
               light={tailwind('text-mono-light-v2-500')}
@@ -99,19 +113,18 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
               {translate('screens/TokenSelectionScreen', 'AVAILABLE')}
             </ThemedTextV2>}
 
-          {!hasFetchedToken &&
-            <SkeletonLoader row={5} screen={SkeletonLoaderScreen.TokenSelection} />}
-
-          {hasFetchedToken && filteredTokensWithBalance.length === 0 &&
+          {hasFetchedToken && debouncedSearchTerm.trim() !== '' &&
             <ThemedTextV2
-              style={tailwind('text-xs pl-5 mt-8 font-normal-v2')}
+              style={tailwind('text-xs pl-5 mt-6 mb-2 font-normal-v2')}
               light={tailwind('text-mono-light-v2-700')}
               dark={tailwind('text-mono-dark-v2-700')}
               testID='empty_search_result_text'
             >
-              {translate('screens/TokenSelectionScreen', 'Search results for “{{searchTerm}}“', { searchTerm: debouncedSearchTerm })}
+              {translate('screens/TokenSelectionScreen', 'Search results for “{{searchTerm}}”', { searchTerm: debouncedSearchTerm })}
             </ThemedTextV2>}
 
+          {!hasFetchedToken &&
+            <SkeletonLoader row={5} screen={SkeletonLoaderScreen.TokenSelection} />}
         </ThemedViewV2>
       }
       keyExtractor={(item) => item.tokenId}
@@ -153,7 +166,7 @@ const TokenSelectionRow = ({ item, onPress }: TokenSelectionRowProps): JSX.Eleme
           </ThemedTextV2>
         </View>
       </View>
-      <View style={tailwind('flex flex-col items-end mr-2')}>
+      <View style={tailwind('flex flex-col items-end')}>
         <NumberFormat
           value={item.available.toFixed(8)}
           thousandSeparator

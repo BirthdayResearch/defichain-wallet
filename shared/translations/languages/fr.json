@@ -301,7 +301,7 @@
     "Search token": "Rechercher de token",
     "No assets found": "Aucun actif trouvé",
     "Add assets to get started": "Ajouter des actifs pour commencer",
-    "Search results for “{{searchTerm}}“": "Search results for “{{searchTerm}}“",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
     "AVAILABLE": "AVAILABLE"
   },
   "screens/ConvertScreen": {

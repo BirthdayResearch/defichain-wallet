@@ -291,7 +291,7 @@
     "Search token": "Token durchsuchen",
     "No assets found": "Keine Aktiva gefunden",
     "Add assets to get started": "Aktiva zum Einstieg hinzufügen",
-    "Search results for “{{searchTerm}}“": "Suchergebnisse für “{{searchTerm}}”",
+    "Search results for “{{searchTerm}}”": "Suchergebnisse für “{{searchTerm}}”",
     "AVAILABLE": "VERFÜGBAR"
   },
   "screens/ConvertScreen": {
