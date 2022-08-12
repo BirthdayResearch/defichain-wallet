@@ -35,7 +35,7 @@ import {
 import { getNativeIcon } from '@components/icons/assets'
 import { WalletTextInputV2 } from '@components/WalletTextInputV2'
 import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
-import { AmountButtonTypes, TransactionCard } from '@components/TransactionCard'
+import { AmountButtonTypes, TransactionCard, TransactionCardStatus } from '@components/TransactionCard'
 import { useTokenPrice } from '../hooks/TokenPrice'
 import { ActiveUSDValueV2 } from '../../Loans/VaultDetail/components/ActiveUSDValueV2'
 import { PortfolioParamList } from '../PortfolioNavigator'
@@ -83,6 +83,7 @@ export function SendScreenV2 ({
   const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [jellyfishWalletAddress, setJellyfishWalletAddresses] = useState<string[]>([])
+  const [transactionCardStatus, setTransactionCardStatus] = useState(TransactionCardStatus.Default)
 
   // form
   const { control, setValue, formState, getValues, trigger, watch } = useForm({ mode: 'onChange' })
@@ -128,7 +129,7 @@ export function SendScreenV2 ({
   }, [amountToSend, token])
 
   const { infoText, infoTextThemedProps } = useMemo(() => {
-    let infoText, themedProps
+    let infoText; let themedProps; let status = TransactionCardStatus.Default
 
     if (new BigNumber(amountToSend).isGreaterThan(token?.amount ?? 0)) {
       infoText = 'Insufficient balance'
@@ -136,6 +137,7 @@ export function SendScreenV2 ({
         dark: tailwind('text-red-v2'),
         light: tailwind('text-red-v2')
       }
+      status = TransactionCardStatus.Error
     } else if (token?.isLPS === true && new BigNumber(amountToSend).isGreaterThan(0)) {
       infoText = 'Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds'
       themedProps = {
@@ -156,6 +158,7 @@ export function SendScreenV2 ({
       }
     }
 
+    setTransactionCardStatus(status)
     return {
       infoText: translate('screens/SendScreen', infoText),
       infoTextThemedProps: { ...themedProps, style: tailwind('text-xs mt-2 ml-5 font-normal-v2') }
@@ -324,6 +327,7 @@ export function SendScreenV2 ({
                 await trigger('amount')
               }}
               token={token}
+              transactionCardStatus={transactionCardStatus}
             />
             <ThemedTextV2 {...infoTextThemedProps} testID='info_text'>{infoText}</ThemedTextV2>
 
@@ -511,12 +515,14 @@ function AddressRow ({
 }
 
 interface AmountForm {
+  transactionCardStatus: TransactionCardStatus
   token: WalletToken
   onPress: () => void
   onAmountChange: (amount: string, type: AmountButtonTypes) => Promise<void>
 }
 
 function AmountCard ({
+  transactionCardStatus,
   token,
   onPress,
   onAmountChange
@@ -532,6 +538,7 @@ function AmountCard ({
       >{translate('screens/SendScreen', 'I WANT TO SEND')}
       </ThemedTextV2>
       <TransactionCard
+        status={transactionCardStatus}
         maxValue={maxAmount}
         onChange={onAmountChange}
         containerStyle={tailwind('rounded-t-lg-v2')}
