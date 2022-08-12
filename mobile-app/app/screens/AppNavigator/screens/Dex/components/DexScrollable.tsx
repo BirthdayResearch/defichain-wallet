@@ -8,7 +8,6 @@ import { View } from '@components'
 import { DexActionButton } from '@screens/AppNavigator/screens/Dex/components/DexActionButton'
 import BigNumber from 'bignumber.js'
 import NumberFormat from 'react-number-format'
-import { FavoriteButton } from '@screens/AppNavigator/screens/Dex/components/FavoriteButton'
 import { useUnitSuffix } from '@hooks/useUnitSuffix'
 
 interface DexScrollableProps {
@@ -97,8 +96,8 @@ function DexScrollableCard ({
           pair={poolpair}
           onPress={onPress}
           label={label}
+          style={tailwind('flex w-full')}
         />
-        <FavoriteButton pairId={poolpair.id} />
       </View>
     </ThemedViewV2>
   )

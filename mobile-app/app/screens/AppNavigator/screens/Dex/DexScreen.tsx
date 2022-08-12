@@ -268,7 +268,7 @@ export function DexScreen (): JSX.Element {
   return (
     <>
       <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
-      <TopLiquiditySection onSwap={onSwap} topLiquidityPairs={topLiquidityPairs} />
+      <TopLiquiditySection onPress={onSwap} pairs={topLiquidityPairs} />
       <View style={tailwind('flex-1')}>
         {activeTab === TabKey.AvailablePoolPair &&
           (!hasFetchedPoolpairData || isSearching) && (
@@ -318,23 +318,23 @@ export function DexScreen (): JSX.Element {
   )
 }
 
-interface TopLiquiditySectionProps {
-  topLiquidityPairs: Array<DexItem<PoolPairData>>
-  onSwap: (data: PoolPairData) => void
+interface DexScrollableSectionProps {
+  pairs: Array<DexItem<PoolPairData>>
+  onPress: (data: PoolPairData) => void
 }
-function TopLiquiditySection ({ topLiquidityPairs, onSwap }: TopLiquiditySectionProps): JSX.Element {
+function TopLiquiditySection ({ pairs, onPress }: DexScrollableSectionProps): JSX.Element {
   return (
     <DexScrollable
       testId='DEX_TOP_LIQUIDITY'
       sectionHeading='TOP LIQUIDITY'
       sectionStyle={tailwind('my-6')}
     >
-      {topLiquidityPairs.map((pairItem, index) => (
+      {pairs.map((pairItem, index) => (
         <DexScrollable.Card
           key={`${pairItem.data.id}_${index}`}
           poolpair={pairItem.data}
           style={tailwind('mr-2')}
-          onPress={onSwap}
+          onPress={onPress}
           label={translate('screens/DexScreen', 'Swap')}
         />
       ))}
