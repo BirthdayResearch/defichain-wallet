@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react'
-import { View, Image } from 'react-native'
+import { useRef, useState, useMemo } from 'react'
+import { View, Image, TextInput } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import BigNumber from 'bignumber.js'
@@ -50,6 +50,7 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
   const debouncedSearchTerm = useDebounce(searchString, 250)
 
   const [isSearchFocus, setIsSearchFocus] = useState(false)
+  const searchRef = useRef<TextInput>()
 
   const tokensWithBalance = getTokensWithBalance(tokens, getTokenPrice)
   const filteredTokensWithBalance = useMemo(() => {
@@ -84,14 +85,16 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
       ListHeaderComponent={
         <ThemedViewV2 style={tailwind('mx-5 mt-8')}>
           <SearchInputV2
-            value={undefined}
-            containerStyle={[
-              tailwind('border-0.5'),
-              tailwind(isSearchFocus ? { 'border-mono-light-v2-800': isLight, 'border-mono-dark-v2-800': !isLight } : { 'border-mono-light-v2-00': isLight, 'border-mono-dark-v2-00': !isLight })
-            ]}
+            value={searchString}
+            containerStyle={
+              tailwind(['border-0.5', isSearchFocus ? { 'border-mono-light-v2-800': isLight, 'border-mono-dark-v2-800': !isLight } : { 'border-mono-light-v2-00': isLight, 'border-mono-dark-v2-00': !isLight }])
+            }
             placeholder={translate('screens/TokenSelectionScreen', 'Search token')}
-            showClearButton={false}
-            onClearInput={() => { }}
+            showClearButton={debouncedSearchTerm !== ''}
+            onClearInput={() => {
+              setSearchString('')
+              searchRef?.current?.focus()
+            }}
             onChangeText={(text: string) => {
               setSearchString(text)
             }}
@@ -102,6 +105,7 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
               setIsSearchFocus(false)
             }}
             testID='token_search_input'
+            ref={searchRef}
           />
 
           {(!hasFetchedToken || debouncedSearchTerm.trim() === '') &&
@@ -211,11 +215,15 @@ function EmptyAsset ({ navigation }: { navigation: NavigationProp<PortfolioParam
 
 function getTokensWithBalance (tokens: WalletToken[], getTokenPrice: (symbol: string, amount: BigNumber, isLPS?: boolean | undefined) => BigNumber): TokenSelectionItem[] {
   const reservedFees = 0.1
-  return tokens.filter(t => {
-    return new BigNumber(t.amount).isGreaterThan(0) && t.id !== '0' && t.id !== '0_utxo'
-  }).map(t => {
-    const activePrice = getTokenPrice(t.symbol, new BigNumber('1'), t.isLPS)
+  const filteredTokens: TokenSelectionItem[] = []
+
+  tokens.forEach((t) => {
     const available = new BigNumber(t.displaySymbol === 'DFI' ? new BigNumber(t.amount).minus(reservedFees).toFixed(8) : t.amount)
+    if (available.isLessThan(0) || t.id === '0' || t.id === '0_utxo') {
+      return
+    }
+
+    const activePrice = getTokenPrice(t.symbol, new BigNumber('1'), t.isLPS)
     const token: TokenSelectionItem = {
       tokenId: t.id,
       available,
@@ -227,8 +235,10 @@ function getTokensWithBalance (tokens: WalletToken[], getTokenPrice: (symbol: st
       },
       usdAmount: new BigNumber(available).multipliedBy(activePrice)
     }
-    return token
-  }).sort((a, b) => b.usdAmount.minus(a.usdAmount).toNumber())
+    filteredTokens.push(token)
+  })
+
+  return filteredTokens.sort((a, b) => b.usdAmount.minus(a.usdAmount).toNumber())
 }
 
 function filterTokensBySearchTerm (tokens: TokenSelectionItem[], searchTerm: string): TokenSelectionItem[] {
