@@ -49,6 +49,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const [isAcknowledge, setIsAcknowledge] = useState(false)
+  const [tokenADisplaySymbol, tokenBDisplaySymbol] = token.displaySymbol.split('-')
 
   useEffect(() => {
     setIsOnPage(true)
@@ -92,7 +93,8 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
           amount={amount}
           title={translate('screens/SendConfirmationScreen', 'You are sending')}
           testID='text_send_amount'
-          iconA={token.displaySymbol}
+          iconA={tokenADisplaySymbol}
+          iconB={tokenBDisplaySymbol}
           fromAddress={address}
           fromAddressLabel={addressLabel}
           toAddress={destination}

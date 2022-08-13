@@ -14,12 +14,13 @@ import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
 import ImageEmptyAssets from '@assets/images/send/empty-assets.png'
 import { ThemedFlatListV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
-import { getNativeIcon } from '@components/icons/assets'
 import { SearchInputV2 } from '@components/SearchInputV2'
 import { ButtonV2 } from '@components/ButtonV2'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 import { PortfolioParamList } from '../PortfolioNavigator'
 import { ActiveUSDValueV2 } from '../../Loans/VaultDetail/components/ActiveUSDValueV2'
+import { TokenIcon } from '../components/TokenIcon'
+import { TokenNameTextV2 } from '../components/TokenNameTextV2'
 
 export interface TokenSelectionItem extends BottomSheetToken {
   usdAmount: BigNumber
@@ -142,7 +143,6 @@ interface TokenSelectionRowProps {
 }
 
 const TokenSelectionRow = ({ item, onPress }: TokenSelectionRowProps): JSX.Element => {
-  const Icon = getNativeIcon(item.token.displaySymbol)
   return (
     <ThemedTouchableOpacityV2
       disabled={new BigNumber(item.available).lte(0)}
@@ -152,23 +152,9 @@ const TokenSelectionRow = ({ item, onPress }: TokenSelectionRowProps): JSX.Eleme
       style={tailwind('mx-5 mb-2 p-4 flex flex-row items-center justify-between rounded-lg')}
       testID={`select_${item.token.displaySymbol}`}
     >
-      <View style={tailwind('flex flex-row items-center')}>
-        <Icon />
-        <View style={tailwind('ml-2')}>
-          <ThemedTextV2
-            style={tailwind('font-semibold-v2 text-sm')}
-            testID={`token_symbol_${item.token.displaySymbol}`}
-          >
-            {item.token.displaySymbol}
-          </ThemedTextV2>
-          <ThemedTextV2
-            light={tailwind('text-mono-light-v2-700')}
-            dark={tailwind('text-mono-dark-v2-700')}
-            style={tailwind(['text-xs font-normal-v2', { hidden: item.token.name === '' }])}
-          >
-            {item.token.name}
-          </ThemedTextV2>
-        </View>
+      <View style={tailwind('w-7/12 flex flex-row items-center')}>
+        <TokenIcon testID={`${item.token.displaySymbol}_icon`} token={{ isLPS: item.token.isLPS, displaySymbol: item.token.displaySymbol }} height={36} width={36} />
+        <TokenNameTextV2 displaySymbol={item.token.displaySymbol} name={item.token.name} testID={item.token.displaySymbol} />
       </View>
       <View style={tailwind('flex flex-col items-end')}>
         <NumberFormat

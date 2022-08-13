@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo, useRef } from 'react'
-import { Platform, TextInput, View } from 'react-native'
+import { TextInput, View } from 'react-native'
 import BigNumber from 'bignumber.js'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
@@ -32,7 +32,6 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2
 } from '@components/themed'
-import { getNativeIcon } from '@components/icons/assets'
 import { WalletTextInputV2 } from '@components/WalletTextInputV2'
 import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
 import { AmountButtonTypes, TransactionCard, TransactionCardStatus } from '@components/TransactionCard'
@@ -40,6 +39,7 @@ import { useTokenPrice } from '../hooks/TokenPrice'
 import { ActiveUSDValueV2 } from '../../Loans/VaultDetail/components/ActiveUSDValueV2'
 import { PortfolioParamList } from '../PortfolioNavigator'
 import { RandomAvatar } from '../components/RandomAvatar'
+import { TokenIcon } from '../components/TokenIcon'
 
 type Props = StackScreenProps<PortfolioParamList, 'SendScreenV2'>
 
@@ -552,7 +552,6 @@ function AmountCard ({
   onAmountChange
 }: AmountForm): JSX.Element {
   const maxAmount = BigNumber.max(token.amount, 0)
-  const Icon = getNativeIcon(token.displaySymbol)
   return (
     <>
       <ThemedTextV2
@@ -568,16 +567,16 @@ function AmountCard ({
         containerStyle={tailwind('rounded-t-lg-v2')}
       >
         <ThemedTouchableOpacityV2
-          style={tailwind('flex flex-row items-center justify-between pt-5 mb-4', { 'px-5': Platform.OS !== 'ios', 'mx-1': Platform.OS === 'ios' })}
+          style={tailwind('flex flex-row items-center justify-between pt-5 mb-4 mx-5')}
           onPress={onPress}
           testID='select_token_input'
         >
           <View style={tailwind('flex flex-row items-center')}>
-            <Icon height={32} width={32} />
+            <TokenIcon testID={`${token.displaySymbol}_icon`} token={{ isLPS: token.isLPS, displaySymbol: token.displaySymbol }} height={32} width={32} />
             <View style={tailwind('flex ml-2')}>
               <ThemedTextV2>
-                <ThemedTextV2 style={tailwind('font-semibold-v2')} testID='max_value'>{maxAmount.toFixed(8)}</ThemedTextV2>
-                <ThemedTextV2 style={tailwind('font-semibold-v2')} testID='max_value_display_symbol'>{` ${token.displaySymbol}`}</ThemedTextV2>
+                <ThemedTextV2 style={tailwind('font-semibold-v2 text-sm')} testID='max_value'>{maxAmount.toFixed(8)}</ThemedTextV2>
+                <ThemedTextV2 style={tailwind('font-semibold-v2 text-sm')} testID='max_value_display_symbol'>{` ${token.displaySymbol}`}</ThemedTextV2>
               </ThemedTextV2>
               <ThemedTextV2
                 light={tailwind('text-mono-light-v2-500')}
