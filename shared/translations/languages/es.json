@@ -267,7 +267,8 @@
     "Verified": "Verificado",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
-    "By continuing, the required amount of DFI will be converted": "Si continuas, la cantidad requerida de DFI será convertida"
+    "By continuing, the required amount of DFI will be converted": "Si continuas, la cantidad requerida de DFI será convertida",
+    "Invalid address. Make sure the address is correct to avoid irrecoverable losses": "Dirección invalida. Asegúrate de que la dirección es correcta para evitar la perdida irreversible de fondos"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Confirmar envío",

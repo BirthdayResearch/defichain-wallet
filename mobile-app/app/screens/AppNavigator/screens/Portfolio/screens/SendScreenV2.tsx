@@ -1,5 +1,5 @@
-import { useEffect, useState, useMemo } from 'react'
-import { View } from 'react-native'
+import { useEffect, useState, useMemo, useRef } from 'react'
+import { Platform, TextInput, View } from 'react-native'
 import BigNumber from 'bignumber.js'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
@@ -7,7 +7,7 @@ import { useToast } from 'react-native-toast-notifications'
 import { StackScreenProps } from '@react-navigation/stack'
 import { getColor, tailwind } from '@tailwind'
 import { debounce } from 'lodash'
-import { DeFiAddress } from '@defichain/jellyfish-address'
+import { fromAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { translate } from '@translations'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
@@ -120,6 +120,8 @@ export function SendScreenV2 ({
 
   const reservedDFI = 0.1
   const isReservedUtxoUsed = getDisplayUtxoWarningStatus(new BigNumber(amountToSend))
+
+  const amountInputRef = useRef<TextInput>()
   const amountInUSDValue = useMemo(() => {
     if (token === undefined || isNaN(amountToSend) || (amountToSend === '')) {
       return new BigNumber(0)
@@ -170,6 +172,10 @@ export function SendScreenV2 ({
   useEffect(() => {
     setToken(route.params.token)
   }, [route.params.token])
+
+  useEffect(() => {
+    amountInputRef?.current?.focus()
+  }, [])
 
   useEffect(() => {
     void fetchWalletAddresses().then((walletAddresses) => setJellyfishWalletAddresses(walletAddresses))
@@ -291,7 +297,7 @@ export function SendScreenV2 ({
                   }
                 }) => (
                   <ThemedTextInputV2
-                    style={tailwind('text-3xl text-center font-semibold-v2')}
+                    style={tailwind('text-3xl text-center font-semibold-v2 w-full')}
                     light={tailwind('text-mono-light-v2-900')}
                     dark={tailwind('text-mono-dark-v2-900')}
                     keyboardType='numeric'
@@ -301,6 +307,7 @@ export function SendScreenV2 ({
                     placeholder='0.00'
                     placeholderTextColor={getColor(isLight ? 'mono-light-v2-900' : 'mono-dark-v2-900')}
                     testID='amount_input'
+                    ref={amountInputRef}
                   />
                 )}
                 rules={{
@@ -454,62 +461,76 @@ function AddressRow ({
         field: {
           value,
           onChange
-        }
-      }) => (
-        <View style={tailwind('flex-row w-full')}>
-          <WalletTextInputV2
-            autoCapitalize='none'
-            multiline
-            onChange={onChange}
-            onChangeText={onAddressChange}
-            placeholder={translate('screens/SendScreen', 'Paste address')}
-            style={tailwind('w-3/5 flex-grow pb-1')}
-            testID='address_input'
-            value={value}
-            displayClearButton={value !== defaultValue}
-            onClearButtonPress={onClearButtonPress}
-            title={translate('screens/SendScreen', 'SEND TO')}
-            titleTestID='title_to_address'
-            inputType='default'
-            inputFooter={inputFooter}
-          >
-            <ThemedTouchableOpacity
-              dark={tailwind('bg-black')}
-              light={tailwind('bg-white')}
-              onPress={onContactButtonPress}
-              style={tailwind('w-9 p-1.5 mr-1 rounded')}
-              testID='address_book_button'
+        },
+        fieldState: { error }
+      }) => {
+        const hasValidAddress = error?.type !== 'isValidAddress'
+        return (
+          <View style={tailwind('flex w-full')}>
+            <WalletTextInputV2
+              autoCapitalize='none'
+              multiline
+              onChange={onChange}
+              onChangeText={onAddressChange}
+              placeholder={translate('screens/SendScreen', 'Paste address')}
+              style={tailwind('w-3/5 flex-grow pb-1')}
+              testID='address_input'
+              value={value}
+              displayClearButton={value !== defaultValue}
+              onClearButtonPress={onClearButtonPress}
+              title={translate('screens/SendScreen', 'SEND TO')}
+              titleTestID='title_to_address'
+              inputType='default'
+              inputFooter={inputFooter}
+              valid={hasValidAddress}
             >
-              <ThemedIcon
-                iconType='MaterialCommunityIcons'
-                dark={tailwind('text-mono-dark-v2-700')}
-                light={tailwind('text-mono-light-v2-700')}
-                name='account-multiple'
-                size={24}
-              />
-            </ThemedTouchableOpacity>
-            <ThemedTouchableOpacity
-              dark={tailwind('bg-black')}
-              light={tailwind('bg-white')}
-              onPress={onQrButtonPress}
-              style={tailwind('w-9 p-1.5 rounded')}
-              testID='qr_code_button'
-            >
-              <ThemedIcon
-                dark={tailwind('text-mono-dark-v2-700')}
-                light={tailwind('text-mono-light-v2-700')}
-                iconType='MaterialIcons'
-                name='qr-code'
-                size={24}
-              />
-            </ThemedTouchableOpacity>
-          </WalletTextInputV2>
-        </View>
-      )}
+              <ThemedTouchableOpacity
+                dark={tailwind('bg-black')}
+                light={tailwind('bg-white')}
+                onPress={onContactButtonPress}
+                style={tailwind('w-9 p-1.5 mr-1 rounded')}
+                testID='address_book_button'
+              >
+                <ThemedIcon
+                  iconType='MaterialCommunityIcons'
+                  dark={tailwind('text-mono-dark-v2-700')}
+                  light={tailwind('text-mono-light-v2-700')}
+                  name='account-multiple'
+                  size={24}
+                />
+              </ThemedTouchableOpacity>
+              <ThemedTouchableOpacity
+                dark={tailwind('bg-black')}
+                light={tailwind('bg-white')}
+                onPress={onQrButtonPress}
+                style={tailwind('w-9 p-1.5 rounded')}
+                testID='qr_code_button'
+              >
+                <ThemedIcon
+                  dark={tailwind('text-mono-dark-v2-700')}
+                  light={tailwind('text-mono-light-v2-700')}
+                  iconType='MaterialIcons'
+                  name='qr-code'
+                  size={24}
+                />
+              </ThemedTouchableOpacity>
+            </WalletTextInputV2>
+            {!hasValidAddress &&
+              <ThemedTextV2
+                style={tailwind('text-xs mt-2 ml-5 font-normal-v2')}
+                dark={tailwind('text-red-v2')}
+                light={tailwind('text-red-v2')}
+                testID='address_error_text'
+              >
+                {translate('screens/SendScreen', 'Invalid address. Make sure the address is correct to avoid irrecoverable losses')}
+              </ThemedTextV2>}
+          </View>
+        )
+      }}
       rules={{
         required: true,
         validate: {
-          isValidAddress: (address) => DeFiAddress.from(networkName, address).valid
+          isValidAddress: (address) => (fromAddress(address, networkName) !== undefined)
         }
       }}
     />
@@ -546,7 +567,7 @@ function AmountCard ({
         containerStyle={tailwind('rounded-t-lg-v2')}
       >
         <ThemedTouchableOpacityV2
-          style={tailwind('flex flex-row items-center justify-between px-5 pt-5 mb-2 pb-2')}
+          style={tailwind('flex flex-row items-center justify-between pt-5 mb-4', { 'px-5': Platform.OS !== 'ios', 'mx-1': Platform.OS === 'ios' })}
           onPress={onPress}
           testID='select_token_input'
         >
