@@ -171,6 +171,7 @@ export function SendScreenV2 ({
 
   useEffect(() => {
     setToken(route.params.token)
+    setValue('amount', '', { shouldDirty: true })
   }, [route.params.token])
 
   useEffect(() => {
@@ -430,7 +431,7 @@ export function SendScreenV2 ({
             </ThemedTextV2>}
           <SubmitButtonGroupV2
             isDisabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || token === undefined}
-            label={translate('screens/SendScreen', 'CONTINUE')}
+            label={translate('screens/SendScreen', 'Continue')}
             onSubmit={onSubmit}
             title='send_continue'
             displayCancelBtn={false}

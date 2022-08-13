@@ -217,7 +217,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
         onSubmit={onSubmit}
         displayCancelBtn
         title='send'
-        buttonStyle='mx-5'
+        buttonStyle='mx-5 mb-2'
       />
     </ThemedScrollViewV2>
   )

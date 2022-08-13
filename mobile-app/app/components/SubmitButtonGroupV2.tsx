@@ -109,7 +109,7 @@ export function SubmitButtonGroupV2 ({
       {displayCancelBtn &&
         <ButtonV2
           disabled={isCancelDisabled === undefined ? isDisabled : isCancelDisabled}
-          fill='flat'
+          fillType='flat'
           label={translate('screens/common', 'Cancel')}
           styleProps='m-4 mt-0'
           onPress={onCancel}
