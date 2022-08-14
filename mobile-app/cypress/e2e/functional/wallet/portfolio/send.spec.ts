@@ -54,6 +54,12 @@ context('Wallet - Send', function () {
       cy.go('back')
     })
 
+    it('should reset values on load', function () {
+      cy.getByTestID('select_token_input').click()
+      cy.getByTestID('select_DFI').click()
+      cy.getByTestID('address_input').should('have.text', '')
+    })
+
     it('should be able to validate form', function () {
       // Valid form
       cy.getByTestID('address_input').type(addresses[0])
@@ -63,6 +69,7 @@ context('Wallet - Send', function () {
 
       // Invalid address
       cy.getByTestID('address_input').type('z')
+      cy.getByTestID('address_error_text').should('have.text', 'Invalid address. Make sure the address is correct to avoid irrecoverable losses')
       cy.getByTestID('button_confirm_send_continue').should('have.attr', 'aria-disabled')
       cy.getByTestID('address_input_clear_button').click()
       cy.getByTestID('button_confirm_send_continue').should('have.attr', 'aria-disabled')
@@ -82,13 +89,13 @@ context('Wallet - Send', function () {
 
       // empty result
       cy.getByTestID('token_search_input').clear().type('xxx').wait(2000)
-      cy.getByTestID('empty_search_result_text').should('have.text', 'Search results for “xxx“')
+      cy.getByTestID('empty_search_result_text').should('have.text', 'Search results for “xxx”')
       cy.getByTestID('select_DFI').should('not.exist')
       cy.getByTestID('select_dBTC-DFI').should('not.exist')
 
       // has result
       cy.getByTestID('token_search_input').clear().type('btc').wait(2000)
-      cy.getByTestID('empty_search_result_text').should('not.exist')
+      cy.getByTestID('empty_search_result_text').should('have.text', 'Search results for “btc”')
       cy.getByTestID('select_DFI').should('not.exist')
       cy.getByTestID('select_dBTC-DFI').should('exist')
       cy.getByTestID('token_search_input').clear().wait(2000)
@@ -468,7 +475,7 @@ context('Wallet - Send - Switch token', function () {
   })
 })
 
-context('Wallet - Send - Address book', function () {
+context.only('Wallet - Send - Address book', function () {
   function populateAddressBook (): void {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet()

@@ -171,7 +171,6 @@ export function SendScreenV2 ({
 
   useEffect(() => {
     setToken(route.params.token)
-    setValue('amount', '', { shouldDirty: true })
   }, [route.params.token])
 
   useEffect(() => {
@@ -320,11 +319,13 @@ export function SendScreenV2 ({
                   }
                 }}
               />
-              <ActiveUSDValueV2 price={amountInUSDValue} testId='amount_input_in_usd' />
+              <ActiveUSDValueV2 price={amountInUSDValue} testId='amount_input_in_usd' containerStyle={tailwind('w-full break-words')} style={tailwind('text-center justify-center w-full')} />
             </View>
 
             <AmountCard
-              onPress={() => {
+              onPress={async () => {
+                setValue('amount', '', { shouldDirty: true })
+                await trigger('amount')
                 navigation.navigate({
                   name: 'TokenSelectionScreen',
                   params: {},
