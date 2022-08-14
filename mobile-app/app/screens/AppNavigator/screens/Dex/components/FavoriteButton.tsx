@@ -1,6 +1,7 @@
 import { useFavouritePoolpairs } from '@screens/AppNavigator/screens/Dex/hook/FavouritePoolpairs'
-import { ThemedIcon, ThemedTouchableOpacityV2 } from '@components/themed'
-import { tailwind } from '@tailwind'
+import { ThemedTouchableOpacityV2 } from '@components/themed'
+import { getColor, tailwind } from '@tailwind'
+import { FavoriteCheckIcon } from '@screens/AppNavigator/screens/Settings/assets/FavoriteIcon'
 
 export function FavoriteButton ({ pairId }: {pairId: string}): JSX.Element {
   const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
@@ -19,19 +20,10 @@ export function FavoriteButton ({ pairId }: {pairId: string}): JSX.Element {
         'bg-brand-v2-500': isFavouritePair
       })}
     >
-      <ThemedIcon
-        iconType='MaterialIcons'
-        name='star'
-        dark={tailwind({
-          'text-mono-dark-v2-900': !isFavouritePair,
-          'text-mono-light-v2-100': isFavouritePair
-        })}
-        light={tailwind({
-          'text-mono-light-v2-900': !isFavouritePair,
-          'text-mono-light-v2-100': isFavouritePair
-        })}
-        style={tailwind('text-center')}
+      <FavoriteCheckIcon
         size={14}
+        dark={isFavouritePair ? getColor('mono-dark-v2-100') : getColor('mono-dark-v2-900')}
+        light={isFavouritePair ? getColor('mono-light-v2-100') : getColor('mono-light-v2-900')}
       />
     </ThemedTouchableOpacityV2>
   )
