@@ -291,8 +291,14 @@ async function send ({
       }),
       drawerMessages: {
         preparing: translate('screens/OceanInterface', 'Preparing to send…'),
-        waiting: translate('screens/OceanInterface', 'Sending tokens…'),
-        complete: translate('screens/OceanInterface', 'Tokens sent')
+        waiting: translate('screens/OceanInterface', 'Sending {{amount}} {{displaySymbol}}', {
+          amount: amount.toFixed(8),
+          displaySymbol: token.displaySymbol
+        }),
+        complete: translate('screens/OceanInterface', '{{amount}} {{displaySymbol}} sent', {
+          amount: amount.toFixed(8),
+          displaySymbol: token.displaySymbol
+        })
       },
       onBroadcast
     }))
