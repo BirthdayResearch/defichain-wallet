@@ -348,8 +348,8 @@ export function SendScreenV2 ({
                 name: 'AddressBookScreen',
                 params: {
                   selectedAddress: getValues('address'),
-                  onAddressSelect: async (savedAddres: string) => {
-                    setValue('address', savedAddres, { shouldDirty: true })
+                  onAddressSelect: async (savedAddress: string) => {
+                    setValue('address', savedAddress, { shouldDirty: true })
                     await trigger('address')
                     navigation.goBack()
                   }
@@ -376,7 +376,7 @@ export function SendScreenV2 ({
               }}
             />
             {matchedAddress !== undefined && (
-              <View style={tailwind('ml-5 my-2 items-center flex flex-row flex-wrap')}>
+              <View style={tailwind('ml-5 my-2 items-center flex flex-row')}>
                 <ThemedIcon
                   light={tailwind('text-success-600')}
                   dark={tailwind('text-darksuccess-600')}
@@ -392,24 +392,25 @@ export function SendScreenV2 ({
                   {translate('screens/SendScreen', 'Verified')}
                 </ThemedTextV2>
                 <ThemedViewV2
-                  style={tailwind('flex flex-row items-center rounded-2xl p-1')}
+                  style={tailwind('flex flex-row items-center overflow-hidden rounded-full')}
                   light={tailwind('bg-mono-light-v2-200')}
                   dark={tailwind('bg-mono-dark-v2-200')}
                 >
-                  <ThemedViewV2
-                    style={tailwind('rounded-full overflow-hidden')}
-                    light={tailwind('bg-mono-light-v2-200')}
-                    dark={tailwind('bg-mono-dark-v2-200')}
-                  >
-                    <RandomAvatar name={matchedAddress.address} size={12} />
-                  </ThemedViewV2>
+                  <View style={tailwind('rounded-l-2xl p-1.5')}>
+                    <RandomAvatar name={matchedAddress.address} size={16} />
+                  </View>
                   <ThemedTextV2
-                    style={tailwind('text-xs ml-1 font-normal-v2')}
+                    ellipsizeMode='middle'
+                    numberOfLines={1}
+                    style={[tailwind('text-xs font-normal-v2 mr-1'), {
+                      minWidth: 10,
+                      maxWidth: 108
+                    }]}
                     light={tailwind('text-mono-light-v2-500')}
                     dark={tailwind('text-mono-dark-v2-500')}
                     testID='address_input_footer'
                   >
-                    {matchedAddress.label}
+                    {matchedAddress.address}
                   </ThemedTextV2>
                 </ThemedViewV2>
               </View>

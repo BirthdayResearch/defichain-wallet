@@ -18,7 +18,6 @@ import { RootState } from '@store'
 import { WalletToken } from '@store/wallet'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
-import { useAddressLabel } from '@hooks/useAddressLabel'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { View } from '@components'
 import { ThemedActivityIndicatorV2, ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedView, ThemedViewV2 } from '@components/themed'
@@ -31,7 +30,6 @@ type Props = StackScreenProps<PortfolioParamList, 'SendConfirmationScreen'>
 
 export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
   const { address } = useWalletContext()
-  const addressLabel = useAddressLabel(address)
   const network = useNetworkContext()
   const {
     token,
@@ -96,7 +94,6 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
           iconA={tokenADisplaySymbol}
           iconB={tokenBDisplaySymbol}
           fromAddress={address}
-          fromAddressLabel={addressLabel}
           toAddress={destination}
         />
 
