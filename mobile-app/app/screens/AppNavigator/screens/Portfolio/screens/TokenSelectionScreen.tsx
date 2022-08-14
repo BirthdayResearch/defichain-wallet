@@ -65,7 +65,7 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
   return (
     <ThemedFlatListV2
       testID='token_selection_screen'
-      style={tailwind('mb-4')}
+      style={tailwind('pb-4')}
       data={filteredTokensWithBalance}
       renderItem={({ item }: { item: TokenSelectionItem }): JSX.Element => {
         return (
