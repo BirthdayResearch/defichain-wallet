@@ -178,8 +178,8 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     ]
   }, [isLight])
 
-  function onPercentagePress (_amount: string, type: AmountButtonTypes, displaySymbol: string): void {
-    showToast(type, displaySymbol)
+  function onPercentagePress (_amount: string, type: AmountButtonTypes, displaySymbolA: string, displaySymbolB: string): void {
+    showToast(type, displaySymbolA, displaySymbolB)
   }
 
   async function onSubmit (): Promise<void> {
@@ -264,8 +264,8 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     }
   }
 
-  function showToast (type: AmountButtonTypes, displaySymbol: string): void {
-    if (pair?.tokenA.displaySymbol === undefined || pair?.tokenB.displaySymbol === undefined) {
+  function showToast (type: AmountButtonTypes, displaySymbolA: string, displaySymbolB: string): void {
+    if (displaySymbolA === undefined || displaySymbolB === undefined) {
       return
     }
 
@@ -273,7 +273,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     const isMax = type === AmountButtonTypes.Max
     const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
     const toastOption = {
-      unit: displaySymbol,
+      unit: `${displaySymbolA}-${displaySymbolB}`,
       percent: type
     }
     toast.show(translate('screens/AddLiquidity', toastMessage, toastOption), {
@@ -396,6 +396,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
             tokenBSymbol={pair.tokenB.displaySymbol}
             headerLabel={translate('screens/AddLiquidity', 'View pool share')}
             onPress={() => expandModal()}
+            testID='view_pool_shares'
           />
           <View style={tailwind('mt-8')}>
             <AddLiquidityInputCard
@@ -404,7 +405,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
               onChange={(amount) =>
                 buildSummary('primary', amount)}
               onPercentageChange={(amount, type) => {
-                onPercentagePress(amount, type, pair.tokenA.displaySymbol)
+                onPercentagePress(amount, type, pair.tokenA.displaySymbol, pair.tokenB.displaySymbol)
               }}
               symbol={pair.tokenA.displaySymbol}
               type='primary'
@@ -422,7 +423,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
               }}
               onPercentageChange={(amount, type) => {
                 buildSummary('secondary', amount)
-                onPercentagePress(amount, type, pair.tokenB.displaySymbol)
+                onPercentagePress(amount, type, pair.tokenA.displaySymbol, pair.tokenB.displaySymbol)
               }}
               symbol={pair.tokenB.displaySymbol}
               type='secondary'
@@ -474,7 +475,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                   <NumberRowV2
                     lhs={{
                       value: translate('screens/AddLiquidity', 'Resulting LP tokens'),
-                      testID: 'shares_to_add',
+                      testID: 'resulting_lp_tokens',
                       themedProps: {
                         light: tailwind('text-mono-light-v2-700'),
                         dark: tailwind('text-mono-dark-v2-700')
@@ -482,7 +483,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                     }}
                     rhs={{
                       value: lmTokenAmount.toFixed(8),
-                      testID: 'shares_to_add_value',
+                      testID: 'resulting_lp_tokens_value',
                       usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,
                       textStyle: tailwind('font-bold-v2'),
                       usdTextStyle: tailwind('text-sm')
@@ -512,7 +513,8 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
 
         <View style={tailwind('mt-5 mx-4')}>
           <ButtonV2
-            fill='fill' label={translate('components/Button', 'Continue')}
+            // fill='fill'
+            label={translate('components/Button', 'Continue')}
             styleProps='w-full'
             disabled={!canContinue}
             onPress={onSubmit}

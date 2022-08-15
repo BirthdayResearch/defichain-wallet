@@ -7,7 +7,6 @@ import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
 import { ThemedActivityIndicatorV2, ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
@@ -23,6 +22,7 @@ import { useAddressLabel } from '@hooks/useAddressLabel'
 import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { NumberRowV2 } from '@components/NumberRowV2'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
+import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
@@ -33,7 +33,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
     fee,
     percentage,
     tokenAAmount,
-    tokenBAmount,
+    tokenBAmount
   } = route.params.summary
   const pair = route.params.pair
   const { conversion, pairInfo } = route.params
@@ -62,7 +62,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
     }
   }, [])
 
-  async function addLiquidity(): Promise<void> {
+  async function addLiquidity (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
@@ -85,7 +85,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
     setIsSubmitting(false)
   }
 
-  function onCancel(): void {
+  function onCancel (): void {
     if (!isSubmitting) {
       navigation.navigate({
         name: 'AddLiquidity',
@@ -125,12 +125,12 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
               testID: 'transaction_fee',
               themedProps: {
                 light: tailwind('text-mono-light-v2-500'),
-                dark: tailwind('text-mono-dark-v2-500'),
+                dark: tailwind('text-mono-dark-v2-500')
               }
             }}
             rhs={{
               value: lmTokenAmount.toFixed(8),
-              testID: `${pair.tokenA.displaySymbol}_to_supply`,
+              testID: `${pair.tokenA.displaySymbol}_to_supply`
             }}
           />
           <View style={tailwind('flex flex-row text-right items-center justify-end')}>
@@ -150,13 +150,13 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
             {conversion?.isConversionRequired && conversion?.isConverted !== true && <ThemedActivityIndicatorV2 />}
             {
               conversion?.isConversionRequired && conversion?.isConverted === true &&
-              <ThemedIcon
-                light={tailwind('text-success-600')}
-                dark={tailwind('text-darksuccess-500')}
-                iconType='MaterialIcons'
-                name='check-circle'
-                size={20}
-              />
+                <ThemedIcon
+                  light={tailwind('text-success-600')}
+                  dark={tailwind('text-darksuccess-500')}
+                  iconType='MaterialIcons'
+                  name='check-circle'
+                  size={20}
+                />
             }
           </View>
         </ThemedViewV2>
@@ -174,7 +174,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
               testID: 'transaction_fee',
               themedProps: {
                 light: tailwind('text-mono-light-v2-500'),
-                dark: tailwind('text-mono-dark-v2-500'),
+                dark: tailwind('text-mono-dark-v2-500')
               }
             }}
             rhs={{
@@ -190,7 +190,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
             testID: 'transaction_fee',
             themedProps: {
               light: tailwind('text-mono-light-v2-500'),
-              dark: tailwind('text-mono-dark-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
             }
           }}
           rhs={{
@@ -213,7 +213,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
             testID: `${pair.tokenA.displaySymbol}_token_to_supply`,
             themedProps: {
               light: tailwind('text-mono-light-v2-500'),
-              dark: tailwind('text-mono-dark-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
             }
           }}
           rhs={{
@@ -230,7 +230,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
             testID: `${pair.tokenB.displaySymbol}_token_to_supply`,
             themedProps: {
               light: tailwind('text-mono-light-v2-500'),
-              dark: tailwind('text-mono-dark-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
             }
           }}
           rhs={{
@@ -245,7 +245,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
             testID: 'resulting_LP_tokens',
             themedProps: {
               light: tailwind('text-mono-light-v2-500'),
-              dark: tailwind('text-mono-dark-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
             }
           }}
           rhs={{
@@ -263,8 +263,6 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
         <SubmitButtonGroupV2
           isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
           label={translate('screens/ConfirmAddLiq', 'Add liquidity')}
-          isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-          processingLabel={translate('screens/ConfirmAddLiq', 'ADDING')}
           onSubmit={addLiquidity}
           onCancel={onCancel}
           displayCancelBtn
@@ -319,7 +317,7 @@ async function constructSignedAddLiqAndSend (
         waiting: translate('screens/OceanInterface', 'Adding to {{symbolA}}-{{symbolB}} liquidity', {
           symbolA: addLiqForm.tokenASymbol,
           symbolB: addLiqForm.tokenBSymbol
-        }),
+        })
       },
       onBroadcast
     }))

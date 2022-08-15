@@ -144,11 +144,11 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
             light: tailwind('text-mono-light-v2-500'),
             dark: tailwind('text-mono-dark-v2-500')
           },
-          testID: 'shares_to_add'
+          testID: `tokens_in_${pairData.tokenA.displaySymbol}`
         }}
         rhs={{
           value: mappedPair?.tokenA.reserve ?? 0,
-          testID: `Pooled_${pairData.tokenA.displaySymbol}_${denominationCurrency}`,
+          testID: `tokens_in_${pairData.tokenA.displaySymbol}_value_${denominationCurrency}`,
           usdTextStyle: tailwind('text-sm'),
           usdAmount: getUSDValue(
             new BigNumber(pairData.tokenA.reserve),
@@ -162,7 +162,7 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
           value: translate('screens/RemoveLiquidity', 'Tokens in {{token}}', {
             token: pairData.tokenB.displaySymbol
           }),
-          testID: `Pooled_${pairData.tokenB.displaySymbol}`,
+          testID: `tokens_in_${pairData.tokenB.displaySymbol}`,
           themedProps: {
             light: tailwind('text-mono-light-v2-500'),
             dark: tailwind('text-mono-dark-v2-500')
@@ -170,14 +170,14 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
         }}
         rhs={{
           value: mappedPair?.tokenB.reserve ?? 0,
-          testID: `Pooled_${pairData.tokenB.displaySymbol}_${denominationCurrency}`,
+          testID: `tokens_in_${pairData.tokenB.displaySymbol}_value_${denominationCurrency}`,
           usdTextStyle: tailwind('text-sm'),
           usdAmount: getUSDValue(
             new BigNumber(pairData.tokenB.reserve),
             pairData.tokenB.symbol
           )
         }}
-        testID={`${pairInfo.displaySymbol}_pool_share_amount`}
+        testID={`apr_title_${pairInfo.displaySymbol}`}
       />
 
       {pairData?.apr?.total !== undefined && pairData?.apr?.total !== null && (
@@ -190,7 +190,7 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
           }}
           valueTextStyle={tailwind('font-semibold-v2')}
           suffix='%'
-          testID={`${pairInfo.displaySymbol}_Apr`}
+          testID={`apr_${pairInfo.displaySymbol}`}
         />
       )}
     </ThemedViewV2>
