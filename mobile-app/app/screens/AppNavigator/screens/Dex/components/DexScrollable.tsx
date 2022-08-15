@@ -9,11 +9,12 @@ import { DexActionButton } from '@screens/AppNavigator/screens/Dex/components/De
 import BigNumber from 'bignumber.js'
 import NumberFormat from 'react-number-format'
 import { useUnitSuffix } from '@hooks/useUnitSuffix'
+import { translate } from '@translations'
 
 interface DexScrollableProps {
   containerStyle?: StyleProp<ViewStyle>
   sectionStyle?: StyleProp<ViewStyle>
-  testId: string
+  testID: string
   sectionHeading: string
 }
 
@@ -21,18 +22,18 @@ export function DexScrollable (props: PropsWithChildren<DexScrollableProps>): JS
   const {
     containerStyle,
     children,
-    testId,
+    testID,
     sectionHeading,
     sectionStyle
   } = props
   return (
-    <ThemedViewV2 testID={testId} style={[tailwind('flex flex-col'), sectionStyle]}>
+    <ThemedViewV2 testID={testID} style={[tailwind('flex flex-col'), sectionStyle]}>
       <ThemedTextV2
         dark={tailwind('text-mono-dark-v2-500')}
         light={tailwind('text-mono-light-v2-500')}
         style={tailwind('font-normal-v2 text-xs uppercase pl-10 mb-2')}
       >
-        {sectionHeading}
+        {translate('screens/DexScreen', sectionHeading)}
       </ThemedTextV2>
       <ScrollView
         contentContainerStyle={[tailwind('pl-5'), containerStyle]}
@@ -50,13 +51,15 @@ interface DexScrollableCardProps {
   style?: StyleProp<ViewStyle>
   label: string
   onPress: (data: PoolPairData) => void
+  testID: string
 }
 
 function DexScrollableCard ({
   poolpair,
   style,
   onPress,
-  label
+  label,
+  testID
 }: DexScrollableCardProps): JSX.Element {
   const [symbolA, symbolB] = [poolpair.tokenA.displaySymbol, poolpair.tokenB.displaySymbol]
   return (
@@ -97,6 +100,7 @@ function DexScrollableCard ({
           onPress={onPress}
           label={label}
           style={tailwind('flex w-full w-36')}
+          testID={`dex_scrollable_card_${testID}`}
         />
       </View>
     </ThemedViewV2>
@@ -107,12 +111,12 @@ function TotalLiquidityValue ({
   value,
   testId
 }: { value: string, testId: string }): JSX.Element {
-  const isSixDigits = new BigNumber(value ?? 0).gte(new BigNumber(1000000))
-  const valueToUnitSuffix = useUnitSuffix({ 6: 'M' }, value)
+  const isSuffixRequired = new BigNumber(value ?? 0).gte(new BigNumber(1000000))
+  const valueToUnitSuffix = useUnitSuffix({ 6: 'M', 9: 'B', 12: 'T' }, value)
 
   return (
     <>
-      {isSixDigits
+      {isSuffixRequired
 ? (
   <ThemedTextV2
     style={tailwind('font-semibold-v2 text-sm')}

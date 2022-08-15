@@ -51,6 +51,7 @@
     "Swap": "Tausch",
     "Add to LP": "Zum LP hinzufügen",
     "Swap tokens": "Token-Tausch",
+    "TOP LIQUIDITY": "TOP LIQUIDITY",
     "DETAILS": "DETAILS",
     "HIDE": "VERBERGEN",
     "Total Value Locked in pool pairs (USD): ": "In Pool-Paaren angelegter Gesamtwert (USD): ",
@@ -1205,7 +1206,7 @@
   },
   "components/BidHistory": {
     "Bidder ID": "Bieter-ID",
-    "BID #{{bidIndex}}": "BIETEN #{{bidIndex}}",
+    "BID #{{bidIndex}}": "GEBOT NR. {{bidIndex}}",
     "Waiting for first bid": "Warten auf das erste Gebot",
     "{{h}}{{m}} ago": "Vor {{h}}{{m}}",
     "Minimum amount to bid is": "Mindestgebot ist"

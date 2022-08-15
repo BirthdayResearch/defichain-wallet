@@ -49,7 +49,7 @@ describe('Dex Action Button', () => {
 
     const onPress = jest.fn()
 
-    const rendered = render(<DexActionButton onPress={() => onPress()} label='Swap' pair={pair} />)
+    const rendered = render(<DexActionButton testID='Composite_Swap_2' onPress={() => onPress()} label='Swap' pair={pair} />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })

@@ -244,7 +244,7 @@ export function DexScreen (): JSX.Element {
     setDisplayGuidelines(false)
   }
 
-  // Top Volume pairs
+  // Top Liquidity pairs
   const [topLiquidityPairs, setTopLiquidityPairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
   useEffect(() => {
     const sorted = pairs
@@ -335,7 +335,7 @@ interface DexScrollableSectionProps {
 function TopLiquiditySection ({ pairs, onPress }: DexScrollableSectionProps): JSX.Element {
   return (
     <DexScrollable
-      testId='DEX_TOP_LIQUIDITY'
+      testID='dex_top_liquidity'
       sectionHeading='TOP LIQUIDITY'
       sectionStyle={tailwind('my-6')}
     >
@@ -346,6 +346,7 @@ function TopLiquiditySection ({ pairs, onPress }: DexScrollableSectionProps): JS
           style={tailwind('mr-2')}
           onPress={onPress}
           label={translate('screens/DexScreen', 'Swap')}
+          testID={`composite_swap_${pairItem.data.id}`}
         />
       ))}
     </DexScrollable>
