@@ -28,6 +28,7 @@ export const ThemedTextInputV2 = forwardRef(
     return (
       <TextInput
         placeholderTextColor={placeholderTextColor}
+        selectionColor={getColor('brand-v2-500')}
         style={[style, isLight ? light : dark]}
         ref={ref}
         {...otherProps}
