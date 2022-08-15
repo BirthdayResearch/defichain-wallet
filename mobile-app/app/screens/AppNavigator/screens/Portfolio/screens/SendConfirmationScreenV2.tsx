@@ -143,8 +143,8 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
               {
                 conversion?.isConverted === true &&
                   <ThemedIcon
-                    light={tailwind('text-success-600')}
-                    dark={tailwind('text-darksuccess-600')}
+                    light={tailwind('text-success-500')}
+                    dark={tailwind('text-darksuccess-500')}
                     iconType='MaterialIcons'
                     name='check-circle'
                     size={20}
