@@ -63,9 +63,9 @@ export function useConversion (props: useConversionProps): ConversionResult {
 export function queueConvertTransaction ({
   mode,
   amount
-}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): void {
+}: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps, onConfirmation: () => void = () => {}): void {
   try {
-    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, 'CONVERTING')))
+    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, onConfirmation, 'CONVERTING')))
   } catch (e) {
     logger.error(e)
   }

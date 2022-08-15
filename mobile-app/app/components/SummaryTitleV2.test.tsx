@@ -12,7 +12,6 @@ describe('Summary Title V2', () => {
         testID='testID'
         amount={new BigNumber(0.123456789)}
         fromAddress='fromAddress'
-        fromAddressLabel='fromAddressLabel'
         toAddress='toAddress'
         iconA='_UTXO'
         iconB='BTC'
