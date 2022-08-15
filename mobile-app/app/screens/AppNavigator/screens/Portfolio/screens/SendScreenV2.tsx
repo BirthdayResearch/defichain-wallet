@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo, useRef, useCallback } from 'react'
-import { TextInput, View } from 'react-native'
+import { Platform, TextInput, View } from 'react-native'
 import BigNumber from 'bignumber.js'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
@@ -175,7 +175,9 @@ export function SendScreenV2 ({
 
   useEffect(() => {
     /* timeout added to auto display keyboard on Android */
-    setTimeout(() => amountInputRef?.current?.focus(), 0)
+    Platform.OS === 'android'
+      ? setTimeout(() => amountInputRef?.current?.focus(), 0)
+      : amountInputRef?.current?.focus()
   }, [])
 
   useEffect(() => {
