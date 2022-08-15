@@ -1205,7 +1205,7 @@
   },
   "components/BidHistory": {
     "Bidder ID": "Bieter-ID",
-    "BID #{{bidIndex}}": "BIETEN #{{bidIndex}}",
+    "BID #{{bidIndex}}": "GEBOT NR. {{bidIndex}}",
     "Waiting for first bid": "Warten auf das erste Gebot",
     "{{h}}{{m}} ago": "Vor {{h}}{{m}}",
     "Minimum amount to bid is": "Mindestgebot ist"
