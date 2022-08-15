@@ -434,7 +434,7 @@ export function SendScreenV2 ({
             >
               {isConversionRequired
                 ? translate('screens/SendScreen', 'By continuing, the required amount of DFI will be converted')
-                : translate('screens/SendScreen', 'Review full transaction details in the next screen')}
+                : translate('screens/SendScreen', 'Review full details in the next screen')}
             </ThemedTextV2>}
           <SubmitButtonGroupV2
             isDisabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || token === undefined}

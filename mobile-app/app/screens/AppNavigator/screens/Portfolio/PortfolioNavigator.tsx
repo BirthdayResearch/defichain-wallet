@@ -253,12 +253,12 @@ export function PortfolioNavigator (): JSX.Element {
         name='Send'
         options={{
           ...screenOptions,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/SendScreen', 'Send')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          headerTitle: isFeatureAvailable('send_v2')
+            ? translate('screens/SendScreen', 'Send')
+            : () => (<HeaderTitle
+                text={translate('screens/SendScreen', 'Send')}
+                containerTestID={headerContainerTestId}
+                     />),
           ...(isFeatureAvailable('send_v2')) && {
             headerRight: () => (
               <HeaderNetworkStatus onPress={goToNetworkSelect} />
@@ -273,12 +273,13 @@ export function PortfolioNavigator (): JSX.Element {
         name='TokenSelectionScreen'
         options={{
           ...screenOptions,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/SendScreen', 'Send')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          headerTitle: isFeatureAvailable('send_v2')
+            ? translate('screens/SendScreen', 'Send')
+            : () => (<HeaderTitle
+                text={translate('screens/SendScreen', 'Send')}
+                containerTestID={headerContainerTestId}
+                     />
+            ),
           ...(isFeatureAvailable('send_v2')) && {
             headerRight: () => (
               <HeaderNetworkStatus onPress={goToNetworkSelect} />
@@ -293,12 +294,12 @@ export function PortfolioNavigator (): JSX.Element {
         name='SendConfirmationScreen'
         options={{
           ...screenOptions,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/SendConfirmationScreen', 'Confirm Send')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          headerTitle: isFeatureAvailable('send_v2')
+            ? translate('screens/SendConfirmationScreen', 'Confirm Send')
+            : () => (<HeaderTitle
+                text={translate('screens/SendConfirmationScreen', 'Confirm Send')}
+                containerTestID={headerContainerTestId}
+                     />),
           ...(isFeatureAvailable('send_v2')) && {
             headerRight: () => (
               <HeaderNetworkStatus onPress={goToNetworkSelect} />
