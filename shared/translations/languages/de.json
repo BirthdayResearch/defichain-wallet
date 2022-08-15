@@ -269,6 +269,7 @@
     "Amount to send": "Zu sendender Betrag"
   },
   "screens/ConvertScreen": {
+    "Convert": "Umwandeln",
     "Convert DFI": "DFI umwandeln",
     "Scan recipient QR": "QR-Code des Empfängers scannen",
     "Balance": "Guthaben",
@@ -294,6 +295,7 @@
     "Resulting {{unit}}": "Verbleibende {{unit}}"
   },
   "screens/ConvertConfirmScreen": {
+    "Confirm": "Bestätigen",
     "Confirm DFI Conversion": "Bestätige DFI-Konvertierung",
     "You are converting": "Du wandelst um",
     "AFTER CONVERSION, YOU WILL HAVE": "NACH DER KONVERTIERUNG IST DEIN NEUER KONTOSTAND",
