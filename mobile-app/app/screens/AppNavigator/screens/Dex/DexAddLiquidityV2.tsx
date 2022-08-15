@@ -512,7 +512,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
 
         <View style={tailwind('mt-5 mx-4')}>
           <ButtonV2
-            fill='fill' label={translate('components/Button', 'Continue')}
+            fillType='fill' label={translate('components/Button', 'Continue')}
             styleProps='w-full'
             disabled={!canContinue}
             onPress={onSubmit}
@@ -576,8 +576,9 @@ function AddLiquidityInputCard (
           props.onChange(amount)
         }}
         onPercentageChange={props.onPercentageChange}
-        containerStyle={tailwind('border-b-0.5')}
         status={props.status}
+        amountButtonsStyle={tailwind('border-t-0.5')}
+        containerStyle={tailwind('pl-5 pr-5 pt-2 mr-px rounded-t-lg-v2')}
       >
         <ThemedViewV2
           light={tailwind('border-mono-light-v2-300')}

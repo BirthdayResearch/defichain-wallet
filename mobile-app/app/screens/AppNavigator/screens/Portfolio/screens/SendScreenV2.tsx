@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo, useRef, useCallback } from 'react'
-import { TextInput, View } from 'react-native'
+import { Platform, TextInput, View } from 'react-native'
 import BigNumber from 'bignumber.js'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
@@ -175,7 +175,9 @@ export function SendScreenV2 ({
 
   useEffect(() => {
     /* timeout added to auto display keyboard on Android */
-    setTimeout(() => amountInputRef?.current?.focus(), 0)
+    Platform.OS === 'android'
+      ? setTimeout(() => amountInputRef?.current?.focus(), 0)
+      : amountInputRef?.current?.focus()
   }, [])
 
   useEffect(() => {
@@ -378,8 +380,8 @@ export function SendScreenV2 ({
             {matchedAddress !== undefined && (
               <View style={tailwind('ml-5 my-2 items-center flex flex-row')}>
                 <ThemedIcon
-                  light={tailwind('text-success-600')}
-                  dark={tailwind('text-darksuccess-600')}
+                  light={tailwind('text-success-500')}
+                  dark={tailwind('text-darksuccess-500')}
                   iconType='MaterialIcons'
                   name='check-circle'
                   size={16}
@@ -486,36 +488,40 @@ function AddressRow ({
               inputFooter={inputFooter}
               valid={hasValidAddress}
             >
-              <ThemedTouchableOpacity
-                dark={tailwind('bg-black')}
-                light={tailwind('bg-white')}
-                onPress={onContactButtonPress}
-                style={tailwind('w-9 p-1.5 mr-1 rounded')}
-                testID='address_book_button'
-              >
-                <ThemedIcon
-                  iconType='MaterialCommunityIcons'
-                  dark={tailwind('text-mono-dark-v2-700')}
-                  light={tailwind('text-mono-light-v2-700')}
-                  name='account-multiple'
-                  size={24}
-                />
-              </ThemedTouchableOpacity>
-              <ThemedTouchableOpacity
-                dark={tailwind('bg-black')}
-                light={tailwind('bg-white')}
-                onPress={onQrButtonPress}
-                style={tailwind('w-9 p-1.5 rounded')}
-                testID='qr_code_button'
-              >
-                <ThemedIcon
-                  dark={tailwind('text-mono-dark-v2-700')}
-                  light={tailwind('text-mono-light-v2-700')}
-                  iconType='MaterialIcons'
-                  name='qr-code'
-                  size={24}
-                />
-              </ThemedTouchableOpacity>
+              {value !== '' && <View style={tailwind('mr-2')} />}
+              {value === '' &&
+                <>
+                  <ThemedTouchableOpacity
+                    dark={tailwind('bg-black')}
+                    light={tailwind('bg-white')}
+                    onPress={onContactButtonPress}
+                    style={tailwind('w-9 p-1.5 rounded')}
+                    testID='address_book_button'
+                  >
+                    <ThemedIcon
+                      iconType='Feather'
+                      dark={tailwind('text-mono-dark-v2-700')}
+                      light={tailwind('text-mono-light-v2-700')}
+                      name='users'
+                      size={24}
+                    />
+                  </ThemedTouchableOpacity>
+                  <ThemedTouchableOpacity
+                    dark={tailwind('bg-black')}
+                    light={tailwind('bg-white')}
+                    onPress={onQrButtonPress}
+                    style={tailwind('w-9 p-1.5 rounded')}
+                    testID='qr_code_button'
+                  >
+                    <ThemedIcon
+                      dark={tailwind('text-mono-dark-v2-700')}
+                      light={tailwind('text-mono-light-v2-700')}
+                      iconType='MaterialIcons'
+                      name='qr-code'
+                      size={24}
+                    />
+                  </ThemedTouchableOpacity>
+                </>}
             </WalletTextInputV2>
             {!hasValidAddress &&
               <ThemedTextV2
@@ -569,7 +575,7 @@ function AmountCard ({
         containerStyle={tailwind('rounded-t-lg-v2')}
       >
         <ThemedTouchableOpacityV2
-          style={tailwind('flex flex-row items-center justify-between pt-5 mb-4 mx-5')}
+          style={tailwind('flex flex-row items-center justify-between pt-4.5 mb-4 mx-5')}
           onPress={onPress}
           testID='select_token_input'
         >
