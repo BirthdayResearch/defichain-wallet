@@ -475,7 +475,7 @@ context('Wallet - Send - Switch token', function () {
   })
 })
 
-context.only('Wallet - Send - Address book', function () {
+context('Wallet - Send - Address book', function () {
   function populateAddressBook (): void {
     cy.createEmptyWallet(true)
     cy.sendDFItoWallet()
@@ -506,7 +506,7 @@ context.only('Wallet - Send - Address book', function () {
 
   function validateMatchAddress (address: string, label: string): void {
     cy.getByTestID('address_input').contains(address)
-    cy.getByTestID('address_input_footer').contains(label)
+    cy.getByTestID('address_input_footer').contains(address)
   }
 
   before(function () {

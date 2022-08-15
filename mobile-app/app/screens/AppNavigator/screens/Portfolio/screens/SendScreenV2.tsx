@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useRef } from 'react'
+import { useEffect, useState, useMemo, useRef, useCallback } from 'react'
 import { TextInput, View } from 'react-native'
 import BigNumber from 'bignumber.js'
 import { Control, Controller, useForm } from 'react-hook-form'
@@ -217,6 +217,12 @@ export function SendScreenV2 ({
     })
   }
 
+  const onAddressSelect = useCallback(async (savedAddress: string) => {
+    setValue('address', savedAddress, { shouldDirty: true })
+    navigation.goBack()
+    await trigger('address')
+  }, [navigation])
+
   async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob || token === undefined || !formState.isValid) {
       return
@@ -326,11 +332,7 @@ export function SendScreenV2 ({
               onPress={async () => {
                 setValue('amount', '', { shouldDirty: true })
                 await trigger('amount')
-                navigation.navigate({
-                  name: 'TokenSelectionScreen',
-                  params: {},
-                  merge: true
-                })
+                navigation.push('TokenSelectionScreen', {})
               }}
               onAmountChange={async (amount: string, type: AmountButtonTypes) => {
                 showToast(type)
@@ -349,11 +351,7 @@ export function SendScreenV2 ({
                 name: 'AddressBookScreen',
                 params: {
                   selectedAddress: getValues('address'),
-                  onAddressSelect: async (savedAddress: string) => {
-                    setValue('address', savedAddress, { shouldDirty: true })
-                    await trigger('address')
-                    navigation.goBack()
-                  }
+                  onAddressSelect
                 },
                 merge: true
               })}
