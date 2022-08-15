@@ -56,6 +56,8 @@ import { SendScreen } from './screens/SendScreen'
 import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { NetworkSelectionScreen } from '../Settings/screens/NetworkSelectionScreen'
+import { AddLiquidityScreen } from '../Dex/DexAddLiquidity'
+import { ConfirmAddLiquidityScreen } from '../Dex/DexConfirmAddLiquidity'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -464,7 +466,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={AddLiquidityScreenV2}
+        component={isFeatureAvailable('add_liquidity_v2') ? AddLiquidityScreenV2 : AddLiquidityScreen}
         name='AddLiquidity'
         options={{
           ...screenOptions,
@@ -476,7 +478,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={ConfirmAddLiquidityScreenV2}
+        component={isFeatureAvailable('add_liquidity_v2') ? ConfirmAddLiquidityScreenV2 : ConfirmAddLiquidityScreen}
         name='ConfirmAddLiquidity'
         options={{
           ...screenOptions,
