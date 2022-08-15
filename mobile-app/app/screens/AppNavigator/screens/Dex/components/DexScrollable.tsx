@@ -9,6 +9,7 @@ import { DexActionButton } from '@screens/AppNavigator/screens/Dex/components/De
 import BigNumber from 'bignumber.js'
 import NumberFormat from 'react-number-format'
 import { useUnitSuffix } from '@hooks/useUnitSuffix'
+import { translate } from '@translations'
 
 interface DexScrollableProps {
   containerStyle?: StyleProp<ViewStyle>
@@ -32,7 +33,7 @@ export function DexScrollable (props: PropsWithChildren<DexScrollableProps>): JS
         light={tailwind('text-mono-light-v2-500')}
         style={tailwind('font-normal-v2 text-xs uppercase pl-10 mb-2')}
       >
-        {sectionHeading}
+        {translate('screens/DexScreen', sectionHeading)}
       </ThemedTextV2>
       <ScrollView
         contentContainerStyle={[tailwind('pl-5'), containerStyle]}

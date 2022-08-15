@@ -244,7 +244,7 @@ export function DexScreen (): JSX.Element {
     setDisplayGuidelines(false)
   }
 
-  // Top Volume pairs
+  // Top Liquidity pairs
   const [topLiquidityPairs, setTopLiquidityPairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
   useEffect(() => {
     const sorted = pairs
