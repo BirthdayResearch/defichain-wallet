@@ -2,7 +2,7 @@ import { StyleProp, View, ViewProps, ViewStyle } from 'react-native'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
-import { ThemedProps, ThemedText, ThemedView } from './themed'
+import { ThemedProps, ThemedTextV2, ThemedViewV2 } from './themed'
 import { IconTooltip } from './tooltip/IconTooltip'
 import { ActiveUSDValueV2 } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2'
 
@@ -30,14 +30,14 @@ export interface NumberRowElement {
 
 export function NumberRowV2 (props: INumberRowProps): JSX.Element {
   return (
-    <ThemedView
+    <ThemedViewV2
       style={props.containerStyle?.style ?? tailwind('flex-row items-start w-full bg-transparent')}
       light={props.containerStyle?.light ?? tailwind('bg-transparent')}
       dark={props.containerStyle?.dark ?? tailwind('bg-transparent')}
     >
       <View style={tailwind('w-5/12')}>
         <View style={tailwind('flex-row items-end justify-start')}>
-          <ThemedText
+          <ThemedTextV2
             style={tailwind('text-sm font-normal-v2')}
             light={tailwind('text-mono-light-v2-900')}
             dark={tailwind('text-mono-dark-v2-900')}
@@ -45,7 +45,7 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
             {...props.lhs.themedProps}
           >
             {props.lhs.value}
-          </ThemedText>
+          </ThemedTextV2>
         </View>
       </View>
 
@@ -58,7 +58,7 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
               prefix={props.rhs.prefix}
               suffix={props.rhs.suffix !== undefined ? ` ${props.rhs.suffix}` : undefined}
               renderText={(val: string) => (
-                <ThemedText
+                <ThemedTextV2
                   style={tailwind('text-right font-normal-v2 text-sm')}
                   light={tailwind('text-mono-light-v2-700')}
                   dark={tailwind('text-mono-dark-v2-700')}
@@ -66,7 +66,7 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
                   {...props.rhs.themedProps}
                 >
                   {val}
-                </ThemedText>
+                </ThemedTextV2>
               )}
               thousandSeparator
               value={props.rhs.value}
@@ -95,7 +95,7 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
                 prefix={props.rhs.subValue.prefix}
                 suffix={props.rhs.subValue.suffix}
                 renderText={(val: string) => (
-                  <ThemedText
+                  <ThemedTextV2
                     style={tailwind('text-right font-normal-v2 text-sm mt-1')}
                     light={tailwind('text-mono-light-v2-700')}
                     dark={tailwind('text-mono-dark-v2-700')}
@@ -103,7 +103,7 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
                     {...props.rhs.subValue?.themedProps}
                   >
                     {val}
-                  </ThemedText>
+                  </ThemedTextV2>
               )}
                 thousandSeparator
                 value={props.rhs.subValue.value}
@@ -111,6 +111,6 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
           }
         </View>
       </View>
-    </ThemedView>
+    </ThemedViewV2>
   )
 }
