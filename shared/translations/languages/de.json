@@ -746,6 +746,7 @@
     "Removing tokens from liquidity pool…": "Token aus dem Liquiditätspool entfernen…",
     "Removed tokens from liquidity pool": "Aus dem Liquiditätspool entfernte Token",
     "Removing {{symbol}} from liquidity pool": "Entfernen von {{symbol}} aus dem Liquiditätspool",
+    "Removed {{amount}} {{symbol}} from liquidity pool": "{amount}} {{symbol}} aus dem Liquiditätspool entfernt",
     "Preparing loan payment…": "Darlehensrückzahlung vorbereiten…",
     "Processing loan payment…": "Darlehensrückzahlung bearbeiten…",
     "Payment completed": "Rückzahlung abgeschlossen",

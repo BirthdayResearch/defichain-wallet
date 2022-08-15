@@ -765,6 +765,7 @@
     "Removing tokens from liquidity pool…": "Removing tokens from liquidity pool…",
     "Removed tokens from liquidity pool": "Removed tokens from liquidity pool",
     "Removing {{symbol}} from liquidity pool": "Removing {{symbol}} from liquidity pool",
+    "Removed {{amount}} {{symbol}} from liquidity pool": "Removed {{amount}} {{symbol}} from liquidity pool",
     "Preparing loan payment…": "Preparing loan payment…",
     "Processing loan payment…": "Processing loan payment…",
     "Payment completed": "Payment completed",
