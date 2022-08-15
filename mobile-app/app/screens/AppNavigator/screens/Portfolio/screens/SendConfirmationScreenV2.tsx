@@ -18,10 +18,9 @@ import { RootState } from '@store'
 import { WalletToken } from '@store/wallet'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
-import { useAddressLabel } from '@hooks/useAddressLabel'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { View } from '@components'
-import { ThemedActivityIndicatorV2, ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedViewV2 } from '@components/themed'
+import { ThemedActivityIndicatorV2, ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedView, ThemedViewV2 } from '@components/themed'
 import { SummaryTitleV2 } from '@components/SummaryTitleV2'
 import { NumberRowV2 } from '@components/NumberRowV2'
 import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
@@ -31,7 +30,6 @@ type Props = StackScreenProps<PortfolioParamList, 'SendConfirmationScreen'>
 
 export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
   const { address } = useWalletContext()
-  const addressLabel = useAddressLabel(address)
   const network = useNetworkContext()
   const {
     token,
@@ -48,8 +46,8 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
-  // const expectedBalance = BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)).minus(fee), 0).toFixed(8)
   const [isAcknowledge, setIsAcknowledge] = useState(false)
+  const [tokenADisplaySymbol, tokenBDisplaySymbol] = token.displaySymbol.split('-')
 
   useEffect(() => {
     setIsOnPage(true)
@@ -93,19 +91,21 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
           amount={amount}
           title={translate('screens/SendConfirmationScreen', 'You are sending')}
           testID='text_send_amount'
-          iconA={token.displaySymbol}
+          iconA={tokenADisplaySymbol}
+          iconB={tokenBDisplaySymbol}
           fromAddress={address}
-          fromAddressLabel={addressLabel}
           toAddress={destination}
         />
 
         {conversion?.isConversionRequired === true &&
-          <>
+          <ThemedView
+            style={tailwind('border-t-0.5 pt-5 mt-8 mb-2')}
+            light={tailwind('bg-transparent border-mono-light-v2-300')}
+            dark={tailwind('bg-transparent border-mono-dark-v2-300')}
+          >
             <NumberRowV2
               containerStyle={{
-                style: tailwind('flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-8'),
-                light: tailwind('bg-transparent border-mono-light-v2-300'),
-                dark: tailwind('bg-transparent border-mono-dark-v2-300')
+                style: tailwind('flex-row items-start w-full bg-transparent')
               }}
               lhs={{
                 value: translate('screens/SendConfirmationScreen', 'Amount to convert'),
@@ -127,7 +127,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
             />
             <View style={tailwind('flex flex-row text-right items-center justify-end')}>
               <ThemedTextV2
-                style={tailwind('mr-1.5')}
+                style={tailwind('mr-1.5 text-sm font-normal-v2')}
                 light={tailwind('text-mono-light-v2-500')}
                 dark={tailwind('text-mono-dark-v2-500')}
                 testID='conversion_status'
@@ -139,23 +139,23 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
                       : 'Converted')
                 }
               </ThemedTextV2>
-              {conversion?.isConversionRequired && conversion?.isConverted !== true && <ThemedActivityIndicatorV2 />}
+              {conversion?.isConverted !== true && <ThemedActivityIndicatorV2 />}
               {
-                conversion?.isConversionRequired && conversion?.isConverted === true &&
+                conversion?.isConverted === true &&
                   <ThemedIcon
-                    light={tailwind('text-success-600')}
-                    dark={tailwind('text-darksuccess-600')}
+                    light={tailwind('text-success-500')}
+                    dark={tailwind('text-darksuccess-500')}
                     iconType='MaterialIcons'
                     name='check-circle'
                     size={20}
                   />
               }
             </View>
-          </>}
+          </ThemedView>}
 
         <NumberRowV2
           containerStyle={{
-            style: tailwind('flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-8'),
+            style: tailwind('flex-row items-start w-full bg-transparent border-t-0.5 pt-5', { 'mt-8': conversion?.isConversionRequired !== true }),
             light: tailwind('bg-transparent border-mono-light-v2-300'),
             dark: tailwind('bg-transparent border-mono-dark-v2-300')
           }}
@@ -216,7 +216,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
         onSubmit={onSubmit}
         displayCancelBtn
         title='send'
-        buttonStyle='mx-5'
+        buttonStyle='mx-5 mb-2'
       />
     </ThemedScrollViewV2>
   )
@@ -233,7 +233,7 @@ function LpAcknowledgeSwitch (props: { isAcknowledge: boolean, onSwitch: (val: b
         testID='lp_ack_switch'
       />
       <ThemedTextV2
-        style={tailwind('ml-4 flex-1 text-xs')}
+        style={tailwind('ml-4 flex-1 text-xs font-normal-v2')}
         light={tailwind('text-mono-light-v2-700')}
         dark={tailwind('text-mono-dark-v2-700')}
       >
@@ -291,8 +291,14 @@ async function send ({
       }),
       drawerMessages: {
         preparing: translate('screens/OceanInterface', 'Preparing to send…'),
-        waiting: translate('screens/OceanInterface', 'Sending tokens…'),
-        complete: translate('screens/OceanInterface', 'Tokens sent')
+        waiting: translate('screens/OceanInterface', 'Sending {{amount}} {{displaySymbol}}', {
+          amount: amount.toFixed(8),
+          displaySymbol: token.displaySymbol
+        }),
+        complete: translate('screens/OceanInterface', '{{amount}} {{displaySymbol}} sent', {
+          amount: amount.toFixed(8),
+          displaySymbol: token.displaySymbol
+        })
       },
       onBroadcast
     }))

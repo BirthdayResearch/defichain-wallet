@@ -54,6 +54,12 @@ context('Wallet - Send', function () {
       cy.go('back')
     })
 
+    it('should reset values on load', function () {
+      cy.getByTestID('select_token_input').click()
+      cy.getByTestID('select_DFI').click()
+      cy.getByTestID('address_input').should('have.text', '')
+    })
+
     it('should be able to validate form', function () {
       // Valid form
       cy.getByTestID('address_input').type(addresses[0])
@@ -63,6 +69,7 @@ context('Wallet - Send', function () {
 
       // Invalid address
       cy.getByTestID('address_input').type('z')
+      cy.getByTestID('address_error_text').should('have.text', 'Invalid address. Make sure the address is correct to avoid irrecoverable losses')
       cy.getByTestID('button_confirm_send_continue').should('have.attr', 'aria-disabled')
       cy.getByTestID('address_input_clear_button').click()
       cy.getByTestID('button_confirm_send_continue').should('have.attr', 'aria-disabled')
@@ -75,6 +82,24 @@ context('Wallet - Send', function () {
       cy.getByTestID('button_confirm_send_continue').should('have.attr', 'aria-disabled')
       cy.getByTestID('amount_input').clear().type('0')
       cy.getByTestID('button_confirm_send_continue').should('have.attr', 'aria-disabled')
+    })
+
+    it('should be able to search for tokens', function () {
+      cy.getByTestID('select_token_input').click()
+
+      // empty result
+      cy.getByTestID('token_search_input').clear().type('xxx').wait(2000)
+      cy.getByTestID('empty_search_result_text').should('have.text', 'Search results for “xxx”')
+      cy.getByTestID('select_DFI').should('not.exist')
+      cy.getByTestID('select_dBTC-DFI').should('not.exist')
+
+      // has result
+      cy.getByTestID('token_search_input').clear().type('btc').wait(2000)
+      cy.getByTestID('empty_search_result_text').should('have.text', 'Search results for “btc”')
+      cy.getByTestID('select_DFI').should('not.exist')
+      cy.getByTestID('select_dBTC-DFI').should('exist')
+      cy.getByTestID('token_search_input').clear().wait(2000)
+      cy.getByTestID('select_DFI').click().wait(3000)
     })
 
     it('should be able to display elements', function () {
@@ -108,7 +133,7 @@ context('Wallet - Send', function () {
       }
       const amountButtonList = Object.keys(amountButtons) as Array<keyof typeof amountButtons>
       amountButtonList.forEach((key) => {
-        cy.getByTestID('available_balance').invoke('text').then((text) => {
+        cy.getByTestID('max_value').invoke('text').then((text) => {
           cy.getByTestID(`${key}_amount_button`).click()
           const availableBalance = new BigNumber(text)
           const inputAfterButtonPress = availableBalance.multipliedBy(amountButtons[key])
@@ -481,7 +506,7 @@ context('Wallet - Send - Address book', function () {
 
   function validateMatchAddress (address: string, label: string): void {
     cy.getByTestID('address_input').contains(address)
-    cy.getByTestID('address_input_footer').contains(label)
+    cy.getByTestID('address_input_footer').contains(address)
   }
 
   before(function () {

@@ -259,7 +259,8 @@
     "Verified": "Bestätigt",
     "{{percent}} of available {{unit}} entered": "{{percent}} der verfügbaren {{unit}} eingegeben",
     "Max available {{unit}} entered": "Max. verfügbare {{unit}} eingegeben",
-    "By continuing, the required amount of DFI will be converted": "Wenn du fortfährst, wird die erforderliche Summe an DFI umgewandelt"
+    "By continuing, the required amount of DFI will be converted": "Wenn du fortfährst, wird die erforderliche Summe an DFI umgewandelt",
+    "Invalid address. Make sure the address is correct to avoid irrecoverable losses": "Ungültige Adresse. Vergewissere dich, dass die Adresse korrekt ist, um unwiederbringliche Verluste zu vermeiden."
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Senden bestätigen",
@@ -292,7 +293,7 @@
     "Search token": "Token durchsuchen",
     "No assets found": "Keine Aktiva gefunden",
     "Add assets to get started": "Aktiva zum Einstieg hinzufügen",
-    "Search results for “{{searchTerm}}“": "Suchergebnisse für “{{searchTerm}}”",
+    "Search results for “{{searchTerm}}”": "Suchergebnisse für “{{searchTerm}}”",
     "AVAILABLE": "VERFÜGBAR"
   },
   "screens/ConvertScreen": {
@@ -727,8 +728,8 @@
     "Swapping tokens…": "Token tauschen…",
     "Tokens swapped": "Token getauscht",
     "Preparing to send…": "Vorbereiten des Sendens…",
-    "Sending tokens…": "Senden der Token…",
-    "Tokens sent": "Token gesendet",
+    "Sending {{amount}} {{displaySymbol}}": "Sending {{amount}} {{displaySymbol}}",
+    "{{amount}} {{displaySymbol}} sent": "{{amount}} {{displaySymbol}} sent",
     "Preparing loan…": "Darlehen vorbereiten…",
     "Processing loan…": "Darlehensaufnahme bearbeiten…",
     "Loan processed": "Darlehen verarbeitet",
