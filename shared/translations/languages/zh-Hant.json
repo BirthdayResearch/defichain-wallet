@@ -256,7 +256,11 @@
     "Paste address": "Paste address",
     "I WANT TO SEND": "I WANT TO SEND",
     "Review full details in the next screen": "Review full details in the next screen",
-    "Verified": "Verified"
+    "Verified": "Verified",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "Invalid address. Make sure the address is correct to avoid irrecoverable losses": "Invalid address. Make sure the address is correct to avoid irrecoverable losses"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "確認發出",
@@ -289,7 +293,7 @@
     "Search token": "搜索代幣",
     "No assets found": "No assets found",
     "Add assets to get started": "Add assets to get started",
-    "Search results for “{{searchTerm}}“": "Search results for “{{searchTerm}}“",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
     "AVAILABLE": "AVAILABLE"
   },
   "screens/ConvertScreen": {
@@ -727,8 +731,8 @@
     "Swapping tokens…": "Swapping tokens…",
     "Tokens swapped": "Tokens swapped",
     "Preparing to send…": "Preparing to send…",
-    "Sending tokens…": "Sending tokens…",
-    "Tokens sent": "Tokens sent",
+    "Sending {{amount}} {{displaySymbol}}": "Sending {{amount}} {{displaySymbol}}",
+    "{{amount}} {{displaySymbol}} sent": "{{amount}} {{displaySymbol}} sent",
     "Preparing loan…": "Preparing loan…",
     "Processing loan…": "Processing loan…",
     "Loan processed": "Loan processed",

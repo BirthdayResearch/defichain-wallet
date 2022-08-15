@@ -21,6 +21,8 @@ import { RemoveLiquidityScreenV2 } from './DexRemoveLiquidityV2'
 import { RemoveLiquidityConfirmScreen } from './DexConfirmRemoveLiquidity'
 import { RemoveLiquidityConfirmScreenV2 } from './DexConfirmRemoveLiquidityV2'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { AddLiquidityScreen } from './DexAddLiquidity'
+import { ConfirmAddLiquidityScreenV2 } from './DexConfirmAddLiquidityV2'
 export interface DexParamList {
   DexScreen: undefined
   CompositeSwapScreen: {
@@ -125,7 +127,7 @@ export function DexNavigator (): JSX.Element {
       />
 
       <DexStack.Screen
-        component={AddLiquidityScreenV2}
+        component={isFeatureAvailable('add_liquidity_v2') ? AddLiquidityScreenV2 : AddLiquidityScreen}
         name='AddLiquidity'
         options={{
           ...screenOptions,
@@ -137,7 +139,7 @@ export function DexNavigator (): JSX.Element {
       />
 
       <DexStack.Screen
-        component={ConfirmAddLiquidityScreen}
+        component={isFeatureAvailable('add_liquidity_v2') ? ConfirmAddLiquidityScreenV2 : ConfirmAddLiquidityScreen}
         name='ConfirmAddLiquidity'
         options={{
           ...screenOptions,

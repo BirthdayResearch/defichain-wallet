@@ -9,6 +9,7 @@ import { PortfolioSkeletonLoader } from './skeletonLoaders/PortfolioSkeletonLoad
 import { VaultSchemesSkeletonLoader } from './skeletonLoaders/VaultSchemeSkeletonLoader'
 import { DexPricesSkeletonLoader } from './skeletonLoaders/DexPricesSkeletonLoader'
 import { MnemonicWordSkeletonLoaderV2 } from './skeletonLoaders/MnemonicWordSkeletonLoaderV2'
+import { TokenSelectionLoader } from './skeletonLoaders/TokenSelectionLoader'
 
 interface SkeletonLoaderProp {
   row: number
@@ -26,7 +27,8 @@ export enum SkeletonLoaderScreen {
   'BrowseAuction' = 'BrowseAuction',
   'Vault' = 'Vault',
   'Portfolio' = 'Portfolio',
-  'VaultSchemes' = 'VaultSchemes'
+  'VaultSchemes' = 'VaultSchemes',
+  'TokenSelection' = 'TokenSelection'
 }
 
 export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
@@ -41,7 +43,7 @@ export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
         </>
       )
 
-      case SkeletonLoaderScreen.DexPrices:
+    case SkeletonLoaderScreen.DexPrices:
       return (
         <>
           {skeletonRow.map(i => (
@@ -67,13 +69,13 @@ export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
         </>
       )
     case SkeletonLoaderScreen.MnemonicWordV2:
-        return (
-          <>
-            {skeletonRow.map((i, index) => (
-              <MnemonicWordSkeletonLoaderV2 key={i} border={index < skeletonRow.length - 1} />
-            ))}
-          </>
-        )
+      return (
+        <>
+          {skeletonRow.map((i, index) => (
+            <MnemonicWordSkeletonLoaderV2 key={i} border={index < skeletonRow.length - 1} />
+          ))}
+        </>
+      )
     case SkeletonLoaderScreen.Loan:
       return (
         <>
@@ -83,13 +85,13 @@ export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
         </>
       )
     case SkeletonLoaderScreen.Address:
-        return (
-          <>
-            {skeletonRow.map(i => (
-              <AddressSkeletonLoader key={i} />
-            ))}
-          </>
-        )
+      return (
+        <>
+          {skeletonRow.map(i => (
+            <AddressSkeletonLoader key={i} />
+          ))}
+        </>
+      )
     case SkeletonLoaderScreen.BrowseAuction:
       return (
         <>
@@ -103,6 +105,14 @@ export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
         <>
           {skeletonRow.map(i => (
             <VaultSkeletonLoader key={i} />
+          ))}
+        </>
+      )
+    case SkeletonLoaderScreen.TokenSelection:
+      return (
+        <>
+          {skeletonRow.map(i => (
+            <TokenSelectionLoader key={i} />
           ))}
         </>
       )

@@ -1,5 +1,5 @@
-import { useEffect, useState, useMemo } from 'react'
-import { View } from 'react-native'
+import { useEffect, useState, useMemo, useRef, useCallback } from 'react'
+import { TextInput, View } from 'react-native'
 import BigNumber from 'bignumber.js'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
@@ -7,7 +7,7 @@ import { useToast } from 'react-native-toast-notifications'
 import { StackScreenProps } from '@react-navigation/stack'
 import { getColor, tailwind } from '@tailwind'
 import { debounce } from 'lodash'
-import { DeFiAddress } from '@defichain/jellyfish-address'
+import { fromAddress } from '@defichain/jellyfish-address'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { translate } from '@translations'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
@@ -32,14 +32,14 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2
 } from '@components/themed'
-import { getNativeIcon } from '@components/icons/assets'
 import { WalletTextInputV2 } from '@components/WalletTextInputV2'
 import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
-import { AmountButtonTypes, TransactionCard } from '@components/TransactionCard'
+import { AmountButtonTypes, TransactionCard, TransactionCardStatus } from '@components/TransactionCard'
 import { useTokenPrice } from '../hooks/TokenPrice'
 import { ActiveUSDValueV2 } from '../../Loans/VaultDetail/components/ActiveUSDValueV2'
 import { PortfolioParamList } from '../PortfolioNavigator'
 import { RandomAvatar } from '../components/RandomAvatar'
+import { TokenIcon } from '../components/TokenIcon'
 
 type Props = StackScreenProps<PortfolioParamList, 'SendScreenV2'>
 
@@ -83,6 +83,7 @@ export function SendScreenV2 ({
   const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [jellyfishWalletAddress, setJellyfishWalletAddresses] = useState<string[]>([])
+  const [transactionCardStatus, setTransactionCardStatus] = useState(TransactionCardStatus.Default)
 
   // form
   const { control, setValue, formState, getValues, trigger, watch } = useForm({ mode: 'onChange' })
@@ -119,6 +120,8 @@ export function SendScreenV2 ({
 
   const reservedDFI = 0.1
   const isReservedUtxoUsed = getDisplayUtxoWarningStatus(new BigNumber(amountToSend))
+
+  const amountInputRef = useRef<TextInput>()
   const amountInUSDValue = useMemo(() => {
     if (token === undefined || isNaN(amountToSend) || (amountToSend === '')) {
       return new BigNumber(0)
@@ -128,7 +131,9 @@ export function SendScreenV2 ({
   }, [amountToSend, token])
 
   const { infoText, infoTextThemedProps } = useMemo(() => {
-    let infoText, themedProps
+    let infoText
+    let themedProps
+    let status = TransactionCardStatus.Default
 
     if (new BigNumber(amountToSend).isGreaterThan(token?.amount ?? 0)) {
       infoText = 'Insufficient balance'
@@ -136,6 +141,7 @@ export function SendScreenV2 ({
         dark: tailwind('text-red-v2'),
         light: tailwind('text-red-v2')
       }
+      status = TransactionCardStatus.Error
     } else if (token?.isLPS === true && new BigNumber(amountToSend).isGreaterThan(0)) {
       infoText = 'Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds'
       themedProps = {
@@ -156,15 +162,21 @@ export function SendScreenV2 ({
       }
     }
 
+    setTransactionCardStatus(status)
     return {
       infoText: translate('screens/SendScreen', infoText),
-      infoTextThemedProps: { ...themedProps, style: tailwind('text-xs mt-2 ml-5') }
+      infoTextThemedProps: { ...themedProps, style: tailwind('text-xs mt-2 ml-5 font-normal-v2') }
     }
   }, [token, isReservedUtxoUsed, amountToSend])
 
   useEffect(() => {
     setToken(route.params.token)
   }, [route.params.token])
+
+  useEffect(() => {
+    /* timeout added to auto display keyboard on Android */
+    setTimeout(() => amountInputRef?.current?.focus(), 0)
+  }, [])
 
   useEffect(() => {
     void fetchWalletAddresses().then((walletAddresses) => setJellyfishWalletAddresses(walletAddresses))
@@ -205,6 +217,12 @@ export function SendScreenV2 ({
       duration: TOAST_DURATION
     })
   }
+
+  const onAddressSelect = useCallback(async (savedAddress: string) => {
+    setValue('address', savedAddress, { shouldDirty: true })
+    navigation.goBack()
+    await trigger('address')
+  }, [navigation])
 
   async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob || token === undefined || !formState.isValid) {
@@ -259,6 +277,11 @@ export function SendScreenV2 ({
     }
   }
 
+  const onAmountChange = async (amount: string): Promise<void> => {
+    setValue('amount', amount, { shouldDirty: true })
+    await trigger('amount')
+  }
+
   return (
     <View style={tailwind('h-full')}>
       <ThemedScrollViewV2 contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'>
@@ -272,7 +295,7 @@ export function SendScreenV2 ({
             <View style={tailwind('my-12 items-center')}>
               <Controller
                 control={control}
-                defaultValue='0'
+                defaultValue=''
                 name='amount'
                 render={({
                   field: {
@@ -281,15 +304,17 @@ export function SendScreenV2 ({
                   }
                 }) => (
                   <ThemedTextInputV2
-                    style={tailwind('text-3xl text-center')}
+                    style={tailwind('text-3xl text-center font-semibold-v2 w-full')}
                     light={tailwind('text-mono-light-v2-900')}
                     dark={tailwind('text-mono-dark-v2-900')}
                     keyboardType='numeric'
                     value={value}
                     onChange={onChange}
-                    placeholder='0'
+                    onChangeText={onAmountChange}
+                    placeholder='0.00'
                     placeholderTextColor={getColor(isLight ? 'mono-light-v2-900' : 'mono-dark-v2-900')}
                     testID='amount_input'
+                    ref={amountInputRef}
                   />
                 )}
                 rules={{
@@ -301,16 +326,14 @@ export function SendScreenV2 ({
                   }
                 }}
               />
-              <ActiveUSDValueV2 price={amountInUSDValue} testId='amount_input_in_usd' />
+              <ActiveUSDValueV2 price={amountInUSDValue} testId='amount_input_in_usd' containerStyle={tailwind('w-full break-words')} style={tailwind('text-center justify-center w-full')} />
             </View>
 
             <AmountCard
-              onPress={() => {
-                navigation.navigate({
-                  name: 'TokenSelectionScreen',
-                  params: {},
-                  merge: true
-                })
+              onPress={async () => {
+                setValue('amount', '', { shouldDirty: true })
+                await trigger('amount')
+                navigation.push('TokenSelectionScreen', {})
               }}
               onAmountChange={async (amount: string, type: AmountButtonTypes) => {
                 showToast(type)
@@ -318,6 +341,7 @@ export function SendScreenV2 ({
                 await trigger('amount')
               }}
               token={token}
+              transactionCardStatus={transactionCardStatus}
             />
             <ThemedTextV2 {...infoTextThemedProps} testID='info_text'>{infoText}</ThemedTextV2>
 
@@ -328,11 +352,7 @@ export function SendScreenV2 ({
                 name: 'AddressBookScreen',
                 params: {
                   selectedAddress: getValues('address'),
-                  onAddressSelect: async (savedAddres: string) => {
-                    setValue('address', savedAddres, { shouldDirty: true })
-                    await trigger('address')
-                    navigation.goBack()
-                  }
+                  onAddressSelect
                 },
                 merge: true
               })}
@@ -356,7 +376,7 @@ export function SendScreenV2 ({
               }}
             />
             {matchedAddress !== undefined && (
-              <View style={tailwind('ml-5 my-2 items-center flex flex-row flex-wrap')}>
+              <View style={tailwind('ml-5 my-2 items-center flex flex-row')}>
                 <ThemedIcon
                   light={tailwind('text-success-600')}
                   dark={tailwind('text-darksuccess-600')}
@@ -365,31 +385,32 @@ export function SendScreenV2 ({
                   size={16}
                 />
                 <ThemedTextV2
-                  style={tailwind('text-xs mx-1')}
+                  style={tailwind('text-xs mx-1 font-normal-v2')}
                   light={tailwind('text-mono-light-v2-500')}
                   dark={tailwind('text-mono-dark-v2-500')}
                 >
                   {translate('screens/SendScreen', 'Verified')}
                 </ThemedTextV2>
                 <ThemedViewV2
-                  style={tailwind('flex flex-row items-center rounded-2xl p-1')}
+                  style={tailwind('flex flex-row items-center overflow-hidden rounded-full')}
                   light={tailwind('bg-mono-light-v2-200')}
                   dark={tailwind('bg-mono-dark-v2-200')}
                 >
-                  <ThemedViewV2
-                    style={tailwind('rounded-full overflow-hidden')}
-                    light={tailwind('bg-mono-light-v2-200')}
-                    dark={tailwind('bg-mono-dark-v2-200')}
-                  >
-                    <RandomAvatar name={matchedAddress.address} size={12} />
-                  </ThemedViewV2>
+                  <View style={tailwind('rounded-l-2xl p-1.5')}>
+                    <RandomAvatar name={matchedAddress.address} size={16} />
+                  </View>
                   <ThemedTextV2
-                    style={tailwind('text-xs ml-1')}
+                    ellipsizeMode='middle'
+                    numberOfLines={1}
+                    style={[tailwind('text-xs font-normal-v2 mr-1'), {
+                      minWidth: 10,
+                      maxWidth: 108
+                    }]}
                     light={tailwind('text-mono-light-v2-500')}
                     dark={tailwind('text-mono-dark-v2-500')}
                     testID='address_input_footer'
                   >
-                    {matchedAddress.label}
+                    {matchedAddress.address}
                   </ThemedTextV2>
                 </ThemedViewV2>
               </View>
@@ -403,7 +424,7 @@ export function SendScreenV2 ({
               testID='transaction_details_info_text'
               light={tailwind('text-mono-light-v2-500')}
               dark={tailwind('text-mono-dark-v2-500')}
-              style={tailwind('mt-2 text-xs text-center')}
+              style={tailwind('mt-2 text-xs text-center font-normal-v2')}
             >
               {isConversionRequired
                 ? translate('screens/SendScreen', 'By continuing, the required amount of DFI will be converted')
@@ -411,7 +432,7 @@ export function SendScreenV2 ({
             </ThemedTextV2>}
           <SubmitButtonGroupV2
             isDisabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || token === undefined}
-            label={translate('screens/SendScreen', 'CONTINUE')}
+            label={translate('screens/SendScreen', 'Continue')}
             onSubmit={onSubmit}
             title='send_continue'
             displayCancelBtn={false}
@@ -442,62 +463,76 @@ function AddressRow ({
         field: {
           value,
           onChange
-        }
-      }) => (
-        <View style={tailwind('flex-row w-full')}>
-          <WalletTextInputV2
-            autoCapitalize='none'
-            multiline
-            onChange={onChange}
-            onChangeText={onAddressChange}
-            placeholder={translate('screens/SendScreen', 'Paste address')}
-            style={tailwind('w-3/5 flex-grow pb-1')}
-            testID='address_input'
-            value={value}
-            displayClearButton={value !== defaultValue}
-            onClearButtonPress={onClearButtonPress}
-            title={translate('screens/SendScreen', 'SEND TO')}
-            titleTestID='title_to_address'
-            inputType='default'
-            inputFooter={inputFooter}
-          >
-            <ThemedTouchableOpacity
-              dark={tailwind('bg-black')}
-              light={tailwind('bg-white')}
-              onPress={onContactButtonPress}
-              style={tailwind('w-9 p-1.5 mr-1 rounded')}
-              testID='address_book_button'
+        },
+        fieldState: { error }
+      }) => {
+        const hasValidAddress = error?.type !== 'isValidAddress'
+        return (
+          <View style={tailwind('flex w-full')}>
+            <WalletTextInputV2
+              autoCapitalize='none'
+              multiline
+              onChange={onChange}
+              onChangeText={onAddressChange}
+              placeholder={translate('screens/SendScreen', 'Paste address')}
+              style={tailwind('w-3/5 flex-grow pb-1')}
+              testID='address_input'
+              value={value}
+              displayClearButton={value !== defaultValue}
+              onClearButtonPress={onClearButtonPress}
+              title={translate('screens/SendScreen', 'SEND TO')}
+              titleTestID='title_to_address'
+              inputType='default'
+              inputFooter={inputFooter}
+              valid={hasValidAddress}
             >
-              <ThemedIcon
-                iconType='MaterialCommunityIcons'
-                dark={tailwind('text-mono-dark-v2-700')}
-                light={tailwind('text-mono-light-v2-700')}
-                name='account-multiple'
-                size={24}
-              />
-            </ThemedTouchableOpacity>
-            <ThemedTouchableOpacity
-              dark={tailwind('bg-black')}
-              light={tailwind('bg-white')}
-              onPress={onQrButtonPress}
-              style={tailwind('w-9 p-1.5 rounded')}
-              testID='qr_code_button'
-            >
-              <ThemedIcon
-                dark={tailwind('text-mono-dark-v2-700')}
-                light={tailwind('text-mono-light-v2-700')}
-                iconType='MaterialIcons'
-                name='qr-code'
-                size={24}
-              />
-            </ThemedTouchableOpacity>
-          </WalletTextInputV2>
-        </View>
-      )}
+              <ThemedTouchableOpacity
+                dark={tailwind('bg-black')}
+                light={tailwind('bg-white')}
+                onPress={onContactButtonPress}
+                style={tailwind('w-9 p-1.5 mr-1 rounded')}
+                testID='address_book_button'
+              >
+                <ThemedIcon
+                  iconType='MaterialCommunityIcons'
+                  dark={tailwind('text-mono-dark-v2-700')}
+                  light={tailwind('text-mono-light-v2-700')}
+                  name='account-multiple'
+                  size={24}
+                />
+              </ThemedTouchableOpacity>
+              <ThemedTouchableOpacity
+                dark={tailwind('bg-black')}
+                light={tailwind('bg-white')}
+                onPress={onQrButtonPress}
+                style={tailwind('w-9 p-1.5 rounded')}
+                testID='qr_code_button'
+              >
+                <ThemedIcon
+                  dark={tailwind('text-mono-dark-v2-700')}
+                  light={tailwind('text-mono-light-v2-700')}
+                  iconType='MaterialIcons'
+                  name='qr-code'
+                  size={24}
+                />
+              </ThemedTouchableOpacity>
+            </WalletTextInputV2>
+            {!hasValidAddress &&
+              <ThemedTextV2
+                style={tailwind('text-xs mt-2 ml-5 font-normal-v2')}
+                dark={tailwind('text-red-v2')}
+                light={tailwind('text-red-v2')}
+                testID='address_error_text'
+              >
+                {translate('screens/SendScreen', 'Invalid address. Make sure the address is correct to avoid irrecoverable losses')}
+              </ThemedTextV2>}
+          </View>
+        )
+      }}
       rules={{
         required: true,
         validate: {
-          isValidAddress: (address) => DeFiAddress.from(networkName, address).valid
+          isValidAddress: (address) => (fromAddress(address, networkName) !== undefined)
         }
       }}
     />
@@ -505,18 +540,19 @@ function AddressRow ({
 }
 
 interface AmountForm {
+  transactionCardStatus: TransactionCardStatus
   token: WalletToken
   onPress: () => void
   onAmountChange: (amount: string, type: AmountButtonTypes) => Promise<void>
 }
 
 function AmountCard ({
+  transactionCardStatus,
   token,
   onPress,
   onAmountChange
 }: AmountForm): JSX.Element {
   const maxAmount = BigNumber.max(token.amount, 0)
-  const Icon = getNativeIcon(token.displaySymbol)
   return (
     <>
       <ThemedTextV2
@@ -526,27 +562,28 @@ function AmountCard ({
       >{translate('screens/SendScreen', 'I WANT TO SEND')}
       </ThemedTextV2>
       <TransactionCard
+        status={transactionCardStatus}
         maxValue={maxAmount}
         onChange={onAmountChange}
         onPercentageChange={() => {}}
         containerStyle={tailwind('rounded-t-lg-v2')}
       >
         <ThemedTouchableOpacityV2
-          style={tailwind('flex flex-row items-center justify-between px-5 pt-5 mb-2 pb-2')}
+          style={tailwind('flex flex-row items-center justify-between pt-5 mb-4 mx-5')}
           onPress={onPress}
           testID='select_token_input'
         >
           <View style={tailwind('flex flex-row items-center')}>
-            <Icon height={32} width={32} />
+            <TokenIcon testID={`${token.displaySymbol}_icon`} token={{ isLPS: token.isLPS, displaySymbol: token.displaySymbol }} height={32} width={32} />
             <View style={tailwind('flex ml-2')}>
               <ThemedTextV2>
-                <ThemedTextV2 style={tailwind('font-bold')} testID='max_value'>{maxAmount.toFixed(8)}</ThemedTextV2>
-                <ThemedTextV2 style={tailwind('font-bold')} testID='max_value_display_symbol'>{` ${token.displaySymbol}`}</ThemedTextV2>
+                <ThemedTextV2 style={tailwind('font-semibold-v2 text-sm')} testID='max_value'>{maxAmount.toFixed(8)}</ThemedTextV2>
+                <ThemedTextV2 style={tailwind('font-semibold-v2 text-sm')} testID='max_value_display_symbol'>{` ${token.displaySymbol}`}</ThemedTextV2>
               </ThemedTextV2>
               <ThemedTextV2
                 light={tailwind('text-mono-light-v2-500')}
                 dark={tailwind('text-mono-dark-v2-500')}
-                style={tailwind('text-xs')}
+                style={tailwind('text-xs font-normal-v2')}
               >{translate('screens/SendScreen', 'Available')}
               </ThemedTextV2>
             </View>

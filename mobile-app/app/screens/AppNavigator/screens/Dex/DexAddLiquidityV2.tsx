@@ -4,7 +4,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { View } from 'react-native'
+import { View, Platform } from 'react-native'
 import { ThemedIcon, ThemedScrollView, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -23,7 +23,6 @@ import { WalletTransactionCardTextInput } from '@components/WalletTransactionCar
 import { PricesSectionV2 } from '@components/PricesSectionV2'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
 import { NumberRowV2 } from '@components/NumberRowV2'
-import { Platform } from 'react-native'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/BottomSheetWithNavV2'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
@@ -75,7 +74,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   const ref = useRef(null)
   const { isLight } = useThemeContext()
   const modalSortingSnapPoints = { ios: ['50%'], android: ['50%'] }
-  
+
   const { getDisplayUtxoWarningStatus } = useDisplayUtxoWarning()
   const [showUTXOFeesAMsg, setShowUTXOFeesAMsg] = useState<boolean>(false)
   const [showUTXOFeesBMsg, setShowUTXOFeesBMsg] = useState<boolean>(false)
@@ -179,11 +178,11 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     ]
   }, [isLight])
 
-  function onPercentagePress(_amount: string, type: AmountButtonTypes, displaySymbol: string): void {
+  function onPercentagePress (_amount: string, type: AmountButtonTypes, displaySymbol: string): void {
     showToast(type, displaySymbol)
   }
 
-  async function onSubmit(): Promise<void> {
+  async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
@@ -214,7 +213,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
               isConversionRequired,
               DFIToken,
               DFIUtxo,
-              conversionAmount,
+              conversionAmount
             },
             pairInfo
           },
@@ -266,6 +265,10 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   }
 
   function showToast (type: AmountButtonTypes, displaySymbol: string): void {
+    if (pair?.tokenA.displaySymbol === undefined || pair?.tokenB.displaySymbol === undefined) {
+      return
+    }
+
     toast.hideAll() // hides old toast everytime user clicks on a new percentage
     const isMax = type === AmountButtonTypes.Max
     const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
@@ -517,33 +520,33 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
           />
         </View>
 
-          {Platform.OS === 'web'
-            ? (
-              <BottomSheetWebWithNavV2
-                modalRef={containerRef}
-                screenList={ViewPoolContents}
-                isModalDisplayed={isModalDisplayed}
-                // eslint-disable-next-line react-native/no-inline-styles
-                modalStyle={{
-                  position: 'absolute',
-                  bottom: '0',
-                  height: '404px',
-                  width: '375px',
-                  zIndex: 50,
-                  borderTopLeftRadius: 15,
-                  borderTopRightRadius: 15,
-                  overflow: 'hidden'
-                }}
-              />
-            )
-            : (
-              <BottomSheetWithNavV2
-                modalRef={bottomSheetRef}
-                screenList={ViewPoolContents}
-                snapPoints={modalSortingSnapPoints}
-                enablePanDown
-              />
-            )}
+        {Platform.OS === 'web'
+          ? (
+            <BottomSheetWebWithNavV2
+              modalRef={containerRef}
+              screenList={ViewPoolContents}
+              isModalDisplayed={isModalDisplayed}
+              // eslint-disable-next-line react-native/no-inline-styles
+              modalStyle={{
+                position: 'absolute',
+                bottom: '0',
+                height: '404px',
+                width: '375px',
+                zIndex: 50,
+                borderTopLeftRadius: 15,
+                borderTopRightRadius: 15,
+                overflow: 'hidden'
+              }}
+            />
+          )
+          : (
+            <BottomSheetWithNavV2
+              modalRef={bottomSheetRef}
+              screenList={ViewPoolContents}
+              snapPoints={modalSortingSnapPoints}
+              enablePanDown
+            />
+          )}
       </ThemedScrollView>
     </View>
   )
@@ -564,6 +567,7 @@ function AddLiquidityInputCard (
     hasInputAmount?: boolean
   }): JSX.Element {
   const Icon = getNativeIcon(props.symbol)
+  const isFocus = props.setIsInputFocus
   return (
     <>
       <TransactionCard
@@ -582,8 +586,8 @@ function AddLiquidityInputCard (
         >
           <Icon height={20} width={20} />
           <WalletTransactionCardTextInput
-            onFocus={props.setIsInputFocus}
-            onBlur={props.setIsInputFocus}
+            onFocus={isFocus}
+            onBlur={isFocus}
             onChangeText={txt => props.onChange(txt)}
             placeholder='0.00'
             style={tailwind('flex-grow w-2/5 font-normal-v2 text-xs')}
