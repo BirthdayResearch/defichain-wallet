@@ -4,7 +4,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { View } from '@components'
+import { View } from 'react-native'
 import { ThemedIcon, ThemedScrollView, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -19,7 +19,7 @@ import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { AmountButtonTypes, TransactionCard, TransactionCardStatus } from '@components/TransactionCard'
 import { getNativeIcon } from '@components/icons/assets'
-import { TransactionCardWalletTextInputV2 } from '@components/TransactionCardWalletTextInputV2'
+import { WalletTransactionCardTextInput } from '@components/WalletTransactionCardTextInput'
 import { PricesSectionV2 } from '@components/PricesSectionV2'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
 import { NumberRowV2 } from '@components/NumberRowV2'
@@ -68,12 +68,14 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   const [hasBError, setHasBError] = useState(false)
   const [isInputAFocus, setIsInputAFocus] = useState(false)
   const [isInputBFocus, setIsInputBFocus] = useState(false)
-  const ref = useRef(null)
+
   const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
   const [isModalDisplayed, setIsModalDisplayed] = useState(false)
   const containerRef = useRef(null)
+  const ref = useRef(null)
   const { isLight } = useThemeContext()
   const modalSortingSnapPoints = { ios: ['50%'], android: ['50%'] }
+  
   const { getDisplayUtxoWarningStatus } = useDisplayUtxoWarning()
   const [showUTXOFeesAMsg, setShowUTXOFeesAMsg] = useState<boolean>(false)
   const [showUTXOFeesBMsg, setShowUTXOFeesBMsg] = useState<boolean>(false)
@@ -175,13 +177,13 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
         option: BottomSheetHeader
       }
     ]
-  }, [isLight, pair])
+  }, [isLight])
 
-  function onPercentagePress (_amount: string, type: AmountButtonTypes, displaySymbol: string): void {
+  function onPercentagePress(_amount: string, type: AmountButtonTypes, displaySymbol: string): void {
     showToast(type, displaySymbol)
   }
 
-  async function onSubmit (): Promise<void> {
+  async function onSubmit(): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
     }
@@ -212,13 +214,37 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
               isConversionRequired,
               DFIToken,
               DFIUtxo,
-              conversionAmount
+              conversionAmount,
             },
             pairInfo
           },
           merge: true
         })
-      }, logger)
+      }, logger, () => {
+        navigation.navigate({
+          name: 'ConfirmAddLiquidity',
+          params: {
+            summary: {
+              fee: new BigNumber(0.0001),
+              tokenAAmount: new BigNumber(tokenAAmount),
+              tokenBAmount: new BigNumber(tokenBAmount),
+              percentage: sharePercentage,
+              tokenABalance: balanceA,
+              tokenBBalance: balanceB
+            },
+            pair,
+            conversion: {
+              isConversionRequired,
+              DFIToken,
+              DFIUtxo,
+              conversionAmount,
+              isConverted: true // to pass loading component for tokens conversion in confirm screen
+            },
+            pairInfo
+          },
+          merge: true
+        })
+      })
     } else {
       navigation.navigate({
         name: 'ConfirmAddLiquidity',
@@ -359,7 +385,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   const sharesUsdAmount = getTokenPrice(pair.aSymbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.aSymbol, new BigNumber(tokenBAmount)))
 
   return (
-    <View style={tailwind('flex-col flex-1')}>
+    <View ref={containerRef} style={tailwind('flex-col flex-1')}>
       <ThemedScrollView ref={ref} contentContainerStyle={tailwind('flex-grow py-8 mx-5 justify-between')} style={tailwind('w-full')}>
         <View>
           <ViewPoolHeader
@@ -438,7 +464,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                   ]}
                 />
                 <ThemedViewV2
-                  light={tailwind('border-mono-light-v2-300 bg-red-200')}
+                  light={tailwind('border-mono-light-v2-300')}
                   dark={tailwind('border-mono-dark-v2-300')}
                   style={tailwind('pt-5 border-t-0.5')}
                 >
@@ -469,9 +495,9 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                   style={tailwind('text-xs font-normal-v2 text-center')}
                 >
                   {isConversionRequired
-? (
-                    translate('screens/AddLiquidity', 'By continuing, the required amount of DFI will be converted')
-                  )
+                    ? (
+                      translate('screens/AddLiquidity', 'By continuing, the required amount of DFI will be converted')
+                    )
                     : (
                       translate('screens/AddLiquidity', 'Review full details in the next screen')
                     )}
@@ -489,6 +515,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
             onPress={onSubmit}
             testID='button_continue_convert'
           />
+        </View>
 
           {Platform.OS === 'web'
             ? (
@@ -517,7 +544,6 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                 enablePanDown
               />
             )}
-        </View>
       </ThemedScrollView>
     </View>
   )
@@ -538,11 +564,6 @@ function AddLiquidityInputCard (
     hasInputAmount?: boolean
   }): JSX.Element {
   const Icon = getNativeIcon(props.symbol)
-  const isFocus = props.setIsInputFocus
-
-  useEffect(() => {
-  }, [props.balance])
-
   return (
     <>
       <TransactionCard
@@ -560,9 +581,9 @@ function AddLiquidityInputCard (
           style={tailwind('flex-row items-center py-2')}
         >
           <Icon height={20} width={20} />
-          <TransactionCardWalletTextInputV2
-            onFocus={isFocus}
-            onBlur={isFocus}
+          <WalletTransactionCardTextInput
+            onFocus={props.setIsInputFocus}
+            onBlur={props.setIsInputFocus}
             onChangeText={txt => props.onChange(txt)}
             placeholder='0.00'
             style={tailwind('flex-grow w-2/5 font-normal-v2 text-xs')}

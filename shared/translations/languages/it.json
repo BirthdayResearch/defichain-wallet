@@ -266,7 +266,8 @@
     "SEND TO": "SEND TO",
     "Paste address": "Paste address",
     "I WANT TO SEND": "I WANT TO SEND",
-    "Review full details in the next screen": "Review full details in the next screen"
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Verified": "Verified"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Conferma Invio",
@@ -292,7 +293,8 @@
     "Transaction fee": "Transaction fee",
     "Amount to convert": "Amount to convert",
     "Send": "Send",
-    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Sending {{amount}} {{displaySymbol}} to {{toAddress}}"
+    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Sending {{amount}} {{displaySymbol}} to {{toAddress}}",
+    "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds."
   },
   "screens/TokenSelectionScreen": {
     "Search token": "Search token",
@@ -848,6 +850,7 @@
     "ADDING": "AGGIUNGI",
     "Pooled {{symbol}}": "{{symbol}} messo nel pool",
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "Aggiungi {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}",
+    "Adding {{amountA}} LP tokens to {{symbolA}}-{{symbolB}}": "Adding {{amountA}} LP tokens to {{symbolA}}-{{symbolB}}",
     "PRICE DETAILS": "DETTAGLI DEL PREZZO",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} prezzo per {{tokenB}}",
     "Your pooled {{symbol}}": "Il tuo pool {{symbol}}",

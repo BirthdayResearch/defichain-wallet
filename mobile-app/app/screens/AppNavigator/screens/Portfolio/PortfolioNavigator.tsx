@@ -272,7 +272,7 @@ export function PortfolioNavigator (): JSX.Element {
           ...screenOptions,
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/TokenSelectionScreen', 'Send')}
+              text={translate('screens/SendScreen', 'Send')}
               containerTestID={headerContainerTestId}
             />
           ),

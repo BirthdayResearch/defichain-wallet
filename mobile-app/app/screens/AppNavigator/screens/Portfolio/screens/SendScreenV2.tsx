@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from 'react'
-import { Platform, View } from 'react-native'
+import { View } from 'react-native'
 import BigNumber from 'bignumber.js'
 import { Control, Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
@@ -26,12 +26,11 @@ import { useWalletAddress } from '@hooks/useWalletAddress'
 import {
   ThemedIcon,
   ThemedScrollViewV2,
-  ThemedText,
   ThemedTextInputV2,
   ThemedTextV2,
   ThemedTouchableOpacity,
   ThemedTouchableOpacityV2,
-  ThemedView
+  ThemedViewV2
 } from '@components/themed'
 import { getNativeIcon } from '@components/icons/assets'
 import { WalletTextInputV2 } from '@components/WalletTextInputV2'
@@ -40,6 +39,7 @@ import { AmountButtonTypes, TransactionCard } from '@components/TransactionCard'
 import { useTokenPrice } from '../hooks/TokenPrice'
 import { ActiveUSDValueV2 } from '../../Loans/VaultDetail/components/ActiveUSDValueV2'
 import { PortfolioParamList } from '../PortfolioNavigator'
+import { RandomAvatar } from '../components/RandomAvatar'
 
 type Props = StackScreenProps<PortfolioParamList, 'SendScreenV2'>
 
@@ -163,6 +163,10 @@ export function SendScreenV2 ({
   }, [token, isReservedUtxoUsed, amountToSend])
 
   useEffect(() => {
+    setToken(route.params.token)
+  }, [route.params.token])
+
+  useEffect(() => {
     void fetchWalletAddresses().then((walletAddresses) => setJellyfishWalletAddresses(walletAddresses))
   }, [fetchWalletAddresses])
 
@@ -259,9 +263,9 @@ export function SendScreenV2 ({
     <View style={tailwind('h-full')}>
       <ThemedScrollViewV2 contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'>
         {token === undefined &&
-          <ThemedText style={tailwind('px-5')}>
+          <ThemedTextV2 style={tailwind('px-5')}>
             {translate('screens/SendScreen', 'Select a token you want to send to get started')}
-          </ThemedText>}
+          </ThemedTextV2>}
 
         {token !== undefined && (
           <View style={tailwind('px-5')}>
@@ -350,40 +354,52 @@ export function SendScreenV2 ({
                 setValue('address', address, { shouldDirty: true })
                 await trigger('address')
               }}
-              inputFooter={
-                <>
-                  {matchedAddress !== undefined && (
-                    <ThemedView
-                      style={tailwind('mx-2 mb-2 p-1 rounded-2xl flex flex-row self-start', { 'items-end': Platform.OS === 'ios' })}
-                      light={tailwind('bg-gray-50')}
-                      dark={tailwind('bg-gray-900')}
-                    >
-                      <ThemedIcon
-                        name='account-check'
-                        iconType='MaterialCommunityIcons'
-                        size={18}
-                        light={tailwind('text-gray-400')}
-                        dark={tailwind('text-gray-500')}
-                      />
-                      <ThemedText
-                        style={tailwind('text-xs ml-1 pt-px')}
-                        light={tailwind('text-gray-500')}
-                        dark={tailwind('text-gray-400')}
-                        testID='address_input_footer'
-                      >
-                        {matchedAddress.label}
-                      </ThemedText>
-                    </ThemedView>
-                  )}
-                </>
-              }
             />
+            {matchedAddress !== undefined && (
+              <View style={tailwind('ml-5 my-2 items-center flex flex-row flex-wrap')}>
+                <ThemedIcon
+                  light={tailwind('text-success-600')}
+                  dark={tailwind('text-darksuccess-600')}
+                  iconType='MaterialIcons'
+                  name='check-circle'
+                  size={16}
+                />
+                <ThemedTextV2
+                  style={tailwind('text-xs mx-1')}
+                  light={tailwind('text-mono-light-v2-500')}
+                  dark={tailwind('text-mono-dark-v2-500')}
+                >
+                  {translate('screens/SendScreen', 'Verified')}
+                </ThemedTextV2>
+                <ThemedViewV2
+                  style={tailwind('flex flex-row items-center rounded-2xl p-1')}
+                  light={tailwind('bg-mono-light-v2-200')}
+                  dark={tailwind('bg-mono-dark-v2-200')}
+                >
+                  <ThemedViewV2
+                    style={tailwind('rounded-full overflow-hidden')}
+                    light={tailwind('bg-mono-light-v2-200')}
+                    dark={tailwind('bg-mono-dark-v2-200')}
+                  >
+                    <RandomAvatar name={matchedAddress.address} size={12} />
+                  </ThemedViewV2>
+                  <ThemedTextV2
+                    style={tailwind('text-xs ml-1')}
+                    light={tailwind('text-mono-light-v2-500')}
+                    dark={tailwind('text-mono-dark-v2-500')}
+                    testID='address_input_footer'
+                  >
+                    {matchedAddress.label}
+                  </ThemedTextV2>
+                </ThemedViewV2>
+              </View>
+            )}
           </View>
         )}
 
         <View style={tailwind('mt-24 mx-12 items-center')}>
           {(formState.isValid && token !== undefined) &&
-            <ThemedText
+            <ThemedTextV2
               testID='transaction_details_info_text'
               light={tailwind('text-mono-light-v2-500')}
               dark={tailwind('text-mono-dark-v2-500')}
@@ -392,7 +408,7 @@ export function SendScreenV2 ({
               {isConversionRequired
                 ? translate('screens/SendScreen', 'By continuing, the required amount of DFI will be converted')
                 : translate('screens/SendScreen', 'Review full transaction details in the next screen')}
-            </ThemedText>}
+            </ThemedTextV2>}
           <SubmitButtonGroupV2
             isDisabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || token === undefined}
             label={translate('screens/SendScreen', 'CONTINUE')}
@@ -418,75 +434,73 @@ function AddressRow ({
 }: { control: Control, networkName: NetworkName, onContactButtonPress: () => void, onQrButtonPress: () => void, onClearButtonPress: () => void, onAddressChange: (address: string) => void, inputFooter?: React.ReactElement }): JSX.Element {
   const defaultValue = ''
   return (
-    <>
-      <Controller
-        control={control}
-        defaultValue={defaultValue}
-        name='address'
-        render={({
-          field: {
-            value,
-            onChange
-          }
-        }) => (
-          <View style={tailwind('flex-row w-full')}>
-            <WalletTextInputV2
-              autoCapitalize='none'
-              multiline
-              onChange={onChange}
-              onChangeText={onAddressChange}
-              placeholder={translate('screens/SendScreen', 'Paste address')}
-              style={tailwind('w-3/5 flex-grow pb-1')}
-              testID='address_input'
-              value={value}
-              displayClearButton={value !== defaultValue}
-              onClearButtonPress={onClearButtonPress}
-              title={translate('screens/SendScreen', 'SEND TO')}
-              titleTestID='title_to_address'
-              inputType='default'
-              inputFooter={inputFooter}
+    <Controller
+      control={control}
+      defaultValue={defaultValue}
+      name='address'
+      render={({
+        field: {
+          value,
+          onChange
+        }
+      }) => (
+        <View style={tailwind('flex-row w-full')}>
+          <WalletTextInputV2
+            autoCapitalize='none'
+            multiline
+            onChange={onChange}
+            onChangeText={onAddressChange}
+            placeholder={translate('screens/SendScreen', 'Paste address')}
+            style={tailwind('w-3/5 flex-grow pb-1')}
+            testID='address_input'
+            value={value}
+            displayClearButton={value !== defaultValue}
+            onClearButtonPress={onClearButtonPress}
+            title={translate('screens/SendScreen', 'SEND TO')}
+            titleTestID='title_to_address'
+            inputType='default'
+            inputFooter={inputFooter}
+          >
+            <ThemedTouchableOpacity
+              dark={tailwind('bg-black')}
+              light={tailwind('bg-white')}
+              onPress={onContactButtonPress}
+              style={tailwind('w-9 p-1.5 mr-1 rounded')}
+              testID='address_book_button'
             >
-              <ThemedTouchableOpacity
-                dark={tailwind('bg-black')}
-                light={tailwind('bg-white')}
-                onPress={onContactButtonPress}
-                style={tailwind('w-9 p-1.5 mr-1 rounded')}
-                testID='address_book_button'
-              >
-                <ThemedIcon
-                  iconType='MaterialCommunityIcons'
-                  dark={tailwind('text-mono-dark-v2-700')}
-                  light={tailwind('text-mono-light-v2-700')}
-                  name='account-multiple'
-                  size={24}
-                />
-              </ThemedTouchableOpacity>
-              <ThemedTouchableOpacity
-                dark={tailwind('bg-black')}
-                light={tailwind('bg-white')}
-                onPress={onQrButtonPress}
-                style={tailwind('w-9 p-1.5 rounded')}
-                testID='qr_code_button'
-              >
-                <ThemedIcon
-                  dark={tailwind('text-mono-dark-v2-700')}
-                  light={tailwind('text-mono-light-v2-700')}
-                  iconType='MaterialIcons'
-                  name='qr-code'
-                  size={24}
-                />
-              </ThemedTouchableOpacity>
-            </WalletTextInputV2>
-          </View>
-        )}
-        rules={{
-          required: true,
-          validate: {
-            isValidAddress: (address) => DeFiAddress.from(networkName, address).valid
-          }
-        }}
-      />
-    </>
+              <ThemedIcon
+                iconType='MaterialCommunityIcons'
+                dark={tailwind('text-mono-dark-v2-700')}
+                light={tailwind('text-mono-light-v2-700')}
+                name='account-multiple'
+                size={24}
+              />
+            </ThemedTouchableOpacity>
+            <ThemedTouchableOpacity
+              dark={tailwind('bg-black')}
+              light={tailwind('bg-white')}
+              onPress={onQrButtonPress}
+              style={tailwind('w-9 p-1.5 rounded')}
+              testID='qr_code_button'
+            >
+              <ThemedIcon
+                dark={tailwind('text-mono-dark-v2-700')}
+                light={tailwind('text-mono-light-v2-700')}
+                iconType='MaterialIcons'
+                name='qr-code'
+                size={24}
+              />
+            </ThemedTouchableOpacity>
+          </WalletTextInputV2>
+        </View>
+      )}
+      rules={{
+        required: true,
+        validate: {
+          isValidAddress: (address) => DeFiAddress.from(networkName, address).valid
+        }
+      }}
+    />
   )
 }
 
@@ -514,6 +528,7 @@ function AmountCard ({
       <TransactionCard
         maxValue={maxAmount}
         onChange={onAmountChange}
+        onPercentageChange={() => {}}
         containerStyle={tailwind('rounded-t-lg-v2')}
       >
         <ThemedTouchableOpacityV2

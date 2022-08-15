@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react-native'
-import { TransactionCardWalletTextInputV2 } from './TransactionCardWalletTextInputV2'
+import { WalletTransactionCardTextInput } from './WalletTransactionCardTextInput'
 
 import { InputType } from './WalletTextInputV2'
 
@@ -12,7 +12,7 @@ describe('wallet text input', () => {
       const value = ''
       const onClear = jest.fn
       const rendered = render(
-        <TransactionCardWalletTextInputV2
+        <WalletTransactionCardTextInput
           title='foo'
           titleTestID='titleTestID'
           placeholder='bar'

@@ -255,7 +255,8 @@
     "SEND TO": "SEND TO",
     "Paste address": "Paste address",
     "I WANT TO SEND": "I WANT TO SEND",
-    "Review full details in the next screen": "Review full details in the next screen"
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Verified": "Verified"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "確認發出",
@@ -281,7 +282,8 @@
     "Transaction fee": "Transaction fee",
     "Amount to convert": "Amount to convert",
     "Send": "Send",
-    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Sending {{amount}} {{displaySymbol}} to {{toAddress}}"
+    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "發送 {{amount}} {{displaySymbol}} 到 {{toAddress}}",
+    "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds."
   },
   "screens/TokenSelectionScreen": {
     "Search token": "搜索代幣",
@@ -833,6 +835,7 @@
     "ADDING": "增加",
     "Pooled {{symbol}}": "池中總 {{symbol}}",
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "向 {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} 配對增加流動資金",
+    "Adding {{amountA}} LP tokens to {{symbolA}}-{{symbolB}}": "面將 {{amountA}} LP 代幣添加到 {{symbolA}}-{{symbolB}}",
     "PRICE DETAILS": "價格明細",
     "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相當於{{tokenA}}的價格",
     "Your pooled {{symbol}}": "您已入池的 {{symbol}}",
