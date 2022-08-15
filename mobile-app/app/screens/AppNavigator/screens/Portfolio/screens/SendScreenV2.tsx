@@ -333,9 +333,13 @@ export function SendScreenV2 ({
 
             <AmountCard
               onPress={async () => {
+                navigation.navigate({
+                  name: 'TokenSelectionScreen',
+                  params: {},
+                  merge: true
+                })
                 setValue('amount', '', { shouldDirty: true })
                 await trigger('amount')
-                navigation.push('TokenSelectionScreen', {})
               }}
               onAmountChange={async (amount: string, type: AmountButtonTypes) => {
                 showToast(type)
