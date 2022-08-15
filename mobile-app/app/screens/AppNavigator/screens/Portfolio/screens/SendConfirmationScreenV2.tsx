@@ -1,4 +1,5 @@
 import { Dispatch, useEffect, useState } from 'react'
+import { TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
 import BigNumber from 'bignumber.js'
 import Checkbox from 'expo-checkbox'
@@ -213,37 +214,45 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
         (
           <LpAcknowledgeSwitch isAcknowledge={isAcknowledge} onSwitch={(val) => setIsAcknowledge(val)} />
         )}
-      <SubmitButtonGroupV2
-        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob || (token.isLPS && !isAcknowledge)}
-        isCancelDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/SendConfirmationScreen', 'Send')}
-        onCancel={onCancel}
-        onSubmit={onSubmit}
-        displayCancelBtn
-        title='send'
-        buttonStyle='mx-5 mb-2'
-      />
+      <View style={tailwind('mx-7')}>
+        <SubmitButtonGroupV2
+          isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob || (token.isLPS && !isAcknowledge)}
+          isCancelDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+          label={translate('screens/SendConfirmationScreen', 'Send')}
+          onCancel={onCancel}
+          onSubmit={onSubmit}
+          displayCancelBtn
+          title='send'
+          buttonStyle='mx-5 mb-2'
+        />
+      </View>
     </ThemedScrollViewV2>
   )
 }
 
 function LpAcknowledgeSwitch (props: { isAcknowledge: boolean, onSwitch: (val: boolean) => void }): JSX.Element {
   return (
-    <View style={tailwind('mx-4 my-8 flex flex-row items-center')}>
+    <View style={tailwind('px-10 py-8 flex flex-row justify-center')}>
       <Checkbox
         value={props.isAcknowledge}
-        onValueChange={props.onSwitch}
         style={tailwind('h-6 w-6 mt-1 rounded')}
+        onValueChange={props.onSwitch}
         color={props.isAcknowledge ? getColor('brand-v2-500') : undefined}
         testID='lp_ack_switch'
       />
-      <ThemedTextV2
-        style={tailwind('ml-4 flex-1 text-xs font-normal-v2')}
-        light={tailwind('text-mono-light-v2-700')}
-        dark={tailwind('text-mono-dark-v2-700')}
+      <TouchableOpacity
+        style={tailwind('flex-1')} onPress={() => {
+ props.onSwitch(!props.isAcknowledge)
+}}
       >
-        {translate('screens/SendConfirmationScreen', 'I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.')}
-      </ThemedTextV2>
+        <ThemedTextV2
+          style={tailwind('ml-4 flex-1 text-xs font-normal-v2')}
+          light={tailwind('text-mono-light-v2-700')}
+          dark={tailwind('text-mono-dark-v2-700')}
+        >
+          {translate('screens/SendConfirmationScreen', 'I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.')}
+        </ThemedTextV2>
+      </TouchableOpacity>
     </View>
   )
 }
