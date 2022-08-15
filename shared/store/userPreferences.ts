@@ -8,7 +8,7 @@ export interface LabeledAddress {
 
 export interface LocalAddress {
   address: string
-  label?: string
+  label: string
   isMine: boolean
   isFavourite?: boolean
 }
