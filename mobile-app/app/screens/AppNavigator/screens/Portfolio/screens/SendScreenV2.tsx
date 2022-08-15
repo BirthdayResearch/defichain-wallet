@@ -174,7 +174,8 @@ export function SendScreenV2 ({
   }, [route.params.token])
 
   useEffect(() => {
-    amountInputRef?.current?.focus()
+    /* timeout added to auto display keyboard on Android */
+    setTimeout(() => amountInputRef?.current?.focus(), 0)
   }, [])
 
   useEffect(() => {
