@@ -69,6 +69,7 @@ export interface PortfolioParamList {
     amountInUsd: BigNumber
     fee: BigNumber
     conversion?: ConversionParam
+    toAddressLabel?: string
   }
   TokenDetailScreen: { token: WalletToken }
   ConvertScreen: { mode: ConversionMode }

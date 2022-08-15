@@ -110,7 +110,7 @@ export function SendScreenV2 ({
       // wallet address that does not have a label
       setMatchedAddress({
         address,
-        label: 'Saved address',
+        label: undefined,
         isMine: true
       })
     } else {
@@ -237,7 +237,8 @@ export function SendScreenV2 ({
       token,
       amount: new BigNumber(values.amount),
       amountInUsd: amountInUSDValue,
-      fee
+      fee,
+      toAddressLabel: matchedAddress?.label
     }
 
     if (isConversionRequired) {
@@ -416,7 +417,7 @@ export function SendScreenV2 ({
                     dark={tailwind('text-mono-dark-v2-500')}
                     testID='address_input_footer'
                   >
-                    {matchedAddress.address}
+                    {matchedAddress.label ?? matchedAddress.address}
                   </ThemedTextV2>
                 </ThemedViewV2>
               </View>

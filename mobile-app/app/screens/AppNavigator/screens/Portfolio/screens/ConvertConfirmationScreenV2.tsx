@@ -19,6 +19,7 @@ import { SummaryTitleV2 } from '@components/SummaryTitleV2'
 import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
 import { View } from 'react-native'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useAddressLabel } from '@hooks/useAddressLabel'
 import { NumberRowV2 } from '@components/NumberRowV2'
 import { ConvertTokenUnit, getDisplayUnit } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
 
@@ -35,6 +36,7 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
     fee
   } = route.params
   const { address } = useWalletContext()
+  const addressLabel = useAddressLabel(address)
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const dispatch = useAppDispatch()
@@ -85,6 +87,7 @@ export function ConvertConfirmationScreenV2 ({ route }: Props): JSX.Element {
           testID='text_convert_amount'
           iconA='_UTXO'
           fromAddress={address}
+          fromAddressLabel={addressLabel}
         />
         <NumberRowV2
           containerStyle={{
