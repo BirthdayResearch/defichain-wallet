@@ -107,7 +107,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
           iconB={pair.tokenB.displaySymbol}
           fromAddress={address}
           amount={lmTokenAmount}
-          testID='text_remove_amount'
+          testID='text_add_amount'
           title={translate('screens/ConfirmAddLiq', 'You will receive LP tokens')}
           fromAddressLabel={addressLabel}
         />
@@ -178,16 +178,16 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
               }
             }}
             rhs={{
-              value: `${fee.toFixed(8)} DFI`,
-              testID: `${pair.tokenA.displaySymbol}_to_supply`,
-              suffix: 'DFI'
+              value: `${fee.toFixed(8)}`,
+              testID: 'transaction_fee_amount',
+              suffix: ' DFI'
             }}
           />
         </View>
         <NumberRowV2
           lhs={{
             value: translate('screens/ConfirmAddLiq', 'Resulting pool share'),
-            testID: 'transaction_fee',
+            testID: 'resulting_pool_share',
             themedProps: {
               light: tailwind('text-mono-light-v2-500'),
               dark: tailwind('text-mono-dark-v2-500')
@@ -195,7 +195,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
           }}
           rhs={{
             value: percentage.times(100).toFixed(8),
-            testID: `${pair.tokenA.displaySymbol}_to_supply`,
+            testID: 'resulting_pool_share_amount',
             suffix: '%'
           }}
         />
@@ -219,7 +219,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
           rhs={{
             value: BigNumber.max(tokenAAmount, 0).toFixed(8),
             testID: `${pair.tokenA.displaySymbol}_to_supply`,
-            usdAmount: getUSDValue(tokenAAmount, pair.tokenA.displaySymbol)
+            usdAmount: getUSDValue(tokenAAmount, pair.tokenA.symbol)
           }}
         />
         <NumberRowV2
@@ -236,7 +236,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
           rhs={{
             value: BigNumber.max(tokenBAmount, 0).toFixed(8),
             testID: `${pair.tokenB.displaySymbol}_to_supply`,
-            usdAmount: getUSDValue(tokenBAmount, pair.tokenB.displaySymbol)
+            usdAmount: getUSDValue(tokenBAmount, pair.tokenB.symbol)
           }}
         />
         <NumberRowV2
@@ -249,9 +249,9 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
             }
           }}
           rhs={{
-            value: BigNumber.max(tokenBAmount, 0).toFixed(8),
+            value: BigNumber.max(lmTokenAmount, 0).toFixed(8),
             testID: 'resulting_LP_tokens_value',
-            usdAmount: new BigNumber(lmTokenAmount),
+            usdAmount: getTokenPrice(pair.tokenA.symbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.tokenB.symbol, new BigNumber(tokenBAmount))),
             themedProps: {
               style: tailwind('font-bold-v2')
             }

@@ -384,9 +384,6 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     return <></>
   }
 
-  const lmTokenAmount = sharePercentage.times(pair.totalLiquidity.token)
-  const sharesUsdAmount = getTokenPrice(pair.aSymbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.aSymbol, new BigNumber(tokenBAmount)))
-
   return (
     <View ref={containerRef} style={tailwind('flex-col flex-1')}>
       <ThemedScrollView ref={ref} contentContainerStyle={tailwind('flex-grow py-8 mx-5 justify-between')} style={tailwind('w-full')}>
@@ -482,9 +479,9 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                       }
                     }}
                     rhs={{
-                      value: lmTokenAmount.toFixed(8),
+                      value: sharePercentage.times(pair.totalLiquidity.token).toFixed(8),
                       testID: 'resulting_lp_tokens_value',
-                      usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,
+                      usdAmount: getTokenPrice(pair.aSymbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.bSymbol, new BigNumber(tokenBAmount))),
                       textStyle: tailwind('font-bold-v2'),
                       usdTextStyle: tailwind('text-sm')
                     }}
