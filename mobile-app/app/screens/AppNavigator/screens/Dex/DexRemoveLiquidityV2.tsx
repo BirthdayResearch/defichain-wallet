@@ -403,7 +403,7 @@ function RemoveLiquidityInputCard (
               testID={`token_balance_${props.tokenA}-${props.tokenB}`}
               label={`${translate('screens/RemoveLiquidity', 'Available')}: `}
               content={BigNumber.max(props.balance, 0).toFixed(8)}
-              suffix=' LP tokens'
+              suffix={` ${props.tokenA}-${props.tokenB}`}
             />
           )}
       </View>

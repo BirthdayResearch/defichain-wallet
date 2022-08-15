@@ -81,7 +81,7 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-100')}
         light={tailwind('bg-mono-light-v2-100')}
-        style={tailwind('flex-col pt-8 mb-9')}
+        style={tailwind('flex-col mb-9')}
       >
         <SummaryTitleV2
           iconA={pair.tokenA.displaySymbol}
@@ -231,6 +231,14 @@ async function constructSignedRemoveLiqAndSend (pair: PoolPairData, amount: BigN
       symbol: symbol,
       amount: amount.toFixed(8)
     }),
+    drawerMessages: {
+      preparing: translate('screens/OceanInterface', 'Preparing to remove liquidity…'),
+      waiting: translate('screens/OceanInterface', 'Removing {{amount}} {{symbol}} from liquidity pool', {
+        symbol: symbol,
+        amount: amount.toFixed(8)
+      }),
+      complete: translate('screens/OceanInterface', 'Removed tokens from liquidity pool')
+    },
     onBroadcast
   }))
 }
