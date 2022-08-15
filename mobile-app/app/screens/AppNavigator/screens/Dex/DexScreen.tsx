@@ -325,7 +325,7 @@ interface DexScrollableSectionProps {
 function TopLiquiditySection ({ pairs, onPress }: DexScrollableSectionProps): JSX.Element {
   return (
     <DexScrollable
-      testId='DEX_TOP_LIQUIDITY'
+      testID='dex_top_liquidity'
       sectionHeading='TOP LIQUIDITY'
       sectionStyle={tailwind('my-6')}
     >
@@ -336,7 +336,7 @@ function TopLiquiditySection ({ pairs, onPress }: DexScrollableSectionProps): JS
           style={tailwind('mr-2')}
           onPress={onPress}
           label={translate('screens/DexScreen', 'Swap')}
-          testId='Composite_Swap'
+          testID={`composite_swap_${pairItem.data.id}`}
         />
       ))}
     </DexScrollable>

@@ -8,10 +8,10 @@ interface DexActionButtonProps {
   label: string
   onPress: (data: PoolPairData) => void
   style?: StyleProp<ViewStyle>
-  testId: string
+  testID: string
 }
 
-export function DexActionButton ({ pair, label, onPress, style, testId }: DexActionButtonProps): JSX.Element {
+export function DexActionButton ({ pair, label, onPress, style, testID }: DexActionButtonProps): JSX.Element {
   return (
     <ThemedTouchableOpacityV2
       style={[tailwind('rounded-2xl-v2 py-2 px-4'), style]}
@@ -23,7 +23,7 @@ export function DexActionButton ({ pair, label, onPress, style, testId }: DexAct
         light={tailwind('text-mono-light-v2-900')}
         dark={tailwind('text-mono-dark-v2-900')}
         style={tailwind('font-semibold-v2 text-sm text-center')}
-        testID={testId}
+        testID={testID}
       >
         {label}
       </ThemedTextV2>
