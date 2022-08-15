@@ -508,7 +508,7 @@ context('Wallet - Send - Address book', function () {
 
   function validateMatchAddress (address: string, label: string): void {
     cy.getByTestID('address_input').contains(address)
-    cy.getByTestID('address_input_footer').contains(address)
+    cy.getByTestID('address_input_footer').contains(label)
   }
 
   before(function () {
@@ -568,7 +568,7 @@ context('Wallet - Send - Address book', function () {
     cy.getByTestID('address_button_group_YOUR_ADDRESS').click()
     cy.getByTestID('address_row_text_0_YOUR_ADDRESS').invoke('text').then(walletAddress => {
       cy.getByTestID('address_row_text_0_YOUR_ADDRESS').click()
-      validateMatchAddress(walletAddress, 'Saved address')
+      validateMatchAddress(walletAddress, walletAddress)
     })
   })
 
