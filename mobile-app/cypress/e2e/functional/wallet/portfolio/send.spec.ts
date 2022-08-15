@@ -498,15 +498,17 @@ context('Wallet - Send - Address book', function () {
       cy.getByTestID('save_address_label').click().wait(1000)
       cy.getByTestID('pin_authorize').type('000000').wait(2000)
       validateMatchAddress(addresses[index], labels[index])
+      cy.getByTestID('address_input_clear_button').click()
       cy.getByTestID('address_book_button').click()
       cy.getByTestID(`address_row_label_${index}_WHITELISTED`).contains(labels[index])
       cy.getByTestID(`address_row_text_${index}_WHITELISTED`).contains(addresses[index])
+      // cy.getByTestID('address_book_address_input').clear().type(addresses[index]).blur()
     })
   }
 
   function validateMatchAddress (address: string, label: string): void {
     cy.getByTestID('address_input').contains(address)
-    cy.getByTestID('address_input_footer').contains(address)
+    cy.getByTestID('address_input_footer').contains(label)
   }
 
   before(function () {
@@ -557,6 +559,7 @@ context('Wallet - Send - Address book', function () {
     cy.wrap(addresses).each((_v, index: number) => {
       cy.getByTestID(`address_row_${index}_WHITELISTED`).click()
       validateMatchAddress(addresses[index], labels[index])
+      cy.getByTestID('address_input_clear_button').click()
       cy.getByTestID('address_book_button').click()
     })
   })
@@ -565,13 +568,13 @@ context('Wallet - Send - Address book', function () {
     cy.getByTestID('address_button_group_YOUR_ADDRESS').click()
     cy.getByTestID('address_row_text_0_YOUR_ADDRESS').invoke('text').then(walletAddress => {
       cy.getByTestID('address_row_text_0_YOUR_ADDRESS').click()
-      validateMatchAddress(walletAddress, 'Saved address')
+      validateMatchAddress(walletAddress, walletAddress)
     })
   })
 
   it('should be able to block duplicate address', function () {
+    cy.getByTestID('address_input_clear_button').click()
     cy.getByTestID('address_book_button').click()
-    cy.getByTestID('address_button_group_WHITELISTED').click()
     cy.wrap(addresses).each((_v, index: number) => {
       cy.getByTestID('add_new_address').click()
       cy.getByTestID('address_book_address_input').clear().type(addresses[index]).blur()

@@ -19,6 +19,7 @@ import { WalletToken } from '@store/wallet'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { useAddressLabel } from '@hooks/useAddressLabel'
 import { View } from '@components'
 import { ThemedActivityIndicatorV2, ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedView, ThemedViewV2 } from '@components/themed'
 import { SummaryTitleV2 } from '@components/SummaryTitleV2'
@@ -30,6 +31,7 @@ type Props = StackScreenProps<PortfolioParamList, 'SendConfirmationScreen'>
 
 export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
   const { address } = useWalletContext()
+  const addressLabel = useAddressLabel(address)
   const network = useNetworkContext()
   const {
     token,
@@ -37,7 +39,8 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
     amount,
     amountInUsd,
     fee,
-    conversion
+    conversion,
+    toAddressLabel
   } = route.params
   const logger = useLogger()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -94,7 +97,9 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
           iconA={tokenADisplaySymbol}
           iconB={tokenBDisplaySymbol}
           fromAddress={address}
+          fromAddressLabel={addressLabel}
           toAddress={destination}
+          toAddressLabel={toAddressLabel}
         />
 
         {conversion?.isConversionRequired === true &&

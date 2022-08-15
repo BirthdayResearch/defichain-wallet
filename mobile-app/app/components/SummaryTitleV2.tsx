@@ -12,7 +12,9 @@ interface ISummaryTitleProps {
   amount: BigNumber
   testID: string
   fromAddress: string
+  fromAddressLabel?: string | null
   toAddress?: string
+  toAddressLabel?: string | null
   iconA: string
   iconB?: string
 }
@@ -84,7 +86,7 @@ export function SummaryTitleV2 (props: ISummaryTitleProps): JSX.Element {
               }]}
               testID='wallet_address'
             >
-              {props.fromAddress}
+              {props.fromAddressLabel ?? props.fromAddress}
             </ThemedTextV2>
           </ThemedViewV2>
         </View>
@@ -111,7 +113,7 @@ export function SummaryTitleV2 (props: ISummaryTitleProps): JSX.Element {
                 }]}
                 testID='summary_to_value'
               >
-                {props.toAddress}
+                {props.toAddressLabel ?? props.toAddress}
               </ThemedTextV2>
             </ThemedViewV2>
           </View>
