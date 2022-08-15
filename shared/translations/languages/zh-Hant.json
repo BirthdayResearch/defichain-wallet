@@ -59,7 +59,8 @@
     "ADD": "增加",
     "Prices": "價格",
     "Available pool pairs": "可選流動池",
-    "Your shared {{symbol}}": "您的股份 {{symbol}}"
+    "Your shared {{symbol}}": "您的股份 {{symbol}}",
+    "Confirm": "Confirm"
   },
   "screens/DexGuidelines": {
     "Guidelines": "使用指南",
@@ -868,7 +869,8 @@
     "You are removing LP tokens": "You are removing LP tokens",
     "Transaction fee": "Transaction fee",
     "Resulting pool share": "Resulting pool share",
-    "LP tokens to remove": "LP tokens to remove"
+    "LP tokens to remove": "L要刪除的 LP 代幣",
+    "Removing {{amount}} LP tokens from {{symbol}} pool": "Removing {{amount}} LP tokens from {{symbol}} pool"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "退出流動資金",
@@ -880,6 +882,7 @@
     "Removing {{amount}} {{symbol}}": "退出 {{amount}} {{symbol}}",
     "Review full transaction details in the next screen": "請在下一步確認交易明細",
     "PRICE DETAILS": "價格明細",
+    "View pool share": "View pool share",
     "{{symbolA}} per {{symbolB}}": "每退出 {{symbolA}} 相當於 {{symbolB}} 等值",
     "{{symbolB}} per {{symbolA}}": "每退出 {{symbolB}} 相當於 {{symbolA}} 等值",
     "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 相當於 {{tokenB}} 等值",
@@ -892,7 +895,11 @@
     "Your LP Tokens": "Your LP Tokens",
     "Tokens in {{token}}": "Tokens in {{token}}",
     "{{token}} to receive": "{{token}} to receive",
-    "LP tokens to remove": "LP tokens to remove"
+    "LP tokens to remove": "要刪除的 LP 代幣",
+    "Available": "可兌換資金",
+    "Insufficient balance": "Insufficient balance",
+    "Max available LP tokens entered": "輸入的最高額可用 LP 代幣",
+    "{{percent}} of available LP tokens entered": "輸入了 {{percent}} 的可用 LP 代幣"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "錢包網絡",
