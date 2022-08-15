@@ -356,7 +356,7 @@ function TopLiquiditySection ({ pairs, onPress }: DexScrollableSectionProps): JS
 function NewPoolsSection ({ pairs, onPress }: DexScrollableSectionProps): JSX.Element {
   return (
     <DexScrollable
-      testId='DEX_NEW_POOLS'
+      testID='dex_new_pools'
       sectionHeading='NEW POOLS'
       sectionStyle={tailwind('mb-6')}
     >
@@ -367,6 +367,7 @@ function NewPoolsSection ({ pairs, onPress }: DexScrollableSectionProps): JSX.El
           style={tailwind('mr-2')}
           onPress={onPress}
           label={translate('screens/DexScreen', 'Add to LP')}
+          testID={`add_liquidity_${pairItem.data.id}`}
         />
       ))}
     </DexScrollable>
