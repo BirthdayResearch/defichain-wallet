@@ -20,7 +20,6 @@ import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { SummaryTitleV2 } from '@components/SummaryTitleV2'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useAddressLabel } from '@hooks/useAddressLabel'
 import { NumberRowV2 } from '@components/NumberRowV2'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
 import { PricesSectionV2 } from '@components/PricesSectionV2'
@@ -44,7 +43,6 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const { address } = useWalletContext()
-  const addressLabel = useAddressLabel(address)
 
   const sharesUsdAmount = getTokenPrice(pair.symbol, new BigNumber(amount), true)
   useEffect(() => {
@@ -90,7 +88,6 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
           amount={amount}
           testID='text_remove_liquidity_amount'
           title={translate('screens/ConfirmRemoveLiquidity', 'You are removing LP tokens')}
-          fromAddressLabel={addressLabel}
         />
       </ThemedViewV2>
 
@@ -194,8 +191,6 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
         <SubmitButtonGroupV2
           isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
           label={translate('screens/ConfirmRemoveLiquidity', 'Remove liquidity')}
-          isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-          processingLabel={translate('screens/ConfirmRemoveLiquidity', 'REMOVING')}
           onSubmit={onSubmit}
           onCancel={onCancel}
           displayCancelBtn
