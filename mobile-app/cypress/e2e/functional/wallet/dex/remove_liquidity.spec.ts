@@ -97,7 +97,7 @@ function validatePriceSelectionAndSummaryBasedOnPercentage (): void {
   cy.getByTestID('tokens_remove_amount_input_clear_button').click().wait(1000) // clear input
 }
 
-context('View pool share information', () => {
+context('Wallet - DEX - View pool share information', () => {
   before(function () {
     createAddLiquidityToWallet()
   })

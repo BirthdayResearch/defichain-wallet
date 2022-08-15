@@ -20,7 +20,6 @@ import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { SummaryTitleV2 } from '@components/SummaryTitleV2'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useAddressLabel } from '@hooks/useAddressLabel'
 import { NumberRowV2 } from '@components/NumberRowV2'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
 import { PricesSectionV2 } from '@components/PricesSectionV2'
@@ -44,7 +43,6 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const { address } = useWalletContext()
-  const addressLabel = useAddressLabel(address)
 
   const sharesUsdAmount = getTokenPrice(pair.symbol, new BigNumber(amount), true)
   useEffect(() => {
@@ -81,7 +79,7 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-100')}
         light={tailwind('bg-mono-light-v2-100')}
-        style={tailwind('flex-col pt-8 mb-9')}
+        style={tailwind('flex-col mb-9')}
       >
         <SummaryTitleV2
           iconA={pair.tokenA.displaySymbol}
@@ -90,7 +88,6 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
           amount={amount}
           testID='text_remove_liquidity_amount'
           title={translate('screens/ConfirmRemoveLiquidity', 'You are removing LP tokens')}
-          fromAddressLabel={addressLabel}
         />
       </ThemedViewV2>
 
@@ -194,8 +191,6 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
         <SubmitButtonGroupV2
           isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
           label={translate('screens/ConfirmRemoveLiquidity', 'Remove liquidity')}
-          isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-          processingLabel={translate('screens/ConfirmRemoveLiquidity', 'REMOVING')}
           onSubmit={onSubmit}
           onCancel={onCancel}
           displayCancelBtn
@@ -227,10 +222,20 @@ async function constructSignedRemoveLiqAndSend (pair: PoolPairData, amount: BigN
 
   dispatch(transactionQueue.actions.push({
     sign: signer,
-    title: translate('screens/ConfirmRemoveLiquidity', 'Removing {{amount}} LP tokens from {{symbol}} pool', {
+    title: translate('screens/ConfirmRemoveLiquidity', 'Removing {{amount}} {{symbol}} from liquidity pool', {
       symbol: symbol,
       amount: amount.toFixed(8)
     }),
+    drawerMessages: {
+      preparing: translate('screens/OceanInterface', 'Preparing to remove liquidity…'),
+      waiting: translate('screens/OceanInterface', 'Removing {{symbol}} from liquidity pool', {
+        symbol: symbol
+      }),
+      complete: translate('screens/OceanInterface', 'Removed {{amount}} {{symbol}} from liquidity pool', {
+        symbol: symbol,
+        amount: amount.toFixed(8)
+      })
+    },
     onBroadcast
   }))
 }

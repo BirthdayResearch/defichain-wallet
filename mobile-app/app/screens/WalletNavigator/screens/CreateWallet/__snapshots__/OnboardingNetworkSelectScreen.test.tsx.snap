@@ -654,24 +654,19 @@ exports[`onboarding network selection screen should render 1`] = `
       </View>
     </View>
     <View
-      dark={
-        Object {
-          "backgroundColor": "transparent",
-        }
-      }
-      light={
-        Object {
-          "backgroundColor": "transparent",
-        }
-      }
       style={
-        Object {
-          "alignItems": "flex-start",
-          "backgroundColor": "transparent",
-          "flexDirection": "row",
-          "paddingTop": 18,
-          "width": "100%",
-        }
+        Array [
+          Object {
+            "alignItems": "flex-start",
+            "backgroundColor": "transparent",
+            "flexDirection": "row",
+            "paddingTop": 18,
+            "width": "100%",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+        ]
       }
     >
       <View

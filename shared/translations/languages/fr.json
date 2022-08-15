@@ -757,6 +757,8 @@
     "Preparing to remove liquidity…": "Préparation du retrait de liquidité en cours…",
     "Removing tokens from liquidity pool…": "Retrait de tokens du pool de liquidité…",
     "Removed tokens from liquidity pool": "Tokens retirés du pool de liquidité",
+    "Removing {{symbol}} from liquidity pool": "Retrait de {{symbol}} du pool de liquidité",
+    "Removed {{amount}} {{symbol}} from liquidity pool": "Retiré {{amount}} {{symbol}} du pool de liquidité",
     "Preparing loan payment…": "Préparation du…",
     "Processing loan payment…": "Traitement du remboursement de prêt…",
     "Payment completed": "Remboursement effectué",
@@ -883,7 +885,7 @@
     "Transaction fee": "Frais de transaction",
     "Resulting pool share": "Part de pool qui en résulte",
     "LP tokens to remove": "Tokens PL à retirer",
-    "Removing {{amount}} LP tokens from {{symbol}} pool": "Retrait de {{amount}} tokens PL du pool {{symbol}}"
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Retrait de {{amount}} {{symbol}} du pool de liquidité"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "Retrait de liquidité...",
