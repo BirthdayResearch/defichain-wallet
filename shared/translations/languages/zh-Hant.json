@@ -735,6 +735,8 @@
     "Preparing to convert…": "Preparing to convert…",
     "Converting {{symbolA}} to {{symbolB}}": "轉換 {{symbolA}} 至 {{symbolB}}",
     "Conversion completed": "Conversion completed",
+    "Converting {{amount}} DFI {{symbolA}} to {{symbolB}}": "將 {{amount}} DFI {{symbolA}} 轉換為 {{symbolB}}",
+    "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI 轉換為 {{symbolB}}",
     "Preparing your transaction…": "Preparing your transaction…",
     "Processing future swap transaction…": "Processing future swap transaction…",
     "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap confirmed and will be executed at block #{{block}}",
