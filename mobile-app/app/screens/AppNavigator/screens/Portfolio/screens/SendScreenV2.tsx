@@ -40,6 +40,7 @@ import { PortfolioParamList } from '../PortfolioNavigator'
 import { RandomAvatar } from '../components/RandomAvatar'
 import { TokenIcon } from '../components/TokenIcon'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 type Props = StackScreenProps<PortfolioParamList, 'SendScreenV2'>
 
@@ -70,6 +71,8 @@ export function SendScreenV2 ({
   const { getDisplayUtxoWarningStatus } = useDisplayUtxoWarning()
   const toast = useToast()
   const TOAST_DURATION = 2000
+  const BOTTOM_NAV_HEIGHT = 64
+  const bottomInset = useSafeAreaInsets().bottom
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
@@ -290,6 +293,7 @@ export function SendScreenV2 ({
       <KeyboardAwareScrollView
         contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'
         style={tailwind(`${isLight ? 'bg-mono-light-v2-100' : 'bg-mono-dark-v2-100'}`)}
+        extraScrollHeight={-BOTTOM_NAV_HEIGHT - bottomInset}
       >
         {token === undefined &&
           <ThemedTextV2 style={tailwind('px-5')}>
