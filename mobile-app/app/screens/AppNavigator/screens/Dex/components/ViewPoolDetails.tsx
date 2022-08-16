@@ -32,11 +32,7 @@ export const ViewPoolDetails = ({
   pairInfo
 }: ViewPoolDetailsProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   return (
-    <ThemedViewV2
-      light={tailwind('bg-mono-light-v2-100')}
-      dark={tailwind('bg-mono-dark-v2-100')}
-      style={tailwind('px-5 h-full')}
-    >
+    <ThemedViewV2 style={tailwind('px-5 h-full')}>
       <View style={tailwind('flex-row mb-3')}>
         <View>
           <PoolPairTextSectionV2
