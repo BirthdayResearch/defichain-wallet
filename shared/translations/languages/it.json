@@ -859,7 +859,7 @@
     "ADDING": "AGGIUNGI",
     "Pooled {{symbol}}": "{{symbol}} messo nel pool",
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "Aggiungi {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}",
-    "Adding {{amountA}} LP tokens to {{symbolA}}-{{symbolB}}": "Adding {{amountA}} LP tokens to {{symbolA}}-{{symbolB}}",
+    "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool": "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool",
     "PRICE DETAILS": "DETTAGLI DEL PREZZO",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} prezzo per {{tokenB}}",
     "Your pooled {{symbol}}": "Il tuo pool {{symbol}}",

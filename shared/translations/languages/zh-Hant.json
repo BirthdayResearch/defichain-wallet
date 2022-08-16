@@ -844,7 +844,7 @@
     "ADDING": "增加",
     "Pooled {{symbol}}": "池中總 {{symbol}}",
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "向 {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} 配對增加流動資金",
-    "Adding {{amountA}} LP tokens to {{symbolA}}-{{symbolB}}": "面將 {{amountA}} LP 代幣添加到 {{symbolA}}-{{symbolB}}",
+    "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool": "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool",
     "PRICE DETAILS": "價格明細",
     "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相當於{{tokenA}}的價格",
     "Your pooled {{symbol}}": "您已入池的 {{symbol}}",
