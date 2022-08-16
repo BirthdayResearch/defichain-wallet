@@ -10,8 +10,6 @@ import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { PortfolioScreen } from './PortfolioScreen'
 import { ReceiveScreen } from './screens/ReceiveScreen'
-import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
-import { SendScreen } from './screens/SendScreen'
 import { AddressControlScreen } from './components/AddressControlScreen'
 import { AboutScreen } from '../Settings/screens/AboutScreen'
 import { CompositeSwapScreen } from '../Dex/CompositeSwap/CompositeSwapScreen'
@@ -50,18 +48,28 @@ import {
 import {
   ConvertConfirmationScreenV2
 } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreenV2'
+import { SendScreenV2 } from './screens/SendScreenV2'
+import { TokenSelectionScreen } from './screens/TokenSelectionScreen'
+import { SendConfirmationScreenV2 } from './screens/SendConfirmationScreenV2'
+import { SendScreen } from './screens/SendScreen'
+import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
   ReceiveScreen: undefined
   MarketplaceScreen: undefined
   SendScreen: { token?: WalletToken }
+  SendScreenV2: { token?: WalletToken }
+  TokenSelectionScreen: {}
   SendConfirmationScreen: {
     token: WalletToken
     destination: string
     amount: BigNumber
+    amountInUsd: BigNumber
     fee: BigNumber
     conversion?: ConversionParam
+    toAddressLabel?: string
   }
   TokenDetailScreen: { token: WalletToken }
   ConvertScreen: { mode: ConversionMode }
@@ -121,6 +129,7 @@ export interface PortfolioParamList {
 
 export interface ConversionParam {
   isConversionRequired: boolean
+  isConverted?: boolean
   conversionAmount: BigNumber
   DFIUtxo: WalletToken
   DFIToken: WalletToken
@@ -132,6 +141,7 @@ export function PortfolioNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const headerContainerTestId = 'portfolio_header_container'
   const { isLight } = useThemeContext()
+  const { isFeatureAvailable } = useFeatureFlagContext()
   const goToNetworkSelect = (): void => {
     navigation.navigate('NetworkSelectionScreen')
   }
@@ -240,29 +250,62 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={SendScreen}
+        component={isFeatureAvailable('send_v2') ? SendScreenV2 : SendScreen}
         name='Send'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/SendScreen', 'Send')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          ...screenOptions,
+          headerTitle: isFeatureAvailable('send_v2')
+            ? translate('screens/SendScreen', 'Send')
+            : () => (<HeaderTitle
+                text={translate('screens/SendScreen', 'Send')}
+                containerTestID={headerContainerTestId}
+                     />),
+          ...(isFeatureAvailable('send_v2')) && {
+            headerRight: () => (
+              <HeaderNetworkStatus onPress={goToNetworkSelect} />
+            )
+          },
           headerBackTitleVisible: false
         }}
       />
 
       <PortfolioStack.Screen
-        component={SendConfirmationScreen}
+        component={TokenSelectionScreen}
+        name='TokenSelectionScreen'
+        options={{
+          ...screenOptions,
+          headerTitle: isFeatureAvailable('send_v2')
+            ? translate('screens/SendScreen', 'Send')
+            : () => (<HeaderTitle
+                text={translate('screens/SendScreen', 'Send')}
+                containerTestID={headerContainerTestId}
+                     />
+            ),
+          ...(isFeatureAvailable('send_v2')) && {
+            headerRight: () => (
+              <HeaderNetworkStatus onPress={goToNetworkSelect} />
+            )
+          },
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <PortfolioStack.Screen
+        component={isFeatureAvailable('send_v2') ? SendConfirmationScreenV2 : SendConfirmationScreen}
         name='SendConfirmationScreen'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/SendConfirmationScreen', 'Confirm Send')}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          ...screenOptions,
+          headerTitle: isFeatureAvailable('send_v2')
+            ? translate('screens/SendConfirmationScreen', 'Confirm Send')
+            : () => (<HeaderTitle
+                text={translate('screens/SendConfirmationScreen', 'Confirm Send')}
+                containerTestID={headerContainerTestId}
+                     />),
+          ...(isFeatureAvailable('send_v2')) && {
+            headerRight: () => (
+              <HeaderNetworkStatus onPress={goToNetworkSelect} />
+            )
+          },
           headerBackTitleVisible: false
         }}
       />

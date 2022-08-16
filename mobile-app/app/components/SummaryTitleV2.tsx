@@ -14,6 +14,7 @@ interface ISummaryTitleProps {
   fromAddress: string
   fromAddressLabel?: string | null
   toAddress?: string
+  toAddressLabel?: string | null
   iconA: string
   iconB?: string
 }
@@ -99,15 +100,20 @@ export function SummaryTitleV2 (props: ISummaryTitleProps): JSX.Element {
               {translate('screens/common', 'To')}
             </ThemedTextV2>
             <ThemedViewV2
-              style={tailwind('flex-1 rounded-full px-2.5 py-1 ml-2')}
-              dark={tailwind('bg-mono-dark-v2-200')}
-              light={tailwind('bg-mono-light-v2-200')}
+              dark={tailwind('bg-mono-dark-v2-200')} light={tailwind('bg-mono-light-v2-200')}
+              style={tailwind('flex flex-row items-center overflow-hidden rounded-full pl-1 pr-2.5 py-1 ml-2')}
             >
+              <RandomAvatar name={props.toAddress} size={20} />
               <ThemedTextV2
-                style={tailwind('text-sm font-normal-v2')}
-                ellipsizeMode='middle' numberOfLines={1} testID='summary_to_value'
+                ellipsizeMode='middle'
+                numberOfLines={1}
+                style={[tailwind('text-sm font-normal-v2 ml-1'), {
+                  minWidth: 10,
+                  maxWidth: 108
+                }]}
+                testID='summary_to_value'
               >
-                {props.toAddress}
+                {props.toAddressLabel ?? props.toAddress}
               </ThemedTextV2>
             </ThemedViewV2>
           </View>

@@ -256,7 +256,20 @@
     "Select a token you want to send to get started": "Sélectionnez un token que vous voulez envoyer pour commencer.",
     "Choose token to send": "Choisissez le token à envoyer",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
-    "*Registered address": "*Adresse enregistrée"
+    "*Registered address": "*Adresse enregistrée",
+    "There is a minimal fee for the transaction": "Il y a des frais minimes pour la transaction",
+    "A small amount of UTXO is reserved for fees": "A small amount of UTXO is reserved for fees",
+    "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds": "Veillez à n'envoyer vos tokens de pool de liquidité (PL) qu'à des portefeuilles DeFiChain. Le non-respect de cette consigne peut entraîner une perte irréversible des fonds.",
+    "Insufficient balance": "Solde insuffisant",
+    "SEND TO": "ENVOYER À",
+    "Paste address": "Coller l'adresse",
+    "I WANT TO SEND": "JE VEUX ENVOYER",
+    "Review full details in the next screen": "érifiez tous les détails dans l'écran suivant",
+    "Verified": "Vérifié",
+    "{{percent}} of available {{unit}} entered": "{{percent}} des {{unit}} disponibles saisis",
+    "Max available {{unit}} entered": "Max. de {{unit}} disponibles saisis",
+    "By continuing, the required amount of DFI will be converted": "En continuant, le montant requis de DFI sera converti.",
+    "Invalid address. Make sure the address is correct to avoid irrecoverable losses": "Adresse non valide. Assurez-vous que l'adresse est correcte pour éviter des pertes irrécupérables"
   },
   "screens/SendConfirmationScreen": {
     "Confirm Send": "Confirmer l'envoi",
@@ -276,9 +289,24 @@
     "Convert & send": "Convertir et envoyer",
     "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "Envoyez les tokens du pool de liquidité uniquement vers des portefeuilles compatibles avec DeFiChain. Sinon, l'envoi vers d'autres échanges peut entraîner une perte irréversible des fonds.",
     "Transaction type": "Type de transaction",
-    "Amount to send": "Montant à envoyer"
+    "Amount to send": "Montant à envoyer",
+    "Converting": "Converting",
+    "Converted": "Converti",
+    "Transaction fee": "Transaction fee",
+    "Amount to convert": "Amount to convert",
+    "Send": "Send",
+    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Envoi de {{amount}} {{displaySymbol}} à {{toAddress}}",
+    "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "Je reconnais que l'envoi de tokens PL à des adresses qui ne sont pas des portefeuilles compatibles DeFiChain peut entraîner une perte irréversible de fonds."
+  },
+  "screens/TokenSelectionScreen": {
+    "Search token": "Rechercher de token",
+    "No assets found": "Aucun actif trouvé",
+    "Add assets to get started": "Ajouter des actifs pour commencer",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
+    "AVAILABLE": "AVAILABLE"
   },
   "screens/ConvertScreen": {
+    "Convert": "Convertir",
     "Convert DFI": "Convertir DFI",
     "Scan recipient QR": "Scanner le QR du destinataire",
     "Balance": "Balance",
@@ -304,6 +332,7 @@
     "Resulting {{unit}}": "{{unit}} Restants"
   },
   "screens/ConvertConfirmScreen": {
+    "Confirm": "Confirmer",
     "Confirm DFI Conversion": "Confirmation de la conversion DFI",
     "You are converting": "Vous convertissez",
     "AFTER CONVERSION, YOU WILL HAVE": "APRÈS LA CONVERSION, VOUS AUREZ",
@@ -504,7 +533,7 @@
     "Transaction": "Transaktion",
     "Type": "Type",
     "Amount": "Montant",
-    "Block": "Block",
+    "Block": "Bloc",
     "Date": "Date",
     "Received": "Reçues",
     "Sent": "Envoyés"
@@ -712,8 +741,8 @@
     "Swapping tokens…": "Échange des tokens en cours…",
     "Tokens swapped": "Tokens échangés",
     "Preparing to send…": "Préparation de l'envoi en cours…",
-    "Sending tokens…": "Envoi des tokens en cours…",
-    "Tokens sent": "Tokens envoyés",
+    "Sending {{amount}} {{displaySymbol}}": "nvoi de {{amount}} {{displaySymbol}}",
+    "{{amount}} {{displaySymbol}} sent": "{{amount}} {{displaySymbol}} envoyés",
     "Preparing loan…": "Préparation du prêt en cours…",
     "Processing loan…": "Traitement de l'emprunt en cours…",
     "Loan processed": "Prêt traité",
@@ -1174,7 +1203,7 @@
     "VAULT DETAILS": "DÉTAILS DU VAULT",
     "Vault ID": "Vault ID",
     "Owner ID": "ID du propriétaire",
-    "Liquidation height": "Hauteur de block de liquidation",
+    "Liquidation height": "Hauteur de bloc de liquidation",
     "ADDITIONAL DETAILS": "DÉTAILS ADDITIONNELS",
     "Collateral value (USD)": "Valeur de la garantie (USD)",
     "Auction start": "Ouverture de l'enchère",
@@ -1224,7 +1253,7 @@
   "components/AuctionTimeProgress": {
     "Auction ends in": "L'enchère se termine dans",
     "Auction time left": "Temps restant",
-    "{{block}} blks": "{{block}} Blocs",
+    "{{block}} blks": "{{block}} blocs",
     "~{{time}} left": "~{{time}} restant",
     "Auction time remaining": "Temps restant"
   },
@@ -1631,7 +1660,7 @@
     "Total auction value (USD)": "Valeur totale mise en vente (USD)",
     "Vault ID": "Vault n°",
     "Vault owner ID": "ID du propriétaire du vault",
-    "Liquidation Height": "Hauteur de block de liquidation",
+    "Liquidation Height": "Hauteur de bloc de liquidation",
     "CONFIRM PLACE BID": "CONFIRMER ENCHÈRE",
     "Sign Transaction": "Autoriser la transaction",
     "Placing {{amount}} {{token}} as bid for auction.": "Placer une enchère de {{amount}} {{token}}.",
