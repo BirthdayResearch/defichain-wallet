@@ -92,9 +92,9 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
       </ThemedViewV2>
 
       <ThemedViewV2
-        dark={tailwind('bg-mono-dark-v2-100 border-t-0.5 border-mono-dark-v2-300')}
-        light={tailwind('bg-mono-light-v2-100 border-t-0.5 border-mono-light-v2-300')}
-        style={tailwind('py-5')}
+        dark={tailwind('border-mono-dark-v2-300')}
+        light={tailwind('border-mono-light-v2-300')}
+        style={tailwind('py-5 border-t-0.5')}
       >
         <View style={tailwind('mb-5')}>
           <NumberRowV2
@@ -140,9 +140,9 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
       </ThemedViewV2>
 
       <ThemedViewV2
-        dark={tailwind('bg-mono-dark-v2-100 border-t-0.5 border-b-0.5 border-mono-dark-v2-300')}
-        light={tailwind('bg-mono-light-v2-100 border-t-0.5 border-b-0.5 border-mono-light-v2-300')}
-        style={tailwind('pt-5')}
+        dark={tailwind('border-mono-dark-v2-300')}
+        light={tailwind('border-mono-light-v2-300')}
+        style={tailwind('pt-5 border-t-0.5 border-b-0.5')}
       >
         <PricesSectionV2
           key='prices'
