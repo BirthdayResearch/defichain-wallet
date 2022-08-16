@@ -17,7 +17,7 @@ interface ISummaryTitleProps {
   toAddressLabel?: string | null
   iconA: string
   iconB?: string
-  isAddressMatched: boolean
+  isAddressMatched?: boolean
 }
 
 export function SummaryTitleV2 (props: ISummaryTitleProps): JSX.Element {
@@ -104,7 +104,7 @@ export function SummaryTitleV2 (props: ISummaryTitleProps): JSX.Element {
               dark={tailwind('bg-mono-dark-v2-200')} light={tailwind('bg-mono-light-v2-200')}
               style={tailwind('flex flex-row items-center overflow-hidden rounded-full pl-1 pr-2.5 py-1 ml-2')}
             >
-              {props.isAddressMatched && <RandomAvatar name={props.toAddress} size={20} />}
+              {props.isAddressMatched === true && <RandomAvatar name={props.toAddress} size={20} />}
               <ThemedTextV2
                 ellipsizeMode='middle'
                 numberOfLines={1}
