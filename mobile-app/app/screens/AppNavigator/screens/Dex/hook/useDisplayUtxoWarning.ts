@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
 
-
 export function useDisplayUtxoWarning (): {
   getDisplayUtxoWarningStatus: (amountInDFI: BigNumber, displaySymbol: string) => boolean
 } {
