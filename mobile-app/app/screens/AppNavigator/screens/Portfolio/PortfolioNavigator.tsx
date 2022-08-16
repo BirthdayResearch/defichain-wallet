@@ -75,6 +75,16 @@ export interface PortfolioParamList {
     conversion?: ConversionParam
     toAddressLabel?: string
   }
+  SendConfirmationScreenV2: {
+    token: WalletToken
+    destination: string
+    amount: BigNumber
+    amountInUsd: BigNumber
+    fee: BigNumber
+    conversion?: ConversionParam
+    toAddressLabel?: string
+    addressType?: AddressType
+  }
   TokenDetailScreen: { token: WalletToken }
   ConvertScreen: { mode: ConversionMode }
   ConvertConfirmationScreen: {
@@ -137,6 +147,12 @@ export interface ConversionParam {
   conversionAmount: BigNumber
   DFIUtxo: WalletToken
   DFIToken: WalletToken
+}
+
+export enum AddressType {
+  WalletAddress,
+  Whitelisted,
+  OthersButValid
 }
 
 const PortfolioStack = createStackNavigator<PortfolioParamList>()
@@ -296,11 +312,11 @@ export function PortfolioNavigator (): JSX.Element {
 
       <PortfolioStack.Screen
         component={isFeatureAvailable('send_v2') ? SendConfirmationScreenV2 : SendConfirmationScreen}
-        name='SendConfirmationScreen'
+        name={isFeatureAvailable('send_v2') ? 'SendConfirmationScreenV2' : 'SendConfirmationScreen'}
         options={{
           ...screenOptions,
           headerTitle: isFeatureAvailable('send_v2')
-            ? translate('screens/SendConfirmationScreen', 'Confirm Send')
+            ? translate('screens/SendConfirmationScreen', 'Confirm')
             : () => (<HeaderTitle
                 text={translate('screens/SendConfirmationScreen', 'Confirm Send')}
                 containerTestID={headerContainerTestId}

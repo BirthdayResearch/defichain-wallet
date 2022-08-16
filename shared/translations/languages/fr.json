@@ -273,6 +273,7 @@
     "Invalid address. Make sure the address is correct to avoid irrecoverable losses": "Adresse non valide. Assurez-vous que l'adresse est correcte pour éviter des pertes irrécupérables"
   },
   "screens/SendConfirmationScreen": {
+    "Confirm": "Confirmer",
     "Confirm Send": "Confirmer l'envoi",
     "CONFIRM SEND": "CONFIRMER L'ENVOI",
     "You are sending": "Vous envoyez",
