@@ -116,7 +116,6 @@ export function PoolPairCards ({
   )
 
   useEffect(() => {
-    setIsSearching(false)
     if (showSearchInput === false) {
       setFilteredYourPairs(yourPairs.sort(pairSortingFn))
       return
