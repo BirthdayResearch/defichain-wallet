@@ -94,11 +94,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollViewV2 style={tailwind('py-8 px-5')}>
-      <ThemedViewV2
-        dark={tailwind('bg-mono-dark-v2-100')}
-        light={tailwind('bg-mono-light-v2-100')}
-        style={tailwind('flex-col py-4 mb-4')}
-      >
+      <ThemedViewV2 style={tailwind('flex-col py-4 mb-4')}>
         <SummaryTitleV2
           iconA={pair.tokenA.displaySymbol}
           iconB={pair.tokenB.displaySymbol}
@@ -112,9 +108,9 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
 
       {conversion?.isConversionRequired === true && (
         <ThemedViewV2
-          dark={tailwind('bg-mono-dark-v2-100 border-t-0.5 border-gray-700')}
-          light={tailwind('bg-mono-light-v2-100 border-t-0.5 border-gray-300')}
-          style={tailwind('py-5')}
+          dark={tailwind('border-gray-700')}
+          light={tailwind('border-gray-300')}
+          style={tailwind('py-5 border-t-0.5')}
         >
           <NumberRowV2
             lhs={{
@@ -160,8 +156,8 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
       )}
 
       <ThemedViewV2
-        dark={tailwind('bg-mono-dark-v2-100 border-gray-700')}
-        light={tailwind('bg-mono-light-v2-100 border-gray-300')}
+        dark={tailwind('border-gray-700')}
+        light={tailwind('border-gray-300')}
         style={tailwind('py-5 border-t-0.5')}
       >
         <View style={tailwind('mb-6')}>
@@ -198,8 +194,8 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
         />
       </ThemedViewV2>
       <ThemedViewV2
-        dark={tailwind('bg-mono-dark-v2-100 border-gray-700')}
-        light={tailwind('bg-mono-light-v2-100 border-gray-300')}
+        dark={tailwind('border-gray-700')}
+        light={tailwind('border-gray-300')}
         style={tailwind('py-5 border-t-0.5 border-b-0.5 ')}
       >
         <NumberRowV2

@@ -5,7 +5,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { View, Platform } from 'react-native'
-import { ThemedIcon, ThemedScrollView, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
+import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
@@ -391,7 +391,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
 
   return (
     <View ref={containerRef} style={tailwind('flex-col flex-1')}>
-      <ThemedScrollView ref={ref} contentContainerStyle={tailwind('flex-grow py-8 mx-5 justify-between')} style={tailwind('w-full')}>
+      <ThemedScrollViewV2 ref={ref} contentContainerStyle={tailwind('flex-grow py-8 mx-5 justify-between')} style={tailwind('w-full')}>
         <View>
           <ViewPoolHeader
             tokenASymbol={pair.tokenA.displaySymbol}
@@ -551,7 +551,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
               enablePanDown
             />
           )}
-      </ThemedScrollView>
+      </ThemedScrollViewV2>
     </View>
   )
 }
@@ -597,7 +597,6 @@ function AddLiquidityInputCard (
             onBlur={isFocus}
             onChangeText={txt => props.onChange(txt)}
             placeholder='0.00'
-            style={tailwind('flex-grow w-2/5 font-normal-v2 text-xs')}
             value={props.current}
             inputType='numeric'
             displayClearButton={props.current !== ''}
