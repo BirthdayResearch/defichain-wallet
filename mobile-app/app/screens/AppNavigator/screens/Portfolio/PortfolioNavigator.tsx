@@ -1,6 +1,6 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { WalletToken } from '@store/wallet'
+import { AddressType, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import { Image, Platform } from 'react-native'
 import { BarCodeScanner } from '@components/BarCodeScanner'
@@ -143,12 +143,6 @@ export interface ConversionParam {
   conversionAmount: BigNumber
   DFIUtxo: WalletToken
   DFIToken: WalletToken
-}
-
-export enum AddressType {
-  WalletAddress,
-  Whitelisted,
-  OthersButValid
 }
 
 const PortfolioStack = createStackNavigator<PortfolioParamList>()
