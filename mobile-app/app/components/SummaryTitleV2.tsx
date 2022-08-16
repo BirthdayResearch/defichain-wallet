@@ -6,7 +6,7 @@ import { View } from '.'
 import { getNativeIcon } from '@components/icons/assets'
 import { translate } from '@translations'
 import { RandomAvatar } from '@screens/AppNavigator/screens/Portfolio/components/RandomAvatar'
-import { AddressType } from '@screens/AppNavigator/screens/Portfolio/PortfolioNavigator'
+import { AddressType } from '@store/wallet'
 
 interface ISummaryTitleProps {
   title: string
@@ -103,7 +103,10 @@ export function SummaryTitleV2 (props: ISummaryTitleProps): JSX.Element {
             </ThemedTextV2>
             <ThemedViewV2
               dark={tailwind('bg-mono-dark-v2-200')} light={tailwind('bg-mono-light-v2-200')}
-              style={tailwind('flex flex-row items-center overflow-hidden rounded-full pr-2.5 py-1 ml-2', { 'pl-1': props.addressType === AddressType.WalletAddress, 'pl-2.5': props.addressType !== AddressType.WalletAddress })}
+              style={tailwind('flex flex-row items-center overflow-hidden rounded-full pr-2.5 py-1 ml-2', {
+                'pl-1': props.addressType === AddressType.WalletAddress,
+                'pl-2.5': props.addressType !== AddressType.WalletAddress
+              })}
             >
               {props.addressType === AddressType.WalletAddress && (
                 <View style={tailwind('mr-1')}>
