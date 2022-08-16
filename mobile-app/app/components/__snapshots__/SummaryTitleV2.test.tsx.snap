@@ -429,7 +429,7 @@ Array [
           }
           testID="wallet_address"
         >
-          fromAddressLabel
+          fromAddress
         </Text>
       </View>
     </View>
@@ -472,16 +472,17 @@ Array [
         style={
           Array [
             Object {
+              "alignItems": "center",
               "borderBottomLeftRadius": 9999,
               "borderBottomRightRadius": 9999,
               "borderTopLeftRadius": 9999,
               "borderTopRightRadius": 9999,
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
+              "display": "flex",
+              "flexDirection": "row",
               "marginLeft": 8,
+              "overflow": "hidden",
               "paddingBottom": 4,
-              "paddingLeft": 10,
+              "paddingLeft": 4,
               "paddingRight": 10,
               "paddingTop": 4,
             },
@@ -491,6 +492,160 @@ Array [
           ]
         }
       >
+        <RNSVGSvgView
+          align="xMidYMid"
+          bbHeight={20}
+          bbWidth={20}
+          fill="none"
+          focusable={false}
+          height={20}
+          meetOrSlice={0}
+          minX={0}
+          minY={0}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+                "borderWidth": 0,
+              },
+              Object {
+                "flex": 0,
+                "height": 20,
+                "width": 20,
+              },
+            ]
+          }
+          vbHeight={80}
+          vbWidth={80}
+          width={20}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <RNSVGGroup
+            fill={null}
+            propList={
+              Array [
+                "fill",
+              ]
+            }
+          >
+            <RNSVGMask
+              height={80}
+              maskContentUnits={1}
+              maskTransform={
+                Array [
+                  1,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                ]
+              }
+              maskUnits={1}
+              name="mask__bauhaus"
+              width={80}
+              x={0}
+              y={0}
+            >
+              <RNSVGRect
+                fill={4294967295}
+                height={80}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                rx={160}
+                width={80}
+                x={0}
+                y={0}
+              />
+            </RNSVGMask>
+            <RNSVGGroup
+              mask="mask__bauhaus"
+            >
+              <RNSVGRect
+                fill={4294945863}
+                height={80}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={80}
+                x={0}
+                y={0}
+              />
+              <RNSVGRect
+                fill={4278234397}
+                height={10}
+                matrix={
+                  Array [
+                    0.27563735581699916,
+                    0.9612616959383189,
+                    -0.9612616959383189,
+                    0.27563735581699916,
+                    71.4249736048528,
+                    -13.475962070212724,
+                  ]
+                }
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                width={80}
+                x={10}
+                y={30}
+              />
+              <RNSVGCircle
+                cx={40}
+                cy={40}
+                fill={4279316113}
+                matrix={
+                  Array [
+                    1,
+                    0,
+                    0,
+                    1,
+                    18,
+                    -18,
+                  ]
+                }
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+                r={16}
+              />
+              <RNSVGLine
+                matrix={
+                  Array [
+                    -0.848048096156426,
+                    0.5299192642332049,
+                    -0.5299192642332049,
+                    -0.848048096156426,
+                    87.11869441558522,
+                    60.72515327692884,
+                  ]
+                }
+                propList={
+                  Array [
+                    "stroke",
+                    "strokeWidth",
+                  ]
+                }
+                stroke={4294901900}
+                strokeWidth={2}
+                x1={0}
+                x2={80}
+                y1={40}
+                y2={40}
+              />
+            </RNSVGGroup>
+          </RNSVGGroup>
+        </RNSVGSvgView>
         <Text
           ellipsizeMode="middle"
           numberOfLines={1}
@@ -503,12 +658,19 @@ Array [
                 "lineHeight": 24,
               },
               Array [
-                Object {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
+                Array [
+                  Object {
+                    "fontFamily": "SoraRegular",
+                    "fontSize": 14,
+                    "fontWeight": "400",
+                    "lineHeight": 20,
+                    "marginLeft": 4,
+                  },
+                  Object {
+                    "maxWidth": 108,
+                    "minWidth": 10,
+                  },
+                ],
                 Object {
                   "color": "rgba(18, 18, 18, 1)",
                 },
