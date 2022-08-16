@@ -20,6 +20,7 @@ import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { SummaryTitleV2 } from '@components/SummaryTitleV2'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useAddressLabel } from '@hooks/useAddressLabel'
 import { NumberRowV2 } from '@components/NumberRowV2'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
 import { PricesSectionV2 } from '@components/PricesSectionV2'
@@ -43,6 +44,7 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const { address } = useWalletContext()
+  const addressLabel = useAddressLabel(address)
 
   const sharesUsdAmount = getTokenPrice(pair.symbol, new BigNumber(amount), true)
   useEffect(() => {
@@ -76,15 +78,12 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
   const resultingPool = Number(pairInfo.amount) - Number(amount)
   return (
     <ThemedScrollViewV2 style={tailwind('py-8 px-5')}>
-      <ThemedViewV2
-        dark={tailwind('bg-mono-dark-v2-100')}
-        light={tailwind('bg-mono-light-v2-100')}
-        style={tailwind('flex-col mb-9')}
-      >
+      <ThemedViewV2 style={tailwind('flex-col mb-9')}>
         <SummaryTitleV2
           iconA={pair.tokenA.displaySymbol}
           iconB={pair.tokenB.displaySymbol}
           fromAddress={address}
+          fromAddressLabel={addressLabel}
           amount={amount}
           testID='text_remove_liquidity_amount'
           title={translate('screens/ConfirmRemoveLiquidity', 'You are removing LP tokens')}
@@ -92,9 +91,9 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
       </ThemedViewV2>
 
       <ThemedViewV2
-        dark={tailwind('bg-mono-dark-v2-100 border-t-0.5 border-mono-dark-v2-300')}
-        light={tailwind('bg-mono-light-v2-100 border-t-0.5 border-mono-light-v2-300')}
-        style={tailwind('py-5')}
+        dark={tailwind('border-mono-dark-v2-300')}
+        light={tailwind('border-mono-light-v2-300')}
+        style={tailwind('py-5 border-t-0.5')}
       >
         <View style={tailwind('mb-5')}>
           <NumberRowV2
@@ -140,9 +139,9 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
       </ThemedViewV2>
 
       <ThemedViewV2
-        dark={tailwind('bg-mono-dark-v2-100 border-t-0.5 border-b-0.5 border-mono-dark-v2-300')}
-        light={tailwind('bg-mono-light-v2-100 border-t-0.5 border-b-0.5 border-mono-light-v2-300')}
-        style={tailwind('pt-5')}
+        dark={tailwind('border-mono-dark-v2-300')}
+        light={tailwind('border-mono-light-v2-300')}
+        style={tailwind('pt-5 border-t-0.5 border-b-0.5')}
       >
         <PricesSectionV2
           key='prices'

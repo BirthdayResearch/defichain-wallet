@@ -169,7 +169,6 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
           <TransactionCard
             maxValue={new BigNumber(sourceToken.amount)} status={transactionCardStatus}
             onChange={onPercentagePress}
-            onPercentageChange={() => {}}
             containerStyle={tailwind('rounded-t-lg-v2 px-5 pt-2 mr-px')}
             amountButtonsStyle={tailwind('border-t-0.5')}
           >
@@ -252,7 +251,7 @@ export function ConvertScreenV2 (props: Props): JSX.Element {
       </View>
       <View style={tailwind('w-full px-7')}>
         <ButtonV2
-          fillTypeType='fill' label={translate('components/Button', 'Continue')}
+          fillType='fill' label={translate('components/Button', 'Continue')}
           disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob || hasPendingBroadcastJob}
           styleProps='w-full'
           onPress={() => convert(sourceToken, targetToken)}
