@@ -258,14 +258,14 @@ context('Wallet - Token Detail - LP', () => {
     cy.getByTestID('token_detail_amount').should('not.exist')
     cy.getByTestID('token_detail_usd_amount').should('not.exist')
 
-    cy.getByTestID('share_in_pool_ETH-DFI_amount').contains('10')
-    cy.getByTestID('share_in_pool_ETH-DFI_usd_amount').contains('20')
+    cy.getByTestID('your_lp_pool_ETH-DFI_amount').contains('10')
+    cy.getByTestID('your_lp_pool_ETH-DFI_usd_amount').contains('20')
 
-    cy.getByTestID('shares_in_ETH-DFI_dETH_amount').contains('100')
-    cy.getByTestID('shares_in_ETH-DFI_dETH_usd_amount').contains('10')
+    cy.getByTestID('tokens_in_ETH-DFI_dETH_amount').contains('100')
+    cy.getByTestID('tokens_in_ETH-DFI_dETH_usd_amount').contains('10')
 
-    cy.getByTestID('shares_in_ETH-DFI_DFI_amount').contains('1')
-    cy.getByTestID('shares_in_ETH-DFI_DFI_usd_amount').contains('10')
+    cy.getByTestID('tokens_in_ETH-DFI_DFI_amount').contains('1')
+    cy.getByTestID('tokens_in_ETH-DFI_DFI_usd_amount').contains('10')
 
     cy.getByTestID('dfi_utxo_amount').should('not.exist')
     cy.getByTestID('dfi_token_amount').should('not.exist')

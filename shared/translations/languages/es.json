@@ -1127,7 +1127,9 @@
     "As Token": "Como Token",
     "Your pool shares": "Your pool shares",
     "Shares in {{token}}": "Shares in {{token}}",
-    "Learn more about DFI": "Aprende mas sobre DFI"
+    "Learn more about DFI": "Aprende mas sobre DFI",
+    "Your LP tokens": "Your LP Tokens",
+    "Tokens in {{token}}": "Tokens in {{token}}"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "Una pequeña cantidad de UTXO (0.1 DFI) se reserva para las comisiones."
