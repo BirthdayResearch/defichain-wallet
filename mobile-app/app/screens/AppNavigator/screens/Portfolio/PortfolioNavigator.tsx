@@ -79,7 +79,7 @@ export interface PortfolioParamList {
     fee: BigNumber
     conversion?: ConversionParam
     toAddressLabel?: string
-    isAddressMatched: boolean
+    addressType?: AddressType
   }
   TokenDetailScreen: { token: WalletToken }
   ConvertScreen: { mode: ConversionMode }
@@ -143,6 +143,12 @@ export interface ConversionParam {
   conversionAmount: BigNumber
   DFIUtxo: WalletToken
   DFIToken: WalletToken
+}
+
+export enum AddressType {
+  WalletAddress,
+  Whitelisted,
+  OthersButValid
 }
 
 const PortfolioStack = createStackNavigator<PortfolioParamList>()

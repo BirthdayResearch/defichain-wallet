@@ -42,7 +42,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
     fee,
     conversion,
     toAddressLabel,
-    isAddressMatched
+    addressType
   } = route.params
   const logger = useLogger()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -102,7 +102,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
           fromAddressLabel={addressLabel}
           toAddress={destination}
           toAddressLabel={toAddressLabel}
-          isAddressMatched={isAddressMatched}
+          addressType={addressType}
         />
 
         {conversion?.isConversionRequired === true &&
