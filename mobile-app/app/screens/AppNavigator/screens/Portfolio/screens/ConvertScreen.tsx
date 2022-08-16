@@ -250,7 +250,7 @@ export function ConvertScreen (props: Props): JSX.Element {
       </View>
       <View style={tailwind('w-full px-7')}>
         <ButtonV2
-          fill='fill' label={translate('components/Button', 'Continue')}
+          fillType='fill' label={translate('components/Button', 'Continue')}
           disabled={!canConvert(convAmount, sourceToken.amount) || hasPendingJob || hasPendingBroadcastJob}
           styleProps='w-full'
           onPress={() => convert(sourceToken, targetToken)}
