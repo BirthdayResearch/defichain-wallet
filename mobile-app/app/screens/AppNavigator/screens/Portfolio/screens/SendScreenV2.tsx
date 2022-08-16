@@ -482,7 +482,7 @@ function AddressRow ({
               onChange={onChange}
               onChangeText={onAddressChange}
               placeholder={translate('screens/SendScreen', 'Paste address')}
-              style={tailwind('w-3/5 flex-grow pb-1')}
+              style={tailwind('w-3/5 flex-grow pb-1 font-normal-v2')}
               testID='address_input'
               value={value}
               displayClearButton={value !== defaultValue}
