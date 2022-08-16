@@ -137,7 +137,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     }, {
       id: 'send_v2',
       name: 'Send 2.0',
-      stage: 'alpha',
+      stage: 'public',
       version: '>2.1.0',
       description: 'Display redesigned Send flow for LW 2.0',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
