@@ -25,7 +25,6 @@ import { useAppDispatch } from '@hooks/useAppDispatch'
 import { useWalletAddress } from '@hooks/useWalletAddress'
 import {
   ThemedIcon,
-  ThemedScrollViewV2,
   ThemedTextInputV2,
   ThemedTextV2,
   ThemedTouchableOpacity,
@@ -37,9 +36,11 @@ import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
 import { AmountButtonTypes, TransactionCard, TransactionCardStatus } from '@components/TransactionCard'
 import { useTokenPrice } from '../hooks/TokenPrice'
 import { ActiveUSDValueV2 } from '../../Loans/VaultDetail/components/ActiveUSDValueV2'
-import { PortfolioParamList } from '../PortfolioNavigator'
+import { AddressType, PortfolioParamList } from '../PortfolioNavigator'
 import { RandomAvatar } from '../components/RandomAvatar'
 import { TokenIcon } from '../components/TokenIcon'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 type Props = StackScreenProps<PortfolioParamList, 'SendScreenV2'>
 
@@ -70,6 +71,8 @@ export function SendScreenV2 ({
   const { getDisplayUtxoWarningStatus } = useDisplayUtxoWarning()
   const toast = useToast()
   const TOAST_DURATION = 2000
+  const BOTTOM_NAV_HEIGHT = 64
+  const bottomInset = useSafeAreaInsets().bottom
 
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const addressBook = useSelector((state: RootState) => state.userPreferences.addressBook)
@@ -89,6 +92,7 @@ export function SendScreenV2 ({
   const { control, setValue, formState, getValues, trigger, watch } = useForm({ mode: 'onChange' })
   const { address } = watch()
   const amountToSend = getValues('amount')
+  const [addressType, setAddressType] = useState<AddressType>()
 
   const {
     isConversionRequired,
@@ -104,8 +108,10 @@ export function SendScreenV2 ({
   const debounceMatchAddress = debounce(() => {
     if (address !== undefined && addressBook !== undefined && addressBook[address] !== undefined) {
       setMatchedAddress(addressBook[address])
+      setAddressType(AddressType.Whitelisted)
     } else if (address !== undefined && walletAddress !== undefined && walletAddress[address] !== undefined) {
       setMatchedAddress(walletAddress[address])
+      setAddressType(AddressType.WalletAddress)
     } else if (address !== undefined && jellyfishWalletAddress.includes(address)) {
       // wallet address that does not have a label
       setMatchedAddress({
@@ -113,8 +119,10 @@ export function SendScreenV2 ({
         label: '',
         isMine: true
       })
+      setAddressType(AddressType.WalletAddress)
     } else {
       setMatchedAddress(undefined)
+      setAddressType(fromAddress(address, networkName) !== undefined ? AddressType.OthersButValid : undefined)
     }
   }, 200)
 
@@ -232,13 +240,14 @@ export function SendScreenV2 ({
     }
 
     const values = getValues()
-    const params: PortfolioParamList['SendConfirmationScreen'] = {
+    const params: PortfolioParamList['SendConfirmationScreenV2'] = {
       destination: values.address,
       token,
       amount: new BigNumber(values.amount),
       amountInUsd: amountInUSDValue,
       fee,
-      toAddressLabel: matchedAddress?.label
+      toAddressLabel: matchedAddress?.label,
+      addressType
     }
 
     if (isConversionRequired) {
@@ -253,7 +262,7 @@ export function SendScreenV2 ({
           conversionAmount
         }
         navigation.navigate({
-          name: 'SendConfirmationScreen',
+          name: 'SendConfirmationScreenV2',
           params,
           merge: true
         })
@@ -266,14 +275,14 @@ export function SendScreenV2 ({
           isConverted: true
         }
         navigation.navigate({
-          name: 'SendConfirmationScreen',
+          name: 'SendConfirmationScreenV2',
           params,
           merge: true
         })
       })
     } else {
       navigation.navigate({
-        name: 'SendConfirmationScreen',
+        name: 'SendConfirmationScreenV2',
         params,
         merge: true
       })
@@ -287,7 +296,11 @@ export function SendScreenV2 ({
 
   return (
     <View style={tailwind('h-full')}>
-      <ThemedScrollViewV2 contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'>
+      <KeyboardAwareScrollView
+        contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'
+        style={tailwind(`${isLight ? 'bg-mono-light-v2-100' : 'bg-mono-dark-v2-100'}`)}
+        extraScrollHeight={-BOTTOM_NAV_HEIGHT - bottomInset}
+      >
         {token === undefined &&
           <ThemedTextV2 style={tailwind('px-5')}>
             {translate('screens/SendScreen', 'Select a token you want to send to get started')}
@@ -382,46 +395,57 @@ export function SendScreenV2 ({
                 await trigger('address')
               }}
             />
-            {matchedAddress !== undefined && (
-              <View style={tailwind('ml-5 my-2 items-center flex flex-row')}>
-                <ThemedIcon
-                  light={tailwind('text-success-500')}
-                  dark={tailwind('text-darksuccess-500')}
-                  iconType='MaterialIcons'
-                  name='check-circle'
-                  size={16}
-                />
-                <ThemedTextV2
-                  style={tailwind('text-xs mx-1 font-normal-v2')}
-                  light={tailwind('text-mono-light-v2-500')}
-                  dark={tailwind('text-mono-dark-v2-500')}
-                >
-                  {translate('screens/SendScreen', 'Verified')}
-                </ThemedTextV2>
-                <ThemedViewV2
-                  style={tailwind('flex flex-row items-center overflow-hidden rounded-full')}
-                  light={tailwind('bg-mono-light-v2-200')}
-                  dark={tailwind('bg-mono-dark-v2-200')}
-                >
-                  <View style={tailwind('rounded-l-2xl p-1.5')}>
-                    <RandomAvatar name={matchedAddress.address} size={16} />
-                  </View>
-                  <ThemedTextV2
-                    ellipsizeMode='middle'
-                    numberOfLines={1}
-                    style={[tailwind('text-xs font-normal-v2 mr-1'), {
+
+            <View style={tailwind('ml-5 my-2 items-center flex flex-row')}>
+              {addressType === AddressType.OthersButValid
+? (
+  <>
+    <ThemedIcon
+      light={tailwind('text-success-500')}
+      dark={tailwind('text-darksuccess-500')}
+      iconType='MaterialIcons'
+      name='check-circle'
+      size={16}
+    />
+    <ThemedTextV2
+      style={tailwind('text-xs mx-1 font-normal-v2')}
+      light={tailwind('text-mono-light-v2-500')}
+      dark={tailwind('text-mono-dark-v2-500')}
+    >
+      {translate('screens/SendScreen', 'Verified')}
+    </ThemedTextV2>
+  </>
+              )
+: (addressType !== undefined && (
+  <ThemedViewV2
+    style={tailwind('flex flex-row items-center overflow-hidden rounded-lg py-0.5', { 'px-1': addressType === AddressType.WalletAddress, 'px-2': addressType === AddressType.Whitelisted })}
+    light={tailwind('bg-mono-light-v2-200')}
+    dark={tailwind('bg-mono-dark-v2-200')}
+  >
+    {addressType === AddressType.WalletAddress && (
+      <View style={tailwind('rounded-l-2xl mr-1')}>
+        <RandomAvatar name={matchedAddress?.address} size={12} />
+      </View>
+                  )}
+
+    <ThemedTextV2
+      ellipsizeMode='middle'
+      numberOfLines={1}
+      style={[tailwind('text-xs font-normal-v2'), {
                       minWidth: 10,
                       maxWidth: 108
                     }]}
-                    light={tailwind('text-mono-light-v2-500')}
-                    dark={tailwind('text-mono-dark-v2-500')}
-                    testID='address_input_footer'
-                  >
-                    {matchedAddress.label !== '' ? matchedAddress.label : matchedAddress.address}
-                  </ThemedTextV2>
-                </ThemedViewV2>
-              </View>
-            )}
+      light={tailwind('text-mono-light-v2-500')}
+      dark={tailwind('text-mono-dark-v2-500')}
+      testID='address_input_footer'
+    >
+      {matchedAddress?.label !== '' ? matchedAddress?.label : matchedAddress.address}
+    </ThemedTextV2>
+  </ThemedViewV2>
+              )
+              )}
+            </View>
+
           </View>
         )}
 
@@ -446,7 +470,7 @@ export function SendScreenV2 ({
             buttonStyle='mt-5'
           />
         </View>
-      </ThemedScrollViewV2>
+      </KeyboardAwareScrollView>
     </View>
   )
 }
