@@ -1102,7 +1102,9 @@
     "As UTXO": "Als UTXO",
     "As Token": "Als Token",
     "Your pool shares": "Deine Pool-Anteile",
-    "Shares in {{token}}": "Anteile in {{token}}"
+    "Shares in {{token}}": "Anteile in {{token}}",
+    "Your LP tokens": "Deine LP-Token",
+    "Tokens in {{token}}": "Token in {{token}}"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI) ist für Gebühren reserviert."
