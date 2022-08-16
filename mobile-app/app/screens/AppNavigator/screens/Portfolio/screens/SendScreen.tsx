@@ -192,6 +192,7 @@ export function SendScreen ({
             destination: values.address,
             token,
             amount: new BigNumber(values.amount),
+            amountInUsd: new BigNumber(0), // not displayed in send screen v1
             fee,
             conversion: {
               DFIUtxo,
@@ -211,6 +212,7 @@ export function SendScreen ({
           destination: values.address,
           token,
           amount: new BigNumber(values.amount),
+          amountInUsd: new BigNumber(0), // not displayed in send screen v1
           fee
         },
         merge: true

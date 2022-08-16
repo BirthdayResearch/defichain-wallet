@@ -171,7 +171,7 @@ async function constructSignedConversionAndSend ({
   amount
 }: { mode: ConversionMode, amount: BigNumber }, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
   try {
-    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast)))
+    dispatch(transactionQueue.actions.push(dfiConversionCrafter(amount, mode, onBroadcast, () => { })))
   } catch (e) {
     logger.error(e)
   }

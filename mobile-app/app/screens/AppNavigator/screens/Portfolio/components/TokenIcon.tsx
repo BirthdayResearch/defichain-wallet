@@ -1,17 +1,19 @@
 import { tailwind } from '@tailwind'
 import { getNativeIcon } from '@components/icons/assets'
-import { PortfolioRowToken } from '../PortfolioScreen'
 import { View } from 'react-native'
 import { SvgProps } from 'react-native-svg'
 
 interface TokenIconProps extends SvgProps {
-  token: PortfolioRowToken
   testID: string
+  token: {
+    isLPS?: boolean
+    displaySymbol: string
+  }
 }
 
 export function TokenIcon (props: TokenIconProps): JSX.Element {
   const { token, testID, ...otherProps } = props
-  if (token.isLPS) {
+  if (token.isLPS === true) {
     const [tokenA, tokenB] = token.displaySymbol.split('-')
     const TokenIconA = getNativeIcon(tokenA)
     const TokenIconB = getNativeIcon(tokenB)
