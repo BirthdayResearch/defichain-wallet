@@ -206,7 +206,8 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
               tokenBAmount: new BigNumber(tokenBAmount),
               percentage: sharePercentage,
               tokenABalance: balanceA,
-              tokenBBalance: balanceB
+              tokenBBalance: balanceB,
+              lmTotalTokens: lmTotalTokens
             },
             pair,
             conversion: {
@@ -229,7 +230,8 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
               tokenBAmount: new BigNumber(tokenBAmount),
               percentage: sharePercentage,
               tokenABalance: balanceA,
-              tokenBBalance: balanceB
+              tokenBBalance: balanceB,
+              lmTotalTokens: lmTotalTokens
             },
             pair,
             conversion: {
@@ -254,7 +256,8 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
             tokenBAmount: new BigNumber(tokenBAmount),
             percentage: sharePercentage,
             tokenABalance: balanceA,
-            tokenBBalance: balanceB
+            tokenBBalance: balanceB,
+            lmTotalTokens: lmTotalTokens
           },
           pair,
           pairInfo
@@ -302,7 +305,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
 
   // display UTXO fees msg only for DFI tokens in input card
   useEffect(() => {
-    if (pair !== undefined && getDisplayUtxoWarningStatus(new BigNumber(tokenAAmount), pair?.tokenA.displaySymbol)) {
+    if (pair !== undefined && getDisplayUtxoWarningStatus(new BigNumber(tokenAAmount), pair?.tokenA.displaySymbol) && new BigNumber(tokenAAmount).isGreaterThan(0)) {
       return setShowUTXOFeesAMsg(true)
     } else {
       return setShowUTXOFeesAMsg(false)
@@ -310,7 +313,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   }, [tokenAAmount])
 
   useEffect(() => {
-    if (pair !== undefined && getDisplayUtxoWarningStatus(new BigNumber(tokenBAmount), pair?.tokenB.displaySymbol)) {
+    if (pair !== undefined && getDisplayUtxoWarningStatus(new BigNumber(tokenBAmount), pair?.tokenB.displaySymbol) && new BigNumber(tokenBAmount).isGreaterThan(0)) {
       return setShowUTXOFeesBMsg(true)
     } else {
       return setShowUTXOFeesBMsg(false)
@@ -383,6 +386,8 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   if (pair === undefined) {
     return <></>
   }
+
+  const lmTotalTokens = sharePercentage.times(pair.totalLiquidity.token).toFixed(8)
 
   return (
     <View ref={containerRef} style={tailwind('flex-col flex-1')}>
@@ -515,7 +520,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
             styleProps='w-full'
             disabled={!canContinue}
             onPress={onSubmit}
-            testID='button_continue_convert'
+            testID='button_continue'
           />
         </View>
 
@@ -603,7 +608,10 @@ function AddLiquidityInputCard (
         </ThemedViewV2>
       </TransactionCard>
 
-      <View style={tailwind('pt-0.5 pb-6')}>
+      <View
+        style={tailwind('pt-0.5 pb-6')}
+        testID={`${props.symbol}_display_input_text`}
+      >
         {!props.showInsufficientTokenMsg && !props.showUTXOFeesMsg && (
           <InputHelperTextV2
             testID={`token_balance_${props.type}`}
@@ -617,12 +625,16 @@ function AddLiquidityInputCard (
             light={tailwind('text-red-v2')}
             dark={tailwind('text-red-v2')}
             style={tailwind('px-4 pt-1 text-xs font-normal-v2')}
+            testID={`${props.symbol}_insufficient_token_display_msg`}
           >
             {translate('screens/AddLiquidity', 'Insufficient balance')}
           </ThemedTextV2>
         )}
         {!props.showInsufficientTokenMsg && props.showUTXOFeesMsg && (
-          <View style={tailwind('pl-2 pt-1')}>
+          <View
+            style={tailwind('pl-2 pt-1')}
+            testID={`${props.symbol}_reserved_info_text`}
+          >
             <ReservedDFIInfoTextV2 />
           </View>
         )}

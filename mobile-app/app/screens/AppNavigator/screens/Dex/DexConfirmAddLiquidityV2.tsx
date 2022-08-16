@@ -37,7 +37,8 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
       fee,
       percentage,
       tokenAAmount,
-      tokenBAmount
+      tokenBAmount,
+      lmTotalTokens
     }
   } = route.params
   const dispatch = useAppDispatch()
@@ -69,7 +70,8 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
         tokenAAmount,
         tokenBSymbol: pair.tokenB.displaySymbol,
         tokenBId: Number(pair.tokenB.id),
-        tokenBAmount
+        tokenBAmount,
+        lmTotalTokens: lmTotalTokens
       },
       dispatch,
       () => {
@@ -261,7 +263,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
           onSubmit={addLiquidity}
           onCancel={onCancel}
           displayCancelBtn
-          title='remove'
+          title='add'
         />
       </View>
     </ThemedScrollViewV2>
@@ -269,7 +271,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
 }
 
 async function constructSignedAddLiqAndSend (
-  addLiqForm: { tokenASymbol: string, tokenAId: number, tokenAAmount: BigNumber, tokenBSymbol: string, tokenBId: number, tokenBAmount: BigNumber },
+  addLiqForm: { tokenASymbol: string, tokenAId: number, tokenAAmount: BigNumber, tokenBSymbol: string, tokenBId: number, tokenBAmount: BigNumber, lmTotalTokens: string },
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   logger: NativeLoggingProps
@@ -302,14 +304,20 @@ async function constructSignedAddLiqAndSend (
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
-      title: translate('screens/ConfirmAddLiq', 'Adding Liquidity'),
-      description: translate('screens/ConfirmAddLiq', 'Adding {{amountA}} LP tokens to {{symbolA}}-{{symbolB}}', {
-        amountA: addLiqForm.tokenAAmount.toFixed(8),
+      title: translate('screens/ConfirmAddLiq', 'Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool', {
+        totalToken: addLiqForm.lmTotalTokens,
         symbolA: addLiqForm.tokenASymbol,
         symbolB: addLiqForm.tokenBSymbol
       }),
       drawerMessages: {
-        waiting: translate('screens/OceanInterface', 'Adding to {{symbolA}}-{{symbolB}} liquidity', {
+        preparing: translate('screens/OceanInterface', 'Preparing to add liquidity…'),
+        waiting: translate('screens/OceanInterface', 'Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool', {
+          totalToken: addLiqForm.lmTotalTokens,
+          symbolA: addLiqForm.tokenASymbol,
+          symbolB: addLiqForm.tokenBSymbol
+        }),
+        complete: translate('screens/OceanInterface', 'Added {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool', {
+          totalToken: addLiqForm.lmTotalTokens,
           symbolA: addLiqForm.tokenASymbol,
           symbolB: addLiqForm.tokenBSymbol
         })

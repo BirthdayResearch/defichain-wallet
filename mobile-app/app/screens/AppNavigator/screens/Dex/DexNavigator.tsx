@@ -91,6 +91,7 @@ export interface AddLiquiditySummary {
   percentage: BigNumber // to add
   tokenABalance: BigNumber // token A balance (after deducting 0.1 DFI if DFI)
   tokenBBalance: BigNumber // token B balance (after deducting 0.1 DFI if DFI)
+  lmTotalTokens: string // total LP tokens
 }
 
 const DexStack = createStackNavigator<DexParamList>()
