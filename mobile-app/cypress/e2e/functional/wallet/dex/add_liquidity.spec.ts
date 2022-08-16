@@ -36,13 +36,26 @@ function setupWalletForConversion (): void {
 }
 
 function validatePriceSection (testID: string): void {
-  cy.getByTestID(`${testID}_0`).should('have.text', '≈ 1.00000000')
+  cy.getByTestID(`${testID}_0`).should('have.text', '1.00000000 DFI')
   cy.getByTestID(`${testID}_0_label`).contains('1 dBTC')
-  cy.getByTestID(`${testID}_0_suffix`).should('have.text', 'DFI')
+  cy.getByTestID(`${testID}_0_rhsUsdAmount`).should('have.text', '$10,000.00')
 
-  cy.getByTestID(`${testID}_1`).should('have.text', '≈ 1.00000000')
+  cy.getByTestID(`${testID}_1`).should('have.text', '1.00000000 dBTC')
   cy.getByTestID(`${testID}_1_label`).contains('1 DFI')
-  cy.getByTestID(`${testID}_1_suffix`).should('have.text', 'dBTC')
+  cy.getByTestID(`${testID}_1_rhsUsdAmount`).should('have.text', '$10,000.00')
+}
+
+function percentageAmountButton (percentage: string, tokenAAmount: string, tokenBAmount: string, lpToken: string, lpTokenUsd: string): void {
+  if (percentage === 'MAX') {
+    cy.getByTestID(`${percentage}_amount_button`).first().click()
+  } else {
+    cy.getByTestID(`${percentage}_amount_button`).first().click()
+  }
+  cy.getByTestID('token_input_primary').should('have.value', tokenAAmount)
+  cy.getByTestID('token_input_secondary').should('have.value', tokenBAmount)
+
+  cy.getByTestID('resulting_lp_tokens_value').contains(lpToken)
+  cy.getByTestID('resulting_lp_tokens_value_rhsUsdAmount').contains(lpTokenUsd)
 }
 
 context('Wallet - DEX - Add Liquidity', () => {
@@ -51,26 +64,39 @@ context('Wallet - DEX - Add Liquidity', () => {
   })
 
   it('should update both token and build summary when click on max amount button', function () {
-    cy.getByTestID('MAX_amount_button').first().click()
-    cy.getByTestID('token_input_primary').should('have.value', '10.00000000')
-    cy.getByTestID('token_input_secondary').should('have.value', '10.00000000')
-
-    cy.getByTestID('share_of_pool').contains('1.00000000')
-    cy.getByTestID('share_of_pool_suffix').contains('%')
+    percentageAmountButton('MAX', '10.00000000', '10.00000000', '10.00000000', '$200,000.00')
   })
 
   it('should display price rates', function () {
     validatePriceSection('pricerate_value')
   })
 
+  it('should view pool share', function () {
+    cy.getByTestID('view_pool_shares').click()
+    cy.getByTestID('view_pool_details_title').contains('dBTC-DFI')
+    cy.getByTestID('volume_24h_dBTC-DFI').contains('$0.00')
+    cy.getByTestID('total_liquidity_dBTC-DFI_amount').contains('$20,000,000.00')
+    cy.getByTestID('pooled_dBTC_value_USDT').contains('1,000')
+    cy.getByTestID('pooled_dBTC_value_USDT_rhsUsdAmount').contains('$10,000,000.00')
+    cy.getByTestID('pooled_DFI_value_USDT').contains('1,000')
+    cy.getByTestID('pooled_DFI_value_USDT_rhsUsdAmount').contains('$10,000,000.00')
+    cy.getByTestID('apr_dBTC-DFI_amount').contains('4,458.84%')
+    cy.getByTestID('close_bottom_sheet_button').click()
+  })
+
+  it('should update both token and build summary when click on 25% amount button', function () {
+    cy.getByTestID('token_input_primary_clear_button').click()
+    percentageAmountButton('25%', '2.50000000', '2.50000000', '2.50000000', '$50,000.00')
+  })
+
   it('should update both token and build summary when click on half amount button', function () {
     cy.getByTestID('token_input_primary_clear_button').click()
-    cy.getByTestID('50%_amount_button').first().click()
-    cy.getByTestID('token_input_primary').should('have.value', '5.00000000')
-    cy.getByTestID('token_input_secondary').should('have.value', '5.00000000')
+    percentageAmountButton('50%', '5.00000000', '5.00000000', '5.00000000', '$100,000.00')
+  })
 
-    cy.getByTestID('share_of_pool').contains('0.50000000')
-    cy.getByTestID('share_of_pool_suffix').contains('%')
+  it('should update both token and build summary when click on 75% amount button', function () {
+    cy.getByTestID('token_input_primary_clear_button').click()
+    percentageAmountButton('75%', '7.50000000', '7.50000000', '7.50000000', '$150,000.00')
   })
 
   it('should display price rates on confirmation', function () {
@@ -87,8 +113,8 @@ context('Wallet - DEX - Add Liquidity', () => {
 
     validatePriceSection('pricerate_value')
 
-    cy.getByTestID('share_of_pool').contains('0.30000000')
-    cy.getByTestID('share_of_pool_suffix').contains('%')
+    cy.getByTestID('resulting_lp_tokens_value').contains('3.00000000')
+    cy.getByTestID('resulting_lp_tokens_value_rhsUsdAmount').contains('$60,000.00')
   })
 
   it('should update both token and build summary base on secondary token input', function () {
@@ -99,24 +125,21 @@ context('Wallet - DEX - Add Liquidity', () => {
 
     validatePriceSection('pricerate_value')
 
-    cy.getByTestID('share_of_pool').contains('0.20000000')
-    cy.getByTestID('share_of_pool_suffix').contains('%')
-    cy.getByTestID('button_confirm_continue_add_liq').click()
+    cy.getByTestID('resulting_lp_tokens_value').contains('2.00000000')
+    cy.getByTestID('resulting_lp_tokens_value_rhsUsdAmount').contains('$40,000.00')
+    cy.getByTestID('button_continue').click()
   })
 
   it('should have correct confirm info', function () {
     cy.getByTestID('text_add_amount').contains('2.00000000')
-    cy.getByTestID('text_add_amount_suffix_dBTC').should('exist')
-    cy.getByTestID('text_add_amount_suffix_DFI').should('exist')
-    cy.getByTestID('a_amount_label').contains('dBTC')
-    cy.getByTestID('a_amount').contains('2.00000000')
-    cy.getByTestID('b_amount_label').contains('DFI')
-    cy.getByTestID('b_amount').contains('2.00000000')
-
-    validatePriceSection('confirm_pricerate_value')
-
-    cy.getByTestID('percentage_pool').contains('0.20000000')
-    cy.getByTestID('percentage_pool_suffix').contains('%')
+    cy.getByTestID('transaction_fee_amount').contains('0.00010000 DFI')
+    cy.getByTestID('resulting_pool_share_amount').contains('0.20000000%')
+    cy.getByTestID('dBTC_to_supply').contains('2.00000000')
+    cy.getByTestID('dBTC_to_supply_rhsUsdAmount').contains('$20,000.00')
+    cy.getByTestID('DFI_to_supply').contains('2.00000000')
+    cy.getByTestID('DFI_to_supply_rhsUsdAmount').contains('$20,000.00')
+    cy.getByTestID('resulting_LP_tokens_value').contains('2.00000000')
+    cy.getByTestID('resulting_LP_tokens_value_rhsUsdAmount').contains('$40,000.00')
     cy.getByTestID('button_cancel_add').click()
   })
 })
@@ -128,46 +151,86 @@ context('Wallet - DEX - Combine Add and Confirm Liquidity Spec', () => {
 
   it('should get disabled submit button when value is zero', function () {
     cy.getByTestID('token_input_primary').type('0')
-    cy.getByTestID('button_confirm_continue_add_liq').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_continue').should('have.attr', 'aria-disabled')
     cy.getByTestID('token_input_secondary_clear_button').click()
     cy.getByTestID('token_input_secondary').type('0')
-    cy.getByTestID('button_confirm_continue_add_liq').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_continue').should('have.attr', 'aria-disabled')
+
+    cy.getByTestID('dBTC_display_input_text').contains('Available')
+    cy.getByTestID('DFI_display_input_text').contains('Available')
+    cy.getByTestID('reserved_info_text').should('not.exist')
+    cy.getByTestID('dBTC_insufficient_token_display_msg').should('not.exist')
+    cy.getByTestID('DFI_insufficient_token_display_msg').should('not.exist')
   })
 
   it('should get disabled submit button when value is nan', function () {
     cy.getByTestID('token_input_primary_clear_button').click()
     cy.getByTestID('token_input_primary').type('test value')
-    cy.getByTestID('button_confirm_continue_add_liq').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_continue').should('have.attr', 'aria-disabled')
     cy.getByTestID('token_input_secondary_clear_button').click()
     cy.getByTestID('token_input_secondary').type('test value')
-    cy.getByTestID('button_confirm_continue_add_liq').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_continue').should('have.attr', 'aria-disabled')
+
+    cy.getByTestID('dBTC_display_input_text').contains('Available')
+    cy.getByTestID('DFI_display_input_text').contains('Available')
+    cy.getByTestID('reserved_info_text').should('not.exist')
+    cy.getByTestID('dBTC_insufficient_token_display_msg').should('not.exist')
+    cy.getByTestID('DFI_insufficient_token_display_msg').should('not.exist')
   })
 
   it('should get disabled submit button when value is more than input token A and token B', function () {
     cy.getByTestID('token_input_primary_clear_button').click()
     cy.getByTestID('token_input_primary').type('20.00000000')
-    cy.getByTestID('button_confirm_continue_add_liq').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_continue').should('have.attr', 'aria-disabled')
     cy.getByTestID('token_input_secondary_clear_button').click()
     cy.getByTestID('token_input_secondary').type('15.00000000')
-    cy.getByTestID('button_confirm_continue_add_liq').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_continue').should('have.attr', 'aria-disabled')
+
+    cy.getByTestID('dBTC_display_input_text').should('not.have.text', 'Available')
+    cy.getByTestID('DFI_display_input_text').should('not.have.text', 'Available')
+    cy.getByTestID('dBTC_insufficient_token_display_msg').should('exist')
+    cy.getByTestID('DFI_insufficient_token_display_msg').should('not.exist')
+    cy.getByTestID('reserved_info_text').should('not.exist')
   })
 
   it('should get disabled submit button when max for token A, while token B doesn\'t have enough balanceB', function () {
     cy.sendTokenToWallet(['BTC']).wait(3000)
+    cy.getByTestID('token_input_primary_clear_button').click()
     cy.getByTestID('MAX_amount_button').first().click()
-    cy.getByTestID('button_confirm_continue_add_liq').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_continue').should('have.attr', 'aria-disabled')
+
+    cy.getByTestID('dBTC_display_input_text').contains('Available')
+    cy.getByTestID('DFI_display_input_text').should('not.have.text', 'Available')
+    cy.getByTestID('dBTC_insufficient_token_display_msg').should('not.exist')
+    cy.getByTestID('DFI_insufficient_token_display_msg').should('exist')
+    cy.getByTestID('reserved_info_text').should('not.exist')
   })
 
   it('should get disabled submit button when max for token B, while token A doesn\'t have enough balanceB', function () {
     cy.sendDFITokentoWallet().sendDFITokentoWallet().wait(3000)
     cy.getByTestID('MAX_amount_button').eq(1).click()
-    cy.getByTestID('button_confirm_continue_add_liq').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_continue').should('have.attr', 'aria-disabled')
+
+    cy.getByTestID('dBTC_display_input_text').should('not.have.text', 'Available')
+    cy.getByTestID('DFI_display_input_text').should('not.have.text', 'Available')
+    cy.getByTestID('dBTC_insufficient_token_display_msg').should('exist')
+    cy.getByTestID('DFI_insufficient_token_display_msg').should('not.exist')
+    cy.getByTestID('dBTC_reserved_info_text').should('not.exist')
+    cy.getByTestID('DFI_reserved_info_text').should('exist')
   })
 
   it('should get redirect to confirm page after clicking on continue', function () {
     cy.getByTestID('MAX_amount_button').first().click()
-    cy.getByTestID('button_confirm_continue_add_liq').should('not.have.attr', 'disabled')
-    cy.getByTestID('button_confirm_continue_add_liq').click()
+    cy.getByTestID('button_continue').should('not.have.attr', 'disabled')
+
+    cy.getByTestID('dBTC_display_input_text').contains('Available')
+    cy.getByTestID('DFI_display_input_text').contains('Available')
+    cy.getByTestID('DFI_insufficient_token_display_msg').should('not.exist')
+    cy.getByTestID('dBTC_insufficient_token_display_msg').should('not.exist')
+    cy.getByTestID('DFI_reserved_info_text').should('not.exist')
+    cy.getByTestID('dBTC_reserved_info_text').should('not.exist')
+
+    cy.getByTestID('button_continue').click()
     cy.url().should('include', 'DEX/ConfirmAddLiquidity')
   })
 })
@@ -191,7 +254,7 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()
     cy.getByTestID('pool_pair_remove_dBTC-DFI').click()
-    cy.getByTestID('button_slider_max').click().wait(1000)
+    cy.getByTestID('MAX_amount_button').click()
     cy.getByTestID('button_continue_remove_liq').click()
     cy.getByTestID('button_confirm_remove').click().wait(2000)
     cy.closeOceanInterface()
@@ -199,60 +262,57 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
 
   it('should have updated confirm info', function () {
     cy.getByTestID('token_input_primary').type('10')
-    cy.getByTestID('button_confirm_continue_add_liq').click()
-    cy.getByTestID('text_add_amount').contains('10.00000000')
-    cy.getByTestID('text_add_amount_suffix_dBTC').should('exist')
-    cy.getByTestID('text_add_amount_suffix_DFI').should('exist')
-    cy.getByTestID('a_amount_label').contains('dBTC')
-    cy.getByTestID('a_amount').contains('10.00000000')
-    cy.getByTestID('b_amount_label').contains('DFI')
-    cy.getByTestID('b_amount').contains('10.00000000')
-    cy.getByTestID('percentage_pool').contains('1.00000000')
-    cy.getByTestID('percentage_pool_suffix').contains('%')
+    cy.getByTestID('button_continue').click()
+    cy.getByTestID('transaction_fee_amount').contains('0.00010000 DFI')
+    cy.getByTestID('resulting_pool_share_amount').contains('1.00000000%')
+    cy.getByTestID('dBTC_to_supply').contains('10.00000000')
+    cy.getByTestID('dBTC_to_supply_rhsUsdAmount').contains('$100,000.00')
+    cy.getByTestID('DFI_to_supply').contains('10.00000000')
+    cy.getByTestID('DFI_to_supply_rhsUsdAmount').contains('$100,000.00')
+    cy.getByTestID('resulting_LP_tokens_value').contains('10.00000000')
+    cy.getByTestID('resulting_LP_tokens_value_rhsUsdAmount').contains('$200,000.00')
     cy.getByTestID('button_confirm_add').click().wait(3000)
     cy.closeOceanInterface()
   })
 
   it('should be able to add correct liquidity when user cancel a tx and updated some inputs', function () {
     const oldAmount = '5.00000000'
+    const oldUsdAmount = '$50,000.00'
     const newAmount = '10.00000000'
+    const newUsdAmount = '$100,000.00'
     cy.getByTestID('token_input_primary').type(oldAmount)
-    cy.getByTestID('button_confirm_continue_add_liq').click()
-    cy.getByTestID('text_add_amount').contains(`${oldAmount}`)
-    cy.getByTestID('text_add_amount_suffix_dBTC').should('exist')
-    cy.getByTestID('text_add_amount_suffix_DFI').should('exist')
-    cy.getByTestID('a_amount_label').contains('dBTC')
-    cy.getByTestID('a_amount').contains(oldAmount)
-    cy.getByTestID('b_amount_label').contains('DFI')
-    cy.getByTestID('b_amount').contains(oldAmount)
-    cy.getByTestID('percentage_pool').contains('0.50000000')
-    cy.getByTestID('percentage_pool_suffix').contains('%')
-    cy.getByTestID('text_fee').should('exist')
+    cy.getByTestID('button_continue').click()
+    cy.getByTestID('transaction_fee_amount').contains('0.00010000 DFI')
+    cy.getByTestID('resulting_pool_share_amount').contains('0.50000000%')
+    cy.getByTestID('dBTC_to_supply').contains(oldAmount)
+    cy.getByTestID('dBTC_to_supply_rhsUsdAmount').contains(oldUsdAmount)
+    cy.getByTestID('DFI_to_supply').contains(oldAmount)
+    cy.getByTestID('DFI_to_supply_rhsUsdAmount').contains(oldUsdAmount)
+    cy.getByTestID('resulting_LP_tokens_value').contains(oldAmount)
+    cy.getByTestID('resulting_LP_tokens_value_rhsUsdAmount').contains('$100,000.00')
     cy.getByTestID('button_confirm_add').click().wait(3000)
     // Check for authorization page description
-    cy.getByTestID('txn_authorization_description')
-      .contains(`Adding ${new BigNumber(oldAmount).toFixed(8)} dBTC - ${new BigNumber(oldAmount).toFixed(8)} DFI`)
+    cy.getByTestID('txn_authorization_title')
+      .contains(`Adding ${oldAmount} dBTC-DFI to liquidity pool`)
     // Cancel send on authorisation page
     cy.getByTestID('cancel_authorization').click()
     cy.getByTestID('button_cancel_add').click()
     // Update the input amount
     cy.getByTestID('token_input_primary_clear_button').click()
     cy.getByTestID('token_input_primary').type(newAmount)
-    cy.getByTestID('button_confirm_continue_add_liq').click()
-    cy.getByTestID('text_add_amount').contains(`${newAmount}`)
-    cy.getByTestID('text_add_amount_suffix_dBTC').should('exist')
-    cy.getByTestID('text_add_amount_suffix_DFI').should('exist')
-    cy.getByTestID('a_amount_label').contains('dBTC')
-    cy.getByTestID('a_amount').contains(newAmount)
-    cy.getByTestID('b_amount_label').contains('DFI')
-    cy.getByTestID('b_amount').contains(newAmount)
-    cy.getByTestID('percentage_pool').contains('1.00000000')
-    cy.getByTestID('percentage_pool_suffix').contains('%')
-    cy.getByTestID('text_fee').should('exist')
+    cy.getByTestID('button_continue').click()
+    cy.getByTestID('transaction_fee_amount').contains('0.00010000 DFI')
+    cy.getByTestID('resulting_pool_share_amount').contains('1.00000000%')
+    cy.getByTestID('dBTC_to_supply').contains(newAmount)
+    cy.getByTestID('dBTC_to_supply_rhsUsdAmount').contains(newUsdAmount)
+    cy.getByTestID('DFI_to_supply').contains(newAmount)
+    cy.getByTestID('DFI_to_supply_rhsUsdAmount').contains(newUsdAmount)
+    cy.getByTestID('resulting_LP_tokens_value').contains(newAmount)
+    cy.getByTestID('resulting_LP_tokens_value_rhsUsdAmount').contains('$200,000.00')
     cy.getByTestID('button_confirm_add').click().wait(3000)
     // Check for authorization page description
-    cy.getByTestID('txn_authorization_description')
-      .contains(`Adding ${new BigNumber(newAmount).toFixed(8)} dBTC - ${new BigNumber(newAmount).toFixed(8)} DFI`)
+    cy.getByTestID('txn_authorization_title')
+      .contains(`Adding ${newAmount} dBTC-DFI to liquidity pool`)
     cy.closeOceanInterface()
   })
 })
@@ -263,22 +323,20 @@ context('Wallet - DEX - Add Liquidity with Conversion', () => {
   })
 
   it('should be able to display conversion info', function () {
-    cy.getByTestID('token_input_secondary').type('11')
-    cy.getByTestID('conversion_info_text').should('exist')
-    cy.getByTestID('conversion_info_text').should('contain', 'Conversion will be required. Your passcode will be asked to authorize both transactions.')
-    cy.getByTestID('text_amount_to_convert_label').contains('UTXO to be converted')
-    cy.getByTestID('text_amount_to_convert').contains('1.00000000')
-    cy.getByTestID('transaction_details_hint_text').contains('Authorize transaction in the next screen to convert')
+    cy.getByTestID('MAX_amount_button').last().click()
+    cy.getByTestID('reserved_info_text').should('exist')
+    cy.getByTestID('dBTC_display_input_text').should('contain', 'Available')
+    cy.getByTestID('DFI_reserved_info_text').should('contain', 'A small UTXO amount (0.1 DFI) is reserved for fees.')
+    cy.getByTestID('transaction_details_hint_text').contains('By continuing, the required amount of DFI will be converted')
   })
 
   it('should trigger convert and add liquidity', function () {
     cy.getByTestID('token_input_primary').type('11')
-    cy.getByTestID('button_confirm_continue_add_liq').click()
+    cy.getByTestID('button_continue').click()
     cy.getByTestID('txn_authorization_title')
       .contains(`Convert ${new BigNumber('1').toFixed(8)} DFI to tokens`)
     cy.closeOceanInterface().wait(3000)
-    cy.getByTestID('conversion_tag').should('exist')
-
+    cy.getByTestID('conversion_status').should('exist')
     cy.getByTestID('text_add_amount').should('contain', '11.00000000')
     cy.getByTestID('button_confirm_add').click().wait(3000)
     cy.closeOceanInterface()

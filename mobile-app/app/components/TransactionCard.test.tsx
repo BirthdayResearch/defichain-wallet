@@ -13,7 +13,6 @@ describe('Transaction Card', () => {
       <TransactionCard
         maxValue={new BigNumber(100)}
         onChange={() => { }}
-        onPercentageChange={() => { }}
       >
         <ThemedViewV2
           light={tailwind('border-mono-light-v2-300')}
