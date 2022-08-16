@@ -144,11 +144,11 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
             light: tailwind('text-mono-light-v2-500'),
             dark: tailwind('text-mono-dark-v2-500')
           },
-          testID: `tokens_in_${pairData.tokenA.displaySymbol}`
+          testID: `pooled_${pairData.tokenA.displaySymbol}`
         }}
         rhs={{
           value: mappedPair?.tokenA.reserve ?? 0,
-          testID: `tokens_in_${pairData.tokenA.displaySymbol}_value_${denominationCurrency}`,
+          testID: `pooled_${pairData.tokenA.displaySymbol}_value_${denominationCurrency}`,
           usdTextStyle: tailwind('text-sm'),
           usdAmount: getUSDValue(
             new BigNumber(pairData.tokenA.reserve),
@@ -163,7 +163,7 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
           value: translate('screens/AddLiquidity', 'Pooled {{symbol}}', {
             symbol: pairData.tokenB.displaySymbol
           }),
-          testID: `tokens_in_${pairData.tokenB.displaySymbol}`,
+          testID: `pooled_${pairData.tokenB.displaySymbol}`,
           themedProps: {
             light: tailwind('text-mono-light-v2-500'),
             dark: tailwind('text-mono-dark-v2-500')
@@ -171,7 +171,7 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
         }}
         rhs={{
           value: mappedPair?.tokenB.reserve ?? 0,
-          testID: `tokens_in_${pairData.tokenB.displaySymbol}_value_${denominationCurrency}`,
+          testID: `pooled_${pairData.tokenB.displaySymbol}_value_${denominationCurrency}`,
           usdTextStyle: tailwind('text-sm'),
           usdAmount: getUSDValue(
             new BigNumber(pairData.tokenB.reserve),
