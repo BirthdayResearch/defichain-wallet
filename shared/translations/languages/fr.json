@@ -774,6 +774,8 @@
     "Preparing to convert…": "Préparation de la conversion en cours…",
     "Converting {{symbolA}} to {{symbolB}}": "Conversion de {{symbolA}} en {{symbolB}}",
     "Conversion completed": "Conversion effectuée",
+    "Converting {{amount}} DFI {{symbolA}} to {{symbolB}}": "Conversion de {{amount}} DFI {{symbolA}} en {{symbolB}}",
+    "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI convertis en {{symbolB}}",
     "Preparing your transaction…": "Préparation de votre transaction en coursn…",
     "Processing future swap transaction…": "Traitement de la transaction échange à terme…",
     "Future Swap confirmed and will be executed at block #{{block}}": "Échange à terme confirmé et qui sera exécuté au bloc #{{{block}}",
