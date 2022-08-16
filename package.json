@@ -67,7 +67,7 @@
     "expo-secure-store": "~11.3.0",
     "expo-splash-screen": "~0.16.1",
     "expo-status-bar": "~1.4.0",
-    "expo-updates": "~0.14.3",
+    "expo-updates": "~0.14.4",
     "expo-web-browser": "~11.0.0",
     "i18n-js": "^3.9.2",
     "install": "^0.13.0",
