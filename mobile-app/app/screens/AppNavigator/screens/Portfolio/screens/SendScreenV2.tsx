@@ -25,7 +25,6 @@ import { useAppDispatch } from '@hooks/useAppDispatch'
 import { useWalletAddress } from '@hooks/useWalletAddress'
 import {
   ThemedIcon,
-  ThemedScrollViewV2,
   ThemedTextInputV2,
   ThemedTextV2,
   ThemedTouchableOpacity,
@@ -40,6 +39,7 @@ import { ActiveUSDValueV2 } from '../../Loans/VaultDetail/components/ActiveUSDVa
 import { PortfolioParamList } from '../PortfolioNavigator'
 import { RandomAvatar } from '../components/RandomAvatar'
 import { TokenIcon } from '../components/TokenIcon'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 type Props = StackScreenProps<PortfolioParamList, 'SendScreenV2'>
 
@@ -287,7 +287,10 @@ export function SendScreenV2 ({
 
   return (
     <View style={tailwind('h-full')}>
-      <ThemedScrollViewV2 contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'>
+      <KeyboardAwareScrollView
+        contentContainerStyle={tailwind('pt-6 pb-8')} testID='send_screen'
+        style={tailwind(`${isLight ? 'bg-mono-light-v2-100' : 'bg-mono-dark-v2-100'}`)}
+      >
         {token === undefined &&
           <ThemedTextV2 style={tailwind('px-5')}>
             {translate('screens/SendScreen', 'Select a token you want to send to get started')}
@@ -446,7 +449,7 @@ export function SendScreenV2 ({
             buttonStyle='mt-5'
           />
         </View>
-      </ThemedScrollViewV2>
+      </KeyboardAwareScrollView>
     </View>
   )
 }
