@@ -12,7 +12,7 @@ import {
   SkeletonLoader,
   SkeletonLoaderScreen
 } from '@components/SkeletonLoader'
-import { ThemedScrollView } from '@components/themed'
+import { ThemedScrollView, ThemedScrollViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
@@ -29,6 +29,7 @@ import { debounce } from 'lodash'
 import { ButtonGroupTabKey, PoolPairCards } from './components/PoolPairCards/PoolPairCards'
 import { SwapButton } from './components/SwapButton'
 import { DexScrollable } from '@screens/AppNavigator/screens/Dex/components/DexScrollable'
+import { PoolPairCardsV2 } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolPairCardsV2'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -268,52 +269,54 @@ export function DexScreen (): JSX.Element {
   return (
     <>
       <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
-      <TopLiquiditySection onPress={onSwap} pairs={topLiquidityPairs} />
-      <View style={tailwind('flex-1')}>
-        {activeTab === TabKey.AvailablePoolPair &&
-          (!hasFetchedPoolpairData || isSearching) && (
-            <ThemedScrollView contentContainerStyle={tailwind('p-4')}>
-              <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Dex} />
-            </ThemedScrollView>
+      <ThemedScrollViewV2>
+        <TopLiquiditySection onPress={onSwap} pairs={topLiquidityPairs} />
+        <View style={tailwind('flex-1')}>
+          {activeTab === TabKey.AvailablePoolPair &&
+            (!hasFetchedPoolpairData || isSearching) && (
+              <ThemedScrollView contentContainerStyle={tailwind('p-4')}>
+                <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Dex} />
+              </ThemedScrollView>
+            )}
+          {activeTab === TabKey.AvailablePoolPair &&
+            hasFetchedPoolpairData &&
+            !isSearching && (
+              <PoolPairCardsV2
+                availablePairs={filteredAvailablePairs}
+                yourPairs={yourLPTokens}
+                onAdd={onAdd}
+                onRemove={onRemove}
+                onSwap={onSwap}
+                type='available'
+                setIsSearching={setIsSearching}
+                searchString={searchString}
+                buttonGroupOptions={{
+                  activeButtonGroup: activeButtonGroup,
+                  setActiveButtonGroup: setActiveButtonGroup,
+                  onButtonGroupPress: handleButtonFilter
+                }}
+                showSearchInput={showSearchInput}
+              />
+            )}
+
+          {activeTab === TabKey.YourPoolPair && yourLPTokens.length === 0 && (
+            <EmptyActivePoolpair />
           )}
-        {activeTab === TabKey.AvailablePoolPair &&
-          hasFetchedPoolpairData &&
-          !isSearching && (
+          {activeTab === TabKey.YourPoolPair && yourLPTokens.length > 0 && (
             <PoolPairCards
               availablePairs={filteredAvailablePairs}
               yourPairs={yourLPTokens}
               onAdd={onAdd}
               onRemove={onRemove}
               onSwap={onSwap}
-              type='available'
+              type='your'
               setIsSearching={setIsSearching}
               searchString={searchString}
-              buttonGroupOptions={{
-                activeButtonGroup: activeButtonGroup,
-                setActiveButtonGroup: setActiveButtonGroup,
-                onButtonGroupPress: handleButtonFilter
-              }}
               showSearchInput={showSearchInput}
             />
           )}
-
-        {activeTab === TabKey.YourPoolPair && yourLPTokens.length === 0 && (
-          <EmptyActivePoolpair />
-        )}
-        {activeTab === TabKey.YourPoolPair && yourLPTokens.length > 0 && (
-          <PoolPairCards
-            availablePairs={filteredAvailablePairs}
-            yourPairs={yourLPTokens}
-            onAdd={onAdd}
-            onRemove={onRemove}
-            onSwap={onSwap}
-            type='your'
-            setIsSearching={setIsSearching}
-            searchString={searchString}
-            showSearchInput={showSearchInput}
-          />
-        )}
-      </View>
+        </View>
+      </ThemedScrollViewV2>
     </>
   )
 }
