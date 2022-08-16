@@ -262,6 +262,7 @@
     "Invalid address. Make sure the address is correct to avoid irrecoverable losses": "Invalid address. Make sure the address is correct to avoid irrecoverable losses"
   },
   "screens/SendConfirmationScreen": {
+    "Confirm": "確認",
     "Confirm Send": "確認發出",
     "CONFIRM SEND": "確認發出",
     "You are sending": "您正要發出資金",

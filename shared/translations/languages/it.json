@@ -273,6 +273,7 @@
     "Invalid address. Make sure the address is correct to avoid irrecoverable losses": "Invalid address. Make sure the address is correct to avoid irrecoverable losses"
   },
   "screens/SendConfirmationScreen": {
+    "Confirm": "Confirm",
     "Confirm Send": "Conferma Invio",
     "CONFIRM SEND": "CONFERMA INVIO",
     "You are sending": "Stai inviando",
