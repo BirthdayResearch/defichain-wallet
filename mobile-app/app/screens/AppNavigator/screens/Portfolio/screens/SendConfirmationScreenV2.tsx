@@ -232,7 +232,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
 
 function LpAcknowledgeSwitch (props: { isAcknowledge: boolean, onSwitch: (val: boolean) => void }): JSX.Element {
   return (
-    <View style={tailwind('px-10 py-8 flex flex-row justify-center')}>
+    <View style={tailwind('px-10 py-8 pt-4 flex flex-row justify-center')}>
       <Checkbox
         value={props.isAcknowledge}
         style={tailwind('h-6 w-6 mt-1 rounded')}
@@ -241,9 +241,11 @@ function LpAcknowledgeSwitch (props: { isAcknowledge: boolean, onSwitch: (val: b
         testID='lp_ack_switch'
       />
       <TouchableOpacity
-        style={tailwind('flex-1')} onPress={() => {
- props.onSwitch(!props.isAcknowledge)
-}}
+        style={tailwind('flex-1')}
+        activeOpacity={0.7}
+        onPress={() => {
+          props.onSwitch(!props.isAcknowledge)
+        }}
       >
         <ThemedTextV2
           style={tailwind('ml-4 flex-1 text-xs font-normal-v2')}
