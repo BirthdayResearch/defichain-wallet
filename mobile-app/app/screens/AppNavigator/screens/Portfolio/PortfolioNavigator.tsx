@@ -306,7 +306,7 @@ export function PortfolioNavigator (): JSX.Element {
         options={{
           ...screenOptions,
           headerTitle: isFeatureAvailable('send_v2')
-            ? translate('screens/SendConfirmationScreen', 'Confirm Send')
+            ? translate('screens/SendConfirmationScreen', 'Confirm')
             : () => (<HeaderTitle
                 text={translate('screens/SendConfirmationScreen', 'Confirm Send')}
                 containerTestID={headerContainerTestId}
