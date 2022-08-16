@@ -489,6 +489,7 @@ context('Wallet - Portfolio', () => {
   it('should redirect to send page', function () {
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('send_balance_button').click()
+    cy.getByTestID('select_DFI').click()
     cy.getByTestID('send_screen').should('exist')
   })
 

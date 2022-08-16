@@ -4,7 +4,7 @@ import { ButtonV2, ButtonFillType } from './ButtonV2'
 
 jest.mock('@shared-contexts/ThemeProvider')
 
-const buttonFill: ButtonFillType[] = ['fill', 'outline', 'flat']
+const buttonFill: ButtonFillType[] = ['fill', 'flat']
 
 describe('button', () => {
   buttonFill.forEach(fill => {
@@ -13,7 +13,7 @@ describe('button', () => {
       const enabled = render(
         <ButtonV2
           disabled={false}
-          fill={fill}
+          fillType={fill}
           label='Submit'
           onPress={onPress}
         />).toJSON()
@@ -22,7 +22,7 @@ describe('button', () => {
       const disabled = render(
         <ButtonV2
           disabled
-          fill={fill}
+          fillType={fill}
           label='Submit'
           onPress={onPress}
         />).toJSON()
