@@ -362,7 +362,6 @@ function RemoveLiquidityInputCard (
       <TransactionCard
         maxValue={props.balance}
         onChange={props.onPercentageChange}
-        onPercentageChange={() => {}}
         status={props.status}
         amountButtonsStyle={tailwind('border-t-0.5')}
         containerStyle={tailwind('pl-5 pr-5 pt-2 mr-px rounded-t-lg-v2')}

@@ -7,7 +7,6 @@ import { StyleProp, ViewStyle } from 'react-native'
 interface TransactionCardProps {
   maxValue: BigNumber
   onChange: (amount: string, type: AmountButtonTypes) => void
-  onPercentageChange: (amount: string, type: AmountButtonTypes) => void
   status?: TransactionCardStatus
   containerStyle?: StyleProp<ViewStyle>
   amountButtonsStyle?: StyleProp<ViewStyle>
@@ -29,7 +28,6 @@ export enum TransactionCardStatus {
 export function TransactionCard ({
   maxValue,
   onChange,
-  onPercentageChange,
   status,
   containerStyle,
   amountButtonsStyle,
@@ -66,7 +64,6 @@ export function TransactionCard ({
                 key={type}
                 amount={maxValue}
                 onPress={onChange}
-                onPercentagePress={onPercentageChange}
                 type={type}
                 hasBorder={length - 1 !== index}
               />
@@ -80,7 +77,6 @@ export function TransactionCard ({
 
 interface SetAmountButtonProps {
   type: AmountButtonTypes
-  onPercentagePress: (amount: string, type: AmountButtonTypes) => void
   onPress: (amount: string, type: AmountButtonTypes) => void
   amount: BigNumber
   hasBorder?: boolean
@@ -89,7 +85,6 @@ interface SetAmountButtonProps {
 function SetAmountButton ({
   type,
   onPress,
-  onPercentagePress,
   amount,
   hasBorder
 }: SetAmountButtonProps): JSX.Element {
@@ -116,7 +111,6 @@ function SetAmountButton ({
       style={tailwind('border-0')}
       onPress={() => {
         onPress(value, type)
-        onPercentagePress(value, type)
       }}
       testID={`${type}_amount_button`}
     >

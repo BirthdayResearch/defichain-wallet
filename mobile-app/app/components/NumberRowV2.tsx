@@ -1,4 +1,4 @@
-import { StyleProp, View, ViewProps, ViewStyle } from 'react-native'
+import { StyleProp, TextStyle, View, ViewProps, ViewStyle } from 'react-native'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
@@ -19,8 +19,8 @@ interface RhsNumberRowElement extends NumberRowElement {
   isOraclePrice?: boolean
   lightTextStyle?: { [key: string]: string }
   darkTextStyle?: { [key: string]: string }
-  textStyle?: { [key: string]: string }
-  usdTextStyle?: { [key: string]: string }
+  textStyle?: StyleProp<TextStyle>
+  usdTextStyle?: StyleProp<TextStyle>
   subValue?: NumberRowElement
 }
 
@@ -62,8 +62,8 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
               renderText={(val: string) => (
                 <ThemedTextV2
                   style={[tailwind('text-right font-normal-v2 text-sm'), props.rhs.textStyle]}
-                  light={tailwind('text-mono-light-v2-700')}
-                  dark={tailwind('text-mono-dark-v2-700')}
+                  light={props.rhs.lightTextStyle}
+                  dark={props.rhs.darkTextStyle}
                   testID={props.rhs.testID}
                   {...props.rhs.themedProps}
                 >

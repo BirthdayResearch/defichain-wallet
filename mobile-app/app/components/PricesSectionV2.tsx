@@ -1,5 +1,6 @@
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
+import { StyleProp, TextStyle } from 'react-native'
 import { NumberRowV2 } from './NumberRowV2'
 
 export interface PriceRateProps {
@@ -8,11 +9,10 @@ export interface PriceRateProps {
   aSymbol?: string
   bSymbol?: string
   symbolUSDValue?: BigNumber
-  hasBorder?: boolean
-  usdTextStyle?: { [key: string]: string }
+  usdTextStyle?: StyleProp<TextStyle>
 }
 
-export function PricesSectionV2 ({ priceRates, isCompact = false, testID, equalSymbol = true }: { priceRates: PriceRateProps[], testID: string, sectionTitle?: string, isCompact?: boolean, equalSymbol?: boolean }): JSX.Element {
+export function PricesSectionV2 ({ priceRates, testID }: { priceRates: PriceRateProps[], testID: string, sectionTitle?: string }): JSX.Element {
   const rowStyle = {
     lhsThemedProps: {
       light: tailwind('text-mono-light-v2-500'),
@@ -49,10 +49,6 @@ export function PricesSectionV2 ({ priceRates, isCompact = false, testID, equalS
                 darkTextStyle: rowStyle.rhsThemedProps.dark,
                 usdTextStyle: priceRate.usdTextStyle
               }}
-              {...(isCompact && {
-                lhsThemedProps: rowStyle.lhsThemedProps,
-                rhsThemedProps: rowStyle.rhsThemedProps
-              })}
             />
           )
         })

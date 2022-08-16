@@ -100,7 +100,7 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
       <View style={tailwind('mb-4')}>
         <NumberRowV2
           lhs={{
-            value: translate('screens/RemoveLiquidity', 'Volume (24H)'),
+            value: translate('screens/AddLiquidity', 'Volume (24H)'),
             testID: 'shares_to_add',
             themedProps: {
               light: tailwind('text-mono-light-v2-500'),
@@ -119,7 +119,7 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
       <View style={tailwind('mb-4')}>
         <NumberRowV2
           lhs={{
-            value: translate('screens/RemoveLiquidity', 'Total liquidity'),
+            value: translate('screens/AddLiquidity', 'Total liquidity'),
             testID: 'shares_to_add',
             themedProps: {
               light: tailwind('text-mono-light-v2-500'),
@@ -137,8 +137,8 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
       </View>
       <NumberRowV2
         lhs={{
-          value: translate('screens/RemoveLiquidity', 'Tokens in {{token}}', {
-            token: pairData.tokenA.displaySymbol
+          value: translate('screens/AddLiquidity', 'Pooled {{symbol}}', {
+            symbol: pairData.tokenA.displaySymbol
           }),
           themedProps: {
             light: tailwind('text-mono-light-v2-500'),
@@ -152,15 +152,16 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
           usdTextStyle: tailwind('text-sm'),
           usdAmount: getUSDValue(
             new BigNumber(pairData.tokenA.reserve),
-            pairData.tokenB.symbol
-          )
+            pairData.tokenA.symbol
+          ),
+          suffix: ` ${pairData.tokenA.displaySymbol}`
         }}
         testID={`${pairInfo.displaySymbol}_pool_share_amount`}
       />
       <NumberRowV2
         lhs={{
-          value: translate('screens/RemoveLiquidity', 'Tokens in {{token}}', {
-            token: pairData.tokenB.displaySymbol
+          value: translate('screens/AddLiquidity', 'Pooled {{symbol}}', {
+            symbol: pairData.tokenB.displaySymbol
           }),
           testID: `tokens_in_${pairData.tokenB.displaySymbol}`,
           themedProps: {
@@ -175,7 +176,8 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
           usdAmount: getUSDValue(
             new BigNumber(pairData.tokenB.reserve),
             pairData.tokenB.symbol
-          )
+          ),
+          suffix: ` ${pairData.tokenB.displaySymbol}`
         }}
         testID={`apr_title_${pairInfo.displaySymbol}`}
       />

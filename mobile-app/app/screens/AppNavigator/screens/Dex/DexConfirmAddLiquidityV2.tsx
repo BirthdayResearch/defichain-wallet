@@ -30,13 +30,16 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const {
-    fee,
-    percentage,
-    tokenAAmount,
-    tokenBAmount
-  } = route.params.summary
-  const pair = route.params.pair
-  const { conversion, pairInfo } = route.params
+    pair,
+    conversion,
+    pairInfo,
+    summary: {
+      fee,
+      percentage,
+      tokenAAmount,
+      tokenBAmount
+    }
+  } = route.params
   const dispatch = useAppDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const lmTokenAmount = percentage.times(pair.totalLiquidity.token)
@@ -46,14 +49,6 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
   const { address } = useWalletContext()
   const addressLabel = useAddressLabel(address)
   const { getTokenPrice } = useTokenPrice()
-
-  const getUSDValue = (
-    amount: BigNumber,
-    symbol: string,
-    isLPs: boolean = false
-  ): BigNumber => {
-    return getTokenPrice(symbol, amount, isLPs)
-  }
 
   useEffect(() => {
     setIsOnPage(true)
@@ -163,9 +158,9 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
       )}
 
       <ThemedViewV2
-        dark={tailwind('bg-mono-dark-v2-100 border-t-0.5 border-gray-700')}
-        light={tailwind('bg-mono-light-v2-100 border-t-0.5 border-gray-300')}
-        style={tailwind('py-5')}
+        dark={tailwind('bg-mono-dark-v2-100 border-gray-700')}
+        light={tailwind('bg-mono-light-v2-100 border-gray-300')}
+        style={tailwind('py-5 border-t-0.5')}
       >
         <View style={tailwind('mb-6')}>
           <NumberRowV2
@@ -201,9 +196,9 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
         />
       </ThemedViewV2>
       <ThemedViewV2
-        dark={tailwind('bg-mono-dark-v2-100 border-t-0.5 border-b-0.5 border-gray-700')}
-        light={tailwind('bg-mono-light-v2-100 border-t-0.5 border-b-0.5 border-gray-300')}
-        style={tailwind('py-5')}
+        dark={tailwind('bg-mono-dark-v2-100 border-gray-700')}
+        light={tailwind('bg-mono-light-v2-100 border-gray-300')}
+        style={tailwind('py-5 border-t-0.5 border-b-0.5 ')}
       >
         <NumberRowV2
           lhs={{
@@ -219,7 +214,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
           rhs={{
             value: BigNumber.max(tokenAAmount, 0).toFixed(8),
             testID: `${pair.tokenA.displaySymbol}_to_supply`,
-            usdAmount: getUSDValue(tokenAAmount, pair.tokenA.symbol)
+            usdAmount: getTokenPrice(pair.tokenA.symbol, tokenAAmount)
           }}
         />
         <NumberRowV2
@@ -236,7 +231,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
           rhs={{
             value: BigNumber.max(tokenBAmount, 0).toFixed(8),
             testID: `${pair.tokenB.displaySymbol}_to_supply`,
-            usdAmount: getUSDValue(tokenBAmount, pair.tokenB.symbol)
+            usdAmount: getTokenPrice(pair.tokenB.symbol, tokenBAmount)
           }}
         />
         <NumberRowV2
