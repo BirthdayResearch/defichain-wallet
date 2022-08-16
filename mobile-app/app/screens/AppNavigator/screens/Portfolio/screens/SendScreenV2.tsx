@@ -235,13 +235,14 @@ export function SendScreenV2 ({
     }
 
     const values = getValues()
-    const params: PortfolioParamList['SendConfirmationScreen'] = {
+    const params: PortfolioParamList['SendConfirmationScreenV2'] = {
       destination: values.address,
       token,
       amount: new BigNumber(values.amount),
       amountInUsd: amountInUSDValue,
       fee,
-      toAddressLabel: matchedAddress?.label
+      toAddressLabel: matchedAddress?.label,
+      isAddressMatched: matchedAddress !== undefined
     }
 
     if (isConversionRequired) {
@@ -256,7 +257,7 @@ export function SendScreenV2 ({
           conversionAmount
         }
         navigation.navigate({
-          name: 'SendConfirmationScreen',
+          name: 'SendConfirmationScreenV2',
           params,
           merge: true
         })
@@ -269,14 +270,14 @@ export function SendScreenV2 ({
           isConverted: true
         }
         navigation.navigate({
-          name: 'SendConfirmationScreen',
+          name: 'SendConfirmationScreenV2',
           params,
           merge: true
         })
       })
     } else {
       navigation.navigate({
-        name: 'SendConfirmationScreen',
+        name: 'SendConfirmationScreenV2',
         params,
         merge: true
       })

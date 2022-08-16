@@ -71,6 +71,16 @@ export interface PortfolioParamList {
     conversion?: ConversionParam
     toAddressLabel?: string
   }
+  SendConfirmationScreenV2: {
+    token: WalletToken
+    destination: string
+    amount: BigNumber
+    amountInUsd: BigNumber
+    fee: BigNumber
+    conversion?: ConversionParam
+    toAddressLabel?: string
+    isAddressMatched: boolean
+  }
   TokenDetailScreen: { token: WalletToken }
   ConvertScreen: { mode: ConversionMode }
   ConvertConfirmationScreen: {
@@ -292,7 +302,7 @@ export function PortfolioNavigator (): JSX.Element {
 
       <PortfolioStack.Screen
         component={isFeatureAvailable('send_v2') ? SendConfirmationScreenV2 : SendConfirmationScreen}
-        name='SendConfirmationScreen'
+        name={isFeatureAvailable('send_v2') ? 'SendConfirmationScreenV2' : 'SendConfirmationScreen'}
         options={{
           ...screenOptions,
           headerTitle: isFeatureAvailable('send_v2')
