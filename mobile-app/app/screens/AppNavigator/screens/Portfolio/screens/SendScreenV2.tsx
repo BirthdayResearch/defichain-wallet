@@ -15,7 +15,7 @@ import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { RootState } from '@store'
-import { DFITokenSelector, DFIUtxoSelector, tokensSelector, WalletToken } from '@store/wallet'
+import { AddressType, DFITokenSelector, DFIUtxoSelector, tokensSelector, WalletToken } from '@store/wallet'
 import { LocalAddress } from '@store/userPreferences'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued } from '@store/transaction_queue'
@@ -36,7 +36,7 @@ import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
 import { AmountButtonTypes, TransactionCard, TransactionCardStatus } from '@components/TransactionCard'
 import { useTokenPrice } from '../hooks/TokenPrice'
 import { ActiveUSDValueV2 } from '../../Loans/VaultDetail/components/ActiveUSDValueV2'
-import { AddressType, PortfolioParamList } from '../PortfolioNavigator'
+import { PortfolioParamList } from '../PortfolioNavigator'
 import { RandomAvatar } from '../components/RandomAvatar'
 import { TokenIcon } from '../components/TokenIcon'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -89,7 +89,14 @@ export function SendScreenV2 ({
   const [transactionCardStatus, setTransactionCardStatus] = useState(TransactionCardStatus.Default)
 
   // form
-  const { control, setValue, formState, getValues, trigger, watch } = useForm({ mode: 'onChange' })
+  const {
+    control,
+    setValue,
+    formState,
+    getValues,
+    trigger,
+    watch
+  } = useForm({ mode: 'onChange' })
   const { address } = watch()
   const amountToSend = getValues('amount')
   const [addressType, setAddressType] = useState<AddressType>()
@@ -138,7 +145,10 @@ export function SendScreenV2 ({
     return getTokenPrice(token.symbol, amountToSend, token.isLPS)
   }, [amountToSend, token])
 
-  const { infoText, infoTextThemedProps } = useMemo(() => {
+  const {
+    infoText,
+    infoTextThemedProps
+  } = useMemo(() => {
     let infoText
     let themedProps
     let status = TransactionCardStatus.Default
@@ -173,7 +183,10 @@ export function SendScreenV2 ({
     setTransactionCardStatus(status)
     return {
       infoText: translate('screens/SendScreen', infoText),
-      infoTextThemedProps: { ...themedProps, style: tailwind('text-xs mt-2 ml-5 font-normal-v2') }
+      infoTextThemedProps: {
+        ...themedProps,
+        style: tailwind('text-xs mt-2 ml-5 font-normal-v2')
+      }
     }
   }, [token, isReservedUtxoUsed, amountToSend])
 
@@ -201,7 +214,10 @@ export function SendScreenV2 ({
   useEffect(() => {
     const t = tokens.find((t) => t.id === token?.id)
     if (t !== undefined) {
-      setToken({ ...t, amount: t.displaySymbol === 'DFI' ? new BigNumber(t.amount).minus(reservedDFI).toFixed(8) : t.amount })
+      setToken({
+        ...t,
+        amount: t.displaySymbol === 'DFI' ? new BigNumber(t.amount).minus(reservedDFI).toFixed(8) : t.amount
+      })
     }
   }, [JSON.stringify(tokens)])
 
@@ -342,7 +358,11 @@ export function SendScreenV2 ({
                   }
                 }}
               />
-              <ActiveUSDValueV2 price={amountInUSDValue} testId='amount_input_in_usd' containerStyle={tailwind('w-full break-words')} style={tailwind('text-center justify-center w-full')} />
+              <ActiveUSDValueV2
+                price={amountInUSDValue} testId='amount_input_in_usd'
+                containerStyle={tailwind('w-full break-words')}
+                style={tailwind('text-center justify-center w-full')}
+              />
             </View>
 
             <AmountCard
@@ -398,52 +418,55 @@ export function SendScreenV2 ({
 
             <View style={tailwind('ml-5 my-2 items-center flex flex-row')}>
               {addressType === AddressType.OthersButValid
-? (
-  <>
-    <ThemedIcon
-      light={tailwind('text-success-500')}
-      dark={tailwind('text-darksuccess-500')}
-      iconType='MaterialIcons'
-      name='check-circle'
-      size={16}
-    />
-    <ThemedTextV2
-      style={tailwind('text-xs mx-1 font-normal-v2')}
-      light={tailwind('text-mono-light-v2-500')}
-      dark={tailwind('text-mono-dark-v2-500')}
-    >
-      {translate('screens/SendScreen', 'Verified')}
-    </ThemedTextV2>
-  </>
-              )
-: (addressType !== undefined && (
-  <ThemedViewV2
-    style={tailwind('flex flex-row items-center overflow-hidden rounded-lg py-0.5', { 'px-1': addressType === AddressType.WalletAddress, 'px-2': addressType === AddressType.Whitelisted })}
-    light={tailwind('bg-mono-light-v2-200')}
-    dark={tailwind('bg-mono-dark-v2-200')}
-  >
-    {addressType === AddressType.WalletAddress && (
-      <View style={tailwind('rounded-l-2xl mr-1')}>
-        <RandomAvatar name={matchedAddress?.address} size={12} />
-      </View>
-                  )}
+                ? (
+                  <>
+                    <ThemedIcon
+                      light={tailwind('text-success-500')}
+                      dark={tailwind('text-darksuccess-500')}
+                      iconType='MaterialIcons'
+                      name='check-circle'
+                      size={16}
+                    />
+                    <ThemedTextV2
+                      style={tailwind('text-xs mx-1 font-normal-v2')}
+                      light={tailwind('text-mono-light-v2-500')}
+                      dark={tailwind('text-mono-dark-v2-500')}
+                    >
+                      {translate('screens/SendScreen', 'Verified')}
+                    </ThemedTextV2>
+                  </>
+                )
+                : (addressType !== undefined && (
+                  <ThemedViewV2
+                    style={tailwind('flex flex-row items-center overflow-hidden rounded-lg py-0.5', {
+                        'px-1': addressType === AddressType.WalletAddress,
+                        'px-2': addressType === AddressType.Whitelisted
+                      })}
+                    light={tailwind('bg-mono-light-v2-200')}
+                    dark={tailwind('bg-mono-dark-v2-200')}
+                  >
+                    {addressType === AddressType.WalletAddress && (
+                      <View style={tailwind('rounded-l-2xl mr-1')}>
+                        <RandomAvatar name={matchedAddress?.address} size={12} />
+                      </View>
+                      )}
 
-    <ThemedTextV2
-      ellipsizeMode='middle'
-      numberOfLines={1}
-      style={[tailwind('text-xs font-normal-v2'), {
-                      minWidth: 10,
-                      maxWidth: 108
-                    }]}
-      light={tailwind('text-mono-light-v2-500')}
-      dark={tailwind('text-mono-dark-v2-500')}
-      testID='address_input_footer'
-    >
-      {matchedAddress?.label !== '' ? matchedAddress?.label : matchedAddress.address}
-    </ThemedTextV2>
-  </ThemedViewV2>
-              )
-              )}
+                    <ThemedTextV2
+                      ellipsizeMode='middle'
+                      numberOfLines={1}
+                      style={[tailwind('text-xs font-normal-v2'), {
+                          minWidth: 10,
+                          maxWidth: 108
+                        }]}
+                      light={tailwind('text-mono-light-v2-500')}
+                      dark={tailwind('text-mono-dark-v2-500')}
+                      testID='address_input_footer'
+                    >
+                      {matchedAddress?.label !== '' ? matchedAddress?.label : matchedAddress.address}
+                    </ThemedTextV2>
+                  </ThemedViewV2>
+                  )
+                )}
             </View>
 
           </View>
@@ -608,11 +631,24 @@ function AmountCard ({
           testID='select_token_input'
         >
           <View style={tailwind('flex flex-row items-center')}>
-            <TokenIcon testID={`${token.displaySymbol}_icon`} token={{ isLPS: token.isLPS, displaySymbol: token.displaySymbol }} height={32} width={32} />
+            <TokenIcon
+              testID={`${token.displaySymbol}_icon`} token={{
+              isLPS: token.isLPS,
+              displaySymbol: token.displaySymbol
+            }} height={32} width={32}
+            />
             <View style={tailwind('flex ml-2')}>
               <ThemedTextV2>
-                <ThemedTextV2 style={tailwind('font-semibold-v2 text-sm')} testID='max_value'>{maxAmount.toFixed(8)}</ThemedTextV2>
-                <ThemedTextV2 style={tailwind('font-semibold-v2 text-sm')} testID='max_value_display_symbol'>{` ${token.displaySymbol}`}</ThemedTextV2>
+                <ThemedTextV2
+                  style={tailwind('font-semibold-v2 text-sm')}
+                  testID='max_value'
+                >{maxAmount.toFixed(8)}
+                </ThemedTextV2>
+                <ThemedTextV2
+                  style={tailwind('font-semibold-v2 text-sm')}
+                  testID='max_value_display_symbol'
+                >{` ${token.displaySymbol}`}
+                </ThemedTextV2>
               </ThemedTextV2>
               <ThemedTextV2
                 light={tailwind('text-mono-light-v2-500')}
