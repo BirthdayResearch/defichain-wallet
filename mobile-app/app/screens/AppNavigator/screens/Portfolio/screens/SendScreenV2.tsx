@@ -576,7 +576,6 @@ function AmountCard ({
         status={transactionCardStatus}
         maxValue={maxAmount}
         onChange={onAmountChange}
-        onPercentageChange={() => {}}
         containerStyle={tailwind('rounded-t-lg-v2')}
       >
         <ThemedTouchableOpacityV2

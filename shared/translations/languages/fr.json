@@ -307,6 +307,7 @@
     "AVAILABLE": "AVAILABLE"
   },
   "screens/ConvertScreen": {
+    "Convert": "Convertir",
     "Convert DFI": "Convertir DFI",
     "Scan recipient QR": "Scanner le QR du destinataire",
     "Balance": "Balance",
@@ -332,6 +333,7 @@
     "Resulting {{unit}}": "{{unit}} Restants"
   },
   "screens/ConvertConfirmScreen": {
+    "Confirm": "Confirmer",
     "Confirm DFI Conversion": "Confirmation de la conversion DFI",
     "You are converting": "Vous convertissez",
     "AFTER CONVERSION, YOU WILL HAVE": "APRÈS LA CONVERSION, VOUS AUREZ",

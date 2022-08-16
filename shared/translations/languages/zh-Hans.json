@@ -297,6 +297,7 @@
     "AVAILABLE": "AVAILABLE"
   },
   "screens/ConvertScreen": {
+    "Convert": "转换",
     "Convert DFI": "转换DFI",
     "Scan recipient QR": "扫一扫收方地址QR二维条码",
     "Balance": "总资金",
@@ -322,6 +323,7 @@
     "Resulting {{unit}}": "转换后 {{unit}}"
   },
   "screens/ConvertConfirmScreen": {
+    "Confirm": "确认",
     "Confirm DFI Conversion": "确认要转换 DFI",
     "You are converting": "您正要转换",
     "AFTER CONVERSION, YOU WILL HAVE": "转换后您会有",
