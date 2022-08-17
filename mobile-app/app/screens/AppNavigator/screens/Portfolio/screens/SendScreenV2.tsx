@@ -520,14 +520,16 @@ function AddressRow ({
         },
         fieldState: { error }
       }) => {
-        const hasValidAddress = error?.type !== 'isValidAddress'
+        const hasValidAddress = error?.type == null
         return (
           <View style={tailwind('flex w-full')}>
             <WalletTextInputV2
               autoCapitalize='none'
               multiline
-              onChange={onChange}
-              onChangeText={onAddressChange}
+              onBlur={async () => {
+                await onAddressChange(value?.trim())
+              }}
+              onChangeText={onChange}
               placeholder={translate('screens/SendScreen', 'Paste address')}
               style={tailwind('w-3/5 flex-grow pb-1 font-normal-v2')}
               testID='address_input'
@@ -575,6 +577,8 @@ function AddressRow ({
                   </ThemedTouchableOpacity>
                 </>}
             </WalletTextInputV2>
+            {/* TODO: Replace with inline comment if possible @pierregee */}
+            {/* TODO: Update with required error message also */}
             {!hasValidAddress &&
               <ThemedTextV2
                 style={tailwind('text-xs mt-2 ml-5 font-normal-v2')}
