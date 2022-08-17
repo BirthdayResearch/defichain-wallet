@@ -47,6 +47,7 @@ import { DFXPersistence } from '@api/persistence/dfx_storage'
 import { getUserDetail } from '@shared-api/dfx/ApiService'
 import { DfxConversionInfo } from '@components/DfxConversionInfo'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { DfxDexFeeInfo } from '@components/DfxDexFeeInfo'
 
 type Props = StackScreenProps<PortfolioParamList, 'SellScreen'>
 
@@ -318,6 +319,12 @@ export function SellScreen ({
           )
           : (
             <>
+              {token.isLPS && (
+                <ThemedView style={tailwind('px-4 mb-4')}>
+                  <DfxDexFeeInfo />
+                </ThemedView>
+              )}
+
               {!(fiatAccounts.length > 0)
               ? <ActionButton
                   name='add'
