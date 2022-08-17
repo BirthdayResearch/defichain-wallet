@@ -337,7 +337,7 @@
     "Convert": "Umwandeln",
     "{{token}} to receive": "Verbleibende {{token}}",
     "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN",
-    "You are converting to {{unit}}": "Du wandelst in {{unit}} um",
+    "You are converting to {{unit}}": "Du wandelst Folgendes in {{unit}} um",
     "Transaction fee": "Transaktionsgebühren",
     "Resulting Tokens": "Resultierende Token",
     "Resulting UTXO": "Resultierende UTXO",
