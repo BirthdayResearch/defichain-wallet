@@ -118,7 +118,7 @@ export function DexNavigator (): JSX.Element {
           headerTitleAlign: 'left',
           headerBackTitleVisible: false,
           headerTitleContainerStyle: tailwind('mt-4 ml-5'),
-          headerRightContainerStyle: [screenOptions.headerRightContainerStyle, tailwind('mt-5 justify-start', { 'pr-3': Platform.OS !== 'ios' })],
+          headerRightContainerStyle: [screenOptions.headerRightContainerStyle, tailwind('mt-5 justify-start', { 'pr-3': Platform.OS === 'web' })],
           headerStyle: [screenOptions.headerStyle, tailwind('rounded-b-none border-b-0'), { shadowOpacity: 0, height: ((Platform.OS !== 'android' ? 88 : 96) + insets.top) }],
           headerTitle: () => (
             <ThemedTextV2
@@ -132,7 +132,7 @@ export function DexNavigator (): JSX.Element {
             </ThemedTextV2>
           ),
           headerRight: () => (
-            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+            <HeaderNetworkStatus onPress={goToNetworkSelect} containerStyle={tailwind({ 'pt-px': Platform.OS === 'android' })} />
           )
         }}
       />
