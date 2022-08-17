@@ -38,7 +38,7 @@ export async function dfiConversionSigner (account: WhaleWalletAccount, amount: 
 }
 
 export function dfiConversionCrafter (amount: BigNumber, mode: ConversionMode, onBroadcast: () => any, onConfirmation: () => void, submitButtonLabel?: string): DfTxSigner {
-  const [symbolA, symbolB] = mode === 'utxosToAccount' ? ['UTXO', 'DFI'] : ['DFI', 'UTXO']
+  const [symbolA, symbolB] = mode === 'utxosToAccount' ? ['UTXO', 'tokens'] : ['tokens', 'UTXO']
   return {
     sign: async (account: WhaleWalletAccount) => await dfiConversionSigner(account, amount, mode),
     title: translate('screens/ConvertConfirmScreen', 'Convert {{amount}} DFI to {{target}}', {
@@ -47,8 +47,15 @@ export function dfiConversionCrafter (amount: BigNumber, mode: ConversionMode, o
     }),
     drawerMessages: {
       preparing: translate('screens/OceanInterface', 'Preparing to convert…'),
-      waiting: translate('screens/OceanInterface', 'Converting {{symbolA}} to {{symbolB}}', { symbolA, symbolB }),
-      complete: translate('screens/OceanInterface', 'Conversion completed')
+      waiting: translate('screens/OceanInterface', 'Converting {{amount}} DFI {{symbolA}} to {{symbolB}}', {
+        symbolA: symbolA,
+        symbolB: symbolB,
+        amount: amount.toFixed(8)
+      }),
+      complete: translate('screens/OceanInterface', '{{amount}} DFI converted to {{symbolB}}', {
+        symbolB: symbolB,
+        amount: amount.toFixed(8)
+      })
     },
     onBroadcast,
     onConfirmation,

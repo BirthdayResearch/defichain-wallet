@@ -4,15 +4,15 @@
 /.github/                                       @fuxingloh @thedoublejay
 /.husky/                                        @fuxingloh @thedoublejay
 
-/mobile-app/app/                                @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy
-/mobile-app/app/api                             @fuxingloh @thedoublejay @ivan-zynesis
+/mobile-app/app/                                @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @siradji
+/mobile-app/app/api                             @fuxingloh @thedoublejay @kyleleow @pierregee
 
-/shared/assets                                  @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy
-/shared/translations                            @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy
-/mobile-app/cypress                             @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy
+/shared/assets                                  @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @siradji
+/shared/translations                            @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @siradji
+/mobile-app/cypress                             @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @siradji
 
-/website                                        @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy
-/website/src/pages/api                          @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy
+/website                                        @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @siradji
+/website/src/pages/api                          @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @siradji
 
 /.codeclimate.yml                               @fuxingloh @thedoublejay
 /.versionrc.js                                  @fuxingloh @thedoublejay
@@ -28,9 +28,9 @@ jest.config.js                                  @fuxingloh @thedoublejay
 metro.config.js                                 @fuxingloh @thedoublejay
 tsconfig.json                                   @fuxingloh @thedoublejay
 
-package.json                                    @thedoublejay
-package-lock.json                               @thedoublejay
-/docker-compose.yml                             @thedoublejay
+package.json                                    @thedoublejay @kyleleow @pierregee
+package-lock.json                               @thedoublejay @kyleleow @pierregee
+/docker-compose.yml                             @thedoublejay @kyleleow @pierregee
 
 BETA_TESTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy
 CONTRIBUTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy
