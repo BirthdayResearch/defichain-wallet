@@ -1,6 +1,6 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { WalletToken } from '@store/wallet'
+import { AddressType, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import { Image, Platform } from 'react-native'
 import { BarCodeScanner } from '@components/BarCodeScanner'
@@ -68,6 +68,16 @@ export interface PortfolioParamList {
     fee: BigNumber
     conversion?: ConversionParam
     toAddressLabel?: string
+  }
+  SendConfirmationScreenV2: {
+    token: WalletToken
+    destination: string
+    amount: BigNumber
+    amountInUsd: BigNumber
+    fee: BigNumber
+    conversion?: ConversionParam
+    toAddressLabel?: string
+    addressType?: AddressType
   }
   TokenDetailScreen: { token: WalletToken }
   ConvertScreen: { mode: ConversionMode }
@@ -290,11 +300,11 @@ export function PortfolioNavigator (): JSX.Element {
 
       <PortfolioStack.Screen
         component={isFeatureAvailable('send_v2') ? SendConfirmationScreenV2 : SendConfirmationScreen}
-        name='SendConfirmationScreen'
+        name={isFeatureAvailable('send_v2') ? 'SendConfirmationScreenV2' : 'SendConfirmationScreen'}
         options={{
           ...screenOptions,
           headerTitle: isFeatureAvailable('send_v2')
-            ? translate('screens/SendConfirmationScreen', 'Confirm Send')
+            ? translate('screens/SendConfirmationScreen', 'Confirm')
             : () => (<HeaderTitle
                 text={translate('screens/SendConfirmationScreen', 'Confirm Send')}
                 containerTestID={headerContainerTestId}
