@@ -32,8 +32,9 @@ export const ViewPoolDetails = ({
   pairInfo
 }: ViewPoolDetailsProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   return (
-    <ThemedViewV2 style={tailwind('px-5 h-full')}>
-      <View style={tailwind('flex-row mb-3')}>
+    <ThemedViewV2 style={tailwind('px-5 h-full -mt-1 flex flex-grow')}>
+      {/* -mt-1 above and mt-1 added below is kind of hack to solved React Navigation elevation bug on android for now. */}
+      <View style={tailwind('mb-3 flex-row items-center mt-1')}>
         <View>
           <PoolPairTextSectionV2
             symbolA={pairData.tokenA.displaySymbol}
