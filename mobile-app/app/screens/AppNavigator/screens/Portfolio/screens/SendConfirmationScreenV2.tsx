@@ -28,7 +28,7 @@ import { NumberRowV2 } from '@components/NumberRowV2'
 import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
 import { PortfolioParamList } from '../PortfolioNavigator'
 
-type Props = StackScreenProps<PortfolioParamList, 'SendConfirmationScreen'>
+type Props = StackScreenProps<PortfolioParamList, 'SendConfirmationScreenV2'>
 
 export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
   const { address } = useWalletContext()
@@ -41,7 +41,8 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
     amountInUsd,
     fee,
     conversion,
-    toAddressLabel
+    toAddressLabel,
+    addressType
   } = route.params
   const logger = useLogger()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
@@ -101,6 +102,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
           fromAddressLabel={addressLabel}
           toAddress={destination}
           toAddressLabel={toAddressLabel}
+          addressType={addressType}
         />
 
         {conversion?.isConversionRequired === true &&

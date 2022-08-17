@@ -6,6 +6,7 @@ import { View } from '.'
 import { getNativeIcon } from '@components/icons/assets'
 import { translate } from '@translations'
 import { RandomAvatar } from '@screens/AppNavigator/screens/Portfolio/components/RandomAvatar'
+import { AddressType } from '@store/wallet'
 
 interface ISummaryTitleProps {
   title: string
@@ -17,6 +18,7 @@ interface ISummaryTitleProps {
   toAddressLabel?: string | null
   iconA: string
   iconB?: string
+  addressType?: AddressType
 }
 
 export function SummaryTitleV2 (props: ISummaryTitleProps): JSX.Element {
@@ -91,7 +93,7 @@ export function SummaryTitleV2 (props: ISummaryTitleProps): JSX.Element {
           </ThemedViewV2>
         </View>
 
-        {props.toAddress !== undefined && (
+        {props.toAddress !== undefined && props.addressType !== undefined && (
           <View style={tailwind('flex-row items-center mt-4')} testID='summary_to_view'>
             <ThemedTextV2
               style={tailwind('text-xs font-normal-v2')}
@@ -101,19 +103,26 @@ export function SummaryTitleV2 (props: ISummaryTitleProps): JSX.Element {
             </ThemedTextV2>
             <ThemedViewV2
               dark={tailwind('bg-mono-dark-v2-200')} light={tailwind('bg-mono-light-v2-200')}
-              style={tailwind('flex flex-row items-center overflow-hidden rounded-full pl-1 pr-2.5 py-1 ml-2')}
+              style={tailwind('flex flex-row items-center overflow-hidden rounded-full pr-2.5 py-1 ml-2', {
+                'pl-1': props.addressType === AddressType.WalletAddress,
+                'pl-2.5': props.addressType !== AddressType.WalletAddress
+              })}
             >
-              <RandomAvatar name={props.toAddress} size={20} />
+              {props.addressType === AddressType.WalletAddress && (
+                <View style={tailwind('mr-1')}>
+                  <RandomAvatar name={props.toAddress} size={20} />
+                </View>
+              )}
               <ThemedTextV2
                 ellipsizeMode='middle'
                 numberOfLines={1}
-                style={[tailwind('text-sm font-normal-v2 ml-1'), {
+                style={[tailwind('text-sm font-normal-v2'), {
                   minWidth: 10,
                   maxWidth: 108
                 }]}
                 testID='summary_to_value'
               >
-                {props.toAddressLabel ?? props.toAddress}
+                {props.toAddressLabel != null && props.toAddressLabel.length > 0 ? props.toAddressLabel : props.toAddress}
               </ThemedTextV2>
             </ThemedViewV2>
           </View>
