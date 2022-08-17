@@ -743,7 +743,7 @@
     "Adding tokens to liquidity pool…": "Token zum Liquiditätspool hinzufügen…",
     "Added tokens to liquidity pool": "Zum Liquiditätspool hinzugefügte Token",
     "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool": "Hinzufügen von {{totalToken}} {{symbolA}}-{{symbolB}} zum Liquiditätspool",
-    "Added {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool": "Added {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool",
+    "Added {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool": "{{totalToken}} {{symbolA}}-{{symbolB}} zum Liquiditätspool hinzugefügt",
     "Preparing to remove collaterals…": "Vorbereiten des Entfernens von Sicherheiten…",
     "Removing collaterals from vault…": "Sicherheiten aus dem Vault entfernen…",
     "Collaterals removed": "Sicherheiten entfernt",
