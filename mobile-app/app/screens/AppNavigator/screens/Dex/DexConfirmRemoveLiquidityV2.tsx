@@ -177,7 +177,8 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
             value: new BigNumber(amount).toFixed(8),
             themedProps: {
               light: tailwind('text-mono-light-v2-900'),
-              dark: tailwind('text-mono-dark-v2-900')
+              dark: tailwind('text-mono-dark-v2-900'),
+              style: tailwind('font-semibold-v2 text-sm')
             },
             testID: 'lp_tokens_to_remove_amount',
             usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,

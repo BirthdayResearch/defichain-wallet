@@ -121,7 +121,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
   } = useBottomSheet()
 
   const bottomSheetHeader = {
-    headerStatusBarHeight: 1,
+    headerStatusBarHeight: 2,
     headerTitle: '',
     headerBackTitleVisible: false,
     headerStyle: tailwind('rounded-t-xl-v2 border-b-0', {
@@ -256,7 +256,8 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
                         value: new BigNumber(amount).toFixed(8),
                         themedProps: {
                           light: tailwind('text-mono-light-v2-900'),
-                          dark: tailwind('text-mono-dark-v2-900')
+                          dark: tailwind('text-mono-dark-v2-900'),
+                          style: tailwind('font-semibold-v2 text-sm')
                         },
                         usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,
                         usdTextStyle: tailwind('text-sm'),
@@ -315,7 +316,6 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
               modalRef={bottomSheetRef}
               screenList={viewPoolContents}
               snapPoints={modalSortingSnapPoints}
-              enablePanDown
             />
           )}
       </ThemedScrollViewV2>
