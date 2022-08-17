@@ -14,7 +14,6 @@ import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { tokenSelector } from '@store/wallet'
-import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/BottomSheetWithNavV2'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { ViewPoolHeader } from './components/ViewPoolHeader'
@@ -28,6 +27,7 @@ import { NumberRowV2 } from '@components/NumberRowV2'
 import { ButtonV2 } from '@components/ButtonV2'
 import { useToast } from 'react-native-toast-notifications'
 import { PricesSectionV2 } from '@components/PricesSectionV2'
+import { useBottomSheet } from '@hooks/useBottomSheet'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
@@ -108,28 +108,17 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
     })
   }
 
-  const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
-  const [isModalDisplayed, setIsModalDisplayed] = useState(false)
-  const containerRef = useRef(null)
   const ref = useRef(null)
   const { isLight } = useThemeContext()
   const modalSortingSnapPoints = { ios: ['50%'], android: ['50%'] }
 
-  const expandModal = useCallback(() => {
-    if (Platform.OS === 'web') {
-      setIsModalDisplayed(true)
-    } else {
-      bottomSheetRef.current?.present()
-    }
-  }, [])
-
-  const dismissModal = useCallback(() => {
-    if (Platform.OS === 'web') {
-      setIsModalDisplayed(false)
-    } else {
-      bottomSheetRef.current?.close()
-    }
-  }, [])
+  const {
+    bottomSheetRef,
+    containerRef,
+    expandModal,
+    dismissModal,
+    isModalDisplayed
+  } = useBottomSheet()
 
   const bottomSheetHeader = {
     headerStatusBarHeight: 1,
@@ -142,7 +131,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
     headerRight: (): JSX.Element => {
       return (
         <ThemedTouchableOpacityV2
-          style={tailwind('border-0 mr-5 mt-5')} onPress={() => dismissModal()}
+          style={tailwind('mr-5 mt-5')} onPress={dismissModal}
           testID='close_bottom_sheet_button'
         >
           <ThemedIcon iconType='Feather' name='x-circle' size={22} />
