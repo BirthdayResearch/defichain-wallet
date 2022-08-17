@@ -21,7 +21,8 @@ export enum ErrorCodes {
   PaybackLoanInvalidPrice = 6,
   NoLiveFixedPrices = 7,
   VaultNotEnoughCollateralization = 8,
-  DustValue = 9
+  DustValue = 9,
+  ZeroBalance = 10
 }
 
 export interface ErrorMapping {
@@ -29,7 +30,10 @@ export interface ErrorMapping {
   message: string
 }
 
-export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): JSX.Element {
+export function TransactionError ({
+  errMsg,
+  onClose
+}: TransactionErrorProps): JSX.Element {
   const logger = useLogger()
   const [expand, setExpand] = useState(false)
   const [canExpand, setCanExpand] = useState(false)
@@ -161,7 +165,7 @@ function errorMessageMapping (err: string): ErrorMapping {
       code: ErrorCodes.VaultNotEnoughCollateralization,
       message: 'Vault does not meet min. collateral ratio. Add collateral to proceed.'
     }
-  } else if (err.includes('dust (code 64)')) {
+  } else if (err.includes('dust (code 64)') || err.includes('non-canonical balances (zero amount)')) {
     return {
       code: ErrorCodes.DustValue,
       message: 'Input amount is too low. Increase the amount to continue.'

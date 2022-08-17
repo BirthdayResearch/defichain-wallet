@@ -248,9 +248,23 @@
     "Select a token you want to send to get started": "Wähle einen Token, den du senden möchtest, um loszulegen",
     "Choose token to send": "Token zum Senden auswählen",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
-    "*Registered address": "*Registrierte Adresse"
+    "*Registered address": "*Registrierte Adresse",
+    "There is a minimal fee for the transaction": "Es fällt eine minimale Gebühr für die Transaktion an",
+    "A small amount of UTXO is reserved for fees": "Ein geringer UTXO-Betrag ist für Gebühren reserviert",
+    "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds": "Achte darauf, dass du deine Liquiditätspool-Token nur an DeFiChain-kompatible Wallets sendest. Andernfalls kann es zu einem unwiderruflichen Verlust der Guthaben kommen.",
+    "Insufficient balance": "Unzureichendes Guthaben",
+    "SEND TO": "AN FOLGENDE ADRESSE SENDEN",
+    "Paste address": "Adresse einfügen",
+    "I WANT TO SEND": "ICH MÖCHTE",
+    "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
+    "Verified": "Bestätigt",
+    "{{percent}} of available {{unit}} entered": "{{percent}} der verfügbaren {{unit}} eingegeben",
+    "Max available {{unit}} entered": "Max. verfügbare {{unit}} eingegeben",
+    "By continuing, the required amount of DFI will be converted": "Wenn du fortfährst, wird die erforderliche Summe an DFI umgewandelt",
+    "Invalid address. Make sure the address is correct to avoid irrecoverable losses": "Ungültige Adresse. Vergewissere dich, dass die Adresse korrekt ist, um unwiederbringliche Verluste zu vermeiden."
   },
   "screens/SendConfirmationScreen": {
+    "Confirm": "Bestätigen",
     "Confirm Send": "Senden bestätigen",
     "CONFIRM SEND": "SENDEN BESTÄTIGEN",
     "You are sending": "Du sendest",
@@ -268,9 +282,24 @@
     "Convert & send": "Umwandeln & senden",
     "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "Sende Liquiditätspool-Token nur an DeFiChain-Walletadressen. Das Senden an eine Börse oder eine zentrale Einrichtung führt zu einem unwiederbringlichen Verlust der Einlagen.",
     "Transaction type": "Transaktionsart",
-    "Amount to send": "Zu sendender Betrag"
+    "Amount to send": "Zu sendender Betrag",
+    "Converting": "Umwandeln",
+    "Converted": "Umgewandelt",
+    "Transaction fee": "Transaktionsgebühren",
+    "Amount to convert": "Umzuwandelnder Betrag",
+    "Send": "Senden",
+    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Senden von {{amount}} {{displaySymbol}} an {{toAddress}}",
+    "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "Ich nehme zur Kenntnis, dass das Senden von Liquiditätspool-Token an Adressen, die nicht DeFiChain-kompatible Wallets sind, zu einem irreversiblen Verlust von Guthaben führen kann."
+  },
+  "screens/TokenSelectionScreen": {
+    "Search token": "Token durchsuchen",
+    "No assets found": "Keine Aktiva gefunden",
+    "Add assets to get started": "Aktiva zum Einstieg hinzufügen",
+    "Search results for “{{searchTerm}}”": "Suchergebnisse für “{{searchTerm}}”",
+    "AVAILABLE": "VERFÜGBAR"
   },
   "screens/ConvertScreen": {
+    "Convert": "Umwandeln",
     "Convert DFI": "DFI umwandeln",
     "Scan recipient QR": "QR-Code des Empfängers scannen",
     "Balance": "Guthaben",
@@ -296,6 +325,7 @@
     "Resulting {{unit}}": "Verbleibende {{unit}}"
   },
   "screens/ConvertConfirmScreen": {
+    "Confirm": "Bestätigen",
     "Confirm DFI Conversion": "Bestätige DFI-Konvertierung",
     "You are converting": "Du wandelst um",
     "AFTER CONVERSION, YOU WILL HAVE": "NACH DER KONVERTIERUNG IST DEIN NEUER KONTOSTAND",
@@ -702,8 +732,8 @@
     "Swapping tokens…": "Token tauschen…",
     "Tokens swapped": "Token getauscht",
     "Preparing to send…": "Vorbereiten des Sendens…",
-    "Sending tokens…": "Senden der Token…",
-    "Tokens sent": "Token gesendet",
+    "Sending {{amount}} {{displaySymbol}}": "Senden von {{amount}} {{displaySymbol}}",
+    "{{amount}} {{displaySymbol}} sent": "{{amount}} {{displaySymbol}} gesendet",
     "Preparing loan…": "Darlehen vorbereiten…",
     "Processing loan…": "Darlehensaufnahme bearbeiten…",
     "Loan processed": "Darlehen verarbeitet",
@@ -734,6 +764,8 @@
     "Preparing to convert…": "Konvertierung vorbereiten…",
     "Converting {{symbolA}} to {{symbolB}}": "Wandle {{symbolA}} in {{symbolB}} um",
     "Conversion completed": "Konvertierung abgeschlossen",
+    "Converting {{amount}} DFI {{symbolA}} to {{symbolB}}": "Konvertierung von {{amount}}-DFI {{symbolA}} in {{symbolB}}",
+    "{{amount}} DFI converted to {{symbolB}}": "{{amount}}-DFI umgewandelt in {{symbolB}}",
     "Preparing your transaction…": "Deine Transaktion vorbereiten…",
     "Processing future swap transaction…": "Verarbeiten der Future Swap-Transaktion…",
     "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap bestätigt und wird im Block #{{{block}} ausgeführt",
@@ -1072,7 +1104,9 @@
     "As UTXO": "Als UTXO",
     "As Token": "Als Token",
     "Your pool shares": "Deine Pool-Anteile",
-    "Shares in {{token}}": "Anteile in {{token}}"
+    "Shares in {{token}}": "Anteile in {{token}}",
+    "Your LP tokens": "Deine LP-Token",
+    "Tokens in {{token}}": "Token in {{token}}"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI) ist für Gebühren reserviert."

@@ -248,9 +248,23 @@
     "Select a token you want to send to get started": "若要开始，请先选您想发出的代币",
     "Choose token to send": "选择发出此代币",
     "TRANSACTION DETAILS": "交易明细",
-    "*Registered address": "*已注册地址"
+    "*Registered address": "*已注册地址",
+    "There is a minimal fee for the transaction": "There is a minimal fee for the transaction",
+    "A small amount of UTXO is reserved for fees": "A small amount of UTXO is reserved for fees",
+    "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds": "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds",
+    "Insufficient balance": "Insufficient balance",
+    "SEND TO": "SEND TO",
+    "Paste address": "Paste address",
+    "I WANT TO SEND": "I WANT TO SEND",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Verified": "Verified",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "Invalid address. Make sure the address is correct to avoid irrecoverable losses": "Invalid address. Make sure the address is correct to avoid irrecoverable losses"
   },
   "screens/SendConfirmationScreen": {
+    "Confirm": "确认",
     "Confirm Send": "确认发出",
     "CONFIRM SEND": "确认发出",
     "You are sending": "您正要发出资金",
@@ -268,9 +282,24 @@
     "Convert & send": "转换并发送",
     "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "请注意，流动性挖矿的代币只能发送到其他递飞链钱包地址。若您发送到其他交易所或不支持递飞链流动性池代币的平台会导致无法还原的资金损失。",
     "Transaction type": "交易类型",
-    "Amount to send": "发送金额"
+    "Amount to send": "发送金额",
+    "Converting": "Converting",
+    "Converted": "Converted",
+    "Transaction fee": "Transaction fee",
+    "Amount to convert": "Amount to convert",
+    "Send": "Send",
+    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "发送 {{amount}} {{displaySymbol}} 到 {{toAddress}}",
+    "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds."
+  },
+  "screens/TokenSelectionScreen": {
+    "Search token": "搜索代币",
+    "No assets found": "No assets found",
+    "Add assets to get started": "Add assets to get started",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
+    "AVAILABLE": "AVAILABLE"
   },
   "screens/ConvertScreen": {
+    "Convert": "转换",
     "Convert DFI": "转换DFI",
     "Scan recipient QR": "扫一扫收方地址QR二维条码",
     "Balance": "总资金",
@@ -296,6 +325,7 @@
     "Resulting {{unit}}": "转换后 {{unit}}"
   },
   "screens/ConvertConfirmScreen": {
+    "Confirm": "确认",
     "Confirm DFI Conversion": "确认要转换 DFI",
     "You are converting": "您正要转换",
     "AFTER CONVERSION, YOU WILL HAVE": "转换后您会有",
@@ -705,8 +735,8 @@
     "Swapping tokens…": "Swapping tokens…",
     "Tokens swapped": "Tokens swapped",
     "Preparing to send…": "Preparing to send…",
-    "Sending tokens…": "Sending tokens…",
-    "Tokens sent": "Tokens sent",
+    "Sending {{amount}} {{displaySymbol}}": "Sending {{amount}} {{displaySymbol}}",
+    "{{amount}} {{displaySymbol}} sent": "{{amount}} {{displaySymbol}} sent",
     "Preparing loan…": "Preparing loan…",
     "Processing loan…": "Processing loan…",
     "Loan processed": "Loan processed",
@@ -737,6 +767,8 @@
     "Preparing to convert…": "Preparing to convert…",
     "Converting {{symbolA}} to {{symbolB}}": "转换 {{symbolA}} 至 {{symbolB}}",
     "Conversion completed": "Conversion completed",
+    "Converting {{amount}} DFI {{symbolA}} to {{symbolB}}": "将 {{amount}} DFI {{symbolA}}  转换为 {{symbolB}}",
+    "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI 转换为 {{symbolB}}",
     "Preparing your transaction…": "Preparing your transaction…",
     "Processing future swap transaction…": "Processing future swap transaction…",
     "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap confirmed and will be executed at block #{{block}}",
@@ -1075,7 +1107,9 @@
     "As UTXO": "As UTXO",
     "As Token": "As Token",
     "Your pool shares": "Your pool shares",
-    "Shares in {{token}}": "Shares in {{token}}"
+    "Shares in {{token}}": "Shares in {{token}}",
+    "Your LP tokens": "您的 LP 代币",
+    "Tokens in {{token}}": "Tokens in {{token}}"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要预留一些可使用的 UTXO(0.1 DFI)作为费用"
