@@ -440,7 +440,7 @@
     "Loans": "Darlehen",
     "Auctions": "Auktionen",
     "Liquidity Mining": "Liquiditäts-Mining",
-    "Liquidity mining": "Liquiditäts-mining",
+    "Liquidity mining": "Liquiditäts-Mining",
     "UTXO and Tokens": "UTXO und Token"
   },
   "components/UtxoVsTokenFaq": {
