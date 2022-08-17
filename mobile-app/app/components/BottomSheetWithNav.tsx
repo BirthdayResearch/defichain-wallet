@@ -5,7 +5,7 @@ import {
   StackNavigationOptions,
   TransitionPresets
 } from '@react-navigation/stack'
-import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal } from '@gorhom/bottom-sheet'
+import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetHandleProps, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { NavigationContainer, Theme } from '@react-navigation/native'
 import { AddOrRemoveCollateralFormProps } from '@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm'
@@ -58,7 +58,7 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
       index={0}
       snapPoints={getSnapPoints()}
       enablePanDownToClose={false}
-      handleComponent={null}
+      handleComponent={EmptyHandleComponent}
       keyboardBlurBehavior='restore'
       backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
         <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
@@ -75,7 +75,11 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
   )
 })
 
-export const BottomSheetWebWithNav = React.memo((props: BottomSheetWithNavProps & { isModalDisplayed: boolean, modalStyle?: { [other: string]: any} }): JSX.Element => {
+const EmptyHandleComponent = (_props: BottomSheetHandleProps): JSX.Element => {
+  return <View />
+}
+
+export const BottomSheetWebWithNav = React.memo((props: BottomSheetWithNavProps & { isModalDisplayed: boolean, modalStyle?: { [other: string]: any } }): JSX.Element => {
   return (
     <BottomSheetModalWeb
       screenList={props.screenList}

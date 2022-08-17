@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { createStackNavigator, StackNavigationOptions, TransitionPresets } from '@react-navigation/stack'
-import { BottomSheetBackdropProps, BottomSheetModal } from '@gorhom/bottom-sheet'
+import { BottomSheetBackdropProps, BottomSheetHandleProps, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { NavigationContainer } from '@react-navigation/native'
 import {
@@ -55,7 +55,7 @@ export const BottomSheetWithNavV2 = React.memo((props: BottomSheetWithNavProps):
       ref={props.modalRef}
       index={0}
       snapPoints={getSnapPoints()}
-      handleComponent={null}
+      handleComponent={EmptyHandleComponent}
       enablePanDownToClose={false}
       keyboardBlurBehavior='restore'
       backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
@@ -66,6 +66,10 @@ export const BottomSheetWithNavV2 = React.memo((props: BottomSheetWithNavProps):
     </BottomSheetModal>
   )
 })
+
+const EmptyHandleComponent = (_props: BottomSheetHandleProps): JSX.Element => {
+  return <View />
+}
 
 export const BottomSheetWebWithNavV2 = React.memo((props: BottomSheetWithNavProps & { isModalDisplayed: boolean, modalStyle?: { [other: string]: any } }): JSX.Element => {
   return (
