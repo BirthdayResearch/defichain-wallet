@@ -1562,6 +1562,6 @@
     "Deposit Bitcoin": "Deposito di Bitcoin"
   },
   "components/DfxDexFeeInfo": {
-    "Please note that all sales of dTokens(e.g.dUSD, dCOIN, dTSLA, dSPY..) are subject to a DEX stabilization fee.The crypto tokens such as DFI, dBTC, dETH and stablecoins such as dUSDT / dUSDC are not affected.Further information": ""
+    "Please note that all sales of dTokens(e.g.dUSD, dCOIN, dTSLA, dSPY..) are subject to a DEX stabilization fee.The crypto tokens such as DFI, dBTC, dETH and stablecoins such as dUSDT / dUSDC are not affected. Further information": ""
   }
 }
