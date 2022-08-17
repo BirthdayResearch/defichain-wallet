@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useRef, useCallback } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Platform, TextInput, View } from 'react-native'
 import BigNumber from 'bignumber.js'
 import { Control, Controller, useForm } from 'react-hook-form'
@@ -374,6 +374,8 @@ export function SendScreenV2 ({
                 })
                 setValue('amount', '', { shouldDirty: true })
                 await trigger('amount')
+                setValue('address', '')
+                await trigger('address')
               }}
               onAmountChange={async (amount: string, type: AmountButtonTypes) => {
                 showToast(type)
@@ -518,9 +520,8 @@ function AddressRow ({
           value,
           onChange
         },
-        fieldState: { error }
+        formState: { isValid }
       }) => {
-        const hasValidAddress = error?.type !== 'isValidAddress'
         return (
           <View style={tailwind('flex w-full')}>
             <WalletTextInputV2
@@ -538,7 +539,7 @@ function AddressRow ({
               titleTestID='title_to_address'
               inputType='default'
               inputFooter={inputFooter}
-              valid={hasValidAddress}
+              valid={isValid || value === ''}
             >
               {value !== '' && <View style={tailwind('mr-2')} />}
               {value === '' &&
@@ -575,7 +576,7 @@ function AddressRow ({
                   </ThemedTouchableOpacity>
                 </>}
             </WalletTextInputV2>
-            {!hasValidAddress &&
+            {!isValid && value !== '' &&
               <ThemedTextV2
                 style={tailwind('text-xs mt-2 ml-5 font-normal-v2')}
                 dark={tailwind('text-red-v2')}
