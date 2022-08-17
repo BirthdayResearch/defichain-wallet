@@ -108,7 +108,6 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
 
   const BottomSheetHeader = {
     headerStatusBarHeight: 2,
-    headerTitleContainerStyle: 2,
     headerTitle: '',
     headerBackTitleVisible: false,
     headerStyle: tailwind('rounded-t-xl-v2', {
@@ -118,7 +117,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     headerRight: (): JSX.Element => {
       return (
         <ThemedTouchableOpacityV2
-          style={tailwind('border-0 mr-5 mt-4 -mb-2')} onPress={dismissModal}
+          style={tailwind('border-0 mr-5 mt-4 -mb-4')} onPress={dismissModal}
           testID='close_bottom_sheet_button'
         >
           <ThemedIcon iconType='Feather' name='x-circle' size={22} />
@@ -379,7 +378,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
 
   return (
     <View ref={containerRef} style={tailwind('flex-col flex-1')}>
-      <ThemedScrollViewV2 ref={bottomSheetRef} contentContainerStyle={tailwind('flex-grow py-8 mx-5 justify-between')} style={tailwind('w-full')}>
+      <ThemedScrollViewV2 contentContainerStyle={tailwind('flex-grow py-8 mx-5 justify-between')} style={tailwind('w-full')}>
         <View>
           <ViewPoolHeader
             tokenASymbol={pair.tokenA.displaySymbol}
