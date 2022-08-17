@@ -131,7 +131,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
     headerRight: (): JSX.Element => {
       return (
         <ThemedTouchableOpacityV2
-          style={tailwind('mr-5 mt-5')} onPress={dismissModal}
+          style={tailwind('mr-5 mt-4 -mb-4')} onPress={dismissModal}
           testID='close_bottom_sheet_button'
         >
           <ThemedIcon iconType='Feather' name='x-circle' size={22} />
