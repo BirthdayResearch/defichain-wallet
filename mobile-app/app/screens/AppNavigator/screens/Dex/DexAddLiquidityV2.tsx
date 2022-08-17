@@ -111,7 +111,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     headerTitleContainerStyle: 2,
     headerTitle: '',
     headerBackTitleVisible: false,
-    headerStyle: tailwind('rounded-t-xl-v2', {
+    headerStyle: tailwind('rounded-t-xl-v2 border-b-0', {
       'bg-mono-light-v2-100': isLight,
       'bg-mono-dark-v2-100': !isLight
     }),
