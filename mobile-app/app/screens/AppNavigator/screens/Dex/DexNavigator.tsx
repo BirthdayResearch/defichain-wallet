@@ -20,7 +20,7 @@ import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { tailwind } from '@tailwind'
 import { ThemedTextV2 } from '@components/themed'
-import { StyleProp, ViewStyle } from 'react-native'
+import { Platform, StyleProp, ViewStyle } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { NetworkSelectionScreen } from '../Settings/screens/NetworkSelectionScreen'
 
@@ -118,7 +118,8 @@ export function DexNavigator (): JSX.Element {
           headerTitleAlign: 'left',
           headerBackTitleVisible: false,
           headerTitleContainerStyle: tailwind('mt-4 ml-5'),
-          headerStyle: [screenOptions.headerStyle, tailwind('rounded-b-none border-b-0'), { shadowOpacity: 0, height: 96 + insets.top }],
+          headerRightContainerStyle: [screenOptions.headerRightContainerStyle, tailwind('mt-5 justify-start', { 'pr-3': Platform.OS !== 'ios' })],
+          headerStyle: [screenOptions.headerStyle, tailwind('rounded-b-none border-b-0'), { shadowOpacity: 0, height: ((Platform.OS !== 'android' ? 88 : 96) + insets.top) }],
           headerTitle: () => (
             <ThemedTextV2
               style={[
