@@ -27,7 +27,7 @@ export function TotalValueLocked (props: {tvl: number}): JSX.Element {
           imageStyle={tailwind('h-56')}
           style={tailwind('w-full overflow-hidden rounded-lg-v2')}
         >
-          <View style={tailwind('py-4 px-5 flex-row items-center justify-between')}>
+          <View style={tailwind('py-3.5 px-5 flex-row items-center justify-between')}>
             <View style={tailwind('w-8/12')}>
               <NumberFormat
                 displayType='text'
@@ -48,7 +48,7 @@ export function TotalValueLocked (props: {tvl: number}): JSX.Element {
               <ThemedTextV2
                 dark={tailwind('text-mono-dark-v2-900')}
                 light={tailwind('text-mono-light-v2-900')}
-                style={tailwind('text-xs font-normal-v2')}
+                style={tailwind('text-xs font-normal-v2 ')}
               >
                 {translate('screens/DexScreen', 'Total value locked')}
               </ThemedTextV2>
