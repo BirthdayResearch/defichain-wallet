@@ -3,7 +3,7 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { View, Platform } from 'react-native'
 import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
@@ -23,7 +23,6 @@ import { WalletTransactionCardTextInput } from '@components/WalletTransactionCar
 import { PricesSectionV2 } from '@components/PricesSectionV2'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
 import { NumberRowV2 } from '@components/NumberRowV2'
-import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/BottomSheetWithNavV2'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { ViewPoolHeader } from './components/ViewPoolHeader'
@@ -32,6 +31,7 @@ import { ReservedDFIInfoTextV2 } from '@components/ReservedDFIInfoText'
 import { ButtonV2 } from '@components/ButtonV2'
 import { useToast } from 'react-native-toast-notifications'
 import { useDisplayUtxoWarning } from './hook/useDisplayUtxoWarning'
+import { useBottomSheet } from '@hooks/useBottomSheet'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -68,10 +68,6 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
   const [isInputAFocus, setIsInputAFocus] = useState(false)
   const [isInputBFocus, setIsInputBFocus] = useState(false)
 
-  const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
-  const [isModalDisplayed, setIsModalDisplayed] = useState(false)
-  const containerRef = useRef(null)
-  const ref = useRef(null)
   const { isLight } = useThemeContext()
   const modalSortingSnapPoints = { ios: ['50%'], android: ['50%'] }
 
@@ -102,25 +98,17 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
 
   const toast = useToast()
   const TOAST_DURATION = 2000
-
-  const expandModal = useCallback(() => {
-    if (Platform.OS === 'web') {
-      setIsModalDisplayed(true)
-    } else {
-      bottomSheetRef.current?.present()
-    }
-  }, [])
-
-  const dismissModal = useCallback(() => {
-    if (Platform.OS === 'web') {
-      setIsModalDisplayed(false)
-    } else {
-      bottomSheetRef.current?.close()
-    }
-  }, [])
+  const {
+    bottomSheetRef,
+    containerRef,
+    expandModal,
+    dismissModal,
+    isModalDisplayed
+  } = useBottomSheet()
 
   const BottomSheetHeader = {
-    headerStatusBarHeight: 1,
+    headerStatusBarHeight: 2,
+    headerTitleContainerStyle: 2,
     headerTitle: '',
     headerBackTitleVisible: false,
     headerStyle: tailwind('rounded-t-xl-v2', {
@@ -130,7 +118,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     headerRight: (): JSX.Element => {
       return (
         <ThemedTouchableOpacityV2
-          style={tailwind('border-0 mr-5 mt-5')} onPress={() => dismissModal()}
+          style={tailwind('border-0 mr-5 mt-4 -mb-2')} onPress={dismissModal}
           testID='close_bottom_sheet_button'
         >
           <ThemedIcon iconType='Feather' name='x-circle' size={22} />
@@ -391,13 +379,13 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
 
   return (
     <View ref={containerRef} style={tailwind('flex-col flex-1')}>
-      <ThemedScrollViewV2 ref={ref} contentContainerStyle={tailwind('flex-grow py-8 mx-5 justify-between')} style={tailwind('w-full')}>
+      <ThemedScrollViewV2 ref={bottomSheetRef} contentContainerStyle={tailwind('flex-grow py-8 mx-5 justify-between')} style={tailwind('w-full')}>
         <View>
           <ViewPoolHeader
             tokenASymbol={pair.tokenA.displaySymbol}
             tokenBSymbol={pair.tokenB.displaySymbol}
             headerLabel={translate('screens/AddLiquidity', 'View pool share')}
-            onPress={() => expandModal()}
+            onPress={expandModal}
             testID='view_pool_shares'
           />
           <View style={tailwind('mt-8')}>
