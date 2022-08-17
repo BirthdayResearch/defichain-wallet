@@ -754,6 +754,8 @@
     "Preparing to add liquidity…": "Préparation de l'ajout de liquidité en cours…",
     "Adding tokens to liquidity pool…": "Ajout de tokens au pool de liquidité…",
     "Added tokens to liquidity pool": "Tokens ajoutés au pool de liquidité",
+    "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool": "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool",
+    "Added {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool": "Added {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool",
     "Preparing to remove collaterals…": "Préparation du retrait de garantie en cours…",
     "Removing collaterals from vault…": "Retrait de garantie du vault…",
     "Collaterals removed": "Garantie enlevée",
