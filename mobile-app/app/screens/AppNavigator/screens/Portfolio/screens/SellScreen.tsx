@@ -319,7 +319,7 @@ export function SellScreen ({
           )
           : (
             <>
-              {token.isLPS && (
+              {(token.displaySymbol !== 'DFI' && token.displaySymbol !== 'dBTC' && token.displaySymbol !== 'dETH' && token.displaySymbol !== 'dUSDT' && token.displaySymbol !== 'dUSDC') && (
                 <ThemedView style={tailwind('px-4 mb-4')}>
                   <DfxDexFeeInfo />
                 </ThemedView>
@@ -450,11 +450,7 @@ function TokenInput (props: { token?: WalletToken, onPress: () => void, isDisabl
           'bg-gray-200 border-0': props.isDisabled,
           'border-gray-300 bg-white': !props.isDisabled
         })}
-        style={tailwind('border rounded w-full flex flex-row justify-between h-12 items-center px-2', {
-          'mb-10': props.token?.isLPS === false,
-          'mb-2': props.token?.isLPS === true,
-          'mb-6': props.token === undefined
-        })}
+        style={tailwind('border rounded w-full flex flex-row justify-between h-12 items-center px-2 mb-6')}
         testID='select_token_input'
         disabled={props.isDisabled}
       >
