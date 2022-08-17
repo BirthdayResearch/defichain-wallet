@@ -246,13 +246,13 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
             testID: 'resulting_LP_tokens_value',
             usdAmount: getTokenPrice(pair.tokenA.symbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.tokenB.symbol, new BigNumber(tokenBAmount))),
             themedProps: {
-              style: tailwind('font-bold-v2')
+              style: tailwind('font-semibold-v2 text-sm')
             }
           }}
         />
       </ThemedViewV2>
 
-      <View style={tailwind('py-14')}>
+      <View style={tailwind('py-14 px-3')}>
         <SubmitButtonGroupV2
           isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
           label={translate('screens/ConfirmAddLiq', 'Add liquidity')}

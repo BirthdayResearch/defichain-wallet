@@ -186,7 +186,7 @@ export function RemoveLiquidityConfirmScreenV2 ({ route }: Props): JSX.Element {
           testID='lp_tokens_to_remove'
         />
       </ThemedViewV2>
-      <View style={tailwind('py-14')}>
+      <View style={tailwind('py-14 px-3')}>
         <SubmitButtonGroupV2
           isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
           label={translate('screens/ConfirmRemoveLiquidity', 'Remove liquidity')}

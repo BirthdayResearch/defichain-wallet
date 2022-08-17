@@ -487,7 +487,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                       value: sharePercentage.times(pair.totalLiquidity.token).toFixed(8),
                       testID: 'resulting_lp_tokens_value',
                       usdAmount: getTokenPrice(pair.aSymbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.bSymbol, new BigNumber(tokenBAmount))),
-                      textStyle: tailwind('font-bold-v2'),
+                      textStyle: tailwind('font-semibold-v2'),
                       usdTextStyle: tailwind('text-sm')
                     }}
                   />
@@ -513,7 +513,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
           )}
         </View>
 
-        <View style={tailwind('mt-5 mx-4')}>
+        <View style={tailwind('mt-5 mx-7')}>
           <ButtonV2
             fillType='fill'
             label={translate('components/Button', 'Continue')}
