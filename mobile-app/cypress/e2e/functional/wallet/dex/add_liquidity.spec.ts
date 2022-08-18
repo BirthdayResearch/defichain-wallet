@@ -127,7 +127,7 @@ context('Wallet - DEX - Add Liquidity', () => {
 
     cy.getByTestID('resulting_lp_tokens_value').contains('2.00000000')
     cy.getByTestID('resulting_lp_tokens_value_rhsUsdAmount').contains('$40,000.00')
-    cy.getByTestID('button_continue').click()
+    cy.getByTestID('button_continue_add_liq').click()
   })
 
   it('should have correct confirm info', function () {
@@ -151,10 +151,10 @@ context('Wallet - DEX - Combine Add and Confirm Liquidity Spec', () => {
 
   it('should get disabled submit button when value is zero', function () {
     cy.getByTestID('token_input_primary').type('0')
-    cy.getByTestID('button_continue').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'aria-disabled')
     cy.getByTestID('token_input_secondary_clear_button').click()
     cy.getByTestID('token_input_secondary').type('0')
-    cy.getByTestID('button_continue').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'aria-disabled')
 
     cy.getByTestID('dBTC_display_input_text').contains('Available')
     cy.getByTestID('DFI_display_input_text').contains('Available')
@@ -166,10 +166,10 @@ context('Wallet - DEX - Combine Add and Confirm Liquidity Spec', () => {
   it('should get disabled submit button when value is nan', function () {
     cy.getByTestID('token_input_primary_clear_button').click()
     cy.getByTestID('token_input_primary').type('test value')
-    cy.getByTestID('button_continue').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'aria-disabled')
     cy.getByTestID('token_input_secondary_clear_button').click()
     cy.getByTestID('token_input_secondary').type('test value')
-    cy.getByTestID('button_continue').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'aria-disabled')
 
     cy.getByTestID('dBTC_display_input_text').contains('Available')
     cy.getByTestID('DFI_display_input_text').contains('Available')
@@ -181,10 +181,10 @@ context('Wallet - DEX - Combine Add and Confirm Liquidity Spec', () => {
   it('should get disabled submit button when value is more than input token A and token B', function () {
     cy.getByTestID('token_input_primary_clear_button').click()
     cy.getByTestID('token_input_primary').type('20.00000000')
-    cy.getByTestID('button_continue').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'aria-disabled')
     cy.getByTestID('token_input_secondary_clear_button').click()
     cy.getByTestID('token_input_secondary').type('15.00000000')
-    cy.getByTestID('button_continue').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'aria-disabled')
 
     cy.getByTestID('dBTC_display_input_text').should('not.have.text', 'Available')
     cy.getByTestID('DFI_display_input_text').should('not.have.text', 'Available')
@@ -197,7 +197,7 @@ context('Wallet - DEX - Combine Add and Confirm Liquidity Spec', () => {
     cy.sendTokenToWallet(['BTC']).wait(3000)
     cy.getByTestID('token_input_primary_clear_button').click()
     cy.getByTestID('MAX_amount_button').first().click()
-    cy.getByTestID('button_continue').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'aria-disabled')
 
     cy.getByTestID('dBTC_display_input_text').contains('Available')
     cy.getByTestID('DFI_display_input_text').should('not.have.text', 'Available')
@@ -209,7 +209,7 @@ context('Wallet - DEX - Combine Add and Confirm Liquidity Spec', () => {
   it('should get disabled submit button when max for token B, while token A doesn\'t have enough balanceB', function () {
     cy.sendDFITokentoWallet().sendDFITokentoWallet().wait(3000)
     cy.getByTestID('MAX_amount_button').eq(1).click()
-    cy.getByTestID('button_continue').should('have.attr', 'aria-disabled')
+    cy.getByTestID('button_continue_add_liq').should('have.attr', 'aria-disabled')
 
     cy.getByTestID('dBTC_display_input_text').should('not.have.text', 'Available')
     cy.getByTestID('DFI_display_input_text').should('not.have.text', 'Available')
@@ -221,7 +221,7 @@ context('Wallet - DEX - Combine Add and Confirm Liquidity Spec', () => {
 
   it('should get redirect to confirm page after clicking on continue', function () {
     cy.getByTestID('MAX_amount_button').first().click()
-    cy.getByTestID('button_continue').should('not.have.attr', 'disabled')
+    cy.getByTestID('button_continue_add_liq').should('not.have.attr', 'disabled')
 
     cy.getByTestID('dBTC_display_input_text').contains('Available')
     cy.getByTestID('DFI_display_input_text').contains('Available')
@@ -230,7 +230,7 @@ context('Wallet - DEX - Combine Add and Confirm Liquidity Spec', () => {
     cy.getByTestID('DFI_reserved_info_text').should('not.exist')
     cy.getByTestID('dBTC_reserved_info_text').should('not.exist')
 
-    cy.getByTestID('button_continue').click()
+    cy.getByTestID('button_continue_add_liq').click()
     cy.url().should('include', 'DEX/ConfirmAddLiquidity')
   })
 })
@@ -262,7 +262,7 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
 
   it('should have updated confirm info', function () {
     cy.getByTestID('token_input_primary').type('10')
-    cy.getByTestID('button_continue').click()
+    cy.getByTestID('button_continue_add_liq').click()
     cy.getByTestID('transaction_fee_amount').contains('0.00010000 DFI')
     cy.getByTestID('resulting_pool_share_amount').contains('1.00000000%')
     cy.getByTestID('dBTC_to_supply').contains('10.00000000')
@@ -281,7 +281,7 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     const newAmount = '10.00000000'
     const newUsdAmount = '$100,000.00'
     cy.getByTestID('token_input_primary').type(oldAmount)
-    cy.getByTestID('button_continue').click()
+    cy.getByTestID('button_continue_add_liq').click()
     cy.getByTestID('transaction_fee_amount').contains('0.00010000 DFI')
     cy.getByTestID('resulting_pool_share_amount').contains('0.50000000%')
     cy.getByTestID('dBTC_to_supply').contains(oldAmount)
@@ -300,7 +300,7 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     // Update the input amount
     cy.getByTestID('token_input_primary_clear_button').click()
     cy.getByTestID('token_input_primary').type(newAmount)
-    cy.getByTestID('button_continue').click()
+    cy.getByTestID('button_continue_add_liq').click()
     cy.getByTestID('transaction_fee_amount').contains('0.00010000 DFI')
     cy.getByTestID('resulting_pool_share_amount').contains('1.00000000%')
     cy.getByTestID('dBTC_to_supply').contains(newAmount)
@@ -332,7 +332,7 @@ context('Wallet - DEX - Add Liquidity with Conversion', () => {
 
   it('should trigger convert and add liquidity', function () {
     cy.getByTestID('token_input_primary').type('11')
-    cy.getByTestID('button_continue').click()
+    cy.getByTestID('button_continue_add_liq').click()
     cy.getByTestID('txn_authorization_title')
       .contains(`Convert ${new BigNumber('1').toFixed(8)} DFI to tokens`)
     cy.closeOceanInterface().wait(3000)

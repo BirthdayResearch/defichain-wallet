@@ -507,7 +507,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
             styleProps='w-full'
             disabled={!canContinue}
             onPress={onSubmit}
-            testID='button_continue'
+            testID='button_continue_add_liq'
           />
         </View>
 
