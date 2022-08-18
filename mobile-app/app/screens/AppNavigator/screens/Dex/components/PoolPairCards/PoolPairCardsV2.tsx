@@ -51,7 +51,7 @@ export function PoolPairCardsV2 ({
   yourPairs,
   showSearchInput
 }: PoolPairCardProps): JSX.Element {
-  const { isFavouritePoolpair } = useFavouritePoolpairs()
+  const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
   const sortedPairs = sortPoolpairsByFavourite(
     availablePairs,
     isFavouritePoolpair
@@ -104,6 +104,8 @@ export function PoolPairCardsV2 ({
       onAdd={onAdd}
       onRemove={onRemove}
       onSwap={onSwap}
+      isFavouritePoolpair={isFavouritePoolpair}
+      setFavouritePoolpair={setFavouritePoolpair}
     />)
   return (
     <ThemedFlatListV2
@@ -140,18 +142,22 @@ interface PoolCardProps {
   onSwap: (data: PoolPairData) => void
   type: 'your' | 'available'
   index: number
+  isFavouritePoolpair: (id: string) => boolean
+  setFavouritePoolpair: (id: string) => void
 }
 
 const PoolCard = ({
   item,
   type,
-  onSwap
+  onSwap,
+  isFavouritePoolpair,
+  setFavouritePoolpair
 }: PoolCardProps): JSX.Element => {
   const { calculatePriceRates } = useTokenBestPath()
   const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet)
   const blockCount = useSelector((state: RootState) => state.block.count)
   const { data: yourPair } = item
-
+  const isFavoritePair = isFavouritePoolpair(yourPair.id)
   const [priceRates, setPriceRates] = useState({
     aToBPrice: new BigNumber(''),
     bToAPrice: new BigNumber(''),
@@ -201,6 +207,8 @@ const PoolCard = ({
           onSwap={onSwap}
           aToBPrice={priceRates.aToBPrice}
           bToAPrice={priceRates.bToAPrice}
+          isFavouritePair={isFavoritePair}
+          setFavouritePoolpair={setFavouritePoolpair}
         />
             )}
     </ThemedViewV2>
@@ -214,6 +222,8 @@ interface AvailablePoolProps {
   pair: PoolPairData
   aToBPrice: BigNumber
   bToAPrice: BigNumber
+  isFavouritePair: boolean
+  setFavouritePoolpair: (id: string) => void
 }
 
 function AvailablePool (props: AvailablePoolProps): JSX.Element {
@@ -232,7 +242,11 @@ function AvailablePool (props: AvailablePoolProps): JSX.Element {
           >
             {`${props.symbolA}-${props.symbolB}`}
           </ThemedTextV2>
-          <FavoriteButton pairId={props.pair.id} />
+          <FavoriteButton
+            pairId={props.pair.id}
+            isFavouritePair={props.isFavouritePair}
+            setFavouritePoolpair={props.setFavouritePoolpair}
+          />
         </View>
         <DexActionButton
           pair={props.pair}
