@@ -44,8 +44,8 @@ export enum ButtonGroupTabKey {
 interface PoolPairCardProps {
   availablePairs: Array<DexItem<PoolPairData>>
   yourPairs: Array<DexItem<WalletToken>>
-  onAdd: (data: PoolPairData) => void
-  onRemove: (data: PoolPairData) => void
+  onAdd: (data: PoolPairData, info: WalletToken) => void
+  onRemove: (data: PoolPairData, info: WalletToken) => void
   onSwap: (data: PoolPairData) => void
   type: 'your' | 'available'
   setIsSearching: (isSearching: boolean) => void
@@ -197,8 +197,8 @@ interface PoolCardProps {
   setExpandedCardIds: (ids: string[]) => void
   isFavouritePoolpair: (id: string) => boolean
   setFavouritePoolpair: (id: string) => void
-  onAdd: (data: PoolPairData) => void
-  onRemove: (data: PoolPairData) => void
+  onAdd: (data: PoolPairData, info: WalletToken) => void
+  onRemove: (data: PoolPairData, info: WalletToken) => void
   onSwap: (data: PoolPairData) => void
   type: 'your' | 'available'
   index: number
@@ -383,8 +383,8 @@ const PoolCard = ({
       >
         <View style={tailwind('mb-2')}>
           <ActionSection
-            onAdd={() => onAdd(mappedPair)}
-            onRemove={() => onRemove(mappedPair)}
+            onAdd={() => onAdd(mappedPair, yourPair as WalletToken)}
+            onRemove={() => onRemove(mappedPair, yourPair as WalletToken)}
             onSwap={() => onSwap(mappedPair)}
             symbol={symbol}
             type={type}
