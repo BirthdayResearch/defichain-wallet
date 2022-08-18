@@ -24,10 +24,10 @@ import { ViewPoolHeader } from './components/ViewPoolHeader'
 import { ViewPoolDetails, DataRoutes } from './components/ViewPoolDetails'
 import { ButtonV2 } from '@components/ButtonV2'
 import { useToast } from 'react-native-toast-notifications'
-import { useDisplayUtxoWarning } from './hook/useDisplayUtxoWarning'
 import { useBottomSheet } from '@hooks/useBottomSheet'
 import { LiquidityCalculationSummary } from './components/LiquidityCalculationSummary'
 import { AddLiquidityInputCard } from './components/AddLiquidityInputCard'
+import { useDisplayUtxoWarning } from '@hooks/wallet/DisplayUtxoWarning'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'

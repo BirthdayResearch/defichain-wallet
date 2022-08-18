@@ -144,7 +144,8 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
           testID: `pooled_${pairData.tokenA.displaySymbol}`
         }}
         rhs={{
-          value: mappedPair?.tokenA.reserve ?? 0,
+          // comes either from LP token or token
+          value: mappedPair?.tokenA.reserve ?? pairData.tokenA.reserve,
           testID: `pooled_${pairData.tokenA.displaySymbol}_value_${denominationCurrency}`,
           usdTextStyle: tailwind('text-sm'),
           usdAmount: getUSDValue(
@@ -167,7 +168,8 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
           }
         }}
         rhs={{
-          value: mappedPair?.tokenB.reserve ?? 0,
+          // comes either from LP token or token
+          value: mappedPair?.tokenB.reserve ?? pairData.tokenB.reserve,
           testID: `pooled_${pairData.tokenB.displaySymbol}_value_${denominationCurrency}`,
           usdTextStyle: tailwind('text-sm'),
           usdAmount: getUSDValue(
@@ -205,6 +207,8 @@ function RemoveLiquidityDetails ({ pairInfo, pairData }: RemoveLiquidityDetailsP
   const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet)
   const poolPairData = pairs.find(
     (pr) => pr.data.symbol === (pairInfo as AddressToken).symbol
+
+    // PoolPairData comes from token detail screen
   )
   const mappedPair = poolPairData?.data
   const toRemove = new BigNumber(1)
