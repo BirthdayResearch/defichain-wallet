@@ -1,3 +1,4 @@
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { createStackNavigator } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
@@ -6,10 +7,6 @@ import { HeaderTitle } from '@components/HeaderTitle'
 import { PriceRateProps } from '@components/PricesSection'
 import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
-import { AddLiquidityScreen } from './DexAddLiquidity'
-import { ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
-import { RemoveLiquidityConfirmScreen } from './DexConfirmRemoveLiquidity'
-import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
 import { DexScreen } from './DexScreen'
 import { CompositeSwapScreen, OwnedTokenState, TokenState } from './CompositeSwap/CompositeSwapScreen'
 import { CompositeSwapForm, ConfirmCompositeSwapScreen } from './CompositeSwap/ConfirmCompositeSwapScreen'
@@ -17,12 +14,20 @@ import { WalletToken } from '@store/wallet'
 import { ConversionParam } from '../Portfolio/PortfolioNavigator'
 import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { tailwind } from '@tailwind'
-import { ThemedTextV2 } from '@components/themed'
-import { Platform, StyleProp, ViewStyle } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { NetworkSelectionScreen } from '../Settings/screens/NetworkSelectionScreen'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { Platform, StyleProp, ViewStyle } from 'react-native'
+import { ThemedTextV2 } from '@components/themed'
+import { tailwind } from '@tailwind'
+import { AddLiquidityScreenV2 } from './DexAddLiquidityV2'
+import { ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
+import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
+import { RemoveLiquidityScreenV2 } from './DexRemoveLiquidityV2'
+import { RemoveLiquidityConfirmScreen } from './DexConfirmRemoveLiquidity'
+import { RemoveLiquidityConfirmScreenV2 } from './DexConfirmRemoveLiquidityV2'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { AddLiquidityScreen } from './DexAddLiquidity'
+import { ConfirmAddLiquidityScreenV2 } from './DexConfirmAddLiquidityV2'
 
 export interface DexParamList {
   DexScreen: undefined
@@ -59,17 +64,23 @@ export interface DexParamList {
   }
   AddLiquidity: {
     pair: PoolPairData
+    pairInfo: WalletToken
   }
   ConfirmAddLiquidity: {
     pair: PoolPairData
     summary: AddLiquiditySummary
     conversion?: ConversionParam
+    pairInfo: WalletToken
   }
-  RemoveLiquidity: { pair: PoolPairData }
+  RemoveLiquidity: {
+    pair: PoolPairData
+    pairInfo: WalletToken
+  }
   ConfirmRemoveLiquidity: {
     amount: BigNumber
     fee: BigNumber
     pair: PoolPairData
+    pairInfo: WalletToken
     tokenAAmount: string
     tokenBAmount: string
     tokenA?: WalletToken
@@ -86,6 +97,7 @@ export interface AddLiquiditySummary {
   percentage: BigNumber // to add
   tokenABalance: BigNumber // token A balance (after deducting 0.1 DFI if DFI)
   tokenBBalance: BigNumber // token B balance (after deducting 0.1 DFI if DFI)
+  lmTotalTokens: string // total LP tokens
 }
 
 const DexStack = createStackNavigator<DexParamList>()
@@ -93,6 +105,7 @@ const DexStack = createStackNavigator<DexParamList>()
 export function DexNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const headerContainerTestId = 'dex_header_container'
+  const { isFeatureAvailable } = useFeatureFlagContext()
   const screenOptions = useNavigatorScreenOptions()
   const goToNetworkSelect = (): void => {
     navigation.navigate('NetworkSelectionScreen')
@@ -147,54 +160,50 @@ export function DexNavigator (): JSX.Element {
       />
 
       <DexStack.Screen
-        component={AddLiquidityScreen}
+        component={isFeatureAvailable('add_liquidity_v2') ? AddLiquidityScreenV2 : AddLiquidityScreen}
         name='AddLiquidity'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Add Liquidity')}
-              containerTestID={headerContainerTestId}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate('screens/DexScreen', 'Add Liquidity')
         }}
       />
 
       <DexStack.Screen
-        component={ConfirmAddLiquidityScreen}
+        component={isFeatureAvailable('add_liquidity_v2') ? ConfirmAddLiquidityScreenV2 : ConfirmAddLiquidityScreen}
         name='ConfirmAddLiquidity'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Confirm Add Liquidity')}
-              containerTestID={headerContainerTestId}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate('screens/DexScreen', 'Confirm')
         }}
       />
 
       <DexStack.Screen
-        component={RemoveLiquidityScreen}
+        component={isFeatureAvailable('remove_liquidity_v2') ? RemoveLiquidityScreenV2 : RemoveLiquidityScreen}
         name='RemoveLiquidity'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Remove Liquidity')}
-              containerTestID={headerContainerTestId}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate('screens/DexScreen', 'Remove Liquidity')
         }}
       />
 
       <DexStack.Screen
-        component={RemoveLiquidityConfirmScreen}
+        component={isFeatureAvailable('remove_liquidity_v2') ? RemoveLiquidityConfirmScreenV2 : RemoveLiquidityConfirmScreen}
         name='RemoveLiquidityConfirmScreen'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Confirm Removal')}
-              containerTestID={headerContainerTestId}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate('screens/DexScreen', 'Confirm')
         }}
       />
 

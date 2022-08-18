@@ -125,7 +125,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
               }}
               rhs={{
                 value: conversion.conversionAmount.toFixed(8),
-                suffix: 'DFI',
+                suffix: ' DFI',
                 testID: 'amount_to_convert_value',
                 themedProps: {
                   light: tailwind('text-mono-light-v2-900'),
@@ -177,7 +177,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
           }}
           rhs={{
             value: fee.toFixed(8),
-            suffix: 'DFI',
+            suffix: ' DFI',
             testID: 'transaction_fee_value',
             themedProps: {
               light: tailwind('text-mono-light-v2-900'),
@@ -202,7 +202,7 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
           rhs={{
             value: amount.toFixed(8),
             testID: 'text_amount',
-            suffix: token.displaySymbol,
+            suffix: ` ${token.displaySymbol}`,
             usdAmount: amountInUsd,
             themedProps: {
               style: tailwind('font-semibold-v2 text-sm'),
