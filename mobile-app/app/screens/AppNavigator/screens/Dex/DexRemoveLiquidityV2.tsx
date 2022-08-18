@@ -214,6 +214,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
             (
               <View style={tailwind('pb-2')} testID='remove_liquidity_calculation_summary'>
                 <LiquidityCalculationSummary
+                  containerStyle={tailwind('pt-5 px-5 border rounded-lg-v2')}
                   priceRatesOption={[{
                       label: translate('screens/RemoveLiquidity', '{{token}} to receive', {
                         token: pair.tokenA.displaySymbol
@@ -231,7 +232,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
                       usdTextStyle: tailwind('text-sm')
                     }
                     ]}
-                  lplhs={{
+                  resultingLplhs={{
                       value: translate('screens/RemoveLiquidity', 'LP tokens to remove'),
                       themedProps: {
                         light: tailwind('text-mono-light-v2-500'),
@@ -239,7 +240,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
                       },
                       testID: 'lp_tokens_to_remove_title'
                     }}
-                  lprhs={{
+                  resultingLprhs={{
                       value: new BigNumber(amount).toFixed(8),
                       themedProps: {
                         light: tailwind('text-mono-light-v2-900'),

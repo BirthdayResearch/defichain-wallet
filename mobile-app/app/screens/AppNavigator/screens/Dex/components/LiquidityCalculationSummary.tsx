@@ -1,15 +1,23 @@
 import { ThemedViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
+import { StyleProp, ViewStyle } from 'react-native'
 import { PricesSectionV2, PriceRateProps } from '@components/PricesSectionV2'
 import { NumberRowV2, NumberRowElement, RhsNumberRowElement } from '@components/NumberRowV2'
 
-export function LiquidityCalculationSummary ({ priceRatesOption, lplhs, lprhs }: {priceRatesOption: PriceRateProps[], lplhs: NumberRowElement, lprhs: RhsNumberRowElement}): JSX.Element {
+interface LiquidityCalculationSummaryProps {
+    priceRatesOption: PriceRateProps[]
+    resultingLplhs: NumberRowElement
+    resultingLprhs: RhsNumberRowElement
+    containerStyle?: StyleProp<ViewStyle>
+}
+
+export function LiquidityCalculationSummary ({ priceRatesOption, resultingLplhs, resultingLprhs, containerStyle }: LiquidityCalculationSummaryProps): JSX.Element {
     return (
       <>
         <ThemedViewV2
           light={tailwind('border-mono-light-v2-300')}
           dark={tailwind('border-mono-dark-v2-300')}
-          style={tailwind('pt-5 px-5 border rounded-lg-v2')}
+          style={containerStyle}
         >
           <PricesSectionV2
             key='prices'
@@ -22,8 +30,8 @@ export function LiquidityCalculationSummary ({ priceRatesOption, lplhs, lprhs }:
             style={tailwind('pt-5 border-t-0.5')}
           >
             <NumberRowV2
-              lhs={lplhs}
-              rhs={lprhs}
+              lhs={resultingLplhs}
+              rhs={resultingLprhs}
             />
           </ThemedViewV2>
         </ThemedViewV2>

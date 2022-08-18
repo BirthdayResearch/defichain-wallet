@@ -428,6 +428,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
           {hasAInputAmount && hasBInputAmount && (
             <>
               <LiquidityCalculationSummary
+                containerStyle={tailwind('pt-5 px-5 border rounded-lg-v2')}
                 priceRatesOption={[{
                   label: translate('components/PricesSection', '1 {{token}}', {
                     token: pair.tokenA.displaySymbol
@@ -449,7 +450,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                   usdTextStyle: tailwind('text-sm')
                 }
                 ]}
-                lplhs={{
+                resultingLplhs={{
                   value: translate('screens/AddLiquidity', 'Resulting LP tokens'),
                   testID: 'resulting_lp_tokens',
                   themedProps: {
@@ -457,7 +458,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                     dark: tailwind('text-mono-dark-v2-700')
                   }
                 }}
-                lprhs={{
+                resultingLprhs={{
                   value: sharePercentage.times(pair.totalLiquidity.token).toFixed(8),
                   testID: 'resulting_lp_tokens_value',
                   usdAmount: getTokenPrice(pair.aSymbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.bSymbol, new BigNumber(tokenBAmount))),
