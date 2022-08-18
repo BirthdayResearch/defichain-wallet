@@ -14,7 +14,7 @@ interface NumberRowProps extends ThemedProps {
   containerStyle?: ThemedProps & { style: ThemedProps & StyleProp<ViewStyle> }
 }
 
-interface RhsNumberRowElement extends NumberRowElement {
+export interface RhsNumberRowElement extends NumberRowElement {
   usdAmount?: BigNumber
   isOraclePrice?: boolean
   textStyle?: StyleProp<TextStyle>

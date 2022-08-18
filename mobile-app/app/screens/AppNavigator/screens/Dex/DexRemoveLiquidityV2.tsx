@@ -23,11 +23,10 @@ import { TransactionCard, AmountButtonTypes, TransactionCardStatus } from '@comp
 import { getNativeIcon } from '@components/icons/assets'
 import { InputHelperTextV2 } from '@components/InputHelperText'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
-import { NumberRowV2 } from '@components/NumberRowV2'
 import { ButtonV2 } from '@components/ButtonV2'
 import { useToast } from 'react-native-toast-notifications'
-import { PricesSectionV2 } from '@components/PricesSectionV2'
 import { useBottomSheet } from '@hooks/useBottomSheet'
+import { LiquidityCalculationSummary } from './components/LiquidityCalculationSummary'
 
 type Props = StackScreenProps<DexParamList, 'RemoveLiquidity'>
 
@@ -131,14 +130,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
     headerRight: (): JSX.Element => {
       return (
         <ThemedTouchableOpacityV2
-          style={tailwind('mr-5',
-            {
-              'mt-3 -mb-5': Platform.OS === 'ios'
-            },
-            {
-              '-mt-1 -mb-3': Platform.OS === 'android'
-            }
-          )}
+          style={tailwind('mr-5 mt-4 -mb-4')}
           onPress={dismissModal}
           testID='close_bottom_sheet_button'
         >
@@ -221,15 +213,9 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
           {hasInputAmount &&
             (
               <View style={tailwind('pb-2')} testID='remove_liquidity_calculation_summary'>
-                <ThemedViewV2
-                  light={tailwind('border-mono-light-v2-300')}
-                  dark={tailwind('border-mono-dark-v2-300')}
-                  style={tailwind('pt-5 px-5 border rounded-2xl-v2')}
-                >
-                  <PricesSectionV2
-                    key='prices'
-                    testID='pricerate_value'
-                    priceRates={[{
+                <LiquidityCalculationSummary
+                  containerStyle={tailwind('pt-5 px-5 border rounded-lg-v2')}
+                  priceRatesOption={[{
                       label: translate('screens/RemoveLiquidity', '{{token}} to receive', {
                         token: pair.tokenA.displaySymbol
                       }),
@@ -246,36 +232,26 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
                       usdTextStyle: tailwind('text-sm')
                     }
                     ]}
-                  />
-                  <ThemedViewV2
-                    light={tailwind('border-mono-light-v2-300')}
-                    dark={tailwind('border-mono-dark-v2-300')}
-                    style={tailwind('pt-5 border-t-0.5')}
-                  >
-                    <NumberRowV2
-                      lhs={{
-                        value: translate('screens/RemoveLiquidity', 'LP tokens to remove'),
-                        themedProps: {
-                          light: tailwind('text-mono-light-v2-500'),
-                          dark: tailwind('text-mono-dark-v2-500')
-                        },
-                        testID: 'lp_tokens_to_remove_title'
-                      }}
-                      rhs={{
-                        value: new BigNumber(amount).toFixed(8),
-                        themedProps: {
-                          light: tailwind('text-mono-light-v2-900'),
-                          dark: tailwind('text-mono-dark-v2-900'),
-                          style: tailwind('font-semibold-v2 text-sm')
-                        },
-                        usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,
-                        usdTextStyle: tailwind('text-sm'),
-                        testID: 'Lp_tokens_to_remove_amount'
-                      }}
-                      testID='lp_tokens_to_remove'
-                    />
-                  </ThemedViewV2>
-                </ThemedViewV2>
+                  resultingLplhs={{
+                      value: translate('screens/RemoveLiquidity', 'LP tokens to remove'),
+                      themedProps: {
+                        light: tailwind('text-mono-light-v2-500'),
+                        dark: tailwind('text-mono-dark-v2-500')
+                      },
+                      testID: 'lp_tokens_to_remove_title'
+                    }}
+                  resultingLprhs={{
+                      value: new BigNumber(amount).toFixed(8),
+                      themedProps: {
+                        light: tailwind('text-mono-light-v2-900'),
+                        dark: tailwind('text-mono-dark-v2-900'),
+                        style: tailwind('font-semibold-v2 text-sm')
+                      },
+                      usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,
+                      usdTextStyle: tailwind('text-sm'),
+                      testID: 'Lp_tokens_to_remove_amount'
+                    }}
+                />
                 <View style={tailwind('items-center')}>
                   <ThemedTextV2
                     testID='transaction_details_hint_text'
@@ -362,12 +338,12 @@ function RemoveLiquidityInputCard (
         onChange={props.onPercentageChange}
         status={props.status}
         amountButtonsStyle={tailwind('border-t-0.5')}
-        containerStyle={tailwind('pl-5 pr-5 pt-2 mr-px rounded-t-lg-v2')}
+        containerStyle={tailwind('pl-5 pr-5 mr-px rounded-t-lg-v2')}
       >
         <ThemedViewV2
           light={tailwind('border-mono-light-v2-300')}
           dark={tailwind('border-mono-dark-v2-300')}
-          style={tailwind('flex flex-row items-center py-2')}
+          style={tailwind('flex flex-row items-center py-2.5')}
         >
           <View style={tailwind('z-50')}>
             <IconA height={20} width={20} style={tailwind('relative z-50')} />
@@ -395,7 +371,7 @@ function RemoveLiquidityInputCard (
               dark={tailwind('text-red-v2')}
               style={tailwind('px-4 text-xs pt-1 font-normal-v2')}
             >
-              {`${translate('screens/RemoveLiquidity', 'Insufficient balance')}`}
+              {translate('screens/RemoveLiquidity', 'Insufficient balance')}
             </ThemedTextV2>
           )
           : (

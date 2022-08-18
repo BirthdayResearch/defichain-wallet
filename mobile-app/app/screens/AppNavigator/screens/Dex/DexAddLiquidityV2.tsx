@@ -20,9 +20,7 @@ import { useAppDispatch } from '@hooks/useAppDispatch'
 import { AmountButtonTypes, TransactionCard, TransactionCardStatus } from '@components/TransactionCard'
 import { getNativeIcon } from '@components/icons/assets'
 import { WalletTransactionCardTextInput } from '@components/WalletTransactionCardTextInput'
-import { PricesSectionV2 } from '@components/PricesSectionV2'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
-import { NumberRowV2 } from '@components/NumberRowV2'
 import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/BottomSheetWithNavV2'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { ViewPoolHeader } from './components/ViewPoolHeader'
@@ -32,6 +30,7 @@ import { ButtonV2 } from '@components/ButtonV2'
 import { useToast } from 'react-native-toast-notifications'
 import { useDisplayUtxoWarning } from './hook/useDisplayUtxoWarning'
 import { useBottomSheet } from '@hooks/useBottomSheet'
+import { LiquidityCalculationSummary } from './components/LiquidityCalculationSummary'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -117,14 +116,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     headerRight: (): JSX.Element => {
       return (
         <ThemedTouchableOpacityV2
-          style={tailwind('mr-5',
-            {
-              'mt-3 -mb-5': Platform.OS === 'ios'
-            },
-            {
-              '-mt-1 -mb-3': Platform.OS === 'android'
-            }
-          )}
+          style={tailwind('mr-5 mt-4 -mb-4')}
           onPress={dismissModal}
           testID='close_bottom_sheet_button'
         >
@@ -435,60 +427,49 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
 
           {hasAInputAmount && hasBInputAmount && (
             <>
-              <ThemedViewV2
-                light={tailwind('border-mono-light-v2-300')}
-                dark={tailwind('border-mono-dark-v2-300')}
-                style={tailwind('pt-5 px-5 border rounded-2xl-v2')}
-              >
-                <PricesSectionV2
-                  key='prices'
-                  testID='pricerate_value'
-                  priceRates={[{
-                    label: translate('components/PricesSection', '1 {{token}}', {
-                      token: pair.tokenA.displaySymbol
-                    }),
-                    value: pair.aToBRate.toFixed(8),
-                    aSymbol: pair.tokenA.displaySymbol,
-                    bSymbol: pair.tokenB.displaySymbol,
-                    symbolUSDValue: getTokenPrice(pair.bSymbol, pair.aToBRate),
-                    usdTextStyle: tailwind('text-sm')
-                  },
-                  {
-                    label: translate('components/PricesSection', '1 {{token}}', {
-                      token: pair.tokenB.displaySymbol
-                    }),
-                    value: pair.bToARate.toFixed(8),
-                    aSymbol: pair.tokenB.displaySymbol,
-                    bSymbol: pair.tokenA.displaySymbol,
-                    symbolUSDValue: getTokenPrice(pair.aSymbol, pair.bToARate),
-                    usdTextStyle: tailwind('text-sm')
+              <LiquidityCalculationSummary
+                containerStyle={tailwind('pt-5 px-5 border rounded-lg-v2')}
+                priceRatesOption={[{
+                  label: translate('components/PricesSection', '1 {{token}}', {
+                    token: pair.tokenA.displaySymbol
+                  }),
+                  value: pair.aToBRate.toFixed(8),
+                  aSymbol: pair.tokenA.displaySymbol,
+                  bSymbol: pair.tokenB.displaySymbol,
+                  symbolUSDValue: getTokenPrice(pair.bSymbol, pair.aToBRate),
+                  usdTextStyle: tailwind('text-sm')
+                },
+                {
+                  label: translate('components/PricesSection', '1 {{token}}', {
+                    token: pair.tokenB.displaySymbol
+                  }),
+                  value: pair.bToARate.toFixed(8),
+                  aSymbol: pair.tokenB.displaySymbol,
+                  bSymbol: pair.tokenA.displaySymbol,
+                  symbolUSDValue: getTokenPrice(pair.aSymbol, pair.bToARate),
+                  usdTextStyle: tailwind('text-sm')
+                }
+                ]}
+                resultingLplhs={{
+                  value: translate('screens/AddLiquidity', 'Resulting LP tokens'),
+                  testID: 'resulting_lp_tokens',
+                  themedProps: {
+                    light: tailwind('text-mono-light-v2-500'),
+                    dark: tailwind('text-mono-dark-v2-500')
                   }
-                  ]}
-                />
-                <ThemedViewV2
-                  light={tailwind('border-mono-light-v2-300')}
-                  dark={tailwind('border-mono-dark-v2-300')}
-                  style={tailwind('pt-5 border-t-0.5')}
-                >
-                  <NumberRowV2
-                    lhs={{
-                      value: translate('screens/AddLiquidity', 'Resulting LP tokens'),
-                      testID: 'resulting_lp_tokens',
-                      themedProps: {
-                        light: tailwind('text-mono-light-v2-700'),
-                        dark: tailwind('text-mono-dark-v2-700')
-                      }
-                    }}
-                    rhs={{
-                      value: sharePercentage.times(pair.totalLiquidity.token).toFixed(8),
-                      testID: 'resulting_lp_tokens_value',
-                      usdAmount: getTokenPrice(pair.aSymbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.bSymbol, new BigNumber(tokenBAmount))),
-                      textStyle: tailwind('font-semibold-v2'),
-                      usdTextStyle: tailwind('text-sm')
-                    }}
-                  />
-                </ThemedViewV2>
-              </ThemedViewV2>
+                }}
+                resultingLprhs={{
+                  value: sharePercentage.times(pair.totalLiquidity.token).toFixed(8),
+                  testID: 'resulting_lp_tokens_value',
+                  usdAmount: getTokenPrice(pair.aSymbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.bSymbol, new BigNumber(tokenBAmount))),
+                  themedProps: {
+                    light: tailwind('text-mono-light-v2-900'),
+                    dark: tailwind('text-mono-dark-v2-900'),
+                    style: tailwind('font-semibold-v2 text-sm')
+                  },
+                  usdTextStyle: tailwind('text-sm')
+                }}
+              />
               <View style={tailwind('items-center pt-12 px-5')}>
                 <ThemedTextV2
                   testID='transaction_details_hint_text'
@@ -577,12 +558,12 @@ function AddLiquidityInputCard (
         }}
         status={props.status}
         amountButtonsStyle={tailwind('border-t-0.5')}
-        containerStyle={tailwind('pl-5 pr-5 pt-2 mr-px rounded-t-lg-v2')}
+        containerStyle={tailwind('pl-5 pr-5 mr-px rounded-t-lg-v2')}
       >
         <ThemedViewV2
           light={tailwind('border-mono-light-v2-300')}
           dark={tailwind('border-mono-dark-v2-300')}
-          style={tailwind('flex flex-row items-center py-2')}
+          style={tailwind('flex flex-row items-center py-2.5')}
         >
           <View>
             <Icon height={20} width={20} />
@@ -598,6 +579,7 @@ function AddLiquidityInputCard (
             onClearButtonPress={() => props.onChange('')}
             titleTestID={`token_input_${props.type}_title`}
             testID={`token_input_${props.type}`}
+            inputContainerStyle={tailwind('pl-2')}
           />
         </ThemedViewV2>
       </TransactionCard>

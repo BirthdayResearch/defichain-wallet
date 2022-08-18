@@ -94,7 +94,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollViewV2 style={tailwind('py-8 px-5')}>
-      <ThemedViewV2 style={tailwind('flex-col py-4 mb-4')}>
+      <ThemedViewV2 style={tailwind('flex-col pb-4 mb-4')}>
         <SummaryTitleV2
           iconA={pair.tokenA.displaySymbol}
           iconB={pair.tokenB.displaySymbol}

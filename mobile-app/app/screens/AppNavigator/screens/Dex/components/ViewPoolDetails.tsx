@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { View, Platform } from 'react-native'
 import { memo } from 'react'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
@@ -32,9 +32,9 @@ export const ViewPoolDetails = ({
   pairInfo
 }: ViewPoolDetailsProps): React.MemoExoticComponent<() => JSX.Element> => memo(() => {
   return (
-    <ThemedViewV2 style={tailwind('px-5 h-full -mt-1 flex flex-grow')}>
+    <ThemedViewV2 style={tailwind('px-5 h-full flex flex-grow', { '-mt-0.5': Platform.OS === 'ios' }, { '-mt-1': Platform.OS === 'android' })}>
       {/* -mt-1 above and mt-1 added below is kind of hack to solved React Navigation elevation bug on android for now. */}
-      <View style={tailwind('mb-3 flex-row items-center mt-1')}>
+      <View style={tailwind('mb-3 flex-row items-center', { 'mt-1': Platform.OS === 'ios' }, { 'mt-2': Platform.OS === 'android' })}>
         <View>
           <PoolPairTextSectionV2
             symbolA={pairData.tokenA.displaySymbol}
@@ -94,7 +94,7 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
 
   return (
     <ThemedViewV2 style={tailwind('mt-5')}>
-      <View style={tailwind('mb-4')}>
+      <View style={tailwind('mb-5')}>
         <NumberRowV2
           lhs={{
             value: translate('screens/AddLiquidity', 'Volume (24H)'),
