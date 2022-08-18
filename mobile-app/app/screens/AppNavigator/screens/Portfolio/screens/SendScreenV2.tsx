@@ -134,7 +134,7 @@ export function SendScreenV2 ({
   }, 200)
 
   const reservedDFI = 0.1
-  const isReservedUtxoUsed = getDisplayUtxoWarningStatus(new BigNumber(amountToSend))
+  const isReservedUtxoUsed = getDisplayUtxoWarningStatus(new BigNumber(amountToSend), token?.displaySymbol ?? '')
 
   const amountInputRef = useRef<TextInput>()
   const amountInUSDValue = useMemo(() => {

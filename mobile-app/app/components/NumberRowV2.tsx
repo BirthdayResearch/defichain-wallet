@@ -1,4 +1,4 @@
-import { StyleProp, View, ViewProps, ViewStyle } from 'react-native'
+import { StyleProp, TextStyle, View, ViewProps, ViewStyle } from 'react-native'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
@@ -14,9 +14,11 @@ interface NumberRowProps extends ThemedProps {
   containerStyle?: ThemedProps & { style: ThemedProps & StyleProp<ViewStyle> }
 }
 
-interface RhsNumberRowElement extends NumberRowElement {
+export interface RhsNumberRowElement extends NumberRowElement {
   usdAmount?: BigNumber
   isOraclePrice?: boolean
+  textStyle?: StyleProp<TextStyle>
+  usdTextStyle?: StyleProp<TextStyle>
   subValue?: NumberRowElement
 }
 
@@ -39,8 +41,6 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
         <View style={tailwind('flex-row items-end justify-start')}>
           <ThemedTextV2
             style={tailwind('text-sm font-normal-v2')}
-            light={tailwind('text-mono-light-v2-900')}
-            dark={tailwind('text-mono-dark-v2-900')}
             testID={`${props.lhs.testID}_label`}
             {...props.lhs.themedProps}
           >
@@ -56,12 +56,10 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
               decimalScale={8}
               displayType='text'
               prefix={props.rhs.prefix}
-              suffix={props.rhs.suffix !== undefined ? ` ${props.rhs.suffix}` : undefined}
+              suffix={props.rhs.suffix !== undefined ? `${props.rhs.suffix}` : undefined}
               renderText={(val: string) => (
                 <ThemedTextV2
-                  style={tailwind('text-right font-normal-v2 text-sm')}
-                  light={tailwind('text-mono-light-v2-700')}
-                  dark={tailwind('text-mono-dark-v2-700')}
+                  style={[tailwind('text-right font-normal-v2 text-sm'), props.rhs.textStyle]}
                   testID={props.rhs.testID}
                   {...props.rhs.themedProps}
                 >
@@ -76,11 +74,12 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
         <View style={tailwind('flex flex-row justify-end flex-wrap items-center')}>
           {
             props.rhs.usdAmount !== undefined &&
-              <ActiveUSDValueV2
+              (<ActiveUSDValueV2
                 price={props.rhs.usdAmount}
-                containerStyle={tailwind('justify-end')}
+                containerStyle={tailwind('justify-end pb-5')}
                 testId={`${props.rhs.testID}_rhsUsdAmount`}
-              />
+                style={props.rhs.usdTextStyle}
+               />)
           }
           {
             props.rhs.isOraclePrice === true && (

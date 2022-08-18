@@ -5,14 +5,14 @@ import { RootState } from '@store'
 import { DFITokenSelector, DFIUtxoSelector } from '@store/wallet'
 
 export function useDisplayUtxoWarning (): {
-  getDisplayUtxoWarningStatus: (amountInDFI: BigNumber) => boolean
+  getDisplayUtxoWarningStatus: (amountInDFI: BigNumber, displaySymbol: string) => boolean
 } {
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
   const reservedDFI = 0.1
 
-  const getDisplayUtxoWarningStatus = useCallback((amountInDFI: BigNumber) => {
-    if (new BigNumber(amountInDFI).isNaN() || new BigNumber(amountInDFI).isZero()) {
+  const getDisplayUtxoWarningStatus = useCallback((amountInDFI: BigNumber, displaySymbol: string) => {
+    if (new BigNumber(amountInDFI).isNaN() || new BigNumber(amountInDFI).isZero() || displaySymbol !== 'DFI') {
       return false
     }
 
