@@ -116,7 +116,6 @@ export function DexNavigator (): JSX.Element {
           headerLeft: undefined,
           headerLeftContainerStyle: null,
           headerTitleAlign: 'left',
-          headerBackTitleVisible: false,
           headerTitleContainerStyle: tailwind('mt-4 ml-5'),
           headerRightContainerStyle: [screenOptions.headerRightContainerStyle, tailwind('mt-5 justify-start', { 'pr-3': Platform.OS === 'web' })],
           headerStyle: [screenOptions.headerStyle, tailwind('rounded-b-none border-b-0'), { shadowOpacity: 0, height: ((Platform.OS !== 'android' ? 88 : 96) + insets.top) }],
@@ -143,7 +142,6 @@ export function DexNavigator (): JSX.Element {
         options={{
           ...screenOptions,
           headerTitle: translate('screens/NetworkSelectionScreen', 'Network'),
-          headerBackTitleVisible: false,
           headerRight: undefined
         }}
       />
