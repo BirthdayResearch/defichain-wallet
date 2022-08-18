@@ -71,10 +71,14 @@ export const PriceRatesSectionV2 = memo(({
 const PriceRateValue = (props: { value: string, suffix: string, testID: string }): JSX.Element => {
   return (
     <NumberFormat
-      decimalScale={new BigNumber(props.value).lt(1) ? 8 : 2}
       displayType='text'
       renderText={(textValue) => (
-        <ThemedTextV2 style={tailwind('text-sm ml-1 font-normal-v2')} testID={props.testID}>
+        <ThemedTextV2
+          style={tailwind('text-sm ml-1 font-normal-v2 w-32')}
+          testID={props.testID}
+          ellipsizeMode='middle'
+          numberOfLines={1}
+        >
           {textValue}
         </ThemedTextV2>
       )}

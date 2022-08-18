@@ -7,7 +7,7 @@ import { BrowseAuctionsLoader } from './skeletonLoaders/BrowseAuctionsLoader'
 import { VaultSkeletonLoader } from './skeletonLoaders/VaultSkeletonLoader'
 import { PortfolioSkeletonLoader } from './skeletonLoaders/PortfolioSkeletonLoader'
 import { VaultSchemesSkeletonLoader } from './skeletonLoaders/VaultSchemeSkeletonLoader'
-import { DexPricesSkeletonLoader } from './skeletonLoaders/DexPricesSkeletonLoader'
+import { DexPricesSkeletonLoaderV2 } from './skeletonLoaders/DexPricesSkeletonLoaderV2'
 import { MnemonicWordSkeletonLoaderV2 } from './skeletonLoaders/MnemonicWordSkeletonLoaderV2'
 import { TokenSelectionLoader } from './skeletonLoaders/TokenSelectionLoader'
 
@@ -47,7 +47,7 @@ export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
       return (
         <>
           {skeletonRow.map(i => (
-            <DexPricesSkeletonLoader key={i} />
+            <DexPricesSkeletonLoaderV2 key={i} />
           ))}
         </>
       )
