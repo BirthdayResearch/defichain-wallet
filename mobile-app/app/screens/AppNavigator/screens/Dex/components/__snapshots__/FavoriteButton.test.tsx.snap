@@ -1,37 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Favorite Button V2 should match snapshot 1`] = `
-<View
-  accessible={true}
-  collapsable={false}
-  focusable={true}
-  onClick={[Function]}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
-  style={
-    Object {
-      "alignItems": "center",
-      "backgroundColor": "rgba(242, 242, 242, 1)",
-      "borderBottomLeftRadius": 9999,
-      "borderBottomRightRadius": 9999,
-      "borderTopLeftRadius": 9999,
-      "borderTopRightRadius": 9999,
-      "display": "flex",
-      "height": 20,
-      "justifyContent": "center",
-      "opacity": 1,
-      "width": 20,
-    }
-  }
->
-  <Text />
-</View>
-`;
-
 exports[`Favorite Button should match snapshot 1`] = `
 <View
   accessible={true}
@@ -47,7 +15,7 @@ exports[`Favorite Button should match snapshot 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "backgroundColor": "rgba(242, 242, 242, 1)",
+      "backgroundColor": "rgba(255, 0, 140, 1)",
       "borderBottomLeftRadius": 9999,
       "borderBottomRightRadius": 9999,
       "borderTopLeftRadius": 9999,
@@ -59,7 +27,53 @@ exports[`Favorite Button should match snapshot 1`] = `
       "width": 20,
     }
   }
+  testID="favorite_pair_1"
 >
-  <Text />
+  <RNSVGSvgView
+    align="xMidYMid"
+    bbHeight={14}
+    bbWidth={14}
+    fill="none"
+    focusable={false}
+    height={14}
+    meetOrSlice={0}
+    minX={0}
+    minY={0}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "transparent",
+          "borderWidth": 0,
+        },
+        Object {
+          "flex": 0,
+          "height": 14,
+          "width": 14,
+        },
+      ]
+    }
+    vbHeight={24}
+    vbWidth={24}
+    width={14}
+  >
+    <RNSVGGroup
+      fill={null}
+      propList={
+        Array [
+          "fill",
+        ]
+      }
+    >
+      <RNSVGPath
+        d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+        fill={4294111986}
+        propList={
+          Array [
+            "fill",
+          ]
+        }
+      />
+    </RNSVGGroup>
+  </RNSVGSvgView>
 </View>
 `;
