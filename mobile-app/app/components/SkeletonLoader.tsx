@@ -1,4 +1,4 @@
-import { DexSkeletonLoader } from './skeletonLoaders/DexSkeletonLoader'
+import { DexSkeletonLoaderV2 } from './skeletonLoaders/DexSkeletonLoaderV2'
 import { MnemonicWordSkeletonLoader } from './skeletonLoaders/MnemonicWordSkeletonLoader'
 import { TransactionSkeletonLoader } from './skeletonLoaders/TransactionSkeletonLoader'
 import { LoanSkeletonLoader } from './skeletonLoaders/LoanSkeletonLoader'
@@ -38,7 +38,7 @@ export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
       return (
         <>
           {skeletonRow.map(i => (
-            <DexSkeletonLoader key={i} />
+            <DexSkeletonLoaderV2 key={i} />
           ))}
         </>
       )
