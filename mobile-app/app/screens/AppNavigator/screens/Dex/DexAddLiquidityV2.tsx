@@ -1,11 +1,10 @@
-import { InputHelperTextV2 } from '@components/InputHelperText'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { View, Platform } from 'react-native'
-import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
+import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedTouchableOpacityV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
@@ -17,20 +16,18 @@ import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { useAppDispatch } from '@hooks/useAppDispatch'
-import { AmountButtonTypes, TransactionCard, TransactionCardStatus } from '@components/TransactionCard'
-import { getNativeIcon } from '@components/icons/assets'
-import { WalletTransactionCardTextInput } from '@components/WalletTransactionCardTextInput'
+import { AmountButtonTypes, TransactionCardStatus } from '@components/TransactionCard'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
 import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/BottomSheetWithNavV2'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { ViewPoolHeader } from './components/ViewPoolHeader'
 import { ViewPoolDetails, DataRoutes } from './components/ViewPoolDetails'
-import { ReservedDFIInfoTextV2 } from '@components/ReservedDFIInfoText'
 import { ButtonV2 } from '@components/ButtonV2'
 import { useToast } from 'react-native-toast-notifications'
 import { useDisplayUtxoWarning } from './hook/useDisplayUtxoWarning'
 import { useBottomSheet } from '@hooks/useBottomSheet'
 import { LiquidityCalculationSummary } from './components/LiquidityCalculationSummary'
+import { AddLiquidityInputCard } from './components/AddLiquidityInputCard'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -389,6 +386,13 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
             testID='view_pool_shares'
           />
           <View style={tailwind('mt-8')}>
+            <ThemedTextV2
+              light={tailwind('text-mono-light-v2-500')}
+              dark={tailwind('text-mono-dark-v2-500')}
+              style={tailwind('pl-5 pb-2 text-xs font-normal-v2')}
+            >
+              {translate('screens/AddLiquidity', 'I WANT TO ADD')}
+            </ThemedTextV2>
             <AddLiquidityInputCard
               balance={balanceA}
               current={tokenAAmount}
@@ -451,8 +455,8 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                 }
                 ]}
                 resultingLplhs={{
-                  value: translate('screens/AddLiquidity', 'Resulting LP tokens'),
-                  testID: 'resulting_lp_tokens',
+                  value: translate('screens/AddLiquidity', 'LP Tokens to receive'),
+                  testID: 'lp_tokens_to_receive',
                   themedProps: {
                     light: tailwind('text-mono-light-v2-500'),
                     dark: tailwind('text-mono-dark-v2-500')
@@ -460,7 +464,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                 }}
                 resultingLprhs={{
                   value: sharePercentage.times(pair.totalLiquidity.token).toFixed(8),
-                  testID: 'resulting_lp_tokens_value',
+                  testID: 'lp_tokens_to_receive_value',
                   usdAmount: getTokenPrice(pair.aSymbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.bSymbol, new BigNumber(tokenBAmount))),
                   themedProps: {
                     light: tailwind('text-mono-light-v2-900'),
@@ -529,93 +533,6 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
           )}
       </ThemedScrollViewV2>
     </View>
-  )
-}
-
-function AddLiquidityInputCard (
-  props: {
-    balance: BigNumber
-    type: 'primary' | 'secondary'
-    symbol: string
-    onPercentageChange: (amount: string, type: AmountButtonTypes) => void
-    onChange: (amount: string) => void
-    current: string
-    status?: TransactionCardStatus
-    setIsInputFocus: any // TODO: type checking
-    showInsufficientTokenMsg: boolean
-    showUTXOFeesMsg: boolean
-    hasInputAmount?: boolean
-  }): JSX.Element {
-  const Icon = getNativeIcon(props.symbol)
-  const isFocus = props.setIsInputFocus
-  return (
-    <>
-      <TransactionCard
-        maxValue={props.balance}
-        onChange={(amount, type) => {
-          props.onChange(amount)
-          props.onPercentageChange(amount, type)
-        }}
-        status={props.status}
-        amountButtonsStyle={tailwind('border-t-0.5')}
-        containerStyle={tailwind('pl-5 pr-5 mr-px rounded-t-lg-v2')}
-      >
-        <ThemedViewV2
-          light={tailwind('border-mono-light-v2-300')}
-          dark={tailwind('border-mono-dark-v2-300')}
-          style={tailwind('flex flex-row items-center py-2.5')}
-        >
-          <View>
-            <Icon height={20} width={20} />
-          </View>
-          <WalletTransactionCardTextInput
-            onFocus={isFocus}
-            onBlur={isFocus}
-            onChangeText={txt => props.onChange(txt)}
-            placeholder='0.00'
-            value={props.current}
-            inputType='numeric'
-            displayClearButton={props.current !== ''}
-            onClearButtonPress={() => props.onChange('')}
-            titleTestID={`token_input_${props.type}_title`}
-            testID={`token_input_${props.type}`}
-            inputContainerStyle={tailwind('pl-2')}
-          />
-        </ThemedViewV2>
-      </TransactionCard>
-
-      <View
-        style={tailwind('pt-0.5 pb-6')}
-        testID={`${props.symbol}_display_input_text`}
-      >
-        {!props.showInsufficientTokenMsg && !props.showUTXOFeesMsg && (
-          <InputHelperTextV2
-            testID={`token_balance_${props.type}`}
-            label={`${translate('screens/AddLiquidity', 'Available')}: `}
-            content={BigNumber.max(props.balance, 0).toFixed(8)}
-            suffix={` ${props.symbol}`}
-          />
-        )}
-        {props.showInsufficientTokenMsg && (
-          <ThemedTextV2
-            light={tailwind('text-red-v2')}
-            dark={tailwind('text-red-v2')}
-            style={tailwind('px-4 pt-1 text-xs font-normal-v2')}
-            testID={`${props.symbol}_insufficient_token_display_msg`}
-          >
-            {translate('screens/AddLiquidity', 'Insufficient balance')}
-          </ThemedTextV2>
-        )}
-        {!props.showInsufficientTokenMsg && props.showUTXOFeesMsg && (
-          <View
-            style={tailwind('pl-2 pt-1')}
-            testID={`${props.symbol}_reserved_info_text`}
-          >
-            <ReservedDFIInfoTextV2 />
-          </View>
-        )}
-      </View>
-    </>
   )
 }
 

@@ -54,8 +54,8 @@ function percentageAmountButton (percentage: string, tokenAAmount: string, token
   cy.getByTestID('token_input_primary').should('have.value', tokenAAmount)
   cy.getByTestID('token_input_secondary').should('have.value', tokenBAmount)
 
-  cy.getByTestID('resulting_lp_tokens_value').contains(lpToken)
-  cy.getByTestID('resulting_lp_tokens_value_rhsUsdAmount').contains(lpTokenUsd)
+  cy.getByTestID('lp_tokens_to_receive_value').contains(lpToken)
+  cy.getByTestID('lp_tokens_to_receive_value_rhsUsdAmount').contains(lpTokenUsd)
 }
 
 context('Wallet - DEX - Add Liquidity', () => {
@@ -113,8 +113,8 @@ context('Wallet - DEX - Add Liquidity', () => {
 
     validatePriceSection('pricerate_value')
 
-    cy.getByTestID('resulting_lp_tokens_value').contains('3.00000000')
-    cy.getByTestID('resulting_lp_tokens_value_rhsUsdAmount').contains('$60,000.00')
+    cy.getByTestID('lp_tokens_to_receive_value').contains('3.00000000')
+    cy.getByTestID('lp_tokens_to_receive_value_rhsUsdAmount').contains('$60,000.00')
   })
 
   it('should update both token and build summary base on secondary token input', function () {
@@ -125,21 +125,21 @@ context('Wallet - DEX - Add Liquidity', () => {
 
     validatePriceSection('pricerate_value')
 
-    cy.getByTestID('resulting_lp_tokens_value').contains('2.00000000')
-    cy.getByTestID('resulting_lp_tokens_value_rhsUsdAmount').contains('$40,000.00')
+    cy.getByTestID('lp_tokens_to_receive_value').contains('2.00000000')
+    cy.getByTestID('lp_tokens_to_receive_value_rhsUsdAmount').contains('$40,000.00')
     cy.getByTestID('button_continue_add_liq').click()
   })
 
   it('should have correct confirm info', function () {
     cy.getByTestID('text_add_amount').contains('2.00000000')
     cy.getByTestID('transaction_fee_amount').contains('0.00010000 DFI')
-    cy.getByTestID('resulting_pool_share_amount').contains('0.20000000%')
+    cy.getByTestID('pool_share_amount').contains('0.20000000%')
     cy.getByTestID('dBTC_to_supply').contains('2.00000000')
     cy.getByTestID('dBTC_to_supply_rhsUsdAmount').contains('$20,000.00')
     cy.getByTestID('DFI_to_supply').contains('2.00000000')
     cy.getByTestID('DFI_to_supply_rhsUsdAmount').contains('$20,000.00')
-    cy.getByTestID('resulting_LP_tokens_value').contains('2.00000000')
-    cy.getByTestID('resulting_LP_tokens_value_rhsUsdAmount').contains('$40,000.00')
+    cy.getByTestID('lp_tokens_to_receive_value').contains('2.00000000')
+    cy.getByTestID('lp_tokens_to_receive_value_rhsUsdAmount').contains('$40,000.00')
     cy.getByTestID('button_cancel_add').click()
   })
 })
@@ -264,13 +264,13 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     cy.getByTestID('token_input_primary').type('10')
     cy.getByTestID('button_continue_add_liq').click()
     cy.getByTestID('transaction_fee_amount').contains('0.00010000 DFI')
-    cy.getByTestID('resulting_pool_share_amount').contains('1.00000000%')
+    cy.getByTestID('pool_share_amount').contains('1.00000000%')
     cy.getByTestID('dBTC_to_supply').contains('10.00000000')
     cy.getByTestID('dBTC_to_supply_rhsUsdAmount').contains('$100,000.00')
     cy.getByTestID('DFI_to_supply').contains('10.00000000')
     cy.getByTestID('DFI_to_supply_rhsUsdAmount').contains('$100,000.00')
-    cy.getByTestID('resulting_LP_tokens_value').contains('10.00000000')
-    cy.getByTestID('resulting_LP_tokens_value_rhsUsdAmount').contains('$200,000.00')
+    cy.getByTestID('lp_tokens_to_receive_value').contains('10.00000000')
+    cy.getByTestID('lp_tokens_to_receive_value_rhsUsdAmount').contains('$200,000.00')
     cy.getByTestID('button_confirm_add').click().wait(3000)
     cy.closeOceanInterface()
   })
@@ -283,13 +283,13 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     cy.getByTestID('token_input_primary').type(oldAmount)
     cy.getByTestID('button_continue_add_liq').click()
     cy.getByTestID('transaction_fee_amount').contains('0.00010000 DFI')
-    cy.getByTestID('resulting_pool_share_amount').contains('0.50000000%')
+    cy.getByTestID('pool_share_amount').contains('0.50000000%')
     cy.getByTestID('dBTC_to_supply').contains(oldAmount)
     cy.getByTestID('dBTC_to_supply_rhsUsdAmount').contains(oldUsdAmount)
     cy.getByTestID('DFI_to_supply').contains(oldAmount)
     cy.getByTestID('DFI_to_supply_rhsUsdAmount').contains(oldUsdAmount)
-    cy.getByTestID('resulting_LP_tokens_value').contains(oldAmount)
-    cy.getByTestID('resulting_LP_tokens_value_rhsUsdAmount').contains('$100,000.00')
+    cy.getByTestID('lp_tokens_to_receive_value').contains(oldAmount)
+    cy.getByTestID('lp_tokens_to_receive_value_rhsUsdAmount').contains('$100,000.00')
     cy.getByTestID('button_confirm_add').click().wait(3000)
     // Check for authorization page description
     cy.getByTestID('txn_authorization_title')
@@ -302,13 +302,13 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     cy.getByTestID('token_input_primary').type(newAmount)
     cy.getByTestID('button_continue_add_liq').click()
     cy.getByTestID('transaction_fee_amount').contains('0.00010000 DFI')
-    cy.getByTestID('resulting_pool_share_amount').contains('1.00000000%')
+    cy.getByTestID('pool_share_amount').contains('1.00000000%')
     cy.getByTestID('dBTC_to_supply').contains(newAmount)
     cy.getByTestID('dBTC_to_supply_rhsUsdAmount').contains(newUsdAmount)
     cy.getByTestID('DFI_to_supply').contains(newAmount)
     cy.getByTestID('DFI_to_supply_rhsUsdAmount').contains(newUsdAmount)
-    cy.getByTestID('resulting_LP_tokens_value').contains(newAmount)
-    cy.getByTestID('resulting_LP_tokens_value_rhsUsdAmount').contains('$200,000.00')
+    cy.getByTestID('lp_tokens_to_receive_value').contains(newAmount)
+    cy.getByTestID('lp_tokens_to_receive_value_rhsUsdAmount').contains('$200,000.00')
     cy.getByTestID('button_confirm_add').click().wait(3000)
     // Check for authorization page description
     cy.getByTestID('txn_authorization_title')

@@ -850,7 +850,9 @@
     "Total liquidity": "Total liquidity",
     "Tokens in {{symbol}}": "Tokens in {{symbol}}",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
-    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered"
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "I WANT TO ADD": "I WANT TO ADD",
+    "LP Tokens to receive": "LP Tokens to receive"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "Stai aggiungendo",
@@ -879,7 +881,8 @@
     "Resulting pool share": "Resulting pool share",
     "{{token}} to supply": "{{token}} to supply",
     "Resulting LP tokens": "Resulting LP tokens",
-    "Confirm": "Confirm"
+    "Confirm": "Confirm",
+    "Pool share": "Pool share"
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "Stai rimuovendo",

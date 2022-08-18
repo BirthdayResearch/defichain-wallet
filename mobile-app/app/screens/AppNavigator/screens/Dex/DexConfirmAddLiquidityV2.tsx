@@ -128,9 +128,9 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
           />
           <View style={tailwind('flex flex-row text-right items-center justify-end')}>
             <ThemedTextV2
-              style={tailwind('mr-1.5 font-normal-v2')}
-              light={tailwind('text-mono-light-v2-500')}
-              dark={tailwind('text-mono-dark-v2-500')}
+              style={tailwind('mr-1.5 font-normal-v2 text-sm')}
+              light={tailwind('text-mono-light-v2-700')}
+              dark={tailwind('text-mono-dark-v2-700')}
               testID='conversion_status'
             >
               {
@@ -179,8 +179,8 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
         </View>
         <NumberRowV2
           lhs={{
-            value: translate('screens/ConfirmAddLiq', 'Resulting pool share'),
-            testID: 'resulting_pool_share',
+            value: translate('screens/ConfirmAddLiq', 'Pool share'),
+            testID: 'pool_share',
             themedProps: {
               light: tailwind('text-mono-light-v2-500'),
               dark: tailwind('text-mono-dark-v2-500')
@@ -188,7 +188,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
           }}
           rhs={{
             value: percentage.times(100).toFixed(8),
-            testID: 'resulting_pool_share_amount',
+            testID: 'pool_share_amount',
             suffix: '%'
           }}
         />
@@ -234,7 +234,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
         />
         <NumberRowV2
           lhs={{
-            value: translate('screens/ConfirmAddLiq', 'Resulting LP tokens'),
+            value: translate('screens/ConfirmAddLiq', 'LP Tokens to receive'),
             testID: 'resulting_LP_tokens',
             themedProps: {
               light: tailwind('text-mono-light-v2-500'),
@@ -243,7 +243,7 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
           }}
           rhs={{
             value: BigNumber.max(lmTokenAmount, 0).toFixed(8),
-            testID: 'resulting_LP_tokens_value',
+            testID: 'lp_tokens_to_receive_value',
             usdAmount: getTokenPrice(pair.tokenA.symbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.tokenB.symbol, new BigNumber(tokenBAmount))),
             themedProps: {
               style: tailwind('font-semibold-v2 text-sm')

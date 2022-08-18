@@ -832,7 +832,9 @@
     "Total liquidity": "Gesamtliquidität",
     "Tokens in {{symbol}}": "Tokens en {{symbol}}",
     "Max available {{unit}} entered": "Max. de {{unit}} PL ajoutés disponibles",
-    "{{percent}} of available {{unit}} entered": "{{percent}} des {{unit}} PL ajoutés"
+    "{{percent}} of available {{unit}} entered": "{{percent}} des {{unit}} PL ajoutés",
+    "I WANT TO ADD": "ICH MÖCHTE FOLGENDES HINZUFÜGEN",
+    "LP Tokens to receive": "Zu erhaltende LP-Token"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "Du fügst hinzu",
@@ -861,7 +863,8 @@
     "Resulting pool share": "Resultierender Poolanteil",
     "{{token}} to supply": "{{token}} zur Verfügung stellen",
     "Resulting LP tokens": "Resultierende LP-Token",
-    "Confirm": "Bestätigen"
+    "Confirm": "Bestätigen",
+    "Pool share": "Pool-Anteil"
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "Du entfernst",
