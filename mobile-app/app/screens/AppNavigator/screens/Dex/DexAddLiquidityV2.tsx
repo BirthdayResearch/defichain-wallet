@@ -119,10 +119,10 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
         <ThemedTouchableOpacityV2
           style={tailwind('mr-5',
             {
-              'mt-4 -mb-2': Platform.OS === 'ios'
+              'mt-3 -mb-5': Platform.OS === 'ios'
             },
             {
-              '-mt-1 -mb-2': Platform.OS === 'android'
+              '-mt-1 -mb-3': Platform.OS === 'android'
             }
           )}
           onPress={dismissModal}
