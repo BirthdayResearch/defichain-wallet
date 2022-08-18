@@ -12,7 +12,7 @@ import {
   SkeletonLoader,
   SkeletonLoaderScreen
 } from '@components/SkeletonLoader'
-import { ThemedScrollViewV2, ThemedViewV2 } from '@components/themed'
+import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
@@ -25,6 +25,9 @@ import { EmptyActivePoolpair } from './components/EmptyActivePoolPair'
 import { debounce } from 'lodash'
 import { ButtonGroupTabKey, PoolPairCards } from './components/PoolPairCards/PoolPairCards'
 import { ButtonGroupV2 } from './components/ButtonGroupV2'
+import { ScrollView } from 'react-native'
+import { AssetsFilterItem } from '../Portfolio/components/AssetsFilterRow'
+import { HeaderSearchInputV2 } from '@components/HeaderSearchInputV2'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -43,6 +46,37 @@ export function DexScreen (): JSX.Element {
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [displayGuidelines, setDisplayGuidelines] = useState<boolean>(true)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  const [expandedCardIds, setExpandedCardIds] = useState<string[]>([])
+
+  const buttonGroup = [
+    {
+      id: ButtonGroupTabKey.AllPairs,
+      label: translate('screens/DexScreen', 'All pairs'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.AllPairs)
+    },
+    {
+      id: ButtonGroupTabKey.DFIPairs,
+      label: translate('screens/DexScreen', 'DFI pairs'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.DFIPairs)
+    },
+    {
+      id: ButtonGroupTabKey.DUSDPairs,
+      label: translate('screens/DexScreen', 'DUSD pairs'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.DUSDPairs)
+    },
+    {
+      id: ButtonGroupTabKey.FavouritePairs,
+      label: translate('screens/DexScreen', 'Favourites'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.FavouritePairs)
+    }
+  ]
+
+  const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
+    setExpandedCardIds([])
+    setActiveButtonGroup(buttonGroupTabKey)
+    handleButtonFilter(buttonGroupTabKey)
+  }
+
   const {
     poolpairs: pairs,
     hasFetchedPoolpairData
@@ -102,9 +136,7 @@ export function DexScreen (): JSX.Element {
   }
 
   // Search
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showSearchInput, setShowSearchInput] = useState(false)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [searchString, setSearchString] = useState('')
   const [filteredAvailablePairs, setFilteredAvailablePairs] =
     useState<Array<DexItem<PoolPairData>>>(pairs)
@@ -129,6 +161,39 @@ export function DexScreen (): JSX.Element {
     }, 500),
     [activeTab, pairs]
   )
+
+  useEffect(() => {
+    if (showSearchInput) {
+      navigation.setOptions({
+        header: (): JSX.Element => (
+          <ThemedViewV2
+            light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-100')}
+            dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-100')}
+            style={tailwind('pb-5 rounded-b-2xl border-b')}
+          >
+            <HeaderSearchInputV2
+              searchString={searchString}
+              onClearInput={() => setSearchString('')}
+              onChangeInput={(text: string) => {
+                setSearchString(text)
+              }}
+              onCancelPress={() => {
+                setSearchString('')
+                setShowSearchInput(false)
+              }}
+              placeholder='Search for pool pairs'
+              testID='dex_search_input'
+            />
+          </ThemedViewV2>
+        )
+      })
+    } else {
+      navigation.setOptions({
+        header: undefined
+      })
+      handleButtonFilter(activeButtonGroup)
+    }
+  }, [showSearchInput, searchString])
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllPairs)
   const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
     const filteredPairs = pairs.filter((pair) => {
@@ -141,6 +206,9 @@ export function DexScreen (): JSX.Element {
 
         case ButtonGroupTabKey.DUSDPairs:
           return tokenADisplaySymbol.includes('DUSD') || tokenBDisplaySymbol.includes('DUSD')
+
+        case ButtonGroupTabKey.FavouritePairs:
+          return true // TODO add logic for favourite pairs
 
         default:
           return true
@@ -199,21 +267,76 @@ export function DexScreen (): JSX.Element {
 
   return (
     <>
-      <ThemedViewV2
-        light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-100')}
-        dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-100')}
-        style={tailwind('flex flex-col items-center pt-4 rounded-b-2xl border-b')}
-      >
-        <View style={tailwind('w-full px-5')}>
-          <ButtonGroupV2
-            buttons={tabsList}
-            activeButtonGroupItem={activeTab}
-            testID='dex_tabs'
-            lightThemeStyle={tailwind('bg-transparent')}
-            darkThemeStyle={tailwind('bg-transparent')}
-          />
-        </View>
-      </ThemedViewV2>
+      {showSearchInput
+      ? (
+        <View style={tailwind('px-10 mt-8 mb-2')}>
+          <ThemedTextV2
+            light={tailwind('text-mono-light-v2-700')}
+            dark={tailwind('text-mono-dark-v2-700')}
+            style={tailwind('font-normal-v2 text-xs')}
+            testID='search_title'
+          >
+            {searchString?.trim().length > 0
+            ? translate('screens/DexScreen', 'Search results for “{{input}}”', { input: searchString?.trim() })
+            : translate('screens/DexScreen', 'Search with token name')}
+          </ThemedTextV2>
+        </View>)
+      : (
+        <>
+          <ThemedViewV2
+            light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-100')}
+            dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-100')}
+            style={tailwind('flex flex-col items-center pt-4 rounded-b-2xl border-b')}
+          >
+            <View style={tailwind('w-full px-5')}>
+              <ButtonGroupV2
+                buttons={tabsList}
+                activeButtonGroupItem={activeTab}
+                testID='dex_tabs'
+                lightThemeStyle={tailwind('bg-transparent')}
+                darkThemeStyle={tailwind('bg-transparent')}
+              />
+            </View>
+          </ThemedViewV2>
+          <View style={tailwind('my-4')}>
+            <ThemedViewV2 testID='dex_button_group'>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={tailwind('flex justify-between items-center flex-row px-5')}
+              >
+                <ThemedTouchableOpacityV2
+                  onPress={() => {
+                    setShowSearchInput(true)
+                    setFilteredAvailablePairs([])
+                  }}
+                  style={tailwind('text-center pr-4')}
+                  testID='dex_search_icon'
+                >
+                  <ThemedIcon
+                    iconType='Feather'
+                    name='search'
+                    size={24}
+                    light={tailwind('text-mono-light-v2-700')}
+                    dark={tailwind('text-mono-dark-v2-700')}
+                  />
+                </ThemedTouchableOpacityV2>
+                {buttonGroup.map((button, index) => (
+                  <AssetsFilterItem
+                    key={button.id}
+                    label={button.label}
+                    onPress={button.handleOnPress}
+                    isActive={activeButtonGroup === button.id}
+                    testID={`dex_button_group${button.id}`}
+                    additionalStyles={!(buttonGroup.length === index) ? tailwind('mr-3') : undefined}
+                  />
+                  )
+                )}
+              </ScrollView>
+            </ThemedViewV2>
+          </View>
+        </>
+      )}
       <View style={tailwind('flex-1')}>
         {activeTab === TabKey.AvailablePoolPair &&
           (!hasFetchedPoolpairData || isSearching) && (
@@ -225,6 +348,8 @@ export function DexScreen (): JSX.Element {
           hasFetchedPoolpairData &&
           !isSearching && (
             <PoolPairCards
+              expandedCardIds={expandedCardIds}
+              setExpandedCardIds={setExpandedCardIds}
               availablePairs={filteredAvailablePairs}
               yourPairs={yourLPTokens}
               onAdd={onAdd}
@@ -233,11 +358,6 @@ export function DexScreen (): JSX.Element {
               type='available'
               setIsSearching={setIsSearching}
               searchString={searchString}
-              buttonGroupOptions={{
-                activeButtonGroup: activeButtonGroup,
-                setActiveButtonGroup: setActiveButtonGroup,
-                onButtonGroupPress: handleButtonFilter
-              }}
               showSearchInput={showSearchInput}
             />
           )}
@@ -247,6 +367,8 @@ export function DexScreen (): JSX.Element {
         )}
         {activeTab === TabKey.YourPoolPair && yourLPTokens.length > 0 && (
           <PoolPairCards
+            expandedCardIds={expandedCardIds}
+            setExpandedCardIds={setExpandedCardIds}
             availablePairs={filteredAvailablePairs}
             yourPairs={yourLPTokens}
             onAdd={onAdd}

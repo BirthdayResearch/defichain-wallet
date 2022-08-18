@@ -67,7 +67,7 @@ export function AssetsFilterRow (props: AssetsFilterRowProps): JSX.Element {
   )
 }
 
-interface AssetsFilterItemProps {
+export interface AssetsFilterItemProps {
   label: string
   onPress: () => void
   isActive: boolean
@@ -75,7 +75,7 @@ interface AssetsFilterItemProps {
   additionalStyles?: StyleProp<ViewStyle>
 }
 
-function AssetsFilterItem (props: AssetsFilterItemProps): JSX.Element {
+export function AssetsFilterItem (props: AssetsFilterItemProps): JSX.Element {
    return (
      <ThemedTouchableOpacityV2
        onPress={props.onPress}

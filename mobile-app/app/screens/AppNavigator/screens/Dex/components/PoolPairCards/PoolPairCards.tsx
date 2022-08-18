@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js'
 import { View } from '@components'
 import {
-  ThemedFlatList,
+  ThemedFlatListV2,
   ThemedIcon,
   ThemedText,
   ThemedView
@@ -28,7 +28,6 @@ import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { TotalValueLocked } from '../TotalValueLocked'
-import { ButtonGroup } from '../ButtonGroup'
 
 interface DexItem<T> {
   type: 'your' | 'available'
@@ -38,7 +37,8 @@ interface DexItem<T> {
 export enum ButtonGroupTabKey {
   AllPairs = 'ALL_PAIRS',
   DFIPairs = 'DFI_PAIRS',
-  DUSDPairs = 'DUSD_PAIRS'
+  DUSDPairs = 'DUSD_PAIRS',
+  FavouritePairs= 'FAVOURITE_PAIRS'
 }
 
 interface PoolPairCardProps {
@@ -50,12 +50,9 @@ interface PoolPairCardProps {
   type: 'your' | 'available'
   setIsSearching: (isSearching: boolean) => void
   searchString: string
-  buttonGroupOptions?: {
-    onButtonGroupPress: (key: ButtonGroupTabKey) => void
-    activeButtonGroup: string
-    setActiveButtonGroup: (key: ButtonGroupTabKey) => void
-  }
   showSearchInput?: boolean
+  expandedCardIds: string[]
+  setExpandedCardIds: (ids: string[]) => void
 }
 
 export function PoolPairCards ({
@@ -67,48 +64,21 @@ export function PoolPairCards ({
   searchString,
   setIsSearching,
   yourPairs,
-  buttonGroupOptions,
-  showSearchInput
+  showSearchInput,
+  expandedCardIds,
+  setExpandedCardIds
 }: PoolPairCardProps): JSX.Element {
   const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
   const sortedPairs = sortPoolpairsByFavourite(
     availablePairs,
     isFavouritePoolpair
   )
-  const [expandedCardIds, setExpandedCardIds] = useState<string[]>([])
-
   const [filteredYourPairs, setFilteredYourPairs] =
     useState<Array<DexItem<WalletToken>>>(yourPairs)
   const debouncedSearchTerm = useDebounce(searchString, 500)
   const { tvl } = useSelector((state: RootState) => state.block)
-  const buttonGroup = [
-    {
-      id: ButtonGroupTabKey.AllPairs,
-      label: translate('screens/DexScreen', 'All pairs'),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.AllPairs)
-    },
-    {
-      id: ButtonGroupTabKey.DFIPairs,
-      label: translate('screens/DexScreen', 'DFI pairs'),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.DFIPairs)
-    },
-    {
-      id: ButtonGroupTabKey.DUSDPairs,
-      label: translate('screens/DexScreen', 'DUSD pairs'),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.DUSDPairs)
-    }
-  ]
-
   const ref = useRef(null)
   useScrollToTop(ref)
-
-  const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
-    if (buttonGroupOptions !== undefined) {
-      setExpandedCardIds([])
-      buttonGroupOptions.setActiveButtonGroup(buttonGroupTabKey)
-      buttonGroupOptions.onButtonGroupPress(buttonGroupTabKey)
-    }
-  }
 
   const pairSortingFn = (pairA: DexItem<WalletToken>, pairB: DexItem<WalletToken>): number => (
     availablePairs.findIndex(x => x.data.id === pairA.data.id) -
@@ -156,10 +126,10 @@ export function PoolPairCards ({
       setExpandedCardIds={setExpandedCardIds}
     />)
   return (
-    <ThemedFlatList
-      light={tailwind('bg-gray-50')}
-      dark={tailwind('bg-gray-900')}
-      contentContainerStyle={tailwind('py-4 px-5 pb-2')}
+    <ThemedFlatListV2
+      light={tailwind('bg-mono-light-v2-100')}
+      dark={tailwind('bg-mono-dark-v2-100')}
+      contentContainerStyle={tailwind('pb-4 px-5 pb-2')}
       ref={ref}
       data={type === 'your' ? filteredYourPairs : sortedPairs}
       numColumns={1}
@@ -173,17 +143,11 @@ export function PoolPairCards ({
       ListHeaderComponent={
         <>
           {type === 'available' &&
-            buttonGroupOptions !== undefined &&
             showSearchInput === false &&
             (
-              <>
-                <View style={tailwind('mb-4')}>
-                  <ButtonGroup buttons={buttonGroup} activeButtonGroupItem={buttonGroupOptions.activeButtonGroup} testID='dex_button_group' />
-                </View>
-                <View style={tailwind('mb-4')}>
-                  <TotalValueLocked tvl={tvl ?? 0} />
-                </View>
-              </>
+              <View style={tailwind('mb-4')}>
+                <TotalValueLocked tvl={tvl ?? 0} />
+              </View>
             )}
         </>
       }
