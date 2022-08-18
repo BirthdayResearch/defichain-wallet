@@ -266,7 +266,11 @@ export function DexScreen (): JSX.Element {
   }
 
   return (
-    <>
+    <ThemedViewV2
+      light={tailwind('bg-mono-light-v2-100')}
+      dark={tailwind('bg-mono-dark-v2-100')}
+      style={tailwind('flex-1')}
+    >
       {showSearchInput
       ? (
         <View style={tailwind('px-10 mt-8 mb-2')}>
@@ -381,6 +385,6 @@ export function DexScreen (): JSX.Element {
           />
         )}
       </View>
-    </>
+    </ThemedViewV2>
   )
 }
