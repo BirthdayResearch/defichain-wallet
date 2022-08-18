@@ -48,7 +48,7 @@ export const ViewPoolDetails = ({
           style={tailwind('pl-1 text-xl font-semibold-v2')}
           testID='view_pool_details_title'
         >
-          {pairInfo.displaySymbol}
+          {`${pairData.tokenA.displaySymbol}-${pairData.tokenB.displaySymbol}`}
         </ThemedTextV2>
       </View>
 
