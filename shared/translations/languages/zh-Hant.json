@@ -765,6 +765,8 @@
     "Preparing to convert…": "Preparing to convert…",
     "Converting {{symbolA}} to {{symbolB}}": "轉換 {{symbolA}} 至 {{symbolB}}",
     "Conversion completed": "Conversion completed",
+    "Converting {{amount}} DFI {{symbolA}} to {{symbolB}}": "將 {{amount}} DFI {{symbolA}} 轉換為 {{symbolB}}",
+    "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI 轉換為 {{symbolB}}",
     "Preparing your transaction…": "Preparing your transaction…",
     "Processing future swap transaction…": "Processing future swap transaction…",
     "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap confirmed and will be executed at block #{{block}}",
@@ -1104,7 +1106,9 @@
     "As UTXO": "As UTXO",
     "As Token": "As Token",
     "Your pool shares": "Your pool shares",
-    "Shares in {{token}}": "Shares in {{token}}"
+    "Shares in {{token}}": "Shares in {{token}}",
+    "Your LP tokens": "您的 LP 代幣",
+    "Tokens in {{token}}": "Tokens in {{token}}"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要預留一些可使用的 UTXO(0.1 DFI)作為費用"

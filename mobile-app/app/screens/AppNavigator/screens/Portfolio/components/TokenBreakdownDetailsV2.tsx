@@ -177,13 +177,13 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
           <>
             <View style={tailwind('pb-4')}>
               <TokenBreakdownDetailsRow
-                testID={`share_in_pool_${props.pair.symbol}`}
+                testID={`your_lp_pool_${props.pair.symbol}`}
                 amount={(props.token).amount}
-                label='Your pool shares'
+                label={translate('components/DFIBalanceCard', 'Your LP tokens')}
                 hasFetchedToken={props.hasFetchedToken}
               />
               <TokenBreakdownDetailsRow
-                testID={`share_in_pool_${props.pair.symbol}_usd`}
+                testID={`your_lp_pool_${props.pair.symbol}_usd`}
                 amount={getPrecisedTokenValue(getTokenPrice(props.token.symbol, new BigNumber((props.token).amount),
                   true))}
                 label=''
@@ -198,13 +198,13 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
             </View>
             <View style={tailwind('pb-4')}>
               <TokenBreakdownDetailsRow
-                testID={`shares_in_${props.pair.symbol}_${props.pair.tokenA.displaySymbol}`}
+                testID={`tokens_in_${props.pair.symbol}_${props.pair.tokenA.displaySymbol}`}
                 amount={tokenATotal.toFixed(8)}
-                label={translate('components/DFIBalanceCard', 'Shares in {{token}}', { token: props.pair.tokenA.displaySymbol })}
+                label={translate('components/DFIBalanceCard', 'Tokens in {{token}}', { token: props.pair.tokenA.displaySymbol })}
                 hasFetchedToken={props.hasFetchedToken}
               />
               <TokenBreakdownDetailsRow
-                testID={`shares_in_${props.pair.symbol}_${props.pair.tokenA.displaySymbol}_usd`}
+                testID={`tokens_in_${props.pair.symbol}_${props.pair.tokenA.displaySymbol}_usd`}
                 amount={getUSDValue(
                   new BigNumber(tokenATotal),
                   props.pair.tokenA.symbol
@@ -220,13 +220,13 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
               />
             </View>
             <TokenBreakdownDetailsRow
-              testID={`shares_in_${props.pair.symbol}_${props.pair.tokenB.displaySymbol}`}
+              testID={`tokens_in_${props.pair.symbol}_${props.pair.tokenB.displaySymbol}`}
               amount={tokenBTotal.toFixed(8)}
-              label={translate('components/DFIBalanceCard', 'Shares in {{token}}', { token: props.pair.tokenB.displaySymbol })}
+              label={translate('components/DFIBalanceCard', 'Tokens in {{token}}', { token: props.pair.tokenB.displaySymbol })}
               hasFetchedToken={props.hasFetchedToken}
             />
             <TokenBreakdownDetailsRow
-              testID={`shares_in_${props.pair.symbol}_${props.pair.tokenB.displaySymbol}_usd`}
+              testID={`tokens_in_${props.pair.symbol}_${props.pair.tokenB.displaySymbol}_usd`}
               amount={getUSDValue(new BigNumber(tokenBTotal), props.pair.tokenB.symbol).toFixed(2)}
               label=''
               hasFetchedToken={props.hasFetchedToken}

@@ -17,12 +17,12 @@
     "DEX FAQ": "FAQ DEX",
     "Liquidity Mining FAQ": "FAQ liquidity mining",
     "View Recovery Words": "Voir les mots de récupération",
-    "Verify Words": "Vérifier Les Mots",
-    "Create Passcode": "Créer Un Code D'accès",
-    "Verify Passcode": "Vérifier Le Code D'accès",
+    "Verify Words": "Vérifier les mots",
+    "Create Passcode": "Créer un code d'accès",
+    "Verify Passcode": "Vérifier le code d'accès",
     "About Passcode": "Code d'accès",
     "About Recovery Words": "Mots de récupération",
-    "New Wallet": "New Wallet"
+    "New Wallet": "Nouveau portefeuille"
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Échange décentralisé",
@@ -55,7 +55,7 @@
     "All pairs": "Toutes les paires",
     "DFI pairs": "Paires DFI",
     "DUSD pairs": "Paires DUSD",
-    "Your share in pool": "Votre part dans le pool",
+    "Your share in pool": "Mon part de pool",
     "ADD": "AJOUTER",
     "Prices": "Prix",
     "Available pool pairs": "Paires disponibles",
@@ -439,7 +439,7 @@
     "DeFiChain official website": "DeFiChain official website",
     "Learn more about the native decentralized finance for Bitcoin": "Learn more about the native decentralized finance for Bitcoin",
     "Other information": "Other information",
-    "Developed by": "Developed by"
+    "Developed by": "Développé de"
   },
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "EN SAVOIR PLUS",
@@ -774,6 +774,8 @@
     "Preparing to convert…": "Préparation de la conversion en cours…",
     "Converting {{symbolA}} to {{symbolB}}": "Conversion de {{symbolA}} en {{symbolB}}",
     "Conversion completed": "Conversion effectuée",
+    "Converting {{amount}} DFI {{symbolA}} to {{symbolB}}": "Conversion de {{amount}} DFI {{symbolA}} en {{symbolB}}",
+    "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI convertis en {{symbolB}}",
     "Preparing your transaction…": "Préparation de votre transaction en coursn…",
     "Processing future swap transaction…": "Traitement de la transaction échange à terme…",
     "Future Swap confirmed and will be executed at block #{{block}}": "Échange à terme confirmé et qui sera exécuté au bloc #{{{block}}",
@@ -1112,7 +1114,9 @@
     "As UTXO": "Comme UTXO",
     "As Token": "Comme Token",
     "Your pool shares": "Mes parts de pool",
-    "Shares in {{token}}": "Parts en {{token}}"
+    "Shares in {{token}}": "Parts en {{token}}",
+    "Your LP tokens": "Mes tokens PL",
+    "Tokens in {{token}}": "Tokens en {{token}}"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "Une petite quantité d'UTXO (0,1 DFI) est réservée aux frais."
@@ -1168,7 +1172,7 @@
     "Auction details": "Détails de l'enchère",
     "Vault details": "Vault details",
     "Bid history": "Historique des enchères",
-    "Rewards": "Rewards"
+    "Rewards": "Récompenses"
   },
   "components/LoanCard": {
     "Active Price": "Prix actuel",

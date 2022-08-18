@@ -1,6 +1,6 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { WalletToken } from '@store/wallet'
+import { AddressType, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import { Image, Platform } from 'react-native'
 import { BarCodeScanner } from '@components/BarCodeScanner'
@@ -42,12 +42,10 @@ import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen
 import { TokensVsUtxoFaq } from './screens/TokensVsUtxoFaq'
 import {
   ConversionMode,
-  ConvertScreenV2,
+  ConvertScreen,
   ConvertTokenUnit
-} from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
-import {
-  ConvertConfirmationScreenV2
-} from '@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreenV2'
+} from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreen'
+import { ConvertConfirmationScreen } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreen'
 import { SendScreenV2 } from './screens/SendScreenV2'
 import { TokenSelectionScreen } from './screens/TokenSelectionScreen'
 import { SendConfirmationScreenV2 } from './screens/SendConfirmationScreenV2'
@@ -143,12 +141,6 @@ export interface ConversionParam {
   conversionAmount: BigNumber
   DFIUtxo: WalletToken
   DFIToken: WalletToken
-}
-
-export enum AddressType {
-  WalletAddress,
-  Whitelisted,
-  OthersButValid
 }
 
 const PortfolioStack = createStackNavigator<PortfolioParamList>()
@@ -339,7 +331,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={ConvertScreenV2}
+        component={ConvertScreen}
         name='Convert'
         options={{
           ...screenOptions,
@@ -351,8 +343,8 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={ConvertConfirmationScreenV2}
-        name='ConvertConfirmationScreenV2'
+        component={ConvertConfirmationScreen}
+        name='ConvertConfirmationScreen'
         options={{
           ...screenOptions,
           headerRight: () => (
