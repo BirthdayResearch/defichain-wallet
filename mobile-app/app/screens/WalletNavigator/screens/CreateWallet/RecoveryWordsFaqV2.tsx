@@ -13,9 +13,9 @@ export function RecoveryWordsFaqV2 (): JSX.Element {
       }]
     },
     {
-      title: translate('components/RecoveryWordFaq', 'Can I use the 24-words from xxx that I created from xxx?'),
+      title: translate('components/RecoveryWordFaq', 'Can I use the 24-word from xxx that I created from xxx?'),
       content: [{
-        text: translate('components/RecoveryWordFaq', 'You can only reuse the 24-words only if it\'s created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.SWISS (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per computer / device / app is encouraged.'),
+        text: translate('components/RecoveryWordFaq', 'You can only reuse the 24-words if it\'s created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.Swiss (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per device / computer / app is encouraged.'),
         type: 'paragraph'
       }]
     },

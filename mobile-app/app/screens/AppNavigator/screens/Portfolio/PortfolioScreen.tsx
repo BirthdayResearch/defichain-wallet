@@ -481,6 +481,10 @@ export function PortfolioScreen ({ navigation }: Props): JSX.Element {
             dismissModal(false)
             navigation.navigate('Receive')
           },
+          onTransactionsButtonPress: () => {
+            dismissModal(false)
+            navigation.navigate('TransactionsScreen')
+          },
           onCloseButtonPress: () => dismissModal(false),
           navigateToScreen: {
             screenName: 'CreateOrEditAddressLabelForm'

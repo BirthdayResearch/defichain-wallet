@@ -92,6 +92,14 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       description: 'There are high fees in DUSD and DFI as of the moment',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
+    }, {
+      id: 'setting_v2',
+      name: 'Setting 2.0',
+      stage: 'public',
+      version: '>1.15.1',
+      description: 'Display redesigned Setting flow for LW 2.0',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
     }
   ])
 }

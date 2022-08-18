@@ -213,7 +213,8 @@ context('Wallet - Network detail screen - with wallet context go back check', ()
   })
 
   it('should get back to the transaction page when network detail called from transaction page', function () {
-    cy.getByTestID('bottom_tab_transactions').click().wait(3000)
+    cy.getByTestID('bottom_tab_portfolio').click()
+    cy.getByTestID('switch_account_button').click()
     cy.url().should('include', 'app/transactions')
     cy.getByTestID('transactions_header_container').filter(':visible').click().wait(3000)
     cy.getByTestID('network_details_header_back').click()

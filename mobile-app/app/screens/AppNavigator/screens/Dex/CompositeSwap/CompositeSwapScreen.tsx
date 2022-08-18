@@ -151,7 +151,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   const {
     dexStabilizationAnnouncement,
     dexStabilizationType
-  } = useDexStabilization(selectedTokenA, selectedTokenB)
+  } = useDexStabilization(selectedTokenA, selectedTokenB, dexStabilizationFee)
 
   const expandModal = useCallback(() => {
     if (Platform.OS === 'web') {
@@ -450,12 +450,12 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
   const onWarningBeforeSubmit = async (): Promise<void> => {
     const message = dexStabilizationType === 'composite-dusd-dfi'
-      ? 'Are you certain you want to proceed with this swap despite the high DEX stabilization fee that will be incurred as part of the composite path (DUSD → DFI)?'
-      : 'Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?'
+      ? 'Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?'
+      : 'Are you certain you want to proceed to swap DUSD for DFI despite the DEX Stabilization fees of {{fee}}?'
 
     WalletAlert({
       title: translate('screens/CompositeSwapScreen', ''),
-      message: translate('screens/CompositeSwapScreen', message),
+      message: translate('screens/CompositeSwapScreen', message, { fee: `${dexStabilizationFee ?? 0}%` }),
       buttons: [
         {
           text: translate('screens/Settings', 'Cancel'),

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/jsx-indent */
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -40,6 +41,14 @@ import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
 import { GetDFIScreen } from './screens/GetDFIScreen'
 import { UserDetailsScreen } from './screens/UserDetailsScreen'
 import { CryptoButtonGroupTabKey, ReceiveDTokenScreen } from './screens/ReceiveDTokenScreen'
+import { MarketplaceScreen } from './screens/MarketplaceScreen'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { SettingsNavigatorV2 } from '../Settings/SettingsNavigatorV2'
+import { TransactionsScreen } from '@screens/AppNavigator/screens/Transactions/TransactionsScreen'
+import { TransactionDetailScreen } from '@screens/AppNavigator/screens/Transactions/screens/TransactionDetailScreen'
+import { VMTransaction } from '@screens/AppNavigator/screens/Transactions/screens/stateProcessor'
+import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
+import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -48,6 +57,7 @@ export interface PortfolioParamList {
   SellScreen: { token?: WalletToken }
   SellConfirmationScreen: undefined
   UserDetailsScreen: undefined
+  MarketplaceScreen: undefined
   SendScreen: { token?: WalletToken }
   SendConfirmationScreen: {
     token: WalletToken
@@ -104,6 +114,10 @@ export interface PortfolioParamList {
     fee: BigNumber
     executionBlock: number
   }
+  TransactionsScreen: undefined
+  TransactionDetailScreen: {
+    tx: VMTransaction
+  }
   [key: string]: undefined | object
 }
 
@@ -119,6 +133,12 @@ const PortfolioStack = createStackNavigator<PortfolioParamList>()
 export function PortfolioNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const headerContainerTestId = 'portfolio_header_container'
+  const { isFeatureAvailable } = useFeatureFlagContext()
+
+  const goToNetworkSelect = (): void => {
+    navigation.navigate('NetworkDetails')
+  }
+  const screenOptions = useNavigatorScreenOptions()
   return (
     <PortfolioStack.Navigator
       initialRouteName='PortfolioScreen'
@@ -128,6 +148,7 @@ export function PortfolioNavigator (): JSX.Element {
     >
       <PortfolioStack.Screen
         component={SettingsNavigator}
+        // component={isFeatureAvailable('setting_v2') ? SettingsNavigatorV2 : SettingsNavigator}
         name={translate('PortfolioNavigator', 'Settings')}
         options={{
           headerShown: false
@@ -182,13 +203,12 @@ export function PortfolioNavigator (): JSX.Element {
         component={ReceiveScreen}
         name='Receive'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/ReceiveScreen', 'Receive')}
-              containerTestID={headerContainerTestId}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false
+          headerBackTitleVisible: false,
+          headerTitle: translate('screens/ReceiveScreen', 'Receive')
         }}
       />
 
@@ -225,13 +245,25 @@ export function PortfolioNavigator (): JSX.Element {
         component={GetDFIScreen}
         name='GetDFIScreen'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/GetDFIScreen', 'Get $DFI')}
-              containerTestID={headerContainerTestId}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false
+          headerBackTitleVisible: false,
+          headerTitle: translate('screens/ReceiveScreen', 'Get DFI')
+        }}
+      />
+
+      <PortfolioStack.Screen
+        component={MarketplaceScreen}
+        name='MarketplaceScreen'
+        options={{
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerBackTitleVisible: false,
+          headerTitle: translate('screens/MarketplaceScreen', 'Marketplace')
         }}
       />
 
@@ -558,6 +590,34 @@ export function PortfolioNavigator (): JSX.Element {
               containerTestID={headerContainerTestId}
             />
           )
+        }}
+      />
+
+      <PortfolioStack.Screen
+        component={TransactionsScreen}
+        name='TransactionsScreen'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/TransactionsScreen', 'Transactions')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
+        }}
+      />
+
+      <PortfolioStack.Screen
+        component={TransactionDetailScreen}
+        name='TransactionDetail'
+        options={{
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/TransactionDetailScreen', 'Transaction')}
+              containerTestID={headerContainerTestId}
+            />
+          ),
+          headerBackTitleVisible: false
         }}
       />
     </PortfolioStack.Navigator>

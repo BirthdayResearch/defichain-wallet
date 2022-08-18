@@ -15,7 +15,7 @@ export function DexFaq (): JSX.Element {
     {
       title: translate('components/DexFaq', 'What is slippage tolerance?'),
       content: [{
-        text: translate('components/DexFaq', 'Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.'),
+        text: translate('components/DexFaq', 'Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nNote that the slippage tolerance also includes the DEX Stabilization fees which was introduced as per DFIP-2206-D.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.'),
         type: 'paragraph'
       }]
     }

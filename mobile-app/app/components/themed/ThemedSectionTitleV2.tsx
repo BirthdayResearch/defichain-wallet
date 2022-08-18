@@ -12,9 +12,9 @@ interface IThemedSectionTitle {
 
 export function ThemedSectionTitleV2 (props: SectionTitleProp): JSX.Element {
   const {
-    style = tailwind('px-5 pt-6 pb-2 text-xs font-normal-v2'),
+    style = tailwind('px-4 pt-6 pb-2 text-xs font-medium'),
     light = tailwind('text-mono-light-v2-500'),
-    dark = tailwind('text-mono-dark-v2-500'),
+    dark = tailwind('bg-dfxblue-900 text-dfxgray-500'),
     ...otherProps
   } = props
 
