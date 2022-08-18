@@ -388,7 +388,7 @@ function RemoveLiquidityInputCard (
               dark={tailwind('text-red-v2')}
               style={tailwind('px-4 text-xs pt-1 font-normal-v2')}
             >
-              {`${translate('screens/RemoveLiquidity', 'Insufficient balance')}`}
+              {translate('screens/RemoveLiquidity', 'Insufficient balance')}
             </ThemedTextV2>
           )
           : (
