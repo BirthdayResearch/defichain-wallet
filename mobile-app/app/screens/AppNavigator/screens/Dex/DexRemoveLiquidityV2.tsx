@@ -191,7 +191,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
             tokenASymbol={pair.tokenA.displaySymbol}
             tokenBSymbol={pair.tokenB.displaySymbol}
             headerLabel={translate('screens/RemoveLiquidity', 'View pool share')}
-            onPress={() => expandModal()}
+            onPress={expandModal}
             testID='view_pool_button'
           />
           <View style={tailwind('mt-8')}>
@@ -212,7 +212,7 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
           </View>
           {hasInputAmount &&
             (
-              <View style={tailwind('pb-2')} testID='remove_liquidity_calculation_summary'>
+              <View testID='remove_liquidity_calculation_summary'>
                 <LiquidityCalculationSummary
                   containerStyle={tailwind('pt-5 px-5 border rounded-lg-v2')}
                   priceRatesOption={[{
