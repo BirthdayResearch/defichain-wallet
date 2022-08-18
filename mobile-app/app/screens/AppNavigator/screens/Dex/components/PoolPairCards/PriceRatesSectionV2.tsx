@@ -70,21 +70,27 @@ export const PriceRatesSectionV2 = memo(({
 
 const PriceRateValue = (props: { value: string, suffix: string, testID: string }): JSX.Element => {
   return (
-    <NumberFormat
-      displayType='text'
-      renderText={(textValue) => (
-        <ThemedTextV2
-          style={tailwind('text-sm ml-1 font-normal-v2 w-32')}
-          testID={props.testID}
-          ellipsizeMode='middle'
-          numberOfLines={1}
-        >
-          {textValue}
-        </ThemedTextV2>
-      )}
-      thousandSeparator
-      value={props.value}
-      suffix={` ${props.suffix}`}
-    />
+    <View style={tailwind('flex flex-row')}>
+      <NumberFormat
+        displayType='text'
+        renderText={(textValue) => (
+          <ThemedTextV2
+            style={tailwind('text-sm ml-1 font-normal-v2 w-20')}
+            testID={props.testID}
+            ellipsizeMode='tail'
+            numberOfLines={1}
+          >
+            {textValue}
+          </ThemedTextV2>
+        )}
+        thousandSeparator
+        value={props.value}
+      />
+      <ThemedTextV2
+        style={tailwind('text-sm font-normal-v2 ml-0.5')}
+      >
+        {props.suffix}
+      </ThemedTextV2>
+    </View>
   )
 }
