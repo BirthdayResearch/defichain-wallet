@@ -222,14 +222,11 @@ async function constructSignedRemoveLiqAndSend (pair: PoolPairData, amount: BigN
 
   dispatch(transactionQueue.actions.push({
     sign: signer,
-    title: translate('screens/ConfirmRemoveLiquidity', 'Removing {{amount}} {{symbol}} from liquidity pool', {
-      symbol: symbol,
-      amount: amount.toFixed(8)
-    }),
     drawerMessages: {
       preparing: translate('screens/OceanInterface', 'Preparing to remove liquidity…'),
-      waiting: translate('screens/OceanInterface', 'Removing {{symbol}} from liquidity pool', {
-        symbol: symbol
+      waiting: translate('screens/OceanInterface', 'Removing {{amount}} {{symbol}} from liquidity pool', {
+        symbol: symbol,
+        amount: amount.toFixed(8)
       }),
       complete: translate('screens/OceanInterface', 'Removed {{amount}} {{symbol}} from liquidity pool', {
         symbol: symbol,
