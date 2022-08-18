@@ -12,7 +12,7 @@ import {
   SkeletonLoader,
   SkeletonLoaderScreen
 } from '@components/SkeletonLoader'
-import { ThemedScrollView, ThemedScrollViewV2 } from '@components/themed'
+import { ThemedScrollView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
@@ -269,16 +269,15 @@ export function DexScreen (): JSX.Element {
   return (
     <>
       <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
-      <ThemedScrollViewV2>
-        <TopLiquiditySection onPress={onSwap} pairs={topLiquidityPairs} />
-        <View style={tailwind('flex-1')}>
-          {activeTab === TabKey.AvailablePoolPair &&
+      <TopLiquiditySection onPress={onSwap} pairs={topLiquidityPairs} />
+      <View style={tailwind('flex-1')}>
+        {activeTab === TabKey.AvailablePoolPair &&
             (!hasFetchedPoolpairData || isSearching) && (
               <ThemedScrollView contentContainerStyle={tailwind('p-4')}>
                 <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Dex} />
               </ThemedScrollView>
             )}
-          {activeTab === TabKey.AvailablePoolPair &&
+        {activeTab === TabKey.AvailablePoolPair &&
             hasFetchedPoolpairData &&
             !isSearching && (
               <PoolPairCardsV2
@@ -293,25 +292,24 @@ export function DexScreen (): JSX.Element {
                 showSearchInput={showSearchInput}
               />
             )}
-          {activeTab === TabKey.YourPoolPair && yourLPTokens.length > 0 && (
-            <PoolPairCards
-              availablePairs={filteredAvailablePairs}
-              yourPairs={yourLPTokens}
-              onAdd={onAdd}
-              onRemove={onRemove}
-              onSwap={onSwap}
-              type='your'
-              setIsSearching={setIsSearching}
-              searchString={searchString}
-              showSearchInput={showSearchInput}
-            />
+        {activeTab === TabKey.YourPoolPair && yourLPTokens.length > 0 && (
+          <PoolPairCards
+            availablePairs={filteredAvailablePairs}
+            yourPairs={yourLPTokens}
+            onAdd={onAdd}
+            onRemove={onRemove}
+            onSwap={onSwap}
+            type='your'
+            setIsSearching={setIsSearching}
+            searchString={searchString}
+            showSearchInput={showSearchInput}
+          />
           )}
 
-          {activeTab === TabKey.YourPoolPair && yourLPTokens.length === 0 && (
-            <EmptyActivePoolpair />
+        {activeTab === TabKey.YourPoolPair && yourLPTokens.length === 0 && (
+          <EmptyActivePoolpair />
           )}
-        </View>
-      </ThemedScrollViewV2>
+      </View>
     </>
   )
 }
