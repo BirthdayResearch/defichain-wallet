@@ -122,7 +122,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       id: 'add_liquidity_v2',
       name: 'Add liquidity 2.0',
       stage: 'public',
-      version: '>2.1.0',
+      version: '>2.2.0',
       description: 'Display redesigned Add liquidity flow for LW 2.0',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
@@ -130,7 +130,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       id: 'remove_liquidity_v2',
       name: 'Remove liquidity 2.0',
       stage: 'public',
-      version: '>2.1.0',
+      version: '>2.2.0',
       description: 'Display redesigned Remove liquidity flow for LW 2.0',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
