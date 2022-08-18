@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { View, Platform } from 'react-native'
 import { memo } from 'react'
 import { tailwind } from '@tailwind'
 import BigNumber from 'bignumber.js'
@@ -34,7 +34,7 @@ export const ViewPoolDetails = ({
   return (
     <ThemedViewV2 style={tailwind('px-5 h-full -mt-1 flex flex-grow')}>
       {/* -mt-1 above and mt-1 added below is kind of hack to solved React Navigation elevation bug on android for now. */}
-      <View style={tailwind('mb-3 flex-row items-center mt-1')}>
+      <View style={tailwind('mb-3 flex-row items-center mt-2', { 'mt-1': Platform.OS === 'ios' }, { 'mt-1': Platform.OS === 'android' })}>
         <View>
           <PoolPairTextSectionV2
             symbolA={pairData.tokenA.displaySymbol}
