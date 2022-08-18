@@ -4113,6 +4113,9 @@
 	"h-14": {
 		"height": 56
 	},
+	"h-15": {
+		"height": 60
+	},
 	"h-16": {
 		"height": 64
 	},
@@ -4379,6 +4382,9 @@
 	},
 	"w-14": {
 		"width": 56
+	},
+	"w-15": {
+		"width": 60
 	},
 	"w-16": {
 		"width": 64
@@ -7587,6 +7593,12 @@
 		"paddingBottom": 56,
 		"paddingLeft": 56
 	},
+	"p-15": {
+		"paddingTop": 60,
+		"paddingRight": 60,
+		"paddingBottom": 60,
+		"paddingLeft": 60
+	},
 	"p-16": {
 		"paddingTop": 64,
 		"paddingRight": 64,
@@ -7775,6 +7787,10 @@
 		"paddingLeft": 56,
 		"paddingRight": 56
 	},
+	"px-15": {
+		"paddingLeft": 60,
+		"paddingRight": 60
+	},
 	"px-16": {
 		"paddingLeft": 64,
 		"paddingRight": 64
@@ -7919,6 +7935,10 @@
 		"paddingTop": 56,
 		"paddingBottom": 56
 	},
+	"py-15": {
+		"paddingTop": 60,
+		"paddingBottom": 60
+	},
 	"py-16": {
 		"paddingTop": 64,
 		"paddingBottom": 64
@@ -8049,6 +8069,9 @@
 	"pt-14": {
 		"paddingTop": 56
 	},
+	"pt-15": {
+		"paddingTop": 60
+	},
 	"pt-16": {
 		"paddingTop": 64
 	},
@@ -8156,6 +8179,9 @@
 	},
 	"pr-14": {
 		"paddingRight": 56
+	},
+	"pr-15": {
+		"paddingRight": 60
 	},
 	"pr-16": {
 		"paddingRight": 64
@@ -8265,6 +8291,9 @@
 	"pb-14": {
 		"paddingBottom": 56
 	},
+	"pb-15": {
+		"paddingBottom": 60
+	},
 	"pb-16": {
 		"paddingBottom": 64
 	},
@@ -8372,6 +8401,9 @@
 	},
 	"pl-14": {
 		"paddingLeft": 56
+	},
+	"pl-15": {
+		"paddingLeft": 60
 	},
 	"pl-16": {
 		"paddingLeft": 64

@@ -17,6 +17,7 @@ import { BottomSheetModal as BottomSheetModalWeb } from './BottomSheetModal.web'
 import { CreateOrEditAddressLabelFormProps } from '@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelForm'
 import { getDefaultThemeV2 } from '@constants/ThemeV2'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { ThemedViewV2 } from '@components/themed'
 
 interface BottomSheetWithNavProps {
   modalRef: React.Ref<BottomSheetModalMethods>
@@ -42,7 +43,6 @@ export interface BottomSheetWithNavRouteParam {
 }
 
 export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): JSX.Element => {
-  const { isLight } = useThemeContext()
   const getSnapPoints = (): string[] => {
     if (Platform.OS === 'ios') {
       return props.snapPoints?.ios ?? ['50%']
@@ -58,14 +58,15 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
       index={0}
       snapPoints={getSnapPoints()}
       enablePanDownToClose={false}
+      handleComponent={EmptyHandleComponent}
       keyboardBlurBehavior='restore'
       backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
         <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
       )}
       backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
-        <View
+        <ThemedViewV2
           {...backgroundProps}
-          style={[backgroundProps.style, tailwind(`${isLight ? 'bg-white' : 'bg-gray-800'} rounded`)]}
+          style={[backgroundProps.style, tailwind('rounded-t-xl-v2')]}
         />
       )}
     >
@@ -74,7 +75,11 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
   )
 })
 
-export const BottomSheetWebWithNav = React.memo((props: BottomSheetWithNavProps & { isModalDisplayed: boolean, modalStyle?: { [other: string]: any} }): JSX.Element => {
+const EmptyHandleComponent = (): JSX.Element => {
+  return <View />
+}
+
+export const BottomSheetWebWithNav = React.memo((props: BottomSheetWithNavProps & { isModalDisplayed: boolean, modalStyle?: { [other: string]: any } }): JSX.Element => {
   return (
     <BottomSheetModalWeb
       screenList={props.screenList}

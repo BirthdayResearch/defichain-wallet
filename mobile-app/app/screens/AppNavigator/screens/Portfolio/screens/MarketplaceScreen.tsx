@@ -1,5 +1,12 @@
 import { ImageSourcePropType, View, Image } from 'react-native'
-import { ThemedIcon, ThemedScrollViewV2, ThemedSectionTitleV2, ThemedTextV2, ThemedViewV2, ThemedTouchableListItem } from '@components/themed'
+import {
+  ThemedIcon,
+  ThemedScrollViewV2,
+  ThemedSectionTitleV2,
+  ThemedTextV2,
+  ThemedViewV2,
+  ThemedTouchableListItem
+} from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { openURL } from '@api/linking'
@@ -9,12 +16,11 @@ import Bitrue from '@assets/images/exchanges/Bitrue.png'
 import Latoken from '@assets/images/exchanges/Latoken.png'
 import DFX from '@assets/images/exchanges/DFX.png'
 import Transak from '@assets/images/exchanges/Transak.png'
-import Hotbit from '@assets/images/exchanges/Hotbit.png'
-import Hoo from '@assets/images/exchanges/Hoo.png'
 import EasyCrypto from '@assets/images/exchanges/EasyCrypto.png'
 import CakeDeFi from '@assets/images/exchanges/CakeDeFi.png'
 import Bybit from '@assets/images/exchanges/Bybit.png'
 import Swyftx from '@assets/images/exchanges/Swyftx.png'
+import Huobi from '@assets/images/exchanges/Huobi.png'
 
 interface ExchangeProps {
   image: ImageSourcePropType
@@ -27,6 +33,10 @@ const exchanges: ExchangeProps[] = [
     name: 'Kucoin',
     image: Kucoin,
     url: 'https://www.kucoin.com/trade/DFI-BTC'
+  }, {
+    name: 'Huobi',
+    image: Huobi,
+    url: 'https://www.huobi.com/en-us/exchange/dfi_usdt'
   }, {
     name: 'Bittrex',
     image: Bittrex,
@@ -47,14 +57,6 @@ const exchanges: ExchangeProps[] = [
     name: 'Transak',
     image: Transak,
     url: 'https://global.transak.com/'
-  }, {
-    name: 'Hotbit',
-    image: Hotbit,
-    url: 'https://www.hotbit.io/exchange?symbol=DFI_USDT'
-  }, {
-    name: 'Hoo',
-    image: Hoo,
-    url: 'https://hoo.com/innovation/dfi-usdt'
   }, {
     name: 'EasyCrypto (Australia)',
     image: EasyCrypto,
@@ -80,23 +82,27 @@ const exchanges: ExchangeProps[] = [
 ]
 
 export function MarketplaceScreen (): JSX.Element {
-    return (
-      <ThemedScrollViewV2
-        style={tailwind('flex-1')}
-        contentContainerStyle={tailwind('mx-5 pb-16')}
-        testID='language_selection_screen'
+  return (
+    <ThemedScrollViewV2
+      style={tailwind('flex-1')}
+      contentContainerStyle={tailwind('mx-5 pb-16')}
+      testID='language_selection_screen'
+    >
+      <ThemedSectionTitleV2
+        testID='language_selection_screen_title'
+        text={translate('screens/MarketplaceScreen', 'GET DFI FROM')}
+      />
+      <ThemedViewV2
+        dark={tailwind('bg-mono-dark-v2-00')}
+        light={tailwind('bg-mono-light-v2-00')}
+        style={tailwind('rounded-lg-v2 px-5')}
       >
-        <ThemedSectionTitleV2
-          testID='language_selection_screen_title'
-          text={translate('screens/MarketplaceScreen', 'GET DFI FROM')}
-        />
-        <ThemedViewV2
-          dark={tailwind('bg-mono-dark-v2-00')}
-          light={tailwind('bg-mono-light-v2-00')}
-          style={tailwind('rounded-lg-v2 px-5')}
-        >
-          {
-          exchanges.map(({ name, image, url }, index) => (
+        {
+          exchanges.map(({
+            name,
+            image,
+            url
+          }, index) => (
             <ExchangeItemRow
               url={url}
               key={name}
@@ -106,40 +112,46 @@ export function MarketplaceScreen (): JSX.Element {
               isLast={index === exchanges.length - 1}
             />
           ))
-          }
-        </ThemedViewV2>
-      </ThemedScrollViewV2>
-    )
-  }
+        }
+      </ThemedViewV2>
+    </ThemedScrollViewV2>
+  )
+}
 
-function ExchangeItemRow ({ image, name, url, testID, isLast }: ExchangeProps & { testID: string } & { isLast: boolean}): JSX.Element {
-    return (
-      <ThemedTouchableListItem
-        onPress={async () => await openURL(url)}
-        isLast={isLast}
-        styleProps='py-4'
-        testID={testID}
-      >
-        <View style={tailwind('flex flex-row items-center')}>
-          <Image
-            source={image}
-            style={tailwind('h-6 w-6')}
-          />
-          <ThemedTextV2
-            dark={tailwind('text-mono-dark-v2-900')}
-            light={tailwind('text-mono-light-v2-900')}
-            style={tailwind('font-normal-v2 text-sm ml-2')}
-          >
-            {name}
-          </ThemedTextV2>
-        </View>
-        <ThemedIcon
-          size={18}
-          name='open-in-new'
-          iconType='MaterialIcons'
-          dark={tailwind('text-mono-dark-v2-700')}
-          light={tailwind('text-mono-light-v2-700')}
+function ExchangeItemRow ({
+  image,
+  name,
+  url,
+  testID,
+  isLast
+}: ExchangeProps & { testID: string } & { isLast: boolean }): JSX.Element {
+  return (
+    <ThemedTouchableListItem
+      onPress={async () => await openURL(url)}
+      isLast={isLast}
+      styleProps='py-4'
+      testID={testID}
+    >
+      <View style={tailwind('flex flex-row items-center')}>
+        <Image
+          source={image}
+          style={tailwind('h-6 w-6')}
         />
-      </ThemedTouchableListItem>
-    )
+        <ThemedTextV2
+          dark={tailwind('text-mono-dark-v2-900')}
+          light={tailwind('text-mono-light-v2-900')}
+          style={tailwind('font-normal-v2 text-sm ml-2')}
+        >
+          {name}
+        </ThemedTextV2>
+      </View>
+      <ThemedIcon
+        size={18}
+        name='open-in-new'
+        iconType='MaterialIcons'
+        dark={tailwind('text-mono-dark-v2-700')}
+        light={tailwind('text-mono-light-v2-700')}
+      />
+    </ThemedTouchableListItem>
+  )
 }

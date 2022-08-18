@@ -31,22 +31,5 @@ jobs:
             test
             ci
             build
-          scopes: |
-            core
-            workflow
-            api
-            assets
-            contexts
-            hooks
-            store
-            translations
-            e2e
-            unit-tests
-            ui-ux
-            playground
-            website
-            website-api
-            deps-dev
-            deps
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

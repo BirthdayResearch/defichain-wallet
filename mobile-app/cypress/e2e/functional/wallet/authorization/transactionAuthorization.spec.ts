@@ -3,9 +3,9 @@ function openSendScreen (isRandom: boolean = true): void {
   cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(5000)
   cy.getByTestID('bottom_tab_portfolio').click()
   cy.getByTestID('portfolio_list').should('exist')
-  cy.getByTestID('details_dfi').click()
+  cy.getByTestID('dfi_total_balance_amount').contains('10.00000000')
+  cy.getByTestID('dfi_balance_card').click()
   cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
-  cy.getByTestID('dfi_balance_card_touchable').click()
   cy.getByTestID('send_button').click()
 }
 
@@ -24,9 +24,10 @@ context('Wallet - Transaction Authorization with Error', () => {
     cy.sendDFItoWallet().sendTokenToWallet(['BTC']).wait(5000)
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('portfolio_list').should('exist')
-    cy.getByTestID('details_dfi').click()
+    cy.getByTestID('dfi_balance_card').click()
     cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
-    cy.getByTestID('convert_dfi_button').click()
+    cy.getByTestID('convert_button').click()
+    cy.getByTestID('button_convert_mode_toggle').click()
   })
 
   it('should be able to show ocean interface error', function () {
@@ -37,7 +38,7 @@ context('Wallet - Transaction Authorization with Error', () => {
         'x-not-found': 'true'
       }
     }).as('sendToAddress')
-    cy.getByTestID('text_input_convert_from_input').clear().type('1')
+    cy.getByTestID('convert_input').clear().type('1')
     cy.getByTestID('button_continue_convert').click()
     cy.getByTestID('button_confirm_convert').click().wait(2000)
     cy.closeOceanInterface()
@@ -51,7 +52,6 @@ context('Wallet - Transaction Authorization with Error', () => {
     cy.getByTestID('cancel_authorization').click()
     cy.getByTestID('button_confirm_convert').click().wait(2000)
     cy.getByTestID('pin_attempt_error').should('exist') //  error message should exist when incorrect pin is entered.
-    cy.blockAllFeatureFlag()
     cy.getByTestID('pin_authorize').type('696969').wait(1000)
     cy.on('window:confirm', () => {})
     cy.url().should('include', 'wallet/onboarding')
@@ -61,7 +61,6 @@ context('Wallet - Transaction Authorization with Error', () => {
 context('Wallet - Transaction Authorization with Error - non transaction UI', () => {
   const MAX_PASSCODE_ATTEMPT = 3
   it('should not reset attempts on cancel - non transaction UI', function () {
-    cy.blockAllFeatureFlag()
     cy.createEmptyWallet(true)
     cy.getByTestID('header_settings').click()
     cy.getByTestID('view_recovery_words').click()
@@ -72,7 +71,6 @@ context('Wallet - Transaction Authorization with Error - non transaction UI', ()
     cy.getByTestID('cancel_authorization').click().wait(1000)
     cy.getByTestID('view_recovery_words').click()
     cy.getByTestID('pin_attempt_error').should('exist')
-    cy.blockAllFeatureFlag()
     cy.getByTestID('pin_authorize').type('696969').wait(1000)
     cy.on('window:confirm', () => {})
     cy.url().should('include', 'wallet/onboarding')
@@ -111,7 +109,7 @@ context('Wallet - Transaction Authorization', () => {
       cy.getByTestID('pin_authorize').type('696969').wait(1000)
     })
     cy.on('window:confirm', () => {})
-    cy.url().should('include', 'OnboardingV2')
+    cy.url().should('include', 'wallet/onboarding')
   })
 
   it('should clear attempt on success', function () {
@@ -125,9 +123,10 @@ context('Wallet - Transaction Authorization', () => {
     })
     cy.closeOceanInterface()
     cy.getByTestID('portfolio_list').should('exist')
-    cy.getByTestID('dfi_utxo_amount').should('exist')
-    cy.getByTestID('dfi_balance_card_touchable').click()
-    cy.getByTestID('send_button').click()
+    cy.getByTestID('dfi_total_balance_amount').should('exist')
+    cy.getByTestID('send_balance_button').click().wait(3000)
+    cy.getByTestID('select_token_input').click()
+    cy.getByTestID('select_DFI').click().wait(3000)
     cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
     cy.getByTestID('amount_input').clear().type('1')
     cy.getByTestID('button_confirm_send_continue').click()
@@ -169,7 +168,7 @@ context('Wallet - Non-Transaction Authorization', () => {
       cy.getByTestID('pin_authorize').type('696969').wait(1000)
     })
     cy.on('window:confirm', () => {})
-    cy.url().should('include', '/OnboardingV2')
+    cy.url().should('include', 'wallet/onboarding')
   })
 
   it('should clear attempt on success', function () {

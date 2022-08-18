@@ -59,7 +59,7 @@ export function TotalPortfolio (props: TotalPortfolioProps): JSX.Element {
     <ThemedViewV2
       light={tailwind('bg-mono-light-v2-00')}
       dark={tailwind('bg-mono-dark-v2-00')}
-      style={tailwind('mb-2 px-5 pb-5 pt-2 rounded-b-xl-v2')}
+      style={tailwind('px-5 py-5 rounded-b-xl-v2')}
       testID='total_portfolio_card'
     >
       {
@@ -219,7 +219,7 @@ function CurrencySwitcher ({ currency }: { currency: string }): JSX.Element {
       dark={tailwind('border-mono-dark-v2-900')}
     >
       <ThemedTextV2
-        style={tailwind('text-xs font-normal-v2')}
+        style={tailwind('text-xs text-center font-normal-v2')}
         testID='portfolio_active_currency'
       >
         {currency}

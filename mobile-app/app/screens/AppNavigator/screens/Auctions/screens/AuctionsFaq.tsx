@@ -1,5 +1,5 @@
-import { ThemedScrollView, ThemedText } from '@components/themed'
-import { AccordionContent, WalletAccordion } from '@components/WalletAccordion'
+import { ThemedScrollViewV2, ThemedTextV2 } from '@components/themed'
+import { AccordionContent, WalletAccordionV2 } from '@components/WalletAccordionV2'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 
@@ -22,27 +22,22 @@ export function AuctionsFaq (): JSX.Element {
   ]
 
   return (
-    <ThemedScrollView
-      contentContainerStyle={tailwind('p-6 pb-8')}
+    <ThemedScrollViewV2
+      contentContainerStyle={tailwind('pt-8 px-5 pb-16')}
+      style={tailwind('flex-1')}
       testID='auctions_faq'
     >
-      <ThemedText
-        style={tailwind('text-lg font-semibold')}
-      >
-        {translate('components/AuctionsFaq', 'Auctions')}
-      </ThemedText>
-
-      <ThemedText
-        style={tailwind('mt-2 text-sm')}
+      <ThemedTextV2
+        style={tailwind('text-base font-normal-v2 px-5')}
       >
         {translate('components/AuctionsFaq', 'Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults\' outstanding loans. Liquidation occurs when a vault\'s collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.')}
-      </ThemedText>
+      </ThemedTextV2>
 
-      <WalletAccordion
+      <WalletAccordionV2
         testID='auctions_faq_accordion'
         title={translate('components/AuctionsFaq', 'FREQUENTLY ASKED QUESTIONS')}
         content={faqContent}
       />
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }

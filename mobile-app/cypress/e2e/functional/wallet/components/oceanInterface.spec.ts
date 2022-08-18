@@ -4,12 +4,14 @@ context('Wallet - Ocean Interface', () => {
     cy.sendDFItoWallet()
       .sendDFITokentoWallet().wait(3000)
     cy.getByTestID('bottom_tab_portfolio').click()
-    cy.getByTestID('details_dfi').click()
-    cy.getByTestID('convert_dfi_button').click()
+    cy.getByTestID('dfi_total_balance_amount').contains('20.00000000')
+    cy.getByTestID('dfi_balance_card').click()
+    cy.getByTestID('convert_button').click()
+    cy.getByTestID('button_convert_mode_toggle').click()
   })
 
   it('should able to convert page', function () {
-    cy.getByTestID('text_input_convert_from_input').clear().type('1').blur()
+    cy.getByTestID('convert_input').clear().type('1').blur()
     cy.getByTestID('button_continue_convert').click()
     cy.getByTestID('button_confirm_convert').click()
     cy.getByTestID('pin_authorize').type('000000').wait(5000)

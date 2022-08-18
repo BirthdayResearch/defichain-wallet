@@ -1,20 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LoansFaq FAQ screen should match snapshot 1`] = `
+exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
 <RCTScrollView
   contentContainerStyle={
     Object {
-      "paddingBottom": 32,
-      "paddingLeft": 24,
-      "paddingRight": 24,
-      "paddingTop": 24,
+      "paddingBottom": 64,
+      "paddingLeft": 20,
+      "paddingRight": 20,
+      "paddingTop": 32,
     }
   }
   style={
     Array [
-      undefined,
       Object {
-        "backgroundColor": "rgba(250, 250, 250, 1)",
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      Object {
+        "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
   }
@@ -32,37 +36,15 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
           },
           Array [
             Object {
-              "fontFamily": "SemiBoldFont",
-              "fontSize": 18,
-              "fontWeight": "600",
-              "lineHeight": 28,
+              "fontFamily": "SoraRegular",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
             },
             Object {
-              "color": "rgba(0, 0, 0, 1)",
-            },
-          ],
-        ]
-      }
-    >
-      Decentralized Loans
-    </Text>
-    <Text
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "fontSize": 14,
-              "lineHeight": 20,
-              "marginTop": 8,
-            },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
+              "color": "rgba(18, 18, 18, 1)",
             },
           ],
         ]
@@ -75,7 +57,7 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
         Array [
           undefined,
           Object {
-            "backgroundColor": "rgba(250, 250, 250, 1)",
+            "backgroundColor": "rgba(242, 242, 242, 1)",
           },
         ]
       }
@@ -93,14 +75,16 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
               },
               Array [
                 Object {
-                  "fontFamily": "MediumFont",
+                  "fontFamily": "SoraRegular",
                   "fontSize": 12,
-                  "fontWeight": "500",
+                  "fontWeight": "400",
                   "lineHeight": 16,
                   "marginTop": 32,
+                  "paddingLeft": 20,
+                  "paddingRight": 20,
                 },
                 Object {
-                  "color": "rgba(163, 163, 163, 1)",
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
@@ -115,21 +99,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
               Object {
                 "borderBottomLeftRadius": 8,
                 "borderBottomRightRadius": 8,
-                "borderBottomWidth": 1,
-                "borderLeftWidth": 1,
-                "borderRightWidth": 1,
                 "borderTopLeftRadius": 8,
                 "borderTopRightRadius": 8,
-                "borderTopWidth": 1,
                 "marginTop": 8,
                 "overflow": "hidden",
               },
               Object {
                 "backgroundColor": "rgba(255, 255, 255, 1)",
-                "borderBottomColor": "rgba(229, 229, 229, 1)",
-                "borderLeftColor": "rgba(229, 229, 229, 1)",
-                "borderRightColor": "rgba(229, 229, 229, 1)",
-                "borderTopColor": "rgba(229, 229, 229, 1)",
               },
             ]
           }
@@ -158,12 +134,12 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                   Array [
                     Array [
                       Object {
-                        "alignItems": "center",
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
                         "paddingBottom": 16,
-                        "paddingLeft": 16,
-                        "paddingRight": 16,
                         "paddingTop": 16,
                       },
                       false,
@@ -172,10 +148,10 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                       },
                     ],
                     Object {
-                      "borderBottomColor": "rgba(229, 229, 229, 1)",
-                      "borderLeftColor": "rgba(229, 229, 229, 1)",
-                      "borderRightColor": "rgba(229, 229, 229, 1)",
-                      "borderTopColor": "rgba(229, 229, 229, 1)",
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
                     },
                   ]
                 }
@@ -190,21 +166,17 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         "lineHeight": 24,
                       },
                       Array [
-                        Array [
-                          Object {
-                            "flexBasis": "0%",
-                            "flexGrow": 1,
-                            "flexShrink": 1,
-                            "fontSize": 14,
-                            "lineHeight": 20,
-                          },
-                          Object {
-                            "fontFamily": "SemiBoldFont",
-                            "fontWeight": "600",
-                          },
-                        ],
                         Object {
-                          "color": "rgba(23, 23, 23, 1)",
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraSemiBold",
+                          "fontSize": 14,
+                          "fontWeight": "600",
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(18, 18, 18, 1)",
                         },
                       ],
                     ]
@@ -231,20 +203,20 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                     Array [
                       Array [
                         Object {
+                          "marginLeft": 20,
+                          "marginRight": 20,
                           "paddingBottom": 16,
-                          "paddingLeft": 16,
-                          "paddingRight": 16,
-                          "paddingTop": 0,
+                          "paddingTop": 16,
                         },
                         Object {
                           "borderBottomWidth": 1,
                         },
                       ],
                       Object {
-                        "borderBottomColor": "rgba(229, 229, 229, 1)",
-                        "borderLeftColor": "rgba(229, 229, 229, 1)",
-                        "borderRightColor": "rgba(229, 229, 229, 1)",
-                        "borderTopColor": "rgba(229, 229, 229, 1)",
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
                       },
                     ]
                   }
@@ -271,11 +243,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -312,12 +286,12 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                   Array [
                     Array [
                       Object {
-                        "alignItems": "center",
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
                         "paddingBottom": 16,
-                        "paddingLeft": 16,
-                        "paddingRight": 16,
                         "paddingTop": 16,
                       },
                       Object {
@@ -326,10 +300,10 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                       false,
                     ],
                     Object {
-                      "borderBottomColor": "rgba(229, 229, 229, 1)",
-                      "borderLeftColor": "rgba(229, 229, 229, 1)",
-                      "borderRightColor": "rgba(229, 229, 229, 1)",
-                      "borderTopColor": "rgba(229, 229, 229, 1)",
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
                     },
                   ]
                 }
@@ -344,18 +318,17 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         "lineHeight": 24,
                       },
                       Array [
-                        Array [
-                          Object {
-                            "flexBasis": "0%",
-                            "flexGrow": 1,
-                            "flexShrink": 1,
-                            "fontSize": 14,
-                            "lineHeight": 20,
-                          },
-                          false,
-                        ],
                         Object {
-                          "color": "rgba(115, 115, 115, 1)",
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 14,
+                          "fontWeight": "400",
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(89, 89, 89, 1)",
                         },
                       ],
                     ]
@@ -387,18 +360,18 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                     Array [
                       Array [
                         Object {
+                          "marginLeft": 20,
+                          "marginRight": 20,
                           "paddingBottom": 16,
-                          "paddingLeft": 16,
-                          "paddingRight": 16,
-                          "paddingTop": 0,
+                          "paddingTop": 16,
                         },
                         false,
                       ],
                       Object {
-                        "borderBottomColor": "rgba(229, 229, 229, 1)",
-                        "borderLeftColor": "rgba(229, 229, 229, 1)",
-                        "borderRightColor": "rgba(229, 229, 229, 1)",
-                        "borderTopColor": "rgba(229, 229, 229, 1)",
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
                       },
                     ]
                   }
@@ -425,17 +398,19 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
                       }
                     >
-                      The collateralization ratio determines the state of the vault. A ratio below the minimum collaterization ratio results in liquidation, upon which, a vault's collateral will be sent for auction.
+                      The collateralization ratio determines the state of the vault. A ratio below the minimum collateralization ratio results in liquidation, upon which, a vault's collateral will be sent for auction.
                     </Text>
                   </View>
                   <View
@@ -460,11 +435,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -492,14 +469,15 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                           },
                           Array [
                             Object {
-                              "fontFamily": "BoldFont",
+                              "fontFamily": "SoraBold",
                               "fontSize": 14,
                               "fontWeight": "700",
                               "lineHeight": 20,
+                              "textAlign": "center",
                               "width": "8.333333%",
                             },
                             Object {
-                              "color": "rgba(0, 0, 0, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -521,11 +499,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -553,14 +533,15 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                           },
                           Array [
                             Object {
-                              "fontFamily": "BoldFont",
+                              "fontFamily": "SoraBold",
                               "fontSize": 14,
                               "fontWeight": "700",
                               "lineHeight": 20,
+                              "textAlign": "center",
                               "width": "8.333333%",
                             },
                             Object {
-                              "color": "rgba(0, 0, 0, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -582,11 +563,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -614,14 +597,15 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                           },
                           Array [
                             Object {
-                              "fontFamily": "BoldFont",
+                              "fontFamily": "SoraBold",
                               "fontSize": 14,
                               "fontWeight": "700",
                               "lineHeight": 20,
+                              "textAlign": "center",
                               "width": "8.333333%",
                             },
                             Object {
-                              "color": "rgba(0, 0, 0, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -643,11 +627,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -684,12 +670,12 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                   Array [
                     Array [
                       Object {
-                        "alignItems": "center",
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
                         "paddingBottom": 16,
-                        "paddingLeft": 16,
-                        "paddingRight": 16,
                         "paddingTop": 16,
                       },
                       Object {
@@ -698,10 +684,10 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                       false,
                     ],
                     Object {
-                      "borderBottomColor": "rgba(229, 229, 229, 1)",
-                      "borderLeftColor": "rgba(229, 229, 229, 1)",
-                      "borderRightColor": "rgba(229, 229, 229, 1)",
-                      "borderTopColor": "rgba(229, 229, 229, 1)",
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
                     },
                   ]
                 }
@@ -716,18 +702,17 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         "lineHeight": 24,
                       },
                       Array [
-                        Array [
-                          Object {
-                            "flexBasis": "0%",
-                            "flexGrow": 1,
-                            "flexShrink": 1,
-                            "fontSize": 14,
-                            "lineHeight": 20,
-                          },
-                          false,
-                        ],
                         Object {
-                          "color": "rgba(115, 115, 115, 1)",
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 14,
+                          "fontWeight": "400",
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(89, 89, 89, 1)",
                         },
                       ],
                     ]
@@ -759,18 +744,18 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                     Array [
                       Array [
                         Object {
+                          "marginLeft": 20,
+                          "marginRight": 20,
                           "paddingBottom": 16,
-                          "paddingLeft": 16,
-                          "paddingRight": 16,
-                          "paddingTop": 0,
+                          "paddingTop": 16,
                         },
                         false,
                       ],
                       Object {
-                        "borderBottomColor": "rgba(229, 229, 229, 1)",
-                        "borderLeftColor": "rgba(229, 229, 229, 1)",
-                        "borderRightColor": "rgba(229, 229, 229, 1)",
-                        "borderTopColor": "rgba(229, 229, 229, 1)",
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
                       },
                     ]
                   }
@@ -794,14 +779,15 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                           },
                           Array [
                             Object {
-                              "fontFamily": "BoldFont",
+                              "fontFamily": "SoraBold",
                               "fontSize": 14,
                               "fontWeight": "700",
                               "lineHeight": 20,
+                              "textAlign": "center",
                               "width": "8.333333%",
                             },
                             Object {
-                              "color": "rgba(0, 0, 0, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -823,11 +809,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -855,14 +843,15 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                           },
                           Array [
                             Object {
-                              "fontFamily": "BoldFont",
+                              "fontFamily": "SoraBold",
                               "fontSize": 14,
                               "fontWeight": "700",
                               "lineHeight": 20,
+                              "textAlign": "center",
                               "width": "8.333333%",
                             },
                             Object {
-                              "color": "rgba(0, 0, 0, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -884,11 +873,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -916,14 +907,15 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                           },
                           Array [
                             Object {
-                              "fontFamily": "BoldFont",
+                              "fontFamily": "SoraBold",
                               "fontSize": 14,
                               "fontWeight": "700",
                               "lineHeight": 20,
+                              "textAlign": "center",
                               "width": "8.333333%",
                             },
                             Object {
-                              "color": "rgba(0, 0, 0, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -945,11 +937,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -977,14 +971,15 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                           },
                           Array [
                             Object {
-                              "fontFamily": "BoldFont",
+                              "fontFamily": "SoraBold",
                               "fontSize": 14,
                               "fontWeight": "700",
                               "lineHeight": 20,
+                              "textAlign": "center",
                               "width": "8.333333%",
                             },
                             Object {
-                              "color": "rgba(0, 0, 0, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -1006,11 +1001,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -1038,14 +1035,15 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                           },
                           Array [
                             Object {
-                              "fontFamily": "BoldFont",
+                              "fontFamily": "SoraBold",
                               "fontSize": 14,
                               "fontWeight": "700",
                               "lineHeight": 20,
+                              "textAlign": "center",
                               "width": "8.333333%",
                             },
                             Object {
-                              "color": "rgba(0, 0, 0, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -1067,11 +1065,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -1099,14 +1099,15 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                           },
                           Array [
                             Object {
-                              "fontFamily": "BoldFont",
+                              "fontFamily": "SoraBold",
                               "fontSize": 14,
                               "fontWeight": "700",
                               "lineHeight": 20,
+                              "textAlign": "center",
                               "width": "8.333333%",
                             },
                             Object {
-                              "color": "rgba(0, 0, 0, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -1128,11 +1129,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -1160,14 +1163,15 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                           },
                           Array [
                             Object {
-                              "fontFamily": "BoldFont",
+                              "fontFamily": "SoraBold",
                               "fontSize": 14,
                               "fontWeight": "700",
                               "lineHeight": 20,
+                              "textAlign": "center",
                               "width": "8.333333%",
                             },
                             Object {
-                              "color": "rgba(0, 0, 0, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -1189,11 +1193,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -1230,12 +1236,12 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                   Array [
                     Array [
                       Object {
-                        "alignItems": "center",
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
                         "paddingBottom": 16,
-                        "paddingLeft": 16,
-                        "paddingRight": 16,
                         "paddingTop": 16,
                       },
                       Object {
@@ -1244,10 +1250,10 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                       false,
                     ],
                     Object {
-                      "borderBottomColor": "rgba(229, 229, 229, 1)",
-                      "borderLeftColor": "rgba(229, 229, 229, 1)",
-                      "borderRightColor": "rgba(229, 229, 229, 1)",
-                      "borderTopColor": "rgba(229, 229, 229, 1)",
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
                     },
                   ]
                 }
@@ -1262,18 +1268,17 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         "lineHeight": 24,
                       },
                       Array [
-                        Array [
-                          Object {
-                            "flexBasis": "0%",
-                            "flexGrow": 1,
-                            "flexShrink": 1,
-                            "fontSize": 14,
-                            "lineHeight": 20,
-                          },
-                          false,
-                        ],
                         Object {
-                          "color": "rgba(115, 115, 115, 1)",
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 14,
+                          "fontWeight": "400",
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(89, 89, 89, 1)",
                         },
                       ],
                     ]
@@ -1305,18 +1310,18 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                     Array [
                       Array [
                         Object {
+                          "marginLeft": 20,
+                          "marginRight": 20,
                           "paddingBottom": 16,
-                          "paddingLeft": 16,
-                          "paddingRight": 16,
-                          "paddingTop": 0,
+                          "paddingTop": 16,
                         },
                         false,
                       ],
                       Object {
-                        "borderBottomColor": "rgba(229, 229, 229, 1)",
-                        "borderLeftColor": "rgba(229, 229, 229, 1)",
-                        "borderRightColor": "rgba(229, 229, 229, 1)",
-                        "borderTopColor": "rgba(229, 229, 229, 1)",
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
                       },
                     ]
                   }
@@ -1343,11 +1348,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -1375,14 +1382,15 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                           },
                           Array [
                             Object {
-                              "fontFamily": "BoldFont",
+                              "fontFamily": "SoraBold",
                               "fontSize": 14,
                               "fontWeight": "700",
                               "lineHeight": 20,
+                              "textAlign": "center",
                               "width": "8.333333%",
                             },
                             Object {
-                              "color": "rgba(0, 0, 0, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -1404,11 +1412,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -1436,14 +1446,15 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                           },
                           Array [
                             Object {
-                              "fontFamily": "BoldFont",
+                              "fontFamily": "SoraBold",
                               "fontSize": 14,
                               "fontWeight": "700",
                               "lineHeight": 20,
+                              "textAlign": "center",
                               "width": "8.333333%",
                             },
                             Object {
-                              "color": "rgba(0, 0, 0, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -1465,11 +1476,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -1500,11 +1513,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -1541,12 +1556,12 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                   Array [
                     Array [
                       Object {
-                        "alignItems": "center",
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
                         "paddingBottom": 16,
-                        "paddingLeft": 16,
-                        "paddingRight": 16,
                         "paddingTop": 16,
                       },
                       Object {
@@ -1555,10 +1570,10 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                       false,
                     ],
                     Object {
-                      "borderBottomColor": "rgba(229, 229, 229, 1)",
-                      "borderLeftColor": "rgba(229, 229, 229, 1)",
-                      "borderRightColor": "rgba(229, 229, 229, 1)",
-                      "borderTopColor": "rgba(229, 229, 229, 1)",
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
                     },
                   ]
                 }
@@ -1573,18 +1588,17 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         "lineHeight": 24,
                       },
                       Array [
-                        Array [
-                          Object {
-                            "flexBasis": "0%",
-                            "flexGrow": 1,
-                            "flexShrink": 1,
-                            "fontSize": 14,
-                            "lineHeight": 20,
-                          },
-                          false,
-                        ],
                         Object {
-                          "color": "rgba(115, 115, 115, 1)",
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 14,
+                          "fontWeight": "400",
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(89, 89, 89, 1)",
                         },
                       ],
                     ]
@@ -1616,18 +1630,18 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                     Array [
                       Array [
                         Object {
+                          "marginLeft": 20,
+                          "marginRight": 20,
                           "paddingBottom": 16,
-                          "paddingLeft": 16,
-                          "paddingRight": 16,
-                          "paddingTop": 0,
+                          "paddingTop": 16,
                         },
                         false,
                       ],
                       Object {
-                        "borderBottomColor": "rgba(229, 229, 229, 1)",
-                        "borderLeftColor": "rgba(229, 229, 229, 1)",
-                        "borderRightColor": "rgba(229, 229, 229, 1)",
-                        "borderTopColor": "rgba(229, 229, 229, 1)",
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
                       },
                     ]
                   }
@@ -1654,11 +1668,13 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
@@ -1695,24 +1711,22 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                   Array [
                     Array [
                       Object {
-                        "alignItems": "center",
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
                         "paddingBottom": 16,
-                        "paddingLeft": 16,
-                        "paddingRight": 16,
                         "paddingTop": 16,
                       },
-                      Object {
-                        "borderBottomWidth": 1,
-                      },
+                      false,
                       false,
                     ],
                     Object {
-                      "borderBottomColor": "rgba(229, 229, 229, 1)",
-                      "borderLeftColor": "rgba(229, 229, 229, 1)",
-                      "borderRightColor": "rgba(229, 229, 229, 1)",
-                      "borderTopColor": "rgba(229, 229, 229, 1)",
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
                     },
                   ]
                 }
@@ -1727,18 +1741,17 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                         "lineHeight": 24,
                       },
                       Array [
-                        Array [
-                          Object {
-                            "flexBasis": "0%",
-                            "flexGrow": 1,
-                            "flexShrink": 1,
-                            "fontSize": 14,
-                            "lineHeight": 20,
-                          },
-                          false,
-                        ],
                         Object {
-                          "color": "rgba(115, 115, 115, 1)",
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 14,
+                          "fontWeight": "400",
+                          "lineHeight": 20,
+                        },
+                        Object {
+                          "color": "rgba(89, 89, 89, 1)",
                         },
                       ],
                     ]
@@ -1770,18 +1783,18 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                     Array [
                       Array [
                         Object {
+                          "marginLeft": 20,
+                          "marginRight": 20,
                           "paddingBottom": 16,
-                          "paddingLeft": 16,
-                          "paddingRight": 16,
-                          "paddingTop": 0,
+                          "paddingTop": 16,
                         },
                         false,
                       ],
                       Object {
-                        "borderBottomColor": "rgba(229, 229, 229, 1)",
-                        "borderLeftColor": "rgba(229, 229, 229, 1)",
-                        "borderRightColor": "rgba(229, 229, 229, 1)",
-                        "borderTopColor": "rgba(229, 229, 229, 1)",
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
                       },
                     ]
                   }
@@ -1808,171 +1821,19 @@ exports[`LoansFaq FAQ screen should match snapshot 1`] = `
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
                               "fontSize": 14,
+                              "fontWeight": "400",
                               "lineHeight": 20,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
                         ]
                       }
                     >
                       The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-          <View
-            style={Object {}}
-          >
-            <View
-              accessibilityState={
-                Object {
-                  "expanded": false,
-                }
-              }
-              accessible={true}
-              focusable={true}
-              onClick={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-            >
-              <View
-                style={
-                  Array [
-                    Array [
-                      Object {
-                        "alignItems": "center",
-                        "flexDirection": "row",
-                        "justifyContent": "space-between",
-                        "paddingBottom": 16,
-                        "paddingLeft": 16,
-                        "paddingRight": 16,
-                        "paddingTop": 16,
-                      },
-                      false,
-                      false,
-                    ],
-                    Object {
-                      "borderBottomColor": "rgba(229, 229, 229, 1)",
-                      "borderLeftColor": "rgba(229, 229, 229, 1)",
-                      "borderRightColor": "rgba(229, 229, 229, 1)",
-                      "borderTopColor": "rgba(229, 229, 229, 1)",
-                    },
-                  ]
-                }
-              >
-                <Text
-                  style={
-                    Array [
-                      Object {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
-                      Array [
-                        Array [
-                          Object {
-                            "flexBasis": "0%",
-                            "flexGrow": 1,
-                            "flexShrink": 1,
-                            "fontSize": 14,
-                            "lineHeight": 20,
-                          },
-                          false,
-                        ],
-                        Object {
-                          "color": "rgba(115, 115, 115, 1)",
-                        },
-                      ],
-                    ]
-                  }
-                >
-                  Why is there a 5% fee when paying DUSD loans with DFI?
-                </Text>
-                <Text />
-              </View>
-            </View>
-            <View
-              collapsable={false}
-              pointerEvents="none"
-              style={
-                Object {
-                  "height": 0,
-                  "overflow": "hidden",
-                }
-              }
-            >
-              <View
-                collapsable={false}
-                forwardedRef={[Function]}
-                onLayout={[Function]}
-                style={Object {}}
-              >
-                <View
-                  style={
-                    Array [
-                      Array [
-                        Object {
-                          "paddingBottom": 16,
-                          "paddingLeft": 16,
-                          "paddingRight": 16,
-                          "paddingTop": 0,
-                        },
-                        false,
-                      ],
-                      Object {
-                        "borderBottomColor": "rgba(229, 229, 229, 1)",
-                        "borderLeftColor": "rgba(229, 229, 229, 1)",
-                        "borderRightColor": "rgba(229, 229, 229, 1)",
-                        "borderTopColor": "rgba(229, 229, 229, 1)",
-                      },
-                    ]
-                  }
-                >
-                  <View
-                    style={
-                      Object {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
-                  >
-                    <Text
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
-                          Array [
-                            Object {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontSize": 14,
-                              "lineHeight": 20,
-                            },
-                            Object {
-                              "color": "rgba(82, 82, 82, 1)",
-                            },
-                          ],
-                        ]
-                      }
-                    >
-                      Per DFIP 2206-C, when DUSD loans are paid back in DFI, a 5% fees will be charged to users. This is an interim measure to incentivize arbitrage traders to use DUSD to pay back their loans which will reduce the DUSD supply in the market.
-
-When calculating how much equivalent DFI is to be paid for a DUSD loan, a 5% additional fee is applied to the DFI/DUSD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, the value of DFI in a DUSD payment is calculated by taking $10*(1-0.05), effectively reducing the value of DFI by 5% to $9.50 in such a scenario.
                     </Text>
                   </View>
                 </View>

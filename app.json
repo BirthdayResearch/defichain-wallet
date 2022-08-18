@@ -11,8 +11,8 @@
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./shared/assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      "backgroundColor": "#000000"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -31,7 +31,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./shared/assets/images/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#000000"
       },
       "package": "com.defichain.app",
       "versionCode": 0,

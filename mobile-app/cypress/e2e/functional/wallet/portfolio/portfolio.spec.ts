@@ -409,7 +409,7 @@ context('Wallet - Portfolio page', () => {
     })
     cy.getByTestID('empty_portfolio').should('exist')
     cy.getByTestID('empty_tokens_title').should('have.text', 'Empty portfolio')
-    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Add your DFI and other tokens to get started')
+    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Add DFI and other tokens to get started')
   })
 })
 
@@ -433,22 +433,23 @@ context('Wallet - Portfolio', () => {
     cy.getByTestID('bottom_tab_portfolio').click()
   })
 
-  it('should display no tokens text', function () {
-    cy.wait('@getDexPrices').then(() => {
-      cy.wait(2000)
-      cy.getByTestID('total_usd_amount').should('have.text', '$100.00')
-      cy.getByTestID('empty_tokens_title').should('not.exist')
-      cy.getByTestID('empty_tokens_subtitle').should('not.exist')
-    })
-  })
+  // TODO (Harsh): have to uncomment when DFI token will get listed in Portfolio listing
+  // it('should display no tokens text', function () {
+  //   cy.wait('@getDexPrices').then(() => {
+  //     cy.wait(2000)
+  //     cy.getByTestID('total_usd_amount').should('have.text', '$100.00')
+  //     cy.getByTestID('empty_tokens_title').should('not.exist')
+  //     cy.getByTestID('empty_tokens_subtitle').should('not.exist')
+  //   })
+  // })
 
   it('should display dfi utxo and dfi token with correct amount', function () {
     cy.sendDFITokentoWallet()
       .sendTokenToWallet(['BTC', 'ETH']).wait(6000)
     cy.wait('@getDexPrices').then(() => {
       cy.wait(2000)
-      cy.getByTestID('dfi_balance_card').should('exist')
-      cy.getByTestID('details_dfi').click()
+      cy.getByTestID('dfi_total_balance_amount').contains('20.00000000')
+      cy.getByTestID('dfi_balance_card').should('exist').click()
       cy.getByTestID('dfi_utxo_amount').contains('10.00000000')
       cy.getByTestID('dfi_utxo_label').contains('UTXO')
       cy.getByTestID('dfi_token_amount').contains('10.00000000')
@@ -456,9 +457,9 @@ context('Wallet - Portfolio', () => {
       cy.getByTestID('dfi_total_balance_amount').contains('20.00000000')
       cy.getByTestID('total_dfi_label_symbol').contains('DFI')
       cy.getByTestID('total_dfi_label_name').contains('DeFiChain')
-
-      cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $100,000.00' })
-      cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '≈ $1,000.00' })
+      cy.go('back')
+      cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '$100,000.00' })
+      cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '$1,000.00' })
       cy.getByTestID('total_usd_amount').contains('$101,200.00')
     })
   })
@@ -467,17 +468,20 @@ context('Wallet - Portfolio', () => {
     cy.getByTestID('portfolio_list').should('exist')
     cy.wait('@getDexPrices').then(() => {
       cy.wait(2000)
-      cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $100,000.00' })
-      cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '≈ $1,000.00' })
+      cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '$100,000.00' })
+      cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '$1,000.00' })
     })
   })
 
   it('should hide all DFI, BTC and ETH amounts on toggle', function () {
     cy.getByTestID('toggle_balance').click()
     cy.getByTestID('dfi_total_balance_amount').should('have.text', '*****')
-    cy.getByTestID('dfi_utxo_amount').should('have.text', '*****')
-    cy.getByTestID('dfi_token_amount').should('have.text', '*****')
-    cy.getByTestID('total_usd_amount').should('have.text', '*****')
+    cy.getByTestID('dfi_total_balance_usd_amount').should('have.text', '*****')
+    cy.getByTestID('dfi_balance_card').should('exist').click()
+    cy.getByTestID('dfi_utxo_amount').should('contain', '10.00000000')
+    cy.getByTestID('dfi_token_amount').should('contain', '10.00000000')
+    cy.getByTestID('token_detail_amount').should('contain', '20.00000000')
+    cy.go('back')
     cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '*****', displaySymbol: 'dBTC', symbol: 'BTC' })
     cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '*****', displaySymbol: 'dETH', symbol: 'ETH' })
   })
@@ -485,6 +489,7 @@ context('Wallet - Portfolio', () => {
   it('should redirect to send page', function () {
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('send_balance_button').click()
+    cy.getByTestID('select_DFI').click()
     cy.getByTestID('send_screen').should('exist')
   })
 
@@ -496,7 +501,8 @@ context('Wallet - Portfolio', () => {
 
   it('should be able to navigate to convert dfi page', function () {
     cy.go('back')
-    cy.getByTestID('convert_dfi_button').click()
+    cy.getByTestID('dfi_balance_card').click()
+    cy.getByTestID('convert_button').click()
     cy.getByTestID('convert_screen').should('exist')
   })
 })
@@ -514,11 +520,11 @@ context('Wallet - Portfolio - Failed API', () => {
         'x-not-found': 'true'
       }
     })
-    cy.getByTestID('details_dfi').click()
+    // cy.getByTestID('dfi_total_balance_amount').should('exist')
+    cy.getByTestID('dfi_balance_card').should('exist').click()
     cy.getByTestID('total_portfolio_skeleton_loader').should('exist')
     cy.getByTestID('dfi_balance_skeleton_loader').should('exist')
     cy.getByTestID('dfi_USD_balance_skeleton_loader').should('exist')
-    cy.getByTestID('dfi_breakdown_row_skeleton_loader').should('exist')
     cy.getByTestID('portfolio_skeleton_loader').should('exist')
   })
 
@@ -537,12 +543,11 @@ context('Wallet - Portfolio - No balance', () => {
     cy.createEmptyWallet(true)
   })
 
-  it('should disable send button', function () {
-    cy.getByTestID('send_balance_button').should('have.attr', 'aria-disabled')
+  it('should enabled send button', function () {
+    cy.getByTestID('send_balance_button').should('not.have.attr', 'aria-disabled')
   })
 
   it('should display empty portfolio to replace token list', function () {
-    cy.getByTestID('empty_balances').should('not.exist')
     cy.getByTestID('empty_portfolio').should('exist')
   })
 
@@ -618,11 +623,11 @@ context('Wallet - Portfolio - USD Value', () => {
         checkValueWithinRange(text, '100')
       })
 
-      cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $100.00' })
-      cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '≈ $100.00' })
-      cy.checkBalanceRow('3', { name: 'Playground USDT', amount: '10.00000000', displaySymbol: 'dUSDT', symbol: 'USDT', usdAmount: '≈ $10.00' })
-      cy.checkBalanceRow('19', { name: 'Playground USDT-DeFiChain', amount: '10.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $66.52' })
-      cy.checkBalanceRow('18', { name: 'Playground ETH-DeFiChain', amount: '10.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $1,010.00' })
+      cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '$100.00' })
+      cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '$100.00' })
+      cy.checkBalanceRow('3', { name: 'Playground USDT', amount: '10.00000000', displaySymbol: 'dUSDT', symbol: 'USDT', usdAmount: '$10.00' })
+      cy.checkBalanceRow('19', { name: 'Playground USDT-DeFiChain', amount: '10.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '$66.52' })
+      cy.checkBalanceRow('18', { name: 'Playground ETH-DeFiChain', amount: '10.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '$1,010.00' })
 
       cy.getByTestID('total_usd_amount').invoke('text').then(text => {
         checkValueWithinRange(text, '1386')
@@ -645,12 +650,12 @@ context('Wallet - Portfolio - USD Value', () => {
       cy.getByTestID('dfi_total_balance_usd_amount').invoke('text').then(text => {
         checkValueWithinRange(text, '50.14')
       })
-      cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $50.00' })
-      cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '≈ $50.00' })
-      cy.checkBalanceRow('3', { name: 'Playground USDT', amount: '10.00000000', displaySymbol: 'dUSDT', symbol: 'USDT', usdAmount: '≈ $10.00' })
+      cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '$50.00' })
+      cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '$50.00' })
+      cy.checkBalanceRow('3', { name: 'Playground USDT', amount: '10.00000000', displaySymbol: 'dUSDT', symbol: 'USDT', usdAmount: '$10.00' })
 
-      cy.checkBalanceRow('19', { name: 'Playground USDT-DeFiChain', amount: '10.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $1,000.50' })
-      cy.checkBalanceRow('18', { name: 'Playground ETH-DeFiChain', amount: '10.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $505.00' })
+      cy.checkBalanceRow('19', { name: 'Playground USDT-DeFiChain', amount: '10.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '$1,000.50' })
+      cy.checkBalanceRow('18', { name: 'Playground ETH-DeFiChain', amount: '10.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '$505.00' })
 
       cy.getByTestID('total_usd_amount').invoke('text').then(text => {
         checkValueWithinRange(text, '1665')
@@ -675,13 +680,13 @@ context('Wallet - Portfolio - USD Value', () => {
         checkValueWithinRange(text, '100')
       })
       // Token USD
-      cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $100.00' })
-      cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '≈ $100.00' })
-      cy.checkBalanceRow('3', { name: 'Playground USDT', amount: '10.00000000', displaySymbol: 'dUSDT', symbol: 'USDT', usdAmount: '≈ $10.00' })
+      cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '$100.00' })
+      cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '$100.00' })
+      cy.checkBalanceRow('3', { name: 'Playground USDT', amount: '10.00000000', displaySymbol: 'dUSDT', symbol: 'USDT', usdAmount: '$10.00' })
 
       // LP USD
-      cy.checkBalanceRow('19', { name: 'Playground USDT-DeFiChain', amount: '10.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $1,001.00' })
-      cy.checkBalanceRow('18', { name: 'Playground ETH-DeFiChain', amount: '10.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $1,010.00' })
+      cy.checkBalanceRow('19', { name: 'Playground USDT-DeFiChain', amount: '10.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '$1,001.00' })
+      cy.checkBalanceRow('18', { name: 'Playground ETH-DeFiChain', amount: '10.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '$1,010.00' })
 
       cy.getByTestID('total_usd_amount').invoke('text').then(text => {
         checkValueWithinRange(text, '2321', 1)
@@ -697,13 +702,13 @@ context('Wallet - Portfolio - USD Value', () => {
       })
 
       // Token USD
-      cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '20.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '≈ $200.00' })
-      cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '≈ $100.00' })
-      cy.checkBalanceRow('3', { name: 'Playground USDT', amount: '20.00000000', displaySymbol: 'dUSDT', symbol: 'USDT', usdAmount: '≈ $20.00' })
+      cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '20.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: '$200.00' })
+      cy.checkBalanceRow('2', { name: 'Playground ETH', amount: '10.00000000', displaySymbol: 'dETH', symbol: 'ETH', usdAmount: '$100.00' })
+      cy.checkBalanceRow('3', { name: 'Playground USDT', amount: '20.00000000', displaySymbol: 'dUSDT', symbol: 'USDT', usdAmount: '$20.00' })
 
       // LP USD
-      cy.checkBalanceRow('19', { name: 'Playground USDT-DeFiChain', amount: '20.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '≈ $2,002.00' })
-      cy.checkBalanceRow('18', { name: 'Playground ETH-DeFiChain', amount: '20.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '≈ $2,020.00' })
+      cy.checkBalanceRow('19', { name: 'Playground USDT-DeFiChain', amount: '20.00000000', displaySymbol: 'dUSDT-DFI', symbol: 'USDT-DFI', usdAmount: '$2,002.00' })
+      cy.checkBalanceRow('18', { name: 'Playground ETH-DeFiChain', amount: '20.00000000', displaySymbol: 'dETH-DFI', symbol: 'ETH-DFI', usdAmount: '$2,020.00' })
 
       cy.getByTestID('total_usd_amount').invoke('text').then(text => {
         checkValueWithinRange(text, '4442')
@@ -811,10 +816,12 @@ context('Wallet - Portfolio - Assets filter tab - filter respective tokens in se
     cy.getByTestID('portfolio_row_1').should('exist') // dBTC = row 1
     cy.getByTestID('portfolio_button_group_LP_TOKENS').click()
     cy.getByTestID('portfolio_button_group_LP_TOKENS_active').should('exist')
-    cy.getByTestID('empty_tokens_title').should('have.text', 'No LP tokens in portfolio')
+    cy.getByTestID('empty_tokens_title').should('have.text', 'No LP tokens found')
+    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Add liquidity to get started')
     cy.getByTestID('portfolio_button_group_d_TOKENS').click()
     cy.getByTestID('portfolio_button_group_d_TOKENS_active').should('exist')
-    cy.getByTestID('empty_tokens_title').should('have.text', 'No dTokens in portfolio')
+    cy.getByTestID('empty_tokens_title').should('have.text', 'No dTokens found')
+    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Mint dTokens to get started')
   })
   it('should exist in All tokens and dTokens tabs, should not exist in LP tokens and Crypto tabs', function () {
     cy.intercept('**/address/**/tokens?size=*', {
@@ -838,10 +845,12 @@ context('Wallet - Portfolio - Assets filter tab - filter respective tokens in se
     cy.getByTestID('portfolio_row_14').should('exist') // DUSD = row 14
     cy.getByTestID('portfolio_button_group_LP_TOKENS').click()
     cy.getByTestID('portfolio_button_group_LP_TOKENS_active').should('exist')
-    cy.getByTestID('empty_tokens_title').should('have.text', 'No LP tokens in portfolio')
+    cy.getByTestID('empty_tokens_title').should('have.text', 'No LP tokens found')
+    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Add liquidity to get started')
     cy.getByTestID('portfolio_button_group_CRYPTO').click()
     cy.getByTestID('portfolio_button_group_CRYPTO_active').should('exist')
-    cy.getByTestID('empty_tokens_title').should('have.text', 'No Crypto in portfolio')
+    cy.getByTestID('empty_tokens_title').should('have.text', 'No crypto found')
+    cy.getByTestID('empty_tokens_subtitle').should('have.text', 'Add crypto to get started')
     cy.getByTestID('portfolio_button_group_d_TOKENS').click()
     cy.getByTestID('portfolio_button_group_d_TOKENS_active').should('exist')
     cy.getByTestID('portfolio_row_14').should('exist') // DUSD = row 14
@@ -854,24 +863,24 @@ context('Wallet - Portfolio - Portfolio group tab', function () {
     cy.sendDFITokentoWallet()
       .sendTokenToWallet(['BTC', 'ETH']).wait(6000)
     cy.getByTestID('toggle_portfolio').click()
-    cy.getByTestID('details_dfi').click()
+    cy.getByTestID('dfi_total_balance_amount').contains('10.00000000')
   })
 
   it('should display portfolio values in USD currency', function () {
     assertPortfolioDenomination('USD')
-    checkPortfolioPageDenominationValues('USD', '$201,000.00', '$201,000.00', '$0.00', '≈ $100,000.00', '≈ $0.00000000', '≈ $100,000.00', '≈ $100,000.00', '≈ $1,000.00')
+    checkPortfolioPageDenominationValues('$201,000.00', '$201,000.00', '$0.00', '$100,000.00', '$100,000.00', '$100,000.00', '$1,000.00')
   })
 
   it('should display portfolio values in DFI currency', function () {
     togglePortfolioDenomination('DFI')
     assertPortfolioDenomination('DFI')
-    checkPortfolioPageDenominationValues('DFI', '20.10', '20.10 DFI', '0.00000000 DFI', '10.00 DFI', '0.00000000 DFI', '10.00 DFI', '10.00 DFI', '0.10000000 DFI')
+    checkPortfolioPageDenominationValues('20.10', '20.10 DFI', '0.00000000 DFI', '10.00 DFI', '10.00 DFI', '10.00 DFI', '0.10000000 DFI')
   })
 
   it('should display portfolio values in BTC currency', function () {
     togglePortfolioDenomination('BTC')
     assertPortfolioDenomination('BTC')
-    checkPortfolioPageDenominationValues('BTC', '20.10', '20.10 BTC', '0.00000000 BTC', '10.00 BTC', '0.00000000 BTC', '10.00 BTC', '10.00 BTC', '0.10000000 BTC')
+    checkPortfolioPageDenominationValues('20.10', '20.10 BTC', '0.00000000 BTC', '10.00 BTC', '10.00 BTC', '10.00 BTC', '0.10000000 BTC')
   })
 })
 
@@ -892,7 +901,7 @@ function togglePortfolioDenomination (denomination: string): void {
   })
 }
 
-function checkPortfolioPageDenominationValues (denomination: string, totalUsdAmt: string, totalAvailableUsdAmt: string, totalLockedUsdAmt: string, DfiTotalBalUsdAmt: string, DfiLockedAmt: string, DfiAvailableAmt: string, BtcUsdAmt: string, EthUsdAmt: string): void {
+function checkPortfolioPageDenominationValues (totalUsdAmt: string, totalAvailableUsdAmt: string, totalLockedUsdAmt: string, DfiTotalBalUsdAmt: string, DfiAvailableAmt: string, BtcUsdAmt: string, EthUsdAmt: string): void {
   // TotalPortfolio
   cy.getByTestID('total_usd_amount').contains(totalUsdAmt)
   cy.getByTestID('total_available_usd_amount').contains(totalAvailableUsdAmt)
@@ -900,8 +909,9 @@ function checkPortfolioPageDenominationValues (denomination: string, totalUsdAmt
 
   // DFIBalanceCard
   cy.getByTestID('dfi_total_balance_usd_amount').contains(DfiTotalBalUsdAmt)
-  cy.getByTestID('dfi_locked_value_amount').contains(DfiLockedAmt)
-  cy.getByTestID('dfi_available_value_amount').contains(DfiAvailableAmt)
+  cy.getByTestID('dfi_balance_card').should('exist').click()
+  cy.getByTestID('token_detail_usd_amount').contains(DfiAvailableAmt)
+  cy.go('back')
 
   // PortfolioCard
   cy.checkBalanceRow('1', { name: 'Playground BTC', amount: '10.00000000', displaySymbol: 'dBTC', symbol: 'BTC', usdAmount: BtcUsdAmt })
@@ -931,18 +941,17 @@ context('Wallet - Portfolio - Your Assets - All tokens tab', function () {
         data: []
       }
     })
-    cy.getByTestID('empty_balances').should('not.exist')
     cy.getByTestID('empty_portfolio').should('not.exist')
     cy.getByTestID('toggle_sorting_assets').should('exist')
   })
-  it('should sort asset based on Highest USD value (default)', function () {
+  it('should sort asset based on Highest value (USD) (default) but display `Sort by` on first load', function () {
     cy.sendDFItoWallet().wait(3000)
     cy.sendTokenToWallet(['ETH', 'LTC', 'DUSD']).wait(7000) // token transfer taking time sometime to avoid failure increasing wait time here
-    cy.getByTestID('your_assets_dropdown_arrow').contains('Highest USD value')
-    checkAssetsSortingOrder('Highest USD value', 'DUSD', 'dLTC')
+    cy.getByTestID('your_assets_dropdown_arrow').contains('Sort by').wait(3000)
+    checkAssetsSortingOrder('Highest value (USD)', 'DUSD', 'dLTC')
   })
-  it('should sort assets based on Lowest USD value', function () {
-    checkAssetsSortingOrder('Lowest USD value', 'dETH', 'DUSD')
+  it('should sort assets based on Lowest value (USD)', function () {
+    checkAssetsSortingOrder('Lowest value (USD)', 'dETH', 'DUSD')
   })
   it('should sort assets based on Highest token amount', function () {
     cy.sendTokenToWallet(['DUSD'])
@@ -966,14 +975,14 @@ context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function  - A
     cy.getByTestID('header_settings').click()
     cy.getByTestID('bottom_tab_portfolio').click()
   })
-  it('should sort assets based on Highest DFI value', function () {
+  it('should sort assets based on Highest value (DFI)', function () {
     cy.sendDFItoWallet().wait(3000)
     cy.sendTokenToWallet(['BTC', 'BTC', 'LTC', 'DUSD']).wait(7000) // token transfer taking time sometime to avoid failure increasing wait time here
     togglePortfolioDenomination('DFI')
-    checkAssetsSortingOrder('Highest DFI value', 'dBTC', 'dLTC')
+    checkAssetsSortingOrder('Highest value (DFI)', 'dBTC', 'dLTC')
   })
-  it('should sort assets based on Lowest DFI value', function () {
-    checkAssetsSortingOrder('Lowest DFI value', 'dLTC', 'dBTC')
+  it('should sort assets based on Lowest value (DFI)', function () {
+    checkAssetsSortingOrder('Lowest value (DFI)', 'dLTC', 'dBTC')
   })
 })
 
@@ -984,21 +993,22 @@ function interceptTokensForSorting (data: {}): void {
     }
   })
 }
+
 context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function  - LP tokens tab', function () {
   before(function () {
     cy.createEmptyWallet(true)
   })
 
-  it('should sort assets based on Highest DFI value', function () {
+  it('should sort assets based on Highest value (DFI)', function () {
     interceptTokensForSorting(addLPTokens)
     togglePortfolioDenomination('DFI')
     cy.getByTestID('portfolio_button_group_LP_TOKENS').click()
-    checkAssetsSortingOrder('Highest DFI value', 'dBTC-DFI', 'dUSDT-DFI')
+    checkAssetsSortingOrder('Highest value (DFI)', 'dBTC-DFI', 'dUSDT-DFI')
   })
 
-  it('should sort assets based on Lowest DFI value', function () {
+  it('should sort assets based on Lowest value (DFI)', function () {
     interceptTokensForSorting(addLPTokens)
-    checkAssetsSortingOrder('Lowest DFI value', 'dUSDT-DFI', 'dBTC-DFI')
+    checkAssetsSortingOrder('Lowest value (DFI)', 'dUSDT-DFI', 'dBTC-DFI')
   })
 })
 
@@ -1007,16 +1017,16 @@ context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function - Cr
     cy.createEmptyWallet(true)
   })
 
-  it('should sort assets based on Highest DFI value', function () {
+  it('should sort assets based on Highest value (DFI)', function () {
     interceptTokensForSorting(addCrypto)
     togglePortfolioDenomination('DFI')
     cy.getByTestID('portfolio_button_group_CRYPTO').click()
-    checkAssetsSortingOrder('Highest DFI value', 'dBTC', 'dETH')
+    checkAssetsSortingOrder('Highest value (DFI)', 'dBTC', 'dETH')
   })
 
-  it('should sort assets based on Lowest DFI value', function () {
+  it('should sort assets based on Lowest value (DFI)', function () {
     interceptTokensForSorting(addCrypto)
-    checkAssetsSortingOrder('Lowest DFI value', 'dETH', 'dBTC')
+    checkAssetsSortingOrder('Lowest value (DFI)', 'dETH', 'dBTC')
   })
 })
 
@@ -1025,16 +1035,16 @@ context('Wallet - Portfolio - Your Assets - DFI currency - Sorting function - dT
     cy.createEmptyWallet(true)
   })
 
-  it('should sort assets based on Highest DFI value', function () {
+  it('should sort assets based on Highest value (DFI)', function () {
     interceptTokensForSorting(addDTokens)
     togglePortfolioDenomination('DFI')
     cy.getByTestID('portfolio_button_group_d_TOKENS').click()
-    checkAssetsSortingOrder('Highest DFI value', 'dTD10', 'DUSD')
+    checkAssetsSortingOrder('Highest value (DFI)', 'dTD10', 'DUSD')
   })
 
-  it('should sort assets based on Lowest DFI value', function () {
+  it('should sort assets based on Lowest value (DFI)', function () {
     interceptTokensForSorting(addDTokens)
-    checkAssetsSortingOrder('Lowest DFI value', 'DUSD', 'dTD10')
+    checkAssetsSortingOrder('Lowest value (DFI)', 'DUSD', 'dTD10')
   })
 })
 
@@ -1043,15 +1053,15 @@ context('Wallet - Portfolio - Your Assets - BTC currency - Sorting function  - A
     cy.createEmptyWallet(true)
   })
 
-  it('should sort assets based on Highest BTC value', function () {
+  it('should sort assets based on Highest value (BTC)', function () {
     cy.sendDFItoWallet().wait(3000)
     cy.sendTokenToWallet(['BTC', 'LTC', 'LTC', 'DUSD']).wait(7000) // token transfer taking time sometime to avoid failure increasing wait time here
     togglePortfolioDenomination('BTC')
-    checkAssetsSortingOrder('Highest BTC value', 'dBTC', 'DUSD')
+    checkAssetsSortingOrder('Highest value (BTC)', 'dBTC', 'DUSD')
   })
 
-  it('should sort assets based on Lowest BTC value', function () {
-    checkAssetsSortingOrder('Lowest BTC value', 'DUSD', 'dBTC')
+  it('should sort assets based on Lowest value (BTC)', function () {
+    checkAssetsSortingOrder('Lowest value (BTC)', 'DUSD', 'dBTC')
   })
 })
 
@@ -1069,14 +1079,10 @@ context('Wallet - Portfolio - Skeleton Loader', () => {
       },
       delay: 3000
     })
-    cy.getByTestID('details_dfi').click()
     cy.getByTestID('total_portfolio_skeleton_loader').should('exist')
-    cy.getByTestID('dfi_balance_skeleton_loader').should('exist')
-    cy.getByTestID('dfi_utxo_percentage_skeleton_loader').should('exist')
-    cy.getByTestID('dfi_token_percentage_skeleton_loader').should('exist')
-    cy.getByTestID('dfi_USD_balance_skeleton_loader').should('exist')
-    cy.getByTestID('dfi_breakdown_row_skeleton_loader').should('exist')
     cy.getByTestID('portfolio_skeleton_loader').should('exist')
+    cy.getByTestID('dfi_balance_skeleton_loader').should('exist')
+    cy.getByTestID('dfi_USD_balance_skeleton_loader').should('exist')
   })
 
   it('should not display skeleton loader when API has return', () => {
@@ -1084,230 +1090,9 @@ context('Wallet - Portfolio - Skeleton Loader', () => {
     cy.wait('@getTokens').then(() => {
       cy.getByTestID('total_portfolio_skeleton_loader').should('not.exist')
       cy.getByTestID('dfi_balance_skeleton_loader').should('not.exist')
-      cy.getByTestID('dfi_utxo_percentage_skeleton_loader').should('not.exist')
-      cy.getByTestID('dfi_token_percentage_skeleton_loader').should('not.exist')
       cy.getByTestID('dfi_USD_balance_skeleton_loader').should('not.exist')
-      cy.getByTestID('dfi_breakdown_row_skeleton_loader').should('not.exist')
       cy.getByTestID('portfolio_skeleton_loader').should('not.exist')
     })
-  })
-})
-
-context('Wallet - Portfolio - Token Breakdown', () => {
-  const sampleVault = [
-    {
-      vaultId: '8ad217890f454de73c5eb095dbe9d9870a62840978970a4a5f38978d430dcfe5',
-      loanScheme: {
-        id: 'MIN150',
-        minColRatio: '150',
-        interestRate: '5'
-      },
-      ownerAddress: 'bcrt1qven45srx9hu0ksjxgymyjxc32zm4vufrufqsyg',
-      state: 'ACTIVE',
-      informativeRatio: '-1',
-      collateralRatio: '-1',
-      collateralValue: '347.3',
-      loanValue: '0',
-      interestValue: '0',
-      collateralAmounts: [
-        {
-          id: '0',
-          amount: '2.12300000',
-          symbol: 'DFI',
-          symbolKey: 'DFI',
-          name: 'Default Defi token',
-          displaySymbol: 'DFI',
-          activePrice: {
-            id: 'DFI-USD-1812',
-            key: 'DFI-USD',
-            isLive: true,
-            block: {
-              hash: '5dae3326b8256ee67918e95cc14428ec075f86bb3615438e77375a825fdcd378',
-              height: 1812,
-              medianTime: 1646996375,
-              time: 1646996380
-            },
-            active: {
-              amount: '100.00000000',
-              weightage: 3,
-              oracles: {
-                active: 3,
-                total: 3
-              }
-            },
-            next: {
-              amount: '100.00000000',
-              weightage: 3,
-              oracles: {
-                active: 3,
-                total: 3
-              }
-            },
-            sort: '00000714'
-          }
-        },
-        {
-          id: '1',
-          amount: '2.00000000',
-          symbol: 'BTC',
-          symbolKey: 'BTC',
-          name: 'Playground BTC',
-          displaySymbol: 'dBTC',
-          activePrice: {
-            id: 'BTC-USD-1812',
-            key: 'BTC-USD',
-            isLive: true,
-            block: {
-              hash: '5dae3326b8256ee67918e95cc14428ec075f86bb3615438e77375a825fdcd378',
-              height: 1812,
-              medianTime: 1646996375,
-              time: 1646996380
-            },
-            active: {
-              amount: '50.00000000',
-              weightage: 3,
-              oracles: {
-                active: 3,
-                total: 3
-              }
-            },
-            next: {
-              amount: '50.00000000',
-              weightage: 3,
-              oracles: {
-                active: 3,
-                total: 3
-              }
-            },
-            sort: '00000714'
-          }
-        },
-        {
-          id: '2',
-          amount: '5.00000000',
-          symbol: 'ETH',
-          symbolKey: 'ETH',
-          name: 'Playground ETH',
-          displaySymbol: 'dETH',
-          activePrice: {
-            id: 'ETH-USD-1812',
-            key: 'ETH-USD',
-            isLive: true,
-            block: {
-              hash: '5dae3326b8256ee67918e95cc14428ec075f86bb3615438e77375a825fdcd378',
-              height: 1812,
-              medianTime: 1646996375,
-              time: 1646996380
-            },
-            active: {
-              amount: '10.00000000',
-              weightage: 3,
-              oracles: {
-                active: 3,
-                total: 3
-              }
-            },
-            next: {
-              amount: '10.00000000',
-              weightage: 3,
-              oracles: {
-                active: 3,
-                total: 3
-              }
-            },
-            sort: '00000714'
-          }
-        }
-      ],
-      loanAmounts: [],
-      interestAmounts: []
-    }
-  ]
-
-  function validateLockedToken (token: string, lockedAmount: string): void {
-    cy.getByTestID(`${token}_locked_amount`).contains(lockedAmount)
-  }
-
-  before(function () {
-    cy.intercept('**/poolpairs/dexprices?denomination=*', {
-      body: getDexPrice({
-        dusd: '9.90000000',
-        usdc: '1.00000000',
-        eth: '10.00000000',
-        btc: '10.00000000',
-        dfi: '10.00000000'
-      })
-    })
-    cy.createEmptyWallet(true)
-    cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet().sendTokenToWallet(['BTC', 'ETH']).wait(6000)
-    cy.getByTestID('bottom_tab_portfolio').click()
-  })
-
-  it('should display percentage of DFI UTXO and DFI Token', () => {
-    cy.intercept('**/address/**/vaults?size=*', {
-      statusCode: 200,
-      body: {
-        data: sampleVault
-      }
-    })
-    cy.getByTestID('details_dfi').click()
-    validateLockedToken('dfi', '2.12300000')
-    cy.getByTestID('dfi_utxo_percentage').contains('66.67%')
-    cy.getByTestID('dfi_token_percentage').contains('33.33%')
-    cy.getByTestID('dfi_utxo_amount').contains('20.00000000')
-    cy.getByTestID('dfi_token_amount').contains('10.00000000')
-  })
-
-  it('should display available amount of BTC and ETH', () => {
-    cy.intercept('**/address/**/vaults?size=*', {
-      statusCode: 200,
-      body: {
-        data: sampleVault
-      }
-    })
-    cy.getByTestID('portfolio_row_1_amount').contains('10.00000000')
-    cy.getByTestID('portfolio_row_2_amount').contains('10.00000000')
-  })
-
-  it('should display locked amount of BTC and ETH', () => {
-    cy.intercept('**/address/**/vaults?size=*', {
-      statusCode: 200,
-      body: {
-        data: sampleVault
-      }
-    })
-    validateLockedToken('dBTC', '2.00000000')
-    validateLockedToken('dETH', '5.00000000')
-  })
-
-  it('should hide DFI Utxo and Token breakdown percentage', () => {
-    cy.getByTestID('toggle_balance').click()
-    cy.getByTestID('dfi_utxo_percentage').should('have.text', '*****')
-    cy.getByTestID('dfi_token_percentage').should('have.text', '*****')
-  })
-
-  it('should hide all locked amount of BTC and ETH', () => {
-    cy.intercept('**/address/**/vaults?size=*', {
-      statusCode: 200,
-      body: {
-        data: sampleVault
-      }
-    })
-    cy.getByTestID('toggle_balance').click()
-    cy.wait(1000)
-    cy.getByTestID('dBTC_locked_amount_text').should('have.text', '*****')
-    cy.getByTestID('dETH_locked_amount_text').should('have.text', '*****')
-  })
-
-  it('should not display locked amount if BTC and ETH have no locked token', () => {
-    cy.intercept('**/address/**/vaults?size=*', {
-      statusCode: 200,
-      body: {
-        data: []
-      }
-    })
-    cy.getByTestID('dBTC_locked_amount').should('not.exist')
-    cy.getByTestID('dETH_locked_amount').should('not.exist')
   })
 })
 

@@ -1,5 +1,5 @@
-import { ThemedScrollView, ThemedText } from '@components/themed'
-import { AccordionContent, WalletAccordion } from '@components/WalletAccordion'
+import { ThemedScrollViewV2, ThemedTextV2 } from '@components/themed'
+import { AccordionContent, WalletAccordionV2 } from '@components/WalletAccordionV2'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 
@@ -22,28 +22,24 @@ export function DexFaq (): JSX.Element {
   ]
 
   return (
-    <ThemedScrollView
-      contentContainerStyle={tailwind('p-6 pb-8')}
+    <ThemedScrollViewV2
+      contentContainerStyle={tailwind('pt-8 px-5 pb-16')}
+      style={tailwind('flex-1')}
       testID='dex_faq'
     >
-      <ThemedText
-        style={tailwind('text-lg font-semibold')}
-      >
-        {translate('components/DexFaq', 'Decentralized Exchange')}
-      </ThemedText>
 
-      <ThemedText
-        style={tailwind('mt-2 text-sm')}
+      <ThemedTextV2
+        style={tailwind('text-base font-normal-v2 px-5')}
       >
         {translate('components/DexFaq', 'The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.')}
-      </ThemedText>
+      </ThemedTextV2>
 
-      <WalletAccordion
+      <WalletAccordionV2
         testID='dex_faq_accordian'
         activeSections={[0]}
         title={translate('components/DexFaq', 'FREQUENTLY ASKED QUESTIONS')}
         content={faqContent}
       />
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }

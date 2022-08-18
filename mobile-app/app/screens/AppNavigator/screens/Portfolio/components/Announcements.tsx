@@ -1,4 +1,4 @@
-import { ThemedText, ThemedView } from '@components/themed'
+import { ThemedIcon, ThemedText, ThemedTextV2, ThemedTouchableOpacityV2, ThemedView, ThemedViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { useGetAnnouncementsQuery } from '@store/website'
 import { AnnouncementData } from '@shared-types/website'
@@ -69,7 +69,7 @@ export function Announcements (): JSX.Element {
     3. Outages - Ocean API
     4. Other announcements
   */
-  const announcementToDisplay = emergencyAnnouncement ?? blockchainIsDownAnnouncement ?? oceanIsDownAnnouncement ?? announcement
+  const announcementToDisplay: Announcement | undefined = emergencyAnnouncement ?? blockchainIsDownAnnouncement ?? oceanIsDownAnnouncement ?? announcement
 
   useEffect(() => {
     // To display warning message in Announcement banner when blockchain is down for > 45 mins
@@ -88,7 +88,7 @@ export function Announcements (): JSX.Element {
   }
 
   return (
-    <AnnouncementBanner
+    <AnnouncementBannerV2
       announcement={announcementToDisplay} hideAnnouncement={hideAnnouncement}
       testID='announcements_banner'
     />
@@ -191,6 +191,87 @@ export function AnnouncementBanner ({
           </TouchableOpacity>
         )}
     </ThemedView>
+  )
+}
+
+export function AnnouncementBannerV2 ({
+  hideAnnouncement,
+  announcement,
+  testID
+}: AnnouncementBannerProps): JSX.Element {
+  const { isLight } = useThemeContext()
+  const isOtherAnnouncement = announcement.type === undefined || announcement.type === 'OTHER_ANNOUNCEMENT'
+  return (
+    <ThemedViewV2
+      testID={testID}
+      style={tailwind('mt-9 relative mx-5 px-5 py-3 flex flex-row items-center border-0.5 rounded-xl-v2', {
+        'border-mono-light-v2-900': isOtherAnnouncement && isLight,
+        'border-mono-dark-v2-900': isOtherAnnouncement && !isLight,
+        'border-orange-v2': announcement.type === 'OUTAGE',
+        'border-red-v2': announcement.type === 'EMERGENCY'
+      })}
+    >
+      <ThemedTextV2
+        light={tailwind({ 'text-mono-light-v2-900': isOtherAnnouncement })}
+        dark={tailwind({ 'text-mono-dark-v2-900': isOtherAnnouncement })}
+        style={tailwind(['text-xs flex-auto font-normal-v2', {
+          'text-orange-v2': announcement.type === 'OUTAGE',
+          'text-red-v2': announcement.type === 'EMERGENCY'
+        }])}
+        testID='announcements_text'
+      >
+        {`${announcement.content} `}
+      </ThemedTextV2>
+      {announcement.url !== undefined && announcement.url.length !== 0 &&
+        (
+          <ThemedTouchableOpacityV2
+            onPress={async () => await openURL(announcement.url)}
+            style={tailwind('ml-3.5 pl-1 py-1')}
+          >
+            <ThemedIcon
+              iconType='Feather'
+              name='external-link'
+              size={20}
+              light={tailwind({ 'text-mono-light-v2-900': isOtherAnnouncement })}
+              dark={tailwind({ 'text-mono-dark-v2-900': isOtherAnnouncement })}
+              style={tailwind({
+                'text-orange-v2': announcement.type === 'OUTAGE',
+                'text-red-v2': announcement.type === 'EMERGENCY'
+              })}
+            />
+          </ThemedTouchableOpacityV2>
+        )}
+      {announcement.id !== undefined && (
+        <ThemedViewV2
+          style={tailwind('absolute -top-2 -right-2 rounded-full')}
+        >
+          <ThemedTouchableOpacityV2
+            onPress={() => {
+              if (announcement.id === undefined) {
+                return
+              }
+              if (hideAnnouncement !== undefined) {
+                hideAnnouncement(announcement.id)
+              }
+            }}
+            style={tailwind('border-0')}
+          >
+            <ThemedIcon
+              testID='close_announcement'
+              iconType='MaterialIcons'
+              name='cancel'
+              size={20}
+              light={tailwind({ 'text-mono-light-v2-900': isOtherAnnouncement })}
+              dark={tailwind({ 'text-mono-dark-v2-900 ': isOtherAnnouncement })}
+              style={tailwind('', {
+                'text-orange-v2': announcement.type === 'OUTAGE',
+                'text-red-v2': announcement.type === 'EMERGENCY'
+              })}
+            />
+          </ThemedTouchableOpacityV2>
+        </ThemedViewV2>
+      )}
+    </ThemedViewV2>
   )
 }
 

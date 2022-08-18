@@ -13,7 +13,7 @@ exports[`portfolio page should match snapshot 1`] = `
   <RCTScrollView
     contentContainerStyle={
       Object {
-        "paddingBottom": 32,
+        "paddingBottom": 48,
       }
     }
     refreshControl={
@@ -26,7 +26,7 @@ exports[`portfolio page should match snapshot 1`] = `
       Array [
         undefined,
         Object {
-          "backgroundColor": "rgba(250, 250, 250, 1)",
+          "backgroundColor": "rgba(242, 242, 242, 1)",
         },
       ]
     }
@@ -41,7 +41,6 @@ exports[`portfolio page should match snapshot 1`] = `
               "alignItems": "center",
               "display": "flex",
               "flexDirection": "row",
-              "paddingBottom": 12,
               "paddingLeft": 20,
               "paddingRight": 20,
             },
@@ -317,11 +316,10 @@ exports[`portfolio page should match snapshot 1`] = `
             Object {
               "borderBottomLeftRadius": 15,
               "borderBottomRightRadius": 15,
-              "marginBottom": 8,
               "paddingBottom": 20,
               "paddingLeft": 20,
               "paddingRight": 20,
-              "paddingTop": 8,
+              "paddingTop": 20,
             },
             Object {
               "backgroundColor": "rgba(255, 255, 255, 1)",
@@ -468,6 +466,7 @@ exports[`portfolio page should match snapshot 1`] = `
                             "fontSize": 12,
                             "fontWeight": "400",
                             "lineHeight": 16,
+                            "textAlign": "center",
                           },
                           Object {
                             "color": "rgba(18, 18, 18, 1)",
@@ -508,850 +507,322 @@ exports[`portfolio page should match snapshot 1`] = `
         </View>
       </View>
       <View
-        style={
-          Object {
-            "display": "flex",
-            "flexDirection": "row",
-            "marginLeft": 16,
-            "marginRight": 16,
-          }
-        }
+        testID="action_button_group"
       >
-        <View
-          accessibilityState={
+        <RCTScrollView
+          contentContainerStyle={
             Object {
-              "disabled": false,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "center",
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomLeftRadius": 8,
-              "borderBottomRightRadius": 8,
-              "borderBottomWidth": 0,
-              "borderLeftWidth": 0,
-              "borderRightWidth": 0,
-              "borderTopLeftRadius": 8,
-              "borderTopRightRadius": 8,
-              "borderTopWidth": 0,
-              "flexBasis": "0%",
-              "flexDirection": "row",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "justifyContent": "center",
-              "marginRight": 4,
-              "opacity": 1,
-              "paddingBottom": 8,
-              "paddingLeft": 4,
-              "paddingRight": 4,
-              "paddingTop": 8,
-            }
-          }
-          testID="send_balance_button"
-        >
-          <Text />
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Array [
-                    Object {
-                      "fontFamily": "MediumFont",
-                      "fontSize": 14,
-                      "fontWeight": "500",
-                      "lineHeight": 16,
-                      "paddingLeft": 4,
-                      "paddingRight": 4,
-                    },
-                    Object {
-                      "fontSize": 16,
-                      "lineHeight": 24,
-                    },
-                  ],
-                  Object {
-                    "color": "rgba(255, 0, 175, 1)",
-                  },
-                ],
-              ]
-            }
-          >
-            SEND
-          </Text>
-        </View>
-        <View
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "center",
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomLeftRadius": 8,
-              "borderBottomRightRadius": 8,
-              "borderBottomWidth": 0,
-              "borderLeftWidth": 0,
-              "borderRightWidth": 0,
-              "borderTopLeftRadius": 8,
-              "borderTopRightRadius": 8,
-              "borderTopWidth": 0,
-              "flexBasis": "0%",
-              "flexDirection": "row",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "justifyContent": "center",
-              "marginLeft": 4,
-              "opacity": 1,
-              "paddingBottom": 8,
-              "paddingLeft": 4,
-              "paddingRight": 4,
-              "paddingTop": 8,
-            }
-          }
-          testID="receive_balance_button"
-        >
-          <Text />
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Array [
-                    Object {
-                      "fontFamily": "MediumFont",
-                      "fontSize": 14,
-                      "fontWeight": "500",
-                      "lineHeight": 16,
-                      "paddingLeft": 4,
-                      "paddingRight": 4,
-                    },
-                    Object {
-                      "fontSize": 16,
-                      "lineHeight": 24,
-                    },
-                  ],
-                  Object {
-                    "color": "rgba(255, 0, 175, 1)",
-                  },
-                ],
-              ]
-            }
-          >
-            RECEIVE
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "paddingLeft": 16,
-            "paddingRight": 16,
-            "paddingTop": 20,
-          }
-        }
-        testID="toggle_sorting_assets"
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "color": "rgba(163, 163, 163, 1)",
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                  "paddingRight": 4,
-                },
-                Object {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          AVAILABLE ASSETS
-        </Text>
-        <View
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "center",
               "display": "flex",
-              "flexDirection": "row",
-              "opacity": 1,
+              "justifyContent": "space-between",
+              "marginTop": 32,
+              "minWidth": "100%",
+              "paddingLeft": 20,
+              "paddingRight": 20,
             }
           }
-          testID="your_assets_dropdown_arrow"
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
         >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontFamily": "MediumFont",
-                    "fontSize": 12,
-                    "fontWeight": "500",
-                    "lineHeight": 16,
-                  },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-          >
-            Highest USD value
-          </Text>
-          <Text />
-          <Text />
-        </View>
-      </View>
-      <View
-        style={
-          Array [
-            Object {
-              "borderBottomLeftRadius": 8,
-              "borderBottomRightRadius": 8,
-              "borderTopLeftRadius": 8,
-              "borderTopRightRadius": 8,
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "marginBottom": 6,
-              "marginLeft": 16,
-              "marginRight": 16,
-              "marginTop": 8,
-            },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(245, 245, 245, 1)",
-              "borderLeftColor": "rgba(245, 245, 245, 1)",
-              "borderRightColor": "rgba(245, 245, 245, 1)",
-              "borderTopColor": "rgba(245, 245, 245, 1)",
-            },
-          ]
-        }
-        testID="dfi_balance_card"
-      >
-        <View
-          style={
-            Object {
-              "flexBasis": "0%",
-              "flexDirection": "column",
-              "flexGrow": 1,
-              "flexShrink": 1,
-            }
-          }
-        >
-          <View
-            accessibilityIgnoresInvertColors={true}
-            style={
-              Object {
-                "borderBottomLeftRadius": 8,
-                "borderBottomRightRadius": 8,
-                "borderTopLeftRadius": 8,
-                "borderTopRightRadius": 8,
-                "flexBasis": "0%",
-                "flexGrow": 1,
-                "flexShrink": 1,
-                "overflow": "hidden",
-              }
-            }
-          >
-            <Image
-              resizeMethod="scale"
-              resizeMode="cover"
-              source={1}
-              style={
-                Array [
-                  Object {
-                    "bottom": 0,
-                    "left": 0,
-                    "position": "absolute",
-                    "right": 0,
-                    "top": 0,
-                  },
-                  Object {
-                    "height": undefined,
-                    "width": undefined,
-                  },
-                  undefined,
-                ]
-              }
-            />
+          <View>
             <View
-              accessible={true}
-              collapsable={false}
-              focusable={true}
-              onClick={[Function]}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
               style={
                 Object {
-                  "borderBottomWidth": 0,
-                  "borderLeftWidth": 0,
-                  "borderRightWidth": 0,
-                  "borderTopWidth": 0,
-                  "flexBasis": "0%",
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "opacity": 1,
+                  "alignItems": "center",
                 }
               }
-              testID="dfi_balance_card_touchable"
             >
               <View
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
                 style={
                   Object {
-                    "flexBasis": "0%",
-                    "flexDirection": "row",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                    "justifyContent": "space-between",
-                    "marginBottom": 8,
-                    "marginLeft": 16,
-                    "marginRight": 16,
-                    "marginTop": 16,
+                    "alignItems": "center",
+                    "backgroundColor": "rgba(255, 255, 255, 1)",
+                    "borderBottomLeftRadius": 9999,
+                    "borderBottomRightRadius": 9999,
+                    "borderTopLeftRadius": 9999,
+                    "borderTopRightRadius": 9999,
+                    "height": 60,
+                    "justifyContent": "center",
+                    "marginLeft": 10,
+                    "marginRight": 10,
+                    "opacity": 1,
+                    "width": 60,
                   }
                 }
+                testID="send_balance_button"
               >
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "flexDirection": "row",
-                    }
-                  }
-                >
-                  <RNSVGSvgView
-                    align="xMidYMid"
-                    bbHeight={32}
-                    bbWidth={32}
-                    focusable={false}
-                    height={32}
-                    meetOrSlice={0}
-                    minX={0}
-                    minY={0}
-                    style={
-                      Array [
-                        Object {
-                          "backgroundColor": "transparent",
-                          "borderWidth": 0,
-                        },
-                        Object {
-                          "flex": 0,
-                          "height": 32,
-                          "width": 32,
-                        },
-                      ]
-                    }
-                    vbHeight={32}
-                    vbWidth={32}
-                    width={32}
-                  >
-                    <RNSVGGroup>
-                      <RNSVGCircle
-                        cx={16}
-                        cy={16}
-                        fill={4294901935}
-                        propList={
-                          Array [
-                            "fill",
-                          ]
-                        }
-                        r={16}
-                      />
-                      <RNSVGPath
-                        d="M18.217 23.454V8.546c3.21.958 5.555 3.937 5.555 7.454s-2.346 6.496-5.555 7.454M15.994 6v8.428l-1.269-1.27-.162-3.167 1.324-3.985a9.952 9.952 0 00-2.454.338l-.64 1.926-1.816-.91a10.03 10.03 0 00-1.974 1.497l3.363 1.685.098 1.928-1.927-.099L8.85 9.01a10.035 10.035 0 00-1.497 1.973l.911 1.816-1.927.64A9.978 9.978 0 006 15.892l3.986-1.324 3.168.162 1.27 1.27-1.27 1.27-3.168.162L6 16.108c.009.849.13 1.669.338 2.454l1.927.64-.911 1.816c.418.719.92 1.383 1.497 1.973l1.686-3.362 1.927-.099-.098 1.928-3.363 1.685a10.04 10.04 0 001.974 1.498l1.815-.911.64 1.926a9.94 9.94 0 002.455.338l-1.324-3.985.162-3.168 1.27-1.27V26c5.522 0 10-4.477 10-10s-4.478-10-10-10"
-                        fill={4294967295}
-                        propList={
-                          Array [
-                            "fill",
-                          ]
-                        }
-                      />
-                    </RNSVGGroup>
-                  </RNSVGSvgView>
-                  <View
-                    style={
-                      Object {
-                        "flexBasis": "auto",
-                        "flexGrow": 1,
-                        "flexShrink": 1,
-                        "marginLeft": 12,
-                        "marginRight": 12,
-                      }
-                    }
-                  >
-                    <Text
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
-                          Array [
-                            Object {
-                              "fontFamily": "MediumFont",
-                              "fontWeight": "500",
-                            },
-                            Object {
-                              "color": "rgba(0, 0, 0, 1)",
-                            },
-                          ],
-                        ]
-                      }
-                      testID="total_dfi_label_symbol"
-                    >
-                      DFI
-                    </Text>
-                    <Text
-                      ellipsizeMode="tail"
-                      numberOfLines={1}
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
-                          Array [
-                            Object {
-                              "color": "rgba(82, 82, 82, 1)",
-                              "fontSize": 12,
-                              "lineHeight": 16,
-                            },
-                            Object {
-                              "color": "rgba(82, 82, 82, 1)",
-                            },
-                          ],
-                        ]
-                      }
-                      testID="total_dfi_label_name"
-                    >
-                      DeFiChain
-                    </Text>
-                  </View>
-                </View>
-                <View
-                  style={
-                    Object {
-                      "flexDirection": "row",
-                    }
-                  }
-                >
-                  <View
-                    style={
-                      Object {
-                        "alignItems": "flex-end",
-                        "display": "flex",
-                        "lineHeight": 24,
-                      }
-                    }
-                  >
-                    <Text
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
-                          Array [
-                            Object {
-                              "flexWrap": "wrap",
-                            },
-                            Object {
-                              "color": "rgba(0, 0, 0, 1)",
-                            },
-                          ],
-                        ]
-                      }
-                      testID="dfi_total_balance_amount"
-                    >
-                      100.00000000
-                    </Text>
-                    <View
-                      style={
-                        Array [
-                          Object {
-                            "alignItems": "center",
-                            "display": "flex",
-                            "flexDirection": "row",
-                          },
-                          Object {
-                            "justifyContent": "flex-end",
-                          },
-                        ]
-                      }
-                    >
-                      <Text
-                        style={
-                          Array [
-                            Object {
-                              "fontFamily": "RegularFont",
-                              "fontSize": 16,
-                              "fontWeight": "400",
-                              "lineHeight": 24,
-                            },
-                            Array [
-                              Array [
-                                Object {
-                                  "fontSize": 12,
-                                  "lineHeight": 16,
-                                },
-                                undefined,
-                              ],
-                              Object {
-                                "color": "rgba(115, 115, 115, 1)",
-                              },
-                            ],
-                          ]
-                        }
-                        testID="dfi_total_balance_usd_amount"
-                      >
-                        ≈ $0.00000000
-                      </Text>
-                    </View>
-                  </View>
-                </View>
+                <Text />
               </View>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "fontFamily": "SoraRegular",
+                        "fontSize": 12,
+                        "fontWeight": "400",
+                        "lineHeight": 16,
+                        "marginTop": 8,
+                        "textAlign": "center",
+                      },
+                      Object {
+                        "color": "rgba(18, 18, 18, 1)",
+                      },
+                    ],
+                  ]
+                }
+              >
+                Send
+              </Text>
             </View>
             <View
               style={
                 Object {
                   "alignItems": "center",
-                  "flexDirection": "row",
-                  "marginBottom": 16,
-                  "marginLeft": 16,
-                  "marginRight": 16,
                 }
               }
             >
               <View
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
                 style={
                   Object {
                     "alignItems": "center",
-                    "flexDirection": "row",
+                    "backgroundColor": "rgba(255, 255, 255, 1)",
+                    "borderBottomLeftRadius": 9999,
+                    "borderBottomRightRadius": 9999,
+                    "borderTopLeftRadius": 9999,
+                    "borderTopRightRadius": 9999,
+                    "height": 60,
+                    "justifyContent": "center",
+                    "marginLeft": 10,
+                    "marginRight": 10,
+                    "opacity": 1,
+                    "width": 60,
                   }
                 }
+                testID="receive_balance_button"
               >
-                <View
-                  style={
+                <Text />
+              </View>
+              <Text
+                style={
+                  Array [
                     Object {
-                      "marginRight": 4,
-                    }
-                  }
-                >
-                  <View
-                    style={
-                      Array [
-                        Object {
-                          "borderBottomLeftRadius": 12,
-                          "borderBottomRightRadius": 12,
-                          "borderTopLeftRadius": 12,
-                          "borderTopRightRadius": 12,
-                          "display": "flex",
-                          "flexDirection": "row",
-                          "paddingBottom": 4,
-                          "paddingLeft": 8,
-                          "paddingRight": 8,
-                          "paddingTop": 4,
-                        },
-                        Object {
-                          "backgroundColor": "rgba(250, 250, 250, 1)",
-                        },
-                      ]
-                    }
-                  >
-                    <Text
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
-                          Array [
-                            Object {
-                              "fontSize": 12,
-                              "lineHeight": 16,
-                            },
-                            Object {
-                              "color": "rgba(115, 115, 115, 1)",
-                            },
-                          ],
-                        ]
-                      }
-                    >
-                      UTXO: 
-                    </Text>
-                    <Text
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
-                          Array [
-                            Object {
-                              "fontFamily": "MediumFont",
-                              "fontSize": 12,
-                              "fontWeight": "500",
-                              "lineHeight": 16,
-                            },
-                            Object {
-                              "color": "rgba(0, 0, 0, 1)",
-                            },
-                          ],
-                        ]
-                      }
-                      testID="dfi_utxo_percentage"
-                    >
-                      77.00%
-                    </Text>
-                  </View>
-                </View>
-                <View
-                  style={
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
                     Array [
                       Object {
-                        "borderBottomLeftRadius": 12,
-                        "borderBottomRightRadius": 12,
-                        "borderTopLeftRadius": 12,
-                        "borderTopRightRadius": 12,
-                        "display": "flex",
-                        "flexDirection": "row",
-                        "paddingBottom": 4,
-                        "paddingLeft": 8,
-                        "paddingRight": 8,
-                        "paddingTop": 4,
+                        "fontFamily": "SoraRegular",
+                        "fontSize": 12,
+                        "fontWeight": "400",
+                        "lineHeight": 16,
+                        "marginTop": 8,
+                        "textAlign": "center",
                       },
                       Object {
-                        "backgroundColor": "rgba(250, 250, 250, 1)",
+                        "color": "rgba(18, 18, 18, 1)",
                       },
-                    ]
-                  }
-                >
-                  <Text
-                    style={
-                      Array [
-                        Object {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
-                        Array [
-                          Object {
-                            "fontSize": 12,
-                            "lineHeight": 16,
-                          },
-                          Object {
-                            "color": "rgba(115, 115, 115, 1)",
-                          },
-                        ],
-                      ]
-                    }
-                  >
-                    Token: 
-                  </Text>
-                  <Text
-                    style={
-                      Array [
-                        Object {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
-                        Array [
-                          Object {
-                            "fontFamily": "MediumFont",
-                            "fontSize": 12,
-                            "fontWeight": "500",
-                            "lineHeight": 16,
-                          },
-                          Object {
-                            "color": "rgba(0, 0, 0, 1)",
-                          },
-                        ],
-                      ]
-                    }
-                    testID="dfi_token_percentage"
-                  >
-                    23.00%
-                  </Text>
-                </View>
-              </View>
+                    ],
+                  ]
+                }
+              >
+                Receive
+              </Text>
+            </View>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                }
+              }
+            >
               <View
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
                 style={
                   Object {
                     "alignItems": "center",
-                    "flexBasis": "0%",
-                    "flexDirection": "row",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                    "justifyContent": "space-between",
+                    "backgroundColor": "rgba(255, 255, 255, 1)",
+                    "borderBottomLeftRadius": 9999,
+                    "borderBottomRightRadius": 9999,
+                    "borderTopLeftRadius": 9999,
+                    "borderTopRightRadius": 9999,
+                    "height": 60,
+                    "justifyContent": "center",
+                    "marginLeft": 10,
+                    "marginRight": 10,
+                    "opacity": 1,
+                    "width": 60,
                   }
                 }
+                testID="swap_tokens_button"
               >
-                <View
-                  accessible={true}
-                  collapsable={false}
-                  focusable={false}
-                  onClick={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  onResponderGrant={[Function]}
-                  onResponderMove={[Function]}
-                  onResponderRelease={[Function]}
-                  onResponderTerminate={[Function]}
-                  onResponderTerminationRequest={[Function]}
-                  onStartShouldSetResponder={[Function]}
-                  style={
-                    Object {
-                      "opacity": 1,
-                    }
-                  }
-                >
-                  <Text />
-                </View>
-                <View
-                  accessible={true}
-                  collapsable={false}
-                  focusable={true}
-                  onClick={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  onResponderGrant={[Function]}
-                  onResponderMove={[Function]}
-                  onResponderRelease={[Function]}
-                  onResponderTerminate={[Function]}
-                  onResponderTerminationRequest={[Function]}
-                  onStartShouldSetResponder={[Function]}
-                  style={
-                    Object {
-                      "opacity": 1,
-                    }
-                  }
-                  testID="details_dfi"
-                >
-                  <Text />
-                </View>
+                <Text />
               </View>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "fontFamily": "SoraRegular",
+                        "fontSize": 12,
+                        "fontWeight": "400",
+                        "lineHeight": 16,
+                        "marginTop": 8,
+                        "textAlign": "center",
+                      },
+                      Object {
+                        "color": "rgba(18, 18, 18, 1)",
+                      },
+                    ],
+                  ]
+                }
+              >
+                Swap
+              </Text>
+            </View>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                }
+              }
+            >
+              <View
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "rgba(255, 255, 255, 1)",
+                    "borderBottomLeftRadius": 9999,
+                    "borderBottomRightRadius": 9999,
+                    "borderTopLeftRadius": 9999,
+                    "borderTopRightRadius": 9999,
+                    "height": 60,
+                    "justifyContent": "center",
+                    "marginLeft": 10,
+                    "marginRight": 10,
+                    "opacity": 1,
+                    "width": 60,
+                  }
+                }
+                testID="transaction_button"
+              >
+                <Text />
+              </View>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    Array [
+                      Object {
+                        "fontFamily": "SoraRegular",
+                        "fontSize": 12,
+                        "fontWeight": "400",
+                        "lineHeight": 16,
+                        "marginTop": 8,
+                        "textAlign": "center",
+                      },
+                      Object {
+                        "color": "rgba(18, 18, 18, 1)",
+                      },
+                    ],
+                  ]
+                }
+              >
+                Transactions
+              </Text>
             </View>
           </View>
-        </View>
+        </RCTScrollView>
       </View>
       <View
         style={
           Array [
-            undefined,
             Object {
-              "backgroundColor": "rgba(250, 250, 250, 1)",
+              "marginBottom": 32,
+              "marginTop": 32,
+            },
+            Object {
+              "backgroundColor": "rgba(242, 242, 242, 1)",
             },
           ]
         }
+        testID="portfolio_button_group"
       >
-        <View
-          style={
+        <RCTScrollView
+          contentContainerStyle={
             Object {
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 16,
+              "paddingLeft": 20,
             }
           }
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
         >
-          <View
-            style={
-              Array [
-                Object {
-                  "borderBottomLeftRadius": 16,
-                  "borderBottomRightRadius": 16,
-                  "borderTopLeftRadius": 16,
-                  "borderTopRightRadius": 16,
-                  "display": "flex",
-                  "flexDirection": "row",
-                },
-                Object {
-                  "backgroundColor": "rgba(245, 245, 245, 1)",
-                },
-              ]
-            }
-            testID="portfolio_button_group"
-          >
+          <View>
             <View
               accessible={true}
               collapsable={false}
@@ -1367,19 +838,22 @@ exports[`portfolio page should match snapshot 1`] = `
               onStartShouldSetResponder={[Function]}
               style={
                 Object {
-                  "backgroundColor": "rgba(255, 229, 247, 1)",
+                  "backgroundColor": "rgba(18, 18, 18, 1)",
                   "borderBottomLeftRadius": 16,
                   "borderBottomRightRadius": 16,
+                  "borderBottomWidth": 1,
+                  "borderLeftWidth": 1,
+                  "borderRightWidth": 1,
                   "borderTopLeftRadius": 16,
                   "borderTopRightRadius": 16,
-                  "justifyContent": "center",
+                  "borderTopWidth": 1,
+                  "marginRight": 12,
                   "opacity": 1,
-                  "overflowWrap": "break-word",
                   "paddingBottom": 8,
-                  "paddingLeft": 12,
-                  "paddingRight": 12,
+                  "paddingLeft": 16,
+                  "paddingRight": 16,
                   "paddingTop": 8,
-                  "width": "25.00%",
+                  "textAlign": "center",
                 }
               }
               testID="portfolio_button_group_ALL_TOKENS_active"
@@ -1395,16 +869,14 @@ exports[`portfolio page should match snapshot 1`] = `
                     },
                     Array [
                       Object {
-                        "fontFamily": "MediumFont",
+                        "fontFamily": "SoraRegular",
                         "fontSize": 12,
-                        "fontWeight": "500",
+                        "fontWeight": "400",
                         "lineHeight": 16,
-                        "paddingBottom": 2,
-                        "paddingTop": 2,
                         "textAlign": "center",
                       },
                       Object {
-                        "color": "rgba(255, 0, 175, 1)",
+                        "color": "rgba(242, 242, 242, 1)",
                       },
                     ],
                   ]
@@ -1428,21 +900,28 @@ exports[`portfolio page should match snapshot 1`] = `
               onStartShouldSetResponder={[Function]}
               style={
                 Object {
+                  "borderBottomColor": "rgba(89, 89, 89, 1)",
                   "borderBottomLeftRadius": 16,
                   "borderBottomRightRadius": 16,
+                  "borderBottomWidth": 1,
+                  "borderLeftColor": "rgba(89, 89, 89, 1)",
+                  "borderLeftWidth": 1,
+                  "borderRightColor": "rgba(89, 89, 89, 1)",
+                  "borderRightWidth": 1,
+                  "borderTopColor": "rgba(89, 89, 89, 1)",
                   "borderTopLeftRadius": 16,
                   "borderTopRightRadius": 16,
-                  "justifyContent": "center",
+                  "borderTopWidth": 1,
+                  "marginRight": 12,
                   "opacity": 1,
-                  "overflowWrap": "break-word",
                   "paddingBottom": 8,
-                  "paddingLeft": 12,
-                  "paddingRight": 12,
+                  "paddingLeft": 16,
+                  "paddingRight": 16,
                   "paddingTop": 8,
-                  "width": "25.00%",
+                  "textAlign": "center",
                 }
               }
-              testID="portfolio_button_group_LP_TOKENS"
+              testID="portfolio_button_group_d_TOKENS"
             >
               <Text
                 style={
@@ -1455,22 +934,20 @@ exports[`portfolio page should match snapshot 1`] = `
                     },
                     Array [
                       Object {
-                        "fontFamily": "MediumFont",
+                        "fontFamily": "SoraRegular",
                         "fontSize": 12,
-                        "fontWeight": "500",
+                        "fontWeight": "400",
                         "lineHeight": 16,
-                        "paddingBottom": 2,
-                        "paddingTop": 2,
                         "textAlign": "center",
                       },
                       Object {
-                        "color": "rgba(23, 23, 23, 1)",
+                        "color": "rgba(89, 89, 89, 1)",
                       },
                     ],
                   ]
                 }
               >
-                LP tokens
+                dTokens
               </Text>
             </View>
             <View
@@ -1488,18 +965,25 @@ exports[`portfolio page should match snapshot 1`] = `
               onStartShouldSetResponder={[Function]}
               style={
                 Object {
+                  "borderBottomColor": "rgba(89, 89, 89, 1)",
                   "borderBottomLeftRadius": 16,
                   "borderBottomRightRadius": 16,
+                  "borderBottomWidth": 1,
+                  "borderLeftColor": "rgba(89, 89, 89, 1)",
+                  "borderLeftWidth": 1,
+                  "borderRightColor": "rgba(89, 89, 89, 1)",
+                  "borderRightWidth": 1,
+                  "borderTopColor": "rgba(89, 89, 89, 1)",
                   "borderTopLeftRadius": 16,
                   "borderTopRightRadius": 16,
-                  "justifyContent": "center",
+                  "borderTopWidth": 1,
+                  "marginRight": 12,
                   "opacity": 1,
-                  "overflowWrap": "break-word",
                   "paddingBottom": 8,
-                  "paddingLeft": 12,
-                  "paddingRight": 12,
+                  "paddingLeft": 16,
+                  "paddingRight": 16,
                   "paddingTop": 8,
-                  "width": "25.00%",
+                  "textAlign": "center",
                 }
               }
               testID="portfolio_button_group_CRYPTO"
@@ -1515,16 +999,14 @@ exports[`portfolio page should match snapshot 1`] = `
                     },
                     Array [
                       Object {
-                        "fontFamily": "MediumFont",
+                        "fontFamily": "SoraRegular",
                         "fontSize": 12,
-                        "fontWeight": "500",
+                        "fontWeight": "400",
                         "lineHeight": 16,
-                        "paddingBottom": 2,
-                        "paddingTop": 2,
                         "textAlign": "center",
                       },
                       Object {
-                        "color": "rgba(23, 23, 23, 1)",
+                        "color": "rgba(89, 89, 89, 1)",
                       },
                     ],
                   ]
@@ -1548,21 +1030,28 @@ exports[`portfolio page should match snapshot 1`] = `
               onStartShouldSetResponder={[Function]}
               style={
                 Object {
+                  "borderBottomColor": "rgba(89, 89, 89, 1)",
                   "borderBottomLeftRadius": 16,
                   "borderBottomRightRadius": 16,
+                  "borderBottomWidth": 1,
+                  "borderLeftColor": "rgba(89, 89, 89, 1)",
+                  "borderLeftWidth": 1,
+                  "borderRightColor": "rgba(89, 89, 89, 1)",
+                  "borderRightWidth": 1,
+                  "borderTopColor": "rgba(89, 89, 89, 1)",
                   "borderTopLeftRadius": 16,
                   "borderTopRightRadius": 16,
-                  "justifyContent": "center",
+                  "borderTopWidth": 1,
+                  "marginRight": 12,
                   "opacity": 1,
-                  "overflowWrap": "break-word",
                   "paddingBottom": 8,
-                  "paddingLeft": 12,
-                  "paddingRight": 12,
+                  "paddingLeft": 16,
+                  "paddingRight": 16,
                   "paddingTop": 8,
-                  "width": "25.00%",
+                  "textAlign": "center",
                 }
               }
-              testID="portfolio_button_group_d_TOKENS"
+              testID="portfolio_button_group_LP_TOKENS"
             >
               <Text
                 style={
@@ -1575,587 +1064,1060 @@ exports[`portfolio page should match snapshot 1`] = `
                     },
                     Array [
                       Object {
-                        "fontFamily": "MediumFont",
+                        "fontFamily": "SoraRegular",
                         "fontSize": 12,
-                        "fontWeight": "500",
+                        "fontWeight": "400",
                         "lineHeight": 16,
-                        "paddingBottom": 2,
-                        "paddingTop": 2,
                         "textAlign": "center",
                       },
                       Object {
-                        "color": "rgba(23, 23, 23, 1)",
+                        "color": "rgba(89, 89, 89, 1)",
                       },
                     ],
                   ]
                 }
               >
-                dTokens
+                LP tokens
               </Text>
             </View>
           </View>
-        </View>
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          Object {
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "paddingLeft": 40,
+            "paddingRight": 40,
+          }
+        }
+        testID="toggle_sorting_assets"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              Array [
+                Object {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                  "paddingRight": 4,
+                },
+                Object {
+                  "color": "rgba(115, 115, 115, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          ASSETS
+        </Text>
         <View
-          testID="card_balance_row_container"
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+              "display": "flex",
+              "flexDirection": "row",
+              "opacity": 1,
+            }
+          }
+          testID="your_assets_dropdown_arrow"
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                Array [
+                  Object {
+                    "fontFamily": "SoraRegular",
+                    "fontSize": 12,
+                    "fontWeight": "400",
+                    "lineHeight": 16,
+                  },
+                  Object {
+                    "color": "rgba(43, 43, 43, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            Sort by
+          </Text>
+          <Text />
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "borderBottomLeftRadius": 10,
+            "borderBottomRightRadius": 10,
+            "borderTopLeftRadius": 10,
+            "borderTopRightRadius": 10,
+            "marginLeft": 20,
+            "marginRight": 20,
+            "marginTop": 8,
+          }
+        }
+        testID="dfi_balance_card"
+      >
+        <View
+          style={
+            Object {
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "flexDirection": "column",
+              "overflow": "hidden",
+            }
+          }
         >
           <View
+            accessibilityState={
+              Object {
+                "disabled": false,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "paddingBottom": 6,
-                "paddingLeft": 16,
-                "paddingRight": 16,
-                "paddingTop": 6,
+                "alignItems": "flex-start",
+                "backgroundColor": "rgba(255, 255, 255, 1)",
+                "display": "flex",
+                "flexDirection": "row",
+                "opacity": 1,
+                "paddingBottom": 18,
+                "paddingLeft": 20,
+                "paddingRight": 20,
+                "paddingTop": 18,
               }
             }
           >
             <View
               style={
-                Array [
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "width": "58.333333%",
+                }
+              }
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight={36}
+                bbWidth={36}
+                focusable={false}
+                height={36}
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderWidth": 0,
+                    },
+                    Object {
+                      "flex": 0,
+                      "height": 36,
+                      "width": 36,
+                    },
+                  ]
+                }
+                vbHeight={32}
+                vbWidth={32}
+                width={36}
+              >
+                <RNSVGGroup>
+                  <RNSVGCircle
+                    cx={16}
+                    cy={16}
+                    fill={4294901935}
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                    r={16}
+                  />
+                  <RNSVGPath
+                    d="M18.217 23.454V8.546c3.21.958 5.555 3.937 5.555 7.454s-2.346 6.496-5.555 7.454M15.994 6v8.428l-1.269-1.27-.162-3.167 1.324-3.985a9.952 9.952 0 00-2.454.338l-.64 1.926-1.816-.91a10.03 10.03 0 00-1.974 1.497l3.363 1.685.098 1.928-1.927-.099L8.85 9.01a10.035 10.035 0 00-1.497 1.973l.911 1.816-1.927.64A9.978 9.978 0 006 15.892l3.986-1.324 3.168.162 1.27 1.27-1.27 1.27-3.168.162L6 16.108c.009.849.13 1.669.338 2.454l1.927.64-.911 1.816c.418.719.92 1.383 1.497 1.973l1.686-3.362 1.927-.099-.098 1.928-3.363 1.685a10.04 10.04 0 001.974 1.498l1.815-.911.64 1.926a9.94 9.94 0 002.455.338l-1.324-3.985.162-3.168 1.27-1.27V26c5.522 0 10-4.477 10-10s-4.478-10-10-10"
+                    fill={4294967295}
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                  />
+                </RNSVGGroup>
+              </RNSVGSvgView>
+              <View
+                style={
                   Object {
-                    "borderBottomLeftRadius": 8,
-                    "borderBottomRightRadius": 8,
-                    "borderTopLeftRadius": 8,
-                    "borderTopRightRadius": 8,
-                    "paddingBottom": 16,
-                    "paddingLeft": 16,
-                    "paddingRight": 16,
-                    "paddingTop": 16,
-                  },
-                  Object {
-                    "backgroundColor": "rgba(255, 255, 255, 1)",
-                  },
-                ]
+                    "flexBasis": "auto",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "marginLeft": 8,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "fontFamily": "SoraSemiBold",
+                          "fontSize": 14,
+                          "fontWeight": "600",
+                          "lineHeight": 20,
+                          "marginBottom": 4,
+                        },
+                        Object {
+                          "color": "rgba(18, 18, 18, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="total_dfi_label_symbol"
+                >
+                  DFI
+                </Text>
+                <Text
+                  ellipsizeMode="tail"
+                  numberOfLines={1}
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 12,
+                          "fontWeight": "400",
+                          "lineHeight": 16,
+                        },
+                        Object {
+                          "color": "rgba(89, 89, 89, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="total_dfi_label_name"
+                >
+                  DeFiChain
+                </Text>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "flex-end",
+                  "width": "41.666667%",
+                }
               }
             >
               <View
-                accessible={true}
-                collapsable={false}
-                focusable={true}
-                onClick={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
                 style={
                   Object {
-                    "borderBottomWidth": 0,
-                    "borderLeftWidth": 0,
-                    "borderRightWidth": 0,
-                    "borderTopWidth": 0,
-                    "opacity": 1,
+                    "display": "flex",
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
                   }
                 }
-                testID="portfolio_row_1"
               >
-                <View
+                <Text
                   style={
-                    Object {
-                      "alignItems": "center",
-                      "flexDirection": "row",
-                      "flexGrow": 1,
-                    }
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Array [
+                          Object {
+                            "fontFamily": "SoraSemiBold",
+                            "fontSize": 14,
+                            "fontWeight": "600",
+                            "justifyContent": "flex-end",
+                            "lineHeight": 20,
+                            "marginBottom": 4,
+                            "textAlign": "right",
+                          },
+                        ],
+                        Object {
+                          "color": "rgba(18, 18, 18, 1)",
+                        },
+                      ],
+                    ]
                   }
                 >
-                  <RNSVGSvgView
-                    align="xMidYMid"
-                    bbHeight={32}
-                    bbWidth={32}
-                    focusable={false}
-                    height={32}
-                    meetOrSlice={0}
-                    minX={0}
-                    minY={0}
+                  <Text
                     style={
                       Array [
                         Object {
-                          "backgroundColor": "transparent",
-                          "borderWidth": 0,
+                          "fontFamily": "RegularFont",
+                          "fontSize": 16,
+                          "fontWeight": "400",
+                          "lineHeight": 24,
                         },
-                        Object {
-                          "flex": 0,
-                          "height": 32,
-                          "width": 32,
-                        },
+                        Array [
+                          Object {
+                            "flexWrap": "wrap",
+                            "fontFamily": "SoraSemiBold",
+                            "fontSize": 14,
+                            "fontWeight": "600",
+                            "lineHeight": 20,
+                            "textAlign": "right",
+                          },
+                          Object {
+                            "color": "rgba(18, 18, 18, 1)",
+                          },
+                        ],
                       ]
                     }
-                    testID="portfolio_row_1_icon"
-                    vbHeight={32}
-                    vbWidth={32}
-                    width={32}
+                    testID="dfi_total_balance_amount"
                   >
-                    <RNSVGGroup>
-                      <RNSVGPath
-                        d="M31.521 19.87c-2.137 8.572-10.82 13.788-19.393 11.651C3.558 29.384-1.659 20.702.479 12.131 2.616 3.56 11.298-1.659 19.87.48c8.573 2.137 13.79 10.82 11.652 19.392z"
-                        fill={4294830545}
-                        propList={
-                          Array [
-                            "fill",
-                          ]
-                        }
-                      />
-                      <RNSVGPath
-                        d="M22.96 14.04c.313-2.101-1.276-3.23-3.448-3.985l.705-2.846-1.72-.432-.686 2.772a67.899 67.899 0 00-1.379-.327l.691-2.79L15.404 6l-.705 2.846a57.2 57.2 0 01-1.099-.26l.002-.01-2.372-.596-.458 1.85s1.277.296 1.25.314c.696.175.822.64.801 1.008l-.802 3.243c.048.012.11.03.179.057l-.182-.045-1.125 4.543c-.085.213-.302.533-.789.412.018.025-1.25-.315-1.25-.315L8 21.031l2.239.562c.416.105.824.215 1.226.319l-.712 2.88 1.718.431.706-2.849c.469.129.925.247 1.37.359l-.702 2.835 1.72.432.712-2.874c2.934.56 5.14.334 6.068-2.339.748-2.152-.037-3.393-1.58-4.202 1.123-.261 1.97-1.006 2.196-2.545zm-4.012 5.8c-.497 1.961-3.858.901-4.948.635L14.883 17c1.09.267 4.584.796 4.065 2.84zm.991-6.05c-.538 1.993-3.861.98-4.939.732L15.95 11c1.079.248 4.55.712 3.99 2.79z"
-                        fill={4294415130}
-                        propList={
-                          Array [
-                            "fill",
-                          ]
-                        }
-                      />
-                    </RNSVGGroup>
-                  </RNSVGSvgView>
-                  <View
-                    style={
+                    100.00000000
+                  </Text>
+                </Text>
+                <View
+                  style={
+                    Array [
                       Object {
-                        "flexBasis": "auto",
-                        "flexGrow": 1,
-                        "flexShrink": 1,
-                        "marginLeft": 12,
-                        "marginRight": 12,
-                      }
-                    }
-                  >
-                    <Text
-                      style={
+                        "alignItems": "center",
+                        "display": "flex",
+                        "flexDirection": "row",
+                      },
+                      Object {
+                        "justifyContent": "flex-end",
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "fontFamily": "RegularFont",
+                          "fontSize": 16,
+                          "fontWeight": "400",
+                          "lineHeight": 24,
+                        },
                         Array [
-                          Object {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
                           Array [
                             Object {
-                              "fontFamily": "MediumFont",
-                              "fontWeight": "500",
-                            },
-                            Object {
-                              "color": "rgba(0, 0, 0, 1)",
-                            },
-                          ],
-                        ]
-                      }
-                      testID="portfolio_row_1_symbol"
-                    >
-                      dBTC
-                    </Text>
-                    <Text
-                      ellipsizeMode="tail"
-                      numberOfLines={1}
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
-                          Array [
-                            Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "fontFamily": "SoraRegular",
                               "fontSize": 12,
+                              "fontWeight": "400",
                               "lineHeight": 16,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "textAlign": "right",
                             },
                           ],
-                        ]
-                      }
-                      testID="portfolio_row_1_name"
-                    >
-                      Bitcoin
-                    </Text>
-                  </View>
-                  <View
-                    style={
-                      Object {
-                        "flexDirection": "row",
-                      }
+                          Object {
+                            "color": "rgba(89, 89, 89, 1)",
+                          },
+                        ],
+                      ]
                     }
+                    testID="dfi_total_balance_usd_amount"
                   >
-                    <View
-                      style={
-                        Object {
-                          "alignItems": "flex-end",
-                          "display": "flex",
-                          "lineHeight": 24,
-                        }
-                      }
-                    >
-                      <Text
-                        style={
-                          Array [
-                            Object {
-                              "fontFamily": "RegularFont",
-                              "fontSize": 16,
-                              "fontWeight": "400",
-                              "lineHeight": 24,
-                            },
-                            Array [
-                              Object {
-                                "flexWrap": "wrap",
-                              },
-                              Object {
-                                "color": "rgba(0, 0, 0, 1)",
-                              },
-                            ],
-                          ]
-                        }
-                        testID="portfolio_row_1_amount"
-                      >
-                        777.00000000
-                      </Text>
-                      <View
-                        style={
-                          Array [
-                            Object {
-                              "alignItems": "center",
-                              "display": "flex",
-                              "flexDirection": "row",
-                            },
-                            Object {
-                              "justifyContent": "flex-end",
-                            },
-                          ]
-                        }
-                      >
-                        <Text
-                          style={
-                            Array [
-                              Object {
-                                "fontFamily": "RegularFont",
-                                "fontSize": 16,
-                                "fontWeight": "400",
-                                "lineHeight": 24,
-                              },
-                              Array [
-                                Array [
-                                  Object {
-                                    "fontSize": 12,
-                                    "lineHeight": 16,
-                                  },
-                                  undefined,
-                                ],
-                                Object {
-                                  "color": "rgba(115, 115, 115, 1)",
-                                },
-                              ],
-                            ]
-                          }
-                          testID="portfolio_row_1_usd_amount"
-                        >
-                          ≈ $0.00000000
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
+                    $0.00
+                  </Text>
                 </View>
               </View>
             </View>
           </View>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginLeft": 20,
+            "marginRight": 20,
+          }
+        }
+        testID="card_balance_row_container"
+      >
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderBottomWidth": 0,
+              "borderLeftWidth": 0,
+              "borderRightWidth": 0,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "borderTopWidth": 0,
+              "marginTop": 8,
+              "opacity": 1,
+              "paddingBottom": 18,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 18,
+            }
+          }
+          testID="portfolio_row_1"
+        >
           <View
             style={
               Object {
-                "paddingBottom": 6,
-                "paddingLeft": 16,
-                "paddingRight": 16,
-                "paddingTop": 6,
+                "alignItems": "flex-start",
+                "display": "flex",
+                "flexDirection": "row",
               }
             }
           >
             <View
               style={
-                Array [
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "width": "58.333333%",
+                }
+              }
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight={36}
+                bbWidth={36}
+                focusable={false}
+                height={36}
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderWidth": 0,
+                    },
+                    Object {
+                      "flex": 0,
+                      "height": 36,
+                      "width": 36,
+                    },
+                  ]
+                }
+                testID="portfolio_row_1_icon"
+                vbHeight={32}
+                vbWidth={32}
+                width={36}
+              >
+                <RNSVGGroup>
+                  <RNSVGPath
+                    d="M31.521 19.87c-2.137 8.572-10.82 13.788-19.393 11.651C3.558 29.384-1.659 20.702.479 12.131 2.616 3.56 11.298-1.659 19.87.48c8.573 2.137 13.79 10.82 11.652 19.392z"
+                    fill={4294830545}
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                  />
+                  <RNSVGPath
+                    d="M22.96 14.04c.313-2.101-1.276-3.23-3.448-3.985l.705-2.846-1.72-.432-.686 2.772a67.899 67.899 0 00-1.379-.327l.691-2.79L15.404 6l-.705 2.846a57.2 57.2 0 01-1.099-.26l.002-.01-2.372-.596-.458 1.85s1.277.296 1.25.314c.696.175.822.64.801 1.008l-.802 3.243c.048.012.11.03.179.057l-.182-.045-1.125 4.543c-.085.213-.302.533-.789.412.018.025-1.25-.315-1.25-.315L8 21.031l2.239.562c.416.105.824.215 1.226.319l-.712 2.88 1.718.431.706-2.849c.469.129.925.247 1.37.359l-.702 2.835 1.72.432.712-2.874c2.934.56 5.14.334 6.068-2.339.748-2.152-.037-3.393-1.58-4.202 1.123-.261 1.97-1.006 2.196-2.545zm-4.012 5.8c-.497 1.961-3.858.901-4.948.635L14.883 17c1.09.267 4.584.796 4.065 2.84zm.991-6.05c-.538 1.993-3.861.98-4.939.732L15.95 11c1.079.248 4.55.712 3.99 2.79z"
+                    fill={4294415130}
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                  />
+                </RNSVGGroup>
+              </RNSVGSvgView>
+              <View
+                style={
                   Object {
-                    "borderBottomLeftRadius": 8,
-                    "borderBottomRightRadius": 8,
-                    "borderTopLeftRadius": 8,
-                    "borderTopRightRadius": 8,
-                    "paddingBottom": 16,
-                    "paddingLeft": 16,
-                    "paddingRight": 16,
-                    "paddingTop": 16,
-                  },
-                  Object {
-                    "backgroundColor": "rgba(255, 255, 255, 1)",
-                  },
-                ]
+                    "flexBasis": "auto",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "marginLeft": 8,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "fontFamily": "SoraSemiBold",
+                          "fontSize": 14,
+                          "fontWeight": "600",
+                          "lineHeight": 20,
+                          "marginBottom": 4,
+                        },
+                        Object {
+                          "color": "rgba(18, 18, 18, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="portfolio_row_1_symbol"
+                >
+                  dBTC
+                </Text>
+                <Text
+                  ellipsizeMode="tail"
+                  numberOfLines={1}
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 12,
+                          "fontWeight": "400",
+                          "lineHeight": 16,
+                        },
+                        Object {
+                          "color": "rgba(89, 89, 89, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="portfolio_row_1_name"
+                >
+                  Bitcoin
+                </Text>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "flex-end",
+                  "width": "41.666667%",
+                }
               }
             >
               <View
-                accessible={true}
-                collapsable={false}
-                focusable={true}
-                onClick={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
                 style={
                   Object {
-                    "borderBottomWidth": 0,
-                    "borderLeftWidth": 0,
-                    "borderRightWidth": 0,
-                    "borderTopWidth": 0,
-                    "opacity": 1,
+                    "display": "flex",
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
                   }
                 }
-                testID="portfolio_row_2"
               >
-                <View
+                <Text
                   style={
-                    Object {
-                      "alignItems": "center",
-                      "flexDirection": "row",
-                      "flexGrow": 1,
-                    }
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Array [
+                          Object {
+                            "fontFamily": "SoraSemiBold",
+                            "fontSize": 14,
+                            "fontWeight": "600",
+                            "justifyContent": "flex-end",
+                            "lineHeight": 20,
+                            "marginBottom": 4,
+                            "textAlign": "right",
+                          },
+                        ],
+                        Object {
+                          "color": "rgba(18, 18, 18, 1)",
+                        },
+                      ],
+                    ]
                   }
                 >
-                  <RNSVGSvgView
-                    align="xMidYMid"
-                    bbHeight={32}
-                    bbWidth={32}
-                    focusable={false}
-                    height={32}
-                    meetOrSlice={0}
-                    minX={0}
-                    minY={0}
+                  <Text
                     style={
                       Array [
                         Object {
-                          "backgroundColor": "transparent",
-                          "borderWidth": 0,
+                          "fontFamily": "RegularFont",
+                          "fontSize": 16,
+                          "fontWeight": "400",
+                          "lineHeight": 24,
                         },
-                        Object {
-                          "flex": 0,
-                          "height": 32,
-                          "width": 32,
-                        },
+                        Array [
+                          Object {
+                            "flexWrap": "wrap",
+                            "fontFamily": "SoraSemiBold",
+                            "fontSize": 14,
+                            "fontWeight": "600",
+                            "lineHeight": 20,
+                            "textAlign": "right",
+                          },
+                          Object {
+                            "color": "rgba(18, 18, 18, 1)",
+                          },
+                        ],
                       ]
                     }
-                    testID="portfolio_row_2_icon"
-                    vbHeight={32}
-                    vbWidth={32}
-                    width={32}
+                    testID="portfolio_row_1_amount"
                   >
-                    <RNSVGGroup>
-                      <RNSVGCircle
-                        cx={16}
-                        cy={16}
-                        fill={4292929019}
-                        propList={
-                          Array [
-                            "fill",
-                          ]
-                        }
-                        r={16}
-                      />
-                      <RNSVGPath
-                        d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
-                        fill={4294967295}
-                        propList={
-                          Array [
-                            "fill",
-                          ]
-                        }
-                      />
-                      <RNSVGPath
-                        d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
-                        fill={4284645098}
-                        fillOpacity={0.8}
-                        propList={
-                          Array [
-                            "fill",
-                            "fillOpacity",
-                          ]
-                        }
-                      />
-                      <RNSVGPath
-                        d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
-                        fill={4294967295}
-                        propList={
-                          Array [
-                            "fill",
-                          ]
-                        }
-                      />
-                      <RNSVGPath
-                        d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
-                        fill={4284645098}
-                        fillOpacity={0.6}
-                        propList={
-                          Array [
-                            "fill",
-                            "fillOpacity",
-                          ]
-                        }
-                      />
-                      <RNSVGPath
-                        d="M15.998 20.573l7.497-4.353-7.497-3.348z"
-                        fill={4284645098}
-                        propList={
-                          Array [
-                            "fill",
-                          ]
-                        }
-                      />
-                    </RNSVGGroup>
-                  </RNSVGSvgView>
-                  <View
-                    style={
+                    777.00000000
+                  </Text>
+                </Text>
+                <View
+                  style={
+                    Array [
                       Object {
-                        "flexBasis": "auto",
-                        "flexGrow": 1,
-                        "flexShrink": 1,
-                        "marginLeft": 12,
-                        "marginRight": 12,
-                      }
-                    }
-                  >
-                    <Text
-                      style={
+                        "alignItems": "center",
+                        "display": "flex",
+                        "flexDirection": "row",
+                      },
+                      Object {
+                        "justifyContent": "flex-end",
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "fontFamily": "RegularFont",
+                          "fontSize": 16,
+                          "fontWeight": "400",
+                          "lineHeight": 24,
+                        },
                         Array [
-                          Object {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
                           Array [
                             Object {
-                              "fontFamily": "MediumFont",
-                              "fontWeight": "500",
-                            },
-                            Object {
-                              "color": "rgba(0, 0, 0, 1)",
-                            },
-                          ],
-                        ]
-                      }
-                      testID="portfolio_row_2_symbol"
-                    >
-                      dETH
-                    </Text>
-                    <Text
-                      ellipsizeMode="tail"
-                      numberOfLines={1}
-                      style={
-                        Array [
-                          Object {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
-                          Array [
-                            Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "fontFamily": "SoraRegular",
                               "fontSize": 12,
+                              "fontWeight": "400",
                               "lineHeight": 16,
                             },
                             Object {
-                              "color": "rgba(82, 82, 82, 1)",
+                              "textAlign": "right",
                             },
                           ],
-                        ]
-                      }
-                      testID="portfolio_row_2_name"
-                    >
-                      Ethereum
-                    </Text>
-                  </View>
-                  <View
-                    style={
-                      Object {
-                        "flexDirection": "row",
-                      }
+                          Object {
+                            "color": "rgba(89, 89, 89, 1)",
+                          },
+                        ],
+                      ]
                     }
+                    testID="portfolio_row_1_usd_amount"
                   >
-                    <View
-                      style={
+                    $0.00
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderBottomWidth": 0,
+              "borderLeftWidth": 0,
+              "borderRightWidth": 0,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "borderTopWidth": 0,
+              "marginTop": 8,
+              "opacity": 1,
+              "paddingBottom": 18,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 18,
+            }
+          }
+          testID="portfolio_row_2"
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "flex-start",
+                "display": "flex",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "width": "58.333333%",
+                }
+              }
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight={36}
+                bbWidth={36}
+                focusable={false}
+                height={36}
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderWidth": 0,
+                    },
+                    Object {
+                      "flex": 0,
+                      "height": 36,
+                      "width": 36,
+                    },
+                  ]
+                }
+                testID="portfolio_row_2_icon"
+                vbHeight={32}
+                vbWidth={32}
+                width={36}
+              >
+                <RNSVGGroup>
+                  <RNSVGCircle
+                    cx={16}
+                    cy={16}
+                    fill={4292929019}
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                    r={16}
+                  />
+                  <RNSVGPath
+                    d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
+                    fill={4294967295}
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                  />
+                  <RNSVGPath
+                    d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
+                    fill={4284645098}
+                    fillOpacity={0.8}
+                    propList={
+                      Array [
+                        "fill",
+                        "fillOpacity",
+                      ]
+                    }
+                  />
+                  <RNSVGPath
+                    d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
+                    fill={4294967295}
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                  />
+                  <RNSVGPath
+                    d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
+                    fill={4284645098}
+                    fillOpacity={0.6}
+                    propList={
+                      Array [
+                        "fill",
+                        "fillOpacity",
+                      ]
+                    }
+                  />
+                  <RNSVGPath
+                    d="M15.998 20.573l7.497-4.353-7.497-3.348z"
+                    fill={4284645098}
+                    propList={
+                      Array [
+                        "fill",
+                      ]
+                    }
+                  />
+                </RNSVGGroup>
+              </RNSVGSvgView>
+              <View
+                style={
+                  Object {
+                    "flexBasis": "auto",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "marginLeft": 8,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
                         Object {
-                          "alignItems": "flex-end",
-                          "display": "flex",
+                          "fontFamily": "SoraSemiBold",
+                          "fontSize": 14,
+                          "fontWeight": "600",
+                          "lineHeight": 20,
+                          "marginBottom": 4,
+                        },
+                        Object {
+                          "color": "rgba(18, 18, 18, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="portfolio_row_2_symbol"
+                >
+                  dETH
+                </Text>
+                <Text
+                  ellipsizeMode="tail"
+                  numberOfLines={1}
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Object {
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 12,
+                          "fontWeight": "400",
+                          "lineHeight": 16,
+                        },
+                        Object {
+                          "color": "rgba(89, 89, 89, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="portfolio_row_2_name"
+                >
+                  Ethereum
+                </Text>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "flex-end",
+                  "width": "41.666667%",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "display": "flex",
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      Array [
+                        Array [
+                          Object {
+                            "fontFamily": "SoraSemiBold",
+                            "fontSize": 14,
+                            "fontWeight": "600",
+                            "justifyContent": "flex-end",
+                            "lineHeight": 20,
+                            "marginBottom": 4,
+                            "textAlign": "right",
+                          },
+                        ],
+                        Object {
+                          "color": "rgba(18, 18, 18, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "fontFamily": "RegularFont",
+                          "fontSize": 16,
+                          "fontWeight": "400",
                           "lineHeight": 24,
-                        }
-                      }
-                    >
-                      <Text
-                        style={
+                        },
+                        Array [
+                          Object {
+                            "flexWrap": "wrap",
+                            "fontFamily": "SoraSemiBold",
+                            "fontSize": 14,
+                            "fontWeight": "600",
+                            "lineHeight": 20,
+                            "textAlign": "right",
+                          },
+                          Object {
+                            "color": "rgba(18, 18, 18, 1)",
+                          },
+                        ],
+                      ]
+                    }
+                    testID="portfolio_row_2_amount"
+                  >
+                    555.00000000
+                  </Text>
+                </Text>
+                <View
+                  style={
+                    Array [
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                        "flexDirection": "row",
+                      },
+                      Object {
+                        "justifyContent": "flex-end",
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "fontFamily": "RegularFont",
+                          "fontSize": 16,
+                          "fontWeight": "400",
+                          "lineHeight": 24,
+                        },
+                        Array [
                           Array [
                             Object {
-                              "fontFamily": "RegularFont",
-                              "fontSize": 16,
+                              "fontFamily": "SoraRegular",
+                              "fontSize": 12,
                               "fontWeight": "400",
-                              "lineHeight": 24,
-                            },
-                            Array [
-                              Object {
-                                "flexWrap": "wrap",
-                              },
-                              Object {
-                                "color": "rgba(0, 0, 0, 1)",
-                              },
-                            ],
-                          ]
-                        }
-                        testID="portfolio_row_2_amount"
-                      >
-                        555.00000000
-                      </Text>
-                      <View
-                        style={
-                          Array [
-                            Object {
-                              "alignItems": "center",
-                              "display": "flex",
-                              "flexDirection": "row",
+                              "lineHeight": 16,
                             },
                             Object {
-                              "justifyContent": "flex-end",
+                              "textAlign": "right",
                             },
-                          ]
-                        }
-                      >
-                        <Text
-                          style={
-                            Array [
-                              Object {
-                                "fontFamily": "RegularFont",
-                                "fontSize": 16,
-                                "fontWeight": "400",
-                                "lineHeight": 24,
-                              },
-                              Array [
-                                Array [
-                                  Object {
-                                    "fontSize": 12,
-                                    "lineHeight": 16,
-                                  },
-                                  undefined,
-                                ],
-                                Object {
-                                  "color": "rgba(115, 115, 115, 1)",
-                                },
-                              ],
-                            ]
-                          }
-                          testID="portfolio_row_2_usd_amount"
-                        >
-                          ≈ $0.00000000
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
+                          ],
+                          Object {
+                            "color": "rgba(89, 89, 89, 1)",
+                          },
+                        ],
+                      ]
+                    }
+                    testID="portfolio_row_2_usd_amount"
+                  >
+                    $0.00
+                  </Text>
                 </View>
               </View>
             </View>

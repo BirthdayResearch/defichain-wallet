@@ -20,7 +20,9 @@ export enum ErrorCodes {
   LackOfLiquidity = 5,
   PaybackLoanInvalidPrice = 6,
   NoLiveFixedPrices = 7,
-  VaultNotEnoughCollateralization = 8
+  VaultNotEnoughCollateralization = 8,
+  DustValue = 9,
+  ZeroBalance = 10
 }
 
 export interface ErrorMapping {
@@ -28,7 +30,10 @@ export interface ErrorMapping {
   message: string
 }
 
-export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): JSX.Element {
+export function TransactionError ({
+  errMsg,
+  onClose
+}: TransactionErrorProps): JSX.Element {
   const logger = useLogger()
   const [expand, setExpand] = useState(false)
   const [canExpand, setCanExpand] = useState(false)
@@ -57,10 +62,10 @@ export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): J
     <ThemedViewV2
       dark={tailwind('bg-mono-dark-v2-00')}
       light={tailwind('bg-mono-light-v2-00')}
-      style={tailwind('flex-row items-center justify-between w-full rounded-lg-v2 px-5 py-3 border-0.5 border-error-500')}
+      style={tailwind('flex-row items-center justify-between w-full rounded-lg-v2 pl-5 border-0.5 border-error-500')}
     >
       <View
-        style={tailwind('flex flex-row items-center justify-between w-9/12')}
+        style={tailwind('flex flex-row items-center justify-between w-9/12 py-3')}
       >
         <ThemedIcon
           dark={tailwind('text-darkerror-500')}
@@ -81,7 +86,7 @@ export function TransactionError ({ errMsg, onClose }: TransactionErrorProps): J
             {canExpand && (
               <TouchableOpacity
                 onPress={() => setExpand(!expand)}
-                testID='details_dfi'
+                testID='toggle_ocean_error'
               >
                 <ThemedIcon
                   light={tailwind('text-mono-light-v2-900')}
@@ -118,12 +123,12 @@ function errorMessageMapping (err: string): ErrorMapping {
   if (err === 'not enough balance after combing all prevouts') {
     return {
       code: ErrorCodes.InsufficientUTXO,
-      message: 'Insufficient UTXO DFI'
+      message: 'Insufficient UTXO DFI.'
     }
   } else if (err.includes('amount') && err.includes('is less than')) {
     return {
       code: ErrorCodes.InsufficientBalance,
-      message: 'Not enough balance'
+      message: 'Insufficient balance. Top up to proceed.'
     }
   } else if (err.includes('Price is higher than indicated.')) {
     return {
@@ -133,32 +138,37 @@ function errorMessageMapping (err: string): ErrorMapping {
   } else if (err.includes('no prevouts available to create a transaction')) {
     return {
       code: ErrorCodes.InsufficientUTXO,
-      message: 'Insufficient UTXO DFI'
+      message: 'Insufficient UTXO DFI.'
     }
   } else if (err.includes('At least 50% of the vault must be in DFI when taking a loan')) {
     return {
       code: ErrorCodes.InsufficientDFIInVault,
-      message: 'Insufficient DFI collateral (≥50%)'
+      message: 'Insufficient DFI collateral. (≥50%)'
     }
   } else if (err.includes('Lack of liquidity')) {
     return {
       code: ErrorCodes.LackOfLiquidity,
-      message: 'Pool does not have enough liquidity'
+      message: 'Insufficient liquidity.'
     }
   } else if (err.includes('Cannot payback loan while any of the asset\'s price is invalid')) {
     return {
       code: ErrorCodes.PaybackLoanInvalidPrice,
-      message: 'Cannot payback loan due to invalid price'
+      message: 'Unable to payback loan due to invalid price.'
     }
   } else if (err.includes('No live fixed prices')) {
     return {
       code: ErrorCodes.NoLiveFixedPrices,
-      message: 'No live fixed prices for loan token'
+      message: 'No live fixed prices for loan token.'
     }
   } else if (err.includes('Vault does not have enough collateralization ratio defined by loan scheme')) {
     return {
       code: ErrorCodes.VaultNotEnoughCollateralization,
-      message: 'Vault does not have enough col. ratio'
+      message: 'Vault does not meet min. collateral ratio. Add collateral to proceed.'
+    }
+  } else if (err.includes('dust (code 64)') || err.includes('non-canonical balances (zero amount)')) {
+    return {
+      code: ErrorCodes.DustValue,
+      message: 'Input amount is too low. Increase the amount to continue.'
     }
   }
 

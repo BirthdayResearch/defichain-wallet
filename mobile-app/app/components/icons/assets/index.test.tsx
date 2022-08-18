@@ -7,6 +7,7 @@ import { getNativeIcon } from './index'
 import { Provider } from 'react-redux'
 
 jest.mock('randomcolor', () => jest.fn().mockReturnValue('#ffffff'))
+jest.mock('@shared-contexts/ThemeProvider')
 
 const icons = ['_UTXO', 'DFI', 'DFI (UTXO)', 'DFI (Token)', 'BTC', 'dBCH', 'dBTC', 'dDFI', 'dDOGE', 'dETH', 'dLTC',
   'dUSDT', 'dUSDC', 'FAKE', 'dDUSD', 'DUSD', 'dTSLA', 'dGOOGL', 'dAAPL', 'dAMD', 'dGME', 'dBABA', 'dPLTR',

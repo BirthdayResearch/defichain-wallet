@@ -104,12 +104,15 @@
     "Sort assets by": "Ordina gli asset per",
     "Highest {{modifiedDenominationCurrency}} value": "Valore {{modifiedDenominationCurrency}} più alto",
     "Lowest {{modifiedDenominationCurrency}} value": "Valore {{modifiedDenominationCurrency}} più basso",
+    "Highest value ({{modifiedDenominationCurrency}})": "Highest value ({{modifiedDenominationCurrency}})",
+    "Lowest value ({{modifiedDenominationCurrency}})": "Lowest value ({{modifiedDenominationCurrency}})",
     "Highest token amount": "Importo del token più alto",
     "Lowest token amount": "Importo del token più basso",
     "A to Z": "Da A a Z",
     "Z to A": "Da Z a A",
     "AVAILABLE ASSETS": "ASSET DISPONIBILI",
-    "Asset value": "Valore degli asset"
+    "Asset value": "Valore degli asset",
+    "Sort by": "Sort by"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Get DFI",
@@ -121,7 +124,8 @@
     "Receive DFI in DeFiChain Wallet": "Receive DFI in DeFiChain Wallet",
     "DFI price": "DFI price",
     "WALLET ADDRESS": "WALLET ADDRESS",
-    "Share": "Share"
+    "Share": "Share",
+    "Get DFI now!": "Get DFI now!"
   },
   "screens/MarketplaceScreen": {
     "Marketplace": "Marketplace",
@@ -253,9 +257,23 @@
     "Select a token you want to send to get started": "Seleziona un token che vuoi inviare, per iniziare",
     "Choose token to send": "Scegliere il token da inviare",
     "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
-    "*Registered address": "*Indirizzo registrato"
+    "*Registered address": "*Indirizzo registrato",
+    "There is a minimal fee for the transaction": "There is a minimal fee for the transaction",
+    "A small amount of UTXO is reserved for fees": "A small amount of UTXO is reserved for fees",
+    "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds": "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds",
+    "Insufficient balance": "Insufficient balance",
+    "SEND TO": "SEND TO",
+    "Paste address": "Paste address",
+    "I WANT TO SEND": "I WANT TO SEND",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Verified": "Verified",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "Invalid address. Make sure the address is correct to avoid irrecoverable losses": "Invalid address. Make sure the address is correct to avoid irrecoverable losses"
   },
   "screens/SendConfirmationScreen": {
+    "Confirm": "Confirm",
     "Confirm Send": "Conferma Invio",
     "CONFIRM SEND": "CONFERMA INVIO",
     "You are sending": "Stai inviando",
@@ -267,15 +285,30 @@
     "Remaining balance": "Saldo rimanente",
     "SEND": "INVIA",
     "SENDING": "INVIO",
-    "Sending": "Invio {{symbol}}",
+    "Sending {{symbol}}": "Invio {{symbol}}",
     "Sending {{amount}} {{symbol}}": "Invio {{amount}} {{symbol}}",
     "CONFIRM TRANSACTION": "CONFERMA LA TRANSAZIONE",
     "Convert & send": "Converti e invia",
     "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "Invia i token del Liquidity Pool solo agli indirizzi del DeFiChain Wallet. L'invio ad uno scambio o ad un ente centrale comporterà la perdita irreversibile dei fondi.",
     "Transaction type": "Tipo di transazione",
-    "Amount to send": "Importo da inviare"
+    "Amount to send": "Importo da inviare",
+    "Converting": "Converting",
+    "Converted": "Converted",
+    "Transaction fee": "Transaction fee",
+    "Amount to convert": "Amount to convert",
+    "Send": "Send",
+    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Sending {{amount}} {{displaySymbol}} to {{toAddress}}",
+    "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds."
+  },
+  "screens/TokenSelectionScreen": {
+    "Search token": "Search token",
+    "No assets found": "No assets found",
+    "Add assets to get started": "Add assets to get started",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
+    "AVAILABLE": "AVAILABLE"
   },
   "screens/ConvertScreen": {
+    "Convert": "Converti",
     "Convert DFI": "Converti DFI",
     "Scan recipient QR": "Scansione QR del destinatario",
     "Balance": "Saldo",
@@ -289,9 +322,19 @@
     "Review full transaction details in the next screen": "Controlla tutti i dettagli della transazione nella prossima schermata",
     "Estimated fee": "Commissione stimata",
     "You will have": "Riceverai",
-    "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE"
+    "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
+    "I WANT TO CONVERT": "I WANT TO CONVERT",
+    "Insufficient balance": "Insufficient balance",
+    "Available: ": "Disponibile: ",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "A small amount of UTXO is reserved for fees": "A small amount of UTXO is reserved for fees",
+    "Available {{unit}}": "Disponibile {{unit}}",
+    "Resulting {{unit}}": "Risultato {{unit}}"
   },
   "screens/ConvertConfirmScreen": {
+    "Confirm": "Confirm",
     "Confirm DFI Conversion": "Conferma la conversione DFI",
     "You are converting": "Stai convertendo",
     "AFTER CONVERSION, YOU WILL HAVE": "DOPO LA CONVERSIONE, AVRAI",
@@ -299,12 +342,17 @@
     "CONVERT": "CONVERTI",
     "CONVERTING": "IN CONVERSIONE",
     "Converting DFI": "CONVERSIONE DFI",
-    "Converting {{amount}} {{symbolA}} to {{symbolB}}": "CONVERSIONE {{amount}} {{symbolA}} in {{symbolB}}",
+    "Converting {{amount}} {{symbolA}} to {{symbolB}}": "Conversione {{amount}} {{symbolA}} in {{symbolB}}",
     "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
     "Transaction type": "Tipo di transazione",
     "Convert": "Converti",
     "{{token}} to receive": "{{token}} da ricevere",
-    "CONFIRM TRANSACTION": "CONFERMA LA TRANSAZIONE"
+    "CONFIRM TRANSACTION": "CONFERMA LA TRANSAZIONE",
+    "You are converting to {{unit}}": "You are converting to {{unit}}",
+    "Transaction fee": "Transaction fee",
+    "Resulting Tokens": "Risultato Tokens",
+    "Resulting UTXO": "Risultato UTXO",
+    "Convert {{amount}} DFI to {{target}}": "Conversione {{amount}} DFI in {{target}}"
   },
   "screens/SettingsNavigator": {
     "Settings": "Impostazioni"
@@ -459,8 +507,6 @@
     "The total interest rate applied on a loan is derived by taking the vault interest rate + token interest rate, and is calculated on a per annum basis.": "Il tasso d'interesse totale applicato su un prestito si ottiene prendendo il tasso d'interesse del vault + il tasso d'interesse del token, ed è calcolato su base annua.",
     "What is collateral factor?": "Cos'è il fattore di collateralizzazione?",
     "The collateral factor determines the degree of contribution of each collateral token. For example, if a token is accepted at 70% collateral factor, $100 worth of the token would contribute to $70 of collateral value in a vault.": "Il fattore di collateralizzazione determina il grado di contributo di ogni token collateralizzato. Per esempio, se un token è accettato al 70% di collateralizzazione, 100 dollari del token contribuiranno a 70 dollari di valore collaterale nel vault.",
-    "Why is there a 5% fee when paying DUSD loans with DFI?": "Perché c'è una penale dell’5% quando pago i prestiti di DUSD in DFI??",
-    "Per DFIP 2206-C, when DUSD loans are paid back in DFI, a 5% fees will be charged to users. This is an interim measure to incentivize arbitrage traders to use DUSD to pay back their loans which will reduce the DUSD supply in the market.\n\nWhen calculating how much equivalent DFI is to be paid for a DUSD loan, a 5% additional fee is applied to the DFI/DUSD oracle value. To illustrate, if the DFI/USD oracle price is $10 today, the value of DFI in a DUSD payment is calculated by taking $10*(1-0.05), effectively reducing the value of DFI by 5% to $9.50 in such a scenario.": "Per il DFIP 2206-C, ogni prestito di DUSD sarà pagabile con DFI come modo per risolvere il sovrapprezzo di DUSD attualmente riscontrabile sul DEX.\n\nUna volta calcolato l’equivalente in DFI da pagare per il prestito di DUSD, una penale dell’5% è applicata al valore DFI/DUSD dell’oracolo. Per esempio, se il prezzo dell’oracolo DFI/DUSD oggi è di $10, il valore di una DFI per un pagamento di DUSD, è calcolato prendendo $10 * (1 - 0,05), riducendo in tale scenario effettivamente il valore di DFI dell'5% a $9,50.",
     "What is vault share?": "Cos'è un vault share?",
     "The vault share represents the proportion of collateral tokens deposited in a vault. It is required for all vaults to contain at least 50% of DFI and/or DUSD as collateral tokens. This requirement is checked on 2 occasions – when you're minting new dTokens and when you are withdrawing collateral from your vault.": "un vault share del vault rappresenta la proporzione di token collaterali depositati in un vault. È richiesto che tutti i vault contengano almeno il 50% di DFI e/o DUSD come token collaterali. Questo requisito viene controllato in 2 occasioni - quando stai coniando nuovi dTokens e quando ritiri il collaterale dal tuo vault."
   },
@@ -687,11 +733,64 @@
     "Sent (Pending confirmation)": "Sent (Pending confirmation)",
     "Broadcasting...": "Trasmissione...",
     "OK": "OK",
-    "Insufficient UTXO DFI": "UTXO DFI insufficienti",
-    "Not enough balance": "Saldo troppo basso",
+    "Insufficient UTXO DFI.": "UTXO DFI insufficienti",
+    "Insufficient balance. Top up to proceed.": "Insufficient balance. Top up to proceed.",
     "Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.": "Il prezzo di swap è superiore all'intervallo consentito dalla tolleranza di slittamento. Aumenta la percentuale di tolleranza per procedere.",
     "Preparing broadcast": "La trasmissione è in preparazione",
-    "Waiting for transaction": "In attesa della transazione"
+    "Waiting for transaction": "In attesa della transazione",
+    "Insufficient DFI collateral. (≥50%)": "Insufficient DFI collateral. (≥50%)",
+    "Insufficient liquidity.": "Insufficient liquidity.",
+    "Unable to payback loan due to invalid price.": "Unable to payback loan due to invalid price.",
+    "No live fixed prices for loan token.": "No live fixed prices for loan token.",
+    "Vault does not meet min. collateral ratio. Add collateral to proceed.": "Vault does not meet min. collateral ratio. Add collateral to proceed.",
+    "Input amount is too low. Increase the amount to continue.": "Input amount is too low. Increase the amount to continue.",
+    "Preparing to swap tokens…": "Preparing to swap tokens…",
+    "Swapping tokens…": "Swapping tokens…",
+    "Tokens swapped": "Tokens swapped",
+    "Preparing to send…": "Preparing to send…",
+    "Sending {{amount}} {{displaySymbol}}": "Sending {{amount}} {{displaySymbol}}",
+    "{{amount}} {{displaySymbol}} sent": "{{amount}} {{displaySymbol}} sent",
+    "Preparing loan…": "Preparing loan…",
+    "Processing loan…": "Processing loan…",
+    "Loan processed": "Loan processed",
+    "Preparing to add collaterals…": "Preparing to add collaterals…",
+    "Adding collaterals to vault…": "Adding collaterals to vault…",
+    "Collaterals added": "Collaterals added",
+    "Preparing to add liquidity…": "Preparing to add liquidity…",
+    "Adding tokens to liquidity pool…": "Adding tokens to liquidity pool…",
+    "Added tokens to liquidity pool": "Added tokens to liquidity pool",
+    "Preparing to remove collaterals…": "Preparing to remove collaterals…",
+    "Removing collaterals from vault…": "Removing collaterals from vault…",
+    "Collaterals removed": "Collaterals removed",
+    "Preparing to remove liquidity…": "Preparing to remove liquidity…",
+    "Removing tokens from liquidity pool…": "Removing tokens from liquidity pool…",
+    "Removed tokens from liquidity pool": "Removed tokens from liquidity pool",
+    "Preparing loan payment…": "Preparing loan payment…",
+    "Processing loan payment…": "Processing loan payment…",
+    "Payment completed": "Payment completed",
+    "Preparing to create vault…": "Preparing to create vault…",
+    "Creating vault…": "Creating vault…",
+    "Vault created": "Vault created",
+    "Preparing to place bid…": "Preparing to place bid…",
+    "Placing bid…": "Placing bid…",
+    "Bid placement completed": "Bid placement completed",
+    "Preparing to close vault…": "Preparing to close vault…",
+    "Closing vault…": "Closing vault…",
+    "Vault successfully closed": "Vault successfully closed",
+    "Preparing to convert…": "Preparing to convert…",
+    "Converting {{symbolA}} to {{symbolB}}": "Conversione {{symbolA}} in {{symbolB}}",
+    "Conversion completed": "Conversion completed",
+    "Converting {{amount}} DFI {{symbolA}} to {{symbolB}}": "Converting {{amount}} DFI {{symbolA}} to {{symbolB}}",
+    "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI converted to {{symbolB}}",
+    "Preparing your transaction…": "Preparing your transaction…",
+    "Processing future swap transaction…": "Processing future swap transaction…",
+    "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap confirmed and will be executed at block #{{block}}",
+    "Preparing changes to loan scheme…": "Preparing changes to loan scheme…",
+    "Saving changes to loan scheme…": "Saving changes to loan scheme…",
+    "Loan scheme saved": "Loan scheme saved",
+    "Preparing withdrawal…": "Preparing withdrawal…",
+    "Withdrawing tokens…": "Withdrawing tokens…",
+    "Withdrawal completed": "Withdrawal completed"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Richiesta di accesso alla fotocamera",
@@ -704,7 +803,11 @@
   "screens/common": {
     "CANCEL": "ANNULLA",
     "Cancel": "Annulla",
-    "TRY AGAIN": "RIPROVA"
+    "TRY AGAIN": "RIPROVA",
+    "From": "Da",
+    "To": "A",
+    "Converting": "Conversione",
+    "Converted": "Converted"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Crea un nuovo codice di accesso per il tuo wallet",
@@ -806,7 +909,8 @@
     "Max": "Max"
   },
   "components/Button": {
-    "CONTINUE": "CONTINUA"
+    "CONTINUE": "CONTINUA",
+    "Continue": "Continua"
   },
   "screens/SlippageTolerance": {
     "Custom": "Personalizza",
@@ -1023,7 +1127,9 @@
     "As Token": "Come Token",
     "Your pool shares": "Your pool shares",
     "Shares in {{token}}": "Shares in {{token}}",
-    "Learn more about DFI": "Per saperne di più su DFI"
+    "Learn more about DFI": "Per saperne di più su DFI",
+    "Your LP tokens":  "Your LP Tokens",
+    "Tokens in {{token}}": "Tokens in {{token}}"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "Una piccola quantità UTXO (0,1 DFI) è riservata alle commissioni."
@@ -1285,11 +1391,14 @@
     "Wallet Address": "Indirizzo del Wallet"
   },
   "components/EmptyPortfolio": {
-    "No LP tokens in portfolio": "Nessun token di liquidità nel portafoglio",
-    "No Crypto in portfolio": "Nessuna Crypto nel portafoglio",
-    "No dTokens in portfolio": "Nessun dTokens in portafoglio",
     "Empty portfolio": "Portfolio leer",
-    "Add your DFI and other tokens to get started": "Füge deine DFI und andere Token hinzu, um zu starten"
+    "Add DFI and other tokens to get started": "Add DFI and other tokens to get started",
+    "No LP tokens found": "No LP tokens found",
+    "Add liquidity to get started": "Add liquidity to get started",
+    "No crypto found": "No crypto found",
+    "Add crypto to get started": "Add crypto to get started",
+    "No dTokens found": "No dTokens found",
+    "Mint dTokens to get started": "Mint dTokens to get started"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "SCHEMA DI PRESTITO",
@@ -1655,5 +1764,12 @@
     "Wallet created!": "Wallet created!",
     "Access decentralized finance with Bitcoin-grade security, strength and immutability.": "Access decentralized finance with Bitcoin-grade security, strength and immutability.",
     "Continue": "Continua"
+  },
+  "components/ActionButtons": {
+    "Send": "Invia",
+    "Receive": "Ricevi",
+    "Swap": "Scambia",
+    "Transactions": "Transazioni",
+    "Future swap": "Future swap"
   }
 }
