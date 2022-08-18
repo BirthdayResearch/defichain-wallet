@@ -117,13 +117,22 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
     headerRight: (): JSX.Element => {
       return (
         <ThemedTouchableOpacityV2
-          style={tailwind('mr-5 mt-4 -mb-4')} onPress={dismissModal}
+          style={tailwind('mr-5',
+            {
+              'mt-3 -mb-5': Platform.OS === 'ios'
+            },
+            {
+              '-mt-1 -mb-3': Platform.OS === 'android'
+            }
+          )}
+          onPress={dismissModal}
           testID='close_bottom_sheet_button'
         >
           <ThemedIcon iconType='Feather' name='x-circle' size={22} />
         </ThemedTouchableOpacityV2>
       )
-    }
+    },
+    headerLeft: () => <></>
   }
 
   const buildSummary = useCallback((ref: EditingAmount, amountString: string): void => {
@@ -383,7 +392,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
           <ViewPoolHeader
             tokenASymbol={pair.tokenA.displaySymbol}
             tokenBSymbol={pair.tokenB.displaySymbol}
-            headerLabel={translate('screens/AddLiquidity', 'View pool share')}
+            headerLabel={translate('screens/AddLiquidity', 'View pool info')}
             onPress={expandModal}
             testID='view_pool_shares'
           />
@@ -535,7 +544,6 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
               modalRef={bottomSheetRef}
               screenList={ViewPoolContents}
               snapPoints={modalSortingSnapPoints}
-              // enablePanDown
             />
           )}
       </ThemedScrollViewV2>
