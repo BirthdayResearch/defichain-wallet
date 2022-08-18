@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { createStackNavigator, StackNavigationOptions, TransitionPresets } from '@react-navigation/stack'
-import { BottomSheetBackdropProps, BottomSheetHandleProps, BottomSheetModal } from '@gorhom/bottom-sheet'
+import { BottomSheetBackdropProps, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { NavigationContainer } from '@react-navigation/native'
 import {
@@ -67,7 +67,7 @@ export const BottomSheetWithNavV2 = React.memo((props: BottomSheetWithNavProps):
   )
 })
 
-const EmptyHandleComponent = (_props: BottomSheetHandleProps): JSX.Element => {
+const EmptyHandleComponent = (): JSX.Element => {
   return <View />
 }
 
