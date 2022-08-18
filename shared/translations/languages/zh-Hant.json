@@ -837,7 +837,7 @@
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
     "I WANT TO ADD": "I WANT TO ADD",
-    "LP Tokens to receive": "LP Tokens to receive"
+    "LP Tokens to receive": "LP 代幣接收"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "您正要增加流動資金",
@@ -866,8 +866,8 @@
     "Resulting pool share": "Resulting pool share",
     "{{token}} to supply": "{{token}} to supply",
     "Resulting LP tokens": "加入後產生的 LP 代幣",
-    "Confirm": "Confirm",
-    "Pool share": "Pool share"
+    "Confirm": "確認",
+    "Pool share": "流感池份額"
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "您正要退出",

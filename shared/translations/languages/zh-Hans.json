@@ -60,7 +60,7 @@
     "Prices": "价格",
     "Available pool pairs": "可选流动池",
     "Your shared {{symbol}}": "您的股份 {{symbol}}",
-    "Confirm": "Confirm"
+    "Confirm": "确认"
   },
   "screens/DexGuidelines": {
     "Guidelines": "使用指南",
@@ -837,7 +837,7 @@
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
     "I WANT TO ADD": "I WANT TO ADD",
-    "LP Tokens to receive": "LP Tokens to receive"
+    "LP Tokens to receive": "LP 代币接收"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "您正要增加流动资金",
@@ -867,7 +867,7 @@
     "{{token}} to supply": "{{token}} to supply",
     "Resulting LP tokens": "加入后产生的 LP 代币",
     "Confirm": "Confirm",
-    "Pool share": "Pool share"
+    "Pool share": "流感池份额"
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "您正要退出",
