@@ -5,7 +5,7 @@
     "Display recovery words": "Zeige Wiederherstellungssatz an",
     "Verify words": "Bestätige die Worte",
     "Restore Wallet": "Stelle die Wallet wieder her",
-    "Restore wallet": "Stelle die wallet wieder her",
+    "Restore wallet": "Stelle die Wallet wieder her",
     "Create a passcode": "Erstelle ein Passwort",
     "Verify passcode": "Bestätige das Passwort",
     "Select network": "Netzwerkauswahl",
@@ -21,7 +21,7 @@
     "Verify Words": "Bestätige die Worte",
     "Verify Passcode": "Bestätige das Passwort",
     "Create Passcode": "Passwort Erstellen",
-    "About Passcode": "Über den Passcode",
+    "About Passcode": "Über das Passwort",
     "About Recovery Words": "Wiederherstellungssatz"
   },
   "screens/DexScreen": {
@@ -321,8 +321,8 @@
     "Max available {{unit}} entered": "Max. verfügbare {{unit}} eingegeben",
     "{{percent}} of available {{unit}} entered": "{{percent}} der verfügbaren {{unit}} eingegeben",
     "A small amount of UTXO is reserved for fees": "Ein geringer UTXO-Betrag ist für Gebühren reserviert",
-    "Available {{unit}}": "Verfügbar {{unit}}",
-    "Resulting {{unit}}": "Verbleibende {{unit}}"
+    "Available {{unit}}": "Verfügbare {{unit}}",
+    "Resulting {{unit}}": "Resultierende {{unit}}"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm": "Bestätigen",
@@ -339,10 +339,10 @@
     "Convert": "Umwandeln",
     "{{token}} to receive": "Verbleibende {{token}}",
     "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN",
-    "You are converting to {{unit}}": "Du wandelst in {{unit}} um",
+    "You are converting to {{unit}}": "Du wandelst Folgendes in {{unit}} um",
     "Transaction fee": "Transaktionsgebühren",
-    "Resulting Tokens": "Verbleibende Tokens",
-    "Resulting UTXO": "Verbleibende UTXO",
+    "Resulting Tokens": "Resultierende Token",
+    "Resulting UTXO": "Resultierende UTXO",
     "Convert {{amount}} DFI to {{target}}": "Wandle {{amount}} DFI in {{target}} um"
   },
   "screens/SettingsNavigator": {
@@ -442,7 +442,7 @@
     "Loans": "Darlehen",
     "Auctions": "Auktionen",
     "Liquidity Mining": "Liquiditäts-Mining",
-    "Liquidity mining": "Liquiditäts-mining",
+    "Liquidity mining": "Liquiditäts-Mining",
     "UTXO and Tokens": "UTXO und Token"
   },
   "components/UtxoVsTokenFaq": {
@@ -882,7 +882,7 @@
     "Last synced": "Zuletzt synchronisiert",
     "Block height": "Blockhöhe",
     "Total Masternodes": "Anzahl an Masternodes",
-    "Total masternodes": "Anzahl an masternodes",
+    "Total masternodes": "Anzahl an Masternodes",
     "DETAILS": "DETAILS",
     "YOU ARE CURRENTLY CONNECTED TO": "DU BIST GERADE VERBUNDEN MIT",
     "NETWORK DETAILS": "NETZWERK-DETAILS",
