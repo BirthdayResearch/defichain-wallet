@@ -431,7 +431,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
               <ThemedViewV2
                 light={tailwind('border-mono-light-v2-300')}
                 dark={tailwind('border-mono-dark-v2-300')}
-                style={tailwind('pt-5 px-5 border rounded-2xl-v2')}
+                style={tailwind('pt-5 px-5 border rounded-lg-v2')}
               >
                 <PricesSectionV2
                   key='prices'
@@ -570,12 +570,12 @@ function AddLiquidityInputCard (
         }}
         status={props.status}
         amountButtonsStyle={tailwind('border-t-0.5')}
-        containerStyle={tailwind('pl-5 pr-5 pt-2 mr-px rounded-t-lg-v2')}
+        containerStyle={tailwind('pl-5 pr-5 mr-px rounded-t-lg-v2')}
       >
         <ThemedViewV2
           light={tailwind('border-mono-light-v2-300')}
           dark={tailwind('border-mono-dark-v2-300')}
-          style={tailwind('flex flex-row items-center py-2')}
+          style={tailwind('flex flex-row items-center py-2.5')}
         >
           <View>
             <Icon height={20} width={20} />
@@ -591,8 +591,9 @@ function AddLiquidityInputCard (
             onClearButtonPress={() => props.onChange('')}
             titleTestID={`token_input_${props.type}_title`}
             testID={`token_input_${props.type}`}
+            inputContainerStyle={tailwind('pl-2')}
           />
-        </ThemedViewV2>
+        </ThemedViewV2>å
       </TransactionCard>
 
       <View
