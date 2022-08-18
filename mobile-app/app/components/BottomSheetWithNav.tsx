@@ -5,7 +5,7 @@ import {
   StackNavigationOptions,
   TransitionPresets
 } from '@react-navigation/stack'
-import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetHandleProps, BottomSheetModal } from '@gorhom/bottom-sheet'
+import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { NavigationContainer, Theme } from '@react-navigation/native'
 import { AddOrRemoveCollateralFormProps } from '@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm'
@@ -75,7 +75,7 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
   )
 })
 
-const EmptyHandleComponent = (_props: BottomSheetHandleProps): JSX.Element => {
+const EmptyHandleComponent = (): JSX.Element => {
   return <View />
 }
 

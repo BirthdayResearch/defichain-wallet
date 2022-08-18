@@ -10,7 +10,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { Platform, SafeAreaView, View } from 'react-native'
 import { TransactionStatus, USER_CANCELED } from '@screens/TransactionAuthorization/api/transaction_types'
-import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetHandleProps, BottomSheetModal } from '@gorhom/bottom-sheet'
+import { BottomSheetBackdropProps, BottomSheetBackgroundProps, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import * as React from 'react'
 import Modal from 'react-overlays/Modal'
@@ -215,7 +215,7 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
   )
 })
 
-const EmptyHandleComponent = (_props: BottomSheetHandleProps): JSX.Element => {
+const EmptyHandleComponent = (): JSX.Element => {
   return <View />
 }
 
