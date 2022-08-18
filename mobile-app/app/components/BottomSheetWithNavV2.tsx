@@ -44,8 +44,7 @@ export interface BottomSheetWithNavRouteParam {
 export const BottomSheetWithNavV2 = React.memo((props: BottomSheetWithNavProps): JSX.Element => {
   const {
     modalRef,
-    snapPoints,
-    enablePanDown = false
+    snapPoints
   } = props
 
   const getSnapPoints = (): string[] => {
@@ -62,8 +61,8 @@ export const BottomSheetWithNavV2 = React.memo((props: BottomSheetWithNavProps):
       ref={modalRef}
       index={0}
       snapPoints={getSnapPoints()}
-      handleComponent={null}
-      enablePanDownToClose={enablePanDown}
+      handleComponent={EmptyHandleComponent}
+      enablePanDownToClose={false}
       keyboardBlurBehavior='restore'
       backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
         <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
@@ -73,6 +72,10 @@ export const BottomSheetWithNavV2 = React.memo((props: BottomSheetWithNavProps):
     </BottomSheetModal>
   )
 })
+
+const EmptyHandleComponent = (): JSX.Element => {
+  return <View />
+}
 
 export const BottomSheetWebWithNavV2 = React.memo((props: BottomSheetWithNavProps & { isModalDisplayed: boolean, modalStyle?: { [other: string]: any } }): JSX.Element => {
   return (
