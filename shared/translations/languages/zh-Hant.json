@@ -1543,6 +1543,6 @@
     "Deposit Bitcoin": "Deposit Bitcoin"
   },
   "components/DfxDexFeeInfo": {
-    "Please note that all sales of dTokens(e.g.dUSD, dCOIN, dTSLA, dSPY..) are subject to a DEX stabilization fee.The crypto tokens such as DFI, dBTC, dETH and stablecoins such as dUSDT / dUSDC are not affected. Further information": ""
+    "Please note that all sales of dTokens (e.g.dUSD, dCOIN, dTSLA, dSPY..) are subject to a DEX stabilization fee. The crypto tokens such as DFI, dBTC, dETH and stablecoins such as dUSDT / dUSDC are not affected. Further information": "请注意，所有dTokens（如dUSD、dCOIN、dTSLA、dSPY...）的销售都需要支付DEX稳定费。加密代币如DFI、dBTC、dETH和稳定币如dUSDT/dUSDC不受影响。更多信息"
   }
 }
