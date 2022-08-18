@@ -26,7 +26,7 @@ import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
 import { HeaderSearchInput } from '@components/HeaderSearchInput'
 import { EmptyActivePoolpair } from './components/EmptyActivePoolPair'
 import { debounce } from 'lodash'
-import { ButtonGroupTabKey, PoolPairCards } from './components/PoolPairCards/PoolPairCards'
+import { ButtonGroupTabKey } from './components/PoolPairCards/PoolPairCards'
 import { SwapButton } from './components/SwapButton'
 import { DexScrollable } from '@screens/AppNavigator/screens/Dex/components/DexScrollable'
 import { PoolPairCardsV2 } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolPairCardsV2'
@@ -293,7 +293,7 @@ export function DexScreen (): JSX.Element {
               />
             )}
         {activeTab === TabKey.YourPoolPair && yourLPTokens.length > 0 && (
-          <PoolPairCards
+          <PoolPairCardsV2
             availablePairs={filteredAvailablePairs}
             yourPairs={yourLPTokens}
             onAdd={onAdd}
