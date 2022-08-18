@@ -593,7 +593,7 @@ function AddLiquidityInputCard (
             testID={`token_input_${props.type}`}
             inputContainerStyle={tailwind('pl-2')}
           />
-        </ThemedViewV2>å
+        </ThemedViewV2>
       </TransactionCard>
 
       <View
