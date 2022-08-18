@@ -434,9 +434,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
               <LiquidityCalculationSummary
                 containerStyle={tailwind('pt-5 px-5 border rounded-lg-v2')}
                 priceRatesOption={[{
-                  label: translate('components/PricesSection', '1 {{token}} =', {
-                    token: pair.tokenA.displaySymbol
-                  }),
+                  label: `1 ${pair.tokenA.displaySymbol} =`,
                   value: pair.aToBRate.toFixed(8),
                   aSymbol: pair.tokenA.displaySymbol,
                   bSymbol: pair.tokenB.displaySymbol,
@@ -444,9 +442,7 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                   usdTextStyle: tailwind('text-sm')
                 },
                 {
-                  label: translate('components/PricesSection', '1 {{token}} =', {
-                    token: pair.tokenB.displaySymbol
-                  }),
+                  label: `1 ${pair.tokenB.displaySymbol} =`,
                   value: pair.bToARate.toFixed(8),
                   aSymbol: pair.tokenB.displaySymbol,
                   bSymbol: pair.tokenA.displaySymbol,
