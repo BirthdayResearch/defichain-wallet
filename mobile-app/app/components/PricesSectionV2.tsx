@@ -45,8 +45,10 @@ export function PricesSectionV2 ({ priceRates, testID }: { priceRates: PriceRate
                 testID: `${testID}_${index}`,
                 suffix: (priceRate.bSymbol != null) ? ` ${priceRate.bSymbol}` : '',
                 usdAmount: priceRate.symbolUSDValue,
-                lightTextStyle: rowStyle.rhsThemedProps.light,
-                darkTextStyle: rowStyle.rhsThemedProps.dark,
+                themedProps: {
+                  light: rowStyle.rhsThemedProps.light,
+                  dark: rowStyle.rhsThemedProps.dark
+                },
                 usdTextStyle: priceRate.usdTextStyle
               }}
             />

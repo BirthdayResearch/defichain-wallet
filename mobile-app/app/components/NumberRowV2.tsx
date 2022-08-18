@@ -17,8 +17,6 @@ interface NumberRowProps extends ThemedProps {
 interface RhsNumberRowElement extends NumberRowElement {
   usdAmount?: BigNumber
   isOraclePrice?: boolean
-  lightTextStyle?: { [key: string]: string }
-  darkTextStyle?: { [key: string]: string }
   textStyle?: StyleProp<TextStyle>
   usdTextStyle?: StyleProp<TextStyle>
   subValue?: NumberRowElement
@@ -62,8 +60,6 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
               renderText={(val: string) => (
                 <ThemedTextV2
                   style={[tailwind('text-right font-normal-v2 text-sm'), props.rhs.textStyle]}
-                  light={props.rhs.lightTextStyle}
-                  dark={props.rhs.darkTextStyle}
                   testID={props.rhs.testID}
                   {...props.rhs.themedProps}
                 >
