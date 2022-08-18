@@ -454,15 +454,19 @@ export function AddLiquidityScreenV2 (props: Props): JSX.Element {
                   value: translate('screens/AddLiquidity', 'Resulting LP tokens'),
                   testID: 'resulting_lp_tokens',
                   themedProps: {
-                    light: tailwind('text-mono-light-v2-700'),
-                    dark: tailwind('text-mono-dark-v2-700')
+                    light: tailwind('text-mono-light-v2-500'),
+                    dark: tailwind('text-mono-dark-v2-500')
                   }
                 }}
                 resultingLprhs={{
                   value: sharePercentage.times(pair.totalLiquidity.token).toFixed(8),
                   testID: 'resulting_lp_tokens_value',
                   usdAmount: getTokenPrice(pair.aSymbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.bSymbol, new BigNumber(tokenBAmount))),
-                  textStyle: tailwind('font-semibold-v2'),
+                  themedProps: {
+                    light: tailwind('text-mono-light-v2-900'),
+                    dark: tailwind('text-mono-dark-v2-900'),
+                    style: tailwind('font-semibold-v2 text-sm')
+                  },
                   usdTextStyle: tailwind('text-sm')
                 }}
               />

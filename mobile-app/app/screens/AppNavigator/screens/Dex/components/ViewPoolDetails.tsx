@@ -94,7 +94,7 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
 
   return (
     <ThemedViewV2 style={tailwind('mt-5')}>
-      <View style={tailwind('mb-4')}>
+      <View style={tailwind('mb-5')}>
         <NumberRowV2
           lhs={{
             value: translate('screens/AddLiquidity', 'Volume (24H)'),
