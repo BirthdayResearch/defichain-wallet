@@ -25,7 +25,8 @@ export function PlaygroundStatusInfo (): JSX.Element | null {
         return (
           <PlaygroundStatus {...{ online: wallets.length > 0, offline: wallets.length === 0, type: PlaygroundStatusType.primary }} />
         )
-      }
+      },
+      testId: 'wallet_network_status'
     },
     {
       title: 'Current block',
@@ -72,6 +73,7 @@ export function PlaygroundStatusInfo (): JSX.Element | null {
             rhsChildren={dataList.rhsChildren}
             title={dataList.title}
             isLast={index === dataLists.length - 1}
+            testID={dataList.testId}
           />
         ))
       }
