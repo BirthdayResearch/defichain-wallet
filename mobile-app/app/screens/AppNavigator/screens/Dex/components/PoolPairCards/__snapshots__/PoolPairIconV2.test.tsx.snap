@@ -74,12 +74,9 @@ exports[`Pool pair icon component should match snapshot with 2 token 1`] = `
           "backgroundColor": "transparent",
           "borderWidth": 0,
         },
-        Array [
-          Object {
-            "marginLeft": -16,
-          },
-          undefined,
-        ],
+        Object {
+          "marginLeft": -16,
+        },
         Object {
           "flex": 0,
           "height": 36,

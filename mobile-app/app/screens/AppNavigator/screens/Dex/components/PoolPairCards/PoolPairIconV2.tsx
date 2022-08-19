@@ -3,19 +3,27 @@ import { StyleProp, View, ViewProps } from 'react-native'
 import { tailwind } from '@tailwind'
 import { getNativeIcon } from '@components/icons/assets'
 
-export function PoolPairIconV2 (props: {
+interface PoolPairIconV2Props {
   symbolA: string
   symbolB: string
   customSize?: number
   iconBStyle?: StyleProp<ViewProps>
   testID?: string
-}): JSX.Element {
-  const IconA = getNativeIcon(props.symbolA)
-  const IconB = getNativeIcon(props.symbolB)
+}
+
+export function PoolPairIconV2 ({
+  symbolA,
+  symbolB,
+  customSize = 40,
+  iconBStyle = tailwind('-ml-4'),
+  testID
+}: PoolPairIconV2Props): JSX.Element {
+  const IconA = getNativeIcon(symbolA)
+  const IconB = getNativeIcon(symbolB)
   return (
-    <View style={tailwind('flex-row')} testID={props.testID}>
-      <IconA height={props.customSize ?? 40} width={props.customSize ?? 40} style={tailwind('relative z-10')} />
-      <IconB height={props.customSize ?? 40} width={props.customSize ?? 40} style={[tailwind('-ml-4'), props.iconBStyle]} />
+    <View style={tailwind('flex-row')} testID={testID}>
+      <IconA height={customSize} width={customSize} style={tailwind('relative z-10')} />
+      <IconB height={customSize} width={customSize} style={iconBStyle} />
     </View>
   )
 }
