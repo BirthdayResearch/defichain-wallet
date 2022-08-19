@@ -3,7 +3,7 @@ import { StyleProp, ViewProps } from 'react-native'
 import { PoolPairIconV2 } from '../../Dex/components/PoolPairCards/PoolPairIconV2'
 
 interface TokenIconProps {
-  testID: string
+  testID?: string
   token: {
     isLPS?: boolean
     displaySymbol: string
