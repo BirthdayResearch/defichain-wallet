@@ -23,7 +23,7 @@ import { RemoveLiquidityConfirmScreenV2 } from './DexConfirmRemoveLiquidityV2'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { AddLiquidityScreen } from './DexAddLiquidity'
 import { ConfirmAddLiquidityScreenV2 } from './DexConfirmAddLiquidityV2'
-import { PoolPairDetailsScreen } from './PoolpairDetailsScreen'
+import { PoolPairDetailsScreen } from './PoolPairDetailsScreen'
 export interface DexParamList {
   DexScreen: undefined
   CompositeSwapScreen: {

@@ -4,6 +4,7 @@ import {
   ThemedFlatList,
   ThemedIcon,
   ThemedText,
+  ThemedTouchableOpacityV2,
   ThemedView
 } from '@components/themed'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
@@ -47,6 +48,7 @@ interface PoolPairCardProps {
   onAdd: (data: PoolPairData, info: WalletToken) => void
   onRemove: (data: PoolPairData, info: WalletToken) => void
   onSwap: (data: PoolPairData) => void
+  onPress: (id: string) => void
   type: 'your' | 'available'
   setIsSearching: (isSearching: boolean) => void
   searchString: string
@@ -63,6 +65,7 @@ export function PoolPairCards ({
   onAdd,
   onRemove,
   onSwap,
+  onPress,
   type,
   searchString,
   setIsSearching,
@@ -153,6 +156,7 @@ export function PoolPairCards ({
       onAdd={onAdd}
       onRemove={onRemove}
       onSwap={onSwap}
+      onPress={onPress}
       setExpandedCardIds={setExpandedCardIds}
     />)
   return (
@@ -200,6 +204,7 @@ interface PoolCardProps {
   onAdd: (data: PoolPairData, info: WalletToken) => void
   onRemove: (data: PoolPairData, info: WalletToken) => void
   onSwap: (data: PoolPairData) => void
+  onPress: (id: string) => void
   type: 'your' | 'available'
   index: number
 }
@@ -214,6 +219,7 @@ const PoolCard = ({
   onAdd,
   onRemove,
   onSwap,
+  onPress,
   setExpandedCardIds
 }: PoolCardProps): JSX.Element => {
   const { getTokenPrice } = useTokenPrice()
@@ -280,10 +286,11 @@ const PoolCard = ({
     return <></>
   }
   return (
-    <ThemedView
+    <ThemedTouchableOpacityV2
       dark={tailwind('bg-gray-800 border-gray-700')}
       light={tailwind('bg-white border-gray-200')}
       style={tailwind('p-4 mb-2 border rounded')}
+      onPress={() => onPress(item.data.id)}
       testID={type === 'your' ? 'pool_pair_row_your' : 'pool_pair_row'}
     >
       <View
@@ -430,7 +437,7 @@ const PoolCard = ({
             />
           </View>
       }
-    </ThemedView>
+    </ThemedTouchableOpacityV2>
   )
 }
 

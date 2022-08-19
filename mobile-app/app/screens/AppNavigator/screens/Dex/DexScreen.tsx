@@ -104,6 +104,14 @@ export function DexScreen (): JSX.Element {
     })
   }
 
+  const onPress = (id: string): void => {
+    navigation.navigate({
+      name: 'PoolPairDetailsScreen',
+      params: { id: id },
+      merge: true
+    })
+  }
+
   // Search
   const [showSearchInput, setShowSearchInput] = useState(false)
   const [searchString, setSearchString] = useState('')
@@ -270,6 +278,7 @@ export function DexScreen (): JSX.Element {
               onAdd={onAdd}
               onRemove={onRemove}
               onSwap={onSwap}
+              onPress={onPress}
               type='available'
               setIsSearching={setIsSearching}
               searchString={searchString}
@@ -292,6 +301,7 @@ export function DexScreen (): JSX.Element {
             onAdd={onAdd}
             onRemove={onRemove}
             onSwap={onSwap}
+            onPress={onPress}
             type='your'
             setIsSearching={setIsSearching}
             searchString={searchString}
