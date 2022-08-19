@@ -108,7 +108,8 @@
     "Z to A": "Z à A",
     "AVAILABLE ASSETS": "ACTIFS DISPONIBLES",
     "Asset value": "Valeur des actifs",
-    "Sort by": "Trier par"
+    "Sort by": "Trier par",
+    "ASSETS": "ACTIFS"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Obtenir DFI",
