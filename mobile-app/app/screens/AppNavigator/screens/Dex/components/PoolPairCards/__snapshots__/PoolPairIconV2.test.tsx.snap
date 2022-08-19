@@ -77,7 +77,6 @@ exports[`Pool pair icon component should match snapshot with 2 token 1`] = `
         Array [
           Object {
             "marginLeft": -16,
-            "marginRight": 8,
           },
           undefined,
         ],
