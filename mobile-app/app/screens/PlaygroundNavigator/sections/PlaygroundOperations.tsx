@@ -105,6 +105,7 @@ export function PlaygroundOperations (): JSX.Element {
                 rhsChildren={dataList.rhsChildren}
                 isLast={index === dataLists.length - 1}
                 title={dataList.title}
+                testID={dataList.testID}
               />
             ))
           }
