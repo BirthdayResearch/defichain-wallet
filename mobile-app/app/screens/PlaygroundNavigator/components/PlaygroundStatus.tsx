@@ -66,8 +66,8 @@ export function PlaygroundStatus ({ online, error, loading, offline, type }: Pla
           <ThemedIcon
             light={tailwind('text-red-v2')}
             dark={tailwind('text-red-v2')}
-            iconType='MaterialIcons'
-            name='check-circle'
+            iconType='MaterialCommunityIcons'
+            name='close-circle'
             size={18}
             testID='playground_status_indicator'
           />}
@@ -85,7 +85,7 @@ export function PlaygroundStatus ({ online, error, loading, offline, type }: Pla
             { 'text-xs': type === PlaygroundStatusType.secondary }
           )}
         >
-          {type === PlaygroundStatusType.primary ? 'Loading' : 'Connecting'}
+          Connecting
         </ThemedTextV2>
         {type === PlaygroundStatusType.primary &&
           <ThemedIcon

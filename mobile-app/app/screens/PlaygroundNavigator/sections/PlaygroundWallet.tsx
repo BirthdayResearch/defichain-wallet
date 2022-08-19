@@ -24,7 +24,9 @@ export function PlaygroundWallet (): JSX.Element | null {
   const dataLists = [
     {
       title: 'Clear stored mnemonic seed',
-      onPress: { clearWallets },
+      onPress: async (): Promise<void> => {
+        clearWallets() // let it be just for dfi testing. it still working
+      },
       rhsChildren: (): JSX.Element => {
         return (
           <ThemedIcon
@@ -121,6 +123,8 @@ export function PlaygroundWallet (): JSX.Element | null {
         dataLists.map((dataList, index) => (
           <PlaygroundAction
             key={index}
+            // eslint-disable-next-line react/jsx-handler-names
+            onPress={dataList.onPress} // let it be just for dfi testing. it still working
             rhsChildren={dataList.rhsChildren}
             title={dataList.title}
             isLast={index === dataLists.length - 1}

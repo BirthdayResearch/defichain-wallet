@@ -1,11 +1,11 @@
 /* eslint-disable react-native/no-raw-text */
 import { useWalletPersistenceContext } from '@shared-contexts/WalletPersistenceContext'
 import { PlaygroundStatus, PlaygroundStatusType } from '../components/PlaygroundStatus'
-import { ThemedTouchableListItem, ThemedTextV2, ThemedViewV2 } from '@components/themed'
+import { ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
-import { ReactElement, ReactComponentElement } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
+import { PlaygroundAction } from '../components/PlaygroundAction'
 
 export function PlaygroundStatusInfo (): JSX.Element | null {
   const { wallets } = useWalletPersistenceContext()
@@ -67,33 +67,14 @@ export function PlaygroundStatusInfo (): JSX.Element | null {
     >
       {
         dataLists.map((dataList, index) => (
-          <RowDataItems
+          <PlaygroundAction
             key={index}
-            data={dataList}
+            rhsChildren={dataList.rhsChildren}
+            title={dataList.title}
             isLast={index === dataLists.length - 1}
           />
         ))
       }
     </ThemedViewV2>
-  )
-}
-
-interface RowDataItemsProps {
-  data: {
-    title: string
-    rhsChildren: () => ReactElement | ReactComponentElement<any>
-  }
-  isLast: boolean
-  testID?: string
-}
-
-export function RowDataItems ({ data, isLast, testID }: RowDataItemsProps): JSX.Element {
-  return (
-    <ThemedTouchableListItem isLast={isLast} testID={testID}>
-      <ThemedTextV2 style={tailwind('font-normal-v2 text-sm w-6/12')}>
-        {data.title}
-      </ThemedTextV2>
-      {data.rhsChildren?.()}
-    </ThemedTouchableListItem>
   )
 }
