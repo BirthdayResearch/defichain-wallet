@@ -53,8 +53,8 @@ export function PlaygroundStatus ({ online, error, loading, offline, type }: Pla
     return (
       <View style={tailwind('flex flex-row items-center')}>
         <ThemedTextV2
-          dark={tailwind('text-mono-dark-v2-700')}
-          light={tailwind('text-mono-light-v2-700')}
+          dark={tailwind('text-mono-dark-v2-700', { 'text-red-v2': type === PlaygroundStatusType.secondary })}
+          light={tailwind('text-mono-light-v2-700', { 'text-red-v2': type === PlaygroundStatusType.secondary })}
           style={tailwind('font-normal-v2',
             { 'text-sm mr-1.5': type === PlaygroundStatusType.primary },
             { 'text-xs': type === PlaygroundStatusType.secondary }

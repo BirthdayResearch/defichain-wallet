@@ -18,7 +18,7 @@ export function PlaygroundScreen (): JSX.Element {
   return (
     <ThemedScrollViewV2
       contentInsetAdjustmentBehavior='always'
-      style={tailwind('px-5')}
+      style={tailwind('pb-28 px-5')}
     >
       <PlaygroundConnection />
       <PlaygroundStatusInfo />
