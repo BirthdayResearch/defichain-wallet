@@ -75,7 +75,8 @@ export function PlaygroundOperations (): JSX.Element {
             size={18}
           />
         )
-      }
+      },
+      testID: 'playground_generate_blocks'
     }
   ]
 
