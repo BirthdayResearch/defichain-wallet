@@ -248,7 +248,6 @@ export function TransactionAuthorization (): JSX.Element | null {
       setLoadingMessage(DEFAULT_MESSAGES.loadingMessage)
       setAdditionalMessage(undefined)
       setAdditionalMessageUrl(undefined)
-      setSuccessMessage(undefined)
     }
 
     if (transactionStatus !== TransactionStatus.IDLE) {
