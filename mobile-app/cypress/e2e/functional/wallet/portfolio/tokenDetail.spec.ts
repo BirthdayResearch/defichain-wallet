@@ -175,7 +175,7 @@ context('Wallet - Token Detail', () => {
   it('should be able to redirect to Add Liquidity screen', function () {
     cy.getByTestID('add_liquidity_button').click()
     cy.getByTestID('token_input_primary').clear().type('5')
-    cy.getByTestID('button_confirm_continue_add_liq').click()
+    cy.getByTestID('button_continue_add_liq').click()
 
     /* Redirect back from Confirm Add Liquidity screen */
     cy.go('back')
@@ -225,7 +225,7 @@ context('Wallet - Token Detail - Cypto - Locked in vaults & Available', () => {
   it('should be able to redirect to Add Liquidity screen', function () {
     cy.getByTestID('add_liquidity_button').click()
     cy.getByTestID('token_input_primary').clear().type('5')
-    cy.getByTestID('button_confirm_continue_add_liq').click()
+    cy.getByTestID('button_continue_add_liq').click()
 
     /* Redirect back from Confirm Add Liquidity screen */
     cy.go('back')
@@ -283,7 +283,7 @@ context('Wallet - Token Detail - LP', () => {
     cy.getByTestID('add_liquidity_button').should('exist')
     cy.getByTestID('add_liquidity_button').click()
     cy.getByTestID('token_input_primary').clear().type('5')
-    cy.getByTestID('button_confirm_continue_add_liq').click()
+    cy.getByTestID('button_continue_add_liq').click()
 
     /* Redirect back from Confirm Add Liquidity screen */
     cy.go('back')
@@ -295,7 +295,7 @@ context('Wallet - Token Detail - LP', () => {
   it('should be able to redirect to Remove Liquidity screen', function () {
     cy.getByTestID('remove_liquidity_button').should('exist')
     cy.getByTestID('remove_liquidity_button').click()
-    cy.getByTestID('text_input_percentage').clear().type('10')
+    cy.getByTestID('tokens_remove_amount_input').clear().type('10')
     cy.getByTestID('button_continue_remove_liq').click()
 
     /* Redirect back from ConfirmRemove Liquidity screen */
