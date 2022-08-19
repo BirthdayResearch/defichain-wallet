@@ -321,7 +321,7 @@ export function SellScreen ({
             <>
               {(token.displaySymbol !== 'DFI' && token.displaySymbol !== 'dBTC' && token.displaySymbol !== 'dETH' && token.displaySymbol !== 'dUSDT' && token.displaySymbol !== 'dUSDC') && (
                 <ThemedView style={tailwind('px-4 mb-4')}>
-                  <DfxDexFeeInfo />
+                  <DfxDexFeeInfo token={token} />
                 </ThemedView>
               )}
 
