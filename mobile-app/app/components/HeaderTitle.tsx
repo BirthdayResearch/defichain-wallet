@@ -118,7 +118,7 @@ function HeaderNetworkSelect (): JSX.Element {
           style={tailwind('text-xs font-semibold leading-4')}
           testID='header_active_network'
         >
-          {network} xxx
+          {network}
         </ThemedText>
       </View>
     </View>
