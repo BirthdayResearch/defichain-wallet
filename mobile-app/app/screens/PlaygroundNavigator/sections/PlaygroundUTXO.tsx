@@ -1,12 +1,13 @@
-import { useEffect, useState, ReactElement, ReactComponentElement } from 'react'
+import { useEffect, useState } from 'react'
 import { View } from '@components/index'
 import { usePlaygroundContext } from '@contexts/PlaygroundContext'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { PlaygroundTitle } from '../components/PlaygroundTitle'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 import { PlaygroundConnectionStatus, PlaygroundStatusType } from '@screens/PlaygroundNavigator/components/PlaygroundStatus'
-import { ThemedTouchableListItem, ThemedTextV2, ThemedViewV2, ThemedIcon } from '@components/themed'
+import { ThemedViewV2, ThemedIcon } from '@components/themed'
 import { tailwind } from '@tailwind'
+import { PlaygroundAction } from '../components/PlaygroundAction'
 
 export function PlaygroundUTXO (): JSX.Element {
   const { wallet } = useWalletContext()
@@ -71,33 +72,17 @@ export function PlaygroundUTXO (): JSX.Element {
         >
           {
             dataLists.map((dataList, index) => (
-              <RowDataItems
+              <PlaygroundAction
                 key={index}
-                data={dataList}
+                // eslint-disable-next-line react/jsx-handler-names
+                onPress={dataList.onPress}
+                title={dataList.title}
+                rhsChildren={dataList.rhsChildren}
                 isLast={index === dataLists.length - 1}
               />
             ))
           }
         </ThemedViewV2>}
     </View>
-  )
-}
-interface RowDataItemsProps {
-  data: {
-    title: string
-    rhsChildren: () => ReactElement | ReactComponentElement<any>
-  }
-  isLast: boolean
-  testID?: string
-}
-
-export function RowDataItems ({ data, isLast, testID }: RowDataItemsProps): JSX.Element {
-  return (
-    <ThemedTouchableListItem isLast={isLast} testID={testID}>
-      <ThemedTextV2 style={tailwind('font-normal-v2 text-sm w-10/12')}>
-        {data.title}
-      </ThemedTextV2>
-      {data.rhsChildren?.()}
-    </ThemedTouchableListItem>
   )
 }
