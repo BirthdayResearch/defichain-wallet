@@ -25,7 +25,7 @@ jobs:
       - run: expo upgrade
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@20dac2ed4875a1a8422d233a68f69088637446df
+        uses: peter-evans/create-pull-request@18f90432bedd2afd6a825469ffd38aa24712a91d
         with:
           token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           labels: kind/dependencies
