@@ -79,6 +79,7 @@ export function PlaygroundUTXO (): JSX.Element {
                 title={dataList.title}
                 rhsChildren={dataList.rhsChildren}
                 isLast={index === dataLists.length - 1}
+                testID={dataList.testID}
               />
             ))
           }

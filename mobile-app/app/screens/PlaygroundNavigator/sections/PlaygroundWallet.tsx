@@ -129,6 +129,7 @@ export function PlaygroundWallet (): JSX.Element | null {
             title={dataList.title}
             isLast={index === dataLists.length - 1}
             containerStyle={tailwind('w-10/12')}
+            testID={dataList.testID}
           />
         ))
       }
