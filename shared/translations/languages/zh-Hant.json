@@ -108,7 +108,8 @@
     "Z to A": "Z 到 A",
     "AVAILABLE ASSETS": "可用資產",
     "Asset value": "資產價值",
-    "Sort by": "Sort by"
+    "Sort by": "Sort by",
+    "ASSETS": "ASSETS"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "獲取 DFI",
