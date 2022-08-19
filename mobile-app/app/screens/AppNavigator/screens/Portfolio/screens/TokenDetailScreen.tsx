@@ -33,7 +33,7 @@ import { getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-va
 import { PortfolioButtonGroupTabKey } from '../components/TotalPortfolio'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { ThemedTouchableListItem } from '@components/themed/ThemedTouchableListItem'
-import { PoolPairTextSectionV2 } from '../../Dex/components/PoolPairCards/PoolPairTextSectionV2'
+import { PoolPairIconV2 } from '../../Dex/components/PoolPairCards/PoolPairIconV2'
 
 interface TokenActionItems {
   title: string
@@ -364,7 +364,7 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
       <View style={tailwind('flex-row items-center')}>
         {
           isTokenPair && (
-            <PoolPairTextSectionV2
+            <PoolPairIconV2
               symbolA={symbolA}
               symbolB={symbolB}
             />
