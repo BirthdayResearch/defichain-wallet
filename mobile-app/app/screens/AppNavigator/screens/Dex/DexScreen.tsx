@@ -318,11 +318,7 @@ export function DexScreen (): JSX.Element {
   )
 }
 
-interface DexScrollableSectionProps {
-  pairs: Array<DexItem<PoolPairData>>
-  onPress: (data: PoolPairData) => void
-}
-function TopLiquiditySection ({ pairs, onPress }: DexScrollableSectionProps): JSX.Element {
+function TopLiquiditySection ({ pairs, onPress }: {pairs: Array<DexItem<PoolPairData>>, onPress: (data: PoolPairData) => void}): JSX.Element {
   return (
     <DexScrollable
       testID='dex_top_liquidity'
