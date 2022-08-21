@@ -38,7 +38,7 @@ interface PoolPairCardProps {
   yourPairs: Array<DexItem<WalletToken>>
   onAdd: (data: PoolPairData, info: WalletToken) => void
   onRemove: (data: PoolPairData, info: WalletToken) => void
-  onSwap: (data: PoolPairData, info: WalletToken) => void
+  onSwap: (data: PoolPairData) => void
   type: 'your' | 'available'
   setIsSearching: (isSearching: boolean) => void
   searchString: string
@@ -146,7 +146,7 @@ interface PoolCardProps {
   item: DexItem<WalletToken | PoolPairData>
   onAdd: (data: PoolPairData, info: WalletToken) => void
   onRemove: (data: PoolPairData, info: WalletToken) => void
-  onSwap: (data: PoolPairData, info: WalletToken) => void
+  onSwap: (data: PoolPairData) => void
   type: 'your' | 'available'
   index: number
   isFavouritePoolpair: (id: string) => boolean
@@ -215,7 +215,7 @@ const PoolCard = ({
     symbolA={symbolA}
     symbolB={symbolB}
     pair={mappedPair}
-    onSwap={onSwap}
+    onSwap={() => onSwap(mappedPair)}
     aToBPrice={priceRates.aToBPrice}
     bToAPrice={priceRates.bToAPrice}
     isFavouritePair={isFavoritePair}
@@ -228,8 +228,8 @@ const PoolCard = ({
     symbolB={symbolB}
     walletToken={(yourPair as WalletToken)}
     poolPair={mappedPair}
-    onAdd={onAdd}
-    onRemove={onRemove}
+    onAdd={() => onAdd(mappedPair, yourPair as WalletToken)}
+    onRemove={() => onRemove(mappedPair, yourPair as WalletToken)}
     walletTokenAmount={new BigNumber((yourPair as WalletToken).amount)}
     walletTokenPrice={getTokenPrice(
       yourPair.symbol,
@@ -311,8 +311,8 @@ function AvailablePool (props: AvailablePoolProps): JSX.Element {
 }
 
 interface YourPoolPairProps {
-  onAdd: (data: PoolPairData) => void
-  onRemove: (data: PoolPairData) => void
+  onAdd: () => void
+  onRemove: () => void
   symbolA: string
   symbolB: string
   poolPair: PoolPairData
@@ -340,7 +340,6 @@ function YourPoolPair (props: YourPoolPairProps): JSX.Element {
          <DexAddRemoveLiquidityButton
            onAdd={props.onAdd}
            onRemove={props.onRemove}
-           pair={props.poolPair}
          />
        </View>
        <View style={tailwind('flex flex-row justify-between mt-3')}>

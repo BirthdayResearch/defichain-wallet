@@ -1,23 +1,21 @@
 import { tailwind } from '@tailwind'
 import { ThemedIcon, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { ViewStyle, StyleProp } from 'react-native'
 
 interface DexActionButtonProps {
-  pair: PoolPairData
   label: string
-  onPress: (data: PoolPairData) => void
+  onPress: () => void
   style?: StyleProp<ViewStyle>
   testID: string
 }
 
-export function DexActionButton ({ pair, label, onPress, style, testID }: DexActionButtonProps): JSX.Element {
+export function DexActionButton ({ label, onPress, style, testID }: DexActionButtonProps): JSX.Element {
   return (
     <ThemedTouchableOpacityV2
       style={[tailwind('rounded-2xl-v2 py-2 px-4'), style]}
       dark={tailwind('bg-mono-dark-v2-100')}
       light={tailwind('bg-mono-light-v2-100')}
-      onPress={() => onPress(pair)}
+      onPress={onPress}
     >
       <ThemedTextV2
         light={tailwind('text-mono-light-v2-900')}
@@ -33,12 +31,11 @@ export function DexActionButton ({ pair, label, onPress, style, testID }: DexAct
 
 interface DexAddRemoveLiquidityButtonProps {
   style?: StyleProp<ViewStyle>
-  onAdd: (data: PoolPairData) => void
-  onRemove: (data: PoolPairData) => void
-  pair: PoolPairData
+  onAdd: () => void
+  onRemove: () => void
 }
 
-export function DexAddRemoveLiquidityButton ({ style, onAdd, onRemove, pair }: DexAddRemoveLiquidityButtonProps): JSX.Element {
+export function DexAddRemoveLiquidityButton ({ style, onAdd, onRemove }: DexAddRemoveLiquidityButtonProps): JSX.Element {
   return (
     <ThemedViewV2
       style={[tailwind('rounded-2xl-v2 py-2 px-3 flex flex-row items-center'), style]}
@@ -47,7 +44,7 @@ export function DexAddRemoveLiquidityButton ({ style, onAdd, onRemove, pair }: D
 
     >
       <ThemedTouchableOpacityV2
-        onPress={() => onRemove(pair)}
+        onPress={onRemove}
         style={tailwind('border-b-0 border-r-0.5 pr-2')}
       >
         <ThemedIcon
@@ -59,7 +56,7 @@ export function DexAddRemoveLiquidityButton ({ style, onAdd, onRemove, pair }: D
         />
       </ThemedTouchableOpacityV2>
       <ThemedTouchableOpacityV2
-        onPress={() => onAdd(pair)}
+        onPress={onAdd}
         style={tailwind('border-b-0 pl-2')}
       >
         <ThemedIcon
