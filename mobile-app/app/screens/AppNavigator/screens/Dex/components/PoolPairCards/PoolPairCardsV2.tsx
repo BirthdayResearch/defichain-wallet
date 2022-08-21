@@ -31,9 +31,9 @@ interface DexItem<T> {
 interface PoolPairCardProps {
   availablePairs: Array<DexItem<PoolPairData>>
   yourPairs: Array<DexItem<WalletToken>>
-  onAdd: (data: PoolPairData) => void
-  onRemove: (data: PoolPairData) => void
-  onSwap: (data: PoolPairData) => void
+  onAdd: (data: PoolPairData, info: WalletToken) => void
+  onRemove: (data: PoolPairData, info: WalletToken) => void
+  onSwap: (data: PoolPairData, info: WalletToken) => void
   type: 'your' | 'available'
   setIsSearching: (isSearching: boolean) => void
   searchString: string
@@ -137,9 +137,9 @@ export function PoolPairCardsV2 ({
 
 interface PoolCardProps {
   item: DexItem<WalletToken | PoolPairData>
-  onAdd: (data: PoolPairData) => void
-  onRemove: (data: PoolPairData) => void
-  onSwap: (data: PoolPairData) => void
+  onAdd: (data: PoolPairData, info: WalletToken) => void
+  onRemove: (data: PoolPairData, info: WalletToken) => void
+  onSwap: (data: PoolPairData, info: WalletToken) => void
   type: 'your' | 'available'
   index: number
   isFavouritePoolpair: (id: string) => boolean
@@ -204,7 +204,7 @@ const PoolCard = ({
           symbolA={symbolA}
           symbolB={symbolB}
           pair={mappedPair}
-          onSwap={onSwap}
+          onSwap={() => onSwap(mappedPair, (yourPair as WalletToken))}
           aToBPrice={priceRates.aToBPrice}
           bToAPrice={priceRates.bToAPrice}
           isFavouritePair={isFavoritePair}
@@ -218,7 +218,7 @@ const PoolCard = ({
 interface AvailablePoolProps {
   symbolA: string
   symbolB: string
-  onSwap: (data: PoolPairData) => void
+  onSwap: () => void
   pair: PoolPairData
   aToBPrice: BigNumber
   bToAPrice: BigNumber
@@ -249,9 +249,8 @@ function AvailablePool (props: AvailablePoolProps): JSX.Element {
           />
         </View>
         <DexActionButton
-          pair={props.pair}
           label={translate('screens/DexScreen', 'Swap')}
-          onPress={() => props.onSwap(props.pair)}
+          onPress={props.onSwap}
           testID={`available_poolpair_${props.pair.id}`}
           style={tailwind('py-2 px-3')}
         />
