@@ -330,7 +330,7 @@ function TopLiquiditySection ({ pairs, onPress }: DexScrollableSectionProps): JS
           key={`${pairItem.data.id}_${index}`}
           poolpair={pairItem.data}
           style={tailwind('mr-2')}
-          onPress={onPress}
+          onPress={() => onPress(pairItem.data)}
           label={translate('screens/DexScreen', 'Swap')}
           testID={`composite_swap_${pairItem.data.id}`}
         />
