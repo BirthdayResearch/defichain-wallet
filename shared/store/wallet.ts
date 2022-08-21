@@ -17,6 +17,12 @@ interface DexPricesProps {
   [symbol: string]: DexPrice
 }
 
+export enum AddressType {
+  WalletAddress,
+  Whitelisted,
+  OthersButValid
+}
+
 export interface WalletState {
   utxoBalance: string
   tokens: WalletToken[]
