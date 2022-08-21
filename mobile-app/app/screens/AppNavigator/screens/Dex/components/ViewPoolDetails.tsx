@@ -39,7 +39,7 @@ export const ViewPoolDetails = ({
           <PoolPairTextSectionV2
             symbolA={pairData.tokenA.displaySymbol}
             symbolB={pairData.tokenB.displaySymbol}
-            customSize={32}
+            iconSize={32}
           />
         </View>
         <ThemedTextV2
