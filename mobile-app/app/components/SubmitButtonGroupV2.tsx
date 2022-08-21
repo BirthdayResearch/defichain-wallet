@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { TRY_AGAIN_TIMER_COUNT, UNEXPECTED_FAILURE } from '@screens/TransactionAuthorization/api/transaction_types'
 import { useNonInitialEffect } from '@hooks/useNonInitialEffect'
 import { ButtonV2 } from '@components/ButtonV2'
+import { tailwind } from '@tailwind'
 
 interface SubmitButtonGroupItems {
   isDisabled: boolean
@@ -14,26 +15,23 @@ interface SubmitButtonGroupItems {
   title: string
   label: string
   displayCancelBtn: boolean
-  isProcessing?: boolean
-  processingLabel?: string
+  buttonStyle?: string
   onSubmit: () => Promise<void>
   onCancel?: () => void
 }
 
 export function SubmitButtonGroupV2 ({
+  buttonStyle,
   isDisabled,
   isCancelDisabled,
   displayCancelBtn,
   title,
   label,
-  isProcessing,
-  processingLabel,
   onSubmit,
   onCancel
 }: SubmitButtonGroupItems): JSX.Element {
   const error = useSelector((state: RootState) => state.transactionQueue.err)
   const [intervalId, setIntervalId] = useState<ReturnType<typeof setInterval> | null>(null)
-  // const [counter, setCounter] = useState<number | null>(null)
   const [tryAgain, setTryAgain] = useState(false)
 
   // avoid setting up try again button on initial load
@@ -51,7 +49,6 @@ export function SubmitButtonGroupV2 ({
 
   const submit = (): void => {
     let count = TRY_AGAIN_TIMER_COUNT
-    // setCounter(count)
     if (intervalId !== null) {
       clearInterval(intervalId)
       setIntervalId(null)
@@ -59,12 +56,10 @@ export function SubmitButtonGroupV2 ({
     void onSubmit()
     const id: ReturnType<typeof setInterval> = setInterval(() => {
       count -= 1
-      // setCounter(count)
       if (count < 0) {
         updateTryAgainStat()
         clearInterval(id)
         setIntervalId(null)
-        // setCounter(null)
       }
     }, 1000)
     setIntervalId(id)
@@ -88,7 +83,7 @@ export function SubmitButtonGroupV2 ({
   // }
 
   return (
-    <View>
+    <View style={tailwind('w-full')}>
       {tryAgain
         ? (
           <Button
@@ -107,15 +102,16 @@ export function SubmitButtonGroupV2 ({
             label={translate('screens/common', label)}
             onPress={submit}
             testID={`button_confirm_${title}`}
+            styleProps={buttonStyle}
            />
         )}
 
       {displayCancelBtn &&
         <ButtonV2
           disabled={isCancelDisabled === undefined ? isDisabled : isCancelDisabled}
-          fill='flat'
+          fillType='flat'
           label={translate('screens/common', 'Cancel')}
-          styleProps='m-4 mt-0'
+          styleProps='-mt-3'
           onPress={onCancel}
           testID={`button_cancel_${title}`}
         />}

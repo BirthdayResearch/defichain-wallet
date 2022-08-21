@@ -5,7 +5,7 @@ import { tailwind } from '@tailwind'
 import { View } from '@components'
 import NumberFormat from 'react-number-format'
 import { StyleProp, ViewStyle } from 'react-native'
-import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
+import { getPrecisedCurrencyValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
 import { PortfolioButtonGroupTabKey } from '@screens/AppNavigator/screens/Portfolio/components/TotalPortfolio'
 import { IconTooltip } from '@components/tooltip/IconTooltip'
 
@@ -24,7 +24,7 @@ export const ActiveUSDValueV2 = React.memo((props: ActiveUSDValueProps): JSX.Ele
   return (
     <View style={[tailwind('flex flex-row items-center'), props.containerStyle]}>
       <NumberFormat
-        value={getPrecisedTokenValue(props.price)}
+        value={getPrecisedCurrencyValue(props.price)}
         thousandSeparator
         displayType='text'
         prefix={(props.denominationCurrency === undefined || props.denominationCurrency === PortfolioButtonGroupTabKey.USDT) ? '$' : undefined}

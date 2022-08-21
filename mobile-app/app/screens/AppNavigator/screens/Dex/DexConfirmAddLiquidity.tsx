@@ -44,7 +44,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     tokenBAmount
   } = props.route.params.summary
   const pair = props.route.params.pair
-  const { conversion } = props.route.params
+  const { conversion, pairInfo } = props.route.params
   const dispatch = useAppDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const aToBRate = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
@@ -90,7 +90,7 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     if (!isSubmitting) {
       navigation.navigate({
         name: 'AddLiquidity',
-        params: { pair },
+        params: { pair, pairInfo },
         merge: true
       })
     }

@@ -48,6 +48,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  const { pairInfo } = props.route.params
 
   // this component UI state
   const [tokenAAmount, setTokenAAmount] = useState<string>('')
@@ -119,7 +120,8 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
               tokenBAmount: new BigNumber(tokenBAmount),
               percentage: sharePercentage,
               tokenABalance: balanceA,
-              tokenBBalance: balanceB
+              tokenBBalance: balanceB,
+              lmTotalTokens: lmTotalTokens
             },
             pair,
             conversion: {
@@ -127,7 +129,8 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
               DFIToken,
               DFIUtxo,
               conversionAmount
-            }
+            },
+            pairInfo
           },
           merge: true
         })
@@ -142,9 +145,11 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
             tokenBAmount: new BigNumber(tokenBAmount),
             percentage: sharePercentage,
             tokenABalance: balanceA,
-            tokenBBalance: balanceB
+            tokenBBalance: balanceB,
+            lmTotalTokens: lmTotalTokens
           },
-          pair
+          pair,
+          pairInfo
         },
         merge: true
       })
@@ -200,6 +205,8 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   if (pair === undefined) {
     return <></>
   }
+
+  const lmTotalTokens = sharePercentage.times(pair.totalLiquidity.token).toFixed(8)
 
   return (
     <ThemedScrollView contentContainerStyle={tailwind('py-8')} style={tailwind('w-full flex-col flex-1')}>

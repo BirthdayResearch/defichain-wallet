@@ -1,4 +1,4 @@
-import { ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
+import { ThemedViewV2, ThemedTextV2, ThemedTouchableOpacityV2 } from '@components/themed'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -9,6 +9,7 @@ interface TransactionCardProps {
   onChange: (amount: string, type: AmountButtonTypes) => void
   status?: TransactionCardStatus
   containerStyle?: StyleProp<ViewStyle>
+  amountButtonsStyle?: StyleProp<ViewStyle>
 }
 
 export enum AmountButtonTypes {
@@ -29,6 +30,7 @@ export function TransactionCard ({
   onChange,
   status,
   containerStyle,
+  amountButtonsStyle,
   children
 }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
   return (
@@ -46,17 +48,17 @@ export function TransactionCard ({
       <ThemedViewV2
         light={tailwind('bg-mono-light-v2-00')}
         dark={tailwind('bg-mono-dark-v2-00')}
-        style={tailwind('pl-5 pr-5 pt-2 mr-px rounded-t-lg-v2')}
+        style={containerStyle}
       >
         {children}
       </ThemedViewV2>
       <ThemedViewV2
         light={tailwind('border-mono-light-v2-300')}
         dark={tailwind('border-mono-dark-v2-300')}
-        style={[tailwind('flex flex-row justify-around items-center py-2.5'), containerStyle]}
+        style={[tailwind('flex flex-row justify-around items-center py-2.5'), amountButtonsStyle]}
       >
         {
-          [AmountButtonTypes.TwentyFive, AmountButtonTypes.Half, AmountButtonTypes.SeventyFive, AmountButtonTypes.Max].map((type, index, { length }) => {
+          Object.values(AmountButtonTypes).map((type, index, { length }) => {
             return (
               <SetAmountButton
                 key={type}

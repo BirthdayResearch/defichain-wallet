@@ -175,7 +175,7 @@ context('Wallet - Token Detail', () => {
   it('should be able to redirect to Add Liquidity screen', function () {
     cy.getByTestID('add_liquidity_button').click()
     cy.getByTestID('token_input_primary').clear().type('5')
-    cy.getByTestID('button_confirm_continue_add_liq').click()
+    cy.getByTestID('button_continue_add_liq').click()
 
     /* Redirect back from Confirm Add Liquidity screen */
     cy.go('back')
@@ -225,7 +225,7 @@ context('Wallet - Token Detail - Cypto - Locked in vaults & Available', () => {
   it('should be able to redirect to Add Liquidity screen', function () {
     cy.getByTestID('add_liquidity_button').click()
     cy.getByTestID('token_input_primary').clear().type('5')
-    cy.getByTestID('button_confirm_continue_add_liq').click()
+    cy.getByTestID('button_continue_add_liq').click()
 
     /* Redirect back from Confirm Add Liquidity screen */
     cy.go('back')
@@ -258,14 +258,14 @@ context('Wallet - Token Detail - LP', () => {
     cy.getByTestID('token_detail_amount').should('not.exist')
     cy.getByTestID('token_detail_usd_amount').should('not.exist')
 
-    cy.getByTestID('share_in_pool_ETH-DFI_amount').contains('10')
-    cy.getByTestID('share_in_pool_ETH-DFI_usd_amount').contains('20')
+    cy.getByTestID('your_lp_pool_ETH-DFI_amount').contains('10')
+    cy.getByTestID('your_lp_pool_ETH-DFI_usd_amount').contains('20')
 
-    cy.getByTestID('shares_in_ETH-DFI_dETH_amount').contains('100')
-    cy.getByTestID('shares_in_ETH-DFI_dETH_usd_amount').contains('10')
+    cy.getByTestID('tokens_in_ETH-DFI_dETH_amount').contains('100')
+    cy.getByTestID('tokens_in_ETH-DFI_dETH_usd_amount').contains('10')
 
-    cy.getByTestID('shares_in_ETH-DFI_DFI_amount').contains('1')
-    cy.getByTestID('shares_in_ETH-DFI_DFI_usd_amount').contains('10')
+    cy.getByTestID('tokens_in_ETH-DFI_DFI_amount').contains('1')
+    cy.getByTestID('tokens_in_ETH-DFI_DFI_usd_amount').contains('10')
 
     cy.getByTestID('dfi_utxo_amount').should('not.exist')
     cy.getByTestID('dfi_token_amount').should('not.exist')
@@ -283,7 +283,7 @@ context('Wallet - Token Detail - LP', () => {
     cy.getByTestID('add_liquidity_button').should('exist')
     cy.getByTestID('add_liquidity_button').click()
     cy.getByTestID('token_input_primary').clear().type('5')
-    cy.getByTestID('button_confirm_continue_add_liq').click()
+    cy.getByTestID('button_continue_add_liq').click()
 
     /* Redirect back from Confirm Add Liquidity screen */
     cy.go('back')
@@ -295,7 +295,7 @@ context('Wallet - Token Detail - LP', () => {
   it('should be able to redirect to Remove Liquidity screen', function () {
     cy.getByTestID('remove_liquidity_button').should('exist')
     cy.getByTestID('remove_liquidity_button').click()
-    cy.getByTestID('text_input_percentage').clear().type('10')
+    cy.getByTestID('tokens_remove_amount_input').clear().type('10')
     cy.getByTestID('button_continue_remove_liq').click()
 
     /* Redirect back from ConfirmRemove Liquidity screen */

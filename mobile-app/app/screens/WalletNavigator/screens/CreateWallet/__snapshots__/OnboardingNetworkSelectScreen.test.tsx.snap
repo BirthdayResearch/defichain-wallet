@@ -744,13 +744,16 @@ exports[`onboarding network selection screen should render 1`] = `
                     "lineHeight": 24,
                   },
                   Array [
-                    Object {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                      "textAlign": "right",
-                    },
+                    Array [
+                      Object {
+                        "fontFamily": "SoraRegular",
+                        "fontSize": 14,
+                        "fontWeight": "400",
+                        "lineHeight": 20,
+                        "textAlign": "right",
+                      },
+                      undefined,
+                    ],
                     Object {
                       "color": "rgba(89, 89, 89, 1)",
                     },
