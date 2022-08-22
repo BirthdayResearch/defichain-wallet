@@ -212,7 +212,8 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
           rhs={{
             value: BigNumber.max(tokenAAmount, 0).toFixed(8),
             testID: `${pair.tokenA.displaySymbol}_to_supply`,
-            usdAmount: getTokenPrice(pair.tokenA.symbol, tokenAAmount)
+            usdAmount: getTokenPrice(pair.tokenA.symbol, tokenAAmount),
+            usdTextStyle: tailwind('text-sm')
           }}
         />
         <NumberRowV2
@@ -229,7 +230,8 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
           rhs={{
             value: BigNumber.max(tokenBAmount, 0).toFixed(8),
             testID: `${pair.tokenB.displaySymbol}_to_supply`,
-            usdAmount: getTokenPrice(pair.tokenB.symbol, tokenBAmount)
+            usdAmount: getTokenPrice(pair.tokenB.symbol, tokenBAmount),
+            usdTextStyle: tailwind('text-sm')
           }}
         />
         <NumberRowV2
@@ -246,8 +248,11 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
             testID: 'lp_tokens_to_receive_value',
             usdAmount: getTokenPrice(pair.tokenA.symbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.tokenB.symbol, new BigNumber(tokenBAmount))),
             themedProps: {
+              light: tailwind('text-mono-light-v2-900'),
+              dark: tailwind('text-mono-dark-v2-900'),
               style: tailwind('font-semibold-v2 text-sm')
-            }
+            },
+            usdTextStyle: tailwind('text-sm')
           }}
         />
       </ThemedViewV2>
