@@ -49,6 +49,10 @@
     "Total Value Locked (USD)": "总体价值锁定 (美元)",
     "Swap tokens": "兑换货币",
     "SWAP": "兑换",
+    "Swap": "兑换",
+    "TOP LIQUIDITY": "最高流动性",
+    "Add to LP": "添加到 LP",
+    "NEW POOLS": "新流动性池",
     "DETAILS": "详情",
     "HIDE": "隐藏",
     "Total Value Locked in pool pairs (USD): ": "流动池锁定的总价值 (美元)：",
@@ -61,18 +65,6 @@
     "Available pool pairs": "可选流动池",
     "Your shared {{symbol}}": "您的股份 {{symbol}}",
     "Confirm": "确认"
-  },
-  "screens/DexGuidelines": {
-    "Guidelines": "使用指南",
-    "CONTINUE": "继续",
-    "Decentralized Exchange": "去中心化交易所",
-    "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "将您的货币提供给 DEX 去中心化交易所，并获得高达三位数百分比的年回报率",
-    "Add liquidity": "增加流动资金",
-    "Swap tokens": "兑换货币",
-    "Withdraw at any time": "随时能从流动性池中取出货币",
-    "Earn high yields by supplying token pairs to the liquidity pool.": "提供流动池配对货币并获得高回报率",
-    "Conveniently swap participating tokens within the liquidity pool.": "方便地在流动池里兑换货币",
-    "You have full control over your tokens unlike any other.": "您能完全掌控货币"
   },
   "screens/PortfolioScreen": {
     "Balances": "我的资产",
@@ -108,7 +100,8 @@
     "Z to A": "Z 到 A",
     "AVAILABLE ASSETS": "可用资产",
     "Asset value": "资产价值",
-    "Sort by": "Sort by"
+    "Sort by": "Sort by",
+    "ASSETS": "ASSETS"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "获取 DFI",
