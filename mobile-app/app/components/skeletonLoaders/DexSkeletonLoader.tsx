@@ -16,21 +16,20 @@ export function DexSkeletonLoader (props: JSX.IntrinsicAttributes & IContentLoad
       <ContentLoader
         backgroundColor={isLight ? '#ecebeb' : '#2f2f2f'}
         foregroundColor={isLight ? '#ffffff' : '#4a4a4a'}
-        height={120}
+        height={88}
         preserveAspectRatio='xMidYMid slice'
         speed={2}
-        viewBox='0 0 335 120'
+        viewBox='0 0 335 88'
         width='100%'
         {...props}
       >
         <Circle cx='35' cy='25' r='20' />
         <Rect x='60' y='12' rx='4' ry='4' width='112' height='24' />
-        <Rect x='256' y='7' rx='4' ry='4' width='64' height='36' />
+        <Rect x='256' y='7' rx='4' ry='4' width='64' height='30' />
 
-        <Rect x='10' y='60' rx='4' ry='4' width='200' height='20' />
-        <Rect x='10' y='90' rx='4' ry='4' width='200' height='20' />
+        <Rect x='10' y='55' rx='4' ry='4' width='200' height='30' />
 
-        <Rect x='250' y='74' rx='4' ry='4' width='72' height='40' />
+        <Rect x='248' y='55' rx='4' ry='4' width='72' height='30' />
       </ContentLoader>
     </ThemedViewV2>
   )
