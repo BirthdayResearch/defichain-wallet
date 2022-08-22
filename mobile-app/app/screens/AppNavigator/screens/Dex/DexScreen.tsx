@@ -183,6 +183,15 @@ export function DexScreen (): JSX.Element {
     setTopLiquidityPairs(sorted)
   }, [pairs])
 
+  // New pool pairs
+  const [newPoolsPairs, setNewPoolsPairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
+  useEffect(() => {
+    const sorted = pairs
+      .map(item => item)
+      .slice(-5)
+    setNewPoolsPairs(sorted)
+  }, [pairs])
+
   return (
     <>
       <ThemedViewV2
@@ -201,6 +210,7 @@ export function DexScreen (): JSX.Element {
         </View>
       </ThemedViewV2>
       <TopLiquiditySection onPress={onSwap} pairs={topLiquidityPairs} />
+      <NewPoolsSection onPress={onAdd} pairs={newPoolsPairs} />
       <View style={tailwind('flex-1')}>
         {activeTab === TabKey.AvailablePoolPair &&
           (!hasFetchedPoolpairData || isSearching) && (
@@ -265,6 +275,27 @@ function TopLiquiditySection ({ pairs, onPress }: {pairs: Array<DexItem<PoolPair
           onPress={() => onPress(pairItem.data)}
           label={translate('screens/DexScreen', 'Swap')}
           testID={`composite_swap_${pairItem.data.id}`}
+        />
+      ))}
+    </DexScrollable>
+  )
+}
+
+function NewPoolsSection ({ pairs, onPress }: {pairs: Array<DexItem<PoolPairData | WalletToken>>, onPress: (data: PoolPairData, info: WalletToken) => void}): JSX.Element {
+  return (
+    <DexScrollable
+      testID='dex_new_pools'
+      sectionHeading='NEW POOLS'
+      sectionStyle={tailwind('mb-6')}
+    >
+      {pairs.map((pairItem, index) => (
+        <DexScrollable.Card
+          key={`${pairItem.data.id}_${index}`}
+          poolpair={pairItem.data as PoolPairData}
+          style={tailwind('mr-2')}
+          onPress={() => onPress(pairItem.data as PoolPairData, pairItem.data as WalletToken)}
+          label={translate('screens/DexScreen', 'Add to LP')}
+          testID={`add_liquidity_${pairItem.data.id}`}
         />
       ))}
     </DexScrollable>
