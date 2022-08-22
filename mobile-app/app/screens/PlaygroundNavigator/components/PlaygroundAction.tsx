@@ -1,10 +1,9 @@
-import { ReactElement, ReactComponentElement } from 'react'
 import { ThemedTouchableListItem, ThemedTextV2 } from '@components/themed'
 import { StyleProp, TextStyle } from 'react-native'
 import { tailwind } from '@tailwind'
 interface PlaygroundActionProps {
   title: string
-  rhsChildren?: () => ReactElement | ReactComponentElement<any>
+  rhsChildren?: () => JSX.Element
   isLast: boolean
   testID?: string
   textStyle?: StyleProp<TextStyle>
