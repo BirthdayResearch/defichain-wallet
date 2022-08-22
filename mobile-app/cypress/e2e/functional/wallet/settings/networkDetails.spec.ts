@@ -176,7 +176,6 @@ context('Wallet - Network detail screen - with wallet context go back check', ()
   it('should get back to the dex guideline page when network detail called from dex guideline page', function () {
     cy.getByTestID('bottom_tab_dex').click().wait(3000)
     cy.url().should('include', 'app/DEX/DexScreen')
-    cy.getByTestID('dex_guidelines_screen').should('exist')
     cy.getByTestID('dex_header_container').filter(':visible').click().wait(3000)
     cy.go('back')
     cy.url().should('include', 'app/DEX/DexScreen')
@@ -184,8 +183,6 @@ context('Wallet - Network detail screen - with wallet context go back check', ()
 
   it('should get back to the dex page when network detail called from dex page', function () {
     cy.getByTestID('bottom_tab_dex').filter(':visible').click().wait(3000)
-    cy.url().should('include', 'app/DEX/DexScreen')
-    cy.getByTestID('close_dex_guidelines').click().wait(3000)
     cy.url().should('include', 'app/DEX/DexScreen')
     cy.getByTestID('dex_header_container').filter(':visible').click().wait(3000)
     cy.go('back')
