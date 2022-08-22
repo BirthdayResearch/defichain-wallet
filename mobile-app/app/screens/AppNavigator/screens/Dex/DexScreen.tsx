@@ -26,6 +26,7 @@ import { ScrollView } from 'react-native'
 import { AssetsFilterItem } from '../Portfolio/components/AssetsFilterRow'
 import { HeaderSearchInputV2 } from '@components/HeaderSearchInputV2'
 import { DexScrollable } from '@screens/AppNavigator/screens/Dex/components/DexScrollable'
+import { TotalValueLocked } from './components/TotalValueLocked'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -42,6 +43,7 @@ export function DexScreen (): JSX.Element {
   const [activeTab, setActiveTab] = useState<string>(TabKey.AvailablePoolPair)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const [expandedCardIds, setExpandedCardIds] = useState<string[]>([])
+  const { tvl } = useSelector((state: RootState) => state.block)
 
   const buttonGroup = [
     {
@@ -327,6 +329,9 @@ export function DexScreen (): JSX.Element {
               </ScrollView>
             </ThemedViewV2>
           </View>
+          {activeTab === TabKey.AvailablePoolPair && !showSearchInput && (
+            <TotalValueLocked tvl={tvl ?? 0} />
+          )}
           <TopLiquiditySection onPress={onSwap} pairs={topLiquidityPairs} />
         </>
       )}

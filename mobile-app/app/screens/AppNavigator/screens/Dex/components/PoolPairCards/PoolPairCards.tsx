@@ -27,7 +27,6 @@ import NumberFormat from 'react-number-format'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { TotalValueLocked } from '../TotalValueLocked'
 
 interface DexItem<T> {
   type: 'your' | 'available'
@@ -76,7 +75,6 @@ export function PoolPairCards ({
   const [filteredYourPairs, setFilteredYourPairs] =
     useState<Array<DexItem<WalletToken>>>(yourPairs)
   const debouncedSearchTerm = useDebounce(searchString, 500)
-  const { tvl } = useSelector((state: RootState) => state.block)
   const ref = useRef(null)
   useScrollToTop(ref)
 
@@ -140,17 +138,6 @@ export function PoolPairCards ({
         type === 'your' ? 'your_liquidity_tab' : 'available_liquidity_tab'
       }
       renderItem={renderItem}
-      ListHeaderComponent={
-        <>
-          {type === 'available' &&
-            showSearchInput === false &&
-            (
-              <View style={tailwind('mb-4')}>
-                <TotalValueLocked tvl={tvl ?? 0} />
-              </View>
-            )}
-        </>
-      }
     />
   )
 }
