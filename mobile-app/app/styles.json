@@ -4626,6 +4626,9 @@
 	"max-w-4/5": {
 		"maxWidth": "80%"
 	},
+	"max-w-20": {
+		"maxWidth": 80
+	},
 	"flex-1": {
 		"flexGrow": 1,
 		"flexShrink": 1,
