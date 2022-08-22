@@ -50,7 +50,7 @@ interface DexScrollableCardProps {
   poolpair: PoolPairData
   style?: StyleProp<ViewStyle>
   label: string
-  onPress: (data: PoolPairData) => void
+  onPress: () => void
   testID: string
 }
 
@@ -96,7 +96,6 @@ function DexScrollableCard ({
       </View>
       <View style={tailwind('flex flex-row items-end justify-between mt-4')}>
         <DexActionButton
-          pair={poolpair}
           onPress={onPress}
           label={label}
           style={tailwind('flex w-full w-36')}
