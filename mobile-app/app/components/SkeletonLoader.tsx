@@ -1,4 +1,4 @@
-import { DexSkeletonLoaderV2 } from './skeletonLoaders/DexSkeletonLoaderV2'
+import { DexSkeletonLoader } from './skeletonLoaders/DexSkeletonLoader'
 import { MnemonicWordSkeletonLoader } from './skeletonLoaders/MnemonicWordSkeletonLoader'
 import { TransactionSkeletonLoader } from './skeletonLoaders/TransactionSkeletonLoader'
 import { LoanSkeletonLoader } from './skeletonLoaders/LoanSkeletonLoader'
@@ -7,7 +7,7 @@ import { BrowseAuctionsLoader } from './skeletonLoaders/BrowseAuctionsLoader'
 import { VaultSkeletonLoader } from './skeletonLoaders/VaultSkeletonLoader'
 import { PortfolioSkeletonLoader } from './skeletonLoaders/PortfolioSkeletonLoader'
 import { VaultSchemesSkeletonLoader } from './skeletonLoaders/VaultSchemeSkeletonLoader'
-import { DexPricesSkeletonLoaderV2 } from './skeletonLoaders/DexPricesSkeletonLoaderV2'
+import { DexPricesSkeletonLoader } from './skeletonLoaders/DexPricesSkeletonLoader'
 import { MnemonicWordSkeletonLoaderV2 } from './skeletonLoaders/MnemonicWordSkeletonLoaderV2'
 import { TokenSelectionLoader } from './skeletonLoaders/TokenSelectionLoader'
 
@@ -38,7 +38,7 @@ export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
       return (
         <>
           {skeletonRow.map(i => (
-            <DexSkeletonLoaderV2 key={i} />
+            <DexSkeletonLoader key={i} />
           ))}
         </>
       )
@@ -47,7 +47,7 @@ export function SkeletonLoader (prop: SkeletonLoaderProp): JSX.Element {
       return (
         <>
           {skeletonRow.map(i => (
-            <DexPricesSkeletonLoaderV2 key={i} />
+            <DexPricesSkeletonLoader key={i} />
           ))}
         </>
       )
