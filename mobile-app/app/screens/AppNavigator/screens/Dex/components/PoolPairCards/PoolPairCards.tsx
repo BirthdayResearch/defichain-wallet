@@ -4,7 +4,9 @@ import {
   ThemedFlatListV2,
   ThemedIcon,
   ThemedText,
-  ThemedView
+  ThemedTouchableOpacityV2,
+  ThemedView,
+  ThemedViewV2
 } from '@components/themed'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { tailwind } from '@tailwind'
@@ -18,7 +20,7 @@ import { useTokenBestPath } from '@screens/AppNavigator/screens/Portfolio/hooks/
 import { PriceRatesSection } from './PriceRatesSection'
 import React, { useEffect, useRef, useState } from 'react'
 import { useScrollToTop } from '@react-navigation/native'
-import { TouchableOpacity } from 'react-native'
+import { ScrollView, TouchableOpacity } from 'react-native'
 import { WalletToken } from '@store/wallet'
 import { useDebounce } from '@hooks/useDebounce'
 import { useFavouritePoolpairs } from '../../hook/FavouritePoolpairs'
@@ -27,6 +29,9 @@ import NumberFormat from 'react-number-format'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
+import { AssetsFilterItem } from '@screens/AppNavigator/screens/Portfolio/components/AssetsFilterRow'
+import { TotalValueLocked } from '../TotalValueLocked'
+import { DexScrollable } from '../DexScrollable'
 
 interface DexItem<T> {
   type: 'your' | 'available'
@@ -52,6 +57,11 @@ interface PoolPairCardProps {
   showSearchInput?: boolean
   expandedCardIds: string[]
   setExpandedCardIds: (ids: string[]) => void
+  onButtonGroupChange: (buttonGroupTabKey: ButtonGroupTabKey) => void
+  activeButtonGroup: ButtonGroupTabKey
+  onSearchBtnPress: () => void
+  topLiquidityPairs: Array<DexItem<PoolPairData>>
+  newPoolsPairs: Array<DexItem<PoolPairData>>
 }
 
 export function PoolPairCards ({
@@ -65,13 +75,19 @@ export function PoolPairCards ({
   yourPairs,
   showSearchInput,
   expandedCardIds,
-  setExpandedCardIds
+  setExpandedCardIds,
+  onButtonGroupChange,
+  activeButtonGroup,
+  onSearchBtnPress,
+  topLiquidityPairs,
+  newPoolsPairs
 }: PoolPairCardProps): JSX.Element {
   const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
   const sortedPairs = sortPoolpairsByFavourite(
     availablePairs,
     isFavouritePoolpair
   )
+  const { tvl } = useSelector((state: RootState) => state.block)
   const [filteredYourPairs, setFilteredYourPairs] =
     useState<Array<DexItem<WalletToken>>>(yourPairs)
   const debouncedSearchTerm = useDebounce(searchString, 500)
@@ -83,6 +99,28 @@ export function PoolPairCards ({
     availablePairs.findIndex(x => x.data.id === pairB.data.id)
   )
 
+  const buttonGroup = [
+    {
+      id: ButtonGroupTabKey.AllPairs,
+      label: translate('screens/DexScreen', 'All pairs'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.AllPairs)
+    },
+    {
+      id: ButtonGroupTabKey.DFIPairs,
+      label: translate('screens/DexScreen', 'DFI pairs'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.DFIPairs)
+    },
+    {
+      id: ButtonGroupTabKey.DUSDPairs,
+      label: translate('screens/DexScreen', 'DUSD pairs'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.DUSDPairs)
+    },
+    {
+      id: ButtonGroupTabKey.FavouritePairs,
+      label: translate('screens/DexScreen', 'Favourites'),
+      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.FavouritePairs)
+    }
+  ]
   useEffect(() => {
     setIsSearching(false)
     if (showSearchInput === false) {
@@ -122,12 +160,14 @@ export function PoolPairCards ({
       onRemove={onRemove}
       onSwap={onSwap}
       setExpandedCardIds={setExpandedCardIds}
-    />)
+    />
+  )
+
   return (
     <ThemedFlatListV2
       light={tailwind('bg-mono-light-v2-100')}
       dark={tailwind('bg-mono-dark-v2-100')}
-      contentContainerStyle={tailwind('pb-4 px-5 pb-2')}
+      contentContainerStyle={tailwind('pb-4 pb-2')}
       ref={ref}
       data={type === 'your' ? filteredYourPairs : sortedPairs}
       numColumns={1}
@@ -136,6 +176,54 @@ export function PoolPairCards ({
       keyExtractor={(item) => item.data.id}
       testID={
         type === 'your' ? 'your_liquidity_tab' : 'available_liquidity_tab'
+      }
+      ListHeaderComponent={
+        <>
+          {showSearchInput === false && (
+            <View style={tailwind('my-4')}>
+              <ThemedViewV2 testID='dex_button_group'>
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={tailwind('flex justify-between items-center flex-row px-5')}
+                >
+                  <ThemedTouchableOpacityV2
+                    onPress={onSearchBtnPress}
+                    style={tailwind('text-center pr-4')}
+                    testID='dex_search_icon'
+                  >
+                    <ThemedIcon
+                      iconType='Feather'
+                      name='search'
+                      size={24}
+                      light={tailwind('text-mono-light-v2-700')}
+                      dark={tailwind('text-mono-dark-v2-700')}
+                    />
+                  </ThemedTouchableOpacityV2>
+                  {buttonGroup.map((button, index) => (
+                    <AssetsFilterItem
+                      key={button.id}
+                      label={button.label}
+                      onPress={button.handleOnPress}
+                      isActive={activeButtonGroup === button.id}
+                      testID={`dex_button_group${button.id}`}
+                      additionalStyles={!(buttonGroup.length === index) ? tailwind('mr-3') : undefined}
+                    />
+                  )
+                )}
+                </ScrollView>
+              </ThemedViewV2>
+            </View>
+          )}
+          {type === 'available' &&
+            showSearchInput === false && (
+              <>
+                <TotalValueLocked tvl={tvl ?? 0} />
+                <TopLiquiditySection onPress={onSwap} pairs={topLiquidityPairs} />
+                <NewPoolsSection onPress={onAdd} pairs={newPoolsPairs} />
+              </>
+          )}
+        </>
       }
       renderItem={renderItem}
     />
@@ -234,7 +322,7 @@ const PoolCard = ({
     <ThemedView
       dark={tailwind('bg-gray-800 border-gray-700')}
       light={tailwind('bg-white border-gray-200')}
-      style={tailwind('p-4 mb-2 border rounded')}
+      style={tailwind('p-4 mb-2 border rounded mx-5')}
       testID={type === 'your' ? 'pool_pair_row_your' : 'pool_pair_row'}
     >
       <View
@@ -435,4 +523,46 @@ function sortPoolpairsByFavourite (
     }
     return 0
   })
+}
+
+function TopLiquiditySection ({ pairs, onPress }: {pairs: Array<DexItem<PoolPairData>>, onPress: (data: PoolPairData) => void}): JSX.Element {
+  return (
+    <DexScrollable
+      testID='dex_top_liquidity'
+      sectionHeading='TOP LIQUIDITY'
+      sectionStyle={tailwind('my-6')}
+    >
+      {pairs.map((pairItem, index) => (
+        <DexScrollable.Card
+          key={`${pairItem.data.id}_${index}`}
+          poolpair={pairItem.data}
+          style={tailwind('mr-2')}
+          onPress={() => onPress(pairItem.data)}
+          label={translate('screens/DexScreen', 'Swap')}
+          testID={`composite_swap_${pairItem.data.id}`}
+        />
+      ))}
+    </DexScrollable>
+  )
+}
+
+function NewPoolsSection ({ pairs, onPress }: {pairs: Array<DexItem<PoolPairData | WalletToken>>, onPress: (data: PoolPairData, info: WalletToken) => void}): JSX.Element {
+  return (
+    <DexScrollable
+      testID='dex_new_pools'
+      sectionHeading='NEW POOLS'
+      sectionStyle={tailwind('mb-6')}
+    >
+      {pairs.map((pairItem, index) => (
+        <DexScrollable.Card
+          key={`${pairItem.data.id}_${index}`}
+          poolpair={pairItem.data as PoolPairData}
+          style={tailwind('mr-2')}
+          onPress={() => onPress(pairItem.data as PoolPairData, pairItem.data as WalletToken)}
+          label={translate('screens/DexScreen', 'Add to LP')}
+          testID={`add_liquidity_${pairItem.data.id}`}
+        />
+      ))}
+    </DexScrollable>
+  )
 }
