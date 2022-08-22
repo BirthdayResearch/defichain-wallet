@@ -17,7 +17,7 @@ import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { ThemedFlatListV2 } from '@components/themed/ThemedFlatListV2'
-import { PoolPairTextSectionV2 } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolPairTextSectionV2'
+import { PoolPairIconV2 } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolPairIconV2'
 import { DexActionButton } from '@screens/AppNavigator/screens/Dex/components/DexActionButton'
 import { FavoriteButton } from '@screens/AppNavigator/screens/Dex/components/FavoriteButton'
 import { PriceRatesSectionV2 } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PriceRatesSectionV2'
@@ -231,10 +231,10 @@ function AvailablePool (props: AvailablePoolProps): JSX.Element {
     <>
       <View style={tailwind('flex flex-row justify-between items-center w-full')}>
         <View style={tailwind('flex flex-row items-center')}>
-          <PoolPairTextSectionV2
+          <PoolPairIconV2
             symbolA={props.symbolA}
             symbolB={props.symbolB}
-            iconSize={36}
+            customSize={36}
             iconBStyle={tailwind('-ml-4 mr-2')}
           />
           <ThemedTextV2
