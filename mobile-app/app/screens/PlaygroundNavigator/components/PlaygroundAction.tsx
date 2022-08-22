@@ -12,7 +12,7 @@ interface PlaygroundActionProps {
 
 export function PlaygroundAction ({ title, isLast, testID, rhsChildren, textStyle, onPress }: PlaygroundActionProps): JSX.Element {
   return (
-    <ThemedTouchableListItem isLast={isLast} testID={testID} onPress={onPress}>
+    <ThemedTouchableListItem isLast={isLast} testId={testID} onPress={onPress}>
       <ThemedTextV2 style={[tailwind('text-sm font-normal-v2'), textStyle]}>
         {title}
       </ThemedTextV2>
