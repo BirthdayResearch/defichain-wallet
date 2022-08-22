@@ -166,24 +166,26 @@ export function DexScreen (): JSX.Element {
     if (showSearchInput) {
       navigation.setOptions({
         header: (): JSX.Element => (
-          <ThemedViewV2
-            light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-100')}
-            dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-100')}
-            style={tailwind('pb-5 rounded-b-2xl border-b')}
-          >
-            <HeaderSearchInputV2
-              searchString={searchString}
-              onClearInput={() => setSearchString('')}
-              onChangeInput={(text: string) => {
-                setSearchString(text)
-              }}
-              onCancelPress={() => {
-                setSearchString('')
-                setShowSearchInput(false)
-              }}
-              placeholder='Search for pool pairs'
-              testID='dex_search_input'
-            />
+          <ThemedViewV2>
+            <ThemedViewV2
+              light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-100')}
+              dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-100')}
+              style={tailwind('pb-5 rounded-b-2xl border-b')}
+            >
+              <HeaderSearchInputV2
+                searchString={searchString}
+                onClearInput={() => setSearchString('')}
+                onChangeInput={(text: string) => {
+                  setSearchString(text)
+                }}
+                onCancelPress={() => {
+                  setSearchString('')
+                  setShowSearchInput(false)
+                }}
+                placeholder='Search for pool pairs'
+                testID='dex_search_input'
+              />
+            </ThemedViewV2>
           </ThemedViewV2>
         )
       })
