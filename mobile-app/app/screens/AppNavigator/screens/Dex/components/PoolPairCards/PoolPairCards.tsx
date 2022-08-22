@@ -206,7 +206,7 @@ export function PoolPairCards ({
                       label={button.label}
                       onPress={button.handleOnPress}
                       isActive={activeButtonGroup === button.id}
-                      testID={`dex_button_group${button.id}`}
+                      testID={`dex_button_group_${button.id}${activeButtonGroup === button.id ? '_active' : ''}`}
                       additionalStyles={!(buttonGroup.length === index) ? tailwind('mr-3') : undefined}
                     />
                   )
