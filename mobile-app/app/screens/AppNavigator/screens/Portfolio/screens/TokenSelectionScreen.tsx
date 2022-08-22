@@ -13,7 +13,13 @@ import { useDebounce } from '@hooks/useDebounce'
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
 import ImageEmptyAssets from '@assets/images/send/empty-assets.png'
-import { ThemedFlatListV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
+import {
+  ThemedFlatListV2,
+  ThemedScrollViewV2,
+  ThemedTextV2,
+  ThemedTouchableOpacityV2,
+  ThemedViewV2
+} from '@components/themed'
 import { SearchInputV2 } from '@components/SearchInputV2'
 import { ButtonV2 } from '@components/ButtonV2'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
@@ -88,7 +94,15 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
           <SearchInputV2
             value={searchString}
             containerStyle={
-              tailwind(['border-0.5', isSearchFocus ? { 'border-mono-light-v2-800': isLight, 'border-mono-dark-v2-800': !isLight } : { 'border-mono-light-v2-00': isLight, 'border-mono-dark-v2-00': !isLight }])
+              tailwind(['border-0.5', isSearchFocus
+? {
+                'border-mono-light-v2-800': isLight,
+                'border-mono-dark-v2-800': !isLight
+              }
+: {
+                'border-mono-light-v2-00': isLight,
+                'border-mono-dark-v2-00': !isLight
+              }])
             }
             placeholder={translate('screens/TokenSelectionScreen', 'Search token')}
             showClearButton={debouncedSearchTerm !== ''}
@@ -142,7 +156,10 @@ interface TokenSelectionRowProps {
   onPress: any
 }
 
-const TokenSelectionRow = ({ item, onPress }: TokenSelectionRowProps): JSX.Element => {
+const TokenSelectionRow = ({
+  item,
+  onPress
+}: TokenSelectionRowProps): JSX.Element => {
   return (
     <ThemedTouchableOpacityV2
       disabled={new BigNumber(item.available).lte(0)}
@@ -153,8 +170,16 @@ const TokenSelectionRow = ({ item, onPress }: TokenSelectionRowProps): JSX.Eleme
       testID={`select_${item.token.displaySymbol}`}
     >
       <View style={tailwind('w-7/12 flex flex-row items-center')}>
-        <TokenIcon testID={`${item.token.displaySymbol}_icon`} token={{ isLPS: item.token.isLPS, displaySymbol: item.token.displaySymbol }} height={36} width={36} />
-        <TokenNameTextV2 displaySymbol={item.token.displaySymbol} name={item.token.name} testID={item.token.displaySymbol} />
+        <TokenIcon
+          testID={`${item.token.displaySymbol}_icon`} token={{
+          isLPS: item.token.isLPS,
+          displaySymbol: item.token.displaySymbol
+        }} size={36}
+        />
+        <TokenNameTextV2
+          displaySymbol={item.token.displaySymbol} name={item.token.name}
+          testID={item.token.displaySymbol}
+        />
       </View>
       <View style={tailwind('flex flex-col items-end')}>
         <NumberFormat
@@ -180,9 +205,14 @@ const TokenSelectionRow = ({ item, onPress }: TokenSelectionRowProps): JSX.Eleme
 
 function EmptyAsset ({ navigation }: { navigation: NavigationProp<PortfolioParamList> }): JSX.Element {
   return (
-    <View style={tailwind('flex items-center justify-between mx-12 h-full')}>
+    <ThemedScrollViewV2 contentContainerStyle={tailwind('flex items-center justify-between mx-12 h-full')}>
       <View style={tailwind('flex items-center')}>
-        <Image source={ImageEmptyAssets} style={[tailwind('mt-12'), { width: 204, height: 96 }]} />
+        <Image
+          source={ImageEmptyAssets} style={[tailwind('mt-12'), {
+          width: 204,
+          height: 96
+        }]}
+        />
         <ThemedTextV2 testID='no_asset_text' style={tailwind('font-semibold-v2 text-xl mt-8')}>
           {translate('screens/TokenSelectionScreen', 'No assets found')}
         </ThemedTextV2>
@@ -195,7 +225,7 @@ function EmptyAsset ({ navigation }: { navigation: NavigationProp<PortfolioParam
         styleProps='w-full mb-14 pb-1'
         label={translate('screens/GetDFIScreen', 'Get DFI')}
       />
-    </View>
+    </ThemedScrollViewV2>
   )
 }
 

@@ -60,7 +60,8 @@
     "Prices": "Prezzi",
     "Available pool pairs": "Pool-Pairs disponibili",
     "Your shared {{symbol}}": "I tuoi shared {{symbol}}",
-    "Total liquidity": "Liquidita' Totale"
+    "Total liquidity": "Liquidita' Totale",
+    "Confirm": "Confirm"
   },
   "screens/PortfolioScreen": {
     "Balances": "Saldo",
@@ -100,7 +101,8 @@
     "Z to A": "Da Z a A",
     "AVAILABLE ASSETS": "ASSET DISPONIBILI",
     "Asset value": "Valore degli asset",
-    "Sort by": "Sort by"
+    "Sort by": "Sort by",
+    "ASSETS": "ASSETS"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Get DFI",
@@ -261,6 +263,7 @@
     "Invalid address. Make sure the address is correct to avoid irrecoverable losses": "Invalid address. Make sure the address is correct to avoid irrecoverable losses"
   },
   "screens/SendConfirmationScreen": {
+    "Confirm": "Confirm",
     "Confirm Send": "Conferma Invio",
     "CONFIRM SEND": "CONFERMA INVIO",
     "You are sending": "Stai inviando",
@@ -746,12 +749,16 @@
     "Preparing to add liquidity…": "Preparing to add liquidity…",
     "Adding tokens to liquidity pool…": "Adding tokens to liquidity pool…",
     "Added tokens to liquidity pool": "Added tokens to liquidity pool",
+    "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool": "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool",
+    "Added {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool": "Added {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool",
     "Preparing to remove collaterals…": "Preparing to remove collaterals…",
     "Removing collaterals from vault…": "Removing collaterals from vault…",
     "Collaterals removed": "Collaterals removed",
     "Preparing to remove liquidity…": "Preparing to remove liquidity…",
     "Removing tokens from liquidity pool…": "Removing tokens from liquidity pool…",
     "Removed tokens from liquidity pool": "Removed tokens from liquidity pool",
+    "Removing {{symbol}} from liquidity pool": "Removing {{symbol}} from liquidity pool",
+    "Removed {{amount}} {{symbol}} from liquidity pool": "Removed {{amount}} {{symbol}} from liquidity pool",
     "Preparing loan payment…": "Preparing loan payment…",
     "Processing loan payment…": "Processing loan payment…",
     "Payment completed": "Payment completed",
@@ -767,6 +774,8 @@
     "Preparing to convert…": "Preparing to convert…",
     "Converting {{symbolA}} to {{symbolB}}": "Conversione {{symbolA}} in {{symbolB}}",
     "Conversion completed": "Conversion completed",
+    "Converting {{amount}} DFI {{symbolA}} to {{symbolB}}": "Converting {{amount}} DFI {{symbolA}} to {{symbolB}}",
+    "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI converted to {{symbolB}}",
     "Preparing your transaction…": "Preparing your transaction…",
     "Processing future swap transaction…": "Processing future swap transaction…",
     "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap confirmed and will be executed at block #{{block}}",
@@ -819,7 +828,20 @@
     "UTXO to be converted": "UTXO da convertire",
     "Authorize transaction in the next screen to convert": "Autorizza la transazione nella prossima schermata per convertire",
     "Estimated fee": "Commissione stimata",
-    "Pooled {{symbol}}": "Messo nel pool {{symbol}}"
+    "Pooled {{symbol}}": "Messo nel pool {{symbol}}",
+    "View pool share": "View pool share",
+    "View pool info": "View pool info",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Insufficient balance": "Insufficient balance",
+    "APR": "APR",
+    "Shares to add": "Shares to add",
+    "Volume (24H):": "Volume (24H)",
+    "Total liquidity": "Total liquidity",
+    "Tokens in {{symbol}}": "Tokens in {{symbol}}",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "I WANT TO ADD": "I WANT TO ADD",
+    "LP Tokens to receive": "LP Tokens to receive"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "Stai aggiungendo",
@@ -833,13 +855,23 @@
     "ADDING": "AGGIUNGI",
     "Pooled {{symbol}}": "{{symbol}} messo nel pool",
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "Aggiungi {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}",
+    "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool": "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool",
     "PRICE DETAILS": "DETTAGLI DEL PREZZO",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} prezzo per {{tokenB}}",
     "Your pooled {{symbol}}": "Il tuo pool {{symbol}}",
     "Transaction type": "Tipo di transazione",
     "Add liquidity": "Aggiungi liquidità",
     "Convert & add liquidity": "Converti e aggiungi liquidità",
-    "CONFIRM ADD LIQUIDITY": "CONFERMA AGGIUNTA DI LIQUIDITÀ"
+    "CONFIRM ADD LIQUIDITY": "CONFERMA AGGIUNTA DI LIQUIDITÀ",
+    "Your LP Tokens": "Your LP Tokens",
+    "You will receive LP tokens": "You will receive LP tokens",
+    "Amount to convert": "Amount to convert",
+    "Transaction fee": "Transaction fee",
+    "Resulting pool share": "Resulting pool share",
+    "{{token}} to supply": "{{token}} to supply",
+    "Resulting LP tokens": "Resulting LP tokens",
+    "Confirm": "Confirm",
+    "Pool share": "Pool share"
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "Stai rimuovendo",
@@ -854,7 +886,12 @@
     "{{tokenA}} price in {{tokenB}}": "{{tokenA}} prezzo in {{tokenB}}",
     "{{tokenB}} price in {{tokenA}}": "{{tokenB}} prezzo in {{tokenA}}",
     "Transaction type": "Tipo di transazione",
-    "Remove liquidity": "Rimuovi la liquidità"
+    "Remove liquidity": "Rimuovi la liquidità",
+    "You are removing LP tokens": "You are removing LP tokens",
+    "Transaction fee": "Transaction fee",
+    "Resulting pool share": "Resulting pool share",
+    "LP tokens to remove": "LP tokens to remove",
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "Rimuovi liquidità",
@@ -866,13 +903,23 @@
     "Removing {{amount}} {{symbol}}": "Rimuovi {{amount}} {{symbol}}",
     "Review full transaction details in the next screen": "Rivedi tutti i dettagli della transazione nella prossima schermata",
     "PRICE DETAILS": "DETTAGLI DEL PREZZO",
+    "View pool share": "View pool share",
     "{{symbolA}} per {{symbolB}}": "{{symbolA}} per {{symbolB}}",
     "{{symbolB}} per {{symbolA}}": "{{symbolB}} per {{symbolA}}",
     "{{tokenA}} price in {{tokenB}}": "{{tokenA}} prezzi in {{tokenB}}",
     "{{tokenB}} price in {{tokenA}}": "{{tokenB}} prezzi in {{tokenA}}",
     "Drag or enter amount to remove": "Trascina o inserisci la quantità da rimuovere",
     "You are removing": "Stai rimuovendo",
-    "from liquidity pool": "dal liquidity pool"
+    "from liquidity pool": "dal liquidity pool",
+    "I WANT TO REMOVE": "I WANT TO REMOVE",
+    "Your LP Tokens":  "Your LP Tokens",
+    "Tokens in {{token}}": "Tokens in {{token}}",
+    "{{token}} to receive": "{{token}} to receive",
+    "LP tokens to remove": "LP tokens to remove",
+    "Available": "Disponible",
+    "Insufficient balance": "Insufficient balance",
+    "Max available LP tokens entered": "Max available LP tokens entered",
+    "{{percent}} of available LP tokens entered": "{{percent}} of available LP tokens entered"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "Rete del Wallet",
@@ -1112,7 +1159,9 @@
     "As Token": "Come Token",
     "Your pool shares": "Your pool shares",
     "Shares in {{token}}": "Shares in {{token}}",
-    "Learn more about DFI": "Per saperne di più su DFI"
+    "Learn more about DFI": "Per saperne di più su DFI",
+    "Your LP tokens":  "Your LP Tokens",
+    "Tokens in {{token}}": "Tokens in {{token}}"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "Una piccola quantità UTXO (0,1 DFI) è riservata alle commissioni."

@@ -1,6 +1,6 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { WalletToken } from '@store/wallet'
+import { AddressType, WalletToken } from '@store/wallet'
 import BigNumber from 'bignumber.js'
 import { Image, Platform } from 'react-native'
 import { BarCodeScanner } from '@components/BarCodeScanner'
@@ -19,10 +19,10 @@ import { FutureSwapData } from '@store/futureSwap'
 import { FutureSwapScreen } from './screens/FutureSwapScreen'
 import { ConfirmWithdrawFutureSwapScreen } from './screens/ConfirmWithdrawFutureSwapScreen'
 import { WithdrawFutureSwapScreen } from './screens/WithdrawFutureSwapScreen'
-import { AddLiquidityScreen } from '../Dex/DexAddLiquidity'
-import { ConfirmAddLiquidityScreen } from '../Dex/DexConfirmAddLiquidity'
 import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
+import { RemoveLiquidityScreenV2 } from '../Dex/DexRemoveLiquidityV2'
 import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
+import { RemoveLiquidityConfirmScreenV2 } from '../Dex/DexConfirmRemoveLiquidityV2'
 import { GetDFIScreen } from './screens/GetDFIScreen'
 import { MarketplaceScreen } from './screens/MarketplaceScreen'
 import { SettingsNavigator } from '../Settings/SettingsNavigator'
@@ -36,24 +36,26 @@ import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-d
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
+import { ConfirmAddLiquidityScreenV2 } from '../Dex/DexConfirmAddLiquidityV2'
+import { AddLiquidityScreenV2 } from '../Dex/DexAddLiquidityV2'
 import { AddressBookScreen } from './screens/AddressBookScreen'
-import { NetworkSelectionScreen } from '@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { TokensVsUtxoFaq } from './screens/TokensVsUtxoFaq'
 import {
   ConversionMode,
-  ConvertScreenV2,
+  ConvertScreen,
   ConvertTokenUnit
-} from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreenV2'
-import {
-  ConvertConfirmationScreenV2
-} from '@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreenV2'
+} from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreen'
+import { ConvertConfirmationScreen } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreen'
 import { SendScreenV2 } from './screens/SendScreenV2'
 import { TokenSelectionScreen } from './screens/TokenSelectionScreen'
 import { SendConfirmationScreenV2 } from './screens/SendConfirmationScreenV2'
 import { SendScreen } from './screens/SendScreen'
 import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import { NetworkSelectionScreen } from '../Settings/screens/NetworkSelectionScreen'
+import { AddLiquidityScreen } from '../Dex/DexAddLiquidity'
+import { ConfirmAddLiquidityScreen } from '../Dex/DexConfirmAddLiquidity'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -70,6 +72,16 @@ export interface PortfolioParamList {
     fee: BigNumber
     conversion?: ConversionParam
     toAddressLabel?: string
+  }
+  SendConfirmationScreenV2: {
+    token: WalletToken
+    destination: string
+    amount: BigNumber
+    amountInUsd: BigNumber
+    fee: BigNumber
+    conversion?: ConversionParam
+    toAddressLabel?: string
+    addressType?: AddressType
   }
   TokenDetailScreen: { token: WalletToken }
   ConvertScreen: { mode: ConversionMode }
@@ -292,11 +304,11 @@ export function PortfolioNavigator (): JSX.Element {
 
       <PortfolioStack.Screen
         component={isFeatureAvailable('send_v2') ? SendConfirmationScreenV2 : SendConfirmationScreen}
-        name='SendConfirmationScreen'
+        name={isFeatureAvailable('send_v2') ? 'SendConfirmationScreenV2' : 'SendConfirmationScreen'}
         options={{
           ...screenOptions,
           headerTitle: isFeatureAvailable('send_v2')
-            ? translate('screens/SendConfirmationScreen', 'Confirm Send')
+            ? translate('screens/SendConfirmationScreen', 'Confirm')
             : () => (<HeaderTitle
                 text={translate('screens/SendConfirmationScreen', 'Confirm Send')}
                 containerTestID={headerContainerTestId}
@@ -323,7 +335,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={ConvertScreenV2}
+        component={ConvertScreen}
         name='Convert'
         options={{
           ...screenOptions,
@@ -335,8 +347,8 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={ConvertConfirmationScreenV2}
-        name='ConvertConfirmationScreenV2'
+        component={ConvertConfirmationScreen}
+        name='ConvertConfirmationScreen'
         options={{
           ...screenOptions,
           headerRight: () => (
@@ -445,7 +457,6 @@ export function PortfolioNavigator (): JSX.Element {
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false,
           headerTitle: translate('screens/Settings', 'Address Book')
         }}
       />
@@ -465,29 +476,26 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={AddLiquidityScreen}
+        component={isFeatureAvailable('add_liquidity_v2') ? AddLiquidityScreenV2 : AddLiquidityScreen}
         name='AddLiquidity'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Add Liquidity')}
-              containerTestID={headerContainerTestId}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false
+          headerTitle: translate('screens/AddLiquidity', 'Add Liquidity')
         }}
       />
 
       <PortfolioStack.Screen
-        component={ConfirmAddLiquidityScreen}
+        component={isFeatureAvailable('add_liquidity_v2') ? ConfirmAddLiquidityScreenV2 : ConfirmAddLiquidityScreen}
         name='ConfirmAddLiquidity'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Confirm Add Liquidity')}
-              containerTestID={headerContainerTestId}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate('screens/ConfirmAddLiq', 'Confirm')
         }}
       />
 
@@ -506,15 +514,14 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={RemoveLiquidityScreen}
+        component={isFeatureAvailable('remove_liquidity_v2') ? RemoveLiquidityScreenV2 : RemoveLiquidityScreen}
         name='RemoveLiquidity'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Remove Liquidity')}
-              containerTestID={headerContainerTestId}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate('screens/DexScreen', 'Remove Liquidity')
         }}
       />
 
@@ -547,15 +554,14 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={RemoveLiquidityConfirmScreen}
+        component={isFeatureAvailable('remove_liquidity_v2') ? RemoveLiquidityConfirmScreenV2 : RemoveLiquidityConfirmScreen}
         name='RemoveLiquidityConfirmScreen'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Confirm Removal')}
-              containerTestID={headerContainerTestId}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate('screens/DexScreen', 'Confirm')
         }}
       />
 
