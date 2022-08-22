@@ -25,6 +25,7 @@ import { EmptyActivePoolpair } from './components/EmptyActivePoolPair'
 import { debounce } from 'lodash'
 import { ButtonGroupTabKey, PoolPairCards } from './components/PoolPairCards/PoolPairCards'
 import { SwapButton } from './components/SwapButton'
+import { DexScrollable } from '@screens/AppNavigator/screens/Dex/components/DexScrollable'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -217,9 +218,23 @@ export function DexScreen (): JSX.Element {
     }
   }, [showSearchInput, searchString])
 
+  // Top Liquidity pairs
+  const [topLiquidityPairs, setTopLiquidityPairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
+  useEffect(() => {
+    const sorted = pairs
+      .map(item => item)
+      .sort((firstPair, secondPair) =>
+      new BigNumber(secondPair.data.totalLiquidity.usd ?? 0).minus(firstPair.data.totalLiquidity.usd ?? 0).toNumber() ??
+      new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber()
+      )
+      .slice(0, 5)
+    setTopLiquidityPairs(sorted)
+  }, [pairs])
+
   return (
     <>
       <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
+      <TopLiquiditySection onPress={onSwap} pairs={topLiquidityPairs} />
       <View style={tailwind('flex-1')}>
         {activeTab === TabKey.AvailablePoolPair &&
           (!hasFetchedPoolpairData || isSearching) && (
@@ -266,5 +281,26 @@ export function DexScreen (): JSX.Element {
         )}
       </View>
     </>
+  )
+}
+
+function TopLiquiditySection ({ pairs, onPress }: {pairs: Array<DexItem<PoolPairData>>, onPress: (data: PoolPairData) => void}): JSX.Element {
+  return (
+    <DexScrollable
+      testID='dex_top_liquidity'
+      sectionHeading='TOP LIQUIDITY'
+      sectionStyle={tailwind('my-6')}
+    >
+      {pairs.map((pairItem, index) => (
+        <DexScrollable.Card
+          key={`${pairItem.data.id}_${index}`}
+          poolpair={pairItem.data}
+          style={tailwind('mr-2')}
+          onPress={() => onPress(pairItem.data)}
+          label={translate('screens/DexScreen', 'Swap')}
+          testID={`composite_swap_${pairItem.data.id}`}
+        />
+      ))}
+    </DexScrollable>
   )
 }
