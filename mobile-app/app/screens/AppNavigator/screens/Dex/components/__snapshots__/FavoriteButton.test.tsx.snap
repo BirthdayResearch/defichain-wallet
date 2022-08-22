@@ -15,7 +15,7 @@ exports[`Favorite Button should match snapshot 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "backgroundColor": "rgba(255, 0, 140, 1)",
+      "backgroundColor": "rgba(242, 242, 242, 1)",
       "borderBottomLeftRadius": 9999,
       "borderBottomRightRadius": 9999,
       "borderTopLeftRadius": 9999,
@@ -27,7 +27,6 @@ exports[`Favorite Button should match snapshot 1`] = `
       "width": 20,
     }
   }
-  testID="favorite_pair_1"
 >
   <RNSVGSvgView
     align="xMidYMid"
@@ -66,7 +65,7 @@ exports[`Favorite Button should match snapshot 1`] = `
     >
       <RNSVGPath
         d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-        fill={4294111986}
+        fill={4279374354}
         propList={
           Array [
             "fill",
