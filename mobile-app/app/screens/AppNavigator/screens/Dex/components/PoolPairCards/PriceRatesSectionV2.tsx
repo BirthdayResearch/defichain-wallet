@@ -75,7 +75,7 @@ const PriceRateValue = (props: { value: string, suffix: string, testID: string }
         displayType='text'
         renderText={(textValue) => (
           <ThemedTextV2
-            style={tailwind('text-sm ml-1 font-normal-v2 max-w-20')}
+            style={[tailwind('text-sm ml-1 font-normal-v2'), { maxWidth: 80 }]}
             testID={props.testID}
             ellipsizeMode='tail'
             numberOfLines={1}
