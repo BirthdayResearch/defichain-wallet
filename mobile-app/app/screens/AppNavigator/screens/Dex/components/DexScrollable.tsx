@@ -3,13 +3,13 @@ import { ScrollView, ViewStyle, StyleProp } from 'react-native'
 import { PropsWithChildren } from 'react'
 import { tailwind } from '@tailwind'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { PoolPairTextSectionV2 } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolPairTextSectionV2'
 import { View } from '@components'
 import { DexActionButton } from '@screens/AppNavigator/screens/Dex/components/DexActionButton'
 import BigNumber from 'bignumber.js'
 import NumberFormat from 'react-number-format'
 import { useUnitSuffix } from '@hooks/useUnitSuffix'
 import { translate } from '@translations'
+import { PoolPairIconV2 } from './PoolPairCards/PoolPairIconV2'
 
 interface DexScrollableProps {
   containerStyle?: StyleProp<ViewStyle>
@@ -69,10 +69,10 @@ function DexScrollableCard ({
       light={tailwind('bg-mono-light-v2-00')}
     >
       <View style={tailwind('flex flex-row items-center')}>
-        <PoolPairTextSectionV2
+        <PoolPairIconV2
           symbolA={symbolA}
           symbolB={symbolB}
-          iconSize={36}
+          customSize={36}
           iconBStyle={tailwind('-ml-4 mr-2')}
         />
         <View style={tailwind('flex flex-col')}>
@@ -116,33 +116,33 @@ function TotalLiquidityValue ({
   return (
     <>
       {isSuffixRequired
-? (
-  <ThemedTextV2
-    style={tailwind('font-semibold-v2 text-sm')}
-    dark={tailwind('text-mono-dark-v2-900')}
-    light={tailwind('text-mono-light-v2-900')}
-    testID={`${testId}-total_liquidity`}
-  >
-    {`$${valueToUnitSuffix}`}
-  </ThemedTextV2>
+        ? (
+          <ThemedTextV2
+            style={tailwind('font-semibold-v2 text-sm')}
+            dark={tailwind('text-mono-dark-v2-900')}
+            light={tailwind('text-mono-light-v2-900')}
+            testID={`${testId}-total_liquidity`}
+          >
+            {`$${valueToUnitSuffix}`}
+          </ThemedTextV2>
         )
-: (
-  <NumberFormat
-    value={value}
-    decimalScale={0}
-    thousandSeparator
-    displayType='text'
-    renderText={(val: string) => (
-      <ThemedText
-        style={tailwind('font-semibold-v2 text-sm')}
-        dark={tailwind('text-mono-dark-v2-900')}
-        light={tailwind('text-mono-light-v2-900')}
-        testID={`${testId}-total_liquidity`}
-      >
-        {val}
-      </ThemedText>
-              )}
-  />
+        : (
+          <NumberFormat
+            value={value}
+            decimalScale={0}
+            thousandSeparator
+            displayType='text'
+            renderText={(val: string) => (
+              <ThemedText
+                style={tailwind('font-semibold-v2 text-sm')}
+                dark={tailwind('text-mono-dark-v2-900')}
+                light={tailwind('text-mono-light-v2-900')}
+                testID={`${testId}-total_liquidity`}
+              >
+                {val}
+              </ThemedText>
+            )}
+          />
         )}
     </>
   )

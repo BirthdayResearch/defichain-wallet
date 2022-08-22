@@ -344,7 +344,6 @@ context('Wallet - Loans - Payback DUSD Loans', () => {
     cy.setWalletTheme(walletTheme)
     cy.go('back')
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('close_dex_guidelines').click()
     cy.getByTestID('bottom_tab_loans').click()
     cy.getByTestID('empty_vault').should('exist')
     cy.createVault(0)
