@@ -43,7 +43,7 @@ export function PlaygroundUTXO (): JSX.Element {
             light={tailwind('text-mono-light-v2-700')}
             dark={tailwind('text-mono-dark-v2-700')}
             iconType='Feather'
-            name='arrow-down-circle'
+            name='plus-circle'
             size={18}
           />
         )

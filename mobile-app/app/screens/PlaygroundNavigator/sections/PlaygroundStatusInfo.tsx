@@ -36,7 +36,8 @@ export function PlaygroundStatusInfo (): JSX.Element | null {
             {count === 0 ? '...' : count}
           </ThemedTextV2>
         )
-      }
+      },
+      testID: 'current_block_count'
     },
     {
       title: 'Block generation',

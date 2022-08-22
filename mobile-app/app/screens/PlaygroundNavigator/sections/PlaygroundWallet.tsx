@@ -124,11 +124,11 @@ export function PlaygroundWallet (): JSX.Element | null {
           <PlaygroundAction
             key={index}
             // eslint-disable-next-line react/jsx-handler-names
-            onPress={dataList.onPress} // let it be just for dfi testing. it still working
+            onPress={dataList.onPress}
             rhsChildren={dataList.rhsChildren}
             title={dataList.title}
             isLast={index === dataLists.length - 1}
-            containerStyle={tailwind('w-10/12')}
+            textStyle={tailwind('w-10/12')}
             testID={dataList.testID}
           />
         ))

@@ -71,7 +71,7 @@ export function PlaygroundOperations (): JSX.Element {
             light={tailwind('text-mono-light-v2-700')}
             dark={tailwind('text-mono-dark-v2-700')}
             iconType='Feather'
-            name='arrow-down-circle'
+            name='plus-circle'
             size={18}
           />
         )
@@ -102,7 +102,7 @@ export function PlaygroundOperations (): JSX.Element {
               <PlaygroundAction
                 key={index}
                 // eslint-disable-next-line react/jsx-handler-names
-                onPress={dataList.onPress} // let it be just for dfi testing
+                onPress={dataList.onPress}
                 rhsChildren={dataList.rhsChildren}
                 isLast={index === dataLists.length - 1}
                 title={dataList.title}

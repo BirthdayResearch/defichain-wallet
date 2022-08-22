@@ -1,19 +1,20 @@
 import { ReactElement, ReactComponentElement } from 'react'
 import { ThemedTouchableListItem, ThemedTextV2 } from '@components/themed'
-import { StyleProp, ViewStyle } from 'react-native'
+import { StyleProp, TextStyle } from 'react-native'
+import { tailwind } from '@tailwind'
 interface PlaygroundActionProps {
   title: string
   rhsChildren?: () => ReactElement | ReactComponentElement<any>
   isLast: boolean
   testID?: string
-  containerStyle?: StyleProp<ViewStyle>
+  textStyle?: StyleProp<TextStyle>
   onPress?: () => void
 }
 
-export function PlaygroundAction ({ title, isLast, testID, rhsChildren, containerStyle, onPress }: PlaygroundActionProps): JSX.Element {
+export function PlaygroundAction ({ title, isLast, testID, rhsChildren, textStyle, onPress }: PlaygroundActionProps): JSX.Element {
   return (
     <ThemedTouchableListItem isLast={isLast} testID={testID} onPress={onPress}>
-      <ThemedTextV2 style={containerStyle}>
+      <ThemedTextV2 style={[tailwind('text-sm font-normal-v2'), textStyle]}>
         {title}
       </ThemedTextV2>
       {rhsChildren?.()}
