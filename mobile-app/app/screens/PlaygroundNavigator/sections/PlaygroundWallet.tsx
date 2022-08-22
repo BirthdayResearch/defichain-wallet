@@ -25,7 +25,7 @@ export function PlaygroundWallet (): JSX.Element | null {
     {
       title: 'Clear stored mnemonic seed',
       onPress: async (): Promise<void> => {
-        clearWallets() // let it be just for dfi testing. it still working
+        clearWallets()
       },
       rhsChildren: (): JSX.Element => {
         return (
