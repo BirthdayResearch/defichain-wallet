@@ -47,7 +47,11 @@
     "Browse pool pairs": "Naviga tra i Pool-Pair",
     "Your pool pairs": "I tuoi Pool-Pair",
     "Total Value Locked (USD)": "Valore Totale Bloccato (USD)",
+    "Add to LP": "Add to LP",
     "SWAP": "SCAMBIA",
+    "Swap": "Scambia",
+    "TOP LIQUIDITY": "TOP LIQUIDITY",
+    "NEW POOLS": "NEW POOLS",
     "Swap tokens": "Token-Scambiati",
     "DETAILS": "DETTAGLI",
     "HIDE": "NASCONDERE",
@@ -62,18 +66,6 @@
     "Your shared {{symbol}}": "I tuoi shared {{symbol}}",
     "Total liquidity": "Liquidita' Totale",
     "Confirm": "Confirm"
-  },
-  "screens/DexGuidelines": {
-    "Guidelines": "Linee Guida",
-    "CONTINUE": "Continua",
-    "Decentralized Exchange": "Exchange Decentralizzato",
-    "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "Fornisci liquidita'per alimentare il DEX (Exchange Decentralizzato). Usa i tuoi token per alti rendimenti (fino al 100%).",
-    "Add liquidity": "Aggiungi Liquidita'",
-    "Swap tokens": "Scambia token",
-    "Withdraw at any time": "Preleva in ogni momento",
-    "Earn high yields by supplying token pairs to the liquidity pool.": "Ottieni rendimenti elevati fornendo coppie di token ai Liquidity Pool.",
-    "Conveniently swap participating tokens within the liquidity pool.": "Scambia comodamente i token nel Liquidity Pool.",
-    "You have full control over your tokens unlike any other.": "Solo tu hai il pieno controllo dei tuoi token."
   },
   "screens/PortfolioScreen": {
     "Balances": "Saldo",
@@ -113,7 +105,8 @@
     "Z to A": "Da Z a A",
     "AVAILABLE ASSETS": "ASSET DISPONIBILI",
     "Asset value": "Valore degli asset",
-    "Sort by": "Sort by"
+    "Sort by": "Sort by",
+    "ASSETS": "ASSETS"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Get DFI",
