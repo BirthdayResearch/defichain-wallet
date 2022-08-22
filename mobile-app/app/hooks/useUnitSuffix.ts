@@ -6,8 +6,8 @@ export function useUnitSuffix (units: Record<number, string>, value: string): st
   const suffix = ` ${units[places * 3] ?? ''}`
 
   return _value.dividedBy(Math.pow(1000, places))
-          .toFormat(2, {
-            decimalSeparator: '.',
-            suffix: suffix
-          })
+    .toFormat(2, {
+      decimalSeparator: '.',
+      suffix: suffix
+    })
 }

@@ -117,33 +117,33 @@ function TotalLiquidityValue ({
   return (
     <>
       {isSuffixRequired
-? (
-  <ThemedTextV2
-    style={tailwind('font-semibold-v2 text-sm')}
-    dark={tailwind('text-mono-dark-v2-900')}
-    light={tailwind('text-mono-light-v2-900')}
-    testID={`${testId}-total_liquidity`}
-  >
-    {`$${valueToUnitSuffix}`}
-  </ThemedTextV2>
+        ? (
+          <ThemedTextV2
+            style={tailwind('font-semibold-v2 text-sm')}
+            dark={tailwind('text-mono-dark-v2-900')}
+            light={tailwind('text-mono-light-v2-900')}
+            testID={`${testId}-total_liquidity`}
+          >
+            {`$${valueToUnitSuffix}`}
+          </ThemedTextV2>
         )
-: (
-  <NumberFormat
-    value={value}
-    decimalScale={0}
-    thousandSeparator
-    displayType='text'
-    renderText={(val: string) => (
-      <ThemedText
-        style={tailwind('font-semibold-v2 text-sm')}
-        dark={tailwind('text-mono-dark-v2-900')}
-        light={tailwind('text-mono-light-v2-900')}
-        testID={`${testId}-total_liquidity`}
-      >
-        {val}
-      </ThemedText>
-              )}
-  />
+        : (
+          <NumberFormat
+            value={value}
+            decimalScale={0}
+            thousandSeparator
+            displayType='text'
+            renderText={(val: string) => (
+              <ThemedText
+                style={tailwind('font-semibold-v2 text-sm')}
+                dark={tailwind('text-mono-dark-v2-900')}
+                light={tailwind('text-mono-light-v2-900')}
+                testID={`${testId}-total_liquidity`}
+              >
+                {val}
+              </ThemedText>
+            )}
+          />
         )}
     </>
   )
