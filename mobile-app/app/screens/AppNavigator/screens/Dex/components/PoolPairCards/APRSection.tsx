@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { isEqual } from 'lodash'
 import { tailwind } from '@tailwind'
-import { ThemedText } from '@components/themed'
+import { ThemedTextV2 } from '@components/themed'
 
 interface APRSectionProps {
   label: string
@@ -18,29 +18,29 @@ interface APRSectionProps {
 export const APRSection = memo((props: APRSectionProps): JSX.Element => {
   return (
     <View style={tailwind(
-      'py-1 px-2 items-center border border-gray-200 rounded break-words'
+      'flex flex-col items-end'
     )}
     >
-      <ThemedText
-        dark={tailwind('text-gray-400')}
-        light={tailwind('text-gray-500')}
-        style={tailwind('text-xs font-normal')}
+      <ThemedTextV2
+        dark={tailwind('text-green-v2')}
+        light={tailwind('text-green-v2')}
+        style={tailwind('text-sm font-normal-v2 uppercase')}
       >
         {props.label}
-      </ThemedText>
+      </ThemedTextV2>
       <NumberFormat
         decimalScale={props.value.decimalScale}
         displayType='text'
         renderText={(value) => (
-          <ThemedText
-            style={tailwind('text-sm font-semibold')}
-            light={tailwind('text-success-600')}
-            dark={tailwind('text-darksuccess-600')}
+          <ThemedTextV2
+            style={tailwind('text-sm font-normal-v2')}
+            dark={tailwind('text-green-v2')}
+            light={tailwind('text-green-v2')}
             testID={props.value.testID}
 
           >
             {value}
-          </ThemedText>
+          </ThemedTextV2>
         )}
         thousandSeparator
         suffix={props.value.suffix}

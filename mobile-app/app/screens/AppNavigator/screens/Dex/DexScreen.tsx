@@ -26,7 +26,6 @@ import { debounce } from 'lodash'
 import { ButtonGroupTabKey, PoolPairCards } from './components/PoolPairCards/PoolPairCards'
 import { SwapButton } from './components/SwapButton'
 import { DexScrollable } from '@screens/AppNavigator/screens/Dex/components/DexScrollable'
-import { PoolPairCardsV2 } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolPairCardsV2'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -256,7 +255,7 @@ export function DexScreen (): JSX.Element {
         {activeTab === TabKey.AvailablePoolPair &&
             hasFetchedPoolpairData &&
             !isSearching && (
-              <PoolPairCardsV2
+              <PoolPairCards
                 availablePairs={filteredAvailablePairs}
                 yourPairs={yourLPTokens}
                 onAdd={onAdd}
