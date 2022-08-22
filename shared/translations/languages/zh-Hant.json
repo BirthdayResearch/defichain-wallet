@@ -49,6 +49,8 @@
     "Total Value Locked (USD)": "總體價值鎖定 (美元)",
     "Swap tokens": "兌換貨幣",
     "SWAP": "兌換",
+    "Swap": "兌換",
+    "TOP LIQUIDITY": "最高流動性",
     "DETAILS": "詳情",
     "HIDE": "隱藏",
     "Total Value Locked in pool pairs (USD): ": "鎖定在池對中的總價值 (美元): ",
@@ -61,18 +63,6 @@
     "Available pool pairs": "可選流動池",
     "Your shared {{symbol}}": "您的股份 {{symbol}}",
     "Confirm": "Confirm"
-  },
-  "screens/DexGuidelines": {
-    "Guidelines": "使用指南",
-    "CONTINUE": "繼續",
-    "Decentralized Exchange": "去中心化交易所",
-    "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "將您的貨幣提供給 DEX 去中心化交易所，並獲得高達三位數百分比的年回報率",
-    "Add liquidity": "增加流動資金",
-    "Swap tokens": "兌換貨幣",
-    "Withdraw at any time": "隨時能從流動性池中取出貨幣",
-    "Earn high yields by supplying token pairs to the liquidity pool.": "提供流動池配對貨幣並獲得高回報率",
-    "Conveniently swap participating tokens within the liquidity pool.": "方便地在流動池裡兌換貨幣",
-    "You have full control over your tokens unlike any other.": "您能完全掌控貨幣"
   },
   "screens/PortfolioScreen": {
     "Balances": "我的資產",
@@ -108,7 +98,8 @@
     "Z to A": "Z 到 A",
     "AVAILABLE ASSETS": "可用資產",
     "Asset value": "資產價值",
-    "Sort by": "Sort by"
+    "Sort by": "Sort by",
+    "ASSETS": "ASSETS"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "獲取 DFI",
