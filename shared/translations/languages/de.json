@@ -108,7 +108,8 @@
     "Z to A": "Z bis A",
     "AVAILABLE ASSETS": "VERFÜGBARE AKTIVA",
     "Asset value": "Wert der Aktiva",
-    "Sort by": "Sortieren nach"
+    "Sort by": "Sortieren nach",
+    "ASSETS": "AKTIVA"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "DFI erhalten",
@@ -771,7 +772,7 @@
     "{{amount}} DFI converted to {{symbolB}}": "{{amount}}-DFI umgewandelt in {{symbolB}}",
     "Preparing your transaction…": "Deine Transaktion vorbereiten…",
     "Processing future swap transaction…": "Verarbeiten der Future Swap-Transaktion…",
-    "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap bestätigt und wird im Block #{{{block}} ausgeführt",
+    "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap bestätigt und wird im Block #{{block}} ausgeführt",
     "Preparing changes to loan scheme…": "Änderungen am Darlehensmodell vorbereiten…",
     "Saving changes to loan scheme…": "Änderungen am Darlehensmodell speichern…",
     "Loan scheme saved": "Darlehensmodell gespeichert",
