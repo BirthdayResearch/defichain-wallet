@@ -65,8 +65,9 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
       >
         <ThemedTextV2
           style={tailwind('text-center font-normal-v2 pt-1.5 px-10', { 'mb-16 pb-3': props.status === TransactionStatus.PIN })}
+          testID='txn_authorization_title'
         >
-          {props.title}
+          {props.transaction?.title ?? props.title}
         </ThemedTextV2>
         {props.status === TransactionStatus.SIGNING &&
           <>
@@ -188,7 +189,7 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
       name={props.promptModalName}
       ref={props.modalRef}
       snapPoints={getSnapPoints()}
-      handleComponent={null}
+      handleComponent={EmptyHandleComponent}
       backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
         <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
       )}
@@ -214,6 +215,10 @@ export const PasscodePrompt = React.memo((props: PasscodePromptProps): JSX.Eleme
   )
 })
 
+const EmptyHandleComponent = (): JSX.Element => {
+  return <View />
+}
+
 function SuccessIndicator (): JSX.Element {
   return (
     <View style={tailwind('flex flex-col items-center py-4.5 mb-0.5')}>
@@ -229,7 +234,7 @@ function SuccessIndicator (): JSX.Element {
   )
 }
 
-function ReadOnlyPinInput ({ pinLength, pin }: {pinLength: number, pin: string}): JSX.Element {
+function ReadOnlyPinInput ({ pinLength, pin }: { pinLength: number, pin: string }): JSX.Element {
   return (
     <PinTextInputV2
       cellCount={pinLength}

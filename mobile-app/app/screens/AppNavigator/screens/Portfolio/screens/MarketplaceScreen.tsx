@@ -16,8 +16,6 @@ import Bitrue from '@assets/images/exchanges/Bitrue.png'
 import Latoken from '@assets/images/exchanges/Latoken.png'
 import DFX from '@assets/images/exchanges/DFX.png'
 import Transak from '@assets/images/exchanges/Transak.png'
-import Hotbit from '@assets/images/exchanges/Hotbit.png'
-import Hoo from '@assets/images/exchanges/Hoo.png'
 import EasyCrypto from '@assets/images/exchanges/EasyCrypto.png'
 import CakeDeFi from '@assets/images/exchanges/CakeDeFi.png'
 import Bybit from '@assets/images/exchanges/Bybit.png'
@@ -59,14 +57,6 @@ const exchanges: ExchangeProps[] = [
     name: 'Transak',
     image: Transak,
     url: 'https://global.transak.com/'
-  }, {
-    name: 'Hotbit',
-    image: Hotbit,
-    url: 'https://www.hotbit.io/exchange?symbol=DFI_USDT'
-  }, {
-    name: 'Hoo',
-    image: Hoo,
-    url: 'https://hoo.com/innovation/dfi-usdt'
   }, {
     name: 'EasyCrypto (Australia)',
     image: EasyCrypto,

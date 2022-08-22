@@ -60,19 +60,8 @@
     "ADD": "AÑADIR",
     "Prices": "Precios",
     "Available pool pairs": "Pares del pool disponibles",
-    "Your shared {{symbol}}": "Tus activos compartidos {{symbol}}"
-  },
-  "screens/DexGuidelines": {
-    "Guidelines": "Instrucciones",
-    "CONTINUE": "CONTINUAR",
-    "Decentralized Exchange": "Exchange descentralizado",
-    "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "Participa añadiendo liquidez para apoyar al Exchange descentralizado (DEX). Utiliza tus tokens para ganar comisiones (hasta un 140%)",
-    "Add liquidity": "Añadir liquidez",
-    "Swap tokens": "Intercambia tokens",
-    "Withdraw at any time": "Retira dinero en cualquier momento",
-    "Earn high yields by supplying token pairs to the liquidity pool.": "Obtenga alta rentabilidad aportando parejas de tokens a la piscina de liquidez.",
-    "Conveniently swap participating tokens within the liquidity pool.": "Intercambia cómodamente los tokens de la piscina de liqiudez.",
-    "You have full control over your tokens unlike any other.": "Solo tú posees absoluto control de tus tokens."
+    "Your shared {{symbol}}": "Tus activos compartidos {{symbol}}",
+    "Confirm": "Confirm"
   },
   "screens/PortfolioScreen": {
     "Balances": "Saldos",
@@ -110,7 +99,8 @@
     "Z to A": "Z a A",
     "AVAILABLE ASSETS": "ACTIVOS DISPONIBLES",
     "Asset value": "Valor del activo",
-    "Sort by": "Sort by"
+    "Sort by": "Sort by",
+    "ASSETS": "ASSETS"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Obtener DFI",
@@ -255,9 +245,23 @@
     "Select a token you want to send to get started": "Selecciona el token que quieres enviar para empezar",
     "Choose token to send": "Selecciona un token para enviar",
     "TRANSACTION DETAILS": "Detalles de la transacción",
-    "*Registered address": "Direcciones registradas"
+    "*Registered address": "Direcciones registradas",
+    "There is a minimal fee for the transaction": "Hay una tarifa mínima para esta transacción",
+    "A small amount of UTXO is reserved for fees": "A small amount of UTXO is reserved for fees",
+    "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds": "Asegúrate de mandar tus LP tokens solo a billeteras compatibles con DeFiChain. No hacerlo puede resultar en la perdida irreversible de fondos",
+    "Insufficient balance": "Balance insuficiente",
+    "SEND TO": "ENVIAR A",
+    "Paste address": "Pegar dirección",
+    "I WANT TO SEND": "QUIERO ENVIAR",
+    "Review full details in the next screen": "Revisa todos los detalles en la próxima pantalla",
+    "Verified": "Verificado",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "By continuing, the required amount of DFI will be converted": "Si continuas, la cantidad requerida de DFI será convertida",
+    "Invalid address. Make sure the address is correct to avoid irrecoverable losses": "Dirección invalida. Asegúrate de que la dirección es correcta para evitar la perdida irreversible de fondos"
   },
   "screens/SendConfirmationScreen": {
+    "Confirm": "Confirm",
     "Confirm Send": "Confirmar envío",
     "CONFIRM SEND": "CONFIRMAR ENVÍO",
     "You are sending": "Estas enviando",
@@ -276,9 +280,24 @@
     "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "Manda Liquidity Pool tokens solo a direcciones de DeFiChain. Enviar los tokens a un exchange o entidad central resultará en la pérdida irreversible de los fondos.",
     "I acknowledge that sending Liquidity Pool tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "Yo reconozco que enviando tokens de liquidez que no son compatibles con billeteras DeFiChain puede resultar en una pérdida irreversible de los fondos.",
     "Transaction type": "Tipo de transacción",
-    "Amount to send": "Cantidad a enviar"
+    "Amount to send": "Cantidad a enviar",
+    "Converting": "Converting",
+    "Converted": "Convertido",
+    "Transaction fee": "Transaction fee",
+    "Amount to convert": "Amount to convert",
+    "Send": "Send",
+    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Sending {{amount}} {{displaySymbol}} to {{toAddress}}",
+    "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "Confirmo que comprendo que mandando LP tokens a billeteras que no son compatibles con DeFiChain puede resultar en la perdida irreversible de fondos."
+  },
+  "screens/TokenSelectionScreen": {
+    "Search token": "Search token",
+    "No assets found": "No se encontraron activos",
+    "Add assets to get started": "Añade activos para empezar",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
+    "AVAILABLE": "AVAILABLE"
   },
   "screens/ConvertScreen": {
+    "Convert": "Convertir",
     "Convert DFI": "Convertir DFI",
     "Scan recipient QR": "Escanear código QR del receptor",
     "Balance": "Saldo",
@@ -292,9 +311,19 @@
     "Review full transaction details in the next screen": "Revisa todos los detalles de la transacción en el próximo paso",
     "Estimated fee": "Comisión estimada",
     "You will have": "Recibirás",
-    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN"
+    "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCIÓN",
+    "I WANT TO CONVERT": "I WANT TO CONVERT",
+    "Insufficient balance": "Insufficient balance",
+    "Available: ": "Disponible: ",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "A small amount of UTXO is reserved for fees": "Una cantidad pequeña de UTXO es reservada para las tarifas",
+    "Available {{unit}}": "Disponible {{unit}}",
+    "Resulting {{unit}}": "Resultando {{unit}}"
   },
   "screens/ConvertConfirmScreen": {
+    "Confirm": "Confirm",
     "Confirm DFI Conversion": "Confirme la conversión de DFIs",
     "You are converting": "Estás convirtiendo",
     "AFTER CONVERSION, YOU WILL HAVE": "TRAS LA CONVERSIÓN, RECIBIRÁS",
@@ -307,7 +336,12 @@
     "Transaction type": "Tipo de transacción",
     "Convert": "Convertir",
     "{{token}} to receive": "{{token}} a recibir",
-    "CONFIRM TRANSACTION": "CONFIRMAR TRANSACCIÓN"
+    "CONFIRM TRANSACTION": "CONFIRMAR TRANSACCIÓN",
+    "You are converting to {{unit}}": "You are converting to {{unit}}",
+    "Transaction fee": "Transaction fee",
+    "Resulting Tokens": "Resultando Tokens",
+    "Resulting UTXO": "Resultando UTXO",
+    "Convert {{amount}} DFI to {{target}}": "Convirtiendo {{amount}} DFI a {{target}}"
   },
   "screens/SettingsNavigator": {
     "Settings": "Configuración"
@@ -705,8 +739,8 @@
     "Swapping tokens…": "Swapping tokens…",
     "Tokens swapped": "Tokens swapped",
     "Preparing to send…": "Preparing to send…",
-    "Sending tokens…": "Sending tokens…",
-    "Tokens sent": "Tokens sent",
+    "Sending {{amount}} {{displaySymbol}}": "Sending {{amount}} {{displaySymbol}}",
+    "{{amount}} {{displaySymbol}} sent": "{{amount}} {{displaySymbol}} sent",
     "Preparing loan…": "Preparing loan…",
     "Processing loan…": "Processing loan…",
     "Loan processed": "Loan processed",
@@ -716,12 +750,16 @@
     "Preparing to add liquidity…": "Preparing to add liquidity…",
     "Adding tokens to liquidity pool…": "Adding tokens to liquidity pool…",
     "Added tokens to liquidity pool": "Added tokens to liquidity pool",
+    "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool": "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool",
+    "Added {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool": "Added {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool",
     "Preparing to remove collaterals…": "Preparing to remove collaterals…",
     "Removing collaterals from vault…": "Removing collaterals from vault…",
     "Collaterals removed": "Collaterals removed",
     "Preparing to remove liquidity…": "Preparing to remove liquidity…",
     "Removing tokens from liquidity pool…": "Removing tokens from liquidity pool…",
     "Removed tokens from liquidity pool": "Removed tokens from liquidity pool",
+    "Removing {{symbol}} from liquidity pool": "Removing {{symbol}} from liquidity pool",
+    "Removed {{amount}} {{symbol}} from liquidity pool": "Removed {{amount}} {{symbol}} from liquidity pool",
     "Preparing loan payment…": "Preparing loan payment…",
     "Processing loan payment…": "Processing loan payment…",
     "Payment completed": "Payment completed",
@@ -737,6 +775,8 @@
     "Preparing to convert…": "Preparing to convert…",
     "Converting {{symbolA}} to {{symbolB}}": "Convirtiendo {{symbolA}} a {{symbolB}}",
     "Conversion completed": "Conversion completed",
+    "Converting {{amount}} DFI {{symbolA}} to {{symbolB}}": "Converting {{amount}} DFI {{symbolA}} to {{symbolB}}",
+    "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI converted to {{symbolB}}",
     "Preparing your transaction…": "Preparing your transaction…",
     "Processing future swap transaction…": "Processing future swap transaction…",
     "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap confirmed and will be executed at block #{{block}}",
@@ -758,7 +798,11 @@
   "screens/common": {
     "CANCEL": "CANCELA",
     "Cancel": "Cancela",
-    "TRY AGAIN": "VOLVER A INTENTAR"
+    "TRY AGAIN": "VOLVER A INTENTAR",
+    "From": "De",
+    "To": "A",
+    "Converting": "Convirtiendo",
+    "Converted": "Converted"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Crea una nueva contraseña para tu billetera",
@@ -785,7 +829,20 @@
     "UTXO to be converted": "UTXO que se van a convertir",
     "Authorize transaction in the next screen to convert": "Autoriza la transacción en la siguiente pantalla para la conversión",
     "Estimated fee": "Comisión estimada",
-    "Pooled {{symbol}}": "{{symbol}} en la piscina"
+    "Pooled {{symbol}}": "Pooled {{symbol}",
+    "View pool share": "View pool share",
+    "View pool info": "View pool info",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Insufficient balance": "Insufficient balance",
+    "APR": "APR",
+    "Shares to add": "Shares to add",
+    "Volume (24H):": "Volume (24H)",
+    "Total liquidity": "Total liquidity",
+    "Tokens in {{symbol}}": "Tokens in {{symbol}}",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "I WANT TO ADD": "I WANT TO ADD",
+    "LP Tokens to receive": "LP Tokens to receive"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "Estás añadiendo",
@@ -799,13 +856,23 @@
     "ADDING": "Añadiendo",
     "Pooled {{symbol}}": "{{symbol}} en la piscina",
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "Añadiendo {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}",
+    "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool": "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool",
     "PRICE DETAILS": "DETALLES DEL PRECIO",
     "{{tokenA}} price per {{tokenB}}": "{{tokenA}} precio por {{tokenB}}",
     "Your pooled {{symbol}}": "Tus {{symbol}} en la pool",
     "Transaction type": "Tipo de transacción",
     "Add liquidity": "Añadir liquidez",
     "Convert & add liquidity": "Convertir y Añadir Liquidez",
-    "CONFIRM ADD LIQUIDITY": "CONFIRMAR Y AÑADIR LIQUIDEZ"
+    "CONFIRM ADD LIQUIDITY": "CONFIRMAR Y AÑADIR LIQUIDEZ",
+    "Your LP Tokens": "Your LP Tokens",
+    "You will receive LP tokens": "You will receive LP tokens",
+    "Amount to convert": "Amount to convert",
+    "Transaction fee": "Transaction fee",
+    "Resulting pool share": "Resulting pool share",
+    "{{token}} to supply": "{{token}} to supply",
+    "Resulting LP tokens": "Resulting LP tokens",
+    "Confirm": "Confirm",
+    "Pool share": "Pool share"
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "Tu estás eliminando",
@@ -820,7 +887,12 @@
     "{{tokenA}} price in {{tokenB}}": "{{tokenA}} precio en {{tokenB}}",
     "{{tokenB}} price in {{tokenA}}": "{{tokenB}} precio en {{tokenA}}",
     "Transaction type": "Tipo de transacción",
-    "Remove liquidity": "Eliminar liquidez"
+    "Remove liquidity": "Eliminar liquidez",
+    "You are removing LP tokens": "You are removing LP tokens",
+    "Transaction fee": "Transaction fee",
+    "Resulting pool share": "Resulting pool share",
+    "LP tokens to remove": "LP tokens to remove",
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "Eliminando liquidez",
@@ -832,13 +904,23 @@
     "Removing {{amount}} {{symbol}}": "Eliminando {{amount}} {{symbol}}",
     "Review full transaction details in the next screen": "Revisa los detalles completos de la transacción en la siguiente pantalla",
     "PRICE DETAILS": "DETALLES DEL PRECIO",
+    "View pool share": "View pool share",
     "{{symbolA}} per {{symbolB}}": "{{symbolA}} por {{symbolB}}",
     "{{symbolB}} per {{symbolA}}": "{{symbolB}} por {{symbolA}}",
     "{{tokenA}} price in {{tokenB}}": "{{tokenA}} precio en {{tokenB}}",
     "{{tokenB}} price in {{tokenA}}": "{{tokenB}} precio en {{tokenA}}",
     "Drag or enter amount to remove": "Arrastra o introduce una cantidad a eliminar",
     "You are removing": "Eliminando",
-    "from liquidity pool": "de la piscina de liquidez"
+    "from liquidity pool": "de la piscina de liquidez",
+    "I WANT TO REMOVE": "I WANT TO REMOVE",
+    "Your LP Tokens": "Your LP Tokens",
+    "Tokens in {{token}}": "Tokens in {{token}}",
+    "{{token}} to receive": "{{token}} to receive",
+    "LP tokens to remove": "LP tokens to remove",
+    "Available": "Disponible",
+    "Insufficient balance": "Insufficient balance",
+    "Max available LP tokens entered": "Max available LP tokens entered",
+    "{{percent}} of available LP tokens entered": "{{percent}} of available LP tokens entered"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "Red de la billetera",
@@ -860,7 +942,8 @@
     "Max": "Máximo"
   },
   "components/Button": {
-    "CONTINUE": "CONTINUA"
+    "CONTINUE": "CONTINUA",
+    "Continue": "Continua"
   },
   "screens/SlippageTolerance": {
     "Custom": "Personalizado",
@@ -1079,7 +1162,9 @@
     "As Token": "Como Token",
     "Your pool shares": "Your pool shares",
     "Shares in {{token}}": "Shares in {{token}}",
-    "Learn more about DFI": "Aprende mas sobre DFI"
+    "Learn more about DFI": "Aprende mas sobre DFI",
+    "Your LP tokens": "Your LP Tokens",
+    "Tokens in {{token}}": "Tokens in {{token}}"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "Una pequeña cantidad de UTXO (0.1 DFI) se reserva para las comisiones."

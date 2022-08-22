@@ -8,9 +8,6 @@ function setupWalletForConversion (): void {
     .wait(5000)
 
   cy.getByTestID('bottom_tab_dex').click().wait(3000)
-  cy.getByTestID('close_dex_guidelines').click()
-
-  cy.getByTestID('bottom_tab_dex').click().wait(3000)
   cy.getByTestID('composite_swap').click().wait(3000)
   cy.getByTestID('token_select_button_FROM').should('exist').click()
   cy.wait(3000)
@@ -23,7 +20,6 @@ context('Wallet - DEX - Swap without balance', () => {
   before(function () {
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('close_dex_guidelines').click()
   })
 
   it('should disable token selection on pool pair w/o balance', function () {
@@ -128,7 +124,6 @@ context('Wallet - DEX - Composite Swap with disabled pool pairs', () => {
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('close_dex_guidelines').click()
   })
 
   it('should disable pool swap button if pair is disabled on API', function () {
@@ -145,7 +140,6 @@ context('Wallet - DEX - Composite Swap without balance', () => {
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('close_dex_guidelines').click()
   })
 
   it('should disable token selection on pool pair w/o balance', function () {
@@ -165,7 +159,6 @@ context('Wallet - DEX - Composite Swap with balance', () => {
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('close_dex_guidelines').click()
   })
 
   it('should be able to choose tokens to swap', function () {
@@ -280,7 +273,6 @@ context('Wallet - DEX - Composite Swap with balance Confirm Txn', () => {
     cy.fetchWalletBalance()
     cy.getByTestID('bottom_tab_portfolio').click()
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('close_dex_guidelines').click()
   })
 
   it('should be able to swap tokens with 2 hops', function () {
@@ -383,7 +375,6 @@ context('Wallet - DEX - Pool Pair failed api', () => {
       }
     })
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('close_dex_guidelines').click()
     cy.getByTestID('pool_pair_row').should('not.exist')
   })
 })
@@ -406,8 +397,8 @@ context('Wallet - DEX - Composite Swap with Conversion', () => {
   it('should trigger convert and swap token', function () {
     cy.getByTestID('text_input_tokenA').type('11.00000000')
     cy.getByTestID('button_confirm_submit').click().wait(3000)
-    cy.getByTestID('txn_authorization_description')
-      .contains(`Converting ${new BigNumber('1').toFixed(8)} UTXO to DFI`)
+    cy.getByTestID('txn_authorization_title')
+      .contains(`Convert ${new BigNumber('1').toFixed(8)} DFI to tokens`)
     cy.closeOceanInterface().wait(3000)
     cy.getByTestID('conversion_tag').should('exist')
 

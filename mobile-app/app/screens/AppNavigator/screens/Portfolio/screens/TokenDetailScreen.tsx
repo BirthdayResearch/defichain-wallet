@@ -10,7 +10,6 @@ import { tokensSelector, WalletToken, unifiedDFISelector, DFITokenSelector, DFIU
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { View } from '@components'
-import { getNativeIcon } from '@components/icons/assets'
 import {
   IconName,
   IconType,
@@ -31,9 +30,8 @@ import { InfoTextLinkV2 } from '@components/InfoTextLink'
 import { TokenBreakdownDetailsV2 } from '../components/TokenBreakdownDetailsV2'
 import { getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
 import { PortfolioButtonGroupTabKey } from '../components/TotalPortfolio'
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { ThemedTouchableListItem } from '@components/themed/ThemedTouchableListItem'
-import { PoolPairTextSectionV2 } from '../../Dex/components/PoolPairCards/PoolPairTextSectionV2'
+import { TokenIcon } from '../components/TokenIcon'
 
 interface TokenActionItems {
   title: string
@@ -114,13 +112,15 @@ export function TokenDetailScreen ({
 
   const onNavigateLiquidity = ({
     destination,
-    pair
-  }: { destination: 'AddLiquidity' | 'RemoveLiquidity', pair: PoolPairData }): void => {
+    pair,
+    token
+  }: { destination: 'AddLiquidity' | 'RemoveLiquidity', pair: PoolPairData, token: WalletToken }): void => {
     navigation.navigate(translate('BottomTabNavigator', 'Portfolio'), {
       screen: destination,
       initial: false,
       params: {
-        pair
+        pair,
+        pairInfo: token
       },
       merge: true
     })
@@ -255,7 +255,8 @@ export function TokenDetailScreen ({
                   iconType='Feather'
                   onPress={() => onNavigateLiquidity({
                     destination: 'RemoveLiquidity',
-                    pair
+                    pair,
+                    token
                   })}
                   testID='remove_liquidity_button'
                   title={translate('screens/TokenDetailScreen', 'Remove liquidity')}
@@ -268,7 +269,8 @@ export function TokenDetailScreen ({
                   iconType='Feather'
                   onPress={() => onNavigateLiquidity({
                     destination: 'AddLiquidity',
-                    pair
+                    pair,
+                    token
                   })}
                   testID='add_liquidity_button'
                   title={translate('screens/TokenDetailScreen', 'Add liquidity')}
@@ -284,7 +286,8 @@ export function TokenDetailScreen ({
                   <ButtonV2
                     onPress={() => onNavigateLiquidity({
                       destination: 'AddLiquidity',
-                      pair
+                      pair,
+                      token
                     })}
                     testID='add_liquidity_button'
                     label={translate('screens/TokenDetailScreen', 'Add liquidity')}
@@ -324,10 +327,6 @@ export function TokenDetailScreen ({
 
 function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount: BigNumber }): JSX.Element {
   const { denominationCurrency } = useDenominationCurrency()
-  const Icon = getNativeIcon(props.token.displaySymbol)
-  // To display dark pink DFI symbol for LP tokens
-  const DFIIcon = getNativeIcon('_UTXO')
-  const isDFIToken = props.token.displaySymbol === 'DFI'
   const { getTokenUrl } = useDeFiScanContext()
   const onTokenUrlPressed = async (): Promise<void> => {
     const id = (props.token.id === '0_utxo' || props.token.id === '0_unified') ? 0 : props.token.id
@@ -338,17 +337,6 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
   const DFIUnified = useSelector((state: RootState) => unifiedDFISelector(state.wallet))
   const { getTokenPrice } = useTokenPrice(denominationCurrency) // input based on selected denomination from portfolio tab
   const dfiUsdAmount = getTokenPrice(DFIUnified.symbol, new BigNumber(DFIUnified.amount), DFIUnified.isLPS)
-  const isTokenPair = props.token.displaySymbol.includes('-')
-
-  const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet)
-  const poolPairData = pairs.find(
-    (pr) => pr.data.symbol === (props.token as AddressToken).symbol
-  )
-  const mappedPair = poolPairData?.data
-  const [symbolA, symbolB] =
-    mappedPair?.tokenA != null && mappedPair?.tokenB != null
-      ? [mappedPair.tokenA.displaySymbol, mappedPair.tokenB.displaySymbol]
-      : props.token.symbol.split('-')
 
   return (
     <ThemedViewV2
@@ -357,24 +345,13 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
       style={tailwind('pt-8 pb-5 mx-5', { 'border-b-0.5': props.border })}
     >
       <View style={tailwind('flex-row items-center')}>
-        {
-          isTokenPair && (
-            <PoolPairTextSectionV2
-              symbolA={symbolA}
-              symbolB={symbolB}
-            />
-          )
-        }
-        {
-          isDFIToken && (
-            <DFIIcon height={40} width={40} />
-          )
-        }
-        {
-          !isTokenPair && !isDFIToken && (
-            <Icon height={40} width={40} />
-          )
-        }
+        <TokenIcon
+          token={{
+            isLPS: props.token.isLPS,
+            displaySymbol: props.token.displaySymbol
+          }}
+          size={40}
+        />
         <View style={tailwind('flex-col ml-3')}>
           <ThemedTextV2
             style={tailwind('font-semibold-v2')}
@@ -406,7 +383,7 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
           </TouchableOpacity>
         </View>
         {
-          isTokenPair
+          props.token.isLPS
             ? (
               <></>
             )
@@ -433,7 +410,7 @@ function TokenSummary (props: { token: WalletToken, border?: boolean, usdAmount:
                   suffix={denominationCurrency !== PortfolioButtonGroupTabKey.USDT ? ` ${denominationCurrency}` : undefined}
                   renderText={(value) => (
                     <ThemedTextV2
-                      style={tailwind('flex-wrap mr-1 text-sm font-normal-v2 text-right')}
+                      style={tailwind('flex-wrap text-sm font-normal-v2 text-right')}
                       light={tailwind('text-mono-light-v2-700')}
                       dark={tailwind('text-mono-dark-v2-700')}
                       testID='token_detail_usd_amount'

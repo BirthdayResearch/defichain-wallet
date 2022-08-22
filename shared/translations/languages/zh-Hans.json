@@ -59,19 +59,8 @@
     "ADD": "增加",
     "Prices": "价格",
     "Available pool pairs": "可选流动池",
-    "Your shared {{symbol}}": "您的股份 {{symbol}}"
-  },
-  "screens/DexGuidelines": {
-    "Guidelines": "使用指南",
-    "CONTINUE": "继续",
-    "Decentralized Exchange": "去中心化交易所",
-    "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "将您的货币提供给 DEX 去中心化交易所，并获得高达三位数百分比的年回报率",
-    "Add liquidity": "增加流动资金",
-    "Swap tokens": "兑换货币",
-    "Withdraw at any time": "随时能从流动性池中取出货币",
-    "Earn high yields by supplying token pairs to the liquidity pool.": "提供流动池配对货币并获得高回报率",
-    "Conveniently swap participating tokens within the liquidity pool.": "方便地在流动池里兑换货币",
-    "You have full control over your tokens unlike any other.": "您能完全掌控货币"
+    "Your shared {{symbol}}": "您的股份 {{symbol}}",
+    "Confirm": "确认"
   },
   "screens/PortfolioScreen": {
     "Balances": "我的资产",
@@ -107,7 +96,8 @@
     "Z to A": "Z 到 A",
     "AVAILABLE ASSETS": "可用资产",
     "Asset value": "资产价值",
-    "Sort by": "Sort by"
+    "Sort by": "Sort by",
+    "ASSETS": "ASSETS"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "获取 DFI",
@@ -246,9 +236,23 @@
     "Select a token you want to send to get started": "若要开始，请先选您想发出的代币",
     "Choose token to send": "选择发出此代币",
     "TRANSACTION DETAILS": "交易明细",
-    "*Registered address": "*已注册地址"
+    "*Registered address": "*已注册地址",
+    "There is a minimal fee for the transaction": "There is a minimal fee for the transaction",
+    "A small amount of UTXO is reserved for fees": "A small amount of UTXO is reserved for fees",
+    "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds": "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds",
+    "Insufficient balance": "Insufficient balance",
+    "SEND TO": "SEND TO",
+    "Paste address": "Paste address",
+    "I WANT TO SEND": "I WANT TO SEND",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Verified": "Verified",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "Invalid address. Make sure the address is correct to avoid irrecoverable losses": "Invalid address. Make sure the address is correct to avoid irrecoverable losses"
   },
   "screens/SendConfirmationScreen": {
+    "Confirm": "确认",
     "Confirm Send": "确认发出",
     "CONFIRM SEND": "确认发出",
     "You are sending": "您正要发出资金",
@@ -266,9 +270,24 @@
     "Convert & send": "转换并发送",
     "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "请注意，流动性挖矿的代币只能发送到其他递飞链钱包地址。若您发送到其他交易所或不支持递飞链流动性池代币的平台会导致无法还原的资金损失。",
     "Transaction type": "交易类型",
-    "Amount to send": "发送金额"
+    "Amount to send": "发送金额",
+    "Converting": "Converting",
+    "Converted": "Converted",
+    "Transaction fee": "Transaction fee",
+    "Amount to convert": "Amount to convert",
+    "Send": "Send",
+    "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "发送 {{amount}} {{displaySymbol}} 到 {{toAddress}}",
+    "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds."
+  },
+  "screens/TokenSelectionScreen": {
+    "Search token": "搜索代币",
+    "No assets found": "No assets found",
+    "Add assets to get started": "Add assets to get started",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
+    "AVAILABLE": "AVAILABLE"
   },
   "screens/ConvertScreen": {
+    "Convert": "转换",
     "Convert DFI": "转换DFI",
     "Scan recipient QR": "扫一扫收方地址QR二维条码",
     "Balance": "总资金",
@@ -282,9 +301,19 @@
     "Review full transaction details in the next screen": "请在下一步确认交易明细",
     "Estimated fee": "所需费用(大约)",
     "You will have": "你将会收到",
-    "TRANSACTION DETAILS": "交易明细"
+    "TRANSACTION DETAILS": "交易明细",
+    "I WANT TO CONVERT": "I WANT TO CONVERT",
+    "Insufficient balance": "Insufficient balance",
+    "Available: ": "可转换资金: ",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "A small amount of UTXO is reserved for fees": "保留少量 UTXO 用于交易费用",
+    "Available {{unit}}": "可转换资金 {{unit}}",
+    "Resulting {{unit}}": "转换后 {{unit}}"
   },
   "screens/ConvertConfirmScreen": {
+    "Confirm": "确认",
     "Confirm DFI Conversion": "确认要转换 DFI",
     "You are converting": "您正要转换",
     "AFTER CONVERSION, YOU WILL HAVE": "转换后您会有",
@@ -297,7 +326,12 @@
     "Transaction type": "交易类型",
     "Convert": "转换",
     "{{token}} to receive": "{{token}} 将会收到",
-    "CONFIRM TRANSACTION": "确认发出"
+    "CONFIRM TRANSACTION": "确认发出",
+    "You are converting to {{unit}}": "You are converting to {{unit}}",
+    "Transaction fee": "Transaction fee",
+    "Resulting Tokens": "转换后 Tokens",
+    "Resulting UTXO": "转换后 UTXO",
+    "Convert {{amount}} DFI to {{target}}": "转换 {{amount}} DFI 至 {{target}}"
   },
   "screens/SettingsNavigator": {
     "Settings": "设置"
@@ -689,8 +723,8 @@
     "Swapping tokens…": "Swapping tokens…",
     "Tokens swapped": "Tokens swapped",
     "Preparing to send…": "Preparing to send…",
-    "Sending tokens…": "Sending tokens…",
-    "Tokens sent": "Tokens sent",
+    "Sending {{amount}} {{displaySymbol}}": "Sending {{amount}} {{displaySymbol}}",
+    "{{amount}} {{displaySymbol}} sent": "{{amount}} {{displaySymbol}} sent",
     "Preparing loan…": "Preparing loan…",
     "Processing loan…": "Processing loan…",
     "Loan processed": "Loan processed",
@@ -700,12 +734,16 @@
     "Preparing to add liquidity…": "Preparing to add liquidity…",
     "Adding tokens to liquidity pool…": "Adding tokens to liquidity pool…",
     "Added tokens to liquidity pool": "Added tokens to liquidity pool",
+    "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool": "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool",
+    "Added {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool": "Added {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool",
     "Preparing to remove collaterals…": "Preparing to remove collaterals…",
     "Removing collaterals from vault…": "Removing collaterals from vault…",
     "Collaterals removed": "Collaterals removed",
     "Preparing to remove liquidity…": "Preparing to remove liquidity…",
     "Removing tokens from liquidity pool…": "Removing tokens from liquidity pool…",
     "Removed tokens from liquidity pool": "Removed tokens from liquidity pool",
+    "Removing {{symbol}} from liquidity pool": "Removing {{symbol}} from liquidity pool",
+    "Removed {{amount}} {{symbol}} from liquidity pool": "Removed {{amount}} {{symbol}} from liquidity pool",
     "Preparing loan payment…": "Preparing loan payment…",
     "Processing loan payment…": "Processing loan payment…",
     "Payment completed": "Payment completed",
@@ -721,6 +759,8 @@
     "Preparing to convert…": "Preparing to convert…",
     "Converting {{symbolA}} to {{symbolB}}": "转换 {{symbolA}} 至 {{symbolB}}",
     "Conversion completed": "Conversion completed",
+    "Converting {{amount}} DFI {{symbolA}} to {{symbolB}}": "将 {{amount}} DFI {{symbolA}}  转换为 {{symbolB}}",
+    "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI 转换为 {{symbolB}}",
     "Preparing your transaction…": "Preparing your transaction…",
     "Processing future swap transaction…": "Processing future swap transaction…",
     "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap confirmed and will be executed at block #{{block}}",
@@ -742,7 +782,11 @@
   "screens/common": {
     "CANCEL": "取消",
     "Cancel": "取消",
-    "TRY AGAIN": "再试一次"
+    "TRY AGAIN": "再试一次",
+    "From": "从",
+    "To": "到",
+    "Converting": "转换中",
+    "Converted": "Converted"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "为您的钱包创建新的密码",
@@ -769,7 +813,20 @@
     "UTXO to be converted": "要轉換的 UTXO",
     "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换",
     "Estimated fee": "所需费用（大约）",
-    "Pooled {{symbol}}": "池中总 {{symbol}}"
+    "Pooled {{symbol}}": "池中总 {{symbol}}",
+    "View pool share": "View pool share",
+    "View pool info": "View pool info",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Insufficient balance": "Insufficient balance",
+    "APR": "APR",
+    "Shares to add": "Shares to add",
+    "Volume (24H):": "Volume (24H)",
+    "Total liquidity": "Total liquidity",
+    "Tokens in {{symbol}}": "Tokens in {{symbol}}",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "I WANT TO ADD": "I WANT TO ADD",
+    "LP Tokens to receive": "LP 代币接收"
   },
   "screens/ConfirmAddLiq": {
     "You are adding": "您正要增加流动资金",
@@ -783,13 +840,23 @@
     "ADDING": "增加",
     "Pooled {{symbol}}": "池中总 {{symbol}}",
     "Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}": "向 {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}} 配对增加流动资金",
+    "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool": "Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool",
     "PRICE DETAILS": "价格明细",
     "{{tokenA}} price per {{tokenB}}": "每{{tokenB}}相当于{{tokenA}}的价格",
     "Your pooled {{symbol}}": "您已入池的 {{symbol}}",
     "Transaction type": "交易类型",
     "Add liquidity": "增加流动资金",
     "Convert & add liquidity": "转换并增加流动资金",
-    "CONFIRM ADD LIQUIDITY": "确认增加流动资金"
+    "CONFIRM ADD LIQUIDITY": "确认增加流动资金",
+    "Your LP Tokens": "您的 LP 代币",
+    "You will receive LP tokens": "您将会收到 LP 代币",
+    "Amount to convert": "Amount to convert",
+    "Transaction fee": "Transaction fee",
+    "Resulting pool share": "Resulting pool share",
+    "{{token}} to supply": "{{token}} to supply",
+    "Resulting LP tokens": "加入后产生的 LP 代币",
+    "Confirm": "Confirm",
+    "Pool share": "流感池份额"
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "您正要退出",
@@ -799,12 +866,18 @@
     "Estimated fee": "所需费用（大约）",
     "REMOVE": "退出",
     "PRICE DETAILS": "价格明细",
+    "View pool share": "View pool share",
     "{{symbolA}} per {{symbolB}}": "每退出 {{symbolA}} 相当于 {{symbolB}} 等值",
     "{{symbolB}} per {{symbolA}}": "每退出 {{symbolB}} 相当于 {{symbolA}} 等值",
     "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 相当于 {{tokenB}} 等值",
     "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 相当于 {{tokenA}} 等值",
     "Transaction type": "交易类型",
-    "Remove liquidity": "退出流动"
+    "Remove liquidity": "退出流动",
+    "You are removing LP tokens": "You are removing LP tokens",
+    "Transaction fee": "Transaction fee",
+    "Resulting pool share": "Resulting pool share",
+    "LP tokens to remove": "要删除的 LP 代币",
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "退出流动资金",
@@ -816,13 +889,23 @@
     "Removing {{amount}} {{symbol}}": "退出 {{amount}} {{symbol}}",
     "Review full transaction details in the next screen": "请在下一步确认交易明细",
     "PRICE DETAILS": "价格明细",
+    "View pool share": "View pool share",
     "{{symbolA}} per {{symbolB}}": "每退出 {{symbolA}} 相当于 {{symbolB}} 等值",
     "{{symbolB}} per {{symbolA}}": "每退出 {{symbolB}} 相当于 {{symbolA}} 等值",
     "{{tokenA}} price in {{tokenB}}": "每退出 {{tokenA}} 相当于 {{tokenB}} 等值",
     "{{tokenB}} price in {{tokenA}}": "每退出 {{tokenB}} 相当于 {{tokenA}} 等值",
     "Drag or enter amount to remove": "向左右滑动退出流动池股份",
     "You are removing": "您要退出的",
-    "from liquidity pool": "从流动资金池中"
+    "from liquidity pool": "从流动资金池中",
+    "I WANT TO REMOVE": "I WANT TO REMOVE",
+    "Your LP Tokens": "Your LP Tokens",
+    "Tokens in {{token}}": "Tokens in {{token}}",
+    "{{token}} to receive": "{{token}} to receive",
+    "LP tokens to remove": "要删除的 LP 代币",
+    "Available": "可发送资金",
+    "Insufficient balance": "Insufficient balance",
+    "Max available LP tokens entered": "输入的最高额可用 LP 代币",
+    "{{percent}} of available LP tokens entered": "输入了 {{percent}} of 的可用 LP 代币"
   },
   "screens/NetworkDetails": {
     "Wallet Network": "钱包网络",
@@ -844,7 +927,8 @@
     "Max": "最高值"
   },
   "components/Button": {
-    "CONTINUE": "继续"
+    "CONTINUE": "继续",
+    "Continue": "继续"
   },
   "screens/SlippageTolerance": {
     "Custom": "自订",
@@ -1054,7 +1138,9 @@
     "As UTXO": "As UTXO",
     "As Token": "As Token",
     "Your pool shares": "Your pool shares",
-    "Shares in {{token}}": "Shares in {{token}}"
+    "Shares in {{token}}": "Shares in {{token}}",
+    "Your LP tokens": "您的 LP 代币",
+    "Tokens in {{token}}": "Tokens in {{token}}"
   },
   "components/ReservedDFIInfoText": {
     "A small UTXO amount (0.1 DFI) is reserved for fees.": "需要预留一些可使用的 UTXO(0.1 DFI)作为费用"
@@ -1316,7 +1402,7 @@
     "Wallet Address": "钱包地址"
   },
   "components/EmptyPortfolio": {
-    "Empty portfolio":  "没有资产",
+    "Empty portfolio": "没有资产",
     "Add DFI and other tokens to get started": "Add DFI and other tokens to get started",
     "No LP tokens found": "No LP tokens found",
     "Add liquidity to get started": "Add liquidity to get started",

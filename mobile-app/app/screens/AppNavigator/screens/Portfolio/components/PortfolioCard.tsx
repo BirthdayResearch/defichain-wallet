@@ -78,7 +78,7 @@ function PortfolioItemRow ({
     >
       <View style={tailwind('flex flex-row items-start')}>
         <View style={tailwind('w-7/12 flex-row items-center')}>
-          <TokenIcon testID={`${testID}_icon`} token={token} height={36} width={36} />
+          <TokenIcon testID={`${testID}_icon`} token={token} size={36} />
           <TokenNameTextV2 displaySymbol={token.displaySymbol} name={token.name} testID={testID} />
         </View>
         <View style={tailwind('w-5/12 flex-row justify-end', { 'pt-0.5': Platform.OS === 'android' })}>
