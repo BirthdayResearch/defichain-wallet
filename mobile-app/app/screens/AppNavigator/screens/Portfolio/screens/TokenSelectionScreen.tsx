@@ -174,7 +174,7 @@ const TokenSelectionRow = ({
           testID={`${item.token.displaySymbol}_icon`} token={{
           isLPS: item.token.isLPS,
           displaySymbol: item.token.displaySymbol
-        }} height={36} width={36}
+        }} size={36}
         />
         <TokenNameTextV2
           displaySymbol={item.token.displaySymbol} name={item.token.name}
