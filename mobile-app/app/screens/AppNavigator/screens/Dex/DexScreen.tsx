@@ -16,9 +16,6 @@ import { ThemedScrollView } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
-import { DisplayDexGuidelinesPersistence } from '@api'
-import { DexGuidelines } from './DexGuidelines'
-import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { Tabs } from '@components/Tabs'
 import { tokensSelector, WalletToken } from '@store/wallet'
 import { RootState } from '@store'
@@ -41,11 +38,8 @@ interface DexItem<T> {
 }
 
 export function DexScreen (): JSX.Element {
-  const logger = useLogger()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [activeTab, setActiveTab] = useState<string>(TabKey.AvailablePoolPair)
-  const [isLoaded, setIsLoaded] = useState<boolean>(false)
-  const [displayGuidelines, setDisplayGuidelines] = useState<boolean>(true)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const {
     poolpairs: pairs,
@@ -159,15 +153,6 @@ export function DexScreen (): JSX.Element {
   )
 
   useEffect(() => {
-    DisplayDexGuidelinesPersistence.get()
-      .then((shouldDisplayGuidelines: boolean) => {
-        setDisplayGuidelines(shouldDisplayGuidelines)
-      })
-      .catch(logger.error)
-      .finally(() => setIsLoaded(true))
-  }, [])
-
-  useEffect(() => {
     if (showSearchInput) {
       setIsSearching(true)
       handleFilter(searchString)
@@ -189,28 +174,22 @@ export function DexScreen (): JSX.Element {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: (): JSX.Element => {
-        if (!displayGuidelines) {
-          return (
-            <HeaderSearchIcon
-              onPress={() => {
-                setShowSearchInput(true)
-                setFilteredAvailablePairs([])
-              }}
-              testID='dex_search_icon'
-              style={tailwind('pl-4')}
-            />
-          )
-        }
-        return <></>
+        return (
+          <HeaderSearchIcon
+            onPress={() => {
+              setShowSearchInput(true)
+              setFilteredAvailablePairs([])
+            }}
+            testID='dex_search_icon'
+            style={tailwind('pl-4')}
+          />
+        )
       },
       headerRight: (): JSX.Element => {
-        if (!displayGuidelines) {
-          return <SwapButton />
-        }
-        return <></>
+        return <SwapButton />
       }
     })
-  }, [navigation, displayGuidelines])
+  }, [navigation])
 
   useEffect(() => {
     if (showSearchInput) {
@@ -239,11 +218,6 @@ export function DexScreen (): JSX.Element {
     }
   }, [showSearchInput, searchString])
 
-  const onGuidelinesClose = async (): Promise<void> => {
-    await DisplayDexGuidelinesPersistence.set(false)
-    setDisplayGuidelines(false)
-  }
-
   // Top Liquidity pairs
   const [topLiquidityPairs, setTopLiquidityPairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
   useEffect(() => {
@@ -256,14 +230,6 @@ export function DexScreen (): JSX.Element {
       .slice(0, 5)
     setTopLiquidityPairs(sorted)
   }, [pairs])
-
-  if (!isLoaded) {
-    return <></>
-  }
-
-  if (displayGuidelines) {
-    return <DexGuidelines onClose={onGuidelinesClose} />
-  }
 
   return (
     <>

@@ -134,7 +134,6 @@ context('Wallet - DEX - Available Pool Pairs', () => {
       delay: 3000
     })
     cy.createEmptyWallet(true)
-    localStorage.setItem('WALLET.DISPLAY_DEXGUIDELINES', 'false')
     cy.getByTestID('bottom_tab_dex').click()
   })
 
@@ -252,7 +251,6 @@ context('Wallet - DEX - Available Pool Pairs', () => {
 context('Wallet - DEX - Your Pool Pairs', () => {
   beforeEach(function () {
     cy.createEmptyWallet(true)
-    localStorage.setItem('WALLET.DISPLAY_DEXGUIDELINES', 'false')
     cy.sendTokenToWallet(['ETH-DFI']).wait(3000)
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click().wait(1000)
