@@ -636,10 +636,13 @@ function AmountCard ({
         >
           <View style={tailwind('flex flex-row items-center')}>
             <TokenIcon
-              testID={`${token.displaySymbol}_icon`} token={{
-              isLPS: token.isLPS,
-              displaySymbol: token.displaySymbol
-            }} height={32} width={32}
+              testID={`${token.displaySymbol}_icon`}
+              token={{
+                isLPS: token.isLPS,
+                displaySymbol: token.displaySymbol
+              }}
+              size={32}
+              iconBStyle={tailwind('-ml-3')}
             />
             <View style={tailwind('flex ml-2')}>
               <ThemedTextV2>

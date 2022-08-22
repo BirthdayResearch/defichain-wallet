@@ -62,18 +62,6 @@
     "Your shared {{symbol}}": "您的股份 {{symbol}}",
     "Confirm": "Confirm"
   },
-  "screens/DexGuidelines": {
-    "Guidelines": "使用指南",
-    "CONTINUE": "繼續",
-    "Decentralized Exchange": "去中心化交易所",
-    "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "將您的貨幣提供給 DEX 去中心化交易所，並獲得高達三位數百分比的年回報率",
-    "Add liquidity": "增加流動資金",
-    "Swap tokens": "兌換貨幣",
-    "Withdraw at any time": "隨時能從流動性池中取出貨幣",
-    "Earn high yields by supplying token pairs to the liquidity pool.": "提供流動池配對貨幣並獲得高回報率",
-    "Conveniently swap participating tokens within the liquidity pool.": "方便地在流動池裡兌換貨幣",
-    "You have full control over your tokens unlike any other.": "您能完全掌控貨幣"
-  },
   "screens/PortfolioScreen": {
     "Balances": "我的資產",
     "Portfolio": "資產組合",
