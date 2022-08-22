@@ -246,12 +246,12 @@ export function DexScreen (): JSX.Element {
       <TopLiquiditySection onPress={onSwap} pairs={topLiquidityPairs} />
       <NewPoolsSection onPress={onAdd} pairs={newPoolsPairs} />
       <View style={tailwind('flex-1')}>
-        {activeTab === TabKey.AvailablePoolPair &&
-            (!hasFetchedPoolpairData || isSearching) && (
-              <ThemedScrollView contentContainerStyle={tailwind('p-4')}>
-                <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Dex} />
-              </ThemedScrollView>
-            )}
+        {activeTab === TabKey.AvailablePoolPair && (!hasFetchedPoolpairData || isSearching) &&
+          (
+            <ThemedScrollView contentContainerStyle={tailwind('p-4')}>
+              <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Dex} />
+            </ThemedScrollView>
+        )}
         {activeTab === TabKey.AvailablePoolPair &&
             hasFetchedPoolpairData &&
             !isSearching && (

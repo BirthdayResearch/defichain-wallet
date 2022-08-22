@@ -24,7 +24,7 @@ export const APRSection = memo((props: APRSectionProps): JSX.Element => {
       <ThemedTextV2
         dark={tailwind('text-green-v2')}
         light={tailwind('text-green-v2')}
-        style={tailwind('text-sm font-normal-v2 uppercase')}
+        style={tailwind('text-sm font-normal-v2')}
       >
         {props.label}
       </ThemedTextV2>

@@ -21,7 +21,7 @@ import { PoolPairIconV2 } from '@screens/AppNavigator/screens/Dex/components/Poo
 import { DexActionButton } from '@screens/AppNavigator/screens/Dex/components/DexActionButton'
 import { FavoriteButton } from '@screens/AppNavigator/screens/Dex/components/FavoriteButton'
 import { PriceRatesSection } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PriceRatesSection'
-import { APRSection } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/AprSection'
+import { APRSection } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/APRSection'
 
 interface DexItem<T> {
   type: 'your' | 'available'
