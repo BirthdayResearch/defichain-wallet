@@ -13,7 +13,8 @@ import { TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
-import { PoolPairIconV2 } from './components/PoolPairCards/PoolPairTextSectionV2'
+import { FavoriteButton } from './components/FavoriteButton'
+import { PoolPairIconV2 } from './components/PoolPairCards/PoolPairIconV2'
 import { DexParamList } from './DexNavigator'
 
 type Props = StackScreenProps<DexParamList, 'PoolPairDetailsScreen'>
@@ -46,6 +47,7 @@ export function PoolPairDetailsScreen ({ route }: Props): JSX.Element {
         symbolB={poolPair.data.tokenB.displaySymbol}
         poolPairSymbol={poolPair.data.displaySymbol}
         poolPairName={poolPair.data.name}
+        pairId={id}
       />
       <PoolPairDetail poolPair={poolPair} />
       <PriceRateDetail poolPair={poolPair} />
@@ -59,6 +61,7 @@ export function Header (props: {
   symbolB: string
   poolPairSymbol: string
   poolPairName: string
+  pairId: string
 }): JSX.Element {
   return (
     <ThemedViewV2
@@ -70,7 +73,7 @@ export function Header (props: {
         symbolA={props.symbolA}
         symbolB={props.symbolB}
       />
-      <View style={tailwind('flex-col ml-3')}>
+      <View style={tailwind('flex-col ml-3 flex-auto pr-3')}>
         <ThemedTextV2
           style={tailwind('font-semibold-v2')}
         >
@@ -87,9 +90,7 @@ export function Header (props: {
               dark={tailwind('text-mono-dark-v2-700')}
               style={tailwind('text-sm font-normal-v2')}
             >
-              {props.poolPairName}
-            </ThemedTextV2>
-            <View style={tailwind('ml-1 flex-grow-0 justify-center')}>
+              {`${props.poolPairName} `}
               <ThemedIcon
                 light={tailwind('text-mono-light-v2-700')}
                 dark={tailwind('text-mono-dark-v2-700')}
@@ -97,9 +98,18 @@ export function Header (props: {
                 name='external-link'
                 size={16}
               />
-            </View>
+            </ThemedTextV2>
           </View>
         </TouchableOpacity>
+      </View>
+      <View style={tailwind('w-5')}>
+        <FavoriteButton
+          pairId={props.pairId}
+          notFavouriteBgColor={{
+            light: 'bg-mono-light-v2-200',
+            dark: 'bg-mono-dark-v2-200'
+          }}
+        />
       </View>
     </ThemedViewV2>
   )
@@ -135,6 +145,7 @@ function PoolPairDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
           value: new BigNumber(poolPair.data.totalLiquidity.token).toFixed(8),
           usdAmount: new BigNumber(poolPair.data.totalLiquidity.usd ?? getTokenPrice(poolPair.data.symbol, new BigNumber(poolPair.data.totalLiquidity.token), true)),
           usdTextStyle: tailwind('text-sm'),
+          usdContainerStyle: tailwind('pt-1'),
           testID: 'total_liquidity_value'
         }}
       />
@@ -148,6 +159,7 @@ function PoolPairDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
           suffix: ` ${poolPair.data.tokenA.displaySymbol}`,
           usdAmount: getTokenPrice(poolPair.data.tokenA.symbol, new BigNumber(poolPair.data.tokenA.reserve)),
           usdTextStyle: tailwind('text-sm'),
+          usdContainerStyle: tailwind('pt-1'),
           testID: 'pooled_tokenA_value'
         }}
       />
@@ -161,6 +173,7 @@ function PoolPairDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
           suffix: ` ${poolPair.data.tokenB.displaySymbol}`,
           usdAmount: getTokenPrice(poolPair.data.tokenB.symbol, new BigNumber(poolPair.data.tokenB.reserve)),
           usdTextStyle: tailwind('text-sm'),
+          usdContainerStyle: tailwind('pt-1'),
           testID: 'pooled_tokenB_value'
         }}
       />
@@ -187,6 +200,7 @@ function PriceRateDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
           suffix: ` ${poolPair.data.tokenA.displaySymbol}`,
           usdAmount: getTokenPrice(poolPair.data.tokenA.symbol, new BigNumber(poolPair.data.priceRatio.ab)),
           usdTextStyle: tailwind('text-sm'),
+          usdContainerStyle: tailwind('pt-1'),
           testID: 'price_rate_tokenA_value'
         }}
       />
@@ -200,6 +214,7 @@ function PriceRateDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
           suffix: ` ${poolPair.data.tokenB.displaySymbol}`,
           usdAmount: getTokenPrice(poolPair.data.tokenB.symbol, new BigNumber(poolPair.data.priceRatio.ba)),
           usdTextStyle: tailwind('text-sm'),
+          usdContainerStyle: tailwind('pt-1'),
           testID: 'price_rate_tokenB_value'
         }}
       />
@@ -242,7 +257,7 @@ function APRDetail (props: { total: number, reward: number, commission: number }
             <ThemedTextV2
               style={tailwind('text-right text-xs font-normal-v2 mt-1')}
               light={tailwind('text-mono-light-v2-700')}
-              dark={tailwind('text-green-v2')}
+              dark={tailwind('text-mono-dark-v2-700')}
               testID='apr_reward_value'
             >
               {`${val}% ${translate('screens/PoolPairDetailsScreen', 'in rewards')}`}
@@ -257,7 +272,7 @@ function APRDetail (props: { total: number, reward: number, commission: number }
             <ThemedTextV2
               style={tailwind('text-right text-xs font-normal-v2 mt-1')}
               light={tailwind('text-mono-light-v2-700')}
-              dark={tailwind('text-green-v2')}
+              dark={tailwind('text-mono-dark-v2-700')}
               testID='apr_commission_value'
             >
               {`${val}% ${translate('screens/PoolPairDetailsScreen', 'in commissions')}`}

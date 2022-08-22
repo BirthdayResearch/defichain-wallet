@@ -18,6 +18,7 @@ export interface RhsNumberRowElement extends NumberRowElement {
   usdAmount?: BigNumber
   isOraclePrice?: boolean
   textStyle?: StyleProp<TextStyle>
+  usdContainerStyle?: StyleProp<ViewStyle>
   usdTextStyle?: StyleProp<TextStyle>
   subValue?: NumberRowElement
 }
@@ -76,7 +77,7 @@ export function NumberRowV2 (props: INumberRowProps): JSX.Element {
             props.rhs.usdAmount !== undefined &&
               (<ActiveUSDValueV2
                 price={props.rhs.usdAmount}
-                containerStyle={tailwind('justify-end pb-5')}
+                containerStyle={[tailwind('justify-end pb-5'), props.rhs.usdContainerStyle]}
                 testId={`${props.rhs.testID}_rhsUsdAmount`}
                 style={props.rhs.usdTextStyle}
                />)
