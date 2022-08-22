@@ -16,9 +16,6 @@ import { ThemedScrollViewV2, ThemedViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
-import { DisplayDexGuidelinesPersistence } from '@api'
-import { DexGuidelines } from './DexGuidelines'
-import { useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { tokensSelector, WalletToken } from '@store/wallet'
 import { RootState } from '@store'
 import { EmptyActivePoolpair } from './components/EmptyActivePoolPair'
@@ -37,11 +34,8 @@ interface DexItem<T> {
 }
 
 export function DexScreen (): JSX.Element {
-  const logger = useLogger()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [activeTab, setActiveTab] = useState<string>(TabKey.AvailablePoolPair)
-  const [isLoaded, setIsLoaded] = useState<boolean>(false)
-  const [displayGuidelines, setDisplayGuidelines] = useState<boolean>(true)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const {
     poolpairs: pairs,
@@ -157,15 +151,6 @@ export function DexScreen (): JSX.Element {
   )
 
   useEffect(() => {
-    DisplayDexGuidelinesPersistence.get()
-      .then((shouldDisplayGuidelines: boolean) => {
-        setDisplayGuidelines(shouldDisplayGuidelines)
-      })
-      .catch(logger.error)
-      .finally(() => setIsLoaded(true))
-  }, [])
-
-  useEffect(() => {
     if (showSearchInput) {
       setIsSearching(true)
       handleFilter(searchString)
@@ -183,19 +168,6 @@ export function DexScreen (): JSX.Element {
       handleFilter(searchString)
     }
   }, [pairs])
-
-  const onGuidelinesClose = async (): Promise<void> => {
-    await DisplayDexGuidelinesPersistence.set(false)
-    setDisplayGuidelines(false)
-  }
-
-  if (!isLoaded) {
-    return <></>
-  }
-
-  if (displayGuidelines) {
-    return <DexGuidelines onClose={onGuidelinesClose} />
-  }
 
   return (
     <>
