@@ -23,6 +23,7 @@ import { debounce } from 'lodash'
 import { ButtonGroupTabKey, PoolPairCards } from './components/PoolPairCards/PoolPairCards'
 import { ButtonGroupV2 } from './components/ButtonGroupV2'
 import { HeaderSearchInputV2 } from '@components/HeaderSearchInputV2'
+import { useFavouritePoolpairs } from './hook/FavouritePoolpairs'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -167,6 +168,8 @@ export function DexScreen (): JSX.Element {
     }
   }, [showSearchInput, searchString])
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllPairs)
+  const { isFavouritePoolpair } = useFavouritePoolpairs()
+
   const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
     const filteredPairs = pairs.filter((pair) => {
       const tokenADisplaySymbol = pair.data.tokenA.displaySymbol
@@ -180,7 +183,7 @@ export function DexScreen (): JSX.Element {
           return tokenADisplaySymbol.includes('DUSD') || tokenBDisplaySymbol.includes('DUSD')
 
         case ButtonGroupTabKey.FavouritePairs:
-          return true // TODO add logic for favourite pairs
+          return isFavouritePoolpair(pair.data.id)
 
         default:
           return true
