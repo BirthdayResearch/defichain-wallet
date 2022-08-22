@@ -62,18 +62,6 @@
     "Your shared {{symbol}}": "Dein {{symbol}}-Anteil",
     "Confirm": "Bestätigen"
   },
-  "screens/DexGuidelines": {
-    "Guidelines": "Richtlinien",
-    "CONTINUE": "WEITER",
-    "Decentralized Exchange": "Dezentrale Börse",
-    "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "Nimm teil am Liquidität Bereitstellen für den Betrieb der dezentralen Börse (DEX). Gebrauche deine Token, um hohe Renditen zu erzielen (bis zu 100%).",
-    "Add liquidity": "Liquidität hinzufügen",
-    "Swap tokens": "Token-Tausch",
-    "Withdraw at any time": "Entfernen der Liquidität zu jeder Zeit",
-    "Earn high yields by supplying token pairs to the liquidity pool.": "Erziele hohe Erträge durch die Bereitstellung von Handelspaaren zum Liquiditätspool.",
-    "Conveniently swap participating tokens within the liquidity pool.": "Bequemer Umtausch von im Liquiditätspool vertretenen Token.",
-    "You have full control over your tokens unlike any other.": "Nur du hast volle Kontrolle über deine Token."
-  },
   "screens/PortfolioScreen": {
     "Balances": "Guthaben",
     "Portfolio": "Portfolio",
@@ -108,7 +96,8 @@
     "Z to A": "Z bis A",
     "AVAILABLE ASSETS": "VERFÜGBARE AKTIVA",
     "Asset value": "Wert der Aktiva",
-    "Sort by": "Sortieren nach"
+    "Sort by": "Sortieren nach",
+    "ASSETS": "AKTIVA"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "DFI erhalten",
@@ -771,7 +760,7 @@
     "{{amount}} DFI converted to {{symbolB}}": "{{amount}}-DFI umgewandelt in {{symbolB}}",
     "Preparing your transaction…": "Deine Transaktion vorbereiten…",
     "Processing future swap transaction…": "Verarbeiten der Future Swap-Transaktion…",
-    "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap bestätigt und wird im Block #{{{block}} ausgeführt",
+    "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap bestätigt und wird im Block #{{block}} ausgeführt",
     "Preparing changes to loan scheme…": "Änderungen am Darlehensmodell vorbereiten…",
     "Saving changes to loan scheme…": "Änderungen am Darlehensmodell speichern…",
     "Loan scheme saved": "Darlehensmodell gespeichert",

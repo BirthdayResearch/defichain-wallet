@@ -62,18 +62,6 @@
     "Your shared {{symbol}}": "Mes {{symbol}} partagés",
     "Confirm": "Confirmer"
   },
-  "screens/DexGuidelines": {
-    "Guidelines": "Instructions",
-    "CONTINUE": "SUIVANT",
-    "Decentralized Exchange": "Échange décentralisé",
-    "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "Participez à l'apport de liquidités pour alimenter le DEX (Échange décentralisé). Utilisez vos tokens pour obtenir des rendements élevés (jusqu'à 100%).",
-    "Add liquidity": "Ajout de liquidité",
-    "Swap tokens": "Échange de tokens",
-    "Withdraw at any time": "Retirer à tout moment",
-    "Earn high yields by supplying token pairs to the liquidity pool.": "Obtenez des revenus élevés en fournissant des paires de tokens au pool de liquidité.",
-    "Conveniently swap participating tokens within the liquidity pool.": "Échanger commodément les tokens participants au sein du pool de liquidité.",
-    "You have full control over your tokens unlike any other.": "Vous avez un contrôle total sur vos tokens, contrairement à ce qui se passe ailleurs."
-  },
   "screens/PortfolioScreen": {
     "Balances": "Soldes",
     "Portfolio": "Portfolio",
@@ -108,7 +96,8 @@
     "Z to A": "Z à A",
     "AVAILABLE ASSETS": "ACTIFS DISPONIBLES",
     "Asset value": "Valeur des actifs",
-    "Sort by": "Trier par"
+    "Sort by": "Trier par",
+    "ASSETS": "ACTIFS"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Obtenir DFI",
@@ -783,7 +772,7 @@
     "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI convertis en {{symbolB}}",
     "Preparing your transaction…": "Préparation de votre transaction en coursn…",
     "Processing future swap transaction…": "Traitement de la transaction échange à terme…",
-    "Future Swap confirmed and will be executed at block #{{block}}": "Échange à terme confirmé et qui sera exécuté au bloc #{{{block}}",
+    "Future Swap confirmed and will be executed at block #{{block}}": "Échange à terme confirmé et qui sera exécuté au bloc #{{block}}",
     "Preparing changes to loan scheme…": "Préparation des modifications du schéma de prêt…",
     "Saving changes to loan scheme…": "Enregistrement des modifications apportées au schéma de prêts…",
     "Loan scheme saved": "Schéma de prêt sauvegardé",

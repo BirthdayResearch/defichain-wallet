@@ -10,7 +10,7 @@ import { useDenominationCurrency } from '@screens/AppNavigator/screens/Portfolio
 import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
 import { ViewPoolAmountRow } from './ViewPoolAmountRow'
 import { translate } from '@translations'
-import { PoolPairTextSectionV2 } from './PoolPairCards/PoolPairTextSectionV2'
+import { PoolPairIconV2 } from './PoolPairCards/PoolPairIconV2'
 import { getPrecisedCurrencyValue, getPrecisedTokenValue } from '../../Auctions/helpers/precision-token-value'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
@@ -36,10 +36,11 @@ export const ViewPoolDetails = ({
       {/* -mt-1 above and mt-1 added below is kind of hack to solved React Navigation elevation bug on android for now. */}
       <View style={tailwind('mb-3 flex-row items-center', { 'mt-1': Platform.OS === 'ios' }, { 'mt-2': Platform.OS === 'android' })}>
         <View>
-          <PoolPairTextSectionV2
+          <PoolPairIconV2
             symbolA={pairData.tokenA.displaySymbol}
             symbolB={pairData.tokenB.displaySymbol}
             customSize={32}
+            iconBStyle={tailwind('-ml-3')}
           />
         </View>
         <ThemedTextV2

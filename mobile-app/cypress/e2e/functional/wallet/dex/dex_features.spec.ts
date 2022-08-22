@@ -137,8 +137,6 @@ context('Wallet - DEX - Features', () => {
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_dex').click()
     cy.url().should('include', 'app/DEX/DexScreen')
-    cy.getByTestID('dex_guidelines_screen').should('exist')
-    cy.getByTestID('close_dex_guidelines').click()
   })
 
   it('should be able to select favorite pairs', function () {
@@ -194,8 +192,6 @@ context('Wallet - DEX - Button filtering', () => {
       cy.createEmptyWallet(true)
       cy.getByTestID('bottom_tab_dex').click()
       cy.url().should('include', 'app/DEX/DexScreen')
-      cy.getByTestID('dex_guidelines_screen').should('exist')
-      cy.getByTestID('close_dex_guidelines').click()
     })
 
     it('should set filter as All pairs by default and display all pairs', function () {

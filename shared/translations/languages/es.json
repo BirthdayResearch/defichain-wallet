@@ -63,18 +63,6 @@
     "Your shared {{symbol}}": "Tus activos compartidos {{symbol}}",
     "Confirm": "Confirm"
   },
-  "screens/DexGuidelines": {
-    "Guidelines": "Instrucciones",
-    "CONTINUE": "CONTINUAR",
-    "Decentralized Exchange": "Exchange descentralizado",
-    "Participate in supplying liquidity to power the DEX (Decentralized Exchange). Use your tokens to earn high returns (of up to 100%).": "Participa añadiendo liquidez para apoyar al Exchange descentralizado (DEX). Utiliza tus tokens para ganar comisiones (hasta un 140%)",
-    "Add liquidity": "Añadir liquidez",
-    "Swap tokens": "Intercambia tokens",
-    "Withdraw at any time": "Retira dinero en cualquier momento",
-    "Earn high yields by supplying token pairs to the liquidity pool.": "Obtenga alta rentabilidad aportando parejas de tokens a la piscina de liquidez.",
-    "Conveniently swap participating tokens within the liquidity pool.": "Intercambia cómodamente los tokens de la piscina de liqiudez.",
-    "You have full control over your tokens unlike any other.": "Solo tú posees absoluto control de tus tokens."
-  },
   "screens/PortfolioScreen": {
     "Balances": "Saldos",
     "Portfolio": "Portafolio",
@@ -111,7 +99,8 @@
     "Z to A": "Z a A",
     "AVAILABLE ASSETS": "ACTIVOS DISPONIBLES",
     "Asset value": "Valor del activo",
-    "Sort by": "Sort by"
+    "Sort by": "Sort by",
+    "ASSETS": "ASSETS"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Obtener DFI",
