@@ -157,7 +157,7 @@ export function DexScreen (): JSX.Element {
                   setSearchString('')
                   setShowSearchInput(false)
                 }}
-                placeholder='Search for pool pairs'
+                placeholder='Search pool pair'
                 testID='dex_search_input'
               />
             </ThemedViewV2>
@@ -171,6 +171,7 @@ export function DexScreen (): JSX.Element {
       handleButtonFilter(activeButtonGroup)
     }
   }, [showSearchInput, searchString])
+
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllPairs)
   const { isFavouritePoolpair } = useFavouritePoolpairs()
 
@@ -266,7 +267,7 @@ export function DexScreen (): JSX.Element {
           >
             {searchString?.trim().length > 0
             ? translate('screens/DexScreen', 'Search results for “{{input}}”', { input: searchString?.trim() })
-            : translate('screens/DexScreen', 'Search with token name')}
+            : translate('screens/DexScreen', 'Search for pool pair with token name')}
           </ThemedTextV2>
         </View>)
       : (
