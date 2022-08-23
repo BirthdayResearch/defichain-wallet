@@ -262,7 +262,7 @@ function AvailablePool (props: AvailablePoolProps): JSX.Element {
         <DexActionButton
           label={translate('screens/DexScreen', 'Swap')}
           onPress={props.onSwap}
-          testID={`available_poolpair_${props.pair.id}`}
+          testID={`composite_swap_button_${props.pair.id}`}
           style={tailwind('py-2 px-3')}
         />
       </View>

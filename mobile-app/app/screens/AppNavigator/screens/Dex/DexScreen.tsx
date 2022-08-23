@@ -214,9 +214,9 @@ export function DexScreen (): JSX.Element {
       <View style={tailwind('flex-1')}>
         {activeTab === TabKey.AvailablePoolPair && (!hasFetchedPoolpairData || isSearching) &&
           (
-            <ThemedScrollView contentContainerStyle={tailwind('p-4')}>
+            <ThemedScrollViewV2 contentContainerStyle={tailwind('p-4')}>
               <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Dex} />
-            </ThemedScrollView>
+            </ThemedScrollViewV2>
         )}
         {activeTab === TabKey.AvailablePoolPair &&
             hasFetchedPoolpairData &&

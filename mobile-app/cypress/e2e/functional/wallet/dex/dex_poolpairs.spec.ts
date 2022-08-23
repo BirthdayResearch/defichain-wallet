@@ -153,19 +153,16 @@ context('Wallet - DEX - Available Pool Pairs', () => {
   })
 
   it('should have DUSD-DFI PoolPair as 2nd', () => {
-    cy.getByTestID('details_DUSD-DFI').click()
     cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').eq(1)
       .invoke('text').should(text => {
         expect(text).to.contains('DUSD-DFI')
-        expect(text).to.contains('Pooled DFI')
-        expect(text).to.contains('Pooled DUSD')
         expect(text).to.contains('Total liquidity')
         expect(text).to.contains('APR')
       })
   })
 
   it('should place favourite on top of the list', () => {
-    cy.getByTestID('favorite_DUSD-DFI').click()
+    cy.getByTestID('favorite_pair_DUSD-DFI').click()
     cy.getByTestID('pool_pair_row').first().invoke('text').then((text: string) => {
       expect(text).to.contains('DUSD-DFI')
     })
@@ -204,7 +201,6 @@ context('Wallet - DEX - Available Pool Pairs', () => {
     }).as('getPoolPairs')
     cy.wait('@getPoolPairs').then(() => {
       cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
-      cy.getByTestID('details_dETH-DFI').click()
       cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').eq(1)
         .invoke('text').should(text => {
           expect(text).to.contains('dETH-DFI')
@@ -222,14 +218,6 @@ context('Wallet - DEX - Available Pool Pairs', () => {
 
       cy.getByTestID('price_rate_DFI-dETH').should('have.text', '100.00000000 dETH')
       cy.getByTestID('price_rate_dETH-DFI').should('have.text', '0.01000000 DFI')
-      cy.getByTestID('available_ETH-DFI_dETH').should('have.text', '100,000 dETH')
-      cy.getByTestID('available_ETH-DFI_DFI').should('have.text', '1,000 DFI')
-      // (1000 / 100000) * (10000000 / 1000) * 100,000 ETH
-      cy.getByTestID('available_ETH-DFI_dETH_USD').should('have.text', '≈ $10,000,000.00')
-      // (10000000 / 1000) * 1,000 DFI
-      cy.getByTestID('available_ETH-DFI_DFI_USD').should('have.text', '≈ $10,000,000.00')
-      cy.getByTestID('totalLiquidity_dETH-DFI_token').should('have.text', '10,000 dETH-DFI')
-      cy.getByTestID('available_totalLiquidity_dETH-DFI_USD').should('have.text', '≈ $20,000,000.00')
 
       // 66.8826 * 100
       cy.getByTestID('apr_dETH-DFI').should('have.text', '6,688.26%')
@@ -237,7 +225,7 @@ context('Wallet - DEX - Available Pool Pairs', () => {
   })
 
   it('should be able to prepare direct swap', () => {
-    cy.getByTestID('pool_pair_swap-horiz_dBTC-DFI').click().wait(5000)
+    cy.getByTestID('composite_swap_button_dBTC-DFI').click().wait(5000)
     cy.getByTestID('MAX_amount_button').click().wait(3000)
 
     cy.getByTestID('button_confirm_submit').should('not.have.attr', 'disabled')
