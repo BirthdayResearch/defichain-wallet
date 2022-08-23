@@ -43,6 +43,11 @@ interface PoolPairCardProps {
   type: 'your' | 'available'
   setIsSearching: (isSearching: boolean) => void
   searchString: string
+  buttonGroupOptions?: {
+    onButtonGroupPress: (key: ButtonGroupTabKey) => void
+    activeButtonGroup: string
+    setActiveButtonGroup: (key: ButtonGroupTabKey) => void
+  }
   showSearchInput?: boolean
 }
 
