@@ -28,6 +28,7 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import * as React from 'react'
 import { ButtonV2 } from '@components/ButtonV2'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
+import { useYourPoolPairAmountBreakdown } from './hook/YourPoolPairAmountBreakdown'
 
 type Props = StackScreenProps<DexParamList, 'PoolPairDetailsScreen'>
 
@@ -107,6 +108,13 @@ export function PoolPairDetailsScreen ({ route }: Props): JSX.Element {
       />
       <PoolPairDetail poolPair={poolPair} />
       <PriceRateDetail poolPair={poolPair} />
+      {yourLpToken !== undefined && (
+        <YourPoolPairTokenBreakdown
+          yourLpToken={yourLpToken}
+          tokenADisplaySymbol={poolPair.data.tokenA.displaySymbol}
+          tokenBDisplaySymbol={poolPair.data.tokenB.displaySymbol}
+        />
+      )}
       <APRDetail
         total={poolPair.data.apr?.total ?? 0}
         reward={poolPair.data.apr?.reward ?? 0}
@@ -296,6 +304,59 @@ function PriceRateDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
           usdTextStyle: tailwind('text-sm'),
           usdContainerStyle: tailwind('pt-1'),
           testID: 'price_rate_tokenB_value'
+        }}
+      />
+    </ThemedViewV2>
+  )
+}
+
+function YourPoolPairTokenBreakdown (props: {yourLpToken: WalletToken, tokenADisplaySymbol: string, tokenBDisplaySymbol: string}): JSX.Element {
+  const { getTokenPrice } = useTokenPrice()
+  const { tokenATotal, tokenBTotal } = useYourPoolPairAmountBreakdown(props.yourLpToken)
+
+  return (
+    <ThemedViewV2
+      style={tailwind('border-b-0.5 mb-5')}
+      light={tailwind('border-mono-light-v2-300')}
+      dark={tailwind('border-mono-dark-v2-300')}
+    >
+      <NumberRowV2
+        lhs={{
+          value: translate('screens/PoolPairDetailsScreen', 'Your LP tokens'),
+          testID: 'your_lp_tokens'
+        }}
+        rhs={{
+          value: new BigNumber(props.yourLpToken.amount).toFixed(8),
+          usdAmount: getTokenPrice(props.yourLpToken.symbol, new BigNumber(props.yourLpToken.amount), true),
+          usdTextStyle: tailwind('text-sm'),
+          usdContainerStyle: tailwind('pt-1'),
+          testID: 'your_lp_tokens_value'
+        }}
+      />
+      <NumberRowV2
+        lhs={{
+          value: translate('screens/PoolPairDetailsScreen', 'Tokens in {{tokenA}}', { tokenA: props.tokenADisplaySymbol }),
+          testID: 'your_lp_tokenA'
+        }}
+        rhs={{
+          value: tokenATotal.toFixed(8),
+          usdAmount: getTokenPrice(props.tokenADisplaySymbol, new BigNumber(tokenATotal)),
+          usdTextStyle: tailwind('text-sm'),
+          usdContainerStyle: tailwind('pt-1'),
+          testID: 'your_lp_tokenA_value'
+        }}
+      />
+      <NumberRowV2
+        lhs={{
+          value: translate('screens/PoolPairDetailsScreen', 'Tokens in {{tokenB}}', { tokenB: props.tokenBDisplaySymbol }),
+          testID: 'your_lp_tokenB'
+        }}
+        rhs={{
+          value: tokenBTotal.toFixed(8),
+          usdAmount: getTokenPrice(props.tokenBDisplaySymbol, new BigNumber(tokenBTotal)),
+          usdTextStyle: tailwind('text-sm'),
+          usdContainerStyle: tailwind('pt-1'),
+          testID: 'your_lp_tokenB_value'
         }}
       />
     </ThemedViewV2>
