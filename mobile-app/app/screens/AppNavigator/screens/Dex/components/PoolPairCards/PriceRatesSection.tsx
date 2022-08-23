@@ -29,7 +29,7 @@ export const PriceRatesSection = memo(({
     new BigNumber(tokenB.priceRate).isNaN()
   ) {
     return (
-      <View style={tailwind('mt-2')}>
+      <View style={tailwind('mt-2 w-2/3')}>
         <SkeletonLoader row={1} screen={SkeletonLoaderScreen.DexPrices} />
       </View>
     )
