@@ -16,7 +16,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { useLayoutEffect } from 'react'
-import { TouchableOpacity } from 'react-native'
+import { Linking, TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
@@ -27,6 +27,7 @@ import { FavoriteButton } from '@screens/AppNavigator/screens/Dex/components/Fav
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import * as React from 'react'
 import { ButtonV2 } from '@components/ButtonV2'
+import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 
 type Props = StackScreenProps<DexParamList, 'PoolPairDetailsScreen'>
 
@@ -34,6 +35,7 @@ export function PoolPairDetailsScreen ({ route }: Props): JSX.Element {
   const { id } = route.params
   const poolPair = useSelector((state: RootState) => poolPairSelector(state.wallet, id))
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
+  const { getTokenUrl } = useDeFiScanContext()
 
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
@@ -58,6 +60,11 @@ export function PoolPairDetailsScreen ({ route }: Props): JSX.Element {
 
   if (poolPair === undefined) {
     return <></>
+  }
+
+  const onLinkPress = async (): Promise<void> => {
+    const url = getTokenUrl(id)
+    await Linking.openURL(url)
   }
 
   const onAdd = (data: PoolPairData, info: WalletToken): void => {
@@ -96,6 +103,7 @@ export function PoolPairDetailsScreen ({ route }: Props): JSX.Element {
         isFavouritePair={isFavouritePair}
         poolPairId={poolPair.data.id}
         setFavouritePair={setFavouritePoolpair}
+        onLinkPress={onLinkPress}
       />
       <PoolPairDetail poolPair={poolPair} />
       <PriceRateDetail poolPair={poolPair} />
@@ -123,6 +131,7 @@ function Header (props: {
   poolPairId: string
   isFavouritePair: boolean
   setFavouritePair: (id: string) => void
+  onLinkPress: () => void
 }): JSX.Element {
   return (
     <ThemedViewV2
@@ -143,7 +152,7 @@ function Header (props: {
         </ThemedTextV2>
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => { }}
+          onPress={props.onLinkPress}
           testID='token_detail_explorer_url'
         >
           <View style={tailwind('flex-row')}>
