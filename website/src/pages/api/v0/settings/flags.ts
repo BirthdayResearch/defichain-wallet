@@ -84,12 +84,22 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       description: 'Display redesigned onboarding flow for LW 2.0',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
-    }, {
+    },
+    {
       id: 'dusd_dfi_high_fee',
       name: 'DUSD-DFI High Fees',
       stage: 'public',
       version: '>0.0.0',
-      description: 'There are high fees in DUSD and DFI as of the moment',
+      description: 'There are high fees in some pairs with DUSD as of the moment',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
+    },
+    {
+      id: 'dusd_dex_high_fee',
+      name: 'DUSD High Fees on specific tokens',
+      stage: 'public',
+      version: '>0.0.0',
+      description: 'There are high fees in some pairs with DUSD as of the moment',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
     }

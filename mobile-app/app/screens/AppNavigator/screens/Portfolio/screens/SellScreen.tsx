@@ -78,6 +78,7 @@ export function SellScreen ({
   const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
   const dispatch = useAppDispatch()
   const [fee, setFee] = useState<number>(2.9)
+  const [dexFee, setDexFee] = useState<string>('')
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const {
@@ -319,9 +320,14 @@ export function SellScreen ({
           )
           : (
             <>
-              {(token.displaySymbol !== 'DFI' && token.displaySymbol !== 'dBTC' && token.displaySymbol !== 'dETH' && token.displaySymbol !== 'dUSDT' && token.displaySymbol !== 'dUSDC') && (
+              {token.symbol !== 'DFI' && (
                 <ThemedView style={tailwind('px-4 mb-4')}>
-                  <DfxDexFeeInfo token={token} />
+                  <DfxDexFeeInfo
+                    token={token}
+                    getDexFee={(df) => setTimeout(() => {
+                      setDexFee(df)
+                    }, 50)}
+                  />
                 </ThemedView>
               )}
 
@@ -388,6 +394,14 @@ export function SellScreen ({
                     testID='fiat_fee'
                     suffix='%'
                   />
+                  {dexFee !== '0' && (
+                    <InfoRow
+                      type={InfoType.DexFee}
+                      value={dexFee}
+                      testID='fiat_fee'
+                      suffix='%'
+                    />
+                  )}
                 </>)}
             </>
           )}
