@@ -3,7 +3,7 @@ import {
   NavigationProp,
   useNavigation
 } from '@react-navigation/native'
-import { useEffect, useState, useLayoutEffect, useCallback } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import * as React from 'react'
 import BigNumber from 'bignumber.js'
 import { useSelector } from 'react-redux'
@@ -12,19 +12,16 @@ import {
   SkeletonLoader,
   SkeletonLoaderScreen
 } from '@components/SkeletonLoader'
-import { ThemedScrollView } from '@components/themed'
+import { ThemedScrollViewV2, ThemedViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
-import { Tabs } from '@components/Tabs'
 import { tokensSelector, WalletToken } from '@store/wallet'
 import { RootState } from '@store'
-import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
-import { HeaderSearchInput } from '@components/HeaderSearchInput'
 import { EmptyActivePoolpair } from './components/EmptyActivePoolPair'
 import { debounce } from 'lodash'
 import { ButtonGroupTabKey, PoolPairCards } from './components/PoolPairCards/PoolPairCards'
-import { SwapButton } from './components/SwapButton'
+import { ButtonGroupV2 } from './components/ButtonGroupV2'
 import { DexScrollable } from '@screens/AppNavigator/screens/Dex/components/DexScrollable'
 
 enum TabKey {
@@ -63,7 +60,7 @@ export function DexScreen (): JSX.Element {
   const tabsList = [
     {
       id: TabKey.AvailablePoolPair,
-      label: translate('screens/DexScreen', 'Browse pool pairs'),
+      label: translate('screens/DexScreen', 'Available pairs'),
       disabled: false,
       handleOnPress: () => onTabChange(TabKey.AvailablePoolPair)
     },
@@ -108,7 +105,9 @@ export function DexScreen (): JSX.Element {
   }
 
   // Search
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showSearchInput, setShowSearchInput] = useState(false)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [searchString, setSearchString] = useState('')
   const [filteredAvailablePairs, setFilteredAvailablePairs] =
     useState<Array<DexItem<PoolPairData>>>(pairs)
@@ -179,53 +178,6 @@ export function DexScreen (): JSX.Element {
     }
   }, [pairs])
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerLeft: (): JSX.Element => {
-        return (
-          <HeaderSearchIcon
-            onPress={() => {
-              setShowSearchInput(true)
-              setFilteredAvailablePairs([])
-            }}
-            testID='dex_search_icon'
-            style={tailwind('pl-4')}
-          />
-        )
-      },
-      headerRight: (): JSX.Element => {
-        return <SwapButton />
-      }
-    })
-  }, [navigation])
-
-  useEffect(() => {
-    if (showSearchInput) {
-      navigation.setOptions({
-        header: (): JSX.Element => (
-          <HeaderSearchInput
-            searchString={searchString}
-            onClearInput={() => setSearchString('')}
-            onChangeInput={(text: string) => {
-              setSearchString(text)
-            }}
-            onCancelPress={() => {
-              setSearchString('')
-              setShowSearchInput(false)
-            }}
-            placeholder='Search for pool pairs'
-            testID='dex_search_input'
-          />
-        )
-      })
-    } else {
-      navigation.setOptions({
-        header: undefined
-      })
-      handleButtonFilter(activeButtonGroup)
-    }
-  }, [showSearchInput, searchString])
-
   // Top Liquidity pairs
   const [topLiquidityPairs, setTopLiquidityPairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
   useEffect(() => {
@@ -250,15 +202,29 @@ export function DexScreen (): JSX.Element {
 
   return (
     <>
-      <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
+      <ThemedViewV2
+        light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-100')}
+        dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-100')}
+        style={tailwind('flex flex-col items-center pt-4 rounded-b-2xl border-b')}
+      >
+        <View style={tailwind('w-full px-5')}>
+          <ButtonGroupV2
+            buttons={tabsList}
+            activeButtonGroupItem={activeTab}
+            testID='dex_tabs'
+            lightThemeStyle={tailwind('bg-transparent')}
+            darkThemeStyle={tailwind('bg-transparent')}
+          />
+        </View>
+      </ThemedViewV2>
       <TopLiquiditySection onPress={onSwap} pairs={topLiquidityPairs} />
       <NewPoolsSection onPress={onAdd} pairs={newPoolsPairs} />
       <View style={tailwind('flex-1')}>
         {activeTab === TabKey.AvailablePoolPair &&
           (!hasFetchedPoolpairData || isSearching) && (
-            <ThemedScrollView contentContainerStyle={tailwind('p-4')}>
+            <ThemedScrollViewV2 contentContainerStyle={tailwind('p-4')}>
               <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Dex} />
-            </ThemedScrollView>
+            </ThemedScrollViewV2>
           )}
         {activeTab === TabKey.AvailablePoolPair &&
           hasFetchedPoolpairData &&
