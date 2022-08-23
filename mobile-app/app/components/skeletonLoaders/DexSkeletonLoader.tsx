@@ -27,7 +27,8 @@ export function DexSkeletonLoader (props: JSX.IntrinsicAttributes & IContentLoad
         <Rect x='60' y='12' rx='4' ry='4' width='112' height='24' />
         <Rect x='256' y='7' rx='4' ry='4' width='64' height='30' />
 
-        <Rect x='10' y='55' rx='4' ry='4' width='200' height='30' />
+        <Rect x='10' y='55' rx='4' ry='4' width='200' height='12' />
+        <Rect x='10' y='70' rx='4' ry='4' width='200' height='12' />
 
         <Rect x='248' y='55' rx='4' ry='4' width='72' height='30' />
       </ContentLoader>
