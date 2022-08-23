@@ -12,7 +12,7 @@ import {
   SkeletonLoader,
   SkeletonLoaderScreen
 } from '@components/SkeletonLoader'
-import { ThemedScrollViewV2, ThemedTextV2, ThemedViewV2 } from '@components/themed'
+import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
@@ -24,6 +24,8 @@ import { ButtonGroupTabKey, PoolPairCards } from './components/PoolPairCards/Poo
 import { ButtonGroupV2 } from './components/ButtonGroupV2'
 import { HeaderSearchInputV2 } from '@components/HeaderSearchInputV2'
 import { useFavouritePoolpairs } from './hook/FavouritePoolpairs'
+import { ScrollView } from 'react-native'
+import { AssetsFilterItem } from '../Portfolio/components/AssetsFilterRow'
 
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
@@ -266,21 +268,29 @@ export function DexScreen (): JSX.Element {
           </ThemedTextV2>
         </View>)
       : (
-        <ThemedViewV2
-          light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-100')}
-          dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-100')}
-          style={tailwind('flex flex-col items-center pt-4 rounded-b-2xl border-b')}
-        >
-          <View style={tailwind('w-full px-5')}>
-            <ButtonGroupV2
-              buttons={tabsList}
-              activeButtonGroupItem={activeTab}
-              testID='dex_tabs'
-              lightThemeStyle={tailwind('bg-transparent')}
-              darkThemeStyle={tailwind('bg-transparent')}
-            />
-          </View>
-        </ThemedViewV2>
+        <>
+          <ThemedViewV2
+            light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-100')}
+            dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-100')}
+            style={tailwind('flex flex-col items-center pt-4 rounded-b-2xl border-b')}
+          >
+            <View style={tailwind('w-full px-5')}>
+              <ButtonGroupV2
+                buttons={tabsList}
+                activeButtonGroupItem={activeTab}
+                testID='dex_tabs'
+                lightThemeStyle={tailwind('bg-transparent')}
+                darkThemeStyle={tailwind('bg-transparent')}
+              />
+            </View>
+          </ThemedViewV2>
+          {activeTab === TabKey.AvailablePoolPair &&
+            <DexFilterPillGroup
+              onSearchBtnPress={onSearchBtnPress}
+              onButtonGroupChange={onButtonGroupChange}
+              activeButtonGroup={activeButtonGroup}
+            />}
+        </>
       )}
       <View style={tailwind('flex-1')}>
         {activeTab === TabKey.AvailablePoolPair &&
@@ -304,9 +314,6 @@ export function DexScreen (): JSX.Element {
               setIsSearching={setIsSearching}
               searchString={searchString}
               showSearchInput={showSearchInput}
-              onButtonGroupChange={onButtonGroupChange}
-              activeButtonGroup={activeButtonGroup}
-              onSearchBtnPress={onSearchBtnPress}
               topLiquidityPairs={topLiquidityPairs}
               newPoolsPairs={newPoolsPairs}
             />
@@ -328,9 +335,6 @@ export function DexScreen (): JSX.Element {
             setIsSearching={setIsSearching}
             searchString={searchString}
             showSearchInput={showSearchInput}
-            onButtonGroupChange={onButtonGroupChange}
-            activeButtonGroup={activeButtonGroup}
-            onSearchBtnPress={onSearchBtnPress}
             topLiquidityPairs={topLiquidityPairs}
             newPoolsPairs={newPoolsPairs}
           />
@@ -339,3 +343,68 @@ export function DexScreen (): JSX.Element {
     </ThemedViewV2>
   )
 }
+
+const DexFilterPillGroup = React.memo((props: {
+  onSearchBtnPress: () => void
+  onButtonGroupChange: (buttonGroupTabKey: ButtonGroupTabKey) => void
+  activeButtonGroup: ButtonGroupTabKey
+}) => {
+  const buttonGroup = [
+    {
+      id: ButtonGroupTabKey.AllPairs,
+      label: translate('screens/DexScreen', 'All pairs'),
+      handleOnPress: () => props.onButtonGroupChange(ButtonGroupTabKey.AllPairs)
+    },
+    {
+      id: ButtonGroupTabKey.DFIPairs,
+      label: translate('screens/DexScreen', 'DFI pairs'),
+      handleOnPress: () => props.onButtonGroupChange(ButtonGroupTabKey.DFIPairs)
+    },
+    {
+      id: ButtonGroupTabKey.DUSDPairs,
+      label: translate('screens/DexScreen', 'DUSD pairs'),
+      handleOnPress: () => props.onButtonGroupChange(ButtonGroupTabKey.DUSDPairs)
+    },
+    {
+      id: ButtonGroupTabKey.FavouritePairs,
+      label: translate('screens/DexScreen', 'Favourites'),
+      handleOnPress: () => props.onButtonGroupChange(ButtonGroupTabKey.FavouritePairs)
+    }
+  ]
+  return (
+    <View style={tailwind('my-4')}>
+      <ThemedViewV2 testID='dex_button_group'>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={tailwind('flex justify-between items-center flex-row px-5')}
+        >
+          <ThemedTouchableOpacityV2
+            onPress={props.onSearchBtnPress}
+            style={tailwind('text-center pr-4')}
+            testID='dex_search_icon'
+          >
+            <ThemedIcon
+              iconType='Feather'
+              name='search'
+              size={24}
+              light={tailwind('text-mono-light-v2-700')}
+              dark={tailwind('text-mono-dark-v2-700')}
+            />
+          </ThemedTouchableOpacityV2>
+          {buttonGroup.map((button, index) => (
+            <AssetsFilterItem
+              key={button.id}
+              label={button.label}
+              onPress={button.handleOnPress}
+              isActive={props.activeButtonGroup === button.id}
+              testID={`dex_button_group_${button.id}`}
+              additionalStyles={!(buttonGroup.length === index) ? tailwind('mr-3') : undefined}
+            />
+          )
+        )}
+        </ScrollView>
+      </ThemedViewV2>
+    </View>
+  )
+})

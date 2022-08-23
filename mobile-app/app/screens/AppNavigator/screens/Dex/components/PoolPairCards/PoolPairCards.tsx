@@ -4,9 +4,7 @@ import {
   ThemedFlatListV2,
   ThemedIcon,
   ThemedText,
-  ThemedTouchableOpacityV2,
-  ThemedView,
-  ThemedViewV2
+  ThemedView
 } from '@components/themed'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { tailwind } from '@tailwind'
@@ -20,7 +18,7 @@ import { useTokenBestPath } from '@screens/AppNavigator/screens/Portfolio/hooks/
 import { PriceRatesSection } from './PriceRatesSection'
 import React, { useEffect, useRef, useState } from 'react'
 import { useScrollToTop } from '@react-navigation/native'
-import { ScrollView, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { WalletToken } from '@store/wallet'
 import { useDebounce } from '@hooks/useDebounce'
 import { useFavouritePoolpairs } from '../../hook/FavouritePoolpairs'
@@ -29,7 +27,6 @@ import NumberFormat from 'react-number-format'
 import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
-import { AssetsFilterItem } from '@screens/AppNavigator/screens/Portfolio/components/AssetsFilterRow'
 import { TotalValueLocked } from '../TotalValueLocked'
 import { DexScrollable } from '../DexScrollable'
 
@@ -57,9 +54,6 @@ interface PoolPairCardProps {
   showSearchInput?: boolean
   expandedCardIds: string[]
   setExpandedCardIds: (ids: string[]) => void
-  onButtonGroupChange: (buttonGroupTabKey: ButtonGroupTabKey) => void
-  activeButtonGroup: ButtonGroupTabKey
-  onSearchBtnPress: () => void
   topLiquidityPairs: Array<DexItem<PoolPairData>>
   newPoolsPairs: Array<DexItem<PoolPairData>>
 }
@@ -76,9 +70,6 @@ export function PoolPairCards ({
   showSearchInput,
   expandedCardIds,
   setExpandedCardIds,
-  onButtonGroupChange,
-  activeButtonGroup,
-  onSearchBtnPress,
   topLiquidityPairs,
   newPoolsPairs
 }: PoolPairCardProps): JSX.Element {
@@ -161,11 +152,6 @@ export function PoolPairCards ({
           {(type === 'available' && showSearchInput === false)
             ? (
               <>
-                <DexBtnGroup
-                  onSearchBtnPress={onSearchBtnPress}
-                  onButtonGroupChange={onButtonGroupChange}
-                  activeButtonGroup={activeButtonGroup}
-                />
                 <TotalValueLocked tvl={tvl ?? 0} />
                 <TopLiquiditySection onPress={onSwap} pairs={topLiquidityPairs} />
                 <NewPoolsSection onPress={onAdd} pairs={newPoolsPairs} />
@@ -176,72 +162,6 @@ export function PoolPairCards ({
     />
   )
 }
-
-const DexBtnGroup = React.memo((props: {
-  onSearchBtnPress: () => void
-  onButtonGroupChange: (buttonGroupTabKey: ButtonGroupTabKey) => void
-  activeButtonGroup: ButtonGroupTabKey
-}) => {
-  const buttonGroup = [
-    {
-      id: ButtonGroupTabKey.AllPairs,
-      label: translate('screens/DexScreen', 'All pairs'),
-      handleOnPress: () => props.onButtonGroupChange(ButtonGroupTabKey.AllPairs)
-    },
-    {
-      id: ButtonGroupTabKey.DFIPairs,
-      label: translate('screens/DexScreen', 'DFI pairs'),
-      handleOnPress: () => props.onButtonGroupChange(ButtonGroupTabKey.DFIPairs)
-    },
-    {
-      id: ButtonGroupTabKey.DUSDPairs,
-      label: translate('screens/DexScreen', 'DUSD pairs'),
-      handleOnPress: () => props.onButtonGroupChange(ButtonGroupTabKey.DUSDPairs)
-    },
-    {
-      id: ButtonGroupTabKey.FavouritePairs,
-      label: translate('screens/DexScreen', 'Favourites'),
-      handleOnPress: () => props.onButtonGroupChange(ButtonGroupTabKey.FavouritePairs)
-    }
-  ]
-  return (
-    <View style={tailwind('my-4')}>
-      <ThemedViewV2 testID='dex_button_group'>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={tailwind('flex justify-between items-center flex-row px-5')}
-        >
-          <ThemedTouchableOpacityV2
-            onPress={props.onSearchBtnPress}
-            style={tailwind('text-center pr-4')}
-            testID='dex_search_icon'
-          >
-            <ThemedIcon
-              iconType='Feather'
-              name='search'
-              size={24}
-              light={tailwind('text-mono-light-v2-700')}
-              dark={tailwind('text-mono-dark-v2-700')}
-            />
-          </ThemedTouchableOpacityV2>
-          {buttonGroup.map((button, index) => (
-            <AssetsFilterItem
-              key={button.id}
-              label={button.label}
-              onPress={button.handleOnPress}
-              isActive={props.activeButtonGroup === button.id}
-              testID={`dex_button_group_${button.id}`}
-              additionalStyles={!(buttonGroup.length === index) ? tailwind('mr-3') : undefined}
-            />
-          )
-        )}
-        </ScrollView>
-      </ThemedViewV2>
-    </View>
-  )
-})
-
 interface PoolCardProps {
   item: DexItem<WalletToken | PoolPairData>
   expandedCardIds: string[]
