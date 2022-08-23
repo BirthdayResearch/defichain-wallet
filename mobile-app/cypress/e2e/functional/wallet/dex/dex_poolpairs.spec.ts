@@ -203,7 +203,7 @@ context('Wallet - DEX - Available Pool Pairs', () => {
       }
     }).as('getPoolPairs')
     cy.wait('@getPoolPairs').then(() => {
-      cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
+      cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS_active').click()
       cy.getByTestID('details_dETH-DFI').click()
       cy.getByTestID('available_liquidity_tab').getByTestID('pool_pair_row').eq(1)
         .invoke('text').should(text => {
@@ -256,15 +256,6 @@ context('Wallet - DEX - Your Pool Pairs', () => {
     cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click().wait(1000)
   })
 
-  it('should be able to search user pool pairs by querying in search input', () => {
-    cy.getByTestID('dex_search_icon').click()
-    cy.getByTestID('dex_search_input').type('eth')
-    cy.getByTestID('your_liquidity_tab').getByTestID('pool_pair_row_your').should('have.length', 1)
-      .invoke('text').should(text => {
-        expect(text).to.contains('dETH-DFI')
-      })
-  })
-
   it('should not display tab grouping', () => {
     cy.getByTestID('dex_button_group').should('not.exist')
   })
@@ -283,14 +274,6 @@ context('Wallet - DEX - Your Pool Pairs', () => {
     cy.wait('@getTokens').then(() => {
       cy.getByTestID('empty_active_poolpair').should('not.exist')
     })
-  })
-
-  it('should not display any pool pair with non-exist query', () => {
-    cy.getByTestID('dex_search_icon').click()
-    cy.getByTestID('dex_search_input').type('foo')
-    cy.getByTestID('your_liquidity_tab').getByTestID('pool_pair_row_your').should('not.exist')
-    cy.getByTestID('dex_search_input').clear()
-    cy.getByTestID('dex_search_input_close').click()
   })
 
   it('should not display favourite button', () => {

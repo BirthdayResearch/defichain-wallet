@@ -248,7 +248,7 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     cy.getByTestID('portfolio_row_17_symbol').contains('dBTC-DFI')
     // Remove added liquidity
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()
+    cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS_active').click()
     cy.getByTestID('pool_pair_remove_dBTC-DFI').click()
     cy.getByTestID('MAX_amount_button').click()
     cy.getByTestID('button_continue_remove_liq').click()
@@ -269,6 +269,7 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     cy.getByTestID('lp_tokens_to_receive_value_rhsUsdAmount').contains('$200,000.00')
     cy.getByTestID('button_confirm_add').click().wait(3000)
     cy.closeOceanInterface()
+    cy.getByTestID('dex_search_input_close').click()
   })
 
   it('should be able to add correct liquidity when user cancel a tx and updated some inputs', function () {
@@ -310,6 +311,7 @@ context('Wallet - DEX - Add Liquidity Confirm Txn', () => {
     cy.getByTestID('txn_authorization_title')
       .contains(`Adding ${newAmount} dBTC-DFI to liquidity pool`)
     cy.closeOceanInterface()
+    cy.getByTestID('dex_search_input_close').click()
   })
 })
 
