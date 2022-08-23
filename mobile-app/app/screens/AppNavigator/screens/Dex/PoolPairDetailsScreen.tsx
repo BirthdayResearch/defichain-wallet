@@ -135,9 +135,9 @@ function Header (props: {
         symbolB={props.symbolB}
         iconBStyle={tailwind('-ml-3')}
       />
-      <View style={tailwind('flex-col ml-3')}>
+      <View style={tailwind('flex-col ml-3 flex-auto pr-3')}>
         <ThemedTextV2
-          style={tailwind('font-semibold-v2 text-xl')}
+          style={tailwind('font-semibold-v2')}
         >
           {props.poolPairSymbol}
         </ThemedTextV2>
@@ -146,15 +146,13 @@ function Header (props: {
           onPress={() => { }}
           testID='token_detail_explorer_url'
         >
-          <View style={[tailwind('flex-row flex-wrap'), { maxWidth: 223 }]}>
+          <View style={tailwind('flex-row')}>
             <ThemedTextV2
               light={tailwind('text-mono-light-v2-700')}
               dark={tailwind('text-mono-dark-v2-700')}
-              style={tailwind('text-sm font-normal-v2 break-words')}
+              style={tailwind('text-sm font-normal-v2')}
             >
-              {props.poolPairName}
-            </ThemedTextV2>
-            <View style={tailwind('ml-1')}>
+              {`${props.poolPairName} `}
               <ThemedIcon
                 light={tailwind('text-mono-light-v2-700')}
                 dark={tailwind('text-mono-dark-v2-700')}
@@ -162,11 +160,11 @@ function Header (props: {
                 name='external-link'
                 size={16}
               />
-            </View>
+            </ThemedTextV2>
           </View>
         </TouchableOpacity>
       </View>
-      <View style={{ marginLeft: 'auto' }}>
+      <View>
         <FavoriteButton
           themedStyle={{
             dark: tailwind({
@@ -218,6 +216,7 @@ function PoolPairDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
           value: new BigNumber(poolPair.data.totalLiquidity.token).toFixed(8),
           usdAmount: new BigNumber(poolPair.data.totalLiquidity.usd ?? getTokenPrice(poolPair.data.symbol, new BigNumber(poolPair.data.totalLiquidity.token), true)),
           usdTextStyle: tailwind('text-sm'),
+          usdContainerStyle: tailwind('pt-1'),
           testID: 'total_liquidity_value'
         }}
       />
@@ -231,6 +230,7 @@ function PoolPairDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
           suffix: ` ${poolPair.data.tokenA.displaySymbol}`,
           usdAmount: getTokenPrice(poolPair.data.tokenA.symbol, new BigNumber(poolPair.data.tokenA.reserve)),
           usdTextStyle: tailwind('text-sm'),
+          usdContainerStyle: tailwind('pt-1'),
           testID: 'pooled_tokenA_value'
         }}
       />
@@ -244,6 +244,7 @@ function PoolPairDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
           suffix: ` ${poolPair.data.tokenB.displaySymbol}`,
           usdAmount: getTokenPrice(poolPair.data.tokenB.symbol, new BigNumber(poolPair.data.tokenB.reserve)),
           usdTextStyle: tailwind('text-sm'),
+          usdContainerStyle: tailwind('pt-1'),
           testID: 'pooled_tokenB_value'
         }}
       />
@@ -270,6 +271,7 @@ function PriceRateDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
           suffix: ` ${poolPair.data.tokenA.displaySymbol}`,
           usdAmount: getTokenPrice(poolPair.data.tokenA.symbol, new BigNumber(poolPair.data.priceRatio.ab)),
           usdTextStyle: tailwind('text-sm'),
+          usdContainerStyle: tailwind('pt-1'),
           testID: 'price_rate_tokenA_value'
         }}
       />
@@ -283,6 +285,7 @@ function PriceRateDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
           suffix: ` ${poolPair.data.tokenB.displaySymbol}`,
           usdAmount: getTokenPrice(poolPair.data.tokenB.symbol, new BigNumber(poolPair.data.priceRatio.ba)),
           usdTextStyle: tailwind('text-sm'),
+          usdContainerStyle: tailwind('pt-1'),
           testID: 'price_rate_tokenB_value'
         }}
       />
@@ -308,7 +311,7 @@ function APRDetail (props: { total: number, reward: number, commission: number }
           suffix='%'
           renderText={(val: string) => (
             <ThemedTextV2
-              style={tailwind('text-right font-semibold-v2 mt-1')}
+              style={tailwind('text-right font-semibold-v2')}
               light={tailwind('text-green-v2')}
               dark={tailwind('text-green-v2')}
               testID='apr_total_value'
@@ -325,7 +328,7 @@ function APRDetail (props: { total: number, reward: number, commission: number }
             <ThemedTextV2
               style={tailwind('text-right text-xs font-normal-v2 mt-1')}
               light={tailwind('text-mono-light-v2-700')}
-              dark={tailwind('text-green-v2')}
+              dark={tailwind('text-mono-dark-v2-700')}
               testID='apr_reward_value'
             >
               {`${val}% ${translate('screens/PoolPairDetailsScreen', 'in rewards')}`}
@@ -340,7 +343,7 @@ function APRDetail (props: { total: number, reward: number, commission: number }
             <ThemedTextV2
               style={tailwind('text-right text-xs font-normal-v2 mt-1')}
               light={tailwind('text-mono-light-v2-700')}
-              dark={tailwind('text-green-v2')}
+              dark={tailwind('text-mono-dark-v2-700')}
               testID='apr_commission_value'
             >
               {`${val}% ${translate('screens/PoolPairDetailsScreen', 'in commissions')}`}
