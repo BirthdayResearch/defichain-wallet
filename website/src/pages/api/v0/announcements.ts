@@ -12,27 +12,6 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
   res.json([
     {
       lang: {
-        en: 'There is currently a high DEX stabilization fee imposed on DUSD-DFI swaps due to DFIP 2206-D.',
-        de: 'Derzeit wird eine hohe DEX-Stabilisierungsgebühr bei Tausch von DUSD-DFI aufgrund von DFIP 2206-D erhoben.',
-        'zh-Hans': '由于社区提案 DFIP 2206-D，目前对 DUSD - DFI 兑换征收高额的 Dex 稳定费。',
-        'zh-Hant': '由於社區提案 DFIP 2206-D，目前對 DUSD - DFI 兌換徵收高額的 Dex 穩定費。',
-        fr: 'Il existe actuellement une taxe de stabilisation du DEX élevée imposée sur les échanges DUSD-DFI en raison du DFIP 2206-D.',
-        es: 'There is currently a high DEX Stabilization fee imposed on DUSD-DFI swaps due to DFIP 2206-D.',
-        it: 'There is currently a high DEX Stabilization fee imposed on DUSD-DFI swaps due to DFIP 2206-D.'
-      },
-      version: '<=1.16.0',
-      type: 'OTHER_ANNOUNCEMENT',
-      id: '11',
-      url: {
-        ios: 'https://blog.defichain.com/dex-stabilization-fee/',
-        android: 'https://blog.defichain.com/dex-stabilization-fee/',
-        web: 'https://blog.defichain.com/dex-stabilization-fee/',
-        windows: 'https://blog.defichain.com/dex-stabilization-fee/',
-        macos: 'https://blog.defichain.com/dex-stabilization-fee/'
-      }
-    },
-    {
-      lang: {
         en: 'There is currently a high DEX stabilization fee imposed on DUSD-DFI, DUSD-USDT, and DUSD-USDC swaps due to DFIP 2206-D and DFIP 2207-B.',
         de: 'Auf DUSD-DFI-, DUSD-USDT- und DUSD-USDC-Tauschgeschäfte wird derzeit eine hohe DEX-Stabilisierungsgebühr aufgrund von DFIP 2206-D und DFIP 2207-B erhoben.',
         'zh-Hans': 'There is currently a high DEX stabilization fee imposed on DUSD-DFI, DUSD-USDT, and DUSD-USDC swaps due to DFIP 2206-D and DFIP 2207-B.',
@@ -56,9 +35,9 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       lang: {
         en: 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.',
         de: 'Die DeFiChain Wallet wird 1 Jahr alt! Sieh dir an, wie die früheren Tage von DeFiChain Wallet aussahen.',
-        'zh-Hans': '看看早期的 DeFiChain 錢包是怎樣。',
-        'zh-Hant': '看看早期的 DeFiChain 钱包是怎样。',
-        fr: 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.',
+        'zh-Hans': 'DeFiChain 钱包刚满一周岁生日! 看看早期的 DeFiChain 钱包是怎样。',
+        'zh-Hant': 'DeFiChain 錢包剛滿一周歲生日! 看看早期的 DeFiChain 錢包是怎樣。',
+        fr: 'C\'est l\'anniversaire des 1 an du portefeuille DeFiChain ! Regarde à quoi ressemblaient les premiers jours du portefeuille DeFiChain.',
         es: 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.',
         it: 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.'
       },
