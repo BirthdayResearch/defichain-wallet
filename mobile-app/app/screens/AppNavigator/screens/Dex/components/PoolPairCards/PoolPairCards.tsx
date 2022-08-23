@@ -272,6 +272,7 @@ const PoolCard = ({
       light={tailwind('bg-white border-gray-200')}
       style={tailwind('p-4 mb-2 border rounded')}
       testID={type === 'your' ? 'pool_pair_row_your' : 'pool_pair_row'}
+      onPress={() => onPress(item.data.id)}
     >
       <View
         style={tailwind('flex flex-row justify-between w-full')}
