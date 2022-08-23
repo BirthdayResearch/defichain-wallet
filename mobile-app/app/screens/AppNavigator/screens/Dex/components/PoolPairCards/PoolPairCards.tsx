@@ -22,10 +22,12 @@ import { DexScrollable } from '../DexScrollable'
 import { EmptyCryptoIcon } from '@screens/AppNavigator/screens/Portfolio/assets/EmptyCryptoIcon'
 import { EmptyTokensScreen } from '@screens/AppNavigator/screens/Portfolio/components/EmptyTokensScreen'
 import { PoolPairIconV2 } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolPairIconV2'
-import { DexActionButton } from '@screens/AppNavigator/screens/Dex/components/DexActionButton'
+import { DexActionButton, DexAddRemoveLiquidityButton } from '@screens/AppNavigator/screens/Dex/components/DexActionButton'
 import { FavoriteButton } from '@screens/AppNavigator/screens/Dex/components/FavoriteButton'
 import { PriceRatesSection } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PriceRatesSection'
 import { APRSection } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/APRSection'
+import { PoolSharesSection } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolSharesSection'
+import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
 
 interface DexItem<T> {
   type: 'your' | 'available'
@@ -194,9 +196,12 @@ const PoolCard = ({
   isFavouritePoolpair,
   setFavouritePoolpair,
   type,
-  onSwap
+  onSwap,
+  onAdd,
+  onRemove
 }: PoolCardProps): JSX.Element => {
   const { calculatePriceRates } = useTokenBestPath()
+  const { getTokenPrice } = useTokenPrice()
   const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet)
   const blockCount = useSelector((state: RootState) => state.block.count)
   const { data: yourPair } = item
@@ -242,18 +247,35 @@ const PoolCard = ({
       light={tailwind('bg-mono-light-v2-00')}
       testID={type === 'your' ? 'pool_pair_row_your' : 'pool_pair_row'}
     >
-      {type === 'available' && (
-        <AvailablePool
-          symbolA={symbolA}
-          symbolB={symbolB}
-          pair={mappedPair}
-          onSwap={() => onSwap(mappedPair, (yourPair as WalletToken))}
-          aToBPrice={priceRates.aToBPrice}
-          bToAPrice={priceRates.bToAPrice}
-          isFavouritePair={isFavoritePair}
-          setFavouritePoolpair={setFavouritePoolpair}
-        />
-      )}
+      {type === 'available'
+? (
+  <AvailablePool
+    symbolA={symbolA}
+    symbolB={symbolB}
+    pair={mappedPair}
+    onSwap={() => onSwap(mappedPair, (yourPair as WalletToken))}
+    aToBPrice={priceRates.aToBPrice}
+    bToAPrice={priceRates.bToAPrice}
+    isFavouritePair={isFavoritePair}
+    setFavouritePoolpair={setFavouritePoolpair}
+  />
+      )
+: (
+  <YourPoolPair
+    symbolA={symbolA}
+    symbolB={symbolB}
+    walletToken={(yourPair as WalletToken)}
+    poolPair={mappedPair}
+    onAdd={() => onAdd(mappedPair, yourPair as WalletToken)}
+    onRemove={() => onRemove(mappedPair, yourPair as WalletToken)}
+    walletTokenAmount={new BigNumber((yourPair as WalletToken).amount)}
+    walletTokenPrice={getTokenPrice(
+        yourPair.symbol,
+        new BigNumber((yourPair as WalletToken).amount),
+        true
+        )}
+  />
+        )}
     </ThemedViewV2>
   )
 }
@@ -312,6 +334,64 @@ function AvailablePool (props: AvailablePoolProps): JSX.Element {
             value={{
               text: new BigNumber(
                 isNaN(props.pair.apr.total) ? 0 : props.pair.apr.total
+              )
+                .times(100)
+                .toFixed(2),
+              decimalScale: 2,
+              testID: `apr_${props.symbolA}-${props.symbolB}`,
+              suffix: '%'
+            }}
+          />
+        )}
+      </View>
+    </>
+  )
+}
+
+interface YourPoolPairProps {
+  onAdd: () => void
+  onRemove: () => void
+  symbolA: string
+  symbolB: string
+  poolPair: PoolPairData
+  walletToken: WalletToken
+  walletTokenPrice: BigNumber
+  walletTokenAmount: BigNumber
+}
+function YourPoolPair (props: YourPoolPairProps): JSX.Element {
+  return (
+    <>
+      <View style={tailwind('flex flex-row justify-between items-center w-full')}>
+        <View style={tailwind('flex flex-row items-center')}>
+          <PoolPairIconV2
+            symbolA={props.symbolA}
+            symbolB={props.symbolB}
+            customSize={36}
+            iconBStyle={tailwind('-ml-4 mr-2')}
+          />
+          <ThemedTextV2
+            style={tailwind('font-semibold-v2 text-base')}
+          >
+            {`${props.symbolA}-${props.symbolB}`}
+          </ThemedTextV2>
+        </View>
+        <DexAddRemoveLiquidityButton
+          onAdd={props.onAdd}
+          onRemove={props.onRemove}
+        />
+      </View>
+      <View style={tailwind('flex flex-row justify-between mt-3')}>
+        <PoolSharesSection
+          walletTokenPrice={props.walletTokenPrice}
+          walletTokenAmount={props.walletTokenAmount}
+          tokenID={props.walletToken.id}
+        />
+        {props.poolPair?.apr?.total !== undefined && props.poolPair?.apr?.total !== null && (
+          <APRSection
+            label={`${translate('screens/DexScreen', 'APR')}`}
+            value={{
+              text: new BigNumber(
+                isNaN(props.poolPair.apr.total) ? 0 : props.poolPair.apr.total
               )
                 .times(100)
                 .toFixed(2),
