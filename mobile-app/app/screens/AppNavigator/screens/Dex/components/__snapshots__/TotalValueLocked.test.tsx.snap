@@ -1,42 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Total Value Locked should match snapshot 1`] = `
-<ViewManagerAdapter_ExpoLinearGradient
-  proxiedProperties={
+<View
+  style={
     Object {
-      "colors": Array [
-        4294074307,
-        4287326700,
-      ],
-      "endPoint": Array [
-        1,
-        1,
-      ],
-      "locations": Array [
-        0,
-        1,
-      ],
-      "startPoint": Array [
-        0,
-        0,
-      ],
+      "marginTop": 8,
+      "paddingLeft": 20,
+      "paddingRight": 20,
     }
   }
-  style={
-    Array [
-      Object {
-        "borderBottomLeftRadius": 10,
-        "borderBottomRightRadius": 10,
-        "borderTopLeftRadius": 10,
-        "borderTopRightRadius": 10,
-      },
-      Object {
-        "padding": 0.5,
-      },
-    ]
-  }
 >
-  <View
+  <ViewManagerAdapter_ExpoLinearGradient
+    proxiedProperties={
+      Object {
+        "colors": Array [
+          4294074307,
+          4287326700,
+        ],
+        "endPoint": Array [
+          1,
+          1,
+        ],
+        "locations": Array [
+          0,
+          1,
+        ],
+        "startPoint": Array [
+          0,
+          0,
+        ],
+      }
+    }
     style={
       Array [
         Object {
@@ -46,173 +40,189 @@ exports[`Total Value Locked should match snapshot 1`] = `
           "borderTopRightRadius": 10,
         },
         Object {
-          "backgroundColor": "rgba(242, 242, 242, 1)",
+          "padding": 0.5,
         },
       ]
     }
   >
     <View
-      accessibilityIgnoresInvertColors={true}
       style={
-        Object {
-          "borderBottomLeftRadius": 10,
-          "borderBottomRightRadius": 10,
-          "borderTopLeftRadius": 10,
-          "borderTopRightRadius": 10,
-          "overflow": "hidden",
-          "width": "100%",
-        }
+        Array [
+          Object {
+            "borderBottomLeftRadius": 10,
+            "borderBottomRightRadius": 10,
+            "borderTopLeftRadius": 10,
+            "borderTopRightRadius": 10,
+          },
+          Object {
+            "backgroundColor": "rgba(242, 242, 242, 1)",
+          },
+        ]
       }
     >
-      <Image
-        resizeMode="cover"
-        source={1}
-        style={
-          Array [
-            Object {
-              "bottom": 0,
-              "left": 0,
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-            },
-            Object {
-              "height": undefined,
-              "width": "100%",
-            },
-            Object {
-              "height": 224,
-            },
-          ]
-        }
-      />
       <View
+        accessibilityIgnoresInvertColors={true}
         style={
           Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "paddingBottom": 14,
-            "paddingLeft": 20,
-            "paddingRight": 20,
-            "paddingTop": 14,
+            "borderBottomLeftRadius": 10,
+            "borderBottomRightRadius": 10,
+            "borderTopLeftRadius": 10,
+            "borderTopRightRadius": 10,
+            "overflow": "hidden",
+            "width": "100%",
           }
         }
       >
-        <View
+        <Image
+          resizeMode="cover"
+          source={1}
           style={
-            Object {
-              "width": "66.666667%",
-            }
+            Array [
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+              },
+              Object {
+                "height": undefined,
+                "width": "100%",
+              },
+              Object {
+                "height": 224,
+              },
+            ]
           }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontFamily": "SoraSemiBold",
-                    "fontSize": 16,
-                    "fontWeight": "600",
-                    "lineHeight": 24,
-                  },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="DEX_TVL"
-          >
-            $123
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 12,
-                    "fontWeight": "400",
-                    "lineHeight": 16,
-                  },
-                  Object {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
-                ],
-              ]
-            }
-          >
-            Total value locked
-          </Text>
-        </View>
+        />
         <View
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "backgroundColor": "rgba(0, 0, 0, 1)",
-              "borderBottomLeftRadius": 20,
-              "borderBottomRightRadius": 20,
-              "borderTopLeftRadius": 20,
-              "borderTopRightRadius": 20,
-              "opacity": 1,
-              "paddingBottom": 8,
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "paddingBottom": 14,
               "paddingLeft": 20,
               "paddingRight": 20,
-              "paddingTop": 8,
+              "paddingTop": 14,
             }
           }
         >
-          <Text
+          <View
             style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+              Object {
+                "width": "66.666667%",
+              }
+            }
+          >
+            <Text
+              style={
                 Array [
                   Object {
-                    "fontFamily": "SoraSemiBold",
-                    "fontSize": 14,
-                    "fontWeight": "600",
-                    "lineHeight": 20,
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
                   },
+                  Array [
+                    Object {
+                      "fontFamily": "SoraSemiBold",
+                      "fontSize": 16,
+                      "fontWeight": "600",
+                      "lineHeight": 24,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="DEX_TVL"
+            >
+              $123
+            </Text>
+            <Text
+              style={
+                Array [
                   Object {
-                    "color": "rgba(242, 242, 242, 1)",
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
                   },
-                ],
-              ]
+                  Array [
+                    Object {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
+                      "lineHeight": 16,
+                    },
+                    Object {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Total value locked
+            </Text>
+          </View>
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "rgba(0, 0, 0, 1)",
+                "borderBottomLeftRadius": 20,
+                "borderBottomRightRadius": 20,
+                "borderTopLeftRadius": 20,
+                "borderTopRightRadius": 20,
+                "opacity": 1,
+                "paddingBottom": 8,
+                "paddingLeft": 20,
+                "paddingRight": 20,
+                "paddingTop": 8,
+              }
             }
-            testID="composite_swap"
           >
-            Swap
-          </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontFamily": "SoraSemiBold",
+                      "fontSize": 14,
+                      "fontWeight": "600",
+                      "lineHeight": 20,
+                    },
+                    Object {
+                      "color": "rgba(242, 242, 242, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="composite_swap"
+            >
+              Swap
+            </Text>
+          </View>
         </View>
       </View>
     </View>
-  </View>
-</ViewManagerAdapter_ExpoLinearGradient>
+  </ViewManagerAdapter_ExpoLinearGradient>
+</View>
 `;
