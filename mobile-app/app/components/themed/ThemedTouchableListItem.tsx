@@ -6,7 +6,7 @@ import { tailwind } from '@tailwind'
 type IListProps = React.PropsWithChildren<ViewProps> & ListProps
 
 interface ListProps {
-  onPress: () => void
+  onPress?: () => void
   isLast?: boolean
   disabled?: boolean
   testId?: string
