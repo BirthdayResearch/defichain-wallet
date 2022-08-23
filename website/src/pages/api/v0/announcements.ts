@@ -55,9 +55,9 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     {
       lang: {
         en: 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.',
-        de: 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.',
-        'zh-Hans': 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.',
-        'zh-Hant': 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.',
+        de: 'Die DeFiChain Wallet wird 1 Jahr alt! Sieh dir an, wie die früheren Tage von DeFiChain Wallet aussahen.',
+        'zh-Hans': '看看早期的 DeFiChain 錢包是怎樣。',
+        'zh-Hant': '看看早期的 DeFiChain 钱包是怎样。',
         fr: 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.',
         es: 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.',
         it: 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.'
