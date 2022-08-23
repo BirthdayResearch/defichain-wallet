@@ -153,7 +153,7 @@ export function PoolPairCards ({
       renderItem={renderItem}
       ListEmptyComponent={
         <>
-          {activeButtonGroup === ButtonGroupTabKey.FavouritePairs && (
+          {showSearchInput === false && activeButtonGroup === ButtonGroupTabKey.FavouritePairs && (
             <EmptyTokensScreen
               icon={EmptyCryptoIcon}
               containerStyle={tailwind('pt-14')}
