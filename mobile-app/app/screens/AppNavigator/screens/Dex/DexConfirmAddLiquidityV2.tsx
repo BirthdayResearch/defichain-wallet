@@ -248,8 +248,6 @@ export function ConfirmAddLiquidityScreenV2 ({ route }: Props): JSX.Element {
             testID: 'lp_tokens_to_receive_value',
             usdAmount: getTokenPrice(pair.tokenA.symbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.tokenB.symbol, new BigNumber(tokenBAmount))),
             themedProps: {
-              light: tailwind('text-mono-light-v2-900'),
-              dark: tailwind('text-mono-dark-v2-900'),
               style: tailwind('font-semibold-v2 text-sm')
             },
             usdTextStyle: tailwind('text-sm')
