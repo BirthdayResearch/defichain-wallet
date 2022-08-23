@@ -44,6 +44,10 @@ export function HeaderSearchInputV2 (props: HeaderSearchInputProps): JSX.Element
       <SearchInputV2
         light={tailwind('bg-mono-light-v2-100')}
         dark={tailwind('bg-mono-dark-v2-100')}
+        inputStyle={{
+          light: tailwind('text-mono-light-v2-900'),
+          dark: tailwind('text-mono-dark-v2-900')
+        }}
         containerStyle={tailwind('flex-1')}
         value={props.searchString}
         placeholder={translate('components/HeaderSearchInput', props.placeholder)}

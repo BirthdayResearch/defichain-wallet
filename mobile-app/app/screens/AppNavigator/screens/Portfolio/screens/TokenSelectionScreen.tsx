@@ -95,15 +95,19 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
             value={searchString}
             containerStyle={
               tailwind(['border-0.5', isSearchFocus
-? {
+              ? {
                 'border-mono-light-v2-800': isLight,
                 'border-mono-dark-v2-800': !isLight
               }
-: {
+              : {
                 'border-mono-light-v2-00': isLight,
                 'border-mono-dark-v2-00': !isLight
               }])
             }
+            inputStyle={{
+              light: tailwind('text-mono-light-v2-900'),
+              dark: tailwind('text-mono-dark-v2-900')
+            }}
             placeholder={translate('screens/TokenSelectionScreen', 'Search token')}
             showClearButton={debouncedSearchTerm !== ''}
             onClearInput={() => {
