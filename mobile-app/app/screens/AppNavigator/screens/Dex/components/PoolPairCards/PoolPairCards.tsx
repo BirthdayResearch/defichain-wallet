@@ -162,6 +162,15 @@ export function PoolPairCards ({
                 <TotalValueLocked tvl={tvl ?? 0} />
                 <TopLiquiditySection onPress={onSwap} pairs={topLiquidityPairs} />
                 <NewPoolsSection onPress={onAdd} pairs={newPoolsPairs} />
+                <View>
+                  <ThemedTextV2
+                    dark={tailwind('text-mono-dark-v2-500')}
+                    light={tailwind('text-mono-light-v2-500')}
+                    style={tailwind('font-normal-v2 text-xs uppercase pl-10 mb-2')}
+                  >
+                    {translate('screens/DexScreen', 'Available pairs')}
+                  </ThemedTextV2>
+                </View>
               </>)
             : <></>}
         </>
@@ -228,7 +237,7 @@ const PoolCard = ({
   }
   return (
     <ThemedViewV2
-      style={tailwind('px-5 py-4 mb-2 rounded-lg-v2')}
+      style={tailwind('px-5 py-4 mb-2 rounded-lg-v2 mx-5')}
       dark={tailwind('bg-mono-dark-v2-00')}
       light={tailwind('bg-mono-light-v2-00')}
       testID={type === 'your' ? 'pool_pair_row_your' : 'pool_pair_row'}
