@@ -30,6 +30,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { TotalValueLocked } from '../TotalValueLocked'
 import { ButtonGroup } from '../ButtonGroup'
+import { useYourPoolPairAmountBreakdown } from '../../hook/YourPoolPairAmountBreakdown'
 
 interface DexItem<T> {
   type: 'your' | 'available'
@@ -258,19 +259,12 @@ const PoolCard = ({
     mappedPair?.tokenA != null && mappedPair?.tokenB != null
       ? [mappedPair.tokenA.displaySymbol, mappedPair.tokenB.displaySymbol]
       : yourPair.symbol.split('-')
-  const toRemove = new BigNumber(1)
-    .times((yourPair as WalletToken).amount)
-    .decimalPlaces(8, BigNumber.ROUND_DOWN)
-  const ratioToTotal = toRemove.div(mappedPair?.totalLiquidity?.token ?? 1)
+
   const symbol = `${symbolA}-${symbolB}`
 
   // assume defid will trim the dust values too
-  const tokenATotal = ratioToTotal
-    .times(mappedPair?.tokenA.reserve ?? 0)
-    .decimalPlaces(8, BigNumber.ROUND_DOWN)
-  const tokenBTotal = ratioToTotal
-    .times(mappedPair?.tokenB.reserve ?? 0)
-    .decimalPlaces(8, BigNumber.ROUND_DOWN)
+  const { tokenATotal, tokenBTotal } = useYourPoolPairAmountBreakdown(yourPair as WalletToken)
+
   const isExpanded = expandedCardIds.some((id) => id === yourPair.id)
 
   const onCollapseToggle = (): void => {
