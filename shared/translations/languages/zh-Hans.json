@@ -25,7 +25,8 @@
     "About Recovery Words": "About Recovery Words"
   },
   "screens/DexScreen": {
-    "Decentralized Exchange": "ＤＥＸ",
+    "Decentralized Exchange": "DEX",
+    "Decentralized \nExchange": "DEX",
     "ADD LIQUIDITY": "增加流动资金",
     "Add liquidity": "增加流动资金",
     "Add Liquidity": "增加流动资金",
@@ -64,7 +65,13 @@
     "Prices": "价格",
     "Available pool pairs": "可选流动池",
     "Your shared {{symbol}}": "您的股份 {{symbol}}",
-    "Confirm": "确认"
+    "Confirm": "确认",
+    "Available pairs": "Available pairs",
+    "Favorites": "Favorites",
+    "No favorites added": "No favorites added",
+    "Tap the star icon to add your favorite pools here": "Tap the star icon to add your favorite pools here",
+    "Total value locked": "总体价值锁定",
+    "Search results for “{{input}}”": "Search results for “{{input}}”"
   },
   "screens/PortfolioScreen": {
     "Balances": "我的资产",
@@ -1649,7 +1656,8 @@
   "components/HeaderSearchInput": {
     "Search for loans": "搜寻贷款",
     "Search for loan token": "搜寻贷款代币",
-    "Search for pool pairs": "搜索流动池配对"
+    "Search for pool pairs": "搜索流动池配对",
+    "Search pool pair": "Search pool pair"
   },
   "components/EmptyCollateral": {
     "No collateral": "没有抵押",

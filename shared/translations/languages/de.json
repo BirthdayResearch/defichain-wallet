@@ -26,6 +26,7 @@
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
+    "Decentralized \nExchange": "Dezentrale \nBörse",
     "ADD LIQUIDITY": "LIQUIDITÄT HINZUFÜGEN",
     "Add liquidity": "Liquidität hinzufügen",
     "Add Liquidity": "Liquidität hinzufügen",
@@ -64,7 +65,13 @@
     "Prices": "Preise",
     "Available pool pairs": "Verfügbare Pool-Paare",
     "Your shared {{symbol}}": "Dein {{symbol}}-Anteil",
-    "Confirm": "Bestätigen"
+    "Confirm": "Bestätigen",
+    "Available pairs": "Verfügbare Paare",
+    "Favorites": "Favoriten",
+    "No favorites added": "Keine Favoriten hinzugefügt",
+    "Tap the star icon to add your favorite pools here": "Tippe auf das Sternsymbol, um einen Favoriten hinzuzufügen",
+    "Total value locked": "Fixierter gesamtwert",
+    "Search results for “{{input}}”": "Suchergebnisse für “{{input}}”"
   },
   "screens/PortfolioScreen": {
     "Balances": "Guthaben",
@@ -1641,7 +1648,8 @@
   "components/HeaderSearchInput": {
     "Search for loans": "Nach Darlehen suchen",
     "Search for loan token": "Suche nach Darlehenstoken",
-    "Search for pool pairs": "Suche nach Pool-Paaren"
+    "Search for pool pairs": "Suche nach Pool-Paaren",
+    "Search pool pair": "Suche Poolpaar"
   },
   "components/EmptyCollateral": {
     "No collateral": "Keine Sicherheiten",

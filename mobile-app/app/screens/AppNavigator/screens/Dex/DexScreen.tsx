@@ -370,7 +370,7 @@ const DexFilterPillGroup = React.memo((props: {
     },
     {
       id: ButtonGroupTabKey.FavouritePairs,
-      label: translate('screens/DexScreen', 'Favourites'),
+      label: translate('screens/DexScreen', 'Favorites'),
       handleOnPress: () => props.onButtonGroupChange(ButtonGroupTabKey.FavouritePairs)
     }
   ]
