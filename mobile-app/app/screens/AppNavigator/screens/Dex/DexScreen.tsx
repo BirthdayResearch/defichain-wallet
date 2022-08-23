@@ -317,6 +317,7 @@ export function DexScreen (): JSX.Element {
               showSearchInput={showSearchInput}
               topLiquidityPairs={topLiquidityPairs}
               newPoolsPairs={newPoolsPairs}
+              activeButtonGroup={activeButtonGroup}
             />
           )}
 
@@ -338,6 +339,7 @@ export function DexScreen (): JSX.Element {
             showSearchInput={showSearchInput}
             topLiquidityPairs={topLiquidityPairs}
             newPoolsPairs={newPoolsPairs}
+            activeButtonGroup={activeButtonGroup}
           />
         )}
       </View>

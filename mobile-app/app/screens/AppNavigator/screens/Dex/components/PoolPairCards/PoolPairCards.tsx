@@ -29,6 +29,8 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { TotalValueLocked } from '../TotalValueLocked'
 import { DexScrollable } from '../DexScrollable'
+import { EmptyCryptoIcon } from '@screens/AppNavigator/screens/Portfolio/assets/EmptyCryptoIcon'
+import { EmptyTokensScreen } from '@screens/AppNavigator/screens/Portfolio/components/EmptyTokensScreen'
 
 interface DexItem<T> {
   type: 'your' | 'available'
@@ -56,6 +58,7 @@ interface PoolPairCardProps {
   setExpandedCardIds: (ids: string[]) => void
   topLiquidityPairs: Array<DexItem<PoolPairData>>
   newPoolsPairs: Array<DexItem<PoolPairData>>
+  activeButtonGroup: ButtonGroupTabKey
 }
 
 export function PoolPairCards ({
@@ -71,7 +74,8 @@ export function PoolPairCards ({
   expandedCardIds,
   setExpandedCardIds,
   topLiquidityPairs,
-  newPoolsPairs
+  newPoolsPairs,
+  activeButtonGroup
 }: PoolPairCardProps): JSX.Element {
   const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
   const sortedPairs = sortPoolpairsByFavourite(
@@ -147,9 +151,21 @@ export function PoolPairCards ({
         type === 'your' ? 'your_liquidity_tab' : 'available_liquidity_tab'
       }
       renderItem={renderItem}
+      ListEmptyComponent={
+        <>
+          {activeButtonGroup === ButtonGroupTabKey.FavouritePairs && (
+            <EmptyTokensScreen
+              icon={EmptyCryptoIcon}
+              containerStyle={tailwind('pt-14')}
+              title={translate('screens/DexScreen', 'No favorites added')}
+              subTitle={translate('screens/DexScreen', 'Tap the star icon to add your favorite pools here')}
+            />
+          )}
+        </>
+      }
       ListHeaderComponent={
         <>
-          {(type === 'available' && showSearchInput === false)
+          {(type === 'available' && showSearchInput === false && activeButtonGroup === ButtonGroupTabKey.AllPairs)
             ? (
               <>
                 <TotalValueLocked tvl={tvl ?? 0} />
