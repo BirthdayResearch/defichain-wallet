@@ -54,23 +54,23 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     },
     {
       lang: {
-        en: 'There is currently a high DEX stabilization fee imposed on DUSD-DFI, DUSD-USDT, and DUSD-USDC swaps due to DFIP 2206-D and DFIP 2207-B.',
-        de: 'Auf DUSD-DFI-, DUSD-USDT- und DUSD-USDC-Tauschgeschäfte wird derzeit eine hohe DEX-Stabilisierungsgebühr aufgrund von DFIP 2206-D und DFIP 2207-B erhoben.',
-        'zh-Hans': 'There is currently a high DEX stabilization fee imposed on DUSD-DFI, DUSD-USDT, and DUSD-USDC swaps due to DFIP 2206-D and DFIP 2207-B.',
-        'zh-Hant': 'There is currently a high DEX stabilization fee imposed on DUSD-DFI, DUSD-USDT, and DUSD-USDC swaps due to DFIP 2206-D and DFIP 2207-B.',
-        fr: 'Il y a actuellement des frais de stabilisation DEX élevés imposés sur les échanges DUSD-DFI, DUSD-USDT, et DUSD-USDC en raison de DFIP 2206-D et DFIP 2207-B.',
-        es: 'There is currently a high DEX stabilization fee imposed on DUSD-DFI, DUSD-USDT, and DUSD-USDC swaps due to DFIP 2206-D and DFIP 2207-B.',
-        it: 'There is currently a high DEX stabilization fee imposed on DUSD-DFI, DUSD-USDT, and DUSD-USDC swaps due to DFIP 2206-D and DFIP 2207-B.'
+        en: 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.',
+        de: 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.',
+        'zh-Hans': 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.',
+        'zh-Hant': 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.',
+        fr: 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.',
+        es: 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.',
+        it: 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.'
       },
       version: '>=1.16.1',
       type: 'OTHER_ANNOUNCEMENT',
-      id: '13',
+      id: '14',
       url: {
-        ios: 'https://blog.defichain.com/dex-stabilization-fee/',
-        android: 'https://blog.defichain.com/dex-stabilization-fee/',
-        web: 'https://blog.defichain.com/dex-stabilization-fee/',
-        windows: 'https://blog.defichain.com/dex-stabilization-fee/',
-        macos: 'https://blog.defichain.com/dex-stabilization-fee/'
+        ios: 'https://medium.com/@birthdayresearch/happy-1st-birthday-to-the-defichain-light-wallet-d753704b65c2',
+        android: 'https://medium.com/@birthdayresearch/happy-1st-birthday-to-the-defichain-light-wallet-d753704b65c2',
+        web: 'https://medium.com/@birthdayresearch/happy-1st-birthday-to-the-defichain-light-wallet-d753704b65c2',
+        windows: 'https://medium.com/@birthdayresearch/happy-1st-birthday-to-the-defichain-light-wallet-d753704b65c2',
+        macos: 'https://medium.com/@birthdayresearch/happy-1st-birthday-to-the-defichain-light-wallet-d753704b65c2'
       }
     }
   ])
