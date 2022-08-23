@@ -1,32 +1,22 @@
-
-import { View } from 'react-native'
-import { ThemedIcon, ThemedText, ThemedTouchableOpacity } from '@components/themed'
+import { ThemedTouchableListItem, ThemedTextV2 } from '@components/themed'
+import { StyleProp, TextStyle } from 'react-native'
 import { tailwind } from '@tailwind'
-
 interface PlaygroundActionProps {
-  testID: string
   title: string
-  onPress: () => void
+  rhsChildren?: () => JSX.Element
+  isLast: boolean
+  testID?: string
+  textStyle?: StyleProp<TextStyle>
+  onPress?: () => void
 }
 
-export function PlaygroundAction (props: PlaygroundActionProps): JSX.Element {
+export function PlaygroundAction ({ title, isLast, testID, rhsChildren, textStyle, onPress }: PlaygroundActionProps): JSX.Element {
   return (
-    <ThemedTouchableOpacity
-      onPress={props.onPress}
-      style={tailwind('flex-row items-center justify-between p-4 bg-white border-b border-gray-100')}
-      testID={props.testID}
-    >
-      <ThemedText style={tailwind('flex-1 font-medium')}>
-        {props.title}
-      </ThemedText>
-
-      <View style={tailwind('px-4')} />
-
-      <ThemedIcon
-        iconType='MaterialIcons'
-        name='chevron-right'
-        size={24}
-      />
-    </ThemedTouchableOpacity>
+    <ThemedTouchableListItem isLast={isLast} testId={testID} onPress={onPress}>
+      <ThemedTextV2 style={[tailwind('text-sm font-normal-v2'), textStyle]}>
+        {title}
+      </ThemedTextV2>
+      {rhsChildren?.()}
+    </ThemedTouchableListItem>
   )
 }
