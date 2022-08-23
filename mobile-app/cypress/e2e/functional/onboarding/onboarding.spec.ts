@@ -39,12 +39,11 @@ context('Onboarding', () => {
     cy.getByTestID('get_started_button').click()
     cy.url().should('include', 'wallet/onboarding/guidelines')
     cy.getByTestID('header_active_network').first().click()
-    cy.getByTestID('network_details').should('exist')
+    cy.getByTestID('wallet_network_status').should('exist')
     cy.getByTestID('button_network_Playground').click()
     cy.on('window:confirm', (message: string) => {
       expect(message).to.include('Playground')
     })
-    cy.getByTestID('header_active_network').contains('Playground')
   })
 
   it('should redirect to restore wallet page', function () {
@@ -61,6 +60,5 @@ context('Onboarding', () => {
     cy.on('window:confirm', (message: string) => {
       expect(message).to.include('Playground')
     })
-    cy.getByTestID('header_active_network').contains('Playground')
   })
 })
