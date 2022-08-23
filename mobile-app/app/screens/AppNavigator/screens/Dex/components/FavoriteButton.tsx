@@ -4,17 +4,15 @@ import { FavoriteCheckIcon } from '@screens/AppNavigator/screens/Settings/assets
 import { StyleProp, ViewProps } from 'react-native'
 
 interface FavoriteIconsProps {
-  pairId: string
   isFavouritePair: boolean
-  setFavouritePoolpair: (id: string) => void
+  onPress: () => void
   customSize?: number
   themedStyle?: ThemedProps
   additionalStyle?: StyleProp<ViewProps>
 }
 export function FavoriteButton ({
-  pairId,
   isFavouritePair,
-  setFavouritePoolpair,
+  onPress,
   themedStyle,
   additionalStyle = tailwind('w-5 h-5'),
   customSize = 14
@@ -32,7 +30,7 @@ export function FavoriteButton ({
   return (
     <ThemedTouchableOpacityV2
       {...themed}
-      onPress={() => setFavouritePoolpair(pairId)}
+      onPress={onPress}
       style={[tailwind('rounded-full flex items-center justify-center'), additionalStyle]}
     >
       <FavoriteCheckIcon

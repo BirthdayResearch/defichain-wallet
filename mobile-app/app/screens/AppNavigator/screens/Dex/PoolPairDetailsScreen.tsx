@@ -29,6 +29,7 @@ import * as React from 'react'
 import { ButtonV2 } from '@components/ButtonV2'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { useYourPoolPairAmountBreakdown } from './hook/YourPoolPairAmountBreakdown'
+import { useToast } from 'react-native-toast-notifications'
 
 type Props = StackScreenProps<DexParamList, 'PoolPairDetailsScreen'>
 
@@ -37,7 +38,6 @@ export function PoolPairDetailsScreen ({ route }: Props): JSX.Element {
   const poolPair = useSelector((state: RootState) => poolPairSelector(state.wallet, id))
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const { getTokenUrl } = useDeFiScanContext()
-
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
   const isFavouritePair = isFavouritePoolpair(id)
@@ -131,6 +131,8 @@ export function PoolPairDetailsScreen ({ route }: Props): JSX.Element {
   )
 }
 
+type ActionType = 'SET_FAVOURITE' | 'UNSET_FAVOURITE'
+
 function Header (props: {
   symbolA: string
   symbolB: string
@@ -141,6 +143,18 @@ function Header (props: {
   setFavouritePair: (id: string) => void
   onLinkPress: () => void
 }): JSX.Element {
+  const toast = useToast()
+  const TOAST_DURATION = 2000
+  const showToast = (type: ActionType): void => {
+    toast.hideAll()
+    const toastMessage = type === 'SET_FAVOURITE' ? 'Pool added as favorite' : 'Pool removed from favorites'
+    toast.show(translate('screens/PoolPairDetailsScreen', toastMessage), {
+      type: 'wallet_toast',
+      placement: 'top',
+      duration: TOAST_DURATION
+    })
+  }
+
   return (
     <ThemedViewV2
       style={tailwind('flex flex-row items-center pb-5 mb-5 border-b-0.5')}
@@ -193,9 +207,11 @@ function Header (props: {
               'bg-brand-v2-500': props.isFavouritePair
             })
           }}
-          pairId={props.poolPairId}
           isFavouritePair={props.isFavouritePair}
-          setFavouritePoolpair={props.setFavouritePair}
+          onPress={() => {
+            showToast(props.isFavouritePair ? 'UNSET_FAVOURITE' : 'SET_FAVOURITE')
+            props.setFavouritePair(props.poolPairId)
+          }}
           additionalStyle={tailwind('w-6 h-6')}
         />
       </View>
