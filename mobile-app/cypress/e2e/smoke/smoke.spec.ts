@@ -175,7 +175,7 @@ context('Mainnet - Wallet - Pool Pair Values', () => {
       cy.switchNetwork('MainNet')
       cy.createEmptyWallet(true)
       cy.getByTestID('bottom_tab_dex').click()
-      cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
+      cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS_active').click()
       cy.getByTestID('available_liquidity_tab').scrollTo('bottom')
       available.forEach((pair) => {
         const data: PoolPairData = pair?.data

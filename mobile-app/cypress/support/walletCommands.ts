@@ -79,7 +79,7 @@ Cypress.Commands.add('isNetworkConnected', (network: string) => {
     const net = $txt[0].textContent
     expect(net).eq(network)
   })
-  cy.getByTestID('header_status_indicator').should('have.css', 'background-color', 'rgb(16, 185, 129)')
+  cy.getByTestID('header_network_icon').find('path').should('have.css', 'fill', 'rgb(0, 173, 29)')
 })
 
 Cypress.Commands.add('checkBalanceRow', (id: string, details: BalanceTokenDetail, dynamicAmount?: boolean) => {

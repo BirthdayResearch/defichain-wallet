@@ -36,7 +36,7 @@ export function DexScrollable (props: PropsWithChildren<DexScrollableProps>): JS
         {translate('screens/DexScreen', sectionHeading)}
       </ThemedTextV2>
       <ScrollView
-        contentContainerStyle={[tailwind('pl-5'), containerStyle]}
+        contentContainerStyle={[tailwind('px-5'), containerStyle]}
         horizontal
         showsHorizontalScrollIndicator={false}
       >
