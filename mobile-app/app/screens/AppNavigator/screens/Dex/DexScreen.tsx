@@ -319,10 +319,6 @@ export function DexScreen (): JSX.Element {
               activeButtonGroup={activeButtonGroup}
             />
           )}
-
-        {activeTab === TabKey.YourPoolPair && yourLPTokens.length === 0 && (
-          <EmptyActivePoolpair />
-        )}
         {activeTab === TabKey.YourPoolPair && yourLPTokens.length > 0 && (
           <PoolPairCards
             expandedCardIds={expandedCardIds}
