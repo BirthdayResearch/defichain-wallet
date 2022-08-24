@@ -4,6 +4,7 @@ import { FavoriteCheckIcon } from '@screens/AppNavigator/screens/Settings/assets
 import { StyleProp, ViewProps } from 'react-native'
 
 interface FavoriteIconsProps {
+  pairId: string
   isFavouritePair: boolean
   onPress: () => void
   customSize?: number
