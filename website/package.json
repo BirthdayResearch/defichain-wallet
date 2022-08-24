@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "4.9.3",
-    "@next/eslint-plugin-next": "12.2.0",
+    "@next/eslint-plugin-next": "12.2.5",
     "@rushstack/eslint-patch": "^1.1.0",
     "@types/cors": "^2.8.12",
     "@types/lodash": "^4.14.178",
@@ -40,7 +40,7 @@
     "eslint-import-resolver-typescript": "^2.7.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
-    "postcss": "^8.4.12",
+    "postcss": "^8.4.16",
     "tailwindcss": "^2.2.19",
     "typescript": "4.5.5"
   }

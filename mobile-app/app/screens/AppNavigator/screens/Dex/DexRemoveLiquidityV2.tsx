@@ -243,8 +243,6 @@ export function RemoveLiquidityScreenV2 (props: Props): JSX.Element {
                   resultingLprhs={{
                       value: new BigNumber(amount).toFixed(8),
                       themedProps: {
-                        light: tailwind('text-mono-light-v2-900'),
-                        dark: tailwind('text-mono-dark-v2-900'),
                         style: tailwind('font-semibold-v2 text-sm')
                       },
                       usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,

@@ -75,6 +75,7 @@ export function PlaygroundStatusInfo (): JSX.Element | null {
             title={dataList.title}
             isLast={index === dataLists.length - 1}
             testID={dataList.testID}
+            disabled
           />
         ))
       }
