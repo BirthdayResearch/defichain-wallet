@@ -131,7 +131,7 @@ context('Wallet - DEX - Remove Liquidity', () => {
   after(function () {
     // Remove added liquidity
     cy.getByTestID('bottom_tab_dex').click()
-    cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click().wait(1000)
+    cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS_active').click().wait(1000)
     cy.getByTestID(`pool_pair_remove_${tokensPair}`).click().wait(1000)
     cy.getByTestID('75%_amount_button').click().wait(200)
     cy.getByTestID('button_continue_remove_liq').click()

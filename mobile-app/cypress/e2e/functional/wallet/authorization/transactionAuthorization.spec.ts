@@ -125,7 +125,6 @@ context('Wallet - Transaction Authorization', () => {
     cy.getByTestID('portfolio_list').should('exist')
     cy.getByTestID('dfi_total_balance_amount').should('exist')
     cy.getByTestID('send_balance_button').click().wait(3000)
-    cy.getByTestID('select_token_input').click()
     cy.getByTestID('select_DFI').click().wait(3000)
     cy.getByTestID('address_input').clear().type('bcrt1qjhzkxvrgs3az4sv6ca9nqxqccwudvx768cgq93')
     cy.getByTestID('amount_input').clear().type('1')
