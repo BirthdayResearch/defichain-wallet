@@ -12,6 +12,7 @@ interface FavoriteIconsProps {
   additionalStyle?: StyleProp<ViewProps>
 }
 export function FavoriteButton ({
+  pairId,
   isFavouritePair,
   onPress,
   themedStyle,
@@ -31,6 +32,7 @@ export function FavoriteButton ({
   return (
     <ThemedTouchableOpacityV2
       {...themed}
+      testID={`favorite_pair_${pairId}`}
       onPress={onPress}
       style={[tailwind('rounded-full flex items-center justify-center'), additionalStyle]}
     >

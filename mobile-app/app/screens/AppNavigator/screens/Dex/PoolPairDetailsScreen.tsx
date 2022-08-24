@@ -111,6 +111,8 @@ export function PoolPairDetailsScreen ({ route }: Props): JSX.Element {
       {yourLpToken !== undefined && (
         <YourPoolPairTokenBreakdown
           yourLpToken={yourLpToken}
+          tokenASymbol={poolPair.data.tokenA.symbol}
+          tokenBSymbol={poolPair.data.tokenB.symbol}
           tokenADisplaySymbol={poolPair.data.tokenA.displaySymbol}
           tokenBDisplaySymbol={poolPair.data.tokenB.displaySymbol}
         />
@@ -207,6 +209,7 @@ function Header (props: {
               'bg-brand-v2-500': props.isFavouritePair
             })
           }}
+          pairId={props.poolPairId}
           isFavouritePair={props.isFavouritePair}
           onPress={() => {
             showToast(props.isFavouritePair ? 'UNSET_FAVOURITE' : 'SET_FAVOURITE')
@@ -326,7 +329,7 @@ function PriceRateDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
   )
 }
 
-function YourPoolPairTokenBreakdown (props: {yourLpToken: WalletToken, tokenADisplaySymbol: string, tokenBDisplaySymbol: string}): JSX.Element {
+function YourPoolPairTokenBreakdown (props: {yourLpToken: WalletToken, tokenASymbol: string, tokenBSymbol: string, tokenADisplaySymbol: string, tokenBDisplaySymbol: string}): JSX.Element {
   const { getTokenPrice } = useTokenPrice()
   const { tokenATotal, tokenBTotal } = useYourPoolPairAmountBreakdown(props.yourLpToken)
 
@@ -356,7 +359,7 @@ function YourPoolPairTokenBreakdown (props: {yourLpToken: WalletToken, tokenADis
         }}
         rhs={{
           value: tokenATotal.toFixed(8),
-          usdAmount: getTokenPrice(props.tokenADisplaySymbol, new BigNumber(tokenATotal)),
+          usdAmount: getTokenPrice(props.tokenASymbol, new BigNumber(tokenATotal)),
           usdTextStyle: tailwind('text-sm'),
           usdContainerStyle: tailwind('pt-1'),
           testID: 'your_lp_tokenA_value'
@@ -369,7 +372,7 @@ function YourPoolPairTokenBreakdown (props: {yourLpToken: WalletToken, tokenADis
         }}
         rhs={{
           value: tokenBTotal.toFixed(8),
-          usdAmount: getTokenPrice(props.tokenBDisplaySymbol, new BigNumber(tokenBTotal)),
+          usdAmount: getTokenPrice(props.tokenBSymbol, new BigNumber(tokenBTotal)),
           usdTextStyle: tailwind('text-sm'),
           usdContainerStyle: tailwind('pt-1'),
           testID: 'your_lp_tokenB_value'
