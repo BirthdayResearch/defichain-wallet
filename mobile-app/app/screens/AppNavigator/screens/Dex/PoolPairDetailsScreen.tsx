@@ -16,7 +16,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { useLayoutEffect } from 'react'
-import { TouchableOpacity } from 'react-native'
+import { Platform, TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
@@ -31,6 +31,7 @@ import { useYourPoolPairAmountBreakdown } from './hook/YourPoolPairAmountBreakdo
 import { useToast } from 'react-native-toast-notifications'
 import { useFavouritePoolpairContext } from '../../../../contexts/FavouritePoolpairContext'
 import { openURL } from '@api/linking'
+import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 
 type Props = StackScreenProps<DexParamList, 'PoolPairDetailsScreen'>
 
@@ -56,7 +57,13 @@ export function PoolPairDetailsScreen ({ route }: Props): JSX.Element {
     }
 
     navigation.setOptions({
-      headerTitle: translate('screens/PoolPairDetailsScreen', '{{poolPair}} Pool', { poolPair: poolPair.data.displaySymbol })
+      headerTitle: translate('screens/PoolPairDetailsScreen', '{{poolPair}} Pool', { poolPair: poolPair.data.displaySymbol }),
+      headerRight: () => (
+        <HeaderNetworkStatus
+          onPress={() => navigation.navigate('NetworkSelectionScreen')}
+          containerStyle={tailwind({ 'pt-px': Platform.OS === 'android' })}
+        />
+      )
     })
   }, [navigation])
 
@@ -303,9 +310,9 @@ function PriceRateDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
           testID: 'price_rate_tokenA'
         }}
         rhs={{
-          value: new BigNumber(poolPair.data.priceRatio.ab).toFixed(8),
-          suffix: ` ${poolPair.data.tokenA.displaySymbol}`,
-          usdAmount: getTokenPrice(poolPair.data.tokenA.symbol, new BigNumber(poolPair.data.priceRatio.ab)),
+          value: new BigNumber(poolPair.data.priceRatio.ba).toFixed(8),
+          suffix: ` ${poolPair.data.tokenB.displaySymbol}`,
+          usdAmount: getTokenPrice(poolPair.data.tokenB.symbol, new BigNumber(poolPair.data.priceRatio.ba)),
           usdTextStyle: tailwind('text-sm'),
           usdContainerStyle: tailwind('pt-1'),
           testID: 'price_rate_tokenA_value'
@@ -317,9 +324,9 @@ function PriceRateDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
           testID: 'price_rate_tokenB'
         }}
         rhs={{
-          value: new BigNumber(poolPair.data.priceRatio.ba).toFixed(8),
-          suffix: ` ${poolPair.data.tokenB.displaySymbol}`,
-          usdAmount: getTokenPrice(poolPair.data.tokenB.symbol, new BigNumber(poolPair.data.priceRatio.ba)),
+          value: new BigNumber(poolPair.data.priceRatio.ab).toFixed(8),
+          suffix: ` ${poolPair.data.tokenA.displaySymbol}`,
+          usdAmount: getTokenPrice(poolPair.data.tokenA.symbol, new BigNumber(poolPair.data.priceRatio.ab)),
           usdTextStyle: tailwind('text-sm'),
           usdContainerStyle: tailwind('pt-1'),
           testID: 'price_rate_tokenB_value'
