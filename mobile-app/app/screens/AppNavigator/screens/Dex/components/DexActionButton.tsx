@@ -57,7 +57,7 @@ export function DexAddRemoveLiquidityButton ({ style, onAdd, onRemove }: DexAddR
       </ThemedTouchableOpacityV2>
       <ThemedTouchableOpacityV2
         onPress={onAdd}
-        style={tailwind('border-b-0 pl-2')}
+        style={tailwind('pl-2')}
       >
         <ThemedIcon
           iconType='Feather'
