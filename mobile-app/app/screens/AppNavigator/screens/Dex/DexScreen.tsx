@@ -23,9 +23,9 @@ import { debounce } from 'lodash'
 import { ButtonGroupTabKey, PoolPairCards } from './components/PoolPairCards/PoolPairCards'
 import { ButtonGroupV2 } from './components/ButtonGroupV2'
 import { HeaderSearchInputV2 } from '@components/HeaderSearchInputV2'
-import { useFavouritePoolpairs } from './hook/FavouritePoolpairs'
 import { ScrollView } from 'react-native'
 import { AssetsFilterItem } from '../Portfolio/components/AssetsFilterRow'
+import { useFavouritePoolpairContext } from '../../../../contexts/FavouritePoolpairContext'
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
   AvailablePoolPair = 'AVAILABLE_POOL_PAIRS'
@@ -180,7 +180,7 @@ export function DexScreen (): JSX.Element {
   }, [showSearchInput, searchString])
 
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllPairs)
-  const { isFavouritePoolpair } = useFavouritePoolpairs()
+  const { isFavouritePoolpair } = useFavouritePoolpairContext()
 
   const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
     const filteredPairs = pairs.filter((pair) => {

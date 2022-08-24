@@ -13,7 +13,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useScrollToTop } from '@react-navigation/native'
 import { WalletToken } from '@store/wallet'
 import { useDebounce } from '@hooks/useDebounce'
-import { useFavouritePoolpairs } from '../../hook/FavouritePoolpairs'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
@@ -28,6 +27,7 @@ import { PriceRatesSection } from '@screens/AppNavigator/screens/Dex/components/
 import { APRSection } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/APRSection'
 import { PoolSharesSection } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolSharesSection'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
+import { useFavouritePoolpairContext } from '../../../../../../contexts/FavouritePoolpairContext'
 interface DexItem<T> {
   type: 'your' | 'available'
   data: T
@@ -73,7 +73,7 @@ export function PoolPairCards ({
   newPoolsPairs,
   activeButtonGroup
 }: PoolPairCardProps): JSX.Element {
-  const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
+  const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairContext()
   const sortedPairs = sortPoolpairsByFavourite(
     availablePairs,
     isFavouritePoolpair

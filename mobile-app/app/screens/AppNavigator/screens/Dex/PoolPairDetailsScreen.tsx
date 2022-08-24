@@ -22,7 +22,6 @@ import { useSelector } from 'react-redux'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
 import { PoolPairIconV2 } from './components/PoolPairCards/PoolPairIconV2'
 import { DexParamList } from './DexNavigator'
-import { useFavouritePoolpairs } from '@screens/AppNavigator/screens/Dex/hook/FavouritePoolpairs'
 import { FavoriteButton } from '@screens/AppNavigator/screens/Dex/components/FavoriteButton'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import * as React from 'react'
@@ -30,6 +29,7 @@ import { ButtonV2 } from '@components/ButtonV2'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { useYourPoolPairAmountBreakdown } from './hook/YourPoolPairAmountBreakdown'
 import { useToast } from 'react-native-toast-notifications'
+import { useFavouritePoolpairContext } from '../../../../contexts/FavouritePoolpairContext'
 
 type Props = StackScreenProps<DexParamList, 'PoolPairDetailsScreen'>
 
@@ -39,7 +39,7 @@ export function PoolPairDetailsScreen ({ route }: Props): JSX.Element {
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const { getTokenUrl } = useDeFiScanContext()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
-  const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
+  const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairContext()
   const isFavouritePair = isFavouritePoolpair(id)
 
   const yourLpToken = useSelector(() => {
@@ -166,7 +166,6 @@ function Header (props: {
       <PoolPairIconV2
         symbolA={props.symbolA}
         symbolB={props.symbolB}
-        iconBStyle={tailwind('-ml-3')}
       />
       <View style={tailwind('flex-col ml-3 flex-auto pr-3')}>
         <ThemedTextV2
