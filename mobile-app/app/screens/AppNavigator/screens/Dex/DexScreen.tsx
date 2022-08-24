@@ -319,6 +319,10 @@ export function DexScreen (): JSX.Element {
               activeButtonGroup={activeButtonGroup}
             />
           )}
+
+        {activeTab === TabKey.YourPoolPair && yourLPTokens.length === 0 && (
+          <EmptyActivePoolpair />
+        )}
         {activeTab === TabKey.YourPoolPair && yourLPTokens.length > 0 && (
           <PoolPairCards
             expandedCardIds={expandedCardIds}
@@ -336,11 +340,7 @@ export function DexScreen (): JSX.Element {
             newPoolsPairs={newPoolsPairs}
             activeButtonGroup={activeButtonGroup}
           />
-          )}
-
-        {activeTab === TabKey.YourPoolPair && yourLPTokens.length === 0 && (
-          <EmptyActivePoolpair />
-          )}
+        )}
       </View>
     </ThemedViewV2>
   )
