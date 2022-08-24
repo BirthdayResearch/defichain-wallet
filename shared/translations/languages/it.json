@@ -1675,7 +1675,8 @@
     "Search for loans": "Cerca prestiti",
     "Search for loan token": "Cerca il token da prendere in prestito",
     "Search for pool pairs": "Ricerca di Pool-Pairs",
-    "Search pool pair": "Search pool pair"
+    "Search pool pair": "Search pool pair",
+    "Search for pool pair with token name": "Search for pool pair with token name"
   },
   "components/EmptyCollateral": {
     "No collateral": "Nessun collaterale",

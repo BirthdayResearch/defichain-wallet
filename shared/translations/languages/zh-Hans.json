@@ -1657,7 +1657,8 @@
     "Search for loans": "搜寻贷款",
     "Search for loan token": "搜寻贷款代币",
     "Search for pool pairs": "搜索流动池配对",
-    "Search pool pair": "Search pool pair"
+    "Search pool pair": "Search pool pair",
+    "Search for pool pair with token name": "Search for pool pair with token name"
   },
   "components/EmptyCollateral": {
     "No collateral": "没有抵押",

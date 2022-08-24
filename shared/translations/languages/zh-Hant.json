@@ -1659,7 +1659,8 @@
     "Search for loans": "搜尋貸款",
     "Search for loan token": "搜尋貸款代幣",
     "Search for pool pairs": "搜索流動池配對",
-    "Search pool pair": "Search pool pair"
+    "Search pool pair": "Search pool pair",
+    "Search for pool pair with token name": "Search for pool pair with token name"
   },
   "components/EmptyCollateral": {
     "No collateral": "沒有抵押",

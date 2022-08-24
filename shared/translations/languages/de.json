@@ -1649,7 +1649,8 @@
     "Search for loans": "Nach Darlehen suchen",
     "Search for loan token": "Suche nach Darlehenstoken",
     "Search for pool pairs": "Suche nach Pool-Paaren",
-    "Search pool pair": "Suche Poolpaar"
+    "Search pool pair": "Suche Poolpaar",
+    "Search for pool pair with token name": "Suche nach Pool-Paar über den Token-Namen"
   },
   "components/EmptyCollateral": {
     "No collateral": "Keine Sicherheiten",
