@@ -889,7 +889,8 @@
     "Transaction fee": "Frais de transaction",
     "Resulting pool share": "Part de pool qui en résulte",
     "LP tokens to remove": "Tokens PL à retirer",
-    "Removing {{amount}} {{symbol}} from liquidity pool": "Retrait de {{amount}} {{symbol}} du pool de liquidité"
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Retrait de {{amount}} {{symbol}} du pool de liquidité",
+    "Pool share": "Part de pool"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "Retrait de liquidité...",
