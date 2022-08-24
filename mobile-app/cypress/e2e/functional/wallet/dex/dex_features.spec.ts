@@ -137,8 +137,6 @@ context('Wallet - DEX - Features', () => {
     cy.createEmptyWallet(true)
     cy.getByTestID('bottom_tab_dex').click()
     cy.url().should('include', 'app/DEX/DexScreen')
-    cy.getByTestID('dex_guidelines_screen').should('exist')
-    cy.getByTestID('close_dex_guidelines').click()
   })
 
   it('should be able to select favorite pairs', function () {
@@ -194,8 +192,6 @@ context('Wallet - DEX - Button filtering', () => {
       cy.createEmptyWallet(true)
       cy.getByTestID('bottom_tab_dex').click()
       cy.url().should('include', 'app/DEX/DexScreen')
-      cy.getByTestID('dex_guidelines_screen').should('exist')
-      cy.getByTestID('close_dex_guidelines').click()
     })
 
     it('should set filter as All pairs by default and display all pairs', function () {
@@ -273,33 +269,6 @@ context('Wallet - DEX - Button filtering', () => {
       cy.getByTestID('your_info_section_DUSD-DFI').should('exist')
     }
 
-    function validateEmptyPoolpairsInSearch (filter: string): void {
-      cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
-      cy.getByTestID(`dex_button_group_${filter}_PAIRS`).click()
-      cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()
-      cy.getByTestID('dex_search_icon').click()
-      cy.getByTestID('pool_pair_row_your').should('not.exist')
-      cy.getByTestID('dex_search_input_close').click()
-    }
-
-    function validateMatchingPairsInSearch (filter: string): void {
-      cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
-      cy.getByTestID(`dex_button_group_${filter}_PAIRS`).click()
-      cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()
-      cy.getByTestID('dex_search_icon').click()
-      cy.getByTestID('dex_search_input').type('btc')
-      cy.getByTestID('pool_pair_row_0_dBTC-DFI').should('exist')
-      cy.getByTestID('details_dBTC-DFI').click()
-      cy.getByTestID('your_info_section_dBTC-DFI').should('exist')
-      cy.getByTestID('dex_search_input').clear().type('dusd')
-      cy.getByTestID('pool_pair_row_0_DUSD-DFI').should('exist')
-      cy.getByTestID('details_DUSD-DFI').click()
-      cy.getByTestID('your_info_section_DUSD-DFI').should('exist')
-      cy.getByTestID('dex_search_input').clear()
-      cy.getByTestID('pool_pair_row_your').should('not.exist')
-      cy.getByTestID('dex_search_input_close').click()
-    }
-
     before(function () {
       cy.sendTokenToWallet(['BTC-DFI']).sendTokenToWallet(['DUSD-DFI']).wait(3000)
       cy.getByTestID('bottom_tab_dex').click()
@@ -314,20 +283,6 @@ context('Wallet - DEX - Button filtering', () => {
       // // DUSD pairs
       cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
       validateYourPoolpairs('DUSD')
-    })
-
-    it('should not display any poolpair when search input is active and empty regardless of filter', function () {
-      interceptPoolpairWithSampleData()
-      validateEmptyPoolpairsInSearch('ALL')
-      validateEmptyPoolpairsInSearch('DFI')
-      validateEmptyPoolpairsInSearch('DUSD')
-    })
-
-    it('should display matching poolpair when search input is not empty regardless of filter', function () {
-      interceptPoolpairWithSampleData()
-      validateMatchingPairsInSearch('ALL')
-      validateMatchingPairsInSearch('DFI')
-      validateMatchingPairsInSearch('DUSD')
     })
   })
 })

@@ -12,6 +12,11 @@ import { TokenNameTextV2 } from './TokenNameTextV2'
 import { TokenAmountTextV2 } from './TokenAmountTextV2'
 import { ButtonGroupTabKey } from './AssetsFilterRow'
 import { Platform } from 'react-native'
+import { EmptyCryptoIcon } from '../assets/EmptyCryptoIcon'
+import { EmptyLPTokenIcon } from '../assets/EmptyLPTokenIcon'
+import { EmptyDTokenIcon } from '../assets/EmptyDTokenIcon'
+import { EmptyPortfolioIcon } from '../assets/EmptyPortfolioIcon'
+import { translate } from '@translations'
 
 interface PortfolioCardProps {
   isZeroBalance: boolean
@@ -36,11 +41,13 @@ export function PortfolioCard ({
 
   // return empty portfolio if no DFI and other tokens
   if (isZeroBalance) {
-    return <EmptyTokensScreen type={ButtonGroupTabKey.AllTokens} />
+    const screenDetails = getEmptyScreenDetails(ButtonGroupTabKey.AllTokens)
+    return <EmptyTokensScreen {...screenDetails} />
   }
 
   if (filteredTokens.length === 0 && hasFetchedToken) {
-    return <EmptyTokensScreen type={buttonGroupOptions?.activeButtonGroup} />
+    const screenDetails = getEmptyScreenDetails(buttonGroupOptions?.activeButtonGroup)
+    return <EmptyTokensScreen {...screenDetails} />
   }
 
   return (
@@ -78,7 +85,7 @@ function PortfolioItemRow ({
     >
       <View style={tailwind('flex flex-row items-start')}>
         <View style={tailwind('w-7/12 flex-row items-center')}>
-          <TokenIcon testID={`${testID}_icon`} token={token} height={36} width={36} />
+          <TokenIcon testID={`${testID}_icon`} token={token} size={36} />
           <TokenNameTextV2 displaySymbol={token.displaySymbol} name={token.name} testID={testID} />
         </View>
         <View style={tailwind('w-5/12 flex-row justify-end', { 'pt-0.5': Platform.OS === 'android' })}>
@@ -92,4 +99,34 @@ function PortfolioItemRow ({
       </View>
     </ThemedTouchableOpacityV2>
   )
+}
+
+function getEmptyScreenDetails (type?: ButtonGroupTabKey): { icon: () => JSX.Element, title: string, subTitle: string } {
+  switch (type) {
+    case ButtonGroupTabKey.Crypto:
+      return {
+        icon: EmptyCryptoIcon,
+        title: translate('components/EmptyPortfolio', 'No crypto found'),
+        subTitle: translate('components/EmptyPortfolio', 'Add crypto to get started')
+      }
+    case ButtonGroupTabKey.LPTokens:
+      return {
+        icon: EmptyLPTokenIcon,
+        title: translate('components/EmptyPortfolio', 'No LP tokens found'),
+        subTitle: translate('components/EmptyPortfolio', 'Add liquidity to get started')
+      }
+    case ButtonGroupTabKey.dTokens:
+      return {
+        icon: EmptyDTokenIcon,
+        title: translate('components/EmptyPortfolio', 'No dTokens found'),
+        subTitle: translate('components/EmptyPortfolio', 'Mint dTokens to get started')
+      }
+    case ButtonGroupTabKey.AllTokens:
+    default:
+      return {
+        icon: EmptyPortfolioIcon,
+        title: translate('components/EmptyPortfolio', 'Empty portfolio'),
+        subTitle: translate('components/EmptyPortfolio', 'Add DFI and other tokens to get started')
+      }
+  }
 }

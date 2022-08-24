@@ -1,7 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack'
-
-import { HeaderFont } from '../../components'
-import { HeaderTitle } from '@components/HeaderTitle'
+import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
 import { PlaygroundProvider } from '@contexts/PlaygroundContext'
 import { PlaygroundScreen } from './PlaygroundScreen'
 
@@ -14,15 +12,16 @@ export interface PlaygroundParamList {
 const PlaygroundStack = createStackNavigator<PlaygroundParamList>()
 
 export function PlaygroundNavigator (): JSX.Element {
+  const screenOptions = useNavigatorScreenOptions()
   return (
     <PlaygroundProvider>
-      <PlaygroundStack.Navigator screenOptions={{ headerTitleStyle: HeaderFont, presentation: 'modal', headerTitleAlign: 'center' }}>
+      <PlaygroundStack.Navigator>
         <PlaygroundStack.Screen
           component={PlaygroundScreen}
           name='PlaygroundScreen'
           options={{
-            headerTitle: () => <HeaderTitle text='DeFi Testing' containerTestID='playground_header_container' />,
-            headerBackTitleVisible: false
+            ...screenOptions,
+            headerTitle: 'Playground'
           }}
         />
       </PlaygroundStack.Navigator>

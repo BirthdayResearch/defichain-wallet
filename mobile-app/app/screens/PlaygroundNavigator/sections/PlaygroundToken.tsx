@@ -7,7 +7,9 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { PlaygroundAction } from '../components/PlaygroundAction'
 import { PlaygroundTitle } from '../components/PlaygroundTitle'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
-import { PlaygroundConnectionStatus } from '@screens/PlaygroundNavigator/components/PlaygroundStatus'
+import { PlaygroundConnectionStatus, PlaygroundStatusType } from '@screens/PlaygroundNavigator/components/PlaygroundStatus'
+import { ThemedIcon, ThemedViewV2 } from '@components/themed'
+import { tailwind } from '@tailwind'
 
 export function PlaygroundToken (): JSX.Element | null {
   const { wallet } = useWalletContext()
@@ -33,46 +35,72 @@ export function PlaygroundToken (): JSX.Element | null {
     return await account.getAddress()
   }
 
-  const actions = tokens.filter(({ symbol }) => symbol !== 'DFI').map(token => {
-    return (
-      <PlaygroundAction
-        key={token.id}
-        onPress={async () => {
-          const address = await getActiveAddress()
-          await rpc.call('sendtokenstoaddress', [{}, {
-            [address]: `10@${token.symbol}`
-          }], 'number')
-        }}
-        testID={`playground_token_${token.symbol}`}
-        title={`Top up 10.0 ${token.symbol} to Wallet`}
-      />
-    )
-  })
-
   return (
-    <View>
+    <View style={tailwind('pb-28')}>
       <PlaygroundTitle
         status={{
           online: status === PlaygroundConnectionStatus.online,
           loading: status === PlaygroundConnectionStatus.loading,
-          error: status === PlaygroundConnectionStatus.error
+          error: status === PlaygroundConnectionStatus.error,
+          type: PlaygroundStatusType.secondary
         }}
-        title='Token'
+        title='TOKENS'
       />
-
-      <PlaygroundAction
-        key='0'
-        onPress={async () => {
+      <ThemedViewV2
+        dark={tailwind('bg-mono-dark-v2-00')}
+        light={tailwind('bg-mono-light-v2-00')}
+        style={tailwind('rounded-lg-v2 px-5')}
+      >
+        <PlaygroundAction
+          key='0'
+          onPress={async () => {
           await api.wallet.sendTokenDfiToAddress({
             amount: '10',
             address: await getActiveAddress()
           })
         }}
-        testID='playground_token_DFI'
-        title='Top up 10.0 DFI to Wallet'
-      />
+          rhsChildren={(): JSX.Element => {
+          return (
+            <ThemedIcon
+              light={tailwind('text-mono-light-v2-700')}
+              dark={tailwind('text-mono-dark-v2-700')}
+              iconType='Feather'
+              name='plus-circle'
+              size={18}
+            />
+          )
+        }}
+          isLast={false}
+          testID='playground_token_DFI'
+          title='Add 10 DFI Tokens to wallet'
+        />
 
-      {actions}
+        {tokens.filter(({ symbol }) => symbol !== 'DFI').map((token, index) => (
+          <PlaygroundAction
+            key={token.id}
+            onPress={async () => {
+            const address = await getActiveAddress()
+              await rpc.call('sendtokenstoaddress', [{}, {
+                [address]: `10@${token.symbol}`
+              }], 'number')
+            }}
+            title={`Add 10 ${token.symbol} to wallet`}
+            isLast={index === tokens.length - 2}
+            rhsChildren={(): JSX.Element => {
+              return (
+                <ThemedIcon
+                  light={tailwind('text-mono-light-v2-700')}
+                  dark={tailwind('text-mono-dark-v2-700')}
+                  iconType='Feather'
+                  name='plus-circle'
+                  size={18}
+                />
+              )
+            }}
+            testID={`playground_token_${token.symbol}`}
+          />
+      ))}
+      </ThemedViewV2>
     </View>
   )
 }

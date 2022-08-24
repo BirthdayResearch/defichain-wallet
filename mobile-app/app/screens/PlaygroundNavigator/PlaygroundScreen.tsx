@@ -1,5 +1,5 @@
 
-import { ThemedScrollView } from '@components/themed'
+import { ThemedScrollViewV2 } from '@components/themed'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { WalletContextProvider } from '@shared-contexts/WalletContext'
 import { WalletNodeProvider } from '@shared-contexts/WalletNodeProvider'
@@ -10,19 +10,21 @@ import { PlaygroundConnection } from './sections/PlaygroundConnection'
 import { PlaygroundToken } from './sections/PlaygroundToken'
 import { PlaygroundUTXO } from './sections/PlaygroundUTXO'
 import { PlaygroundWallet } from './sections/PlaygroundWallet'
+import { PlaygroundStatusInfo } from './sections/PlaygroundStatusInfo'
 import { WalletAddressIndexPersistence } from '@api/wallet/address_index'
 import { PlaygroundOperations } from '@screens/PlaygroundNavigator/sections/PlaygroundOperations'
 
 export function PlaygroundScreen (): JSX.Element {
   return (
-    <ThemedScrollView
+    <ThemedScrollViewV2
       contentInsetAdjustmentBehavior='always'
-      style={tailwind('pb-16')}
+      style={tailwind('pb-28 px-5')}
     >
       <PlaygroundConnection />
+      <PlaygroundStatusInfo />
       <PlaygroundWallet />
       <PlaygroundWalletSection />
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }
 
@@ -43,7 +45,6 @@ function PlaygroundWalletSection (): JSX.Element | null {
       <WalletContextProvider api={WalletAddressIndexPersistence}>
         <PlaygroundOperations />
         <PlaygroundUTXO />
-
         <PlaygroundToken />
       </WalletContextProvider>
     </WalletNodeProvider>

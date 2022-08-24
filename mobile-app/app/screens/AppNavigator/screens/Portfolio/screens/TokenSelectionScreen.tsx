@@ -95,15 +95,19 @@ export function TokenSelectionScreen (_props: Props): JSX.Element {
             value={searchString}
             containerStyle={
               tailwind(['border-0.5', isSearchFocus
-? {
+              ? {
                 'border-mono-light-v2-800': isLight,
                 'border-mono-dark-v2-800': !isLight
               }
-: {
+              : {
                 'border-mono-light-v2-00': isLight,
                 'border-mono-dark-v2-00': !isLight
               }])
             }
+            inputStyle={{
+              light: tailwind('text-mono-light-v2-900'),
+              dark: tailwind('text-mono-dark-v2-900')
+            }}
             placeholder={translate('screens/TokenSelectionScreen', 'Search token')}
             showClearButton={debouncedSearchTerm !== ''}
             onClearInput={() => {
@@ -174,7 +178,7 @@ const TokenSelectionRow = ({
           testID={`${item.token.displaySymbol}_icon`} token={{
           isLPS: item.token.isLPS,
           displaySymbol: item.token.displaySymbol
-        }} height={36} width={36}
+        }} size={36}
         />
         <TokenNameTextV2
           displaySymbol={item.token.displaySymbol} name={item.token.name}

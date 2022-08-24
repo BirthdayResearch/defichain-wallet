@@ -14,6 +14,11 @@ import { WalletToken } from '@store/wallet'
 import { ConversionParam } from '../Portfolio/PortfolioNavigator'
 import { useNavigatorScreenOptions } from '@hooks/useNavigatorScreenOptions'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
+import { NetworkSelectionScreen } from '../Settings/screens/NetworkSelectionScreen'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { Platform, StyleProp, ViewStyle } from 'react-native'
+import { ThemedTextV2 } from '@components/themed'
+import { tailwind } from '@tailwind'
 import { AddLiquidityScreenV2 } from './DexAddLiquidityV2'
 import { ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
 import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
@@ -23,6 +28,7 @@ import { RemoveLiquidityConfirmScreenV2 } from './DexConfirmRemoveLiquidityV2'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { AddLiquidityScreen } from './DexAddLiquidity'
 import { ConfirmAddLiquidityScreenV2 } from './DexConfirmAddLiquidityV2'
+
 export interface DexParamList {
   DexScreen: undefined
   CompositeSwapScreen: {
@@ -97,13 +103,14 @@ export interface AddLiquiditySummary {
 const DexStack = createStackNavigator<DexParamList>()
 
 export function DexNavigator (): JSX.Element {
-  const headerContainerTestId = 'dex_header_container'
   const navigation = useNavigation<NavigationProp<DexParamList>>()
+  const headerContainerTestId = 'dex_header_container'
+  const { isFeatureAvailable } = useFeatureFlagContext()
+  const screenOptions = useNavigatorScreenOptions()
   const goToNetworkSelect = (): void => {
     navigation.navigate('NetworkSelectionScreen')
   }
-  const screenOptions = useNavigatorScreenOptions()
-  const { isFeatureAvailable } = useFeatureFlagContext()
+  const insets = useSafeAreaInsets()
 
   return (
     <DexStack.Navigator
@@ -118,12 +125,37 @@ export function DexNavigator (): JSX.Element {
         component={DexScreen}
         name='DexScreen'
         options={{
+          ...screenOptions,
+          headerLeft: undefined,
+          headerLeftContainerStyle: null,
+          headerTitleAlign: 'left',
+          headerTitleContainerStyle: tailwind('mt-4 ml-5'),
+          headerRightContainerStyle: [screenOptions.headerRightContainerStyle, tailwind('mt-5 justify-start', { 'pr-3': Platform.OS === 'web' })],
+          headerStyle: [screenOptions.headerStyle, tailwind('rounded-b-none border-b-0'), { shadowOpacity: 0, height: ((Platform.OS !== 'android' ? 88 : 96) + insets.top) }],
           headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Decentralized Exchange')}
-              containerTestID={headerContainerTestId}
-            />
+            <ThemedTextV2
+              style={[
+                screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
+                tailwind('text-left text-3xl font-semibold-v2'),
+                { fontSize: 28 }
+              ]}
+            >
+              {translate('screens/DexScreen', 'Decentralized Exchange')}
+            </ThemedTextV2>
+          ),
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} containerStyle={tailwind({ 'pt-px': Platform.OS === 'android' })} />
           )
+        }}
+      />
+
+      <DexStack.Screen
+        component={NetworkSelectionScreen}
+        name='NetworkSelectionScreen'
+        options={{
+          ...screenOptions,
+          headerTitle: translate('screens/NetworkSelectionScreen', 'Network'),
+          headerRight: undefined
         }}
       />
 

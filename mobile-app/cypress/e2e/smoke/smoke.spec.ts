@@ -144,7 +144,6 @@ context('Mainnet - Wallet', () => {
 
     it('should have correct poolpairs', function () {
       cy.getByTestID('bottom_tab_dex').click()
-      cy.getByTestID('close_dex_guidelines').click()
       cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()
       cy.getByTestID('share_in_pool_dETH-DFI').contains('10.00000000')
       cy.getByTestID('bottom_tab_portfolio').click()
@@ -176,8 +175,7 @@ context('Mainnet - Wallet - Pool Pair Values', () => {
       cy.switchNetwork('MainNet')
       cy.createEmptyWallet(true)
       cy.getByTestID('bottom_tab_dex').click()
-      cy.getByTestID('close_dex_guidelines').click()
-      cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS').click()
+      cy.getByTestID('dex_tabs_AVAILABLE_POOL_PAIRS_active').click()
       cy.getByTestID('available_liquidity_tab').scrollTo('bottom')
       available.forEach((pair) => {
         const data: PoolPairData = pair?.data
