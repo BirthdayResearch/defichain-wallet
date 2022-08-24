@@ -71,7 +71,8 @@
     "No favorites added": "No favorites added",
     "Tap the star icon to add your favorite pools here": "Tap the star icon to add your favorite pools here",
     "Total value locked": "總體價值鎖定",
-    "Search results for “{{input}}”": "Search results for “{{input}}”"
+    "Search results for “{{input}}”": "Search results for “{{input}}”",
+    "Search for pool pair with token name": "Search for pool pair with token name"
   },
   "screens/PortfolioScreen": {
     "Balances": "我的資產",
@@ -1659,8 +1660,7 @@
     "Search for loans": "搜尋貸款",
     "Search for loan token": "搜尋貸款代幣",
     "Search for pool pairs": "搜索流動池配對",
-    "Search pool pair": "Search pool pair",
-    "Search for pool pair with token name": "Search for pool pair with token name"
+    "Search pool pair": "Search pool pair"
   },
   "components/EmptyCollateral": {
     "No collateral": "沒有抵押",

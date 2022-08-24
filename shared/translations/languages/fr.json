@@ -71,7 +71,8 @@
     "No favorites added": "Aucun favori ajouté",
     "Tap the star icon to add your favorite pools here": "Appuyez sur l'icône étoile pour ajouter vos paires favorites ici",
     "Total value locked": "Valeur totale bloquée",
-    "Search results for “{{input}}”": "Résultats de la recherche pour “{{input}}”"
+    "Search results for “{{input}}”": "Résultats de la recherche pour “{{input}}”",
+    "Search for pool pair with token name": "Rechercher une paire de pool avec le nom du token"
   },
   "screens/PortfolioScreen": {
     "Balances": "Soldes",
@@ -1663,8 +1664,7 @@
     "Search for loans": "Rechercher des prêts",
     "Search for loan token": "Rechercher de token de prêt",
     "Search for pool pairs": "Rechercher des paires de pool",
-    "Search pool pair": "Rechercher une paire de pool",
-    "Search for pool pair with token name": "Rechercher une paire de pool avec le nom du token"
+    "Search pool pair": "Rechercher une paire de pool"
   },
   "components/EmptyCollateral": {
     "No collateral": "Pas de garanties",

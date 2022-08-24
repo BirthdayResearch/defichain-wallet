@@ -72,7 +72,8 @@
     "No favorites added": "No favorites added",
     "Tap the star icon to add your favorite pools here": "Tap the star icon to add your favorite pools here",
     "Total value locked": "Valor total bloqueado",
-    "Search results for “{{input}}”": "Search results for “{{input}}”"
+    "Search results for “{{input}}”": "Search results for “{{input}}”",
+    "Search for pool pair with token name": "Search for pool pair with token name"
   },
   "screens/PortfolioScreen": {
     "Balances": "Saldos",
@@ -1681,8 +1682,7 @@
     "Search for loans": "Busca préstamos",
     "Search for loan token": "Busca tokens para préstamos",
     "Search for pool pairs": "Búsqueda de pares del pool",
-    "Search pool pair": "Search pool pair",
-    "Search for pool pair with token name": "Search for pool pair with token name"
+    "Search pool pair": "Search pool pair"
   },
   "components/EmptyCollateral": {
     "No collateral": "No hay colaterales",
