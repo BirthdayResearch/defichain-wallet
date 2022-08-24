@@ -444,7 +444,14 @@
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "在 DEX 上进行交易并使用加密货币和 dToken 从流动性挖矿中获得奖励 ",
     "Decentralized loans": "去中心化资产贷款",
     "Access financial opportunities with dTokens minted through decentralized vaults.": "透过去中心化金库铸造的 dToken 获得交易机会",
-    "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "DeFiChain 钱包是完全非托管的。个人资金只供您私人操作。"
+    "Create your own Wallet.": "",
+    "Buy and Sell DeFi Tokens.": "",
+    "Generate passive cashflow.": "",
+    "Track your tax.": "",
+    "By creating your own wallet, you get access to the DeFiChain protocol and to the service of DFX.": "",
+    "You can buy DeFi Tokens with simple SEPA bank transactions or native Bitcoin right away and withdraw assets to your bank account.": "",
+    "Through liquidity mining or staking applications you can earn cashflow by letting your investment work for you.": "",
+    "You can easily document all of your transactions and rewards through our  1-click solution enabled by an API to Cointracking.": ""
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "离开页面",

@@ -467,7 +467,14 @@
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Négociez sur le DEX et gagnez des récompenses de liquidity mining avec des cryptomonnaies et des dTokens.",
     "Decentralized loans": "Prêts décentralisés",
     "Access financial opportunities with dTokens minted through decentralized vaults.": "Accédez à des opportunités financières avec des dTokens mintés par des vaults décentralisés.",
-    "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "Le portefeuille DeFiChain est entièrement sans garde. Vous seul aurez accès à votre fonds."
+    "Create your own Wallet.": "",
+    "Buy and Sell DeFi Tokens.": "",
+    "Generate passive cashflow.": "",
+    "Track your tax.": "",
+    "By creating your own wallet, you get access to the DeFiChain protocol and to the service of DFX.": "",
+    "You can buy DeFi Tokens with simple SEPA bank transactions or native Bitcoin right away and withdraw assets to your bank account.": "",
+    "Through liquidity mining or staking applications you can earn cashflow by letting your investment work for you.": "",
+    "You can easily document all of your transactions and rewards through our  1-click solution enabled by an API to Cointracking.": ""
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "Quitter l'écran",

@@ -455,7 +455,15 @@
     "Maximize earning potential": "Maximiza las ganancias potenciales",
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Intercambia tokens para obtener recompensas del liquidity mining con los tokens descentralizados.",
     "Decentralized loans": "Préstamos descentralizados",
-    "Access financial opportunities with dTokens minted through decentralized vaults.": "Crea y accede a nuevos dTokens usando Vaults sobre-colateralizados"
+    "Access financial opportunities with dTokens minted through decentralized vaults.": "Crea y accede a nuevos dTokens usando Vaults sobre-colateralizados",
+    "Create your own Wallet.": "",
+    "Buy and Sell DeFi Tokens.": "",
+    "Generate passive cashflow.": "",
+    "Track your tax.": "",
+    "By creating your own wallet, you get access to the DeFiChain protocol and to the service of DFX.": "",
+    "You can buy DeFi Tokens with simple SEPA bank transactions or native Bitcoin right away and withdraw assets to your bank account.": "",
+    "Through liquidity mining or staking applications you can earn cashflow by letting your investment work for you.": "",
+    "You can easily document all of your transactions and rewards through our  1-click solution enabled by an API to Cointracking.": ""
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "Abandonar pantalla",
