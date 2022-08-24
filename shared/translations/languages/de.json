@@ -877,7 +877,8 @@
     "Transaction fee": "Transaktionsgebühren",
     "Resulting pool share": "Resultierender Poolanteil",
     "LP tokens to remove": "Zu entfernende LP-Token",
-    "Removing {{amount}} {{symbol}} from liquidity pool": "Entfernen von {{amount}} {{symbol}} aus dem Liquiditätspool"
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Entfernen von {{amount}} {{symbol}} aus dem Liquiditätspool",
+    "Pool share": "Pool-Anteil"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "Entferne Liquidität",
