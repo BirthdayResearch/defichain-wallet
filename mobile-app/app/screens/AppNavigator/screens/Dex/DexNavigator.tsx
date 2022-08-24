@@ -136,8 +136,7 @@ export function DexNavigator (): JSX.Element {
             <ThemedTextV2
               style={[
                 screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
-                tailwind('text-left text-3xl font-semibold-v2'),
-                { fontSize: 28 }
+                tailwind('text-left text-2xl font-semibold-v2')
               ]}
             >
               {translate('screens/DexScreen', 'Decentralized Exchange')}

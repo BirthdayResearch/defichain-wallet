@@ -41,7 +41,6 @@ export function DexScreen (): JSX.Element {
   const [activeTab, setActiveTab] = useState<string>(TabKey.AvailablePoolPair)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
   const [expandedCardIds, setExpandedCardIds] = useState<string[]>([])
-
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     setExpandedCardIds([])
     setActiveButtonGroup(buttonGroupTabKey)
@@ -227,6 +226,8 @@ export function DexScreen (): JSX.Element {
     setFilteredAvailablePairs([])
   }
 
+  const [isScrolled, setIsScrolled] = useState<boolean>(false)
+
   // Top Liquidity pairs
   const [topLiquidityPairs, setTopLiquidityPairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
   useEffect(() => {
@@ -269,21 +270,23 @@ export function DexScreen (): JSX.Element {
         </View>)
       : (
         <>
-          <ThemedViewV2
-            light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-100')}
-            dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-100')}
-            style={tailwind('flex flex-col items-center pt-4 rounded-b-2xl border-b')}
-          >
-            <View style={tailwind('w-full px-5')}>
-              <ButtonGroupV2
-                buttons={tabsList}
-                activeButtonGroupItem={activeTab}
-                testID='dex_tabs'
-                lightThemeStyle={tailwind('bg-transparent')}
-                darkThemeStyle={tailwind('bg-transparent')}
-              />
-            </View>
-          </ThemedViewV2>
+          {!isScrolled && (
+            <ThemedViewV2
+              light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-100')}
+              dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-100')}
+              style={tailwind('flex flex-col items-center pt-4 rounded-b-2xl border-b')}
+            >
+              <View style={tailwind('w-full px-5')}>
+                <ButtonGroupV2
+                  buttons={tabsList}
+                  activeButtonGroupItem={activeTab}
+                  testID='dex_tabs'
+                  lightThemeStyle={tailwind('bg-transparent')}
+                  darkThemeStyle={tailwind('bg-transparent')}
+                />
+              </View>
+            </ThemedViewV2>
+          )}
           {activeTab === TabKey.AvailablePoolPair &&
             <DexFilterPillGroup
               onSearchBtnPress={onSearchBtnPress}
@@ -303,6 +306,7 @@ export function DexScreen (): JSX.Element {
           hasFetchedPoolpairData &&
           !isSearching && (
             <PoolPairCards
+              setIsScrolled={setIsScrolled}
               expandedCardIds={expandedCardIds}
               setExpandedCardIds={setExpandedCardIds}
               availablePairs={filteredAvailablePairs}
@@ -325,6 +329,7 @@ export function DexScreen (): JSX.Element {
         )}
         {activeTab === TabKey.YourPoolPair && yourLPTokens.length > 0 && (
           <PoolPairCards
+            setIsScrolled={setIsScrolled}
             expandedCardIds={expandedCardIds}
             setExpandedCardIds={setExpandedCardIds}
             availablePairs={filteredAvailablePairs}

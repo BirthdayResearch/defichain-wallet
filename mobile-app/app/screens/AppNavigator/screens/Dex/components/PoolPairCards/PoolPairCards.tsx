@@ -10,7 +10,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useTokenBestPath } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenBestPath'
 import React, { useEffect, useRef, useState } from 'react'
-import { useScrollToTop } from '@react-navigation/native'
+import { NavigationProp, useNavigation, useScrollToTop } from '@react-navigation/native'
 import { WalletToken } from '@store/wallet'
 import { useDebounce } from '@hooks/useDebounce'
 import { useFavouritePoolpairs } from '../../hook/FavouritePoolpairs'
@@ -28,6 +28,10 @@ import { PriceRatesSection } from '@screens/AppNavigator/screens/Dex/components/
 import { APRSection } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/APRSection'
 import { PoolSharesSection } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolSharesSection'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
+import { DexParamList } from '@screens/AppNavigator/screens/Dex/DexNavigator'
+import { Platform } from 'react-native'
+import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 interface DexItem<T> {
   type: 'your' | 'available'
@@ -56,6 +60,7 @@ interface PoolPairCardProps {
   topLiquidityPairs: Array<DexItem<PoolPairData>>
   newPoolsPairs: Array<DexItem<PoolPairData>>
   activeButtonGroup: ButtonGroupTabKey
+  setIsScrolled: (isScrolled: boolean) => void
 }
 
 export function PoolPairCards ({
@@ -70,8 +75,15 @@ export function PoolPairCards ({
   showSearchInput,
   topLiquidityPairs,
   newPoolsPairs,
-  activeButtonGroup
+  activeButtonGroup,
+  setIsScrolled
 }: PoolPairCardProps): JSX.Element {
+  const navigation = useNavigation<NavigationProp<DexParamList>>()
+  const goToNetworkSelect = (): void => {
+    navigation.navigate('NetworkSelectionScreen')
+  }
+  const insets = useSafeAreaInsets()
+
   const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
   const sortedPairs = sortPoolpairsByFavourite(
     availablePairs,
@@ -88,6 +100,37 @@ export function PoolPairCards ({
     availablePairs.findIndex(x => x.data.id === pairA.data.id) -
     availablePairs.findIndex(x => x.data.id === pairB.data.id)
   )
+
+  const onSectionScroll = (offSetY: number): void => {
+    const isScrolled = offSetY > 420 // set when scrolled down to available pool pairs
+    if (isScrolled) {
+      navigation.setOptions({
+        header: () => (
+          <ThemedViewV2
+            light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-100')}
+            dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-100')}
+            style={[tailwind('p-5 flex flex-row items-center justify-between rounded-b-xl-v2 border-b'), { shadowOpacity: 0, height: ((Platform.OS !== 'android' ? 88 : 76) + insets.top) }]}
+          >
+            <ThemedTextV2
+              style={tailwind('text-left text-xl font-semibold-v2')}
+            >
+              {translate('screens/DexScreen', 'Decentralized Exchange')}
+            </ThemedTextV2>
+            <HeaderNetworkStatus
+              onPress={goToNetworkSelect}
+              containerStyle={tailwind({ 'pt-px': Platform.OS === 'android' })}
+            />
+          </ThemedViewV2>
+        )
+      })
+    } else {
+      navigation.setOptions({
+        header: undefined
+      })
+    }
+
+    setIsScrolled(isScrolled)
+  }
 
   useEffect(() => {
     setIsSearching(false)
@@ -131,6 +174,7 @@ export function PoolPairCards ({
 
   return (
     <ThemedFlatListV2
+      onScroll={(e) => onSectionScroll(e.nativeEvent.contentOffset.y)}
       light={tailwind('bg-mono-light-v2-100')}
       dark={tailwind('bg-mono-dark-v2-100')}
       contentContainerStyle={tailwind('pb-4', { 'pt-8': type === 'your' })}
