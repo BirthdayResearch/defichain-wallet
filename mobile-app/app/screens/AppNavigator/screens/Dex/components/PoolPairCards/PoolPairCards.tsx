@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js'
 import { View } from '@components'
 import {
-  ThemedFlatList,
+  ThemedFlatListV2,
   ThemedIcon,
   ThemedText,
   ThemedView
@@ -28,7 +28,9 @@ import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { TotalValueLocked } from '../TotalValueLocked'
-import { ButtonGroup } from '../ButtonGroup'
+import { DexScrollable } from '../DexScrollable'
+import { EmptyCryptoIcon } from '@screens/AppNavigator/screens/Portfolio/assets/EmptyCryptoIcon'
+import { EmptyTokensScreen } from '@screens/AppNavigator/screens/Portfolio/components/EmptyTokensScreen'
 
 interface DexItem<T> {
   type: 'your' | 'available'
@@ -38,7 +40,8 @@ interface DexItem<T> {
 export enum ButtonGroupTabKey {
   AllPairs = 'ALL_PAIRS',
   DFIPairs = 'DFI_PAIRS',
-  DUSDPairs = 'DUSD_PAIRS'
+  DUSDPairs = 'DUSD_PAIRS',
+  FavouritePairs= 'FAVOURITE_PAIRS'
 }
 
 interface PoolPairCardProps {
@@ -50,12 +53,12 @@ interface PoolPairCardProps {
   type: 'your' | 'available'
   setIsSearching: (isSearching: boolean) => void
   searchString: string
-  buttonGroupOptions?: {
-    onButtonGroupPress: (key: ButtonGroupTabKey) => void
-    activeButtonGroup: string
-    setActiveButtonGroup: (key: ButtonGroupTabKey) => void
-  }
   showSearchInput?: boolean
+  expandedCardIds: string[]
+  setExpandedCardIds: (ids: string[]) => void
+  topLiquidityPairs: Array<DexItem<PoolPairData>>
+  newPoolsPairs: Array<DexItem<PoolPairData>>
+  activeButtonGroup: ButtonGroupTabKey
 }
 
 export function PoolPairCards ({
@@ -67,48 +70,24 @@ export function PoolPairCards ({
   searchString,
   setIsSearching,
   yourPairs,
-  buttonGroupOptions,
-  showSearchInput
+  showSearchInput,
+  expandedCardIds,
+  setExpandedCardIds,
+  topLiquidityPairs,
+  newPoolsPairs,
+  activeButtonGroup
 }: PoolPairCardProps): JSX.Element {
   const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
   const sortedPairs = sortPoolpairsByFavourite(
     availablePairs,
     isFavouritePoolpair
   )
-  const [expandedCardIds, setExpandedCardIds] = useState<string[]>([])
-
+  const { tvl } = useSelector((state: RootState) => state.block)
   const [filteredYourPairs, setFilteredYourPairs] =
     useState<Array<DexItem<WalletToken>>>(yourPairs)
   const debouncedSearchTerm = useDebounce(searchString, 500)
-  const { tvl } = useSelector((state: RootState) => state.block)
-  const buttonGroup = [
-    {
-      id: ButtonGroupTabKey.AllPairs,
-      label: translate('screens/DexScreen', 'All pairs'),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.AllPairs)
-    },
-    {
-      id: ButtonGroupTabKey.DFIPairs,
-      label: translate('screens/DexScreen', 'DFI pairs'),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.DFIPairs)
-    },
-    {
-      id: ButtonGroupTabKey.DUSDPairs,
-      label: translate('screens/DexScreen', 'DUSD pairs'),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.DUSDPairs)
-    }
-  ]
-
   const ref = useRef(null)
   useScrollToTop(ref)
-
-  const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
-    if (buttonGroupOptions !== undefined) {
-      setExpandedCardIds([])
-      buttonGroupOptions.setActiveButtonGroup(buttonGroupTabKey)
-      buttonGroupOptions.onButtonGroupPress(buttonGroupTabKey)
-    }
-  }
 
   const pairSortingFn = (pairA: DexItem<WalletToken>, pairB: DexItem<WalletToken>): number => (
     availablePairs.findIndex(x => x.data.id === pairA.data.id) -
@@ -154,12 +133,14 @@ export function PoolPairCards ({
       onRemove={onRemove}
       onSwap={onSwap}
       setExpandedCardIds={setExpandedCardIds}
-    />)
+    />
+  )
+
   return (
-    <ThemedFlatList
-      light={tailwind('bg-gray-50')}
-      dark={tailwind('bg-gray-900')}
-      contentContainerStyle={tailwind('p-4 pb-2')}
+    <ThemedFlatListV2
+      light={tailwind('bg-mono-light-v2-100')}
+      dark={tailwind('bg-mono-dark-v2-100')}
+      contentContainerStyle={tailwind('pb-4', { 'pt-8': type === 'your' })}
       ref={ref}
       data={type === 'your' ? filteredYourPairs : sortedPairs}
       numColumns={1}
@@ -170,27 +151,33 @@ export function PoolPairCards ({
         type === 'your' ? 'your_liquidity_tab' : 'available_liquidity_tab'
       }
       renderItem={renderItem}
-      ListHeaderComponent={
+      ListEmptyComponent={
         <>
-          {type === 'available' &&
-            buttonGroupOptions !== undefined &&
-            showSearchInput === false &&
-            (
-              <>
-                <View style={tailwind('mb-4')}>
-                  <ButtonGroup buttons={buttonGroup} activeButtonGroupItem={buttonGroupOptions.activeButtonGroup} testID='dex_button_group' />
-                </View>
-                <View style={tailwind('mb-4')}>
-                  <TotalValueLocked tvl={tvl ?? 0} />
-                </View>
-              </>
-            )}
+          {activeButtonGroup === ButtonGroupTabKey.FavouritePairs && (
+            <EmptyTokensScreen
+              icon={EmptyCryptoIcon}
+              containerStyle={tailwind('pt-14')}
+              title={translate('screens/DexScreen', 'No favorites added')}
+              subTitle={translate('screens/DexScreen', 'Tap the star icon to add your favorite pools here')}
+            />
+          )}
         </>
       }
+      ListHeaderComponent={
+        <>
+          {(type === 'available' && showSearchInput === false && activeButtonGroup === ButtonGroupTabKey.AllPairs)
+            ? (
+              <>
+                <TotalValueLocked tvl={tvl ?? 0} />
+                <TopLiquiditySection onPress={onSwap} pairs={topLiquidityPairs} />
+                <NewPoolsSection onPress={onAdd} pairs={newPoolsPairs} />
+              </>)
+            : <></>}
+        </>
+        }
     />
   )
 }
-
 interface PoolCardProps {
   item: DexItem<WalletToken | PoolPairData>
   expandedCardIds: string[]
@@ -283,7 +270,7 @@ const PoolCard = ({
     <ThemedView
       dark={tailwind('bg-gray-800 border-gray-700')}
       light={tailwind('bg-white border-gray-200')}
-      style={tailwind('p-4 mb-2 border rounded')}
+      style={tailwind('p-4 mb-2 border rounded mx-5')}
       testID={type === 'your' ? 'pool_pair_row_your' : 'pool_pair_row'}
     >
       <View
@@ -484,4 +471,46 @@ function sortPoolpairsByFavourite (
     }
     return 0
   })
+}
+
+function TopLiquiditySection ({ pairs, onPress }: {pairs: Array<DexItem<PoolPairData>>, onPress: (data: PoolPairData) => void}): JSX.Element {
+  return (
+    <DexScrollable
+      testID='dex_top_liquidity'
+      sectionHeading='TOP LIQUIDITY'
+      sectionStyle={tailwind('my-6')}
+    >
+      {pairs.map((pairItem, index) => (
+        <DexScrollable.Card
+          key={`${pairItem.data.id}_${index}`}
+          poolpair={pairItem.data}
+          style={tailwind('mr-2')}
+          onPress={() => onPress(pairItem.data)}
+          label={translate('screens/DexScreen', 'Swap')}
+          testID={`composite_swap_${pairItem.data.id}`}
+        />
+      ))}
+    </DexScrollable>
+  )
+}
+
+function NewPoolsSection ({ pairs, onPress }: {pairs: Array<DexItem<PoolPairData | WalletToken>>, onPress: (data: PoolPairData, info: WalletToken) => void}): JSX.Element {
+  return (
+    <DexScrollable
+      testID='dex_new_pools'
+      sectionHeading='NEW POOLS'
+      sectionStyle={tailwind('mb-6')}
+    >
+      {pairs.map((pairItem, index) => (
+        <DexScrollable.Card
+          key={`${pairItem.data.id}_${index}`}
+          poolpair={pairItem.data as PoolPairData}
+          style={tailwind('mr-2')}
+          onPress={() => onPress(pairItem.data as PoolPairData, pairItem.data as WalletToken)}
+          label={translate('screens/DexScreen', 'Add to LP')}
+          testID={`add_liquidity_${pairItem.data.id}`}
+        />
+      ))}
+    </DexScrollable>
+  )
 }

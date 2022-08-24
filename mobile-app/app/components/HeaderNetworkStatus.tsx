@@ -3,12 +3,12 @@ import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { RootState } from '@store'
 import { getColor, tailwind } from '@tailwind'
 import { translate } from '@translations'
-import { Platform, TouchableOpacity, View } from 'react-native'
+import { Platform, StyleProp, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { useSelector } from 'react-redux'
 import { NetworkIcon } from './icons/assets/NetworkIcon'
 import { ThemedTextV2 } from './themed'
 
-export function HeaderNetworkStatus ({ onPress, testID }: { onPress: () => void, testID?: string }): JSX.Element {
+export function HeaderNetworkStatus ({ onPress, testID, containerStyle }: { onPress: () => void, testID?: string, containerStyle?: StyleProp<ViewStyle> }): JSX.Element {
   const { network } = useNetworkContext()
   const { isCustomUrl } = useServiceProviderContext()
   const { connected } = useSelector((state: RootState) => state.block)
@@ -16,7 +16,7 @@ export function HeaderNetworkStatus ({ onPress, testID }: { onPress: () => void,
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={tailwind('items-center justify-center', { 'pt-0.5': Platform.OS !== 'ios' })}
+      style={[tailwind('items-center justify-center', { 'pt-0.5': Platform.OS !== 'ios' }), containerStyle]}
       testID={testID ?? 'header_active_network'}
     >
       <NetworkIcon testID='header_network_icon' pathColor={connected ? getColor('green-v2') : getColor('red-v2')} />
