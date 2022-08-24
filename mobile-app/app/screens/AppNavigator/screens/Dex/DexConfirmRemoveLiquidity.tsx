@@ -107,10 +107,6 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
             }}
             rhs={{
               value: new BigNumber(fee).toFixed(8),
-              themedProps: {
-                light: tailwind('text-mono-light-v2-900'),
-                dark: tailwind('text-mono-dark-v2-900')
-              },
               suffix: ' DFI',
               testID: 'transaction_fee_title_amount'
             }}
@@ -119,7 +115,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
         </View>
         <NumberRowV2
           lhs={{
-            value: translate('screens/ConfirmRemoveLiquidity', 'Resulting pool share'),
+            value: translate('screens/ConfirmRemoveLiquidity', 'Pool share'),
             themedProps: {
               light: tailwind('text-mono-light-v2-500'),
               dark: tailwind('text-mono-dark-v2-500')
@@ -128,10 +124,7 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
           }}
           rhs={{
             value: new BigNumber(resultingPool).toFixed(8),
-            themedProps: {
-              light: tailwind('text-mono-light-v2-900'),
-              dark: tailwind('text-mono-dark-v2-900')
-            },
+            suffix: '%',
             testID: 'resulting_pool_share_amount'
           }}
           testID='resulting_pool_share'
@@ -176,8 +169,6 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
           rhs={{
             value: new BigNumber(amount).toFixed(8),
             themedProps: {
-              light: tailwind('text-mono-light-v2-900'),
-              dark: tailwind('text-mono-dark-v2-900'),
               style: tailwind('font-semibold-v2 text-sm')
             },
             testID: 'lp_tokens_to_remove_amount',
