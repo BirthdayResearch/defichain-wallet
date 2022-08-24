@@ -484,7 +484,7 @@ function PoolPairActionSection ({
           />
         )}
       </ThemedViewV2>
-      <View style={tailwind('pt-4 pb-1')}>
+      <View style={tailwind('pt-4 pb-1 px-2')}>
         <ButtonV2
           label={translate('screens/DexScreen', 'Swap')}
           onPress={() => onSwap(pair.data)}
