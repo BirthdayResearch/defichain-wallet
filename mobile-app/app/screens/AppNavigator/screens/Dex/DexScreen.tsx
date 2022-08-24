@@ -26,7 +26,6 @@ import { HeaderSearchInputV2 } from '@components/HeaderSearchInputV2'
 import { useFavouritePoolpairs } from './hook/FavouritePoolpairs'
 import { ScrollView } from 'react-native'
 import { AssetsFilterItem } from '../Portfolio/components/AssetsFilterRow'
-
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
   AvailablePoolPair = 'AVAILABLE_POOL_PAIRS'
@@ -296,10 +295,10 @@ export function DexScreen (): JSX.Element {
       <View style={tailwind('flex-1')}>
         {activeTab === TabKey.AvailablePoolPair &&
           (!hasFetchedPoolpairData || isSearching) && (
-            <ThemedScrollViewV2 contentContainerStyle={tailwind('p-4')}>
+            <ThemedScrollViewV2 contentContainerStyle={tailwind('px-5')}>
               <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Dex} />
             </ThemedScrollViewV2>
-          )}
+        )}
         {activeTab === TabKey.AvailablePoolPair &&
           hasFetchedPoolpairData &&
           !isSearching && (

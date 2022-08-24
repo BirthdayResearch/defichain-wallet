@@ -3,9 +3,7 @@ import BigNumber from 'bignumber.js'
 import { View } from 'react-native'
 import { isEqual } from 'lodash'
 import { tailwind } from '@tailwind'
-import { getNativeIcon } from '@components/icons/assets'
-import { ThemedText } from '@components/themed'
-import { translate } from '@translations'
+import { ThemedTextV2 } from '@components/themed'
 import NumberFormat from 'react-number-format'
 import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
 
@@ -26,45 +24,40 @@ export const PriceRatesSection = memo(({
   tokenA,
   tokenB
 }: PriceRatesSectionProps): JSX.Element => {
-  const TokenAIcon = getNativeIcon(tokenA.displaySymbol)
-  const TokenBIcon = getNativeIcon(tokenB.displaySymbol)
   if (
     new BigNumber(tokenA.priceRate).isNaN() ||
     new BigNumber(tokenB.priceRate).isNaN()
   ) {
     return (
-      <View style={tailwind('mt-2')}>
+      <View style={tailwind('mt-2 w-2/3')}>
         <SkeletonLoader row={1} screen={SkeletonLoaderScreen.DexPrices} />
       </View>
     )
   }
   return (
-    <View style={tailwind('flex')}>
-      <ThemedText
-        style={tailwind('text-xs m-1 mt-2')}
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
-      >
-        {translate('screens/DexScreen', 'Prices')}
-      </ThemedText>
-      <View style={tailwind('flex flex-row items-center m-0.5')}>
-        <TokenAIcon height={16} width={16} />
-        <View style={tailwind('flex flex-row items-center')}>
-          <ThemedText style={tailwind('text-sm ml-1')}>
-            {`1 ${tokenA.displaySymbol} =`}
-          </ThemedText>
-          <PriceRateValue
-            value={tokenA.priceRate.toFixed(8)}
-            suffix={tokenB.displaySymbol}
-            testID={`price_rate_${tokenA.displaySymbol}-${tokenB.displaySymbol}`}
-          />
-        </View>
+    <View style={tailwind('flex flex-col')}>
+      <View style={tailwind('flex flex-row items-center')}>
+        <ThemedTextV2
+          style={tailwind('text-sm font-normal-v2')}
+          dark={tailwind('text-mono-dark-v2-700')}
+          light={tailwind('text-mono-light-v2-700')}
+        >
+          {`1 ${tokenA.displaySymbol} =`}
+        </ThemedTextV2>
+        <PriceRateValue
+          value={tokenA.priceRate.toFixed(8)}
+          suffix={tokenB.displaySymbol}
+          testID={`price_rate_${tokenA.displaySymbol}-${tokenB.displaySymbol}`}
+        />
       </View>
-      <View style={tailwind('flex flex-row items-center m-0.5')}>
-        <TokenBIcon height={16} width={16} />
-        <ThemedText style={tailwind('text-sm ml-1')}>
+      <View style={tailwind('flex flex-row items-center')}>
+        <ThemedTextV2
+          style={tailwind('text-sm font-normal-v2')}
+          dark={tailwind('text-mono-dark-v2-700')}
+          light={tailwind('text-mono-light-v2-700')}
+        >
           {`1 ${tokenB.displaySymbol} =`}
-        </ThemedText>
+        </ThemedTextV2>
         <PriceRateValue
           value={tokenB.priceRate.toFixed(8)}
           suffix={tokenA.displaySymbol}
@@ -77,17 +70,27 @@ export const PriceRatesSection = memo(({
 
 const PriceRateValue = (props: { value: string, suffix: string, testID: string }): JSX.Element => {
   return (
-    <NumberFormat
-      decimalScale={8}
-      displayType='text'
-      renderText={(textValue) => (
-        <ThemedText style={tailwind('text-sm ml-1')} testID={props.testID}>
-          {textValue}
-        </ThemedText>
-      )}
-      thousandSeparator
-      value={props.value}
-      suffix={` ${props.suffix}`}
-    />
+    <View style={tailwind('flex flex-row')}>
+      <NumberFormat
+        displayType='text'
+        renderText={(textValue) => (
+          <ThemedTextV2
+            style={[tailwind('text-sm ml-1 font-normal-v2'), { maxWidth: 80 }]}
+            testID={props.testID}
+            ellipsizeMode='tail'
+            numberOfLines={1}
+          >
+            {textValue}
+          </ThemedTextV2>
+        )}
+        thousandSeparator
+        value={props.value}
+      />
+      <ThemedTextV2
+        style={tailwind('text-sm font-normal-v2 ml-0.5')}
+      >
+        {props.suffix}
+      </ThemedTextV2>
+    </View>
   )
 }
