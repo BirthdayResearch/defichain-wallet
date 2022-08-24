@@ -52,6 +52,12 @@
     "Swap tokens": "Token-Tausch",
     "TOP LIQUIDITY": "TOP-LIQUIDITÄT",
     "Add to LP": "LP hinzuf",
+    "AVAILABLE PAIRS": "VERFÜGBARE PAARE",
+    "Available pairs": "Verfügbare Paare",
+    "Favourites": "Favoriten",
+    "Total value locked": "Fixierter gesamtwert",
+    "Search for pool pair with token name": "Suche nach Pool-Paar über den Token-Namen",
+    "Search pool pair": "Suche Poolpaar",
     "NEW POOLS": "NEUE POOLS",
     "DETAILS": "DETAILS",
     "HIDE": "VERBERGEN",
@@ -1408,7 +1414,9 @@
     "No crypto found": "Keine Kryptowährung gefunden",
     "Add crypto to get started": "Krypto für den Einstieg hinzufügen",
     "No dTokens found": "Keine dToken gefunden",
-    "Mint dTokens to get started": "Minte dToken zum Einstieg"
+    "Mint dTokens to get started": "Minte dToken zum Einstieg",
+    "No favorites added": "Keine Favoriten hinzugefügt",
+    "Tap the star icon to add your favorite pools here":  "Tippe auf das Sternsymbol, um einen Favoriten hinzuzufügen"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "DARLEHENSMODELL",

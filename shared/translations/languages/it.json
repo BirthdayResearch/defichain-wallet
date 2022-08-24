@@ -48,6 +48,12 @@
     "Your pool pairs": "I tuoi Pool-Pair",
     "Total Value Locked (USD)": "Valore Totale Bloccato (USD)",
     "Add to LP": "Add to LP",
+    "AVAILABLE PAIRS": "AVAILABLE PAIRS",
+    "Available pairs": "Available pairs",
+    "Favourites": "Favourites",
+    "Total value locked": "Valore Totale Bloccato",
+    "Search for pool pair with token name": "Search for pool pair with token name",
+    "Search pool pair": "Search pool pair",
     "SWAP": "SCAMBIA",
     "Swap": "Scambia",
     "TOP LIQUIDITY": "TOP LIQUIDITY",
@@ -1434,7 +1440,9 @@
     "No crypto found": "No crypto found",
     "Add crypto to get started": "Add crypto to get started",
     "No dTokens found": "No dTokens found",
-    "Mint dTokens to get started": "Mint dTokens to get started"
+    "Mint dTokens to get started": "Mint dTokens to get started",
+    "No favorites added": "No favorites added",
+    "Tap the star icon to add your favorite pools here": "Tap the star icon to add your favorite pools here"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "SCHEMA DI PRESTITO",

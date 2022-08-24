@@ -51,6 +51,12 @@
     "SWAP": "CAMBIAR",
     "Swap": "Cambiar",
     "Add to LP": "Add to LP",
+    "AVAILABLE PAIRS": "AVAILABLE PAIRS",
+    "Available pairs": "Available pairs",
+    "Favourites": "Favourites",
+    "Total value locked": "Valor total bloqueado",
+    "Search for pool pair with token name": "Search for pool pair with token name",
+    "Search pool pair": "Search pool pair",
     "TOP LIQUIDITY": "TOP LIQUIDITY",
     "NEW POOLS": "NEW POOLS",
     "Swap tokens": "Intercambia Tokens",
@@ -1440,7 +1446,9 @@
     "No crypto found": "No crypto found",
     "Add crypto to get started": "Add crypto to get started",
     "No dTokens found": "No dTokens found",
-    "Mint dTokens to get started": "Mint dTokens to get started"
+    "Mint dTokens to get started": "Mint dTokens to get started",
+    "No favorites added": "No favorites added",
+    "Tap the star icon to add your favorite pools here": "Tap the star icon to add your favorite pools here"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "TIPO DE PRESTAMO",

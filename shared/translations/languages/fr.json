@@ -47,6 +47,12 @@
     "Browse pool pairs": "Parcourir les paires de pool",
     "Your pool pairs": "Mes paires de pool",
     "Total Value Locked (USD)": "Valeur totale bloquée (USD)",
+    "AVAILABLE PAIRS": "PAIRES DISPONIBLES",
+    "Available pairs": "Paires disponibles",
+    "Favourites": "Favoris",
+    "Total value locked": "Valeur totale bloquée",
+    "Search for pool pair with token name": "Rechercher une paire de pool avec le nom du token",
+    "Search pool pair": "Rechercher une paire de pool",
     "SWAP": "ÉCHANGER",
     "Swap": "Échanger",
     "TOP LIQUIDITY": "LIQUIDITÉ SUPÉRIEURE",
@@ -1421,7 +1427,9 @@
     "No crypto found": "Aucune crypto trouvée",
     "Add crypto to get started": "Ajouter des crypto pour commencer",
     "No dTokens found": "Pas de dTokens trouvés",
-    "Mint dTokens to get started": "Minter des dTokens pour commencer"
+    "Mint dTokens to get started": "Minter des dTokens pour commencer",
+    "No favorites added": "Aucun favori ajouté",
+    "Tap the star icon to add your favorite pools here":  "Appuyez sur l'icône étoile pour ajouter vos paires favorites ici"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "SCHÉMA DE PRÊT",

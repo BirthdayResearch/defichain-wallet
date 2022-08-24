@@ -52,6 +52,12 @@
     "Swap": "兌換",
     "TOP LIQUIDITY": "最高流動性",
     "Add to LP": "添加到 LP",
+    "AVAILABLE PAIRS": "可用的幣對",
+    "Available pairs": "可用的幣對",
+    "Favourites": "Favourites",
+    "Total value locked": "總體價值鎖定",
+    "Search for pool pair with token name": "使用代幣名稱搜索流動池",
+    "Search pool pair": "Search pool pair",
     "NEW POOLS": "新流動性池",
     "DETAILS": "詳情",
     "HIDE": "隱藏",
@@ -1415,7 +1421,9 @@
     "No crypto found": "No crypto found",
     "Add crypto to get started": "Add crypto to get started",
     "No dTokens found": "No dTokens found",
-    "Mint dTokens to get started": "Mint dTokens to get started"
+    "Mint dTokens to get started": "Mint dTokens to get started",
+    "No favorites added": "No favorites added",
+    "Tap the star icon to add your favorite pools here": "Tap the star icon to add your favorite pools here"
   },
   "components/VaultDetailDetailsTab": {
     "LOAN SCHEME": "貸款計劃",
