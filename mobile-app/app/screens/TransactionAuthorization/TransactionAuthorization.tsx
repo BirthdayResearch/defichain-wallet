@@ -165,6 +165,9 @@ export function TransactionAuthorization (): JSX.Element | null {
     setMessage(DEFAULT_MESSAGES.message)
     setTitle(undefined)
     setLoadingMessage(DEFAULT_MESSAGES.loadingMessage)
+    setSuccessMessage(undefined)
+    setAdditionalMessage(undefined)
+    setAdditionalMessageUrl(undefined)
     setTransactionStatus(TransactionStatus.IDLE) // very last step, open up for next task
   }
 
@@ -240,16 +243,6 @@ export function TransactionAuthorization (): JSX.Element | null {
    * If you're curious where the passcode validation is triggered, see - https://github.com/DeFiCh/jellyfish/blob/fe270b737705ad33242a9ec3f8896b2f8f5052c8/packages/jellyfish-wallet-encrypted/src/hd_node.ts#L87
    * */
   useEffect(() => {
-    // reset all messages to ensure it is not cached for the next transaction
-    if (authentication === undefined) {
-      setSuccessMessage(undefined)
-      setMessage(DEFAULT_MESSAGES.message)
-      setTitle(undefined)
-      setLoadingMessage(DEFAULT_MESSAGES.loadingMessage)
-      setAdditionalMessage(undefined)
-      setAdditionalMessageUrl(undefined)
-    }
-
     if (transactionStatus !== TransactionStatus.IDLE) {
       // wait for prompt UI is ready again
       return
