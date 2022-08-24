@@ -888,7 +888,8 @@
     "Transaction fee": "Transaction fee",
     "Resulting pool share": "Resulting pool share",
     "LP tokens to remove": "L要刪除的 LP 代幣",
-    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool",
+    "Pool share": "流感池份額"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "退出流動資金",
