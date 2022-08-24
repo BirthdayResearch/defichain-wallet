@@ -253,7 +253,10 @@ export function DexNavigator (): JSX.Element {
         component={PoolPairDetailsScreen}
         name='PoolPairDetailsScreen'
         options={{
-          ...screenOptions
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          )
         }}
       />
     </DexStack.Navigator>
