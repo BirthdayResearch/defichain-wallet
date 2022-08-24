@@ -1807,5 +1807,18 @@
     "Swap": "Scambia",
     "Transactions": "Transazioni",
     "Future swap": "Future swap"
+  },
+  "screens/PoolPairDetailsScreen": {
+    "{{poolPair}} Pool": "{{poolPair}} Pool",
+    "Pool added as favorite": "Pool added as favorite",
+    "Pool removed from favorites": "Pool removed from favorites",
+    "Volume (24H)": "Volume (24H)",
+    "Total liquidity": "Liquidita' Totale",
+    "Pooled {{symbol}}": "Messo nel pool {{symbol}}",
+    "Your LP tokens": "Your LP tokens",
+    "Tokens in {{symbol}}": "Tokens in {{symbol}}",
+    "APR": "APR",
+    "{{percentage}}% in rewards": "{{percentage}}% in rewards",
+    "{{percentage}}% in commissions": "{{percentage}}% in commissions"
   }
 }

@@ -257,7 +257,7 @@ function PoolPairDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
       />
       <NumberRowV2
         lhs={{
-          value: translate('screens/PoolPairDetailsScreen', 'Pooled {{tokenA}}', { tokenA: poolPair.data.tokenA.displaySymbol }),
+          value: translate('screens/PoolPairDetailsScreen', 'Pooled {{symbol}}', { symbol: poolPair.data.tokenA.displaySymbol }),
           testID: 'pooled_tokenA'
         }}
         rhs={{
@@ -271,7 +271,7 @@ function PoolPairDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
       />
       <NumberRowV2
         lhs={{
-          value: translate('screens/PoolPairDetailsScreen', 'Pooled {{tokenB}}', { tokenB: poolPair.data.tokenB.displaySymbol }),
+          value: translate('screens/PoolPairDetailsScreen', 'Pooled {{symbol}}', { symbol: poolPair.data.tokenB.displaySymbol }),
           testID: 'pooled_tokenB'
         }}
         rhs={{
@@ -353,7 +353,7 @@ function YourPoolPairTokenBreakdown (props: {yourLpToken: WalletToken, tokenASym
       />
       <NumberRowV2
         lhs={{
-          value: translate('screens/PoolPairDetailsScreen', 'Tokens in {{tokenA}}', { tokenA: props.tokenADisplaySymbol }),
+          value: translate('screens/PoolPairDetailsScreen', 'Tokens in {{symbol}}', { symbol: props.tokenADisplaySymbol }),
           testID: 'your_lp_tokenA'
         }}
         rhs={{
@@ -366,7 +366,7 @@ function YourPoolPairTokenBreakdown (props: {yourLpToken: WalletToken, tokenASym
       />
       <NumberRowV2
         lhs={{
-          value: translate('screens/PoolPairDetailsScreen', 'Tokens in {{tokenB}}', { tokenB: props.tokenBDisplaySymbol }),
+          value: translate('screens/PoolPairDetailsScreen', 'Tokens in {{symbol}}', { symbol: props.tokenBDisplaySymbol }),
           testID: 'your_lp_tokenB'
         }}
         rhs={{
@@ -419,7 +419,7 @@ function APRDetail (props: { total: number, reward: number, commission: number }
               dark={tailwind('text-mono-dark-v2-700')}
               testID='apr_reward_value'
             >
-              {`${val}% ${translate('screens/PoolPairDetailsScreen', 'in rewards')}`}
+              {translate('screens/PoolPairDetailsScreen', '{{percentage}}% in rewards', { percentage: val })}
             </ThemedTextV2>
           )}
           thousandSeparator
@@ -434,7 +434,7 @@ function APRDetail (props: { total: number, reward: number, commission: number }
               dark={tailwind('text-mono-dark-v2-700')}
               testID='apr_commission_value'
             >
-              {`${val}% ${translate('screens/PoolPairDetailsScreen', 'in commissions')}`}
+              {translate('screens/PoolPairDetailsScreen', '{{percentage}}% in commissions', { percentage: val })}
             </ThemedTextV2>
           )}
           thousandSeparator
