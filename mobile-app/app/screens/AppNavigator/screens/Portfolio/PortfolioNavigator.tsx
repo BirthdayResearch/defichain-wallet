@@ -47,10 +47,8 @@ import {
   ConvertTokenUnit
 } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreen'
 import { ConvertConfirmationScreen } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreen'
-import { SendScreenV2 } from './screens/SendScreenV2'
-import { TokenSelectionScreen } from './screens/TokenSelectionScreen'
-import { SendConfirmationScreenV2 } from './screens/SendConfirmationScreenV2'
 import { SendScreen } from './screens/SendScreen'
+import { TokenSelectionScreen } from './screens/TokenSelectionScreen'
 import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { NetworkSelectionScreen } from '../Settings/screens/NetworkSelectionScreen'
@@ -62,18 +60,8 @@ export interface PortfolioParamList {
   ReceiveScreen: undefined
   MarketplaceScreen: undefined
   SendScreen: { token?: WalletToken }
-  SendScreenV2: { token?: WalletToken }
   TokenSelectionScreen: {}
   SendConfirmationScreen: {
-    token: WalletToken
-    destination: string
-    amount: BigNumber
-    amountInUsd: BigNumber
-    fee: BigNumber
-    conversion?: ConversionParam
-    toAddressLabel?: string
-  }
-  SendConfirmationScreenV2: {
     token: WalletToken
     destination: string
     amount: BigNumber
@@ -262,21 +250,14 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={isFeatureAvailable('send_v2') ? SendScreenV2 : SendScreen}
+        component={SendScreen}
         name='Send'
         options={{
           ...screenOptions,
-          headerTitle: isFeatureAvailable('send_v2')
-            ? translate('screens/SendScreen', 'Send')
-            : () => (<HeaderTitle
-                text={translate('screens/SendScreen', 'Send')}
-                containerTestID={headerContainerTestId}
-                     />),
-          ...(isFeatureAvailable('send_v2')) && {
-            headerRight: () => (
-              <HeaderNetworkStatus onPress={goToNetworkSelect} />
-            )
-          },
+          headerTitle: translate('screens/SendScreen', 'Send'),
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
           headerBackTitleVisible: false
         }}
       />
@@ -286,38 +267,23 @@ export function PortfolioNavigator (): JSX.Element {
         name='TokenSelectionScreen'
         options={{
           ...screenOptions,
-          headerTitle: isFeatureAvailable('send_v2')
-            ? translate('screens/SendScreen', 'Send')
-            : () => (<HeaderTitle
-                text={translate('screens/SendScreen', 'Send')}
-                containerTestID={headerContainerTestId}
-                     />
-            ),
-          ...(isFeatureAvailable('send_v2')) && {
-            headerRight: () => (
-              <HeaderNetworkStatus onPress={goToNetworkSelect} />
-            )
-          },
+          headerTitle: translate('screens/SendScreen', 'Send'),
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
           headerBackTitleVisible: false
         }}
       />
 
       <PortfolioStack.Screen
-        component={isFeatureAvailable('send_v2') ? SendConfirmationScreenV2 : SendConfirmationScreen}
-        name={isFeatureAvailable('send_v2') ? 'SendConfirmationScreenV2' : 'SendConfirmationScreen'}
+        component={SendConfirmationScreen}
+        name='SendConfirmationScreen'
         options={{
           ...screenOptions,
-          headerTitle: isFeatureAvailable('send_v2')
-            ? translate('screens/SendConfirmationScreen', 'Confirm')
-            : () => (<HeaderTitle
-                text={translate('screens/SendConfirmationScreen', 'Confirm Send')}
-                containerTestID={headerContainerTestId}
-                     />),
-          ...(isFeatureAvailable('send_v2')) && {
-            headerRight: () => (
-              <HeaderNetworkStatus onPress={goToNetworkSelect} />
-            )
-          },
+          headerTitle: translate('screens/SendConfirmationScreen', 'Confirm'),
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
           headerBackTitleVisible: false
         }}
       />
