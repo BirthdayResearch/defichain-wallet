@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "4.9.3",
-    "@next/eslint-plugin-next": "12.2.0",
+    "@next/eslint-plugin-next": "12.2.5",
     "@rushstack/eslint-patch": "^1.1.0",
     "@types/cors": "^2.8.12",
     "@types/lodash": "^4.14.178",
