@@ -16,7 +16,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import BigNumber from 'bignumber.js'
 import { useLayoutEffect } from 'react'
-import { Linking, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
@@ -30,6 +30,7 @@ import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { useYourPoolPairAmountBreakdown } from './hook/YourPoolPairAmountBreakdown'
 import { useToast } from 'react-native-toast-notifications'
 import { useFavouritePoolpairContext } from '../../../../contexts/FavouritePoolpairContext'
+import { openURL } from '@api/linking'
 
 type Props = StackScreenProps<DexParamList, 'PoolPairDetailsScreen'>
 
@@ -65,7 +66,7 @@ export function PoolPairDetailsScreen ({ route }: Props): JSX.Element {
 
   const onLinkPress = async (): Promise<void> => {
     const url = getTokenUrl(id)
-    await Linking.openURL(url)
+    await openURL(url)
   }
 
   const onAdd = (data: PoolPairData, info: WalletToken): void => {
@@ -167,7 +168,7 @@ function Header (props: {
         symbolA={props.symbolA}
         symbolB={props.symbolB}
       />
-      <View style={tailwind('flex-col ml-3 flex-auto pr-3')}>
+      <View style={tailwind('flex-col mx-3 flex-auto')}>
         <ThemedTextV2
           style={tailwind('font-semibold-v2')}
         >
@@ -460,7 +461,7 @@ function PoolPairActionSection ({
   onSwap
 }: PoolPairActionSectionProps): JSX.Element {
   return (
-    <View style={tailwind('flex-1 pt-12 ')}>
+    <View style={tailwind('flex-1 pt-12')}>
       <ThemedViewV2
         dark={tailwind('bg-mono-dark-v2-00')}
         light={tailwind('bg-mono-light-v2-00')}
