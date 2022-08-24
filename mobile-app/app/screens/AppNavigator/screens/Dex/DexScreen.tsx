@@ -180,7 +180,7 @@ export function DexScreen (): JSX.Element {
   }, [showSearchInput, searchString])
 
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllPairs)
-  const { isFavouritePoolpair } = useFavouritePoolpairContext()
+  const { isFavouritePoolpair, favouritePoolpairs } = useFavouritePoolpairContext()
 
   const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
     const filteredPairs = pairs.filter((pair) => {
@@ -208,7 +208,7 @@ export function DexScreen (): JSX.Element {
       filteredPairs
     )
   },
-    [pairs]
+    [pairs, favouritePoolpairs]
   )
 
   useEffect(() => {
@@ -228,7 +228,7 @@ export function DexScreen (): JSX.Element {
     if (searchString !== undefined && searchString.trim().length > 0) {
       handleFilter(searchString)
     }
-  }, [pairs])
+  }, [pairs, favouritePoolpairs])
 
   const onSearchBtnPress = (): void => {
     setShowSearchInput(true)
