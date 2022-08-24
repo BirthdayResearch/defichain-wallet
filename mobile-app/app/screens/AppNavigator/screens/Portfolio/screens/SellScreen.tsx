@@ -78,7 +78,7 @@ export function SellScreen ({
   const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
   const dispatch = useAppDispatch()
   const [fee, setFee] = useState<number>(2.9)
-  const [dexFee, setDexFee] = useState<string>('')
+  const [dexFee, setDexFee] = useState<string>('0')
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const {

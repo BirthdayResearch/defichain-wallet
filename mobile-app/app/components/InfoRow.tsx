@@ -48,7 +48,7 @@ export function InfoRow (props: InfoRowProps): JSX.Element {
     }],
     [InfoType.DexFee, {
       title: 'Dex Fee',
-      message: 'DEX fee…'
+      message: 'When selling dUSD, dToken and composite Assets (dUSD based) the current DEX stabilization fee applies'
     }]
   ])
 

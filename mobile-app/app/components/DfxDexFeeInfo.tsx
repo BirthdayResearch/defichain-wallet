@@ -24,35 +24,55 @@ export function DfxDexFeeInfo (props: DfxDexFeeInfoProps): JSX.Element {
     }
   }, [])
 
-  const token: OwnedTokenState = useMemo(() => {
+  // const token: OwnedTokenState = useMemo(() => {
+  //   return {
+  //     id: props.token.id,
+  //     reserve: '',
+  //     displaySymbol: props.token.displaySymbol,
+  //     symbol: props.token.symbol,
+  //     amount: props.token.amount
+  //   }
+  // }, [props.token])
+
+  const dusd: OwnedTokenState = useMemo(() => {
     return {
-      id: props.token.id,
+      id: '11',
       reserve: '',
-      displaySymbol: props.token.displaySymbol,
-      symbol: props.token.symbol,
-      amount: props.token.amount
+      displaySymbol: 'DUSD',
+      symbol: 'DUSD',
+      amount: 'props.token.amount'
     }
-  }, [props.token])
+  }, [])
 
   // dex stabilization
   const { isFeatureAvailable } = useFeatureFlagContext()
   const isDexStabilizationEnabled = isFeatureAvailable('dusd_dex_high_fee')
   const {
     dexStabilization: {
-      dexStabilizationType,
+      // dexStabilizationType,
       dexStabilizationFee
     }
-  } = useDexStabilization(token, dfi)
+  } = useDexStabilization(dusd, dfi)
 
-  props.getDexFee?.(dexStabilizationFee)
+  const isCrypto = (): boolean => ['DFI', 'dBTC', 'dETH', 'dUSDT', 'dUSDC', 'dLTC', 'dBCH', 'dDOGE'].includes(props.token.displaySymbol)
+
+  const returnDexFee = (): void => {
+    if (isCrypto()) {
+      props.getDexFee?.('0')
+    } else {
+      props.getDexFee?.(dexStabilizationFee)
+    }
+  }
+
+  returnDexFee()
 
   useEffect(() => {
-    props.getDexFee?.(dexStabilizationFee)
-  }, [dexStabilizationFee])
+    returnDexFee()
+  }, [props.token])
 
   return (
     <>
-      {(isDexStabilizationEnabled && dexStabilizationType !== 'none') && (
+      {(isDexStabilizationEnabled && !isCrypto() /* && dexStabilizationType !== 'none' */) && (
         <TouchableOpacity
           onPress={async () => await Linking.openURL('https://defichain-wiki.com/wiki/DEX_Fee_structure')}
         >
