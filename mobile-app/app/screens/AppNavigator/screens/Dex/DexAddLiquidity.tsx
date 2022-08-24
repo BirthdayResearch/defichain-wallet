@@ -1,31 +1,33 @@
-import { InputHelperText } from '@components/InputHelperText'
-import { WalletTextInput } from '@components/WalletTextInput'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useState } from 'react'
-import { View } from '@components'
-import { NumberRow } from '@components/NumberRow'
-import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
-import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { View, Platform } from 'react-native'
+import { ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedTouchableOpacityV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
-import { InfoRow, InfoType } from '@components/InfoRow'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
 import { DFITokenSelector, DFIUtxoSelector, tokensSelector, WalletToken } from '@store/wallet'
-import { ConversionInfoText } from '@components/ConversionInfoText'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
 import { hasTxQueued } from '@store/transaction_queue'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { queueConvertTransaction, useConversion } from '@hooks/wallet/Conversion'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { PricesSection } from '@components/PricesSection'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { AmountButtonTypes, TransactionCardStatus } from '@components/TransactionCard'
+import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
+import { BottomSheetWebWithNavV2, BottomSheetWithNavV2 } from '@components/BottomSheetWithNavV2'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { ViewPoolHeader } from './components/ViewPoolHeader'
+import { ViewPoolDetails, DataRoutes } from './components/ViewPoolDetails'
+import { ButtonV2 } from '@components/ButtonV2'
+import { useToast } from 'react-native-toast-notifications'
+import { useBottomSheet } from '@hooks/useBottomSheet'
+import { LiquidityCalculationSummary } from './components/LiquidityCalculationSummary'
+import { AddLiquidityInputCard } from './components/AddLiquidityInputCard'
+import { useDisplayUtxoWarning } from '@hooks/wallet/DisplayUtxoWarning'
 
 type Props = StackScreenProps<DexParamList, 'AddLiquidity'>
 type EditingAmount = 'primary' | 'secondary'
@@ -40,7 +42,6 @@ interface ExtPoolPairData extends PoolPairData {
 export function AddLiquidityScreen (props: Props): JSX.Element {
   const logger = useLogger()
   const navigation = useNavigation<NavigationProp<DexParamList>>()
-  const client = useWhaleApiClient()
   const dispatch = useAppDispatch()
   const DFIToken = useSelector((state: RootState) => DFITokenSelector(state.wallet))
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
@@ -48,14 +49,33 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
   const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const { pairInfo } = props.route.params
+  const { getTokenPrice } = useTokenPrice()
+  const { pair: pairData, pairInfo } = props.route.params
+
+  // breakdown summary state
+  const [hasAInputAmount, setHasAInputAmount] = useState(false)
+  const [hasBInputAmount, setHasBInputAmount] = useState(false)
+
+  // transaction card component
+  const [tokenATransactionCardStatus, setTokenATransactionCardStatus] = useState<TransactionCardStatus>()
+  const [tokenBTransactionCardStatus, setTokenBTransactionCardStatus] = useState<TransactionCardStatus>()
+  const [hasAError, setHasAError] = useState(false)
+  const [hasBError, setHasBError] = useState(false)
+  const [isInputAFocus, setIsInputAFocus] = useState(false)
+  const [isInputBFocus, setIsInputBFocus] = useState(false)
+
+  const { isLight } = useThemeContext()
+  const modalSortingSnapPoints = { ios: ['50%'], android: ['50%'] }
+
+  const { getDisplayUtxoWarningStatus } = useDisplayUtxoWarning()
+  const [showUTXOFeesAMsg, setShowUTXOFeesAMsg] = useState<boolean>(false)
+  const [showUTXOFeesBMsg, setShowUTXOFeesBMsg] = useState<boolean>(false)
 
   // this component UI state
   const [tokenAAmount, setTokenAAmount] = useState<string>('')
   const [tokenBAmount, setTokenBAmount] = useState<string>('')
   const [sharePercentage, setSharePercentage] = useState<BigNumber>(new BigNumber(0))
   const [canContinue, setCanContinue] = useState(false)
-  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
 
   // derived from props
   const [balanceA, setBalanceA] = useState(new BigNumber(0))
@@ -71,6 +91,38 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     },
     deps: [pair, tokenAAmount, tokenBAmount, balanceA, balanceB]
   })
+
+  const toast = useToast()
+  const TOAST_DURATION = 2000
+  const {
+    bottomSheetRef,
+    containerRef,
+    expandModal,
+    dismissModal,
+    isModalDisplayed
+  } = useBottomSheet()
+
+  const BottomSheetHeader = {
+    headerStatusBarHeight: 2,
+    headerTitle: '',
+    headerBackTitleVisible: false,
+    headerStyle: tailwind('rounded-t-xl-v2 border-b-0', {
+      'bg-mono-light-v2-100': isLight,
+      'bg-mono-dark-v2-100': !isLight
+    }),
+    headerRight: (): JSX.Element => {
+      return (
+        <ThemedTouchableOpacityV2
+          style={tailwind('mr-5 mt-4 -mb-4')}
+          onPress={dismissModal}
+          testID='close_bottom_sheet_button'
+        >
+          <ThemedIcon iconType='Feather' name='x-circle' size={22} />
+        </ThemedTouchableOpacityV2>
+      )
+    },
+    headerLeft: () => <></>
+  }
 
   const buildSummary = useCallback((ref: EditingAmount, amountString: string): void => {
     const refAmount = amountString.length === 0 || isNaN(+amountString) ? new BigNumber(0) : new BigNumber(amountString)
@@ -97,6 +149,24 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     })
   }
 
+  const ViewPoolContents = useMemo(() => {
+    return [
+      {
+        stackScreenName: 'ViewPoolShare',
+        component: ViewPoolDetails({
+          dataRoutes: DataRoutes.AddLiquidity,
+          pairData: pairData,
+          pairInfo: pairInfo
+        }),
+        option: BottomSheetHeader
+      }
+    ]
+  }, [isLight])
+
+  function onPercentagePress (_amount: string, type: AmountButtonTypes, displaySymbolA: string, displaySymbolB: string): void {
+    showToast(type, displaySymbolA, displaySymbolB)
+  }
+
   async function onSubmit (): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return
@@ -111,6 +181,7 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
         mode: 'utxosToAccount',
         amount: conversionAmount
       }, dispatch, () => {
+        // onbroadcast starts = called
         navigation.navigate({
           name: 'ConfirmAddLiquidity',
           params: {
@@ -134,7 +205,32 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
           },
           merge: true
         })
-      }, logger)
+      }, logger, () => {
+        navigation.navigate({
+          name: 'ConfirmAddLiquidity',
+          params: {
+            summary: {
+              fee: new BigNumber(0.0001),
+              tokenAAmount: new BigNumber(tokenAAmount),
+              tokenBAmount: new BigNumber(tokenBAmount),
+              percentage: sharePercentage,
+              tokenABalance: balanceA,
+              tokenBBalance: balanceB,
+              lmTotalTokens: lmTotalTokens
+            },
+            pair,
+            conversion: {
+              isConversionRequired,
+              DFIToken,
+              DFIUtxo,
+              conversionAmount,
+              isConverted: true // to pass loading component for tokens conversion in confirm screen
+            },
+            pairInfo
+          },
+          merge: true
+        })
+      })
     } else {
       navigation.navigate({
         name: 'ConfirmAddLiquidity',
@@ -156,11 +252,81 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
     }
   }
 
+  function showToast (type: AmountButtonTypes, displaySymbolA: string, displaySymbolB: string): void {
+    if (displaySymbolA === undefined || displaySymbolB === undefined) {
+      return
+    }
+
+    toast.hideAll() // hides old toast everytime user clicks on a new percentage
+    const isMax = type === AmountButtonTypes.Max
+    const toastMessage = isMax ? 'Max available {{unit}} entered' : '{{percent}} of available {{unit}} entered'
+    const toastOption = {
+      unit: `${displaySymbolA}-${displaySymbolB}`,
+      percent: type
+    }
+    toast.show(translate('screens/AddLiquidity', toastMessage, toastOption), {
+      type: 'wallet_toast',
+      placement: 'top',
+      duration: TOAST_DURATION
+    })
+  }
+
+  // handle breadkown summary state
   useEffect(() => {
-    client.fee.estimate()
-      .then((f) => setFee(new BigNumber(f)))
-      .catch(logger.error)
-  }, [])
+    if (new BigNumber(tokenAAmount).isGreaterThan(0)) {
+      setHasAInputAmount(true)
+    } else {
+      setHasAInputAmount(false)
+    }
+  }, [tokenAAmount])
+
+  useEffect(() => {
+    if (new BigNumber(tokenBAmount).isGreaterThan(0)) {
+      setHasBInputAmount(true)
+    } else {
+      setHasBInputAmount(false)
+    }
+  }, [tokenBAmount])
+
+  // display UTXO fees msg only for DFI tokens in input card
+  useEffect(() => {
+    if (pair !== undefined && getDisplayUtxoWarningStatus(new BigNumber(tokenAAmount), pair?.tokenA.displaySymbol) && new BigNumber(tokenAAmount).isGreaterThan(0)) {
+      return setShowUTXOFeesAMsg(true)
+    } else {
+      return setShowUTXOFeesAMsg(false)
+    }
+  }, [tokenAAmount])
+
+  useEffect(() => {
+    if (pair !== undefined && getDisplayUtxoWarningStatus(new BigNumber(tokenBAmount), pair?.tokenB.displaySymbol) && new BigNumber(tokenBAmount).isGreaterThan(0)) {
+      return setShowUTXOFeesBMsg(true)
+    } else {
+      return setShowUTXOFeesBMsg(false)
+    }
+  }, [tokenBAmount])
+
+  // display err msg for insufficient balance
+  useEffect(() => {
+    if (new BigNumber(tokenAAmount).isGreaterThan(balanceA)) {
+      setHasAError(true)
+    } else {
+      setHasAError(false)
+    }
+  }, [tokenAAmount, balanceA])
+
+  useEffect(() => {
+    if (new BigNumber(tokenBAmount).isGreaterThan(balanceB)) {
+      setHasBError(true)
+    } else {
+      setHasBError(false)
+    }
+  }, [tokenBAmount, balanceB])
+
+  // set focus on current transaction card
+  useEffect(() => {
+    setTokenATransactionCardStatus(hasAError ? TransactionCardStatus.Error : isInputAFocus ? TransactionCardStatus.Active : undefined)
+    setTokenBTransactionCardStatus(hasBError ? TransactionCardStatus.Error : isInputBFocus ? TransactionCardStatus.Active : undefined)
+  }, [hasAError, hasBError, isInputAFocus, isInputBFocus])
 
   useEffect(() => {
     if (pair === undefined) {
@@ -209,195 +375,160 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
   const lmTotalTokens = sharePercentage.times(pair.totalLiquidity.token).toFixed(8)
 
   return (
-    <ThemedScrollView contentContainerStyle={tailwind('py-8')} style={tailwind('w-full flex-col flex-1')}>
-      <View style={tailwind('px-4')}>
-        <TokenInput
-          balance={balanceA}
-          current={tokenAAmount}
-          onChange={(amount) => {
-            buildSummary('primary', amount)
-          }}
-          symbol={pair?.tokenA?.displaySymbol}
-          type='primary'
-        />
+    <View ref={containerRef} style={tailwind('flex-col flex-1')}>
+      <ThemedScrollViewV2 ref={containerRef} contentContainerStyle={tailwind('flex-grow py-8 mx-5 justify-between')} style={tailwind('w-full')}>
+        <View>
+          <ViewPoolHeader
+            tokenASymbol={pair.tokenA.displaySymbol}
+            tokenBSymbol={pair.tokenB.displaySymbol}
+            headerLabel={translate('screens/AddLiquidity', 'View pool info')}
+            onPress={expandModal}
+            testID='view_pool_shares'
+          />
+          <View style={tailwind('mt-8')}>
+            <ThemedTextV2
+              light={tailwind('text-mono-light-v2-500')}
+              dark={tailwind('text-mono-dark-v2-500')}
+              style={tailwind('pl-5 pb-2 text-xs font-normal-v2')}
+            >
+              {translate('screens/AddLiquidity', 'I WANT TO ADD')}
+            </ThemedTextV2>
+            <AddLiquidityInputCard
+              balance={balanceA}
+              current={tokenAAmount}
+              onChange={(amount) =>
+                buildSummary('primary', amount)}
+              onPercentageChange={(amount, type) => {
+                onPercentagePress(amount, type, pair.tokenA.displaySymbol, pair.tokenB.displaySymbol)
+              }}
+              symbol={pair.tokenA.displaySymbol}
+              type='primary'
+              setIsInputFocus={setIsInputAFocus}
+              status={tokenATransactionCardStatus}
+              showInsufficientTokenMsg={hasAError}
+              showUTXOFeesMsg={showUTXOFeesAMsg}
+              hasInputAmount={hasAInputAmount}
+            />
+            <AddLiquidityInputCard
+              balance={balanceB}
+              current={tokenBAmount}
+              onChange={(amount) => {
+                buildSummary('secondary', amount)
+              }}
+              onPercentageChange={(amount, type) => {
+                buildSummary('secondary', amount)
+                onPercentagePress(amount, type, pair.tokenA.displaySymbol, pair.tokenB.displaySymbol)
+              }}
+              symbol={pair.tokenB.displaySymbol}
+              type='secondary'
+              setIsInputFocus={setIsInputBFocus}
+              status={tokenBTransactionCardStatus}
+              showInsufficientTokenMsg={hasBError}
+              showUTXOFeesMsg={showUTXOFeesBMsg}
+              hasInputAmount={hasBInputAmount}
+            />
+          </View>
 
-        <TokenInput
-          balance={balanceB}
-          current={tokenBAmount}
-          onChange={(amount) => {
-            buildSummary('secondary', amount)
-          }}
-          symbol={pair?.tokenB?.displaySymbol}
-          type='secondary'
-        />
-        <ReservedDFIInfoText />
-        {isConversionRequired &&
-          <View style={tailwind('mt-2')}>
-            <ConversionInfoText />
-          </View>}
-      </View>
-      <PricesSection
-        testID='pricerate_value'
-        priceRates={[{
-          label: translate('components/PricesSection', '1 {{token}}', {
-            token: pair.tokenA.displaySymbol
-          }),
-          value: pair.aToBRate.toFixed(8),
-          aSymbol: pair.tokenA.displaySymbol,
-          bSymbol: pair.tokenB.displaySymbol
-        },
-        {
-          label: translate('components/PricesSection', '1 {{token}}', {
-            token: pair.tokenB.displaySymbol
-          }),
-          value: pair.bToARate.toFixed(8),
-          aSymbol: pair.tokenB.displaySymbol,
-          bSymbol: pair.tokenA.displaySymbol
-        }
-        ]}
-        sectionTitle='PRICES'
-      />
-      <TransactionDetailsSection
-        pair={pair}
-        sharePercentage={sharePercentage}
-        fee={fee}
-        isConversionRequired={isConversionRequired}
-        amountToConvert={conversionAmount}
-      />
+          {hasAInputAmount && hasBInputAmount && (
+            <>
+              <LiquidityCalculationSummary
+                containerStyle={tailwind('pt-5 px-5 border rounded-lg-v2')}
+                priceRatesOption={[{
+                  label: `1 ${pair.tokenA.displaySymbol} =`,
+                  value: pair.aToBRate.toFixed(8),
+                  aSymbol: pair.tokenA.displaySymbol,
+                  bSymbol: pair.tokenB.displaySymbol,
+                  symbolUSDValue: getTokenPrice(pair.bSymbol, pair.aToBRate),
+                  usdTextStyle: tailwind('text-sm')
+                },
+                {
+                  label: `1 ${pair.tokenB.displaySymbol} =`,
+                  value: pair.bToARate.toFixed(8),
+                  aSymbol: pair.tokenB.displaySymbol,
+                  bSymbol: pair.tokenA.displaySymbol,
+                  symbolUSDValue: getTokenPrice(pair.aSymbol, pair.bToARate),
+                  usdTextStyle: tailwind('text-sm')
+                }
+                ]}
+                resultingLplhs={{
+                  value: translate('screens/AddLiquidity', 'LP Tokens to receive'),
+                  testID: 'lp_tokens_to_receive',
+                  themedProps: {
+                    light: tailwind('text-mono-light-v2-500'),
+                    dark: tailwind('text-mono-dark-v2-500')
+                  }
+                }}
+                resultingLprhs={{
+                  value: sharePercentage.times(pair.totalLiquidity.token).toFixed(8),
+                  testID: 'lp_tokens_to_receive_value',
+                  usdAmount: getTokenPrice(pair.aSymbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.bSymbol, new BigNumber(tokenBAmount))),
+                  themedProps: {
+                    light: tailwind('text-mono-light-v2-900'),
+                    dark: tailwind('text-mono-dark-v2-900'),
+                    style: tailwind('font-semibold-v2 text-sm')
+                  },
+                  usdTextStyle: tailwind('text-sm')
+                }}
+              />
+              <View style={tailwind('items-center pt-12 px-5')}>
+                <ThemedTextV2
+                  testID='transaction_details_hint_text'
+                  light={tailwind('text-mono-light-v2-500')}
+                  dark={tailwind('text-mono-dark-v2-500')}
+                  style={tailwind('text-xs font-normal-v2 text-center')}
+                >
+                  {isConversionRequired
+                    ? (
+                      translate('screens/AddLiquidity', 'By continuing, the required amount of DFI will be converted')
+                    )
+                    : (
+                      translate('screens/AddLiquidity', 'Review full details in the next screen')
+                    )}
+                </ThemedTextV2>
+              </View>
+            </>
+          )}
+        </View>
 
-      <ThemedText
-        testID='transaction_details_hint_text'
-        light={tailwind('text-gray-600')}
-        dark={tailwind('text-gray-300')}
-        style={tailwind('pt-4 pb-8 px-4 text-sm')}
-      >
-        {isConversionRequired
-          ? translate('screens/AddLiquidity', 'Authorize transaction in the next screen to convert')
-          : translate('screens/AddLiquidity', 'Review full transaction details in the next screen')}
-      </ThemedText>
+        <View style={tailwind('mt-5 mx-7')}>
+          <ButtonV2
+            fillType='fill'
+            label={translate('components/Button', 'Continue')}
+            styleProps='w-full'
+            disabled={!canContinue}
+            onPress={onSubmit}
+            testID='button_continue_add_liq'
+          />
+        </View>
 
-      <ContinueButton
-        isProcessing={hasPendingJob || hasPendingBroadcastJob}
-        enabled={canContinue}
-        onPress={onSubmit}
-      />
-    </ThemedScrollView>
-  )
-}
-
-function TokenInput (props: { symbol: string, balance: BigNumber, current: string, type: EditingAmount, onChange: (amount: string) => void }): JSX.Element {
-  return (
-    <ThemedView
-      dark={tailwind('bg-transparent')}
-      light={tailwind('bg-transparent')}
-      style={tailwind('flex-col w-full')}
-    >
-      <WalletTextInput
-        onChangeText={txt => props.onChange(txt)}
-        placeholder={translate('screens/AddLiquidity', 'Enter an amount')}
-        style={tailwind('flex-grow w-2/5')}
-        testID={`token_input_${props.type}`}
-        value={props.current}
-        title={translate('screens/AddLiquidity', 'How much {{symbol}} to supply?', { symbol: props.symbol })}
-        titleTestID={`token_input_${props.type}_title`}
-        inputType='numeric'
-        displayClearButton={props.current !== ''}
-        onClearButtonPress={() => props.onChange('')}
-      >
-        <SetAmountButton
-          amount={props.balance}
-          onPress={props.onChange}
-          type={AmountButtonTypes.half}
-        />
-        <SetAmountButton
-          amount={props.balance}
-          onPress={props.onChange}
-          type={AmountButtonTypes.max}
-        />
-      </WalletTextInput>
-      <InputHelperText
-        testID={`token_balance_${props.type}`}
-        label={`${translate('screens/AddLiquidity', 'Available')}: `}
-        content={BigNumber.max(props.balance, 0).toFixed(8)}
-        suffix={` ${props.symbol}`}
-      />
-    </ThemedView>
-  )
-}
-
-function TransactionDetailsSection (props: { pair: ExtPoolPairData, sharePercentage: BigNumber, fee: BigNumber, isConversionRequired: boolean, amountToConvert: BigNumber }): JSX.Element {
-  const {
-    pair,
-    sharePercentage,
-    isConversionRequired
-  } = props
-
-  return (
-    <>
-      <ThemedSectionTitle
-        testID='title_add_detail'
-        text={translate('screens/AddLiquidity', 'TRANSACTION DETAILS')}
-      />
-      {isConversionRequired &&
-        <NumberRow
-          lhs={translate('screens/AddLiquidity', 'UTXO to be converted')}
-          rhs={{
-            value: props.amountToConvert.toFixed(8),
-            testID: 'text_amount_to_convert',
-            suffixType: 'text',
-            suffix: 'DFI'
-          }}
-        />}
-      <NumberRow
-        lhs={translate('screens/AddLiquidity', 'Share of pool')}
-        rhs={{
-          value: sharePercentage.times(100).toFixed(8),
-          suffix: '%',
-          testID: 'share_of_pool',
-          suffixType: 'text'
-        }}
-      />
-
-      <NumberRow
-        lhs={translate('screens/AddLiquidity', 'Pooled {{symbol}}', { symbol: pair?.tokenA?.displaySymbol })}
-        rhs={{
-          value: pair.tokenA.reserve,
-          testID: `pooled_${pair?.tokenA?.displaySymbol}`,
-          suffixType: 'text',
-          suffix: pair?.tokenA?.displaySymbol
-        }}
-      />
-
-      <NumberRow
-        lhs={translate('screens/AddLiquidity', 'Pooled {{symbol}}', { symbol: pair?.tokenB?.displaySymbol })}
-        rhs={{
-          value: pair.tokenB.reserve,
-          testID: `pooled_${pair?.tokenB?.displaySymbol}`,
-          suffixType: 'text',
-          suffix: pair?.tokenB?.displaySymbol
-        }}
-      />
-      <InfoRow
-        type={InfoType.EstimatedFee}
-        value={props.fee.toFixed(8)}
-        testID='text_fee'
-        suffix='DFI'
-      />
-    </>
-  )
-}
-
-function ContinueButton (props: { enabled: boolean, onPress: () => Promise<void>, isProcessing: boolean }): JSX.Element {
-  return (
-    <SubmitButtonGroup
-      isDisabled={!props.enabled}
-      label={translate('components/Button', 'CONTINUE')}
-      processingLabel={translate('components/Button', 'CONTINUE')}
-      onSubmit={props.onPress}
-      title='continue_add_liq'
-      isProcessing={props.isProcessing}
-      displayCancelBtn={false}
-    />
+        {Platform.OS === 'web'
+          ? (
+            <BottomSheetWebWithNavV2
+              modalRef={containerRef}
+              screenList={ViewPoolContents}
+              isModalDisplayed={isModalDisplayed}
+              // eslint-disable-next-line react-native/no-inline-styles
+              modalStyle={{
+                position: 'absolute',
+                bottom: '0',
+                height: '404px',
+                width: '375px',
+                zIndex: 50,
+                borderTopLeftRadius: 15,
+                borderTopRightRadius: 15,
+                overflow: 'hidden'
+              }}
+            />
+          )
+          : (
+            <BottomSheetWithNavV2
+              modalRef={bottomSheetRef}
+              screenList={ViewPoolContents}
+              snapPoints={modalSortingSnapPoints}
+            />
+          )}
+      </ThemedScrollViewV2>
+    </View>
   )
 }
 

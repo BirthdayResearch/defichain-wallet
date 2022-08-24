@@ -1,60 +1,55 @@
-import { CTransactionSegWit } from '@defichain/jellyfish-transaction/dist'
+import { CTransactionSegWit } from '@defichain/jellyfish-transaction'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
+import { View } from 'react-native'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import { NumberRow } from '@components/NumberRow'
-import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { SummaryTitle } from '@components/SummaryTitle'
-import { ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
+import { ThemedActivityIndicatorV2, ThemedIcon, ThemedScrollViewV2, ThemedTextV2, ThemedViewV2 } from '@components/themed'
 import { RootState } from '@store'
-import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
+import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
-import { getNativeIcon } from '@components/icons/assets'
-import { ConversionTag } from '@components/ConversionTag'
-import { TextRow } from '@components/TextRow'
-import { TransactionResultsRow } from '@components/TransactionResultsRow'
-import { InfoRow, InfoType } from '@components/InfoRow'
-import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
-import { View } from '@components'
-import { InfoText } from '@components/InfoText'
-import { WalletAddressRow } from '@components/WalletAddressRow'
-import { PricesSection } from '@components/PricesSection'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { SummaryTitleV2 } from '@components/SummaryTitleV2'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useAddressLabel } from '@hooks/useAddressLabel'
+import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
+import { NumberRowV2 } from '@components/NumberRowV2'
+import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
+import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmAddLiquidity'>
 
-export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
+export function ConfirmAddLiquidityScreen ({ route }: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
   const {
-    fee,
-    percentage,
-    tokenABalance,
-    tokenAAmount,
-    tokenBBalance,
-    tokenBAmount
-  } = props.route.params.summary
-  const pair = props.route.params.pair
-  const { conversion, pairInfo } = props.route.params
+    pair,
+    conversion,
+    pairInfo,
+    summary: {
+      fee,
+      percentage,
+      tokenAAmount,
+      tokenBAmount,
+      lmTotalTokens
+    }
+  } = route.params
   const dispatch = useAppDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const aToBRate = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
-  const bToARate = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
   const lmTokenAmount = percentage.times(pair.totalLiquidity.token)
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
-  const TokenAIcon = getNativeIcon(pair.tokenA.displaySymbol)
-  const TokenBIcon = getNativeIcon(pair.tokenB.displaySymbol)
   const logger = useLogger()
+  const { address } = useWalletContext()
+  const addressLabel = useAddressLabel(address)
+  const { getTokenPrice } = useTokenPrice()
 
   useEffect(() => {
     setIsOnPage(true)
@@ -75,7 +70,8 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
         tokenAAmount,
         tokenBSymbol: pair.tokenB.displaySymbol,
         tokenBId: Number(pair.tokenB.id),
-        tokenBAmount
+        tokenBAmount,
+        lmTotalTokens: lmTotalTokens
       },
       dispatch,
       () => {
@@ -96,183 +92,182 @@ export function ConfirmAddLiquidityScreen (props: Props): JSX.Element {
     }
   }
 
-  function getSubmitLabel (): string {
-    if (!hasPendingBroadcastJob && !hasPendingJob) {
-      return 'CONFIRM ADD LIQUIDITY'
-    }
-    if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
-      return currentBroadcastJob.submitButtonLabel
-    }
-    return 'ADDING'
-  }
-
   return (
-    <ThemedScrollView
-      style={tailwind('pb-4')}
-      testID='confirm-root'
-    >
-      <ThemedView
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
-        light={tailwind('bg-white border-b border-gray-300')}
-        style={tailwind('flex-col px-4 py-8')}
-      >
-        <SummaryTitle
+    <ThemedScrollViewV2 style={tailwind('py-8 px-5')}>
+      <ThemedViewV2 style={tailwind('flex-col pb-4 mb-4')}>
+        <SummaryTitleV2
+          iconA={pair.tokenA.displaySymbol}
+          iconB={pair.tokenB.displaySymbol}
+          fromAddress={address}
           amount={lmTokenAmount}
-          suffixType='component'
           testID='text_add_amount'
-          title={translate('screens/ConfirmAddLiq', 'You are adding')}
-        >
-          <TokenAIcon
-            height={16}
-            width={16}
-            style={tailwind('relative z-10 -mt-2')}
-            testID={`text_add_amount_suffix_${pair.tokenA.displaySymbol}`}
-          />
-
-          <TokenBIcon
-            height={16}
-            width={16}
-            style={tailwind('-ml-2 mt-2 mr-2')}
-            testID={`text_add_amount_suffix_${pair.tokenB.displaySymbol}`}
-          />
-        </SummaryTitle>
-        {conversion?.isConversionRequired === true && <ConversionTag />}
-      </ThemedView>
-
-      <ThemedSectionTitle
-        testID='title_tx_detail'
-        text={translate('screens/ConfirmAddLiq', 'TRANSACTION DETAILS')}
-      />
-      <TextRow
-        lhs={translate('screens/ConfirmAddLiq', 'Transaction type')}
-        rhs={{
-          value: conversion?.isConversionRequired === true ? translate('screens/ConfirmAddLiq', 'Convert & add liquidity') : translate('screens/ConfirmAddLiq', 'Add liquidity'),
-          testID: 'text_transaction_type'
-        }}
-        textStyle={tailwind('text-sm font-normal')}
-      />
-      <WalletAddressRow />
-      <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Share of pool')}
-        rhs={{
-          value: percentage.times(100).toFixed(8),
-          suffix: '%',
-          testID: 'percentage_pool',
-          suffixType: 'text'
-        }}
-      />
-
-      <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${pair.tokenA?.displaySymbol}` })}
-        rhs={{
-          value: pair.tokenA.reserve,
-          testID: 'pooled_a',
-          suffixType: 'text',
-          suffix: pair.tokenA.displaySymbol
-        }}
-      />
-      <NumberRow
-        lhs={translate('screens/ConfirmAddLiq', 'Pooled {{symbol}}', { symbol: `${pair.tokenB?.displaySymbol}` })}
-        rhs={{
-          value: pair.tokenB.reserve,
-          testID: 'pooled_b',
-          suffixType: 'text',
-          suffix: pair.tokenB.displaySymbol
-        }}
-      />
-      <InfoRow
-        type={InfoType.EstimatedFee}
-        value={fee.toFixed(8)}
-        testID='text_fee'
-        suffix='DFI'
-      />
-
-      <ThemedSectionTitle
-        testID='title_add_detail'
-        text={translate('screens/ConfirmAddLiq', 'AMOUNT TO SUPPLY')}
-      />
-
-      <NumberRow
-        lhs={pair.tokenA.displaySymbol}
-        rhs={{
-          testID: 'a_amount',
-          value: BigNumber.max(tokenAAmount, 0).toFixed(8),
-          suffixType: 'text',
-          suffix: pair.tokenA.displaySymbol
-        }}
-      />
-      <NumberRow
-        lhs={pair.tokenB.displaySymbol}
-        rhs={{
-          testID: 'b_amount',
-          value: BigNumber.max(tokenBAmount, 0).toFixed(8),
-          suffixType: 'text',
-          suffix: pair.tokenB.displaySymbol
-        }}
-      />
-
-      <PricesSection
-        testID='confirm_pricerate_value'
-        priceRates={[{
-          label: translate('components/PricesSection', '1 {{token}}', {
-            token: pair.tokenA.displaySymbol
-          }),
-          value: aToBRate.toFixed(8),
-          aSymbol: pair.tokenA.displaySymbol,
-          bSymbol: pair.tokenB.displaySymbol
-        },
-        {
-          label: translate('components/PricesSection', '1 {{token}}', {
-            token: pair.tokenB.displaySymbol
-          }),
-          value: bToARate.toFixed(8),
-          aSymbol: pair.tokenB.displaySymbol,
-          bSymbol: pair.tokenA.displaySymbol
-        }
-        ]}
-        sectionTitle='PRICES'
-      />
-
-      <TransactionResultsRow
-        tokens={[
-          {
-            symbol: pair.tokenA.displaySymbol,
-            value: tokenABalance.minus(tokenAAmount).toFixed(8),
-            suffix: pair.tokenA.displaySymbol
-          },
-          {
-            symbol: pair.tokenB.displaySymbol,
-            value: BigNumber.max(tokenBBalance.minus(tokenBAmount).minus(pair.tokenB.displaySymbol === 'DFI' ? fee : 0), 0).toFixed(8),
-            suffix: pair.tokenB.displaySymbol
-          }
-        ]}
-      />
+          title={translate('screens/ConfirmAddLiq', 'You will receive LP tokens')}
+          fromAddressLabel={addressLabel}
+        />
+      </ThemedViewV2>
 
       {conversion?.isConversionRequired === true && (
-        <View style={tailwind('p-4 mt-2')}>
-          <InfoText
-            testID='conversion_warning_info_text'
-            text={translate('components/ConversionInfoText', 'Please wait as we convert tokens for your transaction. Conversions are irreversible.')}
+        <ThemedViewV2
+          dark={tailwind('border-gray-700')}
+          light={tailwind('border-gray-300')}
+          style={tailwind('py-5 border-t-0.5')}
+        >
+          <NumberRowV2
+            lhs={{
+              value: translate('screens/ConfirmAddLiq', 'Amount to convert'),
+              testID: 'transaction_fee',
+              themedProps: {
+                light: tailwind('text-mono-light-v2-500'),
+                dark: tailwind('text-mono-dark-v2-500')
+              }
+            }}
+            rhs={{
+              value: lmTokenAmount.toFixed(8),
+              testID: `${pair.tokenA.displaySymbol}_to_supply`
+            }}
           />
-        </View>
+          <View style={tailwind('flex flex-row text-right items-center justify-end')}>
+            <ThemedTextV2
+              style={tailwind('mr-1.5 font-normal-v2 text-sm')}
+              light={tailwind('text-mono-light-v2-700')}
+              dark={tailwind('text-mono-dark-v2-700')}
+              testID='conversion_status'
+            >
+              {
+                translate('screens/ConvertConfirmScreen',
+                  conversion?.isConversionRequired && conversion?.isConverted !== true
+                    ? 'Converting'
+                    : 'Converted')
+              }
+            </ThemedTextV2>
+            {conversion?.isConversionRequired && conversion?.isConverted !== true && <ThemedActivityIndicatorV2 />}
+            {
+              conversion?.isConversionRequired && conversion?.isConverted === true &&
+                <ThemedIcon
+                  light={tailwind('text-success-600')}
+                  dark={tailwind('text-darksuccess-500')}
+                  iconType='MaterialIcons'
+                  name='check-circle'
+                  size={20}
+                />
+            }
+          </View>
+        </ThemedViewV2>
       )}
 
-      <SubmitButtonGroup
-        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/ConfirmAddLiq', 'CONFIRM ADD LIQUIDITY')}
-        isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        processingLabel={translate('screens/ConfirmAddLiq', getSubmitLabel())}
-        onCancel={onCancel}
-        displayCancelBtn
-        onSubmit={addLiquidity}
-        title='add'
-      />
-    </ThemedScrollView>
+      <ThemedViewV2
+        dark={tailwind('border-gray-700')}
+        light={tailwind('border-gray-300')}
+        style={tailwind('py-5 border-t-0.5')}
+      >
+        <View style={tailwind('mb-6')}>
+          <NumberRowV2
+            lhs={{
+              value: translate('screens/ConfirmAddLiq', 'Transaction fee'),
+              testID: 'transaction_fee',
+              themedProps: {
+                light: tailwind('text-mono-light-v2-500'),
+                dark: tailwind('text-mono-dark-v2-500')
+              }
+            }}
+            rhs={{
+              value: `${fee.toFixed(8)}`,
+              testID: 'transaction_fee_amount',
+              suffix: ' DFI'
+            }}
+          />
+        </View>
+        <NumberRowV2
+          lhs={{
+            value: translate('screens/ConfirmAddLiq', 'Pool share'),
+            testID: 'pool_share',
+            themedProps: {
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
+            }
+          }}
+          rhs={{
+            value: percentage.times(100).toFixed(8),
+            testID: 'pool_share_amount',
+            suffix: '%'
+          }}
+        />
+      </ThemedViewV2>
+      <ThemedViewV2
+        dark={tailwind('border-gray-700')}
+        light={tailwind('border-gray-300')}
+        style={tailwind('py-5 border-t-0.5 border-b-0.5 ')}
+      >
+        <NumberRowV2
+          lhs={{
+            value: translate('screens/ConfirmAddLiq', '{{token}} to supply', {
+              token: pair.tokenA.displaySymbol
+            }),
+            testID: `${pair.tokenA.displaySymbol}_token_to_supply`,
+            themedProps: {
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
+            }
+          }}
+          rhs={{
+            value: BigNumber.max(tokenAAmount, 0).toFixed(8),
+            testID: `${pair.tokenA.displaySymbol}_to_supply`,
+            usdAmount: getTokenPrice(pair.tokenA.symbol, tokenAAmount)
+          }}
+        />
+        <NumberRowV2
+          lhs={{
+            value: translate('screens/ConfirmAddLiq', '{{token}} to supply', {
+              token: pair.tokenB.displaySymbol
+            }),
+            testID: `${pair.tokenB.displaySymbol}_token_to_supply`,
+            themedProps: {
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
+            }
+          }}
+          rhs={{
+            value: BigNumber.max(tokenBAmount, 0).toFixed(8),
+            testID: `${pair.tokenB.displaySymbol}_to_supply`,
+            usdAmount: getTokenPrice(pair.tokenB.symbol, tokenBAmount)
+          }}
+        />
+        <NumberRowV2
+          lhs={{
+            value: translate('screens/ConfirmAddLiq', 'LP Tokens to receive'),
+            testID: 'resulting_LP_tokens',
+            themedProps: {
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
+            }
+          }}
+          rhs={{
+            value: BigNumber.max(lmTokenAmount, 0).toFixed(8),
+            testID: 'lp_tokens_to_receive_value',
+            usdAmount: getTokenPrice(pair.tokenA.symbol, new BigNumber(tokenAAmount)).plus(getTokenPrice(pair.tokenB.symbol, new BigNumber(tokenBAmount))),
+            themedProps: {
+              style: tailwind('font-semibold-v2 text-sm')
+            }
+          }}
+        />
+      </ThemedViewV2>
+
+      <View style={tailwind('py-14 px-3')}>
+        <SubmitButtonGroupV2
+          isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+          label={translate('screens/ConfirmAddLiq', 'Add liquidity')}
+          onSubmit={addLiquidity}
+          onCancel={onCancel}
+          displayCancelBtn
+          title='add'
+        />
+      </View>
+    </ThemedScrollViewV2>
   )
 }
 
 async function constructSignedAddLiqAndSend (
-  addLiqForm: { tokenASymbol: string, tokenAId: number, tokenAAmount: BigNumber, tokenBSymbol: string, tokenBId: number, tokenBAmount: BigNumber },
+  addLiqForm: { tokenASymbol: string, tokenAId: number, tokenAAmount: BigNumber, tokenBSymbol: string, tokenBId: number, tokenBAmount: BigNumber, lmTotalTokens: string },
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   logger: NativeLoggingProps
@@ -305,17 +300,23 @@ async function constructSignedAddLiqAndSend (
 
     dispatch(transactionQueue.actions.push({
       sign: signer,
-      title: translate('screens/ConfirmAddLiq', 'Adding Liquidity'),
-      description: translate('screens/ConfirmAddLiq', 'Adding {{amountA}} {{symbolA}} - {{amountB}} {{symbolB}}', {
-        amountA: addLiqForm.tokenAAmount.toFixed(8),
+      title: translate('screens/ConfirmAddLiq', 'Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool', {
+        totalToken: addLiqForm.lmTotalTokens,
         symbolA: addLiqForm.tokenASymbol,
-        amountB: addLiqForm.tokenBAmount.toFixed(8),
         symbolB: addLiqForm.tokenBSymbol
       }),
       drawerMessages: {
         preparing: translate('screens/OceanInterface', 'Preparing to add liquidity…'),
-        waiting: translate('screens/OceanInterface', 'Adding tokens to liquidity pool…'),
-        complete: translate('screens/OceanInterface', 'Added tokens to liquidity pool')
+        waiting: translate('screens/OceanInterface', 'Adding {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool', {
+          totalToken: addLiqForm.lmTotalTokens,
+          symbolA: addLiqForm.tokenASymbol,
+          symbolB: addLiqForm.tokenBSymbol
+        }),
+        complete: translate('screens/OceanInterface', 'Added {{totalToken}} {{symbolA}}-{{symbolB}} to liquidity pool', {
+          totalToken: addLiqForm.lmTotalTokens,
+          symbolA: addLiqForm.tokenASymbol,
+          symbolB: addLiqForm.tokenBSymbol
+        })
       },
       onBroadcast
     }))
