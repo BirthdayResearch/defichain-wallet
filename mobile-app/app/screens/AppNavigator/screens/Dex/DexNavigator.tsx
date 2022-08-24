@@ -144,7 +144,10 @@ export function DexNavigator (): JSX.Element {
             </ThemedTextV2>
           ),
           headerRight: () => (
-            <HeaderNetworkStatus onPress={goToNetworkSelect} containerStyle={tailwind({ 'pt-px': Platform.OS === 'android' })} />
+            <HeaderNetworkStatus
+              onPress={goToNetworkSelect}
+              containerStyle={tailwind({ 'pt-px': Platform.OS === 'android' })}
+            />
           )
         }}
       />
