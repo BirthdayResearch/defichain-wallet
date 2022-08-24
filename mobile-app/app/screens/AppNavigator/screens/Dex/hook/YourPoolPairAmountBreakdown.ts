@@ -8,6 +8,9 @@ interface AmountBreakdown {
   tokenBTotal: BigNumber
 }
 
+/**
+ * To return estimated token breakdown for Your pool pair based on reserve of token A and B and total pool pair amount
+ */
 export function useYourPoolPairAmountBreakdown (yourPoolPair: WalletToken): AmountBreakdown {
   const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet)
   const poolPairData = pairs.find(

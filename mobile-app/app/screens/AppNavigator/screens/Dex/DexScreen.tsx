@@ -116,9 +116,7 @@ export function DexScreen (): JSX.Element {
   }
 
   // Search
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showSearchInput, setShowSearchInput] = useState(false)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [searchString, setSearchString] = useState('')
   const [filteredAvailablePairs, setFilteredAvailablePairs] =
     useState<Array<DexItem<PoolPairData>>>(pairs)
