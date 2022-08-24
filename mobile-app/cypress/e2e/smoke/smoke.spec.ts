@@ -62,7 +62,7 @@ context('Mainnet - Wallet', () => {
 
   it('should have displayed default tokens', function () {
     cy.getByTestID('dfi_total_balance_amount').contains('0.00000000')
-    cy.getByTestID('dfi_total_balance_usd_amount').contains('$0.00000000')
+    cy.getByTestID('dfi_total_balance_usd_amount').contains('$0.00')
     cy.getByTestID('dfi_balance_card').should('exist')
   })
 
