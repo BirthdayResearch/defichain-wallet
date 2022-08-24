@@ -15,6 +15,7 @@ import { WalletTextInput } from '@components/WalletTextInput'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '../../WalletNavigator'
+import * as Clipboard from 'expo-clipboard'
 
 export function RestoreMnemonicWallet (): JSX.Element {
   const navigation = useNavigation<NavigationProp<WalletParamList>>()
@@ -25,18 +26,35 @@ export function RestoreMnemonicWallet (): JSX.Element {
       isDirty
     },
     getValues,
-    trigger
+    trigger,
+    setValue
   } = useForm({ mode: 'onChange' })
   const [recoveryWords] = useState<number[]>(Array.from(Array(24), (v, i) => i + 1))
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [inputRefMap, setInputRefMap] = useState<Array<React.RefObject<TextInput>>>([])
   const { isLight } = useThemeContext()
 
+  function autoFillFromClipboard (): void {
+    void (async () => {
+      const text = await Clipboard.getStringAsync()
+      if (text === undefined) {
+        return
+      }
+      const words = text.replace(/[^A-Za-z ]+/g, '').split(' ')
+      recoveryWords.forEach((word) => {
+        setValue(`recover_word_${word}`, words[word])
+        trigger(`recover_word_${word}`)
+      })
+    })()
+  }
+
   useEffect(() => {
     recoveryWords.forEach((r) => {
       inputRefMap[r] = createRef<TextInput>()
       setInputRefMap(inputRefMap)
     })
+
+    // autoFillFromClipboard()
   }, [])
 
   useEffect(() => {
@@ -113,6 +131,7 @@ export function RestoreMnemonicWallet (): JSX.Element {
           dark={tailwind('text-dfxgray-400')}
           light={tailwind('text-gray-900')}
           style={tailwind('font-medium text-sm text-center')}
+          onLongPress={() => autoFillFromClipboard()}
         >
           {translate('screens/RestoreWallet', 'Please provide your 24 recovery words to regain access to your wallet.')}
         </ThemedText>
