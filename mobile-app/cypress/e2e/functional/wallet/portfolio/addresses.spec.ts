@@ -286,7 +286,7 @@ context('Wallet - Addresses should able to create maximum 10 addresses', () => {
 
   it('should able to create maximum 10 address', function () {
     cy.getByTestID('dfi_total_balance_amount').contains('0.00000000')
-    cy.getByTestID('dfi_total_balance_usd_amount').contains('$0.00000000')
+    cy.getByTestID('dfi_total_balance_usd_amount').contains('$0.00')
     cy.sendDFItoWallet().wait(3000)
     cy.getByTestID('dfi_total_balance_amount').contains('10.00000000')
     cy.getByTestID('dfi_balance_card').click().wait(1000)
