@@ -12,11 +12,11 @@ export function EmptyActivePoolpair (): JSX.Element {
       <EmptyLPTokenIcon />
       <ThemedTextV2
         style={tailwind('text-xl font-semibold-v2 text-center mb-2 mt-8')}
-      >{translate('screens/DexScreen', 'No LP tokens found')}
+      >{translate('components/EmptyPortfolio', 'No LP tokens found')}
       </ThemedTextV2>
       <ThemedTextV2
         style={tailwind('text-center font-normal-v2')}
-      >{translate('screens/DexScreen', 'Add liquidity to get started')}
+      >{translate('components/EmptyPortfolio', 'Add liquidity to get started')}
       </ThemedTextV2>
     </ThemedViewV2>
   )

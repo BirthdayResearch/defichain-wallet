@@ -150,8 +150,8 @@ export function PoolPairCards ({
             <EmptyTokensScreen
               icon={EmptyCryptoIcon}
               containerStyle={tailwind('pt-14')}
-              title={translate('screens/DexScreen', 'No favorites added')}
-              subTitle={translate('screens/DexScreen', 'Tap the star icon to add your favorite pools here')}
+              title={translate('components/EmptyPortfolio', 'No favorites added')}
+              subTitle={translate('components/EmptyPortfolio', 'Tap the star icon to add your favorite pools here')}
             />
           )}
         </>
@@ -168,9 +168,9 @@ export function PoolPairCards ({
                   <ThemedTextV2
                     dark={tailwind('text-mono-dark-v2-500')}
                     light={tailwind('text-mono-light-v2-500')}
-                    style={tailwind('font-normal-v2 text-xs uppercase pl-10 mb-2')}
+                    style={tailwind('font-normal-v2 text-xs pl-10 mb-2')}
                   >
-                    {translate('screens/DexScreen', 'Available pairs')}
+                    {translate('screens/DexScreen', 'AVAILABLE PAIRS')}
                   </ThemedTextV2>
                 </View>
               </>)

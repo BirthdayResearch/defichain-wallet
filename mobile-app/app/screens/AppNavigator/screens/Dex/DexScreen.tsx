@@ -156,7 +156,7 @@ export function DexScreen (): JSX.Element {
                   setSearchString('')
                   setShowSearchInput(false)
                 }}
-                placeholder='Search pool pair'
+                placeholder={translate('screens/DexScreen', 'Search pool pair')}
                 testID='dex_search_input'
               />
             </ThemedViewV2>
