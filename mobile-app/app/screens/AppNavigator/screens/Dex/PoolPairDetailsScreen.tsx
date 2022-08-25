@@ -303,9 +303,9 @@ function PriceRateDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
           testID: 'price_rate_tokenA'
         }}
         rhs={{
-          value: new BigNumber(poolPair.data.priceRatio.ab).toFixed(8),
-          suffix: ` ${poolPair.data.tokenA.displaySymbol}`,
-          usdAmount: getTokenPrice(poolPair.data.tokenA.symbol, new BigNumber(poolPair.data.priceRatio.ab)),
+          value: new BigNumber(poolPair.data.priceRatio.ba).toFixed(8),
+          suffix: ` ${poolPair.data.tokenB.displaySymbol}`,
+          usdAmount: getTokenPrice(poolPair.data.tokenB.symbol, new BigNumber(poolPair.data.priceRatio.ba)),
           usdTextStyle: tailwind('text-sm'),
           usdContainerStyle: tailwind('pt-1'),
           testID: 'price_rate_tokenA_value'
@@ -317,9 +317,9 @@ function PriceRateDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
           testID: 'price_rate_tokenB'
         }}
         rhs={{
-          value: new BigNumber(poolPair.data.priceRatio.ba).toFixed(8),
-          suffix: ` ${poolPair.data.tokenB.displaySymbol}`,
-          usdAmount: getTokenPrice(poolPair.data.tokenB.symbol, new BigNumber(poolPair.data.priceRatio.ba)),
+          value: new BigNumber(poolPair.data.priceRatio.ab).toFixed(8),
+          suffix: ` ${poolPair.data.tokenA.displaySymbol}`,
+          usdAmount: getTokenPrice(poolPair.data.tokenA.symbol, new BigNumber(poolPair.data.priceRatio.ab)),
           usdTextStyle: tailwind('text-sm'),
           usdContainerStyle: tailwind('pt-1'),
           testID: 'price_rate_tokenB_value'
