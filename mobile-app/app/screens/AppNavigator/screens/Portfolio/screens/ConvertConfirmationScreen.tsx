@@ -22,6 +22,7 @@ import { useWalletContext } from '@shared-contexts/WalletContext'
 import { useAddressLabel } from '@hooks/useAddressLabel'
 import { NumberRowV2 } from '@components/NumberRowV2'
 import { ConvertTokenUnit, getDisplayUnit } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreen'
+import { WalletAlert } from '@components/WalletAlert'
 
 type Props = StackScreenProps<PortfolioParamList, 'ConvertConfirmationScreen'>
 
@@ -68,12 +69,22 @@ export function ConvertConfirmationScreen ({ route }: Props): JSX.Element {
 
   function onCancel (): void {
     if (!isSubmitting) {
-      navigation.navigate({
-        name: 'Convert',
-        params: {
-          mode
-        },
-        merge: true
+      WalletAlert({
+        title: translate('screens/Settings', 'Cancel transaction'),
+        message: translate('screens/Settings', 'By cancelling, you will lose any changes you made for your transaction.'),
+        buttons: [
+          {
+            text: translate('screens/Settings', 'Go back'),
+            style: 'cancel'
+          },
+          {
+            text: translate('screens/Settings', 'Cancel'),
+            style: 'destructive',
+            onPress: async () => {
+              navigation.navigate('PortfolioScreen')
+            }
+          }
+        ]
       })
     }
   }
