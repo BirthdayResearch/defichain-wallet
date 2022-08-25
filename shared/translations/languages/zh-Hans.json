@@ -364,6 +364,7 @@
     "Once unlinked, you will need to enter your recovery words to restore your wallet.": "取消绑定后，您需要输入恢复字词来恢复您的钱包。",
     "You will need to use your recovery words the next time you want to get back to your wallet.": "请留意，您下次回道钱包时需要恢复字组",
     "Cancel": "取消",
+    "Confirm": "确认",
     "Unlink Wallet": "解除钱包链接",
     "Unlink wallet": "解除钱包链接",
     "UNLINK WALLET": "解除钱包链接",
@@ -869,7 +870,7 @@
     "Resulting pool share": "Resulting pool share",
     "{{token}} to supply": "{{token}} to supply",
     "Resulting LP tokens": "加入后产生的 LP 代币",
-    "Confirm": "Confirm",
+    "Confirm": "确认",
     "Pool share": "流感池份额"
   },
   "screens/ConfirmRemoveLiquidity": {

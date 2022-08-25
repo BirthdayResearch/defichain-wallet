@@ -364,6 +364,7 @@
     "Once unlinked, you will need to enter your recovery words to restore your wallet.": "Sobald die Verknüpfung aufgehoben ist, musst du deinen Wiederherstellungssatz eingeben, um deine Wallet wiederherzustellen.",
     "You will need to use your recovery words the next time you want to get back to your wallet.": "Wenn du das nächste Mal deine Wallet aufrufen möchtest, musst du deinen Wiederherstellungssatz eingeben.",
     "Cancel": "Abbrechen",
+    "Confirm": "Bestätigen",
     "Unlink Wallet": "Wallet abmelden",
     "Unlink wallet": "Wallet abmelden",
     "UNLINK WALLET": "WALLET ABMELDEN",
