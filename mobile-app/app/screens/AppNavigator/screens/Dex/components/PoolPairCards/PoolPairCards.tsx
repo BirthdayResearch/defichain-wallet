@@ -383,6 +383,7 @@ function YourPoolPair (props: YourPoolPairProps): JSX.Element {
         <DexAddRemoveLiquidityButton
           onAdd={props.onAdd}
           onRemove={props.onRemove}
+          pairToken={`${props.symbolA}-${props.symbolB}`}
         />
       </View>
       <View style={tailwind('flex flex-row justify-between mt-3')}>
