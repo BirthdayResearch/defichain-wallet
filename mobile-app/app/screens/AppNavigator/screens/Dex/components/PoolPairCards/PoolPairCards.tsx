@@ -202,6 +202,7 @@ const PoolCard = ({
   type,
   onSwap,
   onPress,
+  index,
   onAdd,
   onRemove
 }: PoolCardProps): JSX.Element => {
@@ -254,34 +255,36 @@ const PoolCard = ({
       testID={type === 'your' ? 'pool_pair_row_your' : 'pool_pair_row'}
       onPress={() => onPress(item.data.id)}
     >
-      {type === 'available'
-? (
-  <AvailablePool
-    symbolA={symbolA}
-    symbolB={symbolB}
-    pair={mappedPair}
-    onSwap={() => onSwap(mappedPair, (yourPair as WalletToken))}
-    aToBPrice={priceRates.aToBPrice}
-    bToAPrice={priceRates.bToAPrice}
-    isFavouritePair={isFavoritePair}
-    setFavouritePoolpair={setFavouritePoolpair}
-  />
-      )
-: (
-  <YourPoolPair
-    symbolA={symbolA}
-    symbolB={symbolB}
-    walletToken={(yourPair as WalletToken)}
-    poolPair={mappedPair}
-    onAdd={() => onAdd(mappedPair, yourPair as WalletToken)}
-    onRemove={() => onRemove(mappedPair, yourPair as WalletToken)}
-    walletTokenAmount={new BigNumber((yourPair as WalletToken).amount)}
-    walletTokenPrice={getTokenPrice(
-      yourPair.symbol,
-      new BigNumber((yourPair as WalletToken).amount),
-      true
-      )}
-  />)}
+      <View testID={`pool_pair_row_${index}_${mappedPair.displaySymbol}`}>
+        {type === 'available'
+        ? (
+          <AvailablePool
+            symbolA={symbolA}
+            symbolB={symbolB}
+            pair={mappedPair}
+            onSwap={() => onSwap(mappedPair, (yourPair as WalletToken))}
+            aToBPrice={priceRates.aToBPrice}
+            bToAPrice={priceRates.bToAPrice}
+            isFavouritePair={isFavoritePair}
+            setFavouritePoolpair={setFavouritePoolpair}
+          />
+        )
+        : (
+          <YourPoolPair
+            symbolA={symbolA}
+            symbolB={symbolB}
+            walletToken={(yourPair as WalletToken)}
+            poolPair={mappedPair}
+            onAdd={() => onAdd(mappedPair, yourPair as WalletToken)}
+            onRemove={() => onRemove(mappedPair, yourPair as WalletToken)}
+            walletTokenAmount={new BigNumber((yourPair as WalletToken).amount)}
+            walletTokenPrice={getTokenPrice(
+              yourPair.symbol,
+              new BigNumber((yourPair as WalletToken).amount),
+              true
+              )}
+          />)}
+      </View>
     </ThemedTouchableOpacityV2>
   )
 }
@@ -323,6 +326,7 @@ function AvailablePool (props: AvailablePoolProps): JSX.Element {
           />
           <ThemedTextV2
             style={tailwind('font-semibold-v2 text-base mr-2')}
+            testID={`pair_symbol_${props.symbolA}-${props.symbolB}`}
           >
             {`${props.symbolA}-${props.symbolB}`}
           </ThemedTextV2>
@@ -393,6 +397,7 @@ function YourPoolPair (props: YourPoolPairProps): JSX.Element {
           />
           <ThemedTextV2
             style={tailwind('font-semibold-v2 text-base')}
+            testID={`pair_symbol_${props.symbolA}-${props.symbolB}`}
           >
             {`${props.symbolA}-${props.symbolB}`}
           </ThemedTextV2>
