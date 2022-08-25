@@ -1,24 +1,24 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
 import * as React from 'react'
-import { View } from 'react-native'
 import {
   ThemedFlatList,
   ThemedIcon,
-  ThemedSectionTitle,
-  ThemedText,
-  ThemedTouchableOpacity,
-  ThemedView
+  ThemedSectionTitleV2,
+  ThemedTextV2,
+  ThemedTouchableOpacityV2,
+  ThemedViewV2
 } from '@components/themed'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { openURL } from '@api/linking'
+import { View } from 'react-native'
 
 export function CommunityScreen (): JSX.Element {
   return (
     <ThemedFlatList
       ItemSeparatorComponent={
         () => (
-          <ThemedView
+          <ThemedViewV2
             dark={tailwind('bg-dfxblue-900')}
             light={tailwind('bg-gray-100')}
             style={tailwind('h-px')}
@@ -26,16 +26,21 @@ export function CommunityScreen (): JSX.Element {
         )
       }
       ListHeaderComponent={
-        <ThemedSectionTitle
+        <ThemedSectionTitleV2
           testID='community_title'
-          text={translate('screens/CommunityScreen', 'CONNECT WITH THE COMMUNITY')}
+          text={translate('screens/CommunityScreen', 'JOIN THE COMMUNITY')}
         />
       }
       data={Communities}
-      renderItem={({ item }) => (
+      renderItem={({
+        item,
+        index
+      }) => (
         <CommunityItemRow
           key={item.id}
-          {...item}
+          item={item}
+          first={index === 0}
+          last={index === Communities.length - 1}
         />
       )}
       testID='community_flat_list'
@@ -47,7 +52,7 @@ interface CommunityItem {
   id: string
   title: string
   url: string
-  icon: React.ComponentProps<typeof MaterialCommunityIcons>['name']
+  icon: React.ComponentProps<typeof MaterialCommunityIcons>['name'] | React.ComponentProps<typeof FontAwesome>['name']
 }
 
 const Communities: CommunityItem[] = [
@@ -64,32 +69,31 @@ const Communities: CommunityItem[] = [
 ]
 
 function CommunityItemRow ({
-  id,
-  title,
-  url,
-  icon
-}: CommunityItem): JSX.Element {
+  item
+  // first,
+  // last
+}: { item: CommunityItem, first: boolean, last: boolean }): JSX.Element {
   const handlePress = async (): Promise<void> => {
-    await openURL(url)
+    await openURL(item.url)
   }
 
   return (
-    <ThemedTouchableOpacity
+    <ThemedTouchableOpacityV2
       onPress={handlePress}
       style={tailwind('flex-row p-4 items-center')}
-      testID={id}
+      testID={item.id}
     >
       <ThemedIcon
         dark={tailwind('text-dfxred-500')}
         iconType='MaterialCommunityIcons'
         light={tailwind('text-primary-500')}
-        name={icon}
+        name={item.icon}
         size={24}
       />
 
-      <ThemedText style={tailwind('ml-4 font-medium')}>
-        {translate('screens/CommunityScreen', title)}
-      </ThemedText>
+      <ThemedTextV2 style={tailwind('ml-4 font-medium')}>
+        {translate('screens/CommunityScreen', item.title)}
+      </ThemedTextV2>
 
       <View
         style={tailwind('flex flex-grow justify-end items-end')}
@@ -102,6 +106,6 @@ function CommunityItemRow ({
           size={24}
         />
       </View>
-    </ThemedTouchableOpacity>
+    </ThemedTouchableOpacityV2>
   )
 }

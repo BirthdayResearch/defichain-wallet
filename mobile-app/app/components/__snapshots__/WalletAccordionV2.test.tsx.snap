@@ -82,7 +82,7 @@ exports[`wallet accordion should render 1`] = `
               Array [
                 Array [
                   Object {
-                    "alignItems": "center",
+                    "alignItems": "flex-start",
                     "flexDirection": "row",
                     "justifyContent": "space-between",
                     "marginLeft": 20,
@@ -230,6 +230,7 @@ exports[`wallet accordion should render 1`] = `
                           "fontSize": 14,
                           "fontWeight": "700",
                           "lineHeight": 20,
+                          "textAlign": "center",
                           "width": "8.333333%",
                         },
                         Object {

@@ -11,7 +11,7 @@ export function ThemedTextV2 (props: ThemedTextProps): JSX.Element {
   const {
     style,
     light = tailwind('text-mono-light-v2-900'),
-    dark = tailwind('text-mono-dark-v2-900'),
+    dark = tailwind('text-white text-opacity-90'),
     ...otherProps
   } = props
   return (

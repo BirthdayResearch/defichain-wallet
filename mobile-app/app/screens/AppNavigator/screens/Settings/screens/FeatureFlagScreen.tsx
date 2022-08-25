@@ -1,4 +1,4 @@
-import { ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
+import { ThemedScrollViewV2, ThemedText, ThemedView } from '@components/themed'
 import { Switch } from '@components/index'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
@@ -13,7 +13,11 @@ export interface BetaFeaturesI extends FeatureFlag {
 }
 
 export function FeatureFlagScreen (): JSX.Element {
-  const { featureFlags, enabledFeatures, updateEnabledFeatures } = useFeatureFlagContext()
+  const {
+    featureFlags,
+    enabledFeatures,
+    updateEnabledFeatures
+  } = useFeatureFlagContext()
   const [betaFeatures, setBetaFeatures] = useState<BetaFeaturesI []>([])
 
   const getBetaFeature = (flags: FEATURE_FLAG_ID[]): BetaFeaturesI[] => {
@@ -61,7 +65,7 @@ export function FeatureFlagScreen (): JSX.Element {
   }
 
   return (
-    <ThemedScrollView testID='features_flag_screen'>
+    <ThemedScrollViewV2 testID='features_flag_screen'>
       <View style={tailwind('flex-1 p-4 pt-6')}>
         <ThemedText
           style={tailwind('text-base font-semibold')}
@@ -74,7 +78,7 @@ export function FeatureFlagScreen (): JSX.Element {
           light={tailwind('text-dfxgray-500')}
           style={tailwind('text-sm font-normal')}
         >
-          {translate('screens/FeatureFlagScreen', 'Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.')}
+          {translate('screens/FeatureFlagScreen', 'Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.')}
         </ThemedText>
       </View>
       {betaFeatures.map((item: BetaFeaturesI) => (
@@ -84,7 +88,7 @@ export function FeatureFlagScreen (): JSX.Element {
           onChange={onFeatureChange}
         />
       ))}
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   )
 }
 
@@ -93,17 +97,20 @@ interface FeatureFlagItemProps {
   onChange: (feature: FeatureFlag, value: boolean) => void
 }
 
-export function FeatureFlagItem ({ item, onChange }: FeatureFlagItemProps): JSX.Element {
+export function FeatureFlagItem ({
+  item,
+  onChange
+}: FeatureFlagItemProps): JSX.Element {
   return (
     <View testID={`feature_${item.id}_row`}>
       <ThemedView
         dark={tailwind('bg-dfxblue-800 border-b border-dfxblue-900')}
-        light={tailwind('bg-white border-b border-gray-200')}
+        light={tailwind('bg-white')}
         style={tailwind('flex flex-row p-4 pr-2 items-center justify-between')}
       >
         <ThemedText
           dark={tailwind('text-white text-opacity-90')}
-          light={tailwind('text-black')}
+          light={tailwind('text-mono-light-v2-900')}
           style={tailwind('font-medium')}
         >
           {translate('screens/FeatureFlagScreen', item.name)}
@@ -112,8 +119,8 @@ export function FeatureFlagItem ({ item, onChange }: FeatureFlagItemProps): JSX.
         <View style={tailwind('flex-row items-center')}>
           <Switch
             onValueChange={(v: boolean) => {
-            onChange(item, v)
-          }}
+              onChange(item, v)
+            }}
             testID={`feature_${item.id}_switch`}
             value={item.value}
           />
@@ -121,7 +128,7 @@ export function FeatureFlagItem ({ item, onChange }: FeatureFlagItemProps): JSX.
       </ThemedView>
       <ThemedText
         dark={tailwind('text-dfxgray-400')}
-        light={tailwind('text-dfxgray-500')}
+        light={tailwind('text-mono-light-v2-500')}
         style={tailwind('px-4 py-2 mb-2 text-sm font-normal')}
       >
         {translate('screens/FeatureFlagScreen', item.description)}

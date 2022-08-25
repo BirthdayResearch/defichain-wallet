@@ -11,7 +11,7 @@ export function ThemedViewV2 (props: ThemedViewProps): JSX.Element {
   const {
     style,
     light = tailwind('bg-mono-light-v2-100'),
-    dark = tailwind('bg-mono-dark-v2-100'),
+    dark = tailwind('bg-dfxblue-900'),
     ...otherProps
   } = props
   return (

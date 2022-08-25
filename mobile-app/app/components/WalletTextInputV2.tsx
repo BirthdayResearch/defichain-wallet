@@ -1,12 +1,12 @@
 import { forwardRef, useCallback, useState } from 'react'
-import { Platform, Text, TextInputProps, TouchableOpacity, View } from 'react-native'
+import { Platform, StyleProp, Text, TextInputProps, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { useBottomSheetInternal } from '@gorhom/bottom-sheet'
 import {
   ThemedViewV2,
-  ThemedTextInput,
   ThemedIcon,
   ThemedProps,
-  ThemedSectionTitleV2
+  ThemedSectionTitleV2,
+  ThemedTextInputV2
 } from '@components/themed'
 import { getColor, tailwind } from '@tailwind'
 import { MaterialIcons } from '@expo/vector-icons'
@@ -19,14 +19,17 @@ interface IWalletTextInputProps {
   title?: string
   titleTestID?: string
   valid?: boolean
+  editable?: boolean
   inlineText?: {
     type: 'error' | 'helper'
     text?: string | JSX.Element
+    style?: StyleProp<ViewStyle>
   }
   displayClearButton?: boolean
   onClearButtonPress?: () => void
   displayFocusStyle?: boolean
   containerStyle?: string
+  inputContainerStyle?: StyleProp<ViewStyle>
   onBlur?: () => void
   hasBottomSheet?: boolean
   inputFooter?: React.ReactElement
@@ -40,10 +43,12 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(function 
     titleTestID,
     valid = true,
     inlineText,
+    editable = true,
     displayClearButton = false,
     onClearButtonPress,
     children,
     containerStyle,
+    inputContainerStyle,
     onBlur,
     hasBottomSheet,
     inputFooter,
@@ -69,21 +74,18 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(function 
     >
       {title !== undefined &&
       (
-        <View style={tailwind('flex flex-row justify-between items-center')}>
-          <ThemedSectionTitleV2
-            testID={titleTestID}
-            text={title}
-            style={tailwind('text-base font-normal-v2')}
-          />
-        </View>
-        )}
+        <ThemedSectionTitleV2
+          testID={titleTestID}
+          text={title}
+        />
+      )}
       <ThemedViewV2
         light={tailwind('bg-mono-light-v2-00 border-mono-light-v2-00', { 'border-mono-light-v2-800': isFocus, 'border-red-v2': !valid })}
         dark={tailwind('bg-mono-dark-v2-00 border-mono-dark-v2-00', { 'border-mono-dark-v2-800': isFocus, 'border-red-v2': !valid })}
-        style={tailwind('flex-col w-full border-0.5 rounded-2lg')}
+        style={tailwind('flex-col w-full border-0.5 rounded-lg-v2')}
       >
         <View
-          style={[tailwind('flex-row items-center py-2 pl-5 pr-3 justify-between bg-transparent'), props.multiline === true && { minHeight: 54 }]}
+          style={[tailwind('flex-row items-center py-2 pl-5 pr-3 justify-between'), props.multiline === true && { minHeight: 54 }, inputContainerStyle]}
         >
           <TextInput
             onFocus={() => setIsFocus(true)}
@@ -94,17 +96,17 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(function 
               setIsFocus(false)
             }}
             ref={ref}
-            editable
+            editable={editable}
             style={tailwind('font-normal-v2 flex-1 h-5')}
             selectionColor={getColor('brand-v2-500')}
             {...otherProps}
           />
           {displayTickIcon === true &&
             <MaterialIcons
-              size={18}
-              name='check'
+              size={16}
+              name='check-circle'
               iconType='MaterialIcons'
-              style={tailwind('text-green-v2')}
+              style={tailwind('text-green-v2 ml-2')}
               testID={props.testID !== undefined ? `${props.testID}_check_button` : undefined}
             />}
           {
@@ -123,7 +125,7 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(function 
       {
         inlineText?.type === 'error' && !valid &&
           <Text
-            style={tailwind('text-xs mt-2 text-red-v2 font-normal-v2')}
+            style={[tailwind('text-xs mt-2 text-red-v2 font-normal-v2'), inlineText.style]}
             testID={props.testID !== undefined ? `${props.testID}_error` : undefined}
           >
             {inlineText?.text}
@@ -131,7 +133,7 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(function 
       }
       {inlineText?.type === 'helper' && typeof inlineText?.text === 'string' &&
         <Text
-          style={tailwind('text-xs text-red-v2 mt-2 font-normal-v2')}
+          style={[tailwind('text-xs text-red-v2 mt-2 font-normal-v2'), inlineText.style]}
           testID={props.testID !== undefined ? `${props.testID}_error` : undefined}
         >
           {inlineText?.text}
@@ -147,13 +149,13 @@ export function ClearButtonV2 (props: {onPress?: () => void, testID?: string, ic
   return (
     <TouchableOpacity
       testID={props.testID}
-      style={tailwind('flex flex-row items-center bg-transparent')}
+      style={tailwind('flex flex-row items-center bg-transparent ml-2')}
       onPress={props.onPress}
     >
       <ThemedIcon
         iconType='MaterialIcons'
         name='cancel'
-        size={16}
+        size={18}
         light={{ color: '#8E8E93' }}
         dark={{ color: '#8E8E93' }}
         {...props.iconThemedProps}
@@ -168,7 +170,7 @@ const TextInputDefault = forwardRef((props: WalletTextInputProps, ref: React.Ref
     ...otherProps
   } = props
   return (
-    <ThemedTextInput
+    <ThemedTextInputV2
       keyboardType={inputType}
       ref={ref}
       {...otherProps}
@@ -206,7 +208,7 @@ const TextInputIOS = forwardRef((props: WalletTextInputProps, ref: React.Ref<any
   )
 
   return (
-    <ThemedTextInput
+    <ThemedTextInputV2
       keyboardType={inputType}
       ref={ref}
       onBlur={handleOnBlur}

@@ -1080,7 +1080,7 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
   style={
     Array [
       Object {
-        "borderBottomWidth": 1,
+        "borderBottomWidth": 0.5,
         "flexDirection": "row",
         "justifyContent": "center",
         "marginLeft": 20,

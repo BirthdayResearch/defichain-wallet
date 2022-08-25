@@ -134,7 +134,7 @@ exports[`recovery words faq should match snapshot 1`] = `
                   Array [
                     Array [
                       Object {
-                        "alignItems": "center",
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
                         "marginLeft": 20,
@@ -286,7 +286,7 @@ exports[`recovery words faq should match snapshot 1`] = `
                   Array [
                     Array [
                       Object {
-                        "alignItems": "center",
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
                         "marginLeft": 20,
@@ -334,7 +334,7 @@ exports[`recovery words faq should match snapshot 1`] = `
                     ]
                   }
                 >
-                  Can I use the 24-words from xxx that I created from xxx?
+                  Can I use the 24-word from xxx that I created from xxx?
                 </Text>
                 <Text />
               </View>
@@ -410,11 +410,11 @@ exports[`recovery words faq should match snapshot 1`] = `
                         ]
                       }
                     >
-                      You can only reuse the 24-words only if it's created from the Jellyfish ecosystem.
+                      You can only reuse the 24-words if it's created from the Jellyfish ecosystem.
 
-The compatible clients are DeFiChain Wallet (Android/iOS) and DFX.SWISS (Android/iOS).
+The compatible clients are DeFiChain Wallet (Android/iOS) and DFX.Swiss (Android/iOS).
 
-However, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per computer / device / app is encouraged.
+However, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per device / computer / app is encouraged.
                     </Text>
                   </View>
                 </View>
@@ -445,7 +445,7 @@ However, it is highly discouraged that you reuse it. Your 24-words are only as s
                   Array [
                     Array [
                       Object {
-                        "alignItems": "center",
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
                         "marginLeft": 20,
@@ -600,7 +600,7 @@ However, it is highly discouraged that you reuse it. Your 24-words are only as s
                   Array [
                     Array [
                       Object {
-                        "alignItems": "center",
+                        "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
                         "marginLeft": 20,
