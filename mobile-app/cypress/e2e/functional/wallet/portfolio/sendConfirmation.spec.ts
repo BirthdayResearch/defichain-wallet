@@ -7,7 +7,7 @@ context('Wallet - Send Preview/Confirmation', () => {
     cy.getByTestID('portfolio_row_1').click()
     cy.getByTestID('send_button').click()
     cy.getByTestID('amount_input').clear().type('1.234')
-    cy.getByTestID('address_input').clear().type('bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9')
+    cy.getByTestID('address_input').clear().type('bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9').wait(1000)
     cy.getByTestID('button_confirm_send_continue').click()
   })
 

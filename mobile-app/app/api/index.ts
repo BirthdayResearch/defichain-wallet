@@ -6,3 +6,4 @@ export { DisplayBalancesPersistence } from './persistence/display_balances_stora
 export { FeatureFlagPersistence } from './persistence/feature_flag_storage'
 export { SlippageTolerancePersistence } from './persistence/slippage-tolerance_storage'
 export { PortfolioCurrencyPersistence } from './persistence/portfolio_currency_storage'
+export { FavouritePoolpairsPersistence } from './persistence/favourite_poolpairs_storage'

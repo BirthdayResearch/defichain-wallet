@@ -23,9 +23,9 @@ import { debounce } from 'lodash'
 import { ButtonGroupTabKey, PoolPairCards } from './components/PoolPairCards/PoolPairCards'
 import { ButtonGroupV2 } from './components/ButtonGroupV2'
 import { HeaderSearchInputV2 } from '@components/HeaderSearchInputV2'
-import { useFavouritePoolpairs } from './hook/FavouritePoolpairs'
 import { ScrollView } from 'react-native'
 import { AssetsFilterItem } from '../Portfolio/components/AssetsFilterRow'
+import { useFavouritePoolpairContext } from '../../../../contexts/FavouritePoolpairContext'
 enum TabKey {
   YourPoolPair = 'YOUR_POOL_PAIRS',
   AvailablePoolPair = 'AVAILABLE_POOL_PAIRS'
@@ -107,10 +107,16 @@ export function DexScreen (): JSX.Element {
     })
   }
 
+  const onPress = (id: string): void => {
+    navigation.navigate({
+      name: 'PoolPairDetailsScreen',
+      params: { id: id },
+      merge: true
+    })
+  }
+
   // Search
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showSearchInput, setShowSearchInput] = useState(false)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [searchString, setSearchString] = useState('')
   const [filteredAvailablePairs, setFilteredAvailablePairs] =
     useState<Array<DexItem<PoolPairData>>>(pairs)
@@ -172,7 +178,7 @@ export function DexScreen (): JSX.Element {
   }, [showSearchInput, searchString])
 
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllPairs)
-  const { isFavouritePoolpair } = useFavouritePoolpairs()
+  const { isFavouritePoolpair, favouritePoolpairs } = useFavouritePoolpairContext()
 
   const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
     const filteredPairs = pairs.filter((pair) => {
@@ -200,7 +206,7 @@ export function DexScreen (): JSX.Element {
       filteredPairs
     )
   },
-    [pairs]
+    [pairs, favouritePoolpairs]
   )
 
   useEffect(() => {
@@ -220,7 +226,7 @@ export function DexScreen (): JSX.Element {
     if (searchString !== undefined && searchString.trim().length > 0) {
       handleFilter(searchString)
     }
-  }, [pairs])
+  }, [pairs, favouritePoolpairs])
 
   const onSearchBtnPress = (): void => {
     setShowSearchInput(true)
@@ -228,7 +234,7 @@ export function DexScreen (): JSX.Element {
   }
 
   // Top Liquidity pairs
-  const [topLiquidityPairs, setTopLiquidityPairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
+  const [topLiquidityPairs, setTopLiquidityPairs] = useState<Array<DexItem<PoolPairData>>>([])
   useEffect(() => {
     const sorted = pairs
       .map(item => item)
@@ -241,7 +247,7 @@ export function DexScreen (): JSX.Element {
   }, [pairs])
 
   // New pool pairs
-  const [newPoolsPairs, setNewPoolsPairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
+  const [newPoolsPairs, setNewPoolsPairs] = useState<Array<DexItem<PoolPairData>>>([])
   useEffect(() => {
     const sorted = pairs
       .map(item => item)
@@ -310,6 +316,7 @@ export function DexScreen (): JSX.Element {
               onAdd={onAdd}
               onRemove={onRemove}
               onSwap={onSwap}
+              onPress={onPress}
               type='available'
               setIsSearching={setIsSearching}
               searchString={searchString}
@@ -332,6 +339,7 @@ export function DexScreen (): JSX.Element {
             onAdd={onAdd}
             onRemove={onRemove}
             onSwap={onSwap}
+            onPress={onPress}
             type='your'
             setIsSearching={setIsSearching}
             searchString={searchString}
@@ -369,7 +377,7 @@ const DexFilterPillGroup = React.memo((props: {
     },
     {
       id: ButtonGroupTabKey.FavouritePairs,
-      label: translate('screens/DexScreen', 'Favourites'),
+      label: translate('screens/DexScreen', 'Favorites'),
       handleOnPress: () => props.onButtonGroupChange(ButtonGroupTabKey.FavouritePairs)
     }
   ]

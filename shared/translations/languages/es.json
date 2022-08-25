@@ -26,6 +26,7 @@
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "DEX",
+    "Decentralized \nExchange": "DEX",
     "ADD LIQUIDITY": "AÑADIR LIQUIDEZ",
     "Add liquidity": "Añadir liquidez",
     "Add Liquidity": "Añadir Liquidez",
@@ -65,7 +66,14 @@
     "Prices": "Precios",
     "Available pool pairs": "Pares del pool disponibles",
     "Your shared {{symbol}}": "Tus activos compartidos {{symbol}}",
-    "Confirm": "Confirm"
+    "Confirm": "Confirm",
+    "Available pairs": "Available pairs",
+    "Favorites": "Favorites",
+    "No favorites added": "No favorites added",
+    "Tap the star icon to add your favorite pools here": "Tap the star icon to add your favorite pools here",
+    "Total value locked": "Valor total bloqueado",
+    "Search results for “{{input}}”": "Search results for “{{input}}”",
+    "Search for pool pair with token name": "Search for pool pair with token name"
   },
   "screens/PortfolioScreen": {
     "Balances": "Saldos",
@@ -366,6 +374,7 @@
     "Once unlinked, you will need to enter your recovery words to restore your wallet.": "Once unlinked, you will need to enter your recovery words to restore your wallet.",
     "You will need to use your recovery words the next time you want to get back to your wallet.": "Tendrás que utilizar tus palabras de recuparación la próxima vez que quieras recuperar tu billetera.",
     "Cancel": "Cancelar",
+    "Confirm": "Confirm",
     "Unlink Wallet": "Desvincular billetera",
     "Unlink wallet": "Desvincular billetera",
     "UNLINK WALLET": "DESVINCULAR BILLETERA",
@@ -1674,7 +1683,8 @@
   "components/HeaderSearchInput": {
     "Search for loans": "Busca préstamos",
     "Search for loan token": "Busca tokens para préstamos",
-    "Search for pool pairs": "Búsqueda de pares del pool"
+    "Search for pool pairs": "Búsqueda de pares del pool",
+    "Search pool pair": "Search pool pair"
   },
   "components/EmptyCollateral": {
     "No collateral": "No hay colaterales",
@@ -1814,5 +1824,18 @@
     "Swap": "Cambiar",
     "Transactions": "Transacciones",
     "Future swap": "Future swap"
+  },
+  "screens/PoolPairDetailsScreen": {
+    "{{poolPair}} Pool": "{{poolPair}} Pool",
+    "Pool added as favorite": "Pool added as favorite",
+    "Pool removed from favorites": "Pool removed from favorites",
+    "Volume (24H)": "Volume (24H)",
+    "Total liquidity": "Liquidez total",
+    "Pooled {{symbol}}": "{{symbol}} en la piscina",
+    "Your LP tokens": "Your LP tokens",
+    "Tokens in {{symbol}}": "Tokens in {{symbol}}",
+    "APR": "APR",
+    "{{percentage}}% in rewards": "{{percentage}}% in rewards",
+    "{{percentage}}% in commissions": "{{percentage}}% in commissions"
   }
 }

@@ -28,7 +28,7 @@ import { RemoveLiquidityConfirmScreenV2 } from './DexConfirmRemoveLiquidityV2'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { AddLiquidityScreen } from './DexAddLiquidity'
 import { ConfirmAddLiquidityScreenV2 } from './DexConfirmAddLiquidityV2'
-
+import { PoolPairDetailsScreen } from './PoolPairDetailsScreen'
 export interface DexParamList {
   DexScreen: undefined
   CompositeSwapScreen: {
@@ -86,6 +86,9 @@ export interface DexParamList {
     tokenA?: WalletToken
     tokenB?: WalletToken
   }
+  PoolPairDetailsScreen: {
+    id: string
+  }
 
   [key: string]: undefined | object
 }
@@ -140,11 +143,14 @@ export function DexNavigator (): JSX.Element {
                 { fontSize: 28 }
               ]}
             >
-              {translate('screens/DexScreen', 'Decentralized Exchange')}
+              {translate('screens/DexScreen', 'Decentralized \nExchange')}
             </ThemedTextV2>
           ),
           headerRight: () => (
-            <HeaderNetworkStatus onPress={goToNetworkSelect} containerStyle={tailwind({ 'pt-px': Platform.OS === 'android' })} />
+            <HeaderNetworkStatus
+              onPress={goToNetworkSelect}
+              containerStyle={tailwind({ 'pt-px': Platform.OS === 'android' })}
+            />
           )
         }}
       />
@@ -240,6 +246,17 @@ export function DexNavigator (): JSX.Element {
           headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
           headerBackTitleVisible: false,
           headerBackTestID: 'network_details_header_back'
+        }}
+      />
+
+      <DexStack.Screen
+        component={PoolPairDetailsScreen}
+        name='PoolPairDetailsScreen'
+        options={{
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          )
         }}
       />
     </DexStack.Navigator>
