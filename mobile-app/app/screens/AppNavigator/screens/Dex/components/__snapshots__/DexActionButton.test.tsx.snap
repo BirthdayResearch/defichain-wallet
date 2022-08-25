@@ -105,6 +105,7 @@ exports[`Dex Action Buttons <DexAddRemoveLiquidityButton /> - should match snaps
         "paddingRight": 8,
       }
     }
+    testID="pool_pair_remove_foo"
   >
     <Text />
   </View>
@@ -129,6 +130,7 @@ exports[`Dex Action Buttons <DexAddRemoveLiquidityButton /> - should match snaps
         "paddingLeft": 8,
       }
     }
+    testID="pool_pair_add_foo"
   >
     <Text />
   </View>

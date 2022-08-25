@@ -18,7 +18,7 @@ describe('Dex Action Buttons', () => {
     const onAdd = jest.fn()
     const onRemove = jest.fn()
 
-    const rendered = render(<DexAddRemoveLiquidityButton onAdd={() => onAdd()} onRemove={() => onRemove()} />)
+    const rendered = render(<DexAddRemoveLiquidityButton onAdd={() => onAdd()} onRemove={() => onRemove()} pairToken='foo' />)
     expect(rendered.toJSON()).toMatchSnapshot()
   })
 })
