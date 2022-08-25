@@ -62,7 +62,7 @@ export const signUp = async (user: NewUser): Promise<string> => {
 }
 
 export const getSignMessage = async (address: string): Promise<string> => {
-  return await fetchFrom<SignMessageRespone>(`${AuthUrl}/signMessage`, 'GET', undefined, undefined, { name: 'address', content: address }).then((resp) => {
+  return await fetchFrom<SignMessageRespone>(`${AuthUrl}/signMessage`, 'GET', undefined, undefined, { address: address }).then((resp) => {
     return resp.message
   })
 }
@@ -222,30 +222,15 @@ const postFiles = async (url: string, files: File[]): Promise<void> => {
   return await fetchFrom(url, 'POST', formData, true)
 }
 
-interface QueryItem {
-  name: string
-  content: string
-}
-
 const fetchFrom = async <T>(
   url: string,
   method: 'GET' | 'PUT' | 'POST' = 'GET',
   data?: any,
   noJson?: boolean,
-  queryParams?: QueryItem | QueryItem[]
+  queryParams?: string | string[][] | Record<string, string> | URLSearchParams
 ): Promise<T> => {
   // QueryParams object conversion helper
-  if (Array.isArray(queryParams)) {
-  const queryUrl = queryParams?.map((item) => `${item.name}=${item.content}`).join('&')
-    if (queryUrl !== undefined) {
-      url = `${url}?${queryUrl}`
-    }
-  } else {
-    if (queryParams !== undefined) {
-      const queryUrl = `${queryParams.name}=${queryParams.content}`
-      url = `${url}?${queryUrl}`
-    }
-  }
+  url += (queryParams != null) ? `?${new URLSearchParams(queryParams).toString()}` : ''
 
   return (
     await AuthService.Session.then((session) => buildInit(method, session, data, noJson))
