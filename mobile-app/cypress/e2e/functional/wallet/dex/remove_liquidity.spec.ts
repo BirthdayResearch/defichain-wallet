@@ -49,7 +49,7 @@ function validatePriceSelectionAndSummaryBasedOnPercentage (): void {
   })
 
   cy.getByTestID('50%_amount_button').click().wait(200)
-  cy.getByTestID('tokens_remove_amount_input').should('have.value', '5.00000000')
+  cy.getByTestID('tokens_remove_amount_input').should('have.value', '5.00000000%')
   cy.getByTestID('pricerate_value_0').invoke('text').then(value => {
     checkValueWithinRange(value, '50.00000000')
   })
