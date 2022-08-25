@@ -13,6 +13,11 @@ interface SwapType {
   toTokenDisplaySymbol?: string
 }
 
+export enum OraclePriceType {
+  POSITIVE = '+5%',
+  NEGATIVE = '-5%'
+}
+
 export function useFutureSwap (props: SwapType): {
   isFutureSwapOptionEnabled: boolean
   oraclePriceText: '+5%' | '-5%' | ''

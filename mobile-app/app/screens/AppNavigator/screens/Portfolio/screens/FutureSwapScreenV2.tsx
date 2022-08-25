@@ -1,5 +1,4 @@
-import { View } from '@components'
-import { ThemedFlatList, ThemedIcon, ThemedTextV2, ThemedTouchableOpacityV2 } from '@components/themed'
+import { ThemedFlatListV2, ThemedIcon, ThemedTextV2, ThemedTouchableOpacityV2 } from '@components/themed'
 import { StackScreenProps } from '@react-navigation/stack'
 import { translate } from '@translations'
 import { useCallback, useEffect } from 'react'
@@ -11,13 +10,14 @@ import { RootState } from '@store'
 import { fetchExecutionBlock, fetchFutureSwaps, FutureSwapData, futureSwapSelector } from '@store/futureSwap'
 import { useIsFocused } from '@react-navigation/native'
 import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useFutureSwapDate } from '../../Dex/hook/FutureSwap'
+import { OraclePriceType, useFutureSwapDate } from '../../Dex/hook/FutureSwap'
 import { fetchLoanTokens } from '@store/loans'
 import { useWhaleApiClient, useWhaleRpcClient } from '@shared-contexts/WhaleContext'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { openURL } from '@api/linking'
-import { PoolPairIconV2 } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolPairTextSectionV2'
+import { PoolPairIconV2 } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolPairIconV2'
+import { View } from 'react-native'
 
 type Props = StackScreenProps<PortfolioParamList, 'FutureSwapScreen'>
 
@@ -100,7 +100,7 @@ export function FutureSwapScreenV2 ({ navigation }: Props): JSX.Element {
             light={tailwind('text-mono-light-v2-700')}
             testID={`${testID}_oracle_price`}
           >
-            {translate('screens/FutureSwapScreen', 'Settlement value ({{percentage_change}})', { percentage_change: !item.source.isLoanToken ? '+5%' : '-5%' })}
+            {translate('screens/FutureSwapScreen', 'Settlement value ({{percentage_change}})', { percentage_change: !item.source.isLoanToken ? OraclePriceType.POSITIVE : OraclePriceType.NEGATIVE })}
           </ThemedTextV2>
         </View>
         <ThemedIcon
@@ -115,7 +115,7 @@ export function FutureSwapScreenV2 ({ navigation }: Props): JSX.Element {
   }, [isEnded, transactionDate])
 
   return (
-    <ThemedFlatList
+    <ThemedFlatListV2
       keyExtractor={(_item, index) => index.toString()}
       data={futureSwaps}
       renderItem={FutureSwapListItem}

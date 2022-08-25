@@ -17,7 +17,6 @@ import { ConfirmCompositeSwapScreen } from '../Dex/CompositeSwap/ConfirmComposit
 import { LocalAddress } from '@store/userPreferences'
 import { FutureSwapData } from '@store/futureSwap'
 import { ConfirmWithdrawFutureSwapScreen } from './screens/ConfirmWithdrawFutureSwapScreen'
-import { WithdrawFutureSwapScreen } from './screens/WithdrawFutureSwapScreen'
 import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
 import { RemoveLiquidityScreenV2 } from '../Dex/DexRemoveLiquidityV2'
 import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
@@ -56,6 +55,7 @@ import { NetworkSelectionScreen } from '../Settings/screens/NetworkSelectionScre
 import { AddLiquidityScreen } from '../Dex/DexAddLiquidity'
 import { ConfirmAddLiquidityScreen } from '../Dex/DexConfirmAddLiquidity'
 import { FutureSwapScreenV2 } from '@screens/AppNavigator/screens/Portfolio/screens/FutureSwapScreenV2'
+import { WithdrawFutureSwapScreenV2 } from '@screens/AppNavigator/screens/Portfolio/screens/WithdrawFutureSwapScreenV2'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -500,16 +500,14 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={WithdrawFutureSwapScreen}
+        component={WithdrawFutureSwapScreenV2}
         name='WithdrawFutureSwapScreen'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/WithdrawFutureSwapScreen', 'Withdraw from future swap')}
-              containerTestID={headerContainerTestId}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false
+          headerTitle: translate('screens/WithdrawFutureSwapScreen', 'Withdraw')
         }}
       />
 
