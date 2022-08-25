@@ -1801,5 +1801,18 @@
     "Swap": "兌換",
     "Transactions": "交易紀錄",
     "Future swap": "Future swap"
+  },
+  "screens/PoolPairDetailsScreen": {
+    "{{poolPair}} Pool": "Pool {{poolPair}}",
+    "Pool added as favorite": "Pool added as favorite",
+    "Pool removed from favorites": "Pool removed from favorites",
+    "Volume (24H)": "Volume (24H)",
+    "Total liquidity": "總資金值",
+    "Pooled {{symbol}}": "池中總 {{symbol}} 數量",
+    "Your LP tokens": "您的 LP 代幣",
+    "Tokens in {{symbol}}": "{{symbol}}中的代幣",
+    "APR": "年回報率",
+    "{{percentage}}% in rewards": "{{percentage}}% in rewards",
+    "{{percentage}}% in commissions": "{{percentage}}% in commissions"
   }
 }

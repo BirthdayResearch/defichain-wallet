@@ -3,7 +3,7 @@ import { View } from '@components'
 import {
   ThemedFlatListV2,
   ThemedTextV2,
-  ThemedViewV2
+  ThemedTouchableOpacityV2
 } from '@components/themed'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { tailwind } from '@tailwind'
@@ -13,7 +13,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useScrollToTop } from '@react-navigation/native'
 import { WalletToken } from '@store/wallet'
 import { useDebounce } from '@hooks/useDebounce'
-import { useFavouritePoolpairs } from '../../hook/FavouritePoolpairs'
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store'
@@ -28,7 +27,7 @@ import { PriceRatesSection } from '@screens/AppNavigator/screens/Dex/components/
 import { APRSection } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/APRSection'
 import { PoolSharesSection } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolSharesSection'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
-
+import { useFavouritePoolpairContext } from '../../../../../../contexts/FavouritePoolpairContext'
 interface DexItem<T> {
   type: 'your' | 'available'
   data: T
@@ -47,6 +46,7 @@ interface PoolPairCardProps {
   onAdd: (data: PoolPairData, info: WalletToken) => void
   onRemove: (data: PoolPairData, info: WalletToken) => void
   onSwap: (data: PoolPairData) => void
+  onPress: (id: string) => void
   type: 'your' | 'available'
   setIsSearching: (isSearching: boolean) => void
   searchString: string
@@ -63,6 +63,7 @@ export function PoolPairCards ({
   onAdd,
   onRemove,
   onSwap,
+  onPress,
   type,
   searchString,
   setIsSearching,
@@ -72,7 +73,7 @@ export function PoolPairCards ({
   newPoolsPairs,
   activeButtonGroup
 }: PoolPairCardProps): JSX.Element {
-  const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
+  const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairContext()
   const sortedPairs = sortPoolpairsByFavourite(
     availablePairs,
     isFavouritePoolpair
@@ -126,6 +127,7 @@ export function PoolPairCards ({
       onAdd={onAdd}
       onRemove={onRemove}
       onSwap={onSwap}
+      onPress={onPress}
     />
   )
 
@@ -185,6 +187,7 @@ interface PoolCardProps {
   onAdd: (data: PoolPairData, info: WalletToken) => void
   onRemove: (data: PoolPairData, info: WalletToken) => void
   onSwap: (data: PoolPairData, info: WalletToken) => void
+  onPress: (id: string) => void
   type: 'your' | 'available'
   index: number
   isFavouritePoolpair: (id: string) => boolean
@@ -197,6 +200,7 @@ const PoolCard = ({
   setFavouritePoolpair,
   type,
   onSwap,
+  onPress,
   onAdd,
   onRemove
 }: PoolCardProps): JSX.Element => {
@@ -241,11 +245,12 @@ const PoolCard = ({
     return <></>
   }
   return (
-    <ThemedViewV2
+    <ThemedTouchableOpacityV2
       style={tailwind('px-5 py-4 mb-2 rounded-lg-v2 mx-5')}
       dark={tailwind('bg-mono-dark-v2-00')}
       light={tailwind('bg-mono-light-v2-00')}
       testID={type === 'your' ? 'pool_pair_row_your' : 'pool_pair_row'}
+      onPress={() => onPress(item.data.id)}
     >
       {type === 'available'
 ? (
@@ -276,7 +281,7 @@ const PoolCard = ({
         )}
   />
         )}
-    </ThemedViewV2>
+    </ThemedTouchableOpacityV2>
   )
 }
 
@@ -310,7 +315,7 @@ function AvailablePool (props: AvailablePoolProps): JSX.Element {
           <FavoriteButton
             pairId={props.pair.id}
             isFavouritePair={props.isFavouritePair}
-            setFavouritePoolpair={props.setFavouritePoolpair}
+            onPress={() => props.setFavouritePoolpair(props.pair.id)}
           />
         </View>
         <DexActionButton

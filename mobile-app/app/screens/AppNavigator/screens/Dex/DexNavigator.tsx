@@ -19,11 +19,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Platform, StyleProp, ViewStyle } from 'react-native'
 import { ThemedTextV2 } from '@components/themed'
 import { tailwind } from '@tailwind'
-import { ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
 import { RemoveLiquidityScreen } from './DexRemoveLiquidity'
 import { RemoveLiquidityConfirmScreen } from './DexConfirmRemoveLiquidity'
 import { AddLiquidityScreen } from './DexAddLiquidity'
-
+import { ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
+import { PoolPairDetailsScreen } from './PoolPairDetailsScreen'
 export interface DexParamList {
   DexScreen: undefined
   CompositeSwapScreen: {
@@ -80,6 +80,9 @@ export interface DexParamList {
     tokenBAmount: string
     tokenA?: WalletToken
     tokenB?: WalletToken
+  }
+  PoolPairDetailsScreen: {
+    id: string
   }
 
   [key: string]: undefined | object
@@ -237,6 +240,14 @@ export function DexNavigator (): JSX.Element {
           headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
           headerBackTitleVisible: false,
           headerBackTestID: 'network_details_header_back'
+        }}
+      />
+
+      <DexStack.Screen
+        component={PoolPairDetailsScreen}
+        name='PoolPairDetailsScreen'
+        options={{
+          ...screenOptions
         }}
       />
     </DexStack.Navigator>

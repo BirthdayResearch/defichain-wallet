@@ -1805,5 +1805,18 @@
     "Swap": "Échanger",
     "Transactions": "Transactions",
     "Future swap": "Échange à terme"
+  },
+  "screens/PoolPairDetailsScreen": {
+    "{{poolPair}} Pool": "Pool {{poolPair}}",
+    "Pool added as favorite": "Pool ajouté comme favori",
+    "Pool removed from favorites": "Pool von Favoriten entfernt",
+    "Volume (24H)": "Volume (24h)",
+    "Total liquidity": "Liquidité totale",
+    "Pooled {{symbol}}": "{{symbol}} du pool",
+    "Your LP tokens": "Mes tokens PL",
+    "Tokens in {{symbol}}": "Tokens en {{symbol}}",
+    "APR": "TAEG",
+    "{{percentage}}% in rewards": "{{percentage}}% en récompenses",
+    "{{percentage}}% in commissions": "{{percentage}}% en commissions"
   }
 }

@@ -286,3 +286,10 @@ export const tokenSelectorByDisplaySymbol = createSelector([(state: WalletState)
 export const dexPricesSelectorByDenomination = createSelector([(state: WalletState) => state.dexPrices, selectTokenId], (dexPrices, denomination) => {
   return dexPrices[denomination] ?? {}
 })
+
+/**
+ * Get single poolpair by id
+ */
+export const poolPairSelector = createSelector([(state: WalletState) => state.poolpairs, selectTokenId], (poolpairs, id) => {
+  return poolpairs.find(pair => pair.data.id === id)
+})
