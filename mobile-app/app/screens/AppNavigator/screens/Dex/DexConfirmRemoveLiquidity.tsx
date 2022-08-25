@@ -3,27 +3,27 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
+import { View } from 'react-native'
 import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import { NumberRow } from '@components/NumberRow'
-import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { SummaryTitle } from '@components/SummaryTitle'
-import { ThemedScrollView, ThemedSectionTitle, ThemedView } from '@components/themed'
+import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
+import { ThemedScrollViewV2, ThemedViewV2 } from '@components/themed'
 import { RootState } from '@store'
 import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
 import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { DexParamList } from './DexNavigator'
-import { InfoRow, InfoType } from '@components/InfoRow'
-import { TextRow } from '@components/TextRow'
-import { TransactionResultsRow } from '@components/TransactionResultsRow'
 import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
-import { WalletAddressRow } from '@components/WalletAddressRow'
-import { PricesSection } from '@components/PricesSection'
 import { useAppDispatch } from '@hooks/useAppDispatch'
+import { SummaryTitleV2 } from '@components/SummaryTitleV2'
+import { useWalletContext } from '@shared-contexts/WalletContext'
+import { useAddressLabel } from '@hooks/useAddressLabel'
+import { NumberRowV2 } from '@components/NumberRowV2'
+import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
+import { PricesSectionV2 } from '@components/PricesSectionV2'
 
 type Props = StackScreenProps<DexParamList, 'ConfirmRemoveLiquidity'>
 
@@ -34,22 +34,19 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
     amount,
     fee,
     tokenAAmount,
-    tokenBAmount,
-    tokenA,
-    tokenB
+    tokenBAmount
   } = route.params
-  const aToBRate = new BigNumber(pair.tokenB.reserve).div(pair.tokenA.reserve)
-  const bToARate = new BigNumber(pair.tokenA.reserve).div(pair.tokenB.reserve)
-  const symbol = (pair?.tokenA != null && pair?.tokenB != null)
-    ? `${pair.tokenA.displaySymbol}-${pair.tokenB.displaySymbol}`
-    : pair.symbol
   const dispatch = useAppDispatch()
+  const { getTokenPrice } = useTokenPrice()
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigation = useNavigation<NavigationProp<DexParamList>>()
   const [isOnPage, setIsOnPage] = useState<boolean>(true)
+  const { address } = useWalletContext()
+  const addressLabel = useAddressLabel(address)
 
+  const sharesUsdAmount = getTokenPrice(pair.symbol, new BigNumber(amount), true)
   useEffect(() => {
     setIsOnPage(true)
     return () => {
@@ -78,116 +75,120 @@ export function RemoveLiquidityConfirmScreen ({ route }: Props): JSX.Element {
     }
   }
 
+  const resultingPool = Number(pairInfo.amount) - Number(amount)
   return (
-    <ThemedScrollView style={tailwind('pb-4')}>
-      <ThemedView
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
-        light={tailwind('bg-white border-b border-gray-300')}
-        style={tailwind('flex-col px-4 py-8 mb-4')}
-      >
-        <SummaryTitle
+    <ThemedScrollViewV2 style={tailwind('py-8 px-5')}>
+      <ThemedViewV2 style={tailwind('flex-col mb-9')}>
+        <SummaryTitleV2
+          iconA={pair.tokenA.displaySymbol}
+          iconB={pair.tokenB.displaySymbol}
+          fromAddress={address}
+          fromAddressLabel={addressLabel}
           amount={amount}
-          suffix={` ${symbol}`}
-          suffixType='text'
-          testID='text_remove_amount'
-          title={translate('screens/ConfirmRemoveLiquidity', 'You are removing')}
+          testID='text_remove_liquidity_amount'
+          title={translate('screens/ConfirmRemoveLiquidity', 'You are removing LP tokens')}
         />
-      </ThemedView>
+      </ThemedViewV2>
 
-      <ThemedSectionTitle
-        testID='title_tx_detail'
-        text={translate('screens/ConfirmRemoveLiquidity', 'TRANSACTION DETAILS')}
-      />
+      <ThemedViewV2
+        dark={tailwind('border-mono-dark-v2-300')}
+        light={tailwind('border-mono-light-v2-300')}
+        style={tailwind('py-5 border-t-0.5')}
+      >
+        <View style={tailwind('mb-5')}>
+          <NumberRowV2
+            lhs={{
+              value: translate('screens/ConfirmRemoveLiquidity', 'Transaction fee'),
+              themedProps: {
+                light: tailwind('text-mono-light-v2-500'),
+                dark: tailwind('text-mono-dark-v2-500')
+              },
+              testID: 'transaction_fee_title'
+            }}
+            rhs={{
+              value: new BigNumber(fee).toFixed(8),
+              suffix: ' DFI',
+              testID: 'transaction_fee_title_amount'
+            }}
+            testID='transaction_fee'
+          />
+        </View>
+        <NumberRowV2
+          lhs={{
+            value: translate('screens/ConfirmRemoveLiquidity', 'Pool share'),
+            themedProps: {
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
+            },
+            testID: 'resulting_pool_share_title'
+          }}
+          rhs={{
+            value: new BigNumber(resultingPool).toFixed(8),
+            suffix: '%',
+            testID: 'resulting_pool_share_amount'
+          }}
+          testID='resulting_pool_share'
+        />
+      </ThemedViewV2>
 
-      <TextRow
-        lhs={translate('screens/ConfirmRemoveLiquidity', 'Transaction type')}
-        rhs={{
-          value: translate('screens/ConfirmRemoveLiquidity', 'Remove liquidity'),
-          testID: 'text_transaction_type'
-        }}
-        textStyle={tailwind('text-sm font-normal')}
-      />
-      <WalletAddressRow />
-      <InfoRow
-        type={InfoType.EstimatedFee}
-        value={fee.toFixed(8)}
-        testID='text_fee'
-        suffix='DFI'
-      />
-
-      <ThemedSectionTitle
-        testID='title_remove_detail'
-        text={translate('screens/ConfirmRemoveLiquidity', 'ESTIMATED AMOUNT TO RECEIVE')}
-      />
-
-      <NumberRow
-        lhs={pair?.tokenA?.displaySymbol}
-        rhs={{
-          testID: 'a_amount',
-          value: BigNumber.max(tokenAAmount, 0).toFixed(8),
-          suffixType: 'text',
-          suffix: pair?.tokenA?.displaySymbol
-        }}
-      />
-      <NumberRow
-        lhs={pair?.tokenB?.displaySymbol}
-        rhs={{
-          testID: 'b_amount',
-          value: BigNumber.max(tokenBAmount, 0).toFixed(8),
-          suffixType: 'text',
-          suffix: pair?.tokenB?.displaySymbol
-        }}
-      />
-
-      <PricesSection
-        testID='confirm_pricerate_value'
-        priceRates={[
-          {
-            label: translate('components/PricesSection', '1 {{token}}', {
+      <ThemedViewV2
+        dark={tailwind('border-mono-dark-v2-300')}
+        light={tailwind('border-mono-light-v2-300')}
+        style={tailwind('pt-5 border-t-0.5 border-b-0.5')}
+      >
+        <PricesSectionV2
+          key='prices'
+          testID='confirm_pricerate_value'
+          priceRates={[{
+            label: translate('screens/RemoveLiquidity', '{{token}} to receive', {
               token: pair.tokenA.displaySymbol
             }),
-            value: aToBRate.toFixed(8),
-            aSymbol: pair.tokenA.displaySymbol,
-            bSymbol: pair.tokenB.displaySymbol
-          },
-          {
-            label: translate('components/PricesSection', '1 {{token}}', {
+            value: BigNumber.max(tokenAAmount, 0).toFixed(8),
+            symbolUSDValue: getTokenPrice(pair.tokenA.symbol, new BigNumber(tokenAAmount)),
+            usdTextStyle: tailwind('text-sm')
+            },
+            {
+            label: translate('screens/RemoveLiquidity', '{{token}} to receive', {
               token: pair.tokenB.displaySymbol
             }),
-            value: bToARate.toFixed(8),
-            aSymbol: pair.tokenB.displaySymbol,
-            bSymbol: pair.tokenA.displaySymbol
-          }
-        ]}
-        sectionTitle='PRICES'
-      />
-
-      <TransactionResultsRow
-        tokens={[
-          {
-            symbol: pair.tokenA.displaySymbol,
-            value: new BigNumber(tokenA?.amount ?? 0).plus(tokenAAmount).toFixed(8),
-            suffix: pair.tokenA.displaySymbol
-          },
-          {
-            symbol: pair.tokenB.displaySymbol,
-            value: BigNumber.max(new BigNumber(tokenB?.amount ?? 0).plus(tokenBAmount).minus(pair.tokenB.symbol === 'DFI' ? fee : 0), 0).toFixed(8),
-            suffix: pair.tokenB.displaySymbol
-          }
-        ]}
-      />
-
-      <SubmitButtonGroup
-        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/ConfirmRemoveLiquidity', 'REMOVE')}
-        isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        processingLabel={translate('screens/ConfirmRemoveLiquidity', 'REMOVING')}
-        onCancel={onCancel}
-        onSubmit={onSubmit}
-        displayCancelBtn
-        title='remove'
-      />
-    </ThemedScrollView>
+            value: BigNumber.max(tokenBAmount, 0).toFixed(8),
+            symbolUSDValue: getTokenPrice(pair.tokenB.symbol, new BigNumber(tokenBAmount)),
+            usdTextStyle: tailwind('text-sm')
+           }
+         ]}
+        />
+        <NumberRowV2
+          lhs={{
+            value: translate('screens/ConfirmRemoveLiquidity', 'LP tokens to remove'),
+            themedProps: {
+              light: tailwind('text-mono-light-v2-500'),
+              dark: tailwind('text-mono-dark-v2-500')
+            },
+            testID: 'lp_tokens_to_remove_title'
+          }}
+          rhs={{
+            value: new BigNumber(amount).toFixed(8),
+            themedProps: {
+              style: tailwind('font-semibold-v2 text-sm')
+            },
+            testID: 'lp_tokens_to_remove_amount',
+            usdAmount: sharesUsdAmount.isNaN() ? new BigNumber(0) : sharesUsdAmount,
+            usdTextStyle: tailwind('text-sm')
+          }}
+          testID='lp_tokens_to_remove'
+        />
+      </ThemedViewV2>
+      <View style={tailwind('py-14 px-3')}>
+        <SubmitButtonGroupV2
+          isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+          label={translate('screens/ConfirmRemoveLiquidity', 'Remove liquidity')}
+          onSubmit={onSubmit}
+          onCancel={onCancel}
+          displayCancelBtn
+          title='remove'
+        />
+      </View>
+    </ThemedScrollViewV2>
   )
 }
 
@@ -212,15 +213,20 @@ async function constructSignedRemoveLiqAndSend (pair: PoolPairData, amount: BigN
 
   dispatch(transactionQueue.actions.push({
     sign: signer,
-    title: translate('screens/RemoveLiquidity', 'Removing Liquidity'),
-    description: translate('screens/RemoveLiquidity', 'Removing {{amount}} {{symbol}}', {
+    title: translate('screens/ConfirmRemoveLiquidity', 'Removing {{amount}} {{symbol}} from liquidity pool', {
       symbol: symbol,
       amount: amount.toFixed(8)
     }),
     drawerMessages: {
       preparing: translate('screens/OceanInterface', 'Preparing to remove liquidity…'),
-      waiting: translate('screens/OceanInterface', 'Removing tokens from liquidity pool…'),
-      complete: translate('screens/OceanInterface', 'Removed tokens from liquidity pool')
+      waiting: translate('screens/OceanInterface', 'Removing {{amount}} {{symbol}} from liquidity pool', {
+        symbol: symbol,
+        amount: amount.toFixed(8)
+      }),
+      complete: translate('screens/OceanInterface', 'Removed {{amount}} {{symbol}} from liquidity pool', {
+        symbol: symbol,
+        amount: amount.toFixed(8)
+      })
     },
     onBroadcast
   }))
