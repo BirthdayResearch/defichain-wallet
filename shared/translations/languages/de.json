@@ -26,6 +26,7 @@
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "Dezentrale Börse",
+    "Decentralized \nExchange": "Dezentrale \nBörse",
     "ADD LIQUIDITY": "LIQUIDITÄT HINZUFÜGEN",
     "Add liquidity": "Liquidität hinzufügen",
     "Add Liquidity": "Liquidität hinzufügen",
@@ -64,7 +65,14 @@
     "Prices": "Preise",
     "Available pool pairs": "Verfügbare Pool-Paare",
     "Your shared {{symbol}}": "Dein {{symbol}}-Anteil",
-    "Confirm": "Bestätigen"
+    "Confirm": "Bestätigen",
+    "Available pairs": "Verfügbare Paare",
+    "Favorites": "Favoriten",
+    "No favorites added": "Keine Favoriten hinzugefügt",
+    "Tap the star icon to add your favorite pools here": "Tippe auf das Sternsymbol, um einen Favoriten hinzuzufügen",
+    "Total value locked": "Fixierter gesamtwert",
+    "Search results for “{{input}}”": "Suchergebnisse für “{{input}}”",
+    "Search for pool pair with token name": "Suche nach Pool-Paar über den Token-Namen"
   },
   "screens/PortfolioScreen": {
     "Balances": "Guthaben",
@@ -877,7 +885,8 @@
     "Transaction fee": "Transaktionsgebühren",
     "Resulting pool share": "Resultierender Poolanteil",
     "LP tokens to remove": "Zu entfernende LP-Token",
-    "Removing {{amount}} {{symbol}} from liquidity pool": "Entfernen von {{amount}} {{symbol}} aus dem Liquiditätspool"
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Entfernen von {{amount}} {{symbol}} aus dem Liquiditätspool",
+    "Pool share": "Pool-Anteil"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "Entferne Liquidität",
@@ -1641,7 +1650,8 @@
   "components/HeaderSearchInput": {
     "Search for loans": "Nach Darlehen suchen",
     "Search for loan token": "Suche nach Darlehenstoken",
-    "Search for pool pairs": "Suche nach Pool-Paaren"
+    "Search for pool pairs": "Suche nach Pool-Paaren",
+    "Search pool pair": "Suche Poolpaar"
   },
   "components/EmptyCollateral": {
     "No collateral": "Keine Sicherheiten",
@@ -1780,5 +1790,18 @@
     "Swap": "Tausch",
     "Transactions": "Transaktionen",
     "Future swap": "Future swap"
+  },
+  "screens/PoolPairDetailsScreen": {
+    "{{poolPair}} Pool": "{{poolPair}}-Pool",
+    "Pool added as favorite": "Pool als Favorit hinzugefügt",
+    "Pool removed from favorites": "Pool von Favoriten entfernt",
+    "Volume (24H)": "Volumen (24h)",
+    "Total liquidity": "Gesamtliquidität",
+    "Pooled {{symbol}}": "{{symbol}} im Pool",
+    "Your LP tokens": "Deine LP-Token",
+    "Tokens in {{symbol}}": "Token in {{symbol}}",
+    "APR": "Jahreszins",
+    "{{percentage}}% in rewards": "{{percentage}}% in Reward",
+    "{{percentage}}% in commissions": "{{percentage}}% in Kommission"
   }
 }

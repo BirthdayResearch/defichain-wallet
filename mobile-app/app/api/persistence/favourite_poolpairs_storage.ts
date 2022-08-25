@@ -1,5 +1,5 @@
+import { PoolpairId } from '@contexts/FavouritePoolpairContext'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { PoolpairId } from '@screens/AppNavigator/screens/Dex/hook/FavouritePoolpairs'
 
 const KEY = 'WALLET.FAVOURITE_POOLPAIRS'
 

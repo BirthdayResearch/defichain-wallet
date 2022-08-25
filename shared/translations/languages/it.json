@@ -26,6 +26,7 @@
   },
   "screens/DexScreen": {
     "Decentralized Exchange": "DEX",
+    "Decentralized \nExchange": "DEX",
     "ADD LIQUIDITY": "AGGIUNGI LIQUIDITA'",
     "Add liquidity": "Aggiungi Liquidita'",
     "Add Liquidity": "Aggiungi Liquidita'",
@@ -65,7 +66,14 @@
     "Available pool pairs": "Pool-Pairs disponibili",
     "Your shared {{symbol}}": "I tuoi shared {{symbol}}",
     "Total liquidity": "Liquidita' Totale",
-    "Confirm": "Confirm"
+    "Confirm": "Confirm",
+    "Available pairs": "Available pairs",
+    "Favorites": "Favorites",
+    "No favorites added": "No favorites added",
+    "Tap the star icon to add your favorite pools here": "Tap the star icon to add your favorite pools here",
+    "Total value locked": "Valore totale bloccato",
+    "Search results for “{{input}}”": "Search results for “{{input}}”",
+    "Search for pool pair with token name": "Search for pool pair with token name"
   },
   "screens/PortfolioScreen": {
     "Balances": "Saldo",
@@ -895,7 +903,8 @@
     "Transaction fee": "Transaction fee",
     "Resulting pool share": "Resulting pool share",
     "LP tokens to remove": "LP tokens to remove",
-    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool",
+    "Pool share": "Pool share"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "Rimuovi liquidità",
@@ -1667,7 +1676,8 @@
   "components/HeaderSearchInput": {
     "Search for loans": "Cerca prestiti",
     "Search for loan token": "Cerca il token da prendere in prestito",
-    "Search for pool pairs": "Ricerca di Pool-Pairs"
+    "Search for pool pairs": "Ricerca di Pool-Pairs",
+    "Search pool pair": "Search pool pair"
   },
   "components/EmptyCollateral": {
     "No collateral": "Nessun collaterale",
@@ -1807,5 +1817,18 @@
     "Swap": "Scambia",
     "Transactions": "Transazioni",
     "Future swap": "Future swap"
+  },
+  "screens/PoolPairDetailsScreen": {
+    "{{poolPair}} Pool": "{{poolPair}} Pool",
+    "Pool added as favorite": "Pool added as favorite",
+    "Pool removed from favorites": "Pool removed from favorites",
+    "Volume (24H)": "Volume (24H)",
+    "Total liquidity": "Liquidita' Totale",
+    "Pooled {{symbol}}": "Messo nel pool {{symbol}}",
+    "Your LP tokens": "Your LP tokens",
+    "Tokens in {{symbol}}": "Tokens in {{symbol}}",
+    "APR": "APR",
+    "{{percentage}}% in rewards": "{{percentage}}% in rewards",
+    "{{percentage}}% in commissions": "{{percentage}}% in commissions"
   }
 }

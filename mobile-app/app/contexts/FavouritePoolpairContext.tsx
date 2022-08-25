@@ -1,6 +1,7 @@
-import { FavouritePoolpairsPersistence } from '@api/persistence/favourite_poolpairs_storage'
+
+import { FavouritePoolpairsPersistence } from '@api'
 import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 export interface FavouritePoolpair {
   favouritePoolpairs: PoolpairId[]
@@ -12,7 +13,13 @@ export interface PoolpairId {
   id: string
 }
 
-export function useFavouritePoolpairs (): FavouritePoolpair {
+const FavouritePoolpairContext = createContext<FavouritePoolpair>(undefined as any)
+
+export function useFavouritePoolpairContext (): FavouritePoolpair {
+  return useContext(FavouritePoolpairContext)
+}
+
+export function FavouritePoolpairProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
   const logger = useLogger()
   const [favouritePoolpairs, setFavouritePoolpairs] = useState<PoolpairId[]>([])
 
@@ -32,14 +39,21 @@ export function useFavouritePoolpairs (): FavouritePoolpair {
     } else {
       newPoolpairs = favouritePoolpairs.filter(poolpair => poolpair.id !== id)
     }
-
     setFavouritePoolpairs(newPoolpairs)
     await FavouritePoolpairsPersistence.set(newPoolpairs)
   }
 
-  return {
-    favouritePoolpairs: favouritePoolpairs,
-    isFavouritePoolpair: (id: string) => favouritePoolpairs.some(poolpair => poolpair.id === id),
+  const isFavouritePoolpair = (id: string): boolean => favouritePoolpairs.some(poolpair => poolpair.id === id)
+
+  const context: FavouritePoolpair = {
+    favouritePoolpairs,
+    isFavouritePoolpair,
     setFavouritePoolpair: updateFavouritePoolpairs
   }
+
+  return (
+    <FavouritePoolpairContext.Provider value={context}>
+      {props.children}
+    </FavouritePoolpairContext.Provider>
+  )
 }

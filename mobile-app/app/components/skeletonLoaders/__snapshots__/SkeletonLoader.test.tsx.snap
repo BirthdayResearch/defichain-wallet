@@ -324,22 +324,21 @@ exports[`Skeleton Loader should match snapshot of dex price skeleton loader 1`] 
   style={
     Array [
       Object {
-        "alignItems": "center",
-        "justifyContent": "center",
-        "marginBottom": 8,
+        "width": "100%",
       },
       Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
       },
     ]
   }
+  testID="dex_skeleton_price_loader"
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight={65}
+    bbHeight={30}
     bbWidth="100%"
     focusable={false}
-    height={65}
+    height={30}
     interval={0.25}
     meetOrSlice={1}
     minX={0}
@@ -353,13 +352,13 @@ exports[`Skeleton Loader should match snapshot of dex price skeleton loader 1`] 
         Object {},
         Object {
           "flex": 0,
-          "height": 65,
+          "height": 30,
           "width": "100%",
         },
       ]
     }
-    vbHeight={65}
-    vbWidth={400}
+    vbHeight={30}
+    vbWidth={180}
     width="100%"
   >
     <RNSVGGroup>
@@ -385,39 +384,13 @@ exports[`Skeleton Loader should match snapshot of dex price skeleton loader 1`] 
         <RNSVGClipPath
           name="dexPrice-animated-diff"
         >
-          <RNSVGCircle
-            cx="27"
-            cy="30"
-            r="8"
-          />
           <RNSVGRect
-            height="17"
+            height="30"
             rx="4"
             ry="4"
-            width="120"
-            x="40"
-            y="22"
-          />
-          <RNSVGCircle
-            cx="27"
-            cy="53"
-            r="8"
-          />
-          <RNSVGRect
-            height="17"
-            rx="4"
-            ry="4"
-            width="120"
-            x="40"
-            y="45"
-          />
-          <RNSVGRect
-            height="12"
-            rx="4"
-            ry="4"
-            width="44"
-            x="20"
-            y="5"
+            width="150"
+            x="0"
+            y="0"
           />
         </RNSVGClipPath>
         <RNSVGLinearGradient
@@ -450,26 +423,18 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
   style={
     Array [
       Object {
-        "alignItems": "center",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftWidth": 1,
-        "borderRightWidth": 1,
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "justifyContent": "center",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
         "marginBottom": 8,
         "paddingBottom": 16,
+        "paddingLeft": 20,
+        "paddingRight": 20,
         "paddingTop": 16,
       },
       Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderTopColor": "rgba(229, 229, 229, 1)",
       },
     ]
   }
@@ -477,10 +442,10 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight={156}
+    bbHeight={88}
     bbWidth="100%"
     focusable={false}
-    height={156}
+    height={88}
     interval={0.25}
     meetOrSlice={1}
     minX={0}
@@ -494,13 +459,13 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
         Object {},
         Object {
           "flex": 0,
-          "height": 156,
+          "height": 88,
           "width": "100%",
         },
       ]
     }
-    vbHeight={156}
-    vbWidth={343}
+    vbHeight={88}
+    vbWidth={335}
     width="100%"
   >
     <RNSVGGroup>
@@ -527,83 +492,49 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
           name="dex-animated-diff"
         >
           <RNSVGCircle
-            cx="30"
-            cy="19"
-            r="12"
+            cx="35"
+            cy="25"
+            r="20"
           />
           <RNSVGRect
             height="24"
             rx="4"
             ry="4"
-            width="110"
+            width="112"
             x="60"
-            y="7"
+            y="12"
           />
           <RNSVGRect
-            height="28"
+            height="30"
             rx="4"
             ry="4"
-            width="100"
-            x="228"
-            y="5"
+            width="64"
+            x="256"
+            y="7"
           />
           <RNSVGRect
             height="12"
             rx="4"
             ry="4"
-            width="45"
-            x="16"
-            y="48"
-          />
-          <RNSVGCircle
-            cx="25"
-            cy="75"
-            r="8"
+            width="200"
+            x="10"
+            y="55"
           />
           <RNSVGRect
-            height="14"
+            height="12"
             rx="4"
             ry="4"
-            width="150"
-            x="38"
-            y="68"
-          />
-          <RNSVGCircle
-            cx="25"
-            cy="95"
-            r="8"
+            width="200"
+            x="10"
+            y="70"
           />
           <RNSVGRect
-            height="14"
+            height="30"
             rx="4"
             ry="4"
-            width="150"
-            x="38"
-            y="88"
-          />
-          <RNSVGRect
-            height="32"
-            rx="4"
-            ry="4"
-            width="68"
-            x="16"
-            y="118"
-          />
-          <RNSVGRect
-            height="32"
-            rx="4"
-            ry="4"
-            width="84"
-            x="93"
-            y="118"
-          />
-          <RNSVGRect
-            height="32"
-            rx="4"
-            ry="4"
-            width="81"
-            x="245"
-            y="118"
+            width="72"
+            x="248"
+            y="55"
           />
         </RNSVGClipPath>
         <RNSVGLinearGradient

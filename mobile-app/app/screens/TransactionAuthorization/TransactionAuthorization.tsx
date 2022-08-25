@@ -165,6 +165,9 @@ export function TransactionAuthorization (): JSX.Element | null {
     setMessage(DEFAULT_MESSAGES.message)
     setTitle(undefined)
     setLoadingMessage(DEFAULT_MESSAGES.loadingMessage)
+    setSuccessMessage(undefined)
+    setAdditionalMessage(undefined)
+    setAdditionalMessageUrl(undefined)
     setTransactionStatus(TransactionStatus.IDLE) // very last step, open up for next task
   }
 

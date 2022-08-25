@@ -29,6 +29,7 @@ import { ToastProps } from 'react-native-toast-notifications/lib/typescript/toas
 import { WalletToast } from '@components/WalletToast'
 import { StoreServiceProvider } from '@contexts/StoreServiceProvider'
 import { ServiceProviderPersistence } from '@api/wallet/service_provider'
+import { FavouritePoolpairProvider } from '@contexts/FavouritePoolpairContext'
 
 /**
  * Loads
@@ -85,7 +86,9 @@ export default function App (): JSX.Element | null {
                                   <ConnectionBoundary>
                                     <GestureHandlerRootView style={tailwind('flex-1')}>
                                       <ToastProvider renderType={customToast}>
-                                        <Main />
+                                        <FavouritePoolpairProvider>
+                                          <Main />
+                                        </FavouritePoolpairProvider>
                                       </ToastProvider>
                                     </GestureHandlerRootView>
                                   </ConnectionBoundary>

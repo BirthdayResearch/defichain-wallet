@@ -25,7 +25,8 @@
     "About Recovery Words": "About Recovery Words"
   },
   "screens/DexScreen": {
-    "Decentralized Exchange": "ＤＥＸ",
+    "Decentralized Exchange": "DEX",
+    "Decentralized \nExchange": "DEX",
     "ADD LIQUIDITY": "增加流動資金",
     "Add liquidity": "增加流動資金",
     "Add Liquidity": "增加流動資金",
@@ -64,7 +65,14 @@
     "Prices": "價格",
     "Available pool pairs": "可選流動池",
     "Your shared {{symbol}}": "您的股份 {{symbol}}",
-    "Confirm": "Confirm"
+    "Confirm": "Confirm",
+    "Available pairs": "Available pairs",
+    "Favorites": "Favorites",
+    "No favorites added": "No favorites added",
+    "Tap the star icon to add your favorite pools here": "Tap the star icon to add your favorite pools here",
+    "Total value locked": "總體價值鎖定",
+    "Search results for “{{input}}”": "Search results for “{{input}}”",
+    "Search for pool pair with token name": "Search for pool pair with token name"
   },
   "screens/PortfolioScreen": {
     "Balances": "我的資產",
@@ -880,7 +888,8 @@
     "Transaction fee": "Transaction fee",
     "Resulting pool share": "Resulting pool share",
     "LP tokens to remove": "L要刪除的 LP 代幣",
-    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool",
+    "Pool share": "流感池份額"
   },
   "screens/RemoveLiquidity": {
     "Removing Liquidity": "退出流動資金",
@@ -1651,7 +1660,8 @@
   "components/HeaderSearchInput": {
     "Search for loans": "搜尋貸款",
     "Search for loan token": "搜尋貸款代幣",
-    "Search for pool pairs": "搜索流動池配對"
+    "Search for pool pairs": "搜索流動池配對",
+    "Search pool pair": "Search pool pair"
   },
   "components/EmptyCollateral": {
     "No collateral": "沒有抵押",
@@ -1791,5 +1801,18 @@
     "Swap": "兌換",
     "Transactions": "交易紀錄",
     "Future swap": "Future swap"
+  },
+  "screens/PoolPairDetailsScreen": {
+    "{{poolPair}} Pool": "Pool {{poolPair}}",
+    "Pool added as favorite": "Pool added as favorite",
+    "Pool removed from favorites": "Pool removed from favorites",
+    "Volume (24H)": "Volume (24H)",
+    "Total liquidity": "總資金值",
+    "Pooled {{symbol}}": "池中總 {{symbol}} 數量",
+    "Your LP tokens": "您的 LP 代幣",
+    "Tokens in {{symbol}}": "{{symbol}}中的代幣",
+    "APR": "年回報率",
+    "{{percentage}}% in rewards": "{{percentage}}% in rewards",
+    "{{percentage}}% in commissions": "{{percentage}}% in commissions"
   }
 }

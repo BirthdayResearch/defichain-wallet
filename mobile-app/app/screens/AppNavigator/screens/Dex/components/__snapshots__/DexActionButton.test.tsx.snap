@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Dex Action Button should match snapshot 1`] = `
+exports[`Dex Action Buttons <DexActionButton /> - should match snapshot 1`] = `
 <View
   accessible={true}
   collapsable={false}
@@ -54,5 +54,83 @@ exports[`Dex Action Button should match snapshot 1`] = `
   >
     Swap
   </Text>
+</View>
+`;
+
+exports[`Dex Action Buttons <DexAddRemoveLiquidityButton /> - should match snapshot 1`] = `
+<View
+  style={
+    Array [
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderBottomLeftRadius": 20,
+          "borderBottomRightRadius": 20,
+          "borderTopLeftRadius": 20,
+          "borderTopRightRadius": 20,
+          "display": "flex",
+          "flexDirection": "row",
+          "paddingBottom": 8,
+          "paddingLeft": 12,
+          "paddingRight": 12,
+          "paddingTop": 8,
+        },
+        undefined,
+      ],
+      Object {
+        "backgroundColor": "rgba(242, 242, 242, 1)",
+      },
+    ]
+  }
+>
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "borderBottomColor": "rgba(204, 204, 204, 1)",
+        "borderLeftColor": "rgba(204, 204, 204, 1)",
+        "borderRightColor": "rgba(204, 204, 204, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(204, 204, 204, 1)",
+        "opacity": 1,
+        "paddingRight": 8,
+      }
+    }
+  >
+    <Text />
+  </View>
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "borderBottomColor": "rgba(204, 204, 204, 1)",
+        "borderLeftColor": "rgba(204, 204, 204, 1)",
+        "borderRightColor": "rgba(204, 204, 204, 1)",
+        "borderTopColor": "rgba(204, 204, 204, 1)",
+        "opacity": 1,
+        "paddingLeft": 8,
+      }
+    }
+  >
+    <Text />
+  </View>
 </View>
 `;
