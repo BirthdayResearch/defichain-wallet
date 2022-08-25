@@ -18,7 +18,7 @@ export function useShowAdvertisement (): { showAd: boolean, counter: number, adU
   useEffect(() => {
     setIntervalID(setInterval(() => {
       setCounter((c) => {
-        if (c - 1 === 0 || c < 0) {
+        if (c - 1 === 0) {
           setShowAd(false)
         }
 
