@@ -38,7 +38,7 @@ export const PriceRatesSection = memo(({
     <View style={tailwind('flex flex-col')}>
       <View style={tailwind('flex flex-row items-center')}>
         <ThemedTextV2
-          style={tailwind('text-sm font-normal-v2')}
+          style={tailwind('text-xs font-normal-v2')}
           dark={tailwind('text-mono-dark-v2-700')}
           light={tailwind('text-mono-light-v2-700')}
         >
@@ -52,7 +52,7 @@ export const PriceRatesSection = memo(({
       </View>
       <View style={tailwind('flex flex-row items-center')}>
         <ThemedTextV2
-          style={tailwind('text-sm font-normal-v2')}
+          style={tailwind('text-xs font-normal-v2')}
           dark={tailwind('text-mono-dark-v2-700')}
           light={tailwind('text-mono-light-v2-700')}
         >
@@ -75,7 +75,7 @@ const PriceRateValue = (props: { value: string, suffix: string, testID: string }
         displayType='text'
         renderText={(textValue) => (
           <ThemedTextV2
-            style={[tailwind('text-sm ml-1 font-normal-v2'), { maxWidth: 80 }]}
+            style={[tailwind('text-xs ml-1 font-normal-v2'), { maxWidth: 85 }]}
             testID={props.testID}
             ellipsizeMode='tail'
             numberOfLines={1}
@@ -87,7 +87,7 @@ const PriceRateValue = (props: { value: string, suffix: string, testID: string }
         value={props.value}
       />
       <ThemedTextV2
-        style={tailwind('text-sm font-normal-v2 ml-0.5')}
+        style={tailwind('text-xs font-normal-v2 ml-0.5')}
       >
         {props.suffix}
       </ThemedTextV2>
