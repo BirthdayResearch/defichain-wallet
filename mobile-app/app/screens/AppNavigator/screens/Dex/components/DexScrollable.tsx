@@ -1,4 +1,4 @@
-import { ThemedText, ThemedTextV2, ThemedViewV2 } from '@components/themed'
+import { ThemedText, ThemedTextV2, ThemedTouchableOpacityV2, ThemedViewV2 } from '@components/themed'
 import { ScrollView, ViewStyle, StyleProp } from 'react-native'
 import { PropsWithChildren } from 'react'
 import { tailwind } from '@tailwind'
@@ -50,6 +50,7 @@ interface DexScrollableCardProps {
   poolpair: PoolPairData
   style?: StyleProp<ViewStyle>
   label: string
+  onActionPress: () => void
   onPress: () => void
   testID: string
 }
@@ -58,12 +59,14 @@ function DexScrollableCard ({
   poolpair,
   style,
   onPress,
+  onActionPress,
   label,
   testID
 }: DexScrollableCardProps): JSX.Element {
   const [symbolA, symbolB] = [poolpair.tokenA.displaySymbol, poolpair.tokenB.displaySymbol]
   return (
-    <ThemedViewV2
+    <ThemedTouchableOpacityV2
+      onPress={onPress}
       style={[tailwind('px-5 py-4 rounded-lg-v2'), style]}
       dark={tailwind('bg-mono-dark-v2-00')}
       light={tailwind('bg-mono-light-v2-00')}
@@ -96,13 +99,13 @@ function DexScrollableCard ({
       </View>
       <View style={tailwind('flex flex-row items-end justify-between mt-4')}>
         <DexActionButton
-          onPress={onPress}
+          onPress={onActionPress}
           label={label}
           style={tailwind('flex w-full w-36')}
           testID={`dex_scrollable_card_${testID}`}
         />
       </View>
-    </ThemedViewV2>
+    </ThemedTouchableOpacityV2>
   )
 }
 
