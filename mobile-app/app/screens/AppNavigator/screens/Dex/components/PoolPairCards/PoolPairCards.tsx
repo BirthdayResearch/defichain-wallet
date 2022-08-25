@@ -28,6 +28,7 @@ import { APRSection } from '@screens/AppNavigator/screens/Dex/components/PoolPai
 import { PoolSharesSection } from '@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolSharesSection'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
 import { useFavouritePoolpairContext } from '../../../../../../contexts/FavouritePoolpairContext'
+import { useToast } from 'react-native-toast-notifications'
 interface DexItem<T> {
   type: 'your' | 'available'
   data: T
@@ -164,8 +165,8 @@ export function PoolPairCards ({
             ? (
               <>
                 <TotalValueLocked tvl={tvl ?? 0} />
-                <TopLiquiditySection onPress={onSwap} pairs={topLiquidityPairs} />
-                <NewPoolsSection onPress={onAdd} pairs={newPoolsPairs} />
+                {topLiquidityPairs?.length > 0 && <TopLiquiditySection onPress={onPress} onActionPress={onSwap} pairs={topLiquidityPairs} />}
+                {newPoolsPairs?.length > 0 && <NewPoolsSection onPress={onPress} onActionPress={onAdd} pairs={newPoolsPairs} />}
                 <View>
                   <ThemedTextV2
                     dark={tailwind('text-mono-dark-v2-500')}
@@ -210,6 +211,7 @@ const PoolCard = ({
   const blockCount = useSelector((state: RootState) => state.block.count)
   const { data: yourPair } = item
   const isFavoritePair = isFavouritePoolpair(yourPair.id)
+
   const [priceRates, setPriceRates] = useState({
     aToBPrice: new BigNumber(''),
     bToAPrice: new BigNumber(''),
@@ -275,12 +277,11 @@ const PoolCard = ({
     onRemove={() => onRemove(mappedPair, yourPair as WalletToken)}
     walletTokenAmount={new BigNumber((yourPair as WalletToken).amount)}
     walletTokenPrice={getTokenPrice(
-        yourPair.symbol,
-        new BigNumber((yourPair as WalletToken).amount),
-        true
-        )}
-  />
-        )}
+      yourPair.symbol,
+      new BigNumber((yourPair as WalletToken).amount),
+      true
+      )}
+  />)}
     </ThemedTouchableOpacityV2>
   )
 }
@@ -296,7 +297,20 @@ interface AvailablePoolProps {
   setFavouritePoolpair: (id: string) => void
 }
 
+export type ActionType = 'SET_FAVOURITE' | 'UNSET_FAVOURITE'
+
 function AvailablePool (props: AvailablePoolProps): JSX.Element {
+  const toast = useToast()
+  const TOAST_DURATION = 2000
+  const showToast = (type: ActionType): void => {
+    toast.hideAll()
+    const toastMessage = type === 'SET_FAVOURITE' ? 'Pool added as favorite' : 'Pool removed from favorites'
+    toast.show(translate('screens/PoolPairDetailsScreen', toastMessage), {
+      type: 'wallet_toast',
+      placement: 'top',
+      duration: TOAST_DURATION
+    })
+  }
   return (
     <>
       <View style={tailwind('flex flex-row justify-between items-center w-full')}>
@@ -315,7 +329,10 @@ function AvailablePool (props: AvailablePoolProps): JSX.Element {
           <FavoriteButton
             pairId={props.pair.id}
             isFavouritePair={props.isFavouritePair}
-            onPress={() => props.setFavouritePoolpair(props.pair.id)}
+            onPress={() => {
+              showToast(props.isFavouritePair ? 'UNSET_FAVOURITE' : 'SET_FAVOURITE')
+              props.setFavouritePoolpair(props.pair.id)
+            }}
           />
         </View>
         <DexActionButton
@@ -463,7 +480,11 @@ function sortPoolpairsByFavourite (
   })
 }
 
-function TopLiquiditySection ({ pairs, onPress }: {pairs: Array<DexItem<PoolPairData>>, onPress: (data: PoolPairData) => void}): JSX.Element {
+function TopLiquiditySection ({ pairs, onPress, onActionPress }: {
+  pairs: Array<DexItem<PoolPairData>>
+  onPress: (id: string) => void
+  onActionPress: (data: PoolPairData) => void
+}): JSX.Element {
   return (
     <DexScrollable
       testID='dex_top_liquidity'
@@ -475,7 +496,8 @@ function TopLiquiditySection ({ pairs, onPress }: {pairs: Array<DexItem<PoolPair
           key={`${pairItem.data.id}_${index}`}
           poolpair={pairItem.data}
           style={tailwind('mr-2')}
-          onPress={() => onPress(pairItem.data)}
+          onActionPress={() => onActionPress(pairItem.data)}
+          onPress={() => onPress(pairItem.data.id)}
           label={translate('screens/DexScreen', 'Swap')}
           testID={`composite_swap_${pairItem.data.id}`}
         />
@@ -484,7 +506,11 @@ function TopLiquiditySection ({ pairs, onPress }: {pairs: Array<DexItem<PoolPair
   )
 }
 
-function NewPoolsSection ({ pairs, onPress }: {pairs: Array<DexItem<PoolPairData | WalletToken>>, onPress: (data: PoolPairData, info: WalletToken) => void}): JSX.Element {
+function NewPoolsSection ({ pairs, onPress, onActionPress }: {
+    pairs: Array<DexItem<PoolPairData | WalletToken>>
+    onPress: (id: string) => void
+    onActionPress: (data: PoolPairData, info: WalletToken) => void
+  }): JSX.Element {
   return (
     <DexScrollable
       testID='dex_new_pools'
@@ -496,7 +522,8 @@ function NewPoolsSection ({ pairs, onPress }: {pairs: Array<DexItem<PoolPairData
           key={`${pairItem.data.id}_${index}`}
           poolpair={pairItem.data as PoolPairData}
           style={tailwind('mr-2')}
-          onPress={() => onPress(pairItem.data as PoolPairData, pairItem.data as WalletToken)}
+          onActionPress={() => onActionPress(pairItem.data as PoolPairData, pairItem.data as WalletToken)}
+          onPress={() => onPress(pairItem.data.id)}
           label={translate('screens/DexScreen', 'Add to LP')}
           testID={`add_liquidity_${pairItem.data.id}`}
         />

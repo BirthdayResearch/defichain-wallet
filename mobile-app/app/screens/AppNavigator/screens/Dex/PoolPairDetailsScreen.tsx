@@ -31,6 +31,7 @@ import { useYourPoolPairAmountBreakdown } from './hook/YourPoolPairAmountBreakdo
 import { useToast } from 'react-native-toast-notifications'
 import { useFavouritePoolpairContext } from '../../../../contexts/FavouritePoolpairContext'
 import { openURL } from '@api/linking'
+import { ActionType } from './components/PoolPairCards/PoolPairCards'
 
 type Props = StackScreenProps<DexParamList, 'PoolPairDetailsScreen'>
 
@@ -133,8 +134,6 @@ export function PoolPairDetailsScreen ({ route }: Props): JSX.Element {
     </ThemedScrollViewV2>
   )
 }
-
-type ActionType = 'SET_FAVOURITE' | 'UNSET_FAVOURITE'
 
 function Header (props: {
   symbolA: string

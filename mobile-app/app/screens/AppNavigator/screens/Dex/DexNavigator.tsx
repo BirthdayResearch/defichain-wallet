@@ -143,7 +143,7 @@ export function DexNavigator (): JSX.Element {
                 { fontSize: 28 }
               ]}
             >
-              {translate('screens/DexScreen', 'Decentralized Exchange')}
+              {translate('screens/DexScreen', 'Decentralized \nExchange')}
             </ThemedTextV2>
           ),
           headerRight: () => (
@@ -253,7 +253,10 @@ export function DexNavigator (): JSX.Element {
         component={PoolPairDetailsScreen}
         name='PoolPairDetailsScreen'
         options={{
-          ...screenOptions
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          )
         }}
       />
     </DexStack.Navigator>
