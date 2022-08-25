@@ -234,7 +234,7 @@ export function DexScreen (): JSX.Element {
   }
 
   // Top Liquidity pairs
-  const [topLiquidityPairs, setTopLiquidityPairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
+  const [topLiquidityPairs, setTopLiquidityPairs] = useState<Array<DexItem<PoolPairData>>>([])
   useEffect(() => {
     const sorted = pairs
       .map(item => item)
@@ -247,7 +247,7 @@ export function DexScreen (): JSX.Element {
   }, [pairs])
 
   // New pool pairs
-  const [newPoolsPairs, setNewPoolsPairs] = useState<Array<DexItem<PoolPairData>>>(pairs)
+  const [newPoolsPairs, setNewPoolsPairs] = useState<Array<DexItem<PoolPairData>>>([])
   useEffect(() => {
     const sorted = pairs
       .map(item => item)
