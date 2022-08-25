@@ -46,7 +46,7 @@ context('Wallet - Settings - Service Provider', () => {
             cy.createEmptyWallet(true).wait(2000)
           }
           cy.getByTestID('bottom_tab_portfolio').click()
-          cy.getByTestID('header_settings').click().wait(50)
+          cy.getByTestID('header_settings').click().wait(100)
           cy.getByTestID('header_network_name').contains(defichainUrlEnv)
           cy.getByTestID('setting_navigate_service_provider').contains('Default')
           cy.url().should('include', 'app/Settings', () => {
