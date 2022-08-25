@@ -866,7 +866,8 @@
     "{{token}} to supply": "{{token}} zur Verfügung stellen",
     "Resulting LP tokens": "Resultierende LP-Token",
     "Confirm": "Bestätigen",
-    "Pool share": "Pool-Anteil"
+    "Pool share": "Pool-Anteil",
+    "LP Tokens to receive": "Zu erhaltende LP-Token"
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "Du entfernst",
