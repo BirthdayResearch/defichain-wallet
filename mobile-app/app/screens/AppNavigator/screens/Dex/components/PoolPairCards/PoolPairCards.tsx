@@ -297,7 +297,7 @@ interface AvailablePoolProps {
   setFavouritePoolpair: (id: string) => void
 }
 
-type ActionType = 'SET_FAVOURITE' | 'UNSET_FAVOURITE'
+export type ActionType = 'SET_FAVOURITE' | 'UNSET_FAVOURITE'
 
 function AvailablePool (props: AvailablePoolProps): JSX.Element {
   const toast = useToast()
