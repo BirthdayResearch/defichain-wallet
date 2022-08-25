@@ -203,12 +203,13 @@ export function PortfolioNavigator (): JSX.Element {
         component={ReceiveScreen}
         name='Receive'
         options={{
-          ...screenOptions,
-          headerRight: () => (
-            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          headerTitle: () => (
+            <HeaderTitle
+              text={translate('screens/ReceiveScreen', 'Receive')}
+              containerTestID={headerContainerTestId}
+            />
           ),
-          headerBackTitleVisible: false,
-          headerTitle: translate('screens/ReceiveScreen', 'Receive')
+          headerBackTitleVisible: false
         }}
       />
 
