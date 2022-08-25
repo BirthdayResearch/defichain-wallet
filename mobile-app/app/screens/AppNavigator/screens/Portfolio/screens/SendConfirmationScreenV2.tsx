@@ -27,6 +27,7 @@ import { SummaryTitleV2 } from '@components/SummaryTitleV2'
 import { NumberRowV2 } from '@components/NumberRowV2'
 import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
 import { PortfolioParamList } from '../PortfolioNavigator'
+import { WalletAlert } from '@components/WalletAlert'
 
 type Props = StackScreenProps<PortfolioParamList, 'SendConfirmationScreenV2'>
 
@@ -79,12 +80,22 @@ export function SendConfirmationScreenV2 ({ route }: Props): JSX.Element {
 
   function onCancel (): void {
     if (!isSubmitting) {
-      navigation.navigate({
-        name: 'Send',
-        params: {
-          token
-        },
-        merge: true
+      WalletAlert({
+        title: translate('screens/Settings', 'Cancel transaction'),
+        message: translate('screens/Settings', 'By cancelling, you will lose any changes you made for your transaction.'),
+        buttons: [
+          {
+            text: translate('screens/Settings', 'Go back'),
+            style: 'cancel'
+          },
+          {
+            text: translate('screens/Settings', 'Cancel'),
+            style: 'destructive',
+            onPress: async () => {
+              navigation.navigate('PortfolioScreen')
+            }
+          }
+        ]
       })
     }
   }
