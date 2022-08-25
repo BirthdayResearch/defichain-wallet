@@ -21,6 +21,7 @@ export enum InfoType {
   ExecutionBlock,
   FiatFee,
   BtcFee,
+  DexFee
 }
 
 export function InfoRow (props: InfoRowProps): JSX.Element {
@@ -44,6 +45,10 @@ export function InfoRow (props: InfoRowProps): JSX.Element {
     [InfoType.BtcFee, {
       title: 'BTC Fee',
       message: 'btcfee.text'
+    }],
+    [InfoType.DexFee, {
+      title: 'Dex Fee',
+      message: 'When selling dUSD, dToken and composite Assets (dUSD based) the current DEX stabilization fee applies'
     }]
   ])
 

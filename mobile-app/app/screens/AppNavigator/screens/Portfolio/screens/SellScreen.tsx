@@ -47,6 +47,7 @@ import { DFXPersistence } from '@api/persistence/dfx_storage'
 import { getUserDetail } from '@shared-api/dfx/ApiService'
 import { DfxConversionInfo } from '@components/DfxConversionInfo'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { DfxDexFeeInfo } from '@components/DfxDexFeeInfo'
 
 type Props = StackScreenProps<PortfolioParamList, 'SellScreen'>
 
@@ -77,6 +78,7 @@ export function SellScreen ({
   const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
   const dispatch = useAppDispatch()
   const [fee, setFee] = useState<number>(2.9)
+  const [dexFee, setDexFee] = useState<string>('0')
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const {
@@ -318,6 +320,17 @@ export function SellScreen ({
           )
           : (
             <>
+              {token.symbol !== 'DFI' && (
+                <ThemedView style={tailwind('px-4 mb-4')}>
+                  <DfxDexFeeInfo
+                    token={token}
+                    getDexFee={(df) => setTimeout(() => {
+                      setDexFee(df)
+                    }, 50)}
+                  />
+                </ThemedView>
+              )}
+
               {!(fiatAccounts.length > 0)
               ? <ActionButton
                   name='add'
@@ -381,6 +394,14 @@ export function SellScreen ({
                     testID='fiat_fee'
                     suffix='%'
                   />
+                  {dexFee !== '0' && (
+                    <InfoRow
+                      type={InfoType.DexFee}
+                      value={dexFee}
+                      testID='fiat_fee'
+                      suffix='%'
+                    />
+                  )}
                 </>)}
             </>
           )}
@@ -443,11 +464,7 @@ function TokenInput (props: { token?: WalletToken, onPress: () => void, isDisabl
           'bg-gray-200 border-0': props.isDisabled,
           'border-gray-300 bg-white': !props.isDisabled
         })}
-        style={tailwind('border rounded w-full flex flex-row justify-between h-12 items-center px-2', {
-          'mb-10': props.token?.isLPS === false,
-          'mb-2': props.token?.isLPS === true,
-          'mb-6': props.token === undefined
-        })}
+        style={tailwind('border rounded w-full flex flex-row justify-between h-12 items-center px-2 mb-6')}
         testID='select_token_input'
         disabled={props.isDisabled}
       >

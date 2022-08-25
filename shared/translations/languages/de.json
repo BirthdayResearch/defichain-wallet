@@ -1585,5 +1585,8 @@
     "Deposit Bitcoin": "Bitcoin einzahlen",
     "Dobby": "Dobby",
     "Sell": "Verkaufen"
+  },
+  "components/DfxDexFeeInfo": {
+    "Please note that all sales of dTokens (e.g.dUSD, dCOIN, dTSLA, dSPY..) are subject to a DEX stabilization fee. The crypto tokens such as DFI, dBTC, dETH and stablecoins such as dUSDT / dUSDC are not affected. Further information": "Bitte beachte, dass das bei allen Verkäufen von dToken (z.B. dUSD, dCOIN, dTSLA, dSPY..) eine DEX Stabilisationsgebühr anfällt. Die Cryptotoken wie z.B. DFI, dBTC, dETH und Stablecoins wie dUSDT/dUSDC sind davon nicht betroffen. Weitere Informationen"
   }
 }
