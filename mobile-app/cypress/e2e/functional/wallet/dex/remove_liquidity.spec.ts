@@ -49,7 +49,7 @@ function validatePriceSelectionAndSummaryBasedOnPercentage (): void {
   })
 
   cy.getByTestID('50%_amount_button').click().wait(200)
-  cy.getByTestID('tokens_remove_amount_input').should('have.value', '5.00000000%')
+  cy.getByTestID('tokens_remove_amount_input').should('have.value', '5.00000000')
   cy.getByTestID('pricerate_value_0').invoke('text').then(value => {
     checkValueWithinRange(value, '50.00000000')
   })
@@ -233,7 +233,7 @@ context('Wallet - DEX - Remove Liquidity Confirm Txn', () => {
     cy.getByTestID('transaction_fee_title_label').should('exist')
     cy.getByTestID('transaction_fee_title_amount').should('exist')
     cy.getByTestID('resulting_pool_share_title_label').should('exist')
-    cy.getByTestID('resulting_pool_share_amount').should('have.text', oldAmount)
+    cy.getByTestID('resulting_pool_share_amount').should('have.text', `${oldAmount}%`)
 
     // Prices section info
     cy.getByTestID('confirm_pricerate_value_0_label').contains(`${tokenA} to receive`)
