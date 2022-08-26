@@ -13,7 +13,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 export function TotalValueLocked (props: {tvl: number}): JSX.Element {
   const { isLight } = useThemeContext()
   return (
-    <View style={tailwind('px-5 mt-2')}>
+    <View style={tailwind('px-5 mt-2 mb-6')}>
       <LinearGradient
         colors={isLight ? ['#F25FC3', '#8B69EC'] : ['#AA1A7D', '#300FA9']}
         start={[0, 0]}

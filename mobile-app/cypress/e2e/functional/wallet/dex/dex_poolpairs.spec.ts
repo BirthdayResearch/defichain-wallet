@@ -248,7 +248,7 @@ context('Wallet - DEX - Your Pool Pairs', () => {
   })
 
   it('should not display favourite button', () => {
-    cy.getByTestID('favorite_dETH-DFI').should('not.exist')
+    cy.getByTestID('favorite_pair_18').should('not.exist')
   })
 
   it('should display your pool pair values correctly', () => {

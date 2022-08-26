@@ -495,7 +495,7 @@ function TopLiquiditySection ({ pairs, onPress, onActionPress }: {
     <DexScrollable
       testID='dex_top_liquidity'
       sectionHeading='TOP LIQUIDITY'
-      sectionStyle={tailwind('my-6')}
+      sectionStyle={tailwind('mb-6')}
     >
       {pairs.map((pairItem, index) => (
         <DexScrollable.Card
