@@ -869,7 +869,8 @@
     "{{token}} to supply": "{{token}} to supply",
     "Resulting LP tokens": "加入后产生的 LP 代币",
     "Confirm": "确认",
-    "Pool share": "流感池份额"
+    "Pool share": "流感池份额",
+    "LP Tokens to receive": "LP 代币接收"
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "您正要退出",

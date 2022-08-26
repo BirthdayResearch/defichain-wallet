@@ -884,7 +884,8 @@
     "{{token}} to supply": "{{token}} to supply",
     "Resulting LP tokens": "Resulting LP tokens",
     "Confirm": "Confirm",
-    "Pool share": "Pool share"
+    "Pool share": "Pool share",
+    "LP Tokens to receive": "LP Tokens to receive"
   },
   "screens/ConfirmRemoveLiquidity": {
     "You are removing": "Stai rimuovendo",
