@@ -1762,7 +1762,7 @@
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from {{sourceSymbol}}-{{destinationSymbol}} swap": "Retrait de {{amountToWithdraw}} {{sourceSymbol}} de l'échange {{sourceSymbol}}-{{destinationSymbol}}"
   },
   "screens/FutureSwapScreen": {
-    "Future Swaps": "Future Swaps",
+    "Future Swaps": "Échanges à terme",
     "{{percentage_change}} on oracle price": "{{percentage_change}} sur le prix oracle",
     "Settlement block": "Bloc d’exécution",
     "The amount will be refunded automatically if the transaction does not go through.": "Le montant sera remboursé automatiquement si la transaction n’aboutit pas.",
