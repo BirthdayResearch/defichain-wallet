@@ -12,7 +12,7 @@ interface ISummaryTitleProps {
   title: string
   amount: BigNumber
   testID: string
-  fromAddress: string
+  fromAddress?: string
   fromAddressLabel?: string | null
   toAddress?: string
   toAddressLabel?: string | null
@@ -67,34 +67,39 @@ export function SummaryTitleV2 (props: ISummaryTitleProps): JSX.Element {
 
         </View>
 
-        <View style={tailwind('flex-row items-center mt-5')}>
-          <ThemedTextV2
-            style={tailwind('text-xs font-normal-v2')}
-            dark={tailwind('text-mono-dark-v2-500')} light={tailwind('text-mono-light-v2-500')}
-          >
-            {translate('screens/common', 'From')}
-          </ThemedTextV2>
-          <ThemedViewV2
-            dark={tailwind('bg-mono-dark-v2-200')} light={tailwind('bg-mono-light-v2-200')}
-            style={tailwind('rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2')}
-          >
-            <RandomAvatar name={props.fromAddress} size={20} />
+        {props.fromAddress !== undefined && (
+          <View style={tailwind('flex-row items-center mt-5')}>
             <ThemedTextV2
-              ellipsizeMode='middle'
-              numberOfLines={1}
-              style={[tailwind('text-sm font-normal-v2 ml-1'), {
-                minWidth: 10,
-                maxWidth: 108
-              }]}
-              testID='wallet_address'
+              style={tailwind('text-xs font-normal-v2')}
+              dark={tailwind('text-mono-dark-v2-500')} light={tailwind('text-mono-light-v2-500')}
             >
-              {props.fromAddressLabel ?? props.fromAddress}
+              {translate('screens/common', 'From')}
             </ThemedTextV2>
-          </ThemedViewV2>
-        </View>
+            <ThemedViewV2
+              dark={tailwind('bg-mono-dark-v2-200')} light={tailwind('bg-mono-light-v2-200')}
+              style={tailwind('rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2')}
+            >
+              <RandomAvatar name={props.fromAddress} size={20} />
+              <ThemedTextV2
+                ellipsizeMode='middle'
+                numberOfLines={1}
+                style={[tailwind('text-sm font-normal-v2 ml-1'), {
+                  minWidth: 10,
+                  maxWidth: 108
+                }]}
+                testID='wallet_address'
+              >
+                {props.fromAddressLabel ?? props.fromAddress}
+              </ThemedTextV2>
+            </ThemedViewV2>
+          </View>
+        )}
 
         {props.toAddress !== undefined && props.addressType !== undefined && (
-          <View style={tailwind('flex-row items-center mt-4')} testID='summary_to_view'>
+          <View
+            style={tailwind('flex-row items-center mt-4', { 'mt-5': props.fromAddress === undefined })}
+            testID='summary_to_view'
+          >
             <ThemedTextV2
               style={tailwind('text-xs font-normal-v2')}
               dark={tailwind('text-mono-dark-v2-500')} light={tailwind('text-mono-light-v2-500')}

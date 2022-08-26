@@ -16,7 +16,6 @@ import { CompositeSwapScreen } from '../Dex/CompositeSwap/CompositeSwapScreen'
 import { ConfirmCompositeSwapScreen } from '../Dex/CompositeSwap/ConfirmCompositeSwapScreen'
 import { LocalAddress } from '@store/userPreferences'
 import { FutureSwapData } from '@store/futureSwap'
-import { ConfirmWithdrawFutureSwapScreen } from './screens/ConfirmWithdrawFutureSwapScreen'
 import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
 import { RemoveLiquidityScreenV2 } from '../Dex/DexRemoveLiquidityV2'
 import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
@@ -56,6 +55,9 @@ import { AddLiquidityScreen } from '../Dex/DexAddLiquidity'
 import { ConfirmAddLiquidityScreen } from '../Dex/DexConfirmAddLiquidity'
 import { FutureSwapScreenV2 } from '@screens/AppNavigator/screens/Portfolio/screens/FutureSwapScreenV2'
 import { WithdrawFutureSwapScreenV2 } from '@screens/AppNavigator/screens/Portfolio/screens/WithdrawFutureSwapScreenV2'
+import {
+  ConfirmWithdrawFutureSwapScreenV2
+} from '@screens/AppNavigator/screens/Portfolio/screens/ConfirmWithdrawFutureSwapScreenV2'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -124,9 +126,11 @@ export interface PortfolioParamList {
       tokenId: string
       displaySymbol: string
       isLoanToken: boolean
+      symbol: string
     }
     destination: {
       tokenId: string
+      displaySymbol: string
     }
     fee: BigNumber
     executionBlock: number
@@ -536,16 +540,14 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={ConfirmWithdrawFutureSwapScreen}
+        component={ConfirmWithdrawFutureSwapScreenV2}
         name='ConfirmWithdrawFutureSwapScreen'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/ConfirmWithdrawFutureSwapScreen', 'Confirm withdrawal')}
-              containerTestID={headerContainerTestId}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false
+          headerTitle: translate('screens/FutureSwapScreen', 'Confirm')
         }}
       />
 

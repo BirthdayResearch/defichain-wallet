@@ -153,10 +153,12 @@ export function WithdrawFutureSwapScreenV2 (props: Props): JSX.Element {
           remainingAmountInUSD: new BigNumber(remainingAmountInUSD),
           displaySymbol: source.displaySymbol,
           tokenId: source.tokenId,
-          isLoanToken: source.isLoanToken
+          isLoanToken: source.isLoanToken,
+          symbol: source.symbol
         },
         destination: {
-          tokenId: destination.tokenId
+          tokenId: destination.tokenId,
+          displaySymbol: destination.displaySymbol
         },
         fee,
         executionBlock
@@ -233,25 +235,25 @@ export function WithdrawFutureSwapScreenV2 (props: Props): JSX.Element {
             </ThemedViewV2>
           </TransactionCard>
           {hasError
-? (
-  <ThemedTextV2
-    style={tailwind('font-normal-v2 text-xs px-5 pt-2 text-red-v2')}
-    light={tailwind('text-red-v2')} dark={tailwind('text-red-v2')}
-    testID='text_inline_error'
-  >
-    {translate('screens/WithdrawFutureSwapScreen', 'Insufficient Balance')}
-  </ThemedTextV2>
-          )
-: (
-  <View style={tailwind('pt-1 px-1')}>
-    <InputHelperTextV2
-      testID='text_inline'
-      label={`${translate('screens/WithdrawFutureSwapScreen', 'Withdraw from')}: `}
-      content={source.amount}
-      suffix={` ${source.displaySymbol}`}
-    />
-  </View>
-          )}
+            ? (
+              <ThemedTextV2
+                style={tailwind('font-normal-v2 text-xs px-5 pt-2 text-red-v2')}
+                light={tailwind('text-red-v2')} dark={tailwind('text-red-v2')}
+                testID='text_inline_error'
+              >
+                {translate('screens/WithdrawFutureSwapScreen', 'Insufficient Balance')}
+              </ThemedTextV2>
+            )
+            : (
+              <View style={tailwind('pt-1 px-1')}>
+                <InputHelperTextV2
+                  testID='text_inline'
+                  label={`${translate('screens/WithdrawFutureSwapScreen', 'Withdraw from')}: `}
+                  content={source.amount}
+                  suffix={` ${source.displaySymbol}`}
+                />
+              </View>
+            )}
         </View>
 
         {amountToWithdraw.length > 0 && (
@@ -263,13 +265,13 @@ export function WithdrawFutureSwapScreenV2 (props: Props): JSX.Element {
             >
               <NumberRowV2
                 lhs={{
-                value: translate('screens/WithdrawFutureSwapScreen', 'Transaction fees'),
-                testID: 'transaction_fee_label',
-                themedProps: {
-                  light: tailwind('text-mono-light-v2-500'),
-                  dark: tailwind('text-mono-dark-v2-500')
-                }
-              }} rhs={{
+                  value: translate('screens/WithdrawFutureSwapScreen', 'Transaction fees'),
+                  testID: 'transaction_fee_label',
+                  themedProps: {
+                    light: tailwind('text-mono-light-v2-500'),
+                    dark: tailwind('text-mono-dark-v2-500')
+                  }
+                }} rhs={{
                 value: fee.toFixed(8),
                 testID: 'text_fee',
                 suffix: ' DFI',
