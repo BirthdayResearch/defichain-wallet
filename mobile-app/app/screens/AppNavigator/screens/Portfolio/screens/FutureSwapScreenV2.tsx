@@ -92,7 +92,7 @@ export function FutureSwapScreenV2 ({ navigation }: Props): JSX.Element {
               </ThemedTextV2>}
           />
           <ThemedTextV2 style={tailwind('font-normal-v2 text-xs')} testID={`${testID}_destination_symbol`}>
-            {translate('screens/FutureSwapScreen', 'to {{destination}}', { destination: item.destination.displaySymbol })}
+            {`${translate('screens/FutureSwapScreen', 'to')} ${item.destination.displaySymbol}`}
           </ThemedTextV2>
           <ThemedTextV2
             style={tailwind('pt-3 font-normal-v2 text-xs')}
@@ -100,7 +100,7 @@ export function FutureSwapScreenV2 ({ navigation }: Props): JSX.Element {
             light={tailwind('text-mono-light-v2-700')}
             testID={`${testID}_oracle_price`}
           >
-            {translate('screens/FutureSwapScreen', 'Settlement value ({{percentage_change}})', { percentage_change: !item.source.isLoanToken ? OraclePriceType.POSITIVE : OraclePriceType.NEGATIVE })}
+            {`${translate('screens/FutureSwapScreen', 'Settlement value')} (${!item.source.isLoanToken ? OraclePriceType.POSITIVE : OraclePriceType.NEGATIVE})`}
           </ThemedTextV2>
         </View>
         <ThemedIcon
@@ -155,7 +155,7 @@ function ExecutionBlockInfo ({
               style={tailwind('text-xs font-semibold-v2')}
               testID='execution_block'
             >
-              {translate('screens/FutureSwapScreen', 'Target block {{block}', { block: value })}
+              {`${translate('screens/FutureSwapScreen', 'Target block')} ${value}`}
             </ThemedTextV2>}
         />
         <View style={tailwind('flex-row items-center')}>

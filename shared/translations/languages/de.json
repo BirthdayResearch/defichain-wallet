@@ -778,7 +778,7 @@
     "Saving changes to loan scheme…": "Änderungen am Darlehensmodell speichern…",
     "Loan scheme saved": "Darlehensmodell gespeichert",
     "Preparing withdrawal…": "Auszahlung vorbereiten…",
-    "Withdrawing tokens…": "Token abheben…",
+    "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Abhebung von {{amountToWithdraw}} {{sourceSymbol}} aus dem Future Swap",
     "Withdrawal completed": "Auszahlung abgeschlossen"
   },
   "components/BarCodeScanner": {
@@ -1706,6 +1706,7 @@
     "Insufficient funds": "Unzureichende Deckung"
   },
   "screens/WithdrawFutureSwapScreen": {
+    "Withdraw": "Abheben",
     "FROM": "VON",
     "TO": "IN",
     "Enter an amount": "Gib einen Betrag ein",
@@ -1714,9 +1715,22 @@
     "CONTINUE": "WEITER",
     "Select token": "Token auswählen",
     "You are withdrawing": "Die Abhebung beträgt",
-    "Withdraw from future swap": "Entnahme aus dem Future Swap"
+    "Withdraw from future swap": "Entnahme aus dem Future Swap",
+    "View swap info": "Swap-Infos anzeigen",
+    "I WANT TO WITHDRAW": "ICH MÖCHTE FOLGENDES ABHEBEN",
+    "Withdraw from": "Abheben von",
+    "Insufficient Balance": "Unzureichendes Guthaben",
+    "Transaction fee": "Transaktionsgebühren",
+    "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
+    "Max available {{unit}} entered": "Max. verfügbare {{unit}} eingegeben",
+    "{{percent}} of available {{unit}} entered": "{{percent}} der verfügbaren {{unit}} eingegeben",
+    "Amount to swap": "Zu tauschender Betrag",
+    "Settlement block": "Ausführungsblock",
+    "To receive (est.)": "Zu erhalten (geschätzt)",
+    "Settlement value": "Abrechnungswert"
   },
   "screens/ConfirmWithdrawFutureSwapScreen": {
+    "Confirm": "Bestätigen",
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
     "Transaction type": "Transaktionsart",
     "Remaining amount": "Verbleibender Betrag",
@@ -1726,14 +1740,23 @@
     "You are withdrawing": "Die Abhebung beträgt",
     "Withdraw": "Abheben",
     "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Gesperrten Betrag {{amountToWithdraw}} {{sourceDisplaySymbol}} vom Future Swap abheben",
-    "Withdraw future swap": "Future-Swap-Auszahlung"
+    "Withdraw future swap": "Future-Swap-Auszahlung",
+    "Transaction fee": "Transaktionsgebühren",
+    "To receive (est.)": "Zu erhalten (geschätzt)",
+    "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from {{sourceSymbol}}-{{destinationSymbol}} swap": "Abhebung von {{amountToWithdraw}} {{sourceSymbol}} aus {{sourceSymbol}}-{{destinationSymbol}}-Swap"
   },
   "screens/FutureSwapScreen": {
+    "Future Swaps": "Future Swaps",
     "{{percentage_change}} on oracle price": " {{percentage_change}} auf Preisorakelwert",
     "Settlement block": "Ausführungsblock",
     "The amount will be refunded automatically if the transaction does not go through.": "Der Betrag wird automatisch zurückerstattet, wenn die Transaktion nicht zustande kommt.",
     "Future Swap": "Future Swap",
-    "Settlement block {{block}} has been executed": "Abrechnungs-Block {{block}} wurde ausgeführt"
+    "Settlement block {{block}} has been executed": "Abrechnungs-Block {{block}} wurde ausgeführt",
+    "Target block": "Ziel-Block",
+    "{{time}} left": "Noch {{time}}",
+    "to": "in",
+    "Settlement value": "Abrechnungswert",
+    "Amount will be refunded automatically if transaction(s) failed": "Der Betrag wird automatisch zurückerstattet, falls die Transaktion(en) fehlgeschlagen sind"
   },
   "screens/ServiceProviderScreen": {
     "Server": "Server",

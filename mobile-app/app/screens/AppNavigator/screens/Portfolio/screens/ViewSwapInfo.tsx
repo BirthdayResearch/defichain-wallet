@@ -96,7 +96,7 @@ export const ViewSwapInfo = ({
           testID: 'to_receive_label'
         }}
         rhs={{
-          value: translate('screens/WithdrawFutureSwapScreen', 'Settlement value {{percentage_change}}', { percentage_change: !source.isLoanToken ? OraclePriceType.POSITIVE : OraclePriceType.NEGATIVE }),
+          value: `${translate('screens/WithdrawFutureSwapScreen', 'Settlement value')} ${!source.isLoanToken ? OraclePriceType.POSITIVE : OraclePriceType.NEGATIVE}`,
           themedProps: {
             light: tailwind('text-mono-light-v2-900'),
             dark: tailwind('text-mono-dark-v2-900')

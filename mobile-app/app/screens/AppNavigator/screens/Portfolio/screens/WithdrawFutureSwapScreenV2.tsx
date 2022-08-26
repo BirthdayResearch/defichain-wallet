@@ -265,7 +265,7 @@ export function WithdrawFutureSwapScreenV2 (props: Props): JSX.Element {
             >
               <NumberRowV2
                 lhs={{
-                  value: translate('screens/WithdrawFutureSwapScreen', 'Transaction fees'),
+                  value: translate('screens/WithdrawFutureSwapScreen', 'Transaction fee'),
                   testID: 'transaction_fee_label',
                   themedProps: {
                     light: tailwind('text-mono-light-v2-500'),

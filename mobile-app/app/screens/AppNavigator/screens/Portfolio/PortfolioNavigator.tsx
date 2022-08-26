@@ -547,7 +547,7 @@ export function PortfolioNavigator (): JSX.Element {
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerTitle: translate('screens/FutureSwapScreen', 'Confirm')
+          headerTitle: translate('screens/ConfirmWithdrawFutureSwapScreen', 'Confirm')
         }}
       />
 
