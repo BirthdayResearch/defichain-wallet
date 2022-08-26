@@ -70,7 +70,7 @@ export function WithdrawFutureSwapScreenV2 (props: Props): JSX.Element {
     ios: ['50%'],
     android: ['50%']
   }
-  const IconSource = getNativeIcon(source.symbol)
+  const IconSource = getNativeIcon(source.displaySymbol)
 
   useEffect(() => {
     client.fee.estimate()
