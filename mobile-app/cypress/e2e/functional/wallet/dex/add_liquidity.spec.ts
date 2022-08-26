@@ -26,7 +26,8 @@ function setupWalletForConversion (): void {
 
   cy.getByTestID('dex_search_icon').click()
   cy.getByTestID('dex_search_input').type('BTC')
-  cy.getByTestID('pool_pair_add_dBTC-DFI').click()
+  cy.getByTestID('pair_symbol_dBTC-DFI').click()
+  // cy.getByTestID('pool_pair_add_dBTC-DFI').click()
   cy.wait(100)
   cy.getByTestID('token_balance_primary').contains('20')
   cy.getByTestID('token_balance_secondary').contains('19.9')
@@ -55,7 +56,7 @@ function percentageAmountButton (percentage: string, tokenAAmount: string, token
   cy.getByTestID('lp_tokens_to_receive_value_rhsUsdAmount').contains(lpTokenUsd)
 }
 
-context('Wallet - DEX - Add Liquidity', () => {
+context.only('Wallet - DEX - Add Liquidity', () => {
   before(function () {
     setupWallet()
   })
