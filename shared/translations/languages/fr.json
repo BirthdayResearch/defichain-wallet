@@ -110,18 +110,20 @@
     "Asset value": "Valeur des actifs"
   },
   "screens/GetDFIScreen": {
-    "Get $DFI": "Obtenir $DFI",
+    "Get DFI": "Obtenir DFI",
     "STEP 1": "ÉTAPE 1",
-    "Trade/Purchase $DFI": "Échanger/acheter $DFI",
-    "Available on:": "Disponible sur",
-    "Show more": "Afficher plus",
-    "To learn more about DFI, ": "Pour en savoir plus sur DFI, ",
-    "read here.": "lire ici.",
+    "Trade/Purchase DFI": "Échanger/acheter DFI",
+    "Marketplace": "Marché",
+    "Learn more about DFI": "En savoir plus sur DFI",
     "STEP 2": "ÉTAPE 2",
-    "Receive $DFI in Light Wallet": "Recevoir des $DFI dans le portefeuille léger",
-    "DFI oracle price": "Prix oracle de DFI",
-    "Show less": "Afficher moins",
-    "Wallet Address": "Adresse du portefeuille"
+    "Receive DFI in DeFiChain Wallet": "Recevoir des DFI dans le portefeuille DeFiChain",
+    "DFI price": "DFI prix",
+    "WALLET ADDRESS": "ADRESSE DU PORTEFEUILLE",
+    "Share": "Partager"
+  },
+  "screens/MarketplaceScreen": {
+    "Marketplace": "Marché",
+    "GET DFI FROM": "OBTENIR DFI DE"
   },
   "components/BottomSheetAddressDetail": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
@@ -142,14 +144,18 @@
     "SAVED ADDRESS(ES)": "ADRESSE(S) SAUVEGARDÉE(S)",
     "Search for address": "Rechercher une adresse",
     "{{length}} ADDRESS(ES)": "{{length}} ADRESSE(S)",
+    "ADDRESS(ES)": "ADRESSE(S)",
     "Search address book": "Recherche dans le carnet d'adresses",
     "Whitelisted": "Liste blanche",
     "Your address(es)": "Votre/vos adresse(s)",
+    "Your address": "Mon adresse",
     "WHITELISTED": "LISTE BLANCHE",
     "YOUR ADDRESS(ES)": "VOTRE/VOS ADRESSE(S)",
     "Search results for": "Résultats de la recherche pour",
     "Search with label or address": "Recherche par nom ou d'adresse",
-    "FAVOURITE ADDRESS(ES)": "Adresse(s) favorite(s)"
+    "Search results for “{{input}}”": "Résultats de la recherche pour “{{input}}”",
+    "FAVOURITE ADDRESS(ES)": "Adresse(s) favorite(s)",
+    "Add your preferred / commonly-used address.": "Ajoutez votre adresse préférée / couramment utilisée."
   },
   "components/CreateOrEditAddressLabelForm": {
     "Edit address label": "Modifier le nom d'adresse",
@@ -169,9 +175,12 @@
     "Address {{index}}": "Adresse {{index}}",
     "Add new address": "Ajouter une nouvelle adresse",
     "Add New Address": "Ajouter une nouvelle adresse",
+    "Add Address": "Ajouter une adresse",
     "Address": "Adresse",
+    "ADDRESS": "ADRESSE",
     "Wallet address": "Adresse du portefeuille",
     "SAVE CHANGES": "SAUVEGARDER LES MODIFICATIONS",
+    "Save changes": "Sauvegarder les modifications",
     "CONTINUE": "SUIVANT",
     "Address label is too long (max 40 characters)": "Le nom d'adresse est trop long (40 caractères max)",
     "Enter address label": "Donner le nom d'adresse",
@@ -180,7 +189,23 @@
     "Edit Address": "Modifier l'adresse",
     "Please enter an address label": "Veuillez entrer un nom d'adresse",
     "Please enter a valid address": "Veuillez donner une adresse valide",
-    "Required field, max. 40 characters": "Champ obligatoire, max. 40 caractères"
+    "Required field, max. 40 characters": "Champ obligatoire, max. 40 caractères",
+    "Address Details": "Détails de l'adresse",
+    "LABEL": "NOM",
+    "Delete address": "Supprimer l'adresse",
+    "Save address": "Enregistrer l'adresse",
+    "Maximum of 40 characters.": "Maximum de 40 caractères",
+    "Required field. Please enter a label. Maximum of 40 characters.": "Champ obligatoire. Veuillez donner un nom. Maximum de 40 caractères.",
+    "Are you sure you want to delete the address?": "Êtes-vous sûr de vouloir supprimer l'adresse ?",
+    "Add address to address book?\n{{address}}": "Ajouter l'adresse au carnet d'adresses ?\n{{address}}",
+    "This will delete the whitelisted address\nfrom your address book.": "Cela supprimera l'adresse de la liste blanche\nde votre carnet d'adresses.",
+    "Update address label for\n{{address}}": "Mettre à jour le nom d'adresse\n{{address}}",
+    "Address saved!": "Adresse enregistrée !",
+    "Address label updated!": "Nom d'adresse mis à jour !",
+    "Address deleted!": "Adresse supprimée !",
+    "It may take a few seconds to delete": "La suppression peut prendre quelques secondes",
+    "It may take a few seconds to update": "La mise à jour peut prendre quelques secondes",
+    "It may take a few seconds to save": "La sauvegarde peut prendre quelques secondes"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
@@ -195,7 +220,10 @@
     "COPIED": "COPIÉ!",
     "COPY": "COPIER",
     "SHARE": "PARTAGER",
-    "WALLET ADDRESS": "ADRESSE DU PORTEFEUILLE"
+    "Copy": "Copier",
+    "Share": "Partager",
+    "WALLET ADDRESS": "ADRESSE DU PORTEFEUILLE",
+    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Utiliser l'adresse QR ou Wallet pour recevoir des tokens (DST) ou des DFI"
   },
   "components/toaster": {
     "Copied": "Copié"
@@ -277,22 +305,25 @@
   },
   "screens/CommunityScreen": {
     "Community": "Communauté",
-    "CONNECT WITH THE COMMUNITY": "ENTRER EN CONTACT AVEC LA COMMUNAUTÉ",
-    "DeFiChain is a community-driven and open project.": "DeFiChain est un projet communautaire et ouvert à tous.",
-    "The DeFiChain Foundation does not provide direct support.": "La Fondation DeFiChain ne fournit pas de soutien direct.",
-    "Report an issue on Github": "Signaler un problème sur Github",
-    "Frequently Asked Questions": "Foire aux questions",
+    "JOIN THE COMMUNITY": "REJOINDRE LA COMMUNAUTÉ",
+    "DeFiChain is a community-driven and open project. The DeFiChain Foundation does not provide direct support.": "DeFiChain est un projet communautaire et ouvert à tous. La Fondation DeFiChain ne fournit pas de soutien direct.",
+    "Report issue on GitHub": "Signaler un problème sur GitHub",
+    "Frequently asked questions": "Foire aux questions",
     "Announcements": "Annonces",
     "Official Website": "Site officiel"
   },
   "screens/Settings": {
     "Recovery Words": "Mots de récupération",
+    "Recovery words": "Mots de récupération",
     "Are you sure you want to unlink your wallet?": "Êtes-vous sûr de vouloir dissocier votre portefeuille ?",
+    "Once unlinked, you will need to enter your recovery words to restore your wallet.": "Une fois le lien dissocié, vous devrez entrer vos mots de récupération pour restaurer votre portefeuille.",
     "You will need to use your recovery words the next time you want to get back to your wallet.": "Vous devrez utiliser vos mots de récupération la prochaine fois que vous voudrez accéder à votre portefeuille.",
     "Cancel": "Annuler",
     "Unlink Wallet": "Dissocier le portefeuille",
+    "Unlink wallet": "Dissocier le portefeuille",
     "UNLINK WALLET": "DISSOCIER LE PORTEFEUILLE",
     "Change Passcode": "Modifier le code d'accès",
+    "Change passcode": "Modifier le code d'accès",
     "About": "A propos de l'appli",
     "NETWORK": "RÉSEAU",
     "To update your passcode, we need you to enter your current passcode.": "Pour mettre à jour votre code d'accès, entrez votre code d'accès actuel.",
@@ -306,8 +337,8 @@
     "Language": "Langue",
     "English": "Anglais",
     "German": "Allemand",
-    "Chinese (Simplified)": "Chinois (simplifié)",
-    "Chinese (Traditional)": "Chinois (traditionnel)",
+    "Simplified Chinese": "Chinois simplifié",
+    "Traditional Chinese": "Chinois traditionnel",
     "French": "Français",
     "Italian": "Italien",
     "Spanish": "Espagnol",
@@ -326,8 +357,16 @@
     "Sign to save address": "Signer pour sauvegarder l'adresse",
     "Sign to delete address": "Signer pour supprimer l'adresse",
     "Address Book": "Carnet d'adresses",
+    "Address book": "Carnet d'adresses",
     "GENERAL": "GÉNÉRAL",
-    "Server": "Serveur"
+    "Server": "Serveur",
+    "This will unlink your wallet from the app.": "Cela dissociera votre portefeuille de l'application.",
+    "DISPLAY & LANGUAGE": "AFFICHAGE ET LANGUES",
+    "Provide your passcode to\nview recovery words.": "Donnez votre code d'accès pour voir les mots de récupération.",
+    "Passcode verified!": "Code d'accès vérifié ! ",
+    "Provider": "Fournisseur",
+    "Custom": "Personnalisé",
+    "Default": "Par défaut"
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",
@@ -349,15 +388,39 @@
   },
   "screens/KnowledgeBase": {
     "LEARN ABOUT": "EN SAVOIR PLUS",
+    "LEARN MORE": "EN SAVOIR PLUS",
     "Recovery words": "Mots de récupération",
     "Passcode": "Code d'accès",
     "UTXO vs Token": "UTXO vs token",
     "Loans": "Prêts",
     "Auctions": "Enchères",
-    "Liquidity Mining": "Liquidity mining"
+    "Liquidity Mining": "Liquidity mining",
+    "Liquidity mining": "Liquidity mining",
+    "UTXO and Tokens": "UTXO et tokens"
+  },
+  "components/UtxoVsTokenFaq": {
+    "About UTXO And Tokens": "UTXO et tokens",
+    "What are UTXOs?": "Que sont les UTXO?",
+    "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "Un DFI sous forme UTXO est la forme primaire du DFI. L'UTXO est utilisé pour des opérations à la base de la crypto-monnaie telles que l'envoi, la réception et le paiement de frais.",
+    "What are the use cases for UTXO?": "Quels sont les cas d'usage d'UTXO?",
+    "Use cases for UTXO include (but not limited) to the following:": "Les cas d'usage d'UTXO comprennent (mais ne sont pas limités) à ce qui suit:",
+    "Sending DFI to other wallets": "Envoi de DFI à d'autres portefeuilles",
+    "Receiving DFI from other wallets": "Recevoir des DFI d'autres portefeuilles",
+    "Transaction fees": "Frais de transaction",
+    "What are Tokens?": "Que sont les tokens?",
+    "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "Les DFI sous forme de tokens sont utilisés pour diverses fonctions de DeFiChain telles que pour les pools de liquidité, les prêts, les enchères et les échanges via le DEX.",
+    "What are the use cases for Tokens?": "Quels sont les cas d'usage des tokens?",
+    "Use cases for Tokens include (but not limited) to the following:": "Les cas d'usage d'UTXO comprennent (mais ne sont pas limités) à ce qui suit:",
+    "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Échange de DFI avec d'autres tokens (ex. dBTC, dETH, dUSDT)",
+    "Liquidity pools": "Pools de liquidité",
+    "Collateral for Vaults": "Garanties pour les vaults",
+    "Auction bidding": "Offres d'enchères",
+    "DFI exists in two forms: UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI existe sous deux formes - UTXO et token. Ils peuvent être convertis l'un avec l'autre pour servir différents cas usage dans votre portefeuille léger.",
+    "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS"
   },
   "components/LoansFaq": {
     "Loans FAQ": "FAQ - Prêts",
+    "About Loans": "Prêts",
     "Decentralized Loans": "Prêts décentralisés",
     "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS",
     "The decentralized loan feature allows you to borrow decentralized tokens by using your cryptocurrency holdings as collateral. To start, you must first create a vault and deposit collateral before you can take a loan.": "La fonction de prêt décentralisé vous permet d'emprunter des tokens décentralisés en utilisant vos crypto-monnaies comme garantie. Pour commencer, vous devez d'abord créer un vault et déposer des garanties avant de pouvoir contracter un prêt.",
@@ -392,6 +455,7 @@
   },
   "components/AuctionsFaq": {
     "Auctions FAQ": "FAQ - Enchères",
+    "About Auctions": "Enchères",
     "Auctions": "Enchères",
     "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS",
     "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "La vente aux enchères est une activité au cours de laquelle les utilisateurs font des offres sur les garanties des vaults liquidés afin de récupérer les prêts en cours des vaults. La liquidation a lieu lorsque le ratio de garantie d'un vault tombe en dessous de son exigence minimale. Les garanties du vaults sont alors divisées en lots de 10 000 USD pour être vendues aux enchères.",
@@ -402,7 +466,8 @@
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "RÈSEAU",
-    "Select network": "Sélectionnez un réseau"
+    "Select network": "Sélectionnez un réseau",
+    "Network": "Reseau"
   },
   "screens/TransactionsScreen": {
     "Transactions": "Transactions",
@@ -519,11 +584,14 @@
     "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.": "Votre portefeuille a été dissocié pour votre sécurité en raison d'échecs successifs du code d'accès. Veuillez utiliser les mots de récupération pour restaurer et configurer à nouveau votre portefeuille.",
     "Close": "Fermer",
     "Last attempt or your wallet will be unlinked for your security": "Dernière tentative ou votre portefeuille sera dissocié pour votre sécurité.",
-    "Incorrect passcode. {{attemptsRemaining}} attempts remaining": "Code d'accès incorrect. {{attemptsRemaining}} tentatives restantes",
+    "Incorrect passcode.\n{{attemptsRemaining}} attempts remaining": "Code d'accès incorrect.\n{{attemptsRemaining}} tentatives restantes",
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} tentatives restantes",
     "Enter passcode for verification": "Donner le code d'accès pour vérification",
     "It may take a few seconds to secure and encrypt your wallet.": "Cela peut prendre quelques secondes de chiffrer votre portefeuille.",
-    "Add an additional layer of security by setting a passcode.": "Ajoutez un niveau de sécurité supplémentaire en définissant un code d'accès."
+    "Add an additional layer of security by setting a passcode.": "Ajoutez un niveau de sécurité supplémentaire en définissant un code d'accès.",
+    "It may take a few seconds to update your passcode.": "Cela peut prendre quelques secondes pour mettre à jour votre code d'accès.",
+    "Passcode updated!": "Passcode updated!",
+    "Keep the passcode for your wallet confidential.": "Gardez le code d'accès de votre portefeuille confidentiel."
   },
   "screens/PinCreation": {
     "Well done! Your wallet is created. Keep your wallet private and secure by creating a passcode for it.": "Bravo ! Votre portefeuille est créé. Gardez votre portefeuille privé et sécurisé en créant un code d'accès pour celui-ci.",
@@ -534,6 +602,7 @@
     "Learn more about passcode": "En savoir plus sur le code d'accès",
     "Learn more": "En savoir plus",
     "Create your passcode": "Créez votre code d'accès",
+    "Create new passcode": "Créer un nouveau code d'accès",
     "Add an additional layer of security by setting a passcode.": "Ajoutez un niveau de sécurité supplémentaire en définissant un code d'accès."
   },
   "screens/VerifyMnemonicWallet": {
@@ -586,14 +655,15 @@
     "Enable {{feature}} (Beta)": "Activer {{feature}} (Beta)",
     "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?": "Cette fonctionnalité est encore en version bêta. Lors de son activation, vous serez exposé à certains risques. Voulez-vous continuer ?",
     "Beta Features": "Fonctionnalités bêta",
-    "Beta feature(s) of Light Wallet represent features undergoing final testing before its official release. Experimentation of the feature(s) are encouraged, but caution is advised when using your assets.": "Les fonctions bêta de portefeuille léger sont des fonctions en cours de test final avant la sortie officielle. L'expérimentation de la ou des fonctionnalités est encouragée, mais la prudence est de mise lors de l'utilisation de vos actifs.",
-    "Feature is still in Beta. Use at your own risk.": "Cette fonction est encore en version bêta. Utilisez-la à vos risques et périls."
+    "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.": "Les fonctionnalités bêta du portefeuille léger sont en phase de test d'acceptation par les utilisateurs. L'utilisation des fonctionnalités bêta est encouragée, mais la prudence est de mise lorsque vous utilisez vos actifs.",
+    "Feature is still in Beta. Use at your own risk.": "Cette fonction est encore en version bêta. Utilisez-la à vos risques et périls.",
+    "Allows the usage of custom server provider url": "Permet l'utilisation d'une url d'un fournisseur de serveur personnalisée."
   },
   "BottomTabNavigator": {
     "Balances": "Soldes",
     "Portfolio": "Portfolio",
     "Liquidity": "Liquidité",
-    "Transactions": "Transactions",
+    "TRANSACTIONS": "TRANSACTIONS",
     "Settings": "Paramètres",
     "Loans": "Prêts",
     "Auctions": "Enchères"
@@ -623,10 +693,12 @@
     "TRY AGAIN": "RÉESSAYER"
   },
   "screens/ChangePinScreen": {
-    "Create new passcode for your wallet": "Créez un nouveau code d'accès pour votre portefeuille"
+    "Create new passcode for your wallet": "Créez un nouveau code d'accès pour votre portefeuille",
+    "Keep the passcode for your wallet confidential.": "Gardez le code d'accès de votre portefeuille confidentiel."
   },
   "screens/RecoveryWordsScreen": {
-    "Keep your recovery words safe and private.": "Gardez vos mots de récupération sûrs et privés."
+    "Keep your recovery words safe and private.": "Gardez vos mots de récupération sûrs et privés.",
+    "Take note of the correct spelling and order. Keep your recovery words confidential and secure.": "Prenez note de l'orthographe et de l'ordre corrects. Gardez vos mots de récupération confidentiels et sécurisés."
   },
   "screens/AddLiquidity": {
     "Balance": "Solde",
@@ -709,8 +781,11 @@
     "Last synced": "Dernière synchro",
     "Block height": "Hauteur de bloc",
     "Total Masternodes": "Total des masternodes",
+    "Total masternodes": "Total des masternodes",
+    "DETAILS": "DÉTAILS",
     "YOU ARE CURRENTLY CONNECTED TO": "VOUS ÊTES ACTUELLEMENT CONNECTÉ À",
-    "NETWORK DETAILS": "DÉTAILS DU RÉSEAU"
+    "NETWORK DETAILS": "DÉTAILS DU RÉSEAU",
+    "Network selection is currently unavailable due to ongoing transaction(s).": "La sélection du réseau est actuellement indisponible en raison d'une ou plusieurs transactions en cours."
   },
   "components/slider": {
     "None": "Aucun",
@@ -721,8 +796,6 @@
     "CLOSE": "FERMER"
   },
   "screens/SlippageTolerance": {
-    "Slippage tolerance": "Tolérance de glissement",
-    "Slippages are rate changes that occur within an order transaction. Choose how much of this slippage are you willing to accept.": "Le glissement est une différence de cours qui se produit lors d'une transaction sur un DEX. Choisissez le pourcentage de glissement que vous êtes prêt à accepter.",
     "Custom": "Personnaliser",
     "USE THIS SLIPPAGE TOLERANCE": "CHOISIR CETTE TOLÉRANCE DE GLISSEMENT.",
     "Required field is missing": "Le champ requis est manquant",
@@ -778,7 +851,8 @@
     "To be confirmed": "À confirmer",
     "Enter an amount": "Donnez un montant",
     "Price ({{tokenB}}/{{tokenA}})": "Prix ({{tokenB}}/{{tokenA}})",
-    "Are you certain you want to proceed to swap DUSD for DFI despite the high DEX stabilization fees?": "Êtes-vous certain de vouloir procéder à l'échange de DUSD contre DFI malgré les frais élevés de stabilisation du DEX ?"
+    "Are you certain you want to proceed to swap DUSD for DFI despite the DEX Stabilization fees of {{fee}}?": "Êtes-vous certain de vouloir procéder à l'échange de DUSD contre DFI malgré les frais de stabilisation DEX de {{fee}} ?",
+    "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?": "Êtes-vous certain de vouloir procéder à cet échange malgré les frais de stabilisation DEX de {{fee}} qui seront encourus dans le cadre du chemin composé (DUSD -> DFI) ?"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "CONVERSION...",
@@ -825,9 +899,13 @@
     "Please enter passcode to securely sign your transaction": "Veuillez entrer votre code d'accès pour autoriser votre transaction en toute sécurité.",
     "Access granted": "Accès accordé",
     "You may now proceed": "Vous pouvez maintenant procéder",
-    "Sign to verify access": "Vérification de l'accès",
+    "To access DFX Services, we need you to enter your passcode.": "Pour accéder à services de DFX, vous devez entrer votre code d'accès.",
+    "Sign to verify access": "Autoriser pour vérifier l'accès",
     "Success!": "Succès!",
-    "To access DFX Services, we need you to enter your passcode.": "Pour accéder à services de DFX, vous devez entrer votre code d'accès."
+    "It may take a few seconds to verify": "La vérification peut prendre quelques secondes",
+    "Passcode verified!": "Code d'accès vérifié!",
+    "Provide your passcode to view recovery words.": "Donnez votre code d'accès pour voir les mots de récupération.",
+    "Provide existing passcode to change passcode.": "Donnez le code d'accès existant pour changer le code d'accès."
   },
   "screens/TransactionAuthorization": {
     "Sign Transaction": "Autoriser la transaction",
@@ -855,6 +933,7 @@
     "You are about to switch to {{network}}. Do you want to proceed?": "Vous êtes sur le point de passer sur le {{network}}. Continuer ?"
   },
   "components/RecoveryWordFaq": {
+    "About Recovery Words": "Mots de récupération",
     "What happens if I lose my recovery words?": "Que se passe-t-il si je perds mes mots de récupération ?",
     "Once you lose your recovery words, you will not be able to restore your wallet and any funds within it. We encourage you to be responsible with your recovery words.": "Si vous perdez vos mots de récupération, vous ne pourrez plus restaurer votre portefeuille et les fonds qu'il contient. Nous vous encourageons à être responsable avec vos mots de récupération.",
     "Can I use the 24-words from xxx that I created from xxx?": "Puis-je utiliser les 24 mots de xxx que j'ai créés avec xxx ?",
@@ -865,19 +944,23 @@
     "Storing it in digital networks could make it accessible to hackers. It is best to write it in paper and to keep it secure and private.": "Le stockage sur des réseaux numériques pourrait les rendre accessible aux pirates. Il est préférable de les rédiger sur papier et de les conserver en toute sécurité et confidentialité.",
     "Recovery words": "Mots de récupération",
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Vos 24 mots de récupération uniques sont une représentation lisible par l'homme de la clé privée de votre portefeuille, générée à partir d'une liste de 2048 mots de la norme BIP-39. Cela empêche toute tentative de piratage par force brute de la sécurité de votre portefeuille.",
-    "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS"
+    "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS",
+    "Can I use the 24-word from xxx that I created from xxx?": "Puis-je utiliser les 24 mots de xxx que j'ai créés avec xxx ?",
+    "You can only reuse the 24-words if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.Swiss (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per device / computer / app is encouraged.": "Vous ne pouvez réutiliser les 24 mots que s'ils sont créés à partir de l'écosystème Jellyfish.\n\nLes clients compatibles sont DeFiChain Wallet (Android/iOS) et DFX.SWISS (Android/iOS).\n\nCependant, il est fortement déconseillé de les réutiliser. Vos 24 mots ne sont aussi sûrs que l'ordinateur/appareil/application source qui les génère. Si votre source est exposée à un risque, vos 24 mots le sont aussi. En fait, il est recommandé d'utiliser un seul ensemble de 24 mots par dispositif, ordinateur ou application."
   },
   "components/DexFaq": {
+    "About DEX": "DEX",
     "Decentralized Exchange": "Échange décentralisé",
     "The decentralized exchange function will allow users of DeFiChain to swap cryptocurrencies in a peer-to-peer fashion. The decentralized exchange function matches people for trading directly, without the need to buy and sell currency through an exchange.": "La fonction d'échanges décentralisés permettra aux utilisateurs de la DeFiChain d'échanger des crypto-monnaies de pair-à-pair (peer-to-peer). Cette fonction permet de mettre en relation directe des personnes lors d'un échange, sans avoir besoin d'acheter et de vendre des monnaies par l'intermédiaire d'une bourse (via carnet d'ordres).",
     "Transaction fees": "Frais de transaction",
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network's congestion.": "Des frais d'un faible montant seront appliqués à chaque transaction. Ce montant peut varier en fonction de l'encombrement du réseau.",
     "What is slippage tolerance?": "Qu'est-ce que la tolérance de glissement ?",
-    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "En raison de la nature dynamique de la blockchain, les prix sur le DEX changent à chaque bloc. \n\nIl en résulte un glissement, qui correspond à la différence entre le prix final de la transaction et le prix affiché sur l'application avant la confirmation de la transaction. \n\nLa fonction de tolérance au glissement vous permet d'indiquer le glissement maximum que vous êtes prêt à accepter lors d'une transaction. \n\nSi le glissement de la transaction est supérieur à celui de votre tolérance, la transaction ne sera pas effectuée et le montant initial sera retourné directement sur votre portefeuille.",
+    "Due to the dynamic nature of the blockchain, prices on the DEX change every block.\n\nThis results in slippage, which is the difference between the final transaction price and the price displayed on the app before transaction confirmation.\n\nNote that the slippage tolerance also includes the DEX Stabilization fees which was introduced as per DFIP-2206-D.\n\nThe slippage tolerance feature allows you to indicate the maximum slippage you are willing to accept in a transaction.\n\nIf the slippage for your transaction is higher than your slippage tolerance, the transaction will not be completed and the original amount will be returned to your wallet.": "En raison de la nature dynamique de la blockchain, les prix sur le DEX changent à chaque bloc. \n\nIl en résulte un glissement, qui correspond à la différence entre le prix final de la transaction et le prix affiché sur l'application avant la confirmation de la transaction. \n\nLa fonction de tolérance au glissement vous permet d'indiquer le glissement maximum que vous êtes prêt à accepter lors d'une transaction. \n\nSi le glissement de la transaction est supérieur à celui de votre tolérance, la transaction ne sera pas effectuée et le montant initial sera retourné directement sur votre portefeuille.",
     "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS"
   },
   "components/LiquidityMiningFaq": {
     "Liquidity Mining": "Liquidity Mining",
+    "About Liquidity Mining": "Liquidity Mining",
     "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn be rewarded with fees and tokens based on their share of the total pool liquidity.\n\nLiquidity pools in DeFiChain consist of liquidity in pairs of coins, used by the DeFiChain DEX (Decentralized Exchange).": "Le liquidity mining est un mécanisme DeFi dans lequel les participants contribuent en crypto-monnaies aux pools de liquidité, et sont à leur tour récompensés par des frais et des tokens basés sur leur part de la liquidité totale du pool. \n\nLes pools de liquidité de DeFiChain sont constitués de liquidité par paire de tokens, qui est utilisée par le DEX (Decentralized Exchange) de la DeFiChain.",
     "How do I supply liquidity?": "Comment puis-je fournir des liquidités ?",
     "After deciding which pool pair you would like to supply liquidity to, click ADD LIQUIDITY and enter the input amount for either of the tokens in the pair.\n\nOnce an amount is entered on one side of the pair, the app automatically balances the amount of the other side, based on the ratio of current liquidity in the pool.": "Après avoir décidé de la paire de pool à laquelle vous souhaitez fournir des liquidités, cliquez sur AJOUTER LIQUIDITÉ et saisissez le montant d'entrée pour l'un ou l'autre des tokens de la paire. \n\nUne fois le montant saisi d'un côté de la paire, l'application équilibre automatiquement le montant de l'autre côté, sur la base du ratio de liquidité actuel du pool.",
@@ -889,10 +972,12 @@
     "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.": "Les tokens de liquidité ne peuvent être envoyés que vers une autre adresse de portefeuille DFI, et non vers un échange ou une entité centrale.",
     "How do I receive tokens on my DFI wallet?": "Comment puis-je recevoir des tokens sur mon portefeuille DFI ?",
     "You can receive DFI tokens into your wallet by sharing your address found in the Receive page, or by getting the sender to scan the QR code.\n\nNote that you will not be able to receive native tokens (e.g. BTC, ETH) directly into your wallet.": "Vous pouvez recevoir des tokens DFI sur votre portefeuille en partageant votre adresse trouvée dans l'écran Recevoir, ou en demandant à l'expéditeur de scanner le code QR. \n\nNotez que vous ne serez pas en mesure de recevoir des tokens natifs (par exemple BTC, ETH) directement sur votre portefeuille.",
-    "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS"
+    "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS",
+    "Liquidity mining is a DeFi mechanism in which participants supply cryptocurrencies into liquidity pools, and in turn, be rewarded with fees and token based on their share of the total pool liquidity.": "Le liquidity mining est un mécanisme DeFi dans lequel les participants contribuent en crypto-monnaies aux pools de liquidité, et sont à leur tour récompensés par des frais et des tokens basés sur leur part de la liquidité totale du pool."
   },
   "components/PasscodeFaq": {
     "Passcode": "Code d'accès",
+    "About Passcode": "Code d'accès",
     "Your six-digit numeric passcode, set by you, would be used to authorize all transactions. Keep your passcode private and secure. You are responsible for your own security.": "Votre code numérique à six chiffres, que vous avez défini, sera utilisé pour autoriser toutes les transactions. Gardez ce code d'accès privé et sécurisé. Vous êtes responsable de votre propre sécurité.",
     "What happens if I forgot my passcode? Can someone help me to retrieve my passcode?": "Que se passe-t-il si j'ai oublié mon code d'accès ? Quelqu'un peut-il m'aider à retrouver mon code d'accès ?",
     "Your passcode is your responsibility, hence no one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Votre code d'accès est sous votre responsabilité, donc personne, à part vous, ne le connaît. Il est important que vous gardiez votre code d'accès en sécurité et que vous le changiez de temps en temps.",
@@ -900,7 +985,15 @@
     "Yes, you can change your passcode from your settings in-app. We recommend changing of passcode regularly for maximum security.": "Oui, vous pouvez modifier votre code d'accès à partir de vos paramètres dans l'appli. Nous vous recommandons de changer votre code d'accès régulièrement pour une sécurité maximale.",
     "Is passcode the same as phone PIN code?": "Mon code d'accès est-il le même que le code PIN du téléphone ?",
     "Your passcode is valid only for DeFiChain wallet.": "Votre code d'accès n'est valable que pour le portefeuille DeFiChain.",
-    "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS"
+    "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS",
+    "What happens if I forgot my passcode? Can someone help me retrieve my passcode?": "Que se passe-t-il si j'ai oublié mon code d'accès ? Quelqu'un peut-il m'aider à retrouver mon code d'accès?",
+    "Your passcode is your responsibility. No one, aside from you, knows it. It is important that you keep your passcode safe and change it from time to time.": "Votre code d'accès est sous votre responsabilité. Personne, à part vous, ne le connaît. Il est important que vous gardiez votre code d'accès en sécurité et que vous le changiez de temps en temps.",
+    "Yes! You can change your passcode from your setting in-app. We recommend changing your passcode regularly for maximum security.": "Oui, vous pouvez modifier votre code d'accès à partir de vos paramètres dans l'application. Nous vous recommandons de changer votre code d'accès régulièrement pour une sécurité maximale.",
+    "Your passcode is valid only for DeFiChain Light Wallet.": "Votre code d'accès n'est valable que pour le portefeuille léger DeFiChain.",
+    "Use cases for UTXO include (but not limited) to the following:": "Les cas d'usage d'UTXO comprennent (mais ne sont pas limités) à ce qui suit :",
+    "Sending DFI to other wallets": "Envoi de DFI à d'autres portefeuilles",
+    "Receiving DFI from other wallets": "Réception des DFI d'autres portefeuilles",
+    "Transaction fees": "Frais de transaction"
   },
   "components/DFIBalanceCard": {
     "Learn more about DFI": "En savoir plus sur DFI",
@@ -1137,7 +1230,9 @@
     "BTC Fee": "Frais BTC",
     "Fee": "Frais",
     "Each transaction will be subject to a small amount of fees.": "Chaque transaction sera soumise à un petit montant de frais.",
-    "btcfee.text": "• DFX est un intermédiaire financier sous réglementation suisse. La conformité avec le régulateur, en particulier dans la lutte anti-blanchiment et financement du terrorisme (AML/CFT), nécessite des procédures élaborées, développées et renouvelées en permanence avec l'aide des conseillers juridiques.\n\n  • Chaque utilisateur doit être identifié par le KYC.\n\n  • Nous devons maintenir la liquidité sur DeFiChain pour permettre le traitement des dépôts et pouvoir transférer rapidement les wrapped Bitcoin sur le wallet des utilisateurs.\n\n  • DFX développe elle-même l'infrastructure technique qui permet les dépôts en Bitcoin et l'envoi immédiat des wrapped Bitcoin sur le wallet DFX des utilisateurs."
+    "btcfee.text": "• DFX est un intermédiaire financier sous réglementation suisse. La conformité avec le régulateur, en particulier dans la lutte anti-blanchiment et financement du terrorisme (AML/CFT), nécessite des procédures élaborées, développées et renouvelées en permanence avec l'aide des conseillers juridiques.\n\n  • Chaque utilisateur doit être identifié par le KYC.\n\n  • Nous devons maintenir la liquidité sur DeFiChain pour permettre le traitement des dépôts et pouvoir transférer rapidement les wrapped Bitcoin sur le wallet des utilisateurs.\n\n  • DFX développe elle-même l'infrastructure technique qui permet les dépôts en Bitcoin et l'envoi immédiat des wrapped Bitcoin sur le wallet DFX des utilisateurs.",
+    "Slippage tolerance": "Tolérance de glissement",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Le glissement est une différence de cours qui se produit lors d'une transaction sur un DEX. Notez que la tolérance de glissement inclut également les frais de stabilisation DEX. Donnez le montant de ce glissement que vous êtes prêt à accepter."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault ID",
@@ -1502,15 +1597,20 @@
     "UNLOCK": "Déverrouiller",
     "RESET": "Réinitialiser",
     "Endpoint URL": "URL du point de terminaison",
+    "ENDPOINT URL": "URL DU POINT DE TERMINAISON",
     "Custom": "Personnalisé",
     "Default": "Défaut",
     "CONTINUE": "SUIVANT",
+    "Continue": "Suivant",
     "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "L'ajout de fournisseurs de services malveillants peut entraîner des fonds irrécupérables. Procédez à vos propres risques.",
-    "Only add URLs that are fully trusted and secured. Changes do not take effect until you manually restart the app.": "N'ajouter que des URL qui sont entièrement fiables et sécurisées. Les modifications ne prennent pas effet tant que vous n'avez pas redémarré manuellement l'application.",
+    "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Changes do not take effect until you manually restart the app.": "N'ajouter que des URL qui sont entièrement fiables et sécurisées. Les modifications ne prennent pas effet tant que vous n'avez pas redémarré manuellement l'application.",
     "Adding custom service provider": "Ajouter un fournisseur de service personnalisé.",
     "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "En faisant cela, vous serez renvoyé au point de terminaison par défaut du portefeuille léger. Continuer ?",
     "Invalid URL": "URL non valide",
-    "Reset default service provider": "Réinitialiser le fournisseur de services par défaut"
+    "Reset default service provider": "Réinitialiser le fournisseur de services par défaut",
+    "Provider": "Fournisseur",
+    "Reset provider": "Réinitialiser le fournisseur",
+    "This will reset the service provider\nto the default URL.": "Ceci réinitialisera le fournisseur de services à l'URL par défaut."
   },
   "components/QuickBid": {
     "QUICK BID": "ENCHÈRE RAPIDE",

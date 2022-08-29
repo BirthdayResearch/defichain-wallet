@@ -6,11 +6,13 @@ import { translate } from '@translations'
 export function VersionTagV2 (): JSX.Element {
   return (
     <ThemedViewV2
-      light={tailwind('bg-mono-light-v2-00')}
-      dark={tailwind('bg-mono-dark-v2-00')}
+      light={tailwind('border-dfxblue-900')}
+      dark={tailwind('bg-transparent')}
+      style={tailwind('border rounded py-0.5 px-2')}
     >
       <ThemedTextV2
-        style={tailwind('text-2xs font-normal-v2 text-center')}
+        dark={tailwind('text-dfxgray-400')}
+        style={tailwind('text-sm font-medium')}
         testID='version_tag'
       >
         {translate('components/VersionTag', 'VERSION {{number}}', { number: nativeApplicationVersion ?? '0.0.0' })}

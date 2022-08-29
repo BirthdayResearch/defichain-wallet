@@ -1,14 +1,15 @@
 import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { MaterialCommunityIcons, MaterialIcons, Feather } from '@expo/vector-icons'
+import { MaterialCommunityIcons, MaterialIcons, Feather, FontAwesome } from '@expo/vector-icons'
 import { IconProps } from '@expo/vector-icons/build/createIconSet'
 import { tailwind } from '@tailwind'
 
 import { ThemedProps } from './index'
 
-export type IconType = 'MaterialCommunityIcons' | 'MaterialIcons' | 'DfxIcon' |'Feather' | 'Ionicons'
+export type IconType = 'MaterialCommunityIcons' | 'MaterialIcons' | 'Feather' | 'DfxIcon' | 'FontAwesome'
 export type IconName = React.ComponentProps<typeof MaterialIcons>['name']
   | React.ComponentProps<typeof MaterialCommunityIcons>['name']
   | React.ComponentProps<typeof Feather>['name']
+  | React.ComponentProps<typeof FontAwesome>['name']
 
 interface IThemedIcon {
   iconType: IconType
@@ -46,6 +47,13 @@ export function ThemedIcon (props: ThemedIconProps): JSX.Element {
   } else if (iconType === 'DfxIcon') {
     return (
       <CustomIcon
+        style={[style, isLight ? light : dark]}
+        {...otherProps}
+      />
+    )
+  } else if (iconType === 'FontAwesome') {
+    return (
+      <FontAwesome
         style={[style, isLight ? light : dark]}
         {...otherProps}
       />

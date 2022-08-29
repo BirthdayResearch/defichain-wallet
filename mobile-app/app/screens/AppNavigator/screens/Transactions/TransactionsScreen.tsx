@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux'
 import { ThemedFlatList, ThemedIcon, ThemedScrollView, ThemedText, ThemedTouchableOpacity } from '@components/themed'
 import { EmptyTransaction } from './EmptyTransaction'
 import { activitiesToViewModel, VMTransaction } from './screens/stateProcessor'
-import { TransactionsParamList } from './TransactionsNavigator'
+import { PortfolioParamList } from '@screens/AppNavigator/screens/Portfolio/PortfolioNavigator'
 
 type LoadingState = 'idle' | 'loading' | 'loadingMore' | 'success' | 'background' | 'error'
 
@@ -27,7 +27,7 @@ export function TransactionsScreen (): JSX.Element {
   const client = useWhaleApiClient()
   const { address } = useWalletContext()
   const { isLight } = useThemeContext()
-  const navigation = useNavigation<NavigationProp<TransactionsParamList>>()
+  const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const blocks = useSelector((state: RootState) => state.block.count)
   const [transactions, setTransactions] = useState<VMTransaction[]>([])
   const [loadingState, setLoadingState] = useState<LoadingState>('idle')
@@ -134,7 +134,7 @@ function TransactionRow ({
   navigation,
   item,
   index
-}: { navigation: NavigationProp<TransactionsParamList>, item: VMTransaction, index: number }): JSX.Element {
+}: { navigation: NavigationProp<PortfolioParamList>, item: VMTransaction, index: number }): JSX.Element {
   const {
     color,
     iconName,

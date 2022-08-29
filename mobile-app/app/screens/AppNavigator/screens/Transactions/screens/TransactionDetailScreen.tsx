@@ -5,10 +5,10 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { useCallback } from 'react'
 import { Linking, View } from 'react-native'
-import { TransactionsParamList } from '../TransactionsNavigator'
 import { formatBlockTime } from '../TransactionsScreen'
+import { PortfolioParamList } from '@screens/AppNavigator/screens/Portfolio/PortfolioNavigator'
 
-type Props = StackScreenProps<TransactionsParamList, 'TransactionDetailScreen'>
+type Props = StackScreenProps<PortfolioParamList, 'TransactionDetailScreen'>
 
 export function TransactionDetailScreen (props: Props): JSX.Element {
   const { tx } = props.route.params

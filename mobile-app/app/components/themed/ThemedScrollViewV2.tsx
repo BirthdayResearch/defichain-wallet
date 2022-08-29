@@ -12,7 +12,7 @@ export const ThemedScrollViewV2 = forwardRef(function (props: ThemedScrollViewPr
   const {
     style,
     light = tailwind('bg-mono-light-v2-100'),
-    dark = tailwind('bg-mono-dark-v2-100'),
+    dark = tailwind('bg-dfxblue-900'),
     ...otherProps
   } = props
   return (

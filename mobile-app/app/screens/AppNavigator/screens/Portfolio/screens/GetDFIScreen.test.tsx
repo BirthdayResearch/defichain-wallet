@@ -11,7 +11,7 @@ jest.mock('@shared-contexts/WalletContext')
 jest.mock('react-native-popover-view')
 
 jest.mock('expo-clipboard', () => ({
-  setString: jest.fn()
+  setStringAsync: jest.fn()
 }))
 
 jest.mock('@shared-contexts/WhaleContext', () => ({
@@ -55,6 +55,10 @@ jest.mock('react-native-toast-notifications', () => ({
 }))
 
 jest.mock('@shared-contexts/ThemeProvider')
+const navigation: any = {
+  navigate: jest.fn()
+}
+const route: any = {}
 
 describe('Get DFI page', () => {
   it('should match snapshot', async () => {
@@ -84,7 +88,7 @@ describe('Get DFI page', () => {
     })
     const component = (
       <Provider store={store}>
-        <GetDFIScreen />
+        <GetDFIScreen navigation={navigation} route={route} />
       </Provider>
     )
     const rendered = render(component)
@@ -118,10 +122,10 @@ describe('Get DFI page', () => {
     })
     const component = (
       <Provider store={store}>
-        <GetDFIScreen />
+        <GetDFIScreen navigation={navigation} route={route} />
       </Provider>
     )
-    const spy = jest.spyOn(Clipboard, 'setString')
+    const spy = jest.spyOn(Clipboard, 'setStringAsync')
     const rendered = render(component)
     const copyButton = await rendered.findByTestId('copy_button')
     fireEvent.press(copyButton)
@@ -155,10 +159,10 @@ describe('Get DFI page', () => {
     })
     const component = (
       <Provider store={store}>
-        <GetDFIScreen />
+        <GetDFIScreen navigation={navigation} route={route} />
       </Provider>
     )
-    const spy = jest.spyOn(Clipboard, 'setString')
+    const spy = jest.spyOn(Clipboard, 'setStringAsync')
     const rendered = render(component)
     const shareButton = await rendered.findByTestId('share_button')
     fireEvent.press(shareButton)
