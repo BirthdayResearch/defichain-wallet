@@ -57,11 +57,7 @@ export function DfxDexFeeInfo (props: DfxDexFeeInfoProps): JSX.Element {
   const isCrypto = (): boolean => ['DFI', 'dBTC', 'dETH', 'dUSDT', 'dUSDC', 'dLTC', 'dBCH', 'dDOGE'].includes(props.token.displaySymbol)
 
   const returnDexFee = (): void => {
-    if (isCrypto()) {
-      props.getDexFee?.('0')
-    } else {
-      props.getDexFee?.(dexStabilizationFee)
-    }
+    props.getDexFee?.(isCrypto() ? '0' : dexStabilizationFee)
   }
 
   returnDexFee()
