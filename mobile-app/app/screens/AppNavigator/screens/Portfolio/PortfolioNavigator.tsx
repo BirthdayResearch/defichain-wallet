@@ -56,6 +56,7 @@ import { WithdrawFutureSwapScreen } from '@screens/AppNavigator/screens/Portfoli
 import {
   ConfirmWithdrawFutureSwapScreen
 } from '@screens/AppNavigator/screens/Portfolio/screens/ConfirmWithdrawFutureSwapScreen'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined
@@ -145,6 +146,7 @@ export function PortfolioNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const headerContainerTestId = 'portfolio_header_container'
   const { isLight } = useThemeContext()
+  const { isFeatureAvailable } = useFeatureFlagContext()
 
   const goToNetworkSelect = (): void => {
     navigation.navigate('NetworkSelectionScreen')
