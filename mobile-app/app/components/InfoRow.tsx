@@ -58,7 +58,7 @@ export function InfoRow (props: InfoRowProps): JSX.Element {
       light={props.containerStyle?.light ?? tailwind('bg-white border-b border-gray-200')}
       style={props.containerStyle?.style ?? tailwind('p-4 flex-row items-start w-full')}
     >
-      <View style={tailwind('w-5/12')}>
+      <View style={tailwind(props.type === InfoType.DfxFee || props.type === InfoType.DexFee ? 'w-7/12' : 'w-5/12')}>
         <View style={tailwind('flex-row items-center justify-start')}>
           <ThemedText style={tailwind('text-sm mr-1')} testID={`${props.testID}_label`} {...props.lhsThemedProps}>
             {translate('components/BottomSheetInfo', alertInfo.get(props.type)?.title ?? '')}
