@@ -845,7 +845,7 @@
     "Volume (24H):": "Volume (24h)",
     "Total liquidity": "Liquidité totale",
     "Tokens in {{symbol}}": "Tokens en {{symbol}}",
-    "Max available {{unit}} entered": "Max. disponible {{unit}} saisi",
+    "Max available {{unit}} entered": "{{unit}} max. disponibles saisis",
     "{{percent}} of available {{unit}} entered": "{{percent}} de {{unit}} disponibles saisis",
     "I WANT TO ADD": "JE VEUX AJOUTER",
     "LP Tokens to receive": "Tokens PL à recevoir"
