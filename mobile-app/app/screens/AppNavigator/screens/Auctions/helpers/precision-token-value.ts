@@ -22,5 +22,5 @@ export function getPrecisedCurrencyValue (value: string | number | BigNumber): s
   const currencyValue = new BigNumber(value)
   return currencyValue.isLessThanOrEqualTo(0.1) && currencyValue.isGreaterThan(0)
     ? currencyValue.toFixed(8)
-: currencyValue.toFixed(2)
+    : currencyValue.toFixed(2)
 }
