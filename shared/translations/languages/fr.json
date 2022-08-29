@@ -474,7 +474,7 @@
     "By creating your own wallet, you get access to the DeFiChain protocol and to the service of DFX.": "En créant ton wallet, tu as accès au protocole DeFiChain ainsi qu'au service DFX.",
     "You can buy DeFi Tokens with simple SEPA bank transactions or native Bitcoin right away and withdraw assets to your bank account.": "Tu peux acheter des tokens DeFi d'un simple virement SEPA bancaire ou directement avec des Bitcoins natifs, et faire des retraits vers ton compte bancaire.",
     "Through liquidity mining or staking applications you can earn cashflow by letting your investment work for you.": "Grâce au liquidity mining et au staking, tu peux générer des revenus en laissant travailler ton investissement.",
-    "You can easily document all of your transactions and rewards through our  1-click solution enabled by an API to Cointracking.": "Tu peux facilement avoir la liste de toutes tes transactions et revenus en 1 clic grâce à la solution de l'API Cointracking."
+    "You can easily document all of your transactions and rewards through our 1-click solution enabled by an API to Cointracking.": "Tu peux facilement avoir la liste de toutes tes transactions et revenus en 1 clic grâce à la solution de l'API Cointracking."
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "Quitter l'écran",
