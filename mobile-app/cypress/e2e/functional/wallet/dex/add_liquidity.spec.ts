@@ -9,7 +9,8 @@ function setupWallet (): void {
 
   cy.getByTestID('dex_search_icon').click()
   cy.getByTestID('dex_search_input').type('BTC')
-  cy.getByTestID('pool_pair_add_dBTC-DFI').click()
+  cy.getByTestID('pair_symbol_dBTC-DFI').click()
+  cy.getByTestID('poolpair_token_details_add_liquidity').click()
   cy.wait(100)
   cy.getByTestID('token_balance_primary').contains('10')
   cy.getByTestID('token_balance_secondary').contains('19.9')
@@ -25,7 +26,8 @@ function setupWalletForConversion (): void {
 
   cy.getByTestID('dex_search_icon').click()
   cy.getByTestID('dex_search_input').type('BTC')
-  cy.getByTestID('pool_pair_add_dBTC-DFI').click()
+  cy.getByTestID('pair_symbol_dBTC-DFI').click()
+  // cy.getByTestID('pool_pair_add_dBTC-DFI').click()
   cy.wait(100)
   cy.getByTestID('token_balance_primary').contains('20')
   cy.getByTestID('token_balance_secondary').contains('19.9')
