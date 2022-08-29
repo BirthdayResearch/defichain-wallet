@@ -1109,7 +1109,6 @@
     "Each transaction will be subject to a small amount of fees. The amount may vary depending on the network’s congestion.": "Cada transacción concurrirá en una pequeña comisión. La cantidad dependerá de la congestión de la red.",
     "Vault fee": "Comisión de la bóveda",
     "This fee serves as initial deposit for your vault. You will receive 1 DFI back when you choose to close this vault.": "Esta comisión sirve como depósito inicial para tu bóveda. Tu recibirás 1 DFI de vuelta cuando decidas cerrar esta bóveda.",
-    "The collateralization ratio represents the amount of collaterals deposited in a vault in relation to the loan amount, expressed in percentage.": "El ratio de colateralización representa la cantidad de colaterales depositados en una bóveda en relación a la cantidad del préstamo, expresado en porcentaje.",
     "Next collateralization ratio represents the vault's collateralization ratio based on the prices of the collateral/loan token(s) in the next hour.": "El próximo ratio de colateralización representa el ratio de la bóveda basado en los precios del colateral/tokens en la próxima hora.",
     "Annual vault interest rate based on the loan scheme selected.": "Interés anual de la bóveda basado en el tipo de préstamo seleccionado.",
     "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.": "Ratio mínimo de colateralización basado en el tipo de préstamo seleccionado. La bóveda se liquidará cuando el ratio de colateralización baje del mínimo requerido.",
@@ -1126,7 +1125,11 @@
     "BTC Fee": "Comisión BTC",
     "Fee": "Tarifa",
     "Each transaction will be subject to a small amount of fees.": "Cada transacción estará sujeta a una pequeña cantidad de tarifas.",
-    "btcfee.text": "• DFX es un intermediario financiero totalmente regulado en Suiza. El proceso de adecuación con la regulación Suiza para combatir la corrupción, y en particular el lavado de dinero para actividad terrorista (AML/CFT), requiere procesos de desarrollo legal que precisan de ser continuamente renovados en coordinación con nuestro despacho de abogados.\n\n  • Cada usuario debe ser identificado con el procedimiento de registro de identidad KYC.\n\n  • Para facilitar depósitos rápidos de bitcoin, necesitamos mantener liquidez en DeFiChain para poder envolver Bitcoin directamente a las billeteras de nuestros usuarios.\n\n  • DFX está construyendo la infraestructura técnica para permitir los depósitos de Bitcoin y poder envolver BTC y mandarlo inmediatamente despúes del recibo."
+    "btcfee.text": "• DFX es un intermediario financiero totalmente regulado en Suiza. El proceso de adecuación con la regulación Suiza para combatir la corrupción, y en particular el lavado de dinero para actividad terrorista (AML/CFT), requiere procesos de desarrollo legal que precisan de ser continuamente renovados en coordinación con nuestro despacho de abogados.\n\n  • Cada usuario debe ser identificado con el procedimiento de registro de identidad KYC.\n\n  • Para facilitar depósitos rápidos de bitcoin, necesitamos mantener liquidez en DeFiChain para poder envolver Bitcoin directamente a las billeteras de nuestros usuarios.\n\n  • DFX está construyendo la infraestructura técnica para permitir los depósitos de Bitcoin y poder envolver BTC y mandarlo inmediatamente despúes del recibo.",
+    "DFX Payout Fee": "",
+    "Fees": "",
+    "DEX Stabilization Fee": "",
+    "When selling dUSD, dToken and composite Assets (dUSD based) the current DEX stabilization fee applies.": ""
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Identificador de la bóveda",
@@ -1577,7 +1580,8 @@
     "DEPOSIT ADDRESS": "Dirección de depósito",
     "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "Envia SOLO Bitcoin nativo (BTC) a tu billetera de depósito mostrada abajo o escanea el código QR. Luego te transferiremos dBTC a tu billetera DFX.",
     "Bitcoin Deposit": "Depósito de Bitcoin",
-    "Ref bonus": "Bonificación de referidos"
+    "Ref bonus": "Bonificación de referidos",
+    "Please click here to finish the KYC process to receive your bitcoin address": ""
   },
   "screens/DfxButtons": {
     "DFI.Tax": "DFI.tax",

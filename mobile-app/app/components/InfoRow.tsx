@@ -19,7 +19,7 @@ export enum InfoType {
   EstimatedFee,
   VaultFee,
   ExecutionBlock,
-  FiatFee,
+  DfxFee,
   BtcFee,
   DexFee
 }
@@ -38,8 +38,8 @@ export function InfoRow (props: InfoRowProps): JSX.Element {
       title: 'Settlement block',
       message: 'The block height at which the future swap transaction will be executed.'
     }],
-    [InfoType.FiatFee, {
-      title: 'Fee',
+    [InfoType.DfxFee, {
+      title: 'DFX Payout Fee',
       message: 'Each transaction will be subject to a small amount of fees.'
     }],
     [InfoType.BtcFee, {
@@ -47,8 +47,8 @@ export function InfoRow (props: InfoRowProps): JSX.Element {
       message: 'btcfee.text'
     }],
     [InfoType.DexFee, {
-      title: 'Dex Fee',
-      message: 'When selling dUSD, dToken and composite Assets (dUSD based) the current DEX stabilization fee applies'
+      title: 'DEX Stabilization Fee',
+      message: 'When selling dUSD, dToken and composite Assets (dUSD based) the current DEX stabilization fee applies.'
     }]
   ])
 
