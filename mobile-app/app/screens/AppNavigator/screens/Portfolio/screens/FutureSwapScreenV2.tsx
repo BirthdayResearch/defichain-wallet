@@ -155,7 +155,7 @@ function ExecutionBlockInfo ({
               style={tailwind('text-xs font-semibold-v2')}
               testID='execution_block'
             >
-              {`${translate('screens/FutureSwapScreen', 'Target block')} ${value}`}
+              {`${translate('screens/FutureSwapScreen', 'Target block')}: ${value}`}
             </ThemedTextV2>}
         />
         <View style={tailwind('flex-row items-center')}>
