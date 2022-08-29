@@ -23,7 +23,12 @@ export function PlaygroundStatusInfo (): JSX.Element | null {
       title: 'Status',
       rhsChildren: (): JSX.Element => {
         return (
-          <PlaygroundStatus {...{ online: wallets.length > 0, offline: wallets.length === 0, type: PlaygroundStatusType.primary }} />
+          <PlaygroundStatus {...{
+            online: wallets.length > 0,
+            offline: wallets.length === 0,
+            type: PlaygroundStatusType.primary
+          }}
+          />
         )
       },
       testID: 'wallet_network_status'
@@ -32,7 +37,7 @@ export function PlaygroundStatusInfo (): JSX.Element | null {
       title: 'Current block',
       rhsChildren: (): JSX.Element => {
         return (
-          <ThemedTextV2 {...getRhsChildrenStyling}>
+          <ThemedTextV2 {...getRhsChildrenStyling} testID='current_block_count_value'>
             {count === 0 ? '...' : count}
           </ThemedTextV2>
         )

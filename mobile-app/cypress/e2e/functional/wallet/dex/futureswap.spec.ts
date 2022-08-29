@@ -8,7 +8,7 @@ import { checkValueWithinRange } from '../../../../support/walletCommands'
   the flow must start to a block divisible by 20 + 1
 */
 function waitUntilFutureSwapSettles (): void {
-  cy.getByTestID('current_block_count').invoke('text').then((text: string) => {
+  cy.getByTestID('current_block_count_value').invoke('text').then((text: string) => {
     const currentBlockCount = new BigNumber(text)
     if (!(currentBlockCount.modulo(20)).isEqualTo(1)) {
       cy.wait(2000)
