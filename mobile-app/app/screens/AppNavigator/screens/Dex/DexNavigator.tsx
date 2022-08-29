@@ -9,6 +9,7 @@ import { translate } from '@translations'
 import { NetworkDetails } from '../Settings/screens/NetworkDetails'
 import { DexScreen } from './DexScreen'
 import { CompositeSwapScreen, OwnedTokenState, TokenState } from './CompositeSwap/CompositeSwapScreen'
+import { CompositeSwapScreenV2 } from './CompositeSwap/CompositeSwapScreenV2'
 import { CompositeSwapForm, ConfirmCompositeSwapScreen } from './CompositeSwap/ConfirmCompositeSwapScreen'
 import { WalletToken } from '@store/wallet'
 import { ConversionParam } from '../Portfolio/PortfolioNavigator'
@@ -24,6 +25,7 @@ import { RemoveLiquidityConfirmScreen } from './DexConfirmRemoveLiquidity'
 import { AddLiquidityScreen } from './DexAddLiquidity'
 import { ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
 import { PoolPairDetailsScreen } from './PoolPairDetailsScreen'
+import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 export interface DexParamList {
   DexScreen: undefined
   CompositeSwapScreen: {
@@ -108,6 +110,7 @@ export function DexNavigator (): JSX.Element {
     navigation.navigate('NetworkSelectionScreen')
   }
   const insets = useSafeAreaInsets()
+  const { isFeatureAvailable } = useFeatureFlagContext()
 
   return (
     <DexStack.Navigator
@@ -208,15 +211,22 @@ export function DexNavigator (): JSX.Element {
       />
 
       <DexStack.Screen
-        component={CompositeSwapScreen}
+        component={isFeatureAvailable('composite_swap_v2') ? CompositeSwapScreenV2 : CompositeSwapScreen}
         name='CompositeSwap'
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/DexScreen', 'Swap tokens')}
-              containerTestID={headerContainerTestId}
-            />
-          )
+          ...screenOptions,
+          headerTitle: isFeatureAvailable('composite_swap_v2')
+            ? translate('screens/DexScreen', 'Swap')
+            : () => (<HeaderTitle
+                text={translate('screens/DexScreen', 'Swap')}
+                containerTestID={headerContainerTestId}
+                     />),
+          ...(isFeatureAvailable('composite_swap_v2')) && {
+            headerStyle: [screenOptions.headerStyle, tailwind('rounded-b-none border-b-0'), { shadowOpacity: 0, height: ((Platform.OS !== 'android' ? 88 : 96) + insets.top) }],
+            headerRight: () => (
+              <HeaderNetworkStatus onPress={goToNetworkSelect} />
+            )
+          }
         }}
       />
 
