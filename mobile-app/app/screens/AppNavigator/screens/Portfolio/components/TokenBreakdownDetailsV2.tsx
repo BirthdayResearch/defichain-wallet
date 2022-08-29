@@ -41,7 +41,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
     return collateralTokens.some(collateralToken => collateralToken.token.displaySymbol === props.token.displaySymbol) ||
       loanTokens.some(loanToken => loanToken.token.displaySymbol === props.token.displaySymbol)
   }, [props.token])
-  const { getTokenPrice } = useTokenPrice()
+  const { getTokenPrice } = useTokenPrice(denominationCurrency)
 
   // LP token calculations
   const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet)
