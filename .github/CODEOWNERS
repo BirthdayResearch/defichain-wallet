@@ -1,18 +1,18 @@
 # Define individuals that are responsible for code in a repository.
 # More details are here: https://help.github.com/articles/about-codeowners/
 
-/.github/                                       @fuxingloh @thedoublejay
+/.github/                                       @fuxingloh @thedoublejay @kyleleow @pierregee
 /.husky/                                        @fuxingloh @thedoublejay
 
-/mobile-app/app/                                @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @siradji
+/mobile-app/app/                                @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817
 /mobile-app/app/api                             @fuxingloh @thedoublejay @kyleleow @pierregee
 
-/shared/assets                                  @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @siradji
-/shared/translations                            @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @siradji
-/mobile-app/cypress                             @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @siradji
+/shared/assets                                  @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817
+/shared/translations                            @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817
+/mobile-app/cypress                             @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817
 
-/website                                        @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @siradji
-/website/src/pages/api                          @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @siradji
+/website                                        @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817
+/website/src/pages/api                          @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817
 
 /.codeclimate.yml                               @fuxingloh @thedoublejay
 /.versionrc.js                                  @fuxingloh @thedoublejay
