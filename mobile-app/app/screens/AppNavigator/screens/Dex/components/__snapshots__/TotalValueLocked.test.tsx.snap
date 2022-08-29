@@ -4,6 +4,7 @@ exports[`Total Value Locked should match snapshot 1`] = `
 <View
   style={
     Object {
+      "marginBottom": 24,
       "marginTop": 8,
       "paddingLeft": 20,
       "paddingRight": 20,
