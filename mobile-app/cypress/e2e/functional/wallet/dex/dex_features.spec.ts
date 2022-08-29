@@ -143,14 +143,14 @@ context('Wallet - DEX - Features', () => {
     cy.getByTestID('pool_pair_row_0_dUSDC-DFI').should('exist')
     cy.getByTestID('dex_search_icon').click()
     cy.getByTestID('dex_search_input').type('eth')
-    cy.getByTestID('favorite_dETH-DFI').click()
+    cy.getByTestID('favorite_pair_18').click()
     cy.getByTestID('pool_pair_row_0_dUSDC-DFI').should('not.exist')
     cy.getByTestID('pool_pair_row_0_dETH-DFI').should('exist')
     cy.reload()
     cy.wait(3000)
     cy.getByTestID('bottom_tab_dex').click()
     cy.getByTestID('pool_pair_row_0_dETH-DFI').should('exist')
-    cy.getByTestID('favorite_dETH-DFI').click()
+    cy.getByTestID('favorite_pair_18').click()
     cy.getByTestID('pool_pair_row_0_dETH-DFI').should('not.exist')
     cy.getByTestID('pool_pair_row_0_dUSDC-DFI').should('exist')
     cy.reload()
@@ -169,13 +169,15 @@ context('Wallet - DEX - Features', () => {
 
 context('Wallet - DEX - Button filtering', () => {
   function validateAvailablePoolpairAction (poolpairDisplaySymbol: string): void {
-    cy.getByTestID(`pool_pair_add_${poolpairDisplaySymbol}`).click()
+    cy.getByTestID(`pair_symbol_${poolpairDisplaySymbol}`).click()
+    cy.getByTestID('poolpair_token_details_add_liquidity').click()
     cy.url().should('include', 'DEX/AddLiquidity')
     cy.go('back')
-    cy.getByTestID(`pool_pair_swap-horiz_${poolpairDisplaySymbol}`).click()
+    cy.getByTestID('poolpair_token_details_composite_swap').click()
     cy.url().should('include', 'DEX/CompositeSwap')
     cy.getByTestID('token_select_button_FROM').should('have.attr', 'aria-disabled')
     cy.getByTestID('token_select_button_TO').should('have.attr', 'aria-disabled')
+    cy.go('back')
     cy.go('back')
   }
 
@@ -197,49 +199,33 @@ context('Wallet - DEX - Button filtering', () => {
     it('should set filter as All pairs by default and display all pairs', function () {
       interceptPoolpairWithSampleData()
       cy.getByTestID('dex_button_group_ALL_PAIRS_active').should('exist')
-      cy.getByTestID('your_symbol_dBTC-DFI').should('exist')
-      cy.getByTestID('your_symbol_DUSD-DFI').should('exist')
-      cy.getByTestID('your_symbol_dTU10-DUSD').should('exist')
+      cy.getByTestID('pair_symbol_dBTC-DFI').should('exist')
+      cy.getByTestID('pair_symbol_DUSD-DFI').should('exist')
+      cy.getByTestID('pair_symbol_dTU10-DUSD').should('exist')
     })
 
     it('should set display all DFI pairs', function () {
       interceptPoolpairWithSampleData()
       cy.getByTestID('dex_button_group_DFI_PAIRS').click()
       cy.getByTestID('dex_button_group_DFI_PAIRS_active').should('exist')
-      cy.getByTestID('your_symbol_dBTC-DFI').should('exist')
-      cy.getByTestID('your_symbol_DUSD-DFI').should('exist')
-      cy.getByTestID('your_symbol_dTU10-DUSD').should('not.exist')
+      cy.getByTestID('pair_symbol_dBTC-DFI').should('exist')
+      cy.getByTestID('pair_symbol_DUSD-DFI').should('exist')
+      cy.getByTestID('pair_symbol_dTU10-DUSD').should('not.exist')
     })
 
     it('should set display all DUSD pairs', function () {
       interceptPoolpairWithSampleData()
       cy.getByTestID('dex_button_group_DUSD_PAIRS').click()
       cy.getByTestID('dex_button_group_DUSD_PAIRS_active').should('exist')
-      cy.getByTestID('your_symbol_dBTC-DFI').should('not.exist')
-      cy.getByTestID('your_symbol_DUSD-DFI').should('exist')
-      cy.getByTestID('your_symbol_dTU10-DUSD').should('exist')
-    })
-
-    it('should be able to display poolpair information upon switching filters', function () {
-      interceptPoolpairWithSampleData()
-      // DUSD pairs filter
-      cy.getByTestID('details_dTU10-DUSD').click()
-      cy.getByTestID('available_info_section_dTU10-DUSD').should('exist')
-      // DFI pairs filter
-      cy.getByTestID('dex_button_group_DFI_PAIRS').click()
-      cy.getByTestID('details_DUSD-DFI').click()
-      cy.getByTestID('available_info_section_DUSD-DFI').should('exist')
-      // All pairs filter
-      cy.getByTestID('dex_button_group_ALL_PAIRS').click()
-      cy.getByTestID('details_dTU10-DUSD').click()
-      cy.getByTestID('available_info_section_dTU10-DUSD').should('exist')
-      cy.getByTestID('details_DUSD-DFI').click()
-      cy.getByTestID('available_info_section_DUSD-DFI').should('exist')
+      cy.getByTestID('pair_symbol_dBTC-DFI').should('not.exist')
+      cy.getByTestID('pair_symbol_DUSD-DFI').should('exist')
+      cy.getByTestID('pair_symbol_dTU10-DUSD').should('exist')
     })
 
     it('should be able to navigate to add liquidity and swap page upon switching filters', function () {
       interceptPoolpairWithSampleData()
       // All pairs filter
+      cy.getByTestID('dex_button_group_ALL_PAIRS').click()
       validateAvailablePoolpairAction('dBTC-DFI')
       // DFI pairs filter
       cy.getByTestID('dex_button_group_DFI_PAIRS').click()
@@ -263,10 +249,8 @@ context('Wallet - DEX - Button filtering', () => {
       cy.getByTestID('dex_tabs_YOUR_POOL_PAIRS').click()
       cy.getByTestID('pool_pair_row_0_dBTC-DFI').should('exist')
       cy.getByTestID('pool_pair_row_1_DUSD-DFI').should('exist')
-      cy.getByTestID('details_dBTC-DFI').click()
-      cy.getByTestID('your_info_section_dBTC-DFI').should('exist')
-      cy.getByTestID('details_DUSD-DFI').click()
-      cy.getByTestID('your_info_section_DUSD-DFI').should('exist')
+      cy.getByTestID('pair_symbol_dBTC-DFI').should('exist')
+      cy.getByTestID('pair_symbol_DUSD-DFI').should('exist')
     }
 
     before(function () {

@@ -40,14 +40,14 @@ context('Wallet - Settings - Service Provider', () => {
       })
 
       it(`should display default on first app load on ${defichainUrlEnv}`, () => {
-        cy.getByTestID('header_network_name').invoke('text').then((network: string) => {
+        cy.getByTestID('header_network_name').first().invoke('text').then((network: string) => {
           if (network !== defichainUrlEnv) {
             cy.switchNetwork(defichainUrlEnv).wait(2000)
             cy.createEmptyWallet(true).wait(2000)
           }
           cy.getByTestID('bottom_tab_portfolio').click()
-          cy.getByTestID('header_settings').click().wait(50)
-          cy.getByTestID('header_network_name').contains(defichainUrlEnv)
+          cy.getByTestID('header_settings').click().wait(100)
+          cy.getByTestID('header_network_name').first().contains(defichainUrlEnv)
           cy.getByTestID('setting_navigate_service_provider').contains('Default')
           cy.url().should('include', 'app/Settings', () => {
             expect(localStorage.getItem('WALLET.SERVICE_PROVIDER_URL')).to.eq(url.default)
@@ -81,8 +81,9 @@ context('Wallet - Settings - Service Provider', () => {
       it(`should submit valid custom service provider on ${defichainUrlEnv}`, () => {
         cy.getByTestID('endpoint_url_input').clear().type(url.custom)
         cy.getByTestID('button_submit').should('not.have.attr', 'aria-disabled')
-        cy.getByTestID('button_submit').click().wait(1000)
-        cy.getByTestID('pin_authorize').type('000000').wait(3000)
+        cy.getByTestID('button_submit').click().wait(3000)
+        cy.getByTestID('pin_authorize').type('000000')
+        cy.wait(5000)
         cy.getByTestID('bottom_tab_portfolio').click()
         cy.getByTestID('header_settings').click().wait(1000)
         cy.url().should('include', 'app/Settings/SettingsScreen')
@@ -99,8 +100,9 @@ context('Wallet - Settings - Service Provider', () => {
         cy.getByTestID('header_settings').click()
         cy.getByTestID('setting_navigate_service_provider').click()
         cy.getByTestID('edit_service_provider').click()
-        cy.getByTestID('reset_button').should('exist').click()
-        cy.getByTestID('pin_authorize').type('000000').wait(3000)
+        cy.getByTestID('reset_button').should('exist').click().wait(3000)
+        cy.getByTestID('pin_authorize').type('000000')
+        cy.wait(5000)
         cy.getByTestID('bottom_tab_portfolio').click()
         cy.getByTestID('header_settings').click().wait(1000)
         cy.getByTestID('header_custom_active_network').should('not.exist')
