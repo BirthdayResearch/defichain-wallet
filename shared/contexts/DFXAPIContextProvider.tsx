@@ -8,7 +8,7 @@ import { DFXAddrSignature, DFXPersistence } from '@api/persistence/dfx_storage'
 import { WalletType } from '@shared-contexts/WalletPersistenceContext'
 import { authentication, Authentication } from '@store/authentication'
 import { translate } from '@translations'
-import { getSellRoutes, signIn, signUp, getCountries } from '@shared-api/dfx/ApiService'
+import { getSellRoutes, signIn, signUp, getCountries, getSignMessage } from '@shared-api/dfx/ApiService'
 import { AuthService } from '@shared-api/dfx/AuthService'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
@@ -141,14 +141,16 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
      * @returns Promise<Buffer>
      */
     const signMessage = async (provider: WalletHdNodeProvider<MnemonicHdNode>): Promise<Buffer> => {
-        const activeIndex = await WalletAddressIndexPersistence.getActive()
-        const account = initJellyfishWallet(provider, network, whaleApiClient).get(activeIndex)
-        const privKey = await account.privateKey()
-        const messagePrefix = getJellyfishNetwork(network).messagePrefix
-        const message = `By signing this message, you confirm that you are the sole owner of the provided DeFiChain address and are in possession of its private key. Your ID: ${address}`
-        .split(' ')
-        .join('_')
-        return await signAsync(message, privKey, true, messagePrefix)
+      const activeIndex = await WalletAddressIndexPersistence.getActive()
+      const account = initJellyfishWallet(provider, network, whaleApiClient).get(activeIndex)
+      const privKey = await account.privateKey()
+      const messagePrefix = getJellyfishNetwork(network).messagePrefix
+      const message = `By signing this message, you confirm that you are the sole owner of the provided DeFiChain address and are in possession of its private key. Your ID: ${address}`
+      .split(' ')
+      .join('_')
+      const signMessage = await getSignMessage(address)
+      // signMessage: login with AltCoins possible || message: -> fallback
+      return await signAsync(signMessage ?? message, privKey, true, messagePrefix)
     }
 
     // message signed callback
@@ -164,37 +166,37 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
 
     // show authentication Prompt
     if (providerData.type === WalletType.MNEMONIC_UNPROTECTED) {
-        const provider = MnemonicUnprotected.initProvider(providerData, network)
+      const provider = MnemonicUnprotected.initProvider(providerData, network)
+      const sigBuffer = await signMessage(provider)
+      await onMessageSigned(sigBuffer)
+    } else if (providerData.type === WalletType.MNEMONIC_ENCRYPTED) {
+      const pin = await DFXPersistence.getWalletPin()
+      if (pin.length === 0) {
+        await new Promise<void>((resolve, reject) => {
+          const auth: Authentication<Buffer> = {
+            consume: async passphrase => {
+              const provider = MnemonicEncrypted.initProvider(providerData, network, { prompt: async () => passphrase })
+              return await signMessage(provider)
+            },
+            onAuthenticated: async (buffer) => {
+              await onMessageSigned(buffer)
+              resolve()
+            },
+            onError: e => reject(e),
+            message: translate('screens/UnlockWallet', 'To access DFX Services, we need you to enter your passcode.'),
+            loading: translate('screens/TransactionAuthorization', 'Verifying access')
+          }
+
+          dispatch(authentication.actions.prompt(auth))
+        })
+      } else {
+        const provider = MnemonicEncrypted.initProvider(providerData, network, { prompt: async () => pin })
         const sigBuffer = await signMessage(provider)
         await onMessageSigned(sigBuffer)
-      } else if (providerData.type === WalletType.MNEMONIC_ENCRYPTED) {
-        const pin = await DFXPersistence.getWalletPin()
-        if (pin.length === 0) {
-          await new Promise<void>((resolve, reject) => {
-            const auth: Authentication<Buffer> = {
-              consume: async passphrase => {
-                const provider = MnemonicEncrypted.initProvider(providerData, network, { prompt: async () => passphrase })
-                return await signMessage(provider)
-              },
-              onAuthenticated: async (buffer) => {
-                await onMessageSigned(buffer)
-                resolve()
-              },
-              onError: e => reject(e),
-              message: translate('screens/UnlockWallet', 'To access DFX Services, we need you to enter your passcode.'),
-              loading: translate('screens/TransactionAuthorization', 'Verifying access')
-            }
-
-            dispatch(authentication.actions.prompt(auth))
-          })
-        } else {
-          const provider = MnemonicEncrypted.initProvider(providerData, network, { prompt: async () => pin })
-          const sigBuffer = await signMessage(provider)
-          await onMessageSigned(sigBuffer)
-        }
-      } else {
-        throw new Error('Missing wallet provider data handler')
       }
+    } else {
+      throw new Error('Missing wallet provider data handler')
+    }
   }
 
   // start sign in/up process and set web token to pair

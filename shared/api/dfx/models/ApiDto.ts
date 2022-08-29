@@ -6,3 +6,7 @@ export interface ApiError {
 export interface AuthResponse {
   accessToken: string
 }
+
+export interface SignMessageRespone {
+  message: string
+}
