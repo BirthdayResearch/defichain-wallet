@@ -254,26 +254,26 @@ context('Wallet - Portfolio -> Pending Future Swap Display', () => {
     cy.getByTestID('future_swap_button').click()
 
     cy.getByTestID('dTU10-DUSD_amount').should('have.text', '321.98765400 dTU10')
-    cy.getByTestID('dTU10-DUSD_destination_symbol').should('have.text', 'DUSD')
+    cy.getByTestID('dTU10-DUSD_destination_symbol').should('have.text', 'to DUSD')
 
     cy.getByTestID('DUSD-dTS25_amount').should('have.text', '1.34500000 DUSD')
-    cy.getByTestID('DUSD-dTS25_destination_symbol').should('have.text', 'dTS25')
+    cy.getByTestID('DUSD-dTS25_destination_symbol').should('have.text', 'to dTS25')
   })
 
   it('should sum out amount of same source and destination swaps', () => {
     cy.getByTestID('future_swap_button').click()
     cy.getByTestID('DUSD-dTU10_amount').should('have.text', '2.35700000 DUSD')
-    cy.getByTestID('DUSD-dTU10_destination_symbol').should('have.text', 'dTU10')
+    cy.getByTestID('DUSD-dTU10_destination_symbol').should('have.text', 'to dTU10')
   })
 
   it('should display +5% if DUSD -> loan token', () => {
     cy.getByTestID('future_swap_button').click()
-    cy.getByTestID('DUSD-dTU10_oracle_price').should('have.text', '+5% on oracle price')
+    cy.getByTestID('DUSD-dTU10_oracle_price').should('have.text', 'Settlement value (+5%)')
   })
 
   it('should display -5% if loan token -> DUSD', () => {
     cy.getByTestID('future_swap_button').click()
-    cy.getByTestID('dTU10-DUSD_oracle_price').should('have.text', '-5% on oracle price')
+    cy.getByTestID('dTU10-DUSD_oracle_price').should('have.text', 'Settlement value (-5%)')
   })
 })
 
@@ -308,19 +308,17 @@ context('Wallet - Future Swap -> Display -> Withdraw flow', () => {
   it('should display correct withdraw transaction details', function () {
     cy.getByTestID('DUSD-dTU10').click()
     cy.getByTestID('text_input_percentage').clear().type('6')
-    cy.getByTestID('text_amount_to_withdraw').should('have.text', '6.00000000')
-    cy.getByTestID('displayed_withdraw_amount').should('have.text', '6.00000000')
-    cy.getByTestID('text_remaining_amount').should('have.text', '4.00000000')
     cy.getByTestID('text_fee').should('exist')
-    cy.getByTestID('button_confirm_submit').click()
+    cy.getByTestID('button_continue_withdraw').click()
   })
 
   it('should display correct confirmation withdraw transaction details', function () {
-    cy.getByTestID('confirm_text_transaction_type').should('have.text', 'Withdraw future swap')
-    cy.getByTestID('confirm_text_remaining_amount').should('have.text', '4.00000000')
-    cy.getByTestID('confirm_text_fee').should('exist')
+    cy.getByTestID('confirm_title').should('have.text', 'You are withdrawing')
+    cy.getByTestID('title_tx_detail').should('have.text', '6.00000000')
+    cy.getByTestID('text_fee').should('exist')
+    cy.getByTestID('receive_value').should('have.text', '6.00000000 DUSD')
     cy.getByTestID('button_confirm_withdraw_future_swap').click().wait(3000)
-    cy.getByTestID('txn_authorization_description').should('have.text', 'Withdraw locked amount 6.00000000 DUSD from future swap')
+    cy.getByTestID('txn_authorization_title').should('have.text', 'Withdrawing 6.00000000 DUSD from DUSD-dTU10 swap')
     cy.closeOceanInterface()
   })
 
