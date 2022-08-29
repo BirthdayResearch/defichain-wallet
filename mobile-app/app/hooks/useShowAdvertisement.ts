@@ -13,19 +13,26 @@ export function useShowAdvertisement (): { showAd: boolean, counter: number, adU
   const [showAd, setShowAd] = useState(true)
   const [counter, setCounter] = useState(0)
   const [adUrl, setAdUrl] = useState<string | undefined>()
+  const [intervalID, setIntervalID] = useState<NodeJS.Timer>() // created a useState for intervalID
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    setIntervalID(setInterval(() => {
       setCounter((c) => {
         if (c - 1 === 0) {
           setShowAd(false)
-          clearInterval(timer)
         }
 
         return c - 1
       })
-    }, 1000)
+    }, 1000))
   }, [])
+
+  useEffect(() => {
+    if (counter < 0) {
+      setShowAd(false);
+      (intervalID != null) && clearInterval(intervalID)
+    }
+  }, [counter])
 
   useEffect(() => {
     if (lastAd != null && result.data == null) {
