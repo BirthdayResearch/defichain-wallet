@@ -233,7 +233,7 @@ export function TokenBreakdownDetailsV2 (props: TokenBreakdownDetailProps): JSX.
                 dark: tailwind('text-mono-dark-v2-700')
               }}
               prefix={isUSDDenomination ? '$' : undefined}
-              suffix={isUSDDenomination ? ` ${denominationCurrency}` : undefined}
+              suffix={!isUSDDenomination ? ` ${denominationCurrency}` : undefined}
               border
             />
           </>
