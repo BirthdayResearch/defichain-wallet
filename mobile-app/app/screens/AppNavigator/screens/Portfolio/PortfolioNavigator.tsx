@@ -20,9 +20,7 @@ import { FutureSwapScreen } from './screens/FutureSwapScreen'
 import { ConfirmWithdrawFutureSwapScreen } from './screens/ConfirmWithdrawFutureSwapScreen'
 import { WithdrawFutureSwapScreen } from './screens/WithdrawFutureSwapScreen'
 import { RemoveLiquidityScreen } from '../Dex/DexRemoveLiquidity'
-import { RemoveLiquidityScreenV2 } from '../Dex/DexRemoveLiquidityV2'
 import { RemoveLiquidityConfirmScreen } from '../Dex/DexConfirmRemoveLiquidity'
-import { RemoveLiquidityConfirmScreenV2 } from '../Dex/DexConfirmRemoveLiquidityV2'
 import { GetDFIScreen } from './screens/GetDFIScreen'
 import { MarketplaceScreen } from './screens/MarketplaceScreen'
 import { SettingsNavigator } from '../Settings/SettingsNavigator'
@@ -36,8 +34,6 @@ import GridBackgroundImageDark from '@assets/images/onboarding/grid-background-d
 import { HeaderSettingButton } from './components/HeaderSettingButton'
 import { HeaderNetworkStatus } from '@components/HeaderNetworkStatus'
 import { TokenDetailScreen } from './screens/TokenDetailScreen'
-import { ConfirmAddLiquidityScreenV2 } from '../Dex/DexConfirmAddLiquidityV2'
-import { AddLiquidityScreenV2 } from '../Dex/DexAddLiquidityV2'
 import { AddressBookScreen } from './screens/AddressBookScreen'
 import { AddOrEditAddressBookScreen } from './screens/AddOrEditAddressBookScreen'
 import { TokensVsUtxoFaq } from './screens/TokensVsUtxoFaq'
@@ -442,7 +438,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={isFeatureAvailable('add_liquidity_v2') ? AddLiquidityScreenV2 : AddLiquidityScreen}
+        component={AddLiquidityScreen}
         name='AddLiquidity'
         options={{
           ...screenOptions,
@@ -454,7 +450,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={isFeatureAvailable('add_liquidity_v2') ? ConfirmAddLiquidityScreenV2 : ConfirmAddLiquidityScreen}
+        component={ConfirmAddLiquidityScreen}
         name='ConfirmAddLiquidity'
         options={{
           ...screenOptions,
@@ -480,7 +476,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={isFeatureAvailable('remove_liquidity_v2') ? RemoveLiquidityScreenV2 : RemoveLiquidityScreen}
+        component={RemoveLiquidityScreen}
         name='RemoveLiquidity'
         options={{
           ...screenOptions,
@@ -520,7 +516,7 @@ export function PortfolioNavigator (): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={isFeatureAvailable('remove_liquidity_v2') ? RemoveLiquidityConfirmScreenV2 : RemoveLiquidityConfirmScreen}
+        component={RemoveLiquidityConfirmScreen}
         name='RemoveLiquidityConfirmScreen'
         options={{
           ...screenOptions,

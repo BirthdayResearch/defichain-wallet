@@ -139,29 +139,64 @@ export function useDexStabilization (tokenA: DexStabilizationTokenA, tokenB: Dex
     return announcement
   }, [])
 
-  const getCompositeSwapDexStabilization = useCallback((bestPath: SwapPathPoolPair[], pairsWithDexFee: Array<{ tokenADisplaySymbol: string, tokenBDisplaySymbol: string }>): DexStabilization | undefined => {
-    const pairIndex = bestPath.findIndex(path => {
-      return pairsWithDexFee.some(({ tokenADisplaySymbol, tokenBDisplaySymbol }) => (
-        (path.tokenA.displaySymbol === tokenADisplaySymbol && path.tokenB.displaySymbol === tokenBDisplaySymbol) ||
-        (path.tokenA.displaySymbol === tokenBDisplaySymbol && path.tokenB.displaySymbol === tokenADisplaySymbol)))
-    })
-    const pairWithDexFee = bestPath[pairIndex]
+  const convertPairsToNodes = (bestPath: SwapPathPoolPair[]): string[] => {
+    /*
+      Convert pairs[] to bestPathNodes[] in proper direction in array shape -- bestPathNodes[]
+      pairs: [w-x -> y-x -> z-y] ---> proper direction [w-x -> x-y -> y-z] ---> bestPathNodes: [w,x,y,z]
+    */
+    let bestPathNodes: string[] = []
+    bestPath.forEach((currentPair, index) => {
+      const nextPair = bestPath[index + 1]
+      const prevPair = bestPath[index - 1]
 
-    if (
-      (pairIndex === 0 && (bestPath[pairIndex + 1]?.tokenA.displaySymbol === pairWithDexFee.tokenA.displaySymbol || bestPath[pairIndex + 1]?.tokenB.displaySymbol === pairWithDexFee.tokenB.displaySymbol)) ||
-      (pairIndex !== -1 && bestPath[pairIndex - 1]?.tokenB.displaySymbol === pairWithDexFee.tokenA.displaySymbol)) {
-      const [tokenADisplaySymbol, tokenBDisplaySymbol] = bestPath[pairIndex + 1]?.tokenA.displaySymbol === pairWithDexFee.tokenA.displaySymbol
-        ? [pairWithDexFee.tokenB.displaySymbol, pairWithDexFee.tokenA.displaySymbol]
-        : [pairWithDexFee.tokenA.displaySymbol, pairWithDexFee.tokenB.displaySymbol]
+      if (nextPair === undefined) { // last pair
+        const prevPairTokenB = bestPathNodes[bestPathNodes.length - 1] === prevPair.tokenA.displaySymbol
+          ? prevPair.tokenB.displaySymbol
+          : prevPair.tokenA.displaySymbol
 
-      return {
-        dexStabilizationType: 'composite-dusd-with-fee',
-        pair: {
-          tokenADisplaySymbol,
-          tokenBDisplaySymbol
-        },
-        dexStabilizationFee: getDexStabilizationFee(tokenADisplaySymbol, tokenBDisplaySymbol)
+        bestPathNodes = prevPairTokenB === currentPair.tokenA.displaySymbol
+          ? bestPathNodes.concat([currentPair.tokenA.displaySymbol, currentPair.tokenB.displaySymbol])
+          : bestPathNodes.concat([currentPair.tokenB.displaySymbol, currentPair.tokenA.displaySymbol])
+      } else if ([nextPair.tokenA.displaySymbol, nextPair.tokenB.displaySymbol].includes(currentPair.tokenA.displaySymbol)) {
+        bestPathNodes.push(currentPair.tokenB.displaySymbol)
+      } else {
+        bestPathNodes.push(currentPair.tokenA.displaySymbol)
       }
+    })
+
+    return bestPathNodes
+  }
+
+  const getCompositeSwapDexStabilization = useCallback((bestPath: SwapPathPoolPair[], pairsWithDexFee: Array<{ tokenADisplaySymbol: string, tokenBDisplaySymbol: string }>): DexStabilization | undefined => {
+    /* Not composite swap if there's only one leg */
+    if (bestPath.length === 1) {
+      return
+    }
+
+    const bestPathNodes = convertPairsToNodes(bestPath)
+
+    /*
+      Based from bestPathNodes: [w,x,y,z], check if direction is correct in pairsWithDexFee e.g [w-x,y-x,z-y]
+      Right direction: [w-x],
+      Wrong direction: [z-y], [y.x]
+    */
+    let pairWithDexFee: { tokenADisplaySymbol: string, tokenBDisplaySymbol: string } | undefined
+    for (let i = 0; i <= bestPathNodes.length; i++) {
+      pairWithDexFee = pairsWithDexFee.find(p => p.tokenADisplaySymbol === bestPathNodes[i] && p.tokenBDisplaySymbol === bestPathNodes[i + 1]) ?? pairWithDexFee
+    }
+
+    if (pairWithDexFee === undefined) {
+      return undefined
+    }
+
+    const { tokenADisplaySymbol, tokenBDisplaySymbol } = pairWithDexFee
+    return {
+      dexStabilizationType: 'composite-dusd-with-fee',
+      pair: {
+        tokenADisplaySymbol,
+        tokenBDisplaySymbol
+      },
+      dexStabilizationFee: getDexStabilizationFee(tokenADisplaySymbol, tokenBDisplaySymbol)
     }
   }, [])
 
