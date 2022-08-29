@@ -46,7 +46,6 @@ import { ConvertConfirmationScreen } from '@screens/AppNavigator/screens/Portfol
 import { SendScreen } from './screens/SendScreen'
 import { TokenSelectionScreen } from './screens/TokenSelectionScreen'
 import { SendConfirmationScreen } from './screens/SendConfirmationScreen'
-import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { NetworkSelectionScreen } from '../Settings/screens/NetworkSelectionScreen'
 import { AddLiquidityScreen } from '../Dex/DexAddLiquidity'
 import { ConfirmAddLiquidityScreen } from '../Dex/DexConfirmAddLiquidity'
@@ -137,7 +136,7 @@ export function PortfolioNavigator (): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const headerContainerTestId = 'portfolio_header_container'
   const { isLight } = useThemeContext()
-  const { isFeatureAvailable } = useFeatureFlagContext()
+
   const goToNetworkSelect = (): void => {
     navigation.navigate('NetworkSelectionScreen')
   }
