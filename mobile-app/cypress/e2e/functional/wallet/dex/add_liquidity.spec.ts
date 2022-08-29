@@ -56,7 +56,7 @@ function percentageAmountButton (percentage: string, tokenAAmount: string, token
   cy.getByTestID('lp_tokens_to_receive_value_rhsUsdAmount').contains(lpTokenUsd)
 }
 
-context.only('Wallet - DEX - Add Liquidity', () => {
+context('Wallet - DEX - Add Liquidity', () => {
   before(function () {
     setupWallet()
   })
