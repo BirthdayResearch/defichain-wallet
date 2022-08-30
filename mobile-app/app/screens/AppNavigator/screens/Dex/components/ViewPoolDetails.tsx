@@ -184,7 +184,7 @@ function AddLiquidityDetails ({ pairInfo, pairData }: AddLiquidityDetailsProps):
 
       {pairData?.apr?.total !== undefined && pairData?.apr?.total !== null && (
         <ViewPoolAmountRow
-          label='APR'
+          label={translate('screens/AddLiquidity', 'APR')}
           amount={new BigNumber(isNaN(pairData.apr.total) ? 0 : pairData.apr.total).times(100).toFixed(2)}
           valueThemeProps={{
             dark: tailwind('text-green-v2'),
