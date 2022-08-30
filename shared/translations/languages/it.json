@@ -1114,10 +1114,10 @@
     "Fee": "Tassa",
     "Each transaction will be subject to a small amount of fees.": "Ogni transazione sarà soggetta a un piccolo importo di commissioni.",
     "btcfee.text": "• DFX è un intermediario finanziario svizzero completamente regolamentato. Il rispetto della normativa in particolare in materia di contrasto al riciclaggio e al finanziamento del terrorismo (AML/CFT) richiede processi elaborati che devono essere sviluppati e continuamente rinnovati in stretto coordinamento con i nostri studi legali.\n\n  • Ogni utente deve essere identificato tramite procedure KYC.\n\n  • Per consentire depositi bitcoin veloci, dobbiamo mantenere la liquidità sulla DeFiChain per trasferire i bitcoin incartati direttamente nei portafogli degli utenti\n\n  • DFX sta costruendo l'infrastruttura tecnica per consentire ai depositi di Bitcoin di trasferire i Bitcoin incartati ai portafogli DFX degli utenti e di utilizzarli immediatamente dopo la ricezione.",
-    "DFX Payout Fee": "",
-    "Fees": "",
-    "DEX Stabilization Fee": "",
-    "When selling dUSD, dToken and composite Assets (dUSD based) the current DEX stabilization fee applies.": ""
+    "DFX Payout Fee": "Commissioni trattenute da DFX",
+    "Fees": "Tariffe",
+    "DEX Stabilization Fee": "Tariffa di Stabilizzazione del DEX",
+    "When selling dUSD, dToken and composite Assets (dUSD based) the current DEX stabilization fee applies.": "Quando vendi dUSD, i dToken e gli Asset compositi (passando attraverso dUSD) si applica l’attuale tariffa di stabilizzazione del DEX."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault ID",
@@ -1556,7 +1556,7 @@
     "Bitcoin Deposit": "Deposito di Bitcoin",
     "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!": "Si prega di notare il deposito minimo di {{MinimumBtcAmount}}!",
     "Ref bonus": "Ref bonus",
-    "Please click here to finish the KYC process to receive your bitcoin address": ""
+    "Please click here to finish the KYC process to receive your bitcoin address": "Per favore, clicca qui per terminare il processo di KYC e ricevere il tuo indirizzo Bitcoin."
   },
   "screens/DfxButtons": {
     "DFI.Tax": "DFI.tax",

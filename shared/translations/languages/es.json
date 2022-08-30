@@ -1126,10 +1126,10 @@
     "Fee": "Tarifa",
     "Each transaction will be subject to a small amount of fees.": "Cada transacción estará sujeta a una pequeña cantidad de tarifas.",
     "btcfee.text": "• DFX es un intermediario financiero totalmente regulado en Suiza. El proceso de adecuación con la regulación Suiza para combatir la corrupción, y en particular el lavado de dinero para actividad terrorista (AML/CFT), requiere procesos de desarrollo legal que precisan de ser continuamente renovados en coordinación con nuestro despacho de abogados.\n\n  • Cada usuario debe ser identificado con el procedimiento de registro de identidad KYC.\n\n  • Para facilitar depósitos rápidos de bitcoin, necesitamos mantener liquidez en DeFiChain para poder envolver Bitcoin directamente a las billeteras de nuestros usuarios.\n\n  • DFX está construyendo la infraestructura técnica para permitir los depósitos de Bitcoin y poder envolver BTC y mandarlo inmediatamente despúes del recibo.",
-    "DFX Payout Fee": "",
-    "Fees": "",
-    "DEX Stabilization Fee": "",
-    "When selling dUSD, dToken and composite Assets (dUSD based) the current DEX stabilization fee applies.": ""
+    "DFX Payout Fee": "Tasa de Dividendos DFX",
+    "Fees": "Tasas",
+    "DEX Stabilization Fee": "Tasa de Estabilización del DEX",
+    "When selling dUSD, dToken and composite Assets (dUSD based) the current DEX stabilization fee applies.": "Cuando vendes dUSD, dToken y Activos Compuestos (con base dUSD) la tasa de estabilización actual se aplica."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Identificador de la bóveda",
@@ -1581,7 +1581,7 @@
     "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "Envia SOLO Bitcoin nativo (BTC) a tu billetera de depósito mostrada abajo o escanea el código QR. Luego te transferiremos dBTC a tu billetera DFX.",
     "Bitcoin Deposit": "Depósito de Bitcoin",
     "Ref bonus": "Bonificación de referidos",
-    "Please click here to finish the KYC process to receive your bitcoin address": ""
+    "Please click here to finish the KYC process to receive your bitcoin address": "Por favor, aprieta aquí para acabar con el proceso de verificación KYC para recibir tu dirección Bitcoin."
   },
   "screens/DfxButtons": {
     "DFI.Tax": "DFI.tax",

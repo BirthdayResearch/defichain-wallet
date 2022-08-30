@@ -1085,10 +1085,10 @@
     "Fee": "费用",
     "Each transaction will be subject to a small amount of fees.": "每笔交易都将收取少量费用。",
     "btcfee.text": "• DFX 是一家受全面监管的瑞士金融中介机构。 遵守特别是打击洗钱和恐怖主义融资 (AML/CFT) 的法规需要与我们的律师事务所密切合作制定并不断更新的复杂流程。\n\n  • 必须通过KYC 程序识别每个用户。\n\n  • 为了实现快速的比特币存款，我们需要保持 DeFiChain 的流动性，以便将打包的比特币直接转移到用户的钱包中\n\n  • DFX 正在构建技术基础设施，使比特币存款能够将打包的比特币转移到用户的 DFX 钱包并在收到后立即使用。",
-    "DFX Payout Fee": "",
-    "Fees": "",
-    "DEX Stabilization Fee": "",
-    "When selling dUSD, dToken and composite Assets (dUSD based) the current DEX stabilization fee applies.": ""
+    "DFX Payout Fee": "DFX支付费用",
+    "Fees": "费用",
+    "DEX Stabilization Fee": "DEX稳定费",
+    "When selling dUSD, dToken and composite Assets (dUSD based) the current DEX stabilization fee applies.": "当出售dUSD、dToken和复合资产（基于dUSD）时，适用当前的DEX稳定费用。"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金库编号",
@@ -1536,7 +1536,7 @@
     "Bitcoin Deposit": "比特币存款",
     "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!": "请注意最低存款金额为 {{MinimumBtcAmount}}!",
     "Ref bonus": "参考奖金",
-    "Please click here to finish the KYC process to receive your bitcoin address": ""
+    "Please click here to finish the KYC process to receive your bitcoin address": "请点击这里完成KYC程序，以获得你的比特币地址。"
   },
   "screens/DfxButtons": {
     "DFI.Tax": "DFI.tax",

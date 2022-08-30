@@ -1133,7 +1133,7 @@
     "DFX Payout Fee": "DFX Auszahlungsgebühr",
     "Fees": "Gebühren",
     "DEX Stabilization Fee": "DEX Stabilisierungsgebühr",
-    "When selling dUSD, dToken and composite Assets (dUSD based) the current DEX stabilization fee applies.": "…"
+    "When selling dUSD, dToken and composite Assets (dUSD based) the current DEX stabilization fee applies.": "Beim Verkauf von dUSD, dToken und zusammengesetzten Vermögenswerten (dUSD-basiert) gilt die aktuelle DEX-Stabilisierungsgebühr."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
@@ -1580,7 +1580,7 @@
     "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "Sende ausschließlich native Bitcoin (BTC) an deine unten angezeigte BTC Einzahlungsadresse oder scanne den QR-Code. Wir werden dir anschließend dBTC in deine Wallet transferieren.",
     "Bitcoin Deposit": "Bitcoin Einzahlung",
     "Ref bonus": "Ref-Bonus",
-    "Please click here to finish the KYC process to receive your bitcoin address": "Bitte hier…"
+    "Please click here to finish the KYC process to receive your bitcoin address": "Klicke bitte hier, um den KYC-Prozess abzuschließen und deine Bitcoin-Adresse zu erhalten."
   },
   "screens/DfxButtons": {
     "Buy & Staking": "Kauf & \nStaking",
