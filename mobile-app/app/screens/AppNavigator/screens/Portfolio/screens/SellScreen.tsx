@@ -320,16 +320,12 @@ export function SellScreen ({
           )
           : (
             <>
-              {token.symbol !== 'DFI' && (
-                <ThemedView style={tailwind('px-4 mb-4')}>
-                  <DfxDexFeeInfo
-                    token={token}
-                    getDexFee={(df) => setTimeout(() => {
-                      setDexFee(df)
-                    }, 50)}
-                  />
-                </ThemedView>
-              )}
+              <ThemedView style={tailwind('px-4 mb-4')}>
+                <DfxDexFeeInfo
+                  token={token}
+                  getDexFee={(df) => setDexFee(df)}
+                />
+              </ThemedView>
 
               {!(fiatAccounts.length > 0)
               ? <ActionButton

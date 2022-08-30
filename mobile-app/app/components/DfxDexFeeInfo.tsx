@@ -60,8 +60,6 @@ export function DfxDexFeeInfo (props: DfxDexFeeInfoProps): JSX.Element {
     props.getDexFee?.(isCrypto() ? '0' : dexStabilizationFee)
   }
 
-  returnDexFee()
-
   useEffect(() => {
     returnDexFee()
   }, [props.token])
