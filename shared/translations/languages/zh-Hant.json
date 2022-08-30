@@ -504,7 +504,8 @@
   "screens/Onboarding": {
     "CREATE A WALLET": "創建錢包",
     "RESTORE WALLET": "恢復錢包",
-    "Get started": "開始"
+    "Get started": "開始",
+    "Restore wallet": "恢复钱包"
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "比特幣生態原生DeFi",
@@ -516,7 +517,15 @@
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "在 DEX 上進行交易並使用加密貨幣和 dToken 從流動性挖礦中獲得獎勵 ",
     "Decentralized loans": "去中心化資產貸款",
     "Access financial opportunities with dTokens minted through decentralized vaults.": "透過去中心化金庫鑄造的 dToken 獲得交易機會",
-    "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "DeFiChain 錢包是完全非託管的。 個人資金只供您私人操作。"
+    "Create your own Wallet.": "创建你自己的钱包。",
+    "Buy and Sell DeFi Tokens.": "购买和出售DeFi代币。",
+    "Generate passive cashflow.": "产生被动现金流。",
+    "Track your tax.": "记录你的税收。",
+    "By creating your own wallet, you get access to the DeFiChain protocol and to the service of DFX.": "创建你自己的钱包，你可以访问DeFiChain协议和DFX服务。",
+    "You can buy DeFi Tokens with simple SEPA bank transactions or native Bitcoin right away and withdraw assets to your bank account.": "你可以通过简单的SEPA银行交易直接购买DeFi代币，或者存入比特币并将资产提取到银行账户。",
+    "Through liquidity mining or staking applications you can earn cashflow by letting your investment work for you.": "流动性采矿或赌注允许你通过让你的投资为你工作来赚取现金流。",
+    "You can easily document all of your transactions and rewards through our 1-click solution enabled by an API to Cointracking.": "你可以轻松管理你的所有交易 并通过1次点击获得奖励 通过API到CoinTracking 文件。",
+    "A wallet dedicated to the native decentralized finance for bitcoin.": "一个致力于为比特币提供原生去中心化金融的钱包"
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "離開頁面",

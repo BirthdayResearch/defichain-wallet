@@ -527,7 +527,15 @@
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Handle auf der DEX und verdiene Rewards aus dem Liquiditäts-Mining mit Kryptos und dToken.",
     "Decentralized loans": "Dezentrale Darlehen",
     "Access financial opportunities with dTokens minted through decentralized vaults.": "Erhalte Zugang zu finanziellen Gelegenheiten mit dToken, die in dezentralen Vaults gemintet wurden.",
-    "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "Die DeFiChain-Wallet ist völlig non-custodial. Nur du hast Zugang zu deinem Guthaben."
+    "Create your own Wallet.": "Erstelle deine eigene Wallet.",
+    "Buy and Sell DeFi Tokens.": "Kaufe und verkaufe DeFi Tokens.",
+    "Generate passive cashflow.": "Generiere passiven Cashflow.",
+    "Track your tax.": "Dokumentiere deine Steuer.",
+    "By creating your own wallet, you get access to the DeFiChain protocol and to the service of DFX.": "Durch das Erstellen deiner eigenen Wallet erhältst du Zugang zum DeFiChain Protokoll und dem DFX Service.",
+    "You can buy DeFi Tokens with simple SEPA bank transactions or native Bitcoin right away and withdraw assets to your bank account.": "Man kann DeFi Tokens direkt mit einer einfachen SEPA Bank Transaktion kaufen oder  Bitcoin einzahlen und deine Assets auf das Bankkonto auszahlen.",
+    "Through liquidity mining or staking applications you can earn cashflow by letting your investment work for you.": "Durchs Liquidity Mining oder Staking \nkann man Cashflow verdienen, indem\nman sein Investment für sich arbeiten\nlässt. ",
+    "You can easily document all of your transactions and rewards through our 1-click solution enabled by an API to Cointracking.": "Man kann einfach all seine Transaktionen\nand Rewards mittels 1-Klick \ndurch eine API zu CoinTracking\ndokumentieren.",
+    "A wallet dedicated to the native decentralized finance for bitcoin.": "Eine Wallet, für die dezentrale native Finanzwelt basierend auf Bitcoin."
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "Ansicht verlassen",

@@ -493,7 +493,9 @@
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "CREAR UNA BILLETERA",
-    "RESTORE WALLET": "RECUPERAR BILLETERA"
+    "RESTORE WALLET": "RECUPERAR BILLETERA",
+    "Get started": "Empieza",
+    "Restore wallet": "Recupera billetera"
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "DeFi nativo para Bitcoin",
@@ -504,7 +506,16 @@
     "Maximize earning potential": "Maximiza las ganancias potenciales",
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Intercambia tokens para obtener recompensas del liquidity mining con los tokens descentralizados.",
     "Decentralized loans": "Préstamos descentralizados",
-    "Access financial opportunities with dTokens minted through decentralized vaults.": "Crea y accede a nuevos dTokens usando Vaults sobre-colateralizados"
+    "Access financial opportunities with dTokens minted through decentralized vaults.": "Crea y accede a nuevos dTokens usando Vaults sobre-colateralizados",
+    "Create your own Wallet.": "Crea tu propia billetera.",
+    "Buy and Sell DeFi Tokens.": "Compra y Vende Tokens DeFi",
+    "Generate passive cashflow.": "Genera ingresos pasivos.",
+    "Track your tax.": "Haz el seguimiento de tus impuestos.",
+    "By creating your own wallet, you get access to the DeFiChain protocol and to the service of DFX.": "Al crear tu propia billetera, tendrás acceso al protocol DeFiChain y al servicio de DFX.",
+    "You can buy DeFi Tokens with simple SEPA bank transactions or native Bitcoin right away and withdraw assets to your bank account.": "Puedes comprar Tokens DeFi con transacciones SEPA o directamente con Bitcoin nativo y retirar los activos directamente a tu cuenta de banco.",
+    "Through liquidity mining or staking applications you can earn cashflow by letting your investment work for you.": "A través de la minería de liquidez o el servicio de Staking puedes ganar ingresos pasivos dejando que tus activos trabajen para ti.",
+    "You can easily document all of your transactions and rewards through our 1-click solution enabled by an API to Cointracking.": "Puedes fácilmente documentar tus transacciones y recompensas a través de nuestra solución de solo 1 click activada por una API a CoinTracking.",
+    "A wallet dedicated to the native decentralized finance for bitcoin.": "Una billetera dedicada a las finanzas nativas y descentralizadas para Bitcoin."
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "Abandonar pantalla",

@@ -507,26 +507,29 @@
   },
   "screens/Onboarding": {
     "CREATE A WALLET": "CREA UN WALLET",
-    "RESTORE WALLET": "RIPRISTINA IL WALLET"
+    "RESTORE WALLET": "RIPRISTINA IL WALLET",
+    "Get started": "Iniziare",
+    "Restore wallet": "Ripristino del portafoglio"
   },
   "screens/OnboardingCarousel": {
     "Native DeFi for Bitcoin": "DeFi nativo per Bitcoin",
     "Take full control": "Prendi il pieno controllo",
-    "of your digital assets": "dei tuoi beni digitali",
-    "Nobody owns your keys and wallet except you.": "Nessuno possiede le tue chiavi e il tuo wallet eccetto te.",
-    "Unlock the highest": "Sblocca il più alto",
-    "potential of your finances": "potenziale delle tue finanze",
-    "Transact, liquidity mine, swap and many more features as a fully-decentralized wallet": "Fare transazioni, liquidity mininig, swap e molte altre caratteristiche come un wallet completamente decentralizzato",
-    "Earn high yields": "Ottenere alti rendimenti",
-    "of up to 90% with DEX": "fino al 90% con il DEX",
-    "Supply liquidity to BTC, ETH, and many other pool pairs. You can also withdraw anytime!": "Fornisci liquidità per BTC, ETH, e molte altre coppie di pool. Puoi anche prelevare in qualsiasi momento!",
     "DeFiChain Wallet is fully non-custodial. Keep your 24-word recovery phrase safe. Only you have access to your funds.": "Il portafoglio DeFiChain è non-custodial. Tieni al sicuro le tue 24 password. Solo tu hai accesso ai tuoi fondi.",
     "View your assets in one place": "Visualizza i tuoi asset in un unico posto",
     "Review your available and locked assets in your portfolio.": "Esamina gli asset disponibili e bloccati nel tuo portafoglio.",
     "Maximize earning potential": "Massimizza il potenziale di guadagno",
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Scambia i token per ottenere rendimenti elevati e guadagna i premi di liquidity mining con i token decentralizzati.",
     "Decentralized loans": "Prestiti decentralizzati",
-    "Access financial opportunities with dTokens minted through decentralized vaults.": "Conia e accedi a nuovi dToken utilizzando caveau sovra-collateralizzati."
+    "Access financial opportunities with dTokens minted through decentralized vaults.": "Conia e accedi a nuovi dToken utilizzando caveau sovra-collateralizzati.",
+    "Create your own Wallet.": "Creare il proprio portafoglio.",
+    "Buy and Sell DeFi Tokens.": "Comprare e vendere gettoni DeFi.",
+    "Generate passive cashflow.": "Generare un flusso di cassa passivo.",
+    "Track your tax.": "Tracciare le tasse.",
+    "By creating your own wallet, you get access to the DeFiChain protocol and to the service of DFX.": "Creando il proprio portafoglio, si ottiene l'accesso al protocollo DeFiChain e al servizio di DFX.",
+    "You can buy DeFi Tokens with simple SEPA bank transactions or native Bitcoin right away and withdraw assets to your bank account.": "È possibile acquistare i gettoni DeFi con semplici transazioni bancarie SEPA o con Bitcoin nativi e ritirare subito i beni sul proprio conto bancario.",
+    "Through liquidity mining or staking applications you can earn cashflow by letting your investment work for you.": "Attraverso le applicazioni di liquidity mining o staking potete guadagnare cashflow lasciando che il vostro investimento lavori per voi.",
+    "You can easily document all of your transactions and rewards through our 1-click solution enabled by an API to Cointracking.": "Potete documentare facilmente tutte le vostre transazioni e ricompense attraverso la nostra soluzione con un solo clic, abilitata da un'API per Cointracking.",
+    "A wallet dedicated to the native decentralized finance for bitcoin.": "Un portafoglio dedicato alla Finanza Decentralizzata nativa basata su Bitcoin."
   },
   "screens/CreateMnemonicWallet": {
     "Exit screen": "Schermata d'uscita",

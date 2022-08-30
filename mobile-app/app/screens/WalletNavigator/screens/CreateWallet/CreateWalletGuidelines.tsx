@@ -9,6 +9,7 @@ import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 import { WalletParamList } from '../../WalletNavigator'
 import { openURL } from '@api/linking'
+import SvgSign from '@assets/images/onboarding/x.svg'
 
 type Props = StackScreenProps<WalletParamList, 'CreateWalletGuidelines'>
 
@@ -49,6 +50,7 @@ export function CreateWalletGuidelines ({ navigation }: Props): JSX.Element {
       light={tailwind('bg-white')}
       style={tailwind('flex-1 p-4 pt-6')}
     >
+      <SvgSign style={tailwind('self-center mb-4')} />
       <ThemedText
         style={tailwind('text-lg font-semibold')}
       >
