@@ -11,7 +11,6 @@ import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import {
   ThemedIcon,
   ThemedScrollView,
-  ThemedSectionTitle,
   ThemedText,
   ThemedTouchableOpacity,
   ThemedView
@@ -48,6 +47,7 @@ import { getUserDetail } from '@shared-api/dfx/ApiService'
 import { DfxConversionInfo } from '@components/DfxConversionInfo'
 import { useWalletContext } from '@shared-contexts/WalletContext'
 import { DfxDexFeeInfo } from '@components/DfxDexFeeInfo'
+import { WalletAccordion } from '@components/WalletAccordion'
 
 type Props = StackScreenProps<PortfolioParamList, 'SellScreen'>
 
@@ -385,23 +385,43 @@ export function SellScreen ({
                     <DfxConversionInfo token={token} />
                   </View>
 
-                  <ThemedSectionTitle
-                    text={translate('screens/SendScreen', 'TRANSACTION DETAILS')}
-                  />
-                  <InfoRow
-                    type={InfoType.FiatFee}
-                    value={fee.toString()} // TODO: (thabrad) check if still valid after merge !!
-                    testID='fiat_fee'
-                    suffix='%'
-                  />
-                  {dexFee !== '0' && (
-                    <InfoRow
-                      type={InfoType.DexFee}
-                      value={dexFee}
-                      testID='fiat_fee'
-                      suffix='%'
+                  <ThemedView style={tailwind('px-4')}>
+                    <WalletAccordion
+                      title={translate('screens/SendScreen', 'TRANSACTION DETAILS')}
+                      content={[{
+                        title: translate('components/BottomSheetInfo', 'Fees'),
+                        childComponent:
+                          () => {
+                            return (
+                              <>
+                                <InfoRow
+                                  type={InfoType.DfxFee}
+                                  value={fee.toString()} // TODO: (thabrad) check if still valid after merge !!
+                                  testID='fiat_fee'
+                                  suffix='%'
+                                  containerStyle={{
+                                    style: tailwind('py-2 flex-row items-start w-full'),
+                                    dark: tailwind('')
+                                  }}
+                                />
+                                {dexFee !== '0' && (
+                                  <InfoRow
+                                    type={InfoType.DexFee}
+                                    value={dexFee}
+                                    testID='fiat_fee'
+                                    suffix='%'
+                                    containerStyle={{
+                                      style: tailwind('pt-2 flex-row items-start w-full'),
+                                      dark: tailwind('')
+                                    }}
+                                  />
+                                )}
+                              </>
+                            )
+                          }
+                      }]}
                     />
-                  )}
+                  </ThemedView>
                 </>)}
             </>
           )}

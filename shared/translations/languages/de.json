@@ -1234,12 +1234,15 @@
     "The minimum bid a user must place in order to take part in the auction.": "Das Mindestgebot, das ein Nutzer abgeben muss, um an der Auktion teilnehmen zu können.",
     "Settlement block": "Ausführungsblock",
     "BTC Fee": "BTC Gebühr",
-    "Fiat": "Gebühr",
     "Fee": "Gebühr",
     "Each transaction will be subject to a small amount of fees.": "Für jede Transaktion fällt eine geringe Gebühr an.",
     "btcfee.text": "• DFX ist ein vollständig regulierter, schweizer Finanzintermediär. Insbesondere die Einhaltung der Verordnung zur Bekämpfung von Geldwäsche und Terrorismusfinanzierung (AML/CFT) erfordert aufwändige Prozesse, die in enger Abstimmung mit unseren Kanzleien entwickelt und laufend erneuert werden müssen.\n\n  • Jeder Benutzer muss mittels Verifikationsverfahren (KYC) identifiziert werden.\n\n  • Um schnelle Bitcoin-Einzahlungen ermöglichen zu können, halten wir auf der DeFiChain Liquidität vor um Bitcoin auf der DeFiChain, dBTC, innerhalb kürzester Zeit in die Wallets der Kunden transferieren zu können.\n\n  • Hierfür baut DFX ebenfalls die technische Infrastruktur auf.",
     "Slippage tolerance": "Slippage-Toleranz",
-    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Slippage sind Kursänderungen, die innerhalb eines Auftragsvorgangs auftreten. Beachte, dass die Slippage-Toleranz auch die DEX-Stabilisierungsgebühren beinhaltet. Wähle aus, wie viel Slippage du zu akzeptieren bereit bist."
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Slippage sind Kursänderungen, die innerhalb eines Auftragsvorgangs auftreten. Beachte, dass die Slippage-Toleranz auch die DEX-Stabilisierungsgebühren beinhaltet. Wähle aus, wie viel Slippage du zu akzeptieren bereit bist.",
+    "DFX Payout Fee": "DFX Auszahlungsgebühr",
+    "Fees": "Gebühren",
+    "DEX Stabilization Fee": "DEX Stabilisierungsgebühr",
+    "When selling dUSD, dToken and composite Assets (dUSD based) the current DEX stabilization fee applies.": "Beim Verkauf von dUSD, dToken und zusammengesetzten Vermögenswerten (dUSD-basiert) gilt die aktuelle DEX-Stabilisierungsgebühr."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
@@ -1690,7 +1693,8 @@
     "DEPOSIT ADDRESS": "Einzahlungsadresse",
     "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "Sende ausschließlich native Bitcoin (BTC) an deine unten angezeigte BTC Einzahlungsadresse oder scanne den QR-Code. Wir werden dir anschließend dBTC in deine Wallet transferieren.",
     "Bitcoin Deposit": "Bitcoin Einzahlung",
-    "Ref bonus": "Ref-Bonus"
+    "Ref bonus": "Ref-Bonus",
+    "Please click here to finish the KYC process to receive your bitcoin address": "Klicke bitte hier, um den KYC-Prozess abzuschließen und deine Bitcoin-Adresse zu erhalten."
   },
   "screens/DfxButtons": {
     "Buy & Staking": "Kauf & \nStaking",
