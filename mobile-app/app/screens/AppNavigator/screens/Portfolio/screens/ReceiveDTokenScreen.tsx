@@ -207,7 +207,7 @@ export function ReceiveDTokenScreen ({
           ? (
             <TouchableOpacity onPress={async () => await openDfxServices()}>
               <ThemedText style={tailwind('text-center')}>
-                {translate('screens/ReceiveScreen', 'Please click here to finish the KYC process to receive your bitcoin address')}
+                {translate('screens/ReceiveDTokenScreen', 'Please click here to finish the KYC process to receive your bitcoin address')}
               </ThemedText>
             </TouchableOpacity>
           )

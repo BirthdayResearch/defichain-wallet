@@ -11,7 +11,6 @@ import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
 import {
   ThemedIcon,
   ThemedScrollView,
-  ThemedSectionTitle,
   ThemedText,
   ThemedTouchableOpacity,
   ThemedView
@@ -47,6 +46,8 @@ import { DFXPersistence } from '@api/persistence/dfx_storage'
 import { getUserDetail } from '@shared-api/dfx/ApiService'
 import { DfxConversionInfo } from '@components/DfxConversionInfo'
 import { useWalletContext } from '@shared-contexts/WalletContext'
+import { DfxDexFeeInfo } from '@components/DfxDexFeeInfo'
+import { WalletAccordion } from '@components/WalletAccordion'
 
 type Props = StackScreenProps<PortfolioParamList, 'SellScreen'>
 
@@ -77,6 +78,7 @@ export function SellScreen ({
   const [matchedAddress, setMatchedAddress] = useState<LocalAddress>()
   const dispatch = useAppDispatch()
   const [fee, setFee] = useState<number>(2.9)
+  const [dexFee, setDexFee] = useState<string>('0')
   const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
   const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
   const {
@@ -318,6 +320,13 @@ export function SellScreen ({
           )
           : (
             <>
+              <ThemedView style={tailwind('px-4 mb-4')}>
+                <DfxDexFeeInfo
+                  token={token}
+                  getDexFee={(df) => setDexFee(df)}
+                />
+              </ThemedView>
+
               {!(fiatAccounts.length > 0)
               ? <ActionButton
                   name='add'
@@ -372,15 +381,43 @@ export function SellScreen ({
                     <DfxConversionInfo token={token} />
                   </View>
 
-                  <ThemedSectionTitle
-                    text={translate('screens/SendScreen', 'TRANSACTION DETAILS')}
-                  />
-                  <InfoRow
-                    type={InfoType.FiatFee}
-                    value={fee.toString()} // TODO: (thabrad) check if still valid after merge !!
-                    testID='fiat_fee'
-                    suffix='%'
-                  />
+                  <ThemedView style={tailwind('px-4')}>
+                    <WalletAccordion
+                      title={translate('screens/SendScreen', 'TRANSACTION DETAILS')}
+                      content={[{
+                        title: translate('components/BottomSheetInfo', 'Fees'),
+                        childComponent:
+                          () => {
+                            return (
+                              <>
+                                <InfoRow
+                                  type={InfoType.DfxFee}
+                                  value={fee.toString()} // TODO: (thabrad) check if still valid after merge !!
+                                  testID='fiat_fee'
+                                  suffix='%'
+                                  containerStyle={{
+                                    style: tailwind('py-2 flex-row items-start w-full'),
+                                    dark: tailwind('')
+                                  }}
+                                />
+                                {dexFee !== '0' && (
+                                  <InfoRow
+                                    type={InfoType.DexFee}
+                                    value={dexFee}
+                                    testID='fiat_fee'
+                                    suffix='%'
+                                    containerStyle={{
+                                      style: tailwind('pt-2 flex-row items-start w-full'),
+                                      dark: tailwind('')
+                                    }}
+                                  />
+                                )}
+                              </>
+                            )
+                          }
+                      }]}
+                    />
+                  </ThemedView>
                 </>)}
             </>
           )}
@@ -443,11 +480,7 @@ function TokenInput (props: { token?: WalletToken, onPress: () => void, isDisabl
           'bg-gray-200 border-0': props.isDisabled,
           'border-gray-300 bg-white': !props.isDisabled
         })}
-        style={tailwind('border rounded w-full flex flex-row justify-between h-12 items-center px-2', {
-          'mb-10': props.token?.isLPS === false,
-          'mb-2': props.token?.isLPS === true,
-          'mb-6': props.token === undefined
-        })}
+        style={tailwind('border rounded w-full flex flex-row justify-between h-12 items-center px-2 mb-6')}
         testID='select_token_input'
         disabled={props.isDisabled}
       >

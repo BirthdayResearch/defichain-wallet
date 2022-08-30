@@ -60,6 +60,7 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
       index={0}
       snapPoints={getSnapPoints()}
       enablePanDownToClose={false}
+      handleComponent={EmptyHandleComponent}
       keyboardBlurBehavior='restore'
       backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
         <View {...backdropProps} style={[backdropProps.style, tailwind('bg-black bg-opacity-60')]} />
@@ -75,6 +76,10 @@ export const BottomSheetWithNav = React.memo((props: BottomSheetWithNavProps): J
     </BottomSheetModal>
   )
 })
+
+const EmptyHandleComponent = (): JSX.Element => {
+  return <></>
+}
 
 export const BottomSheetWebWithNav = React.memo((props: BottomSheetWithNavProps & { isModalDisplayed: boolean, modalStyle?: { [other: string]: any} }): JSX.Element => {
   return (

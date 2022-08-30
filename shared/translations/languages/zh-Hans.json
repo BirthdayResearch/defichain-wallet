@@ -1195,7 +1195,11 @@
     "Each transaction will be subject to a small amount of fees.": "每笔交易都将收取少量费用。",
     "btcfee.text": "• DFX 是一家受全面监管的瑞士金融中介机构。 遵守特别是打击洗钱和恐怖主义融资 (AML/CFT) 的法规需要与我们的律师事务所密切合作制定并不断更新的复杂流程。\n\n  • 必须通过KYC 程序识别每个用户。\n\n  • 为了实现快速的比特币存款，我们需要保持 DeFiChain 的流动性，以便将打包的比特币直接转移到用户的钱包中\n\n  • DFX 正在构建技术基础设施，使比特币存款能够将打包的比特币转移到用户的 DFX 钱包并在收到后立即使用。",
     "Slippage tolerance": "交易滑点",
-    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑价是每项交易中的兑换率变化。选择您愿意接受这滑价的多少百分比（如下显示)。"
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑价是每项交易中的兑换率变化。选择您愿意接受这滑价的多少百分比（如下显示)。",
+    "DFX Payout Fee": "DFX支付费用",
+    "Fees": "费用",
+    "DEX Stabilization Fee": "DEX稳定费",
+    "When selling dUSD, dToken and composite Assets (dUSD based) the current DEX stabilization fee applies.": "当出售dUSD、dToken和复合资产（基于dUSD）时，适用当前的DEX稳定费用。"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金库编号",
@@ -1647,7 +1651,8 @@
     "Send ONLY Bitcoin (BTC) to your BTC deposit address shown below or scan the QR code. We will transfer dBTC in your DFX Wallet afterwards.": "只需发送原生比特币（BTC）到你下面的BTC存款地址或扫描QR码。然后，我们将把dBTC转移到你的钱包。",
     "Bitcoin Deposit": "比特币存款",
     "Please note the MINIMUM deposit amount is {{MinimumBtcAmount}}!": "请注意最低存款金额为 {{MinimumBtcAmount}}!",
-    "Ref bonus": "参考奖金"
+    "Ref bonus": "参考奖金",
+    "Please click here to finish the KYC process to receive your bitcoin address": "请点击这里完成KYC程序，以获得你的比特币地址。"
   },
   "screens/DfxButtons": {
     "DFI.Tax": "DFI.tax",
@@ -1656,5 +1661,8 @@
     "Sell": "Sell",
     "Buy & Staking": "Buy &\nStaking",
     "Deposit Bitcoin": "Deposit Bitcoin"
+  },
+  "components/DfxDexFeeInfo": {
+    "Please note that all sales of dTokens (e.g.dUSD, dCOIN, dTSLA, dSPY..) are subject to a DEX stabilization fee. The crypto tokens such as DFI, dBTC, dETH and stablecoins such as dUSDT / dUSDC are not affected. Further information": "请注意，所有dTokens（如dUSD、dCOIN、dTSLA、dSPY...）的销售都需要支付DEX稳定费。加密代币如DFI、dBTC、dETH和稳定币如dUSDT/dUSDC不受影响。更多信息"
   }
 }

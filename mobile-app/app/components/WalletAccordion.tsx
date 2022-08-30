@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { FC, useState } from 'react'
 import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from './themed'
 import Accordion from 'react-native-collapsible/Accordion'
 import { tailwind } from '@tailwind'
@@ -13,11 +13,12 @@ interface AccordionProps {
 }
 
 export interface AccordionContent {
-  title: string
-  content: Array<{
+  title?: string
+  content?: Array<{
     text: string
     type: 'bullet' | 'paragraph'
   }>
+  childComponent?: FC
 }
 
 export function WalletAccordion (props: AccordionProps): JSX.Element {
@@ -77,7 +78,7 @@ export function WalletAccordion (props: AccordionProps): JSX.Element {
               light={tailwind('border-gray-200')}
               dark={tailwind('border-dfxblue-900')}
             >
-              {prop.content.map(({ text, type }) => (
+              {prop.content?.map(({ text, type }) => (
                 <View key={text} style={tailwind('flex-row justify-start')}>
                   {type === 'bullet' && (
                     <ThemedText style={tailwind('w-1/12 font-bold text-sm')}>{'\u2022'}</ThemedText>
@@ -92,6 +93,9 @@ export function WalletAccordion (props: AccordionProps): JSX.Element {
                   </ThemedText>
                 </View>
               ))}
+              {(prop.childComponent != null) && (prop.content == null) && (
+                <prop.childComponent />
+              )}
             </ThemedView>
           )
         }}

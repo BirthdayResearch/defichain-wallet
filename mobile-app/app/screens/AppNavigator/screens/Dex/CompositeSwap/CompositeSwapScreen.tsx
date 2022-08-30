@@ -122,7 +122,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   ]
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.InstantSwap)
   const [isFutureSwap, setIsFutureSwap] = useState(false)
-  const [dexStabilizationFee, setDexStabilizationFee] = useState<string | undefined>(undefined)
 
   const executionBlock = useSelector((state: RootState) => state.futureSwaps.executionBlock)
   const {
@@ -147,11 +146,15 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
 
   // dex stabilization
   const { isFeatureAvailable } = useFeatureFlagContext()
-  const isDexStabilizationEnabled = isFeatureAvailable('dusd_dfi_high_fee')
+  const isDexStabilizationEnabled = isFeatureAvailable('dusd_dex_high_fee')
   const {
     dexStabilizationAnnouncement,
-    dexStabilizationType
-  } = useDexStabilization(selectedTokenA, selectedTokenB, dexStabilizationFee)
+    dexStabilization: {
+      dexStabilizationType,
+      pair: dexStabilizationPair,
+      dexStabilizationFee
+    }
+  } = useDexStabilization(selectedTokenA, selectedTokenB)
 
   const expandModal = useCallback(() => {
     if (Platform.OS === 'web') {
@@ -273,15 +276,6 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
     client.fee.estimate()
       .then((f) => setFee(new BigNumber(f)))
       .catch(logger.error)
-  }, [])
-
-  //* Calculate DEX Stabilization fee
-  useEffect(() => {
-    const dusdDFIPair = pairs.find((p) => p.data.displaySymbol === 'DUSD-DFI')
-    if (dusdDFIPair !== undefined) {
-      const fee = dusdDFIPair.data.tokenA.fee?.pct
-      setDexStabilizationFee(fee !== undefined ? new BigNumber(fee).times(100).toFixed(2) : undefined)
-    }
   }, [])
 
   useEffect(() => {
@@ -449,13 +443,20 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
   }
 
   const onWarningBeforeSubmit = async (): Promise<void> => {
-    const message = dexStabilizationType === 'composite-dusd-dfi'
-      ? 'Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> DFI)?'
-      : 'Are you certain you want to proceed to swap DUSD for DFI despite the DEX Stabilization fees of {{fee}}?'
+    if (selectedTokenB === undefined) {
+      return
+    }
+
+    const message = dexStabilizationType === 'composite-dusd-with-fee'
+      ? 'Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?'
+      : 'Are you certain you want to proceed to swap DUSD for {{tokenB}} despite the DEX Stabilization fees of {{fee}}?'
 
     WalletAlert({
       title: translate('screens/CompositeSwapScreen', ''),
-      message: translate('screens/CompositeSwapScreen', message, { fee: `${dexStabilizationFee ?? 0}%` }),
+      message: translate('screens/CompositeSwapScreen', message, {
+        fee: `${dexStabilizationFee ?? 0}%`,
+        tokenB: dexStabilizationType === 'composite-dusd-with-fee' ? dexStabilizationPair?.tokenBDisplaySymbol : selectedTokenB.displaySymbol
+      }),
       buttons: [
         {
           text: translate('screens/Settings', 'Cancel'),
@@ -687,7 +688,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
                 (isFutureSwap && isEnded)}
               label={translate('screens/CompositeSwapScreen', 'CONTINUE')}
               processingLabel={translate('screens/CompositeSwapScreen', 'CONTINUE')}
-              onSubmit={dexStabilizationType === 'none' && isDexStabilizationEnabled ? onSubmit : onWarningBeforeSubmit}
+              onSubmit={(dexStabilizationType === 'none' && isDexStabilizationEnabled) || !isDexStabilizationEnabled ? onSubmit : onWarningBeforeSubmit}
               title='submit'
               isProcessing={hasPendingJob || hasPendingBroadcastJob}
               displayCancelBtn={false}

@@ -125,6 +125,7 @@ export type FEATURE_FLAG_ID =
   | 'future_swap'
   | 'service_provider'
   | 'onboarding_v2'
+  | 'dusd_dex_high_fee'
   | 'dusd_dfi_high_fee'
   | 'setting_v2'
 
