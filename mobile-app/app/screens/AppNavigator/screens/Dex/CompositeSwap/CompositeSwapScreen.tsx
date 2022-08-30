@@ -208,7 +208,7 @@ export function CompositeSwapScreen ({ route }: Props): JSX.Element {
       return new BigNumber(token.amount).toFixed(8)
     }
 
-    const maxAmount = new BigNumber(token.amount).minus(reservedDfi)
+    const maxAmount = BigNumber.max(new BigNumber(token.amount).minus(reservedDfi), 0)
     return maxAmount.isLessThanOrEqualTo(0) ? new BigNumber(0).toFixed(8) : maxAmount.toFixed(8)
   }
 
