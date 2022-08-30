@@ -830,7 +830,7 @@
     "Insufficient balance": "Unzureichendes Guthaben",
     "APR": "Jahreszins",
     "Shares to add": "Hinzuzufügende Anteile",
-    "Volume (24H):": "Volume (24h)",
+    "Volume (24H)": "Volumen (24h)",
     "Total liquidity": "Gesamtliquidität",
     "Tokens in {{symbol}}": "Token in {{symbol}}",
     "Max available {{unit}} entered": "Max. verfügbare {{unit}} hinzugefügt",
