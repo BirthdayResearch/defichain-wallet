@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { Platform, TouchableOpacity, View } from 'react-native'
+import { useCallback, useEffect, useRef, useState, useMemo } from 'react'
+import { Platform, TouchableOpacity, View, TextInput } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Control, Controller, useForm } from 'react-hook-form'
 import BigNumber from 'bignumber.js'
 import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native'
-import { tailwind } from '@tailwind'
+import { tailwind, getColor } from '@tailwind'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { translate } from '@translations'
 import { RootState } from '@store'
@@ -22,7 +22,10 @@ import {
   ThemedText,
   ThemedTouchableOpacity,
   ThemedView,
-  ThemedViewV2
+  ThemedViewV2,
+  ThemedTextV2,
+  ThemedTextInputV2,
+  ThemedTouchableOpacityV2
 } from '@components/themed'
 import { getNativeIcon } from '@components/icons/assets'
 import { BottomSheetNavScreen, BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
@@ -31,9 +34,9 @@ import { ConversionInfoText } from '@components/ConversionInfoText'
 import { InfoRow, InfoType } from '@components/InfoRow'
 import { InputHelperText } from '@components/InputHelperText'
 import { NumberRow } from '@components/NumberRow'
-import { AmountButtonTypes, SetAmountButton } from '@components/SetAmountButton'
+import { SetAmountButton } from '@components/SetAmountButton'
 import { WalletTextInput } from '@components/WalletTextInput'
-import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
+// import { ReservedDFIInfoText } from '@components/ReservedDFIInfoText'
 import { SlippageError, SlippageTolerance } from './components/SlippageTolerance'
 import { DexParamList } from '../DexNavigator'
 import { useWalletContext } from '@shared-contexts/WalletContext'
@@ -42,20 +45,29 @@ import { useSlippageTolerance } from '../hook/SlippageTolerance'
 import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
 import { useSwappableTokens } from '../hook/SwappableTokens'
 import { useTokenPrice } from '@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice'
-import { ButtonGroup } from '../components/ButtonGroup'
+// import { ButtonGroup } from '../components/ButtonGroup'
 import { useFutureSwap, useFutureSwapDate } from '../hook/FutureSwap'
 import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
-import NumberFormat from 'react-number-format'
+// import NumberFormat from 'react-number-format'
 import { TextRow } from '@components/TextRow'
 import { PriceRateProps, PricesSection } from '@components/PricesSection'
 import { fetchExecutionBlock } from '@store/futureSwap'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { WalletAlert } from '@components/WalletAlert'
-import { AnnouncementBanner } from '../../Portfolio/components/Announcements'
+// import { AnnouncementBanner } from '../../Portfolio/components/Announcements'
 import { DexStabilizationType, useDexStabilization } from '../hook/DexStabilization'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
 import { ButtonGroupV2 } from '../components/ButtonGroupV2'
+import { ActiveUSDValueV2 } from '../../Loans/VaultDetail/components/ActiveUSDValueV2'
+import { useThemeContext } from '@shared-contexts/ThemeProvider'
+import { TokenDropdownButton } from './components/TokenDropdownButton'
+import { TransactionCard, AmountButtonTypes } from '@components/TransactionCard'
+import { SlippageToleranceCard, SlippageAmountButtonTypes } from './components/SlippageToleranceCard'
+import { WalletTextInputV2 } from '@components/WalletTextInputV2'
+// import { ButtonV2 } from '@components/ButtonV2'
+import { useToast } from 'react-native-toast-notifications'
+import NumberFormat from 'react-number-format'
 
 export enum ButtonGroupTabKey {
   InstantSwap = 'INSTANT_SWAP',
@@ -74,6 +86,7 @@ export interface OwnedTokenState extends TokenState {
 }
 
 type Props = StackScreenProps<DexParamList, 'CompositeSwapScreen'>
+type SwapToken = 'have' | 'want'
 
 export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
   const logger = useLogger()
@@ -91,6 +104,9 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
     slippage,
     setSlippage
   } = useSlippageTolerance()
+  const { getTokenPrice } = useTokenPrice()
+  const { isLight } = useThemeContext()
+  const toast = useToast()
 
   const blockCount = useSelector((state: RootState) => state.block.count ?? 0)
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs)
@@ -101,6 +117,7 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
   const DFIUtxo = useSelector((state: RootState) => DFIUtxoSelector(state.wallet))
 
   const reservedDfi = 0.1
+  const TOAST_DURATION = 2000
   const [bottomSheetScreen, setBottomSheetScreen] = useState<BottomSheetNavScreen[]>([])
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001))
   const [slippageError, setSlippageError] = useState<SlippageError | undefined>()
@@ -184,6 +201,7 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
     control,
     formState,
     setValue,
+    getValues,
     trigger,
     watch
   } = useForm<{
@@ -194,6 +212,8 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
     tokenA,
     tokenB
   } = watch()
+  const tokenAAmount = getValues('tokenA')
+  const tokenBAmount = getValues('tokenB')
 
   const {
     isConversionRequired,
@@ -509,6 +529,61 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
     }
   }
 
+  const amountInUSDValue = useCallback((tokenAmount: string, token?: OwnedTokenState) => {
+    if (token === undefined || (tokenAmount === '')) {
+      return new BigNumber(0)
+    }
+
+    return getTokenPrice(token.symbol, new BigNumber(tokenAmount))
+  }, [selectedTokenA, tokenAAmount])
+
+  const buildSummary = useCallback((amount: string): void => {
+    setValue('tokenA', amount)
+  }, [])
+
+  function onPercentagePress (amount: string, type: AmountButtonTypes): void {
+    buildSummary(amount)
+    showToast(type)
+  }
+
+  function showToast (type: AmountButtonTypes): void {
+    toast.hideAll()
+    const isMax = type === AmountButtonTypes.Max
+    const toastMessage = isMax ? 'Max available LP tokens entered' : '{{percent}} of available {{token}} entered'
+      const toastOption = {
+        token: selectedTokenA?.displaySymbol,
+        percent: type
+      }
+    toast.show(translate('screens/CompositeSwapScreen', toastMessage, toastOption), {
+      type: 'wallet_toast',
+      placement: 'top',
+      duration: TOAST_DURATION
+    })
+  }
+
+  const [isCustomSlippage, setIsCustomSlippage] = useState(false)
+  // const [slippageAmount, setSlippageAmount] = useState()
+
+  function onSlippageChange (amount: string, type: SlippageAmountButtonTypes): void {
+    if (type === SlippageAmountButtonTypes.Custom) {
+      setIsCustomSlippage(true)
+    }
+  }
+
+  console.log('tokenAAmount', tokenAAmount)
+  console.log('tokenBAmount', tokenBAmount)
+
+  // function slippageChange (value: string): void {
+  //   console.log('value', value)
+  //   setSlippageAmount(value)
+  // }
+
+  // const buildSlippage = (amount: string): string => {
+  //   console.log('amount', amount)
+  //   const maxValue = selectedTokenA != null ? new BigNumber(getMaxAmount(selectedTokenA)) : new BigNumber(0)
+  //   // setSlippageAmount(maxValue.multipliedBy(amount).toFixed(8))
+  // }
+
   return (
     <View style={tailwind('h-full')} ref={containerRef}>
       <ThemedViewV2
@@ -526,204 +601,206 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
           />
         </View>
       </ThemedViewV2>
-      <ThemedScrollViewV2>
-        {
-          (fromTokens !== undefined && fromTokens?.length > 0) && (
-            <ThemedText
-              dark={tailwind('text-gray-50')}
-              light={tailwind('text-gray-900')}
-              style={tailwind('text-xl font-semibold m-4 mb-0')}
+      <ThemedScrollViewV2 contentContainerStyle={tailwind('px-5')}>
+        <View style={tailwind('my-8')}>
+          <View>
+            <ThemedTextV2
+              style={tailwind('px-5 text-xs font-normal-v2')}
+              light={tailwind('text-mono-light-v2-500')}
+              dark={tailwind('text-mono-dark-v2-500')}
             >
-              {translate('screens/CompositeSwapScreen', 'Swap tokens')}
-            </ThemedText>
-          )
-        }
-
-        <View style={tailwind(['flex flex-row mt-3 mx-2', { hidden: fromTokens?.length === 0 }])}>
-          <TokenSelection
-            label={translate('screens/CompositeSwapScreen', 'FROM')}
-            symbol={selectedTokenA?.displaySymbol}
-            onPress={() => onBottomSheetSelect({ direction: 'FROM' })}
-            disabled={isFromTokenSelectDisabled || fromTokens === undefined || fromTokens?.length === 0}
-          />
-          <TokenSelection
-            label={translate('screens/CompositeSwapScreen', 'TO')} symbol={selectedTokenB?.displaySymbol}
-            onPress={() => onBottomSheetSelect({ direction: 'TO' })}
-            disabled={isToTokenSelectDisabled || toTokens === undefined || toTokens?.length === 0}
-          />
-        </View>
-        {isDexStabilizationEnabled && dexStabilizationType !== 'none' && dexStabilizationAnnouncement !== undefined &&
-          <View style={tailwind('flex mx-4 mt-4 rounded')}>
-            <AnnouncementBanner announcement={dexStabilizationAnnouncement} testID='swap_announcements_banner' />
-          </View>}
-        <ThemedView
-          style={tailwind('m-4 pt-4 rounded-lg flex-1')}
-          light={tailwind('bg-white')}
-          dark={tailwind('bg-gray-800')}
-        >
-          {isFutureSwapOptionEnabled &&
-            <View style={tailwind('mb-4 mx-4')}>
-              <ButtonGroup
-                buttons={buttonGroup}
-                activeButtonGroupItem={activeButtonGroup}
-                labelStyle={tailwind('font-medium text-xs text-center py-0.5')}
-                testID='swap_button_group'
-                containerThemedProps={{
-                  light: tailwind('bg-gray-100'),
-                  dark: tailwind('bg-gray-900')
-                }}
-              />
-            </View>}
-          {(selectedTokenA === undefined || selectedTokenB === undefined) && fromTokens?.length !== 0 &&
-            <ThemedText
-              dark={tailwind('text-gray-400')}
-              light={tailwind('text-gray-500')}
-              style={tailwind('text-center px-4 pb-4')}
-              testID='swap_instructions'
-            > {translate('screens/CompositeSwapScreen', 'Select tokens you want to swap to get started')}
-            </ThemedText>}
-
-          {selectedTokenA !== undefined && selectedTokenB !== undefined &&
-            <View style={tailwind('mx-4 flex-1')}>
-              <TokenRow
-                control={control}
-                title={translate('screens/CompositeSwapScreen', 'Enter amount to swap')}
-                maxAmount={getMaxAmount(selectedTokenA)}
-                onChangeFromAmount={async (amount) => {
-                  amount = isNaN(+amount) ? '0' : amount
-                  setValue('tokenA', amount)
-                  await trigger('tokenA')
-                }}
-              />
-              <InputHelperText
-                testID='text_balance_amount'
-                label={`${translate('screens/CompositeSwapScreen', 'Available:')} `}
-                content={getMaxAmount(selectedTokenA)}
-                suffix={` ${selectedTokenA.displaySymbol}`}
-                labelStyleProps={tailwind('text-xs')}
-                styleProps={tailwind('text-xs')}
-              />
-              {selectedTokenA.id === '0_unified' && (
-                <View style={tailwind('mb-4')}>
-                  <ReservedDFIInfoText />
-                </View>
-              )}
-              <View style={tailwind(['flex flex-row items-center', { 'mb-4': isConversionRequired }])}>
-                <TouchableOpacity
-                  onPress={onTokenSwitch}
-                  testID='switch_button'
-                >
-                  <ThemedIcon
-                    name='swap-vert'
-                    size={24}
-                    iconType='MaterialIcons'
-                    style={tailwind('w-8 mx-2')}
-                    dark={tailwind('text-darkprimary-500')}
-                    light={tailwind('text-primary-500')}
+              {translate('screens/CompositeSwapScreen', 'I HAVE {{totalAmount}} {{token}}', {
+                totalAmount: selectedTokenA != null ? getMaxAmount(selectedTokenA) : '',
+                token: selectedTokenA != null ? selectedTokenA.displaySymbol : ''
+              })}
+            </ThemedTextV2>
+            <View style={tailwind('flex flex-row justify-between items-center pl-5 mb-6 mt-4')}>
+              <View>
+                <Controller
+                  control={control}
+                  defaultValue=''
+                  name='tokenA'
+                  render={({
+                  field: {
+                    onChange,
+                    value
+                  }
+                }) => (
+                  <ThemedTextInputV2
+                    style={tailwind('text-xl font-semibold-v2 w-full')}
+                    light={tailwind('text-mono-light-v2-900')}
+                    dark={tailwind('text-mono-dark-v2-900')}
+                    keyboardType='numeric'
+                    value={value}
+                    onChange={onChange}
+                    onChangeText={async (amount) => {
+                      amount = isNaN(+amount) ? '0' : amount
+                      setValue('tokenA', amount)
+                      await trigger('tokenA')
+                    }}
+                    placeholder='0.00'
+                    placeholderTextColor={getColor(isLight ? 'mono-light-v2-900' : 'mono-dark-v2-900')}
                   />
-                </TouchableOpacity>
-                <View style={tailwind('flex-1')}>
-                  {isFutureSwap
-                    ? <OraclePriceRow
-                        tokenDisplaySymbol={selectedTokenB.displaySymbol}
-                        oraclePriceText={oraclePriceText}
-                      />
-                    : <TargetTokenRow control={control} token={selectedTokenB} />}
-                </View>
-              </View>
-              {isConversionRequired && <ConversionInfoText />}
-            </View>}
-          {isFutureSwap && selectedTokenB !== undefined &&
-            <ThemedView
-              style={tailwind('flex flex-row py-2 px-4 mt-6 items-center rounded-t rounded-b-lg justify-between')}
-              light={tailwind('bg-blue-100')}
-              dark={tailwind('bg-darkblue-50')}
-            >
-              <ThemedText
-                style={tailwind('text-xs')}
-                light={tailwind('text-gray-500')}
-                dark={tailwind('text-gray-400')}
-                testID='future_swap_warning_text'
-              >
-                {oraclePriceText === '+5%'
-                  ? `${translate('screens/CompositeSwapScreen', 'By using future swap, you are buying {{tokenSymbol}} at 5% more than the oracle price at Settlement block', {
-                    tokenSymbol: selectedTokenB.displaySymbol
-                  })}`
-                  : `${translate('screens/CompositeSwapScreen', 'By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block', {
-                    tokenSymbol: selectedTokenA?.displaySymbol
-                  })}`}
-              </ThemedText>
-            </ThemedView>}
-
-          {activeButtonGroup === ButtonGroupTabKey.InstantSwap && selectedTokenB !== undefined && selectedTokenA !== undefined &&
-            <SlippageTolerance
-              setSlippage={setSlippage}
-              slippageError={slippageError}
-              setSlippageError={setSlippageError}
-              slippage={slippage}
-            />}
-        </ThemedView>
-
-        {(selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenA !== undefined && tokenA !== '' && tokenB !== undefined) &&
-          <>
-            {!isFutureSwap &&
-              <ThemedView
-                style={tailwind('rounded-t-lg mx-4 py-2')}
-                dark={tailwind('bg-gray-800 border-b border-gray-700')}
-                light={tailwind('bg-white border-b border-gray-200')}
-              >
-                <PricesSection
-                  testID='pricerate_value'
-                  priceRates={priceRates}
-                  isCompact
+                )}
+                  rules={{
+                  required: true,
+                  pattern: /^\d*\.?\d*$/,
+                  max: BigNumber.max(selectedTokenA?.amount, 0).toFixed(8),
+                  validate: {
+                    greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
+                  }
+                }}
                 />
-              </ThemedView>}
-            <TransactionDetailsSection
-              isFutureSwap={isFutureSwap}
-              conversionAmount={conversionAmount}
-              estimatedAmount={tokenB}
-              fee={fee}
-              isConversionRequired={isConversionRequired}
-              tokenA={selectedTokenA}
-              tokenB={selectedTokenB}
-              executionBlock={executionBlock}
-              timeRemaining={timeRemaining}
-              transactionDate={transactionDate}
-              oraclePriceText={oraclePriceText}
-              isDexStabilizationEnabled={isDexStabilizationEnabled}
-              dexStabilizationType={dexStabilizationType}
-              dexStabilizationFee={dexStabilizationFee}
-            />
-          </>}
-        {selectedTokenA !== undefined && selectedTokenB !== undefined && (
-          <View style={tailwind('mb-2')}>
-            <SubmitButtonGroup
-              isDisabled={!formState.isValid ||
-                hasPendingJob ||
-                hasPendingBroadcastJob ||
-                (slippageError?.type === 'error' && slippageError !== undefined) ||
-                (isFutureSwap && isEnded)}
-              label={translate('screens/CompositeSwapScreen', 'CONTINUE')}
-              processingLabel={translate('screens/CompositeSwapScreen', 'CONTINUE')}
-              onSubmit={(dexStabilizationType === 'none' && isDexStabilizationEnabled) || !isDexStabilizationEnabled ? onSubmit : onWarningBeforeSubmit}
-              title='submit'
-              isProcessing={hasPendingJob || hasPendingBroadcastJob}
-              displayCancelBtn={false}
+                <ActiveUSDValueV2
+                  // price={amountInUSDValue(selectedTokenA ?? undefined, tokenAAmount)}
+                  price={amountInUSDValue(selectedTokenA != null ? selectedTokenA : undefined, tokenAAmount)}
+                  testId='amount_input_in_usd'
+                  containerStyle={tailwind('w-full break-words')}
+                />
+              </View>
+
+              <TokenDropdownButton
+                symbol={selectedTokenA?.displaySymbol}
+                onPress={() => onBottomSheetSelect({ direction: 'FROM' })}
+                disabled={isFromTokenSelectDisabled || fromTokens === undefined || fromTokens?.length === 0}
+              />
+
+            </View>
+
+            <TransactionCard
+              maxValue={(selectedTokenA != null) ? new BigNumber(getMaxAmount(selectedTokenA)) : new BigNumber(0)}
+              onChange={(amount, type) => onPercentagePress(amount, type)}
+              amountButtonsStyle={tailwind('py-3')}
+              containerStyle={tailwind('pl-5 pr-5 mr-px rounded-t-lg-v2')}
+              disabled={selectedTokenA === undefined}
             />
           </View>
-        )}
 
-        {formState.isValid && selectedTokenA !== undefined && selectedTokenB !== undefined &&
-          <ThemedText
-            testID='transaction_details_hint_text'
-            light={tailwind('text-gray-600')}
-            dark={tailwind('text-gray-300')}
-            style={tailwind('pb-8 px-4 text-sm text-center')}
+          <View style={tailwind('my-8 relative items-center')}>
+            <ThemedTouchableOpacityV2
+              onPress={onTokenSwitch}
+              style={tailwind('p-2.5 rounded-full z-50')}
+              light={tailwind('bg-mono-light-v2-900')}
+              dark={tailwind('bg-mono-dark-v2-900')}
+              testID='switch_button'
+            >
+              <ThemedIcon
+                name='swap-vert'
+                size={24}
+                iconType='MaterialIcons'
+                dark={tailwind('text-mono-dark-v2-00')}
+                light={tailwind('text-mono-light-v2-00')}
+              />
+            </ThemedTouchableOpacityV2>
+            <ThemedViewV2
+              dark={tailwind('border-mono-dark-v2-300')}
+              light={tailwind('border-mono-light-v2-300')}
+              style={tailwind('border-t-0.5 w-full bottom-1/2')}
+            />
+          </View>
+
+          <View>
+            <ThemedTextV2
+              style={tailwind('px-5 text-xs font-normal-v2')}
+              light={tailwind('text-mono-light-v2-500')}
+              dark={tailwind('text-mono-dark-v2-500')}
+            >
+              {translate('screens/CompositeSwapScreen', 'I WANT {{token}}', {
+                token: selectedTokenB != null ? selectedTokenB.displaySymbol : ''
+              })}
+            </ThemedTextV2>
+            <View style={tailwind('flex flex-row justify-between items-center pl-5 mt-4')}>
+              <View style={tailwind('')}>
+                <NumberFormat
+                  decimalScale={8}
+                  displayType='text'
+                  renderText={(val: string) => (
+                    <ThemedTextV2
+                      style={tailwind('text-left font-normal-v2 text-xl')}
+                      light={tailwind('text-mono-light-v2-700')}
+                      dark={tailwind('text-mono-dark-v2-700')}
+                    >
+                      {val === '' ? '0.00' : val}
+                    </ThemedTextV2>
+                  )}
+                  value={new BigNumber(tokenBAmount).toFixed(8)}
+                />
+                <ActiveUSDValueV2
+                  price={selectedTokenB != null ? getTokenPrice(selectedTokenB.symbol, new BigNumber(tokenBAmount)) : new BigNumber(0)}
+                  testId='amount_input_in_usd'
+                  containerStyle={tailwind('w-full break-words')}
+                />
+              </View>
+
+              <TokenDropdownButton
+                symbol={selectedTokenB?.displaySymbol}
+                onPress={() => onBottomSheetSelect({ direction: 'TO' })}
+                disabled={isToTokenSelectDisabled || toTokens === undefined || toTokens?.length === 0}
+              />
+
+            </View>
+          </View>
+        </View>
+
+        {/* {selectedTokenA !== undefined && selectedTokenB !== undefined &&
+          <ThemedViewV2
+            style={tailwind('border-t-0.5')}
+            dark={tailwind('border-mono-dark-v2-300')}
+            light={tailwind('border-mono-light-v2-300')}
           >
-            {isConversionRequired
-              ? translate('screens/CompositeSwapScreen', 'Authorize transaction in the next screen to convert')
-              : translate('screens/CompositeSwapScreen', 'Review and confirm transaction in the next screen')}
-          </ThemedText>}
+            <ThemedTextV2
+              style={tailwind('mt-8 text-xs font-normal-v2 px-5 pb-2')}
+              dark={tailwind('text-mono-dark-v2-500')}
+              light={tailwind('text-mono-light-v2-500')}
+            >
+              {translate('screens/CompositeSwapScreen', 'SLIPPAGE TOLERANCE')}
+            </ThemedTextV2>
+            <SlippageToleranceCard
+              maxValue={(selectedTokenA != null) ? new BigNumber(getMaxAmount(selectedTokenA)) : new BigNumber(0)}
+              onChange={(amount, type) => onSlippageChange(amount, type)}
+              isCustomSlippage={isCustomSlippage}
+            >
+              <View style={tailwind('flex flex-row')}>
+                <WalletTextInputV2
+                  onChangeText={slippageChange}
+                  keyboardType='numeric'
+                  autoCapitalize='none'
+                  placeholder='0.00%'
+                  style={tailwind('h-6 rounded-full')}
+                  containerStyle='w-9/12 pr-2 rounded-full'
+                  // inputContainerStyle={tailwind('rounded-full')}
+                  testID='slippage_input'
+                  value={slippageAmount !== undefined ? slippageAmount : ''}
+                  displayClearButton={slippageAmount !== ''}
+                  onClearButtonPress={() => {
+                  setIsCustomSlippage(false)
+                  slippageChange('')
+                }}
+                  inputType='numeric'
+                />
+                <ThemedTouchableOpacityV2
+                  light={tailwind('bg-mono-light-v2-900')}
+                  dark={tailwind('bg-mono-dark-v2-900')}
+                  style={tailwind('p-2.5 flex justify-center items-center flex-grow rounded-full')}
+                >
+                  <ThemedTextV2
+                    light={tailwind('text-mono-light-v2-100')}
+                    dark={tailwind('text-mono-dark-v2-100')}
+                    style={tailwind('text-xs font-semibold-v2')}
+                  >
+                    {translate('components/CompositeSwapScreen', 'Set')}
+                  </ThemedTextV2>
+                </ThemedTouchableOpacityV2>
+              </View>
+            </SlippageToleranceCard>
+            {activeButtonGroup === ButtonGroupTabKey.InstantSwap && selectedTokenB !== undefined && selectedTokenA !== undefined &&
+              <SlippageTolerance
+                setSlippage={setSlippage}
+                slippageError={slippageError}
+                setSlippageError={setSlippageError}
+                slippage={slippage}
+              />}
+          </ThemedViewV2>} */}
 
         {Platform.OS === 'web' && (
           <BottomSheetWebWithNav
@@ -748,432 +825,79 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
   )
 }
 
-function TokenSelection (props: { symbol?: string, label: string, onPress: () => void, disabled: boolean }): JSX.Element {
-  const Icon = getNativeIcon(props.symbol ?? '')
-  return (
-    <View style={[tailwind('flex-grow mx-2'), { flexBasis: 0 }]}>
-      <ThemedText
-        dark={tailwind('text-gray-400')}
-        light={tailwind('text-gray-500')}
-        style={tailwind('text-xs pb-1')}
-      >{props.label}
-      </ThemedText>
-      <ThemedTouchableOpacity
-        onPress={props.onPress}
-        testID={`token_select_button_${props.label}`}
-        dark={tailwind({
-          'bg-gray-600 text-gray-500 border-0': props.disabled,
-          'bg-gray-800 border-gray-400': !props.disabled
-        })}
-        light={tailwind({
-          'bg-gray-200 border-0': props.disabled,
-          'bg-white border-gray-300': !props.disabled
-        })}
-        style={tailwind('flex flex-row items-center border rounded p-2')}
-        disabled={props.disabled}
-      >
-        {props.symbol === undefined &&
-          <ThemedText
-            dark={tailwind('text-gray-400')}
-            light={tailwind('text-gray-500')}
-            style={tailwind('text-sm leading-6')}
-          >
-            {translate('screens/CompositeSwapScreen', 'Select token')}
-          </ThemedText>}
+// interface TokenForm {
+//   control: Control<{ tokenA: string, tokenB: string }>
+//   maxAmount?: string
+//   onChangeFromAmount: (amount: string) => void
+//   token: string
+// }
 
-        {props.symbol !== undefined &&
-          <>
-            <Icon testID='tokenA_icon' height={17} width={17} />
-            <ThemedText
-              style={tailwind('ml-2')}
-              dark={tailwind({
-                'text-gray-200': !props.disabled,
-                'text-gray-400': props.disabled
-              })}
-              light={tailwind({
-                'text-gray-900': !props.disabled,
-                'text-gray-500': props.disabled
-              })}
-            >{props.symbol}
-            </ThemedText>
-          </>}
+// function TokenRow (form: TokenForm): JSX.Element {
+//   const {
+//     control,
+//     onChangeFromAmount,
+//     maxAmount,
+//     token
+//   } = form
+//   const rules: { required: boolean, pattern: RegExp, validate: any, max?: string } = {
+//     required: true,
+//     max: maxAmount,
+//     pattern: /^\d*\.?\d*$/,
+//     validate: {
+//       greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
+//     }
+//   }
+//   const defaultValue = ''
 
-        <ThemedIcon
-          iconType='MaterialIcons'
-          name='unfold-more'
-          size={20}
-          dark={tailwind({
-            'text-darkprimary-500': !props.disabled,
-            'text-gray-400': props.disabled
-          })}
-          light={tailwind({
-            'text-primary-500': !props.disabled,
-            'text-gray-500': props.disabled
-          })}
-          style={[tailwind('text-center mt-0.5'), { marginLeft: 'auto' }]}
-        />
-      </ThemedTouchableOpacity>
-    </View>
-  )
-}
-
-function TransactionDetailsSection ({
-  isFutureSwap,
-  conversionAmount,
-  estimatedAmount,
-  fee,
-  isConversionRequired,
-  tokenA,
-  tokenB,
-  executionBlock,
-  timeRemaining,
-  transactionDate,
-  oraclePriceText,
-  isDexStabilizationEnabled,
-  dexStabilizationType,
-  dexStabilizationFee
-}: {
-  isFutureSwap: boolean
-  conversionAmount: BigNumber
-  estimatedAmount: string
-  fee: BigNumber
-  isConversionRequired: boolean
-  tokenA: OwnedTokenState
-  tokenB: TokenState
-  executionBlock: number
-  timeRemaining: string
-  transactionDate: string
-  oraclePriceText: string
-  isDexStabilizationEnabled: boolean
-  dexStabilizationType: DexStabilizationType
-  dexStabilizationFee?: string
-}): JSX.Element {
-  const { getBlocksCountdownUrl } = useDeFiScanContext()
-  const { getTokenPrice } = useTokenPrice()
-  const rowStyle = {
-    lhsThemedProps: {
-      light: tailwind('text-gray-500'),
-      dark: tailwind('text-gray-400')
-    },
-    rhsThemedProps: {
-      light: tailwind('text-gray-900'),
-      dark: tailwind('text-gray-50')
-    }
-  }
-
-  return (
-    <View style={tailwind('mx-4 overflow-hidden', {
-      'rounded-b-lg': !isFutureSwap,
-      'rounded-lg': isFutureSwap
-    })}
-    >
-      {isConversionRequired &&
-        <NumberRow
-          lhs={translate('screens/CompositeSwapScreen', 'UTXO to be converted')}
-          rhs={{
-            testID: 'amount_to_convert',
-            value: conversionAmount.toFixed(8),
-            suffixType: 'text',
-            suffix: tokenA.displaySymbol
-          }}
-          lhsThemedProps={rowStyle.lhsThemedProps}
-          rhsThemedProps={rowStyle.rhsThemedProps}
-        />}
-
-      {!isFutureSwap
-        ? (
-          <NumberRow
-            lhs={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
-            rhs={{
-              value: estimatedAmount,
-              suffixType: 'text',
-              suffix: tokenB.displaySymbol,
-              testID: 'estimated_to_receive'
-            }}
-            textStyle={tailwind('text-sm font-normal')}
-            rhsUsdAmount={getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false)}
-            lhsThemedProps={rowStyle.lhsThemedProps}
-            rhsThemedProps={rowStyle.rhsThemedProps}
-          />
-        )
-        : (
-          <>
-            <TimeRemainingTextRow timeRemaining={timeRemaining} transactionDate={transactionDate} />
-            <InfoRow
-              type={InfoType.ExecutionBlock}
-              value={executionBlock}
-              testID='execution_block'
-              suffix={
-                <TouchableOpacity
-                  onPress={async () => await openURL(getBlocksCountdownUrl(executionBlock))}
-                >
-                  <ThemedIcon
-                    name='open-in-new'
-                    size={16}
-                    iconType='MaterialIcons'
-                    style={tailwind('ml-1')}
-                    light={tailwind('text-primary-500')}
-                    dark={tailwind('text-darkprimary-500')}
-                  />
-                </TouchableOpacity>
-              }
-              lhsThemedProps={rowStyle.lhsThemedProps}
-              rhsThemedProps={rowStyle.rhsThemedProps}
-            />
-            <TextRow
-              lhs={{
-                value: translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive'),
-                themedProps: rowStyle.lhsThemedProps,
-                testID: 'estimated_to_receive'
-              }}
-              rhs={{
-                value: translate('screens/CompositeSwapScreen', `Oracle price ${oraclePriceText}`),
-                themedProps: rowStyle.rhsThemedProps,
-                testID: 'estimated_to_receive'
-              }}
-              textStyle={tailwind('text-sm font-normal')}
-              containerStyle={{
-                dark: tailwind('bg-gray-800 border-b border-gray-700'),
-                light: tailwind('bg-white border-b border-gray-200'),
-                style: tailwind('p-4 flex-row items-start w-full')
-              }}
-            />
-          </>
-        )}
-      <InfoRow
-        type={InfoType.EstimatedFee}
-        value={fee.toFixed(8)}
-        testID='text_fee'
-        suffix='DFI'
-        lhsThemedProps={rowStyle.lhsThemedProps}
-        rhsThemedProps={rowStyle.rhsThemedProps}
-      />
-      {
-        isDexStabilizationEnabled && dexStabilizationType !== 'none' && dexStabilizationFee !== undefined && (
-          <NumberRow
-            lhs={translate('screens/CompositeSwapScreen', 'DEX stabilization fee')}
-            rhs={{
-              value: dexStabilizationFee,
-              suffix: '%',
-              testID: 'dex_stab_fee',
-              suffixType: 'text'
-            }}
-            textStyle={tailwind('text-sm font-normal')}
-            lhsThemedProps={rowStyle.lhsThemedProps}
-            rhsThemedProps={rowStyle.rhsThemedProps}
-          />
-        )
-      }
-    </View>
-  )
-}
-
-function TimeRemainingTextRow ({
-  timeRemaining,
-  transactionDate
-}: { timeRemaining: string, transactionDate: string }): JSX.Element {
-  return (
-    <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-200')}
-      style={tailwind('p-4 flex-row items-start w-full')}
-    >
-      <View style={tailwind('w-6/12')}>
-        <View style={tailwind('flex-row items-end justify-start')}>
-          <ThemedText
-            style={tailwind('text-sm')}
-            light={tailwind('text-gray-500')}
-            dark={tailwind('text-gray-400')}
-            testID='time_remaining_label'
-          >
-            {translate('screens/CompositeSwapScreen', 'Est. time remaining')}
-          </ThemedText>
-        </View>
-      </View>
-      <View style={tailwind('flex flex-col justify-end flex-1')}>
-        <ThemedText
-          style={tailwind('text-sm text-right')}
-          light={tailwind('text-gray-900')}
-          dark={tailwind('text-gray-50')}
-          testID='time_remaining'
-        >
-          {`≈${timeRemaining}`}
-        </ThemedText>
-        <ThemedText
-          style={tailwind('text-xs text-right')}
-          light={tailwind('text-gray-500')}
-          dark={tailwind('text-gray-400')}
-        >
-          {`(${transactionDate})`}
-        </ThemedText>
-      </View>
-    </ThemedView>
-  )
-}
-
-interface TokenForm {
-  control: Control<{ tokenA: string, tokenB: string }>
-  maxAmount?: string
-  onChangeFromAmount: (amount: string) => void
-  title: string
-}
-
-function TokenRow (form: TokenForm): JSX.Element {
-  const {
-    control,
-    onChangeFromAmount,
-    title,
-    maxAmount
-  } = form
-  const rules: { required: boolean, pattern: RegExp, validate: any, max?: string } = {
-    required: true,
-    max: maxAmount,
-    pattern: /^\d*\.?\d*$/,
-    validate: {
-      greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
-    }
-  }
-  const defaultValue = ''
-
-  return (
-    <Controller
-      control={control}
-      defaultValue={defaultValue}
-      name='tokenA'
-      render={({
-        field: {
-          value
-        }
-      }) => (
-        <ThemedView
-          dark={tailwind('bg-transparent')}
-          light={tailwind('bg-transparent')}
-          style={tailwind('flex-row')}
-        >
-          <WalletTextInput
-            autoCapitalize='none'
-            onChange={(e) => {
-              onChangeFromAmount(e.nativeEvent.text)
-            }}
-            placeholder={translate('screens/CompositeSwapScreen', 'Enter an amount')}
-            style={tailwind('flex-grow w-2/5')}
-            testID='text_input_tokenA'
-            value={value}
-            displayClearButton={(value !== defaultValue)}
-            onClearButtonPress={() => onChangeFromAmount(defaultValue)}
-            title={title}
-            inputType='numeric'
-          >
-            <>
-              <SetAmountButton
-                amount={new BigNumber(maxAmount ?? '0')}
-                onPress={onChangeFromAmount}
-                type={AmountButtonTypes.half}
-              />
-
-              <SetAmountButton
-                amount={new BigNumber(maxAmount ?? '0')}
-                onPress={onChangeFromAmount}
-                type={AmountButtonTypes.max}
-              />
-            </>
-          </WalletTextInput>
-        </ThemedView>
-      )}
-      rules={rules}
-    />
-  )
-}
-
-interface OraclePriceRowProps {
-  oraclePriceText: string
-  tokenDisplaySymbol: string
-}
-
-function OraclePriceRow ({
-  oraclePriceText,
-  tokenDisplaySymbol
-}: OraclePriceRowProps): JSX.Element {
-  const Icon = getNativeIcon(tokenDisplaySymbol)
-
-  return (
-    <ThemedView
-      light={tailwind('bg-gray-50')}
-      style={tailwind('flex-row flex-grow justify-between items-center p-2 rounded')}
-    >
-      <ThemedText
-        style={tailwind('self-center text-sm')}
-        light={tailwind('text-gray-400')}
-        dark={tailwind('text-gray-500')}
-        testID='oracle_price_percentage'
-      >{translate('screens/CompositeSwapScreen', 'Oracle price {{percentageChange}}', {
-        percentageChange: oraclePriceText
-      })}
-      </ThemedText>
-      <View style={tailwind('flex flex-row items-center')}>
-        <Icon height={20} width={20} />
-        <ThemedText style={tailwind('pl-2')}>{tokenDisplaySymbol}</ThemedText>
-      </View>
-    </ThemedView>
-  )
-}
-
-// Separated from TokenRow due to custom UI styling difficulties
-interface TargetTokenForm {
-  token: TokenState | OwnedTokenState
-  control: Control<{ tokenA: string, tokenB: string }>
-}
-
-function TargetTokenRow (form: TargetTokenForm): JSX.Element {
-  const {
-    token,
-    control
-  } = form
-  const Icon = getNativeIcon(token.displaySymbol)
-  const rules: { required: boolean, pattern: RegExp, validate: any, max?: string } = {
-    required: true,
-    pattern: /^\d*\.?\d*$/,
-    validate: {
-      greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
-    }
-  }
-  const defaultValue = ''
-
-  return (
-    <Controller
-      control={control}
-      defaultValue={defaultValue}
-      name='tokenB'
-      render={({
-        field: {
-          value
-        }
-      }) => (
-        <ThemedView
-          light={tailwind('bg-gray-50')}
-          style={tailwind('flex-row flex-grow justify-between items-center p-2 rounded')}
-        >
-          <NumberFormat
-            value={value}
-            thousandSeparator
-            displayType='text'
-            renderText={value =>
-              <ThemedText
-                style={tailwind('self-center text-sm')}
-                light={tailwind('text-gray-500')}
-                dark={tailwind('text-gray-400')}
-                testID='text_input_tokenB'
-              >
-                {value}
-              </ThemedText>}
-          />
-          <View style={tailwind('flex flex-row items-center')}>
-            <Icon height={20} width={20} />
-            <ThemedText style={tailwind('pl-2')}>{token.displaySymbol}</ThemedText>
-          </View>
-        </ThemedView>
-      )}
-      rules={rules}
-    />
-  )
-}
+//   return (
+//     <Controller
+//       control={control}
+//       defaultValue={defaultValue}
+//       name='tokenA'
+//       render={({
+//         field: {
+//           onChange,
+//           value
+//         }
+//       }) => (
+//         // <ThemedView
+//         //   dark={tailwind('bg-transparent')}
+//         //   light={tailwind('bg-transparent')}
+//         //   style={tailwind('flex-row')}
+//         // >
+//         //   <WalletTextInput
+//         //     autoCapitalize='none'
+//         //     onChange={(e) => {
+//         //       onChangeFromAmount(e.nativeEvent.text)
+//         //     }}
+//         //     placeholder={translate('screens/CompositeSwapScreen', 'Enter an amount')}
+//         //     style={tailwind('flex-grow w-2/5')}
+//         //     testID='text_input_tokenA'
+//         //     value={value}
+//         //     displayClearButton={(value !== defaultValue)}
+//         //     onClearButtonPress={() => onChangeFromAmount(defaultValue)}
+//         //     inputType='numeric'
+//         //   />
+//         // </ThemedView>
+//         <ThemedTextInputV2
+//           style={tailwind('text-lg font-semibold-v2 w-full')}
+//           light={tailwind('text-mono-light-v2-900')}
+//           dark={tailwind('text-mono-dark-v2-900')}
+//           keyboardType='numeric'
+//           value={value}
+//           onChange={onChange}
+//           onChangeText={async (amount) => {
+//           amount = isNaN(+amount) ? '0' : amount
+//           setValue(token, amount)
+//           await trigger(token)
+//         }}
+//           placeholder='0.00'
+//           // placeholderTextColor={getColor(isLight ? 'mono-light-v2-900' : 'mono-dark-v2-900')}
+//           testID='amount_input'
+//           ref={amountInputRef}
+//         />
+//       )}
+//       rules={rules}
+//     />
+//   )
+// }
