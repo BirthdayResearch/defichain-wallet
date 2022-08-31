@@ -529,13 +529,14 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
     }
   }
 
-  const amountInUSDValue = useCallback((tokenAmount: string, token?: OwnedTokenState) => {
-    if (token === undefined || (tokenAmount === '')) {
+  const amountInUSDValue = useCallback((token: OwnedTokenState | TokenState | undefined, tokenAmount: any) => {
+    // TODO: proper typechecking
+    if (token === undefined || (tokenAmount === '') || isNaN(tokenAmount)) {
       return new BigNumber(0)
     }
 
     return getTokenPrice(token.symbol, new BigNumber(tokenAmount))
-  }, [selectedTokenA, tokenAAmount])
+  }, [])
 
   const buildSummary = useCallback((amount: string): void => {
     setValue('tokenA', amount)
@@ -570,7 +571,7 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
     }
   }
 
-  console.log('tokenAAmount', tokenAAmount)
+  console.log('selectedTokenA', selectedTokenA)
   console.log('tokenBAmount', tokenBAmount)
 
   // function slippageChange (value: string): void {
@@ -615,7 +616,7 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
               })}
             </ThemedTextV2>
             <View style={tailwind('flex flex-row justify-between items-center pl-5 mb-6 mt-4')}>
-              <View>
+              <View style={tailwind('w-6/12 mr-2')}>
                 <Controller
                   control={control}
                   defaultValue=''
@@ -652,8 +653,7 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
                 }}
                 />
                 <ActiveUSDValueV2
-                  // price={amountInUSDValue(selectedTokenA ?? undefined, tokenAAmount)}
-                  price={amountInUSDValue(selectedTokenA != null ? selectedTokenA : undefined, tokenAAmount)}
+                  price={amountInUSDValue(selectedTokenA ?? undefined, tokenAAmount)}
                   testId='amount_input_in_usd'
                   containerStyle={tailwind('w-full break-words')}
                 />
@@ -710,7 +710,7 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
               })}
             </ThemedTextV2>
             <View style={tailwind('flex flex-row justify-between items-center pl-5 mt-4')}>
-              <View style={tailwind('')}>
+              <View style={tailwind('w-6/12 mr-2')}>
                 <NumberFormat
                   decimalScale={8}
                   displayType='text'
@@ -726,7 +726,7 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
                   value={new BigNumber(tokenBAmount).toFixed(8)}
                 />
                 <ActiveUSDValueV2
-                  price={selectedTokenB != null ? getTokenPrice(selectedTokenB.symbol, new BigNumber(tokenBAmount)) : new BigNumber(0)}
+                  price={amountInUSDValue(selectedTokenB ?? undefined, tokenBAmount)}
                   testId='amount_input_in_usd'
                   containerStyle={tailwind('w-full break-words')}
                 />
