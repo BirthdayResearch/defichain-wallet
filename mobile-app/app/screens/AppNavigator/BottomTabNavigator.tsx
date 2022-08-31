@@ -28,7 +28,7 @@ const getTabBarLabel = ({
   <Text style={{ color, ...tailwind('font-normal-v2 text-xs') }}>{focused ? title : ''}</Text>
 )
 
-export function BottomTabNavigator (): JSX.Element {
+export function BottomTabNavigator(): JSX.Element {
   const { isLight } = useThemeContext()
   return (
     <>
@@ -47,7 +47,7 @@ export function BottomTabNavigator (): JSX.Element {
       >
         <BottomTab.Screen
           component={PortfolioNavigator}
-          name={translate('BottomTabNavigator', 'Portfolio')}
+          name='Portfolio'
           options={{
             tabBarLabel: ({
               focused,
@@ -71,31 +71,31 @@ export function BottomTabNavigator (): JSX.Element {
 
         <BottomTab.Screen
           component={DexNavigator}
-          name={translate('BottomTabNavigator', 'DEX')}
-          options={{
-            tabBarLabel: ({
-              focused,
-              color
-            }) => getTabBarLabel({
-              focused,
-              color,
-              title: translate('BottomTabNavigator', 'DEX')
-            }),
-            tabBarTestID: 'bottom_tab_dex',
-            tabBarIcon: ({
-              color
-            }) => (
-              <DEXIcon
-                color={color}
-                size={24}
-              />
-            )
-          }}
+          name=DEX'
+        options={{
+          tabBarLabel: ({
+            focused,
+            color
+          }) => getTabBarLabel({
+            focused,
+            color,
+            title: translate('BottomTabNavigator', 'DEX')
+          }),
+          tabBarTestID: 'bottom_tab_dex',
+          tabBarIcon: ({
+            color
+          }) => (
+            <DEXIcon
+              color={color}
+              size={24}
+            />
+          )
+        }}
         />
 
         <BottomTab.Screen
           component={LoansNavigator}
-          name={translate('BottomTabNavigator', 'Loans')}
+          name='Loans'
           options={{
             tabBarLabel: ({
               focused,
@@ -119,7 +119,7 @@ export function BottomTabNavigator (): JSX.Element {
 
         <BottomTab.Screen
           component={AuctionsNavigator}
-          name={translate('BottomTabNavigator', 'Auctions')}
+          name='Auctions'
           options={{
             tabBarLabel: ({
               focused,

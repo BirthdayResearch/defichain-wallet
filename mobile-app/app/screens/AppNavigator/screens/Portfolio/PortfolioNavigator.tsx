@@ -132,7 +132,7 @@ export interface ConversionParam {
 
 const PortfolioStack = createStackNavigator<PortfolioParamList>()
 
-export function PortfolioNavigator (): JSX.Element {
+export function PortfolioNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
   const headerContainerTestId = 'portfolio_header_container'
   const { isLight } = useThemeContext()
@@ -150,7 +150,7 @@ export function PortfolioNavigator (): JSX.Element {
     >
       <PortfolioStack.Screen
         component={SettingsNavigator}
-        name={translate('PortfolioNavigator', 'Settings')}
+        name='Settings'
         options={{
           headerShown: false
         }}
