@@ -23,6 +23,7 @@ interface SlippageToleranceCardProps {
   setSlippageError: (error?: SlippageError) => void
   slippage: BigNumber
   onSubmitSlippage: (val: BigNumber, isCustomSlippage: boolean) => void
+  expandModal: () => void
 }
 
 export enum SlippageAmountButtonTypes {
@@ -50,7 +51,8 @@ export function SlippageToleranceCard ({
   // slippageError,
   setSlippageError,
   slippage,
-  onSubmitSlippage
+  onSubmitSlippage,
+  expandModal
 }: React.PropsWithChildren<SlippageToleranceCardProps>): JSX.Element {
   const [selectedSlippage, setSelectedSlippage] = useState(slippage.toString())
   const [isRiskWarningDisplayed, setIsRiskWarningDisplayed] = useState(false)
@@ -98,6 +100,7 @@ export function SlippageToleranceCard ({
         </ThemedTextV2>
         <ThemedTouchableOpacityV2
           style={tailwind('pl-2.5')}
+          onPress={expandModal}
           testID='slippage_info_button'
         >
           <ThemedIcon

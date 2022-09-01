@@ -16,6 +16,7 @@ interface SwapSummaryProps {
     activeTab: ButtonGroupTabKey
     executionBlock?: number
     transactionDate?: string
+    // onFeeBreakdownPress: () => void
 }
 
 export function SwapSummary ({ instantSwapPriceRate, fee, activeTab, executionBlock, transactionDate }: SwapSummaryProps): JSX.Element {
@@ -54,7 +55,7 @@ export function SwapSummary ({ instantSwapPriceRate, fee, activeTab, executionBl
                 }}
               />
             </ThemedViewV2>
-            <View style={tailwind('flex-row items-center mt-5')}>
+            <TouchableOpacity style={tailwind('flex-row items-center mt-5')}>
               <ThemedIcon
                 name='info-outline'
                 size={16}
@@ -69,7 +70,7 @@ export function SwapSummary ({ instantSwapPriceRate, fee, activeTab, executionBl
               >
                 {translate('screens/CompositeSwapScreen', 'Fee breakdown')}
               </ThemedTextV2>
-            </View>
+            </TouchableOpacity>
           </View>)
           : (
             <View>
