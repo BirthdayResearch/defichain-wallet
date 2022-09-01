@@ -57,6 +57,7 @@ export function SwapTokenSelectionScreen ({ route }: Props): JSX.Element {
     <ThemedFlatListV2
       contentContainerStyle={tailwind('px-5 pb-12')}
       data={filteredTokensWithBalance}
+      keyExtractor={(item) => item.tokenId}
       renderItem={({ item }: { item: SelectionToken }): JSX.Element => {
         return (
           <TokenItem item={item} onPress={() => onTokenPress(item)} getTokenPrice={getTokenPrice} listType={listType} />
@@ -95,14 +96,14 @@ export function SwapTokenSelectionScreen ({ route }: Props): JSX.Element {
             }}
           />
           {(debouncedSearchTerm.trim() === '' && !isSearchFocus)
-? (
-  <ThemedTextV2
-    style={tailwind('text-xs pl-5 mt-6 mb-2 font-normal-v2')}
-    light={tailwind('text-mono-light-v2-500')}
-    dark={tailwind('text-mono-dark-v2-500')}
-  >
-    {translate('screens/SwapTokenSelectionScreen', listType === TokenListType.From ? 'AVAILABLE TOKENS' : 'AVAILABLE FOR SWAP')}
-  </ThemedTextV2>)
+            ? (
+              <ThemedTextV2
+                style={tailwind('text-xs pl-5 mt-6 mb-2 font-normal-v2')}
+                light={tailwind('text-mono-light-v2-500')}
+                dark={tailwind('text-mono-dark-v2-500')}
+              >
+                {translate('screens/SwapTokenSelectionScreen', listType === TokenListType.From ? 'AVAILABLE TOKENS' : 'AVAILABLE FOR SWAP')}
+              </ThemedTextV2>)
             : (
               <ThemedTextV2
                 style={tailwind('text-xs pl-5 mt-8 mb-4 font-normal-v2')}
@@ -139,6 +140,7 @@ const TokenItem = ({
       light={tailwind('bg-mono-light-v2-00')}
       dark={tailwind('bg-mono-dark-v2-00')}
       onPress={onPress}
+      testID={`select_${item.token.displaySymbol}`}
     >
       <View style={tailwind('w-5/12 flex flex-row items-center pr-2')}>
         <TokenIcon
@@ -182,7 +184,7 @@ const TokenItem = ({
                 renderText={value =>
                   <ThemedTextV2
                     style={tailwind('flex-wrap font-normal-v2 text-xs text-right')}
-                    testID={`select_${item.token.displaySymbol}_value`}
+                    testID={`select_${item.token.displaySymbol}_sub_value`}
                     light={tailwind('text-mono-light-v2-700')}
                     dark={tailwind('text-mono-dark-v2-700')}
                   >
