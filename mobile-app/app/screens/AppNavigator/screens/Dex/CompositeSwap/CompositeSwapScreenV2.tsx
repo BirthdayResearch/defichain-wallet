@@ -698,9 +698,9 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
 
             </View>
 
-            <ThemedTextV2>
+            {/* <ThemedTextV2>
               {infoText}
-            </ThemedTextV2>
+            </ThemedTextV2> */}
 
             <TransactionCard
               maxValue={(selectedTokenA != null) ? new BigNumber(getMaxAmount(selectedTokenA)) : new BigNumber(0)}
