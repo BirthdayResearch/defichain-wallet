@@ -174,7 +174,7 @@ export function useDexStabilization(
               web: highFeesUrl,
               macos: highFeesUrl,
             },
-            type: "EMERGENCY",
+            type: "OUTAGE",
           },
         ];
       } else if (dexStabilizationType === "composite-dusd-with-fee") {
@@ -197,7 +197,7 @@ export function useDexStabilization(
               web: highFeesUrl,
               macos: highFeesUrl,
             },
-            type: "EMERGENCY",
+            type: "OUTAGE",
           },
         ];
       }
