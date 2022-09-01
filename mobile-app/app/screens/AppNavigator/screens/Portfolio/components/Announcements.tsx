@@ -348,7 +348,9 @@ export function findDisplayedAnnouncementForVersion(
     const platformUrl: any = announcement.url;
 
     if (
-      ((Platform.OS !== "ios" && Platform.OS !== "android") ||
+      ((Platform.OS !== "ios" &&
+        Platform.OS !== "android" &&
+        announcement.type !== "SCAN") ||
         satisfies(version, announcement.version)) &&
       getDisplayAnnouncement(hiddenAnnouncements, announcement)
     ) {
