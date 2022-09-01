@@ -1,40 +1,40 @@
-import { SecuredStoreAPI } from '@api'
-import { WalletPersistenceDataI } from '@shared-contexts/WalletPersistenceContext'
+import { SecuredStoreAPI } from "@api";
+import { WalletPersistenceDataI } from "@shared-contexts/WalletPersistenceContext";
 
-async function get (): Promise<Array<WalletPersistenceDataI<any>>> {
-  const count: string = await SecuredStoreAPI.getItem('WALLET.count') ?? '0'
+async function get(): Promise<Array<WalletPersistenceDataI<any>>> {
+  const count: string = (await SecuredStoreAPI.getItem("WALLET.count")) ?? "0";
 
-  const list: Array<WalletPersistenceDataI<any>> = []
+  const list: Array<WalletPersistenceDataI<any>> = [];
   for (let i = 0; i < parseInt(count); i++) {
-    const data = await SecuredStoreAPI.getItem(`WALLET.${i}`)
+    const data = await SecuredStoreAPI.getItem(`WALLET.${i}`);
     if (data === null) {
-      throw new Error(`WALLET.count=${count} but ${i} doesn't exist`)
+      throw new Error(`WALLET.count=${count} but ${i} doesn't exist`);
     }
 
-    list[i] = JSON.parse(data)
+    list[i] = JSON.parse(data);
   }
-  return list
+  return list;
 }
 
 /**
  * @param wallets to set, override previous set wallet
  */
-async function set (wallets: Array<WalletPersistenceDataI<any>>): Promise<void> {
-  await clear()
+async function set(wallets: Array<WalletPersistenceDataI<any>>): Promise<void> {
+  await clear();
 
   for (let i = 0; i < wallets.length; i++) {
-    await SecuredStoreAPI.setItem(`WALLET.${i}`, JSON.stringify(wallets[i]))
+    await SecuredStoreAPI.setItem(`WALLET.${i}`, JSON.stringify(wallets[i]));
   }
-  await SecuredStoreAPI.setItem('WALLET.count', `${wallets.length}`)
+  await SecuredStoreAPI.setItem("WALLET.count", `${wallets.length}`);
 }
 
 /**
  * Clear all persisted wallet
  */
-async function clear (): Promise<void> {
-  const count: string = await SecuredStoreAPI.getItem('WALLET.count') ?? '0'
+async function clear(): Promise<void> {
+  const count: string = (await SecuredStoreAPI.getItem("WALLET.count")) ?? "0";
   for (let i = 0; i < parseInt(count); i++) {
-    await SecuredStoreAPI.removeItem(`WALLET.${i}`)
+    await SecuredStoreAPI.removeItem(`WALLET.${i}`);
   }
 }
 
@@ -43,5 +43,5 @@ async function clear (): Promise<void> {
  */
 export const WalletPersistence = {
   set,
-  get
-}
+  get,
+};

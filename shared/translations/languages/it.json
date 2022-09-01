@@ -927,7 +927,7 @@
     "You are removing": "Stai rimuovendo",
     "from liquidity pool": "dal liquidity pool",
     "I WANT TO REMOVE": "I WANT TO REMOVE",
-    "Your LP Tokens":  "Your LP Tokens",
+    "Your LP Tokens": "Your LP Tokens",
     "Tokens in {{token}}": "Tokens in {{token}}",
     "{{token}} to receive": "{{token}} to receive",
     "LP tokens to remove": "LP tokens to remove",
@@ -1175,7 +1175,7 @@
     "Your pool shares": "Your pool shares",
     "Shares in {{token}}": "Shares in {{token}}",
     "Learn more about DFI": "Per saperne di più su DFI",
-    "Your LP tokens":  "Your LP Tokens",
+    "Your LP tokens": "Your LP Tokens",
     "Tokens in {{token}}": "Tokens in {{token}}"
   },
   "components/ReservedDFIInfoText": {

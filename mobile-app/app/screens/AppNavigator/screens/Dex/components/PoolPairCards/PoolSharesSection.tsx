@@ -1,22 +1,25 @@
-import { View } from 'react-native'
-import { tailwind } from '@tailwind'
-import BigNumber from 'bignumber.js'
-import NumberFormat from 'react-number-format'
-import { ThemedTextV2 } from '@components/themed'
+import { View } from "react-native";
+import { tailwind } from "@tailwind";
+import BigNumber from "bignumber.js";
+import NumberFormat from "react-number-format";
+import { ThemedTextV2 } from "@components/themed";
 
 interface PoolSharesSectionProps {
-  walletTokenPrice: BigNumber
-  walletTokenAmount: BigNumber
-  tokenID: string
+  walletTokenPrice: BigNumber;
+  walletTokenAmount: BigNumber;
+  tokenID: string;
 }
-export function PoolSharesSection (props: PoolSharesSectionProps): JSX.Element {
+export function PoolSharesSection(props: PoolSharesSectionProps): JSX.Element {
   return (
-    <View style={tailwind('flex flex-col')}>
+    <View style={tailwind("flex flex-col")}>
       <NumberFormat
         decimalScale={8}
-        displayType='text'
+        displayType="text"
         renderText={(textValue) => (
-          <ThemedTextV2 style={tailwind('text-sm font-semibold-v2')} testID={`pool_share_amount_${props.tokenID}`}>
+          <ThemedTextV2
+            style={tailwind("text-sm font-semibold-v2")}
+            testID={`pool_share_amount_${props.tokenID}`}
+          >
             {textValue}
           </ThemedTextV2>
         )}
@@ -25,12 +28,12 @@ export function PoolSharesSection (props: PoolSharesSectionProps): JSX.Element {
       />
       <NumberFormat
         decimalScale={2}
-        displayType='text'
+        displayType="text"
         renderText={(textValue) => (
           <ThemedTextV2
-            light={tailwind('text-mono-light-v2-700')}
-            dark={tailwind('text-mono-dark-v2-700')}
-            style={tailwind('text-sm font-normal-v2')}
+            light={tailwind("text-mono-light-v2-700")}
+            dark={tailwind("text-mono-dark-v2-700")}
+            style={tailwind("text-sm font-normal-v2")}
             testID={`pool_share_value_${props.tokenID}`}
           >
             {textValue}
@@ -38,8 +41,8 @@ export function PoolSharesSection (props: PoolSharesSectionProps): JSX.Element {
         )}
         thousandSeparator
         value={props.walletTokenPrice.toFixed(2)}
-        prefix='$'
+        prefix="$"
       />
     </View>
-  )
+  );
 }
