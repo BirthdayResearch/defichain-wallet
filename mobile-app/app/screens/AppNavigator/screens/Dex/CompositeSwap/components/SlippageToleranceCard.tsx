@@ -1,25 +1,34 @@
-import { ThemedViewV2, ThemedTextV2, ThemedTouchableOpacityV2 } from '@components/themed'
+import { ThemedViewV2, ThemedTextV2, ThemedTouchableOpacityV2, ThemedIcon } from '@components/themed'
 import BigNumber from 'bignumber.js'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
-// import { useState } from 'react'
-import { StyleProp, ViewStyle } from 'react-native'
-// import { WalletTransactionCardTextInput } from '@components/WalletTransactionCardTextInput'
-
+import { useState, useEffect } from 'react'
+import { View } from 'react-native'
+import { WalletTextInputV2 } from '@components/WalletTextInputV2'
+import { debounce } from 'lodash'
+export interface SlippageError {
+  type: 'error' | 'helper'
+  text?: string
+}
 interface SlippageToleranceCardProps {
-  maxValue: BigNumber
-  onChange: (amount: string, type: SlippageAmountButtonTypes) => void
-  status?: TransactionCardStatus
-  containerStyle?: StyleProp<ViewStyle>
-  amountButtonsStyle?: StyleProp<ViewStyle>
-  isCustomSlippage: boolean
+  // maxValue: BigNumber
+  // onChange: (amount: string, type: SlippageAmountButtonTypes) => void
+  // status?: TransactionCardStatus
+  // containerStyle?: StyleProp<ViewStyle>
+  // amountButtonsStyle?: StyleProp<ViewStyle>
+  // isCustomSlippage: boolean
+  // setCustom: () => void
+  // customAmount: string
+  // slippageError?: SlippageError
+  setSlippageError: (error?: SlippageError) => void
+  slippage: BigNumber
+  onSubmitSlippage: (val: BigNumber, isCustomSlippage: boolean) => void
 }
 
 export enum SlippageAmountButtonTypes {
-  ZeroPointFive = '0.5%',
-  One = '1%',
-  Three = '3%',
-  Custom = 'Custom'
+  ZeroPointFive = '0.5',
+  One = '1',
+  Three = '3',
 }
 
 export enum TransactionCardStatus {
@@ -29,115 +38,222 @@ export enum TransactionCardStatus {
 }
 
 export function SlippageToleranceCard ({
-  maxValue,
-  onChange,
-  status,
-  containerStyle,
-  amountButtonsStyle,
-  children,
-  isCustomSlippage,
+  // maxValue,
+  // onChange,
+  // status,
+  // containerStyle,
+  // amountButtonsStyle,
+  // children,
+  // // isCustomSlippage,
+  // setCustom,
+  // customAmount,
+  // slippageError,
+  setSlippageError,
+  slippage,
+  onSubmitSlippage
 }: React.PropsWithChildren<SlippageToleranceCardProps>): JSX.Element {
-//   const [isCustomSlippage, setIsCustomSlippage] = useState(false)
-// const [isInputFocus, setIsInputFocus] = useState(false)
+  const [selectedSlippage, setSelectedSlippage] = useState(slippage.toString())
+  const [isRiskWarningDisplayed, setIsRiskWarningDisplayed] = useState(false)
+  const [isCustomSlippage, setIsCustomSlippage] = useState(false)
+  const [isCustomAmount, setIsCustomAmount] = useState(false)
 
-//   const buildSlippage = (amount: string): string => {
-//     return maxValue.multipliedBy(amount).toFixed(8)
-//   }
+  const validateSlippage = (value: string): void => {
+    if (value === undefined || value === '') {
+      setSlippageError({
+        type: 'error',
+        text: translate('screens/SlippageTolerance', 'Required field is missing')
+      })
+      return
+    } else if (!(new BigNumber(value).gte(0) && new BigNumber(value).lte(100))) {
+      setSlippageError({
+        type: 'error',
+        text: translate('screens/SlippageTolerance', 'Slippage rate must range from 0-100%')
+      })
+      return
+    }
+
+    setSlippageError(undefined)
+  }
+
+  useEffect(() => {
+    validateSlippage(selectedSlippage)
+    setIsRiskWarningDisplayed((new BigNumber(selectedSlippage).gte(20) && new BigNumber(selectedSlippage).lte(100)))
+  }, [selectedSlippage])
+
+  const submitSlippage = debounce(onSubmitSlippage, 500)
+  const onSlippageChange = (value: string): void => {
+    setSelectedSlippage(value)
+    submitSlippage(new BigNumber(value), isCustomSlippage)
+  }
+
   return (
     <>
+      <View style={tailwind('flex-row items-center pb-2 px-5')}>
+        <ThemedTextV2
+          style={tailwind('text-xs font-normal-v2')}
+          dark={tailwind('text-mono-dark-v2-500')}
+          light={tailwind('text-mono-light-v2-500')}
+        >
+          {translate('screens/CompositeSwapScreen', 'SLIPPAGE TOLERANCE')}
+        </ThemedTextV2>
+        <ThemedTouchableOpacityV2
+          style={tailwind('pl-2.5')}
+          testID='slippage_info_button'
+        >
+          <ThemedIcon
+            name='help-circle'
+            size={16}
+            iconType='MaterialCommunityIcons'
+            dark={tailwind('text-mono-dark-v2-900')}
+            light={tailwind('text-mono-light-v2-900')}
+          />
+        </ThemedTouchableOpacityV2>
+      </View>
       {isCustomSlippage
-        ? <>{children}</>
+        ? (
+          <View style={tailwind('flex-row')}>
+            <ThemedViewV2
+              light={tailwind('bg-mono-light-v2-00')}
+              dark={tailwind('bg-mono-dark-v2-00')}
+              style={tailwind('flex flex-row items-center rounded-full mr-2 w-9/12')}
+            >
+              <WalletTextInputV2 // TODO:need to recreate this or modified the component to fit the design
+                onChangeText={(val) => onSlippageChange(val)}
+                keyboardType='numeric'
+                autoCapitalize='none'
+                placeholder='0.00%'
+                style={tailwind('')}
+                inputContainerStyle={tailwind('')}
+                testID='slippage_input'
+                value={selectedSlippage !== undefined ? selectedSlippage : ''}
+                displayClearButton={selectedSlippage !== ''}
+                onClearButtonPress={() => {
+                  setIsCustomSlippage(false)
+                  onSlippageChange('')
+                }}
+                inputType='numeric'
+              />
+            </ThemedViewV2>
+            <ThemedTouchableOpacityV2
+              light={tailwind('bg-mono-light-v2-900')}
+              dark={tailwind('bg-mono-dark-v2-900')}
+              style={tailwind('p-2.5 flex justify-center items-center flex-grow rounded-full')}
+              onPress={() => {
+                  setIsCustomSlippage(false)
+                  setIsCustomAmount(selectedSlippage !== '')
+                }}
+            >
+              <ThemedTextV2
+                light={tailwind('text-mono-light-v2-100')}
+                dark={tailwind('text-mono-dark-v2-100')}
+                style={tailwind('text-xs font-semibold-v2')}
+              >
+                {translate('components/CompositeSwapScreen', 'Set')}
+              </ThemedTextV2>
+            </ThemedTouchableOpacityV2>
+          </View>
+        )
         : (
           <ThemedViewV2
-            light={tailwind('bg-mono-light-v2-00', {
-                  'border-0.5 border-mono-light-v2-800': status === TransactionCardStatus.Active
-                })}
-            dark={tailwind('bg-mono-dark-v2-00', {
-                  'border-0.5 border-mono-dark-v2-800': status === TransactionCardStatus.Active
-                })}
-            style={tailwind('rounded-lg-v2', {
-                  'border-0.5 border-red-v2': status === TransactionCardStatus.Error
-                })}
+            light={tailwind('bg-mono-light-v2-00')}
+            dark={tailwind('bg-mono-dark-v2-00')}
+            style={tailwind('flex flex-row justify-around items-center rounded-full')}
           >
-            <ThemedViewV2
-              light={tailwind('border-mono-light-v2-300')}
-              dark={tailwind('border-mono-dark-v2-300')}
-              style={[tailwind('flex flex-row justify-around items-center py-2.5'), amountButtonsStyle]}
-            >
-              {
-                    Object.values(SlippageAmountButtonTypes).map((type, index, { length }) => {
-                      return (
-                        <SetAmountButton
-                          key={type}
-                          amount={maxValue}
-                          onPress={onChange}
-                          type={type}
-                          hasBorder={length - 1 !== index}
-                        //   setCustomSlippage={() => setIsCustomSlippage(true)}
-                        />
-                      )
-                    })
-                }
-            </ThemedViewV2>
+            {
+                Object.values(SlippageAmountButtonTypes).map((type, index) => {
+                  return (
+                    <PercentageAmountButton
+                      key={type}
+                      onPress={() => {
+                        onSlippageChange(type)
+                        setIsCustomAmount(false)
+                      }}
+                      percentageAmount={type}
+                      isSelected={!isCustomAmount && selectedSlippage.toString() === type}
+                    />
+                  )
+                })
+            }
+            <CustomAmountButton
+              setIsCustomSlippage={() => setIsCustomSlippage(true)}
+              isCustomAmount={isCustomAmount}
+              customAmount={selectedSlippage}
+            />
           </ThemedViewV2>
         )}
+      {isRiskWarningDisplayed && (
+        <ThemedTextV2
+          light={tailwind('text-warning-600')}
+          dark={tailwind('text-darkwarning-600')}
+          style={tailwind('font-normal-v2 text-xs mt-2 mx-5')}
+          testID='slippage_warning'
+        >
+          {translate('screens/SlippageTolerance', 'Set high tolerance at your own risk')}
+        </ThemedTextV2>
+      )}
     </>
   )
 }
 
-interface SetAmountButtonProps {
-  type: SlippageAmountButtonTypes
-  onPress: (amount: string, type: SlippageAmountButtonTypes) => void
-  amount: BigNumber
-  hasBorder?: boolean
+interface PercentageAmountButtonProps {
+  onPress: () => void
+  percentageAmount: SlippageAmountButtonTypes
+  isSelected: boolean
 }
-
-function SetAmountButton ({
-  type,
-  onPress,
-  amount,
-  hasBorder
-//   setCustomSlippage
-}: SetAmountButtonProps): JSX.Element {
-  const decimalPlace = 8
-  let value = amount.toFixed(decimalPlace)
-
-  switch (type) {
-    case (SlippageAmountButtonTypes.ZeroPointFive):
-      value = amount.multipliedBy(0.5).toFixed(decimalPlace)
-      break
-    case (SlippageAmountButtonTypes.One):
-      value = amount.multipliedBy(1).toFixed(decimalPlace)
-      break
-    case (SlippageAmountButtonTypes.Three):
-      value = amount.multipliedBy(3).toFixed(decimalPlace)
-      break
-    case (SlippageAmountButtonTypes.Custom):
-    //   setCustomSlippage()
-    //   value = amount.multipliedBy(customAmount ?? 0).toFixed(decimalPlace)
-      break
-  }
-
+function PercentageAmountButton ({ onPress, percentageAmount, isSelected }: PercentageAmountButtonProps): JSX.Element {
   return (
     <ThemedTouchableOpacityV2
-      style={tailwind('border-0')}
-      onPress={() => {
-        onPress(value, type)
-      }}
-      testID={`${type}_amount_button`}
+      light={tailwind({ 'bg-mono-light-v2-900': isSelected })}
+      dark={tailwind({ 'bg-mono-dark-v2-900': isSelected })}
+      style={tailwind('w-3/12 items-center rounded-full')}
+      onPress={onPress}
+    >
+      <ThemedTextV2
+        light={tailwind('text-mono-light-v2-700', { 'text-mono-light-v2-100': isSelected })}
+        dark={tailwind('text-mono-dark-v2-700', { 'text-mono-dark-v2-100': isSelected })}
+        style={tailwind('text-xs px-4 py-2.5')}
+      >
+        {percentageAmount}%
+      </ThemedTextV2>
+    </ThemedTouchableOpacityV2>
+  )
+}
+
+interface CustomAmountButtonProps {
+  isCustomAmount: boolean
+  customAmount: string
+  setIsCustomSlippage: () => void
+}
+
+function CustomAmountButton ({ isCustomAmount, customAmount, setIsCustomSlippage }: CustomAmountButtonProps): JSX.Element {
+  return (
+    <ThemedTouchableOpacityV2
+      light={tailwind('bg-transparent', { 'bg-mono-light-v2-900': isCustomAmount })}
+      dark={tailwind('bg-transparent', { 'bg-mono-light-v2-900': isCustomAmount })}
+      style={tailwind('rounded-r-full w-3/12 items-center', { 'rounded-l-full': isCustomAmount })}
+      onPress={setIsCustomSlippage}
     >
       <ThemedViewV2
-        light={tailwind('border-mono-light-v2-300')}
-        dark={tailwind('border-mono-dark-v2-300')}
-        style={tailwind({ 'border-r-0.5': hasBorder })}
+        light={tailwind('text-mono-light-v2-500')}
+        dark={tailwind('text-mono-dark-v2-500')}
+        style={tailwind('font-semibold-v2 text-xs px-4 py-2.5 flex-row items-center')}
       >
         <ThemedTextV2
-          light={tailwind('text-mono-light-v2-700')}
-          dark={tailwind('text-mono-dark-v2-700')}
-          style={tailwind('font-semibold-v2 text-xs px-7')}
+          light={tailwind('text-mono-light-v2-500', { 'text-mono-light-v2-100': isCustomAmount })}
+          dark={tailwind('text-mono-dark-v2-500', { 'text-mono-dark-v2-100': isCustomAmount })}
+          style={tailwind('text-xs', { 'pr-1.5': isCustomAmount })}
         >
-          {translate('component/max', type)}
+          {isCustomAmount ? `${customAmount}%` : 'Custom'}
         </ThemedTextV2>
+        {isCustomAmount &&
+          <ThemedIcon
+            name='edit-2'
+            size={16}
+            iconType='Feather'
+            dark={tailwind('text-mono-dark-v2-100')}
+            light={tailwind('text-mono-light-v2-100')}
+          />}
+
       </ThemedViewV2>
     </ThemedTouchableOpacityV2>
   )
