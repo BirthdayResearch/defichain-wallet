@@ -216,7 +216,7 @@ export function SendScreen ({
     if (t !== undefined) {
       setToken({
         ...t,
-        amount: t.displaySymbol === 'DFI' ? new BigNumber(t.amount).minus(reservedDFI).toFixed(8) : t.amount
+        amount: t.displaySymbol === 'DFI' ? BigNumber.max(new BigNumber(t.amount).minus(reservedDFI), 0).toFixed(8) : t.amount
       })
     }
   }, [JSON.stringify(tokens)])
