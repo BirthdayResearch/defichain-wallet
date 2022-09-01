@@ -30,27 +30,6 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
         windows: 'https://blog.defichain.com/dex-stabilization-fee/',
         macos: 'https://blog.defichain.com/dex-stabilization-fee/'
       }
-    },
-    {
-      lang: {
-        en: 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.',
-        de: 'Die DeFiChain Wallet wird 1 Jahr alt! Sieh dir an, wie die früheren Tage von DeFiChain Wallet aussahen.',
-        'zh-Hans': 'DeFiChain 钱包刚满一周岁生日! 看看早期的 DeFiChain 钱包是怎样。',
-        'zh-Hant': 'DeFiChain 錢包剛滿一周歲生日! 看看早期的 DeFiChain 錢包是怎樣。',
-        fr: 'C\'est l\'anniversaire des 1 an du portefeuille DeFiChain ! Regarde à quoi ressemblaient les premiers jours du portefeuille DeFiChain.',
-        es: 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.',
-        it: 'It\'s DeFiChain Wallet\'s 1st year birthday! See how the earlier days of DeFiChain Wallet looked like.'
-      },
-      version: '>=1.16.1',
-      type: 'OTHER_ANNOUNCEMENT',
-      id: '14',
-      url: {
-        ios: 'https://medium.com/@birthdayresearch/happy-1st-birthday-to-the-defichain-light-wallet-d753704b65c2',
-        android: 'https://medium.com/@birthdayresearch/happy-1st-birthday-to-the-defichain-light-wallet-d753704b65c2',
-        web: 'https://medium.com/@birthdayresearch/happy-1st-birthday-to-the-defichain-light-wallet-d753704b65c2',
-        windows: 'https://medium.com/@birthdayresearch/happy-1st-birthday-to-the-defichain-light-wallet-d753704b65c2',
-        macos: 'https://medium.com/@birthdayresearch/happy-1st-birthday-to-the-defichain-light-wallet-d753704b65c2'
-      }
     }
   ])
 }

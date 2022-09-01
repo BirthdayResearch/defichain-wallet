@@ -254,7 +254,8 @@ exports[`Bid Card should match snapshot 1`] = `
         }
       >
         ~6h 33m left
-         (
+         
+        (
         7870 blks
         )
       </Text>

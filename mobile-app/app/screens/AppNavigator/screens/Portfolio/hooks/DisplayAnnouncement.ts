@@ -1,46 +1,48 @@
-import { DisplayAnnouncementPersistence } from '@api/persistence/display_announcement_storage'
-import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { useEffect, useState } from 'react'
+import { DisplayAnnouncementPersistence } from "@api/persistence/display_announcement_storage";
+import { useLogger } from "@shared-contexts/NativeLoggingProvider";
+import { useEffect, useState } from "react";
 
 export interface DisplayAnnouncement {
-  hiddenAnnouncements: string[]
-  hideAnnouncement: (id: string) => void
+  hiddenAnnouncements: string[];
+  hideAnnouncement: (id: string) => void;
 }
 
 export interface AnnouncementFlag {
-  id: string
-  displayAnnouncement: boolean
+  id: string;
+  displayAnnouncement: boolean;
 }
 
-export function useDisplayAnnouncement (): DisplayAnnouncement {
-  const logger = useLogger()
-  const [hiddenAnnouncements, setHiddenAnnouncements] = useState<string[]>([])
+export function useDisplayAnnouncement(): DisplayAnnouncement {
+  const logger = useLogger();
+  const [hiddenAnnouncements, setHiddenAnnouncements] = useState<string[]>([]);
 
   useEffect(() => {
-    let mounted = true
-    DisplayAnnouncementPersistence.get().then((flag: string[]) => {
-      if (!mounted) {
-        return
-      }
-      setHiddenAnnouncements(flag)
-    }).catch(logger.error)
+    let mounted = true;
+    DisplayAnnouncementPersistence.get()
+      .then((flag: string[]) => {
+        if (!mounted) {
+          return;
+        }
+        setHiddenAnnouncements(flag);
+      })
+      .catch(logger.error);
     return () => {
-      mounted = false
-    }
-  }, [])
+      mounted = false;
+    };
+  }, []);
 
   const hideAnnouncement = async (id: string): Promise<void> => {
     if (hiddenAnnouncements.includes(id)) {
-      return
+      return;
     }
 
-    hiddenAnnouncements.push(id)
-    setHiddenAnnouncements([...hiddenAnnouncements])
-    await DisplayAnnouncementPersistence.set(hiddenAnnouncements)
-  }
+    hiddenAnnouncements.push(id);
+    setHiddenAnnouncements([...hiddenAnnouncements]);
+    await DisplayAnnouncementPersistence.set(hiddenAnnouncements);
+  };
 
   return {
     hiddenAnnouncements,
-    hideAnnouncement
-  }
+    hideAnnouncement,
+  };
 }

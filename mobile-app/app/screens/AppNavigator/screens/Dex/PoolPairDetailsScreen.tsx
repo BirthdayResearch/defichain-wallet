@@ -1,103 +1,116 @@
-import { View } from '@components'
-import { NumberRowV2 } from '@components/NumberRowV2'
+import { View } from "@components";
+import { NumberRowV2 } from "@components/NumberRowV2";
 import {
-  IconName, IconType,
+  IconName,
+  IconType,
   ThemedIcon,
   ThemedScrollViewV2,
   ThemedTextV2,
   ThemedTouchableListItem,
-  ThemedViewV2
-} from '@components/themed'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { StackScreenProps } from '@react-navigation/stack'
-import { RootState } from '@store'
-import { DexItem, poolPairSelector, tokensSelector, WalletToken } from '@store/wallet'
-import { tailwind } from '@tailwind'
-import { translate } from '@translations'
-import BigNumber from 'bignumber.js'
-import { useLayoutEffect } from 'react'
-import { TouchableOpacity } from 'react-native'
-import NumberFormat from 'react-number-format'
-import { useSelector } from 'react-redux'
-import { useTokenPrice } from '../Portfolio/hooks/TokenPrice'
-import { PoolPairIconV2 } from './components/PoolPairCards/PoolPairIconV2'
-import { DexParamList } from './DexNavigator'
-import { FavoriteButton } from '@screens/AppNavigator/screens/Dex/components/FavoriteButton'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import * as React from 'react'
-import { ButtonV2 } from '@components/ButtonV2'
-import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
-import { useYourPoolPairAmountBreakdown } from './hook/YourPoolPairAmountBreakdown'
-import { useToast } from 'react-native-toast-notifications'
-import { useFavouritePoolpairContext } from '../../../../contexts/FavouritePoolpairContext'
-import { openURL } from '@api/linking'
-import { ActionType } from './components/PoolPairCards/PoolPairCards'
+  ThemedViewV2,
+} from "@components/themed";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { StackScreenProps } from "@react-navigation/stack";
+import { RootState } from "@store";
+import {
+  DexItem,
+  poolPairSelector,
+  tokensSelector,
+  WalletToken,
+} from "@store/wallet";
+import { tailwind } from "@tailwind";
+import { translate } from "@translations";
+import BigNumber from "bignumber.js";
+import { useLayoutEffect } from "react";
+import { TouchableOpacity } from "react-native";
+import NumberFormat from "react-number-format";
+import { useSelector } from "react-redux";
+import { FavoriteButton } from "@screens/AppNavigator/screens/Dex/components/FavoriteButton";
+import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
+import * as React from "react";
+import { ButtonV2 } from "@components/ButtonV2";
+import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
+import { useToast } from "react-native-toast-notifications";
+import { openURL } from "@api/linking";
+import { useYourPoolPairAmountBreakdown } from "./hook/YourPoolPairAmountBreakdown";
+import { useFavouritePoolpairContext } from "../../../../contexts/FavouritePoolpairContext";
+import { DexParamList } from "./DexNavigator";
+import { PoolPairIconV2 } from "./components/PoolPairCards/PoolPairIconV2";
+import { useTokenPrice } from "../Portfolio/hooks/TokenPrice";
+import { ActionType } from "./components/PoolPairCards/PoolPairCards";
 
-type Props = StackScreenProps<DexParamList, 'PoolPairDetailsScreen'>
+type Props = StackScreenProps<DexParamList, "PoolPairDetailsScreen">;
 
-export function PoolPairDetailsScreen ({ route }: Props): JSX.Element {
-  const { id } = route.params
-  const poolPair = useSelector((state: RootState) => poolPairSelector(state.wallet, id))
-  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const { getTokenUrl } = useDeFiScanContext()
-  const navigation = useNavigation<NavigationProp<DexParamList>>()
-  const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairContext()
-  const isFavouritePair = isFavouritePoolpair(id)
+export function PoolPairDetailsScreen({ route }: Props): JSX.Element {
+  const { id } = route.params;
+  const poolPair = useSelector((state: RootState) =>
+    poolPairSelector(state.wallet, id)
+  );
+  const tokens = useSelector((state: RootState) =>
+    tokensSelector(state.wallet)
+  );
+  const { getTokenUrl } = useDeFiScanContext();
+  const navigation = useNavigation<NavigationProp<DexParamList>>();
+  const { isFavouritePoolpair, setFavouritePoolpair } =
+    useFavouritePoolpairContext();
+  const isFavouritePair = isFavouritePoolpair(id);
 
   const yourLpToken = useSelector(() => {
     const _yourLPToken: WalletToken | undefined = tokens
       .filter(({ isLPS }) => isLPS)
-      .find(pair => pair.id === poolPair?.data.id)
-    return _yourLPToken
-  })
+      .find((pair) => pair.id === poolPair?.data.id);
+    return _yourLPToken;
+  });
 
   useLayoutEffect(() => {
     if (poolPair === undefined) {
-      return
+      return;
     }
 
     navigation.setOptions({
-      headerTitle: translate('screens/PoolPairDetailsScreen', '{{poolPair}} Pool', { poolPair: poolPair.data.displaySymbol })
-    })
-  }, [navigation])
+      headerTitle: translate(
+        "screens/PoolPairDetailsScreen",
+        "{{poolPair}} Pool",
+        { poolPair: poolPair.data.displaySymbol }
+      ),
+    });
+  }, [navigation]);
 
   if (poolPair === undefined) {
-    return <></>
+    return <></>;
   }
 
   const onLinkPress = async (): Promise<void> => {
-    const url = getTokenUrl(id)
-    await openURL(url)
-  }
+    const url = getTokenUrl(id);
+    await openURL(url);
+  };
 
   const onAdd = (data: PoolPairData, info: WalletToken): void => {
     navigation.navigate({
-      name: 'AddLiquidity',
+      name: "AddLiquidity",
       params: { pair: data, pairInfo: info },
-      merge: true
-    })
-  }
+      merge: true,
+    });
+  };
 
   const onRemove = (data: PoolPairData, info: WalletToken): void => {
     navigation.navigate({
-      name: 'RemoveLiquidity',
+      name: "RemoveLiquidity",
       params: { pair: data, pairInfo: info },
-      merge: true
-    })
-  }
+      merge: true,
+    });
+  };
 
   const onSwap = (data: PoolPairData): void => {
     navigation.navigate({
-      name: 'CompositeSwap',
+      name: "CompositeSwap",
       params: { pair: data },
-      merge: true
-    })
-  }
+      merge: true,
+    });
+  };
 
   return (
-    <ThemedScrollViewV2
-      contentContainerStyle={tailwind('px-5 py-8')}
-    >
+    <ThemedScrollViewV2 contentContainerStyle={tailwind("px-5 py-8")}>
       <Header
         symbolA={poolPair.data.tokenA.displaySymbol}
         symbolB={poolPair.data.tokenB.displaySymbol}
@@ -132,64 +145,62 @@ export function PoolPairDetailsScreen ({ route }: Props): JSX.Element {
         onSwap={onSwap}
       />
     </ThemedScrollViewV2>
-  )
+  );
 }
 
-function Header (props: {
-  symbolA: string
-  symbolB: string
-  poolPairSymbol: string
-  poolPairName: string
-  poolPairId: string
-  isFavouritePair: boolean
-  setFavouritePair: (id: string) => void
-  onLinkPress: () => void
+function Header(props: {
+  symbolA: string;
+  symbolB: string;
+  poolPairSymbol: string;
+  poolPairName: string;
+  poolPairId: string;
+  isFavouritePair: boolean;
+  setFavouritePair: (id: string) => void;
+  onLinkPress: () => void;
 }): JSX.Element {
-  const toast = useToast()
-  const TOAST_DURATION = 2000
+  const toast = useToast();
+  const TOAST_DURATION = 2000;
   const showToast = (type: ActionType): void => {
-    toast.hideAll()
-    const toastMessage = type === 'SET_FAVOURITE' ? 'Pool added as favorite' : 'Pool removed from favorites'
-    toast.show(translate('screens/PoolPairDetailsScreen', toastMessage), {
-      type: 'wallet_toast',
-      placement: 'top',
-      duration: TOAST_DURATION
-    })
-  }
+    toast.hideAll();
+    const toastMessage =
+      type === "SET_FAVOURITE"
+        ? "Pool added as favorite"
+        : "Pool removed from favorites";
+    toast.show(translate("screens/PoolPairDetailsScreen", toastMessage), {
+      type: "wallet_toast",
+      placement: "top",
+      duration: TOAST_DURATION,
+    });
+  };
 
   return (
     <ThemedViewV2
-      style={tailwind('flex flex-row items-center pb-5 mb-5 border-b-0.5')}
-      light={tailwind('border-mono-light-v2-300')}
-      dark={tailwind('border-mono-dark-v2-300')}
+      style={tailwind("flex flex-row items-center pb-5 mb-5 border-b-0.5")}
+      light={tailwind("border-mono-light-v2-300")}
+      dark={tailwind("border-mono-dark-v2-300")}
     >
-      <PoolPairIconV2
-        symbolA={props.symbolA}
-        symbolB={props.symbolB}
-      />
-      <View style={tailwind('flex-col mx-3 flex-auto')}>
-        <ThemedTextV2
-          style={tailwind('font-semibold-v2')}
-        >
+      <PoolPairIconV2 symbolA={props.symbolA} symbolB={props.symbolB} />
+      <View style={tailwind("flex-col mx-3 flex-auto")}>
+        <ThemedTextV2 style={tailwind("font-semibold-v2")}>
           {props.poolPairSymbol}
         </ThemedTextV2>
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={props.onLinkPress}
-          testID='token_detail_explorer_url'
+          testID="token_detail_explorer_url"
         >
-          <View style={tailwind('flex-row')}>
+          <View style={tailwind("flex-row")}>
             <ThemedTextV2
-              light={tailwind('text-mono-light-v2-700')}
-              dark={tailwind('text-mono-dark-v2-700')}
-              style={tailwind('text-sm font-normal-v2')}
+              light={tailwind("text-mono-light-v2-700")}
+              dark={tailwind("text-mono-dark-v2-700")}
+              style={tailwind("text-sm font-normal-v2")}
             >
               {`${props.poolPairName} `}
               <ThemedIcon
-                light={tailwind('text-mono-light-v2-700')}
-                dark={tailwind('text-mono-dark-v2-700')}
-                iconType='Feather'
-                name='external-link'
+                light={tailwind("text-mono-light-v2-700")}
+                dark={tailwind("text-mono-dark-v2-700")}
+                iconType="Feather"
+                name="external-link"
                 size={16}
               />
             </ThemedTextV2>
@@ -200,209 +211,274 @@ function Header (props: {
         <FavoriteButton
           themedStyle={{
             dark: tailwind({
-              'bg-mono-dark-v2-200': !props.isFavouritePair,
-              'bg-brand-v2-500': props.isFavouritePair
+              "bg-mono-dark-v2-200": !props.isFavouritePair,
+              "bg-brand-v2-500": props.isFavouritePair,
             }),
             light: tailwind({
-              'bg-mono-light-v2-200': !props.isFavouritePair,
-              'bg-brand-v2-500': props.isFavouritePair
-            })
+              "bg-mono-light-v2-200": !props.isFavouritePair,
+              "bg-brand-v2-500": props.isFavouritePair,
+            }),
           }}
           pairId={props.poolPairId}
           isFavouritePair={props.isFavouritePair}
           onPress={() => {
-            showToast(props.isFavouritePair ? 'UNSET_FAVOURITE' : 'SET_FAVOURITE')
-            props.setFavouritePair(props.poolPairId)
+            showToast(
+              props.isFavouritePair ? "UNSET_FAVOURITE" : "SET_FAVOURITE"
+            );
+            props.setFavouritePair(props.poolPairId);
           }}
-          additionalStyle={tailwind('w-6 h-6')}
+          additionalStyle={tailwind("w-6 h-6")}
         />
       </View>
     </ThemedViewV2>
-  )
+  );
 }
 
-function PoolPairDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
-  const { getTokenPrice } = useTokenPrice()
+function PoolPairDetail({ poolPair }: { poolPair: DexItem }): JSX.Element {
+  const { getTokenPrice } = useTokenPrice();
 
   return (
     <ThemedViewV2
-      style={tailwind('border-b-0.5 mb-5')}
-      light={tailwind('border-mono-light-v2-300')}
-      dark={tailwind('border-mono-dark-v2-300')}
+      style={tailwind("border-b-0.5 mb-5")}
+      light={tailwind("border-mono-light-v2-300")}
+      dark={tailwind("border-mono-dark-v2-300")}
     >
       <NumberRowV2
-        containerStyle={{ style: tailwind('flex-row items-start w-full bg-transparent mb-5') }}
+        containerStyle={{
+          style: tailwind("flex-row items-start w-full bg-transparent mb-5"),
+        }}
         lhs={{
-          value: translate('screens/PoolPairDetailsScreen', 'Volume (24H)'),
-          testID: '24h_volume'
+          value: translate("screens/PoolPairDetailsScreen", "Volume (24H)"),
+          testID: "24h_volume",
         }}
         rhs={{
           value: new BigNumber(poolPair.data.volume?.h24 ?? 0).toFixed(2),
-          prefix: '$',
-          testID: '24h_volume_value'
+          prefix: "$",
+          testID: "24h_volume_value",
         }}
       />
       <NumberRowV2
         lhs={{
-          value: translate('screens/PoolPairDetailsScreen', 'Total liquidity'),
-          testID: 'total_liquidity'
+          value: translate("screens/PoolPairDetailsScreen", "Total liquidity"),
+          testID: "total_liquidity",
         }}
         rhs={{
           value: new BigNumber(poolPair.data.totalLiquidity.token).toFixed(8),
-          usdAmount: new BigNumber(poolPair.data.totalLiquidity.usd ?? getTokenPrice(poolPair.data.symbol, new BigNumber(poolPair.data.totalLiquidity.token), true)),
-          usdTextStyle: tailwind('text-sm'),
-          usdContainerStyle: tailwind('pt-1'),
-          testID: 'total_liquidity_value'
+          usdAmount: new BigNumber(
+            poolPair.data.totalLiquidity.usd ??
+              getTokenPrice(
+                poolPair.data.symbol,
+                new BigNumber(poolPair.data.totalLiquidity.token),
+                true
+              )
+          ),
+          usdTextStyle: tailwind("text-sm"),
+          usdContainerStyle: tailwind("pt-1"),
+          testID: "total_liquidity_value",
         }}
       />
       <NumberRowV2
         lhs={{
-          value: translate('screens/PoolPairDetailsScreen', 'Pooled {{symbol}}', { symbol: poolPair.data.tokenA.displaySymbol }),
-          testID: 'pooled_tokenA'
+          value: translate(
+            "screens/PoolPairDetailsScreen",
+            "Pooled {{symbol}}",
+            { symbol: poolPair.data.tokenA.displaySymbol }
+          ),
+          testID: "pooled_tokenA",
         }}
         rhs={{
           value: new BigNumber(poolPair.data.tokenA.reserve).toFixed(8),
           suffix: ` ${poolPair.data.tokenA.displaySymbol}`,
-          usdAmount: getTokenPrice(poolPair.data.tokenA.symbol, new BigNumber(poolPair.data.tokenA.reserve)),
-          usdTextStyle: tailwind('text-sm'),
-          usdContainerStyle: tailwind('pt-1'),
-          testID: 'pooled_tokenA_value'
+          usdAmount: getTokenPrice(
+            poolPair.data.tokenA.symbol,
+            new BigNumber(poolPair.data.tokenA.reserve)
+          ),
+          usdTextStyle: tailwind("text-sm"),
+          usdContainerStyle: tailwind("pt-1"),
+          testID: "pooled_tokenA_value",
         }}
       />
       <NumberRowV2
         lhs={{
-          value: translate('screens/PoolPairDetailsScreen', 'Pooled {{symbol}}', { symbol: poolPair.data.tokenB.displaySymbol }),
-          testID: 'pooled_tokenB'
+          value: translate(
+            "screens/PoolPairDetailsScreen",
+            "Pooled {{symbol}}",
+            { symbol: poolPair.data.tokenB.displaySymbol }
+          ),
+          testID: "pooled_tokenB",
         }}
         rhs={{
           value: new BigNumber(poolPair.data.tokenB.reserve).toFixed(8),
           suffix: ` ${poolPair.data.tokenB.displaySymbol}`,
-          usdAmount: getTokenPrice(poolPair.data.tokenB.symbol, new BigNumber(poolPair.data.tokenB.reserve)),
-          usdTextStyle: tailwind('text-sm'),
-          usdContainerStyle: tailwind('pt-1'),
-          testID: 'pooled_tokenB_value'
+          usdAmount: getTokenPrice(
+            poolPair.data.tokenB.symbol,
+            new BigNumber(poolPair.data.tokenB.reserve)
+          ),
+          usdTextStyle: tailwind("text-sm"),
+          usdContainerStyle: tailwind("pt-1"),
+          testID: "pooled_tokenB_value",
         }}
       />
     </ThemedViewV2>
-  )
+  );
 }
 
-function PriceRateDetail ({ poolPair }: { poolPair: DexItem }): JSX.Element {
-  const { getTokenPrice } = useTokenPrice()
+function PriceRateDetail({ poolPair }: { poolPair: DexItem }): JSX.Element {
+  const { getTokenPrice } = useTokenPrice();
 
   return (
     <ThemedViewV2
-      style={tailwind('border-b-0.5 mb-5')}
-      light={tailwind('border-mono-light-v2-300')}
-      dark={tailwind('border-mono-dark-v2-300')}
+      style={tailwind("border-b-0.5 mb-5")}
+      light={tailwind("border-mono-light-v2-300")}
+      dark={tailwind("border-mono-dark-v2-300")}
     >
       <NumberRowV2
         lhs={{
-          value: translate('screens/PoolPairDetailsScreen', '1 {{tokenA}} =', { tokenA: poolPair.data.tokenA.displaySymbol }),
-          testID: 'price_rate_tokenA'
+          value: translate("screens/PoolPairDetailsScreen", "1 {{tokenA}} =", {
+            tokenA: poolPair.data.tokenA.displaySymbol,
+          }),
+          testID: "price_rate_tokenA",
         }}
         rhs={{
           value: new BigNumber(poolPair.data.priceRatio.ba).toFixed(8),
           suffix: ` ${poolPair.data.tokenB.displaySymbol}`,
-          usdAmount: getTokenPrice(poolPair.data.tokenB.symbol, new BigNumber(poolPair.data.priceRatio.ba)),
-          usdTextStyle: tailwind('text-sm'),
-          usdContainerStyle: tailwind('pt-1'),
-          testID: 'price_rate_tokenA_value'
+          usdAmount: getTokenPrice(
+            poolPair.data.tokenB.symbol,
+            new BigNumber(poolPair.data.priceRatio.ba)
+          ),
+          usdTextStyle: tailwind("text-sm"),
+          usdContainerStyle: tailwind("pt-1"),
+          testID: "price_rate_tokenA_value",
         }}
       />
       <NumberRowV2
         lhs={{
-          value: translate('screens/PoolPairDetailsScreen', '1 {{tokenB}} =', { tokenB: poolPair.data.tokenB.displaySymbol }),
-          testID: 'price_rate_tokenB'
+          value: translate("screens/PoolPairDetailsScreen", "1 {{tokenB}} =", {
+            tokenB: poolPair.data.tokenB.displaySymbol,
+          }),
+          testID: "price_rate_tokenB",
         }}
         rhs={{
           value: new BigNumber(poolPair.data.priceRatio.ab).toFixed(8),
           suffix: ` ${poolPair.data.tokenA.displaySymbol}`,
-          usdAmount: getTokenPrice(poolPair.data.tokenA.symbol, new BigNumber(poolPair.data.priceRatio.ab)),
-          usdTextStyle: tailwind('text-sm'),
-          usdContainerStyle: tailwind('pt-1'),
-          testID: 'price_rate_tokenB_value'
+          usdAmount: getTokenPrice(
+            poolPair.data.tokenA.symbol,
+            new BigNumber(poolPair.data.priceRatio.ab)
+          ),
+          usdTextStyle: tailwind("text-sm"),
+          usdContainerStyle: tailwind("pt-1"),
+          testID: "price_rate_tokenB_value",
         }}
       />
     </ThemedViewV2>
-  )
+  );
 }
 
-function YourPoolPairTokenBreakdown (props: {yourLpToken: WalletToken, tokenASymbol: string, tokenBSymbol: string, tokenADisplaySymbol: string, tokenBDisplaySymbol: string}): JSX.Element {
-  const { getTokenPrice } = useTokenPrice()
-  const { tokenATotal, tokenBTotal } = useYourPoolPairAmountBreakdown(props.yourLpToken)
+function YourPoolPairTokenBreakdown(props: {
+  yourLpToken: WalletToken;
+  tokenASymbol: string;
+  tokenBSymbol: string;
+  tokenADisplaySymbol: string;
+  tokenBDisplaySymbol: string;
+}): JSX.Element {
+  const { getTokenPrice } = useTokenPrice();
+  const { tokenATotal, tokenBTotal } = useYourPoolPairAmountBreakdown(
+    props.yourLpToken
+  );
 
   return (
     <ThemedViewV2
-      style={tailwind('border-b-0.5 mb-5')}
-      light={tailwind('border-mono-light-v2-300')}
-      dark={tailwind('border-mono-dark-v2-300')}
+      style={tailwind("border-b-0.5 mb-5")}
+      light={tailwind("border-mono-light-v2-300")}
+      dark={tailwind("border-mono-dark-v2-300")}
     >
       <NumberRowV2
         lhs={{
-          value: translate('screens/PoolPairDetailsScreen', 'Your LP tokens'),
-          testID: 'your_lp_tokens'
+          value: translate("screens/PoolPairDetailsScreen", "Your LP tokens"),
+          testID: "your_lp_tokens",
         }}
         rhs={{
           value: new BigNumber(props.yourLpToken.amount).toFixed(8),
-          usdAmount: getTokenPrice(props.yourLpToken.symbol, new BigNumber(props.yourLpToken.amount), true),
-          usdTextStyle: tailwind('text-sm'),
-          usdContainerStyle: tailwind('pt-1'),
-          testID: 'your_lp_tokens_value'
+          usdAmount: getTokenPrice(
+            props.yourLpToken.symbol,
+            new BigNumber(props.yourLpToken.amount),
+            true
+          ),
+          usdTextStyle: tailwind("text-sm"),
+          usdContainerStyle: tailwind("pt-1"),
+          testID: "your_lp_tokens_value",
         }}
       />
       <NumberRowV2
         lhs={{
-          value: translate('screens/PoolPairDetailsScreen', 'Tokens in {{symbol}}', { symbol: props.tokenADisplaySymbol }),
-          testID: 'your_lp_tokenA'
+          value: translate(
+            "screens/PoolPairDetailsScreen",
+            "Tokens in {{symbol}}",
+            { symbol: props.tokenADisplaySymbol }
+          ),
+          testID: "your_lp_tokenA",
         }}
         rhs={{
           value: tokenATotal.toFixed(8),
-          usdAmount: getTokenPrice(props.tokenASymbol, new BigNumber(tokenATotal)),
-          usdTextStyle: tailwind('text-sm'),
-          usdContainerStyle: tailwind('pt-1'),
-          testID: 'your_lp_tokenA_value'
+          usdAmount: getTokenPrice(
+            props.tokenASymbol,
+            new BigNumber(tokenATotal)
+          ),
+          usdTextStyle: tailwind("text-sm"),
+          usdContainerStyle: tailwind("pt-1"),
+          testID: "your_lp_tokenA_value",
         }}
       />
       <NumberRowV2
         lhs={{
-          value: translate('screens/PoolPairDetailsScreen', 'Tokens in {{symbol}}', { symbol: props.tokenBDisplaySymbol }),
-          testID: 'your_lp_tokenB'
+          value: translate(
+            "screens/PoolPairDetailsScreen",
+            "Tokens in {{symbol}}",
+            { symbol: props.tokenBDisplaySymbol }
+          ),
+          testID: "your_lp_tokenB",
         }}
         rhs={{
           value: tokenBTotal.toFixed(8),
-          usdAmount: getTokenPrice(props.tokenBSymbol, new BigNumber(tokenBTotal)),
-          usdTextStyle: tailwind('text-sm'),
-          usdContainerStyle: tailwind('pt-1'),
-          testID: 'your_lp_tokenB_value'
+          usdAmount: getTokenPrice(
+            props.tokenBSymbol,
+            new BigNumber(tokenBTotal)
+          ),
+          usdTextStyle: tailwind("text-sm"),
+          usdContainerStyle: tailwind("pt-1"),
+          testID: "your_lp_tokenB_value",
         }}
       />
     </ThemedViewV2>
-  )
+  );
 }
 
-function APRDetail (props: { total: number, reward: number, commission: number }): JSX.Element {
+function APRDetail(props: {
+  total: number;
+  reward: number;
+  commission: number;
+}): JSX.Element {
   return (
     <ThemedViewV2
-      style={tailwind('border-b-0.5 pb-5 flex-row')}
-      light={tailwind('border-mono-light-v2-300')}
-      dark={tailwind('border-mono-dark-v2-300')}
+      style={tailwind("border-b-0.5 pb-5 flex-row")}
+      light={tailwind("border-mono-light-v2-300")}
+      dark={tailwind("border-mono-dark-v2-300")}
     >
-      <View style={tailwind('w-5/12 flex flex-row items-start')}>
+      <View style={tailwind("w-5/12 flex flex-row items-start")}>
         <ThemedTextV2>
-          {translate('screens/PoolPairDetailsScreen', 'APR')}
+          {translate("screens/PoolPairDetailsScreen", "APR")}
         </ThemedTextV2>
       </View>
-      <View style={tailwind('flex-1 flex-col items-end')}>
+      <View style={tailwind("flex-1 flex-col items-end")}>
         <NumberFormat
-          displayType='text'
-          suffix='%'
+          displayType="text"
+          suffix="%"
           renderText={(val: string) => (
             <ThemedTextV2
-              style={tailwind('text-right font-semibold-v2')}
-              light={tailwind('text-green-v2')}
-              dark={tailwind('text-green-v2')}
-              testID='apr_total_value'
+              style={tailwind("text-right font-semibold-v2")}
+              light={tailwind("text-green-v2")}
+              dark={tailwind("text-green-v2")}
+              testID="apr_total_value"
             >
               {val}
             </ThemedTextV2>
@@ -411,30 +487,38 @@ function APRDetail (props: { total: number, reward: number, commission: number }
           value={new BigNumber(props.total).multipliedBy(100).toFixed(2)}
         />
         <NumberFormat
-          displayType='text'
+          displayType="text"
           renderText={(val: string) => (
             <ThemedTextV2
-              style={tailwind('text-right text-xs font-normal-v2 mt-1')}
-              light={tailwind('text-mono-light-v2-700')}
-              dark={tailwind('text-mono-dark-v2-700')}
-              testID='apr_reward_value'
+              style={tailwind("text-right text-xs font-normal-v2 mt-1")}
+              light={tailwind("text-mono-light-v2-700")}
+              dark={tailwind("text-mono-dark-v2-700")}
+              testID="apr_reward_value"
             >
-              {translate('screens/PoolPairDetailsScreen', '{{percentage}}% in rewards', { percentage: val })}
+              {translate(
+                "screens/PoolPairDetailsScreen",
+                "{{percentage}}% in rewards",
+                { percentage: val }
+              )}
             </ThemedTextV2>
           )}
           thousandSeparator
           value={new BigNumber(props.reward).multipliedBy(100).toFixed(2)}
         />
         <NumberFormat
-          displayType='text'
+          displayType="text"
           renderText={(val: string) => (
             <ThemedTextV2
-              style={tailwind('text-right text-xs font-normal-v2 mt-1')}
-              light={tailwind('text-mono-light-v2-700')}
-              dark={tailwind('text-mono-dark-v2-700')}
-              testID='apr_commission_value'
+              style={tailwind("text-right text-xs font-normal-v2 mt-1")}
+              light={tailwind("text-mono-light-v2-700")}
+              dark={tailwind("text-mono-dark-v2-700")}
+              testID="apr_commission_value"
             >
-              {translate('screens/PoolPairDetailsScreen', '{{percentage}}% in commissions', { percentage: val })}
+              {translate(
+                "screens/PoolPairDetailsScreen",
+                "{{percentage}}% in commissions",
+                { percentage: val }
+              )}
             </ThemedTextV2>
           )}
           thousandSeparator
@@ -442,98 +526,99 @@ function APRDetail (props: { total: number, reward: number, commission: number }
         />
       </View>
     </ThemedViewV2>
-  )
+  );
 }
 
 interface PoolPairActionSectionProps {
-  onAdd: (data: PoolPairData, info: WalletToken) => void
-  onRemove: (data: PoolPairData, info: WalletToken) => void
-  onSwap: (data: PoolPairData) => void
-  pair: DexItem
-  walletToken: WalletToken | undefined
+  onAdd: (data: PoolPairData, info: WalletToken) => void;
+  onRemove: (data: PoolPairData, info: WalletToken) => void;
+  onSwap: (data: PoolPairData) => void;
+  pair: DexItem;
+  walletToken: WalletToken | undefined;
 }
-function PoolPairActionSection ({
+function PoolPairActionSection({
   pair,
   walletToken,
   onAdd,
   onRemove,
-  onSwap
+  onSwap,
 }: PoolPairActionSectionProps): JSX.Element {
   return (
-    <View style={tailwind('flex-1 pt-12')}>
+    <View style={tailwind("flex-1 pt-12")}>
       <ThemedViewV2
-        dark={tailwind('bg-mono-dark-v2-00')}
-        light={tailwind('bg-mono-light-v2-00')}
-        style={tailwind('rounded-lg-v2 px-5')}
+        dark={tailwind("bg-mono-dark-v2-00")}
+        light={tailwind("bg-mono-light-v2-00")}
+        style={tailwind("rounded-lg-v2 px-5")}
       >
         <PoolPairActionRow
-          title={translate('screens/TokenDetailScreen', 'Add liquidity')}
-          icon='plus-circle'
-          onPress={() => onAdd(pair.data, walletToken ?? pair.data as unknown as WalletToken)}
+          title={translate("screens/TokenDetailScreen", "Add liquidity")}
+          icon="plus-circle"
+          onPress={() =>
+            onAdd(
+              pair.data,
+              walletToken ?? (pair.data as unknown as WalletToken)
+            )
+          }
           isLast={walletToken === undefined}
-          testID='poolpair_token_details_add_liquidity'
-          iconType='Feather'
+          testID="poolpair_token_details_add_liquidity"
+          iconType="Feather"
         />
         {walletToken !== undefined && (
           <PoolPairActionRow
-            title={translate('screens/TokenDetailScreen', 'Remove liquidity')}
-            icon='minus-circle'
+            title={translate("screens/TokenDetailScreen", "Remove liquidity")}
+            icon="minus-circle"
             onPress={() => onRemove(pair.data, walletToken)}
-            testID='poolpair_token_details_remove_liquidity'
-            iconType='Feather'
+            testID="poolpair_token_details_remove_liquidity"
+            iconType="Feather"
           />
         )}
       </ThemedViewV2>
-      <View style={tailwind('pt-4 pb-1 px-2')}>
+      <View style={tailwind("pt-4 pb-1 px-2")}>
         <ButtonV2
-          label={translate('screens/DexScreen', 'Swap')}
+          label={translate("screens/DexScreen", "Swap")}
           onPress={() => onSwap(pair.data)}
-          testID='poolpair_token_details_composite_swap'
+          testID="poolpair_token_details_composite_swap"
         />
       </View>
     </View>
-  )
+  );
 }
 
 interface PoolPairActionRowProps {
-  title: string
-  icon: IconName
-  onPress: () => void
-  testID: string
-  iconType: IconType
-  border?: boolean
-  isLast?: boolean
+  title: string;
+  icon: IconName;
+  onPress: () => void;
+  testID: string;
+  iconType: IconType;
+  border?: boolean;
+  isLast?: boolean;
 }
 
-function PoolPairActionRow ({
+function PoolPairActionRow({
   title,
   icon,
   onPress,
   testID,
   iconType,
-  isLast
+  isLast,
 }: PoolPairActionRowProps): JSX.Element {
   return (
-    <ThemedTouchableListItem
-      onPress={onPress}
-      isLast={isLast}
-      testID={testID}
-    >
+    <ThemedTouchableListItem onPress={onPress} isLast={isLast} testID={testID}>
       <ThemedTextV2
-        dark={tailwind('text-mono-dark-v2-900')}
-        light={tailwind('text-mono-light-v2-900')}
-        style={tailwind('font-normal-v2 text-sm')}
+        dark={tailwind("text-mono-dark-v2-900")}
+        light={tailwind("text-mono-light-v2-900")}
+        style={tailwind("font-normal-v2 text-sm")}
       >
         {title}
       </ThemedTextV2>
 
       <ThemedIcon
-        dark={tailwind('text-mono-dark-v2-700')}
-        light={tailwind('text-mono-light-v2-700')}
+        dark={tailwind("text-mono-dark-v2-700")}
+        light={tailwind("text-mono-light-v2-700")}
         iconType={iconType}
         name={icon}
         size={16}
       />
     </ThemedTouchableListItem>
-  )
+  );
 }
