@@ -1,47 +1,47 @@
-import { EnvironmentNetwork, getEnvironment } from '@environment'
-import { StorageProvider } from './provider'
-import { getReleaseChannel } from '@api/releaseChannel'
+import { EnvironmentNetwork, getEnvironment } from "@environment";
+import { getReleaseChannel } from "@api/releaseChannel";
+import { StorageProvider } from "./provider";
 
 /**
  * @return EnvironmentNetwork if invalid, will be set to `networks[0]`
  */
-async function getNetwork (): Promise<EnvironmentNetwork> {
-  const env = getEnvironment(getReleaseChannel())
-  const network = await StorageProvider.getItem(`${env.name}.NETWORK`)
+async function getNetwork(): Promise<EnvironmentNetwork> {
+  const env = getEnvironment(getReleaseChannel());
+  const network = await StorageProvider.getItem(`${env.name}.NETWORK`);
 
   if ((env.networks as any[]).includes(network)) {
-    return network as EnvironmentNetwork
+    return network as EnvironmentNetwork;
   }
 
-  await setNetwork(env.networks[0])
-  return env.networks[0]
+  await setNetwork(env.networks[0]);
+  return env.networks[0];
 }
 
 /**
  * @param network {EnvironmentNetwork} with set with 'environment' prefixed
  */
-async function setNetwork (network: EnvironmentNetwork): Promise<void> {
-  const env = getEnvironment(getReleaseChannel())
+async function setNetwork(network: EnvironmentNetwork): Promise<void> {
+  const env = getEnvironment(getReleaseChannel());
 
   if (!env.networks.includes(network)) {
-    throw new Error('network is not part of environment')
+    throw new Error("network is not part of environment");
   }
 
-  await StorageProvider.setItem(`${env.name}.NETWORK`, network)
+  await StorageProvider.setItem(`${env.name}.NETWORK`, network);
 }
 
-async function getKey (key: string): Promise<string> {
-  const env = getEnvironment(getReleaseChannel())
-  const network = await getNetwork()
-  return `${env.name}.${network}.${key}`
+async function getKey(key: string): Promise<string> {
+  const env = getEnvironment(getReleaseChannel());
+  const network = await getNetwork();
+  return `${env.name}.${network}.${key}`;
 }
 
 /**
  * @param key {string} of item with 'environment' and 'network' prefixed
  * @return {string | null}
  */
-async function getItem (key: string): Promise<string | null> {
-  return await StorageProvider.getItem(await getKey(key))
+async function getItem(key: string): Promise<string | null> {
+  return await StorageProvider.getItem(await getKey(key));
 }
 
 /**
@@ -49,18 +49,18 @@ async function getItem (key: string): Promise<string | null> {
  * @param value {string} to set
  * @throws Error when byte length exceed 2048 bytes
  */
-async function setItem (key: string, value: string): Promise<void> {
-  if (Buffer.byteLength(value, 'utf-8') >= 2048) {
-    throw new Error('value exceed 2048 bytes, unable to setItem')
+async function setItem(key: string, value: string): Promise<void> {
+  if (Buffer.byteLength(value, "utf-8") >= 2048) {
+    throw new Error("value exceed 2048 bytes, unable to setItem");
   }
-  return await StorageProvider.setItem(await getKey(key), value)
+  return await StorageProvider.setItem(await getKey(key), value);
 }
 
 /**
  * @param key {string} of item with 'environment' and 'network' prefixed
  */
-async function removeItem (key: string): Promise<void> {
-  await StorageProvider.removeItem(await getKey(key))
+async function removeItem(key: string): Promise<void> {
+  await StorageProvider.removeItem(await getKey(key));
 }
 
 /**
@@ -76,5 +76,5 @@ export const SecuredStoreAPI = {
   setNetwork,
   getItem,
   setItem,
-  removeItem
-}
+  removeItem,
+};

@@ -808,7 +808,8 @@ exports[`Batch Card should match snapshot 1`] = `
         }
       >
         ~28m left
-         (
+         
+        (
         570 blks
         )
       </Text>
