@@ -4,10 +4,13 @@
     "project": "./tsconfig.json"
   },
   "plugins": [
-    "cypress"
+    "cypress",
+    "prettier"
   ],
   "extends": [
-    "standard-with-typescript"
+    "airbnb",
+    "airbnb-typescript",
+    "prettier"
   ],
   "ignorePatterns": [
     "/plugins/*.ts",
