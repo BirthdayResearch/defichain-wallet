@@ -13,6 +13,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Platform, StyleProp, ViewStyle } from "react-native";
 import { ThemedTextV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
+import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { ConversionParam } from "../Portfolio/PortfolioNavigator";
 import {
@@ -31,6 +32,8 @@ import { RemoveLiquidityConfirmScreen } from "./DexConfirmRemoveLiquidity";
 import { AddLiquidityScreen } from "./DexAddLiquidity";
 import { ConfirmAddLiquidityScreen } from "./DexConfirmAddLiquidity";
 import { PoolPairDetailsScreen } from "./PoolPairDetailsScreen";
+import { CompositeSwapScreenV2 } from "./CompositeSwap/CompositeSwapScreenV2";
+import { ConfirmCompositeSwapScreenV2 } from "./CompositeSwap/ConfirmCompositeSwapScreenV2";
 export interface DexParamList {
   DexScreen: undefined;
   CompositeSwapScreen: {
@@ -115,6 +118,7 @@ export function DexNavigator(): JSX.Element {
     navigation.navigate("NetworkSelectionScreen");
   };
   const insets = useSafeAreaInsets();
+  const { isFeatureAvailable } = useFeatureFlagContext();
 
   return (
     <DexStack.Navigator
@@ -225,28 +229,68 @@ export function DexNavigator(): JSX.Element {
       />
 
       <DexStack.Screen
-        component={CompositeSwapScreen}
+        component={
+          isFeatureAvailable("composite_swap_v2")
+            ? CompositeSwapScreenV2
+            : CompositeSwapScreen
+        }
         name="CompositeSwap"
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/DexScreen", "Swap tokens")}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          ...screenOptions,
+          headerTitle: isFeatureAvailable("composite_swap_v2")
+            ? translate("screens/DexScreen", "Swap")
+            : () => (
+                <HeaderTitle
+                  text={translate("screens/DexScreen", "Swap")}
+                  containerTestID={headerContainerTestId}
+                />
+              ),
+          ...(isFeatureAvailable("composite_swap_v2") && {
+            headerStyle: [
+              screenOptions.headerStyle,
+              tailwind("rounded-b-none border-b-0"),
+              {
+                shadowOpacity: 0,
+                height: (Platform.OS !== "android" ? 88 : 96) + insets.top,
+              },
+            ],
+            headerRight: () => (
+              <HeaderNetworkStatus onPress={goToNetworkSelect} />
+            ),
+          }),
         }}
       />
 
       <DexStack.Screen
-        component={ConfirmCompositeSwapScreen}
+        component={
+          isFeatureAvailable("composite_swap_v2")
+            ? ConfirmCompositeSwapScreenV2
+            : ConfirmCompositeSwapScreen
+        }
         name="ConfirmCompositeSwapScreen"
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/DexScreen", "Confirm swap")}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          ...screenOptions,
+          headerTitle: isFeatureAvailable("composite_swap_v2")
+            ? translate("screens/DexScreen", "Confirm")
+            : () => (
+                <HeaderTitle
+                  text={translate("screens/DexScreen", "Confirm swap")}
+                  containerTestID={headerContainerTestId}
+                />
+              ),
+          ...(isFeatureAvailable("composite_swap_v2") && {
+            headerStyle: [
+              screenOptions.headerStyle,
+              tailwind("rounded-b-none border-b-0"),
+              {
+                shadowOpacity: 0,
+                height: (Platform.OS !== "android" ? 88 : 96) + insets.top,
+              },
+            ],
+            headerRight: () => (
+              <HeaderNetworkStatus onPress={goToNetworkSelect} />
+            ),
+          }),
         }}
       />
 
