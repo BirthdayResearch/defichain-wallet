@@ -10,10 +10,10 @@ interface DfxKycInfoProps {
 }
 
 export function DfxKycInfo (props: DfxKycInfoProps): JSX.Element {
-const { openDfxServices } = useDFXAPIContext()
+const { openKycLink } = useDFXAPIContext()
   return (
     <TouchableOpacity
-      onPress={async () => await openDfxServices()}
+      onPress={async () => await openKycLink()}
     >
       <InfoText
         testID='dfx_kyc_info'

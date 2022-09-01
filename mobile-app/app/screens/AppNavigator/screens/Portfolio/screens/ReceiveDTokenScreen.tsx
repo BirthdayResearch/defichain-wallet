@@ -63,7 +63,7 @@ export function ReceiveDTokenScreen ({
   const defaultFee = 1.2
   const [fee, setFee] = useState(defaultFee)
   const [refBonus, setRefBonus] = useState(0)
-  const { openDfxServices } = useDFXAPIContext()
+  const { openKycLink } = useDFXAPIContext()
   const [showToast, setShowToast] = useState(false)
   const toast = useToast()
   const TOAST_DURATION = 2000
@@ -205,7 +205,7 @@ export function ReceiveDTokenScreen ({
           )
           : activeButton === CryptoButtonGroupTabKey.BTC && bitcoinAddress === ''
           ? (
-            <TouchableOpacity onPress={async () => await openDfxServices()}>
+            <TouchableOpacity onPress={async () => await openKycLink()}>
               <ThemedText style={tailwind('text-center')}>
                 {translate('screens/ReceiveDTokenScreen', 'Please click here to finish the KYC process to receive your bitcoin address')}
               </ThemedText>

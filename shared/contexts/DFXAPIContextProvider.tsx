@@ -8,7 +8,7 @@ import { DFXAddrSignature, DFXPersistence } from '@api/persistence/dfx_storage'
 import { WalletType } from '@shared-contexts/WalletPersistenceContext'
 import { authentication, Authentication } from '@store/authentication'
 import { translate } from '@translations'
-import { getSellRoutes, signIn, signUp, getCountries, getSignMessage } from '@shared-api/dfx/ApiService'
+import { getSellRoutes, signIn, signUp, getCountries, getSignMessage, getUser } from '@shared-api/dfx/ApiService'
 import { AuthService } from '@shared-api/dfx/AuthService'
 import { useNetworkContext } from '@shared-contexts/NetworkContext'
 import { useWalletNodeContext } from '@shared-contexts/WalletNodeProvider'
@@ -29,6 +29,7 @@ import { Country } from '@shared-api/dfx/models/Country'
 
 interface DFXAPIContextI {
   openDfxServices: () => Promise<void>
+  openKycLink: () => Promise<void>
   clearDfxTokens: () => Promise<void>
   listFiatAccounts: () => Promise<SellRoute[]>
   listCountries: () => Promise<Country[]>
@@ -80,6 +81,26 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
   //     return Promise.reject(error)
   //   }
   // })
+  const openKycLink = async (): Promise<void> => {
+    await getActiveWebToken()
+      .catch(async () => {
+        // try login first
+        await activePairHandler({ network: networkName, addr: address })
+        return await getActiveWebToken()
+      })
+      .then(async (token) => {
+        if (token === undefined || token.length === 0) {
+          throw new Error('webToken is undefined')
+        }
+
+        const user = await getUser()
+
+        const baseUrl = getEnvironment(Updates.releaseChannel).dfxPaymentUrl
+        const url = `${baseUrl}/kyc?code=${user.kycHash}`
+        await Linking.openURL(url)
+      })
+      .catch(logger.error)
+  }
 
   const openDfxServices = async (): Promise<void> => {
     await getActiveWebToken()
@@ -268,6 +289,7 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
   // public context API
   const context: DFXAPIContextI = {
     openDfxServices: openDfxServices,
+    openKycLink: openKycLink,
     clearDfxTokens: clearDfxTokens,
     listFiatAccounts: listFiatAccounts,
     listCountries: listCountries
