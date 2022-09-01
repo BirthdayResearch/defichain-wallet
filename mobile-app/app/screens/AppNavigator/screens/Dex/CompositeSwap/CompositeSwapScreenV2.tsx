@@ -51,7 +51,7 @@ import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
 import { openURL } from '@api/linking'
 // import NumberFormat from 'react-number-format'
 import { TextRow } from '@components/TextRow'
-import { PriceRateProps, PricesSection } from '@components/PricesSection'
+import { PricesSection } from '@components/PricesSection'
 import { fetchExecutionBlock } from '@store/futureSwap'
 import { useAppDispatch } from '@hooks/useAppDispatch'
 import { WalletAlert } from '@components/WalletAlert'
@@ -68,6 +68,11 @@ import { WalletTextInputV2 } from '@components/WalletTextInputV2'
 // import { ButtonV2 } from '@components/ButtonV2'
 import { useToast } from 'react-native-toast-notifications'
 import NumberFormat from 'react-number-format'
+import { PricesSectionV2, PriceRateProps } from '@components/PricesSectionV2'
+import { NumberRowV2 } from '@components/NumberRowV2'
+import { SwapSummary } from './components/SwapSummary'
+import { WantSwapRow } from './components/WantSwapRow'
+import { ButtonV2 } from '@components/ButtonV2'
 
 export enum ButtonGroupTabKey {
   InstantSwap = 'INSTANT_SWAP',
@@ -394,19 +399,23 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
 
       const estimatedAmountAfterSlippage = estimated.times(slippage).toFixed(8)
       setPriceRates([{
-        label: translate('components/PricesSection', '1 {{token}}', {
-          token: selectedTokenB.displaySymbol
-        }),
-        value: bToAPrice.toFixed(8),
-        aSymbol: selectedTokenB.displaySymbol,
-        bSymbol: selectedTokenA.displaySymbol
-      }, {
-        label: translate('components/PricesSection', '1 {{token}}', {
+        label: translate('components/PricesSection', '1 {{token}} =', {
           token: selectedTokenA.displaySymbol
         }),
-        value: aToBPrice.toFixed(8),
+        value: bToAPrice.toFixed(8),
+        symbolUSDValue: amountInUSDValue(selectedTokenA, tokenAAmount),
+        usdTextStyle: tailwind('text-sm'),
         aSymbol: selectedTokenA.displaySymbol,
         bSymbol: selectedTokenB.displaySymbol
+      }, {
+        label: translate('components/PricesSection', '1 {{token}} =', {
+          token: selectedTokenB.displaySymbol
+        }),
+        value: aToBPrice.toFixed(8),
+        symbolUSDValue: amountInUSDValue(selectedTokenB, tokenBAmount),
+        usdTextStyle: tailwind('text-sm'),
+        aSymbol: selectedTokenB.displaySymbol,
+        bSymbol: selectedTokenA.displaySymbol
       }
       ])
 
@@ -562,28 +571,50 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
     })
   }
 
-  const [isCustomSlippage, setIsCustomSlippage] = useState(false)
-  // const [slippageAmount, setSlippageAmount] = useState()
-
-  function onSlippageChange (amount: string, type: SlippageAmountButtonTypes): void {
-    if (type === SlippageAmountButtonTypes.Custom) {
-      setIsCustomSlippage(true)
-    }
+  enum WantCardStatusType {
+    DEFAULT,
+    INSUFFICIENT_BALANCE,
+    UTXO_FEE
   }
 
-  console.log('selectedTokenA', selectedTokenA)
-  console.log('tokenBAmount', tokenBAmount)
+  // TODO: Logic not done
+  const [wantCardStatus, setWantCardStatus] = useState<WantCardStatusType>()
+  const {
+    infoText,
+    infoTextThemedProps
+  } = useMemo(() => {
+    let infoText = 'No {{token}} balance'
+    // let themedProps
+    let status = WantCardStatusType.DEFAULT
 
-  // function slippageChange (value: string): void {
-  //   console.log('value', value)
-  //   setSlippageAmount(value)
-  // }
+    if (new BigNumber(tokenAAmount).isGreaterThan(selectedTokenA?.amount ?? 0)) {
+      infoText = 'Insufficient balance'
+      // themedProps = {
+      //   dark: tailwind('text-red-v2'),
+      //   light: tailwind('text-red-v2')
+      // }
+      status = WantCardStatusType.INSUFFICIENT_BALANCE
+    } else if (new BigNumber(tokenAAmount).isEqualTo(selectedTokenA?.amount ?? 0)) {
+      infoText = 'A small amount of UTXO is reserved for fees'
+      // themedProps = {
+      //   dark: tailwind('text-orange-v2'),
+      //   light: tailwind('text-orange-v2')
+      // }
+      status = WantCardStatusType.UTXO_FEE
+    }
 
-  // const buildSlippage = (amount: string): string => {
-  //   console.log('amount', amount)
-  //   const maxValue = selectedTokenA != null ? new BigNumber(getMaxAmount(selectedTokenA)) : new BigNumber(0)
-  //   // setSlippageAmount(maxValue.multipliedBy(amount).toFixed(8))
-  // }
+    // setTransactionCardStatus(status)
+    setWantCardStatus(status)
+    return {
+      infoText: translate('screens/SendScreen', infoText, {
+        token: selectedTokenA
+      })
+      // infoTextThemedProps: {
+      //   ...themedProps,
+      //   style: tailwind('text-xs mt-2 ml-5 font-normal-v2')
+      // }
+    }
+  }, [tokenAAmount, selectedTokenA])
 
   return (
     <View style={tailwind('h-full')} ref={containerRef}>
@@ -662,10 +693,14 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
               <TokenDropdownButton
                 symbol={selectedTokenA?.displaySymbol}
                 onPress={() => onBottomSheetSelect({ direction: 'FROM' })}
-                disabled={isFromTokenSelectDisabled || fromTokens === undefined || fromTokens?.length === 0}
+                // disabled={isFromTokenSelectDisabled || fromTokens === undefined || fromTokens?.length === 0}
               />
 
             </View>
+
+            <ThemedTextV2>
+              {infoText}
+            </ThemedTextV2>
 
             <TransactionCard
               maxValue={(selectedTokenA != null) ? new BigNumber(getMaxAmount(selectedTokenA)) : new BigNumber(0)}
@@ -676,12 +711,30 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
             />
           </View>
 
-          <View style={tailwind('my-8 relative items-center')}>
+          {/* <View style={tailwind('flex-row justify-center -top-5')}>
             <ThemedTouchableOpacityV2
               onPress={onTokenSwitch}
               style={tailwind('p-2.5 rounded-full z-50')}
               light={tailwind('bg-mono-light-v2-900')}
               dark={tailwind('bg-mono-dark-v2-900')}
+              testID='switch_button'
+            >
+              <ThemedIcon
+                name='swap-vert'
+                size={24}
+                iconType='MaterialIcons'
+                dark={tailwind('text-mono-dark-v2-00')}
+                light={tailwind('text-mono-light-v2-00')}
+              />
+            </ThemedTouchableOpacityV2>
+          </View> */}
+
+          <View style={tailwind('my-8 relative items-center')}>
+            <ThemedTouchableOpacityV2
+              onPress={onTokenSwitch}
+              style={tailwind('p-2.5 rounded-full z-50 border-0')}
+              dark={tailwind('bg-mono-dark-v2-900')}
+              light={tailwind('bg-mono-light-v2-900')}
               testID='switch_button'
             >
               <ThemedIcon
@@ -699,7 +752,11 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
             />
           </View>
 
-          <View>
+          <ThemedViewV2
+            style={tailwind('border-0', { 'border-b-0.5 pb-8': activeButtonGroup === ButtonGroupTabKey.InstantSwap })}
+            dark={tailwind('border-mono-dark-v2-300')}
+            light={tailwind('border-mono-light-v2-300')}
+          >
             <ThemedTextV2
               style={tailwind('px-5 text-xs font-normal-v2')}
               light={tailwind('text-mono-light-v2-500')}
@@ -710,97 +767,124 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
               })}
             </ThemedTextV2>
             <View style={tailwind('flex flex-row justify-between items-center pl-5 mt-4')}>
-              <View style={tailwind('w-6/12 mr-2')}>
-                <NumberFormat
-                  decimalScale={8}
-                  displayType='text'
-                  renderText={(val: string) => (
-                    <ThemedTextV2
-                      style={tailwind('text-left font-normal-v2 text-xl')}
-                      light={tailwind('text-mono-light-v2-700')}
-                      dark={tailwind('text-mono-dark-v2-700')}
-                    >
-                      {val === '' ? '0.00' : val}
-                    </ThemedTextV2>
-                  )}
-                  value={new BigNumber(tokenBAmount).toFixed(8)}
-                />
-                <ActiveUSDValueV2
-                  price={amountInUSDValue(selectedTokenB ?? undefined, tokenBAmount)}
-                  testId='amount_input_in_usd'
-                  containerStyle={tailwind('w-full break-words')}
-                />
-              </View>
+              <WantSwapRow
+                activeTab={activeButtonGroup}
+                tokenAmount={new BigNumber(tokenBAmount).toFixed(8)}
+                tokenUsdAmount={amountInUSDValue(selectedTokenB ?? undefined, tokenBAmount)}
+              />
 
               <TokenDropdownButton
                 symbol={selectedTokenB?.displaySymbol}
                 onPress={() => onBottomSheetSelect({ direction: 'TO' })}
-                disabled={isToTokenSelectDisabled || toTokens === undefined || toTokens?.length === 0}
+                // disabled={isToTokenSelectDisabled || toTokens === undefined || toTokens?.length === 0}
               />
 
             </View>
-          </View>
+          </ThemedViewV2>
         </View>
 
-        {/* {selectedTokenA !== undefined && selectedTokenB !== undefined &&
-          <ThemedViewV2
-            style={tailwind('border-t-0.5')}
-            dark={tailwind('border-mono-dark-v2-300')}
-            light={tailwind('border-mono-light-v2-300')}
-          >
-            <ThemedTextV2
-              style={tailwind('mt-8 text-xs font-normal-v2 px-5 pb-2')}
-              dark={tailwind('text-mono-dark-v2-500')}
-              light={tailwind('text-mono-light-v2-500')}
-            >
-              {translate('screens/CompositeSwapScreen', 'SLIPPAGE TOLERANCE')}
-            </ThemedTextV2>
-            <SlippageToleranceCard
-              maxValue={(selectedTokenA != null) ? new BigNumber(getMaxAmount(selectedTokenA)) : new BigNumber(0)}
-              onChange={(amount, type) => onSlippageChange(amount, type)}
-              isCustomSlippage={isCustomSlippage}
-            >
-              <View style={tailwind('flex flex-row')}>
-                <WalletTextInputV2
-                  onChangeText={slippageChange}
-                  keyboardType='numeric'
-                  autoCapitalize='none'
-                  placeholder='0.00%'
-                  style={tailwind('h-6 rounded-full')}
-                  containerStyle='w-9/12 pr-2 rounded-full'
-                  // inputContainerStyle={tailwind('rounded-full')}
-                  testID='slippage_input'
-                  value={slippageAmount !== undefined ? slippageAmount : ''}
-                  displayClearButton={slippageAmount !== ''}
-                  onClearButtonPress={() => {
-                  setIsCustomSlippage(false)
-                  slippageChange('')
-                }}
-                  inputType='numeric'
+        <ThemedViewV2>
+          {(selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenA !== undefined && tokenA !== '' && tokenB !== undefined) &&
+            <>
+              {activeButtonGroup === ButtonGroupTabKey.InstantSwap &&
+                <SlippageToleranceCard
+                  onSubmitSlippage={setSlippage}
+                  slippage={slippage}
+                  setSlippageError={setSlippageError}
+                />}
+              <ThemedViewV2
+                light={tailwind('border-mono-light-v2-300')}
+                dark={tailwind('border-mono-dark-v2-300')}
+                style={tailwind('mt-8 py-5 px-5 border rounded-lg-v2')}
+              >
+                <SwapSummary
+                  instantSwapPriceRate={priceRates}
+                  fee={fee}
+                  activeTab={activeButtonGroup}
+                  executionBlock={executionBlock}
+                  transactionDate={transactionDate}
                 />
-                <ThemedTouchableOpacityV2
-                  light={tailwind('bg-mono-light-v2-900')}
-                  dark={tailwind('bg-mono-dark-v2-900')}
-                  style={tailwind('p-2.5 flex justify-center items-center flex-grow rounded-full')}
+              </ThemedViewV2>
+            </>}
+
+          <View style={tailwind('mt-12 mx-7')}>
+            <ButtonV2
+              fillType='fill'
+              label={translate('components/CompositeSwapScreen', 'Continue')}
+              styleProps='w-full'
+              disabled={!formState.isValid || hasPendingJob || hasPendingBroadcastJob || (slippageError?.type === 'error' && slippageError !== undefined) || (isFutureSwap && isEnded)}
+              onPress={(dexStabilizationType === 'none' && isDexStabilizationEnabled) || !isDexStabilizationEnabled ? onSubmit : onWarningBeforeSubmit}
+              testID='button_continue_remove_liq'
+            />
+          </View>
+          {/* {activeButtonGroup === ButtonGroupTabKey.FutureSwap && (selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenA !== undefined && tokenA !== '' && tokenB !== undefined) &&
+            <>
+              <ThemedViewV2
+                light={tailwind('border-mono-light-v2-300')}
+                dark={tailwind('border-mono-dark-v2-300')}
+                style={tailwind('py-5 px-5 border rounded-lg-v2')}
+              >
+                <SwapSummary priceRatesOption={priceRates} fee={fee} />
+              </ThemedViewV2>
+            </>} */}
+
+          {/* {activeButtonGroup === ButtonGroupTabKey.InstantSwap && selectedTokenB !== undefined && selectedTokenA !== undefined &&
+            <SlippageTolerance
+              setSlippage={setSlippage}
+              slippageError={slippageError}
+              setSlippageError={setSlippageError}
+              slippage={slippage}
+            />} */}
+
+          {/* {(selectedTokenB !== undefined && selectedTokenA !== undefined && priceRates !== undefined && tokenA !== undefined && tokenA !== '' && tokenB !== undefined) &&
+            <>
+              {!isFutureSwap &&
+                <ThemedView
+                  style={tailwind('rounded-t-lg mx-4 py-2')}
+                  dark={tailwind('bg-gray-800 border-b border-gray-700')}
+                  light={tailwind('bg-white border-b border-gray-200')}
                 >
-                  <ThemedTextV2
-                    light={tailwind('text-mono-light-v2-100')}
-                    dark={tailwind('text-mono-dark-v2-100')}
-                    style={tailwind('text-xs font-semibold-v2')}
-                  >
-                    {translate('components/CompositeSwapScreen', 'Set')}
-                  </ThemedTextV2>
-                </ThemedTouchableOpacityV2>
-              </View>
-            </SlippageToleranceCard>
-            {activeButtonGroup === ButtonGroupTabKey.InstantSwap && selectedTokenB !== undefined && selectedTokenA !== undefined &&
-              <SlippageTolerance
-                setSlippage={setSlippage}
-                slippageError={slippageError}
-                setSlippageError={setSlippageError}
-                slippage={slippage}
-              />}
-          </ThemedViewV2>} */}
+                  <PricesSection
+                    testID='pricerate_value'
+                    priceRates={priceRates}
+                    isCompact
+                  />
+                </ThemedView>}
+              <TransactionDetailsSection
+                isFutureSwap={isFutureSwap}
+                conversionAmount={conversionAmount}
+                estimatedAmount={tokenB}
+                fee={fee}
+                isConversionRequired={isConversionRequired}
+                tokenA={selectedTokenA}
+                tokenB={selectedTokenB}
+                executionBlock={executionBlock}
+                timeRemaining={timeRemaining}
+                transactionDate={transactionDate}
+                oraclePriceText={oraclePriceText}
+                isDexStabilizationEnabled={isDexStabilizationEnabled}
+                dexStabilizationType={dexStabilizationType}
+                dexStabilizationFee={dexStabilizationFee}
+              />
+            </>}
+          {selectedTokenA !== undefined && selectedTokenB !== undefined && (
+            <View style={tailwind('mb-2')}>
+              <SubmitButtonGroup
+                isDisabled={!formState.isValid ||
+                hasPendingJob ||
+                hasPendingBroadcastJob ||
+                (slippageError?.type === 'error' && slippageError !== undefined) ||
+                (isFutureSwap && isEnded)}
+                label={translate('screens/CompositeSwapScreen', 'CONTINUE')}
+                processingLabel={translate('screens/CompositeSwapScreen', 'CONTINUE')}
+                onSubmit={(dexStabilizationType === 'none' && isDexStabilizationEnabled) || !isDexStabilizationEnabled ? onSubmit : onWarningBeforeSubmit}
+                title='submit'
+                isProcessing={hasPendingJob || hasPendingBroadcastJob}
+                displayCancelBtn={false}
+              />
+            </View>
+        )} */}
+        </ThemedViewV2>
 
         {Platform.OS === 'web' && (
           <BottomSheetWebWithNav
@@ -825,79 +909,196 @@ export function CompositeSwapScreenV2 ({ route }: Props): JSX.Element {
   )
 }
 
-// interface TokenForm {
-//   control: Control<{ tokenA: string, tokenB: string }>
-//   maxAmount?: string
-//   onChangeFromAmount: (amount: string) => void
-//   token: string
-// }
+function TransactionDetailsSection ({
+  isFutureSwap,
+  conversionAmount,
+  estimatedAmount,
+  fee,
+  isConversionRequired,
+  tokenA,
+  tokenB,
+  executionBlock,
+  timeRemaining,
+  transactionDate,
+  oraclePriceText,
+  isDexStabilizationEnabled,
+  dexStabilizationType,
+  dexStabilizationFee
+}: {
+  isFutureSwap: boolean
+  conversionAmount: BigNumber
+  estimatedAmount: string
+  fee: BigNumber
+  isConversionRequired: boolean
+  tokenA: OwnedTokenState
+  tokenB: TokenState
+  executionBlock: number
+  timeRemaining: string
+  transactionDate: string
+  oraclePriceText: string
+  isDexStabilizationEnabled: boolean
+  dexStabilizationType: DexStabilizationType
+  dexStabilizationFee?: string
+}): JSX.Element {
+  const { getBlocksCountdownUrl } = useDeFiScanContext()
+  const { getTokenPrice } = useTokenPrice()
+  const rowStyle = {
+    lhsThemedProps: {
+      light: tailwind('text-gray-500'),
+      dark: tailwind('text-gray-400')
+    },
+    rhsThemedProps: {
+      light: tailwind('text-gray-900'),
+      dark: tailwind('text-gray-50')
+    }
+  }
 
-// function TokenRow (form: TokenForm): JSX.Element {
-//   const {
-//     control,
-//     onChangeFromAmount,
-//     maxAmount,
-//     token
-//   } = form
-//   const rules: { required: boolean, pattern: RegExp, validate: any, max?: string } = {
-//     required: true,
-//     max: maxAmount,
-//     pattern: /^\d*\.?\d*$/,
-//     validate: {
-//       greaterThanZero: (value: string) => new BigNumber(value !== undefined && value !== '' ? value : 0).isGreaterThan(0)
-//     }
-//   }
-//   const defaultValue = ''
+  return (
+    <View style={tailwind('mx-4 overflow-hidden', {
+      'rounded-b-lg': !isFutureSwap,
+      'rounded-lg': isFutureSwap
+    })}
+    >
+      {isConversionRequired &&
+        <NumberRow
+          lhs={translate('screens/CompositeSwapScreen', 'UTXO to be converted')}
+          rhs={{
+            testID: 'amount_to_convert',
+            value: conversionAmount.toFixed(8),
+            suffixType: 'text',
+            suffix: tokenA.displaySymbol
+          }}
+          lhsThemedProps={rowStyle.lhsThemedProps}
+          rhsThemedProps={rowStyle.rhsThemedProps}
+        />}
 
-//   return (
-//     <Controller
-//       control={control}
-//       defaultValue={defaultValue}
-//       name='tokenA'
-//       render={({
-//         field: {
-//           onChange,
-//           value
-//         }
-//       }) => (
-//         // <ThemedView
-//         //   dark={tailwind('bg-transparent')}
-//         //   light={tailwind('bg-transparent')}
-//         //   style={tailwind('flex-row')}
-//         // >
-//         //   <WalletTextInput
-//         //     autoCapitalize='none'
-//         //     onChange={(e) => {
-//         //       onChangeFromAmount(e.nativeEvent.text)
-//         //     }}
-//         //     placeholder={translate('screens/CompositeSwapScreen', 'Enter an amount')}
-//         //     style={tailwind('flex-grow w-2/5')}
-//         //     testID='text_input_tokenA'
-//         //     value={value}
-//         //     displayClearButton={(value !== defaultValue)}
-//         //     onClearButtonPress={() => onChangeFromAmount(defaultValue)}
-//         //     inputType='numeric'
-//         //   />
-//         // </ThemedView>
-//         <ThemedTextInputV2
-//           style={tailwind('text-lg font-semibold-v2 w-full')}
-//           light={tailwind('text-mono-light-v2-900')}
-//           dark={tailwind('text-mono-dark-v2-900')}
-//           keyboardType='numeric'
-//           value={value}
-//           onChange={onChange}
-//           onChangeText={async (amount) => {
-//           amount = isNaN(+amount) ? '0' : amount
-//           setValue(token, amount)
-//           await trigger(token)
-//         }}
-//           placeholder='0.00'
-//           // placeholderTextColor={getColor(isLight ? 'mono-light-v2-900' : 'mono-dark-v2-900')}
-//           testID='amount_input'
-//           ref={amountInputRef}
-//         />
-//       )}
-//       rules={rules}
-//     />
-//   )
-// }
+      {!isFutureSwap
+        ? (
+          <NumberRow
+            lhs={translate('screens/CompositeSwapScreen', 'Estimated to receive')}
+            rhs={{
+              value: estimatedAmount,
+              suffixType: 'text',
+              suffix: tokenB.displaySymbol,
+              testID: 'estimated_to_receive'
+            }}
+            textStyle={tailwind('text-sm font-normal')}
+            rhsUsdAmount={getTokenPrice(tokenB.symbol, new BigNumber(estimatedAmount), false)}
+            lhsThemedProps={rowStyle.lhsThemedProps}
+            rhsThemedProps={rowStyle.rhsThemedProps}
+          />
+        )
+        : (
+          <>
+            <TimeRemainingTextRow timeRemaining={timeRemaining} transactionDate={transactionDate} />
+            <InfoRow
+              type={InfoType.ExecutionBlock}
+              value={executionBlock}
+              testID='execution_block'
+              suffix={
+                <TouchableOpacity
+                  onPress={async () => await openURL(getBlocksCountdownUrl(executionBlock))}
+                >
+                  <ThemedIcon
+                    name='open-in-new'
+                    size={16}
+                    iconType='MaterialIcons'
+                    style={tailwind('ml-1')}
+                    light={tailwind('text-primary-500')}
+                    dark={tailwind('text-darkprimary-500')}
+                  />
+                </TouchableOpacity>
+              }
+              lhsThemedProps={rowStyle.lhsThemedProps}
+              rhsThemedProps={rowStyle.rhsThemedProps}
+            />
+            <TextRow
+              lhs={{
+                value: translate('screens/ConfirmCompositeSwapScreen', 'Estimated to receive'),
+                themedProps: rowStyle.lhsThemedProps,
+                testID: 'estimated_to_receive'
+              }}
+              rhs={{
+                value: translate('screens/CompositeSwapScreen', `Oracle price ${oraclePriceText}`),
+                themedProps: rowStyle.rhsThemedProps,
+                testID: 'estimated_to_receive'
+              }}
+              textStyle={tailwind('text-sm font-normal')}
+              containerStyle={{
+                dark: tailwind('bg-gray-800 border-b border-gray-700'),
+                light: tailwind('bg-white border-b border-gray-200'),
+                style: tailwind('p-4 flex-row items-start w-full')
+              }}
+            />
+          </>
+        )}
+      <InfoRow
+        type={InfoType.EstimatedFee}
+        value={fee.toFixed(8)}
+        testID='text_fee'
+        suffix='DFI'
+        lhsThemedProps={rowStyle.lhsThemedProps}
+        rhsThemedProps={rowStyle.rhsThemedProps}
+      />
+      {
+        isDexStabilizationEnabled && dexStabilizationType !== 'none' && dexStabilizationFee !== undefined && (
+          <NumberRow
+            lhs={translate('screens/CompositeSwapScreen', 'DEX stabilization fee')}
+            rhs={{
+              value: dexStabilizationFee,
+              suffix: '%',
+              testID: 'dex_stab_fee',
+              suffixType: 'text'
+            }}
+            textStyle={tailwind('text-sm font-normal')}
+            lhsThemedProps={rowStyle.lhsThemedProps}
+            rhsThemedProps={rowStyle.rhsThemedProps}
+          />
+        )
+      }
+    </View>
+  )
+}
+
+function TimeRemainingTextRow ({
+  timeRemaining,
+  transactionDate
+}: { timeRemaining: string, transactionDate: string }): JSX.Element {
+  return (
+    <ThemedView
+      dark={tailwind('bg-gray-800 border-b border-gray-700')}
+      light={tailwind('bg-white border-b border-gray-200')}
+      style={tailwind('p-4 flex-row items-start w-full')}
+    >
+      <View style={tailwind('w-6/12')}>
+        <View style={tailwind('flex-row items-end justify-start')}>
+          <ThemedText
+            style={tailwind('text-sm')}
+            light={tailwind('text-gray-500')}
+            dark={tailwind('text-gray-400')}
+            testID='time_remaining_label'
+          >
+            {translate('screens/CompositeSwapScreen', 'Est. time remaining')}
+          </ThemedText>
+        </View>
+      </View>
+      <View style={tailwind('flex flex-col justify-end flex-1')}>
+        <ThemedText
+          style={tailwind('text-sm text-right')}
+          light={tailwind('text-gray-900')}
+          dark={tailwind('text-gray-50')}
+          testID='time_remaining'
+        >
+          {`≈${timeRemaining}`}
+        </ThemedText>
+        <ThemedText
+          style={tailwind('text-xs text-right')}
+          light={tailwind('text-gray-500')}
+          dark={tailwind('text-gray-400')}
+        >
+          {`(${transactionDate})`}
+        </ThemedText>
+      </View>
+    </ThemedView>
+  )
+}
