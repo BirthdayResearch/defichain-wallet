@@ -37,7 +37,7 @@ jobs:
           cache: npm
 
       - run: npm ci
-      - run: npx pretty-quick --staged --check --pattern "mobile-app/app/**"
+      - run: npx pretty-quick --staged --check --pattern "mobile-app/**"
 
   unit:
     name: Unit Test
