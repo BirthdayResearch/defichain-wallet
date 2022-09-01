@@ -1005,6 +1005,14 @@
     "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?": "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?",
     "DEX stabilization fee": "DEX stabilization fee"
   },
+  "screens/SwapTokenSelectionScreen": {
+    "Select": "Select",
+    "Search tokens": "Search tokens",
+    "AVAILABLE TOKENS": "AVAILABLE TOKENS",
+    "AVAILABLE FOR SWAP": "AVAILABLE FOR SWAP",
+    "Search with token name": "Search with token name",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
+  },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "正在转换",
     "CONFIRM SWAP": "确认兑换",

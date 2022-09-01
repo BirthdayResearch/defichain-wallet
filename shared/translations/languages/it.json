@@ -927,7 +927,7 @@
     "You are removing": "Stai rimuovendo",
     "from liquidity pool": "dal liquidity pool",
     "I WANT TO REMOVE": "I WANT TO REMOVE",
-    "Your LP Tokens":  "Your LP Tokens",
+    "Your LP Tokens": "Your LP Tokens",
     "Tokens in {{token}}": "Tokens in {{token}}",
     "{{token}} to receive": "{{token}} to receive",
     "LP tokens to remove": "LP tokens to remove",
@@ -1022,6 +1022,14 @@
     "Are you certain you want to proceed to swap DUSD for {{tokenB}} despite the DEX Stabilization fees of {{fee}}?": "Are you certain you want to proceed to swap DUSD for {{tokenB}} despite the DEX Stabilization fees of {{fee}}?",
     "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?": "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?",
     "DEX stabilization fee": "DEX stabilization fee"
+  },
+  "screens/SwapTokenSelectionScreen": {
+    "Select": "Select",
+    "Search tokens": "Search tokens",
+    "AVAILABLE TOKENS": "AVAILABLE TOKENS",
+    "AVAILABLE FOR SWAP": "AVAILABLE FOR SWAP",
+    "Search with token name": "Search with token name",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "CONVERSIONE",
@@ -1175,7 +1183,7 @@
     "Your pool shares": "Your pool shares",
     "Shares in {{token}}": "Shares in {{token}}",
     "Learn more about DFI": "Per saperne di più su DFI",
-    "Your LP tokens":  "Your LP Tokens",
+    "Your LP tokens": "Your LP Tokens",
     "Tokens in {{token}}": "Tokens in {{token}}"
   },
   "components/ReservedDFIInfoText": {

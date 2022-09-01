@@ -26,6 +26,12 @@ import { AddLiquidityScreen } from './DexAddLiquidity'
 import { ConfirmAddLiquidityScreen } from './DexConfirmAddLiquidity'
 import { PoolPairDetailsScreen } from './PoolPairDetailsScreen'
 import { useFeatureFlagContext } from '@contexts/FeatureFlagContext'
+import {
+  SelectionToken,
+  SwapTokenSelectionScreen,
+  TokenListType
+} from '@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen'
+
 export interface DexParamList {
   DexScreen: undefined
   CompositeSwapScreen: {
@@ -41,6 +47,11 @@ export interface DexParamList {
         isPreselected: boolean
       }
     }
+  }
+  SwapTokenSelectionScreen: {
+    listType: TokenListType
+    list: SelectionToken[]
+    onTokenPress: (token: SelectionToken) => void
   }
   ConfirmCompositeSwapScreen: {
     conversion?: ConversionParam
@@ -131,7 +142,10 @@ export function DexNavigator (): JSX.Element {
           headerTitleAlign: 'left',
           headerTitleContainerStyle: tailwind('mt-4 ml-5'),
           headerRightContainerStyle: [screenOptions.headerRightContainerStyle, tailwind('mt-5 justify-start', { 'pr-3': Platform.OS === 'web' })],
-          headerStyle: [screenOptions.headerStyle, tailwind('rounded-b-none border-b-0'), { shadowOpacity: 0, height: ((Platform.OS !== 'android' ? 88 : 96) + insets.top) }],
+          headerStyle: [screenOptions.headerStyle, tailwind('rounded-b-none border-b-0'), {
+            shadowOpacity: 0,
+            height: ((Platform.OS !== 'android' ? 88 : 96) + insets.top)
+          }],
           headerTitle: () => (
             <ThemedTextV2
               style={[
@@ -222,11 +236,26 @@ export function DexNavigator (): JSX.Element {
                 containerTestID={headerContainerTestId}
                      />),
           ...(isFeatureAvailable('composite_swap_v2')) && {
-            headerStyle: [screenOptions.headerStyle, tailwind('rounded-b-none border-b-0'), { shadowOpacity: 0, height: ((Platform.OS !== 'android' ? 88 : 96) + insets.top) }],
+            headerStyle: [screenOptions.headerStyle, tailwind('rounded-b-none border-b-0'), {
+              shadowOpacity: 0,
+              height: ((Platform.OS !== 'android' ? 88 : 96) + insets.top)
+            }],
             headerRight: () => (
               <HeaderNetworkStatus onPress={goToNetworkSelect} />
             )
           }
+        }}
+      />
+
+      <DexStack.Screen
+        component={SwapTokenSelectionScreen}
+        name='SwapTokenSelectionScreen'
+        options={{
+          ...screenOptions,
+          headerTitle: translate('screens/SwapTokenSelectionScreen', 'Select'),
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          )
         }}
       />
 
