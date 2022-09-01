@@ -360,10 +360,10 @@ export function AddLiquidityScreen (props: Props): JSX.Element {
         bToARate: new BigNumber(poolpair.tokenA.reserve).div(poolpair.tokenB.reserve)
       })
       if (addressTokenA !== undefined) {
-        setBalanceA(addressTokenA.id === '0_unified' ? new BigNumber(addressTokenA.amount).minus(reservedDfi) : new BigNumber(addressTokenA.amount))
+        setBalanceA(addressTokenA.id === '0_unified' ? BigNumber.max(new BigNumber(addressTokenA.amount).minus(reservedDfi), 0) : new BigNumber(addressTokenA.amount))
       }
       if (addressTokenB !== undefined) {
-        setBalanceB(addressTokenB.id === '0_unified' ? new BigNumber(addressTokenB.amount).minus(reservedDfi) : new BigNumber(addressTokenB.amount))
+        setBalanceB(addressTokenB.id === '0_unified' ? BigNumber.max(new BigNumber(addressTokenB.amount).minus(reservedDfi), 0) : new BigNumber(addressTokenB.amount))
       }
     }
   }, [props.route.params.pair, JSON.stringify(tokens), pairs])
