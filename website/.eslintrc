@@ -41,7 +41,10 @@
         "name": "next/head",
         "message": "Please use @components/commons/Head instead."
       }
-    ]
+    ],
+    "react/react-in-jsx-scope": "off",
+    "import/prefer-default-export": "off",
+    "react/destructuring-assignment": "off"
   },
   "overrides": [
     {
@@ -50,8 +53,7 @@
         "src/pages/**/*.ts"
       ],
       "rules": {
-        "import/no-default-export": "off",
-        "import/prefer-default-export": "error"
+        "import/no-default-export": "off"
       }
     }
   ]
