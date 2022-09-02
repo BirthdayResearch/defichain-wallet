@@ -31,6 +31,7 @@ import { RemoveLiquidityConfirmScreen } from "./DexConfirmRemoveLiquidity";
 import { AddLiquidityScreen } from "./DexAddLiquidity";
 import { ConfirmAddLiquidityScreen } from "./DexConfirmAddLiquidity";
 import { PoolPairDetailsScreen } from "./PoolPairDetailsScreen";
+
 export interface DexParamList {
   DexScreen: undefined;
   CompositeSwapScreen: {
