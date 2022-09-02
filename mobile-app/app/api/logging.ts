@@ -2,12 +2,12 @@
  * Centralize logging/error reporting for log abstraction
  */
 export const Logging = {
-  error (error: any): void {
+  error(error: any): void {
     // eslint-disable-next-line
-    console.error(error)
+    console.error(error);
   },
-  info (message: string): void {
+  info(message: string): void {
     // eslint-disable-next-line
-    console.log(message)
-  }
-}
+    console.log(message);
+  },
+};

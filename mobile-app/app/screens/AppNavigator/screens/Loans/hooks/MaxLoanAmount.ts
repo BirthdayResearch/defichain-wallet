@@ -1,20 +1,23 @@
-import BigNumber from 'bignumber.js'
+import BigNumber from "bignumber.js";
 
 interface useMaxLoanAmountProps {
-  totalCollateralValue: BigNumber
-  existingLoanValue: BigNumber
-  minColRatio: BigNumber
-  loanActivePrice: BigNumber
-  interestPerBlock: BigNumber
+  totalCollateralValue: BigNumber;
+  existingLoanValue: BigNumber;
+  minColRatio: BigNumber;
+  loanActivePrice: BigNumber;
+  interestPerBlock: BigNumber;
 }
 
-export function useMaxLoanAmount ({
+export function useMaxLoanAmount({
   totalCollateralValue,
   existingLoanValue,
   minColRatio,
   loanActivePrice,
-  interestPerBlock
+  interestPerBlock,
 }: useMaxLoanAmountProps): BigNumber {
-  return totalCollateralValue.dividedBy(minColRatio.dividedBy(100)).minus(existingLoanValue).dividedBy(
-    loanActivePrice).dividedBy(interestPerBlock.plus(1))
+  return totalCollateralValue
+    .dividedBy(minColRatio.dividedBy(100))
+    .minus(existingLoanValue)
+    .dividedBy(loanActivePrice)
+    .dividedBy(interestPerBlock.plus(1));
 }

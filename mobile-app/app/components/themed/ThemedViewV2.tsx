@@ -1,23 +1,18 @@
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { tailwind } from '@tailwind'
+import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { tailwind } from "@tailwind";
 
-import { View } from 'react-native'
-import { ThemedProps } from './index'
+import { View } from "react-native";
+import { ThemedProps } from "./index";
 
-type ThemedViewProps = View['props'] & ThemedProps
+type ThemedViewProps = View["props"] & ThemedProps;
 
-export function ThemedViewV2 (props: ThemedViewProps): JSX.Element {
-  const { isLight } = useThemeContext()
+export function ThemedViewV2(props: ThemedViewProps): JSX.Element {
+  const { isLight } = useThemeContext();
   const {
     style,
-    light = tailwind('bg-mono-light-v2-100'),
-    dark = tailwind('bg-mono-dark-v2-100'),
+    light = tailwind("bg-mono-light-v2-100"),
+    dark = tailwind("bg-mono-dark-v2-100"),
     ...otherProps
-  } = props
-  return (
-    <View
-      style={[style, isLight ? light : dark]}
-      {...otherProps}
-    />
-  )
+  } = props;
+  return <View style={[style, isLight ? light : dark]} {...otherProps} />;
 }

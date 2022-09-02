@@ -4,10 +4,13 @@
     "project": "./tsconfig.json"
   },
   "extends": [
-    "standard-with-typescript",
-    "standard-jsx",
-    "next",
-    "next/core-web-vitals"
+    "next/core-web-vitals",
+    "airbnb",
+    "airbnb-typescript",
+    "prettier"
+  ],
+  "plugins": [
+    "prettier"
   ],
   "ignorePatterns": [
     "*.json",
@@ -38,7 +41,8 @@
         "name": "next/head",
         "message": "Please use @components/commons/Head instead."
       }
-    ]
+    ],
+    "import/no-extraneous-dependencies": "off"
   },
   "overrides": [
     {
