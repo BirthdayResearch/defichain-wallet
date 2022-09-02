@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Platform, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
-import { Control, Controller, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import BigNumber from "bignumber.js";
 import {
   NavigationProp,
@@ -36,12 +36,10 @@ import {
   ThemedText,
   ThemedTextInputV2,
   ThemedTextV2,
-  ThemedTouchableOpacity,
   ThemedTouchableOpacityV2,
   ThemedView,
   ThemedViewV2,
 } from "@components/themed";
-import { getNativeIcon } from "@components/icons/assets";
 import {
   BottomSheetNavScreen,
   BottomSheetWebWithNav,
@@ -54,17 +52,11 @@ import {
 } from "@components/BottomSheetTokenList";
 import { InfoRow, InfoType } from "@components/InfoRow";
 import { NumberRow } from "@components/NumberRow";
-import {
-  AmountButtonTypes,
-  SetAmountButton,
-} from "@components/SetAmountButton";
-import { WalletTextInput } from "@components/WalletTextInput";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { openURL } from "@api/linking";
-import NumberFormat from "react-number-format";
 import { TextRow } from "@components/TextRow";
 import { PriceRateProps, PricesSection } from "@components/PricesSection";
 import { fetchExecutionBlock } from "@store/futureSwap";
