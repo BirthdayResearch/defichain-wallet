@@ -94,9 +94,15 @@ export function DFXAPIContextProvider (props: PropsWithChildren<{}>): JSX.Elemen
         }
 
         const user = await getUser()
+        let urlParams
+        if ((user.mail.length > 0) && (user.mobileNumber.length > 0)) {
+          const params = { mail: user.mail, phone: user.mobileNumber }
+          urlParams = new URLSearchParams(params).toString()
+        }
 
         const baseUrl = getEnvironment(Updates.releaseChannel).dfxPaymentUrl
-        const url = `${baseUrl}/kyc?code=${user.kycHash}`
+        const url = `${baseUrl}/kyc?code=${user.kycHash}${(urlParams != null) ? '&' + urlParams : ''}`
+
         await Linking.openURL(url)
       })
       .catch(logger.error)
