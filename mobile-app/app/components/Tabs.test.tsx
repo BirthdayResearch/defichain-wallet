@@ -1,63 +1,75 @@
-import { render } from '@testing-library/react-native'
+import { render } from "@testing-library/react-native";
 
-import { Tabs } from './Tabs'
+import { Tabs } from "./Tabs";
 
-jest.mock('@shared-contexts/ThemeProvider')
+jest.mock("@shared-contexts/ThemeProvider");
 
-describe('Tabs component', () => {
-  it('should match snapshot with 2 tabs', async () => {
+describe("Tabs component", () => {
+  it("should match snapshot with 2 tabs", async () => {
     const tabsList = [
       {
-        id: 'BROWSE_LOANS',
-        label: 'Browse loan tokens',
+        id: "BROWSE_LOANS",
+        label: "Browse loan tokens",
         disabled: false,
-        handleOnPress: jest.fn
+        handleOnPress: jest.fn,
       },
       {
-        id: 'YOUR_VAULTS',
-        label: 'Your vaults',
+        id: "YOUR_VAULTS",
+        label: "Your vaults",
         disabled: true,
-        handleOnPress: jest.fn
-      }
-    ]
-    const rendered = render(<Tabs tabSections={tabsList} activeTabKey='BROWSE_LOANS' testID='loans_tabs' />)
-    expect(rendered.toJSON()).toMatchSnapshot()
-  })
+        handleOnPress: jest.fn,
+      },
+    ];
+    const rendered = render(
+      <Tabs
+        tabSections={tabsList}
+        activeTabKey="BROWSE_LOANS"
+        testID="loans_tabs"
+      />
+    );
+    expect(rendered.toJSON()).toMatchSnapshot();
+  });
 
-  it('should match snapshot with 5 tabs', async () => {
+  it("should match snapshot with 5 tabs", async () => {
     const tabsList = [
       {
-        id: 'BROWSE_LOANS',
-        label: 'Browse loan tokens',
+        id: "BROWSE_LOANS",
+        label: "Browse loan tokens",
         disabled: false,
-        handleOnPress: jest.fn
+        handleOnPress: jest.fn,
       },
       {
-        id: 'YOUR_VAULTS',
-        label: 'Your vaults',
+        id: "YOUR_VAULTS",
+        label: "Your vaults",
         disabled: false,
-        handleOnPress: jest.fn
+        handleOnPress: jest.fn,
       },
       {
-        id: 'COLLATERAL',
-        label: 'Collateral',
+        id: "COLLATERAL",
+        label: "Collateral",
         disabled: true,
-        handleOnPress: jest.fn
+        handleOnPress: jest.fn,
       },
       {
-        id: 'AUCTION',
-        label: 'Auction',
+        id: "AUCTION",
+        label: "Auction",
         disabled: false,
-        handleOnPress: jest.fn
+        handleOnPress: jest.fn,
       },
       {
-        id: 'AUCTION2',
-        label: 'Auction',
+        id: "AUCTION2",
+        label: "Auction",
         disabled: false,
-        handleOnPress: jest.fn
-      }
-    ]
-    const rendered = render(<Tabs tabSections={tabsList} activeTabKey='BROWSE_LOANS' testID='loans_tabs' />)
-    expect(rendered.toJSON()).toMatchSnapshot()
-  })
-})
+        handleOnPress: jest.fn,
+      },
+    ];
+    const rendered = render(
+      <Tabs
+        tabSections={tabsList}
+        activeTabKey="BROWSE_LOANS"
+        testID="loans_tabs"
+      />
+    );
+    expect(rendered.toJSON()).toMatchSnapshot();
+  });
+});

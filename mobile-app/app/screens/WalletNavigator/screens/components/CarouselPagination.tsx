@@ -1,14 +1,9 @@
-import React from 'react'
-import { StyleSheet } from 'react-native'
-import { Pagination, PaginationProps } from 'react-native-swiper-flatlist'
+import React from "react";
+import { StyleSheet } from "react-native";
+import { Pagination, PaginationProps } from "react-native-swiper-flatlist";
 
-export function CarouselPagination (props: PaginationProps): JSX.Element {
-  return (
-    <Pagination
-      {...props}
-      paginationStyle={styles.paginationContainer}
-    />
-  )
+export function CarouselPagination(props: PaginationProps): JSX.Element {
+  return <Pagination {...props} paginationStyle={styles.paginationContainer} />;
 }
 
 const styles = StyleSheet.create({
@@ -17,6 +12,6 @@ const styles = StyleSheet.create({
     height: 6,
     marginBottom: 75,
     marginVertical: 0,
-    position: undefined
-  }
-})
+    position: undefined,
+  },
+});

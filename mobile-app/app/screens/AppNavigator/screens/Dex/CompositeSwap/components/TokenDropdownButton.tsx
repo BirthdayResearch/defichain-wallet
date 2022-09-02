@@ -3,22 +3,22 @@ import { getNativeIcon } from '@components/icons/assets'
 import { tailwind } from '@tailwind'
 import { translate } from '@translations'
 
-export function TokenDropdownButton (props: { symbol?: string, onPress: () => void, disabled: boolean }): JSX.Element {
+export function TokenDropdownButton (props: { symbol?: string, onPress: () => void }): JSX.Element {
     const Icon = getNativeIcon(props.symbol ?? '')
     return (
       <ThemedTouchableOpacityV2
         onPress={props.onPress}
         testID='token_select_button'
         dark={tailwind('bg-mono-dark-v2-00 text-mono-dark-v2-500', {
-            'opacity-30': props.disabled,
-            'opacity-100': !props.disabled
+            // 'opacity-30': props.disabled,
+            // 'opacity-100': !props.disabled
           })}
         light={tailwind('bg-mono-light-v2-00 text-mono-light-v2-500', {
-            'opacity-30': props.disabled,
-            'opacity-100': !props.disabled
+            // 'opacity-30': props.disabled,
+            // 'opacity-100': !props.disabled
           })}
         style={tailwind('flex flex-row items-center rounded-xl-v2 px-3 py-2.5')}
-        disabled={props.disabled}
+        // disabled={props.disabled}
       >
         {props.symbol === undefined &&
           <ThemedTextV2
@@ -34,12 +34,12 @@ export function TokenDropdownButton (props: { symbol?: string, onPress: () => vo
             <ThemedTextV2
               style={tailwind('ml-2 mr-3.5 text-sm font-semibold-v2')}
               dark={tailwind({
-                  'text-gray-200': !props.disabled,
-                  'text-gray-400': props.disabled
+                  // 'text-gray-200': !props.disabled,
+                  // 'text-gray-400': props.disabled
                 })}
               light={tailwind({
-                  'text-gray-900': !props.disabled,
-                  'text-gray-500': props.disabled
+                  // 'text-gray-900': !props.disabled,
+                  // 'text-gray-500': props.disabled
                 })}
             >{props.symbol}
             </ThemedTextV2>

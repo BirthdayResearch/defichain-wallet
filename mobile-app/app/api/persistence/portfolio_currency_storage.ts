@@ -1,18 +1,20 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { PortfolioButtonGroupTabKey } from '@screens/AppNavigator/screens/Portfolio/components/TotalPortfolio'
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { PortfolioButtonGroupTabKey } from "@screens/AppNavigator/screens/Portfolio/components/TotalPortfolio";
 
-const KEY = 'WALLET.PORTFOLIO_CURRENCY'
+const KEY = "WALLET.PORTFOLIO_CURRENCY";
 
-async function set (denominationCurrency: NonNullable<PortfolioButtonGroupTabKey>): Promise<void> {
-    await AsyncStorage.setItem(KEY, JSON.stringify(denominationCurrency))
+async function set(
+  denominationCurrency: NonNullable<PortfolioButtonGroupTabKey>
+): Promise<void> {
+  await AsyncStorage.setItem(KEY, JSON.stringify(denominationCurrency));
 }
 
-async function get (): Promise<PortfolioButtonGroupTabKey> {
-    const val = await AsyncStorage.getItem(KEY)
-    return val != null ? JSON.parse(val) : 'USDT'
+async function get(): Promise<PortfolioButtonGroupTabKey> {
+  const val = await AsyncStorage.getItem(KEY);
+  return val != null ? JSON.parse(val) : "USDT";
 }
 
 export const PortfolioCurrencyPersistence = {
-    set,
-    get
-}
+  set,
+  get,
+};

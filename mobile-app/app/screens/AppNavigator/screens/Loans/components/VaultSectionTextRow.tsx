@@ -1,19 +1,22 @@
-import { BottomSheetAlertInfo } from '@components/BottomSheetInfo'
-import { NumberRow, NumberRowElement } from '@components/NumberRow'
-import { ThemedProps } from '@components/themed'
-import { tailwind } from '@tailwind'
+import { BottomSheetAlertInfo } from "@components/BottomSheetInfo";
+import { NumberRow, NumberRowElement } from "@components/NumberRow";
+import { ThemedProps } from "@components/themed";
+import { tailwind } from "@tailwind";
 
-import { ViewProps } from 'react-native'
+import { ViewProps } from "react-native";
 
-type IVaultSectionTextProps = React.PropsWithChildren<ViewProps> & VaultSectionTextProps
+type IVaultSectionTextProps = React.PropsWithChildren<ViewProps> &
+  VaultSectionTextProps;
 interface VaultSectionTextProps extends NumberRowElement {
-  lhs: string
-  info?: BottomSheetAlertInfo
-  rhsThemedProps?: ThemedProps
-  isOraclePrice?: boolean
+  lhs: string;
+  info?: BottomSheetAlertInfo;
+  rhsThemedProps?: ThemedProps;
+  isOraclePrice?: boolean;
 }
 
-export function VaultSectionTextRow (props: IVaultSectionTextProps): JSX.Element {
+export function VaultSectionTextRow(
+  props: IVaultSectionTextProps
+): JSX.Element {
   return (
     <NumberRow
       lhs={props.lhs}
@@ -23,25 +26,25 @@ export function VaultSectionTextRow (props: IVaultSectionTextProps): JSX.Element
         suffix: props.suffix,
         suffixType: props.suffixType,
         prefix: props.prefix,
-        style: props.style
+        style: props.style,
       }}
       info={props.info}
-      style={tailwind('flex-row w-full my-1')}
-      dark={tailwind('bg-gray-800')}
-      light={tailwind('bg-white')}
-      textStyle={tailwind('text-xs ml-0')}
+      style={tailwind("flex-row w-full my-1")}
+      dark={tailwind("bg-gray-800")}
+      light={tailwind("bg-white")}
+      textStyle={tailwind("text-xs ml-0")}
       lhsThemedProps={{
-        light: tailwind('text-gray-500'),
-        dark: tailwind('text-gray-400')
+        light: tailwind("text-gray-500"),
+        dark: tailwind("text-gray-400"),
       }}
       rhsThemedProps={{
-        light: tailwind('text-gray-900'),
-        dark: tailwind('text-gray-50'),
-        ...props.rhsThemedProps
+        light: tailwind("text-gray-900"),
+        dark: tailwind("text-gray-50"),
+        ...props.rhsThemedProps,
       }}
       isOraclePrice={props.isOraclePrice}
     >
       {props.children}
     </NumberRow>
-  )
+  );
 }
