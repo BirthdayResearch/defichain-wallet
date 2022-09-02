@@ -14,7 +14,7 @@
     "start:ios": "expo start --ios",
     "start:web": "expo start --web",
     "playground:start": "docker-compose rm -fsv && docker-compose up",
-    "test:ci": "jest --ci --coverage --detectOpenHandles",
+    "test:ci": "jest --ci --coverage --detectOpenHandles --debug",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --headless --browser chrome",
     "react-devtools:open": "react-devtools",
