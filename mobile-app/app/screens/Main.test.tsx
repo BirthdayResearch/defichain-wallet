@@ -3,7 +3,7 @@ import { Main } from "./Main";
 
 jest.mock("@shared-contexts/ThemeProvider");
 
-describe("<Main>", () => {
+describe.skip("<Main>", () => {
   it("should match snapshot", async () => {
     const component = <Main />;
     const rendered = render(component);
