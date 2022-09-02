@@ -13,6 +13,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Platform, StyleProp, ViewStyle } from "react-native";
 import { ThemedTextV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
+import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { ConversionParam } from "../Portfolio/PortfolioNavigator";
 import {
@@ -32,7 +33,7 @@ import { AddLiquidityScreen } from "./DexAddLiquidity";
 import { ConfirmAddLiquidityScreen } from "./DexConfirmAddLiquidity";
 import { PoolPairDetailsScreen } from "./PoolPairDetailsScreen";
 import { CompositeSwapScreenV2 } from "./CompositeSwap/CompositeSwapScreenV2";
-import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
+import { ConfirmCompositeSwapScreenV2 } from "./CompositeSwap/ConfirmCompositeSwapScreenV2";
 
 export interface DexParamList {
   DexScreen: undefined;
@@ -115,10 +116,10 @@ export function DexNavigator(): JSX.Element {
   const headerContainerTestId = "dex_header_container";
   const screenOptions = useNavigatorScreenOptions();
   const goToNetworkSelect = (): void => {
-    navigation.navigate("NetworkSelectionScreen")
-  }
-  const insets = useSafeAreaInsets()
-  const { isFeatureAvailable } = useFeatureFlagContext()
+    navigation.navigate("NetworkSelectionScreen");
+  };
+  const insets = useSafeAreaInsets();
+  const { isFeatureAvailable } = useFeatureFlagContext();
 
   return (
     <DexStack.Navigator
@@ -155,6 +156,7 @@ export function DexNavigator(): JSX.Element {
               style={[
                 screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
                 tailwind("text-left text-3xl font-semibold-v2"),
+                // eslint-disable-next-line react-native/no-inline-styles
                 { fontSize: 28 },
               ]}
             >
@@ -229,27 +231,40 @@ export function DexNavigator(): JSX.Element {
       />
 
       <DexStack.Screen
-        component={isFeatureAvailable("composite_swap_v2") ? CompositeSwapScreenV2 : CompositeSwapScreen}
+        component={
+          isFeatureAvailable("composite_swap_v2")
+            ? CompositeSwapScreenV2
+            : CompositeSwapScreen
+        }
         name="CompositeSwap"
         options={{
           ...screenOptions,
           headerTitle: isFeatureAvailable("composite_swap_v2")
             ? translate("screens/DexScreen", "Swap")
-            : () => (<HeaderTitle
-                text={translate("screens/DexScreen", "Swap")}
-                containerTestID={headerContainerTestId}
-                     />),
-          ...(isFeatureAvailable("composite_swap_v2")) && {
-            headerStyle: [screenOptions.headerStyle, tailwind("rounded-b-none border-b-0"), { shadowOpacity: 0, height: ((Platform.OS !== "android" ? 88 : 96) + insets.top) }],
+            : () => (
+                <HeaderTitle
+                  text={translate("screens/DexScreen", "Swap")}
+                  containerTestID={headerContainerTestId}
+                />
+              ),
+          ...(isFeatureAvailable("composite_swap_v2") && {
+            headerStyle: [
+              screenOptions.headerStyle,
+              tailwind("rounded-b-none border-b-0"),
+              {
+                shadowOpacity: 0,
+                height: (Platform.OS !== "android" ? 88 : 96) + insets.top,
+              },
+            ],
             headerRight: () => (
               <HeaderNetworkStatus onPress={goToNetworkSelect} />
-            )
-          }
+            ),
+          }),
         }}
       />
 
       <DexStack.Screen
-        component={ConfirmCompositeSwapScreen}
+        component={ConfirmCompositeSwapScreenV2}
         name="ConfirmCompositeSwapScreen"
         options={{
           headerTitle: () => (

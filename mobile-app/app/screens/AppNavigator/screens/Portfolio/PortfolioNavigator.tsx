@@ -29,7 +29,6 @@ import { ReceiveScreen } from "./screens/ReceiveScreen";
 import { AddressControlScreen } from "./components/AddressControlScreen";
 import { AboutScreen } from "../Settings/screens/AboutScreen";
 import { CompositeSwapScreen } from "../Dex/CompositeSwap/CompositeSwapScreen";
-import { ConfirmCompositeSwapScreen } from "../Dex/CompositeSwap/ConfirmCompositeSwapScreen";
 import { FutureSwapScreen } from "./screens/FutureSwapScreen";
 import { ConfirmWithdrawFutureSwapScreen } from "./screens/ConfirmWithdrawFutureSwapScreen";
 import { WithdrawFutureSwapScreen } from "./screens/WithdrawFutureSwapScreen";
@@ -49,6 +48,7 @@ import { SendConfirmationScreen } from "./screens/SendConfirmationScreen";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { AddLiquidityScreen } from "../Dex/DexAddLiquidity";
 import { ConfirmAddLiquidityScreen } from "../Dex/DexConfirmAddLiquidity";
+import { ConfirmCompositeSwapScreenV2 } from "../Dex/CompositeSwap/ConfirmCompositeSwapScreenV2";
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined;
@@ -395,7 +395,7 @@ export function PortfolioNavigator(): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={ConfirmCompositeSwapScreen}
+        component={ConfirmCompositeSwapScreenV2}
         name="ConfirmCompositeSwapScreen"
         options={{
           headerTitle: () => (
