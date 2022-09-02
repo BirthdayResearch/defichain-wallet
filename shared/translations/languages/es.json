@@ -961,6 +961,7 @@
     "Continue": "Continua"
   },
   "screens/SlippageTolerance": {
+    "Slippage tolerance": "Tolerancia a la fluctuación",
     "Custom": "Personalizado",
     "USE THIS SLIPPAGE TOLERANCE": "USA ESTA TOLERANCIA DE FLUCTUACION.",
     "Required field is missing": "Falta la información requerida",

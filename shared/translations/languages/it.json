@@ -960,6 +960,7 @@
     "Continue": "Continua"
   },
   "screens/SlippageTolerance": {
+    "Slippage tolerance": "Tolleranza di slippage",
     "Custom": "Personalizza",
     "USE THIS SLIPPAGE TOLERANCE": "UTILIZZA QUESTA TOLLERANZA DI SLIPPAGE.",
     "Required field is missing": "Il campo richiesto è mancante",
