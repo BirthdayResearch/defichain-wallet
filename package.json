@@ -142,7 +142,7 @@
     "find-in-files": "^0.5.0",
     "husky": "^8.0.1",
     "jest": "^27.5.1",
-    "jest-expo": "^46.0.1",
+    "jest-expo": "^45.0.1",
     "lint-staged": "^13.0.3",
     "randomcolor": "^0.6.2",
     "react-dev-utils": "^12.0.1",
