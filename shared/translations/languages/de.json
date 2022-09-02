@@ -942,6 +942,7 @@
     "Continue": "Weiter"
   },
   "screens/SlippageTolerance": {
+    "Slippage tolerance": "Slippage-Toleranz",
     "Custom": "Anpassen",
     "USE THIS SLIPPAGE TOLERANCE": "SLIPPAGE-TOLERANZ VERWENDEN",
     "Required field is missing": "Erforderliches Feld fehlt",

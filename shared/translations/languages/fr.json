@@ -954,6 +954,7 @@
     "Continue": "Suivant"
   },
   "screens/SlippageTolerance": {
+    "Slippage tolerance": "Tolérance de glissement",
     "Custom": "Personnaliser",
     "USE THIS SLIPPAGE TOLERANCE": "CHOISIR CETTE TOLÉRANCE DE GLISSEMENT.",
     "Required field is missing": "Le champ requis est manquant",
