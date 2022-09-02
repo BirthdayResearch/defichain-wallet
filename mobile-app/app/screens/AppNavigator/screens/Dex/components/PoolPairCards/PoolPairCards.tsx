@@ -256,6 +256,19 @@ function PoolCard({
   );
   const mappedPair = poolPairData?.data;
 
+  // not related to Instant/Future swap PR
+  // to clean the state of unmounted component
+  useEffect(() => {
+    getPriceRates();
+    return () => {
+      setPriceRates({
+        aToBPrice: new BigNumber(""),
+        bToAPrice: new BigNumber(""),
+        estimated: new BigNumber(""),
+      });
+    };
+  }, []);
+
   useEffect(() => {
     void getPriceRates();
   }, [mappedPair, blockCount]);
