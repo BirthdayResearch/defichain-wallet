@@ -65,7 +65,7 @@ import {
 } from "@components/TransactionCard";
 // import { ButtonV2 } from '@components/ButtonV2'
 import { useToast } from "react-native-toast-notifications";
-import { PriceRateProps } from "@components/PricesSectionV2";
+import { PriceRateProps } from "@components/PricesSection";
 import { ButtonV2 } from "@components/ButtonV2";
 import { useDisplayUtxoWarning } from "@hooks/wallet/DisplayUtxoWarning";
 import {
@@ -455,8 +455,8 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
             token: selectedTokenA.displaySymbol,
           }),
           value: bToAPrice.toFixed(8),
-          symbolUSDValue: amountInUSDValue(selectedTokenA, tokenAAmount),
-          usdTextStyle: tailwind("text-sm"),
+          // symbolUSDValue: amountInUSDValue(selectedTokenA, tokenAAmount),
+          // usdTextStyle: tailwind("text-sm"),
           aSymbol: selectedTokenA.displaySymbol,
           bSymbol: selectedTokenB.displaySymbol,
         },
@@ -465,8 +465,8 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
             token: selectedTokenB.displaySymbol,
           }),
           value: aToBPrice.toFixed(8),
-          symbolUSDValue: amountInUSDValue(selectedTokenB, tokenBAmount),
-          usdTextStyle: tailwind("text-sm"),
+          // symbolUSDValue: amountInUSDValue(selectedTokenB, tokenBAmount),
+          // usdTextStyle: tailwind("text-sm"),
           aSymbol: selectedTokenB.displaySymbol,
           bSymbol: selectedTokenA.displaySymbol,
         },
@@ -910,11 +910,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               <TokenDropdownButton
                 symbol={selectedTokenB?.displaySymbol}
                 onPress={() => onBottomSheetSelect({ direction: "TO" })}
-                disabled={
-                  isToTokenSelectDisabled ||
-                  toTokens === undefined ||
-                  toTokens?.length === 0
-                }
               />
             </View>
           </ThemedViewV2>
