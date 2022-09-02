@@ -13,10 +13,7 @@ import {
   CTransactionSegWit,
   SetFutureSwap,
 } from "@defichain/jellyfish-transaction";
-import {
-  PoolPairData,
-  SwapPathPoolPair,
-} from "@defichain/whale-api-client/dist/api/poolpairs";
+import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import {
@@ -228,7 +225,6 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
           fromAddressLabel={addressLabel}
           forTokenAmount={estimatedAmount}
         />
-        {conversion?.isConversionRequired === true && <ConversionTag />}
       </ThemedViewV2>
 
       {conversion?.isConversionRequired === true && (
