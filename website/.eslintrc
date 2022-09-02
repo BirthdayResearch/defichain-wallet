@@ -41,7 +41,8 @@
         "name": "next/head",
         "message": "Please use @components/commons/Head instead."
       }
-    ]
+    ],
+    "react/react-in-jsx-scope": "off"
   },
   "overrides": [
     {
