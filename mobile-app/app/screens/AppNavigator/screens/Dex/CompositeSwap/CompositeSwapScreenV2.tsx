@@ -485,7 +485,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     );
   }, [activeButtonGroup, isFutureSwapOptionEnabled]);
 
-  const navigateToConfirmScreen = (): void => {
+  const navigateToConfirmScreen = (isConverted: boolean): void => {
     if (
       selectedPoolPairs === undefined ||
       selectedTokenA === undefined ||
@@ -532,6 +532,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           DFIToken,
           DFIUtxo,
           conversionAmount,
+          isConverted: isConverted,
         },
       }),
       estimatedAmount: new BigNumber(tokenB),
@@ -585,12 +586,15 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         },
         dispatch,
         () => {
-          navigateToConfirmScreen();
+          navigateToConfirmScreen(false);
         },
-        logger
+        logger,
+        () => {
+          navigateToConfirmScreen(true);
+        }
       );
     } else {
-      navigateToConfirmScreen();
+      navigateToConfirmScreen(false);
     }
   };
 
