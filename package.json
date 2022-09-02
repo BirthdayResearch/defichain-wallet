@@ -141,7 +141,7 @@
     "eslint-plugin-react-native": "^4.0.0",
     "find-in-files": "^0.5.0",
     "husky": "^8.0.1",
-    "jest": "^27.5.1",
+    "jest": "^26.6.3",
     "jest-expo": "^45.0.1",
     "lint-staged": "^13.0.3",
     "randomcolor": "^0.6.2",
