@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
 
-      - uses: actions/github-script@d50f485531ba88479582bc2da03ff424389af5c1
+      - uses: actions/github-script@c713e510dbd7d213d92d41b7a7805a986f4c5c66
         id: version
         with:
           script: |

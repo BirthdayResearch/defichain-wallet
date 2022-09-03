@@ -3,22 +3,21 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": [
-    "cypress"
-  ],
-  "extends": [
-    "standard-with-typescript"
-  ],
-  "ignorePatterns": [
-    "/plugins/*.ts",
-    "/support/*.ts"
-  ],
+  "plugins": ["cypress", "prettier"],
+  "extends": ["airbnb", "airbnb-typescript", "prettier"],
+  "ignorePatterns": ["/plugins/*.ts", "/support/*.ts"],
   "rules": {
     "@typescript-eslint/no-namespace": "off",
     "cypress/no-assigning-return-values": "error",
     "cypress/no-unnecessary-waiting": "off",
     "cypress/assertion-before-screenshot": "warn",
     "cypress/no-force": "error",
-    "cypress/no-async-tests": "error"
+    "cypress/no-async-tests": "error",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/no-shadow": "off",
+    "@typescript-eslint/no-unused-expressions": "off",
+    "radix": "off",
+    "no-plusplus": "off",
+    "import/no-cycle": "off"
   }
 }

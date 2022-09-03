@@ -833,7 +833,7 @@
     "Insufficient balance": "Insufficient balance",
     "APR": "APR",
     "Shares to add": "要添加的股份",
-    "Volume (24H):": "Volume (24H)",
+    "Volume (24H)": "Volume (24H)",
     "Total liquidity": "Total liquidity",
     "Tokens in {{symbol}}": "Tokens in {{symbol}}",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
@@ -946,6 +946,7 @@
     "Continue": "繼續"
   },
   "screens/SlippageTolerance": {
+    "Slippage tolerance": "交易滑價",
     "Custom": "自訂",
     "USE THIS SLIPPAGE TOLERANCE": "使用此滑點限制範圍",
     "Required field is missing": "缺少必要填入的字欄",

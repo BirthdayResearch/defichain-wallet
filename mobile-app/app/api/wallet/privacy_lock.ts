@@ -1,14 +1,14 @@
-import { SecuredStoreAPI } from '@api'
+import { SecuredStoreAPI } from "@api";
 
-const KEY = 'PRIVACY_LOCK.enrolled'
+const KEY = "PRIVACY_LOCK.enrolled";
 
-async function set (enabled: boolean): Promise<void> {
-  const val = enabled ? 'TRUE' : 'FALSE'
-  await SecuredStoreAPI.setItem(KEY, val)
+async function set(enabled: boolean): Promise<void> {
+  const val = enabled ? "TRUE" : "FALSE";
+  await SecuredStoreAPI.setItem(KEY, val);
 }
 
-async function isEnabled (): Promise<boolean> {
-  return await SecuredStoreAPI.getItem(KEY) === 'TRUE'
+async function isEnabled(): Promise<boolean> {
+  return (await SecuredStoreAPI.getItem(KEY)) === "TRUE";
 }
 
 /**
@@ -16,5 +16,5 @@ async function isEnabled (): Promise<boolean> {
  */
 export const PrivacyLockPersistence = {
   set,
-  isEnabled
-}
+  isEnabled,
+};

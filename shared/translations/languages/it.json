@@ -848,7 +848,7 @@
     "Insufficient balance": "Insufficient balance",
     "APR": "APR",
     "Shares to add": "Shares to add",
-    "Volume (24H):": "Volume (24H)",
+    "Volume (24H)": "Volume (24H)",
     "Total liquidity": "Total liquidity",
     "Tokens in {{symbol}}": "Tokens in {{symbol}}",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
@@ -960,6 +960,7 @@
     "Continue": "Continua"
   },
   "screens/SlippageTolerance": {
+    "Slippage tolerance": "Tolleranza di slippage",
     "Custom": "Personalizza",
     "USE THIS SLIPPAGE TOLERANCE": "UTILIZZA QUESTA TOLLERANZA DI SLIPPAGE.",
     "Required field is missing": "Il campo richiesto è mancante",

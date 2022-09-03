@@ -838,11 +838,11 @@
     "Pooled {{symbol}}": "{{symbol}} du pool",
     "View pool share": "View pool share",
     "View pool info": "Voir les informations sur le pool",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
     "Insufficient balance": "Solde insuffisant",
     "APR": "TAEG",
     "Shares to add": "Parts à ajouter",
-    "Volume (24H):": "Volume (24h)",
+    "Volume (24H)": "Volume (24h)",
     "Total liquidity": "Liquidité totale",
     "Tokens in {{symbol}}": "Tokens en {{symbol}}",
     "Max available {{unit}} entered": "{{unit}} max. disponibles saisis",
@@ -954,6 +954,7 @@
     "Continue": "Suivant"
   },
   "screens/SlippageTolerance": {
+    "Slippage tolerance": "Tolérance de glissement",
     "Custom": "Personnaliser",
     "USE THIS SLIPPAGE TOLERANCE": "CHOISIR CETTE TOLÉRANCE DE GLISSEMENT.",
     "Required field is missing": "Le champ requis est manquant",
