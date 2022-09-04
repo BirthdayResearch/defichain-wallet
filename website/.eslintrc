@@ -44,7 +44,8 @@
     ],
     "react/react-in-jsx-scope": "off",
     "import/prefer-default-export": "off",
-    "react/destructuring-assignment": "off"
+    "react/destructuring-assignment": "off",
+    "import/no-extraneous-dependencies": "warn"
   },
   "overrides": [
     {

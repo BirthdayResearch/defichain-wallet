@@ -40,7 +40,10 @@ export function PlaygroundStatusInfo(): JSX.Element | null {
       title: "Current block",
       rhsChildren: (): JSX.Element => {
         return (
-          <ThemedTextV2 {...getRhsChildrenStyling}>
+          <ThemedTextV2
+            {...getRhsChildrenStyling}
+            testID="current_block_count_value"
+          >
             {count === 0 ? "..." : count}
           </ThemedTextV2>
         );
