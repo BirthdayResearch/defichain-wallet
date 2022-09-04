@@ -5,6 +5,7 @@ import { translate } from "@translations";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { ThemedViewV2, ThemedIcon, ThemedTextV2 } from "@components/themed";
 import { PricesSectionV2, PriceRateProps } from "@components/PricesSectionV2";
+import { BottomSheetInfoV2 } from "@components/BottomSheetInfoV2";
 import { ButtonGroupTabKey } from "../CompositeSwapScreen";
 
 interface SwapSummaryProps {
@@ -36,22 +37,38 @@ export function SwapSummary({
             transactionDate={transactionDate}
           />
           <View style={tailwind("flex-row items-center my-5")}>
-            <ThemedTextV2
-              light={tailwind("text-mono-light-v2-900")}
-              dark={tailwind("text-mono-dark-v2-900")}
-              style={tailwind("mr-1 font-semibold-v2 text-xs")}
-            >
-              {translate(
-                "screens/CompositeSwapScreen",
-                "Learn about settlements"
-              )}
-            </ThemedTextV2>
-            <ThemedIcon
-              name="info-outline"
-              size={16}
-              iconType="MaterialIcons"
-              light={tailwind("text-mono-light-v2-900")}
-              dark={tailwind("text-mono-dark-v2-900")}
+            <BottomSheetInfoV2
+              alertInfo={{
+                title: "Settlements",
+                message: `Settlement block is the pre-determined  block height that this transaction will be executed. 
+                \nSettlement value is based on the oracle price at the settlement block. 
+                \nUsers will be able to cancel this transaction as long as the settlement block has not been executed. 
+              `,
+              }}
+              name="test2"
+              infoIconStyle={[tailwind("text-xs")]}
+              snapPoints={["50%"]}
+              triggerComponent={
+                <View style={tailwind("flex flex-row")}>
+                  <ThemedTextV2
+                    light={tailwind("text-mono-light-v2-900")}
+                    dark={tailwind("text-mono-dark-v2-900")}
+                    style={tailwind("mr-1 font-semibold-v2 text-xs")}
+                  >
+                    {translate(
+                      "screens/CompositeSwapScreen",
+                      "Learn about settlements"
+                    )}
+                  </ThemedTextV2>
+                  <ThemedIcon
+                    name="info-outline"
+                    size={16}
+                    iconType="MaterialIcons"
+                    light={tailwind("text-mono-light-v2-900")}
+                    dark={tailwind("text-mono-dark-v2-900")}
+                  />
+                </View>
+              }
             />
           </View>
         </View>

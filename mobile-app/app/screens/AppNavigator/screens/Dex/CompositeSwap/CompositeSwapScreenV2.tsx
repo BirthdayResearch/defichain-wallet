@@ -53,7 +53,6 @@ import {
 import { InfoRow, InfoType } from "@components/InfoRow";
 import { NumberRow } from "@components/NumberRow";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { openURL } from "@api/linking";
@@ -64,6 +63,7 @@ import { WalletAlert } from "@components/WalletAlert";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { PriceRateProps } from "@components/PricesSectionV2";
+import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { AnnouncementBannerV2 } from "../../Portfolio/components/Announcements";
 import {
   DexStabilizationType,
@@ -745,17 +745,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               )}
           </View>
 
-          {activeButtonGroup === ButtonGroupTabKey.InstantSwap &&
-            selectedTokenB !== undefined &&
-            selectedTokenA !== undefined && (
-              <SlippageTolerance
-                setSlippage={setSlippage}
-                slippageError={slippageError}
-                setSlippageError={setSlippageError}
-                slippage={slippage}
-              />
-            )}
-
           <View style={tailwind("my-8 relative items-center")}>
             <ThemedTouchableOpacityV2
               onPress={onTokenSwitch}
@@ -787,11 +776,10 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
 
           <ThemedViewV2
             style={tailwind("border-0", {
-              "border-b-0.5 pb-8":
-                activeButtonGroup === ButtonGroupTabKey.InstantSwap,
+              "pb-8": activeButtonGroup === ButtonGroupTabKey.InstantSwap,
             })}
-            dark={tailwind("border-mono-dark-v2-300")}
-            light={tailwind("border-mono-light-v2-300")}
+            dark={tailwind("bg-transparent")}
+            light={tailwind("bg-transparent")}
           >
             <ThemedTextV2
               style={tailwind("px-5 text-xs font-normal-v2")}
@@ -833,6 +821,23 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           </ThemedViewV2>
         </View>
 
+        {activeButtonGroup === ButtonGroupTabKey.InstantSwap &&
+          selectedTokenB !== undefined &&
+          selectedTokenA !== undefined && (
+            <ThemedViewV2
+              style={tailwind("border-t-0.5 mx-5")}
+              dark={tailwind("border-mono-dark-v2-300")}
+              light={tailwind("border-mono-light-v2-300")}
+            >
+              <SlippageTolerance
+                setSlippage={setSlippage}
+                slippageError={slippageError}
+                setSlippageError={setSlippageError}
+                slippage={slippage}
+              />
+            </ThemedViewV2>
+          )}
+
         {selectedTokenB !== undefined &&
           selectedTokenA !== undefined &&
           priceRates !== undefined &&
@@ -843,7 +848,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               <ThemedViewV2
                 light={tailwind("border-mono-light-v2-300")}
                 dark={tailwind("border-mono-dark-v2-300")}
-                style={tailwind("mt-8 pt-5 px-5 mx-5 border rounded-lg-v2")}
+                style={tailwind("pt-5 px-5 mx-5 border rounded-lg-v2")}
               >
                 <SwapSummary
                   instantSwapPriceRate={priceRates}
@@ -854,35 +859,28 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               </ThemedViewV2>
             </>
           )}
-        {selectedTokenA !== undefined && selectedTokenB !== undefined && (
-          <View style={tailwind("mb-2")}>
-            <SubmitButtonGroup
-              isDisabled={
-                !formState.isValid ||
-                hasPendingJob ||
-                hasPendingBroadcastJob ||
-                (slippageError?.type === "error" &&
-                  slippageError !== undefined) ||
-                (isFutureSwap && isEnded)
-              }
-              label={translate("screens/CompositeSwapScreen", "CONTINUE")}
-              processingLabel={translate(
-                "screens/CompositeSwapScreen",
-                "CONTINUE"
-              )}
-              onSubmit={
-                (dexStabilizationType === "none" &&
-                  isDexStabilizationEnabled) ||
-                !isDexStabilizationEnabled
-                  ? onSubmit
-                  : onWarningBeforeSubmit
-              }
-              title="submit"
-              isProcessing={hasPendingJob || hasPendingBroadcastJob}
-              displayCancelBtn={false}
-            />
-          </View>
-        )}
+
+        <View style={tailwind("mb-2")}>
+          <SubmitButtonGroupV2
+            isDisabled={
+              !formState.isValid ||
+              hasPendingJob ||
+              hasPendingBroadcastJob ||
+              (slippageError?.type === "error" &&
+                slippageError !== undefined) ||
+              (isFutureSwap && isEnded)
+            }
+            label={translate("screens/CompositeSwapScreen", "CONTINUE")}
+            onSubmit={
+              (dexStabilizationType === "none" && isDexStabilizationEnabled) ||
+              !isDexStabilizationEnabled
+                ? onSubmit
+                : onWarningBeforeSubmit
+            }
+            title="submit"
+            displayCancelBtn={false}
+          />
+        </View>
 
         {formState.isValid &&
           selectedTokenA !== undefined &&
