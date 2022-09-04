@@ -48,11 +48,11 @@ export function WantFutureSwapRow({
   oraclePriceText,
 }: WantFutureSwapRowProps): JSX.Element {
   return (
-    <View style={tailwind("w-1/3")}>
+    <View style={tailwind("w-6/12")}>
       <ThemedTextV2
         light={tailwind("text-mono-light-v2-700")}
         dark={tailwind("text-mono-dark-v2-700")}
-        style={tailwind("text-lg font-normal-v2")}
+        style={tailwind("text-xl font-normal-v2")}
       >
         {translate(
           "screens/CompositeSwapScreen",
