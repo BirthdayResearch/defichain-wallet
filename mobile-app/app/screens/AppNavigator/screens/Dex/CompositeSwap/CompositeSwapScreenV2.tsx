@@ -58,12 +58,12 @@ import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/Tok
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { openURL } from "@api/linking";
 import { TextRow } from "@components/TextRow";
-import { PriceRateProps, PricesSection } from "@components/PricesSection";
 import { fetchExecutionBlock } from "@store/futureSwap";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { WalletAlert } from "@components/WalletAlert";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { PriceRateProps } from "@components/PricesSectionV2";
 import { AnnouncementBannerV2 } from "../../Portfolio/components/Announcements";
 import {
   DexStabilizationType,
@@ -88,6 +88,7 @@ import {
   WantFutureSwapRow,
   WantInstantSwapRow,
 } from "./components/WantSwapRow";
+import { SwapSummary } from "./components/SwapSummary";
 
 export interface TokenState {
   id: string;
@@ -453,23 +454,26 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
       const estimatedAmountAfterSlippage = estimated.times(slippage).toFixed(8);
       setPriceRates([
         {
-          label: translate("components/PricesSection", "1 {{token}}", {
-            token: selectedTokenB.displaySymbol,
-          }),
-          value: bToAPrice.toFixed(8),
-          aSymbol: selectedTokenB.displaySymbol,
-          bSymbol: selectedTokenA.displaySymbol,
-        },
-        {
-          label: translate("components/PricesSection", "1 {{token}}", {
+          label: translate("components/PricesSection", "1 {{token}} =", {
             token: selectedTokenA.displaySymbol,
           }),
-          value: aToBPrice.toFixed(8),
+          value: bToAPrice.toFixed(8),
+          symbolUSDValue: getAmountInUSDValue(selectedTokenA, new BigNumber(1)),
+          usdTextStyle: tailwind("text-sm"),
           aSymbol: selectedTokenA.displaySymbol,
           bSymbol: selectedTokenB.displaySymbol,
         },
+        {
+          label: translate("components/PricesSection", "1 {{token}} =", {
+            token: selectedTokenB.displaySymbol,
+          }),
+          value: aToBPrice.toFixed(8),
+          symbolUSDValue: getAmountInUSDValue(selectedTokenB, new BigNumber(1)),
+          usdTextStyle: tailwind("text-sm"),
+          aSymbol: selectedTokenB.displaySymbol,
+          bSymbol: selectedTokenA.displaySymbol,
+        },
       ]);
-
       setValue("tokenB", estimatedAmountAfterSlippage);
       // trigger validation for tokenB
       await trigger("tokenB");
@@ -497,7 +501,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
 
     const ownedTokenB = tokens.find((token) => token.id === selectedTokenB.id);
     const slippageInDecimal = new BigNumber(slippage).div(100);
-    navigation.navigate("ConfirmCompositeSwapScreen", {
+    navigation.navigate("ConfirmCompositeSwapScreenV2", {
       fee,
       pairs: selectedPoolPairs,
       priceRates,
@@ -836,35 +840,18 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           tokenA !== "" &&
           tokenB !== undefined && (
             <>
-              {!isFutureSwap && (
-                <ThemedView
-                  style={tailwind("rounded-t-lg mx-4 py-2")}
-                  dark={tailwind("bg-gray-800 border-b border-gray-700")}
-                  light={tailwind("bg-white border-b border-gray-200")}
-                >
-                  <PricesSection
-                    testID="pricerate_value"
-                    priceRates={priceRates}
-                    isCompact
-                  />
-                </ThemedView>
-              )}
-              <TransactionDetailsSection
-                isFutureSwap={isFutureSwap}
-                conversionAmount={conversionAmount}
-                estimatedAmount={tokenB}
-                fee={fee}
-                isConversionRequired={isConversionRequired}
-                tokenA={selectedTokenA}
-                tokenB={selectedTokenB}
-                executionBlock={executionBlock}
-                timeRemaining={timeRemaining}
-                transactionDate={transactionDate}
-                oraclePriceText={oraclePriceText}
-                isDexStabilizationEnabled={isDexStabilizationEnabled}
-                dexStabilizationType={dexStabilizationType}
-                dexStabilizationFee={dexStabilizationFee}
-              />
+              <ThemedViewV2
+                light={tailwind("border-mono-light-v2-300")}
+                dark={tailwind("border-mono-dark-v2-300")}
+                style={tailwind("mt-8 pt-5 px-5 mx-5 border rounded-lg-v2")}
+              >
+                <SwapSummary
+                  instantSwapPriceRate={priceRates}
+                  activeTab={activeButtonGroup}
+                  executionBlock={executionBlock}
+                  transactionDate={transactionDate}
+                />
+              </ThemedViewV2>
             </>
           )}
         {selectedTokenA !== undefined && selectedTokenB !== undefined && (

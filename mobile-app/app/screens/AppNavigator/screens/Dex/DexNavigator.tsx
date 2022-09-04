@@ -14,6 +14,7 @@ import { Platform, StyleProp, ViewStyle } from "react-native";
 import { ThemedTextV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
+import { PriceRateProps as PriceRatesPropsV2 } from "@components/PricesSectionV2";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { ConversionParam } from "../Portfolio/PortfolioNavigator";
 import {
@@ -32,8 +33,9 @@ import { RemoveLiquidityConfirmScreen } from "./DexConfirmRemoveLiquidity";
 import { AddLiquidityScreen } from "./DexAddLiquidity";
 import { ConfirmAddLiquidityScreen } from "./DexConfirmAddLiquidity";
 import { PoolPairDetailsScreen } from "./PoolPairDetailsScreen";
-import { CompositeSwapScreenV2 } from "./CompositeSwap/CompositeSwapScreenV2";
 import { ConfirmCompositeSwapScreenV2 } from "./CompositeSwap/ConfirmCompositeSwapScreenV2";
+import { CompositeSwapScreenV2 } from "./CompositeSwap/CompositeSwapScreenV2";
+
 export interface DexParamList {
   DexScreen: undefined;
   CompositeSwapScreen: {
@@ -49,6 +51,23 @@ export interface DexParamList {
         isPreselected: boolean;
       };
     };
+  };
+  ConfirmCompositeSwapScreenV2: {
+    conversion?: ConversionParam;
+    fee: BigNumber;
+    pairs: PoolPairData[];
+    priceRates: PriceRatesPropsV2[];
+    slippage: BigNumber;
+    swap: CompositeSwapForm;
+    futureSwap?: {
+      executionBlock: number;
+      transactionDate: string;
+      isSourceLoanToken: boolean;
+      oraclePriceText: string;
+    };
+    tokenA: OwnedTokenState;
+    tokenB: TokenState & { amount?: string };
+    estimatedAmount: BigNumber;
   };
   ConfirmCompositeSwapScreen: {
     conversion?: ConversionParam;
