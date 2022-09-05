@@ -1002,12 +1002,15 @@
     "DEX stabilization fee": "DEX-Stabilisierungsgebühr"
   },
   "screens/SwapTokenSelectionScreen": {
-    "Select": "Select",
-    "Search tokens": "Search tokens",
-    "AVAILABLE TOKENS": "AVAILABLE TOKENS",
+    "Select": "Auswählen",
+    "Search token": "Token suchen",
+    "AVAILABLE TOKENS": "VERFÜGBARE TOKEN",
     "AVAILABLE FOR SWAP": "AVAILABLE FOR SWAP",
+    "AVAILABLE FOR FUTURE SWAP": "FÜR FUTURE SWAP VERFÜGBAR",
     "Search with token name": "Search with token name",
-    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
+    "Search dTokens for future swap": "Suche nach dToken für Future Swap",
+    "Search results for “{{searchTerm}}”": "Suchergebnisse für  “{{searchTerm}}”",
+    "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap.": "Keine Ergebnisse für “{{searchTerm}}” gefunden. Bitte beachte, dass nur ausgewählte Token für den Future Swap verfügbar sind."
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "UMWANDELN",
