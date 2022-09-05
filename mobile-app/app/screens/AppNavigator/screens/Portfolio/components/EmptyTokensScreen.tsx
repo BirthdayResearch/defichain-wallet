@@ -2,6 +2,7 @@ import { tailwind } from "@tailwind";
 import { ThemedTextV2 } from "@components/themed";
 import { View } from "@components";
 import { StyleProp, ViewStyle } from "react-native";
+
 interface EmptyBalancesProps {
   icon: () => JSX.Element;
   title: string;

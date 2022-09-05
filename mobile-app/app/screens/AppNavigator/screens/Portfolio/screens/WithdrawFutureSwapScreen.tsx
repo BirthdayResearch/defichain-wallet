@@ -86,9 +86,11 @@ export function WithdrawFutureSwapScreen(props: Props): JSX.Element {
           displaySymbol: source.displaySymbol,
           tokenId: source.tokenId,
           isLoanToken: source.isLoanToken,
+          symbol: source.symbol,
         },
         destination: {
           tokenId: destination.tokenId,
+          displaySymbol: destination.displaySymbol,
         },
         fee,
         executionBlock,

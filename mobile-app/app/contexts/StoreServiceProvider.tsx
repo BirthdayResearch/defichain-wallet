@@ -25,6 +25,9 @@ const _useDefaultDefiChainURL = (): string => {
     case EnvironmentNetwork.LocalPlayground:
       url = "http://localhost:19553";
       break;
+    default:
+      url = "http://localhost:19553";
+      break;
   }
 
   return url;
@@ -88,7 +91,10 @@ export function StoreServiceProvider(
 ): JSX.Element | null {
   const { api } = props;
   const network = useNetworkContext();
-  const { url } = _useServiceProviderUrl({ api, network });
+  const { url } = _useServiceProviderUrl({
+    api,
+    network,
+  });
   const defaultUrl = _useDefaultDefiChainURL();
   const [currentUrl, setCurrentUrl] = useState<string>(url);
 
