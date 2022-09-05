@@ -56,7 +56,7 @@ export interface WalletParamList {
 const WalletStack = createStackNavigator<WalletParamList>();
 
 const LinkingConfiguration: LinkingOptions<ReactNavigation.RootParamList> = {
-  prefixes: [Linking.makeUrl("/")],
+  prefixes: [Linking.createURL("/")],
   config: {
     screens: {
       Onboarding: "wallet/onboarding",
