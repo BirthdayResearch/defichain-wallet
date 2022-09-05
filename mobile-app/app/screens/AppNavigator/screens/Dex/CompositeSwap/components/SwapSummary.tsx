@@ -20,6 +20,7 @@ interface SwapSummaryProps {
   transactionFee: BigNumber;
   estimatedReturn: {
     symbol: string;
+    fee: BigNumber;
     feeLessDexFees: BigNumber;
   };
   executionBlock?: number;
@@ -37,15 +38,23 @@ export function SwapSummary({
   tokenAAmount,
 }: SwapSummaryProps): JSX.Element {
   const { getTokenPrice } = useTokenPrice();
-
   const totalFees = useMemo(() => {
     if (tokenAAmount === "" || new BigNumber(tokenAAmount).isZero()) {
       return "-";
     }
 
+    const dexFeesInTokenBUnit = estimatedReturn.fee.minus(
+      estimatedReturn.feeLessDexFees
+    );
+
     return getPrecisedCurrencyValue(
       getTokenPrice("DFI", transactionFee).plus(
-        getTokenPrice(estimatedReturn.symbol, estimatedReturn.feeLessDexFees)
+        getTokenPrice(
+          estimatedReturn.symbol,
+          dexFeesInTokenBUnit
+            .multipliedBy(instantSwapPriceRate[1].value)
+            .multipliedBy(tokenAAmount)
+        )
       )
     );
   }, [transactionFee, estimatedReturn]);

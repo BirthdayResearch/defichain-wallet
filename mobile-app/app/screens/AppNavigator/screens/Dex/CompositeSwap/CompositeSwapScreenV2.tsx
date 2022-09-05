@@ -452,20 +452,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         selectedTokenB.id,
         new BigNumber(tokenA)
       );
-      // Find the selected reserve in case it's null. From Token Detail Screen, reserve does not exist due to pair not existing
-      const selectedReserve =
-        selectedPoolPairs[0]?.tokenA?.id === selectedTokenA.id
-          ? selectedPoolPairs[0]?.tokenA?.reserve
-          : selectedPoolPairs[0]?.tokenB?.reserve;
-      // This will keep the old behavior to prevent regression
-      const tokenAReserve = new BigNumber(selectedTokenA.reserve).gt(0)
-        ? selectedTokenA.reserve
-        : selectedReserve;
-      const slippage = new BigNumber(1).minus(
-        new BigNumber(tokenA).div(tokenAReserve)
-      );
-
-      const estimatedAmountAfterSlippage = estimated.times(slippage).toFixed(8);
       setPriceRates([
         {
           label: translate("components/PricesSection", "1 {{token}} =", {
@@ -488,7 +474,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           bSymbol: selectedTokenA.displaySymbol,
         },
       ]);
-      setValue("tokenB", estimatedAmountAfterSlippage);
+      setValue("tokenB", estimated.toFixed(8));
       // trigger validation for tokenB
       await trigger("tokenB");
     }
@@ -936,6 +922,9 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   tokenAAmount={tokenA}
                   estimatedReturn={{
                     symbol: selectedTokenB.symbol,
+                    fee: new BigNumber(
+                      bestPathEstimatedReturn?.estimatedReturn ?? 0
+                    ),
                     feeLessDexFees: new BigNumber(
                       bestPathEstimatedReturn?.estimatedReturnLessDexFees ?? 0
                     ),
