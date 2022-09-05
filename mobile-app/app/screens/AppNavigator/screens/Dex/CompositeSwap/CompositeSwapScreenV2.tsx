@@ -112,7 +112,8 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>();
   const dispatch = useAppDispatch();
   const { address } = useWalletContext();
-  const { getArbitraryPoolPair, calculatePriceRates } = useTokenBestPath();
+  const { getArbitraryPoolPair, calculatePriceRates, getBestPath } =
+    useTokenBestPath();
   const { getTokenPrice } = useTokenPrice();
   const { slippage, setSlippage } = useSlippageTolerance();
 
@@ -150,27 +151,18 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   const [isFromTokenSelectDisabled, setIsFromTokenSelectDisabled] =
     useState(false);
   const [isToTokenSelectDisabled, setIsToTokenSelectDisabled] = useState(false);
-  const buttonGroup = [
-    {
-      id: ButtonGroupTabKey.InstantSwap,
-      label: translate("screens/CompositeSwapScreen", "Instant Swap"),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.InstantSwap),
-    },
-    {
-      id: ButtonGroupTabKey.FutureSwap,
-      label: translate("screens/CompositeSwapScreen", "Future Swap"),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.FutureSwap),
-    },
-  ];
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(
     ButtonGroupTabKey.InstantSwap
   );
   const [isFutureSwap, setIsFutureSwap] = useState(false);
+  const [bestPathEstimatedReturn, setBestPathEstimatedReturn] = useState<
+    { estimatedReturn: string; estimatedReturnLessDexFees: string } | undefined
+  >(undefined);
 
   const executionBlock = useSelector(
     (state: RootState) => state.futureSwaps.executionBlock
   );
-  const { timeRemaining, transactionDate, isEnded } = useFutureSwapDate(
+  const { transactionDate, isEnded } = useFutureSwapDate(
     executionBlock,
     blockCount
   );
@@ -486,6 +478,25 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         isFutureSwapOptionEnabled
     );
   }, [activeButtonGroup, isFutureSwapOptionEnabled]);
+
+  useEffect(() => {
+    if (selectedTokenA === undefined || selectedTokenB === undefined) {
+      return undefined;
+    }
+
+    const fetchBestPath = async () => {
+      const bestPath = await getBestPath(
+        selectedTokenA.id === "0_unified" ? "0" : selectedTokenA.id,
+        selectedTokenB.id === "0_unified" ? "0" : selectedTokenB.id
+      );
+      setBestPathEstimatedReturn({
+        estimatedReturn: bestPath.estimatedReturn,
+        estimatedReturnLessDexFees: bestPath.estimatedReturnLessDexFees,
+      });
+    };
+
+    fetchBestPath();
+  }, [selectedTokenA, selectedTokenB]);
 
   const navigateToConfirmScreen = (): void => {
     if (
@@ -840,10 +851,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
 
         {selectedTokenB !== undefined &&
           selectedTokenA !== undefined &&
-          priceRates !== undefined &&
-          tokenA !== undefined &&
-          tokenA !== "" &&
-          tokenB !== undefined && (
+          priceRates !== undefined && (
             <>
               <ThemedViewV2
                 light={tailwind("border-mono-light-v2-300")}
@@ -855,6 +863,14 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   activeTab={activeButtonGroup}
                   executionBlock={executionBlock}
                   transactionDate={transactionDate}
+                  transactionFee={fee}
+                  tokenAAmount={tokenA}
+                  estimatedReturn={{
+                    symbol: selectedTokenB.symbol,
+                    feeLessDexFees: new BigNumber(
+                      bestPathEstimatedReturn?.estimatedReturnLessDexFees ?? 0
+                    ),
+                  }}
                 />
               </ThemedViewV2>
             </>
