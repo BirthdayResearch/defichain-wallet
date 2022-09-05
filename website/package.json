@@ -37,7 +37,6 @@
     "@types/react": "17.0.38",
     "autoprefixer": "^10.4.4",
     "eslint-config-next": "12.2.5",
-    "eslint-import-resolver-typescript": "^2.7.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "postcss": "^8.4.16",
