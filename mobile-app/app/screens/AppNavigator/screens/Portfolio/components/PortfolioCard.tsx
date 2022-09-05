@@ -42,14 +42,14 @@ export function PortfolioCard({
   // return empty portfolio if no DFI and other tokens
   if (isZeroBalance) {
     const screenDetails = getEmptyScreenDetails(ButtonGroupTabKey.AllTokens);
-    return <EmptyTokensScreen {...screenDetails} />;
+    return <EmptyTokensScreen {...screenDetails} testID="empty_portfolio" />;
   }
 
   if (filteredTokens.length === 0 && hasFetchedToken) {
     const screenDetails = getEmptyScreenDetails(
       buttonGroupOptions?.activeButtonGroup
     );
-    return <EmptyTokensScreen {...screenDetails} />;
+    return <EmptyTokensScreen {...screenDetails} testID="empty_portfolio" />;
   }
 
   return (
