@@ -1012,7 +1012,10 @@
     "Price ({{tokenB}}/{{tokenA}})": "Prix ({{tokenB}}/{{tokenA}})",
     "Are you certain you want to proceed to swap DUSD for {{tokenB}} despite the DEX Stabilization fees of {{fee}}?": "Êtes-vous certain de vouloir procéder à l'échange de DUSD contre {{tokenB}} malgré les frais de stabilisation DEX de {{fee}} ?",
     "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?": "Êtes-vous certain de vouloir procéder à cet échange malgré les frais de stabilisation DEX de {{fee}} qui seront encourus dans le cadre du chemin composé (DUSD -> {{tokenB}}) ?",
-    "DEX stabilization fee": "DEX stabilization fee"
+    "DEX stabilization fee": "DEX stabilization fee",
+    "Future swap uses the oracle price of the selected token on the settlement block": "Future swap uses the oracle price of the selected token on the settlement block",
+    "You are buying dtokens at 5% more than the oracle price at settlement block": "You are buying dtokens at 5% more than the oracle price at settlement block",
+    "You are selling your dtoken at 5% less than the oracle price at settlement block": "You are selling your dtoken at 5% less than the oracle price at settlement block"
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Select",

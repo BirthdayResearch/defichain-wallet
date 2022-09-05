@@ -301,6 +301,19 @@ export function AnnouncementBannerV2({
           />
         </ThemedTouchableOpacityV2>
       )}
+      {announcement.icon !== undefined && announcement.icon.length !== 0 && (
+        <ThemedIcon
+          size={20}
+          name={announcement.icon}
+          iconType="Feather"
+          light={tailwind({ "text-mono-light-v2-900": isOtherAnnouncement })}
+          dark={tailwind({ "text-mono-dark-v2-900": isOtherAnnouncement })}
+          style={tailwind("pl-4", {
+            "text-orange-v2": announcement.type === "OUTAGE",
+            "text-red-v2": announcement.type === "EMERGENCY",
+          })}
+        />
+      )}
       {announcement.id !== undefined && (
         <ThemedViewV2 style={tailwind("absolute -top-2 -right-2 rounded-full")}>
           <ThemedTouchableOpacityV2
@@ -340,6 +353,7 @@ export interface Announcement {
   url: string;
   id?: string;
   type: AnnouncementData["type"];
+  icon?: string;
 }
 
 export function findDisplayedAnnouncementForVersion(
