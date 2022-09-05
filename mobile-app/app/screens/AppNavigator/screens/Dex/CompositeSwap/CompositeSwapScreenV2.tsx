@@ -70,7 +70,7 @@ import { fetchExecutionBlock } from "@store/futureSwap";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { WalletAlert } from "@components/WalletAlert";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
-import { AnnouncementBanner } from "../../Portfolio/components/Announcements";
+import { AnnouncementBannerV2 } from "../../Portfolio/components/Announcements";
 import {
   DexStabilizationType,
   useDexStabilization,
@@ -608,6 +608,21 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         onPress={(type) => onButtonGroupChange(type)}
       />
       <ThemedScrollView>
+        {activeButtonGroup === ButtonGroupTabKey.InstantSwap &&
+          isDexStabilizationEnabled &&
+          dexStabilizationType !== "none" &&
+          dexStabilizationAnnouncement !== undefined && (
+            <View style={tailwind("flex mx-5 mt-8 rounded")}>
+              <AnnouncementBannerV2
+                announcement={dexStabilizationAnnouncement}
+                testID="swap_announcements_banner"
+                containerStyle={{
+                  light: tailwind("bg-transparent"),
+                  dark: tailwind("bg-transparent"),
+                }}
+              />
+            </View>
+          )}
         {fromTokens !== undefined && fromTokens?.length > 0 && (
           <ThemedText
             dark={tailwind("text-gray-50")}
@@ -645,16 +660,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
             }
           />
         </View>
-        {isDexStabilizationEnabled &&
-          dexStabilizationType !== "none" &&
-          dexStabilizationAnnouncement !== undefined && (
-            <View style={tailwind("flex mx-4 mt-4 rounded")}>
-              <AnnouncementBanner
-                announcement={dexStabilizationAnnouncement}
-                testID="swap_announcements_banner"
-              />
-            </View>
-          )}
         <ThemedView
           style={tailwind("m-4 pt-4 rounded-lg flex-1")}
           light={tailwind("bg-white")}
