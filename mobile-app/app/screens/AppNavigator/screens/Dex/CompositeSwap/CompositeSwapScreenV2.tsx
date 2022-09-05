@@ -425,12 +425,11 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
       selectedPoolPairs !== undefined &&
       tokenA !== undefined
     ) {
-      const { aToBPrice, bToAPrice, estimated, estimatedLessDexFees } =
-        await calculatePriceRates(
-          selectedTokenA.id,
-          selectedTokenB.id,
-          new BigNumber(tokenA)
-        );
+      const { aToBPrice, bToAPrice, estimated } = await calculatePriceRates(
+        selectedTokenA.id,
+        selectedTokenB.id,
+        new BigNumber(tokenA)
+      );
 
       setPriceRates([
         {
@@ -484,7 +483,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     };
 
     fetchBestPath();
-  }, [selectedTokenA, selectedTokenB, tokenA]);
+  }, [selectedTokenA, selectedTokenB]);
 
   const navigateToConfirmScreen = (): void => {
     if (
