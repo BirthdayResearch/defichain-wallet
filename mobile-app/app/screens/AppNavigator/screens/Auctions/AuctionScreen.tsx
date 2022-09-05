@@ -5,8 +5,8 @@ import { Tabs } from "@components/Tabs";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { StackScreenProps } from "@react-navigation/stack";
-import { HeaderSearchInput } from "@components/HeaderSearchInput";
-import { HeaderSearchIcon } from "@components/HeaderSearchIcon";
+// import { HeaderSearchInput } from "@components/HeaderSearchInput";
+// import { HeaderSearchIcon } from "@components/HeaderSearchIcon";
 import { BrowseAuctions } from "./components/BrowseAuctions";
 import { ManageBids } from "./components/ManageBids";
 import { AuctionsParamList } from "./AuctionNavigator";
@@ -38,41 +38,41 @@ export function AuctionsScreen({ navigation }: Props): JSX.Element {
     setActiveTab(tabId);
   };
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: (): JSX.Element => {
-        if (activeTab === TabKey.BrowseAuctions && auctions.length !== 0) {
-          return <HeaderSearchIcon onPress={() => setShowSearchInput(true)} />;
-        }
-        return <></>;
-      },
-    });
-  }, [navigation, activeTab, auctions]);
+  // useLayoutEffect(() => {
+  //   navigation.setOptions({
+  //     headerRight: (): JSX.Element => {
+  //       if (activeTab === TabKey.BrowseAuctions && auctions.length !== 0) {
+  //         return <HeaderSearchIcon onPress={() => setShowSearchInput(true)} />;
+  //       }
+  //       return <></>;
+  //     },
+  //   });
+  // }, [navigation, activeTab, auctions]);
 
-  useEffect(() => {
-    if (showSearchInput) {
-      navigation.setOptions({
-        header: (): JSX.Element => (
-          <HeaderSearchInput
-            searchString={searchString}
-            onClearInput={() => setSearchString("")}
-            onChangeInput={(text: string) => {
-              setSearchString(text);
-            }}
-            onCancelPress={() => {
-              setSearchString("");
-              setShowSearchInput(false);
-            }}
-            placeholder="Search for loan token"
-          />
-        ),
-      });
-    } else {
-      navigation.setOptions({
-        header: undefined,
-      });
-    }
-  }, [showSearchInput, searchString]);
+  // useEffect(() => {
+  //   if (showSearchInput) {
+  //     navigation.setOptions({
+  //       header: (): JSX.Element => (
+  //         <HeaderSearchInput
+  //           searchString={searchString}
+  //           onClearInput={() => setSearchString("")}
+  //           onChangeInput={(text: string) => {
+  //             setSearchString(text);
+  //           }}
+  //           onCancelPress={() => {
+  //             setSearchString("");
+  //             setShowSearchInput(false);
+  //           }}
+  //           placeholder="Search for loan token"
+  //         />
+  //       ),
+  //     });
+  //   } else {
+  //     navigation.setOptions({
+  //       header: undefined,
+  //     });
+  //   }
+  // }, [showSearchInput, searchString]);
 
   const tabsList = [
     {
