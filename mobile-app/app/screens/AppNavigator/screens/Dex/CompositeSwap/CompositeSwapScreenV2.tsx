@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Platform, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
-import { Control, Controller, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import BigNumber from "bignumber.js";
 import {
   NavigationProp,
@@ -9,7 +9,6 @@ import {
   useNavigation,
 } from "@react-navigation/native";
 import { getColor, tailwind } from "@tailwind";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { translate } from "@translations";
 import { RootState } from "@store";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
@@ -36,7 +35,6 @@ import {
   ThemedText,
   ThemedTextInputV2,
   ThemedTextV2,
-  ThemedTouchableOpacity,
   ThemedTouchableOpacityV2,
   ThemedView,
   ThemedViewV2,
@@ -54,17 +52,11 @@ import {
 } from "@components/BottomSheetTokenList";
 import { InfoRow, InfoType } from "@components/InfoRow";
 import { NumberRow } from "@components/NumberRow";
-import {
-  AmountButtonTypes,
-  SetAmountButton,
-} from "@components/SetAmountButton";
-import { WalletTextInput } from "@components/WalletTextInput";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { openURL } from "@api/linking";
-import NumberFormat from "react-number-format";
 import { TextRow } from "@components/TextRow";
 import { PriceRateProps, PricesSection } from "@components/PricesSection";
 import { fetchExecutionBlock } from "@store/futureSwap";
@@ -72,6 +64,7 @@ import { useAppDispatch } from "@hooks/useAppDispatch";
 import { WalletAlert } from "@components/WalletAlert";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useBottomSheet } from "@hooks/useBottomSheet";
 import { AnnouncementBannerV2 } from "../../Portfolio/components/Announcements";
 import {
   DexStabilizationType,
@@ -82,10 +75,7 @@ import { useSwappableTokens } from "../hook/SwappableTokens";
 import { useSlippageTolerance } from "../hook/SlippageTolerance";
 import { useTokenBestPath } from "../../Portfolio/hooks/TokenBestPath";
 import { DexParamList } from "../DexNavigator";
-import {
-  SlippageError,
-  SlippageTolerance,
-} from "./components/SlippageTolerance";
+import { SlippageError } from "./components/SlippageTolerance";
 import {
   ButtonGroupTabKey,
   SwapButtonGroup,
@@ -96,6 +86,7 @@ import {
   WantFutureSwapRow,
   WantInstantSwapRow,
 } from "./components/WantSwapRow";
+import { SlippageToleranceV2 } from "./components/SlippageToleranceV2";
 
 export interface TokenState {
   id: string;
@@ -187,8 +178,9 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
       fromTokenDisplaySymbol: selectedTokenA?.displaySymbol,
       toTokenDisplaySymbol: selectedTokenB?.displaySymbol,
     });
-  const containerRef = useRef(null);
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
+
+  const { bottomSheetRef, containerRef, dismissModal, expandModal } =
+    useBottomSheet();
 
   // dex stabilization
   const { isFeatureAvailable } = useFeatureFlagContext();
@@ -201,22 +193,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
       dexStabilizationFee,
     },
   } = useDexStabilization(selectedTokenA, selectedTokenB);
-
-  const expandModal = useCallback(() => {
-    if (Platform.OS === "web") {
-      setIsModalDisplayed(true);
-    } else {
-      bottomSheetRef.current?.present();
-    }
-  }, []);
-
-  const dismissModal = useCallback(() => {
-    if (Platform.OS === "web") {
-      setIsModalDisplayed(false);
-    } else {
-      bottomSheetRef.current?.close();
-    }
-  }, []);
 
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     setSelectedTokenA(undefined);
@@ -289,6 +265,39 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     } else {
       setSelectedTokenB(derivedToken);
     }
+  };
+
+  const BottomSheetHeader = {
+    headerStatusBarHeight: 2,
+    headerTitle: "",
+    headerBackTitleVisible: false,
+    headerStyle: tailwind("rounded-t-xl-v2", {
+      "bg-mono-light-v2-100": isLight,
+      "bg-mono-dark-v2-100": !isLight,
+    }),
+    headerRight: (): JSX.Element => {
+      return (
+        <ThemedTouchableOpacityV2
+          style={tailwind("mr-5 mt-4 -mb-4")}
+          onPress={dismissModal}
+          testID="close_bottom_sheet_button"
+        >
+          <ThemedIcon iconType="Feather" name="x-circle" size={22} />
+        </ThemedTouchableOpacityV2>
+      );
+    },
+    headerLeft: () => <></>,
+  };
+
+  const onBottomSheetSlippageSelect = (): void => {
+    setBottomSheetScreen([
+      {
+        stackScreenName: "SlippageInfo",
+        component: BottomSheetSlippageInfo(),
+        option: BottomSheetHeader,
+      },
+    ]);
+    expandModal();
   };
 
   const onBottomSheetSelect = ({
@@ -749,17 +758,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               )}
           </View>
 
-          {activeButtonGroup === ButtonGroupTabKey.InstantSwap &&
-            selectedTokenB !== undefined &&
-            selectedTokenA !== undefined && (
-              <SlippageTolerance
-                setSlippage={setSlippage}
-                slippageError={slippageError}
-                setSlippageError={setSlippageError}
-                slippage={slippage}
-              />
-            )}
-
           <View style={tailwind("my-8 relative items-center")}>
             <ThemedTouchableOpacityV2
               onPress={onTokenSwitch}
@@ -836,6 +834,23 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
             </View>
           </ThemedViewV2>
         </View>
+
+        {selectedTokenB !== undefined &&
+          selectedTokenA !== undefined &&
+          priceRates !== undefined &&
+          tokenA !== undefined &&
+          tokenA !== "" && (
+            <View style={tailwind("p-4")}>
+              {activeButtonGroup === ButtonGroupTabKey.InstantSwap && (
+                <SlippageToleranceV2
+                  onSubmitSlippage={setSlippage}
+                  slippage={slippage}
+                  setSlippageError={setSlippageError}
+                  onPress={onBottomSheetSlippageSelect}
+                />
+              )}
+            </View>
+          )}
 
         {selectedTokenB !== undefined &&
           selectedTokenA !== undefined &&
@@ -1163,3 +1178,51 @@ function TimeRemainingTextRow({
     </ThemedView>
   );
 }
+
+const BottomSheetSlippageInfo = (): React.MemoExoticComponent<
+  () => JSX.Element
+> =>
+  memo(() => {
+    const description =
+      "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stablization fees. Choose how much of this slippage you are willing to accept.";
+    return (
+      <ThemedViewV2
+        style={tailwind(
+          "px-5 h-full flex flex-grow",
+          { "-mt-0.5": Platform.OS === "ios" },
+          { "-mt-1": Platform.OS === "android" }
+        )}
+      >
+        {/* -mt-1 above and mt-1 added below is kind of hack to solved React Navigation elevation bug on android for now. */}
+        <View
+          style={tailwind(
+            "mb-3 flex-row items-center",
+            { "mt-1": Platform.OS === "ios" },
+            { "mt-2": Platform.OS === "android" }
+          )}
+        >
+          <ThemedTextV2
+            dark={tailwind("text-mono-dark-v2-900")}
+            light={tailwind("text-mono-light-v2-900")}
+            style={tailwind("pl-1 text-xl font-normal-v2")}
+            testID="view_pool_details_title"
+          >
+            {translate("screens/CompositeSwapScreen", "Slippage Tolerance")}
+          </ThemedTextV2>
+        </View>
+        <ThemedViewV2
+          style={tailwind("border-t-0.5")}
+          dark={tailwind("border-mono-dark-v2-300")}
+          light={tailwind("border-mono-light-v2-300")}
+        >
+          <ThemedTextV2
+            style={tailwind("mt-4 font-normal-v2")}
+            dark={tailwind("text-mono-dark-v2-900")}
+            light={tailwind("text-mono-light-v2-900")}
+          >
+            {description}
+          </ThemedTextV2>
+        </ThemedViewV2>
+      </ThemedViewV2>
+    );
+  });
