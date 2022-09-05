@@ -1,6 +1,7 @@
 import { ThemedTouchableListItem, ThemedTextV2 } from "@components/themed";
 import { StyleProp, TextStyle } from "react-native";
 import { tailwind } from "@tailwind";
+
 interface PlaygroundActionProps {
   title: string;
   rhsChildren?: () => JSX.Element;
