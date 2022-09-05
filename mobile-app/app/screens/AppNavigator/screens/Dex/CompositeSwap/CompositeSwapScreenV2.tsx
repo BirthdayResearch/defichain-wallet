@@ -608,7 +608,8 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         onPress={(type) => onButtonGroupChange(type)}
       />
       <ThemedScrollView>
-        {isDexStabilizationEnabled &&
+        {activeButtonGroup === ButtonGroupTabKey.InstantSwap &&
+          isDexStabilizationEnabled &&
           dexStabilizationType !== "none" &&
           dexStabilizationAnnouncement !== undefined && (
             <View style={tailwind("flex mx-5 mt-8 rounded")}>
