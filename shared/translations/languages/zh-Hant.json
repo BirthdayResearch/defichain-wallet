@@ -782,7 +782,8 @@
     "Loan scheme saved": "Loan scheme saved",
     "Preparing withdrawal…": "Preparing withdrawal…",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…",
-    "Withdrawal completed": "Withdrawal completed"
+    "Withdrawal completed": "Withdrawal completed",
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "請許可程序使用相機",
@@ -1679,7 +1680,8 @@
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "關閉後，此金庫編號 將不再可使用。 在關閉之前，請確保您不需要此金庫中的任何資料。",
     "CONFIRM CLOSE VAULT": "確認關閉金庫",
     "You are about to close vault {{vaultId}}": "您即將關閉金庫 {{vaultId}}",
-    "CLOSING": "關閉中"
+    "CLOSING": "關閉中",
+    "Closing vault": "Closing vault"
   },
   "components/TokenIconGroup": {
     "more": "顯示更多"

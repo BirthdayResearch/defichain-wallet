@@ -798,7 +798,8 @@
     "Loan scheme saved": "Loan scheme saved",
     "Preparing withdrawal…": "Preparing withdrawal…",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…",
-    "Withdrawal completed": "Withdrawal completed"
+    "Withdrawal completed": "Withdrawal completed",
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Pidiendo acceso a la cámara",
@@ -1701,7 +1702,8 @@
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Al cerrar, el identificador de esta bóveda no estará disponible nunca más. Asegúrate de que no necesitas nada de esta bóveda antes de cerrarla.",
     "CONFIRM CLOSE VAULT": "CONFIRMA EL CIERRE DE LA BOVEDA",
     "You are about to close vault {{vaultId}}": "Estás a punto de cerrar la bóveda {{vaultId}}",
-    "CLOSING": "CERRANDO"
+    "CLOSING": "CERRANDO",
+    "Closing vault": "Closing vault"
   },
   "components/TokenIconGroup": {
     "more": "más"
