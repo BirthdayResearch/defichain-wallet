@@ -781,7 +781,7 @@
     "Saving changes to loan scheme…": "Saving changes to loan scheme…",
     "Loan scheme saved": "Loan scheme saved",
     "Preparing withdrawal…": "Preparing withdrawal…",
-    "Withdrawing tokens…": "Withdrawing tokens…",
+    "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…",
     "Withdrawal completed": "Withdrawal completed"
   },
   "components/BarCodeScanner": {
@@ -1718,6 +1718,7 @@
     "Insufficient funds": "資金不足"
   },
   "screens/WithdrawFutureSwapScreen": {
+    "Withdraw": "Withdraw",
     "FROM": "FROM",
     "TO": "TO",
     "Enter an amount": "Enter an amount",
@@ -1726,9 +1727,22 @@
     "CONTINUE": "CONTINUE",
     "Select token": "Select token",
     "You are withdrawing": "You are withdrawing",
-    "Withdraw from future swap": "退出未來兌換"
+    "Withdraw from future swap": "退出未來兌換",
+    "View swap info": "View swap info",
+    "I WANT TO WITHDRAW": "I WANT TO WITHDRAW",
+    "Withdraw from": "Withdraw from",
+    "Insufficient Balance": "Insufficient Balance",
+    "Transaction fee": "Transaction fee",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "Amount to swap": "Amount to swap",
+    "Settlement block": "Settlement block",
+    "To receive (est.)": "To receive (est.)",
+    "Settlement value": "Settlement value"
   },
   "screens/ConfirmWithdrawFutureSwapScreen": {
+    "Confirm": "確認",
     "TRANSACTION DETAILS": "TRANSACTION DETAILS",
     "Transaction type": "Transaction type",
     "Remaining amount": "Remaining amount",
@@ -1739,14 +1753,23 @@
     "Withdraw": "Withdraw",
     "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap",
     "To be confirmed": "To be confirmed",
-    "Withdraw future swap": "提取未來兌換"
+    "Withdraw future swap": "提取未來兌換",
+    "Transaction fee": "Transaction fee",
+    "To receive (est.)": "To receive (est.)",
+    "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from {{sourceSymbol}}-{{destinationSymbol}} swap": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from {{sourceSymbol}}-{{destinationSymbol}} swap"
   },
   "screens/FutureSwapScreen": {
+    "Future Swaps": "Future Swaps",
     "{{percentage_change}} on oracle price": "{{percentage_change}} on oracle price",
     "Settlement block": "Settlement block",
     "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
     "Future Swap": "Future Swap",
-    "Settlement block {{block}} has been executed": "結算區塊 {{block}} 已執行"
+    "Settlement block {{block}} has been executed": "結算區塊 {{block}} 已執行",
+    "Target block": "Target block",
+    "{{time}} left": "{{time}} left",
+    "to": "to",
+    "Settlement value": "Settlement value",
+    "Amount will be refunded automatically if transaction(s) failed": "Amount will be refunded automatically if transaction(s) failed"
   },
   "screens/ServiceProviderScreen": {
     "Server": "伺服器",
