@@ -21,13 +21,12 @@ export function AddLiquidityInputCard(props: {
   onChange: (amount: string) => void;
   current: string;
   status?: TransactionCardStatus;
-  setIsInputFocus: any; // TODO: type checking
+  setIsInputFocus: (flag: boolean) => void;
   showInsufficientTokenMsg: boolean;
   showUTXOFeesMsg: boolean;
   hasInputAmount?: boolean;
 }): JSX.Element {
   const Icon = getNativeIcon(props.symbol);
-  const isFocus = props.setIsInputFocus;
   return (
     <>
       <TransactionCard
@@ -49,8 +48,8 @@ export function AddLiquidityInputCard(props: {
             <Icon height={20} width={20} />
           </View>
           <WalletTransactionCardTextInput
-            onFocus={isFocus}
-            onBlur={isFocus}
+            onFocus={() => props.setIsInputFocus(true)}
+            onBlur={() => props.setIsInputFocus(false)}
             onChangeText={(txt) => props.onChange(txt)}
             placeholder="0.00"
             value={props.current}
