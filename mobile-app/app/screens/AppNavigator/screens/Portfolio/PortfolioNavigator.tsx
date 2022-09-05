@@ -28,6 +28,7 @@ import { FutureSwapScreenV2 } from "@screens/AppNavigator/screens/Portfolio/scre
 import { WithdrawFutureSwapScreenV2 } from "@screens/AppNavigator/screens/Portfolio/screens/WithdrawFutureSwapScreenV2";
 import { ConfirmWithdrawFutureSwapScreenV2 } from "@screens/AppNavigator/screens/Portfolio/screens/ConfirmWithdrawFutureSwapScreenV2";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
+import { SwapTokenSelectionScreen } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { PortfolioScreen } from "./PortfolioScreen";
 import { ReceiveScreen } from "./screens/ReceiveScreen";
@@ -421,6 +422,18 @@ export function PortfolioNavigator(): JSX.Element {
               <HeaderNetworkStatus onPress={goToNetworkSelect} />
             ),
           }),
+        }}
+      />
+
+      <PortfolioStack.Screen
+        component={SwapTokenSelectionScreen}
+        name="SwapTokenSelectionScreen"
+        options={{
+          ...screenOptions,
+          headerTitle: translate("screens/SwapTokenSelectionScreen", "Select"),
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
         }}
       />
 
