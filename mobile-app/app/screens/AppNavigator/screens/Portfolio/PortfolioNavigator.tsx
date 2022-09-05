@@ -28,7 +28,6 @@ import { ConvertConfirmationScreen } from "@screens/AppNavigator/screens/Portfol
 import { FutureSwapScreenV2 } from "@screens/AppNavigator/screens/Portfolio/screens/FutureSwapScreenV2";
 import { WithdrawFutureSwapScreenV2 } from "@screens/AppNavigator/screens/Portfolio/screens/WithdrawFutureSwapScreenV2";
 import { ConfirmWithdrawFutureSwapScreenV2 } from "@screens/AppNavigator/screens/Portfolio/screens/ConfirmWithdrawFutureSwapScreenV2";
-import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { PortfolioScreen } from "./PortfolioScreen";
 import { ReceiveScreen } from "./screens/ReceiveScreen";
@@ -147,9 +146,7 @@ export function PortfolioNavigator(): JSX.Element {
   const headerContainerTestId = "portfolio_header_container";
   const { isLight } = useThemeContext();
   const insets = useSafeAreaInsets();
-
   const { isFeatureAvailable } = useFeatureFlagContext();
-
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreen");
   };
