@@ -1,7 +1,7 @@
 import {
   ThemedIcon,
-  ThemedTouchableOpacityV2,
   ThemedTextV2,
+  ThemedTouchableOpacityV2,
 } from "@components/themed";
 import { getNativeIcon } from "@components/icons/assets";
 import { tailwind } from "@tailwind";
@@ -42,10 +42,10 @@ export function TokenDropdownButton(props: {
           <Icon testID="tokenA_icon" height={28} width={28} />
           <ThemedTextV2
             style={tailwind("ml-2 mr-3.5 text-sm font-semibold-v2")}
-            dark={tailwind("text-mono-dark-v2-500", {
+            dark={tailwind("text-mono-dark-v2-900", {
               "text-opacity-30": props.disabled,
             })}
-            light={tailwind("text-mono-light-v2-500", {
+            light={tailwind("text-mono-light-v2-900", {
               "text-opacity-30": props.disabled,
             })}
           >
