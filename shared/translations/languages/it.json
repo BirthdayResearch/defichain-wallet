@@ -1059,7 +1059,9 @@
     "To be confirmed": "To be confirmed",
     "Settlement block": "Blocco di regolamento",
     "Resulting {{token}}": "Risultato {{token}}",
-    "Oracle price {{percentageChange}}": "Prezzo Oracolo {{percentageChange}}"
+    "Oracle price {{percentageChange}}": "Prezzo Oracolo {{percentageChange}}",
+    "To receive (est.)": "To receive (est.)",
+    "Settlement value {{percentageChange}}": "Settlement value {{percentageChange}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Stai scambiando",

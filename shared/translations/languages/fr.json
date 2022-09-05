@@ -1048,7 +1048,9 @@
     "To be confirmed": "À confirmer",
     "Settlement block": "Bloc d’exécution",
     "Resulting {{token}}": "{{token}} restants",
-    "Oracle price {{percentageChange}}": "Prix Oracle {{percentageChange}}"
+    "Oracle price {{percentageChange}}": "Prix Oracle {{percentageChange}}",
+    "To receive (est.)": "A recevoir (est.)",
+    "Settlement value {{percentageChange}}": "Valeur du règlement {{percentageChange}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Vous échangez",

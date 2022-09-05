@@ -55,6 +55,7 @@ import { ViewFeeDetails } from "./components/ViewFeeDetails";
 import { FeeBreakdown } from "./components/FeeBreakdown";
 
 type Props = StackScreenProps<DexParamList, "ConfirmCompositeSwapScreen">;
+
 export interface CompositeSwapForm {
   tokenFrom: OwnedTokenState;
   tokenTo: TokenState & { amount?: string };
@@ -101,7 +102,10 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
   const addressLabel = useAddressLabel(address);
 
   const { isLight } = useThemeContext();
-  const modalSortingSnapPoints = { ios: ["60%"], android: ["60%"] };
+  const modalSortingSnapPoints = {
+    ios: ["60%"],
+    android: ["60%"],
+  };
 
   const {
     bottomSheetRef,
@@ -441,8 +445,8 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
                 }}
                 rhs={{
                   value: translate(
-                    "screens/CompositeSwapScreen",
-                    "Oracle price {{percentageChange}}",
+                    "screens/ConfirmCompositeSwapScreen",
+                    "Settlement value {{percentageChange}}",
                     {
                       percentageChange: futureSwap.oraclePriceText,
                     }

@@ -1036,7 +1036,9 @@
     "To be confirmed": "Noch zu bestätigen",
     "Settlement block": "Ausführungsblock",
     "Resulting {{token}}": "Verbleibende {{token}}",
-    "Oracle price {{percentageChange}}": "Preisorakelwert {{percentageChange}}"
+    "Oracle price {{percentageChange}}": "Preisorakelwert {{percentageChange}}",
+    "To receive (est.)": "Zu erhalten (geschätzt)",
+    "Settlement value {{percentageChange}}": "Abrechnungswert {{percentageChange}}"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Du tauschst",
