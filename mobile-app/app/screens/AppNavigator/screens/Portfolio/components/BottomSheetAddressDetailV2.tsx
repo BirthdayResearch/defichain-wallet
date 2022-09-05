@@ -39,6 +39,7 @@ import { useAddressLabel } from "@hooks/useAddressLabel";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { openURL } from "@api/linking";
 import { ThemedFlatListV2 } from "@components/themed/ThemedFlatListV2";
+import { useWalletAddress } from "@hooks/useWalletAddress";
 import { RandomAvatar } from "./RandomAvatar";
 
 interface BottomSheetAddressDetailProps {
@@ -77,6 +78,7 @@ export const BottomSheetAddressDetailV2 = (
     const TOAST_DURATION = 2000;
     const [availableAddresses, setAvailableAddresses] = useState<string[]>([]);
     const [canCreateAddress, setCanCreateAddress] = useState<boolean>(false);
+    const { fetchWalletAddresses } = useWalletAddress();
     const logger = useLogger();
     const dispatch = useAppDispatch();
     const blockCount = useSelector((state: RootState) => state.block.count);
@@ -121,14 +123,8 @@ export const BottomSheetAddressDetailV2 = (
     }, [showToast, props.address]);
 
     // Getting addresses
-    // TODO: replace with useWalletAddress hook
     const fetchAddresses = async (): Promise<void> => {
-      const addresses: string[] = [];
-      for (let i = 0; i <= addressLength; i++) {
-        const account = wallet.get(i);
-        const address = await account.getAddress();
-        addresses.push(address);
-      }
+      const addresses = await fetchWalletAddresses();
       setAvailableAddresses(addresses);
       await isNextAddressUsable();
     };

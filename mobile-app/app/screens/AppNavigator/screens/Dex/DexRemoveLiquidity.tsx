@@ -402,12 +402,11 @@ function RemoveLiquidityInputCard(props: {
   onChange: (amount: string) => void;
   current: string;
   status?: TransactionCardStatus;
-  setIsInputFocus: any; // TODO: type checking
+  setIsInputFocus: (flag: boolean) => void;
   showErrMsg: boolean;
 }): JSX.Element {
   const IconA = getNativeIcon(props.tokenA);
   const IconB = getNativeIcon(props.tokenB);
-  const isFocus = props.setIsInputFocus;
   return (
     <>
       <ThemedTextV2
@@ -438,8 +437,8 @@ function RemoveLiquidityInputCard(props: {
             />
           </View>
           <WalletTransactionCardTextInput
-            onFocus={isFocus}
-            onBlur={isFocus}
+            onFocus={() => props.setIsInputFocus(true)}
+            onBlur={() => props.setIsInputFocus(false)}
             onChangeText={(txt) => props.onChange(txt)}
             placeholder="0.00"
             value={props.current}
