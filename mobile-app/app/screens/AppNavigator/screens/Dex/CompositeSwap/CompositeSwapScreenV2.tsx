@@ -935,7 +935,35 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
             </>
           )}
 
-        <View style={tailwind("mb-2")}>
+        {formState.isValid &&
+          selectedTokenA !== undefined &&
+          selectedTokenB !== undefined && (
+            <ThemedTextV2
+              testID="transaction_details_hint_text"
+              light={tailwind("text-mono-light-v2-500")}
+              dark={tailwind("text-mono-dark-v2-500")}
+              style={tailwind("pt-12 px-10 text-xs text-center font-normal-v2")}
+            >
+              {isConversionRequired
+                ? translate(
+                    "screens/CompositeSwapScreen",
+                    "By continuing, the required amount of DFI will be converted"
+                  )
+                : translate(
+                    "screens/CompositeSwapScreen",
+                    "Review full details in the next screen"
+                  )}
+            </ThemedTextV2>
+          )}
+
+        <View
+          style={tailwind("mb-12 mx-12 mt-16", {
+            "mt-5":
+              formState.isValid &&
+              selectedTokenA !== undefined &&
+              selectedTokenB !== undefined,
+          })}
+        >
           <SubmitButtonGroupV2
             isDisabled={
               !formState.isValid ||
@@ -943,9 +971,11 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               hasPendingBroadcastJob ||
               (slippageError?.type === "error" &&
                 slippageError !== undefined) ||
-              (isFutureSwap && isEnded)
+              (isFutureSwap && isEnded) ||
+              selectedTokenA === undefined ||
+              selectedTokenB === undefined
             }
-            label={translate("screens/CompositeSwapScreen", "CONTINUE")}
+            label={translate("components/Button", "Continue")}
             onSubmit={
               (dexStabilizationType === "none" && isDexStabilizationEnabled) ||
               !isDexStabilizationEnabled
@@ -954,29 +984,9 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
             }
             title="submit"
             displayCancelBtn={false}
+            buttonStyle="mt-0 mx-0"
           />
         </View>
-
-        {formState.isValid &&
-          selectedTokenA !== undefined &&
-          selectedTokenB !== undefined && (
-            <ThemedText
-              testID="transaction_details_hint_text"
-              light={tailwind("text-gray-600")}
-              dark={tailwind("text-gray-300")}
-              style={tailwind("pb-8 px-4 text-sm text-center")}
-            >
-              {isConversionRequired
-                ? translate(
-                    "screens/CompositeSwapScreen",
-                    "Authorize transaction in the next screen to convert"
-                  )
-                : translate(
-                    "screens/CompositeSwapScreen",
-                    "Review and confirm transaction in the next screen"
-                  )}
-            </ThemedText>
-          )}
 
         {Platform.OS === "web" && (
           <BottomSheetWebWithNav

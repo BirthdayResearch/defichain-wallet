@@ -1015,7 +1015,9 @@
     "DEX stabilization fee": "DEX stabilization fee",
     "Future swap uses the oracle price of the selected token on the settlement block": "Future swap uses the oracle price of the selected token on the settlement block",
     "You are buying dtokens at 5% more than the oracle price at settlement block": "You are buying dtokens at 5% more than the oracle price at settlement block",
-    "You are selling your dtoken at 5% less than the oracle price at settlement block": "You are selling your dtoken at 5% less than the oracle price at settlement block"
+    "You are selling your dtoken at 5% less than the oracle price at settlement block": "You are selling your dtoken at 5% less than the oracle price at settlement block",
+    "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
+    "By continuing, the required amount of DFI will be converted": "En continuant, le montant requis de DFI sera converti"
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Select",
