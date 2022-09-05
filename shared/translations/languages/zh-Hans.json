@@ -781,7 +781,7 @@
     "Saving changes to loan scheme…": "Saving changes to loan scheme…",
     "Loan scheme saved": "Loan scheme saved",
     "Preparing withdrawal…": "Preparing withdrawal…",
-    "Withdrawing tokens…": "Withdrawing tokens…",
+    "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…",
     "Withdrawal completed": "Withdrawal completed"
   },
   "components/BarCodeScanner": {
@@ -946,6 +946,7 @@
     "Continue": "继续"
   },
   "screens/SlippageTolerance": {
+    "Slippage tolerance": "交易滑点",
     "Custom": "自订",
     "USE THIS SLIPPAGE TOLERANCE": "使用此滑点限制范围",
     "Required field is missing": "缺少必要填入的字栏",
@@ -1727,6 +1728,7 @@
     "Insufficient funds": "资金不足"
   },
   "screens/WithdrawFutureSwapScreen": {
+    "Withdraw": "Withdraw",
     "FROM": "FROM",
     "TO": "TO",
     "Enter an amount": "请输入数量",
@@ -1735,9 +1737,22 @@
     "CONTINUE": "CONTINUE",
     "Select token": "Select token",
     "You are withdrawing": "You are withdrawing",
-    "Withdraw from future swap": "Withdraw from future swap"
+    "Withdraw from future swap": "Withdraw from future swap",
+    "View swap info": "View swap info",
+    "I WANT TO WITHDRAW": "I WANT TO WITHDRAW",
+    "Withdraw from": "Withdraw from",
+    "Insufficient Balance": "Insufficient Balance",
+    "Transaction fee": "Transaction fee",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "Amount to swap": "Amount to swap",
+    "Settlement block": "Settlement block",
+    "To receive (est.)": "To receive (est.)",
+    "Settlement value": "Settlement value"
   },
   "screens/ConfirmWithdrawFutureSwapScreen": {
+    "Confirm": "确认",
     "TRANSACTION DETAILS": "TRANSACTION DETAILS",
     "Transaction type": "Transaction type",
     "Remaining amount": "Remaining amount",
@@ -1748,14 +1763,23 @@
     "Withdraw": "Withdraw",
     "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap",
     "To be confirmed": "To be confirmed",
-    "Withdraw future swap": "Withdraw future swap"
+    "Withdraw future swap": "Withdraw future swap",
+    "Transaction fee": "Transaction fee",
+    "To receive (est.)": "To receive (est.)",
+    "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from {{sourceSymbol}}-{{destinationSymbol}} swap": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from {{sourceSymbol}}-{{destinationSymbol}} swap"
   },
   "screens/FutureSwapScreen": {
+    "Future Swaps": "Future Swaps",
     "{{percentage_change}} on oracle price": "{{percentage_change}} on oracle price",
     "Settlement block": "Settlement block",
     "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
     "Future Swap": "Future Swap",
-    "Settlement block {{block}} has been executed": "结算区块 {{block}} 已执行"
+    "Settlement block {{block}} has been executed": "结算区块 {{block}} 已执行",
+    "Target block": "Target block",
+    "{{time}} left": "{{time}} left",
+    "to": "to",
+    "Settlement value": "Settlement value",
+    "Amount will be refunded automatically if transaction(s) failed": "Amount will be refunded automatically if transaction(s) failed"
   },
   "screens/ServiceProviderScreen": {
     "Server": "伺服器",

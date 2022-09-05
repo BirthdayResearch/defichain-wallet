@@ -32,6 +32,7 @@ import { useToast } from "react-native-toast-notifications";
 import { useFavouritePoolpairContext } from "../../../../../../contexts/FavouritePoolpairContext";
 import { DexScrollable } from "../DexScrollable";
 import { TotalValueLocked } from "../TotalValueLocked";
+
 interface DexItem<T> {
   type: "your" | "available";
   data: T;
