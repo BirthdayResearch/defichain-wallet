@@ -19,6 +19,7 @@ import {
   SwapTokenSelectionScreen,
   TokenListType,
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
+import { PriceRateProps as PriceRatesPropsV2 } from "@components/PricesSectionV2";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { ConversionParam } from "../Portfolio/PortfolioNavigator";
 import {
@@ -38,6 +39,7 @@ import { AddLiquidityScreen } from "./DexAddLiquidity";
 import { ConfirmAddLiquidityScreen } from "./DexConfirmAddLiquidity";
 import { PoolPairDetailsScreen } from "./PoolPairDetailsScreen";
 import { CompositeSwapScreenV2 } from "./CompositeSwap/CompositeSwapScreenV2";
+import { ConfirmCompositeSwapScreenV2 } from "./CompositeSwap/ConfirmCompositeSwapScreenV2";
 
 export interface DexParamList {
   DexScreen: undefined;
@@ -61,6 +63,23 @@ export interface DexParamList {
     onTokenPress: (token: SelectionToken) => void;
     isFutureSwap: boolean;
     isSearchDTokensOnly?: boolean;
+  };
+  ConfirmCompositeSwapScreenV2: {
+    conversion?: ConversionParam;
+    fee: BigNumber;
+    pairs: PoolPairData[];
+    priceRates: PriceRatesPropsV2[];
+    slippage: BigNumber;
+    swap: CompositeSwapForm;
+    futureSwap?: {
+      executionBlock: number;
+      transactionDate: string;
+      isSourceLoanToken: boolean;
+      oraclePriceText: string;
+    };
+    tokenA: OwnedTokenState;
+    tokenB: TokenState & { amount?: string };
+    estimatedAmount: BigNumber;
   };
   ConfirmCompositeSwapScreen: {
     conversion?: ConversionParam;
@@ -167,6 +186,7 @@ export function DexNavigator(): JSX.Element {
               style={[
                 screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
                 tailwind("text-left text-3xl font-semibold-v2"),
+                // eslint-disable-next-line react-native/no-inline-styles
                 { fontSize: 28 },
               ]}
             >
@@ -286,15 +306,39 @@ export function DexNavigator(): JSX.Element {
       />
 
       <DexStack.Screen
-        component={ConfirmCompositeSwapScreen}
-        name="ConfirmCompositeSwapScreen"
+        component={
+          isFeatureAvailable("composite_swap_v2")
+            ? ConfirmCompositeSwapScreenV2
+            : ConfirmCompositeSwapScreen
+        }
+        name={
+          isFeatureAvailable("composite_swap_v2")
+            ? "ConfirmCompositeSwapScreenV2"
+            : "ConfirmCompositeSwapScreen"
+        }
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/DexScreen", "Confirm swap")}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          ...screenOptions,
+          headerTitle: isFeatureAvailable("composite_swap_v2")
+            ? translate("screens/DexScreen", "Confirm")
+            : () => (
+                <HeaderTitle
+                  text={translate("screens/DexScreen", "Confirm swap")}
+                  containerTestID={headerContainerTestId}
+                />
+              ),
+          ...(isFeatureAvailable("composite_swap_v2") && {
+            headerStyle: [
+              screenOptions.headerStyle,
+              tailwind("rounded-b-none border-b-0"),
+              {
+                shadowOpacity: 0,
+                height: (Platform.OS !== "android" ? 88 : 96) + insets.top,
+              },
+            ],
+            headerRight: () => (
+              <HeaderNetworkStatus onPress={goToNetworkSelect} />
+            ),
+          }),
         }}
       />
 
