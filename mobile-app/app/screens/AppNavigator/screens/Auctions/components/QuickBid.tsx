@@ -25,7 +25,7 @@ import { ActiveUSDValue } from "../../Loans/VaultDetail/components/ActiveUSDValu
 import { useTokenPrice } from "../../Portfolio/hooks/TokenPrice";
 
 interface QuickBidProps {
-  loanTokenId: string; // TODO: remove if no use case
+  loanTokenId: string;
   loanTokenSymbol: string;
   loanTokenDisplaySymbol: string;
   onCloseButtonPress: () => void;

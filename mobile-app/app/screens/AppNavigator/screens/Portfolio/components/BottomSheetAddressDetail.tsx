@@ -39,6 +39,7 @@ import {
 import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { useAppDispatch } from "@hooks/useAppDispatch";
+import { useWalletAddress } from "@hooks/useWalletAddress";
 import { AddressListEditButton } from "./AddressListEditButton";
 import { RandomAvatar } from "./RandomAvatar";
 
@@ -79,6 +80,7 @@ export const BottomSheetAddressDetail = (
     const [availableAddresses, setAvailableAddresses] = useState<string[]>([]);
     const [canCreateAddress, setCanCreateAddress] = useState<boolean>(false);
     const logger = useLogger();
+    const { fetchWalletAddresses } = useWalletAddress();
     const dispatch = useAppDispatch();
     const blockCount = useSelector((state: RootState) => state.block.count);
     const hasPendingJob = useSelector((state: RootState) =>
@@ -122,14 +124,8 @@ export const BottomSheetAddressDetail = (
     }, [showToast, props.address]);
 
     // Getting addresses
-    // TODO: replace with useWalletAddress hook
     const fetchAddresses = async (): Promise<void> => {
-      const addresses: string[] = [];
-      for (let i = 0; i <= addressLength; i++) {
-        const account = wallet.get(i);
-        const address = await account.getAddress();
-        addresses.push(address);
-      }
+      const addresses = await fetchWalletAddresses();
       setAvailableAddresses(addresses);
       await isNextAddressUsable();
     };
