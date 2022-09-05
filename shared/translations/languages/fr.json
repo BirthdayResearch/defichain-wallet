@@ -790,7 +790,7 @@
     "Saving changes to loan scheme…": "Enregistrement des modifications apportées au schéma de prêts…",
     "Loan scheme saved": "Schéma de prêt sauvegardé",
     "Preparing withdrawal…": "Préparation du retrait en cours…",
-    "Withdrawing tokens…": "Retrait de tokens en cours…",
+    "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Retrait de {{amountToWithdraw}} {{sourceSymbol}} de l'échange à terme…",
     "Withdrawal completed": "Retrait effectué"
   },
   "components/BarCodeScanner": {
@@ -954,6 +954,7 @@
     "Continue": "Suivant"
   },
   "screens/SlippageTolerance": {
+    "Slippage tolerance": "Tolérance de glissement",
     "Custom": "Personnaliser",
     "USE THIS SLIPPAGE TOLERANCE": "CHOISIR CETTE TOLÉRANCE DE GLISSEMENT.",
     "Required field is missing": "Le champ requis est manquant",
@@ -1721,6 +1722,7 @@
     "Collateral for auction": "Garantie mise en vente"
   },
   "screens/WithdrawFutureSwapScreen": {
+    "Withdraw": "Retirer",
     "FROM": "DES",
     "TO": "CONTRE DES",
     "Enter an amount": "Donner un montant",
@@ -1729,9 +1731,22 @@
     "CONTINUE": "SUIVANT",
     "Select token": "Sélectionner",
     "You are withdrawing": "Vous retirez",
-    "Withdraw from future swap": "Retirer de l'échange à terme"
+    "Withdraw from future swap": "Retirer de l'échange à terme",
+    "View swap info": "Voir les informations sur l'échange",
+    "I WANT TO WITHDRAW": "JE VEUX RETIRER",
+    "Withdraw from": "Retrait de",
+    "Insufficient Balance": "Solde insuffisant",
+    "Transaction fee": "Transaction fee",
+    "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
+    "Max available {{unit}} entered": "Max. de {{unit}} disponibles saisis",
+    "{{percent}} of available {{unit}} entered": "{{percent}} des {{unit}} disponibles saisis",
+    "Amount to swap": "Montant à échanger",
+    "Settlement block": "Bloc d’exécution",
+    "To receive (est.)": "A recevoir (est.)",
+    "Settlement value": "Valeur du règlement"
   },
   "screens/ConfirmWithdrawFutureSwapScreen": {
+    "Confirm": "Confirmer",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
     "Transaction type": "Type de transaction",
     "Remaining amount": "Montant restant",
@@ -1742,14 +1757,23 @@
     "Withdraw": "Retirer",
     "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Retirer le montant verrouillé {{amountToWithdraw}} {{sourceDisplaySymbol}} de l’échange à terme",
     "To be confirmed": "À confirmer",
-    "Withdraw future swap": "Retirer l'échange à terme"
+    "Withdraw future swap": "Retirer l'échange à terme",
+    "Transaction fee": "Transaction fee",
+    "To receive (est.)": "A recevoir (est.)",
+    "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from {{sourceSymbol}}-{{destinationSymbol}} swap": "Retrait de {{amountToWithdraw}} {{sourceSymbol}} de l'échange {{sourceSymbol}}-{{destinationSymbol}}"
   },
   "screens/FutureSwapScreen": {
+    "Future Swaps": "Échanges à terme",
     "{{percentage_change}} on oracle price": "{{percentage_change}} sur le prix oracle",
     "Settlement block": "Bloc d’exécution",
     "The amount will be refunded automatically if the transaction does not go through.": "Le montant sera remboursé automatiquement si la transaction n’aboutit pas.",
     "Future Swap": "Échange à terme",
-    "Settlement block {{block}} has been executed": "Le bloc de règlement {{block}} a été exécuté"
+    "Settlement block {{block}} has been executed": "Le bloc de règlement {{block}} a été exécuté",
+    "Target block": "Bloc cible",
+    "{{time}} left": "{{time}} restant",
+    "to": "contre des",
+    "Settlement value": "Valeur du règlement",
+    "Amount will be refunded automatically if transaction(s) failed": "Le montant sera remboursé automatiquement en cas d'échec de la ou des transactions"
   },
   "screens/ServiceProviderScreen": {
     "Server": "Serveur",
