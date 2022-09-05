@@ -779,7 +779,8 @@
     "Loan scheme saved": "Darlehensmodell gespeichert",
     "Preparing withdrawal…": "Auszahlung vorbereiten…",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Abhebung von {{amountToWithdraw}} {{sourceSymbol}} aus dem Future Swap",
-    "Withdrawal completed": "Auszahlung abgeschlossen"
+    "Withdrawal completed": "Auszahlung abgeschlossen",
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Entfernen von {{amount}} {{symbol}} aus dem Liquiditätspool"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Kameranutzung erlauben",

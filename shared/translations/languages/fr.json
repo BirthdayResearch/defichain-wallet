@@ -791,7 +791,8 @@
     "Loan scheme saved": "Schéma de prêt sauvegardé",
     "Preparing withdrawal…": "Préparation du retrait en cours…",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Retrait de {{amountToWithdraw}} {{sourceSymbol}} de l'échange à terme…",
-    "Withdrawal completed": "Retrait effectué"
+    "Withdrawal completed": "Retrait effectué",
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Retrait de {{amount}} {{symbol}} du pool de liquidité"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Demande d'accès à votre caméra",
