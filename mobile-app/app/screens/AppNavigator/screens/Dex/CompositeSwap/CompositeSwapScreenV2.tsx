@@ -85,11 +85,10 @@ import {
   SlippageError,
   SlippageTolerance,
 } from "./components/SlippageTolerance";
-
-export enum ButtonGroupTabKey {
-  InstantSwap = "INSTANT_SWAP",
-  FutureSwap = "FUTURE_SWAP",
-}
+import {
+  ButtonGroupTabKey,
+  SwapButtonGroup,
+} from "./components/SwapButtonGroup";
 
 export interface TokenState {
   id: string;
@@ -604,6 +603,10 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
 
   return (
     <View style={tailwind("h-full")} ref={containerRef}>
+      <SwapButtonGroup
+        activeButtonGroup={activeButtonGroup}
+        onPress={(type) => onButtonGroupChange(type)}
+      />
       <ThemedScrollView>
         {fromTokens !== undefined && fromTokens?.length > 0 && (
           <ThemedText
