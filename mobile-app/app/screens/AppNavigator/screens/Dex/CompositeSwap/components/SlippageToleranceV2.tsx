@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import { View } from "react-native";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { debounce } from "lodash";
+
 export interface SlippageError {
   type: "error" | "helper";
   text?: string;

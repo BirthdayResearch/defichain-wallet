@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { Platform, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
@@ -39,11 +39,7 @@ import {
   ThemedView,
   ThemedViewV2,
 } from "@components/themed";
-import {
-  BottomSheetNavScreen,
-  BottomSheetWebWithNav,
-  BottomSheetWithNav,
-} from "@components/BottomSheetWithNav";
+import { BottomSheetNavScreen } from "@components/BottomSheetWithNav";
 import {
   BottomSheetToken,
   BottomSheetTokenList,
@@ -64,6 +60,10 @@ import { WalletAlert } from "@components/WalletAlert";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { useBottomSheet } from "@hooks/useBottomSheet";
+import {
+  BottomSheetWebWithNavV2,
+  BottomSheetWithNavV2,
+} from "@components/BottomSheetWithNavV2";
 import { AnnouncementBannerV2 } from "../../Portfolio/components/Announcements";
 import {
   DexStabilizationType,
@@ -86,6 +86,7 @@ import {
   WantInstantSwapRow,
 } from "./components/WantSwapRow";
 import { SlippageToleranceV2 } from "./components/SlippageToleranceV2";
+import { BottomSheetSlippageInfo } from "./components/BottomSheetSlippageInfo";
 
 export interface TokenState {
   id: string;
@@ -147,18 +148,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   const [isFromTokenSelectDisabled, setIsFromTokenSelectDisabled] =
     useState(false);
   const [isToTokenSelectDisabled, setIsToTokenSelectDisabled] = useState(false);
-  const buttonGroup = [
-    {
-      id: ButtonGroupTabKey.InstantSwap,
-      label: translate("screens/CompositeSwapScreen", "Instant Swap"),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.InstantSwap),
-    },
-    {
-      id: ButtonGroupTabKey.FutureSwap,
-      label: translate("screens/CompositeSwapScreen", "Future Swap"),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.FutureSwap),
-    },
-  ];
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(
     ButtonGroupTabKey.InstantSwap
   );
@@ -270,7 +259,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     headerStatusBarHeight: 2,
     headerTitle: "",
     headerBackTitleVisible: false,
-    headerStyle: tailwind("rounded-t-xl-v2", {
+    headerStyle: tailwind("rounded-t-xl-v2 border-b-0", {
       "bg-mono-light-v2-100": isLight,
       "bg-mono-dark-v2-100": !isLight,
     }),
@@ -942,15 +931,26 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           )}
 
         {Platform.OS === "web" && (
-          <BottomSheetWebWithNav
+          <BottomSheetWebWithNavV2
             modalRef={containerRef}
             screenList={bottomSheetScreen}
             isModalDisplayed={isModalDisplayed}
+            // eslint-disable-next-line react-native/no-inline-styles
+            modalStyle={{
+              position: "absolute",
+              bottom: "0",
+              height: "404px",
+              width: "375px",
+              zIndex: 50,
+              borderTopLeftRadius: 15,
+              borderTopRightRadius: 15,
+              overflow: "hidden",
+            }}
           />
         )}
 
         {Platform.OS !== "web" && (
-          <BottomSheetWithNav
+          <BottomSheetWithNavV2
             modalRef={bottomSheetRef}
             screenList={bottomSheetScreen}
             snapPoints={{
@@ -1178,51 +1178,3 @@ function TimeRemainingTextRow({
     </ThemedView>
   );
 }
-
-const BottomSheetSlippageInfo = (): React.MemoExoticComponent<
-  () => JSX.Element
-> =>
-  memo(() => {
-    const description =
-      "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stablization fees. Choose how much of this slippage you are willing to accept.";
-    return (
-      <ThemedViewV2
-        style={tailwind(
-          "px-5 h-full flex flex-grow",
-          { "-mt-0.5": Platform.OS === "ios" },
-          { "-mt-1": Platform.OS === "android" }
-        )}
-      >
-        {/* -mt-1 above and mt-1 added below is kind of hack to solved React Navigation elevation bug on android for now. */}
-        <View
-          style={tailwind(
-            "mb-3 flex-row items-center",
-            { "mt-1": Platform.OS === "ios" },
-            { "mt-2": Platform.OS === "android" }
-          )}
-        >
-          <ThemedTextV2
-            dark={tailwind("text-mono-dark-v2-900")}
-            light={tailwind("text-mono-light-v2-900")}
-            style={tailwind("pl-1 text-xl font-normal-v2")}
-            testID="view_pool_details_title"
-          >
-            {translate("screens/CompositeSwapScreen", "Slippage Tolerance")}
-          </ThemedTextV2>
-        </View>
-        <ThemedViewV2
-          style={tailwind("border-t-0.5")}
-          dark={tailwind("border-mono-dark-v2-300")}
-          light={tailwind("border-mono-light-v2-300")}
-        >
-          <ThemedTextV2
-            style={tailwind("mt-4 font-normal-v2")}
-            dark={tailwind("text-mono-dark-v2-900")}
-            light={tailwind("text-mono-light-v2-900")}
-          >
-            {description}
-          </ThemedTextV2>
-        </ThemedViewV2>
-      </ThemedViewV2>
-    );
-  });
