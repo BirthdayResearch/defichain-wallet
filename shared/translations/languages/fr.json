@@ -645,7 +645,7 @@
     "Enter passcode for verification": "Donner le code d'accès pour vérification",
     "It may take a few seconds to secure and encrypt your wallet.": "Cela peut prendre quelques secondes de chiffrer votre portefeuille.",
     "Add an additional layer of security by setting a passcode.": "Ajoutez un niveau de sécurité supplémentaire en définissant un code d'accès.",
-    "It may take a few seconds to update your passcode.": "Cela peut prendre quelques secondes pour mettre à jour votre code d'accès.",
+    "It may take a few seconds to update your passcode": "Cela peut prendre quelques secondes pour mettre à jour votre code d'accès",
     "Passcode updated!": "Passcode updated!",
     "Keep the passcode for your wallet confidential.": "Gardez le code d'accès de votre portefeuille confidentiel."
   },

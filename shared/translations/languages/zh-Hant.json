@@ -635,7 +635,7 @@
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} 次可輸入密碼",
     "Enter passcode for verification": "輸入驗證碼",
     "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet.",
-    "It may take a few seconds to update your passcode.": "It may take a few seconds to update your passcode.",
+    "It may take a few seconds to update your passcode": "It may take a few seconds to update your passcode",
     "Passcode updated!": "Passcode updated!",
     "Keep the passcode for your wallet confidential.": "Keep the passcode for your wallet confidential."
   },
