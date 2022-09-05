@@ -5,7 +5,7 @@ import { translate } from "@translations";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { ThemedViewV2, ThemedIcon, ThemedTextV2 } from "@components/themed";
 import { PricesSectionV2, PriceRateProps } from "@components/PricesSectionV2";
-import { BottomSheetInfoV2 } from "@components/BottomSheetInfoV2";
+import { BottomSheetInfoV2 } from "@components/BottomSheetInfo";
 import { ButtonGroupTabKey } from "../CompositeSwapScreen";
 
 interface SwapSummaryProps {
