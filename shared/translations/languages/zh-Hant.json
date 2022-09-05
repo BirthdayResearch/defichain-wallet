@@ -1010,9 +1010,9 @@
     "Select": "Select",
     "Search token": "Search token",
     "AVAILABLE TOKENS": "AVAILABLE TOKENS",
-    "AVAILABLE FOR SWAP": "AVAILABLE FOR SWAP",
+    "AVAILABLE FOR SWAP": "可用於兌換",
     "AVAILABLE FOR FUTURE SWAP": "AVAILABLE FOR FUTURE SWAP",
-    "Search with token name": "Search with token name",
+    "Search with token name": "使用代幣名稱搜索",
     "Search dTokens for future swap": "Search dTokens for future swap",
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
     "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap.": "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap."
