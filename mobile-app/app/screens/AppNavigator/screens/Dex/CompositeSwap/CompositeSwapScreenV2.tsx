@@ -39,7 +39,6 @@ import {
   ThemedView,
   ThemedViewV2,
 } from "@components/themed";
-import { getNativeIcon } from "@components/icons/assets";
 import {
   BottomSheetNavScreen,
   BottomSheetWebWithNav,
