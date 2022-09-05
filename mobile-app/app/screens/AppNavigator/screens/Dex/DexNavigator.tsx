@@ -286,7 +286,11 @@ export function DexNavigator(): JSX.Element {
             ? ConfirmCompositeSwapScreenV2
             : ConfirmCompositeSwapScreen
         }
-        name="ConfirmCompositeSwapScreen"
+        name={
+          isFeatureAvailable("composite_swap_v2")
+            ? "ConfirmCompositeSwapScreenV2"
+            : "ConfirmCompositeSwapScreen"
+        }
         options={{
           ...screenOptions,
           headerTitle: isFeatureAvailable("composite_swap_v2")
