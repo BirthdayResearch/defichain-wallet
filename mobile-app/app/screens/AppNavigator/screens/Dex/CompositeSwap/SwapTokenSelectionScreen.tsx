@@ -40,7 +40,13 @@ export interface SelectionToken {
 type Props = StackScreenProps<DexParamList, "SwapTokenSelectionScreen">;
 
 export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
-  const { listType, list, onTokenPress } = route.params;
+  const {
+    listType,
+    list,
+    onTokenPress,
+    isFutureSwap = false,
+    isSearchDTokensOnly = false,
+  } = route.params;
 
   const { isLight } = useThemeContext();
   const { getTokenPrice } = useTokenPrice();
@@ -52,6 +58,27 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
   const filteredTokensWithBalance = useMemo(() => {
     return filterTokensBySearchTerm(list, debouncedSearchTerm, isSearchFocus);
   }, [list, debouncedSearchTerm, isSearchFocus]);
+
+  const getEmptyResultText = (): string => {
+    let text: string;
+    if (debouncedSearchTerm.trim() === "") {
+      text = "Search with token name";
+      if (
+        isFutureSwap &&
+        isSearchDTokensOnly &&
+        listType === TokenListType.To
+      ) {
+        text = "Search dTokens for future swap";
+      }
+    } else {
+      text = "Search results for “{{searchTerm}}”";
+      if (isFutureSwap && filteredTokensWithBalance.length === 0) {
+        text =
+          "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap.";
+      }
+    }
+    return text;
+  };
 
   return (
     <ThemedFlatListV2
@@ -76,7 +103,7 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
             showClearButton={debouncedSearchTerm !== ""}
             placeholder={translate(
               "screens/SwapTokenSelectionScreen",
-              "Search tokens"
+              "Search token"
             )}
             containerStyle={tailwind([
               "border-0.5",
@@ -114,6 +141,8 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
                 "screens/SwapTokenSelectionScreen",
                 listType === TokenListType.From
                   ? "AVAILABLE TOKENS"
+                  : isFutureSwap
+                  ? "AVAILABLE FOR FUTURE SWAP"
                   : "AVAILABLE FOR SWAP"
               )}
             </ThemedTextV2>
@@ -126,9 +155,7 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
             >
               {translate(
                 "screens/SwapTokenSelectionScreen",
-                debouncedSearchTerm.trim() === ""
-                  ? "Search with token name"
-                  : "Search results for “{{searchTerm}}”",
+                getEmptyResultText(),
                 { searchTerm: debouncedSearchTerm }
               )}
             </ThemedTextV2>

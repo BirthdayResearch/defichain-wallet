@@ -59,6 +59,8 @@ export interface DexParamList {
     listType: TokenListType;
     list: SelectionToken[];
     onTokenPress: (token: SelectionToken) => void;
+    isFutureSwap: boolean;
+    isSearchDTokensOnly?: boolean;
   };
   ConfirmCompositeSwapScreen: {
     conversion?: ConversionParam;
