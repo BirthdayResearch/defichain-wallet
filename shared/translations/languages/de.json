@@ -1669,7 +1669,8 @@
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Nach dem Schließen wird diese Vault-ID nicht mehr verwendet werden können. Vergewissere dich, dass du nichts aus diesem Vault benötigst, bevor du ihn schließt.",
     "CONFIRM CLOSE VAULT": "VAULT SCHLIESSEN BESTÄTIGEN",
     "You are about to close vault {{vaultId}}": "Du bist im Begriff, den Vault {{vaultId}} zu schließen",
-    "CLOSING": "SCHLIESSEN"
+    "CLOSING": "SCHLIESSEN",
+    "Closing vault": "Vault schließen"
   },
   "components/TokenIconGroup": {
     "more": "weitere"
