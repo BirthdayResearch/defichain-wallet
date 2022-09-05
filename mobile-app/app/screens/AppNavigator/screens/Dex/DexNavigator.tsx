@@ -14,6 +14,7 @@ import { Platform, StyleProp, ViewStyle } from "react-native";
 import { ThemedTextV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
+import { PriceRateProps as PriceRatesPropsV2 } from "@components/PricesSectionV2";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { ConversionParam } from "../Portfolio/PortfolioNavigator";
 import {
@@ -50,6 +51,23 @@ export interface DexParamList {
         isPreselected: boolean;
       };
     };
+  };
+  ConfirmCompositeSwapScreenV2: {
+    conversion?: ConversionParam;
+    fee: BigNumber;
+    pairs: PoolPairData[];
+    priceRates: PriceRatesPropsV2[];
+    slippage: BigNumber;
+    swap: CompositeSwapForm;
+    futureSwap?: {
+      executionBlock: number;
+      transactionDate: string;
+      isSourceLoanToken: boolean;
+      oraclePriceText: string;
+    };
+    tokenA: OwnedTokenState;
+    tokenB: TokenState & { amount?: string };
+    estimatedAmount: BigNumber;
   };
   ConfirmCompositeSwapScreen: {
     conversion?: ConversionParam;
@@ -264,15 +282,39 @@ export function DexNavigator(): JSX.Element {
       />
 
       <DexStack.Screen
-        component={ConfirmCompositeSwapScreenV2}
-        name="ConfirmCompositeSwapScreen"
+        component={
+          isFeatureAvailable("composite_swap_v2")
+            ? ConfirmCompositeSwapScreenV2
+            : ConfirmCompositeSwapScreen
+        }
+        name={
+          isFeatureAvailable("composite_swap_v2")
+            ? "ConfirmCompositeSwapScreenV2"
+            : "ConfirmCompositeSwapScreen"
+        }
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/DexScreen", "Confirm swap")}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          ...screenOptions,
+          headerTitle: isFeatureAvailable("composite_swap_v2")
+            ? translate("screens/DexScreen", "Confirm")
+            : () => (
+                <HeaderTitle
+                  text={translate("screens/DexScreen", "Confirm swap")}
+                  containerTestID={headerContainerTestId}
+                />
+              ),
+          ...(isFeatureAvailable("composite_swap_v2") && {
+            headerStyle: [
+              screenOptions.headerStyle,
+              tailwind("rounded-b-none border-b-0"),
+              {
+                shadowOpacity: 0,
+                height: (Platform.OS !== "android" ? 88 : 96) + insets.top,
+              },
+            ],
+            headerRight: () => (
+              <HeaderNetworkStatus onPress={goToNetworkSelect} />
+            ),
+          }),
         }}
       />
 

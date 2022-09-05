@@ -1,3 +1,4 @@
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { AddressType, WalletToken } from "@store/wallet";
@@ -13,6 +14,7 @@ import { TransactionsScreen } from "@screens/AppNavigator/screens/Transactions/T
 import { TransactionDetailScreen } from "@screens/AppNavigator/screens/Transactions/screens/TransactionDetailScreen";
 import { VMTransaction } from "@screens/AppNavigator/screens/Transactions/screens/stateProcessor";
 import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
+import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import GridBackgroundImageLight from "@assets/images/onboarding/grid-background-light.png";
 import GridBackgroundImageDark from "@assets/images/onboarding/grid-background-dark.png";
@@ -48,7 +50,9 @@ import { SendConfirmationScreen } from "./screens/SendConfirmationScreen";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { AddLiquidityScreen } from "../Dex/DexAddLiquidity";
 import { ConfirmAddLiquidityScreen } from "../Dex/DexConfirmAddLiquidity";
+import { CompositeSwapScreenV2 } from "../Dex/CompositeSwap/CompositeSwapScreenV2";
 import { ConfirmCompositeSwapScreenV2 } from "../Dex/CompositeSwap/ConfirmCompositeSwapScreenV2";
+import { ConfirmCompositeSwapScreen } from "../Dex/CompositeSwap/ConfirmCompositeSwapScreen";
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined;
@@ -136,6 +140,8 @@ export function PortfolioNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const headerContainerTestId = "portfolio_header_container";
   const { isLight } = useThemeContext();
+  const insets = useSafeAreaInsets();
+  const { isFeatureAvailable } = useFeatureFlagContext();
 
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreen");
@@ -381,30 +387,73 @@ export function PortfolioNavigator(): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={CompositeSwapScreen}
+        component={
+          isFeatureAvailable("composite_swap_v2")
+            ? CompositeSwapScreenV2
+            : CompositeSwapScreen
+        }
         name="CompositeSwap"
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/DexScreen", "Swap tokens")}
-              containerTestID={headerContainerTestId}
-            />
-          ),
-          headerBackTitleVisible: false,
+          ...screenOptions,
+          headerTitle: isFeatureAvailable("composite_swap_v2")
+            ? translate("screens/DexScreen", "Swap")
+            : () => (
+                <HeaderTitle
+                  text={translate("screens/DexScreen", "Swap")}
+                  containerTestID={headerContainerTestId}
+                />
+              ),
+          ...(isFeatureAvailable("composite_swap_v2") && {
+            headerStyle: [
+              screenOptions.headerStyle,
+              tailwind("rounded-b-none border-b-0"),
+              {
+                shadowOpacity: 0,
+                height: (Platform.OS !== "android" ? 88 : 96) + insets.top,
+              },
+            ],
+            headerRight: () => (
+              <HeaderNetworkStatus onPress={goToNetworkSelect} />
+            ),
+          }),
         }}
       />
 
       <PortfolioStack.Screen
-        component={ConfirmCompositeSwapScreenV2}
-        name="ConfirmCompositeSwapScreen"
+        component={
+          isFeatureAvailable("composite_swap_v2")
+            ? ConfirmCompositeSwapScreenV2
+            : ConfirmCompositeSwapScreen
+        }
+        name={
+          isFeatureAvailable("composite_swap_v2")
+            ? "ConfirmCompositeSwapScreenV2"
+            : "ConfirmCompositeSwapScreen"
+        }
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/DexScreen", "Confirm swap")}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          ...screenOptions,
+          headerTitle: isFeatureAvailable("composite_swap_v2")
+            ? translate("screens/DexScreen", "Confirm")
+            : () => (
+                <HeaderTitle
+                  text={translate("screens/DexScreen", "Confirm swap")}
+                  containerTestID={headerContainerTestId}
+                />
+              ),
           headerBackTitleVisible: false,
+          ...(isFeatureAvailable("composite_swap_v2") && {
+            headerStyle: [
+              screenOptions.headerStyle,
+              tailwind("rounded-b-none border-b-0"),
+              {
+                shadowOpacity: 0,
+                height: (Platform.OS !== "android" ? 88 : 96) + insets.top,
+              },
+            ],
+            headerRight: () => (
+              <HeaderNetworkStatus onPress={goToNetworkSelect} />
+            ),
+          }),
         }}
       />
 

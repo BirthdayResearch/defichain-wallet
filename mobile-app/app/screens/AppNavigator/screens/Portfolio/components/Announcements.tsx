@@ -1,5 +1,6 @@
 import {
   ThemedIcon,
+  ThemedProps,
   ThemedText,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
@@ -12,7 +13,7 @@ import { AnnouncementData } from "@shared-types/website";
 import { satisfies } from "semver";
 import { useLanguageContext } from "@shared-contexts/LanguageProvider";
 import { openURL } from "@api/linking";
-import { Platform, TouchableOpacity } from "react-native";
+import { Platform, StyleProp, TouchableOpacity, ViewStyle } from "react-native";
 import { nativeApplicationVersion } from "expo-application";
 import { translate } from "@translations";
 import { Text } from "@components";
@@ -122,6 +123,7 @@ export function Announcements(): JSX.Element {
       announcement={announcementToDisplay}
       hideAnnouncement={hideAnnouncement}
       testID="announcements_banner"
+      containerStyle={{ style: tailwind("mt-9 mx-5") }}
     />
   );
 }
@@ -130,6 +132,7 @@ interface AnnouncementBannerProps {
   hideAnnouncement?: (id: string) => void;
   announcement: Announcement;
   testID: string;
+  containerStyle?: ThemedProps & { style?: ThemedProps & StyleProp<ViewStyle> };
 }
 
 export function AnnouncementBanner({
@@ -242,6 +245,7 @@ export function AnnouncementBannerV2({
   hideAnnouncement,
   announcement,
   testID,
+  containerStyle,
 }: AnnouncementBannerProps): JSX.Element {
   const { isLight } = useThemeContext();
   const isOtherAnnouncement =
@@ -250,15 +254,20 @@ export function AnnouncementBannerV2({
   return (
     <ThemedViewV2
       testID={testID}
-      style={tailwind(
-        "mt-9 relative mx-5 px-5 py-3 flex flex-row items-center border-0.5 rounded-xl-v2",
-        {
-          "border-mono-light-v2-900": isOtherAnnouncement && isLight,
-          "border-mono-dark-v2-900": isOtherAnnouncement && !isLight,
-          "border-orange-v2": announcement.type === "OUTAGE",
-          "border-red-v2": announcement.type === "EMERGENCY",
-        }
-      )}
+      style={[
+        tailwind(
+          "relative px-5 py-3 flex flex-row items-center border-0.5 rounded-xl-v2",
+          {
+            "border-mono-light-v2-900": isOtherAnnouncement && isLight,
+            "border-mono-dark-v2-900": isOtherAnnouncement && !isLight,
+            "border-orange-v2": announcement.type === "OUTAGE",
+            "border-red-v2": announcement.type === "EMERGENCY",
+          }
+        ),
+        containerStyle?.style,
+      ]}
+      light={containerStyle?.light}
+      dark={containerStyle?.dark}
     >
       <ThemedTextV2
         light={tailwind({ "text-mono-light-v2-900": isOtherAnnouncement })}

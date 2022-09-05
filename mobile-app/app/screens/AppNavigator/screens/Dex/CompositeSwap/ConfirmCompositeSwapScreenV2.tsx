@@ -5,7 +5,10 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import BigNumber from "bignumber.js";
 import { RootState } from "@store";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  firstTransactionSelector,
+  hasTxQueued as hasBroadcastQueued,
+} from "@store/ocean";
 import { translate } from "@translations";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import {
@@ -28,9 +31,7 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { ConversionTag } from "@components/ConversionTag";
 import { View } from "@components";
-import { InfoText } from "@components/InfoText";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { useWalletContext } from "@shared-contexts/WalletContext";
@@ -78,6 +79,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const logger = useLogger();
   const { getTokenPrice } = useTokenPrice();
+  const { getBestPath } = useTokenBestPath();
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
   );
@@ -85,9 +87,11 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
     hasBroadcastQueued(state.ocean)
   );
   const blockCount = useSelector((state: RootState) => state.block.count ?? 0);
-  const { getBestPath } = useTokenBestPath();
   const [totalFees, setTotalFees] = useState(new BigNumber(0));
   // const lmTokenAmount = percentage.times(pair.totalLiquidity.token)
+  const currentBroadcastJob = useSelector((state: RootState) =>
+    firstTransactionSelector(state.ocean)
+  );
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isOnPage, setIsOnPage] = useState(true);

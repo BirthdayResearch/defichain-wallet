@@ -1,32 +1,55 @@
-import { ThemedViewV2, ThemedIcon, ThemedTextV2 } from "@components/themed";
+import { useMemo } from "react";
+
+import { View, TouchableOpacity, Linking } from "react-native";
+import NumberFormat from "react-number-format";
+import BigNumber from "bignumber.js";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import BigNumber from "bignumber.js";
-import { View, TouchableOpacity } from "react-native";
-import { PricesSectionV2, PriceRateProps } from "@components/PricesSectionV2";
-import { NumberRowV2 } from "@components/NumberRowV2";
-import NumberFormat from "react-number-format";
+import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
+import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
-import { ButtonGroupTabKey } from "../CompositeSwapScreenV2";
+import { ThemedViewV2, ThemedIcon, ThemedTextV2 } from "@components/themed";
+import { PricesSectionV2, PriceRateProps } from "@components/PricesSectionV2";
+import { BottomSheetInfoV2 } from "@components/BottomSheetInfo";
+import { NumberRowV2 } from "@components/NumberRowV2";
+import { ButtonGroupTabKey } from "../CompositeSwapScreen";
 
 interface SwapSummaryProps {
   instantSwapPriceRate: PriceRateProps[];
-  // futureSwapPriceRate: PriceRateProps[]
-  fee: BigNumber;
   activeTab: ButtonGroupTabKey;
+  transactionFee: BigNumber;
+  estimatedReturn: {
+    symbol: string;
+    feeLessDexFees: BigNumber;
+  };
   executionBlock?: number;
   transactionDate?: string;
-  // onFeeBreakdownPress: () => void
+  tokenAAmount: string;
 }
 
 export function SwapSummary({
   instantSwapPriceRate,
-  fee,
   activeTab,
   executionBlock,
   transactionDate,
+  transactionFee,
+  estimatedReturn,
+  tokenAAmount,
 }: SwapSummaryProps): JSX.Element {
   const { getTokenPrice } = useTokenPrice();
+
+  const totalFees = useMemo(() => {
+    if (tokenAAmount === "" || new BigNumber(tokenAAmount).isZero()) {
+      return "-";
+    }
+
+    return getPrecisedCurrencyValue(
+      getTokenPrice("DFI", transactionFee).plus(
+        getTokenPrice(estimatedReturn.symbol, estimatedReturn.feeLessDexFees)
+      )
+    );
+  }, [transactionFee, estimatedReturn]);
+
   return (
     <>
       {activeTab === ButtonGroupTabKey.InstantSwap ? (
@@ -36,9 +59,9 @@ export function SwapSummary({
             testID="instant_swap_summary"
           />
           <ThemedViewV2
+            style={tailwind("py-5 border-t-0.5")}
             light={tailwind("border-mono-light-v2-300")}
             dark={tailwind("border-mono-dark-v2-300")}
-            style={tailwind("pt-5 border-t-0.5")}
           >
             <NumberRowV2
               lhs={{
@@ -50,7 +73,7 @@ export function SwapSummary({
                 },
               }}
               rhs={{
-                value: fee.toFixed(8),
+                value: totalFees,
                 testID: "swap_total_fee_amount",
                 prefix: "$",
                 themedProps: {
@@ -60,72 +83,74 @@ export function SwapSummary({
               }}
             />
           </ThemedViewV2>
-          <TouchableOpacity style={tailwind("flex-row items-center mt-5")}>
-            <ThemedIcon
-              name="info-outline"
-              size={16}
-              iconType="MaterialIcons"
-              light={tailwind("text-mono-light-v2-900")}
-              dark={tailwind("text-mono-dark-v2-900")}
-            />
-            <ThemedTextV2
-              light={tailwind("text-mono-light-v2-900")}
-              dark={tailwind("text-mono-dark-v2-900")}
-              style={tailwind("ml-1 font-semibold-v2 text-xs")}
-            >
-              {translate("screens/CompositeSwapScreen", "Fee breakdown")}
-            </ThemedTextV2>
-          </TouchableOpacity>
         </View>
       ) : (
         <View>
           <SettlementBlockInfo
-            blockCount={executionBlock}
+            executionBlock={executionBlock}
             transactionDate={transactionDate}
           />
-          <ThemedViewV2
-            light={tailwind("border-mono-light-v2-300")}
-            dark={tailwind("border-mono-dark-v2-300")}
-            style={tailwind("pt-5")}
-          >
-            <NumberRowV2
-              lhs={{
-                value: translate("screens/CompositeSwapScreen", "Total fees"),
-                testID: "swap_total_fees",
-                themedProps: {
-                  light: tailwind("text-mono-light-v2-500"),
-                  dark: tailwind("text-mono-dark-v2-500"),
-                },
-              }}
-              rhs={{
-                value: fee.toFixed(8),
-                testID: "swap_total_fee_amount",
-                usdAmount: getTokenPrice("DFI", new BigNumber(fee)), // Just putting here as placeholder
-                suffix: "DFI",
-                themedProps: {
-                  style: tailwind("font-normal-v2 text-sm"),
-                },
-                usdTextStyle: tailwind("text-sm"),
-              }}
-            />
-          </ThemedViewV2>
-          <View style={tailwind("flex-row items-center mt-5")}>
-            <ThemedTextV2
-              light={tailwind("text-mono-light-v2-900")}
-              dark={tailwind("text-mono-dark-v2-900")}
-              style={tailwind("mr-1 font-semibold-v2 text-xs")}
-            >
-              {translate(
+          <NumberRowV2
+            containerStyle={{
+              style: tailwind(
+                "flex-row items-start pt-5 w-full bg-transparent"
+              ),
+            }}
+            lhs={{
+              value: translate(
                 "screens/CompositeSwapScreen",
-                "Learn about settlements"
-              )}
-            </ThemedTextV2>
-            <ThemedIcon
-              name="info-outline"
-              size={16}
-              iconType="MaterialIcons"
-              light={tailwind("text-mono-light-v2-900")}
-              dark={tailwind("text-mono-dark-v2-900")}
+                "Transaction fees"
+              ),
+              testID: "swap_total_fees",
+              themedProps: {
+                light: tailwind("text-mono-light-v2-500"),
+                dark: tailwind("text-mono-dark-v2-500"),
+              },
+            }}
+            rhs={{
+              value: transactionFee.toFixed(8),
+              usdAmount: getTokenPrice("DFI", transactionFee),
+              testID: "swap_total_fee_amount",
+              suffix: " DFI",
+              themedProps: {
+                style: tailwind("font-normal-v2 text-sm"),
+              },
+              usdTextStyle: tailwind("text-sm"),
+            }}
+          />
+          <View style={tailwind("flex-row items-center mb-5")}>
+            <BottomSheetInfoV2
+              alertInfo={{
+                title: "Settlements",
+                message: `Settlement block is the pre-determined  block height that this transaction will be executed. 
+                \nSettlement value is based on the oracle price at the settlement block. 
+                \nUsers will be able to cancel this transaction as long as the settlement block has not been executed. 
+              `,
+              }}
+              name="test2"
+              infoIconStyle={[tailwind("text-xs")]}
+              snapPoints={["50%"]}
+              triggerComponent={
+                <View style={tailwind("flex flex-row")}>
+                  <ThemedTextV2
+                    light={tailwind("text-mono-light-v2-900")}
+                    dark={tailwind("text-mono-dark-v2-900")}
+                    style={tailwind("mr-1 font-semibold-v2 text-xs")}
+                  >
+                    {translate(
+                      "screens/CompositeSwapScreen",
+                      "Learn about settlements"
+                    )}
+                  </ThemedTextV2>
+                  <ThemedIcon
+                    name="info-outline"
+                    size={16}
+                    iconType="MaterialIcons"
+                    light={tailwind("text-mono-light-v2-900")}
+                    dark={tailwind("text-mono-dark-v2-900")}
+                  />
+                </View>
+              }
             />
           </View>
         </View>
@@ -135,24 +160,24 @@ export function SwapSummary({
 }
 
 function SettlementBlockInfo({
-  blockCount,
+  executionBlock,
   transactionDate,
 }: {
-  blockCount?: number;
+  executionBlock?: number;
   transactionDate?: string;
 }): JSX.Element {
-  // const { getBlocksUrl } = useDeFiScanContext()
+  const { getBlocksCountdownUrl } = useDeFiScanContext();
 
-  // const onBlockUrlPressed = async (): Promise<void> => {
-  //   if (blockCount !== undefined) {
-  //     const url = getBlocksUrl(blockCount)
-  //     await Linking.openURL(url)
-  //   }
-  // }
+  const onBlockUrlPressed = async (): Promise<void> => {
+    if (executionBlock !== undefined) {
+      const url = getBlocksCountdownUrl(executionBlock);
+      await Linking.openURL(url);
+    }
+  };
 
   return (
     <ThemedViewV2
-      style={tailwind("flex-row items-start w-full bg-transparent pt-5")}
+      style={tailwind("flex-row items-start w-full bg-transparent")}
       light={tailwind("border-mono-light-v2-300")}
       dark={tailwind("border-mono-dark-v2-300")}
     >
@@ -168,7 +193,7 @@ function SettlementBlockInfo({
 
       <View style={tailwind("flex-1")}>
         <TouchableOpacity
-          // onPress={onBlockUrlPressed}
+          onPress={onBlockUrlPressed}
           testID="block_detail_explorer_url"
         >
           <NumberFormat
@@ -184,7 +209,7 @@ function SettlementBlockInfo({
               </ThemedTextV2>
             )}
             thousandSeparator
-            value={blockCount}
+            value={executionBlock}
           />
           <View style={tailwind("flex-row items-center justify-end")}>
             <ThemedTextV2
