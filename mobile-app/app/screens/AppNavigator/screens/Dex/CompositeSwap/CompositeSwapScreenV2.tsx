@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Platform, View } from "react-native";
 import { useSelector } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
@@ -8,7 +8,7 @@ import {
   useIsFocused,
   useNavigation,
 } from "@react-navigation/native";
-import { tailwind, getColor } from "@tailwind";
+import { getColor, tailwind } from "@tailwind";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { translate } from "@translations";
 import { RootState } from "@store";
@@ -33,10 +33,10 @@ import { StackScreenProps } from "@react-navigation/stack";
 import {
   ThemedIcon,
   ThemedScrollViewV2,
-  ThemedViewV2,
-  ThemedTextV2,
   ThemedTextInputV2,
+  ThemedTextV2,
   ThemedTouchableOpacityV2,
+  ThemedViewV2,
 } from "@components/themed";
 import {
   BottomSheetNavScreen,
@@ -60,8 +60,8 @@ import { WalletAlert } from "@components/WalletAlert";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import {
-  TransactionCard,
   AmountButtonTypes,
+  TransactionCard,
 } from "@components/TransactionCard";
 // import { ButtonV2 } from '@components/ButtonV2'
 import { useToast } from "react-native-toast-notifications";
@@ -73,6 +73,8 @@ import {
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
 import { useBottomSheet } from "@hooks/useBottomSheet";
+import { TokenListType } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
+import { useSwappableTokensV2 } from "@screens/AppNavigator/screens/Dex/hook/SwappableTokensV2";
 import { ViewSlippageToleranceInfo } from "./components/ModalContent";
 import { WantSwapRow } from "./components/WantSwapRow";
 import { SwapSummary } from "./components/SwapSummary";
@@ -82,7 +84,6 @@ import { TokenDropdownButton } from "./components/TokenDropdownButton";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import { useDexStabilization } from "../hook/DexStabilization";
 import { useFutureSwap, useFutureSwapDate } from "../hook/FutureSwap";
-import { useSwappableTokens } from "../hook/SwappableTokens";
 import { useSlippageTolerance } from "../hook/SlippageTolerance";
 import { useTokenBestPath } from "../../Portfolio/hooks/TokenBestPath";
 import { DexParamList } from "../DexNavigator";
@@ -93,12 +94,14 @@ export enum ButtonGroupTabKey {
   InstantSwap = "INSTANT_SWAP",
   FutureSwap = "FUTURE_SWAP",
 }
+
 export interface TokenState {
   id: string;
   reserve: string;
   displaySymbol: string;
   symbol: string;
 }
+
 export interface OwnedTokenState extends TokenState {
   amount: string;
 }
@@ -153,7 +156,10 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   // Constant
   const reservedDfi = 0.1;
   const TOAST_DURATION = 2000;
-  const modalSortingSnapPoints = { ios: ["40%"], android: ["40%"] };
+  const modalSortingSnapPoints = {
+    ios: ["40%"],
+    android: ["40%"],
+  };
 
   // Local state
   const [bottomSheetScreen, setBottomSheetScreen] = useState<
@@ -180,7 +186,11 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     executionBlock,
     blockCount
   );
-  const { fromTokens, toTokens } = useSwappableTokens(selectedTokenA?.id);
+  const { fromTokens, toTokens } = useSwappableTokensV2(
+    selectedTokenA?.id,
+    selectedTokenA?.displaySymbol,
+    activeButtonGroup === ButtonGroupTabKey.FutureSwap
+  );
   const { isFutureSwapOptionEnabled, oraclePriceText, isSourceLoanToken } =
     useFutureSwap({
       fromTokenDisplaySymbol: selectedTokenA?.displaySymbol,
@@ -539,6 +549,19 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     });
   };
 
+  const navigateToTokenSelectionScreen = (listType: TokenListType): void => {
+    navigation.navigate("SwapTokenSelectionScreen", {
+      listType: listType,
+      list: listType === TokenListType.From ? fromTokens ?? [] : toTokens ?? [],
+      onTokenPress: (item) => {
+        onTokenSelect(item, listType);
+        navigation.goBack();
+      },
+      isFutureSwap: activeButtonGroup === ButtonGroupTabKey.FutureSwap,
+      isSearchDTokensOnly: selectedTokenA?.displaySymbol === "DUSD",
+    });
+  };
+
   const onWarningBeforeSubmit = async (): Promise<void> => {
     if (selectedTokenB === undefined) {
       return;
@@ -809,7 +832,9 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
 
                 <TokenDropdownButton
                   symbol={selectedTokenA?.displaySymbol}
-                  onPress={() => onBottomSheetSelect({ direction: "FROM" })}
+                  onPress={() =>
+                    navigateToTokenSelectionScreen(TokenListType.From)
+                  }
                 />
               </View>
               {selectedTokenA != null && (
@@ -909,7 +934,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
 
               <TokenDropdownButton
                 symbol={selectedTokenB?.displaySymbol}
-                onPress={() => onBottomSheetSelect({ direction: "TO" })}
+                onPress={() => navigateToTokenSelectionScreen(TokenListType.To)}
               />
             </View>
           </ThemedViewV2>
