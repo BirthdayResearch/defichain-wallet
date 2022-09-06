@@ -84,7 +84,7 @@ import {
 } from "./components/SwapButtonGroup";
 import { TokenDropdownButton } from "./components/TokenDropdownButton";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
-import { FutureSwapRowTo, InstantSwapRowTo } from "./components/SwapRow";
+import { FutureSwapRowTo, InstantSwapRowTo } from "./components/SwapRowTo";
 
 export interface TokenState {
   id: string;
