@@ -39,12 +39,12 @@ export default async function handle(
     {
       lang: {
         en: "Negative interest rate is in effect for DUSD loans due to DFIP-2208-A.",
-        de: "Negative interest rate is in effect for DUSD loans due to DFIP-2208-A.",
+        de: "Für DUSD-Darlehen gilt aufgrund des DFIP-2208-A ein negativer Zinssatz.",
         "zh-Hans":
           "Negative interest rate is in effect for DUSD loans due to DFIP-2208-A.",
         "zh-Hant":
           "Negative interest rate is in effect for DUSD loans due to DFIP-2208-A.",
-        fr: "Negative interest rate is in effect for DUSD loans due to DFIP-2208-A.",
+        fr: "Le taux d'intérêt négatif est en vigueur pour les prêts DUSD en raison du DFIP-2208-A.",
         es: "Negative interest rate is in effect for DUSD loans due to DFIP-2208-A.",
         it: "Negative interest rate is in effect for DUSD loans due to DFIP-2208-A.",
       },
