@@ -787,53 +787,38 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               )}
           </View>
 
-          <View style={tailwind("my-8 items-center mx-5")}>
-            <View style={tailwind("flex-row relative items-center")}>
-              <View style={tailwind("flex-col w-6/12")}>
-                <ThemedViewV2
-                  dark={tailwind("border-mono-dark-v2-300")}
-                  light={tailwind("border-mono-light-v2-300")}
-                  style={tailwind("border-b-0.5")}
-                >
-                  <View style={tailwind("mt-4")} />
-                </ThemedViewV2>
-                <View style={tailwind("mt-4")} />
-              </View>
-              <View>
-                <ThemedTouchableOpacityV2
-                  onPress={onTokenSwitch}
-                  style={tailwind("p-2.5 rounded-full z-50", {
-                    "opacity-30":
-                      selectedTokenA === undefined ||
-                      selectedTokenB === undefined,
-                  })}
-                  dark={tailwind("bg-mono-dark-v2-900")}
-                  light={tailwind("bg-mono-light-v2-900")}
-                  testID="switch_button"
-                  disabled={
-                    selectedTokenA === undefined || selectedTokenB === undefined
-                  }
-                >
-                  <ThemedIcon
-                    name="swap-vert"
-                    size={24}
-                    iconType="MaterialIcons"
-                    dark={tailwind("text-mono-dark-v2-00")}
-                    light={tailwind("text-mono-light-v2-00")}
-                  />
-                </ThemedTouchableOpacityV2>
-              </View>
-              <View style={tailwind("flex flex-col w-6/12")}>
-                <ThemedViewV2
-                  dark={tailwind("border-mono-dark-v2-300")}
-                  light={tailwind("border-mono-light-v2-300")}
-                  style={tailwind("border-b-0.5")}
-                >
-                  <View style={tailwind("mt-4")} />
-                </ThemedViewV2>
-                <View style={tailwind("mt-4")} />
-              </View>
-            </View>
+          <View style={tailwind("my-8 flex-row")}>
+            <ThemedViewV2
+              dark={tailwind("border-mono-dark-v2-300")}
+              light={tailwind("border-mono-light-v2-300")}
+              style={tailwind("border-b-0.5 flex-1 h-1/2 bg-red-100")}
+            />
+            <ThemedTouchableOpacityV2
+              onPress={onTokenSwitch}
+              style={tailwind("p-2.5 rounded-full z-50", {
+                "opacity-30":
+                  selectedTokenA === undefined || selectedTokenB === undefined,
+              })}
+              dark={tailwind("bg-mono-dark-v2-900")}
+              light={tailwind("bg-mono-light-v2-900")}
+              testID="switch_button"
+              disabled={
+                selectedTokenA === undefined || selectedTokenB === undefined
+              }
+            >
+              <ThemedIcon
+                name="swap-vert"
+                size={24}
+                iconType="MaterialIcons"
+                dark={tailwind("text-mono-dark-v2-00")}
+                light={tailwind("text-mono-light-v2-00")}
+              />
+            </ThemedTouchableOpacityV2>
+            <ThemedViewV2
+              dark={tailwind("border-mono-dark-v2-300")}
+              light={tailwind("border-mono-light-v2-300")}
+              style={tailwind("border-b-0.5 flex-1 h-1/2")}
+            />
           </View>
 
           <ThemedViewV2
