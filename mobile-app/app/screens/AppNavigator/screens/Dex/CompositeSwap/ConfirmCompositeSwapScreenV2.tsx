@@ -468,7 +468,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
               lhs={{
                 value: translate(
                   "screens/ConfirmCompositeSwapScreen",
-                  "To receive (incl. of fees"
+                  "To receive (incl. of fees)"
                 ), // estimated return less dex fees
                 testID: "estimated_to_receive",
                 themedProps: {
