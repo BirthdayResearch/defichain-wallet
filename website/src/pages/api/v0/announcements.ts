@@ -49,7 +49,7 @@ export default async function handle(
         it: "Negative interest rate is in effect for DUSD loans due to DFIP-2208-A.",
       },
       version: ">=1.61.1",
-      type: "OTHER_ANNOUNCEMENT",
+      type: "OUTAGE",
       id: "15",
       url: {
         ios: "https://github.com/DeFiCh/dfips/issues/195",
