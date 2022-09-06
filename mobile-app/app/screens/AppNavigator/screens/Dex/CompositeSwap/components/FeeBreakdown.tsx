@@ -1,8 +1,8 @@
 import { View } from "react-native";
 import { tailwind } from "@tailwind";
 import {
-  ThemedTextV2,
   ThemedIcon,
+  ThemedTextV2,
   ThemedTouchableOpacityV2,
 } from "@components/themed";
 import { translate } from "@translations";
@@ -35,7 +35,7 @@ export function FeeBreakdown({
           light={tailwind("text-mono-light-v2-700")}
           style={tailwind("ml-1 text-xs font-semibold-v2")}
         >
-          {translate("screens/ConvertConfirmScreen", "Fee breakdown")}
+          {translate("screens/ConfirmCompositeSwapScreen", "Fee breakdown")}
         </ThemedTextV2>
       </ThemedTouchableOpacityV2>
     </View>

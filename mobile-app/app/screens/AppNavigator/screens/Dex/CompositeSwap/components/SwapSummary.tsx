@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { View, TouchableOpacity, Linking } from "react-native";
+import { Linking, TouchableOpacity, View } from "react-native";
 import NumberFormat from "react-number-format";
 import BigNumber from "bignumber.js";
 import { tailwind } from "@tailwind";
@@ -8,8 +8,8 @@ import { translate } from "@translations";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
-import { ThemedViewV2, ThemedIcon, ThemedTextV2 } from "@components/themed";
-import { PricesSectionV2, PriceRateProps } from "@components/PricesSectionV2";
+import { ThemedIcon, ThemedTextV2, ThemedViewV2 } from "@components/themed";
+import { PriceRateProps, PricesSectionV2 } from "@components/PricesSectionV2";
 import { BottomSheetInfoV2 } from "@components/BottomSheetInfo";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { ButtonGroupTabKey } from "../CompositeSwapScreen";
@@ -108,7 +108,7 @@ export function SwapSummary({
             lhs={{
               value: translate(
                 "screens/CompositeSwapScreen",
-                "Transaction fees"
+                "Transaction fee"
               ),
               testID: "swap_total_fees",
               themedProps: {
@@ -131,9 +131,9 @@ export function SwapSummary({
             <BottomSheetInfoV2
               alertInfo={{
                 title: "Settlements",
-                message: `Settlement block is the pre-determined  block height that this transaction will be executed. 
-                \nSettlement value is based on the oracle price at the settlement block. 
-                \nUsers will be able to cancel this transaction as long as the settlement block has not been executed. 
+                message: `Settlement block is the pre-determined  block height that this transaction will be executed.
+                \nSettlement value is based on the oracle price at the settlement block.
+                \nUsers will be able to cancel this transaction as long as the settlement block has not been executed.
               `,
               }}
               name="test2"
@@ -196,7 +196,7 @@ function SettlementBlockInfo({
           light={tailwind("text-mono-light-v2-500")}
           dark={tailwind("text-mono-dark-v2-500")}
         >
-          {translate("screens/NetworkDetails", "Settlement block")}
+          {translate("screens/CompositeSwapScreen", "Settlement block")}
         </ThemedTextV2>
       </View>
 

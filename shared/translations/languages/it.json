@@ -814,7 +814,8 @@
     "From": "Da",
     "To": "A",
     "Converting": "Conversione",
-    "Converted": "Converted"
+    "Converted": "Converted",
+    "for": "for"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Crea un nuovo codice di accesso per il tuo wallet",
@@ -1027,7 +1028,12 @@
     "You are buying dtokens at 5% more than the oracle price at settlement block": "You are buying dtokens at 5% more than the oracle price at settlement block",
     "You are selling your dtoken at 5% less than the oracle price at settlement block": "You are selling your dtoken at 5% less than the oracle price at settlement block",
     "Review full details in the next screen": "Review full details in the next screen",
-    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted"
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "I HAVE {{totalAmount}} {{token}}": "I HAVE {{totalAmount}} {{token}}",
+    "I WANT {{token}}": "I WANT {{token}}",
+    "Total fees": "Total fees",
+    "Settlement Value {{percentageChange}}": "Settlement Value {{percentageChange}}",
+    "Transaction fee": "Transaction fee"
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Select",
@@ -1061,7 +1067,11 @@
     "Resulting {{token}}": "Risultato {{token}}",
     "Oracle price {{percentageChange}}": "Prezzo Oracolo {{percentageChange}}",
     "To receive (est.)": "To receive (est.)",
-    "Settlement value {{percentageChange}}": "Settlement value {{percentageChange}}"
+    "Settlement value {{percentageChange}}": "Settlement value {{percentageChange}}",
+    "Total fees": "Total fees",
+    "To receive (incl. of fees)": "To receive (incl. of fees)",
+    "Fee breakdown": "Fee breakdown",
+    "Transaction fee": "Transaction fee"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Stai scambiando",
