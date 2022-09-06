@@ -791,7 +791,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
             <ThemedViewV2
               dark={tailwind("border-mono-dark-v2-300")}
               light={tailwind("border-mono-light-v2-300")}
-              style={tailwind("border-b-0.5 flex-1 h-1/2 bg-red-100")}
+              style={tailwind("border-b-0.5 flex-1 h-1/2")}
             />
             <ThemedTouchableOpacityV2
               onPress={onTokenSwitch}
