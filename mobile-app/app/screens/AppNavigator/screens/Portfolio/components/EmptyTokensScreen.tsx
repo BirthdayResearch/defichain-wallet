@@ -16,12 +16,12 @@ export function EmptyTokensScreen(props: EmptyBalancesProps): JSX.Element {
   return (
     <View
       style={[
-        tailwind("flex px-15 mt-8 mb-4 text-center bg-transparent"),
+        tailwind("flex px-15 mt-11 mb-4 text-center bg-transparent"),
         containerStyle,
       ]}
       testID={testID}
     >
-      <View style={tailwind("items-center mt-3")}>
+      <View style={tailwind("items-center")}>
         <Icon />
       </View>
       <ThemedTextV2
