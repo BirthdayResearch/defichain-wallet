@@ -45,11 +45,7 @@ import {
   BottomSheetWebWithNav,
   BottomSheetWithNav,
 } from "@components/BottomSheetWithNav";
-import {
-  BottomSheetToken,
-  BottomSheetTokenList,
-  TokenType,
-} from "@components/BottomSheetTokenList";
+import { BottomSheetToken } from "@components/BottomSheetTokenList";
 import { InfoRow, InfoType } from "@components/InfoRow";
 import { NumberRow } from "@components/NumberRow";
 import { useWalletContext } from "@shared-contexts/WalletContext";
@@ -296,37 +292,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     } else {
       setSelectedTokenB(derivedToken);
     }
-  };
-
-  const onBottomSheetSelect = ({
-    direction,
-  }: {
-    direction: "FROM" | "TO";
-  }): void => {
-    setBottomSheetScreen([
-      {
-        stackScreenName: "TokenList",
-        component: BottomSheetTokenList({
-          tokens: direction === "FROM" ? fromTokens ?? [] : toTokens ?? [],
-          tokenType: TokenType.BottomSheetToken,
-          headerLabel: translate(
-            "screens/CompositeSwapScreen",
-            direction === "FROM"
-              ? "Choose token for swap"
-              : "Choose token to swap"
-          ),
-          onCloseButtonPress: () => dismissModal(),
-          onTokenPress: (item): void => {
-            onTokenSelect(item, direction);
-            dismissModal();
-          },
-        }),
-        option: {
-          header: () => null,
-        },
-      },
-    ]);
-    expandModal();
   };
 
   useEffect(() => {
