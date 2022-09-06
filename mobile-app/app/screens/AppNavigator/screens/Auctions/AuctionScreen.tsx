@@ -1,111 +1,212 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { tailwind } from "@tailwind";
-import { ThemedView } from "@components/themed";
-import { Tabs } from "@components/Tabs";
-import { useSelector } from "react-redux";
+import {
+  ThemedIcon,
+  ThemedTouchableOpacityV2,
+  ThemedViewV2,
+} from "@components/themed";
+import { batch, useSelector } from "react-redux";
 import { RootState } from "@store";
 import { StackScreenProps } from "@react-navigation/stack";
-// import { HeaderSearchInput } from "@components/HeaderSearchInput";
-// import { HeaderSearchIcon } from "@components/HeaderSearchIcon";
-import { BrowseAuctions } from "./components/BrowseAuctions";
-import { ManageBids } from "./components/ManageBids";
+import { translate } from "@translations";
+import { ScrollView, View } from "react-native";
+import { HeaderSearchInputV2 } from "@components/HeaderSearchInputV2";
+import { useDebounce } from "@hooks/useDebounce";
+import {
+  AuctionBatchProps,
+  auctionsSearchByTermSelector,
+  fetchAuctions,
+} from "@store/auctions";
+import { useIsFocused } from "@react-navigation/native";
+import { useAppDispatch } from "@hooks/useAppDispatch";
+import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { fetchVaults } from "@store/loans";
+import { useWalletContext } from "@shared-contexts/WalletContext";
+import { AssetsFilterItem } from "../Portfolio/components/AssetsFilterRow";
 import { AuctionsParamList } from "./AuctionNavigator";
+import { BrowseAuctions } from "./components/BrowseAuctions";
 
-enum TabKey {
-  BrowseAuctions = "BROWSE_AUCTIONS",
-  ManageBids = "MANAGE_BIDS",
+export enum ButtonGroupTabKey {
+  AllBids = "ALL_BIDS",
+  ActiveBids = "ACTIVE_BIDS",
+  LeadingBids = "LEADING_BIDS",
+  Outbid = "OUT_BID",
 }
 
 type Props = StackScreenProps<AuctionsParamList, "AuctionScreen">;
 
 export function AuctionsScreen({ navigation }: Props): JSX.Element {
-  const [activeTab, setActiveTab] = useState<string>(TabKey.BrowseAuctions);
   const { auctions } = useSelector((state: RootState) => state.auctions);
-
   // Search
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [searchString, setSearchString] = useState("");
+  const debouncedSearchTerm = useDebounce(searchString, 500);
+  const batches = useSelector((state: RootState) =>
+    auctionsSearchByTermSelector(state.auctions, debouncedSearchTerm)
+  );
 
-  const onPress = (tabId: string): void => {
-    if (tabId === TabKey.ManageBids) {
-      setShowSearchInput(false);
-    } else if (searchString !== "") {
-      setShowSearchInput(true);
-    } else {
-      // no-op: maintain search input state if no query
+  const [filteredAuctionBatches, setFilteredAuctionBatches] =
+    useState<Array<AuctionBatchProps>>(batches);
+  const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(
+    ButtonGroupTabKey.AllBids
+  );
+  const blockCount = useSelector((state: RootState) => state.block.count);
+
+  const dispatch = useAppDispatch();
+  const client = useWhaleApiClient();
+  const { address } = useWalletContext();
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      batch(() => {
+        dispatch(fetchAuctions({ client }));
+        dispatch(fetchVaults({ client, address }));
+      });
     }
+  }, [address, blockCount, isFocused]);
 
-    setActiveTab(tabId);
-  };
+  useEffect(() => {
+    if (showSearchInput) {
+      navigation.setOptions({
+        header: (): JSX.Element => (
+          <ThemedViewV2>
+            <ThemedViewV2
+              light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-100")}
+              dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-100")}
+              style={tailwind("pb-4.5 rounded-b-2xl border-b")}
+            >
+              <HeaderSearchInputV2
+                searchString={searchString}
+                onClearInput={() => setSearchString("")}
+                onChangeInput={(text: string) => {
+                  setSearchString(text);
+                }}
+                onCancelPress={() => {
+                  setSearchString("");
+                  setShowSearchInput(false);
+                }}
+                placeholder="Search for loan token"
+                testID="auctions_search_input"
+              />
+            </ThemedViewV2>
+          </ThemedViewV2>
+        ),
+      });
+    } else {
+      navigation.setOptions({
+        header: undefined,
+      });
+      handleButtonFilter(activeButtonGroup);
+    }
+  }, [showSearchInput, searchString]);
 
-  // useLayoutEffect(() => {
-  //   navigation.setOptions({
-  //     headerRight: (): JSX.Element => {
-  //       if (activeTab === TabKey.BrowseAuctions && auctions.length !== 0) {
-  //         return <HeaderSearchIcon onPress={() => setShowSearchInput(true)} />;
-  //       }
-  //       return <></>;
-  //     },
-  //   });
-  // }, [navigation, activeTab, auctions]);
+  // Update local state - filter available pair when pairs update
+  useEffect(() => {
+    if (!showSearchInput) {
+      handleButtonFilter(activeButtonGroup);
+    }
+  }, [batches]);
 
-  // useEffect(() => {
-  //   if (showSearchInput) {
-  //     navigation.setOptions({
-  //       header: (): JSX.Element => (
-  //         <HeaderSearchInput
-  //           searchString={searchString}
-  //           onClearInput={() => setSearchString("")}
-  //           onChangeInput={(text: string) => {
-  //             setSearchString(text);
-  //           }}
-  //           onCancelPress={() => {
-  //             setSearchString("");
-  //             setShowSearchInput(false);
-  //           }}
-  //           placeholder="Search for loan token"
-  //         />
-  //       ),
-  //     });
-  //   } else {
-  //     navigation.setOptions({
-  //       header: undefined,
-  //     });
-  //   }
-  // }, [showSearchInput, searchString]);
-
-  const tabsList = [
-    {
-      id: TabKey.BrowseAuctions,
-      label: "Browse auctions",
-      disabled: false,
-      handleOnPress: onPress,
+  const handleButtonFilter = useCallback(
+    (buttonGroupTabKey: ButtonGroupTabKey) => {
+      const filteredAuctions = batches.filter((auction) => {
+        switch (buttonGroupTabKey) {
+          case ButtonGroupTabKey.ActiveBids:
+          case ButtonGroupTabKey.LeadingBids:
+          case ButtonGroupTabKey.Outbid:
+          default:
+            return true;
+        }
+      });
+      setFilteredAuctionBatches(filteredAuctions);
     },
-    {
-      id: TabKey.ManageBids,
-      label: "Manage bids",
-      disabled: false,
-      handleOnPress: onPress,
-    },
-  ];
+    [batches, auctions]
+  );
 
   return (
-    <ThemedView testID="auctions_screen" style={tailwind("flex-1")}>
-      {/* TODO  Unable tabs when manage bids screen is ready */}
-      {false && (
-        <>
-          <Tabs
-            tabSections={tabsList}
-            testID="auctions_tabs"
-            activeTabKey={activeTab}
-          />
-          {activeTab === TabKey.BrowseAuctions && (
-            <BrowseAuctions searchString={searchString} />
-          )}
-          {activeTab === TabKey.ManageBids && <ManageBids />}
-        </>
-      )}
-      <BrowseAuctions searchString={searchString} />
-    </ThemedView>
+    <ThemedViewV2 testID="auctions_screen" style={tailwind("flex-1")}>
+      <AuctionFilterPillGroup
+        onSearchBtnPress={() => setShowSearchInput(true)}
+        onButtonGroupChange={setActiveButtonGroup}
+        activeButtonGroup={activeButtonGroup}
+      />
+      <BrowseAuctions filteredAuctionBatches={filteredAuctionBatches} />
+    </ThemedViewV2>
   );
 }
+
+const AuctionFilterPillGroup = React.memo(
+  (props: {
+    onSearchBtnPress: () => void;
+    onButtonGroupChange: (buttonGroupTabKey: ButtonGroupTabKey) => void;
+    activeButtonGroup: ButtonGroupTabKey;
+  }) => {
+    const buttonGroup = [
+      {
+        id: ButtonGroupTabKey.AllBids,
+        label: translate("screens/AuctionsScreen", "All auctions"),
+        handleOnPress: () =>
+          props.onButtonGroupChange(ButtonGroupTabKey.AllBids),
+      },
+      {
+        id: ButtonGroupTabKey.ActiveBids,
+        label: translate("screens/AuctionsScreen", "Your active bids"),
+        handleOnPress: () =>
+          props.onButtonGroupChange(ButtonGroupTabKey.ActiveBids),
+      },
+      {
+        id: ButtonGroupTabKey.LeadingBids,
+        label: translate("screens/AuctionsScreen", "Your leading bids"),
+        handleOnPress: () =>
+          props.onButtonGroupChange(ButtonGroupTabKey.LeadingBids),
+      },
+      {
+        id: ButtonGroupTabKey.Outbid,
+        label: translate("screens/AuctionsScreen", "Outbid"),
+        handleOnPress: () =>
+          props.onButtonGroupChange(ButtonGroupTabKey.Outbid),
+      },
+    ];
+
+    return (
+      <View style={tailwind("my-4")}>
+        <ThemedViewV2 testID="auction_button_group">
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={tailwind(
+              "flex justify-between items-center flex-row px-5"
+            )}
+          >
+            <ThemedTouchableOpacityV2
+              onPress={props.onSearchBtnPress}
+              style={tailwind("text-center pr-4")}
+              testID="dex_search_icon"
+            >
+              <ThemedIcon
+                iconType="Feather"
+                name="search"
+                size={24}
+                light={tailwind("text-mono-light-v2-700")}
+                dark={tailwind("text-mono-dark-v2-700")}
+              />
+            </ThemedTouchableOpacityV2>
+            {buttonGroup.map((button, index) => (
+              <AssetsFilterItem
+                key={button.id}
+                label={button.label}
+                onPress={button.handleOnPress}
+                isActive={props.activeButtonGroup === button.id}
+                testID={`dex_button_group_${button.id}`}
+                additionalStyles={
+                  !(buttonGroup.length === index) ? tailwind("mr-3") : undefined
+                }
+              />
+            ))}
+          </ScrollView>
+        </ThemedViewV2>
+      </View>
+    );
+  }
+);
