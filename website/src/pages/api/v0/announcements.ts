@@ -36,5 +36,28 @@ export default async function handle(
         macos: "https://blog.defichain.com/dex-stabilization-fee/",
       },
     },
+    {
+      lang: {
+        en: "Negative interest rate is in effect for DUSD loans due to DFIP-2208-A.",
+        de: "Für DUSD-Darlehen gilt aufgrund des DFIP-2208-A ein negativer Zinssatz.",
+        "zh-Hans":
+          "Negative interest rate is in effect for DUSD loans due to DFIP-2208-A.",
+        "zh-Hant":
+          "Negative interest rate is in effect for DUSD loans due to DFIP-2208-A.",
+        fr: "Le taux d'intérêt négatif est en vigueur pour les prêts DUSD en raison du DFIP-2208-A.",
+        es: "Negative interest rate is in effect for DUSD loans due to DFIP-2208-A.",
+        it: "Negative interest rate is in effect for DUSD loans due to DFIP-2208-A.",
+      },
+      version: ">=1.61.1",
+      type: "OTHER_ANNOUNCEMENT",
+      id: "15",
+      url: {
+        ios: "https://github.com/DeFiCh/dfips/issues/195",
+        android: "https://github.com/DeFiCh/dfips/issues/195",
+        web: "https://github.com/DeFiCh/dfips/issues/195",
+        windows: "https://github.com/DeFiCh/dfips/issues/195",
+        macos: "https://github.com/DeFiCh/dfips/issues/195",
+      },
+    },
   ]);
 }
