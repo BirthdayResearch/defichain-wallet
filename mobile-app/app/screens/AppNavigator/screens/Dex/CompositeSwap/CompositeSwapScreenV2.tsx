@@ -81,12 +81,9 @@ import {
 } from "./components/SwapButtonGroup";
 import { TokenDropdownButton } from "./components/TokenDropdownButton";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
-import {
-  WantFutureSwapRow,
-  WantInstantSwapRow,
-} from "./components/WantSwapRow";
 import { SlippageToleranceV2 } from "./components/SlippageToleranceV2";
 import { BottomSheetSlippageInfo } from "./components/BottomSheetSlippageInfo";
+import { FutureSwapRowTo, InstantSwapRowTo } from "./components/SwapRowTo";
 
 export interface TokenState {
   id: string;
@@ -800,10 +797,10 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               )}
             >
               {activeButtonGroup === ButtonGroupTabKey.FutureSwap && (
-                <WantFutureSwapRow oraclePriceText={oraclePriceText} />
+                <FutureSwapRowTo oraclePriceText={oraclePriceText} />
               )}
               {activeButtonGroup === ButtonGroupTabKey.InstantSwap && (
-                <WantInstantSwapRow
+                <InstantSwapRowTo
                   tokenAmount={new BigNumber(tokenB).toFixed(8)}
                   tokenUsdAmount={getAmountInUSDValue(
                     selectedTokenB ?? undefined,
