@@ -20,6 +20,8 @@ interface IConfirmSummaryTitleV2Props {
   iconB: string;
   addressType?: AddressType;
   forTokenAmount: BigNumber;
+  isFutureSwap: boolean;
+  oraclePrice?: string;
 }
 
 export function ConfirmSummaryTitleV2(
@@ -58,7 +60,7 @@ export function ConfirmSummaryTitleV2(
           />
         </View>
 
-        <View style={tailwind("mt-5")}>
+        <View style={tailwind("mt-3")}>
           <ThemedTextV2
             style={tailwind("text-xs font-normal-v2")}
             dark={tailwind("text-mono-dark-v2-500")}
@@ -68,22 +70,41 @@ export function ConfirmSummaryTitleV2(
           </ThemedTextV2>
           <View style={tailwind("flex-row items-center mt-2")}>
             <IconB height={32} width={32} />
-            <NumberFormat
-              decimalScale={8}
-              displayType="text"
-              renderText={(value) => (
-                <ThemedTextV2
-                  style={tailwind(
-                    "text-xl font-semibold-v2 flex-wrap pr-1 pl-2"
-                  )}
-                  testID={props.testID}
-                >
-                  {value}
+            {props.isFutureSwap ? (
+              <View style={tailwind("flex-col flex-1 pl-2")}>
+                <ThemedTextV2 style={tailwind("font-semibold-v2 text-xl")}>
+                  {props.iconB}
                 </ThemedTextV2>
-              )}
-              thousandSeparator
-              value={props.forTokenAmount.toFixed(8)}
-            />
+                <ThemedTextV2
+                  style={tailwind("font-normal-v2 text-xs")}
+                  light={tailwind("text-mono-light-v2-700")}
+                  dark={tailwind("text-mono-dark-v2-700")}
+                >
+                  {translate(
+                    "screens/ConfirmCompositeSwapScreen",
+                    "Settlement value {{percentageChange}}",
+                    { percentageChange: props.oraclePrice }
+                  )}
+                </ThemedTextV2>
+              </View>
+            ) : (
+              <NumberFormat
+                decimalScale={8}
+                displayType="text"
+                renderText={(value) => (
+                  <ThemedTextV2
+                    style={tailwind(
+                      "text-xl font-semibold-v2 flex-wrap pr-1 pl-2"
+                    )}
+                    testID={props.testID}
+                  >
+                    {value}
+                  </ThemedTextV2>
+                )}
+                thousandSeparator
+                value={props.forTokenAmount.toFixed(8)}
+              />
+            )}
           </View>
         </View>
 

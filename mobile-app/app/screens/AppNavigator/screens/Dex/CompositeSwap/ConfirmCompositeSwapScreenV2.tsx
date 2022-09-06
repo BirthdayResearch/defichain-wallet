@@ -232,6 +232,8 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
           fromAddress={address}
           fromAddressLabel={addressLabel}
           forTokenAmount={estimatedAmount}
+          isFutureSwap={futureSwap !== undefined}
+          oraclePrice={futureSwap?.oraclePriceText}
         />
       </ThemedViewV2>
 
