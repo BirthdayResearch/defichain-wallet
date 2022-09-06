@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Platform, Text, TouchableOpacity, View } from "react-native";
+import { Platform, TextInput, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
 import BigNumber from "bignumber.js";
@@ -167,6 +167,8 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
       "Future swap uses the oracle price of the selected token on the settlement block"
     )
   );
+  const [hasShownInputFocusBefore, setHasShownInputFocusBefore] =
+    useState<boolean>(false);
 
   const executionBlock = useSelector(
     (state: RootState) => state.futureSwaps.executionBlock
@@ -192,6 +194,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   });
   const containerRef = useRef(null);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
+  const amountInputRef = useRef<TextInput>();
 
   // dex stabilization
   const { isFeatureAvailable } = useFeatureFlagContext();
@@ -393,6 +396,19 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
 
   useEffect(() => {
     void getSelectedPoolPairs();
+
+    if (
+      hasShownInputFocusBefore ||
+      selectedTokenA === undefined ||
+      selectedTokenB === undefined
+    ) {
+      return;
+    }
+    /* timeout added to auto display keyboard on Android */
+    Platform.OS === "android"
+      ? setTimeout(() => amountInputRef?.current?.focus(), 0)
+      : amountInputRef?.current?.focus();
+    setHasShownInputFocusBefore(true);
   }, [selectedTokenA, selectedTokenB]);
 
   const getSelectedPoolPairs = async (): Promise<void> => {
@@ -731,6 +747,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                     placeholderTextColor={getColor(
                       isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
                     )}
+                    ref={amountInputRef}
                   />
                 )}
                 rules={{
