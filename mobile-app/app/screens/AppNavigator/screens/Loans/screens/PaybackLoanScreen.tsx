@@ -134,7 +134,8 @@ export function PaybackLoanScreen ({
 
     return {
       isExcess: new BigNumber(amountToPayInPaymentToken).isGreaterThan(selectedPaymentTokenWithAmount.outstandingBalanceInPaymentToken),
-      totalPaybackWithInterest: new BigNumber(amountToPayInLoanToken).plus(interestPerBlock),
+      // If interest is greater than zero, do not include it on the totalPayback due to RPC error
+      totalPaybackWithInterest: new BigNumber(interestPerBlock).gt(0) ? new BigNumber(amountToPayInLoanToken).plus(interestPerBlock) : new BigNumber(amountToPayInLoanToken),
       cappedAmount: selectedPaymentTokenWithAmount.cappedAmount,
       amountToPayInPaymentToken,
       amountToPayInLoanToken,
