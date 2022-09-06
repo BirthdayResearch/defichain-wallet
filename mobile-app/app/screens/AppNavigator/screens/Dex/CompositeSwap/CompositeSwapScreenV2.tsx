@@ -177,11 +177,16 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     selectedTokenA?.displaySymbol,
     activeButtonGroup === ButtonGroupTabKey.FutureSwap
   );
-  const { isFutureSwapOptionEnabled, oraclePriceText, isSourceLoanToken } =
-    useFutureSwap({
-      fromTokenDisplaySymbol: selectedTokenA?.displaySymbol,
-      toTokenDisplaySymbol: selectedTokenB?.displaySymbol,
-    });
+  const {
+    isFutureSwapOptionEnabled,
+    oraclePriceText,
+    isSourceLoanToken,
+    isFromLoanToken,
+    isToLoanToken,
+  } = useFutureSwap({
+    fromTokenDisplaySymbol: selectedTokenA?.displaySymbol,
+    toTokenDisplaySymbol: selectedTokenB?.displaySymbol,
+  });
   const containerRef = useRef(null);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
@@ -222,10 +227,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   }, []);
 
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
-    setSelectedTokenA(undefined);
-    setSelectedTokenB(undefined);
-    setValue("tokenA", "");
-    setValue("tokenB", "");
     setActiveButtonGroup(buttonGroupTabKey);
   };
 
@@ -648,6 +649,10 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
       <SwapButtonGroup
         activeButtonGroup={activeButtonGroup}
         onPress={(type) => onButtonGroupChange(type)}
+        disableFutureSwap={
+          (isFromLoanToken !== undefined && !isFromLoanToken) ||
+          (isToLoanToken !== undefined && !isToLoanToken)
+        }
       />
       <ThemedScrollView>
         {activeButtonGroup === ButtonGroupTabKey.InstantSwap &&

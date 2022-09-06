@@ -12,11 +12,13 @@ export enum ButtonGroupTabKey {
 interface SwapButtonGroupProps {
   activeButtonGroup: ButtonGroupTabKey;
   onPress: (type: ButtonGroupTabKey) => void;
+  disableFutureSwap: boolean;
 }
 
 export function SwapButtonGroup({
   activeButtonGroup,
   onPress,
+  disableFutureSwap = false,
 }: SwapButtonGroupProps): JSX.Element {
   const buttonGroup = [
     {
@@ -28,6 +30,7 @@ export function SwapButtonGroup({
       id: ButtonGroupTabKey.FutureSwap,
       label: translate("screens/CompositeSwapScreen", "Future"),
       handleOnPress: () => onPress(ButtonGroupTabKey.FutureSwap),
+      isDisabled: disableFutureSwap,
     },
   ];
   return (
