@@ -1,8 +1,8 @@
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { StyleProp, TextStyle, View } from "react-native";
-import { ThemedIcon, ThemedText, ThemedTextV2 } from "./themed";
-import { BottomSheetModal } from "./BottomSheetModal";
+import { ThemedIcon, ThemedText, ThemedTextV2, ThemedViewV2 } from "./themed";
+import { BottomSheetModal, BottomSheetModalV2 } from "./BottomSheetModal";
 
 export interface BottomSheetAlertInfo {
   title: string;
@@ -75,6 +75,7 @@ interface BottomSheetInfoV2Props {
   infoIconStyle?: StyleProp<TextStyle>;
   triggerComponent?: JSX.Element;
   snapPoints?: (string | number)[];
+  wrappedMessage?: JSX.Element;
 }
 
 export function BottomSheetInfoV2({
@@ -82,9 +83,10 @@ export function BottomSheetInfoV2({
   alertInfo,
   triggerComponent,
   snapPoints,
+  wrappedMessage,
 }: BottomSheetInfoV2Props): JSX.Element {
   return (
-    <BottomSheetModal
+    <BottomSheetModalV2 // V2 component for close modal x button and rounded edges
       name={name}
       index={0}
       snapPoints={snapPoints ?? ["30%"]}
@@ -105,7 +107,11 @@ export function BottomSheetInfoV2({
       enableScroll={false}
     >
       <View style={tailwind("px-6 pt-4")}>
-        <View style={tailwind("flex-row mb-3")}>
+        <ThemedViewV2
+          light={tailwind("border-mono-light-v2-300")}
+          dark={tailwind("border-mono-dark-v2-300")}
+          style={tailwind("flex-row mb-3 py-5 border-b-0.5")}
+        >
           <ThemedTextV2
             style={tailwind("pr-10 text-2xl font-normal-v2 border-b-0.5")}
             light={tailwind("border-mono-light-v2-300 text-mono-light-v2-900")}
@@ -113,14 +119,15 @@ export function BottomSheetInfoV2({
           >
             {translate("components/BottomSheetInfo", alertInfo?.title ?? "")}
           </ThemedTextV2>
-        </View>
+        </ThemedViewV2>
         <View>
           <ThemedTextV2 style={tailwind("text-base font-normal-v2")}>
             {translate("components/BottomSheetInfo", alertInfo?.message ?? "")}
           </ThemedTextV2>
         </View>
+        <View>{wrappedMessage}</View>
       </View>
-    </BottomSheetModal>
+    </BottomSheetModalV2>
   );
 }
 
