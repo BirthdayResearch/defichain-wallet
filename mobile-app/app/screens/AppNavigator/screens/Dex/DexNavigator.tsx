@@ -68,6 +68,8 @@ export interface DexParamList {
     tokenA: OwnedTokenState;
     tokenB: TokenState & { amount?: string };
     estimatedAmount: BigNumber;
+    totalFees: string;
+    estimatedReturnLessDexFees: string;
   };
   ConfirmCompositeSwapScreen: {
     conversion?: ConversionParam;
