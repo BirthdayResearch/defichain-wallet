@@ -6,15 +6,15 @@ import BigNumber from "bignumber.js";
 import { translate } from "@translations";
 import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2";
 
-interface WantInstantSwapRowProps {
+interface InstantSwapRowToProps {
   tokenAmount: string;
   tokenUsdAmount: BigNumber;
 }
 
-export function WantInstantSwapRow({
+export function InstantSwapRowTo({
   tokenAmount,
   tokenUsdAmount,
-}: WantInstantSwapRowProps): JSX.Element {
+}: InstantSwapRowToProps): JSX.Element {
   return (
     <View style={tailwind("w-6/12 mr-2")}>
       <NumberFormat
@@ -40,13 +40,13 @@ export function WantInstantSwapRow({
   );
 }
 
-interface WantFutureSwapRowProps {
+interface FutureSwapRowToProps {
   oraclePriceText: string;
 }
 
-export function WantFutureSwapRow({
+export function FutureSwapRowTo({
   oraclePriceText,
-}: WantFutureSwapRowProps): JSX.Element {
+}: FutureSwapRowToProps): JSX.Element {
   return (
     <View style={tailwind("w-6/12")}>
       <ThemedTextV2
