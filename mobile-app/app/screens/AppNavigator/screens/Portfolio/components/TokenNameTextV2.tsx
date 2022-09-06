@@ -15,7 +15,7 @@ export function TokenNameTextV2({
   return (
     <View style={tailwind("ml-2 flex-auto")}>
       <ThemedTextV2
-        style={tailwind("font-semibold-v2 text-sm mb-1", {
+        style={tailwind("font-semibold-v2 text-sm", {
           "mt-0.5": Platform.OS === "android",
         })}
         testID={`${testID}_symbol`}
@@ -26,7 +26,7 @@ export function TokenNameTextV2({
         <ThemedTextV2
           dark={tailwind("text-mono-dark-v2-700")}
           light={tailwind("text-mono-light-v2-700")}
-          style={tailwind("text-xs font-normal-v2")}
+          style={tailwind("text-xs font-normal-v2 mt-1")}
           numberOfLines={1}
           testID={`${testID}_name`}
           ellipsizeMode="tail"
