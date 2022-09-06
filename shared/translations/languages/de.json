@@ -633,7 +633,7 @@
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} verbleibende Versuche",
     "Enter passcode for verification": "Passwort zur Überprüfung eingeben",
     "It may take a few seconds to secure and encrypt your wallet.": "Es kann ein paar Sekunden dauern, bis deine Wallet gesichert und verschlüsselt ist.",
-    "It may take a few seconds to update your passcode.": "Es kann einige Sekunden dauern, bis dein Passwort aktualisiert ist.",
+    "It may take a few seconds to update your passcode": "Es kann einige Sekunden dauern, bis dein Passwort aktualisiert ist",
     "Passcode updated!": "Passwort aktualisiert!",
     "Keep the passcode for your wallet confidential.": "Verwahre das Passwort für deine Wallet vertraulich."
   },
@@ -779,7 +779,8 @@
     "Loan scheme saved": "Darlehensmodell gespeichert",
     "Preparing withdrawal…": "Auszahlung vorbereiten…",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Abhebung von {{amountToWithdraw}} {{sourceSymbol}} aus dem Future Swap",
-    "Withdrawal completed": "Auszahlung abgeschlossen"
+    "Withdrawal completed": "Auszahlung abgeschlossen",
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Entfernen von {{amount}} {{symbol}} aus dem Liquiditätspool"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Kameranutzung erlauben",
@@ -1669,7 +1670,8 @@
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Nach dem Schließen wird diese Vault-ID nicht mehr verwendet werden können. Vergewissere dich, dass du nichts aus diesem Vault benötigst, bevor du ihn schließt.",
     "CONFIRM CLOSE VAULT": "VAULT SCHLIESSEN BESTÄTIGEN",
     "You are about to close vault {{vaultId}}": "Du bist im Begriff, den Vault {{vaultId}} zu schließen",
-    "CLOSING": "SCHLIESSEN"
+    "CLOSING": "SCHLIESSEN",
+    "Closing vault": "Vault schließen"
   },
   "components/TokenIconGroup": {
     "more": "weitere"

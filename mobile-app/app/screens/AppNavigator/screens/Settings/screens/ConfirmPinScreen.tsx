@@ -52,7 +52,7 @@ export function ConfirmPinScreen({ route }: Props): JSX.Element {
     setSpinnerMessage(
       translate(
         "screens/PinConfirmation",
-        "It may take a few seconds to update your passcode."
+        "It may take a few seconds to update your passcode"
       )
     );
     setTimeout(() => {
