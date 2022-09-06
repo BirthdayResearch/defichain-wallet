@@ -82,7 +82,10 @@ import {
   ButtonGroupTabKey,
   SwapButtonGroup,
 } from "./components/SwapButtonGroup";
-import { TokenDropdownButton } from "./components/TokenDropdownButton";
+import {
+  TokenDropdownButton,
+  TokenDropdownButtonStatus,
+} from "./components/TokenDropdownButton";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import {
   WantFutureSwapRow,
@@ -752,10 +755,12 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
             <TokenDropdownButton
               symbol={selectedTokenA?.displaySymbol}
               onPress={() => navigateToTokenSelectionScreen(TokenListType.From)}
-              disabled={
-                isFromTokenSelectDisabled ||
-                fromTokens === undefined ||
-                fromTokens?.length === 0
+              status={
+                fromTokens === undefined || fromTokens?.length === 0
+                  ? TokenDropdownButtonStatus.Disabled
+                  : isFromTokenSelectDisabled
+                  ? TokenDropdownButtonStatus.Locked
+                  : TokenDropdownButtonStatus.Active
               }
             />
           </View>
@@ -848,10 +853,12 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               <TokenDropdownButton
                 symbol={selectedTokenB?.displaySymbol}
                 onPress={() => navigateToTokenSelectionScreen(TokenListType.To)}
-                disabled={
-                  isToTokenSelectDisabled ||
-                  toTokens === undefined ||
-                  toTokens?.length === 0
+                status={
+                  toTokens === undefined || toTokens?.length === 0
+                    ? TokenDropdownButtonStatus.Disabled
+                    : isToTokenSelectDisabled
+                    ? TokenDropdownButtonStatus.Locked
+                    : TokenDropdownButtonStatus.Active
                 }
               />
             </View>
