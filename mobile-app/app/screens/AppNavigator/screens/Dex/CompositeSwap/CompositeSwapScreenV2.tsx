@@ -62,7 +62,10 @@ import { PriceRateProps } from "@components/PricesSectionV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { TokenListType } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { useSwappableTokensV2 } from "@screens/AppNavigator/screens/Dex/hook/SwappableTokensV2";
-import { AnnouncementBannerV2 } from "../../Portfolio/components/Announcements";
+import {
+  Announcement,
+  AnnouncementBannerV2,
+} from "../../Portfolio/components/Announcements";
 import {
   DexStabilizationType,
   useDexStabilization,
@@ -153,6 +156,12 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   const [bestPathEstimatedReturn, setBestPathEstimatedReturn] = useState<
     { estimatedReturn: string; estimatedReturnLessDexFees: string } | undefined
   >(undefined);
+  const [oraclePriceMessage, setOraclePriceMessage] = useState<string>(
+    translate(
+      "screens/CompositeSwapScreen",
+      "Future swap uses the oracle price of the selected token on the settlement block"
+    )
+  );
 
   const executionBlock = useSelector(
     (state: RootState) => state.futureSwaps.executionBlock
@@ -185,6 +194,14 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
       dexStabilizationFee,
     },
   } = useDexStabilization(selectedTokenA, selectedTokenB);
+
+  const oraclePriceAnnouncement: Announcement = {
+    content: oraclePriceMessage,
+    url: "",
+    id: undefined,
+    type: "OTHER_ANNOUNCEMENT",
+    icon: "info",
+  };
 
   const expandModal = useCallback(() => {
     if (Platform.OS === "web") {
@@ -483,6 +500,27 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     );
   }, [priceRates, selectedTokenB, tokenA, bestPathEstimatedReturn, fee]);
 
+  useEffect(() => {
+    let message = translate(
+      "screens/CompositeSwapScreen",
+      "Future swap uses the oracle price of the selected token on the settlement block"
+    );
+    if (selectedTokenA !== undefined) {
+      if (selectedTokenA.displaySymbol === "DUSD") {
+        message = translate(
+          "screens/CompositeSwapScreen",
+          "You are buying dtokens at 5% more than the oracle price at settlement block"
+        );
+      } else {
+        message = translate(
+          "screens/CompositeSwapScreen",
+          "You are selling your dtoken at 5% less than the oracle price at settlement block"
+        );
+      }
+    }
+    setOraclePriceMessage(message);
+  }, [selectedTokenA]);
+
   const navigateToConfirmScreen = (): void => {
     if (
       selectedPoolPairs === undefined ||
@@ -659,6 +697,19 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               />
             </View>
           )}
+
+        {activeButtonGroup === ButtonGroupTabKey.FutureSwap && (
+          <View style={tailwind("flex mx-5 mt-8 rounded")}>
+            <AnnouncementBannerV2
+              announcement={oraclePriceAnnouncement}
+              testID="oracle_announcements_banner"
+              containerStyle={{
+                light: tailwind("bg-transparent"),
+                dark: tailwind("bg-transparent"),
+              }}
+            />
+          </View>
+        )}
 
         <ThemedTextV2
           style={tailwind("mx-10 text-xs font-normal-v2 mt-8")}
