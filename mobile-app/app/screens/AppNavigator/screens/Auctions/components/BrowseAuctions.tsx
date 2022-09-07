@@ -1,7 +1,7 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useScrollToTop } from "@react-navigation/native";
 import { tailwind } from "@tailwind";
-import { ThemedFlatList, ThemedScrollView } from "@components/themed";
+import { ThemedFlatListV2, ThemedScrollViewV2 } from "@components/themed";
 import { BatchCard } from "@screens/AppNavigator/screens/Auctions/components/BatchCard";
 import { Platform, View } from "react-native";
 import { useSelector } from "react-redux";
@@ -15,19 +15,26 @@ import {
   LoanVaultLiquidationBatch,
 } from "@defichain/whale-api-client/dist/api/loan";
 import { AuctionBatchProps } from "@store/auctions";
-import {
-  BottomSheetWebWithNav,
-  BottomSheetWithNav,
-} from "@components/BottomSheetWithNav";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import BigNumber from "bignumber.js";
-import { LoanVault, vaultsSelector } from "@store/loans";
 import { tokensSelector } from "@store/wallet";
+import { translate } from "@translations";
+import {
+  BottomSheetWebWithNavV2,
+  BottomSheetWithNavV2,
+} from "@components/BottomSheetWithNavV2";
+import { BottomSheetHeader } from "@components/BottomSheetHeader";
 import { QuickBid } from "./QuickBid";
 import { EmptyAuction } from "./EmptyAuction";
+import {
+  AuctionsSortRow,
+  AuctionsSortType,
+  BottomSheetAssetSortList,
+} from "./AuctionsSortRow";
 
 interface Props {
   filteredAuctionBatches: AuctionBatchProps[];
+  yourVaultIds: string[];
 }
 
 export interface onQuickBidProps {
@@ -38,14 +45,22 @@ export interface onQuickBidProps {
   minNextBidInUSD: string;
 }
 
-export function BrowseAuctions({ filteredAuctionBatches }: Props): JSX.Element {
+export function BrowseAuctions({
+  filteredAuctionBatches,
+  yourVaultIds,
+}: Props): JSX.Element {
   const tokens = useSelector((state: RootState) =>
     tokensSelector(state.wallet)
   );
   const { hasFetchAuctionsData } = useSelector(
     (state: RootState) => state.auctions
   );
-  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
+
+  // Asset sort bottom sheet list
+  const [assetSortType, setAssetSortType] = useState<AuctionsSortType>(
+    AuctionsSortType.LeastTimeLeft
+  ); // to display selected sorted type text
+  const [isSorted, setIsSorted] = useState<boolean>(false); // to display acsending/descending icon
 
   const {
     bottomSheetRef,
@@ -56,6 +71,70 @@ export function BrowseAuctions({ filteredAuctionBatches }: Props): JSX.Element {
     bottomSheetScreen,
     setBottomSheetScreen,
   } = useBottomSheet();
+
+  const assetSortBottomSheetScreen = (): void => {
+    setBottomSheetScreen([
+      {
+        stackScreenName: "AssetSortList",
+        component: BottomSheetAssetSortList({
+          onButtonPress: (item: AuctionsSortType) => {
+            setIsSorted(true);
+            setAssetSortType(item);
+            dismissModal();
+          },
+          selectedAssetSortType: assetSortType,
+        }),
+        option: {
+          headerStatusBarHeight: 1,
+          headerTitle: "",
+          headerBackTitleVisible: false,
+          header: (): JSX.Element => {
+            return (
+              <BottomSheetHeader
+                onClose={dismissModal}
+                headerText={translate(
+                  "screens/AuctionsScreen",
+                  "Sort Auctions"
+                )}
+              />
+            );
+          },
+        },
+      },
+    ]);
+    expandModal();
+  };
+
+  const sortTokensAssetOnType = useCallback(
+    (assetSortType: AuctionsSortType): AuctionBatchProps[] => {
+      let sortTokensFunc: (
+        a: AuctionBatchProps,
+        b: AuctionBatchProps
+      ) => number;
+      switch (assetSortType) {
+        // TODO (Harsh) add condition for Highest Value and Lowest Value sort
+        // case AuctionsSortType.HighestValue:
+        //   sortTokensFunc = (a, b) =>  new BigNumber(a.auction.liquidationHeight).minus(b.auction.liquidationHeight).toNumber();
+        //   break;
+        // case AuctionsSortType.LowestValue:
+        //   sortTokensFunc = (a, b) => a.usdAmount.minus(b.usdAmount).toNumber();
+        //   break;
+        case AuctionsSortType.MostTimeLeft:
+          sortTokensFunc = (a, b) =>
+            new BigNumber(b.auction.liquidationHeight)
+              .minus(a.auction.liquidationHeight)
+              .toNumber();
+          break;
+        default:
+          sortTokensFunc = (a, b) =>
+            new BigNumber(a.auction.liquidationHeight)
+              .minus(b.auction.liquidationHeight)
+              .toNumber();
+      }
+      return filteredAuctionBatches.sort(sortTokensFunc);
+    },
+    [filteredAuctionBatches, assetSortType]
+  );
 
   const onQuickBid = (props: onQuickBidProps): void => {
     const ownedToken = tokens.find((token) => token.id === props.batch.loan.id);
@@ -85,42 +164,50 @@ export function BrowseAuctions({ filteredAuctionBatches }: Props): JSX.Element {
   };
 
   return (
-    <View ref={containerRef} style={tailwind("h-full")} testID="auctions_cards">
+    <View ref={containerRef} style={tailwind("flex-1")} testID="auctions_cards">
       {hasFetchAuctionsData ? (
         <>
           {filteredAuctionBatches?.length === 0 ? (
             <EmptyAuction />
           ) : (
-            <BatchCards
-              auctionBatches={filteredAuctionBatches}
-              onQuickBid={onQuickBid}
-              vaults={vaults}
-            />
+            <>
+              <AuctionsSortRow
+                isSorted={isSorted}
+                assetSortType={assetSortType}
+                onPress={assetSortBottomSheetScreen}
+              />
+              <BatchCards
+                auctionBatches={sortTokensAssetOnType(assetSortType)}
+                onQuickBid={onQuickBid}
+                yourVaultIds={yourVaultIds}
+              />
+            </>
           )}
         </>
       ) : (
-        <ThemedScrollView contentContainerStyle={tailwind("p-4")}>
+        <ThemedScrollViewV2 contentContainerStyle={tailwind("p-4")}>
           <SkeletonLoader row={6} screen={SkeletonLoaderScreen.BrowseAuction} />
-        </ThemedScrollView>
+        </ThemedScrollViewV2>
       )}
-
-      {Platform.OS === "web" && (
-        <BottomSheetWebWithNav
+      {Platform.OS === "web" ? (
+        <BottomSheetWebWithNavV2
           modalRef={containerRef}
           screenList={bottomSheetScreen}
           isModalDisplayed={isModalDisplayed}
+          // eslint-disable-next-line react-native/no-inline-styles
           modalStyle={{
             position: "absolute",
+            bottom: "0",
             height: "240px",
             width: "375px",
             zIndex: 50,
-            bottom: 0,
+            borderTopLeftRadius: 15,
+            borderTopRightRadius: 15,
+            overflow: "hidden",
           }}
         />
-      )}
-
-      {Platform.OS !== "web" && (
-        <BottomSheetWithNav
+      ) : (
+        <BottomSheetWithNavV2
           modalRef={bottomSheetRef}
           screenList={bottomSheetScreen}
           snapPoints={{
@@ -135,11 +222,11 @@ export function BrowseAuctions({ filteredAuctionBatches }: Props): JSX.Element {
 
 function BatchCards({
   auctionBatches,
-  vaults,
+  yourVaultIds,
   onQuickBid,
 }: {
   auctionBatches: AuctionBatchProps[];
-  vaults: LoanVault[];
+  yourVaultIds: string[];
   onQuickBid: (props: onQuickBidProps) => void;
 }): JSX.Element {
   const ref = useRef(null);
@@ -162,9 +249,7 @@ function BatchCards({
             key={`${auction.vaultId}_${batch.index}`}
             testID={`batch_card_${index}`}
             onQuickBid={onQuickBid}
-            isVaultOwner={vaults.some(
-              (vault) => vault.vaultId === auction.vaultId
-            )}
+            isVaultOwner={yourVaultIds.includes(auction.vaultId)}
           />
         </View>
       );
@@ -173,7 +258,7 @@ function BatchCards({
   );
 
   return (
-    <ThemedFlatList
+    <ThemedFlatListV2
       contentContainerStyle={tailwind("p-4 pb-2")}
       data={auctionBatches}
       ref={ref}

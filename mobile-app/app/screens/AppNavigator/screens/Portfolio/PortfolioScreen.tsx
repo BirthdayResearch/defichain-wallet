@@ -2,7 +2,6 @@ import { useIsFocused, useScrollToTop } from "@react-navigation/native";
 import {
   ThemedIcon,
   ThemedScrollViewV2,
-  ThemedText,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
   ThemedViewV2,
@@ -65,6 +64,7 @@ import {
 } from "@components/BottomSheetWithNavV2";
 import { CreateOrEditAddressLabelFormV2 } from "@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelFormV2";
 import { BottomSheetHeaderBackButton } from "@screens/AppNavigator/screens/Portfolio/components/BottomSheetHeaderBackButton";
+import { BottomSheetHeader } from "@components/BottomSheetHeader";
 import { AddressSelectionButtonV2 } from "./components/AddressSelectionButtonV2";
 import { ActionButtons } from "./components/ActionButtons";
 import {
@@ -444,28 +444,13 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           headerBackTitleVisible: false,
           header: (): JSX.Element => {
             return (
-              <ThemedViewV2
-                style={tailwind("flex flex-col px-5 pt-3 pb-5 rounded-t-xl-v2")}
-              >
-                <ThemedTouchableOpacityV2
-                  onPress={() => {
-                    setShowAssetSortBottomSheet(false);
-                    dismissModal(true);
-                  }}
-                  style={tailwind("self-end pt-2.5")}
-                >
-                  <ThemedIcon
-                    dark={tailwind("text-mono-dark-v2-900")}
-                    light={tailwind("text-mono-light-v2-900")}
-                    iconType="Feather"
-                    name="x-circle"
-                    size={24}
-                  />
-                </ThemedTouchableOpacityV2>
-                <ThemedText style={tailwind("text-xl font-normal-v2")}>
-                  {translate("screens/PortfolioScreen", "Sort Assets")}
-                </ThemedText>
-              </ThemedViewV2>
+              <BottomSheetHeader
+                headerText={translate("screens/PortfolioScreen", "Sort Assets")}
+                onClose={() => {
+                  setShowAssetSortBottomSheet(false);
+                  dismissModal(true);
+                }}
+              />
             );
           },
         },

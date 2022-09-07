@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { tailwind } from "@tailwind";
 import {
   ThemedIcon,
@@ -20,7 +20,7 @@ import {
 import { useIsFocused } from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
-import { fetchVaults } from "@store/loans";
+import { fetchVaults, LoanVault, vaultsSelector } from "@store/loans";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { AssetsFilterItem } from "../Portfolio/components/AssetsFilterRow";
 import { AuctionsParamList } from "./AuctionNavigator";
@@ -28,8 +28,8 @@ import { BrowseAuctions } from "./components/BrowseAuctions";
 
 export enum ButtonGroupTabKey {
   AllBids = "ALL_BIDS",
-  ActiveBids = "ACTIVE_BIDS",
-  LeadingBids = "LEADING_BIDS",
+  YourActiveBids = "YOUR_ACTIVE_BIDS",
+  YourLeadingBids = "YOUR_LEADING_BIDS",
   Outbid = "OUT_BID",
 }
 
@@ -37,6 +37,12 @@ type Props = StackScreenProps<AuctionsParamList, "AuctionScreen">;
 
 export function AuctionsScreen({ navigation }: Props): JSX.Element {
   const { auctions } = useSelector((state: RootState) => state.auctions);
+  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
+  const yourVaultIds = useMemo(
+    () => vaults.map(({ vaultId }: LoanVault) => vaultId),
+    [vaults]
+  );
+
   // Search
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [searchString, setSearchString] = useState("");
@@ -106,22 +112,28 @@ export function AuctionsScreen({ navigation }: Props): JSX.Element {
     if (!showSearchInput) {
       handleButtonFilter(activeButtonGroup);
     }
-  }, [batches]);
+  }, [batches, activeButtonGroup]);
 
   const handleButtonFilter = useCallback(
     (buttonGroupTabKey: ButtonGroupTabKey) => {
       const filteredAuctions = batches.filter((auction) => {
         switch (buttonGroupTabKey) {
-          case ButtonGroupTabKey.ActiveBids:
-          case ButtonGroupTabKey.LeadingBids:
+          case ButtonGroupTabKey.YourActiveBids:
+            return auction?.froms.includes(address);
+          case ButtonGroupTabKey.YourLeadingBids:
+            return auction?.highestBid?.owner === address;
           case ButtonGroupTabKey.Outbid:
+            return (
+              auction?.highestBid?.owner !== address &&
+              auction?.froms.includes(address)
+            );
           default:
             return true;
         }
       });
       setFilteredAuctionBatches(filteredAuctions);
     },
-    [batches, auctions]
+    [batches, address]
   );
 
   return (
@@ -131,7 +143,10 @@ export function AuctionsScreen({ navigation }: Props): JSX.Element {
         onButtonGroupChange={setActiveButtonGroup}
         activeButtonGroup={activeButtonGroup}
       />
-      <BrowseAuctions filteredAuctionBatches={filteredAuctionBatches} />
+      <BrowseAuctions
+        filteredAuctionBatches={filteredAuctionBatches}
+        yourVaultIds={yourVaultIds}
+      />
     </ThemedViewV2>
   );
 }
@@ -150,16 +165,16 @@ const AuctionFilterPillGroup = React.memo(
           props.onButtonGroupChange(ButtonGroupTabKey.AllBids),
       },
       {
-        id: ButtonGroupTabKey.ActiveBids,
+        id: ButtonGroupTabKey.YourActiveBids,
         label: translate("screens/AuctionsScreen", "Your active bids"),
         handleOnPress: () =>
-          props.onButtonGroupChange(ButtonGroupTabKey.ActiveBids),
+          props.onButtonGroupChange(ButtonGroupTabKey.YourActiveBids),
       },
       {
-        id: ButtonGroupTabKey.LeadingBids,
+        id: ButtonGroupTabKey.YourLeadingBids,
         label: translate("screens/AuctionsScreen", "Your leading bids"),
         handleOnPress: () =>
-          props.onButtonGroupChange(ButtonGroupTabKey.LeadingBids),
+          props.onButtonGroupChange(ButtonGroupTabKey.YourLeadingBids),
       },
       {
         id: ButtonGroupTabKey.Outbid,
