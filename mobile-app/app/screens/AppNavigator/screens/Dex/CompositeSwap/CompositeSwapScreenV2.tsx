@@ -92,6 +92,7 @@ import { SlippageToleranceV2 } from "./components/SlippageToleranceV2";
 import { BottomSheetSlippageInfo } from "./components/BottomSheetSlippageInfo";
 import { FutureSwapRowTo, InstantSwapRowTo } from "./components/SwapRowTo";
 import { SwapSummary } from "./components/SwapSummary";
+import { getPrecisedCurrencyValue } from "../../Auctions/helpers/precision-token-value";
 
 export interface TokenState {
   id: string;
@@ -540,6 +541,36 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     fetchBestPath();
   }, [selectedTokenA, selectedTokenB]);
 
+  const totalFees = useMemo(() => {
+    if (
+      tokenA === "" ||
+      new BigNumber(tokenA).isZero() ||
+      priceRates === undefined ||
+      selectedTokenB === undefined
+    ) {
+      return "-";
+    }
+
+    /* DEX fees = Burn fees + commission fee */
+    const dexFeesInTokenBUnit = new BigNumber(
+      bestPathEstimatedReturn?.estimatedReturn ?? 0
+    ).minus(
+      new BigNumber(bestPathEstimatedReturn?.estimatedReturnLessDexFees ?? 0)
+    );
+
+    /* Transaction fee + DEX fees */
+    return getPrecisedCurrencyValue(
+      getTokenPrice("DFI", fee).plus(
+        getTokenPrice(
+          selectedTokenB.symbol,
+          dexFeesInTokenBUnit
+            .multipliedBy(priceRates[1].value)
+            .multipliedBy(tokenA)
+        )
+      )
+    );
+  }, [priceRates, selectedTokenB, tokenA, bestPathEstimatedReturn, fee]);
+
   useEffect(() => {
     let message = translate(
       "screens/CompositeSwapScreen",
@@ -611,6 +642,9 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         },
       }),
       estimatedAmount: new BigNumber(tokenB),
+      estimatedReturnLessDexFees:
+        bestPathEstimatedReturn?.estimatedReturnLessDexFees ?? "-",
+      totalFees,
     });
   };
 
@@ -972,16 +1006,8 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   executionBlock={executionBlock}
                   transactionDate={transactionDate}
                   transactionFee={fee}
-                  tokenAAmount={tokenA}
-                  estimatedReturn={{
-                    symbol: selectedTokenB.symbol,
-                    fee: new BigNumber(
-                      bestPathEstimatedReturn?.estimatedReturn ?? 0
-                    ),
-                    feeLessDexFees: new BigNumber(
-                      bestPathEstimatedReturn?.estimatedReturnLessDexFees ?? 0
-                    ),
-                  }}
+                  totalFees={totalFees}
+                  dexStabilizationFee={dexStabilizationFee}
                 />
               </ThemedViewV2>
             </>
@@ -1070,175 +1096,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           />
         )}
       </ThemedScrollView>
-    </View>
-  );
-}
-
-function TransactionDetailsSection({
-  isFutureSwap,
-  conversionAmount,
-  estimatedAmount,
-  fee,
-  isConversionRequired,
-  tokenA,
-  tokenB,
-  executionBlock,
-  timeRemaining,
-  transactionDate,
-  oraclePriceText,
-  isDexStabilizationEnabled,
-  dexStabilizationType,
-  dexStabilizationFee,
-}: {
-  isFutureSwap: boolean;
-  conversionAmount: BigNumber;
-  estimatedAmount: string;
-  fee: BigNumber;
-  isConversionRequired: boolean;
-  tokenA: OwnedTokenState;
-  tokenB: TokenState;
-  executionBlock: number;
-  timeRemaining: string;
-  transactionDate: string;
-  oraclePriceText: string;
-  isDexStabilizationEnabled: boolean;
-  dexStabilizationType: DexStabilizationType;
-  dexStabilizationFee?: string;
-}): JSX.Element {
-  const { getBlocksCountdownUrl } = useDeFiScanContext();
-  const { getTokenPrice } = useTokenPrice();
-  const rowStyle = {
-    lhsThemedProps: {
-      light: tailwind("text-gray-500"),
-      dark: tailwind("text-gray-400"),
-    },
-    rhsThemedProps: {
-      light: tailwind("text-gray-900"),
-      dark: tailwind("text-gray-50"),
-    },
-  };
-
-  return (
-    <View
-      style={tailwind("mx-4 overflow-hidden", {
-        "rounded-b-lg": !isFutureSwap,
-        "rounded-lg": isFutureSwap,
-      })}
-    >
-      {isConversionRequired && (
-        <NumberRow
-          lhs={translate("screens/CompositeSwapScreen", "UTXO to be converted")}
-          rhs={{
-            testID: "amount_to_convert",
-            value: conversionAmount.toFixed(8),
-            suffixType: "text",
-            suffix: tokenA.displaySymbol,
-          }}
-          lhsThemedProps={rowStyle.lhsThemedProps}
-          rhsThemedProps={rowStyle.rhsThemedProps}
-        />
-      )}
-
-      {!isFutureSwap ? (
-        <NumberRow
-          lhs={translate("screens/CompositeSwapScreen", "Estimated to receive")}
-          rhs={{
-            value: estimatedAmount,
-            suffixType: "text",
-            suffix: tokenB.displaySymbol,
-            testID: "estimated_to_receive",
-          }}
-          textStyle={tailwind("text-sm font-normal")}
-          rhsUsdAmount={getTokenPrice(
-            tokenB.symbol,
-            new BigNumber(estimatedAmount),
-            false
-          )}
-          lhsThemedProps={rowStyle.lhsThemedProps}
-          rhsThemedProps={rowStyle.rhsThemedProps}
-        />
-      ) : (
-        <>
-          <TimeRemainingTextRow
-            timeRemaining={timeRemaining}
-            transactionDate={transactionDate}
-          />
-          <InfoRow
-            type={InfoType.ExecutionBlock}
-            value={executionBlock}
-            testID="execution_block"
-            suffix={
-              <TouchableOpacity
-                onPress={async () =>
-                  await openURL(getBlocksCountdownUrl(executionBlock))
-                }
-              >
-                <ThemedIcon
-                  name="open-in-new"
-                  size={16}
-                  iconType="MaterialIcons"
-                  style={tailwind("ml-1")}
-                  light={tailwind("text-primary-500")}
-                  dark={tailwind("text-darkprimary-500")}
-                />
-              </TouchableOpacity>
-            }
-            lhsThemedProps={rowStyle.lhsThemedProps}
-            rhsThemedProps={rowStyle.rhsThemedProps}
-          />
-          <TextRow
-            lhs={{
-              value: translate(
-                "screens/ConfirmCompositeSwapScreen",
-                "Estimated to receive"
-              ),
-              themedProps: rowStyle.lhsThemedProps,
-              testID: "estimated_to_receive",
-            }}
-            rhs={{
-              value: translate(
-                "screens/CompositeSwapScreen",
-                `Oracle price ${oraclePriceText}`
-              ),
-              themedProps: rowStyle.rhsThemedProps,
-              testID: "estimated_to_receive",
-            }}
-            textStyle={tailwind("text-sm font-normal")}
-            containerStyle={{
-              dark: tailwind("bg-gray-800 border-b border-gray-700"),
-              light: tailwind("bg-white border-b border-gray-200"),
-              style: tailwind("p-4 flex-row items-start w-full"),
-            }}
-          />
-        </>
-      )}
-      <InfoRow
-        type={InfoType.EstimatedFee}
-        value={fee.toFixed(8)}
-        testID="text_fee"
-        suffix="DFI"
-        lhsThemedProps={rowStyle.lhsThemedProps}
-        rhsThemedProps={rowStyle.rhsThemedProps}
-      />
-      {isDexStabilizationEnabled &&
-        dexStabilizationType !== "none" &&
-        dexStabilizationFee !== undefined && (
-          <NumberRow
-            lhs={translate(
-              "screens/CompositeSwapScreen",
-              "DEX stabilization fee"
-            )}
-            rhs={{
-              value: dexStabilizationFee,
-              suffix: "%",
-              testID: "dex_stab_fee",
-              suffixType: "text",
-            }}
-            textStyle={tailwind("text-sm font-normal")}
-            lhsThemedProps={rowStyle.lhsThemedProps}
-            rhsThemedProps={rowStyle.rhsThemedProps}
-          />
-        )}
     </View>
   );
 }

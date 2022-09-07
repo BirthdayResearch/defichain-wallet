@@ -80,6 +80,8 @@ export interface DexParamList {
     tokenA: OwnedTokenState;
     tokenB: TokenState & { amount?: string };
     estimatedAmount: BigNumber;
+    totalFees: string;
+    estimatedReturnLessDexFees: string;
   };
   ConfirmCompositeSwapScreen: {
     conversion?: ConversionParam;
@@ -302,6 +304,14 @@ export function DexNavigator(): JSX.Element {
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
+          headerStyle: [
+            screenOptions.headerStyle,
+            tailwind("rounded-b-none border-b-0"),
+            {
+              shadowOpacity: 0,
+              height: (Platform.OS !== "android" ? 88 : 96) + insets.top,
+            },
+          ],
         }}
       />
 

@@ -20,6 +20,7 @@ export function InstantSwapRowTo({
       <NumberFormat
         decimalScale={8}
         displayType="text"
+        thousandSeparator
         renderText={(val: string) => (
           <ThemedTextV2
             style={tailwind("text-left font-normal-v2 text-xl")}
@@ -48,11 +49,11 @@ export function FutureSwapRowTo({
   oraclePriceText,
 }: FutureSwapRowToProps): JSX.Element {
   return (
-    <View style={tailwind("w-6/12")}>
+    <View style={tailwind("w-1/3")}>
       <ThemedTextV2
         light={tailwind("text-mono-light-v2-700")}
         dark={tailwind("text-mono-dark-v2-700")}
-        style={tailwind("text-xl font-normal-v2")}
+        style={tailwind("text-lg font-normal-v2")}
       >
         {translate(
           "screens/CompositeSwapScreen",

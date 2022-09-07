@@ -8,7 +8,7 @@ import { AddressType } from "@store/wallet";
 import { View } from "react-native";
 import { ThemedTextV2, ThemedViewV2 } from "./themed";
 
-interface IConfirmSummaryTitleV2Props {
+interface ConfirmSummaryTitleV2Props {
   title: string;
   amount: BigNumber;
   testID: string;
@@ -25,7 +25,7 @@ interface IConfirmSummaryTitleV2Props {
 }
 
 export function ConfirmSummaryTitleV2(
-  props: IConfirmSummaryTitleV2Props
+  props: ConfirmSummaryTitleV2Props
 ): JSX.Element {
   const IconA = getNativeIcon(props.iconA);
   const IconB = getNativeIcon(props.iconB);
