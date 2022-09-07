@@ -141,6 +141,7 @@ export function SlippageToleranceV2({
                 inlineText={slippageError}
                 valid={isSlippageValid()}
                 helperContainerStyle={tailwind("mx-5")}
+                borderContainerStyle={tailwind("rounded-2xl-v2")}
               />
             </View>
             <View style={tailwind("flex-1 h-9")}>
