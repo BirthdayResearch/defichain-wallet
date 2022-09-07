@@ -1050,23 +1050,19 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           </ThemedViewV2>
         </View>
 
-        {selectedTokenB !== undefined &&
-          selectedTokenA !== undefined &&
-          priceRates !== undefined &&
-          tokenA !== undefined &&
-          tokenA !== "" && (
-            <View style={tailwind("p-4")}>
-              {activeButtonGroup === ButtonGroupTabKey.InstantSwap && (
-                <SlippageToleranceV2
-                  setSlippage={setSlippage}
-                  setSlippageError={setSlippageError}
-                  onPress={onBottomSheetSlippageSelect}
-                  slippageError={slippageError}
-                  slippage={slippage}
-                />
-              )}
-            </View>
-          )}
+        {selectedTokenB !== undefined && selectedTokenA !== undefined && (
+          <View style={tailwind("p-4")}>
+            {activeButtonGroup === ButtonGroupTabKey.InstantSwap && (
+              <SlippageToleranceV2
+                setSlippage={setSlippage}
+                setSlippageError={setSlippageError}
+                onPress={onBottomSheetSlippageSelect}
+                slippageError={slippageError}
+                slippage={slippage}
+              />
+            )}
+          </View>
+        )}
 
         {selectedTokenB !== undefined &&
           selectedTokenA !== undefined &&
