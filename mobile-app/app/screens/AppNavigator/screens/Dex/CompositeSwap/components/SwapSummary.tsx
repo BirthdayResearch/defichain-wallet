@@ -12,6 +12,7 @@ import { PriceRateProps, PricesSectionV2 } from "@components/PricesSectionV2";
 import { BottomSheetInfoV2 } from "@components/BottomSheetInfo";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { ButtonGroupTabKey } from "../CompositeSwapScreen";
+import { DexStabilizationType } from "../../hook/DexStabilization";
 
 interface SwapSummaryProps {
   instantSwapPriceRate: PriceRateProps[];
@@ -20,6 +21,8 @@ interface SwapSummaryProps {
   executionBlock?: number;
   transactionDate?: string;
   totalFees: string;
+  dexStabilizationFee: string;
+  dexStabilizationType: DexStabilizationType;
 }
 
 export function SwapSummary({
@@ -29,6 +32,8 @@ export function SwapSummary({
   transactionDate,
   transactionFee,
   totalFees,
+  dexStabilizationFee,
+  dexStabilizationType,
 }: SwapSummaryProps): JSX.Element {
   const { getTokenPrice } = useTokenPrice();
 
@@ -64,6 +69,19 @@ export function SwapSummary({
                 usdTextStyle: tailwind("text-sm"),
               }}
             />
+            {dexStabilizationType !== "none" && (
+              <ThemedTextV2
+                light={tailwind("text-mono-light-v2-500")}
+                dark={tailwind("text-mono-light-v2-500")}
+                style={tailwind("text-xs font-normal-v2")}
+              >
+                {translate(
+                  "screens/CompositeSwapScreen",
+                  "incl. stabilization fee ({{dexStabilizationFee}}%)",
+                  { dexStabilizationFee }
+                )}
+              </ThemedTextV2>
+            )}
           </ThemedViewV2>
         </View>
       ) : (
