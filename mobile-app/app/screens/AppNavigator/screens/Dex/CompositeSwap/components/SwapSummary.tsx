@@ -104,14 +104,12 @@ export function SwapSummary({
             <BottomSheetInfoV2
               alertInfo={{
                 title: "Settlements",
-                message: `Settlement block is the pre-determined  block height that this transaction will be executed. 
-                \nSettlement value is based on the oracle price at the settlement block. 
-                \nUsers will be able to cancel this transaction as long as the settlement block has not been executed. 
-              `,
+                message: "",
               }}
+              wrappedMessage={SettlementMessage()}
               name="test2"
               infoIconStyle={[tailwind("text-xs")]}
-              snapPoints={["50%"]}
+              snapPoints={["55%"]}
               triggerComponent={
                 <View style={tailwind("flex flex-row")}>
                   <ThemedTextV2
@@ -137,6 +135,30 @@ export function SwapSummary({
           </View>
         </View>
       )}
+    </>
+  );
+}
+
+function SettlementMessage(): JSX.Element {
+  return (
+    <>
+      <ThemedTextV2 style={tailwind("text-base font-normal-v2 pb-4")}>
+        <ThemedTextV2 style={tailwind("text-base font-bold-v2")}>
+          Settlement block{" "}
+        </ThemedTextV2>
+        is the pre-determined block height that this transaction will be
+        executed.
+      </ThemedTextV2>
+      <ThemedTextV2 style={tailwind("text-base font-normal-v2 pb-4")}>
+        <ThemedTextV2 style={tailwind("font-bold-v2")}>
+          Settlement value{" "}
+        </ThemedTextV2>
+        is based on the oracle price at the settlement block.
+      </ThemedTextV2>
+      <ThemedTextV2 style={tailwind("text-base font-normal-v2")}>
+        Users will be able to cancel this transaction as long as the settlement
+        block has not been executed.
+      </ThemedTextV2>
     </>
   );
 }
