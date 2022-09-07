@@ -1013,7 +1013,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   transactionFee={fee}
                   totalFees={totalFees}
                   dexStabilizationFee={dexStabilizationFee}
-                  dexStabilizationType="direct-dusd-with-fee"
+                  dexStabilizationType={dexStabilizationType}
                 />
               </ThemedViewV2>
             </>
