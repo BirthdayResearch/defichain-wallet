@@ -33,8 +33,8 @@ import { RemoveLiquidityConfirmScreen } from "./DexConfirmRemoveLiquidity";
 import { AddLiquidityScreen } from "./DexAddLiquidity";
 import { ConfirmAddLiquidityScreen } from "./DexConfirmAddLiquidity";
 import { PoolPairDetailsScreen } from "./PoolPairDetailsScreen";
-import { ConfirmCompositeSwapScreenV2 } from "./CompositeSwap/ConfirmCompositeSwapScreenV2";
 import { CompositeSwapScreenV2 } from "./CompositeSwap/CompositeSwapScreenV2";
+import { ConfirmCompositeSwapScreenV2 } from "./CompositeSwap/ConfirmCompositeSwapScreenV2";
 
 export interface DexParamList {
   DexScreen: undefined;
