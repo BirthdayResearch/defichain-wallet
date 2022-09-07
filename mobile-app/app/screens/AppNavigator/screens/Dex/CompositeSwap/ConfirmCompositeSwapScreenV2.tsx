@@ -1,4 +1,4 @@
-import { Dispatch, useEffect, useMemo, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { tailwind } from "@tailwind";
 import { StackScreenProps } from "@react-navigation/stack";
@@ -25,7 +25,6 @@ import {
   ThemedIcon,
   ThemedScrollViewV2,
   ThemedTextV2,
-  ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
 import { View } from "@components";
@@ -36,18 +35,10 @@ import { useAddressLabel } from "@hooks/useAddressLabel";
 import { ConfirmSummaryTitleV2 } from "@components/ConfirmSummaryTitleV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
-import { useBottomSheet } from "@hooks/useBottomSheet";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { Platform } from "react-native";
-import {
-  BottomSheetWebWithNavV2,
-  BottomSheetWithNavV2,
-} from "@components/BottomSheetWithNavV2";
 import { TextRowV2 } from "@components/TextRowV2";
 import { PricesSectionV2 } from "@components/PricesSectionV2";
 import { DexParamList } from "../DexNavigator";
 import { OwnedTokenState, TokenState } from "./CompositeSwapScreenV2";
-import { ViewFeeDetails } from "./components/ViewFeeDetails";
 
 type Props = StackScreenProps<DexParamList, "ConfirmCompositeSwapScreenV2">;
 export interface CompositeSwapForm {
@@ -90,52 +81,6 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
 
   const { address } = useWalletContext();
   const addressLabel = useAddressLabel(address);
-
-  const { isLight } = useThemeContext();
-  const modalSortingSnapPoints = {
-    ios: ["60%"],
-    android: ["60%"],
-  };
-
-  const {
-    bottomSheetRef,
-    containerRef,
-    expandModal,
-    dismissModal,
-    isModalDisplayed,
-  } = useBottomSheet();
-
-  // TODO: refactor into common component - used by Add/Remove Liq as well
-  const BottomSheetHeader = {
-    headerStatusBarHeight: 2,
-    headerTitle: "",
-    headerBackTitleVisible: false,
-    headerStyle: tailwind("rounded-t-xl-v2 border-b-0", {
-      "bg-mono-light-v2-100": isLight,
-      "bg-mono-dark-v2-100": !isLight,
-    }),
-    headerRight: (): JSX.Element => {
-      return (
-        <ThemedTouchableOpacityV2
-          style={tailwind("mr-5 mt-4 -mb-4")}
-          onPress={dismissModal}
-          testID="close_bottom_sheet_button"
-        >
-          <ThemedIcon iconType="Feather" name="x-circle" size={22} />
-        </ThemedTouchableOpacityV2>
-      );
-    },
-  };
-
-  const ViewFeeBreakdownContents = useMemo(() => {
-    return [
-      {
-        stackScreenName: "ViewFeeBreakdown",
-        component: ViewFeeDetails({}),
-        option: BottomSheetHeader,
-      },
-    ];
-  }, [isLight]);
 
   useEffect(() => {
     setIsOnPage(true);
@@ -442,7 +387,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
                 value: translate(
                   "screens/ConfirmCompositeSwapScreen",
                   "To receive (incl. of fees)"
-                ), // estimated return less dex fees
+                ),
                 testID: "estimated_to_receive",
                 themedProps: {
                   light: tailwind("text-mono-light-v2-500"),
@@ -483,31 +428,6 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
           title="swap"
         />
       </View>
-
-      {Platform.OS === "web" ? (
-        <BottomSheetWebWithNavV2
-          modalRef={containerRef}
-          screenList={ViewFeeBreakdownContents}
-          isModalDisplayed={isModalDisplayed}
-          // eslint-disable-next-line react-native/no-inline-styles
-          modalStyle={{
-            position: "absolute",
-            bottom: "0",
-            height: "404px",
-            width: "375px",
-            zIndex: 50,
-            borderTopLeftRadius: 15,
-            borderTopRightRadius: 15,
-            overflow: "hidden",
-          }}
-        />
-      ) : (
-        <BottomSheetWithNavV2
-          modalRef={bottomSheetRef}
-          screenList={ViewFeeBreakdownContents}
-          snapPoints={modalSortingSnapPoints}
-        />
-      )}
     </ThemedScrollViewV2>
   );
 }
