@@ -493,22 +493,21 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
       return "-";
     }
 
-    /* DEX fees = Burn fees + commission fee */
+    /* 
+      dexFeesInTokenBUnit = Burn fees + commission fee of 1 tokenA
+    */
     const dexFeesInTokenBUnit = new BigNumber(
       bestPathEstimatedReturn?.estimatedReturn ?? 0
-    ).minus(
-      new BigNumber(bestPathEstimatedReturn?.estimatedReturnLessDexFees ?? 0)
-    );
+    )
+      .minus(
+        new BigNumber(bestPathEstimatedReturn?.estimatedReturnLessDexFees ?? 0)
+      )
+      .multipliedBy(tokenA);
 
     /* Transaction fee + DEX fees */
     return getPrecisedCurrencyValue(
       getTokenPrice("DFI", fee).plus(
-        getTokenPrice(
-          selectedTokenB.symbol,
-          dexFeesInTokenBUnit
-            .multipliedBy(priceRates[1].value)
-            .multipliedBy(tokenA)
-        )
+        getTokenPrice(selectedTokenB.symbol, dexFeesInTokenBUnit)
       )
     );
   }, [priceRates, selectedTokenB, tokenA, bestPathEstimatedReturn, fee]);

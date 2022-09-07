@@ -39,6 +39,7 @@ import { TextRowV2 } from "@components/TextRowV2";
 import { PricesSectionV2 } from "@components/PricesSectionV2";
 import { DexParamList } from "../DexNavigator";
 import { OwnedTokenState, TokenState } from "./CompositeSwapScreenV2";
+import { getPrecisedTokenValue } from "../../Auctions/helpers/precision-token-value";
 
 type Props = StackScreenProps<DexParamList, "ConfirmCompositeSwapScreenV2">;
 export interface CompositeSwapForm {
@@ -391,11 +392,15 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
               }}
               rhs={{
                 testID: "confirm_estimated_to_receive",
-                value: estimatedReturnLessDexFees,
+                value: new BigNumber(estimatedReturnLessDexFees)
+                  .multipliedBy(swap.amountFrom)
+                  .toFixed(8),
                 suffix: ` ${swap.tokenTo.displaySymbol}`,
                 usdAmount: getTokenPrice(
                   tokenB.symbol,
-                  new BigNumber(estimatedAmount),
+                  new BigNumber(estimatedReturnLessDexFees).multipliedBy(
+                    swap.amountFrom
+                  ),
                   false
                 ),
                 themedProps: {
