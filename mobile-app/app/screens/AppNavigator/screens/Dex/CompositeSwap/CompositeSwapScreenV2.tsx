@@ -67,6 +67,7 @@ import {
   TransactionCard,
 } from "@components/TransactionCard";
 import { useToast } from "react-native-toast-notifications";
+import { useDisplayUtxoWarning } from "@hooks/wallet/DisplayUtxoWarning";
 import {
   Announcement,
   AnnouncementBannerV2,
@@ -120,6 +121,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     useTokenBestPath();
   const { getTokenPrice } = useTokenPrice();
   const { slippage, setSlippage } = useSlippageTolerance();
+  const { getDisplayUtxoWarningStatus } = useDisplayUtxoWarning();
 
   const blockCount = useSelector((state: RootState) => state.block.count ?? 0);
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs);
@@ -230,6 +232,10 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     tokenB: string;
   }>({ mode: "onChange" });
   const { tokenA, tokenB } = watch();
+  const isReservedUtxoUsed = getDisplayUtxoWarningStatus(
+    new BigNumber(tokenA),
+    selectedTokenA?.displaySymbol ?? ""
+  );
 
   const { isConversionRequired, conversionAmount } = useConversion({
     inputToken: {
@@ -946,6 +952,19 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   {translate("screens/RemoveLiquidity", "Insufficient balance")}
                 </ThemedTextV2>
               )}
+
+            {formState.errors.tokenA?.type === undefined && isReservedUtxoUsed && (
+              <ThemedTextV2
+                light={tailwind("text-orange-v2")}
+                dark={tailwind("text-orange-v2")}
+                style={tailwind("text-xs pt-2 font-normal-v2")}
+              >
+                {translate(
+                  "screens/RemoveLiquidity",
+                  "A small amount of UTXO is reserved for fees"
+                )}
+              </ThemedTextV2>
+            )}
           </View>
 
           <View style={tailwind("my-8 flex-row")}>
@@ -1156,51 +1175,5 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         )}
       </ThemedScrollView>
     </View>
-  );
-}
-
-function TimeRemainingTextRow({
-  timeRemaining,
-  transactionDate,
-}: {
-  timeRemaining: string;
-  transactionDate: string;
-}): JSX.Element {
-  return (
-    <ThemedView
-      dark={tailwind("bg-gray-800 border-b border-gray-700")}
-      light={tailwind("bg-white border-b border-gray-200")}
-      style={tailwind("p-4 flex-row items-start w-full")}
-    >
-      <View style={tailwind("w-6/12")}>
-        <View style={tailwind("flex-row items-end justify-start")}>
-          <ThemedText
-            style={tailwind("text-sm")}
-            light={tailwind("text-gray-500")}
-            dark={tailwind("text-gray-400")}
-            testID="time_remaining_label"
-          >
-            {translate("screens/CompositeSwapScreen", "Est. time remaining")}
-          </ThemedText>
-        </View>
-      </View>
-      <View style={tailwind("flex flex-col justify-end flex-1")}>
-        <ThemedText
-          style={tailwind("text-sm text-right")}
-          light={tailwind("text-gray-900")}
-          dark={tailwind("text-gray-50")}
-          testID="time_remaining"
-        >
-          {`≈${timeRemaining}`}
-        </ThemedText>
-        <ThemedText
-          style={tailwind("text-xs text-right")}
-          light={tailwind("text-gray-500")}
-          dark={tailwind("text-gray-400")}
-        >
-          {`(${transactionDate})`}
-        </ThemedText>
-      </View>
-    </ThemedView>
   );
 }
