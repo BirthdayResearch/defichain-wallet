@@ -1002,6 +1002,17 @@
     "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?": "Bist du dir sicher, dass du diesen Tausch trotz der DEX-Stabilisierungsgebühren in Höhe von {{fee}}, die im Verlauf des zusammengesetzten Pfads beim Komposit-Swap (DUSD -> {{tokenB}}) anfallen werden, durchführen willst?",
     "DEX stabilization fee": "DEX-Stabilisierungsgebühr"
   },
+  "screens/SwapTokenSelectionScreen": {
+    "Select": "Auswählen",
+    "Search token": "Token suchen",
+    "AVAILABLE TOKENS": "VERFÜGBARE TOKEN",
+    "AVAILABLE FOR SWAP": "VERFÜGBAR FÜR TAUSCH",
+    "AVAILABLE FOR FUTURE SWAP": "FÜR FUTURE SWAP VERFÜGBAR",
+    "Search with token name": "Suche über den Token-Namen",
+    "Search dTokens for future swap": "Suche nach dToken für Future Swap",
+    "Search results for “{{searchTerm}}”": "Suchergebnisse für  “{{searchTerm}}”",
+    "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap.": "Keine Ergebnisse für “{{searchTerm}}” gefunden. Bitte beachte, dass nur ausgewählte Token für den Future Swap verfügbar sind."
+  },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "UMWANDELN",
     "CONFIRM SWAP": "TAUSCH BESTÄTIGEN",

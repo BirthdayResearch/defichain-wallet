@@ -20,6 +20,7 @@ export function InstantSwapRowTo({
       <NumberFormat
         decimalScale={8}
         displayType="text"
+        thousandSeparator
         renderText={(val: string) => (
           <ThemedTextV2
             style={tailwind("text-left font-normal-v2 text-xl")}

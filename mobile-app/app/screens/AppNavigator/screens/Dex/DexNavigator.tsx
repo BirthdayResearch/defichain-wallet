@@ -14,6 +14,11 @@ import { Platform, StyleProp, ViewStyle } from "react-native";
 import { ThemedTextV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
+import {
+  SelectionToken,
+  SwapTokenSelectionScreen,
+  TokenListType,
+} from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { PriceRateProps as PriceRatesPropsV2 } from "@components/PricesSectionV2";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { ConversionParam } from "../Portfolio/PortfolioNavigator";
@@ -51,6 +56,13 @@ export interface DexParamList {
         isPreselected: boolean;
       };
     };
+  };
+  SwapTokenSelectionScreen: {
+    listType: TokenListType;
+    list: SelectionToken[];
+    onTokenPress: (token: SelectionToken) => void;
+    isFutureSwap: boolean;
+    isSearchDTokensOnly?: boolean;
   };
   ConfirmCompositeSwapScreenV2: {
     conversion?: ConversionParam;
@@ -280,6 +292,18 @@ export function DexNavigator(): JSX.Element {
               <HeaderNetworkStatus onPress={goToNetworkSelect} />
             ),
           }),
+        }}
+      />
+
+      <DexStack.Screen
+        component={SwapTokenSelectionScreen}
+        name="SwapTokenSelectionScreen"
+        options={{
+          ...screenOptions,
+          headerTitle: translate("screens/SwapTokenSelectionScreen", "Select"),
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
         }}
       />
 

@@ -45,11 +45,7 @@ import {
   BottomSheetWebWithNav,
   BottomSheetWithNav,
 } from "@components/BottomSheetWithNav";
-import {
-  BottomSheetToken,
-  BottomSheetTokenList,
-  TokenType,
-} from "@components/BottomSheetTokenList";
+import { BottomSheetToken } from "@components/BottomSheetTokenList";
 import { InfoRow, InfoType } from "@components/InfoRow";
 import { NumberRow } from "@components/NumberRow";
 import { useWalletContext } from "@shared-contexts/WalletContext";
@@ -64,13 +60,14 @@ import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { PriceRateProps } from "@components/PricesSectionV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { TokenListType } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
+import { useSwappableTokensV2 } from "@screens/AppNavigator/screens/Dex/hook/SwappableTokensV2";
 import { AnnouncementBannerV2 } from "../../Portfolio/components/Announcements";
 import {
   DexStabilizationType,
   useDexStabilization,
 } from "../hook/DexStabilization";
 import { useFutureSwap, useFutureSwapDate } from "../hook/FutureSwap";
-import { useSwappableTokens } from "../hook/SwappableTokens";
 import { useSlippageTolerance } from "../hook/SlippageTolerance";
 import { useTokenBestPath } from "../../Portfolio/hooks/TokenBestPath";
 import { DexParamList } from "../DexNavigator";
@@ -164,7 +161,11 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     executionBlock,
     blockCount
   );
-  const { fromTokens, toTokens } = useSwappableTokens(selectedTokenA?.id);
+  const { fromTokens, toTokens } = useSwappableTokensV2(
+    selectedTokenA?.id,
+    selectedTokenA?.displaySymbol,
+    activeButtonGroup === ButtonGroupTabKey.FutureSwap
+  );
   const { isFutureSwapOptionEnabled, oraclePriceText, isSourceLoanToken } =
     useFutureSwap({
       fromTokenDisplaySymbol: selectedTokenA?.displaySymbol,
@@ -272,37 +273,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     } else {
       setSelectedTokenB(derivedToken);
     }
-  };
-
-  const onBottomSheetSelect = ({
-    direction,
-  }: {
-    direction: "FROM" | "TO";
-  }): void => {
-    setBottomSheetScreen([
-      {
-        stackScreenName: "TokenList",
-        component: BottomSheetTokenList({
-          tokens: direction === "FROM" ? fromTokens ?? [] : toTokens ?? [],
-          tokenType: TokenType.BottomSheetToken,
-          headerLabel: translate(
-            "screens/CompositeSwapScreen",
-            direction === "FROM"
-              ? "Choose token for swap"
-              : "Choose token to swap"
-          ),
-          onCloseButtonPress: () => dismissModal(),
-          onTokenPress: (item): void => {
-            onTokenSelect(item, direction);
-            dismissModal();
-          },
-        }),
-        option: {
-          header: () => null,
-        },
-      },
-    ]);
-    expandModal();
   };
 
   useEffect(() => {
@@ -569,6 +539,19 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     });
   };
 
+  const navigateToTokenSelectionScreen = (listType: TokenListType): void => {
+    navigation.navigate("SwapTokenSelectionScreen", {
+      listType: listType,
+      list: listType === TokenListType.From ? fromTokens ?? [] : toTokens ?? [],
+      onTokenPress: (item) => {
+        onTokenSelect(item, listType);
+        navigation.goBack();
+      },
+      isFutureSwap: activeButtonGroup === ButtonGroupTabKey.FutureSwap,
+      isSearchDTokensOnly: selectedTokenA?.displaySymbol === "DUSD",
+    });
+  };
+
   const onWarningBeforeSubmit = async (): Promise<void> => {
     if (selectedTokenB === undefined) {
       return;
@@ -744,7 +727,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
 
             <TokenDropdownButton
               symbol={selectedTokenA?.displaySymbol}
-              onPress={() => onBottomSheetSelect({ direction: "FROM" })}
+              onPress={() => navigateToTokenSelectionScreen(TokenListType.From)}
               disabled={
                 isFromTokenSelectDisabled ||
                 fromTokens === undefined ||
@@ -840,7 +823,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               )}
               <TokenDropdownButton
                 symbol={selectedTokenB?.displaySymbol}
-                onPress={() => onBottomSheetSelect({ direction: "TO" })}
+                onPress={() => navigateToTokenSelectionScreen(TokenListType.To)}
                 disabled={
                   isToTokenSelectDisabled ||
                   toTokens === undefined ||

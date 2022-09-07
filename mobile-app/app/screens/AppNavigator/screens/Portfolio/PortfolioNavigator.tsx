@@ -14,7 +14,6 @@ import { TransactionsScreen } from "@screens/AppNavigator/screens/Transactions/T
 import { TransactionDetailScreen } from "@screens/AppNavigator/screens/Transactions/screens/TransactionDetailScreen";
 import { VMTransaction } from "@screens/AppNavigator/screens/Transactions/screens/stateProcessor";
 import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
-import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import GridBackgroundImageLight from "@assets/images/onboarding/grid-background-light.png";
 import GridBackgroundImageDark from "@assets/images/onboarding/grid-background-dark.png";
@@ -28,6 +27,8 @@ import { ConvertConfirmationScreen } from "@screens/AppNavigator/screens/Portfol
 import { FutureSwapScreenV2 } from "@screens/AppNavigator/screens/Portfolio/screens/FutureSwapScreenV2";
 import { WithdrawFutureSwapScreenV2 } from "@screens/AppNavigator/screens/Portfolio/screens/WithdrawFutureSwapScreenV2";
 import { ConfirmWithdrawFutureSwapScreenV2 } from "@screens/AppNavigator/screens/Portfolio/screens/ConfirmWithdrawFutureSwapScreenV2";
+import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
+import { SwapTokenSelectionScreen } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { PortfolioScreen } from "./PortfolioScreen";
 import { ReceiveScreen } from "./screens/ReceiveScreen";
@@ -421,6 +422,18 @@ export function PortfolioNavigator(): JSX.Element {
               <HeaderNetworkStatus onPress={goToNetworkSelect} />
             ),
           }),
+        }}
+      />
+
+      <PortfolioStack.Screen
+        component={SwapTokenSelectionScreen}
+        name="SwapTokenSelectionScreen"
+        options={{
+          ...screenOptions,
+          headerTitle: translate("screens/SwapTokenSelectionScreen", "Select"),
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
         }}
       />
 

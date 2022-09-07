@@ -9,12 +9,12 @@ import { translate } from "@translations";
 import { StyleProp, ViewStyle } from "react-native";
 
 interface TransactionCardProps {
-  maxValue: BigNumber
-  onChange: (amount: string, type: AmountButtonTypes) => void
-  status?: TransactionCardStatus
-  containerStyle?: StyleProp<ViewStyle>
-  amountButtonsStyle?: StyleProp<ViewStyle>
-  disabled?: boolean
+  maxValue: BigNumber;
+  onChange: (amount: string, type: AmountButtonTypes) => void;
+  status?: TransactionCardStatus;
+  containerStyle?: StyleProp<ViewStyle>;
+  amountButtonsStyle?: StyleProp<ViewStyle>;
+  disabled?: boolean;
 }
 
 export enum AmountButtonTypes {
@@ -37,7 +37,7 @@ export function TransactionCard({
   containerStyle,
   amountButtonsStyle,
   disabled,
-  children
+  children,
 }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
   return (
     <ThemedViewV2
@@ -49,11 +49,15 @@ export function TransactionCard({
         "border-0.5 border-mono-dark-v2-800":
           status === TransactionCardStatus.Active,
       })}
-      style={tailwind("rounded-lg-v2", {
-        'border-0.5 border-red-v2': status === TransactionCardStatus.Error
-      }, {
-        'opacity-30': disabled
-      })}
+      style={tailwind(
+        "rounded-lg-v2",
+        {
+          "border-0.5 border-red-v2": status === TransactionCardStatus.Error,
+        },
+        {
+          "opacity-30": disabled,
+        }
+      )}
     >
       <ThemedViewV2
         light={tailwind("bg-mono-light-v2-00")}
@@ -70,31 +74,29 @@ export function TransactionCard({
           amountButtonsStyle,
         ]}
       >
-        {
-          Object.values(AmountButtonTypes).map((type, index, { length }) => {
-            return (
-              <SetAmountButton
-                key={type}
-                amount={maxValue}
-                onPress={onChange}
-                type={type}
-                hasBorder={length - 1 !== index}
-                disabled={disabled}
-              />
-            )
-          })
-        }
+        {Object.values(AmountButtonTypes).map((type, index, { length }) => {
+          return (
+            <SetAmountButton
+              key={type}
+              amount={maxValue}
+              onPress={onChange}
+              type={type}
+              hasBorder={length - 1 !== index}
+              disabled={disabled}
+            />
+          );
+        })}
       </ThemedViewV2>
     </ThemedViewV2>
   );
 }
 
 interface SetAmountButtonProps {
-  type: AmountButtonTypes
-  onPress: (amount: string, type: AmountButtonTypes) => void
-  amount: BigNumber
-  hasBorder?: boolean
-  disabled?: boolean
+  type: AmountButtonTypes;
+  onPress: (amount: string, type: AmountButtonTypes) => void;
+  amount: BigNumber;
+  hasBorder?: boolean;
+  disabled?: boolean;
 }
 
 function SetAmountButton({
@@ -102,7 +104,7 @@ function SetAmountButton({
   onPress,
   amount,
   hasBorder,
-  disabled
+  disabled,
 }: SetAmountButtonProps): JSX.Element {
   const decimalPlace = 8;
   let value = amount.toFixed(decimalPlace);
