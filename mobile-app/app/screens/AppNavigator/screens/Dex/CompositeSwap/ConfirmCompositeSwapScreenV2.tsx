@@ -480,7 +480,7 @@ async function constructSignedSwapAndSend(
       transactionQueue.actions.push({
         sign: signer,
         title: translate(
-          "screens/ConfirmCompositeSwapScreen",
+          "screens/OceanInterface",
           "Swapping {{amountA}} {{symbolA}} to {{symbolB}}",
           {
             amountA: cSwapForm.amountFrom.toFixed(8),
@@ -557,7 +557,7 @@ async function constructSignedFutureSwapAndSend(
       transactionQueue.actions.push({
         sign: signer,
         title: translate(
-          "screens/ConfirmCompositeSwapScreen",
+          "screens/OceanInterface",
           "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
           {
             amountA: futureSwap.amount.toFixed(8),
