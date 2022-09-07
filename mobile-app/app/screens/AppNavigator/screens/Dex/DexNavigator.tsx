@@ -68,6 +68,8 @@ export interface DexParamList {
     tokenA: OwnedTokenState;
     tokenB: TokenState & { amount?: string };
     estimatedAmount: BigNumber;
+    totalFees: string;
+    estimatedReturnLessDexFees: string;
   };
   ConfirmCompositeSwapScreen: {
     conversion?: ConversionParam;
@@ -174,6 +176,7 @@ export function DexNavigator(): JSX.Element {
               style={[
                 screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
                 tailwind("text-left text-3xl font-semibold-v2"),
+                // eslint-disable-next-line react-native/no-inline-styles
                 { fontSize: 28 },
               ]}
             >

@@ -34,7 +34,6 @@ import { ReceiveScreen } from "./screens/ReceiveScreen";
 import { AddressControlScreen } from "./components/AddressControlScreen";
 import { AboutScreen } from "../Settings/screens/AboutScreen";
 import { CompositeSwapScreen } from "../Dex/CompositeSwap/CompositeSwapScreen";
-import { ConfirmCompositeSwapScreen } from "../Dex/CompositeSwap/ConfirmCompositeSwapScreen";
 import { FutureSwapScreen } from "./screens/FutureSwapScreen";
 import { ConfirmWithdrawFutureSwapScreen } from "./screens/ConfirmWithdrawFutureSwapScreen";
 import { WithdrawFutureSwapScreen } from "./screens/WithdrawFutureSwapScreen";
@@ -56,6 +55,7 @@ import { AddLiquidityScreen } from "../Dex/DexAddLiquidity";
 import { ConfirmAddLiquidityScreen } from "../Dex/DexConfirmAddLiquidity";
 import { CompositeSwapScreenV2 } from "../Dex/CompositeSwap/CompositeSwapScreenV2";
 import { ConfirmCompositeSwapScreenV2 } from "../Dex/CompositeSwap/ConfirmCompositeSwapScreenV2";
+import { ConfirmCompositeSwapScreen } from "../Dex/CompositeSwap/ConfirmCompositeSwapScreen";
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined;
