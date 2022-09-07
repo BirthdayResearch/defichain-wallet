@@ -9,7 +9,7 @@ import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { ThemedIcon, ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { PriceRateProps, PricesSectionV2 } from "@components/PricesSectionV2";
-import { BottomSheetInfoV2 } from "@components/BottomSheetInfo";
+import { BottomSheetInfoV2 } from "@components/BottomSheetInfoV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { ButtonGroupTabKey } from "../CompositeSwapScreen";
 import { DexStabilizationType } from "../../hook/DexStabilization";

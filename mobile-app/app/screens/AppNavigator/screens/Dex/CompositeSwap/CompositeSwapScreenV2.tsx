@@ -1,5 +1,5 @@
-import { memo, useCallback, useEffect, useState, useRef } from "react";
-import { Platform, TextInput, TouchableOpacity, View } from "react-native";
+import { useMemo, useCallback, useEffect, useState, useRef } from "react";
+import { Platform, TextInput, View } from "react-native";
 import { useSelector } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
 import BigNumber from "bignumber.js";
@@ -45,13 +45,9 @@ import {
   TokenType,
 } from "@components/BottomSheetTokenList";
 import { BottomSheetNavScreen } from "@components/BottomSheetWithNav";
-import { InfoRow, InfoType } from "@components/InfoRow";
-import { NumberRow } from "@components/NumberRow";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
-import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
-import { openURL } from "@api/linking";
-import { TextRow } from "@components/TextRow";
+
 import { fetchExecutionBlock } from "@store/futureSwap";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { WalletAlert } from "@components/WalletAlert";
@@ -70,10 +66,7 @@ import {
   Announcement,
   AnnouncementBannerV2,
 } from "../../Portfolio/components/Announcements";
-import {
-  DexStabilizationType,
-  useDexStabilization,
-} from "../hook/DexStabilization";
+import { useDexStabilization } from "../hook/DexStabilization";
 import { useFutureSwap, useFutureSwapDate } from "../hook/FutureSwap";
 import { useSlippageTolerance } from "../hook/SlippageTolerance";
 import { useTokenBestPath } from "../../Portfolio/hooks/TokenBestPath";
