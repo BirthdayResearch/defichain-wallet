@@ -22,7 +22,7 @@ type Props = ThemedProps &
     enableScroll?: boolean;
   };
 
-export function BottomSheetModal(props: Props): JSX.Element {
+export function BottomSheetModalV2(props: Props): JSX.Element {
   const bottomSheetModalRef = useRef<Modal>(null);
   const { dismiss } = useBottomSheetModal();
   const { isLight } = useThemeContext();
@@ -93,7 +93,7 @@ export function BottomSheetModal(props: Props): JSX.Element {
                     isLight
                       ? "bg-white border-gray-200"
                       : "bg-gray-800 border-gray-700"
-                  } rounded`
+                  } rounded-t-xl-v2`
                 ),
               ]}
             />
@@ -117,11 +117,10 @@ export function BottomSheetModal(props: Props): JSX.Element {
             >
               <TouchableOpacity onPress={closeModal}>
                 <ThemedIcon
-                  size={24}
-                  name="close"
-                  iconType="MaterialIcons"
-                  dark={tailwind("text-white text-opacity-70")}
-                  light={tailwind("text-gray-600")}
+                  iconType="Feather"
+                  name="x-circle"
+                  size={22}
+                  style={tailwind("mt-2")}
                 />
               </TouchableOpacity>
             </View>

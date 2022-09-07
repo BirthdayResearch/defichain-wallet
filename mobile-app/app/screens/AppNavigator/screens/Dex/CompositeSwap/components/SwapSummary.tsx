@@ -10,8 +10,8 @@ import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { ThemedViewV2, ThemedIcon, ThemedTextV2 } from "@components/themed";
 import { PricesSectionV2, PriceRateProps } from "@components/PricesSectionV2";
-import { BottomSheetInfoV2 } from "@components/BottomSheetInfo";
 import { NumberRowV2 } from "@components/NumberRowV2";
+import { BottomSheetInfoV2 } from "@components/BottomSheetInfoV2";
 import { ButtonGroupTabKey } from "../CompositeSwapScreen";
 
 interface SwapSummaryProps {
@@ -133,7 +133,7 @@ export function SwapSummary({
                 title: "Settlements",
                 message: "",
               }}
-              wrappedMessage={SettlementMessage()}
+              styledMessage={SettlementMessage()}
               name="test2"
               infoIconStyle={[tailwind("text-xs")]}
               snapPoints={["55%"]}
@@ -167,6 +167,7 @@ export function SwapSummary({
 }
 
 function SettlementMessage(): JSX.Element {
+  // TODO: translations
   return (
     <>
       <ThemedTextV2 style={tailwind("text-base font-normal-v2 pb-4")}>
