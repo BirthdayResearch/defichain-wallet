@@ -25,7 +25,6 @@ import {
   ThemedIcon,
   ThemedScrollViewV2,
   ThemedTextV2,
-  ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
 import { View } from "@components";
@@ -397,11 +396,15 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
               }}
               rhs={{
                 testID: "confirm_estimated_to_receive",
-                value: estimatedReturnLessDexFees,
+                value: new BigNumber(estimatedReturnLessDexFees)
+                  .multipliedBy(swap.amountFrom)
+                  .toFixed(8),
                 suffix: ` ${swap.tokenTo.displaySymbol}`,
                 usdAmount: getTokenPrice(
                   tokenB.symbol,
-                  new BigNumber(estimatedAmount),
+                  new BigNumber(estimatedReturnLessDexFees).multipliedBy(
+                    swap.amountFrom
+                  ),
                   false
                 ),
                 themedProps: {
