@@ -43,8 +43,6 @@ export const BottomSheetSlippageInfo = (): React.MemoExoticComponent<
         >
           <ThemedTextV2
             style={tailwind("mt-4 font-normal-v2")}
-            dark={tailwind("text-mono-dark-v2-900")}
-            light={tailwind("text-mono-light-v2-900")}
           >
             {description}
           </ThemedTextV2>
