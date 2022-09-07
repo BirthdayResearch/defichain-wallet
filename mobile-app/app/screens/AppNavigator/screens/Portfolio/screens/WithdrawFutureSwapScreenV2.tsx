@@ -241,8 +241,10 @@ export function WithdrawFutureSwapScreenV2(props: Props): JSX.Element {
             <TransactionCard
               maxValue={new BigNumber(source.amount)}
               onChange={onPercentagePress}
-              amountButtonsStyle={tailwind("border-t-0.5")}
-              containerStyle={tailwind("px-5 rounded-t-lg-v2")}
+              amountButtonsStyle={{ style: tailwind("border-t-0.5") }}
+              containerStyle={{
+                style: tailwind("px-5 rounded-t-lg-v2"),
+              }}
               status={transactionCardStatus}
             >
               <ThemedViewV2

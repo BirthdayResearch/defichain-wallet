@@ -808,7 +808,8 @@
     "From": "Des",
     "To": "Contre des",
     "Converting": "Conversion",
-    "Converted": "Converti"
+    "Converted": "Converti",
+    "for": "à"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Créez un nouveau code d'accès pour votre portefeuille",
@@ -1015,18 +1016,17 @@
     "DEX stabilization fee": "DEX stabilization fee",
     "Future swap uses the oracle price of the selected token on the settlement block": "Future swap uses the oracle price of the selected token on the settlement block",
     "You are buying dtokens at 5% more than the oracle price at settlement block": "You are buying dtokens at 5% more than the oracle price at settlement block",
-    "You are selling your dtoken at 5% less than the oracle price at settlement block": "You are selling your dtoken at 5% less than the oracle price at settlement block"
-  },
-  "screens/SwapTokenSelectionScreen": {
-    "Select": "Select",
-    "Search token": "Search token",
-    "AVAILABLE TOKENS": "AVAILABLE TOKENS",
-    "AVAILABLE FOR SWAP": "DISPONIBLE POUR UN ÉCHANGE",
-    "AVAILABLE FOR FUTURE SWAP": "AVAILABLE FOR FUTURE SWAP",
-    "Search with token name": "Recherche avec le nom du token",
-    "Search dTokens for future swap": "Search dTokens for future swap",
-    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
-    "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap.": "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap."
+    "You are selling your dtoken at 5% less than the oracle price at settlement block": "You are selling your dtoken at 5% less than the oracle price at settlement block",
+    "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
+    "By continuing, the required amount of DFI will be converted": "En continuant, le montant requis de DFI sera converti",
+    "I HAVE {{totalAmount}} {{token}}": "J'AI {{totalAmount}} {{token}}",
+    "I WANT {{token}}": "JE VEUX {{token}}",
+    "Total fees": "Total des frais",
+    "Settlement Value {{percentageChange}}": "Valeur de règlement {{percentageChange}}",
+    "Transaction fee": "Transaction fee",
+    "Max available {{unit}} entered": "Max. de {{unit}} disponibles saisis",
+    "{{percent}} of available {{unit}} entered": "{{percent}} des {{unit}} disponibles saisis",
+    "Token": "Token"
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Select",
@@ -1057,7 +1057,13 @@
     "To be confirmed": "À confirmer",
     "Settlement block": "Bloc d’exécution",
     "Resulting {{token}}": "{{token}} restants",
-    "Oracle price {{percentageChange}}": "Prix Oracle {{percentageChange}}"
+    "Oracle price {{percentageChange}}": "Prix Oracle {{percentageChange}}",
+    "To receive (est.)": "A recevoir (est.)",
+    "Settlement value {{percentageChange}}": "Valeur du règlement {{percentageChange}}",
+    "Total fees": "Total des frais",
+    "To receive (incl. of fees)": "A recevoir (y compris les frais)",
+    "Fee breakdown": "Répartition des frais",
+    "Transaction fee": "Transaction fee"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Vous échangez",

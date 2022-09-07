@@ -143,7 +143,10 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
     <ThemedScrollViewV2 style={tailwind("py-8 px-5")}>
       <ThemedViewV2 style={tailwind("flex-col pb-4 mb-4")}>
         <ConfirmSummaryTitleV2
-          title={translate("screens/ConvertConfirmScreen", "You are swapping")}
+          title={translate(
+            "screens/ConfirmCompositeSwapScreen",
+            "You are swapping"
+          )}
           amount={swap.amountFrom}
           testID="text_convert_amount"
           iconA={tokenA.displaySymbol}
@@ -151,6 +154,8 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
           fromAddress={address}
           fromAddressLabel={addressLabel}
           forTokenAmount={estimatedAmount}
+          isFutureSwap={futureSwap !== undefined}
+          oraclePrice={futureSwap?.oraclePriceText}
         />
       </ThemedViewV2>
 
@@ -360,8 +365,8 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
                 }}
                 rhs={{
                   value: translate(
-                    "screens/CompositeSwapScreen",
-                    "Oracle price {{percentageChange}}",
+                    "screens/ConfirmCompositeSwapScreen",
+                    "Settlement value {{percentageChange}}",
                     {
                       percentageChange: futureSwap.oraclePriceText,
                     }
@@ -381,7 +386,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
               lhs={{
                 value: translate(
                   "screens/ConfirmCompositeSwapScreen",
-                  "To receive (incl. of fees"
+                  "To receive (incl. of fees)"
                 ),
                 testID: "estimated_to_receive",
                 themedProps: {

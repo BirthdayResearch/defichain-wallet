@@ -1,17 +1,18 @@
 import { useMemo } from "react";
 
-import { View, TouchableOpacity, Linking } from "react-native";
+import { Linking, TouchableOpacity, View } from "react-native";
 import NumberFormat from "react-number-format";
 import BigNumber from "bignumber.js";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
-import { ThemedViewV2, ThemedIcon, ThemedTextV2 } from "@components/themed";
-import { PricesSectionV2, PriceRateProps } from "@components/PricesSectionV2";
-import { NumberRowV2 } from "@components/NumberRowV2";
+import { ThemedIcon, ThemedTextV2, ThemedViewV2 } from "@components/themed";
+import { PriceRateProps, PricesSectionV2 } from "@components/PricesSectionV2";
 import { BottomSheetInfoV2 } from "@components/BottomSheetInfoV2";
+import { NumberRowV2 } from "@components/NumberRowV2";
 import { ButtonGroupTabKey } from "../CompositeSwapScreen";
+import { DexStabilizationType } from "../../hook/DexStabilization";
 
 interface SwapSummaryProps {
   instantSwapPriceRate: PriceRateProps[];
@@ -20,6 +21,8 @@ interface SwapSummaryProps {
   executionBlock?: number;
   transactionDate?: string;
   totalFees: string;
+  dexStabilizationFee: string;
+  dexStabilizationType: DexStabilizationType;
 }
 
 export function SwapSummary({
@@ -29,6 +32,8 @@ export function SwapSummary({
   transactionDate,
   transactionFee,
   totalFees,
+  dexStabilizationFee,
+  dexStabilizationType,
 }: SwapSummaryProps): JSX.Element {
   const { getTokenPrice } = useTokenPrice();
 
@@ -64,6 +69,19 @@ export function SwapSummary({
                 usdTextStyle: tailwind("text-sm"),
               }}
             />
+            {dexStabilizationType !== "none" && (
+              <ThemedTextV2
+                light={tailwind("text-mono-light-v2-500")}
+                dark={tailwind("text-mono-light-v2-500")}
+                style={tailwind("text-xs font-normal-v2")}
+              >
+                {translate(
+                  "screens/CompositeSwapScreen",
+                  "incl. stabilization fee ({{dexStabilizationFee}}%)",
+                  { dexStabilizationFee }
+                )}
+              </ThemedTextV2>
+            )}
           </ThemedViewV2>
         </View>
       ) : (
@@ -81,7 +99,7 @@ export function SwapSummary({
             lhs={{
               value: translate(
                 "screens/CompositeSwapScreen",
-                "Transaction fees"
+                "Transaction fee"
               ),
               testID: "swap_total_fees",
               themedProps: {
@@ -192,7 +210,7 @@ function SettlementBlockInfo({
           light={tailwind("text-mono-light-v2-500")}
           dark={tailwind("text-mono-dark-v2-500")}
         >
-          {translate("screens/NetworkDetails", "Settlement block")}
+          {translate("screens/CompositeSwapScreen", "Settlement block")}
         </ThemedTextV2>
       </View>
 

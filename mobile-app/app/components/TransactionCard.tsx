@@ -1,7 +1,8 @@
 import {
-  ThemedViewV2,
+  ThemedProps,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
+  ThemedViewV2,
 } from "@components/themed";
 import BigNumber from "bignumber.js";
 import { tailwind } from "@tailwind";
@@ -12,8 +13,11 @@ interface TransactionCardProps {
   maxValue: BigNumber;
   onChange: (amount: string, type: AmountButtonTypes) => void;
   status?: TransactionCardStatus;
-  containerStyle?: StyleProp<ViewStyle>;
-  amountButtonsStyle?: StyleProp<ViewStyle>;
+  componentStyle?: ThemedProps & { style?: ThemedProps & StyleProp<ViewStyle> };
+  containerStyle?: ThemedProps & { style?: ThemedProps & StyleProp<ViewStyle> };
+  amountButtonsStyle?: ThemedProps & {
+    style?: ThemedProps & StyleProp<ViewStyle>;
+  };
   disabled?: boolean;
 }
 
@@ -34,6 +38,7 @@ export function TransactionCard({
   maxValue,
   onChange,
   status,
+  componentStyle,
   containerStyle,
   amountButtonsStyle,
   disabled,
@@ -41,37 +46,48 @@ export function TransactionCard({
 }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
   return (
     <ThemedViewV2
-      light={tailwind("bg-mono-light-v2-00", {
-        "border-0.5 border-mono-light-v2-800":
-          status === TransactionCardStatus.Active,
-      })}
-      dark={tailwind("bg-mono-dark-v2-00", {
-        "border-0.5 border-mono-dark-v2-800":
-          status === TransactionCardStatus.Active,
-      })}
-      style={tailwind(
-        "rounded-lg-v2",
-        {
-          "border-0.5 border-red-v2": status === TransactionCardStatus.Error,
-        },
-        {
-          "opacity-30": disabled,
-        }
-      )}
+      light={
+        componentStyle?.light ??
+        tailwind("bg-mono-light-v2-00", {
+          "border-0.5 border-mono-light-v2-800":
+            status === TransactionCardStatus.Active,
+        })
+      }
+      dark={
+        componentStyle?.dark ??
+        tailwind("bg-mono-dark-v2-00", {
+          "border-0.5 border-mono-dark-v2-800":
+            status === TransactionCardStatus.Active,
+        })
+      }
+      style={[
+        tailwind(
+          "rounded-lg-v2",
+          {
+            "border-0.5 border-red-v2": status === TransactionCardStatus.Error,
+          },
+          {
+            "opacity-30": disabled,
+          }
+        ),
+        componentStyle?.style,
+      ]}
     >
       <ThemedViewV2
-        light={tailwind("bg-mono-light-v2-00")}
-        dark={tailwind("bg-mono-dark-v2-00")}
-        style={containerStyle}
+        light={containerStyle?.light ?? tailwind("bg-mono-light-v2-00")}
+        dark={containerStyle?.dark ?? tailwind("bg-mono-dark-v2-00")}
+        style={containerStyle?.style}
       >
         {children}
       </ThemedViewV2>
       <ThemedViewV2
-        light={tailwind("border-mono-light-v2-300")}
-        dark={tailwind("border-mono-dark-v2-300")}
+        light={
+          amountButtonsStyle?.light ?? tailwind("border-mono-light-v2-300")
+        }
+        dark={amountButtonsStyle?.dark ?? tailwind("border-mono-dark-v2-300")}
         style={[
           tailwind("flex flex-row justify-around items-center py-2.5"),
-          amountButtonsStyle,
+          amountButtonsStyle?.style,
         ]}
       >
         {Object.values(AmountButtonTypes).map((type, index, { length }) => {
