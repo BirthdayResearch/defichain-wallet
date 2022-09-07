@@ -6,7 +6,6 @@ import BigNumber from "bignumber.js";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
-import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { ThemedIcon, ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { PriceRateProps, PricesSectionV2 } from "@components/PricesSectionV2";
@@ -18,14 +17,9 @@ interface SwapSummaryProps {
   instantSwapPriceRate: PriceRateProps[];
   activeTab: ButtonGroupTabKey;
   transactionFee: BigNumber;
-  estimatedReturn: {
-    symbol: string;
-    fee: BigNumber;
-    feeLessDexFees: BigNumber;
-  };
   executionBlock?: number;
   transactionDate?: string;
-  tokenAAmount: string;
+  totalFees: string;
 }
 
 export function SwapSummary({
@@ -34,30 +28,9 @@ export function SwapSummary({
   executionBlock,
   transactionDate,
   transactionFee,
-  estimatedReturn,
-  tokenAAmount,
+  totalFees,
 }: SwapSummaryProps): JSX.Element {
   const { getTokenPrice } = useTokenPrice();
-  const totalFees = useMemo(() => {
-    if (tokenAAmount === "" || new BigNumber(tokenAAmount).isZero()) {
-      return "-";
-    }
-
-    const dexFeesInTokenBUnit = estimatedReturn.fee.minus(
-      estimatedReturn.feeLessDexFees
-    );
-
-    return getPrecisedCurrencyValue(
-      getTokenPrice("DFI", transactionFee).plus(
-        getTokenPrice(
-          estimatedReturn.symbol,
-          dexFeesInTokenBUnit
-            .multipliedBy(instantSwapPriceRate[1].value)
-            .multipliedBy(tokenAAmount)
-        )
-      )
-    );
-  }, [transactionFee, estimatedReturn]);
 
   return (
     <>

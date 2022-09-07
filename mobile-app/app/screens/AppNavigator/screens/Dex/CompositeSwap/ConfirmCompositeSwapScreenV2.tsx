@@ -5,10 +5,7 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import BigNumber from "bignumber.js";
 import { RootState } from "@store";
-import {
-  firstTransactionSelector,
-  hasTxQueued as hasBroadcastQueued,
-} from "@store/ocean";
+import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { translate } from "@translations";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import {
@@ -39,7 +36,6 @@ import { useAddressLabel } from "@hooks/useAddressLabel";
 import { ConfirmSummaryTitleV2 } from "@components/ConfirmSummaryTitleV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
-import { ConfirmPricesSectionV2 } from "@components/ConfirmPricesSectionV2";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { Platform } from "react-native";
@@ -48,14 +44,12 @@ import {
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
 import { TextRowV2 } from "@components/TextRowV2";
-import { useTokenBestPath } from "../../Portfolio/hooks/TokenBestPath";
+import { PricesSectionV2 } from "@components/PricesSectionV2";
 import { DexParamList } from "../DexNavigator";
 import { OwnedTokenState, TokenState } from "./CompositeSwapScreenV2";
 import { ViewFeeDetails } from "./components/ViewFeeDetails";
-import { FeeBreakdown } from "./components/FeeBreakdown";
 
-type Props = StackScreenProps<DexParamList, "ConfirmCompositeSwapScreen">;
-
+type Props = StackScreenProps<DexParamList, "ConfirmCompositeSwapScreenV2">;
 export interface CompositeSwapForm {
   tokenFrom: OwnedTokenState;
   tokenTo: TokenState & { amount?: string };
@@ -75,12 +69,13 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
     swap,
     futureSwap,
     estimatedAmount,
+    totalFees,
+    estimatedReturnLessDexFees,
   } = route.params;
   const navigation = useNavigation<NavigationProp<DexParamList>>();
   const dispatch = useAppDispatch();
   const logger = useLogger();
   const { getTokenPrice } = useTokenPrice();
-  const { getBestPath } = useTokenBestPath();
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
   );
@@ -88,11 +83,6 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
     hasBroadcastQueued(state.ocean)
   );
   const blockCount = useSelector((state: RootState) => state.block.count ?? 0);
-  const [totalFees, setTotalFees] = useState(new BigNumber(0));
-  // const lmTokenAmount = percentage.times(pair.totalLiquidity.token)
-  const currentBroadcastJob = useSelector((state: RootState) =>
-    firstTransactionSelector(state.ocean)
-  );
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isOnPage, setIsOnPage] = useState(true);
@@ -136,22 +126,6 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
       );
     },
   };
-
-  const getTotalFees = async (): Promise<void> => {
-    const { estimatedReturn, estimatedReturnLessDexFees } = await getBestPath(
-      tokenA.id,
-      tokenB.id
-    );
-    setTotalFees(
-      new BigNumber(estimatedReturn).minus(
-        new BigNumber(estimatedReturnLessDexFees)
-      )
-    );
-  };
-
-  useEffect(() => {
-    getTotalFees();
-  }, []);
 
   const ViewFeeBreakdownContents = useMemo(() => {
     return [
@@ -301,10 +275,9 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
           light={tailwind("border-gray-300")}
           style={tailwind("py-5 border-t-0.5")}
         >
-          <ConfirmPricesSectionV2
-            testID="confirm_pricerate_value"
+          <PricesSectionV2
             priceRates={priceRates}
-            sectionTitle="PRICES"
+            testID="instant_swap_summary"
           />
           <NumberRowV2
             lhs={{
@@ -346,14 +319,11 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
               },
             }}
             rhs={{
-              value: totalFees.toFixed(8),
+              value: totalFees,
               testID: "transaction_fee_amount",
               prefix: "$",
             }}
           />
-          <View style={tailwind("items-end")}>
-            <FeeBreakdown onPress={expandModal} />
-          </View>
         </ThemedViewV2>
       )}
 
@@ -481,7 +451,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
               }}
               rhs={{
                 testID: "confirm_estimated_to_receive",
-                value: swap.amountTo.toFixed(8),
+                value: estimatedReturnLessDexFees,
                 suffix: ` ${swap.tokenTo.displaySymbol}`,
                 usdAmount: getTokenPrice(
                   tokenB.symbol,
