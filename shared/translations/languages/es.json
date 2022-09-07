@@ -792,13 +792,17 @@
     "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI converted to {{symbolB}}",
     "Preparing your transaction…": "Preparing your transaction…",
     "Processing future swap transaction…": "Processing future swap transaction…",
+    "Processing future swap…": "Processing future swap…",
+    "Future Swap confirmed for next settlement block": "Future Swap confirmed for next settlement block",
     "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap confirmed and will be executed at block #{{block}}",
     "Preparing changes to loan scheme…": "Preparing changes to loan scheme…",
     "Saving changes to loan scheme…": "Saving changes to loan scheme…",
     "Loan scheme saved": "Loan scheme saved",
     "Preparing withdrawal…": "Preparing withdrawal…",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…",
-    "Withdrawal completed": "Withdrawal completed"
+    "Withdrawal completed": "Withdrawal completed",
+    "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "Intercambiando {{amountA}} {{symbolA}} a {{symbolB}}",
+    "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Pidiendo acceso a la cámara",
@@ -1041,7 +1045,11 @@
     "Token": "Token",
     "Instant": "Instant",
     "Future": "Future",
-    "Learn about settlements": "Learn about settlements"
+    "Learn about settlements": "Learn about settlements",
+    "Settlements": "Settlements",
+    "Settlement block is the pre-determined block height that this transaction will be executed.": "Settlement block is the pre-determined block height that this transaction will be executed.",
+    "Settlement value is based on the oracle price at the settlement block.": "Settlement value is based on the oracle price at the settlement block.",
+    "Users will be able to cancel this transaction as long as the settlement block has not been executed.": "Users will be able to cancel this transaction as long as the settlement block has not been executed."
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Select",
@@ -1066,6 +1074,7 @@
     "Swap": "Cambiar",
     "Swapping Token": "Intercambiando tokens",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Intercambiando {{amountA}} {{symbolA}} a {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "Intercambiando {{amountA}} {{symbolA}} a {{symbolB}}",
     "Slippage Tolerance": "Tolerancia a la fluctuación",
     "Estimated to receive": "Estimación a recibir",
     "Slippage tolerance": "Tolerancia a la fluctuación",
@@ -1076,10 +1085,11 @@
     "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}",
     "To receive (est.)": "To receive (est.)",
     "Settlement value {{percentageChange}}": "Settlement value {{percentageChange}}",
-    "Total fees": "Total fees",
-    "To receive (incl. of fees)": "To receive (incl. of fees)",
     "Fee breakdown": "Fee breakdown",
-    "Transaction fee": "Transaction fee"
+    "Total fees": "Total fees",
+    "Transaction fee": "Transaction fee",
+    "To receive (incl. of fees)": "To receive (incl. of fees)",
+    "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?": "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Tu estás intercambiando",
