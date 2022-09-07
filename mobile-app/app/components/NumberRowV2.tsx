@@ -5,12 +5,14 @@ import { tailwind } from "@tailwind";
 import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2";
 import { ThemedProps, ThemedTextV2, ThemedViewV2 } from "./themed";
 import { IconTooltip } from "./tooltip/IconTooltip";
+import { BottomSheetAlertInfoV2, BottomSheetInfoV2 } from "./BottomSheetInfoV2";
 
 type INumberRowProps = React.PropsWithChildren<ViewProps> & NumberRowProps;
 
 interface NumberRowProps extends ThemedProps {
   lhs: NumberRowElement;
   rhs: RhsNumberRowElement;
+  info?: BottomSheetAlertInfoV2;
   containerStyle?: ThemedProps & { style: ThemedProps & StyleProp<ViewStyle> };
 }
 
@@ -42,7 +44,7 @@ export function NumberRowV2(props: INumberRowProps): JSX.Element {
       dark={props.containerStyle?.dark ?? tailwind("bg-transparent")}
     >
       <View style={tailwind("w-5/12")}>
-        <View style={tailwind("flex-row items-end justify-start")}>
+        <View style={tailwind("flex-row items-center justify-start")}>
           <ThemedTextV2
             style={tailwind("text-sm font-normal-v2")}
             testID={`${props.lhs.testID}_label`}
@@ -50,6 +52,16 @@ export function NumberRowV2(props: INumberRowProps): JSX.Element {
           >
             {props.lhs.value}
           </ThemedTextV2>
+          {props.info != null && (
+            <View style={tailwind("ml-1")}>
+              <BottomSheetInfoV2
+                alertInfo={props.info}
+                name={props.info.title}
+                infoIconStyle={tailwind("text-sm")}
+                snapPoints={["40%"]}
+              />
+            </View>
+          )}
         </View>
       </View>
 

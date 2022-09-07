@@ -59,6 +59,13 @@ export function SwapSummary({
                   dark: tailwind("text-mono-dark-v2-500"),
                 },
               }}
+              info={{
+                title: translate("screens/CompositeSwapScreen", "Total fees"),
+                message: translate(
+                  "screens/CompositeSwapScreen",
+                  "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n 1. Commission Fee\n 2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)"
+                ),
+              }}
               rhs={{
                 value: totalFees,
                 testID: "swap_total_fee_amount",
