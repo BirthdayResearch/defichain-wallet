@@ -1038,7 +1038,10 @@
     "Transaction fee": "Transaction fee",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
-    "Token": "Token"
+    "Token": "Token",
+    "Instant": "Instant",
+    "Future": "Future",
+    "Learn about settlements": "Learn about settlements"
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Select",
