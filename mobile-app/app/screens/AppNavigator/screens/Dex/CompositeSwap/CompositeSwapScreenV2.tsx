@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useCallback, useEffect, useState, useRef } from "react";
 import { Platform, TextInput, View } from "react-native";
 import { useSelector } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
@@ -9,7 +9,6 @@ import {
   useNavigation,
 } from "@react-navigation/native";
 import { getColor, tailwind } from "@tailwind";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { translate } from "@translations";
 import { RootState } from "@store";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
@@ -41,18 +40,24 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import {
-  BottomSheetNavScreen,
-  BottomSheetWebWithNav,
-  BottomSheetWithNav,
-} from "@components/BottomSheetWithNav";
-import { BottomSheetToken } from "@components/BottomSheetTokenList";
+  BottomSheetToken,
+  BottomSheetTokenList,
+  TokenType,
+} from "@components/BottomSheetTokenList";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
+
 import { fetchExecutionBlock } from "@store/futureSwap";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { WalletAlert } from "@components/WalletAlert";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useBottomSheet } from "@hooks/useBottomSheet";
+import {
+  BottomSheetNavScreen,
+  BottomSheetWebWithNavV2,
+  BottomSheetWithNavV2,
+} from "@components/BottomSheetWithNavV2";
 import { PriceRateProps } from "@components/PricesSectionV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { TokenListType } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
@@ -71,10 +76,7 @@ import { useFutureSwap, useFutureSwapDate } from "../hook/FutureSwap";
 import { useSlippageTolerance } from "../hook/SlippageTolerance";
 import { useTokenBestPath } from "../../Portfolio/hooks/TokenBestPath";
 import { DexParamList } from "../DexNavigator";
-import {
-  SlippageError,
-  SlippageTolerance,
-} from "./components/SlippageTolerance";
+import { SlippageError } from "./components/SlippageTolerance";
 import {
   ButtonGroupTabKey,
   SwapButtonGroup,
@@ -84,6 +86,8 @@ import {
   TokenDropdownButtonStatus,
 } from "./components/TokenDropdownButton";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
+import { SlippageToleranceV2 } from "./components/SlippageToleranceV2";
+import { BottomSheetSlippageInfo } from "./components/BottomSheetSlippageInfo";
 import { FutureSwapRowTo, InstantSwapRowTo } from "./components/SwapRowTo";
 import { SwapSummary } from "./components/SwapSummary";
 import { getPrecisedCurrencyValue } from "../../Auctions/helpers/precision-token-value";
@@ -187,9 +191,10 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     fromTokenDisplaySymbol: selectedTokenA?.displaySymbol,
     toTokenDisplaySymbol: selectedTokenB?.displaySymbol,
   });
-  const containerRef = useRef(null);
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
   const amountInputRef = useRef<TextInput>();
+
+  const { bottomSheetRef, containerRef, dismissModal, expandModal } =
+    useBottomSheet();
 
   // dex stabilization
   const { isFeatureAvailable } = useFeatureFlagContext();
@@ -212,22 +217,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     type: "OTHER_ANNOUNCEMENT",
     icon: "info",
   };
-
-  const expandModal = useCallback(() => {
-    if (Platform.OS === "web") {
-      setIsModalDisplayed(true);
-    } else {
-      bottomSheetRef.current?.present();
-    }
-  }, []);
-
-  const dismissModal = useCallback(() => {
-    if (Platform.OS === "web") {
-      setIsModalDisplayed(false);
-    } else {
-      bottomSheetRef.current?.close();
-    }
-  }, []);
 
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     setActiveButtonGroup(buttonGroupTabKey);
@@ -296,6 +285,70 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     } else {
       setSelectedTokenB(derivedToken);
     }
+  };
+
+  const BottomSheetHeader = {
+    headerStatusBarHeight: 2,
+    headerTitle: "",
+    headerBackTitleVisible: false,
+    headerStyle: tailwind("rounded-t-xl-v2 border-b-0", {
+      "bg-mono-light-v2-100": isLight,
+      "bg-mono-dark-v2-100": !isLight,
+    }),
+    headerRight: (): JSX.Element => {
+      return (
+        <ThemedTouchableOpacityV2
+          style={tailwind("mr-5 mt-4 -mb-4")}
+          onPress={dismissModal}
+          testID="close_bottom_sheet_button"
+        >
+          <ThemedIcon iconType="Feather" name="x-circle" size={22} />
+        </ThemedTouchableOpacityV2>
+      );
+    },
+    headerLeft: () => <></>,
+  };
+
+  const onBottomSheetSlippageSelect = (): void => {
+    setBottomSheetScreen([
+      {
+        stackScreenName: "SlippageInfo",
+        component: BottomSheetSlippageInfo(),
+        option: BottomSheetHeader,
+      },
+    ]);
+    expandModal();
+  };
+
+  const onBottomSheetSelect = ({
+    direction,
+  }: {
+    direction: "FROM" | "TO";
+  }): void => {
+    setBottomSheetScreen([
+      {
+        stackScreenName: "TokenList",
+        component: BottomSheetTokenList({
+          tokens: direction === "FROM" ? fromTokens ?? [] : toTokens ?? [],
+          tokenType: TokenType.BottomSheetToken,
+          headerLabel: translate(
+            "screens/CompositeSwapScreen",
+            direction === "FROM"
+              ? "Choose token for swap"
+              : "Choose token to swap"
+          ),
+          onCloseButtonPress: () => dismissModal(),
+          onTokenPress: (item): void => {
+            onTokenSelect(item, direction);
+            dismissModal();
+          },
+        }),
+        option: {
+          header: () => null,
+        },
+      },
+    ]);
+    expandModal();
   };
 
   useEffect(() => {
@@ -434,7 +487,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         selectedTokenB.id,
         new BigNumber(tokenA)
       );
-
       setPriceRates([
         {
           label: translate("components/PricesSection", "1 {{token}} =", {
@@ -872,7 +924,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               />
             </View>
           </TransactionCard>
-
           <View style={tailwind("ml-5")}>
             {tokenA !== "" && selectedTokenA === undefined && (
               <ThemedTextV2
@@ -979,21 +1030,22 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           </ThemedViewV2>
         </View>
 
-        {activeButtonGroup === ButtonGroupTabKey.InstantSwap &&
-          selectedTokenB !== undefined &&
-          selectedTokenA !== undefined && (
-            <ThemedViewV2
-              style={tailwind("border-t-0.5 mx-5")}
-              dark={tailwind("border-mono-dark-v2-300")}
-              light={tailwind("border-mono-light-v2-300")}
-            >
-              <SlippageTolerance
-                setSlippage={setSlippage}
-                slippageError={slippageError}
-                setSlippageError={setSlippageError}
-                slippage={slippage}
-              />
-            </ThemedViewV2>
+        {selectedTokenB !== undefined &&
+          selectedTokenA !== undefined &&
+          priceRates !== undefined &&
+          tokenA !== undefined &&
+          tokenA !== "" && (
+            <View style={tailwind("p-4")}>
+              {activeButtonGroup === ButtonGroupTabKey.InstantSwap && (
+                <SlippageToleranceV2
+                  setSlippage={setSlippage}
+                  setSlippageError={setSlippageError}
+                  onPress={onBottomSheetSlippageSelect}
+                  slippageError={slippageError}
+                  slippage={slippage}
+                />
+              )}
+            </View>
           )}
 
         {selectedTokenB !== undefined &&
@@ -1073,15 +1125,26 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         </View>
 
         {Platform.OS === "web" && (
-          <BottomSheetWebWithNav
+          <BottomSheetWebWithNavV2
             modalRef={containerRef}
             screenList={bottomSheetScreen}
             isModalDisplayed={isModalDisplayed}
+            // eslint-disable-next-line react-native/no-inline-styles
+            modalStyle={{
+              position: "absolute",
+              bottom: "0",
+              height: "404px",
+              width: "375px",
+              zIndex: 50,
+              borderTopLeftRadius: 15,
+              borderTopRightRadius: 15,
+              overflow: "hidden",
+            }}
           />
         )}
 
         {Platform.OS !== "web" && (
-          <BottomSheetWithNav
+          <BottomSheetWithNavV2
             modalRef={bottomSheetRef}
             screenList={bottomSheetScreen}
             snapPoints={{

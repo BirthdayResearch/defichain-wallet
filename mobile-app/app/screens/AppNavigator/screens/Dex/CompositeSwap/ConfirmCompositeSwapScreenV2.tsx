@@ -1,4 +1,4 @@
-import { Dispatch, useEffect, useState } from "react";
+import { Dispatch, useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { tailwind } from "@tailwind";
 import { StackScreenProps } from "@react-navigation/stack";
@@ -25,6 +25,7 @@ import {
   ThemedIcon,
   ThemedScrollViewV2,
   ThemedTextV2,
+  ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
 import { View } from "@components";

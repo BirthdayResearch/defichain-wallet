@@ -148,7 +148,6 @@ export function PortfolioNavigator(): JSX.Element {
   const { isLight } = useThemeContext();
   const insets = useSafeAreaInsets();
   const { isFeatureAvailable } = useFeatureFlagContext();
-
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreen");
   };

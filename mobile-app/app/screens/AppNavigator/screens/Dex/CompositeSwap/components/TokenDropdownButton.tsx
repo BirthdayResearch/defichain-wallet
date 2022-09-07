@@ -8,6 +8,7 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 
 export enum TokenDropdownButtonStatus {
+  Active,
   Enabled,
   Locked,
   Disabled,
