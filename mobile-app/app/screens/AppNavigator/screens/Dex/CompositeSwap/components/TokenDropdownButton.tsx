@@ -40,7 +40,7 @@ export function TokenDropdownButton(props: {
           light={tailwind("text-mono-light-v2-500")}
           style={tailwind("text-sm leading-6 font-normal-v2 mr-2.5")}
         >
-          {translate("screens/CompositeSwapScreen", "Select token")}
+          {translate("screens/CompositeSwapScreen", "Token")}
         </ThemedTextV2>
       )}
       {props.symbol !== undefined && (
