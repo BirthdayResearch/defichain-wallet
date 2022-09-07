@@ -790,6 +790,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           style={tailwind("mx-10 text-xs font-normal-v2 mt-8")}
           light={tailwind("text-mono-light-v2-500")}
           dark={tailwind("text-mono-dark-v2-500")}
+          testID="text_tokenB"
         >
           {translate(
             "screens/CompositeSwapScreen",
@@ -831,6 +832,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                       isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
                     )}
                     ref={amountInputRef}
+                    testID="text_input_tokenA"
                   />
                 )}
                 rules={{
@@ -847,13 +849,14 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               />
               <ActiveUSDValueV2
                 price={getAmountInUSDValue(selectedTokenA ?? undefined, tokenA)}
-                testId="amount_input_in_usd"
+                testId="tokenA_value_in_usd"
                 containerStyle={tailwind("w-full break-words")}
               />
             </View>
 
             <TokenDropdownButton
               symbol={selectedTokenA?.displaySymbol}
+              testID="FROM"
               onPress={() => navigateToTokenSelectionScreen(TokenListType.From)}
               status={
                 fromTokens === undefined || fromTokens?.length === 0
@@ -932,6 +935,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               style={tailwind("px-5 text-xs font-normal-v2")}
               light={tailwind("text-mono-light-v2-500")}
               dark={tailwind("text-mono-dark-v2-500")}
+              testID="tokenB_displaySymbol"
             >
               {translate("screens/CompositeSwapScreen", "I WANT {{token}}", {
                 token: selectedTokenB?.displaySymbol ?? "",
@@ -957,6 +961,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               )}
               <TokenDropdownButton
                 symbol={selectedTokenB?.displaySymbol}
+                testID="TO"
                 onPress={() => navigateToTokenSelectionScreen(TokenListType.To)}
                 status={
                   toTokens === undefined || toTokens?.length === 0
@@ -1007,6 +1012,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   transactionDate={transactionDate}
                   transactionFee={fee}
                   totalFees={totalFees}
+                  dexStabilizationType={dexStabilizationType}
                   dexStabilizationFee={dexStabilizationFee}
                 />
               </ThemedViewV2>

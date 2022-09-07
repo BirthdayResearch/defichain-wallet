@@ -40,10 +40,10 @@ export function SwapSummary({
   return (
     <>
       {activeTab === ButtonGroupTabKey.InstantSwap ? (
-        <View>
+        <View testID="instant_swap_summary">
           <PricesSectionV2
             priceRates={instantSwapPriceRate}
-            testID="instant_swap_summary"
+            testID="instant_swap_prices"
           />
           <ThemedViewV2
             style={tailwind("py-5 border-t-0.5")}

@@ -293,7 +293,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
             }}
             rhs={{
               value: new BigNumber(slippage).times(100).toFixed(),
-              testID: "transaction_fee_amount",
+              testID: "confirm_slippage_fee",
               suffix: "%",
             }}
           />
