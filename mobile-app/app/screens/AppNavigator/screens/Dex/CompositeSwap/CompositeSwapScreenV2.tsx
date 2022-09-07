@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useMemo } from "react";
 import { Platform, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
@@ -45,11 +45,7 @@ import {
   BottomSheetWebWithNav,
   BottomSheetWithNav,
 } from "@components/BottomSheetWithNav";
-import {
-  BottomSheetToken,
-  BottomSheetTokenList,
-  TokenType,
-} from "@components/BottomSheetTokenList";
+import { BottomSheetToken } from "@components/BottomSheetTokenList";
 import { InfoRow, InfoType } from "@components/InfoRow";
 import { NumberRow } from "@components/NumberRow";
 import { useWalletContext } from "@shared-contexts/WalletContext";
@@ -85,11 +81,9 @@ import {
 } from "./components/SwapButtonGroup";
 import { TokenDropdownButton } from "./components/TokenDropdownButton";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
-import {
-  WantFutureSwapRow,
-  WantInstantSwapRow,
-} from "./components/WantSwapRow";
+import { FutureSwapRowTo, InstantSwapRowTo } from "./components/SwapRowTo";
 import { SwapSummary } from "./components/SwapSummary";
+import { getPrecisedCurrencyValue } from "../../Auctions/helpers/precision-token-value";
 
 export interface TokenState {
   id: string;
@@ -281,37 +275,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     }
   };
 
-  const onBottomSheetSelect = ({
-    direction,
-  }: {
-    direction: "FROM" | "TO";
-  }): void => {
-    setBottomSheetScreen([
-      {
-        stackScreenName: "TokenList",
-        component: BottomSheetTokenList({
-          tokens: direction === "FROM" ? fromTokens ?? [] : toTokens ?? [],
-          tokenType: TokenType.BottomSheetToken,
-          headerLabel: translate(
-            "screens/CompositeSwapScreen",
-            direction === "FROM"
-              ? "Choose token for swap"
-              : "Choose token to swap"
-          ),
-          onCloseButtonPress: () => dismissModal(),
-          onTokenPress: (item): void => {
-            onTokenSelect(item, direction);
-            dismissModal();
-          },
-        }),
-        option: {
-          header: () => null,
-        },
-      },
-    ]);
-    expandModal();
-  };
-
   useEffect(() => {
     if (isFocused) {
       dispatch(fetchExecutionBlock({ client: whaleRpcClient }));
@@ -489,6 +452,36 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     fetchBestPath();
   }, [selectedTokenA, selectedTokenB]);
 
+  const totalFees = useMemo(() => {
+    if (
+      tokenA === "" ||
+      new BigNumber(tokenA).isZero() ||
+      priceRates === undefined ||
+      selectedTokenB === undefined
+    ) {
+      return "-";
+    }
+
+    /* DEX fees = Burn fees + commission fee */
+    const dexFeesInTokenBUnit = new BigNumber(
+      bestPathEstimatedReturn?.estimatedReturn ?? 0
+    ).minus(
+      new BigNumber(bestPathEstimatedReturn?.estimatedReturnLessDexFees ?? 0)
+    );
+
+    /* Transaction fee + DEX fees */
+    return getPrecisedCurrencyValue(
+      getTokenPrice("DFI", fee).plus(
+        getTokenPrice(
+          selectedTokenB.symbol,
+          dexFeesInTokenBUnit
+            .multipliedBy(priceRates[1].value)
+            .multipliedBy(tokenA)
+        )
+      )
+    );
+  }, [priceRates, selectedTokenB, tokenA, bestPathEstimatedReturn, fee]);
+
   const navigateToConfirmScreen = (): void => {
     if (
       selectedPoolPairs === undefined ||
@@ -539,6 +532,9 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         },
       }),
       estimatedAmount: new BigNumber(tokenB),
+      estimatedReturnLessDexFees:
+        bestPathEstimatedReturn?.estimatedReturnLessDexFees ?? "-",
+      totalFees,
     });
   };
 
@@ -813,10 +809,10 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               )}
             >
               {activeButtonGroup === ButtonGroupTabKey.FutureSwap && (
-                <WantFutureSwapRow oraclePriceText={oraclePriceText} />
+                <FutureSwapRowTo oraclePriceText={oraclePriceText} />
               )}
               {activeButtonGroup === ButtonGroupTabKey.InstantSwap && (
-                <WantInstantSwapRow
+                <InstantSwapRowTo
                   tokenAmount={new BigNumber(tokenB).toFixed(8)}
                   tokenUsdAmount={getAmountInUSDValue(
                     selectedTokenB ?? undefined,
@@ -869,16 +865,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   executionBlock={executionBlock}
                   transactionDate={transactionDate}
                   transactionFee={fee}
-                  tokenAAmount={tokenA}
-                  estimatedReturn={{
-                    symbol: selectedTokenB.symbol,
-                    fee: new BigNumber(
-                      bestPathEstimatedReturn?.estimatedReturn ?? 0
-                    ),
-                    feeLessDexFees: new BigNumber(
-                      bestPathEstimatedReturn?.estimatedReturnLessDexFees ?? 0
-                    ),
-                  }}
+                  totalFees={totalFees}
                 />
               </ThemedViewV2>
             </>

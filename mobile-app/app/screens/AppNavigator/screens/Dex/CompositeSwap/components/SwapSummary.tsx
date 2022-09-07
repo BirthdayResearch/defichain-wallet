@@ -6,26 +6,20 @@ import BigNumber from "bignumber.js";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
-import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { ThemedViewV2, ThemedIcon, ThemedTextV2 } from "@components/themed";
 import { PricesSectionV2, PriceRateProps } from "@components/PricesSectionV2";
-import { BottomSheetInfoV2 } from "@components/BottomSheetInfo";
 import { NumberRowV2 } from "@components/NumberRowV2";
+import { BottomSheetInfoV2 } from "@components/BottomSheetInfoV2";
 import { ButtonGroupTabKey } from "../CompositeSwapScreen";
 
 interface SwapSummaryProps {
   instantSwapPriceRate: PriceRateProps[];
   activeTab: ButtonGroupTabKey;
   transactionFee: BigNumber;
-  estimatedReturn: {
-    symbol: string;
-    fee: BigNumber;
-    feeLessDexFees: BigNumber;
-  };
   executionBlock?: number;
   transactionDate?: string;
-  tokenAAmount: string;
+  totalFees: string;
 }
 
 export function SwapSummary({
@@ -34,30 +28,9 @@ export function SwapSummary({
   executionBlock,
   transactionDate,
   transactionFee,
-  estimatedReturn,
-  tokenAAmount,
+  totalFees,
 }: SwapSummaryProps): JSX.Element {
   const { getTokenPrice } = useTokenPrice();
-  const totalFees = useMemo(() => {
-    if (tokenAAmount === "" || new BigNumber(tokenAAmount).isZero()) {
-      return "-";
-    }
-
-    const dexFeesInTokenBUnit = estimatedReturn.fee.minus(
-      estimatedReturn.feeLessDexFees
-    );
-
-    return getPrecisedCurrencyValue(
-      getTokenPrice("DFI", transactionFee).plus(
-        getTokenPrice(
-          estimatedReturn.symbol,
-          dexFeesInTokenBUnit
-            .multipliedBy(instantSwapPriceRate[1].value)
-            .multipliedBy(tokenAAmount)
-        )
-      )
-    );
-  }, [transactionFee, estimatedReturn]);
 
   return (
     <>
@@ -131,14 +104,12 @@ export function SwapSummary({
             <BottomSheetInfoV2
               alertInfo={{
                 title: "Settlements",
-                message: `Settlement block is the pre-determined  block height that this transaction will be executed. 
-                \nSettlement value is based on the oracle price at the settlement block. 
-                \nUsers will be able to cancel this transaction as long as the settlement block has not been executed. 
-              `,
+                message: "",
               }}
+              styledMessage={SettlementMessage()}
               name="test2"
               infoIconStyle={[tailwind("text-xs")]}
-              snapPoints={["50%"]}
+              snapPoints={["55%"]}
               triggerComponent={
                 <View style={tailwind("flex flex-row")}>
                   <ThemedTextV2
@@ -164,6 +135,31 @@ export function SwapSummary({
           </View>
         </View>
       )}
+    </>
+  );
+}
+
+function SettlementMessage(): JSX.Element {
+  // TODO: translations
+  return (
+    <>
+      <ThemedTextV2 style={tailwind("text-base font-normal-v2 pb-4")}>
+        <ThemedTextV2 style={tailwind("text-base font-bold-v2")}>
+          Settlement block{" "}
+        </ThemedTextV2>
+        is the pre-determined block height that this transaction will be
+        executed.
+      </ThemedTextV2>
+      <ThemedTextV2 style={tailwind("text-base font-normal-v2 pb-4")}>
+        <ThemedTextV2 style={tailwind("font-bold-v2")}>
+          Settlement value{" "}
+        </ThemedTextV2>
+        is based on the oracle price at the settlement block.
+      </ThemedTextV2>
+      <ThemedTextV2 style={tailwind("text-base font-normal-v2")}>
+        Users will be able to cancel this transaction as long as the settlement
+        block has not been executed.
+      </ThemedTextV2>
     </>
   );
 }
