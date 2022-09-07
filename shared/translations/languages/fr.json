@@ -645,7 +645,7 @@
     "Enter passcode for verification": "Donner le code d'accès pour vérification",
     "It may take a few seconds to secure and encrypt your wallet.": "Cela peut prendre quelques secondes de chiffrer votre portefeuille.",
     "Add an additional layer of security by setting a passcode.": "Ajoutez un niveau de sécurité supplémentaire en définissant un code d'accès.",
-    "It may take a few seconds to update your passcode.": "Cela peut prendre quelques secondes pour mettre à jour votre code d'accès.",
+    "It may take a few seconds to update your passcode": "Cela peut prendre quelques secondes pour mettre à jour votre code d'accès",
     "Passcode updated!": "Passcode updated!",
     "Keep the passcode for your wallet confidential.": "Gardez le code d'accès de votre portefeuille confidentiel."
   },
@@ -795,7 +795,8 @@
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Retrait de {{amountToWithdraw}} {{sourceSymbol}} de l'échange à terme…",
     "Withdrawal completed": "Retrait effectué",
     "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "Échange de {{amountA}} {{symbolA}} avec {{symbolB}}",
-    "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Échanger {{amountA}} {{fromTokenDisplaySymbol}} à {{toTokenDisplaySymbol}} sur le bloc de règlement {{settlementBlock}}"
+    "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Échanger {{amountA}} {{fromTokenDisplaySymbol}} à {{toTokenDisplaySymbol}} sur le bloc de règlement {{settlementBlock}}",
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Retrait de {{amount}} {{symbol}} du pool de liquidité"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Demande d'accès à votre caméra",
@@ -1728,7 +1729,8 @@
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Après fermeture, ce n° de vault ne sera plus utilisable. Assurez-vous que de ne plus avoir besoin de ce vault avant de le fermer.",
     "CONFIRM CLOSE VAULT": "CONFIRMER LA FERMETURE DU VAULT",
     "You are about to close vault {{vaultId}}": "Vous êtes sur le point de fermer le vault {{vaultId}}",
-    "CLOSING": "FERMETURE..."
+    "CLOSING": "FERMETURE...",
+    "Closing vault": "Fermeture du vault"
   },
   "components/TokenIconGroup": {
     "more": "autres"

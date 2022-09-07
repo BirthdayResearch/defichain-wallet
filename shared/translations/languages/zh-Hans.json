@@ -635,7 +635,7 @@
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} 次可输入密码",
     "Enter passcode for verification": "输入验证码",
     "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet.",
-    "It may take a few seconds to update your passcode.": "It may take a few seconds to update your passcode.",
+    "It may take a few seconds to update your passcode": "It may take a few seconds to update your passcode",
     "Passcode updated!": "Passcode updated!",
     "Keep the passcode for your wallet confidential.": "Keep the passcode for your wallet confidential."
   },
@@ -786,7 +786,8 @@
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…",
     "Withdrawal completed": "Withdrawal completed",
     "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "兑换 {{amountA}} {{symbolA}} 至 {{symbolB}}",
-    "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}"
+    "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "请许可程序使用相机",
@@ -1722,7 +1723,8 @@
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "关闭后，此金库编号将不再可使用。在关闭之前，请确保您不需要此金库中的任何资料.",
     "CONFIRM CLOSE VAULT": "确认关闭金库",
     "You are about to close vault {{vaultId}}": "您即将关闭金库 {{vaultId}}",
-    "CLOSING": "关闭中"
+    "CLOSING": "关闭中",
+    "Closing vault": "Closing vault"
   },
   "components/TokenIconGroup": {
     "more": "显示更多"

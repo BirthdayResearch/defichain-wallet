@@ -651,7 +651,7 @@
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} tentativi rimanenti",
     "Enter passcode for verification": "Enter passcode for verification",
     "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet.",
-    "It may take a few seconds to update your passcode.": "It may take a few seconds to update your passcode.",
+    "It may take a few seconds to update your passcode": "It may take a few seconds to update your passcode",
     "Passcode updated!": "Passcode updated!",
     "Keep the passcode for your wallet confidential.": "Keep the passcode for your wallet confidential."
   },
@@ -801,7 +801,8 @@
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…",
     "Withdrawal completed": "Withdrawal completed",
     "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "Scambia {{amountA}} {{symbolA}} in {{symbolB}}",
-    "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}"
+    "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Richiesta di accesso alla fotocamera",
@@ -1740,7 +1741,8 @@
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Alla chiusura, questo Vault ID non sarà più utilizzabile. Assicurati di non aver bisogno di nulla da questo vault prima di chiudere.",
     "CONFIRM CLOSE VAULT": "CONFERMA LA CHIUSURA DEL VAULT",
     "You are about to close vault {{vaultId}}": "Stai per chiudere il vault {{vaultId}}",
-    "CLOSING": "CHIUDI"
+    "CLOSING": "CHIUDI",
+    "Closing vault": "Closing vault"
   },
   "components/TokenIconGroup": {
     "more": "di più"

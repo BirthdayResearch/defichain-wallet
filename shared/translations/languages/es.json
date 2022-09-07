@@ -652,7 +652,7 @@
     "{{attemptsRemaining}} attempts remaining": "Quedan {{attemptsRemaining}} intentos",
     "Enter passcode for verification": "Confirma tu contraseña",
     "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet.",
-    "It may take a few seconds to update your passcode.": "Cambiar la contraseña puede tardar varios segundos.",
+    "It may take a few seconds to update your passcode": "Cambiar la contraseña puede tardar varios segundos",
     "Passcode updated!": "Passcode updated!",
     "Keep the passcode for your wallet confidential.": "Mantén la contraseña de tu billetera confidencial."
   },
@@ -802,7 +802,8 @@
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…",
     "Withdrawal completed": "Withdrawal completed",
     "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "Intercambiando {{amountA}} {{symbolA}} a {{symbolB}}",
-    "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}"
+    "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Pidiendo acceso a la cámara",
@@ -1746,7 +1747,8 @@
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Al cerrar, el identificador de esta bóveda no estará disponible nunca más. Asegúrate de que no necesitas nada de esta bóveda antes de cerrarla.",
     "CONFIRM CLOSE VAULT": "CONFIRMA EL CIERRE DE LA BOVEDA",
     "You are about to close vault {{vaultId}}": "Estás a punto de cerrar la bóveda {{vaultId}}",
-    "CLOSING": "CERRANDO"
+    "CLOSING": "CERRANDO",
+    "Closing vault": "Closing vault"
   },
   "components/TokenIconGroup": {
     "more": "más"
