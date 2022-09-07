@@ -864,11 +864,9 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   navigateToTokenSelectionScreen(TokenListType.From)
                 }
                 status={
-                  fromTokens === undefined || fromTokens?.length === 0
-                    ? TokenDropdownButtonStatus.Disabled
-                    : isFromTokenSelectDisabled
+                  isFromTokenSelectDisabled
                     ? TokenDropdownButtonStatus.Locked
-                    : TokenDropdownButtonStatus.Active
+                    : TokenDropdownButtonStatus.Enabled
                 }
               />
             </View>
@@ -969,11 +967,11 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                 symbol={selectedTokenB?.displaySymbol}
                 onPress={() => navigateToTokenSelectionScreen(TokenListType.To)}
                 status={
-                  toTokens === undefined || toTokens?.length === 0
-                    ? TokenDropdownButtonStatus.Disabled
-                    : isToTokenSelectDisabled
+                  isToTokenSelectDisabled
                     ? TokenDropdownButtonStatus.Locked
-                    : TokenDropdownButtonStatus.Active
+                    : selectedTokenA === undefined
+                    ? TokenDropdownButtonStatus.Disabled
+                    : TokenDropdownButtonStatus.Enabled
                 }
               />
             </View>
@@ -1014,6 +1012,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   transactionFee={fee}
                   totalFees={totalFees}
                   dexStabilizationFee={dexStabilizationFee}
+                  dexStabilizationType="direct-dusd-with-fee"
                 />
               </ThemedViewV2>
             </>
