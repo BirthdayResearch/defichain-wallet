@@ -8,13 +8,14 @@ import BigNumber from "bignumber.js";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useState, useEffect } from "react";
-import { View } from "react-native";
+import { StyleProp, View, ViewStyle } from "react-native";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { debounce } from "lodash";
 
 export interface SlippageError {
   type: "error" | "helper";
   text?: string;
+  style?: StyleProp<ViewStyle>;
 }
 interface SlippageToleranceCardProps {
   slippage: BigNumber;
@@ -118,18 +119,13 @@ export function SlippageToleranceV2({
       {isCustomSlippage ? (
         <>
           <View style={tailwind("flex-row")}>
-            <ThemedViewV2
-              light={tailwind("bg-mono-light-v2-00")}
-              dark={tailwind("bg-mono-dark-v2-00")}
-              style={tailwind("flex-row items-center mr-2 w-9/12")}
-            >
-              <WalletTextInputV2 // TODO:need to recreate this or modified the component to fit the design
+            <View style={tailwind("flex-row items-center mr-2 w-9/12")}>
+              <WalletTextInputV2
                 onChangeText={onSlippageChange}
                 keyboardType="numeric"
                 autoCapitalize="none"
                 placeholder="0.00%"
                 style={tailwind("flex-grow w-2/5")}
-                inputContainerStyle={tailwind("")}
                 testID="slippage_input"
                 value={
                   selectedSlippage !== undefined
@@ -146,7 +142,7 @@ export function SlippageToleranceV2({
                 valid={isSlippageValid()}
                 helperContainerStyle={tailwind("mx-5")}
               />
-            </ThemedViewV2>
+            </View>
             <View style={tailwind("flex-1 h-9")}>
               <ThemedTouchableOpacityV2
                 light={tailwind("bg-mono-light-v2-900")}

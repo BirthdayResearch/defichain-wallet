@@ -73,10 +73,8 @@ import {
 } from "../../Portfolio/components/Announcements";
 import { useDexStabilization } from "../hook/DexStabilization";
 import { useFutureSwap, useFutureSwapDate } from "../hook/FutureSwap";
-import { useSlippageTolerance } from "../hook/SlippageTolerance";
 import { useTokenBestPath } from "../../Portfolio/hooks/TokenBestPath";
 import { DexParamList } from "../DexNavigator";
-import { SlippageError } from "./components/SlippageTolerance";
 import {
   ButtonGroupTabKey,
   SwapButtonGroup,
@@ -86,11 +84,15 @@ import {
   TokenDropdownButtonStatus,
 } from "./components/TokenDropdownButton";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
-import { SlippageToleranceV2 } from "./components/SlippageToleranceV2";
+import {
+  SlippageToleranceV2,
+  SlippageError,
+} from "./components/SlippageToleranceV2";
 import { BottomSheetSlippageInfo } from "./components/BottomSheetSlippageInfo";
 import { FutureSwapRowTo, InstantSwapRowTo } from "./components/SwapRowTo";
 import { SwapSummary } from "./components/SwapSummary";
 import { getPrecisedCurrencyValue } from "../../Auctions/helpers/precision-token-value";
+import { useSlippageTolerance } from "../hook/SlippageTolerance";
 
 export interface TokenState {
   id: string;
