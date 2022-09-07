@@ -1,5 +1,5 @@
-import { memo, useCallback, useEffect, useState } from "react";
-import { Platform, TouchableOpacity, View } from "react-native";
+import { memo, useCallback, useEffect, useState, useRef } from "react";
+import { Platform, TextInput, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
 import BigNumber from "bignumber.js";
@@ -39,21 +39,23 @@ import {
   ThemedView,
   ThemedViewV2,
 } from "@components/themed";
-import { BottomSheetNavScreen } from "@components/BottomSheetWithNav";
 import {
   BottomSheetToken,
   BottomSheetTokenList,
   TokenType,
 } from "@components/BottomSheetTokenList";
+import {
+  BottomSheetNavScreen,
+  BottomSheetWebWithNav,
+  BottomSheetWithNav,
+} from "@components/BottomSheetWithNav";
 import { InfoRow, InfoType } from "@components/InfoRow";
 import { NumberRow } from "@components/NumberRow";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { openURL } from "@api/linking";
 import { TextRow } from "@components/TextRow";
-import { PriceRateProps, PricesSection } from "@components/PricesSection";
 import { fetchExecutionBlock } from "@store/futureSwap";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { WalletAlert } from "@components/WalletAlert";
@@ -64,13 +66,20 @@ import {
   BottomSheetWebWithNavV2,
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
-import { AnnouncementBannerV2 } from "../../Portfolio/components/Announcements";
+import { PriceRateProps } from "@components/PricesSectionV2";
+import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { TokenListType } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
+import { useSwappableTokensV2 } from "@screens/AppNavigator/screens/Dex/hook/SwappableTokensV2";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import {
+  Announcement,
+  AnnouncementBannerV2,
+} from "../../Portfolio/components/Announcements";
 import {
   DexStabilizationType,
   useDexStabilization,
 } from "../hook/DexStabilization";
 import { useFutureSwap, useFutureSwapDate } from "../hook/FutureSwap";
-import { useSwappableTokens } from "../hook/SwappableTokens";
 import { useSlippageTolerance } from "../hook/SlippageTolerance";
 import { useTokenBestPath } from "../../Portfolio/hooks/TokenBestPath";
 import { DexParamList } from "../DexNavigator";
@@ -79,11 +88,15 @@ import {
   ButtonGroupTabKey,
   SwapButtonGroup,
 } from "./components/SwapButtonGroup";
-import { TokenDropdownButton } from "./components/TokenDropdownButton";
+import {
+  TokenDropdownButton,
+  TokenDropdownButtonStatus,
+} from "./components/TokenDropdownButton";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import { SlippageToleranceV2 } from "./components/SlippageToleranceV2";
 import { BottomSheetSlippageInfo } from "./components/BottomSheetSlippageInfo";
 import { FutureSwapRowTo, InstantSwapRowTo } from "./components/SwapRowTo";
+import { SwapSummary } from "./components/SwapSummary";
 
 export interface TokenState {
   id: string;
@@ -107,7 +120,8 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>();
   const dispatch = useAppDispatch();
   const { address } = useWalletContext();
-  const { getArbitraryPoolPair, calculatePriceRates } = useTokenBestPath();
+  const { getArbitraryPoolPair, calculatePriceRates, getBestPath } =
+    useTokenBestPath();
   const { getTokenPrice } = useTokenPrice();
   const { slippage, setSlippage } = useSlippageTolerance();
 
@@ -149,20 +163,41 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     ButtonGroupTabKey.InstantSwap
   );
   const [isFutureSwap, setIsFutureSwap] = useState(false);
+  const [bestPathEstimatedReturn, setBestPathEstimatedReturn] = useState<
+    { estimatedReturn: string; estimatedReturnLessDexFees: string } | undefined
+  >(undefined);
+  const [oraclePriceMessage, setOraclePriceMessage] = useState<string>(
+    translate(
+      "screens/CompositeSwapScreen",
+      "Future swap uses the oracle price of the selected token on the settlement block"
+    )
+  );
+  const [hasShownInputFocusBefore, setHasShownInputFocusBefore] =
+    useState<boolean>(false);
 
   const executionBlock = useSelector(
     (state: RootState) => state.futureSwaps.executionBlock
   );
-  const { timeRemaining, transactionDate, isEnded } = useFutureSwapDate(
+  const { transactionDate, isEnded } = useFutureSwapDate(
     executionBlock,
     blockCount
   );
-  const { fromTokens, toTokens } = useSwappableTokens(selectedTokenA?.id);
-  const { isFutureSwapOptionEnabled, oraclePriceText, isSourceLoanToken } =
-    useFutureSwap({
-      fromTokenDisplaySymbol: selectedTokenA?.displaySymbol,
-      toTokenDisplaySymbol: selectedTokenB?.displaySymbol,
-    });
+  const { fromTokens, toTokens } = useSwappableTokensV2(
+    selectedTokenA?.id,
+    selectedTokenA?.displaySymbol,
+    activeButtonGroup === ButtonGroupTabKey.FutureSwap
+  );
+  const {
+    isFutureSwapOptionEnabled,
+    oraclePriceText,
+    isSourceLoanToken,
+    isFromLoanToken,
+    isToLoanToken,
+  } = useFutureSwap({
+    fromTokenDisplaySymbol: selectedTokenA?.displaySymbol,
+    toTokenDisplaySymbol: selectedTokenB?.displaySymbol,
+  });
+  const amountInputRef = useRef<TextInput>();
 
   const { bottomSheetRef, containerRef, dismissModal, expandModal } =
     useBottomSheet();
@@ -179,11 +214,15 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     },
   } = useDexStabilization(selectedTokenA, selectedTokenB);
 
+  const oraclePriceAnnouncement: Announcement = {
+    content: oraclePriceMessage,
+    url: "",
+    id: undefined,
+    type: "OTHER_ANNOUNCEMENT",
+    icon: "info",
+  };
+
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
-    setSelectedTokenA(undefined);
-    setSelectedTokenB(undefined);
-    setValue("tokenA", "");
-    setValue("tokenB", "");
     setActiveButtonGroup(buttonGroupTabKey);
   };
 
@@ -411,6 +450,19 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
 
   useEffect(() => {
     void getSelectedPoolPairs();
+
+    if (
+      hasShownInputFocusBefore ||
+      selectedTokenA === undefined ||
+      selectedTokenB === undefined
+    ) {
+      return;
+    }
+    /* timeout added to auto display keyboard on Android */
+    Platform.OS === "android"
+      ? setTimeout(() => amountInputRef?.current?.focus(), 0)
+      : amountInputRef?.current?.focus();
+    setHasShownInputFocusBefore(true);
   }, [selectedTokenA, selectedTokenB]);
 
   const getSelectedPoolPairs = async (): Promise<void> => {
@@ -439,40 +491,29 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         selectedTokenB.id,
         new BigNumber(tokenA)
       );
-      // Find the selected reserve in case it's null. From Token Detail Screen, reserve does not exist due to pair not existing
-      const selectedReserve =
-        selectedPoolPairs[0]?.tokenA?.id === selectedTokenA.id
-          ? selectedPoolPairs[0]?.tokenA?.reserve
-          : selectedPoolPairs[0]?.tokenB?.reserve;
-      // This will keep the old behavior to prevent regression
-      const tokenAReserve = new BigNumber(selectedTokenA.reserve).gt(0)
-        ? selectedTokenA.reserve
-        : selectedReserve;
-      const slippage = new BigNumber(1).minus(
-        new BigNumber(tokenA).div(tokenAReserve)
-      );
-
-      const estimatedAmountAfterSlippage = estimated.times(slippage).toFixed(8);
       setPriceRates([
         {
-          label: translate("components/PricesSection", "1 {{token}}", {
-            token: selectedTokenB.displaySymbol,
-          }),
-          value: bToAPrice.toFixed(8),
-          aSymbol: selectedTokenB.displaySymbol,
-          bSymbol: selectedTokenA.displaySymbol,
-        },
-        {
-          label: translate("components/PricesSection", "1 {{token}}", {
+          label: translate("components/PricesSection", "1 {{token}} =", {
             token: selectedTokenA.displaySymbol,
           }),
-          value: aToBPrice.toFixed(8),
+          value: bToAPrice.toFixed(8),
+          symbolUSDValue: getAmountInUSDValue(selectedTokenA, new BigNumber(1)),
+          usdTextStyle: tailwind("text-sm"),
           aSymbol: selectedTokenA.displaySymbol,
           bSymbol: selectedTokenB.displaySymbol,
         },
+        {
+          label: translate("components/PricesSection", "1 {{token}} =", {
+            token: selectedTokenB.displaySymbol,
+          }),
+          value: aToBPrice.toFixed(8),
+          symbolUSDValue: getAmountInUSDValue(selectedTokenB, new BigNumber(1)),
+          usdTextStyle: tailwind("text-sm"),
+          aSymbol: selectedTokenB.displaySymbol,
+          bSymbol: selectedTokenA.displaySymbol,
+        },
       ]);
-
-      setValue("tokenB", estimatedAmountAfterSlippage);
+      setValue("tokenB", estimated.toFixed(8));
       // trigger validation for tokenB
       await trigger("tokenB");
     }
@@ -484,6 +525,46 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         isFutureSwapOptionEnabled
     );
   }, [activeButtonGroup, isFutureSwapOptionEnabled]);
+
+  useEffect(() => {
+    if (selectedTokenA === undefined || selectedTokenB === undefined) {
+      return undefined;
+    }
+
+    const fetchBestPath = async () => {
+      const bestPath = await getBestPath(
+        selectedTokenA.id === "0_unified" ? "0" : selectedTokenA.id,
+        selectedTokenB.id === "0_unified" ? "0" : selectedTokenB.id
+      );
+      setBestPathEstimatedReturn({
+        estimatedReturn: bestPath.estimatedReturn,
+        estimatedReturnLessDexFees: bestPath.estimatedReturnLessDexFees,
+      });
+    };
+
+    fetchBestPath();
+  }, [selectedTokenA, selectedTokenB]);
+
+  useEffect(() => {
+    let message = translate(
+      "screens/CompositeSwapScreen",
+      "Future swap uses the oracle price of the selected token on the settlement block"
+    );
+    if (selectedTokenA !== undefined) {
+      if (selectedTokenA.displaySymbol === "DUSD") {
+        message = translate(
+          "screens/CompositeSwapScreen",
+          "You are buying dtokens at 5% more than the oracle price at settlement block"
+        );
+      } else {
+        message = translate(
+          "screens/CompositeSwapScreen",
+          "You are selling your dtoken at 5% less than the oracle price at settlement block"
+        );
+      }
+    }
+    setOraclePriceMessage(message);
+  }, [selectedTokenA]);
 
   const navigateToConfirmScreen = (): void => {
     if (
@@ -499,7 +580,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
 
     const ownedTokenB = tokens.find((token) => token.id === selectedTokenB.id);
     const slippageInDecimal = new BigNumber(slippage).div(100);
-    navigation.navigate("ConfirmCompositeSwapScreen", {
+    navigation.navigate("ConfirmCompositeSwapScreenV2", {
       fee,
       pairs: selectedPoolPairs,
       priceRates,
@@ -535,6 +616,19 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         },
       }),
       estimatedAmount: new BigNumber(tokenB),
+    });
+  };
+
+  const navigateToTokenSelectionScreen = (listType: TokenListType): void => {
+    navigation.navigate("SwapTokenSelectionScreen", {
+      listType: listType,
+      list: listType === TokenListType.From ? fromTokens ?? [] : toTokens ?? [],
+      onTokenPress: (item) => {
+        onTokenSelect(item, listType);
+        navigation.goBack();
+      },
+      isFutureSwap: activeButtonGroup === ButtonGroupTabKey.FutureSwap,
+      isSearchDTokensOnly: selectedTokenA?.displaySymbol === "DUSD",
     });
   };
 
@@ -628,6 +722,10 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
       <SwapButtonGroup
         activeButtonGroup={activeButtonGroup}
         onPress={(type) => onButtonGroupChange(type)}
+        disableFutureSwap={
+          (isFromLoanToken !== undefined && !isFromLoanToken) ||
+          (isToLoanToken !== undefined && !isToLoanToken)
+        }
       />
       <ThemedScrollView>
         {activeButtonGroup === ButtonGroupTabKey.InstantSwap &&
@@ -645,6 +743,19 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               />
             </View>
           )}
+
+        {activeButtonGroup === ButtonGroupTabKey.FutureSwap && (
+          <View style={tailwind("flex mx-5 mt-8 rounded")}>
+            <AnnouncementBannerV2
+              announcement={oraclePriceAnnouncement}
+              testID="oracle_announcements_banner"
+              containerStyle={{
+                light: tailwind("bg-transparent"),
+                dark: tailwind("bg-transparent"),
+              }}
+            />
+          </View>
+        )}
 
         <ThemedTextV2
           style={tailwind("mx-10 text-xs font-normal-v2 mt-8")}
@@ -690,6 +801,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                     placeholderTextColor={getColor(
                       isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
                     )}
+                    ref={amountInputRef}
                   />
                 )}
                 rules={{
@@ -713,11 +825,13 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
 
             <TokenDropdownButton
               symbol={selectedTokenA?.displaySymbol}
-              onPress={() => onBottomSheetSelect({ direction: "FROM" })}
-              disabled={
-                isFromTokenSelectDisabled ||
-                fromTokens === undefined ||
-                fromTokens?.length === 0
+              onPress={() => navigateToTokenSelectionScreen(TokenListType.From)}
+              status={
+                fromTokens === undefined || fromTokens?.length === 0
+                  ? TokenDropdownButtonStatus.Disabled
+                  : isFromTokenSelectDisabled
+                  ? TokenDropdownButtonStatus.Locked
+                  : TokenDropdownButtonStatus.Active
               }
             />
           </View>
@@ -744,7 +858,12 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               )}
           </View>
 
-          <View style={tailwind("my-8 relative items-center")}>
+          <View style={tailwind("my-8 flex-row")}>
+            <ThemedViewV2
+              dark={tailwind("border-mono-dark-v2-300")}
+              light={tailwind("border-mono-light-v2-300")}
+              style={tailwind("border-b-0.5 flex-1 h-1/2")}
+            />
             <ThemedTouchableOpacityV2
               onPress={onTokenSwitch}
               style={tailwind("p-2.5 rounded-full z-50", {
@@ -769,17 +888,16 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
             <ThemedViewV2
               dark={tailwind("border-mono-dark-v2-300")}
               light={tailwind("border-mono-light-v2-300")}
-              style={tailwind("border-t-0.5 w-full bottom-1/2")}
+              style={tailwind("border-b-0.5 flex-1 h-1/2")}
             />
           </View>
 
           <ThemedViewV2
             style={tailwind("border-0", {
-              "border-b-0.5 pb-8":
-                activeButtonGroup === ButtonGroupTabKey.InstantSwap,
+              "pb-8": activeButtonGroup === ButtonGroupTabKey.InstantSwap,
             })}
-            dark={tailwind("border-mono-dark-v2-300")}
-            light={tailwind("border-mono-light-v2-300")}
+            dark={tailwind("bg-transparent")}
+            light={tailwind("bg-transparent")}
           >
             <ThemedTextV2
               style={tailwind("px-5 text-xs font-normal-v2")}
@@ -810,11 +928,13 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               )}
               <TokenDropdownButton
                 symbol={selectedTokenB?.displaySymbol}
-                onPress={() => onBottomSheetSelect({ direction: "TO" })}
-                disabled={
-                  isToTokenSelectDisabled ||
-                  toTokens === undefined ||
-                  toTokens?.length === 0
+                onPress={() => navigateToTokenSelectionScreen(TokenListType.To)}
+                status={
+                  toTokens === undefined || toTokens?.length === 0
+                    ? TokenDropdownButtonStatus.Disabled
+                    : isToTokenSelectDisabled
+                    ? TokenDropdownButtonStatus.Locked
+                    : TokenDropdownButtonStatus.Active
                 }
               />
             </View>
@@ -845,87 +965,84 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           tokenA !== "" &&
           tokenB !== undefined && (
             <>
-              {!isFutureSwap && (
-                <ThemedView
-                  style={tailwind("rounded-t-lg mx-4 py-2")}
-                  dark={tailwind("bg-gray-800 border-b border-gray-700")}
-                  light={tailwind("bg-white border-b border-gray-200")}
-                >
-                  <PricesSection
-                    testID="pricerate_value"
-                    priceRates={priceRates}
-                    isCompact
-                  />
-                </ThemedView>
-              )}
-              <TransactionDetailsSection
-                isFutureSwap={isFutureSwap}
-                conversionAmount={conversionAmount}
-                estimatedAmount={tokenB}
-                fee={fee}
-                isConversionRequired={isConversionRequired}
-                tokenA={selectedTokenA}
-                tokenB={selectedTokenB}
-                executionBlock={executionBlock}
-                timeRemaining={timeRemaining}
-                transactionDate={transactionDate}
-                oraclePriceText={oraclePriceText}
-                isDexStabilizationEnabled={isDexStabilizationEnabled}
-                dexStabilizationType={dexStabilizationType}
-                dexStabilizationFee={dexStabilizationFee}
-              />
+              <ThemedViewV2
+                light={tailwind("border-mono-light-v2-300")}
+                dark={tailwind("border-mono-dark-v2-300")}
+                style={tailwind("pt-5 px-5 mx-5 border rounded-lg-v2")}
+              >
+                <SwapSummary
+                  instantSwapPriceRate={priceRates}
+                  activeTab={activeButtonGroup}
+                  executionBlock={executionBlock}
+                  transactionDate={transactionDate}
+                  transactionFee={fee}
+                  tokenAAmount={tokenA}
+                  estimatedReturn={{
+                    symbol: selectedTokenB.symbol,
+                    fee: new BigNumber(
+                      bestPathEstimatedReturn?.estimatedReturn ?? 0
+                    ),
+                    feeLessDexFees: new BigNumber(
+                      bestPathEstimatedReturn?.estimatedReturnLessDexFees ?? 0
+                    ),
+                  }}
+                />
+              </ThemedViewV2>
             </>
           )}
-        {selectedTokenA !== undefined && selectedTokenB !== undefined && (
-          <View style={tailwind("mb-2")}>
-            <SubmitButtonGroup
-              isDisabled={
-                !formState.isValid ||
-                hasPendingJob ||
-                hasPendingBroadcastJob ||
-                (slippageError?.type === "error" &&
-                  slippageError !== undefined) ||
-                (isFutureSwap && isEnded)
-              }
-              label={translate("screens/CompositeSwapScreen", "CONTINUE")}
-              processingLabel={translate(
-                "screens/CompositeSwapScreen",
-                "CONTINUE"
-              )}
-              onSubmit={
-                (dexStabilizationType === "none" &&
-                  isDexStabilizationEnabled) ||
-                !isDexStabilizationEnabled
-                  ? onSubmit
-                  : onWarningBeforeSubmit
-              }
-              title="submit"
-              isProcessing={hasPendingJob || hasPendingBroadcastJob}
-              displayCancelBtn={false}
-            />
-          </View>
-        )}
 
         {formState.isValid &&
           selectedTokenA !== undefined &&
           selectedTokenB !== undefined && (
-            <ThemedText
+            <ThemedTextV2
               testID="transaction_details_hint_text"
-              light={tailwind("text-gray-600")}
-              dark={tailwind("text-gray-300")}
-              style={tailwind("pb-8 px-4 text-sm text-center")}
+              light={tailwind("text-mono-light-v2-500")}
+              dark={tailwind("text-mono-dark-v2-500")}
+              style={tailwind("pt-12 px-10 text-xs text-center font-normal-v2")}
             >
               {isConversionRequired
                 ? translate(
                     "screens/CompositeSwapScreen",
-                    "Authorize transaction in the next screen to convert"
+                    "By continuing, the required amount of DFI will be converted"
                   )
                 : translate(
                     "screens/CompositeSwapScreen",
-                    "Review and confirm transaction in the next screen"
+                    "Review full details in the next screen"
                   )}
-            </ThemedText>
+            </ThemedTextV2>
           )}
+
+        <View
+          style={tailwind("mb-12 mx-12 mt-16", {
+            "mt-5":
+              formState.isValid &&
+              selectedTokenA !== undefined &&
+              selectedTokenB !== undefined,
+          })}
+        >
+          <SubmitButtonGroupV2
+            isDisabled={
+              !formState.isValid ||
+              hasPendingJob ||
+              hasPendingBroadcastJob ||
+              (slippageError?.type === "error" &&
+                slippageError !== undefined) ||
+              (isFutureSwap && isEnded) ||
+              selectedTokenA === undefined ||
+              selectedTokenB === undefined
+            }
+            label={translate("components/Button", "Continue")}
+            onSubmit={
+              (dexStabilizationType === "none" && isDexStabilizationEnabled) ||
+              !isDexStabilizationEnabled
+                ? onSubmit
+                : onWarningBeforeSubmit
+            }
+            title="submit"
+            displayCancelBtn={false}
+            buttonStyle="mt-0 mx-0"
+          />
+        </View>
 
         {Platform.OS === "web" && (
           <BottomSheetWebWithNavV2

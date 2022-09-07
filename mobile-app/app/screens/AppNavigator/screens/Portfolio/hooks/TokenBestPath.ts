@@ -14,6 +14,7 @@ interface CalculatePriceRatesProps {
   aToBPrice: BigNumber;
   bToAPrice: BigNumber;
   estimated: BigNumber;
+  estimatedLessDexFees: BigNumber;
 }
 
 interface TokenBestPath {
@@ -97,6 +98,9 @@ export function useTokenBestPath(): TokenBestPath {
         aToBPrice: new BigNumber(bestPathData.estimatedReturn),
         bToAPrice: new BigNumber(1).div(bestPathData.estimatedReturn),
         estimated: new BigNumber(bestPathData.estimatedReturn).times(amount),
+        estimatedLessDexFees: new BigNumber(
+          bestPathData.estimatedReturnLessDexFees
+        ).times(amount),
       };
     },
     [pairs, blockCount]

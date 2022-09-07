@@ -1,5 +1,5 @@
 import { View } from "@components";
-import { ThemedProps, ThemedViewV2, ThemedTextV2 } from "@components/themed";
+import { ThemedProps, ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import BigNumber from "bignumber.js";
 import {
@@ -26,6 +26,7 @@ interface Buttons {
   id: string;
   label: string;
   handleOnPress: () => void;
+  isDisabled?: boolean;
 }
 
 export function ButtonGroupV2(props: ButtonGroupProps): JSX.Element {
@@ -50,6 +51,7 @@ export function ButtonGroupV2(props: ButtonGroupProps): JSX.Element {
           modalStyle={props.modalStyle}
           customButtonGroupStyle={props.customButtonGroupStyle}
           customActiveStyle={props.customActiveStyle}
+          isDisabled={button.isDisabled}
         />
       ))}
     </ThemedViewV2>
@@ -66,6 +68,7 @@ interface ButtonGroupItemProps {
   modalStyle?: StyleProp<TextStyle>;
   customButtonGroupStyle?: StyleProp<TouchableOpacityProps>;
   customActiveStyle?: ThemedProps;
+  isDisabled?: boolean;
 }
 
 function ButtonGroupItem(props: ButtonGroupItemProps): JSX.Element {
@@ -80,6 +83,7 @@ function ButtonGroupItem(props: ButtonGroupItemProps): JSX.Element {
         ]
       }
       testID={`${props.testID}${props.isActive ? "_active" : ""}`}
+      disabled={props.isDisabled}
     >
       <View
         style={
@@ -95,10 +99,12 @@ function ButtonGroupItem(props: ButtonGroupItemProps): JSX.Element {
           light={tailwind({
             "text-brand-v2-500": props.isActive,
             "text-mono-light-v2-900": !props.isActive,
+            "text-opacity-30": props.isDisabled,
           })}
           dark={tailwind({
             "text-brand-v2-500": props.isActive,
             "text-mono-dark-v2-900": !props.isActive,
+            "text-opacity-30": props.isDisabled,
           })}
           style={
             props.labelStyle ?? tailwind("font-semibold-v2 text-sm text-center")

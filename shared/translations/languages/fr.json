@@ -305,7 +305,7 @@
     "Search token": "Rechercher de token",
     "No assets found": "Aucun actif trouvé",
     "Add assets to get started": "Ajouter des actifs pour commencer",
-    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
+    "Search results for “{{searchTerm}}”": "Résultats de la recherche pour “{{searchTerm}}”",
     "AVAILABLE": "AVAILABLE"
   },
   "screens/ConvertScreen": {
@@ -808,7 +808,8 @@
     "From": "Des",
     "To": "Contre des",
     "Converting": "Conversion",
-    "Converted": "Converti"
+    "Converted": "Converti",
+    "for": "à"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Créez un nouveau code d'accès pour votre portefeuille",
@@ -1012,7 +1013,28 @@
     "Price ({{tokenB}}/{{tokenA}})": "Prix ({{tokenB}}/{{tokenA}})",
     "Are you certain you want to proceed to swap DUSD for {{tokenB}} despite the DEX Stabilization fees of {{fee}}?": "Êtes-vous certain de vouloir procéder à l'échange de DUSD contre {{tokenB}} malgré les frais de stabilisation DEX de {{fee}} ?",
     "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?": "Êtes-vous certain de vouloir procéder à cet échange malgré les frais de stabilisation DEX de {{fee}} qui seront encourus dans le cadre du chemin composé (DUSD -> {{tokenB}}) ?",
-    "DEX stabilization fee": "DEX stabilization fee"
+    "DEX stabilization fee": "DEX stabilization fee",
+    "Future swap uses the oracle price of the selected token on the settlement block": "Future swap uses the oracle price of the selected token on the settlement block",
+    "You are buying dtokens at 5% more than the oracle price at settlement block": "You are buying dtokens at 5% more than the oracle price at settlement block",
+    "You are selling your dtoken at 5% less than the oracle price at settlement block": "You are selling your dtoken at 5% less than the oracle price at settlement block",
+    "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
+    "By continuing, the required amount of DFI will be converted": "En continuant, le montant requis de DFI sera converti",
+    "I HAVE {{totalAmount}} {{token}}": "J'AI {{totalAmount}} {{token}}",
+    "I WANT {{token}}": "JE VEUX {{token}}",
+    "Total fees": "Total des frais",
+    "Settlement Value {{percentageChange}}": "Valeur de règlement {{percentageChange}}",
+    "Transaction fee": "Transaction fee"
+  },
+  "screens/SwapTokenSelectionScreen": {
+    "Select": "Select",
+    "Search token": "Search token",
+    "AVAILABLE TOKENS": "AVAILABLE TOKENS",
+    "AVAILABLE FOR SWAP": "DISPONIBLE POUR UN ÉCHANGE",
+    "AVAILABLE FOR FUTURE SWAP": "AVAILABLE FOR FUTURE SWAP",
+    "Search with token name": "Recherche avec le nom du token",
+    "Search dTokens for future swap": "Search dTokens for future swap",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
+    "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap.": "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap."
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "CONVERSION...",
@@ -1032,7 +1054,13 @@
     "To be confirmed": "À confirmer",
     "Settlement block": "Bloc d’exécution",
     "Resulting {{token}}": "{{token}} restants",
-    "Oracle price {{percentageChange}}": "Prix Oracle {{percentageChange}}"
+    "Oracle price {{percentageChange}}": "Prix Oracle {{percentageChange}}",
+    "To receive (est.)": "A recevoir (est.)",
+    "Settlement value {{percentageChange}}": "Valeur du règlement {{percentageChange}}",
+    "Total fees": "Total des frais",
+    "To receive (incl. of fees)": "A recevoir (y compris les frais)",
+    "Fee breakdown": "Répartition des frais",
+    "Transaction fee": "Transaction fee"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Vous échangez",

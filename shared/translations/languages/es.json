@@ -305,7 +305,7 @@
     "Search token": "Search token",
     "No assets found": "No se encontraron activos",
     "Add assets to get started": "Añade activos para empezar",
-    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
+    "Search results for “{{searchTerm}}”": "Buscar resultados para “{{searchTerm}}”",
     "AVAILABLE": "AVAILABLE"
   },
   "screens/ConvertScreen": {
@@ -815,7 +815,8 @@
     "From": "De",
     "To": "A",
     "Converting": "Convirtiendo",
-    "Converted": "Converted"
+    "Converted": "Converted",
+    "for": "for"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Crea una nueva contraseña para tu billetera",
@@ -1024,7 +1025,28 @@
     "Price ({{tokenB}}/{{tokenA}})": "Price ({{tokenB}}/{{tokenA}})",
     "Are you certain you want to proceed to swap DUSD for {{tokenB}} despite the DEX Stabilization fees of {{fee}}?": "Are you certain you want to proceed to swap DUSD for {{tokenB}} despite the DEX Stabilization fees of {{fee}}?",
     "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?": "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?",
-    "DEX stabilization fee": "DEX stabilization fee"
+    "DEX stabilization fee": "DEX stabilization fee",
+    "Future swap uses the oracle price of the selected token on the settlement block": "Future swap uses the oracle price of the selected token on the settlement block",
+    "You are buying dtokens at 5% more than the oracle price at settlement block": "You are buying dtokens at 5% more than the oracle price at settlement block",
+    "You are selling your dtoken at 5% less than the oracle price at settlement block": "You are selling your dtoken at 5% less than the oracle price at settlement block",
+    "Review full details in the next screen": "Revisa todos los detalles en la próxima pantalla",
+    "By continuing, the required amount of DFI will be converted": "Si continuas, la cantidad requerida de DFI será convertida",
+    "I HAVE {{totalAmount}} {{token}}": "I HAVE {{totalAmount}} {{token}}",
+    "I WANT {{token}}": "I WANT {{token}}",
+    "Total fees": "Total fees",
+    "Settlement Value {{percentageChange}}": "Settlement Value {{percentageChange}}",
+    "Transaction fee": "Transaction fee"
+  },
+  "screens/SwapTokenSelectionScreen": {
+    "Select": "Select",
+    "Search token": "Search token",
+    "AVAILABLE TOKENS": "AVAILABLE TOKENS",
+    "AVAILABLE FOR SWAP": "AVAILABLE FOR SWAP",
+    "AVAILABLE FOR FUTURE SWAP": "AVAILABLE FOR FUTURE SWAP",
+    "Search with token name": "Search with token name",
+    "Search dTokens for future swap": "Search dTokens for future swap",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
+    "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap.": "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap."
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "CONVIRTIENDO",
@@ -1045,7 +1067,13 @@
     "To be confirmed": "To be confirmed",
     "Settlement block": "Settlement block",
     "Resulting {{token}}": "Resulting {{token}}",
-    "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}"
+    "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}",
+    "To receive (est.)": "To receive (est.)",
+    "Settlement value {{percentageChange}}": "Settlement value {{percentageChange}}",
+    "Total fees": "Total fees",
+    "To receive (incl. of fees)": "To receive (incl. of fees)",
+    "Fee breakdown": "Fee breakdown",
+    "Transaction fee": "Transaction fee"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Tu estás intercambiando",

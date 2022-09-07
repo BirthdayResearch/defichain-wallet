@@ -799,7 +799,8 @@
     "From": "从",
     "To": "到",
     "Converting": "转换中",
-    "Converted": "Converted"
+    "Converted": "Converted",
+    "for": "for"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "为您的钱包创建新的密码",
@@ -1004,7 +1005,28 @@
     "Price ({{tokenB}}/{{tokenA}})": "Price ({{tokenB}}/{{tokenA}})",
     "Are you certain you want to proceed to swap DUSD for {{tokenB}} despite the DEX Stabilization fees of {{fee}}?": "目前 Dex 稳定费费用较高，您确定要继续进行兑换将 DUSD 换成 {{tokenB}} 吗？",
     "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?": "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?",
-    "DEX stabilization fee": "DEX stabilization fee"
+    "DEX stabilization fee": "DEX stabilization fee",
+    "Future swap uses the oracle price of the selected token on the settlement block": "Future swap uses the oracle price of the selected token on the settlement block",
+    "You are buying dtokens at 5% more than the oracle price at settlement block": "You are buying dtokens at 5% more than the oracle price at settlement block",
+    "You are selling your dtoken at 5% less than the oracle price at settlement block": "You are selling your dtoken at 5% less than the oracle price at settlement block",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "I HAVE {{totalAmount}} {{token}}": "I HAVE {{totalAmount}} {{token}}",
+    "I WANT {{token}}": "I WANT {{token}}",
+    "Total fees": "Total fees",
+    "Settlement Value {{percentageChange}}": "Settlement Value {{percentageChange}}",
+    "Transaction fee": "Transaction fee"
+  },
+  "screens/SwapTokenSelectionScreen": {
+    "Select": "Select",
+    "Search token": "Search token",
+    "AVAILABLE TOKENS": "AVAILABLE TOKENS",
+    "AVAILABLE FOR SWAP": "可用于兑换",
+    "AVAILABLE FOR FUTURE SWAP": "AVAILABLE FOR FUTURE SWAP",
+    "Search with token name": "使用代币名称搜索",
+    "Search dTokens for future swap": "Search dTokens for future swap",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
+    "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap.": "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap."
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "正在转换",
@@ -1024,7 +1046,13 @@
     "To be confirmed": "To be confirmed",
     "Settlement block": "Settlement block",
     "Resulting {{token}}": "Resulting {{token}}",
-    "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}"
+    "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}",
+    "To receive (est.)": "To receive (est.)",
+    "Settlement value {{percentageChange}}": "Settlement value {{percentageChange}}",
+    "Total fees": "Total fees",
+    "To receive (incl. of fees)": "To receive (incl. of fees)",
+    "Fee breakdown": "Fee breakdown",
+    "Transaction fee": "Transaction fee"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "您正要兑换",

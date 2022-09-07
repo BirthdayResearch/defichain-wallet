@@ -14,6 +14,12 @@ import { Platform, StyleProp, ViewStyle } from "react-native";
 import { ThemedTextV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
+import {
+  SelectionToken,
+  SwapTokenSelectionScreen,
+  TokenListType,
+} from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
+import { PriceRateProps as PriceRatesPropsV2 } from "@components/PricesSectionV2";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { ConversionParam } from "../Portfolio/PortfolioNavigator";
 import {
@@ -50,6 +56,30 @@ export interface DexParamList {
         isPreselected: boolean;
       };
     };
+  };
+  SwapTokenSelectionScreen: {
+    listType: TokenListType;
+    list: SelectionToken[];
+    onTokenPress: (token: SelectionToken) => void;
+    isFutureSwap: boolean;
+    isSearchDTokensOnly?: boolean;
+  };
+  ConfirmCompositeSwapScreenV2: {
+    conversion?: ConversionParam;
+    fee: BigNumber;
+    pairs: PoolPairData[];
+    priceRates: PriceRatesPropsV2[];
+    slippage: BigNumber;
+    swap: CompositeSwapForm;
+    futureSwap?: {
+      executionBlock: number;
+      transactionDate: string;
+      isSourceLoanToken: boolean;
+      oraclePriceText: string;
+    };
+    tokenA: OwnedTokenState;
+    tokenB: TokenState & { amount?: string };
+    estimatedAmount: BigNumber;
   };
   ConfirmCompositeSwapScreen: {
     conversion?: ConversionParam;
@@ -156,6 +186,7 @@ export function DexNavigator(): JSX.Element {
               style={[
                 screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
                 tailwind("text-left text-3xl font-semibold-v2"),
+                // eslint-disable-next-line react-native/no-inline-styles
                 { fontSize: 28 },
               ]}
             >
@@ -263,12 +294,28 @@ export function DexNavigator(): JSX.Element {
       />
 
       <DexStack.Screen
+        component={SwapTokenSelectionScreen}
+        name="SwapTokenSelectionScreen"
+        options={{
+          ...screenOptions,
+          headerTitle: translate("screens/SwapTokenSelectionScreen", "Select"),
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+        }}
+      />
+
+      <DexStack.Screen
         component={
           isFeatureAvailable("composite_swap_v2")
             ? ConfirmCompositeSwapScreenV2
             : ConfirmCompositeSwapScreen
         }
-        name="ConfirmCompositeSwapScreen"
+        name={
+          isFeatureAvailable("composite_swap_v2")
+            ? "ConfirmCompositeSwapScreenV2"
+            : "ConfirmCompositeSwapScreen"
+        }
         options={{
           ...screenOptions,
           headerTitle: isFeatureAvailable("composite_swap_v2")

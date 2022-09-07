@@ -14,7 +14,6 @@ import { TransactionsScreen } from "@screens/AppNavigator/screens/Transactions/T
 import { TransactionDetailScreen } from "@screens/AppNavigator/screens/Transactions/screens/TransactionDetailScreen";
 import { VMTransaction } from "@screens/AppNavigator/screens/Transactions/screens/stateProcessor";
 import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
-import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import GridBackgroundImageLight from "@assets/images/onboarding/grid-background-light.png";
 import GridBackgroundImageDark from "@assets/images/onboarding/grid-background-dark.png";
@@ -28,13 +27,14 @@ import { ConvertConfirmationScreen } from "@screens/AppNavigator/screens/Portfol
 import { FutureSwapScreenV2 } from "@screens/AppNavigator/screens/Portfolio/screens/FutureSwapScreenV2";
 import { WithdrawFutureSwapScreenV2 } from "@screens/AppNavigator/screens/Portfolio/screens/WithdrawFutureSwapScreenV2";
 import { ConfirmWithdrawFutureSwapScreenV2 } from "@screens/AppNavigator/screens/Portfolio/screens/ConfirmWithdrawFutureSwapScreenV2";
+import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
+import { SwapTokenSelectionScreen } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { PortfolioScreen } from "./PortfolioScreen";
 import { ReceiveScreen } from "./screens/ReceiveScreen";
 import { AddressControlScreen } from "./components/AddressControlScreen";
 import { AboutScreen } from "../Settings/screens/AboutScreen";
 import { CompositeSwapScreen } from "../Dex/CompositeSwap/CompositeSwapScreen";
-import { ConfirmCompositeSwapScreen } from "../Dex/CompositeSwap/ConfirmCompositeSwapScreen";
 import { FutureSwapScreen } from "./screens/FutureSwapScreen";
 import { ConfirmWithdrawFutureSwapScreen } from "./screens/ConfirmWithdrawFutureSwapScreen";
 import { WithdrawFutureSwapScreen } from "./screens/WithdrawFutureSwapScreen";
@@ -56,6 +56,7 @@ import { AddLiquidityScreen } from "../Dex/DexAddLiquidity";
 import { ConfirmAddLiquidityScreen } from "../Dex/DexConfirmAddLiquidity";
 import { CompositeSwapScreenV2 } from "../Dex/CompositeSwap/CompositeSwapScreenV2";
 import { ConfirmCompositeSwapScreenV2 } from "../Dex/CompositeSwap/ConfirmCompositeSwapScreenV2";
+import { ConfirmCompositeSwapScreen } from "../Dex/CompositeSwap/ConfirmCompositeSwapScreen";
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined;
@@ -424,12 +425,28 @@ export function PortfolioNavigator(): JSX.Element {
       />
 
       <PortfolioStack.Screen
+        component={SwapTokenSelectionScreen}
+        name="SwapTokenSelectionScreen"
+        options={{
+          ...screenOptions,
+          headerTitle: translate("screens/SwapTokenSelectionScreen", "Select"),
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+        }}
+      />
+
+      <PortfolioStack.Screen
         component={
           isFeatureAvailable("composite_swap_v2")
             ? ConfirmCompositeSwapScreenV2
             : ConfirmCompositeSwapScreen
         }
-        name="ConfirmCompositeSwapScreen"
+        name={
+          isFeatureAvailable("composite_swap_v2")
+            ? "ConfirmCompositeSwapScreenV2"
+            : "ConfirmCompositeSwapScreen"
+        }
         options={{
           ...screenOptions,
           headerTitle: isFeatureAvailable("composite_swap_v2")

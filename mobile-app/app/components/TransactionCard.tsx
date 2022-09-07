@@ -14,6 +14,7 @@ interface TransactionCardProps {
   status?: TransactionCardStatus;
   containerStyle?: StyleProp<ViewStyle>;
   amountButtonsStyle?: StyleProp<ViewStyle>;
+  disabled?: boolean;
 }
 
 export enum AmountButtonTypes {
@@ -35,6 +36,7 @@ export function TransactionCard({
   status,
   containerStyle,
   amountButtonsStyle,
+  disabled,
   children,
 }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
   return (
@@ -47,9 +49,15 @@ export function TransactionCard({
         "border-0.5 border-mono-dark-v2-800":
           status === TransactionCardStatus.Active,
       })}
-      style={tailwind("rounded-lg-v2", {
-        "border-0.5 border-red-v2": status === TransactionCardStatus.Error,
-      })}
+      style={tailwind(
+        "rounded-lg-v2",
+        {
+          "border-0.5 border-red-v2": status === TransactionCardStatus.Error,
+        },
+        {
+          "opacity-30": disabled,
+        }
+      )}
     >
       <ThemedViewV2
         light={tailwind("bg-mono-light-v2-00")}
@@ -74,6 +82,7 @@ export function TransactionCard({
               onPress={onChange}
               type={type}
               hasBorder={length - 1 !== index}
+              disabled={disabled}
             />
           );
         })}
@@ -87,6 +96,7 @@ interface SetAmountButtonProps {
   onPress: (amount: string, type: AmountButtonTypes) => void;
   amount: BigNumber;
   hasBorder?: boolean;
+  disabled?: boolean;
 }
 
 function SetAmountButton({
@@ -94,6 +104,7 @@ function SetAmountButton({
   onPress,
   amount,
   hasBorder,
+  disabled,
 }: SetAmountButtonProps): JSX.Element {
   const decimalPlace = 8;
   let value = amount.toFixed(decimalPlace);
@@ -120,6 +131,7 @@ function SetAmountButton({
         onPress(value, type);
       }}
       testID={`${type}_amount_button`}
+      disabled={disabled}
     >
       <ThemedViewV2
         light={tailwind("border-mono-light-v2-300")}
