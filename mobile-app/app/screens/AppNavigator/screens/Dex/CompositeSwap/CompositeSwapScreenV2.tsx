@@ -44,11 +44,7 @@ import {
   BottomSheetTokenList,
   TokenType,
 } from "@components/BottomSheetTokenList";
-import {
-  BottomSheetNavScreen,
-  BottomSheetWebWithNav,
-  BottomSheetWithNav,
-} from "@components/BottomSheetWithNav";
+import { BottomSheetNavScreen } from "@components/BottomSheetWithNav";
 import { InfoRow, InfoType } from "@components/InfoRow";
 import { NumberRow } from "@components/NumberRow";
 import { useWalletContext } from "@shared-contexts/WalletContext";
@@ -70,7 +66,6 @@ import { PriceRateProps } from "@components/PricesSectionV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { TokenListType } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { useSwappableTokensV2 } from "@screens/AppNavigator/screens/Dex/hook/SwappableTokensV2";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import {
   Announcement,
   AnnouncementBannerV2,
@@ -949,10 +944,11 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
             <View style={tailwind("p-4")}>
               {activeButtonGroup === ButtonGroupTabKey.InstantSwap && (
                 <SlippageToleranceV2
-                  onSubmitSlippage={setSlippage}
-                  slippage={slippage}
+                  setSlippage={setSlippage}
                   setSlippageError={setSlippageError}
                   onPress={onBottomSheetSlippageSelect}
+                  slippageError={slippageError}
+                  slippage={slippage}
                 />
               )}
             </View>

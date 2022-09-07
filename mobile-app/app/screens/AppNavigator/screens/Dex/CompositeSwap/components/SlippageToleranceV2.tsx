@@ -17,9 +17,10 @@ export interface SlippageError {
   text?: string;
 }
 interface SlippageToleranceCardProps {
-  setSlippageError: (error?: SlippageError) => void;
   slippage: BigNumber;
-  onSubmitSlippage: (val: BigNumber, isCustomSlippage: boolean) => void;
+  slippageError?: SlippageError;
+  setSlippageError: (error?: SlippageError) => void;
+  setSlippage: (val: BigNumber, isCustomSlippage: boolean) => void;
   onPress: () => void;
 }
 
@@ -36,15 +37,20 @@ export enum TransactionCardStatus {
 }
 
 export function SlippageToleranceV2({
-  setSlippageError,
   slippage,
-  onSubmitSlippage,
+  setSlippage,
+  slippageError,
+  setSlippageError,
   onPress,
 }: React.PropsWithChildren<SlippageToleranceCardProps>): JSX.Element {
   const [selectedSlippage, setSelectedSlippage] = useState(slippage.toString());
   const [isRiskWarningDisplayed, setIsRiskWarningDisplayed] = useState(false);
   const [isCustomSlippage, setIsCustomSlippage] = useState(false);
   const [isCustomAmount, setIsCustomAmount] = useState(false);
+
+  const isSlippageValid = (): boolean => {
+    return slippageError === undefined || slippageError?.type === "helper";
+  };
 
   const validateSlippage = (value: string): void => {
     if (value === undefined || value === "") {
@@ -68,7 +74,6 @@ export function SlippageToleranceV2({
       });
       return;
     }
-
     setSlippageError(undefined);
   };
 
@@ -80,7 +85,7 @@ export function SlippageToleranceV2({
     );
   }, [selectedSlippage]);
 
-  const submitSlippage = debounce(onSubmitSlippage, 500);
+  const submitSlippage = debounce(setSlippage, 500);
   const onSlippageChange = (value: string): void => {
     setSelectedSlippage(value);
     submitSlippage(new BigNumber(value), isCustomSlippage);
@@ -111,51 +116,64 @@ export function SlippageToleranceV2({
         </ThemedTouchableOpacityV2>
       </View>
       {isCustomSlippage ? (
-        <View style={tailwind("flex-row")}>
-          <ThemedViewV2
-            light={tailwind("bg-mono-light-v2-00")}
-            dark={tailwind("bg-mono-dark-v2-00 bg-red-100")}
-            style={tailwind(
-              "flex flex-row items-center rounded-full mr-2 w-9/12"
-            )}
-          >
-            <WalletTextInputV2 // TODO:need to recreate this or modified the component to fit the design
-              onChangeText={(val) => onSlippageChange(val)}
-              keyboardType="numeric"
-              autoCapitalize="none"
-              placeholder="0.00%"
-              style={tailwind("")}
-              inputContainerStyle={tailwind("")}
-              testID="slippage_input"
-              value={selectedSlippage !== undefined ? selectedSlippage : ""}
-              displayClearButton={selectedSlippage !== ""}
-              onClearButtonPress={() => {
-                setIsCustomSlippage(false);
-                onSlippageChange("");
-              }}
-              inputType="numeric"
-            />
-          </ThemedViewV2>
-          <ThemedTouchableOpacityV2
-            light={tailwind("bg-mono-light-v2-900")}
-            dark={tailwind("bg-mono-dark-v2-900")}
-            style={tailwind(
-              "p-2.5 flex justify-center items-center flex-grow rounded-full"
-            )}
-            onPress={() => {
-              setIsCustomSlippage(false);
-              setIsCustomAmount(selectedSlippage !== "");
-            }}
-          >
-            <ThemedTextV2
-              light={tailwind("text-mono-light-v2-100")}
-              dark={tailwind("text-mono-dark-v2-100")}
-              style={tailwind("text-xs font-semibold-v2")}
+        <>
+          <View style={tailwind("flex-row")}>
+            <ThemedViewV2
+              light={tailwind("bg-mono-light-v2-00")}
+              dark={tailwind("bg-mono-dark-v2-00")}
+              style={tailwind("flex-row items-center mr-2 w-9/12")}
             >
-              {translate("components/CompositeSwapScreen", "Set")}
-            </ThemedTextV2>
-          </ThemedTouchableOpacityV2>
-        </View>
+              <WalletTextInputV2 // TODO:need to recreate this or modified the component to fit the design
+                onChangeText={onSlippageChange}
+                keyboardType="numeric"
+                autoCapitalize="none"
+                placeholder="0.00%"
+                style={tailwind("flex-grow w-2/5")}
+                inputContainerStyle={tailwind("")}
+                testID="slippage_input"
+                value={
+                  selectedSlippage !== undefined
+                    ? selectedSlippage.toString()
+                    : ""
+                }
+                displayClearButton={selectedSlippage !== ""}
+                onClearButtonPress={() => {
+                  setIsCustomSlippage(false);
+                  onSlippageChange("");
+                }}
+                inputType="numeric"
+                inlineText={slippageError}
+                valid={isSlippageValid()}
+                helperContainerStyle={tailwind("mx-5")}
+              />
+            </ThemedViewV2>
+            <View style={tailwind("flex-1 h-9")}>
+              <ThemedTouchableOpacityV2
+                light={tailwind("bg-mono-light-v2-900")}
+                dark={tailwind("bg-mono-dark-v2-900")}
+                style={tailwind(
+                  "p-2.5 justify-center items-center flex-grow rounded-full z-10",
+                  {
+                    "opacity-30": !isSlippageValid(),
+                  }
+                )}
+                onPress={() => {
+                  setIsCustomSlippage(false);
+                  setIsCustomAmount(selectedSlippage !== "");
+                }}
+                disabled={!isSlippageValid()}
+              >
+                <ThemedTextV2
+                  light={tailwind("text-mono-light-v2-100")}
+                  dark={tailwind("text-mono-dark-v2-100")}
+                  style={tailwind("text-xs font-semibold-v2")}
+                >
+                  {translate("components/CompositeSwapScreen", "Set")}
+                </ThemedTextV2>
+              </ThemedTouchableOpacityV2>
+            </View>
+          </View>
+        </>
       ) : (
         <ThemedViewV2
           light={tailwind("bg-mono-light-v2-00")}
