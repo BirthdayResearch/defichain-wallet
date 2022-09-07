@@ -1,7 +1,7 @@
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { StyleProp, TextStyle, View } from "react-native";
-import { BottomSheetModalV2 } from "./BottomSheetModalv2";
+import { BottomSheetModalV2 } from "./BottomSheetModalV2";
 import { ThemedIcon, ThemedTextV2, ThemedViewV2 } from "./themed";
 
 interface BottomSheetAlertInfoV2 {
