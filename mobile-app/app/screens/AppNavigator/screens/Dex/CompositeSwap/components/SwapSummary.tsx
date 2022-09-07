@@ -158,25 +158,25 @@ export function SwapSummary({
 }
 
 function SettlementMessage(): JSX.Element {
-  // TODO: translations
   return (
     <>
       <ThemedTextV2 style={tailwind("text-base font-normal-v2 pb-4")}>
-        <ThemedTextV2 style={tailwind("text-base font-bold-v2")}>
-          Settlement block{" "}
-        </ThemedTextV2>
-        is the pre-determined block height that this transaction will be
-        executed.
+        {translate(
+          "screens/CompositeSwapScreen",
+          "Settlement block is the pre-determined block height that this transaction will be executed."
+        )}
       </ThemedTextV2>
       <ThemedTextV2 style={tailwind("text-base font-normal-v2 pb-4")}>
-        <ThemedTextV2 style={tailwind("font-bold-v2")}>
-          Settlement value{" "}
-        </ThemedTextV2>
-        is based on the oracle price at the settlement block.
+        {translate(
+          "screens/CompositeSwapScreen",
+          "Settlement value is based on the oracle price at the settlement block."
+        )}
       </ThemedTextV2>
-      <ThemedTextV2 style={tailwind("text-base font-normal-v2")}>
-        Users will be able to cancel this transaction as long as the settlement
-        block has not been executed.
+      <ThemedTextV2 style={tailwind("text-base font-normal-v2 pb-4")}>
+        {translate(
+          "screens/CompositeSwapScreen",
+          "Users will be able to cancel this transaction as long as the settlement block has not been executed."
+        )}
       </ThemedTextV2>
     </>
   );

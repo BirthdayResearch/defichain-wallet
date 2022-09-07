@@ -64,7 +64,7 @@ export function BottomSheetInfoV2({
             {translate("components/BottomSheetInfo", alertInfo?.message ?? "")}
           </ThemedTextV2>
         </View>
-        <View>{styledMessage}</View>
+        <View>{styledMessage ?? ""}</View>
       </View>
     </BottomSheetModalV2>
   );
