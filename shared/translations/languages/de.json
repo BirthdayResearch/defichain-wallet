@@ -1048,6 +1048,7 @@
     "Swap": "Tausch",
     "Swapping Token": "Token-Tausch",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausch von {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "Tausch von {{amountA}} {{symbolA}} gegen {{symbolB}}",
     "Slippage tolerance": "Slippage-Toleranz",
     "Estimated to receive": "Geschätzter Betrag",
     "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Tausch beim Erreichen des Ausführungsblocks von {{amountA}} {{fromTokenDisplaySymbol}} gegen {{toTokenDisplaySymbol}} zum Preisorakelwert {{percentageChange}}",
@@ -1060,7 +1061,8 @@
     "Total fees": "Gebühren insgesamt",
     "To receive (incl. of fees)": "Zu erhalten (inkl. Gebühren)",
     "Fee breakdown": "Aufschlüsselung der Gebühren",
-    "Transaction fee": "Transaktionsgebühren"
+    "Transaction fee": "Transaktionsgebühren",
+    "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?": "Bist du sicher, dass du deine Transaktion trotz der hohen DEX-Stabilisierungsgebühr durchführen möchtest?"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Du tauschst",

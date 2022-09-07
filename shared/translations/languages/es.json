@@ -1072,6 +1072,7 @@
     "Swap": "Cambiar",
     "Swapping Token": "Intercambiando tokens",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Intercambiando {{amountA}} {{symbolA}} a {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "Intercambiando {{amountA}} {{symbolA}} a {{symbolB}}",
     "Slippage Tolerance": "Tolerancia a la fluctuación",
     "Estimated to receive": "Estimación a recibir",
     "Slippage tolerance": "Tolerancia a la fluctuación",
@@ -1082,10 +1083,11 @@
     "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}",
     "To receive (est.)": "To receive (est.)",
     "Settlement value {{percentageChange}}": "Settlement value {{percentageChange}}",
-    "Total fees": "Total fees",
-    "To receive (incl. of fees)": "To receive (incl. of fees)",
     "Fee breakdown": "Fee breakdown",
-    "Transaction fee": "Transaction fee"
+    "Total fees": "Total fees",
+    "Transaction fee": "Transaction fee",
+    "To receive (incl. of fees)": "To receive (incl. of fees)",
+    "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?": "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Tu estás intercambiando",
