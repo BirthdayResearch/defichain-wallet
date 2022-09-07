@@ -92,7 +92,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
   } = useDexStabilization(tokenA, tokenB);
 
   const dexStabMessage =
-    dexStabilizationType === "composite-dusd-with-fee"
+    dexStabilizationType !== "none"
       ? "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?"
       : undefined;
 
@@ -440,7 +440,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
         )}
         <SubmitButtonGroupV2
           isDisabled={
-            !isAcknowledge ||
+            (!isAcknowledge && dexStabilizationType !== "none") ||
             isSubmitting ||
             hasPendingJob ||
             hasPendingBroadcastJob ||
