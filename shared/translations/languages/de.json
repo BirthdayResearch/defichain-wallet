@@ -773,13 +773,17 @@
     "{{amount}} DFI converted to {{symbolB}}": "{{amount}}-DFI umgewandelt in {{symbolB}}",
     "Preparing your transaction…": "Deine Transaktion vorbereiten…",
     "Processing future swap transaction…": "Verarbeiten der Future-Swap-Transaktion…",
+    "Processing future swap…": "Processing future swap…",
+    "Future Swap confirmed for next settlement block": "Future Swap confirmed for next settlement block",
     "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap bestätigt und wird im Block #{{block}} ausgeführt",
     "Preparing changes to loan scheme…": "Änderungen am Darlehensmodell vorbereiten…",
     "Saving changes to loan scheme…": "Änderungen am Darlehensmodell speichern…",
     "Loan scheme saved": "Darlehensmodell gespeichert",
     "Preparing withdrawal…": "Auszahlung vorbereiten…",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Abhebung von {{amountToWithdraw}} {{sourceSymbol}} aus dem Future Swap",
-    "Withdrawal completed": "Auszahlung abgeschlossen"
+    "Withdrawal completed": "Auszahlung abgeschlossen",
+    "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "Tausch von {{amountA}} {{symbolA}} gegen {{symbolB}}",
+    "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Tausch von {{amountA}} {{fromTokenDisplaySymbol}} in {{toTokenDisplaySymbol}} beim Abrechnungsblock {{settlementBlock}}"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Kameranutzung erlauben",
@@ -1013,8 +1017,13 @@
     "Settlement Value {{percentageChange}}": "Abrechnungswert {{percentageChange}}",
     "Transaction fee": "Transaktionsgebühren",
     "Max available {{unit}} entered": "Max. verfügbare {{unit}} eingegeben",
+    "Settlements": "Settlements",
+    "Learn about settlements": "Informationen über Abrechnungen",
     "{{percent}} of available {{unit}} entered": "{{percent}} der verfügbaren {{unit}} eingegeben",
-    "Token": "Token"
+    "Token": "Token",
+    "Settlement block is the pre-determined block height that this transaction will be executed.": "Der Abrechnungsblock ist die vorher festgelegte Blockhöhe, auf der diese Transaktion ausgeführt wird.",
+    "Settlement value is based on the oracle price at the settlement block.": "Der Abrechnungswert basiert auf dem Orakelpreis zum Abrechnungsblock.",
+    "Users will be able to cancel this transaction as long as the settlement block has not been executed.": "Benutzer können diese Transaktion stornieren, solange der Abrechnungsblock noch nicht ausgeführt wurde."
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Auswählen",
