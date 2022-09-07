@@ -270,7 +270,7 @@ function CustomAmountButton({
         "bg-mono-light-v2-900": isCustomAmount,
       })}
       dark={tailwind("bg-transparent", {
-        "bg-mono-light-v2-900": isCustomAmount,
+        "bg-mono-dark-v2-900": isCustomAmount,
       })}
       style={tailwind("rounded-r-full w-3/12 items-center", {
         "rounded-l-full": isCustomAmount,
