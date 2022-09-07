@@ -1,18 +1,31 @@
+import { useMemo } from "react";
+
 import { View, TouchableOpacity, Linking } from "react-native";
 import NumberFormat from "react-number-format";
+import BigNumber from "bignumber.js";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
+import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
+import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { ThemedViewV2, ThemedIcon, ThemedTextV2 } from "@components/themed";
 import { PricesSectionV2, PriceRateProps } from "@components/PricesSectionV2";
 import { BottomSheetInfoV2 } from "@components/BottomSheetInfo";
+import { NumberRowV2 } from "@components/NumberRowV2";
 import { ButtonGroupTabKey } from "../CompositeSwapScreen";
 
 interface SwapSummaryProps {
   instantSwapPriceRate: PriceRateProps[];
   activeTab: ButtonGroupTabKey;
+  transactionFee: BigNumber;
+  estimatedReturn: {
+    symbol: string;
+    fee: BigNumber;
+    feeLessDexFees: BigNumber;
+  };
   executionBlock?: number;
   transactionDate?: string;
+  tokenAAmount: string;
 }
 
 export function SwapSummary({
@@ -20,7 +33,32 @@ export function SwapSummary({
   activeTab,
   executionBlock,
   transactionDate,
+  transactionFee,
+  estimatedReturn,
+  tokenAAmount,
 }: SwapSummaryProps): JSX.Element {
+  const { getTokenPrice } = useTokenPrice();
+  const totalFees = useMemo(() => {
+    if (tokenAAmount === "" || new BigNumber(tokenAAmount).isZero()) {
+      return "-";
+    }
+
+    const dexFeesInTokenBUnit = estimatedReturn.fee.minus(
+      estimatedReturn.feeLessDexFees
+    );
+
+    return getPrecisedCurrencyValue(
+      getTokenPrice("DFI", transactionFee).plus(
+        getTokenPrice(
+          estimatedReturn.symbol,
+          dexFeesInTokenBUnit
+            .multipliedBy(instantSwapPriceRate[1].value)
+            .multipliedBy(tokenAAmount)
+        )
+      )
+    );
+  }, [transactionFee, estimatedReturn]);
+
   return (
     <>
       {activeTab === ButtonGroupTabKey.InstantSwap ? (
@@ -29,6 +67,31 @@ export function SwapSummary({
             priceRates={instantSwapPriceRate}
             testID="instant_swap_summary"
           />
+          <ThemedViewV2
+            style={tailwind("py-5 border-t-0.5")}
+            light={tailwind("border-mono-light-v2-300")}
+            dark={tailwind("border-mono-dark-v2-300")}
+          >
+            <NumberRowV2
+              lhs={{
+                value: translate("screens/CompositeSwapScreen", "Total fees"),
+                testID: "swap_total_fees",
+                themedProps: {
+                  light: tailwind("text-mono-light-v2-500"),
+                  dark: tailwind("text-mono-dark-v2-500"),
+                },
+              }}
+              rhs={{
+                value: totalFees,
+                testID: "swap_total_fee_amount",
+                prefix: "$",
+                themedProps: {
+                  style: tailwind("font-normal-v2 text-sm"),
+                },
+                usdTextStyle: tailwind("text-sm"),
+              }}
+            />
+          </ThemedViewV2>
         </View>
       ) : (
         <View>
@@ -36,7 +99,35 @@ export function SwapSummary({
             executionBlock={executionBlock}
             transactionDate={transactionDate}
           />
-          <View style={tailwind("flex-row items-center my-5")}>
+          <NumberRowV2
+            containerStyle={{
+              style: tailwind(
+                "flex-row items-start pt-5 w-full bg-transparent"
+              ),
+            }}
+            lhs={{
+              value: translate(
+                "screens/CompositeSwapScreen",
+                "Transaction fees"
+              ),
+              testID: "swap_total_fees",
+              themedProps: {
+                light: tailwind("text-mono-light-v2-500"),
+                dark: tailwind("text-mono-dark-v2-500"),
+              },
+            }}
+            rhs={{
+              value: transactionFee.toFixed(8),
+              usdAmount: getTokenPrice("DFI", transactionFee),
+              testID: "swap_total_fee_amount",
+              suffix: " DFI",
+              themedProps: {
+                style: tailwind("font-normal-v2 text-sm"),
+              },
+              usdTextStyle: tailwind("text-sm"),
+            }}
+          />
+          <View style={tailwind("flex-row items-center mb-5")}>
             <BottomSheetInfoV2
               alertInfo={{
                 title: "Settlements",
