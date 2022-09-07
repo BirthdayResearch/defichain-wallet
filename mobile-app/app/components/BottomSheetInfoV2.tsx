@@ -49,12 +49,12 @@ export function BottomSheetInfoV2({
         <ThemedViewV2
           light={tailwind("border-mono-light-v2-300")}
           dark={tailwind("border-mono-dark-v2-300")}
-          style={tailwind("flex-row mb-3 py-5 border-b-0.5")}
+          style={tailwind("flex-row mb-2 py-5 border-b-0.5")}
         >
           <ThemedTextV2
-            style={tailwind("pr-10 text-2xl font-normal-v2 border-b-0.5")}
-            light={tailwind("border-mono-light-v2-300 text-mono-light-v2-900")}
-            dark={tailwind("border-mono-dark-v2-300 text-mono-dark-v2-900")}
+            style={tailwind("pr-10 text-2xl font-normal-v2")}
+            light={tailwind("text-mono-light-v2-900")}
+            dark={tailwind("text-mono-dark-v2-900")}
           >
             {translate("components/BottomSheetInfo", alertInfo?.title ?? "")}
           </ThemedTextV2>

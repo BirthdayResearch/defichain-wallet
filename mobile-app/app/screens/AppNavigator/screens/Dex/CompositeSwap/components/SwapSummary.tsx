@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { Linking, TouchableOpacity, View } from "react-native";
+import { Linking, Platform, TouchableOpacity, View } from "react-native";
 import NumberFormat from "react-number-format";
 import BigNumber from "bignumber.js";
 import { tailwind } from "@tailwind";
@@ -118,39 +118,43 @@ export function SwapSummary({
               usdTextStyle: tailwind("text-sm"),
             }}
           />
-          <View style={tailwind("flex-row items-center mb-5")}>
-            <BottomSheetInfoV2
-              alertInfo={{
-                title: "Settlements",
-                message: "",
-              }}
-              styledMessage={SettlementMessage()}
-              name="test2"
-              infoIconStyle={[tailwind("text-xs")]}
-              snapPoints={["55%"]}
-              triggerComponent={
-                <View style={tailwind("flex flex-row")}>
-                  <ThemedTextV2
-                    light={tailwind("text-mono-light-v2-900")}
-                    dark={tailwind("text-mono-dark-v2-900")}
-                    style={tailwind("mr-1 font-semibold-v2 text-xs")}
-                  >
-                    {translate(
-                      "screens/CompositeSwapScreen",
-                      "Learn about settlements"
-                    )}
-                  </ThemedTextV2>
-                  <ThemedIcon
-                    name="info-outline"
-                    size={16}
-                    iconType="MaterialIcons"
-                    light={tailwind("text-mono-light-v2-900")}
-                    dark={tailwind("text-mono-dark-v2-900")}
-                  />
-                </View>
-              }
-            />
-          </View>
+          {Platform.OS === "web" ? (
+            <></> // hide Settlement info in web
+          ) : (
+            <View style={tailwind("flex-row items-center mb-5")}>
+              <BottomSheetInfoV2
+                alertInfo={{
+                  title: "Settlements",
+                  message: "",
+                }}
+                styledMessage={SettlementMessage()}
+                name="test2"
+                infoIconStyle={[tailwind("text-xs")]}
+                snapPoints={["55%"]}
+                triggerComponent={
+                  <View style={tailwind("flex flex-row")}>
+                    <ThemedTextV2
+                      light={tailwind("text-mono-light-v2-900")}
+                      dark={tailwind("text-mono-dark-v2-900")}
+                      style={tailwind("mr-1 font-semibold-v2 text-xs")}
+                    >
+                      {translate(
+                        "screens/CompositeSwapScreen",
+                        "Learn about settlements"
+                      )}
+                    </ThemedTextV2>
+                    <ThemedIcon
+                      name="info-outline"
+                      size={16}
+                      iconType="MaterialIcons"
+                      light={tailwind("text-mono-light-v2-900")}
+                      dark={tailwind("text-mono-dark-v2-900")}
+                    />
+                  </View>
+                }
+              />
+            </View>
+          )}
         </View>
       )}
     </>
