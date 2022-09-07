@@ -1035,7 +1035,9 @@
     "I WANT {{token}}": "I WANT {{token}}",
     "Total fees": "Total fees",
     "Settlement Value {{percentageChange}}": "Settlement Value {{percentageChange}}",
-    "Transaction fee": "Transaction fee"
+    "Transaction fee": "Transaction fee",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered"
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Select",
