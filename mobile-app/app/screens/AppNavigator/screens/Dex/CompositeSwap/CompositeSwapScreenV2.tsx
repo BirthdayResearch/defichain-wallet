@@ -428,6 +428,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         selectedTokenB.id,
         new BigNumber(tokenA)
       );
+
       setPriceRates([
         {
           label: translate("components/PricesSection", "1 {{token}} =", {
