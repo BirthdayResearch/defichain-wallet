@@ -44,6 +44,7 @@ interface IWalletTextInputProps {
   inputFooter?: React.ReactElement;
   displayTickIcon?: boolean;
   helperContainerStyle?: StyleProp<ViewStyle>;
+  borderContainerStyle?: StyleProp<ViewStyle>;
 }
 
 export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(
@@ -65,6 +66,7 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(
       inputFooter,
       displayTickIcon,
       helperContainerStyle,
+      borderContainerStyle,
       ...otherProps
     } = props;
 
@@ -99,7 +101,10 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(
             "border-mono-dark-v2-800": isFocus,
             "border-red-v2": !valid,
           })}
-          style={tailwind("flex-col w-full border-0.5 rounded-lg-v2")}
+          style={[
+            tailwind("flex-col w-full border-0.5 rounded-lg-v2"),
+            borderContainerStyle,
+          ]}
         >
           <View
             style={[

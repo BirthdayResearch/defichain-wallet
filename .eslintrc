@@ -2,12 +2,7 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": [
-    "react",
-    "react-native",
-    "react-hooks",
-    "prettier"
-  ],
+  "plugins": ["react", "react-native", "react-hooks", "prettier"],
   "extends": [
     "plugin:react/recommended",
     "plugin:react-native/all",
@@ -16,29 +11,15 @@
     "airbnb-typescript",
     "prettier"
   ],
-  "ignorePatterns": [
-    "/*.config.js",
-    "*.json",
-    "jest.setup.js"
-  ],
+  "ignorePatterns": ["/*.config.js", "*.json", "jest.setup.js"],
   "overrides": [
     // Js and Typescript files
     {
-      "files": [
-        ".js",
-        "*.ts",
-        "*.tsx"
-      ],
+      "files": [".js", "*.ts", "*.tsx"],
       "rules": {
         "import/no-default-export": "warn",
-        "curly": [
-          "error",
-          "all"
-        ],
-        "brace-style": [
-          "error",
-          "1tbs"
-        ],
+        "curly": ["error", "all"],
+        "brace-style": ["error", "1tbs"],
         "keyword-spacing": [
           "error",
           {
@@ -96,23 +77,13 @@
         "import/no-extraneous-dependencies": "off",
         "no-unsafe-optional-chaining": "off"
       },
-      "excludedFiles": [
-        "*.test.ts",
-        "*.test.tsx"
-      ]
+      "excludedFiles": ["*.test.ts", "*.test.tsx"]
     },
     // Unit test files
     {
-      "files": [
-        "*.test.ts",
-        "*.test.tsx"
-      ],
-      "plugins": [
-        "jest"
-      ],
-      "extends": [
-        "plugin:jest/recommended"
-      ],
+      "files": ["*.test.ts", "*.test.tsx"],
+      "plugins": ["jest"],
+      "extends": ["plugin:jest/recommended"],
       "rules": {
         "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off",
@@ -142,7 +113,7 @@
         "react/jsx-no-bind": "off",
         "import/no-cycle": "off",
         "react/no-array-index-key": "off",
-        "react/no-unused-prop-types": "off",
+        // "react/no-unused-prop-types": "off",
         "react/no-unstable-nested-components": "off",
         "@typescript-eslint/default-param-last": "off",
         "no-plusplus": "off",
@@ -151,7 +122,7 @@
         "react/no-unescaped-entities": "off",
         "no-void": "off",
         "no-restricted-globals": "off",
-        "@typescript-eslint/no-unused-vars": "off",
+        // "@typescript-eslint/no-unused-vars": "off",
         "no-nested-ternary": "off",
         "no-await-in-loop": "off",
         "import/no-extraneous-dependencies": "off",

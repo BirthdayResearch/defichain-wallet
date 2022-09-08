@@ -645,7 +645,7 @@
     "Enter passcode for verification": "Donner le code d'accès pour vérification",
     "It may take a few seconds to secure and encrypt your wallet.": "Cela peut prendre quelques secondes de chiffrer votre portefeuille.",
     "Add an additional layer of security by setting a passcode.": "Ajoutez un niveau de sécurité supplémentaire en définissant un code d'accès.",
-    "It may take a few seconds to update your passcode.": "Cela peut prendre quelques secondes pour mettre à jour votre code d'accès.",
+    "It may take a few seconds to update your passcode": "Cela peut prendre quelques secondes pour mettre à jour votre code d'accès",
     "Passcode updated!": "Passcode updated!",
     "Keep the passcode for your wallet confidential.": "Gardez le code d'accès de votre portefeuille confidentiel."
   },
@@ -785,13 +785,18 @@
     "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI convertis en {{symbolB}}",
     "Preparing your transaction…": "Préparation de votre transaction en coursn…",
     "Processing future swap transaction…": "Traitement de la transaction échange à terme…",
+    "Processing future swap…": "Processing future swap…",
+    "Future Swap confirmed for next settlement block": "Future Swap confirmed for next settlement block",
     "Future Swap confirmed and will be executed at block #{{block}}": "Échange à terme confirmé et qui sera exécuté au bloc #{{block}}",
     "Preparing changes to loan scheme…": "Préparation des modifications du schéma de prêt…",
     "Saving changes to loan scheme…": "Enregistrement des modifications apportées au schéma de prêts…",
     "Loan scheme saved": "Schéma de prêt sauvegardé",
     "Preparing withdrawal…": "Préparation du retrait en cours…",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Retrait de {{amountToWithdraw}} {{sourceSymbol}} de l'échange à terme…",
-    "Withdrawal completed": "Retrait effectué"
+    "Withdrawal completed": "Retrait effectué",
+    "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "Échange de {{amountA}} {{symbolA}} avec {{symbolB}}",
+    "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Échanger {{amountA}} {{fromTokenDisplaySymbol}} à {{toTokenDisplaySymbol}} sur le bloc de règlement {{settlementBlock}}",
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Retrait de {{amount}} {{symbol}} du pool de liquidité"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Demande d'accès à votre caméra",
@@ -1023,7 +1028,18 @@
     "I WANT {{token}}": "JE VEUX {{token}}",
     "Total fees": "Total des frais",
     "Settlement Value {{percentageChange}}": "Valeur de règlement {{percentageChange}}",
-    "Transaction fee": "Transaction fee"
+    "Transaction fee": "Transaction fee",
+    "Max available {{unit}} entered": "Max. de {{unit}} disponibles saisis",
+    "{{percent}} of available {{unit}} entered": "{{percent}} des {{unit}} disponibles saisis",
+    "Token": "Token",
+    "Instant": "Instantané",
+    "Future": "À terme",
+    "Learn about settlements": "En savoir plus sur les règlements",
+    "Settlements": "Settlements",
+    "Settlement block is the pre-determined block height that this transaction will be executed.": "Le bloc de règlement est la hauteur de bloc prédéterminée à laquelle cette transaction sera exécutée.",
+    "Settlement value is based on the oracle price at the settlement block.": "La valeur de règlement est basée sur le prix oracle au bloc de règlement.",
+    "Users will be able to cancel this transaction as long as the settlement block has not been executed.": "Les utilisateurs pourront annuler cette transaction tant que le bloc de règlement n'aura pas été exécuté.",
+    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n 1. Commission Fee\n 2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Les frais totaux sont facturés en fonction du type d'échange et des tokens sélectionnés. Ils se composeent de: 1. Frais de commission\n 2. Frais de transaction\n 3. Frais liés au DEX tels que les frais de stabilisation et les frais de brûlure (le cas échéant)"
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Select",
@@ -1048,6 +1064,7 @@
     "Swap": "Échanger",
     "Swapping Token": "Échange du token",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échange de {{amountA}} {{symbolA}} avec {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "Échange de {{amountA}} {{symbolA}} avec {{symbolB}}",
     "Slippage tolerance": "Tolérance de glissement",
     "Estimated to receive": "Estimé à recevoir",
     "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Échange sur le bloc à terme {{amountA}} {{fromTokenDisplaySymbol}} en {{toTokenDisplaySymbol}} sur le prix oracle {{percentageChange}}",
@@ -1057,10 +1074,11 @@
     "Oracle price {{percentageChange}}": "Prix Oracle {{percentageChange}}",
     "To receive (est.)": "A recevoir (est.)",
     "Settlement value {{percentageChange}}": "Valeur du règlement {{percentageChange}}",
+    "Fee breakdown": "Répartition des frais",
+    "Transaction fee": "Transaction fee",
     "Total fees": "Total des frais",
     "To receive (incl. of fees)": "A recevoir (y compris les frais)",
-    "Fee breakdown": "Répartition des frais",
-    "Transaction fee": "Transaction fee"
+    "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?": "Êtes-vous sûr de vouloir procéder à votre transaction même avec les frais de stabilisation DEX élevés ?"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Vous échangez",
@@ -1711,7 +1729,8 @@
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Après fermeture, ce n° de vault ne sera plus utilisable. Assurez-vous que de ne plus avoir besoin de ce vault avant de le fermer.",
     "CONFIRM CLOSE VAULT": "CONFIRMER LA FERMETURE DU VAULT",
     "You are about to close vault {{vaultId}}": "Vous êtes sur le point de fermer le vault {{vaultId}}",
-    "CLOSING": "FERMETURE..."
+    "CLOSING": "FERMETURE...",
+    "Closing vault": "Fermeture du vault"
   },
   "components/TokenIconGroup": {
     "more": "autres"

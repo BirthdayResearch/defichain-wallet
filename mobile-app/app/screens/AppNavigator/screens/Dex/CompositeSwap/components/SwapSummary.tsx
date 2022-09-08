@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { Linking, TouchableOpacity, View } from "react-native";
+import { Linking, Platform, TouchableOpacity, View } from "react-native";
 import NumberFormat from "react-number-format";
 import BigNumber from "bignumber.js";
 import { tailwind } from "@tailwind";
@@ -58,6 +58,13 @@ export function SwapSummary({
                   light: tailwind("text-mono-light-v2-500"),
                   dark: tailwind("text-mono-dark-v2-500"),
                 },
+              }}
+              info={{
+                title: translate("screens/CompositeSwapScreen", "Total fees"),
+                message: translate(
+                  "screens/CompositeSwapScreen",
+                  "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n 1. Commission Fee\n 2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)"
+                ),
               }}
               rhs={{
                 value: totalFees,
@@ -118,39 +125,43 @@ export function SwapSummary({
               usdTextStyle: tailwind("text-sm"),
             }}
           />
-          <View style={tailwind("flex-row items-center mb-5")}>
-            <BottomSheetInfoV2
-              alertInfo={{
-                title: "Settlements",
-                message: "",
-              }}
-              styledMessage={SettlementMessage()}
-              name="test2"
-              infoIconStyle={[tailwind("text-xs")]}
-              snapPoints={["55%"]}
-              triggerComponent={
-                <View style={tailwind("flex flex-row")}>
-                  <ThemedTextV2
-                    light={tailwind("text-mono-light-v2-900")}
-                    dark={tailwind("text-mono-dark-v2-900")}
-                    style={tailwind("mr-1 font-semibold-v2 text-xs")}
-                  >
-                    {translate(
-                      "screens/CompositeSwapScreen",
-                      "Learn about settlements"
-                    )}
-                  </ThemedTextV2>
-                  <ThemedIcon
-                    name="info-outline"
-                    size={16}
-                    iconType="MaterialIcons"
-                    light={tailwind("text-mono-light-v2-900")}
-                    dark={tailwind("text-mono-dark-v2-900")}
-                  />
-                </View>
-              }
-            />
-          </View>
+          {Platform.OS === "web" ? (
+            <></> // hide Settlement info in web
+          ) : (
+            <View style={tailwind("flex-row items-center mb-5")}>
+              <BottomSheetInfoV2
+                alertInfo={{
+                  title: "Settlements",
+                  message: "",
+                }}
+                styledMessage={SettlementMessage()}
+                name="test2"
+                infoIconStyle={[tailwind("text-xs")]}
+                snapPoints={["55%"]}
+                triggerComponent={
+                  <View style={tailwind("flex flex-row")}>
+                    <ThemedTextV2
+                      light={tailwind("text-mono-light-v2-900")}
+                      dark={tailwind("text-mono-dark-v2-900")}
+                      style={tailwind("mr-1 font-semibold-v2 text-xs")}
+                    >
+                      {translate(
+                        "screens/CompositeSwapScreen",
+                        "Learn about settlements"
+                      )}
+                    </ThemedTextV2>
+                    <ThemedIcon
+                      name="info-outline"
+                      size={16}
+                      iconType="MaterialIcons"
+                      light={tailwind("text-mono-light-v2-900")}
+                      dark={tailwind("text-mono-dark-v2-900")}
+                    />
+                  </View>
+                }
+              />
+            </View>
+          )}
         </View>
       )}
     </>
@@ -158,25 +169,25 @@ export function SwapSummary({
 }
 
 function SettlementMessage(): JSX.Element {
-  // TODO: translations
   return (
     <>
       <ThemedTextV2 style={tailwind("text-base font-normal-v2 pb-4")}>
-        <ThemedTextV2 style={tailwind("text-base font-bold-v2")}>
-          Settlement block{" "}
-        </ThemedTextV2>
-        is the pre-determined block height that this transaction will be
-        executed.
+        {translate(
+          "screens/CompositeSwapScreen",
+          "Settlement block is the pre-determined block height that this transaction will be executed."
+        )}
       </ThemedTextV2>
       <ThemedTextV2 style={tailwind("text-base font-normal-v2 pb-4")}>
-        <ThemedTextV2 style={tailwind("font-bold-v2")}>
-          Settlement value{" "}
-        </ThemedTextV2>
-        is based on the oracle price at the settlement block.
+        {translate(
+          "screens/CompositeSwapScreen",
+          "Settlement value is based on the oracle price at the settlement block."
+        )}
       </ThemedTextV2>
-      <ThemedTextV2 style={tailwind("text-base font-normal-v2")}>
-        Users will be able to cancel this transaction as long as the settlement
-        block has not been executed.
+      <ThemedTextV2 style={tailwind("text-base font-normal-v2 pb-4")}>
+        {translate(
+          "screens/CompositeSwapScreen",
+          "Users will be able to cancel this transaction as long as the settlement block has not been executed."
+        )}
       </ThemedTextV2>
     </>
   );

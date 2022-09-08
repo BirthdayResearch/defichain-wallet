@@ -1,6 +1,6 @@
-import { Dispatch, useEffect, useMemo, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { tailwind } from "@tailwind";
+import { getColor, tailwind } from "@tailwind";
 import { StackScreenProps } from "@react-navigation/stack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import BigNumber from "bignumber.js";
@@ -36,18 +36,12 @@ import { useAddressLabel } from "@hooks/useAddressLabel";
 import { ConfirmSummaryTitleV2 } from "@components/ConfirmSummaryTitleV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
-import { useBottomSheet } from "@hooks/useBottomSheet";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { Platform } from "react-native";
-import {
-  BottomSheetWebWithNavV2,
-  BottomSheetWithNavV2,
-} from "@components/BottomSheetWithNavV2";
 import { TextRowV2 } from "@components/TextRowV2";
 import { PricesSectionV2 } from "@components/PricesSectionV2";
+import Checkbox from "expo-checkbox";
 import { DexParamList } from "../DexNavigator";
 import { OwnedTokenState, TokenState } from "./CompositeSwapScreenV2";
-import { ViewFeeDetails } from "./components/ViewFeeDetails";
+import { useDexStabilization } from "../hook/DexStabilization";
 
 type Props = StackScreenProps<DexParamList, "ConfirmCompositeSwapScreenV2">;
 export interface CompositeSwapForm {
@@ -91,51 +85,16 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
   const { address } = useWalletContext();
   const addressLabel = useAddressLabel(address);
 
-  const { isLight } = useThemeContext();
-  const modalSortingSnapPoints = {
-    ios: ["60%"],
-    android: ["60%"],
-  };
+  const [isAcknowledge, setIsAcknowledge] = useState(false);
 
   const {
-    bottomSheetRef,
-    containerRef,
-    expandModal,
-    dismissModal,
-    isModalDisplayed,
-  } = useBottomSheet();
+    dexStabilization: { dexStabilizationType },
+  } = useDexStabilization(tokenA, tokenB);
 
-  // TODO: refactor into common component - used by Add/Remove Liq as well
-  const BottomSheetHeader = {
-    headerStatusBarHeight: 2,
-    headerTitle: "",
-    headerBackTitleVisible: false,
-    headerStyle: tailwind("rounded-t-xl-v2 border-b-0", {
-      "bg-mono-light-v2-100": isLight,
-      "bg-mono-dark-v2-100": !isLight,
-    }),
-    headerRight: (): JSX.Element => {
-      return (
-        <ThemedTouchableOpacityV2
-          style={tailwind("mr-5 mt-4 -mb-4")}
-          onPress={dismissModal}
-          testID="close_bottom_sheet_button"
-        >
-          <ThemedIcon iconType="Feather" name="x-circle" size={22} />
-        </ThemedTouchableOpacityV2>
-      );
-    },
-  };
-
-  const ViewFeeBreakdownContents = useMemo(() => {
-    return [
-      {
-        stackScreenName: "ViewFeeBreakdown",
-        component: ViewFeeDetails({}),
-        option: BottomSheetHeader,
-      },
-    ];
-  }, [isLight]);
+  const dexStabMessage =
+    dexStabilizationType !== "none"
+      ? "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?"
+      : undefined;
 
   useEffect(() => {
     setIsOnPage(true);
@@ -442,7 +401,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
                 value: translate(
                   "screens/ConfirmCompositeSwapScreen",
                   "To receive (incl. of fees)"
-                ), // estimated return less dex fees
+                ),
                 testID: "estimated_to_receive",
                 themedProps: {
                   light: tailwind("text-mono-light-v2-500"),
@@ -451,11 +410,15 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
               }}
               rhs={{
                 testID: "confirm_estimated_to_receive",
-                value: estimatedReturnLessDexFees,
+                value: new BigNumber(estimatedReturnLessDexFees)
+                  .multipliedBy(swap.amountFrom)
+                  .toFixed(8),
                 suffix: ` ${swap.tokenTo.displaySymbol}`,
                 usdAmount: getTokenPrice(
                   tokenB.symbol,
-                  new BigNumber(estimatedAmount),
+                  new BigNumber(estimatedReturnLessDexFees).multipliedBy(
+                    swap.amountFrom
+                  ),
                   false
                 ),
                 themedProps: {
@@ -467,9 +430,17 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
         )}
       </ThemedViewV2>
 
-      <View style={tailwind("py-14 px-3")}>
+      <View style={tailwind("pt-10 pb-14 px-3")}>
+        {dexStabMessage && (
+          <DexStabAcknowledgeCheckBox
+            isAcknowledge={isAcknowledge}
+            onSwitch={(val) => setIsAcknowledge(val)}
+            message={dexStabMessage}
+          />
+        )}
         <SubmitButtonGroupV2
           isDisabled={
+            (!isAcknowledge && dexStabilizationType !== "none") ||
             isSubmitting ||
             hasPendingJob ||
             hasPendingBroadcastJob ||
@@ -483,32 +454,40 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
           title="swap"
         />
       </View>
-
-      {Platform.OS === "web" ? (
-        <BottomSheetWebWithNavV2
-          modalRef={containerRef}
-          screenList={ViewFeeBreakdownContents}
-          isModalDisplayed={isModalDisplayed}
-          // eslint-disable-next-line react-native/no-inline-styles
-          modalStyle={{
-            position: "absolute",
-            bottom: "0",
-            height: "404px",
-            width: "375px",
-            zIndex: 50,
-            borderTopLeftRadius: 15,
-            borderTopRightRadius: 15,
-            overflow: "hidden",
-          }}
-        />
-      ) : (
-        <BottomSheetWithNavV2
-          modalRef={bottomSheetRef}
-          screenList={ViewFeeBreakdownContents}
-          snapPoints={modalSortingSnapPoints}
-        />
-      )}
     </ThemedScrollViewV2>
+  );
+}
+
+function DexStabAcknowledgeCheckBox(props: {
+  isAcknowledge: boolean;
+  onSwitch: (val: boolean) => void;
+  message: string;
+}): JSX.Element {
+  return (
+    <View style={tailwind("px-7 flex flex-row justify-center")}>
+      <Checkbox
+        value={props.isAcknowledge}
+        style={tailwind("h-6 w-6 mt-1 rounded")}
+        onValueChange={props.onSwitch}
+        color={props.isAcknowledge ? getColor("brand-v2-500") : undefined}
+        testID="lp_ack_checkbox"
+      />
+      <ThemedTouchableOpacityV2
+        style={tailwind("flex-1")}
+        activeOpacity={0.7}
+        onPress={() => {
+          props.onSwitch(!props.isAcknowledge);
+        }}
+      >
+        <ThemedTextV2
+          style={tailwind("ml-4 flex-1 text-xs font-normal-v2")}
+          light={tailwind("text-mono-light-v2-700")}
+          dark={tailwind("text-mono-dark-v2-700")}
+        >
+          {translate("screens/ConfirmCompositeSwapScreen", props.message)}
+        </ThemedTextV2>
+      </ThemedTouchableOpacityV2>
+    </View>
   );
 }
 
@@ -556,7 +535,7 @@ async function constructSignedSwapAndSend(
       transactionQueue.actions.push({
         sign: signer,
         title: translate(
-          "screens/ConfirmCompositeSwapScreen",
+          "screens/OceanInterface",
           "Swapping {{amountA}} {{symbolA}} to {{symbolB}}",
           {
             amountA: cSwapForm.amountFrom.toFixed(8),
@@ -633,7 +612,7 @@ async function constructSignedFutureSwapAndSend(
       transactionQueue.actions.push({
         sign: signer,
         title: translate(
-          "screens/ConfirmCompositeSwapScreen",
+          "screens/OceanInterface",
           "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
           {
             amountA: futureSwap.amount.toFixed(8),

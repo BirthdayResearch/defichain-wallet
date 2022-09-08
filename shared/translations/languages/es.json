@@ -652,7 +652,7 @@
     "{{attemptsRemaining}} attempts remaining": "Quedan {{attemptsRemaining}} intentos",
     "Enter passcode for verification": "Confirma tu contraseña",
     "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet.",
-    "It may take a few seconds to update your passcode.": "Cambiar la contraseña puede tardar varios segundos.",
+    "It may take a few seconds to update your passcode": "Cambiar la contraseña puede tardar varios segundos",
     "Passcode updated!": "Passcode updated!",
     "Keep the passcode for your wallet confidential.": "Mantén la contraseña de tu billetera confidencial."
   },
@@ -792,13 +792,18 @@
     "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI converted to {{symbolB}}",
     "Preparing your transaction…": "Preparing your transaction…",
     "Processing future swap transaction…": "Processing future swap transaction…",
+    "Processing future swap…": "Processing future swap…",
+    "Future Swap confirmed for next settlement block": "Future Swap confirmed for next settlement block",
     "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap confirmed and will be executed at block #{{block}}",
     "Preparing changes to loan scheme…": "Preparing changes to loan scheme…",
     "Saving changes to loan scheme…": "Saving changes to loan scheme…",
     "Loan scheme saved": "Loan scheme saved",
     "Preparing withdrawal…": "Preparing withdrawal…",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…",
-    "Withdrawal completed": "Withdrawal completed"
+    "Withdrawal completed": "Withdrawal completed",
+    "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "Intercambiando {{amountA}} {{symbolA}} a {{symbolB}}",
+    "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Pidiendo acceso a la cámara",
@@ -1035,7 +1040,18 @@
     "I WANT {{token}}": "I WANT {{token}}",
     "Total fees": "Total fees",
     "Settlement Value {{percentageChange}}": "Settlement Value {{percentageChange}}",
-    "Transaction fee": "Transaction fee"
+    "Transaction fee": "Transaction fee",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "Token": "Token",
+    "Instant": "Instant",
+    "Future": "Future",
+    "Learn about settlements": "Learn about settlements",
+    "Settlements": "Settlements",
+    "Settlement block is the pre-determined block height that this transaction will be executed.": "Settlement block is the pre-determined block height that this transaction will be executed.",
+    "Settlement value is based on the oracle price at the settlement block.": "Settlement value is based on the oracle price at the settlement block.",
+    "Users will be able to cancel this transaction as long as the settlement block has not been executed.": "Users will be able to cancel this transaction as long as the settlement block has not been executed.",
+    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n 1. Commission Fee\n 2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n 1. Commission Fee\n 2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)"
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Select",
@@ -1060,6 +1076,7 @@
     "Swap": "Cambiar",
     "Swapping Token": "Intercambiando tokens",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Intercambiando {{amountA}} {{symbolA}} a {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "Intercambiando {{amountA}} {{symbolA}} a {{symbolB}}",
     "Slippage Tolerance": "Tolerancia a la fluctuación",
     "Estimated to receive": "Estimación a recibir",
     "Slippage tolerance": "Tolerancia a la fluctuación",
@@ -1070,10 +1087,11 @@
     "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}",
     "To receive (est.)": "To receive (est.)",
     "Settlement value {{percentageChange}}": "Settlement value {{percentageChange}}",
-    "Total fees": "Total fees",
-    "To receive (incl. of fees)": "To receive (incl. of fees)",
     "Fee breakdown": "Fee breakdown",
-    "Transaction fee": "Transaction fee"
+    "Total fees": "Total fees",
+    "Transaction fee": "Transaction fee",
+    "To receive (incl. of fees)": "To receive (incl. of fees)",
+    "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?": "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Tu estás intercambiando",
@@ -1729,7 +1747,8 @@
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "Al cerrar, el identificador de esta bóveda no estará disponible nunca más. Asegúrate de que no necesitas nada de esta bóveda antes de cerrarla.",
     "CONFIRM CLOSE VAULT": "CONFIRMA EL CIERRE DE LA BOVEDA",
     "You are about to close vault {{vaultId}}": "Estás a punto de cerrar la bóveda {{vaultId}}",
-    "CLOSING": "CERRANDO"
+    "CLOSING": "CERRANDO",
+    "Closing vault": "Closing vault"
   },
   "components/TokenIconGroup": {
     "more": "más"

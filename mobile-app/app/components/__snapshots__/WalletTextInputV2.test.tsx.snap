@@ -48,18 +48,21 @@ exports[`wallet text input should render with default keyboard 1`] = `
   <View
     style={
       Array [
-        Object {
-          "borderBottomLeftRadius": 10,
-          "borderBottomRightRadius": 10,
-          "borderBottomWidth": 0.5,
-          "borderLeftWidth": 0.5,
-          "borderRightWidth": 0.5,
-          "borderTopLeftRadius": 10,
-          "borderTopRightRadius": 10,
-          "borderTopWidth": 0.5,
-          "flexDirection": "column",
-          "width": "100%",
-        },
+        Array [
+          Object {
+            "borderBottomLeftRadius": 10,
+            "borderBottomRightRadius": 10,
+            "borderBottomWidth": 0.5,
+            "borderLeftWidth": 0.5,
+            "borderRightWidth": 0.5,
+            "borderTopLeftRadius": 10,
+            "borderTopRightRadius": 10,
+            "borderTopWidth": 0.5,
+            "flexDirection": "column",
+            "width": "100%",
+          },
+          undefined,
+        ],
         Object {
           "backgroundColor": "rgba(255, 255, 255, 1)",
           "borderBottomColor": "rgba(229, 69, 69, 1)",
@@ -187,18 +190,21 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
   <View
     style={
       Array [
-        Object {
-          "borderBottomLeftRadius": 10,
-          "borderBottomRightRadius": 10,
-          "borderBottomWidth": 0.5,
-          "borderLeftWidth": 0.5,
-          "borderRightWidth": 0.5,
-          "borderTopLeftRadius": 10,
-          "borderTopRightRadius": 10,
-          "borderTopWidth": 0.5,
-          "flexDirection": "column",
-          "width": "100%",
-        },
+        Array [
+          Object {
+            "borderBottomLeftRadius": 10,
+            "borderBottomRightRadius": 10,
+            "borderBottomWidth": 0.5,
+            "borderLeftWidth": 0.5,
+            "borderRightWidth": 0.5,
+            "borderTopLeftRadius": 10,
+            "borderTopRightRadius": 10,
+            "borderTopWidth": 0.5,
+            "flexDirection": "column",
+            "width": "100%",
+          },
+          undefined,
+        ],
         Object {
           "backgroundColor": "rgba(255, 255, 255, 1)",
           "borderBottomColor": "rgba(229, 69, 69, 1)",
