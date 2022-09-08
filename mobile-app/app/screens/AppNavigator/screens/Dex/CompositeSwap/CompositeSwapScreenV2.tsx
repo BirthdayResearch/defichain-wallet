@@ -806,7 +806,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           )}
         </ThemedTextV2>
 
-        <View style={tailwind("mb-6 mx-5")}>
+        <View style={tailwind("mx-5")}>
           <TransactionCard
             maxValue={
               new BigNumber(
@@ -974,9 +974,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           </View>
 
           <ThemedViewV2
-            style={tailwind("border-0", {
-              "pb-8": activeButtonGroup === ButtonGroupTabKey.InstantSwap,
-            })}
+            style={tailwind("border-0 pb-8")}
             dark={tailwind("bg-transparent")}
             light={tailwind("bg-transparent")}
           >
@@ -1022,9 +1020,14 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           </ThemedViewV2>
         </View>
 
-        {selectedTokenB !== undefined && selectedTokenA !== undefined && (
-          <View style={tailwind("p-4")}>
-            {activeButtonGroup === ButtonGroupTabKey.InstantSwap && (
+        {selectedTokenB !== undefined &&
+          selectedTokenA !== undefined &&
+          activeButtonGroup === ButtonGroupTabKey.InstantSwap && (
+            <ThemedViewV2
+              style={tailwind("mx-5 py-8 border-t-0.5")}
+              light={tailwind("border-mono-light-v2-300")}
+              dark={tailwind("border-mono-dark-v2-300")}
+            >
               <SlippageToleranceV2
                 setSlippage={setSlippage}
                 setSlippageError={setSlippageError}
@@ -1034,9 +1037,8 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                 isEditing={isEditingCustomSlippageInput}
                 setIsEditing={setIsEditingCustomSlippageInput}
               />
-            )}
-          </View>
-        )}
+            </ThemedViewV2>
+          )}
 
         {selectedTokenB !== undefined &&
           selectedTokenA !== undefined &&
