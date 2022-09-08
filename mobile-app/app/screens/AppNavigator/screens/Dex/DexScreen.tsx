@@ -1,7 +1,7 @@
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { useEffect, useState, useCallback } from "react";
 import * as React from "react";
+import { useCallback, useEffect, useState } from "react";
 import BigNumber from "bignumber.js";
 import { useSelector } from "react-redux";
 import { View } from "@components";
@@ -92,7 +92,10 @@ export function DexScreen(): JSX.Element {
   const onAdd = (data: PoolPairData, info: WalletToken): void => {
     navigation.navigate({
       name: "AddLiquidity",
-      params: { pair: data, pairInfo: info },
+      params: {
+        pair: data,
+        pairInfo: info,
+      },
       merge: true,
     });
   };
@@ -100,7 +103,10 @@ export function DexScreen(): JSX.Element {
   const onRemove = (data: PoolPairData, info: WalletToken): void => {
     navigation.navigate({
       name: "RemoveLiquidity",
-      params: { pair: data, pairInfo: info },
+      params: {
+        pair: data,
+        pairInfo: info,
+      },
       merge: true,
     });
   };
@@ -108,7 +114,19 @@ export function DexScreen(): JSX.Element {
   const onSwap = (data: PoolPairData): void => {
     navigation.navigate({
       name: "CompositeSwap",
-      params: { pair: data },
+      params: {
+        pair: data,
+        tokenSelectOption: {
+          from: {
+            isDisabled: true,
+            isPreselected: true,
+          },
+          to: {
+            isDisabled: true,
+            isPreselected: true,
+          },
+        },
+      },
       merge: true,
     });
   };

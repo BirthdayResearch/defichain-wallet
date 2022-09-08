@@ -1,4 +1,4 @@
-import { useMemo, useCallback, useEffect, useState, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Platform, TextInput, View } from "react-native";
 import { useSelector } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
@@ -32,18 +32,12 @@ import { StackScreenProps } from "@react-navigation/stack";
 import {
   ThemedIcon,
   ThemedScrollView,
-  ThemedText,
   ThemedTextInputV2,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
-  ThemedView,
   ThemedViewV2,
 } from "@components/themed";
-import {
-  BottomSheetToken,
-  BottomSheetTokenList,
-  TokenType,
-} from "@components/BottomSheetTokenList";
+import { BottomSheetToken } from "@components/BottomSheetTokenList";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 
@@ -86,8 +80,8 @@ import {
 } from "./components/TokenDropdownButton";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import {
-  SlippageToleranceV2,
   SlippageError,
+  SlippageToleranceV2,
 } from "./components/SlippageToleranceV2";
 import { BottomSheetSlippageInfo } from "./components/BottomSheetSlippageInfo";
 import { FutureSwapRowTo, InstantSwapRowTo } from "./components/SwapRowTo";
@@ -153,9 +147,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   const [selectedTokenB, setSelectedTokenB] = useState<TokenState>();
   const [selectedPoolPairs, setSelectedPoolPairs] = useState<PoolPairData[]>();
   const [priceRates, setPriceRates] = useState<PriceRateProps[]>();
-  const [isFromTokenSelectDisabled, setIsFromTokenSelectDisabled] =
-    useState(false);
-  const [isToTokenSelectDisabled, setIsToTokenSelectDisabled] = useState(false);
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(
     ButtonGroupTabKey.InstantSwap
   );
@@ -365,9 +356,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         },
       };
 
-    setIsFromTokenSelectDisabled(tokenSelectOption.from.isDisabled);
-    setIsToTokenSelectDisabled(tokenSelectOption.to.isDisabled);
-
     if (route.params.fromToken !== undefined) {
       onTokenSelect(
         {
@@ -532,7 +520,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
       return "-";
     }
 
-    /* 
+    /*
       dexFeesInTokenBUnit = Burn fees + commission fee of 1 tokenA
     */
     const dexFeesInTokenBUnit = new BigNumber(
@@ -899,7 +887,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   navigateToTokenSelectionScreen(TokenListType.From)
                 }
                 status={
-                  isFromTokenSelectDisabled
+                  route.params.tokenSelectOption?.from?.isDisabled
                     ? TokenDropdownButtonStatus.Locked
                     : TokenDropdownButtonStatus.Enabled
                 }
@@ -1020,7 +1008,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                 symbol={selectedTokenB?.displaySymbol}
                 onPress={() => navigateToTokenSelectionScreen(TokenListType.To)}
                 status={
-                  isToTokenSelectDisabled
+                  route.params.tokenSelectOption?.to?.isDisabled
                     ? TokenDropdownButtonStatus.Locked
                     : selectedTokenA === undefined
                     ? TokenDropdownButtonStatus.Disabled
