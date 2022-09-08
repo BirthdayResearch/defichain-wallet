@@ -776,7 +776,7 @@
     "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI 轉換為 {{symbolB}}",
     "Preparing your transaction…": "Preparing your transaction…",
     "Processing future swap transaction…": "Processing future swap transaction…",
-    "Processing future swap…": "未來兌換進行中_ ",
+    "Processing future swap…": "未來兌換進行中…",
     "Future Swap confirmed for next settlement block": "確認未來兌換在下一個區塊結算",
     "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap confirmed and will be executed at block #{{block}}",
     "Preparing changes to loan scheme…": "Preparing changes to loan scheme…",
