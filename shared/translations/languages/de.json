@@ -782,7 +782,7 @@
     "Preparing withdrawal…": "Auszahlung vorbereiten…",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Abhebung von {{amountToWithdraw}} {{sourceSymbol}} aus dem Future Swap",
     "Withdrawal completed": "Auszahlung abgeschlossen",
-    "Swapped {{amountA}} {{symbolA}} to {{symbolB}}": "Swapped {{amountA}} {{symbolA}} to {{symbolB}}",
+    "Swapped {{amountA}} {{symbolA}} to {{symbolB}}": "{{amountA}} {{symbolA}} in {{symbolB}} umgetauscht",
     "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "Tausch von {{amountA}} {{symbolA}} gegen {{symbolB}}",
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Tausch von {{amountA}} {{fromTokenDisplaySymbol}} in {{toTokenDisplaySymbol}} beim Abrechnungsblock {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Entfernen von {{amount}} {{symbol}} aus dem Liquiditätspool"
@@ -977,7 +977,7 @@
   "screens/CompositeSwapScreen": {
     "SLIPPAGE TOLERANCE": "SLIPPAGE-TOLERANZ",
     "Custom": "Benutzerdefiniert",
-    "Set": "Set",
+    "Set": "Einstellen",
     "Swap tokens": "Token-Tausch",
     "Select tokens you want to swap to get started": "Wähle die Token, die du tauschen möchtest, um zu beginnen",
     "How much {{token}} do you want to swap?": "Wie viele {{token}} möchtest du umtauschen?",
@@ -1018,7 +1018,7 @@
     "By continuing, the required amount of DFI will be converted": "Wenn du fortfährst, wird die erforderliche Summe an DFI umgewandelt",
     "I HAVE {{totalAmount}} {{token}}": "ICH HABE {{totalAmount}} {{token}}",
     "I WANT {{token}}": "ICH MÖCHTE {{token}}",
-    "incl. stabilization fee ({{dexStabilizationFee}}%": "incl. stabilization fee ({{dexStabilizationFee}}%",
+    "incl. stabilization fee ({{dexStabilizationFee}}%)": "inkl. Stabilisierungsgebühr ({{dexStabilizationFee}}%)",
     "Total fees": "Gebühren insgesamt",
     "Settlement Value {{percentageChange}}": "Abrechnungswert {{percentageChange}}",
     "Transaction fee": "Transaktionsgebühren",

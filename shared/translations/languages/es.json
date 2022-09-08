@@ -1042,7 +1042,7 @@
     "By continuing, the required amount of DFI will be converted": "Si continuas, la cantidad requerida de DFI será convertida",
     "I HAVE {{totalAmount}} {{token}}": "I HAVE {{totalAmount}} {{token}}",
     "I WANT {{token}}": "I WANT {{token}}",
-    "incl. stabilization fee ({{dexStabilizationFee}}%": "incl. stabilization fee ({{dexStabilizationFee}}%",
+    "incl. stabilization fee ({{dexStabilizationFee}}%)": "incl. stabilization fee ({{dexStabilizationFee}}%)",
     "Total fees": "Total fees",
     "Settlement Value {{percentageChange}}": "Settlement Value {{percentageChange}}",
     "Transaction fee": "Transaction fee",
