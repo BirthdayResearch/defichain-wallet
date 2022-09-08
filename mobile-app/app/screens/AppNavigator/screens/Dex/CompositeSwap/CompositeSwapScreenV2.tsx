@@ -854,7 +854,9 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                       dark={tailwind("text-mono-dark-v2-900")}
                       keyboardType="numeric"
                       value={value}
-                      onChange={onChange}
+                      onBlur={async () => {
+                        await onChange(value?.trim());
+                      }}
                       onChangeText={async (amount) => {
                         amount = isNaN(+amount) ? "0" : amount;
                         setValue("tokenA", amount);
