@@ -221,6 +221,9 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     setActiveButtonGroup(buttonGroupTabKey);
   };
 
+  const [isEditingCustomSlippageInput, setIsEditingCustomSlippageInput] =
+    useState(false); // for custom slippage input
+
   // component UI state
   const { control, formState, setValue, trigger, watch } = useForm<{
     tokenA: string;
@@ -1028,6 +1031,8 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                 onPress={onBottomSheetSlippageSelect}
                 slippageError={slippageError}
                 slippage={slippage}
+                isEditing={isEditingCustomSlippageInput}
+                setIsEditing={setIsEditingCustomSlippageInput}
               />
             )}
           </View>
@@ -1094,7 +1099,8 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                 slippageError !== undefined) ||
               (isFutureSwap && isEnded) ||
               selectedTokenA === undefined ||
-              selectedTokenB === undefined
+              selectedTokenB === undefined ||
+              isEditingCustomSlippageInput
             }
             label={translate("components/Button", "Continue")}
             onSubmit={

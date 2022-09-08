@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { debounce } from "lodash";
+import { useCustomSlippageTolerance } from "../../hook/CustomSlippageTolerance";
 
 export interface SlippageError {
   type: "error" | "helper";
@@ -23,6 +24,8 @@ interface SlippageToleranceCardProps {
   setSlippageError: (error?: SlippageError) => void;
   setSlippage: (val: BigNumber, isCustomSlippage: boolean) => void;
   onPress: () => void;
+  isEditing: boolean;
+  setIsEditing: (val: boolean) => void;
 }
 
 export enum SlippageAmountButtonTypes {
@@ -43,11 +46,22 @@ export function SlippageToleranceV2({
   slippageError,
   setSlippageError,
   onPress,
+  isEditing,
+  setIsEditing,
 }: React.PropsWithChildren<SlippageToleranceCardProps>): JSX.Element {
   const [selectedSlippage, setSelectedSlippage] = useState(slippage.toString());
   const [isRiskWarningDisplayed, setIsRiskWarningDisplayed] = useState(false);
-  const [isCustomSlippage, setIsCustomSlippage] = useState(false);
-  const [isCustomAmount, setIsCustomAmount] = useState(false);
+  const { isCustomSlippageTolerance, setIsCustomSlippageTolerance } =
+    useCustomSlippageTolerance();
+  const [isCustomAmount, setIsCustomAmount] = useState(
+    isCustomSlippageTolerance !== "true"
+  );
+
+  const submitSlippage = debounce(setSlippage, 500);
+  const onSlippageChange = (value: string): void => {
+    setSelectedSlippage(value);
+    submitSlippage(new BigNumber(value), isCustomSlippageTolerance === "true");
+  };
 
   const isSlippageValid = (): boolean => {
     return slippageError === undefined || slippageError?.type === "helper";
@@ -86,12 +100,6 @@ export function SlippageToleranceV2({
     );
   }, [selectedSlippage]);
 
-  const submitSlippage = debounce(setSlippage, 500);
-  const onSlippageChange = (value: string): void => {
-    setSelectedSlippage(value);
-    submitSlippage(new BigNumber(value), isCustomSlippage);
-  };
-
   return (
     <>
       <View style={tailwind("flex-row items-center pb-2 px-5")}>
@@ -116,12 +124,14 @@ export function SlippageToleranceV2({
           />
         </ThemedTouchableOpacityV2>
       </View>
-      {isCustomSlippage ? (
+      {isEditing ? (
         <>
           <View style={tailwind("flex-row")}>
             <View style={tailwind("flex-row items-center mr-2 w-9/12")}>
               <WalletTextInputV2
-                onChangeText={onSlippageChange}
+                onChangeText={(val: string) => {
+                  setSelectedSlippage(val);
+                }}
                 keyboardType="numeric"
                 autoCapitalize="none"
                 placeholder="0.00%"
@@ -134,8 +144,9 @@ export function SlippageToleranceV2({
                 }
                 displayClearButton={selectedSlippage !== ""}
                 onClearButtonPress={() => {
-                  setIsCustomSlippage(false);
+                  setIsEditing(false);
                   onSlippageChange("");
+                  setIsCustomSlippageTolerance("false");
                 }}
                 inputType="numeric"
                 inlineText={slippageError}
@@ -155,8 +166,12 @@ export function SlippageToleranceV2({
                   }
                 )}
                 onPress={() => {
-                  setIsCustomSlippage(false);
+                  setIsEditing(false);
                   setIsCustomAmount(selectedSlippage !== "");
+                  submitSlippage(
+                    new BigNumber(selectedSlippage),
+                    isCustomSlippageTolerance === "true"
+                  );
                 }}
                 disabled={!isSlippageValid()}
               >
@@ -195,7 +210,10 @@ export function SlippageToleranceV2({
             );
           })}
           <CustomAmountButton
-            setIsCustomSlippage={() => setIsCustomSlippage(true)}
+            setIsCustomSlippage={() => {
+              setIsEditing(true);
+              setIsCustomSlippageTolerance("true");
+            }}
             isCustomAmount={isCustomAmount}
             customAmount={selectedSlippage}
           />
@@ -230,13 +248,13 @@ function PercentageAmountButton({
 }: PercentageAmountButtonProps): JSX.Element {
   return (
     <ThemedTouchableOpacityV2
-      light={tailwind({ "bg-mono-light-v2-900": isSelected })}
+      light={tailwind({ "bg-mono-light-v2-900": isSelected }, "bg-red-100")}
       dark={tailwind({ "bg-mono-dark-v2-900": isSelected })}
-      style={tailwind("w-3/12 items-center rounded-full")}
+      style={tailwind("w-3/12 items-center rounded-full h-full")}
       onPress={onPress}
     >
       <ThemedTextV2
-        light={tailwind("text-mono-light-v2-700", {
+        light={tailwind("text-mono-light-v2-700 bg-red-200 ", {
           "text-mono-light-v2-100": isSelected,
         })}
         dark={tailwind("text-mono-dark-v2-700", {
