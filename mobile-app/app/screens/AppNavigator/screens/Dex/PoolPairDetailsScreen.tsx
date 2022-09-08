@@ -21,13 +21,13 @@ import {
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
+import * as React from "react";
 import { useLayoutEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import NumberFormat from "react-number-format";
 import { useSelector } from "react-redux";
 import { FavoriteButton } from "@screens/AppNavigator/screens/Dex/components/FavoriteButton";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
-import * as React from "react";
 import { ButtonV2 } from "@components/ButtonV2";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { useToast } from "react-native-toast-notifications";
@@ -88,7 +88,10 @@ export function PoolPairDetailsScreen({ route }: Props): JSX.Element {
   const onAdd = (data: PoolPairData, info: WalletToken): void => {
     navigation.navigate({
       name: "AddLiquidity",
-      params: { pair: data, pairInfo: info },
+      params: {
+        pair: data,
+        pairInfo: info,
+      },
       merge: true,
     });
   };
@@ -96,7 +99,10 @@ export function PoolPairDetailsScreen({ route }: Props): JSX.Element {
   const onRemove = (data: PoolPairData, info: WalletToken): void => {
     navigation.navigate({
       name: "RemoveLiquidity",
-      params: { pair: data, pairInfo: info },
+      params: {
+        pair: data,
+        pairInfo: info,
+      },
       merge: true,
     });
   };
@@ -104,7 +110,19 @@ export function PoolPairDetailsScreen({ route }: Props): JSX.Element {
   const onSwap = (data: PoolPairData): void => {
     navigation.navigate({
       name: "CompositeSwap",
-      params: { pair: data },
+      params: {
+        pair: data,
+        tokenSelectOption: {
+          from: {
+            isDisabled: true,
+            isPreselected: true,
+          },
+          to: {
+            isDisabled: true,
+            isPreselected: true,
+          },
+        },
+      },
       merge: true,
     });
   };
@@ -536,6 +554,7 @@ interface PoolPairActionSectionProps {
   pair: DexItem;
   walletToken: WalletToken | undefined;
 }
+
 function PoolPairActionSection({
   pair,
   walletToken,
