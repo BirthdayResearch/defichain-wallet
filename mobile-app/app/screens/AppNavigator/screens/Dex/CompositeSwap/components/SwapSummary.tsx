@@ -63,9 +63,10 @@ export function SwapSummary({
                 title: translate("screens/CompositeSwapScreen", "Total fees"),
                 message: translate(
                   "screens/CompositeSwapScreen",
-                  "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n 1. Commission Fee\n 2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)"
+                  "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)"
                 ),
               }}
+              customSnapPoints={["50%"]}
               rhs={{
                 value: totalFees,
                 testID: "swap_total_fee_amount",
