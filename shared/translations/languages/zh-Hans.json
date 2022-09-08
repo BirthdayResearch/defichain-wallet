@@ -776,8 +776,8 @@
     "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI 转换为 {{symbolB}}",
     "Preparing your transaction…": "Preparing your transaction…",
     "Processing future swap transaction…": "Processing future swap transaction…",
-    "Processing future swap…": "Processing future swap…",
-    "Future Swap confirmed for next settlement block": "Future Swap confirmed for next settlement block",
+    "Processing future swap…": "未来兑换进行中…",
+    "Future Swap confirmed for next settlement block": "确认未来兑换在下一个区块结算",
     "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap confirmed and will be executed at block #{{block}}",
     "Preparing changes to loan scheme…": "Preparing changes to loan scheme…",
     "Saving changes to loan scheme…": "Saving changes to loan scheme…",
@@ -785,6 +785,7 @@
     "Preparing withdrawal…": "Preparing withdrawal…",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…",
     "Withdrawal completed": "Withdrawal completed",
+    "Swapped {{amountA}} {{symbolA}} to {{symbolB}}": "Swapped {{amountA}} {{symbolA}} to {{symbolB}}",
     "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "兑换 {{amountA}} {{symbolA}} 至 {{symbolB}}",
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
@@ -978,6 +979,9 @@
     "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换"
   },
   "screens/CompositeSwapScreen": {
+    "SLIPPAGE TOLERANCE": "交易滑点",
+    "Custom": "自定",
+    "Set": "Set",
     "Swap tokens": "兑换货币",
     "Select tokens you want to swap to get started": "选择您要兑换的代币",
     "How much {{token}} do you want to swap?": "您要兑换多少 {{token}}？",
@@ -1018,6 +1022,7 @@
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
     "I HAVE {{totalAmount}} {{token}}": "I HAVE {{totalAmount}} {{token}}",
     "I WANT {{token}}": "I WANT {{token}}",
+    "incl. stabilization fee ({{dexStabilizationFee}}%)": "incl. stabilization fee ({{dexStabilizationFee}}%)",
     "Total fees": "Total fees",
     "Settlement Value {{percentageChange}}": "Settlement Value {{percentageChange}}",
     "Transaction fee": "Transaction fee",

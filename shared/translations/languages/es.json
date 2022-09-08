@@ -801,6 +801,7 @@
     "Preparing withdrawal…": "Preparing withdrawal…",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…",
     "Withdrawal completed": "Withdrawal completed",
+    "Swapped {{amountA}} {{symbolA}} to {{symbolB}}": "Swapped {{amountA}} {{symbolA}} to {{symbolB}}",
     "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "Intercambiando {{amountA}} {{symbolA}} a {{symbolB}}",
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
@@ -994,6 +995,9 @@
     "You will receive": "Recibirás"
   },
   "screens/CompositeSwapScreen": {
+    "SLIPPAGE TOLERANCE": "TOLERANCIA A LA FLUCTUACION",
+    "Custom": "Personalizado",
+    "Set": "Set",
     "Swap tokens": "Intercambia tokens",
     "Select tokens you want to swap to get started": "Selecciona los tokens que quieres intercambiar para empezar",
     "How much {{token}} do you want to swap?": "¿Cúantos {{token}} quieres intercambiar?",
@@ -1038,6 +1042,7 @@
     "By continuing, the required amount of DFI will be converted": "Si continuas, la cantidad requerida de DFI será convertida",
     "I HAVE {{totalAmount}} {{token}}": "I HAVE {{totalAmount}} {{token}}",
     "I WANT {{token}}": "I WANT {{token}}",
+    "incl. stabilization fee ({{dexStabilizationFee}}%)": "incl. stabilization fee ({{dexStabilizationFee}}%)",
     "Total fees": "Total fees",
     "Settlement Value {{percentageChange}}": "Settlement Value {{percentageChange}}",
     "Transaction fee": "Transaction fee",
