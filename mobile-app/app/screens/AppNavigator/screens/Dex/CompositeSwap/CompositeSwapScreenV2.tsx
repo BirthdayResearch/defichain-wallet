@@ -868,6 +868,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                         isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
                       )}
                       ref={amountInputRef}
+                      testID="text_input_tokenA"
                     />
                   )}
                   rules={{
@@ -889,13 +890,14 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                     selectedTokenA ?? undefined,
                     tokenA
                   )}
-                  testId="amount_input_in_usd"
+                  testId="tokenA_value_in_usd"
                   containerStyle={tailwind("w-full break-words")}
                 />
               </View>
 
               <TokenDropdownButton
                 symbol={selectedTokenA?.displaySymbol}
+                testID={TokenListType.From}
                 onPress={() =>
                   navigateToTokenSelectionScreen(TokenListType.From)
                 }
@@ -1020,6 +1022,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               )}
               <TokenDropdownButton
                 symbol={selectedTokenB?.displaySymbol}
+                testID={TokenListType.To}
                 onPress={() => navigateToTokenSelectionScreen(TokenListType.To)}
                 status={
                   isToTokenSelectDisabled

@@ -16,27 +16,6 @@ function setupWalletForConversion(): void {
   cy.getByTestID("select_dLTC").click().wait(1000);
 }
 
-context("Wallet - DEX - Swap without balance", () => {
-  before(() => {
-    cy.createEmptyWallet(true);
-    cy.getByTestID("bottom_tab_dex").click();
-  });
-
-  it("should disable token selection on pool pair w/o balance", () => {
-    cy.getByTestID("dex_search_icon").click();
-    cy.getByTestID("dex_search_input").type("LTC");
-    cy.getByTestID("pool_pair_swap-horiz_dLTC-DFI").click();
-    cy.getByTestID("token_select_button_FROM").should(
-      "have.attr",
-      "aria-disabled"
-    );
-    cy.getByTestID("token_select_button_TO").should(
-      "have.attr",
-      "aria-disabled"
-    );
-  });
-});
-
 context("Wallet - DEX - Composite Swap with disabled pool pairs", () => {
   before(() => {
     cy.intercept("**/poolpairs?size=*", {
@@ -144,34 +123,6 @@ context("Wallet - DEX - Composite Swap with disabled pool pairs", () => {
   });
 });
 
-context("Wallet - DEX - Composite Swap without balance", () => {
-  before(() => {
-    cy.createEmptyWallet(true);
-    cy.getByTestID("header_settings").click();
-    cy.sendDFItoWallet()
-      .sendDFITokentoWallet()
-      .sendTokenToWallet(["LTC"])
-      .wait(3000);
-    cy.fetchWalletBalance();
-    cy.getByTestID("bottom_tab_portfolio").click();
-    cy.getByTestID("bottom_tab_dex").click();
-  });
-
-  it("should disable token selection on pool pair w/o balance", () => {
-    cy.getByTestID("dex_search_icon").click();
-    cy.getByTestID("dex_search_input").type("LTC");
-    cy.getByTestID("pool_pair_swap-horiz_dLTC-DFI").click();
-    cy.getByTestID("token_select_button_FROM").should(
-      "have.attr",
-      "aria-disabled"
-    );
-    cy.getByTestID("token_select_button_TO").should(
-      "have.attr",
-      "aria-disabled"
-    );
-  });
-});
-
 context("Wallet - DEX - Composite Swap - tabs and dropdowns", () => {
   before(() => {
     cy.createEmptyWallet(true);
@@ -238,6 +189,34 @@ context("Wallet - DEX - Composite Swap - tabs and dropdowns", () => {
     cy.getByTestID("text_input_tokenA").type("1");
     cy.getByTestID("swap_tabs_INSTANT_SWAP").click();
     cy.getByTestID("text_input_tokenA").should("have.value", "1");
+  });
+});
+
+context("Wallet - DEX - Composite Swap without balance", () => {
+  before(() => {
+    cy.createEmptyWallet(true);
+    cy.getByTestID("header_settings").click();
+    cy.sendDFItoWallet()
+      .sendDFITokentoWallet()
+      .sendTokenToWallet(["LTC"])
+      .wait(3000);
+    cy.fetchWalletBalance();
+    cy.getByTestID("bottom_tab_portfolio").click();
+    cy.getByTestID("bottom_tab_dex").click();
+  });
+
+  it("should disable token selection on pool pair w/o balance", () => {
+    cy.getByTestID("dex_search_icon").click();
+    cy.getByTestID("dex_search_input").type("LTC");
+    cy.getByTestID("pool_pair_swap-horiz_dLTC-DFI").click();
+    cy.getByTestID("token_select_button_FROM").should(
+      "have.attr",
+      "aria-disabled"
+    );
+    cy.getByTestID("token_select_button_TO").should(
+      "have.attr",
+      "aria-disabled"
+    );
   });
 });
 
@@ -398,19 +377,23 @@ context.only("Wallet - DEX - Composite Swap with balance Confirm Txn", () => {
 
   it("should be able to swap", () => {
     cy.getByTestID("text_input_tokenA").type("10");
-    cy.getByTestID("slippage_10%").click();
-    cy.getByTestID("tokenB_value").then(($txt: any) => {
-      const tokenValue = $txt[0].textContent;
-      cy.getByTestID("button_confirm_submit").click();
-      cy.getByTestID("confirm_slippage_fee").contains("5");
-      cy.getByTestID("confirm_slippage_fee_suffix").contains("%");
-      cy.getByTestID("confirm_title").contains("You are swapping");
+    cy.getByTestID("slippage_custom").click();
+    cy.getByTestID("slippage_input").clear().type("10");
+    cy.getByTestID("set_slippage_button").click().wait(3000);
+    cy.getByTestID("button_confirm_submit").click().wait(10000);
+
+    cy.getByTestID("confirm_slippage_fee").should("have.text", "10%");
+    cy.getByTestID("confirm_title").contains("You are swapping");
+    cy.getByTestID("confirm_estimated_to_receive").then(($txt: any) => {
       cy.getByTestID("button_confirm_swap").click().wait(3000);
       cy.closeOceanInterface();
       cy.fetchWalletBalance();
       cy.getByTestID("bottom_tab_portfolio").click();
       cy.getByTestID("portfolio_row_4").should("exist");
 
+      const tokenValue = $txt[0].textContent
+        .replace(" dLTC", "")
+        .replace(",", "");
       cy.getByTestID("portfolio_row_4_amount").then(($txt: any) => {
         const balanceAmount = $txt[0].textContent
           .replace(" dLTC", "")
@@ -438,7 +421,9 @@ context.only("Wallet - DEX - Composite Swap with balance Confirm Txn", () => {
       // Update input values
       cy.getByTestID("text_input_tokenA_clear_button").click();
       cy.getByTestID("text_input_tokenA").type("10");
-      cy.getByTestID("slippage_10%").click();
+      cy.getByTestID("slippage_custom").click();
+      cy.getByTestID("slippage_input").clear().type("10");
+      cy.getByTestID("set_slippage_button").click();
       cy.getByTestID("estimated_to_receive").then(($txt: any) => {
         const updatedTokenValue = $txt[0].textContent
           .replace(" dLTC", "")

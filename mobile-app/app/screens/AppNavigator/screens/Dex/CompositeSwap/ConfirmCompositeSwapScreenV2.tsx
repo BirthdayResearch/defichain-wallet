@@ -244,7 +244,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
                 "screens/ConfirmCompositeSwapScreen",
                 "Slippage tolerance"
               ),
-              testID: "transaction_fee",
+              testID: "confirm_slippage_fee_label",
               themedProps: {
                 light: tailwind("text-mono-light-v2-500"),
                 dark: tailwind("text-mono-dark-v2-500"),
