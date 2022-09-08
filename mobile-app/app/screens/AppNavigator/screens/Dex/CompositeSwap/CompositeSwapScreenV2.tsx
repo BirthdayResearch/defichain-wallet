@@ -94,6 +94,7 @@ export interface TokenState {
   reserve: string;
   displaySymbol: string;
   symbol: string;
+  name?: string;
 }
 
 export interface OwnedTokenState extends TokenState {
@@ -147,9 +148,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   const [selectedTokenB, setSelectedTokenB] = useState<TokenState>();
   const [selectedPoolPairs, setSelectedPoolPairs] = useState<PoolPairData[]>();
   const [priceRates, setPriceRates] = useState<PriceRateProps[]>();
-  const [isFromTokenSelectDisabled, setIsFromTokenSelectDisabled] =
-    useState(false);
-  const [isToTokenSelectDisabled, setIsToTokenSelectDisabled] = useState(false);
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(
     ButtonGroupTabKey.InstantSwap
   );
@@ -358,9 +356,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           isPreselected: true,
         },
       };
-
-    setIsFromTokenSelectDisabled(tokenSelectOption.from.isDisabled);
-    setIsToTokenSelectDisabled(tokenSelectOption.to.isDisabled);
 
     if (route.params.fromToken !== undefined) {
       onTokenSelect(
@@ -899,7 +894,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   navigateToTokenSelectionScreen(TokenListType.From)
                 }
                 status={
-                  isFromTokenSelectDisabled
+                  route.params.tokenSelectOption?.from?.isDisabled
                     ? TokenDropdownButtonStatus.Locked
                     : TokenDropdownButtonStatus.Enabled
                 }
@@ -1017,7 +1012,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                 symbol={selectedTokenB?.displaySymbol}
                 onPress={() => navigateToTokenSelectionScreen(TokenListType.To)}
                 status={
-                  isToTokenSelectDisabled
+                  route.params.tokenSelectOption?.to?.isDisabled
                     ? TokenDropdownButtonStatus.Locked
                     : selectedTokenA === undefined
                     ? TokenDropdownButtonStatus.Disabled

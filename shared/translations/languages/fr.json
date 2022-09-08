@@ -785,8 +785,8 @@
     "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI convertis en {{symbolB}}",
     "Preparing your transaction…": "Préparation de votre transaction en coursn…",
     "Processing future swap transaction…": "Traitement de la transaction échange à terme…",
-    "Processing future swap…": "Processing future swap…",
-    "Future Swap confirmed for next settlement block": "Future Swap confirmed for next settlement block",
+    "Processing future swap…": "Traitement de l‘échange à terme...",
+    "Future Swap confirmed for next settlement block": "Échange à terme confirmé pour le prochain bloc de règlement",
     "Future Swap confirmed and will be executed at block #{{block}}": "Échange à terme confirmé et qui sera exécuté au bloc #{{block}}",
     "Preparing changes to loan scheme…": "Préparation des modifications du schéma de prêt…",
     "Saving changes to loan scheme…": "Enregistrement des modifications apportées au schéma de prêts…",
@@ -794,6 +794,7 @@
     "Preparing withdrawal…": "Préparation du retrait en cours…",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Retrait de {{amountToWithdraw}} {{sourceSymbol}} de l'échange à terme…",
     "Withdrawal completed": "Retrait effectué",
+    "Swapped {{amountA}} {{symbolA}} to {{symbolB}}": "Echangé {{amountA}} {{symbolA}} contre {{symbolB}}",
     "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "Échange de {{amountA}} {{symbolA}} avec {{symbolB}}",
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Échanger {{amountA}} {{fromTokenDisplaySymbol}} à {{toTokenDisplaySymbol}} sur le bloc de règlement {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Retrait de {{amount}} {{symbol}} du pool de liquidité"
@@ -986,6 +987,9 @@
     "Authorize transaction in the next screen to convert": "Autoriser la transaction à l'étape suivante"
   },
   "screens/CompositeSwapScreen": {
+    "SLIPPAGE TOLERANCE": "TOLÉRANCE DE GLISSEMENT",
+    "Custom": "Personnaliser",
+    "Set": "Valider",
     "Swap tokens": "Échange de tokens",
     "Select tokens you want to swap to get started": "Sélectionnez les tokens que vous voulez échanger pour commencer.",
     "How much {{token}} do you want to swap?": "Combien de {{token}} voulez-vous échanger ?",
@@ -1026,6 +1030,7 @@
     "By continuing, the required amount of DFI will be converted": "En continuant, le montant requis de DFI sera converti",
     "I HAVE {{totalAmount}} {{token}}": "J'AI {{totalAmount}} {{token}}",
     "I WANT {{token}}": "JE VEUX {{token}}",
+    "incl. stabilization fee ({{dexStabilizationFee}}%)": "y compris les frais de stabilisation ({{dexStabilizationFee}}%)",
     "Total fees": "Total des frais",
     "Settlement Value {{percentageChange}}": "Valeur de règlement {{percentageChange}}",
     "Transaction fee": "Transaction fee",
@@ -1035,11 +1040,11 @@
     "Instant": "Instantané",
     "Future": "À terme",
     "Learn about settlements": "En savoir plus sur les règlements",
-    "Settlements": "Settlements",
+    "Settlements": "Règlements",
     "Settlement block is the pre-determined block height that this transaction will be executed.": "Le bloc de règlement est la hauteur de bloc prédéterminée à laquelle cette transaction sera exécutée.",
     "Settlement value is based on the oracle price at the settlement block.": "La valeur de règlement est basée sur le prix oracle au bloc de règlement.",
     "Users will be able to cancel this transaction as long as the settlement block has not been executed.": "Les utilisateurs pourront annuler cette transaction tant que le bloc de règlement n'aura pas été exécuté.",
-    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n 1. Commission Fee\n 2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Les frais totaux sont facturés en fonction du type d'échange et des tokens sélectionnés. Ils se composeent de: (1) Frais de commission\n (2) Frais de transaction\n (3) Frais liés au DEX tels que les frais de stabilisation et les frais de brûlure (le cas échéant)"
+    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Les frais totaux sont facturés en fonction du type d'échange et des tokens sélectionnés. Ils se composeent de: \n\n 1. Frais de commission\n 2. Frais de transaction\n 3. Frais liés au DEX tels que les frais de stabilisation et les frais de brûlure (le cas échéant)"
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Select",
