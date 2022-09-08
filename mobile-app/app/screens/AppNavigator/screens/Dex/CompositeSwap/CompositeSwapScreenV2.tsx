@@ -1049,10 +1049,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
 
         {selectedTokenB !== undefined &&
           selectedTokenA !== undefined &&
-          priceRates !== undefined &&
-          tokenA !== undefined &&
-          tokenA !== "" &&
-          tokenB !== undefined && (
+          priceRates !== undefined && (
             <>
               <ThemedViewV2
                 light={tailwind("border-mono-light-v2-300")}
