@@ -142,7 +142,7 @@ function TotalLiquidityValue ({
                 light={tailwind('text-mono-light-v2-900')}
                 testID={`${testId}-total_liquidity`}
               >
-                {val}
+                ${val}
               </ThemedText>
             )}
           />
