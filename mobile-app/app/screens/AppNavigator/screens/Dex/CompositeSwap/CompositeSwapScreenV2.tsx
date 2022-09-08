@@ -153,7 +153,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   const [selectedTokenB, setSelectedTokenB] = useState<TokenState>();
   const [selectedPoolPairs, setSelectedPoolPairs] = useState<PoolPairData[]>();
   const [priceRates, setPriceRates] = useState<PriceRateProps[]>();
-  const [isModalDisplayed, setIsModalDisplayed] = useState(false);
   const [isFromTokenSelectDisabled, setIsFromTokenSelectDisabled] =
     useState(false);
   const [isToTokenSelectDisabled, setIsToTokenSelectDisabled] = useState(false);
@@ -197,8 +196,13 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   });
   const amountInputRef = useRef<TextInput>();
 
-  const { bottomSheetRef, containerRef, dismissModal, expandModal } =
-    useBottomSheet();
+  const {
+    bottomSheetRef,
+    containerRef,
+    dismissModal,
+    expandModal,
+    isModalDisplayed,
+  } = useBottomSheet();
 
   // dex stabilization
   const { isFeatureAvailable } = useFeatureFlagContext();
@@ -323,37 +327,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         stackScreenName: "SlippageInfo",
         component: BottomSheetSlippageInfo(),
         option: BottomSheetHeader,
-      },
-    ]);
-    expandModal();
-  };
-
-  const onBottomSheetSelect = ({
-    direction,
-  }: {
-    direction: "FROM" | "TO";
-  }): void => {
-    setBottomSheetScreen([
-      {
-        stackScreenName: "TokenList",
-        component: BottomSheetTokenList({
-          tokens: direction === "FROM" ? fromTokens ?? [] : toTokens ?? [],
-          tokenType: TokenType.BottomSheetToken,
-          headerLabel: translate(
-            "screens/CompositeSwapScreen",
-            direction === "FROM"
-              ? "Choose token for swap"
-              : "Choose token to swap"
-          ),
-          onCloseButtonPress: () => dismissModal(),
-          onTokenPress: (item): void => {
-            onTokenSelect(item, direction);
-            dismissModal();
-          },
-        }),
-        option: {
-          header: () => null,
-        },
       },
     ]);
     expandModal();
@@ -938,7 +911,10 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                 dark={tailwind("text-red-v2")}
                 style={tailwind("text-xs pt-2 font-normal-v2")}
               >
-                {translate("screens/RemoveLiquidity", "Select a token first")}
+                {translate(
+                  "screens/CompositeSwapScreen",
+                  "Select a token first"
+                )}
               </ThemedTextV2>
             )}
             {formState.errors.tokenA?.type === "max" &&
@@ -949,7 +925,10 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   dark={tailwind("text-red-v2")}
                   style={tailwind("text-xs pt-2 font-normal-v2")}
                 >
-                  {translate("screens/RemoveLiquidity", "Insufficient balance")}
+                  {translate(
+                    "screens/CompositeSwapScreen",
+                    "Insufficient balance"
+                  )}
                 </ThemedTextV2>
               )}
 
@@ -960,7 +939,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                 style={tailwind("text-xs pt-2 font-normal-v2")}
               >
                 {translate(
-                  "screens/RemoveLiquidity",
+                  "screens/CompositeSwapScreen",
                   "A small amount of UTXO is reserved for fees"
                 )}
               </ThemedTextV2>
