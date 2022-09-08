@@ -96,6 +96,7 @@ describe("Token Best Path - Get Best Path (DEX)", () => {
           id: "1",
           reserve: pair1ReserveA,
           blockCommission: "0",
+          name: "Bitcoin",
         },
         tokenB: {
           symbol: "DFI",
@@ -103,6 +104,7 @@ describe("Token Best Path - Get Best Path (DEX)", () => {
           id: "0",
           reserve: pair1ReserveB,
           blockCommission: "0",
+          name: "DeFiChain",
         },
         priceRatio: {
           ab: "1",
@@ -142,6 +144,7 @@ describe("Token Best Path - Get Best Path (DEX)", () => {
           id: "14",
           reserve: pair2ReserveA,
           blockCommission: "0",
+          name: "Tether",
         },
         tokenB: {
           symbol: "DFI",
@@ -149,6 +152,7 @@ describe("Token Best Path - Get Best Path (DEX)", () => {
           id: "0",
           reserve: pair2ReserveB,
           blockCommission: "0",
+          name: "DeFiChain",
         },
         priceRatio: {
           ab: "10",
@@ -188,6 +192,7 @@ describe("Token Best Path - Get Best Path (DEX)", () => {
           id: "2",
           reserve: "100000",
           blockCommission: "0",
+          name: "Ethereum",
         },
         tokenB: {
           symbol: "DFI",
@@ -195,6 +200,7 @@ describe("Token Best Path - Get Best Path (DEX)", () => {
           id: "0",
           reserve: "1000",
           blockCommission: "0",
+          name: "DeFiChain",
         },
         priceRatio: {
           ab: "100",
