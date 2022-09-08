@@ -198,7 +198,7 @@ function TokenItem({
       onPress={onPress}
       testID={`select_${item.token.displaySymbol}`}
     >
-      <View style={tailwind("w-5/12 flex flex-row items-center pr-2")}>
+      <View style={tailwind("w-6/12 flex flex-row items-center pr-2")}>
         <TokenIcon
           testID={`${item.token.displaySymbol}_icon`}
           token={{

@@ -94,6 +94,7 @@ export interface TokenState {
   reserve: string;
   displaySymbol: string;
   symbol: string;
+  name?: string;
 }
 
 export interface OwnedTokenState extends TokenState {
