@@ -14,6 +14,7 @@ interface NumberRowProps extends ThemedProps {
   rhs: RhsNumberRowElement;
   info?: BottomSheetAlertInfoV2;
   containerStyle?: ThemedProps & { style: ThemedProps & StyleProp<ViewStyle> };
+  customSnapPoints?: string[];
 }
 
 export interface RhsNumberRowElement extends NumberRowElement {
@@ -53,12 +54,12 @@ export function NumberRowV2(props: INumberRowProps): JSX.Element {
             {props.lhs.value}
           </ThemedTextV2>
           {props.info != null && (
-            <View style={tailwind("ml-1")}>
+            <View style={tailwind("ml-1 mt-0.5")}>
               <BottomSheetInfoV2
                 alertInfo={props.info}
                 name={props.info.title}
                 infoIconStyle={tailwind("text-sm")}
-                snapPoints={["40%"]}
+                snapPoints={props.customSnapPoints ?? ["40%"]}
               />
             </View>
           )}
