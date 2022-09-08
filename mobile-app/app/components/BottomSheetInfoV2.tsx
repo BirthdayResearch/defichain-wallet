@@ -60,11 +60,15 @@ export function BottomSheetInfoV2({
           </ThemedTextV2>
         </ThemedViewV2>
         <View>
-          <ThemedTextV2 style={tailwind("text-base font-normal-v2")}>
+          <ThemedTextV2
+            style={tailwind("text-base font-normal-v2", {
+              "pt-4": alertInfo?.message,
+            })}
+          >
             {translate("components/BottomSheetInfo", alertInfo?.message ?? "")}
           </ThemedTextV2>
+          {styledMessage}
         </View>
-        {styledMessage}
       </View>
     </BottomSheetModalV2>
   );
