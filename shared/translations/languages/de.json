@@ -1027,7 +1027,7 @@
     "Settlement block is the pre-determined block height that this transaction will be executed.": "Der Abrechnungsblock ist die vorher festgelegte Blockhöhe, auf der diese Transaktion ausgeführt wird.",
     "Settlement value is based on the oracle price at the settlement block.": "Der Abrechnungswert basiert auf dem Orakelpreis zum Abrechnungsblock.",
     "Users will be able to cancel this transaction as long as the settlement block has not been executed.": "Benutzer können diese Transaktion stornieren, solange der Abrechnungsblock noch nicht ausgeführt wurde.",
-    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Der Gesamtbetrag der Gebühren richtet sich nach der Art richten sich nach der Art des Tauschs und den ausgewählten Token. Er setzt sich zusammen aus: \n\n(1) Kommissionsgebühr\n(2) Transaktionsgebühr\n(3) Stabilisierungsgebühr und Gebühr für Token-Burning (falls zutreffend)"
+    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Der Gesamtbetrag der Gebühren richtet sich nach der Art richten sich nach der Art des Tauschs und den ausgewählten Token. Er setzt sich zusammen aus: \n\n1. Kommissionsgebühr\n2. Transaktionsgebühr\n3. Stabilisierungsgebühr und Gebühr für Token-Burning (falls zutreffend)"
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Auswählen",
