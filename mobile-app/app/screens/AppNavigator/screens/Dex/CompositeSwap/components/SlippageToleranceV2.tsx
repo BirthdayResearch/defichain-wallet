@@ -290,9 +290,7 @@ function CustomAmountButton({
           })}
           style={tailwind("text-xs", { "pr-1.5": isCustomAmount })}
         >
-          {isCustomAmount
-            ? `${customAmount}%`
-            : translate("screens/CompositeSwapScreen", "Custom")}
+          {isCustomAmount ? `${customAmount}%` : "Custom"}
         </ThemedTextV2>
         {isCustomAmount && (
           <ThemedIcon
