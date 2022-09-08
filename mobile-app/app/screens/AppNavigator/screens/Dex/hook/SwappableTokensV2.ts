@@ -11,7 +11,7 @@ import { useFocusEffect } from "@react-navigation/core";
 import { AllSwappableTokensResult } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { loanTokensSelector } from "@store/loans";
-import { TokenState } from "../CompositeSwap/CompositeSwapScreen";
+import { TokenState } from "../CompositeSwap/CompositeSwapScreenV2";
 
 interface TokenPrice {
   toTokens: BottomSheetToken[];
@@ -87,7 +87,7 @@ export function useSwappableTokensV2(
             ),
             token: {
               displaySymbol: token.displaySymbol,
-              name: "", // not available in API,
+              name: token.name ?? "",
               symbol: token.symbol,
             },
             reserve: token.reserve,
@@ -142,7 +142,7 @@ export function useSwappableTokensV2(
           available: new BigNumber(tokenData?.reserve ?? NaN),
           token: {
             displaySymbol: token.displaySymbol,
-            name: "", // not available in API,
+            name: token.name ?? "",
             symbol: token.symbol,
           },
           reserve: tokenData?.reserve ?? "", // TODO(PIERRE): Ask whale to add reserve on response
