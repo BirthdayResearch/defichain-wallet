@@ -37,6 +37,7 @@ describe("Token Price - Get Token Price (DEX)", () => {
           id: "1",
           reserve: pair1ReserveA,
           blockCommission: "0",
+          name: "Bitcoin",
         },
         tokenB: {
           symbol: "DFI",
@@ -44,6 +45,7 @@ describe("Token Price - Get Token Price (DEX)", () => {
           id: "0",
           reserve: pair1ReserveB,
           blockCommission: "0",
+          name: "DeFiChain",
         },
         priceRatio: {
           ab: "1",
@@ -83,6 +85,7 @@ describe("Token Price - Get Token Price (DEX)", () => {
           id: "14",
           reserve: pair2ReserveA,
           blockCommission: "0",
+          name: "Tether",
         },
         tokenB: {
           symbol: "DFI",
@@ -90,6 +93,7 @@ describe("Token Price - Get Token Price (DEX)", () => {
           id: "0",
           reserve: pair2ReserveB,
           blockCommission: "0",
+          name: "DeFiChain",
         },
         priceRatio: {
           ab: "10",
@@ -129,6 +133,7 @@ describe("Token Price - Get Token Price (DEX)", () => {
           id: "2",
           reserve: "100000",
           blockCommission: "0",
+          name: "Ethereum",
         },
         tokenB: {
           symbol: "DFI",
@@ -136,6 +141,7 @@ describe("Token Price - Get Token Price (DEX)", () => {
           id: "0",
           reserve: "1000",
           blockCommission: "0",
+          name: "DeFiChain",
         },
         priceRatio: {
           ab: "100",
@@ -204,15 +210,30 @@ describe("Token Price - Get Token Price (DEX)", () => {
         USDT: {
           BTC: {
             denominationPrice: "10000.00000000",
-            token: { id: "1", symbol: "BTC", displaySymbol: "dBTC" },
+            token: {
+              id: "1",
+              symbol: "BTC",
+              displaySymbol: "dBTC",
+              name: "Bitcoin",
+            },
           },
           ETH: {
             denominationPrice: "100.00000000",
-            token: { id: "2", symbol: "ETH", displaySymbol: "dETH" },
+            token: {
+              id: "2",
+              symbol: "ETH",
+              displaySymbol: "dETH",
+              name: "Ethereum",
+            },
           },
           DFI: {
             denominationPrice: "10000.00000000",
-            token: { id: "0", symbol: "DFI", displaySymbol: "DFI" },
+            token: {
+              id: "0",
+              symbol: "DFI",
+              displaySymbol: "DFI",
+              name: "DeFiChain",
+            },
           },
         },
       },
@@ -226,7 +247,10 @@ describe("Token Price - Get Token Price (DEX)", () => {
   const wrapper = ({ children }: { children: ReactElement }): JSX.Element => {
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { wallet: wallet.reducer, block: block.reducer },
+      reducer: {
+        wallet: wallet.reducer,
+        block: block.reducer,
+      },
     });
 
     return <Provider store={store}>{children}</Provider>;
