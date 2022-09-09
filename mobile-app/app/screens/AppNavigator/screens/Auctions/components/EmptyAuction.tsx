@@ -17,7 +17,7 @@ export function EmptyAuction(): JSX.Element {
     <>
       <EmptyTokensScreen
         icon={EmptyAuctions}
-        containerStyle={tailwind("mt-12 px-11")}
+        containerStyle={tailwind("mt-12 px-11 mb-0")}
         testID="empty_auctions_screen"
         title={translate("components/EmptyAuctions", "No Auctions")}
         subTitle={translate(
@@ -27,7 +27,7 @@ export function EmptyAuction(): JSX.Element {
       />
       <InfoTextLinkV2
         containerStyle={tailwind("mt-2 justify-center items-center")}
-        textStyle={tailwind("text-sm")}
+        textStyle={tailwind("text-sm font-semibold-v2")}
         onPress={goToAuctionsFaq}
         text="Learn more"
         testId="empty_auctions_learn_more"
