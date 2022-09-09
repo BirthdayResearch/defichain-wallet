@@ -18,6 +18,7 @@ interface TransactionCardProps {
   amountButtonsStyle?: ThemedProps & {
     style?: ThemedProps & StyleProp<ViewStyle>;
   };
+  disabled?: boolean;
 }
 
 export enum AmountButtonTypes {
@@ -40,6 +41,7 @@ export function TransactionCard({
   componentStyle,
   containerStyle,
   amountButtonsStyle,
+  disabled,
   children,
 }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
   return (
@@ -90,6 +92,7 @@ export function TransactionCard({
               onPress={onChange}
               type={type}
               hasBorder={length - 1 !== index}
+              disabled={disabled}
             />
           );
         })}
@@ -111,6 +114,7 @@ function SetAmountButton({
   onPress,
   amount,
   hasBorder,
+  disabled,
 }: SetAmountButtonProps): JSX.Element {
   const decimalPlace = 8;
   let value = amount.toFixed(decimalPlace);
@@ -137,6 +141,7 @@ function SetAmountButton({
         onPress(value, type);
       }}
       testID={`${type}_amount_button`}
+      disabled={disabled}
     >
       <ThemedViewV2
         light={tailwind("border-mono-light-v2-300")}
@@ -144,8 +149,12 @@ function SetAmountButton({
         style={tailwind({ "border-r-0.5": hasBorder })}
       >
         <ThemedTextV2
-          light={tailwind("text-mono-light-v2-700")}
-          dark={tailwind("text-mono-dark-v2-700")}
+          light={tailwind("text-mono-light-v2-700", {
+            "opacity-30": disabled,
+          })}
+          dark={tailwind("text-mono-dark-v2-700", {
+            "opacity-30": disabled,
+          })}
           style={tailwind("font-semibold-v2 text-xs px-7")}
         >
           {translate("component/max", type)}
