@@ -2,10 +2,7 @@ import BigNumber from "bignumber.js";
 
 function setupWalletForConversion(): void {
   cy.createEmptyWallet(true);
-  cy.sendDFItoWallet()
-    .sendDFITokentoWallet()
-    .sendTokenToWallet(["USDC"])
-    .wait(5000);
+  cy.sendDFItoWallet().sendDFITokentoWallet().wait(5000);
 
   cy.getByTestID("bottom_tab_dex").click().wait(3000);
   cy.getByTestID("composite_swap").click().wait(3000);
@@ -16,7 +13,13 @@ function setupWalletForConversion(): void {
   cy.getByTestID("select_dLTC").click().wait(1000);
 }
 
-context("Wallet - DEX - Composite Swap with disabled pool pairs", () => {
+function setCustomSlippage(customSlippage: string): void {
+  cy.getByTestID("slippage_custom").click();
+  cy.getByTestID("slippage_input").clear().type(customSlippage);
+  cy.getByTestID("set_slippage_button").click().wait(3000);
+}
+
+context("Wallet - DEX - disabled pool pairs", () => {
   before(() => {
     cy.intercept("**/poolpairs?size=*", {
       body: {
@@ -112,18 +115,36 @@ context("Wallet - DEX - Composite Swap with disabled pool pairs", () => {
   });
 
   it("should disable pool swap button if pair is disabled on API", () => {
-    cy.getByTestID("pool_pair_swap-horiz_dZERO-DFI").should(
+    cy.getByTestID("pool_pair_row_13_dZERO").should(
       "have.attr",
       "aria-disabled"
     ); // tradeEnabled: false
-    cy.getByTestID("pool_pair_swap-horiz_dOFF-DFI").should(
+    cy.getByTestID("pool_pair_row_14_dOFF-DFI").should(
       "have.attr",
       "aria-disabled"
     ); // status: false
   });
 });
 
-context("Wallet - DEX - Composite Swap - tabs and dropdowns", () => {
+context("Wallet - DEX - Pool Pair failed api", () => {
+  before(() => {
+    cy.createEmptyWallet(true);
+  });
+
+  it("should handle failed API calls", () => {
+    cy.intercept("**/regtest/poolpairs**", {
+      statusCode: 404,
+      body: "404 Not Found!",
+      headers: {
+        "x-not-found": "true",
+      },
+    });
+    cy.getByTestID("bottom_tab_dex").click();
+    cy.getByTestID("pool_pair_row").should("not.exist");
+  });
+});
+
+context("Wallet - DEX - Instant/Future Swap - tabs and dropdowns", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
@@ -192,35 +213,7 @@ context("Wallet - DEX - Composite Swap - tabs and dropdowns", () => {
   });
 });
 
-context("Wallet - DEX - Composite Swap without balance", () => {
-  before(() => {
-    cy.createEmptyWallet(true);
-    cy.getByTestID("header_settings").click();
-    cy.sendDFItoWallet()
-      .sendDFITokentoWallet()
-      .sendTokenToWallet(["LTC"])
-      .wait(3000);
-    cy.fetchWalletBalance();
-    cy.getByTestID("bottom_tab_portfolio").click();
-    cy.getByTestID("bottom_tab_dex").click();
-  });
-
-  it("should disable token selection on pool pair w/o balance", () => {
-    cy.getByTestID("dex_search_icon").click();
-    cy.getByTestID("dex_search_input").type("LTC");
-    cy.getByTestID("pool_pair_swap-horiz_dLTC-DFI").click();
-    cy.getByTestID("token_select_button_FROM").should(
-      "have.attr",
-      "aria-disabled"
-    );
-    cy.getByTestID("token_select_button_TO").should(
-      "have.attr",
-      "aria-disabled"
-    );
-  });
-});
-
-context("Wallet - DEX - Composite Swap with balance", () => {
+context("Wallet - DEX - Instant Swap (non-DFI)", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
@@ -284,19 +277,20 @@ context("Wallet - DEX - Composite Swap with balance", () => {
     cy.getByTestID("tokenB_value_in_usd").should("exist");
   });
 
-  it.skip("should be able to use/validate custom slippage tolerance", () => {
+  it("should be able to use/validate custom slippage tolerance", () => {
     cy.getByTestID("text_input_tokenA").type("10");
     cy.getByTestID("slippage_1%").should("exist");
 
     // Slippage warning
-    cy.getByTestID("slippage_Custom").click();
-    cy.getByTestID("slippage_input").clear().type("21");
-    cy.getByTestID("slippage_warning").should("exist");
+    setCustomSlippage("21");
+    cy.getByTestID("slippage_warning").should(
+      "have.text",
+      "Set high tolerance at your own risk"
+    );
+    cy.getByTestID("slippage_custom").click();
     cy.getByTestID("slippage_input").clear().type("5");
-    cy.getByTestID("slippage_warning").should("not.exist");
 
     // Slippage validation
-    cy.getByTestID("slippage_Custom").click();
     cy.getByTestID("slippage_input").should("have.value", "5");
     cy.getByTestID("slippage_input").clear().type("101").blur().wait(100);
     cy.getByTestID("slippage_input_error").should(
@@ -326,20 +320,20 @@ context("Wallet - DEX - Composite Swap with balance", () => {
     cy.getByTestID("slippage_input").clear().type("25").blur().wait(100);
   });
 
-  it.skip("should be able to store selected slippage value in storage", () => {
+  it("should be able to store selected slippage value in storage", () => {
     cy.url().should("include", "app/DEX/CompositeSwap", () => {
       expect(localStorage.getItem("WALLET.SLIPPAGE_TOLERANCE")).to.eq("25");
     });
   });
 
-  it.skip("previously saved slippage tolerance value should be 25%", () => {
+  it("previously saved slippage tolerance value should be 25%", () => {
     cy.getByTestID("text_input_tokenA").type("10");
     cy.getByTestID("text_input_tokenA").type("20");
     cy.getByTestID("slippage_input").should("have.value", "25");
   });
 });
 
-context.only("Wallet - DEX - Composite Swap with balance Confirm Txn", () => {
+context("Wallet - DEX - Instant Swap (non-DFI) - Confirm Txn", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
@@ -352,6 +346,7 @@ context.only("Wallet - DEX - Composite Swap with balance Confirm Txn", () => {
     cy.getByTestID("bottom_tab_dex").click();
   });
 
+  // Swap LTC through -> LTC-DFI -> DFI-USDC -> to get USDC
   it("should be able to swap tokens with 2 hops", () => {
     cy.getByTestID("composite_swap").click().wait(5000);
     cy.getByTestID("token_select_button_FROM").click();
@@ -360,7 +355,7 @@ context.only("Wallet - DEX - Composite Swap with balance Confirm Txn", () => {
     cy.getByTestID("select_dUSDC").click().wait(1000);
   });
 
-  it("should be able to swap direct pair", () => {
+  it("should be able to select direct pair", () => {
     cy.getByTestID("bottom_tab_portfolio").click();
     cy.getByTestID("bottom_tab_dex").click();
     cy.getByTestID("token_select_button_FROM").click();
@@ -375,131 +370,80 @@ context.only("Wallet - DEX - Composite Swap with balance Confirm Txn", () => {
     cy.getByTestID("tokenB_value").contains("0.00");
   });
 
-  it("should be able to swap", () => {
+  it("should be able to cancel authorization", () => {
     cy.getByTestID("text_input_tokenA").type("10");
-    cy.getByTestID("slippage_custom").click();
-    cy.getByTestID("slippage_input").clear().type("10");
-    cy.getByTestID("set_slippage_button").click().wait(3000);
-    cy.getByTestID("button_confirm_submit").click().wait(10000);
+    setCustomSlippage("10");
+    cy.getByTestID("button_confirm_submit").click();
 
     cy.getByTestID("confirm_slippage_fee").should("have.text", "10%");
     cy.getByTestID("confirm_title").contains("You are swapping");
-    cy.getByTestID("confirm_estimated_to_receive").then(($txt: any) => {
+    cy.getByTestID("button_confirm_swap").click().wait(3000);
+    // Cancel send on authorisation page
+    cy.getByTestID("cancel_authorization").click();
+  });
+
+  it("should be able to swap", () => {
+    cy.getByTestID("confirm_estimated_to_receive").then(() => {
       cy.getByTestID("button_confirm_swap").click().wait(3000);
       cy.closeOceanInterface();
       cy.fetchWalletBalance();
       cy.getByTestID("bottom_tab_portfolio").click();
       cy.getByTestID("portfolio_row_4").should("exist");
 
-      const tokenValue = $txt[0].textContent
-        .replace(" dLTC", "")
-        .replace(",", "");
-      cy.getByTestID("portfolio_row_4_amount").then(($txt: any) => {
-        const balanceAmount = $txt[0].textContent
-          .replace(" dLTC", "")
-          .replace(",", "");
-        expect(new BigNumber(balanceAmount).toNumber()).be.gte(
-          new BigNumber(tokenValue).toNumber()
-        );
-      });
+      /* Estimated return is not accurate yet due to tolerable slippage */
+      // const tokenValue = $txt[0].textContent
+      //   .replace(" dLTC", "")
+      //   .replace(",", "");
+      // cy.getByTestID("portfolio_row_4_amount").then(($txt: any) => {
+      //   const balanceAmount = $txt[0].textContent
+      //     .replace(" dLTC", "")
+      //     .replace(",", "");
+      //   expect(new BigNumber(balanceAmount).toNumber()).be.gte(
+      //     new BigNumber(tokenValue).toNumber()
+      //   );
+      // });
     });
   });
+});
 
-  it.skip("should be able to swap correctly when user cancel a tx and updated some inputs", () => {
-    cy.getByTestID("text_input_tokenA").type("1");
-    cy.getByTestID("slippage_1%").click();
-    cy.getByTestID("estimated_to_receive").then(($txt: any) => {
-      $txt[0].textContent.replace(" dLTC", "").replace(",", "");
-      cy.getByTestID("button_confirm_submit").click();
-      cy.getByTestID("slippage_fee").contains("1");
-      cy.getByTestID("slippage_fee_suffix").contains("%");
-      cy.getByTestID("confirm_title").contains("You are swapping");
+context(
+  "Wallet - DEX - Instant Swap (DFI with Conversion/Reserved fees)",
+  () => {
+    beforeEach(() => {
+      setupWalletForConversion();
+    });
+
+    it("should display insufficient balance if UTXO is maxed out for swap", () => {
+      cy.getByTestID("text_input_tokenA").type("20");
+      cy.getByTestID("text_insufficient_balance").should("exist");
+    });
+
+    it("should display reserved fees info if all UTXO have to be used for swap", () => {
+      cy.getByTestID("text_input_tokenA").type("19.9");
+      cy.getByTestID("utxo_reserved_fees_text").should("exist");
+    });
+
+    it("should be able to display conversion info", () => {
+      cy.getByTestID("text_balance_amount").contains("19.90000000");
+      cy.getByTestID("text_input_tokenA").type("11.00000000");
+      cy.getByTestID("transaction_details_hint_text").should(
+        "have.text",
+        "By continuing, the required amount of DFI will be converted"
+      );
+    });
+
+    it("should trigger convert and swap token", () => {
+      cy.getByTestID("text_input_tokenA").type("11.00000000");
+      cy.getByTestID("button_confirm_submit").click().wait(3000);
+      cy.getByTestID("txn_authorization_title").contains(
+        `Convert ${new BigNumber("1").toFixed(8)} DFI to tokens`
+      );
+      cy.closeOceanInterface().wait(3000);
+      cy.getByTestID("conversion_status").should("have.text", "Converted");
+      cy.getByTestID("text_swap_amount_from").should("contain", "11.00000000");
+      cy.getByTestID("text_swap_amount_to").should("contain", "1,100.00000000");
       cy.getByTestID("button_confirm_swap").click().wait(3000);
-      // Cancel send on authorisation page
-      cy.getByTestID("cancel_authorization").click();
-      cy.getByTestID("button_cancel_swap").click();
-      // Update input values
-      cy.getByTestID("text_input_tokenA_clear_button").click();
-      cy.getByTestID("text_input_tokenA").type("10");
-      cy.getByTestID("slippage_custom").click();
-      cy.getByTestID("slippage_input").clear().type("10");
-      cy.getByTestID("set_slippage_button").click();
-      cy.getByTestID("estimated_to_receive").then(($txt: any) => {
-        const updatedTokenValue = $txt[0].textContent
-          .replace(" dLTC", "")
-          .replace(",", "");
-        cy.getByTestID("button_confirm_submit").click();
-        cy.getByTestID("slippage_fee").contains("10");
-        cy.getByTestID("slippage_fee_suffix").contains("%");
-        cy.getByTestID("confirm_title").contains("You are swapping");
-        cy.getByTestID("button_confirm_swap").click().wait(3000);
-        cy.closeOceanInterface();
-        cy.fetchWalletBalance();
-        cy.getByTestID("bottom_tab_portfolio").click();
-        cy.getByTestID("portfolio_row_4").should("exist");
-
-        cy.getByTestID("portfolio_row_4_amount").then(($txt: any) => {
-          const balanceAmount = $txt[0].textContent
-            .replace(" dLTC", "")
-            .replace(",", "");
-          expect(new BigNumber(balanceAmount).toNumber()).be.gte(
-            new BigNumber(updatedTokenValue).toNumber()
-          );
-        });
-      });
+      cy.closeOceanInterface();
     });
-  });
-});
-
-context("Wallet - DEX - Pool Pair failed api", () => {
-  before(() => {
-    cy.createEmptyWallet(true);
-  });
-
-  it("should handle failed API calls", () => {
-    cy.intercept("**/regtest/poolpairs**", {
-      statusCode: 404,
-      body: "404 Not Found!",
-      headers: {
-        "x-not-found": "true",
-      },
-    });
-    cy.getByTestID("bottom_tab_dex").click();
-    cy.getByTestID("pool_pair_row").should("not.exist");
-  });
-});
-
-context("Wallet - DEX - Composite Swap with Conversion", () => {
-  beforeEach(() => {
-    setupWalletForConversion();
-  });
-
-  it("should be able to display conversion info", () => {
-    cy.getByTestID("text_balance_amount").contains("19.90000000");
-    cy.getByTestID("text_input_tokenA").type("11.00000000");
-    cy.getByTestID("conversion_info_text").should("exist");
-    cy.getByTestID("conversion_info_text").should(
-      "contain",
-      "Conversion will be required. Your passcode will be asked to authorize both transactions."
-    );
-    cy.getByTestID("amount_to_convert_label").contains("UTXO to be converted");
-    cy.getByTestID("amount_to_convert").contains("1.00000000");
-    cy.getByTestID("transaction_details_hint_text").contains(
-      "Authorize transaction in the next screen to convert"
-    );
-  });
-
-  it("should trigger convert and swap token", () => {
-    cy.getByTestID("text_input_tokenA").type("11.00000000");
-    cy.getByTestID("button_confirm_submit").click().wait(3000);
-    cy.getByTestID("txn_authorization_title").contains(
-      `Convert ${new BigNumber("1").toFixed(8)} DFI to tokens`
-    );
-    cy.closeOceanInterface().wait(3000);
-    cy.getByTestID("conversion_tag").should("exist");
-
-    cy.getByTestID("text_swap_amount").should("contain", "11.00000000");
-    cy.getByTestID("button_confirm_swap").click().wait(3000);
-    cy.closeOceanInterface();
-  });
-});
+  }
+);

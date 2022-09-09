@@ -161,13 +161,13 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
             "screens/ConfirmCompositeSwapScreen",
             "You are swapping"
           )}
-          amount={swap.amountFrom}
-          testID="text_convert_amount"
+          fromTokenAmount={swap.amountFrom}
+          toTokenAmount={estimatedAmount}
+          testID="text_swap_amount"
           iconA={tokenA.displaySymbol}
           iconB={tokenB.displaySymbol}
           fromAddress={address}
           fromAddressLabel={addressLabel}
-          forTokenAmount={estimatedAmount}
           isFutureSwap={futureSwap !== undefined}
           oraclePrice={futureSwap?.oraclePriceText}
         />
