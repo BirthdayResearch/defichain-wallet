@@ -182,7 +182,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
           <NumberRowV2
             lhs={{
               value: translate("screens/ConfirmAddLiq", "Amount to convert"),
-              testID: "transaction_fee",
+              testID: "amount_to_convert",
               themedProps: {
                 light: tailwind("text-mono-light-v2-500"),
                 dark: tailwind("text-mono-dark-v2-500"),
@@ -190,7 +190,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
             }}
             rhs={{
               value: conversion.conversionAmount.toFixed(8),
-              testID: "amount_to_convert",
+              testID: "amount_to_convert_value",
             }}
           />
           <View
