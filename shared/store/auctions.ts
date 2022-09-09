@@ -86,49 +86,23 @@ export const auctions = createSlice({
 
 /**
  * Flattens the auctions -> batch
- * Filters by search term
  * Sorts by liquidation height
  */
-export const auctionsSearchByTermSelector = createSelector(
-  [
-    (state: AuctionsState) => state.auctions,
-    (_state: AuctionsState, searchTerm: string) => searchTerm,
-  ],
-  (auctions, searchTerm: string) => {
-    return auctions
-      .reduce<AuctionBatchProps[]>(
-        (auctionBatches, auction): AuctionBatchProps[] => {
-          const filteredAuctionBatches = auctionBatches;
-          if (searchTerm === "" || searchTerm === undefined) {
-            auction.batches.forEach((batch) => {
-              filteredAuctionBatches.push({
-                ...batch,
-                auction,
-              });
-            });
-          } else {
-            auction.batches.forEach((batch) => {
-              if (
-                batch.loan.displaySymbol
-                  .toLowerCase()
-                  .includes(searchTerm.trim().toLowerCase())
-              ) {
-                filteredAuctionBatches.push({
-                  ...batch,
-                  auction,
-                });
-              }
-            });
-          }
-
-          return filteredAuctionBatches;
-        },
-        []
-      )
-      .sort((a, b) =>
-        new BigNumber(a.auction.liquidationHeight)
-          .minus(b.auction.liquidationHeight)
-          .toNumber()
-      );
+export const getAuctionBatches = createSelector(
+  [(state: AuctionsState) => state.auctions],
+  (auctions) => {
+    return auctions.reduce<AuctionBatchProps[]>(
+      (auctionBatches, auction): AuctionBatchProps[] => {
+        const filteredAuctionBatches = auctionBatches;
+        auction.batches.forEach((batch) => {
+          filteredAuctionBatches.push({
+            ...batch,
+            auction,
+          });
+        });
+        return filteredAuctionBatches;
+      },
+      []
+    );
   }
 );

@@ -1,15 +1,11 @@
 import { useCallback, useRef, useState } from "react";
 import { useScrollToTop } from "@react-navigation/native";
 import { tailwind } from "@tailwind";
-import { ThemedFlatListV2, ThemedScrollViewV2 } from "@components/themed";
+import { ThemedFlatListV2 } from "@components/themed";
 import { BatchCard } from "@screens/AppNavigator/screens/Auctions/components/BatchCard";
 import { Platform, View } from "react-native";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import {
-  SkeletonLoader,
-  SkeletonLoaderScreen,
-} from "@components/SkeletonLoader";
 import {
   LoanVaultLiquidated,
   LoanVaultLiquidationBatch,
@@ -25,18 +21,26 @@ import {
 } from "@components/BottomSheetWithNavV2";
 import { BottomSheetHeader } from "@components/BottomSheetHeader";
 import { QuickBid } from "./QuickBid";
-import { EmptyAuction } from "./EmptyAuction";
 import {
   AuctionsSortRow,
   AuctionsSortType,
   BottomSheetAssetSortList,
 } from "./AuctionsSortRow";
+import { EmptyAuction } from "./EmptyAuction";
 
 interface Props {
   filteredAuctionBatches: AuctionBatchProps[];
   yourVaultIds: string[];
+  activeButtonGroup: ButtonGroupTabKey;
+  showSearchInput: boolean;
 }
 
+export enum ButtonGroupTabKey {
+  AllBids = "ALL_BIDS",
+  YourActiveBids = "YOUR_ACTIVE_BIDS",
+  YourLeadingBids = "YOUR_LEADING_BIDS",
+  Outbid = "OUT_BID",
+}
 export interface onQuickBidProps {
   batch: LoanVaultLiquidationBatch;
   vaultId: string;
@@ -47,13 +51,12 @@ export interface onQuickBidProps {
 
 export function BrowseAuctions({
   filteredAuctionBatches,
+  showSearchInput,
   yourVaultIds,
+  activeButtonGroup,
 }: Props): JSX.Element {
   const tokens = useSelector((state: RootState) =>
     tokensSelector(state.wallet)
-  );
-  const { hasFetchAuctionsData } = useSelector(
-    (state: RootState) => state.auctions
   );
 
   // Asset sort bottom sheet list
@@ -125,6 +128,7 @@ export function BrowseAuctions({
               .minus(a.auction.liquidationHeight)
               .toNumber();
           break;
+        case AuctionsSortType.LeastTimeLeft:
         default:
           sortTokensFunc = (a, b) =>
             new BigNumber(a.auction.liquidationHeight)
@@ -165,30 +169,21 @@ export function BrowseAuctions({
 
   return (
     <View ref={containerRef} style={tailwind("flex-1")} testID="auctions_cards">
-      {hasFetchAuctionsData ? (
-        <>
-          {filteredAuctionBatches?.length === 0 ? (
-            <EmptyAuction />
-          ) : (
-            <>
-              <AuctionsSortRow
-                isSorted={isSorted}
-                assetSortType={assetSortType}
-                onPress={assetSortBottomSheetScreen}
-              />
-              <BatchCards
-                auctionBatches={sortTokensAssetOnType(assetSortType)}
-                onQuickBid={onQuickBid}
-                yourVaultIds={yourVaultIds}
-              />
-            </>
-          )}
-        </>
-      ) : (
-        <ThemedScrollViewV2 contentContainerStyle={tailwind("p-4")}>
-          <SkeletonLoader row={6} screen={SkeletonLoaderScreen.BrowseAuction} />
-        </ThemedScrollViewV2>
+      {!showSearchInput && (
+        <AuctionsSortRow
+          isSorted={isSorted}
+          assetSortType={assetSortType}
+          onPress={assetSortBottomSheetScreen}
+        />
       )}
+
+      <BatchCards
+        activeButtonGroup={activeButtonGroup}
+        showSearchInput={showSearchInput}
+        auctionBatches={sortTokensAssetOnType(assetSortType)}
+        onQuickBid={onQuickBid}
+        yourVaultIds={yourVaultIds}
+      />
       {Platform.OS === "web" ? (
         <BottomSheetWebWithNavV2
           modalRef={containerRef}
@@ -223,11 +218,15 @@ export function BrowseAuctions({
 function BatchCards({
   auctionBatches,
   yourVaultIds,
+  showSearchInput,
   onQuickBid,
+  activeButtonGroup,
 }: {
   auctionBatches: AuctionBatchProps[];
   yourVaultIds: string[];
+  showSearchInput: boolean;
   onQuickBid: (props: onQuickBidProps) => void;
+  activeButtonGroup: ButtonGroupTabKey;
 }): JSX.Element {
   const ref = useRef(null);
   useScrollToTop(ref);
@@ -257,17 +256,58 @@ function BatchCards({
     []
   );
 
+  const emptyScreenDetails = getEmptyScreenDetails(activeButtonGroup);
   return (
     <ThemedFlatListV2
-      contentContainerStyle={tailwind("p-4 pb-2")}
+      contentContainerStyle={tailwind("px-5 pb-2")}
       data={auctionBatches}
       ref={ref}
       numColumns={1}
       initialNumToRender={5}
       windowSize={2}
       keyExtractor={(_item, index) => index.toString()}
+      ListEmptyComponent={
+        <>
+          {showSearchInput === false && (
+            <View style={tailwind("mt-1")}>
+              <EmptyAuction
+                title={emptyScreenDetails.title}
+                subTitle={emptyScreenDetails.subTitle}
+              />
+            </View>
+          )}
+        </>
+      }
       testID="available_liquidity_tab"
       renderItem={RenderItems}
     />
   );
+}
+
+function getEmptyScreenDetails(type?: ButtonGroupTabKey): {
+  title: string;
+  subTitle: string;
+} {
+  switch (type) {
+    case ButtonGroupTabKey.Outbid:
+      return {
+        title: "No Outbit Auctions",
+        subTitle: "You have no outbids yet",
+      };
+    case ButtonGroupTabKey.YourActiveBids:
+      return {
+        title: "No Active Bids",
+        subTitle: "You have no active bids yet",
+      };
+    case ButtonGroupTabKey.YourLeadingBids:
+      return {
+        title: "No Leading Bid",
+        subTitle: "You have no leading bids yet",
+      };
+    default:
+      return {
+        title: "No Auctions",
+        subTitle: "There are currently no collaterals available for auction.",
+      };
+  }
 }

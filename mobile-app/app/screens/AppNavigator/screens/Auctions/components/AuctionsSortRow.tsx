@@ -24,7 +24,7 @@ export function AuctionsSortRow(props: {
 }): JSX.Element {
   return (
     <View
-      style={tailwind("px-10 mt-3 flex flex-row justify-between")}
+      style={tailwind("px-10 mt-4 mb-2 flex flex-row justify-between")}
       testID="toggle_sorting_auctions"
     >
       <ThemedTextV2
