@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Platform, TextInput, View } from "react-native";
+import { Platform, ScrollView, TextInput, View } from "react-native";
 import { useSelector } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
 import BigNumber from "bignumber.js";
@@ -187,6 +187,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     toTokenDisplaySymbol: selectedTokenB?.displaySymbol,
   });
   const amountInputRef = useRef<TextInput>();
+  const scrollViewRef = useRef<ScrollView>();
 
   const {
     bottomSheetRef,
@@ -220,6 +221,10 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
 
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     setActiveButtonGroup(buttonGroupTabKey);
+    scrollViewRef.current?.scrollTo({
+      y: 0,
+      animated: false,
+    });
   };
 
   // component UI state
@@ -758,7 +763,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           (isToLoanToken !== undefined && !isToLoanToken)
         }
       />
-      <ThemedScrollView>
+      <ThemedScrollView ref={scrollViewRef}>
         {activeButtonGroup === ButtonGroupTabKey.InstantSwap &&
           isDexStabilizationEnabled &&
           dexStabilizationType !== "none" &&
