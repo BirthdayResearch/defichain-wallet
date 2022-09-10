@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Platform, TextInput, View } from "react-native";
+import { Platform, ScrollView, TextInput, View } from "react-native";
 import { useSelector } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
 import BigNumber from "bignumber.js";
@@ -94,6 +94,7 @@ export interface TokenState {
   reserve: string;
   displaySymbol: string;
   symbol: string;
+  name?: string;
 }
 
 export interface OwnedTokenState extends TokenState {
@@ -186,6 +187,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     toTokenDisplaySymbol: selectedTokenB?.displaySymbol,
   });
   const amountInputRef = useRef<TextInput>();
+  const scrollViewRef = useRef<ScrollView>();
 
   const {
     bottomSheetRef,
@@ -219,6 +221,10 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
 
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     setActiveButtonGroup(buttonGroupTabKey);
+    scrollViewRef.current?.scrollTo({
+      y: 0,
+      animated: false,
+    });
   };
 
   const [isEditingCustomSlippageInput, setIsEditingCustomSlippageInput] =
@@ -419,11 +425,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   useEffect(() => {
     void getSelectedPoolPairs();
 
-    if (
-      hasShownInputFocusBefore ||
-      selectedTokenA === undefined ||
-      selectedTokenB === undefined
-    ) {
+    if (hasShownInputFocusBefore || !isBothTokensSelected()) {
       return;
     }
     /* timeout added to auto display keyboard on Android */
@@ -717,6 +719,10 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     []
   );
 
+  const isBothTokensSelected = (): boolean => {
+    return selectedTokenA !== undefined && selectedTokenB !== undefined;
+  };
+
   async function onPercentagePress(
     amount: string,
     type: AmountButtonTypes
@@ -760,7 +766,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           (isToLoanToken !== undefined && !isToLoanToken)
         }
       />
-      <ThemedScrollView>
+      <ThemedScrollView ref={scrollViewRef}>
         {activeButtonGroup === ButtonGroupTabKey.InstantSwap &&
           isDexStabilizationEnabled &&
           dexStabilizationType !== "none" &&
@@ -827,6 +833,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               dark: tailwind("bg-mono-dark-v2-00"),
               style: tailwind("mt-6 rounded-xl-v2"),
             }}
+            disabled={!isBothTokensSelected()}
           >
             <View
               style={tailwind(
@@ -841,8 +848,12 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   render={({ field: { onChange, value } }) => (
                     <ThemedTextInputV2
                       style={tailwind("text-xl font-semibold-v2 w-full")}
-                      light={tailwind("text-mono-light-v2-900")}
-                      dark={tailwind("text-mono-dark-v2-900")}
+                      light={tailwind("text-mono-light-v2-900", {
+                        "opacity-30": !isBothTokensSelected(),
+                      })}
+                      dark={tailwind("text-mono-dark-v2-900", {
+                        "opacity-30": !isBothTokensSelected(),
+                      })}
                       keyboardType="numeric"
                       value={value}
                       onBlur={async () => {
@@ -858,6 +869,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                         isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
                       )}
                       ref={amountInputRef}
+                      editable={isBothTokensSelected()}
                     />
                   )}
                   rules={{
@@ -948,15 +960,12 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
             <ThemedTouchableOpacityV2
               onPress={onTokenSwitch}
               style={tailwind("p-2.5 rounded-full z-50", {
-                "opacity-30":
-                  selectedTokenA === undefined || selectedTokenB === undefined,
+                "opacity-30": !isBothTokensSelected(),
               })}
               dark={tailwind("bg-mono-dark-v2-900")}
               light={tailwind("bg-mono-light-v2-900")}
               testID="switch_button"
-              disabled={
-                selectedTokenA === undefined || selectedTokenB === undefined
-              }
+              disabled={!isBothTokensSelected()}
             >
               <ThemedIcon
                 name="swap-vert"
@@ -1020,14 +1029,9 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           </ThemedViewV2>
         </View>
 
-        {selectedTokenB !== undefined &&
-          selectedTokenA !== undefined &&
-          activeButtonGroup === ButtonGroupTabKey.InstantSwap && (
-            <ThemedViewV2
-              style={tailwind("mx-5 py-8 border-t-0.5")}
-              light={tailwind("border-mono-light-v2-300")}
-              dark={tailwind("border-mono-dark-v2-300")}
-            >
+        {isBothTokensSelected() && (
+          <View style={tailwind("p-4")}>
+            {activeButtonGroup === ButtonGroupTabKey.InstantSwap && (
               <SlippageToleranceV2
                 setSlippage={setSlippage}
                 setSlippageError={setSlippageError}
@@ -1037,59 +1041,53 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                 isEditing={isEditingCustomSlippageInput}
                 setIsEditing={setIsEditingCustomSlippageInput}
               />
-            </ThemedViewV2>
-          )}
+            )}
+          </View>
+        )}
 
-        {selectedTokenB !== undefined &&
-          selectedTokenA !== undefined &&
-          priceRates !== undefined && (
-            <>
-              <ThemedViewV2
-                light={tailwind("border-mono-light-v2-300")}
-                dark={tailwind("border-mono-dark-v2-300")}
-                style={tailwind("pt-5 px-5 mx-5 border rounded-lg-v2")}
-              >
-                <SwapSummary
-                  instantSwapPriceRate={priceRates}
-                  activeTab={activeButtonGroup}
-                  executionBlock={executionBlock}
-                  transactionDate={transactionDate}
-                  transactionFee={fee}
-                  totalFees={totalFees}
-                  dexStabilizationFee={dexStabilizationFee}
-                  dexStabilizationType={dexStabilizationType}
-                />
-              </ThemedViewV2>
-            </>
-          )}
-
-        {formState.isValid &&
-          selectedTokenA !== undefined &&
-          selectedTokenB !== undefined && (
-            <ThemedTextV2
-              testID="transaction_details_hint_text"
-              light={tailwind("text-mono-light-v2-500")}
-              dark={tailwind("text-mono-dark-v2-500")}
-              style={tailwind("pt-12 px-10 text-xs text-center font-normal-v2")}
+        {isBothTokensSelected() && priceRates !== undefined && (
+          <>
+            <ThemedViewV2
+              light={tailwind("border-mono-light-v2-300")}
+              dark={tailwind("border-mono-dark-v2-300")}
+              style={tailwind("pt-5 px-5 mx-5 border rounded-lg-v2")}
             >
-              {isConversionRequired
-                ? translate(
-                    "screens/CompositeSwapScreen",
-                    "By continuing, the required amount of DFI will be converted"
-                  )
-                : translate(
-                    "screens/CompositeSwapScreen",
-                    "Review full details in the next screen"
-                  )}
-            </ThemedTextV2>
-          )}
+              <SwapSummary
+                instantSwapPriceRate={priceRates}
+                activeTab={activeButtonGroup}
+                executionBlock={executionBlock}
+                transactionDate={transactionDate}
+                transactionFee={fee}
+                totalFees={totalFees}
+                dexStabilizationFee={dexStabilizationFee}
+                dexStabilizationType={dexStabilizationType}
+              />
+            </ThemedViewV2>
+          </>
+        )}
+
+        {formState.isValid && isBothTokensSelected() && (
+          <ThemedTextV2
+            testID="transaction_details_hint_text"
+            light={tailwind("text-mono-light-v2-500")}
+            dark={tailwind("text-mono-dark-v2-500")}
+            style={tailwind("pt-12 px-10 text-xs text-center font-normal-v2")}
+          >
+            {isConversionRequired
+              ? translate(
+                  "screens/CompositeSwapScreen",
+                  "By continuing, the required amount of DFI will be converted"
+                )
+              : translate(
+                  "screens/CompositeSwapScreen",
+                  "Review full details in the next screen"
+                )}
+          </ThemedTextV2>
+        )}
 
         <View
           style={tailwind("mb-12 mx-12 mt-16", {
-            "mt-5":
-              formState.isValid &&
-              selectedTokenA !== undefined &&
-              selectedTokenB !== undefined,
+            "mt-5": formState.isValid && isBothTokensSelected(),
           })}
         >
           <SubmitButtonGroupV2
@@ -1100,9 +1098,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               (slippageError?.type === "error" &&
                 slippageError !== undefined) ||
               (isFutureSwap && isEnded) ||
-              selectedTokenA === undefined ||
-              selectedTokenB === undefined ||
-              isEditingCustomSlippageInput
+              !isBothTokensSelected()
             }
             label={translate("components/Button", "Continue")}
             onSubmit={
