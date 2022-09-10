@@ -7,6 +7,7 @@ import {
   LoanVaultLiquidated,
   LoanVaultState,
 } from "@defichain/whale-api-client/dist/api/loan";
+import { wallet } from "@store/wallet";
 import { BatchCard } from "./BatchCard";
 
 jest.mock("@shared-contexts/ThemeProvider");
@@ -33,6 +34,17 @@ jest.mock("../hooks/AuctionBidValue", () => ({
 describe("Batch Card", () => {
   it("should match snapshot", async () => {
     const initialState: Partial<RootState> = {
+      wallet: {
+        utxoBalance: "77",
+        tokens: [],
+        allTokens: {},
+        poolpairs: [],
+        dexPrices: {},
+        swappableTokens: {},
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true,
+        hasFetchedSwappableTokens: false,
+      },
       block: {
         count: 2000,
         masternodeCount: 10,
@@ -44,7 +56,10 @@ describe("Batch Card", () => {
 
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { block: block.reducer },
+      reducer: {
+        block: block.reducer,
+        wallet: wallet.reducer,
+      },
     });
 
     const vault: LoanVaultLiquidated = {

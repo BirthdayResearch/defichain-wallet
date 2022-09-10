@@ -241,16 +241,14 @@ function BatchCards({
     }): JSX.Element => {
       const { auction, ...batch } = item;
       return (
-        <View key={auction.vaultId}>
-          <BatchCard
-            vault={auction}
-            batch={batch}
-            key={`${auction.vaultId}_${batch.index}`}
-            testID={`batch_card_${index}`}
-            onQuickBid={onQuickBid}
-            isVaultOwner={yourVaultIds.includes(auction.vaultId)}
-          />
-        </View>
+        <BatchCard
+          vault={auction}
+          batch={batch}
+          key={`${auction.vaultId}_${batch.index}`}
+          testID={`batch_card_${index}`}
+          onQuickBid={onQuickBid}
+          isVaultOwner={yourVaultIds.includes(auction.vaultId)}
+        />
       );
     },
     []
