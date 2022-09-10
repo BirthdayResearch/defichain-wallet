@@ -189,13 +189,13 @@ export function AuctionsScreen({ navigation }: Props): JSX.Element {
               >
                 {searchString?.trim().length > 0
                   ? translate(
-                      "screens/DexScreen",
+                      "screens/AuctionsScreen",
                       "Search results for “{{input}}”",
                       { input: searchString?.trim() }
                     )
                   : translate(
-                      "screens/DexScreen",
-                      "Search for pool pair with token name"
+                      "screens/AuctionsScreen",
+                      "Search for auction with collateral token name"
                     )}
               </ThemedTextV2>
             </View>
