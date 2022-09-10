@@ -6,7 +6,7 @@ import {
 } from "@defichain/whale-api-client/dist/api/loan";
 import {
   auctions,
-  auctionsSearchByTermSelector,
+  getAuctionBatches,
   AuctionsState,
   fetchAuctions,
   fetchBidHistory,
@@ -90,6 +90,7 @@ describe("auctions reducer", () => {
         sort: "000006f0",
       },
     },
+    froms: [],
   };
   const loanBatchBar: LoanVaultLiquidationBatch = {
     index: 0,
@@ -139,6 +140,7 @@ describe("auctions reducer", () => {
       name: "Decentralized USD",
       displaySymbol: "DUSD",
     },
+    froms: [],
   };
   const liquidatedVaults: LoanVaultLiquidated[] = [
     {
@@ -222,31 +224,17 @@ describe("auctions reducer", () => {
     expect(actual.bidHistory).toStrictEqual(bidHistory);
   });
 
-  it("should be able to search auction by loan display symbol", () => {
+  it("should be able to return loan batches", () => {
     const state = {
       ...initialState,
       auctions: liquidatedVaults,
     };
-    const actual = auctionsSearchByTermSelector(state, "dTU10");
+    const actual = getAuctionBatches(state);
     expect(actual).toStrictEqual([
-      {
-        ...loanBatchFoo,
-        auction: liquidatedVaults[1],
-      },
       {
         ...loanBatchFoo,
         auction: liquidatedVaults[0],
       },
-    ]);
-  });
-
-  it("should be able to return all loan batches if no search term matches any loan display symbol", () => {
-    const state = {
-      ...initialState,
-      auctions: liquidatedVaults,
-    };
-    const actual = auctionsSearchByTermSelector(state, "");
-    expect(actual).toStrictEqual([
       {
         ...loanBatchFoo,
         auction: liquidatedVaults[1],
@@ -254,10 +242,6 @@ describe("auctions reducer", () => {
       {
         ...loanBatchBar,
         auction: liquidatedVaults[1],
-      },
-      {
-        ...loanBatchFoo,
-        auction: liquidatedVaults[0],
       },
     ]);
   });
