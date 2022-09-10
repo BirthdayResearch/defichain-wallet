@@ -248,13 +248,15 @@ function PercentageAmountButton({
 }: PercentageAmountButtonProps): JSX.Element {
   return (
     <ThemedTouchableOpacityV2
-      light={tailwind({ "bg-mono-light-v2-900": isSelected }, "bg-red-100")}
+      light={tailwind({ "bg-mono-light-v2-900": isSelected })}
       dark={tailwind({ "bg-mono-dark-v2-900": isSelected })}
-      style={tailwind("w-3/12 items-center rounded-full h-full")}
+      style={tailwind(
+        "w-3/12 items-center rounded-full justify-center self-stretch"
+      )}
       onPress={onPress}
     >
       <ThemedTextV2
-        light={tailwind("text-mono-light-v2-700 bg-red-200 ", {
+        light={tailwind("text-mono-light-v2-700", {
           "text-mono-light-v2-100": isSelected,
         })}
         dark={tailwind("text-mono-dark-v2-700", {
