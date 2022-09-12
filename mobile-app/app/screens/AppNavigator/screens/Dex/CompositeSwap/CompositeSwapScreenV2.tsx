@@ -562,62 +562,6 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     setOraclePriceMessage(message);
   }, [selectedTokenA]);
 
-  const navigateToConfirmScreen = (): void => {
-    if (
-      selectedPoolPairs === undefined ||
-      selectedTokenA === undefined ||
-      selectedTokenB === undefined ||
-      priceRates === undefined ||
-      tokenA === undefined ||
-      tokenB === undefined
-    ) {
-      return;
-    }
-
-    const ownedTokenB = tokens.find((token) => token.id === selectedTokenB.id);
-    const slippageInDecimal = new BigNumber(slippage).div(100);
-    navigation.navigate("ConfirmCompositeSwapScreenV2", {
-      fee,
-      pairs: selectedPoolPairs,
-      priceRates,
-      slippage: slippageInDecimal,
-      futureSwap: isFutureSwap
-        ? {
-            executionBlock,
-            transactionDate,
-            isSourceLoanToken: isSourceLoanToken,
-            oraclePriceText,
-          }
-        : undefined,
-      swap: {
-        tokenTo: selectedTokenB,
-        tokenFrom: selectedTokenA,
-        amountFrom: new BigNumber(tokenA),
-        amountTo: new BigNumber(tokenB),
-      },
-      tokenA: selectedTokenA,
-      tokenB:
-        ownedTokenB !== undefined
-          ? {
-              ...selectedTokenB,
-              amount: ownedTokenB.amount,
-            }
-          : selectedTokenB,
-      ...(isConversionRequired && {
-        conversion: {
-          isConversionRequired,
-          DFIToken,
-          DFIUtxo,
-          conversionAmount,
-        },
-      }),
-      estimatedAmount: new BigNumber(tokenB),
-      estimatedReturnLessDexFees:
-        bestPathEstimatedReturn?.estimatedReturnLessDexFees ?? "-",
-      totalFees,
-    });
-  };
-
   const navigateToTokenSelectionScreen = (listType: TokenListType): void => {
     navigation.navigate("SwapTokenSelectionScreen", {
       listType: listType,
@@ -670,6 +614,61 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return;
     }
+
+    if (
+      selectedPoolPairs === undefined ||
+      selectedTokenA === undefined ||
+      selectedTokenB === undefined ||
+      priceRates === undefined ||
+      tokenA === undefined ||
+      tokenB === undefined
+    ) {
+      return;
+    }
+
+    const ownedTokenB = tokens.find((token) => token.id === selectedTokenB.id);
+    const slippageInDecimal = new BigNumber(slippage).div(100);
+    const params: DexParamList["ConfirmCompositeSwapScreenV2"] = {
+      fee,
+      pairs: selectedPoolPairs,
+      priceRates,
+      slippage: slippageInDecimal,
+      futureSwap: isFutureSwap
+        ? {
+            executionBlock,
+            transactionDate,
+            isSourceLoanToken: isSourceLoanToken,
+            oraclePriceText,
+          }
+        : undefined,
+      swap: {
+        tokenTo: selectedTokenB,
+        tokenFrom: selectedTokenA,
+        amountFrom: new BigNumber(tokenA),
+        amountTo: new BigNumber(tokenB),
+      },
+      tokenA: selectedTokenA,
+      tokenB:
+        ownedTokenB !== undefined
+          ? {
+              ...selectedTokenB,
+              amount: ownedTokenB.amount,
+            }
+          : selectedTokenB,
+      ...(isConversionRequired && {
+        conversion: {
+          isConversionRequired,
+          DFIToken,
+          DFIUtxo,
+          conversionAmount,
+        },
+      }),
+      estimatedAmount: new BigNumber(tokenB),
+      estimatedReturnLessDexFees:
+        bestPathEstimatedReturn?.estimatedReturnLessDexFees ?? "-",
+      totalFees,
+    };
+
     if (isConversionRequired) {
       queueConvertTransaction(
         {
@@ -678,12 +677,26 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         },
         dispatch,
         () => {
-          navigateToConfirmScreen();
+          navigation.navigate("ConfirmCompositeSwapScreenV2", params);
         },
-        logger
+        logger,
+        () => {
+          params.conversion = {
+            DFIUtxo,
+            DFIToken,
+            isConversionRequired: true,
+            conversionAmount,
+            isConverted: true,
+          };
+          navigation.navigate({
+            name: "ConfirmCompositeSwapScreenV2",
+            params,
+            merge: true,
+          });
+        }
       );
     } else {
-      navigateToConfirmScreen();
+      navigation.navigate("ConfirmCompositeSwapScreenV2", params);
     }
   };
 
@@ -797,6 +810,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           style={tailwind("mx-10 text-xs font-normal-v2 mt-8")}
           light={tailwind("text-mono-light-v2-500")}
           dark={tailwind("text-mono-dark-v2-500")}
+          testID="text_balance_amount"
         >
           {translate(
             "screens/CompositeSwapScreen",
@@ -866,15 +880,14 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                         isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
                       )}
                       ref={amountInputRef}
+                      testID="text_input_tokenA"
                       editable={selectedTokenA !== undefined}
                     />
                   )}
                   rules={{
                     required: true,
                     pattern: /^\d*\.?\d*$/,
-                    max: BigNumber.max(selectedTokenA?.amount ?? 0, 0).toFixed(
-                      8
-                    ),
+                    max: selectedTokenA ? getMaxAmount(selectedTokenA) : "0",
                     validate: {
                       greaterThanZero: (value: string) =>
                         new BigNumber(
@@ -888,13 +901,14 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                     selectedTokenA ?? undefined,
                     tokenA
                   )}
-                  testId="amount_input_in_usd"
+                  testId="tokenA_value_in_usd"
                   containerStyle={tailwind("w-full break-words")}
                 />
               </View>
 
               <TokenDropdownButton
                 symbol={selectedTokenA?.displaySymbol}
+                testID={TokenListType.From}
                 onPress={() =>
                   navigateToTokenSelectionScreen(TokenListType.From)
                 }
@@ -926,6 +940,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   light={tailwind("text-red-v2")}
                   dark={tailwind("text-red-v2")}
                   style={tailwind("text-xs pt-2 font-normal-v2")}
+                  testID="text_insufficient_balance"
                 >
                   {translate(
                     "screens/CompositeSwapScreen",
@@ -939,6 +954,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                 light={tailwind("text-orange-v2")}
                 dark={tailwind("text-orange-v2")}
                 style={tailwind("text-xs pt-2 font-normal-v2")}
+                testID="utxo_reserved_fees_text"
               >
                 {translate(
                   "screens/CompositeSwapScreen",
@@ -990,6 +1006,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               style={tailwind("px-5 text-xs font-normal-v2")}
               light={tailwind("text-mono-light-v2-500")}
               dark={tailwind("text-mono-dark-v2-500")}
+              testID="tokenB_displaySymbol"
             >
               {translate("screens/CompositeSwapScreen", "I WANT {{token}}", {
                 token: selectedTokenB?.displaySymbol ?? "",
@@ -1015,6 +1032,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               )}
               <TokenDropdownButton
                 symbol={selectedTokenB?.displaySymbol}
+                testID={TokenListType.To}
                 onPress={() => navigateToTokenSelectionScreen(TokenListType.To)}
                 status={
                   route.params.tokenSelectOption?.to?.isDisabled
