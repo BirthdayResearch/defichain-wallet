@@ -597,6 +597,7 @@ function PoolPairActionSection({
           label={translate("screens/DexScreen", "Swap")}
           onPress={() => onSwap(pair.data)}
           testID="poolpair_token_details_composite_swap"
+          disabled={!pair.data.status}
         />
       </View>
     </View>

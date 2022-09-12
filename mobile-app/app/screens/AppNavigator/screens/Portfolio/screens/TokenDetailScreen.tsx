@@ -373,6 +373,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                   onPress={() => onNavigateSwap({ pair })}
                   testID="swap_button"
                   label={translate("screens/TokenDetailScreen", "Swap")}
+                  disabled={!pair.status}
                 />
               </View>
             )}
