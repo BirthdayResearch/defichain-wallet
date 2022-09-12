@@ -469,8 +469,8 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           value: bToAPrice.toFixed(8),
           symbolUSDValue: getAmountInUSDValue(selectedTokenA, new BigNumber(1)),
           usdTextStyle: tailwind("text-sm"),
-          aSymbol: selectedTokenA.displaySymbol,
-          bSymbol: selectedTokenB.displaySymbol,
+          aSymbol: selectedTokenB.displaySymbol,
+          bSymbol: selectedTokenA.displaySymbol,
         },
         {
           label: translate("components/PricesSection", "1 {{token}} =", {
@@ -479,8 +479,8 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           value: aToBPrice.toFixed(8),
           symbolUSDValue: getAmountInUSDValue(selectedTokenB, new BigNumber(1)),
           usdTextStyle: tailwind("text-sm"),
-          aSymbol: selectedTokenB.displaySymbol,
-          bSymbol: selectedTokenA.displaySymbol,
+          aSymbol: selectedTokenA.displaySymbol,
+          bSymbol: selectedTokenB.displaySymbol,
         },
       ]);
       setValue("tokenB", estimated.toFixed(8));

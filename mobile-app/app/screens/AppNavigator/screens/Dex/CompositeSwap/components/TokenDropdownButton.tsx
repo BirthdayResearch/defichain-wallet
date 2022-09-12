@@ -40,7 +40,7 @@ export function TokenDropdownButton(props: {
         <ThemedTextV2
           dark={tailwind("text-mono-dark-v2-500")}
           light={tailwind("text-mono-light-v2-500")}
-          style={tailwind("text-sm leading-6 font-normal-v2 mr-2.5")}
+          style={tailwind("text-sm leading-6 font-normal-v2")}
         >
           {translate("screens/CompositeSwapScreen", "Token")}
         </ThemedTextV2>
@@ -49,7 +49,7 @@ export function TokenDropdownButton(props: {
         <>
           <Icon testID="tokenA_icon" height={28} width={28} />
           <ThemedTextV2
-            style={tailwind("ml-2 mr-3.5 text-sm font-semibold-v2")}
+            style={tailwind("ml-2 text-sm font-semibold-v2")}
             dark={tailwind("text-mono-dark-v2-900", {
               "text-opacity-30":
                 props.status === TokenDropdownButtonStatus.Disabled,
@@ -69,6 +69,10 @@ export function TokenDropdownButton(props: {
           iconType="Feather"
           name="chevron-down"
           size={24}
+          style={tailwind(
+            { "ml-2.5": props.symbol === undefined },
+            { "ml-3.5": props.symbol !== undefined }
+          )}
           dark={tailwind("text-mono-dark-v2-700")}
           light={tailwind("text-mono-light-v2-700")}
         />
