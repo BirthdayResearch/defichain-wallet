@@ -11,7 +11,6 @@ import { useState, useEffect } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { debounce } from "lodash";
-import { useCustomSlippageTolerance } from "../../hook/CustomSlippageTolerance";
 
 export interface SlippageError {
   type: "error" | "helper";
@@ -51,16 +50,16 @@ export function SlippageToleranceV2({
 }: React.PropsWithChildren<SlippageToleranceCardProps>): JSX.Element {
   const [selectedSlippage, setSelectedSlippage] = useState(slippage.toString());
   const [isRiskWarningDisplayed, setIsRiskWarningDisplayed] = useState(false);
-  const { isCustomSlippageTolerance, setIsCustomSlippageTolerance } =
-    useCustomSlippageTolerance();
-  const [isCustomAmount, setIsCustomAmount] = useState(
-    isCustomSlippageTolerance !== "true"
+
+  const isCustomValue = Object.values(SlippageAmountButtonTypes).includes(
+    slippage.toString() as SlippageAmountButtonTypes
   );
+  const [isCustomAmount, setIsCustomAmount] = useState(!isCustomValue);
 
   const submitSlippage = debounce(setSlippage, 500);
   const onSlippageChange = (value: string): void => {
     setSelectedSlippage(value);
-    submitSlippage(new BigNumber(value), isCustomSlippageTolerance === "true");
+    submitSlippage(new BigNumber(value), isCustomValue);
   };
 
   const isSlippageValid = (): boolean => {
@@ -146,7 +145,6 @@ export function SlippageToleranceV2({
                 onClearButtonPress={() => {
                   setIsEditing(false);
                   onSlippageChange("");
-                  setIsCustomSlippageTolerance("false");
                 }}
                 inputType="numeric"
                 inlineText={slippageError}
@@ -170,7 +168,7 @@ export function SlippageToleranceV2({
                   setIsCustomAmount(selectedSlippage !== "");
                   submitSlippage(
                     new BigNumber(selectedSlippage),
-                    isCustomSlippageTolerance === "true"
+                    isCustomValue
                   );
                 }}
                 disabled={!isSlippageValid()}
@@ -212,7 +210,6 @@ export function SlippageToleranceV2({
           <CustomAmountButton
             setIsCustomSlippage={() => {
               setIsEditing(true);
-              setIsCustomSlippageTolerance("true");
             }}
             isCustomAmount={isCustomAmount}
             customAmount={selectedSlippage}
