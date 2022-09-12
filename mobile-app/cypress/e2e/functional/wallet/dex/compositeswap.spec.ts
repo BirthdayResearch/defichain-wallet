@@ -213,7 +213,7 @@ context("Wallet - DEX - Instant/Future Swap - tabs and dropdowns", () => {
   });
 });
 
-context("Wallet - DEX - Instant Swap (non-DFI)", () => {
+context.only("Wallet - DEX - Instant Swap (non-DFI)", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
@@ -318,18 +318,31 @@ context("Wallet - DEX - Instant Swap (non-DFI)", () => {
     );
 
     cy.getByTestID("slippage_input").clear().type("25").blur().wait(100);
+    cy.getByTestID("set_slippage_button").click();
+  });
+
+  it("should display 2dp in custom slippage tolerance button", () => {
+    setCustomSlippage("1.123456789");
+    cy.getByTestID("slippage_custom_amount").should("have.text", "1.12%");
+  });
+
+  it("should display 8dp in custom slippage tolerance input", () => {
+    cy.getByTestID("slippage_custom").click();
+    cy.getByTestID("slippage_input").should("have.value", "1.12345679");
   });
 
   it("should be able to store selected slippage value in storage", () => {
     cy.url().should("include", "app/DEX/CompositeSwap", () => {
-      expect(localStorage.getItem("WALLET.SLIPPAGE_TOLERANCE")).to.eq("25");
+      expect(localStorage.getItem("WALLET.SLIPPAGE_TOLERANCE")).to.eq(
+        "1.12345679"
+      );
     });
   });
 
-  it("previously saved slippage tolerance value should be 25%", () => {
+  it("previously saved slippage tolerance value should be 1.12345679%", () => {
     cy.getByTestID("text_input_tokenA").type("10");
     cy.getByTestID("text_input_tokenA").type("20");
-    cy.getByTestID("slippage_input").should("have.value", "25");
+    cy.getByTestID("slippage_input").should("have.value", "1.12345679");
   });
 });
 

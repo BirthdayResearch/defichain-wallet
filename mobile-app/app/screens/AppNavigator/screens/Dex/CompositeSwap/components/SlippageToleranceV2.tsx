@@ -48,17 +48,20 @@ export function SlippageToleranceV2({
   isEditing,
   setIsEditing,
 }: React.PropsWithChildren<SlippageToleranceCardProps>): JSX.Element {
-  const [selectedSlippage, setSelectedSlippage] = useState(slippage.toString());
+  const [selectedSlippage, setSelectedSlippage] = useState(slippage.toFixed(8));
   const [isRiskWarningDisplayed, setIsRiskWarningDisplayed] = useState(false);
 
-  const isCustomValue = Object.values(SlippageAmountButtonTypes).includes(
-    slippage.toString() as SlippageAmountButtonTypes
+  const isCustomValue = !Object.values(SlippageAmountButtonTypes).some(
+    (buttonAmount) =>
+      new BigNumber(new BigNumber(buttonAmount).toFixed(8)).isEqualTo(
+        selectedSlippage
+      )
   );
-  const [isCustomAmount, setIsCustomAmount] = useState(!isCustomValue);
+  const [isCustomAmount, setIsCustomAmount] = useState(isCustomValue);
 
   const submitSlippage = debounce(setSlippage, 500);
   const onSlippageChange = (value: string): void => {
-    setSelectedSlippage(value);
+    setSelectedSlippage(new BigNumber(value).toFixed(8));
     submitSlippage(new BigNumber(value), isCustomValue);
   };
 
@@ -136,11 +139,7 @@ export function SlippageToleranceV2({
                 placeholder="0.00%"
                 style={tailwind("flex-grow w-2/5 font-normal-v2 text-xs")}
                 testID="slippage_input"
-                value={
-                  selectedSlippage !== undefined
-                    ? selectedSlippage.toString()
-                    : ""
-                }
+                value={selectedSlippage !== undefined ? selectedSlippage : ""}
                 displayClearButton={selectedSlippage !== ""}
                 onClearButtonPress={() => {
                   setIsEditing(false);
@@ -165,7 +164,10 @@ export function SlippageToleranceV2({
                 )}
                 onPress={() => {
                   setIsEditing(false);
-                  setIsCustomAmount(selectedSlippage !== "");
+                  setIsCustomAmount(true);
+                  setSelectedSlippage(
+                    new BigNumber(selectedSlippage).toFixed(8)
+                  );
                   submitSlippage(
                     new BigNumber(selectedSlippage),
                     isCustomValue
@@ -193,7 +195,7 @@ export function SlippageToleranceV2({
             "flex flex-row justify-around items-center rounded-full"
           )}
         >
-          {Object.values(SlippageAmountButtonTypes).map((type, index) => {
+          {Object.values(SlippageAmountButtonTypes).map((type) => {
             return (
               <PercentageAmountButton
                 key={type}
@@ -203,7 +205,10 @@ export function SlippageToleranceV2({
                 }}
                 percentageAmount={type}
                 isSelected={
-                  !isCustomAmount && selectedSlippage.toString() === type
+                  !isCustomAmount &&
+                  new BigNumber(selectedSlippage).isEqualTo(
+                    new BigNumber(type).toFixed(8)
+                  )
                 }
               />
             );
@@ -213,7 +218,7 @@ export function SlippageToleranceV2({
               setIsEditing(true);
             }}
             isCustomAmount={isCustomAmount}
-            customAmount={selectedSlippage}
+            customAmount={new BigNumber(selectedSlippage).toFixed(2)}
           />
         </ThemedViewV2>
       )}
@@ -311,6 +316,7 @@ function CustomAmountButton({
           style={tailwind("text-xs font-normal-v2", {
             "pr-1.5": isCustomAmount,
           })}
+          testID="slippage_custom_amount"
         >
           {isCustomAmount
             ? `${customAmount}%`
