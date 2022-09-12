@@ -10,7 +10,7 @@ import { ThemedTextV2, ThemedViewV2 } from "./themed";
 
 interface ConfirmSummaryTitleV2Props {
   title: string;
-  amount: BigNumber;
+  fromTokenAmount: BigNumber;
   testID: string;
   fromAddress: string;
   fromAddressLabel?: string | null;
@@ -19,7 +19,7 @@ interface ConfirmSummaryTitleV2Props {
   iconA: string;
   iconB: string;
   addressType?: AddressType;
-  forTokenAmount: BigNumber;
+  toTokenAmount: BigNumber;
   isFutureSwap: boolean;
   oraclePrice?: string;
 }
@@ -50,13 +50,13 @@ export function ConfirmSummaryTitleV2(
             renderText={(value) => (
               <ThemedTextV2
                 style={tailwind("text-xl font-semibold-v2 flex-wrap pr-1 pl-2")}
-                testID={props.testID}
+                testID={`${props.testID}_from`}
               >
                 {value}
               </ThemedTextV2>
             )}
             thousandSeparator
-            value={props.amount.toFixed(8)}
+            value={props.fromTokenAmount.toFixed(8)}
           />
         </View>
 
@@ -96,13 +96,13 @@ export function ConfirmSummaryTitleV2(
                     style={tailwind(
                       "text-xl font-semibold-v2 flex-wrap pr-1 pl-2"
                     )}
-                    testID={props.testID}
+                    testID={`${props.testID}_to`}
                   >
                     {value}
                   </ThemedTextV2>
                 )}
                 thousandSeparator
-                value={props.forTokenAmount.toFixed(8)}
+                value={props.toTokenAmount.toFixed(8)}
               />
             )}
           </View>
