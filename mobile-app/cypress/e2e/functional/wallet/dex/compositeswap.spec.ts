@@ -213,7 +213,7 @@ context("Wallet - DEX - Instant/Future Swap - tabs and dropdowns", () => {
   });
 });
 
-context.only("Wallet - DEX - Instant Swap (non-DFI)", () => {
+context("Wallet - DEX - Instant Swap (non-DFI)", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
@@ -317,8 +317,32 @@ context.only("Wallet - DEX - Instant Swap (non-DFI)", () => {
       "aria-disabled"
     );
 
-    cy.getByTestID("slippage_input").clear().type("25").blur().wait(100);
-    cy.getByTestID("set_slippage_button").click();
+    // clear slippage tolerance (0%)
+    cy.getByTestID("slippage_input_clear_button").click();
+    cy.getByTestID("slippage_input_error").should(
+      "have.text",
+      "Required field is missing"
+    );
+    cy.getByTestID("slippage_input").clear().type("0").blur().wait(100);
+    cy.getByTestID("set_slippage_button").click().wait(3000);
+    cy.getByTestID("slippage_custom_amount").should("have.text", "0.00%");
+  });
+
+  it("should not store custom slippage if set button is not pressed", () => {
+    cy.getByTestID("slippage_3%").click();
+    // type custom slippage, don't press set button
+    cy.getByTestID("slippage_custom").click();
+    cy.getByTestID("slippage_input").clear().type("17").blur().wait(100);
+
+    // reset swap form
+    cy.getByTestID("bottom_tab_dex").click();
+    cy.getByTestID("composite_swap").click();
+    cy.getByTestID("token_select_button_FROM").click();
+    cy.getByTestID("select_DFI").click().wait(1000);
+    cy.getByTestID("token_select_button_TO").click();
+    cy.getByTestID("select_dLTC").click();
+
+    cy.getByTestID("slippage_custom_amount").should("have.text", "Custom");
   });
 
   it("should display 2dp in custom slippage tolerance button", () => {
