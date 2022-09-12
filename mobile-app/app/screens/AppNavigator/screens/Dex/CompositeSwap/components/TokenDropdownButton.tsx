@@ -16,6 +16,7 @@ export enum TokenDropdownButtonStatus {
 
 export function TokenDropdownButton(props: {
   symbol?: string;
+  testID: string;
   onPress: () => void;
   status: TokenDropdownButtonStatus;
 }): JSX.Element {
@@ -24,7 +25,7 @@ export function TokenDropdownButton(props: {
   return (
     <ThemedTouchableOpacityV2
       onPress={props.onPress}
-      testID="token_select_button"
+      testID={`token_select_button_${props.testID}`}
       dark={tailwind("bg-mono-dark-v2-00 text-mono-dark-v2-500", {
         "opacity-30": props.status === TokenDropdownButtonStatus.Disabled,
         "opacity-100": props.status !== TokenDropdownButtonStatus.Disabled,
@@ -58,6 +59,7 @@ export function TokenDropdownButton(props: {
               "text-opacity-30":
                 props.status === TokenDropdownButtonStatus.Disabled,
             })}
+            testID={`token_select_button_${props.testID}_display_symbol`}
           >
             {props.symbol}
           </ThemedTextV2>
