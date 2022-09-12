@@ -40,7 +40,7 @@ export function TokenDropdownButton(props: {
         <ThemedTextV2
           dark={tailwind("text-mono-dark-v2-500")}
           light={tailwind("text-mono-light-v2-500")}
-          style={tailwind("text-sm leading-6 font-normal-v2 mr-2.5")}
+          style={tailwind("text-sm leading-6 font-normal-v2")}
         >
           {translate("screens/CompositeSwapScreen", "Token")}
         </ThemedTextV2>
@@ -70,8 +70,8 @@ export function TokenDropdownButton(props: {
           name="chevron-down"
           size={24}
           style={tailwind(
-            { "mr-2.5": props.symbol === undefined },
-            { "mr-3.5": props.symbol !== undefined }
+            { "ml-2.5": props.symbol === undefined },
+            { "ml-3.5": props.symbol !== undefined }
           )}
           dark={tailwind("text-mono-dark-v2-700")}
           light={tailwind("text-mono-light-v2-700")}
