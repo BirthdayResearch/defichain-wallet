@@ -134,7 +134,7 @@ export function SlippageToleranceV2({
                 keyboardType="numeric"
                 autoCapitalize="none"
                 placeholder="0.00%"
-                style={tailwind("flex-grow w-2/5")}
+                style={tailwind("flex-grow w-2/5 font-normal-v2 text-xs")}
                 testID="slippage_input"
                 value={
                   selectedSlippage !== undefined
@@ -261,7 +261,7 @@ function PercentageAmountButton({
         dark={tailwind("text-mono-dark-v2-700", {
           "text-mono-dark-v2-100": isSelected,
         })}
-        style={tailwind("text-xs px-4 py-2.5")}
+        style={tailwind("text-xs px-4 py-2.5 font-normal-v2")}
       >
         {percentageAmount}%
       </ThemedTextV2>
@@ -308,7 +308,9 @@ function CustomAmountButton({
           dark={tailwind("text-mono-dark-v2-500", {
             "text-mono-dark-v2-100": isCustomAmount,
           })}
-          style={tailwind("text-xs", { "pr-1.5": isCustomAmount })}
+          style={tailwind("text-xs font-normal-v2", {
+            "pr-1.5": isCustomAmount,
+          })}
         >
           {isCustomAmount
             ? `${customAmount}%`
