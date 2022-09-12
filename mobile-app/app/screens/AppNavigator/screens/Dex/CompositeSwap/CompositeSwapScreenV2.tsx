@@ -227,6 +227,9 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     });
   };
 
+  const [isEditingCustomSlippageInput, setIsEditingCustomSlippageInput] =
+    useState(false); // for custom slippage input
+
   // component UI state
   const { control, formState, setValue, trigger, watch } = useForm<{
     tokenA: string;
@@ -823,7 +826,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           )}
         </ThemedTextV2>
 
-        <View style={tailwind("mb-6 mx-5")}>
+        <View style={tailwind("mx-5")}>
           <TransactionCard
             maxValue={
               new BigNumber(
@@ -996,9 +999,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           </View>
 
           <ThemedViewV2
-            style={tailwind("border-0", {
-              "pb-8": activeButtonGroup === ButtonGroupTabKey.InstantSwap,
-            })}
+            style={tailwind("border-0 pb-8")}
             dark={tailwind("bg-transparent")}
             light={tailwind("bg-transparent")}
           >
@@ -1055,6 +1056,8 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                 onPress={onBottomSheetSlippageSelect}
                 slippageError={slippageError}
                 slippage={slippage}
+                isEditing={isEditingCustomSlippageInput}
+                setIsEditing={setIsEditingCustomSlippageInput}
               />
             )}
           </View>

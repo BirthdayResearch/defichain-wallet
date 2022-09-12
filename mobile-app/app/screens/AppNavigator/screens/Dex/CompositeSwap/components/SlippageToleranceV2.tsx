@@ -23,6 +23,8 @@ interface SlippageToleranceCardProps {
   setSlippageError: (error?: SlippageError) => void;
   setSlippage: (val: BigNumber, isCustomSlippage: boolean) => void;
   onPress: () => void;
+  isEditing: boolean;
+  setIsEditing: (val: boolean) => void;
 }
 
 export enum SlippageAmountButtonTypes {
@@ -43,11 +45,22 @@ export function SlippageToleranceV2({
   slippageError,
   setSlippageError,
   onPress,
+  isEditing,
+  setIsEditing,
 }: React.PropsWithChildren<SlippageToleranceCardProps>): JSX.Element {
   const [selectedSlippage, setSelectedSlippage] = useState(slippage.toString());
   const [isRiskWarningDisplayed, setIsRiskWarningDisplayed] = useState(false);
-  const [isCustomSlippage, setIsCustomSlippage] = useState(false);
-  const [isCustomAmount, setIsCustomAmount] = useState(false);
+
+  const isCustomValue = Object.values(SlippageAmountButtonTypes).includes(
+    slippage.toString() as SlippageAmountButtonTypes
+  );
+  const [isCustomAmount, setIsCustomAmount] = useState(!isCustomValue);
+
+  const submitSlippage = debounce(setSlippage, 500);
+  const onSlippageChange = (value: string): void => {
+    setSelectedSlippage(value);
+    submitSlippage(new BigNumber(value), isCustomValue);
+  };
 
   const isSlippageValid = (): boolean => {
     return slippageError === undefined || slippageError?.type === "helper";
@@ -86,12 +99,6 @@ export function SlippageToleranceV2({
     );
   }, [selectedSlippage]);
 
-  const submitSlippage = debounce(setSlippage, 500);
-  const onSlippageChange = (value: string): void => {
-    setSelectedSlippage(value);
-    submitSlippage(new BigNumber(value), isCustomSlippage);
-  };
-
   return (
     <>
       <View style={tailwind("flex-row items-center pb-2 px-5")}>
@@ -116,12 +123,14 @@ export function SlippageToleranceV2({
           />
         </ThemedTouchableOpacityV2>
       </View>
-      {isCustomSlippage ? (
+      {isEditing ? (
         <>
           <View style={tailwind("flex-row")}>
             <View style={tailwind("flex-row items-center mr-2 w-9/12")}>
               <WalletTextInputV2
-                onChangeText={onSlippageChange}
+                onChangeText={(val: string) => {
+                  setSelectedSlippage(val);
+                }}
                 keyboardType="numeric"
                 autoCapitalize="none"
                 placeholder="0.00%"
@@ -134,7 +143,7 @@ export function SlippageToleranceV2({
                 }
                 displayClearButton={selectedSlippage !== ""}
                 onClearButtonPress={() => {
-                  setIsCustomSlippage(false);
+                  setIsEditing(false);
                   onSlippageChange("");
                 }}
                 inputType="numeric"
@@ -155,8 +164,12 @@ export function SlippageToleranceV2({
                   }
                 )}
                 onPress={() => {
-                  setIsCustomSlippage(false);
+                  setIsEditing(false);
                   setIsCustomAmount(selectedSlippage !== "");
+                  submitSlippage(
+                    new BigNumber(selectedSlippage),
+                    isCustomValue
+                  );
                 }}
                 disabled={!isSlippageValid()}
                 testID="set_slippage_button"
@@ -196,7 +209,9 @@ export function SlippageToleranceV2({
             );
           })}
           <CustomAmountButton
-            setIsCustomSlippage={() => setIsCustomSlippage(true)}
+            setIsCustomSlippage={() => {
+              setIsEditing(true);
+            }}
             isCustomAmount={isCustomAmount}
             customAmount={selectedSlippage}
           />
@@ -233,7 +248,9 @@ function PercentageAmountButton({
     <ThemedTouchableOpacityV2
       light={tailwind({ "bg-mono-light-v2-900": isSelected })}
       dark={tailwind({ "bg-mono-dark-v2-900": isSelected })}
-      style={tailwind("w-3/12 items-center rounded-full")}
+      style={tailwind(
+        "w-3/12 items-center rounded-full justify-center self-stretch"
+      )}
       onPress={onPress}
       testID={`slippage_${percentageAmount}%`}
     >
