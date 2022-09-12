@@ -1017,10 +1017,16 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                 })}
               </ThemedTextV2>
 
-              <View
+              <ThemedViewV2
                 style={tailwind(
-                  "flex flex-row justify-between items-center pl-5 mt-4"
+                  "flex flex-row justify-between items-center pl-5 mt-4",
+                  {
+                    "border-b-0.5 pb-8":
+                      isBothTokensSelected() && priceRates !== undefined,
+                  }
                 )}
+                light={tailwind("border-mono-light-v2-300")}
+                dark={tailwind("border-mono-dark-v2-300")}
               >
                 {activeButtonGroup === ButtonGroupTabKey.FutureSwap && (
                   <FutureSwapRowTo oraclePriceText={oraclePriceText} />
@@ -1048,12 +1054,12 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                       : TokenDropdownButtonStatus.Enabled
                   }
                 />
-              </View>
+              </ThemedViewV2>
             </ThemedViewV2>
           </View>
 
           {isBothTokensSelected() && (
-            <View style={tailwind("p-4")}>
+            <View style={tailwind("px-4 pb-6")}>
               {activeButtonGroup === ButtonGroupTabKey.InstantSwap && (
                 <SlippageToleranceV2
                   setSlippage={setSlippage}
@@ -1073,7 +1079,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               <ThemedViewV2
                 light={tailwind("border-mono-light-v2-300")}
                 dark={tailwind("border-mono-dark-v2-300")}
-                style={tailwind("pt-5 px-5 mx-5 border rounded-lg-v2")}
+                style={tailwind("pt-5 px-5 mx-5 border-0.5 rounded-lg-v2")}
               >
                 <SwapSummary
                   instantSwapPriceRate={priceRates}
