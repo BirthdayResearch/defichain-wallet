@@ -770,7 +770,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   }
 
   return (
-    <View ref={containerRef}>
+    <View style={tailwind("h-full")} ref={containerRef}>
       <ThemedViewV2 style={tailwind("h-full")}>
         <SwapButtonGroup
           activeButtonGroup={activeButtonGroup}
