@@ -20,7 +20,7 @@ function setCustomSlippage(customSlippage: string): void {
 }
 
 // TODO: @joshua update e2e
-context.skip("Wallet - DEX - disabled pool pairs", () => {
+context("Wallet - DEX - disabled pool pairs", () => {
   before(() => {
     cy.intercept("**/poolpairs?size=*", {
       body: {
@@ -116,13 +116,15 @@ context.skip("Wallet - DEX - disabled pool pairs", () => {
   });
 
   it("should disable pool swap button if pair is disabled on API", () => {
-    cy.getByTestID("pool_pair_row_13_dZERO").should(
-      "have.attr",
-      "aria-disabled"
-    ); // tradeEnabled: false
-    cy.getByTestID("pool_pair_row_14_dOFF-DFI").should(
-      "have.attr",
-      "aria-disabled"
+    cy.getByTestID("dex_action_button_composite_swap_button_26").should(
+      "have.css",
+      "opacity", // using opacity to check enable
+      "1"
+    ); // status: true
+    cy.getByTestID("dex_action_button_composite_swap_button_28").should(
+      "have.css",
+      "opacity", // using opacity to check disable
+      "0.3"
     ); // status: false
   });
 });
@@ -157,7 +159,7 @@ context("Wallet - DEX - Instant/Future Swap - tabs and dropdowns", () => {
     cy.getByTestID("composite_swap").click();
     cy.wait(5000);
     cy.getByTestID("token_select_button_FROM").click();
-    cy.getByTestID("select_DFI").click().wait(1000);
+    cy.getByTestID("select_DFI").click().wait(2000);
     cy.getByTestID("token_select_button_TO").click();
     cy.getByTestID("select_dTU10").click();
   });
