@@ -770,8 +770,8 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   }
 
   return (
-    <View style={tailwind("h-full")} ref={containerRef}>
-      <ThemedViewV2>
+    <View ref={containerRef}>
+      <ThemedViewV2 style={tailwind("h-full")}>
         <SwapButtonGroup
           activeButtonGroup={activeButtonGroup}
           onPress={(type) => onButtonGroupChange(type)}
