@@ -27,8 +27,8 @@ export function DexActionButton({
       style={[tailwind("rounded-2xl-v2 py-2 px-4"), style]}
       dark={tailwind("bg-mono-dark-v2-100", { "opacity-30": disabled })}
       light={tailwind("bg-mono-light-v2-100", { "opacity-30": disabled })}
-      onPress={onPress}
-      disabled={disabled}
+      onPress={disabled ? undefined : onPress}
+      activeOpacity={disabled ? 0.3 : 0.7}
     >
       <ThemedTextV2
         light={tailwind("text-mono-light-v2-900")}
