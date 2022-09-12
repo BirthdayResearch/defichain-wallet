@@ -4,7 +4,7 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { ScrollView, ViewStyle, StyleProp } from "react-native";
+import { ScrollView, StyleProp, ViewStyle } from "react-native";
 import { PropsWithChildren } from "react";
 import { tailwind } from "@tailwind";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
@@ -58,6 +58,7 @@ interface DexScrollableCardProps {
   onActionPress: () => void;
   onPress: () => void;
   testID: string;
+  isSwap?: boolean;
 }
 
 function DexScrollableCard({
@@ -67,6 +68,7 @@ function DexScrollableCard({
   onActionPress,
   label,
   testID,
+  isSwap = false,
 }: DexScrollableCardProps): JSX.Element {
   const [symbolA, symbolB] = [
     poolpair.tokenA.displaySymbol,
@@ -111,6 +113,7 @@ function DexScrollableCard({
           label={label}
           style={tailwind("flex w-full w-36")}
           testID={`dex_scrollable_card_${testID}`}
+          disabled={isSwap && !poolpair.status}
         />
       </View>
     </ThemedTouchableOpacityV2>
@@ -127,7 +130,14 @@ function TotalLiquidityValue({
   const isSuffixRequired = new BigNumber(value ?? 0).gte(
     new BigNumber(1000000)
   );
-  const valueToUnitSuffix = useUnitSuffix({ 6: "M", 9: "B", 12: "T" }, value);
+  const valueToUnitSuffix = useUnitSuffix(
+    {
+      6: "M",
+      9: "B",
+      12: "T",
+    },
+    value
+  );
 
   return (
     <>
