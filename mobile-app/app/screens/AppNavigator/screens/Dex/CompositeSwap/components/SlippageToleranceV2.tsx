@@ -174,6 +174,7 @@ export function SlippageToleranceV2({
                   );
                 }}
                 disabled={!isSlippageValid()}
+                testID="set_slippage_button"
               >
                 <ThemedTextV2
                   light={tailwind("text-mono-light-v2-100")}
@@ -254,6 +255,7 @@ function PercentageAmountButton({
         "w-3/12 items-center rounded-full justify-center self-stretch"
       )}
       onPress={onPress}
+      testID={`slippage_${percentageAmount}%`}
     >
       <ThemedTextV2
         light={tailwind("text-mono-light-v2-700", {
@@ -293,6 +295,7 @@ function CustomAmountButton({
         "rounded-l-full": isCustomAmount,
       })}
       onPress={setIsCustomSlippage}
+      testID="slippage_custom"
     >
       <ThemedViewV2
         light={tailwind("text-mono-light-v2-500")}

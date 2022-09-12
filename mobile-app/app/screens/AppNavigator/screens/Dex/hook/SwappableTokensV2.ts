@@ -50,6 +50,10 @@ export function useSwappableTokensV2(
     useCallback(() => {
       const _allTokens = poolpairs.reduce(
         (tokensInPair: TokenState[], pair: DexItem): TokenState[] => {
+          if (!pair.data.status) {
+            return tokensInPair;
+          }
+
           const hasTokenA = tokensInPair.some(
             (token) => pair.data.tokenA.id === token.id
           );
