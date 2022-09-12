@@ -282,7 +282,7 @@ context("Wallet - DEX - Instant Swap (non-DFI)", () => {
     cy.getByTestID("slippage_1%").should("exist");
 
     // Slippage warning
-    setCustomSlippage("21");
+    setCustomSlippage("22");
     cy.getByTestID("slippage_warning").should(
       "have.text",
       "Set high tolerance at your own risk"
@@ -316,16 +316,19 @@ context("Wallet - DEX - Instant Swap (non-DFI)", () => {
       "have.attr",
       "aria-disabled"
     );
+  });
 
+  it("should revert to previous state if (x) is pressed", () => {
     // clear slippage tolerance (0%)
     cy.getByTestID("slippage_input_clear_button").click();
-    cy.getByTestID("slippage_input_error").should(
-      "have.text",
-      "Required field is missing"
-    );
-    cy.getByTestID("slippage_input").clear().type("0").blur().wait(100);
-    cy.getByTestID("set_slippage_button").click().wait(3000);
-    cy.getByTestID("slippage_custom_amount").should("have.text", "0.00%");
+    cy.getByTestID("slippage_custom_amount").should("have.text", "22.00%");
+
+    // set custom slippage, don't press set button
+    cy.getByTestID("slippage_custom").click();
+    cy.getByTestID("slippage_input").clear().type("17.5").blur().wait(100);
+    cy.getByTestID("slippage_input_clear_button").click();
+
+    cy.getByTestID("slippage_custom_amount").should("have.text", "22.00%");
   });
 
   it("should not store custom slippage if set button is not pressed", () => {
@@ -341,8 +344,6 @@ context("Wallet - DEX - Instant Swap (non-DFI)", () => {
     cy.getByTestID("select_DFI").click().wait(1000);
     cy.getByTestID("token_select_button_TO").click();
     cy.getByTestID("select_dLTC").click();
-
-    cy.getByTestID("slippage_custom_amount").should("have.text", "Custom");
   });
 
   it("should display 2dp in custom slippage tolerance button", () => {

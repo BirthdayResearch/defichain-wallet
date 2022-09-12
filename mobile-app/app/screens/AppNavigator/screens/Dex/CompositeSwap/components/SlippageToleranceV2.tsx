@@ -142,7 +142,8 @@ export function SlippageToleranceV2({
                 value={selectedSlippage !== undefined ? selectedSlippage : ""}
                 displayClearButton={selectedSlippage !== ""}
                 onClearButtonPress={() => {
-                  setSelectedSlippage("");
+                  setIsEditing(false);
+                  setSelectedSlippage(new BigNumber(slippage).toFixed(8));
                 }}
                 inputType="numeric"
                 inlineText={slippageError}
