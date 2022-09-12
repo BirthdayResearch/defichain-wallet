@@ -295,7 +295,7 @@ function CustomAmountButton({
       testID="slippage_custom"
     >
       <ThemedViewV2
-        light={tailwind("text-mono-light-v2-500 ")}
+        light={tailwind("text-mono-light-v2-500")}
         dark={tailwind("text-mono-dark-v2-500")}
         style={tailwind(
           "font-semibold-v2 text-xs px-4 py-2.5 flex-row items-center"

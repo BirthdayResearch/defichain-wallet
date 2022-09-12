@@ -36,8 +36,10 @@ export function AddLiquidityInputCard(props: {
           props.onPercentageChange(amount, type);
         }}
         status={props.status}
-        amountButtonsStyle={tailwind("border-t-0.5")}
-        containerStyle={tailwind("pl-5 pr-5 mr-px rounded-t-lg-v2")}
+        amountButtonsStyle={{ style: tailwind("border-t-0.5") }}
+        containerStyle={{
+          style: tailwind("pl-5 pr-5 mr-px rounded-t-lg-v2"),
+        }}
       >
         <ThemedViewV2
           light={tailwind("border-mono-light-v2-300")}

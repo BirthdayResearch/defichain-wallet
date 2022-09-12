@@ -776,6 +776,8 @@
     "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI 轉換為 {{symbolB}}",
     "Preparing your transaction…": "Preparing your transaction…",
     "Processing future swap transaction…": "Processing future swap transaction…",
+    "Processing future swap…": "未來兌換進行中…",
+    "Future Swap confirmed for next settlement block": "確認未來兌換在下一個區塊結算",
     "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap confirmed and will be executed at block #{{block}}",
     "Preparing changes to loan scheme…": "Preparing changes to loan scheme…",
     "Saving changes to loan scheme…": "Saving changes to loan scheme…",
@@ -783,6 +785,9 @@
     "Preparing withdrawal…": "Preparing withdrawal…",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…",
     "Withdrawal completed": "Withdrawal completed",
+    "Swapped {{amountA}} {{symbolA}} to {{symbolB}}": "Swapped {{amountA}} {{symbolA}} to {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "兌換 {{amountA}} {{symbolA}} 至 {{symbolB}}",
+    "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
   },
   "components/BarCodeScanner": {
@@ -800,7 +805,8 @@
     "From": "從",
     "To": "到",
     "Converting": "轉換中",
-    "Converted": "Converted"
+    "Converted": "Converted",
+    "for": "for"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "為您的錢包創建新的密碼",
@@ -973,6 +979,9 @@
     "Authorize transaction in the next screen to convert": "在下一個屏幕上授權交易以進行轉換"
   },
   "screens/CompositeSwapScreen": {
+    "SLIPPAGE TOLERANCE": "交易滑價",
+    "Custom": "自定",
+    "Set": "Set",
     "Swap tokens": "兌換貨幣",
     "Select tokens you want to swap to get started": "選擇您要兌換的代幣",
     "How much {{token}} do you want to swap?": "您要兌換多少 {{token}}？",
@@ -1005,7 +1014,40 @@
     "Price ({{tokenB}}/{{tokenA}})": "價格 ({{tokenB}}/{{tokenA}})",
     "Are you certain you want to proceed to swap DUSD for {{tokenB}} despite the DEX Stabilization fees of {{fee}}?": "目前 Dex 穩定費費用較高，您確定要繼續進行兌換將 DUSD 換成 {{tokenB}} 嗎?",
     "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?": "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?",
-    "DEX stabilization fee": "DEX stabilization fee"
+    "DEX stabilization fee": "DEX stabilization fee",
+    "Future swap uses the oracle price of the selected token on the settlement block": "Future swap uses the oracle price of the selected token on the settlement block",
+    "You are buying dtokens at 5% more than the oracle price at settlement block": "You are buying dtokens at 5% more than the oracle price at settlement block",
+    "You are selling your dtoken at 5% less than the oracle price at settlement block": "You are selling your dtoken at 5% less than the oracle price at settlement block",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "I HAVE {{totalAmount}} {{token}}": "I HAVE {{totalAmount}} {{token}}",
+    "I WANT {{token}}": "I WANT {{token}}",
+    "incl. stabilization fee ({{dexStabilizationFee}}%)": "incl. stabilization fee ({{dexStabilizationFee}}%)",
+    "Total fees": "Total fees",
+    "Settlement Value {{percentageChange}}": "Settlement Value {{percentageChange}}",
+    "Transaction fee": "Transaction fee",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "Token": "Token",
+    "Instant": "Instant",
+    "Future": "Future",
+    "Learn about settlements": "Learn about settlements",
+    "Settlements": "Settlements",
+    "Settlement block is the pre-determined block height that this transaction will be executed.": "Settlement block is the pre-determined block height that this transaction will be executed.",
+    "Settlement value is based on the oracle price at the settlement block.": "Settlement value is based on the oracle price at the settlement block.",
+    "Users will be able to cancel this transaction as long as the settlement block has not been executed.": "Users will be able to cancel this transaction as long as the settlement block has not been executed.",
+    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)"
+  },
+  "screens/SwapTokenSelectionScreen": {
+    "Select": "Select",
+    "Search token": "Search token",
+    "AVAILABLE TOKENS": "AVAILABLE TOKENS",
+    "AVAILABLE FOR SWAP": "可用於兌換",
+    "AVAILABLE FOR FUTURE SWAP": "AVAILABLE FOR FUTURE SWAP",
+    "Search with token name": "使用代幣名稱搜索",
+    "Search dTokens for future swap": "Search dTokens for future swap",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
+    "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap.": "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap."
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "正在轉換",
@@ -1019,13 +1061,21 @@
     "Swap": "兌換",
     "Swapping Token": "兌換代幣",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "兌換 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "兌換 {{amountA}} {{symbolA}} 至 {{symbolB}}",
     "Slippage tolerance": "交易滑價",
     "Estimated to receive": "您大約會收到",
     "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "在未來區塊兌換 {{amountA}} {{fromTokenDisplaySymbol}} 至 {{toTokenDisplaySymbol}} 以預言機價格",
     "To be confirmed": "To be confirmed",
     "Settlement block": "Settlement block",
     "Resulting {{token}}": "Resulting {{token}}",
-    "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}"
+    "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}",
+    "To receive (est.)": "To receive (est.)",
+    "Settlement value {{percentageChange}}": "Settlement value {{percentageChange}}",
+    "Total fees": "Total fees",
+    "To receive (incl. of fees)": "To receive (incl. of fees)",
+    "Fee breakdown": "Fee breakdown",
+    "Transaction fee": "交易費用",
+    "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?": "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "您正要兌換",

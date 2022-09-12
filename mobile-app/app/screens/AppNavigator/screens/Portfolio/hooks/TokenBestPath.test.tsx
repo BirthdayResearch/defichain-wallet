@@ -14,7 +14,7 @@ jest.mock("@react-navigation/native", () => ({
 jest.mock("@shared-contexts/WhaleContext", () => ({
   useWhaleApiClient: () => ({
     poolpairs: {
-      getBestPath: (from: string, to: string) => ({
+      getBestPath: () => ({
         fromToken: {
           id: "1",
           symbol: "BTC",
@@ -298,6 +298,7 @@ describe("Token Best Path - Get Best Path (DEX)", () => {
       aToBPrice: new BigNumber("10000"),
       bToAPrice: new BigNumber("0.0001"),
       estimated: new BigNumber("20000"),
+      estimatedLessDexFees: new BigNumber("2"),
     });
 
     // BTC = 1 USDT =3
@@ -310,6 +311,7 @@ describe("Token Best Path - Get Best Path (DEX)", () => {
       aToBPrice: new BigNumber("10000"),
       bToAPrice: new BigNumber("0.0001"),
       estimated: new BigNumber("10000"),
+      estimatedLessDexFees: new BigNumber("1"),
     });
   });
 });
