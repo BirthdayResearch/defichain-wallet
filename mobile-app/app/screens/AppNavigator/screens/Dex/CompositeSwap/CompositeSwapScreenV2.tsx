@@ -466,21 +466,21 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
           label: translate("components/PricesSection", "1 {{token}} =", {
             token: selectedTokenA.displaySymbol,
           }),
-          value: bToAPrice.toFixed(8),
+          value: aToBPrice.toFixed(8),
           symbolUSDValue: getAmountInUSDValue(selectedTokenA, new BigNumber(1)),
           usdTextStyle: tailwind("text-sm"),
-          aSymbol: selectedTokenB.displaySymbol,
-          bSymbol: selectedTokenA.displaySymbol,
+          aSymbol: selectedTokenA.displaySymbol,
+          bSymbol: selectedTokenB.displaySymbol,
         },
         {
           label: translate("components/PricesSection", "1 {{token}} =", {
             token: selectedTokenB.displaySymbol,
           }),
-          value: aToBPrice.toFixed(8),
+          value: bToAPrice.toFixed(8),
           symbolUSDValue: getAmountInUSDValue(selectedTokenB, new BigNumber(1)),
           usdTextStyle: tailwind("text-sm"),
-          aSymbol: selectedTokenA.displaySymbol,
-          bSymbol: selectedTokenB.displaySymbol,
+          aSymbol: selectedTokenB.displaySymbol,
+          bSymbol: selectedTokenA.displaySymbol,
         },
       ]);
       setValue("tokenB", estimated.toFixed(8));
