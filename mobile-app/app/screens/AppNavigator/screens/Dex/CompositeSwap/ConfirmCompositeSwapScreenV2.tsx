@@ -161,13 +161,13 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
             "screens/ConfirmCompositeSwapScreen",
             "You are swapping"
           )}
-          amount={swap.amountFrom}
-          testID="text_convert_amount"
+          fromTokenAmount={swap.amountFrom}
+          toTokenAmount={estimatedAmount}
+          testID="text_swap_amount"
           iconA={tokenA.displaySymbol}
           iconB={tokenB.displaySymbol}
           fromAddress={address}
           fromAddressLabel={addressLabel}
-          forTokenAmount={estimatedAmount}
           isFutureSwap={futureSwap !== undefined}
           oraclePrice={futureSwap?.oraclePriceText}
         />
@@ -182,7 +182,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
           <NumberRowV2
             lhs={{
               value: translate("screens/ConfirmAddLiq", "Amount to convert"),
-              testID: "transaction_fee",
+              testID: "amount_to_convert",
               themedProps: {
                 light: tailwind("text-mono-light-v2-500"),
                 dark: tailwind("text-mono-dark-v2-500"),
@@ -190,7 +190,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
             }}
             rhs={{
               value: conversion.conversionAmount.toFixed(8),
-              testID: "amount_to_convert",
+              testID: "amount_to_convert_value",
             }}
           />
           <View
@@ -244,7 +244,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
                 "screens/ConfirmCompositeSwapScreen",
                 "Slippage tolerance"
               ),
-              testID: "transaction_fee",
+              testID: "confirm_slippage_fee_label",
               themedProps: {
                 light: tailwind("text-mono-light-v2-500"),
                 dark: tailwind("text-mono-dark-v2-500"),
@@ -252,7 +252,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
             }}
             rhs={{
               value: new BigNumber(slippage).times(100).toFixed(),
-              testID: "transaction_fee_amount",
+              testID: "confirm_slippage_fee",
               suffix: "%",
             }}
           />

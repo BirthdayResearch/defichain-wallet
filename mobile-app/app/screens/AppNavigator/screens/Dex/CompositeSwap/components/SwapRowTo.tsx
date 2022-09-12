@@ -26,6 +26,7 @@ export function InstantSwapRowTo({
             style={tailwind("text-left font-normal-v2 text-xl")}
             light={tailwind("text-mono-light-v2-700")}
             dark={tailwind("text-mono-dark-v2-700")}
+            testID="tokenB_value"
           >
             {val === "" ? "0.00" : val}
           </ThemedTextV2>
@@ -34,7 +35,7 @@ export function InstantSwapRowTo({
       />
       <ActiveUSDValueV2
         price={tokenUsdAmount}
-        testId="amount_input_in_usd"
+        testId="tokenB_value_in_usd"
         containerStyle={tailwind("w-full break-words")}
       />
     </View>
