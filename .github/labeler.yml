@@ -1,6 +1,46 @@
 version: v1
 
 labels:
+  - label: kind/feature
+    sync: true
+    matcher:
+      title: "^feature\\(.+\\): .+"
+
+  - label: kind/feature
+    sync: true
+    matcher:
+      title: "^feat\\(.+\\): .+"
+
+  - label: kind/fix
+    sync: true
+    matcher:
+      title: "^fix\\(.+\\): .+"
+
+  - label: kind/chore
+    sync: true
+    matcher:
+      title: "^chore\\(.+\\): .+"
+
+  - label: kind/refactor
+    sync: true
+    matcher:
+      title: "^refactor\\(.+\\): .+"
+
+  - label: kind/docs
+    sync: true
+    matcher:
+      title: "^docs\\(.+\\): .+"
+
+  - label: kind/dependencies
+    sync: true
+    matcher:
+      title: "^bump(\\(.+\\))?: .+"
+
+  - label: kind/dependencies
+    sync: true
+    matcher:
+      title: "^build(\\(.+\\))?: .+"
+
   - label: area/workflow
     sync: true
     matcher:
@@ -62,3 +102,18 @@ labels:
     sync: true
     matcher:
       files: "mobile-app/app/screens/PlaygroundNavigator/**"
+
+checks:
+  - context: "Semantic Pull Request"
+    url: "https://github.com/JellyfishSDK/jellyfish/blob/main/.github/labeler.yml"
+    description:
+      success: Ready for review & merge.
+      failure: "Missing semantic title or label for merge [kind(directory): title]"
+    labels:
+      any:
+        - kind/feature
+        - kind/fix
+        - kind/chore
+        - kind/refactor
+        - kind/docs
+        - kind/dependencies
