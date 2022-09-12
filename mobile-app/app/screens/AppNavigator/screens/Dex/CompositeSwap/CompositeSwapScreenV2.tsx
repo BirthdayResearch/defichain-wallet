@@ -844,7 +844,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
               dark: tailwind("bg-mono-dark-v2-00"),
               style: tailwind("mt-6 rounded-xl-v2"),
             }}
-            disabled={!isBothTokensSelected()}
+            disabled={selectedTokenA === undefined}
           >
             <View
               style={tailwind(
@@ -860,10 +860,10 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                     <ThemedTextInputV2
                       style={tailwind("text-xl font-semibold-v2 w-full")}
                       light={tailwind("text-mono-light-v2-900", {
-                        "opacity-30": !isBothTokensSelected(),
+                        "opacity-30": selectedTokenA === undefined,
                       })}
                       dark={tailwind("text-mono-dark-v2-900", {
-                        "opacity-30": !isBothTokensSelected(),
+                        "opacity-30": selectedTokenA === undefined,
                       })}
                       keyboardType="numeric"
                       value={value}
@@ -881,7 +881,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                       )}
                       ref={amountInputRef}
                       testID="text_input_tokenA"
-                      editable={isBothTokensSelected()}
+                      editable={selectedTokenA !== undefined}
                     />
                   )}
                   rules={{
