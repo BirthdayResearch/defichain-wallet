@@ -244,7 +244,7 @@ export default async function handle(
       name: "Composite swap 2.0",
       stage: "public",
       version: ">2.4.3",
-      description: "Display redesigned composite swap flow for LW 2.0",
+      description: "Display redesigned Instant/Future swap flow for LW 2.0",
       networks: [
         EnvironmentNetwork.MainNet,
         EnvironmentNetwork.TestNet,
