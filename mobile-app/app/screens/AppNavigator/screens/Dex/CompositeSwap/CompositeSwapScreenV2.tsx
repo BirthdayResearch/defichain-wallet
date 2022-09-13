@@ -177,6 +177,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   const { fromTokens, toTokens } = useSwappableTokensV2(
     selectedTokenA?.id,
     selectedTokenA?.displaySymbol,
+    selectedTokenA?.symbol,
     activeButtonGroup === ButtonGroupTabKey.FutureSwap
   );
   const {

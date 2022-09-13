@@ -2,7 +2,12 @@ import { useCallback, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import BigNumber from "bignumber.js";
 import { RootState } from "@store";
-import { DexItem, fetchSwappableTokens, tokensSelector } from "@store/wallet";
+import {
+  DexItem,
+  fetchDexPrice,
+  fetchSwappableTokens,
+  tokensSelector,
+} from "@store/wallet";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { BottomSheetToken } from "@components/BottomSheetTokenList";
 import { CacheApi } from "@api/cache";
@@ -12,6 +17,7 @@ import { AllSwappableTokensResult } from "@defichain/whale-api-client/dist/api/p
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { loanTokensSelector } from "@store/loans";
 import { TokenState } from "../CompositeSwap/CompositeSwapScreenV2";
+import { useTokenPrice } from "../../Portfolio/hooks/TokenPrice";
 
 interface TokenPrice {
   toTokens: BottomSheetToken[];
@@ -21,6 +27,7 @@ interface TokenPrice {
 export function useSwappableTokensV2(
   fromTokenId: string | undefined,
   fromTokenDisplaySymbol: string | undefined,
+  fromTokenSymbol: string | undefined,
   isFutureSwap: boolean
 ): TokenPrice {
   const client = useWhaleApiClient();
@@ -40,10 +47,23 @@ export function useSwappableTokensV2(
   const [fromTokens, setFromTokens] = useState<BottomSheetToken[]>([]);
   const [allTokens, setAllTokens] = useState<TokenState[]>();
 
+  const { getTokenPrice } = useTokenPrice(fromTokenSymbol ?? "USDT");
+
   const cacheKey = `WALLET.${network}.${blockCount ?? 0}.SWAP_FROM_${
     fromTokenId ?? 0
   }`;
   const cachedData = CacheApi.get(cacheKey);
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(
+        fetchDexPrice({
+          client,
+          denomination: fromTokenSymbol ?? "USDT",
+        })
+      );
+    }, [blockCount, fromTokenSymbol])
+  );
 
   /* Opted out of using useMemo to ensure it'll only run when screen is focused */
   useFocusEffect(
@@ -141,7 +161,7 @@ export function useSwappableTokensV2(
 
         return {
           tokenId: tokenId,
-          available: new BigNumber(NaN),
+          available: getTokenPrice(token.symbol, new BigNumber(1), false),
           token: {
             displaySymbol: token.displaySymbol,
             name: token.name ?? "",
