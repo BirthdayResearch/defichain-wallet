@@ -412,10 +412,6 @@ export function PortfolioNavigator(): JSX.Element {
             headerStyle: [
               screenOptions.headerStyle,
               tailwind("rounded-b-none border-b-0"),
-              {
-                shadowOpacity: 0,
-                height: (Platform.OS !== "android" ? 88 : 96) + insets.top,
-              },
             ],
             headerRight: () => (
               <HeaderNetworkStatus onPress={goToNetworkSelect} />
@@ -433,14 +429,6 @@ export function PortfolioNavigator(): JSX.Element {
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerStyle: [
-            screenOptions.headerStyle,
-            tailwind("rounded-b-none border-b-0"),
-            {
-              shadowOpacity: 0,
-              height: (Platform.OS !== "android" ? 88 : 96) + insets.top,
-            },
-          ],
         }}
       />
 
@@ -467,14 +455,6 @@ export function PortfolioNavigator(): JSX.Element {
               ),
           headerBackTitleVisible: false,
           ...(isFeatureAvailable("composite_swap_v2") && {
-            headerStyle: [
-              screenOptions.headerStyle,
-              tailwind("rounded-b-none border-b-0"),
-              {
-                shadowOpacity: 0,
-                height: (Platform.OS !== "android" ? 88 : 96) + insets.top,
-              },
-            ],
             headerRight: () => (
               <HeaderNetworkStatus onPress={goToNetworkSelect} />
             ),
