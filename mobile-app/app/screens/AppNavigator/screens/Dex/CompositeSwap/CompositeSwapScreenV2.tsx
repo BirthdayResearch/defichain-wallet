@@ -306,13 +306,15 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     headerTitle: "",
     headerBackTitleVisible: false,
     headerStyle: tailwind("rounded-t-xl-v2 border-b-0", {
-      "bg-mono-light-v2-100": isLight,
+      "bg-mono-light-v2-100 bg-red-100": isLight,
       "bg-mono-dark-v2-100": !isLight,
     }),
     headerRight: (): JSX.Element => {
       return (
         <ThemedTouchableOpacityV2
-          style={tailwind("mr-5 mt-4 -mb-4")}
+          style={tailwind("mr-5", {
+            "mt-4 -mb-4": Platform.OS === "ios",
+          })}
           onPress={dismissModal}
           testID="close_bottom_sheet_button"
         >
