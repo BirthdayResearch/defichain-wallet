@@ -412,10 +412,6 @@ export function PortfolioNavigator(): JSX.Element {
             headerStyle: [
               screenOptions.headerStyle,
               tailwind("rounded-b-none border-b-0"),
-              {
-                shadowOpacity: 0,
-                height: (Platform.OS !== "android" ? 88 : 96) + insets.top,
-              },
             ],
             headerRight: () => (
               <HeaderNetworkStatus onPress={goToNetworkSelect} />
