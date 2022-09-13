@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-
 import { Linking, Platform, TouchableOpacity, View } from "react-native";
 import NumberFormat from "react-number-format";
 import BigNumber from "bignumber.js";

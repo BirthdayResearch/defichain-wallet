@@ -37,7 +37,7 @@ export function SwapButtonGroup({
     <ThemedViewV2
       light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-100")}
       dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-100")}
-      style={tailwind("flex flex-col items-center rounded-b-2xl border-b")}
+      style={tailwind("flex flex-col items-center rounded-b-2xl-v2 border-b")}
     >
       <View style={tailwind("w-full px-5")}>
         <ButtonGroupV2

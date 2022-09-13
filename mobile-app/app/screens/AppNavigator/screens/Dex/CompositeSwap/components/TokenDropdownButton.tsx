@@ -20,7 +20,8 @@ export function TokenDropdownButton(props: {
   onPress: () => void;
   status: TokenDropdownButtonStatus;
 }): JSX.Element {
-  const Icon = getNativeIcon(props.symbol ?? "");
+  const Icon =
+    props.symbol !== undefined ? getNativeIcon(props.symbol) : undefined;
   return (
     <ThemedTouchableOpacityV2
       onPress={props.onPress}
@@ -45,7 +46,7 @@ export function TokenDropdownButton(props: {
           {translate("screens/CompositeSwapScreen", "Token")}
         </ThemedTextV2>
       )}
-      {props.symbol !== undefined && (
+      {props.symbol !== undefined && Icon !== undefined && (
         <>
           <Icon testID="tokenA_icon" height={28} width={28} />
           <ThemedTextV2
