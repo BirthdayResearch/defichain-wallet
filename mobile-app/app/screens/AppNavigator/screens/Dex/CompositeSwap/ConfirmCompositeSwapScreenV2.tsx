@@ -418,7 +418,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
                   false
                 ),
                 themedProps: {
-                  style: tailwind("font-semibold-v2"),
+                  style: tailwind("font-semibold-v2 text-right"),
                 },
               }}
             />
@@ -532,9 +532,10 @@ async function constructSignedSwapAndSend(
         sign: signer,
         title: translate(
           "screens/OceanInterface",
-          "Swapping {{amountA}} {{symbolA}} to {{symbolB}}",
+          "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}",
           {
             amountA: cSwapForm.amountFrom.toFixed(8),
+            amountB: cSwapForm.amountTo.toFixed(8),
             symbolA: cSwapForm.tokenFrom.displaySymbol,
             symbolB: cSwapForm.tokenTo.displaySymbol,
           }
@@ -542,18 +543,20 @@ async function constructSignedSwapAndSend(
         drawerMessages: {
           waiting: translate(
             "screens/OceanInterface",
-            "Swapping {{amountA}} {{symbolA}} to {{symbolB}}",
+            "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}",
             {
               amountA: cSwapForm.amountFrom.toFixed(8),
+              amountB: cSwapForm.amountTo.toFixed(8),
               symbolA: cSwapForm.tokenFrom.displaySymbol,
               symbolB: cSwapForm.tokenTo.displaySymbol,
             }
           ),
           complete: translate(
             "screens/OceanInterface",
-            "Swapped {{amountA}} {{symbolA}} to {{symbolB}}",
+            "Swapped {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}",
             {
               amountA: cSwapForm.amountFrom.toFixed(8),
+              amountB: cSwapForm.amountTo.toFixed(8),
               symbolA: cSwapForm.tokenFrom.displaySymbol,
               symbolB: cSwapForm.tokenTo.displaySymbol,
             }

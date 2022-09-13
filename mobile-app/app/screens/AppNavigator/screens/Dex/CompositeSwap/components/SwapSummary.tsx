@@ -71,6 +71,8 @@ export function SwapSummary({
                 prefix: "$",
                 themedProps: {
                   style: tailwind("font-normal-v2 text-sm"),
+                  light: tailwind("text-mono-light-v2-700"),
+                  dark: tailwind("text-mono-dark-v2-700"),
                 },
                 usdTextStyle: tailwind("text-sm"),
               }}
