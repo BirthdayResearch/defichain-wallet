@@ -129,16 +129,16 @@ export function SlippageToleranceV2({
       {isEditing ? (
         <>
           <View style={tailwind("flex-row")}>
-            <View style={tailwind("flex-row items-center mr-2 w-9/12 h-9")}>
+            <View style={tailwind("flex-row items-center mr-2 w-9/12")}>
               <WalletTextInputV2
                 onChangeText={(val: string) => {
                   setSelectedSlippage(val);
                 }}
-                inputContainerStyle={tailwind("h-9")}
                 keyboardType="numeric"
                 autoCapitalize="none"
                 placeholder="0.00%"
                 style={tailwind("flex-grow w-2/5 font-normal-v2 text-xs")}
+                inputContainerStyle={tailwind("h-9")}
                 testID="slippage_input"
                 value={selectedSlippage !== undefined ? selectedSlippage : ""}
                 displayClearButton={selectedSlippage !== ""}
@@ -153,34 +153,39 @@ export function SlippageToleranceV2({
                 borderContainerStyle={tailwind("rounded-2xl-v2")}
               />
             </View>
-            {/* <View style={tailwind("flex-1")}> */}
-            <ThemedTouchableOpacityV2
-              light={tailwind("bg-mono-light-v2-900")}
-              dark={tailwind("bg-mono-dark-v2-900")}
-              style={tailwind(
-                "p-2.5 justify-center items-center flex-grow rounded-full z-10",
-                {
-                  "opacity-30": !isSlippageValid(),
-                }
-              )}
-              onPress={() => {
-                setIsEditing(false);
-                setIsCustomAmount(true);
-                setSelectedSlippage(new BigNumber(selectedSlippage).toFixed(8));
-                submitSlippage(new BigNumber(selectedSlippage), isCustomValue);
-              }}
-              disabled={!isSlippageValid()}
-              testID="set_slippage_button"
-            >
-              <ThemedTextV2
-                light={tailwind("text-mono-light-v2-100")}
-                dark={tailwind("text-mono-dark-v2-100")}
-                style={tailwind("text-xs font-semibold-v2")}
+            <View style={tailwind("flex-1 h-9")}>
+              <ThemedTouchableOpacityV2
+                light={tailwind("bg-mono-light-v2-900")}
+                dark={tailwind("bg-mono-dark-v2-900")}
+                style={tailwind(
+                  "p-2.5 justify-center items-center flex-grow rounded-full z-10",
+                  {
+                    "opacity-30": !isSlippageValid(),
+                  }
+                )}
+                onPress={() => {
+                  setIsEditing(false);
+                  setIsCustomAmount(true);
+                  setSelectedSlippage(
+                    new BigNumber(selectedSlippage).toFixed(8)
+                  );
+                  submitSlippage(
+                    new BigNumber(selectedSlippage),
+                    isCustomValue
+                  );
+                }}
+                disabled={!isSlippageValid()}
+                testID="set_slippage_button"
               >
-                {translate("components/CompositeSwapScreen", "Set")}
-              </ThemedTextV2>
-            </ThemedTouchableOpacityV2>
-            {/* </View> */}
+                <ThemedTextV2
+                  light={tailwind("text-mono-light-v2-100")}
+                  dark={tailwind("text-mono-dark-v2-100")}
+                  style={tailwind("text-xs font-semibold-v2")}
+                >
+                  {translate("components/CompositeSwapScreen", "Set")}
+                </ThemedTextV2>
+              </ThemedTouchableOpacityV2>
+            </View>
           </View>
         </>
       ) : (
