@@ -148,6 +148,8 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   const [selectedTokenB, setSelectedTokenB] = useState<TokenState>();
   const [selectedPoolPairs, setSelectedPoolPairs] = useState<PoolPairData[]>();
   const [priceRates, setPriceRates] = useState<PriceRateProps[]>();
+  const [estimatedLessFeesAfterSlippage, setEstimatedLessFeesAfterSlippage] =
+    useState<BigNumber | undefined>(undefined);
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(
     ButtonGroupTabKey.InstantSwap
   );
@@ -456,11 +458,29 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
       selectedPoolPairs !== undefined &&
       tokenA !== undefined
     ) {
-      const { aToBPrice, bToAPrice, estimated } = await calculatePriceRates(
-        selectedTokenA.id,
-        selectedTokenB.id,
-        new BigNumber(tokenA)
+      const { aToBPrice, bToAPrice, estimated, estimatedLessDexFees } =
+        await calculatePriceRates(
+          selectedTokenA.id,
+          selectedTokenB.id,
+          new BigNumber(tokenA)
+        );
+
+      // Find the selected reserve in case it's null. From Token Detail Screen, reserve does not exist due to pair not existing
+      const selectedReserve =
+        selectedPoolPairs[0]?.tokenA?.id === selectedTokenA.id
+          ? selectedPoolPairs[0]?.tokenA?.reserve
+          : selectedPoolPairs[0]?.tokenB?.reserve;
+      // This will keep the old behavior to prevent regression
+      const tokenAReserve = new BigNumber(selectedTokenA.reserve).gt(0)
+        ? selectedTokenA.reserve
+        : selectedReserve;
+      const slippage = new BigNumber(1).minus(
+        new BigNumber(tokenA).div(tokenAReserve)
       );
+      setEstimatedLessFeesAfterSlippage(
+        new BigNumber(estimatedLessDexFees).multipliedBy(slippage)
+      );
+
       setPriceRates([
         {
           label: translate("components/PricesSection", "1 {{token}} =", {
@@ -513,7 +533,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     };
 
     fetchBestPath();
-  }, [selectedTokenA, selectedTokenB]);
+  }, [selectedTokenA, selectedTokenB, selectedPoolPairs]);
 
   const totalFees = useMemo(() => {
     if (
@@ -667,8 +687,8 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         },
       }),
       estimatedAmount: new BigNumber(tokenB),
-      estimatedReturnLessDexFees:
-        bestPathEstimatedReturn?.estimatedReturnLessDexFees ?? "-",
+      estimatedLessFeesAfterSlippage:
+        estimatedLessFeesAfterSlippage?.toFixed(8) ?? "",
       totalFees,
     };
 

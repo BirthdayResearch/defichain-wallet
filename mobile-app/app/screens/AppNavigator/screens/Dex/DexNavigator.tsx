@@ -81,7 +81,7 @@ export interface DexParamList {
     tokenB: TokenState & { amount?: string };
     estimatedAmount: BigNumber;
     totalFees: string;
-    estimatedReturnLessDexFees: string;
+    estimatedLessFeesAfterSlippage: string;
   };
   ConfirmCompositeSwapScreen: {
     conversion?: ConversionParam;
