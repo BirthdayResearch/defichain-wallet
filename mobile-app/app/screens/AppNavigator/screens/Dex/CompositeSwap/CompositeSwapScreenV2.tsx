@@ -315,6 +315,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
         <ThemedTouchableOpacityV2
           style={tailwind("mr-5", {
             "mt-4 -mb-4": Platform.OS === "ios",
+            "mt-1.5": Platform.OS === "android",
           })}
           onPress={dismissModal}
           testID="close_bottom_sheet_button"
