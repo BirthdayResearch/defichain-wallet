@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { FeatureFlag } from "@shared-types/website";
 import Cors from "cors";
-import { EnvironmentNetwork } from "@defichain/wallet/shared/environment";
+// eslint-disable-next-line
+import { EnvironmentNetwork } from "../../../../../../shared/environment";
 import { runMiddleware } from "../../../../utils/middleware";
 
 export const cors = Cors({
