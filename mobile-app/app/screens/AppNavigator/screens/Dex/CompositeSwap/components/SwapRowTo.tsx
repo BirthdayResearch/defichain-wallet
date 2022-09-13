@@ -55,6 +55,7 @@ export function FutureSwapRowTo({
         light={tailwind("text-mono-light-v2-700")}
         dark={tailwind("text-mono-dark-v2-700")}
         style={tailwind("text-lg font-normal-v2")}
+        testID="settlement_value_percentage"
       >
         {translate(
           "screens/CompositeSwapScreen",

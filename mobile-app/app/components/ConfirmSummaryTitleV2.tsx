@@ -72,7 +72,10 @@ export function ConfirmSummaryTitleV2(
             <IconB height={32} width={32} />
             {props.isFutureSwap ? (
               <View style={tailwind("flex-col flex-1 pl-2")}>
-                <ThemedTextV2 style={tailwind("font-semibold-v2 text-xl")}>
+                <ThemedTextV2
+                  style={tailwind("font-semibold-v2 text-xl")}
+                  testID={`${props.testID}_to_unit`}
+                >
                   {props.iconB}
                 </ThemedTextV2>
                 <ThemedTextV2
