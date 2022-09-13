@@ -26,6 +26,7 @@ exports[`Dex Action Buttons <DexActionButton /> - should match snapshot 1`] = `
       "paddingTop": 8,
     }
   }
+  testID="dex_action_button_Composite_Swap_2"
 >
   <Text
     style={

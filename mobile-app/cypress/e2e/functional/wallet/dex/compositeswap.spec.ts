@@ -1,4 +1,5 @@
 import BigNumber from "bignumber.js";
+import { checkValueWithinRange } from "../../../../support/walletCommands";
 
 function setupWalletForConversion(): void {
   cy.createEmptyWallet(true);
@@ -6,11 +7,14 @@ function setupWalletForConversion(): void {
 
   cy.getByTestID("bottom_tab_dex").click().wait(3000);
   cy.getByTestID("composite_swap").click().wait(3000);
+}
+
+function setupFromAndToTokens(fromToken: string, toToken: string): void {
   cy.getByTestID("token_select_button_FROM").should("exist").click();
   cy.wait(3000);
-  cy.getByTestID("select_DFI").click().wait(1000);
+  cy.getByTestID(`select_${fromToken}`).click().wait(1000);
   cy.getByTestID("token_select_button_TO").should("exist").click();
-  cy.getByTestID("select_dLTC").click().wait(1000);
+  cy.getByTestID(`select_${toToken}`).click().wait(1000);
 }
 
 function setCustomSlippage(customSlippage: string): void {
@@ -19,6 +23,7 @@ function setCustomSlippage(customSlippage: string): void {
   cy.getByTestID("set_slippage_button").click().wait(3000);
 }
 
+// TODO: @joshua update e2e
 context("Wallet - DEX - disabled pool pairs", () => {
   before(() => {
     cy.intercept("**/poolpairs?size=*", {
@@ -115,13 +120,15 @@ context("Wallet - DEX - disabled pool pairs", () => {
   });
 
   it("should disable pool swap button if pair is disabled on API", () => {
-    cy.getByTestID("pool_pair_row_13_dZERO").should(
-      "have.attr",
-      "aria-disabled"
-    ); // tradeEnabled: false
-    cy.getByTestID("pool_pair_row_14_dOFF-DFI").should(
-      "have.attr",
-      "aria-disabled"
+    cy.getByTestID("dex_action_button_composite_swap_button_26").should(
+      "have.css",
+      "opacity", // using opacity to check enable
+      "1"
+    ); // status: true
+    cy.getByTestID("dex_action_button_composite_swap_button_28").should(
+      "have.css",
+      "opacity", // using opacity to check disable
+      "0.3"
     ); // status: false
   });
 });
@@ -156,7 +163,7 @@ context("Wallet - DEX - Instant/Future Swap - tabs and dropdowns", () => {
     cy.getByTestID("composite_swap").click();
     cy.wait(5000);
     cy.getByTestID("token_select_button_FROM").click();
-    cy.getByTestID("select_DFI").click().wait(1000);
+    cy.getByTestID("select_DFI").click().wait(2000);
     cy.getByTestID("token_select_button_TO").click();
     cy.getByTestID("select_dTU10").click();
   });
@@ -171,10 +178,6 @@ context("Wallet - DEX - Instant/Future Swap - tabs and dropdowns", () => {
       "have.text",
       "DFI"
     );
-  });
-
-  it("should be able to display price rates if tokenA and tokenB is selected", () => {
-    cy.getByTestID("instant_swap_summary").should("exist");
   });
 
   it("should be able to disable future swap tab if tokenA and tokenB is not a valid future swap pair", () => {
@@ -449,6 +452,7 @@ context(
   () => {
     beforeEach(() => {
       setupWalletForConversion();
+      setupFromAndToTokens("DFI", "dLTC");
     });
 
     it("should display insufficient balance if UTXO is maxed out for swap", () => {
@@ -485,3 +489,42 @@ context(
     });
   }
 );
+
+// DFI -> dETH to show greater price rates difference
+context.only("Wallet - DEX - Instant Swap (DFI) - Summary", () => {
+  before(() => {
+    setupWalletForConversion();
+    setupFromAndToTokens("DFI", "dETH");
+  });
+  it("should be able to display price rates if tokenA and tokenB is selected", () => {
+    cy.getByTestID("instant_swap_summary").should("exist");
+    cy.getByTestID("instant_swap_prices_0_label")
+      .should("exist")
+      .should("have.text", "1 DFI =");
+    cy.getByTestID("instant_swap_prices_0")
+      .should("exist")
+      .contains("100.00000000 dETH");
+    cy.getByTestID("instant_swap_prices_0_rhsUsdAmount")
+      .invoke("text")
+      .then((value) => {
+        checkValueWithinRange(value, "10,000.00");
+      });
+    cy.getByTestID("instant_swap_prices_1_label")
+      .should("exist")
+      .should("have.text", "1 dETH =");
+    cy.getByTestID("instant_swap_prices_1")
+      .should("exist")
+      .contains("0.01000000 DFI");
+    cy.getByTestID("instant_swap_prices_1_rhsUsdAmount")
+      .invoke("text")
+      .then((value) => {
+        checkValueWithinRange(value, "100.00");
+      });
+    cy.getByTestID("swap_total_fees_label")
+      .should("exist")
+      .should("have.text", "Total fees");
+    cy.getByTestID("swap_total_fee_amount")
+      .should("exist")
+      .should("have.text", "-");
+  });
+});
