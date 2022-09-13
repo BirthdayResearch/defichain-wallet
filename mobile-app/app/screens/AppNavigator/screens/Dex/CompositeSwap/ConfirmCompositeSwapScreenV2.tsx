@@ -64,7 +64,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
     futureSwap,
     estimatedAmount,
     totalFees,
-    estimatedReturnLessDexFees,
+    estimatedLessFeesAfterSlippage,
   } = route.params;
   const navigation = useNavigation<NavigationProp<DexParamList>>();
   const dispatch = useAppDispatch();
@@ -410,15 +410,11 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
               }}
               rhs={{
                 testID: "confirm_estimated_to_receive",
-                value: new BigNumber(estimatedReturnLessDexFees)
-                  .multipliedBy(swap.amountFrom)
-                  .toFixed(8),
+                value: new BigNumber(estimatedLessFeesAfterSlippage).toFixed(8),
                 suffix: ` ${swap.tokenTo.displaySymbol}`,
                 usdAmount: getTokenPrice(
                   tokenB.symbol,
-                  new BigNumber(estimatedReturnLessDexFees).multipliedBy(
-                    swap.amountFrom
-                  ),
+                  new BigNumber(estimatedLessFeesAfterSlippage),
                   false
                 ),
                 themedProps: {
