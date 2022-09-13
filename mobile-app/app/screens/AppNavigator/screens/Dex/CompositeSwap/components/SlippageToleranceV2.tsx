@@ -129,11 +129,12 @@ export function SlippageToleranceV2({
       {isEditing ? (
         <>
           <View style={tailwind("flex-row")}>
-            <View style={tailwind("flex-row items-center mr-2 w-9/12")}>
+            <View style={tailwind("flex-row items-center mr-2 w-9/12 h-9")}>
               <WalletTextInputV2
                 onChangeText={(val: string) => {
                   setSelectedSlippage(val);
                 }}
+                inputContainerStyle={tailwind("h-9")}
                 keyboardType="numeric"
                 autoCapitalize="none"
                 placeholder="0.00%"
@@ -152,39 +153,34 @@ export function SlippageToleranceV2({
                 borderContainerStyle={tailwind("rounded-2xl-v2")}
               />
             </View>
-            <View style={tailwind("flex-1 h-9")}>
-              <ThemedTouchableOpacityV2
-                light={tailwind("bg-mono-light-v2-900")}
-                dark={tailwind("bg-mono-dark-v2-900")}
-                style={tailwind(
-                  "p-2.5 justify-center items-center flex-grow rounded-full z-10",
-                  {
-                    "opacity-30": !isSlippageValid(),
-                  }
-                )}
-                onPress={() => {
-                  setIsEditing(false);
-                  setIsCustomAmount(true);
-                  setSelectedSlippage(
-                    new BigNumber(selectedSlippage).toFixed(8)
-                  );
-                  submitSlippage(
-                    new BigNumber(selectedSlippage),
-                    isCustomValue
-                  );
-                }}
-                disabled={!isSlippageValid()}
-                testID="set_slippage_button"
+            {/* <View style={tailwind("flex-1")}> */}
+            <ThemedTouchableOpacityV2
+              light={tailwind("bg-mono-light-v2-900")}
+              dark={tailwind("bg-mono-dark-v2-900")}
+              style={tailwind(
+                "p-2.5 justify-center items-center flex-grow rounded-full z-10",
+                {
+                  "opacity-30": !isSlippageValid(),
+                }
+              )}
+              onPress={() => {
+                setIsEditing(false);
+                setIsCustomAmount(true);
+                setSelectedSlippage(new BigNumber(selectedSlippage).toFixed(8));
+                submitSlippage(new BigNumber(selectedSlippage), isCustomValue);
+              }}
+              disabled={!isSlippageValid()}
+              testID="set_slippage_button"
+            >
+              <ThemedTextV2
+                light={tailwind("text-mono-light-v2-100")}
+                dark={tailwind("text-mono-dark-v2-100")}
+                style={tailwind("text-xs font-semibold-v2")}
               >
-                <ThemedTextV2
-                  light={tailwind("text-mono-light-v2-100")}
-                  dark={tailwind("text-mono-dark-v2-100")}
-                  style={tailwind("text-xs font-semibold-v2")}
-                >
-                  {translate("components/CompositeSwapScreen", "Set")}
-                </ThemedTextV2>
-              </ThemedTouchableOpacityV2>
-            </View>
+                {translate("components/CompositeSwapScreen", "Set")}
+              </ThemedTextV2>
+            </ThemedTouchableOpacityV2>
+            {/* </View> */}
           </View>
         </>
       ) : (
@@ -254,7 +250,7 @@ function PercentageAmountButton({
       light={tailwind({ "bg-mono-light-v2-900": isSelected })}
       dark={tailwind({ "bg-mono-dark-v2-900": isSelected })}
       style={tailwind(
-        "w-3/12 items-center rounded-full justify-center self-stretch"
+        "w-3/12 items-center rounded-full justify-center self-stretch h-9"
       )}
       onPress={onPress}
       testID={`slippage_${percentageAmount}%`}
@@ -303,7 +299,7 @@ function CustomAmountButton({
         light={tailwind("text-mono-light-v2-500")}
         dark={tailwind("text-mono-dark-v2-500")}
         style={tailwind(
-          "font-semibold-v2 text-xs px-4 py-2.5 flex-row items-center"
+          "font-semibold-v2 text-xs px-4 py-2.5 flex-row items-center h-9"
         )}
       >
         <ThemedTextV2
