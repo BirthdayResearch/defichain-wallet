@@ -1463,7 +1463,8 @@
     "The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.": "El ratio de colateralización representa la cantidad de colateral depositada en la bóveda con respecto a la cantidad del prestamo acumulado, se expresa en porcentage.",
     "Settlement block": "Settlement block",
     "Slippage tolerance": "Tolerancia a la fluctuación",
-    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Las fluctuaciones son cambios de tasas que ocurren durante una transacción. Elige cuanta fluctuación estás dispuesto a aceptar.",
+    "Slippage Tolerance": "Tolerancia a la fluctuación",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "Las fluctuaciones son cambios de tasas que ocurren durante una transacción. Elige cuanta fluctuación estás dispuesto a aceptar.",
     "Settlements": "Settlements"
   },
   "screens/VaultDetailScreen": {
