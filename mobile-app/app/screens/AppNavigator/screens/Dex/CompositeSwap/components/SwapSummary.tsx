@@ -238,7 +238,7 @@ function SettlementBlockInfo({
                 light={tailwind("text-mono-light-v2-900")}
                 dark={tailwind("text-mono-dark-v2-900")}
                 style={tailwind("text-sm font-normal-v2 flex-wrap text-right")}
-                testID="network_details_block_height"
+                testID="execution_block"
               >
                 {val}
               </ThemedTextV2>
@@ -251,6 +251,7 @@ function SettlementBlockInfo({
               light={tailwind("text-mono-light-v2-700")}
               dark={tailwind("text-mono-dark-v2-700")}
               style={tailwind("text-right text-sm font-normal-v2")}
+              testID="execution_block_date"
             >
               {transactionDate}
             </ThemedTextV2>

@@ -44,6 +44,7 @@ import { OwnedTokenState, TokenState } from "./CompositeSwapScreenV2";
 import { useDexStabilization } from "../hook/DexStabilization";
 
 type Props = StackScreenProps<DexParamList, "ConfirmCompositeSwapScreenV2">;
+
 export interface CompositeSwapForm {
   tokenFrom: OwnedTokenState;
   tokenTo: TokenState & { amount?: string };
@@ -304,7 +305,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
                     "screens/ConfirmCompositeSwapScreen",
                     "Transaction fee"
                   ),
-                  testID: "settlement_block",
+                  testID: "transaction_fee",
                   themedProps: {
                     light: tailwind("text-mono-light-v2-500"),
                     dark: tailwind("text-mono-dark-v2-500"),
@@ -312,7 +313,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
                 }}
                 rhs={{
                   value: fee.toFixed(8),
-                  testID: "confirm_text_transaction_date",
+                  testID: "confirm_text_fee",
                   suffix: " DFI",
                 }}
               />
@@ -332,7 +333,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
                 }}
                 rhs={{
                   value: futureSwap.executionBlock,
-                  testID: "confirm_text_transaction_date",
+                  testID: "confirm_text_settlement_block",
                 }}
               />
               <TextRowV2
@@ -357,7 +358,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
                     "screens/ConfirmCompositeSwapScreen",
                     "To receive (est.)"
                   ),
-                  testID: "settlement_block",
+                  testID: "confirm_text_receive",
                   themedProps: {
                     light: tailwind("text-mono-light-v2-500"),
                     dark: tailwind("text-mono-dark-v2-500"),
@@ -365,7 +366,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
                 }}
                 rhs={{
                   value: `${tokenB.displaySymbol}`,
-                  testID: "confirm_text_transaction_date",
+                  testID: "confirm_text_receive_unit",
                   themedProps: {
                     light: tailwind("text-mono-light-v2-900"),
                     dark: tailwind("text-mono-dark-v2-900"),
@@ -385,7 +386,7 @@ export function ConfirmCompositeSwapScreenV2({ route }: Props): JSX.Element {
                       percentageChange: futureSwap.oraclePriceText,
                     }
                   ),
-                  testID: "confirm_estimated_to_receive",
+                  testID: "confirm_settlement_value",
                 }}
               />
             </ThemedViewV2>

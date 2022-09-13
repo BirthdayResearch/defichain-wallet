@@ -23,27 +23,44 @@ function validatePriceSection(testID: string, isHidden: boolean): void {
   if (isHidden) {
     cy.getByTestID(`${testID}_0`).should("not.exist");
     cy.getByTestID(`${testID}_0_label`).should("not.exist");
-    cy.getByTestID(`${testID}_0_suffix`).should("not.exist");
     cy.getByTestID(`${testID}_1`).should("not.exist");
     cy.getByTestID(`${testID}_1_label`).should("not.exist");
-    cy.getByTestID(`${testID}_1_suffix`).should("not.exist");
   } else {
     cy.getByTestID(`${testID}_0`)
       .invoke("text")
       .then((text) => {
-        checkValueWithinRange(text, "1", 0.2);
+        const value = text.split(" ")[0];
+        checkValueWithinRange(value, "1", 0.2);
       });
-    cy.getByTestID(`${testID}_0_label`).contains("1 dTU10");
-    cy.getByTestID(`${testID}_0_suffix`).should("have.text", "DUSD");
+    cy.getByTestID(`${testID}_0_label`).contains("1 DUSD");
+    cy.getByTestID(`${testID}_0`).contains("dTU10");
 
     cy.getByTestID(`${testID}_1`)
       .invoke("text")
       .then((text) => {
-        checkValueWithinRange(text, "1", 0.2);
+        const value = text.split(" ")[0];
+        checkValueWithinRange(value, "1", 0.2);
       });
-    cy.getByTestID(`${testID}_1_label`).contains("1 DUSD");
-    cy.getByTestID(`${testID}_1_suffix`).should("have.text", "dTU10");
+    cy.getByTestID(`${testID}_1_label`).contains("1 dTU10");
+    cy.getByTestID(`${testID}_1`).contains("DUSD");
   }
+}
+
+function validateFutureSwapDisabled(
+  fromToken: string | undefined,
+  toToken: string
+): void {
+  if (fromToken !== undefined) {
+    cy.getByTestID("token_select_button_FROM").click();
+    cy.getByTestID(`select_${fromToken}`).click().wait(1000);
+  }
+  cy.getByTestID("token_select_button_TO").click();
+  cy.getByTestID(`select_${toToken}`).click();
+  cy.getByTestID("50%_amount_button").click().wait(500);
+  cy.getByTestID("swap_tabs_FUTURE_SWAP").should("have.attr", "aria-disabled");
+  cy.getByTestID("button_confirm_submit").click();
+  cy.getByTestID("settlement_block_label").should("not.exist");
+  cy.go("back");
 }
 
 context("Wallet - DEX - Future Swap", () => {
@@ -61,72 +78,43 @@ context("Wallet - DEX - Future Swap", () => {
 
   it("should have no swap option on crypto -> loan combination", () => {
     // crypto to loan token
-    cy.getByTestID("token_select_button_FROM").click();
-    cy.getByTestID("select_dBTC").click().wait(1000);
-    cy.getByTestID("token_select_button_TO").click();
-    cy.getByTestID("select_dTU10").click();
-    cy.getByTestID("50%_amount_button").click().wait(500);
-    cy.getByTestID("swap_button_group").should("not.exist");
-    cy.getByTestID("button_confirm_submit").click();
-    cy.getByTestID("confirm_text_transaction_type").should("have.text", "Swap");
-    cy.go("back");
+    validateFutureSwapDisabled("dBTC", "dTU10");
   });
 
   it("should  have no swap option on crypto -> crpyto combination", () => {
     // crypto to crypto
-    cy.getByTestID("token_select_button_TO").click();
-    cy.getByTestID("select_dETH").click();
-    cy.getByTestID("50%_amount_button").click().wait(500);
-    cy.getByTestID("swap_button_group").should("not.exist");
-    cy.getByTestID("button_confirm_submit").click();
-    cy.getByTestID("confirm_text_transaction_type").should("have.text", "Swap");
-    cy.go("back");
+    validateFutureSwapDisabled(undefined, "dETH");
   });
 
-  it("should have no swap option on loan -> loan combination", () => {
+  it("should have both swap options on loan -> loan combination", () => {
     // loan (DUSD) to loan token
     cy.getByTestID("token_select_button_FROM").click();
     cy.getByTestID("select_DUSD").click().wait(1000);
     cy.getByTestID("token_select_button_TO").click();
     cy.getByTestID("select_dTU10").click();
     cy.getByTestID("50%_amount_button").click().wait(500);
-    cy.getByTestID("swap_button_group").should("exist");
-    cy.getByTestID("button_confirm_submit").click().wait(1500);
-    cy.getByTestID("confirm_text_transaction_type").should("have.text", "Swap");
-    cy.go("back");
-    cy.getByTestID("swap_button_group_FUTURE_SWAP").click();
-    cy.getByTestID("button_confirm_submit").click().wait(1500);
-    cy.getByTestID("confirm_text_transaction_type").should(
-      "have.text",
-      "Future swap"
+    cy.getByTestID("swap_tabs_FUTURE_SWAP").should(
+      "not.have.attr",
+      "aria-disabled"
     );
+    cy.getByTestID("button_confirm_submit").click().wait(1500);
+    cy.getByTestID("settlement_block_label").should("not.exist");
+    cy.go("back");
+    cy.getByTestID("swap_tabs_FUTURE_SWAP").click();
+    cy.getByTestID("button_confirm_submit").click().wait(1500);
+    cy.getByTestID("settlement_block_label").should("exist");
     cy.go("back");
   });
 
   it("should have no swap option on loan -> crypto combination", () => {
     // loan to crypto token
-    cy.getByTestID("token_select_button_FROM").click();
-    cy.getByTestID("select_dTU10").click().wait(1000);
-    cy.getByTestID("token_select_button_TO").click();
-    cy.getByTestID("select_dBTC").click();
-    cy.getByTestID("50%_amount_button").click().wait(500);
-    cy.getByTestID("swap_button_group").should("not.exist");
-    cy.getByTestID("button_confirm_submit").click();
-    cy.getByTestID("confirm_text_transaction_type").should("have.text", "Swap");
-    cy.go("back");
+    cy.getByTestID("swap_tabs_INSTANT_SWAP").click();
+    validateFutureSwapDisabled("dTU10", "dBTC");
   });
 
   it("should have no swap option on dfi -> crypto combination", () => {
     // dfi to crypto token
-    cy.getByTestID("token_select_button_FROM").click();
-    cy.getByTestID("select_DFI").click().wait(1000);
-    cy.getByTestID("token_select_button_TO").click();
-    cy.getByTestID("select_dBTC").click();
-    cy.getByTestID("50%_amount_button").click().wait(500);
-    cy.getByTestID("swap_button_group").should("not.exist");
-    cy.getByTestID("button_confirm_submit").click();
-    cy.getByTestID("confirm_text_transaction_type").should("have.text", "Swap");
-    cy.go("back");
+    validateFutureSwapDisabled("DFI", "dBTC");
   });
 
   it("should display future swap option if Loan token -> DUSD selected", () => {
@@ -134,65 +122,66 @@ context("Wallet - DEX - Future Swap", () => {
     cy.getByTestID("select_dTU10").click().wait(1000);
     cy.getByTestID("token_select_button_TO").click();
     cy.getByTestID("select_DUSD").click();
-    cy.getByTestID("swap_button_group").should("exist");
+    cy.getByTestID("swap_tabs_FUTURE_SWAP").should(
+      "not.have.attr",
+      "aria-disabled"
+    );
   });
 
   it("should display oracle price -5% if Loan token -> DUSD selected", () => {
-    cy.getByTestID("swap_button_group_FUTURE_SWAP").click();
+    cy.getByTestID("swap_tabs_FUTURE_SWAP").click();
     cy.getByTestID("MAX_amount_button").click();
-    cy.getByTestID("oracle_price_percentage").should(
+    cy.getByTestID("settlement_value_percentage").should(
       "have.text",
-      "Oracle price -5%"
+      "Settlement Value -5%"
     );
-    cy.getByTestID("future_swap_warning_text").contains(
-      "By using future swap, you are"
+    cy.getByTestID("oracle_announcements_banner").contains(
+      "You are selling your"
     );
-    cy.getByTestID("future_swap_warning_text").contains(
-      "selling dTU10 at 5% lower"
-    );
-    cy.getByTestID("future_swap_warning_text").contains(
-      "than the oracle price at Settlement block"
+    cy.getByTestID("oracle_announcements_banner").contains("dTU10 at 5% less");
+    cy.getByTestID("oracle_announcements_banner").contains(
+      "than the oracle price at settlement block"
     );
   });
 
   it("should display future swap option if DUSD -> Loan token selected", () => {
     cy.wait(4000);
+    cy.getByTestID("swap_tabs_INSTANT_SWAP").click();
     cy.getByTestID("token_select_button_FROM").click();
     cy.getByTestID("select_DUSD").click().wait(1000);
     cy.getByTestID("token_select_button_TO").click();
     cy.getByTestID("select_dTU10").click();
-    cy.getByTestID("swap_button_group").should("exist");
+    cy.getByTestID("swap_tabs_FUTURE_SWAP").should(
+      "not.have.attr",
+      "aria-disabled"
+    );
     cy.getByTestID("MAX_amount_button").click();
   });
 
   it("should display price rates on instant swap", () => {
-    validatePriceSection("pricerate_value", false);
+    validatePriceSection("instant_swap_prices", false);
     cy.getByTestID("button_confirm_submit").click();
-    validatePriceSection("confirm_pricerate_value", false);
+    validatePriceSection("instant_swap_summary", false);
     cy.go("back");
   });
 
   it("should not display price rates on future swap", () => {
-    cy.getByTestID("swap_button_group_FUTURE_SWAP").click();
-    validatePriceSection("pricerate_value", true);
+    cy.getByTestID("swap_tabs_FUTURE_SWAP").click();
+    validatePriceSection("instant_swap_prices", true);
     cy.getByTestID("button_confirm_submit").click();
-    validatePriceSection("confirm_pricerate_value", true);
+    validatePriceSection("instant_swap_summary", true);
     cy.go("back");
   });
 
   it("should display oracle price +5% if DUSD to Loan token", () => {
-    cy.getByTestID("oracle_price_percentage").should(
+    cy.getByTestID("settlement_value_percentage").should(
       "have.text",
-      "Oracle price +5%"
+      "Settlement Value +5%"
     );
-    cy.getByTestID("future_swap_warning_text").contains(
-      "By using future swap, you are"
-    );
-    cy.getByTestID("future_swap_warning_text").contains(
-      "buying dTU10 at 5% more"
-    );
-    cy.getByTestID("future_swap_warning_text").contains(
-      "than the oracle price at Settlement block"
+    cy.getByTestID("oracle_announcements_banner").contains("You are buying");
+    cy.getByTestID("oracle_announcements_banner").contains("dTU10 at 5% more");
+    cy.getByTestID("oracle_announcements_banner").contains(
+      "than the oracle price at settlement block"
     );
   });
 
@@ -217,41 +206,33 @@ context("Wallet - DEX - Future Swap", () => {
   });
 
   it("should display correct transaction details", () => {
-    cy.getByTestID("estimated_to_receive").should(
-      "have.text",
-      "Oracle price +5%"
-    );
-    cy.getByTestID("text_fee").should("exist");
+    cy.getByTestID("swap_total_fee_amount").should("exist");
     cy.getByTestID("execution_block").should("exist");
-    cy.getByTestID("time_remaining").should("exist");
+    cy.getByTestID("execution_block_date").should("exist");
   });
 
   it("should display correct confirmation details", () => {
     cy.getByTestID("MAX_amount_button").click();
     cy.getByTestID("button_confirm_submit").click();
-    cy.getByTestID("confirm_text_transaction_type").should(
-      "have.text",
-      "Future swap"
-    );
+    cy.getByTestID("text_swap_amount_from").should("have.text", "10.00000000");
+    cy.getByTestID("text_swap_amount_to_unit").should("have.text", "dTU10");
+    cy.getByTestID("confirm_text_fee").should("exist");
+    cy.getByTestID("confirm_text_settlement_block").should("exist");
     cy.getByTestID("confirm_text_transaction_date").should(
       "have.text",
       dayjs().add(30, "second").format("MMM D, YYYY")
     ); // blocksSeconds = 30
-    cy.getByTestID("confirm_estimated_to_receive").should(
+    cy.getByTestID("confirm_text_receive_unit").should("have.text", "dTU10");
+    cy.getByTestID("confirm_settlement_value").should(
       "have.text",
-      "Oracle price +5%"
+      "Settlement value +5%"
     );
-    cy.getByTestID("confirm_text_fee").should("exist");
-    cy.getByTestID("resulting_DUSD").should("have.text", "0.00000000");
-    cy.getByTestID("resulting_DUSD_suffix").should("have.text", "DUSD");
-    cy.getByTestID("resulting_dTU10").should("have.text", "Oracle price +5%");
     cy.wait(3000);
     cy.getByTestID("button_confirm_swap").click().wait(3500);
-    cy.getByTestID("txn_authorization_description").should(
-      "have.text",
-      "Swap on future block 10.00000000 DUSD to dTU10 on oracle price +5%"
+    cy.getByTestID("txn_authorization_title").contains(
+      "Swapping 10.00000000 DUSD to dTU10 on settlement block"
     );
-    cy.closeOceanInterface();
+    cy.closeOceanInterface().wait(5000);
   });
 });
 
@@ -372,7 +353,7 @@ context("Wallet - Future Swap -> Display -> Withdraw flow", () => {
     cy.getByTestID("select_DUSD").click().wait(1000);
     cy.getByTestID("token_select_button_TO").click();
     cy.getByTestID("select_dTU10").click();
-    cy.getByTestID("swap_button_group_FUTURE_SWAP").click();
+    cy.getByTestID("swap_tabs_FUTURE_SWAP").click();
 
     cy.getByTestID("MAX_amount_button").click();
     cy.getByTestID("button_confirm_submit").click();
