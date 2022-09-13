@@ -1083,6 +1083,7 @@
     "Transaction fee": "Transaction fee",
     "Total fees": "Total des frais",
     "To receive (incl. of fees)": "A recevoir (y compris les frais)",
+    "Estimated to receive (incl. all fees)": "Estimated to receive (incl. all fees)",
     "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?": "Êtes-vous sûr de vouloir procéder à votre transaction même avec les frais de stabilisation DEX élevés ?"
   },
   "screens/PoolSwapConfirmScreen": {

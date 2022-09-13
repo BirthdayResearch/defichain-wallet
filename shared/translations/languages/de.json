@@ -1069,6 +1069,7 @@
     "Settlement value {{percentageChange}}": "Abrechnungswert {{percentageChange}}",
     "Total fees": "Gebühren insgesamt",
     "To receive (incl. of fees)": "Zu erhalten (inkl. Gebühren)",
+    "Estimated to receive (incl. all fees)": "Estimated to receive (incl. all fees)",
     "Fee breakdown": "Aufschlüsselung der Gebühren",
     "Transaction fee": "Transaktionsgebühren",
     "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?": "Bist du sicher, dass du deine Transaktion trotz der hohen DEX-Stabilisierungsgebühr durchführen möchtest?"

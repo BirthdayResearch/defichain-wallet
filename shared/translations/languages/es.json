@@ -1096,6 +1096,7 @@
     "Total fees": "Total fees",
     "Transaction fee": "Transaction fee",
     "To receive (incl. of fees)": "To receive (incl. of fees)",
+    "Estimated to receive (incl. all fees)": "Estimated to receive (incl. all fees)",
     "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?": "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?"
   },
   "screens/PoolSwapConfirmScreen": {

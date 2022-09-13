@@ -1092,6 +1092,7 @@
     "Settlement value {{percentageChange}}": "Settlement value {{percentageChange}}",
     "Total fees": "Total fees",
     "To receive (incl. of fees)": "To receive (incl. of fees)",
+    "Estimated to receive (incl. all fees)": "Estimated to receive (incl. all fees)",
     "Fee breakdown": "Fee breakdown",
     "Transaction fee": "Transaction fee",
     "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?": "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?"
