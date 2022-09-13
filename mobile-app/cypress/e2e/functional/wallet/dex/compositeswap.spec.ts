@@ -7,24 +7,14 @@ function setupWalletForConversion(): void {
 
   cy.getByTestID("bottom_tab_dex").click().wait(3000);
   cy.getByTestID("composite_swap").click().wait(3000);
-  cy.getByTestID("token_select_button_FROM").should("exist").click();
-  cy.wait(3000);
-  cy.getByTestID("select_DFI").click().wait(1000);
-  cy.getByTestID("token_select_button_TO").should("exist").click();
-  cy.getByTestID("select_dLTC").click().wait(1000);
 }
 
-function setupWalletForConversionETH(): void {
-  cy.createEmptyWallet(true);
-  cy.sendDFItoWallet().sendDFITokentoWallet().wait(5000);
-
-  cy.getByTestID("bottom_tab_dex").click().wait(3000);
-  cy.getByTestID("composite_swap").click().wait(3000);
+function setupFromAndToTokens(fromToken: string, toToken: string): void {
   cy.getByTestID("token_select_button_FROM").should("exist").click();
   cy.wait(3000);
-  cy.getByTestID("select_DFI").click().wait(1000);
+  cy.getByTestID(`select_${fromToken}`).click().wait(1000);
   cy.getByTestID("token_select_button_TO").should("exist").click();
-  cy.getByTestID("select_dETH").click().wait(1000);
+  cy.getByTestID(`select_${toToken}`).click().wait(1000);
 }
 
 function setCustomSlippage(customSlippage: string): void {
@@ -462,6 +452,7 @@ context(
   () => {
     beforeEach(() => {
       setupWalletForConversion();
+      setupFromAndToTokens("DFI", "dLTC");
     });
 
     it("should display insufficient balance if UTXO is maxed out for swap", () => {
@@ -500,9 +491,10 @@ context(
 );
 
 // DFI -> dETH to show greater price rates difference
-context("Wallet - DEX - Instant Swap (DFI) - Summary", () => {
+context.only("Wallet - DEX - Instant Swap (DFI) - Summary", () => {
   before(() => {
-    setupWalletForConversionETH();
+    setupWalletForConversion();
+    setupFromAndToTokens("DFI", "dETH");
   });
   it("should be able to display price rates if tokenA and tokenB is selected", () => {
     cy.getByTestID("instant_swap_summary").should("exist");
