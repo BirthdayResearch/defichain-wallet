@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { AnnouncementData } from "@shared-types/website";
 import { useApiStatus } from "@hooks/useApiStatus";
 
-const deFiChainStatusUrl = "https://status.defichain.com/";
+const deFiChainStatusUrl = "https://www.defichainstatus.com/";
 
 // TODO: get translations
 const oceanIsDownContent: AnnouncementData[] = [
