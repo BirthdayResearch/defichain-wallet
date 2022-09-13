@@ -123,7 +123,7 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(
               }}
               ref={ref}
               editable={editable}
-              style={tailwind("font-normal-v2 flex-1")}
+              style={tailwind("font-normal-v2 flex-1 h-5")}
               selectionColor={getColor("brand-v2-500")}
               {...otherProps}
             />
