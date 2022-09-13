@@ -41,6 +41,7 @@ type Props = StackScreenProps<DexParamList, "SwapTokenSelectionScreen">;
 
 export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
   const {
+    fromToken,
     listType,
     list,
     onTokenPress,
@@ -50,6 +51,7 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
 
   const { isLight } = useThemeContext();
   const { getTokenPrice } = useTokenPrice();
+
   const [searchString, setSearchString] = useState("");
   const [isSearchFocus, setIsSearchFocus] = useState(false);
   const debouncedSearchTerm = useDebounce(searchString, 250);
@@ -89,6 +91,7 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
       renderItem={({ item }: { item: SelectionToken }): JSX.Element => {
         return (
           <TokenItem
+            fromToken={fromToken}
             item={item}
             onPress={() => onTokenPress(item)}
             getTokenPrice={getTokenPrice}
@@ -167,28 +170,36 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
   );
 }
 
+type TokenPrice = (
+  symbol: string,
+  amount: BigNumber,
+  isLPS?: boolean | undefined
+) => BigNumber;
+
 interface TokenItemProps {
+  fromToken: {
+    symbol?: string;
+    displaySymbol?: string;
+  };
   item: SelectionToken;
   onPress: any;
-  getTokenPrice: (
-    symbol: string,
-    amount: BigNumber,
-    isLPS?: boolean | undefined
-  ) => BigNumber;
+  getTokenPrice: TokenPrice;
   listType: TokenListType;
 }
 
 function TokenItem({
+  fromToken,
   item,
   onPress,
   getTokenPrice,
   listType,
 }: TokenItemProps): JSX.Element {
-  const activePrice = getTokenPrice(
+  const activePriceUSDT = getTokenPrice(
     item.token.symbol,
     new BigNumber("1"),
     item.token.isLPS
   );
+
   return (
     <ThemedTouchableOpacityV2
       style={tailwind(
@@ -217,6 +228,9 @@ function TokenItem({
       <View style={tailwind("flex-1 flex-wrap flex-col items-end")}>
         <NumberFormat
           value={item.available.toFixed(8)}
+          suffix={
+            listType === TokenListType.From ? "" : ` ${fromToken.displaySymbol}`
+          }
           thousandSeparator
           displayType="text"
           renderText={(value) => (
@@ -233,13 +247,15 @@ function TokenItem({
         <View style={tailwind("pt-1")}>
           {listType === TokenListType.From ? (
             <ActiveUSDValueV2
-              price={new BigNumber(item.available).multipliedBy(activePrice)}
+              price={new BigNumber(item.available).multipliedBy(
+                activePriceUSDT
+              )}
               containerStyle={tailwind("justify-end")}
               style={tailwind("flex-wrap")}
             />
           ) : (
             <NumberFormat
-              value={activePrice.toFixed(2)}
+              value={activePriceUSDT.toFixed(2)}
               thousandSeparator
               displayType="text"
               renderText={(value) => (
@@ -254,7 +270,7 @@ function TokenItem({
                   {value}
                 </ThemedTextV2>
               )}
-              prefix={`1 ${item.token.displaySymbol} = $`}
+              prefix="$"
             />
           )}
         </View>

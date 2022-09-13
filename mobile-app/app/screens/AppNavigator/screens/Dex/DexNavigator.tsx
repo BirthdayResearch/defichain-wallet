@@ -58,6 +58,10 @@ export interface DexParamList {
     };
   };
   SwapTokenSelectionScreen: {
+    fromToken: {
+      symbol?: string;
+      displaySymbol?: string;
+    };
     listType: TokenListType;
     list: SelectionToken[];
     onTokenPress: (token: SelectionToken) => void;

@@ -177,6 +177,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   const { fromTokens, toTokens } = useSwappableTokensV2(
     selectedTokenA?.id,
     selectedTokenA?.displaySymbol,
+    selectedTokenA?.symbol,
     activeButtonGroup === ButtonGroupTabKey.FutureSwap
   );
   const {
@@ -599,6 +600,10 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
 
   const navigateToTokenSelectionScreen = (listType: TokenListType): void => {
     navigation.navigate("SwapTokenSelectionScreen", {
+      fromToken: {
+        symbol: selectedTokenA?.symbol,
+        displaySymbol: selectedTokenA?.displaySymbol,
+      },
       listType: listType,
       list: listType === TokenListType.From ? fromTokens ?? [] : toTokens ?? [],
       onTokenPress: (item) => {
@@ -1093,7 +1098,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   status={
                     route.params.tokenSelectOption?.to?.isDisabled
                       ? TokenDropdownButtonStatus.Locked
-                      : selectedTokenA === undefined
+                      : selectedTokenA === undefined || toTokens.length === 0
                       ? TokenDropdownButtonStatus.Disabled
                       : TokenDropdownButtonStatus.Enabled
                   }
