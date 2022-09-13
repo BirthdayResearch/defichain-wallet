@@ -782,8 +782,8 @@
     "Preparing withdrawal…": "Auszahlung vorbereiten…",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Abhebung von {{amountToWithdraw}} {{sourceSymbol}} aus dem Future Swap",
     "Withdrawal completed": "Auszahlung abgeschlossen",
-    "Swapped {{amountA}} {{symbolA}} to {{symbolB}}": "{{amountA}} {{symbolA}} in {{symbolB}} umgetauscht",
-    "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "Tausch von {{amountA}} {{symbolA}} gegen {{symbolB}}",
+    "Swapped {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "{{amountA}} {{symbolA}} in {{amountB}} {{symbolB}} umgetauscht",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausch von {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Tausch von {{amountA}} {{fromTokenDisplaySymbol}} in {{toTokenDisplaySymbol}} beim Abrechnungsblock {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Entfernen von {{amount}} {{symbol}} aus dem Liquiditätspool"
   },
