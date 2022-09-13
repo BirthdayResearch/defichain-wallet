@@ -571,17 +571,22 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
     );
     if (selectedTokenA !== undefined) {
       if (selectedTokenA.displaySymbol === "DUSD") {
-        message = translate(
-          "screens/CompositeSwapScreen",
-          "You are buying {{displaySymbol}} at 5% more than the oracle price at settlement block",
-          {
-            displaySymbol: selectedTokenA.displaySymbol,
-          }
-        );
+        if (selectedTokenB === undefined) {
+          message = translate(
+            "screens/CompositeSwapScreen",
+            "You are buying dTokens at 5% more than the oracle price at settlement block."
+          );
+        } else {
+          message = translate(
+            "screens/CompositeSwapScreen",
+            "You are buying {{displaySymbol}} at 5% more than the oracle price at settlement block.",
+            { displaySymbol: selectedTokenB.displaySymbol }
+          );
+        }
       } else {
         message = translate(
           "screens/CompositeSwapScreen",
-          "You are selling your {{displaySymbol}} at 5% less than the oracle price at settlement block",
+          "You are selling your {{displaySymbol}} at 5% less than the oracle price at settlement block.",
           {
             displaySymbol: selectedTokenA.displaySymbol,
           }
@@ -589,7 +594,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
       }
     }
     setOraclePriceMessage(message);
-  }, [selectedTokenA]);
+  }, [selectedTokenA, selectedTokenB]);
 
   const navigateToTokenSelectionScreen = (listType: TokenListType): void => {
     navigation.navigate("SwapTokenSelectionScreen", {
@@ -1048,7 +1053,9 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   "flex flex-row justify-between items-center pl-5 mt-4",
                   {
                     "border-b-0.5 pb-8":
-                      isBothTokensSelected() && priceRates !== undefined,
+                      isBothTokensSelected() &&
+                      priceRates !== undefined &&
+                      activeButtonGroup === ButtonGroupTabKey.InstantSwap,
                   }
                 )}
                 light={tailwind("border-mono-light-v2-300")}
@@ -1084,9 +1091,9 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
             </ThemedViewV2>
           </View>
 
-          {isBothTokensSelected() && (
-            <View style={tailwind("px-4 pb-6")}>
-              {activeButtonGroup === ButtonGroupTabKey.InstantSwap && (
+          {isBothTokensSelected() &&
+            activeButtonGroup === ButtonGroupTabKey.InstantSwap && (
+              <View style={tailwind("px-4 pb-6")}>
                 <SlippageToleranceV2
                   setSlippage={setSlippage}
                   setSlippageError={setSlippageError}
@@ -1096,9 +1103,8 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   isEditing={isEditingCustomSlippageInput}
                   setIsEditing={setIsEditingCustomSlippageInput}
                 />
-              )}
-            </View>
-          )}
+              </View>
+            )}
 
           {isBothTokensSelected() && priceRates !== undefined && (
             <>
