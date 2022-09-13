@@ -1021,7 +1021,11 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                 testID="switch_button"
                 disabled={!isBothTokensSelected()}
               >
-                <View style={{ transform: [{ rotate: "90deg" }] }}>
+                <View
+                  style={{
+                    transform: [{ rotate: "90deg" }, { scaleX: -1 }],
+                  }}
+                >
                   <SwapTokenButton
                     size={24}
                     color={
