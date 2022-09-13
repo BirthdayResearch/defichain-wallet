@@ -62,7 +62,7 @@ import {
 } from "@components/TransactionCard";
 import { useToast } from "react-native-toast-notifications";
 import { useDisplayUtxoWarning } from "@hooks/wallet/DisplayUtxoWarning";
-import { DEXIcon } from "@screens/WalletNavigator/assets/BottomNavIcon";
+import { DEXIcon as SwapTokenButton } from "@screens/WalletNavigator/assets/BottomNavIcon";
 import {
   Announcement,
   AnnouncementBannerV2,
@@ -1022,7 +1022,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                 disabled={!isBothTokensSelected()}
               >
                 <View style={{ transform: [{ rotate: "90deg" }] }}>
-                  <DEXIcon
+                  <SwapTokenButton
                     size={24}
                     color={
                       isLight
