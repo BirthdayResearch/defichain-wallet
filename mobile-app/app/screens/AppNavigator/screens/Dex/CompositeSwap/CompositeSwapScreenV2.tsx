@@ -1089,7 +1089,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   status={
                     route.params.tokenSelectOption?.to?.isDisabled
                       ? TokenDropdownButtonStatus.Locked
-                      : selectedTokenA === undefined
+                      : selectedTokenA === undefined || toTokens.length === 0
                       ? TokenDropdownButtonStatus.Disabled
                       : TokenDropdownButtonStatus.Enabled
                   }
