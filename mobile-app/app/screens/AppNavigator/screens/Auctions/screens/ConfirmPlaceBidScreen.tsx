@@ -148,7 +148,7 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
       <NumberRow
         lhs={translate(
           "screens/ConfirmPlaceBidScreen",
-          "Total auction value (USD)"
+          "Total auction value (USDT)"
         )}
         rhs={{
           testID: "total_auction_value",

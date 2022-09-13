@@ -167,7 +167,7 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
               dark={tailwind("text-gray-400")}
               style={tailwind("text-xs")}
             >
-              {translate("components/BatchCard", "Total auction value (USD)")}
+              {translate("components/BatchCard", "Total auction value (USDT)")}
             </ThemedText>
           </View>
           <View style={tailwind("flex flex-row items-center")}>

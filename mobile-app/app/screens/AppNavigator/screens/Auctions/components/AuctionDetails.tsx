@@ -70,7 +70,7 @@ export function AuctionDetails(props: {
       <NumberRow
         lhs={translate(
           "components/AuctionDetailScreen",
-          "Collateral value (USD)"
+          "Collateral value (USDT)"
         )}
         rhs={{
           value: totalCollateralsValueInUSD,

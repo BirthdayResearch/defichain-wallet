@@ -314,7 +314,7 @@ function BidSummaryCard(props: {
 
       <VaultSectionTextRow
         value={getPrecisedTokenValue(props.totalAuctionValue)}
-        lhs={translate("screens/PlaceBidScreen", "Total auction value (USD)")}
+        lhs={translate("screens/PlaceBidScreen", "Total auction value (USDT)")}
         testID="text_total_auction_value"
         suffixType="component"
         prefix="$"
