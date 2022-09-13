@@ -553,12 +553,18 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
       if (selectedTokenA.displaySymbol === "DUSD") {
         message = translate(
           "screens/CompositeSwapScreen",
-          "You are buying dTokens at 5% more than the oracle price at settlement block"
+          "You are buying {{displaySymbol}} at 5% more than the oracle price at settlement block",
+          {
+            displaySymbol: selectedTokenA.displaySymbol,
+          }
         );
       } else {
         message = translate(
           "screens/CompositeSwapScreen",
-          "You are selling your dToken at 5% less than the oracle price at settlement block"
+          "You are selling your {{displaySymbol}} at 5% less than the oracle price at settlement block",
+          {
+            displaySymbol: selectedTokenA.displaySymbol,
+          }
         );
       }
     }
