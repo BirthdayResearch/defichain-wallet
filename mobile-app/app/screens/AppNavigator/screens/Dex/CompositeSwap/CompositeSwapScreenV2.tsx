@@ -62,6 +62,7 @@ import {
 } from "@components/TransactionCard";
 import { useToast } from "react-native-toast-notifications";
 import { useDisplayUtxoWarning } from "@hooks/wallet/DisplayUtxoWarning";
+import { DEXIcon as SwapTokenButton } from "@screens/WalletNavigator/assets/BottomNavIcon";
 import {
   Announcement,
   AnnouncementBannerV2,
@@ -1024,13 +1025,20 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                 testID="switch_button"
                 disabled={!isBothTokensSelected()}
               >
-                <ThemedIcon
-                  name="swap-vert"
-                  size={24}
-                  iconType="MaterialIcons"
-                  dark={tailwind("text-mono-dark-v2-00")}
-                  light={tailwind("text-mono-light-v2-00")}
-                />
+                <View
+                  style={{
+                    transform: [{ rotate: "90deg" }, { scaleX: -1 }],
+                  }}
+                >
+                  <SwapTokenButton
+                    size={24}
+                    color={
+                      isLight
+                        ? getColor("mono-light-v2-00")
+                        : getColor("mono-dark-v2-00")
+                    }
+                  />
+                </View>
               </ThemedTouchableOpacityV2>
               <ThemedViewV2
                 dark={tailwind("border-mono-dark-v2-300")}
