@@ -1070,6 +1070,7 @@
     "Settlement value {{percentageChange}}": "Abrechnungswert {{percentageChange}}",
     "Total fees": "Gebühren insgesamt",
     "To receive (incl. of fees)": "Zu erhalten (inkl. Gebühren)",
+    "Estimated to receive (incl. all fees)": "Voraussichtliche Einnahmen (einschl. aller Gebühren)",
     "Fee breakdown": "Aufschlüsselung der Gebühren",
     "Transaction fee": "Transaktionsgebühren",
     "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?": "Bist du sicher, dass du deine Transaktion trotz der hohen DEX-Stabilisierungsgebühr durchführen möchtest?"
@@ -1430,8 +1431,10 @@
     "Min. next bid": "Nächstes Mind. Gebot",
     "The minimum bid a user must place in order to take part in the auction.": "Das Mindestgebot, das ein Nutzer abgeben muss, um an der Auktion teilnehmen zu können.",
     "Settlement block": "Ausführungsblock",
-    "Slippage tolerance": "Slippage-Toleranz",
-    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Slippage sind Kursänderungen, die innerhalb eines Auftragsvorgangs auftreten. Beachte, dass die Slippage-Toleranz auch die DEX-Stabilisierungsgebühren beinhaltet. Wähle aus, wie viel Slippage du zu akzeptieren bereit bist."
+    "Slippage tolerance": "Slippage-toleranz",
+    "Slippage Tolerance": "Slippage-Toleranz",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "Slippage sind Kursänderungen, die innerhalb eines Auftragsvorgangs auftreten. Beachte, dass die Slippage-Toleranz auch die DEX-Stabilisierungsgebühren beinhaltet. Wähle aus, wie viel Slippage du zu akzeptieren bereit bist.",
+    "Settlements": "Abrechnungen"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",

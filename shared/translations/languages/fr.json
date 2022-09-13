@@ -1084,6 +1084,7 @@
     "Transaction fee": "Transaction fee",
     "Total fees": "Total des frais",
     "To receive (incl. of fees)": "A recevoir (y compris les frais)",
+    "Estimated to receive (incl. all fees)": "Estimation du montant à recevoir (tous frais compris)",
     "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?": "Êtes-vous sûr de vouloir procéder à votre transaction même avec les frais de stabilisation DEX élevés ?"
   },
   "screens/PoolSwapConfirmScreen": {
@@ -1443,7 +1444,9 @@
     "The minimum bid a user must place in order to take part in the auction.": "Offre minimale qu'un utilisateur doit placer pour pouvoir participer à l'enchère.",
     "Settlement block": "Bloc d’exécution",
     "Slippage tolerance": "Tolérance de glissement",
-    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Le glissement est une différence de cours qui se produit lors d'une transaction sur un DEX. Notez que la tolérance de glissement inclut également les frais de stabilisation DEX. Donnez le montant de ce glissement que vous êtes prêt à accepter."
+    "Slippage Tolerance": "Tolérance de glissement",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "Le glissement est une différence de cours qui se produit lors d'une transaction sur un DEX. Notez que la tolérance de glissement inclut également les frais de stabilisation DEX. Donnez le montant de ce glissement que vous êtes prêt à accepter.",
+    "Settlements": "Règlements"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault ID",

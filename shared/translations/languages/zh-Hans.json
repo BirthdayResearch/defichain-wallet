@@ -1074,6 +1074,7 @@
     "Settlement value {{percentageChange}}": "Settlement value {{percentageChange}}",
     "Total fees": "Total fees",
     "To receive (incl. of fees)": "To receive (incl. of fees)",
+    "Estimated to receive (incl. all fees)": "Estimated to receive (incl. all fees)",
     "Fee breakdown": "Fee breakdown",
     "Transaction fee": "Transaction fee",
     "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?": "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?"
@@ -1436,7 +1437,9 @@
     "The minimum bid a user must place in order to take part in the auction.": "用户参与拍卖必须提交的最低标价。",
     "Settlement block": "Settlement block",
     "Slippage tolerance": "交易滑点",
-    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑价是每项交易中的兑换率变化。选择您愿意接受这滑价的多少百分比（如下显示)。"
+    "Slippage Tolerance": "交易滑点",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑价是每项交易中的兑换率变化。选择您愿意接受这滑价的多少百分比（如下显示)。",
+    "Settlements": "Settlements"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金库编号",
