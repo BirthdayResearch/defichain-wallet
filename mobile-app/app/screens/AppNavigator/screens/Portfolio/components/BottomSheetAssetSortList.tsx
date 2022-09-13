@@ -12,7 +12,7 @@ import { ThemedBottomSheetFlatList } from "@components/themed/ThemedBottomSheetF
 
 export interface BottomSheetAssetSortProps {
   onButtonPress: (item: PortfolioSortType) => void;
-  modifiedDenominationCurrency: string;
+  denominationCurrency: string;
   selectedAssetSortType: PortfolioSortType;
 }
 
@@ -27,7 +27,7 @@ export enum PortfolioSortType {
 
 export const BottomSheetAssetSortList = ({
   onButtonPress,
-  modifiedDenominationCurrency,
+  denominationCurrency,
   selectedAssetSortType,
 }: BottomSheetAssetSortProps): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
@@ -42,13 +42,13 @@ export const BottomSheetAssetSortList = ({
     const assetSortList: PortfolioSortType[] = Object.values(PortfolioSortType);
     const highestCurrencyValue = translate(
       "screens/PortfolioScreen",
-      "Highest value ({{modifiedDenominationCurrency}})",
-      { modifiedDenominationCurrency }
+      "Highest value ({{denominationCurrency}})",
+      { denominationCurrency }
     );
     const lowestCurrencyValue = translate(
       "screens/PortfolioScreen",
-      "Lowest value ({{modifiedDenominationCurrency}})",
-      { modifiedDenominationCurrency }
+      "Lowest value ({{denominationCurrency}})",
+      { denominationCurrency }
     );
     const getDisplayedSortText = useCallback(
       (text: PortfolioSortType): string => {
@@ -59,7 +59,7 @@ export const BottomSheetAssetSortList = ({
         }
         return text;
       },
-      [modifiedDenominationCurrency]
+      [denominationCurrency]
     );
 
     const renderItem = ({
