@@ -305,7 +305,7 @@
     "Search token": "Rechercher de token",
     "No assets found": "Aucun actif trouvé",
     "Add assets to get started": "Ajouter des actifs pour commencer",
-    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
+    "Search results for “{{searchTerm}}”": "Résultats de la recherche pour “{{searchTerm}}”",
     "AVAILABLE": "AVAILABLE"
   },
   "screens/ConvertScreen": {
@@ -785,6 +785,8 @@
     "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI convertis en {{symbolB}}",
     "Preparing your transaction…": "Préparation de votre transaction en coursn…",
     "Processing future swap transaction…": "Traitement de la transaction échange à terme…",
+    "Processing future swap…": "Traitement de l‘échange à terme...",
+    "Future Swap confirmed for next settlement block": "Échange à terme confirmé pour le prochain bloc de règlement",
     "Future Swap confirmed and will be executed at block #{{block}}": "Échange à terme confirmé et qui sera exécuté au bloc #{{block}}",
     "Preparing changes to loan scheme…": "Préparation des modifications du schéma de prêt…",
     "Saving changes to loan scheme…": "Enregistrement des modifications apportées au schéma de prêts…",
@@ -792,6 +794,9 @@
     "Preparing withdrawal…": "Préparation du retrait en cours…",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Retrait de {{amountToWithdraw}} {{sourceSymbol}} de l'échange à terme…",
     "Withdrawal completed": "Retrait effectué",
+    "Swapped {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Echangé {{amountA}} {{symbolA}} contre {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échange de {{amountA}} {{symbolA}} avec {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Échanger {{amountA}} {{fromTokenDisplaySymbol}} à {{toTokenDisplaySymbol}} sur le bloc de règlement {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Retrait de {{amount}} {{symbol}} du pool de liquidité"
   },
   "components/BarCodeScanner": {
@@ -809,7 +814,8 @@
     "From": "Des",
     "To": "Contre des",
     "Converting": "Conversion",
-    "Converted": "Converti"
+    "Converted": "Converti",
+    "for": "à"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Créez un nouveau code d'accès pour votre portefeuille",
@@ -981,6 +987,9 @@
     "Authorize transaction in the next screen to convert": "Autoriser la transaction à l'étape suivante"
   },
   "screens/CompositeSwapScreen": {
+    "SLIPPAGE TOLERANCE": "TOLÉRANCE DE GLISSEMENT",
+    "Custom": "Personnaliser",
+    "Set": "Valider",
     "Swap tokens": "Échange de tokens",
     "Select tokens you want to swap to get started": "Sélectionnez les tokens que vous voulez échanger pour commencer.",
     "How much {{token}} do you want to swap?": "Combien de {{token}} voulez-vous échanger ?",
@@ -1013,7 +1022,41 @@
     "Price ({{tokenB}}/{{tokenA}})": "Prix ({{tokenB}}/{{tokenA}})",
     "Are you certain you want to proceed to swap DUSD for {{tokenB}} despite the DEX Stabilization fees of {{fee}}?": "Êtes-vous certain de vouloir procéder à l'échange de DUSD contre {{tokenB}} malgré les frais de stabilisation DEX de {{fee}} ?",
     "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?": "Êtes-vous certain de vouloir procéder à cet échange malgré les frais de stabilisation DEX de {{fee}} qui seront encourus dans le cadre du chemin composé (DUSD -> {{tokenB}}) ?",
-    "DEX stabilization fee": "DEX stabilization fee"
+    "DEX stabilization fee": "DEX stabilization fee",
+    "Future swap uses the oracle price of the selected token on the settlement block": "Future swap uses the oracle price of the selected token on the settlement block",
+    "You are buying dTokens at 5% more than the oracle price at settlement block.": "You are buying dTokens at 5% more than the oracle price at settlement block.",
+    "You are buying {{displaySymbol}} at 5% more than the oracle price at settlement block.": "You are buying {{displaySymbol}} at 5% more than the oracle price at settlement block.",
+    "You are selling your {{displaySymbol}} at 5% less than the oracle price at settlement block.": "You are selling your {{displaySymbol}} at 5% less than the oracle price at settlement block.",
+    "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
+    "By continuing, the required amount of DFI will be converted": "En continuant, le montant requis de DFI sera converti",
+    "I HAVE {{totalAmount}} {{token}}": "J'AI {{totalAmount}} {{token}}",
+    "I WANT {{token}}": "JE VEUX {{token}}",
+    "incl. stabilization fee ({{dexStabilizationFee}}%)": "y compris les frais de stabilisation ({{dexStabilizationFee}}%)",
+    "Total fees": "Total des frais",
+    "Settlement Value {{percentageChange}}": "Valeur de règlement {{percentageChange}}",
+    "Transaction fee": "Transaction fee",
+    "Max available {{unit}} entered": "Max. de {{unit}} disponibles saisis",
+    "{{percent}} of available {{unit}} entered": "{{percent}} des {{unit}} disponibles saisis",
+    "Token": "Token",
+    "Instant": "Instantané",
+    "Future": "À terme",
+    "Learn about settlements": "En savoir plus sur les règlements",
+    "Settlements": "Règlements",
+    "Settlement block is the pre-determined block height that this transaction will be executed.": "Le bloc de règlement est la hauteur de bloc prédéterminée à laquelle cette transaction sera exécutée.",
+    "Settlement value is based on the oracle price at the settlement block.": "La valeur de règlement est basée sur le prix oracle au bloc de règlement.",
+    "Users will be able to cancel this transaction as long as the settlement block has not been executed.": "Les utilisateurs pourront annuler cette transaction tant que le bloc de règlement n'aura pas été exécuté.",
+    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Les frais totaux sont facturés en fonction du type d'échange et des tokens sélectionnés. Ils se composeent de: \n\n 1. Frais de commission\n 2. Frais de transaction\n 3. Frais liés au DEX tels que les frais de stabilisation et les frais de brûlure (le cas échéant)"
+  },
+  "screens/SwapTokenSelectionScreen": {
+    "Select": "Select",
+    "Search token": "Search token",
+    "AVAILABLE TOKENS": "AVAILABLE TOKENS",
+    "AVAILABLE FOR SWAP": "DISPONIBLE POUR UN ÉCHANGE",
+    "AVAILABLE FOR FUTURE SWAP": "AVAILABLE FOR FUTURE SWAP",
+    "Search with token name": "Recherche avec le nom du token",
+    "Search dTokens for future swap": "Search dTokens for future swap",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
+    "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap.": "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap."
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "CONVERSION...",
@@ -1027,13 +1070,22 @@
     "Swap": "Échanger",
     "Swapping Token": "Échange du token",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échange de {{amountA}} {{symbolA}} avec {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "Échange de {{amountA}} {{symbolA}} avec {{symbolB}}",
     "Slippage tolerance": "Tolérance de glissement",
     "Estimated to receive": "Estimé à recevoir",
     "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Échange sur le bloc à terme {{amountA}} {{fromTokenDisplaySymbol}} en {{toTokenDisplaySymbol}} sur le prix oracle {{percentageChange}}",
     "To be confirmed": "À confirmer",
     "Settlement block": "Bloc d’exécution",
     "Resulting {{token}}": "{{token}} restants",
-    "Oracle price {{percentageChange}}": "Prix Oracle {{percentageChange}}"
+    "Oracle price {{percentageChange}}": "Prix Oracle {{percentageChange}}",
+    "To receive (est.)": "A recevoir (est.)",
+    "Settlement value {{percentageChange}}": "Valeur du règlement {{percentageChange}}",
+    "Fee breakdown": "Répartition des frais",
+    "Transaction fee": "Transaction fee",
+    "Total fees": "Total des frais",
+    "To receive (incl. of fees)": "A recevoir (y compris les frais)",
+    "Estimated to receive (incl. all fees)": "Estimation du montant à recevoir (tous frais compris)",
+    "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?": "Êtes-vous sûr de vouloir procéder à votre transaction même avec les frais de stabilisation DEX élevés ?"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Vous échangez",
@@ -1392,7 +1444,9 @@
     "The minimum bid a user must place in order to take part in the auction.": "Offre minimale qu'un utilisateur doit placer pour pouvoir participer à l'enchère.",
     "Settlement block": "Bloc d’exécution",
     "Slippage tolerance": "Tolérance de glissement",
-    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Le glissement est une différence de cours qui se produit lors d'une transaction sur un DEX. Notez que la tolérance de glissement inclut également les frais de stabilisation DEX. Donnez le montant de ce glissement que vous êtes prêt à accepter."
+    "Slippage Tolerance": "Tolérance de glissement",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "Le glissement est une différence de cours qui se produit lors d'une transaction sur un DEX. Notez que la tolérance de glissement inclut également les frais de stabilisation DEX. Donnez le montant de ce glissement que vous êtes prêt à accepter.",
+    "Settlements": "Règlements"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault ID",

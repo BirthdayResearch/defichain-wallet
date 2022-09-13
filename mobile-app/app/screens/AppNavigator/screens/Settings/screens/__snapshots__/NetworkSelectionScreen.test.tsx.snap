@@ -705,7 +705,7 @@ exports[`onboarding network selection screen should render 1`] = `
           <View
             style={
               Object {
-                "alignItems": "flex-end",
+                "alignItems": "center",
                 "flexDirection": "row",
                 "justifyContent": "flex-start",
               }

@@ -110,7 +110,19 @@ export function PoolPairDetailsScreen({ route }: Props): JSX.Element {
   const onSwap = (data: PoolPairData): void => {
     navigation.navigate({
       name: "CompositeSwap",
-      params: { pair: data },
+      params: {
+        pair: data,
+        tokenSelectOption: {
+          from: {
+            isDisabled: true,
+            isPreselected: true,
+          },
+          to: {
+            isDisabled: true,
+            isPreselected: true,
+          },
+        },
+      },
       merge: true,
     });
   };

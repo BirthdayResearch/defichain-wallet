@@ -43,6 +43,8 @@ interface IWalletTextInputProps {
   hasBottomSheet?: boolean;
   inputFooter?: React.ReactElement;
   displayTickIcon?: boolean;
+  helperContainerStyle?: StyleProp<ViewStyle>;
+  borderContainerStyle?: StyleProp<ViewStyle>;
 }
 
 export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(
@@ -63,6 +65,8 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(
       hasBottomSheet,
       inputFooter,
       displayTickIcon,
+      helperContainerStyle,
+      borderContainerStyle,
       ...otherProps
     } = props;
 
@@ -97,7 +101,10 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(
             "border-mono-dark-v2-800": isFocus,
             "border-red-v2": !valid,
           })}
-          style={tailwind("flex-col w-full border-0.5 rounded-lg-v2")}
+          style={[
+            tailwind("flex-col w-full border-0.5 rounded-lg-v2"),
+            borderContainerStyle,
+          ]}
         >
           <View
             style={[
@@ -147,36 +154,41 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(
           </View>
           <View>{inputFooter}</View>
         </ThemedViewV2>
-        {inlineText?.type === "error" && !valid && (
-          <Text
-            style={[
-              tailwind("text-xs mt-2 text-red-v2 font-normal-v2"),
-              inlineText.style,
-            ]}
-            testID={
-              props.testID !== undefined ? `${props.testID}_error` : undefined
-            }
-          >
-            {inlineText?.text}
-          </Text>
-        )}
-        {inlineText?.type === "helper" && typeof inlineText?.text === "string" && (
-          <Text
-            style={[
-              tailwind("text-xs text-red-v2 mt-2 font-normal-v2"),
-              inlineText.style,
-            ]}
-            testID={
-              props.testID !== undefined ? `${props.testID}_error` : undefined
-            }
-          >
-            {inlineText?.text}
-          </Text>
-        )}
+        <View style={props.helperContainerStyle}>
+          {inlineText?.type === "error" && !valid && (
+            <Text
+              style={[
+                tailwind("text-xs mt-2 text-red-v2 font-normal-v2"),
+                inlineText.style,
+              ]}
+              testID={
+                props.testID !== undefined ? `${props.testID}_error` : undefined
+              }
+            >
+              {inlineText?.text}
+            </Text>
+          )}
+          {inlineText?.type === "helper" &&
+            typeof inlineText?.text === "string" && (
+              <Text
+                style={[
+                  tailwind("text-xs text-red-v2 mt-2 font-normal-v2"),
+                  inlineText.style,
+                ]}
+                testID={
+                  props.testID !== undefined
+                    ? `${props.testID}_error`
+                    : undefined
+                }
+              >
+                {inlineText?.text}
+              </Text>
+            )}
 
-        {inlineText?.type === "helper" &&
-          typeof inlineText?.text !== "string" &&
-          inlineText?.text}
+          {inlineText?.type === "helper" &&
+            typeof inlineText?.text !== "string" &&
+            inlineText?.text}
+        </View>
       </ThemedViewV2>
     );
   }

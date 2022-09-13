@@ -173,7 +173,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
         fromToken,
         tokenSelectOption: {
           from: {
-            isDisabled: true,
+            isDisabled: false,
             isPreselected: true,
           },
           to: {

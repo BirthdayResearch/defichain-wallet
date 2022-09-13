@@ -773,6 +773,8 @@
     "{{amount}} DFI converted to {{symbolB}}": "{{amount}}-DFI umgewandelt in {{symbolB}}",
     "Preparing your transaction…": "Deine Transaktion vorbereiten…",
     "Processing future swap transaction…": "Verarbeiten der Future-Swap-Transaktion…",
+    "Processing future swap…": "Bearbeitung von Future Swap...",
+    "Future Swap confirmed for next settlement block": "Future Swap für nächsten Abrechnungsblock bestätigt",
     "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap bestätigt und wird im Block #{{block}} ausgeführt",
     "Preparing changes to loan scheme…": "Änderungen am Darlehensmodell vorbereiten…",
     "Saving changes to loan scheme…": "Änderungen am Darlehensmodell speichern…",
@@ -780,6 +782,9 @@
     "Preparing withdrawal…": "Auszahlung vorbereiten…",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Abhebung von {{amountToWithdraw}} {{sourceSymbol}} aus dem Future Swap",
     "Withdrawal completed": "Auszahlung abgeschlossen",
+    "Swapped {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "{{amountA}} {{symbolA}} in {{amountB}} {{symbolB}} umgetauscht",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausch von {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Tausch von {{amountA}} {{fromTokenDisplaySymbol}} in {{toTokenDisplaySymbol}} beim Abrechnungsblock {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Entfernen von {{amount}} {{symbol}} aus dem Liquiditätspool"
   },
   "components/BarCodeScanner": {
@@ -797,7 +802,8 @@
     "From": "Von",
     "To": "In",
     "Converting": "Umwandeln",
-    "Converted": "Umgewandelt"
+    "Converted": "Umgewandelt",
+    "for": "in"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Erstelle neues Passwort für deine Wallet",
@@ -969,6 +975,9 @@
     "Authorize transaction in the next screen to convert": "Gib die zunächst notwendige Konvertierungs-Transaktion frei"
   },
   "screens/CompositeSwapScreen": {
+    "SLIPPAGE TOLERANCE": "SLIPPAGE-TOLERANZ",
+    "Custom": "Benutzerdefiniert",
+    "Set": "Einstellen",
     "Swap tokens": "Token-Tausch",
     "Select tokens you want to swap to get started": "Wähle die Token, die du tauschen möchtest, um zu beginnen",
     "How much {{token}} do you want to swap?": "Wie viele {{token}} möchtest du umtauschen?",
@@ -1001,7 +1010,41 @@
     "Price ({{tokenB}}/{{tokenA}})": "Preis ({{tokenB}}/{{tokenA}})",
     "Are you certain you want to proceed to swap DUSD for {{tokenB}} despite the DEX Stabilization fees of {{fee}}?": "Bist du dir sicher, dass du trotz der DEX-Stabilisierungsgebühren von {{fee}} mit dem Tausch von DUSD in {{tokenB}} fortfahren willst?",
     "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?": "Bist du dir sicher, dass du diesen Tausch trotz der DEX-Stabilisierungsgebühren in Höhe von {{fee}}, die im Verlauf des zusammengesetzten Pfads beim Komposit-Swap (DUSD -> {{tokenB}}) anfallen werden, durchführen willst?",
-    "DEX stabilization fee": "DEX-Stabilisierungsgebühr"
+    "DEX stabilization fee": "DEX-Stabilisierungsgebühr",
+    "Future swap uses the oracle price of the selected token on the settlement block": "Future Swap verwendet den Orakelpreis des ausgewählten Tokens beim Abrechnungsblock",
+    "You are buying dTokens at 5% more than the oracle price at settlement block.": "Du kaufst dTokens zu einem Preis, der 5% über dem Orakelpreis beim Abrechnungsblock liegt",
+    "You are buying {{displaySymbol}} at 5% more than the oracle price at settlement block.": "Du kaufst {{displaySymbol}} zu einem Preis, der 5% über dem Orakelpreis beim Abrechnungsblock liegt.",
+    "You are selling your {{displaySymbol}} at 5% less than the oracle price at settlement block.": "Du verkaufst {{displaySymbol}} zu einem Preis, der 5% unter dem Orakelpreis beim Abrechnungsblock liegt.",
+    "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
+    "By continuing, the required amount of DFI will be converted": "Wenn du fortfährst, wird die erforderliche Summe an DFI umgewandelt",
+    "I HAVE {{totalAmount}} {{token}}": "ICH HABE {{totalAmount}} {{token}}",
+    "I WANT {{token}}": "ICH MÖCHTE {{token}}",
+    "incl. stabilization fee ({{dexStabilizationFee}}%)": "inkl. Stabilisierungsgebühr ({{dexStabilizationFee}}%)",
+    "Total fees": "Gebühren insgesamt",
+    "Settlement Value {{percentageChange}}": "Abrechnungswert {{percentageChange}}",
+    "Transaction fee": "Transaktionsgebühren",
+    "Max available {{unit}} entered": "Max. verfügbare {{unit}} eingegeben",
+    "Settlements": "Abrechnungen",
+    "Learn about settlements": "Informationen über Abrechnungen",
+    "{{percent}} of available {{unit}} entered": "{{percent}} der verfügbaren {{unit}} eingegeben",
+    "Token": "Token",
+    "Instant": "Sofort",
+    "Future": "Future Swap",
+    "Settlement block is the pre-determined block height that this transaction will be executed.": "Der Abrechnungsblock ist die vorher festgelegte Blockhöhe, auf der diese Transaktion ausgeführt wird.",
+    "Settlement value is based on the oracle price at the settlement block.": "Der Abrechnungswert basiert auf dem Orakelpreis zum Abrechnungsblock.",
+    "Users will be able to cancel this transaction as long as the settlement block has not been executed.": "Benutzer können diese Transaktion stornieren, solange der Abrechnungsblock noch nicht ausgeführt wurde.",
+    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Der Gesamtbetrag der Gebühren richtet sich nach der Art richten sich nach der Art des Tauschs und den ausgewählten Token. Er setzt sich zusammen aus: \n\n1. Kommissionsgebühr\n2. Transaktionsgebühr\n3. Stabilisierungsgebühr und Gebühr für Token-Burning (falls zutreffend)"
+  },
+  "screens/SwapTokenSelectionScreen": {
+    "Select": "Auswählen",
+    "Search token": "Token suchen",
+    "AVAILABLE TOKENS": "VERFÜGBARE TOKEN",
+    "AVAILABLE FOR SWAP": "VERFÜGBAR FÜR TAUSCH",
+    "AVAILABLE FOR FUTURE SWAP": "FÜR FUTURE SWAP VERFÜGBAR",
+    "Search with token name": "Suche über den Token-Namen",
+    "Search dTokens for future swap": "Suche nach dToken für Future Swap",
+    "Search results for “{{searchTerm}}”": "Suchergebnisse für  “{{searchTerm}}”",
+    "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap.": "Keine Ergebnisse für “{{searchTerm}}” gefunden. Bitte beachte, dass nur ausgewählte Token für den Future Swap verfügbar sind."
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "UMWANDELN",
@@ -1015,13 +1058,22 @@
     "Swap": "Tausch",
     "Swapping Token": "Token-Tausch",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausch von {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "Tausch von {{amountA}} {{symbolA}} gegen {{symbolB}}",
     "Slippage tolerance": "Slippage-Toleranz",
     "Estimated to receive": "Geschätzter Betrag",
     "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Tausch beim Erreichen des Ausführungsblocks von {{amountA}} {{fromTokenDisplaySymbol}} gegen {{toTokenDisplaySymbol}} zum Preisorakelwert {{percentageChange}}",
     "To be confirmed": "Noch zu bestätigen",
     "Settlement block": "Ausführungsblock",
     "Resulting {{token}}": "Verbleibende {{token}}",
-    "Oracle price {{percentageChange}}": "Preisorakelwert {{percentageChange}}"
+    "Oracle price {{percentageChange}}": "Preisorakelwert {{percentageChange}}",
+    "To receive (est.)": "Zu erhalten (geschätzt)",
+    "Settlement value {{percentageChange}}": "Abrechnungswert {{percentageChange}}",
+    "Total fees": "Gebühren insgesamt",
+    "To receive (incl. of fees)": "Zu erhalten (inkl. Gebühren)",
+    "Estimated to receive (incl. all fees)": "Voraussichtliche Einnahmen (einschl. aller Gebühren)",
+    "Fee breakdown": "Aufschlüsselung der Gebühren",
+    "Transaction fee": "Transaktionsgebühren",
+    "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?": "Bist du sicher, dass du deine Transaktion trotz der hohen DEX-Stabilisierungsgebühr durchführen möchtest?"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "Du tauschst",
@@ -1379,8 +1431,10 @@
     "Min. next bid": "Nächstes Mind. Gebot",
     "The minimum bid a user must place in order to take part in the auction.": "Das Mindestgebot, das ein Nutzer abgeben muss, um an der Auktion teilnehmen zu können.",
     "Settlement block": "Ausführungsblock",
-    "Slippage tolerance": "Slippage-Toleranz",
-    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "Slippage sind Kursänderungen, die innerhalb eines Auftragsvorgangs auftreten. Beachte, dass die Slippage-Toleranz auch die DEX-Stabilisierungsgebühren beinhaltet. Wähle aus, wie viel Slippage du zu akzeptieren bereit bist."
+    "Slippage tolerance": "Slippage-toleranz",
+    "Slippage Tolerance": "Slippage-Toleranz",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "Slippage sind Kursänderungen, die innerhalb eines Auftragsvorgangs auftreten. Beachte, dass die Slippage-Toleranz auch die DEX-Stabilisierungsgebühren beinhaltet. Wähle aus, wie viel Slippage du zu akzeptieren bereit bist.",
+    "Settlements": "Abrechnungen"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
