@@ -880,7 +880,10 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                 dark: tailwind("bg-mono-dark-v2-00"),
                 style: tailwind("mt-6 rounded-xl-v2"),
               }}
-              disabled={selectedTokenA === undefined}
+              disabled={
+                selectedTokenA === undefined ||
+                new BigNumber(getMaxAmount(selectedTokenA)).isZero()
+              }
             >
               <View
                 style={tailwind(
