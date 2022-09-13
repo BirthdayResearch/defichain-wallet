@@ -598,6 +598,10 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
 
   const navigateToTokenSelectionScreen = (listType: TokenListType): void => {
     navigation.navigate("SwapTokenSelectionScreen", {
+      fromToken: {
+        symbol: selectedTokenA?.symbol,
+        displaySymbol: selectedTokenA?.displaySymbol,
+      },
       listType: listType,
       list: listType === TokenListType.From ? fromTokens ?? [] : toTokens ?? [],
       onTokenPress: (item) => {

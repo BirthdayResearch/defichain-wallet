@@ -9,7 +9,7 @@ import {
 import { tailwind } from "@tailwind";
 import { TextInput, View } from "react-native";
 import { SearchInputV2 } from "@components/SearchInputV2";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useCallback } from "react";
 import { useDebounce } from "@hooks/useDebounce";
 import { TokenIcon } from "@screens/AppNavigator/screens/Portfolio/components/TokenIcon";
 import { TokenNameTextV2 } from "@screens/AppNavigator/screens/Portfolio/components/TokenNameTextV2";
@@ -18,6 +18,12 @@ import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetai
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { translate } from "@translations";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useSelector } from "react-redux";
+import { fetchDexPrice } from "@store/wallet";
+import { RootState } from "@store";
+import { useFocusEffect } from "@react-navigation/native";
+import { useAppDispatch } from "@hooks/useAppDispatch";
+import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 
 export enum TokenListType {
   From = "FROM",
@@ -41,6 +47,7 @@ type Props = StackScreenProps<DexParamList, "SwapTokenSelectionScreen">;
 
 export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
   const {
+    fromToken,
     listType,
     list,
     onTokenPress,
@@ -49,11 +56,28 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
   } = route.params;
 
   const { isLight } = useThemeContext();
-  const { getTokenPrice } = useTokenPrice();
+  const client = useWhaleApiClient();
+  const dispatch = useAppDispatch();
+  const blockCount = useSelector((state: RootState) => state.block.count);
+  const { getTokenPrice: getTokenPriceUSDT } = useTokenPrice();
+  const { getTokenPrice: getTokenPriceTokenA } = useTokenPrice(
+    fromToken.symbol
+  );
   const [searchString, setSearchString] = useState("");
   const [isSearchFocus, setIsSearchFocus] = useState(false);
   const debouncedSearchTerm = useDebounce(searchString, 250);
   const searchRef = useRef<TextInput>();
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(
+        fetchDexPrice({
+          client,
+          denomination: fromToken.symbol ?? "USDT",
+        })
+      );
+    }, [blockCount, fromToken.symbol])
+  );
 
   const filteredTokensWithBalance = useMemo(() => {
     return filterTokensBySearchTerm(list, debouncedSearchTerm, isSearchFocus);
@@ -89,9 +113,11 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
       renderItem={({ item }: { item: SelectionToken }): JSX.Element => {
         return (
           <TokenItem
+            fromToken={fromToken}
             item={item}
             onPress={() => onTokenPress(item)}
-            getTokenPrice={getTokenPrice}
+            getTokenPriceUSDT={getTokenPriceUSDT}
+            getTokenPriceTokenA={getTokenPriceTokenA}
             listType={listType}
           />
         );
@@ -167,24 +193,39 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
   );
 }
 
+type TokenPrice = (
+  symbol: string,
+  amount: BigNumber,
+  isLPS?: boolean | undefined
+) => BigNumber;
+
 interface TokenItemProps {
+  fromToken: {
+    symbol?: string;
+    displaySymbol?: string;
+  };
   item: SelectionToken;
   onPress: any;
-  getTokenPrice: (
-    symbol: string,
-    amount: BigNumber,
-    isLPS?: boolean | undefined
-  ) => BigNumber;
+  getTokenPriceUSDT: TokenPrice;
+  getTokenPriceTokenA: TokenPrice;
   listType: TokenListType;
 }
 
 function TokenItem({
+  fromToken,
   item,
   onPress,
-  getTokenPrice,
+  getTokenPriceUSDT,
+  getTokenPriceTokenA,
   listType,
 }: TokenItemProps): JSX.Element {
-  const activePrice = getTokenPrice(
+  const activePriceUSDT = getTokenPriceUSDT(
+    item.token.symbol,
+    new BigNumber("1"),
+    item.token.isLPS
+  );
+
+  const activePriceTokenA = getTokenPriceTokenA(
     item.token.symbol,
     new BigNumber("1"),
     item.token.isLPS
@@ -216,7 +257,14 @@ function TokenItem({
       </View>
       <View style={tailwind("flex-1 flex-wrap flex-col items-end")}>
         <NumberFormat
-          value={item.available.toFixed(8)}
+          value={
+            listType === TokenListType.From
+              ? item.available.toFixed(8)
+              : activePriceTokenA.toFixed(8)
+          }
+          suffix={
+            listType === TokenListType.From ? "" : ` ${fromToken.displaySymbol}`
+          }
           thousandSeparator
           displayType="text"
           renderText={(value) => (
@@ -233,13 +281,15 @@ function TokenItem({
         <View style={tailwind("pt-1")}>
           {listType === TokenListType.From ? (
             <ActiveUSDValueV2
-              price={new BigNumber(item.available).multipliedBy(activePrice)}
+              price={new BigNumber(item.available).multipliedBy(
+                activePriceUSDT
+              )}
               containerStyle={tailwind("justify-end")}
               style={tailwind("flex-wrap")}
             />
           ) : (
             <NumberFormat
-              value={activePrice.toFixed(2)}
+              value={activePriceUSDT.toFixed(2)}
               thousandSeparator
               displayType="text"
               renderText={(value) => (
@@ -254,7 +304,7 @@ function TokenItem({
                   {value}
                 </ThemedTextV2>
               )}
-              prefix={`1 ${item.token.displaySymbol} = $`}
+              prefix="$"
             />
           )}
         </View>

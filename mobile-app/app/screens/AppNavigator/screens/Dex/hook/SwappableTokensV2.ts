@@ -94,7 +94,6 @@ export function useSwappableTokensV2(
               name: token.name ?? "",
               symbol: token.symbol,
             },
-            reserve: token.reserve,
           };
         })
         .sort((a, b) => b.available.minus(a.available).toNumber());
@@ -139,17 +138,15 @@ export function useSwappableTokensV2(
       .filter((t) => t.displaySymbol !== "dBURN" && !t.symbol.includes("/v1"))
       .map((token) => {
         const tokenId = token.id === "0" ? "0_unified" : token.id;
-        const tokenData = allTokens.find((t) => t.id === token.id);
 
         return {
           tokenId: tokenId,
-          available: new BigNumber(tokenData?.reserve ?? NaN),
+          available: new BigNumber(NaN),
           token: {
             displaySymbol: token.displaySymbol,
             name: token.name ?? "",
             symbol: token.symbol,
           },
-          reserve: tokenData?.reserve ?? "", // TODO(PIERRE): Ask whale to add reserve on response
         };
       })
       .sort((a, b) => new BigNumber(a.tokenId).minus(b.tokenId).toNumber());
