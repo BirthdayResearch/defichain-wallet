@@ -111,22 +111,25 @@ export function useDexStabilization(
       : new BigNumber(fee).multipliedBy(100).toFixed(2);
   };
 
-  const getHighFeesUrl = (
-    tokenA: OwnedTokenState,
-    tokenB: TokenState
-  ): string => {
+  const getHighFeesUrl = (pair: {
+    tokenADisplaySymbol: string;
+    tokenBDisplaySymbol: string;
+  }): string => {
     let highFeesUrl = "";
 
-    if (tokenA.displaySymbol === "DUSD" && tokenB.displaySymbol === "DFI") {
+    if (
+      pair.tokenADisplaySymbol === "DUSD" &&
+      pair.tokenBDisplaySymbol === "DFI"
+    ) {
       highFeesUrl = "https://defiscan.live/dex/DUSD";
     } else if (
-      tokenA.displaySymbol === "DUSD" &&
-      tokenB.displaySymbol === "dUSDT"
+      pair.tokenADisplaySymbol === "DUSD" &&
+      pair.tokenBDisplaySymbol === "dUSDT"
     ) {
       highFeesUrl = "https://defiscan.live/dex/dUSDT-DUSD";
     } else if (
-      tokenA.displaySymbol === "DUSD" &&
-      tokenB.displaySymbol === "dUSDC"
+      pair.tokenADisplaySymbol === "DUSD" &&
+      pair.tokenBDisplaySymbol === "dUSDC"
     ) {
       highFeesUrl = "https://defiscan.live/dex/dUSDC-DUSD";
     }
@@ -152,7 +155,7 @@ export function useDexStabilization(
         pair,
         dexStabilizationFee: fee,
       } = dexStabilization;
-      const highFeesUrl = getHighFeesUrl(tokenA, tokenB);
+      const highFeesUrl = getHighFeesUrl(pair);
 
       if (dexStabilizationType === "direct-dusd-with-fee") {
         announcement = [
