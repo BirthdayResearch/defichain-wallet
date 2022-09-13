@@ -476,7 +476,7 @@ exports[`portfolio page should match snapshot 1`] = `
                     }
                     testID="portfolio_active_currency"
                   >
-                    USD
+                    USDT
                   </Text>
                 </View>
               </View>

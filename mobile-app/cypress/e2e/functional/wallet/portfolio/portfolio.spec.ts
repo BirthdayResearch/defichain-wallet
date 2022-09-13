@@ -1094,8 +1094,8 @@ context("Wallet - Portfolio - Portfolio group tab", () => {
     cy.getByTestID("dfi_total_balance_amount").contains("10.00000000");
   });
 
-  it("should display portfolio values in USD currency", () => {
-    assertPortfolioDenomination("USD");
+  it("should display portfolio values in USDT currency", () => {
+    assertPortfolioDenomination("USDT");
     checkPortfolioPageDenominationValues(
       "$201,000.00",
       "$201,000.00",
@@ -1224,14 +1224,14 @@ context("Wallet - Portfolio - Your Assets - All tokens tab", () => {
     cy.getByTestID("empty_portfolio").should("not.exist");
     cy.getByTestID("toggle_sorting_assets").should("exist");
   });
-  it("should sort asset based on Highest value (USD) (default) but display `Sort by` on first load", () => {
+  it("should sort asset based on Highest value (USDT) (default) but display `Sort by` on first load", () => {
     cy.sendDFItoWallet().wait(3000);
     cy.sendTokenToWallet(["ETH", "LTC", "DUSD"]).wait(7000); // token transfer taking time sometime to avoid failure increasing wait time here
     cy.getByTestID("your_assets_dropdown_arrow").contains("Sort by").wait(3000);
-    checkAssetsSortingOrder("Highest value (USD)", "DUSD", "dLTC");
+    checkAssetsSortingOrder("Highest value (USDT)", "DUSD", "dLTC");
   });
-  it("should sort assets based on Lowest value (USD)", () => {
-    checkAssetsSortingOrder("Lowest value (USD)", "dETH", "DUSD");
+  it("should sort assets based on Lowest value (USDT)", () => {
+    checkAssetsSortingOrder("Lowest value (USDT)", "dETH", "DUSD");
   });
   it("should sort assets based on Highest token amount", () => {
     cy.sendTokenToWallet(["DUSD"]);
