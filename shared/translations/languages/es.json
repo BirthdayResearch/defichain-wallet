@@ -1028,6 +1028,7 @@
     "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block": "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block",
     "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}",
     "Est. time remaining": "Est. time remaining",
+    "{{time}} left": "{{time}} restante",
     "Settlement block": "Settlement block",
     "To be confirmed": "To be confirmed",
     "Enter an amount": "Enter an amount",
@@ -1845,7 +1846,7 @@
     "Future Swap": "Future Swap",
     "Settlement block {{block}} has been executed": "El bloque de asentamiento {{block}} ha sido ejecutado",
     "Target block": "Target block",
-    "{{time}} left": "{{time}} left",
+    "{{time}} left": "{{time}} restante",
     "to": "to",
     "Settlement value": "Settlement value",
     "Amount will be refunded automatically if transaction(s) failed": "Amount will be refunded automatically if transaction(s) failed"

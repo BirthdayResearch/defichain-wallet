@@ -170,7 +170,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   const executionBlock = useSelector(
     (state: RootState) => state.futureSwaps.executionBlock
   );
-  const { transactionDate, isEnded } = useFutureSwapDate(
+  const { timeRemaining, transactionDate, isEnded } = useFutureSwapDate(
     executionBlock,
     blockCount
   );
@@ -1141,6 +1141,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
                   totalFees={totalFees}
                   dexStabilizationFee={dexStabilizationFee}
                   dexStabilizationType={dexStabilizationType}
+                  timeRemaining={timeRemaining}
                 />
               </ThemedViewV2>
             </>
