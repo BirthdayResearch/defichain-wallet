@@ -1016,7 +1016,7 @@
     "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block": "En utilisant le Future Swap, vous vendez {{tokenSymbol}} à un prix inférieur de 5% au prix oracle au bloc de règlement",
     "Oracle price {{percentageChange}}": "Prix Oracle {{percentageChange}}",
     "Est. time remaining": "Temps estimé restant",
-    "~{{time}} left": "{{time}} restant",
+    "{{time}} left": "{{time}} restant",
     "Settlement block": "Bloc de règlement",
     "To be confirmed": "À confirmer",
     "Enter an amount": "Donnez un montant",
