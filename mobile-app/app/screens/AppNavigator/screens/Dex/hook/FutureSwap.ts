@@ -99,7 +99,7 @@ export function useFutureSwapDate(
       blocksRemaining > 0 ? secondsToDhmsDisplay(blocksSeconds) : "",
     transactionDate: dayjs()
       .add(blocksSeconds, "second")
-      .format("MMM D, YYYY, h:mm a"),
+      .format("MMM D, YYYY, hh:mm a"),
     isEnded: blocksRemaining === 0,
   };
 }
