@@ -1026,6 +1026,7 @@
     "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block": "Utilizzando il future swap, stai vendendo {{tokenSymbol}} al 5% in meno rispetto al prezzo oracolo al Blocco di regolamento",
     "Oracle price {{percentageChange}}": "Prezzo Oracolo {{percentageChange}}",
     "Est. time remaining": "Tempo rimanente stimato",
+    "{{time}} left": "{{time}} rimasto",
     "Settlement block": "Blocco di regolamento",
     "To be confirmed": "Da confermare",
     "Enter an amount": "Inserisci un importo",
