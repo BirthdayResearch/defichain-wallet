@@ -21,6 +21,7 @@ interface SwapSummaryProps {
   totalFees: string;
   dexStabilizationFee: string;
   dexStabilizationType: DexStabilizationType;
+  timeRemaining: string;
 }
 
 export function SwapSummary({
@@ -32,6 +33,7 @@ export function SwapSummary({
   totalFees,
   dexStabilizationFee,
   dexStabilizationType,
+  timeRemaining,
 }: SwapSummaryProps): JSX.Element {
   const { getTokenPrice } = useTokenPrice();
 
@@ -97,6 +99,7 @@ export function SwapSummary({
           <SettlementBlockInfo
             executionBlock={executionBlock}
             transactionDate={transactionDate}
+            timeRemaining={timeRemaining}
           />
           <NumberRowV2
             containerStyle={{
@@ -196,10 +199,11 @@ function SettlementMessage(): JSX.Element {
 
 function SettlementBlockInfo({
   executionBlock,
-  transactionDate,
+  timeRemaining,
 }: {
   executionBlock?: number;
   transactionDate?: string;
+  timeRemaining: string;
 }): JSX.Element {
   const { getBlocksCountdownUrl } = useDeFiScanContext();
 
@@ -231,42 +235,37 @@ function SettlementBlockInfo({
           onPress={onBlockUrlPressed}
           testID="block_detail_explorer_url"
         >
-          <NumberFormat
-            displayType="text"
-            renderText={(val: string) => (
-              <ThemedTextV2
-                light={tailwind("text-mono-light-v2-900")}
-                dark={tailwind("text-mono-dark-v2-900")}
-                style={tailwind("text-sm font-normal-v2 flex-wrap text-right")}
-                testID="execution_block"
-              >
-                {val}
-              </ThemedTextV2>
-            )}
-            thousandSeparator
-            value={executionBlock}
-          />
           <View style={tailwind("flex-row items-center justify-end")}>
-            <ThemedTextV2
-              light={tailwind("text-mono-light-v2-700")}
-              dark={tailwind("text-mono-dark-v2-700")}
-              style={tailwind("text-right text-sm font-normal-v2")}
-              testID="execution_block_date"
-            >
-              {transactionDate}
-            </ThemedTextV2>
-
-            <View style={tailwind("ml-1 flex-grow-0 justify-center")}>
-              <ThemedIcon
-                iconType="MaterialIcons"
-                light={tailwind("text-mono-light-v2-700")}
-                dark={tailwind("text-mono-dark-v2-700")}
-                name="open-in-new"
-                size={16}
-              />
-            </View>
+            <NumberFormat
+              displayType="text"
+              renderText={(val: string) => (
+                <ThemedTextV2
+                  light={tailwind("text-mono-light-v2-900")}
+                  dark={tailwind("text-mono-dark-v2-900")}
+                  style={tailwind(
+                    "text-sm font-normal-v2 flex-wrap text-right pr-1"
+                  )}
+                  testID="execution_block"
+                >
+                  {val}
+                </ThemedTextV2>
+              )}
+              thousandSeparator
+              value={executionBlock}
+            />
+            <ThemedIcon iconType="MaterialIcons" name="open-in-new" size={16} />
           </View>
         </TouchableOpacity>
+        <View style={tailwind("flex-row items-center justify-end")}>
+          <ThemedTextV2
+            light={tailwind("text-mono-light-v2-700")}
+            dark={tailwind("text-mono-dark-v2-700")}
+          >
+            {translate("screens/CompositeSwapScreen", "{{time}} left", {
+              time: timeRemaining.trim(),
+            })}
+          </ThemedTextV2>
+        </View>
       </View>
     </ThemedViewV2>
   );
