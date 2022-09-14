@@ -21,6 +21,22 @@ jest.mock('@components/BottomSheetInfo', () => ({
   BottomSheetInfo: () => <></>
 }))
 jest.mock('react-native-popover-view')
+jest.mock('@contexts/FeatureFlagContext')
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: () => {
+    return { navigate: jest.fn() }
+  },
+  useScrollToTop: jest.fn(),
+  useIsFocused: jest.fn()
+}))
+
+jest.mock('@gorhom/bottom-sheet', () => ({
+  useBottomSheetModal: () => ({
+    dismiss: jest.fn()
+  })
+}))
 
 describe('Vault card', () => {
   const initialState: Partial<RootState> = {
