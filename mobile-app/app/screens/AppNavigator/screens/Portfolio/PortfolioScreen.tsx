@@ -1,4 +1,8 @@
-import { useIsFocused, useScrollToTop } from "@react-navigation/native";
+import {
+  CommonActions,
+  useIsFocused,
+  useScrollToTop,
+} from "@react-navigation/native";
 import {
   ThemedIcon,
   ThemedScrollViewV2,
@@ -515,6 +519,39 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
     },
   };
 
+  const resetNavigationStack = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        routes: [
+          {
+            name: translate("BottomTabNavigator", "Portfolio"),
+            state: {
+              routes: [{ name: "PortfolioScreen" }],
+            },
+          },
+          {
+            name: translate("BottomTabNavigator", "DEX"),
+            state: {
+              routes: [{ name: "DexScreen" }],
+            },
+          },
+          {
+            name: translate("BottomTabNavigator", "Loans"),
+            state: {
+              routes: [{ name: "LoansScreen" }],
+            },
+          },
+          {
+            name: translate("BottomTabNavigator", "Auctions"),
+            state: {
+              routes: [{ name: "AuctionScreen" }],
+            },
+          },
+        ],
+      })
+    );
+  };
+
   const addressBottomSheetScreen = useMemo(() => {
     return [
       {
@@ -534,6 +571,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           navigateToScreen: {
             screenName: "CreateOrEditAddressLabelFormV2",
           },
+          onSwitchAddress: resetNavigationStack,
         }),
         option: addressBottomSheetHeader,
       },
