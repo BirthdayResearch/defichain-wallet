@@ -208,7 +208,7 @@ context("Wallet - DEX - Future Swap", () => {
   it("should display correct transaction details", () => {
     cy.getByTestID("swap_total_fee_amount").should("exist");
     cy.getByTestID("execution_block").should("exist");
-    cy.getByTestID("execution_block_date").should("exist");
+    cy.getByTestID("execution_time_remaining").should("exist");
   });
 
   it("should display correct confirmation details", () => {
@@ -220,7 +220,7 @@ context("Wallet - DEX - Future Swap", () => {
     cy.getByTestID("confirm_text_settlement_block").should("exist");
     cy.getByTestID("confirm_text_transaction_date").should(
       "have.text",
-      dayjs().add(30, "second").format("MMM D, YYYY")
+      dayjs().add(30, "second").format("MMM D, YYYY, h:mm a")
     ); // blocksSeconds = 30
     cy.getByTestID("confirm_text_receive_unit").should("have.text", "dTU10");
     cy.getByTestID("confirm_settlement_value").should(
