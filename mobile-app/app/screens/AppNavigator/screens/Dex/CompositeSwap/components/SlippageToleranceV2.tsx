@@ -70,14 +70,8 @@ export function SlippageToleranceV2({
   };
 
   const validateSlippage = (value: string): void => {
+    /* Allow empty custom slippage -> reverts back to previous slippage */
     if (value === undefined || value === "") {
-      setSlippageError({
-        type: "error",
-        text: translate(
-          "screens/SlippageTolerance",
-          "Required field is missing"
-        ),
-      });
       return;
     } else if (
       !(new BigNumber(value).gte(0) && new BigNumber(value).lte(100))
@@ -136,15 +130,13 @@ export function SlippageToleranceV2({
                 }}
                 keyboardType="numeric"
                 autoCapitalize="none"
-                placeholder="0.00%"
                 style={tailwind("flex-grow w-2/5 font-normal-v2 text-xs")}
                 inputContainerStyle={tailwind("h-9")}
                 testID="slippage_input"
                 value={selectedSlippage !== undefined ? selectedSlippage : ""}
                 displayClearButton={selectedSlippage !== ""}
                 onClearButtonPress={() => {
-                  setIsEditing(false);
-                  setSelectedSlippage(new BigNumber(slippage).toFixed(8));
+                  setSelectedSlippage("");
                 }}
                 inputType="numeric"
                 inlineText={slippageError}
@@ -165,14 +157,21 @@ export function SlippageToleranceV2({
                 )}
                 onPress={() => {
                   setIsEditing(false);
-                  setIsCustomAmount(true);
-                  setSelectedSlippage(
-                    new BigNumber(selectedSlippage).toFixed(8)
-                  );
-                  submitSlippage(
-                    new BigNumber(selectedSlippage),
-                    isCustomValue
-                  );
+                  if (
+                    selectedSlippage === undefined ||
+                    selectedSlippage === ""
+                  ) {
+                    setSelectedSlippage(new BigNumber(slippage).toFixed(8));
+                  } else {
+                    setIsCustomAmount(true);
+                    setSelectedSlippage(
+                      new BigNumber(selectedSlippage).toFixed(8)
+                    );
+                    submitSlippage(
+                      new BigNumber(selectedSlippage),
+                      isCustomValue
+                    );
+                  }
                 }}
                 disabled={!isSlippageValid()}
                 testID="set_slippage_button"

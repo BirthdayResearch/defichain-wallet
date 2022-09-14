@@ -1008,6 +1008,7 @@
     "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block": "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block",
     "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}",
     "Est. time remaining": "Est. time remaining",
+    "{{time}} left": "{{time}} 结束拍卖",
     "Settlement block": "Settlement block",
     "To be confirmed": "To be confirmed",
     "Enter an amount": "请输入数量",
@@ -1822,7 +1823,7 @@
     "Future Swap": "Future Swap",
     "Settlement block {{block}} has been executed": "结算区块 {{block}} 已执行",
     "Target block": "Target block",
-    "{{time}} left": "{{time}} left",
+    "{{time}} left": "{{time}} 结束拍卖",
     "to": "to",
     "Settlement value": "Settlement value",
     "Amount will be refunded automatically if transaction(s) failed": "Amount will be refunded automatically if transaction(s) failed"
