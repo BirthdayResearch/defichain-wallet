@@ -3,7 +3,7 @@ function verifyPoolSwapComponents(): void {
   cy.getByTestID("swap_button").click();
   cy.url().should("include", "app/CompositeSwap");
   cy.getByTestID("token_select_button_FROM").should(
-    "have.attr",
+    "not.have.attr",
     "aria-disabled"
   );
   cy.getByTestID("token_select_button_TO").should(
@@ -11,7 +11,7 @@ function verifyPoolSwapComponents(): void {
     "aria-disabled"
   );
   cy.getByTestID("token_select_button_FROM").should("contain", "dBTC");
-  cy.getByTestID("token_select_button_TO").should("contain", "Select token");
+  cy.getByTestID("token_select_button_TO").should("contain", "Token");
 }
 
 function verifyCryptoTokenComponentState(): void {
@@ -195,6 +195,28 @@ context("Wallet - Token Detail", () => {
   });
 });
 
+context("Wallet - Token Detail - dOFF - status off", () => {
+  beforeEach(() => {
+    cy.createEmptyWallet(true);
+    cy.getByTestID("header_settings").click();
+    cy.sendDFItoWallet()
+      .sendDFITokentoWallet()
+      .sendTokenToWallet(["OFF"])
+      .wait(10000);
+    cy.getByTestID("bottom_tab_portfolio").click();
+    cy.getByTestID("portfolio_list").should("exist");
+    cy.getByTestID("portfolio_row_11").should("exist");
+    cy.getByTestID("portfolio_row_11_amount").contains(10);
+    cy.getByTestID("portfolio_row_11").click();
+    cy.wait(3000);
+  });
+
+  it("should disable swap button", () => {
+    cy.getByTestID("swap_button").should("exist");
+    cy.getByTestID("swap_button").should("have.attr", "aria-disabled");
+  });
+});
+
 context("Wallet - Token Detail - Cypto - Locked in vaults & Available", () => {
   beforeEach(() => {
     cy.createEmptyWallet(true);
@@ -365,7 +387,7 @@ context("Wallet - Token Detail - DFI - UTXO and Token", () => {
     cy.getByTestID("swap_button_dfi").click();
     cy.url().should("include", "app/CompositeSwap");
     cy.getByTestID("token_select_button_FROM").should(
-      "have.attr",
+      "not.have.attr",
       "aria-disabled"
     );
     cy.getByTestID("token_select_button_TO").should(
@@ -373,7 +395,7 @@ context("Wallet - Token Detail - DFI - UTXO and Token", () => {
       "aria-disabled"
     );
     cy.getByTestID("token_select_button_FROM").should("contain", "DFI");
-    cy.getByTestID("token_select_button_TO").should("contain", "Select token");
+    cy.getByTestID("token_select_button_TO").should("contain", "Token");
   });
 });
 
@@ -381,9 +403,11 @@ context("Wallet - Token Detail - DFI - with collateral, UTXO and Token", () => {
   function validateLockedToken(token: string, lockedAmount: string): void {
     cy.getByTestID(`${token}_locked_amount`).contains(lockedAmount);
   }
+
   function validateAvailableToken(token: string, availAmt: string): void {
     cy.getByTestID(`${token}_available_amount`).contains(availAmt);
   }
+
   beforeEach(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
@@ -430,7 +454,7 @@ context("Wallet - Token Detail - DFI - with collateral, UTXO and Token", () => {
     cy.getByTestID("swap_button_dfi").click();
     cy.url().should("include", "app/CompositeSwap");
     cy.getByTestID("token_select_button_FROM").should(
-      "have.attr",
+      "not.have.attr",
       "aria-disabled"
     );
     cy.getByTestID("token_select_button_TO").should(
@@ -438,7 +462,7 @@ context("Wallet - Token Detail - DFI - with collateral, UTXO and Token", () => {
       "aria-disabled"
     );
     cy.getByTestID("token_select_button_FROM").should("contain", "DFI");
-    cy.getByTestID("token_select_button_TO").should("contain", "Select token");
+    cy.getByTestID("token_select_button_TO").should("contain", "Token");
   });
 });
 
