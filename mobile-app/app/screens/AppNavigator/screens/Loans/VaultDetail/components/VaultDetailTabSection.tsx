@@ -6,6 +6,9 @@ import { useEffect, useState } from 'react'
 import { LoansTab } from './LoansTab'
 import { CollateralsTab } from './CollateralsTab'
 import { DetailsTab } from './DetailsTab'
+import { Platform, View } from 'react-native'
+import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
+import { useBottomSheet } from '@hooks/useBottomSheet'
 
 export enum TabKey {
   Loans = 'LOANS',
@@ -32,23 +35,64 @@ export function VaultDetailTabSection ({ vault, tab }: VaultDetailTabSectionProp
   const onPress = (tabId: string): void => {
     setActiveTab(tabId)
   }
+  const {
+    bottomSheetRef,
+    containerRef,
+    isModalDisplayed,
+    bottomSheetScreen,
+    dismissModal,
+    expandModal,
+    setBottomSheetScreen
+  } = useBottomSheet()
 
   useEffect(() => {
     setDetailTabs(getDetailTabs(vault, onPress))
   }, [vault])
 
   return (
-    <>
+    <View ref={containerRef}>
       <Tabs tabSections={detailTabs} activeTabKey={activeTab} testID='vault_detail_tabs' />
       <ThemedView>
         {activeTab === TabKey.Collaterals &&
         (<CollateralsTab vault={vault} />)}
-        {activeTab === TabKey.Loans &&
-        (<LoansTab vault={vault} />)}
+        {activeTab === TabKey.Loans && (
+          <LoansTab
+            vault={vault}
+            dismissModal={dismissModal}
+            expandModal={expandModal}
+            setBottomSheetScreen={setBottomSheetScreen}
+          />
+        )}
         {activeTab === TabKey.Details && vault.state !== LoanVaultState.IN_LIQUIDATION &&
         (<DetailsTab vault={vault} />)}
       </ThemedView>
-    </>
+      {Platform.OS === 'web'
+      ? (
+        <BottomSheetWebWithNav
+          modalRef={containerRef}
+          screenList={bottomSheetScreen}
+          isModalDisplayed={isModalDisplayed}
+          // eslint-disable-next-line react-native/no-inline-styles
+          modalStyle={{
+            position: 'absolute',
+            height: '240px',
+            width: '375px',
+            zIndex: 50,
+            bottom: 0
+          }}
+        />
+      )
+      : (
+        <BottomSheetWithNav
+          modalRef={bottomSheetRef}
+          screenList={bottomSheetScreen}
+          snapPoints={{
+            ios: ['40%'],
+            android: ['40%']
+          }}
+        />
+      )}
+    </View>
   )
 }
 
