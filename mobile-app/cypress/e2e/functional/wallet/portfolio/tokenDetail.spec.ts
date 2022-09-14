@@ -396,6 +396,7 @@ context("Wallet - Token Detail - DFI - UTXO and Token", () => {
     );
     cy.getByTestID("token_select_button_FROM").should("contain", "DFI");
     cy.getByTestID("token_select_button_TO").should("contain", "Token");
+    cy.getByTestID("text_balance_amount").contains("19.90000000");
   });
 });
 
