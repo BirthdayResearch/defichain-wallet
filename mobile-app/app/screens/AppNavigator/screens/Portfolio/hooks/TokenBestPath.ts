@@ -90,16 +90,24 @@ export function useTokenBestPath(): TokenBestPath {
       toTokenId: string,
       amount: BigNumber
     ): Promise<CalculatePriceRatesProps> => {
-      const bestPathData = await getBestPath(
+      const bestPathDataFromTokenAtoB = await getBestPath(
         getTokenId(fromTokenId),
         getTokenId(toTokenId)
       );
+
+      const bestPathDataFromTokenBtoA = await getBestPath(
+        getTokenId(toTokenId),
+        getTokenId(fromTokenId)
+      );
+
       return {
-        aToBPrice: new BigNumber(bestPathData.estimatedReturn),
-        bToAPrice: new BigNumber(1).div(bestPathData.estimatedReturn),
-        estimated: new BigNumber(bestPathData.estimatedReturn).times(amount),
+        aToBPrice: new BigNumber(bestPathDataFromTokenAtoB.estimatedReturn),
+        bToAPrice: new BigNumber(bestPathDataFromTokenBtoA.estimatedReturn),
+        estimated: new BigNumber(
+          bestPathDataFromTokenAtoB.estimatedReturn
+        ).times(amount),
         estimatedLessDexFees: new BigNumber(
-          bestPathData.estimatedReturnLessDexFees
+          bestPathDataFromTokenAtoB.estimatedReturnLessDexFees
         ).times(amount),
       };
     },
