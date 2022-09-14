@@ -150,6 +150,14 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
       description: 'Display redesigned composite swap flow for LW 2.0',
       networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
       platforms: ['ios', 'android', 'web']
+    }, {
+      id: 'poof_dusd',
+      name: 'Poof DUSD loan',
+      stage: 'alpha',
+      version: '>2.4.0',
+      description: 'Display payback DUSD loan with DUSD collateral',
+      networks: [EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet, EnvironmentNetwork.RemotePlayground, EnvironmentNetwork.LocalPlayground],
+      platforms: ['ios', 'android', 'web']
     }
   ])
 }

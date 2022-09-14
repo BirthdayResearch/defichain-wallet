@@ -127,5 +127,6 @@ export type FEATURE_FLAG_ID =
   | 'remove_liquidity_v2'
   | 'send_v2'
   | 'composite_swap_v2'
+  | 'poof_dusd'
 
 export type FEATURE_FLAG_STAGE = 'alpha' | 'beta' | 'public'
