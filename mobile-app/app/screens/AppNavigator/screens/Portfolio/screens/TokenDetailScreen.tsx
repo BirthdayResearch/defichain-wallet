@@ -355,7 +355,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                   onNavigateSwap({
                     fromToken: {
                       ...DFIUnified,
-                      id: "0",
+                      id: "0_unified",
                     },
                   })
                 }
