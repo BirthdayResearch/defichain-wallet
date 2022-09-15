@@ -1,8 +1,7 @@
 {
   "extends": "expo/tsconfig.base",
   "exclude": [
-    "node_modules",
-    "mobile-app/app/components/icons/assets"
+    "node_modules"
   ],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
