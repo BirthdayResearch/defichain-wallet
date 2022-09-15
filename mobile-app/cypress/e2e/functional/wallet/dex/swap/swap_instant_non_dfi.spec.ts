@@ -6,7 +6,7 @@ function setCustomSlippage(customSlippage: string): void {
   cy.getByTestID("set_slippage_button").click().wait(3000);
 }
 
-context.skip("Wallet - DEX - Instant Swap (non-DFI)", () => {
+context("Wallet - DEX - Instant Swap (non-DFI)", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
