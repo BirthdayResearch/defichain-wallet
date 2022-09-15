@@ -201,17 +201,17 @@ context("Wallet - DEX - Instant Swap (non-DFI) - Confirm Txn", () => {
     cy.getByTestID("tokenB_value").contains("0.00");
   });
 
-  // it("should be able to cancel authorization", () => {
-  //   cy.getByTestID("text_input_tokenA").type("10");
-  //   setCustomSlippage("10");
-  //   cy.getByTestID("button_confirm_submit").click();
+  it("should be able to cancel authorization", () => {
+    cy.getByTestID("text_input_tokenA").type("10");
+    setCustomSlippage("10");
+    cy.getByTestID("button_confirm_submit").click();
 
-  //   cy.getByTestID("confirm_slippage_fee").should("have.text", "10%");
-  //   cy.getByTestID("confirm_title").contains("You are swapping");
-  //   cy.getByTestID("button_confirm_swap").click().wait(3000);
-  //   // Cancel send on authorisation page
-  //   cy.getByTestID("cancel_authorization").click();
-  // });
+    cy.getByTestID("confirm_slippage_fee").should("have.text", "10%");
+    cy.getByTestID("confirm_title").contains("You are swapping");
+    cy.getByTestID("button_confirm_swap").click().wait(3000);
+    // Cancel send on authorisation page
+    cy.getByTestID("cancel_authorization").click();
+  });
 
   it("should be able to swap", () => {
     cy.getByTestID("confirm_estimated_to_receive").then(() => {

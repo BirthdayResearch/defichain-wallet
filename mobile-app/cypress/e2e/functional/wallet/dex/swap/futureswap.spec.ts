@@ -63,7 +63,7 @@ function validateFutureSwapDisabled(
   cy.go("back");
 }
 
-context.skip("Wallet - DEX - Future Swap", () => {
+context("Wallet - DEX - Future Swap", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.sendDFITokentoWallet()
