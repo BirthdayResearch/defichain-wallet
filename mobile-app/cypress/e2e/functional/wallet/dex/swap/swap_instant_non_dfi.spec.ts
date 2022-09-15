@@ -213,26 +213,26 @@ context("Wallet - DEX - Instant Swap (non-DFI) - Confirm Txn", () => {
   //   cy.getByTestID("cancel_authorization").click();
   // });
 
-  // it("should be able to swap", () => {
-  //   cy.getByTestID("confirm_estimated_to_receive").then(() => {
-  //     cy.getByTestID("button_confirm_swap").click().wait(3000);
-  //     cy.closeOceanInterface();
-  //     cy.fetchWalletBalance();
-  //     cy.getByTestID("bottom_tab_portfolio").click();
-  //     cy.getByTestID("portfolio_row_4").should("exist");
+  it("should be able to swap", () => {
+    cy.getByTestID("confirm_estimated_to_receive").then(() => {
+      cy.getByTestID("button_confirm_swap").click().wait(3000);
+      cy.closeOceanInterface();
+      cy.fetchWalletBalance();
+      cy.getByTestID("bottom_tab_portfolio").click();
+      cy.getByTestID("portfolio_row_4").should("exist");
 
-  //     /* Estimated return is not accurate yet due to tolerable slippage */
-  //     // const tokenValue = $txt[0].textContent
-  //     //   .replace(" dLTC", "")
-  //     //   .replace(",", "");
-  //     // cy.getByTestID("portfolio_row_4_amount").then(($txt: any) => {
-  //     //   const balanceAmount = $txt[0].textContent
-  //     //     .replace(" dLTC", "")
-  //     //     .replace(",", "");
-  //     //   expect(new BigNumber(balanceAmount).toNumber()).be.gte(
-  //     //     new BigNumber(tokenValue).toNumber()
-  //     //   );
-  //     // });
-  //   });
-  // });
+      /* Estimated return is not accurate yet due to tolerable slippage */
+      // const tokenValue = $txt[0].textContent
+      //   .replace(" dLTC", "")
+      //   .replace(",", "");
+      // cy.getByTestID("portfolio_row_4_amount").then(($txt: any) => {
+      //   const balanceAmount = $txt[0].textContent
+      //     .replace(" dLTC", "")
+      //     .replace(",", "");
+      //   expect(new BigNumber(balanceAmount).toNumber()).be.gte(
+      //     new BigNumber(tokenValue).toNumber()
+      //   );
+      // });
+    });
+  });
 });
