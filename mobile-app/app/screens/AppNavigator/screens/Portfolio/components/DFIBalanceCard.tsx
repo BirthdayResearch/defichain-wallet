@@ -142,6 +142,7 @@ function GetDFIBtn(): JSX.Element {
     >
       <TouchableOpacity
         testID="get_DFI_btn"
+        // @ts-ignore
         onPress={() => navigation.navigate("GetDFIScreen")}
         activeOpacity={0.7}
       >

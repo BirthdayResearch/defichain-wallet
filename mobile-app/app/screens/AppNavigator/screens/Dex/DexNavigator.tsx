@@ -131,6 +131,14 @@ export interface DexParamList {
   PoolPairDetailsScreen: {
     id: string;
   };
+  RemoveLiquidityConfirmScreen: {
+    pair: any;
+    pairInfo: any;
+    amount: any;
+    fee: any;
+    tokenAAmount: any;
+    tokenBAmount: any;
+  };
 
   [key: string]: undefined | object;
 }
