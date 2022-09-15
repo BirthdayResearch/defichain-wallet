@@ -12,7 +12,7 @@ import { SearchInputV2 } from "@components/SearchInputV2";
 import { useMemo, useRef, useState } from "react";
 import { useDebounce } from "@hooks/useDebounce";
 import { TokenIcon } from "@screens/AppNavigator/screens/Portfolio/components/TokenIcon";
-import { TokenNameTextV2 } from "@screens/AppNavigator/screens/Portfolio/components/TokenNameTextV2";
+import { TokenNameText } from "@screens/AppNavigator/screens/Portfolio/components/TokenNameText";
 import NumberFormat from "react-number-format";
 import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
@@ -219,7 +219,7 @@ function TokenItem({
           }}
           size={36}
         />
-        <TokenNameTextV2
+        <TokenNameText
           displaySymbol={item.token.displaySymbol}
           name={item.token.name}
           testID={item.token.displaySymbol}
