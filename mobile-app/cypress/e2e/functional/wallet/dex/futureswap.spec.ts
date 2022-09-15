@@ -63,7 +63,7 @@ function validateFutureSwapDisabled(
   cy.go("back");
 }
 
-context("Wallet - DEX - Future Swap", () => {
+context("Wallet - DEX - Future Swap - Swap Options", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.sendDFITokentoWallet()
@@ -126,6 +126,24 @@ context("Wallet - DEX - Future Swap", () => {
       "not.have.attr",
       "aria-disabled"
     );
+  });
+});
+
+context("Wallet - DEX - Future Swap", () => {
+  before(() => {
+    cy.createEmptyWallet(true);
+    cy.sendDFITokentoWallet()
+      .sendDFItoWallet()
+      .sendTokenToWallet(["DUSD", "TU10", "BTC", "ETH"])
+      .wait(4000);
+    cy.fetchWalletBalance();
+    cy.getByTestID("bottom_tab_portfolio").click();
+    cy.getByTestID("bottom_tab_dex").click();
+    cy.getByTestID("composite_swap").click();
+    cy.getByTestID("token_select_button_FROM").click();
+    cy.getByTestID("select_dTU10").click().wait(1000);
+    cy.getByTestID("token_select_button_TO").click();
+    cy.getByTestID("select_DUSD").click();
   });
 
   it("should display oracle price -5% if Loan token -> DUSD selected", () => {
@@ -204,8 +222,27 @@ context("Wallet - DEX - Future Swap", () => {
       "aria-disabled"
     );
   });
+});
+
+context("Wallet - DEX - Future Swap -> Transaction", () => {
+  before(() => {
+    cy.createEmptyWallet(true);
+    cy.sendDFITokentoWallet()
+      .sendDFItoWallet()
+      .sendTokenToWallet(["DUSD", "TU10", "BTC", "ETH"])
+      .wait(4000);
+    cy.fetchWalletBalance();
+    cy.getByTestID("bottom_tab_portfolio").click();
+    cy.getByTestID("bottom_tab_dex").click();
+    cy.getByTestID("composite_swap").click();
+    cy.getByTestID("token_select_button_FROM").click();
+    cy.getByTestID("select_DUSD").click().wait(1000);
+    cy.getByTestID("token_select_button_TO").click();
+    cy.getByTestID("select_dTU10").click();
+  });
 
   it("should display correct transaction details", () => {
+    cy.getByTestID("swap_tabs_FUTURE_SWAP").click();
     cy.getByTestID("swap_total_fee_amount").should("exist");
     cy.getByTestID("execution_block").should("exist");
     cy.getByTestID("execution_time_remaining").should("exist");
