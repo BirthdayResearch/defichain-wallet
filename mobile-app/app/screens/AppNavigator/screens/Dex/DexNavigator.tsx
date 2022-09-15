@@ -138,6 +138,8 @@ export interface DexParamList {
     fee: any;
     tokenAAmount: any;
     tokenBAmount: any;
+    tokenA: any;
+    tokenB: any;
   };
 
   [key: string]: undefined | object;

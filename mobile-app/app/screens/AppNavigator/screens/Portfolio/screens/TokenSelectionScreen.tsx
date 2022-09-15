@@ -271,7 +271,7 @@ function EmptyAsset({
         </ThemedTextV2>
       </View>
       <ButtonV2
-        onPress={() => navigation.navigate("GetDFIScreen")}
+        onPress={() => navigation.navigate("GetDFIScreen" as any)}
         styleProps="w-full mb-14 pb-1"
         label={translate("screens/GetDFIScreen", "Get DFI")}
       />
