@@ -29,7 +29,7 @@ import {
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import { TokenIcon } from "../components/TokenIcon";
-import { TokenNameTextV2 } from "../components/TokenNameTextV2";
+import { TokenNameText } from "../components/TokenNameText";
 
 export interface TokenSelectionItem extends BottomSheetToken {
   usdAmount: BigNumber;
@@ -203,7 +203,7 @@ function TokenSelectionRow({
           }}
           size={36}
         />
-        <TokenNameTextV2
+        <TokenNameText
           displaySymbol={item.token.displaySymbol}
           name={item.token.name}
           testID={item.token.displaySymbol}
