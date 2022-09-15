@@ -50,14 +50,14 @@ export function SlippageToleranceV2({
   const [selectedSlippage, setSelectedSlippage] = useState(slippage.toFixed(8));
   const [isRiskWarningDisplayed, setIsRiskWarningDisplayed] = useState(false);
 
-  const isCustomValue = (slippage: string) => {
+  const checkIfCustomSlippage = (slippage: string) => {
     return !Object.values(SlippageAmountButtonTypes).some((buttonAmount) =>
       new BigNumber(new BigNumber(buttonAmount).toFixed(8)).isEqualTo(slippage)
     );
   };
 
   const [isCustomAmount, setIsCustomAmount] = useState(
-    isCustomValue(slippage.toFixed(8))
+    checkIfCustomSlippage(slippage.toFixed(8))
   );
 
   const isSlippageValid = (): boolean => {
@@ -104,7 +104,7 @@ export function SlippageToleranceV2({
   // updates states when there is a change in slippage from local storage
   useEffect(() => {
     updateSlippage(slippage.toFixed(8), false);
-    setIsCustomAmount(isCustomValue(slippage.toFixed(8)));
+    setIsCustomAmount(checkIfCustomSlippage(slippage.toFixed(8)));
   }, [slippage]);
 
   return (
@@ -206,7 +206,6 @@ export function SlippageToleranceV2({
               <PercentageAmountButton
                 key={type}
                 onPress={() => {
-                  // setSlippage(new BigNumber(type));
                   updateSlippage(type, true);
                   setIsCustomAmount(false);
                 }}
