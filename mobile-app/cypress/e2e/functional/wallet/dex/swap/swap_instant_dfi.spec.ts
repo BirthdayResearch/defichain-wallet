@@ -17,7 +17,7 @@ function setupFromAndToTokens(fromToken: string, toToken: string): void {
   cy.getByTestID(`select_${toToken}`).click().wait(1000);
 }
 
-context(
+context.skip(
   "Wallet - DEX - Instant Swap (DFI with Conversion/Reserved fees)",
   () => {
     beforeEach(() => {
@@ -61,7 +61,7 @@ context(
 );
 
 // DFI -> dETH to show greater price rates difference
-context("Wallet - DEX - Instant Swap (DFI) - Summary", () => {
+context.skip("Wallet - DEX - Instant Swap (DFI) - Summary", () => {
   before(() => {
     setupWalletForConversion();
     setupFromAndToTokens("DFI", "dETH");

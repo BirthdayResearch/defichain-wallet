@@ -6,7 +6,7 @@ function setCustomSlippage(customSlippage: string): void {
   cy.getByTestID("set_slippage_button").click().wait(3000);
 }
 
-context("Wallet - DEX - Instant Swap (non-DFI)", () => {
+context.skip("Wallet - DEX - Instant Swap (non-DFI)", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
@@ -201,38 +201,38 @@ context("Wallet - DEX - Instant Swap (non-DFI) - Confirm Txn", () => {
     cy.getByTestID("tokenB_value").contains("0.00");
   });
 
-  it("should be able to cancel authorization", () => {
-    cy.getByTestID("text_input_tokenA").type("10");
-    setCustomSlippage("10");
-    cy.getByTestID("button_confirm_submit").click();
+  // it("should be able to cancel authorization", () => {
+  //   cy.getByTestID("text_input_tokenA").type("10");
+  //   setCustomSlippage("10");
+  //   cy.getByTestID("button_confirm_submit").click();
 
-    cy.getByTestID("confirm_slippage_fee").should("have.text", "10%");
-    cy.getByTestID("confirm_title").contains("You are swapping");
-    cy.getByTestID("button_confirm_swap").click().wait(3000);
-    // Cancel send on authorisation page
-    cy.getByTestID("cancel_authorization").click();
-  });
+  //   cy.getByTestID("confirm_slippage_fee").should("have.text", "10%");
+  //   cy.getByTestID("confirm_title").contains("You are swapping");
+  //   cy.getByTestID("button_confirm_swap").click().wait(3000);
+  //   // Cancel send on authorisation page
+  //   cy.getByTestID("cancel_authorization").click();
+  // });
 
-  it("should be able to swap", () => {
-    cy.getByTestID("confirm_estimated_to_receive").then(() => {
-      cy.getByTestID("button_confirm_swap").click().wait(3000);
-      cy.closeOceanInterface();
-      cy.fetchWalletBalance();
-      cy.getByTestID("bottom_tab_portfolio").click();
-      cy.getByTestID("portfolio_row_4").should("exist");
+  // it("should be able to swap", () => {
+  //   cy.getByTestID("confirm_estimated_to_receive").then(() => {
+  //     cy.getByTestID("button_confirm_swap").click().wait(3000);
+  //     cy.closeOceanInterface();
+  //     cy.fetchWalletBalance();
+  //     cy.getByTestID("bottom_tab_portfolio").click();
+  //     cy.getByTestID("portfolio_row_4").should("exist");
 
-      /* Estimated return is not accurate yet due to tolerable slippage */
-      // const tokenValue = $txt[0].textContent
-      //   .replace(" dLTC", "")
-      //   .replace(",", "");
-      // cy.getByTestID("portfolio_row_4_amount").then(($txt: any) => {
-      //   const balanceAmount = $txt[0].textContent
-      //     .replace(" dLTC", "")
-      //     .replace(",", "");
-      //   expect(new BigNumber(balanceAmount).toNumber()).be.gte(
-      //     new BigNumber(tokenValue).toNumber()
-      //   );
-      // });
-    });
-  });
+  //     /* Estimated return is not accurate yet due to tolerable slippage */
+  //     // const tokenValue = $txt[0].textContent
+  //     //   .replace(" dLTC", "")
+  //     //   .replace(",", "");
+  //     // cy.getByTestID("portfolio_row_4_amount").then(($txt: any) => {
+  //     //   const balanceAmount = $txt[0].textContent
+  //     //     .replace(" dLTC", "")
+  //     //     .replace(",", "");
+  //     //   expect(new BigNumber(balanceAmount).toNumber()).be.gte(
+  //     //     new BigNumber(tokenValue).toNumber()
+  //     //   );
+  //     // });
+  //   });
+  // });
 });
