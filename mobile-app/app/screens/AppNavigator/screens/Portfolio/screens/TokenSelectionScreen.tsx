@@ -84,7 +84,7 @@ export function TokenSelectionScreen(_props: Props): JSX.Element {
             item={item}
             onPress={() => {
               navigation.navigate({
-                name: "Send",
+                name: "SendScreen",
                 params: {
                   token: tokens.find((t) => item.tokenId === t.id),
                 },

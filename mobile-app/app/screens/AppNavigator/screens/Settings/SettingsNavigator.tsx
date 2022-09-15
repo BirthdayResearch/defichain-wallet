@@ -45,6 +45,7 @@ export interface SettingsParamList {
     address?: string;
     isAddNew: boolean;
   };
+  LoansFaq: {};
 
   [key: string]: undefined | object;
 }

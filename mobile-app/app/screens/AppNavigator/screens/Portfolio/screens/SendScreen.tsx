@@ -481,7 +481,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
                 navigation.navigate({
                   name: "BarCodeScanner",
                   params: {
-                    onQrScanned: async (value) => {
+                    onQrScanned: async (value: any) => {
                       setValue("address", value, { shouldDirty: true });
                       await trigger("address");
                     },

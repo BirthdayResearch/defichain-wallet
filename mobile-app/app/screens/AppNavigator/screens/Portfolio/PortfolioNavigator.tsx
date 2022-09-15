@@ -128,7 +128,15 @@ export interface PortfolioParamList {
   TransactionDetailScreen: {
     tx: VMTransaction;
   };
-
+  GetDFIScreen: {};
+  SwapTokenSelectionScreen: {
+    fromToken: any;
+    listType: any;
+    list: any;
+    onTokenPress: any;
+    isFutureSwap?: boolean;
+    isSearchDTokensOnly?: boolean;
+  };
   [key: string]: undefined | object;
 }
 
@@ -255,7 +263,7 @@ export function PortfolioNavigator(): JSX.Element {
 
       <PortfolioStack.Screen
         component={SendScreen}
-        name="Send"
+        name="SendScreen"
         options={{
           ...screenOptions,
           headerTitle: translate("screens/SendScreen", "Send"),
@@ -294,7 +302,7 @@ export function PortfolioNavigator(): JSX.Element {
 
       <PortfolioStack.Screen
         component={TokenDetailScreen}
-        name="Balance"
+        name="TokenDetailScreen"
         options={{
           ...screenOptions,
           headerRight: () => (
@@ -306,7 +314,7 @@ export function PortfolioNavigator(): JSX.Element {
 
       <PortfolioStack.Screen
         component={ConvertScreen}
-        name="Convert"
+        name="ConvertScreen"
         options={{
           ...screenOptions,
           headerRight: () => (
@@ -395,7 +403,7 @@ export function PortfolioNavigator(): JSX.Element {
         component={
           isFeatureAvailable("composite_swap_v2")
             ? CompositeSwapScreenV2
-            : CompositeSwapScreen
+            : (CompositeSwapScreen as any)
         }
         name="CompositeSwap"
         options={{
@@ -436,7 +444,7 @@ export function PortfolioNavigator(): JSX.Element {
         component={
           isFeatureAvailable("composite_swap_v2")
             ? ConfirmCompositeSwapScreenV2
-            : ConfirmCompositeSwapScreen
+            : (ConfirmCompositeSwapScreen as any)
         }
         name={
           isFeatureAvailable("composite_swap_v2")
@@ -492,7 +500,7 @@ export function PortfolioNavigator(): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={AddLiquidityScreen}
+        component={AddLiquidityScreen as any}
         name="AddLiquidity"
         options={{
           ...screenOptions,
@@ -504,7 +512,7 @@ export function PortfolioNavigator(): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={ConfirmAddLiquidityScreen}
+        component={ConfirmAddLiquidityScreen as any}
         name="ConfirmAddLiquidity"
         options={{
           ...screenOptions,
@@ -545,7 +553,7 @@ export function PortfolioNavigator(): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={RemoveLiquidityScreen}
+        component={RemoveLiquidityScreen as any}
         name="RemoveLiquidity"
         options={{
           ...screenOptions,
@@ -612,7 +620,7 @@ export function PortfolioNavigator(): JSX.Element {
       />
 
       <PortfolioStack.Screen
-        component={RemoveLiquidityConfirmScreen}
+        component={RemoveLiquidityConfirmScreen as any}
         name="RemoveLiquidityConfirmScreen"
         options={{
           ...screenOptions,
@@ -639,7 +647,7 @@ export function PortfolioNavigator(): JSX.Element {
 
       <PortfolioStack.Screen
         component={TransactionDetailScreen}
-        name="TransactionDetail"
+        name="TransactionDetailScreen"
         options={{
           headerTitle: () => (
             <HeaderTitle

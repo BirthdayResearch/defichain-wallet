@@ -270,7 +270,7 @@ export function DexNavigator(): JSX.Element {
         component={
           isFeatureAvailable("composite_swap_v2")
             ? CompositeSwapScreenV2
-            : CompositeSwapScreen
+            : (CompositeSwapScreen as any)
         }
         name="CompositeSwap"
         options={{
@@ -311,7 +311,7 @@ export function DexNavigator(): JSX.Element {
         component={
           isFeatureAvailable("composite_swap_v2")
             ? ConfirmCompositeSwapScreenV2
-            : ConfirmCompositeSwapScreen
+            : (ConfirmCompositeSwapScreen as any)
         }
         name={
           isFeatureAvailable("composite_swap_v2")
