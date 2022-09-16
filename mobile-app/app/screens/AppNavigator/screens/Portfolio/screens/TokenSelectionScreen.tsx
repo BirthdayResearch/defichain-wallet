@@ -14,7 +14,7 @@ import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import ImageEmptyAssets from "@assets/images/send/empty-assets.png";
 import {
-  ThemedFlatListV2,
+  ThemedFlashList,
   ThemedScrollViewV2,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
@@ -74,9 +74,9 @@ export function TokenSelectionScreen(_props: Props): JSX.Element {
   }
 
   return (
-    <ThemedFlatListV2
+    <ThemedFlashList
       testID="token_selection_screen"
-      style={tailwind("pb-4")}
+      contentContainerStyle={tailwind("pb-4")}
       data={filteredTokensWithBalance}
       renderItem={({ item }: { item: TokenSelectionItem }): JSX.Element => {
         return (
