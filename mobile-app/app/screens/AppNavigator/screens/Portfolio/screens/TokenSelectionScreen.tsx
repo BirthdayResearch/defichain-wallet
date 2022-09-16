@@ -170,7 +170,7 @@ export function TokenSelectionScreen(_props: Props): JSX.Element {
           )}
         </ThemedViewV2>
       }
-      keyExtractor={(item) => item.tokenId}
+      keyExtractor={(item, index) => `${index}`}
     />
   );
 }
