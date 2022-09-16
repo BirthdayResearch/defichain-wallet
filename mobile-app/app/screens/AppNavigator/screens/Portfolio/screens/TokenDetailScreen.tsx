@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { Linking, TouchableOpacity } from "react-native";
 import { tailwind } from "@tailwind";
 import BigNumber from "bignumber.js";
@@ -7,11 +7,11 @@ import NumberFormat from "react-number-format";
 import { StackScreenProps } from "@react-navigation/stack";
 import { translate } from "@translations";
 import {
-  tokensSelector,
-  WalletToken,
-  unifiedDFISelector,
   DFITokenSelector,
   DFIUtxoSelector,
+  tokensSelector,
+  unifiedDFISelector,
+  WalletToken,
 } from "@store/wallet";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
@@ -173,7 +173,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
         fromToken,
         tokenSelectOption: {
           from: {
-            isDisabled: true,
+            isDisabled: false,
             isPreselected: true,
           },
           to: {
@@ -352,7 +352,12 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
             <View style={tailwind("pt-4")}>
               <ButtonV2
                 onPress={() =>
-                  onNavigateSwap({ fromToken: { ...DFIUnified, id: "0" } })
+                  onNavigateSwap({
+                    fromToken: {
+                      ...DFIUnified,
+                      id: "0_unified",
+                    },
+                  })
                 }
                 testID="swap_button_dfi"
                 label={translate("screens/TokenDetailScreen", "Swap")}
@@ -368,6 +373,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                   onPress={() => onNavigateSwap({ pair })}
                   testID="swap_button"
                   label={translate("screens/TokenDetailScreen", "Swap")}
+                  disabled={!pair.status}
                 />
               </View>
             )}

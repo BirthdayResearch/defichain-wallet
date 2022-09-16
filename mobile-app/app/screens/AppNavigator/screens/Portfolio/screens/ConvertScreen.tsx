@@ -210,8 +210,10 @@ export function ConvertScreen(props: Props): JSX.Element {
             maxValue={new BigNumber(sourceToken.amount)}
             status={transactionCardStatus}
             onChange={onPercentagePress}
-            containerStyle={tailwind("rounded-t-lg-v2 px-5 pt-2 mr-px")}
-            amountButtonsStyle={tailwind("border-t-0.5")}
+            containerStyle={{
+              style: tailwind("rounded-t-lg-v2 px-5 pt-2 mr-px"),
+            }}
+            amountButtonsStyle={{ style: tailwind("border-t-0.5") }}
           >
             <WalletTransactionCardTextInput
               inputType="numeric"

@@ -1,11 +1,10 @@
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { getColor } from "@tailwind";
-import Svg, { SvgProps, Text, G, Path } from "react-native-svg";
+import Svg, { G, Path, SvgProps, Text } from "react-native-svg";
 
 export function DefaultLoanToken(
-  symbol: string
+  symbol: string,
+  isLight: boolean
 ): (props: SvgProps) => JSX.Element {
-  const { isLight } = useThemeContext();
   return function (props: SvgProps): JSX.Element {
     const name = symbol.substring(1, 6).toUpperCase();
     return (

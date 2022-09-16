@@ -36,7 +36,7 @@ export function AuctionedCollaterals(props: {
         >
           {translate(
             "components/AuctionDetailScreen",
-            "Total auction value (USD):"
+            "Total auction value (USDT):"
           )}
         </ThemedText>
         <NumberFormat

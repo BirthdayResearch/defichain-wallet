@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useRef, useCallback } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Platform, TextInput, View } from "react-native";
 import BigNumber from "bignumber.js";
 import { Control, Controller, useForm } from "react-hook-form";
@@ -740,7 +740,9 @@ function AmountCard({
         status={transactionCardStatus}
         maxValue={maxAmount}
         onChange={onAmountChange}
-        containerStyle={tailwind("rounded-t-lg-v2")}
+        containerStyle={{
+          style: tailwind("rounded-t-lg-v2"),
+        }}
       >
         <ThemedTouchableOpacityV2
           style={tailwind(

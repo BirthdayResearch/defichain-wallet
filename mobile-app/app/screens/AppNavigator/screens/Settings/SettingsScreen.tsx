@@ -25,7 +25,7 @@ import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useServiceProviderContext } from "@contexts/StoreServiceProvider";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useLanguageContext } from "@shared-contexts/LanguageProvider";
-import { RowThemeItemV2 } from "./components/RowThemeItemV2";
+import { RowThemeItem } from "./components/RowThemeItem";
 import { SettingsParamList } from "./SettingsNavigator";
 
 type Props = StackScreenProps<SettingsParamList, "SettingsScreen">;
@@ -212,7 +212,7 @@ export function SettingsScreen({ navigation }: Props): JSX.Element {
         light={tailwind("bg-mono-light-v2-00")}
         style={tailwind("rounded-lg-v2 mb-6 pl-5 pr-4")}
       >
-        <RowThemeItemV2 border />
+        <RowThemeItem border />
         <NavigateItemRow
           testID="setting_navigate_language_selection"
           label="Language"
