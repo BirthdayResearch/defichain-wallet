@@ -103,8 +103,9 @@ export function SlippageToleranceV2({
 
   // updates states when there is a change in slippage from local storage
   useEffect(() => {
-    updateSlippage(slippage.toFixed(8), false);
-    setIsCustomAmount(checkIfCustomSlippage(slippage.toFixed(8)));
+    // percentage value will be in 2DP
+    updateSlippage(slippage.toFixed(2), false);
+    setIsCustomAmount(checkIfCustomSlippage(slippage.toFixed(2)));
   }, [slippage]);
 
   return (
@@ -173,10 +174,13 @@ export function SlippageToleranceV2({
                     selectedSlippage === undefined ||
                     selectedSlippage === ""
                   ) {
-                    updateSlippage(slippage.toFixed(8), false); // reset to previous slippage
+                    updateSlippage(slippage.toFixed(2), false); // reset to previous slippage
                   } else {
                     setIsCustomAmount(true);
-                    updateSlippage(selectedSlippage, true);
+                    updateSlippage(
+                      new BigNumber(selectedSlippage).toFixed(2),
+                      true
+                    );
                   }
                 }}
                 disabled={!isSlippageValid()}
@@ -213,7 +217,7 @@ export function SlippageToleranceV2({
                 isSelected={
                   !isCustomAmount &&
                   new BigNumber(selectedSlippage).isEqualTo(
-                    new BigNumber(type).toFixed(8)
+                    new BigNumber(type).toFixed(2)
                   )
                 }
               />
