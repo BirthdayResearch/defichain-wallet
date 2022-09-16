@@ -159,7 +159,6 @@ const PortfolioStack = createStackNavigator<PortfolioParamList>();
 
 export function PortfolioNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
-  const headerContainerTestId = "portfolio_header_container";
   const { isLight } = useThemeContext();
   const { isFeatureAvailable } = useFeatureFlagContext();
   const goToNetworkSelect = (): void => {
@@ -233,7 +232,6 @@ export function PortfolioNavigator(): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate("screens/AddressControlScreen", "Wallet Address")}
-              containerTestID={headerContainerTestId}
             />
           ),
           headerRightContainerStyle: tailwind("px-2 py-2"),
@@ -361,7 +359,6 @@ export function PortfolioNavigator(): JSX.Element {
           headerTitle: () => (
             <HeaderTitle
               text={translate("screens/ConvertScreen", "UTXO vs Token")}
-              containerTestID={headerContainerTestId}
             />
           ),
           headerBackTitleVisible: false,
@@ -394,10 +391,7 @@ export function PortfolioNavigator(): JSX.Element {
         name="AboutScreen"
         options={{
           headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/AboutScreen", "About")}
-              containerTestID={headerContainerTestId}
-            />
+            <HeaderTitle text={translate("screens/AboutScreen", "About")} />
           ),
           headerBackTitleVisible: false,
         }}
@@ -415,10 +409,7 @@ export function PortfolioNavigator(): JSX.Element {
           headerTitle: isFeatureAvailable("composite_swap_v2")
             ? translate("screens/DexScreen", "Swap")
             : () => (
-                <HeaderTitle
-                  text={translate("screens/DexScreen", "Swap")}
-                  containerTestID={headerContainerTestId}
-                />
+                <HeaderTitle text={translate("screens/DexScreen", "Swap")} />
               ),
           ...(isFeatureAvailable("composite_swap_v2") && {
             headerStyle: [
@@ -462,7 +453,6 @@ export function PortfolioNavigator(): JSX.Element {
             : () => (
                 <HeaderTitle
                   text={translate("screens/DexScreen", "Confirm swap")}
-                  containerTestID={headerContainerTestId}
                 />
               ),
           headerBackTitleVisible: false,
@@ -496,7 +486,6 @@ export function PortfolioNavigator(): JSX.Element {
                 "screens/AddOrEditAddressBookScreen",
                 "Add New Address"
               )}
-              containerTestID={headerContainerTestId}
             />
           ),
           headerBackTitleVisible: false,
@@ -544,7 +533,6 @@ export function PortfolioNavigator(): JSX.Element {
                     "screens/WithdrawFutureSwapScreen",
                     "Withdraw from future swap"
                   )}
-                  containerTestID={headerContainerTestId}
                 />
               ),
           ...(isFeatureAvailable("composite_swap_v2") && {
@@ -582,7 +570,6 @@ export function PortfolioNavigator(): JSX.Element {
             : () => (
                 <HeaderTitle
                   text={translate("screens/FutureSwapScreen", "Future Swap")}
-                  containerTestID={headerContainerTestId}
                 />
               ),
           ...(isFeatureAvailable("composite_swap_v2") && {
@@ -611,7 +598,6 @@ export function PortfolioNavigator(): JSX.Element {
                     "screens/ConfirmWithdrawFutureSwapScreen",
                     "Confirm withdrawal"
                   )}
-                  containerTestID={headerContainerTestId}
                 />
               ),
           ...(isFeatureAvailable("composite_swap_v2") && {
