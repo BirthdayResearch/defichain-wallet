@@ -7,14 +7,14 @@ import { tailwind } from "@tailwind";
 import { EnvironmentName, getEnvironment } from "@environment";
 import { getReleaseChannel } from "@api/releaseChannel";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { getDefaultThemeV2 } from "@constants/ThemeV2";
+import { getDefaultTheme } from "@constants/Theme";
 import { RootNavigator } from "./RootNavigator";
 import { PlaygroundNavigator } from "./PlaygroundNavigator/PlaygroundNavigator";
 
 export function Main(): JSX.Element {
   const env = getEnvironment(getReleaseChannel());
   const { isLight } = useThemeContext();
-  const DeFiChainThemeV2: Theme = getDefaultThemeV2(isLight);
+  const DeFiChainTheme: Theme = getDefaultTheme(isLight);
 
   return (
     <SafeAreaProvider>
@@ -27,7 +27,7 @@ export function Main(): JSX.Element {
 
         {env.name !== EnvironmentName.Production && (
           <View style={[styles.phone, tailwind("bg-white ml-2")]}>
-            <NavigationContainer theme={DeFiChainThemeV2}>
+            <NavigationContainer theme={DeFiChainTheme}>
               <PlaygroundNavigator />
             </NavigationContainer>
           </View>

@@ -18,7 +18,7 @@ import { useServiceProviderContext } from "@contexts/StoreServiceProvider";
 import { useWalletNodeContext } from "@shared-contexts/WalletNodeProvider";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { SettingsParamList } from "../SettingsNavigator";
-import { ResetButtonV2 } from "../components/ResetButtonV2";
+import { ResetButton } from "../components/ResetButton";
 
 type Props = StackScreenProps<SettingsParamList, "ServiceProviderScreen">;
 
@@ -180,7 +180,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
               )}
             </Text>
           </View>
-          <ResetButtonV2 />
+          <ResetButton />
         </>
       )}
       {isUnlocked && (

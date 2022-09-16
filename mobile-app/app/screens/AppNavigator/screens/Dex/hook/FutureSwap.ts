@@ -22,6 +22,8 @@ export function useFutureSwap(props: SwapType): {
   isFutureSwapOptionEnabled: boolean;
   oraclePriceText: "+5%" | "-5%" | "";
   isSourceLoanToken: boolean;
+  isFromLoanToken?: boolean;
+  isToLoanToken?: boolean;
 } {
   const fromTokenDetail = useSelector((state: RootState) =>
     tokenSelectorByDisplaySymbol(
@@ -47,6 +49,8 @@ export function useFutureSwap(props: SwapType): {
       isFutureSwapOptionEnabled: true,
       oraclePriceText: "-5%",
       isSourceLoanToken: true,
+      isFromLoanToken: fromTokenDetail.isLoanToken,
+      isToLoanToken: toTokenDetail.isLoanToken,
     };
   } else if (
     isFutureSwapEnabled &&
@@ -57,6 +61,8 @@ export function useFutureSwap(props: SwapType): {
       isFutureSwapOptionEnabled: true,
       oraclePriceText: "+5%",
       isSourceLoanToken: false,
+      isFromLoanToken: fromTokenDetail.isLoanToken,
+      isToLoanToken: toTokenDetail.isLoanToken,
     };
   }
 
@@ -64,6 +70,8 @@ export function useFutureSwap(props: SwapType): {
     isFutureSwapOptionEnabled: false,
     oraclePriceText: "",
     isSourceLoanToken: false,
+    isFromLoanToken: fromTokenDetail?.isLoanToken,
+    isToLoanToken: toTokenDetail?.isLoanToken,
   };
 }
 
@@ -89,7 +97,9 @@ export function useFutureSwapDate(
   return {
     timeRemaining:
       blocksRemaining > 0 ? secondsToDhmsDisplay(blocksSeconds) : "",
-    transactionDate: dayjs().add(blocksSeconds, "second").format("MMM D, YYYY"),
+    transactionDate: dayjs()
+      .add(blocksSeconds, "second")
+      .format("MMM D, YYYY, h:mm a"),
     isEnded: blocksRemaining === 0,
   };
 }
