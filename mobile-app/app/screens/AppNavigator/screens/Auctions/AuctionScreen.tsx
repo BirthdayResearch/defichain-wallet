@@ -56,7 +56,8 @@ export function AuctionsScreen({ navigation }: Props): JSX.Element {
       if (searchString !== undefined && searchString.trim().length > 0) {
         setFilteredAuctionBatches(
           batches.filter((batch) =>
-            batch.loan.displaySymbol
+            batch.collateralTokenSymbols
+              .join(" ")
               .toLowerCase()
               .includes(searchString.trim().toLowerCase())
           )
@@ -163,23 +164,23 @@ export function AuctionsScreen({ navigation }: Props): JSX.Element {
     [batches, address]
   );
 
-  return (
-    <ThemedViewV2 testID="auctions_screen" style={tailwind("flex-1")}>
-      {(!hasFetchAuctionsData || isSearching) && (
-        <ThemedScrollViewV2 contentContainerStyle={tailwind("p-5")}>
-          <SkeletonLoader row={6} screen={SkeletonLoaderScreen.BrowseAuction} />
-        </ThemedScrollViewV2>
-      )}
-      {hasFetchAuctionsData && batches?.length === 0 && !isSearching && (
+  if (hasFetchAuctionsData && batches?.length === 0 && !showSearchInput) {
+    return (
+      <ThemedViewV2 testID="auctions_screen" style={tailwind("flex-1")}>
         <EmptyAuction
           showInfo
           title="No Auctions"
           subTitle="There are currently no collaterals available for auction."
         />
-      )}
+      </ThemedViewV2>
+    );
+  }
+
+  return (
+    <ThemedViewV2 testID="auctions_screen" style={tailwind("flex-1")}>
       {hasFetchAuctionsData && (
         <>
-          {showSearchInput && (
+          {showSearchInput ? (
             <View style={tailwind("px-10 mt-8 mb-2")}>
               <ThemedTextV2
                 light={tailwind("text-mono-light-v2-700")}
@@ -199,24 +200,29 @@ export function AuctionsScreen({ navigation }: Props): JSX.Element {
                     )}
               </ThemedTextV2>
             </View>
-          )}
-          {batches?.length !== 0 && !showSearchInput && (
+          ) : (
             <AuctionFilterPillGroup
               onSearchBtnPress={() => setShowSearchInput(true)}
               onButtonGroupChange={setActiveButtonGroup}
               activeButtonGroup={activeButtonGroup}
             />
           )}
-          {batches?.length !== 0 &&
-            (!showSearchInput || (showSearchInput && searchString !== "")) && (
-              <BrowseAuctions
-                activeButtonGroup={activeButtonGroup}
-                showSearchInput={showSearchInput}
-                filteredAuctionBatches={filteredAuctionBatches}
-                yourVaultIds={yourVaultIds}
-              />
-            )}
+          <BrowseAuctions
+            activeButtonGroup={activeButtonGroup}
+            showSearchInput={showSearchInput}
+            searchString={searchString}
+            batches={batches}
+            filteredAuctionBatches={filteredAuctionBatches}
+            yourVaultIds={yourVaultIds}
+          />
         </>
+      )}
+      {(!hasFetchAuctionsData || isSearching) && (
+        <ThemedScrollViewV2
+          contentContainerStyle={tailwind("p-5", { "pt-0": showSearchInput })}
+        >
+          <SkeletonLoader row={6} screen={SkeletonLoaderScreen.BrowseAuction} />
+        </ThemedScrollViewV2>
       )}
     </ThemedViewV2>
   );
