@@ -16,8 +16,8 @@ import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/Tok
 import { TextSkeletonLoaderV2 } from "@components/TextSkeletonLoaderV2";
 import BigNumber from "bignumber.js";
 import { translate } from "@translations";
-import { TokenNameTextV2 } from "./TokenNameTextV2";
-import { TokenAmountTextV2 } from "./TokenAmountTextV2";
+import { TokenNameText } from "./TokenNameText";
+import { TokenAmountText } from "./TokenAmountText";
 
 interface DFIBalaceCardProps {
   denominationCurrency: string;
@@ -66,7 +66,7 @@ export function DFIBalanceCard({
         >
           <View style={tailwind("w-7/12 flex-row items-center")}>
             <DFIIcon width={36} height={36} />
-            <TokenNameTextV2
+            <TokenNameText
               displaySymbol="DFI"
               name="DeFiChain"
               testID="total_dfi_label"
@@ -78,7 +78,7 @@ export function DFIBalanceCard({
             })}
           >
             {hasFetchedToken ? (
-              <TokenAmountTextV2
+              <TokenAmountText
                 tokenAmount={DFIUnified.amount}
                 usdAmount={usdAmount}
                 testID="dfi_total_balance"
