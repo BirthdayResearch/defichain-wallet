@@ -1,37 +1,53 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
+import { Platform, View } from "react-native";
 import { ThemePersistence } from "@api";
-import { Switch, View } from "@components/index";
-import { ThemedText, ThemedView } from "@components/themed";
+import { Switch } from "@components";
+import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 
-export function RowThemeItem(): JSX.Element {
+export function RowThemeItem(props: { border?: boolean }): JSX.Element {
   const { setTheme, isLight } = useThemeContext();
   const [isDark, setIsDark] = useState<boolean>(!isLight);
   return (
-    <ThemedView
-      dark={tailwind("bg-gray-800 border-b border-gray-700")}
-      light={tailwind("bg-white border-b border-gray-200")}
-      style={tailwind("flex flex-row p-4 pr-2 items-center justify-between")}
+    <ThemedViewV2
+      light={tailwind("border-mono-light-v2-300")}
+      dark={tailwind("border-mono-dark-v2-300")}
+      style={tailwind("flex flex-row items-center justify-between py-4.5", {
+        "border-b-0.5": props.border,
+      })}
       testID="theme_row"
     >
-      <ThemedText
-        dark={tailwind("text-white text-opacity-90")}
-        light={tailwind("text-black")}
-        style={tailwind("font-medium")}
+      <ThemedTextV2
+        light={tailwind("text-mono-light-v2-900")}
+        dark={tailwind("text-mono-dark-v2-900")}
+        style={tailwind("font-normal-v2 text-sm")}
       >
         {translate("screens/Settings", "Theme")}
-      </ThemedText>
+      </ThemedTextV2>
 
       <View style={tailwind("flex-row items-center")}>
-        <MaterialCommunityIcons
-          name="white-balance-sunny"
-          size={20}
-          testID="light_mode_icon"
-          style={tailwind("mr-2 text-gray-300", { "text-yellow-400": isLight })}
-        />
+        {isLight ? (
+          <MaterialIcons
+            name="wb-sunny"
+            size={20}
+            testID="light_mode_icon"
+            style={tailwind("mr-1 text-orange-v2", {
+              "mr-2": Platform.OS === "ios",
+            })}
+          />
+        ) : (
+          <MaterialIcons
+            name="nightlight-round"
+            size={20}
+            testID="dark_mode_icon"
+            style={tailwind("text-orange-v2", {
+              "mr-2": Platform.OS === "ios",
+            })}
+          />
+        )}
 
         <Switch
           onValueChange={async (v) => {
@@ -43,16 +59,7 @@ export function RowThemeItem(): JSX.Element {
           testID="theme_switch"
           value={isDark}
         />
-
-        <MaterialCommunityIcons
-          name="moon-waning-crescent"
-          size={20}
-          testID="dark_mode_icon"
-          style={tailwind("ml-2 text-gray-300", {
-            "text-yellow-400": !isLight,
-          })}
-        />
       </View>
-    </ThemedView>
+    </ThemedViewV2>
   );
 }

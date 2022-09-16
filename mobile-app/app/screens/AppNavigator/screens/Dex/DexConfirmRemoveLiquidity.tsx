@@ -25,7 +25,7 @@ import { PricesSectionV2 } from "@components/PricesSectionV2";
 import { useTokenPrice } from "../Portfolio/hooks/TokenPrice";
 import { DexParamList } from "./DexNavigator";
 
-type Props = StackScreenProps<DexParamList, "ConfirmRemoveLiquidity">;
+type Props = StackScreenProps<DexParamList, "RemoveLiquidityConfirmScreen">;
 
 export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
   const { pair, pairInfo, amount, fee, tokenAAmount, tokenBAmount } =

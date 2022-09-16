@@ -103,7 +103,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
   function onCancel(): void {
     if (!isSubmitting) {
       navigation.navigate({
-        name: "Send",
+        name: "SendScreen",
         params: {
           token,
         },
