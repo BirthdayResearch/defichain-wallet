@@ -22,3 +22,4 @@ export * from "./ThemedTextInput";
 export * from "./ThemedTextInputV2";
 export * from "./ThemedTouchableListItem";
 export * from "./ThemedFlatListV2";
+export * from "./ThemedFlashList";

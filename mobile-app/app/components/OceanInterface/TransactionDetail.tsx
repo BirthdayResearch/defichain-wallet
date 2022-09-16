@@ -108,7 +108,6 @@ export function TransactionDetail({
 }
 
 async function gotoExplorer(txUrl: string): Promise<void> {
-  // TODO(thedoublejay) explorer URL
   // TODO (future improvement): this page should support in mempool, to be confirm
   await openURL(txUrl);
 }

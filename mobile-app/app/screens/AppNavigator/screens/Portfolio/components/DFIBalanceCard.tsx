@@ -54,7 +54,7 @@ export function DFIBalanceCard({
           style={tailwind("px-5 py-4.5 flex flex-row items-start")}
           onPress={() =>
             navigation.navigate({
-              name: "Balance",
+              name: "TokenDetailScreen",
               params: { token: DFIUnified, usdAmount },
               merge: true,
             })
@@ -142,6 +142,7 @@ function GetDFIBtn(): JSX.Element {
     >
       <TouchableOpacity
         testID="get_DFI_btn"
+        // @ts-ignore
         onPress={() => navigation.navigate("GetDFIScreen")}
         activeOpacity={0.7}
       >

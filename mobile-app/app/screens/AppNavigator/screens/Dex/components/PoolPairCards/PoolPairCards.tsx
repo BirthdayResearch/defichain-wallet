@@ -29,7 +29,7 @@ import { APRSection } from "@screens/AppNavigator/screens/Dex/components/PoolPai
 import { PoolSharesSection } from "@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolSharesSection";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { useToast } from "react-native-toast-notifications";
-import { useFavouritePoolpairContext } from "../../../../../../contexts/FavouritePoolpairContext";
+import { useFavouritePoolpairContext } from "@contexts/FavouritePoolpairContext";
 import { DexScrollable } from "../DexScrollable";
 import { TotalValueLocked } from "../TotalValueLocked";
 
@@ -71,7 +71,6 @@ export function PoolPairCards({
   onPress,
   type,
   searchString,
-  setIsSearching,
   yourPairs,
   showSearchInput,
   topLiquidityPairs,
@@ -99,7 +98,6 @@ export function PoolPairCards({
     availablePairs.findIndex((x) => x.data.id === pairB.data.id);
 
   useEffect(() => {
-    setIsSearching(false);
     if (showSearchInput === false) {
       setFilteredYourPairs(yourPairs.sort(pairSortingFn));
       return;

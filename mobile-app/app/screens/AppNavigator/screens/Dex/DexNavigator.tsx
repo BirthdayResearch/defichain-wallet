@@ -131,6 +131,16 @@ export interface DexParamList {
   PoolPairDetailsScreen: {
     id: string;
   };
+  RemoveLiquidityConfirmScreen: {
+    pair: PoolPairData;
+    pairInfo: WalletToken;
+    amount: BigNumber;
+    fee: BigNumber;
+    tokenAAmount: BigNumber;
+    tokenBAmount: BigNumber;
+    tokenA?: WalletToken;
+    tokenB?: WalletToken;
+  };
 
   [key: string]: undefined | object;
 }
@@ -270,7 +280,7 @@ export function DexNavigator(): JSX.Element {
         component={
           isFeatureAvailable("composite_swap_v2")
             ? CompositeSwapScreenV2
-            : CompositeSwapScreen
+            : (CompositeSwapScreen as any)
         }
         name="CompositeSwap"
         options={{
@@ -296,7 +306,7 @@ export function DexNavigator(): JSX.Element {
       />
 
       <DexStack.Screen
-        component={SwapTokenSelectionScreen}
+        component={SwapTokenSelectionScreen as any}
         name="SwapTokenSelectionScreen"
         options={{
           ...screenOptions,
@@ -311,7 +321,7 @@ export function DexNavigator(): JSX.Element {
         component={
           isFeatureAvailable("composite_swap_v2")
             ? ConfirmCompositeSwapScreenV2
-            : ConfirmCompositeSwapScreen
+            : (ConfirmCompositeSwapScreen as any)
         }
         name={
           isFeatureAvailable("composite_swap_v2")
