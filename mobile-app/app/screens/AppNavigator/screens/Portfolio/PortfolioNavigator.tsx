@@ -28,7 +28,11 @@ import { FutureSwapScreenV2 } from "@screens/AppNavigator/screens/Portfolio/scre
 import { WithdrawFutureSwapScreenV2 } from "@screens/AppNavigator/screens/Portfolio/screens/WithdrawFutureSwapScreenV2";
 import { ConfirmWithdrawFutureSwapScreenV2 } from "@screens/AppNavigator/screens/Portfolio/screens/ConfirmWithdrawFutureSwapScreenV2";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
-import { SwapTokenSelectionScreen } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
+import {
+  SelectionToken,
+  SwapTokenSelectionScreen,
+  TokenListType,
+} from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { PortfolioScreen } from "./PortfolioScreen";
 import { ReceiveScreen } from "./screens/ReceiveScreen";
@@ -130,10 +134,13 @@ export interface PortfolioParamList {
   };
   GetDFIScreen: {};
   SwapTokenSelectionScreen: {
-    fromToken: any;
-    listType: any;
+    fromToken: {
+      symbol?: string;
+      displaySymbol?: string;
+    };
+    listType: TokenListType;
     list: any;
-    onTokenPress: any;
+    onTokenPress: (item: SelectionToken) => {};
     isFutureSwap?: boolean;
     isSearchDTokensOnly?: boolean;
   };
@@ -154,7 +161,6 @@ export function PortfolioNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const headerContainerTestId = "portfolio_header_container";
   const { isLight } = useThemeContext();
-  const insets = useSafeAreaInsets();
   const { isFeatureAvailable } = useFeatureFlagContext();
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreen");
@@ -340,13 +346,11 @@ export function PortfolioNavigator(): JSX.Element {
         component={BarCodeScanner}
         name="BarCodeScanner"
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/ConvertScreen", "Scan recipient QR")}
-              containerTestID={headerContainerTestId}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false,
+          headerTitle: translate("screens/ConvertScreen", "Scan recipient QR"),
         }}
       />
 
@@ -635,13 +639,11 @@ export function PortfolioNavigator(): JSX.Element {
         component={TransactionsScreen}
         name="TransactionsScreen"
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/TransactionsScreen", "Transactions")}
-              containerTestID={headerContainerTestId}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false,
+          headerTitle: translate("screens/TransactionsScreen", "Transactions"),
         }}
       />
 
@@ -649,13 +651,14 @@ export function PortfolioNavigator(): JSX.Element {
         component={TransactionDetailScreen}
         name="TransactionDetailScreen"
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/TransactionDetailScreen", "Transaction")}
-              containerTestID={headerContainerTestId}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerBackTitleVisible: false,
+          headerTitle: translate(
+            "screens/TransactionDetailScreen",
+            "Transaction"
+          ),
         }}
       />
       <PortfolioStack.Screen

@@ -132,14 +132,14 @@ export interface DexParamList {
     id: string;
   };
   RemoveLiquidityConfirmScreen: {
-    pair: any;
-    pairInfo: any;
-    amount: any;
-    fee: any;
-    tokenAAmount: any;
-    tokenBAmount: any;
-    tokenA: any;
-    tokenB: any;
+    pair: PoolPairData;
+    pairInfo: WalletToken;
+    amount: BigNumber;
+    fee: BigNumber;
+    tokenAAmount: BigNumber;
+    tokenBAmount: BigNumber;
+    tokenA?: WalletToken;
+    tokenB?: WalletToken;
   };
 
   [key: string]: undefined | object;
@@ -306,7 +306,7 @@ export function DexNavigator(): JSX.Element {
       />
 
       <DexStack.Screen
-        component={SwapTokenSelectionScreen}
+        component={SwapTokenSelectionScreen as any}
         name="SwapTokenSelectionScreen"
         options={{
           ...screenOptions,
