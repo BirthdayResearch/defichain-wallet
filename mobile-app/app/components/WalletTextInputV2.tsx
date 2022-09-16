@@ -1,8 +1,10 @@
 import { forwardRef, useCallback, useState } from "react";
 import {
+  NativeSyntheticEvent,
   Platform,
   StyleProp,
   Text,
+  TextInputFocusEventData,
   TextInputProps,
   TouchableOpacity,
   View,
@@ -231,7 +233,7 @@ const TextInputIOS = forwardRef(
     const { inputType, onBlur, onFocus, ...otherProps } = props;
     const { shouldHandleKeyboardEvents } = useBottomSheetInternal();
     const handleOnFocus = useCallback(
-      (e) => {
+      (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
         shouldHandleKeyboardEvents.value = true;
 
         if (onFocus !== undefined) {
