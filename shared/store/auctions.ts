@@ -20,6 +20,7 @@ export interface AuctionsState {
 
 export interface AuctionBatchProps extends LoanVaultLiquidationBatch {
   auction: LoanVaultLiquidated;
+  collateralTokenSymbols: string[];
 }
 
 const initialState: AuctionsState = {
@@ -98,6 +99,9 @@ export const getAuctionBatches = createSelector(
           filteredAuctionBatches.push({
             ...batch,
             auction,
+            collateralTokenSymbols: batch.collaterals.map(
+              ({ displaySymbol }) => displaySymbol
+            ),
           });
         });
         return filteredAuctionBatches;

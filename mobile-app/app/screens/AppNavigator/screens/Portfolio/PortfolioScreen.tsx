@@ -281,8 +281,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const portfolioButtonGroup = [
     {
       id: PortfolioButtonGroupTabKey.USDT,
-      // api is saved as USDT, but will display in USD on app
-      label: translate("screens/TotalPortfolio", "USD"),
+      label: translate("screens/PortfolioScreen", "USDT"),
       handleOnPress: () =>
         onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.USDT),
     },
@@ -307,10 +306,6 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const [isSorted, setIsSorted] = useState<boolean>(false); // to display acsending/descending icon
   const [showAssetSortBottomSheet, setShowAssetSortBottomSheet] =
     useState(false);
-  const modifiedDenominationCurrency = useMemo(
-    () => (denominationCurrency === "USDT" ? "USD" : denominationCurrency),
-    [denominationCurrency]
-  );
   const sortTokensAssetOnType = useCallback(
     (assetSortType: PortfolioSortType): PortfolioRowToken[] => {
       let sortTokensFunc: (
@@ -435,7 +430,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
             setShowAssetSortBottomSheet(false);
             dismissModal(true);
           },
-          modifiedDenominationCurrency,
+          denominationCurrency,
           selectedAssetSortType: assetSortType,
         }),
         option: {
@@ -456,7 +451,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
         },
       },
     ];
-  }, [modifiedDenominationCurrency, assetSortType]);
+  }, [denominationCurrency, assetSortType]);
 
   // Address selection bottom sheet
   const bottomSheetRef = useRef<BottomSheetModalMethods>(null);
@@ -598,7 +593,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
             expandModal(true);
           }}
           isSorted={isSorted}
-          modifiedDenominationCurrency={modifiedDenominationCurrency}
+          denominationCurrency={denominationCurrency}
         />
         <DFIBalanceCard denominationCurrency={denominationCurrency} />
         {!hasFetchedToken ? (
@@ -660,18 +655,18 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
 function AssetSortRow(props: {
   isSorted: boolean;
   assetSortType: PortfolioSortType;
-  modifiedDenominationCurrency: string;
+  denominationCurrency: string;
   onPress: () => void;
 }): JSX.Element {
   const highestCurrencyValue = translate(
     "screens/PortfolioScreen",
-    "Highest value ({{modifiedDenominationCurrency}})",
-    { modifiedDenominationCurrency: props.modifiedDenominationCurrency }
+    "Highest value ({{denominationCurrency}})",
+    { denominationCurrency: props.denominationCurrency }
   );
   const lowestCurrencyValue = translate(
     "screens/PortfolioScreen",
-    "Lowest value ({{modifiedDenominationCurrency}})",
-    { modifiedDenominationCurrency: props.modifiedDenominationCurrency }
+    "Lowest value ({{denominationCurrency}})",
+    { denominationCurrency: props.denominationCurrency }
   );
   const getDisplayedSortText = (text: PortfolioSortType): string => {
     if (text === PortfolioSortType.HighestDenominationValue) {

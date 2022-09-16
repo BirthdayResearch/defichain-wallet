@@ -1,10 +1,10 @@
-import { ThemedText } from "@components/themed";
+import { ThemedTextV2, ThemedTouchableOpacityV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { WalletAlert } from "@components/WalletAlert";
-import { TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { useCallback } from "react";
+import React, { useCallback } from "react";
 import { authentication, Authentication } from "@store/authentication";
 import { MnemonicStorage } from "@api/wallet/mnemonic_storage";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
@@ -28,8 +28,7 @@ export function ResetButton(): JSX.Element {
   );
   const { url, defaultUrl, setUrl } = useServiceProviderContext();
 
-  const isCustom = url === defaultUrl;
-
+  const isDisabled = url === defaultUrl;
   const resetServiceProvider = useCallback(() => {
     // to check if user's transactions to be completed before resetting url
     if (hasPendingJob || hasPendingBroadcastJob) {
@@ -83,21 +82,34 @@ export function ResetButton(): JSX.Element {
       ],
     });
   };
-
   return (
-    <TouchableOpacity
-      style={tailwind("pr-4")}
-      onPress={onPress}
-      disabled={isCustom}
-    >
-      <ThemedText
-        light={tailwind(`${isCustom ? "text-gray-400" : "text-primary-500"}`)}
-        dark={tailwind(`${isCustom ? "text-gray-500" : "text-primary-500"}`)}
-        style={tailwind("font-medium")}
+    <View>
+      <ThemedTouchableOpacityV2
+        light={tailwind("bg-mono-light-v2-00", { "bg-opacity-30": isDisabled })}
+        dark={tailwind("bg-mono-dark-v2-00 ", { "bg-opacity-30": isDisabled })}
+        style={tailwind("border-0 p-4.5 flex-row justify-center rounded-lg-v2")}
+        onPress={onPress}
         testID="reset_button"
+        disabled={isDisabled}
       >
-        {translate("screens/ServiceProviderScreen", "RESET")}
-      </ThemedText>
-    </TouchableOpacity>
+        <Text
+          style={tailwind("font-normal-v2 text-sm text-red-v2", {
+            "text-opacity-30": isDisabled,
+          })}
+        >
+          {translate("screens/ServiceProviderScreen", "Reset provider")}
+        </Text>
+      </ThemedTouchableOpacityV2>
+      <ThemedTextV2
+        light={tailwind("text-mono-light-v2-500")}
+        dark={tailwind("text-mono-dark-v2-500")}
+        style={tailwind("font-normal-v2 mt-2 text-xs text-center")}
+      >
+        {translate(
+          "screens/ServiceProviderScreen",
+          "This will reset the service provider\nto the default URL."
+        )}
+      </ThemedTextV2>
+    </View>
   );
 }

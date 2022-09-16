@@ -5,13 +5,14 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { ViewStyle, StyleProp } from "react-native";
+import { StyleProp, ViewStyle } from "react-native";
 
 interface DexActionButtonProps {
   label: string;
   onPress: () => void;
   style?: StyleProp<ViewStyle>;
   testID: string;
+  disabled?: boolean;
 }
 
 export function DexActionButton({
@@ -19,13 +20,16 @@ export function DexActionButton({
   onPress,
   style,
   testID,
+  disabled,
 }: DexActionButtonProps): JSX.Element {
   return (
     <ThemedTouchableOpacityV2
       style={[tailwind("rounded-2xl-v2 py-2 px-4"), style]}
-      dark={tailwind("bg-mono-dark-v2-100")}
-      light={tailwind("bg-mono-light-v2-100")}
-      onPress={onPress}
+      dark={tailwind("bg-mono-dark-v2-100", { "opacity-30": disabled })}
+      light={tailwind("bg-mono-light-v2-100", { "opacity-30": disabled })}
+      onPress={disabled ? undefined : onPress} // using this instead of "disable" to prevent parent to be clickable
+      activeOpacity={disabled ? 0.3 : 0.7}
+      testID={`dex_action_button_${testID}`}
     >
       <ThemedTextV2
         light={tailwind("text-mono-light-v2-900")}

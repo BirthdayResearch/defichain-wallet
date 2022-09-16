@@ -27,12 +27,15 @@ import {
   BottomSheetAssetSortList,
 } from "./AuctionsSortRow";
 import { EmptyAuction } from "./EmptyAuction";
+import { useTokenPrice } from "../../Portfolio/hooks/TokenPrice";
 
 interface Props {
+  batches: AuctionBatchProps[];
   filteredAuctionBatches: AuctionBatchProps[];
   yourVaultIds: string[];
   activeButtonGroup: ButtonGroupTabKey;
   showSearchInput: boolean;
+  searchString: string;
 }
 
 export enum ButtonGroupTabKey {
@@ -49,15 +52,37 @@ export interface onQuickBidProps {
   minNextBidInUSD: string;
 }
 
+interface DetailedAuctionBatch extends AuctionBatchProps {
+  totalCollateralsValueInUSD: BigNumber;
+}
+
 export function BrowseAuctions({
+  batches,
   filteredAuctionBatches,
   showSearchInput,
+  searchString,
   yourVaultIds,
   activeButtonGroup,
 }: Props): JSX.Element {
   const tokens = useSelector((state: RootState) =>
     tokensSelector(state.wallet)
   );
+  const { getTokenPrice } = useTokenPrice();
+
+  const detailedAuctionBatch = filteredAuctionBatches.map((batch) => {
+    const totalCollateralsValueInUSD = batch?.collaterals?.reduce(
+      (total, eachItem) => {
+        return total.plus(
+          getTokenPrice(eachItem.symbol, new BigNumber(eachItem.amount))
+        );
+      },
+      new BigNumber(0)
+    );
+    return {
+      ...batch,
+      totalCollateralsValueInUSD,
+    };
+  });
 
   // Asset sort bottom sheet list
   const [assetSortType, setAssetSortType] = useState<AuctionsSortType>(
@@ -109,19 +134,24 @@ export function BrowseAuctions({
   };
 
   const sortTokensAssetOnType = useCallback(
-    (assetSortType: AuctionsSortType): AuctionBatchProps[] => {
+    (assetSortType: AuctionsSortType): DetailedAuctionBatch[] => {
       let sortTokensFunc: (
-        a: AuctionBatchProps,
-        b: AuctionBatchProps
+        a: DetailedAuctionBatch,
+        b: DetailedAuctionBatch
       ) => number;
       switch (assetSortType) {
-        // TODO (Harsh) add condition for Highest Value and Lowest Value sort
-        // case AuctionsSortType.HighestValue:
-        //   sortTokensFunc = (a, b) =>  new BigNumber(a.auction.liquidationHeight).minus(b.auction.liquidationHeight).toNumber();
-        //   break;
-        // case AuctionsSortType.LowestValue:
-        //   sortTokensFunc = (a, b) => a.usdAmount.minus(b.usdAmount).toNumber();
-        //   break;
+        case AuctionsSortType.HighestValue:
+          sortTokensFunc = (a, b) =>
+            new BigNumber(b.totalCollateralsValueInUSD)
+              .minus(a.totalCollateralsValueInUSD)
+              .toNumber();
+          break;
+        case AuctionsSortType.LowestValue:
+          sortTokensFunc = (a, b) =>
+            new BigNumber(a.totalCollateralsValueInUSD)
+              .minus(b.totalCollateralsValueInUSD)
+              .toNumber();
+          break;
         case AuctionsSortType.MostTimeLeft:
           sortTokensFunc = (a, b) =>
             new BigNumber(b.auction.liquidationHeight)
@@ -135,9 +165,9 @@ export function BrowseAuctions({
               .minus(b.auction.liquidationHeight)
               .toNumber();
       }
-      return filteredAuctionBatches.sort(sortTokensFunc);
+      return detailedAuctionBatch.sort(sortTokensFunc);
     },
-    [filteredAuctionBatches, assetSortType]
+    [detailedAuctionBatch, assetSortType]
   );
 
   const onQuickBid = (props: onQuickBidProps): void => {
@@ -166,6 +196,10 @@ export function BrowseAuctions({
     ]);
     expandModal();
   };
+
+  if (batches?.length === 0 || (showSearchInput && searchString === "")) {
+    return <></>;
+  }
 
   return (
     <View ref={containerRef} style={tailwind("flex-1")} testID="auctions_cards">
@@ -222,7 +256,7 @@ function BatchCards({
   onQuickBid,
   activeButtonGroup,
 }: {
-  auctionBatches: AuctionBatchProps[];
+  auctionBatches: DetailedAuctionBatch[];
   yourVaultIds: string[];
   showSearchInput: boolean;
   onQuickBid: (props: onQuickBidProps) => void;
@@ -236,7 +270,7 @@ function BatchCards({
       item,
       index,
     }: {
-      item: AuctionBatchProps;
+      item: DetailedAuctionBatch;
       index: number;
     }): JSX.Element => {
       const { auction, ...batch } = item;

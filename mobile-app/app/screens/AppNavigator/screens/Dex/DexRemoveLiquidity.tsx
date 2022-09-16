@@ -1,15 +1,15 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 import BigNumber from "bignumber.js";
-import { useEffect, useState, useCallback, useRef, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Platform, View } from "react-native";
 import { useSelector } from "react-redux";
 import {
+  ThemedIcon,
   ThemedScrollViewV2,
   ThemedTextV2,
-  ThemedViewV2,
   ThemedTouchableOpacityV2,
-  ThemedIcon,
+  ThemedViewV2,
 } from "@components/themed";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { RootState } from "@store";
@@ -26,8 +26,8 @@ import {
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { WalletTransactionCardTextInput } from "@components/WalletTransactionCardTextInput";
 import {
-  TransactionCard,
   AmountButtonTypes,
+  TransactionCard,
   TransactionCardStatus,
 } from "@components/TransactionCard";
 import { getNativeIcon } from "@components/icons/assets";
@@ -36,7 +36,7 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { useToast } from "react-native-toast-notifications";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { useTokenPrice } from "../Portfolio/hooks/TokenPrice";
-import { ViewPoolDetails, DataRoutes } from "./components/ViewPoolDetails";
+import { DataRoutes, ViewPoolDetails } from "./components/ViewPoolDetails";
 import { ViewPoolHeader } from "./components/ViewPoolHeader";
 import { DexParamList } from "./DexNavigator";
 import { LiquidityCalculationSummary } from "./components/LiquidityCalculationSummary";
@@ -154,7 +154,10 @@ export function RemoveLiquidityScreen(props: Props): JSX.Element {
 
   const ref = useRef(null);
   const { isLight } = useThemeContext();
-  const modalSortingSnapPoints = { ios: ["50%"], android: ["50%"] };
+  const modalSortingSnapPoints = {
+    ios: ["50%"],
+    android: ["50%"],
+  };
 
   const {
     bottomSheetRef,
@@ -420,8 +423,12 @@ function RemoveLiquidityInputCard(props: {
         maxValue={props.balance}
         onChange={props.onPercentageChange}
         status={props.status}
-        amountButtonsStyle={tailwind("border-t-0.5")}
-        containerStyle={tailwind("pl-5 pr-5 mr-px rounded-t-lg-v2")}
+        amountButtonsStyle={{
+          style: tailwind("border-t-0.5"),
+        }}
+        containerStyle={{
+          style: tailwind("pl-5 pr-5 mr-px rounded-t-lg-v2"),
+        }}
       >
         <ThemedViewV2
           light={tailwind("border-mono-light-v2-300")}

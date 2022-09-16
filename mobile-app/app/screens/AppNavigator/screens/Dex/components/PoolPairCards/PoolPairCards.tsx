@@ -217,6 +217,7 @@ export function PoolPairCards({
     />
   );
 }
+
 interface PoolCardProps {
   item: DexItem<WalletToken | PoolPairData>;
   onAdd: (data: PoolPairData, info: WalletToken) => void;
@@ -300,6 +301,7 @@ function PoolCard({
             bToAPrice={priceRates.bToAPrice}
             isFavouritePair={isFavoritePair}
             setFavouritePoolpair={setFavouritePoolpair}
+            status={mappedPair.status}
           />
         ) : (
           <YourPoolPair
@@ -331,6 +333,7 @@ interface AvailablePoolProps {
   bToAPrice: BigNumber;
   isFavouritePair: boolean;
   setFavouritePoolpair: (id: string) => void;
+  status: boolean;
 }
 
 export type ActionType = "SET_FAVOURITE" | "UNSET_FAVOURITE";
@@ -384,6 +387,7 @@ function AvailablePool(props: AvailablePoolProps): JSX.Element {
           onPress={props.onSwap}
           testID={`composite_swap_button_${props.pair.id}`}
           style={tailwind("py-2 px-3")}
+          disabled={!props.status}
         />
       </View>
       <View style={tailwind("flex flex-row justify-between mt-3")}>
@@ -425,6 +429,7 @@ interface YourPoolPairProps {
   walletTokenPrice: BigNumber;
   walletTokenAmount: BigNumber;
 }
+
 function YourPoolPair(props: YourPoolPairProps): JSX.Element {
   return (
     <>
@@ -554,6 +559,7 @@ function TopLiquiditySection({
           onPress={() => onPress(pairItem.data.id)}
           label={translate("screens/DexScreen", "Swap")}
           testID={`composite_swap_${pairItem.data.id}`}
+          isSwap
         />
       ))}
     </DexScrollable>

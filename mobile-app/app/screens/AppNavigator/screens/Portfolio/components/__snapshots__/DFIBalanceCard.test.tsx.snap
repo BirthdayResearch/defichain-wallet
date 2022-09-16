@@ -140,7 +140,6 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                     "fontSize": 14,
                     "fontWeight": "600",
                     "lineHeight": 20,
-                    "marginBottom": 4,
                   },
                   Object {
                     "color": "rgba(18, 18, 18, 1)",
@@ -169,6 +168,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
                     "fontSize": 12,
                     "fontWeight": "400",
                     "lineHeight": 16,
+                    "marginTop": 4,
                   },
                   Object {
                     "color": "rgba(89, 89, 89, 1)",

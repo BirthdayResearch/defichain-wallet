@@ -233,14 +233,17 @@ describe("auctions reducer", () => {
     expect(actual).toStrictEqual([
       {
         ...loanBatchFoo,
+        collateralTokenSymbols: ["DFI"],
         auction: liquidatedVaults[0],
       },
       {
         ...loanBatchFoo,
+        collateralTokenSymbols: ["DFI"],
         auction: liquidatedVaults[1],
       },
       {
         ...loanBatchBar,
+        collateralTokenSymbols: ["DFI"],
         auction: liquidatedVaults[1],
       },
     ]);
