@@ -249,7 +249,7 @@ context("Wallet - DEX - Future Swap -> Transaction", () => {
   });
 
   it("should display correct confirmation details", () => {
-    cy.getByTestID("MAX_amount_button").click();
+    cy.getByTestID("MAX_amount_button").click().wait(500);
     cy.getByTestID("button_confirm_submit").click();
     cy.getByTestID("text_swap_amount_from").should("have.text", "10.00000000");
     cy.getByTestID("text_swap_amount_to_unit").should("have.text", "dTU10");

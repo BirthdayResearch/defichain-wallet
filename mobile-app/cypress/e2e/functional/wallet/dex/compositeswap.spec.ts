@@ -373,7 +373,7 @@ context.skip("Wallet - DEX - Instant Swap (non-DFI)", () => {
   });
 });
 
-context.skip("Wallet - DEX - Instant Swap (non-DFI) - Confirm Txn", () => {
+context("Wallet - DEX - Instant Swap (non-DFI) - Confirm Txn", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
