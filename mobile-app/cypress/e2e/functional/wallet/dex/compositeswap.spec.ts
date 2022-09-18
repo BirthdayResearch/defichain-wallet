@@ -23,7 +23,6 @@ function setCustomSlippage(customSlippage: string): void {
   cy.getByTestID("set_slippage_button").click().wait(3000);
 }
 
-// TODO: @joshua update e2e
 context.skip("Wallet - DEX - disabled pool pairs", () => {
   before(() => {
     cy.intercept("**/poolpairs?size=*", {
@@ -491,7 +490,7 @@ context.skip(
 );
 
 // DFI -> dETH to show greater price rates difference
-context.skip("Wallet - DEX - Instant Swap (DFI) - Summary", () => {
+context("Wallet - DEX - Instant Swap (DFI) - Summary", () => {
   before(() => {
     setupWalletForConversion();
     setupFromAndToTokens("DFI", "dETH");
