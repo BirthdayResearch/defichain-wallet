@@ -446,7 +446,7 @@ context("Wallet - DEX - Instant Swap (non-DFI) - Confirm Txn", () => {
   });
 });
 
-context(
+context.skip(
   "Wallet - DEX - Instant Swap (DFI with Conversion/Reserved fees)",
   () => {
     beforeEach(() => {
@@ -490,7 +490,7 @@ context(
 );
 
 // DFI -> dETH to show greater price rates difference
-context("Wallet - DEX - Instant Swap (DFI) - Summary", () => {
+context.skip("Wallet - DEX - Instant Swap (DFI) - Summary", () => {
   before(() => {
     setupWalletForConversion();
     setupFromAndToTokens("DFI", "dETH");
