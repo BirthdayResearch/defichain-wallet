@@ -16,10 +16,8 @@ import { AddOrRemoveCollateralFormProps } from "@screens/AppNavigator/screens/Lo
 import { Platform, View } from "react-native";
 import { tailwind } from "@tailwind";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { getDefaultTheme } from "@constants/Theme";
 import { CreateOrEditAddressLabelFormProps } from "@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelForm";
-import { getDefaultThemeV2 } from "@constants/ThemeV2";
-import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
+import { getDefaultTheme } from "@constants/Theme";
 import { ThemedViewV2 } from "@components/themed";
 import { BottomSheetModal as BottomSheetModalWeb } from "./BottomSheetModal.web";
 
@@ -114,9 +112,7 @@ export const BottomSheetWebWithNav = React.memo(
 
 function Navigator(props: BottomSheetWithNavProps): JSX.Element {
   const { isLight } = useThemeContext();
-  const { isFeatureAvailable } = useFeatureFlagContext();
   const DeFiChainTheme: Theme = getDefaultTheme(isLight);
-  const DeFiChainThemeV2: Theme = getDefaultThemeV2(isLight);
   const BottomSheetWithNavStack =
     createStackNavigator<BottomSheetWithNavRouteParam>();
   const screenOptions = useMemo<StackNavigationOptions>(
@@ -134,12 +130,7 @@ function Navigator(props: BottomSheetWithNavProps): JSX.Element {
   );
 
   return (
-    <NavigationContainer
-      independent
-      theme={
-        isFeatureAvailable("onboarding_v2") ? DeFiChainThemeV2 : DeFiChainTheme
-      }
-    >
+    <NavigationContainer independent theme={DeFiChainTheme}>
       <BottomSheetWithNavStack.Navigator screenOptions={screenOptions}>
         {props.screenList.map((screen) => (
           <BottomSheetWithNavStack.Screen

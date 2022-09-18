@@ -10,8 +10,8 @@ import { PortfolioParamList } from "../PortfolioNavigator";
 import { PortfolioRowToken } from "../PortfolioScreen";
 import { EmptyTokensScreen } from "./EmptyTokensScreen";
 import { TokenIcon } from "./TokenIcon";
-import { TokenNameTextV2 } from "./TokenNameTextV2";
-import { TokenAmountTextV2 } from "./TokenAmountTextV2";
+import { TokenNameText } from "./TokenNameText";
+import { TokenAmountText } from "./TokenAmountText";
 import { ButtonGroupTabKey } from "./AssetsFilterRow";
 import { EmptyCryptoIcon } from "../assets/EmptyCryptoIcon";
 import { EmptyLPTokenIcon } from "../assets/EmptyLPTokenIcon";
@@ -59,7 +59,7 @@ export function PortfolioCard({
           key={item.symbol}
           onPress={() =>
             navigation.navigate({
-              name: "Balance",
+              name: "TokenDetailScreen",
               params: { token: item, usdAmount: item.usdAmount },
               merge: true,
             })
@@ -94,7 +94,7 @@ function PortfolioItemRow({
       <View style={tailwind("flex flex-row items-start")}>
         <View style={tailwind("w-7/12 flex-row items-center")}>
           <TokenIcon testID={`${testID}_icon`} token={token} size={36} />
-          <TokenNameTextV2
+          <TokenNameText
             displaySymbol={token.displaySymbol}
             name={token.name}
             testID={testID}
@@ -105,7 +105,7 @@ function PortfolioItemRow({
             "pt-0.5": Platform.OS === "android",
           })}
         >
-          <TokenAmountTextV2
+          <TokenAmountText
             tokenAmount={token.amount}
             usdAmount={token.usdAmount}
             testID={testID}

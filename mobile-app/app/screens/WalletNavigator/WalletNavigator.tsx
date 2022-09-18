@@ -8,13 +8,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { tailwind } from "@tailwind";
 import * as Linking from "expo-linking";
 import { useRef } from "react";
-import { getDefaultTheme } from "@constants/Theme";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { translate } from "@translations";
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
-import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { getDefaultThemeV2 } from "@constants/ThemeV2";
+import { getDefaultTheme } from "@constants/Theme";
 import { PinCreation } from "@screens/WalletNavigator/screens/CreateWallet/PinCreation";
 import { PinConfirmation } from "@screens/WalletNavigator/screens/CreateWallet/PinConfirmation";
 import { Onboarding } from "@screens/WalletNavigator/screens/Onboarding";
@@ -50,6 +48,7 @@ export interface WalletParamList {
     words: string[];
     type: PinCreationType;
   };
+
   [key: string]: undefined | object;
 }
 
@@ -78,8 +77,6 @@ export function WalletNavigator(): JSX.Element {
   const navigationRef =
     useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null);
   const DeFiChainTheme: Theme = getDefaultTheme(isLight);
-  const DeFiChainThemeV2: Theme = getDefaultThemeV2(isLight);
-  const { isFeatureAvailable } = useFeatureFlagContext();
   const insets = useSafeAreaInsets();
 
   const goToNetworkSelect = (): void => {
@@ -235,9 +232,7 @@ export function WalletNavigator(): JSX.Element {
     <NavigationContainer
       linking={LinkingConfiguration}
       ref={navigationRef}
-      theme={
-        isFeatureAvailable("onboarding_v2") ? DeFiChainThemeV2 : DeFiChainTheme
-      }
+      theme={DeFiChainTheme}
     >
       <WalletStacks />
     </NavigationContainer>
