@@ -446,7 +446,7 @@ context.skip("Wallet - DEX - Instant Swap (non-DFI) - Confirm Txn", () => {
   });
 });
 
-context.skip(
+context(
   "Wallet - DEX - Instant Swap (DFI with Conversion/Reserved fees)",
   () => {
     beforeEach(() => {
