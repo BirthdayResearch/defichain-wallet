@@ -10,7 +10,6 @@
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
-const webpackPreprocessor = require("@cypress/webpack-preprocessor");
 
 /**
  * @type {Cypress.PluginConfig}
@@ -20,8 +19,6 @@ module.exports = (
   on: Cypress.PluginEvents,
   config: Cypress.PluginConfigOptions
 ): any => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  on("file:preprocessor", webpackPreprocessor());
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   require("@cypress/code-coverage/task")(on, config);
   // eslint-disable-next-line @typescript-eslint/no-var-requires
