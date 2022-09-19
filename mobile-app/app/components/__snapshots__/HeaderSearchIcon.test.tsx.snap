@@ -13,7 +13,7 @@ exports[`Header search icon should match snapshot 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "opacity": 1,
       "paddingRight": 16,
     }
