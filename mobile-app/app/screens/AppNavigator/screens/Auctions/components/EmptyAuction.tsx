@@ -2,11 +2,14 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { InfoTextLinkV2 } from "@components/InfoTextLink";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { AuctionsParamList } from "../AuctionNavigator";
 import { EmptyTokensScreen } from "../../Portfolio/components/EmptyTokensScreen";
-import { EmptyAuctions } from "../../Portfolio/assets/EmptyAuctions";
+import { EmptyAuctionsDark } from "../../Portfolio/assets/EmptyAuctionsDark";
+import { EmptyAuctionsLight } from "../../Portfolio/assets/EmptyAuctionsLight";
 
 export function EmptyAuction(): JSX.Element {
+  const { isLight } = useThemeContext();
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>();
 
   const goToAuctionsFaq = (): void => {
@@ -16,7 +19,7 @@ export function EmptyAuction(): JSX.Element {
   return (
     <>
       <EmptyTokensScreen
-        icon={EmptyAuctions}
+        icon={isLight ? EmptyAuctionsLight : EmptyAuctionsDark}
         containerStyle={tailwind("mt-12 px-11 mb-0")}
         testID="empty_auctions_screen"
         title={translate("components/EmptyAuctions", "No Auctions")}
