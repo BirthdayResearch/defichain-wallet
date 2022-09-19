@@ -1,14 +1,14 @@
-import { SecuredStoreAPI } from '@api'
+import { SecuredStoreAPI } from "@api";
 
-const KEY = 'PASSCODE_ATTEMPT.count'
+const KEY = "PASSCODE_ATTEMPT.count";
 
-async function get (): Promise<number> {
-  const str = await SecuredStoreAPI.getItem(KEY)
-  return str === undefined ? 0 : Number(str)
+async function get(): Promise<number> {
+  const str = await SecuredStoreAPI.getItem(KEY);
+  return str === undefined ? 0 : Number(str);
 }
 
-async function set (count: number): Promise<void> {
-  await SecuredStoreAPI.setItem(KEY, `${count}`)
+async function set(count: number): Promise<void> {
+  await SecuredStoreAPI.setItem(KEY, `${count}`);
 }
 
 /**
@@ -16,5 +16,5 @@ async function set (count: number): Promise<void> {
  */
 export const PasscodeAttemptCounter = {
   set,
-  get
-}
+  get,
+};

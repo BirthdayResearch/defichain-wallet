@@ -1084,9 +1084,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                     ]
                   }
                   testID="vault_total_collateral"
-                >
-                  
-                </Text>
+                />
               </Text>
             </View>
           </View>
@@ -2259,9 +2257,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                     ]
                   }
                   testID="vault_total_collateral"
-                >
-                  
-                </Text>
+                />
               </Text>
             </View>
           </View>
@@ -3463,9 +3459,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                     ]
                   }
                   testID="vault_total_collateral"
-                >
-                  
-                </Text>
+                />
               </Text>
             </View>
           </View>

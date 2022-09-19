@@ -1,270 +1,408 @@
-import { DeFiAddress } from '@defichain/jellyfish-address'
-import { NetworkName } from '@defichain/jellyfish-network'
-import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction/dist'
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { StackScreenProps } from '@react-navigation/stack'
-import { WalletToken } from '@store/wallet'
-import BigNumber from 'bignumber.js'
-import { Dispatch, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { NumberRow } from '@components/NumberRow'
-import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { SummaryTitle } from '@components/SummaryTitle'
-import { TextRow } from '@components/TextRow'
-import { ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
-import { useNetworkContext } from '@shared-contexts/NetworkContext'
-import { RootState } from '@store'
-import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
-import { tailwind } from '@tailwind'
-import { translate } from '@translations'
-import { PortfolioParamList } from '../PortfolioNavigator'
-import { ConversionTag } from '@components/ConversionTag'
-import { TransactionResultsRow } from '@components/TransactionResultsRow'
-import { InfoRow, InfoType } from '@components/InfoRow'
-import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
-import { InfoText } from '@components/InfoText'
-import { Switch, View } from '@components'
-import { WalletAddressRow } from '@components/WalletAddressRow'
-import { useAppDispatch } from '@hooks/useAppDispatch'
+import { Dispatch, useEffect, useState } from "react";
+import { TouchableOpacity } from "react-native";
+import { useSelector } from "react-redux";
+import BigNumber from "bignumber.js";
+import Checkbox from "expo-checkbox";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { StackScreenProps } from "@react-navigation/stack";
+import { tailwind, getColor } from "@tailwind";
+import { translate } from "@translations";
+import { DeFiAddress } from "@defichain/jellyfish-address";
+import { NetworkName } from "@defichain/jellyfish-network";
+import {
+  CTransactionSegWit,
+  TransactionSegWit,
+} from "@defichain/jellyfish-transaction/dist";
+import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
+import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
+import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import {
+  NativeLoggingProps,
+  useLogger,
+} from "@shared-contexts/NativeLoggingProvider";
+import { useWalletContext } from "@shared-contexts/WalletContext";
+import { RootState } from "@store";
+import { WalletToken } from "@store/wallet";
+import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
+import { useAppDispatch } from "@hooks/useAppDispatch";
+import { useAddressLabel } from "@hooks/useAddressLabel";
+import { View } from "@components";
+import {
+  ThemedActivityIndicatorV2,
+  ThemedIcon,
+  ThemedScrollViewV2,
+  ThemedTextV2,
+  ThemedView,
+  ThemedViewV2,
+} from "@components/themed";
+import { SummaryTitleV2 } from "@components/SummaryTitleV2";
+import { NumberRowV2 } from "@components/NumberRowV2";
+import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { PortfolioParamList } from "../PortfolioNavigator";
 
-type Props = StackScreenProps<PortfolioParamList, 'SendConfirmationScreen'>
+type Props = StackScreenProps<PortfolioParamList, "SendConfirmationScreen">;
 
-export function SendConfirmationScreen ({ route }: Props): JSX.Element {
-  const network = useNetworkContext()
+export function SendConfirmationScreen({ route }: Props): JSX.Element {
+  const { address } = useWalletContext();
+  const addressLabel = useAddressLabel(address);
+  const network = useNetworkContext();
   const {
     token,
     destination,
     amount,
+    amountInUsd,
     fee,
-    conversion
-  } = route.params
-  const logger = useLogger()
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
-  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
-  const dispatch = useAppDispatch()
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const navigation = useNavigation<NavigationProp<PortfolioParamList>>()
-  const [isOnPage, setIsOnPage] = useState<boolean>(true)
-  const expectedBalance = BigNumber.maximum(new BigNumber(token.amount).minus(amount.toFixed(8)).minus(fee), 0).toFixed(8)
-  const [isAcknowledge, setIsAcknowledge] = useState(false)
+    conversion,
+    toAddressLabel,
+    addressType,
+  } = route.params;
+  const logger = useLogger();
+  const hasPendingJob = useSelector((state: RootState) =>
+    hasTxQueued(state.transactionQueue)
+  );
+  const hasPendingBroadcastJob = useSelector((state: RootState) =>
+    hasBroadcastQueued(state.ocean)
+  );
+  const dispatch = useAppDispatch();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
+  const [isOnPage, setIsOnPage] = useState<boolean>(true);
+  const [isAcknowledge, setIsAcknowledge] = useState(false);
+  const [tokenADisplaySymbol, tokenBDisplaySymbol] =
+    token.displaySymbol.split("-");
 
   useEffect(() => {
-    setIsOnPage(true)
+    setIsOnPage(true);
     return () => {
-      setIsOnPage(false)
-    }
-  }, [])
+      setIsOnPage(false);
+    };
+  }, []);
 
-  async function onSubmit (): Promise<void> {
+  async function onSubmit(): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
-      return
+      return;
     }
-    setIsSubmitting(true)
-    await send({
-      address: destination,
-      token,
-      amount,
-      networkName: network.networkName
-    }, dispatch, () => {
-      onTransactionBroadcast(isOnPage, navigation.dispatch)
-    }, logger)
-    setIsSubmitting(false)
+    setIsSubmitting(true);
+    await send(
+      {
+        address: destination,
+        token,
+        amount,
+        networkName: network.networkName,
+      },
+      dispatch,
+      () => {
+        onTransactionBroadcast(isOnPage, navigation.dispatch);
+      },
+      logger
+    );
+    setIsSubmitting(false);
   }
 
-  function onCancel (): void {
+  function onCancel(): void {
     if (!isSubmitting) {
       navigation.navigate({
-        name: 'Send',
+        name: "SendScreen",
         params: {
-          token
+          token,
         },
-        merge: true
-      })
+        merge: true,
+      });
     }
-  }
-
-  function getSubmitLabel (): string {
-    if (!hasPendingBroadcastJob && !hasPendingJob) {
-      return 'CONFIRM SEND'
-    }
-    if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
-      return currentBroadcastJob.submitButtonLabel
-    }
-    return 'SENDING'
   }
 
   return (
-    <ThemedScrollView style={tailwind('pb-4')}>
-      <ThemedView
-        dark={tailwind('bg-gray-800 border-b border-gray-700')}
-        light={tailwind('bg-white border-b border-gray-300')}
-        style={tailwind('flex-col px-4 py-8')}
-      >
-        <SummaryTitle
+    <ThemedScrollViewV2 style={tailwind("pb-4")}>
+      <ThemedViewV2 style={tailwind("flex-col px-5 py-8")}>
+        <SummaryTitleV2
           amount={amount}
-          suffix={token.displaySymbol}
-          suffixType='text'
-          testID='text_send_amount'
-          title={translate('screens/SendConfirmationScreen', 'You are sending')}
+          title={translate("screens/SendConfirmationScreen", "You are sending")}
+          testID="text_send_amount"
+          iconA={tokenADisplaySymbol}
+          iconB={tokenBDisplaySymbol}
+          fromAddress={address}
+          fromAddressLabel={addressLabel}
+          toAddress={destination}
+          toAddressLabel={toAddressLabel}
+          addressType={addressType}
         />
-        {conversion?.isConversionRequired === true && <ConversionTag />}
-      </ThemedView>
 
-      <ThemedSectionTitle
-        testID='title_transaction_detail'
-        text={translate('screens/SendConfirmationScreen', 'TRANSACTION DETAILS')}
-      />
-
-      <TextRow
-        lhs={translate('screens/SendConfirmationScreen', 'Transaction type')}
-        rhs={{
-          value: conversion?.isConversionRequired === true ? translate('screens/SendConfirmationScreen', 'Convert & send') : translate('screens/SendConfirmationScreen', 'Send'),
-          testID: 'text_transaction_type'
-        }}
-        textStyle={tailwind('text-sm font-normal')}
-      />
-      <WalletAddressRow />
-      <TextRow
-        lhs={translate('screens/SendConfirmationScreen', 'Recipient address')}
-        rhs={{
-          value: destination,
-          testID: 'text_destination'
-        }}
-        textStyle={tailwind('text-sm font-normal')}
-      />
-
-      <NumberRow
-        lhs={translate('screens/SendConfirmationScreen', 'Amount to send')}
-        rhs={{
-          value: amount.toFixed(8),
-          testID: 'text_amount',
-          suffixType: 'text',
-          suffix: token.displaySymbol
-        }}
-      />
-      <InfoRow
-        type={InfoType.EstimatedFee}
-        value={fee.toFixed(8)}
-        testID='text_fee'
-        suffix='DFI'
-      />
-
-      <TransactionResultsRow
-        tokens={[
-          {
-            symbol: token.displaySymbol,
-            value: expectedBalance,
-            suffix: token.displaySymbol
-          }
-        ]}
-      />
-
-      {conversion?.isConversionRequired === true && (
-        <View style={tailwind('p-4 mt-2')}>
-          <InfoText
-            testID='conversion_warning_info_text'
-            text={translate('components/ConversionInfoText', 'Please wait as we convert tokens for your transaction. Conversions are irreversible.')}
-          />
-        </View>
-      )}
-
-      {token.isLPS &&
-        (
-          <LpAcknowledgeSwitch isAcknowledge={isAcknowledge} onSwitch={(val) => setIsAcknowledge(val)} />
+        {conversion?.isConversionRequired === true && (
+          <ThemedView
+            style={tailwind("border-t-0.5 pt-5 mt-8 mb-2")}
+            light={tailwind("bg-transparent border-mono-light-v2-300")}
+            dark={tailwind("bg-transparent border-mono-dark-v2-300")}
+          >
+            <NumberRowV2
+              containerStyle={{
+                style: tailwind("flex-row items-start w-full bg-transparent"),
+              }}
+              lhs={{
+                value: translate(
+                  "screens/SendConfirmationScreen",
+                  "Amount to convert"
+                ),
+                testID: "amount_to_convert",
+                themedProps: {
+                  light: tailwind("text-mono-light-v2-500"),
+                  dark: tailwind("text-mono-dark-v2-500"),
+                },
+              }}
+              rhs={{
+                value: conversion.conversionAmount.toFixed(8),
+                suffix: " DFI",
+                testID: "amount_to_convert_value",
+                themedProps: {
+                  light: tailwind("text-mono-light-v2-900"),
+                  dark: tailwind("text-mono-dark-v2-900"),
+                },
+              }}
+            />
+            <View
+              style={tailwind(
+                "flex flex-row text-right items-center justify-end"
+              )}
+            >
+              <ThemedTextV2
+                style={tailwind("mr-1.5 text-sm font-normal-v2")}
+                light={tailwind("text-mono-light-v2-500")}
+                dark={tailwind("text-mono-dark-v2-500")}
+                testID="conversion_status"
+              >
+                {translate(
+                  "screens/ConvertConfirmScreen",
+                  conversion?.isConversionRequired &&
+                    conversion?.isConverted !== true
+                    ? "Converting"
+                    : "Converted"
+                )}
+              </ThemedTextV2>
+              {conversion?.isConverted !== true && (
+                <ThemedActivityIndicatorV2 />
+              )}
+              {conversion?.isConverted === true && (
+                <ThemedIcon
+                  light={tailwind("text-success-500")}
+                  dark={tailwind("text-darksuccess-500")}
+                  iconType="MaterialIcons"
+                  name="check-circle"
+                  size={20}
+                />
+              )}
+            </View>
+          </ThemedView>
         )}
 
-      <SubmitButtonGroup
-        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob || (token.isLPS && !isAcknowledge)}
-        isCancelDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/SendConfirmationScreen', 'CONFIRM SEND')}
-        isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        processingLabel={translate('screens/SendConfirmationScreen', getSubmitLabel())}
-        onCancel={onCancel}
-        onSubmit={onSubmit}
-        displayCancelBtn
-        title='send'
-      />
-    </ThemedScrollView>
-  )
+        <NumberRowV2
+          containerStyle={{
+            style: tailwind(
+              "flex-row items-start w-full bg-transparent border-t-0.5 pt-5",
+              { "mt-8": conversion?.isConversionRequired !== true }
+            ),
+            light: tailwind("bg-transparent border-mono-light-v2-300"),
+            dark: tailwind("bg-transparent border-mono-dark-v2-300"),
+          }}
+          lhs={{
+            value: translate(
+              "screens/SendConfirmationScreen",
+              "Transaction fee"
+            ),
+            testID: "transaction_fee",
+            themedProps: {
+              light: tailwind("text-mono-light-v2-500"),
+              dark: tailwind("text-mono-dark-v2-500"),
+            },
+          }}
+          rhs={{
+            value: fee.toFixed(8),
+            suffix: " DFI",
+            testID: "transaction_fee_value",
+            themedProps: {
+              light: tailwind("text-mono-light-v2-900"),
+              dark: tailwind("text-mono-dark-v2-900"),
+            },
+          }}
+        />
+        <NumberRowV2
+          containerStyle={{
+            style: tailwind(
+              "flex-row items-start w-full bg-transparent mt-5 border-b-0.5 pb-5"
+            ),
+            light: tailwind("bg-transparent border-mono-light-v2-300"),
+            dark: tailwind("bg-transparent border-mono-dark-v2-300"),
+          }}
+          lhs={{
+            value: translate(
+              "screens/SendConfirmationScreen",
+              "Amount to send"
+            ),
+            testID: "text_amount",
+            themedProps: {
+              light: tailwind("text-mono-light-v2-500"),
+              dark: tailwind("text-mono-dark-v2-500"),
+            },
+          }}
+          rhs={{
+            value: amount.toFixed(8),
+            testID: "text_amount",
+            suffix: ` ${token.displaySymbol}`,
+            usdAmount: amountInUsd,
+            themedProps: {
+              style: tailwind("font-semibold-v2 text-sm"),
+              light: tailwind("text-mono-light-v2-900"),
+              dark: tailwind("text-mono-dark-v2-900"),
+            },
+          }}
+        />
+      </ThemedViewV2>
+      {token.isLPS && (
+        <LpAcknowledgeSwitch
+          isAcknowledge={isAcknowledge}
+          onSwitch={(val) => setIsAcknowledge(val)}
+        />
+      )}
+      <View style={tailwind("mx-7")}>
+        <SubmitButtonGroupV2
+          isDisabled={
+            isSubmitting ||
+            hasPendingJob ||
+            hasPendingBroadcastJob ||
+            (token.isLPS && !isAcknowledge)
+          }
+          isCancelDisabled={
+            isSubmitting || hasPendingJob || hasPendingBroadcastJob
+          }
+          label={translate("screens/SendConfirmationScreen", "Send")}
+          onCancel={onCancel}
+          onSubmit={onSubmit}
+          displayCancelBtn
+          title="send"
+          buttonStyle="mx-5 mb-2"
+        />
+      </View>
+    </ThemedScrollViewV2>
+  );
 }
 
-function LpAcknowledgeSwitch (props: {isAcknowledge: boolean, onSwitch: (val: boolean) => void}): JSX.Element {
+function LpAcknowledgeSwitch(props: {
+  isAcknowledge: boolean;
+  onSwitch: (val: boolean) => void;
+}): JSX.Element {
   return (
-    <View style={tailwind('mx-4 mt-8 flex flex-row items-center')}>
-      <Switch
+    <View style={tailwind("px-10 py-8 pt-4 flex flex-row justify-center")}>
+      <Checkbox
         value={props.isAcknowledge}
+        style={tailwind("h-6 w-6 mt-1 rounded")}
         onValueChange={props.onSwitch}
-        testID='lp_ack_switch'
+        color={props.isAcknowledge ? getColor("brand-v2-500") : undefined}
+        testID="lp_ack_switch"
       />
-      <ThemedText
-        light={tailwind('text-gray-700')}
-        dark={tailwind('text-gray-300')}
-        style={tailwind('ml-2 flex-1 text-xs')}
+      <TouchableOpacity
+        style={tailwind("flex-1")}
+        activeOpacity={0.7}
+        onPress={() => {
+          props.onSwitch(!props.isAcknowledge);
+        }}
       >
-        {translate('screens/SendConfirmationScreen', 'Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.')}
-      </ThemedText>
+        <ThemedTextV2
+          style={tailwind("ml-4 flex-1 text-xs font-normal-v2")}
+          light={tailwind("text-mono-light-v2-700")}
+          dark={tailwind("text-mono-dark-v2-700")}
+        >
+          {translate(
+            "screens/SendConfirmationScreen",
+            "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds."
+          )}
+        </ThemedTextV2>
+      </TouchableOpacity>
     </View>
-  )
+  );
 }
 interface SendForm {
-  amount: BigNumber
-  address: string
-  token: WalletToken
-  networkName: NetworkName
+  amount: BigNumber;
+  address: string;
+  token: WalletToken;
+  networkName: NetworkName;
 }
 
-async function send ({
-  address,
-  token,
-  amount,
-  networkName
-}: SendForm, dispatch: Dispatch<any>, onBroadcast: () => void, logger: NativeLoggingProps): Promise<void> {
+async function send(
+  { address, token, amount, networkName }: SendForm,
+  dispatch: Dispatch<any>,
+  onBroadcast: () => void,
+  logger: NativeLoggingProps
+): Promise<void> {
   try {
-    const to = DeFiAddress.from(networkName, address).getScript()
+    const to = DeFiAddress.from(networkName, address).getScript();
 
-    const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
-      const script = await account.getScript()
-      const builder = account.withTransactionBuilder()
+    const signer = async (
+      account: WhaleWalletAccount
+    ): Promise<CTransactionSegWit> => {
+      const script = await account.getScript();
+      const builder = account.withTransactionBuilder();
 
-      let signed: TransactionSegWit
-      if (token.symbol === 'DFI') {
+      let signed: TransactionSegWit;
+      if (token.symbol === "DFI") {
         /* if (amount.gte(token.amount)) signed = await builder.utxo.sendAll(to)
         else */
-        signed = await builder.utxo.send(amount, to, script)
+        signed = await builder.utxo.send(amount, to, script);
       } else {
-        signed = await builder.account.accountToAccount({
-          from: script,
-          to: [{
-            script: to,
-            balances: [{
-              token: +token.id,
-              amount
-            }]
-          }]
-        }, script)
+        signed = await builder.account.accountToAccount(
+          {
+            from: script,
+            to: [
+              {
+                script: to,
+                balances: [
+                  {
+                    token: +token.id,
+                    amount,
+                  },
+                ],
+              },
+            ],
+          },
+          script
+        );
       }
-      return new CTransactionSegWit(signed)
-    }
+      return new CTransactionSegWit(signed);
+    };
 
-    dispatch(transactionQueue.actions.push({
-      sign: signer,
-      title: translate('screens/SendConfirmationScreen', 'Sending {{symbol}}', { symbol: token.displaySymbol }),
-      description: translate('screens/SendConfirmationScreen', 'Sending {{amount}} {{symbol}}', {
-        amount: amount.toFixed(8),
-        symbol: token.displaySymbol
-      }),
-      drawerMessages: {
-        preparing: translate('screens/OceanInterface', 'Preparing to send…'),
-        waiting: translate('screens/OceanInterface', 'Sending tokens…'),
-        complete: translate('screens/OceanInterface', 'Tokens sent')
-      },
-      onBroadcast
-    }))
+    dispatch(
+      transactionQueue.actions.push({
+        sign: signer,
+        title: translate(
+          "screens/SendConfirmationScreen",
+          "Sending {{amount}} {{displaySymbol}} to {{toAddress}}",
+          {
+            amount: amount.toFixed(8),
+            displaySymbol: token.displaySymbol,
+            toAddress: address,
+          }
+        ),
+        drawerMessages: {
+          preparing: translate("screens/OceanInterface", "Preparing to send…"),
+          waiting: translate(
+            "screens/OceanInterface",
+            "Sending {{amount}} {{displaySymbol}}",
+            {
+              amount: amount.toFixed(8),
+              displaySymbol: token.displaySymbol,
+            }
+          ),
+          complete: translate(
+            "screens/OceanInterface",
+            "{{amount}} {{displaySymbol}} sent",
+            {
+              amount: amount.toFixed(8),
+              displaySymbol: token.displaySymbol,
+            }
+          ),
+        },
+        onBroadcast,
+      })
+    );
   } catch (e) {
-    logger.error(e)
+    logger.error(e);
   }
 }

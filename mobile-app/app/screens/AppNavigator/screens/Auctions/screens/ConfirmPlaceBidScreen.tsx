@@ -1,221 +1,258 @@
-import { Dispatch, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { StackScreenProps } from '@react-navigation/stack'
-import { tailwind } from '@tailwind'
-import { translate } from '@translations'
-import { RootState } from '@store'
-import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
-import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
-import { CTransactionSegWit, PlaceAuctionBid } from '@defichain/jellyfish-transaction/dist'
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { TextRow } from '@components/TextRow'
-import { NumberRow } from '@components/NumberRow'
-import { InfoRow, InfoType } from '@components/InfoRow'
-import { ThemedScrollView, ThemedSectionTitle } from '@components/themed'
-import { AuctionsParamList } from '../AuctionNavigator'
-import { WalletAddressRow } from '@components/WalletAddressRow'
-import { useAppDispatch } from '@hooks/useAppDispatch'
+import { Dispatch, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { StackScreenProps } from "@react-navigation/stack";
+import { tailwind } from "@tailwind";
+import { translate } from "@translations";
+import { RootState } from "@store";
+import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
+import {
+  firstTransactionSelector,
+  hasTxQueued as hasBroadcastQueued,
+} from "@store/ocean";
+import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
+import {
+  CTransactionSegWit,
+  PlaceAuctionBid,
+} from "@defichain/jellyfish-transaction/dist";
+import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
+import {
+  NativeLoggingProps,
+  useLogger,
+} from "@shared-contexts/NativeLoggingProvider";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
+import { TextRow } from "@components/TextRow";
+import { NumberRow } from "@components/NumberRow";
+import { InfoRow, InfoType } from "@components/InfoRow";
+import { ThemedScrollView, ThemedSectionTitle } from "@components/themed";
+import { WalletAddressRow } from "@components/WalletAddressRow";
+import { useAppDispatch } from "@hooks/useAppDispatch";
+import { AuctionsParamList } from "../AuctionNavigator";
 
-type Props = StackScreenProps<AuctionsParamList, 'ConfirmPlaceBidScreen'>
+type Props = StackScreenProps<AuctionsParamList, "ConfirmPlaceBidScreen">;
 
-export function ConfirmPlaceBidScreen (props: Props): JSX.Element {
-  const navigation = useNavigation<NavigationProp<AuctionsParamList>>()
-  const dispatch = useAppDispatch()
-  const logger = useLogger()
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
-  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
-  const {
-    bidAmount,
-    estimatedFees,
-    totalAuctionValue,
-    vault,
-    batch
-  } = props.route.params
+export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
+  const navigation = useNavigation<NavigationProp<AuctionsParamList>>();
+  const dispatch = useAppDispatch();
+  const logger = useLogger();
+  const hasPendingJob = useSelector((state: RootState) =>
+    hasTxQueued(state.transactionQueue)
+  );
+  const hasPendingBroadcastJob = useSelector((state: RootState) =>
+    hasBroadcastQueued(state.ocean)
+  );
+  const currentBroadcastJob = useSelector((state: RootState) =>
+    firstTransactionSelector(state.ocean)
+  );
+  const { bidAmount, estimatedFees, totalAuctionValue, vault, batch } =
+    props.route.params;
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isOnPage, setIsOnPage] = useState(true)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isOnPage, setIsOnPage] = useState(true);
 
   useEffect(() => {
-    setIsOnPage(true)
+    setIsOnPage(true);
     return () => {
-      setIsOnPage(false)
-    }
-  }, [])
+      setIsOnPage(false);
+    };
+  }, []);
 
-  async function onSubmit (): Promise<void> {
+  async function onSubmit(): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
-      return
+      return;
     }
 
-    setIsSubmitting(true)
+    setIsSubmitting(true);
     await constructSignedBidAndSend(
       vault.vaultId,
       batch.index,
       {
         amount: bidAmount,
-        token: Number(batch.loan.id)
+        token: Number(batch.loan.id),
       },
       batch.loan.displaySymbol,
-      dispatch, () => {
-        onTransactionBroadcast(isOnPage, navigation.dispatch)
-      }, logger)
-    setIsSubmitting(false)
+      dispatch,
+      () => {
+        onTransactionBroadcast(isOnPage, navigation.dispatch);
+      },
+      logger
+    );
+    setIsSubmitting(false);
   }
 
-  function onCancel (): void {
+  function onCancel(): void {
     if (!isSubmitting) {
       navigation.navigate({
-        name: 'PlaceBidScreen',
+        name: "PlaceBidScreen",
         params: {
           batch,
-          vault
+          vault,
         },
-        merge: true
-      })
+        merge: true,
+      });
     }
   }
 
-  function getSubmitLabel (): string {
+  function getSubmitLabel(): string {
     if (!hasPendingBroadcastJob && !hasPendingJob) {
-      return 'CONFIRM BID'
+      return "CONFIRM BID";
     }
-    if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
-      return currentBroadcastJob.submitButtonLabel
+    if (
+      hasPendingBroadcastJob &&
+      currentBroadcastJob !== undefined &&
+      currentBroadcastJob.submitButtonLabel !== undefined
+    ) {
+      return currentBroadcastJob.submitButtonLabel;
     }
-    return 'PLACING BID'
+    return "PLACING BID";
   }
 
   return (
     <ThemedScrollView
-      testID='confirm_place_bid_screen'
-      contentContainerStyle={tailwind('py-6 pb-8')}
+      testID="confirm_place_bid_screen"
+      contentContainerStyle={tailwind("py-6 pb-8")}
     >
       <ThemedSectionTitle
-        testID='title_tx_detail'
-        text={translate('screens/ConfirmPlaceBidScreen', 'TRANSACTION DETAILS')}
+        testID="title_tx_detail"
+        text={translate("screens/ConfirmPlaceBidScreen", "TRANSACTION DETAILS")}
       />
       <TextRow
-        lhs={translate('screens/ConfirmPlaceBidScreen', 'Transaction type')}
+        lhs={translate("screens/ConfirmPlaceBidScreen", "Transaction type")}
         rhs={{
-          value: translate('screens/ConfirmPlaceBidScreen', 'Place bid'),
-          testID: 'text_transaction_type'
+          value: translate("screens/ConfirmPlaceBidScreen", "Place bid"),
+          testID: "text_transaction_type",
         }}
-        textStyle={tailwind('text-sm font-normal')}
+        textStyle={tailwind("text-sm font-normal")}
       />
       <WalletAddressRow />
       <NumberRow
-        lhs={translate('screens/ConfirmPlaceBidScreen', 'Bid amount to place')}
+        lhs={translate("screens/ConfirmPlaceBidScreen", "Bid amount to place")}
         rhs={{
-          testID: 'estimated_to_receive',
+          testID: "estimated_to_receive",
           value: bidAmount.toFixed(8),
-          suffixType: 'text',
-          suffix: batch.loan.displaySymbol
+          suffixType: "text",
+          suffix: batch.loan.displaySymbol,
         }}
       />
       <InfoRow
         type={InfoType.EstimatedFee}
         value={estimatedFees.toFixed(8)}
-        testID='text_fee'
-        suffix='DFI'
+        testID="text_fee"
+        suffix="DFI"
       />
 
       <ThemedSectionTitle
-        testID='title_auction_detail'
-        text={translate('screens/ConfirmPlaceBidScreen', 'AUCTION DETAILS')}
+        testID="title_auction_detail"
+        text={translate("screens/ConfirmPlaceBidScreen", "AUCTION DETAILS")}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmPlaceBidScreen', 'Total auction value (USD)')}
+        lhs={translate(
+          "screens/ConfirmPlaceBidScreen",
+          "Total auction value (USDT)"
+        )}
         rhs={{
-          testID: 'total_auction_value',
+          testID: "total_auction_value",
           value: totalAuctionValue,
-          suffixType: 'text',
-          prefix: '$'
+          suffixType: "text",
+          prefix: "$",
         }}
       />
       <TextRow
-        lhs={translate('screens/ConfirmPlaceBidScreen', 'Vault ID')}
+        lhs={translate("screens/ConfirmPlaceBidScreen", "Vault ID")}
         rhs={{
           value: vault.vaultId,
-          testID: 'text_vault_id',
+          testID: "text_vault_id",
           numberOfLines: 1,
-          ellipsizeMode: 'middle'
+          ellipsizeMode: "middle",
         }}
-        textStyle={tailwind('text-sm font-normal')}
+        textStyle={tailwind("text-sm font-normal")}
       />
       <TextRow
-        lhs={translate('screens/ConfirmPlaceBidScreen', 'Vault owner ID')}
+        lhs={translate("screens/ConfirmPlaceBidScreen", "Vault owner ID")}
         rhs={{
           value: vault.ownerAddress,
-          testID: 'text_vault_owner_id'
+          testID: "text_vault_owner_id",
         }}
-        textStyle={tailwind('text-sm font-normal')}
+        textStyle={tailwind("text-sm font-normal")}
       />
       <NumberRow
-        lhs={translate('screens/ConfirmPlaceBidScreen', 'Liquidation Height')}
+        lhs={translate("screens/ConfirmPlaceBidScreen", "Liquidation Height")}
         rhs={{
-          testID: 'text_liquidation_height',
-          value: vault.liquidationHeight
+          testID: "text_liquidation_height",
+          value: vault.liquidationHeight,
         }}
       />
 
       <SubmitButtonGroup
-        label={translate('screens/ConfirmPlaceBidScreen', 'CONFIRM PLACE BID')}
+        label={translate("screens/ConfirmPlaceBidScreen", "CONFIRM PLACE BID")}
         isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
         isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        processingLabel={translate('screens/ConfirmPlaceBidScreen', getSubmitLabel())}
+        processingLabel={translate(
+          "screens/ConfirmPlaceBidScreen",
+          getSubmitLabel()
+        )}
         onCancel={onCancel}
         displayCancelBtn
         onSubmit={onSubmit}
-        title='bid'
+        title="bid"
       />
     </ThemedScrollView>
-  )
+  );
 }
 
-async function constructSignedBidAndSend (
-  vaultId: PlaceAuctionBid['vaultId'],
-  index: PlaceAuctionBid['index'],
-  tokenAmount: PlaceAuctionBid['tokenAmount'],
+async function constructSignedBidAndSend(
+  vaultId: PlaceAuctionBid["vaultId"],
+  index: PlaceAuctionBid["index"],
+  tokenAmount: PlaceAuctionBid["tokenAmount"],
   displaySymbol: string,
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   logger: NativeLoggingProps
 ): Promise<void> {
   try {
-    const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
-      const builder = account.withTransactionBuilder()
-      const script = await account.getScript()
+    const signer = async (
+      account: WhaleWalletAccount
+    ): Promise<CTransactionSegWit> => {
+      const builder = account.withTransactionBuilder();
+      const script = await account.getScript();
       const bid: PlaceAuctionBid = {
         from: script,
         vaultId,
         index,
-        tokenAmount
-      }
-      const dfTx = await builder.loans.placeAuctionBid(bid, script)
+        tokenAmount,
+      };
+      const dfTx = await builder.loans.placeAuctionBid(bid, script);
 
-      return new CTransactionSegWit(dfTx)
-    }
+      return new CTransactionSegWit(dfTx);
+    };
 
-    dispatch(transactionQueue.actions.push({
-      sign: signer,
-      title: translate('screens/PlaceBidScreen', 'Sign Transaction'),
-      description: translate('screens/PlaceBidScreen', 'Placing {{amount}} {{token}} as bid for auction.', {
-        amount: tokenAmount.amount,
-        token: displaySymbol
-      }),
-      drawerMessages: {
-        preparing: translate('screens/OceanInterface', 'Preparing to place bid…'),
-        waiting: translate('screens/OceanInterface', 'Placing bid…'),
-        complete: translate('screens/OceanInterface', 'Bid placement completed')
-      },
-      onBroadcast
-    }))
+    dispatch(
+      transactionQueue.actions.push({
+        sign: signer,
+        title: translate("screens/PlaceBidScreen", "Sign Transaction"),
+        description: translate(
+          "screens/PlaceBidScreen",
+          "Placing {{amount}} {{token}} as bid for auction.",
+          {
+            amount: tokenAmount.amount,
+            token: displaySymbol,
+          }
+        ),
+        drawerMessages: {
+          preparing: translate(
+            "screens/OceanInterface",
+            "Preparing to place bid…"
+          ),
+          waiting: translate("screens/OceanInterface", "Placing bid…"),
+          complete: translate(
+            "screens/OceanInterface",
+            "Bid placement completed"
+          ),
+        },
+        onBroadcast,
+      })
+    );
   } catch (e) {
-    logger.error(e)
+    logger.error(e);
   }
 }

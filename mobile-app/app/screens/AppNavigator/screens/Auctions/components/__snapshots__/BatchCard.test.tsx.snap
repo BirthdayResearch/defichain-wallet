@@ -556,7 +556,7 @@ exports[`Batch Card should match snapshot 1`] = `
             ]
           }
         >
-          Total auction value (USD)
+          Total auction value (USDT)
         </Text>
       </View>
       <View
@@ -808,7 +808,8 @@ exports[`Batch Card should match snapshot 1`] = `
         }
       >
         ~28m left
-         (
+         
+        (
         570 blks
         )
       </Text>

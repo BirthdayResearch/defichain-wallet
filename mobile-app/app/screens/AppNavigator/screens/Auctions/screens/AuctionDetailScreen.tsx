@@ -1,65 +1,79 @@
-import { useState, useEffect, memo } from 'react'
-import { ThemedText, ThemedView, ThemedIcon } from '@components/themed'
-import { tailwind } from '@tailwind'
-import { Platform, TouchableOpacity, View } from 'react-native'
-import { translate } from '@translations'
-import { getNativeIcon } from '@components/icons/assets'
-import { useSelector } from 'react-redux'
-import { NavigationProp, useNavigation, useIsFocused } from '@react-navigation/native'
-import { RootState } from '@store'
-import { useBottomSheet } from '@hooks/useBottomSheet'
-import { AuctionTimeProgress } from '../components/AuctionTimeProgress'
-import { StackScreenProps } from '@react-navigation/stack'
-import { AuctionsParamList } from '../AuctionNavigator'
-import { CollateralTokenIconGroup } from '../components/CollateralTokenIconGroup'
-import { Tabs } from '@components/Tabs'
-import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
-import BigNumber from 'bignumber.js'
-import { openURL } from '@api/linking'
-import { useDeFiScanContext } from '@shared-contexts/DeFiScanContext'
-import { AuctionDetails } from '../components/AuctionDetails'
-import { AuctionedCollaterals } from '../components/AuctionedCollaterals'
-import { IconButton } from '@components/IconButton'
-import { useAuctionBidValue } from '../hooks/AuctionBidValue'
-import { useAuctionTime } from '../hooks/AuctionTimeLeft'
-import { QuickBid } from '../components/QuickBid'
-import { AuctionBidStatus } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
-import { useWalletContext } from '@shared-contexts/WalletContext'
-import { tokensSelector } from '@store/wallet'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { BidHistory } from '../components/BidHistory'
-import { MinNextBidTextRow } from '../components/MinNextBidTextRow'
-import { LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
-import { fetchAuctions } from '@store/auctions'
-import { useAppDispatch } from '@hooks/useAppDispatch'
+import { useState, useEffect, memo } from "react";
+import { ThemedText, ThemedView, ThemedIcon } from "@components/themed";
+import { tailwind } from "@tailwind";
+import { Platform, TouchableOpacity, View } from "react-native";
+import { translate } from "@translations";
+import { getNativeIcon } from "@components/icons/assets";
+import { useSelector } from "react-redux";
+import {
+  NavigationProp,
+  useNavigation,
+  useIsFocused,
+} from "@react-navigation/native";
+import { RootState } from "@store";
+import { useBottomSheet } from "@hooks/useBottomSheet";
+import { StackScreenProps } from "@react-navigation/stack";
+import { Tabs } from "@components/Tabs";
+import {
+  BottomSheetWebWithNav,
+  BottomSheetWithNav,
+} from "@components/BottomSheetWithNav";
+import BigNumber from "bignumber.js";
+import { openURL } from "@api/linking";
+import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
+import { IconButton } from "@components/IconButton";
+import { AuctionBidStatus } from "@screens/AppNavigator/screens/Auctions/components/BatchCard";
+import { useWalletContext } from "@shared-contexts/WalletContext";
+import { tokensSelector } from "@store/wallet";
+import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { LoanVaultLiquidationBatch } from "@defichain/whale-api-client/dist/api/loan";
+import { fetchAuctions } from "@store/auctions";
+import { useAppDispatch } from "@hooks/useAppDispatch";
+import { MinNextBidTextRow } from "../components/MinNextBidTextRow";
+import { BidHistory } from "../components/BidHistory";
+import { QuickBid } from "../components/QuickBid";
+import { useAuctionTime } from "../hooks/AuctionTimeLeft";
+import { useAuctionBidValue } from "../hooks/AuctionBidValue";
+import { AuctionedCollaterals } from "../components/AuctionedCollaterals";
+import { AuctionDetails } from "../components/AuctionDetails";
+import { CollateralTokenIconGroup } from "../components/CollateralTokenIconGroup";
+import { AuctionsParamList } from "../AuctionNavigator";
+import { AuctionTimeProgress } from "../components/AuctionTimeProgress";
 
-type BatchDetailScreenProps = StackScreenProps<AuctionsParamList, 'AuctionDetailScreen'>
+type BatchDetailScreenProps = StackScreenProps<
+  AuctionsParamList,
+  "AuctionDetailScreen"
+>;
 
 enum TabKey {
-  BidHistory = 'BID_HISTORY',
-  Collaterals = 'COLLATERALS',
-  AuctionDetails = 'AUCTION_DETAILS'
+  BidHistory = "BID_HISTORY",
+  Collaterals = "COLLATERALS",
+  AuctionDetails = "AUCTION_DETAILS",
 }
 
-export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element {
-  const navigation = useNavigation<NavigationProp<AuctionsParamList>>()
-  const { batch: batchFromParam, vault } = props.route.params
-  const [batch, setBatch] = useState<LoanVaultLiquidationBatch>(batchFromParam)
-  const client = useWhaleApiClient()
-  const dispatch = useAppDispatch()
-  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const { getAuctionsUrl } = useDeFiScanContext()
-  const [activeTab, setActiveTab] = useState<string>(TabKey.BidHistory)
-  const {
-    minNextBidInToken,
-    totalCollateralsValueInUSD,
-    minNextBidInUSD
-   } = useAuctionBidValue(batch, vault.liquidationPenalty)
-  const blockCount = useSelector((state: RootState) => state.block.count) ?? 0
-  const { blocksRemaining } = useAuctionTime(vault.liquidationHeight, blockCount)
-  const { address } = useWalletContext()
-  const LoanIcon = getNativeIcon(batch.loan.displaySymbol)
-  const isFocused = useIsFocused()
+export function AuctionDetailScreen(
+  props: BatchDetailScreenProps
+): JSX.Element {
+  const navigation = useNavigation<NavigationProp<AuctionsParamList>>();
+  const { batch: batchFromParam, vault } = props.route.params;
+  const [batch, setBatch] = useState<LoanVaultLiquidationBatch>(batchFromParam);
+  const client = useWhaleApiClient();
+  const dispatch = useAppDispatch();
+  const tokens = useSelector((state: RootState) =>
+    tokensSelector(state.wallet)
+  );
+  const { getAuctionsUrl } = useDeFiScanContext();
+  const [activeTab, setActiveTab] = useState<string>(TabKey.BidHistory);
+  const { minNextBidInToken, totalCollateralsValueInUSD, minNextBidInUSD } =
+    useAuctionBidValue(batch, vault.liquidationPenalty);
+  const blockCount = useSelector((state: RootState) => state.block.count) ?? 0;
+  const { blocksRemaining } = useAuctionTime(
+    vault.liquidationHeight,
+    blockCount
+  );
+  const { address } = useWalletContext();
+  const LoanIcon = getNativeIcon(batch.loan.displaySymbol);
+  const isFocused = useIsFocused();
   const {
     bottomSheetRef,
     containerRef,
@@ -67,128 +81,151 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
     expandModal,
     isModalDisplayed,
     bottomSheetScreen,
-    setBottomSheetScreen
-  } = useBottomSheet()
-  const { auctions } = useSelector((state: RootState) => state.auctions)
+    setBottomSheetScreen,
+  } = useBottomSheet();
+  const { auctions } = useSelector((state: RootState) => state.auctions);
 
   useEffect(() => {
     if (isFocused) {
-      dispatch(fetchAuctions({ client }))
+      dispatch(fetchAuctions({ client }));
     }
-  }, [blockCount, isFocused])
+  }, [blockCount, isFocused]);
 
   useEffect(() => {
-    const _vault = auctions.find(auction => auction.vaultId === vault.vaultId)
+    const _vault = auctions.find(
+      (auction) => auction.vaultId === vault.vaultId
+    );
     if (_vault === undefined) {
-      return
+      return;
     }
 
-    const _batch = _vault.batches.find(batch => batch.index === batchFromParam.index)
+    const _batch = _vault.batches.find(
+      (batch) => batch.index === batchFromParam.index
+    );
     if (_batch === undefined) {
-      return
+      return;
     }
 
-    setBatch(_batch)
-  }, [auctions])
+    setBatch(_batch);
+  }, [auctions]);
 
   const onQuickBid = (): void => {
-    const ownedToken = tokens.find(token => token.id === batch.loan.id)
-    const currentBalance = new BigNumber(ownedToken?.amount ?? 0)
-    setBottomSheetScreen([{
-      stackScreenName: 'Quick Bid',
-      option: {
-        header: () => null,
-        headerBackTitleVisible: false
+    const ownedToken = tokens.find((token) => token.id === batch.loan.id);
+    const currentBalance = new BigNumber(ownedToken?.amount ?? 0);
+    setBottomSheetScreen([
+      {
+        stackScreenName: "Quick Bid",
+        option: {
+          header: () => null,
+          headerBackTitleVisible: false,
+        },
+        component: QuickBid({
+          vaultId: vault.vaultId,
+          index: batch.index,
+          loanTokenId: batch.loan.id,
+          loanTokenSymbol: batch.loan.symbol,
+          loanTokenDisplaySymbol: batch.loan.displaySymbol,
+          onCloseButtonPress: dismissModal,
+          minNextBid: new BigNumber(minNextBidInToken),
+          minNextBidInUSD: minNextBidInUSD,
+          currentBalance,
+          vaultLiquidationHeight: vault.liquidationHeight,
+        }),
       },
-      component: QuickBid({
-        vaultId: vault.vaultId,
-        index: batch.index,
-        loanTokenId: batch.loan.id,
-        loanTokenSymbol: batch.loan.symbol,
-        loanTokenDisplaySymbol: batch.loan.displaySymbol,
-        onCloseButtonPress: dismissModal,
-        minNextBid: new BigNumber(minNextBidInToken),
-        minNextBidInUSD: minNextBidInUSD,
-        currentBalance,
-        vaultLiquidationHeight: vault.liquidationHeight
-      })
-    }])
-    expandModal()
-  }
+    ]);
+    expandModal();
+  };
 
   const onPlaceBid = (): void => {
-    navigation.navigate('PlaceBidScreen', {
+    navigation.navigate("PlaceBidScreen", {
       batch,
-      vault
-    })
-  }
+      vault,
+    });
+  };
 
   const onPress = (tabId: string): void => {
-    setActiveTab(tabId)
-  }
+    setActiveTab(tabId);
+  };
 
-  const tabsList = [{
-    id: TabKey.BidHistory,
-    label: 'Bid history',
-    disabled: false,
-    handleOnPress: onPress
-  }, {
-    id: TabKey.Collaterals,
-    label: 'Collateral for auction',
-    disabled: false,
-    handleOnPress: onPress
-  }, {
-    id: TabKey.AuctionDetails,
-    label: 'Auction details',
-    disabled: false,
-    handleOnPress: onPress
-  }]
+  const tabsList = [
+    {
+      id: TabKey.BidHistory,
+      label: "Bid history",
+      disabled: false,
+      handleOnPress: onPress,
+    },
+    {
+      id: TabKey.Collaterals,
+      label: "Collateral for auction",
+      disabled: false,
+      handleOnPress: onPress,
+    },
+    {
+      id: TabKey.AuctionDetails,
+      label: "Auction details",
+      disabled: false,
+      handleOnPress: onPress,
+    },
+  ];
 
   return (
-    <View style={tailwind('flex-1')} ref={containerRef}>
+    <View style={tailwind("flex-1")} ref={containerRef}>
       <ThemedView
-        light={tailwind('bg-gray-50')}
-        style={tailwind(['flex-1', { 'pb-36': Platform.OS !== 'web' }
-      ])}
+        light={tailwind("bg-gray-50")}
+        style={tailwind(["flex-1", { "pb-36": Platform.OS !== "web" }])}
       >
         <ThemedView
-          light={tailwind('bg-white border-gray-200')}
-          dark={tailwind('bg-gray-800 border-gray-700')}
-          style={tailwind('rounded border-b p-4')}
-          testID='batch_detail_screen'
+          light={tailwind("bg-white border-gray-200")}
+          dark={tailwind("bg-gray-800 border-gray-700")}
+          style={tailwind("rounded border-b p-4")}
+          testID="batch_detail_screen"
         >
-          <View style={tailwind('flex-row w-full items-center justify-between mb-2')}>
-            <View style={tailwind('flex flex-row items-center')}>
+          <View
+            style={tailwind(
+              "flex-row w-full items-center justify-between mb-2"
+            )}
+          >
+            <View style={tailwind("flex flex-row items-center")}>
               <ThemedView
-                light={tailwind('bg-gray-100')}
-                dark={tailwind('bg-gray-700')}
-                style={tailwind('w-8 h-8 rounded-full items-center justify-center')}
+                light={tailwind("bg-gray-100")}
+                dark={tailwind("bg-gray-700")}
+                style={tailwind(
+                  "w-8 h-8 rounded-full items-center justify-center"
+                )}
               >
                 <LoanIcon height={32} width={32} />
               </ThemedView>
-              <View style={tailwind('flex flex-row ml-2')}>
-                <View style={tailwind('flex')}>
-                  <ThemedText style={tailwind('font-semibold text-sm')}>
+              <View style={tailwind("flex flex-row ml-2")}>
+                <View style={tailwind("flex")}>
+                  <ThemedText style={tailwind("font-semibold text-sm")}>
                     {batch.loan.displaySymbol}
                   </ThemedText>
-                  <View style={tailwind('flex flex-row items-center')}>
+                  <View style={tailwind("flex flex-row items-center")}>
                     <ThemedText
-                      light={tailwind('text-gray-500')}
-                      dark={tailwind('text-gray-400')}
-                      style={tailwind('text-xs')}
+                      light={tailwind("text-gray-500")}
+                      dark={tailwind("text-gray-400")}
+                      style={tailwind("text-xs")}
                     >
-                      {translate('components/AuctionDetailScreen', 'Batch #{{index}}', { index: batch.index + 1 })}
+                      {translate(
+                        "components/AuctionDetailScreen",
+                        "Batch #{{index}}",
+                        { index: batch.index + 1 }
+                      )}
                     </ThemedText>
                     <TouchableOpacity
-                      onPress={async () => await openURL(getAuctionsUrl(vault.vaultId, batch.index))}
-                      testID='ocean_vault_explorer'
+                      onPress={async () =>
+                        await openURL(
+                          getAuctionsUrl(vault.vaultId, batch.index)
+                        )
+                      }
+                      testID="ocean_vault_explorer"
                     >
                       <ThemedIcon
-                        dark={tailwind('text-darkprimary-500')}
-                        iconType='MaterialIcons'
-                        light={tailwind('text-primary-500')}
-                        name='open-in-new'
-                        style={tailwind('ml-1')}
+                        dark={tailwind("text-darkprimary-500")}
+                        iconType="MaterialIcons"
+                        light={tailwind("text-primary-500")}
+                        name="open-in-new"
+                        style={tailwind("ml-1")}
                         size={12}
                       />
                     </TouchableOpacity>
@@ -196,29 +233,37 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
                 </View>
               </View>
             </View>
-            <View style={tailwind('flex flex-row')}>
+            <View style={tailwind("flex flex-row")}>
               <CollateralTokenIconGroup
                 maxIconToDisplay={3}
-                title={translate('components/AuctionDetailScreen', 'Collateral')}
-                symbols={batch.collaterals.map(collateral => collateral.displaySymbol)}
+                title={translate(
+                  "components/AuctionDetailScreen",
+                  "Collateral"
+                )}
+                symbols={batch.collaterals.map(
+                  (collateral) => collateral.displaySymbol
+                )}
               />
             </View>
           </View>
 
           {batch?.highestBid?.owner === address && (
-            <View style={tailwind('mb-1')}>
-              <AuctionBidStatus testID='batch_detail' type='highest' />
+            <View style={tailwind("mb-1")}>
+              <AuctionBidStatus testID="batch_detail" type="highest" />
             </View>
           )}
 
           <AuctionTimeProgress
             liquidationHeight={vault.liquidationHeight}
             blockCount={blockCount}
-            label='Auction time remaining'
+            label="Auction time remaining"
           />
-
         </ThemedView>
-        <Tabs tabSections={tabsList} testID='auction_detail_tab' activeTabKey={activeTab} />
+        <Tabs
+          tabSections={tabsList}
+          testID="auction_detail_tab"
+          activeTabKey={activeTab}
+        />
         {activeTab === TabKey.BidHistory && (
           <BidHistory
             vaultId={vault.vaultId}
@@ -250,7 +295,7 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
         onPlaceBid={onPlaceBid}
       />
 
-      {Platform.OS === 'web' && (
+      {Platform.OS === "web" && (
         <BottomSheetWebWithNav
           modalRef={containerRef}
           screenList={bottomSheetScreen}
@@ -258,74 +303,80 @@ export function AuctionDetailScreen (props: BatchDetailScreenProps): JSX.Element
         />
       )}
 
-      {Platform.OS !== 'web' && (
+      {Platform.OS !== "web" && (
         <BottomSheetWithNav
           modalRef={bottomSheetRef}
           screenList={bottomSheetScreen}
           snapPoints={{
-            ios: ['40%'],
-            android: ['40%']
+            ios: ["40%"],
+            android: ["40%"],
           }}
         />
       )}
     </View>
-  )
+  );
 }
 
 interface AuctionActionSectionProps {
-  minNextBidInToken: string
-  minNextBidInUSD: string
-  symbol: string
-  displaySymbol: string
-  blocksRemaining: number
-  onQuickBid: () => void
-  onPlaceBid: () => void
+  minNextBidInToken: string;
+  minNextBidInUSD: string;
+  symbol: string;
+  displaySymbol: string;
+  blocksRemaining: number;
+  onQuickBid: () => void;
+  onPlaceBid: () => void;
 }
 
-const AuctionActionSection = memo((props: AuctionActionSectionProps): JSX.Element => {
-  return (
-    <ThemedView
-      light={tailwind('bg-white border-gray-200')}
-      dark={tailwind('bg-gray-900 border-gray-700')}
-      style={tailwind('absolute w-full bottom-0 flex-1 border-t px-4 pt-5 pb-10')}
-    >
-      <MinNextBidTextRow
-        displaySymbol={props.displaySymbol}
-        minNextBidInToken={props.minNextBidInToken}
-        minNextBidInUSD={props.minNextBidInUSD}
-        labelTextStyle={tailwind('text-sm items-center')}
-        valueTextStyle={tailwind('font-semibold text-base')}
-        testID='auction_detail_min_next_bid'
-      />
-      <View
-        style={tailwind('flex flex-row mt-4 items-center justify-center')}
+const AuctionActionSection = memo(
+  (props: AuctionActionSectionProps): JSX.Element => {
+    return (
+      <ThemedView
+        light={tailwind("bg-white border-gray-200")}
+        dark={tailwind("bg-gray-900 border-gray-700")}
+        style={tailwind(
+          "absolute w-full bottom-0 flex-1 border-t px-4 pt-5 pb-10"
+        )}
       >
-        <IconButton
-          iconLabel={translate('components/QuickBid', 'QUICK BID')}
-          iconSize={16}
-          style={tailwind('mr-1 w-1/2 justify-center p-2 rounded-sm')}
-          onPress={props.onQuickBid}
-          disabled={props.blocksRemaining === 0}
-          textStyle={tailwind('text-base')}
-          testID='auction_details_quick_bid_button'
+        <MinNextBidTextRow
+          displaySymbol={props.displaySymbol}
+          minNextBidInToken={props.minNextBidInToken}
+          minNextBidInUSD={props.minNextBidInUSD}
+          labelTextStyle={tailwind("text-sm items-center")}
+          valueTextStyle={tailwind("font-semibold text-base")}
+          testID="auction_detail_min_next_bid"
         />
-        <IconButton
-          iconLabel={translate('components/AuctionDetailScreen', 'PLACE BID')}
-          iconSize={16}
-          style={tailwind('ml-1 w-1/2 justify-center p-2 rounded-sm bg-primary-50')}
-          onPress={props.onPlaceBid}
-          disabled={props.blocksRemaining === 0}
-          themedProps={{
-            light: tailwind('bg-primary-50 border-primary-50'),
-            dark: tailwind('bg-darkprimary-700 border-darkprimary-700')
-          }}
-          textStyle={tailwind('text-base')}
-          textThemedProps={{
-            light: tailwind('text-primary-500'),
-            dark: tailwind('text-white')
-          }}
-        />
-      </View>
-    </ThemedView>
-  )
-})
+        <View
+          style={tailwind("flex flex-row mt-4 items-center justify-center")}
+        >
+          <IconButton
+            iconLabel={translate("components/QuickBid", "QUICK BID")}
+            iconSize={16}
+            style={tailwind("mr-1 w-1/2 justify-center p-2 rounded-sm")}
+            onPress={props.onQuickBid}
+            disabled={props.blocksRemaining === 0}
+            textStyle={tailwind("text-base")}
+            testID="auction_details_quick_bid_button"
+          />
+          <IconButton
+            iconLabel={translate("components/AuctionDetailScreen", "PLACE BID")}
+            iconSize={16}
+            style={tailwind(
+              "ml-1 w-1/2 justify-center p-2 rounded-sm bg-primary-50"
+            )}
+            onPress={props.onPlaceBid}
+            disabled={props.blocksRemaining === 0}
+            themedProps={{
+              light: tailwind("bg-primary-50 border-primary-50"),
+              dark: tailwind("bg-darkprimary-700 border-darkprimary-700"),
+            }}
+            textStyle={tailwind("text-base")}
+            textThemedProps={{
+              light: tailwind("text-primary-500"),
+              dark: tailwind("text-white"),
+            }}
+          />
+        </View>
+      </ThemedView>
+    );
+  }
+);

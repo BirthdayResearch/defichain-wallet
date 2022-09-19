@@ -128,9 +128,7 @@ Array [
         ]
       }
       testID="foo_locked_value_label"
-    >
-      
-    </Text>
+    />
     <View
       style={
         Object {
@@ -295,9 +293,7 @@ Array [
         ]
       }
       testID="foo_available_value_label"
-    >
-      
-    </Text>
+    />
     <View
       style={
         Object {

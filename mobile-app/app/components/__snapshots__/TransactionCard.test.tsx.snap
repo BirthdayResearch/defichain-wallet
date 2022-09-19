@@ -4,12 +4,15 @@ exports[`Transaction Card should match snapshot 1`] = `
 <View
   style={
     Array [
-      Object {
-        "borderBottomLeftRadius": 10,
-        "borderBottomRightRadius": 10,
-        "borderTopLeftRadius": 10,
-        "borderTopRightRadius": 10,
-      },
+      Array [
+        Object {
+          "borderBottomLeftRadius": 10,
+          "borderBottomRightRadius": 10,
+          "borderTopLeftRadius": 10,
+          "borderTopRightRadius": 10,
+        },
+        undefined,
+      ],
       Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
       },

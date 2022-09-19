@@ -1,5 +1,7 @@
-export const useDisplayBalancesContext = (): { isBalancesDisplayed: boolean } => {
+export const useDisplayBalancesContext = (): {
+  isBalancesDisplayed: boolean;
+} => {
   return {
-    isBalancesDisplayed: true
-  }
-}
+    isBalancesDisplayed: true,
+  };
+};

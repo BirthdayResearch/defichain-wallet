@@ -2,41 +2,24 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": [
-    "react",
-    "react-native",
-    "react-hooks"
-  ],
+  "plugins": ["react", "react-native", "react-hooks", "prettier"],
   "extends": [
-    "standard-with-typescript",
-    "standard-jsx",
     "plugin:react/recommended",
     "plugin:react-native/all",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "airbnb",
+    "airbnb-typescript",
+    "prettier"
   ],
-  "ignorePatterns": [
-    "/*.config.js",
-    "*.json",
-    "jest.setup.js"
-  ],
+  "ignorePatterns": ["/*.config.js", "*.json", "jest.setup.js"],
   "overrides": [
     // Js and Typescript files
     {
-      "files": [
-        ".js",
-        "*.ts",
-        "*.tsx"
-      ],
+      "files": [".js", "*.ts", "*.tsx"],
       "rules": {
         "import/no-default-export": "warn",
-        "curly": [
-          "error",
-          "all"
-        ],
-        "brace-style": [
-          "error",
-          "1tbs"
-        ],
+        "curly": ["error", "all"],
+        "brace-style": ["error", "1tbs"],
         "keyword-spacing": [
           "error",
           {
@@ -48,34 +31,102 @@
         "react-native/no-color-literals": "warn",
         "react/display-name": "off",
         "react-native/no-raw-text": "warn",
-        "indent": "off",
         "@typescript-eslint/indent": "off",
         "react/prop-types": "off",
         "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off",
         "@typescript-eslint/no-floating-promises": "off",
-        "no-console": "error"
+        "no-console": "error",
+        // Off due to migration from Standard to Prettier
+        "consistent-return": "off",
+        "default-case": "warn",
+        "arrow-body-style": "off",
+        "@typescript-eslint/no-use-before-define": "off",
+        "react/destructuring-assignment": "off",
+        "@typescript-eslint/no-shadow": "off",
+        "react/jsx-no-constructed-context-values": "off",
+        "object-shorthand": "off",
+        "react/jsx-no-useless-fragment": "off",
+        "import/prefer-default-export": "off",
+        "react/require-default-props": "off",
+        "react/jsx-props-no-spreading": "off",
+        "@typescript-eslint/return-await": "off",
+        "no-param-reassign": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "no-underscore-dangle": "off",
+        "no-restricted-syntax": "off",
+        "import/no-useless-path-segments": "off",
+        "operator-assignment": "off",
+        "prefer-destructuring": "off",
+        "no-else-return": "off",
+        "react/jsx-no-bind": "off",
+        "import/no-cycle": "off",
+        "react/no-array-index-key": "off",
+        "react/no-unused-prop-types": "off",
+        "react/no-unstable-nested-components": "off",
+        "@typescript-eslint/default-param-last": "off",
+        "no-plusplus": "off",
+        "radix": "off",
+        "@typescript-eslint/no-unused-expressions": "off",
+        "react/no-unescaped-entities": "off",
+        "no-void": "off",
+        "no-restricted-globals": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "no-nested-ternary": "off",
+        "no-await-in-loop": "off",
+        "import/no-extraneous-dependencies": "off",
+        "no-unsafe-optional-chaining": "off"
       },
-      "excludedFiles": [
-        "*.test.ts",
-        "*.test.tsx"
-      ]
+      "excludedFiles": ["*.test.ts", "*.test.tsx"]
     },
     // Unit test files
     {
-      "files": [
-        "*.test.ts",
-        "*.test.tsx"
-      ],
-      "plugins": [
-        "jest"
-      ],
-      "extends": [
-        "plugin:jest/recommended"
-      ],
+      "files": ["*.test.ts", "*.test.tsx"],
+      "plugins": ["jest"],
+      "extends": ["plugin:jest/recommended"],
       "rules": {
         "react/jsx-uses-react": "off",
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        // Off due to migration from Standard to Prettier
+        "consistent-return": "off",
+        "default-case": "off",
+        "arrow-body-style": "off",
+        "@typescript-eslint/no-use-before-define": "off",
+        "react/destructuring-assignment": "off",
+        "import/newline-after-import": "off",
+        "@typescript-eslint/no-shadow": "off",
+        "react/jsx-no-constructed-context-values": "off",
+        "object-shorthand": "off",
+        "react/jsx-no-useless-fragment": "off",
+        "import/prefer-default-export": "off",
+        "react/require-default-props": "off",
+        "react/jsx-props-no-spreading": "off",
+        "@typescript-eslint/return-await": "off",
+        "no-param-reassign": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "no-underscore-dangle": "off",
+        "no-restricted-syntax": "off",
+        "import/no-useless-path-segments": "off",
+        "operator-assignment": "off",
+        "prefer-destructuring": "off",
+        "no-else-return": "off",
+        "react/jsx-no-bind": "off",
+        "import/no-cycle": "off",
+        "react/no-array-index-key": "off",
+        "react/no-unused-prop-types": "off",
+        "react/no-unstable-nested-components": "off",
+        "@typescript-eslint/default-param-last": "off",
+        "no-plusplus": "off",
+        "radix": "off",
+        "@typescript-eslint/no-unused-expressions": "off",
+        "react/no-unescaped-entities": "off",
+        "no-void": "off",
+        "no-restricted-globals": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "no-nested-ternary": "off",
+        "no-await-in-loop": "off",
+        "import/no-extraneous-dependencies": "off",
+        "no-promise-executor-return": "off"
       }
     }
   ]
