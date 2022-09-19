@@ -44,6 +44,7 @@
     "@react-navigation/native": "^6.0.12",
     "@react-navigation/stack": "^6.2.3",
     "@reduxjs/toolkit": "^1.8.5",
+    "@shopify/flash-list": "1.2.2",
     "bignumber.js": "^9.1.0",
     "buffer": "^6.0.3",
     "classnames": "^2.3.2",
@@ -101,8 +102,7 @@
     "smart-buffer": "^4.2.0",
     "stream-browserify": "^3.0.0",
     "tailwind-rn": "^3.0.1",
-    "tailwindcss": "^2.2.19",
-    "@shopify/flash-list": "1.2.2"
+    "tailwindcss": "^2.2.19"
   },
   "devDependencies": {
     "@babel/core": "^7.19.1",
