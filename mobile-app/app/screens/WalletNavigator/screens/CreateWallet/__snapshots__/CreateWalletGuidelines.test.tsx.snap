@@ -3,7 +3,7 @@
 exports[`create wallet guidelines v2 should match snapshot 1`] = `
 <RCTScrollView
   contentContainerStyle={
-    {
+    Object {
       "paddingBottom": 64,
       "paddingLeft": 20,
       "paddingRight": 20,
@@ -11,13 +11,13 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
     }
   }
   style={
-    [
-      {
+    Array [
+      Object {
         "flexBasis": "0%",
         "flexGrow": 1,
         "flexShrink": 1,
       },
-      {
+      Object {
         "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
@@ -26,7 +26,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
   <View>
     <View
       style={
-        {
+        Object {
           "display": "flex",
           "flexDirection": "row",
           "justifyContent": "center",
@@ -36,7 +36,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
       <Image
         source={1}
         style={
-          {
+          Object {
             "height": 136,
             "width": 200,
           }
@@ -45,15 +45,15 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
     </View>
     <Text
       style={
-        [
-          {
+        Array [
+          Object {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "SoraRegular",
               "fontSize": 16,
               "fontWeight": "400",
@@ -63,7 +63,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
               "paddingRight": 12,
               "textAlign": "center",
             },
-            {
+            Object {
               "color": "rgba(18, 18, 18, 1)",
             },
           ],
@@ -84,7 +84,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
       style={
-        {
+        Object {
           "alignItems": "center",
           "borderBottomColor": "rgba(204, 204, 204, 1)",
           "borderBottomWidth": 0,
@@ -102,15 +102,15 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
       <Text />
       <Text
         style={
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "SoraSemiBold",
                 "fontSize": 14,
                 "fontWeight": "600",
@@ -118,7 +118,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
                 "paddingLeft": 6,
                 "textAlign": "center",
               },
-              {
+              Object {
                 "color": "rgba(18, 18, 18, 1)",
               },
             ],
@@ -130,7 +130,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
     </View>
     <View
       style={
-        {
+        Object {
           "marginTop": 48,
           "paddingLeft": 24,
           "paddingRight": 24,
@@ -139,7 +139,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
     >
       <View
         style={
-          {
+          Object {
             "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
@@ -150,8 +150,8 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
       >
         <View
           style={
-            [
-              {
+            Array [
+              Object {
                 "alignItems": "center",
                 "borderBottomLeftRadius": 9999,
                 "borderBottomRightRadius": 9999,
@@ -164,7 +164,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
                 "marginTop": 4,
                 "width": 24,
               },
-              {
+              Object {
                 "backgroundColor": "rgba(89, 89, 89, 1)",
               },
             ]
@@ -174,15 +174,15 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
         </View>
         <Text
           style={
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              [
-                {
+              Array [
+                Object {
                   "flexBasis": "0%",
                   "flexGrow": 1,
                   "flexShrink": 1,
@@ -192,7 +192,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
                   "lineHeight": 16,
                   "marginLeft": 16,
                 },
-                {
+                Object {
                   "color": "rgba(89, 89, 89, 1)",
                 },
               ],
@@ -204,7 +204,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
       </View>
       <View
         style={
-          {
+          Object {
             "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
@@ -215,8 +215,8 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
       >
         <View
           style={
-            [
-              {
+            Array [
+              Object {
                 "alignItems": "center",
                 "borderBottomLeftRadius": 9999,
                 "borderBottomRightRadius": 9999,
@@ -229,7 +229,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
                 "marginTop": 4,
                 "width": 24,
               },
-              {
+              Object {
                 "backgroundColor": "rgba(89, 89, 89, 1)",
               },
             ]
@@ -239,15 +239,15 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
         </View>
         <Text
           style={
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              [
-                {
+              Array [
+                Object {
                   "flexBasis": "0%",
                   "flexGrow": 1,
                   "flexShrink": 1,
@@ -257,7 +257,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
                   "lineHeight": 16,
                   "marginLeft": 16,
                 },
-                {
+                Object {
                   "color": "rgba(89, 89, 89, 1)",
                 },
               ],
@@ -269,7 +269,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
       </View>
       <View
         style={
-          {
+          Object {
             "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
@@ -280,7 +280,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
         <View
           accessibilityRole="checkbox"
           accessibilityState={
-            {
+            Object {
               "checked": false,
               "disabled": undefined,
             }
@@ -298,15 +298,15 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            [
-              {
+            Array [
+              Object {
                 "borderColor": "#657786",
                 "borderRadius": 2,
                 "borderWidth": 2,
                 "height": 20,
                 "width": 20,
               },
-              {
+              Object {
                 "borderBottomLeftRadius": 4,
                 "borderBottomRightRadius": 4,
                 "borderTopLeftRadius": 4,
@@ -335,7 +335,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            {
+            Object {
               "borderBottomWidth": 0,
               "flexBasis": "0%",
               "flexGrow": 1,
@@ -346,22 +346,22 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
         >
           <Text
             style={
-              [
-                {
+              Array [
+                Object {
                   "fontFamily": "RegularFont",
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                [
-                  {
+                Array [
+                  Object {
                     "fontFamily": "SoraRegular",
                     "fontSize": 12,
                     "fontWeight": "400",
                     "lineHeight": 16,
                     "marginLeft": 16,
                   },
-                  {
+                  Object {
                     "color": "rgba(89, 89, 89, 1)",
                   },
                 ],
@@ -375,7 +375,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
     </View>
     <View
       accessibilityState={
-        {
+        Object {
           "disabled": true,
         }
       }
@@ -390,7 +390,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
       style={
-        {
+        Object {
           "backgroundColor": "rgba(18, 18, 18, 0.3)",
           "borderRadius": 26,
           "flexDirection": "row",
@@ -409,14 +409,14 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
     >
       <Text
         style={
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            {
+            Object {
               "color": "rgba(242, 242, 242, 1)",
               "fontFamily": "SoraSemiBold",
               "fontWeight": "600",

@@ -5,8 +5,8 @@
     "skipLibCheck": true,
     "strict": true,
     "moduleResolution": "node",
-    "target": "es5",
-    "lib": ["es5", "dom"],
-    "types": ["cypress", "node", "@testing-library/cypress"]
+    "target": "esnext",
+    "lib": ["esnext", "dom"],
+    "types": ["cypress", "@testing-library/cypress"]
   }
 }

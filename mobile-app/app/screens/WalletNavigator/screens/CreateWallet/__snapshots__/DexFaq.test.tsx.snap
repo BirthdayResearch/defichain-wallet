@@ -3,7 +3,7 @@
 exports[`DEX FAQ screen should match snapshot 1`] = `
 <RCTScrollView
   contentContainerStyle={
-    {
+    Object {
       "paddingBottom": 64,
       "paddingLeft": 20,
       "paddingRight": 20,
@@ -11,13 +11,13 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
     }
   }
   style={
-    [
-      {
+    Array [
+      Object {
         "flexBasis": "0%",
         "flexGrow": 1,
         "flexShrink": 1,
       },
-      {
+      Object {
         "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
@@ -27,15 +27,15 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
   <View>
     <Text
       style={
-        [
-          {
+        Array [
+          Object {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "SoraRegular",
               "fontSize": 16,
               "fontWeight": "400",
@@ -43,7 +43,7 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
               "paddingLeft": 20,
               "paddingRight": 20,
             },
-            {
+            Object {
               "color": "rgba(18, 18, 18, 1)",
             },
           ],
@@ -54,9 +54,9 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
     </Text>
     <RCTScrollView
       style={
-        [
+        Array [
           undefined,
-          {
+          Object {
             "backgroundColor": "rgba(242, 242, 242, 1)",
           },
         ]
@@ -66,15 +66,15 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
       <View>
         <Text
           style={
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              [
-                {
+              Array [
+                Object {
                   "fontFamily": "SoraRegular",
                   "fontSize": 12,
                   "fontWeight": "400",
@@ -83,7 +83,7 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
                   "paddingLeft": 20,
                   "paddingRight": 20,
                 },
-                {
+                Object {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -95,8 +95,8 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
         </Text>
         <View
           style={
-            [
-              {
+            Array [
+              Object {
                 "borderBottomLeftRadius": 8,
                 "borderBottomRightRadius": 8,
                 "borderTopLeftRadius": 8,
@@ -104,18 +104,18 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
                 "marginTop": 8,
                 "overflow": "hidden",
               },
-              {
+              Object {
                 "backgroundColor": "rgba(255, 255, 255, 1)",
               },
             ]
           }
         >
           <View
-            style={{}}
+            style={Object {}}
           >
             <View
               accessibilityState={
-                {
+                Object {
                   "expanded": true,
                 }
               }
@@ -131,9 +131,9 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
             >
               <View
                 style={
-                  [
-                    [
-                      {
+                  Array [
+                    Array [
+                      Object {
                         "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
@@ -143,11 +143,11 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
                         "paddingTop": 16,
                       },
                       false,
-                      {
+                      Object {
                         "paddingBottom": 4,
                       },
                     ],
-                    {
+                    Object {
                       "borderBottomColor": "rgba(204, 204, 204, 1)",
                       "borderLeftColor": "rgba(204, 204, 204, 1)",
                       "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -158,15 +158,15 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
               >
                 <Text
                   style={
-                    [
-                      {
+                    Array [
+                      Object {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      [
-                        {
+                      Array [
+                        Object {
                           "flexBasis": "0%",
                           "flexGrow": 1,
                           "flexShrink": 1,
@@ -175,7 +175,7 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
                           "fontWeight": "600",
                           "lineHeight": 20,
                         },
-                        {
+                        Object {
                           "color": "rgba(18, 18, 18, 1)",
                         },
                       ],
@@ -190,29 +190,29 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
             <View
               collapsable={false}
               pointerEvents="auto"
-              style={{}}
+              style={Object {}}
             >
               <View
                 collapsable={false}
                 forwardedRef={[Function]}
                 onLayout={[Function]}
-                style={{}}
+                style={Object {}}
               >
                 <View
                   style={
-                    [
-                      [
-                        {
+                    Array [
+                      Array [
+                        Object {
                           "marginLeft": 20,
                           "marginRight": 20,
                           "paddingBottom": 16,
                           "paddingTop": 16,
                         },
-                        {
+                        Object {
                           "borderBottomWidth": 1,
                         },
                       ],
-                      {
+                      Object {
                         "borderBottomColor": "rgba(204, 204, 204, 1)",
                         "borderLeftColor": "rgba(204, 204, 204, 1)",
                         "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -223,7 +223,7 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
                 >
                   <View
                     style={
-                      {
+                      Object {
                         "flexDirection": "row",
                         "justifyContent": "flex-start",
                       }
@@ -231,15 +231,15 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
                   >
                     <Text
                       style={
-                        [
-                          {
+                        Array [
+                          Object {
                             "fontFamily": "RegularFont",
                             "fontSize": 16,
                             "fontWeight": "400",
                             "lineHeight": 24,
                           },
-                          [
-                            {
+                          Array [
+                            Object {
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
@@ -248,7 +248,7 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
                               "fontWeight": "400",
                               "lineHeight": 20,
                             },
-                            {
+                            Object {
                               "color": "rgba(18, 18, 18, 1)",
                             },
                           ],
@@ -263,11 +263,11 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
             </View>
           </View>
           <View
-            style={{}}
+            style={Object {}}
           >
             <View
               accessibilityState={
-                {
+                Object {
                   "expanded": false,
                 }
               }
@@ -283,9 +283,9 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
             >
               <View
                 style={
-                  [
-                    [
-                      {
+                  Array [
+                    Array [
+                      Object {
                         "alignItems": "flex-start",
                         "flexDirection": "row",
                         "justifyContent": "space-between",
@@ -297,7 +297,7 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
                       false,
                       false,
                     ],
-                    {
+                    Object {
                       "borderBottomColor": "rgba(204, 204, 204, 1)",
                       "borderLeftColor": "rgba(204, 204, 204, 1)",
                       "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -308,15 +308,15 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
               >
                 <Text
                   style={
-                    [
-                      {
+                    Array [
+                      Object {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      [
-                        {
+                      Array [
+                        Object {
                           "flexBasis": "0%",
                           "flexGrow": 1,
                           "flexShrink": 1,
@@ -325,7 +325,7 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
                           "fontWeight": "400",
                           "lineHeight": 20,
                         },
-                        {
+                        Object {
                           "color": "rgba(89, 89, 89, 1)",
                         },
                       ],
@@ -341,7 +341,7 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
               collapsable={false}
               pointerEvents="none"
               style={
-                {
+                Object {
                   "height": 0,
                   "overflow": "hidden",
                 }
@@ -351,13 +351,13 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
                 collapsable={false}
                 forwardedRef={[Function]}
                 onLayout={[Function]}
-                style={{}}
+                style={Object {}}
               >
                 <View
                   style={
-                    [
-                      [
-                        {
+                    Array [
+                      Array [
+                        Object {
                           "marginLeft": 20,
                           "marginRight": 20,
                           "paddingBottom": 16,
@@ -365,7 +365,7 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
                         },
                         false,
                       ],
-                      {
+                      Object {
                         "borderBottomColor": "rgba(204, 204, 204, 1)",
                         "borderLeftColor": "rgba(204, 204, 204, 1)",
                         "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -376,7 +376,7 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
                 >
                   <View
                     style={
-                      {
+                      Object {
                         "flexDirection": "row",
                         "justifyContent": "flex-start",
                       }
@@ -384,15 +384,15 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
                   >
                     <Text
                       style={
-                        [
-                          {
+                        Array [
+                          Object {
                             "fontFamily": "RegularFont",
                             "fontSize": 16,
                             "fontWeight": "400",
                             "lineHeight": 24,
                           },
-                          [
-                            {
+                          Array [
+                            Object {
                               "flexBasis": "0%",
                               "flexGrow": 1,
                               "flexShrink": 1,
@@ -401,7 +401,7 @@ exports[`DEX FAQ screen should match snapshot 1`] = `
                               "fontWeight": "400",
                               "lineHeight": 20,
                             },
-                            {
+                            Object {
                               "color": "rgba(18, 18, 18, 1)",
                             },
                           ],

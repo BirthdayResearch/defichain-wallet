@@ -4,7 +4,7 @@ exports[`transaction authorization screen should match snapshot of status: 0 1`]
 <RCTSafeAreaView
   emulateUnlessSupported={true}
   style={
-    {
+    Object {
       "flexDirection": "column",
       "height": "100%",
       "left": 0,
@@ -21,7 +21,7 @@ exports[`transaction authorization screen should match snapshot of status: 1 1`]
 <RCTSafeAreaView
   emulateUnlessSupported={true}
   style={
-    {
+    Object {
       "flexDirection": "column",
       "height": "100%",
       "left": 0,
@@ -38,7 +38,7 @@ exports[`transaction authorization screen should match snapshot of status: 2 1`]
 <RCTSafeAreaView
   emulateUnlessSupported={true}
   style={
-    {
+    Object {
       "flexDirection": "column",
       "height": "100%",
       "left": 0,
@@ -55,7 +55,7 @@ exports[`transaction authorization screen should match snapshot of status: 3 1`]
 <RCTSafeAreaView
   emulateUnlessSupported={true}
   style={
-    {
+    Object {
       "flexDirection": "column",
       "height": "100%",
       "left": 0,
@@ -72,7 +72,7 @@ exports[`transaction authorization screen should match snapshot of status: 4 1`]
 <RCTSafeAreaView
   emulateUnlessSupported={true}
   style={
-    {
+    Object {
       "flexDirection": "column",
       "height": "100%",
       "left": 0,
@@ -89,7 +89,7 @@ exports[`transaction authorization screen should match snapshot of status: 5 1`]
 <RCTSafeAreaView
   emulateUnlessSupported={true}
   style={
-    {
+    Object {
       "flexDirection": "column",
       "height": "100%",
       "left": 0,

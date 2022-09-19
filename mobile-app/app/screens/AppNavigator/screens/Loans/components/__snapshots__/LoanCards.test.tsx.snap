@@ -3,7 +3,7 @@
 exports[`loan cards should match snapshot 1`] = `
 <RCTScrollView
   contentContainerStyle={
-    {
+    Object {
       "paddingBottom": 8,
       "paddingLeft": 8,
       "paddingRight": 8,
@@ -11,18 +11,18 @@ exports[`loan cards should match snapshot 1`] = `
     }
   }
   data={
-    [
-      {
+    Array [
+      Object {
         "fixedIntervalPriceId": "TS25/USD",
         "interest": "2",
-        "token": {
+        "token": Object {
           "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-          "creation": {
+          "creation": Object {
             "height": 151,
             "tx": "3a7e97db4b913fd249da2a59f2edd84f34e111fe1c775a01addfb3b96c147d40",
           },
           "decimal": 8,
-          "destruction": {
+          "destruction": Object {
             "height": -1,
             "tx": "0000000000000000000000000000000000000000000000000000000000000000",
           },
@@ -42,17 +42,17 @@ exports[`loan cards should match snapshot 1`] = `
         },
         "tokenId": "3a7e97db4b913fd249da2a59f2edd84f34e111fe1c775a01addfb3b96c147d40",
       },
-      {
+      Object {
         "fixedIntervalPriceId": "TR50/USD",
         "interest": "3",
-        "token": {
+        "token": Object {
           "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-          "creation": {
+          "creation": Object {
             "height": 152,
             "tx": "57135919430b915f6f462142161e94474aae824791fa3644541102d7a7959a63",
           },
           "decimal": 8,
-          "destruction": {
+          "destruction": Object {
             "height": -1,
             "tx": "0000000000000000000000000000000000000000000000000000000000000000",
           },
@@ -72,17 +72,17 @@ exports[`loan cards should match snapshot 1`] = `
         },
         "tokenId": "57135919430b915f6f462142161e94474aae824791fa3644541102d7a7959a63",
       },
-      {
+      Object {
         "fixedIntervalPriceId": "TU10/USD",
         "interest": "1",
-        "token": {
+        "token": Object {
           "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-          "creation": {
+          "creation": Object {
             "height": 149,
             "tx": "943c2f38cf418ff116c402f4f6ec400039223e5aa4fb41f2c4a6e69ac53a4c45",
           },
           "decimal": 8,
-          "destruction": {
+          "destruction": Object {
             "height": -1,
             "tx": "0000000000000000000000000000000000000000000000000000000000000000",
           },
@@ -117,16 +117,16 @@ exports[`loan cards should match snapshot 1`] = `
   removeClippedSubviews={false}
   renderItem={[Function]}
   scrollEventThrottle={50}
-  stickyHeaderIndices={[]}
+  stickyHeaderIndices={Array []}
   style={
-    [
+    Array [
       undefined,
-      {
+      Object {
         "backgroundColor": "rgba(245, 245, 245, 1)",
       },
     ]
   }
-  viewabilityConfigCallbackPairs={[]}
+  viewabilityConfigCallbackPairs={Array []}
 >
   <View>
     <View
@@ -135,14 +135,14 @@ exports[`loan cards should match snapshot 1`] = `
     >
       <View
         style={
-          {
+          Object {
             "flexDirection": "row",
           }
         }
       >
         <View
           style={
-            {
+            Object {
               "flexBasis": "50%",
             }
           }
@@ -159,7 +159,7 @@ exports[`loan cards should match snapshot 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              {
+              Object {
                 "backgroundColor": "rgba(255, 255, 255, 1)",
                 "borderBottomColor": "rgba(229, 229, 229, 1)",
                 "borderBottomLeftRadius": 4,
@@ -190,7 +190,7 @@ exports[`loan cards should match snapshot 1`] = `
           >
             <View
               style={
-                {
+                Object {
                   "alignItems": "center",
                   "flexDirection": "row",
                   "justifyContent": "space-between",
@@ -200,7 +200,7 @@ exports[`loan cards should match snapshot 1`] = `
             >
               <View
                 style={
-                  {
+                  Object {
                     "display": "flex",
                     "flexDirection": "row",
                   }
@@ -217,15 +217,15 @@ exports[`loan cards should match snapshot 1`] = `
                   minX={0}
                   minY={0}
                   style={
-                    [
-                      {
+                    Array [
+                      Object {
                         "backgroundColor": "transparent",
                         "borderWidth": 0,
                       },
-                      {
+                      Object {
                         "marginRight": 8,
                       },
-                      {
+                      Object {
                         "flex": 0,
                         "height": 24,
                         "width": 24,
@@ -239,7 +239,7 @@ exports[`loan cards should match snapshot 1`] = `
                   <RNSVGGroup
                     fill={null}
                     propList={
-                      [
+                      Array [
                         "fill",
                       ]
                     }
@@ -253,7 +253,7 @@ exports[`loan cards should match snapshot 1`] = `
                         fill={4279110157}
                         fillRule={0}
                         propList={
-                          [
+                          Array [
                             "fill",
                             "fillRule",
                             "stroke",
@@ -266,60 +266,60 @@ exports[`loan cards should match snapshot 1`] = `
                     </RNSVGGroup>
                     <RNSVGText
                       content={null}
-                      dx={[]}
-                      dy={[]}
+                      dx={Array []}
+                      dy={Array []}
                       fill={4294967295}
                       font={
-                        {
+                        Object {
                           "fontSize": 10,
                           "fontWeight": "bold",
                           "textAnchor": "middle",
                         }
                       }
                       propList={
-                        [
+                        Array [
                           "fill",
                         ]
                       }
-                      rotate={[]}
+                      rotate={Array []}
                       x={
-                        [
+                        Array [
                           "50%",
                         ]
                       }
                       y={
-                        [
+                        Array [
                           "62%",
                         ]
                       }
                     >
                       <RNSVGTSpan
                         content="TS25"
-                        dx={[]}
-                        dy={[]}
-                        font={{}}
-                        rotate={[]}
-                        x={[]}
-                        y={[]}
+                        dx={Array []}
+                        dy={Array []}
+                        font={Object {}}
+                        rotate={Array []}
+                        x={Array []}
+                        y={Array []}
                       />
                     </RNSVGText>
                   </RNSVGGroup>
                 </RNSVGSvgView>
                 <Text
                   style={
-                    [
-                      {
+                    Array [
+                      Object {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      [
-                        {
+                      Array [
+                        Object {
                           "fontFamily": "MediumFont",
                           "fontWeight": "500",
                         },
-                        {
+                        Object {
                           "color": "rgba(0, 0, 0, 1)",
                         },
                       ],
@@ -334,19 +334,19 @@ exports[`loan cards should match snapshot 1`] = `
             </View>
             <Text
               style={
-                [
-                  {
+                Array [
+                  Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  [
-                    {
+                  Array [
+                    Object {
                       "fontSize": 12,
                       "lineHeight": 16,
                     },
-                    {
+                    Object {
                       "color": "rgba(115, 115, 115, 1)",
                     },
                   ],
@@ -357,20 +357,20 @@ exports[`loan cards should match snapshot 1`] = `
             </Text>
             <Text
               style={
-                [
-                  {
+                Array [
+                  Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  [
-                    {
+                  Array [
+                    Object {
                       "fontSize": 14,
                       "lineHeight": 20,
                       "paddingBottom": 8,
                     },
-                    {
+                    Object {
                       "color": "rgba(0, 0, 0, 1)",
                     },
                   ],
@@ -382,19 +382,19 @@ exports[`loan cards should match snapshot 1`] = `
             </Text>
             <Text
               style={
-                [
-                  {
+                Array [
+                  Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  [
-                    {
+                  Array [
+                    Object {
                       "fontSize": 12,
                       "lineHeight": 16,
                     },
-                    {
+                    Object {
                       "color": "rgba(115, 115, 115, 1)",
                     },
                   ],
@@ -405,7 +405,7 @@ exports[`loan cards should match snapshot 1`] = `
             </Text>
             <View
               style={
-                {
+                Object {
                   "alignItems": "center",
                   "flexDirection": "row",
                 }
@@ -413,7 +413,7 @@ exports[`loan cards should match snapshot 1`] = `
             >
               <View
                 style={
-                  {
+                  Object {
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
@@ -422,19 +422,19 @@ exports[`loan cards should match snapshot 1`] = `
               >
                 <Text
                   style={
-                    [
-                      {
+                    Array [
+                      Object {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      [
-                        {
+                      Array [
+                        Object {
                           "fontSize": 14,
                           "lineHeight": 20,
                         },
-                        {
+                        Object {
                           "color": "rgba(0, 0, 0, 1)",
                         },
                       ],
@@ -451,7 +451,7 @@ exports[`loan cards should match snapshot 1`] = `
         </View>
         <View
           style={
-            {
+            Object {
               "flexBasis": "50%",
             }
           }
@@ -468,7 +468,7 @@ exports[`loan cards should match snapshot 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              {
+              Object {
                 "backgroundColor": "rgba(255, 255, 255, 1)",
                 "borderBottomColor": "rgba(229, 229, 229, 1)",
                 "borderBottomLeftRadius": 4,
@@ -499,7 +499,7 @@ exports[`loan cards should match snapshot 1`] = `
           >
             <View
               style={
-                {
+                Object {
                   "alignItems": "center",
                   "flexDirection": "row",
                   "justifyContent": "space-between",
@@ -509,7 +509,7 @@ exports[`loan cards should match snapshot 1`] = `
             >
               <View
                 style={
-                  {
+                  Object {
                     "display": "flex",
                     "flexDirection": "row",
                   }
@@ -526,15 +526,15 @@ exports[`loan cards should match snapshot 1`] = `
                   minX={0}
                   minY={0}
                   style={
-                    [
-                      {
+                    Array [
+                      Object {
                         "backgroundColor": "transparent",
                         "borderWidth": 0,
                       },
-                      {
+                      Object {
                         "marginRight": 8,
                       },
-                      {
+                      Object {
                         "flex": 0,
                         "height": 24,
                         "width": 24,
@@ -548,7 +548,7 @@ exports[`loan cards should match snapshot 1`] = `
                   <RNSVGGroup
                     fill={null}
                     propList={
-                      [
+                      Array [
                         "fill",
                       ]
                     }
@@ -562,7 +562,7 @@ exports[`loan cards should match snapshot 1`] = `
                         fill={4279110157}
                         fillRule={0}
                         propList={
-                          [
+                          Array [
                             "fill",
                             "fillRule",
                             "stroke",
@@ -575,60 +575,60 @@ exports[`loan cards should match snapshot 1`] = `
                     </RNSVGGroup>
                     <RNSVGText
                       content={null}
-                      dx={[]}
-                      dy={[]}
+                      dx={Array []}
+                      dy={Array []}
                       fill={4294967295}
                       font={
-                        {
+                        Object {
                           "fontSize": 10,
                           "fontWeight": "bold",
                           "textAnchor": "middle",
                         }
                       }
                       propList={
-                        [
+                        Array [
                           "fill",
                         ]
                       }
-                      rotate={[]}
+                      rotate={Array []}
                       x={
-                        [
+                        Array [
                           "50%",
                         ]
                       }
                       y={
-                        [
+                        Array [
                           "62%",
                         ]
                       }
                     >
                       <RNSVGTSpan
                         content="TR50"
-                        dx={[]}
-                        dy={[]}
-                        font={{}}
-                        rotate={[]}
-                        x={[]}
-                        y={[]}
+                        dx={Array []}
+                        dy={Array []}
+                        font={Object {}}
+                        rotate={Array []}
+                        x={Array []}
+                        y={Array []}
                       />
                     </RNSVGText>
                   </RNSVGGroup>
                 </RNSVGSvgView>
                 <Text
                   style={
-                    [
-                      {
+                    Array [
+                      Object {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      [
-                        {
+                      Array [
+                        Object {
                           "fontFamily": "MediumFont",
                           "fontWeight": "500",
                         },
-                        {
+                        Object {
                           "color": "rgba(0, 0, 0, 1)",
                         },
                       ],
@@ -643,19 +643,19 @@ exports[`loan cards should match snapshot 1`] = `
             </View>
             <Text
               style={
-                [
-                  {
+                Array [
+                  Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  [
-                    {
+                  Array [
+                    Object {
                       "fontSize": 12,
                       "lineHeight": 16,
                     },
-                    {
+                    Object {
                       "color": "rgba(115, 115, 115, 1)",
                     },
                   ],
@@ -666,20 +666,20 @@ exports[`loan cards should match snapshot 1`] = `
             </Text>
             <Text
               style={
-                [
-                  {
+                Array [
+                  Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  [
-                    {
+                  Array [
+                    Object {
                       "fontSize": 14,
                       "lineHeight": 20,
                       "paddingBottom": 8,
                     },
-                    {
+                    Object {
                       "color": "rgba(0, 0, 0, 1)",
                     },
                   ],
@@ -691,19 +691,19 @@ exports[`loan cards should match snapshot 1`] = `
             </Text>
             <Text
               style={
-                [
-                  {
+                Array [
+                  Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  [
-                    {
+                  Array [
+                    Object {
                       "fontSize": 12,
                       "lineHeight": 16,
                     },
-                    {
+                    Object {
                       "color": "rgba(115, 115, 115, 1)",
                     },
                   ],
@@ -714,7 +714,7 @@ exports[`loan cards should match snapshot 1`] = `
             </Text>
             <View
               style={
-                {
+                Object {
                   "alignItems": "center",
                   "flexDirection": "row",
                 }
@@ -722,7 +722,7 @@ exports[`loan cards should match snapshot 1`] = `
             >
               <View
                 style={
-                  {
+                  Object {
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
@@ -731,19 +731,19 @@ exports[`loan cards should match snapshot 1`] = `
               >
                 <Text
                   style={
-                    [
-                      {
+                    Array [
+                      Object {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      [
-                        {
+                      Array [
+                        Object {
                           "fontSize": 14,
                           "lineHeight": 20,
                         },
-                        {
+                        Object {
                           "color": "rgba(0, 0, 0, 1)",
                         },
                       ],
@@ -766,14 +766,14 @@ exports[`loan cards should match snapshot 1`] = `
     >
       <View
         style={
-          {
+          Object {
             "flexDirection": "row",
           }
         }
       >
         <View
           style={
-            {
+            Object {
               "flexBasis": "50%",
             }
           }
@@ -790,7 +790,7 @@ exports[`loan cards should match snapshot 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              {
+              Object {
                 "backgroundColor": "rgba(255, 255, 255, 1)",
                 "borderBottomColor": "rgba(229, 229, 229, 1)",
                 "borderBottomLeftRadius": 4,
@@ -821,7 +821,7 @@ exports[`loan cards should match snapshot 1`] = `
           >
             <View
               style={
-                {
+                Object {
                   "alignItems": "center",
                   "flexDirection": "row",
                   "justifyContent": "space-between",
@@ -831,7 +831,7 @@ exports[`loan cards should match snapshot 1`] = `
             >
               <View
                 style={
-                  {
+                  Object {
                     "display": "flex",
                     "flexDirection": "row",
                   }
@@ -848,15 +848,15 @@ exports[`loan cards should match snapshot 1`] = `
                   minX={0}
                   minY={0}
                   style={
-                    [
-                      {
+                    Array [
+                      Object {
                         "backgroundColor": "transparent",
                         "borderWidth": 0,
                       },
-                      {
+                      Object {
                         "marginRight": 8,
                       },
-                      {
+                      Object {
                         "flex": 0,
                         "height": 24,
                         "width": 24,
@@ -870,7 +870,7 @@ exports[`loan cards should match snapshot 1`] = `
                   <RNSVGGroup
                     fill={null}
                     propList={
-                      [
+                      Array [
                         "fill",
                       ]
                     }
@@ -884,7 +884,7 @@ exports[`loan cards should match snapshot 1`] = `
                         fill={4279110157}
                         fillRule={0}
                         propList={
-                          [
+                          Array [
                             "fill",
                             "fillRule",
                             "stroke",
@@ -897,60 +897,60 @@ exports[`loan cards should match snapshot 1`] = `
                     </RNSVGGroup>
                     <RNSVGText
                       content={null}
-                      dx={[]}
-                      dy={[]}
+                      dx={Array []}
+                      dy={Array []}
                       fill={4294967295}
                       font={
-                        {
+                        Object {
                           "fontSize": 10,
                           "fontWeight": "bold",
                           "textAnchor": "middle",
                         }
                       }
                       propList={
-                        [
+                        Array [
                           "fill",
                         ]
                       }
-                      rotate={[]}
+                      rotate={Array []}
                       x={
-                        [
+                        Array [
                           "50%",
                         ]
                       }
                       y={
-                        [
+                        Array [
                           "62%",
                         ]
                       }
                     >
                       <RNSVGTSpan
                         content="TU10"
-                        dx={[]}
-                        dy={[]}
-                        font={{}}
-                        rotate={[]}
-                        x={[]}
-                        y={[]}
+                        dx={Array []}
+                        dy={Array []}
+                        font={Object {}}
+                        rotate={Array []}
+                        x={Array []}
+                        y={Array []}
                       />
                     </RNSVGText>
                   </RNSVGGroup>
                 </RNSVGSvgView>
                 <Text
                   style={
-                    [
-                      {
+                    Array [
+                      Object {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      [
-                        {
+                      Array [
+                        Object {
                           "fontFamily": "MediumFont",
                           "fontWeight": "500",
                         },
-                        {
+                        Object {
                           "color": "rgba(0, 0, 0, 1)",
                         },
                       ],
@@ -965,19 +965,19 @@ exports[`loan cards should match snapshot 1`] = `
             </View>
             <Text
               style={
-                [
-                  {
+                Array [
+                  Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  [
-                    {
+                  Array [
+                    Object {
                       "fontSize": 12,
                       "lineHeight": 16,
                     },
-                    {
+                    Object {
                       "color": "rgba(115, 115, 115, 1)",
                     },
                   ],
@@ -988,20 +988,20 @@ exports[`loan cards should match snapshot 1`] = `
             </Text>
             <Text
               style={
-                [
-                  {
+                Array [
+                  Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  [
-                    {
+                  Array [
+                    Object {
                       "fontSize": 14,
                       "lineHeight": 20,
                       "paddingBottom": 8,
                     },
-                    {
+                    Object {
                       "color": "rgba(0, 0, 0, 1)",
                     },
                   ],
@@ -1013,19 +1013,19 @@ exports[`loan cards should match snapshot 1`] = `
             </Text>
             <Text
               style={
-                [
-                  {
+                Array [
+                  Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  [
-                    {
+                  Array [
+                    Object {
                       "fontSize": 12,
                       "lineHeight": 16,
                     },
-                    {
+                    Object {
                       "color": "rgba(115, 115, 115, 1)",
                     },
                   ],
@@ -1036,7 +1036,7 @@ exports[`loan cards should match snapshot 1`] = `
             </Text>
             <View
               style={
-                {
+                Object {
                   "alignItems": "center",
                   "flexDirection": "row",
                 }
@@ -1044,7 +1044,7 @@ exports[`loan cards should match snapshot 1`] = `
             >
               <View
                 style={
-                  {
+                  Object {
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
@@ -1053,19 +1053,19 @@ exports[`loan cards should match snapshot 1`] = `
               >
                 <Text
                   style={
-                    [
-                      {
+                    Array [
+                      Object {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      [
-                        {
+                      Array [
+                        Object {
                           "fontSize": 14,
                           "lineHeight": 20,
                         },
-                        {
+                        Object {
                           "color": "rgba(0, 0, 0, 1)",
                         },
                       ],

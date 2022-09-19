@@ -3,8 +3,8 @@
 exports[`Create wallet step indicator should match snapshot 1`] = `
 <View
   style={
-    [
-      {
+    Array [
+      Object {
         "alignItems": "center",
         "flexDirection": "column",
         "justifyContent": "center",
@@ -16,7 +16,7 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
 >
   <View
     style={
-      {
+      Object {
         "flexDirection": "row",
         "height": 64,
         "justifyContent": "center",
@@ -26,14 +26,14 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
   >
     <View
       style={
-        {
+        Object {
           "flexDirection": "column",
         }
       }
     >
       <View
         style={
-          {
+          Object {
             "alignItems": "center",
             "borderBottomColor": "rgba(0, 173, 29, 1)",
             "borderBottomLeftRadius": 9999,
@@ -56,14 +56,14 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
       >
         <Text
           style={
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              {
+              Object {
                 "color": "rgba(0, 173, 29, 1)",
                 "fontFamily": "SoraSemiBold",
                 "fontSize": 18,
@@ -77,15 +77,15 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              [
-                {
+              Array [
+                Object {
                   "fontFamily": "SoraRegular",
                   "fontSize": 12,
                   "fontWeight": "400",
@@ -95,7 +95,7 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
                   "top": 48,
                   "width": 80,
                 },
-                {
+                Object {
                   "color": "rgba(0, 173, 29, 1)",
                 },
               ],
@@ -108,7 +108,7 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
     </View>
     <View
       style={
-        {
+        Object {
           "backgroundColor": "rgba(18, 18, 18, 1)",
           "flexGrow": 1,
           "height": 1,
@@ -118,14 +118,14 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
     />
     <View
       style={
-        {
+        Object {
           "flexDirection": "column",
         }
       }
     >
       <View
         style={
-          {
+          Object {
             "alignItems": "center",
             "borderBottomColor": "rgba(18, 18, 18, 1)",
             "borderBottomLeftRadius": 9999,
@@ -148,14 +148,14 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
       >
         <Text
           style={
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              {
+              Object {
                 "color": "rgba(18, 18, 18, 1)",
                 "fontFamily": "SoraSemiBold",
                 "fontSize": 18,
@@ -169,15 +169,15 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              [
-                {
+              Array [
+                Object {
                   "fontFamily": "SoraRegular",
                   "fontSize": 12,
                   "fontWeight": "400",
@@ -187,7 +187,7 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
                   "top": 48,
                   "width": 80,
                 },
-                {
+                Object {
                   "color": "rgba(18, 18, 18, 1)",
                 },
               ],
@@ -200,7 +200,7 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
     </View>
     <View
       style={
-        {
+        Object {
           "backgroundColor": "rgba(18, 18, 18, 1)",
           "flexGrow": 1,
           "height": 1,
@@ -210,14 +210,14 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
     />
     <View
       style={
-        {
+        Object {
           "flexDirection": "column",
         }
       }
     >
       <View
         style={
-          {
+          Object {
             "alignItems": "center",
             "borderBottomColor": "rgba(18, 18, 18, 1)",
             "borderBottomLeftRadius": 9999,
@@ -240,14 +240,14 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
       >
         <Text
           style={
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              {
+              Object {
                 "color": "rgba(18, 18, 18, 1)",
                 "fontFamily": "SoraSemiBold",
                 "fontSize": 18,
@@ -261,15 +261,15 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              [
-                {
+              Array [
+                Object {
                   "fontFamily": "SoraRegular",
                   "fontSize": 12,
                   "fontWeight": "400",
@@ -279,7 +279,7 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
                   "top": 48,
                   "width": 80,
                 },
-                {
+                Object {
                   "color": "rgba(18, 18, 18, 1)",
                 },
               ],

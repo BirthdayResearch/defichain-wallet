@@ -3,8 +3,8 @@
 exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
 <View
   style={
-    [
-      {
+    Array [
+      Object {
         "borderBottomLeftRadius": 16,
         "borderBottomRightRadius": 16,
         "borderTopLeftRadius": 16,
@@ -12,7 +12,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
         "display": "flex",
         "flexDirection": "row",
       },
-      {
+      Object {
         "backgroundColor": "rgba(245, 245, 245, 1)",
       },
     ]
@@ -31,7 +31,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      {
+      Object {
         "backgroundColor": "rgba(255, 229, 247, 1)",
         "borderBottomLeftRadius": 16,
         "borderBottomRightRadius": 16,
@@ -51,22 +51,22 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
   >
     <Text
       style={
-        [
-          {
+        Array [
+          Object {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "MediumFont",
               "fontSize": 14,
               "fontWeight": "500",
               "lineHeight": 20,
               "textAlign": "center",
             },
-            {
+            Object {
               "color": "rgba(255, 0, 175, 1)",
             },
           ],
@@ -88,7 +88,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      {
+      Object {
         "borderBottomLeftRadius": 16,
         "borderBottomRightRadius": 16,
         "borderTopLeftRadius": 16,
@@ -107,22 +107,22 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
   >
     <Text
       style={
-        [
-          {
+        Array [
+          Object {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "MediumFont",
               "fontSize": 14,
               "fontWeight": "500",
               "lineHeight": 20,
               "textAlign": "center",
             },
-            {
+            Object {
               "color": "rgba(23, 23, 23, 1)",
             },
           ],
@@ -144,7 +144,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      {
+      Object {
         "borderBottomLeftRadius": 16,
         "borderBottomRightRadius": 16,
         "borderTopLeftRadius": 16,
@@ -163,22 +163,22 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
   >
     <Text
       style={
-        [
-          {
+        Array [
+          Object {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "MediumFont",
               "fontSize": 14,
               "fontWeight": "500",
               "lineHeight": 20,
               "textAlign": "center",
             },
-            {
+            Object {
               "color": "rgba(23, 23, 23, 1)",
             },
           ],

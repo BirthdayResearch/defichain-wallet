@@ -3,9 +3,9 @@
 exports[`Reserved DFI info text should match snapshot 1`] = `
 <View
   style={
-    [
-      [
-        {
+    Array [
+      Array [
+        Object {
           "borderBottomLeftRadius": 4,
           "borderBottomRightRadius": 4,
           "borderBottomWidth": 1,
@@ -22,7 +22,7 @@ exports[`Reserved DFI info text should match snapshot 1`] = `
         },
         undefined,
       ],
-      {
+      Object {
         "backgroundColor": "rgba(255, 250, 244, 1)",
         "borderBottomColor": "rgba(255, 210, 163, 1)",
         "borderLeftColor": "rgba(255, 210, 163, 1)",
@@ -35,15 +35,15 @@ exports[`Reserved DFI info text should match snapshot 1`] = `
   <Text />
   <Text
     style={
-      [
-        {
+      Array [
+        Object {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        [
-          {
+        Array [
+          Object {
             "flexBasis": "0%",
             "flexGrow": 1,
             "flexShrink": 1,
@@ -53,7 +53,7 @@ exports[`Reserved DFI info text should match snapshot 1`] = `
             "lineHeight": 16,
             "paddingLeft": 8,
           },
-          {
+          Object {
             "color": "rgba(82, 82, 82, 1)",
           },
         ],

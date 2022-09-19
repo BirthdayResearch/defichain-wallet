@@ -11,23 +11,12 @@ import { VersionTagV2 } from "@components/VersionTagV2";
 import { OnboardingCarousel } from "@screens/WalletNavigator/screens/components/OnboardingCarousel";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useEffect } from "react";
-import * as SplashScreen from "expo-splash-screen";
-import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { WalletParamList } from "../WalletNavigator";
 
 export function Onboarding(): JSX.Element {
   const navigator = useNavigation<NavigationProp<WalletParamList>>();
   const { isLight } = useThemeContext();
   const { top: topInset } = useSafeAreaInsets();
-  const logger = useLogger();
-
-  // Hide splashscreen when first page is loaded to prevent white screen
-  useEffect(() => {
-    setTimeout(() => {
-      SplashScreen.hideAsync().catch(logger.error);
-    });
-  }, []);
 
   return (
     <ThemedScrollViewV2

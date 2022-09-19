@@ -3,7 +3,7 @@
 exports[`barcode scanner should match snapshot 1`] = `
 <View
   style={
-    {
+    Object {
       "alignItems": "center",
       "flexBasis": "0%",
       "flexDirection": "column",
@@ -15,16 +15,16 @@ exports[`barcode scanner should match snapshot 1`] = `
 >
   <Text
     style={
-      [
-        {
+      Array [
+        Object {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        [
+        Array [
           undefined,
-          {
+          Object {
             "color": "rgba(0, 0, 0, 1)",
           },
         ],

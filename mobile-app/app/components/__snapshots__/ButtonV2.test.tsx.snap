@@ -13,7 +13,7 @@ exports[`button should be clickable 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    {
+    Object {
       "backgroundColor": "rgba(18, 18, 18, 1)",
       "borderRadius": 26,
       "flexDirection": "row",
@@ -33,14 +33,14 @@ exports[`button should be clickable 1`] = `
 >
   <Text
     style={
-      [
-        {
+      Array [
+        Object {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        {
+        Object {
           "color": "rgba(242, 242, 242, 1)",
           "fontFamily": "SoraSemiBold",
           "fontWeight": "600",
@@ -55,7 +55,7 @@ exports[`button should be clickable 1`] = `
 exports[`button should match styling of button type fill 1`] = `
 <View
   accessibilityState={
-    {
+    Object {
       "disabled": false,
     }
   }
@@ -70,7 +70,7 @@ exports[`button should match styling of button type fill 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    {
+    Object {
       "backgroundColor": "rgba(18, 18, 18, 1)",
       "borderRadius": 26,
       "flexDirection": "row",
@@ -89,14 +89,14 @@ exports[`button should match styling of button type fill 1`] = `
 >
   <Text
     style={
-      [
-        {
+      Array [
+        Object {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        {
+        Object {
           "color": "rgba(242, 242, 242, 1)",
           "fontFamily": "SoraSemiBold",
           "fontWeight": "600",
@@ -113,7 +113,7 @@ exports[`button should match styling of button type fill 1`] = `
 exports[`button should match styling of button type fill 2`] = `
 <View
   accessibilityState={
-    {
+    Object {
       "disabled": true,
     }
   }
@@ -128,7 +128,7 @@ exports[`button should match styling of button type fill 2`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    {
+    Object {
       "backgroundColor": "rgba(18, 18, 18, 0.3)",
       "borderRadius": 26,
       "flexDirection": "row",
@@ -147,14 +147,14 @@ exports[`button should match styling of button type fill 2`] = `
 >
   <Text
     style={
-      [
-        {
+      Array [
+        Object {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        {
+        Object {
           "color": "rgba(242, 242, 242, 1)",
           "fontFamily": "SoraSemiBold",
           "fontWeight": "600",
@@ -171,7 +171,7 @@ exports[`button should match styling of button type fill 2`] = `
 exports[`button should match styling of button type flat 1`] = `
 <View
   accessibilityState={
-    {
+    Object {
       "disabled": false,
     }
   }
@@ -186,7 +186,7 @@ exports[`button should match styling of button type flat 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    {
+    Object {
       "backgroundColor": "transparent",
       "borderRadius": 26,
       "flexDirection": "row",
@@ -205,14 +205,14 @@ exports[`button should match styling of button type flat 1`] = `
 >
   <Text
     style={
-      [
-        {
+      Array [
+        Object {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        {
+        Object {
           "color": "rgba(18, 18, 18, 1)",
           "fontFamily": "SoraSemiBold",
           "fontWeight": "600",
@@ -229,7 +229,7 @@ exports[`button should match styling of button type flat 1`] = `
 exports[`button should match styling of button type flat 2`] = `
 <View
   accessibilityState={
-    {
+    Object {
       "disabled": true,
     }
   }
@@ -244,7 +244,7 @@ exports[`button should match styling of button type flat 2`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    {
+    Object {
       "backgroundColor": "transparent",
       "borderRadius": 26,
       "flexDirection": "row",
@@ -263,14 +263,14 @@ exports[`button should match styling of button type flat 2`] = `
 >
   <Text
     style={
-      [
-        {
+      Array [
+        Object {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        {
+        Object {
           "color": "rgba(18, 18, 18, 0.3)",
           "fontFamily": "SoraSemiBold",
           "fontWeight": "600",
@@ -287,7 +287,7 @@ exports[`button should match styling of button type flat 2`] = `
 exports[`button should not be clickable when disabled 1`] = `
 <View
   accessibilityState={
-    {
+    Object {
       "disabled": true,
     }
   }
@@ -302,7 +302,7 @@ exports[`button should not be clickable when disabled 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    {
+    Object {
       "backgroundColor": "rgba(18, 18, 18, 0.3)",
       "borderRadius": 26,
       "flexDirection": "row",
@@ -322,14 +322,14 @@ exports[`button should not be clickable when disabled 1`] = `
 >
   <Text
     style={
-      [
-        {
+      Array [
+        Object {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        {
+        Object {
           "color": "rgba(242, 242, 242, 1)",
           "fontFamily": "SoraSemiBold",
           "fontWeight": "600",

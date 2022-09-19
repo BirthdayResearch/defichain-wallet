@@ -63,6 +63,8 @@ export default function App(): JSX.Element | null {
     return null;
   }
 
+  SplashScreen.hideAsync().catch(logger.error);
+
   const customToast = {
     wallet_toast: (toast: ToastProps) => <WalletToast toast={toast} />,
   };
