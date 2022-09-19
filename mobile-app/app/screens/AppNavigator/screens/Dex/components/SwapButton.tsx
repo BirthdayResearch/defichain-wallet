@@ -2,7 +2,7 @@ import { ThemedTextV2, ThemedTouchableOpacityV2 } from "@components/themed";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { DexParamList } from "../DexNavigator";
+import { DexParamList, DexScreenOrigin } from "../DexNavigator";
 
 export function SwapButton(): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>();
@@ -14,7 +14,7 @@ export function SwapButton(): JSX.Element {
       onPress={() =>
         navigation.navigate({
           name: "CompositeSwap",
-          params: {},
+          params: { originScreen: DexScreenOrigin.Dex_screen },
           merge: true,
         })
       }

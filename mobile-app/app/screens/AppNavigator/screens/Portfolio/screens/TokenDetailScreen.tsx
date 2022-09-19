@@ -41,7 +41,7 @@ import { TokenBreakdownDetailsV2 } from "../components/TokenBreakdownDetailsV2";
 import { getPrecisedTokenValue } from "../../Auctions/helpers/precision-token-value";
 import { PortfolioButtonGroupTabKey } from "../components/TotalPortfolio";
 import { TokenIcon } from "../components/TokenIcon";
-import { LiquidityScreenOrigin } from "../../Dex/DexNavigator";
+import { DexScreenOrigin } from "../../Dex/DexNavigator";
 
 interface TokenActionItems {
   title: string;
@@ -154,7 +154,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
       params: {
         pair,
         pairInfo: token,
-        originScreen: LiquidityScreenOrigin.Token_screen,
+        originScreen: DexScreenOrigin.Portfolio_screen,
       },
       merge: true,
     });

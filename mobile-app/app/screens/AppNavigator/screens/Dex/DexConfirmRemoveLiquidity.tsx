@@ -24,7 +24,7 @@ import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { PricesSectionV2 } from "@components/PricesSectionV2";
 import { useTokenPrice } from "../Portfolio/hooks/TokenPrice";
-import { DexParamList, LiquidityScreenOrigin } from "./DexNavigator";
+import { DexParamList, DexScreenOrigin } from "./DexNavigator";
 
 type Props = StackScreenProps<DexParamList, "RemoveLiquidityConfirmScreen">;
 
@@ -93,7 +93,7 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
             style: "destructive",
             onPress: async () => {
               navigation.navigate(
-                originScreen === LiquidityScreenOrigin.Dex_screen
+                originScreen === DexScreenOrigin.Dex_screen
                   ? "DexScreen"
                   : "PortfolioScreen"
               );

@@ -102,7 +102,7 @@ export interface OwnedTokenState extends TokenState {
   amount: string;
 }
 
-type Props = StackScreenProps<DexParamList, "CompositeSwapScreen">;
+type Props = StackScreenProps<DexParamList, "CompositeSwapScreenV2">;
 
 export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
   const logger = useLogger();
@@ -676,6 +676,7 @@ export function CompositeSwapScreenV2({ route }: Props): JSX.Element {
       pairs: selectedPoolPairs,
       priceRates,
       slippage: slippageInDecimal,
+      originScreen: route.params.originScreen,
       futureSwap: isFutureSwap
         ? {
             executionBlock,

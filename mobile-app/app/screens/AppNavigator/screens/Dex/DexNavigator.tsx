@@ -57,6 +57,21 @@ export interface DexParamList {
       };
     };
   };
+  CompositeSwapScreenV2: {
+    pair?: PoolPairData;
+    fromToken?: WalletToken;
+    tokenSelectOption?: {
+      from: {
+        isDisabled: boolean;
+        isPreselected: boolean;
+      };
+      to: {
+        isDisabled: boolean;
+        isPreselected: boolean;
+      };
+    };
+    originScreen: DexScreenOrigin;
+  };
   SwapTokenSelectionScreen: {
     fromToken: {
       symbol?: string;
@@ -86,6 +101,7 @@ export interface DexParamList {
     estimatedAmount: BigNumber;
     totalFees: string;
     estimatedLessFeesAfterSlippage: string;
+    originScreen: DexScreenOrigin;
   };
   ConfirmCompositeSwapScreen: {
     conversion?: ConversionParam;
@@ -107,19 +123,19 @@ export interface DexParamList {
   AddLiquidity: {
     pair: PoolPairData;
     pairInfo: WalletToken;
-    originScreen: LiquidityScreenOrigin;
+    originScreen: DexScreenOrigin;
   };
   ConfirmAddLiquidity: {
     pair: PoolPairData;
     summary: AddLiquiditySummary;
     conversion?: ConversionParam;
     pairInfo: WalletToken;
-    originScreen: LiquidityScreenOrigin;
+    originScreen: DexScreenOrigin;
   };
   RemoveLiquidity: {
     pair: PoolPairData;
     pairInfo: WalletToken;
-    originScreen: LiquidityScreenOrigin;
+    originScreen: DexScreenOrigin;
   };
   ConfirmRemoveLiquidity: {
     amount: BigNumber;
@@ -143,7 +159,7 @@ export interface DexParamList {
     tokenBAmount: BigNumber;
     tokenA?: WalletToken;
     tokenB?: WalletToken;
-    originScreen: LiquidityScreenOrigin;
+    originScreen: DexScreenOrigin;
   };
 
   [key: string]: undefined | object;
@@ -159,8 +175,8 @@ export interface AddLiquiditySummary {
   lmTotalTokens: string; // total LP tokens
 }
 
-export enum LiquidityScreenOrigin {
-  Token_screen = "PortfolioScreen",
+export enum DexScreenOrigin {
+  Portfolio_screen = "PortfolioScreen",
   Dex_screen = "DexScreen",
 }
 

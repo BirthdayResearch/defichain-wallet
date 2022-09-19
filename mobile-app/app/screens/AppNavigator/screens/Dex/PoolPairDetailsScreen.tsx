@@ -34,7 +34,7 @@ import { useToast } from "react-native-toast-notifications";
 import { openURL } from "@api/linking";
 import { useYourPoolPairAmountBreakdown } from "./hook/YourPoolPairAmountBreakdown";
 import { useFavouritePoolpairContext } from "../../../../contexts/FavouritePoolpairContext";
-import { DexParamList, LiquidityScreenOrigin } from "./DexNavigator";
+import { DexParamList, DexScreenOrigin } from "./DexNavigator";
 import { PoolPairIconV2 } from "./components/PoolPairCards/PoolPairIconV2";
 import { useTokenPrice } from "../Portfolio/hooks/TokenPrice";
 import { ActionType } from "./components/PoolPairCards/PoolPairCards";
@@ -91,7 +91,7 @@ export function PoolPairDetailsScreen({ route }: Props): JSX.Element {
       params: {
         pair: data,
         pairInfo: info,
-        originScreen: LiquidityScreenOrigin.Dex_screen,
+        originScreen: DexScreenOrigin.Dex_screen,
       },
       merge: true,
     });
@@ -103,7 +103,7 @@ export function PoolPairDetailsScreen({ route }: Props): JSX.Element {
       params: {
         pair: data,
         pairInfo: info,
-        originScreen: LiquidityScreenOrigin.Dex_screen,
+        originScreen: DexScreenOrigin.Dex_screen,
       },
       merge: true,
     });
