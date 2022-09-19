@@ -1,7 +1,7 @@
 import * as Clipboard from "expo-clipboard";
 import { useCallback, useEffect, useState } from "react";
 import { Share, View, TouchableOpacity } from "react-native";
-import QRCode from "react-native-qrcode-svg";
+import QRCode from "react-qr-code";
 import {
   ThemedIcon,
   ThemedScrollViewV2,
