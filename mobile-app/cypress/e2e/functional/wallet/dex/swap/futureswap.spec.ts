@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 import dayjs from "dayjs";
-import { checkValueWithinRange } from "../../../../support/walletCommands";
+import { checkValueWithinRange } from "../../../../../support/walletCommands";
 
 /*
   Future swap settles every 20 blocks. To ensure that there"s ample time (20 blocks) to:
