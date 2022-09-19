@@ -3,7 +3,7 @@
 exports[`portfolio page should match snapshot 1`] = `
 <View
   style={
-    Object {
+    {
       "flexBasis": "0%",
       "flexGrow": 1,
       "flexShrink": 1,
@@ -12,7 +12,7 @@ exports[`portfolio page should match snapshot 1`] = `
 >
   <RCTScrollView
     contentContainerStyle={
-      Object {
+      {
         "paddingBottom": 48,
       }
     }
@@ -23,9 +23,9 @@ exports[`portfolio page should match snapshot 1`] = `
       />
     }
     style={
-      Array [
+      [
         undefined,
-        Object {
+        {
           "backgroundColor": "rgba(242, 242, 242, 1)",
         },
       ]
@@ -36,15 +36,15 @@ exports[`portfolio page should match snapshot 1`] = `
     <View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "alignItems": "center",
               "display": "flex",
               "flexDirection": "row",
               "paddingLeft": 20,
               "paddingRight": 20,
             },
-            Object {
+            {
               "backgroundColor": "rgba(255, 255, 255, 1)",
             },
           ]
@@ -64,7 +64,7 @@ exports[`portfolio page should match snapshot 1`] = `
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            Object {
+            {
               "alignItems": "center",
               "backgroundColor": "transparent",
               "display": "flex",
@@ -77,8 +77,8 @@ exports[`portfolio page should match snapshot 1`] = `
         >
           <View
             style={
-              Array [
-                Object {
+              [
+                {
                   "borderBottomLeftRadius": 9999,
                   "borderBottomRightRadius": 9999,
                   "borderTopLeftRadius": 9999,
@@ -88,7 +88,7 @@ exports[`portfolio page should match snapshot 1`] = `
                   "paddingRight": 2,
                   "paddingTop": 2,
                 },
-                Object {
+                {
                   "backgroundColor": "rgba(18, 18, 18, 1)",
                 },
               ]
@@ -105,12 +105,12 @@ exports[`portfolio page should match snapshot 1`] = `
               minX={0}
               minY={0}
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "backgroundColor": "transparent",
                     "borderWidth": 0,
                   },
-                  Object {
+                  {
                     "flex": 0,
                     "height": 24,
                     "width": 24,
@@ -125,7 +125,7 @@ exports[`portfolio page should match snapshot 1`] = `
               <RNSVGGroup
                 fill={null}
                 propList={
-                  Array [
+                  [
                     "fill",
                   ]
                 }
@@ -134,7 +134,7 @@ exports[`portfolio page should match snapshot 1`] = `
                   height={80}
                   maskContentUnits={1}
                   maskTransform={
-                    Array [
+                    [
                       1,
                       0,
                       0,
@@ -153,7 +153,7 @@ exports[`portfolio page should match snapshot 1`] = `
                     fill={4294967295}
                     height={80}
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -170,7 +170,7 @@ exports[`portfolio page should match snapshot 1`] = `
                     fill={4284158207}
                     height={80}
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -182,7 +182,7 @@ exports[`portfolio page should match snapshot 1`] = `
                     fill={4294945863}
                     height={80}
                     matrix={
-                      Array [
+                      [
                         -0.46947156278589075,
                         -0.882947592858927,
                         0.882947592858927,
@@ -192,7 +192,7 @@ exports[`portfolio page should match snapshot 1`] = `
                       ]
                     }
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -205,7 +205,7 @@ exports[`portfolio page should match snapshot 1`] = `
                     cy={40}
                     fill={4278234397}
                     matrix={
-                      Array [
+                      [
                         1,
                         0,
                         0,
@@ -215,7 +215,7 @@ exports[`portfolio page should match snapshot 1`] = `
                       ]
                     }
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -223,7 +223,7 @@ exports[`portfolio page should match snapshot 1`] = `
                   />
                   <RNSVGLine
                     matrix={
-                      Array [
+                      [
                         -0.5591929034707467,
                         0.8290375725550417,
                         -0.8290375725550417,
@@ -233,7 +233,7 @@ exports[`portfolio page should match snapshot 1`] = `
                       ]
                     }
                     propList={
-                      Array [
+                      [
                         "stroke",
                         "strokeWidth",
                       ]
@@ -253,28 +253,28 @@ exports[`portfolio page should match snapshot 1`] = `
             ellipsizeMode="middle"
             numberOfLines={1}
             style={
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "RegularFont",
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Array [
-                  Array [
-                    Object {
+                [
+                  [
+                    {
                       "fontFamily": "SoraSemiBold",
                       "fontSize": 14,
                       "fontWeight": "600",
                       "lineHeight": 20,
                       "marginLeft": 8,
                     },
-                    Object {
+                    {
                       "maxWidth": 124,
                       "minWidth": 10,
                     },
                   ],
-                  Object {
+                  {
                     "color": "rgba(18, 18, 18, 1)",
                   },
                 ],
@@ -299,7 +299,7 @@ exports[`portfolio page should match snapshot 1`] = `
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            Object {
+            {
               "backgroundColor": "transparent",
               "marginLeft": 8,
               "opacity": 1,
@@ -312,8 +312,8 @@ exports[`portfolio page should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomLeftRadius": 15,
               "borderBottomRightRadius": 15,
               "paddingBottom": 20,
@@ -321,7 +321,7 @@ exports[`portfolio page should match snapshot 1`] = `
               "paddingRight": 20,
               "paddingTop": 20,
             },
-            Object {
+            {
               "backgroundColor": "rgba(255, 255, 255, 1)",
             },
           ]
@@ -330,7 +330,7 @@ exports[`portfolio page should match snapshot 1`] = `
       >
         <View
           style={
-            Object {
+            {
               "alignItems": "center",
               "display": "flex",
               "flexDirection": "row",
@@ -352,7 +352,7 @@ exports[`portfolio page should match snapshot 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "flexDirection": "row",
@@ -364,20 +364,20 @@ exports[`portfolio page should match snapshot 1`] = `
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "alignItems": "center",
                       "display": "flex",
                       "flexDirection": "row",
                     },
-                    Object {
+                    {
                       "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
@@ -386,16 +386,16 @@ exports[`portfolio page should match snapshot 1`] = `
             >
               <Text
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Array [
-                        Object {
+                    [
+                      [
+                        {
                           "alignItems": "center",
                           "display": "flex",
                           "flexDirection": "row",
@@ -403,12 +403,12 @@ exports[`portfolio page should match snapshot 1`] = `
                           "fontWeight": "600",
                           "marginRight": 8,
                         },
-                        Object {
+                        {
                           "fontSize": 28,
                           "lineHeight": 36,
                         },
                       ],
-                      Object {
+                      {
                         "color": "rgba(18, 18, 18, 1)",
                       },
                     ],
@@ -420,15 +420,15 @@ exports[`portfolio page should match snapshot 1`] = `
               </Text>
               <View
                 style={
-                  Object {
+                  {
                     "paddingBottom": 4,
                   }
                 }
               >
                 <View
                   style={
-                    Array [
-                      Object {
+                    [
+                      {
                         "borderBottomLeftRadius": 8,
                         "borderBottomRightRadius": 8,
                         "borderBottomWidth": 0.5,
@@ -442,7 +442,7 @@ exports[`portfolio page should match snapshot 1`] = `
                         "paddingRight": 8,
                         "paddingTop": 4,
                       },
-                      Object {
+                      {
                         "borderBottomColor": "rgba(18, 18, 18, 1)",
                         "borderLeftColor": "rgba(18, 18, 18, 1)",
                         "borderRightColor": "rgba(18, 18, 18, 1)",
@@ -453,22 +453,22 @@ exports[`portfolio page should match snapshot 1`] = `
                 >
                   <Text
                     style={
-                      Array [
-                        Object {
+                      [
+                        {
                           "fontFamily": "RegularFont",
                           "fontSize": 16,
                           "fontWeight": "400",
                           "lineHeight": 24,
                         },
-                        Array [
-                          Object {
+                        [
+                          {
                             "fontFamily": "SoraRegular",
                             "fontSize": 12,
                             "fontWeight": "400",
                             "lineHeight": 16,
                             "textAlign": "center",
                           },
-                          Object {
+                          {
                             "color": "rgba(18, 18, 18, 1)",
                           },
                         ],
@@ -496,7 +496,7 @@ exports[`portfolio page should match snapshot 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              Object {
+              {
                 "opacity": 1,
               }
             }
@@ -511,7 +511,7 @@ exports[`portfolio page should match snapshot 1`] = `
       >
         <RCTScrollView
           contentContainerStyle={
-            Object {
+            {
               "display": "flex",
               "justifyContent": "space-between",
               "marginTop": 32,
@@ -526,7 +526,7 @@ exports[`portfolio page should match snapshot 1`] = `
           <View>
             <View
               style={
-                Object {
+                {
                   "alignItems": "center",
                 }
               }
@@ -545,7 +545,7 @@ exports[`portfolio page should match snapshot 1`] = `
                 onResponderTerminationRequest={[Function]}
                 onStartShouldSetResponder={[Function]}
                 style={
-                  Object {
+                  {
                     "alignItems": "center",
                     "backgroundColor": "rgba(255, 255, 255, 1)",
                     "borderBottomLeftRadius": 9999,
@@ -566,15 +566,15 @@ exports[`portfolio page should match snapshot 1`] = `
               </View>
               <Text
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "SoraRegular",
                         "fontSize": 12,
                         "fontWeight": "400",
@@ -582,7 +582,7 @@ exports[`portfolio page should match snapshot 1`] = `
                         "marginTop": 8,
                         "textAlign": "center",
                       },
-                      Object {
+                      {
                         "color": "rgba(18, 18, 18, 1)",
                       },
                     ],
@@ -594,7 +594,7 @@ exports[`portfolio page should match snapshot 1`] = `
             </View>
             <View
               style={
-                Object {
+                {
                   "alignItems": "center",
                 }
               }
@@ -613,7 +613,7 @@ exports[`portfolio page should match snapshot 1`] = `
                 onResponderTerminationRequest={[Function]}
                 onStartShouldSetResponder={[Function]}
                 style={
-                  Object {
+                  {
                     "alignItems": "center",
                     "backgroundColor": "rgba(255, 255, 255, 1)",
                     "borderBottomLeftRadius": 9999,
@@ -634,15 +634,15 @@ exports[`portfolio page should match snapshot 1`] = `
               </View>
               <Text
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "SoraRegular",
                         "fontSize": 12,
                         "fontWeight": "400",
@@ -650,7 +650,7 @@ exports[`portfolio page should match snapshot 1`] = `
                         "marginTop": 8,
                         "textAlign": "center",
                       },
-                      Object {
+                      {
                         "color": "rgba(18, 18, 18, 1)",
                       },
                     ],
@@ -662,7 +662,7 @@ exports[`portfolio page should match snapshot 1`] = `
             </View>
             <View
               style={
-                Object {
+                {
                   "alignItems": "center",
                 }
               }
@@ -681,7 +681,7 @@ exports[`portfolio page should match snapshot 1`] = `
                 onResponderTerminationRequest={[Function]}
                 onStartShouldSetResponder={[Function]}
                 style={
-                  Object {
+                  {
                     "alignItems": "center",
                     "backgroundColor": "rgba(255, 255, 255, 1)",
                     "borderBottomLeftRadius": 9999,
@@ -702,15 +702,15 @@ exports[`portfolio page should match snapshot 1`] = `
               </View>
               <Text
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "SoraRegular",
                         "fontSize": 12,
                         "fontWeight": "400",
@@ -718,7 +718,7 @@ exports[`portfolio page should match snapshot 1`] = `
                         "marginTop": 8,
                         "textAlign": "center",
                       },
-                      Object {
+                      {
                         "color": "rgba(18, 18, 18, 1)",
                       },
                     ],
@@ -730,7 +730,7 @@ exports[`portfolio page should match snapshot 1`] = `
             </View>
             <View
               style={
-                Object {
+                {
                   "alignItems": "center",
                 }
               }
@@ -749,7 +749,7 @@ exports[`portfolio page should match snapshot 1`] = `
                 onResponderTerminationRequest={[Function]}
                 onStartShouldSetResponder={[Function]}
                 style={
-                  Object {
+                  {
                     "alignItems": "center",
                     "backgroundColor": "rgba(255, 255, 255, 1)",
                     "borderBottomLeftRadius": 9999,
@@ -770,15 +770,15 @@ exports[`portfolio page should match snapshot 1`] = `
               </View>
               <Text
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "SoraRegular",
                         "fontSize": 12,
                         "fontWeight": "400",
@@ -786,7 +786,7 @@ exports[`portfolio page should match snapshot 1`] = `
                         "marginTop": 8,
                         "textAlign": "center",
                       },
-                      Object {
+                      {
                         "color": "rgba(18, 18, 18, 1)",
                       },
                     ],
@@ -801,12 +801,12 @@ exports[`portfolio page should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "marginBottom": 32,
               "marginTop": 32,
             },
-            Object {
+            {
               "backgroundColor": "rgba(242, 242, 242, 1)",
             },
           ]
@@ -815,7 +815,7 @@ exports[`portfolio page should match snapshot 1`] = `
       >
         <RCTScrollView
           contentContainerStyle={
-            Object {
+            {
               "paddingLeft": 20,
             }
           }
@@ -837,7 +837,7 @@ exports[`portfolio page should match snapshot 1`] = `
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
               style={
-                Object {
+                {
                   "backgroundColor": "rgba(18, 18, 18, 1)",
                   "borderBottomLeftRadius": 16,
                   "borderBottomRightRadius": 16,
@@ -860,22 +860,22 @@ exports[`portfolio page should match snapshot 1`] = `
             >
               <Text
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "SoraRegular",
                         "fontSize": 12,
                         "fontWeight": "400",
                         "lineHeight": 16,
                         "textAlign": "center",
                       },
-                      Object {
+                      {
                         "color": "rgba(242, 242, 242, 1)",
                       },
                     ],
@@ -899,7 +899,7 @@ exports[`portfolio page should match snapshot 1`] = `
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
               style={
-                Object {
+                {
                   "borderBottomColor": "rgba(89, 89, 89, 1)",
                   "borderBottomLeftRadius": 16,
                   "borderBottomRightRadius": 16,
@@ -925,22 +925,22 @@ exports[`portfolio page should match snapshot 1`] = `
             >
               <Text
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "SoraRegular",
                         "fontSize": 12,
                         "fontWeight": "400",
                         "lineHeight": 16,
                         "textAlign": "center",
                       },
-                      Object {
+                      {
                         "color": "rgba(89, 89, 89, 1)",
                       },
                     ],
@@ -964,7 +964,7 @@ exports[`portfolio page should match snapshot 1`] = `
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
               style={
-                Object {
+                {
                   "borderBottomColor": "rgba(89, 89, 89, 1)",
                   "borderBottomLeftRadius": 16,
                   "borderBottomRightRadius": 16,
@@ -990,22 +990,22 @@ exports[`portfolio page should match snapshot 1`] = `
             >
               <Text
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "SoraRegular",
                         "fontSize": 12,
                         "fontWeight": "400",
                         "lineHeight": 16,
                         "textAlign": "center",
                       },
-                      Object {
+                      {
                         "color": "rgba(89, 89, 89, 1)",
                       },
                     ],
@@ -1029,7 +1029,7 @@ exports[`portfolio page should match snapshot 1`] = `
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
               style={
-                Object {
+                {
                   "borderBottomColor": "rgba(89, 89, 89, 1)",
                   "borderBottomLeftRadius": 16,
                   "borderBottomRightRadius": 16,
@@ -1055,22 +1055,22 @@ exports[`portfolio page should match snapshot 1`] = `
             >
               <Text
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "SoraRegular",
                         "fontSize": 12,
                         "fontWeight": "400",
                         "lineHeight": 16,
                         "textAlign": "center",
                       },
-                      Object {
+                      {
                         "color": "rgba(89, 89, 89, 1)",
                       },
                     ],
@@ -1085,7 +1085,7 @@ exports[`portfolio page should match snapshot 1`] = `
       </View>
       <View
         style={
-          Object {
+          {
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -1097,22 +1097,22 @@ exports[`portfolio page should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 12,
                   "fontWeight": "400",
                   "lineHeight": 16,
                   "paddingRight": 4,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -1135,7 +1135,7 @@ exports[`portfolio page should match snapshot 1`] = `
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            Object {
+            {
               "alignItems": "center",
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
@@ -1150,21 +1150,21 @@ exports[`portfolio page should match snapshot 1`] = `
         >
           <Text
             style={
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "RegularFont",
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "SoraRegular",
                     "fontSize": 12,
                     "fontWeight": "400",
                     "lineHeight": 16,
                   },
-                  Object {
+                  {
                     "color": "rgba(43, 43, 43, 1)",
                   },
                 ],
@@ -1178,7 +1178,7 @@ exports[`portfolio page should match snapshot 1`] = `
       </View>
       <View
         style={
-          Object {
+          {
             "borderBottomLeftRadius": 10,
             "borderBottomRightRadius": 10,
             "borderTopLeftRadius": 10,
@@ -1192,7 +1192,7 @@ exports[`portfolio page should match snapshot 1`] = `
       >
         <View
           style={
-            Object {
+            {
               "borderBottomLeftRadius": 10,
               "borderBottomRightRadius": 10,
               "borderTopLeftRadius": 10,
@@ -1204,7 +1204,7 @@ exports[`portfolio page should match snapshot 1`] = `
         >
           <View
             accessibilityState={
-              Object {
+              {
                 "disabled": false,
               }
             }
@@ -1221,7 +1221,7 @@ exports[`portfolio page should match snapshot 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              Object {
+              {
                 "alignItems": "flex-start",
                 "backgroundColor": "rgba(255, 255, 255, 1)",
                 "display": "flex",
@@ -1236,7 +1236,7 @@ exports[`portfolio page should match snapshot 1`] = `
           >
             <View
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "flexDirection": "row",
                   "width": "58.333333%",
@@ -1253,12 +1253,12 @@ exports[`portfolio page should match snapshot 1`] = `
                 minX={0}
                 minY={0}
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "backgroundColor": "transparent",
                       "borderWidth": 0,
                     },
-                    Object {
+                    {
                       "flex": 0,
                       "height": 36,
                       "width": 36,
@@ -1275,7 +1275,7 @@ exports[`portfolio page should match snapshot 1`] = `
                     cy={16}
                     fill={4294901935}
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -1285,7 +1285,7 @@ exports[`portfolio page should match snapshot 1`] = `
                     d="M18.217 23.454V8.546c3.21.958 5.555 3.937 5.555 7.454s-2.346 6.496-5.555 7.454M15.994 6v8.428l-1.269-1.27-.162-3.167 1.324-3.985a9.952 9.952 0 00-2.454.338l-.64 1.926-1.816-.91a10.03 10.03 0 00-1.974 1.497l3.363 1.685.098 1.928-1.927-.099L8.85 9.01a10.035 10.035 0 00-1.497 1.973l.911 1.816-1.927.64A9.978 9.978 0 006 15.892l3.986-1.324 3.168.162 1.27 1.27-1.27 1.27-3.168.162L6 16.108c.009.849.13 1.669.338 2.454l1.927.64-.911 1.816c.418.719.92 1.383 1.497 1.973l1.686-3.362 1.927-.099-.098 1.928-3.363 1.685a10.04 10.04 0 001.974 1.498l1.815-.911.64 1.926a9.94 9.94 0 002.455.338l-1.324-3.985.162-3.168 1.27-1.27V26c5.522 0 10-4.477 10-10s-4.478-10-10-10"
                     fill={4294967295}
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -1294,7 +1294,7 @@ exports[`portfolio page should match snapshot 1`] = `
               </RNSVGSvgView>
               <View
                 style={
-                  Object {
+                  {
                     "flexBasis": "auto",
                     "flexGrow": 1,
                     "flexShrink": 1,
@@ -1304,21 +1304,21 @@ exports[`portfolio page should match snapshot 1`] = `
               >
                 <Text
                   style={
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      Array [
-                        Object {
+                      [
+                        {
                           "fontFamily": "SoraSemiBold",
                           "fontSize": 14,
                           "fontWeight": "600",
                           "lineHeight": 20,
                         },
-                        Object {
+                        {
                           "color": "rgba(18, 18, 18, 1)",
                         },
                       ],
@@ -1332,22 +1332,22 @@ exports[`portfolio page should match snapshot 1`] = `
                   ellipsizeMode="tail"
                   numberOfLines={1}
                   style={
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      Array [
-                        Object {
+                      [
+                        {
                           "fontFamily": "SoraRegular",
                           "fontSize": 12,
                           "fontWeight": "400",
                           "lineHeight": 16,
                           "marginTop": 4,
                         },
-                        Object {
+                        {
                           "color": "rgba(89, 89, 89, 1)",
                         },
                       ],
@@ -1361,7 +1361,7 @@ exports[`portfolio page should match snapshot 1`] = `
             </View>
             <View
               style={
-                Object {
+                {
                   "flexDirection": "row",
                   "justifyContent": "flex-end",
                   "width": "41.666667%",
@@ -1370,7 +1370,7 @@ exports[`portfolio page should match snapshot 1`] = `
             >
               <View
                 style={
-                  Object {
+                  {
                     "display": "flex",
                     "flexBasis": "0%",
                     "flexGrow": 1,
@@ -1380,16 +1380,16 @@ exports[`portfolio page should match snapshot 1`] = `
               >
                 <Text
                   style={
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      Array [
-                        Array [
-                          Object {
+                      [
+                        [
+                          {
                             "fontFamily": "SoraSemiBold",
                             "fontSize": 14,
                             "fontWeight": "600",
@@ -1399,7 +1399,7 @@ exports[`portfolio page should match snapshot 1`] = `
                             "textAlign": "right",
                           },
                         ],
-                        Object {
+                        {
                           "color": "rgba(18, 18, 18, 1)",
                         },
                       ],
@@ -1408,15 +1408,15 @@ exports[`portfolio page should match snapshot 1`] = `
                 >
                   <Text
                     style={
-                      Array [
-                        Object {
+                      [
+                        {
                           "fontFamily": "RegularFont",
                           "fontSize": 16,
                           "fontWeight": "400",
                           "lineHeight": 24,
                         },
-                        Array [
-                          Object {
+                        [
+                          {
                             "flexWrap": "wrap",
                             "fontFamily": "SoraSemiBold",
                             "fontSize": 14,
@@ -1424,7 +1424,7 @@ exports[`portfolio page should match snapshot 1`] = `
                             "lineHeight": 20,
                             "textAlign": "right",
                           },
-                          Object {
+                          {
                             "color": "rgba(18, 18, 18, 1)",
                           },
                         ],
@@ -1437,13 +1437,13 @@ exports[`portfolio page should match snapshot 1`] = `
                 </Text>
                 <View
                   style={
-                    Array [
-                      Object {
+                    [
+                      {
                         "alignItems": "center",
                         "display": "flex",
                         "flexDirection": "row",
                       },
-                      Object {
+                      {
                         "justifyContent": "flex-end",
                       },
                     ]
@@ -1451,26 +1451,26 @@ exports[`portfolio page should match snapshot 1`] = `
                 >
                   <Text
                     style={
-                      Array [
-                        Object {
+                      [
+                        {
                           "fontFamily": "RegularFont",
                           "fontSize": 16,
                           "fontWeight": "400",
                           "lineHeight": 24,
                         },
-                        Array [
-                          Array [
-                            Object {
+                        [
+                          [
+                            {
                               "fontFamily": "SoraRegular",
                               "fontSize": 12,
                               "fontWeight": "400",
                               "lineHeight": 16,
                             },
-                            Object {
+                            {
                               "textAlign": "right",
                             },
                           ],
-                          Object {
+                          {
                             "color": "rgba(89, 89, 89, 1)",
                           },
                         ],
@@ -1488,7 +1488,7 @@ exports[`portfolio page should match snapshot 1`] = `
       </View>
       <View
         style={
-          Object {
+          {
             "marginLeft": 20,
             "marginRight": 20,
           }
@@ -1509,7 +1509,7 @@ exports[`portfolio page should match snapshot 1`] = `
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            Object {
+            {
               "backgroundColor": "rgba(255, 255, 255, 1)",
               "borderBottomLeftRadius": 10,
               "borderBottomRightRadius": 10,
@@ -1531,7 +1531,7 @@ exports[`portfolio page should match snapshot 1`] = `
         >
           <View
             style={
-              Object {
+              {
                 "alignItems": "flex-start",
                 "display": "flex",
                 "flexDirection": "row",
@@ -1540,7 +1540,7 @@ exports[`portfolio page should match snapshot 1`] = `
           >
             <View
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "flexDirection": "row",
                   "width": "58.333333%",
@@ -1557,12 +1557,12 @@ exports[`portfolio page should match snapshot 1`] = `
                 minX={0}
                 minY={0}
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "backgroundColor": "transparent",
                       "borderWidth": 0,
                     },
-                    Object {
+                    {
                       "flex": 0,
                       "height": 36,
                       "width": 36,
@@ -1579,7 +1579,7 @@ exports[`portfolio page should match snapshot 1`] = `
                     d="M31.521 19.87c-2.137 8.572-10.82 13.788-19.393 11.651C3.558 29.384-1.659 20.702.479 12.131 2.616 3.56 11.298-1.659 19.87.48c8.573 2.137 13.79 10.82 11.652 19.392z"
                     fill={4294830545}
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -1588,7 +1588,7 @@ exports[`portfolio page should match snapshot 1`] = `
                     d="M22.96 14.04c.313-2.101-1.276-3.23-3.448-3.985l.705-2.846-1.72-.432-.686 2.772a67.899 67.899 0 00-1.379-.327l.691-2.79L15.404 6l-.705 2.846a57.2 57.2 0 01-1.099-.26l.002-.01-2.372-.596-.458 1.85s1.277.296 1.25.314c.696.175.822.64.801 1.008l-.802 3.243c.048.012.11.03.179.057l-.182-.045-1.125 4.543c-.085.213-.302.533-.789.412.018.025-1.25-.315-1.25-.315L8 21.031l2.239.562c.416.105.824.215 1.226.319l-.712 2.88 1.718.431.706-2.849c.469.129.925.247 1.37.359l-.702 2.835 1.72.432.712-2.874c2.934.56 5.14.334 6.068-2.339.748-2.152-.037-3.393-1.58-4.202 1.123-.261 1.97-1.006 2.196-2.545zm-4.012 5.8c-.497 1.961-3.858.901-4.948.635L14.883 17c1.09.267 4.584.796 4.065 2.84zm.991-6.05c-.538 1.993-3.861.98-4.939.732L15.95 11c1.079.248 4.55.712 3.99 2.79z"
                     fill={4294415130}
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -1597,7 +1597,7 @@ exports[`portfolio page should match snapshot 1`] = `
               </RNSVGSvgView>
               <View
                 style={
-                  Object {
+                  {
                     "flexBasis": "auto",
                     "flexGrow": 1,
                     "flexShrink": 1,
@@ -1607,21 +1607,21 @@ exports[`portfolio page should match snapshot 1`] = `
               >
                 <Text
                   style={
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      Array [
-                        Object {
+                      [
+                        {
                           "fontFamily": "SoraSemiBold",
                           "fontSize": 14,
                           "fontWeight": "600",
                           "lineHeight": 20,
                         },
-                        Object {
+                        {
                           "color": "rgba(18, 18, 18, 1)",
                         },
                       ],
@@ -1635,22 +1635,22 @@ exports[`portfolio page should match snapshot 1`] = `
                   ellipsizeMode="tail"
                   numberOfLines={1}
                   style={
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      Array [
-                        Object {
+                      [
+                        {
                           "fontFamily": "SoraRegular",
                           "fontSize": 12,
                           "fontWeight": "400",
                           "lineHeight": 16,
                           "marginTop": 4,
                         },
-                        Object {
+                        {
                           "color": "rgba(89, 89, 89, 1)",
                         },
                       ],
@@ -1664,7 +1664,7 @@ exports[`portfolio page should match snapshot 1`] = `
             </View>
             <View
               style={
-                Object {
+                {
                   "flexDirection": "row",
                   "justifyContent": "flex-end",
                   "width": "41.666667%",
@@ -1673,7 +1673,7 @@ exports[`portfolio page should match snapshot 1`] = `
             >
               <View
                 style={
-                  Object {
+                  {
                     "display": "flex",
                     "flexBasis": "0%",
                     "flexGrow": 1,
@@ -1683,16 +1683,16 @@ exports[`portfolio page should match snapshot 1`] = `
               >
                 <Text
                   style={
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      Array [
-                        Array [
-                          Object {
+                      [
+                        [
+                          {
                             "fontFamily": "SoraSemiBold",
                             "fontSize": 14,
                             "fontWeight": "600",
@@ -1702,7 +1702,7 @@ exports[`portfolio page should match snapshot 1`] = `
                             "textAlign": "right",
                           },
                         ],
-                        Object {
+                        {
                           "color": "rgba(18, 18, 18, 1)",
                         },
                       ],
@@ -1711,15 +1711,15 @@ exports[`portfolio page should match snapshot 1`] = `
                 >
                   <Text
                     style={
-                      Array [
-                        Object {
+                      [
+                        {
                           "fontFamily": "RegularFont",
                           "fontSize": 16,
                           "fontWeight": "400",
                           "lineHeight": 24,
                         },
-                        Array [
-                          Object {
+                        [
+                          {
                             "flexWrap": "wrap",
                             "fontFamily": "SoraSemiBold",
                             "fontSize": 14,
@@ -1727,7 +1727,7 @@ exports[`portfolio page should match snapshot 1`] = `
                             "lineHeight": 20,
                             "textAlign": "right",
                           },
-                          Object {
+                          {
                             "color": "rgba(18, 18, 18, 1)",
                           },
                         ],
@@ -1740,13 +1740,13 @@ exports[`portfolio page should match snapshot 1`] = `
                 </Text>
                 <View
                   style={
-                    Array [
-                      Object {
+                    [
+                      {
                         "alignItems": "center",
                         "display": "flex",
                         "flexDirection": "row",
                       },
-                      Object {
+                      {
                         "justifyContent": "flex-end",
                       },
                     ]
@@ -1754,26 +1754,26 @@ exports[`portfolio page should match snapshot 1`] = `
                 >
                   <Text
                     style={
-                      Array [
-                        Object {
+                      [
+                        {
                           "fontFamily": "RegularFont",
                           "fontSize": 16,
                           "fontWeight": "400",
                           "lineHeight": 24,
                         },
-                        Array [
-                          Array [
-                            Object {
+                        [
+                          [
+                            {
                               "fontFamily": "SoraRegular",
                               "fontSize": 12,
                               "fontWeight": "400",
                               "lineHeight": 16,
                             },
-                            Object {
+                            {
                               "textAlign": "right",
                             },
                           ],
-                          Object {
+                          {
                             "color": "rgba(89, 89, 89, 1)",
                           },
                         ],
@@ -1802,7 +1802,7 @@ exports[`portfolio page should match snapshot 1`] = `
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            Object {
+            {
               "backgroundColor": "rgba(255, 255, 255, 1)",
               "borderBottomLeftRadius": 10,
               "borderBottomRightRadius": 10,
@@ -1824,7 +1824,7 @@ exports[`portfolio page should match snapshot 1`] = `
         >
           <View
             style={
-              Object {
+              {
                 "alignItems": "flex-start",
                 "display": "flex",
                 "flexDirection": "row",
@@ -1833,7 +1833,7 @@ exports[`portfolio page should match snapshot 1`] = `
           >
             <View
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "flexDirection": "row",
                   "width": "58.333333%",
@@ -1850,12 +1850,12 @@ exports[`portfolio page should match snapshot 1`] = `
                 minX={0}
                 minY={0}
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "backgroundColor": "transparent",
                       "borderWidth": 0,
                     },
-                    Object {
+                    {
                       "flex": 0,
                       "height": 36,
                       "width": 36,
@@ -1873,7 +1873,7 @@ exports[`portfolio page should match snapshot 1`] = `
                     cy={16}
                     fill={4292929019}
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -1883,7 +1883,7 @@ exports[`portfolio page should match snapshot 1`] = `
                     d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
                     fill={4294967295}
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -1893,7 +1893,7 @@ exports[`portfolio page should match snapshot 1`] = `
                     fill={4284645098}
                     fillOpacity={0.8}
                     propList={
-                      Array [
+                      [
                         "fill",
                         "fillOpacity",
                       ]
@@ -1903,7 +1903,7 @@ exports[`portfolio page should match snapshot 1`] = `
                     d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
                     fill={4294967295}
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -1913,7 +1913,7 @@ exports[`portfolio page should match snapshot 1`] = `
                     fill={4284645098}
                     fillOpacity={0.6}
                     propList={
-                      Array [
+                      [
                         "fill",
                         "fillOpacity",
                       ]
@@ -1923,7 +1923,7 @@ exports[`portfolio page should match snapshot 1`] = `
                     d="M15.998 20.573l7.497-4.353-7.497-3.348z"
                     fill={4284645098}
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -1932,7 +1932,7 @@ exports[`portfolio page should match snapshot 1`] = `
               </RNSVGSvgView>
               <View
                 style={
-                  Object {
+                  {
                     "flexBasis": "auto",
                     "flexGrow": 1,
                     "flexShrink": 1,
@@ -1942,21 +1942,21 @@ exports[`portfolio page should match snapshot 1`] = `
               >
                 <Text
                   style={
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      Array [
-                        Object {
+                      [
+                        {
                           "fontFamily": "SoraSemiBold",
                           "fontSize": 14,
                           "fontWeight": "600",
                           "lineHeight": 20,
                         },
-                        Object {
+                        {
                           "color": "rgba(18, 18, 18, 1)",
                         },
                       ],
@@ -1970,22 +1970,22 @@ exports[`portfolio page should match snapshot 1`] = `
                   ellipsizeMode="tail"
                   numberOfLines={1}
                   style={
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      Array [
-                        Object {
+                      [
+                        {
                           "fontFamily": "SoraRegular",
                           "fontSize": 12,
                           "fontWeight": "400",
                           "lineHeight": 16,
                           "marginTop": 4,
                         },
-                        Object {
+                        {
                           "color": "rgba(89, 89, 89, 1)",
                         },
                       ],
@@ -1999,7 +1999,7 @@ exports[`portfolio page should match snapshot 1`] = `
             </View>
             <View
               style={
-                Object {
+                {
                   "flexDirection": "row",
                   "justifyContent": "flex-end",
                   "width": "41.666667%",
@@ -2008,7 +2008,7 @@ exports[`portfolio page should match snapshot 1`] = `
             >
               <View
                 style={
-                  Object {
+                  {
                     "display": "flex",
                     "flexBasis": "0%",
                     "flexGrow": 1,
@@ -2018,16 +2018,16 @@ exports[`portfolio page should match snapshot 1`] = `
               >
                 <Text
                   style={
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      Array [
-                        Array [
-                          Object {
+                      [
+                        [
+                          {
                             "fontFamily": "SoraSemiBold",
                             "fontSize": 14,
                             "fontWeight": "600",
@@ -2037,7 +2037,7 @@ exports[`portfolio page should match snapshot 1`] = `
                             "textAlign": "right",
                           },
                         ],
-                        Object {
+                        {
                           "color": "rgba(18, 18, 18, 1)",
                         },
                       ],
@@ -2046,15 +2046,15 @@ exports[`portfolio page should match snapshot 1`] = `
                 >
                   <Text
                     style={
-                      Array [
-                        Object {
+                      [
+                        {
                           "fontFamily": "RegularFont",
                           "fontSize": 16,
                           "fontWeight": "400",
                           "lineHeight": 24,
                         },
-                        Array [
-                          Object {
+                        [
+                          {
                             "flexWrap": "wrap",
                             "fontFamily": "SoraSemiBold",
                             "fontSize": 14,
@@ -2062,7 +2062,7 @@ exports[`portfolio page should match snapshot 1`] = `
                             "lineHeight": 20,
                             "textAlign": "right",
                           },
-                          Object {
+                          {
                             "color": "rgba(18, 18, 18, 1)",
                           },
                         ],
@@ -2075,13 +2075,13 @@ exports[`portfolio page should match snapshot 1`] = `
                 </Text>
                 <View
                   style={
-                    Array [
-                      Object {
+                    [
+                      {
                         "alignItems": "center",
                         "display": "flex",
                         "flexDirection": "row",
                       },
-                      Object {
+                      {
                         "justifyContent": "flex-end",
                       },
                     ]
@@ -2089,26 +2089,26 @@ exports[`portfolio page should match snapshot 1`] = `
                 >
                   <Text
                     style={
-                      Array [
-                        Object {
+                      [
+                        {
                           "fontFamily": "RegularFont",
                           "fontSize": 16,
                           "fontWeight": "400",
                           "lineHeight": 24,
                         },
-                        Array [
-                          Array [
-                            Object {
+                        [
+                          [
+                            {
                               "fontFamily": "SoraRegular",
                               "fontSize": 12,
                               "fontWeight": "400",
                               "lineHeight": 16,
                             },
-                            Object {
+                            {
                               "textAlign": "right",
                             },
                           ],
-                          Object {
+                          {
                             "color": "rgba(89, 89, 89, 1)",
                           },
                         ],
