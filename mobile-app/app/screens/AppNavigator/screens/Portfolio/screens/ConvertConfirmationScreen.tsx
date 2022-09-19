@@ -1,30 +1,3 @@
-<<<<<<< HEAD
-import { ThemedScrollViewV2, ThemedViewV2 } from '@components/themed'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { StackScreenProps } from '@react-navigation/stack'
-import BigNumber from 'bignumber.js'
-import { Dispatch, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { RootState } from '@store'
-import { hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
-import { tailwind } from '@tailwind'
-import { translate } from '@translations'
-import { PortfolioParamList } from '../PortfolioNavigator'
-import { ConversionMode } from './ConvertScreen'
-import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
-import { dfiConversionCrafter } from '@api/transaction/dfi_converter'
-import { useAppDispatch } from '@hooks/useAppDispatch'
-import { SummaryTitleV2 } from '@components/SummaryTitleV2'
-import { SubmitButtonGroupV2 } from '@components/SubmitButtonGroupV2'
-import { View } from 'react-native'
-import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useAddressLabel } from '@hooks/useAddressLabel'
-import { NumberRowV2 } from '@components/NumberRowV2'
-import { ConvertTokenUnit, getDisplayUnit } from '@screens/AppNavigator/screens/Portfolio/screens/ConvertScreen'
-import { WalletAlert } from '@components/WalletAlert'
-=======
 import { ThemedScrollViewV2, ThemedViewV2 } from "@components/themed";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
@@ -55,7 +28,6 @@ import {
 } from "@screens/AppNavigator/screens/Portfolio/screens/ConvertScreen";
 import { ConversionMode } from "./ConvertScreen";
 import { PortfolioParamList } from "../PortfolioNavigator";
->>>>>>> main
 
 type Props = StackScreenProps<PortfolioParamList, "ConvertConfirmationScreen">;
 
@@ -111,25 +83,6 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
 
   function onCancel(): void {
     if (!isSubmitting) {
-<<<<<<< HEAD
-      WalletAlert({
-        title: translate('screens/Settings', 'Cancel transaction'),
-        message: translate('screens/Settings', 'By cancelling, you will lose any changes you made for your transaction.'),
-        buttons: [
-          {
-            text: translate('screens/Settings', 'Go back'),
-            style: 'cancel'
-          },
-          {
-            text: translate('screens/Settings', 'Cancel'),
-            style: 'destructive',
-            onPress: async () => {
-              navigation.navigate('PortfolioScreen')
-            }
-          }
-        ]
-      })
-=======
       navigation.navigate({
         name: "ConvertScreen",
         params: {
@@ -137,7 +90,6 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
         },
         merge: true,
       });
->>>>>>> main
     }
   }
 
