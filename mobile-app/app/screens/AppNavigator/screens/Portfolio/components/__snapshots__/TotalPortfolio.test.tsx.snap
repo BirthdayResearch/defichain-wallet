@@ -3,8 +3,8 @@
 exports[`DFI Total Portfolio Card should match snapshot 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "borderBottomLeftRadius": 15,
         "borderBottomRightRadius": 15,
         "paddingBottom": 20,
@@ -12,7 +12,7 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
         "paddingRight": 20,
         "paddingTop": 20,
       },
-      Object {
+      {
         "backgroundColor": "rgba(255, 255, 255, 1)",
       },
     ]
@@ -21,7 +21,7 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
 >
   <View
     style={
-      Object {
+      {
         "alignItems": "center",
         "display": "flex",
         "flexDirection": "row",
@@ -41,7 +41,7 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
       style={
-        Object {
+        {
           "alignItems": "center",
           "display": "flex",
           "flexDirection": "row",
@@ -53,20 +53,20 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
+            [
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "flexDirection": "row",
               },
-              Object {
+              {
                 "color": "rgba(18, 18, 18, 1)",
               },
             ],
@@ -75,16 +75,16 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Array [
-                  Object {
+              [
+                [
+                  {
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
@@ -92,12 +92,12 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
                     "fontWeight": "600",
                     "marginRight": 8,
                   },
-                  Object {
+                  {
                     "fontSize": 28,
                     "lineHeight": 36,
                   },
                 ],
-                Object {
+                {
                   "color": "rgba(18, 18, 18, 1)",
                 },
               ],
@@ -109,7 +109,7 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
         </Text>
         <View
           style={
-            Object {
+            {
               "paddingBottom": 4,
               "paddingLeft": 8,
             }
@@ -117,8 +117,8 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
         >
           <View
             style={
-              Array [
-                Object {
+              [
+                {
                   "borderBottomLeftRadius": 8,
                   "borderBottomRightRadius": 8,
                   "borderBottomWidth": 0.5,
@@ -132,7 +132,7 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
                   "paddingRight": 8,
                   "paddingTop": 4,
                 },
-                Object {
+                {
                   "borderBottomColor": "rgba(18, 18, 18, 1)",
                   "borderLeftColor": "rgba(18, 18, 18, 1)",
                   "borderRightColor": "rgba(18, 18, 18, 1)",
@@ -143,22 +143,22 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "SoraRegular",
                       "fontSize": 12,
                       "fontWeight": "400",
                       "lineHeight": 16,
                       "textAlign": "center",
                     },
-                    Object {
+                    {
                       "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
@@ -184,7 +184,7 @@ exports[`DFI Total Portfolio Card should match snapshot 1`] = `
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
       style={
-        Object {
+        {
           "opacity": 1,
         }
       }
