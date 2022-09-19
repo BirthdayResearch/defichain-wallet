@@ -4,8 +4,6 @@ import { tailwind } from "@tailwind";
 import { ThemedFlatListV2 } from "@components/themed";
 import { BatchCard } from "@screens/AppNavigator/screens/Auctions/components/BatchCard";
 import { Platform, View } from "react-native";
-import { useSelector } from "react-redux";
-import { RootState } from "@store";
 import {
   LoanVaultLiquidated,
   LoanVaultLiquidationBatch,
@@ -13,7 +11,6 @@ import {
 import { AuctionBatchProps } from "@store/auctions";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import BigNumber from "bignumber.js";
-import { tokensSelector } from "@store/wallet";
 import { translate } from "@translations";
 import {
   BottomSheetWebWithNavV2,
@@ -64,9 +61,6 @@ export function BrowseAuctions({
   yourVaultIds,
   activeButtonGroup,
 }: Props): JSX.Element {
-  const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
-  );
   const { getTokenPrice } = useTokenPrice();
 
   const detailedAuctionBatch = filteredAuctionBatches.map((batch) => {
@@ -171,25 +165,38 @@ export function BrowseAuctions({
   );
 
   const onQuickBid = (props: onQuickBidProps): void => {
-    const ownedToken = tokens.find((token) => token.id === props.batch.loan.id);
-    const currentBalance = new BigNumber(ownedToken?.amount ?? 0);
     setBottomSheetScreen([
       {
         stackScreenName: "Quick Bid",
         option: {
-          header: () => null,
+          headerStatusBarHeight: 1,
+          headerTitle: "",
           headerBackTitleVisible: false,
+          header: (): JSX.Element => {
+            return (
+              <BottomSheetHeader
+                headerStyle={{
+                  style: tailwind(
+                    "text-xl font-normal-v2 text-center mt-5 pt-0.5"
+                  ),
+                  light: tailwind("text-mono-light-v2-1000"),
+                  dark: tailwind("text-mono-dark-v2-1000"),
+                }}
+                containerStyle={tailwind("pb-4")}
+                onClose={dismissModal}
+                headerText={translate("components/QuickBid", "Quick Bid")}
+              />
+            );
+          },
         },
         component: QuickBid({
           vaultId: props.vaultId,
           index: props.batch.index,
           loanTokenId: props.batch.loan.id,
-          loanTokenSymbol: props.batch.loan.symbol,
           loanTokenDisplaySymbol: props.batch.loan.displaySymbol,
           onCloseButtonPress: dismissModal,
           minNextBid: new BigNumber(props.minNextBidInToken),
           minNextBidInUSD: props.minNextBidInUSD,
-          currentBalance: currentBalance,
           vaultLiquidationHeight: props.vaultLiquidationHeight,
         }),
       },
@@ -240,8 +247,8 @@ export function BrowseAuctions({
           modalRef={bottomSheetRef}
           screenList={bottomSheetScreen}
           snapPoints={{
-            ios: ["40%"],
-            android: ["40%"],
+            ios: ["50%"],
+            android: ["50%"],
           }}
         />
       )}
@@ -273,11 +280,12 @@ function BatchCards({
       item: DetailedAuctionBatch;
       index: number;
     }): JSX.Element => {
-      const { auction, ...batch } = item;
+      const { auction, collateralTokenSymbols, ...batch } = item;
       return (
         <BatchCard
           vault={auction}
           batch={batch}
+          collateralTokenSymbols={collateralTokenSymbols}
           key={`${auction.vaultId}_${batch.index}`}
           testID={`batch_card_${index}`}
           onQuickBid={onQuickBid}

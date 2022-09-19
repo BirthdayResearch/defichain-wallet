@@ -24,7 +24,6 @@ import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { IconButton } from "@components/IconButton";
 import { AuctionBidStatus } from "@screens/AppNavigator/screens/Auctions/components/BatchCard";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { tokensSelector } from "@store/wallet";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { LoanVaultLiquidationBatch } from "@defichain/whale-api-client/dist/api/loan";
 import { fetchAuctions } from "@store/auctions";
@@ -59,9 +58,6 @@ export function AuctionDetailScreen(
   const [batch, setBatch] = useState<LoanVaultLiquidationBatch>(batchFromParam);
   const client = useWhaleApiClient();
   const dispatch = useAppDispatch();
-  const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
-  );
   const { getAuctionsUrl } = useDeFiScanContext();
   const [activeTab, setActiveTab] = useState<string>(TabKey.BidHistory);
   const { minNextBidInToken, totalCollateralsValueInUSD, minNextBidInUSD } =
@@ -110,8 +106,6 @@ export function AuctionDetailScreen(
   }, [auctions]);
 
   const onQuickBid = (): void => {
-    const ownedToken = tokens.find((token) => token.id === batch.loan.id);
-    const currentBalance = new BigNumber(ownedToken?.amount ?? 0);
     setBottomSheetScreen([
       {
         stackScreenName: "Quick Bid",
@@ -123,12 +117,10 @@ export function AuctionDetailScreen(
           vaultId: vault.vaultId,
           index: batch.index,
           loanTokenId: batch.loan.id,
-          loanTokenSymbol: batch.loan.symbol,
           loanTokenDisplaySymbol: batch.loan.displaySymbol,
           onCloseButtonPress: dismissModal,
           minNextBid: new BigNumber(minNextBidInToken),
           minNextBidInUSD: minNextBidInUSD,
-          currentBalance,
           vaultLiquidationHeight: vault.liquidationHeight,
         }),
       },
