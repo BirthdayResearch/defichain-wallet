@@ -5207,6 +5207,12 @@
 		"borderBottomWidth": 0.5,
 		"borderLeftWidth": 0.5
 	},
+    "border-1.5": {
+      "borderTopWidth": 1.5,
+      "borderRightWidth": 1.5,
+      "borderBottomWidth": 1.5,
+      "borderLeftWidth": 1.5
+    },
 	"border-t-0": {
 		"borderTopWidth": 0
 	},
@@ -8027,6 +8033,10 @@
 		"paddingTop": 18,
 		"paddingBottom": 18
 	},
+    "py-5.5": {
+      "paddingTop": 22,
+      "paddingBottom": 22
+    },
 	"pt-0": {
 		"paddingTop": 0
 	},
