@@ -316,10 +316,6 @@ context(
       cy.getByTestID("bottom_tab_portfolio").click();
       cy.getByTestID("transaction_button").click();
       cy.url().should("include", "app/TransactionsScreen");
-      cy.getByTestID("portfolio_header_container")
-        .filter(":visible")
-        .click()
-        .wait(3000);
       cy.go("back");
       cy.url().should("include", "app/TransactionsScreen");
     });

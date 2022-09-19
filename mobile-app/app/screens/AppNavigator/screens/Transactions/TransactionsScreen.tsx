@@ -163,7 +163,7 @@ function TransactionRow({
       light={tailwind("bg-white border-b border-gray-200")}
       onPress={() => {
         navigation.navigate({
-          name: "TransactionDetail",
+          name: "TransactionDetailScreen",
           params: { tx: item },
           merge: true,
         });

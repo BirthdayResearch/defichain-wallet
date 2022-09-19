@@ -84,7 +84,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
   function onCancel(): void {
     if (!isSubmitting) {
       navigation.navigate({
-        name: "Convert",
+        name: "ConvertScreen",
         params: {
           mode,
         },
