@@ -107,16 +107,19 @@ export interface DexParamList {
   AddLiquidity: {
     pair: PoolPairData;
     pairInfo: WalletToken;
+    originScreen: LiquidityScreenOrigin;
   };
   ConfirmAddLiquidity: {
     pair: PoolPairData;
     summary: AddLiquiditySummary;
     conversion?: ConversionParam;
     pairInfo: WalletToken;
+    originScreen: LiquidityScreenOrigin;
   };
   RemoveLiquidity: {
     pair: PoolPairData;
     pairInfo: WalletToken;
+    originScreen: LiquidityScreenOrigin;
   };
   ConfirmRemoveLiquidity: {
     amount: BigNumber;
@@ -140,6 +143,7 @@ export interface DexParamList {
     tokenBAmount: BigNumber;
     tokenA?: WalletToken;
     tokenB?: WalletToken;
+    originScreen: LiquidityScreenOrigin;
   };
 
   [key: string]: undefined | object;
@@ -153,6 +157,11 @@ export interface AddLiquiditySummary {
   tokenABalance: BigNumber; // token A balance (after deducting 0.1 DFI if DFI)
   tokenBBalance: BigNumber; // token B balance (after deducting 0.1 DFI if DFI)
   lmTotalTokens: string; // total LP tokens
+}
+
+export enum LiquidityScreenOrigin {
+  Token_screen = "PortfolioScreen",
+  Dex_screen = "DexScreen",
 }
 
 const DexStack = createStackNavigator<DexParamList>();

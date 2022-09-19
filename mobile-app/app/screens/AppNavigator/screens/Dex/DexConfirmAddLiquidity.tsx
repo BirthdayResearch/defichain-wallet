@@ -1,3 +1,4 @@
+import { WalletAlert } from "@components/WalletAlert";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -31,7 +32,7 @@ import {
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { useTokenPrice } from "../Portfolio/hooks/TokenPrice";
-import { DexParamList } from "./DexNavigator";
+import { DexParamList, LiquidityScreenOrigin } from "./DexNavigator";
 
 type Props = StackScreenProps<DexParamList, "ConfirmAddLiquidity">;
 
@@ -46,6 +47,7 @@ export function ConfirmAddLiquidityScreen({ route }: Props): JSX.Element {
     pair,
     conversion,
     pairInfo,
+    originScreen,
     summary: { fee, percentage, tokenAAmount, tokenBAmount, lmTotalTokens },
   } = route.params;
   const dispatch = useAppDispatch();
@@ -91,10 +93,29 @@ export function ConfirmAddLiquidityScreen({ route }: Props): JSX.Element {
 
   function onCancel(): void {
     if (!isSubmitting) {
-      navigation.navigate({
-        name: "AddLiquidity",
-        params: { pair, pairInfo },
-        merge: true,
+      WalletAlert({
+        title: translate("screens/Settings", "Cancel transaction"),
+        message: translate(
+          "screens/Settings",
+          "By cancelling, you will lose any changes you made for your transaction."
+        ),
+        buttons: [
+          {
+            text: translate("screens/Settings", "Go back"),
+            style: "cancel",
+          },
+          {
+            text: translate("screens/Settings", "Cancel"),
+            style: "destructive",
+            onPress: async () => {
+              navigation.navigate(
+                originScreen === LiquidityScreenOrigin.Dex_screen
+                  ? "DexScreen"
+                  : "PortfolioScreen"
+              );
+            },
+          },
+        ],
       });
     }
   }

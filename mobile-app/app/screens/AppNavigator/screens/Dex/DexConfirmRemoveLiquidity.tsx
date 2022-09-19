@@ -1,3 +1,4 @@
+import { WalletAlert } from "@components/WalletAlert";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
@@ -23,13 +24,20 @@ import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { PricesSectionV2 } from "@components/PricesSectionV2";
 import { useTokenPrice } from "../Portfolio/hooks/TokenPrice";
-import { DexParamList } from "./DexNavigator";
+import { DexParamList, LiquidityScreenOrigin } from "./DexNavigator";
 
 type Props = StackScreenProps<DexParamList, "RemoveLiquidityConfirmScreen">;
 
 export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
-  const { pair, pairInfo, amount, fee, tokenAAmount, tokenBAmount } =
-    route.params;
+  const {
+    pair,
+    pairInfo,
+    amount,
+    fee,
+    tokenAAmount,
+    tokenBAmount,
+    originScreen,
+  } = route.params;
   const dispatch = useAppDispatch();
   const { getTokenPrice } = useTokenPrice();
   const hasPendingJob = useSelector((state: RootState) =>
@@ -69,10 +77,29 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
 
   function onCancel(): void {
     if (!isSubmitting) {
-      navigation.navigate({
-        name: "RemoveLiquidity",
-        params: { pair, pairInfo },
-        merge: true,
+      WalletAlert({
+        title: translate("screens/Settings", "Cancel transaction"),
+        message: translate(
+          "screens/Settings",
+          "By cancelling, you will lose any changes you made for your transaction."
+        ),
+        buttons: [
+          {
+            text: translate("screens/Settings", "Go back"),
+            style: "cancel",
+          },
+          {
+            text: translate("screens/Settings", "Cancel"),
+            style: "destructive",
+            onPress: async () => {
+              navigation.navigate(
+                originScreen === LiquidityScreenOrigin.Dex_screen
+                  ? "DexScreen"
+                  : "PortfolioScreen"
+              );
+            },
+          },
+        ],
       });
     }
   }

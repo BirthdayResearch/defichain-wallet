@@ -29,7 +29,7 @@ import {
   PoolPairCards,
 } from "./components/PoolPairCards/PoolPairCards";
 import { ButtonGroupV2 } from "./components/ButtonGroupV2";
-import { DexParamList } from "./DexNavigator";
+import { DexParamList, LiquidityScreenOrigin } from "./DexNavigator";
 import { AssetsFilterItem } from "../Portfolio/components/AssetsFilterRow";
 import { useFavouritePoolpairContext } from "../../../../contexts/FavouritePoolpairContext";
 
@@ -95,6 +95,7 @@ export function DexScreen(): JSX.Element {
       params: {
         pair: data,
         pairInfo: info,
+        originScreen: LiquidityScreenOrigin.Dex_screen,
       },
       merge: true,
     });
@@ -106,6 +107,7 @@ export function DexScreen(): JSX.Element {
       params: {
         pair: data,
         pairInfo: info,
+        originScreen: LiquidityScreenOrigin.Dex_screen,
       },
       merge: true,
     });
