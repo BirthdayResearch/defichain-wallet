@@ -32,7 +32,7 @@
     "@next/eslint-plugin-next": "12.3.0",
     "@types/cors": "^2.8.12",
     "@types/lodash": "^4.14.185",
-    "@types/node": "^16.11.59",
+    "@types/node": "^18.7.18",
     "@types/react": "17.0.38",
     "autoprefixer": "^10.4.11",
     "eslint-config-next": "12.3.0",
