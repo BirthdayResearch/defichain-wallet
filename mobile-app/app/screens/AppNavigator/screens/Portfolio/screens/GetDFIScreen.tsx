@@ -42,7 +42,7 @@ export async function onShare(
   }
 }
 
-type Props = StackScreenProps<PortfolioParamList, "MarketplaceScreen">;
+type Props = StackScreenProps<PortfolioParamList, "GetDFIScreen">;
 
 export function GetDFIScreen({ navigation }: Props): JSX.Element {
   return (

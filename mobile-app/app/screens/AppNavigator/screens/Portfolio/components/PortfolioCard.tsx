@@ -59,7 +59,7 @@ export function PortfolioCard({
           key={item.symbol}
           onPress={() =>
             navigation.navigate({
-              name: "Balance",
+              name: "TokenDetailScreen",
               params: { token: item, usdAmount: item.usdAmount },
               merge: true,
             })

@@ -14,7 +14,7 @@ import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import ImageEmptyAssets from "@assets/images/send/empty-assets.png";
 import {
-  ThemedFlatListV2,
+  ThemedFlashList,
   ThemedScrollViewV2,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
@@ -74,9 +74,10 @@ export function TokenSelectionScreen(_props: Props): JSX.Element {
   }
 
   return (
-    <ThemedFlatListV2
+    <ThemedFlashList
+      estimatedItemSize={4}
       testID="token_selection_screen"
-      style={tailwind("pb-4")}
+      contentContainerStyle={tailwind("pb-4")}
       data={filteredTokensWithBalance}
       renderItem={({ item }: { item: TokenSelectionItem }): JSX.Element => {
         return (
@@ -84,7 +85,7 @@ export function TokenSelectionScreen(_props: Props): JSX.Element {
             item={item}
             onPress={() => {
               navigation.navigate({
-                name: "Send",
+                name: "SendScreen",
                 params: {
                   token: tokens.find((t) => item.tokenId === t.id),
                 },
@@ -169,7 +170,7 @@ export function TokenSelectionScreen(_props: Props): JSX.Element {
           )}
         </ThemedViewV2>
       }
-      keyExtractor={(item) => item.tokenId}
+      keyExtractor={(item, index) => `${index}`}
     />
   );
 }
@@ -271,7 +272,7 @@ function EmptyAsset({
         </ThemedTextV2>
       </View>
       <ButtonV2
-        onPress={() => navigation.navigate("GetDFIScreen")}
+        onPress={() => navigation.navigate("GetDFIScreen" as any)}
         styleProps="w-full mb-14 pb-1"
         label={translate("screens/GetDFIScreen", "Get DFI")}
       />
