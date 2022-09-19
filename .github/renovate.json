@@ -10,7 +10,7 @@
   "rangeStrategy": "bump",
   "packageRules": [
     {
-      "matchPackagePatterns": ["^defichain$", "^@defichain/"],
+      "matchPackagePatterns": ["^defichain$", "^@defichain/", "^jellyfishsdk$"],
       "groupName": "defichain"
     },
     {
