@@ -1,58 +1,11 @@
 version: 2
 updates:
-  - package-ecosystem: 'npm'
-    directory: '/'
-    schedule:
-      interval: "daily"
-    labels:
-      - "kind/dependencies"
-    ignore:
-      - dependency-name: "defich"
-      - dependency-name: "defichain"
-      - dependency-name: "@defich/*"
-      - dependency-name: "@defichain/*"
-      - dependency-name: "@expo/*"
-      - dependency-name: "@react-native-async-storage/async-storage"
-      - dependency-name: "@react-native-community/netinfo"
-      - dependency-name: "@react-native-community/slider"
-      - dependency-name: "@react-native-masked-view/masked-view"
-      - dependency-name: "@react-navigation/*"
-      - dependency-name: "expo"
-      - dependency-name: "expo-asset"
-      - dependency-name: "expo-barcode-scanner"
-      - dependency-name: "expo-clipboard"
-      - dependency-name: "expo-constants"
-      - dependency-name: "expo-crypto"
-      - dependency-name: "expo-font"
-      - dependency-name: "expo-linking"
-      - dependency-name: "expo-local-authentication"
-      - dependency-name: "expo-localization"
-      - dependency-name: "expo-random"
-      - dependency-name: "expo-secure-store"
-      - dependency-name: "expo-splash-screen"
-      - dependency-name: "expo-status-bar"
-      - dependency-name: "expo-updates"
-      - dependency-name: "expo-web-browser"
-      - dependency-name: "react"
-      - dependency-name: "react-dom"
-      - dependency-name: "react-native"
-      - dependency-name: "react-native-gesture-handler"
-      - dependency-name: "react-native-reanimated"
-      - dependency-name: "react-native-safe-area-context"
-      - dependency-name: "react-native-screens"
-      - dependency-name: "react-native-svg"
-      - dependency-name: "react-native-web"
-      - dependency-name: "react-test-renderer"
-      - dependency-name: "@babel/core"
-      - dependency-name: "@types/react"
-      - dependency-name: "@types/react-native"
-      - dependency-name: "typescript"
-      - dependency-name: "jest-expo"
-    versioning-strategy: 'increase'
-
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
     labels:
       - "kind/dependencies"
+    commit-message:
+      include: scope
+      prefix: bump
