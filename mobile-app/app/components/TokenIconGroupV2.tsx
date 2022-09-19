@@ -64,8 +64,6 @@ export function TokenIconGroupV2({
       })}
       {additionalIcon.gt(0) && (
         <ThemedTextV2
-          light={tailwind("text-gray-500")}
-          dark={tailwind("text-gray-400")}
           style={[
             tailwind("relative text-xs font-medium-v2"),
             { left: (maxIconToDisplay - 2) * overlap },
