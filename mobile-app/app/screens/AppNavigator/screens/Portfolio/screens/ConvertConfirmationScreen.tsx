@@ -1,3 +1,4 @@
+import { WalletAlert } from "@components/WalletAlert";
 import { ThemedScrollViewV2, ThemedViewV2 } from "@components/themed";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
@@ -83,12 +84,25 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
 
   function onCancel(): void {
     if (!isSubmitting) {
-      navigation.navigate({
-        name: "ConvertScreen",
-        params: {
-          mode,
-        },
-        merge: true,
+      WalletAlert({
+        title: translate("screens/Settings", "Cancel transaction"),
+        message: translate(
+          "screens/Settings",
+          "By cancelling, you will lose any changes you made for your transaction."
+        ),
+        buttons: [
+          {
+            text: translate("screens/Settings", "Go back"),
+            style: "cancel",
+          },
+          {
+            text: translate("screens/Settings", "Cancel"),
+            style: "destructive",
+            onPress: async () => {
+              navigation.navigate("PortfolioScreen");
+            },
+          },
+        ],
       });
     }
   }
