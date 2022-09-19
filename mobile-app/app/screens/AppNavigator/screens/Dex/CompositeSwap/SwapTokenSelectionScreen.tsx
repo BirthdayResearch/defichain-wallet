@@ -1,6 +1,5 @@
 import BigNumber from "bignumber.js";
 import { StackScreenProps } from "@react-navigation/stack";
-import { DexParamList } from "@screens/AppNavigator/screens/Dex/DexNavigator";
 import {
   ThemedFlatListV2,
   ThemedTextV2,
@@ -18,6 +17,7 @@ import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetai
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { translate } from "@translations";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
 
 export enum TokenListType {
   From = "FROM",
@@ -37,7 +37,7 @@ export interface SelectionToken {
   reserve?: string;
 }
 
-type Props = StackScreenProps<DexParamList, "SwapTokenSelectionScreen">;
+type Props = StackScreenProps<PortfolioParamList, "SwapTokenSelectionScreen">;
 
 export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
   const {

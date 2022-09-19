@@ -1,5 +1,11 @@
 import { forwardRef, useCallback, useState } from "react";
-import { Platform, TextInputProps, TouchableOpacity } from "react-native";
+import {
+  NativeSyntheticEvent,
+  Platform,
+  TextInputFocusEventData,
+  TextInputProps,
+  TouchableOpacity,
+} from "react-native";
 import { useBottomSheetInternal } from "@gorhom/bottom-sheet";
 import {
   ThemedView,
@@ -257,7 +263,7 @@ const TextInputIOS = forwardRef(
     const { inputType, onBlur, onFocus, ...otherProps } = props;
     const { shouldHandleKeyboardEvents } = useBottomSheetInternal();
     const handleOnFocus = useCallback(
-      (e) => {
+      (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
         shouldHandleKeyboardEvents.value = true;
 
         if (onFocus !== undefined) {

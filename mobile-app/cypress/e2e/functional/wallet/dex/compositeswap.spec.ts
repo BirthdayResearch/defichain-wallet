@@ -24,7 +24,7 @@ function setCustomSlippage(customSlippage: string): void {
 }
 
 // TODO: @joshua update e2e
-context("Wallet - DEX - disabled pool pairs", () => {
+context.skip("Wallet - DEX - disabled pool pairs", () => {
   before(() => {
     cy.intercept("**/poolpairs?size=*", {
       body: {
@@ -133,7 +133,7 @@ context("Wallet - DEX - disabled pool pairs", () => {
   });
 });
 
-context("Wallet - DEX - Pool Pair failed api", () => {
+context.skip("Wallet - DEX - Pool Pair failed api", () => {
   before(() => {
     cy.createEmptyWallet(true);
   });
@@ -151,7 +151,7 @@ context("Wallet - DEX - Pool Pair failed api", () => {
   });
 });
 
-context("Wallet - DEX - Instant/Future Swap - tabs and dropdowns", () => {
+context.skip("Wallet - DEX - Instant/Future Swap - tabs and dropdowns", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
@@ -216,7 +216,7 @@ context("Wallet - DEX - Instant/Future Swap - tabs and dropdowns", () => {
   });
 });
 
-context("Wallet - DEX - Instant Swap (non-DFI)", () => {
+context.skip("Wallet - DEX - Instant Swap (non-DFI)", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
@@ -374,7 +374,7 @@ context("Wallet - DEX - Instant Swap (non-DFI)", () => {
   });
 });
 
-context("Wallet - DEX - Instant Swap (non-DFI) - Confirm Txn", () => {
+context.skip("Wallet - DEX - Instant Swap (non-DFI) - Confirm Txn", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
@@ -447,7 +447,7 @@ context("Wallet - DEX - Instant Swap (non-DFI) - Confirm Txn", () => {
   });
 });
 
-context(
+context.skip(
   "Wallet - DEX - Instant Swap (DFI with Conversion/Reserved fees)",
   () => {
     beforeEach(() => {
@@ -491,7 +491,7 @@ context(
 );
 
 // DFI -> dETH to show greater price rates difference
-context("Wallet - DEX - Instant Swap (DFI) - Summary", () => {
+context.skip("Wallet - DEX - Instant Swap (DFI) - Summary", () => {
   before(() => {
     setupWalletForConversion();
     setupFromAndToTokens("DFI", "dETH");

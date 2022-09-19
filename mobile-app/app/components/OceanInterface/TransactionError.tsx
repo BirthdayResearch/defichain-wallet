@@ -52,11 +52,14 @@ export function TransactionError({
 
   const err = errorMessageMapping(errMsg);
 
-  const onTextLayout = useCallback((e) => {
-    if (e.nativeEvent.lines.length > numberOfLines) {
-      setCanExpand(true);
-    }
-  }, []);
+  const onTextLayout = useCallback(
+    (e: { nativeEvent: { lines: string | any[] } }) => {
+      if (e.nativeEvent.lines.length > numberOfLines) {
+        setCanExpand(true);
+      }
+    },
+    []
+  );
 
   return (
     <ThemedViewV2
