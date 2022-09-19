@@ -39,7 +39,7 @@ jobs:
             ```
       - name: Send missing translations to Slack workflow  
         if: ${{ fromJson(steps.translations.outputs.content).totalMissingCount != 0 }}
-        uses: slackapi/slack-github-action@936158bbe252e9a6062e793ea4609642c966e302 # tag=v1.22.0
+        uses: slackapi/slack-github-action@ebd044f149bf27a2817c0eee26e98d797fa5cffd # tag=v1.22.0
         id: slack_missing_translation_workflow
         with:
           payload-file-path: "./missing_translations.json"
