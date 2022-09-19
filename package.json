@@ -102,7 +102,7 @@
     "stream-browserify": "^3.0.0",
     "tailwind-rn": "^3.0.1",
     "tailwindcss": "^2.2.19",
-    "@shopify/flash-list": "1.1.0"
+    "@shopify/flash-list": "1.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.19.1",
@@ -110,7 +110,7 @@
     "@expo/metro-config": "0.3.22",
     "@expo/webpack-config": "^0.17.2",
     "@testing-library/cypress": "^8.0.3",
-    "@testing-library/react-native": "^11.0.0",
+    "@testing-library/react-native": "11.0.0",
     "@types/find-in-files": "^0.5.1",
     "@types/i18n-js": "^3.8.2",
     "@types/jest": "^26.0.24",
