@@ -63,7 +63,7 @@ function validateFutureSwapDisabled(
   cy.go("back");
 }
 
-context("Wallet - DEX - Future Swap", () => {
+context.skip("Wallet - DEX - Future Swap", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.sendDFITokentoWallet()
@@ -236,7 +236,7 @@ context("Wallet - DEX - Future Swap", () => {
   });
 });
 
-context("Wallet - Portfolio -> Pending Future Swap Display", () => {
+context.skip("Wallet - Portfolio -> Pending Future Swap Display", () => {
   beforeEach(() => {
     cy.intercept(
       {
@@ -333,7 +333,7 @@ context("Wallet - Portfolio -> Pending Future Swap Display", () => {
   });
 });
 
-context("Wallet - Future Swap -> Display -> Withdraw flow", () => {
+context.skip("Wallet - Future Swap -> Display -> Withdraw flow", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.sendDFITokentoWallet()

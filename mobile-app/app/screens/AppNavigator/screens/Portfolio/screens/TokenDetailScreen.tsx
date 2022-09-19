@@ -248,7 +248,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                   isLast={false}
                   onPress={() =>
                     navigation.navigate({
-                      name: "Send",
+                      name: "SendScreen",
                       params: { token },
                       merge: true,
                     })
@@ -279,7 +279,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                   const mode: ConversionMode =
                     token.id === "0_utxo" ? "utxosToAccount" : "accountToUtxos";
                   navigation.navigate({
-                    name: "Convert",
+                    name: "ConvertScreen",
                     params: { mode },
                     merge: true,
                   });

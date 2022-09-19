@@ -2,6 +2,7 @@ import randomColor from "randomcolor";
 import Svg, { Circle, SvgProps, Text } from "react-native-svg";
 
 export function DefaultToken(symbol: string): (props: SvgProps) => JSX.Element {
+  const TextElement = Text as any;
   return function (props: SvgProps): JSX.Element {
     const bg = randomColor({
       luminosity: "bright",
@@ -21,7 +22,7 @@ export function DefaultToken(symbol: string): (props: SvgProps) => JSX.Element {
       <Svg height={32} viewBox="0 0 32 32" width={32} {...props}>
         <Circle cx={16} cy={16} fill={bg} r={16} />
 
-        <Text
+        <TextElement
           alignmentBaseline="central"
           fill={text}
           fontSize="24"
@@ -31,7 +32,7 @@ export function DefaultToken(symbol: string): (props: SvgProps) => JSX.Element {
           y="50%"
         >
           {first}
-        </Text>
+        </TextElement>
       </Svg>
     );
   };

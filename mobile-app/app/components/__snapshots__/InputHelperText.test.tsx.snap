@@ -71,8 +71,6 @@ exports[`input helper text should render 1`] = `
       ]
     }
     testID="testID"
-  >
-    
-  </Text>
+  />
 </View>
 `;
