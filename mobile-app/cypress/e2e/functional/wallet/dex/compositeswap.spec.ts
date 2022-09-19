@@ -215,7 +215,7 @@ context.skip("Wallet - DEX - Instant/Future Swap - tabs and dropdowns", () => {
   });
 });
 
-context.skip("Wallet - DEX - Instant Swap (non-DFI)", () => {
+context("Wallet - DEX - Instant Swap (non-DFI)", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
