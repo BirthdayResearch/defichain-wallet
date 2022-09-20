@@ -61,7 +61,7 @@ context(
 );
 
 // DFI -> dETH to show greater price rates difference
-context.skip("Wallet - DEX - Instant Swap (DFI) - Summary", () => {
+context("Wallet - DEX - Instant Swap (DFI) - Summary", () => {
   before(() => {
     setupWalletForConversion();
     setupFromAndToTokens("DFI", "dETH");
