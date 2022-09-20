@@ -291,7 +291,7 @@ function PaybackDUSDLoan({
     const amount = BigNumber.min(collateralDUSDAmount, paybackAmount);
     setBottomSheetScreen([
       {
-        stackScreenName: "Quick Bid",
+        stackScreenName: "Payback DUSD",
         option: {
           header: () => null,
           headerBackTitleVisible: false,
@@ -442,13 +442,15 @@ const PaybackDUSD = ({
                 renderText={(value) => (
                   <View
                     style={tailwind(
-                      "flex flex-row justify-center flex-wrap items-center"
+                      "flex flex-row justify-center items-center"
                     )}
                   >
                     <ThemedText
                       dark={tailwind("text-gray-50")}
                       light={tailwind("text-gray-900")}
-                      style={tailwind("text-2xs flex-wrap text-center")}
+                      style={tailwind(
+                        "text-2xs flex-wrap text-center leading-4"
+                      )}
                     >
                       {value}
                     </ThemedText>
