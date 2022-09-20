@@ -93,26 +93,24 @@ export function AuctionsScreen({ navigation }: Props): JSX.Element {
     if (showSearchInput) {
       navigation.setOptions({
         header: (): JSX.Element => (
-          <ThemedViewV2>
-            <ThemedViewV2
-              light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-100")}
-              dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-100")}
-              style={tailwind("pb-4.5 rounded-b-2xl border-b")}
-            >
-              <HeaderSearchInputV2
-                searchString={searchString}
-                onClearInput={() => setSearchString("")}
-                onChangeInput={(text: string) => {
-                  setSearchString(text);
-                }}
-                onCancelPress={() => {
-                  setSearchString("");
-                  setShowSearchInput(false);
-                }}
-                placeholder="Search auctions"
-                testID="auctions_search_input"
-              />
-            </ThemedViewV2>
+          <ThemedViewV2
+            light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-100")}
+            dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-100")}
+            style={tailwind("pb-4.5 rounded-b-2xl border-b")}
+          >
+            <HeaderSearchInputV2
+              searchString={searchString}
+              onClearInput={() => setSearchString("")}
+              onChangeInput={(text: string) => {
+                setSearchString(text);
+              }}
+              onCancelPress={() => {
+                setSearchString("");
+                setShowSearchInput(false);
+              }}
+              placeholder="Search auctions"
+              testID="auctions_search_input"
+            />
           </ThemedViewV2>
         ),
       });
@@ -170,7 +168,7 @@ export function AuctionsScreen({ navigation }: Props): JSX.Element {
         <EmptyAuction
           showInfo
           title="No Auctions"
-          subTitle="There are currently no collaterals available for auction."
+          subtitle="There are currently no collaterals available for auction."
         />
       </ThemedViewV2>
     );

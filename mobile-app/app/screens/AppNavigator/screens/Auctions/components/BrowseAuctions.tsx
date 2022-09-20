@@ -306,7 +306,7 @@ function BatchCards({
             <View style={tailwind("mt-1")}>
               <EmptyAuction
                 title={emptyScreenDetails.title}
-                subTitle={emptyScreenDetails.subTitle}
+                subtitle={emptyScreenDetails.subtitle}
               />
             </View>
           )}
@@ -320,28 +320,28 @@ function BatchCards({
 
 function getEmptyScreenDetails(type?: ButtonGroupTabKey): {
   title: string;
-  subTitle: string;
+  subtitle: string;
 } {
   switch (type) {
     case ButtonGroupTabKey.Outbid:
       return {
         title: "No Outbit Auctions",
-        subTitle: "You have no outbids yet",
+        subtitle: "You have no outbids yet",
       };
     case ButtonGroupTabKey.YourActiveBids:
       return {
         title: "No Active Bids",
-        subTitle: "You have no active bids yet",
+        subtitle: "You have no active bids yet",
       };
     case ButtonGroupTabKey.YourLeadingBids:
       return {
         title: "No Leading Bid",
-        subTitle: "You have no leading bids yet",
+        subtitle: "You have no leading bids yet",
       };
     default:
       return {
         title: "No Auctions",
-        subTitle: "There are currently no collaterals available for auction.",
+        subtitle: "There are currently no collaterals available for auction.",
       };
   }
 }
