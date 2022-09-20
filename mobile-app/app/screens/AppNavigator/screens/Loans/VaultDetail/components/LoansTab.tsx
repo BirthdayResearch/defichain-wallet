@@ -27,7 +27,6 @@ import { memo, useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import NumberFormat from "react-number-format";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
-import { useSignBidAndSend } from "@screens/AppNavigator/screens/Auctions/hooks/SignBidAndSend";
 import { Dispatch } from "@reduxjs/toolkit";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
@@ -37,11 +36,14 @@ import {
 } from "@shared-contexts/NativeLoggingProvider";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { transactionQueue } from "@store/transaction_queue";
+import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { IconTooltip } from "@components/tooltip/IconTooltip";
+import { useSelector } from "react-redux";
+import { RootState } from "@store";
 import { EmptyLoan } from "./EmptyLoan";
 import { VaultSectionTextRow } from "../../components/VaultSectionTextRow";
 
@@ -115,6 +117,7 @@ function LoanCard(props: LoanCardProps): JSX.Element {
   const isDUSDAsCollateral = props.vault?.collateralAmounts?.some(
     ({ symbol }) => symbol === "DUSD"
   );
+
   const { isFeatureAvailable } = useFeatureFlagContext();
 
   return (
@@ -209,9 +212,9 @@ function LoanCard(props: LoanCardProps): JSX.Element {
             loanToken={props.loanToken}
             canUseOperations={canUseOperations}
           />
-          {isDUSDAsCollateral !== undefined &&
+          {isDUSDAsCollateral &&
             props.displaySymbol === "DUSD" &&
-            isFeatureAvailable("poof_dusd") && (
+            isFeatureAvailable("unloop_dusd") && (
               <PaybackDUSDLoan
                 vault={props.vault}
                 paybackAmount={new BigNumber(props.loanToken.amount)}
@@ -382,7 +385,12 @@ const PaybackDUSD = ({
   onSubmit: () => Promise<void>;
 }): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
-    const { hasPendingJob, hasPendingBroadcastJob } = useSignBidAndSend();
+    const hasPendingJob = useSelector((state: RootState) =>
+      hasTxQueued(state.transactionQueue)
+    );
+    const hasPendingBroadcastJob = useSelector((state: RootState) =>
+      hasBroadcastQueued(state.ocean)
+    );
     return (
       <ThemedView
         light={tailwind("bg-white")}
@@ -417,7 +425,7 @@ const PaybackDUSD = ({
                 light={tailwind("text-gray-900")}
                 style={tailwind("text-xs text-center mb-1")}
               >
-                {translate("components/QuickBid", "Paying loan amount of")}
+                {translate("components/QuickBid", "Paying loan")}
               </ThemedText>
               <NumberFormat
                 value={paybackAmount.toFixed(8)}
@@ -534,14 +542,9 @@ async function paybackLoanToken(
         sign: signer,
         title: translate(
           "screens/ConfirmPaybackLoanScreen",
-          "Paying loan amount of"
-        ),
-        description: translate(
-          "screens/ConfirmPaybackLoanScreen",
-          "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.",
+          "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral",
           {
             amountToPayInPaymentToken: amount.toFixed(8),
-            paymentSymbol: loanToken.displaySymbol,
           }
         ),
         drawerMessages: {
