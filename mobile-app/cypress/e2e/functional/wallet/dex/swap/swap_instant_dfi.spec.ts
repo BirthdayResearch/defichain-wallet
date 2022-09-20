@@ -1,4 +1,4 @@
-// import BigNumber from "bignumber.js";
+import BigNumber from "bignumber.js";
 import { checkValueWithinRange } from "../../../../../support/walletCommands";
 
 function setupWalletForConversion(): void {
@@ -44,19 +44,19 @@ context(
       );
     });
 
-    // it.skip("should trigger convert and swap token", () => {
-    //   cy.getByTestID("text_input_tokenA").type("11.00000000");
-    //   cy.getByTestID("button_confirm_submit").click().wait(3000);
-    //   cy.getByTestID("txn_authorization_title").contains(
-    //     `Convert ${new BigNumber("1").toFixed(8)} DFI to tokens`
-    //   );
-    //   cy.closeOceanInterface().wait(3000);
-    //   cy.getByTestID("conversion_status").should("have.text", "Converted");
-    //   cy.getByTestID("text_swap_amount_from").should("contain", "11.00000000");
-    //   cy.getByTestID("text_swap_amount_to").should("contain", "1,100.00000000");
-    //   cy.getByTestID("button_confirm_swap").click().wait(3000);
-    //   cy.closeOceanInterface();
-    // });
+    it("should trigger convert and swap token", () => {
+      cy.getByTestID("text_input_tokenA").type("11.00000000");
+      cy.getByTestID("button_confirm_submit").click().wait(3000);
+      cy.getByTestID("txn_authorization_title").contains(
+        `Convert ${new BigNumber("1").toFixed(8)} DFI to tokens`
+      );
+      cy.closeOceanInterface().wait(3000);
+      cy.getByTestID("conversion_status").should("have.text", "Converted");
+      cy.getByTestID("text_swap_amount_from").should("contain", "11.00000000");
+      cy.getByTestID("text_swap_amount_to").should("contain", "1,100.00000000");
+      cy.getByTestID("button_confirm_swap").click().wait(3000);
+      cy.closeOceanInterface();
+    });
   }
 );
 
