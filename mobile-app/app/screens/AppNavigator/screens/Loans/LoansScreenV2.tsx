@@ -25,7 +25,7 @@ import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
 import { useIsFocused } from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { LoanParamList } from "./LoansNavigator";
-import { LoanCards } from "./components/LoanCards";
+import { LoanCardsV2 } from "./components/LoanCardsV2";
 import { EmptyVault } from "./components/EmptyVault";
 import { Vaults } from "./components/Vaults";
 
@@ -153,38 +153,12 @@ export function LoansScreenV2({ navigation }: Props): JSX.Element {
     });
   }, [navigation, activeTab, vaults]);
 
-  useEffect(() => {
-    if (showSeachInput) {
-      navigation.setOptions({
-        header: (): JSX.Element => (
-          <HeaderSearchInput
-            searchString={searchString}
-            onClearInput={() => setSearchString("")}
-            onChangeInput={(text: string) => setSearchString(text)}
-            onCancelPress={() => {
-              setSearchString("");
-              setShowSearchInput(false);
-            }}
-            placeholder="Search for loans"
-            testID="loans_search_input"
-          />
-        ),
-      });
-    } else {
-      navigation.setOptions({
-        header: undefined,
-      });
-    }
-  }, [showSeachInput, searchString]);
-
   if (!hasFetchedVaultsData) {
     return (
       <View style={tailwind("mt-1")}>
         <SkeletonLoader row={3} screen={SkeletonLoaderScreen.Vault} />
       </View>
     );
-  } else if (vaults?.length === 0) {
-    return <EmptyVault handleRefresh={() => {}} isLoading={false} />;
   }
 
   return (
@@ -201,7 +175,11 @@ export function LoansScreenV2({ navigation }: Props): JSX.Element {
         </View>
       )}
       {activeTab === TabKey.BrowseLoans && hasFetchedLoansData && (
-        <LoanCards testID="loans_cards" loans={filteredLoans} />
+        <LoanCardsV2
+          testID="loans_cards"
+          loans={filteredLoans}
+          vaultExist={vaults?.length !== 0}
+        />
       )}
     </ThemedView>
   );
