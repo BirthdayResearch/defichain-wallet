@@ -13,7 +13,7 @@ exports[`Dex Action Buttons <DexActionButton /> - should match snapshot 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "rgba(242, 242, 242, 1)",
       "borderBottomLeftRadius": 20,
       "borderBottomRightRadius": 20,
@@ -30,22 +30,22 @@ exports[`Dex Action Buttons <DexActionButton /> - should match snapshot 1`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Array [
-          Object {
+        [
+          {
             "fontFamily": "SoraSemiBold",
             "fontSize": 14,
             "fontWeight": "600",
             "lineHeight": 20,
             "textAlign": "center",
           },
-          Object {
+          {
             "color": "rgba(18, 18, 18, 1)",
           },
         ],
@@ -61,9 +61,9 @@ exports[`Dex Action Buttons <DexActionButton /> - should match snapshot 1`] = `
 exports[`Dex Action Buttons <DexAddRemoveLiquidityButton /> - should match snapshot 1`] = `
 <View
   style={
-    Array [
-      Array [
-        Object {
+    [
+      [
+        {
           "alignItems": "center",
           "borderBottomLeftRadius": 20,
           "borderBottomRightRadius": 20,
@@ -78,7 +78,7 @@ exports[`Dex Action Buttons <DexAddRemoveLiquidityButton /> - should match snaps
         },
         undefined,
       ],
-      Object {
+      {
         "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
@@ -96,7 +96,7 @@ exports[`Dex Action Buttons <DexAddRemoveLiquidityButton /> - should match snaps
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
+      {
         "borderBottomColor": "rgba(204, 204, 204, 1)",
         "borderLeftColor": "rgba(204, 204, 204, 1)",
         "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -122,7 +122,7 @@ exports[`Dex Action Buttons <DexAddRemoveLiquidityButton /> - should match snaps
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
+      {
         "borderBottomColor": "rgba(204, 204, 204, 1)",
         "borderLeftColor": "rgba(204, 204, 204, 1)",
         "borderRightColor": "rgba(204, 204, 204, 1)",

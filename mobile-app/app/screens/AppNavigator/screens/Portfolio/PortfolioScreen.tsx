@@ -69,6 +69,8 @@ import {
 } from "@components/BottomSheetWithNavV2";
 import { CreateOrEditAddressLabelFormV2 } from "@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelFormV2";
 import { BottomSheetHeaderBackButton } from "@screens/AppNavigator/screens/Portfolio/components/BottomSheetHeaderBackButton";
+import * as SplashScreen from "expo-splash-screen";
+import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { AddressSelectionButtonV2 } from "./components/AddressSelectionButtonV2";
 import { ActionButtons } from "./components/ActionButtons";
 import {
@@ -129,6 +131,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
     (state: RootState) => state.wallet
   );
   const ref = useRef(null);
+  const logger = useLogger();
   useScrollToTop(ref);
 
   useEffect(() => {
@@ -585,6 +588,14 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
       },
     ];
   }, [address, isLight]);
+
+  // Hide splashscreen when first page is loaded to prevent white screen
+  // It is wrapped on a timeout so it will execute once the JS stack is cleared up
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hideAsync().catch(logger.error);
+    });
+  }, []);
 
   return (
     <View ref={containerRef} style={tailwind("flex-1")}>

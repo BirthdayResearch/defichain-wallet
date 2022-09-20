@@ -15,13 +15,13 @@ jobs:
     name: Publish Preview
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
-      - uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3.0.2
+      - uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3.4.1
         with:
           node-version: 16
           cache: 'npm'
 
-      - uses: expo/expo-github-action@f98a64c8874c4a163514273f34306f403e962350
+      - uses: expo/expo-github-action@f98a64c8874c4a163514273f34306f403e962350 # tag=v7.2.0
         with:
           expo-version: 4.x
           expo-cache: true
@@ -31,7 +31,7 @@ jobs:
       - run: npm ci
       - run: expo publish --release-channel=pr-preview-${{ github.event.number }}
 
-      - uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443
+      - uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443 # tag=v2.2.0
         with:
           GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           header: wallet-preview

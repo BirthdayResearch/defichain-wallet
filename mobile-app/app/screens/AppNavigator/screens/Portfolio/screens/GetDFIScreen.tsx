@@ -2,7 +2,7 @@ import * as Clipboard from "expo-clipboard";
 import { StackScreenProps } from "@react-navigation/stack";
 import { useCallback, useEffect, useState } from "react";
 import { Share, TouchableOpacity, View, Text } from "react-native";
-import QRCode from "react-native-qrcode-svg";
+import QRCode from "react-qr-code";
 import {
   ThemedIcon,
   ThemedScrollViewV2,
@@ -161,12 +161,7 @@ function StepTwo(): JSX.Element {
             dark={tailwind("bg-mono-light-v2-00")}
             light={tailwind("bg-mono-light-v2-00")}
           >
-            <QRCode
-              backgroundColor="white"
-              color="black"
-              size={106}
-              value={address}
-            />
+            <QRCode size={106} value={address} />
           </ThemedViewV2>
         </View>
         <View style={tailwind("pl-5 justify-between flex-1 flex-wrap")}>
