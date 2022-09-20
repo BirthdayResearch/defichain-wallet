@@ -17,7 +17,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:2.11.1
+    image: defi/defichain:HEAD-02ef6a1b3
     command: >
       defid
       -printtoconsole

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base", "helpers:pinGitHubActionDigests", ":semanticCommitTypeAll(bump)"],
+  "rebaseWhen": "behind-base-branch",
+  "dependencyDashboard": true,
+  "dependencyDashboardAutoclose": false,
+  "major": {
+    "dependencyDashboardApproval": true
+  },
+  "rangeStrategy": "bump",
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["^defichain$", "^@defichain/", "^jellyfishsdk$"],
+      "groupName": "defichain"
+    },
+    {
+      "matchPackagePatterns": ["eslint"],
+      "groupName": "eslint"
+    },
+    {
+      "matchPackagePatterns": ["jest"],
+      "groupName": "jest"
+    },
+    {
+      "matchPackagePatterns": ["^expo$", "^react-native$", "^react$", "^typescript$"],
+      "groupName": "expo packages",
+      "enabled": false
+    }
+  ]
+}
