@@ -8,18 +8,25 @@ import { Provider } from "react-redux";
 import { VaultCard, VaultCardProps } from "./VaultCard";
 
 jest.mock("@shared-contexts/ThemeProvider");
-jest.mock("@react-navigation/native", () => ({
-  useNavigation: jest.fn(),
-}));
 jest.mock("@shared-contexts/DeFiScanContext");
-jest.mock("@gorhom/bottom-sheet", () => ({
-  useBottomSheetModal: jest.fn().mockReturnValue({ dismiss: jest.fn() }),
-  BottomSheetModal: () => <></>,
-}));
 jest.mock("@components/BottomSheetInfo", () => ({
   BottomSheetInfo: () => <></>,
 }));
 jest.mock("react-native-popover-view");
+jest.mock("@contexts/FeatureFlagContext");
+jest.mock("@react-navigation/native", () => ({
+  ...jest.requireActual("@react-navigation/native"),
+  useNavigation: () => {
+    return { navigate: jest.fn() };
+  },
+  useScrollToTop: jest.fn(),
+  useIsFocused: jest.fn(),
+}));
+jest.mock("@gorhom/bottom-sheet", () => ({
+  useBottomSheetModal: () => ({
+    dismiss: jest.fn(),
+  }),
+}));
 
 describe("Vault card", () => {
   const initialState: Partial<RootState> = {
