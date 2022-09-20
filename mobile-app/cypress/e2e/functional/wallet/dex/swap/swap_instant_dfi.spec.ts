@@ -1,5 +1,4 @@
 import BigNumber from "bignumber.js";
-import { checkValueWithinRange } from "../../../../../support/walletCommands";
 
 function setupWalletForConversion(): void {
   cy.createEmptyWallet(true);
@@ -59,42 +58,3 @@ context(
     });
   }
 );
-
-// DFI -> dETH to show greater price rates difference
-context("Wallet - DEX - Instant Swap (DFI) - Summary", () => {
-  before(() => {
-    setupWalletForConversion();
-    setupFromAndToTokens("DFI", "dETH");
-  });
-  it("should be able to display price rates if tokenA and tokenB is selected", () => {
-    cy.getByTestID("instant_swap_summary").should("exist");
-    cy.getByTestID("instant_swap_prices_0_label")
-      .should("exist")
-      .should("have.text", "1 DFI =");
-    cy.getByTestID("instant_swap_prices_0")
-      .should("exist")
-      .contains("100.00000000 dETH");
-    cy.getByTestID("instant_swap_prices_0_rhsUsdAmount")
-      .invoke("text")
-      .then((value) => {
-        checkValueWithinRange(value, "10,000.00");
-      });
-    cy.getByTestID("instant_swap_prices_1_label")
-      .should("exist")
-      .should("have.text", "1 dETH =");
-    cy.getByTestID("instant_swap_prices_1")
-      .should("exist")
-      .contains("0.01000000 DFI");
-    cy.getByTestID("instant_swap_prices_1_rhsUsdAmount")
-      .invoke("text")
-      .then((value) => {
-        checkValueWithinRange(value, "100.00");
-      });
-    cy.getByTestID("swap_total_fees_label")
-      .should("exist")
-      .should("have.text", "Total fees");
-    cy.getByTestID("swap_total_fee_amount")
-      .should("exist")
-      .should("have.text", "-");
-  });
-});
