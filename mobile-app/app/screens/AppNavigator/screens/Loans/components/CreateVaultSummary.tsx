@@ -32,15 +32,14 @@ export function CreateVaultSummary({
       style={tailwind("flex-col border-0.5 rounded-lg-v2 mt-8 p-5")}
       light={tailwind("border-mono-light-v2-300")}
       dark={tailwind("border-mono-dark-v2-300")}
+      testID="create_vault_summary"
     >
-      {conversionStatus !== ConversionStatus.Not_Required &&
-        conversionStatus !== ConversionStatus.Required &&
-        convertAmount !== undefined && (
-          <ConvertSummary
-            convertAmount={convertAmount}
-            conversionStatus={conversionStatus}
-          />
-        )}
+      {convertAmount !== undefined && (
+        <ConvertSummary
+          convertAmount={convertAmount}
+          conversionStatus={conversionStatus}
+        />
+      )}
       <NumberRowV2
         lhs={{
           value: translate("screens/CreateVaultScreen", "Transaction fee"),
@@ -48,7 +47,7 @@ export function CreateVaultSummary({
             light: tailwind("text-mono-light-v2-500"),
             dark: tailwind("text-mono-dark-v2-500"),
           },
-          testID: "transaction_fee_label",
+          testID: "transaction_fee",
         }}
         rhs={{
           value: new BigNumber(transactionFee).toFixed(8),
@@ -66,7 +65,7 @@ export function CreateVaultSummary({
             light: tailwind("text-mono-light-v2-500"),
             dark: tailwind("text-mono-dark-v2-500"),
           },
-          testID: "vault_fee_label",
+          testID: "vault_fee",
         }}
         info={{
           title: translate("screens/CreateVaultScreen", "Vault Fee"),

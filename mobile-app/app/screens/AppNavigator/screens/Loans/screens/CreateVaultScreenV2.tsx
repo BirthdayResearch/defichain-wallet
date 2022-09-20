@@ -154,18 +154,6 @@ export function CreateVaultScreenV2({ navigation, route }: Props): JSX.Element {
       .catch(logger.error);
   }, []);
 
-  useEffect(() => {
-    if (selectedLoanScheme === undefined) {
-      return;
-    }
-
-    setConversionStatus(
-      new BigNumber(FEE_AMOUNT).gt(DFIUtxo.amount)
-        ? ConversionStatus.Required
-        : ConversionStatus.Not_Required
-    );
-  }, [selectedLoanScheme]);
-
   return (
     <ThemedScrollViewV2
       testID="create_vault_screen"
@@ -190,7 +178,7 @@ export function CreateVaultScreenV2({ navigation, route }: Props): JSX.Element {
       />
 
       {selectedLoanScheme !== undefined &&
-        (conversionStatus === ConversionStatus.Not_Required ||
+        (conversionStatus !== ConversionStatus.Required ||
           conversionAmount !== undefined) && (
           <CreateVaultSummary
             transactionFee={fee}
@@ -235,6 +223,7 @@ function ButtonActionMessage(props: {
           style={tailwind("text-xs font-normal-v2 pb-5 text-center")}
           light={tailwind("text-mono-light-v2-500")}
           dark={tailwind("text-mono-dark-v2-500")}
+          testID="action_message"
         >
           {translate(
             "screens/CreateVaultScreen",
