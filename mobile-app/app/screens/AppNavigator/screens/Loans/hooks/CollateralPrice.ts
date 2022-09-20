@@ -94,7 +94,9 @@ export function getCollateralPrice(
     getActivePrice(
       collateralItem.token.symbol,
       collateralItem.activePrice,
-      collateralItem.factor
+      collateralItem.factor,
+      "ACTIVE",
+      "COLLATERAL"
     )
   );
   const collateralPrice = activePrice.multipliedBy(amount);
