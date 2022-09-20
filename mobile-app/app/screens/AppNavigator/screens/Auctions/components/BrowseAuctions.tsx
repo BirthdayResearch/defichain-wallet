@@ -83,6 +83,7 @@ export function BrowseAuctions({
     AuctionsSortType.LeastTimeLeft
   ); // to display selected sorted type text
   const [isSorted, setIsSorted] = useState<boolean>(false); // to display acsending/descending icon
+  const [isQuickBidOpen, setQuickBidOpen] = useState<boolean>(false);
 
   const {
     bottomSheetRef,
@@ -165,6 +166,7 @@ export function BrowseAuctions({
   );
 
   const onQuickBid = (props: onQuickBidProps): void => {
+    setQuickBidOpen(true);
     setBottomSheetScreen([
       {
         stackScreenName: "Quick Bid",
@@ -183,7 +185,10 @@ export function BrowseAuctions({
                   dark: tailwind("text-mono-dark-v2-1000"),
                 }}
                 containerStyle={tailwind("pb-4")}
-                onClose={dismissModal}
+                onClose={() => {
+                  dismissModal();
+                  setQuickBidOpen(false);
+                }}
                 headerText={translate("components/QuickBid", "Quick Bid")}
               />
             );
@@ -194,7 +199,10 @@ export function BrowseAuctions({
           index: props.batch.index,
           loanTokenId: props.batch.loan.id,
           loanTokenDisplaySymbol: props.batch.loan.displaySymbol,
-          onCloseButtonPress: dismissModal,
+          onCloseButtonPress: () => {
+            dismissModal();
+            setQuickBidOpen(false);
+          },
           minNextBid: new BigNumber(props.minNextBidInToken),
           minNextBidInUSD: props.minNextBidInUSD,
           vaultLiquidationHeight: props.vaultLiquidationHeight,
@@ -247,8 +255,8 @@ export function BrowseAuctions({
           modalRef={bottomSheetRef}
           screenList={bottomSheetScreen}
           snapPoints={{
-            ios: ["50%"],
-            android: ["50%"],
+            ios: [isQuickBidOpen ? "60%" : "45%"],
+            android: [isQuickBidOpen ? "60%" : "45%"],
           }}
         />
       )}
