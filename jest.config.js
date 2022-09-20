@@ -1,5 +1,8 @@
 module.exports = {
   preset: 'jest-expo',
+  transform: {
+    "\\.[jt]sx?$": "babel-jest",
+  },
   testPathIgnorePatterns: [
     'mobile-app/cypress/.*'
   ],
@@ -22,5 +25,5 @@ module.exports = {
     '!**/website/**'
   ],
   coverageDirectory: 'jest-coverage',
-  setupFiles: ['./jest.setup.js']
+  setupFiles: ['./jest.setup.js'],
 }
