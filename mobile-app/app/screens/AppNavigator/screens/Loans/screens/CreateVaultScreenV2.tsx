@@ -20,7 +20,7 @@ import {
 import { RootState } from "@store";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
-import { DFITokenSelector, DFIUtxoSelector } from "@store/wallet";
+import { DFIUtxoSelector } from "@store/wallet";
 import { queueConvertTransaction } from "@hooks/wallet/Conversion";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { LoanSchemeOptionsV2 } from "@screens/AppNavigator/screens/Loans/components/LoanSchemeOptionsV2";
@@ -60,9 +60,6 @@ export function CreateVaultScreenV2({ navigation, route }: Props): JSX.Element {
   const DFIUtxo = useSelector((state: RootState) =>
     DFIUtxoSelector(state.wallet)
   );
-  const DFIToken = useSelector((state: RootState) =>
-    DFITokenSelector(state.wallet)
-  );
 
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
   const [selectedLoanScheme, setSelectedLoanScheme] = useState<
@@ -79,7 +76,6 @@ export function CreateVaultScreenV2({ navigation, route }: Props): JSX.Element {
   const [isOnPage, setIsOnPage] = useState<boolean>(true);
 
   const FEE_AMOUNT = 2.1;
-  const isConversionRequired = new BigNumber(FEE_AMOUNT).gt(DFIUtxo.amount);
   const vaultFee = new BigNumber(
     network === EnvironmentNetwork.MainNet ||
     network === EnvironmentNetwork.TestNet
@@ -116,19 +112,6 @@ export function CreateVaultScreenV2({ navigation, route }: Props): JSX.Element {
         () => {
           setConversionAmount(convertAmount);
           setConversionStatus(ConversionStatus.Processing);
-          // navigation.navigate({
-          //   name: "ConfirmCreateVaultScreen",
-          //   params: {
-          //     loanScheme: selectedLoanScheme,
-          //     fee: fee,
-          //     conversion: {
-          //       DFIUtxo,
-          //       DFIToken,
-          //       isConversionRequired,
-          //       conversionAmount: new BigNumber(2.1).minus(DFIUtxo.amount),
-          //     },
-          //   },
-          // });
         },
         logger,
         () => {
@@ -136,13 +119,6 @@ export function CreateVaultScreenV2({ navigation, route }: Props): JSX.Element {
         }
       );
     } else {
-      // navigation.navigate({
-      //   name: "ConfirmCreateVaultScreen",
-      //   params: {
-      //     loanScheme: selectedLoanScheme,
-      //     fee: fee,
-      //   },
-      // });
       if (hasPendingJob || hasPendingBroadcastJob) {
         return;
       }
@@ -210,14 +186,16 @@ export function CreateVaultScreenV2({ navigation, route }: Props): JSX.Element {
         }
       />
 
-      {selectedLoanScheme !== undefined && conversionAmount !== undefined && (
-        <CreateVaultSummary
-          transactionFee={fee}
-          vaultFee={vaultFee}
-          convertAmount={conversionAmount}
-          conversionStatus={conversionStatus}
-        />
-      )}
+      {selectedLoanScheme !== undefined &&
+        (conversionStatus === ConversionStatus.Not_Required ||
+          conversionAmount !== undefined) && (
+          <CreateVaultSummary
+            transactionFee={fee}
+            vaultFee={vaultFee}
+            convertAmount={conversionAmount}
+            conversionStatus={conversionStatus}
+          />
+        )}
 
       <ButtonActionMessage
         isConversionRequired={conversionStatus === ConversionStatus.Required}

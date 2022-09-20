@@ -15,7 +15,7 @@ export enum ConversionStatus {
 interface CreateVaultSummaryProps {
   transactionFee: BigNumber;
   vaultFee: BigNumber;
-  convertAmount: BigNumber;
+  convertAmount?: BigNumber;
   conversionStatus: ConversionStatus;
 }
 
@@ -34,7 +34,8 @@ export function CreateVaultSummary({
       dark={tailwind("border-mono-dark-v2-300")}
     >
       {conversionStatus !== ConversionStatus.Not_Required &&
-        conversionStatus !== ConversionStatus.Required && (
+        conversionStatus !== ConversionStatus.Required &&
+        convertAmount !== undefined && (
           <ConvertSummary
             convertAmount={convertAmount}
             conversionStatus={conversionStatus}
