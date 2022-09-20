@@ -15,7 +15,7 @@
     "start:web": "expo start --web",
     "playground:start": "docker-compose rm -fsv && docker-compose up",
     "test:ci": "jest --ci --coverage --detectOpenHandles --debug",
-    "cypress:open": "sudo cypress open --project mobile-app",
+    "cypress:open": "cypress open",
     "cypress:run": "cypress run --headless --browser chrome",
     "react-devtools:open": "react-devtools",
     "translation:missing": "ts-node shared/translations/reporter/index.ts"
