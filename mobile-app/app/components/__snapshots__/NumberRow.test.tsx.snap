@@ -3,8 +3,8 @@
 exports[`Number row should match snapshot for component suffix 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "flex-start",
         "flexDirection": "row",
         "paddingBottom": 16,
@@ -13,7 +13,7 @@ exports[`Number row should match snapshot for component suffix 1`] = `
         "paddingTop": 16,
         "width": "100%",
       },
-      Object {
+      {
         "backgroundColor": "rgba(255, 255, 255, 1)",
         "borderBottomColor": "rgba(229, 229, 229, 1)",
         "borderBottomWidth": 1,
@@ -26,14 +26,14 @@ exports[`Number row should match snapshot for component suffix 1`] = `
 >
   <View
     style={
-      Object {
+      {
         "width": "50%",
       }
     }
   >
     <View
       style={
-        Object {
+        {
           "alignItems": "flex-end",
           "flexDirection": "row",
           "justifyContent": "flex-start",
@@ -42,22 +42,22 @@ exports[`Number row should match snapshot for component suffix 1`] = `
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Array [
-                Object {
+            [
+              [
+                {
                   "fontSize": 14,
                   "lineHeight": 20,
                 },
                 undefined,
               ],
-              Object {
+              {
                 "color": "rgba(0, 0, 0, 1)",
               },
             ],
@@ -71,7 +71,7 @@ exports[`Number row should match snapshot for component suffix 1`] = `
   </View>
   <View
     style={
-      Object {
+      {
         "flexBasis": "0%",
         "flexGrow": 1,
         "flexShrink": 1,
@@ -81,7 +81,7 @@ exports[`Number row should match snapshot for component suffix 1`] = `
     <View>
       <View
         style={
-          Object {
+          {
             "alignItems": "center",
             "display": "flex",
             "flexDirection": "row",
@@ -92,8 +92,8 @@ exports[`Number row should match snapshot for component suffix 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontSize": 14,
                 "lineHeight": 20,
                 "textAlign": "right",
@@ -105,16 +105,16 @@ exports[`Number row should match snapshot for component suffix 1`] = `
         >
           <Text
             style={
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "RegularFont",
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Array [
-                  Array [
-                    Object {
+                [
+                  [
+                    {
                       "fontSize": 14,
                       "lineHeight": 20,
                       "textAlign": "right",
@@ -122,7 +122,7 @@ exports[`Number row should match snapshot for component suffix 1`] = `
                     undefined,
                     undefined,
                   ],
-                  Object {
+                  {
                     "color": "rgba(115, 115, 115, 1)",
                   },
                 ],
@@ -140,7 +140,7 @@ exports[`Number row should match snapshot for component suffix 1`] = `
     </Text>
     <View
       style={
-        Object {
+        {
           "alignItems": "center",
           "display": "flex",
           "flexDirection": "row",
@@ -156,8 +156,8 @@ exports[`Number row should match snapshot for component suffix 1`] = `
 exports[`Number row should match snapshot for text suffix 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "flex-start",
         "flexDirection": "row",
         "paddingBottom": 16,
@@ -166,7 +166,7 @@ exports[`Number row should match snapshot for text suffix 1`] = `
         "paddingTop": 16,
         "width": "100%",
       },
-      Object {
+      {
         "backgroundColor": "rgba(255, 255, 255, 1)",
         "borderBottomColor": "rgba(229, 229, 229, 1)",
         "borderBottomWidth": 1,
@@ -179,14 +179,14 @@ exports[`Number row should match snapshot for text suffix 1`] = `
 >
   <View
     style={
-      Object {
+      {
         "width": "50%",
       }
     }
   >
     <View
       style={
-        Object {
+        {
           "alignItems": "flex-end",
           "flexDirection": "row",
           "justifyContent": "flex-start",
@@ -195,22 +195,22 @@ exports[`Number row should match snapshot for text suffix 1`] = `
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Array [
-                Object {
+            [
+              [
+                {
                   "fontSize": 14,
                   "lineHeight": 20,
                 },
                 undefined,
               ],
-              Object {
+              {
                 "color": "rgba(0, 0, 0, 1)",
               },
             ],
@@ -224,7 +224,7 @@ exports[`Number row should match snapshot for text suffix 1`] = `
   </View>
   <View
     style={
-      Object {
+      {
         "flexBasis": "0%",
         "flexGrow": 1,
         "flexShrink": 1,
@@ -234,7 +234,7 @@ exports[`Number row should match snapshot for text suffix 1`] = `
     <View>
       <View
         style={
-          Object {
+          {
             "alignItems": "center",
             "display": "flex",
             "flexDirection": "row",
@@ -245,8 +245,8 @@ exports[`Number row should match snapshot for text suffix 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontSize": 14,
                 "lineHeight": 20,
                 "textAlign": "right",
@@ -258,16 +258,16 @@ exports[`Number row should match snapshot for text suffix 1`] = `
         >
           <Text
             style={
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "RegularFont",
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Array [
-                  Array [
-                    Object {
+                [
+                  [
+                    {
                       "fontSize": 14,
                       "lineHeight": 20,
                       "textAlign": "right",
@@ -275,7 +275,7 @@ exports[`Number row should match snapshot for text suffix 1`] = `
                     undefined,
                     undefined,
                   ],
-                  Object {
+                  {
                     "color": "rgba(115, 115, 115, 1)",
                   },
                 ],
@@ -290,16 +290,16 @@ exports[`Number row should match snapshot for text suffix 1`] = `
           </Text>
           <Text
             style={
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "RegularFont",
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Array [
-                  Array [
-                    Object {
+                [
+                  [
+                    {
                       "fontSize": 14,
                       "lineHeight": 20,
                       "marginLeft": 4,
@@ -307,7 +307,7 @@ exports[`Number row should match snapshot for text suffix 1`] = `
                     undefined,
                     undefined,
                   ],
-                  Object {
+                  {
                     "color": "rgba(115, 115, 115, 1)",
                   },
                 ],
@@ -322,7 +322,7 @@ exports[`Number row should match snapshot for text suffix 1`] = `
     </View>
     <View
       style={
-        Object {
+        {
           "alignItems": "center",
           "display": "flex",
           "flexDirection": "row",

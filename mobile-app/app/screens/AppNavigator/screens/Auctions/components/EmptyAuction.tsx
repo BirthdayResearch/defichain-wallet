@@ -10,11 +10,11 @@ import { EmptyAuctionsLight } from "../../Portfolio/assets/EmptyAuctionsLight";
 
 export function EmptyAuction({
   title,
-  subTitle,
+  subtitle,
   showInfo,
 }: {
   title: string;
-  subTitle: string;
+  subtitle: string;
   showInfo?: boolean;
 }): JSX.Element {
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>();
@@ -30,7 +30,7 @@ export function EmptyAuction({
         containerStyle={tailwind("mt-12 px-11 mb-0")}
         testID="empty_auctions_screen"
         title={translate("components/EmptyAuctions", title)}
-        subTitle={translate("components/EmptyAuctions", subTitle)}
+        subtitle={translate("components/EmptyAuctions", subtitle)}
       />
       {showInfo && (
         <InfoTextLinkV2
