@@ -1,3 +1,4 @@
+import { VaultSchemesSkeletonLoaderV2 } from "@components/skeletonLoaders/VaultSchemeSkeletonLoaderV2";
 import { DexSkeletonLoader } from "./skeletonLoaders/DexSkeletonLoader";
 import { MnemonicWordSkeletonLoader } from "./skeletonLoaders/MnemonicWordSkeletonLoader";
 import { TransactionSkeletonLoader } from "./skeletonLoaders/TransactionSkeletonLoader";
@@ -6,7 +7,6 @@ import { AddressSkeletonLoader } from "./skeletonLoaders/AddressSkeletonLoader";
 import { BrowseAuctionsLoader } from "./skeletonLoaders/BrowseAuctionsLoader";
 import { VaultSkeletonLoader } from "./skeletonLoaders/VaultSkeletonLoader";
 import { PortfolioSkeletonLoader } from "./skeletonLoaders/PortfolioSkeletonLoader";
-import { VaultSchemesSkeletonLoader } from "./skeletonLoaders/VaultSchemeSkeletonLoader";
 import { DexPricesSkeletonLoader } from "./skeletonLoaders/DexPricesSkeletonLoader";
 import { MnemonicWordSkeletonLoaderV2 } from "./skeletonLoaders/MnemonicWordSkeletonLoaderV2";
 import { TokenSelectionLoader } from "./skeletonLoaders/TokenSelectionLoader";
@@ -130,8 +130,11 @@ export function SkeletonLoader(prop: SkeletonLoaderProp): JSX.Element {
     case SkeletonLoaderScreen.VaultSchemes:
       return (
         <>
-          {skeletonRow.map((i) => (
-            <VaultSchemesSkeletonLoader key={i} />
+          {skeletonRow.map((i, index) => (
+            <VaultSchemesSkeletonLoaderV2
+              key={i}
+              last={index === skeletonRow.length - 1}
+            />
           ))}
         </>
       );

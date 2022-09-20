@@ -28,22 +28,21 @@ interface LoanSchemeOptionsP {
 
 export function LoanSchemeOptionsV2(props: LoanSchemeOptionsP): JSX.Element {
   return (
-    <View style={tailwind("mt-8 mb-1")} testID="loan_scheme_options">
+    <ThemedViewV2
+      style={tailwind("mt-8 mb-1 rounded-t-lg-v2 rounded-b-lg-v2")}
+      testID="loan_scheme_options"
+      light={tailwind("bg-mono-light-v2-00")}
+      dark={tailwind("bg-mono-dark-v2-00")}
+    >
       {props.isLoading ? (
-        <View style={tailwind("p-4")}>
+        <View>
           <SkeletonLoader row={6} screen={SkeletonLoaderScreen.VaultSchemes} />
         </View>
       ) : (
-        <ThemedViewV2
-          style={tailwind("rounded-t-lg-v2 rounded-b-lg-v2 px-5")}
-          light={tailwind("bg-mono-light-v2-00")}
-          dark={tailwind("bg-mono-dark-v2-00")}
-        >
+        <View style={tailwind("px-5")}>
           {props.loanSchemes.map((scheme, index) => (
             <ThemedTouchableListItem
               key={scheme.id}
-              // light={tailwind("bg-transparent")}
-              // dark={tailwind("bg-transparent")}
               isLast={index === props.loanSchemes.length - 1}
               styleProps="py-5.5 flex flex-row items-center"
               onPress={() => props.onLoanSchemePress(scheme)}
@@ -98,9 +97,9 @@ export function LoanSchemeOptionsV2(props: LoanSchemeOptionsP): JSX.Element {
               </ThemedViewV2>
             </ThemedTouchableListItem>
           ))}
-        </ThemedViewV2>
+        </View>
       )}
-    </View>
+    </ThemedViewV2>
   );
 }
 
