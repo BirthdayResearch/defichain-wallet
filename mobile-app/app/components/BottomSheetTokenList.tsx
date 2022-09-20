@@ -99,7 +99,9 @@ export const BottomSheetTokenList = ({
                   getActivePrice(
                     item.token.symbol,
                     (item as CollateralItem)?.activePrice,
-                    (item as CollateralItem).factor
+                    (item as CollateralItem).factor,
+                    "ACTIVE",
+                    "COLLATERAL"
                   )
                 )
               : getTokenPrice(
