@@ -434,13 +434,13 @@ async function paybackLoanToken ({
     const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
       const script = await account.getScript()
       const builder = account.withTransactionBuilder()
-      // TODO (Harsh) update api for payback loan
       const signed = await builder.loans.paybackLoan({
           vaultId: vaultId,
           from: script,
           tokenAmounts: [{
             token: +loanToken.id,
-            amount: new BigNumber(0)
+            // To payback DUSD loan with collateral set amount to 9999999999.99999999
+            amount: new BigNumber('9999999999.99999999')
           }]
         }, script)
       return new CTransactionSegWit(signed)
