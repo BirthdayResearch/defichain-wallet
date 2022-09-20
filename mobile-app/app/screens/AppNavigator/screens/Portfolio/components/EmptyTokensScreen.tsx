@@ -6,13 +6,13 @@ import { StyleProp, ViewStyle } from "react-native";
 interface EmptyBalancesProps {
   icon: () => JSX.Element;
   title: string;
-  subTitle: string;
+  subtitle: string;
   containerStyle?: StyleProp<ViewStyle>;
   testID?: string;
 }
 
 export function EmptyTokensScreen(props: EmptyBalancesProps): JSX.Element {
-  const { icon: Icon, title, subTitle, containerStyle, testID } = props;
+  const { icon: Icon, title, subtitle, containerStyle, testID } = props;
   return (
     <View
       style={[
@@ -34,7 +34,7 @@ export function EmptyTokensScreen(props: EmptyBalancesProps): JSX.Element {
         testID="empty_tokens_subtitle"
         style={tailwind("text-base font-normal-v2 text-center mt-2")}
       >
-        {subTitle}
+        {subtitle}
       </ThemedTextV2>
     </View>
   );

@@ -1,5 +1,7 @@
+import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
+import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { SearchInputV2 } from "./SearchInputV2";
@@ -18,6 +20,9 @@ export function HeaderSearchInputV2(
   props: HeaderSearchInputProps
 ): JSX.Element {
   const safeAreaInsets = useSafeAreaInsets();
+  const { isLight } = useThemeContext();
+  const [isSearchFocus, setIsSearchFocus] = useState(false);
+
   return (
     <ThemedViewV2
       light={tailwind("bg-mono-light-v2-00")}
@@ -50,7 +55,24 @@ export function HeaderSearchInputV2(
           light: tailwind("text-mono-light-v2-900"),
           dark: tailwind("text-mono-dark-v2-900"),
         }}
-        containerStyle={tailwind("flex-1")}
+        onFocus={() => {
+          setIsSearchFocus(true);
+        }}
+        onBlur={() => {
+          setIsSearchFocus(false);
+        }}
+        containerStyle={tailwind([
+          "flex-1 border-0.5",
+          isSearchFocus
+            ? {
+                "border-mono-light-v2-800": isLight,
+                "border-mono-dark-v2-800": !isLight,
+              }
+            : {
+                "border-mono-light-v2-100": isLight,
+                "border-mono-dark-v2-100": !isLight,
+              },
+        ])}
         value={props.searchString}
         placeholder={translate(
           "components/HeaderSearchInput",

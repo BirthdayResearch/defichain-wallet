@@ -1,6 +1,6 @@
 import * as React from "react";
-import { memo, useMemo } from "react";
-import { Text, View } from "react-native";
+import { memo, useMemo, useState } from "react";
+import { Text, View, LayoutChangeEvent } from "react-native";
 import {
   ThemedText,
   ThemedIcon,
@@ -42,6 +42,7 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>();
   const { address } = useWalletContext();
   const { batch, testID, vault, collateralTokenSymbols } = props;
+  const [progressBarHeight, setProgressBarHeight] = useState<number>(0);
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0;
   const {
     minNextBidInToken,
@@ -68,6 +69,10 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
       vault,
     });
   };
+  const onPageLayout = (event: LayoutChangeEvent) => {
+    const { height } = event.nativeEvent.layout;
+    setProgressBarHeight(height);
+  };
 
   const onQuickBid = (): void => {
     props.onQuickBid({
@@ -87,7 +92,10 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
       testID={testID}
       onPress={onCardPress}
     >
-      <View style={tailwind("flex flex-row justify-between items-start")}>
+      <View
+        style={tailwind("flex flex-row justify-between items-start")}
+        onLayout={onPageLayout}
+      >
         <View style={tailwind("flex-1 p-5 pr-3.5")}>
           <View style={tailwind("flex flex-row justify-between items-start")}>
             <TokenIconGroupV2
@@ -184,6 +192,7 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
           </View>
         </View>
         <VerticalProgressBar
+          height={progressBarHeight}
           normalizedBlocks={normalizedBlocks.toNumber()}
           color={timeRemainingThemedColor}
         />
