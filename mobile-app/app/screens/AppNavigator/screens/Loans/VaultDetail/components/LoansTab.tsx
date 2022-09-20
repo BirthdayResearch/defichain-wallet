@@ -517,7 +517,8 @@ async function paybackLoanToken(
           tokenAmounts: [
             {
               token: +loanToken.id,
-              amount: new BigNumber(0),
+              // To payback DUSD loan with collateral set amount to 9999999999.99999999
+              amount: new BigNumber("9999999999.99999999"),
             },
           ],
         },
