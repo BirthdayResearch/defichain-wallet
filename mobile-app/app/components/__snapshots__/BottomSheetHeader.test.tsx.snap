@@ -3,8 +3,8 @@
 exports[`Bottom sheet header should match snapshot 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "borderTopLeftRadius": 15,
         "borderTopRightRadius": 15,
         "display": "flex",
@@ -14,7 +14,7 @@ exports[`Bottom sheet header should match snapshot 1`] = `
         "paddingRight": 20,
         "paddingTop": 12,
       },
-      Object {
+      {
         "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
@@ -32,7 +32,7 @@ exports[`Bottom sheet header should match snapshot 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
+      {
         "alignSelf": "flex-end",
         "borderBottomColor": "rgba(204, 204, 204, 1)",
         "borderLeftColor": "rgba(204, 204, 204, 1)",
@@ -47,21 +47,21 @@ exports[`Bottom sheet header should match snapshot 1`] = `
   </View>
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Array [
-          Object {
+        [
+          {
             "fontFamily": "SoraRegular",
             "fontSize": 20,
             "fontWeight": "400",
             "lineHeight": 28,
           },
-          Object {
+          {
             "color": "rgba(18, 18, 18, 1)",
           },
         ],

@@ -3,8 +3,8 @@
 exports[`Bid Card should match snapshot 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "borderBottomLeftRadius": 4,
         "borderBottomRightRadius": 4,
         "borderBottomWidth": 1,
@@ -19,7 +19,7 @@ exports[`Bid Card should match snapshot 1`] = `
         "paddingRight": 16,
         "paddingTop": 16,
       },
-      Object {
+      {
         "backgroundColor": "rgba(255, 255, 255, 1)",
         "borderBottomColor": "rgba(229, 229, 229, 1)",
         "borderLeftColor": "rgba(229, 229, 229, 1)",
@@ -31,7 +31,7 @@ exports[`Bid Card should match snapshot 1`] = `
 >
   <View
     style={
-      Object {
+      {
         "alignItems": "center",
         "flexDirection": "row",
         "justifyContent": "space-between",
@@ -42,7 +42,7 @@ exports[`Bid Card should match snapshot 1`] = `
   >
     <View
       style={
-        Object {
+        {
           "display": "flex",
           "flexDirection": "row",
         }
@@ -50,19 +50,19 @@ exports[`Bid Card should match snapshot 1`] = `
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "SemiBoldFont",
                 "fontWeight": "600",
               },
-              Object {
+              {
                 "color": "rgba(23, 23, 23, 1)",
               },
             ],
@@ -75,7 +75,7 @@ exports[`Bid Card should match snapshot 1`] = `
   </View>
   <View
     style={
-      Object {
+      {
         "alignItems": "center",
         "flexDirection": "row",
         "justifyContent": "space-between",
@@ -86,7 +86,7 @@ exports[`Bid Card should match snapshot 1`] = `
   >
     <View
       style={
-        Object {
+        {
           "display": "flex",
           "flexDirection": "row",
           "width": "50%",
@@ -95,19 +95,19 @@ exports[`Bid Card should match snapshot 1`] = `
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
+            [
+              {
                 "fontSize": 12,
                 "lineHeight": 16,
               },
-              Object {
+              {
                 "color": "rgba(115, 115, 115, 1)",
               },
             ],
@@ -119,7 +119,7 @@ exports[`Bid Card should match snapshot 1`] = `
     </View>
     <View
       style={
-        Object {
+        {
           "display": "flex",
           "flexDirection": "row",
           "width": "50%",
@@ -130,21 +130,21 @@ exports[`Bid Card should match snapshot 1`] = `
         ellipsizeMode="middle"
         numberOfLines={1}
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
+            [
+              {
                 "flexShrink": 1,
                 "fontSize": 14,
                 "lineHeight": 20,
                 "marginRight": 2,
               },
-              Object {
+              {
                 "color": "rgba(0, 0, 0, 1)",
               },
             ],
@@ -165,7 +165,7 @@ exports[`Bid Card should match snapshot 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Object {
+          {
             "opacity": 1,
           }
         }
@@ -176,7 +176,7 @@ exports[`Bid Card should match snapshot 1`] = `
   </View>
   <View
     style={
-      Object {
+      {
         "flexDirection": "row",
         "justifyContent": "space-between",
         "marginBottom": 8,
@@ -186,26 +186,26 @@ exports[`Bid Card should match snapshot 1`] = `
   >
     <View
       style={
-        Object {
+        {
           "width": "50%",
         }
       }
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
+            [
+              {
                 "fontSize": 12,
                 "lineHeight": 16,
               },
-              Object {
+              {
                 "color": "rgba(115, 115, 115, 1)",
               },
             ],
@@ -217,7 +217,7 @@ exports[`Bid Card should match snapshot 1`] = `
     </View>
     <View
       style={
-        Object {
+        {
           "display": "flex",
           "flexBasis": "0%",
           "flexDirection": "row",
@@ -230,23 +230,23 @@ exports[`Bid Card should match snapshot 1`] = `
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Array [
-                Object {
+            [
+              [
+                {
                   "fontSize": 14,
                   "lineHeight": 20,
                   "textAlign": "right",
                 },
                 undefined,
               ],
-              Object {
+              {
                 "color": "rgba(23, 23, 23, 1)",
               },
             ],
@@ -264,7 +264,7 @@ exports[`Bid Card should match snapshot 1`] = `
   <View
     animated={true}
     animationConfig={
-      Object {
+      {
         "bounciness": 0,
       }
     }
@@ -274,8 +274,8 @@ exports[`Bid Card should match snapshot 1`] = `
     onLayout={[Function]}
     progress={218.61111111111111}
     style={
-      Array [
-        Object {
+      [
+        {
           "backgroundColor": "gray-100",
           "borderColor": "rgba(212, 212, 212, 1)",
           "borderRadius": 8,
@@ -291,17 +291,17 @@ exports[`Bid Card should match snapshot 1`] = `
     <View
       collapsable={false}
       style={
-        Object {
+        {
           "backgroundColor": "rgba(90, 169, 230, 1)",
           "height": 8,
-          "transform": Array [
-            Object {
+          "transform": [
+            {
               "translateX": 0,
             },
-            Object {
+            {
               "translateX": 0,
             },
-            Object {
+            {
               "scaleX": 1,
             },
           ],
@@ -311,15 +311,15 @@ exports[`Bid Card should match snapshot 1`] = `
   </View>
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "display": "flex",
           "flexDirection": "row",
           "flexWrap": "wrap",
           "marginBottom": -8,
           "marginTop": 16,
         },
-        Object {
+        {
           "borderBottomColor": "rgba(229, 229, 229, 1)",
           "borderLeftColor": "rgba(229, 229, 229, 1)",
           "borderRightColor": "rgba(229, 229, 229, 1)",
@@ -340,7 +340,7 @@ exports[`Bid Card should match snapshot 1`] = `
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
       style={
-        Object {
+        {
           "alignItems": "center",
           "backgroundColor": "rgba(255, 255, 255, 1)",
           "borderBottomColor": "rgba(212, 212, 212, 1)",
@@ -368,16 +368,16 @@ exports[`Bid Card should match snapshot 1`] = `
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Array [
-                Object {
+            [
+              [
+                {
                   "fontFamily": "MediumFont",
                   "fontSize": 14,
                   "fontWeight": "500",
@@ -387,7 +387,7 @@ exports[`Bid Card should match snapshot 1`] = `
                 },
                 undefined,
               ],
-              Object {
+              {
                 "color": "rgba(255, 0, 175, 1)",
               },
             ],
@@ -409,7 +409,7 @@ exports[`Bid Card should match snapshot 1`] = `
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
       style={
-        Object {
+        {
           "alignItems": "center",
           "backgroundColor": "rgba(255, 255, 255, 1)",
           "borderBottomColor": "rgba(212, 212, 212, 1)",
@@ -437,16 +437,16 @@ exports[`Bid Card should match snapshot 1`] = `
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Array [
-                Object {
+            [
+              [
+                {
                   "fontFamily": "MediumFont",
                   "fontSize": 14,
                   "fontWeight": "500",
@@ -456,7 +456,7 @@ exports[`Bid Card should match snapshot 1`] = `
                 },
                 undefined,
               ],
-              Object {
+              {
                 "color": "rgba(255, 0, 175, 1)",
               },
             ],

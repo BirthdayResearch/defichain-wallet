@@ -10,7 +10,6 @@ import { translate } from "@translations";
 import { useState, useEffect } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
-import { debounce } from "lodash";
 
 export interface SlippageError {
   type: "error" | "helper";
@@ -21,7 +20,7 @@ interface SlippageToleranceCardProps {
   slippage: BigNumber;
   slippageError?: SlippageError;
   setSlippageError: (error?: SlippageError) => void;
-  setSlippage: (val: BigNumber, isCustomSlippage: boolean) => void;
+  setSlippage: (val: BigNumber) => void;
   onPress: () => void;
   isEditing: boolean;
   setIsEditing: (val: boolean) => void;
@@ -51,19 +50,15 @@ export function SlippageToleranceV2({
   const [selectedSlippage, setSelectedSlippage] = useState(slippage.toFixed(8));
   const [isRiskWarningDisplayed, setIsRiskWarningDisplayed] = useState(false);
 
-  const isCustomValue = !Object.values(SlippageAmountButtonTypes).some(
-    (buttonAmount) =>
-      new BigNumber(new BigNumber(buttonAmount).toFixed(8)).isEqualTo(
-        selectedSlippage
-      )
-  );
-  const [isCustomAmount, setIsCustomAmount] = useState(isCustomValue);
-
-  const submitSlippage = debounce(setSlippage, 500);
-  const onSlippageChange = (value: string): void => {
-    setSelectedSlippage(new BigNumber(value).toFixed(8));
-    submitSlippage(new BigNumber(value), isCustomValue);
+  const checkIfCustomSlippage = (slippage: string) => {
+    return !Object.values(SlippageAmountButtonTypes).some((buttonAmount) =>
+      new BigNumber(new BigNumber(buttonAmount).toFixed(8)).isEqualTo(slippage)
+    );
   };
+
+  const [isCustomAmount, setIsCustomAmount] = useState(
+    checkIfCustomSlippage(slippage.toFixed(8))
+  );
 
   const isSlippageValid = (): boolean => {
     return slippageError === undefined || slippageError?.type === "helper";
@@ -96,6 +91,23 @@ export function SlippageToleranceV2({
     );
   }, [selectedSlippage]);
 
+  const updateSlippage = (slippage: string, updateLocalStorage: boolean) => {
+    // update local storage
+    if (updateLocalStorage) {
+      setSlippage(new BigNumber(slippage));
+    } else {
+      // update local state
+      setSelectedSlippage(slippage);
+    }
+  };
+
+  // updates states when there is a change in slippage from local storage
+  useEffect(() => {
+    // percentage value will be in 2DP
+    updateSlippage(slippage.toFixed(2), false);
+    setIsCustomAmount(checkIfCustomSlippage(slippage.toFixed(2)));
+  }, [slippage]);
+
   return (
     <>
       <View style={tailwind("flex-row items-center pb-2 px-5")}>
@@ -126,7 +138,7 @@ export function SlippageToleranceV2({
             <View style={tailwind("flex-row items-center mr-2 w-9/12")}>
               <WalletTextInputV2
                 onChangeText={(val: string) => {
-                  setSelectedSlippage(val);
+                  updateSlippage(val, false);
                 }}
                 keyboardType="numeric"
                 autoCapitalize="none"
@@ -136,7 +148,8 @@ export function SlippageToleranceV2({
                 value={selectedSlippage !== undefined ? selectedSlippage : ""}
                 displayClearButton={selectedSlippage !== ""}
                 onClearButtonPress={() => {
-                  setSelectedSlippage("");
+                  updateSlippage("", false);
+                  setSlippageError(undefined);
                 }}
                 inputType="numeric"
                 inlineText={slippageError}
@@ -161,15 +174,12 @@ export function SlippageToleranceV2({
                     selectedSlippage === undefined ||
                     selectedSlippage === ""
                   ) {
-                    setSelectedSlippage(new BigNumber(slippage).toFixed(8));
+                    updateSlippage(slippage.toFixed(2), false); // reset to previous slippage
                   } else {
                     setIsCustomAmount(true);
-                    setSelectedSlippage(
-                      new BigNumber(selectedSlippage).toFixed(8)
-                    );
-                    submitSlippage(
-                      new BigNumber(selectedSlippage),
-                      isCustomValue
+                    updateSlippage(
+                      new BigNumber(selectedSlippage).toFixed(2),
+                      true
                     );
                   }
                 }}
@@ -200,14 +210,14 @@ export function SlippageToleranceV2({
               <PercentageAmountButton
                 key={type}
                 onPress={() => {
-                  onSlippageChange(type);
+                  updateSlippage(type, true);
                   setIsCustomAmount(false);
                 }}
                 percentageAmount={type}
                 isSelected={
                   !isCustomAmount &&
                   new BigNumber(selectedSlippage).isEqualTo(
-                    new BigNumber(type).toFixed(8)
+                    new BigNumber(type).toFixed(2)
                   )
                 }
               />

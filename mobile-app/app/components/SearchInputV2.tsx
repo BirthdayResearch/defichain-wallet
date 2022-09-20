@@ -44,7 +44,7 @@ export const SearchInputV2 = forwardRef<any, SearchInputProps>(
           size={16}
           light={tailwind("text-mono-light-v2-500")}
           dark={tailwind("text-mono-light-v2-500")}
-          style={tailwind("mr-2")}
+          style={tailwind("mr-2 my-px")}
         />
         <ThemedTextInputV2
           ref={ref}
