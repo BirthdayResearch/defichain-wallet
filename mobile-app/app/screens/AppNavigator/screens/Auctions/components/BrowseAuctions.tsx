@@ -1,7 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import { useScrollToTop } from "@react-navigation/native";
 import { tailwind } from "@tailwind";
-import { ThemedFlatListV2 } from "@components/themed";
 import { BatchCard } from "@screens/AppNavigator/screens/Auctions/components/BatchCard";
 import { Platform, View } from "react-native";
 import { useSelector } from "react-redux";
@@ -20,6 +19,7 @@ import {
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
 import { BottomSheetHeader } from "@components/BottomSheetHeader";
+import { ThemedFlashList } from "@components/themed/ThemedFlashList";
 import { QuickBid } from "./QuickBid";
 import {
   AuctionsSortRow,
@@ -290,29 +290,30 @@ function BatchCards({
 
   const emptyScreenDetails = getEmptyScreenDetails(activeButtonGroup);
   return (
-    <ThemedFlatListV2
-      contentContainerStyle={tailwind("px-5 pb-2")}
-      data={auctionBatches}
-      ref={ref}
-      numColumns={1}
-      initialNumToRender={5}
-      windowSize={2}
-      keyExtractor={(_item, index) => index.toString()}
-      ListEmptyComponent={
-        <>
-          {showSearchInput === false && (
-            <View style={tailwind("mt-1")}>
-              <EmptyAuction
-                title={emptyScreenDetails.title}
-                subtitle={emptyScreenDetails.subtitle}
-              />
-            </View>
-          )}
-        </>
-      }
-      testID="available_liquidity_tab"
-      renderItem={RenderItems}
-    />
+    <View style={tailwind("px-5 flex-1")}>
+      <ThemedFlashList
+        contentContainerStyle={tailwind("pb-2")}
+        data={auctionBatches}
+        ref={ref}
+        numColumns={1}
+        estimatedItemSize={4}
+        keyExtractor={(_item, index) => index.toString()}
+        ListEmptyComponent={
+          <>
+            {showSearchInput === false && (
+              <View style={tailwind("mt-1")}>
+                <EmptyAuction
+                  title={emptyScreenDetails.title}
+                  subtitle={emptyScreenDetails.subtitle}
+                />
+              </View>
+            )}
+          </>
+        }
+        testID="available_liquidity_tab"
+        renderItem={RenderItems}
+      />
+    </View>
   );
 }
 

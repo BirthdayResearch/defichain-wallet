@@ -38,6 +38,7 @@ exports[`Batch Card should match snapshot 1`] = `
     testID="batch_card"
   >
     <View
+      onLayout={[Function]}
       style={
         {
           "alignItems": "flex-start",
@@ -655,14 +656,13 @@ exports[`Batch Card should match snapshot 1`] = `
         </View>
       </View>
       <View
-        onLayout={[Function]}
         style={
           [
             {
-              "height": "100%",
               "width": 6,
             },
             {
+              "height": 0,
               "transform": [
                 {
                   "rotate": "180deg",
