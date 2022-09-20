@@ -255,8 +255,8 @@ export default async function handle(
       platforms: ["ios", "android", "web"],
     },
     {
-      id: "poof_dusd",
-      name: "Poof DUSD loan",
+      id: "unloop_dusd",
+      name: "Unloop DUSD loan",
       stage: "alpha",
       version: ">2.4.3",
       description: "Display payback DUSD loan with DUSD collateral",
