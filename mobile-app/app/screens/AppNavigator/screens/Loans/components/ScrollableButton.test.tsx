@@ -1,37 +1,37 @@
-import { render } from '@testing-library/react-native'
+import { render } from "@testing-library/react-native";
 
-import { ScrollableButton, ScrollButton } from './ScrollableButton'
+import { ScrollableButton, ScrollButton } from "./ScrollableButton";
 
-jest.mock('@shared-contexts/ThemeProvider')
-jest.mock('@react-navigation/native', () => ({
-  useNavigation: jest.fn()
-}))
+jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@react-navigation/native", () => ({
+  useNavigation: jest.fn(),
+}));
 
-describe('Scrollable button', () => {
-  it('should match snapshot', async () => {
+describe("Scrollable button", () => {
+  it("should match snapshot", async () => {
     const buttons: ScrollButton[] = [
       {
-        iconName: 'add',
-        iconType: 'MaterialIcons',
-        label: 'ADD COLLATERAL',
-        handleOnPress: () => {}
+        iconName: "add",
+        iconType: "MaterialIcons",
+        label: "ADD COLLATERAL",
+        handleOnPress: () => {},
       },
       {
-        iconName: 'remove',
-        iconType: 'MaterialIcons',
-        label: 'TAKE COLLATERAL',
+        iconName: "remove",
+        iconType: "MaterialIcons",
+        label: "TAKE COLLATERAL",
         disabled: false,
-        handleOnPress: () => {}
+        handleOnPress: () => {},
       },
       {
-        iconName: 'tune',
-        iconType: 'MaterialIcons',
-        label: 'EDIT SCHEME',
+        iconName: "tune",
+        iconType: "MaterialIcons",
+        label: "EDIT SCHEME",
         disabled: true,
-        handleOnPress: () => {}
-      }
-    ]
-    const rendered = render(<ScrollableButton buttons={buttons} />)
-    expect(rendered.toJSON()).toMatchSnapshot()
-  })
-})
+        handleOnPress: () => {},
+      },
+    ];
+    const rendered = render(<ScrollableButton buttons={buttons} />);
+    expect(rendered.toJSON()).toMatchSnapshot();
+  });
+});

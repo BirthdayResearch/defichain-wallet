@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Token Breakdown Details should match snapshot 1`] = `
-Array [
+[
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "flexBasis": "0%",
           "flexDirection": "row",
@@ -18,26 +18,26 @@ Array [
   >
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Array [
-            Array [
-              Object {
+          [
+            [
+              {
                 "fontSize": 12,
                 "lineHeight": 16,
                 "paddingRight": 56,
               },
-              Object {
+              {
                 "fontFamily": "MediumFont",
                 "fontWeight": "500",
               },
             ],
-            Object {
+            {
               "color": "rgba(115, 115, 115, 1)",
             },
           ],
@@ -49,7 +49,7 @@ Array [
     </Text>
     <View
       style={
-        Object {
+        {
           "flexBasis": "0%",
           "flexDirection": "row",
           "flexGrow": 1,
@@ -60,22 +60,22 @@ Array [
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Array [
-                Object {
+            [
+              [
+                {
                   "fontSize": 12,
                   "lineHeight": 16,
                 },
                 undefined,
               ],
-              Object {
+              {
                 "color": "rgba(0, 0, 0, 1)",
               },
             ],
@@ -89,15 +89,15 @@ Array [
   </View>,
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "flexBasis": "0%",
           "flexDirection": "row",
           "flexGrow": 1,
           "flexShrink": 1,
         },
-        Object {
+        {
           "marginBottom": 8,
         },
       ]
@@ -105,35 +105,33 @@ Array [
   >
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Array [
-            Array [
-              Object {
+          [
+            [
+              {
                 "fontSize": 12,
                 "lineHeight": 16,
                 "paddingRight": 56,
               },
               undefined,
             ],
-            Object {
+            {
               "color": "rgba(115, 115, 115, 1)",
             },
           ],
         ]
       }
       testID="foo_locked_value_label"
-    >
-      
-    </Text>
+    />
     <View
       style={
-        Object {
+        {
           "flexBasis": "0%",
           "flexDirection": "row",
           "flexGrow": 1,
@@ -144,22 +142,22 @@ Array [
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Array [
-                Object {
+            [
+              [
+                {
                   "fontSize": 12,
                   "lineHeight": 16,
                 },
                 undefined,
               ],
-              Object {
+              {
                 "color": "rgba(115, 115, 115, 1)",
               },
             ],
@@ -173,8 +171,8 @@ Array [
   </View>,
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "flexBasis": "0%",
           "flexDirection": "row",
@@ -187,26 +185,26 @@ Array [
   >
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Array [
-            Array [
-              Object {
+          [
+            [
+              {
                 "fontSize": 12,
                 "lineHeight": 16,
                 "paddingRight": 56,
               },
-              Object {
+              {
                 "fontFamily": "MediumFont",
                 "fontWeight": "500",
               },
             ],
-            Object {
+            {
               "color": "rgba(115, 115, 115, 1)",
             },
           ],
@@ -218,7 +216,7 @@ Array [
     </Text>
     <View
       style={
-        Object {
+        {
           "flexBasis": "0%",
           "flexDirection": "row",
           "flexGrow": 1,
@@ -229,22 +227,22 @@ Array [
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Array [
-                Object {
+            [
+              [
+                {
                   "fontSize": 12,
                   "lineHeight": 16,
                 },
                 undefined,
               ],
-              Object {
+              {
                 "color": "rgba(0, 0, 0, 1)",
               },
             ],
@@ -258,8 +256,8 @@ Array [
   </View>,
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "flexBasis": "0%",
           "flexDirection": "row",
@@ -272,35 +270,33 @@ Array [
   >
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Array [
-            Array [
-              Object {
+          [
+            [
+              {
                 "fontSize": 12,
                 "lineHeight": 16,
                 "paddingRight": 56,
               },
               undefined,
             ],
-            Object {
+            {
               "color": "rgba(115, 115, 115, 1)",
             },
           ],
         ]
       }
       testID="foo_available_value_label"
-    >
-      
-    </Text>
+    />
     <View
       style={
-        Object {
+        {
           "flexBasis": "0%",
           "flexDirection": "row",
           "flexGrow": 1,
@@ -311,22 +307,22 @@ Array [
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Array [
-                Object {
+            [
+              [
+                {
                   "fontSize": 12,
                   "lineHeight": 16,
                 },
                 undefined,
               ],
-              Object {
+              {
                 "color": "rgba(115, 115, 115, 1)",
               },
             ],

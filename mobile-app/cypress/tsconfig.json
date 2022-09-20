@@ -1,20 +1,12 @@
 {
-  "include": [
-    "**/*.ts"
-  ],
+  "include": ["**/*.ts"],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "strict": true,
     "moduleResolution": "node",
     "target": "es2019",
-    "lib": [
-      "es2019",
-      "dom"
-    ],
-    "types": [
-      "cypress",
-      "@testing-library/cypress"
-    ]
+    "lib": ["es2019", "dom"],
+    "types": ["cypress", "@testing-library/cypress"]
   }
 }

@@ -1,32 +1,39 @@
-import { tailwind } from '@tailwind'
-import { ThemedText } from '@components/themed'
-import { View } from '@components'
+import { tailwind } from "@tailwind";
+import { ThemedTextV2 } from "@components/themed";
+import { View } from "@components";
+import { Platform } from "react-native";
 
-export function TokenNameText ({
+export function TokenNameText({
   testID,
   displaySymbol,
-  name
-}: { testID: string, displaySymbol: string, name: string }): JSX.Element {
+  name,
+}: {
+  testID: string;
+  displaySymbol: string;
+  name: string;
+}): JSX.Element {
   return (
-    <View style={tailwind('mx-3 flex-auto')}>
-      <ThemedText
-        dark={tailwind('text-gray-200')}
-        light={tailwind('text-black')}
-        style={tailwind('font-medium')}
+    <View style={tailwind("ml-2 flex-auto")}>
+      <ThemedTextV2
+        style={tailwind("font-semibold-v2 text-sm", {
+          "mt-0.5": Platform.OS === "android",
+        })}
         testID={`${testID}_symbol`}
       >
         {displaySymbol}
-      </ThemedText>
-      <ThemedText
-        dark={tailwind('text-gray-400')}
-        ellipsizeMode='tail'
-        light={tailwind('text-gray-600')}
-        numberOfLines={1}
-        style={tailwind('text-xs text-gray-600')}
-        testID={`${testID}_name`}
-      >
-        {name}
-      </ThemedText>
+      </ThemedTextV2>
+      {name !== "" && (
+        <ThemedTextV2
+          dark={tailwind("text-mono-dark-v2-700")}
+          light={tailwind("text-mono-light-v2-700")}
+          style={tailwind("text-xs font-normal-v2 mt-1")}
+          numberOfLines={1}
+          testID={`${testID}_name`}
+          ellipsizeMode="tail"
+        >
+          {name}
+        </ThemedTextV2>
+      )}
     </View>
-  )
+  );
 }

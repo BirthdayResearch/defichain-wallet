@@ -1,124 +1,139 @@
-import React, { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react'
-import { JellyfishWallet, WalletHdNode } from '@defichain/jellyfish-wallet'
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { useNetworkContext } from './NetworkContext'
-import { useWhaleApiClient } from './WhaleContext'
-import { useWalletNodeContext } from './WalletNodeProvider'
-import { initJellyfishWallet } from '@api/wallet'
-import { useLogger } from '@shared-contexts/NativeLoggingProvider'
+import React, {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { JellyfishWallet, WalletHdNode } from "@defichain/jellyfish-wallet";
+import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
+import { initJellyfishWallet } from "@api/wallet";
+import { useLogger } from "@shared-contexts/NativeLoggingProvider";
+import { useNetworkContext } from "./NetworkContext";
+import { useWhaleApiClient } from "./WhaleContext";
+import { useWalletNodeContext } from "./WalletNodeProvider";
 
 interface WalletContextI {
   /**
    * The entire HD Wallet, powered by @defichain/jellyfish-wallet
    */
-  wallet: JellyfishWallet<WhaleWalletAccount, WalletHdNode>
+  wallet: JellyfishWallet<WhaleWalletAccount, WalletHdNode>;
   /**
    * Default account of the above wallet
    */
-  account: WhaleWalletAccount
+  account: WhaleWalletAccount;
   /**
    * Default address of the above wallet
    */
-  address: string
+  address: string;
   /**
    * Available address length of the above wallet
    */
-  addressLength: number
+  addressLength: number;
   /**
    * Index of active address
    */
-  activeAddressIndex: number | undefined
+  activeAddressIndex: number | undefined;
   /**
    * Switch account addresses of the above wallet
    */
-  setIndex: (index: number) => Promise<void>
+  setIndex: (index: number) => Promise<void>;
   /**
    * Discover Wallet Addresses of the above wallet
    */
-   discoverWalletAddresses: () => Promise<void>
+  discoverWalletAddresses: () => Promise<void>;
 }
 
 export interface WalletContextProviderProps extends PropsWithChildren<{}> {
   api: {
-    getLength: () => Promise<number>
-    setLength: (count: number) => Promise<void>
-    getActive: () => Promise<number>
-    setActive: (count: number) => Promise<void>
-  }
+    getLength: () => Promise<number>;
+    setLength: (count: number) => Promise<void>;
+    getActive: () => Promise<number>;
+    setActive: (count: number) => Promise<void>;
+  };
 }
 
-export const MAX_ALLOWED_ADDRESSES = 10
+export const MAX_ALLOWED_ADDRESSES = 10;
 
-const WalletContext = createContext<WalletContextI>(undefined as any)
+const WalletContext = createContext<WalletContextI>(undefined as any);
 
-export function useWalletContext (): WalletContextI {
-  return useContext(WalletContext)
+export function useWalletContext(): WalletContextI {
+  return useContext(WalletContext);
 }
 
-export function WalletContextProvider (props: WalletContextProviderProps): JSX.Element | null {
-  const { api } = props
-  const logger = useLogger()
-  const { provider } = useWalletNodeContext()
-  const [address, setAddress] = useState<string>()
-  const [account, setAccount] = useState<WhaleWalletAccount>()
-  const [addressIndex, setAddressIndex] = useState<number>()
-  const [addressLength, setAddressLength] = useState<number>(0)
-  const { network } = useNetworkContext()
-  const client = useWhaleApiClient()
+export function WalletContextProvider(
+  props: WalletContextProviderProps
+): JSX.Element | null {
+  const { api } = props;
+  const logger = useLogger();
+  const { provider } = useWalletNodeContext();
+  const [address, setAddress] = useState<string>();
+  const [account, setAccount] = useState<WhaleWalletAccount>();
+  const [addressIndex, setAddressIndex] = useState<number>();
+  const [addressLength, setAddressLength] = useState<number>(0);
+  const { network } = useNetworkContext();
+  const client = useWhaleApiClient();
 
   const wallet = useMemo(() => {
-    return initJellyfishWallet(provider, network, client)
-  }, [provider, network, client])
+    return initJellyfishWallet(provider, network, client);
+  }, [provider, network, client]);
 
   useEffect(() => {
-    getWalletDetails()
-    .catch(logger.error)
-  }, [wallet])
+    getWalletDetails().catch(logger.error);
+  }, [wallet]);
 
   useEffect(() => {
     if (addressIndex !== undefined) {
-      const account = wallet.get(addressIndex)
-      account.getAddress().then((address) => {
-        setAccount(account)
-        setAddress(address)
-      }).catch(logger.error)
+      const account = wallet.get(addressIndex);
+      account
+        .getAddress()
+        .then((address) => {
+          setAccount(account);
+          setAddress(address);
+        })
+        .catch(logger.error);
     }
-  }, [wallet, addressIndex])
+  }, [wallet, addressIndex]);
 
   const getWalletDetails = async (): Promise<void> => {
-    const maxAddressIndex = await api.getLength()
-    const activeAddressIndex = await api.getActive()
-    setAddressIndex(activeAddressIndex)
-    setAddressLength(maxAddressIndex)
-  }
+    const maxAddressIndex = await api.getLength();
+    const activeAddressIndex = await api.getActive();
+    setAddressIndex(activeAddressIndex);
+    setAddressLength(maxAddressIndex);
+  };
 
   const setIndex = async (index: number): Promise<void> => {
     if (index === addressIndex) {
-      return
+      return;
     }
 
     if (index > addressLength) {
-      await setWalletAddressLength(index)
+      await setWalletAddressLength(index);
     }
-    await api.setActive(index)
-    setAddressIndex(index)
-  }
+    await api.setActive(index);
+    setAddressIndex(index);
+  };
 
   const setWalletAddressLength = async (index: number): Promise<void> => {
-    await api.setLength(index)
-    setAddressLength(index)
-  }
+    await api.setLength(index);
+    setAddressLength(index);
+  };
 
   const discoverWalletAddresses = async (): Promise<void> => {
     // get discovered address
-    const activeAddress = await wallet.discover(MAX_ALLOWED_ADDRESSES)
+    const activeAddress = await wallet.discover(MAX_ALLOWED_ADDRESSES);
     // sub 1 from total discovered address to get address index of last active address
-    const lastDiscoveredAddressIndex = Math.max(0, activeAddress.length - 1, addressLength)
-    await setWalletAddressLength(lastDiscoveredAddressIndex)
-  }
+    const lastDiscoveredAddressIndex = Math.max(
+      0,
+      activeAddress.length - 1,
+      addressLength
+    );
+    await setWalletAddressLength(lastDiscoveredAddressIndex);
+  };
 
   if (account === undefined || address === undefined) {
-    return null
+    return null;
   }
 
   const context: WalletContextI = {
@@ -128,12 +143,12 @@ export function WalletContextProvider (props: WalletContextProviderProps): JSX.E
     activeAddressIndex: addressIndex,
     setIndex: setIndex,
     addressLength: addressLength,
-    discoverWalletAddresses: discoverWalletAddresses
-  }
+    discoverWalletAddresses: discoverWalletAddresses,
+  };
 
   return (
     <WalletContext.Provider value={context}>
       {props.children}
     </WalletContext.Provider>
-  )
+  );
 }

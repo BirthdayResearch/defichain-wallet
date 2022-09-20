@@ -98,10 +98,10 @@
     "You have pending future swap(s)": "You have pending future swap(s)",
     "This icon indicates that the price is provided by Oracles instead of the DEX": "这个图标显示的价格是由预言机产生而不是 DEX 提供的",
     "Sort assets by": "按资产进行排序",
-    "Highest {{modifiedDenominationCurrency}} value": "最高{{modifiedDenominationCurrency}}价值",
-    "Lowest {{modifiedDenominationCurrency}} value": "最低{{modifiedDenominationCurrency}}价值",
-    "Highest value ({{modifiedDenominationCurrency}})": "最高价值({{modifiedDenominationCurrency}})",
-    "Lowest value ({{modifiedDenominationCurrency}})": "最低价值({{modifiedDenominationCurrency}})",
+    "Highest {{denominationCurrency}} value": "最高{{denominationCurrency}}价值",
+    "Lowest {{denominationCurrency}} value": "最低{{denominationCurrency}}价值",
+    "Highest value ({{denominationCurrency}})": "最高价值({{denominationCurrency}})",
+    "Lowest value ({{denominationCurrency}})": "最低价值({{denominationCurrency}})",
     "Highest token amount": "最高代币数量",
     "Lowest token amount": "最低代币数量",
     "A to Z": "A 到 Z",
@@ -635,7 +635,7 @@
     "{{attemptsRemaining}} attempts remaining": "{{attemptsRemaining}} 次可输入密码",
     "Enter passcode for verification": "输入验证码",
     "It may take a few seconds to secure and encrypt your wallet.": "It may take a few seconds to secure and encrypt your wallet.",
-    "It may take a few seconds to update your passcode.": "It may take a few seconds to update your passcode.",
+    "It may take a few seconds to update your passcode": "It may take a few seconds to update your passcode",
     "Passcode updated!": "Passcode updated!",
     "Keep the passcode for your wallet confidential.": "Keep the passcode for your wallet confidential."
   },
@@ -776,13 +776,19 @@
     "{{amount}} DFI converted to {{symbolB}}": "{{amount}} DFI 转换为 {{symbolB}}",
     "Preparing your transaction…": "Preparing your transaction…",
     "Processing future swap transaction…": "Processing future swap transaction…",
+    "Processing future swap…": "未来兑换进行中…",
+    "Future Swap confirmed for next settlement block": "确认未来兑换在下一个区块结算",
     "Future Swap confirmed and will be executed at block #{{block}}": "Future Swap confirmed and will be executed at block #{{block}}",
     "Preparing changes to loan scheme…": "Preparing changes to loan scheme…",
     "Saving changes to loan scheme…": "Saving changes to loan scheme…",
     "Loan scheme saved": "Loan scheme saved",
     "Preparing withdrawal…": "Preparing withdrawal…",
-    "Withdrawing tokens…": "Withdrawing tokens…",
-    "Withdrawal completed": "Withdrawal completed"
+    "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…",
+    "Withdrawal completed": "Withdrawal completed",
+    "Swapped {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Swapped {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "兑换 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "请许可程序使用相机",
@@ -799,7 +805,8 @@
     "From": "从",
     "To": "到",
     "Converting": "转换中",
-    "Converted": "Converted"
+    "Converted": "Converted",
+    "for": "for"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "为您的钱包创建新的密码",
@@ -946,6 +953,7 @@
     "Continue": "继续"
   },
   "screens/SlippageTolerance": {
+    "Slippage tolerance": "交易滑点",
     "Custom": "自订",
     "USE THIS SLIPPAGE TOLERANCE": "使用此滑点限制范围",
     "Required field is missing": "缺少必要填入的字栏",
@@ -971,6 +979,9 @@
     "Authorize transaction in the next screen to convert": "在下一个屏幕上授权交易以进行转换"
   },
   "screens/CompositeSwapScreen": {
+    "SLIPPAGE TOLERANCE": "交易滑点",
+    "Custom": "自定",
+    "Set": "Set",
     "Swap tokens": "兑换货币",
     "Select tokens you want to swap to get started": "选择您要兑换的代币",
     "How much {{token}} do you want to swap?": "您要兑换多少 {{token}}？",
@@ -997,13 +1008,48 @@
     "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block": "By using future swap, you are selling {{tokenSymbol}} at 5% lower than the oracle price at Settlement block",
     "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}",
     "Est. time remaining": "Est. time remaining",
+    "{{time}} left": "{{time}} 结束拍卖",
     "Settlement block": "Settlement block",
     "To be confirmed": "To be confirmed",
     "Enter an amount": "请输入数量",
     "Price ({{tokenB}}/{{tokenA}})": "Price ({{tokenB}}/{{tokenA}})",
     "Are you certain you want to proceed to swap DUSD for {{tokenB}} despite the DEX Stabilization fees of {{fee}}?": "目前 Dex 稳定费费用较高，您确定要继续进行兑换将 DUSD 换成 {{tokenB}} 吗？",
     "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?": "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?",
-    "DEX stabilization fee": "DEX stabilization fee"
+    "DEX stabilization fee": "DEX stabilization fee",
+    "Future swap uses the oracle price of the selected token on the settlement block": "Future swap uses the oracle price of the selected token on the settlement block",
+    "You are buying dTokens at 5% more than the oracle price at settlement block.": "You are buying dTokens at 5% more than the oracle price at settlement block.",
+    "You are buying {{displaySymbol}} at 5% more than the oracle price at settlement block.": "You are buying {{displaySymbol}} at 5% more than the oracle price at settlement block.",
+    "You are selling your {{displaySymbol}} at 5% less than the oracle price at settlement block.": "You are selling your {{displaySymbol}} at 5% less than the oracle price at settlement block.",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "I HAVE {{totalAmount}} {{token}}": "I HAVE {{totalAmount}} {{token}}",
+    "I WANT {{token}}": "I WANT {{token}}",
+    "incl. stabilization fee ({{dexStabilizationFee}}%)": "incl. stabilization fee ({{dexStabilizationFee}}%)",
+    "Total fees": "Total fees",
+    "Settlement Value {{percentageChange}}": "Settlement Value {{percentageChange}}",
+    "Transaction fee": "Transaction fee",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "Token": "Token",
+    "Instant": "Instant",
+    "Future": "Future",
+    "Learn about settlements": "Learn about settlements",
+    "Settlements": "Settlements",
+    "Settlement block is the pre-determined block height that this transaction will be executed.": "Settlement block is the pre-determined block height that this transaction will be executed.",
+    "Settlement value is based on the oracle price at the settlement block.": "Settlement value is based on the oracle price at the settlement block.",
+    "Users will be able to cancel this transaction as long as the settlement block has not been executed.": "Users will be able to cancel this transaction as long as the settlement block has not been executed.",
+    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)"
+  },
+  "screens/SwapTokenSelectionScreen": {
+    "Select": "Select",
+    "Search token": "Search token",
+    "AVAILABLE TOKENS": "AVAILABLE TOKENS",
+    "AVAILABLE FOR SWAP": "可用于兑换",
+    "AVAILABLE FOR FUTURE SWAP": "AVAILABLE FOR FUTURE SWAP",
+    "Search with token name": "使用代币名称搜索",
+    "Search dTokens for future swap": "Search dTokens for future swap",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
+    "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap.": "No results for “{{searchTerm}}” found. Do note that only selected tokens are available for future swap."
   },
   "screens/ConfirmCompositeSwapScreen": {
     "CONVERTING": "正在转换",
@@ -1016,14 +1062,23 @@
     "Convert & swap": "转换并兑换",
     "Swap": "兑换",
     "Swapping Token": "兑换代币",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "兑换 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "兑换 {{amountA}} {{amountB}} 至 {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{symbolB}}": "兑换 {{amountA}} {{symbolA}} 至 {{symbolB}}",
     "Slippage tolerance": "交易滑点",
     "Estimated to receive": "您大约会收到",
     "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}": "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}",
     "To be confirmed": "To be confirmed",
     "Settlement block": "Settlement block",
     "Resulting {{token}}": "Resulting {{token}}",
-    "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}"
+    "Oracle price {{percentageChange}}": "Oracle price {{percentageChange}}",
+    "To receive (est.)": "To receive (est.)",
+    "Settlement value {{percentageChange}}": "Settlement value {{percentageChange}}",
+    "Total fees": "Total fees",
+    "To receive (incl. of fees)": "To receive (incl. of fees)",
+    "Estimated to receive (incl. all fees)": "Estimated to receive (incl. all fees)",
+    "Fee breakdown": "Fee breakdown",
+    "Transaction fee": "Transaction fee",
+    "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?": "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?"
   },
   "screens/PoolSwapConfirmScreen": {
     "You are swapping": "您正要兑换",
@@ -1208,6 +1263,7 @@
     "Manage bids": "管理竞投出价",
     "Loans": "贷款",
     "Collateral for auction": "待拍卖的抵押品",
+    "Auction details": "拍卖细节",
     "Vault details": "金库明细",
     "Bid history": "竞标历史",
     "Rewards": "奖励"
@@ -1248,10 +1304,10 @@
     "Owner ID": "主权者编号",
     "Liquidation height": "清算高度",
     "ADDITIONAL DETAILS": "其他细节",
-    "Collateral value (USD)": "抵押品价值(美金)",
+    "Collateral value (USDT)": "抵押品价值(USDT)",
     "Auction start": "拍卖会开始",
     "{{count}} COLLATERAL TOKENS": "{{count}} 抵押代币",
-    "Total auction value (USD):": "拍卖总价值（美元值）:",
+    "Total auction value (USDT):": "拍卖总价值（USDT）:",
     "PLACE BID": "竞投出价",
     "Batch #{{index}}": "批次 #{{index}}",
     "Min. starting bid": "最低起标价"
@@ -1265,7 +1321,7 @@
     "{{h}}h": "{{h}}时",
     "{{m}}m": "{{m}}分",
     "{{s}}s": "{{s}}秒",
-    "Total auction value (USD)": "拍卖总价值（美元值）",
+    "Total auction value (USDT)": "拍卖总价值（USDT）",
     "Min. next bid": "最低标价",
     "You are the highest bidder": "您目前是出价最高的人",
     "From your vault": "来自您的金库",
@@ -1382,7 +1438,9 @@
     "The minimum bid a user must place in order to take part in the auction.": "用户参与拍卖必须提交的最低标价。",
     "Settlement block": "Settlement block",
     "Slippage tolerance": "交易滑点",
-    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX Stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑价是每项交易中的兑换率变化。选择您愿意接受这滑价的多少百分比（如下显示)。"
+    "Slippage Tolerance": "交易滑点",
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑价是每项交易中的兑换率变化。选择您愿意接受这滑价的多少百分比（如下显示)。",
+    "Settlements": "Settlements"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金库编号",
@@ -1676,7 +1734,8 @@
     "Upon closing, this Vault ID will not be usable anymore. Make sure you don’t need anything from this vault before closing.": "关闭后，此金库编号将不再可使用。在关闭之前，请确保您不需要此金库中的任何资料.",
     "CONFIRM CLOSE VAULT": "确认关闭金库",
     "You are about to close vault {{vaultId}}": "您即将关闭金库 {{vaultId}}",
-    "CLOSING": "关闭中"
+    "CLOSING": "关闭中",
+    "Closing vault": "Closing vault"
   },
   "components/TokenIconGroup": {
     "more": "显示更多"
@@ -1689,7 +1748,7 @@
     "TRANSACTION DETAILS": "交易明细",
     "CONTINUE": "继续",
     "Review and confirm transaction in the next screen": "请在下个屏幕审查并确认兑换",
-    "Total auction value (USD)": "拍卖总价值（美元）",
+    "Total auction value (USDT)": "拍卖总价值（USDT）",
     "(Full details)": "(全部细节)",
     "Min. next bid": "最低标价",
     "Insufficient funds": "资金不足",
@@ -1705,7 +1764,7 @@
     "Place bid": "标价",
     "Bid amount to place": "标价金额",
     "AUCTION DETAILS": "拍卖细节",
-    "Total auction value (USD)": "拍卖总价值（美元）",
+    "Total auction value (USDT)": "拍卖总价值（USDT）",
     "Vault ID": "金库编号",
     "Vault owner ID": "金库主权者编号",
     "Liquidation Height": "清算高度",
@@ -1716,6 +1775,7 @@
     "Insufficient funds": "资金不足"
   },
   "screens/WithdrawFutureSwapScreen": {
+    "Withdraw": "Withdraw",
     "FROM": "FROM",
     "TO": "TO",
     "Enter an amount": "请输入数量",
@@ -1724,9 +1784,22 @@
     "CONTINUE": "CONTINUE",
     "Select token": "Select token",
     "You are withdrawing": "You are withdrawing",
-    "Withdraw from future swap": "Withdraw from future swap"
+    "Withdraw from future swap": "Withdraw from future swap",
+    "View swap info": "View swap info",
+    "I WANT TO WITHDRAW": "I WANT TO WITHDRAW",
+    "Withdraw from": "Withdraw from",
+    "Insufficient Balance": "Insufficient Balance",
+    "Transaction fee": "Transaction fee",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "Amount to swap": "Amount to swap",
+    "Settlement block": "Settlement block",
+    "To receive (est.)": "To receive (est.)",
+    "Settlement value": "Settlement value"
   },
   "screens/ConfirmWithdrawFutureSwapScreen": {
+    "Confirm": "确认",
     "TRANSACTION DETAILS": "TRANSACTION DETAILS",
     "Transaction type": "Transaction type",
     "Remaining amount": "Remaining amount",
@@ -1737,14 +1810,23 @@
     "Withdraw": "Withdraw",
     "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap",
     "To be confirmed": "To be confirmed",
-    "Withdraw future swap": "Withdraw future swap"
+    "Withdraw future swap": "Withdraw future swap",
+    "Transaction fee": "Transaction fee",
+    "To receive (est.)": "To receive (est.)",
+    "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from {{sourceSymbol}}-{{destinationSymbol}} swap": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from {{sourceSymbol}}-{{destinationSymbol}} swap"
   },
   "screens/FutureSwapScreen": {
+    "Future Swaps": "Future Swaps",
     "{{percentage_change}} on oracle price": "{{percentage_change}} on oracle price",
     "Settlement block": "Settlement block",
     "The amount will be refunded automatically if the transaction does not go through.": "The amount will be refunded automatically if the transaction does not go through.",
     "Future Swap": "Future Swap",
-    "Settlement block {{block}} has been executed": "结算区块 {{block}} 已执行"
+    "Settlement block {{block}} has been executed": "结算区块 {{block}} 已执行",
+    "Target block": "Target block",
+    "{{time}} left": "{{time}} 结束拍卖",
+    "to": "to",
+    "Settlement value": "Settlement value",
+    "Amount will be refunded automatically if transaction(s) failed": "Amount will be refunded automatically if transaction(s) failed"
   },
   "screens/ServiceProviderScreen": {
     "Server": "伺服器",
