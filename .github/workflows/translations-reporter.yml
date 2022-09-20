@@ -13,8 +13,8 @@ jobs:
     name: Missing Report
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
-      - uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3.0.2
+      - uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3.4.1
         with:
           node-version: 16
           cache: 'npm'
@@ -24,10 +24,10 @@ jobs:
         run: npm run translation:missing
       - name: Read missing_translations.json
         id: translations
-        uses: juliangruber/read-file-action@ebfa650188272343fef925480eb4d18c5d49b925
+        uses: juliangruber/read-file-action@ebfa650188272343fef925480eb4d18c5d49b925 # tag=v1.1.4
         with:
           path: ./missing_translations.json
-      - uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443
+      - uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443 # tag=v2.2.0
         with:
           GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           header: Missing Translations
@@ -39,7 +39,7 @@ jobs:
             ```
       - name: Send missing translations to Slack workflow  
         if: ${{ fromJson(steps.translations.outputs.content).totalMissingCount != 0 }}
-        uses: slackapi/slack-github-action@936158bbe252e9a6062e793ea4609642c966e302
+        uses: slackapi/slack-github-action@ebd044f149bf27a2817c0eee26e98d797fa5cffd # tag=v1.22.0
         id: slack_missing_translation_workflow
         with:
           payload-file-path: "./missing_translations.json"
