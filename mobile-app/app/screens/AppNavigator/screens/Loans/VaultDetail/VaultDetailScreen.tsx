@@ -10,7 +10,7 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { LoanVault, vaultsSelector } from "@store/loans";
+import { fetchCollateralTokens, LoanVault, vaultsSelector } from "@store/loans";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
@@ -26,6 +26,9 @@ import { useNextCollateralizationRatio } from "@screens/AppNavigator/screens/Loa
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
 import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
+import { useAppDispatch } from "@hooks/useAppDispatch";
+import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useIsFocused } from "@react-navigation/native";
 import { VaultSectionTextRow } from "../components/VaultSectionTextRow";
 import { VaultDetailTabSection } from "./components/VaultDetailTabSection";
 import { ScrollableButton, ScrollButton } from "../components/ScrollableButton";
@@ -38,6 +41,10 @@ export function VaultDetailScreen({ route, navigation }: Props): JSX.Element {
   const [vault, setVault] = useState<LoanVault>();
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
   const canUseOperations = useLoanOperations(vault?.state);
+  const dispatch = useAppDispatch();
+  const client = useWhaleApiClient();
+  const blockCount = useSelector((state: RootState) => state.block.count);
+  const isFocused = useIsFocused();
   const vaultActionButtons: ScrollButton[] = [
     {
       label: "EDIT COLLATERAL",
@@ -103,6 +110,12 @@ export function VaultDetailScreen({ route, navigation }: Props): JSX.Element {
       setVault(_vault);
     }
   }, [vaults]);
+
+  useEffect(() => {
+    if (isFocused) {
+      dispatch(fetchCollateralTokens({ client }));
+    }
+  }, [blockCount]);
 
   if (vault === undefined) {
     return <></>;
