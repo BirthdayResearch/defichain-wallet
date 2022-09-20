@@ -1,6 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", "helpers:pinGitHubActionDigests", ":semanticCommitTypeAll(bump)"],
+  "extends": [
+    "config:base",
+    "helpers:pinGitHubActionDigests",
+    ":semanticCommitTypeAll(bump)"
+  ],
   "rebaseWhen": "behind-base-branch",
   "dependencyDashboard": true,
   "dependencyDashboardAutoclose": false,
@@ -10,19 +14,41 @@
   "rangeStrategy": "bump",
   "packageRules": [
     {
-      "matchPackagePatterns": ["^defichain$", "^@defichain/", "^jellyfishsdk$"],
+      "matchPackagePatterns": [
+        "^defichain$",
+        "^@defichain/",
+        "^jellyfishsdk$"
+      ],
       "groupName": "defichain"
     },
     {
-      "matchPackagePatterns": ["eslint"],
+      "matchPackagePatterns": [
+        "eslint"
+      ],
       "groupName": "eslint"
     },
     {
-      "matchPackagePatterns": ["jest"],
+      "matchPackagePatterns": [
+        "jest"
+      ],
       "groupName": "jest"
     },
     {
-      "matchPackagePatterns": ["^expo$", "^react-native$", "^react$", "^typescript$"],
+      "matchPackagePatterns": [
+        "^expo$",
+        "^react-native$",
+        "^react$",
+        "^typescript$",
+        "^@react-native$",
+        "react-native$",
+        "@gorhom/bottom-sheet",
+        "@types/react",
+        "@types/i18n-js",
+        "i18n-js",
+        "tailwind$",
+        "react$",
+        "react-native$"
+      ],
       "groupName": "expo packages",
       "enabled": false
     }
