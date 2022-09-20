@@ -298,6 +298,7 @@ describe("Batch Card", () => {
     const rendered = render(
       <Provider store={store}>
         <BatchCard
+          collateralTokenSymbols={["DFI"]}
           vault={vault}
           batch={vault.batches[0]}
           onQuickBid={() => {}}
