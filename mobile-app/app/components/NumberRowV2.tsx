@@ -154,7 +154,7 @@ export function NumberRowV2(props: INumberRowProps): JSX.Element {
                 testID="conversion_status"
               >
                 {translate(
-                  "screens/CreateVaultScreen",
+                  "screens/common",
                   props.rhs.isConverting ? "Converting" : "Converted"
                 )}
               </ThemedTextV2>

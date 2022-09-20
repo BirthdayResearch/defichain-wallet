@@ -61,12 +61,13 @@ export function CreateVaultScreenV2({ navigation, route }: Props): JSX.Element {
     DFIUtxoSelector(state.wallet)
   );
 
+  const FEE_AMOUNT = 2.1;
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
   const [selectedLoanScheme, setSelectedLoanScheme] = useState<
     LoanScheme | undefined
   >(route.params?.loanScheme);
   const [conversionStatus, setConversionStatus] = useState<ConversionStatus>(
-    new BigNumber(2.1).gt(DFIUtxo.amount)
+    new BigNumber(FEE_AMOUNT).gt(DFIUtxo.amount)
       ? ConversionStatus.Required
       : ConversionStatus.Not_Required
   );
@@ -75,22 +76,12 @@ export function CreateVaultScreenV2({ navigation, route }: Props): JSX.Element {
   >();
   const [isOnPage, setIsOnPage] = useState<boolean>(true);
 
-  const FEE_AMOUNT = 2.1;
   const vaultFee = new BigNumber(
     network === EnvironmentNetwork.MainNet ||
     network === EnvironmentNetwork.TestNet
       ? 2
       : 1
   );
-
-  const goToVaultsFaq = (): void => {
-    navigation.navigate({
-      name: "LoansFaq",
-      params: {
-        activeSessions: [2],
-      },
-    });
-  };
 
   const onSubmit = async (): Promise<void> => {
     if (
@@ -162,6 +153,18 @@ export function CreateVaultScreenV2({ navigation, route }: Props): JSX.Element {
       .then((f) => setFee(new BigNumber(f)))
       .catch(logger.error);
   }, []);
+
+  useEffect(() => {
+    if (selectedLoanScheme === undefined) {
+      return;
+    }
+
+    setConversionStatus(
+      new BigNumber(FEE_AMOUNT).gt(DFIUtxo.amount)
+        ? ConversionStatus.Required
+        : ConversionStatus.Not_Required
+    );
+  }, [selectedLoanScheme]);
 
   return (
     <ThemedScrollViewV2
@@ -264,7 +267,7 @@ async function createVault(
     ): Promise<CTransactionSegWit> => {
       const script = await account.getScript();
       const builder = account.withTransactionBuilder();
-      const signed = await builder.loans.createVault(
+      const signed = await builder.vault.createVault(
         {
           ownerAddress: script,
           schemeId: loanScheme.id,
@@ -290,7 +293,7 @@ async function createVault(
             "Preparing to create vault…"
           ),
           waiting: translate("screens/OceanInterface", "Creating vault…"),
-          complete: translate("screens/OceanInterface", "Created vault"),
+          complete: translate("screens/OceanInterface", "Vault created"),
         },
         onBroadcast,
         onConfirmation,
