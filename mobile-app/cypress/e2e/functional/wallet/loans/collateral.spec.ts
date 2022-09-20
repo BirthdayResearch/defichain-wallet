@@ -176,7 +176,7 @@ function borrowLoan(symbol: string, amount: string): void {
   cy.closeOceanInterface();
 }
 
-context.only("Wallet - Loans - Add/Remove Collateral", () => {
+context("Wallet - Loans - Add/Remove Collateral", () => {
   let vaultId = "";
 
   function validateCollateralInPortfolio(
