@@ -13,7 +13,7 @@ exports[`Address List Edit Button should match snapshot 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "alignItems": "center",
       "display": "flex",
       "flexDirection": "row",
@@ -25,22 +25,22 @@ exports[`Address List Edit Button should match snapshot 1`] = `
   <Text />
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Array [
-          Object {
+        [
+          {
             "fontFamily": "MediumFont",
             "fontSize": 14,
             "fontWeight": "500",
             "lineHeight": 20,
             "marginLeft": 6,
           },
-          Object {
+          {
             "color": "rgba(255, 0, 175, 1)",
           },
         ],

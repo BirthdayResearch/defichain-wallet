@@ -3,7 +3,7 @@
 exports[`Total Value Locked should match snapshot 1`] = `
 <View
   style={
-    Object {
+    {
       "marginBottom": 24,
       "marginTop": 8,
       "paddingLeft": 20,
@@ -13,34 +13,34 @@ exports[`Total Value Locked should match snapshot 1`] = `
 >
   <ViewManagerAdapter_ExpoLinearGradient
     proxiedProperties={
-      Object {
-        "colors": Array [
+      {
+        "colors": [
           4294074307,
           4287326700,
         ],
-        "endPoint": Array [
+        "endPoint": [
           1,
           1,
         ],
-        "locations": Array [
+        "locations": [
           0,
           1,
         ],
-        "startPoint": Array [
+        "startPoint": [
           0,
           0,
         ],
       }
     }
     style={
-      Array [
-        Object {
+      [
+        {
           "borderBottomLeftRadius": 10,
           "borderBottomRightRadius": 10,
           "borderTopLeftRadius": 10,
           "borderTopRightRadius": 10,
         },
-        Object {
+        {
           "padding": 0.5,
         },
       ]
@@ -48,14 +48,14 @@ exports[`Total Value Locked should match snapshot 1`] = `
   >
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "borderBottomLeftRadius": 10,
             "borderBottomRightRadius": 10,
             "borderTopLeftRadius": 10,
             "borderTopRightRadius": 10,
           },
-          Object {
+          {
             "backgroundColor": "rgba(242, 242, 242, 1)",
           },
         ]
@@ -64,7 +64,7 @@ exports[`Total Value Locked should match snapshot 1`] = `
       <View
         accessibilityIgnoresInvertColors={true}
         style={
-          Object {
+          {
             "borderBottomLeftRadius": 10,
             "borderBottomRightRadius": 10,
             "borderTopLeftRadius": 10,
@@ -78,19 +78,19 @@ exports[`Total Value Locked should match snapshot 1`] = `
           resizeMode="cover"
           source={1}
           style={
-            Array [
-              Object {
+            [
+              {
                 "bottom": 0,
                 "left": 0,
                 "position": "absolute",
                 "right": 0,
                 "top": 0,
               },
-              Object {
+              {
                 "height": undefined,
                 "width": "100%",
               },
-              Object {
+              {
                 "height": 224,
               },
             ]
@@ -98,7 +98,7 @@ exports[`Total Value Locked should match snapshot 1`] = `
         />
         <View
           style={
-            Object {
+            {
               "alignItems": "center",
               "flexDirection": "row",
               "justifyContent": "space-between",
@@ -111,28 +111,28 @@ exports[`Total Value Locked should match snapshot 1`] = `
         >
           <View
             style={
-              Object {
+              {
                 "width": "66.666667%",
               }
             }
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "SoraSemiBold",
                       "fontSize": 16,
                       "fontWeight": "600",
                       "lineHeight": 24,
                     },
-                    Object {
+                    {
                       "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
@@ -144,21 +144,21 @@ exports[`Total Value Locked should match snapshot 1`] = `
             </Text>
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "SoraRegular",
                       "fontSize": 12,
                       "fontWeight": "400",
                       "lineHeight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
@@ -180,7 +180,7 @@ exports[`Total Value Locked should match snapshot 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              Object {
+              {
                 "backgroundColor": "rgba(0, 0, 0, 1)",
                 "borderBottomLeftRadius": 20,
                 "borderBottomRightRadius": 20,
@@ -196,21 +196,21 @@ exports[`Total Value Locked should match snapshot 1`] = `
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "SoraSemiBold",
                       "fontSize": 14,
                       "fontWeight": "600",
                       "lineHeight": 20,
                     },
-                    Object {
+                    {
                       "color": "rgba(242, 242, 242, 1)",
                     },
                   ],

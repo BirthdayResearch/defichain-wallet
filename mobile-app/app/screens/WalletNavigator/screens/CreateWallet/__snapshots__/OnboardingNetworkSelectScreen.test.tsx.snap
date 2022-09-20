@@ -3,15 +3,15 @@
 exports[`onboarding network selection screen should render 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "flexBasis": "0%",
         "flexGrow": 1,
         "flexShrink": 1,
         "paddingLeft": 20,
         "paddingRight": 20,
       },
-      Object {
+      {
         "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
@@ -20,15 +20,15 @@ exports[`onboarding network selection screen should render 1`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Array [
-          Object {
+        [
+          {
             "fontFamily": "SoraRegular",
             "fontSize": 12,
             "fontWeight": "400",
@@ -38,7 +38,7 @@ exports[`onboarding network selection screen should render 1`] = `
             "paddingRight": 20,
             "paddingTop": 24,
           },
-          Object {
+          {
             "color": "rgba(115, 115, 115, 1)",
           },
         ],
@@ -51,8 +51,8 @@ exports[`onboarding network selection screen should render 1`] = `
   </Text>
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "borderBottomLeftRadius": 10,
           "borderBottomRightRadius": 10,
           "borderTopLeftRadius": 10,
@@ -60,7 +60,7 @@ exports[`onboarding network selection screen should render 1`] = `
           "paddingLeft": 20,
           "paddingRight": 20,
         },
-        Object {
+        {
           "backgroundColor": "rgba(255, 255, 255, 1)",
         },
       ]
@@ -68,11 +68,11 @@ exports[`onboarding network selection screen should render 1`] = `
   >
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "borderBottomWidth": 0.5,
           },
-          Object {
+          {
             "borderBottomColor": "rgba(204, 204, 204, 1)",
             "borderLeftColor": "rgba(204, 204, 204, 1)",
             "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -94,7 +94,7 @@ exports[`onboarding network selection screen should render 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Object {
+          {
             "alignItems": "center",
             "borderBottomColor": "rgba(204, 204, 204, 1)",
             "borderBottomWidth": 0,
@@ -115,21 +115,21 @@ exports[`onboarding network selection screen should render 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(18, 18, 18, 1)",
                 },
               ],
@@ -144,11 +144,11 @@ exports[`onboarding network selection screen should render 1`] = `
     </View>
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "borderBottomWidth": 0.5,
           },
-          Object {
+          {
             "borderBottomColor": "rgba(204, 204, 204, 1)",
             "borderLeftColor": "rgba(204, 204, 204, 1)",
             "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -170,7 +170,7 @@ exports[`onboarding network selection screen should render 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Object {
+          {
             "alignItems": "center",
             "borderBottomColor": "rgba(204, 204, 204, 1)",
             "borderBottomWidth": 0,
@@ -191,21 +191,21 @@ exports[`onboarding network selection screen should render 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(18, 18, 18, 1)",
                 },
               ],
@@ -220,11 +220,11 @@ exports[`onboarding network selection screen should render 1`] = `
     </View>
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "borderBottomWidth": 0.5,
           },
-          Object {
+          {
             "borderBottomColor": "rgba(204, 204, 204, 1)",
             "borderLeftColor": "rgba(204, 204, 204, 1)",
             "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -246,7 +246,7 @@ exports[`onboarding network selection screen should render 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Object {
+          {
             "alignItems": "center",
             "borderBottomColor": "rgba(204, 204, 204, 1)",
             "borderBottomWidth": 0,
@@ -267,21 +267,21 @@ exports[`onboarding network selection screen should render 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(18, 18, 18, 1)",
                 },
               ],
@@ -296,9 +296,9 @@ exports[`onboarding network selection screen should render 1`] = `
     </View>
     <View
       style={
-        Array [
-          Object {},
-          Object {
+        [
+          {},
+          {
             "borderBottomColor": "rgba(204, 204, 204, 1)",
             "borderLeftColor": "rgba(204, 204, 204, 1)",
             "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -320,7 +320,7 @@ exports[`onboarding network selection screen should render 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Object {
+          {
             "alignItems": "center",
             "borderBottomColor": "rgba(204, 204, 204, 1)",
             "borderBottomWidth": 0,
@@ -341,21 +341,21 @@ exports[`onboarding network selection screen should render 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(18, 18, 18, 1)",
                 },
               ],
@@ -371,15 +371,15 @@ exports[`onboarding network selection screen should render 1`] = `
   </View>
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Array [
-          Object {
+        [
+          {
             "fontFamily": "SoraRegular",
             "fontSize": 12,
             "fontWeight": "400",
@@ -389,7 +389,7 @@ exports[`onboarding network selection screen should render 1`] = `
             "paddingRight": 20,
             "paddingTop": 24,
           },
-          Object {
+          {
             "color": "rgba(115, 115, 115, 1)",
           },
         ],
@@ -402,8 +402,8 @@ exports[`onboarding network selection screen should render 1`] = `
   </Text>
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "borderBottomLeftRadius": 10,
           "borderBottomRightRadius": 10,
           "borderTopLeftRadius": 10,
@@ -413,7 +413,7 @@ exports[`onboarding network selection screen should render 1`] = `
           "paddingRight": 20,
           "paddingTop": 20,
         },
-        Object {
+        {
           "backgroundColor": "rgba(255, 255, 255, 1)",
         },
       ]
@@ -421,8 +421,8 @@ exports[`onboarding network selection screen should render 1`] = `
   >
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "alignItems": "flex-start",
             "backgroundColor": "transparent",
             "borderBottomWidth": 0.5,
@@ -430,7 +430,7 @@ exports[`onboarding network selection screen should render 1`] = `
             "paddingBottom": 18,
             "width": "100%",
           },
-          Object {
+          {
             "borderBottomColor": "rgba(204, 204, 204, 1)",
             "borderLeftColor": "rgba(204, 204, 204, 1)",
             "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -441,14 +441,14 @@ exports[`onboarding network selection screen should render 1`] = `
     >
       <View
         style={
-          Object {
+          {
             "width": "41.666667%",
           }
         }
       >
         <View
           style={
-            Object {
+            {
               "alignItems": "center",
               "flexDirection": "row",
               "justifyContent": "flex-start",
@@ -457,21 +457,21 @@ exports[`onboarding network selection screen should render 1`] = `
         >
           <Text
             style={
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "RegularFont",
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "SoraRegular",
                     "fontSize": 14,
                     "fontWeight": "400",
                     "lineHeight": 20,
                   },
-                  Object {
+                  {
                     "color": "rgba(18, 18, 18, 1)",
                   },
                 ],
@@ -484,7 +484,7 @@ exports[`onboarding network selection screen should render 1`] = `
       </View>
       <View
         style={
-          Object {
+          {
             "flexBasis": "0%",
             "flexGrow": 1,
             "flexShrink": 1,
@@ -493,22 +493,22 @@ exports[`onboarding network selection screen should render 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "textAlign": "right",
                 },
-                Object {
+                {
                   "color": "rgba(89, 89, 89, 1)",
                 },
               ],
@@ -522,8 +522,8 @@ exports[`onboarding network selection screen should render 1`] = `
     </View>
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "alignItems": "flex-start",
             "backgroundColor": "transparent",
             "borderBottomWidth": 0.5,
@@ -532,7 +532,7 @@ exports[`onboarding network selection screen should render 1`] = `
             "paddingTop": 18,
             "width": "100%",
           },
-          Object {
+          {
             "borderBottomColor": "rgba(204, 204, 204, 1)",
             "borderLeftColor": "rgba(204, 204, 204, 1)",
             "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -543,28 +543,28 @@ exports[`onboarding network selection screen should render 1`] = `
     >
       <View
         style={
-          Object {
+          {
             "width": "41.666667%",
           }
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(18, 18, 18, 1)",
                 },
               ],
@@ -576,7 +576,7 @@ exports[`onboarding network selection screen should render 1`] = `
       </View>
       <View
         style={
-          Object {
+          {
             "flexBasis": "0%",
             "flexGrow": 1,
             "flexShrink": 1,
@@ -595,7 +595,7 @@ exports[`onboarding network selection screen should render 1`] = `
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            Object {
+            {
               "opacity": 1,
             }
           }
@@ -603,7 +603,7 @@ exports[`onboarding network selection screen should render 1`] = `
         >
           <View
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "flexDirection": "row",
                 "justifyContent": "flex-end",
@@ -612,15 +612,15 @@ exports[`onboarding network selection screen should render 1`] = `
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "flexWrap": "wrap",
                       "fontFamily": "SoraRegular",
                       "fontSize": 14,
@@ -628,7 +628,7 @@ exports[`onboarding network selection screen should render 1`] = `
                       "lineHeight": 20,
                       "textAlign": "right",
                     },
-                    Object {
+                    {
                       "color": "rgba(89, 89, 89, 1)",
                     },
                   ],
@@ -640,7 +640,7 @@ exports[`onboarding network selection screen should render 1`] = `
             </Text>
             <View
               style={
-                Object {
+                {
                   "flexGrow": 0,
                   "justifyContent": "center",
                   "marginLeft": 4,
@@ -655,15 +655,15 @@ exports[`onboarding network selection screen should render 1`] = `
     </View>
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "alignItems": "flex-start",
             "backgroundColor": "transparent",
             "flexDirection": "row",
             "paddingTop": 18,
             "width": "100%",
           },
-          Object {
+          {
             "backgroundColor": "transparent",
           },
         ]
@@ -671,14 +671,14 @@ exports[`onboarding network selection screen should render 1`] = `
     >
       <View
         style={
-          Object {
+          {
             "width": "41.666667%",
           }
         }
       >
         <View
           style={
-            Object {
+            {
               "alignItems": "center",
               "flexDirection": "row",
               "justifyContent": "flex-start",
@@ -687,21 +687,21 @@ exports[`onboarding network selection screen should render 1`] = `
         >
           <Text
             style={
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "RegularFont",
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "SoraRegular",
                     "fontSize": 14,
                     "fontWeight": "400",
                     "lineHeight": 20,
                   },
-                  Object {
+                  {
                     "color": "rgba(18, 18, 18, 1)",
                   },
                 ],
@@ -715,7 +715,7 @@ exports[`onboarding network selection screen should render 1`] = `
       </View>
       <View
         style={
-          Object {
+          {
             "flexBasis": "0%",
             "flexGrow": 1,
             "flexShrink": 1,
@@ -725,7 +725,7 @@ exports[`onboarding network selection screen should render 1`] = `
         <View>
           <View
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "flexDirection": "row",
@@ -736,16 +736,16 @@ exports[`onboarding network selection screen should render 1`] = `
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Array [
-                      Object {
+                  [
+                    [
+                      {
                         "fontFamily": "SoraRegular",
                         "fontSize": 14,
                         "fontWeight": "400",
@@ -754,7 +754,7 @@ exports[`onboarding network selection screen should render 1`] = `
                       },
                       undefined,
                     ],
-                    Object {
+                    {
                       "color": "rgba(89, 89, 89, 1)",
                     },
                   ],
@@ -768,7 +768,7 @@ exports[`onboarding network selection screen should render 1`] = `
         </View>
         <View
           style={
-            Object {
+            {
               "alignItems": "center",
               "display": "flex",
               "flexDirection": "row",

@@ -3,8 +3,8 @@
 exports[`version tag should render 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "borderBottomLeftRadius": 4,
         "borderBottomRightRadius": 4,
         "borderBottomWidth": 1,
@@ -18,7 +18,7 @@ exports[`version tag should render 1`] = `
         "paddingRight": 8,
         "paddingTop": 2,
       },
-      Object {
+      {
         "borderBottomColor": "rgba(229, 229, 229, 1)",
         "borderLeftColor": "rgba(229, 229, 229, 1)",
         "borderRightColor": "rgba(229, 229, 229, 1)",
@@ -29,21 +29,21 @@ exports[`version tag should render 1`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Array [
-          Object {
+        [
+          {
             "fontFamily": "MediumFont",
             "fontSize": 14,
             "fontWeight": "500",
             "lineHeight": 20,
           },
-          Object {
+          {
             "color": "rgba(115, 115, 115, 1)",
           },
         ],
