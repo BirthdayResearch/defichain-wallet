@@ -20,7 +20,8 @@ export function useNextCollateralizationRatio(
         collateral.symbol,
         collateral.activePrice,
         priceFactor,
-        "NEXT"
+        "NEXT",
+        "COLLATERAL"
       )
     );
   });
