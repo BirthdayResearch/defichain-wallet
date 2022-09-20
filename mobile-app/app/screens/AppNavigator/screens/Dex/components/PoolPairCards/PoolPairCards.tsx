@@ -164,8 +164,9 @@ export function PoolPairCards({
               <EmptyTokensScreen
                 icon={EmptyCryptoIcon}
                 containerStyle={tailwind("pt-14")}
+                testID="empty_pool_pair_screen"
                 title={translate("screens/DexScreen", "No favorites added")}
-                subTitle={translate(
+                subtitle={translate(
                   "screens/DexScreen",
                   "Tap the star icon to add your favorite pools here"
                 )}

@@ -7,7 +7,7 @@ jest.mock("@react-navigation/native", () => ({
 }));
 describe("Empty bids", () => {
   it("should match snapshot", async () => {
-    const rendered = render(<EmptyAuction />);
+    const rendered = render(<EmptyAuction title="Foo" subtitle="Bar" />);
     expect(rendered.toJSON()).toMatchSnapshot();
   });
 });
