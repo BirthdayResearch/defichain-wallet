@@ -15,9 +15,8 @@
   "packageRules": [
     {
       "matchPackagePatterns": [
-        "^defichain$",
-        "^@defichain/",
-        "^jellyfishsdk$"
+        "^.*defichain.*$",
+        "^.*jellyfishsdk.*$"
       ],
       "groupName": "defichain"
     },
@@ -35,19 +34,12 @@
     },
     {
       "matchPackagePatterns": [
-        "^expo$",
-        "^react-native$",
-        "^react$",
-        "^typescript$",
-        "^@react-native$",
-        "react-native$",
+        "^.*expo.*$",
+        "^.*react.*$",
+        "^.*typescript.*$",
         "@gorhom/bottom-sheet",
-        "@types/react",
-        "@types/i18n-js",
-        "i18n-js",
-        "tailwind$",
-        "react$",
-        "react-native$"
+        "^.*i18n-js.*$",
+        "^.*tailwind.*$"
       ],
       "groupName": "expo packages",
       "enabled": false
