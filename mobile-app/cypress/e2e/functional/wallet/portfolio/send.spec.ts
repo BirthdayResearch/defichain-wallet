@@ -267,8 +267,12 @@ context("Wallet - Send", () => {
         cy.getByTestID("confirm_title").contains("You are sending");
         // Cancel button
         cy.getByTestID("button_cancel_send").click();
-        cy.getByTestID("address_input").should("exist");
+        cy.getByTestID("portfolio_list").should("exist");
 
+        cy.getByTestID("send_balance_button").click().wait(3000);
+        cy.getByTestID("select_DFI").click().wait(3000);
+        cy.getByTestID("amount_input").clear().type("1");
+        cy.getByTestID("address_input").should("exist").clear().type(address);
         cy.getByTestID("button_confirm_send_continue").click();
         cy.getByTestID("button_confirm_send").click().wait(3000);
         cy.closeOceanInterface();
@@ -338,9 +342,10 @@ context("Wallet - Send", () => {
       cy.getByTestID("text_amount").contains(oldAmount);
       // Cancel button
       cy.getByTestID("button_cancel_send").click();
-      // Check correct value exists for input field
-      cy.getByTestID("address_input").should("have.value", oldAddress);
-      cy.getByTestID("amount_input").should("have.value", oldAmount);
+      cy.getByTestID("portfolio_list").should("exist");
+      cy.getByTestID("send_balance_button").click().wait(3000);
+      cy.getByTestID("select_DFI").click().wait(3000);
+
       // Update the input amount
       cy.getByTestID("address_input").clear().type(newAddress);
       cy.getByTestID("amount_input").clear().type(newAmount);
