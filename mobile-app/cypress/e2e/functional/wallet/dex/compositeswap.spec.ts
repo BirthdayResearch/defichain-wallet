@@ -23,7 +23,7 @@ function setCustomSlippage(customSlippage: string): void {
   cy.getByTestID("set_slippage_button").click().wait(3000);
 }
 
-context.skip("Wallet - DEX - disabled pool pairs", () => {
+context("Wallet - DEX - disabled pool pairs", () => {
   before(() => {
     cy.intercept("**/poolpairs?size=*", {
       body: {
@@ -132,7 +132,7 @@ context.skip("Wallet - DEX - disabled pool pairs", () => {
   });
 });
 
-context.skip("Wallet - DEX - Pool Pair failed api", () => {
+context("Wallet - DEX - Pool Pair failed api", () => {
   before(() => {
     cy.createEmptyWallet(true);
   });
@@ -150,7 +150,7 @@ context.skip("Wallet - DEX - Pool Pair failed api", () => {
   });
 });
 
-context.skip("Wallet - DEX - Instant/Future Swap - tabs and dropdowns", () => {
+context("Wallet - DEX - Instant/Future Swap - tabs and dropdowns", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
@@ -215,7 +215,7 @@ context.skip("Wallet - DEX - Instant/Future Swap - tabs and dropdowns", () => {
   });
 });
 
-context("Wallet - DEX - Instant Swap (non-DFI)", () => {
+context.skip("Wallet - DEX - Instant Swap (non-DFI)", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
@@ -393,7 +393,7 @@ context("Wallet - DEX - Instant Swap (non-DFI)", () => {
   });
 });
 
-context("Wallet - DEX - Instant Swap (non-DFI) - Confirm Txn", () => {
+context.skip("Wallet - DEX - Instant Swap (non-DFI) - Confirm Txn", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
@@ -502,7 +502,7 @@ context(
       cy.closeOceanInterface().wait(3000);
       cy.getByTestID("conversion_status").should("have.text", "Converted");
       cy.getByTestID("text_swap_amount_from").should("contain", "11.00000000");
-      cy.getByTestID("text_swap_amount_to").should("contain", "1,100.00000000");
+      cy.getByTestID("text_swap_amount_to").should("contain", "909.09090899");
       cy.getByTestID("button_confirm_swap").click().wait(3000);
       cy.closeOceanInterface();
     });
@@ -510,7 +510,7 @@ context(
 );
 
 // DFI -> dETH to show greater price rates difference
-context.skip("Wallet - DEX - Instant Swap (DFI) - Summary", () => {
+context("Wallet - DEX - Instant Swap (DFI) - Summary", () => {
   before(() => {
     setupWalletForConversion();
     setupFromAndToTokens("DFI", "dETH");
