@@ -1,22 +1,21 @@
-import BigNumber from "bignumber.js";
 import dayjs from "dayjs";
 import { checkValueWithinRange } from "../../../../../support/walletCommands";
 
-/*
-  Future swap settles every 20 blocks. To ensure that there"s ample time (20 blocks) to:
-    Future Swap -> Withdraw Future Swap -> Do checks
-  the flow must start to a block divisible by 20 + 1
-*/
-function waitUntilFutureSwapSettles(): void {
-  cy.getByTestID("current_block_count_value")
-    .invoke("text")
-    .then((text: string) => {
-      const currentBlockCount = new BigNumber(text);
-      if (!currentBlockCount.modulo(20).isEqualTo(1)) {
-        cy.wait(2000);
-        waitUntilFutureSwapSettles();
-      }
-    });
+function validateFutureSwapDisabled(
+  fromToken: string | undefined,
+  toToken: string
+): void {
+  if (fromToken !== undefined) {
+    cy.getByTestID("token_select_button_FROM").click();
+    cy.getByTestID(`select_${fromToken}`).click().wait(1000);
+  }
+  cy.getByTestID("token_select_button_TO").click();
+  cy.getByTestID(`select_${toToken}`).click();
+  cy.getByTestID("50%_amount_button").click().wait(500);
+  cy.getByTestID("swap_tabs_FUTURE_SWAP").should("have.attr", "aria-disabled");
+  cy.getByTestID("button_confirm_submit").click();
+  cy.getByTestID("settlement_block_label").should("not.exist");
+  cy.go("back");
 }
 
 function validatePriceSection(testID: string, isHidden: boolean): void {
@@ -44,23 +43,6 @@ function validatePriceSection(testID: string, isHidden: boolean): void {
     cy.getByTestID(`${testID}_1_label`).contains("1 dTU10");
     cy.getByTestID(`${testID}_1`).contains("DUSD");
   }
-}
-
-function validateFutureSwapDisabled(
-  fromToken: string | undefined,
-  toToken: string
-): void {
-  if (fromToken !== undefined) {
-    cy.getByTestID("token_select_button_FROM").click();
-    cy.getByTestID(`select_${fromToken}`).click().wait(1000);
-  }
-  cy.getByTestID("token_select_button_TO").click();
-  cy.getByTestID(`select_${toToken}`).click();
-  cy.getByTestID("50%_amount_button").click().wait(500);
-  cy.getByTestID("swap_tabs_FUTURE_SWAP").should("have.attr", "aria-disabled");
-  cy.getByTestID("button_confirm_submit").click();
-  cy.getByTestID("settlement_block_label").should("not.exist");
-  cy.go("back");
 }
 
 context("Wallet - DEX - Future Swap", () => {
@@ -233,165 +215,5 @@ context("Wallet - DEX - Future Swap", () => {
       "Swapping 10.00000000 DUSD to dTU10 on settlement block"
     );
     cy.closeOceanInterface().wait(5000);
-  });
-});
-
-context("Wallet - Portfolio -> Pending Future Swap Display", () => {
-  beforeEach(() => {
-    cy.intercept(
-      {
-        pathname: "**/rpc",
-      },
-      (req) => {
-        if (JSON.stringify(req.body).includes("getpendingfutureswap")) {
-          req.alias = "getpendingfutureswap";
-          req.continue((res) => {
-            res.send({
-              body: {
-                result: {
-                  values: [
-                    {
-                      source: "1.123@DUSD",
-                      destination: "TU10",
-                    },
-                    {
-                      source: "1.234@DUSD",
-                      destination: "TU10",
-                    },
-                    {
-                      source: "321.987654@TU10",
-                      destination: "DUSD",
-                    },
-                    {
-                      source: "1.345@DUSD",
-                      destination: "TS25",
-                    },
-                  ],
-                },
-              },
-            });
-          });
-        }
-      }
-    );
-    cy.createEmptyWallet(true);
-    cy.getByTestID("bottom_tab_portfolio").click();
-  });
-
-  it("should display the pending future swaps", () => {
-    cy.getByTestID("future_swap_button").should("exist");
-  });
-
-  it("should navigate to and back to pending future swaps", () => {
-    cy.getByTestID("future_swap_button").click();
-    cy.go("back");
-    cy.getByTestID("future_swap_button").click();
-  });
-
-  it("should display swap amount and symbol", () => {
-    cy.getByTestID("future_swap_button").click();
-
-    cy.getByTestID("dTU10-DUSD_amount").should(
-      "have.text",
-      "321.98765400 dTU10"
-    );
-    cy.getByTestID("dTU10-DUSD_destination_symbol").should(
-      "have.text",
-      "to DUSD"
-    );
-
-    cy.getByTestID("DUSD-dTS25_amount").should("have.text", "1.34500000 DUSD");
-    cy.getByTestID("DUSD-dTS25_destination_symbol").should(
-      "have.text",
-      "to dTS25"
-    );
-  });
-
-  it("should sum out amount of same source and destination swaps", () => {
-    cy.getByTestID("future_swap_button").click();
-    cy.getByTestID("DUSD-dTU10_amount").should("have.text", "2.35700000 DUSD");
-    cy.getByTestID("DUSD-dTU10_destination_symbol").should(
-      "have.text",
-      "to dTU10"
-    );
-  });
-
-  it("should display +5% if DUSD -> loan token", () => {
-    cy.getByTestID("future_swap_button").click();
-    cy.getByTestID("DUSD-dTU10_oracle_price").should(
-      "have.text",
-      "Settlement value (+5%)"
-    );
-  });
-
-  it("should display -5% if loan token -> DUSD", () => {
-    cy.getByTestID("future_swap_button").click();
-    cy.getByTestID("dTU10-DUSD_oracle_price").should(
-      "have.text",
-      "Settlement value (-5%)"
-    );
-  });
-});
-
-context("Wallet - Future Swap -> Display -> Withdraw flow", () => {
-  before(() => {
-    cy.createEmptyWallet(true);
-    cy.sendDFITokentoWallet()
-      .sendDFItoWallet()
-      .sendTokenToWallet(["TU10", "DUSD", "BTC"])
-      .wait(3000);
-    cy.fetchWalletBalance();
-    cy.getByTestID("bottom_tab_portfolio").click();
-    cy.getByTestID("bottom_tab_dex").click();
-    cy.getByTestID("composite_swap").click();
-    cy.wait(5000);
-  });
-
-  it("should future swap DUSD -> dTU10", () => {
-    waitUntilFutureSwapSettles();
-    cy.getByTestID("token_select_button_FROM").click();
-    cy.getByTestID("select_DUSD").click().wait(1000);
-    cy.getByTestID("token_select_button_TO").click();
-    cy.getByTestID("select_dTU10").click();
-    cy.getByTestID("swap_tabs_FUTURE_SWAP").click();
-
-    cy.getByTestID("MAX_amount_button").click();
-    cy.getByTestID("button_confirm_submit").click();
-    cy.wait(3000);
-    cy.getByTestID("button_confirm_swap").click().wait(3000);
-    cy.closeOceanInterface();
-    cy.getByTestID("bottom_tab_portfolio").click();
-    cy.getByTestID("future_swap_button").click();
-  });
-
-  it("should display correct withdraw transaction details", () => {
-    cy.getByTestID("DUSD-dTU10").click();
-    cy.getByTestID("text_input_percentage").clear().type("6");
-    cy.getByTestID("text_fee").should("exist");
-    cy.getByTestID("button_continue_withdraw").click();
-  });
-
-  it("should display correct confirmation withdraw transaction details", () => {
-    cy.getByTestID("confirm_title").should("have.text", "You are withdrawing");
-    cy.getByTestID("title_tx_detail").should("have.text", "6.00000000");
-    cy.getByTestID("text_fee").should("exist");
-    cy.getByTestID("receive_value").should("have.text", "6.00000000 DUSD");
-    cy.getByTestID("button_confirm_withdraw_future_swap").click().wait(3000);
-    cy.getByTestID("txn_authorization_title").should(
-      "have.text",
-      "Withdrawing 6.00000000 DUSD from DUSD-dTU10 swap"
-    );
-    cy.closeOceanInterface();
-  });
-
-  it("should display partial withdrawal amount", () => {
-    cy.getByTestID("bottom_tab_portfolio").click();
-    cy.getByTestID("future_swap_button").click();
-    cy.getByTestID("DUSD-dTU10_amount").should("have.text", "4.00000000 DUSD");
-  });
-
-  it("should settle the future swap on next settlement block", () => {
-    waitUntilFutureSwapSettles();
-    cy.getByTestID("DUSD-dTU10_amount").should("not.exist");
   });
 });
