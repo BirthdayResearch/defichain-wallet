@@ -61,13 +61,13 @@ export function CreateVaultScreenV2({ navigation, route }: Props): JSX.Element {
     DFIUtxoSelector(state.wallet)
   );
 
-  const FEE_AMOUNT = 2.1;
+  const RESERVE_AMOUNT = 2.1;
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
   const [selectedLoanScheme, setSelectedLoanScheme] = useState<
     LoanScheme | undefined
   >(route.params?.loanScheme);
   const [conversionStatus, setConversionStatus] = useState<ConversionStatus>(
-    new BigNumber(FEE_AMOUNT).gt(DFIUtxo.amount)
+    new BigNumber(RESERVE_AMOUNT).gt(DFIUtxo.amount)
       ? ConversionStatus.Required
       : ConversionStatus.Not_Required
   );
@@ -93,7 +93,7 @@ export function CreateVaultScreenV2({ navigation, route }: Props): JSX.Element {
     }
 
     if (conversionStatus === ConversionStatus.Required) {
-      const convertAmount = new BigNumber(FEE_AMOUNT).minus(DFIUtxo.amount);
+      const convertAmount = new BigNumber(RESERVE_AMOUNT).minus(DFIUtxo.amount);
       queueConvertTransaction(
         {
           mode: "accountToUtxos",
