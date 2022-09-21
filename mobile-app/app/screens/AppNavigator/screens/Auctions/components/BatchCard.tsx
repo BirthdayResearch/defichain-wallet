@@ -177,7 +177,7 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
                   light={tailwind("bg-mono-light-v2-100")}
                   dark={tailwind("bg-mono-dark-v2-100")}
                   style={tailwind(
-                    "flex flex-row items-center rounded-2xl-v2 py-2 px-4"
+                    "flex flex-row items-center rounded-2xl-v2 py-2 px-3"
                   )}
                   onPress={onQuickBid}
                   testID={`${testID}_quick_bid_button`}
