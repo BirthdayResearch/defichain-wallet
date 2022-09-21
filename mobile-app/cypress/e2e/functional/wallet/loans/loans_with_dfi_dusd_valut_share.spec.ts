@@ -132,7 +132,7 @@ context(
           const colRatio = parseFloat(colRatioText.replace("%", ""));
           expect(colRatio).to.be.closeTo(909.9, 1);
         });
-      cy.getByTestID("bottom-sheet-vault-requirement-text").contains("45.02%");
+      cy.getByTestID("bottom-sheet-vault-requirement-text").contains("45.04%");
       cy.getByTestID("add_collateral_button_submit").should(
         "have.attr",
         "aria-disabled"
