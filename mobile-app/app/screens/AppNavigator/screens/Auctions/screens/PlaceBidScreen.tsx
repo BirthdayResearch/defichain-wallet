@@ -134,9 +134,9 @@ export function PlaceBidScreen(props: Props): JSX.Element {
   };
 
   const ownedTokenAmount = ownedToken === undefined ? "0" : ownedToken.amount;
-  const displayHigherBidWarning = new BigNumber(bidAmount)
-    .multipliedBy(getActivePrice(batch.loan.symbol, batch.loan.activePrice))
-    .gte(new BigNumber(totalCollateralsValueInUSD).times(1.2));
+  const displayHigherBidWarning = getAmountInUSDValue(bidAmount).gte(
+    new BigNumber(totalCollateralsValueInUSD).times(1.2)
+  );
 
   return (
     <View ref={containerRef} style={tailwind("h-full")}>
@@ -408,21 +408,20 @@ function BidAmountButton({
 
   return (
     <ThemedTouchableOpacityV2
-      style={tailwind(
-        "w-3/12 items-center rounded-full justify-center self-stretch"
-      )}
+      style={tailwind("w-3/12 items-center justify-center self-stretch", {
+        "border-r-0.5": hasBorder,
+      })}
       onPress={() => onPress(value, bidPercentageAmount)}
       testID={`${bidPercentageAmount}_amount_button`}
     >
       <ThemedViewV2
         light={tailwind("border-mono-light-v2-300")}
         dark={tailwind("border-mono-dark-v2-300")}
-        style={tailwind({ "border-r-0.5": hasBorder })}
       >
         <ThemedTextV2
           light={tailwind("text-mono-light-v2-700")}
           dark={tailwind("text-mono-dark-v2-700")}
-          style={tailwind("font-semibold-v2 text-xs px-7")}
+          style={tailwind("font-semibold-v2 text-xs")}
         >
           {bidPercentageAmount}
         </ThemedTextV2>

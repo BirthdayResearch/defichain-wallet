@@ -1768,7 +1768,7 @@
     "Transaction fee": "Frais de transaction",
     "The minimum next bid is {{amount}} {{symbol}} (100%)": "The minimum next bid is {{amount}} {{symbol}} (100%)",
     "{{percent}} min bid entered": "{{percent}} min bid entered",
-    "Insufficient Balance": "Solde insuffisant",
+    "Insufficient balance": "Solde insuffisant",
     "Auction timeout": "Auction timeout"
   },
   "screens/ConfirmPlaceBidScreen": {
