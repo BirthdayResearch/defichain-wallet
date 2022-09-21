@@ -1,5 +1,10 @@
 import BigNumber from "bignumber.js";
-import { ThemedIcon, ThemedText, ThemedView } from "@components/themed";
+import {
+  ThemedIcon,
+  ThemedScrollView,
+  ThemedText,
+  ThemedView,
+} from "@components/themed";
 import { tailwind } from "@tailwind";
 import { SymbolIcon } from "@components/SymbolIcon";
 import { IconButton } from "@components/IconButton";
@@ -16,10 +21,10 @@ import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/Loa
 import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
 import { ActiveUSDValue } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue";
 import { BottomSheetNavScreen } from "@components/BottomSheetWithNav";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { memo, useState, useEffect } from "react";
-import { ScrollView } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import NumberFormat from "react-number-format";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { Dispatch } from "@reduxjs/toolkit";
@@ -408,89 +413,87 @@ const PaybackDUSD = ({
             </TouchableOpacity>
           </View>
         </View>
-        <ThemedView
+        <ThemedScrollView
           light={tailwind("bg-white")}
           dark={tailwind("bg-gray-800")}
-          style={tailwind("flex-1")}
+          contentContainerStyle={tailwind("pb-8")}
         >
-          <ScrollView contentContainerStyle={tailwind("pb-8")}>
-            <View style={tailwind("px-4")}>
-              <View>
-                <ThemedText
-                  dark={tailwind("text-gray-50")}
-                  light={tailwind("text-gray-900")}
-                  style={tailwind("text-xs text-center mb-1")}
-                >
-                  {translate("components/QuickBid", "Paying loan")}
-                </ThemedText>
-                <NumberFormat
-                  value={paybackAmount.toFixed(8)}
-                  thousandSeparator
-                  displayType="text"
-                  renderText={(value) => (
+          <View style={tailwind("px-4")}>
+            <View>
+              <ThemedText
+                dark={tailwind("text-gray-50")}
+                light={tailwind("text-gray-900")}
+                style={tailwind("text-xs text-center mb-1")}
+              >
+                {translate("components/QuickBid", "Paying loan")}
+              </ThemedText>
+              <NumberFormat
+                value={paybackAmount.toFixed(8)}
+                thousandSeparator
+                displayType="text"
+                renderText={(value) => (
+                  <ThemedText
+                    dark={tailwind("text-gray-50")}
+                    light={tailwind("text-gray-900")}
+                    style={tailwind(
+                      "text-lg flex-wrap font-medium text-center"
+                    )}
+                  >
+                    {value}
+                  </ThemedText>
+                )}
+              />
+              <NumberFormat
+                decimalScale={8}
+                prefix="≈ $"
+                displayType="text"
+                renderText={(value) => (
+                  <View
+                    style={tailwind(
+                      "flex flex-row justify-center items-center"
+                    )}
+                  >
                     <ThemedText
                       dark={tailwind("text-gray-50")}
                       light={tailwind("text-gray-900")}
                       style={tailwind(
-                        "text-lg flex-wrap font-medium text-center"
+                        "text-2xs flex-wrap text-center leading-4"
                       )}
                     >
                       {value}
                     </ThemedText>
-                  )}
-                />
-                <NumberFormat
-                  decimalScale={8}
-                  prefix="≈ $"
-                  displayType="text"
-                  renderText={(value) => (
-                    <View
-                      style={tailwind(
-                        "flex flex-row justify-center items-center"
-                      )}
-                    >
-                      <ThemedText
-                        dark={tailwind("text-gray-50")}
-                        light={tailwind("text-gray-900")}
-                        style={tailwind(
-                          "text-2xs flex-wrap text-center leading-4"
-                        )}
-                      >
-                        {value}
-                      </ThemedText>
-                      <IconTooltip />
-                    </View>
-                  )}
-                  thousandSeparator
-                  value={getPrecisedTokenValue(paybackValue)}
-                />
-              </View>
-              <Text style={tailwind("text-sm text-center mt-6 text-orange-v2")}>
-                {translate(
-                  "components/PaybackDUSD",
-                  "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?"
+                    <IconTooltip />
+                  </View>
                 )}
-              </Text>
-              <View style={tailwind("-mt-3 -mx-4")}>
-                <SubmitButtonGroup
-                  isDisabled={hasPendingJob || hasPendingBroadcastJob}
-                  label={translate(
-                    "components/PaybackDUSD",
-                    "Payback with DUSD collateral"
-                  )}
-                  processingLabel={translate(
-                    "components/PaybackDUSD",
-                    "Payback with DUSD collateral"
-                  )}
-                  onSubmit={onSubmit}
-                  title="payback_loan_continue"
-                  isProcessing={hasPendingJob || hasPendingBroadcastJob}
-                  displayCancelBtn={false}
-                />
-              </View>
+                thousandSeparator
+                value={getPrecisedTokenValue(paybackValue)}
+              />
             </View>
-          </ScrollView>
-        </ThemedView>
+            <Text style={tailwind("text-sm text-center mt-6 text-orange-v2")}>
+              {translate(
+                "components/PaybackDUSD",
+                "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?"
+              )}
+            </Text>
+            <View style={tailwind("-mt-3 -mx-4")}>
+              <SubmitButtonGroup
+                isDisabled={hasPendingJob || hasPendingBroadcastJob}
+                label={translate(
+                  "components/PaybackDUSD",
+                  "Payback with DUSD collateral"
+                )}
+                processingLabel={translate(
+                  "components/PaybackDUSD",
+                  "Payback with DUSD collateral"
+                )}
+                onSubmit={onSubmit}
+                title="payback_loan_continue"
+                isProcessing={hasPendingJob || hasPendingBroadcastJob}
+                displayCancelBtn={false}
+              />
+            </View>
+          </View>
+        </ThemedScrollView>
       </ThemedView>
     );
   });
