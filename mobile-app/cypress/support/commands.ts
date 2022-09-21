@@ -1,3 +1,4 @@
+import BigNumber from "bignumber.js";
 import "@testing-library/cypress/add-commands";
 import "./onboardingCommands";
 import "./walletCommands";
@@ -126,6 +127,14 @@ declare global {
        * @example cy.setFeatureFlags(['feature_a', 'feature_b'], 'beta')
        */
       setFeatureFlags: (flags: string[], stage?: string) => Chainable<Element>;
+
+      /**
+       * @description
+        Future swap settles every 20 blocks. To ensure that there"s ample time (20 blocks) to:
+          Future Swap -> Withdraw Future Swap -> Do checks
+        the flow must start to a block divisible by 20 + 1
+       */
+      waitUntilFutureSwapSettles: () => Chainable<Element>;
     }
   }
 }
@@ -239,3 +248,19 @@ Cypress.Commands.add("setFeatureFlags", (flags: string[], stage?: string) => {
     body: body,
   });
 });
+
+Cypress.Commands.add("waitUntilFutureSwapSettles", () => {
+  waitUntilFutureSwapSettles();
+});
+
+function waitUntilFutureSwapSettles(): void {
+  cy.getByTestID("current_block_count_value")
+    .invoke("text")
+    .then((text: string) => {
+      const currentBlockCount = new BigNumber(text);
+      if (!currentBlockCount.modulo(20).isEqualTo(1)) {
+        cy.wait(2000);
+        waitUntilFutureSwapSettles();
+      }
+    });
+}
