@@ -1782,7 +1782,8 @@
     "The minimum next bid is {{amount}} {{symbol}} (100%)": "The minimum next bid is {{amount}} {{symbol}} (100%)",
     "{{percent}} min bid entered": "{{percent}} min bid entered",
     "Insufficient balance": "Insufficient balance",
-    "Auction timeout": "Auction timeout"
+    "Auction timeout": "Auction timeout",
+    "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}": "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",

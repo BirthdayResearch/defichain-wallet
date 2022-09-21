@@ -1292,7 +1292,7 @@
   },
   "screens/AuctionScreen": {
     "Auctions": "清算拍卖",
-    "Bid": "Bid",
+    "Bid": "竞投出价",
     "Place Bid": "标价",
     "Confirm Place Bid": "确认出价",
     "Confirm": "确认",
@@ -1763,9 +1763,10 @@
     "Review full details in the next screen": "Review full details in the next screen",
     "Transaction fee": "Transaction fee",
     "The minimum next bid is {{amount}} {{symbol}} (100%)": "The minimum next bid is {{amount}} {{symbol}} (100%)",
-    "{{percent}} min bid entered": "{{percent}} min bid entered",
+    "{{percent}} min bid entered": "{{percent}} 最低竞投出价输入",
     "Insufficient balance": "Insufficient balance",
-    "Auction timeout": "Auction timeout"
+    "Auction timeout": "Auction timeout",
+    "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}": "您的出价高于拍卖的抵押品价值 {{prefix}}{{amount}}"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "交易明细",

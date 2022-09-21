@@ -1288,7 +1288,7 @@
   },
   "screens/AuctionScreen": {
     "Auctions": "Auktionen",
-    "Bid": "Bid",
+    "Bid": "Bieten",
     "Place Bid": "Bieten",
     "Confirm Place Bid": "Gebot bestätigen",
     "Confirm": "Bestätigen",
@@ -1753,10 +1753,10 @@
     "I HAVE {{ownedAmount}} {{symbol}}": "ICH HABE {{ownedAmount}} {{symbol}}",
     "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
     "Transaction fee": "Transaktionsgebühren",
-    "The minimum next bid is {{amount}} {{symbol}} (100%)": "The minimum next bid is {{amount}} {{symbol}} (100%)",
-    "{{percent}} min bid entered": "{{percent}} min bid entered",
+    "The minimum next bid is {{amount}} {{symbol}} (100%)": "Das nächste Mindestgebot beträgt {{amount}} {{symbol}} (100%)",
+    "{{percent}} min bid entered": "{{percent}} mindestgebot eingegeben",
     "Insufficient balance": "Unzureichendes Guthaben",
-    "Auction timeout": "Auction timeout"
+    "Auction timeout": "Zeitüberschreitung der Auktion"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
@@ -1772,7 +1772,8 @@
     "Sign Transaction": "Transaktion freigeben",
     "Placing {{amount}} {{token}} as bid for auction.": "Abgabe des Gebotsbetrags von {{amount}} {{token}}",
     "Collateral for auction": "Zu ersteigern",
-    "Insufficient funds": "Unzureichende Deckung"
+    "Insufficient funds": "Unzureichende Deckung",
+    "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}": "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Abheben",

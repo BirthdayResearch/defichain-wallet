@@ -30,12 +30,10 @@ import {
   TokenDropdownButton,
   TokenDropdownButtonStatus,
 } from "@components/TokenDropdownButton";
-import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
 import { tokensSelector } from "@store/wallet";
 import { useToast } from "react-native-toast-notifications";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { ButtonV2 } from "@components/ButtonV2";
-import { InfoText } from "@components/InfoText";
 import { AuctionsParamList } from "../AuctionNavigator";
 import { useAuctionBidValue } from "../hooks/AuctionBidValue";
 import { useAuctionTime } from "../hooks/AuctionTimeLeft";
@@ -50,8 +48,10 @@ export function PlaceBidScreen(props: Props): JSX.Element {
   );
   const ownedToken = tokens.find((token) => token.id === batch.loan.id);
 
-  const { minNextBidInToken, totalCollateralsValueInUSD, minNextBidInUSD } =
-    useAuctionBidValue(batch, vault.liquidationPenalty);
+  const { minNextBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(
+    batch,
+    vault.liquidationPenalty
+  );
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
   const { bottomSheetRef, containerRef, isModalDisplayed, bottomSheetScreen } =
     useBottomSheet();
@@ -246,9 +246,10 @@ export function PlaceBidScreen(props: Props): JSX.Element {
             )}
           </ThemedViewV2>
 
-          {(formState.errors.bidAmount === undefined ||
-            formState.errors.bidAmount.type === "required" ||
-            formState.errors.bidAmount.type === "min") && (
+          {(formState.errors.bidAmount?.type === "min" ||
+            (!displayHigherBidWarning &&
+              (formState.errors.bidAmount === undefined ||
+                formState.errors.bidAmount.type === "required"))) && (
             <ThemedTextV2
               light={tailwind("text-mono-light-v2-500", {
                 "text-red-v2": formState.errors.bidAmount?.type === "min",
@@ -279,16 +280,19 @@ export function PlaceBidScreen(props: Props): JSX.Element {
               {translate("screens/PlaceBidScreen", "Insufficient balance")}
             </ThemedTextV2>
           )}
-
-          {displayHigherBidWarning && (
-            <InfoText
+          {displayHigherBidWarning && formState.isValid && (
+            <ThemedTextV2
+              light={tailwind("text-orange-v2")}
+              dark={tailwind("text-orange-v2")}
+              style={tailwind("text-xs pt-2 mx-6 font-normal-v2")}
               testID="high_bid_text"
-              text={translate(
+            >
+              {translate(
                 "screens/PlaceBidScreen",
-                "The value of the tokens you are placing is considerably higher than the total auction value."
+                "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}",
+                { prefix: "$", amount: totalCollateralsValueInUSD }
               )}
-              style={tailwind("mt-5")}
-            />
+            </ThemedTextV2>
           )}
 
           {new BigNumber(bidAmount || 0).gt(0) && (
