@@ -3,7 +3,7 @@ import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { tailwind } from "@tailwind";
 
 import { FlashList, FlashListProps } from "@shopify/flash-list";
-import { View } from "react-native";
+import { ScrollView } from "react-native";
 import { ThemedProps } from "./index";
 
 type ThemedFlashListProps = FlashListProps<any> & ThemedProps;
@@ -22,14 +22,14 @@ export const ThemedFlashList = forwardRef(
     const styles = { ...contentContainerStyle };
 
     return (
-      <View style={[tailwind("flex-grow"), theme]}>
+      <ScrollView contentContainerStyle={[tailwind("flex-grow"), theme]}>
         <FlashList
           estimatedItemSize={estimatedItemSize}
           contentContainerStyle={styles}
           ref={ref}
           {...otherProps}
         />
-      </View>
+      </ScrollView>
     );
   }
 );
