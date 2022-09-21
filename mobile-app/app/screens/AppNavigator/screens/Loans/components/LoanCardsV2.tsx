@@ -61,6 +61,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   return (
     <>
       <ThemedFlashList
+        estimatedItemSize={2}
         contentContainerStyle={tailwind("px-2 pt-4 pb-2")}
         data={props.loans}
         ref={ref}
