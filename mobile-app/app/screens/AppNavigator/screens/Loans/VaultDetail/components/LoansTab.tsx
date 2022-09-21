@@ -169,6 +169,7 @@ function LoanCard(props: LoanCardProps): JSX.Element {
           price={new BigNumber(props.amount).multipliedBy(activePrice)}
           containerStyle={tailwind("justify-end")}
           isOraclePrice
+          testId={`loan_card_${props.displaySymbol}_outstanding_balance_value`}
         />
         {props.vaultState !== LoanVaultState.IN_LIQUIDATION && (
           <>
@@ -331,11 +332,7 @@ function ActionButtons({
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
   return (
     <View style={tailwind("flex flex-row justify-between -mx-2")}>
-      <View
-        style={tailwind(
-          "flex flex-row flex-wrap flex-1 justify-between space-x-2"
-        )}
-      >
+      <View style={tailwind("flex flex-row flex-wrap flex-1 justify-between")}>
         <IconButton
           disabled={!canUseOperations}
           iconLabel={translate(
@@ -437,6 +434,7 @@ const PaybackDUSD = ({
                 <NumberFormat
                   value={paybackAmount.toFixed(8)}
                   thousandSeparator
+                  suffix=" DUSD"
                   displayType="text"
                   renderText={(value) => (
                     <ThemedText
@@ -445,6 +443,7 @@ const PaybackDUSD = ({
                       style={tailwind(
                         "text-lg flex-wrap font-medium text-center"
                       )}
+                      testID="dusd_payback_amount"
                     >
                       {value}
                     </ThemedText>
@@ -466,6 +465,7 @@ const PaybackDUSD = ({
                         style={tailwind(
                           "text-2xs flex-wrap text-center leading-4"
                         )}
+                        testID="dusd_payback_value"
                       >
                         {value}
                       </ThemedText>
