@@ -261,7 +261,6 @@ export default async function handle(
       version: ">2.5.0",
       description: "Display payback DUSD loan with DUSD collateral",
       networks: [
-        EnvironmentNetwork.MainNet,
         EnvironmentNetwork.TestNet,
         EnvironmentNetwork.RemotePlayground,
         EnvironmentNetwork.LocalPlayground,
