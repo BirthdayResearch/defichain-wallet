@@ -719,7 +719,9 @@
     "Beta Features": "Funzionalità beta",
     "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.": "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.",
     "Feature is still in Beta. Use at your own risk.": "La funzionalità è ancora in versione beta. Utilizzare a proprio rischio.",
-    "Allows the usage of custom server provider url": "Allows the usage of custom server provider url"
+    "Allows the usage of custom server provider url": "Allows the usage of custom server provider url",
+    "Unloop DUSD loan": "Unloop DUSD loan",
+    "Display payback DUSD loan with DUSD collateral": "Display payback DUSD loan with DUSD collateral"
   },
   "BottomTabNavigator": {
     "Balances": "Saldi",
@@ -803,7 +805,9 @@
     "Swapped {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Swapped {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Scambia {{amountA}} {{symbolA}} in {{amountB}} {{symbolB}}",
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
-    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool",
+    "Paying back loan amount of {{amount}} DUSD": "Paying back loan amount of {{amount}} DUSD",
+    "Paid loan amount of {{amount}} DUSD": "Paid loan amount of {{amount}} DUSD"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Richiesta di accesso alla fotocamera",
@@ -1914,5 +1918,11 @@
     "APR": "APR",
     "{{percentage}}% in rewards": "{{percentage}}% in rewards",
     "{{percentage}}% in commissions": "{{percentage}}% in commissions"
+  },
+  "components/PaybackDUSD": {
+    "PAYBACK WITH DUSD COLLATERAL": "PAYBACK WITH DUSD COLLATERAL",
+    "Payback with DUSD collateral": "Payback with DUSD collateral",
+    "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?",
+    "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral"
   }
 }

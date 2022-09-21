@@ -169,6 +169,7 @@ function LoanCard(props: LoanCardProps): JSX.Element {
           price={new BigNumber(props.amount).multipliedBy(activePrice)}
           containerStyle={tailwind("justify-end")}
           isOraclePrice
+          testId={`loan_card_${props.displaySymbol}_outstanding_balance_value`}
         />
         {props.vaultState !== LoanVaultState.IN_LIQUIDATION && (
           <>
@@ -307,7 +308,7 @@ function PaybackDUSDLoan({
   return (
     <IconButton
       iconLabel={translate(
-        "components/VaultDetailsLoansTab",
+        "components/PaybackDUSD",
         "PAYBACK WITH DUSD COLLATERAL"
       )}
       style={tailwind("mb-2 p-2 w-full justify-center flex-1")}
@@ -329,41 +330,48 @@ function ActionButtons({
   testID: string;
 }): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
-
   return (
-    <View style={tailwind("flex flex-row justify-between w-full")}>
-      <IconButton
-        disabled={!canUseOperations}
-        iconLabel={translate("components/VaultDetailsLoansTab", "PAYBACK LOAN")}
-        style={tailwind("mr-1 mb-2 p-2 w-1/2 justify-center flex-1")}
-        testID={`${testID}_payback_loan`}
-        onPress={() => {
-          navigation.navigate({
-            name: "PaybackLoanScreen",
-            merge: true,
-            params: {
-              vault,
-              loanTokenAmount: loanToken,
-            },
-          });
-        }}
-      />
-      <IconButton
-        disabled={!canUseOperations || vault.state === LoanVaultState.FROZEN}
-        iconLabel={translate("components/VaultDetailsLoansTab", "BORROW MORE")}
-        style={tailwind("ml-1 mb-2 p-2 w-1/2 justify-center flex-1")}
-        testID={`${testID}_borrow_more`}
-        onPress={() => {
-          navigation.navigate({
-            name: "BorrowMoreScreen",
-            merge: true,
-            params: {
-              vault,
-              loanTokenAmount: loanToken,
-            },
-          });
-        }}
-      />
+    <View style={tailwind("flex flex-row justify-between -mx-2")}>
+      <View style={tailwind("flex flex-row flex-wrap flex-1 justify-between")}>
+        <IconButton
+          disabled={!canUseOperations}
+          iconLabel={translate(
+            "components/VaultDetailsLoansTab",
+            "PAYBACK LOAN"
+          )}
+          style={tailwind("mb-2 p-2 mx-2 flex-grow justify-center")}
+          testID={`${testID}_payback_loan`}
+          onPress={() => {
+            navigation.navigate({
+              name: "PaybackLoanScreen",
+              merge: true,
+              params: {
+                vault,
+                loanTokenAmount: loanToken,
+              },
+            });
+          }}
+        />
+        <IconButton
+          disabled={!canUseOperations || vault.state === LoanVaultState.FROZEN}
+          iconLabel={translate(
+            "components/VaultDetailsLoansTab",
+            "BORROW MORE"
+          )}
+          style={tailwind("mb-2 p-2 mx-2 flex-grow justify-center")}
+          testID={`${testID}_borrow_more`}
+          onPress={() => {
+            navigation.navigate({
+              name: "BorrowMoreScreen",
+              merge: true,
+              params: {
+                vault,
+                loanTokenAmount: loanToken,
+              },
+            });
+          }}
+        />
+      </View>
     </View>
   );
 }
@@ -426,6 +434,7 @@ const PaybackDUSD = ({
                 <NumberFormat
                   value={paybackAmount.toFixed(8)}
                   thousandSeparator
+                  suffix=" DUSD"
                   displayType="text"
                   renderText={(value) => (
                     <ThemedText
@@ -434,6 +443,7 @@ const PaybackDUSD = ({
                       style={tailwind(
                         "text-lg flex-wrap font-medium text-center"
                       )}
+                      testID="dusd_payback_amount"
                     >
                       {value}
                     </ThemedText>
@@ -455,6 +465,7 @@ const PaybackDUSD = ({
                         style={tailwind(
                           "text-2xs flex-wrap text-center leading-4"
                         )}
+                        testID="dusd_payback_value"
                       >
                         {value}
                       </ThemedText>
@@ -538,7 +549,7 @@ async function paybackLoanToken(
       transactionQueue.actions.push({
         sign: signer,
         title: translate(
-          "screens/ConfirmPaybackLoanScreen",
+          "components/PaybackDUSD",
           "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral",
           {
             amountToPayInPaymentToken: amount.toFixed(8),
