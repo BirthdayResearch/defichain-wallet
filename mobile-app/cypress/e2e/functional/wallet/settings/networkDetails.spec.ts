@@ -317,7 +317,7 @@ context(
       cy.getByTestID("transaction_button").click();
       cy.url().should("include", "app/TransactionsScreen");
       cy.go("back");
-      cy.url().should("include", "app/TransactionsScreen");
+      cy.url().should("include", "app/portfolio");
     });
 
     it("should get back to the setting page when network detail called from setting page", () => {
