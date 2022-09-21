@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-context.skip("Wallet - DEX - Future Swap -> Transaction", () => {
+context("Wallet - DEX - Future Swap -> Transaction", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.sendDFITokentoWallet()
