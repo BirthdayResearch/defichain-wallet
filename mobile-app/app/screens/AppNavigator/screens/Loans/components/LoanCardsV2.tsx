@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import {
-  ThemedFlatListV2,
+  ThemedFlashList,
   ThemedIcon,
   ThemedText,
   ThemedTextV2,
@@ -60,7 +60,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   ) as LoanVaultActive;
   return (
     <>
-      <ThemedFlatListV2
+      <ThemedFlashList
         contentContainerStyle={tailwind("px-2 pt-4 pb-2")}
         data={props.loans}
         ref={ref}
