@@ -1295,6 +1295,7 @@
     "Bid": "Bid",
     "Place Bid": "標價",
     "Confirm Place Bid": "確認出價",
+    "Confirm": "確認",
     "Auction details": "拍賣細節"
   },
   "components/AuctionDetailScreen": {

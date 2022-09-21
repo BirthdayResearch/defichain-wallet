@@ -1320,6 +1320,7 @@
     "Bid": "Bid",
     "Place Bid": "Haz oferta",
     "Confirm Place Bid": "Confirma la oferta",
+    "Confirm": "Confirma",
     "Auction details": "Detalles de la subasta"
   },
   "components/AuctionDetailScreen": {

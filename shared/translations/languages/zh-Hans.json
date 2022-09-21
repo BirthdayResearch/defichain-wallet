@@ -1295,6 +1295,7 @@
     "Bid": "Bid",
     "Place Bid": "标价",
     "Confirm Place Bid": "确认出价",
+    "Confirm": "确认",
     "Auction details": "拍卖细节"
   },
   "components/AuctionDetailScreen": {

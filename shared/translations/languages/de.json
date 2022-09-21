@@ -1291,6 +1291,7 @@
     "Bid": "Bid",
     "Place Bid": "Bieten",
     "Confirm Place Bid": "Gebot bestätigen",
+    "Confirm": "Bestätigen",
     "Auction details": "Auktionsdetails"
   },
   "components/AuctionDetailScreen": {

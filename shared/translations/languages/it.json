@@ -1316,6 +1316,7 @@
     "Bid": "Bid",
     "Place Bid": "Piazza un'offerta",
     "Confirm Place Bid": "Conferma l'offerta",
+    "Confirm": "Conferma",
     "Auction details": "Dettagli dell'asta"
   },
   "components/AuctionDetailScreen": {

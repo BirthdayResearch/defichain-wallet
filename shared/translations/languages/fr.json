@@ -1303,6 +1303,7 @@
     "Bid": "Bid",
     "Place Bid": "Placer une enchère",
     "Confirm Place Bid": "Confirmer l'enchére",
+    "Confirm": "Confirmer",
     "Auction details": "Détails de l'enchère"
   },
   "components/AuctionDetailScreen": {
