@@ -138,6 +138,7 @@ context("Wallet - DEX - Available Pool Pairs", () => {
 
   it("should display skeleton loader when API has yet to return", () => {
     cy.getByTestID("dex_skeleton_loader").should("exist");
+    cy.sendDFItoWallet().sendTokenToWallet(["ETH"]).wait(4000);
   });
 
   it("should not display skeleton loader when API has return", () => {
@@ -242,9 +243,6 @@ context("Wallet - DEX - Available Pool Pairs", () => {
     cy.getByTestID("MAX_amount_button").click().wait(3000);
 
     cy.getByTestID("button_confirm_submit").should("not.have.attr", "disabled");
-    cy.getByTestID("estimated_to_receive").should("exist");
-    cy.getByTestID("estimated_to_receive_rhsUsdAmount").should("exist");
-
     cy.getByTestID("bottom_tab_dex").click();
   });
 });
