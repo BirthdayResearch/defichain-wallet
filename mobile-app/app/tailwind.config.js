@@ -176,6 +176,7 @@ module.exports = {
       },
       borderWidth: {
         0.5: 0.5,
+        1.5: 1.5,
       },
       borderRadius: {
         "lg-v2": 10,
@@ -184,6 +185,7 @@ module.exports = {
       },
       padding: {
         4.5: 18,
+        5.5: 22,
         15: 60,
       },
       margin: {
