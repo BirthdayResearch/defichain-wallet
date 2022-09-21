@@ -187,7 +187,7 @@ context("Wallet - Token Detail", () => {
     cy.go("back");
     /* Redirect back from Add Liquidity screen */
     cy.go("back");
-    cy.url().should("include", "app/Balance");
+    cy.url().should("include", "app/TokenDetailScreen");
   });
 
   it("should be able to redirect to Pool Swap screen", () => {
@@ -259,7 +259,7 @@ context("Wallet - Token Detail - Cypto - Locked in vaults & Available", () => {
     cy.go("back");
     /* Redirect back from Add Liquidity screen */
     cy.go("back");
-    cy.url().should("include", "app/Balance");
+    cy.url().should("include", "app/TokenDetailScreen");
   });
 
   it("should be able to redirect to Pool Swap screen", () => {
@@ -317,7 +317,7 @@ context("Wallet - Token Detail - LP", () => {
     cy.go("back");
     /* Redirect back from Add Liquidity screen */
     cy.go("back");
-    cy.url().should("include", "app/Balance");
+    cy.url().should("include", "app/TokenDetailScreen");
   });
 
   it("should be able to redirect to Remove Liquidity screen", () => {
@@ -330,7 +330,7 @@ context("Wallet - Token Detail - LP", () => {
     cy.go("back");
     /* Redirect back from Remove Liquidity screen */
     cy.go("back");
-    cy.url().should("include", "app/Balance");
+    cy.url().should("include", "app/TokenDetailScreen");
   });
 });
 
@@ -396,7 +396,6 @@ context("Wallet - Token Detail - DFI - UTXO and Token", () => {
     );
     cy.getByTestID("token_select_button_FROM").should("contain", "DFI");
     cy.getByTestID("token_select_button_TO").should("contain", "Token");
-    cy.getByTestID("text_balance_amount").contains("19.90000000");
   });
 });
 

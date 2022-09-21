@@ -30,7 +30,7 @@ function setupWalletForConversion(): void {
   cy.getByTestID("dex_search_icon").click();
   cy.getByTestID("dex_search_input").type("BTC");
   cy.getByTestID("pair_symbol_dBTC-DFI").click();
-  // cy.getByTestID('pool_pair_add_dBTC-DFI').click()
+  cy.getByTestID("poolpair_token_details_add_liquidity").click();
   cy.wait(100);
   cy.getByTestID("token_balance_primary").contains("20");
   cy.getByTestID("token_balance_secondary").contains("19.9");
@@ -333,15 +333,16 @@ context("Wallet - DEX - Add Liquidity Confirm Txn", () => {
 
   afterEach(() => {
     cy.getByTestID("dex_tabs_YOUR_POOL_PAIRS").click();
-    cy.getByTestID("share_in_pool_dBTC-DFI").contains("10.00000000");
-    cy.getByTestID("details_dBTC-DFI").click();
-    cy.getByTestID("your_BTC-DFI_dBTC").contains("9.99999999");
-    cy.getByTestID("your_BTC-DFI_DFI").contains("9.99999999");
+    cy.getByTestID("pool_share_amount_17").contains("10.00000000");
+    cy.getByTestID("pool_pair_row_0_dBTC-DFI").click();
+    cy.getByTestID("your_lp_tokenA_value").contains("9.99999999");
+    cy.getByTestID("your_lp_tokenB_value").contains("9.99999999");
 
     cy.getByTestID("bottom_tab_portfolio").click();
     cy.getByTestID("portfolio_row_17").should("exist");
     cy.getByTestID("portfolio_row_17_symbol").contains("dBTC-DFI");
     // Remove added liquidity
+    cy.getByTestID("bottom_tab_dex").click();
     cy.getByTestID("bottom_tab_dex").click();
     cy.getByTestID("dex_tabs_YOUR_POOL_PAIRS_active").click();
     cy.getByTestID("pool_pair_remove_dBTC-DFI").click();

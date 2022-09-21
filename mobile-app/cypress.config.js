@@ -10,6 +10,7 @@ module.exports = defineConfig({
     runMode: 1,
     openMode: 0,
   },
+  numTestsKeptInMemory: 0,
   chromeWebSecurity: false,
   e2e: {
     // We've imported your old cypress plugins here.
