@@ -74,27 +74,25 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           index: number;
         }): JSX.Element => {
           return (
-            <View style={{ flexBasis: "50%" }}>
-              <LoanCard
-                symbol={item.token.symbol}
-                displaySymbol={item.token.displaySymbol}
-                interestRate={item.interest}
-                price={item.activePrice}
-                loanTokenId={item.tokenId}
-                onPress={() => {
-                  navigation.navigate({
-                    name: "BorrowLoanTokenScreen",
-                    params: {
-                      loanToken: item,
-                      vault: activeVault,
-                    },
-                    merge: true,
-                  });
-                }}
-                testID={`loan_card_${index}`}
-                disabled={!props.vaultExist}
-              />
-            </View>
+            <LoanCard
+              symbol={item.token.symbol}
+              displaySymbol={item.token.displaySymbol}
+              interestRate={item.interest}
+              price={item.activePrice}
+              loanTokenId={item.tokenId}
+              onPress={() => {
+                navigation.navigate({
+                  name: "BorrowLoanTokenScreen",
+                  params: {
+                    loanToken: item,
+                    vault: activeVault,
+                  },
+                  merge: true,
+                });
+              }}
+              testID={`loan_card_${index}`}
+              disabled={!props.vaultExist}
+            />
           );
         }}
         keyExtractor={(_item, index) => index.toString()}
