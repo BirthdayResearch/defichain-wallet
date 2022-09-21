@@ -1779,14 +1779,16 @@
     "Bid amount to place": "Prix de l'enchère à placer",
     "AUCTION DETAILS": "DÉTAILS DE LA VENTE",
     "Total auction value (USDT)": "Valeur totale mise en vente (USDT)",
+    "Total auction value": "Valeur totale mise en vente",
     "Vault ID": "Vault n°",
     "Vault owner ID": "ID du propriétaire du vault",
-    "Liquidation Height": "Hauteur de bloc de liquidation",
+    "Liquidation height": "Hauteur de bloc de liquidation",
     "CONFIRM PLACE BID": "CONFIRMER ENCHÈRE",
     "Sign Transaction": "Autoriser la transaction",
     "Placing {{amount}} {{token}} as bid for auction.": "Placer une enchère de {{amount}} {{token}}.",
     "Insufficient funds": "Fonds insuffisants",
-    "Collateral for auction": "Garantie mise en vente"
+    "Collateral for auction": "Garantie mise en vente",
+    "You are bidding": "You are bidding"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Retirer",

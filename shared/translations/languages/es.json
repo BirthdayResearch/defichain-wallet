@@ -1798,14 +1798,16 @@
     "Bid amount to place": "Cantidad ofertada",
     "AUCTION DETAILS": "DETALLES DE LA SUBASTA",
     "Total auction value (USDT)": "Valor total de la subasta (USDT)",
+    "Total auction value": "Valor total de la subasta",
     "Vault ID": "Identificador de la bóveda",
     "Vault owner ID": "Identificador del propietario de la bóveda",
-    "Liquidation Height": "Límite para la liquidación",
+    "Liquidation height": "Límite para la liquidación",
     "CONFIRM PLACE BID": "CONFIRMA LA OFERTA",
     "Sign Transaction": "Confirma la transacción",
     "Placing {{amount}} {{token}} as bid for auction.": "Aportando {{amount}} {{token}} como oferta para la subasta.",
     "Collateral for auction": "Collateral para la subasta",
-    "Insufficient funds": "Fondos insuficientes"
+    "Insufficient funds": "Fondos insuficientes",
+    "You are bidding": "You are bidding"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Withdraw",

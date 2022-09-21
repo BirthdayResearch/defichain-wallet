@@ -1775,14 +1775,16 @@
     "Bid amount to place": "标价金额",
     "AUCTION DETAILS": "拍卖细节",
     "Total auction value (USDT)": "拍卖总价值（USDT）",
+    "Total auction value": "拍卖总价值",
     "Vault ID": "金库编号",
     "Vault owner ID": "金库主权者编号",
-    "Liquidation Height": "清算高度",
+    "Liquidation height": "清算高度",
     "CONFIRM PLACE BID": "确认标价",
     "Sign Transaction": "签下交易",
     "Placing {{amount}} {{token}} as bid for auction.": "使用 {{amount}} {{token}} 作为标价",
     "Collateral for auction": "待拍卖的抵押品",
-    "Insufficient funds": "资金不足"
+    "Insufficient funds": "资金不足",
+    "You are bidding": "You are bidding"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Withdraw",

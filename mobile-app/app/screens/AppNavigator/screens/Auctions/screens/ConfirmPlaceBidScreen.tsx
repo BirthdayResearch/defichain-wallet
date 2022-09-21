@@ -21,12 +21,13 @@ import {
   useLogger,
 } from "@shared-contexts/NativeLoggingProvider";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
-import { TextRow } from "@components/TextRow";
-import { NumberRow } from "@components/NumberRow";
-import { InfoRow, InfoType } from "@components/InfoRow";
-import { ThemedScrollView, ThemedSectionTitle } from "@components/themed";
-import { WalletAddressRow } from "@components/WalletAddressRow";
+import { ThemedScrollViewV2, ThemedViewV2 } from "@components/themed";
 import { useAppDispatch } from "@hooks/useAppDispatch";
+import { SummaryTitleV2 } from "@components/SummaryTitleV2";
+import { useWalletContext } from "@shared-contexts/WalletContext";
+import { useAddressLabel } from "@hooks/useAddressLabel";
+import { NumberRowV2 } from "@components/NumberRowV2";
+import { TextRowV2 } from "@components/TextRowV2";
 import { AuctionsParamList } from "../AuctionNavigator";
 
 type Props = StackScreenProps<AuctionsParamList, "ConfirmPlaceBidScreen">;
@@ -46,6 +47,9 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
   );
   const { bidAmount, estimatedFees, totalAuctionValue, vault, batch } =
     props.route.params;
+
+  const { address } = useWalletContext();
+  const addressLabel = useAddressLabel(address);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isOnPage, setIsOnPage] = useState(true);
@@ -107,81 +111,135 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
     return "PLACING BID";
   }
 
-  return (
-    <ThemedScrollView
-      testID="confirm_place_bid_screen"
-      contentContainerStyle={tailwind("py-6 pb-8")}
-    >
-      <ThemedSectionTitle
-        testID="title_tx_detail"
-        text={translate("screens/ConfirmPlaceBidScreen", "TRANSACTION DETAILS")}
-      />
-      <TextRow
-        lhs={translate("screens/ConfirmPlaceBidScreen", "Transaction type")}
-        rhs={{
-          value: translate("screens/ConfirmPlaceBidScreen", "Place bid"),
-          testID: "text_transaction_type",
-        }}
-        textStyle={tailwind("text-sm font-normal")}
-      />
-      <WalletAddressRow />
-      <NumberRow
-        lhs={translate("screens/ConfirmPlaceBidScreen", "Bid amount to place")}
-        rhs={{
-          testID: "estimated_to_receive",
-          value: bidAmount.toFixed(8),
-          suffixType: "text",
-          suffix: batch.loan.displaySymbol,
-        }}
-      />
-      <InfoRow
-        type={InfoType.EstimatedFee}
-        value={estimatedFees.toFixed(8)}
-        testID="text_fee"
-        suffix="DFI"
-      />
+  const containerThemeOptions = {
+    light: tailwind("bg-transparent border-mono-light-v2-300"),
+    dark: tailwind("bg-transparent border-mono-dark-v2-300"),
+  };
+  const lhsThemedProps = {
+    light: tailwind("text-mono-light-v2-500"),
+    dark: tailwind("text-mono-dark-v2-500"),
+  };
+  const rhsThemedProps = {
+    light: tailwind("text-mono-light-v2-900"),
+    dark: tailwind("text-mono-dark-v2-900"),
+  };
 
-      <ThemedSectionTitle
-        testID="title_auction_detail"
-        text={translate("screens/ConfirmPlaceBidScreen", "AUCTION DETAILS")}
-      />
-      <NumberRow
-        lhs={translate(
-          "screens/ConfirmPlaceBidScreen",
-          "Total auction value (USDT)"
-        )}
-        rhs={{
-          testID: "total_auction_value",
-          value: totalAuctionValue,
-          suffixType: "text",
-          prefix: "$",
-        }}
-      />
-      <TextRow
-        lhs={translate("screens/ConfirmPlaceBidScreen", "Vault ID")}
-        rhs={{
-          value: vault.vaultId,
-          testID: "text_vault_id",
-          numberOfLines: 1,
-          ellipsizeMode: "middle",
-        }}
-        textStyle={tailwind("text-sm font-normal")}
-      />
-      <TextRow
-        lhs={translate("screens/ConfirmPlaceBidScreen", "Vault owner ID")}
-        rhs={{
-          value: vault.ownerAddress,
-          testID: "text_vault_owner_id",
-        }}
-        textStyle={tailwind("text-sm font-normal")}
-      />
-      <NumberRow
-        lhs={translate("screens/ConfirmPlaceBidScreen", "Liquidation Height")}
-        rhs={{
-          testID: "text_liquidation_height",
-          value: vault.liquidationHeight,
-        }}
-      />
+  return (
+    <ThemedScrollViewV2
+      style={tailwind("py-8 px-5")}
+      testID="confirm_place_bid_screen"
+    >
+      <ThemedViewV2 style={tailwind("flex-col pb-4 mb-4")}>
+        <SummaryTitleV2
+          title={translate("screens/ConfirmPlaceBidScreen", "You are bidding")}
+          amount={bidAmount}
+          testID="text_bid_amount_title"
+          iconA={batch.loan.displaySymbol}
+          fromAddress={address}
+          fromAddressLabel={addressLabel}
+          amountTextStyle="text-xl"
+        />
+        <NumberRowV2
+          containerStyle={{
+            style: tailwind(
+              "flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-8"
+            ),
+            ...containerThemeOptions,
+          }}
+          lhs={{
+            value: translate("screens/PlaceBidScreen", "Transaction fee"),
+            testID: "transaction_fee_label",
+            themedProps: lhsThemedProps,
+          }}
+          rhs={{
+            value: estimatedFees.toFixed(8),
+            suffix: " DFI",
+            testID: "transaction_fee_value",
+            themedProps: rhsThemedProps,
+          }}
+        />
+
+        <NumberRowV2
+          containerStyle={{
+            style: tailwind(
+              "flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-6"
+            ),
+            ...containerThemeOptions,
+          }}
+          lhs={{
+            value: translate(
+              "screens/ConfirmPlaceBidScreen",
+              "Total auction value"
+            ),
+            testID: "total_auction_label",
+            themedProps: lhsThemedProps,
+          }}
+          rhs={{
+            value: totalAuctionValue,
+            prefix: "$",
+            testID: "total_auction_value",
+            themedProps: rhsThemedProps,
+          }}
+        />
+
+        <TextRowV2
+          containerStyle={{
+            style: tailwind("flex-row items-start w-full bg-transparent mt-6"),
+            ...containerThemeOptions,
+          }}
+          lhs={{
+            value: translate("screens/ConfirmPlaceBidScreen", "Vault ID"),
+            testID: "text_vault_id_label",
+            themedProps: lhsThemedProps,
+          }}
+          rhs={{
+            value: vault.vaultId,
+            testID: "text_vault_id",
+            numberOfLines: 1,
+            ellipsizeMode: "middle",
+            themedProps: rhsThemedProps,
+          }}
+        />
+        <TextRowV2
+          containerStyle={{
+            style: tailwind("flex-row items-start w-full bg-transparent mt-6"),
+            ...containerThemeOptions,
+          }}
+          lhs={{
+            value: translate("screens/ConfirmPlaceBidScreen", "Vault owner ID"),
+            testID: "text_vault_owner_label",
+            themedProps: lhsThemedProps,
+          }}
+          rhs={{
+            value: vault.ownerAddress,
+            testID: "text_vault_owner_id",
+            numberOfLines: 1,
+            ellipsizeMode: "middle",
+            themedProps: rhsThemedProps,
+          }}
+        />
+        <NumberRowV2
+          containerStyle={{
+            style: tailwind(
+              "flex-row items-start w-full bg-transparent border-b-0.5 pb-5 mt-6"
+            ),
+            ...containerThemeOptions,
+          }}
+          lhs={{
+            value: translate(
+              "screens/ConfirmPlaceBidScreen",
+              "Liquidation height"
+            ),
+            testID: "text_liquidation_height_label",
+            themedProps: lhsThemedProps,
+          }}
+          rhs={{
+            value: vault.liquidationHeight,
+            testID: "text_liquidation_height",
+            themedProps: rhsThemedProps,
+          }}
+        />
+      </ThemedViewV2>
 
       <SubmitButtonGroup
         label={translate("screens/ConfirmPlaceBidScreen", "CONFIRM PLACE BID")}
@@ -196,7 +254,7 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
         onSubmit={onSubmit}
         title="bid"
       />
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   );
 }
 

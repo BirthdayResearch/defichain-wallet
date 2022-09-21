@@ -1792,14 +1792,16 @@
     "Bid amount to place": "Importo dell'offerta da piazzare",
     "AUCTION DETAILS": "DETTAGLI DELL'ASTA",
     "Total auction value (USDT)": "Valore totale dell'asta (USDT)",
+    "Total auction value": "Valore totale dell'asta",
     "Vault ID": "Vault-ID",
     "Vault owner ID": "VID del proprietario del vault",
-    "Liquidation Height": "Livello di liquidazione",
+    "Liquidation height": "Livello di liquidazione",
     "CONFIRM PLACE BID": "CONFERMA L'OFFERTA",
     "Sign Transaction": "Firma la transazione",
     "Placing {{amount}} {{token}} as bid for auction.": "Piazza {{amount}} {{token}} come offerta per l'asta.",
     "Collateral for auction": "Collaterali messi all'asta",
-    "Insufficient funds": "Fondi insufficienti"
+    "Insufficient funds": "Fondi insufficienti",
+    "You are bidding": "You are bidding"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Preleva",

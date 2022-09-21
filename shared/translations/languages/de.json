@@ -1765,15 +1765,17 @@
     "Bid amount to place": "Zu setzender Gebotsbetrag",
     "AUCTION DETAILS": "AUKTIONSDETAILS",
     "Total auction value (USDT)": "Gesamtauktionswert (USDT)",
+    "Total auction value": "Gesamtauktionswert",
     "Vault ID": "Vault-ID",
     "Vault owner ID": "Vault-Besitzer-ID",
-    "Liquidation Height": "Liquidationsblockhöhe",
+    "Liquidation height": "Liquidationsblockhöhe",
     "CONFIRM PLACE BID": "GEBOT BESTÄTIGEN",
     "Sign Transaction": "Transaktion freigeben",
     "Placing {{amount}} {{token}} as bid for auction.": "Abgabe des Gebotsbetrags von {{amount}} {{token}}",
     "Collateral for auction": "Zu ersteigern",
     "Insufficient funds": "Unzureichende Deckung",
-    "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}": "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}"
+    "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}": "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}",
+    "You are bidding": "You are bidding"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Abheben",
