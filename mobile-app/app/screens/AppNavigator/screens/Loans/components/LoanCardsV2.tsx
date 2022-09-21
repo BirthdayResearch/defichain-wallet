@@ -62,7 +62,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
     <>
       <ThemedFlashList
         estimatedItemSize={2}
-        contentContainerStyle={tailwind("px-2 pt-4 pb-2")}
+        contentContainerStyle={tailwind("pt-4 pb-2")}
         data={props.loans}
         ref={ref}
         numColumns={2}
@@ -74,25 +74,27 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           index: number;
         }): JSX.Element => {
           return (
-            <LoanCard
-              symbol={item.token.symbol}
-              displaySymbol={item.token.displaySymbol}
-              interestRate={item.interest}
-              price={item.activePrice}
-              loanTokenId={item.tokenId}
-              onPress={() => {
-                navigation.navigate({
-                  name: "BorrowLoanTokenScreen",
-                  params: {
-                    loanToken: item,
-                    vault: activeVault,
-                  },
-                  merge: true,
-                });
-              }}
-              testID={`loan_card_${index}`}
-              disabled={!props.vaultExist}
-            />
+            <View style={{ flexBasis: "100%" }}>
+              <LoanCard
+                symbol={item.token.symbol}
+                displaySymbol={item.token.displaySymbol}
+                interestRate={item.interest}
+                price={item.activePrice}
+                loanTokenId={item.tokenId}
+                onPress={() => {
+                  navigation.navigate({
+                    name: "BorrowLoanTokenScreen",
+                    params: {
+                      loanToken: item,
+                      vault: activeVault,
+                    },
+                    merge: true,
+                  });
+                }}
+                testID={`loan_card_${index}`}
+                disabled={!props.vaultExist}
+              />
+            </View>
           );
         }}
         keyExtractor={(_item, index) => index.toString()}
