@@ -20,8 +20,8 @@ const defichainUrls = {
 };
 const defichainUrlEnvs = Object.keys(defichainUrls) as EnvironmentNetwork[];
 
-context("Wallet - Settings - Service Provider", () => {
-  defichainUrlEnvs.forEach((defichainUrlEnv) => {
+defichainUrlEnvs.forEach((defichainUrlEnv) => {
+  context("Wallet - Settings - Service Provider", () => {
     const url = defichainUrls[defichainUrlEnv];
     context(`Wallet - Settings - Service Provider ${defichainUrlEnv}`, () => {
       before(() => {
