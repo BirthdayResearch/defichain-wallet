@@ -307,7 +307,7 @@ function PaybackDUSDLoan({
   return (
     <IconButton
       iconLabel={translate(
-        "components/VaultDetailsLoansTab",
+        "components/PaybackDUSD",
         "PAYBACK WITH DUSD COLLATERAL"
       )}
       style={tailwind("mb-2 p-2 w-full justify-center flex-1")}
@@ -377,42 +377,6 @@ function ActionButtons({
       </View>
     </View>
   );
-  // return (
-  //   <View style={tailwind("flex flex-row justify-between w-full")}>
-  //     <IconButton
-  //       disabled={!canUseOperations}
-  //       iconLabel={translate("components/VaultDetailsLoansTab", "PAYBACK LOAN")}
-  //       style={tailwind("mr-1 mb-2 p-2 w-1/2 justify-center flex-1")}
-  //       testID={`${testID}_payback_loan`}
-  //       onPress={() => {
-  //         navigation.navigate({
-  //           name: "PaybackLoanScreen",
-  //           merge: true,
-  //           params: {
-  //             vault,
-  //             loanTokenAmount: loanToken,
-  //           },
-  //         });
-  //       }}
-  //     />
-  //     <IconButton
-  //       disabled={!canUseOperations || vault.state === LoanVaultState.FROZEN}
-  //       iconLabel={translate("components/VaultDetailsLoansTab", "BORROW MORE")}
-  //       style={tailwind("ml-1 mb-2 p-2 w-1/2 justify-center flex-1")}
-  //       testID={`${testID}_borrow_more`}
-  //       onPress={() => {
-  //         navigation.navigate({
-  //           name: "BorrowMoreScreen",
-  //           merge: true,
-  //           params: {
-  //             vault,
-  //             loanTokenAmount: loanToken,
-  //           },
-  //         });
-  //       }}
-  //     />
-  //   </View>
-  // );
 }
 
 const PaybackDUSD = ({
@@ -585,7 +549,7 @@ async function paybackLoanToken(
       transactionQueue.actions.push({
         sign: signer,
         title: translate(
-          "screens/ConfirmPaybackLoanScreen",
+          "components/PaybackDUSD",
           "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral",
           {
             amountToPayInPaymentToken: amount.toFixed(8),
