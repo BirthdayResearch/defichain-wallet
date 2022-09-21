@@ -1292,6 +1292,7 @@
   },
   "screens/AuctionScreen": {
     "Auctions": "清算拍卖",
+    "Bid": "Bid",
     "Place Bid": "标价",
     "Confirm Place Bid": "确认出价",
     "Auction details": "拍卖细节"
@@ -1756,7 +1757,14 @@
     "Collateral": "抵押品",
     "How much do you want to bid?": "您想出的价钱？",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "您正要出的价钱比拍卖价值还高，请检查和确认",
-    "Collateral for auction": "待拍賣的抵押品"
+    "Collateral for auction": "待拍賣的抵押品",
+    "I HAVE {{ownedAmount}} {{symbol}}": "I HAVE {{ownedAmount}} {{symbol}}",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Transaction fee": "Transaction fee",
+    "The minimum next bid is {{amount}} {{symbol}} (100%)": "The minimum next bid is {{amount}} {{symbol}} (100%)",
+    "{{percent}} min bid entered": "{{percent}} min bid entered",
+    "Insufficient Balance": "Insufficient Balance",
+    "Auction timeout": "Auction timeout"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "交易明细",

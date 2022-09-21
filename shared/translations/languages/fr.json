@@ -1300,6 +1300,7 @@
   },
   "screens/AuctionScreen": {
     "Auctions": "Enchères",
+    "Bid": "Bid",
     "Place Bid": "Placer une enchère",
     "Confirm Place Bid": "Confirmer l'enchére",
     "Auction details": "Détails de l'enchère"
@@ -1760,7 +1761,14 @@
     "Collateral": "Garantie",
     "How much do you want to bid?": "Combien voulez-vous proposer?",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "Le montant des tokens de votre enchère est bien suppérieur à la valeur mise en vente.",
-    "Collateral for auction": "Garantie en vente"
+    "Collateral for auction": "Garantie en vente",
+    "I HAVE {{ownedAmount}} {{symbol}}": "J'AI {{ownedAmount}} {{symbol}}",
+    "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
+    "Transaction fee": "Frais de transaction",
+    "The minimum next bid is {{amount}} {{symbol}} (100%)": "The minimum next bid is {{amount}} {{symbol}} (100%)",
+    "{{percent}} min bid entered": "{{percent}} min bid entered",
+    "Insufficient Balance": "Solde insuffisant",
+    "Auction timeout": "Auction timeout"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",

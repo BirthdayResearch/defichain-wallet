@@ -1317,6 +1317,7 @@
   },
   "screens/AuctionScreen": {
     "Auctions": "Subastas",
+    "Bid": "Bid",
     "Place Bid": "Haz oferta",
     "Confirm Place Bid": "Confirma la oferta",
     "Auction details": "Detalles de la subasta"
@@ -1779,7 +1780,14 @@
     "Collateral": "Colaterales",
     "How much do you want to bid?": "¿Cúanto quieres ofertar?",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "El valor de los tokens que estás proponiendo son considerablemente más altos que el valor total de la subasta.",
-    "Collateral for auction": "Colateral para la subasta"
+    "Collateral for auction": "Colateral para la subasta",
+    "I HAVE {{ownedAmount}} {{symbol}}": "I HAVE {{ownedAmount}} {{symbol}}",
+    "Review full details in the next screen": "Revisa todos los detalles en la próxima pantalla",
+    "Transaction fee": "Transaction fee",
+    "The minimum next bid is {{amount}} {{symbol}} (100%)": "The minimum next bid is {{amount}} {{symbol}} (100%)",
+    "{{percent}} min bid entered": "{{percent}} min bid entered",
+    "Insufficient balance": "Balance insuficiente",
+    "Auction timeout": "Auction timeout"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
