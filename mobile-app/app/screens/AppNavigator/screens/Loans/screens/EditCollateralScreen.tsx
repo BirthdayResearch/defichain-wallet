@@ -134,7 +134,9 @@ export function EditCollateralScreen({
             getActivePrice(
               collateralItem.token.symbol,
               collateralItem.activePrice,
-              collateralItem.factor
+              collateralItem.factor,
+              "ACTIVE",
+              "COLLATERAL"
             )
           ).gt(0)
         )
@@ -320,7 +322,9 @@ export function EditCollateralScreen({
               getActivePrice(
                 collateralItem.token.symbol,
                 collateralItem.activePrice,
-                collateralItem.factor
+                collateralItem.factor,
+                "ACTIVE",
+                "COLLATERAL"
               )
             );
             const params = {
