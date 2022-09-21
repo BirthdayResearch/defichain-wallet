@@ -1,21 +1,22 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { HeaderFont } from "@components/Text";
 import { HeaderTitle } from "@components/HeaderTitle";
+import { translate } from "@translations";
+import BigNumber from "bignumber.js";
+import { ConversionParam } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
+import { TabKey } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailTabSection";
+import { PaybackLoanScreen } from "@screens/AppNavigator/screens/Loans/screens/PaybackLoanScreen";
+import { ConfirmPaybackLoanScreen } from "@screens/AppNavigator/screens/Loans/screens/ConfirmPaybackLoanScreen";
+import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
+import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
 import {
   LoanScheme,
   LoanToken,
   LoanVaultActive,
   LoanVaultTokenAmount,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { translate } from "@translations";
-import BigNumber from "bignumber.js";
-import { ConversionParam } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
-import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
-import { TabKey } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailTabSection";
-import { PaybackLoanScreen } from "@screens/AppNavigator/screens/Loans/screens/PaybackLoanScreen";
-import { ConfirmPaybackLoanScreen } from "@screens/AppNavigator/screens/Loans/screens/ConfirmPaybackLoanScreen";
+import { useNavigatorHeaderStylesOption } from "@hooks/useNavigatorHeaderStylesOption";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
-import { LoansScreen } from "./LoansScreen";
 import { CreateVaultScreen } from "./screens/CreateVaultScreen";
 import { ConfirmCreateVaultScreen } from "./screens/ConfirmCreateVaultScreen";
 import { VaultDetailScreen } from "./VaultDetail/VaultDetailScreen";
@@ -33,6 +34,7 @@ import { BorrowMoreScreen } from "./screens/BorrowMoreScreen";
 import { CloseVaultScreen } from "./screens/CloseVaultScreen";
 import { PaymentTokenProps } from "./hooks/LoanPaymentTokenRate";
 import { LoansFaq } from "./screens/LoansFaq";
+import { LoansScreenV2 } from "./LoansScreenV2";
 
 export interface LoanParamList {
   LoansScreen: {};
@@ -119,6 +121,8 @@ const LoansStack = createStackNavigator<LoanParamList>();
 
 export function LoansNavigator(): JSX.Element {
   const headerContainerTestId = "loans_header_container";
+  const screenOptions = useNavigatorScreenOptions();
+  const screenHeaderOptions = useNavigatorHeaderStylesOption();
 
   return (
     <LoansStack.Navigator
@@ -130,15 +134,11 @@ export function LoansNavigator(): JSX.Element {
       }}
     >
       <LoansStack.Screen
-        component={LoansScreen}
+        component={LoansScreenV2}
         name="LoansScreen"
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/LoansScreen", "Loans")}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          ...screenOptions,
+          ...screenHeaderOptions,
         }}
       />
       <LoansStack.Screen
