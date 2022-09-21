@@ -703,7 +703,9 @@
     "Beta Features": "Beta-Funktionalitäten",
     "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.": "Die Beta-Funktionen der Lightwallet befinden sich in der Testphase. Es wird empfohlen, die Beta-Funktionen zu nutzen, aber bei der Verwendung deines Vermögens ist Vorsicht geboten.",
     "Feature is still in Beta. Use at your own risk.": "Diese Funktionalität ist noch im Beta-Stadium. Verwendung auf eigene Gefahr.",
-    "Allows the usage of custom server provider url": "Ermöglicht die Verwendung einer benutzerdefinierten Server-Provider-URL"
+    "Allows the usage of custom server provider url": "Ermöglicht die Verwendung einer benutzerdefinierten Server-Provider-URL",
+    "Unloop DUSD loan": "DUSD-Darlehen auflösen",
+    "Display payback DUSD loan with DUSD collateral": "Rückzahlungen von DUSD-Darlehen mit DUSD-Sicherheiten anzeigen"
   },
   "BottomTabNavigator": {
     "Balances": "Guthaben",
@@ -787,7 +789,9 @@
     "Swapped {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "{{amountA}} {{symbolA}} in {{amountB}} {{symbolB}} umgetauscht",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Tausch von {{amountA}} {{symbolA}} gegen {{amountB}} {{symbolB}}",
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Tausch von {{amountA}} {{fromTokenDisplaySymbol}} in {{toTokenDisplaySymbol}} beim Abrechnungsblock {{settlementBlock}}",
-    "Removing {{amount}} {{symbol}} from liquidity pool": "Entfernen von {{amount}} {{symbol}} aus dem Liquiditätspool"
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Entfernen von {{amount}} {{symbol}} aus dem Liquiditätspool",
+    "Paying back loan amount of {{amount}} DUSD": "Rückzahlung des Darlehensbetrages von {{amount}} DUSD",
+    "Paid loan amount of {{amount}} DUSD": "Getilgter Darlehensbetrag von {{amount}} DUSD"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Kameranutzung erlauben",
@@ -1889,5 +1893,11 @@
     "APR": "Jahreszins",
     "{{percentage}}% in rewards": "{{percentage}}% in Reward",
     "{{percentage}}% in commissions": "{{percentage}}% in Kommission"
+  },
+  "components/PaybackDUSD": {
+    "PAYBACK WITH DUSD COLLATERAL": "RÜCKZAHLUNG MIT DUSD-SICHERHEITEN",
+    "Payback with DUSD collateral": "Rückzahlung mit DUSD-Sicherheiten",
+    "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Bist du sicher, dass du dein DUSD-Darlehen mit allen verfügbaren DUSD-Sicherheiten in diesem Vault zurückzahlen willst?",
+    "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Rückzahlung von {{amountToPayInPaymentToken}} DUSD-Darlehen mit DUSD-Sicherheiten"
   }
 }
