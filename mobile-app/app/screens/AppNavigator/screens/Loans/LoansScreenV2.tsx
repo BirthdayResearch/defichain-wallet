@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { tailwind } from "@tailwind";
-import { ThemedIcon, ThemedView } from "@components/themed";
+import { ThemedIcon, ThemedView, ThemedViewV2 } from "@components/themed";
 import { Tabs } from "@components/Tabs";
 import {
   SkeletonLoader,
@@ -14,7 +14,14 @@ import {
   fetchLoanTokens,
   fetchVaults,
   loanTokensSelector,
+  LoanVault,
+  vaultsSelector,
 } from "@store/loans";
+import {
+  useVaultStatus,
+  VaultStatusTag,
+} from "@screens/AppNavigator/screens/Loans/components/VaultStatusTag";
+import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { StackScreenProps } from "@react-navigation/stack";
@@ -38,14 +45,20 @@ type Props = StackScreenProps<LoanParamList, "LoansScreen">;
 
 export function LoansScreenV2({ navigation }: Props): JSX.Element {
   const { address } = useWalletContext();
+
   const isFocused = useIsFocused();
   const blockCount = useSelector((state: RootState) => state.block.count);
   const { vaults, hasFetchedVaultsData, hasFetchedLoansData } = useSelector(
     (state: RootState) => state.loans
   );
+
+  const vaultsList = useSelector((state: RootState) =>
+    vaultsSelector(state.loans)
+  );
   const loans = useSelector((state: RootState) =>
     loanTokensSelector(state.loans)
   );
+
   const [activeTab, setActiveTab] = useState<string>(TabKey.YourVaults);
   const dispatch = useAppDispatch();
   const client = useWhaleApiClient();
@@ -76,6 +89,7 @@ export function LoansScreenV2({ navigation }: Props): JSX.Element {
 
   // Search
   const [filteredLoans, setFilteredLoans] = useState<LoanToken[]>(loans);
+  const [isVaultReady, setIsVaultReady] = useState(false);
   const [showSeachInput, setShowSearchInput] = useState(false);
   const [searchString, setSearchString] = useState("");
   const handleFilter = useCallback(
@@ -114,6 +128,12 @@ export function LoansScreenV2({ navigation }: Props): JSX.Element {
   useEffect(() => {
     dispatch(fetchLoanSchemes({ client }));
   }, []);
+
+  useEffect(() => {
+    setIsVaultReady(
+      vaultsList.some((record: any) => record.vaultState !== VaultStatus.Empty)
+    ); // TODO: fix LoanVault type
+  }, [vaultsList]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -171,14 +191,14 @@ export function LoansScreenV2({ navigation }: Props): JSX.Element {
       {activeTab === TabKey.YourVaults && <Vaults />}
       {activeTab === TabKey.BrowseLoans && !hasFetchedLoansData && (
         <View style={tailwind("mt-1")}>
-          <SkeletonLoader row={6} screen={SkeletonLoaderScreen.Loan} />
+          <SkeletonLoader row={1} screen={SkeletonLoaderScreen.Loan} />
         </View>
       )}
       {activeTab === TabKey.BrowseLoans && hasFetchedLoansData && (
         <LoanCardsV2
           testID="loans_cards"
           loans={filteredLoans}
-          vaultExist={vaults?.length !== 0}
+          vaultExist={vaults?.length !== 0 && isVaultReady}
         />
       )}
     </ThemedView>
