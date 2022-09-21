@@ -70,7 +70,7 @@ export function CreateVaultSummary({
         info={{
           title: translate("screens/CreateVaultScreen", "Vault Fee"),
           message: translate(
-            "screens/CompositeSwapScreen",
+            "screens/CreateVaultScreen",
             "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned."
           ),
         }}

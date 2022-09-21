@@ -51,14 +51,14 @@ export function LoanSchemeOptionsV2(props: LoanSchemeOptionsP): JSX.Element {
             >
               <View style={tailwind("flex-1 flex-col")}>
                 <LoanSchemeOptionData
-                  label="Collateralization:"
+                  label="Collateralization"
                   value={scheme.minColRatio}
                   testId={`min_col_ratio_value_${index}`}
                   suffix="%"
                   disabled={scheme.disabled}
                 />
                 <LoanSchemeOptionData
-                  label="Vault interest:"
+                  label="Vault interest"
                   value={scheme.interestRate}
                   testId={`interest_rate_value_${index}`}
                   suffix={`% ${translate(
@@ -122,7 +122,7 @@ function LoanSchemeOptionData(props: {
         })}
         style={tailwind("text-sm font-normal-v2")}
       >
-        {translate("components/LoanSchemeOptions", props.label)}
+        {`${translate("components/LoanSchemeOptions", props.label)}:`}
       </ThemedTextV2>
       <NumberFormat
         displayType="text"
