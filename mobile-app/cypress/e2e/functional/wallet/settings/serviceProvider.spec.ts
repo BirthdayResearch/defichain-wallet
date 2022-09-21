@@ -75,9 +75,7 @@ context("Wallet - Settings - Service Provider", () => {
 
       it(`can unlock to change service provider endpoint on ${defichainUrlEnv}`, () => {
         cy.getByTestID("edit_service_provider").click();
-        cy.getByTestID("reset_button")
-          .should("exist")
-          .should("have.css", "background-color", "rgba(255, 255, 255, 0.3)");
+        cy.getByTestID("reset_button").should("exist");
         cy.getByTestID("endpoint_url_input").should(
           "not.have.attr",
           "readonly"
