@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { tailwind } from "@tailwind";
-import { ThemedIcon, ThemedView } from "@components/themed";
+import { ThemedIcon, ThemedViewV2 } from "@components/themed";
 import { Tabs } from "@components/Tabs";
 import {
   SkeletonLoader,
@@ -192,18 +192,18 @@ export function LoansScreenV2({ navigation }: Props): JSX.Element {
     }
   }, [showSeachInput, searchString]);
 
-  if (!hasFetchedVaultsData) {
+  if (hasFetchedVaultsData) {
     return (
-      <View style={tailwind("mt-1")}>
-        <SkeletonLoader row={3} screen={SkeletonLoaderScreen.Vault} />
-      </View>
+      <ThemedViewV2 style={tailwind("flex-1 pt-4")}>
+        <SkeletonLoader row={3} screen={SkeletonLoaderScreen.LoanV2} />
+      </ThemedViewV2>
     );
   } else if (vaults?.length === 0) {
     return <EmptyVault handleRefresh={() => {}} isLoading={false} />;
   }
 
   return (
-    <ThemedView testID="loans_screen" style={tailwind("flex-1")}>
+    <ThemedViewV2 testID="loans_screen" style={tailwind("flex-1")}>
       <Tabs
         tabSections={tabsList}
         testID="loans_tabs"
@@ -222,6 +222,6 @@ export function LoansScreenV2({ navigation }: Props): JSX.Element {
           vaultExist={vaults?.length !== 0 && isVaultReady}
         />
       )}
-    </ThemedView>
+    </ThemedViewV2>
   );
 }
