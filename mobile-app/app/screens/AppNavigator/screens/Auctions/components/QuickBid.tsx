@@ -25,7 +25,7 @@ interface QuickBidProps {
   loanTokenId: string;
   loanTokenDisplaySymbol: string;
   onCloseButtonPress: () => void;
-  minNextBid: BigNumber;
+  minNextBid: string;
   minNextBidInUSD: BigNumber;
   totalCollateralsValueInUSD: BigNumber;
   vaultId: PlaceAuctionBid["vaultId"];
@@ -77,7 +77,7 @@ export const QuickBid = ({
         vaultId,
         index,
         tokenAmount: {
-          amount: minNextBid,
+          amount: new BigNumber(minNextBid),
           token: Number(loanTokenId),
         },
         displaySymbol: loanTokenDisplaySymbol,
@@ -110,7 +110,7 @@ export const QuickBid = ({
                   </ThemedTextV2>
                 )}
                 thousandSeparator
-                value={minNextBid.toFixed(8)}
+                value={minNextBid}
               />
             </View>
             <NumberFormat

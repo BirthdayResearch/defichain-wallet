@@ -122,7 +122,7 @@ export function AuctionDetailScreen(
           loanTokenDisplaySymbol: batch.loan.displaySymbol,
           totalCollateralsValueInUSD: totalCollateralsValueInUSD,
           onCloseButtonPress: dismissModal,
-          minNextBid: minNextBidInToken,
+          minNextBid: minNextBidInToken.toFixed(8),
           vaultLiquidationHeight: vault.liquidationHeight,
         }),
       },
