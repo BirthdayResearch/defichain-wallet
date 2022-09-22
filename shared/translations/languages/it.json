@@ -1292,8 +1292,9 @@
   "components/LoanCard": {
     "Active Price": "Prezzo attivo",
     "Next Price": "Prossimo prezzo",
-    "Interest": "Interesse",
-    "Price (USD)": "Prezzo (USD)"
+    "{{interestValue}} Interest": "{{interestValue}} Interesse",
+    "Price (USD)": "Prezzo (USD)",
+    "Borrow": "Borrow"
   },
   "components/InfoTextLink": {
     "Learn more about DFI": "Per saperne di più su DFI",
