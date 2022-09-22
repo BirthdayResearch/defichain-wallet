@@ -21,5 +21,6 @@ module.exports = defineConfig({
     baseUrl: "http://localhost:19006",
     specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx}",
   },
-  numTestsKeptInMemory: 0,
+  video: false,
+  screenshotOnRunFailure: false
 });
