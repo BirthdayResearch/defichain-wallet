@@ -192,10 +192,10 @@ export function LoansScreenV2({ navigation }: Props): JSX.Element {
     }
   }, [showSeachInput, searchString]);
 
-  if (hasFetchedVaultsData) {
+  if (!hasFetchedVaultsData) {
     return (
-      <ThemedViewV2 style={tailwind("flex-1 pt-4")}>
-        <SkeletonLoader row={3} screen={SkeletonLoaderScreen.LoanV2} />
+      <ThemedViewV2 style={tailwind("flex-1")}>
+        <SkeletonLoader row={3} screen={SkeletonLoaderScreen.Loan} />
       </ThemedViewV2>
     );
   } else if (vaults?.length === 0) {
@@ -210,9 +210,10 @@ export function LoansScreenV2({ navigation }: Props): JSX.Element {
         activeTabKey={activeTab}
       />
       {activeTab === TabKey.YourVaults && <Vaults />}
+
       {activeTab === TabKey.BrowseLoans && !hasFetchedLoansData && (
         <View style={tailwind("mt-1")}>
-          <SkeletonLoader row={1} screen={SkeletonLoaderScreen.Loan} />
+          <SkeletonLoader row={1} screen={SkeletonLoaderScreen.LoanV2} />
         </View>
       )}
       {activeTab === TabKey.BrowseLoans && hasFetchedLoansData && (

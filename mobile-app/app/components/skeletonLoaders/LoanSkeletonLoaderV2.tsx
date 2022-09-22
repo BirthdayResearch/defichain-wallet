@@ -25,16 +25,15 @@ function LoanLoader({
       foregroundColor={isLight ? "#ffffff" : "#4a4a4a"}
       speed={2}
       width="100%"
-      height={112}
+      height={138}
       viewBox="0 0 163 144"
       {...props}
     >
-      <Rect x="48" y="24" rx="6" ry="6" width="90" height="14" />
-      <Rect x="13" y="56" rx="5" ry="5" width="51" height="12" />
-      <Rect x="13" y="75" rx="6" ry="6" width="96" height="12" />
-      <Circle cx="26" cy="31" r="13" />
-      <Rect x="13" y="100" rx="6" ry="6" width="51" height="12" />
-      <Rect x="13" y="118" rx="6" ry="6" width="96" height="12" />
+      <Rect x="0" y="14" rx="6" ry="6" width="90" height="16" />
+      <Circle cx="140" cy="20" r="20" />
+      <Rect x="0" y="60" rx="6" ry="6" width="80" height="16" />
+      <Rect x="0" y="85" rx="6" ry="6" width="100" height="12" />
+      <Rect x="0" y="110" rx="6" ry="6" width="90%" height="30" />
     </ContentLoader>
   );
 }
@@ -55,7 +54,7 @@ export function LoanSkeletonLoaderV2(
           light={tailwind("bg-mono-light-v2-00")}
           dark={tailwind("bg-mono-dark-v2-00")}
           style={[
-            tailwind("p-4 mx-2 mb-4 rounded-lg-v2"),
+            tailwind("p-2 mx-2 mb-4 rounded-lg-v2"),
             { flexBasis: "47%" },
           ]}
           key={i}
