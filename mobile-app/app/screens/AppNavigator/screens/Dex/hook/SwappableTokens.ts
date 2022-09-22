@@ -2,7 +2,12 @@ import { useCallback, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import BigNumber from "bignumber.js";
 import { RootState } from "@store";
-import { DexItem, fetchSwappableTokens, tokensSelector } from "@store/wallet";
+import {
+  DexItem,
+  fetchDexPrice,
+  fetchSwappableTokens,
+  tokensSelector,
+} from "@store/wallet";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { BottomSheetToken } from "@components/BottomSheetTokenList";
 import { CacheApi } from "@api/cache";
@@ -10,7 +15,9 @@ import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import { useFocusEffect } from "@react-navigation/core";
 import { AllSwappableTokensResult } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { useAppDispatch } from "@hooks/useAppDispatch";
+import { loanTokensSelector } from "@store/loans";
 import { TokenState } from "../CompositeSwap/CompositeSwapScreen";
+import { useTokenPrice } from "../../Portfolio/hooks/TokenPrice";
 
 interface TokenPrice {
   toTokens: BottomSheetToken[];
@@ -18,7 +25,10 @@ interface TokenPrice {
 }
 
 export function useSwappableTokens(
-  fromTokenId: string | undefined
+  fromTokenId: string | undefined,
+  fromTokenDisplaySymbol: string | undefined,
+  fromTokenSymbol: string | undefined,
+  isFutureSwap: boolean
 ): TokenPrice {
   const client = useWhaleApiClient();
   const { network } = useNetworkContext();
@@ -30,20 +40,40 @@ export function useSwappableTokens(
   const tokens = useSelector((state: RootState) =>
     tokensSelector(state.wallet)
   );
+  const loanTokens = useSelector((state: RootState) =>
+    loanTokensSelector(state.loans)
+  );
 
   const [fromTokens, setFromTokens] = useState<BottomSheetToken[]>([]);
   const [allTokens, setAllTokens] = useState<TokenState[]>();
+
+  const { getTokenPrice } = useTokenPrice(fromTokenSymbol ?? "USDT");
 
   const cacheKey = `WALLET.${network}.${blockCount ?? 0}.SWAP_FROM_${
     fromTokenId ?? 0
   }`;
   const cachedData = CacheApi.get(cacheKey);
 
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(
+        fetchDexPrice({
+          client,
+          denomination: fromTokenSymbol ?? "USDT",
+        })
+      );
+    }, [blockCount, fromTokenSymbol])
+  );
+
   /* Opted out of using useMemo to ensure it'll only run when screen is focused */
   useFocusEffect(
     useCallback(() => {
       const _allTokens = poolpairs.reduce(
         (tokensInPair: TokenState[], pair: DexItem): TokenState[] => {
+          if (!pair.data.status) {
+            return tokensInPair;
+          }
+
           const hasTokenA = tokensInPair.some(
             (token) => pair.data.tokenA.id === token.id
           );
@@ -63,7 +93,14 @@ export function useSwappableTokens(
         []
       );
 
-      const swappableFromTokens: BottomSheetToken[] = _allTokens
+      let filterTokens = _allTokens;
+      if (isFutureSwap) {
+        // filter out loanTokens and DUSD
+        filterTokens = filterTokens.filter((t) =>
+          loanTokens.map((loan) => loan.token.id).includes(t.id)
+        );
+      }
+      const swappableFromTokens: BottomSheetToken[] = filterTokens
         .map((token) => {
           const tokenId = token.id === "0" ? "0_unified" : token.id;
           const ownedToken = tokens.find((t) => t.id === tokenId);
@@ -74,17 +111,16 @@ export function useSwappableTokens(
             ),
             token: {
               displaySymbol: token.displaySymbol,
-              name: "", // not available in API,
+              name: token.name ?? "",
               symbol: token.symbol,
             },
-            reserve: token.reserve,
           };
         })
         .sort((a, b) => b.available.minus(a.available).toNumber());
 
       setAllTokens(_allTokens);
       setFromTokens(swappableFromTokens);
-    }, [poolpairs, tokens])
+    }, [poolpairs, tokens, loanTokens, isFutureSwap])
   );
 
   const toTokens = useMemo(() => {
@@ -107,27 +143,44 @@ export function useSwappableTokens(
       return [];
     }
 
-    const toTokens: BottomSheetToken[] = cachedSwappableToTokens.swappableTokens
+    let filterTokens = cachedSwappableToTokens.swappableTokens;
+    if (isFutureSwap) {
+      // filter out loanTokens and DUSD
+      filterTokens = filterTokens.filter((t) => {
+        if (fromTokenDisplaySymbol === "DUSD") {
+          return loanTokens.map((loan) => loan.token.id).includes(t.id);
+        }
+        return t.displaySymbol === "DUSD";
+      });
+    }
+
+    const toTokens: BottomSheetToken[] = filterTokens
       .filter((t) => t.displaySymbol !== "dBURN" && !t.symbol.includes("/v1"))
       .map((token) => {
         const tokenId = token.id === "0" ? "0_unified" : token.id;
-        const tokenData = allTokens.find((t) => t.id === token.id);
 
         return {
           tokenId: tokenId,
-          available: new BigNumber(tokenData?.reserve ?? NaN),
+          available: getTokenPrice(token.symbol, new BigNumber(1), false),
           token: {
             displaySymbol: token.displaySymbol,
-            name: "", // not available in API,
+            name: token.name ?? "",
             symbol: token.symbol,
           },
-          reserve: tokenData?.reserve ?? "", // TODO(PIERRE): Ask whale to add reserve on response
         };
       })
       .sort((a, b) => new BigNumber(a.tokenId).minus(b.tokenId).toNumber());
 
     return toTokens;
-  }, [swappableTokens, fromTokenId, cachedData, allTokens]);
+  }, [
+    swappableTokens,
+    fromTokenId,
+    fromTokenDisplaySymbol,
+    cachedData,
+    allTokens,
+    isFutureSwap,
+    loanTokens,
+  ]);
 
   useFocusEffect(
     useCallback(() => {
