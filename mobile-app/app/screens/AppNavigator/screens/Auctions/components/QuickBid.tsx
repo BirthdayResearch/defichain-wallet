@@ -1,8 +1,4 @@
-import {
-  ThemedScrollViewV2,
-  ThemedTextV2,
-  ThemedViewV2,
-} from "@components/themed";
+import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { memo, useEffect, useState } from "react";
 import * as React from "react";
 import { tailwind } from "@tailwind";
@@ -23,13 +19,15 @@ import { tokensSelector } from "@store/wallet";
 import { ScrollView } from "react-native-gesture-handler";
 import { useSignBidAndSend } from "../hooks/SignBidAndSend";
 import { useAuctionTime } from "../hooks/AuctionTimeLeft";
+import { getPrecisedTokenValue } from "../helpers/precision-token-value";
 
 interface QuickBidProps {
   loanTokenId: string;
   loanTokenDisplaySymbol: string;
   onCloseButtonPress: () => void;
   minNextBid: BigNumber;
-  minNextBidInUSD: string;
+  minNextBidInUSD: BigNumber;
+  totalCollateralsValueInUSD: BigNumber;
   vaultId: PlaceAuctionBid["vaultId"];
   index: PlaceAuctionBid["index"];
   vaultLiquidationHeight: LoanVaultLiquidated["liquidationHeight"];
@@ -44,6 +42,7 @@ export const QuickBid = ({
   minNextBidInUSD,
   onCloseButtonPress,
   vaultLiquidationHeight,
+  totalCollateralsValueInUSD,
 }: QuickBidProps): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
     const tokens = useSelector((state: RootState) =>
@@ -70,6 +69,9 @@ export const QuickBid = ({
         .catch(logger.error);
     }, []);
 
+    const displayHigherBidWarning = new BigNumber(minNextBidInUSD).gte(
+      new BigNumber(totalCollateralsValueInUSD).times(1.2)
+    );
     const onQuickBid = async (): Promise<void> => {
       await constructSignedBidAndSend({
         vaultId,
@@ -127,7 +129,7 @@ export const QuickBid = ({
                 </ThemedTextV2>
               )}
               thousandSeparator
-              value={minNextBidInUSD}
+              value={getPrecisedTokenValue(minNextBidInUSD)}
             />
             <View style={tailwind("mt-5")}>
               <NumberFormat
@@ -181,7 +183,30 @@ export const QuickBid = ({
               </View>
             </ThemedViewV2>
             <View style={tailwind("mt-6")}>
-              {!isBalanceSufficient && (
+              {isBalanceSufficient ? (
+                <>
+                  {displayHigherBidWarning && (
+                    <NumberFormat
+                      displayType="text"
+                      prefix={translate(
+                        "components/QuickBid",
+                        "Your bid is higher than the auction's collateral value of $"
+                      )}
+                      renderText={(value: string) => (
+                        <Text
+                          style={tailwind(
+                            "text-center font-normal-v2 text-xs text-orange-v2"
+                          )}
+                        >
+                          {value}
+                        </Text>
+                      )}
+                      thousandSeparator
+                      value={getPrecisedTokenValue(totalCollateralsValueInUSD)}
+                    />
+                  )}
+                </>
+              ) : (
                 <Text
                   style={tailwind(
                     "text-center font-normal-v2 text-xs text-red-v2"

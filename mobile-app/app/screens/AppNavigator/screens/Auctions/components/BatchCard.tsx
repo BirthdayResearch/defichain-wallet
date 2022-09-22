@@ -27,6 +27,7 @@ import { useAuctionBidValue } from "../hooks/AuctionBidValue";
 import { onQuickBidProps } from "./BrowseAuctions";
 import { useAuctionTime } from "../hooks/AuctionTimeLeft";
 import { VerticalProgressBar } from "./VerticalProgressBar";
+import { getPrecisedTokenValue } from "../helpers/precision-token-value";
 
 export interface BatchCardProps {
   vault: LoanVaultLiquidated;
@@ -78,6 +79,7 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
       batch: batch,
       vaultId: vault.vaultId,
       minNextBidInToken,
+      totalCollateralsValueInUSD,
       minNextBidInUSD,
       vaultLiquidationHeight: vault.liquidationHeight,
     });
@@ -117,7 +119,7 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
                   </ThemedTextV2>
                 )}
                 thousandSeparator
-                value={totalCollateralsValueInUSD}
+                value={getPrecisedTokenValue(totalCollateralsValueInUSD)}
               />
               {timeRemaining !== "" && (
                 <Text
@@ -161,7 +163,7 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
                   </ThemedTextV2>
                 )}
                 thousandSeparator
-                value={minNextBidInToken}
+                value={minNextBidInToken.toFixed(8)}
               />
             </View>
             <View>

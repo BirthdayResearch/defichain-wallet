@@ -44,9 +44,10 @@ export enum ButtonGroupTabKey {
 export interface onQuickBidProps {
   batch: LoanVaultLiquidationBatch;
   vaultId: string;
-  minNextBidInToken: string;
+  minNextBidInToken: BigNumber;
   vaultLiquidationHeight: LoanVaultLiquidated["liquidationHeight"];
-  minNextBidInUSD: string;
+  minNextBidInUSD: BigNumber;
+  totalCollateralsValueInUSD: BigNumber;
 }
 
 interface DetailedAuctionBatch extends AuctionBatchProps {
@@ -205,6 +206,7 @@ export function BrowseAuctions({
           },
           minNextBid: new BigNumber(props.minNextBidInToken),
           minNextBidInUSD: props.minNextBidInUSD,
+          totalCollateralsValueInUSD: props.totalCollateralsValueInUSD,
           vaultLiquidationHeight: props.vaultLiquidationHeight,
         }),
       },
@@ -242,7 +244,7 @@ export function BrowseAuctions({
           modalStyle={{
             position: "absolute",
             bottom: "0",
-            height: "240px",
+            height: "404px",
             width: "375px",
             zIndex: 50,
             borderTopLeftRadius: 15,

@@ -38,6 +38,7 @@ import { AuctionDetails } from "../components/AuctionDetails";
 import { CollateralTokenIconGroup } from "../components/CollateralTokenIconGroup";
 import { AuctionsParamList } from "../AuctionNavigator";
 import { AuctionTimeProgress } from "../components/AuctionTimeProgress";
+import { getPrecisedTokenValue } from "../helpers/precision-token-value";
 
 type BatchDetailScreenProps = StackScreenProps<
   AuctionsParamList,
@@ -114,13 +115,14 @@ export function AuctionDetailScreen(
           headerBackTitleVisible: false,
         },
         component: QuickBid({
+          minNextBidInUSD,
           vaultId: vault.vaultId,
           index: batch.index,
           loanTokenId: batch.loan.id,
           loanTokenDisplaySymbol: batch.loan.displaySymbol,
+          totalCollateralsValueInUSD: totalCollateralsValueInUSD,
           onCloseButtonPress: dismissModal,
-          minNextBid: new BigNumber(minNextBidInToken),
-          minNextBidInUSD: minNextBidInUSD,
+          minNextBid: minNextBidInToken,
           vaultLiquidationHeight: vault.liquidationHeight,
         }),
       },
@@ -269,7 +271,7 @@ export function AuctionDetailScreen(
         {activeTab === TabKey.Collaterals && (
           <AuctionedCollaterals
             collaterals={batch.collaterals}
-            auctionAmount={totalCollateralsValueInUSD}
+            auctionAmount={getPrecisedTokenValue(totalCollateralsValueInUSD)}
           />
         )}
 
@@ -310,8 +312,8 @@ export function AuctionDetailScreen(
 }
 
 interface AuctionActionSectionProps {
-  minNextBidInToken: string;
-  minNextBidInUSD: string;
+  minNextBidInToken: BigNumber;
+  minNextBidInUSD: BigNumber;
   symbol: string;
   displaySymbol: string;
   blocksRemaining: number;
@@ -331,8 +333,8 @@ const AuctionActionSection = memo(
       >
         <MinNextBidTextRow
           displaySymbol={props.displaySymbol}
-          minNextBidInToken={props.minNextBidInToken}
-          minNextBidInUSD={props.minNextBidInUSD}
+          minNextBidInToken={props.minNextBidInToken.toFixed(8)}
+          minNextBidInUSD={getPrecisedTokenValue(props.minNextBidInUSD)}
           labelTextStyle={tailwind("text-sm items-center")}
           valueTextStyle={tailwind("font-semibold text-base")}
           testID="auction_detail_min_next_bid"
