@@ -82,7 +82,7 @@ export function EmptyVaultV2(props: EmptyVaultProps): JSX.Element {
           refreshing={props.isLoading}
         />
       }
-      contentContainerStyle={tailwind("px-8 pt-10 pb-2")}
+      contentContainerStyle={tailwind("px-8 pt-6 pb-2")}
       testID="empty_vault"
       ref={containerRef}
     >

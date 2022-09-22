@@ -16,12 +16,10 @@ import {
 } from "@store/loans";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { StackScreenProps } from "@react-navigation/stack";
 import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
 import { useIsFocused } from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { translate } from "@translations";
-import { LoanParamList } from "./LoansNavigator";
 import { LoanCards } from "./components/LoanCards";
 import { VaultsV2 } from "./components/VaultsV2";
 import { ButtonGroupV2 } from "../Dex/components/ButtonGroupV2";
@@ -30,8 +28,6 @@ enum TabKey {
   Borrow = "BORROW",
   YourVaults = "YOUR_VAULTS",
 }
-
-type Props = StackScreenProps<LoanParamList, "LoansScreen">;
 
 export function LoansScreenV2(): JSX.Element {
   const { address } = useWalletContext();
@@ -95,13 +91,15 @@ export function LoansScreenV2(): JSX.Element {
         )}
         testID="loans_screen"
       >
-        <ButtonGroupV2
-          buttons={tabsList}
-          activeButtonGroupItem={activeTab}
-          testID="loans_tabs"
-          lightThemeStyle={tailwind("bg-transparent")}
-          darkThemeStyle={tailwind("bg-transparent")}
-        />
+        <View style={tailwind("w-full px-5")}>
+          <ButtonGroupV2
+            buttons={tabsList}
+            activeButtonGroupItem={activeTab}
+            testID="loans_tabs"
+            lightThemeStyle={tailwind("bg-transparent")}
+            darkThemeStyle={tailwind("bg-transparent")}
+          />
+        </View>
       </ThemedViewV2>
 
       {activeTab === TabKey.YourVaults && <VaultsV2 />}
