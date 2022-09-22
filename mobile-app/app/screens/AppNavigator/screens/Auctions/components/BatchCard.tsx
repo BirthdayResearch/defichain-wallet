@@ -237,7 +237,7 @@ const BidInfo = memo(
         title: "Min bid",
         color: isLight ? "text-mono-light-v2-900" : "text-mono-dark-v2-900",
       };
-    }, []);
+    }, [isLight]);
 
     return (
       <View style={tailwind("flex flex-row items-center")}>
