@@ -39,7 +39,7 @@ export const PaginationButton: React.FC<PaginationProps> = ({
 
   // update button label
   useEffect(() => {
-    if (curIndex < PAGINATION_END && paginationIndex < PAGINATION_END) {
+    if (curIndex < PAGINATION_END) {
       setButtonLabel("Next");
     } else {
       setButtonLabel("Done");
