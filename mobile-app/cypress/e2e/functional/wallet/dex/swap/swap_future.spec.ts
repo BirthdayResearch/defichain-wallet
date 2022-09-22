@@ -45,7 +45,7 @@ function validateFutureSwapDisabled(
 }
 
 context("Wallet - DEX - Future Swap - Swap Options", () => {
-  before(() => {
+  beforeEach(() => {
     cy.createEmptyWallet(true);
     cy.sendDFITokentoWallet()
       .sendDFItoWallet()
@@ -64,7 +64,7 @@ context("Wallet - DEX - Future Swap - Swap Options", () => {
 
   it("should  have no swap option on crypto -> crpyto combination", () => {
     // crypto to crypto
-    validateFutureSwapDisabled(undefined, "dETH");
+    validateFutureSwapDisabled("dBTC", "dETH");
   });
 
   it("should have both swap options on loan -> loan combination", () => {
@@ -89,7 +89,6 @@ context("Wallet - DEX - Future Swap - Swap Options", () => {
 
   it("should have no swap option on loan -> crypto combination", () => {
     // loan to crypto token
-    cy.getByTestID("swap_tabs_INSTANT_SWAP").click();
     validateFutureSwapDisabled("dTU10", "dBTC");
   });
 
