@@ -1395,7 +1395,17 @@
     "CONTINUE": "WEITER",
     "Confirm your vault details in next screen": "Bestätige die Daten deines Vaults in der nächsten Ansicht",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "Das Darlehensmodell deines Vaults bestimmt dessen erforderliche Darlehens-Besicherung.",
-    "Min. collateralization ratio": "Mind. Besicherungsquote"
+    "Min. collateralization ratio": "Mind. Besicherungsquote",
+    "Select collateralization and interest scheme for your vault to start.": "Select collateralization and interest scheme for your vault to start.",
+    "Continue": "Weiter",
+    "Create vault": "Vault erstellen",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "Monitor your vault’s collateralization to prevent liquidation.": "Monitor your vault’s collateralization to prevent liquidation.",
+    "Creating vault with a vault fee of {{vaultFee}} DFI": "Creating vault with a vault fee of {{vaultFee}} DFI",
+    "Transaction fee": "Transaktionsgebühren",
+    "Vault fee": "Vaultgebühr",
+    "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.",
+    "Amount to convert": "Umzuwandelnder Betrag"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Du erstellst gerade einen Vault",
@@ -1695,7 +1705,9 @@
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Mind. Besicherungsquote",
     "Interest rate": "Zinssatz",
-    "APR": "Jahreszins"
+    "APR": "Jahreszins",
+    "Collateralization": "Collateralization",
+    "Vault interest": "Vault-Jahreszins"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "DU STOCKST DEIN DARLEHEN AUF",
