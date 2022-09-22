@@ -28,11 +28,11 @@ export function TokenIconGroupV2({
   const additionalIcon = BigNumber.max(symbols?.length - maxIconToDisplay, 0);
   let rightOffset = 0;
   // increase overlap in case of more than and equal to 5 token icon
-  const overlap = Math.min(symbols.length, maxIconToDisplay) < 5 ? -8 : -12;
+  const overlap = Math.min(symbols?.length, maxIconToDisplay) < 5 ? -8 : -12;
   if (offsetContainer === true) {
     rightOffset = additionalIcon.gt(0)
       ? (maxIconToDisplay - 2) * overlap
-      : (symbols.length - 1) * overlap - 1;
+      : (symbols?.length - 1) * overlap - 1;
   }
   return (
     <View
