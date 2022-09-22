@@ -306,30 +306,28 @@ function BatchCards({
 
   const emptyScreenDetails = getEmptyScreenDetails(activeButtonGroup);
   return (
-    <View style={tailwind("px-5 flex-1")}>
-      <ThemedFlashList
-        contentContainerStyle={tailwind("pb-2")}
-        data={auctionBatches}
-        ref={ref}
-        numColumns={1}
-        estimatedItemSize={4}
-        keyExtractor={(_item, index) => index.toString()}
-        ListEmptyComponent={
-          <>
-            {showSearchInput === false && (
-              <View style={tailwind("mt-1")}>
-                <EmptyAuction
-                  title={emptyScreenDetails.title}
-                  subtitle={emptyScreenDetails.subtitle}
-                />
-              </View>
-            )}
-          </>
-        }
-        testID="auction_lists"
-        renderItem={RenderItems}
-      />
-    </View>
+    <ThemedFlashList
+      contentContainerStyle={tailwind("pb-2")}
+      data={auctionBatches}
+      ref={ref}
+      numColumns={1}
+      estimatedItemSize={4}
+      keyExtractor={(_item, index) => index.toString()}
+      ListEmptyComponent={
+        <>
+          {showSearchInput === false && (
+            <View style={tailwind("mx-5 mt-1")}>
+              <EmptyAuction
+                title={emptyScreenDetails.title}
+                subtitle={emptyScreenDetails.subtitle}
+              />
+            </View>
+          )}
+        </>
+      }
+      testID="auction_lists"
+      renderItem={RenderItems}
+    />
   );
 }
 
