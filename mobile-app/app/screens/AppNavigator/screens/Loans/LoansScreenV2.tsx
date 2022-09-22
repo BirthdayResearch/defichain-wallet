@@ -126,8 +126,8 @@ export function LoansScreenV2({ navigation }: Props): JSX.Element {
 
   useEffect(() => {
     setIsVaultReady(
-      vaultsList.some((vault: any) => vault.vaultState !== VaultStatus.Empty)
-    ); // TODO: fix LoanVault type
+      vaultsList.some((vault) => vault.vaultState !== VaultStatus.Empty)
+    );
   }, [vaultsList]);
 
   useLayoutEffect(() => {
