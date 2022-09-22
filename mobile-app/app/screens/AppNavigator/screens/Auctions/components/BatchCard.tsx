@@ -87,7 +87,7 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
     <ThemedViewV2
       light={tailwind("bg-mono-light-v2-00")}
       dark={tailwind("bg-mono-dark-v2-00")}
-      style={tailwind("rounded-lg-v2 mb-2 overflow-hidden")}
+      style={tailwind("mx-5 rounded-lg-v2 mb-2 overflow-hidden")}
       testID={testID}
     >
       <TouchableOpacity testID={testID} onPress={onCardPress}>
