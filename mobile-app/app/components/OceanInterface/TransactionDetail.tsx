@@ -9,6 +9,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { TransactionStatusCode } from "@store/ocean";
+import NumberFormat from "react-number-format";
 import { TransactionCloseButton } from "./TransactionCloseButton";
 import { TransactionIDButton } from "./TransactionIDButton";
 
@@ -18,6 +19,7 @@ interface TransactionDetailProps {
   txUrl?: string;
   onClose: () => void;
   title?: string;
+  amountInfo?: { amount: string; token: string };
   oceanStatusCode?: TransactionStatusCode;
 }
 
@@ -27,6 +29,7 @@ export function TransactionDetail({
   txUrl,
   onClose,
   title,
+  amountInfo,
   oceanStatusCode,
 }: TransactionDetailProps): JSX.Element {
   title = title ?? translate("screens/OceanInterface", "Broadcasting...");
@@ -94,7 +97,26 @@ export function TransactionDetail({
           {title}
         </ThemedTextV2>
 
-        {txid !== undefined && txUrl !== undefined && (
+        {amountInfo && (
+          <NumberFormat
+            decimalScale={8}
+            displayType="text"
+            renderText={(value: string) => (
+              <ThemedTextV2
+                testID="txn_amount_detail"
+                dark={tailwind("text-mono-dark-v2-700")}
+                light={tailwind("text-mono-light-v2-700")}
+                style={tailwind("text-sm font-normal-v2")}
+              >
+                {`${value} ${amountInfo.token}`}
+              </ThemedTextV2>
+            )}
+            thousandSeparator
+            value={amountInfo.amount}
+          />
+        )}
+
+        {txid !== undefined && txUrl !== undefined && !amountInfo && (
           <TransactionIDButton
             onPress={async () => await gotoExplorer(txUrl)}
             txid={txid}

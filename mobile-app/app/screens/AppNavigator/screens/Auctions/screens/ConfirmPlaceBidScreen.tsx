@@ -20,14 +20,19 @@ import {
   NativeLoggingProps,
   useLogger,
 } from "@shared-contexts/NativeLoggingProvider";
-import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
-import { ThemedScrollViewV2, ThemedViewV2 } from "@components/themed";
+import {
+  ThemedScrollViewV2,
+  ThemedTextV2,
+  ThemedViewV2,
+} from "@components/themed";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { SummaryTitleV2 } from "@components/SummaryTitleV2";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { TextRowV2 } from "@components/TextRowV2";
+import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { View } from "@components";
 import { AuctionsParamList } from "../AuctionNavigator";
 
 type Props = StackScreenProps<AuctionsParamList, "ConfirmPlaceBidScreen">;
@@ -41,9 +46,6 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
     hasBroadcastQueued(state.ocean)
-  );
-  const currentBroadcastJob = useSelector((state: RootState) =>
-    firstTransactionSelector(state.ocean)
   );
   const { bidAmount, estimatedFees, totalAuctionValue, vault, batch } =
     props.route.params;
@@ -95,20 +97,6 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
         merge: true,
       });
     }
-  }
-
-  function getSubmitLabel(): string {
-    if (!hasPendingBroadcastJob && !hasPendingJob) {
-      return "CONFIRM BID";
-    }
-    if (
-      hasPendingBroadcastJob &&
-      currentBroadcastJob !== undefined &&
-      currentBroadcastJob.submitButtonLabel !== undefined
-    ) {
-      return currentBroadcastJob.submitButtonLabel;
-    }
-    return "PLACING BID";
   }
 
   const containerThemeOptions = {
@@ -239,21 +227,29 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
             themedProps: rhsThemedProps,
           }}
         />
-      </ThemedViewV2>
 
-      <SubmitButtonGroup
-        label={translate("screens/ConfirmPlaceBidScreen", "CONFIRM PLACE BID")}
-        isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        processingLabel={translate(
-          "screens/ConfirmPlaceBidScreen",
-          getSubmitLabel()
-        )}
-        onCancel={onCancel}
-        displayCancelBtn
-        onSubmit={onSubmit}
-        title="bid"
-      />
+        <View style={tailwind("pt-14 px-7")}>
+          <ThemedTextV2
+            light={tailwind("text-mono-light-v2-500")}
+            dark={tailwind("text-mono-dark-v2-500")}
+            style={tailwind("text-center text-xs")}
+          >
+            {translate(
+              "screens/PlaceBidScreen",
+              "Amount will be deducted from your current wallet"
+            )}
+          </ThemedTextV2>
+          <SubmitButtonGroupV2
+            isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+            label={translate("components/Button", "Place bid")}
+            onSubmit={onSubmit}
+            onCancel={onCancel}
+            title="bid"
+            displayCancelBtn
+            buttonStyle="mt-5 mb-7"
+          />
+        </View>
+      </ThemedViewV2>
     </ThemedScrollViewV2>
   );
 }
@@ -287,24 +283,38 @@ async function constructSignedBidAndSend(
     dispatch(
       transactionQueue.actions.push({
         sign: signer,
-        title: translate("screens/PlaceBidScreen", "Sign Transaction"),
-        description: translate(
+        title: translate(
           "screens/PlaceBidScreen",
-          "Placing {{amount}} {{token}} as bid for auction.",
-          {
-            amount: tokenAmount.amount,
-            token: displaySymbol,
-          }
+          "Placing {{amount}} {{token}} bid",
+          { amount: tokenAmount.amount, token: displaySymbol }
+        ),
+        amountInfo: {
+          amount: tokenAmount.amount.toString(),
+          token: displaySymbol,
+        },
+        loadingMessage: translate(
+          "screens/PlaceBidScreen",
+          "It may take a few seconds to verify"
+        ),
+        successMessage: translate(
+          "screens/PlaceBidScreen",
+          "Passcode verified!"
         ),
         drawerMessages: {
           preparing: translate(
             "screens/OceanInterface",
-            "Preparing to place bid…"
+            "Preparing placing {{amount}} {{token}} bid",
+            { amount: tokenAmount.amount, token: displaySymbol }
           ),
-          waiting: translate("screens/OceanInterface", "Placing bid…"),
+          waiting: translate(
+            "screens/OceanInterface",
+            "Placing {{amount}} {{token}} bid",
+            { amount: tokenAmount.amount, token: displaySymbol }
+          ),
           complete: translate(
             "screens/OceanInterface",
-            "Bid placement completed"
+            "Placed {{amount}} {{token}} bid",
+            { amount: tokenAmount.amount, token: displaySymbol }
           ),
         },
         onBroadcast,

@@ -10,6 +10,7 @@ export interface OceanTransaction {
   broadcasted: boolean;
   tx: CTransactionSegWit;
   title?: string;
+  amountInfo?: { amount: string; token: string };
   drawerMessages?: {
     preparing?: string;
     waiting?: string;

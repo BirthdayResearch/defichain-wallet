@@ -349,7 +349,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
               hasPendingJob ||
               hasPendingBroadcastJob
             }
-            styleProps="mt-5"
+            styleProps="mt-5 mx-12"
             onPress={onSubmit}
             testID="bid_button_submit"
           />

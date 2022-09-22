@@ -221,6 +221,7 @@ export function OceanInterface(): JSX.Element | null {
             broadcasted={tx.broadcasted}
             onClose={dismissDrawer}
             title={tx.title}
+            amountInfo={tx.amountInfo}
             oceanStatusCode={tx.oceanStatusCode}
             txUrl={txUrl}
             txid={tx.tx.txId}
