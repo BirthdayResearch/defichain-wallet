@@ -213,7 +213,7 @@ export function LoansScreenV2({ navigation }: Props): JSX.Element {
 
       {activeTab === TabKey.BrowseLoans && !hasFetchedLoansData && (
         <View style={tailwind("mt-1")}>
-          <SkeletonLoader row={1} screen={SkeletonLoaderScreen.LoanV2} />
+          <SkeletonLoader row={3} screen={SkeletonLoaderScreen.LoanV2} />
         </View>
       )}
       {activeTab === TabKey.BrowseLoans && hasFetchedLoansData && (
