@@ -14,7 +14,7 @@ import ImageALight from "@assets/images/loans/loans_1_light.png";
 import ImageBLight from "@assets/images/loans/loans_2_light.png";
 import ImageCLight from "@assets/images/loans/loans_3_light.png";
 import ImageDLight from "@assets/images/loans/loans_4_light.png";
-import { ThemedTextV2, ThemedTouchableOpacityV2 } from "@components/themed";
+import { ThemedTextV2 } from "@components/themed";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
@@ -84,7 +84,7 @@ export function ImageSlide({
         <ThemedTextV2 style={tailwind("font-normal-v2 text-center mt-2")}>
           {translate("screens/LoansCarousel", subtitle)}
         </ThemedTextV2>
-        {/* TODO: get translations */}
+        {/* @chloe TODO: get translations */}
       </View>
     </View>
   );
@@ -92,12 +92,24 @@ export function ImageSlide({
 
 export function LoansCarousel(): JSX.Element {
   const { isLight } = useThemeContext();
-  // const [curIndex, setCurIndex] = useState<number>(0);
-  // const scrollRef = useRef(null);
 
+  // const scrollRef = useRef<SwiperFlatList>(null);
   // const onPressNextPage = (): void => {
-  //   setCurIndex(scrollRef.current.getCurrentIndex() + 1);
+  //   scrollRef?.current?.scrollToIndex({
+  //     index: (scrollRef.current?.getCurrentIndex() ?? 0) + 1,
+  //   });
   // };
+  // const [buttonLabel, setButtonLabel] = useState("Next");
+
+  // useEffect(() => {
+  //   if (scrollRef.current !== null) {
+  //     if (scrollRef.current?.getCurrentIndex() > 3) {
+  //       setButtonLabel("Done");
+  //     } else {
+  //       setButtonLabel("Next");
+  //     }
+  //   }
+  // }, [scrollRef]);
 
   return (
     <View
@@ -126,34 +138,31 @@ export function LoansCarousel(): JSX.Element {
         renderItem={({ item }) => <View style={{ width }}>{item}</View>}
         showPagination
       />
-      <View style={tailwind("px-15 pb-10")}>
-        <ButtonOutline label="Next" />
-        {/* <ButtonOutline onPress={onPressNextPage} label="Next" /> */}
-      </View>
+      {/* <ButtonOutline onPress={onPressNextPage} label={buttonLabel} /> */}
     </View>
   );
 }
 
-interface ButtonOutlineProps {
-  // onPress: () => void;
-  label: string;
-}
+// interface ButtonOutlineProps {
+//   onPress: () => void;
+//   label: string;
+// }
 
-function ButtonOutline(props: ButtonOutlineProps): JSX.Element {
-  return (
-    <ThemedTouchableOpacityV2
-      // onPress={props.onPress}
-      dark={tailwind("border-mono-dark-v2-900")}
-      light={tailwind("border-mono-light-v2-900")}
-      style={tailwind("rounded-2xl-v2 text-center py-2 px-4 border")}
-    >
-      <ThemedTextV2
-        style={tailwind("font-normal-v2 text-center text-base")}
-        light={tailwind("text-mono-light-v2-900")}
-        dark={tailwind("text-mono-dark-v2-900")}
-      >
-        {translate("screens/LoansCarousel", props.label)}
-      </ThemedTextV2>
-    </ThemedTouchableOpacityV2>
-  );
-}
+// function ButtonOutline(props: ButtonOutlineProps): JSX.Element {
+//   return (
+//     <ThemedTouchableOpacityV2
+//       onPress={props.onPress}
+//       dark={tailwind("border-mono-dark-v2-900")}
+//       light={tailwind("border-mono-light-v2-900")}
+//       style={tailwind("rounded-2xl-v2 text-center py-2 px-4 border")}
+//     >
+//       <ThemedTextV2
+//         style={tailwind("font-normal-v2 text-center text-base")}
+//         light={tailwind("text-mono-light-v2-900")}
+//         dark={tailwind("text-mono-dark-v2-900")}
+//       >
+//         {translate("screens/LoansCarousel", props.label)}
+//       </ThemedTextV2>
+//     </ThemedTouchableOpacityV2>
+//   );
+// }
