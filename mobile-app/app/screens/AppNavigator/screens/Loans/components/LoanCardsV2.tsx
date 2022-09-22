@@ -26,7 +26,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { vaultsSelector } from "@store/loans";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
-import { IconTooltip } from "@components/tooltip/IconTooltip";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { LoanParamList } from "../LoansNavigator";
 import { LoanActionButton } from "./LoanActionButton";
@@ -46,7 +45,7 @@ export interface LoanCardOptions {
   interestRate: string;
   onPress: () => void;
   testID: string;
-  disabled: boolean;
+  isBorrowHidden: boolean;
 }
 
 export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
@@ -92,7 +91,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
                   });
                 }}
                 testID={`loan_card_${index}`}
-                disabled={!props.vaultExist}
+                isBorrowHidden={!props.vaultExist}
               />
             </View>
           );
@@ -111,7 +110,7 @@ function LoanCard({
   interestRate,
   onPress,
   testID,
-  disabled,
+  isBorrowHidden,
 }: LoanCardOptions): JSX.Element {
   const LoanIcon = getNativeIcon(displaySymbol);
   const currentPrice = getPrecisedTokenValue(getActivePrice(symbol, price));
@@ -180,7 +179,7 @@ function LoanCard({
         value={interestRate}
         suffix="%"
       />
-      {!disabled && (
+      {!isBorrowHidden && (
         <LoanActionButton
           label={translate("screens/LoanCard", "Borrow")}
           iconLeft={() => (
@@ -195,7 +194,7 @@ function LoanCard({
           )}
           onPress={onPress}
           style={tailwind("mt-3")}
-          testID="test"
+          testID={`${displaySymbol}_borrow_button`}
         />
       )}
     </ThemedViewV2>

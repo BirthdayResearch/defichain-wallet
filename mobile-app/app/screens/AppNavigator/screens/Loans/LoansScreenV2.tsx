@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { tailwind } from "@tailwind";
-import { ThemedIcon, ThemedView, ThemedViewV2 } from "@components/themed";
+import { ThemedIcon, ThemedView } from "@components/themed";
 import { Tabs } from "@components/Tabs";
 import {
   SkeletonLoader,
@@ -14,19 +14,13 @@ import {
   fetchLoanTokens,
   fetchVaults,
   loanTokensSelector,
-  LoanVault,
   vaultsSelector,
 } from "@store/loans";
-import {
-  useVaultStatus,
-  VaultStatusTag,
-} from "@screens/AppNavigator/screens/Loans/components/VaultStatusTag";
 import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { StackScreenProps } from "@react-navigation/stack";
 import { HeaderSearchIcon } from "@components/HeaderSearchIcon";
-import { HeaderSearchInput } from "@components/HeaderSearchInput";
 import { debounce } from "lodash";
 import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
 import { useIsFocused } from "@react-navigation/native";
@@ -131,7 +125,7 @@ export function LoansScreenV2({ navigation }: Props): JSX.Element {
 
   useEffect(() => {
     setIsVaultReady(
-      vaultsList.some((record: any) => record.vaultState !== VaultStatus.Empty)
+      vaultsList.some((vault: any) => vault.vaultState !== VaultStatus.Empty)
     ); // TODO: fix LoanVault type
   }, [vaultsList]);
 
@@ -179,6 +173,8 @@ export function LoansScreenV2({ navigation }: Props): JSX.Element {
         <SkeletonLoader row={3} screen={SkeletonLoaderScreen.Vault} />
       </View>
     );
+  } else if (vaults?.length === 0) {
+    return <EmptyVault handleRefresh={() => {}} isLoading={false} />;
   }
 
   return (
