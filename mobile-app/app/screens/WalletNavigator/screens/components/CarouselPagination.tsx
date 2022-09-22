@@ -14,7 +14,8 @@ export function CarouselPaginationWithNextButton(
   return (
     <>
       <Pagination {...props} paginationStyle={styles.paginationContainer} />
-      <View style={tailwind("px-15 pb-15")}>
+      {/* styling hides display pagination buttons on web view */}
+      <View style={tailwind("px-15 pb-20")}>
         <PaginationButton
           {...props}
           paginationStyle={styles.paginationContainer}

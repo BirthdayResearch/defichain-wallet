@@ -96,7 +96,6 @@ export function LoansCarousel(): JSX.Element {
   return (
     <ThemedViewV2
       style={tailwind(
-        "flex-1",
         { "-mt-0.5": Platform.OS === "ios" },
         { "-mt-1": Platform.OS === "android" }
       )}
@@ -109,7 +108,6 @@ export function LoansCarousel(): JSX.Element {
         })}
       >
         <SwiperFlatList
-          // ref={scrollRef}
           autoplay
           autoplayDelay={30}
           autoplayLoop
@@ -132,7 +130,6 @@ export function LoansCarousel(): JSX.Element {
           renderItem={({ item }) => <View style={{ width }}>{item}</View>}
           showPagination
         />
-        {/* <ButtonOutline onPress={onPressNextPage} label={buttonLabel} /> */}
       </View>
     </ThemedViewV2>
   );
