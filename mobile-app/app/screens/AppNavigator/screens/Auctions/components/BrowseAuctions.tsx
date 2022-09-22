@@ -326,7 +326,7 @@ function BatchCards({
             )}
           </>
         }
-        testID="available_liquidity_tab"
+        testID="auction_lists"
         renderItem={RenderItems}
       />
     </View>

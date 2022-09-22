@@ -94,14 +94,15 @@ export function getCollateralPrice(
     getActivePrice(
       collateralItem.token.symbol,
       collateralItem.activePrice,
-      collateralItem.factor
+      collateralItem.factor,
+      "ACTIVE",
+      "COLLATERAL"
     )
   );
   const collateralPrice = activePrice.multipliedBy(amount);
   const collateralFactor = new BigNumber(collateralItem?.factor ?? 0);
   const vaultShare = getVaultShare(
     amount,
-    collateralFactor,
     activePrice,
     new BigNumber(
       totalCollateralValue.isZero() ? collateralPrice : totalCollateralValue
@@ -117,13 +118,11 @@ export function getCollateralPrice(
 
 export function getVaultShare(
   collateralAmount: BigNumber,
-  factor: BigNumber,
   price: BigNumber,
   totalCollateralValue: BigNumber
 ): BigNumber {
-  const vaultShare = new BigNumber(collateralAmount)
+  const vaultShare = collateralAmount
     .multipliedBy(price)
-    .multipliedBy(factor)
     .dividedBy(totalCollateralValue);
   return BigNumber.max(BigNumber.min(1, vaultShare), 0).times(100);
 }

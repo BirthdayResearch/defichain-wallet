@@ -37,7 +37,7 @@ export const VerticalProgressBar = memo(
           }}
           color={getColor(props.color)}
           unfilledColor={getColor(
-            isLight ? "mono-light-v2-00" : "mono-dark-v2-00"
+            isLight ? "mono-light-v2-200" : "mono-dark-v2-200"
           )}
           borderRadius={0}
           borderWidth={0}

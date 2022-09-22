@@ -21,7 +21,6 @@ import { useWalletContext } from "@shared-contexts/WalletContext";
 import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";
 import BigNumber from "bignumber.js";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { MaterialIcons } from "@expo/vector-icons";
 import { SymbolIcon } from "@components/SymbolIcon";
 import { AuctionsParamList } from "../AuctionNavigator";
 import { useAuctionBidValue } from "../hooks/AuctionBidValue";
@@ -32,8 +31,8 @@ import { VerticalProgressBar } from "./VerticalProgressBar";
 export interface BatchCardProps {
   vault: LoanVaultLiquidated;
   batch: LoanVaultLiquidationBatch;
-  collateralTokenSymbols: string[];
   testID: string;
+  collateralTokenSymbols: string[];
   onQuickBid: (props: onQuickBidProps) => void;
   isVaultOwner: boolean;
 }
@@ -136,19 +135,16 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
             </View>
           </View>
           <View
-            style={tailwind("mt-2 flex flex-row justify-between items-center")}
+            style={tailwind("mt-2 flex flex-row justify-between items-end")}
           >
             <View>
               <BidInfo
                 hasFirstBid={hasFirstBid}
                 isOutBid={
-                  hasFirstBid &&
                   batch?.highestBid?.owner !== address &&
                   batch?.froms.includes(address)
                 }
-                isHighestBidder={
-                  hasFirstBid && batch?.highestBid?.owner === address
-                }
+                isHighestBidder={batch?.highestBid?.owner === address}
                 testID={testID}
               />
               <NumberFormat
@@ -173,7 +169,7 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
                 light={tailwind("bg-mono-light-v2-100")}
                 dark={tailwind("bg-mono-dark-v2-100")}
                 style={tailwind(
-                  "flex flex-row items-center rounded-2xl-v2 py-2 px-4"
+                  "flex flex-row items-center rounded-2xl-v2 py-2 px-3"
                 )}
                 onPress={onQuickBid}
                 testID={`${testID}_quick_bid_button`}
@@ -185,7 +181,10 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
                 <ThemedTextV2
                   style={tailwind("font-semibold-v2 text-xs text-center ml-1")}
                 >
-                  {translate("components/BatchCard", "Quick rebid")}
+                  {translate(
+                    "components/BatchCard",
+                    batch?.froms.includes(address) ? "Quick rebid" : "Quick bid"
+                  )}
                 </ThemedTextV2>
               </ThemedTouchableOpacityV2>
             </View>
@@ -247,9 +246,9 @@ const BidInfo = memo(
           {translate("components/QuickBid", title)}
         </Text>
         {icon !== undefined && (
-          <MaterialIcons
+          <ThemedIcon
             size={18}
-            name={icon as React.ComponentProps<typeof MaterialIcons>["name"]}
+            name={icon}
             iconType="MaterialIcons"
             style={tailwind(`ml-1.5 ${color}`)}
             testID={`${testId}_icon`}

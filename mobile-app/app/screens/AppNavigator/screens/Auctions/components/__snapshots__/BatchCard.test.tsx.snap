@@ -184,14 +184,14 @@ exports[`Batch Card should match snapshot 1`] = `
               }
             }
           >
-            28m left
+             28m 28s left
           </Text>
         </View>
       </View>
       <View
         style={
           {
-            "alignItems": "center",
+            "alignItems": "flex-end",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -277,8 +277,8 @@ exports[`Batch Card should match snapshot 1`] = `
                 "flexDirection": "row",
                 "opacity": 1,
                 "paddingBottom": 8,
-                "paddingLeft": 16,
-                "paddingRight": 16,
+                "paddingLeft": 12,
+                "paddingRight": 12,
                 "paddingTop": 8,
               }
             }
@@ -356,7 +356,7 @@ exports[`Batch Card should match snapshot 1`] = `
                 ]
               }
             >
-              Quick rebid
+              Quick bid
             </Text>
           </View>
         </View>
@@ -394,7 +394,7 @@ exports[`Batch Card should match snapshot 1`] = `
         style={
           [
             {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "backgroundColor": "rgba(217, 217, 217, 1)",
               "borderColor": "rgba(0, 173, 29, 1)",
               "borderRadius": 0,
               "borderWidth": 0,
