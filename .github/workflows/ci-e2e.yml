@@ -3,11 +3,11 @@ name: CI E2E
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 1 * * *'
+    - cron: "0 1 * * *"
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false # https://github.com/cypress-io/github-action/issues/48
       matrix:
-        containers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+        containers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3.0.2
 
@@ -31,7 +31,7 @@ jobs:
       - uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3.4.1
         with:
           node-version: 16
-          cache: 'npm'
+          cache: "npm"
 
       # install specific version of chrome
       - name: Install latest Google Chrome
@@ -52,12 +52,13 @@ jobs:
           record: true
           parallel: true
           start: npm run start:web
-          wait-on: 'http://localhost:19006'
+          wait-on: "http://localhost:19006"
           browser: chrome
           spec: mobile-app/cypress/e2e/**
           tag: ${{ github.event_name }}
           project: ./mobile-app
         env:
+          DEBUG: "cypress:*"
           CYPRESS_E2E: true
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
