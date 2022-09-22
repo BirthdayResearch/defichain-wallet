@@ -1805,7 +1805,13 @@
     "Placing {{amount}} {{token}} as bid for auction.": "Piazza {{amount}} {{token}} come offerta per l'asta.",
     "Collateral for auction": "Collaterali messi all'asta",
     "Insufficient funds": "Fondi insufficienti",
-    "You are bidding": "You are bidding"
+    "You are bidding": "You are bidding",
+    "Amount will be deducted from your current wallet": "Amount will be deducted from your current wallet",
+    "Placing {{amount}} {{token}} bid": "Placing {{amount}} {{token}} bid",
+    "Preparing placing {{amount}} {{token}} bid": "Preparing placing {{amount}} {{token}} bid",
+    "Placed {{amount}} {{token}} bid": "Placed {{amount}} {{token}} bid",
+    "It may take a few seconds to verify": "It may take a few seconds to verify",
+    "Passcode verified!": "Passcode verified!"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Preleva",

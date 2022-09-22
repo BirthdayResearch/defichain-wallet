@@ -1792,7 +1792,13 @@
     "Placing {{amount}} {{token}} as bid for auction.": "Placer une enchère de {{amount}} {{token}}.",
     "Insufficient funds": "Fonds insuffisants",
     "Collateral for auction": "Garantie mise en vente",
-    "You are bidding": "You are bidding"
+    "You are bidding": "You are bidding",
+    "Amount will be deducted from your current wallet": "Amount will be deducted from your current wallet",
+    "Placing {{amount}} {{token}} bid": "Placing {{amount}} {{token}} bid",
+    "Preparing placing {{amount}} {{token}} bid": "Preparing placing {{amount}} {{token}} bid",
+    "Placed {{amount}} {{token}} bid": "Placed {{amount}} {{token}} bid",
+    "It may take a few seconds to verify": "La vérification peut prendre quelques secondes",
+    "Passcode verified!": "Code d'accès vérifié!"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Retirer",

@@ -1760,7 +1760,8 @@
     "The minimum next bid is {{amount}} {{symbol}} (100%)": "Das nächste Mindestgebot beträgt {{amount}} {{symbol}} (100%)",
     "{{percent}} min bid entered": "{{percent}} mindestgebot eingegeben",
     "Insufficient balance": "Unzureichendes Guthaben",
-    "Auction timeout": "Zeitüberschreitung der Auktion"
+    "Auction timeout": "Zeitüberschreitung der Auktion",
+    "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}": "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
@@ -1778,8 +1779,13 @@
     "Placing {{amount}} {{token}} as bid for auction.": "Abgabe des Gebotsbetrags von {{amount}} {{token}}",
     "Collateral for auction": "Zu ersteigern",
     "Insufficient funds": "Unzureichende Deckung",
-    "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}": "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}",
-    "You are bidding": "You are bidding"
+    "You are bidding": "You are bidding",
+    "Amount will be deducted from your current wallet": "Amount will be deducted from your current wallet",
+    "Placing {{amount}} {{token}} bid": "Placing {{amount}} {{token}} bid",
+    "Preparing placing {{amount}} {{token}} bid": "Preparing placing {{amount}} {{token}} bid",
+    "Placed {{amount}} {{token}} bid": "Placed {{amount}} {{token}} bid",
+    "It may take a few seconds to verify": "Es kann ein paar Sekunden dauern, bis das Passwort verifiziert ist",
+    "Passcode verified!": "Passwort verifiziert!"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Abheben",

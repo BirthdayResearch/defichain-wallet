@@ -6,10 +6,7 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { RootState } from "@store";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
-import {
-  firstTransactionSelector,
-  hasTxQueued as hasBroadcastQueued,
-} from "@store/ocean";
+import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import {
   CTransactionSegWit,
@@ -235,13 +232,13 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
             style={tailwind("text-center text-xs")}
           >
             {translate(
-              "screens/PlaceBidScreen",
+              "screens/ConfirmPlaceBidScreen",
               "Amount will be deducted from your current wallet"
             )}
           </ThemedTextV2>
           <SubmitButtonGroupV2
             isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-            label={translate("components/Button", "Place bid")}
+            label={translate("screens/ConfirmPlaceBidScreen", "Place bid")}
             onSubmit={onSubmit}
             onCancel={onCancel}
             title="bid"
@@ -284,7 +281,7 @@ async function constructSignedBidAndSend(
       transactionQueue.actions.push({
         sign: signer,
         title: translate(
-          "screens/PlaceBidScreen",
+          "screens/ConfirmPlaceBidScreen",
           "Placing {{amount}} {{token}} bid",
           { amount: tokenAmount.amount, token: displaySymbol }
         ),
@@ -293,26 +290,26 @@ async function constructSignedBidAndSend(
           token: displaySymbol,
         },
         loadingMessage: translate(
-          "screens/PlaceBidScreen",
+          "screens/ConfirmPlaceBidScreen",
           "It may take a few seconds to verify"
         ),
         successMessage: translate(
-          "screens/PlaceBidScreen",
+          "screens/ConfirmPlaceBidScreen",
           "Passcode verified!"
         ),
         drawerMessages: {
           preparing: translate(
-            "screens/OceanInterface",
+            "screens/ConfirmPlaceBidScreen",
             "Preparing placing {{amount}} {{token}} bid",
             { amount: tokenAmount.amount, token: displaySymbol }
           ),
           waiting: translate(
-            "screens/OceanInterface",
+            "screens/ConfirmPlaceBidScreen",
             "Placing {{amount}} {{token}} bid",
             { amount: tokenAmount.amount, token: displaySymbol }
           ),
           complete: translate(
-            "screens/OceanInterface",
+            "screens/ConfirmPlaceBidScreen",
             "Placed {{amount}} {{token}} bid",
             { amount: tokenAmount.amount, token: displaySymbol }
           ),

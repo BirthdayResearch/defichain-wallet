@@ -1788,7 +1788,13 @@
     "Placing {{amount}} {{token}} as bid for auction.": "使用 {{amount}} {{token}} 作为标价",
     "Collateral for auction": "待拍卖的抵押品",
     "Insufficient funds": "资金不足",
-    "You are bidding": "You are bidding"
+    "You are bidding": "You are bidding",
+    "Amount will be deducted from your current wallet": "Amount will be deducted from your current wallet",
+    "Placing {{amount}} {{token}} bid": "Placing {{amount}} {{token}} bid",
+    "Preparing placing {{amount}} {{token}} bid": "Preparing placing {{amount}} {{token}} bid",
+    "Placed {{amount}} {{token}} bid": "Placed {{amount}} {{token}} bid",
+    "It may take a few seconds to verify": "It may take a few seconds to verify",
+    "Passcode verified!": "Passcode verified!"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Withdraw",
