@@ -55,7 +55,9 @@ export function useTotalCollateralValue({
           getActivePrice(
             collateral.symbol,
             collateral.activePrice,
-            colToken?.factor
+            colToken?.factor,
+            "ACTIVE",
+            "COLLATERAL"
           )
         )
       );
