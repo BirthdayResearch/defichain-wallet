@@ -21,6 +21,7 @@ import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { StackScreenProps } from "@react-navigation/stack";
 import { HeaderSearchIcon } from "@components/HeaderSearchIcon";
+import { HeaderSearchInput } from "@components/HeaderSearchInput";
 import { debounce } from "lodash";
 import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
 import { useIsFocused } from "@react-navigation/native";
@@ -166,6 +167,30 @@ export function LoansScreenV2({ navigation }: Props): JSX.Element {
       },
     });
   }, [navigation, activeTab, vaults]);
+
+  useEffect(() => {
+    if (showSeachInput) {
+      navigation.setOptions({
+        header: (): JSX.Element => (
+          <HeaderSearchInput
+            searchString={searchString}
+            onClearInput={() => setSearchString("")}
+            onChangeInput={(text: string) => setSearchString(text)}
+            onCancelPress={() => {
+              setSearchString("");
+              setShowSearchInput(false);
+            }}
+            placeholder="Search for loans"
+            testID="loans_search_input"
+          />
+        ),
+      });
+    } else {
+      navigation.setOptions({
+        header: undefined,
+      });
+    }
+  }, [showSeachInput, searchString]);
 
   if (!hasFetchedVaultsData) {
     return (
