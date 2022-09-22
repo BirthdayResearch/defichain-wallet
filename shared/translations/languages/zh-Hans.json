@@ -285,8 +285,8 @@
     "Amount to send": "发送金额",
     "Converting": "Converting",
     "Converted": "Converted",
-    "Transaction fee": "Transaction fee",
-    "Amount to convert": "Amount to convert",
+    "Transaction fee": "交易費用",
+    "Amount to convert": "要转换的金额",
     "Send": "Send",
     "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "发送 {{amount}} {{displaySymbol}} 到 {{toAddress}}",
     "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds."
@@ -340,7 +340,7 @@
     "{{token}} to receive": "{{token}} 将会收到",
     "CONFIRM TRANSACTION": "确认发出",
     "You are converting to {{unit}}": "You are converting to {{unit}}",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "Resulting Tokens": "转换后 Tokens",
     "Resulting UTXO": "转换后 UTXO",
     "Convert {{amount}} DFI to {{target}}": "转换 {{amount}} DFI 至 {{target}}"
@@ -703,7 +703,9 @@
     "Beta Features": " 测试版功能",
     "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.": "轻钱包 beta 功能处于用户验收测试阶段。鼓励大家使用 beta 功能，但在使用资产时建议审慎。",
     "Feature is still in Beta. Use at your own risk.": "功能仍处于测试阶段。使用时风险请自己负责。",
-    "Allows the usage of custom server provider url": "Allows the usage of custom server provider url"
+    "Allows the usage of custom server provider url": "Allows the usage of custom server provider url",
+    "Unloop DUSD loan": "Unloop DUSD loan",
+    "Display payback DUSD loan with DUSD collateral": "Display payback DUSD loan with DUSD collateral"
   },
   "BottomTabNavigator": {
     "Balances": "总资金",
@@ -788,7 +790,9 @@
     "Swapped {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Swapped {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "兑换 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
-    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool",
+    "Paying back loan amount of {{amount}} DUSD": "Paying back loan amount of {{amount}} DUSD",
+    "Paid loan amount of {{amount}} DUSD": "Paid loan amount of {{amount}} DUSD"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "请许可程序使用相机",
@@ -870,8 +874,8 @@
     "CONFIRM ADD LIQUIDITY": "确认增加流动资金",
     "Your LP Tokens": "您的 LP 代币",
     "You will receive LP tokens": "您将会收到 LP 代币",
-    "Amount to convert": "Amount to convert",
-    "Transaction fee": "Transaction fee",
+    "Amount to convert": "要转换的金额",
+    "Transaction fee": "交易費用",
     "Resulting pool share": "Resulting pool share",
     "{{token}} to supply": "{{token}} to supply",
     "Resulting LP tokens": "加入后产生的 LP 代币",
@@ -895,7 +899,7 @@
     "Transaction type": "交易类型",
     "Remove liquidity": "退出流动",
     "You are removing LP tokens": "You are removing LP tokens",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "Resulting pool share": "Resulting pool share",
     "LP tokens to remove": "要删除的 LP 代币",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool",
@@ -1027,7 +1031,7 @@
     "incl. stabilization fee ({{dexStabilizationFee}}%)": "incl. stabilization fee ({{dexStabilizationFee}}%)",
     "Total fees": "Total fees",
     "Settlement Value {{percentageChange}}": "Settlement Value {{percentageChange}}",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
     "Token": "Token",
@@ -1077,7 +1081,7 @@
     "To receive (incl. of fees)": "To receive (incl. of fees)",
     "Estimated to receive (incl. all fees)": "Estimated to receive (incl. all fees)",
     "Fee breakdown": "Fee breakdown",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?": "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?"
   },
   "screens/PoolSwapConfirmScreen": {
@@ -1401,7 +1405,17 @@
     "CONTINUE": "继续",
     "Confirm your vault details in next screen": "在下一个屏幕上确认您的金库细节",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "您的金库的贷款计划将决定您所需的贷款抵押品",
-    "Min. collateralization ratio": "最低抵押率"
+    "Min. collateralization ratio": "最低抵押率",
+    "Select collateralization and interest scheme for your vault to start.": "Select collateralization and interest scheme for your vault to start.",
+    "Continue": "继续",
+    "Create vault": "创建金库",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "Monitor your vault’s collateralization to prevent liquidation.": "Monitor your vault’s collateralization to prevent liquidation.",
+    "Creating vault with a vault fee of {{vaultFee}} DFI": "Creating vault with a vault fee of {{vaultFee}} DFI",
+    "Transaction fee": "交易費用",
+    "Vault fee": "金库费用",
+    "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.",
+    "Amount to convert": "要转换的金额"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "您正在创建金库",
@@ -1701,7 +1715,9 @@
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "最低抵押率",
     "Interest rate": "利率",
-    "APR": "年回报率"
+    "APR": "年回报率",
+    "Collateralization": "Collateralization",
+    "Vault interest": "金库利息"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "您正要借更多贷款",
@@ -1790,7 +1806,7 @@
     "I WANT TO WITHDRAW": "I WANT TO WITHDRAW",
     "Withdraw from": "Withdraw from",
     "Insufficient Balance": "Insufficient Balance",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "Review full details in the next screen": "Review full details in the next screen",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
@@ -1812,7 +1828,7 @@
     "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap",
     "To be confirmed": "To be confirmed",
     "Withdraw future swap": "Withdraw future swap",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "To receive (est.)": "To receive (est.)",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from {{sourceSymbol}}-{{destinationSymbol}} swap": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from {{sourceSymbol}}-{{destinationSymbol}} swap"
   },
@@ -1898,5 +1914,11 @@
     "APR": "年回报率",
     "{{percentage}}% in rewards": "{{percentage}}% in rewards",
     "{{percentage}}% in commissions": "{{percentage}}% in commissions"
+  },
+  "components/PaybackDUSD": {
+    "PAYBACK WITH DUSD COLLATERAL": "PAYBACK WITH DUSD COLLATERAL",
+    "Payback with DUSD collateral": "Payback with DUSD collateral",
+    "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?",
+    "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral"
   }
 }

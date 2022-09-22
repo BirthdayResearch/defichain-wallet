@@ -257,11 +257,10 @@ export default async function handle(
     {
       id: "unloop_dusd",
       name: "Unloop DUSD loan",
-      stage: "alpha",
-      version: ">2.4.3",
+      stage: "public",
+      version: ">2.5.0",
       description: "Display payback DUSD loan with DUSD collateral",
       networks: [
-        EnvironmentNetwork.MainNet,
         EnvironmentNetwork.TestNet,
         EnvironmentNetwork.RemotePlayground,
         EnvironmentNetwork.LocalPlayground,

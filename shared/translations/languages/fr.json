@@ -296,7 +296,7 @@
     "Converting": "Converting",
     "Converted": "Converti",
     "Transaction fee": "Frais de transaction",
-    "Amount to convert": "Amount to convert",
+    "Amount to convert": "Montant à convertir",
     "Send": "Send",
     "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Envoi de {{amount}} {{displaySymbol}} à {{toAddress}}",
     "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "Je reconnais que l'envoi de tokens PL à des adresses qui ne sont pas des portefeuilles compatibles DeFiChain peut entraîner une perte irréversible de fonds."
@@ -713,7 +713,9 @@
     "Beta Features": "Fonctionnalités bêta",
     "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.": "Les fonctionnalités bêta du portefeuille léger sont en phase de test d'acceptation par les utilisateurs. L'utilisation des fonctionnalités bêta est encouragée, mais la prudence est de mise lorsque vous utilisez vos actifs.",
     "Feature is still in Beta. Use at your own risk.": "Cette fonction est encore en version bêta. Utilisez-la à vos risques et périls.",
-    "Allows the usage of custom server provider url": "Permet l'utilisation d'une url d'un fournisseur de serveur personnalisée."
+    "Allows the usage of custom server provider url": "Permet l'utilisation d'une url d'un fournisseur de serveur personnalisée.",
+    "Unloop DUSD loan": "Débloquer le prêt DUSD",
+    "Display payback DUSD loan with DUSD collateral": "Afficher le remboursement du prêt DUSD avec garantie DUSD"
   },
   "BottomTabNavigator": {
     "Balances": "Soldes",
@@ -797,7 +799,9 @@
     "Swapped {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Echangé {{amountA}} {{symbolA}} contre {{amountB}} {{symbolB}}",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échange de {{amountA}} {{symbolA}} avec {{amountB}} {{symbolB}}",
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Échanger {{amountA}} {{fromTokenDisplaySymbol}} à {{toTokenDisplaySymbol}} sur le bloc de règlement {{settlementBlock}}",
-    "Removing {{amount}} {{symbol}} from liquidity pool": "Retrait de {{amount}} {{symbol}} du pool de liquidité"
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Retrait de {{amount}} {{symbol}} du pool de liquidité",
+    "Paying back loan amount of {{amount}} DUSD": "Rückzahlung des Darlehensbetrages von {{amount}} DUSD",
+    "Paid loan amount of {{amount}} DUSD": "Getilgter Darlehensbetrag von {{amount}} DUSD"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Demande d'accès à votre caméra",
@@ -1408,7 +1412,17 @@
     "CONTINUE": "SUIVANT",
     "Confirm your vault details in next screen": "Validez les détails de votre vault à l'étape suivante",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "Le schéma de prêt de votre vault détermine la garantie requise de votre vault pour les prêts.",
-    "Min. collateralization ratio": "Ratio de garantie min."
+    "Min. collateralization ratio": "Ratio de garantie min.",
+    "Select collateralization and interest scheme for your vault to start.": "Select collateralization and interest scheme for your vault to start.",
+    "Continue": "Suivant",
+    "Create vault": "Créer un Vault",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "Monitor your vault’s collateralization to prevent liquidation.": "Monitor your vault’s collateralization to prevent liquidation.",
+    "Creating vault with a vault fee of {{vaultFee}} DFI": "Creating vault with a vault fee of {{vaultFee}} DFI",
+    "Transaction fee": "Frais de transaction",
+    "Vault fee": "Frais de Vault",
+    "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.",
+    "Amount to convert": "Montant à convertir"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Vous créez un vault",
@@ -1709,7 +1723,9 @@
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Ratio de garantie min.",
     "Interest rate": "Taux d'intérêt",
-    "APR": "TAEG"
+    "APR": "TAEG",
+    "Collateralization": "Collateralization",
+    "Vault interest": "Intérêt du vault"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "VOUS AUGMENTEZ VOTRE PRÊT",
@@ -1902,5 +1918,11 @@
     "APR": "TAEG",
     "{{percentage}}% in rewards": "{{percentage}}% en récompenses",
     "{{percentage}}% in commissions": "{{percentage}}% en commissions"
+  },
+  "components/PaybackDUSD": {
+    "PAYBACK WITH DUSD COLLATERAL": "REMBOURSEMENT AVEC GARANTIE EN DUSD",
+    "Payback with DUSD collateral": "Remboursement avec garantie DUSD",
+    "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Êtes-vous sûr de vouloir rembourser votre prêt en DUSD avec toutes les garanties en DUSD disponibles dans ce vault ?",
+    "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Remboursement d'un prêt de {{amountToPayInPaymentToken}} DUSD avec une garantie en DUSD"
   }
 }

@@ -720,7 +720,9 @@
     "Beta Features": "Herramienta en desarrollo",
     "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.": "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.",
     "Feature is still in Beta. Use at your own risk.": "Estas características están aún en prueba. Úsalas a tu propio riesgo.",
-    "Allows the usage of custom server provider url": "Allows the usage of custom server provider url"
+    "Allows the usage of custom server provider url": "Allows the usage of custom server provider url",
+    "Unloop DUSD loan": "Unloop DUSD loan",
+    "Display payback DUSD loan with DUSD collateral": "Display payback DUSD loan with DUSD collateral"
   },
   "BottomTabNavigator": {
     "Balances": "Saldos",
@@ -804,7 +806,9 @@
     "Swapped {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Swapped {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Intercambiando {{amountA}} {{symbolA}} a {{amountB}} {{symbolB}}",
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
-    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool",
+    "Paying back loan amount of {{amount}} DUSD": "Paying back loan amount of {{amount}} DUSD",
+    "Paid loan amount of {{amount}} DUSD": "Paid loan amount of {{amount}} DUSD"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Pidiendo acceso a la cámara",
@@ -1427,7 +1431,17 @@
     "CONTINUE": "CONTINUA",
     "Confirm your vault details in next screen": "Confirma los detalles de tu bóveda en la siguiente pantalla",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "El tipo de préstamo de tu bóveda determina el ratio de colateralización para pedir un préstamo.",
-    "Min. collateralization ratio": "Mínimo ratio de colateralización"
+    "Min. collateralization ratio": "Mínimo ratio de colateralización",
+    "Select collateralization and interest scheme for your vault to start.": "Select collateralization and interest scheme for your vault to start.",
+    "Continue": "Continúa",
+    "Create vault": "Crea una bóveda",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "Monitor your vault’s collateralization to prevent liquidation.": "Monitor your vault’s collateralization to prevent liquidation.",
+    "Creating vault with a vault fee of {{vaultFee}} DFI": "Creating vault with a vault fee of {{vaultFee}} DFI",
+    "Transaction fee": "Transaction fee",
+    "Vault fee": "Comisión de la bóveda",
+    "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.",
+    "Amount to convert": "Amount to convert"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Estás creando una bóveda",
@@ -1728,7 +1742,9 @@
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Ratio mínimo de colateralización",
     "Interest rate": "Tasa de interés",
-    "APR": "Tasa de interés anual (APR)"
+    "APR": "Tasa de interés anual (APR)",
+    "Collateralization": "Collateralization",
+    "Vault interest": "Interés de la bóveda"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "TU ESTAS PIDIENDO PRESTADO MAS POR TU PRESTAMO",
@@ -1921,5 +1937,11 @@
     "APR": "APR",
     "{{percentage}}% in rewards": "{{percentage}}% in rewards",
     "{{percentage}}% in commissions": "{{percentage}}% in commissions"
+  },
+  "components/PaybackDUSD": {
+    "PAYBACK WITH DUSD COLLATERAL": "PAYBACK WITH DUSD COLLATERAL",
+    "Payback with DUSD collateral": "Payback with DUSD collateral",
+    "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?",
+    "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral"
   }
 }
