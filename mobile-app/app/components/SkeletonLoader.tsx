@@ -93,7 +93,7 @@ export function SkeletonLoader(prop: SkeletonLoaderProp): JSX.Element {
       return (
         <>
           {skeletonRow.map((i) => (
-            <LoanSkeletonLoader key={i} />
+            <LoanSkeletonLoaderV2 key={i} />
           ))}
         </>
       );
