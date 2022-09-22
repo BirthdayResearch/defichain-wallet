@@ -96,7 +96,7 @@ export function LoansCarousel(): JSX.Element {
   return (
     <ThemedViewV2
       style={tailwind(
-        "items-center text-center",
+        "flex-1",
         { "-mt-0.5": Platform.OS === "ios" },
         { "-mt-1": Platform.OS === "android" }
       )}
