@@ -52,7 +52,7 @@ context(
       cy.closeOceanInterface().wait(3000);
       cy.getByTestID("conversion_status").should("have.text", "Converted");
       cy.getByTestID("text_swap_amount_from").should("contain", "11.00000000");
-      cy.getByTestID("text_swap_amount_to").should("contain", "909.09090899");
+      cy.getByTestID("text_swap_amount_to").should("contain", "1,100.00000000");
       cy.getByTestID("button_confirm_swap").click().wait(3000);
       cy.closeOceanInterface();
     });
