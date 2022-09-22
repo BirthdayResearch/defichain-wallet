@@ -21,7 +21,7 @@ export const PaginationButton: React.FC<PaginationProps> = ({
 
   const goToNextPage = useCallback(
     (curPage: number) => {
-      if (curPage < 4) {
+      if (curPage < PAGINATION_END + 1) {
         setCurIndex(curPage);
         scrollToIndex({ index: curPage });
       }
