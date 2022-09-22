@@ -11,7 +11,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Platform, StyleProp, ViewStyle } from "react-native";
 import { ThemedTextV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
-import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import {
   SelectionToken,
   SwapTokenSelectionScreen,
@@ -138,13 +137,11 @@ const DexStack = createStackNavigator<DexParamList>();
 
 export function DexNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>();
-  const headerContainerTestId = "dex_header_container";
   const screenOptions = useNavigatorScreenOptions();
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreen");
   };
   const insets = useSafeAreaInsets();
-  const { isFeatureAvailable } = useFeatureFlagContext();
 
   return (
     <DexStack.Navigator
