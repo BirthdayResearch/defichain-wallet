@@ -27,6 +27,9 @@ export function VaultsV2(): JSX.Element {
   const { address } = useWalletContext();
   const blockCount = useSelector((state: RootState) => state.block.count);
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
+  const { hasFetchedVaultsData } = useSelector(
+    (state: RootState) => state.loans
+  );
   const ref = useRef(null);
   useScrollToTop(ref);
 
@@ -39,11 +42,6 @@ export function VaultsV2(): JSX.Element {
   useEffect(() => {
     dispatch(fetchCollateralTokens({ client }));
   }, []);
-
-  const {
-    vaults: _vaults, // ? TODO: find out diff
-    hasFetchedVaultsData,
-  } = useSelector((state: RootState) => state.loans);
 
   if (!hasFetchedVaultsData) {
     return (
