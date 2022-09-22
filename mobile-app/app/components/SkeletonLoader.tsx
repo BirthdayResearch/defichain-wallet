@@ -81,11 +81,19 @@ export function SkeletonLoader(prop: SkeletonLoaderProp): JSX.Element {
           ))}
         </>
       );
+    case SkeletonLoaderScreen.Loan:
+      return (
+        <>
+          {skeletonRow.map((i) => (
+            <LoanSkeletonLoader key={i} />
+          ))}
+        </>
+      );
     case SkeletonLoaderScreen.LoanV2:
       return (
         <>
           {skeletonRow.map((i) => (
-            <LoanSkeletonLoaderV2 key={i} />
+            <LoanSkeletonLoader key={i} />
           ))}
         </>
       );
