@@ -1,6 +1,7 @@
 import { LoanScheme } from "@defichain/whale-api-client/dist/api/loan";
 import BigNumber from "bignumber.js";
 import { VaultStatus } from "../../../../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes";
+import { checkValueWithinRange } from "../../../../support/walletCommands";
 
 function setupWalletForConversion(): void {
   cy.getByTestID("bottom_tab_portfolio").click();
@@ -100,10 +101,13 @@ context("Wallet - Loan - Create vault summary", () => {
       "disabled"
     );
     cy.getByTestID("create_vault_submit_button").click().wait(3000);
-    cy.getByTestID("txn_authorization_title").should(
-      "have.text",
-      `Convert 2.00003301 DFI to UTXO`
-    );
+
+    cy.getByTestID("txn_authorization_title")
+      .invoke("text")
+      .then((text: string) => {
+        const value = text.replace(/[^\d.]/g, ""); // use regex to retrieve number value only
+        checkValueWithinRange(value, "2.0000", 0.0001);
+      });
     cy.closeOceanInterface().wait(6000);
     validateSummary(true);
     cy.getByTestID("action_message").should(
