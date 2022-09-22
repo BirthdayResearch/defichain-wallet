@@ -49,11 +49,11 @@ export const PaginationButton: React.FC<PaginationProps> = ({
   return (
     <ThemedTouchableOpacityV2
       onPress={() => {
-        if (curIndex <= PAGINATION_END) {
-          goToNextPage(curIndex + 1);
+        if (curIndex < PAGINATION_END + 1) {
+          return goToNextPage(curIndex + 1);
         }
         if (endOfPagination) {
-          dismissModal(); // @chloe TODO: should close bottom sheet?
+          return dismissModal(); // @chloe TODO: should close bottom sheet?
         }
       }}
       dark={tailwind("border-mono-dark-v2-900")}
