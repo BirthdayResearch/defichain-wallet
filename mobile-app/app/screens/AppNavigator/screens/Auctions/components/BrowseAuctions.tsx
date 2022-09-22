@@ -180,7 +180,7 @@ export function BrowseAuctions({
               <BottomSheetHeader
                 headerStyle={{
                   style: tailwind(
-                    "text-xl font-normal-v2 text-center mt-5 pt-0.5"
+                    "text-xl font-semibold-v2 text-center mt-5 pt-0.5"
                   ),
                   light: tailwind("text-mono-light-v2-1000"),
                   dark: tailwind("text-mono-dark-v2-1000"),

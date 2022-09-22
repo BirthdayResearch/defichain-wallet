@@ -138,8 +138,8 @@ export const QuickBid = ({
                 suffix={` ${loanTokenDisplaySymbol}`}
                 renderText={(value: string) => (
                   <ThemedTextV2
-                    light={tailwind("text-mono-light-v2-700")}
-                    dark={tailwind("text-mono-dark-v2-700")}
+                    light={tailwind("text-mono-light-v2-500")}
+                    dark={tailwind("text-mono-dark-v2-500")}
                     style={tailwind(
                       "text-sm flex-wrap text-center font-normal-v2"
                     )}
@@ -165,8 +165,8 @@ export const QuickBid = ({
                     testID: "transaction_fee_label",
                     themedProps: {
                       style: tailwind("text-xs font-normal-v2"),
-                      light: tailwind("text-mono-light-v2-700"),
-                      dark: tailwind("text-mono-dark-v2-700"),
+                      light: tailwind("text-mono-light-v2-500"),
+                      dark: tailwind("text-mono-dark-v2-500"),
                     },
                   }}
                   rhs={{
