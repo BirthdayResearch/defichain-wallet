@@ -14,11 +14,11 @@ import ImageALight from "@assets/images/loans/loans_1_light.png";
 import ImageBLight from "@assets/images/loans/loans_2_light.png";
 import ImageCLight from "@assets/images/loans/loans_3_light.png";
 import ImageDLight from "@assets/images/loans/loans_4_light.png";
-import { ThemedTextV2 } from "@components/themed";
+import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { CarouselPagination } from "@screens/WalletNavigator/screens/components/CarouselPagination";
+import { CarouselPaginationWithNextButton } from "@screens/WalletNavigator/screens/components/CarouselPagination";
 import React from "react";
 
 interface CarouselImage {
@@ -93,76 +93,47 @@ export function ImageSlide({
 export function LoansCarousel(): JSX.Element {
   const { isLight } = useThemeContext();
 
-  // const scrollRef = useRef<SwiperFlatList>(null);
-  // const onPressNextPage = (): void => {
-  //   scrollRef?.current?.scrollToIndex({
-  //     index: (scrollRef.current?.getCurrentIndex() ?? 0) + 1,
-  //   });
-  // };
-  // const [buttonLabel, setButtonLabel] = useState("Next");
-
-  // useEffect(() => {
-  //   if (scrollRef.current !== null) {
-  //     if (scrollRef.current?.getCurrentIndex() > 3) {
-  //       setButtonLabel("Done");
-  //     } else {
-  //       setButtonLabel("Next");
-  //     }
-  //   }
-  // }, [scrollRef]);
-
   return (
-    <View
-      style={tailwind("flex-1", {
-        "bg-mono-light-v2-100": isLight,
-        "bg-mono-dark-v2-100": !isLight,
-      })}
+    <ThemedViewV2
+      style={tailwind(
+        "items-center text-center",
+        { "-mt-0.5": Platform.OS === "ios" },
+        { "-mt-1": Platform.OS === "android" }
+      )}
     >
-      <SwiperFlatList
-        // ref={scrollRef}
-        autoplay
-        autoplayDelay={30}
-        autoplayLoop
-        autoplayLoopKeepAnimation
-        data={slides}
-        index={0}
-        paginationActiveColor={
-          isLight ? getColor("mono-light-v2-900") : getColor("mono-dark-v2-900")
-        }
-        paginationStyleItemActive={tailwind("w-6 h-1.5")}
-        paginationDefaultColor={
-          isLight ? getColor("mono-light-v2-500") : getColor("mono-dark-v2-500")
-        }
-        paginationStyleItem={tailwind("h-1.5 w-1.5 mx-0.75")}
-        PaginationComponent={CarouselPagination}
-        renderItem={({ item }) => <View style={{ width }}>{item}</View>}
-        showPagination
-      />
-      {/* <ButtonOutline onPress={onPressNextPage} label={buttonLabel} /> */}
-    </View>
+      {/* -mt-1 above and mt-1 added below is kind of hack to solved React Navigation elevation bug on android for now. */}
+      <View
+        style={tailwind({
+          "mt-1": Platform.OS === "ios",
+          "mt-2": Platform.OS === "android",
+        })}
+      >
+        <SwiperFlatList
+          // ref={scrollRef}
+          autoplay
+          autoplayDelay={30}
+          autoplayLoop
+          autoplayLoopKeepAnimation
+          data={slides}
+          index={0}
+          paginationActiveColor={
+            isLight
+              ? getColor("mono-light-v2-900")
+              : getColor("mono-dark-v2-900")
+          }
+          paginationStyleItemActive={tailwind("w-6 h-1.5")}
+          paginationDefaultColor={
+            isLight
+              ? getColor("mono-light-v2-500")
+              : getColor("mono-dark-v2-500")
+          }
+          paginationStyleItem={tailwind("h-1.5 w-1.5 mx-0.75")}
+          PaginationComponent={CarouselPaginationWithNextButton}
+          renderItem={({ item }) => <View style={{ width }}>{item}</View>}
+          showPagination
+        />
+        {/* <ButtonOutline onPress={onPressNextPage} label={buttonLabel} /> */}
+      </View>
+    </ThemedViewV2>
   );
 }
-
-// interface ButtonOutlineProps {
-//   onPress: () => void;
-//   label: string;
-// }
-
-// function ButtonOutline(props: ButtonOutlineProps): JSX.Element {
-//   return (
-//     <ThemedTouchableOpacityV2
-//       onPress={props.onPress}
-//       dark={tailwind("border-mono-dark-v2-900")}
-//       light={tailwind("border-mono-light-v2-900")}
-//       style={tailwind("rounded-2xl-v2 text-center py-2 px-4 border")}
-//     >
-//       <ThemedTextV2
-//         style={tailwind("font-normal-v2 text-center text-base")}
-//         light={tailwind("text-mono-light-v2-900")}
-//         dark={tailwind("text-mono-dark-v2-900")}
-//       >
-//         {translate("screens/LoansCarousel", props.label)}
-//       </ThemedTextV2>
-//     </ThemedTouchableOpacityV2>
-//   );
-// }

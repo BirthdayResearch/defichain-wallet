@@ -44,7 +44,7 @@ export const PaginationButton: React.FC<PaginationProps> = ({
     } else {
       setButtonLabel("Done");
     }
-  }, [curIndex, paginationIndex]);
+  }, [curIndex]);
 
   return (
     <ThemedTouchableOpacityV2

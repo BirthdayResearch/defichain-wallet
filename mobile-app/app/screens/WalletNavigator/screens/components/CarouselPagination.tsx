@@ -5,10 +5,16 @@ import { Pagination, PaginationProps } from "react-native-swiper-flatlist";
 import { PaginationButton } from "./PaginationButton";
 
 export function CarouselPagination(props: PaginationProps): JSX.Element {
+  return <Pagination {...props} paginationStyle={styles.paginationContainer} />;
+}
+
+export function CarouselPaginationWithNextButton(
+  props: PaginationProps
+): JSX.Element {
   return (
     <>
       <Pagination {...props} paginationStyle={styles.paginationContainer} />
-      <View style={tailwind("px-15 pb-10")}>
+      <View style={tailwind("px-15 pb-15")}>
         <PaginationButton
           {...props}
           paginationStyle={styles.paginationContainer}
