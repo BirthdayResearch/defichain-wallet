@@ -191,6 +191,11 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
               </ThemedTouchableOpacityV2>
             </View>
           </View>
+          <VerticalProgressBar
+            height={progressBarHeight}
+            normalizedBlocks={normalizedBlocks.toNumber()}
+            color={timeRemainingThemedColor}
+          />
         </View>
         <VerticalProgressBar
           height={progressBarHeight}

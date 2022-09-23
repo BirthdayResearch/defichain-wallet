@@ -38,25 +38,28 @@ export default async function handle(
     },
     {
       lang: {
-        en: "Negative interest rate is in effect for DUSD loans due to DFIP-2208-A.",
-        de: "Für DUSD-Darlehen gilt aufgrund des DFIP-2208-A ein negativer Zinssatz.",
+        en: "Fort Canning Epilogue is now live! All new, and existing vaults with DUSD loans and DUSD collateral are now required to maintain at least 50% of collateral in DFI. DUSD collateral factor has also increased to 1.2.",
+        de: "Fort Canning Epilogue ist jetzt live! Alle neuen und bestehenden Vaults mit DUSD-Darlehen und DUSD-Sicherheiten müssen nun mindestens 50% der Sicherheiten in DFI halten. Der Besicherungswert von DUSD wurde außerdem um Faktor 1,2 erhöht.",
         "zh-Hans":
-          "Negative interest rate is in effect for DUSD loans due to DFIP-2208-A.",
+          "Fort Canning Epilogue is now live! All new, and existing vaults with DUSD loans and DUSD collateral are now required to maintain at least 50% of collateral in DFI. DUSD collateral factor has also increased to 1.2.",
         "zh-Hant":
-          "Negative interest rate is in effect for DUSD loans due to DFIP-2208-A.",
-        fr: "Le taux d'intérêt négatif est en vigueur pour les prêts DUSD en raison du DFIP-2208-A.",
-        es: "Negative interest rate is in effect for DUSD loans due to DFIP-2208-A.",
-        it: "Negative interest rate is in effect for DUSD loans due to DFIP-2208-A.",
+          "Fort Canning Epilogue is now live! All new, and existing vaults with DUSD loans and DUSD collateral are now required to maintain at least 50% of collateral in DFI. DUSD collateral factor has also increased to 1.2.",
+        fr: "Fort Canning Epilogue est maintenant en ligne ! Tous les nouveaux vaults, et les vaults existants avec des prêts en DUSD et des garanties en DUSD sont maintenant tenus de maintenir au moins 50% des garanties en DFI. Le facteur de garantie DUSD est également passé à 1,2.",
+        es: "Fort Canning Epilogue is now live! All new, and existing vaults with DUSD loans and DUSD collateral are now required to maintain at least 50% of collateral in DFI. DUSD collateral factor has also increased to 1.2.",
+        it: "Fort Canning Epilogue is now live! All new, and existing vaults with DUSD loans and DUSD collateral are now required to maintain at least 50% of collateral in DFI. DUSD collateral factor has also increased to 1.2.",
       },
       version: ">=1.61.1",
       type: "OTHER_ANNOUNCEMENT",
-      id: "15",
+      id: "16",
       url: {
-        ios: "https://github.com/DeFiCh/dfips/issues/195",
-        android: "https://github.com/DeFiCh/dfips/issues/195",
-        web: "https://github.com/DeFiCh/dfips/issues/195",
-        windows: "https://github.com/DeFiCh/dfips/issues/195",
-        macos: "https://github.com/DeFiCh/dfips/issues/195",
+        ios: "https://blog.defichain.com/new-rules-guide-decentralized-loans/",
+        android:
+          "https://blog.defichain.com/new-rules-guide-decentralized-loans/",
+        web: "https://blog.defichain.com/new-rules-guide-decentralized-loans/",
+        windows:
+          "https://blog.defichain.com/new-rules-guide-decentralized-loans/",
+        macos:
+          "https://blog.defichain.com/new-rules-guide-decentralized-loans/",
       },
     },
   ]);
