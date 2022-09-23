@@ -220,7 +220,7 @@ export function LoansScreenV2({ navigation }: Props): JSX.Element {
         <LoanCardsV2
           testID="loans_cards"
           loans={filteredLoans}
-          vaultExist={vaults?.length !== 0 && isVaultReady}
+          vaultExist={isVaultReady}
         />
       )}
     </ThemedViewV2>
