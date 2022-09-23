@@ -5,29 +5,21 @@ exports[`Batch Card should match snapshot 1`] = `
   style={
     [
       {
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftWidth": 1,
-        "borderRightWidth": 1,
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
         "marginBottom": 8,
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 16,
+        "marginLeft": 20,
+        "marginRight": 20,
+        "overflow": "hidden",
       },
       {
         "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderTopColor": "rgba(229, 229, 229, 1)",
       },
     ]
   }
+  testID="batch_card"
 >
   <View
     accessible={true}
@@ -48,397 +40,409 @@ exports[`Batch Card should match snapshot 1`] = `
     testID="batch_card"
   >
     <View
+      onLayout={[Function]}
       style={
         {
-          "alignItems": "center",
+          "alignItems": "flex-start",
+          "display": "flex",
           "flexDirection": "row",
           "justifyContent": "space-between",
-          "width": "100%",
         }
       }
     >
       <View
         style={
           {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "paddingBottom": 20,
+            "paddingLeft": 20,
+            "paddingRight": 14,
+            "paddingTop": 20,
           }
         }
       >
-        <View
-          style={
-            [
-              {
-                "alignItems": "center",
-                "borderBottomLeftRadius": 9999,
-                "borderBottomRightRadius": 9999,
-                "borderTopLeftRadius": 9999,
-                "borderTopRightRadius": 9999,
-                "height": 16,
-                "justifyContent": "center",
-                "width": 16,
-              },
-              {
-                "backgroundColor": "rgba(245, 245, 245, 1)",
-              },
-            ]
-          }
-        >
-          <RNSVGSvgView
-            align="xMidYMid"
-            bbHeight={17}
-            bbWidth={17}
-            focusable={false}
-            height={17}
-            meetOrSlice={0}
-            minX={0}
-            minY={0}
-            style={
-              [
-                {
-                  "backgroundColor": "transparent",
-                  "borderWidth": 0,
-                },
-                {
-                  "flex": 0,
-                  "height": 17,
-                  "width": 17,
-                },
-              ]
-            }
-            vbHeight={32}
-            vbWidth={32}
-            width={17}
-          >
-            <RNSVGGroup>
-              <RNSVGPath
-                d="M32 15.9908C32 24.8268 24.836 31.9908 16 31.9908C7.164 31.9908 0 24.8268 0 15.9908C0 7.15484 7.164 -0.00915527 16 -0.00915527C24.836 -0.00915527 32 7.15484 32 15.9908Z"
-                fill={4294954223}
-                propList={
-                  [
-                    "fill",
-                  ]
-                }
-              />
-              <RNSVGPath
-                d="M15.9704 3.6842L18.5494 4.37527L17.2958 9.05185L21.9734 10.3059L21.2823 12.885L15.8448 11.4272L14.017 12.4833C13.3798 12.8508 13.1617 13.6645 13.5304 14.3025C13.8979 14.9397 14.7116 15.1577 15.3496 14.7891C17.2638 13.685 19.7107 14.3408 20.8157 16.2545C21.8841 18.1067 21.3047 20.4576 19.532 21.6104L19.3508 21.7216L17.2928 22.9092L15.8783 28.1912L13.2992 27.5002L14.5098 22.9758L9.98877 21.7659L10.6792 19.1867L15.9548 20.5982L18.0149 19.4099C18.6522 19.0412 18.8706 18.2261 18.5032 17.5891C18.1357 16.9526 17.3211 16.7343 16.6846 17.1014C14.77 18.2077 12.3222 17.5517 11.2181 15.6374C10.1474 13.7846 10.7273 11.4325 12.5011 10.2817L12.6825 10.1707L14.5158 9.1112L15.9704 3.6842Z"
-                fill={4294901935}
-                propList={
-                  [
-                    "fill",
-                  ]
-                }
-              />
-            </RNSVGGroup>
-          </RNSVGSvgView>
-        </View>
         <View
           style={
             {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
               "flexDirection": "row",
-              "justifyContent": "center",
-              "marginLeft": 8,
+              "justifyContent": "space-between",
             }
           }
         >
-          <Text
-            style={
-              [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                [
-                  {
-                    "flexShrink": 1,
-                    "fontFamily": "SemiBoldFont",
-                    "fontWeight": "600",
-                  },
-                  {
-                    "color": "rgba(0, 0, 0, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="batch_0_DUSD"
-          >
-            DUSD
-          </Text>
-          <View
-            accessible={true}
-            collapsable={false}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            style={
-              {
-                "opacity": 1,
-              }
-            }
-            testID="ocean_vault_explorer"
-          >
-            <Text />
-          </View>
-        </View>
-      </View>
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "center",
-          }
-        }
-      >
-        <View
-          style={
-            [
-              {
-                "borderBottomLeftRadius": 4,
-                "borderBottomRightRadius": 4,
-                "borderBottomWidth": 1,
-                "borderLeftWidth": 1,
-                "borderRightWidth": 1,
-                "borderTopLeftRadius": 4,
-                "borderTopRightRadius": 4,
-                "borderTopWidth": 1,
-                "display": "flex",
-                "flexDirection": "row",
-                "paddingBottom": 4,
-                "paddingLeft": 8,
-                "paddingRight": 8,
-                "paddingTop": 4,
-              },
-              {
-                "backgroundColor": "rgba(255, 255, 255, 1)",
-                "borderBottomColor": "rgba(229, 229, 229, 1)",
-                "borderLeftColor": "rgba(229, 229, 229, 1)",
-                "borderRightColor": "rgba(229, 229, 229, 1)",
-                "borderTopColor": "rgba(229, 229, 229, 1)",
-              },
-            ]
-          }
-        >
-          <RNSVGSvgView
-            align="xMidYMid"
-            bbHeight={16}
-            bbWidth={16}
-            focusable={false}
-            height={16}
-            meetOrSlice={0}
-            minX={0}
-            minY={0}
-            style={
-              [
-                {
-                  "backgroundColor": "transparent",
-                  "borderWidth": 0,
-                },
-                {
-                  "flex": 0,
-                  "height": 16,
-                  "width": 16,
-                },
-              ]
-            }
-            vbHeight={32}
-            vbWidth={32}
-            width={16}
-          >
-            <RNSVGGroup>
-              <RNSVGCircle
-                cx={16}
-                cy={16}
-                fill={4294901935}
-                propList={
-                  [
-                    "fill",
-                  ]
-                }
-                r={16}
-              />
-              <RNSVGPath
-                d="M18.217 23.454V8.546c3.21.958 5.555 3.937 5.555 7.454s-2.346 6.496-5.555 7.454M15.994 6v8.428l-1.269-1.27-.162-3.167 1.324-3.985a9.952 9.952 0 00-2.454.338l-.64 1.926-1.816-.91a10.03 10.03 0 00-1.974 1.497l3.363 1.685.098 1.928-1.927-.099L8.85 9.01a10.035 10.035 0 00-1.497 1.973l.911 1.816-1.927.64A9.978 9.978 0 006 15.892l3.986-1.324 3.168.162 1.27 1.27-1.27 1.27-3.168.162L6 16.108c.009.849.13 1.669.338 2.454l1.927.64-.911 1.816c.418.719.92 1.383 1.497 1.973l1.686-3.362 1.927-.099-.098 1.928-3.363 1.685a10.04 10.04 0 001.974 1.498l1.815-.911.64 1.926a9.94 9.94 0 002.455.338l-1.324-3.985.162-3.168 1.27-1.27V26c5.522 0 10-4.477 10-10s-4.478-10-10-10"
-                fill={4294967295}
-                propList={
-                  [
-                    "fill",
-                  ]
-                }
-              />
-            </RNSVGGroup>
-          </RNSVGSvgView>
-          <RNSVGSvgView
-            align="xMidYMid"
-            bbHeight={16}
-            bbWidth={16}
-            focusable={false}
-            height={16}
-            meetOrSlice={0}
-            minX={0}
-            minY={0}
-            style={
-              [
-                {
-                  "backgroundColor": "transparent",
-                  "borderWidth": 0,
-                },
-                {
-                  "flex": 0,
-                  "height": 16,
-                  "width": 16,
-                },
-              ]
-            }
-            vbHeight={32}
-            vbWidth={32}
-            width={16}
-          >
-            <RNSVGGroup>
-              <RNSVGCircle
-                cx={16}
-                cy={16}
-                fill={4292929019}
-                propList={
-                  [
-                    "fill",
-                  ]
-                }
-                r={16}
-              />
-              <RNSVGPath
-                d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
-                fill={4294967295}
-                propList={
-                  [
-                    "fill",
-                  ]
-                }
-              />
-              <RNSVGPath
-                d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
-                fill={4284645098}
-                fillOpacity={0.8}
-                propList={
-                  [
-                    "fill",
-                    "fillOpacity",
-                  ]
-                }
-              />
-              <RNSVGPath
-                d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
-                fill={4294967295}
-                propList={
-                  [
-                    "fill",
-                  ]
-                }
-              />
-              <RNSVGPath
-                d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
-                fill={4284645098}
-                fillOpacity={0.6}
-                propList={
-                  [
-                    "fill",
-                    "fillOpacity",
-                  ]
-                }
-              />
-              <RNSVGPath
-                d="M15.998 20.573l7.497-4.353-7.497-3.348z"
-                fill={4284645098}
-                propList={
-                  [
-                    "fill",
-                  ]
-                }
-              />
-            </RNSVGGroup>
-          </RNSVGSvgView>
-          <RNSVGSvgView
-            align="xMidYMid"
-            bbHeight={16}
-            bbWidth={16}
-            focusable={false}
-            height={16}
-            meetOrSlice={0}
-            minX={0}
-            minY={0}
-            style={
-              [
-                {
-                  "backgroundColor": "transparent",
-                  "borderWidth": 0,
-                },
-                {
-                  "flex": 0,
-                  "height": 16,
-                  "width": 16,
-                },
-              ]
-            }
-            vbHeight={32}
-            vbWidth={32}
-            width={16}
-          >
-            <RNSVGGroup>
-              <RNSVGPath
-                d="M31.521 19.87c-2.137 8.572-10.82 13.788-19.393 11.651C3.558 29.384-1.659 20.702.479 12.131 2.616 3.56 11.298-1.659 19.87.48c8.573 2.137 13.79 10.82 11.652 19.392z"
-                fill={4294415130}
-                propList={
-                  [
-                    "fill",
-                  ]
-                }
-              />
-              <RNSVGPath
-                d="M22.96 14.04c.313-2.101-1.276-3.23-3.448-3.985l.705-2.846-1.72-.432-.686 2.772a67.899 67.899 0 00-1.379-.327l.691-2.79L15.404 6l-.705 2.846a57.2 57.2 0 01-1.099-.26l.002-.01-2.372-.596-.458 1.85s1.277.296 1.25.314c.696.175.822.64.801 1.008l-.802 3.243c.048.012.11.03.179.057l-.182-.045-1.125 4.543c-.085.213-.302.533-.789.412.018.025-1.25-.315-1.25-.315L8 21.031l2.239.562c.416.105.824.215 1.226.319l-.712 2.88 1.718.431.706-2.849c.469.129.925.247 1.37.359l-.702 2.835 1.72.432.712-2.874c2.934.56 5.14.334 6.068-2.339.748-2.152-.037-3.393-1.58-4.202 1.123-.261 1.97-1.006 2.196-2.545zm-4.012 5.8c-.497 1.961-3.858.901-4.948.635L14.883 17c1.09.267 4.584.796 4.065 2.84zm.991-6.05c-.538 1.993-3.861.98-4.939.732L15.95 11c1.079.248 4.55.712 3.99 2.79z"
-                fill={4294967295}
-                propList={
-                  [
-                    "fill",
-                  ]
-                }
-              />
-            </RNSVGGroup>
-          </RNSVGSvgView>
           <View
             style={
               [
                 {
                   "alignItems": "center",
-                  "borderBottomLeftRadius": 9999,
-                  "borderBottomRightRadius": 9999,
-                  "borderTopLeftRadius": 9999,
-                  "borderTopRightRadius": 9999,
                   "display": "flex",
-                  "height": 16,
-                  "justifyContent": "center",
-                  "width": 16,
+                  "flexDirection": "row",
+                  "position": "relative",
                 },
                 {
-                  "backgroundColor": "rgba(64, 64, 64, 1)",
-                  "borderBottomColor": "rgba(255, 255, 255, 1)",
-                  "borderLeftColor": "rgba(255, 255, 255, 1)",
-                  "borderRightColor": "rgba(255, 255, 255, 1)",
-                  "borderTopColor": "rgba(255, 255, 255, 1)",
+                  "right": 0,
                 },
               ]
             }
           >
+            <View
+              style={
+                [
+                  {
+                    "borderBottomLeftRadius": 9999,
+                    "borderBottomRightRadius": 9999,
+                    "borderTopLeftRadius": 9999,
+                    "borderTopRightRadius": 9999,
+                    "paddingBottom": 1,
+                    "paddingLeft": 1,
+                    "paddingRight": 1,
+                    "paddingTop": 1,
+                    "position": "relative",
+                  },
+                  {
+                    "left": -0,
+                  },
+                ]
+              }
+              testID="required_collateral_token_group_DFI"
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight={24}
+                bbWidth={24}
+                focusable={false}
+                height={24}
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  [
+                    {
+                      "backgroundColor": "transparent",
+                      "borderWidth": 0,
+                    },
+                    {
+                      "flex": 0,
+                      "height": 24,
+                      "width": 24,
+                    },
+                  ]
+                }
+                vbHeight={32}
+                vbWidth={32}
+                width={24}
+              >
+                <RNSVGGroup>
+                  <RNSVGCircle
+                    cx={16}
+                    cy={16}
+                    fill={4294901935}
+                    propList={
+                      [
+                        "fill",
+                      ]
+                    }
+                    r={16}
+                  />
+                  <RNSVGPath
+                    d="M18.217 23.454V8.546c3.21.958 5.555 3.937 5.555 7.454s-2.346 6.496-5.555 7.454M15.994 6v8.428l-1.269-1.27-.162-3.167 1.324-3.985a9.952 9.952 0 00-2.454.338l-.64 1.926-1.816-.91a10.03 10.03 0 00-1.974 1.497l3.363 1.685.098 1.928-1.927-.099L8.85 9.01a10.035 10.035 0 00-1.497 1.973l.911 1.816-1.927.64A9.978 9.978 0 006 15.892l3.986-1.324 3.168.162 1.27 1.27-1.27 1.27-3.168.162L6 16.108c.009.849.13 1.669.338 2.454l1.927.64-.911 1.816c.418.719.92 1.383 1.497 1.973l1.686-3.362 1.927-.099-.098 1.928-3.363 1.685a10.04 10.04 0 001.974 1.498l1.815-.911.64 1.926a9.94 9.94 0 002.455.338l-1.324-3.985.162-3.168 1.27-1.27V26c5.522 0 10-4.477 10-10s-4.478-10-10-10"
+                    fill={4294967295}
+                    propList={
+                      [
+                        "fill",
+                      ]
+                    }
+                  />
+                </RNSVGGroup>
+              </RNSVGSvgView>
+            </View>
+            <View
+              style={
+                [
+                  {
+                    "borderBottomLeftRadius": 9999,
+                    "borderBottomRightRadius": 9999,
+                    "borderTopLeftRadius": 9999,
+                    "borderTopRightRadius": 9999,
+                    "paddingBottom": 1,
+                    "paddingLeft": 1,
+                    "paddingRight": 1,
+                    "paddingTop": 1,
+                    "position": "relative",
+                  },
+                  {
+                    "left": -8,
+                  },
+                ]
+              }
+              testID="required_collateral_token_group_dETH"
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight={24}
+                bbWidth={24}
+                focusable={false}
+                height={24}
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  [
+                    {
+                      "backgroundColor": "transparent",
+                      "borderWidth": 0,
+                    },
+                    {
+                      "flex": 0,
+                      "height": 24,
+                      "width": 24,
+                    },
+                  ]
+                }
+                vbHeight={32}
+                vbWidth={32}
+                width={24}
+              >
+                <RNSVGGroup>
+                  <RNSVGCircle
+                    cx={16}
+                    cy={16}
+                    fill={4292929019}
+                    propList={
+                      [
+                        "fill",
+                      ]
+                    }
+                    r={16}
+                  />
+                  <RNSVGPath
+                    d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
+                    fill={4294967295}
+                    propList={
+                      [
+                        "fill",
+                      ]
+                    }
+                  />
+                  <RNSVGPath
+                    d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
+                    fill={4284645098}
+                    fillOpacity={0.8}
+                    propList={
+                      [
+                        "fill",
+                        "fillOpacity",
+                      ]
+                    }
+                  />
+                  <RNSVGPath
+                    d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
+                    fill={4294967295}
+                    propList={
+                      [
+                        "fill",
+                      ]
+                    }
+                  />
+                  <RNSVGPath
+                    d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
+                    fill={4284645098}
+                    fillOpacity={0.6}
+                    propList={
+                      [
+                        "fill",
+                        "fillOpacity",
+                      ]
+                    }
+                  />
+                  <RNSVGPath
+                    d="M15.998 20.573l7.497-4.353-7.497-3.348z"
+                    fill={4284645098}
+                    propList={
+                      [
+                        "fill",
+                      ]
+                    }
+                  />
+                </RNSVGGroup>
+              </RNSVGSvgView>
+            </View>
+            <View
+              style={
+                [
+                  {
+                    "borderBottomLeftRadius": 9999,
+                    "borderBottomRightRadius": 9999,
+                    "borderTopLeftRadius": 9999,
+                    "borderTopRightRadius": 9999,
+                    "paddingBottom": 1,
+                    "paddingLeft": 1,
+                    "paddingRight": 1,
+                    "paddingTop": 1,
+                    "position": "relative",
+                  },
+                  {
+                    "left": -16,
+                  },
+                ]
+              }
+              testID="required_collateral_token_group_BTC"
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight={24}
+                bbWidth={24}
+                focusable={false}
+                height={24}
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  [
+                    {
+                      "backgroundColor": "transparent",
+                      "borderWidth": 0,
+                    },
+                    {
+                      "flex": 0,
+                      "height": 24,
+                      "width": 24,
+                    },
+                  ]
+                }
+                vbHeight={32}
+                vbWidth={32}
+                width={24}
+              >
+                <RNSVGGroup>
+                  <RNSVGPath
+                    d="M31.521 19.87c-2.137 8.572-10.82 13.788-19.393 11.651C3.558 29.384-1.659 20.702.479 12.131 2.616 3.56 11.298-1.659 19.87.48c8.573 2.137 13.79 10.82 11.652 19.392z"
+                    fill={4294415130}
+                    propList={
+                      [
+                        "fill",
+                      ]
+                    }
+                  />
+                  <RNSVGPath
+                    d="M22.96 14.04c.313-2.101-1.276-3.23-3.448-3.985l.705-2.846-1.72-.432-.686 2.772a67.899 67.899 0 00-1.379-.327l.691-2.79L15.404 6l-.705 2.846a57.2 57.2 0 01-1.099-.26l.002-.01-2.372-.596-.458 1.85s1.277.296 1.25.314c.696.175.822.64.801 1.008l-.802 3.243c.048.012.11.03.179.057l-.182-.045-1.125 4.543c-.085.213-.302.533-.789.412.018.025-1.25-.315-1.25-.315L8 21.031l2.239.562c.416.105.824.215 1.226.319l-.712 2.88 1.718.431.706-2.849c.469.129.925.247 1.37.359l-.702 2.835 1.72.432.712-2.874c2.934.56 5.14.334 6.068-2.339.748-2.152-.037-3.393-1.58-4.202 1.123-.261 1.97-1.006 2.196-2.545zm-4.012 5.8c-.497 1.961-3.858.901-4.948.635L14.883 17c1.09.267 4.584.796 4.065 2.84zm.991-6.05c-.538 1.993-3.861.98-4.939.732L15.95 11c1.079.248 4.55.712 3.99 2.79z"
+                    fill={4294967295}
+                    propList={
+                      [
+                        "fill",
+                      ]
+                    }
+                  />
+                </RNSVGGroup>
+              </RNSVGSvgView>
+            </View>
+            <View
+              style={
+                [
+                  {
+                    "borderBottomLeftRadius": 9999,
+                    "borderBottomRightRadius": 9999,
+                    "borderTopLeftRadius": 9999,
+                    "borderTopRightRadius": 9999,
+                    "paddingBottom": 1,
+                    "paddingLeft": 1,
+                    "paddingRight": 1,
+                    "paddingTop": 1,
+                    "position": "relative",
+                  },
+                  {
+                    "left": -24,
+                  },
+                ]
+              }
+              testID="required_collateral_token_group_BTCs"
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight={24}
+                bbWidth={24}
+                focusable={false}
+                height={24}
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  [
+                    {
+                      "backgroundColor": "transparent",
+                      "borderWidth": 0,
+                    },
+                    {
+                      "flex": 0,
+                      "height": 24,
+                      "width": 24,
+                    },
+                  ]
+                }
+                vbHeight={32}
+                vbWidth={32}
+                width={24}
+              >
+                <RNSVGGroup>
+                  <RNSVGCircle
+                    cx={16}
+                    cy={16}
+                    fill={861072058}
+                    propList={
+                      [
+                        "fill",
+                      ]
+                    }
+                    r={16}
+                  />
+                  <RNSVGText
+                    alignmentBaseline="central"
+                    content={null}
+                    dx={[]}
+                    dy={[]}
+                    fill={4279016302}
+                    font={
+                      {
+                        "fontSize": "24",
+                        "fontWeight": "bolder",
+                        "textAnchor": "middle",
+                      }
+                    }
+                    propList={
+                      [
+                        "fill",
+                      ]
+                    }
+                    rotate={[]}
+                    x={
+                      [
+                        "50%",
+                      ]
+                    }
+                    y={
+                      [
+                        "50%",
+                      ]
+                    }
+                  >
+                    <RNSVGTSpan
+                      content="B"
+                      dx={[]}
+                      dy={[]}
+                      font={{}}
+                      rotate={[]}
+                      x={[]}
+                      y={[]}
+                    />
+                  </RNSVGText>
+                </RNSVGGroup>
+              </RNSVGSvgView>
+            </View>
+          </View>
+          <View>
             <Text
               style={
                 [
@@ -450,577 +454,293 @@ exports[`Batch Card should match snapshot 1`] = `
                   },
                   [
                     {
-                      "fontSize": 12,
-                      "lineHeight": 16,
-                      "textAlign": "center",
+                      "fontFamily": "SoraSemiBold",
+                      "fontWeight": "600",
+                      "textAlign": "right",
                     },
                     {
-                      "color": "rgba(255, 255, 255, 0.9)",
+                      "color": "rgba(0, 0, 0, 1)",
                     },
                   ],
                 ]
               }
-              testID="collateral_token_count_badge"
             >
-              +1
+              $12,345
+            </Text>
+            <Text
+              style={
+                {
+                  "color": "rgba(0, 173, 29, 1)",
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                  "textAlign": "right",
+                }
+              }
+            >
+               28m 30s left
             </Text>
           </View>
         </View>
-        <Text />
-      </View>
-    </View>
-    <View
-      style={
-        {
-          "display": "flex",
-          "flexDirection": "row",
-          "marginTop": 2,
-        }
-      }
-    >
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
-      >
-        <Text />
-        <Text
-          style={
-            [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              [
-                {
-                  "fontSize": 10,
-                  "lineHeight": 12,
-                  "marginRight": 8,
-                },
-                {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-          testID="batch_card_no_bid"
-        >
-          Waiting for first bid
-        </Text>
-      </View>
-    </View>
-    <View
-      style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "marginBottom": 8,
-          "marginTop": 8,
-          "width": "100%",
-        }
-      }
-    >
-      <View
-        style={
-          {
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              [
-                {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          Total auction value (USDT)
-        </Text>
-      </View>
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              [
-                {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(23, 23, 23, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          $12,345
-        </Text>
-      </View>
-    </View>
-    <View
-      style={
-        {
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "marginBottom": 8,
-          "width": "100%",
-        }
-      }
-    >
-      <View
-        style={
-          {
-            "flexDirection": "row",
-            "marginTop": 2,
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              [
-                [
-                  {
-                    "fontSize": 12,
-                    "lineHeight": 16,
-                  },
-                  undefined,
-                ],
-                {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
-              ],
-            ]
-          }
-        >
-          Min. next bid
-        </Text>
         <View
           style={
             {
-              "marginLeft": 4,
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "marginTop": 8,
             }
           }
-        />
-      </View>
-      <View
-        style={
-          {
-            "alignItems": "flex-end",
-            "display": "flex",
-            "flexBasis": "0%",
-            "flexGrow": 1,
-            "flexShrink": 1,
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              [
+        >
+          <View>
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Text
+                style={
+                  {
+                    "color": "rgba(18, 18, 18, 1)",
+                    "fontFamily": "SoraRegular",
+                    "fontSize": 12,
+                    "fontWeight": "400",
+                    "lineHeight": 16,
+                  }
+                }
+                testID="batch_card_no_bid_text"
+              >
+                Min bid
+              </Text>
+            </View>
+            <Text
+              style={
                 [
                   {
-                    "flexWrap": "wrap",
-                    "fontSize": 14,
-                    "lineHeight": 20,
-                    "textAlign": "right",
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
                   },
-                  undefined,
-                ],
-                {
-                  "color": "rgba(23, 23, 23, 1)",
-                },
-              ],
-            ]
-          }
-          testID="batch_0_min_next_bid"
-        >
-          11 DUSD
-        </Text>
-        <View
-          style={
-            [
-              {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-              },
-              undefined,
-            ]
-          }
-        >
-          <Text
-            style={
-              [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                [
                   [
                     {
+                      "flexWrap": "wrap",
+                      "fontFamily": "SoraRegular",
                       "fontSize": 12,
+                      "fontWeight": "400",
                       "lineHeight": 16,
+                      "marginTop": 4,
                     },
-                    undefined,
+                    {
+                      "color": "rgba(89, 89, 89, 1)",
+                    },
                   ],
-                  {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="batch_0_min_next_bid_usd"
-          >
-            ≈ $10.00
-          </Text>
+                ]
+              }
+              testID="batch_0_min_next_bid"
+            >
+              11 DUSD
+            </Text>
+          </View>
+          <View>
+            <View
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignItems": "center",
+                  "backgroundColor": "rgba(242, 242, 242, 1)",
+                  "borderBottomLeftRadius": 20,
+                  "borderBottomRightRadius": 20,
+                  "borderTopLeftRadius": 20,
+                  "borderTopRightRadius": 20,
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "opacity": 1,
+                  "paddingBottom": 8,
+                  "paddingLeft": 12,
+                  "paddingRight": 12,
+                  "paddingTop": 8,
+                }
+              }
+              testID="batch_card_quick_bid_button"
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight={16}
+                bbWidth={16}
+                focusable={false}
+                height={16}
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  [
+                    {
+                      "backgroundColor": "transparent",
+                      "borderWidth": 0,
+                    },
+                    {
+                      "flex": 0,
+                      "height": 16,
+                      "width": 16,
+                    },
+                  ]
+                }
+                vbHeight={32}
+                vbWidth={32}
+                width={16}
+              >
+                <RNSVGGroup>
+                  <RNSVGPath
+                    d="M32 15.9908C32 24.8268 24.836 31.9908 16 31.9908C7.164 31.9908 0 24.8268 0 15.9908C0 7.15484 7.164 -0.00915527 16 -0.00915527C24.836 -0.00915527 32 7.15484 32 15.9908Z"
+                    fill={4294954223}
+                    propList={
+                      [
+                        "fill",
+                      ]
+                    }
+                  />
+                  <RNSVGPath
+                    d="M15.9704 3.6842L18.5494 4.37527L17.2958 9.05185L21.9734 10.3059L21.2823 12.885L15.8448 11.4272L14.017 12.4833C13.3798 12.8508 13.1617 13.6645 13.5304 14.3025C13.8979 14.9397 14.7116 15.1577 15.3496 14.7891C17.2638 13.685 19.7107 14.3408 20.8157 16.2545C21.8841 18.1067 21.3047 20.4576 19.532 21.6104L19.3508 21.7216L17.2928 22.9092L15.8783 28.1912L13.2992 27.5002L14.5098 22.9758L9.98877 21.7659L10.6792 19.1867L15.9548 20.5982L18.0149 19.4099C18.6522 19.0412 18.8706 18.2261 18.5032 17.5891C18.1357 16.9526 17.3211 16.7343 16.6846 17.1014C14.77 18.2077 12.3222 17.5517 11.2181 15.6374C10.1474 13.7846 10.7273 11.4325 12.5011 10.2817L12.6825 10.1707L14.5158 9.1112L15.9704 3.6842Z"
+                    fill={4294901935}
+                    propList={
+                      [
+                        "fill",
+                      ]
+                    }
+                  />
+                </RNSVGGroup>
+              </RNSVGSvgView>
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "SoraSemiBold",
+                        "fontSize": 12,
+                        "fontWeight": "600",
+                        "lineHeight": 16,
+                        "marginLeft": 4,
+                        "textAlign": "center",
+                      },
+                      {
+                        "color": "rgba(18, 18, 18, 1)",
+                      },
+                    ],
+                  ]
+                }
+              >
+                Quick bid
+              </Text>
+            </View>
+          </View>
         </View>
       </View>
-    </View>
-  </View>
-  <View
-    style={
-      {
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "marginBottom": 8,
-        "width": "100%",
-      }
-    }
-  >
-    <View
-      style={
-        {
-          "width": "50%",
-        }
-      }
-    >
-      <Text
+      <View
         style={
           [
             {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+              "width": 6,
             },
-            [
-              {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              {
-                "color": "rgba(115, 115, 115, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        Auction time remaining
-      </Text>
-    </View>
-    <View
-      style={
-        {
-          "display": "flex",
-          "flexBasis": "0%",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "flexShrink": 1,
-          "flexWrap": "wrap",
-          "justifyContent": "flex-end",
-        }
-      }
-    >
-      <Text
-        style={
-          [
             {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            [
-              [
+              "height": 0,
+              "transform": [
                 {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
+                  "rotate": "180deg",
                 },
-                undefined,
               ],
-              {
-                "color": "rgba(23, 23, 23, 1)",
-              },
-            ],
+            },
           ]
         }
       >
-        ~28m left
-         
-        (
-        570 blks
-        )
-      </Text>
-    </View>
-  </View>
-  <View
-    animated={true}
-    animationConfig={
-      {
-        "bounciness": 0,
-      }
-    }
-    animationType="spring"
-    indeterminate={false}
-    indeterminateAnimationDuration={1000}
-    onLayout={[Function]}
-    progress={15.833333333333334}
-    style={
-      [
-        {
-          "backgroundColor": "gray-100",
-          "borderColor": "rgba(212, 212, 212, 1)",
-          "borderRadius": 8,
-          "borderWidth": 1,
-          "overflow": "hidden",
-          "width": null,
-        },
-        undefined,
-      ]
-    }
-    useNativeDriver={false}
-  >
-    <View
-      collapsable={false}
-      style={
-        {
-          "backgroundColor": "rgba(90, 169, 230, 1)",
-          "height": 8,
-          "transform": [
+        <View
+          animated={true}
+          animationConfig={
             {
-              "translateX": 0,
-            },
-            {
-              "translateX": 0,
-            },
-            {
-              "scaleX": 1,
-            },
-          ],
-        }
-      }
-    />
-  </View>
-  <View
-    style={
-      [
-        {
-          "display": "flex",
-          "flexDirection": "row",
-          "flexWrap": "wrap",
-          "marginBottom": -8,
-          "marginTop": 16,
-        },
-        {
-          "borderBottomColor": "rgba(229, 229, 229, 1)",
-          "borderLeftColor": "rgba(229, 229, 229, 1)",
-          "borderRightColor": "rgba(229, 229, 229, 1)",
-          "borderTopColor": "rgba(229, 229, 229, 1)",
-        },
-      ]
-    }
-  >
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(212, 212, 212, 1)",
-          "borderBottomLeftRadius": 4,
-          "borderBottomRightRadius": 4,
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(212, 212, 212, 1)",
-          "borderLeftWidth": 1,
-          "borderRightColor": "rgba(212, 212, 212, 1)",
-          "borderRightWidth": 1,
-          "borderTopColor": "rgba(212, 212, 212, 1)",
-          "borderTopLeftRadius": 4,
-          "borderTopRightRadius": 4,
-          "borderTopWidth": 1,
-          "flexDirection": "row",
-          "marginBottom": 8,
-          "marginRight": 8,
-          "opacity": 1,
-          "paddingBottom": 4,
-          "paddingLeft": 4,
-          "paddingRight": 4,
-          "paddingTop": 4,
-        }
-      }
-      testID="batch_card_place_bid_button"
-    >
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+              "bounciness": 0,
+            }
+          }
+          animationType="spring"
+          indeterminate={false}
+          indeterminateAnimationDuration={1000}
+          onLayout={[Function]}
+          progress={15.833333333333334}
+          style={
             [
-              [
-                {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 14,
-                  "fontWeight": "500",
-                  "lineHeight": 16,
-                  "paddingLeft": 4,
-                  "paddingRight": 4,
-                },
-                undefined,
-              ],
               {
-                "color": "rgba(255, 0, 175, 1)",
+                "backgroundColor": "rgba(217, 217, 217, 1)",
+                "borderColor": "rgba(0, 173, 29, 1)",
+                "borderRadius": 0,
+                "borderWidth": 0,
+                "overflow": "hidden",
+                "width": 0,
               },
-            ],
-          ]
-        }
-      >
-        PLACE BID
-      </Text>
-    </View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(212, 212, 212, 1)",
-          "borderBottomLeftRadius": 4,
-          "borderBottomRightRadius": 4,
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(212, 212, 212, 1)",
-          "borderLeftWidth": 1,
-          "borderRightColor": "rgba(212, 212, 212, 1)",
-          "borderRightWidth": 1,
-          "borderTopColor": "rgba(212, 212, 212, 1)",
-          "borderTopLeftRadius": 4,
-          "borderTopRightRadius": 4,
-          "borderTopWidth": 1,
-          "flexDirection": "row",
-          "marginBottom": 8,
-          "marginRight": 8,
-          "opacity": 1,
-          "paddingBottom": 4,
-          "paddingLeft": 4,
-          "paddingRight": 4,
-          "paddingTop": 4,
-        }
-      }
-      testID="batch_card_quick_bid_button"
-    >
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            [
-              [
-                {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 14,
-                  "fontWeight": "500",
-                  "lineHeight": 16,
-                  "paddingLeft": 4,
-                  "paddingRight": 4,
-                },
-                undefined,
-              ],
               {
-                "color": "rgba(255, 0, 175, 1)",
+                "transform": [
+                  {
+                    "translateX": 2,
+                  },
+                  {
+                    "translateY": -1,
+                  },
+                  {
+                    "rotate": "90deg",
+                  },
+                  {
+                    "translateX": -2,
+                  },
+                  {
+                    "translateY": -1,
+                  },
+                ],
               },
-            ],
-          ]
-        }
-      >
-        QUICK BID
-      </Text>
+            ]
+          }
+          useNativeDriver={false}
+        >
+          <View
+            collapsable={false}
+            style={
+              {
+                "backgroundColor": "rgba(0, 173, 29, 1)",
+                "height": 6,
+                "transform": [
+                  {
+                    "translateX": -0,
+                  },
+                  {
+                    "translateX": -0,
+                  },
+                  {
+                    "scaleX": 1,
+                  },
+                ],
+              }
+            }
+          />
+        </View>
+      </View>
     </View>
   </View>
 </View>

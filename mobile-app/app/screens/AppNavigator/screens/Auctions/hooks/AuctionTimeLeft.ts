@@ -2,7 +2,7 @@ import { EnvironmentNetwork } from "@environment";
 import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import dayjs from "dayjs";
 import BigNumber from "bignumber.js";
-import { secondsToHmDisplay } from "../helpers/SecondstoHm";
+import { secondsToDhmsDisplay } from "../helpers/SecondstoHm";
 
 interface AuctionTimeLeft {
   timeRemaining: string;
@@ -34,7 +34,7 @@ export function useAuctionTime(
   return {
     timeRemaining:
       blocksRemaining > 0
-        ? secondsToHmDisplay(blocksRemaining * secondsPerBlock)
+        ? secondsToDhmsDisplay(blocksRemaining * secondsPerBlock)
         : "",
     startTime:
       timeSpent > 0
