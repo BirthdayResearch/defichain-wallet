@@ -24,7 +24,7 @@ interface ConfirmSummaryTitleV2Props {
   oraclePrice?: string;
 }
 
-export function ConfirmSummaryTitleV2(
+export function ConfirmSummaryTitle(
   props: ConfirmSummaryTitleV2Props
 ): JSX.Element {
   const IconA = getNativeIcon(props.iconA);
