@@ -228,7 +228,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
             light={tailwind("bg-mono-light-v2-00")}
             dark={tailwind("bg-mono-dark-v2-00")}
             style={tailwind(
-              "flex flex-row justify-around items-center py-3 mt-6 mx-1 rounded-xl-v2"
+              "flex flex-row justify-around items-center py-3 mt-6 mx-1 rounded-xl-v2 font-normal-v2"
             )}
           >
             {Object.values(BidAmountButtonTypes).map(
@@ -325,7 +325,9 @@ export function PlaceBidScreen(props: Props): JSX.Element {
             <ThemedTextV2
               light={tailwind("text-red-v2")}
               dark={tailwind("text-red-v2")}
-              style={tailwind("text-red-v2 text-center text-xs mb-4")}
+              style={tailwind(
+                "text-red-v2 text-center text-xs font-normal-v2 mb-4"
+              )}
             >
               {translate("screens/PlaceBidScreen", "Auction timeout")}
             </ThemedTextV2>
@@ -333,7 +335,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
           <ThemedTextV2
             light={tailwind("text-mono-light-v2-500")}
             dark={tailwind("text-mono-dark-v2-500")}
-            style={tailwind("text-center text-xs")}
+            style={tailwind("text-center text-xs font-normal-v2")}
           >
             {translate(
               "screens/PlaceBidScreen",
