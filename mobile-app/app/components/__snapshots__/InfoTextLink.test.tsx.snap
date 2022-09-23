@@ -13,7 +13,7 @@ exports[`Info text link should match snapshot 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    {
+    Object {
       "alignItems": "flex-end",
       "flexDirection": "row",
       "justifyContent": "flex-start",
@@ -24,16 +24,16 @@ exports[`Info text link should match snapshot 1`] = `
   <Text />
   <Text
     style={
-      [
-        {
+      Array [
+        Object {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        [
-          [
-            {
+        Array [
+          Array [
+            Object {
               "fontFamily": "MediumFont",
               "fontSize": 12,
               "fontWeight": "500",
@@ -44,7 +44,7 @@ exports[`Info text link should match snapshot 1`] = `
             },
             undefined,
           ],
-          {
+          Object {
             "color": "rgba(255, 0, 175, 1)",
           },
         ],

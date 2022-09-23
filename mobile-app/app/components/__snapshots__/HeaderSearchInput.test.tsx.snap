@@ -3,9 +3,9 @@
 exports[`Header search input should match snapshot 1`] = `
 <View
   style={
-    [
-      [
-        {
+    Array [
+      Array [
+        Object {
           "alignItems": "center",
           "display": "flex",
           "flexDirection": "row",
@@ -13,11 +13,11 @@ exports[`Header search input should match snapshot 1`] = `
           "paddingLeft": 16,
           "paddingRight": 16,
         },
-        {
+        Object {
           "paddingTop": 96,
         },
       ],
-      {
+      Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
         "borderBottomColor": "rgba(229, 229, 229, 1)",
         "borderLeftColor": "rgba(229, 229, 229, 1)",
@@ -29,9 +29,9 @@ exports[`Header search input should match snapshot 1`] = `
 >
   <View
     style={
-      [
-        [
-          {
+      Array [
+        Array [
+          Object {
             "alignItems": "center",
             "borderBottomLeftRadius": 8,
             "borderBottomRightRadius": 8,
@@ -43,13 +43,13 @@ exports[`Header search input should match snapshot 1`] = `
             "paddingLeft": 8,
             "paddingTop": 4,
           },
-          {
+          Object {
             "flexBasis": "0%",
             "flexGrow": 1,
             "flexShrink": 1,
           },
         ],
-        {
+        Object {
           "backgroundColor": "rgba(245, 245, 245, 1)",
         },
       ]
@@ -63,18 +63,18 @@ exports[`Header search input should match snapshot 1`] = `
       placeholderTextColor="rgba(0, 0, 0, 0.4)"
       showClearButton={false}
       style={
-        [
-          [
-            {
+        Array [
+          Array [
+            Object {
               "flexGrow": 1,
               "height": 32,
               "width": "66.666667%",
             },
-            {
+            Object {
               "marginRight": 44,
             },
           ],
-          {
+          Object {
             "color": "rgba(64, 64, 64, 1)",
           },
         ]
@@ -84,7 +84,7 @@ exports[`Header search input should match snapshot 1`] = `
   </View>
   <View
     style={
-      {
+      Object {
         "display": "flex",
         "justifyContent": "center",
         "marginLeft": 8,
@@ -103,7 +103,7 @@ exports[`Header search input should match snapshot 1`] = `
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
       style={
-        {
+        Object {
           "opacity": 1,
         }
       }

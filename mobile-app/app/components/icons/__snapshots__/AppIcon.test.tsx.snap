@@ -11,12 +11,12 @@ exports[`<AppIcon /> should match snapshot 1`] = `
   minX={0}
   minY={0}
   style={
-    [
-      {
+    Array [
+      Object {
         "backgroundColor": "transparent",
         "borderWidth": 0,
       },
-      {
+      Object {
         "flex": 0,
         "height": 52,
         "width": 53,
@@ -33,7 +33,7 @@ exports[`<AppIcon /> should match snapshot 1`] = `
       fill={4294901900}
       name="Fill-1"
       propList={
-        [
+        Array [
           "fill",
         ]
       }

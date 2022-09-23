@@ -6,7 +6,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
 >
   <RCTScrollView
     contentContainerStyle={
-      {
+      Object {
         "display": "flex",
         "justifyContent": "space-between",
         "marginTop": 32,
@@ -21,7 +21,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
     <View>
       <View
         style={
-          {
+          Object {
             "alignItems": "center",
           }
         }
@@ -38,7 +38,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            {
+            Object {
               "alignItems": "center",
               "backgroundColor": "rgba(255, 255, 255, 1)",
               "borderBottomLeftRadius": 9999,
@@ -59,15 +59,15 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
         </View>
         <Text
           style={
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              [
-                {
+              Array [
+                Object {
                   "fontFamily": "SoraRegular",
                   "fontSize": 12,
                   "fontWeight": "400",
@@ -75,7 +75,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
                   "marginTop": 8,
                   "textAlign": "center",
                 },
-                {
+                Object {
                   "color": "rgba(18, 18, 18, 1)",
                 },
               ],
@@ -87,7 +87,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
       </View>
       <View
         style={
-          {
+          Object {
             "alignItems": "center",
           }
         }
@@ -104,7 +104,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            {
+            Object {
               "alignItems": "center",
               "backgroundColor": "rgba(255, 255, 255, 1)",
               "borderBottomLeftRadius": 9999,
@@ -125,15 +125,15 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
         </View>
         <Text
           style={
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              [
-                {
+              Array [
+                Object {
                   "fontFamily": "SoraRegular",
                   "fontSize": 12,
                   "fontWeight": "400",
@@ -141,7 +141,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
                   "marginTop": 8,
                   "textAlign": "center",
                 },
-                {
+                Object {
                   "color": "rgba(18, 18, 18, 1)",
                 },
               ],
@@ -153,7 +153,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
       </View>
       <View
         style={
-          {
+          Object {
             "alignItems": "center",
           }
         }
@@ -170,7 +170,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            {
+            Object {
               "alignItems": "center",
               "backgroundColor": "rgba(255, 255, 255, 1)",
               "borderBottomLeftRadius": 9999,
@@ -191,15 +191,15 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
         </View>
         <Text
           style={
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              [
-                {
+              Array [
+                Object {
                   "fontFamily": "SoraRegular",
                   "fontSize": 12,
                   "fontWeight": "400",
@@ -207,7 +207,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
                   "marginTop": 8,
                   "textAlign": "center",
                 },
-                {
+                Object {
                   "color": "rgba(18, 18, 18, 1)",
                 },
               ],
@@ -219,7 +219,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
       </View>
       <View
         style={
-          {
+          Object {
             "alignItems": "center",
           }
         }
@@ -236,7 +236,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            {
+            Object {
               "alignItems": "center",
               "backgroundColor": "rgba(255, 255, 255, 1)",
               "borderBottomLeftRadius": 9999,
@@ -257,15 +257,15 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
         </View>
         <Text
           style={
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              [
-                {
+              Array [
+                Object {
                   "fontFamily": "SoraRegular",
                   "fontSize": 12,
                   "fontWeight": "400",
@@ -273,7 +273,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
                   "marginTop": 8,
                   "textAlign": "center",
                 },
-                {
+                Object {
                   "color": "rgba(18, 18, 18, 1)",
                 },
               ],

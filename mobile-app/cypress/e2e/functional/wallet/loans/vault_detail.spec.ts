@@ -165,8 +165,7 @@ context("Wallet - Loans - Close Vault", () => {
     cy.getByTestID("button_confirm_payback_loan").click().wait(4000);
     cy.closeOceanInterface();
     cy.getByTestID("vault_card_0").click();
-    cy.getByTestID("vault_detail_close_vault").click();
-    cy.getByTestID("button_confirm_create_vault").click().wait(4000);
+    cy.getByTestID("vault_detail_close_vault").click().wait(4000);
     cy.getByTestID("txn_authorization_description").contains(
       `You are about to close vault ${vaultId}`
     );

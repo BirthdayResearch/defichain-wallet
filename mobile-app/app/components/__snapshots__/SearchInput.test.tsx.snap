@@ -3,9 +3,9 @@
 exports[`Search Input should match snapshot 1`] = `
 <View
   style={
-    [
-      [
-        {
+    Array [
+      Array [
+        Object {
           "alignItems": "center",
           "borderBottomLeftRadius": 8,
           "borderBottomRightRadius": 8,
@@ -17,13 +17,13 @@ exports[`Search Input should match snapshot 1`] = `
           "paddingLeft": 8,
           "paddingTop": 4,
         },
-        {
+        Object {
           "flexBasis": "0%",
           "flexGrow": 1,
           "flexShrink": 1,
         },
       ],
-      {
+      Object {
         "backgroundColor": "rgba(245, 245, 245, 1)",
       },
     ]
@@ -34,16 +34,16 @@ exports[`Search Input should match snapshot 1`] = `
     placeholderTextColor="rgba(0, 0, 0, 0.4)"
     showClearButton={true}
     style={
-      [
-        [
-          {
+      Array [
+        Array [
+          Object {
             "flexGrow": 1,
             "height": 32,
             "width": "66.666667%",
           },
-          {},
+          Object {},
         ],
-        {
+        Object {
           "color": "rgba(64, 64, 64, 1)",
         },
       ]
@@ -61,7 +61,7 @@ exports[`Search Input should match snapshot 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      {
+      Object {
         "backgroundColor": "transparent",
         "opacity": 1,
         "paddingBottom": 2,
@@ -74,8 +74,8 @@ exports[`Search Input should match snapshot 1`] = `
   >
     <View
       style={
-        [
-          {
+        Array [
+          Object {
             "borderBottomLeftRadius": 9999,
             "borderBottomRightRadius": 9999,
             "borderTopLeftRadius": 9999,
@@ -87,7 +87,7 @@ exports[`Search Input should match snapshot 1`] = `
             "width": "75%",
             "zIndex": -1,
           },
-          {
+          Object {
             "backgroundColor": "rgba(38, 38, 38, 1)",
           },
         ]

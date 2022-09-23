@@ -3,25 +3,25 @@
 exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
 <RCTScrollView
   contentContainerStyle={
-    {
+    Object {
       "paddingBottom": 64,
       "paddingTop": 48,
     }
   }
   style={
-    [
-      [
-        {
+    Array [
+      Array [
+        Object {
           "flexBasis": "0%",
           "flexGrow": 1,
           "flexShrink": 1,
         },
-        {
+        Object {
           "paddingBottom": 100,
           "paddingTop": 100,
         },
       ],
-      {
+      Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
       },
     ]
@@ -31,7 +31,7 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
   <View>
     <View
       style={
-        {
+        Object {
           "paddingLeft": 40,
           "paddingRight": 40,
           "paddingTop": 40,
@@ -40,22 +40,22 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
     >
       <Text
         style={
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "SoraSemiBold",
                 "fontSize": 20,
                 "fontWeight": "600",
                 "lineHeight": 28,
                 "textAlign": "center",
               },
-              {
+              Object {
                 "color": "rgba(18, 18, 18, 1)",
               },
             ],
@@ -66,21 +66,21 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
       </Text>
       <Text
         style={
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "SoraRegular",
                 "fontWeight": "400",
                 "marginTop": 8,
                 "textAlign": "center",
               },
-              {
+              Object {
                 "color": "rgba(18, 18, 18, 1)",
               },
             ],
@@ -92,7 +92,7 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
     </View>
     <View
       style={
-        {
+        Object {
           "marginTop": 112,
         }
       }
@@ -100,7 +100,7 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
       <View
         accessibilityIgnoresInvertColors={true}
         style={
-          {
+          Object {
             "position": "relative",
           }
         }
@@ -109,19 +109,19 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
           resizeMode="cover"
           source={1}
           style={
-            [
-              {
+            Array [
+              Object {
                 "bottom": 0,
                 "left": 0,
                 "position": "absolute",
                 "right": 0,
                 "top": 0,
               },
-              {
+              Object {
                 "height": undefined,
                 "width": undefined,
               },
-              {
+              Object {
                 "marginTop": 12,
                 "top": 144,
               },
@@ -131,7 +131,7 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
         <Image
           source={1}
           style={
-            {
+            Object {
               "height": 332,
               "width": 750,
             }
@@ -139,7 +139,7 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
         />
         <View
           style={
-            {
+            Object {
               "paddingLeft": 48,
               "paddingRight": 48,
             }
@@ -157,7 +157,7 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              {
+              Object {
                 "backgroundColor": "rgba(18, 18, 18, 1)",
                 "borderRadius": 26,
                 "flexDirection": "row",
@@ -174,14 +174,14 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
           >
             <Text
               style={
-                [
-                  {
+                Array [
+                  Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  {
+                  Object {
                     "color": "rgba(242, 242, 242, 1)",
                     "fontFamily": "SoraSemiBold",
                     "fontWeight": "600",
@@ -203,25 +203,25 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
 exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
 <RCTScrollView
   contentContainerStyle={
-    {
+    Object {
       "paddingBottom": 64,
       "paddingTop": 48,
     }
   }
   style={
-    [
-      [
-        {
+    Array [
+      Array [
+        Object {
           "flexBasis": "0%",
           "flexGrow": 1,
           "flexShrink": 1,
         },
-        {
+        Object {
           "paddingBottom": 100,
           "paddingTop": 100,
         },
       ],
-      {
+      Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
       },
     ]
@@ -231,7 +231,7 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
   <View>
     <View
       style={
-        {
+        Object {
           "paddingLeft": 40,
           "paddingRight": 40,
           "paddingTop": 40,
@@ -240,22 +240,22 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
     >
       <Text
         style={
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "SoraSemiBold",
                 "fontSize": 20,
                 "fontWeight": "600",
                 "lineHeight": 28,
                 "textAlign": "center",
               },
-              {
+              Object {
                 "color": "rgba(18, 18, 18, 1)",
               },
             ],
@@ -266,21 +266,21 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
       </Text>
       <Text
         style={
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "SoraRegular",
                 "fontWeight": "400",
                 "marginTop": 8,
                 "textAlign": "center",
               },
-              {
+              Object {
                 "color": "rgba(18, 18, 18, 1)",
               },
             ],
@@ -292,7 +292,7 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
     </View>
     <View
       style={
-        {
+        Object {
           "marginTop": 112,
         }
       }
@@ -300,7 +300,7 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
       <View
         accessibilityIgnoresInvertColors={true}
         style={
-          {
+          Object {
             "position": "relative",
           }
         }
@@ -309,19 +309,19 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
           resizeMode="cover"
           source={1}
           style={
-            [
-              {
+            Array [
+              Object {
                 "bottom": 0,
                 "left": 0,
                 "position": "absolute",
                 "right": 0,
                 "top": 0,
               },
-              {
+              Object {
                 "height": undefined,
                 "width": undefined,
               },
-              {
+              Object {
                 "marginTop": 12,
                 "top": 144,
               },
@@ -331,7 +331,7 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
         <Image
           source={1}
           style={
-            {
+            Object {
               "height": 332,
               "width": 750,
             }
@@ -339,7 +339,7 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
         />
         <View
           style={
-            {
+            Object {
               "paddingLeft": 48,
               "paddingRight": 48,
             }
@@ -357,7 +357,7 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              {
+              Object {
                 "backgroundColor": "rgba(18, 18, 18, 1)",
                 "borderRadius": 26,
                 "flexDirection": "row",
@@ -374,14 +374,14 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
           >
             <Text
               style={
-                [
-                  {
+                Array [
+                  Object {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  {
+                  Object {
                     "color": "rgba(242, 242, 242, 1)",
                     "fontFamily": "SoraSemiBold",
                     "fontWeight": "600",

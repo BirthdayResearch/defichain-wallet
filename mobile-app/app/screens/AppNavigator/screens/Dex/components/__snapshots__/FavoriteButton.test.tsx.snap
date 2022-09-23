@@ -13,7 +13,7 @@ exports[`Favorite Button should match snapshot 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    {
+    Object {
       "alignItems": "center",
       "backgroundColor": "rgba(255, 0, 140, 1)",
       "borderBottomLeftRadius": 9999,
@@ -40,12 +40,12 @@ exports[`Favorite Button should match snapshot 1`] = `
     minX={0}
     minY={0}
     style={
-      [
-        {
+      Array [
+        Object {
           "backgroundColor": "transparent",
           "borderWidth": 0,
         },
-        {
+        Object {
           "flex": 0,
           "height": 14,
           "width": 14,
@@ -59,7 +59,7 @@ exports[`Favorite Button should match snapshot 1`] = `
     <RNSVGGroup
       fill={null}
       propList={
-        [
+        Array [
           "fill",
         ]
       }
@@ -68,7 +68,7 @@ exports[`Favorite Button should match snapshot 1`] = `
         d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
         fill={4294111986}
         propList={
-          [
+          Array [
             "fill",
           ]
         }

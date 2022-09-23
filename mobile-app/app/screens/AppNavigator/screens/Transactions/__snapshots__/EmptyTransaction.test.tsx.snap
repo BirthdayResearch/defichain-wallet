@@ -9,15 +9,15 @@ exports[`empty transaction should match snapshot 1`] = `
     />
   }
   style={
-    [
-      {
+    Array [
+      Object {
         "paddingBottom": 8,
         "paddingLeft": 32,
         "paddingRight": 32,
         "paddingTop": 128,
         "textAlign": "center",
       },
-      {
+      Object {
         "backgroundColor": "rgba(250, 250, 250, 1)",
       },
     ]
@@ -29,15 +29,15 @@ exports[`empty transaction should match snapshot 1`] = `
     <Text />
     <Text
       style={
-        [
-          {
+        Array [
+          Object {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "SemiBoldFont",
               "fontSize": 24,
               "fontWeight": "600",
@@ -45,7 +45,7 @@ exports[`empty transaction should match snapshot 1`] = `
               "paddingBottom": 8,
               "textAlign": "center",
             },
-            {
+            Object {
               "color": "rgba(0, 0, 0, 1)",
             },
           ],
@@ -56,22 +56,22 @@ exports[`empty transaction should match snapshot 1`] = `
     </Text>
     <Text
       style={
-        [
-          {
+        Array [
+          Object {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          [
-            {
+          Array [
+            Object {
               "fontSize": 14,
               "lineHeight": 20,
               "opacity": 0.6,
               "paddingBottom": 64,
               "textAlign": "center",
             },
-            {
+            Object {
               "color": "rgba(0, 0, 0, 1)",
             },
           ],
@@ -92,7 +92,7 @@ exports[`empty transaction should match snapshot 1`] = `
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
       style={
-        {
+        Object {
           "backgroundColor": "rgba(255, 229, 247, 1)",
           "borderBottomLeftRadius": 4,
           "borderBottomRightRadius": 4,
@@ -115,14 +115,14 @@ exports[`empty transaction should match snapshot 1`] = `
     >
       <Text
         style={
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            {
+            Object {
               "color": "rgba(255, 0, 175, 1)",
               "fontFamily": "BoldFont",
               "fontWeight": "700",

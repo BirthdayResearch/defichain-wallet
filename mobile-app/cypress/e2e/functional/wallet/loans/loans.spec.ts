@@ -14,6 +14,7 @@ function addCollateral(): void {
   cy.getByTestID("vault_card_0_collateral_token_group_dBTC").should("exist");
   cy.getByTestID("vault_card_0_total_collateral").contains("$1,500.00");
 }
+
 context("Wallet - Loans", () => {
   before(() => {
     cy.createEmptyWallet(true);
@@ -24,8 +25,7 @@ context("Wallet - Loans", () => {
     cy.getByTestID("bottom_tab_loans").click();
     cy.getByTestID("button_create_vault").click();
     cy.getByTestID("loan_scheme_option_0").click();
-    cy.getByTestID("create_vault_submit_button").click();
-    cy.getByTestID("button_confirm_create_vault").click().wait(4000);
+    cy.getByTestID("create_vault_submit_button").click().wait(4000);
     cy.closeOceanInterface();
     cy.intercept("**/loans/tokens?size=200").as("loans");
     cy.wait(["@loans"]).then((intercept: any) => {
@@ -60,6 +60,21 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("bottom_tab_loans").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
+  });
+
+  it("should disable borrow button if vault status equal EMPTY ", () => {
+    cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
+    cy.getByTestID("vault_card_0_status").contains("EMPTY");
+    cy.getByTestID("loans_tabs_BROWSE_LOANS").click();
+    cy.getByTestID("header_loans_search").click();
+    cy.getByTestID("loans_search_input").type("dTS25").blur();
+    cy.getByTestID("loan_card_dTS25").should("exist");
+    cy.getByTestID("dTS25_borrow_button").should("not.exist");
+    cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
+  });
+
+  it("should add collateral", () => {
     cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
     cy.getByTestID("vault_card_0_vault_id").then(($txt: any) => {
       vaultId = $txt[0].textContent;
@@ -67,10 +82,16 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("vault_card_0_edit_collaterals_button").click();
     cy.addCollateral("10", "DFI");
     cy.addCollateral("10", "dBTC");
+    addCollateral();
   });
 
-  it("should add collateral", () => {
-    addCollateral();
+  it("should show borrow button if vault status equal READY ", () => {
+    cy.getByTestID("vault_card_0_status").contains("READY");
+    cy.getByTestID("loans_tabs_BROWSE_LOANS").click();
+    cy.getByTestID("loan_card_dTS25").should("exist");
+    cy.getByTestID("dTS25_borrow_button").should("exist");
+    cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
   });
 
   it("should add loan", () => {
@@ -250,11 +271,9 @@ context("Wallet - Loans - Take Loans", () => {
     cy.go("back");
     cy.wait(2000);
     cy.getByTestID("loans_tabs_BROWSE_LOANS").click();
-    cy.getByTestID("header_loans_search").click();
-    cy.getByTestID("loans_search_input").type("dTS25").blur();
-    cy.getByTestID("loan_card_dTS25").click();
-    cy.getByTestID("borrow_loan_vault").click();
+    cy.getByTestID("dTS25_borrow_button").click();
     cy.wait(2000);
+    cy.getByTestID("borrow_loan_vault").click();
     cy.getByTestID("select_vault_0").click();
     cy.getByTestID("form_input_borrow").clear().type("3").blur();
     cy.wait(3000);

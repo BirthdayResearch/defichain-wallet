@@ -3,8 +3,8 @@
 exports[`estimated fee info scanner should match snapshot of estimated fee 1`] = `
 <View
   style={
-    [
-      {
+    Array [
+      Object {
         "alignItems": "flex-start",
         "flexDirection": "row",
         "paddingBottom": 16,
@@ -13,7 +13,7 @@ exports[`estimated fee info scanner should match snapshot of estimated fee 1`] =
         "paddingTop": 16,
         "width": "100%",
       },
-      {
+      Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
         "borderBottomColor": "rgba(229, 229, 229, 1)",
         "borderBottomWidth": 1,
@@ -26,14 +26,14 @@ exports[`estimated fee info scanner should match snapshot of estimated fee 1`] =
 >
   <View
     style={
-      {
+      Object {
         "width": "41.666667%",
       }
     }
   >
     <View
       style={
-        {
+        Object {
           "alignItems": "center",
           "flexDirection": "row",
           "justifyContent": "flex-start",
@@ -42,20 +42,20 @@ exports[`estimated fee info scanner should match snapshot of estimated fee 1`] =
     >
       <Text
         style={
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            [
-              {
+            Array [
+              Object {
                 "fontSize": 14,
                 "lineHeight": 20,
                 "marginRight": 4,
               },
-              {
+              Object {
                 "color": "rgba(0, 0, 0, 1)",
               },
             ],
@@ -69,7 +69,7 @@ exports[`estimated fee info scanner should match snapshot of estimated fee 1`] =
   </View>
   <View
     style={
-      {
+      Object {
         "alignItems": "center",
         "flexBasis": "0%",
         "flexDirection": "row",
@@ -82,20 +82,20 @@ exports[`estimated fee info scanner should match snapshot of estimated fee 1`] =
   >
     <Text
       style={
-        [
-          {
+        Array [
+          Object {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          [
-            {
+          Array [
+            Object {
               "fontSize": 14,
               "lineHeight": 20,
               "textAlign": "right",
             },
-            {
+            Object {
               "color": "rgba(115, 115, 115, 1)",
             },
           ],
@@ -107,20 +107,20 @@ exports[`estimated fee info scanner should match snapshot of estimated fee 1`] =
     </Text>
     <Text
       style={
-        [
-          {
+        Array [
+          Object {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          [
-            {
+          Array [
+            Object {
               "fontSize": 14,
               "lineHeight": 20,
               "marginLeft": 4,
             },
-            {
+            Object {
               "color": "rgba(115, 115, 115, 1)",
             },
           ],
@@ -137,8 +137,8 @@ exports[`estimated fee info scanner should match snapshot of estimated fee 1`] =
 exports[`estimated fee info scanner should match snapshot of vault fee 1`] = `
 <View
   style={
-    [
-      {
+    Array [
+      Object {
         "alignItems": "flex-start",
         "flexDirection": "row",
         "paddingBottom": 16,
@@ -147,7 +147,7 @@ exports[`estimated fee info scanner should match snapshot of vault fee 1`] = `
         "paddingTop": 16,
         "width": "100%",
       },
-      {
+      Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
         "borderBottomColor": "rgba(229, 229, 229, 1)",
         "borderBottomWidth": 1,
@@ -160,14 +160,14 @@ exports[`estimated fee info scanner should match snapshot of vault fee 1`] = `
 >
   <View
     style={
-      {
+      Object {
         "width": "41.666667%",
       }
     }
   >
     <View
       style={
-        {
+        Object {
           "alignItems": "center",
           "flexDirection": "row",
           "justifyContent": "flex-start",
@@ -176,20 +176,20 @@ exports[`estimated fee info scanner should match snapshot of vault fee 1`] = `
     >
       <Text
         style={
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            [
-              {
+            Array [
+              Object {
                 "fontSize": 14,
                 "lineHeight": 20,
                 "marginRight": 4,
               },
-              {
+              Object {
                 "color": "rgba(0, 0, 0, 1)",
               },
             ],
@@ -203,7 +203,7 @@ exports[`estimated fee info scanner should match snapshot of vault fee 1`] = `
   </View>
   <View
     style={
-      {
+      Object {
         "alignItems": "center",
         "flexBasis": "0%",
         "flexDirection": "row",
@@ -216,20 +216,20 @@ exports[`estimated fee info scanner should match snapshot of vault fee 1`] = `
   >
     <Text
       style={
-        [
-          {
+        Array [
+          Object {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          [
-            {
+          Array [
+            Object {
               "fontSize": 14,
               "lineHeight": 20,
               "textAlign": "right",
             },
-            {
+            Object {
               "color": "rgba(115, 115, 115, 1)",
             },
           ],
@@ -241,20 +241,20 @@ exports[`estimated fee info scanner should match snapshot of vault fee 1`] = `
     </Text>
     <Text
       style={
-        [
-          {
+        Array [
+          Object {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          [
-            {
+          Array [
+            Object {
               "fontSize": 14,
               "lineHeight": 20,
               "marginLeft": 4,
             },
-            {
+            Object {
               "color": "rgba(115, 115, 115, 1)",
             },
           ],

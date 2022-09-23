@@ -13,7 +13,7 @@ exports[`Row network item should match snapshot 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    {
+    Object {
       "alignItems": "center",
       "backgroundColor": "rgba(255, 255, 255, 1)",
       "borderBottomColor": "rgba(229, 229, 229, 1)",
@@ -35,19 +35,19 @@ exports[`Row network item should match snapshot 1`] = `
 >
   <Text
     style={
-      [
-        {
+      Array [
+        Object {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        [
-          {
+        Array [
+          Object {
             "fontFamily": "MediumFont",
             "fontWeight": "500",
           },
-          {
+          Object {
             "color": "rgba(0, 0, 0, 1)",
           },
         ],
