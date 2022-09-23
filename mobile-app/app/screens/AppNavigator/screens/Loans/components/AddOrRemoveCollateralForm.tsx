@@ -56,6 +56,7 @@ export interface AddOrRemoveCollateralFormProps {
   onCloseButtonPress: () => void;
   isAdd: boolean;
   vault: LoanVaultActive;
+  collateralTokens: CollateralItem[];
 }
 
 const COLOR_BARS_COUNT = 6;
@@ -82,6 +83,7 @@ export const AddOrRemoveCollateralForm = memo(
       isAdd,
       vault,
       collateralItem,
+      collateralTokens,
     } = route.params;
     const hasPendingJob = useSelector((state: RootState) =>
       hasTxQueued(state.transactionQueue)
@@ -113,6 +115,7 @@ export const AddOrRemoveCollateralForm = memo(
       activePriceAmount: activePrice.isNaN()
         ? new BigNumber(0)
         : new BigNumber(activePrice),
+      collateralTokens,
     });
     const { displayedColorBars, resultingColRatio } =
       useResultingCollateralizationRatioByCollateral({
@@ -482,18 +485,31 @@ export const AddOrRemoveCollateralForm = memo(
               "Resulting collateralization"
             )}
           </ThemedText>
-          <ThemedText
-            style={tailwind("font-semibold pr-2")}
-            light={
-              hasInvalidColRatio ? tailwind("text-gray-300") : colors.light
+          <NumberFormat
+            decimalScale={8}
+            displayType="text"
+            suffix={hasInvalidColRatio ? "" : "%"}
+            renderText={(val: string) => (
+              <ThemedText
+                style={tailwind("font-semibold pr-2")}
+                light={
+                  hasInvalidColRatio ? tailwind("text-gray-300") : colors.light
+                }
+                dark={
+                  hasInvalidColRatio ? tailwind("text-gray-300") : colors.dark
+                }
+                testID="resulting_collateralization"
+              >
+                {val}
+              </ThemedText>
+            )}
+            thousandSeparator
+            value={
+              hasInvalidColRatio
+                ? translate("components/AddOrRemoveCollateralForm", "N/A")
+                : resultingColRatio.toFixed(2)
             }
-            dark={hasInvalidColRatio ? tailwind("text-gray-300") : colors.dark}
-            testID="resulting_collateralization"
-          >
-            {hasInvalidColRatio
-              ? translate("components/AddOrRemoveCollateralForm", "N/A")
-              : `${resultingColRatio.toFixed(2)}%`}
-          </ThemedText>
+          />
         </View>
         <ColorBar
           displayedBarsLen={displayedColorBars}
