@@ -14,6 +14,7 @@ function addCollateral(): void {
   cy.getByTestID("vault_card_0_collateral_token_group_dBTC").should("exist");
   cy.getByTestID("vault_card_0_total_collateral").contains("$1,500.00");
 }
+
 context("Wallet - Loans", () => {
   before(() => {
     cy.createEmptyWallet(true);
@@ -24,8 +25,7 @@ context("Wallet - Loans", () => {
     cy.getByTestID("bottom_tab_loans").click();
     cy.getByTestID("button_create_vault").click();
     cy.getByTestID("loan_scheme_option_0").click();
-    cy.getByTestID("create_vault_submit_button").click();
-    cy.getByTestID("button_confirm_create_vault").click().wait(4000);
+    cy.getByTestID("create_vault_submit_button").click().wait(4000);
     cy.closeOceanInterface();
     cy.intercept("**/loans/tokens?size=200").as("loans");
     cy.wait(["@loans"]).then((intercept: any) => {

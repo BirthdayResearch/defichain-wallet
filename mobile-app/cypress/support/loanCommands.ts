@@ -164,8 +164,7 @@ Cypress.Commands.add(
       hasExistingVault ? "create_vault_header_button" : "button_create_vault"
     ).click();
     cy.getByTestID(`loan_scheme_option_${loanScheme}`).click();
-    cy.getByTestID("create_vault_submit_button").click().wait(1000);
-    cy.getByTestID("button_confirm_create_vault").click().wait(3000);
+    cy.getByTestID("create_vault_submit_button").click().wait(3000);
     cy.closeOceanInterface();
   }
 );
