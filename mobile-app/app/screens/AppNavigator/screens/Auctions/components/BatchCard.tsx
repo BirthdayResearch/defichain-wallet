@@ -1,9 +1,10 @@
 import * as React from "react";
 import { memo, useMemo, useState } from "react";
-import { Text, View, LayoutChangeEvent } from "react-native";
+import { TouchableOpacity, Text, View, LayoutChangeEvent } from "react-native";
 import {
   ThemedText,
   ThemedIcon,
+  ThemedViewV2,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
 } from "@components/themed";
@@ -191,11 +192,6 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
               </ThemedTouchableOpacityV2>
             </View>
           </View>
-          <VerticalProgressBar
-            height={progressBarHeight}
-            normalizedBlocks={normalizedBlocks.toNumber()}
-            color={timeRemainingThemedColor}
-          />
         </View>
         <VerticalProgressBar
           height={progressBarHeight}
