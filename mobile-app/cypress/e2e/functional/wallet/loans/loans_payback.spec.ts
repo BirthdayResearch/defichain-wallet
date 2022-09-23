@@ -181,7 +181,7 @@ function validateMaxButton(
 function borrowFirstLoan(loanTokenSymbol: string, amount: string = "10"): void {
   const amountToBorrow = new BigNumber(amount).toFixed(8);
   cy.getByTestID("button_browse_loans").click();
-  cy.getByTestID(`${loanTokenSymbol}borrow_button`).click();
+  cy.getByTestID(`${loanTokenSymbol}_borrow_button`).click();
   cy.getByTestID("form_input_borrow").clear().type(amountToBorrow);
   cy.wait(3000);
   cy.getByTestID("borrow_loan_submit_button").click();

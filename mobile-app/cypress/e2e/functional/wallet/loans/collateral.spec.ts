@@ -164,7 +164,7 @@ function borrowLoan(symbol: string, amount: string): void {
   const amountToBorrow = new BigNumber(amount).toFixed(8);
   cy.getByTestID("button_browse_loans").click();
   cy.getByTestID(`loan_card_${symbol}`).click();
-  cy.getByTestID(`${symbol}borrow_button`).click();
+  cy.getByTestID(`${symbol}_borrow_button`).click();
   cy.getByTestID("form_input_borrow").clear().type(amountToBorrow);
   cy.wait(3000);
   cy.getByTestID("borrow_loan_submit_button").click();
