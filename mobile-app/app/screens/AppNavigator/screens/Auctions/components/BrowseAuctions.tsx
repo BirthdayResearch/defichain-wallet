@@ -1,7 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import { useScrollToTop } from "@react-navigation/native";
 import { tailwind } from "@tailwind";
-import { ThemedFlatListV2 } from "@components/themed";
 import { BatchCard } from "@screens/AppNavigator/screens/Auctions/components/BatchCard";
 import { Platform, View } from "react-native";
 import { useSelector } from "react-redux";
@@ -20,6 +19,7 @@ import {
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
 import { BottomSheetHeader } from "@components/BottomSheetHeader";
+import { ThemedFlashList } from "@components/themed/ThemedFlashList";
 import { QuickBid } from "./QuickBid";
 import {
   AuctionsSortRow,
@@ -275,16 +275,14 @@ function BatchCards({
     }): JSX.Element => {
       const { auction, ...batch } = item;
       return (
-        <View key={auction.vaultId}>
-          <BatchCard
-            vault={auction}
-            batch={batch}
-            key={`${auction.vaultId}_${batch.index}`}
-            testID={`batch_card_${index}`}
-            onQuickBid={onQuickBid}
-            isVaultOwner={yourVaultIds.includes(auction.vaultId)}
-          />
-        </View>
+        <BatchCard
+          vault={auction}
+          batch={batch}
+          key={`${auction.vaultId}_${batch.index}`}
+          testID={`batch_card_${index}`}
+          onQuickBid={onQuickBid}
+          isVaultOwner={yourVaultIds.includes(auction.vaultId)}
+        />
       );
     },
     []
@@ -292,18 +290,17 @@ function BatchCards({
 
   const emptyScreenDetails = getEmptyScreenDetails(activeButtonGroup);
   return (
-    <ThemedFlatListV2
-      contentContainerStyle={tailwind("px-5 pb-2")}
+    <ThemedFlashList
+      contentContainerStyle={tailwind("pb-2")}
       data={auctionBatches}
       ref={ref}
       numColumns={1}
-      initialNumToRender={5}
-      windowSize={2}
+      estimatedItemSize={4}
       keyExtractor={(_item, index) => index.toString()}
       ListEmptyComponent={
         <>
           {showSearchInput === false && (
-            <View style={tailwind("mt-1")}>
+            <View style={tailwind("mx-5 mt-1")}>
               <EmptyAuction
                 title={emptyScreenDetails.title}
                 subtitle={emptyScreenDetails.subtitle}
@@ -312,7 +309,7 @@ function BatchCards({
           )}
         </>
       }
-      testID="available_liquidity_tab"
+      testID="auction_lists"
       renderItem={RenderItems}
     />
   );
