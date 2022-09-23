@@ -343,6 +343,7 @@ export function EditCollateralScreen({
                 current: new BigNumber(collateral.amount),
                 vault: activeVault,
                 collateralItem,
+                collateralTokens,
               },
               option: {
                 header: () => null,
