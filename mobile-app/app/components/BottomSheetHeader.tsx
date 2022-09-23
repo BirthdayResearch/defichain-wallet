@@ -17,8 +17,12 @@ interface Props {
   } & ThemedProps;
 }
 
-export function BottomSheetHeader(props: Props): JSX.Element {
-  const { headerText, headerStyle, containerStyle } = props;
+export function BottomSheetHeader({
+  headerText,
+  headerStyle,
+  containerStyle,
+  onClose,
+}: Props): JSX.Element {
   return (
     <ThemedViewV2
       style={[
@@ -27,7 +31,7 @@ export function BottomSheetHeader(props: Props): JSX.Element {
       ]}
     >
       <ThemedTouchableOpacityV2
-        onPress={props.onClose}
+        onPress={onClose}
         style={tailwind("self-end pt-2.5")}
       >
         <ThemedIcon
