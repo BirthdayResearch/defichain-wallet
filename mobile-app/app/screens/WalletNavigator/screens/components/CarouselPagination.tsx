@@ -1,6 +1,6 @@
 import { tailwind } from "@tailwind";
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import { Pagination, PaginationProps } from "react-native-swiper-flatlist";
 import { PaginationButton } from "./PaginationButton";
 
@@ -14,8 +14,7 @@ export function CarouselPaginationWithNextButton(
   return (
     <>
       <Pagination {...props} paginationStyle={styles.paginationContainer} />
-      {/* styling hides display pagination buttons on web view */}
-      <View style={tailwind("px-15 pb-20")}>
+      <View style={tailwind("px-15", { "pb-20": Platform.OS !== "web" })}>
         <PaginationButton
           {...props}
           paginationStyle={styles.paginationContainer}
