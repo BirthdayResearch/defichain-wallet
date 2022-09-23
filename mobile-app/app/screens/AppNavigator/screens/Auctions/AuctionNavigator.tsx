@@ -19,10 +19,15 @@ import { PlaceBidScreen } from "./screens/PlaceBidScreen";
 import { ConfirmPlaceBidScreen } from "./screens/ConfirmPlaceBidScreen";
 import { AuctionsFaq } from "./screens/AuctionsFaq";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
+import { BidHistoryScreen } from "./screens/BidHistoryScreen";
 
 export interface AuctionsParamList {
   AuctionsScreen: {};
   AuctionDetailScreen: {
+    batch: LoanVaultLiquidationBatch;
+    vault: LoanVaultLiquidated;
+  };
+  BidHistoryScreen: {
     batch: LoanVaultLiquidationBatch;
     vault: LoanVaultLiquidated;
   };
@@ -98,6 +103,14 @@ export function AuctionsNavigator(): JSX.Element {
       />
 
       <AuctionsStack.Screen
+        component={BidHistoryScreen}
+        name="BidHistoryScreen"
+        options={{
+          headerTitle: translate("screens/AuctionScreen", "Bid History"),
+        }}
+      />
+
+      <AuctionsStack.Screen
         component={NetworkSelectionScreen}
         name="NetworkSelectionScreen"
         options={{
@@ -133,12 +146,7 @@ export function AuctionsNavigator(): JSX.Element {
         component={AuctionsFaq}
         name="AuctionsFaq"
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("components/AuctionsFaq", "Auctions FAQ")}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          headerTitle: translate("components/AuctionsFaq", "Auctions FAQ"),
           headerBackTitleVisible: false,
         }}
       />
