@@ -7,7 +7,7 @@ import { translate } from "@translations";
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { LoanParamList } from "@screens/AppNavigator/screens/Loans/LoansNavigator";
-import { useNavigatorScreenOptions } from "./useNavigatorScreenOptions";
+import { useNavigatorScreenOptions } from "../../../hooks/useNavigatorScreenOptions";
 
 export function useNavigatorHeaderStylesOption(): StackNavigationOptions {
   const insets = useSafeAreaInsets();

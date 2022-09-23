@@ -15,7 +15,7 @@ import {
   LoanVaultActive,
   LoanVaultTokenAmount,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { useNavigatorHeaderStylesOption } from "@hooks/useNavigatorHeaderStylesOption";
+import { useNavigatorHeaderStylesOption } from "@screens/AppNavigator/hooks/useNavigatorHeaderStylesOption";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { CreateVaultScreen } from "./screens/CreateVaultScreen";
 import { ConfirmCreateVaultScreen } from "./screens/ConfirmCreateVaultScreen";
