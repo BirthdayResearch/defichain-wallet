@@ -28,11 +28,13 @@ import { useAuctionBidValue } from "../hooks/AuctionBidValue";
 import { onQuickBidProps } from "./BrowseAuctions";
 import { useAuctionTime } from "../hooks/AuctionTimeLeft";
 import { VerticalProgressBar } from "./VerticalProgressBar";
+import { getPrecisedTokenValue } from "../helpers/precision-token-value";
 
 export interface BatchCardProps {
   vault: LoanVaultLiquidated;
   batch: LoanVaultLiquidationBatch;
   testID: string;
+  collateralTokenSymbols: string[];
   onQuickBid: (props: onQuickBidProps) => void;
   isVaultOwner: boolean;
 }
@@ -40,7 +42,7 @@ export interface BatchCardProps {
 export function BatchCard(props: BatchCardProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>();
   const { address } = useWalletContext();
-  const { batch, testID, vault } = props;
+  const { batch, testID, vault, collateralTokenSymbols } = props;
   const [progressBarHeight, setProgressBarHeight] = useState<number>(0);
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0;
   const {
@@ -78,132 +80,126 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
       batch: batch,
       vaultId: vault.vaultId,
       minNextBidInToken,
+      totalCollateralsValueInUSD,
       minNextBidInUSD,
       vaultLiquidationHeight: vault.liquidationHeight,
     });
   };
 
   return (
-    <ThemedViewV2
+    <ThemedTouchableOpacityV2
       light={tailwind("bg-mono-light-v2-00")}
       dark={tailwind("bg-mono-dark-v2-00")}
       style={tailwind("mx-5 rounded-lg-v2 mb-2 overflow-hidden")}
       testID={testID}
+      onPress={onCardPress}
     >
-      <TouchableOpacity testID={testID} onPress={onCardPress}>
-        <View
-          style={tailwind("flex flex-row justify-between items-start")}
-          onLayout={onPageLayout}
-        >
-          <View style={tailwind("flex-1 p-5 pr-3.5")}>
-            <View style={tailwind("flex flex-row justify-between items-start")}>
-              <TokenIconGroupV2
-                testID="required_collateral_token_group"
-                size={24}
-                symbols={batch.collaterals.map(
-                  (collateral) => collateral.displaySymbol
-                )}
-              />
-              <View>
-                <NumberFormat
-                  displayType="text"
-                  prefix="$"
-                  decimalScale={2}
-                  renderText={(value: string) => (
-                    <ThemedTextV2
-                      light={tailwind("text-mono-light-v2-1000")}
-                      dark={tailwind("text-mono-dark-v2-1000")}
-                      style={tailwind("font-semibold-v2 text-right")}
-                    >
-                      {value}
-                    </ThemedTextV2>
-                  )}
-                  thousandSeparator
-                  value={totalCollateralsValueInUSD}
-                />
-                {timeRemaining !== "" && (
-                  <Text
-                    style={tailwind(
-                      `font-normal-v2 text-xs text-right text-${timeRemainingThemedColor}`
-                    )}
-                  >
-                    {translate(
-                      "components/AuctionTimeProgress",
-                      "{{time}} left",
-                      { time: timeRemaining }
-                    )}
-                  </Text>
-                )}
-              </View>
-            </View>
-            <View
-              style={tailwind("mt-2 flex flex-row justify-between items-end")}
-            >
-              <View>
-                <BidInfo
-                  hasFirstBid={hasFirstBid}
-                  isOutBid={
-                    batch?.highestBid?.owner !== address &&
-                    batch?.froms.includes(address)
-                  }
-                  isHighestBidder={batch?.highestBid?.owner === address}
-                  testID={testID}
-                />
-                <NumberFormat
-                  displayType="text"
-                  suffix={` ${batch.loan.displaySymbol}`}
-                  renderText={(value: string) => (
-                    <ThemedTextV2
-                      light={tailwind("text-mono-light-v2-700")}
-                      dark={tailwind("text-mono-dark-v2-700")}
-                      style={tailwind("mt-1 text-xs font-normal-v2 flex-wrap")}
-                      testID={`batch_${batch.index}_min_next_bid`}
-                    >
-                      {value}
-                    </ThemedTextV2>
-                  )}
-                  thousandSeparator
-                  value={minNextBidInToken}
-                />
-              </View>
-              <View>
-                <ThemedTouchableOpacityV2
-                  light={tailwind("bg-mono-light-v2-100")}
-                  dark={tailwind("bg-mono-dark-v2-100")}
-                  style={tailwind(
-                    "flex flex-row items-center rounded-2xl-v2 py-2 px-3"
-                  )}
-                  onPress={onQuickBid}
-                  testID={`${testID}_quick_bid_button`}
-                >
-                  <SymbolIcon
-                    symbol={batch.loan.displaySymbol}
-                    styleProps={tailwind("w-4 h-4")}
-                  />
+      <View
+        style={tailwind("flex flex-row justify-between items-start")}
+        onLayout={onPageLayout}
+      >
+        <View style={tailwind("flex-1 p-5 pr-3.5")}>
+          <View style={tailwind("flex flex-row justify-between items-start")}>
+            <TokenIconGroupV2
+              testID="required_collateral_token_group"
+              size={24}
+              symbols={collateralTokenSymbols}
+            />
+            <View>
+              <NumberFormat
+                displayType="text"
+                prefix="$"
+                decimalScale={2}
+                renderText={(value: string) => (
                   <ThemedTextV2
-                    style={tailwind(
-                      "font-semibold-v2 text-xs text-center ml-1"
-                    )}
+                    light={tailwind("text-mono-light-v2-1000")}
+                    dark={tailwind("text-mono-dark-v2-1000")}
+                    style={tailwind("font-semibold-v2 text-right")}
                   >
-                    {translate(
-                      "components/BatchCard",
-                      batch?.froms.includes(address)
-                        ? "Quick rebid"
-                        : "Quick bid"
-                    )}
+                    {value}
                   </ThemedTextV2>
-                </ThemedTouchableOpacityV2>
-              </View>
+                )}
+                thousandSeparator
+                value={getPrecisedTokenValue(totalCollateralsValueInUSD)}
+              />
+              {timeRemaining !== "" && (
+                <Text
+                  style={tailwind(
+                    `font-normal-v2 text-xs text-right text-${timeRemainingThemedColor}`
+                  )}
+                >
+                  {translate(
+                    "components/AuctionTimeProgress",
+                    "{{time}} left",
+                    { time: timeRemaining }
+                  )}
+                </Text>
+              )}
             </View>
           </View>
-          <VerticalProgressBar
-            height={progressBarHeight}
-            normalizedBlocks={normalizedBlocks.toNumber()}
-            color={timeRemainingThemedColor}
-          />
+          <View
+            style={tailwind("mt-2 flex flex-row justify-between items-end")}
+          >
+            <View>
+              <BidInfo
+                hasFirstBid={hasFirstBid}
+                isOutBid={
+                  batch?.highestBid?.owner !== address &&
+                  batch?.froms.includes(address)
+                }
+                isHighestBidder={batch?.highestBid?.owner === address}
+                testID={testID}
+              />
+              <NumberFormat
+                displayType="text"
+                suffix={` ${batch.loan.displaySymbol}`}
+                renderText={(value: string) => (
+                  <ThemedTextV2
+                    light={tailwind("text-mono-light-v2-700")}
+                    dark={tailwind("text-mono-dark-v2-700")}
+                    style={tailwind("mt-1 text-xs font-normal-v2 flex-wrap")}
+                    testID={`batch_${batch.index}_min_next_bid`}
+                  >
+                    {value}
+                  </ThemedTextV2>
+                )}
+                thousandSeparator
+                value={minNextBidInToken.toFixed(8)}
+              />
+            </View>
+            <View>
+              <ThemedTouchableOpacityV2
+                light={tailwind("bg-mono-light-v2-100")}
+                dark={tailwind("bg-mono-dark-v2-100")}
+                style={tailwind(
+                  "flex flex-row items-center rounded-2xl-v2 py-2 px-3"
+                )}
+                onPress={onQuickBid}
+                testID={`${testID}_quick_bid_button`}
+              >
+                <SymbolIcon
+                  symbol={batch.loan.displaySymbol}
+                  styleProps={tailwind("w-4 h-4")}
+                />
+                <ThemedTextV2
+                  style={tailwind("font-semibold-v2 text-xs text-center ml-1")}
+                >
+                  {translate(
+                    "components/BatchCard",
+                    batch?.froms.includes(address) ? "Quick rebid" : "Quick bid"
+                  )}
+                </ThemedTextV2>
+              </ThemedTouchableOpacityV2>
+            </View>
+          </View>
         </View>
-      </TouchableOpacity>
-    </ThemedViewV2>
+        <VerticalProgressBar
+          height={progressBarHeight}
+          normalizedBlocks={normalizedBlocks.toNumber()}
+          color={timeRemainingThemedColor}
+        />
+      </View>
+    </ThemedTouchableOpacityV2>
   );
 }
 
@@ -242,7 +238,7 @@ const BidInfo = memo(
         title: "Min bid",
         color: isLight ? "text-mono-light-v2-900" : "text-mono-dark-v2-900",
       };
-    }, [isLight]);
+    }, [isHighestBidder, isOutBid, hasFirstBid, isLight]);
 
     return (
       <View style={tailwind("flex flex-row items-center")}>
@@ -257,7 +253,9 @@ const BidInfo = memo(
             size={18}
             name={icon}
             iconType="MaterialIcons"
-            style={tailwind(`ml-1.5 ${color}`)}
+            light={tailwind(color)}
+            dark={tailwind(color)}
+            style={tailwind("ml-1.5")}
             testID={`${testId}_icon`}
           />
         )}

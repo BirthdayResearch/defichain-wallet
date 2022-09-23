@@ -4,16 +4,19 @@ exports[`Bottom sheet header should match snapshot 1`] = `
 <View
   style={
     [
-      {
-        "borderTopLeftRadius": 15,
-        "borderTopRightRadius": 15,
-        "display": "flex",
-        "flexDirection": "column",
-        "paddingBottom": 20,
-        "paddingLeft": 20,
-        "paddingRight": 20,
-        "paddingTop": 12,
-      },
+      [
+        {
+          "borderTopLeftRadius": 15,
+          "borderTopRightRadius": 15,
+          "display": "flex",
+          "flexDirection": "column",
+          "paddingBottom": 20,
+          "paddingLeft": 20,
+          "paddingRight": 20,
+          "paddingTop": 12,
+        },
+        undefined,
+      ],
       {
         "backgroundColor": "rgba(242, 242, 242, 1)",
       },

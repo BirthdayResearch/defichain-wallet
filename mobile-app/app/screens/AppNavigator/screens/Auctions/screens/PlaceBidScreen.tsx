@@ -129,7 +129,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
       batch,
       bidAmount: new BigNumber(bidAmount),
       estimatedFees: fee,
-      totalAuctionValue: totalCollateralsValueInUSD,
+      totalAuctionValue: getPrecisedTokenValue(totalCollateralsValueInUSD),
       vault,
     });
   };
@@ -158,9 +158,11 @@ export function PlaceBidScreen(props: Props): JSX.Element {
             )}
             blockCount={blockCount}
             liquidationHeight={vault.liquidationHeight}
-            minNextBid={minNextBidInToken}
-            minNextBidInUSD={minNextBidInUSD}
-            totalAuctionValue={totalCollateralsValueInUSD}
+            minNextBid={minNextBidInToken.toFixed(8)}
+            minNextBidInUSD={getPrecisedTokenValue(minNextBidInUSD)}
+            totalAuctionValue={getPrecisedTokenValue(
+              totalCollateralsValueInUSD
+            )}
             onPressFullDetails={onPressFullDetails}
           />
 
