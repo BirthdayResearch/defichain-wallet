@@ -36,7 +36,7 @@ export function LoanActionButton({
       light={tailwind("bg-mono-light-v2-100", { "opacity-30": disabled })}
       onPress={disabled ? undefined : onPress}
       activeOpacity={disabled ? 0.3 : 0.7}
-      testID={`dex_action_button_${testID}`}
+      testID={`loans_action_button_${testID}`}
     >
       {iconLeft?.()}
       <ThemedTextV2

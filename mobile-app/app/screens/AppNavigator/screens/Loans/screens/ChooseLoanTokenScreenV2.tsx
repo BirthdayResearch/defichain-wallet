@@ -107,6 +107,7 @@ export function ChooseLoanTokenScreenV2({
       <LoanCardsV2
         testID="loans_cards"
         loans={filteredLoans}
+        vaultId={vaultId}
         vaultExist={isVaultReady}
       />
     </ThemedView>
