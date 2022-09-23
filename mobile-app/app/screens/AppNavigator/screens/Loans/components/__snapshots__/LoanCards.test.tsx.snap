@@ -244,6 +244,39 @@ exports[`loan cards should match snapshot 1`] = `
                       ]
                     }
                   >
+                    <RNSVGDefs>
+                      <RNSVGLinearGradient
+                        gradient={
+                          [
+                            0,
+                            -16777216,
+                            0.0703125,
+                            -327249,
+                            0.169271,
+                            -1113679,
+                            0.289062,
+                            -2424139,
+                            0.408854,
+                            -4193094,
+                            0.528646,
+                            -6486336,
+                            0.648438,
+                            -9303864,
+                            0.815104,
+                            -12645423,
+                            1,
+                            -15855909,
+                          ]
+                        }
+                        gradientTransform={null}
+                        gradientUnits={1}
+                        name="paint0_linear_7863_44577"
+                        x1="-1.8"
+                        x2="38"
+                        y1="19"
+                        y2="19"
+                      />
+                    </RNSVGDefs>
                     <RNSVGGroup
                       clipPath="clip0_1388_11287"
                     >
@@ -260,7 +293,12 @@ exports[`loan cards should match snapshot 1`] = `
                             "strokeWidth",
                           ]
                         }
-                        stroke={4291611852}
+                        stroke={
+                          [
+                            1,
+                            "paint0_linear_7863_44577",
+                          ]
+                        }
                         strokeWidth={0.5}
                       />
                     </RNSVGGroup>
@@ -553,6 +591,39 @@ exports[`loan cards should match snapshot 1`] = `
                       ]
                     }
                   >
+                    <RNSVGDefs>
+                      <RNSVGLinearGradient
+                        gradient={
+                          [
+                            0,
+                            -16777216,
+                            0.0703125,
+                            -327249,
+                            0.169271,
+                            -1113679,
+                            0.289062,
+                            -2424139,
+                            0.408854,
+                            -4193094,
+                            0.528646,
+                            -6486336,
+                            0.648438,
+                            -9303864,
+                            0.815104,
+                            -12645423,
+                            1,
+                            -15855909,
+                          ]
+                        }
+                        gradientTransform={null}
+                        gradientUnits={1}
+                        name="paint0_linear_7863_44577"
+                        x1="-1.8"
+                        x2="38"
+                        y1="19"
+                        y2="19"
+                      />
+                    </RNSVGDefs>
                     <RNSVGGroup
                       clipPath="clip0_1388_11287"
                     >
@@ -569,7 +640,12 @@ exports[`loan cards should match snapshot 1`] = `
                             "strokeWidth",
                           ]
                         }
-                        stroke={4291611852}
+                        stroke={
+                          [
+                            1,
+                            "paint0_linear_7863_44577",
+                          ]
+                        }
                         strokeWidth={0.5}
                       />
                     </RNSVGGroup>
@@ -875,6 +951,39 @@ exports[`loan cards should match snapshot 1`] = `
                       ]
                     }
                   >
+                    <RNSVGDefs>
+                      <RNSVGLinearGradient
+                        gradient={
+                          [
+                            0,
+                            -16777216,
+                            0.0703125,
+                            -327249,
+                            0.169271,
+                            -1113679,
+                            0.289062,
+                            -2424139,
+                            0.408854,
+                            -4193094,
+                            0.528646,
+                            -6486336,
+                            0.648438,
+                            -9303864,
+                            0.815104,
+                            -12645423,
+                            1,
+                            -15855909,
+                          ]
+                        }
+                        gradientTransform={null}
+                        gradientUnits={1}
+                        name="paint0_linear_7863_44577"
+                        x1="-1.8"
+                        x2="38"
+                        y1="19"
+                        y2="19"
+                      />
+                    </RNSVGDefs>
                     <RNSVGGroup
                       clipPath="clip0_1388_11287"
                     >
@@ -891,7 +1000,12 @@ exports[`loan cards should match snapshot 1`] = `
                             "strokeWidth",
                           ]
                         }
-                        stroke={4291611852}
+                        stroke={
+                          [
+                            1,
+                            "paint0_linear_7863_44577",
+                          ]
+                        }
                         strokeWidth={0.5}
                       />
                     </RNSVGGroup>
