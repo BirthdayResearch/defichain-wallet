@@ -238,7 +238,7 @@ const BidInfo = memo(
         title: "Min bid",
         color: isLight ? "text-mono-light-v2-900" : "text-mono-dark-v2-900",
       };
-    }, [isLight]);
+    }, [isHighestBidder, isOutBid, hasFirstBid, isLight]);
 
     return (
       <View style={tailwind("flex flex-row items-center")}>
@@ -253,7 +253,9 @@ const BidInfo = memo(
             size={18}
             name={icon}
             iconType="MaterialIcons"
-            style={tailwind(`ml-1.5 ${color}`)}
+            light={tailwind(color)}
+            dark={tailwind(color)}
+            style={tailwind("ml-1.5")}
             testID={`${testId}_icon`}
           />
         )}
