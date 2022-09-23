@@ -1,14 +1,11 @@
 import { Dispatch, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { tailwind } from "@tailwind";
+import { getColor, tailwind } from "@tailwind";
 import { StackScreenProps } from "@react-navigation/stack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import BigNumber from "bignumber.js";
 import { RootState } from "@store";
-import {
-  firstTransactionSelector,
-  hasTxQueued as hasBroadcastQueued,
-} from "@store/ocean";
+import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { translate } from "@translations";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import {
@@ -24,29 +21,30 @@ import {
   useLogger,
 } from "@shared-contexts/NativeLoggingProvider";
 import {
+  ThemedActivityIndicatorV2,
   ThemedIcon,
-  ThemedScrollView,
-  ThemedSectionTitle,
-  ThemedView,
+  ThemedScrollViewV2,
+  ThemedTextV2,
+  ThemedTouchableOpacityV2,
+  ThemedViewV2,
 } from "@components/themed";
-import { TextRow } from "@components/TextRow";
-import { NumberRow } from "@components/NumberRow";
-import { InfoRow, InfoType } from "@components/InfoRow";
-import { TransactionResultsRow } from "@components/TransactionResultsRow";
-import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
-import { SummaryTitle } from "@components/SummaryTitle";
-import { getNativeIcon } from "@components/icons/assets";
-import { ConversionTag } from "@components/ConversionTag";
 import { View } from "@components";
-import { InfoText } from "@components/InfoText";
-import { WalletAddressRow } from "@components/WalletAddressRow";
-import { PricesSection } from "@components/PricesSection";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
-import { OwnedTokenState, TokenState } from "./CompositeSwapScreen";
+import { useWalletContext } from "@shared-contexts/WalletContext";
+import { useAddressLabel } from "@hooks/useAddressLabel";
+import { ConfirmSummaryTitle } from "@components/ConfirmSummaryTitle";
+import { NumberRowV2 } from "@components/NumberRowV2";
+import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { TextRowV2 } from "@components/TextRowV2";
+import { PricesSectionV2 } from "@components/PricesSectionV2";
+import Checkbox from "expo-checkbox";
 import { DexParamList } from "../DexNavigator";
+import { OwnedTokenState, TokenState } from "./CompositeSwapScreen";
+import { useDexStabilization } from "../hook/DexStabilization";
 
 type Props = StackScreenProps<DexParamList, "ConfirmCompositeSwapScreen">;
+
 export interface CompositeSwapForm {
   tokenFrom: OwnedTokenState;
   tokenTo: TokenState & { amount?: string };
@@ -66,6 +64,8 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
     swap,
     futureSwap,
     estimatedAmount,
+    totalFees,
+    estimatedLessFeesAfterSlippage,
   } = route.params;
   const navigation = useNavigation<NavigationProp<DexParamList>>();
   const dispatch = useAppDispatch();
@@ -77,17 +77,25 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
     hasBroadcastQueued(state.ocean)
   );
-  const currentBroadcastJob = useSelector((state: RootState) =>
-    firstTransactionSelector(state.ocean)
-  );
   const blockCount = useSelector((state: RootState) => state.block.count ?? 0);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isOnPage, setIsOnPage] = useState(true);
   const isFutureSwap = futureSwap !== undefined;
 
-  const TokenAIcon = getNativeIcon(tokenA.displaySymbol);
-  const TokenBIcon = getNativeIcon(tokenB.displaySymbol);
+  const { address } = useWalletContext();
+  const addressLabel = useAddressLabel(address);
+
+  const [isAcknowledge, setIsAcknowledge] = useState(false);
+
+  const {
+    dexStabilization: { dexStabilizationType },
+  } = useDexStabilization(tokenA, tokenB);
+
+  const dexStabMessage =
+    dexStabilizationType !== "none"
+      ? "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?"
+      : undefined;
 
   useEffect(() => {
     setIsOnPage(true);
@@ -136,20 +144,6 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
     setIsSubmitting(false);
   }
 
-  function getSubmitLabel(): string {
-    if (!hasPendingBroadcastJob && !hasPendingJob) {
-      return "CONFIRM SWAP";
-    }
-    if (
-      hasPendingBroadcastJob &&
-      currentBroadcastJob !== undefined &&
-      currentBroadcastJob.submitButtonLabel !== undefined
-    ) {
-      return currentBroadcastJob.submitButtonLabel;
-    }
-    return "SWAPPING";
-  }
-
   function onCancel(): void {
     if (!isSubmitting) {
       navigation.navigate({
@@ -160,245 +154,337 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
     }
   }
 
-  function getTransactionType(): string {
-    if (isFutureSwap) {
-      return translate("screens/ConfirmCompositeSwapScreen", "Future swap");
-    } else if (conversion?.isConversionRequired === true) {
-      return translate("screens/ConfirmCompositeSwapScreen", "Convert & swap");
-    } else {
-      return translate("screens/ConfirmCompositeSwapScreen", "Swap");
-    }
-  }
-
   return (
-    <ThemedScrollView style={tailwind("pb-4")}>
-      <ThemedView
-        dark={tailwind("bg-gray-800 border-b border-gray-700")}
-        light={tailwind("bg-white border-b border-gray-300")}
-        style={tailwind("flex-col px-4 py-8")}
-      >
-        <SummaryTitle
-          amount={swap.amountFrom}
-          suffixType="component"
-          testID="text_swap_amount"
+    <ThemedScrollViewV2 style={tailwind("py-8 px-5")}>
+      <ThemedViewV2 style={tailwind("flex-col pb-4 mb-4")}>
+        <ConfirmSummaryTitle
           title={translate(
             "screens/ConfirmCompositeSwapScreen",
             "You are swapping"
           )}
-        >
-          <TokenAIcon height={24} width={24} style={tailwind("ml-1")} />
-          <ThemedIcon
-            iconType="MaterialIcons"
-            name="arrow-right-alt"
-            size={24}
-            style={tailwind("px-1")}
-          />
-          <TokenBIcon height={24} width={24} />
-        </SummaryTitle>
-        {conversion?.isConversionRequired === true && <ConversionTag />}
-      </ThemedView>
-
-      <ThemedSectionTitle
-        testID="title_tx_detail"
-        text={translate(
-          "screens/ConfirmCompositeSwapScreen",
-          "TRANSACTION DETAILS"
-        )}
-      />
-      <TextRow
-        lhs={translate(
-          "screens/ConfirmCompositeSwapScreen",
-          "Transaction type"
-        )}
-        rhs={{
-          value: getTransactionType(),
-          testID: "confirm_text_transaction_type",
-        }}
-        textStyle={tailwind("text-sm font-normal")}
-      />
-      <WalletAddressRow />
-
-      {futureSwap !== undefined ? (
-        <>
-          <TextRow
-            lhs={translate(
-              "screens/ConfirmCompositeSwapScreen",
-              "Transaction date"
-            )}
-            rhs={{
-              value: futureSwap.transactionDate,
-              testID: "confirm_text_transaction_date",
-            }}
-            textStyle={tailwind("text-sm font-normal")}
-          />
-          <NumberRow
-            lhs={translate(
-              "screens/ConfirmCompositeSwapScreen",
-              "Settlement block"
-            )}
-            rhs={{
-              testID: "confirm_execution_block",
-              value: futureSwap.executionBlock,
-            }}
-          />
-          <TextRow
-            lhs={translate(
-              "screens/ConfirmCompositeSwapScreen",
-              "Estimated to receive"
-            )}
-            rhs={{
-              value: translate(
-                "screens/CompositeSwapScreen",
-                "Oracle price {{percentageChange}}",
-                {
-                  percentageChange: futureSwap.oraclePriceText,
-                }
-              ),
-              testID: "confirm_estimated_to_receive",
-            }}
-            textStyle={tailwind("text-sm font-normal")}
-          />
-        </>
-      ) : (
-        <NumberRow
-          lhs={translate(
-            "screens/ConfirmCompositeSwapScreen",
-            "Estimated to receive"
-          )}
-          rhs={{
-            testID: "confirm_estimated_to_receive",
-            value: swap.amountTo.toFixed(8),
-            suffixType: "text",
-            suffix: swap.tokenTo.displaySymbol,
-          }}
-          rhsUsdAmount={getTokenPrice(
-            tokenB.symbol,
-            new BigNumber(estimatedAmount),
-            false
-          )}
+          fromTokenAmount={swap.amountFrom}
+          toTokenAmount={estimatedAmount}
+          testID="text_swap_amount"
+          iconA={tokenA.displaySymbol}
+          iconB={tokenB.displaySymbol}
+          fromAddress={address}
+          fromAddressLabel={addressLabel}
+          isFutureSwap={futureSwap !== undefined}
+          oraclePrice={futureSwap?.oraclePriceText}
         />
-      )}
-      <InfoRow
-        type={InfoType.EstimatedFee}
-        value={fee.toFixed(8)}
-        testID="confirm_text_fee"
-        suffix="DFI"
-      />
-      {!isFutureSwap && (
-        <>
-          <NumberRow
-            lhs={translate(
-              "screens/ConfirmCompositeSwapScreen",
-              "Slippage tolerance"
-            )}
+      </ThemedViewV2>
+
+      {conversion?.isConversionRequired === true && (
+        <ThemedViewV2
+          dark={tailwind("border-gray-700")}
+          light={tailwind("border-gray-300")}
+          style={tailwind("py-5 border-t-0.5")}
+        >
+          <NumberRowV2
+            lhs={{
+              value: translate("screens/ConfirmAddLiq", "Amount to convert"),
+              testID: "amount_to_convert",
+              themedProps: {
+                light: tailwind("text-mono-light-v2-500"),
+                dark: tailwind("text-mono-dark-v2-500"),
+              },
+            }}
             rhs={{
-              value: new BigNumber(slippage).times(100).toFixed(),
-              suffix: "%",
-              testID: "slippage_fee",
-              suffixType: "text",
+              value: conversion.conversionAmount.toFixed(8),
+              testID: "amount_to_convert_value",
             }}
           />
-          <PricesSection
-            testID="confirm_pricerate_value"
-            priceRates={priceRates}
-            sectionTitle="PRICES"
-          />
-        </>
-      )}
-      {futureSwap !== undefined ? (
-        <>
-          <TransactionResultsRow
-            tokens={[
-              {
-                symbol: tokenA.displaySymbol,
-                value: BigNumber.max(
-                  new BigNumber(tokenA.amount).minus(swap.amountFrom),
-                  0
-                ).toFixed(8),
-                suffix: tokenA.displaySymbol,
-              },
-            ]}
-          />
-          <TextRow
-            lhs={translate(
-              "screens/ConfirmCompositeSwapScreen",
-              "Resulting {{token}}",
-              { token: tokenB.displaySymbol }
+          <View
+            style={tailwind(
+              "flex flex-row text-right items-center justify-end"
             )}
-            rhs={{
+          >
+            <ThemedTextV2
+              style={tailwind("mr-1.5 font-normal-v2 text-sm")}
+              light={tailwind("text-mono-light-v2-700")}
+              dark={tailwind("text-mono-dark-v2-700")}
+              testID="conversion_status"
+            >
+              {translate(
+                "screens/ConvertConfirmScreen",
+                conversion?.isConversionRequired &&
+                  conversion?.isConverted !== true
+                  ? "Converting"
+                  : "Converted"
+              )}
+            </ThemedTextV2>
+            {conversion?.isConversionRequired &&
+              conversion?.isConverted !== true && <ThemedActivityIndicatorV2 />}
+            {conversion?.isConversionRequired &&
+              conversion?.isConverted === true && (
+                <ThemedIcon
+                  light={tailwind("text-success-600")}
+                  dark={tailwind("text-darksuccess-500")}
+                  iconType="MaterialIcons"
+                  name="check-circle"
+                  size={20}
+                />
+              )}
+          </View>
+        </ThemedViewV2>
+      )}
+
+      {!isFutureSwap && (
+        <ThemedViewV2
+          dark={tailwind("border-gray-700")}
+          light={tailwind("border-gray-300")}
+          style={tailwind("py-5 border-t-0.5")}
+        >
+          <PricesSectionV2
+            priceRates={priceRates}
+            testID="instant_swap_summary"
+          />
+          <NumberRowV2
+            lhs={{
               value: translate(
                 "screens/ConfirmCompositeSwapScreen",
-                "Oracle price {{percentageChange}}",
-                {
-                  percentageChange: futureSwap.oraclePriceText,
-                }
+                "Slippage tolerance"
               ),
-              testID: `resulting_${tokenB.displaySymbol}`,
+              testID: "confirm_slippage_fee_label",
+              themedProps: {
+                light: tailwind("text-mono-light-v2-500"),
+                dark: tailwind("text-mono-dark-v2-500"),
+              },
             }}
-            textStyle={tailwind("text-sm font-normal")}
+            rhs={{
+              value: new BigNumber(slippage).times(100).toFixed(),
+              testID: "confirm_slippage_fee",
+              suffix: "%",
+            }}
           />
-        </>
-      ) : (
-        <TransactionResultsRow
-          tokens={[
-            {
-              symbol: tokenA.displaySymbol,
-              value: BigNumber.max(
-                new BigNumber(tokenA.amount)
-                  .minus(swap.amountFrom)
-                  .minus(tokenA.displaySymbol === "DFI" ? fee : 0),
-                0
-              ).toFixed(8),
-              suffix: tokenA.displaySymbol,
-            },
-            {
-              symbol: tokenB.displaySymbol,
-              value: BigNumber.max(
-                new BigNumber(
-                  tokenB?.amount === "" || tokenB?.amount === undefined
-                    ? 0
-                    : tokenB?.amount
-                )
-                  .plus(swap.amountTo)
-                  .minus(tokenB.displaySymbol === "DFI" ? fee : 0),
-                0
-              ).toFixed(8),
-              suffix: tokenB.displaySymbol,
-            },
-          ]}
-        />
+        </ThemedViewV2>
       )}
-      {conversion?.isConversionRequired === true && (
-        <View style={tailwind("px-4 pt-2 pb-1 mt-2")}>
-          <InfoText
-            type="warning"
-            testID="conversion_warning_info_text"
-            text={translate(
-              "components/ConversionInfoText",
-              "Please wait as we convert tokens for your transaction. Conversions are irreversible."
-            )}
+
+      {!isFutureSwap && (
+        <ThemedViewV2
+          dark={tailwind("border-gray-700")}
+          light={tailwind("border-gray-300")}
+          style={tailwind("py-5 border-t-0.5")}
+        >
+          <NumberRowV2
+            lhs={{
+              value: translate(
+                "screens/ConfirmCompositeSwapScreen",
+                "Total fees"
+              ),
+              testID: "transaction_fee",
+              themedProps: {
+                light: tailwind("text-mono-light-v2-500"),
+                dark: tailwind("text-mono-dark-v2-500"),
+              },
+            }}
+            rhs={{
+              value: totalFees,
+              testID: "transaction_fee_amount",
+              prefix: "$",
+            }}
           />
-        </View>
+        </ThemedViewV2>
       )}
-      <SubmitButtonGroup
-        isDisabled={
-          isSubmitting ||
-          hasPendingJob ||
-          hasPendingBroadcastJob ||
-          (futureSwap !== undefined && blockCount >= futureSwap.executionBlock)
-        }
-        label={translate("screens/ConfirmCompositeSwapScreen", "CONFIRM SWAP")}
-        isProcessing={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
-        processingLabel={translate(
-          "screens/ConfirmCompositeSwapScreen",
-          getSubmitLabel()
+
+      <ThemedViewV2
+        dark={tailwind("border-gray-700")}
+        light={tailwind("border-gray-300")}
+        style={tailwind("border-t-0.5")}
+      >
+        {futureSwap !== undefined ? (
+          <>
+            <ThemedViewV2
+              dark={tailwind("border-gray-700")}
+              light={tailwind("border-gray-300")}
+              style={tailwind("py-5 border-b-0.5")}
+            >
+              <NumberRowV2
+                lhs={{
+                  value: translate(
+                    "screens/ConfirmCompositeSwapScreen",
+                    "Transaction fee"
+                  ),
+                  testID: "transaction_fee",
+                  themedProps: {
+                    light: tailwind("text-mono-light-v2-500"),
+                    dark: tailwind("text-mono-dark-v2-500"),
+                  },
+                }}
+                rhs={{
+                  value: fee.toFixed(8),
+                  testID: "confirm_text_fee",
+                  suffix: " DFI",
+                }}
+              />
+            </ThemedViewV2>
+            <View style={tailwind("pt-5")}>
+              <NumberRowV2
+                lhs={{
+                  value: translate(
+                    "screens/ConfirmCompositeSwapScreen",
+                    "Settlement block"
+                  ),
+                  testID: "settlement_block",
+                  themedProps: {
+                    light: tailwind("text-mono-light-v2-500"),
+                    dark: tailwind("text-mono-dark-v2-500"),
+                  },
+                }}
+                rhs={{
+                  value: futureSwap.executionBlock,
+                  testID: "confirm_text_settlement_block",
+                }}
+              />
+              <TextRowV2
+                lhs={{
+                  value: "",
+                  testID: "",
+                }}
+                rhs={{
+                  value: futureSwap.transactionDate,
+                  testID: "confirm_text_transaction_date",
+                }}
+              />
+            </View>
+            <ThemedViewV2
+              dark={tailwind("border-gray-700")}
+              light={tailwind("border-gray-300")}
+              style={tailwind("py-5 border-b-0.5")}
+            >
+              <TextRowV2
+                lhs={{
+                  value: translate(
+                    "screens/ConfirmCompositeSwapScreen",
+                    "Estimated to receive"
+                  ),
+                  testID: "confirm_text_receive",
+                  themedProps: {
+                    light: tailwind("text-mono-light-v2-500"),
+                    dark: tailwind("text-mono-dark-v2-500"),
+                  },
+                }}
+                rhs={{
+                  value: `${tokenB.displaySymbol}`,
+                  testID: "confirm_text_receive_unit",
+                  themedProps: {
+                    light: tailwind("text-mono-light-v2-900"),
+                    dark: tailwind("text-mono-dark-v2-900"),
+                  },
+                }}
+              />
+              <TextRowV2
+                lhs={{
+                  value: "",
+                  testID: "",
+                }}
+                rhs={{
+                  value: translate(
+                    "screens/ConfirmCompositeSwapScreen",
+                    "Settlement value {{percentageChange}}",
+                    {
+                      percentageChange: futureSwap.oraclePriceText,
+                    }
+                  ),
+                  testID: "confirm_settlement_value",
+                }}
+              />
+            </ThemedViewV2>
+          </>
+        ) : (
+          <ThemedViewV2
+            dark={tailwind("border-gray-700")}
+            light={tailwind("border-gray-300")}
+            style={tailwind("py-5 border-b-0.5")}
+          >
+            <NumberRowV2
+              lhs={{
+                value: translate(
+                  "screens/ConfirmCompositeSwapScreen",
+                  "Estimated to receive (incl. all fees)"
+                ),
+                testID: "estimated_to_receive",
+                themedProps: {
+                  light: tailwind("text-mono-light-v2-500"),
+                  dark: tailwind("text-mono-dark-v2-500"),
+                },
+              }}
+              rhs={{
+                testID: "confirm_estimated_to_receive",
+                value: new BigNumber(estimatedLessFeesAfterSlippage).toFixed(8),
+                suffix: ` ${swap.tokenTo.displaySymbol}`,
+                usdAmount: getTokenPrice(
+                  tokenB.symbol,
+                  new BigNumber(estimatedLessFeesAfterSlippage),
+                  false
+                ),
+                themedProps: {
+                  style: tailwind("font-semibold-v2 text-right"),
+                },
+              }}
+            />
+          </ThemedViewV2>
         )}
-        onCancel={onCancel}
-        onSubmit={onSubmit}
-        displayCancelBtn
-        title="swap"
+      </ThemedViewV2>
+
+      <View style={tailwind("pt-10 pb-14 px-3")}>
+        {dexStabMessage && (
+          <DexStabAcknowledgeCheckBox
+            isAcknowledge={isAcknowledge}
+            onSwitch={(val) => setIsAcknowledge(val)}
+            message={dexStabMessage}
+          />
+        )}
+        <SubmitButtonGroupV2
+          isDisabled={
+            (!isAcknowledge && dexStabilizationType !== "none") ||
+            isSubmitting ||
+            hasPendingJob ||
+            hasPendingBroadcastJob ||
+            (futureSwap !== undefined &&
+              blockCount >= futureSwap.executionBlock)
+          }
+          label={translate("screens/ConfirmCompositeSwapScreen", "Swap")}
+          onSubmit={onSubmit}
+          onCancel={onCancel}
+          displayCancelBtn
+          title="swap"
+        />
+      </View>
+    </ThemedScrollViewV2>
+  );
+}
+
+function DexStabAcknowledgeCheckBox(props: {
+  isAcknowledge: boolean;
+  onSwitch: (val: boolean) => void;
+  message: string;
+}): JSX.Element {
+  return (
+    <View style={tailwind("px-7 flex flex-row justify-center")}>
+      <Checkbox
+        value={props.isAcknowledge}
+        style={tailwind("h-6 w-6 mt-1 rounded")}
+        onValueChange={props.onSwitch}
+        color={props.isAcknowledge ? getColor("brand-v2-500") : undefined}
+        testID="lp_ack_checkbox"
       />
-    </ThemedScrollView>
+      <ThemedTouchableOpacityV2
+        style={tailwind("flex-1")}
+        activeOpacity={0.7}
+        onPress={() => {
+          props.onSwitch(!props.isAcknowledge);
+        }}
+      >
+        <ThemedTextV2
+          style={tailwind("ml-4 flex-1 text-xs font-normal-v2")}
+          light={tailwind("text-mono-light-v2-700")}
+          dark={tailwind("text-mono-dark-v2-700")}
+        >
+          {translate("screens/ConfirmCompositeSwapScreen", props.message)}
+        </ThemedTextV2>
+      </ThemedTouchableOpacityV2>
+    </View>
   );
 }
 
@@ -446,26 +532,36 @@ async function constructSignedSwapAndSend(
       transactionQueue.actions.push({
         sign: signer,
         title: translate(
-          "screens/ConfirmCompositeSwapScreen",
-          "Swapping Token"
-        ),
-        description: translate(
-          "screens/ConfirmCompositeSwapScreen",
+          "screens/OceanInterface",
           "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}",
           {
             amountA: cSwapForm.amountFrom.toFixed(8),
-            symbolA: cSwapForm.tokenFrom.displaySymbol,
             amountB: cSwapForm.amountTo.toFixed(8),
+            symbolA: cSwapForm.tokenFrom.displaySymbol,
             symbolB: cSwapForm.tokenTo.displaySymbol,
           }
         ),
         drawerMessages: {
-          preparing: translate(
+          waiting: translate(
             "screens/OceanInterface",
-            "Preparing to swap tokens…"
+            "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}",
+            {
+              amountA: cSwapForm.amountFrom.toFixed(8),
+              amountB: cSwapForm.amountTo.toFixed(8),
+              symbolA: cSwapForm.tokenFrom.displaySymbol,
+              symbolB: cSwapForm.tokenTo.displaySymbol,
+            }
           ),
-          waiting: translate("screens/OceanInterface", "Swapping tokens…"),
-          complete: translate("screens/OceanInterface", "Tokens swapped"),
+          complete: translate(
+            "screens/OceanInterface",
+            "Swapped {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}",
+            {
+              amountA: cSwapForm.amountFrom.toFixed(8),
+              amountB: cSwapForm.amountTo.toFixed(8),
+              symbolA: cSwapForm.tokenFrom.displaySymbol,
+              symbolB: cSwapForm.tokenTo.displaySymbol,
+            }
+          ),
         },
         onBroadcast,
       })
@@ -516,17 +612,13 @@ async function constructSignedFutureSwapAndSend(
       transactionQueue.actions.push({
         sign: signer,
         title: translate(
-          "screens/ConfirmCompositeSwapScreen",
-          "Future swapping Token"
-        ),
-        description: translate(
-          "screens/ConfirmCompositeSwapScreen",
-          "Swap on future block {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on oracle price {{percentageChange}}",
+          "screens/OceanInterface",
+          "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
           {
             amountA: futureSwap.amount.toFixed(8),
             fromTokenDisplaySymbol: futureSwap.fromTokenDisplaySymbol,
             toTokenDisplaySymbol: futureSwap.toTokenDisplaySymbol,
-            percentageChange: futureSwap.oraclePriceText,
+            settlementBlock: futureSwap.executionBlock,
           }
         ),
         drawerMessages: {
@@ -536,12 +628,11 @@ async function constructSignedFutureSwapAndSend(
           ),
           waiting: translate(
             "screens/OceanInterface",
-            "Processing future swap transaction…"
+            "Processing future swap…"
           ),
           complete: translate(
             "screens/OceanInterface",
-            "Future Swap confirmed and will be executed at block #{{block}}",
-            { block: futureSwap.executionBlock }
+            "Future Swap confirmed for next settlement block"
           ),
         },
         onBroadcast,

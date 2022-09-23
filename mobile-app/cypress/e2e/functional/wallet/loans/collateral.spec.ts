@@ -587,9 +587,9 @@ context("Wallet - Loans - 50% valid collateral token ratio", () => {
       "20",
       "$19.80",
       "99",
-      "1.94%",
+      "1.96%",
       vaultId,
-      "50.47%"
+      "50.49%"
     );
     cy.go("back");
   });
