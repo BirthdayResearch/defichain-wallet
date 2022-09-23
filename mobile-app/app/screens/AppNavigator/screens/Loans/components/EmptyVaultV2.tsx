@@ -1,7 +1,7 @@
 import { Image, Platform, RefreshControl } from "react-native";
 import {
   ThemedIcon,
-  ThemedScrollView,
+  ThemedScrollViewV2,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
 } from "@components/themed";
@@ -75,7 +75,7 @@ export function EmptyVaultV2(props: EmptyVaultProps): JSX.Element {
     expandModal();
   };
   return (
-    <ThemedScrollView
+    <ThemedScrollViewV2
       refreshControl={
         <RefreshControl
           onRefresh={props.handleRefresh}
@@ -152,6 +152,6 @@ export function EmptyVaultV2(props: EmptyVaultProps): JSX.Element {
           }}
         />
       )}
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   );
 }
