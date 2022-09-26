@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import {
   ThemedFlashList,
-  ThemedIcon,
   ThemedText,
   ThemedTextV2,
   ThemedViewV2,
@@ -58,7 +57,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
       v.vaultId === props.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION
   ) as LoanVaultActive;
   return (
-    <>
+    <View>
       <ThemedFlashList
         contentContainerStyle={tailwind("pt-4 pb-2")}
         data={props.loans}
@@ -98,7 +97,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
         keyExtractor={(_item, index) => index.toString()}
         testID={props.testID}
       />
-    </>
+    </View>
   );
 }
 
