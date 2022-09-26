@@ -3,11 +3,11 @@
 exports[`loan cards should match snapshot 1`] = `
 <RCTScrollView
   contentContainerStyle={
-    Array [
-      Object {
+    [
+      {
         "flexGrow": 1,
       },
-      Object {
+      {
         "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
@@ -16,7 +16,7 @@ exports[`loan cards should match snapshot 1`] = `
   <View>
     <View
       style={
-        Object {
+        {
           "flex": 1,
         }
       }
@@ -25,28 +25,27 @@ exports[`loan cards should match snapshot 1`] = `
         applyWindowCorrection={[Function]}
         canChangeSize={true}
         contentContainerStyle={
-          Object {
+          {
             "backgroundColor": undefined,
             "minHeight": 1,
             "minWidth": 1,
           }
         }
-<<<<<<< HEAD
         contentHeight={0}
         contentWidth={0}
         data={
-          Array [
-            Object {
+          [
+            {
               "fixedIntervalPriceId": "TS25/USD",
               "interest": "2",
-              "token": Object {
+              "token": {
                 "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-                "creation": Object {
+                "creation": {
                   "height": 151,
                   "tx": "3a7e97db4b913fd249da2a59f2edd84f34e111fe1c775a01addfb3b96c147d40",
                 },
                 "decimal": 8,
-                "destruction": Object {
+                "destruction": {
                   "height": -1,
                   "tx": "0000000000000000000000000000000000000000000000000000000000000000",
                 },
@@ -66,17 +65,17 @@ exports[`loan cards should match snapshot 1`] = `
               },
               "tokenId": "3a7e97db4b913fd249da2a59f2edd84f34e111fe1c775a01addfb3b96c147d40",
             },
-            Object {
+            {
               "fixedIntervalPriceId": "TR50/USD",
               "interest": "3",
-              "token": Object {
+              "token": {
                 "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-                "creation": Object {
+                "creation": {
                   "height": 152,
                   "tx": "57135919430b915f6f462142161e94474aae824791fa3644541102d7a7959a63",
                 },
                 "decimal": 8,
-                "destruction": Object {
+                "destruction": {
                   "height": -1,
                   "tx": "0000000000000000000000000000000000000000000000000000000000000000",
                 },
@@ -96,17 +95,17 @@ exports[`loan cards should match snapshot 1`] = `
               },
               "tokenId": "57135919430b915f6f462142161e94474aae824791fa3644541102d7a7959a63",
             },
-            Object {
+            {
               "fixedIntervalPriceId": "TU10/USD",
               "interest": "1",
-              "token": Object {
+              "token": {
                 "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-                "creation": Object {
+                "creation": {
                   "height": 149,
                   "tx": "943c2f38cf418ff116c402f4f6ec400039223e5aa4fb41f2c4a6e69ac53a4c45",
                 },
                 "decimal": 8,
-                "destruction": Object {
+                "destruction": {
                   "height": -1,
                   "tx": "0000000000000000000000000000000000000000000000000000000000000000",
                 },
@@ -130,259 +129,18 @@ exports[`loan cards should match snapshot 1`] = `
         }
         dataProvider={
           DataProvider {
-            "_data": Array [
-              Object {
+            "_data": [
+              {
                 "fixedIntervalPriceId": "TS25/USD",
                 "interest": "2",
-                "token": Object {
+                "token": {
                   "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-                  "creation": Object {
+                  "creation": {
                     "height": 151,
                     "tx": "3a7e97db4b913fd249da2a59f2edd84f34e111fe1c775a01addfb3b96c147d40",
-=======
-      >
-        <View
-          style={
-            {
-              "flexBasis": "50%",
-            }
-          }
-        >
-          <View
-            accessible={true}
-            collapsable={false}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            style={
-              {
-                "backgroundColor": "rgba(255, 255, 255, 1)",
-                "borderBottomColor": "rgba(229, 229, 229, 1)",
-                "borderBottomLeftRadius": 4,
-                "borderBottomRightRadius": 4,
-                "borderBottomWidth": 1,
-                "borderLeftColor": "rgba(229, 229, 229, 1)",
-                "borderLeftWidth": 1,
-                "borderRightColor": "rgba(229, 229, 229, 1)",
-                "borderRightWidth": 1,
-                "borderTopColor": "rgba(229, 229, 229, 1)",
-                "borderTopLeftRadius": 4,
-                "borderTopRightRadius": 4,
-                "borderTopWidth": 1,
-                "flexBasis": "0%",
-                "flexGrow": 1,
-                "flexShrink": 1,
-                "marginBottom": 16,
-                "marginLeft": 8,
-                "marginRight": 8,
-                "opacity": 1,
-                "paddingBottom": 16,
-                "paddingLeft": 16,
-                "paddingRight": 16,
-                "paddingTop": 16,
-              }
-            }
-            testID="loan_card_dTS25"
-          >
-            <View
-              style={
-                {
-                  "alignItems": "center",
-                  "flexDirection": "row",
-                  "justifyContent": "space-between",
-                  "paddingBottom": 8,
-                }
-              }
-            >
-              <View
-                style={
-                  {
-                    "display": "flex",
-                    "flexDirection": "row",
-                  }
-                }
-              >
-                <RNSVGSvgView
-                  align="xMidYMid"
-                  bbHeight={24}
-                  bbWidth={24}
-                  fill="none"
-                  focusable={false}
-                  height={24}
-                  meetOrSlice={0}
-                  minX={0}
-                  minY={0}
-                  style={
-                    [
-                      {
-                        "backgroundColor": "transparent",
-                        "borderWidth": 0,
-                      },
-                      {
-                        "marginRight": 8,
-                      },
-                      {
-                        "flex": 0,
-                        "height": 24,
-                        "width": 24,
-                      },
-                    ]
-                  }
-                  vbHeight={36}
-                  vbWidth={36}
-                  width={24}
-                >
-                  <RNSVGGroup
-                    fill={null}
-                    propList={
-                      [
-                        "fill",
-                      ]
-                    }
-                  >
-                    <RNSVGDefs>
-                      <RNSVGLinearGradient
-                        gradient={
-                          [
-                            0,
-                            -16777216,
-                            0.0703125,
-                            -327249,
-                            0.169271,
-                            -1113679,
-                            0.289062,
-                            -2424139,
-                            0.408854,
-                            -4193094,
-                            0.528646,
-                            -6486336,
-                            0.648438,
-                            -9303864,
-                            0.815104,
-                            -12645423,
-                            1,
-                            -15855909,
-                          ]
-                        }
-                        gradientTransform={null}
-                        gradientUnits={1}
-                        name="paint0_linear_7863_44577"
-                        x1="-1.8"
-                        x2="38"
-                        y1="19"
-                        y2="19"
-                      />
-                    </RNSVGDefs>
-                    <RNSVGGroup
-                      clipPath="clip0_1388_11287"
-                    >
-                      <RNSVGPath
-                        clipRule={0}
-                        d="M0.25061 18C0.25061 8.19645 8.19706 0.25 18.0006 0.25C27.8053 0.25 35.7506 8.19644 35.7506 18C35.7506 27.8036 27.8053 35.75 18.0006 35.75C8.19706 35.75 0.25061 27.8036 0.25061 18Z"
-                        fill={4279110157}
-                        fillRule={0}
-                        propList={
-                          [
-                            "fill",
-                            "fillRule",
-                            "stroke",
-                            "strokeWidth",
-                          ]
-                        }
-                        stroke={
-                          [
-                            1,
-                            "paint0_linear_7863_44577",
-                          ]
-                        }
-                        strokeWidth={0.5}
-                      />
-                    </RNSVGGroup>
-                    <RNSVGText
-                      content={null}
-                      dx={[]}
-                      dy={[]}
-                      fill={4294967295}
-                      font={
-                        {
-                          "fontSize": 10,
-                          "fontWeight": "bold",
-                          "textAnchor": "middle",
-                        }
-                      }
-                      propList={
-                        [
-                          "fill",
-                        ]
-                      }
-                      rotate={[]}
-                      x={
-                        [
-                          "50%",
-                        ]
-                      }
-                      y={
-                        [
-                          "62%",
-                        ]
-                      }
-                    >
-                      <RNSVGTSpan
-                        content="TS25"
-                        dx={[]}
-                        dy={[]}
-                        font={{}}
-                        rotate={[]}
-                        x={[]}
-                        y={[]}
-                      />
-                    </RNSVGText>
-                  </RNSVGGroup>
-                </RNSVGSvgView>
-                <Text
-                  style={
-                    [
-                      {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
-                      [
-                        {
-                          "fontFamily": "MediumFont",
-                          "fontWeight": "500",
-                        },
-                        {
-                          "color": "rgba(0, 0, 0, 1)",
-                        },
-                      ],
-                    ]
-                  }
-                  testID="loan_card_0_display_symbol"
-                >
-                  dTS25
-                </Text>
-              </View>
-              <Text />
-            </View>
-            <Text
-              style={
-                [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
->>>>>>> pierregee/feature-loans-v2-batch-1
                   },
                   "decimal": 8,
-                  "destruction": Object {
+                  "destruction": {
                     "height": -1,
                     "tx": "0000000000000000000000000000000000000000000000000000000000000000",
                   },
@@ -402,17 +160,17 @@ exports[`loan cards should match snapshot 1`] = `
                 },
                 "tokenId": "3a7e97db4b913fd249da2a59f2edd84f34e111fe1c775a01addfb3b96c147d40",
               },
-              Object {
+              {
                 "fixedIntervalPriceId": "TR50/USD",
                 "interest": "3",
-                "token": Object {
+                "token": {
                   "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-                  "creation": Object {
+                  "creation": {
                     "height": 152,
                     "tx": "57135919430b915f6f462142161e94474aae824791fa3644541102d7a7959a63",
                   },
                   "decimal": 8,
-                  "destruction": Object {
+                  "destruction": {
                     "height": -1,
                     "tx": "0000000000000000000000000000000000000000000000000000000000000000",
                   },
@@ -432,17 +190,17 @@ exports[`loan cards should match snapshot 1`] = `
                 },
                 "tokenId": "57135919430b915f6f462142161e94474aae824791fa3644541102d7a7959a63",
               },
-              Object {
+              {
                 "fixedIntervalPriceId": "TU10/USD",
                 "interest": "1",
-                "token": Object {
+                "token": {
                   "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-                  "creation": Object {
+                  "creation": {
                     "height": 149,
                     "tx": "943c2f38cf418ff116c402f4f6ec400039223e5aa4fb41f2c4a6e69ac53a4c45",
                   },
                   "decimal": 8,
-                  "destruction": Object {
+                  "destruction": {
                     "height": -1,
                     "tx": "0000000000000000000000000000000000000000000000000000000000000000",
                   },
@@ -473,7 +231,7 @@ exports[`loan cards should match snapshot 1`] = `
         }
         disableRecycling={false}
         estimatedItemSize={2}
-        extendedState={Object {}}
+        extendedState={{}}
         externalScrollView={[Function]}
         finalRenderAheadOffset={250}
         forceNonDeterministicRendering={true}
@@ -490,242 +248,40 @@ exports[`loan cards should match snapshot 1`] = `
             "_getSpan": [Function],
             "_maxSpan": 2,
             "_setLayoutForType": [Function],
-            "_tempDim": Object {
+            "_tempDim": {
               "height": 0,
               "width": 0,
             },
             "averageWindow": AverageWindow {
               "currentAverage": 2,
               "currentCount": 1,
-              "inputValues": Array [
+              "inputValues": [
                 2,
               ],
               "nextIndex": 1,
             },
             "defaultEstimatedItemSize": 100,
-            "layoutObject": Object {
+            "layoutObject": {
               "size": undefined,
               "span": undefined,
             },
-            "props": Object {
-              "contentContainerStyle": Object {
+            "props": {
+              "contentContainerStyle": {
                 "paddingBottom": 8,
                 "paddingTop": 16,
-<<<<<<< HEAD
               },
-              "data": Array [
-                Object {
+              "data": [
+                {
                   "fixedIntervalPriceId": "TS25/USD",
                   "interest": "2",
-                  "token": Object {
+                  "token": {
                     "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-                    "creation": Object {
+                    "creation": {
                       "height": 151,
                       "tx": "3a7e97db4b913fd249da2a59f2edd84f34e111fe1c775a01addfb3b96c147d40",
-=======
-              }
-            }
-            testID="loan_card_dTR50"
-          >
-            <View
-              style={
-                {
-                  "alignItems": "center",
-                  "flexDirection": "row",
-                  "justifyContent": "space-between",
-                  "paddingBottom": 8,
-                }
-              }
-            >
-              <View
-                style={
-                  {
-                    "display": "flex",
-                    "flexDirection": "row",
-                  }
-                }
-              >
-                <RNSVGSvgView
-                  align="xMidYMid"
-                  bbHeight={24}
-                  bbWidth={24}
-                  fill="none"
-                  focusable={false}
-                  height={24}
-                  meetOrSlice={0}
-                  minX={0}
-                  minY={0}
-                  style={
-                    [
-                      {
-                        "backgroundColor": "transparent",
-                        "borderWidth": 0,
-                      },
-                      {
-                        "marginRight": 8,
-                      },
-                      {
-                        "flex": 0,
-                        "height": 24,
-                        "width": 24,
-                      },
-                    ]
-                  }
-                  vbHeight={36}
-                  vbWidth={36}
-                  width={24}
-                >
-                  <RNSVGGroup
-                    fill={null}
-                    propList={
-                      [
-                        "fill",
-                      ]
-                    }
-                  >
-                    <RNSVGDefs>
-                      <RNSVGLinearGradient
-                        gradient={
-                          [
-                            0,
-                            -16777216,
-                            0.0703125,
-                            -327249,
-                            0.169271,
-                            -1113679,
-                            0.289062,
-                            -2424139,
-                            0.408854,
-                            -4193094,
-                            0.528646,
-                            -6486336,
-                            0.648438,
-                            -9303864,
-                            0.815104,
-                            -12645423,
-                            1,
-                            -15855909,
-                          ]
-                        }
-                        gradientTransform={null}
-                        gradientUnits={1}
-                        name="paint0_linear_7863_44577"
-                        x1="-1.8"
-                        x2="38"
-                        y1="19"
-                        y2="19"
-                      />
-                    </RNSVGDefs>
-                    <RNSVGGroup
-                      clipPath="clip0_1388_11287"
-                    >
-                      <RNSVGPath
-                        clipRule={0}
-                        d="M0.25061 18C0.25061 8.19645 8.19706 0.25 18.0006 0.25C27.8053 0.25 35.7506 8.19644 35.7506 18C35.7506 27.8036 27.8053 35.75 18.0006 35.75C8.19706 35.75 0.25061 27.8036 0.25061 18Z"
-                        fill={4279110157}
-                        fillRule={0}
-                        propList={
-                          [
-                            "fill",
-                            "fillRule",
-                            "stroke",
-                            "strokeWidth",
-                          ]
-                        }
-                        stroke={
-                          [
-                            1,
-                            "paint0_linear_7863_44577",
-                          ]
-                        }
-                        strokeWidth={0.5}
-                      />
-                    </RNSVGGroup>
-                    <RNSVGText
-                      content={null}
-                      dx={[]}
-                      dy={[]}
-                      fill={4294967295}
-                      font={
-                        {
-                          "fontSize": 10,
-                          "fontWeight": "bold",
-                          "textAnchor": "middle",
-                        }
-                      }
-                      propList={
-                        [
-                          "fill",
-                        ]
-                      }
-                      rotate={[]}
-                      x={
-                        [
-                          "50%",
-                        ]
-                      }
-                      y={
-                        [
-                          "62%",
-                        ]
-                      }
-                    >
-                      <RNSVGTSpan
-                        content="TR50"
-                        dx={[]}
-                        dy={[]}
-                        font={{}}
-                        rotate={[]}
-                        x={[]}
-                        y={[]}
-                      />
-                    </RNSVGText>
-                  </RNSVGGroup>
-                </RNSVGSvgView>
-                <Text
-                  style={
-                    [
-                      {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
-                      [
-                        {
-                          "fontFamily": "MediumFont",
-                          "fontWeight": "500",
-                        },
-                        {
-                          "color": "rgba(0, 0, 0, 1)",
-                        },
-                      ],
-                    ]
-                  }
-                  testID="loan_card_1_display_symbol"
-                >
-                  dTR50
-                </Text>
-              </View>
-              <Text />
-            </View>
-            <Text
-              style={
-                [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  [
-                    {
-                      "fontSize": 12,
-                      "lineHeight": 16,
->>>>>>> pierregee/feature-loans-v2-batch-1
                     },
                     "decimal": 8,
-                    "destruction": Object {
+                    "destruction": {
                       "height": -1,
                       "tx": "0000000000000000000000000000000000000000000000000000000000000000",
                     },
@@ -745,17 +301,17 @@ exports[`loan cards should match snapshot 1`] = `
                   },
                   "tokenId": "3a7e97db4b913fd249da2a59f2edd84f34e111fe1c775a01addfb3b96c147d40",
                 },
-                Object {
+                {
                   "fixedIntervalPriceId": "TR50/USD",
                   "interest": "3",
-                  "token": Object {
+                  "token": {
                     "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-                    "creation": Object {
+                    "creation": {
                       "height": 152,
                       "tx": "57135919430b915f6f462142161e94474aae824791fa3644541102d7a7959a63",
                     },
                     "decimal": 8,
-                    "destruction": Object {
+                    "destruction": {
                       "height": -1,
                       "tx": "0000000000000000000000000000000000000000000000000000000000000000",
                     },
@@ -775,17 +331,17 @@ exports[`loan cards should match snapshot 1`] = `
                   },
                   "tokenId": "57135919430b915f6f462142161e94474aae824791fa3644541102d7a7959a63",
                 },
-                Object {
+                {
                   "fixedIntervalPriceId": "TU10/USD",
                   "interest": "1",
-                  "token": Object {
+                  "token": {
                     "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-                    "creation": Object {
+                    "creation": {
                       "height": 149,
                       "tx": "943c2f38cf418ff116c402f4f6ec400039223e5aa4fb41f2c4a6e69ac53a4c45",
                     },
                     "decimal": 8,
-                    "destruction": Object {
+                    "destruction": {
                       "height": -1,
                       "tx": "0000000000000000000000000000000000000000000000000000000000000000",
                     },
@@ -836,8 +392,8 @@ exports[`loan cards should match snapshot 1`] = `
         scrollEventThrottle={16}
         scrollThrottle={16}
         scrollViewProps={
-          Object {
-            "contentContainerStyle": Object {
+          {
+            "contentContainerStyle": {
               "backgroundColor": undefined,
               "minHeight": 1,
               "minWidth": 1,
@@ -845,24 +401,24 @@ exports[`loan cards should match snapshot 1`] = `
             "onLayout": [Function],
             "onScrollBeginDrag": [Function],
             "refreshControl": undefined,
-            "style": Object {
+            "style": {
               "minHeight": 1,
               "minWidth": 1,
             },
           }
         }
         style={
-          Object {
+          {
             "minHeight": 1,
             "minWidth": 1,
           }
         }
         suppressBoundedSizeException={true}
         windowCorrectionConfig={
-          Object {
+          {
             "applyToInitialOffset": true,
             "applyToItemScroll": true,
-            "value": Object {
+            "value": {
               "endCorrection": 0,
               "startCorrection": 0,
               "windowShift": -0,
@@ -873,12 +429,11 @@ exports[`loan cards should match snapshot 1`] = `
         <View>
           <View
             style={
-              Object {
+              {
                 "flexDirection": "column",
               }
             }
           >
-<<<<<<< HEAD
             <AutoLayoutView
               enableInstrumentation={false}
               horizontal={false}
@@ -886,241 +441,8 @@ exports[`loan cards should match snapshot 1`] = `
               onLayout={[Function]}
               renderAheadOffset={0}
               scrollOffset={0}
-=======
-            <View
               style={
                 {
-                  "alignItems": "center",
-                  "flexDirection": "row",
-                  "justifyContent": "space-between",
-                  "paddingBottom": 8,
-                }
-              }
-            >
-              <View
-                style={
-                  {
-                    "display": "flex",
-                    "flexDirection": "row",
-                  }
-                }
-              >
-                <RNSVGSvgView
-                  align="xMidYMid"
-                  bbHeight={24}
-                  bbWidth={24}
-                  fill="none"
-                  focusable={false}
-                  height={24}
-                  meetOrSlice={0}
-                  minX={0}
-                  minY={0}
-                  style={
-                    [
-                      {
-                        "backgroundColor": "transparent",
-                        "borderWidth": 0,
-                      },
-                      {
-                        "marginRight": 8,
-                      },
-                      {
-                        "flex": 0,
-                        "height": 24,
-                        "width": 24,
-                      },
-                    ]
-                  }
-                  vbHeight={36}
-                  vbWidth={36}
-                  width={24}
-                >
-                  <RNSVGGroup
-                    fill={null}
-                    propList={
-                      [
-                        "fill",
-                      ]
-                    }
-                  >
-                    <RNSVGDefs>
-                      <RNSVGLinearGradient
-                        gradient={
-                          [
-                            0,
-                            -16777216,
-                            0.0703125,
-                            -327249,
-                            0.169271,
-                            -1113679,
-                            0.289062,
-                            -2424139,
-                            0.408854,
-                            -4193094,
-                            0.528646,
-                            -6486336,
-                            0.648438,
-                            -9303864,
-                            0.815104,
-                            -12645423,
-                            1,
-                            -15855909,
-                          ]
-                        }
-                        gradientTransform={null}
-                        gradientUnits={1}
-                        name="paint0_linear_7863_44577"
-                        x1="-1.8"
-                        x2="38"
-                        y1="19"
-                        y2="19"
-                      />
-                    </RNSVGDefs>
-                    <RNSVGGroup
-                      clipPath="clip0_1388_11287"
-                    >
-                      <RNSVGPath
-                        clipRule={0}
-                        d="M0.25061 18C0.25061 8.19645 8.19706 0.25 18.0006 0.25C27.8053 0.25 35.7506 8.19644 35.7506 18C35.7506 27.8036 27.8053 35.75 18.0006 35.75C8.19706 35.75 0.25061 27.8036 0.25061 18Z"
-                        fill={4279110157}
-                        fillRule={0}
-                        propList={
-                          [
-                            "fill",
-                            "fillRule",
-                            "stroke",
-                            "strokeWidth",
-                          ]
-                        }
-                        stroke={
-                          [
-                            1,
-                            "paint0_linear_7863_44577",
-                          ]
-                        }
-                        strokeWidth={0.5}
-                      />
-                    </RNSVGGroup>
-                    <RNSVGText
-                      content={null}
-                      dx={[]}
-                      dy={[]}
-                      fill={4294967295}
-                      font={
-                        {
-                          "fontSize": 10,
-                          "fontWeight": "bold",
-                          "textAnchor": "middle",
-                        }
-                      }
-                      propList={
-                        [
-                          "fill",
-                        ]
-                      }
-                      rotate={[]}
-                      x={
-                        [
-                          "50%",
-                        ]
-                      }
-                      y={
-                        [
-                          "62%",
-                        ]
-                      }
-                    >
-                      <RNSVGTSpan
-                        content="TU10"
-                        dx={[]}
-                        dy={[]}
-                        font={{}}
-                        rotate={[]}
-                        x={[]}
-                        y={[]}
-                      />
-                    </RNSVGText>
-                  </RNSVGGroup>
-                </RNSVGSvgView>
-                <Text
-                  style={
-                    [
-                      {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
-                      [
-                        {
-                          "fontFamily": "MediumFont",
-                          "fontWeight": "500",
-                        },
-                        {
-                          "color": "rgba(0, 0, 0, 1)",
-                        },
-                      ],
-                    ]
-                  }
-                  testID="loan_card_2_display_symbol"
-                >
-                  dTU10
-                </Text>
-              </View>
-              <Text />
-            </View>
-            <Text
-              style={
-                [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  [
-                    {
-                      "fontSize": 12,
-                      "lineHeight": 16,
-                    },
-                    {
-                      "color": "rgba(115, 115, 115, 1)",
-                    },
-                  ],
-                ]
-              }
-            >
-              Interest
-            </Text>
-            <Text
-              style={
-                [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  [
-                    {
-                      "fontSize": 14,
-                      "lineHeight": 20,
-                      "paddingBottom": 8,
-                    },
-                    {
-                      "color": "rgba(0, 0, 0, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="loan_card_2_interest_rate"
-            >
-              1%
-            </Text>
-            <Text
->>>>>>> pierregee/feature-loans-v2-batch-1
-              style={
-                Object {
                   "height": 0,
                   "width": 0,
                 }

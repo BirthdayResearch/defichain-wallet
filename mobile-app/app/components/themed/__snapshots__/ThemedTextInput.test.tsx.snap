@@ -6,9 +6,9 @@ exports[`text input should match snapshot with OS android period comma locale 1`
   placeholder="Enter an amount"
   placeholderTextColor="rgba(0, 0, 0, 0.4)"
   style={
-    Array [
+    [
       undefined,
-      Object {
+      {
         "color": "rgba(64, 64, 64, 1)",
       },
     ]
@@ -23,9 +23,9 @@ exports[`text input should match snapshot with OS android period decimal locale 
   placeholder="Enter an amount"
   placeholderTextColor="rgba(0, 0, 0, 0.4)"
   style={
-    Array [
+    [
       undefined,
-      Object {
+      {
         "color": "rgba(64, 64, 64, 1)",
       },
     ]
@@ -40,9 +40,9 @@ exports[`text input should match snapshot with OS android period unknown locale 
   placeholder="Enter an amount"
   placeholderTextColor="rgba(0, 0, 0, 0.4)"
   style={
-    Array [
+    [
       undefined,
-      Object {
+      {
         "color": "rgba(64, 64, 64, 1)",
       },
     ]
@@ -57,9 +57,9 @@ exports[`text input should match snapshot with OS ios period comma locale 1`] = 
   placeholder="Enter an amount"
   placeholderTextColor="rgba(0, 0, 0, 0.4)"
   style={
-    Array [
+    [
       undefined,
-      Object {
+      {
         "color": "rgba(64, 64, 64, 1)",
       },
     ]
@@ -74,9 +74,9 @@ exports[`text input should match snapshot with OS ios period decimal locale 1`] 
   placeholder="Enter an amount"
   placeholderTextColor="rgba(0, 0, 0, 0.4)"
   style={
-    Array [
+    [
       undefined,
-      Object {
+      {
         "color": "rgba(64, 64, 64, 1)",
       },
     ]
@@ -91,9 +91,9 @@ exports[`text input should match snapshot with OS ios period unknown locale 1`] 
   placeholder="Enter an amount"
   placeholderTextColor="rgba(0, 0, 0, 0.4)"
   style={
-    Array [
+    [
       undefined,
-      Object {
+      {
         "color": "rgba(64, 64, 64, 1)",
       },
     ]
