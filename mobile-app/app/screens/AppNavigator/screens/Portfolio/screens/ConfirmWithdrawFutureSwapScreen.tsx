@@ -1,23 +1,13 @@
-import { InfoRow, InfoType } from "@components/InfoRow";
-import { NumberRow } from "@components/NumberRow";
-import { SummaryTitle } from "@components/SummaryTitle";
-import { TextRow } from "@components/TextRow";
-import {
-  ThemedScrollView,
-  ThemedSectionTitle,
-  ThemedView,
-} from "@components/themed";
+import { ThemedScrollViewV2, ThemedViewV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { Dispatch, useEffect, useState } from "react";
-import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { StackScreenProps } from "@react-navigation/stack";
-import { WalletAddressRow } from "@components/WalletAddressRow";
 import {
   NativeLoggingProps,
   useLogger,
@@ -26,6 +16,14 @@ import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { useAppDispatch } from "@hooks/useAppDispatch";
+import { SummaryTitleV2 } from "@components/SummaryTitleV2";
+import { useWalletContext } from "@shared-contexts/WalletContext";
+import { useAddressLabel } from "@hooks/useAddressLabel";
+import { AddressType } from "@store/wallet";
+import { NumberRowV2 } from "@components/NumberRowV2";
+import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
+import { View } from "react-native";
+import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { useFutureSwapDate } from "../../Dex/hook/FutureSwap";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
@@ -39,6 +37,9 @@ export function ConfirmWithdrawFutureSwapScreen({
   navigation,
 }: Props): JSX.Element {
   const { source, destination, fee, executionBlock } = route.params;
+  const { address } = useWalletContext();
+  const addressLabel = useAddressLabel(address);
+  const { getTokenPrice } = useTokenPrice();
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
   );
@@ -50,6 +51,11 @@ export function ConfirmWithdrawFutureSwapScreen({
   const dispatch = useAppDispatch();
   const logger = useLogger();
   const [isOnPage, setIsOnPage] = useState<boolean>(true);
+
+  const themedProps = {
+    light: tailwind("text-mono-light-v2-500"),
+    dark: tailwind("text-mono-dark-v2-500"),
+  };
 
   function onCancel(): void {
     navigation.goBack();
@@ -70,13 +76,6 @@ export function ConfirmWithdrawFutureSwapScreen({
     );
   }
 
-  function getSubmitLabel(): string {
-    if (!hasPendingBroadcastJob && !hasPendingJob) {
-      return "CONFIRM WITHDRAWAL";
-    }
-    return "WITHDRAWING";
-  }
-
   useEffect(() => {
     setIsOnPage(true);
     return () => {
@@ -85,91 +84,86 @@ export function ConfirmWithdrawFutureSwapScreen({
   }, []);
 
   return (
-    <ThemedScrollView>
-      <SummaryHeader
-        amount={source.amountToWithdraw}
-        displaySymbol={source.displaySymbol}
-      />
-      <ThemedSectionTitle
-        testID="title_tx_detail"
-        text={translate(
-          "screens/ConfirmWithdrawFutureSwapScreen",
-          "TRANSACTION DETAILS"
-        )}
-      />
-      <TextRow
-        lhs={translate(
-          "screens/ConfirmWithdrawFutureSwapScreen",
-          "Transaction type"
-        )}
-        rhs={{
-          value: translate(
-            "screens/ConfirmWithdrawFutureSwapScreen",
-            "Withdraw future swap"
-          ),
-          testID: "confirm_text_transaction_type",
-        }}
-        textStyle={tailwind("text-sm font-normal")}
-      />
-      <WalletAddressRow />
-      <NumberRow
-        lhs={translate("screens/WithdrawFutureSwapScreen", "Remaining amount")}
-        rhs={{
-          value: source.remainingAmount.toFixed(8),
-          testID: "confirm_text_remaining_amount",
-          suffixType: "text",
-          suffix: source.displaySymbol,
-        }}
-        rhsUsdAmount={source.remainingAmountInUSD}
-      />
-      <InfoRow
-        type={InfoType.EstimatedFee}
-        value={fee.toFixed(8)}
-        testID="confirm_text_fee"
-        suffix="DFI"
-      />
-      <SubmitButtonGroup
-        isDisabled={hasPendingJob || hasPendingBroadcastJob || isEnded}
-        isCancelDisabled={false}
-        label={translate(
-          "screens/ConfirmWithdrawFutureSwapScreen",
-          "CONFIRM WITHDRAWAL"
-        )}
-        isProcessing={hasPendingJob || hasPendingBroadcastJob}
-        processingLabel={translate(
-          "screens/ConfirmWithdrawFutureSwapScreen",
-          getSubmitLabel()
-        )}
-        onCancel={onCancel}
-        onSubmit={onSubmit}
-        displayCancelBtn
-        title="withdraw_future_swap"
-      />
-    </ThemedScrollView>
-  );
-}
-
-function SummaryHeader(props: {
-  amount: BigNumber;
-  displaySymbol: string;
-}): JSX.Element {
-  return (
-    <ThemedView
-      dark={tailwind("bg-gray-800 border-b border-gray-700")}
-      light={tailwind("bg-white border-b border-gray-300")}
-      style={tailwind("flex-col px-4 py-8")}
+    <ThemedScrollViewV2
+      style={tailwind("pt-8 px-5")}
+      contentContainerStyle={tailwind("flex-grow justify-between pb-4")}
     >
-      <SummaryTitle
-        amount={props.amount}
-        suffix={props.displaySymbol}
-        suffixType="text"
-        testID="confirm_text_payment_amount"
-        title={translate(
-          "screens/ConfirmWithdrawFutureSwapScreen",
-          "You are withdrawing"
-        )}
-      />
-    </ThemedView>
+      <View>
+        <SummaryTitleV2
+          title={translate(
+            "screens/ConfirmWithdrawFutureSwapScreen",
+            "You are withdrawing"
+          )}
+          amount={source.amountToWithdraw}
+          testID="title_tx_detail"
+          iconA={source.displaySymbol}
+          toAddress={address}
+          toAddressLabel={addressLabel}
+          addressType={AddressType.WalletAddress}
+        />
+
+        <ThemedViewV2
+          style={tailwind("mt-8 border-t-0.5 border-b-0.5 pt-5")}
+          light={tailwind("border-mono-light-v2-300")}
+          dark={tailwind("border-mono-dark-v2-300")}
+        >
+          <NumberRowV2
+            lhs={{
+              value: translate(
+                "screens/ConfirmWithdrawFutureSwapScreen",
+                "Transaction fee"
+              ),
+              themedProps: themedProps,
+              testID: "transaction_fee_label",
+            }}
+            rhs={{
+              value: fee.toFixed(8),
+              testID: "text_fee",
+              suffix: " DFI",
+            }}
+          />
+
+          <NumberRowV2
+            containerStyle={{
+              style: tailwind(
+                "flex-row items-start w-full bg-transparent pt-5"
+              ),
+            }}
+            lhs={{
+              value: translate(
+                "screens/ConfirmWithdrawFutureSwapScreen",
+                "To receive (est.)"
+              ),
+              themedProps: themedProps,
+              testID: "receive_label",
+            }}
+            rhs={{
+              value: source.amountToWithdraw.toFixed(8),
+              testID: "receive_value",
+              suffix: ` ${source.displaySymbol}`,
+              textStyle: tailwind("font-semibold-v2"),
+              usdAmount: getTokenPrice(source.symbol, source.amountToWithdraw),
+              usdTextStyle: tailwind("text-sm"),
+              usdContainerStyle: tailwind("pt-1"),
+            }}
+          />
+        </ThemedViewV2>
+      </View>
+
+      <View style={tailwind("pt-12 mx-3")}>
+        <SubmitButtonGroupV2
+          isDisabled={hasPendingJob || hasPendingBroadcastJob || isEnded}
+          title="withdraw_future_swap"
+          label={translate(
+            "screens/ConfirmWithdrawFutureSwapScreen",
+            "Withdraw"
+          )}
+          displayCancelBtn
+          onSubmit={onSubmit}
+          onCancel={onCancel}
+        />
+      </View>
+    </ThemedScrollViewV2>
   );
 }
 
@@ -184,6 +178,7 @@ interface FutureSwapForm {
   };
   destination: {
     tokenId: string;
+    displaySymbol: string;
   };
   fee: BigNumber;
 }
@@ -215,16 +210,18 @@ async function withdrawFutureSwap(
       return new CTransactionSegWit(signed);
     };
 
+    const amountToWithdraw = source.amountToWithdraw.toFixed(8);
+    const sourceSymbol = source.displaySymbol;
     dispatch(
       transactionQueue.actions.push({
         sign: signer,
-        title: translate("screens/ConfirmWithdrawFutureSwapScreen", "Withdraw"),
-        description: translate(
+        title: translate(
           "screens/ConfirmWithdrawFutureSwapScreen",
-          "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap",
+          "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from {{sourceSymbol}}-{{destinationSymbol}} swap",
           {
-            amountToWithdraw: source.amountToWithdraw.toFixed(8),
-            sourceDisplaySymbol: source.displaySymbol,
+            amountToWithdraw: amountToWithdraw,
+            sourceSymbol: sourceSymbol,
+            destinationSymbol: destination.displaySymbol,
           }
         ),
         drawerMessages: {
@@ -232,7 +229,14 @@ async function withdrawFutureSwap(
             "screens/OceanInterface",
             "Preparing withdrawal…"
           ),
-          waiting: translate("screens/OceanInterface", "Withdrawing tokens…"),
+          waiting: translate(
+            "screens/OceanInterface",
+            "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…",
+            {
+              amountToWithdraw: amountToWithdraw,
+              sourceSymbol: sourceSymbol,
+            }
+          ),
           complete: translate("screens/OceanInterface", "Withdrawal completed"),
         },
         onBroadcast,

@@ -1,7 +1,7 @@
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { StyleProp, View, ViewStyle } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { BottomSheetInfo } from "@components/BottomSheetInfo";
 import { ThemedProps, ThemedText, ThemedView } from "./themed";
 

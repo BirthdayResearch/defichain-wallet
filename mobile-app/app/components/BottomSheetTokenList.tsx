@@ -2,7 +2,7 @@ import { memo } from "react";
 import * as React from "react";
 import { tailwind } from "@tailwind";
 import { Platform, TouchableOpacity, View } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
