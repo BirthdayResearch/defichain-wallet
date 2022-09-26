@@ -19,7 +19,7 @@ import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
 import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
-import { LoansScreen } from "./LoansScreen";
+import { LoansScreenV2 } from "./LoansScreenV2";
 import { ConfirmCreateVaultScreen } from "./screens/ConfirmCreateVaultScreen";
 import { VaultDetailScreen } from "./VaultDetail/VaultDetailScreen";
 import {
@@ -27,7 +27,7 @@ import {
   EditCollateralScreen,
 } from "./screens/EditCollateralScreen";
 import { ConfirmEditCollateralScreen } from "./screens/ConfirmEditCollateralScreen";
-import { ChooseLoanTokenScreen } from "./screens/ChooseLoanTokenScreen";
+import { ChooseLoanTokenScreenV2 } from "./screens/ChooseLoanTokenScreenV2";
 import { BorrowLoanTokenScreen } from "./screens/BorrowLoanTokenScreen";
 import { ConfirmBorrowLoanTokenScreen } from "./screens/ConfirmBorrowLoanTokenScreen";
 import { EditLoanSchemeScreen } from "./screens/EditLoanSchemeScreen";
@@ -139,7 +139,7 @@ export function LoansNavigator(): JSX.Element {
       }}
     >
       <LoansStack.Screen
-        component={LoansScreen}
+        component={LoansScreenV2}
         name="LoansScreen"
         options={{
           headerTitle: () => (
@@ -225,7 +225,7 @@ export function LoansNavigator(): JSX.Element {
         })}
       />
       <LoansStack.Screen
-        component={ChooseLoanTokenScreen}
+        component={ChooseLoanTokenScreenV2}
         name="ChooseLoanTokenScreen"
         options={{
           headerBackTitleVisible: false,

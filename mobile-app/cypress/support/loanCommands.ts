@@ -208,7 +208,7 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.add("takeLoan", (amount: string, symbol: string) => {
-  cy.getByTestID(`loan_card_${symbol}`).click();
+  cy.getByTestID(`loans_action_button_${symbol}_borrow_button`).click();
   cy.getByTestID("form_input_borrow").type(amount).blur();
   cy.getByTestID("borrow_loan_submit_button").click();
   cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);

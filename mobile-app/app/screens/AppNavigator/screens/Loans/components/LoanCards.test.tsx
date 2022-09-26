@@ -8,7 +8,7 @@ import { RootState } from "@store";
 import { configureStore } from "@reduxjs/toolkit";
 import { loans } from "@store/loans";
 import { wallet } from "@store/wallet";
-import { LoanCards } from "./LoanCards";
+import { LoanCardsV2 } from "./LoanCardsV2";
 
 jest.mock("@shared-contexts/ThemeProvider");
 jest.mock("@contexts/FeatureFlagContext");
@@ -172,7 +172,7 @@ describe("loan cards", () => {
     });
     const rendered = render(
       <Provider store={store}>
-        <LoanCards loans={loanCards} />
+        <LoanCardsV2 loans={loanCards} vaultExist />
       </Provider>
     );
     expect(rendered.toJSON()).toMatchSnapshot();
