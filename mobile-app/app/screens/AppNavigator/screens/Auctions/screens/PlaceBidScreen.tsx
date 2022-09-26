@@ -31,6 +31,7 @@ import {
   TokenDropdownButtonStatus,
 } from "@components/TokenDropdownButton";
 import { tokensSelector } from "@store/wallet";
+import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useToast } from "react-native-toast-notifications";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { ButtonV2 } from "@components/ButtonV2";
@@ -128,14 +129,14 @@ export function PlaceBidScreen(props: Props): JSX.Element {
       batch,
       bidAmount: new BigNumber(bidAmount),
       estimatedFees: fee,
-      totalAuctionValue: totalCollateralsValueInUSD,
+      totalAuctionValue: getPrecisedTokenValue(totalCollateralsValueInUSD),
       vault,
     });
   };
 
   const ownedTokenAmount = ownedToken === undefined ? "0" : ownedToken.amount;
   const displayHigherBidWarning = getAmountInUSDValue(bidAmount).gte(
-    new BigNumber(totalCollateralsValueInUSD).times(1.2)
+    totalCollateralsValueInUSD.times(1.2)
   );
   const displayMinBidError = formState.errors.bidAmount?.type === "min";
   const displayMinBidMessage =
@@ -242,7 +243,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
                     key={percentageAmount}
                     onPress={onBidPercentagePress}
                     bidPercentageAmount={percentageAmount}
-                    minNextBidInToken={minNextBidInToken}
+                    minNextBidInToken={minNextBidInToken.toFixed(8)}
                     hasBorder={length - 1 !== index}
                   />
                 );
@@ -265,7 +266,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
                 "screens/PlaceBidScreen",
                 "The minimum next bid is {{amount}} {{symbol}} (100%)",
                 {
-                  amount: minNextBidInToken,
+                  amount: minNextBidInToken.toFixed(8),
                   symbol: batch.loan.symbol,
                 }
               )}
@@ -291,7 +292,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
               {translate(
                 "screens/PlaceBidScreen",
                 "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}",
-                { prefix: "$", amount: totalCollateralsValueInUSD }
+                { prefix: "$", amount: totalCollateralsValueInUSD.toFixed(8) }
               )}
             </ThemedTextV2>
           )}

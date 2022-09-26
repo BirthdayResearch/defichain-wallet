@@ -9,6 +9,7 @@ import { setTokenSymbol, wallet } from "@store/wallet";
 import { WhaleProvider } from "@shared-contexts/WhaleContext";
 import { StoreServiceProvider } from "@contexts/StoreServiceProvider";
 import { ServiceProviderPersistence } from "@api/wallet/service_provider";
+import BigNumber from "bignumber.js";
 import { BidHistory } from "./BidHistory";
 
 jest.mock("@shared-contexts/ThemeProvider");
@@ -323,7 +324,7 @@ describe("Bid History", () => {
               batchIndex={0}
               loanDisplaySymbol="dTU10"
               loanSymbol="TU10"
-              minNextBidInToken="0.09633602"
+              minNextBidInToken={new BigNumber("0.09633602")}
             />
           </WhaleProvider>
         </StoreServiceProvider>

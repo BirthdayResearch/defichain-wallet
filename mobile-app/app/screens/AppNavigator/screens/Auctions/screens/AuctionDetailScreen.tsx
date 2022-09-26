@@ -24,7 +24,6 @@ import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { IconButton } from "@components/IconButton";
 import { AuctionBidStatus } from "@screens/AppNavigator/screens/Auctions/components/BatchCard";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { tokensSelector } from "@store/wallet";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { LoanVaultLiquidationBatch } from "@defichain/whale-api-client/dist/api/loan";
 import { fetchAuctions } from "@store/auctions";
@@ -39,6 +38,7 @@ import { AuctionDetails } from "../components/AuctionDetails";
 import { CollateralTokenIconGroup } from "../components/CollateralTokenIconGroup";
 import { AuctionsParamList } from "../AuctionNavigator";
 import { AuctionTimeProgress } from "../components/AuctionTimeProgress";
+import { getPrecisedTokenValue } from "../helpers/precision-token-value";
 
 type BatchDetailScreenProps = StackScreenProps<
   AuctionsParamList,
@@ -59,9 +59,6 @@ export function AuctionDetailScreen(
   const [batch, setBatch] = useState<LoanVaultLiquidationBatch>(batchFromParam);
   const client = useWhaleApiClient();
   const dispatch = useAppDispatch();
-  const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
-  );
   const { getAuctionsUrl } = useDeFiScanContext();
   const [activeTab, setActiveTab] = useState<string>(TabKey.BidHistory);
   const { minNextBidInToken, totalCollateralsValueInUSD, minNextBidInUSD } =
@@ -110,8 +107,6 @@ export function AuctionDetailScreen(
   }, [auctions]);
 
   const onQuickBid = (): void => {
-    const ownedToken = tokens.find((token) => token.id === batch.loan.id);
-    const currentBalance = new BigNumber(ownedToken?.amount ?? 0);
     setBottomSheetScreen([
       {
         stackScreenName: "Quick Bid",
@@ -120,15 +115,14 @@ export function AuctionDetailScreen(
           headerBackTitleVisible: false,
         },
         component: QuickBid({
+          minNextBidInUSD,
           vaultId: vault.vaultId,
           index: batch.index,
           loanTokenId: batch.loan.id,
-          loanTokenSymbol: batch.loan.symbol,
           loanTokenDisplaySymbol: batch.loan.displaySymbol,
+          totalCollateralsValueInUSD: totalCollateralsValueInUSD,
           onCloseButtonPress: dismissModal,
-          minNextBid: new BigNumber(minNextBidInToken),
-          minNextBidInUSD: minNextBidInUSD,
-          currentBalance,
+          minNextBid: minNextBidInToken.toFixed(8),
           vaultLiquidationHeight: vault.liquidationHeight,
         }),
       },
@@ -277,7 +271,7 @@ export function AuctionDetailScreen(
         {activeTab === TabKey.Collaterals && (
           <AuctionedCollaterals
             collaterals={batch.collaterals}
-            auctionAmount={totalCollateralsValueInUSD}
+            auctionAmount={getPrecisedTokenValue(totalCollateralsValueInUSD)}
           />
         )}
 
@@ -318,8 +312,8 @@ export function AuctionDetailScreen(
 }
 
 interface AuctionActionSectionProps {
-  minNextBidInToken: string;
-  minNextBidInUSD: string;
+  minNextBidInToken: BigNumber;
+  minNextBidInUSD: BigNumber;
   symbol: string;
   displaySymbol: string;
   blocksRemaining: number;
@@ -339,8 +333,8 @@ const AuctionActionSection = memo(
       >
         <MinNextBidTextRow
           displaySymbol={props.displaySymbol}
-          minNextBidInToken={props.minNextBidInToken}
-          minNextBidInUSD={props.minNextBidInUSD}
+          minNextBidInToken={props.minNextBidInToken.toFixed(8)}
+          minNextBidInUSD={getPrecisedTokenValue(props.minNextBidInUSD)}
           labelTextStyle={tailwind("text-sm items-center")}
           valueTextStyle={tailwind("font-semibold text-base")}
           testID="auction_detail_min_next_bid"

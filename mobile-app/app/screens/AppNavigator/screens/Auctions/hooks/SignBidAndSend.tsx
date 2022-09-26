@@ -69,10 +69,9 @@ export const useSignBidAndSend = (): {
       dispatch(
         transactionQueue.actions.push({
           sign: signer,
-          title: translate("screens/PlaceBidScreen", "Sign Transaction"),
-          description: translate(
-            "screens/PlaceBidScreen",
-            "Placing {{amount}} {{token}} as bid for auction.",
+          title: translate(
+            "components/QuickBid",
+            "Placing {{amount}} {{token}} quick bid",
             {
               amount: props.tokenAmount.amount,
               token: props.displaySymbol,
@@ -83,10 +82,21 @@ export const useSignBidAndSend = (): {
               "screens/OceanInterface",
               "Preparing to place bid…"
             ),
-            waiting: translate("screens/OceanInterface", "Placing bid…"),
+            waiting: translate(
+              "components/QuickBid",
+              "Placing {{amount}} {{token}} quick bid",
+              {
+                amount: props.tokenAmount.amount,
+                token: props.displaySymbol,
+              }
+            ),
             complete: translate(
-              "screens/OceanInterface",
-              "Bid placement completed"
+              "components/QuickBid",
+              "Placed {{amount}} {{token}} quick bid",
+              {
+                amount: props.tokenAmount.amount,
+                token: props.displaySymbol,
+              }
             ),
           },
           onBroadcast: props.onBroadcast,
