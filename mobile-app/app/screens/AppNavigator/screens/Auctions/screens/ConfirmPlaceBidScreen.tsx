@@ -307,14 +307,6 @@ async function constructSignedBidAndSend(
           "Placing {{amount}} {{token}} bid",
           { amount: tokenAmount.amount, token: displaySymbol }
         ),
-        loadingMessage: translate(
-          "screens/ConfirmPlaceBidScreen",
-          "It may take a few seconds to verify"
-        ),
-        successMessage: translate(
-          "screens/ConfirmPlaceBidScreen",
-          "Passcode verified!"
-        ),
         drawerMessages: {
           preparing: translate(
             "screens/ConfirmPlaceBidScreen",

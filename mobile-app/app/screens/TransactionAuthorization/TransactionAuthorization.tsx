@@ -97,7 +97,9 @@ export function TransactionAuthorization(): JSX.Element | null {
   // messages
   const [title, setTitle] = useState<string | undefined>();
   const [message, setMessage] = useState(DEFAULT_MESSAGES.message);
-  const [loadingMessage, setLoadingMessage] = useState<string | undefined>();
+  const [loadingMessage, setLoadingMessage] = useState(
+    DEFAULT_MESSAGES.loadingMessage
+  );
   const [successMessage, setSuccessMessage] = useState<string | undefined>();
   const [additionalMessage, setAdditionalMessage] = useState<
     string | undefined
@@ -297,8 +299,6 @@ export function TransactionAuthorization(): JSX.Element | null {
       transaction !== undefined && // any tx queued
       wallet !== undefined // just in case any data stuck in store
     ) {
-      setLoadingMessage(transaction.loadingMessage);
-      setSuccessMessage(transaction.successMessage);
       setTransactionStatus(TransactionStatus.BLOCK); // prevent any re-render trigger (between IDLE and PIN)
       signTransactionWithActiveAddress(wallet, retries).catch((e) => {
         dispatch(transactionQueue.actions.pop()); // remove job
@@ -421,13 +421,10 @@ export function TransactionAuthorization(): JSX.Element | null {
       pinLength={PASSCODE_LENGTH}
       onPinInput={onPinInput}
       pin={pin}
-      loadingMessage={
-        loadingMessage ??
-        translate(
-          "screens/TransactionAuthorization",
-          DEFAULT_MESSAGES.loadingMessage
-        )
-      }
+      loadingMessage={translate(
+        "screens/TransactionAuthorization",
+        loadingMessage
+      )}
       successMessage={
         successMessage ??
         translate(
