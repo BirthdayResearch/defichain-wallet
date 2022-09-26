@@ -15,9 +15,8 @@ import { VaultAuctionBatchHistory } from "@defichain/whale-api-client/dist/api/l
 import { auctions, fetchBidHistory } from "@store/auctions";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import BigNumber from "bignumber.js";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { BidHistoryItem } from "../components/BidHistoryItem";
-import { useAuctionBidValue } from "../hooks/AuctionBidValue";
 import { AuctionsParamList } from "../AuctionNavigator";
 import { useTokenPrice } from "../../Portfolio/hooks/TokenPrice";
 

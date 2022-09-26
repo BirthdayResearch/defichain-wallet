@@ -3,7 +3,7 @@ import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { fromScriptHex } from "@defichain/jellyfish-address";
 import { useNetworkContext } from "@shared-contexts/NetworkContext";
