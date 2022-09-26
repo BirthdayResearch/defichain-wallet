@@ -4,7 +4,7 @@ import { tailwind } from "@tailwind";
 import { View } from "@components";
 import { SymbolIcon } from "@components/SymbolIcon";
 import { translate } from "@translations";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { LoanVault } from "@store/loans";
 import {
   CollateralToken,

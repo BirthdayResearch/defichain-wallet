@@ -15,7 +15,7 @@ import { translate } from "@translations";
 import { Dispatch, useEffect, useState } from "react";
 import { View } from "react-native";
 import { SymbolIcon } from "@components/SymbolIcon";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";

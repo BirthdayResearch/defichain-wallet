@@ -1,5 +1,5 @@
 import { StyleProp, TextStyle, View, ViewProps, ViewStyle } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { tailwind } from "@tailwind";
 import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2";

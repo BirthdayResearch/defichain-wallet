@@ -2,7 +2,7 @@ import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import { RootState } from "@store";
 import dayjs from "dayjs";
 import { useSelector } from "react-redux";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { TouchableOpacity, Linking } from "react-native";
 import { View } from "@components/index";
 import {

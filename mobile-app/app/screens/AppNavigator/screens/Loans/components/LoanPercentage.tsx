@@ -1,7 +1,7 @@
 import { Platform } from "react-native";
 import BigNumber from "bignumber.js";
 import * as Progress from "react-native-progress";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { Text, View } from "@components";
 import { ThemedText } from "@components/themed";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";

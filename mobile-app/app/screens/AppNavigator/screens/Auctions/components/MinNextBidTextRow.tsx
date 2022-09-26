@@ -3,7 +3,7 @@ import { BottomSheetInfo } from "@components/BottomSheetInfo";
 import { ThemedText } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { StyleProp, TextStyle } from "react-native";
 import { ActiveUSDValue } from "../../Loans/VaultDetail/components/ActiveUSDValue";
