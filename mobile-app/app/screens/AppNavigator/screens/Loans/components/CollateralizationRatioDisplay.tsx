@@ -8,7 +8,7 @@ import { ThemedText, ThemedView } from "@components/themed";
 import Svg, { Line } from "react-native-svg";
 import { translate } from "@translations";
 import { useCollateralizationRatioColor } from "@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { BottomSheetInfo } from "@components/BottomSheetInfo";
 
 interface CollateralizationRatioDisplayProps {

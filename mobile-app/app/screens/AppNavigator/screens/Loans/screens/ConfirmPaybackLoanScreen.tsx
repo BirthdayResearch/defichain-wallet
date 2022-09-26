@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { InfoRow, InfoType } from "@components/InfoRow";
 import { InfoText } from "@components/InfoText";
 import { NumberRow } from "@components/NumberRow";

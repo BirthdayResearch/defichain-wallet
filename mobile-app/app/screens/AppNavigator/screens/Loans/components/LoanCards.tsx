@@ -7,7 +7,7 @@ import {
 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { View } from "react-native";
 import { getNativeIcon } from "@components/icons/assets";
 import {

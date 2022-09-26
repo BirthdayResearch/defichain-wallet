@@ -6,7 +6,7 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { StyleProp, TextProps, ViewProps } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { getPrecisedTokenValue } from "../../Auctions/helpers/precision-token-value";
 import { BalanceText } from "./BalanceText";
 import { PortfolioButtonGroupTabKey } from "./TotalPortfolio";

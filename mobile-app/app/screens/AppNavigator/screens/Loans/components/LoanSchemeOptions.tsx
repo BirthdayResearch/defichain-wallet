@@ -13,7 +13,7 @@ import { LoanScheme } from "@defichain/whale-api-client/dist/api/loan";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 
 export interface WalletLoanScheme extends LoanScheme {
   disabled?: boolean;

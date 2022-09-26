@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { View } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { isEqual } from "lodash";
 import { tailwind } from "@tailwind";
 import { ThemedTextV2 } from "@components/themed";
