@@ -5,7 +5,7 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { ImageBackground, View } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { LinearGradient } from "expo-linear-gradient";
 import { SwapButton } from "./SwapButton";

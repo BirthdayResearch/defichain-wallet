@@ -1,7 +1,7 @@
 import { tailwind } from "@tailwind";
 import { View, StyleProp, TextProps } from "react-native";
 import { ThemedTextV2, ThemedProps } from "@components/themed";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 
 interface ViewPoolAmountRowProps {
   label?: string;

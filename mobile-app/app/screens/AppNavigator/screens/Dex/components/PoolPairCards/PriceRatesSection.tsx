@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { isEqual } from "lodash";
 import { tailwind } from "@tailwind";
 import { ThemedTextV2 } from "@components/themed";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import {
   SkeletonLoader,
   SkeletonLoaderScreen,

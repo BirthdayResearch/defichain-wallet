@@ -17,7 +17,7 @@ import { translate } from "@translations";
 import dayjs from "dayjs";
 import { useEffect, useRef, useState } from "react";
 import { RefreshControl, TouchableOpacity, View } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import {
   ThemedFlatList,

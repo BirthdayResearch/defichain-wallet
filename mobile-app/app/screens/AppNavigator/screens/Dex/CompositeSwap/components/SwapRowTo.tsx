@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { ThemedTextV2 } from "@components/themed";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { tailwind } from "@tailwind";
 import BigNumber from "bignumber.js";
 import { translate } from "@translations";
