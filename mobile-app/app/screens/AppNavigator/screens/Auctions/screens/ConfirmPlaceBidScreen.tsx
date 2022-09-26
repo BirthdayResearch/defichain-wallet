@@ -120,7 +120,7 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
       style={tailwind("py-8 px-5")}
       testID="confirm_place_bid_screen"
     >
-      <ThemedViewV2 style={tailwind("flex-col pb-4 mb-4")}>
+      <ThemedViewV2 style={tailwind("flex-col pb-14")}>
         <SummaryTitleV2
           title={translate("screens/ConfirmPlaceBidScreen", "You are bidding")}
           amount={bidAmount}
