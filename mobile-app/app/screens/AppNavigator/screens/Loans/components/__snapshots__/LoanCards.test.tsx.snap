@@ -230,7 +230,7 @@ exports[`loan cards should match snapshot 1`] = `
           }
         }
         disableRecycling={false}
-        estimatedItemSize={2}
+        estimatedItemSize={5}
         extendedState={{}}
         externalScrollView={[Function]}
         finalRenderAheadOffset={250}
@@ -253,10 +253,10 @@ exports[`loan cards should match snapshot 1`] = `
               "width": 0,
             },
             "averageWindow": AverageWindow {
-              "currentAverage": 2,
+              "currentAverage": 5,
               "currentCount": 1,
               "inputValues": [
-                2,
+                5,
               ],
               "nextIndex": 1,
             },
@@ -362,7 +362,7 @@ exports[`loan cards should match snapshot 1`] = `
                   "tokenId": "943c2f38cf418ff116c402f4f6ec400039223e5aa4fb41f2c4a6e69ac53a4c45",
                 },
               ],
-              "estimatedItemSize": 2,
+              "estimatedItemSize": 5,
               "keyExtractor": [Function],
               "numColumns": 2,
               "renderItem": [Function],
