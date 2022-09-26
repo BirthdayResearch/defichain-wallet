@@ -32,7 +32,7 @@ export function TokenIconGroupV2({
   if (offsetContainer === true) {
     rightOffset = additionalIcon.gt(0)
       ? (maxIconToDisplay - 2) * overlap
-      : (symbols?.length - 1) * overlap - 1;
+      : (symbols.length - 1) * overlap - 1;
   }
   return (
     <View

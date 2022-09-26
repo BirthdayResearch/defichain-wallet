@@ -98,7 +98,6 @@ export function BidHistoryScreen(props: BatchDetailScreenProps): JSX.Element {
                 batch.loan.symbol,
                 new BigNumber(item.amount)
               )}
-              isLatestBid={index === 0}
               bidBlockTime={item.block.time}
             />
           );
