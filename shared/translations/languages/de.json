@@ -1292,8 +1292,10 @@
   },
   "screens/AuctionScreen": {
     "Auctions": "Auktionen",
+    "Bid": "Bieten",
     "Place Bid": "Bieten",
     "Confirm Place Bid": "Gebot bestätigen",
+    "Confirm": "Bestätigen",
     "Auction details": "Auktionsdetails"
   },
   "components/AuctionDetailScreen": {
@@ -1751,7 +1753,15 @@
     "Collateral": "Sicherheiten",
     "How much do you want to bid?": "Wie viel möchtest du bieten?",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "Der Wert der Token, die du setzt, ist wesentlich höher als der Gesamtwert der Auktion.",
-    "Collateral for auction": "Zu ersteigern"
+    "Collateral for auction": "Zu ersteigern",
+    "I HAVE {{ownedAmount}} {{symbol}}": "ICH HABE {{ownedAmount}} {{symbol}}",
+    "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
+    "Transaction fee": "Transaktionsgebühren",
+    "The minimum next bid is {{amount}} {{symbol}} (100%)": "Das nächste Mindestgebot beträgt {{amount}} {{symbol}} (100%)",
+    "{{percent}} min bid entered": "{{percent}} mindestgebot eingegeben",
+    "Insufficient balance": "Unzureichendes Guthaben",
+    "Auction timeout": "Zeitüberschreitung der Auktion",
+    "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}": "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
@@ -1760,14 +1770,22 @@
     "Bid amount to place": "Zu setzender Gebotsbetrag",
     "AUCTION DETAILS": "AUKTIONSDETAILS",
     "Total auction value (USDT)": "Gesamtauktionswert (USDT)",
+    "Total auction value": "Gesamtauktionswert",
     "Vault ID": "Vault-ID",
     "Vault owner ID": "Vault-Besitzer-ID",
-    "Liquidation Height": "Liquidationsblockhöhe",
+    "Liquidation height": "Liquidationsblockhöhe",
     "CONFIRM PLACE BID": "GEBOT BESTÄTIGEN",
     "Sign Transaction": "Transaktion freigeben",
     "Placing {{amount}} {{token}} as bid for auction.": "Abgabe des Gebotsbetrags von {{amount}} {{token}}",
     "Collateral for auction": "Zu ersteigern",
-    "Insufficient funds": "Unzureichende Deckung"
+    "Insufficient funds": "Unzureichende Deckung",
+    "You are bidding": "Du bietest",
+    "Amount will be deducted from your current wallet": "Der Betrag wird von deinem aktuellen Guthaben abgezogen",
+    "Placing {{amount}} {{token}} bid": "Ich gebe ein Gebot von {{amount}} {{token}} ab",
+    "Preparing placing {{amount}} {{token}} bid": "Preparing placing {{amount}} {{token}} bid",
+    "Placed {{amount}} {{token}} bid": "Placed {{amount}} {{token}} bid",
+    "It may take a few seconds to verify": "Es kann ein paar Sekunden dauern, bis das Passwort verifiziert ist",
+    "Passcode verified!": "Passwort verifiziert!"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Abheben",

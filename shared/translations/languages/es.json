@@ -1321,8 +1321,10 @@
   },
   "screens/AuctionScreen": {
     "Auctions": "Subastas",
+    "Bid": "Bid",
     "Place Bid": "Haz oferta",
     "Confirm Place Bid": "Confirma la oferta",
+    "Confirm": "Confirma",
     "Auction details": "Detalles de la subasta"
   },
   "components/AuctionDetailScreen": {
@@ -1783,7 +1785,15 @@
     "Collateral": "Colaterales",
     "How much do you want to bid?": "¿Cúanto quieres ofertar?",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "El valor de los tokens que estás proponiendo son considerablemente más altos que el valor total de la subasta.",
-    "Collateral for auction": "Colateral para la subasta"
+    "Collateral for auction": "Colateral para la subasta",
+    "I HAVE {{ownedAmount}} {{symbol}}": "I HAVE {{ownedAmount}} {{symbol}}",
+    "Review full details in the next screen": "Revisa todos los detalles en la próxima pantalla",
+    "Transaction fee": "Transaction fee",
+    "The minimum next bid is {{amount}} {{symbol}} (100%)": "The minimum next bid is {{amount}} {{symbol}} (100%)",
+    "{{percent}} min bid entered": "{{percent}} min bid entered",
+    "Insufficient balance": "Balance insuficiente",
+    "Auction timeout": "Auction timeout",
+    "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}": "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
@@ -1792,14 +1802,22 @@
     "Bid amount to place": "Cantidad ofertada",
     "AUCTION DETAILS": "DETALLES DE LA SUBASTA",
     "Total auction value (USDT)": "Valor total de la subasta (USDT)",
+    "Total auction value": "Valor total de la subasta",
     "Vault ID": "Identificador de la bóveda",
     "Vault owner ID": "Identificador del propietario de la bóveda",
-    "Liquidation Height": "Límite para la liquidación",
+    "Liquidation height": "Límite para la liquidación",
     "CONFIRM PLACE BID": "CONFIRMA LA OFERTA",
     "Sign Transaction": "Confirma la transacción",
     "Placing {{amount}} {{token}} as bid for auction.": "Aportando {{amount}} {{token}} como oferta para la subasta.",
     "Collateral for auction": "Collateral para la subasta",
-    "Insufficient funds": "Fondos insuficientes"
+    "Insufficient funds": "Fondos insuficientes",
+    "You are bidding": "You are bidding",
+    "Amount will be deducted from your current wallet": "Amount will be deducted from your current wallet",
+    "Placing {{amount}} {{token}} bid": "Placing {{amount}} {{token}} bid",
+    "Preparing placing {{amount}} {{token}} bid": "Preparing placing {{amount}} {{token}} bid",
+    "Placed {{amount}} {{token}} bid": "Placed {{amount}} {{token}} bid",
+    "It may take a few seconds to verify": "La verificación puede tardar varios segundos",
+    "Passcode verified!": "Contraseña verificada!"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Withdraw",
