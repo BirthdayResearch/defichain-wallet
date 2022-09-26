@@ -13,11 +13,11 @@ import { translate } from "@translations";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import {
-  ThemedScrollView,
   ThemedTextV2,
   ThemedTextInputV2,
   ThemedTouchableOpacityV2,
   ThemedViewV2,
+  ThemedScrollViewV2,
 } from "@components/themed";
 import {
   BottomSheetWebWithNav,
@@ -145,7 +145,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
 
   return (
     <View ref={containerRef} style={tailwind("h-full")}>
-      <ThemedScrollView
+      <ThemedScrollViewV2
         testID="place_bid_screen"
         contentContainerStyle={tailwind(
           "flex flex-col justify-between pb-8 px-4 h-full"
@@ -378,7 +378,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
             screenList={bottomSheetScreen}
           />
         )}
-      </ThemedScrollView>
+      </ThemedScrollViewV2>
     </View>
   );
 }

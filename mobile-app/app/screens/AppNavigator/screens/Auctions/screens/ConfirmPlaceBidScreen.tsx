@@ -260,6 +260,7 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
               hasPendingBroadcastJob ||
               blocksRemaining === 0
             }
+            isCancelDisabled={false}
             label={translate("screens/ConfirmPlaceBidScreen", "Place bid")}
             onSubmit={onSubmit}
             onCancel={onCancel}
