@@ -1278,8 +1278,9 @@
   "components/LoanCard": {
     "Active Price": "目前活跃价格",
     "Next Price": "下一个价格",
-    "Interest": "利息",
-    "Price (USD)": "价格(美金)"
+    "{{interestValue}} Interest": "{{interestValue}} 利息",
+    "Price (USD)": "价格(美金)",
+    "Borrow": "Borrow"
   },
   "components/InfoTextLink": {
     "Learn more about DFI": "了解更多关于 DFI",

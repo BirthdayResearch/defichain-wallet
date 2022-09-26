@@ -1302,8 +1302,9 @@
   "components/LoanCard": {
     "Active Price": "Precio Activo",
     "Next Price": "Siguiente precio",
-    "Interest": "Interés",
-    "Price (USD)": "Precio (USD)"
+    "{{interestValue}} Interest": "{{interestValue}} Interés",
+    "Price (USD)": "Precio (USD)",
+    "Borrow": "Borrow"
   },
   "components/InfoTextLink": {
     "Learn more about UTXO and Token": "Aprende más sobre UTXO y Token",
