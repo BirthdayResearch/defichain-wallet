@@ -30,7 +30,6 @@ import { TextInput, View } from "react-native";
 import { useDebounce } from "@hooks/useDebounce";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { LoanParamList } from "@screens/AppNavigator/screens/Loans/LoansNavigator";
-import { LoanVaultActive } from "@defichain/whale-api-client/dist/api/loan";
 
 export function VaultsV2(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -182,12 +181,13 @@ function filterVaultsBySearchTerm(
     return isFocused ? [] : vaults;
   }
   return vaults.filter((t) => {
-    const vault = t as LoanVaultActive;
-    const symbols =
-      vault.collateralAmounts !== undefined
-        ? vault.collateralAmounts.map((value) => value.displaySymbol)
-        : [];
-    return [vault.vaultId, ...symbols].some((searchItem) =>
+    // todo: Joshua to add tokens search in next release
+    // const vault = t as LoanVaultActive;
+    // const symbols =
+    //   vault.collateralAmounts !== undefined
+    //     ? vault.collateralAmounts.map((value) => value.displaySymbol)
+    //     : [];
+    return [t.vaultId].some((searchItem) =>
       searchItem.toLowerCase().includes(searchTerm.trim().toLowerCase())
     );
   });
