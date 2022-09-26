@@ -13,6 +13,7 @@ import {
   fetchLoanTokens,
   fetchVaults,
   loanTokensSelector,
+  vaultsSelector,
 } from "@store/loans";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
@@ -27,6 +28,7 @@ import { LoanCardsV2 } from "./components/LoanCardsV2";
 import { EmptyVault } from "./components/EmptyVault";
 import { VaultsV2 } from "./components/VaultsV2";
 import { ButtonGroupV2 } from "../Dex/components/ButtonGroupV2";
+import { VaultStatus } from "./VaultStatusTypes";
 
 enum TabKey {
   Borrow = "BORROW",
@@ -35,7 +37,7 @@ enum TabKey {
 
 type Props = StackScreenProps<LoanParamList, "LoansScreen">;
 
-export function LoansScreenV2({ navigation }: Props): JSX.Element {
+export function LoansScreenV2(): JSX.Element {
   const { address } = useWalletContext();
   const isFocused = useIsFocused();
   const blockCount = useSelector((state: RootState) => state.block.count);
@@ -46,20 +48,13 @@ export function LoansScreenV2({ navigation }: Props): JSX.Element {
   const loans = useSelector((state: RootState) =>
     loanTokensSelector(state.loans)
   );
+  const vaultsList = useSelector((state: RootState) =>
+    vaultsSelector(state.loans)
+  );
 
   const [activeTab, setActiveTab] = useState<string>(TabKey.Borrow);
   const dispatch = useAppDispatch();
   const client = useWhaleApiClient();
-  const onPress = (tabId: string): void => {
-    if (tabId === TabKey.YourVaults) {
-      setShowSearchInput(false);
-    } else if (searchString !== "") {
-      setShowSearchInput(true);
-    } else {
-      // no-op: maintain search input state if no query
-    }
-    setActiveTab(tabId);
-  };
 
   const onTabChange = (tabKey: TabKey): void => {
     setActiveTab(tabKey);
@@ -83,27 +78,6 @@ export function LoansScreenV2({ navigation }: Props): JSX.Element {
   // Search
   const [filteredLoans, setFilteredLoans] = useState<LoanToken[]>(loans);
   const [isVaultReady, setIsVaultReady] = useState(false);
-  const [showSeachInput, setShowSearchInput] = useState(false);
-  const [searchString, setSearchString] = useState("");
-  const handleFilter = useCallback(
-    debounce((searchString: string) => {
-      setFilteredLoans(
-        loans.filter((loan) =>
-          loan.token.displaySymbol
-            .toLowerCase()
-            .includes(searchString.trim().toLowerCase())
-        )
-      );
-    }, 500),
-    [loans, hasFetchedLoansData]
-  );
-
-  useEffect(() => {
-    if (loans.length === 0) {
-      return;
-    }
-    handleFilter(searchString);
-  }, [searchString]);
 
   useEffect(() => {
     setFilteredLoans(loans);
@@ -121,6 +95,12 @@ export function LoansScreenV2({ navigation }: Props): JSX.Element {
   useEffect(() => {
     dispatch(fetchLoanSchemes({ client }));
   }, []);
+
+  useEffect(() => {
+    setIsVaultReady(
+      vaultsList.some((vault) => vault.vaultState !== VaultStatus.Empty)
+    );
+  }, [vaultsList]);
 
   if (!hasFetchedVaultsData) {
     return (
