@@ -221,7 +221,6 @@ export function TransactionAuthorization(): JSX.Element | null {
         onConfirmation: transaction.onConfirmation,
         onBroadcast: transaction.onBroadcast,
         drawerMessages: transaction.drawerMessages,
-        amountInfo: transaction.amountInfo,
         submitButtonLabel: transaction.submitButtonLabel,
       })
     ); // push signed result for broadcasting

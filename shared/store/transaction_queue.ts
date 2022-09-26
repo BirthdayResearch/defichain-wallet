@@ -8,7 +8,6 @@ export interface DfTxSigner {
   description?: string;
   loadingMessage?: string;
   successMessage?: string;
-  amountInfo?: { amount: string; token: string };
   drawerMessages?: {
     preparing?: string;
     waiting?: string;

@@ -285,10 +285,6 @@ async function constructSignedBidAndSend(
           "Placing {{amount}} {{token}} bid",
           { amount: tokenAmount.amount, token: displaySymbol }
         ),
-        amountInfo: {
-          amount: tokenAmount.amount.toString(),
-          token: displaySymbol,
-        },
         loadingMessage: translate(
           "screens/ConfirmPlaceBidScreen",
           "It may take a few seconds to verify"
