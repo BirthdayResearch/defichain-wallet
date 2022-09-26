@@ -137,6 +137,10 @@ export function PlaceBidScreen(props: Props): JSX.Element {
   const displayHigherBidWarning = getAmountInUSDValue(bidAmount).gte(
     new BigNumber(totalCollateralsValueInUSD).times(1.2)
   );
+  const displayMinBidError = formState.errors.bidAmount?.type === "min";
+  const displayMinBidMessage =
+    !displayHigherBidWarning &&
+    (formState.isValid || formState.errors.bidAmount?.type === "required");
 
   return (
     <View ref={containerRef} style={tailwind("h-full")}>
@@ -246,16 +250,13 @@ export function PlaceBidScreen(props: Props): JSX.Element {
             )}
           </ThemedViewV2>
 
-          {(formState.errors.bidAmount?.type === "min" ||
-            (!displayHigherBidWarning &&
-              (formState.errors.bidAmount === undefined ||
-                formState.errors.bidAmount.type === "required"))) && (
+          {(displayMinBidError || displayMinBidMessage) && (
             <ThemedTextV2
               light={tailwind("text-mono-light-v2-500", {
-                "text-red-v2": formState.errors.bidAmount?.type === "min",
+                "text-red-v2": displayMinBidError,
               })}
               dark={tailwind("text-mono-dark-v2-500", {
-                "text-red-v2": formState.errors.bidAmount?.type === "min",
+                "text-red-v2": displayMinBidError,
               })}
               style={tailwind("text-xs pt-2 mx-6 font-normal-v2")}
               testID="min_next_bid_text"
@@ -299,7 +300,9 @@ export function PlaceBidScreen(props: Props): JSX.Element {
             <ThemedViewV2
               dark={tailwind("border-gray-700")}
               light={tailwind("border-gray-300")}
-              style={tailwind("p-5 border-0.5 rounded-lg-v2 mx-1 my-6")}
+              style={tailwind(
+                "p-5 border-0.5 rounded-lg-v2 mx-1 my-6 font-normal-v2"
+              )}
             >
               <NumberRowV2
                 lhs={{
@@ -427,7 +430,7 @@ function BidAmountButton({
         <ThemedTextV2
           light={tailwind("text-mono-light-v2-700")}
           dark={tailwind("text-mono-dark-v2-700")}
-          style={tailwind("font-semibold-v2 text-xs")}
+          style={tailwind("font-semibold-v2 text-xs font-normal-v2")}
         >
           {bidPercentageAmount}
         </ThemedTextV2>
