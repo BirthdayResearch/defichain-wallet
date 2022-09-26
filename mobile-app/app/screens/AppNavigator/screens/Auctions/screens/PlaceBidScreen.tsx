@@ -169,7 +169,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
           </ThemedTextV2>
           <View
             style={tailwind(
-              "flex flex-row justify-between items-center mt-4 mx-6"
+              "flex flex-row justify-between items-center mt-4 ml-6 mr-1"
             )}
           >
             <View style={tailwind("w-6/12 mr-2")}>
@@ -210,7 +210,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
                   required: true,
                   pattern: /^\d*\.?\d*$/,
                   validate: {
-                    min: (value) => new BigNumber(minNextBidInToken).lte(value),
+                    min: (value) => new BigNumber(value).gte(minNextBidInToken),
                     hasSufficientFunds: (value) =>
                       new BigNumber(ownedTokenAmount).gte(value),
                   },
@@ -243,7 +243,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
                     key={percentageAmount}
                     onPress={onBidPercentagePress}
                     bidPercentageAmount={percentageAmount}
-                    minNextBidInToken={minNextBidInToken.toFixed(8)}
+                    minNextBidInToken={minNextBidInToken.toString()}
                     hasBorder={length - 1 !== index}
                   />
                 );
@@ -266,7 +266,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
                 "screens/PlaceBidScreen",
                 "The minimum next bid is {{amount}} {{symbol}} (100%)",
                 {
-                  amount: minNextBidInToken.toFixed(8),
+                  amount: minNextBidInToken.toString(),
                   symbol: batch.loan.symbol,
                 }
               )}
@@ -398,21 +398,20 @@ function BidAmountButton({
   hasBorder,
 }: PercentageAmountButtonProps): JSX.Element {
   const minNextBid = new BigNumber(minNextBidInToken);
-  const decimalPlace = 8;
-  let value = minNextBid.toFixed(decimalPlace);
+  let value = minNextBidInToken;
 
   switch (bidPercentageAmount) {
     case BidAmountButtonTypes.Min:
-      value = minNextBid.toFixed(decimalPlace);
+      value = minNextBidInToken;
       break;
     case BidAmountButtonTypes.One:
-      value = minNextBid.multipliedBy(1.01).toFixed(decimalPlace);
+      value = minNextBid.multipliedBy(1.01).toString();
       break;
     case BidAmountButtonTypes.Two:
-      value = minNextBid.multipliedBy(1.02).toFixed(decimalPlace);
+      value = minNextBid.multipliedBy(1.02).toString();
       break;
     case BidAmountButtonTypes.Five:
-      value = minNextBid.multipliedBy(1.05).toFixed(decimalPlace);
+      value = minNextBid.multipliedBy(1.05).toString();
       break;
   }
 

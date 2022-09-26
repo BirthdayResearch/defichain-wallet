@@ -19,7 +19,6 @@ interface ISummaryTitleProps {
   iconA: string;
   iconB?: string;
   addressType?: AddressType;
-  amountTextStyle?: string;
 }
 
 export function SummaryTitleV2(props: ISummaryTitleProps): JSX.Element {
