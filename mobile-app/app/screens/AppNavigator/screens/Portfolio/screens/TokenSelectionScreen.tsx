@@ -77,7 +77,7 @@ export function TokenSelectionScreen(_props: Props): JSX.Element {
     <ThemedFlashList
       estimatedItemSize={4}
       testID="token_selection_screen"
-      contentContainerStyle={tailwind("pb-4")}
+      parentContainerStyle={tailwind("pb-4")}
       data={filteredTokensWithBalance}
       renderItem={({ item }: { item: TokenSelectionItem }): JSX.Element => {
         return (
