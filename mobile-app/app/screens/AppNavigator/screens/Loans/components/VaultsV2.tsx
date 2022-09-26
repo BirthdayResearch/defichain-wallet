@@ -183,7 +183,10 @@ function filterVaultsBySearchTerm(
   }
   return vaults.filter((t) => {
     const vault = t as LoanVaultActive;
-    const symbols = vault.collateralAmounts.map((value) => value.displaySymbol);
+    const symbols =
+      vault.collateralAmounts !== undefined
+        ? vault.collateralAmounts.map((value) => value.displaySymbol)
+        : [];
     return [vault.vaultId, ...symbols].some((searchItem) =>
       searchItem.toLowerCase().includes(searchTerm.trim().toLowerCase())
     );
