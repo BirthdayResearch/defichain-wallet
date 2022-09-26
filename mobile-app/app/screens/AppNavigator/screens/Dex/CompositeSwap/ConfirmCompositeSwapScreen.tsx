@@ -1,3 +1,4 @@
+import { WalletAlert } from "@components/WalletAlert";
 import { Dispatch, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getColor, tailwind } from "@tailwind";
@@ -39,7 +40,7 @@ import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { TextRowV2 } from "@components/TextRowV2";
 import { PricesSectionV2 } from "@components/PricesSectionV2";
 import Checkbox from "expo-checkbox";
-import { DexParamList } from "../DexNavigator";
+import { DexParamList, DexScreenOrigin } from "../DexNavigator";
 import { OwnedTokenState, TokenState } from "./CompositeSwapScreen";
 import { useDexStabilization } from "../hook/DexStabilization";
 
@@ -66,6 +67,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
     estimatedAmount,
     totalFees,
     estimatedLessFeesAfterSlippage,
+    originScreen,
   } = route.params;
   const navigation = useNavigation<NavigationProp<DexParamList>>();
   const dispatch = useAppDispatch();
@@ -146,10 +148,29 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
 
   function onCancel(): void {
     if (!isSubmitting) {
-      navigation.navigate({
-        name: "CompositeSwap",
-        params: {},
-        merge: true,
+      WalletAlert({
+        title: translate("screens/Settings", "Cancel transaction"),
+        message: translate(
+          "screens/Settings",
+          "By cancelling, you will lose any changes you made for your transaction."
+        ),
+        buttons: [
+          {
+            text: translate("screens/Settings", "Go back"),
+            style: "cancel",
+          },
+          {
+            text: translate("screens/Settings", "Cancel"),
+            style: "destructive",
+            onPress: async () => {
+              navigation.navigate(
+                originScreen === DexScreenOrigin.Dex_screen
+                  ? "DexScreen"
+                  : "PortfolioScreen"
+              );
+            },
+          },
+        ],
       });
     }
   }

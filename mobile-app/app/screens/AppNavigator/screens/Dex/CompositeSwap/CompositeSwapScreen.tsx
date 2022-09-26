@@ -675,6 +675,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
       fee,
       pairs: selectedPoolPairs,
       priceRates,
+      originScreen: route.params.originScreen,
       slippage: slippageInDecimal,
       futureSwap: isFutureSwap
         ? {

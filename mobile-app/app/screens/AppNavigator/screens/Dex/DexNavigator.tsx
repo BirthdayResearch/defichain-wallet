@@ -51,20 +51,6 @@ export interface DexParamList {
         isPreselected: boolean;
       };
     };
-  };
-  CompositeSwapScreenV2: {
-    pair?: PoolPairData;
-    fromToken?: WalletToken;
-    tokenSelectOption?: {
-      from: {
-        isDisabled: boolean;
-        isPreselected: boolean;
-      };
-      to: {
-        isDisabled: boolean;
-        isPreselected: boolean;
-      };
-    };
     originScreen: DexScreenOrigin;
   };
   SwapTokenSelectionScreen: {
