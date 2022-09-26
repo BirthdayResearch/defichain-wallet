@@ -779,7 +779,7 @@
     "Processing loan payment…": "Processing loan payment…",
     "Payment completed": "Payment completed",
     "Preparing to create vault…": "Preparing to create vault…",
-    "Creating vault…": "Creating vault…",
+    "Creating vault": "Creating vault",
     "Vault created": "Vault created",
     "Preparing to place bid…": "Preparing to place bid…",
     "Placing bid…": "Placing bid…",
@@ -1439,11 +1439,11 @@
     "Create vault": "Crea una bóveda",
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
     "Monitor your vault’s collateralization to prevent liquidation.": "Monitor your vault’s collateralization to prevent liquidation.",
-    "Creating vault with a vault fee of {{vaultFee}} DFI": "Creating vault with a vault fee of {{vaultFee}} DFI",
     "Transaction fee": "Transaction fee",
     "Vault fee": "Comisión de la bóveda",
     "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.",
-    "Amount to convert": "Amount to convert"
+    "Amount to convert": "Amount to convert",
+    "Creating vault": "Creando bóveda"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Estás creando una bóveda",

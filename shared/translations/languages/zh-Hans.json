@@ -763,7 +763,7 @@
     "Processing loan payment…": "Processing loan payment…",
     "Payment completed": "Payment completed",
     "Preparing to create vault…": "Preparing to create vault…",
-    "Creating vault…": "Creating vault…",
+    "Creating vault": "Creating vault",
     "Vault created": "Vault created",
     "Preparing to place bid…": "Preparing to place bid…",
     "Placing bid…": "Placing bid…",
@@ -1413,11 +1413,11 @@
     "Create vault": "创建金库",
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
     "Monitor your vault’s collateralization to prevent liquidation.": "Monitor your vault’s collateralization to prevent liquidation.",
-    "Creating vault with a vault fee of {{vaultFee}} DFI": "Creating vault with a vault fee of {{vaultFee}} DFI",
     "Transaction fee": "交易費用",
     "Vault fee": "金库费用",
     "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.",
-    "Amount to convert": "要转换的金额"
+    "Amount to convert": "要转换的金额",
+    "Creating vault": "创建金库"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "您正在创建金库",
