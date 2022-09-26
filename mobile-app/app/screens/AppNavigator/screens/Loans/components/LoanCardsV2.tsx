@@ -58,6 +58,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   ) as LoanVaultActive;
   return (
     <>
+      {/* Currently theres a known issue regarding the layout bug on web version for flashList */}
       <ThemedFlashList
         contentContainerStyle={tailwind("pt-4 pb-2")}
         data={props.loans}
