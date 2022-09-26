@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { ButtonV2 } from "@components/ButtonV2";
 import { tokensSelector } from "@store/wallet";
