@@ -1,7 +1,7 @@
 {
   "build": {
     "production": {
-      "node": "16.15.0",
+      "node": "16.17.0",
       "releaseChannel": "production",
       "env": {
         "EXPO_BUNDLE_IDENTIFIER": "com.defichain.app",
@@ -9,7 +9,7 @@
       }
     },
     "preview": {
-      "node": "16.15.0",
+      "node": "16.17.0",
       "android": {
         "buildType": "apk"
       },
