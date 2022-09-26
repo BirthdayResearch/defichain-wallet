@@ -29,7 +29,7 @@ class LruCache {
   }
 
   clear(): void {
-    this.cache.reset();
+    this.cache.clear();
   }
 }
 
