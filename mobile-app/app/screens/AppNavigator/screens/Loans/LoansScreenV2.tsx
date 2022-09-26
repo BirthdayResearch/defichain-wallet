@@ -39,7 +39,7 @@ export function LoansScreenV2(): JSX.Element {
   const loans = useSelector((state: RootState) =>
     loanTokensSelector(state.loans)
   );
-  const [activeTab, setActiveTab] = useState<string>(TabKey.YourVaults); // @chloe TODO: landing tab = Borrow
+  const [activeTab, setActiveTab] = useState<string>(TabKey.Borrow);
   const dispatch = useAppDispatch();
   const client = useWhaleApiClient();
 

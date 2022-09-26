@@ -92,11 +92,15 @@ export function EmptyVaultV2(props: EmptyVaultProps): JSX.Element {
 
       <ThemedTextV2
         style={tailwind("text-xl pb-2 font-semibold-v2 text-center")}
+        testID="empty_vault_title"
       >
         {translate("components/EmptyVault", "No vaults")}
       </ThemedTextV2>
 
-      <ThemedTextV2 style={tailwind("text-center font-normal-v2 px-4")}>
+      <ThemedTextV2
+        style={tailwind("text-center font-normal-v2 px-4")}
+        testID="empty_vault_description"
+      >
         {translate(
           "components/EmptyVault",
           "Get started with loans. Create a vault for your collaterals."

@@ -106,6 +106,7 @@ export function LoansCarousel(): JSX.Element {
           "mt-1": Platform.OS === "ios",
           "mt-2": Platform.OS === "android",
         })}
+        testID="loans_bottom_sheet"
       >
         <SwiperFlatList
           autoplay

@@ -249,7 +249,7 @@ exports[`loan cards should match snapshot 1`] = `
                         gradient={
                           [
                             0,
-                            -16777216,
+                            -65105,
                             0.0703125,
                             -327249,
                             0.169271,
@@ -596,7 +596,7 @@ exports[`loan cards should match snapshot 1`] = `
                         gradient={
                           [
                             0,
-                            -16777216,
+                            -65105,
                             0.0703125,
                             -327249,
                             0.169271,
@@ -956,7 +956,7 @@ exports[`loan cards should match snapshot 1`] = `
                         gradient={
                           [
                             0,
-                            -16777216,
+                            -65105,
                             0.0703125,
                             -327249,
                             0.169271,
