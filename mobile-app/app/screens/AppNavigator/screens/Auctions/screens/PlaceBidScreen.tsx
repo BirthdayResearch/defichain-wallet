@@ -210,7 +210,8 @@ export function PlaceBidScreen(props: Props): JSX.Element {
                   required: true,
                   pattern: /^\d*\.?\d*$/,
                   validate: {
-                    min: (value) => new BigNumber(value).gte(minNextBidInToken),
+                    min: (value) =>
+                      new BigNumber(value).gte(minNextBidInToken.toFixed(8)),
                     hasSufficientFunds: (value) =>
                       new BigNumber(ownedTokenAmount).gte(value),
                   },
@@ -266,7 +267,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
                 "screens/PlaceBidScreen",
                 "The minimum next bid is {{amount}} {{symbol}} (100%)",
                 {
-                  amount: minNextBidInToken.toString(),
+                  amount: minNextBidInToken.toFixed(8),
                   symbol: batch.loan.symbol,
                 }
               )}
@@ -404,9 +405,6 @@ function BidAmountButton({
   let value = minNextBidInToken;
 
   switch (bidPercentageAmount) {
-    case BidAmountButtonTypes.Min:
-      value = minNextBidInToken;
-      break;
     case BidAmountButtonTypes.One:
       value = minNextBid.multipliedBy(1.01);
       break;
@@ -415,6 +413,10 @@ function BidAmountButton({
       break;
     case BidAmountButtonTypes.Five:
       value = minNextBid.multipliedBy(1.05);
+      break;
+    case BidAmountButtonTypes.Min:
+    default:
+      value = minNextBidInToken;
       break;
   }
 
