@@ -64,6 +64,10 @@ import { useToast } from "react-native-toast-notifications";
 import { useDisplayUtxoWarning } from "@hooks/wallet/DisplayUtxoWarning";
 import { DEXIcon as SwapTokenButton } from "@screens/WalletNavigator/assets/BottomNavIcon";
 import {
+  TokenDropdownButton,
+  TokenDropdownButtonStatus,
+} from "@components/TokenDropdownButton";
+import {
   Announcement,
   AnnouncementBannerV2,
 } from "../../Portfolio/components/Announcements";
@@ -75,10 +79,6 @@ import {
   ButtonGroupTabKey,
   SwapButtonGroup,
 } from "./components/SwapButtonGroup";
-import {
-  TokenDropdownButton,
-  TokenDropdownButtonStatus,
-} from "./components/TokenDropdownButton";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import {
   SlippageError,

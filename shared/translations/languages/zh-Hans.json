@@ -1296,8 +1296,10 @@
   },
   "screens/AuctionScreen": {
     "Auctions": "清算拍卖",
+    "Bid": "竞投出价",
     "Place Bid": "标价",
     "Confirm Place Bid": "确认出价",
+    "Confirm": "确认",
     "Auction details": "拍卖细节"
   },
   "components/AuctionDetailScreen": {
@@ -1760,7 +1762,15 @@
     "Collateral": "抵押品",
     "How much do you want to bid?": "您想出的价钱？",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "您正要出的价钱比拍卖价值还高，请检查和确认",
-    "Collateral for auction": "待拍賣的抵押品"
+    "Collateral for auction": "待拍賣的抵押品",
+    "I HAVE {{ownedAmount}} {{symbol}}": "I HAVE {{ownedAmount}} {{symbol}}",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Transaction fee": "Transaction fee",
+    "The minimum next bid is {{amount}} {{symbol}} (100%)": "The minimum next bid is {{amount}} {{symbol}} (100%)",
+    "{{percent}} min bid entered": "{{percent}} 最低竞投出价输入",
+    "Insufficient balance": "Insufficient balance",
+    "Auction timeout": "Auction timeout",
+    "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}": "您的出价高于拍卖的抵押品价值 {{prefix}}{{amount}}"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "交易明细",
@@ -1769,14 +1779,22 @@
     "Bid amount to place": "标价金额",
     "AUCTION DETAILS": "拍卖细节",
     "Total auction value (USDT)": "拍卖总价值（USDT）",
+    "Total auction value": "拍卖总价值",
     "Vault ID": "金库编号",
     "Vault owner ID": "金库主权者编号",
-    "Liquidation Height": "清算高度",
+    "Liquidation height": "清算高度",
     "CONFIRM PLACE BID": "确认标价",
     "Sign Transaction": "签下交易",
     "Placing {{amount}} {{token}} as bid for auction.": "使用 {{amount}} {{token}} 作为标价",
     "Collateral for auction": "待拍卖的抵押品",
-    "Insufficient funds": "资金不足"
+    "Insufficient funds": "资金不足",
+    "You are bidding": "You are bidding",
+    "Amount will be deducted from your current wallet": "Amount will be deducted from your current wallet",
+    "Placing {{amount}} {{token}} bid": "Placing {{amount}} {{token}} bid",
+    "Preparing placing {{amount}} {{token}} bid": "Preparing placing {{amount}} {{token}} bid",
+    "Placed {{amount}} {{token}} bid": "Placed {{amount}} {{token}} bid",
+    "It may take a few seconds to verify": "It may take a few seconds to verify",
+    "Passcode verified!": "Passcode verified!"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Withdraw",

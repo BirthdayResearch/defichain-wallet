@@ -1304,8 +1304,10 @@
   },
   "screens/AuctionScreen": {
     "Auctions": "Enchères",
+    "Bid": "Enchérir",
     "Place Bid": "Placer une enchère",
     "Confirm Place Bid": "Confirmer l'enchére",
+    "Confirm": "Confirmer",
     "Auction details": "Détails de l'enchère"
   },
   "components/AuctionDetailScreen": {
@@ -1764,7 +1766,15 @@
     "Collateral": "Garantie",
     "How much do you want to bid?": "Combien voulez-vous proposer?",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "Le montant des tokens de votre enchère est bien suppérieur à la valeur mise en vente.",
-    "Collateral for auction": "Garantie en vente"
+    "Collateral for auction": "Garantie en vente",
+    "I HAVE {{ownedAmount}} {{symbol}}": "J'AI {{ownedAmount}} {{symbol}}",
+    "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
+    "Transaction fee": "Frais de transaction",
+    "The minimum next bid is {{amount}} {{symbol}} (100%)": "L'enchère minimale est de {{amount}} {{symbol}} (100%)",
+    "{{percent}} min bid entered": "{{percent}} enchère minimale saisie",
+    "Insufficient balance": "Solde insuffisant",
+    "Auction timeout": "Délai d'attente pour l'enchère",
+    "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}": "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
@@ -1773,14 +1783,22 @@
     "Bid amount to place": "Prix de l'enchère à placer",
     "AUCTION DETAILS": "DÉTAILS DE LA VENTE",
     "Total auction value (USDT)": "Valeur totale mise en vente (USDT)",
+    "Total auction value": "Valeur totale mise en vente",
     "Vault ID": "Vault n°",
     "Vault owner ID": "ID du propriétaire du vault",
-    "Liquidation Height": "Hauteur de bloc de liquidation",
+    "Liquidation height": "Hauteur de bloc de liquidation",
     "CONFIRM PLACE BID": "CONFIRMER ENCHÈRE",
     "Sign Transaction": "Autoriser la transaction",
     "Placing {{amount}} {{token}} as bid for auction.": "Placer une enchère de {{amount}} {{token}}.",
     "Insufficient funds": "Fonds insuffisants",
-    "Collateral for auction": "Garantie mise en vente"
+    "Collateral for auction": "Garantie mise en vente",
+    "You are bidding": "Vous enchérissez",
+    "Amount will be deducted from your current wallet": "Le montant sera déduit de votre portefeuille actuel",
+    "Placing {{amount}} {{token}} bid": "Enchère de {{amount}} {{token}}",
+    "Preparing placing {{amount}} {{token}} bid": "Preparing placing {{amount}} {{token}} bid",
+    "Placed {{amount}} {{token}} bid": "Placed {{amount}} {{token}} bid",
+    "It may take a few seconds to verify": "La vérification peut prendre quelques secondes",
+    "Passcode verified!": "Code d'accès vérifié!"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Retirer",

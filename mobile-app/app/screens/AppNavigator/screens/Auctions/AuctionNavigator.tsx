@@ -133,12 +133,7 @@ export function AuctionsNavigator(): JSX.Element {
         component={PlaceBidScreen}
         name="PlaceBidScreen"
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/AuctionScreen", "Place Bid")}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          headerTitle: translate("screens/AuctionScreen", "Bid"),
         }}
       />
 
@@ -155,12 +150,7 @@ export function AuctionsNavigator(): JSX.Element {
         component={ConfirmPlaceBidScreen}
         name="ConfirmPlaceBidScreen"
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/AuctionScreen", "Confirm Place Bid")}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          headerTitle: translate("screens/AuctionScreen", "Confirm"),
         }}
       />
     </AuctionsStack.Navigator>

@@ -1317,8 +1317,10 @@
   },
   "screens/AuctionScreen": {
     "Auctions": "Aste",
+    "Bid": "Bid",
     "Place Bid": "Piazza un'offerta",
     "Confirm Place Bid": "Conferma l'offerta",
+    "Confirm": "Conferma",
     "Auction details": "Dettagli dell'asta"
   },
   "components/AuctionDetailScreen": {
@@ -1777,7 +1779,15 @@
     "Collateral": "Collaterali",
     "How much do you want to bid?": "Quanto vuoi offrire?",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "Il valore dei token che stai piazzando è notevolmente superiore al valore totale dell'asta.",
-    "Collateral for auction": "Collaterali messi all'asta"
+    "Collateral for auction": "Collaterali messi all'asta",
+    "I HAVE {{ownedAmount}} {{symbol}}": "I HAVE {{ownedAmount}} {{symbol}}",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Transaction fee": "Transaction fee",
+    "The minimum next bid is {{amount}} {{symbol}} (100%)": "The minimum next bid is {{amount}} {{symbol}} (100%)",
+    "{{percent}} min bid entered": "{{percent}} min bid entered",
+    "Insufficient balance": "Insufficient balance",
+    "Auction timeout": "Auction timeout",
+    "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}": "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
@@ -1786,14 +1796,22 @@
     "Bid amount to place": "Importo dell'offerta da piazzare",
     "AUCTION DETAILS": "DETTAGLI DELL'ASTA",
     "Total auction value (USDT)": "Valore totale dell'asta (USDT)",
+    "Total auction value": "Valore totale dell'asta",
     "Vault ID": "Vault-ID",
     "Vault owner ID": "VID del proprietario del vault",
-    "Liquidation Height": "Livello di liquidazione",
+    "Liquidation height": "Livello di liquidazione",
     "CONFIRM PLACE BID": "CONFERMA L'OFFERTA",
     "Sign Transaction": "Firma la transazione",
     "Placing {{amount}} {{token}} as bid for auction.": "Piazza {{amount}} {{token}} come offerta per l'asta.",
     "Collateral for auction": "Collaterali messi all'asta",
-    "Insufficient funds": "Fondi insufficienti"
+    "Insufficient funds": "Fondi insufficienti",
+    "You are bidding": "You are bidding",
+    "Amount will be deducted from your current wallet": "Amount will be deducted from your current wallet",
+    "Placing {{amount}} {{token}} bid": "Placing {{amount}} {{token}} bid",
+    "Preparing placing {{amount}} {{token}} bid": "Preparing placing {{amount}} {{token}} bid",
+    "Placed {{amount}} {{token}} bid": "Placed {{amount}} {{token}} bid",
+    "It may take a few seconds to verify": "It may take a few seconds to verify",
+    "Passcode verified!": "Passcode verified!"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Preleva",

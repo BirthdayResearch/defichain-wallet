@@ -19,6 +19,7 @@ interface ISummaryTitleProps {
   iconA: string;
   iconB?: string;
   addressType?: AddressType;
+  amountTextStyle?: string;
 }
 
 export function SummaryTitleV2(props: ISummaryTitleProps): JSX.Element {
@@ -54,7 +55,7 @@ export function SummaryTitleV2(props: ISummaryTitleProps): JSX.Element {
             renderText={(value) => (
               <ThemedTextV2
                 style={tailwind(
-                  "text-3xl font-semibold-v2 flex-wrap pr-1 pl-2"
+                  `text-3xl font-semibold-v2 flex-wrap pr-1 pl-2 ${props.amountTextStyle}`
                 )}
                 testID={props.testID}
               >
