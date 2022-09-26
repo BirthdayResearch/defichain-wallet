@@ -127,7 +127,7 @@
     "cypress": "^10.8.0",
     "cypress-image-diff-js": "1.21.1",
     "eas-cli": "^2.1.0",
-    "eslint": "^8.23.1",
+    "eslint": "^8.24.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-node": "^4.1.0",
