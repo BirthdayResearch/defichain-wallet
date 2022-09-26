@@ -11,7 +11,7 @@ import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { View } from "@components";
 import { DexActionButton } from "@screens/AppNavigator/screens/Dex/components/DexActionButton";
 import BigNumber from "bignumber.js";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { useUnitSuffix } from "@hooks/useUnitSuffix";
 import { translate } from "@translations";
 import { PoolPairIconV2 } from "./PoolPairCards/PoolPairIconV2";

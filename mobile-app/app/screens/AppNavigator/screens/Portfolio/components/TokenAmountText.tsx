@@ -1,6 +1,6 @@
 import { tailwind } from "@tailwind";
 import { View } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { useDisplayBalancesContext } from "@contexts/DisplayBalancesContext";
 import { ThemedTextV2 } from "@components/themed";

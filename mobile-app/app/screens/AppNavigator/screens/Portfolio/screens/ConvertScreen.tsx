@@ -29,7 +29,7 @@ import {
   TransactionCardStatus,
 } from "@components/TransactionCard";
 import { useToast } from "react-native-toast-notifications";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { WalletTransactionCardTextInput } from "@components/WalletTransactionCardTextInput";
 import { PortfolioParamList } from "../PortfolioNavigator";
 

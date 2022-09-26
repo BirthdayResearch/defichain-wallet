@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js";
 import { ThemedText } from "@components/themed";
 import { translate } from "@translations";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { tailwind } from "@tailwind";
 import { useCollateralizationRatioColor } from "@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio";
 
