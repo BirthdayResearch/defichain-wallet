@@ -16,16 +16,18 @@ import {
   LoanVaultTokenAmount,
 } from "@defichain/whale-api-client/dist/api/loan";
 import { useNavigatorHeaderStylesOption } from "@screens/AppNavigator/hooks/useNavigatorHeaderStylesOption";
+import { CreateVaultScreenV2 } from "@screens/AppNavigator/screens/Loans/screens/CreateVaultScreenV2";
+import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
-import { CreateVaultScreen } from "./screens/CreateVaultScreen";
 import { ConfirmCreateVaultScreen } from "./screens/ConfirmCreateVaultScreen";
 import { VaultDetailScreen } from "./VaultDetail/VaultDetailScreen";
 import {
-  EditCollateralScreen,
   CollateralItem,
+  EditCollateralScreen,
 } from "./screens/EditCollateralScreen";
 import { ConfirmEditCollateralScreen } from "./screens/ConfirmEditCollateralScreen";
-import { ChooseLoanTokenScreen } from "./screens/ChooseLoanTokenScreen";
+import { ChooseLoanTokenScreenV2 } from "./screens/ChooseLoanTokenScreenV2";
 import { BorrowLoanTokenScreen } from "./screens/BorrowLoanTokenScreen";
 import { ConfirmBorrowLoanTokenScreen } from "./screens/ConfirmBorrowLoanTokenScreen";
 import { EditLoanSchemeScreen } from "./screens/EditLoanSchemeScreen";
@@ -114,12 +116,14 @@ export interface LoanParamList {
   LoansFaq: {
     activeSessions?: number[];
   };
+
   [key: string]: undefined | object;
 }
 
 const LoansStack = createStackNavigator<LoanParamList>();
 
 export function LoansNavigator(): JSX.Element {
+  const navigation = useNavigation<NavigationProp<LoanParamList>>();
   const headerContainerTestId = "loans_header_container";
   const screenOptions = useNavigatorScreenOptions();
 
@@ -127,6 +131,10 @@ export function LoansNavigator(): JSX.Element {
     destination: "screen/LoansScreen",
     headerTitle: "Loans",
   });
+
+  const goToNetworkSelect = (): void => {
+    navigation.navigate("NetworkSelectionScreen");
+  };
 
   return (
     <LoansStack.Navigator
@@ -155,15 +163,14 @@ export function LoansNavigator(): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={CreateVaultScreen}
+        component={CreateVaultScreenV2}
         name="CreateVaultScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/LoansScreen", "Create Vault")}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
+          headerTitle: translate("screens/LoansScreen", "Create Vault"),
         }}
       />
       <LoansStack.Screen
@@ -221,7 +228,7 @@ export function LoansNavigator(): JSX.Element {
         })}
       />
       <LoansStack.Screen
-        component={ChooseLoanTokenScreen}
+        component={ChooseLoanTokenScreenV2}
         name="ChooseLoanTokenScreen"
         options={{
           headerBackTitleVisible: false,

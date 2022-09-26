@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import { tailwind } from "@tailwind";
 import { ThemedViewV2 } from "@components/themed";
@@ -16,11 +16,15 @@ import {
 } from "@store/loans";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
+import { StackScreenProps } from "@react-navigation/stack";
+import { debounce } from "lodash";
 import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
 import { useIsFocused } from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { translate } from "@translations";
-import { LoanCards } from "./components/LoanCards";
+import { LoanParamList } from "./LoansNavigator";
+import { LoanCardsV2 } from "./components/LoanCardsV2";
+import { EmptyVault } from "./components/EmptyVault";
 import { VaultsV2 } from "./components/VaultsV2";
 import { ButtonGroupV2 } from "../Dex/components/ButtonGroupV2";
 
@@ -29,19 +33,33 @@ enum TabKey {
   YourVaults = "YOUR_VAULTS",
 }
 
-export function LoansScreenV2(): JSX.Element {
+type Props = StackScreenProps<LoanParamList, "LoansScreen">;
+
+export function LoansScreenV2({ navigation }: Props): JSX.Element {
   const { address } = useWalletContext();
   const isFocused = useIsFocused();
   const blockCount = useSelector((state: RootState) => state.block.count);
-  const { hasFetchedLoansData } = useSelector(
+  const { vaults, hasFetchedVaultsData, hasFetchedLoansData } = useSelector(
     (state: RootState) => state.loans
   );
+
   const loans = useSelector((state: RootState) =>
     loanTokensSelector(state.loans)
   );
+
   const [activeTab, setActiveTab] = useState<string>(TabKey.Borrow);
   const dispatch = useAppDispatch();
   const client = useWhaleApiClient();
+  const onPress = (tabId: string): void => {
+    if (tabId === TabKey.YourVaults) {
+      setShowSearchInput(false);
+    } else if (searchString !== "") {
+      setShowSearchInput(true);
+    } else {
+      // no-op: maintain search input state if no query
+    }
+    setActiveTab(tabId);
+  };
 
   const onTabChange = (tabKey: TabKey): void => {
     setActiveTab(tabKey);
@@ -62,7 +80,30 @@ export function LoansScreenV2(): JSX.Element {
     },
   ];
 
+  // Search
   const [filteredLoans, setFilteredLoans] = useState<LoanToken[]>(loans);
+  const [isVaultReady, setIsVaultReady] = useState(false);
+  const [showSeachInput, setShowSearchInput] = useState(false);
+  const [searchString, setSearchString] = useState("");
+  const handleFilter = useCallback(
+    debounce((searchString: string) => {
+      setFilteredLoans(
+        loans.filter((loan) =>
+          loan.token.displaySymbol
+            .toLowerCase()
+            .includes(searchString.trim().toLowerCase())
+        )
+      );
+    }, 500),
+    [loans, hasFetchedLoansData]
+  );
+
+  useEffect(() => {
+    if (loans.length === 0) {
+      return;
+    }
+    handleFilter(searchString);
+  }, [searchString]);
 
   useEffect(() => {
     setFilteredLoans(loans);
@@ -80,6 +121,16 @@ export function LoansScreenV2(): JSX.Element {
   useEffect(() => {
     dispatch(fetchLoanSchemes({ client }));
   }, []);
+
+  if (!hasFetchedVaultsData) {
+    return (
+      <ThemedViewV2 style={tailwind("flex-1")}>
+        <SkeletonLoader row={3} screen={SkeletonLoaderScreen.Loan} />
+      </ThemedViewV2>
+    );
+  } else if (vaults?.length === 0) {
+    return <EmptyVault handleRefresh={() => {}} isLoading={false} />;
+  }
 
   return (
     <ThemedViewV2 style={tailwind("flex-1")}>
@@ -105,11 +156,15 @@ export function LoansScreenV2(): JSX.Element {
       {activeTab === TabKey.YourVaults && <VaultsV2 />}
       {activeTab === TabKey.Borrow && !hasFetchedLoansData && (
         <View style={tailwind("mt-1")}>
-          <SkeletonLoader row={6} screen={SkeletonLoaderScreen.Loan} />
+          <SkeletonLoader row={6} screen={SkeletonLoaderScreen.LoanV2} />
         </View>
       )}
       {activeTab === TabKey.Borrow && hasFetchedLoansData && (
-        <LoanCards testID="loans_cards" loans={filteredLoans} />
+        <LoanCardsV2
+          testID="loans_cards"
+          loans={filteredLoans}
+          vaultExist={isVaultReady}
+        />
       )}
     </ThemedViewV2>
   );
