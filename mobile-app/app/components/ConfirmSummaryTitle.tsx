@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { tailwind } from "@tailwind";
 import { getNativeIcon } from "@components/icons/assets";
 import { translate } from "@translations";
@@ -24,7 +24,7 @@ interface ConfirmSummaryTitleV2Props {
   oraclePrice?: string;
 }
 
-export function ConfirmSummaryTitleV2(
+export function ConfirmSummaryTitle(
   props: ConfirmSummaryTitleV2Props
 ): JSX.Element {
   const IconA = getNativeIcon(props.iconA);

@@ -26,7 +26,7 @@ import {
 import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { SymbolIcon } from "@components/SymbolIcon";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { ActivePrice } from "@defichain/whale-api-client/dist/api/prices";
 import { BottomSheetInfo } from "@components/BottomSheetInfo";
 import { useBlocksPerDay } from "../hooks/BlocksPerDay";

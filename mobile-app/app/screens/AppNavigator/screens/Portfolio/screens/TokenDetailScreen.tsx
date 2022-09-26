@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Linking, TouchableOpacity } from "react-native";
 import { tailwind } from "@tailwind";
 import BigNumber from "bignumber.js";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { StackScreenProps } from "@react-navigation/stack";
 import { translate } from "@translations";
 import {

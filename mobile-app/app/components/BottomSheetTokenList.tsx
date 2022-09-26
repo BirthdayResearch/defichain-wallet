@@ -2,7 +2,7 @@ import { memo } from "react";
 import * as React from "react";
 import { tailwind } from "@tailwind";
 import { Platform, TouchableOpacity, View } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
@@ -13,6 +13,8 @@ import { LoanVaultActive } from "@defichain/whale-api-client/dist/api/loan";
 import { ActiveUSDValue } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
+import { useSelector } from "react-redux";
+import { RootState } from "@store";
 import { BottomSheetWithNavRouteParam } from "./BottomSheetWithNav";
 import {
   ThemedFlatList,
@@ -66,6 +68,9 @@ export const BottomSheetTokenList = ({
   isOraclePrice,
 }: BottomSheetTokenListProps): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
+    const collateralTokens = useSelector(
+      (state: RootState) => state.loans.collateralTokens
+    );
     const { isLight } = useThemeContext();
     const navigation =
       useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>();
@@ -129,6 +134,7 @@ export const BottomSheetTokenList = ({
                       ),
                       isAdd: true,
                       vault,
+                      collateralTokens,
                       ...(isCollateralItem(item) && { collateralItem: item }),
                     },
                     merge: true,

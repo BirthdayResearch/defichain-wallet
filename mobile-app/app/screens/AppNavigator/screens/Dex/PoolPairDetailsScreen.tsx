@@ -24,7 +24,7 @@ import BigNumber from "bignumber.js";
 import * as React from "react";
 import { useLayoutEffect } from "react";
 import { TouchableOpacity } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import { FavoriteButton } from "@screens/AppNavigator/screens/Dex/components/FavoriteButton";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";

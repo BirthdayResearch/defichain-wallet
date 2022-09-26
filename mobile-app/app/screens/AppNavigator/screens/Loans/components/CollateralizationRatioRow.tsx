@@ -3,7 +3,7 @@ import { BottomSheetInfo } from "@components/BottomSheetInfo";
 import { ThemedText, ThemedView } from "@components/themed";
 import { tailwind } from "@tailwind";
 
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import {
   CollateralizationRatioProps,
   useCollateralizationRatioColor,
