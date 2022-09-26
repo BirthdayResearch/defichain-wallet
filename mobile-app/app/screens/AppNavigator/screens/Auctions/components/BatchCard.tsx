@@ -1,10 +1,9 @@
 import * as React from "react";
 import { memo, useMemo, useState } from "react";
-import { TouchableOpacity, Text, View, LayoutChangeEvent } from "react-native";
+import { Text, View, LayoutChangeEvent } from "react-native";
 import {
   ThemedText,
   ThemedIcon,
-  ThemedViewV2,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
 } from "@components/themed";

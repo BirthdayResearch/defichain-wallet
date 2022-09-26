@@ -7933,7 +7933,7 @@ exports[`token icons getNativeIcon("dTSLA") should get <IcondTSLA /> snapshot 1`
         gradient={
           [
             0,
-            -16777216,
+            -65105,
             0.0703125,
             -327249,
             0.169271,
