@@ -1,11 +1,11 @@
 import { ImageSourcePropType, View, Image } from "react-native";
 import {
   ThemedIcon,
-  ThemedScrollViewV2,
   ThemedSectionTitleV2,
   ThemedTextV2,
   ThemedViewV2,
   ThemedTouchableListItem,
+  ThemedFlashList,
 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
@@ -93,32 +93,38 @@ const exchanges: ExchangeProps[] = [
 
 export function MarketplaceScreen(): JSX.Element {
   return (
-    <ThemedScrollViewV2
-      style={tailwind("flex-1")}
-      contentContainerStyle={tailwind("mx-5 pb-16")}
+    <ThemedFlashList
+      estimatedItemSize={8}
       testID="language_selection_screen"
-    >
-      <ThemedSectionTitleV2
-        testID="language_selection_screen_title"
-        text={translate("screens/MarketplaceScreen", "GET DFI FROM")}
-      />
-      <ThemedViewV2
-        dark={tailwind("bg-mono-dark-v2-00")}
-        light={tailwind("bg-mono-light-v2-00")}
-        style={tailwind("rounded-lg-v2 px-5")}
-      >
-        {exchanges.map(({ name, image, url }, index) => (
+      parentContainerStyle={tailwind("px-5 pb-16")}
+      ListHeaderComponent={() => (
+        <ThemedSectionTitleV2
+          testID="language_selection_screen_title"
+          text={translate("screens/MarketplaceScreen", "GET DFI FROM")}
+        />
+      )}
+      renderItem={({ item, index }) => (
+        <ThemedViewV2
+          dark={tailwind("bg-mono-dark-v2-00")}
+          light={tailwind("bg-mono-light-v2-00")}
+          style={tailwind("px-5", {
+            "rounded-t-lg-v2": index === 0,
+            "rounded-b-lg-v2": index === exchanges.length - 1,
+          })}
+        >
           <ExchangeItemRow
-            url={url}
-            key={name}
-            name={name}
-            image={image}
+            url={item.url}
+            key={item.name}
+            name={item.name}
+            image={item.image}
             testID={`exchange_${index}`}
             isLast={index === exchanges.length - 1}
           />
-        ))}
-      </ThemedViewV2>
-    </ThemedScrollViewV2>
+        </ThemedViewV2>
+      )}
+      data={exchanges}
+      keyExtractor={(item, index) => `${index}`}
+    />
   );
 }
 
@@ -128,7 +134,10 @@ function ExchangeItemRow({
   url,
   testID,
   isLast,
-}: ExchangeProps & { testID: string } & { isLast: boolean }): JSX.Element {
+}: ExchangeProps & {
+  isLast: boolean;
+  testID: string;
+}): JSX.Element {
   return (
     <ThemedTouchableListItem
       onPress={async () => await openURL(url)}

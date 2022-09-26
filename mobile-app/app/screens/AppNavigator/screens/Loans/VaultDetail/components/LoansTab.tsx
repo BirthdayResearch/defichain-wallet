@@ -20,7 +20,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { memo, useState, useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { Dispatch } from "@reduxjs/toolkit";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";

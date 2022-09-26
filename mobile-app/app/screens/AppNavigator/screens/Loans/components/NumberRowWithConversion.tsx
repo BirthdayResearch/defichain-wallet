@@ -1,5 +1,5 @@
 import { StyleProp, TextStyle, View, ViewProps, Text } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { tailwind } from "@tailwind";
 import { ThemedProps, ThemedView, ThemedText } from "@components/themed";
 import {

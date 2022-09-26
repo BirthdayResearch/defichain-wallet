@@ -1,6 +1,6 @@
 import { useRef, useState, useMemo } from "react";
 import { View, Image, TextInput } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import BigNumber from "bignumber.js";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -77,7 +77,7 @@ export function TokenSelectionScreen(_props: Props): JSX.Element {
     <ThemedFlashList
       estimatedItemSize={4}
       testID="token_selection_screen"
-      contentContainerStyle={tailwind("pb-4")}
+      parentContainerStyle={tailwind("pb-4")}
       data={filteredTokensWithBalance}
       renderItem={({ item }: { item: TokenSelectionItem }): JSX.Element => {
         return (

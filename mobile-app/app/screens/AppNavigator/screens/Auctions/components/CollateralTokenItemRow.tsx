@@ -3,7 +3,7 @@ import { tailwind } from "@tailwind";
 import { View } from "@components";
 import { getNativeIcon } from "@components/icons/assets";
 import { LoanVaultTokenAmount } from "@defichain/whale-api-client/dist/api/loan";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useTokenPrice } from "../../Portfolio/hooks/TokenPrice";

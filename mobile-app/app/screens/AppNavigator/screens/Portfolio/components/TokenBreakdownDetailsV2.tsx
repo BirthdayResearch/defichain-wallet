@@ -10,7 +10,7 @@ import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { useMemo } from "react";
 import { StyleProp, TextProps, ViewProps } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import { getPrecisedCurrencyValue } from "../../Auctions/helpers/precision-token-value";
 import { useDenominationCurrency } from "../hooks/PortfolioCurrency";

@@ -4,7 +4,7 @@ import { ThemedIcon, ThemedText, ThemedView } from "@components/themed";
 import { RootState } from "@store";
 import { tailwind } from "@tailwind";
 import BigNumber from "bignumber.js";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import { BalanceText } from "./BalanceText";
 
