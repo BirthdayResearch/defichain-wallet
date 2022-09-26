@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { tailwind } from "@tailwind";
 import { ThemedViewV2 } from "@components/themed";
@@ -17,13 +17,10 @@ import {
 } from "@store/loans";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { StackScreenProps } from "@react-navigation/stack";
-import { debounce } from "lodash";
 import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
 import { useIsFocused } from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { translate } from "@translations";
-import { LoanParamList } from "./LoansNavigator";
 import { LoanCardsV2 } from "./components/LoanCardsV2";
 import { EmptyVault } from "./components/EmptyVault";
 import { VaultsV2 } from "./components/VaultsV2";
@@ -34,8 +31,6 @@ enum TabKey {
   Borrow = "BORROW",
   YourVaults = "YOUR_VAULTS",
 }
-
-type Props = StackScreenProps<LoanParamList, "LoansScreen">;
 
 export function LoansScreenV2(): JSX.Element {
   const { address } = useWalletContext();
