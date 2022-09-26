@@ -7,7 +7,7 @@ import { View } from "react-native";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { LoanVaultTokenAmount } from "@defichain/whale-api-client/dist/api/loan";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { CollateralTokenItemRow } from "./CollateralTokenItemRow";
 
 export function AuctionedCollaterals(props: {

@@ -14,7 +14,7 @@ import {
   LoanVaultLiquidationBatch,
   LoanVaultLiquidated,
 } from "@defichain/whale-api-client/dist/api/loan";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { NavigationProp, useNavigation } from "@react-navigation/native";

@@ -1,5 +1,5 @@
 import { Linking, Platform, TouchableOpacity, View } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
@@ -260,6 +260,7 @@ function SettlementBlockInfo({
           <ThemedTextV2
             light={tailwind("text-mono-light-v2-700")}
             dark={tailwind("text-mono-dark-v2-700")}
+            testID="execution_time_remaining"
           >
             {translate("screens/CompositeSwapScreen", "{{time}} left", {
               time: timeRemaining.trim(),

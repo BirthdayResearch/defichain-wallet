@@ -6,7 +6,11 @@ import { FlashList, FlashListProps } from "@shopify/flash-list";
 import { ScrollView } from "react-native";
 import { ThemedProps } from "./index";
 
-type ThemedFlashListProps = FlashListProps<any> & ThemedProps;
+interface ParentContainer {
+  parentContainerStyle?: { [p: string]: string };
+}
+
+type ThemedFlashListProps = FlashListProps<any> & ThemedProps & ParentContainer;
 
 export const ThemedFlashList = forwardRef(
   (props: ThemedFlashListProps, ref: React.Ref<any>): JSX.Element => {
@@ -16,13 +20,20 @@ export const ThemedFlashList = forwardRef(
       light = tailwind("bg-mono-light-v2-100"),
       dark = tailwind("bg-mono-dark-v2-100"),
       estimatedItemSize = 5,
+      parentContainerStyle,
       ...otherProps
     } = props;
     const theme = isLight ? light : dark;
     const styles = { ...contentContainerStyle };
 
     return (
-      <ScrollView contentContainerStyle={[tailwind("flex-grow"), theme]}>
+      <ScrollView
+        contentContainerStyle={[
+          tailwind("flex-grow"),
+          parentContainerStyle,
+          theme,
+        ]}
+      >
         <FlashList
           estimatedItemSize={estimatedItemSize}
           contentContainerStyle={styles}
