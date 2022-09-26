@@ -1,4 +1,4 @@
-import { View } from "@components";
+import { View } from "react-native";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
