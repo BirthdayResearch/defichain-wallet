@@ -260,6 +260,7 @@ function SettlementBlockInfo({
           <ThemedTextV2
             light={tailwind("text-mono-light-v2-700")}
             dark={tailwind("text-mono-dark-v2-700")}
+            testID="execution_time_remaining"
           >
             {translate("screens/CompositeSwapScreen", "{{time}} left", {
               time: timeRemaining.trim(),
