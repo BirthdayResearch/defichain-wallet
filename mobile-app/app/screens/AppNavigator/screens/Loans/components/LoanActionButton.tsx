@@ -22,14 +22,11 @@ export function LoanActionButton({
   style,
   testID,
   disabled,
-  iconLeft,
 }: LoanActionButtonProps): JSX.Element {
   return (
     <ThemedTouchableOpacityV2
       style={[
-        tailwind("rounded-2xl-v2 py-2 px-4 items-center justify-center", {
-          "flex flex-row items-center": iconLeft,
-        }),
+        tailwind("rounded-2xl-v2 py-2 px-4 items-center justify-center"),
         style,
       ]}
       dark={tailwind("bg-mono-dark-v2-100", { "opacity-30": disabled })}
@@ -38,11 +35,8 @@ export function LoanActionButton({
       activeOpacity={disabled ? 0.3 : 0.7}
       testID={`loans_action_button_${testID}`}
     >
-      {iconLeft?.()}
       <ThemedTextV2
-        light={tailwind("text-mono-light-v2-900")}
-        dark={tailwind("text-mono-dark-v2-900")}
-        style={tailwind("font-semibold-v2 text-sm text-center")}
+        style={tailwind("font-semibold-v2 text-xs text-center")}
         testID={testID}
       >
         {label}

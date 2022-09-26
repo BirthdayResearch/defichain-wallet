@@ -133,7 +133,11 @@ function LoanCard({
           >
             {displaySymbol}
           </ThemedTextV2>
-          <LoanIcon width={36} height={36} />
+          <LoanIcon
+            width={36}
+            height={36}
+            style={tailwind("font-medium font-normal-v2")}
+          />
         </View>
       </View>
       <NumberFormat
@@ -147,8 +151,6 @@ function LoanCard({
               style={tailwind("text-sm")}
             >
               <ThemedTextV2
-                light={tailwind("text-mono-light-v2-900")}
-                dark={tailwind("text-mono-dark-v2-900")}
                 style={tailwind("font-semibold-v2")}
                 testID={`${testID}_interest_rate`}
                 // eslint-disable-next-line react-native/no-raw-text
