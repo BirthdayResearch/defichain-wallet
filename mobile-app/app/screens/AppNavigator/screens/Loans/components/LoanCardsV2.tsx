@@ -7,7 +7,7 @@ import {
 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { View } from "react-native";
 import { getNativeIcon } from "@components/icons/assets";
 import {
@@ -143,7 +143,7 @@ function LoanCard({
         decimalScale={2}
         thousandSeparator
         displayType="text"
-        renderText={(value) => (
+        renderText={(value: string) => (
           <View style={tailwind("flex flex-row items-center")}>
             <ThemedText
               testID={`${testID}_loan_amount`}
@@ -165,7 +165,7 @@ function LoanCard({
         decimalScale={2}
         thousandSeparator
         displayType="text"
-        renderText={(value) => (
+        renderText={(value: string) => (
           <ThemedTextV2
             light={tailwind("text-mono-light-v2-700")}
             dark={tailwind("text-mono-dark-v2-700")}
