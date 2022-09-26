@@ -9,7 +9,14 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { LoanParamList } from "@screens/AppNavigator/screens/Loans/LoansNavigator";
 import { useNavigatorScreenOptions } from "../../../hooks/useNavigatorScreenOptions";
 
-export function useNavigatorHeaderStylesOption(): StackNavigationOptions {
+interface NavigatorHeaderProps {
+  destination: string;
+  headerTitle: string;
+}
+
+export function useNavigatorHeaderStylesOption(
+  props: NavigatorHeaderProps
+): StackNavigationOptions {
   const insets = useSafeAreaInsets();
   const screenOptions = useNavigatorScreenOptions();
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
@@ -43,7 +50,7 @@ export function useNavigatorHeaderStylesOption(): StackNavigationOptions {
           { fontSize: 28 },
         ]}
       >
-        {translate("screens/LoansScreen", "Loans")}
+        {translate(props.destination, props.headerTitle)}
       </ThemedTextV2>
     ),
     headerRight: () => (

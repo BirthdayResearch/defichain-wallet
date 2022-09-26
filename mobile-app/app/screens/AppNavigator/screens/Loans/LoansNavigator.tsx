@@ -122,7 +122,11 @@ const LoansStack = createStackNavigator<LoanParamList>();
 export function LoansNavigator(): JSX.Element {
   const headerContainerTestId = "loans_header_container";
   const screenOptions = useNavigatorScreenOptions();
-  const screenHeaderOptions = useNavigatorHeaderStylesOption();
+
+  const loansScreenHeaderTitle = useNavigatorHeaderStylesOption({
+    destination: "screen/LoansScreen",
+    headerTitle: "Loans",
+  });
 
   return (
     <LoansStack.Navigator
@@ -138,7 +142,7 @@ export function LoansNavigator(): JSX.Element {
         name="LoansScreen"
         options={{
           ...screenOptions,
-          ...screenHeaderOptions,
+          ...loansScreenHeaderTitle,
         }}
       />
       <LoansStack.Screen
