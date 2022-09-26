@@ -5,7 +5,7 @@ import {
   ThemedViewV2,
   ThemedTextV2,
 } from "@components/themed";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { StyleProp, ViewProps } from "react-native";
 import { TextProps } from "@components";
 import { SuffixType } from "./NumberRow";
