@@ -57,7 +57,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
       v.vaultId === props.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION
   ) as LoanVaultActive;
   return (
-    <View>
+    <>
       <ThemedFlashList
         contentContainerStyle={tailwind("pt-4 pb-2")}
         data={props.loans}
@@ -71,7 +71,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           index: number;
         }): JSX.Element => {
           return (
-            <View style={{ flexBasis: "100%" }}>
+            <View style={{ flexBasis: "98%" }}>
               <LoanCard
                 symbol={item.token.symbol}
                 displaySymbol={item.token.displaySymbol}
@@ -97,7 +97,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
         keyExtractor={(_item, index) => index.toString()}
         testID={props.testID}
       />
-    </View>
+    </>
   );
 }
 
