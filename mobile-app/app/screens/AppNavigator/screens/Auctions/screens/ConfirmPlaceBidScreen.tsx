@@ -31,6 +31,7 @@ import { TextRowV2 } from "@components/TextRowV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { View } from "@components";
 import { AuctionsParamList } from "../AuctionNavigator";
+import { useAuctionTime } from "../hooks/AuctionTimeLeft";
 
 type Props = StackScreenProps<AuctionsParamList, "ConfirmPlaceBidScreen">;
 
@@ -46,6 +47,11 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
   );
   const { bidAmount, estimatedFees, totalAuctionValue, vault, batch } =
     props.route.params;
+  const blockCount = useSelector((state: RootState) => state.block.count) ?? 0;
+  const { blocksRemaining } = useAuctionTime(
+    vault.liquidationHeight,
+    blockCount
+  );
 
   const { address } = useWalletContext();
   const addressLabel = useAddressLabel(address);
@@ -226,6 +232,17 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
         />
 
         <View style={tailwind("pt-14 px-7")}>
+          {blocksRemaining === 0 && (
+            <ThemedTextV2
+              light={tailwind("text-red-v2")}
+              dark={tailwind("text-red-v2")}
+              style={tailwind(
+                "text-red-v2 text-center text-xs font-normal-v2 mb-4"
+              )}
+            >
+              {translate("screens/PlaceBidScreen", "Auction timeout")}
+            </ThemedTextV2>
+          )}
           <ThemedTextV2
             light={tailwind("text-mono-light-v2-500")}
             dark={tailwind("text-mono-dark-v2-500")}
@@ -237,7 +254,12 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
             )}
           </ThemedTextV2>
           <SubmitButtonGroupV2
-            isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
+            isDisabled={
+              isSubmitting ||
+              hasPendingJob ||
+              hasPendingBroadcastJob ||
+              blocksRemaining === 0
+            }
             label={translate("screens/ConfirmPlaceBidScreen", "Place bid")}
             onSubmit={onSubmit}
             onCancel={onCancel}

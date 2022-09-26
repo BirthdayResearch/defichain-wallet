@@ -98,10 +98,10 @@ export function PlaceBidScreen(props: Props): JSX.Element {
   }, []);
 
   async function onBidPercentagePress(
-    amount: string,
+    amount: BigNumber,
     type: BidAmountButtonTypes
   ): Promise<void> {
-    setValue("bidAmount", amount);
+    setValue("bidAmount", amount.toFixed(8));
     await trigger("bidAmount");
     showToast(type);
   }
@@ -224,7 +224,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
             </View>
             <TokenDropdownButton
               symbol={batch.loan.displaySymbol}
-              testID="place_bid"
+              testID="place_bid_quick_input"
               onPress={() => {}}
               status={TokenDropdownButtonStatus.Locked}
             />
@@ -243,7 +243,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
                     key={percentageAmount}
                     onPress={onBidPercentagePress}
                     bidPercentageAmount={percentageAmount}
-                    minNextBidInToken={minNextBidInToken.toString()}
+                    minNextBidInToken={minNextBidInToken}
                     hasBorder={length - 1 !== index}
                   />
                 );
@@ -292,7 +292,10 @@ export function PlaceBidScreen(props: Props): JSX.Element {
               {translate(
                 "screens/PlaceBidScreen",
                 "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}",
-                { prefix: "$", amount: totalCollateralsValueInUSD.toFixed(8) }
+                {
+                  prefix: "$",
+                  amount: getPrecisedTokenValue(totalCollateralsValueInUSD),
+                }
               )}
             </ThemedTextV2>
           )}
@@ -386,9 +389,9 @@ enum BidAmountButtonTypes {
   Five = "105%",
 }
 interface PercentageAmountButtonProps {
-  onPress: (value: string, type: BidAmountButtonTypes) => void;
+  onPress: (value: BigNumber, type: BidAmountButtonTypes) => void;
   bidPercentageAmount: BidAmountButtonTypes;
-  minNextBidInToken: string;
+  minNextBidInToken: BigNumber;
   hasBorder: boolean;
 }
 function BidAmountButton({
@@ -405,13 +408,13 @@ function BidAmountButton({
       value = minNextBidInToken;
       break;
     case BidAmountButtonTypes.One:
-      value = minNextBid.multipliedBy(1.01).toString();
+      value = minNextBid.multipliedBy(1.01);
       break;
     case BidAmountButtonTypes.Two:
-      value = minNextBid.multipliedBy(1.02).toString();
+      value = minNextBid.multipliedBy(1.02);
       break;
     case BidAmountButtonTypes.Five:
-      value = minNextBid.multipliedBy(1.05).toString();
+      value = minNextBid.multipliedBy(1.05);
       break;
   }
 
