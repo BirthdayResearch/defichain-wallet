@@ -1278,7 +1278,10 @@
     "Choose Loan Token to Borrow": "Elige el token que quieres pedir prestado",
     "Payback Loan": "Devuelve el préstamo",
     "Close Vault": "Cancela la bóveda",
-    "Edit Collateral": "Editar colateral"
+    "Edit Collateral": "Editar colateral",
+    "Search vault": "Search vault",
+    "Search with vault ID or tokens": "Search with vault ID or tokens",
+    "Search results for “{{searchTerm}}”": "Buscar resultados para “{{searchTerm}}”"
   },
   "components/tabs": {
     "Browse loan tokens": "Busca tokens de préstamo",

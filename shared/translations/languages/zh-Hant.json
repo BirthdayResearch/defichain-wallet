@@ -1254,7 +1254,10 @@
     "Borrow More": "增加借用量",
     "Choose Loan Token to Borrow": "選擇要借用的貸款代幣",
     "Payback Loan": "償還貸款",
-    "Close Vault": "關閉金庫"
+    "Close Vault": "關閉金庫",
+    "Search vault": "Search vault",
+    "Search with vault ID or tokens": "Search with vault ID or tokens",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
   },
   "components/tabs": {
     "Browse loan tokens": "瀏覽貸款選項",

@@ -1275,7 +1275,10 @@
     "Borrow More": "Prendi in prestito di più",
     "Choose Loan Token to Borrow": "Scegli il token da prestare per avere il prestito",
     "Payback Loan": "Ripaga il prestito",
-    "Close Vault": "Chiudi il Vault"
+    "Close Vault": "Chiudi il Vault",
+    "Search vault": "Search vault",
+    "Search with vault ID or tokens": "Search with vault ID or tokens",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
   },
   "components/tabs": {
     "Browse loan tokens": "Sfoglia i token in prestito",

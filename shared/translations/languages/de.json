@@ -1250,7 +1250,10 @@
     "Borrow More": "Mehr ausleihen",
     "Choose Loan Token to Borrow": "Darlehenstoken zum Ausleihen wählen",
     "Payback Loan": "Darlehensrückzahlung",
-    "Close Vault": "Vault schließen"
+    "Close Vault": "Vault schließen",
+    "Search vault": "Search vault",
+    "Search with vault ID or tokens": "Search with vault ID or tokens",
+    "Search results for “{{searchTerm}}”": "Suchergebnisse für “{{searchTerm}}”"
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehenstoken",
