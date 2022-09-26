@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { tailwind } from "@tailwind";
 import BigNumber from "bignumber.js";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { ThemedTextV2 } from "@components/themed";
 
 interface PoolSharesSectionProps {

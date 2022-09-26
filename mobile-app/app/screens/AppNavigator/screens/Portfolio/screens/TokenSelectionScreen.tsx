@@ -1,6 +1,6 @@
 import { useRef, useState, useMemo } from "react";
 import { View, Image, TextInput } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import BigNumber from "bignumber.js";
 import { NavigationProp, useNavigation } from "@react-navigation/native";

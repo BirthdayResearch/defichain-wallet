@@ -5,7 +5,7 @@ import { RootState } from "@store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import { Platform, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
