@@ -184,16 +184,6 @@ function LoanCard({
       {!isBorrowHidden && (
         <LoanActionButton
           label={translate("screens/LoanCard", "Borrow")}
-          iconLeft={() => (
-            <ThemedIcon
-              size={16}
-              name="arrow-down-circle"
-              iconType="Feather"
-              dark={tailwind("text-mono-dark-v2-900")}
-              light={tailwind("text-mono-light-v2-900")}
-              style={tailwind("mr-1")}
-            />
-          )}
           onPress={onPress}
           style={tailwind("mt-3")}
           testID={`${displaySymbol}_borrow_button`}
