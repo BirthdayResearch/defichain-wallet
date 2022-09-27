@@ -513,6 +513,9 @@
     "About Auctions": "Enchères",
     "Auctions": "Enchères",
     "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS",
+    "How do I know the status of my bid after an auction ends?": "Comment puis-je connaître le statut de mon offre après la fin d'une enchère ?",
+    "For successful bidders, bid amount will be deducted, and rewards will be automatically reflect under the Portfolio page.": "Pour les enchérisseurs dont l'offre a été acceptée, le montant de l'enchère sera déduit et les récompenses seront automatiquement reflétées sur la page Portfolio.",
+    "For unsuccessful bidders, the bidding amount will be returned automatically to your wallet once you have been outbid by another user.": "Pour les enchérisseurs non retenus, le montant de l'enchère sera automatiquement reversé dans votre portefeuille une fois que vous aurez été surenchéri par un autre utilisateur.",
     "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "La vente aux enchères est une activité au cours de laquelle les utilisateurs font des offres sur les garanties des vaults liquidés afin de récupérer les prêts en cours des vaults. La liquidation a lieu lorsque le ratio de garantie d'un vault tombe en dessous de son exigence minimale. Les garanties du vaults sont alors divisées en lots de 10 000 USD pour être vendues aux enchères.",
     "How is the minimum starting bid determined?": "Comment l'offre de départ minimale est-elle déterminée ?",
     "The minimum starting bid is 105% of the batch's outstanding loan value. The additional 5% is included to cover the liquidation penalty, which is incurred upon vault liquidation.": "L'offre minimale de départ est de 105% de la valeur du prêt en cours du lot. Les 5% supplémentaires sont inclus pour couvrir la pénalité de liquidation, qui est encourue lors de la liquidation du vault.",
@@ -1299,8 +1302,14 @@
     "To get started, browse on auctions and place a bid": "Pour commencer, parcourez les enchères et faites une offre."
   },
   "components/EmptyAuctions": {
-    "No ongoing auctions": "Pas de ventes en cours",
-    "Check again later for any ongoing auctions that you can participate": "Revenez plus tard pour voir s'il y a de nouvelles mises en vente."
+    "No auctions": "Pas d'enchères",
+    "There are currently no collaterals available for auction.": "Aucune garantie n'est actuellement disponible pour la vente aux enchères.",
+    "No Outbid Auctions": "Enchères Sans Surenchères",
+    "You have no outbids yet": "Vous n'avez pas encore de surenchères",
+    "No Leading Bids": "Aucune Offre Principale",
+    "You have no leading bids yet": "Vous n'êtes pas encore le meilleur enchérisseur dans une enchère",
+    "No Active Bids": "Aucune Offre Active",
+    "You have no active bids yet": "Vous n'avez pas encore d'offres actives"
   },
   "screens/AuctionScreen": {
     "Auctions": "Enchères",
@@ -1308,7 +1317,20 @@
     "Place Bid": "Placer une enchère",
     "Confirm Place Bid": "Confirmer l'enchére",
     "Confirm": "Confirmer",
-    "Auction details": "Détails de l'enchère"
+    "Auction details": "Détails de l'enchère",
+    "COLLATERALS": "GARANTIES",
+    "Sort Auctions": "Trier Les Enchères",
+    "Least time left": "Le moins de temps restant",
+    "Most time left": "Le plus de temps restant",
+    "Highest value": "Valeur la plus élevée",
+    "Lowest value": "Valeur la plus basse",
+    "Sort by": "Trier par",
+    "All auctions": "Toutes les enchères",
+    "Your active bids": "Mes offres actives",
+    "Your leading bids": "Mes offres principales",
+    "Outbid": "Surenchérie",
+    "Search for auction with collateral token name": "Rechercher une enchère avec le nom du token de garantie",
+    "Search results for “{{input}}”": "Résultats de la recherche pour “{{input}}”"
   },
   "components/AuctionDetailScreen": {
     "Collateral": "Garanties",
@@ -1339,7 +1361,8 @@
     "Min. next bid": "Surenchère min.",
     "You are the highest bidder": "Vous êtes le plus offrant",
     "From your vault": "De votre vault",
-    "Waiting for first bid": "En attente de la première offre"
+    "Waiting for first bid": "En attente de la première offre",
+    "Quick bid": "Enchère rapide"
   },
   "components/BatchHistory": {
     "{{h}}h {{m}}m ago": "Il y a {{h}}h {{m}}m ",
@@ -1359,15 +1382,20 @@
   "components/BidHistory": {
     "Bidder ID": "Enchérisseur N°",
     "BID #{{bidIndex}}": "OFFRE N° {{bidIndex}}",
+    "BID#{{bidIndex}}": "OFFRE N°{{bidIndex}}",
     "Waiting for first bid": "En attente de la première offre",
     "{{h}}{{m}} ago": "Il y a {{h}} {{m}}",
-    "Minimum amount to bid is": "Offre minimale d'enchère est de"
+    "Minimum amount to bid is": "Offre minimale d'enchère est de",
+    "ALL BIDS": "TOUTES LES ENCHÈRES",
+    "(Yours)": "(la mienne)",
+    "Bid History": "Historique des Enchères"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "L'enchère se termine dans",
     "Auction time left": "Temps restant",
     "{{block}} blks": "{{block}} blocs",
     "~{{time}} left": "~{{time}} restant",
+    "{{time}} left": "{{time}} restant",
     "Auction time remaining": "Temps restant"
   },
   "components/VaultCard": {
@@ -1730,7 +1758,8 @@
     "Search for loans": "Rechercher des prêts",
     "Search for loan token": "Rechercher de token de prêt",
     "Search for pool pairs": "Rechercher des paires de pool",
-    "Search pool pair": "Rechercher une paire de pool"
+    "Search pool pair": "Rechercher une paire de pool",
+    "Search auctions": "Rechercher des enchères"
   },
   "components/EmptyCollateral": {
     "No collateral": "Pas de garanties",
@@ -1880,9 +1909,19 @@
     "QUICK BID": "ENCHÈRE RAPIDE",
     "Insufficient amount to place a bid": "Montant insuffisant pour placer une enchère",
     "Quick bid": "Enchère rapide",
+    "Quick Bid": "Enchère Rapide",
     "Place a bid on the auction with the min. next bid": "Surenchérir avec le plus petit montant possible",
     "Min. next bid": "Surenchère min.",
-    "Current balance": "Solde actuel"
+    "Current balance": "Solde actuel",
+    "Leading bid": "Offre principale",
+    "Quick rebid": "Réenchère rapide",
+    "Outbid": "Surenchéri",
+    "Min bid": "Min bid",
+    "Insufficient {{symbol}} balance": "Solde {{symbol}} insuffisant",
+    "Placing {{amount}} {{token}} quick bid": "Placer une enchère rapide de {{amount}} {{token}}",
+    "Placed {{amount}} {{token}} quick bid": "Placement d'une enchère rapide de {{amount}} {{token}}",
+    "Available": "Disponible",
+    "Transaction fee": "Frais de transaction"
   },
   "components/WalletAddressRow": {
     "Wallet address": "Adresse du portefeuille"

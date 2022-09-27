@@ -116,10 +116,7 @@ export function BrowseAuctions({
             return (
               <BottomSheetHeader
                 onClose={dismissModal}
-                headerText={translate(
-                  "screens/AuctionsScreen",
-                  "Sort Auctions"
-                )}
+                headerText={translate("screens/AuctionScreen", "Sort Auctions")}
               />
             );
           },
@@ -340,7 +337,7 @@ function getEmptyScreenDetails(type?: ButtonGroupTabKey): {
   switch (type) {
     case ButtonGroupTabKey.Outbid:
       return {
-        title: "No Outbit Auctions",
+        title: "No Outbid Auctions",
         subtitle: "You have no outbids yet",
       };
     case ButtonGroupTabKey.YourActiveBids:
@@ -350,7 +347,7 @@ function getEmptyScreenDetails(type?: ButtonGroupTabKey): {
       };
     case ButtonGroupTabKey.YourLeadingBids:
       return {
-        title: "No Leading Bid",
+        title: "No Leading Bids",
         subtitle: "You have no leading bids yet",
       };
     default:

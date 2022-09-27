@@ -52,7 +52,7 @@ export function BidHistoryItem({
             bidIndex: bidIndex,
           })}
           {decodedBidderAddress?.address === address &&
-            translate("components/BidHistory", " (Yours)")}
+            ` ${translate("components/BidHistory", "(Yours)")}`}
         </ThemedTextV2>
         <NumberFormat
           value={bidAmount}

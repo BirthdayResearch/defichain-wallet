@@ -188,12 +188,12 @@ export function AuctionsScreen({ navigation }: Props): JSX.Element {
               >
                 {searchString?.trim().length > 0
                   ? translate(
-                      "screens/AuctionsScreen",
+                      "screens/AuctionScreen",
                       "Search results for “{{input}}”",
                       { input: searchString?.trim() }
                     )
                   : translate(
-                      "screens/AuctionsScreen",
+                      "screens/AuctionScreen",
                       "Search for auction with collateral token name"
                     )}
               </ThemedTextV2>
