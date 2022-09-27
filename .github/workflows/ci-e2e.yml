@@ -16,12 +16,12 @@ concurrency:
 jobs:
   main:
     name: Cypress
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     strategy:
       fail-fast: false # https://github.com/cypress-io/github-action/issues/48
       matrix:
-        containers: [ 1, 2, 3, 4, 5, 6 ]
+        containers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3.0.2
 
@@ -32,12 +32,6 @@ jobs:
         with:
           node-version: 16
           cache: 'npm'
-
-      # install specific version of chrome
-      - name: Install latest Google Chrome
-        run: |
-          wget "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-          sudo dpkg -i "google-chrome-stable_current_amd64.deb"
 
       - run: npm ci
 
