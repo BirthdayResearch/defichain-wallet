@@ -17,8 +17,7 @@ export function AuctionVaultDetails({
   testID,
   showLinkToVault,
 }: AuctionVaultDetailsProps): JSX.Element {
-  const { getVaultsUrl } = useDeFiScanContext();
-  const vaultUrl = getVaultsUrl(vault.vaultId);
+  const { getVaultsUrl, getAddressUrl } = useDeFiScanContext();
 
   const containerThemeOptions = {
     light: tailwind("bg-transparent border-mono-light-v2-300"),
@@ -51,7 +50,9 @@ export function AuctionVaultDetails({
           numberOfLines: 1,
           ellipsizeMode: "middle",
           themedProps: rhsThemedProps,
-          openNewBrowserLink: showLinkToVault ? vaultUrl : undefined,
+          openNewBrowserLink: showLinkToVault
+            ? getVaultsUrl(vault.vaultId)
+            : undefined,
         }}
       />
       <TextRowV2
@@ -70,7 +71,9 @@ export function AuctionVaultDetails({
           numberOfLines: 1,
           ellipsizeMode: "middle",
           themedProps: rhsThemedProps,
-          openNewBrowserLink: showLinkToVault ? vaultUrl : undefined,
+          openNewBrowserLink: showLinkToVault
+            ? getAddressUrl(vault.ownerAddress)
+            : undefined,
         }}
       />
       <NumberRowV2
