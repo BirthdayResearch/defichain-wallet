@@ -684,8 +684,8 @@
     "Key in the 24 recovery words to regain access to your wallet.": "Key in the 24 recovery words to regain access to your wallet."
   },
   "screens/ErrorBoundary": {
-    "Something went wrong": "出了些问题",
-    "The app ran into a problem and could not recover. Please restart your application.": "此程序出了一些问题，关掉后请重新启动程序."
+    "We ran into an issue": "We ran into an issue",
+    "There seems to be an issue. Try restarting the application.": "There seems to be an issue. Try restarting the application."
   },
   "screens/ConnectionBoundary": {
     "Refresh": "刷新",

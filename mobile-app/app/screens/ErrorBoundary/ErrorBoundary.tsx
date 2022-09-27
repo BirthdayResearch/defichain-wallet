@@ -1,5 +1,6 @@
 import { Component, ReactElement } from "react";
-import { AppIcon } from "@components/icons/AppIcon";
+import { Image } from "react-native";
+import ImageGenericError from "@assets/images/misc/generic_error.png";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { Logging } from "@api";
@@ -15,19 +16,25 @@ interface State {
 
 export function ErrorDisplayComponent(): JSX.Element {
   return (
-    <View style={tailwind("flex-1 items-center justify-center p-4")}>
-      <AppIcon />
+    <View
+      style={tailwind("bg-mono-dark-v2-100 flex-1 items-center pt-44 px-14")}
+    >
+      <View style={tailwind("items-center justify-center px-15 pb-8")}>
+        <Image source={ImageGenericError} style={{ width: 204, height: 96 }} />
+      </View>
 
-      <Text style={tailwind("text-xl font-bold mt-3")}>
-        {translate("screens/ErrorBoundary", "Something went wrong")}
+      <Text style={tailwind("text-xl font-semibold-v2 text-mono-dark-v2-900")}>
+        {translate("screens/ErrorBoundary", "We ran into an issue")}
       </Text>
 
       <Text
-        style={tailwind("text-sm text-gray-400 font-bold mt-3 text-center")}
+        style={tailwind(
+          "font-normal-v2 text-mono-dark-v2-900 mt-2 text-center"
+        )}
       >
         {translate(
           "screens/ErrorBoundary",
-          "The app ran into a problem and could not recover. Please restart your application."
+          "There seems to be an issue. Try restarting the application."
         )}
       </Text>
     </View>
