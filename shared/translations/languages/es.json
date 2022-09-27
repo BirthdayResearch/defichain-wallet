@@ -705,7 +705,7 @@
     "The app ran into a problem and could not recover. Please restart your application.": "La aplicación ha tenido un problema y no se ha podido recuperar. Por favor, reinicia tu aplicación."
   },
   "screens/ConnectionBoundary": {
-    "Connection problem": "Problema de conexión",
+    "Refresh": "Refresh",
     "There seems to be a problem with the connection. Check your network and try again.": "Parece que hay un problema con la conexión. Comprueba tu red e inténtalo de nuevo.",
     "TRY AGAIN": "INTENTAR DE NUEVO"
   },

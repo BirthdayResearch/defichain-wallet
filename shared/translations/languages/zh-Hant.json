@@ -688,7 +688,7 @@
     "The app ran into a problem and could not recover. Please restart your application.": "此程序出了一些問題，關掉後請重新啟動程序."
   },
   "screens/ConnectionBoundary": {
-    "Connection problem": "網絡連接出了問題",
+    "Refresh": "Refresh",
     "There seems to be a problem with the connection. Check your network and try again.": "網絡連接不良，請查看網絡設定後重試.",
     "TRY AGAIN": "再試一次"
   },
