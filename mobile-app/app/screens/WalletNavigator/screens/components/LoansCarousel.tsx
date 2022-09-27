@@ -17,9 +17,9 @@ import ImageDLight from "@assets/images/loans/loans_4_light.png";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { getColor, tailwind } from "@tailwind";
-import { translate } from "@translations";
 import { CarouselPaginationWithNextButton } from "@screens/WalletNavigator/screens/components/CarouselPagination";
 import React from "react";
+import { translate } from "@translations";
 
 interface CarouselImage {
   imageDark: ImageSourcePropType;
@@ -33,30 +33,42 @@ const slides: JSX.Element[] = [
     imageDark={ImageADark}
     imageLight={ImageALight}
     key={0}
-    subtitle="With vaults, you gain access to a rich economy of decentralized tokens."
-    title="Decentralized tokens"
+    subtitle={translate(
+      "screens/LoansScreen",
+      "With vaults, you gain access to a rich economy of decentralized tokens."
+    )}
+    title={translate("screens/LoansScreen", "Decentralized tokens")}
   />,
   <ImageSlide
     imageDark={ImageBDark}
     imageLight={ImageBLight}
     key={1}
-    subtitle="With a selected loan scheme, you control how much is required for your vault."
-    title="Take control of your vault"
+    subtitle={translate(
+      "screens/LoansScreen",
+      "With a selected loan scheme, you control how much is required for your vault."
+    )}
+    title={translate("screens/LoansScreen", "Take control of your vault")}
   />,
   <ImageSlide
     imageDark={ImageCDark}
     imageLight={ImageCLight}
     key={2}
-    subtitle="Keep your vaults healthy and green, by monitoring its collateralization."
-    title="Monitor your vaults"
+    subtitle={translate(
+      "screens/LoansScreen",
+      "Keep your vaults healthy and green, by monitoring its collateralization."
+    )}
+    title={translate("screens/LoansScreen", "Monitor your vaults")}
   />,
 
   <ImageSlide
     imageDark={ImageDDark}
     imageLight={ImageDLight}
     key={3}
-    subtitle="With price oracles, your loans and vaults are tracked with real-time market prices."
-    title="Real world market prices"
+    subtitle={translate(
+      "screens/LoansScreen",
+      "With oracles, your vaults and loans align with market prices outside the blockchain."
+    )}
+    title={translate("screens/LoansScreen", "Oracle prices")}
   />,
 ];
 

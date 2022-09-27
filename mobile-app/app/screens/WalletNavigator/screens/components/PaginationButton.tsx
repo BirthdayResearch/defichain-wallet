@@ -71,7 +71,7 @@ export function PaginationButton({
           "text-mono-dark-v2-100": endOfPagination,
         })}
       >
-        {translate("screens/LoansCarousel", buttonLabel)}
+        {translate("screens/LoansScreen", buttonLabel)}
       </ThemedTextV2>
     </ThemedTouchableOpacityV2>
   );

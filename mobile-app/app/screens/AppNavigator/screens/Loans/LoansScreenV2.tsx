@@ -58,13 +58,13 @@ export function LoansScreenV2(): JSX.Element {
   const tabsList = [
     {
       id: TabKey.Borrow,
-      label: translate("screens/LoansScreen", "Borrow"),
+      label: translate("components/tabs", "Borrow"),
       disabled: false,
       handleOnPress: () => onTabChange(TabKey.Borrow),
     },
     {
       id: TabKey.YourVaults,
-      label: translate("screens/LoansScreen", "Your vaults"),
+      label: translate("components/tabs", "Your vaults"),
       disabled: false,
       handleOnPress: () => onTabChange(TabKey.YourVaults),
     },
