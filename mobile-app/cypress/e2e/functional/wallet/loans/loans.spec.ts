@@ -15,22 +15,37 @@ function addCollateral(): void {
   cy.getByTestID("vault_card_0_total_collateral").contains("$1,500.00");
 }
 
+context("Wallet - Loans - Create Loans page", () => {
+  before(() => {
+    cy.createEmptyWallet(true);
+  });
+  it("should display empty loans state", () => {
+    cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click(); // landing page is on BORROW tab
+    cy.getByTestID("empty_vault_title").contains("No vaults");
+    cy.getByTestID("empty_vault_description").contains(
+      "Get started with loans. Create a vault for your collaterals."
+    );
+  });
+
+  it("should display learn more bottom sheet", () => {
+    cy.getByTestID("empty_vault_learn_more").click();
+    cy.getByTestID("loans_bottom_sheet").should("exist");
+    cy.getByTestID("close_bottom_sheet_button").click();
+  });
+});
+
 context("Wallet - Loans", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.sendDFItoWallet().wait(6000);
   });
 
-  it("should display correct loans from API", () => {
+  it("should display correct loans tokens from API", () => {
     cy.getByTestID("bottom_tab_loans").click();
-    cy.getByTestID("button_create_vault").click();
-    cy.getByTestID("loan_scheme_option_0").click();
-    cy.getByTestID("create_vault_submit_button").click().wait(4000);
-    cy.closeOceanInterface();
     cy.intercept("**/loans/tokens?size=200").as("loans");
     cy.wait(["@loans"]).then((intercept: any) => {
       const { data } = intercept.response.body;
-      cy.getByTestID("loans_tabs_BROWSE_LOANS").click();
       data.forEach((loan: LoanToken, i) => {
         // const price = loan.activePrice?.active?.amount ?? 0
         cy.getByTestID(`loan_card_${i}_display_symbol`).contains(
@@ -58,6 +73,7 @@ context("Wallet - Loans - Take Loans", () => {
       .wait(6000);
     cy.setWalletTheme(walletTheme);
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
   });

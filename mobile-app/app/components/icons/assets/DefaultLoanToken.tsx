@@ -28,7 +28,7 @@ export function DefaultLoanToken(
             y2="19"
             gradientUnits="userSpaceOnUse"
           >
-            <Stop stop-color="#FF01AF" />
+            <Stop stopColor="#FF01AF" />
             <Stop offset="0.0703125" stopColor="#FB01AF" />
             <Stop offset="0.169271" stopColor="#EF01B1" />
             <Stop offset="0.289062" stopColor="#DB02B5" />

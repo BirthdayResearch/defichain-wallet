@@ -57,48 +57,46 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
       v.vaultId === props.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION
   ) as LoanVaultActive;
   return (
-    <>
-      {/* Currently theres a known issue regarding the layout bug on web version for flashList */}
-      <ThemedFlashList
-        contentContainerStyle={tailwind("pt-4 pb-2")}
-        data={props.loans}
-        ref={ref}
-        numColumns={2}
-        renderItem={({
-          item,
-          index,
-        }: {
-          item: LoanToken;
-          index: number;
-        }): JSX.Element => {
-          return (
-            <View style={{ flexBasis: "98%" }}>
-              <LoanCard
-                symbol={item.token.symbol}
-                displaySymbol={item.token.displaySymbol}
-                interestRate={item.interest}
-                price={item.activePrice}
-                loanTokenId={item.tokenId}
-                onPress={() => {
-                  navigation.navigate({
-                    name: "BorrowLoanTokenScreen",
-                    params: {
-                      loanToken: item,
-                      vault: activeVault,
-                    },
-                    merge: true,
-                  });
-                }}
-                testID={`loan_card_${index}`}
-                isBorrowHidden={!props.vaultExist}
-              />
-            </View>
-          );
-        }}
-        keyExtractor={(_item, index) => index.toString()}
-        testID={props.testID}
-      />
-    </>
+    /* Currently theres a known issue regarding the layout bug on web version for flashList */
+    <ThemedFlashList
+      contentContainerStyle={tailwind("pt-4 pb-2")}
+      data={props.loans}
+      ref={ref}
+      numColumns={2}
+      renderItem={({
+        item,
+        index,
+      }: {
+        item: LoanToken;
+        index: number;
+      }): JSX.Element => {
+        return (
+          <View style={{ flexBasis: "98%" }}>
+            <LoanCard
+              symbol={item.token.symbol}
+              displaySymbol={item.token.displaySymbol}
+              interestRate={item.interest}
+              price={item.activePrice}
+              loanTokenId={item.tokenId}
+              onPress={() => {
+                navigation.navigate({
+                  name: "BorrowLoanTokenScreen",
+                  params: {
+                    loanToken: item,
+                    vault: activeVault,
+                  },
+                  merge: true,
+                });
+              }}
+              testID={`loan_card_${index}`}
+              isBorrowHidden={!props.vaultExist}
+            />
+          </View>
+        );
+      }}
+      keyExtractor={(_item, index) => index.toString()}
+      testID={props.testID}
+    />
   );
 }
 
