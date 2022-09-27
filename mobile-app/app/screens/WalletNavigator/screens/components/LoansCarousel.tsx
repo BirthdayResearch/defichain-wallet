@@ -33,11 +33,8 @@ const slides: JSX.Element[] = [
     imageDark={ImageADark}
     imageLight={ImageALight}
     key={0}
-    subtitle={translate(
-      "screens/LoansScreen",
-      "With vaults, you gain access to a rich economy of decentralized tokens."
-    )}
-    title={translate("screens/LoansScreen", "Decentralized tokens")}
+    subtitle="With vaults, you gain access to a rich economy of decentralized tokens."
+    title="Decentralized tokens"
   />,
   <ImageSlide
     imageDark={ImageBDark}
