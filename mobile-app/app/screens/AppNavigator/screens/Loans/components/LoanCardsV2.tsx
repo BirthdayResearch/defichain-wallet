@@ -141,7 +141,7 @@ function LoanCard({
         decimalScale={2}
         thousandSeparator
         displayType="text"
-        renderText={(value) => (
+        renderText={(value: string) => (
           <View style={tailwind("flex flex-row items-center")}>
             <ThemedText
               testID={`${testID}_loan_amount`}
@@ -163,7 +163,7 @@ function LoanCard({
         decimalScale={2}
         thousandSeparator
         displayType="text"
-        renderText={(value) => (
+        renderText={(value: string) => (
           <ThemedTextV2
             light={tailwind("text-mono-light-v2-700")}
             dark={tailwind("text-mono-dark-v2-700")}
