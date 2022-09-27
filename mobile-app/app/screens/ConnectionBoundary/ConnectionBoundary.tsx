@@ -23,7 +23,7 @@ function ConnectionErrorComponent(): JSX.Element {
   };
   return (
     <ThemedViewV2
-      style={tailwind("flex-1 items-center justify-center px-8")}
+      style={tailwind("flex-1 items-center justify-center px-10")}
       testID="connection_error"
     >
       <View style={tailwind("items-center justify-center px-15 pb-8")}>
@@ -52,7 +52,7 @@ function ConnectionErrorComponent(): JSX.Element {
         label={translate("screens/ConnectionBoundary", "Refresh")}
         onPress={checkConnectivity}
         testID="button_check_connectivity"
-        styleProps="m-0 mb-4 w-48"
+        styleProps="m-0 mb-4 w-72"
       />
     </ThemedViewV2>
   );

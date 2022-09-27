@@ -517,8 +517,8 @@
   },
   "screens/TransactionsScreen": {
     "Transactions": "交易纪录",
-    "No transactions yet": "还没有交易纪录",
-    "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "您能开始从钱包做交易. 所有UTXO交易都会在这里显示.目前还不提供其他交易类型.",
+    "No transactions found": "No transactions found",
+    "Start by depositing DFI": "Start by depositing DFI",
     "RECEIVE TOKENS": "接收的货币",
     "LOAD MORE": "查看更多交易纪录",
     "Received": "收到",

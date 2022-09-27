@@ -526,8 +526,8 @@
   },
   "screens/TransactionsScreen": {
     "Transactions": "Transactions",
-    "No transactions yet": "Pas encore de transactions",
-    "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "Commencez à effectuer des transactions avec votre portefeuille. Toutes les transactions UTXO effectuées seront affichées ici. Les autres types de transactions ne sont pas encore supportés.",
+    "No transactions found": "No transactions found",
+    "Start by depositing DFI": "Start by depositing DFI",
     "RECEIVE TOKENS": "RECEVOIR DES TOKENS",
     "LOAD MORE": "CHARGER PLUS",
     "Received": "Reçu",
