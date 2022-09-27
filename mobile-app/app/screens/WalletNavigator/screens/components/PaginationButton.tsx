@@ -28,7 +28,7 @@ export function PaginationButton({
     },
     [scrollToIndex]
   );
-  const endOfPagination = curIndex === size - 1 || paginationIndex === size - 1;
+  const endOfPagination = curIndex === size - 1;
 
   useEffect(() => {
     // check if user scrolls without pressing button or if animation is replayed
@@ -38,7 +38,7 @@ export function PaginationButton({
   }, [paginationIndex]);
 
   useEffect(() => {
-    if (curIndex < size - 1 || paginationIndex < size - 1) {
+    if (curIndex < size - 1) {
       return setButtonLabel("Next");
     } else {
       return setButtonLabel("Done");

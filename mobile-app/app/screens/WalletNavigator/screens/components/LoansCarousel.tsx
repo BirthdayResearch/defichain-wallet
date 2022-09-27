@@ -96,7 +96,6 @@ export function ImageSlide({
         <ThemedTextV2 style={tailwind("font-normal-v2 text-center mt-2")}>
           {translate("screens/LoansCarousel", subtitle)}
         </ThemedTextV2>
-        {/* @chloe TODO: get translations */}
       </View>
     </View>
   );
