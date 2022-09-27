@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js";
 import { View } from "@components";
 import {
-  ThemedFlatListV2,
+  ThemedFlashList,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
 } from "@components/themed";
@@ -143,15 +143,14 @@ export function PoolPairCards({
   );
 
   return (
-    <ThemedFlatListV2
+    <ThemedFlashList
       light={tailwind("bg-mono-light-v2-100")}
       dark={tailwind("bg-mono-dark-v2-100")}
       contentContainerStyle={tailwind("pb-4", { "pt-8": type === "your" })}
       ref={ref}
       data={type === "your" ? filteredYourPairs : sortedPairs}
       numColumns={1}
-      windowSize={2}
-      initialNumToRender={5}
+      estimatedItemSize={10}
       keyExtractor={(item) => item.data.id}
       testID={
         type === "your" ? "your_liquidity_tab" : "available_liquidity_tab"
@@ -542,23 +541,29 @@ function TopLiquiditySection({
   onActionPress: (data: PoolPairData) => void;
 }): JSX.Element {
   return (
-    <DexScrollable
-      testID="dex_top_liquidity"
-      sectionHeading="TOP LIQUIDITY"
-      sectionStyle={tailwind("mb-6")}
-    >
-      {pairs.map((pairItem, index) => (
-        <DexScrollable.Card
-          key={`${pairItem.data.id}_${index}`}
-          poolpair={pairItem.data}
-          style={tailwind("mr-2")}
-          onActionPress={() => onActionPress(pairItem.data)}
-          onPress={() => onPress(pairItem.data.id)}
-          label={translate("screens/DexScreen", "Swap")}
-          testID={`composite_swap_${pairItem.data.id}`}
-          isSwap
-        />
-      ))}
+    <DexScrollable sectionHeading="TOP LIQUIDITY" testID="dex_top_liquidity">
+      <ThemedFlashList
+        horizontal
+        estimatedItemSize={5}
+        parentContainerStyle={tailwind("px-5")}
+        scrollViewProps={{
+          horizontal: true,
+          showsHorizontalScrollIndicator: false,
+        }}
+        data={pairs}
+        renderItem={({ item, index }) => (
+          <DexScrollable.Card
+            key={`${item.data.id}_${index}`}
+            poolpair={item.data}
+            style={tailwind("mr-2")}
+            onActionPress={() => onActionPress(item.data)}
+            onPress={() => onPress(item.data.id)}
+            label={translate("screens/DexScreen", "Swap")}
+            testID={`composite_swap_${item.data.id}`}
+            isSwap
+          />
+        )}
+      />
     </DexScrollable>
   );
 }
@@ -573,27 +578,30 @@ function NewPoolsSection({
   onActionPress: (data: PoolPairData, info: WalletToken) => void;
 }): JSX.Element {
   return (
-    <DexScrollable
-      testID="dex_new_pools"
-      sectionHeading="NEW POOLS"
-      sectionStyle={tailwind("mb-6")}
-    >
-      {pairs.map((pairItem, index) => (
-        <DexScrollable.Card
-          key={`${pairItem.data.id}_${index}`}
-          poolpair={pairItem.data as PoolPairData}
-          style={tailwind("mr-2")}
-          onActionPress={() =>
-            onActionPress(
-              pairItem.data as PoolPairData,
-              pairItem.data as WalletToken
-            )
-          }
-          onPress={() => onPress(pairItem.data.id)}
-          label={translate("screens/DexScreen", "Add to LP")}
-          testID={`add_liquidity_${pairItem.data.id}`}
-        />
-      ))}
+    <DexScrollable sectionHeading="NEW POOLS" testID="dex_new_pools">
+      <ThemedFlashList
+        horizontal
+        estimatedItemSize={5}
+        parentContainerStyle={tailwind("px-5")}
+        scrollViewProps={{
+          horizontal: true,
+          showsHorizontalScrollIndicator: false,
+        }}
+        data={pairs}
+        renderItem={({ item, index }) => (
+          <DexScrollable.Card
+            key={`${item.data.id}_${index}`}
+            poolpair={item.data as PoolPairData}
+            style={tailwind("mr-2")}
+            onActionPress={() =>
+              onActionPress(item.data as PoolPairData, item.data as WalletToken)
+            }
+            onPress={() => onPress(item.data.id)}
+            label={translate("screens/DexScreen", "Add to LP")}
+            testID={`add_liquidity_${item.data.id}`}
+          />
+        )}
+      />
     </DexScrollable>
   );
 }
