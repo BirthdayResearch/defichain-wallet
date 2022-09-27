@@ -82,7 +82,7 @@ export function ActionButtons(): JSX.Element {
           onPress={() =>
             navigation.navigate({
               name: "CompositeSwap",
-              params: { originScreen: DexScreenOrigin.Portfolio_screen },
+              params: {},
               merge: true,
             })
           }
