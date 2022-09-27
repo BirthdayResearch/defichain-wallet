@@ -1265,7 +1265,7 @@
     "Close Vault": "Fermer le vault",
     "Search vault": "Rechercher dans les vaults",
     "Search with vault ID or tokens": "Rechercher avec l'ID du vault ou les tokens",
-    "Search results for “{{searchTerm}}”": "Résultats de la recherche pour “{{searchTerm}}”"
+    "Search results for “{{searchTerm}}”": "Résultats de la recherche pour “{{searchTerm}}”",
     "You need a vault with collaterals to borrow tokens": "Vous avez besoin d'un vault avec des garanties pour emprunter des tokens",
     "Decentralized tokens": "Tokens décentralisés",
     "With vaults, you gain access to a rich economy of decentralized tokens.": "Avec les vaults, vous accédez à une riche économie de tokens décentralisés.",

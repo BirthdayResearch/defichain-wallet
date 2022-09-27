@@ -1278,7 +1278,7 @@
     "Close Vault": "Chiudi il Vault",
     "Search vault": "Search vault",
     "Search with vault ID or tokens": "Search with vault ID or tokens",
-    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
     "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
     "Decentralized tokens": "Decentralized tokens",
     "With vaults, you gain access to a rich economy of decentralized tokens.": "With vaults, you gain access to a rich economy of decentralized tokens.",
