@@ -191,7 +191,7 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
   );
 }
 
-const BidInfo = memo(
+export const BidInfo = memo(
   ({
     isHighestBidder,
     hasFirstBid,
@@ -207,7 +207,7 @@ const BidInfo = memo(
     const { testId, title, icon, color } = useMemo(() => {
       if (isHighestBidder) {
         return {
-          testId: `${testID}_lost`,
+          testId: `${testID}_leading`,
           title: "Leading bid",
           icon: "check-circle",
           color: "text-green-v2",
@@ -215,7 +215,7 @@ const BidInfo = memo(
       }
       if (isOutBid) {
         return {
-          testId: `${testID}_leading`,
+          testId: `${testID}_lost`,
           title: "Outbid",
           icon: "info",
           color: "text-orange-v2",

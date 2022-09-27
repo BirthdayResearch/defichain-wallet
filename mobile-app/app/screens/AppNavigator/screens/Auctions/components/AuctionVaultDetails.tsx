@@ -42,12 +42,12 @@ export function AuctionVaultDetails({
         }}
         lhs={{
           value: translate("screens/ConfirmPlaceBidScreen", "Vault ID"),
-          testID: "text_vault_id_label",
+          testID: `${testID}_vault_id_label`,
           themedProps: lhsThemedProps,
         }}
         rhs={{
           value: vault.vaultId,
-          testID: "text_vault_id",
+          testID: `${testID}_vault_id`,
           numberOfLines: 1,
           ellipsizeMode: "middle",
           themedProps: rhsThemedProps,
@@ -61,12 +61,12 @@ export function AuctionVaultDetails({
         }}
         lhs={{
           value: translate("screens/ConfirmPlaceBidScreen", "Vault owner ID"),
-          testID: "text_vault_owner_label",
+          testID: `${testID}_vault_owner_label`,
           themedProps: lhsThemedProps,
         }}
         rhs={{
           value: vault.ownerAddress,
-          testID: "text_vault_owner_id",
+          testID: `${testID}_vault_owner_id`,
           numberOfLines: 1,
           ellipsizeMode: "middle",
           themedProps: rhsThemedProps,
@@ -85,12 +85,12 @@ export function AuctionVaultDetails({
             "screens/ConfirmPlaceBidScreen",
             "Liquidation height"
           ),
-          testID: "text_liquidation_height_label",
+          testID: `${testID}_liquidation_height_label`,
           themedProps: lhsThemedProps,
         }}
         rhs={{
           value: vault.liquidationHeight,
-          testID: "text_liquidation_height",
+          testID: `${testID}_liquidation_height`,
           themedProps: rhsThemedProps,
         }}
       />
