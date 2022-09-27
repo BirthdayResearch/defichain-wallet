@@ -8,7 +8,7 @@ import {
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { NumericFormat as NumberFormat } from "react-number-format";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 import { getNativeIcon } from "@components/icons/assets";
 import {
   LoanToken,
@@ -133,7 +133,9 @@ function LoanCard({
           <LoanIcon
             width={36}
             height={36}
-            style={tailwind("font-medium font-normal-v2")}
+            style={tailwind({
+              "font-medium font-normal-v2": Platform.OS === "web",
+            })}
           />
         </View>
       </View>

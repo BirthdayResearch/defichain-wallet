@@ -25,7 +25,6 @@ import { LoanCardsV2 } from "./components/LoanCardsV2";
 import { VaultsV2 } from "./components/VaultsV2";
 import { ButtonGroupV2 } from "../Dex/components/ButtonGroupV2";
 import { VaultStatus } from "./VaultStatusTypes";
-import { EmptyVaultV2 } from "./components/EmptyVaultV2";
 
 enum TabKey {
   Borrow = "BORROW",
@@ -96,16 +95,6 @@ export function LoansScreenV2(): JSX.Element {
       vaultsList.some((vault) => vault.vaultState !== VaultStatus.Empty)
     );
   }, [vaultsList]);
-
-  if (!hasFetchedVaultsData) {
-    return (
-      <ThemedViewV2 style={tailwind("flex-1")}>
-        <SkeletonLoader row={3} screen={SkeletonLoaderScreen.Loan} />
-      </ThemedViewV2>
-    );
-  } else if (vaults?.length === 0) {
-    return <EmptyVaultV2 handleRefresh={() => {}} isLoading={false} />;
-  }
 
   return (
     <ThemedViewV2 style={tailwind("flex-1")}>
