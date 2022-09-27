@@ -1279,9 +1279,18 @@
     "Search vault": "Search vault",
     "Search with vault ID or tokens": "Search with vault ID or tokens",
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
+    "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
+    "Decentralized tokens": "Decentralized tokens",
+    "With vaults, you gain access to a rich economy of decentralized tokens.": "With vaults, you gain access to a rich economy of decentralized tokens.",
+    "Next": "Next",
+    "Take control of your vault": "Take control of your vault",
+    "With a selected loan scheme, you control how much is required for your vault.": "With a selected loan scheme, you control how much is required for your vault.",
+    "Monitor your vaults": "Monitor your vaults",
+    "Keep your vaults healthy and green, by monitoring its collateralization.": "Keep your vaults healthy and green, by monitoring its collateralization."
   },
   "components/tabs": {
     "Browse loan tokens": "Sfoglia i token in prestito",
+    "Borrow": "Borrow",
     "Your vaults": "I tuoi vault",
     "Active loan": "Prestito attivo",
     "Details": "Dettagli",
@@ -1309,7 +1318,8 @@
     "Learn more about vaults": "Per saperne di più sui Vault",
     "Learn more about vaults and loan schemes": "Per saperne di più su Vault e schemi di prestito",
     "Learn more about auctions and bidding": "Per saperne di più su aste e offerte",
-    "Learn about auctions": "Scoprire le aste"
+    "Learn about auctions": "Scoprire le aste",
+    "Learn more": "Learn more"
   },
   "components/EmptyBidsScreen": {
     "No active bids": "Nessuna offerta attiva",
@@ -1415,6 +1425,9 @@
     "EDIT COLLATERAL": "MODIFICA I COLLATERALI"
   },
   "components/EmptyVault": {
+    "No vaults": "No vaults",
+    "Get started with loans. Create a vault for your collaterals.": "Get started with loans. Create a vault for your collaterals.",
+    "Create a vault": "Create a vault",
     "No vault created": "Nessun vault creato",
     "To get started, create a vault and add DFI and other tokens as collateral": "Per iniziare, crea un vault e aggiungi DFI e altri token come collaterale",
     "CREATE VAULT": "CREA UN VAULT"

@@ -1254,9 +1254,18 @@
     "Search vault": "Vaults durchsuchen",
     "Search with vault ID or tokens": "Suche über die Vault ID oder den Token",
     "Search results for “{{searchTerm}}”": "Suchergebnisse für “{{searchTerm}}”"
+    "You need a vault with collaterals to borrow tokens": "Du brauchst einen Vault mit Sicherheiten, um Token zu leihen",
+    "Decentralized tokens": "Dezentrale Token",
+    "With vaults, you gain access to a rich economy of decentralized tokens.": "Mit Vaults erhältst du Zugang zu einer umfassenden Ökonomie dezentraler Token.",
+    "Next": "Weiter",
+    "Take control of your vault": "Kontrolliere deinen Vault",
+    "With a selected loan scheme, you control how much is required for your vault.": "Mit einem ausgewählten Darlehensmodell bestimmst du, wie viel für deinen Vault benötigt wird.",
+    "Monitor your vaults": "Überwache deine Vaults",
+    "Keep your vaults healthy and green, by monitoring its collateralization.": "Sorge dafür, dass deine Vaults gesund und im grünen Bereich bleiben, indem du ihre Besicherung überwachst."
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehenstoken",
+    "Borrow": "Darlehen aufnehmen",
     "Your vaults": "Deine Vaults",
     "Active loan": "Aktuelles Darlehen",
     "Details": "Details",
@@ -1284,7 +1293,8 @@
     "Learn more about vaults": "Lerne mehr über Vaults",
     "Learn more about vaults and loan schemes": "Erfahre mehr über Vaults und Darlehensmodelle",
     "Learn more about auctions and bidding": "Erfahre mehr über Auktionen und Bieten",
-    "Learn about auctions": "Erfahre mehr über Auktionen"
+    "Learn about auctions": "Erfahre mehr über Auktionen",
+    "Learn more": "Erfahre mehr"
   },
   "components/EmptyBidsScreen": {
     "No active bids": "Keine aktiven Gebote",
@@ -1389,6 +1399,9 @@
     "READY": "BEREIT"
   },
   "components/EmptyVault": {
+    "No vaults": "Keine Vaults",
+    "Get started with loans. Create a vault for your collaterals.": "Beginne mit Darlehen. Erstelle einen Vault für deine Sicherheiten.",
+    "Create a vault": "Vault erstellen",
     "No vault created": "Kein Vault erstellt",
     "To get started, create a vault and add DFI and other tokens as collateral": "Um loszulegen, erstelle einen Vault und füge DFI und andere Token als Sicherheiten hinzu",
     "CREATE VAULT": "VAULT ERSTELLEN"

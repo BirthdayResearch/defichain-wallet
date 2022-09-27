@@ -1258,9 +1258,18 @@
     "Search vault": "Search vault",
     "Search with vault ID or tokens": "Search with vault ID or tokens",
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
+    "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
+    "Decentralized tokens": "Decentralized tokens",
+    "With vaults, you gain access to a rich economy of decentralized tokens.": "With vaults, you gain access to a rich economy of decentralized tokens.",
+    "Next": "Next",
+    "Take control of your vault": "Take control of your vault",
+    "With a selected loan scheme, you control how much is required for your vault.": "With a selected loan scheme, you control how much is required for your vault.",
+    "Monitor your vaults": "Monitor your vaults",
+    "Keep your vaults healthy and green, by monitoring its collateralization.": "Keep your vaults healthy and green, by monitoring its collateralization."
   },
   "components/tabs": {
     "Browse loan tokens": "浏览贷款选项",
+    "Borrow": "Borrow",
     "Your vaults": "您的金库",
     "Active loan": "活跃的贷款",
     "Details": "明细",
@@ -1288,7 +1297,8 @@
     "Learn more about vaults": "了解更多关于金库的资讯",
     "Learn more about vaults and loan schemes": "了解更多关于金库和贷款计划的资讯",
     "Learn more about auctions and bidding": "了解有关拍卖和出价的更多信息",
-    "Learn about auctions": "了解更多关于拍卖和拍卖会"
+    "Learn about auctions": "了解更多关于拍卖和拍卖会",
+    "Learn more": "Learn more"
   },
   "components/EmptyBidsScreen": {
     "No active bids": "没有活跃竞投价格",
@@ -1394,6 +1404,9 @@
     "READY": "准备中"
   },
   "components/EmptyVault": {
+    "No vaults": "No vaults",
+    "Get started with loans. Create a vault for your collaterals.": "Get started with loans. Create a vault for your collaterals.",
+    "Create a vault": "Create a vault",
     "No vault created": "您尚未建立金库",
     "To get started, create a vault and add DFI and other tokens as collateral": "若要启动贷款，您需要创建一个金库，并添加DFI和其他币作为抵押品",
     "CREATE VAULT": "创建金库"

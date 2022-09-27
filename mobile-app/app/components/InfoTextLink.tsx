@@ -55,7 +55,7 @@ export function InfoTextLinkV2(props: InfoTextLinkProps): JSX.Element {
     <ThemedTouchableOpacityV2
       onPress={props.onPress}
       style={[
-        tailwind("flex-row items-end justify-start"),
+        tailwind("flex-row items-end justify-start items-center"),
         props.containerStyle,
       ]}
       testID={props.testId}

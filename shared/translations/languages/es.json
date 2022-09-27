@@ -1282,9 +1282,18 @@
     "Search vault": "Search vault",
     "Search with vault ID or tokens": "Search with vault ID or tokens",
     "Search results for “{{searchTerm}}”": "Buscar resultados para “{{searchTerm}}”"
+    "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
+    "Decentralized tokens": "Decentralized tokens",
+    "With vaults, you gain access to a rich economy of decentralized tokens.": "With vaults, you gain access to a rich economy of decentralized tokens.",
+    "Next": "Next",
+    "Take control of your vault": "Take control of your vault",
+    "With a selected loan scheme, you control how much is required for your vault.": "With a selected loan scheme, you control how much is required for your vault.",
+    "Monitor your vaults": "Monitor your vaults",
+    "Keep your vaults healthy and green, by monitoring its collateralization.": "Keep your vaults healthy and green, by monitoring its collateralization."
   },
   "components/tabs": {
     "Browse loan tokens": "Busca tokens de préstamo",
+    "Borrow": "Borrow",
     "Your vaults": "Tus bóvedas",
     "Active loan": "Préstamo activo",
     "Details": "Detalles",
@@ -1313,7 +1322,8 @@
     "Learn more about vaults and loan schemes": "Aprende más sobre las bóvedas y los tipos de préstamo",
     "Learn more about auctions and bidding": "Aprende más sobre las subastas y cómo hacer ofertas",
     "Learn about auctions": "Aprende sobre subastas",
-    "Learn more about DFI": "Aprende mas sobre DFI"
+    "Learn more about DFI": "Aprende mas sobre DFI",
+    "Learn more": "Learn more"
   },
   "components/EmptyBidsScreen": {
     "No active bids": "No hay ofertas activas",
@@ -1420,6 +1430,9 @@
     "EDIT COLLATERAL": "EDITA LOS COLATERALES"
   },
   "components/EmptyVault": {
+    "No vaults": "No vaults",
+    "Get started with loans. Create a vault for your collaterals.": "Get started with loans. Create a vault for your collaterals.",
+    "Create a vault": "Create a vault",
     "No vault created": "Ninguna bóveda ha sido creada",
     "To get started, create a vault and add DFI and other tokens as collateral": "Para empezar, crea una bóveda y añade DFI y otros tokens como colaterales",
     "CREATE VAULT": "CREA BÓVEDA"

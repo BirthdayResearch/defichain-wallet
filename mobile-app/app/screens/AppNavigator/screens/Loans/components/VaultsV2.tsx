@@ -24,12 +24,17 @@ import {
   useScrollToTop,
 } from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/useAppDispatch";
+import {
+  SkeletonLoader,
+  SkeletonLoaderScreen,
+} from "@components/SkeletonLoader";
 import { SearchInputV2 } from "@components/SearchInputV2";
 import { translate } from "@translations";
 import { TextInput, View } from "react-native";
 import { useDebounce } from "@hooks/useDebounce";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { LoanParamList } from "@screens/AppNavigator/screens/Loans/LoansNavigator";
+import { EmptyVaultV2 } from "./EmptyVaultV2";
 
 export function VaultsV2(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -40,6 +45,9 @@ export function VaultsV2(): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
   const blockCount = useSelector((state: RootState) => state.block.count);
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
+  const { hasFetchedVaultsData } = useSelector(
+    (state: RootState) => state.loans
+  );
   const ref = useRef(null);
   useScrollToTop(ref);
 
@@ -50,12 +58,7 @@ export function VaultsV2(): JSX.Element {
 
   useEffect(() => {
     if (isFocused) {
-      dispatch(
-        fetchVaults({
-          address,
-          client,
-        })
-      );
+      dispatch(fetchVaults({ address, client }));
     }
   }, [blockCount, address, isFocused]);
 
@@ -70,6 +73,16 @@ export function VaultsV2(): JSX.Element {
   const inSearchMode = useMemo(() => {
     return isSearchFocus || debouncedSearchTerm !== "";
   }, [isSearchFocus, debouncedSearchTerm]);
+
+  if (!hasFetchedVaultsData) {
+    return (
+      <View style={tailwind("mt-1")}>
+        <SkeletonLoader row={3} screen={SkeletonLoaderScreen.Vault} />
+      </View>
+    );
+  } else if (vaults?.length === 0) {
+    return <EmptyVaultV2 handleRefresh={() => {}} isLoading={false} />;
+  }
 
   return (
     <ThemedScrollViewV2
