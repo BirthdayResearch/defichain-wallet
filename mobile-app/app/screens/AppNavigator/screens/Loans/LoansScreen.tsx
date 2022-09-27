@@ -24,7 +24,7 @@ import { debounce } from "lodash";
 import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
 import { useIsFocused } from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { VaultsV2 } from "@screens/AppNavigator/screens/Loans/components/VaultsV2";
+import { Vaults } from "@screens/AppNavigator/screens/Loans/components/Vaults";
 import { LoanParamList } from "./LoansNavigator";
 import { LoanCards } from "./components/LoanCards";
 import { EmptyVault } from "./components/EmptyVault";
@@ -199,7 +199,7 @@ export function LoansScreen({ navigation }: Props): JSX.Element {
         testID="loans_tabs"
         activeTabKey={activeTab}
       />
-      {activeTab === TabKey.YourVaults && <VaultsV2 />}
+      {activeTab === TabKey.YourVaults && <Vaults />}
       {activeTab === TabKey.BrowseLoans && !hasFetchedLoansData && (
         <View style={tailwind("mt-1")}>
           <SkeletonLoader row={6} screen={SkeletonLoaderScreen.Loan} />
