@@ -1728,7 +1728,7 @@
     "Min. collateralization ratio": "Mind. Besicherungsquote",
     "Interest rate": "Zinssatz",
     "APR": "Jahreszins",
-    "Collateralization": "Collateralization",
+    "Collateralization": "Besicherung",
     "Vault interest": "Vault-Jahreszins"
   },
   "screens/BorrowMoreScreen": {

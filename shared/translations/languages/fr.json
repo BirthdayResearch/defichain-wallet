@@ -1741,7 +1741,7 @@
     "Min. collateralization ratio": "Ratio de garantie min.",
     "Interest rate": "Taux d'intérêt",
     "APR": "TAEG",
-    "Collateralization": "Collateralization",
+    "Collateralization": "Garantie",
     "Vault interest": "Intérêt du vault"
   },
   "screens/BorrowMoreScreen": {
