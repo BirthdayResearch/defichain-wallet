@@ -136,7 +136,7 @@ export function EmptyVaultV2(props: EmptyVaultProps): JSX.Element {
           modalStyle={{
             position: "absolute",
             bottom: "0",
-            height: "454px",
+            height: "474px",
             width: "375px",
             zIndex: 50,
             borderTopLeftRadius: 15,
