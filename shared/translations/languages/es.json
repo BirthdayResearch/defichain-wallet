@@ -1442,6 +1442,7 @@
     "Monitor your vault’s collateralization to prevent liquidation.": "Monitor your vault’s collateralization to prevent liquidation.",
     "Transaction fee": "Transaction fee",
     "Vault fee": "Comisión de la bóveda",
+    "Vault Fee": "Comisión de la bóveda",
     "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.",
     "Amount to convert": "Amount to convert",
     "Creating vault": "Creando bóveda"

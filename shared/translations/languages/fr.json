@@ -1263,8 +1263,8 @@
     "Choose Loan Token to Borrow": "Choisissez le token de prêt à emprunter",
     "Payback Loan": "Remboursement du prêt",
     "Close Vault": "Fermer le vault",
-    "Search vault": "Search vault",
-    "Search with vault ID or tokens": "Search with vault ID or tokens",
+    "Search vault": "Rechercher dans les vaults",
+    "Search with vault ID or tokens": "Rechercher avec l'ID du vault ou les tokens",
     "Search results for “{{searchTerm}}”": "Résultats de la recherche pour “{{searchTerm}}”"
   },
   "components/tabs": {
@@ -1423,6 +1423,7 @@
     "Monitor your vault’s collateralization to prevent liquidation.": "Monitor your vault’s collateralization to prevent liquidation.",
     "Transaction fee": "Frais de transaction",
     "Vault fee": "Frais de Vault",
+    "Vault Fee": "Frais de Vault",
     "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.",
     "Amount to convert": "Montant à convertir",
     "Creating vault": "Création d'un vault"

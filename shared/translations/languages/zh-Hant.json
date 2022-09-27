@@ -1418,6 +1418,7 @@
     "Monitor your vault’s collateralization to prevent liquidation.": "Monitor your vault’s collateralization to prevent liquidation.",
     "Transaction fee": "交易費用",
     "Vault fee": "金庫費用",
+    "Vault Fee": "金庫費用",
     "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.",
     "Amount to convert": "要轉換的金額",
     "Creating vault": "創建金庫"
