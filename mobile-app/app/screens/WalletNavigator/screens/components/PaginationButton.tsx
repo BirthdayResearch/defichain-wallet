@@ -1,5 +1,4 @@
 import { ThemedTextV2, ThemedTouchableOpacityV2 } from "@components/themed";
-import { useBottomSheet } from "@hooks/useBottomSheet";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
@@ -8,13 +7,15 @@ import { PaginationProps } from "react-native-swiper-flatlist";
 
 const PAGINATION_END = 3;
 
-// eslint-disable-next-line react/function-component-definition
-export const PaginationButton: React.FC<PaginationProps> = ({
+interface PaginationButtonProps extends PaginationProps {
+  dismissModal: () => void;
+}
+export function PaginationButton({
   paginationIndex = 0,
   scrollToIndex,
-}) => {
+  dismissModal,
+}: PaginationButtonProps): JSX.Element {
   const { isLight } = useThemeContext();
-  const { dismissModal } = useBottomSheet();
 
   const [curIndex, setCurIndex] = useState(paginationIndex);
   const [buttonLabel, setButtonLabel] = useState("Next");
@@ -37,7 +38,6 @@ export const PaginationButton: React.FC<PaginationProps> = ({
     }
   }, [paginationIndex]);
 
-  // update button label
   useEffect(() => {
     if (curIndex < PAGINATION_END) {
       setButtonLabel("Next");
@@ -49,11 +49,10 @@ export const PaginationButton: React.FC<PaginationProps> = ({
   return (
     <ThemedTouchableOpacityV2
       onPress={() => {
-        if (curIndex < PAGINATION_END + 1) {
-          return goToNextPage(curIndex + 1);
-        }
         if (endOfPagination) {
-          return dismissModal(); // @chloe TODO: should close bottom sheet?
+          return dismissModal();
+        } else {
+          return goToNextPage(curIndex + 1);
         }
       }}
       dark={tailwind("border-mono-dark-v2-900")}
@@ -76,4 +75,4 @@ export const PaginationButton: React.FC<PaginationProps> = ({
       </ThemedTextV2>
     </ThemedTouchableOpacityV2>
   );
-};
+}

@@ -68,7 +68,7 @@ export function EmptyVaultV2(props: EmptyVaultProps): JSX.Element {
     setBottomSheetScreen([
       {
         stackScreenName: "LoansCarousel",
-        component: LoansCarousel,
+        component: () => <LoansCarousel dismissModal={dismissModal} />,
         option: BottomSheetHeader,
       },
     ]);

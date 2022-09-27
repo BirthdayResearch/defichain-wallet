@@ -8,8 +8,12 @@ export function CarouselPagination(props: PaginationProps): JSX.Element {
   return <Pagination {...props} paginationStyle={styles.paginationContainer} />;
 }
 
+interface CarouselPaginationWithNextButtonProps extends PaginationProps {
+  dismissModal: () => void;
+}
+
 export function CarouselPaginationWithNextButton(
-  props: PaginationProps
+  props: CarouselPaginationWithNextButtonProps
 ): JSX.Element {
   return (
     <>

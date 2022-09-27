@@ -22,10 +22,10 @@ import { useIsFocused } from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { translate } from "@translations";
 import { LoanCardsV2 } from "./components/LoanCardsV2";
-import { EmptyVault } from "./components/EmptyVault";
 import { VaultsV2 } from "./components/VaultsV2";
 import { ButtonGroupV2 } from "../Dex/components/ButtonGroupV2";
 import { VaultStatus } from "./VaultStatusTypes";
+import { EmptyVaultV2 } from "./components/EmptyVaultV2";
 
 enum TabKey {
   Borrow = "BORROW",
@@ -104,7 +104,7 @@ export function LoansScreenV2(): JSX.Element {
       </ThemedViewV2>
     );
   } else if (vaults?.length === 0) {
-    return <EmptyVault handleRefresh={() => {}} isLoading={false} />;
+    return <EmptyVaultV2 handleRefresh={() => {}} isLoading={false} />;
   }
 
   return (
