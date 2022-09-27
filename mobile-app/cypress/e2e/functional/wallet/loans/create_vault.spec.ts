@@ -19,7 +19,8 @@ function setupWalletForConversion(): void {
 
 function navigateToVault(selectIndex: string): void {
   cy.getByTestID("bottom_tab_loans").click();
-  cy.getByTestID("create_vault_header_button").click();
+  cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
+  cy.getByTestID("button_create_vault").click();
   cy.getByTestID(`loan_scheme_option_${selectIndex}`).click();
 }
 
@@ -42,11 +43,13 @@ context("Wallet - Loans - Create vault", () => {
 
   it("should display empty vault screen", () => {
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
   });
 
   it("should navigate to create vault screen", () => {
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("button_create_vault").click();
     cy.getByTestID("create_vault_screen").should("exist");
   });
@@ -54,6 +57,7 @@ context("Wallet - Loans - Create vault", () => {
   it("should display correct loan schemes in create vault screen", () => {
     cy.intercept("**/loans/schemes?size=50").as("loanSchemes");
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("button_create_vault").click();
     cy.getByTestID("create_vault_submit_button").should(
       "have.attr",
@@ -152,7 +156,7 @@ context("Wallet - Loans - Confirm create vault", () => {
     cy.getByTestID("create_vault_submit_button").click().wait(3000);
     cy.getByTestID("txn_authorization_title").should(
       "have.text",
-      "Creating vault with a vault fee of 1.00000000 DFI"
+      "Creating vault"
     );
 
     // Cancel first selection
@@ -161,14 +165,13 @@ context("Wallet - Loans - Confirm create vault", () => {
     cy.getByTestID("create_vault_submit_button").click().wait(3000);
     cy.getByTestID("txn_authorization_title").should(
       "have.text",
-      "Creating vault with a vault fee of 1.00000000 DFI"
+      "Creating vault"
     );
     cy.closeOceanInterface();
   });
 
   it("should verify if vault was created", () => {
     cy.getByTestID("bottom_tab_loans").click();
-    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("vault_card_0").should("exist");
     cy.checkVaultTag(
       "EMPTY",
@@ -184,7 +187,6 @@ context("Wallet - Loans - Confirm create vault", () => {
 
   it("should display tooltip message for oracle pricing", () => {
     cy.getByTestID("bottom_tab_loans").click();
-    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("icon-tooltip").should("exist").first().click();
     cy.getByTestID("icon-tooltip-text")
       .should("exist")

@@ -211,6 +211,7 @@ context("Wallet - Loans - Payback DUSD Loans", () => {
     cy.go("back");
     cy.getByTestID("bottom_tab_dex").click();
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
     cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
@@ -237,7 +238,6 @@ context("Wallet - Loans - Payback DUSD Loans", () => {
         data: [],
       },
     }).as("getTokens");
-    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("vault_card_0_manage_loans_button").click();
     cy.getByTestID("loan_card_DUSD_payback_loan").click();
     cy.wait("@getTokens").then(() => {
@@ -459,6 +459,7 @@ context("Wallet - Loans Payback Non-DUSD Loans", () => {
     cy.setWalletTheme(walletTheme);
     cy.go("back");
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
     cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
@@ -497,7 +498,6 @@ context("Wallet - Loans Payback Non-DUSD Loans", () => {
         data: [],
       },
     }).as("getTokens");
-    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("vault_card_0_manage_loans_button").click();
     cy.getByTestID("loan_card_dTU10_payback_loan").click();
     cy.wait("@getTokens").then(() => {

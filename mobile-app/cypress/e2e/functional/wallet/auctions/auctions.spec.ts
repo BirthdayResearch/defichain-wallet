@@ -19,13 +19,13 @@ function generateBlockUntilLiquidate(): void {
 
 function getLoanTokenToPlaceBid(): void {
   // Loan dTU10 for placing bid
-  cy.createVault(0, true);
+  cy.createVault(0);
   cy.getByTestID("vault_card_1_edit_collaterals_button").click();
   cy.addCollateral("0.60000000", "DFI");
   cy.getByTestID("bottom_tab_loans").click();
   cy.getByTestID("vault_card_1_manage_loans_button").click();
   cy.getByTestID("button_browse_loans").click();
-  cy.getByTestID("loan_card_dTU10").click();
+  cy.getByTestID("dTU10_borrow_button").click();
   cy.getByTestID("max_loan_amount_text")
     .invoke("text")
     .then((text: string) => {
@@ -272,6 +272,7 @@ context("Wallet - Auctions", () => {
     cy.getByTestID("dfi_total_balance_amount").contains("30.00000000");
     cy.setWalletTheme(walletTheme);
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
     cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
@@ -279,10 +280,9 @@ context("Wallet - Auctions", () => {
     cy.addCollateral("0.20000000", "DFI");
     cy.addCollateral("0.00000001", "dCD10");
     cy.getByTestID("bottom_tab_loans").click();
-    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("vault_card_0_manage_loans_button").click();
     cy.getByTestID("button_browse_loans").click();
-    cy.getByTestID("loan_card_dTU10").click();
+    cy.getByTestID("dTU10_borrow_button").click();
     cy.getByTestID("max_loan_amount_text")
       .invoke("text")
       .then((text: string) => {
@@ -295,7 +295,6 @@ context("Wallet - Auctions", () => {
   });
 
   it("should liquidate vault", () => {
-    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     generateBlockUntilLiquidate();
     cy.checkVaultTag(
       "IN LIQUIDATION",

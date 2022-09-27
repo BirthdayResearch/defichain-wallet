@@ -10,6 +10,7 @@ context("Wallet - Loans - Unloop", () => {
       .wait(6000);
     cy.setWalletTheme({ isDark: false });
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
     cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
@@ -63,6 +64,7 @@ context("Wallet - Loans - Unloop", () => {
     );
     cy.closeOceanInterface();
   }
+
   context("Wallet - Loans - Unloop with disabled feature flag", () => {
     before(() => {
       cy.blockAllFeatureFlag();

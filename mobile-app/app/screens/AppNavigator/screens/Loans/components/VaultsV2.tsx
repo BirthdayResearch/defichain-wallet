@@ -58,7 +58,12 @@ export function VaultsV2(): JSX.Element {
 
   useEffect(() => {
     if (isFocused) {
-      dispatch(fetchVaults({ address, client }));
+      dispatch(
+        fetchVaults({
+          address,
+          client,
+        })
+      );
     }
   }, [blockCount, address, isFocused]);
 
@@ -173,6 +178,7 @@ function CreateVaultButton(props: { onPress: () => void }): JSX.Element {
       light={tailwind("bg-mono-light-v2-900")}
       dark={tailwind("bg-mono-dark-v2-900")}
       onPress={props.onPress}
+      testID="button_create_vault"
     >
       <ThemedIcon
         iconType="Feather"
