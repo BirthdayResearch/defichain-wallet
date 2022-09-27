@@ -58,7 +58,7 @@ export const PaginationButton: React.FC<PaginationProps> = ({
       }}
       dark={tailwind("border-mono-dark-v2-900")}
       light={tailwind("border-mono-light-v2-900")}
-      style={tailwind("rounded-2xl-v2 text-center py-3.5 px-4 border", {
+      style={tailwind("rounded-full text-center py-3.5 px-4 border", {
         "bg-black": endOfPagination && isLight,
         "bg-white": endOfPagination && !isLight,
       })}
