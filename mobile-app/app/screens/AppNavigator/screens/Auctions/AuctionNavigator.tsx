@@ -93,12 +93,7 @@ export function AuctionsNavigator(): JSX.Element {
         component={AuctionDetailScreen}
         name="AuctionDetailScreen"
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/AuctionScreen", "Auction details")}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          headerTitle: translate("screens/AuctionScreen", "Auction Details"),
         }}
       />
 

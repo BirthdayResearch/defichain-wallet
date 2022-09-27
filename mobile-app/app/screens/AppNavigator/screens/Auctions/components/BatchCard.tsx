@@ -50,19 +50,8 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
     hasFirstBid,
     minNextBidInUSD,
   } = useAuctionBidValue(batch, vault.liquidationPenalty);
-  const { timeRemaining, blocksRemaining, blocksPerAuction } = useAuctionTime(
-    vault.liquidationHeight,
-    blockCount
-  );
-  const normalizedBlocks = useMemo(
-    () => new BigNumber(blocksRemaining).dividedBy(blocksPerAuction),
-    [blocksRemaining, blocksPerAuction]
-  );
-  const timeRemainingThemedColor = normalizedBlocks.gt(0.5)
-    ? "green-v2"
-    : normalizedBlocks.gt(0.26)
-    ? "orange-v2"
-    : "red-v2";
+  const { timeRemaining, normalizedBlocks, timeRemainingThemedColor } =
+    useAuctionTime(vault.liquidationHeight, blockCount);
   const onCardPress = (): void => {
     navigation.navigate("AuctionDetailScreen", {
       batch,
