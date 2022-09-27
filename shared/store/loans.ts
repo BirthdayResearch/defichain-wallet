@@ -224,7 +224,7 @@ export const vaultsSelector = createSelector(
           vaultState: vaultState.status,
         };
       })
-      .sort((a, b) => order[a.vaultState] - order[b.vaultState]) as LoanVault[];
+      .sort((a, b) => order[a.vaultState] - order[b.vaultState]);
   }
 );
 

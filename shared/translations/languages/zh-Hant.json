@@ -285,8 +285,8 @@
     "Amount to send": "發送金額",
     "Converting": "Converting",
     "Converted": "Converted",
-    "Transaction fee": "Transaction fee",
-    "Amount to convert": "Amount to convert",
+    "Transaction fee": "交易費用",
+    "Amount to convert": "要轉換的金額",
     "Send": "Send",
     "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "發送 {{amount}} {{displaySymbol}} 到 {{toAddress}}",
     "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds."
@@ -340,7 +340,7 @@
     "{{token}} to receive": "{{token}} 將會收到",
     "CONFIRM TRANSACTION": "確認交易",
     "You are converting to {{unit}}": "You are converting to {{unit}}",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "Resulting Tokens": "轉換後 Tokens",
     "Resulting UTXO": "轉換後 UTXO",
     "Convert {{amount}} DFI to {{target}}": "轉換 {{amount}} DFI 至 {{target}}"
@@ -874,8 +874,8 @@
     "CONFIRM ADD LIQUIDITY": "確認增加流動資金",
     "Your LP Tokens": "您的 LP 代幣",
     "You will receive LP tokens": "您將會收到 LP 代幣",
-    "Amount to convert": "Amount to convert",
-    "Transaction fee": "Transaction fee",
+    "Amount to convert": "要轉換的金額",
+    "Transaction fee": "交易費用",
     "Resulting pool share": "Resulting pool share",
     "{{token}} to supply": "{{token}} to supply",
     "Resulting LP tokens": "加入後產生的 LP 代幣",
@@ -898,7 +898,7 @@
     "Transaction type": "交易類型",
     "Remove liquidity": "退出流動",
     "You are removing LP tokens": "You are removing LP tokens",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "Resulting pool share": "Resulting pool share",
     "LP tokens to remove": "L要刪除的 LP 代幣",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool",
@@ -1031,7 +1031,7 @@
     "incl. stabilization fee ({{dexStabilizationFee}}%)": "incl. stabilization fee ({{dexStabilizationFee}}%)",
     "Total fees": "Total fees",
     "Settlement Value {{percentageChange}}": "Settlement Value {{percentageChange}}",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
     "Token": "Token",
@@ -1275,8 +1275,9 @@
   "components/LoanCard": {
     "Active Price": "目前活躍價格",
     "Next Price": "下一個價格",
-    "Interest": "利息",
-    "Price (USD)": "價格(美金)"
+    "{{interestValue}} Interest": "{{interestValue}} 利息",
+    "Price (USD)": "價格(美金)",
+    "Borrow": "Borrow"
   },
   "components/InfoTextLink": {
     "Learn more about DFI": "了解更多關於 DFI",
@@ -1406,7 +1407,17 @@
     "CONTINUE": "繼續",
     "Confirm your vault details in next screen": "在下一個屏幕上確認您的金庫細節",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "您的金庫的貸款計劃將決定您所需的貸款抵押品",
-    "Min. collateralization ratio": "最低抵押率"
+    "Min. collateralization ratio": "最低抵押率",
+    "Select collateralization and interest scheme for your vault to start.": "Select collateralization and interest scheme for your vault to start.",
+    "Continue": "繼續",
+    "Create vault": "創建金庫",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "Monitor your vault’s collateralization to prevent liquidation.": "Monitor your vault’s collateralization to prevent liquidation.",
+    "Creating vault with a vault fee of {{vaultFee}} DFI": "Creating vault with a vault fee of {{vaultFee}} DFI",
+    "Transaction fee": "交易費用",
+    "Vault fee": "金庫費用",
+    "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.",
+    "Amount to convert": "要轉換的金額"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "您正在創建金庫",
@@ -1706,7 +1717,9 @@
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "最低抵押率",
     "Interest rate": "利率",
-    "APR": "年回報率"
+    "APR": "年回報率",
+    "Collateralization": "Collateralization",
+    "Vault interest": "金庫利息"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "您正要借更多貸款",
@@ -1794,7 +1807,7 @@
     "I WANT TO WITHDRAW": "I WANT TO WITHDRAW",
     "Withdraw from": "Withdraw from",
     "Insufficient Balance": "Insufficient Balance",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "Review full details in the next screen": "Review full details in the next screen",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
@@ -1816,7 +1829,7 @@
     "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap",
     "To be confirmed": "To be confirmed",
     "Withdraw future swap": "提取未來兌換",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "To receive (est.)": "To receive (est.)",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from {{sourceSymbol}}-{{destinationSymbol}} swap": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from {{sourceSymbol}}-{{destinationSymbol}} swap"
   },

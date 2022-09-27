@@ -296,7 +296,7 @@
     "Converting": "Converting",
     "Converted": "Converti",
     "Transaction fee": "Frais de transaction",
-    "Amount to convert": "Amount to convert",
+    "Amount to convert": "Montant à convertir",
     "Send": "Send",
     "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Envoi de {{amount}} {{displaySymbol}} à {{toAddress}}",
     "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "Je reconnais que l'envoi de tokens PL à des adresses qui ne sont pas des portefeuilles compatibles DeFiChain peut entraîner une perte irréversible de fonds."
@@ -1283,8 +1283,9 @@
   "components/LoanCard": {
     "Active Price": "Prix actuel",
     "Next Price": "Prix suivant",
-    "Interest": "Intérêt",
-    "Price (USD)": "Prix (USD)"
+    "{{interestValue}} Interest": "{{interestValue}} Intérêt",
+    "Price (USD)": "Prix (USD)",
+    "Borrow": "Borrow"
   },
   "components/InfoTextLink": {
     "Learn more about DFI": "En savoir plus sur DFI",
@@ -1411,7 +1412,17 @@
     "CONTINUE": "SUIVANT",
     "Confirm your vault details in next screen": "Validez les détails de votre vault à l'étape suivante",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "Le schéma de prêt de votre vault détermine la garantie requise de votre vault pour les prêts.",
-    "Min. collateralization ratio": "Ratio de garantie min."
+    "Min. collateralization ratio": "Ratio de garantie min.",
+    "Select collateralization and interest scheme for your vault to start.": "Select collateralization and interest scheme for your vault to start.",
+    "Continue": "Suivant",
+    "Create vault": "Créer un Vault",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "Monitor your vault’s collateralization to prevent liquidation.": "Monitor your vault’s collateralization to prevent liquidation.",
+    "Creating vault with a vault fee of {{vaultFee}} DFI": "Creating vault with a vault fee of {{vaultFee}} DFI",
+    "Transaction fee": "Frais de transaction",
+    "Vault fee": "Frais de Vault",
+    "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.",
+    "Amount to convert": "Montant à convertir"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Vous créez un vault",
@@ -1712,7 +1723,9 @@
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Ratio de garantie min.",
     "Interest rate": "Taux d'intérêt",
-    "APR": "TAEG"
+    "APR": "TAEG",
+    "Collateralization": "Collateralization",
+    "Vault interest": "Intérêt du vault"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "VOUS AUGMENTEZ VOTRE PRÊT",

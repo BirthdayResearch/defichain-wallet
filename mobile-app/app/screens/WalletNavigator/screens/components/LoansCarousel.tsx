@@ -90,7 +90,11 @@ export function ImageSlide({
   );
 }
 
-export function LoansCarousel(): JSX.Element {
+export function LoansCarousel({
+  dismissModal,
+}: {
+  dismissModal: () => void;
+}): JSX.Element {
   const { isLight } = useThemeContext();
 
   return (
@@ -127,7 +131,12 @@ export function LoansCarousel(): JSX.Element {
               : getColor("mono-dark-v2-500")
           }
           paginationStyleItem={tailwind("h-1.5 w-1.5 mx-0.75")}
-          PaginationComponent={CarouselPaginationWithNextButton}
+          PaginationComponent={(props) => (
+            <CarouselPaginationWithNextButton
+              {...props}
+              dismissModal={dismissModal}
+            />
+          )}
           renderItem={({ item }) => <View style={{ width }}>{item}</View>}
           showPagination
         />
