@@ -67,10 +67,10 @@ context("Wallet - Loans - Create vault", () => {
     cy.wait(["@loanSchemes"]).then((intercept: any) => {
       const { data } = intercept.response.body;
       data
-        .sort((a, b) =>
+        .sort((a: LoanScheme, b: LoanScheme) =>
           new BigNumber(a.minColRatio).minus(b.minColRatio).toNumber()
         )
-        .forEach((scheme: LoanScheme, i) => {
+        .forEach((scheme: LoanScheme, i: number) => {
           cy.getByTestID(`min_col_ratio_value_${i}`).contains(
             `${Number(scheme.minColRatio).toLocaleString()}%`
           );
