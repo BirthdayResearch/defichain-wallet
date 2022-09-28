@@ -1316,10 +1316,10 @@
     "Bid": "Bieten",
     "Collaterals": "Sicherheiten",
     "Total value": "Gesamtwert",
-    "Time remaining": "Time remaining",
-    "No time remaining": "No time remaining",
+    "Time remaining": "Verbleibende zeit",
+    "No time remaining": "Keine verbleibende zeit",
     "Bid History ({{bidHistoryCount}})": "Gebotsverlauf ({{bidHistoryCount}})",
-    "Auction closed": "Auction closed"
+    "Auction closed": "Auktion beendet"
   },
   "components/BatchCard": {
     "Latest bid": "Letztes Gebot",

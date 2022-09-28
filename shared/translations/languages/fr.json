@@ -1327,11 +1327,11 @@
     "Min. starting bid": "Offre de départ min.",
     "Bid": "Enchérir",
     "Collaterals": "Garantie",
-    "Total value": "Total value",
-    "Time remaining": "Time remaining",
-    "No time remaining": "No time remaining",
+    "Total value": "Valeur totale",
+    "Time remaining": "Temps restant",
+    "No time remaining": "Pas de temps restant",
     "Bid History ({{bidHistoryCount}})": "Historique des enchères ({{bidHistoryCount}})",
-    "Auction closed": "Auction closed"
+    "Auction closed": "Enchère terminée"
   },
   "components/BatchCard": {
     "Latest bid": "Dernière offre",
