@@ -94,7 +94,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   }
 
   return (
-    /* Currently theres a known issue regarding the layout bug on web version for flashList */
+    /* Known intermittent issue wherein the two-column layout is not followed in web - FlashList */
     <ThemedFlashList
       contentContainerStyle={tailwind("pt-4 pb-2")}
       data={filteredLoanTokens}
