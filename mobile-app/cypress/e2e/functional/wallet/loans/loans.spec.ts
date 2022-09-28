@@ -82,8 +82,6 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
     cy.getByTestID("vault_card_0_status").contains("EMPTY");
     cy.getByTestID("loans_tabs_BORROW").click();
-    cy.getByTestID("header_loans_search").click();
-    cy.getByTestID("loans_search_input").type("dTS25").blur();
     cy.getByTestID("loan_card_dTS25").should("exist");
     cy.getByTestID("loans_action_button_dTS25_borrow_button").should(
       "not.exist"
