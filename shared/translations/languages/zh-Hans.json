@@ -517,8 +517,8 @@
   },
   "screens/TransactionsScreen": {
     "Transactions": "交易纪录",
-    "No transactions found": "No transactions found",
-    "Start by depositing DFI": "Start by depositing DFI",
+    "No transactions found": "没有交易纪录",
+    "Start by depositing DFI": "从存入 DFI 开始",
     "RECEIVE TOKENS": "接收的货币",
     "LOAD MORE": "查看更多交易纪录",
     "Received": "收到",
@@ -684,8 +684,8 @@
     "Key in the 24 recovery words to regain access to your wallet.": "Key in the 24 recovery words to regain access to your wallet."
   },
   "screens/ErrorBoundary": {
-    "We ran into an issue": "We ran into an issue",
-    "There seems to be an issue. Try restarting the application.": "There seems to be an issue. Try restarting the application."
+    "We ran into an issue": "我们遇到问题",
+    "There seems to be an issue. Try restarting the application.": "似乎存在了问题， 尝试重新启动应用程式。"
   },
   "screens/ConnectionBoundary": {
     "Refresh": "刷新",
