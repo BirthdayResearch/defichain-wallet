@@ -207,6 +207,7 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
 
   it("should create vault", () => {
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
     cy.getByTestID("vault_card_0_status").contains("EMPTY");
@@ -392,6 +393,7 @@ context("Wallet - Loans - Add/Remove Collateral - Invalid data", () => {
     cy.sendDFItoWallet().wait(4000);
     cy.setWalletTheme(walletTheme);
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
   });
@@ -484,6 +486,7 @@ context("Wallet - Loans - 50% valid collateral token ratio", () => {
       .wait(4000);
     cy.setWalletTheme(walletTheme);
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
     cy.getByTestID("vault_card_0_status").contains("EMPTY");
@@ -509,7 +512,7 @@ context("Wallet - Loans - 50% valid collateral token ratio", () => {
     );
     cy.go("back");
     cy.wait(2000);
-    cy.getByTestID("loans_tabs_BROWSE_LOANS").click();
+    cy.getByTestID("loans_tabs_BORROW").click();
     cy.getByTestID("header_loans_search").click();
     cy.getByTestID("loans_search_input").type("dTS25").blur();
     cy.getByTestID("loans_action_button_dTS25_borrow_button").click();

@@ -130,8 +130,7 @@ export function CreateVaultScreenV2({ navigation, route }: Props): JSX.Element {
             })
           );
         },
-        logger,
-        vaultFee
+        logger
       );
     }
   };
@@ -247,8 +246,7 @@ async function createVault(
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   onConfirmation: () => void,
-  logger: NativeLoggingProps,
-  vaultFee: BigNumber
+  logger: NativeLoggingProps
 ): Promise<void> {
   try {
     const signer = async (
@@ -269,19 +267,13 @@ async function createVault(
     dispatch(
       transactionQueue.actions.push({
         sign: signer,
-        title: translate(
-          "screens/CreateVaultScreen",
-          "Creating vault with a vault fee of {{vaultFee}} DFI",
-          {
-            vaultFee: vaultFee.toFixed(8),
-          }
-        ),
+        title: translate("screens/CreateVaultScreen", "Creating vault"),
         drawerMessages: {
           preparing: translate(
             "screens/OceanInterface",
             "Preparing to create vault…"
           ),
-          waiting: translate("screens/OceanInterface", "Creating vault…"),
+          waiting: translate("screens/OceanInterface", "Creating vault"),
           complete: translate("screens/OceanInterface", "Vault created"),
         },
         onBroadcast,

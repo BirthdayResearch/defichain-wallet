@@ -81,9 +81,7 @@ context("Wallet - Loans - Take Loans", () => {
   it("should disable borrow button if vault status equal EMPTY ", () => {
     cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
     cy.getByTestID("vault_card_0_status").contains("EMPTY");
-    cy.getByTestID("loans_tabs_BROWSE_LOANS").click();
-    cy.getByTestID("header_loans_search").click();
-    cy.getByTestID("loans_search_input").type("dTS25").blur();
+    cy.getByTestID("loans_tabs_BORROW").click();
     cy.getByTestID("loan_card_dTS25").should("exist");
     cy.getByTestID("loans_action_button_dTS25_borrow_button").should(
       "not.exist"
@@ -105,7 +103,7 @@ context("Wallet - Loans - Take Loans", () => {
 
   it("should show borrow button if vault status equal READY ", () => {
     cy.getByTestID("vault_card_0_status").contains("READY");
-    cy.getByTestID("loans_tabs_BROWSE_LOANS").click();
+    cy.getByTestID("loans_tabs_BORROW").click();
     cy.getByTestID("loan_card_dTS25").should("exist");
     cy.getByTestID("loans_action_button_dTS25_borrow_button").should("exist");
     cy.getByTestID("bottom_tab_loans").click();
@@ -288,7 +286,7 @@ context("Wallet - Loans - Take Loans", () => {
   it("should borrow another loan token", () => {
     cy.go("back");
     cy.wait(2000);
-    cy.getByTestID("loans_tabs_BROWSE_LOANS").click();
+    cy.getByTestID("loans_tabs_BORROW").click();
     cy.getByTestID("loans_action_button_dTS25_borrow_button").click();
     cy.wait(2000);
     cy.getByTestID("borrow_loan_vault").click();
