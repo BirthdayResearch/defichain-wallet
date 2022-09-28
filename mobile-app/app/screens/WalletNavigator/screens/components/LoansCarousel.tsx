@@ -33,42 +33,30 @@ const slides: JSX.Element[] = [
     imageDark={ImageADark}
     imageLight={ImageALight}
     key={0}
-    subtitle={translate(
-      "screens/LoansScreen",
-      "With vaults, you gain access to a rich economy of decentralized tokens."
-    )}
-    title={translate("screens/LoansScreen", "Decentralized tokens")}
+    subtitle="With vaults, you gain access to a rich economy of decentralized tokens."
+    title="Decentralized tokens"
   />,
   <ImageSlide
     imageDark={ImageBDark}
     imageLight={ImageBLight}
     key={1}
-    subtitle={translate(
-      "screens/LoansScreen",
-      "With a selected loan scheme, you control how much is required for your vault."
-    )}
-    title={translate("screens/LoansScreen", "Take control of your vault")}
+    subtitle="With a selected loan scheme, you control how much is required for your vault."
+    title="Take control of your vault"
   />,
   <ImageSlide
     imageDark={ImageCDark}
     imageLight={ImageCLight}
     key={2}
-    subtitle={translate(
-      "screens/LoansScreen",
-      "Keep your vaults healthy and green, by monitoring its collateralization."
-    )}
-    title={translate("screens/LoansScreen", "Monitor your vaults")}
+    subtitle="Keep your vaults healthy and green, by monitoring its collateralization."
+    title="Monitor your vaults"
   />,
 
   <ImageSlide
     imageDark={ImageDDark}
     imageLight={ImageDLight}
     key={3}
-    subtitle={translate(
-      "screens/LoansScreen",
-      "With oracles, your vaults and loans align with market prices outside the blockchain."
-    )}
-    title={translate("screens/LoansScreen", "Oracle prices")}
+    subtitle="With oracles, your vaults and loans align with market prices outside the blockchain."
+    title="Oracle prices"
   />,
 ];
 
@@ -91,12 +79,11 @@ export function ImageSlide({
       />
       <View style={tailwind("items-center justify-center mt-7 mb-5")}>
         <ThemedTextV2 style={tailwind("text-xl font-semibold-v2 text-center")}>
-          {translate("screens/LoansCarousel", title)}
+          {translate("screens/LoansScreen", title)}
         </ThemedTextV2>
         <ThemedTextV2 style={tailwind("font-normal-v2 text-center mt-2")}>
-          {translate("screens/LoansCarousel", subtitle)}
+          {translate("screens/LoansScreen", subtitle)}
         </ThemedTextV2>
-        {/* @chloe TODO: get translations */}
       </View>
     </View>
   );

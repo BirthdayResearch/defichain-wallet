@@ -5,8 +5,6 @@ import { translate } from "@translations";
 import React, { useCallback, useEffect, useState } from "react";
 import { PaginationProps } from "react-native-swiper-flatlist";
 
-const PAGINATION_END = 3;
-
 interface PaginationButtonProps extends PaginationProps {
   dismissModal: () => void;
 }
@@ -14,6 +12,7 @@ export function PaginationButton({
   paginationIndex = 0,
   scrollToIndex,
   dismissModal,
+  size,
 }: PaginationButtonProps): JSX.Element {
   const { isLight } = useThemeContext();
 
@@ -22,29 +21,29 @@ export function PaginationButton({
 
   const goToNextPage = useCallback(
     (curPage: number) => {
-      if (curPage < PAGINATION_END + 1) {
+      if (curPage < size) {
         setCurIndex(curPage);
         scrollToIndex({ index: curPage });
       }
     },
     [scrollToIndex]
   );
-  const endOfPagination = curIndex === PAGINATION_END;
+  const endOfPagination = curIndex === size - 1;
 
   useEffect(() => {
     // check if user scrolls without pressing button or if animation is replayed
     if (curIndex !== paginationIndex) {
-      setCurIndex(paginationIndex);
+      return setCurIndex(paginationIndex);
     }
   }, [paginationIndex]);
 
   useEffect(() => {
-    if (curIndex < PAGINATION_END) {
-      setButtonLabel("Next");
+    if (curIndex < size - 1) {
+      return setButtonLabel("Next");
     } else {
-      setButtonLabel("Done");
+      return setButtonLabel("Done");
     }
-  }, [curIndex]);
+  }, [curIndex, paginationIndex]);
 
   return (
     <ThemedTouchableOpacityV2
