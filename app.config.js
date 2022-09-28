@@ -8,7 +8,7 @@ export default ({ config }) => {
     ...config.updates,
     url: process.env.EAS_UPDATE_URL,
   };
-  config.extra.eas = process.env.EAS_PROJECT_ID;
+  config.extra.eas.projectId = process.env.EAS_PROJECT_ID;
   return {
     ...config,
   };
