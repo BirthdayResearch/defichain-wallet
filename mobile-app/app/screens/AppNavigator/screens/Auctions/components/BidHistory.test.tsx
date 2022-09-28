@@ -214,6 +214,7 @@ describe("Bid History", () => {
               medianTime: 1646197821,
               time: 1646197827,
             },
+            address: "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
           },
           {
             id: "4775da5083f9284fb9023f0f0c517f4e6c40f4921699cc9014aece651c2e099d-0-686fb56975111c2e0db63166b5fc01993b80a38df23c48ebcf24f5fe8decb88c",
@@ -231,6 +232,7 @@ describe("Bid History", () => {
               medianTime: 1646197813,
               time: 1646197820,
             },
+            address: "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
           },
           {
             id: "4775da5083f9284fb9023f0f0c517f4e6c40f4921699cc9014aece651c2e099d-0-077dec5808d9c3678eb42e28eab7e880c39d96e05cafbb533efc63d28575570a",
@@ -248,6 +250,7 @@ describe("Bid History", () => {
               medianTime: 1646197804,
               time: 1646197811,
             },
+            address: "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
           },
           {
             id: "4775da5083f9284fb9023f0f0c517f4e6c40f4921699cc9014aece651c2e099d-0-97d840110984b98c1b3823620d35829afd1f72f09033987b1f4e530e026e0a5a",
@@ -265,6 +268,7 @@ describe("Bid History", () => {
               medianTime: 1646197795,
               time: 1646197801,
             },
+            address: "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
           },
           {
             id: "4775da5083f9284fb9023f0f0c517f4e6c40f4921699cc9014aece651c2e099d-0-837fa6505305174cc3b53567d717941a2c0b4da46159c502814e218fc6f94797",
@@ -282,6 +286,7 @@ describe("Bid History", () => {
               medianTime: 1646197788,
               time: 1646197791,
             },
+            address: "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
           },
           {
             id: "4775da5083f9284fb9023f0f0c517f4e6c40f4921699cc9014aece651c2e099d-0-b0646df8ca8ca2e42fae3890ebf2ec7aa0f4e1eb2881353ba042b53988655b8f",
@@ -299,6 +304,7 @@ describe("Bid History", () => {
               medianTime: 1646197771,
               time: 1646197777,
             },
+            address: "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
           },
         ],
       },
