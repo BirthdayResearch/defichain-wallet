@@ -1733,7 +1733,7 @@
     "Min. collateralization ratio": "最低抵押率",
     "Interest rate": "利率",
     "APR": "年回报率",
-    "Collateralization": "Collateralization",
+    "Collateralization": "抵押",
     "Vault interest": "金库利息"
   },
   "screens/BorrowMoreScreen": {
