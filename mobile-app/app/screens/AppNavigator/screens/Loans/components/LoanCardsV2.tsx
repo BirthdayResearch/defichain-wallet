@@ -182,7 +182,7 @@ function LoanCard({
       />
       {!isBorrowHidden && (
         <LoanActionButton
-          label={translate("screens/LoanCard", "Borrow")}
+          label={translate("components/LoanCard", "Borrow")}
           onPress={onPress}
           style={tailwind("mt-3")}
           testID={`${displaySymbol}_borrow_button`}

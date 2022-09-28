@@ -141,7 +141,7 @@ export function VaultsV2(): JSX.Element {
         </View>
         {inSearchMode && (
           <ThemedTextV2
-            style={tailwind("text-xs pl-5 mt-4 mb-4 font-normal-v2")}
+            style={tailwind("text-xs pl-5 my-4 font-normal-v2")}
             light={tailwind("text-mono-light-v2-700")}
             dark={tailwind("text-mono-dark-v2-700")}
             testID="empty_search_result_text"
@@ -200,7 +200,7 @@ function filterVaultsBySearchTerm(
     return isFocused ? [] : vaults;
   }
   return vaults.filter((t) => {
-    // todo: Joshua to add tokens search in next release
+    // TODO: Add tokens search in next release
     // const vault = t as LoanVaultActive;
     // const symbols =
     //   vault.collateralAmounts !== undefined
