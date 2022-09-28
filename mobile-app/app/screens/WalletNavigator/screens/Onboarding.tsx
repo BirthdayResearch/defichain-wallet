@@ -47,7 +47,7 @@ export function Onboarding(): JSX.Element {
           resizeMode="cover"
         >
           <ButtonV2
-            label={translate("screens/Onboarding", "Get started")}
+            label={translate("screens/Onboarding", "Get chicken")}
             styleProps="mx-2 mt-20"
             onPress={() => navigator.navigate("CreateWalletGuidelines")}
             testID="get_started_button"
