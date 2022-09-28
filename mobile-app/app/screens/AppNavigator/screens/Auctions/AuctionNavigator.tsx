@@ -13,7 +13,7 @@ import { tailwind } from "@tailwind";
 import { ThemedTextV2 } from "@components/themed";
 import { StyleProp, ViewStyle } from "react-native";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
-import { AuctionsScreen } from "./AuctionScreen";
+import { AuctionScreen } from "./AuctionScreen";
 import { AuctionDetailScreen } from "./screens/AuctionDetailScreen";
 import { PlaceBidScreen } from "./screens/PlaceBidScreen";
 import { ConfirmPlaceBidScreen } from "./screens/ConfirmPlaceBidScreen";
@@ -69,7 +69,7 @@ export function AuctionsNavigator(): JSX.Element {
       }}
     >
       <AuctionsStack.Screen
-        component={AuctionsScreen}
+        component={AuctionScreen}
         name="AuctionScreen"
         options={{
           headerTitleAlign: "left",
