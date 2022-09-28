@@ -39,9 +39,7 @@ function ConnectionErrorComponent(): JSX.Element {
         {translate("screens/ConnectionBoundary", "Connection problems")}
       </ThemedTextV2>
 
-      <ThemedTextV2
-        style={tailwind("pb-12 font-normal-v2 text-center opacity-60")}
-      >
+      <ThemedTextV2 style={tailwind("pb-12 font-normal-v2 text-center")}>
         {translate(
           "screens/ConnectionBoundary",
           "There seems to be a problem with the connection. Check your network and try again."
