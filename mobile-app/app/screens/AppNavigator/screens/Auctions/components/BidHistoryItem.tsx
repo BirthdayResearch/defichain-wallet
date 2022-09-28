@@ -5,8 +5,6 @@ import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { fromScriptHex } from "@defichain/jellyfish-address";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import { useBidTimeAgo } from "../hooks/BidTimeAgo";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 
@@ -29,11 +27,6 @@ export function BidHistoryItem({
 }: BidHistoryItemProps): JSX.Element {
   const bidTime = useBidTimeAgo(bidBlockTime);
   const { address } = useWalletContext();
-  const network = useNetworkContext();
-  const decodedBidderAddress = fromScriptHex(
-    bidderAddress,
-    network.networkName
-  );
 
   return (
     <ThemedViewV2
@@ -51,7 +44,7 @@ export function BidHistoryItem({
           {translate("components/BidHistory", "BID#{{bidIndex}}", {
             bidIndex: bidIndex,
           })}
-          {decodedBidderAddress?.address === address &&
+          {bidderAddress === address &&
             ` ${translate("components/BidHistory", "(Yours)")}`}
         </ThemedTextV2>
         <NumberFormat
