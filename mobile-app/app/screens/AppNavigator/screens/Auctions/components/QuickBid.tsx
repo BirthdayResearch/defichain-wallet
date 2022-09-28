@@ -104,7 +104,7 @@ export const QuickBid = ({
                     light={tailwind("text-mono-light-v2-900")}
                     dark={tailwind("text-mono-dark-v2-900")}
                     style={tailwind("text-lg font-semibold-v2 flex-wrap ml-2")}
-                    testID="quick_bid_min_next_bid"
+                    testID="quick_bid_min_next_bid_amount"
                   >
                     {value}
                   </ThemedTextV2>
@@ -123,7 +123,7 @@ export const QuickBid = ({
                   style={tailwind(
                     "text-sm flex-wrap text-center font-normal-v2"
                   )}
-                  testID="quick_bid_min_next_bid"
+                  testID="quick_bid_min_next_bid_value"
                 >
                   {value}
                 </ThemedTextV2>
@@ -143,7 +143,7 @@ export const QuickBid = ({
                     style={tailwind(
                       "text-sm flex-wrap text-center font-normal-v2"
                     )}
-                    testID="quick_bid_min_next_bid"
+                    testID="available_token_balance"
                   >
                     {value}
                   </ThemedTextV2>
@@ -188,17 +188,17 @@ export const QuickBid = ({
                   {displayHigherBidWarning && (
                     <NumberFormat
                       displayType="text"
-                      prefix={translate(
-                        "components/QuickBid",
-                        "Your bid is higher than the auction's collateral value of $"
-                      )}
                       renderText={(value: string) => (
                         <Text
                           style={tailwind(
                             "text-center font-normal-v2 text-xs text-orange-v2"
                           )}
                         >
-                          {value}
+                          {translate(
+                            "components/QuickBid",
+                            "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}",
+                            { amount: value, currency: "$" }
+                          )}
                         </Text>
                       )}
                       thousandSeparator

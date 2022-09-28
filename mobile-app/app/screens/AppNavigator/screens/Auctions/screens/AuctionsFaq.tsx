@@ -11,6 +11,28 @@ export function AuctionsFaq(): JSX.Element {
     {
       title: translate(
         "components/AuctionsFaq",
+        "How do I know the status of my bid after an auction ends?"
+      ),
+      content: [
+        {
+          text: translate(
+            "components/AuctionsFaq",
+            "For successful bidders, bid amount will be deducted, and rewards will be automatically reflect under the Portfolio page."
+          ),
+          type: "paragraph",
+        },
+        {
+          text: translate(
+            "components/AuctionsFaq",
+            "For unsuccessful bidders, the bidding amount will be returned automatically to your wallet once you have been outbid by another user."
+          ),
+          type: "paragraph",
+        },
+      ],
+    },
+    {
+      title: translate(
+        "components/AuctionsFaq",
         "How is the minimum starting bid determined?"
       ),
       content: [

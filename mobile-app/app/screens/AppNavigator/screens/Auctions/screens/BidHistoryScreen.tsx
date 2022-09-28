@@ -72,10 +72,8 @@ export function BidHistoryScreen(props: BatchDetailScreenProps): JSX.Element {
                 style={tailwind("text-xs font-normal-v2 mx-10 mb-2 mt-6")}
                 testID="bid_count"
               >
-                {translate(
-                  "components/BidHistoryScreen",
-                  `ALL BIDS (${value})`
-                )}
+                {translate("components/BidHistory", "ALL BIDS")}
+                {` (${value})`}
               </ThemedTextV2>
             )}
           />
@@ -92,7 +90,7 @@ export function BidHistoryScreen(props: BatchDetailScreenProps): JSX.Element {
               bidIndex={bidHistory.length - index}
               bidAmount={item.amount}
               loanDisplaySymbol={batch.loan.displaySymbol}
-              bidderAddress={item.from}
+              bidderAddress={item.address}
               bidAmountInUSD={getTokenPrice(
                 batch.loan.symbol,
                 new BigNumber(item.amount)

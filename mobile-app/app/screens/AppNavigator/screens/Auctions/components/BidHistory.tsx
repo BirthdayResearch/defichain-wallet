@@ -72,7 +72,7 @@ export function BidHistory(props: BidHistoryProps): JSX.Element {
             bidIndex={bidHistory.length - index}
             bidAmount={item.amount}
             loanDisplaySymbol={props.loanDisplaySymbol}
-            bidderAddress={item.from}
+            bidderAddress={item.address}
             bidAmountInUSD={getTokenPrice(
               props.loanSymbol,
               new BigNumber(item.amount)

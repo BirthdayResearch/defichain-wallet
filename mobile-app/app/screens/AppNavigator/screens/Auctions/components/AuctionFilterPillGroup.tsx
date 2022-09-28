@@ -19,25 +19,25 @@ export const AuctionFilterPillGroup = memo(
     const buttonGroup = [
       {
         id: ButtonGroupTabKey.AllBids,
-        label: translate("screens/AuctionsScreen", "All auctions"),
+        label: translate("screens/AuctionScreen", "All auctions"),
         handleOnPress: () =>
           props.onButtonGroupChange(ButtonGroupTabKey.AllBids),
       },
       {
         id: ButtonGroupTabKey.YourActiveBids,
-        label: translate("screens/AuctionsScreen", "Your active bids"),
+        label: translate("screens/AuctionScreen", "Your active bids"),
         handleOnPress: () =>
           props.onButtonGroupChange(ButtonGroupTabKey.YourActiveBids),
       },
       {
         id: ButtonGroupTabKey.YourLeadingBids,
-        label: translate("screens/AuctionsScreen", "Your leading bids"),
+        label: translate("screens/AuctionScreen", "Your leading bids"),
         handleOnPress: () =>
           props.onButtonGroupChange(ButtonGroupTabKey.YourLeadingBids),
       },
       {
         id: ButtonGroupTabKey.Outbid,
-        label: translate("screens/AuctionsScreen", "Outbid"),
+        label: translate("screens/AuctionScreen", "Outbid"),
         handleOnPress: () =>
           props.onButtonGroupChange(ButtonGroupTabKey.Outbid),
       },

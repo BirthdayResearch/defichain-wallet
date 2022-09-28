@@ -12,7 +12,7 @@ import { ThemedBottomSheetFlatList } from "@components/themed/ThemedBottomSheetF
 
 export enum AuctionsSortType {
   LeastTimeLeft = "Least time left",
-  MostTimeLeft = "Most time left ",
+  MostTimeLeft = "Most time left",
   HighestValue = "Highest value",
   LowestValue = "Lowest value",
 }
@@ -32,7 +32,7 @@ export function AuctionsSortRow(props: {
         light={tailwind("text-mono-light-v2-500")}
         dark={tailwind("text-mono-dark-v2-500")}
       >
-        {translate("screens/AuctionsScreen", "COLLATERALS")}
+        {translate("screens/AuctionScreen", "COLLATERALS")}
       </ThemedTextV2>
       <ThemedTouchableOpacityV2
         style={tailwind("flex flex-row items-center")}
@@ -45,7 +45,7 @@ export function AuctionsSortRow(props: {
           style={tailwind("text-xs font-normal-v2")}
         >
           {translate(
-            "screens/AuctionsScreen",
+            "screens/AuctionScreen",
             props.isSorted ? props.assetSortType : "Sort by"
           )}
         </ThemedTextV2>
@@ -104,7 +104,7 @@ export const BottomSheetAssetSortList = ({
           }}
         >
           <ThemedTextV2 style={tailwind("py-2 text-sm font-normal-v2")}>
-            {translate("screens/AuctionsScreen", item)}
+            {translate("screens/AuctionScreen", item)}
           </ThemedTextV2>
           {selectedAssetSortType === item && (
             <ThemedIcon

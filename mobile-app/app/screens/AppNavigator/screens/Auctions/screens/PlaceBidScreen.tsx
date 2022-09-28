@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { Platform, View } from "react-native";
+import { Platform, View, Text } from "react-native";
 import { useSelector } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
 import { StackScreenProps } from "@react-navigation/stack";
@@ -12,6 +12,7 @@ import { hasTxQueued } from "@store/transaction_queue";
 import { translate } from "@translations";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import {
   ThemedTextV2,
   ThemedTextInputV2,
@@ -284,21 +285,24 @@ export function PlaceBidScreen(props: Props): JSX.Element {
             </ThemedTextV2>
           )}
           {displayHigherBidWarning && formState.isValid && (
-            <ThemedTextV2
-              light={tailwind("text-orange-v2")}
-              dark={tailwind("text-orange-v2")}
-              style={tailwind("text-xs pt-2 mx-6 font-normal-v2")}
-              testID="high_bid_text"
-            >
-              {translate(
-                "screens/PlaceBidScreen",
-                "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}",
-                {
-                  prefix: "$",
-                  amount: getPrecisedTokenValue(totalCollateralsValueInUSD),
-                }
+            <NumberFormat
+              displayType="text"
+              renderText={(value: string) => (
+                <Text
+                  style={tailwind(
+                    "text-xs pt-2 mx-6 font-normal-v2 text-orange-v2"
+                  )}
+                >
+                  {translate(
+                    "components/QuickBid",
+                    "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}",
+                    { amount: value, currency: "$" }
+                  )}
+                </Text>
               )}
-            </ThemedTextV2>
+              thousandSeparator
+              value={getPrecisedTokenValue(totalCollateralsValueInUSD)}
+            />
           )}
 
           {new BigNumber(bidAmount || 0).gt(0) && (

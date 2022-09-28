@@ -101,7 +101,7 @@ export function AuctionsNavigator(): JSX.Element {
         component={BidHistoryScreen}
         name="BidHistoryScreen"
         options={{
-          headerTitle: translate("screens/AuctionScreen", "Bid History"),
+          headerTitle: translate("components/BidHistory", "Bid History"),
         }}
       />
 

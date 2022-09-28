@@ -182,6 +182,198 @@ exports[`Auctions FAQ V2 screen should match snapshot 1`] = `
                     ]
                   }
                 >
+                  How do I know the status of my bid after an auction ends?
+                </Text>
+                <Text />
+              </View>
+            </View>
+            <View
+              collapsable={false}
+              pointerEvents="none"
+              style={
+                {
+                  "height": 0,
+                  "overflow": "hidden",
+                }
+              }
+            >
+              <View
+                collapsable={false}
+                forwardedRef={[Function]}
+                onLayout={[Function]}
+                style={{}}
+              >
+                <View
+                  style={
+                    [
+                      [
+                        {
+                          "marginLeft": 20,
+                          "marginRight": 20,
+                          "paddingBottom": 16,
+                          "paddingTop": 16,
+                        },
+                        false,
+                      ],
+                      {
+                        "borderBottomColor": "rgba(204, 204, 204, 1)",
+                        "borderLeftColor": "rgba(204, 204, 204, 1)",
+                        "borderRightColor": "rgba(204, 204, 204, 1)",
+                        "borderTopColor": "rgba(204, 204, 204, 1)",
+                      },
+                    ]
+                  }
+                >
+                  <View
+                    style={
+                      {
+                        "flexDirection": "row",
+                        "justifyContent": "flex-start",
+                      }
+                    }
+                  >
+                    <Text
+                      style={
+                        [
+                          {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          [
+                            {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
+                              "fontSize": 14,
+                              "fontWeight": "400",
+                              "lineHeight": 20,
+                            },
+                            {
+                              "color": "rgba(18, 18, 18, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      For successful bidders, bid amount will be deducted, and rewards will be automatically reflect under the Portfolio page.
+                    </Text>
+                  </View>
+                  <View
+                    style={
+                      {
+                        "flexDirection": "row",
+                        "justifyContent": "flex-start",
+                      }
+                    }
+                  >
+                    <Text
+                      style={
+                        [
+                          {
+                            "fontFamily": "RegularFont",
+                            "fontSize": 16,
+                            "fontWeight": "400",
+                            "lineHeight": 24,
+                          },
+                          [
+                            {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                              "fontFamily": "SoraRegular",
+                              "fontSize": 14,
+                              "fontWeight": "400",
+                              "lineHeight": 20,
+                            },
+                            {
+                              "color": "rgba(18, 18, 18, 1)",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      For unsuccessful bidders, the bidding amount will be returned automatically to your wallet once you have been outbid by another user.
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            style={{}}
+          >
+            <View
+              accessibilityState={
+                {
+                  "expanded": false,
+                }
+              }
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+            >
+              <View
+                style={
+                  [
+                    [
+                      {
+                        "alignItems": "flex-start",
+                        "flexDirection": "row",
+                        "justifyContent": "space-between",
+                        "marginLeft": 20,
+                        "marginRight": 20,
+                        "paddingBottom": 16,
+                        "paddingTop": 16,
+                      },
+                      {
+                        "borderBottomWidth": 1,
+                      },
+                      false,
+                    ],
+                    {
+                      "borderBottomColor": "rgba(204, 204, 204, 1)",
+                      "borderLeftColor": "rgba(204, 204, 204, 1)",
+                      "borderRightColor": "rgba(204, 204, 204, 1)",
+                      "borderTopColor": "rgba(204, 204, 204, 1)",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "flexBasis": "0%",
+                          "flexGrow": 1,
+                          "flexShrink": 1,
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 14,
+                          "fontWeight": "400",
+                          "lineHeight": 20,
+                        },
+                        {
+                          "color": "rgba(89, 89, 89, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                >
                   How is the minimum starting bid determined?
                 </Text>
                 <Text />

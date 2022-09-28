@@ -518,6 +518,9 @@
     "About Auctions": "About Auctions",
     "Auctions": "Aste",
     "FREQUENTLY ASKED QUESTIONS": "DOMANDE FREQUENTI",
+    "How do I know the status of my bid after an auction ends?": "How do I know the status of my bid after an auction ends?",
+    "For successful bidders, bid amount will be deducted, and rewards will be automatically reflect under the Portfolio page.": "For successful bidders, bid amount will be deducted, and rewards will be automatically reflect under the Portfolio page.",
+    "For unsuccessful bidders, the bidding amount will be returned automatically to your wallet once you have been outbid by another user.": "For unsuccessful bidders, the bidding amount will be returned automatically to your wallet once you have been outbid by another user.",
     "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "L'asta è un'attività in cui gli utenti fanno offerte sul collaterale nei vault liquidati per recuperare i prestiti in sospeso dei vault. La liquidazione avviene quando il rapporto di collateralizzazione di un vault scende al di sotto del suo requisito minimo, dopo di che il collaterale del vault sarà diviso in lotti di 10.000 USD per l'asta.",
     "How is the minimum starting bid determined?": "Come viene determinata l'offerta minima di partenza?",
     "The minimum starting bid is 105% of the batch's outstanding loan value. The additional 5% is included to cover the liquidation penalty, which is incurred upon vault liquidation.": "L'offerta minima di partenza è il 105% del valore del prestito in essere. L'addizionale 5% è previsto per coprire la penalità di liquidazione, che viene sostenuta al momento della liquidazione del vault.",
@@ -1312,8 +1315,14 @@
     "To get started, browse on auctions and place a bid": "Per iniziare, naviga tra le aste e fai un'offerta"
   },
   "components/EmptyAuctions": {
-    "No ongoing auctions": "Nessuna asta in corso",
-    "Check again later for any ongoing auctions that you can participate": "Controlla di nuovo più tardi per eventuali aste in corso a cui puoi partecipare"
+    "No auctions": "No auctions",
+    "There are currently no collaterals available for auction.":  "There are currently no collaterals available for auction.",
+    "No Outbid Auctions": "No Outbid Auctions",
+    "You have no outbids yet": "You have no outbids yet",
+    "No Leading Bids": "No Leading Bids",
+    "You have no leading bids yet": "You have no leading bids yet",
+    "No Active Bids": "No Active Bids",
+    "You have no active bids yet": "You have no active bids yet"
   },
   "screens/AuctionScreen": {
     "Auctions": "Aste",
@@ -1321,7 +1330,21 @@
     "Place Bid": "Piazza un'offerta",
     "Confirm Place Bid": "Conferma l'offerta",
     "Confirm": "Conferma",
-    "Auction details": "Dettagli dell'asta"
+    "Auction details": "Dettagli dell'asta",
+    "Auction Details": "Dettagli Dell'asta",
+    "COLLATERALS": "COLLATERALS",
+    "Sort Auctions": "Sort Auctions",
+    "Least time left": "Least time left",
+    "Most time left": "Most time left",
+    "Highest value": "Highest value",
+    "Lowest value": "Lowest value",
+    "Sort by": "Sort by",
+    "All auctions": "All auctions",
+    "Your active bids": "Your active bids",
+    "Your leading bids": "Your leading bids",
+    "Outbid": "Outbid",
+    "Search for auction with collateral token name": "Search for auction with collateral token name",
+    "Search results for “{{input}}”": "Search results for “{{input}}”"
   },
   "components/AuctionDetailScreen": {
     "Collateral": "Collaterali",
@@ -1359,7 +1382,8 @@
     "Min. next bid": "Min. prossima offerta",
     "You are the highest bidder": "Sei il miglior offerente",
     "From your vault": "Dal tuo vault",
-    "Waiting for first bid": "In attesa della prima offerta"
+    "Waiting for first bid": "In attesa della prima offerta",
+    "Quick bid": "Offerta rapida"
   },
   "components/BatchHistory": {
     "{{h}}h {{m}}m ago": "{{h}}h {{m}}m fa",
@@ -1379,15 +1403,20 @@
   "components/BidHistory": {
     "Bidder ID": "ID offerente",
     "BID #{{bidIndex}}": "Offerta #{{bidIndex}}",
+    "BID#{{bidIndex}}": "Offerta#{{bidIndex}}",
     "Waiting for first bid": "In attesa della prima offerta",
     "{{h}}{{m}} ago": "{{h}}{{m}} fa",
-    "Minimum amount to bid is": "L'importo minimo da offrire è"
+    "Minimum amount to bid is": "L'importo minimo da offrire è",
+    "ALL BIDS": "ALL BIDS",
+    "(Yours)": "(Yours)",
+    "Bid History": "Storia delle Offerte"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "L'asta termina in",
     "Auction time left": "Tempo rimanente dell'asta",
     "{{block}} blks": "{{block}} Blocco",
     "~{{time}} left": "~{{time}} rimasto",
+    "{{time}} left": "{{time}} rimasto",
     "Auction time remaining": "Tempo rimanente dell'asta"
   },
   "components/VaultCard": {
@@ -1750,7 +1779,8 @@
     "Search for loans": "Cerca prestiti",
     "Search for loan token": "Cerca il token da prendere in prestito",
     "Search for pool pairs": "Ricerca di Pool-Pairs",
-    "Search pool pair": "Search pool pair"
+    "Search pool pair": "Search pool pair",
+    "Search auctions": "Search auctions"
   },
   "components/EmptyCollateral": {
     "No collateral": "Nessun collaterale",
@@ -1793,8 +1823,7 @@
     "The minimum next bid is {{amount}} {{symbol}} (100%)": "The minimum next bid is {{amount}} {{symbol}} (100%)",
     "{{percent}} min bid entered": "{{percent}} min bid entered",
     "Insufficient balance": "Insufficient balance",
-    "Auction timeout": "Auction timeout",
-    "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}": "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}"
+    "Auction timeout": "Auction timeout"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
@@ -1900,9 +1929,20 @@
     "QUICK BID": "OFFERTA RAPIDA",
     "Insufficient amount to place a bid": "Importo insufficiente per fare un'offerta",
     "Quick bid": "Offerta rapida",
+    "Quick Bid": "Offerta Rapida",
+    "Place a bid on the auction with the min. next bid": "Fai un'offerta all'asta con l'offerta minima successiva",
     "Min. next bid": "Min. prossima offerta",
     "Current balance": "Saldo corrente",
-    "Place a bid on the auction with the min. next bid": "Fai un'offerta all'asta con l'offerta minima successiva"
+    "Leading bid": "Leading bid",
+    "Quick rebid": "Quick rebid",
+    "Outbid": "Outbid",
+    "Min bid": "Min bid",
+    "Insufficient {{symbol}} balance": "Insufficient {{symbol}} balance",
+    "Placing {{amount}} {{token}} quick bid": "Placing {{amount}} {{token}} quick bid",
+    "Placed {{amount}} {{token}} quick bid": "Placed {{amount}} {{token}} quick bid",
+    "Available": "Disponibile",
+    "Transaction fee": "Transaction fee",
+    "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}": "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}"
   },
   "components/WalletAddressRow": {
     "Wallet address": "Indirizzo del wallet"
