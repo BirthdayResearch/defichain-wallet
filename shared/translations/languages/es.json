@@ -1335,6 +1335,7 @@
     "Confirm Place Bid": "Confirma la oferta",
     "Confirm": "Confirma",
     "Auction details": "Detalles de la subasta",
+    "Auction Details": "Detalles De La Subasta",
     "COLLATERALS": "COLLATERALS",
     "Sort Auctions": "Sort Auctions",
     "Least time left": "Least time left",
@@ -1828,8 +1829,7 @@
     "The minimum next bid is {{amount}} {{symbol}} (100%)": "The minimum next bid is {{amount}} {{symbol}} (100%)",
     "{{percent}} min bid entered": "{{percent}} min bid entered",
     "Insufficient balance": "Balance insuficiente",
-    "Auction timeout": "Auction timeout",
-    "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}": "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}"
+    "Auction timeout": "Auction timeout"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
@@ -1947,7 +1947,8 @@
     "Placing {{amount}} {{token}} quick bid": "Placing {{amount}} {{token}} quick bid",
     "Placed {{amount}} {{token}} quick bid": "Placed {{amount}} {{token}} quick bid",
     "Available": "Disponible",
-    "Transaction fee": "Transaction fee"
+    "Transaction fee": "Transaction fee",
+    "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}": "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}"
   },
   "components/WalletAddressRow": {
     "Wallet address": "Dirección de la billetera"

@@ -1318,6 +1318,7 @@
     "Confirm Place Bid": "Confirmer l'enchére",
     "Confirm": "Confirmer",
     "Auction details": "Détails de l'enchère",
+    "Auction Details": "Détails De L'Enchère",
     "COLLATERALS": "GARANTIES",
     "Sort Auctions": "Trier Les Enchères",
     "Least time left": "Le moins de temps restant",
@@ -1809,8 +1810,7 @@
     "The minimum next bid is {{amount}} {{symbol}} (100%)": "L'enchère minimale est de {{amount}} {{symbol}} (100%)",
     "{{percent}} min bid entered": "{{percent}} enchère minimale saisie",
     "Insufficient balance": "Solde insuffisant",
-    "Auction timeout": "Délai d'attente pour l'enchère",
-    "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}": "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}"
+    "Auction timeout": "Délai d'attente pour l'enchère"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
@@ -1928,7 +1928,8 @@
     "Placing {{amount}} {{token}} quick bid": "Placer une enchère rapide de {{amount}} {{token}}",
     "Placed {{amount}} {{token}} quick bid": "Placement d'une enchère rapide de {{amount}} {{token}}",
     "Available": "Disponible",
-    "Transaction fee": "Frais de transaction"
+    "Transaction fee": "Frais de transaction",
+    "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}": "Votre offre est plus élevée que la valeur de la garantie mise aux enchères, soit {{amount}} {{currency}}"
   },
   "components/WalletAddressRow": {
     "Wallet address": "Adresse du portefeuille"

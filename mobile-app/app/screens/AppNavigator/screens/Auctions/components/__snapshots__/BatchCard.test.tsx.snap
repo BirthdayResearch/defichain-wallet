@@ -38,6 +38,7 @@ exports[`Batch Card should match snapshot 1`] = `
         "justifyContent": "space-between",
       }
     }
+    testID="batch_card_DUSD"
   >
     <View
       style={
@@ -171,6 +172,7 @@ exports[`Batch Card should match snapshot 1`] = `
                 ],
               ]
             }
+            testID="batch_card_auction_value"
           >
             $12,345.00
           </Text>
@@ -250,7 +252,7 @@ exports[`Batch Card should match snapshot 1`] = `
                 ],
               ]
             }
-            testID="batch_0_min_next_bid"
+            testID="batch_card_min_next_bid"
           >
             11.00000000 DUSD
           </Text>

@@ -90,7 +90,7 @@ export function BidHistoryScreen(props: BatchDetailScreenProps): JSX.Element {
               bidIndex={bidHistory.length - index}
               bidAmount={item.amount}
               loanDisplaySymbol={batch.loan.displaySymbol}
-              bidderAddress={item.from}
+              bidderAddress={item.address}
               bidAmountInUSD={getTokenPrice(
                 batch.loan.symbol,
                 new BigNumber(item.amount)

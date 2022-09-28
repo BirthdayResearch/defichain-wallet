@@ -85,6 +85,7 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
       <View
         style={tailwind("flex flex-row justify-between items-start")}
         onLayout={onPageLayout}
+        testID={`${testID}_${batch.loan.displaySymbol}`}
       >
         <View style={tailwind("flex-1 p-5 pr-3.5")}>
           <View style={tailwind("flex flex-row justify-between items-start")}>
@@ -103,6 +104,7 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
                     light={tailwind("text-mono-light-v2-1000")}
                     dark={tailwind("text-mono-dark-v2-1000")}
                     style={tailwind("font-semibold-v2 text-right")}
+                    testID={`${testID}_auction_value`}
                   >
                     {value}
                   </ThemedTextV2>
@@ -146,7 +148,7 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
                     light={tailwind("text-mono-light-v2-700")}
                     dark={tailwind("text-mono-dark-v2-700")}
                     style={tailwind("mt-1 text-xs font-normal-v2 flex-wrap")}
-                    testID={`batch_${batch.index}_min_next_bid`}
+                    testID={`${testID}_min_next_bid`}
                   >
                     {value}
                   </ThemedTextV2>

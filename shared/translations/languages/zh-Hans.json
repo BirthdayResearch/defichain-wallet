@@ -1310,6 +1310,7 @@
     "Confirm Place Bid": "确认出价",
     "Confirm": "确认",
     "Auction details": "拍卖细节",
+    "Auction Details": "拍卖细节",
     "COLLATERALS": "COLLATERALS",
     "Sort Auctions": "Sort Auctions",
     "Least time left": "Least time left",
@@ -1805,8 +1806,7 @@
     "The minimum next bid is {{amount}} {{symbol}} (100%)": "The minimum next bid is {{amount}} {{symbol}} (100%)",
     "{{percent}} min bid entered": "{{percent}} 最低竞投出价输入",
     "Insufficient balance": "Insufficient balance",
-    "Auction timeout": "Auction timeout",
-    "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}": "您的出价高于拍卖的抵押品价值 {{prefix}}{{amount}}"
+    "Auction timeout": "Auction timeout"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "交易明细",
@@ -1924,7 +1924,8 @@
     "Placing {{amount}} {{token}} quick bid": "Placing {{amount}} {{token}} quick bid",
     "Placed {{amount}} {{token}} quick bid": "Placed {{amount}} {{token}} quick bid",
     "Available": "可提供资金",
-    "Transaction fee": "Transaction fee"
+    "Transaction fee": "Transaction fee",
+    "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}": "您的出价高于拍卖的抵押品价值 {{currency}}{{amount}}"
   },
   "components/WalletAddressRow": {
     "Wallet address": "钱包地址"

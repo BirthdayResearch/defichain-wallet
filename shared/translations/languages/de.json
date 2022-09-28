@@ -1306,6 +1306,7 @@
     "Confirm Place Bid": "Gebot bestätigen",
     "Confirm": "Bestätigen",
     "Auction details": "Auktionsdetails",
+    "Auction Details": "Auktionsdetails",
     "COLLATERALS": "SICHERHEITEN",
     "Sort Auctions": "Auktionen Sortieren",
     "Least time left": "Geringste verbleibende Zeit",
@@ -1796,8 +1797,7 @@
     "The minimum next bid is {{amount}} {{symbol}} (100%)": "Das nächste Mindestgebot beträgt {{amount}} {{symbol}} (100%)",
     "{{percent}} min bid entered": "{{percent}} mindestgebot eingegeben",
     "Insufficient balance": "Unzureichendes Guthaben",
-    "Auction timeout": "Zeitüberschreitung der Auktion",
-    "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}": "Your bid is higher than the auction's collateral value of {{prefix}}{{amount}}"
+    "Auction timeout": "Zeitüberschreitung der Auktion"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
@@ -1914,7 +1914,8 @@
     "Placing {{amount}} {{token}} quick bid": "Schnelles Gebot von {{amount}} {{token}} abgeben",
     "Placed {{amount}} {{token}} quick bid": "Schnelles Gebot von {{amount}} {{token}} abgegeben",
     "Available": "Verfügbar",
-    "Transaction fee": "Transaktionsgebühren"
+    "Transaction fee": "Transaktionsgebühren",
+    "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}": "Dein Gebot ist höher als der Sicherheitenwert der Auktion von {{amount}} {{currency}}"
   },
   "components/WalletAddressRow": {
     "Wallet address": "Walletadresse"
