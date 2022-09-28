@@ -14,11 +14,11 @@ exports[`empty transaction should match snapshot 1`] = `
         "paddingBottom": 8,
         "paddingLeft": 32,
         "paddingRight": 32,
-        "paddingTop": 128,
+        "paddingTop": 48,
         "textAlign": "center",
       },
       {
-        "backgroundColor": "rgba(250, 250, 250, 1)",
+        "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
   }
@@ -26,7 +26,27 @@ exports[`empty transaction should match snapshot 1`] = `
 >
   <RCTRefreshControl />
   <View>
-    <Text />
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "justifyContent": "center",
+          "paddingBottom": 32,
+          "paddingLeft": 60,
+          "paddingRight": 60,
+        }
+      }
+    >
+      <Image
+        source={1}
+        style={
+          {
+            "height": 96,
+            "width": 204,
+          }
+        }
+      />
+    </View>
     <Text
       style={
         [
@@ -38,21 +58,21 @@ exports[`empty transaction should match snapshot 1`] = `
           },
           [
             {
-              "fontFamily": "SemiBoldFont",
-              "fontSize": 24,
+              "fontFamily": "SoraSemiBold",
+              "fontSize": 20,
               "fontWeight": "600",
-              "lineHeight": 32,
+              "lineHeight": 28,
               "paddingBottom": 8,
               "textAlign": "center",
             },
             {
-              "color": "rgba(0, 0, 0, 1)",
+              "color": "rgba(18, 18, 18, 1)",
             },
           ],
         ]
       }
     >
-      No transactions yet
+      No transactions found
     </Text>
     <Text
       style={
@@ -65,75 +85,21 @@ exports[`empty transaction should match snapshot 1`] = `
           },
           [
             {
-              "fontSize": 14,
-              "lineHeight": 20,
+              "fontFamily": "SoraRegular",
+              "fontWeight": "400",
               "opacity": 0.6,
               "paddingBottom": 64,
               "textAlign": "center",
             },
             {
-              "color": "rgba(0, 0, 0, 1)",
+              "color": "rgba(18, 18, 18, 1)",
             },
           ],
         ]
       }
     >
-      Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.
+      Start by depositing DFI
     </Text>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "backgroundColor": "rgba(255, 229, 247, 1)",
-          "borderBottomLeftRadius": 4,
-          "borderBottomRightRadius": 4,
-          "borderTopLeftRadius": 4,
-          "borderTopRightRadius": 4,
-          "flexDirection": "row",
-          "justifyContent": "center",
-          "marginBottom": 16,
-          "marginLeft": 16,
-          "marginRight": 16,
-          "marginTop": 32,
-          "opacity": 1,
-          "paddingBottom": 12,
-          "paddingLeft": 12,
-          "paddingRight": 12,
-          "paddingTop": 12,
-        }
-      }
-      testID="button_receive_coins"
-    >
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "BoldFont",
-              "fontWeight": "700",
-              "textAlign": "center",
-            },
-          ]
-        }
-      >
-        RECEIVE TOKENS
-      </Text>
-    </View>
   </View>
 </RCTScrollView>
 `;
