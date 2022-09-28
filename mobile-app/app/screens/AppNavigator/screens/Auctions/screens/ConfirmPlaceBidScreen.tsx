@@ -32,6 +32,7 @@ import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { View } from "@components";
 import { AuctionsParamList } from "../AuctionNavigator";
 import { useAuctionTime } from "../hooks/AuctionTimeLeft";
+import { AuctionVaultDetails } from "../components/AuctionVaultDetails";
 
 type Props = StackScreenProps<AuctionsParamList, "ConfirmPlaceBidScreen">;
 
@@ -173,63 +174,7 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
           }}
         />
 
-        <TextRowV2
-          containerStyle={{
-            style: tailwind("flex-row items-start w-full bg-transparent mt-6"),
-            ...containerThemeOptions,
-          }}
-          lhs={{
-            value: translate("screens/ConfirmPlaceBidScreen", "Vault ID"),
-            testID: "text_vault_id_label",
-            themedProps: lhsThemedProps,
-          }}
-          rhs={{
-            value: vault.vaultId,
-            testID: "text_vault_id",
-            numberOfLines: 1,
-            ellipsizeMode: "middle",
-            themedProps: rhsThemedProps,
-          }}
-        />
-        <TextRowV2
-          containerStyle={{
-            style: tailwind("flex-row items-start w-full bg-transparent mt-6"),
-            ...containerThemeOptions,
-          }}
-          lhs={{
-            value: translate("screens/ConfirmPlaceBidScreen", "Vault owner ID"),
-            testID: "text_vault_owner_label",
-            themedProps: lhsThemedProps,
-          }}
-          rhs={{
-            value: vault.ownerAddress,
-            testID: "text_vault_owner_id",
-            numberOfLines: 1,
-            ellipsizeMode: "middle",
-            themedProps: rhsThemedProps,
-          }}
-        />
-        <NumberRowV2
-          containerStyle={{
-            style: tailwind(
-              "flex-row items-start w-full bg-transparent border-b-0.5 pb-5 mt-6"
-            ),
-            ...containerThemeOptions,
-          }}
-          lhs={{
-            value: translate(
-              "screens/ConfirmPlaceBidScreen",
-              "Liquidation height"
-            ),
-            testID: "text_liquidation_height_label",
-            themedProps: lhsThemedProps,
-          }}
-          rhs={{
-            value: vault.liquidationHeight,
-            testID: "text_liquidation_height",
-            themedProps: rhsThemedProps,
-          }}
-        />
+        <AuctionVaultDetails testID="confirm_bid" vault={vault} />
 
         <View style={tailwind("pt-14 px-7")}>
           {blocksRemaining === 0 && (

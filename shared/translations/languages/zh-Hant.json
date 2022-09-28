@@ -1316,7 +1316,14 @@
     "Total auction value (USDT):": "拍賣總價值（USDT）:",
     "PLACE BID": "競投出價",
     "Batch #{{index}}": "批次 #{{index}}",
-    "Min. starting bid": "最低起標價"
+    "Min. starting bid": "最低起標價",
+    "Bid": "競投出價",
+    "Collaterals": "Collaterals",
+    "Total value": "Total value",
+    "Time remaining": "Time remaining",
+    "No time remaining": "No time remaining",
+    "Bid History ({{bidHistoryCount}})": "競標歷史 ({{bidHistoryCount}})",
+    "Auction closed": "Auction closed"
   },
   "components/BatchCard": {
     "Latest bid": "最新出價",
