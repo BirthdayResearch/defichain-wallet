@@ -34,9 +34,7 @@ export function EmptyTransaction(props: EmptyTransactionProps): JSX.Element {
         {translate("screens/TransactionsScreen", "No transactions found")}
       </ThemedTextV2>
 
-      <ThemedTextV2
-        style={tailwind("font-normal-v2 pb-16 text-center opacity-60")}
-      >
+      <ThemedTextV2 style={tailwind("font-normal-v2 pb-16 text-center")}>
         {translate("screens/TransactionsScreen", "Start by depositing DFI")}
       </ThemedTextV2>
     </ThemedScrollViewV2>
