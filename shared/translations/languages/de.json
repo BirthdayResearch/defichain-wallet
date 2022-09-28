@@ -516,8 +516,8 @@
   },
   "screens/TransactionsScreen": {
     "Transactions": "Transaktionen",
-    "No transactions found": "No transactions found",
-    "Start by depositing DFI": "Start by depositing DFI",
+    "No transactions found": "Keine Transaktionen gefunden",
+    "Start by depositing DFI": "Beginne mit der Einzahlung von DFI",
     "RECEIVE TOKENS": "TOKEN EMPFANGEN",
     "LOAD MORE": "WEITERE LADEN",
     "Received": "Empfangen",
@@ -682,8 +682,8 @@
     "Key in the 24 recovery words to regain access to your wallet.": "Gib die 24 Wiederherstellungswörter ein, um wieder Zugang zu deiner Wallet zu erhalten."
   },
   "screens/ErrorBoundary": {
-    "We ran into an issue": "We ran into an issue",
-    "There seems to be an issue. Try restarting the application.": "There seems to be an issue. Try restarting the application."
+    "We ran into an issue": "Wir sind auf ein Problem gestoßen",
+    "There seems to be an issue. Try restarting the application.": "Es scheint ein Problem zu geben. Versuche, die Anwendung neu zu starten."
   },
   "screens/ConnectionBoundary": {
     "Refresh": "Aktualisieren",
