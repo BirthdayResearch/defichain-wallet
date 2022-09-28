@@ -10,6 +10,7 @@ interface TokenIconGroupProps {
   maxIconToDisplay?: number;
   testID?: string;
   size?: number;
+  overlap?: number;
   /**
    * Flag to "push" token container rightwards, used when no spacing is allowed at the right of TokenIconGroup
    *
@@ -22,13 +23,13 @@ export function TokenIconGroupV2({
   symbols,
   maxIconToDisplay = 6,
   testID,
+  overlap = -8,
   size,
   offsetContainer,
 }: TokenIconGroupProps): JSX.Element {
   const additionalIcon = BigNumber.max(symbols.length - maxIconToDisplay, 0);
   let rightOffset = 0;
   // increase overlap in case of more than and equal to 5 token icon
-  const overlap = -8;
   if (offsetContainer === true) {
     rightOffset = additionalIcon.gt(0)
       ? (maxIconToDisplay - 2) * overlap

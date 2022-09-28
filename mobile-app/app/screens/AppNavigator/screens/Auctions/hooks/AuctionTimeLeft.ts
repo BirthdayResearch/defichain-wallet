@@ -9,6 +9,8 @@ interface AuctionTimeLeft {
   startTime: string;
   blocksRemaining: number;
   blocksPerAuction: number;
+  normalizedBlocks: BigNumber;
+  timeRemainingThemedColor: string;
 }
 
 export function useAuctionTime(
@@ -31,6 +33,9 @@ export function useAuctionTime(
     0
   ).toNumber();
   const timeSpent = blocksPerAuction - blocksRemaining;
+  const normalizedBlocks = new BigNumber(blocksRemaining).dividedBy(
+    blocksPerAuction
+  );
   return {
     timeRemaining:
       blocksRemaining > 0
@@ -42,7 +47,13 @@ export function useAuctionTime(
             .subtract(timeSpent * secondsPerBlock, "s")
             .format("LT")
         : "",
+    timeRemainingThemedColor: normalizedBlocks.gt(0.5)
+      ? "green-v2"
+      : normalizedBlocks.gt(0.26)
+      ? "orange-v2"
+      : "red-v2",
     blocksRemaining,
     blocksPerAuction,
+    normalizedBlocks,
   };
 }

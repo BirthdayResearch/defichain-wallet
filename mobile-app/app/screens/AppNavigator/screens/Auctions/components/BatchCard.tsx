@@ -50,19 +50,8 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
     hasFirstBid,
     minNextBidInUSD,
   } = useAuctionBidValue(batch, vault.liquidationPenalty);
-  const { timeRemaining, blocksRemaining, blocksPerAuction } = useAuctionTime(
-    vault.liquidationHeight,
-    blockCount
-  );
-  const normalizedBlocks = useMemo(
-    () => new BigNumber(blocksRemaining).dividedBy(blocksPerAuction),
-    [blocksRemaining, blocksPerAuction]
-  );
-  const timeRemainingThemedColor = normalizedBlocks.gt(0.5)
-    ? "green-v2"
-    : normalizedBlocks.gt(0.26)
-    ? "orange-v2"
-    : "red-v2";
+  const { timeRemaining, normalizedBlocks, timeRemainingThemedColor } =
+    useAuctionTime(vault.liquidationHeight, blockCount);
   const onCardPress = (): void => {
     navigation.navigate("AuctionDetailScreen", {
       batch,
@@ -202,7 +191,7 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
   );
 }
 
-const BidInfo = memo(
+export const BidInfo = memo(
   ({
     isHighestBidder,
     hasFirstBid,
@@ -218,7 +207,7 @@ const BidInfo = memo(
     const { testId, title, icon, color } = useMemo(() => {
       if (isHighestBidder) {
         return {
-          testId: `${testID}_lost`,
+          testId: `${testID}_leading`,
           title: "Leading bid",
           icon: "check-circle",
           color: "text-green-v2",
@@ -226,7 +215,7 @@ const BidInfo = memo(
       }
       if (isOutBid) {
         return {
-          testId: `${testID}_leading`,
+          testId: `${testID}_lost`,
           title: "Outbid",
           icon: "info",
           color: "text-orange-v2",

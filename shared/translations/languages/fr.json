@@ -1346,7 +1346,14 @@
     "Total auction value (USDT):": "Valeur totale de l'enchère (USDT):",
     "PLACE BID": "ENCHÈRIR",
     "Batch #{{index}}": "Lot #{{index}}",
-    "Min. starting bid": "Offre de départ min."
+    "Min. starting bid": "Offre de départ min.",
+    "Bid": "Enchérir",
+    "Collaterals": "Garantie",
+    "Total value": "Valeur totale",
+    "Time remaining": "Temps restant",
+    "No time remaining": "Pas de temps restant",
+    "Bid History ({{bidHistoryCount}})": "Historique des enchères ({{bidHistoryCount}})",
+    "Auction closed": "Enchère terminée"
   },
   "components/BatchCard": {
     "Latest bid": "Dernière offre",
