@@ -28,4 +28,4 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - run: npm ci
-      - run: expo publish --release-channel=main
+      - run: npx expo publish --release-channel=main

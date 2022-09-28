@@ -31,7 +31,7 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - run: npm ci
-      - run: expo publish --release-channel=pr-preview-${{ github.event.number }}
+      - run: npx expo publish --release-channel=pr-preview-${{ github.event.number }}
 
       - uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443 # tag=v2.2.0
         with:
