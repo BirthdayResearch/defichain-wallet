@@ -778,7 +778,7 @@
     "Processing loan payment…": "Processing loan payment…",
     "Payment completed": "Payment completed",
     "Preparing to create vault…": "Preparing to create vault…",
-    "Creating vault…": "Creating vault…",
+    "Creating vault": "Creating vault",
     "Vault created": "Vault created",
     "Preparing to place bid…": "Preparing to place bid…",
     "Placing bid…": "Placing bid…",
@@ -1276,6 +1276,9 @@
     "Choose Loan Token to Borrow": "Scegli il token da prestare per avere il prestito",
     "Payback Loan": "Ripaga il prestito",
     "Close Vault": "Chiudi il Vault",
+    "Search vault": "Search vault",
+    "Search with vault ID or tokens": "Search with vault ID or tokens",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
     "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
     "Decentralized tokens": "Decentralized tokens",
     "With vaults, you gain access to a rich economy of decentralized tokens.": "With vaults, you gain access to a rich economy of decentralized tokens.",
@@ -1445,11 +1448,12 @@
     "Create vault": "Crea un vault",
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
     "Monitor your vault’s collateralization to prevent liquidation.": "Monitor your vault’s collateralization to prevent liquidation.",
-    "Creating vault with a vault fee of {{vaultFee}} DFI": "Creating vault with a vault fee of {{vaultFee}} DFI",
     "Transaction fee": "Transaction fee",
     "Vault fee": "Commissione per il Vault",
+    "Vault Fee": "Commissione per il Vault",
     "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.",
-    "Amount to convert": "Importo da convertire"
+    "Amount to convert": "Importo da convertire",
+    "Creating vault": "Creazione del vault"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Stai creando un vault",

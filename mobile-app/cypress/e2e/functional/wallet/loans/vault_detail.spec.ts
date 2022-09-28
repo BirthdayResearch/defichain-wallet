@@ -14,6 +14,7 @@ context("Wallet - Loans - Vault Details", () => {
       .sendTokenToWallet(["BTC"])
       .wait(6000);
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
     cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
@@ -129,6 +130,7 @@ context("Wallet - Loans - Close Vault", () => {
       .sendTokenToWallet(["BTC"])
       .wait(6000);
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
     cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
@@ -315,6 +317,7 @@ context("Wallet - Loans - Health Bar", () => {
       },
     });
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
   });
 
   it("should display col ratio from vault API", () => {

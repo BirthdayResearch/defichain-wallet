@@ -772,7 +772,7 @@
     "Processing loan payment…": "Traitement du remboursement de prêt…",
     "Payment completed": "Remboursement effectué",
     "Preparing to create vault…": "Préparation de la création du vault en cours…",
-    "Creating vault…": "Création du vault…",
+    "Creating vault": "Création du vault",
     "Vault created": "Vault créé",
     "Preparing to place bid…": "Préparation du placement de l'offre en cours…",
     "Placing bid…": "Placement de l'offre…",
@@ -1263,6 +1263,9 @@
     "Choose Loan Token to Borrow": "Choisissez le token de prêt à emprunter",
     "Payback Loan": "Remboursement du prêt",
     "Close Vault": "Fermer le vault",
+    "Search vault": "Rechercher dans les vaults",
+    "Search with vault ID or tokens": "Rechercher avec l'ID du vault ou les tokens",
+    "Search results for “{{searchTerm}}”": "Résultats de la recherche pour “{{searchTerm}}”",
     "You need a vault with collaterals to borrow tokens": "Vous avez besoin d'un vault avec des garanties pour emprunter des tokens",
     "Decentralized tokens": "Tokens décentralisés",
     "With vaults, you gain access to a rich economy of decentralized tokens.": "Avec les vaults, vous accédez à une riche économie de tokens décentralisés.",
@@ -1294,7 +1297,7 @@
     "Next Price": "Prix suivant",
     "{{interestValue}} Interest": "{{interestValue}} Intérêt",
     "Price (USD)": "Prix (USD)",
-    "Borrow": "Borrow"
+    "Borrow": "Emprunter"
   },
   "components/InfoTextLink": {
     "Learn more about DFI": "En savoir plus sur DFI",
@@ -1431,11 +1434,12 @@
     "Create vault": "Créer un Vault",
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
     "Monitor your vault’s collateralization to prevent liquidation.": "Monitor your vault’s collateralization to prevent liquidation.",
-    "Creating vault with a vault fee of {{vaultFee}} DFI": "Creating vault with a vault fee of {{vaultFee}} DFI",
     "Transaction fee": "Frais de transaction",
     "Vault fee": "Frais de Vault",
+    "Vault Fee": "Frais de Vault",
     "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.",
-    "Amount to convert": "Montant à convertir"
+    "Amount to convert": "Montant à convertir",
+    "Creating vault": "Création d'un vault"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Vous créez un vault",
@@ -1737,7 +1741,7 @@
     "Min. collateralization ratio": "Ratio de garantie min.",
     "Interest rate": "Taux d'intérêt",
     "APR": "TAEG",
-    "Collateralization": "Collateralization",
+    "Collateralization": "Garantie",
     "Vault interest": "Intérêt du vault"
   },
   "screens/BorrowMoreScreen": {
