@@ -35,10 +35,8 @@ import { LoanActionButton } from "./LoanActionButton";
 import { VaultStatus } from "../VaultStatusTypes";
 
 interface LoanCardsProps {
-  // loans: LoanToken[];
   testID?: string;
   vaultId?: string;
-  // vaultExist: boolean;
 }
 
 export interface LoanCardOptions {
