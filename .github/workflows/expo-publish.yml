@@ -28,4 +28,4 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - run: npm ci
-      - run: eas update --auto --platform all
+      - run: eas update --auto
