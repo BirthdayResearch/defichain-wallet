@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Platform, View } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, batch as reduxBatch } from "react-redux";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import * as Progress from "react-native-progress";
@@ -89,18 +89,18 @@ export function AuctionDetailScreen(
 
   useEffect(() => {
     if (isFocused) {
-      dispatch(fetchAuctions({ client }));
-      dispatch(
-        fetchBidHistory({
-          vaultId: vault.vaultId,
-          liquidationHeight: vault.liquidationHeight,
-          batchIndex: batch.index,
-          client: client,
-          size: 200,
-        })
-      );
-    } else {
-      dispatch(storeAuctions.actions.resetBidHistory());
+      reduxBatch(() => {
+        dispatch(fetchAuctions({ client }));
+        dispatch(
+          fetchBidHistory({
+            vaultId: vault.vaultId,
+            liquidationHeight: vault.liquidationHeight,
+            batchIndex: batch.index,
+            client: client,
+            size: 200,
+          })
+        );
+      });
     }
   }, [blockCount, isFocused]);
 
@@ -126,7 +126,7 @@ export function AuctionDetailScreen(
     navigation.navigate("PlaceBidScreen", { batch, vault });
   };
 
-  const onBidHistory = async (): Promise<void> => {
+  const onBidHistory = (): void => {
     navigation.navigate("BidHistoryScreen", { batch, vault });
   };
 
