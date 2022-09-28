@@ -193,6 +193,7 @@ export function AuctionDetailScreen(
             symbols={batch.collaterals.map(
               (collateral) => collateral.displaySymbol
             )}
+            overlap={-16}
           />
           <NumberFormat
             displayType="text"
@@ -202,9 +203,15 @@ export function AuctionDetailScreen(
               <ThemedTextV2
                 light={tailwind("text-mono-light-v2-1000")}
                 dark={tailwind("text-mono-dark-v2-1000")}
-                style={tailwind("font-semibold-v2 text-right", {
-                  "ml-2": loanCollaterals.length === 1,
-                })}
+                style={[
+                  tailwind("font-semibold-v2 text-right text-xl"),
+                  {
+                    marginLeft:
+                      loanCollaterals.length === 1
+                        ? 8
+                        : -((loanCollaterals.length - 1) * 16 - 8),
+                  },
+                ]}
               >
                 {value}
               </ThemedTextV2>
