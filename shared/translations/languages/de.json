@@ -1258,11 +1258,13 @@
     "Decentralized tokens": "Dezentrale Token",
     "With vaults, you gain access to a rich economy of decentralized tokens.": "Mit Vaults erhältst du Zugang zu einer umfassenden Ökonomie dezentraler Token.",
     "Next": "Weiter",
-    "Done": "Done",
+    "Done": "Fertig",
     "Take control of your vault": "Kontrolliere deinen Vault",
     "With a selected loan scheme, you control how much is required for your vault.": "Mit einem ausgewählten Darlehensmodell bestimmst du, wie viel für deinen Vault benötigt wird.",
     "Monitor your vaults": "Überwache deine Vaults",
-    "Keep your vaults healthy and green, by monitoring its collateralization.": "Sorge dafür, dass deine Vaults gesund und im grünen Bereich bleiben, indem du ihre Besicherung überwachst."
+    "Keep your vaults healthy and green, by monitoring its collateralization.": "Sorge dafür, dass deine Vaults gesund und im grünen Bereich bleiben, indem du ihre Besicherung überwachst.",
+    "Oracle prices": "Preisorakelwerte",
+    "With oracles, your vaults and loans align with market prices outside the blockchain.": "Durch Preisorakel passen sich deine Vaults und Darlehen an die Marktpreise außerhalb der Blockchain an."
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehenstoken",

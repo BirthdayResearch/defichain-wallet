@@ -1290,7 +1290,9 @@
     "Take control of your vault": "Take control of your vault",
     "With a selected loan scheme, you control how much is required for your vault.": "With a selected loan scheme, you control how much is required for your vault.",
     "Monitor your vaults": "Monitor your vaults",
-    "Keep your vaults healthy and green, by monitoring its collateralization.": "Keep your vaults healthy and green, by monitoring its collateralization."
+    "Keep your vaults healthy and green, by monitoring its collateralization.": "Keep your vaults healthy and green, by monitoring its collateralization.",
+    "Oracle prices": "Oracle prices",
+    "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain."
   },
   "components/tabs": {
     "Browse loan tokens": "Busca tokens de préstamo",
