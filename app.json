@@ -16,8 +16,13 @@
       "backgroundColor": "#000000"
     },
     "updates": {
-      "url": "https://u.expo.dev/67e053dd-c413-4d52-84cd-dc1bb9de3e5b",
+      "url": "",
       "fallbackToCacheTimeout": 0
+    },
+    "extra": {
+      "eas": {
+        "projectId": ""
+      }
     },
     "runtimeVersion": {
       "policy": "sdkVersion"

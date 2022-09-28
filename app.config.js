@@ -2,9 +2,14 @@
 export default ({ config }) => {
   config.ios = {
     ...config.ios,
-    bundleIdentifier: process.env.EXPO_BUNDLE_IDENTIFIER
-  }
+    bundleIdentifier: process.env.EXPO_BUNDLE_IDENTIFIER,
+  };
+  config.updates = {
+    ...config.updates,
+    url: process.env.EAS_UPDATE_URL,
+  };
+  config.extra.eas = process.env.EAS_UPDATE_URL;
   return {
     ...config,
-  }
+  };
 };
