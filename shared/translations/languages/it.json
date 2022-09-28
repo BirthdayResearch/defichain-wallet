@@ -1337,7 +1337,14 @@
     "Total auction value (USDT):": "Valore totale dell'asta (USDT):",
     "PLACE BID": "PIAZZA L'OFFERTA",
     "Batch #{{index}}": "Lotto #{{index}}",
-    "Min. starting bid": "Offerta minima di partenza"
+    "Min. starting bid": "Offerta minima di partenza",
+    "Bid": "Bid",
+    "Collaterals": "Collaterali",
+    "Total value": "Total value",
+    "Time remaining": "Time remaining",
+    "No time remaining": "No time remaining",
+    "Bid History ({{bidHistoryCount}})": "Storia delle offerte ({{bidHistoryCount}})",
+    "Auction closed": "Auction closed"
   },
   "components/BatchCard": {
     "Latest bid": "Ultima offerta",

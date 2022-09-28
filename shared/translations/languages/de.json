@@ -1312,7 +1312,14 @@
     "Total auction value (USDT):": "Gesamtauktionswert (USDT):",
     "PLACE BID": "GEBOT ABGEBEN",
     "Batch #{{index}}": "Tranche Nr. {{index}}",
-    "Min. starting bid": "Mind. Anfangsgebot"
+    "Min. starting bid": "Mind. Anfangsgebot",
+    "Bid": "Bieten",
+    "Collaterals": "Sicherheiten",
+    "Total value": "Gesamtwert",
+    "Time remaining": "Time remaining",
+    "No time remaining": "No time remaining",
+    "Bid History ({{bidHistoryCount}})": "Gebotsverlauf ({{bidHistoryCount}})",
+    "Auction closed": "Auction closed"
   },
   "components/BatchCard": {
     "Latest bid": "Letztes Gebot",

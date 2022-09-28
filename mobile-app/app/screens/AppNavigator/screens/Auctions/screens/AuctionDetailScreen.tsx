@@ -175,7 +175,7 @@ export function AuctionDetailScreen(
             dark={tailwind("text-mono-dark-v2-500")}
             testID="text_auction_detail_collaterals"
           >
-            {translate("screens/AuctionDetailScreen", "Collaterals")}
+            {translate("components/AuctionDetailScreen", "Collaterals")}
           </ThemedTextV2>
           {displayBidStatus && (
             <BidInfo
@@ -231,7 +231,10 @@ export function AuctionDetailScreen(
           >
             <NumberRowV2
               lhs={{
-                value: translate("screens/AuctionDetailScreen", "Total value"),
+                value: translate(
+                  "components/AuctionDetailScreen",
+                  "Total value"
+                ),
                 testID: "auction_detail_total_label",
                 themedProps: {
                   light: tailwind("text-mono-light-v2-500"),
@@ -274,7 +277,7 @@ export function AuctionDetailScreen(
             }}
             lhs={{
               value: translate(
-                "screens/AuctionDetailScreen",
+                "components/AuctionDetailScreen",
                 timeRemaining ? "Time remaining" : "No time remaining"
               ),
               testID: "text_time_remaining_label",
@@ -308,7 +311,10 @@ export function AuctionDetailScreen(
               dark: tailwind("bg-transparent border-mono-dark-v2-300"),
             }}
             lhs={{
-              value: translate("screens/AuctionDetailScreen", "Min. next bid"),
+              value: translate(
+                "components/AuctionDetailScreen",
+                "Min. next bid"
+              ),
               testID: "text_liquidation_height_label",
               themedProps: {
                 light: tailwind("text-mono-light-v2-500"),
@@ -346,7 +352,7 @@ export function AuctionDetailScreen(
               style={tailwind("font-normal-v2 text-sm text-red-v2")}
             >
               {translate(
-                "screens/AuctionDetailScreen",
+                "components/AuctionDetailScreen",
                 "Bid History ({{bidHistoryCount}})",
                 { bidHistoryCount: bidHistory.length }
               )}
@@ -372,13 +378,13 @@ export function AuctionDetailScreen(
                 "text-red-v2 text-center text-xs font-normal-v2 mb-6"
               )}
             >
-              {translate("screens/AuctionDetailScreen", "Auction closed")}
+              {translate("components/AuctionDetailScreen", "Auction closed")}
             </ThemedTextV2>
           )}
 
           <ButtonV2
             fillType="fill"
-            label={translate("components/Button", "Bid")}
+            label={translate("components/AuctionDetailScreen", "Bid")}
             disabled={blocksRemaining === 0}
             styleProps="mx-7"
             onPress={onPlaceBid}

@@ -1341,7 +1341,14 @@
     "Total auction value (USDT):": "Valor total de la subasta (USDT):",
     "PLACE BID": "HAZ OFERTA",
     "Batch #{{index}}": "Lote #{{index}}",
-    "Min. starting bid": "Mínimo oferta de inicio"
+    "Min. starting bid": "Mínimo oferta de inicio",
+    "Bid": "Bid",
+    "Collaterals": "Colaterales",
+    "Total value": "Total value",
+    "Time remaining": "Time remaining",
+    "No time remaining": "No time remaining",
+    "Bid History ({{bidHistoryCount}})": "Historial de ofertas ({{bidHistoryCount}})",
+    "Auction closed": "Auction closed"
   },
   "components/BatchCard": {
     "Latest bid": "Ultima oferta",
