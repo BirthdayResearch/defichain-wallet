@@ -91,7 +91,6 @@ export function PoolPairDetailsScreen({ route }: Props): JSX.Element {
       params: {
         pair: data,
         pairInfo: info,
-        originScreen: DexScreenOrigin.Dex_screen,
       },
       merge: true,
     });
@@ -103,7 +102,6 @@ export function PoolPairDetailsScreen({ route }: Props): JSX.Element {
       params: {
         pair: data,
         pairInfo: info,
-        originScreen: DexScreenOrigin.Dex_screen,
       },
       merge: true,
     });
@@ -114,6 +112,7 @@ export function PoolPairDetailsScreen({ route }: Props): JSX.Element {
       name: "CompositeSwap",
       params: {
         pair: data,
+        originScreen: DexScreenOrigin.Dex_screen,
         tokenSelectOption: {
           from: {
             isDisabled: true,
