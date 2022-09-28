@@ -398,25 +398,6 @@ export function AuctionDetailScreen(
             testID="auction_detail_place_bid_btn"
           />
         </View>
-
-        {Platform.OS === "web" && (
-          <BottomSheetWebWithNav
-            modalRef={containerRef}
-            screenList={bottomSheetScreen}
-            isModalDisplayed={isModalDisplayed}
-          />
-        )}
-
-        {Platform.OS !== "web" && (
-          <BottomSheetWithNav
-            modalRef={bottomSheetRef}
-            screenList={bottomSheetScreen}
-            snapPoints={{
-              ios: ["40%"],
-              android: ["40%"],
-            }}
-          />
-        )}
       </ThemedScrollViewV2>
     </View>
   );

@@ -72,10 +72,10 @@ export function TextRowV2(props: TextRowProps): JSX.Element {
             {rhsValue}
           </ThemedText>
 
-          {rhsOtherProps.openNewBrowserLink && (
+          {rhsOtherProps.openNewBrowserLink !== undefined && (
             <ThemedTouchableOpacityV2
               onPress={async () =>
-                await openURL(rhsOtherProps.openNewBrowserLink ?? "")
+                await openURL(rhsOtherProps.openNewBrowserLink as string)
               }
               style={tailwind("border-b-0")}
             >
