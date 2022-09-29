@@ -5,14 +5,15 @@ export default ({ config }) => {
     bundleIdentifier: process.env.EXPO_BUNDLE_IDENTIFIER,
   };
   config.updates = {
-    url: `https://u.expo.dev/${process.env.easProjectId}`,
+    url: `https://u.expo.dev/${process.env.PROJECT_ID}`,
     fallbackToCacheTimeout: 0,
   };
   config.extra = {
     eas: {
-      projectId: process.env.easProjectId,
+      projectId: process.env.PROJECT_ID,
     },
   };
+  console.log(process.env);
   console.log(config);
   return {
     ...config,
