@@ -81,7 +81,6 @@ exports[`offline screen should match snapshot when offline 1`] = `
           {
             "fontFamily": "SoraRegular",
             "fontWeight": "400",
-            "opacity": 0.6,
             "paddingBottom": 48,
             "textAlign": "center",
           },

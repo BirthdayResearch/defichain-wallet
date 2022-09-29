@@ -87,7 +87,6 @@ exports[`empty transaction should match snapshot 1`] = `
             {
               "fontFamily": "SoraRegular",
               "fontWeight": "400",
-              "opacity": 0.6,
               "paddingBottom": 64,
               "textAlign": "center",
             },
