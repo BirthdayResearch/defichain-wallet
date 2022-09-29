@@ -1427,7 +1427,7 @@
     "Confirm your vault details in next screen": "在下一個屏幕上確認您的金庫細節",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "您的金庫的貸款計劃將決定您所需的貸款抵押品",
     "Min. collateralization ratio": "最低抵押率",
-    "Select collateralization and interest scheme for your vault to start.": "Select collateralization and interest scheme for your vault to start.",
+    "Select a loan scheme for your vault.": "Select a loan scheme for your vault.",
     "Continue": "繼續",
     "Create vault": "創建金庫",
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
@@ -1739,7 +1739,8 @@
     "Interest rate": "利率",
     "APR": "年回報率",
     "Collateralization": "抵押",
-    "Vault interest": "金庫利息"
+    "Vault interest": "金庫利息",
+    "Min. collateral ratio": "Min. collateral ratio"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "您正要借更多貸款",

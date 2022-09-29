@@ -51,7 +51,7 @@ export function LoanSchemeOptionsV2(props: LoanSchemeOptionsP): JSX.Element {
             >
               <View style={tailwind("flex-1 flex-col")}>
                 <LoanSchemeOptionData
-                  label="Collateralization"
+                  label="Min. collateral ratio"
                   value={scheme.minColRatio}
                   testId={`min_col_ratio_value_${index}`}
                   suffix="%"
