@@ -22,10 +22,10 @@ jobs:
           expo-version: 4.x
           packager: npm
 
-      - run: expo upgrade
+      - run: npx expo-cli upgrade
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@171dd555b9ab6b18fa02519fdfacbb8bf671e1b4 # tag=v4.1.2
+        uses: peter-evans/create-pull-request@671dc9c9e0c2d73f07fa45a3eb0220e1622f0c5f # tag=v4.1.3
         with:
           token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           labels: kind/dependencies
