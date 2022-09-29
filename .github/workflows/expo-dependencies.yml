@@ -22,7 +22,7 @@ jobs:
           expo-version: 4.x
           packager: npm
 
-      - run: expo upgrade
+      - run: npx expo-cli upgrade
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@671dc9c9e0c2d73f07fa45a3eb0220e1622f0c5f # tag=v4.1.3
