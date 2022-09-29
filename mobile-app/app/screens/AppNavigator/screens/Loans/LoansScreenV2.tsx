@@ -46,6 +46,7 @@ export function LoansScreenV2(): JSX.Element {
   return (
     <LoansTab.Navigator
       screenOptions={{
+        swipeEnabled: false,
         tabBarLabelStyle: [
           tailwind("font-semibold-v2 text-sm text-center", {
             "text-mono-light-v2-900": isLight,
