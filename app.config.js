@@ -5,7 +5,7 @@ export default ({ config }) => {
     bundleIdentifier: process.env.EXPO_BUNDLE_IDENTIFIER,
   };
   config.updates = {
-    url: process.env.EAS_PROJECT_UPDATES,
+    url: "https://u.expo.dev/" + process.env.EAS_PROJECT_ID,
     fallbackToCacheTimeout: 0,
   };
   config.extra = {
