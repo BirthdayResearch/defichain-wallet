@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 import { tailwind } from "@tailwind";
-import { ThemedViewV2 } from "@components/themed";
+import {
+  ThemedIcon,
+  ThemedScrollViewV2,
+  ThemedTouchableOpacityV2,
+  ThemedViewV2,
+} from "@components/themed";
 import {
   SkeletonLoader,
   SkeletonLoaderScreen,
@@ -18,13 +23,28 @@ import {
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
-import { useIsFocused } from "@react-navigation/native";
+import {
+  NavigationProp,
+  useIsFocused,
+  useNavigation,
+} from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { translate } from "@translations";
+
+import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import {
+  BottomSheetNavScreen,
+  BottomSheetWebWithNavV2,
+  BottomSheetWithNavV2,
+} from "@components/BottomSheetWithNavV2";
+import { LoansCarousel } from "@screens/WalletNavigator/screens/components/LoansCarousel";
+import { useBottomSheet } from "@hooks/useBottomSheet";
 import { LoanCardsV2 } from "./components/LoanCardsV2";
 import { VaultsV2 } from "./components/VaultsV2";
 import { ButtonGroupV2 } from "../Dex/components/ButtonGroupV2";
 import { VaultStatus } from "./VaultStatusTypes";
+import { LoanParamList } from "./LoansNavigator";
+import { VaultBanner } from "./components/VaultBanner";
 
 enum TabKey {
   Borrow = "BORROW",
@@ -33,9 +53,12 @@ enum TabKey {
 
 export function LoansScreenV2(): JSX.Element {
   const { address } = useWalletContext();
+  const { isLight } = useThemeContext();
+  const navigation = useNavigation<NavigationProp<LoanParamList>>();
+
   const isFocused = useIsFocused();
   const blockCount = useSelector((state: RootState) => state.block.count);
-  const { vaults, hasFetchedVaultsData, hasFetchedLoansData } = useSelector(
+  const { vaults, hasFetchedLoansData } = useSelector(
     (state: RootState) => state.loans
   );
 
@@ -72,6 +95,51 @@ export function LoansScreenV2(): JSX.Element {
   // Search
   const [filteredLoans, setFilteredLoans] = useState<LoanToken[]>(loans);
   const [isVaultReady, setIsVaultReady] = useState(false);
+
+  const {
+    bottomSheetRef,
+    containerRef,
+    dismissModal,
+    expandModal,
+    isModalDisplayed,
+  } = useBottomSheet();
+  const [bottomSheetScreen, setBottomSheetScreen] = useState<
+    BottomSheetNavScreen[]
+  >([]);
+  const BottomSheetHeader = {
+    headerStatusBarHeight: 2,
+    headerTitle: "",
+    headerBackTitleVisible: false,
+    headerStyle: tailwind("rounded-t-xl-v2 border-b-0", {
+      "bg-mono-light-v2-100": isLight,
+      "bg-mono-dark-v2-100": !isLight,
+    }),
+    headerRight: (): JSX.Element => {
+      return (
+        <ThemedTouchableOpacityV2
+          style={tailwind("mr-5 mt-4 -mb-4")}
+          onPress={dismissModal}
+          testID="close_bottom_sheet_button"
+        >
+          <ThemedIcon iconType="Feather" name="x-circle" size={22} />
+        </ThemedTouchableOpacityV2>
+      );
+    },
+    headerLeft: () => <></>,
+  };
+  const onBottomSheetLoansInfoSelect = (): void => {
+    function LoansCarouselComponent() {
+      return <LoansCarousel dismissModal={dismissModal} />;
+    }
+    setBottomSheetScreen([
+      {
+        stackScreenName: "LoansCarousel",
+        component: LoansCarouselComponent,
+        option: BottomSheetHeader,
+      },
+    ]);
+    expandModal();
+  };
 
   useEffect(() => {
     setFilteredLoans(loans);
@@ -123,11 +191,61 @@ export function LoansScreenV2(): JSX.Element {
           <SkeletonLoader row={6} screen={SkeletonLoaderScreen.LoanV2} />
         </View>
       )}
-      {activeTab === TabKey.Borrow && hasFetchedLoansData && (
-        <LoanCardsV2
-          testID="loans_cards"
-          loans={filteredLoans}
-          vaultExist={isVaultReady}
+      <ThemedScrollViewV2>
+        {activeTab === TabKey.Borrow && hasFetchedLoansData && (
+          <>
+            {vaults.length === 0 && (
+              <View style={tailwind("mx-5 mt-8 rounded-lg-v2")}>
+                <VaultBanner
+                  buttonLabel="Create a vault"
+                  description="You need a vault with collaterals to borrow tokens"
+                  onPress={() =>
+                    navigation.navigate({
+                      name: "CreateVaultScreen",
+                      params: {},
+                      merge: true,
+                    })
+                  }
+                  onBottomSheetLoansInfoSelect={onBottomSheetLoansInfoSelect}
+                />
+              </View>
+            )}
+            {/* adding padding here will cause error FlashList's rendered size is not usable. */}
+            <LoanCardsV2
+              testID="loans_cards"
+              loans={filteredLoans}
+              vaultExist={isVaultReady}
+            />
+          </>
+        )}
+      </ThemedScrollViewV2>
+      {Platform.OS === "web" && (
+        <BottomSheetWebWithNavV2
+          modalRef={containerRef}
+          screenList={bottomSheetScreen}
+          isModalDisplayed={isModalDisplayed}
+          // eslint-disable-next-line react-native/no-inline-styles
+          modalStyle={{
+            position: "absolute",
+            bottom: "0",
+            height: "474px",
+            width: "375px",
+            zIndex: 50,
+            borderTopLeftRadius: 15,
+            borderTopRightRadius: 15,
+            overflow: "hidden",
+          }}
+        />
+      )}
+
+      {Platform.OS !== "web" && (
+        <BottomSheetWithNavV2
+          modalRef={bottomSheetRef}
+          screenList={bottomSheetScreen}
+          snapPoints={{
+            ios: ["60%"],
+            android: ["75%"],
+          }}
         />
       )}
     </ThemedViewV2>

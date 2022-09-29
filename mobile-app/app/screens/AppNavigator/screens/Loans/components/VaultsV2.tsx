@@ -5,7 +5,6 @@ import {
   ThemedTextV2,
   ThemedTouchableOpacityV2,
 } from "@components/themed";
-import { VaultCard } from "@screens/AppNavigator/screens/Loans/components/VaultCard";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -35,6 +34,9 @@ import { useDebounce } from "@hooks/useDebounce";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { LoanParamList } from "@screens/AppNavigator/screens/Loans/LoansNavigator";
 import { EmptyVaultV2 } from "./EmptyVaultV2";
+import { VaultCardV2 } from "./VaultCardV2";
+import { VaultCard } from "./VaultCard";
+// import { VaultCard } from "./VaultCard"; // @chloe for referencing
 
 export function VaultsV2(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -162,9 +164,24 @@ export function VaultsV2(): JSX.Element {
 
       {filteredTokensWithBalance.map((vault, index) => {
         return (
-          <VaultCard testID={`vault_card_${index}`} key={index} vault={vault} />
+          <VaultCardV2
+            testID={`vault_card_${index}`}
+            key={index}
+            vault={vault}
+          />
         );
       })}
+      <View style={tailwind("flex-row")}>
+        <ThemedTextV2
+          dark={tailwind("text-mono-dark-v2-500")}
+          light={tailwind("text-mono-light-v2-500")}
+          style={tailwind("font-normal-v2 text-sm text-center")}
+        >
+          {translate("", "All prices displayed are from price oracles")}
+        </ThemedTextV2>
+        {/* TODO @chloe: add info icon */}
+        {/* <ThemedIcon */}
+      </View>
     </ThemedScrollViewV2>
   );
 }
