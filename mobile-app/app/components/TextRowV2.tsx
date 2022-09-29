@@ -47,7 +47,7 @@ export function TextRowV2(props: TextRowProps): JSX.Element {
       <View style={tailwind("w-5/12")}>
         <View style={tailwind("flex-row items-center justify-start")}>
           <ThemedText
-            style={tailwind("text-sm font-normal-v2")}
+            style={tailwind("text-sm font-normal-v2 flex-wrap mr-1")}
             light={tailwind("text-mono-light-v2-900")}
             dark={tailwind("text-mono-dark-v2-900")}
             testID={lhsTestID}
