@@ -300,6 +300,18 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
       handleOnPress: () =>
         onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.BTC),
     },
+    {
+      id: PortfolioButtonGroupTabKey.DUSD,
+      label: translate("screens/PortfolioScreen", "DUSD"),
+      handleOnPress: () =>
+        onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.DUSD),
+    },
+    {
+      id: PortfolioButtonGroupTabKey.USDC,
+      label: translate("screens/PortfolioScreen", "USDC"),
+      handleOnPress: () =>
+        onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.USDC),
+    },
   ];
 
   // Asset sort bottom sheet list
