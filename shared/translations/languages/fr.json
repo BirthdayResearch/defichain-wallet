@@ -1330,7 +1330,7 @@
     "Your active bids": "Mes offres actives",
     "Your leading bids": "Mes offres principales",
     "Outbid": "Surenchérie",
-    "Search for auction with collateral token name": "Rechercher une enchère avec le nom du token de garantie",
+    "Search for auctions using collateral token names i.e. DFI DUSD dBTC.": "Rechercher des enchères en utilisant les noms des tolens de garantie, p. ex. DFI DUSD dBTC.",
     "Search results for “{{input}}”": "Résultats de la recherche pour “{{input}}”"
   },
   "components/AuctionDetailScreen": {

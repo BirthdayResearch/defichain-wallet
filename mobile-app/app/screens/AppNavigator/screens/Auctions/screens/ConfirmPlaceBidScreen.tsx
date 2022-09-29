@@ -118,103 +118,102 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
 
   return (
     <ThemedScrollViewV2
-      style={tailwind("py-8 px-5")}
+      contentContainerStyle={tailwind("pt-8 px-5 pb-14")}
+      style={tailwind("flex-1")}
       testID="confirm_place_bid_screen"
     >
-      <ThemedViewV2 style={tailwind("flex-col pb-14")}>
-        <SummaryTitleV2
-          title={translate("screens/ConfirmPlaceBidScreen", "You are bidding")}
-          amount={bidAmount}
-          testID="text_bid_amount_title"
-          iconA={batch.loan.displaySymbol}
-          fromAddress={address}
-          fromAddressLabel={addressLabel}
-          amountTextStyle="text-xl"
-        />
-        <NumberRowV2
-          containerStyle={{
-            style: tailwind(
-              "flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-8"
-            ),
-            ...containerThemeOptions,
-          }}
-          lhs={{
-            value: translate("screens/PlaceBidScreen", "Transaction fee"),
-            testID: "transaction_fee_label",
-            themedProps: lhsThemedProps,
-          }}
-          rhs={{
-            value: estimatedFees.toFixed(8),
-            suffix: " DFI",
-            testID: "transaction_fee_value",
-            themedProps: rhsThemedProps,
-          }}
-        />
+      <SummaryTitleV2
+        title={translate("screens/ConfirmPlaceBidScreen", "You are bidding")}
+        amount={bidAmount}
+        testID="text_bid_amount_title"
+        iconA={batch.loan.displaySymbol}
+        fromAddress={address}
+        fromAddressLabel={addressLabel}
+        amountTextStyle="text-xl"
+      />
+      <NumberRowV2
+        containerStyle={{
+          style: tailwind(
+            "flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-8"
+          ),
+          ...containerThemeOptions,
+        }}
+        lhs={{
+          value: translate("screens/PlaceBidScreen", "Transaction fee"),
+          testID: "transaction_fee_label",
+          themedProps: lhsThemedProps,
+        }}
+        rhs={{
+          value: estimatedFees.toFixed(8),
+          suffix: " DFI",
+          testID: "transaction_fee_value",
+          themedProps: rhsThemedProps,
+        }}
+      />
 
-        <NumberRowV2
-          containerStyle={{
-            style: tailwind(
-              "flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-6"
-            ),
-            ...containerThemeOptions,
-          }}
-          lhs={{
-            value: translate(
-              "screens/ConfirmPlaceBidScreen",
-              "Total auction value"
-            ),
-            testID: "total_auction_label",
-            themedProps: lhsThemedProps,
-          }}
-          rhs={{
-            value: totalAuctionValue,
-            prefix: "$",
-            testID: "total_auction_value",
-            themedProps: rhsThemedProps,
-          }}
-        />
+      <NumberRowV2
+        containerStyle={{
+          style: tailwind(
+            "flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-6"
+          ),
+          ...containerThemeOptions,
+        }}
+        lhs={{
+          value: translate(
+            "screens/ConfirmPlaceBidScreen",
+            "Total auction value"
+          ),
+          testID: "total_auction_label",
+          themedProps: lhsThemedProps,
+        }}
+        rhs={{
+          value: totalAuctionValue,
+          prefix: "$",
+          testID: "total_auction_value",
+          themedProps: rhsThemedProps,
+        }}
+      />
 
-        <AuctionVaultDetails testID="confirm_bid" vault={vault} />
+      <AuctionVaultDetails testID="confirm_bid" vault={vault} />
 
-        <View style={tailwind("pt-14 px-7")}>
-          {blocksRemaining === 0 && (
-            <ThemedTextV2
-              light={tailwind("text-red-v2")}
-              dark={tailwind("text-red-v2")}
-              style={tailwind(
-                "text-red-v2 text-center text-xs font-normal-v2 mb-4"
-              )}
-            >
-              {translate("screens/PlaceBidScreen", "Auction timeout")}
-            </ThemedTextV2>
-          )}
+      <View style={tailwind("pt-14 px-7")}>
+        {blocksRemaining === 0 && (
           <ThemedTextV2
-            light={tailwind("text-mono-light-v2-500")}
-            dark={tailwind("text-mono-dark-v2-500")}
-            style={tailwind("text-center text-xs font-normal-v2")}
-          >
-            {translate(
-              "screens/ConfirmPlaceBidScreen",
-              "Amount will be deducted from your current wallet"
+            light={tailwind("text-red-v2")}
+            dark={tailwind("text-red-v2")}
+            style={tailwind(
+              "text-red-v2 text-center text-xs font-normal-v2 mb-4"
             )}
+          >
+            {translate("screens/PlaceBidScreen", "Auction timeout")}
           </ThemedTextV2>
-          <SubmitButtonGroupV2
-            isDisabled={
-              isSubmitting ||
-              hasPendingJob ||
-              hasPendingBroadcastJob ||
-              blocksRemaining === 0
-            }
-            isCancelDisabled={false}
-            label={translate("screens/ConfirmPlaceBidScreen", "Place bid")}
-            onSubmit={onSubmit}
-            onCancel={onCancel}
-            title="bid"
-            displayCancelBtn
-            buttonStyle="mt-5 mb-7"
-          />
-        </View>
-      </ThemedViewV2>
+        )}
+        <ThemedTextV2
+          light={tailwind("text-mono-light-v2-500")}
+          dark={tailwind("text-mono-dark-v2-500")}
+          style={tailwind("text-center text-xs font-normal-v2")}
+        >
+          {translate(
+            "screens/ConfirmPlaceBidScreen",
+            "Amount will be deducted from your current wallet"
+          )}
+        </ThemedTextV2>
+        <SubmitButtonGroupV2
+          isDisabled={
+            isSubmitting ||
+            hasPendingJob ||
+            hasPendingBroadcastJob ||
+            blocksRemaining === 0
+          }
+          isCancelDisabled={false}
+          label={translate("screens/ConfirmPlaceBidScreen", "Place bid")}
+          onSubmit={onSubmit}
+          onCancel={onCancel}
+          title="bid"
+          displayCancelBtn
+          buttonStyle="mt-5 mb-7"
+        />
+      </View>
     </ThemedScrollViewV2>
   );
 }

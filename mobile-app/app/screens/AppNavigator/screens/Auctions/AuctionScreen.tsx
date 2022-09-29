@@ -56,10 +56,14 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
       if (searchString !== undefined && searchString.trim().length > 0) {
         setFilteredAuctionBatches(
           batches.filter((batch) =>
-            batch.collateralTokenSymbols
-              .join(" ")
+            searchString
+              .trim()
               .toLowerCase()
-              .includes(searchString.trim().toLowerCase())
+              .split(" ")
+              .filter((e) => e !== "")
+              .every((i) =>
+                batch.collateralTokenSymbols.join(" ").toLowerCase().includes(i)
+              )
           )
         );
       } else {
@@ -194,7 +198,7 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
                     )
                   : translate(
                       "screens/AuctionScreen",
-                      "Search for auction with collateral token name"
+                      "Search for auctions using collateral token names i.e. DFI DUSD dBTC."
                     )}
               </ThemedTextV2>
             </View>

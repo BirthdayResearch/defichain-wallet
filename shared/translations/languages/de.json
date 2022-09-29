@@ -1318,7 +1318,7 @@
     "Your active bids": "Deine aktiven Gebote",
     "Your leading bids": "Deine führenden Gebote",
     "Outbid": "Überboten",
-    "Search for auction with collateral token name": "Suche nach einer Auktion über den Namen des Sicherheiten-Tokens",
+    "Search for auctions using collateral token names i.e. DFI DUSD dBTC.": "Suche nach Auktionen über den Namen der Sicherheiten-Token, z. B. DFI DUSD dBTC.",
     "Search results for “{{input}}”": "Suchergebnisse für “{{input}}”"
   },
   "components/AuctionDetailScreen": {
