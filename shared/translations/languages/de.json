@@ -1288,7 +1288,7 @@
     "Next Price": "Nächster Preis",
     "{{interestValue}} Interest": "{{interestValue}} Zins",
     "Price (USD)": "Preis (USD)",
-    "Borrow": "Darlehen aufnehmen"
+    "Borrow": "Leihen"
   },
   "components/InfoTextLink": {
     "Learn more about DFI": "Erfahre mehr über DFI",
