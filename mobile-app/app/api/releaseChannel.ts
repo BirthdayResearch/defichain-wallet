@@ -10,5 +10,5 @@ export function getReleaseChannel(): string {
     return "production";
   }
 
-  return Updates.releaseChannel;
+  return Updates.channel || "production";
 }

@@ -528,8 +528,8 @@
   },
   "screens/TransactionsScreen": {
     "Transactions": "Transactions",
-    "No transactions yet": "Pas encore de transactions",
-    "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "Commencez à effectuer des transactions avec votre portefeuille. Toutes les transactions UTXO effectuées seront affichées ici. Les autres types de transactions ne sont pas encore supportés.",
+    "No transactions found": "No transactions found",
+    "Start by depositing DFI": "Start by depositing DFI",
     "RECEIVE TOKENS": "RECEVOIR DES TOKENS",
     "LOAD MORE": "CHARGER PLUS",
     "Received": "Reçu",
@@ -696,11 +696,11 @@
     "Key in the 24 recovery words to regain access to your wallet.": "Donner les 24 mots de récupération pour retrouver l'accès à votre portefeuille."
   },
   "screens/ErrorBoundary": {
-    "Something went wrong": "Il y a eu un problème",
-    "The app ran into a problem and could not recover. Please restart your application.": "L'application a rencontré un problème et n'a pas pu se rétablir. Veuillez redémarrer votre application."
+    "We ran into an issue": "We ran into an issue",
+    "There seems to be an issue. Try restarting the application.": "There seems to be an issue. Try restarting the application."
   },
   "screens/ConnectionBoundary": {
-    "Connection problem": "Problème de connexion",
+    "Refresh": "Renouveler",
     "There seems to be a problem with the connection. Check your network and try again.": "Il semble y avoir un problème de connexion. Vérifiez votre réseau et réessayez.",
     "TRY AGAIN": "RÉESSAYER"
   },
