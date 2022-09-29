@@ -25,10 +25,8 @@ jobs:
       - name: EAS Setup
         run: |
           sed -i "s/EAS_PROJECT_ID/$EAS_PROJECT_ID/" eas.json
-          sed -i "s/EAS_PROJECT_UPDATES/$EAS_PROJECT_UPDATES/" eas.json
         env:
           EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
-          EAS_PROJECT_UPDATES: ${{ secrets.EAS_PROJECT_UPDATES }}
 
       - uses: expo/expo-github-action@f98a64c8874c4a163514273f34306f403e962350 # tag=v7.2.0
         with:
