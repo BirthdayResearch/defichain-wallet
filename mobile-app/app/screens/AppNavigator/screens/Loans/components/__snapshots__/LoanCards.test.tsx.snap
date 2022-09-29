@@ -1982,8 +1982,7 @@ exports[`loan cards should match snapshot 1`] = `
                 </View>
               </View>
             </View>
-            <CellContainer
-              index={-1}
+            <View
               style={
                 [
                   undefined,
