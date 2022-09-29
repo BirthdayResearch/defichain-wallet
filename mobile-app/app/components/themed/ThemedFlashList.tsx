@@ -28,6 +28,7 @@ export const ThemedFlashList = forwardRef(
 
     return (
       <ScrollView
+        ref={ref}
         contentContainerStyle={[
           tailwind("flex-grow"),
           parentContainerStyle,
@@ -37,7 +38,6 @@ export const ThemedFlashList = forwardRef(
         <FlashList
           estimatedItemSize={estimatedItemSize}
           contentContainerStyle={styles}
-          ref={ref}
           {...otherProps}
         />
       </ScrollView>
