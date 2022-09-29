@@ -12,6 +12,7 @@ import { LoanCardsV2 } from "./LoanCardsV2";
 
 jest.mock("@shared-contexts/ThemeProvider");
 jest.mock("@contexts/FeatureFlagContext");
+jest.mock("react-content-loader/native");
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
   useScrollToTop: jest.fn(),
