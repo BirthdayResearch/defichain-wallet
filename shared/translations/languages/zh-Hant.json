@@ -1322,7 +1322,7 @@
     "Your active bids": "Your active bids",
     "Your leading bids": "Your leading bids",
     "Outbid": "Outbid",
-    "Search for auction with collateral token name": "Search for auction with collateral token name",
+    "Search for auctions using collateral token names i.e. DFI DUSD dBTC.": "Search for auctions using collateral token names i.e. DFI DUSD dBTC.",
     "Search results for “{{input}}”": "Search results for “{{input}}”"
   },
   "components/AuctionDetailScreen": {

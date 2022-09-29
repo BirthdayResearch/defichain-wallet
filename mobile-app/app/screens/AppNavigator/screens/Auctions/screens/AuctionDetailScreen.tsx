@@ -144,7 +144,7 @@ export function AuctionDetailScreen(
       );
       return {
         label: collateral.symbol,
-        bSymbol: collateral.symbol,
+        bSymbol: collateral.displaySymbol,
         value: collateral.amount,
         symbolUSDValue: value,
         usdTextStyle: tailwind("text-sm"),
@@ -164,7 +164,8 @@ export function AuctionDetailScreen(
   return (
     <View style={tailwind("flex-1")} ref={containerRef}>
       <ThemedScrollViewV2
-        style={tailwind("px-5 py-8")}
+        contentContainerStyle={tailwind("pt-8 px-5 pb-14")}
+        style={tailwind("flex-1")}
         testID="auction_details_screen"
       >
         {/* Loan collaterals summary */}
@@ -322,7 +323,7 @@ export function AuctionDetailScreen(
                 "components/AuctionDetailScreen",
                 "Min. next bid"
               ),
-              testID: "text_liquidation_height_label",
+              testID: "min_next_bid_label",
               themedProps: {
                 light: tailwind("text-mono-light-v2-500"),
                 dark: tailwind("text-mono-dark-v2-500"),
@@ -330,9 +331,9 @@ export function AuctionDetailScreen(
             }}
             rhs={{
               value: minNextBidInToken.toNumber(),
-              testID: "text_liquidation_height",
+              testID: "min_next_bid_amount",
               prefixSymbol: batch.loan.displaySymbol,
-              suffix: ` ${batch.loan.symbol}`,
+              suffix: ` ${batch.loan.displaySymbol}`,
               usdAmount: new BigNumber(precisedMinNextBidInUSD),
               usdTextStyle: tailwind("text-sm"),
               themedProps: {
@@ -376,7 +377,7 @@ export function AuctionDetailScreen(
         )}
 
         {/* Bid button and auction close message */}
-        <View style={tailwind("mt-7 pb-14")}>
+        <View style={tailwind("mt-7")}>
           {blocksRemaining === 0 && (
             <ThemedTextV2
               light={tailwind("text-red-v2")}
