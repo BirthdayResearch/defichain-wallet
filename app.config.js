@@ -13,8 +13,6 @@ export default ({ config }) => {
       projectId: process.env.EAS_PROJECT_ID,
     },
   };
-  console.log(process.env);
-  console.log(config);
   return {
     ...config,
   };
