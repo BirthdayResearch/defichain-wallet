@@ -5,12 +5,12 @@ export default ({ config }) => {
     bundleIdentifier: process.env.EXPO_BUNDLE_IDENTIFIER,
   };
   config.updates = {
-    url: `https://u.expo.dev/${process.env.EAS_PROJECT_ID}`,
+    url: `https://u.expo.dev/${process.env.easProjectId}`,
     fallbackToCacheTimeout: 0,
   };
   config.extra = {
     eas: {
-      projectId: process.env.EAS_PROJECT_ID,
+      projectId: process.env.easProjectId,
     },
   };
   console.log(config);
