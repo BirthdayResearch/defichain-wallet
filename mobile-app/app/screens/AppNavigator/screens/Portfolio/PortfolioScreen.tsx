@@ -289,18 +289,6 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
         onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.USDT),
     },
     {
-      id: PortfolioButtonGroupTabKey.USDC,
-      label: translate("screens/PortfolioScreen", "USDC"),
-      handleOnPress: () =>
-        onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.USDC),
-    },
-    {
-      id: PortfolioButtonGroupTabKey.DUSD,
-      label: translate("screens/PortfolioScreen", "DUSD"),
-      handleOnPress: () =>
-        onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.DUSD),
-    },
-    {
       id: PortfolioButtonGroupTabKey.DFI,
       label: translate("screens/PortfolioScreen", "DFI"),
       handleOnPress: () =>
@@ -311,6 +299,18 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
       label: translate("screens/PortfolioScreen", "BTC"),
       handleOnPress: () =>
         onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.BTC),
+    },
+    {
+      id: PortfolioButtonGroupTabKey.DUSD,
+      label: translate("screens/PortfolioScreen", "DUSD"),
+      handleOnPress: () =>
+        onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.DUSD),
+    },
+    {
+      id: PortfolioButtonGroupTabKey.USDC,
+      label: translate("screens/PortfolioScreen", "USDC"),
+      handleOnPress: () =>
+        onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.USDC),
     },
   ];
 

@@ -19,10 +19,10 @@ import { BalanceTextV2 } from "./BalanceTextV2";
 
 export enum PortfolioButtonGroupTabKey {
   USDT = "USDT",
-  USDC = "USDC",
-  DUSD = "DUSD",
   DFI = "DFI",
   BTC = "BTC",
+  DUSD = "DUSD",
+  USDC = "USDC",
 }
 
 interface TotalPortfolioProps {
