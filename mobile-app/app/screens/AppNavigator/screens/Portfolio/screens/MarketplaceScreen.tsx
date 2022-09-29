@@ -41,6 +41,11 @@ const exchanges: ExchangeProps[] = [
     url: "https://www.huobi.com/en-us/exchange/dfi_usdt",
   },
   {
+    name: "Gate.io",
+    image: Gateio,
+    url: "https://www.gate.io/trade/DFI_USDT",
+  },
+  {
     name: "Bittrex",
     image: Bittrex,
     url: "https://global.bittrex.com/Market/Index?MarketName=BTC-DFI",
