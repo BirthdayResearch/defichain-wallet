@@ -85,17 +85,10 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
       v.vaultId === props.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION
   ) as LoanVaultActive;
 
-  if (!hasFetchedLoansData) {
-    return (
-      <View style={tailwind("mt-1")}>
-        <SkeletonLoader row={6} screen={SkeletonLoaderScreen.LoanV2} />
-      </View>
-    );
-  }
-
   return (
     /* Known intermittent issue wherein the two-column layout is not followed in web - FlashList */
     <ThemedFlashList
+      estimatedItemSize={116}
       contentContainerStyle={tailwind("pt-4 pb-2")}
       data={filteredLoanTokens}
       /* This tells FlashList to rerender if any of the props below is updated */
@@ -105,6 +98,11 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
       }}
       ref={ref}
       numColumns={2}
+      ListEmptyComponent={
+        <View style={tailwind("mt-1")}>
+          <SkeletonLoader row={6} screen={SkeletonLoaderScreen.LoanV2} />
+        </View>
+      }
       renderItem={({
         item,
         index,
