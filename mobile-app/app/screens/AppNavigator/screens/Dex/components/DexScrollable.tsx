@@ -26,9 +26,13 @@ interface DexScrollableProps {
 export function DexScrollable(
   props: PropsWithChildren<DexScrollableProps>
 ): JSX.Element {
-  const { children, testID, sectionHeading } = props;
+  const { containerStyle, children, testID, sectionHeading, sectionStyle } =
+    props;
   return (
-    <ThemedViewV2 testID={testID} style={tailwind("flex flex-col mb-6")}>
+    <ThemedViewV2
+      testID={testID}
+      style={[tailwind("flex flex-col"), sectionStyle]}
+    >
       <ThemedTextV2
         dark={tailwind("text-mono-dark-v2-500")}
         light={tailwind("text-mono-light-v2-500")}
@@ -36,7 +40,13 @@ export function DexScrollable(
       >
         {translate("screens/DexScreen", sectionHeading)}
       </ThemedTextV2>
-      {children}
+      <ScrollView
+        contentContainerStyle={[tailwind("px-5"), containerStyle]}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+      >
+        {children}
+      </ScrollView>
     </ThemedViewV2>
   );
 }
