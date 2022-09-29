@@ -45,6 +45,8 @@ import { ButtonGroupV2 } from "../Dex/components/ButtonGroupV2";
 import { VaultStatus } from "./VaultStatusTypes";
 import { LoanParamList } from "./LoansNavigator";
 import { VaultBanner } from "./components/VaultBanner";
+import { PriceOracleInfo } from "./components/PriceOracleInfo";
+import { BottomSheetModalInfo } from "../../../../components/BottomSheetModalInfo";
 
 enum TabKey {
   Borrow = "BORROW",
@@ -127,6 +129,20 @@ export function LoansScreenV2(): JSX.Element {
     },
     headerLeft: () => <></>,
   };
+  const title = "Price Oracles";
+  const description =
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.";
+
+  const onBottomSheetOraclePriceSelect = (): void => {
+    setBottomSheetScreen([
+      {
+        stackScreenName: "OraclePriceInfo",
+        component: BottomSheetModalInfo({ title, description }),
+        option: BottomSheetHeader,
+      },
+    ]);
+    expandModal();
+  };
   const onBottomSheetLoansInfoSelect = (): void => {
     function LoansCarouselComponent() {
       return <LoansCarousel dismissModal={dismissModal} />;
@@ -139,6 +155,14 @@ export function LoansScreenV2(): JSX.Element {
       },
     ]);
     expandModal();
+  };
+
+  const goToCreateVault = (): void => {
+    navigation.navigate({
+      name: "CreateVaultScreen",
+      params: {},
+      merge: true,
+    });
   };
 
   useEffect(() => {
@@ -199,15 +223,11 @@ export function LoansScreenV2(): JSX.Element {
                 <VaultBanner
                   buttonLabel="Create a vault"
                   description="You need a vault with collaterals to borrow tokens"
-                  onPress={() =>
-                    navigation.navigate({
-                      name: "CreateVaultScreen",
-                      params: {},
-                      merge: true,
-                    })
-                  }
-                  onBottomSheetLoansInfoSelect={onBottomSheetLoansInfoSelect}
+                  onButtonPress={goToCreateVault} // TODO @chloe: button press not working on mobile
                 />
+                <View style={tailwind("mt-2")}>
+                  <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />
+                </View>
               </View>
             )}
             {/* adding padding here will cause error FlashList's rendered size is not usable. */}
@@ -243,8 +263,8 @@ export function LoansScreenV2(): JSX.Element {
           modalRef={bottomSheetRef}
           screenList={bottomSheetScreen}
           snapPoints={{
-            ios: ["60%"],
-            android: ["75%"],
+            ios: ["30%"],
+            android: ["35%"],
           }}
         />
       )}

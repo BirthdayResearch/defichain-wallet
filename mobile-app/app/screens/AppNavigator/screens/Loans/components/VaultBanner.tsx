@@ -12,21 +12,19 @@ import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { VaultStatus } from "../VaultStatusTypes";
 
 export function VaultBanner({
+  description,
+  onButtonPress,
   buttonLabel,
   vaultId,
-  description,
-  onPress,
-  onCardPress,
-  onBottomSheetLoansInfoSelect,
   vaultType,
+  onCardPress,
 }: {
+  description: string;
+  onButtonPress: () => void;
   buttonLabel?: string;
   vaultId?: string;
   vaultType?: string;
-  description: string;
-  onPress: () => void;
-  onCardPress: () => void;
-  onBottomSheetLoansInfoSelect?: () => void;
+  onCardPress?: () => void;
 }): JSX.Element {
   const { getVaultsUrl } = useDeFiScanContext();
   return (
@@ -38,14 +36,13 @@ export function VaultBanner({
         testID="vault_card"
       >
         <View style={tailwind("flex-row items-center")}>
-          {vaultType === VaultStatus.Liquidated && (
+          {vaultType === VaultStatus.Liquidated ? (
             <Image
               source={LiquidatedVault}
               style={{ width: 74, height: 64 }}
               resizeMode="contain"
             />
-          )}
-          {vaultType === VaultStatus.Empty && (
+          ) : (
             <Image
               source={EmptyCollateral}
               style={{ width: 74, height: 64 }}
@@ -93,38 +90,13 @@ export function VaultBanner({
               <ButtonV2
                 styleProps="mt-3 text-sm"
                 label={buttonLabel}
-                onPress={onPress}
+                onPress={onButtonPress}
                 testID="button_create_vault"
               />
             )}
           </View>
         </View>
       </ThemedViewV2>
-      <View style={tailwind("px-10")}>
-        {onBottomSheetLoansInfoSelect !== undefined && (
-          <View style={tailwind("flex-row items-center")}>
-            <ThemedTextV2
-              dark={tailwind("text-mono-dark-v2-500")}
-              light={tailwind("text-mono-light-v2-500")}
-              style={tailwind("font-normal-v2 text-sm")}
-            >
-              {translate("", "Loan tokens get their prices from oracles.")}
-            </ThemedTextV2>
-            <TouchableOpacity
-              onPress={onBottomSheetLoansInfoSelect}
-              style={tailwind("pl-1")}
-            >
-              <ThemedIcon
-                dark={tailwind("text-mono-dark-v2-700")}
-                light={tailwind("text-mono-light-v2-700")}
-                iconType="MaterialIcons"
-                name="info-outline"
-                size={16}
-              />
-            </TouchableOpacity>
-          </View>
-        )}
-      </View>
     </TouchableOpacity>
   );
 }

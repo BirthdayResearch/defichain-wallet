@@ -29,13 +29,21 @@ import {
 } from "@components/SkeletonLoader";
 import { SearchInputV2 } from "@components/SearchInputV2";
 import { translate } from "@translations";
-import { TextInput, View } from "react-native";
+import { Platform, TextInput, View } from "react-native";
 import { useDebounce } from "@hooks/useDebounce";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { LoanParamList } from "@screens/AppNavigator/screens/Loans/LoansNavigator";
+import {
+  BottomSheetNavScreen,
+  BottomSheetWebWithNavV2,
+  BottomSheetWithNavV2,
+} from "@components/BottomSheetWithNavV2";
+import { useBottomSheet } from "@hooks/useBottomSheet";
 import { EmptyVaultV2 } from "./EmptyVaultV2";
 import { VaultCardV2 } from "./VaultCardV2";
 import { VaultCard } from "./VaultCard";
+import { PriceOracleInfo } from "./PriceOracleInfo";
+import { BottomSheetModalInfo } from "../../../../../components/BottomSheetModalInfo";
 // import { VaultCard } from "./VaultCard"; // @chloe for referencing
 
 export function VaultsV2(): JSX.Element {
@@ -57,6 +65,56 @@ export function VaultsV2(): JSX.Element {
   const [isSearchFocus, setIsSearchFocus] = useState(false);
   const debouncedSearchTerm = useDebounce(searchString, 250);
   const searchRef = useRef<TextInput>();
+
+  const [bottomSheetScreen, setBottomSheetScreen] = useState<
+    BottomSheetNavScreen[]
+  >([]);
+
+  const {
+    bottomSheetRef,
+    containerRef,
+    dismissModal,
+    expandModal,
+    isModalDisplayed,
+  } = useBottomSheet();
+  const BottomSheetHeader = {
+    headerStatusBarHeight: 2,
+    headerTitle: "",
+    headerBackTitleVisible: false,
+    headerStyle: tailwind("rounded-t-xl-v2 border-b-0", {
+      "bg-mono-light-v2-100": isLight,
+      "bg-mono-dark-v2-100": !isLight,
+    }),
+    headerRight: (): JSX.Element => {
+      return (
+        <ThemedTouchableOpacityV2
+          style={tailwind("mr-5", {
+            "mt-4 -mb-4": Platform.OS === "ios",
+            "mt-1.5": Platform.OS === "android",
+          })}
+          onPress={dismissModal}
+          testID="close_bottom_sheet_button"
+        >
+          <ThemedIcon iconType="Feather" name="x-circle" size={22} />
+        </ThemedTouchableOpacityV2>
+      );
+    },
+    headerLeft: () => <></>,
+  };
+  const title = "Price Oracles";
+  const description =
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.";
+
+  const onBottomSheetOraclePriceSelect = (): void => {
+    setBottomSheetScreen([
+      {
+        stackScreenName: "OraclePriceInfo",
+        component: BottomSheetModalInfo({ title, description }),
+        option: BottomSheetHeader,
+      },
+    ]);
+    expandModal();
+  };
 
   useEffect(() => {
     if (isFocused) {
@@ -171,17 +229,38 @@ export function VaultsV2(): JSX.Element {
           />
         );
       })}
-      <View style={tailwind("flex-row")}>
-        <ThemedTextV2
-          dark={tailwind("text-mono-dark-v2-500")}
-          light={tailwind("text-mono-light-v2-500")}
-          style={tailwind("font-normal-v2 text-sm text-center")}
-        >
-          {translate("", "All prices displayed are from price oracles")}
-        </ThemedTextV2>
-        {/* TODO @chloe: add info icon */}
-        {/* <ThemedIcon */}
-      </View>
+
+      <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />
+
+      {Platform.OS === "web" && (
+        <BottomSheetWebWithNavV2
+          modalRef={containerRef}
+          screenList={bottomSheetScreen}
+          isModalDisplayed={isModalDisplayed}
+          // eslint-disable-next-line react-native/no-inline-styles
+          modalStyle={{
+            position: "absolute",
+            bottom: "0",
+            height: "404px",
+            width: "375px",
+            zIndex: 50,
+            borderTopLeftRadius: 15,
+            borderTopRightRadius: 15,
+            overflow: "hidden",
+          }}
+        />
+      )}
+
+      {Platform.OS !== "web" && (
+        <BottomSheetWithNavV2
+          modalRef={bottomSheetRef}
+          screenList={bottomSheetScreen}
+          snapPoints={{
+            ios: ["30%"],
+            android: ["35%"],
+          }}
+        />
+      )}
     </ThemedScrollViewV2>
   );
 }

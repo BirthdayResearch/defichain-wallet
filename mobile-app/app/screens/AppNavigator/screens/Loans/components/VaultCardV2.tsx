@@ -90,7 +90,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
           buttonLabel={vaultDescription()[0]}
           description={vaultDescription()[1]}
           vaultId={vault.vaultId}
-          onPress={onBorrowPress}
+          onButtonPress={onBorrowPress}
           vaultType={vaultDescription()[2]}
           onCardPress={onCardPress}
         />
@@ -174,6 +174,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
                   styleProps="mt-3 text-sm"
                   label="Borrow"
                   onPress={() => {
+                    // TODO: should show to bottom sheet token list
                     navigation.navigate("VaultDetailScreen", {
                       vaultId: vault.vaultId,
                       tab: TabKey.Loans,
@@ -187,54 +188,5 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
         </TouchableOpacity>
       )}
     </View>
-  );
-}
-
-function VaultActionButton({
-  vault,
-  canUseOperation,
-  testID,
-}: {
-  vault: LoanVaultActive;
-  canUseOperation: boolean;
-  testID: string;
-}): JSX.Element | null {
-  const navigation = useNavigation<NavigationProp<LoanParamList>>();
-  return (
-    <ThemedView
-      light={tailwind("border-gray-200")}
-      dark={tailwind("border-gray-700")}
-      style={tailwind("flex flex-row mt-4 items-center flex-wrap -mb-2")}
-    >
-      {new BigNumber(vault.collateralValue).gt(0) && (
-        <IconButton
-          testID={`${testID}_manage_loans_button`}
-          disabled={!canUseOperation}
-          iconLabel={translate("components/VaultCard", "MANAGE LOANS")}
-          style={tailwind("mr-2 mb-2 items-center")}
-          onPress={() => {
-            navigation.navigate("VaultDetailScreen", {
-              vaultId: vault.vaultId,
-              tab: TabKey.Loans,
-            });
-          }}
-        />
-      )}
-      <IconButton
-        testID={`${testID}_edit_collaterals_button`}
-        disabled={!canUseOperation}
-        iconLabel={translate("components/VaultCard", "EDIT COLLATERAL")}
-        style={tailwind("mr-2 mb-2 items-center")}
-        onPress={() => {
-          navigation.navigate({
-            name: "EditCollateralScreen",
-            params: {
-              vaultId: vault.vaultId,
-            },
-            merge: true,
-          });
-        }}
-      />
-    </ThemedView>
   );
 }
