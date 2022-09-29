@@ -56,9 +56,12 @@ export function LoansScreenV2(): JSX.Element {
           },
         ],
         tabBarActiveTintColor: getColor("brand-v2-500"),
+        tabBarPressColor: "transparent",
         tabBarIndicatorStyle: {
           borderBottomWidth: 2,
           borderColor: getColor("brand-v2-500"),
+          width: "40%",
+          left: "5%",
         },
         tabBarInactiveTintColor: getColor(
           isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
