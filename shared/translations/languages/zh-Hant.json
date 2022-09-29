@@ -520,8 +520,8 @@
   },
   "screens/TransactionsScreen": {
     "Transactions": "交易紀錄",
-    "No transactions yet": "還沒有交易紀錄",
-    "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "您能開始從錢包做交易. 所有UTXO交易都會在這裡顯示.目前還不提供其他交易類型.",
+    "No transactions found": "沒有交易紀錄",
+    "Start by depositing DFI": "從存入 DFI 開始",
     "RECEIVE TOKENS": "接收的貨幣",
     "LOAD MORE": "查看更多交易紀錄",
     "Received": "收到",
@@ -687,11 +687,11 @@
     "Key in the 24 recovery words to regain access to your wallet.": "Key in the 24 recovery words to regain access to your wallet."
   },
   "screens/ErrorBoundary": {
-    "Something went wrong": "出了些問題",
-    "The app ran into a problem and could not recover. Please restart your application.": "此程序出了一些問題，關掉後請重新啟動程序."
+    "We ran into an issue": "我們遇到問題",
+    "There seems to be an issue. Try restarting the application.": "似乎存在了問題， 嘗試重新啟動應用程式。"
   },
   "screens/ConnectionBoundary": {
-    "Connection problem": "網絡連接出了問題",
+    "Refresh": "刷新",
     "There seems to be a problem with the connection. Check your network and try again.": "網絡連接不良，請查看網絡設定後重試.",
     "TRY AGAIN": "再試一次"
   },

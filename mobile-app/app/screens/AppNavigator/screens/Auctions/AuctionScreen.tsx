@@ -33,7 +33,7 @@ import { AuctionFilterPillGroup } from "./components/AuctionFilterPillGroup";
 
 type Props = StackScreenProps<AuctionsParamList, "AuctionScreen">;
 
-export function AuctionsScreen({ navigation }: Props): JSX.Element {
+export function AuctionScreen({ navigation }: Props): JSX.Element {
   const { hasFetchAuctionsData } = useSelector(
     (state: RootState) => state.auctions
   );
@@ -133,7 +133,7 @@ export function AuctionsScreen({ navigation }: Props): JSX.Element {
     }
   }, [searchString, hasFetchAuctionsData]);
 
-  // Update local state - filter available pair when pairs update
+  // Update local state - filter when auction batches update
   useEffect(() => {
     if (!showSearchInput) {
       handleButtonFilter(activeButtonGroup);

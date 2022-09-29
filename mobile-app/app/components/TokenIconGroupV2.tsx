@@ -29,7 +29,6 @@ export function TokenIconGroupV2({
 }: TokenIconGroupProps): JSX.Element {
   const additionalIcon = BigNumber.max(symbols.length - maxIconToDisplay, 0);
   let rightOffset = 0;
-  // increase overlap in case of more than and equal to 5 token icon
   if (offsetContainer === true) {
     rightOffset = additionalIcon.gt(0)
       ? (maxIconToDisplay - 2) * overlap
