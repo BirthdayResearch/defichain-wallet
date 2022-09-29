@@ -21,13 +21,6 @@ jobs:
           node-version: 16
           cache: 'npm'
 
-      # TODO(fuxingloh): replace this in the future
-      - name: EAS Setup
-        run: |
-          sed -i "s/EAS_PROJECT_ID/$EAS_PROJECT_ID/" eas.json
-        env:
-          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
-
       - uses: expo/expo-github-action@f98a64c8874c4a163514273f34306f403e962350 # tag=v7.2.0
         with:
           expo-version: latest
