@@ -31,7 +31,7 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - run: npm ci
-      - run: eas update --branch pr-${{ github.event.number }} --json --non-interactive --message 'Update with commit ${{ github.sha }}'
+      - run: eas update --branch pr-${{ github.ref_name }} --json --message 'Update with commit ${{ github.sha }}'
         env:
           EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
 
