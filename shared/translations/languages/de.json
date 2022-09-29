@@ -1420,7 +1420,7 @@
     "Confirm your vault details in next screen": "Bestätige die Daten deines Vaults in der nächsten Ansicht",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "Das Darlehensmodell deines Vaults bestimmt dessen erforderliche Darlehens-Besicherung.",
     "Min. collateralization ratio": "Mind. Besicherungsquote",
-    "Select a loan scheme for your vault.": "Select a loan scheme for your vault.",
+    "Select a loan scheme for your vault.": "Wähle ein Darlehensmodell für deinen Vault",
     "Continue": "Weiter",
     "Create vault": "Vault erstellen",
     "By continuing, the required amount of DFI will be converted": "Wenn du fortfährst, wird die erforderliche Summe an DFI umgewandelt",
@@ -1733,7 +1733,7 @@
     "APR": "Jahreszins",
     "Collateralization": "Besicherung",
     "Vault interest": "Vault-Jahreszins",
-    "Min. collateral ratio": "Min. collateral ratio"
+    "Min. collateral ratio": "Mind. Besicherungsquote"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "DU STOCKST DEIN DARLEHEN AUF",

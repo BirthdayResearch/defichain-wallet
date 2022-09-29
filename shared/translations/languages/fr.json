@@ -1432,7 +1432,7 @@
     "Confirm your vault details in next screen": "Validez les détails de votre vault à l'étape suivante",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "Le schéma de prêt de votre vault détermine la garantie requise de votre vault pour les prêts.",
     "Min. collateralization ratio": "Ratio de garantie min.",
-    "Select a loan scheme for your vault.": "Select a loan scheme for your vault.",
+    "Select a loan scheme for your vault.": "Sélectionnez un schéma de prêt pour votre vault",
     "Continue": "Suivant",
     "Create vault": "Créer un Vault",
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
@@ -1746,7 +1746,7 @@
     "APR": "TAEG",
     "Collateralization": "Garantie",
     "Vault interest": "Intérêt du vault",
-    "Min. collateral ratio": "Min. collateral ratio"
+    "Min. collateral ratio": "Ratio de garantie min."
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "VOUS AUGMENTEZ VOTRE PRÊT",
