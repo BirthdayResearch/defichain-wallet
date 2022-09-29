@@ -172,7 +172,7 @@ describe("loan cards", () => {
     });
     const rendered = render(
       <Provider store={store}>
-        <LoanCardsV2 loans={loanCards} vaultExist />
+        <LoanCardsV2 />
       </Provider>
     );
     expect(rendered.toJSON()).toMatchSnapshot();

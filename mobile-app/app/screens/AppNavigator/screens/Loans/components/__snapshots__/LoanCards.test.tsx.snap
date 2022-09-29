@@ -76,11 +76,11 @@ exports[`loan cards should match snapshot 1`] = `
       >
         <RNSVGGroup>
           <RNSVGRect
-            clipPath="aqc629j-animated-diff"
+            clipPath="8thpi1d-animated-diff"
             fill={
               [
                 1,
-                "aqc629j-diff",
+                "8thpi1d-diff",
               ]
             }
             height="100%"
@@ -95,7 +95,7 @@ exports[`loan cards should match snapshot 1`] = `
           />
           <RNSVGDefs>
             <RNSVGClipPath
-              name="aqc629j-animated-diff"
+              name="8thpi1d-animated-diff"
             >
               <RNSVGRect
                 height="16"
@@ -148,7 +148,7 @@ exports[`loan cards should match snapshot 1`] = `
               }
               gradientTransform={null}
               gradientUnits={0}
-              name="aqc629j-diff"
+              name="8thpi1d-diff"
               x1="-100%"
               x2="0%"
               y1={0}
@@ -215,11 +215,11 @@ exports[`loan cards should match snapshot 1`] = `
       >
         <RNSVGGroup>
           <RNSVGRect
-            clipPath="3oqfwo-animated-diff"
+            clipPath="o6o2gq-animated-diff"
             fill={
               [
                 1,
-                "3oqfwo-diff",
+                "o6o2gq-diff",
               ]
             }
             height="100%"
@@ -234,7 +234,7 @@ exports[`loan cards should match snapshot 1`] = `
           />
           <RNSVGDefs>
             <RNSVGClipPath
-              name="3oqfwo-animated-diff"
+              name="o6o2gq-animated-diff"
             >
               <RNSVGRect
                 height="16"
@@ -287,297 +287,7 @@ exports[`loan cards should match snapshot 1`] = `
               }
               gradientTransform={null}
               gradientUnits={0}
-              name="3oqfwo-diff"
-              x1="-100%"
-              x2="0%"
-              y1={0}
-              y2={0}
-            />
-          </RNSVGDefs>
-        </RNSVGGroup>
-      </RNSVGSvgView>
-    </View>
-  </View>
-  <View
-    style={
-      {
-        "flexDirection": "row",
-        "justifyContent": "space-around",
-        "marginLeft": 8,
-        "marginRight": 8,
-      }
-    }
-    testID="loan_skeleton_loader"
-  >
-    <View
-      style={
-        [
-          [
-            {
-              "borderBottomLeftRadius": 10,
-              "borderBottomRightRadius": 10,
-              "borderTopLeftRadius": 10,
-              "borderTopRightRadius": 10,
-              "marginBottom": 16,
-              "marginLeft": 8,
-              "marginRight": 8,
-              "paddingBottom": 8,
-              "paddingLeft": 8,
-              "paddingRight": 8,
-              "paddingTop": 8,
-            },
-            {
-              "flexBasis": "47%",
-            },
-          ],
-          {
-            "backgroundColor": "rgba(255, 255, 255, 1)",
-          },
-        ]
-      }
-    >
-      <RNSVGSvgView
-        align="xMidYMid"
-        bbHeight={138}
-        bbWidth="100%"
-        focusable={false}
-        height={138}
-        interval={0.25}
-        meetOrSlice={0}
-        minX={0}
-        minY={0}
-        style={
-          [
-            {
-              "backgroundColor": "transparent",
-              "borderWidth": 0,
-            },
-            {},
-            {
-              "flex": 0,
-              "height": 138,
-              "width": "100%",
-            },
-          ]
-        }
-        vbHeight={144}
-        vbWidth={163}
-        width="100%"
-      >
-        <RNSVGGroup>
-          <RNSVGRect
-            clipPath="7arxwyt-animated-diff"
-            fill={
-              [
-                1,
-                "7arxwyt-diff",
-              ]
-            }
-            height="100%"
-            propList={
-              [
-                "fill",
-              ]
-            }
-            width="100%"
-            x="0"
-            y="0"
-          />
-          <RNSVGDefs>
-            <RNSVGClipPath
-              name="7arxwyt-animated-diff"
-            >
-              <RNSVGRect
-                height="16"
-                rx="6"
-                ry="6"
-                width="90"
-                x="0"
-                y="14"
-              />
-              <RNSVGCircle
-                cx="140"
-                cy="20"
-                r="20"
-              />
-              <RNSVGRect
-                height="16"
-                rx="6"
-                ry="6"
-                width="80"
-                x="0"
-                y="60"
-              />
-              <RNSVGRect
-                height="12"
-                rx="6"
-                ry="6"
-                width="100"
-                x="0"
-                y="85"
-              />
-              <RNSVGRect
-                height="30"
-                rx="6"
-                ry="6"
-                width="90%"
-                x="0"
-                y="110"
-              />
-            </RNSVGClipPath>
-            <RNSVGLinearGradient
-              gradient={
-                [
-                  0,
-                  -1250325,
-                  0.5,
-                  -1,
-                  1,
-                  -1250325,
-                ]
-              }
-              gradientTransform={null}
-              gradientUnits={0}
-              name="7arxwyt-diff"
-              x1="-100%"
-              x2="0%"
-              y1={0}
-              y2={0}
-            />
-          </RNSVGDefs>
-        </RNSVGGroup>
-      </RNSVGSvgView>
-    </View>
-    <View
-      style={
-        [
-          [
-            {
-              "borderBottomLeftRadius": 10,
-              "borderBottomRightRadius": 10,
-              "borderTopLeftRadius": 10,
-              "borderTopRightRadius": 10,
-              "marginBottom": 16,
-              "marginLeft": 8,
-              "marginRight": 8,
-              "paddingBottom": 8,
-              "paddingLeft": 8,
-              "paddingRight": 8,
-              "paddingTop": 8,
-            },
-            {
-              "flexBasis": "47%",
-            },
-          ],
-          {
-            "backgroundColor": "rgba(255, 255, 255, 1)",
-          },
-        ]
-      }
-    >
-      <RNSVGSvgView
-        align="xMidYMid"
-        bbHeight={138}
-        bbWidth="100%"
-        focusable={false}
-        height={138}
-        interval={0.25}
-        meetOrSlice={0}
-        minX={0}
-        minY={0}
-        style={
-          [
-            {
-              "backgroundColor": "transparent",
-              "borderWidth": 0,
-            },
-            {},
-            {
-              "flex": 0,
-              "height": 138,
-              "width": "100%",
-            },
-          ]
-        }
-        vbHeight={144}
-        vbWidth={163}
-        width="100%"
-      >
-        <RNSVGGroup>
-          <RNSVGRect
-            clipPath="hglb04h-animated-diff"
-            fill={
-              [
-                1,
-                "hglb04h-diff",
-              ]
-            }
-            height="100%"
-            propList={
-              [
-                "fill",
-              ]
-            }
-            width="100%"
-            x="0"
-            y="0"
-          />
-          <RNSVGDefs>
-            <RNSVGClipPath
-              name="hglb04h-animated-diff"
-            >
-              <RNSVGRect
-                height="16"
-                rx="6"
-                ry="6"
-                width="90"
-                x="0"
-                y="14"
-              />
-              <RNSVGCircle
-                cx="140"
-                cy="20"
-                r="20"
-              />
-              <RNSVGRect
-                height="16"
-                rx="6"
-                ry="6"
-                width="80"
-                x="0"
-                y="60"
-              />
-              <RNSVGRect
-                height="12"
-                rx="6"
-                ry="6"
-                width="100"
-                x="0"
-                y="85"
-              />
-              <RNSVGRect
-                height="30"
-                rx="6"
-                ry="6"
-                width="90%"
-                x="0"
-                y="110"
-              />
-            </RNSVGClipPath>
-            <RNSVGLinearGradient
-              gradient={
-                [
-                  0,
-                  -1250325,
-                  0.5,
-                  -1,
-                  1,
-                  -1250325,
-                ]
-              }
-              gradientTransform={null}
-              gradientUnits={0}
-              name="hglb04h-diff"
+              name="o6o2gq-diff"
               x1="-100%"
               x2="0%"
               y1={0}
@@ -656,11 +366,11 @@ exports[`loan cards should match snapshot 1`] = `
       >
         <RNSVGGroup>
           <RNSVGRect
-            clipPath="nsxawnr-animated-diff"
+            clipPath="iwwu6ec-animated-diff"
             fill={
               [
                 1,
-                "nsxawnr-diff",
+                "iwwu6ec-diff",
               ]
             }
             height="100%"
@@ -675,7 +385,7 @@ exports[`loan cards should match snapshot 1`] = `
           />
           <RNSVGDefs>
             <RNSVGClipPath
-              name="nsxawnr-animated-diff"
+              name="iwwu6ec-animated-diff"
             >
               <RNSVGRect
                 height="16"
@@ -728,7 +438,7 @@ exports[`loan cards should match snapshot 1`] = `
               }
               gradientTransform={null}
               gradientUnits={0}
-              name="nsxawnr-diff"
+              name="iwwu6ec-diff"
               x1="-100%"
               x2="0%"
               y1={0}
@@ -795,11 +505,11 @@ exports[`loan cards should match snapshot 1`] = `
       >
         <RNSVGGroup>
           <RNSVGRect
-            clipPath="bj2w9i-animated-diff"
+            clipPath="ncj9v22j-animated-diff"
             fill={
               [
                 1,
-                "bj2w9i-diff",
+                "ncj9v22j-diff",
               ]
             }
             height="100%"
@@ -814,7 +524,7 @@ exports[`loan cards should match snapshot 1`] = `
           />
           <RNSVGDefs>
             <RNSVGClipPath
-              name="bj2w9i-animated-diff"
+              name="ncj9v22j-animated-diff"
             >
               <RNSVGRect
                 height="16"
@@ -867,297 +577,7 @@ exports[`loan cards should match snapshot 1`] = `
               }
               gradientTransform={null}
               gradientUnits={0}
-              name="bj2w9i-diff"
-              x1="-100%"
-              x2="0%"
-              y1={0}
-              y2={0}
-            />
-          </RNSVGDefs>
-        </RNSVGGroup>
-      </RNSVGSvgView>
-    </View>
-  </View>
-  <View
-    style={
-      {
-        "flexDirection": "row",
-        "justifyContent": "space-around",
-        "marginLeft": 8,
-        "marginRight": 8,
-      }
-    }
-    testID="loan_skeleton_loader"
-  >
-    <View
-      style={
-        [
-          [
-            {
-              "borderBottomLeftRadius": 10,
-              "borderBottomRightRadius": 10,
-              "borderTopLeftRadius": 10,
-              "borderTopRightRadius": 10,
-              "marginBottom": 16,
-              "marginLeft": 8,
-              "marginRight": 8,
-              "paddingBottom": 8,
-              "paddingLeft": 8,
-              "paddingRight": 8,
-              "paddingTop": 8,
-            },
-            {
-              "flexBasis": "47%",
-            },
-          ],
-          {
-            "backgroundColor": "rgba(255, 255, 255, 1)",
-          },
-        ]
-      }
-    >
-      <RNSVGSvgView
-        align="xMidYMid"
-        bbHeight={138}
-        bbWidth="100%"
-        focusable={false}
-        height={138}
-        interval={0.25}
-        meetOrSlice={0}
-        minX={0}
-        minY={0}
-        style={
-          [
-            {
-              "backgroundColor": "transparent",
-              "borderWidth": 0,
-            },
-            {},
-            {
-              "flex": 0,
-              "height": 138,
-              "width": "100%",
-            },
-          ]
-        }
-        vbHeight={144}
-        vbWidth={163}
-        width="100%"
-      >
-        <RNSVGGroup>
-          <RNSVGRect
-            clipPath="6wtuwhd-animated-diff"
-            fill={
-              [
-                1,
-                "6wtuwhd-diff",
-              ]
-            }
-            height="100%"
-            propList={
-              [
-                "fill",
-              ]
-            }
-            width="100%"
-            x="0"
-            y="0"
-          />
-          <RNSVGDefs>
-            <RNSVGClipPath
-              name="6wtuwhd-animated-diff"
-            >
-              <RNSVGRect
-                height="16"
-                rx="6"
-                ry="6"
-                width="90"
-                x="0"
-                y="14"
-              />
-              <RNSVGCircle
-                cx="140"
-                cy="20"
-                r="20"
-              />
-              <RNSVGRect
-                height="16"
-                rx="6"
-                ry="6"
-                width="80"
-                x="0"
-                y="60"
-              />
-              <RNSVGRect
-                height="12"
-                rx="6"
-                ry="6"
-                width="100"
-                x="0"
-                y="85"
-              />
-              <RNSVGRect
-                height="30"
-                rx="6"
-                ry="6"
-                width="90%"
-                x="0"
-                y="110"
-              />
-            </RNSVGClipPath>
-            <RNSVGLinearGradient
-              gradient={
-                [
-                  0,
-                  -1250325,
-                  0.5,
-                  -1,
-                  1,
-                  -1250325,
-                ]
-              }
-              gradientTransform={null}
-              gradientUnits={0}
-              name="6wtuwhd-diff"
-              x1="-100%"
-              x2="0%"
-              y1={0}
-              y2={0}
-            />
-          </RNSVGDefs>
-        </RNSVGGroup>
-      </RNSVGSvgView>
-    </View>
-    <View
-      style={
-        [
-          [
-            {
-              "borderBottomLeftRadius": 10,
-              "borderBottomRightRadius": 10,
-              "borderTopLeftRadius": 10,
-              "borderTopRightRadius": 10,
-              "marginBottom": 16,
-              "marginLeft": 8,
-              "marginRight": 8,
-              "paddingBottom": 8,
-              "paddingLeft": 8,
-              "paddingRight": 8,
-              "paddingTop": 8,
-            },
-            {
-              "flexBasis": "47%",
-            },
-          ],
-          {
-            "backgroundColor": "rgba(255, 255, 255, 1)",
-          },
-        ]
-      }
-    >
-      <RNSVGSvgView
-        align="xMidYMid"
-        bbHeight={138}
-        bbWidth="100%"
-        focusable={false}
-        height={138}
-        interval={0.25}
-        meetOrSlice={0}
-        minX={0}
-        minY={0}
-        style={
-          [
-            {
-              "backgroundColor": "transparent",
-              "borderWidth": 0,
-            },
-            {},
-            {
-              "flex": 0,
-              "height": 138,
-              "width": "100%",
-            },
-          ]
-        }
-        vbHeight={144}
-        vbWidth={163}
-        width="100%"
-      >
-        <RNSVGGroup>
-          <RNSVGRect
-            clipPath="g627b4e-animated-diff"
-            fill={
-              [
-                1,
-                "g627b4e-diff",
-              ]
-            }
-            height="100%"
-            propList={
-              [
-                "fill",
-              ]
-            }
-            width="100%"
-            x="0"
-            y="0"
-          />
-          <RNSVGDefs>
-            <RNSVGClipPath
-              name="g627b4e-animated-diff"
-            >
-              <RNSVGRect
-                height="16"
-                rx="6"
-                ry="6"
-                width="90"
-                x="0"
-                y="14"
-              />
-              <RNSVGCircle
-                cx="140"
-                cy="20"
-                r="20"
-              />
-              <RNSVGRect
-                height="16"
-                rx="6"
-                ry="6"
-                width="80"
-                x="0"
-                y="60"
-              />
-              <RNSVGRect
-                height="12"
-                rx="6"
-                ry="6"
-                width="100"
-                x="0"
-                y="85"
-              />
-              <RNSVGRect
-                height="30"
-                rx="6"
-                ry="6"
-                width="90%"
-                x="0"
-                y="110"
-              />
-            </RNSVGClipPath>
-            <RNSVGLinearGradient
-              gradient={
-                [
-                  0,
-                  -1250325,
-                  0.5,
-                  -1,
-                  1,
-                  -1250325,
-                ]
-              }
-              gradientTransform={null}
-              gradientUnits={0}
-              name="g627b4e-diff"
+              name="ncj9v22j-diff"
               x1="-100%"
               x2="0%"
               y1={0}
@@ -1236,11 +656,11 @@ exports[`loan cards should match snapshot 1`] = `
       >
         <RNSVGGroup>
           <RNSVGRect
-            clipPath="teff8rf-animated-diff"
+            clipPath="0m6h4q-animated-diff"
             fill={
               [
                 1,
-                "teff8rf-diff",
+                "0m6h4q-diff",
               ]
             }
             height="100%"
@@ -1255,7 +675,7 @@ exports[`loan cards should match snapshot 1`] = `
           />
           <RNSVGDefs>
             <RNSVGClipPath
-              name="teff8rf-animated-diff"
+              name="0m6h4q-animated-diff"
             >
               <RNSVGRect
                 height="16"
@@ -1308,7 +728,7 @@ exports[`loan cards should match snapshot 1`] = `
               }
               gradientTransform={null}
               gradientUnits={0}
-              name="teff8rf-diff"
+              name="0m6h4q-diff"
               x1="-100%"
               x2="0%"
               y1={0}
@@ -1375,11 +795,11 @@ exports[`loan cards should match snapshot 1`] = `
       >
         <RNSVGGroup>
           <RNSVGRect
-            clipPath="jtpal0r-animated-diff"
+            clipPath="q5vivtjb-animated-diff"
             fill={
               [
                 1,
-                "jtpal0r-diff",
+                "q5vivtjb-diff",
               ]
             }
             height="100%"
@@ -1394,7 +814,7 @@ exports[`loan cards should match snapshot 1`] = `
           />
           <RNSVGDefs>
             <RNSVGClipPath
-              name="jtpal0r-animated-diff"
+              name="q5vivtjb-animated-diff"
             >
               <RNSVGRect
                 height="16"
@@ -1447,7 +867,7 @@ exports[`loan cards should match snapshot 1`] = `
               }
               gradientTransform={null}
               gradientUnits={0}
-              name="jtpal0r-diff"
+              name="q5vivtjb-diff"
               x1="-100%"
               x2="0%"
               y1={0}
@@ -1526,11 +946,11 @@ exports[`loan cards should match snapshot 1`] = `
       >
         <RNSVGGroup>
           <RNSVGRect
-            clipPath="kqg6hc4-animated-diff"
+            clipPath="t5v7uhc-animated-diff"
             fill={
               [
                 1,
-                "kqg6hc4-diff",
+                "t5v7uhc-diff",
               ]
             }
             height="100%"
@@ -1545,7 +965,7 @@ exports[`loan cards should match snapshot 1`] = `
           />
           <RNSVGDefs>
             <RNSVGClipPath
-              name="kqg6hc4-animated-diff"
+              name="t5v7uhc-animated-diff"
             >
               <RNSVGRect
                 height="16"
@@ -1598,7 +1018,7 @@ exports[`loan cards should match snapshot 1`] = `
               }
               gradientTransform={null}
               gradientUnits={0}
-              name="kqg6hc4-diff"
+              name="t5v7uhc-diff"
               x1="-100%"
               x2="0%"
               y1={0}
@@ -1665,11 +1085,11 @@ exports[`loan cards should match snapshot 1`] = `
       >
         <RNSVGGroup>
           <RNSVGRect
-            clipPath="xa0woh-animated-diff"
+            clipPath="nglg7s5-animated-diff"
             fill={
               [
                 1,
-                "xa0woh-diff",
+                "nglg7s5-diff",
               ]
             }
             height="100%"
@@ -1684,7 +1104,7 @@ exports[`loan cards should match snapshot 1`] = `
           />
           <RNSVGDefs>
             <RNSVGClipPath
-              name="xa0woh-animated-diff"
+              name="nglg7s5-animated-diff"
             >
               <RNSVGRect
                 height="16"
@@ -1737,7 +1157,587 @@ exports[`loan cards should match snapshot 1`] = `
               }
               gradientTransform={null}
               gradientUnits={0}
-              name="xa0woh-diff"
+              name="nglg7s5-diff"
+              x1="-100%"
+              x2="0%"
+              y1={0}
+              y2={0}
+            />
+          </RNSVGDefs>
+        </RNSVGGroup>
+      </RNSVGSvgView>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "justifyContent": "space-around",
+        "marginLeft": 8,
+        "marginRight": 8,
+      }
+    }
+    testID="loan_skeleton_loader"
+  >
+    <View
+      style={
+        [
+          [
+            {
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "marginBottom": 16,
+              "marginLeft": 8,
+              "marginRight": 8,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {
+              "flexBasis": "47%",
+            },
+          ],
+          {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
+      }
+    >
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={138}
+        bbWidth="100%"
+        focusable={false}
+        height={138}
+        interval={0.25}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {},
+            {
+              "flex": 0,
+              "height": 138,
+              "width": "100%",
+            },
+          ]
+        }
+        vbHeight={144}
+        vbWidth={163}
+        width="100%"
+      >
+        <RNSVGGroup>
+          <RNSVGRect
+            clipPath="8sffxzu-animated-diff"
+            fill={
+              [
+                1,
+                "8sffxzu-diff",
+              ]
+            }
+            height="100%"
+            propList={
+              [
+                "fill",
+              ]
+            }
+            width="100%"
+            x="0"
+            y="0"
+          />
+          <RNSVGDefs>
+            <RNSVGClipPath
+              name="8sffxzu-animated-diff"
+            >
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="90"
+                x="0"
+                y="14"
+              />
+              <RNSVGCircle
+                cx="140"
+                cy="20"
+                r="20"
+              />
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="80"
+                x="0"
+                y="60"
+              />
+              <RNSVGRect
+                height="12"
+                rx="6"
+                ry="6"
+                width="100"
+                x="0"
+                y="85"
+              />
+              <RNSVGRect
+                height="30"
+                rx="6"
+                ry="6"
+                width="90%"
+                x="0"
+                y="110"
+              />
+            </RNSVGClipPath>
+            <RNSVGLinearGradient
+              gradient={
+                [
+                  0,
+                  -1250325,
+                  0.5,
+                  -1,
+                  1,
+                  -1250325,
+                ]
+              }
+              gradientTransform={null}
+              gradientUnits={0}
+              name="8sffxzu-diff"
+              x1="-100%"
+              x2="0%"
+              y1={0}
+              y2={0}
+            />
+          </RNSVGDefs>
+        </RNSVGGroup>
+      </RNSVGSvgView>
+    </View>
+    <View
+      style={
+        [
+          [
+            {
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "marginBottom": 16,
+              "marginLeft": 8,
+              "marginRight": 8,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {
+              "flexBasis": "47%",
+            },
+          ],
+          {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
+      }
+    >
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={138}
+        bbWidth="100%"
+        focusable={false}
+        height={138}
+        interval={0.25}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {},
+            {
+              "flex": 0,
+              "height": 138,
+              "width": "100%",
+            },
+          ]
+        }
+        vbHeight={144}
+        vbWidth={163}
+        width="100%"
+      >
+        <RNSVGGroup>
+          <RNSVGRect
+            clipPath="jjgftwh-animated-diff"
+            fill={
+              [
+                1,
+                "jjgftwh-diff",
+              ]
+            }
+            height="100%"
+            propList={
+              [
+                "fill",
+              ]
+            }
+            width="100%"
+            x="0"
+            y="0"
+          />
+          <RNSVGDefs>
+            <RNSVGClipPath
+              name="jjgftwh-animated-diff"
+            >
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="90"
+                x="0"
+                y="14"
+              />
+              <RNSVGCircle
+                cx="140"
+                cy="20"
+                r="20"
+              />
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="80"
+                x="0"
+                y="60"
+              />
+              <RNSVGRect
+                height="12"
+                rx="6"
+                ry="6"
+                width="100"
+                x="0"
+                y="85"
+              />
+              <RNSVGRect
+                height="30"
+                rx="6"
+                ry="6"
+                width="90%"
+                x="0"
+                y="110"
+              />
+            </RNSVGClipPath>
+            <RNSVGLinearGradient
+              gradient={
+                [
+                  0,
+                  -1250325,
+                  0.5,
+                  -1,
+                  1,
+                  -1250325,
+                ]
+              }
+              gradientTransform={null}
+              gradientUnits={0}
+              name="jjgftwh-diff"
+              x1="-100%"
+              x2="0%"
+              y1={0}
+              y2={0}
+            />
+          </RNSVGDefs>
+        </RNSVGGroup>
+      </RNSVGSvgView>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "justifyContent": "space-around",
+        "marginLeft": 8,
+        "marginRight": 8,
+      }
+    }
+    testID="loan_skeleton_loader"
+  >
+    <View
+      style={
+        [
+          [
+            {
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "marginBottom": 16,
+              "marginLeft": 8,
+              "marginRight": 8,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {
+              "flexBasis": "47%",
+            },
+          ],
+          {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
+      }
+    >
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={138}
+        bbWidth="100%"
+        focusable={false}
+        height={138}
+        interval={0.25}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {},
+            {
+              "flex": 0,
+              "height": 138,
+              "width": "100%",
+            },
+          ]
+        }
+        vbHeight={144}
+        vbWidth={163}
+        width="100%"
+      >
+        <RNSVGGroup>
+          <RNSVGRect
+            clipPath="wtkwa5-animated-diff"
+            fill={
+              [
+                1,
+                "wtkwa5-diff",
+              ]
+            }
+            height="100%"
+            propList={
+              [
+                "fill",
+              ]
+            }
+            width="100%"
+            x="0"
+            y="0"
+          />
+          <RNSVGDefs>
+            <RNSVGClipPath
+              name="wtkwa5-animated-diff"
+            >
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="90"
+                x="0"
+                y="14"
+              />
+              <RNSVGCircle
+                cx="140"
+                cy="20"
+                r="20"
+              />
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="80"
+                x="0"
+                y="60"
+              />
+              <RNSVGRect
+                height="12"
+                rx="6"
+                ry="6"
+                width="100"
+                x="0"
+                y="85"
+              />
+              <RNSVGRect
+                height="30"
+                rx="6"
+                ry="6"
+                width="90%"
+                x="0"
+                y="110"
+              />
+            </RNSVGClipPath>
+            <RNSVGLinearGradient
+              gradient={
+                [
+                  0,
+                  -1250325,
+                  0.5,
+                  -1,
+                  1,
+                  -1250325,
+                ]
+              }
+              gradientTransform={null}
+              gradientUnits={0}
+              name="wtkwa5-diff"
+              x1="-100%"
+              x2="0%"
+              y1={0}
+              y2={0}
+            />
+          </RNSVGDefs>
+        </RNSVGGroup>
+      </RNSVGSvgView>
+    </View>
+    <View
+      style={
+        [
+          [
+            {
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "marginBottom": 16,
+              "marginLeft": 8,
+              "marginRight": 8,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {
+              "flexBasis": "47%",
+            },
+          ],
+          {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
+      }
+    >
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={138}
+        bbWidth="100%"
+        focusable={false}
+        height={138}
+        interval={0.25}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {},
+            {
+              "flex": 0,
+              "height": 138,
+              "width": "100%",
+            },
+          ]
+        }
+        vbHeight={144}
+        vbWidth={163}
+        width="100%"
+      >
+        <RNSVGGroup>
+          <RNSVGRect
+            clipPath="0nejn1f-animated-diff"
+            fill={
+              [
+                1,
+                "0nejn1f-diff",
+              ]
+            }
+            height="100%"
+            propList={
+              [
+                "fill",
+              ]
+            }
+            width="100%"
+            x="0"
+            y="0"
+          />
+          <RNSVGDefs>
+            <RNSVGClipPath
+              name="0nejn1f-animated-diff"
+            >
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="90"
+                x="0"
+                y="14"
+              />
+              <RNSVGCircle
+                cx="140"
+                cy="20"
+                r="20"
+              />
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="80"
+                x="0"
+                y="60"
+              />
+              <RNSVGRect
+                height="12"
+                rx="6"
+                ry="6"
+                width="100"
+                x="0"
+                y="85"
+              />
+              <RNSVGRect
+                height="30"
+                rx="6"
+                ry="6"
+                width="90%"
+                x="0"
+                y="110"
+              />
+            </RNSVGClipPath>
+            <RNSVGLinearGradient
+              gradient={
+                [
+                  0,
+                  -1250325,
+                  0.5,
+                  -1,
+                  1,
+                  -1250325,
+                ]
+              }
+              gradientTransform={null}
+              gradientUnits={0}
+              name="0nejn1f-diff"
               x1="-100%"
               x2="0%"
               y1={0}
