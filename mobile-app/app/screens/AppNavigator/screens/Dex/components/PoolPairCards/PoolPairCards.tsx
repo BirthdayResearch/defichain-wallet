@@ -151,7 +151,9 @@ export function PoolPairCards({
       ref={ref}
       data={type === "your" ? filteredYourPairs : sortedPairs}
       numColumns={1}
-      estimatedItemSize={10}
+      estimatedItemSize={
+        type === "your" ? filteredYourPairs.length : sortedPairs.length
+      }
       keyExtractor={(item) => item.data.id}
       testID={
         type === "your" ? "your_liquidity_tab" : "available_liquidity_tab"
