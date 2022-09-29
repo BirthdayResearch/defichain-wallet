@@ -15,15 +15,6 @@
       "resizeMode": "cover",
       "backgroundColor": "#000000"
     },
-    "updates": {
-      "url": "https://u.expo.dev/67e053dd-c413-4d52-84cd-dc1bb9de3e5b",
-      "fallbackToCacheTimeout": 0
-    },
-    "extra": {
-      "eas": {
-        "projectId": "67e053dd-c413-4d52-84cd-dc1bb9de3e5b"
-      }
-    },
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
