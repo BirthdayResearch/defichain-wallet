@@ -29,3 +29,5 @@ jobs:
 
       - run: npm ci
       - run: eas update --auto
+        env:
+          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
