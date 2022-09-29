@@ -1,4 +1,4 @@
-name: Expo
+name: Expo PR Preview
 
 on:
   pull_request:
@@ -23,13 +23,17 @@ jobs:
 
       - uses: expo/expo-github-action@f98a64c8874c4a163514273f34306f403e962350 # tag=v7.2.0
         with:
-          expo-version: 4.x
+          expo-version: latest
+          eas-version: latest
           expo-cache: true
+          eas-cache: true
           packager: npm
           token: ${{ secrets.EXPO_TOKEN }}
 
       - run: npm ci
-      - run: expo publish --release-channel=pr-preview-${{ github.event.number }}
+      - run: eas update --branch pr-${{ github.event.number }} --json --non-interactive --message 'Update with commit ${{ github.sha }}'
+        env:
+          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
 
       - uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443 # tag=v2.2.0
         with:

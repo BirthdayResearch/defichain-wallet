@@ -100,7 +100,7 @@ jobs:
 
       - run: sleep 10s
 
-        # TODO(fuxingloh): replace this in the future
+      # TODO(fuxingloh): replace this in the future
       - name: EAS Submit - iOS - Setup
         run: |
           sed -i "s/EAS_APPLE_ID/$APPLE_ID/" eas.json
