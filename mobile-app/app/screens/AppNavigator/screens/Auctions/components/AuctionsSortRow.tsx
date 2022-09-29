@@ -13,8 +13,8 @@ import { ThemedBottomSheetFlatList } from "@components/themed/ThemedBottomSheetF
 export enum AuctionsSortType {
   LeastTimeLeft = "Least time left",
   MostTimeLeft = "Most time left",
-  HighestValue = "Highest value",
-  LowestValue = "Lowest value",
+  // HighestValue = "Highest value",
+  // LowestValue = "Lowest value",
 }
 
 export function AuctionsSortRow(props: {

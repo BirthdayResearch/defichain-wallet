@@ -24,7 +24,6 @@ import {
   BottomSheetAssetSortList,
 } from "./AuctionsSortRow";
 import { EmptyAuction } from "./EmptyAuction";
-import { useTokenPrice } from "../../Portfolio/hooks/TokenPrice";
 
 interface Props {
   batches: AuctionBatchProps[];
@@ -50,10 +49,6 @@ export interface onQuickBidProps {
   totalCollateralsValueInUSD: BigNumber;
 }
 
-interface DetailedAuctionBatch extends AuctionBatchProps {
-  totalCollateralsValueInUSD: BigNumber;
-}
-
 export function BrowseAuctions({
   batches,
   filteredAuctionBatches,
@@ -62,23 +57,6 @@ export function BrowseAuctions({
   yourVaultIds,
   activeButtonGroup,
 }: Props): JSX.Element {
-  const { getTokenPrice } = useTokenPrice();
-
-  const detailedAuctionBatch = filteredAuctionBatches.map((batch) => {
-    const totalCollateralsValueInUSD = batch?.collaterals?.reduce(
-      (total, eachItem) => {
-        return total.plus(
-          getTokenPrice(eachItem.symbol, new BigNumber(eachItem.amount))
-        );
-      },
-      new BigNumber(0)
-    );
-    return {
-      ...batch,
-      totalCollateralsValueInUSD,
-    };
-  });
-
   // Asset sort bottom sheet list
   const [assetSortType, setAssetSortType] = useState<AuctionsSortType>(
     AuctionsSortType.LeastTimeLeft
@@ -127,24 +105,25 @@ export function BrowseAuctions({
   };
 
   const sortTokensAssetOnType = useCallback(
-    (assetSortType: AuctionsSortType): DetailedAuctionBatch[] => {
+    (assetSortType: AuctionsSortType): AuctionBatchProps[] => {
       let sortTokensFunc: (
-        a: DetailedAuctionBatch,
-        b: DetailedAuctionBatch
+        a: AuctionBatchProps,
+        b: AuctionBatchProps
       ) => number;
       switch (assetSortType) {
-        case AuctionsSortType.HighestValue:
-          sortTokensFunc = (a, b) =>
-            new BigNumber(b.totalCollateralsValueInUSD)
-              .minus(a.totalCollateralsValueInUSD)
-              .toNumber();
-          break;
-        case AuctionsSortType.LowestValue:
-          sortTokensFunc = (a, b) =>
-            new BigNumber(a.totalCollateralsValueInUSD)
-              .minus(b.totalCollateralsValueInUSD)
-              .toNumber();
-          break;
+        // TODO enable filter after implementing total usd collateral value calculation on api side
+        // case AuctionsSortType.HighestValue:
+        //   sortTokensFunc = (a, b) =>
+        //     new BigNumber(b.totalCollateralsValueInUSD)
+        //       .minus(a.totalCollateralsValueInUSD)
+        //       .toNumber();
+        //   break;
+        // case AuctionsSortType.LowestValue:
+        //   sortTokensFunc = (a, b) =>
+        //     new BigNumber(a.totalCollateralsValueInUSD)
+        //       .minus(b.totalCollateralsValueInUSD)
+        //       .toNumber();
+        //   break;
         case AuctionsSortType.MostTimeLeft:
           sortTokensFunc = (a, b) =>
             new BigNumber(b.auction.liquidationHeight)
@@ -158,9 +137,9 @@ export function BrowseAuctions({
               .minus(b.auction.liquidationHeight)
               .toNumber();
       }
-      return detailedAuctionBatch.sort(sortTokensFunc);
+      return filteredAuctionBatches.sort(sortTokensFunc);
     },
-    [detailedAuctionBatch, assetSortType]
+    [filteredAuctionBatches, assetSortType]
   );
 
   const onQuickBid = (props: onQuickBidProps): void => {
@@ -270,7 +249,7 @@ function BatchCards({
   onQuickBid,
   activeButtonGroup,
 }: {
-  auctionBatches: DetailedAuctionBatch[];
+  auctionBatches: AuctionBatchProps[];
   yourVaultIds: string[];
   showSearchInput: boolean;
   onQuickBid: (props: onQuickBidProps) => void;
@@ -284,7 +263,7 @@ function BatchCards({
       item,
       index,
     }: {
-      item: DetailedAuctionBatch;
+      item: AuctionBatchProps;
       index: number;
     }): JSX.Element => {
       const { auction, collateralTokenSymbols, ...batch } = item;
