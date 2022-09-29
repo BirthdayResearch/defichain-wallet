@@ -12,12 +12,12 @@ import { LoanCardsV2 } from "./LoanCardsV2";
 
 jest.mock("@shared-contexts/ThemeProvider");
 jest.mock("@contexts/FeatureFlagContext");
-jest.mock("react-content-loader/native");
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
   useScrollToTop: jest.fn(),
 }));
 jest.mock("react-native-popover-view");
+jest.spyOn(global.Math, "random").mockImplementation(() => 0);
 
 describe("loan cards", () => {
   it("should match snapshot", async () => {
