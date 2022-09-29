@@ -56,10 +56,14 @@ export function LoansScreenV2(): JSX.Element {
           },
         ],
         tabBarActiveTintColor: getColor("brand-v2-500"),
+        tabBarIndicatorStyle: {
+          borderBottomWidth: 2,
+          borderColor: getColor("brand-v2-500"),
+        },
         tabBarInactiveTintColor: getColor(
           isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
         ),
-        tabBarStyle: tailwind("border-0", {
+        tabBarStyle: tailwind({
           "bg-mono-light-v2-00": isLight,
           "bg-mono-dark-v2-00": !isLight,
         }),
@@ -70,7 +74,12 @@ export function LoansScreenV2(): JSX.Element {
         component={LoanCardsV2}
         options={{
           tabBarLabel: (props) => (
-            <Text style={{ color: props.color }}>
+            <Text
+              style={[
+                tailwind("font-semibold-v2 text-sm text-center"),
+                { color: props.color },
+              ]}
+            >
               {translate("components/tabs", "Borrow")}
             </Text>
           ),
@@ -82,7 +91,12 @@ export function LoansScreenV2(): JSX.Element {
         component={VaultsV2}
         options={{
           tabBarLabel: (props) => (
-            <Text style={{ color: props.color }}>
+            <Text
+              style={[
+                tailwind("font-semibold-v2 text-sm text-center"),
+                { color: props.color },
+              ]}
+            >
               {translate("components/tabs", "Your vaults")}
             </Text>
           ),
