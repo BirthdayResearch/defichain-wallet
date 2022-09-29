@@ -17,7 +17,12 @@ jest.mock("@react-navigation/native", () => ({
   useScrollToTop: jest.fn(),
 }));
 jest.mock("react-native-popover-view");
-jest.spyOn(global.Math, "random").mockImplementation(() => 0);
+
+beforeAll(() => {
+  const mockMath = Object.create(global.Math);
+  mockMath.random = () => 0;
+  global.Math = mockMath;
+});
 
 describe("loan cards", () => {
   it("should match snapshot", async () => {
