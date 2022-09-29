@@ -35,9 +35,9 @@ export const ThemedFlashList = forwardRef(
         ]}
       >
         <FlashList
+          ref={ref}
           estimatedItemSize={estimatedItemSize}
           contentContainerStyle={styles}
-          ref={ref}
           {...otherProps}
         />
       </ScrollView>

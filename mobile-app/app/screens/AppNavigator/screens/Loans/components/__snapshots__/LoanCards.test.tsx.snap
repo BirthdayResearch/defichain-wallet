@@ -1,459 +1,1752 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`loan cards should match snapshot 1`] = `
-<RCTScrollView
-  contentContainerStyle={
-    [
-      {
-        "flexGrow": 1,
-      },
-      undefined,
-      {
-        "backgroundColor": "rgba(242, 242, 242, 1)",
-      },
-    ]
+<View
+  style={
+    {
+      "marginTop": 4,
+    }
   }
 >
-  <View>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "justifyContent": "space-around",
+        "marginLeft": 8,
+        "marginRight": 8,
+      }
+    }
+    testID="loan_skeleton_loader"
+  >
     <View
       style={
-        {
-          "flex": 1,
-        }
-      }
-    >
-      <RCTScrollView
-        applyWindowCorrection={[Function]}
-        canChangeSize={true}
-        contentContainerStyle={
-          {
-            "backgroundColor": undefined,
-            "minHeight": 1,
-            "minWidth": 1,
-          }
-        }
-        contentHeight={0}
-        contentWidth={0}
-        data={
+        [
           [
             {
-              "fixedIntervalPriceId": "TS25/USD",
-              "interest": "2",
-              "token": {
-                "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-                "creation": {
-                  "height": 151,
-                  "tx": "3a7e97db4b913fd249da2a59f2edd84f34e111fe1c775a01addfb3b96c147d40",
-                },
-                "decimal": 8,
-                "destruction": {
-                  "height": -1,
-                  "tx": "0000000000000000000000000000000000000000000000000000000000000000",
-                },
-                "displaySymbol": "dTS25",
-                "finalized": false,
-                "id": "17",
-                "isDAT": true,
-                "isLPS": false,
-                "isLoanToken": true,
-                "limit": "0",
-                "mintable": true,
-                "minted": "0",
-                "name": "",
-                "symbol": "TS25",
-                "symbolKey": "TS25",
-                "tradeable": true,
-              },
-              "tokenId": "3a7e97db4b913fd249da2a59f2edd84f34e111fe1c775a01addfb3b96c147d40",
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "marginBottom": 16,
+              "marginLeft": 8,
+              "marginRight": 8,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
             },
             {
-              "fixedIntervalPriceId": "TR50/USD",
-              "interest": "3",
-              "token": {
-                "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-                "creation": {
-                  "height": 152,
-                  "tx": "57135919430b915f6f462142161e94474aae824791fa3644541102d7a7959a63",
-                },
-                "decimal": 8,
-                "destruction": {
-                  "height": -1,
-                  "tx": "0000000000000000000000000000000000000000000000000000000000000000",
-                },
-                "displaySymbol": "dTR50",
-                "finalized": false,
-                "id": "18",
-                "isDAT": true,
-                "isLPS": false,
-                "isLoanToken": true,
-                "limit": "0",
-                "mintable": true,
-                "minted": "0",
-                "name": "",
-                "symbol": "TR50",
-                "symbolKey": "TR50",
-                "tradeable": true,
-              },
-              "tokenId": "57135919430b915f6f462142161e94474aae824791fa3644541102d7a7959a63",
+              "flexBasis": "47%",
             },
+          ],
+          {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
+      }
+    >
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={138}
+        bbWidth="100%"
+        focusable={false}
+        height={138}
+        interval={0.25}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        style={
+          [
             {
-              "fixedIntervalPriceId": "TU10/USD",
-              "interest": "1",
-              "token": {
-                "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-                "creation": {
-                  "height": 149,
-                  "tx": "943c2f38cf418ff116c402f4f6ec400039223e5aa4fb41f2c4a6e69ac53a4c45",
-                },
-                "decimal": 8,
-                "destruction": {
-                  "height": -1,
-                  "tx": "0000000000000000000000000000000000000000000000000000000000000000",
-                },
-                "displaySymbol": "dTU10",
-                "finalized": false,
-                "id": "15",
-                "isDAT": true,
-                "isLPS": false,
-                "isLoanToken": true,
-                "limit": "0",
-                "mintable": true,
-                "minted": "0",
-                "name": "",
-                "symbol": "TU10",
-                "symbolKey": "TU10",
-                "tradeable": true,
-              },
-              "tokenId": "943c2f38cf418ff116c402f4f6ec400039223e5aa4fb41f2c4a6e69ac53a4c45",
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {},
+            {
+              "flex": 0,
+              "height": 138,
+              "width": "100%",
             },
           ]
         }
-        dataProvider={
-          DataProvider {
-            "_data": [
-              {
-                "fixedIntervalPriceId": "TS25/USD",
-                "interest": "2",
-                "token": {
-                  "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-                  "creation": {
-                    "height": 151,
-                    "tx": "3a7e97db4b913fd249da2a59f2edd84f34e111fe1c775a01addfb3b96c147d40",
-                  },
-                  "decimal": 8,
-                  "destruction": {
-                    "height": -1,
-                    "tx": "0000000000000000000000000000000000000000000000000000000000000000",
-                  },
-                  "displaySymbol": "dTS25",
-                  "finalized": false,
-                  "id": "17",
-                  "isDAT": true,
-                  "isLPS": false,
-                  "isLoanToken": true,
-                  "limit": "0",
-                  "mintable": true,
-                  "minted": "0",
-                  "name": "",
-                  "symbol": "TS25",
-                  "symbolKey": "TS25",
-                  "tradeable": true,
-                },
-                "tokenId": "3a7e97db4b913fd249da2a59f2edd84f34e111fe1c775a01addfb3b96c147d40",
-              },
-              {
-                "fixedIntervalPriceId": "TR50/USD",
-                "interest": "3",
-                "token": {
-                  "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-                  "creation": {
-                    "height": 152,
-                    "tx": "57135919430b915f6f462142161e94474aae824791fa3644541102d7a7959a63",
-                  },
-                  "decimal": 8,
-                  "destruction": {
-                    "height": -1,
-                    "tx": "0000000000000000000000000000000000000000000000000000000000000000",
-                  },
-                  "displaySymbol": "dTR50",
-                  "finalized": false,
-                  "id": "18",
-                  "isDAT": true,
-                  "isLPS": false,
-                  "isLoanToken": true,
-                  "limit": "0",
-                  "mintable": true,
-                  "minted": "0",
-                  "name": "",
-                  "symbol": "TR50",
-                  "symbolKey": "TR50",
-                  "tradeable": true,
-                },
-                "tokenId": "57135919430b915f6f462142161e94474aae824791fa3644541102d7a7959a63",
-              },
-              {
-                "fixedIntervalPriceId": "TU10/USD",
-                "interest": "1",
-                "token": {
-                  "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-                  "creation": {
-                    "height": 149,
-                    "tx": "943c2f38cf418ff116c402f4f6ec400039223e5aa4fb41f2c4a6e69ac53a4c45",
-                  },
-                  "decimal": 8,
-                  "destruction": {
-                    "height": -1,
-                    "tx": "0000000000000000000000000000000000000000000000000000000000000000",
-                  },
-                  "displaySymbol": "dTU10",
-                  "finalized": false,
-                  "id": "15",
-                  "isDAT": true,
-                  "isLPS": false,
-                  "isLoanToken": true,
-                  "limit": "0",
-                  "mintable": true,
-                  "minted": "0",
-                  "name": "",
-                  "symbol": "TU10",
-                  "symbolKey": "TU10",
-                  "tradeable": true,
-                },
-                "tokenId": "943c2f38cf418ff116c402f4f6ec400039223e5aa4fb41f2c4a6e69ac53a4c45",
-              },
-            ],
-            "_firstIndexToProcess": 0,
-            "_hasStableIds": true,
-            "_requiresDataChangeHandling": false,
-            "_size": 3,
-            "getStableId": [Function],
-            "rowHasChanged": [Function],
-          }
-        }
-        disableRecycling={false}
-        estimatedItemSize={5}
-        extendedState={{}}
-        externalScrollView={[Function]}
-        finalRenderAheadOffset={250}
-        forceNonDeterministicRendering={true}
-        horizontal={false}
-        initialOffset={0}
-        initialRenderIndex={0}
-        isHorizontal={false}
-        keyExtractor={[Function]}
-        layoutProvider={
-          GridLayoutProviderWithProps {
-            "_acceptableRelayoutDelta": 1,
-            "_getHeightOrWidth": [Function],
-            "_getLayoutTypeForIndex": [Function],
-            "_getSpan": [Function],
-            "_maxSpan": 2,
-            "_setLayoutForType": [Function],
-            "_tempDim": {
-              "height": 0,
-              "width": 0,
-            },
-            "averageWindow": AverageWindow {
-              "currentAverage": 5,
-              "currentCount": 1,
-              "inputValues": [
-                5,
-              ],
-              "nextIndex": 1,
-            },
-            "defaultEstimatedItemSize": 100,
-            "layoutObject": {
-              "size": undefined,
-              "span": undefined,
-            },
-            "props": {
-              "contentContainerStyle": {
-                "paddingBottom": 8,
-                "paddingTop": 16,
-              },
-              "data": [
-                {
-                  "fixedIntervalPriceId": "TS25/USD",
-                  "interest": "2",
-                  "token": {
-                    "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-                    "creation": {
-                      "height": 151,
-                      "tx": "3a7e97db4b913fd249da2a59f2edd84f34e111fe1c775a01addfb3b96c147d40",
-                    },
-                    "decimal": 8,
-                    "destruction": {
-                      "height": -1,
-                      "tx": "0000000000000000000000000000000000000000000000000000000000000000",
-                    },
-                    "displaySymbol": "dTS25",
-                    "finalized": false,
-                    "id": "17",
-                    "isDAT": true,
-                    "isLPS": false,
-                    "isLoanToken": true,
-                    "limit": "0",
-                    "mintable": true,
-                    "minted": "0",
-                    "name": "",
-                    "symbol": "TS25",
-                    "symbolKey": "TS25",
-                    "tradeable": true,
-                  },
-                  "tokenId": "3a7e97db4b913fd249da2a59f2edd84f34e111fe1c775a01addfb3b96c147d40",
-                },
-                {
-                  "fixedIntervalPriceId": "TR50/USD",
-                  "interest": "3",
-                  "token": {
-                    "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-                    "creation": {
-                      "height": 152,
-                      "tx": "57135919430b915f6f462142161e94474aae824791fa3644541102d7a7959a63",
-                    },
-                    "decimal": 8,
-                    "destruction": {
-                      "height": -1,
-                      "tx": "0000000000000000000000000000000000000000000000000000000000000000",
-                    },
-                    "displaySymbol": "dTR50",
-                    "finalized": false,
-                    "id": "18",
-                    "isDAT": true,
-                    "isLPS": false,
-                    "isLoanToken": true,
-                    "limit": "0",
-                    "mintable": true,
-                    "minted": "0",
-                    "name": "",
-                    "symbol": "TR50",
-                    "symbolKey": "TR50",
-                    "tradeable": true,
-                  },
-                  "tokenId": "57135919430b915f6f462142161e94474aae824791fa3644541102d7a7959a63",
-                },
-                {
-                  "fixedIntervalPriceId": "TU10/USD",
-                  "interest": "1",
-                  "token": {
-                    "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
-                    "creation": {
-                      "height": 149,
-                      "tx": "943c2f38cf418ff116c402f4f6ec400039223e5aa4fb41f2c4a6e69ac53a4c45",
-                    },
-                    "decimal": 8,
-                    "destruction": {
-                      "height": -1,
-                      "tx": "0000000000000000000000000000000000000000000000000000000000000000",
-                    },
-                    "displaySymbol": "dTU10",
-                    "finalized": false,
-                    "id": "15",
-                    "isDAT": true,
-                    "isLPS": false,
-                    "isLoanToken": true,
-                    "limit": "0",
-                    "mintable": true,
-                    "minted": "0",
-                    "name": "",
-                    "symbol": "TU10",
-                    "symbolKey": "TU10",
-                    "tradeable": true,
-                  },
-                  "tokenId": "943c2f38cf418ff116c402f4f6ec400039223e5aa4fb41f2c4a6e69ac53a4c45",
-                },
-              ],
-              "estimatedItemSize": 5,
-              "keyExtractor": [Function],
-              "numColumns": 2,
-              "renderItem": [Function],
-              "testID": undefined,
-            },
-            "shouldRefreshWithAnchoring": true,
-          }
-        }
-        maxRenderAhead={750}
-        numColumns={2}
-        onEndReached={[Function]}
-        onEndReachedThreshold={0}
-        onEndReachedThresholdRelative={0}
-        onItemLayout={[Function]}
-        onLayout={[Function]}
-        onScroll={[Function]}
-        onScrollBeginDrag={[Function]}
-        onSizeChanged={[Function]}
-        onVisibleIndicesChanged={[Function]}
-        removeClippedSubviews={false}
-        renderAheadOffset={0}
-        renderAheadStep={250}
-        renderContentContainer={[Function]}
-        renderItem={[Function]}
-        renderItemContainer={[Function]}
-        rowRenderer={[Function]}
-        scrollEventThrottle={16}
-        scrollThrottle={16}
-        scrollViewProps={
-          {
-            "contentContainerStyle": {
-              "backgroundColor": undefined,
-              "minHeight": 1,
-              "minWidth": 1,
-            },
-            "onLayout": [Function],
-            "onScrollBeginDrag": [Function],
-            "refreshControl": undefined,
-            "style": {
-              "minHeight": 1,
-              "minWidth": 1,
-            },
-          }
-        }
-        style={
-          {
-            "minHeight": 1,
-            "minWidth": 1,
-          }
-        }
-        suppressBoundedSizeException={true}
-        windowCorrectionConfig={
-          {
-            "applyToInitialOffset": true,
-            "applyToItemScroll": true,
-            "value": {
-              "endCorrection": 0,
-              "startCorrection": 0,
-              "windowShift": -0,
-            },
-          }
-        }
+        vbHeight={144}
+        vbWidth={163}
+        width="100%"
       >
-        <View>
-          <View
-            style={
-              {
-                "flexDirection": "column",
-              }
+        <RNSVGGroup>
+          <RNSVGRect
+            clipPath="8thpi1d-animated-diff"
+            fill={
+              [
+                1,
+                "8thpi1d-diff",
+              ]
             }
-          >
-            <AutoLayoutView
-              enableInstrumentation={false}
-              horizontal={false}
-              onBlankAreaEvent={[Function]}
-              onLayout={[Function]}
-              renderAheadOffset={0}
-              scrollOffset={0}
-              style={
-                {
-                  "height": 0,
-                  "width": 0,
-                }
+            height="100%"
+            propList={
+              [
+                "fill",
+              ]
+            }
+            width="100%"
+            x="0"
+            y="0"
+          />
+          <RNSVGDefs>
+            <RNSVGClipPath
+              name="8thpi1d-animated-diff"
+            >
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="90"
+                x="0"
+                y="14"
+              />
+              <RNSVGCircle
+                cx="140"
+                cy="20"
+                r="20"
+              />
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="80"
+                x="0"
+                y="60"
+              />
+              <RNSVGRect
+                height="12"
+                rx="6"
+                ry="6"
+                width="100"
+                x="0"
+                y="85"
+              />
+              <RNSVGRect
+                height="30"
+                rx="6"
+                ry="6"
+                width="90%"
+                x="0"
+                y="110"
+              />
+            </RNSVGClipPath>
+            <RNSVGLinearGradient
+              gradient={
+                [
+                  0,
+                  -1250325,
+                  0.5,
+                  -1,
+                  1,
+                  -1250325,
+                ]
               }
-              windowSize={0}
+              gradientTransform={null}
+              gradientUnits={0}
+              name="8thpi1d-diff"
+              x1="-100%"
+              x2="0%"
+              y1={0}
+              y2={0}
             />
-          </View>
-        </View>
-      </RCTScrollView>
+          </RNSVGDefs>
+        </RNSVGGroup>
+      </RNSVGSvgView>
+    </View>
+    <View
+      style={
+        [
+          [
+            {
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "marginBottom": 16,
+              "marginLeft": 8,
+              "marginRight": 8,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {
+              "flexBasis": "47%",
+            },
+          ],
+          {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
+      }
+    >
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={138}
+        bbWidth="100%"
+        focusable={false}
+        height={138}
+        interval={0.25}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {},
+            {
+              "flex": 0,
+              "height": 138,
+              "width": "100%",
+            },
+          ]
+        }
+        vbHeight={144}
+        vbWidth={163}
+        width="100%"
+      >
+        <RNSVGGroup>
+          <RNSVGRect
+            clipPath="o6o2gq-animated-diff"
+            fill={
+              [
+                1,
+                "o6o2gq-diff",
+              ]
+            }
+            height="100%"
+            propList={
+              [
+                "fill",
+              ]
+            }
+            width="100%"
+            x="0"
+            y="0"
+          />
+          <RNSVGDefs>
+            <RNSVGClipPath
+              name="o6o2gq-animated-diff"
+            >
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="90"
+                x="0"
+                y="14"
+              />
+              <RNSVGCircle
+                cx="140"
+                cy="20"
+                r="20"
+              />
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="80"
+                x="0"
+                y="60"
+              />
+              <RNSVGRect
+                height="12"
+                rx="6"
+                ry="6"
+                width="100"
+                x="0"
+                y="85"
+              />
+              <RNSVGRect
+                height="30"
+                rx="6"
+                ry="6"
+                width="90%"
+                x="0"
+                y="110"
+              />
+            </RNSVGClipPath>
+            <RNSVGLinearGradient
+              gradient={
+                [
+                  0,
+                  -1250325,
+                  0.5,
+                  -1,
+                  1,
+                  -1250325,
+                ]
+              }
+              gradientTransform={null}
+              gradientUnits={0}
+              name="o6o2gq-diff"
+              x1="-100%"
+              x2="0%"
+              y1={0}
+              y2={0}
+            />
+          </RNSVGDefs>
+        </RNSVGGroup>
+      </RNSVGSvgView>
     </View>
   </View>
-</RCTScrollView>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "justifyContent": "space-around",
+        "marginLeft": 8,
+        "marginRight": 8,
+      }
+    }
+    testID="loan_skeleton_loader"
+  >
+    <View
+      style={
+        [
+          [
+            {
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "marginBottom": 16,
+              "marginLeft": 8,
+              "marginRight": 8,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {
+              "flexBasis": "47%",
+            },
+          ],
+          {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
+      }
+    >
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={138}
+        bbWidth="100%"
+        focusable={false}
+        height={138}
+        interval={0.25}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {},
+            {
+              "flex": 0,
+              "height": 138,
+              "width": "100%",
+            },
+          ]
+        }
+        vbHeight={144}
+        vbWidth={163}
+        width="100%"
+      >
+        <RNSVGGroup>
+          <RNSVGRect
+            clipPath="iwwu6ec-animated-diff"
+            fill={
+              [
+                1,
+                "iwwu6ec-diff",
+              ]
+            }
+            height="100%"
+            propList={
+              [
+                "fill",
+              ]
+            }
+            width="100%"
+            x="0"
+            y="0"
+          />
+          <RNSVGDefs>
+            <RNSVGClipPath
+              name="iwwu6ec-animated-diff"
+            >
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="90"
+                x="0"
+                y="14"
+              />
+              <RNSVGCircle
+                cx="140"
+                cy="20"
+                r="20"
+              />
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="80"
+                x="0"
+                y="60"
+              />
+              <RNSVGRect
+                height="12"
+                rx="6"
+                ry="6"
+                width="100"
+                x="0"
+                y="85"
+              />
+              <RNSVGRect
+                height="30"
+                rx="6"
+                ry="6"
+                width="90%"
+                x="0"
+                y="110"
+              />
+            </RNSVGClipPath>
+            <RNSVGLinearGradient
+              gradient={
+                [
+                  0,
+                  -1250325,
+                  0.5,
+                  -1,
+                  1,
+                  -1250325,
+                ]
+              }
+              gradientTransform={null}
+              gradientUnits={0}
+              name="iwwu6ec-diff"
+              x1="-100%"
+              x2="0%"
+              y1={0}
+              y2={0}
+            />
+          </RNSVGDefs>
+        </RNSVGGroup>
+      </RNSVGSvgView>
+    </View>
+    <View
+      style={
+        [
+          [
+            {
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "marginBottom": 16,
+              "marginLeft": 8,
+              "marginRight": 8,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {
+              "flexBasis": "47%",
+            },
+          ],
+          {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
+      }
+    >
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={138}
+        bbWidth="100%"
+        focusable={false}
+        height={138}
+        interval={0.25}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {},
+            {
+              "flex": 0,
+              "height": 138,
+              "width": "100%",
+            },
+          ]
+        }
+        vbHeight={144}
+        vbWidth={163}
+        width="100%"
+      >
+        <RNSVGGroup>
+          <RNSVGRect
+            clipPath="ncj9v22j-animated-diff"
+            fill={
+              [
+                1,
+                "ncj9v22j-diff",
+              ]
+            }
+            height="100%"
+            propList={
+              [
+                "fill",
+              ]
+            }
+            width="100%"
+            x="0"
+            y="0"
+          />
+          <RNSVGDefs>
+            <RNSVGClipPath
+              name="ncj9v22j-animated-diff"
+            >
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="90"
+                x="0"
+                y="14"
+              />
+              <RNSVGCircle
+                cx="140"
+                cy="20"
+                r="20"
+              />
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="80"
+                x="0"
+                y="60"
+              />
+              <RNSVGRect
+                height="12"
+                rx="6"
+                ry="6"
+                width="100"
+                x="0"
+                y="85"
+              />
+              <RNSVGRect
+                height="30"
+                rx="6"
+                ry="6"
+                width="90%"
+                x="0"
+                y="110"
+              />
+            </RNSVGClipPath>
+            <RNSVGLinearGradient
+              gradient={
+                [
+                  0,
+                  -1250325,
+                  0.5,
+                  -1,
+                  1,
+                  -1250325,
+                ]
+              }
+              gradientTransform={null}
+              gradientUnits={0}
+              name="ncj9v22j-diff"
+              x1="-100%"
+              x2="0%"
+              y1={0}
+              y2={0}
+            />
+          </RNSVGDefs>
+        </RNSVGGroup>
+      </RNSVGSvgView>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "justifyContent": "space-around",
+        "marginLeft": 8,
+        "marginRight": 8,
+      }
+    }
+    testID="loan_skeleton_loader"
+  >
+    <View
+      style={
+        [
+          [
+            {
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "marginBottom": 16,
+              "marginLeft": 8,
+              "marginRight": 8,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {
+              "flexBasis": "47%",
+            },
+          ],
+          {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
+      }
+    >
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={138}
+        bbWidth="100%"
+        focusable={false}
+        height={138}
+        interval={0.25}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {},
+            {
+              "flex": 0,
+              "height": 138,
+              "width": "100%",
+            },
+          ]
+        }
+        vbHeight={144}
+        vbWidth={163}
+        width="100%"
+      >
+        <RNSVGGroup>
+          <RNSVGRect
+            clipPath="0m6h4q-animated-diff"
+            fill={
+              [
+                1,
+                "0m6h4q-diff",
+              ]
+            }
+            height="100%"
+            propList={
+              [
+                "fill",
+              ]
+            }
+            width="100%"
+            x="0"
+            y="0"
+          />
+          <RNSVGDefs>
+            <RNSVGClipPath
+              name="0m6h4q-animated-diff"
+            >
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="90"
+                x="0"
+                y="14"
+              />
+              <RNSVGCircle
+                cx="140"
+                cy="20"
+                r="20"
+              />
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="80"
+                x="0"
+                y="60"
+              />
+              <RNSVGRect
+                height="12"
+                rx="6"
+                ry="6"
+                width="100"
+                x="0"
+                y="85"
+              />
+              <RNSVGRect
+                height="30"
+                rx="6"
+                ry="6"
+                width="90%"
+                x="0"
+                y="110"
+              />
+            </RNSVGClipPath>
+            <RNSVGLinearGradient
+              gradient={
+                [
+                  0,
+                  -1250325,
+                  0.5,
+                  -1,
+                  1,
+                  -1250325,
+                ]
+              }
+              gradientTransform={null}
+              gradientUnits={0}
+              name="0m6h4q-diff"
+              x1="-100%"
+              x2="0%"
+              y1={0}
+              y2={0}
+            />
+          </RNSVGDefs>
+        </RNSVGGroup>
+      </RNSVGSvgView>
+    </View>
+    <View
+      style={
+        [
+          [
+            {
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "marginBottom": 16,
+              "marginLeft": 8,
+              "marginRight": 8,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {
+              "flexBasis": "47%",
+            },
+          ],
+          {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
+      }
+    >
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={138}
+        bbWidth="100%"
+        focusable={false}
+        height={138}
+        interval={0.25}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {},
+            {
+              "flex": 0,
+              "height": 138,
+              "width": "100%",
+            },
+          ]
+        }
+        vbHeight={144}
+        vbWidth={163}
+        width="100%"
+      >
+        <RNSVGGroup>
+          <RNSVGRect
+            clipPath="q5vivtjb-animated-diff"
+            fill={
+              [
+                1,
+                "q5vivtjb-diff",
+              ]
+            }
+            height="100%"
+            propList={
+              [
+                "fill",
+              ]
+            }
+            width="100%"
+            x="0"
+            y="0"
+          />
+          <RNSVGDefs>
+            <RNSVGClipPath
+              name="q5vivtjb-animated-diff"
+            >
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="90"
+                x="0"
+                y="14"
+              />
+              <RNSVGCircle
+                cx="140"
+                cy="20"
+                r="20"
+              />
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="80"
+                x="0"
+                y="60"
+              />
+              <RNSVGRect
+                height="12"
+                rx="6"
+                ry="6"
+                width="100"
+                x="0"
+                y="85"
+              />
+              <RNSVGRect
+                height="30"
+                rx="6"
+                ry="6"
+                width="90%"
+                x="0"
+                y="110"
+              />
+            </RNSVGClipPath>
+            <RNSVGLinearGradient
+              gradient={
+                [
+                  0,
+                  -1250325,
+                  0.5,
+                  -1,
+                  1,
+                  -1250325,
+                ]
+              }
+              gradientTransform={null}
+              gradientUnits={0}
+              name="q5vivtjb-diff"
+              x1="-100%"
+              x2="0%"
+              y1={0}
+              y2={0}
+            />
+          </RNSVGDefs>
+        </RNSVGGroup>
+      </RNSVGSvgView>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "justifyContent": "space-around",
+        "marginLeft": 8,
+        "marginRight": 8,
+      }
+    }
+    testID="loan_skeleton_loader"
+  >
+    <View
+      style={
+        [
+          [
+            {
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "marginBottom": 16,
+              "marginLeft": 8,
+              "marginRight": 8,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {
+              "flexBasis": "47%",
+            },
+          ],
+          {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
+      }
+    >
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={138}
+        bbWidth="100%"
+        focusable={false}
+        height={138}
+        interval={0.25}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {},
+            {
+              "flex": 0,
+              "height": 138,
+              "width": "100%",
+            },
+          ]
+        }
+        vbHeight={144}
+        vbWidth={163}
+        width="100%"
+      >
+        <RNSVGGroup>
+          <RNSVGRect
+            clipPath="t5v7uhc-animated-diff"
+            fill={
+              [
+                1,
+                "t5v7uhc-diff",
+              ]
+            }
+            height="100%"
+            propList={
+              [
+                "fill",
+              ]
+            }
+            width="100%"
+            x="0"
+            y="0"
+          />
+          <RNSVGDefs>
+            <RNSVGClipPath
+              name="t5v7uhc-animated-diff"
+            >
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="90"
+                x="0"
+                y="14"
+              />
+              <RNSVGCircle
+                cx="140"
+                cy="20"
+                r="20"
+              />
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="80"
+                x="0"
+                y="60"
+              />
+              <RNSVGRect
+                height="12"
+                rx="6"
+                ry="6"
+                width="100"
+                x="0"
+                y="85"
+              />
+              <RNSVGRect
+                height="30"
+                rx="6"
+                ry="6"
+                width="90%"
+                x="0"
+                y="110"
+              />
+            </RNSVGClipPath>
+            <RNSVGLinearGradient
+              gradient={
+                [
+                  0,
+                  -1250325,
+                  0.5,
+                  -1,
+                  1,
+                  -1250325,
+                ]
+              }
+              gradientTransform={null}
+              gradientUnits={0}
+              name="t5v7uhc-diff"
+              x1="-100%"
+              x2="0%"
+              y1={0}
+              y2={0}
+            />
+          </RNSVGDefs>
+        </RNSVGGroup>
+      </RNSVGSvgView>
+    </View>
+    <View
+      style={
+        [
+          [
+            {
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "marginBottom": 16,
+              "marginLeft": 8,
+              "marginRight": 8,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {
+              "flexBasis": "47%",
+            },
+          ],
+          {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
+      }
+    >
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={138}
+        bbWidth="100%"
+        focusable={false}
+        height={138}
+        interval={0.25}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {},
+            {
+              "flex": 0,
+              "height": 138,
+              "width": "100%",
+            },
+          ]
+        }
+        vbHeight={144}
+        vbWidth={163}
+        width="100%"
+      >
+        <RNSVGGroup>
+          <RNSVGRect
+            clipPath="nglg7s5-animated-diff"
+            fill={
+              [
+                1,
+                "nglg7s5-diff",
+              ]
+            }
+            height="100%"
+            propList={
+              [
+                "fill",
+              ]
+            }
+            width="100%"
+            x="0"
+            y="0"
+          />
+          <RNSVGDefs>
+            <RNSVGClipPath
+              name="nglg7s5-animated-diff"
+            >
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="90"
+                x="0"
+                y="14"
+              />
+              <RNSVGCircle
+                cx="140"
+                cy="20"
+                r="20"
+              />
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="80"
+                x="0"
+                y="60"
+              />
+              <RNSVGRect
+                height="12"
+                rx="6"
+                ry="6"
+                width="100"
+                x="0"
+                y="85"
+              />
+              <RNSVGRect
+                height="30"
+                rx="6"
+                ry="6"
+                width="90%"
+                x="0"
+                y="110"
+              />
+            </RNSVGClipPath>
+            <RNSVGLinearGradient
+              gradient={
+                [
+                  0,
+                  -1250325,
+                  0.5,
+                  -1,
+                  1,
+                  -1250325,
+                ]
+              }
+              gradientTransform={null}
+              gradientUnits={0}
+              name="nglg7s5-diff"
+              x1="-100%"
+              x2="0%"
+              y1={0}
+              y2={0}
+            />
+          </RNSVGDefs>
+        </RNSVGGroup>
+      </RNSVGSvgView>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "justifyContent": "space-around",
+        "marginLeft": 8,
+        "marginRight": 8,
+      }
+    }
+    testID="loan_skeleton_loader"
+  >
+    <View
+      style={
+        [
+          [
+            {
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "marginBottom": 16,
+              "marginLeft": 8,
+              "marginRight": 8,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {
+              "flexBasis": "47%",
+            },
+          ],
+          {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
+      }
+    >
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={138}
+        bbWidth="100%"
+        focusable={false}
+        height={138}
+        interval={0.25}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {},
+            {
+              "flex": 0,
+              "height": 138,
+              "width": "100%",
+            },
+          ]
+        }
+        vbHeight={144}
+        vbWidth={163}
+        width="100%"
+      >
+        <RNSVGGroup>
+          <RNSVGRect
+            clipPath="8sffxzu-animated-diff"
+            fill={
+              [
+                1,
+                "8sffxzu-diff",
+              ]
+            }
+            height="100%"
+            propList={
+              [
+                "fill",
+              ]
+            }
+            width="100%"
+            x="0"
+            y="0"
+          />
+          <RNSVGDefs>
+            <RNSVGClipPath
+              name="8sffxzu-animated-diff"
+            >
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="90"
+                x="0"
+                y="14"
+              />
+              <RNSVGCircle
+                cx="140"
+                cy="20"
+                r="20"
+              />
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="80"
+                x="0"
+                y="60"
+              />
+              <RNSVGRect
+                height="12"
+                rx="6"
+                ry="6"
+                width="100"
+                x="0"
+                y="85"
+              />
+              <RNSVGRect
+                height="30"
+                rx="6"
+                ry="6"
+                width="90%"
+                x="0"
+                y="110"
+              />
+            </RNSVGClipPath>
+            <RNSVGLinearGradient
+              gradient={
+                [
+                  0,
+                  -1250325,
+                  0.5,
+                  -1,
+                  1,
+                  -1250325,
+                ]
+              }
+              gradientTransform={null}
+              gradientUnits={0}
+              name="8sffxzu-diff"
+              x1="-100%"
+              x2="0%"
+              y1={0}
+              y2={0}
+            />
+          </RNSVGDefs>
+        </RNSVGGroup>
+      </RNSVGSvgView>
+    </View>
+    <View
+      style={
+        [
+          [
+            {
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "marginBottom": 16,
+              "marginLeft": 8,
+              "marginRight": 8,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {
+              "flexBasis": "47%",
+            },
+          ],
+          {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
+      }
+    >
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={138}
+        bbWidth="100%"
+        focusable={false}
+        height={138}
+        interval={0.25}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {},
+            {
+              "flex": 0,
+              "height": 138,
+              "width": "100%",
+            },
+          ]
+        }
+        vbHeight={144}
+        vbWidth={163}
+        width="100%"
+      >
+        <RNSVGGroup>
+          <RNSVGRect
+            clipPath="jjgftwh-animated-diff"
+            fill={
+              [
+                1,
+                "jjgftwh-diff",
+              ]
+            }
+            height="100%"
+            propList={
+              [
+                "fill",
+              ]
+            }
+            width="100%"
+            x="0"
+            y="0"
+          />
+          <RNSVGDefs>
+            <RNSVGClipPath
+              name="jjgftwh-animated-diff"
+            >
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="90"
+                x="0"
+                y="14"
+              />
+              <RNSVGCircle
+                cx="140"
+                cy="20"
+                r="20"
+              />
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="80"
+                x="0"
+                y="60"
+              />
+              <RNSVGRect
+                height="12"
+                rx="6"
+                ry="6"
+                width="100"
+                x="0"
+                y="85"
+              />
+              <RNSVGRect
+                height="30"
+                rx="6"
+                ry="6"
+                width="90%"
+                x="0"
+                y="110"
+              />
+            </RNSVGClipPath>
+            <RNSVGLinearGradient
+              gradient={
+                [
+                  0,
+                  -1250325,
+                  0.5,
+                  -1,
+                  1,
+                  -1250325,
+                ]
+              }
+              gradientTransform={null}
+              gradientUnits={0}
+              name="jjgftwh-diff"
+              x1="-100%"
+              x2="0%"
+              y1={0}
+              y2={0}
+            />
+          </RNSVGDefs>
+        </RNSVGGroup>
+      </RNSVGSvgView>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "justifyContent": "space-around",
+        "marginLeft": 8,
+        "marginRight": 8,
+      }
+    }
+    testID="loan_skeleton_loader"
+  >
+    <View
+      style={
+        [
+          [
+            {
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "marginBottom": 16,
+              "marginLeft": 8,
+              "marginRight": 8,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {
+              "flexBasis": "47%",
+            },
+          ],
+          {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
+      }
+    >
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={138}
+        bbWidth="100%"
+        focusable={false}
+        height={138}
+        interval={0.25}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {},
+            {
+              "flex": 0,
+              "height": 138,
+              "width": "100%",
+            },
+          ]
+        }
+        vbHeight={144}
+        vbWidth={163}
+        width="100%"
+      >
+        <RNSVGGroup>
+          <RNSVGRect
+            clipPath="wtkwa5-animated-diff"
+            fill={
+              [
+                1,
+                "wtkwa5-diff",
+              ]
+            }
+            height="100%"
+            propList={
+              [
+                "fill",
+              ]
+            }
+            width="100%"
+            x="0"
+            y="0"
+          />
+          <RNSVGDefs>
+            <RNSVGClipPath
+              name="wtkwa5-animated-diff"
+            >
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="90"
+                x="0"
+                y="14"
+              />
+              <RNSVGCircle
+                cx="140"
+                cy="20"
+                r="20"
+              />
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="80"
+                x="0"
+                y="60"
+              />
+              <RNSVGRect
+                height="12"
+                rx="6"
+                ry="6"
+                width="100"
+                x="0"
+                y="85"
+              />
+              <RNSVGRect
+                height="30"
+                rx="6"
+                ry="6"
+                width="90%"
+                x="0"
+                y="110"
+              />
+            </RNSVGClipPath>
+            <RNSVGLinearGradient
+              gradient={
+                [
+                  0,
+                  -1250325,
+                  0.5,
+                  -1,
+                  1,
+                  -1250325,
+                ]
+              }
+              gradientTransform={null}
+              gradientUnits={0}
+              name="wtkwa5-diff"
+              x1="-100%"
+              x2="0%"
+              y1={0}
+              y2={0}
+            />
+          </RNSVGDefs>
+        </RNSVGGroup>
+      </RNSVGSvgView>
+    </View>
+    <View
+      style={
+        [
+          [
+            {
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "marginBottom": 16,
+              "marginLeft": 8,
+              "marginRight": 8,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {
+              "flexBasis": "47%",
+            },
+          ],
+          {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
+      }
+    >
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={138}
+        bbWidth="100%"
+        focusable={false}
+        height={138}
+        interval={0.25}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {},
+            {
+              "flex": 0,
+              "height": 138,
+              "width": "100%",
+            },
+          ]
+        }
+        vbHeight={144}
+        vbWidth={163}
+        width="100%"
+      >
+        <RNSVGGroup>
+          <RNSVGRect
+            clipPath="0nejn1f-animated-diff"
+            fill={
+              [
+                1,
+                "0nejn1f-diff",
+              ]
+            }
+            height="100%"
+            propList={
+              [
+                "fill",
+              ]
+            }
+            width="100%"
+            x="0"
+            y="0"
+          />
+          <RNSVGDefs>
+            <RNSVGClipPath
+              name="0nejn1f-animated-diff"
+            >
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="90"
+                x="0"
+                y="14"
+              />
+              <RNSVGCircle
+                cx="140"
+                cy="20"
+                r="20"
+              />
+              <RNSVGRect
+                height="16"
+                rx="6"
+                ry="6"
+                width="80"
+                x="0"
+                y="60"
+              />
+              <RNSVGRect
+                height="12"
+                rx="6"
+                ry="6"
+                width="100"
+                x="0"
+                y="85"
+              />
+              <RNSVGRect
+                height="30"
+                rx="6"
+                ry="6"
+                width="90%"
+                x="0"
+                y="110"
+              />
+            </RNSVGClipPath>
+            <RNSVGLinearGradient
+              gradient={
+                [
+                  0,
+                  -1250325,
+                  0.5,
+                  -1,
+                  1,
+                  -1250325,
+                ]
+              }
+              gradientTransform={null}
+              gradientUnits={0}
+              name="0nejn1f-diff"
+              x1="-100%"
+              x2="0%"
+              y1={0}
+              y2={0}
+            />
+          </RNSVGDefs>
+        </RNSVGGroup>
+      </RNSVGSvgView>
+    </View>
+  </View>
+</View>
 `;

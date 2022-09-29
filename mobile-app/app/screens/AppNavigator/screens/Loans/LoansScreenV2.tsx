@@ -1,30 +1,20 @@
-import { useEffect, useState } from "react";
-import { View } from "react-native";
-import { tailwind } from "@tailwind";
-import { ThemedViewV2 } from "@components/themed";
-import {
-  SkeletonLoader,
-  SkeletonLoaderScreen,
-} from "@components/SkeletonLoader";
+import { useEffect } from "react";
 import { batch, useSelector } from "react-redux";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { getColor, tailwind } from "@tailwind";
+import { Text } from "@components";
 import { RootState } from "@store";
-import {
-  fetchLoanSchemes,
-  fetchLoanTokens,
-  fetchVaults,
-  loanTokensSelector,
-  vaultsSelector,
-} from "@store/loans";
+import { fetchLoanSchemes, fetchLoanTokens, fetchVaults } from "@store/loans";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
+import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { useIsFocused } from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { translate } from "@translations";
 import { LoanCardsV2 } from "./components/LoanCardsV2";
 import { VaultsV2 } from "./components/VaultsV2";
-import { ButtonGroupV2 } from "../Dex/components/ButtonGroupV2";
-import { VaultStatus } from "./VaultStatusTypes";
+
+const LoansTab = createMaterialTopTabNavigator();
 
 enum TabKey {
   Borrow = "BORROW",
@@ -35,47 +25,8 @@ export function LoansScreenV2(): JSX.Element {
   const { address } = useWalletContext();
   const isFocused = useIsFocused();
   const blockCount = useSelector((state: RootState) => state.block.count);
-  const { vaults, hasFetchedVaultsData, hasFetchedLoansData } = useSelector(
-    (state: RootState) => state.loans
-  );
-
-  const loans = useSelector((state: RootState) =>
-    loanTokensSelector(state.loans)
-  );
-  const vaultsList = useSelector((state: RootState) =>
-    vaultsSelector(state.loans)
-  );
-
-  const [activeTab, setActiveTab] = useState<string>(TabKey.Borrow);
   const dispatch = useAppDispatch();
   const client = useWhaleApiClient();
-
-  const onTabChange = (tabKey: TabKey): void => {
-    setActiveTab(tabKey);
-  };
-
-  const tabsList = [
-    {
-      id: TabKey.Borrow,
-      label: translate("components/tabs", "Borrow"),
-      disabled: false,
-      handleOnPress: () => onTabChange(TabKey.Borrow),
-    },
-    {
-      id: TabKey.YourVaults,
-      label: translate("components/tabs", "Your vaults"),
-      disabled: false,
-      handleOnPress: () => onTabChange(TabKey.YourVaults),
-    },
-  ];
-
-  // Search
-  const [filteredLoans, setFilteredLoans] = useState<LoanToken[]>(loans);
-  const [isVaultReady, setIsVaultReady] = useState(false);
-
-  useEffect(() => {
-    setFilteredLoans(loans);
-  }, [hasFetchedLoansData]);
 
   useEffect(() => {
     if (isFocused) {
@@ -90,46 +41,79 @@ export function LoansScreenV2(): JSX.Element {
     dispatch(fetchLoanSchemes({ client }));
   }, []);
 
-  useEffect(() => {
-    setIsVaultReady(
-      vaultsList.some((vault) => vault.vaultState !== VaultStatus.Empty)
-    );
-  }, [vaultsList]);
+  const { isLight } = useThemeContext();
 
   return (
-    <ThemedViewV2 style={tailwind("flex-1")}>
-      <ThemedViewV2
-        light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-100")}
-        dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-100")}
-        style={tailwind(
-          "flex flex-col items-center pt-4 rounded-b-2xl border-b"
-        )}
-        testID="loans_screen"
-      >
-        <View style={tailwind("w-full px-5")}>
-          <ButtonGroupV2
-            buttons={tabsList}
-            activeButtonGroupItem={activeTab}
-            testID="loans_tabs"
-            lightThemeStyle={tailwind("bg-transparent")}
-            darkThemeStyle={tailwind("bg-transparent")}
-          />
-        </View>
-      </ThemedViewV2>
-
-      {activeTab === TabKey.YourVaults && <VaultsV2 />}
-      {activeTab === TabKey.Borrow && !hasFetchedLoansData && (
-        <View style={tailwind("mt-1")}>
-          <SkeletonLoader row={6} screen={SkeletonLoaderScreen.LoanV2} />
-        </View>
-      )}
-      {activeTab === TabKey.Borrow && hasFetchedLoansData && (
-        <LoanCardsV2
-          testID="loans_cards"
-          loans={filteredLoans}
-          vaultExist={isVaultReady}
-        />
-      )}
-    </ThemedViewV2>
+    <LoansTab.Navigator
+      screenOptions={{
+        swipeEnabled: false,
+        tabBarLabelStyle: [
+          tailwind("font-semibold-v2 text-sm text-center", {
+            "text-mono-light-v2-900": isLight,
+            "text-mono-dark-v2-900": !isLight,
+          }),
+          {
+            textTransform: "none",
+          },
+        ],
+        tabBarActiveTintColor: getColor("brand-v2-500"),
+        tabBarPressColor: "transparent",
+        tabBarIndicatorStyle: {
+          borderBottomWidth: 2,
+          borderColor: getColor("brand-v2-500"),
+          width: "40%",
+          left: "5%",
+        },
+        tabBarInactiveTintColor: getColor(
+          isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
+        ),
+        tabBarStyle: [
+          {
+            borderBottomLeftRadius: 12,
+            borderBottomRightRadius: 12,
+            overflow: "hidden",
+          },
+          tailwind({
+            "bg-mono-light-v2-00": isLight,
+            "bg-mono-dark-v2-00": !isLight,
+          }),
+        ],
+      }}
+    >
+      <LoansTab.Screen
+        name={TabKey.Borrow}
+        component={LoanCardsV2}
+        options={{
+          tabBarLabel: (props) => (
+            <Text
+              style={[
+                tailwind("font-semibold-v2 text-sm text-center"),
+                { color: props.color },
+              ]}
+            >
+              {translate("components/tabs", "Borrow")}
+            </Text>
+          ),
+          tabBarTestID: `loans_tabs_${TabKey.Borrow}`,
+        }}
+      />
+      <LoansTab.Screen
+        name={TabKey.YourVaults}
+        component={VaultsV2}
+        options={{
+          tabBarLabel: (props) => (
+            <Text
+              style={[
+                tailwind("font-semibold-v2 text-sm text-center"),
+                { color: props.color },
+              ]}
+            >
+              {translate("components/tabs", "Your vaults")}
+            </Text>
+          ),
+          tabBarTestID: `loans_tabs_${TabKey.YourVaults}`,
+        }}
+      />
+    </LoansTab.Navigator>
   );
 }

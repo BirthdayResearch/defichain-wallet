@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ThemedFlashList,
   ThemedText,
@@ -23,17 +23,20 @@ import {
 import { ActivePrice } from "@defichain/whale-api-client/dist/api/prices";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { vaultsSelector } from "@store/loans";
+import { loanTokensSelector, vaultsSelector } from "@store/loans";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
+import {
+  SkeletonLoader,
+  SkeletonLoaderScreen,
+} from "@components/SkeletonLoader";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { LoanParamList } from "../LoansNavigator";
 import { LoanActionButton } from "./LoanActionButton";
+import { VaultStatus } from "../VaultStatusTypes";
 
 interface LoanCardsProps {
-  loans: LoanToken[];
   testID?: string;
   vaultId?: string;
-  vaultExist: boolean;
 }
 
 export interface LoanCardOptions {
@@ -48,6 +51,31 @@ export interface LoanCardOptions {
 }
 
 export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
+  const loanTokens = useSelector((state: RootState) =>
+    loanTokensSelector(state.loans)
+  );
+  const vaultsList = useSelector((state: RootState) =>
+    vaultsSelector(state.loans)
+  );
+  const { hasFetchedLoansData } = useSelector(
+    (state: RootState) => state.loans
+  );
+
+  // Search
+  const [filteredLoanTokens, setFilteredLoanTokens] =
+    useState<LoanToken[]>(loanTokens);
+  const [isVaultReady, setIsVaultReady] = useState(false);
+
+  useEffect(() => {
+    setFilteredLoanTokens(loanTokens);
+  }, [hasFetchedLoansData]);
+
+  useEffect(() => {
+    setIsVaultReady(
+      vaultsList.some((vault) => vault.vaultState !== VaultStatus.Empty)
+    );
+  }, [vaultsList]);
+
   const ref = useRef(null);
   useScrollToTop(ref);
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
@@ -56,11 +84,25 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
     (v) =>
       v.vaultId === props.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION
   ) as LoanVaultActive;
+
+  if (!hasFetchedLoansData) {
+    return (
+      <View style={tailwind("mt-1")}>
+        <SkeletonLoader row={6} screen={SkeletonLoaderScreen.LoanV2} />
+      </View>
+    );
+  }
+
   return (
-    /* Currently theres a known issue regarding the layout bug on web version for flashList */
+    /* Known intermittent issue wherein the two-column layout is not followed in web - FlashList */
     <ThemedFlashList
       contentContainerStyle={tailwind("pt-4 pb-2")}
-      data={props.loans}
+      data={filteredLoanTokens}
+      /* This tells FlashList to rerender if any of the props below is updated */
+      extraData={{
+        isVaultReady,
+        activeVault,
+      }}
       ref={ref}
       numColumns={2}
       renderItem={({
@@ -89,7 +131,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
                 });
               }}
               testID={`loan_card_${index}`}
-              isBorrowHidden={!props.vaultExist}
+              isBorrowHidden={!isVaultReady}
             />
           </View>
         );
