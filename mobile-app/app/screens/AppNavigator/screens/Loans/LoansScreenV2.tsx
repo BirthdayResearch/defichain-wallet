@@ -63,10 +63,17 @@ export function LoansScreenV2(): JSX.Element {
         tabBarInactiveTintColor: getColor(
           isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
         ),
-        tabBarStyle: tailwind({
-          "bg-mono-light-v2-00": isLight,
-          "bg-mono-dark-v2-00": !isLight,
-        }),
+        tabBarStyle: [
+          {
+            borderBottomLeftRadius: 12,
+            borderBottomRightRadius: 12,
+            overflow: "hidden",
+          },
+          tailwind({
+            "bg-mono-light-v2-00": isLight,
+            "bg-mono-dark-v2-00": !isLight,
+          }),
+        ],
       }}
     >
       <LoansTab.Screen
