@@ -1277,7 +1277,7 @@
     "Payback Loan": "Ripaga il prestito",
     "Close Vault": "Chiudi il Vault",
     "Search vault": "Search vault",
-    "Search with vault ID or tokens": "Search with vault ID or tokens",
+    "Search with vault ID": "Search with vault ID",
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
     "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
     "Decentralized tokens": "Decentralized tokens",

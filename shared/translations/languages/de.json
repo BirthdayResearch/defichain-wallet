@@ -1252,7 +1252,7 @@
     "Payback Loan": "Darlehensrückzahlung",
     "Close Vault": "Vault schließen",
     "Search vault": "Vaults durchsuchen",
-    "Search with vault ID or tokens": "Suche über die Vault ID oder den Token",
+    "Search with vault ID": "Suche über Vault ID",
     "Search results for “{{searchTerm}}”": "Suchergebnisse für “{{searchTerm}}”",
     "You need a vault with collaterals to borrow tokens": "Du brauchst einen Vault mit Sicherheiten, um Token zu leihen",
     "Decentralized tokens": "Dezentrale Token",
