@@ -153,6 +153,23 @@ export function CreateVaultScreenV2({ navigation, route }: Props): JSX.Element {
       .catch(logger.error);
   }, []);
 
+  useEffect(() => {
+    if (
+      conversionStatus === ConversionStatus.Processing ||
+      conversionStatus === ConversionStatus.Completed
+    ) {
+      return;
+    }
+
+    const needsConvert = new BigNumber(RESERVE_AMOUNT).gt(DFIUtxo.amount);
+    setConversionStatus(
+      needsConvert ? ConversionStatus.Required : ConversionStatus.Not_Required
+    );
+    if (needsConvert) {
+      setConversionAmount(undefined);
+    }
+  }, [DFIUtxo]);
+
   return (
     <ThemedScrollViewV2
       testID="create_vault_screen"

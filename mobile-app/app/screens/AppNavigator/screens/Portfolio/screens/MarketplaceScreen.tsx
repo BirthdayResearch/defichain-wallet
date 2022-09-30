@@ -21,6 +21,7 @@ import CakeDeFi from "@assets/images/exchanges/CakeDeFi.png";
 import Bybit from "@assets/images/exchanges/Bybit.png";
 import Swyftx from "@assets/images/exchanges/Swyftx.png";
 import Huobi from "@assets/images/exchanges/Huobi.png";
+import Gateio from "@assets/images/exchanges/Gateio.png";
 
 interface ExchangeProps {
   image: ImageSourcePropType;
@@ -38,6 +39,11 @@ const exchanges: ExchangeProps[] = [
     name: "Huobi",
     image: Huobi,
     url: "https://www.huobi.com/en-us/exchange/dfi_usdt",
+  },
+  {
+    name: "Gate.io",
+    image: Gateio,
+    url: "https://www.gate.io/trade/DFI_USDT",
   },
   {
     name: "Bittrex",
