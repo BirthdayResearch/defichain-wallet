@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import {
   ThemedFlashList,
   ThemedIcon,
@@ -11,7 +11,7 @@ import {
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { NumericFormat as NumberFormat } from "react-number-format";
-import { Platform, View } from "react-native";
+import { Platform, TextInput, View } from "react-native";
 import { getNativeIcon } from "@components/icons/assets";
 import {
   LoanToken,
@@ -24,10 +24,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { loanTokensSelector, vaultsSelector } from "@store/loans";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
-import {
-  SkeletonLoader,
-  SkeletonLoaderScreen,
-} from "@components/SkeletonLoader";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import {
   BottomSheetNavScreen,
@@ -36,13 +32,14 @@ import {
 } from "@components/BottomSheetWithNavV2";
 import { BottomSheetModalInfo } from "@components/BottomSheetModalInfo";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { SearchInputV2 } from "@components/SearchInputV2";
+import { debounce } from "lodash";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { LoanParamList } from "../LoansNavigator";
 import { LoanActionButton } from "./LoanActionButton";
 import { VaultStatus } from "../VaultStatusTypes";
 import { PriceOracleInfo } from "./PriceOracleInfo";
 import { VaultBanner } from "./VaultBanner";
-import { LoanCards } from "./LoanCards";
 
 interface LoanCardsProps {
   testID?: string;
@@ -62,6 +59,7 @@ export interface LoanCardOptions {
 }
 
 export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
+  const { isLight } = useThemeContext();
   const loanTokens = useSelector((state: RootState) =>
     loanTokensSelector(state.loans)
   );
@@ -76,6 +74,29 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   const [filteredLoanTokens, setFilteredLoanTokens] =
     useState<LoanToken[]>(loanTokens);
   const [isVaultReady, setIsVaultReady] = useState(false);
+  const [searchString, setSearchString] = useState("");
+  const [isSearchFocus, setIsSearchFocus] = useState(false);
+  const searchRef = useRef<TextInput>();
+
+  const handleFilter = useCallback(
+    debounce((searchString: string) => {
+      setFilteredLoanTokens(
+        loanTokens.filter((loanToken) =>
+          loanToken.token.displaySymbol
+            .toLowerCase()
+            .includes(searchString.trim().toLowerCase())
+        )
+      );
+    }, 250),
+    [loanTokens, hasFetchedLoansData]
+  );
+
+  useEffect(() => {
+    if (loanTokens.length === 0) {
+      return;
+    }
+    handleFilter(searchString);
+  }, [searchString]);
 
   useEffect(() => {
     setFilteredLoanTokens(loanTokens);
@@ -101,8 +122,6 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
       merge: true,
     });
   };
-
-  const { isLight } = useThemeContext();
 
   const title = "Price Oracles";
   const description =
@@ -152,7 +171,44 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   };
 
   return (
-    <ThemedScrollViewV2>
+    <ThemedScrollViewV2
+      ref={props.scrollRef}
+      contentContainerStyle={tailwind("py-8 w-full")}
+    >
+      <SearchInputV2
+        ref={searchRef}
+        value={searchString}
+        showClearButton={searchString !== ""}
+        placeholder={translate(
+          "screens/LoansScreen",
+          "Search available loan tokens"
+        )}
+        containerStyle={tailwind("flex-1 mx-5", [
+          "border-0.5",
+          isSearchFocus
+            ? {
+                "border-mono-light-v2-800": isLight,
+                "border-mono-dark-v2-800": !isLight,
+              }
+            : {
+                "border-mono-light-v2-00": isLight,
+                "border-mono-dark-v2-00": !isLight,
+              },
+        ])}
+        onClearInput={() => {
+          setSearchString("");
+          searchRef?.current?.focus();
+        }}
+        onChangeText={(text: string) => {
+          setSearchString(text);
+        }}
+        onFocus={() => {
+          setIsSearchFocus(true);
+        }}
+        onBlur={() => {
+          setIsSearchFocus(false);
+        }}
+      />
       {vaults.length === 0 && (
         <ThemedViewV2 style={tailwind("mx-5 mt-8 rounded-lg-v2")}>
           <VaultBanner
@@ -165,22 +221,37 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           </View>
         </ThemedViewV2>
       )}
-      {/* Known intermittent issue wherein the two-column layout is not followed in web - FlashList */}
+      {/* Known intermittent issue wherein the two-column layout is not followed
+      in web - FlashList */}
       <ThemedFlashList
+        keyExtractor={(_item, index) => index.toString()}
+        testID={props.testID}
         estimatedItemSize={116}
-        contentContainerStyle={tailwind("pt-4 pb-2")}
-        parentContainerStyle={tailwind("px-3")}
+        contentContainerStyle={tailwind("pt-6 pb-2")}
+        parentContainerStyle={tailwind("mx-3")}
         data={filteredLoanTokens}
         /* This tells FlashList to rerender if any of the props below is updated */
         extraData={{
           isVaultReady,
           activeVault,
         }}
-        ref={props.scrollRef}
         numColumns={2}
         ListEmptyComponent={
-          <View style={tailwind("mt-1")}>
-            <SkeletonLoader row={6} screen={SkeletonLoaderScreen.LoanV2} />
+          <View style={tailwind("mt-2")}>
+            <ThemedTextV2
+              style={tailwind("text-xs pl-5 font-normal-v2")}
+              light={tailwind("text-mono-light-v2-700")}
+              dark={tailwind("text-mono-dark-v2-700")}
+              testID="empty_search_result_text"
+            >
+              {searchString.trim() === ""
+                ? translate("screens/LoansScreen", "Search with token name")
+                : translate(
+                    "screens/LoansScreen",
+                    "Search results for “{{searchTerm}}”",
+                    { searchTerm: searchString }
+                  )}
+            </ThemedTextV2>
           </View>
         }
         renderItem={({
@@ -258,7 +329,6 @@ function LoanCard({
   testID,
   isBorrowHidden,
 }: LoanCardOptions): JSX.Element {
-  const LoanIcon = getNativeIcon(displaySymbol);
   const currentPrice = getPrecisedTokenValue(getActivePrice(symbol, price));
   return (
     <ThemedViewV2
@@ -268,25 +338,7 @@ function LoanCard({
       style={tailwind("p-4 mx-2 mb-4 rounded-lg-v2")}
     >
       <View style={tailwind("flex-row items-center pb-2 justify-between")}>
-        <View
-          style={tailwind("flex flex-row justify-between items-center w-full")}
-        >
-          <ThemedTextV2
-            light={tailwind("text-mono-light-v2-700")}
-            dark={tailwind("text-mono-dark-v2-700")}
-            style={tailwind("font-medium font-normal-v2")}
-            testID={`${testID}_display_symbol`}
-          >
-            {displaySymbol}
-          </ThemedTextV2>
-          <LoanIcon
-            width={36}
-            height={36}
-            style={tailwind({
-              "font-medium font-normal-v2": Platform.OS === "web",
-            })}
-          />
-        </View>
+        <MemoizedLoanIcon testID={testID} displaySymbol={displaySymbol} />
       </View>
       <NumberFormat
         decimalScale={2}
@@ -339,4 +391,40 @@ function LoanCard({
       )}
     </ThemedViewV2>
   );
+}
+
+/* 
+  Custom comparison is added because the debounced search is sluggish due to Loan Icon rendering
+*/
+const MemoizedLoanIcon = memo(
+  ({ testID, displaySymbol }: { testID: string; displaySymbol: string }) => {
+    const LoanIcon = getNativeIcon(displaySymbol);
+    return (
+      <View
+        style={tailwind("flex flex-row justify-between items-center w-full")}
+      >
+        <ThemedTextV2
+          light={tailwind("text-mono-light-v2-700")}
+          dark={tailwind("text-mono-dark-v2-700")}
+          style={tailwind("font-normal-v2")}
+          testID={`${testID}_display_symbol`}
+        >
+          {displaySymbol}
+        </ThemedTextV2>
+        <LoanIcon
+          width={36}
+          height={36}
+          style={tailwind({
+            "font-normal-v2": Platform.OS === "web",
+          })}
+        />
+      </View>
+    );
+  },
+  comparisonFn
+);
+
+function comparisonFn(prevProps: any, nextProps: any): boolean {
+  // compare objects by stringify
+  return JSON.stringify(prevProps) === JSON.stringify(nextProps);
 }

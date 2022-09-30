@@ -1269,7 +1269,8 @@
     "Keep your vaults healthy and green, by monitoring its collateralization.": "Keep your vaults healthy and green, by monitoring its collateralization.",
     "Oracle prices": "Oracle prices",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain.",
-    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles."
+    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
+    "Search available loan tokens": "Search available loan tokens"
   },
   "components/tabs": {
     "Browse loan tokens": "浏览贷款选项",
