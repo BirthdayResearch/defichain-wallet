@@ -228,11 +228,13 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
               </ThemedTextV2>
             </View>
           ) : (
-            <AuctionFilterPillGroup
-              onSearchBtnPress={() => setShowSearchInput(true)}
-              onButtonGroupChange={setActiveButtonGroup}
-              activeButtonGroup={activeButtonGroup}
-            />
+            !showLoader && (
+              <AuctionFilterPillGroup
+                onSearchBtnPress={() => setShowSearchInput(true)}
+                onButtonGroupChange={setActiveButtonGroup}
+                activeButtonGroup={activeButtonGroup}
+              />
+            )
           )}
           <BrowseAuctions
             activeButtonGroup={activeButtonGroup}
