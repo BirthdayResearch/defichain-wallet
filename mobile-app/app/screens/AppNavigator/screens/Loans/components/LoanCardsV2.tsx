@@ -91,7 +91,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
         isVaultReady,
         activeVault,
       }}
-      scrollViewRef={props.scrollRef}
+      ref={props.scrollRef}
       numColumns={2}
       ListEmptyComponent={
         <View style={tailwind("mt-1")}>

@@ -8,7 +8,6 @@ import { ThemedProps } from "./index";
 
 interface ParentContainer {
   parentContainerStyle?: { [p: string]: string };
-  scrollViewRef?: React.Ref<ScrollView>;
 }
 
 type ThemedFlashListProps = FlashListProps<any> & ThemedProps & ParentContainer;
@@ -29,16 +28,14 @@ export const ThemedFlashList = forwardRef(
 
     return (
       <ScrollView
-        ref={ref}
         contentContainerStyle={[
           tailwind("flex-grow"),
           parentContainerStyle,
           theme,
         ]}
-        ref={props.scrollViewRef}
+        ref={ref}
       >
         <FlashList
-          ref={ref}
           estimatedItemSize={estimatedItemSize}
           contentContainerStyle={styles}
           {...otherProps}
