@@ -90,7 +90,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
     <ThemedFlashList
       estimatedItemSize={116}
       contentContainerStyle={tailwind("pt-4 pb-2")}
-      parentContainerStyle={tailwind("mx-2.5")}
+      parentContainerStyle={tailwind("px-3")}
       data={filteredLoanTokens}
       /* This tells FlashList to rerender if any of the props below is updated */
       extraData={{
