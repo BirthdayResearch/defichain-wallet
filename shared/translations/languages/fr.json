@@ -1276,7 +1276,8 @@
     "Monitor your vaults": "Surveiller vos vaults",
     "Keep your vaults healthy and green, by monitoring its collateralization.": "Gardez vos vaults sains et verts, en surveillant leur garantie.",
     "Oracle prices": "Prix oracles",
-    "With oracles, your vaults and loans align with market prices outside the blockchain.": "Avec les oracles, vos vaults et vos prêts s'alignent sur les prix du marché en dehors de la blockchain."
+    "With oracles, your vaults and loans align with market prices outside the blockchain.": "Avec les oracles, vos vaults et vos prêts s'alignent sur les prix du marché en dehors de la blockchain.",
+    "Search available loan tokens": "Rechercher les tokens de prêt disponibles"
   },
   "components/tabs": {
     "Browse loan tokens": "Emprunter un token",
