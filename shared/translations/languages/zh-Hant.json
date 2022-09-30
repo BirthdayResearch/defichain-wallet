@@ -504,6 +504,9 @@
     "About Auctions": "About Auctions",
     "Auctions": "清算拍賣",
     "FREQUENTLY ASKED QUESTIONS": "常見問題",
+    "How do I know the status of my bid after an auction ends?": "How do I know the status of my bid after an auction ends?",
+    "For successful bidders, bid amount will be deducted, and rewards will be automatically reflect under the Portfolio page.": "For successful bidders, bid amount will be deducted, and rewards will be automatically reflect under the Portfolio page.",
+    "For unsuccessful bidders, the bidding amount will be returned automatically to your wallet once you have been outbid by another user.": "For unsuccessful bidders, the bidding amount will be returned automatically to your wallet once you have been outbid by another user.",
     "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "金庫拍賣是用戶對已清算的金庫中的抵押品收回金庫未償還貸款的活動。當金庫的抵押品比率低於最低要求時，即進行清算，在此情況下，金庫抵押品將分為10,000美元的批次進行拍賣。",
     "How is the minimum starting bid determined?": "最低起標價是基於什麼？",
     "The minimum starting bid is 105% of the batch's outstanding loan value. The additional 5% is included to cover the liquidation penalty, which is incurred upon vault liquidation.": "最低標價是批次未償貸款價值的105%。額外的5%是用來支付清算罰款的，這在金庫清算時是會產生的。",
@@ -1291,14 +1294,36 @@
     "To get started, browse on auctions and place a bid": "首先，瀏覽拍賣並出價"
   },
   "components/EmptyAuctions": {
-    "No ongoing auctions": "目前沒有正在進行的拍賣會",
-    "Check again later for any ongoing auctions that you can participate": "請稍後再回到這頁面查看新增的拍賣會"
+    "No auctions": "No auctions",
+    "There are currently no collaterals available for auction.":  "There are currently no collaterals available for auction.",
+    "No Outbid Auctions": "No Outbid Auctions",
+    "You have no outbids yet": "You have no outbids yet",
+    "No Leading Bids": "No Leading Bids",
+    "You have no leading bids yet": "You have no leading bids yet",
+    "No Active Bids": "No Active Bids",
+    "You have no active bids yet": "You have no active bids yet"
   },
   "screens/AuctionScreen": {
     "Auctions": "清算拍賣",
+    "Bid": "競投出價",
     "Place Bid": "標價",
     "Confirm Place Bid": "確認出價",
-    "Auction details": "拍賣細節"
+    "Confirm": "確認",
+    "Auction details": "拍賣細節",
+    "Auction Details": "拍賣細節",
+    "COLLATERALS": "COLLATERALS",
+    "Sort Auctions": "Sort Auctions",
+    "Least time left": "Least time left",
+    "Most time left": "Most time left",
+    "Highest value": "Highest value",
+    "Lowest value": "Lowest value",
+    "Sort by": "Sort by",
+    "All auctions": "All auctions",
+    "Your active bids": "Your active bids",
+    "Your leading bids": "Your leading bids",
+    "Outbid": "Outbid",
+    "Search for auctions using collateral token names i.e. DFI DUSD dBTC.": "Search for auctions using collateral token names i.e. DFI DUSD dBTC.",
+    "Search results for “{{input}}”": "Search results for “{{input}}”"
   },
   "components/AuctionDetailScreen": {
     "Collateral": "抵押品",
@@ -1314,7 +1339,14 @@
     "Total auction value (USDT):": "拍賣總價值（USDT）:",
     "PLACE BID": "競投出價",
     "Batch #{{index}}": "批次 #{{index}}",
-    "Min. starting bid": "最低起標價"
+    "Min. starting bid": "最低起標價",
+    "Bid": "競投出價",
+    "Collaterals": "Collaterals",
+    "Total value": "Total value",
+    "Time remaining": "Time remaining",
+    "No time remaining": "No time remaining",
+    "Bid History ({{bidHistoryCount}})": "競標歷史 ({{bidHistoryCount}})",
+    "Auction closed": "Auction closed"
   },
   "components/BatchCard": {
     "Latest bid": "最新出價",
@@ -1330,7 +1362,8 @@
     "Min. next bid": "最低標價",
     "You are the highest bidder": "您目前是出價最高的人",
     "From your vault": "來自您的金庫",
-    "Waiting for first bid": "等待第一次標價"
+    "Waiting for first bid": "等待第一次標價",
+    "Quick bid": "快速標價"
   },
   "components/BatchHistory": {
     "{{h}}h {{m}}m ago": "{{h}}時 {{m}}分前",
@@ -1351,15 +1384,20 @@
   "components/BidHistory": {
     "Bidder ID": "競標者ID",
     "BID #{{bidIndex}}": "出價 #{{bidIndex}}",
+    "BID#{{bidIndex}}": "出價#{{bidIndex}}",
     "Waiting for first bid": "等待第一次標價",
     "{{h}}{{m}} ago": "{{h}}{{m}}前",
-    "Minimum amount to bid is": "最低投標金額"
+    "Minimum amount to bid is": "最低投標金額",
+    "ALL BIDS": "ALL BIDS",
+    "(Yours)": "(Yours)",
+    "Bid History": "競標歷史"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "拍賣即將完結於",
     "Auction time left": "剩餘拍賣時間",
     "{{block}} blks": "{{block}} 區塊",
     "~{{time}} left": "~{{time}} 結束拍賣",
+    "{{time}} left": "{{time}} 結束拍賣",
     "Auction time remaining": "剩餘拍賣時間"
   },
   "components/VaultCard": {
@@ -1725,7 +1763,8 @@
     "Search for loans": "搜尋貸款",
     "Search for loan token": "搜尋貸款代幣",
     "Search for pool pairs": "搜索流動池配對",
-    "Search pool pair": "Search pool pair"
+    "Search pool pair": "Search pool pair",
+    "Search auctions": "Search auctions"
   },
   "components/EmptyCollateral": {
     "No collateral": "沒有抵押",
@@ -1761,7 +1800,14 @@
     "Collateral": "抵押品",
     "How much do you want to bid?": "您想出的價錢？",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "您正要出的價錢比拍賣價值還高，請檢查和確認",
-    "Collateral for auction": "待拍賣的抵押品"
+    "Collateral for auction": "待拍賣的抵押品",
+    "I HAVE {{ownedAmount}} {{symbol}}": "I HAVE {{ownedAmount}} {{symbol}}",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Transaction fee": "Transaction fee",
+    "The minimum next bid is {{amount}} {{symbol}} (100%)": "The minimum next bid is {{amount}} {{symbol}} (100%)",
+    "{{percent}} min bid entered": "{{percent}} 最低競投出價輸入",
+    "Insufficient balance": "Insufficient balance",
+    "Auction timeout": "Auction timeout"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "交易明細",
@@ -1770,14 +1816,22 @@
     "Bid amount to place": "標價金額",
     "AUCTION DETAILS": "拍賣細節",
     "Total auction value (USDT)": "拍賣總價值（USDT）",
+    "Total auction value": "拍賣總價值",
     "Vault ID": "金庫編號",
     "Vault owner ID": "金庫主權者編號",
-    "Liquidation Height": "清算高度",
+    "Liquidation height": "清算高度",
     "CONFIRM PLACE BID": "確認標價",
     "Sign Transaction": "簽下交易",
     "Placing {{amount}} {{token}} as bid for auction.": "使用 {{amount}} {{token}} 作為標價",
     "Collateral for auction": "待拍賣的抵押品",
-    "Insufficient funds": "資金不足"
+    "Insufficient funds": "資金不足",
+    "You are bidding": "You are bidding",
+    "Amount will be deducted from your current wallet": "Amount will be deducted from your current wallet",
+    "Placing {{amount}} {{token}} bid": "Placing {{amount}} {{token}} bid",
+    "It may take a few seconds to verify": "It may take a few seconds to verify",
+    "Preparing placing {{amount}} {{token}} bid": "Preparing placing {{amount}} {{token}} bid",
+    "Placed {{amount}} {{token}} bid": "Placed {{amount}} {{token}} bid",
+    "Passcode verified!": "Passcode verified!"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Withdraw",
@@ -1859,9 +1913,20 @@
     "QUICK BID": "快速標價",
     "Insufficient amount to place a bid": "餘額不足，無法出價",
     "Quick bid": "快速標價",
+    "Quick Bid": "快速標價",
     "Place a bid on the auction with the min. next bid": "以下個最低底價進行快標",
     "Min. next bid": "最低標價",
-    "Current balance": "目前餘額"
+    "Current balance": "目前餘額",
+    "Leading bid": "Leading bid",
+    "Quick rebid": "Quick rebid",
+    "Outbid": "Outbid",
+    "Min bid": "最低標價",
+    "Insufficient {{symbol}} balance": "Insufficient {{symbol}} balance",
+    "Placing {{amount}} {{token}} quick bid": "Placing {{amount}} {{token}} quick bid",
+    "Placed {{amount}} {{token}} quick bid": "Placed {{amount}} {{token}} quick bid",
+    "Available": "可發送資金",
+    "Transaction fee": "Transaction fee",
+    "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}": "您的出價高於拍賣的抵押品價值 {{currency}}{{amount}}" 
   },
   "components/WalletAddressRow": {
     "Wallet address": "錢包地址"
