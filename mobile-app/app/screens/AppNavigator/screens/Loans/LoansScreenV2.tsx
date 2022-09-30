@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { batch, useSelector } from "react-redux";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { getColor, tailwind } from "@tailwind";
@@ -8,7 +8,7 @@ import { fetchLoanSchemes, fetchLoanTokens, fetchVaults } from "@store/loans";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useScrollToTop } from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { translate } from "@translations";
 import { LoanCardsV2 } from "./components/LoanCardsV2";
@@ -22,16 +22,28 @@ enum TabKey {
 }
 
 export function LoansScreenV2(): JSX.Element {
+  const { isLight } = useThemeContext();
   const { address } = useWalletContext();
   const isFocused = useIsFocused();
   const blockCount = useSelector((state: RootState) => state.block.count);
   const dispatch = useAppDispatch();
   const client = useWhaleApiClient();
 
+  /* useScrollToTop will not function in nested screens component, that's why we are passing the scroll view reference into LoadCards and Vaults component */
+  const borrowScrollRef = useRef(null);
+  const vaultScrollRef = useRef(null);
+  useScrollToTop(borrowScrollRef);
+  useScrollToTop(vaultScrollRef);
+
   useEffect(() => {
     if (isFocused) {
       batch(() => {
-        dispatch(fetchVaults({ address, client }));
+        dispatch(
+          fetchVaults({
+            address,
+            client,
+          })
+        );
         dispatch(fetchLoanTokens({ client }));
       });
     }
@@ -40,8 +52,6 @@ export function LoansScreenV2(): JSX.Element {
   useEffect(() => {
     dispatch(fetchLoanSchemes({ client }));
   }, []);
-
-  const { isLight } = useThemeContext();
 
   return (
     <LoansTab.Navigator
@@ -82,7 +92,6 @@ export function LoansScreenV2(): JSX.Element {
     >
       <LoansTab.Screen
         name={TabKey.Borrow}
-        component={LoanCardsV2}
         options={{
           tabBarLabel: (props) => (
             <Text
@@ -96,10 +105,11 @@ export function LoansScreenV2(): JSX.Element {
           ),
           tabBarTestID: `loans_tabs_${TabKey.Borrow}`,
         }}
-      />
+      >
+        {() => <LoanCardsV2 scrollRef={borrowScrollRef} />}
+      </LoansTab.Screen>
       <LoansTab.Screen
         name={TabKey.YourVaults}
-        component={VaultsV2}
         options={{
           tabBarLabel: (props) => (
             <Text
@@ -113,7 +123,9 @@ export function LoansScreenV2(): JSX.Element {
           ),
           tabBarTestID: `loans_tabs_${TabKey.YourVaults}`,
         }}
-      />
+      >
+        {() => <VaultsV2 scrollRef={vaultScrollRef} />}
+      </LoansTab.Screen>
     </LoansTab.Navigator>
   );
 }

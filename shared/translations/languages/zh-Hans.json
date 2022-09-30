@@ -1256,7 +1256,7 @@
     "Payback Loan": "偿还贷款",
     "Close Vault": "关闭金库",
     "Search vault": "Search vault",
-    "Search with vault ID or tokens": "Search with vault ID or tokens",
+    "Search with vault ID": "Search with vault ID",
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
     "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
     "Decentralized tokens": "Decentralized tokens",
@@ -1425,7 +1425,7 @@
     "Confirm your vault details in next screen": "在下一个屏幕上确认您的金库细节",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "您的金库的贷款计划将决定您所需的贷款抵押品",
     "Min. collateralization ratio": "最低抵押率",
-    "Select collateralization and interest scheme for your vault to start.": "Select collateralization and interest scheme for your vault to start.",
+    "Select a loan scheme for your vault.": "Select a loan scheme for your vault.",
     "Continue": "继续",
     "Create vault": "创建金库",
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
@@ -1737,7 +1737,8 @@
     "Interest rate": "利率",
     "APR": "年回报率",
     "Collateralization": "抵押",
-    "Vault interest": "金库利息"
+    "Vault interest": "金库利息",
+    "Min. collateral ratio": "Min. collateral ratio"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "您正要借更多贷款",

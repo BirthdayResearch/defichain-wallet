@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ThemedFlashList,
   ThemedIcon,
@@ -17,11 +17,7 @@ import {
   LoanVaultActive,
   LoanVaultState,
 } from "@defichain/whale-api-client/dist/api/loan";
-import {
-  NavigationProp,
-  useNavigation,
-  useScrollToTop,
-} from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { ActivePrice } from "@defichain/whale-api-client/dist/api/prices";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
@@ -45,10 +41,12 @@ import { LoanActionButton } from "./LoanActionButton";
 import { VaultStatus } from "../VaultStatusTypes";
 import { PriceOracleInfo } from "./PriceOracleInfo";
 import { VaultBanner } from "./VaultBanner";
+import { LoanCards } from "./LoanCards";
 
 interface LoanCardsProps {
   testID?: string;
   vaultId?: string;
+  scrollRef?: React.Ref<any>;
 }
 
 export interface LoanCardOptions {
@@ -88,8 +86,6 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
     );
   }, [vaultsList]);
 
-  const ref = useRef(null);
-  useScrollToTop(ref);
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
   const activeVault = vaults.find(
@@ -172,13 +168,14 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
       <ThemedFlashList
         estimatedItemSize={116}
         contentContainerStyle={tailwind("pt-4 pb-2")}
+        parentContainerStyle={tailwind("px-3")}
         data={filteredLoanTokens}
         /* This tells FlashList to rerender if any of the props below is updated */
         extraData={{
           isVaultReady,
           activeVault,
         }}
-        ref={ref}
+        ref={props.scrollRef}
         numColumns={2}
         ListEmptyComponent={
           <View style={tailwind("mt-1")}>
@@ -216,9 +213,8 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
             </View>
           );
         }}
-        keyExtractor={(_item, index) => index.toString()}
-        testID={props.testID}
       />
+
       {Platform.OS === "web" && (
         <BottomSheetWebWithNavV2
           modalRef={containerRef}
