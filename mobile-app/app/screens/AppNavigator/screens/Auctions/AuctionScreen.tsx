@@ -37,6 +37,8 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
   const { hasFetchAuctionsData } = useSelector(
     (state: RootState) => state.auctions
   );
+  const [showLoader, setShowLoader] = useState(true);
+  const [isFirstLoad, setIsFirstLoad] = useState(false);
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
   const yourVaultIds = useMemo(
     () => vaults.map(({ vaultId }: LoanVault) => vaultId),
@@ -92,6 +94,22 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
       });
     }
   }, [address, blockCount, isFocused]);
+
+  useEffect(() => {
+    setIsFirstLoad(true);
+  }, []);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    if (isFocused && hasFetchAuctionsData && isFirstLoad) {
+      // extend loader for an arbitrary amount of time for flashlist to complete rendering
+      const extendedLoaderTime = 1000;
+      timeout = setTimeout(() => {
+        setShowLoader(false);
+      }, extendedLoaderTime);
+    }
+    return () => clearTimeout(timeout);
+  }, [isFocused, hasFetchAuctionsData, isFirstLoad]);
 
   useEffect(() => {
     if (showSearchInput) {
@@ -180,51 +198,50 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
 
   return (
     <ThemedViewV2 testID="auctions_screen" style={tailwind("flex-1")}>
-      {hasFetchAuctionsData && (
-        <>
-          {showSearchInput ? (
-            <View style={tailwind("px-10 mt-8 mb-2")}>
-              <ThemedTextV2
-                light={tailwind("text-mono-light-v2-700")}
-                dark={tailwind("text-mono-dark-v2-700")}
-                style={tailwind("font-normal-v2 text-xs")}
-                testID="search_title"
-              >
-                {searchString?.trim().length > 0
-                  ? translate(
-                      "screens/AuctionScreen",
-                      "Search results for “{{input}}”",
-                      { input: searchString?.trim() }
-                    )
-                  : translate(
-                      "screens/AuctionScreen",
-                      "Search for auctions using collateral token names i.e. DFI DUSD dBTC."
-                    )}
-              </ThemedTextV2>
-            </View>
-          ) : (
-            <AuctionFilterPillGroup
-              onSearchBtnPress={() => setShowSearchInput(true)}
-              onButtonGroupChange={setActiveButtonGroup}
-              activeButtonGroup={activeButtonGroup}
-            />
-          )}
-          <BrowseAuctions
-            activeButtonGroup={activeButtonGroup}
-            showSearchInput={showSearchInput}
-            searchString={searchString}
-            batches={batches}
-            filteredAuctionBatches={filteredAuctionBatches}
-            yourVaultIds={yourVaultIds}
-          />
-        </>
+      {!showSearchInput && !showLoader && (
+        <AuctionFilterPillGroup
+          onSearchBtnPress={() => setShowSearchInput(true)}
+          onButtonGroupChange={setActiveButtonGroup}
+          activeButtonGroup={activeButtonGroup}
+        />
       )}
-      {(!hasFetchAuctionsData || isSearching) && (
+      {hasFetchAuctionsData && showSearchInput && (
+        <View style={tailwind("px-10 mt-8 mb-2")}>
+          <ThemedTextV2
+            light={tailwind("text-mono-light-v2-700")}
+            dark={tailwind("text-mono-dark-v2-700")}
+            style={tailwind("font-normal-v2 text-xs")}
+            testID="search_title"
+          >
+            {searchString?.trim().length > 0
+              ? translate(
+                  "screens/AuctionScreen",
+                  "Search results for “{{input}}”",
+                  { input: searchString?.trim() }
+                )
+              : translate(
+                  "screens/AuctionScreen",
+                  "Search for auctions using collateral token names i.e. DFI DUSD dBTC."
+                )}
+          </ThemedTextV2>
+        </View>
+      )}
+      {(showLoader || isSearching) && (
         <ThemedScrollViewV2
           contentContainerStyle={tailwind("p-5", { "pt-0": showSearchInput })}
         >
           <SkeletonLoader row={6} screen={SkeletonLoaderScreen.BrowseAuction} />
         </ThemedScrollViewV2>
+      )}
+      {hasFetchAuctionsData && (
+        <BrowseAuctions
+          activeButtonGroup={activeButtonGroup}
+          showSearchInput={showSearchInput}
+          searchString={searchString}
+          batches={batches}
+          filteredAuctionBatches={filteredAuctionBatches}
+          yourVaultIds={yourVaultIds}
+        />
       )}
     </ThemedViewV2>
   );
