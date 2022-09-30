@@ -111,7 +111,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
 
   return (
     <ThemedScrollViewV2
-      contentContainerStyle={tailwind("px-5 py-8 w-full")}
+      contentContainerStyle={tailwind("py-8 w-full")}
       ref={ref}
     >
       <SearchInputV2
@@ -122,7 +122,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           "screens/LoansScreen",
           "Search available loan tokens"
         )}
-        containerStyle={tailwind("flex-1", [
+        containerStyle={tailwind("flex-1 mx-5", [
           "border-0.5",
           isSearchFocus
             ? {
@@ -152,7 +152,8 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
       in web - FlashList */}
       <ThemedFlashList
         estimatedItemSize={116}
-        contentContainerStyle={tailwind("pt-4 pb-2")}
+        contentContainerStyle={tailwind("pt-6 pb-2")}
+        parentContainerStyle={tailwind("mx-3")}
         data={filteredLoanTokens}
         /* This tells FlashList to rerender if any of the props below is updated */
         extraData={{
@@ -161,9 +162,9 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
         }}
         numColumns={2}
         ListEmptyComponent={
-          <View style={tailwind("mt-1")}>
+          <View style={tailwind("mt-2")}>
             <ThemedTextV2
-              style={tailwind("text-xs pl-5 my-4 font-normal-v2")}
+              style={tailwind("text-xs pl-5 font-normal-v2")}
               light={tailwind("text-mono-light-v2-700")}
               dark={tailwind("text-mono-dark-v2-700")}
               testID="empty_search_result_text"
@@ -302,7 +303,7 @@ const MemoizedLoanIcon = memo(
         <ThemedTextV2
           light={tailwind("text-mono-light-v2-700")}
           dark={tailwind("text-mono-dark-v2-700")}
-          style={tailwind("font-medium font-normal-v2")}
+          style={tailwind("font-normal-v2")}
           testID={`${testID}_display_symbol`}
         >
           {displaySymbol}
@@ -311,7 +312,7 @@ const MemoizedLoanIcon = memo(
           width={36}
           height={36}
           style={tailwind({
-            "font-medium font-normal-v2": Platform.OS === "web",
+            "font-normal-v2": Platform.OS === "web",
           })}
         />
       </View>
