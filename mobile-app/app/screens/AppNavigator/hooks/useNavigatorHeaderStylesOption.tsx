@@ -45,7 +45,7 @@ export function useNavigatorHeaderStylesOption(
       <ThemedTextV2
         style={[
           screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
-          tailwind("text-left text-3xl font-semibold-v2 flex"),
+          tailwind("text-left text-3xl font-semibold-v2"),
           // eslint-disable-next-line react-native/no-inline-styles
           { fontSize: 28 },
         ]}
