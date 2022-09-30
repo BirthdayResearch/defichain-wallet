@@ -288,8 +288,7 @@ function BatchCards({
       contentContainerStyle={tailwind("pb-2")}
       data={auctionBatches}
       ref={ref}
-      numColumns={1}
-      estimatedItemSize={4}
+      estimatedItemSize={30}
       keyExtractor={(_item, index) => index.toString()}
       ListEmptyComponent={
         <>
