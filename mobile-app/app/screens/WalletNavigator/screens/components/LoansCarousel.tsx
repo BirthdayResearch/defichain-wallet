@@ -14,7 +14,7 @@ import ImageALight from "@assets/images/loans/loans_1_light.png";
 import ImageBLight from "@assets/images/loans/loans_2_light.png";
 import ImageCLight from "@assets/images/loans/loans_3_light.png";
 import ImageDLight from "@assets/images/loans/loans_4_light.png";
-import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
+import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { getColor, tailwind } from "@tailwind";
 import { CarouselPaginationWithNextButton } from "@screens/WalletNavigator/screens/components/CarouselPagination";
@@ -97,7 +97,7 @@ export function LoansCarousel({
   const { isLight } = useThemeContext();
 
   return (
-    <ThemedViewV2
+    <ThemedScrollViewV2
       style={tailwind(
         { "-mt-0.5": Platform.OS === "ios" },
         { "-mt-1": Platform.OS === "android" }
@@ -140,6 +140,6 @@ export function LoansCarousel({
           showPagination
         />
       </View>
-    </ThemedViewV2>
+    </ThemedScrollViewV2>
   );
 }
