@@ -19,7 +19,10 @@ export function PriceOracleInfo(props: PriceOracleInfoProps): JSX.Element {
           light={tailwind("text-mono-light-v2-500")}
           style={tailwind("font-normal-v2 text-sm mr-1")}
         >
-          {translate("", "Loan tokens get their prices from oracles.")}
+          {translate(
+            "screens/LoansScreen",
+            "Loan tokens get their prices from oracles."
+          )}
         </ThemedTextV2>
 
         <ThemedIcon
