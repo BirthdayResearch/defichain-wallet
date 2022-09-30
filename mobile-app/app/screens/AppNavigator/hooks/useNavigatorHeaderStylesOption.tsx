@@ -45,7 +45,7 @@ export function useNavigatorHeaderStylesOption(
       <ThemedTextV2
         style={[
           screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
-          tailwind("text-left text-3xl font-semibold-v2"),
+          tailwind("text-left text-3xl font-semibold-v2 flex"),
           // eslint-disable-next-line react-native/no-inline-styles
           { fontSize: 28 },
         ]}
@@ -57,7 +57,7 @@ export function useNavigatorHeaderStylesOption(
       <HeaderNetworkStatus
         onPress={goToNetworkSelect}
         containerStyle={tailwind("pt-4", {
-          "pt-px": Platform.OS === "android",
+          "pt-5": Platform.OS === "android",
         })}
       />
     ),
