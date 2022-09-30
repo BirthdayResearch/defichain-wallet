@@ -161,8 +161,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           <VaultBanner
             buttonLabel="Create a vault"
             description="You need a vault with collaterals to borrow tokens"
-            onButtonPress={goToCreateVault} // TODO @chloe: button press not working on mobile
-            disabled
+            onButtonPress={goToCreateVault}
           />
           <View style={tailwind("mt-2")}>
             <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />

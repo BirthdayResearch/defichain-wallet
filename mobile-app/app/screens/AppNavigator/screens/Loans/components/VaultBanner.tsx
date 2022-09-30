@@ -12,7 +12,6 @@ import { VaultStatus } from "../VaultStatusTypes";
 export function VaultBanner({
   description,
   onButtonPress,
-  disabled,
   buttonLabel,
   vaultId,
   vaultType,
@@ -20,7 +19,6 @@ export function VaultBanner({
 }: {
   description: string;
   onButtonPress: () => void;
-  disabled?: boolean;
   buttonLabel?: string;
   vaultId?: string;
   vaultType?: string;
