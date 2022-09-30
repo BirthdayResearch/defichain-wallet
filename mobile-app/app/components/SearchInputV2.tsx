@@ -27,6 +27,7 @@ export const SearchInputV2 = forwardRef<any, SearchInputProps>(
       inputStyle,
       light = tailwind("bg-mono-light-v2-00"),
       dark = tailwind("bg-mono-dark-v2-00"),
+      testID,
       ...otherProps
     } = props;
     return (
@@ -48,6 +49,7 @@ export const SearchInputV2 = forwardRef<any, SearchInputProps>(
         />
         <ThemedTextInputV2
           ref={ref}
+          testID={testID}
           {...inputStyle}
           {...otherProps}
           style={[
@@ -55,7 +57,12 @@ export const SearchInputV2 = forwardRef<any, SearchInputProps>(
             tailwind({ "mr-4": !props.showClearButton }),
           ]}
         />
-        {props.showClearButton && <ClearButtonV2 onPress={onClearInput} />}
+        {props.showClearButton && (
+          <ClearButtonV2
+            onPress={onClearInput}
+            testID={`${testID}_clear_btn`}
+          />
+        )}
       </ThemedViewV2>
     );
   }

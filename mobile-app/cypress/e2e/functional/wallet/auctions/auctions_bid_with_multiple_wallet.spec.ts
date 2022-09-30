@@ -16,7 +16,7 @@ function generateBlockUntilLiquidate(): void {
     });
 }
 
-context("Wallet - Auctions", () => {
+context("Wallet - Auctions multi wallet bid", () => {
   let whale: WhaleApiClient;
   let retries = 0;
   const walletTheme = { isDark: false };
@@ -59,6 +59,9 @@ context("Wallet - Auctions", () => {
 
   beforeEach(() => {
     cy.setFeatureFlags(["auction"]);
+    cy.createEmptyWallet(false);
+    cy.sendDFItoWallet().sendTokenToWallet(["TU10"]).wait(6000);
+    cy.exitWallet();
     cy.createEmptyWallet(true);
     cy.sendDFItoWallet()
       .sendDFItoWallet()
@@ -136,70 +139,38 @@ context("Wallet - Auctions", () => {
                 cy.getByTestID("batch_card_0_leading_text").contains(
                   "Leading bid"
                 );
+                // Bidder 2
+                cy.exitWallet();
+                cy.createEmptyWallet(false);
+                cy.getByTestID("bottom_tab_auctions").click();
+                cy.getByTestID("batch_card_0_min_next_bid")
+                  .invoke("text")
+                  .then((nextBidForNewBidder) => {
+                    cy.getByTestID("batch_card_0_quick_bid_button").click();
+                    console.log(
+                      BigNumber(nextBidForNewBidder.replace(" dTU10", "")).gt(
+                        nextBid.replace(" dTU10", "")
+                      )
+                    );
+                    expect(
+                      BigNumber(nextBidForNewBidder.replace(" dTU10", "")).gt(
+                        nextBid.replace(" dTU10", "")
+                      )
+                    ).equal(true);
+                    cy.getByTestID("quick_bid_min_next_bid_amount").contains(
+                      nextBidForNewBidder
+                    );
+                    cy.getByTestID("quick_bid_submit_button")
+                      .click()
+                      .wait(1000);
+                    cy.closeOceanInterface();
+                    cy.getByTestID("batch_card_0_leading_text").contains(
+                      "Leading bid"
+                    );
+                  });
               });
             });
         });
       });
-  });
-
-  it("should be able to quick and place bid", () => {
-    cy.getByTestID("bottom_tab_auctions").click();
-    cy.sendTokenToWallet(["TU10"]).wait(6000);
-    runIfAuctionsIsAvailable(() => {
-      cy.getByTestID("batch_card_0").click();
-      cy.getByTestID("auction_detail_bid_history_btn").should("not.exist");
-      cy.getByTestID("auction_detail_loan_collaterals_0").contains(
-        "0.20000000 DFI"
-      );
-      cy.getByTestID("auction_detail_loan_collaterals_0_rhsUsdAmount").contains(
-        "$2,000.00"
-      );
-      cy.getByTestID("auction_detail_loan_collaterals_1").contains(
-        "0.00000001 dCD10"
-      );
-      cy.getByTestID("auction_detail_loan_collaterals_1_rhsUsdAmount").contains(
-        "$0.00"
-      );
-      cy.getByTestID("auction_detail_total_value").contains("$2,000.00");
-      cy.go("back");
-
-      // quick bid
-      cy.getByTestID("batch_card_0_min_next_bid")
-        .invoke("text")
-        .then((nextBid) => {
-          cy.getByTestID("batch_card_0_quick_bid_button").click();
-          cy.getByTestID("quick_bid_min_next_bid_amount").contains(nextBid);
-          cy.wrap<number | undefined>(whale.fee.estimate(), {
-            timeout: 20000,
-          }).then(async (fee) => {
-            cy.getByTestID("text_fee").contains(
-              `${new BigNumber(+fee).toFixed(8)} DFI`
-            );
-            cy.getByTestID("quick_bid_submit_button").click().wait(1000);
-            cy.closeOceanInterface();
-            cy.getByTestID("batch_card_0_leading_text").contains("Leading bid");
-
-            cy.getByTestID("batch_card_0").click();
-            cy.getByTestID("auction_detail_bid_history_btn").contains(
-              "Bid History (1)"
-            );
-            cy.getByTestID("auction_detail_place_bid_btn").click();
-            cy.getByTestID("105%_amount_button").click();
-            cy.getByTestID("bid_button_submit").click();
-            cy.getByTestID("total_auction_value").contains("$2,000.00");
-            cy.getByTestID("button_confirm_bid").click();
-            cy.closeOceanInterface();
-            cy.getByTestID("bottom_tab_auctions").click();
-            cy.getByTestID("batch_card_0_leading_text").should("exist");
-            cy.getByTestID("batch_card_0").click();
-            cy.getByTestID("auction_detail_bid_history_btn").contains(
-              "Bid History (2)"
-            );
-            cy.getByTestID("auction_detail_bid_history_btn").click();
-            cy.getByTestID("bid_1").should("exist");
-            cy.getByTestID("bid_2").should("exist");
-          });
-        });
-    });
   });
 });
