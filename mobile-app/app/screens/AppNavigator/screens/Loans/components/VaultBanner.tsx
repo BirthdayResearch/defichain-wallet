@@ -1,12 +1,10 @@
 import { ThemedIcon, ThemedTextV2, ThemedViewV2 } from "@components/themed";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { tailwind } from "@tailwind";
-import { Image, View } from "react-native";
+import { Image, View, TouchableOpacity } from "react-native";
 import EmptyCollateral from "@assets/images/loans/empty_collateral.png";
 import LiquidatedVault from "@assets/images/loans/liquidated_vault.png";
 import { translate } from "@translations";
 import { ButtonV2 } from "@components/ButtonV2";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { openURL } from "expo-linking";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { VaultStatus } from "../VaultStatusTypes";
@@ -14,6 +12,7 @@ import { VaultStatus } from "../VaultStatusTypes";
 export function VaultBanner({
   description,
   onButtonPress,
+  disabled,
   buttonLabel,
   vaultId,
   vaultType,
@@ -21,6 +20,7 @@ export function VaultBanner({
 }: {
   description: string;
   onButtonPress: () => void;
+  disabled?: boolean;
   buttonLabel?: string;
   vaultId?: string;
   vaultType?: string;
@@ -28,7 +28,7 @@ export function VaultBanner({
 }): JSX.Element {
   const { getVaultsUrl } = useDeFiScanContext();
   return (
-    <TouchableOpacity onPress={onCardPress}>
+    <TouchableOpacity onPress={onCardPress} activeOpacity={1}>
       <ThemedViewV2
         dark={tailwind("bg-mono-dark-v2-00")}
         light={tailwind("bg-mono-light-v2-00")}

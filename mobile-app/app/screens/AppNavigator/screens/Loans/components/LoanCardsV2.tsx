@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import {
   ThemedFlashList,
+  ThemedIcon,
   ThemedText,
   ThemedTextV2,
+  ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
 import { tailwind } from "@tailwind";
@@ -29,10 +31,20 @@ import {
   SkeletonLoader,
   SkeletonLoaderScreen,
 } from "@components/SkeletonLoader";
+import { useBottomSheet } from "@hooks/useBottomSheet";
+import {
+  BottomSheetNavScreen,
+  BottomSheetWebWithNavV2,
+  BottomSheetWithNavV2,
+} from "@components/BottomSheetWithNavV2";
+import { BottomSheetModalInfo } from "@components/BottomSheetModalInfo";
+import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { LoanParamList } from "../LoansNavigator";
 import { LoanActionButton } from "./LoanActionButton";
 import { VaultStatus } from "../VaultStatusTypes";
+import { VaultBanner } from "./VaultBanner";
+import { PriceOracleInfo } from "./PriceOracleInfo";
 
 interface LoanCardsProps {
   testID?: string;
@@ -85,58 +97,159 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
       v.vaultId === props.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION
   ) as LoanVaultActive;
 
+  const goToCreateVault = (): void => {
+    navigation.navigate({
+      name: "CreateVaultScreen",
+      params: {},
+      merge: true,
+    });
+  };
+
+  const { isLight } = useThemeContext();
+
+  const title = "Price Oracles";
+  const description =
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.";
+
+  const {
+    bottomSheetRef,
+    containerRef,
+    dismissModal,
+    expandModal,
+    isModalDisplayed,
+  } = useBottomSheet();
+  const [bottomSheetScreen, setBottomSheetScreen] = useState<
+    BottomSheetNavScreen[]
+  >([]);
+  const BottomSheetHeader = {
+    headerStatusBarHeight: 2,
+    headerTitle: "",
+    headerBackTitleVisible: false,
+    headerStyle: tailwind("rounded-t-xl-v2 border-b-0", {
+      "bg-mono-light-v2-100": isLight,
+      "bg-mono-dark-v2-100": !isLight,
+    }),
+    headerRight: (): JSX.Element => {
+      return (
+        <ThemedTouchableOpacityV2
+          style={tailwind("mr-5 mt-4 -mb-4")}
+          onPress={dismissModal}
+          testID="close_bottom_sheet_button"
+        >
+          <ThemedIcon iconType="Feather" name="x-circle" size={22} />
+        </ThemedTouchableOpacityV2>
+      );
+    },
+    headerLeft: () => <></>,
+  };
+
+  const onBottomSheetOraclePriceSelect = (): void => {
+    setBottomSheetScreen([
+      {
+        stackScreenName: "OraclePriceInfo",
+        component: BottomSheetModalInfo({ title, description }),
+        option: BottomSheetHeader,
+      },
+    ]);
+    expandModal();
+  };
+
   return (
-    /* Known intermittent issue wherein the two-column layout is not followed in web - FlashList */
-    <ThemedFlashList
-      estimatedItemSize={116}
-      contentContainerStyle={tailwind("pt-4 pb-2")}
-      data={filteredLoanTokens}
-      /* This tells FlashList to rerender if any of the props below is updated */
-      extraData={{
-        isVaultReady,
-        activeVault,
-      }}
-      ref={ref}
-      numColumns={2}
-      ListEmptyComponent={
-        <View style={tailwind("mt-1")}>
-          <SkeletonLoader row={6} screen={SkeletonLoaderScreen.LoanV2} />
-        </View>
-      }
-      renderItem={({
-        item,
-        index,
-      }: {
-        item: LoanToken;
-        index: number;
-      }): JSX.Element => {
-        return (
-          <View style={{ flexBasis: "98%" }}>
-            <LoanCard
-              symbol={item.token.symbol}
-              displaySymbol={item.token.displaySymbol}
-              interestRate={item.interest}
-              price={item.activePrice}
-              loanTokenId={item.tokenId}
-              onPress={() => {
-                navigation.navigate({
-                  name: "BorrowLoanTokenScreen",
-                  params: {
-                    loanToken: item,
-                    vault: activeVault,
-                  },
-                  merge: true,
-                });
-              }}
-              testID={`loan_card_${index}`}
-              isBorrowHidden={!isVaultReady}
-            />
+    <>
+      {vaults.length === 0 && (
+        <View style={tailwind("mx-5 mt-8 rounded-lg-v2")}>
+          <VaultBanner
+            buttonLabel="Create a vault"
+            description="You need a vault with collaterals to borrow tokens"
+            onButtonPress={goToCreateVault} // TODO @chloe: button press not working on mobile
+            disabled
+          />
+          <View style={tailwind("mt-2")}>
+            <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />
           </View>
-        );
-      }}
-      keyExtractor={(_item, index) => index.toString()}
-      testID={props.testID}
-    />
+        </View>
+      )}
+      {/* Known intermittent issue wherein the two-column layout is not followed in web - FlashList */}
+      <ThemedFlashList
+        estimatedItemSize={116}
+        contentContainerStyle={tailwind("pt-4 pb-2")}
+        data={filteredLoanTokens}
+        /* This tells FlashList to rerender if any of the props below is updated */
+        extraData={{
+          isVaultReady,
+          activeVault,
+        }}
+        ref={ref}
+        numColumns={2}
+        ListEmptyComponent={
+          <View style={tailwind("mt-1")}>
+            <SkeletonLoader row={6} screen={SkeletonLoaderScreen.LoanV2} />
+          </View>
+        }
+        renderItem={({
+          item,
+          index,
+        }: {
+          item: LoanToken;
+          index: number;
+        }): JSX.Element => {
+          return (
+            <View style={{ flexBasis: "98%" }}>
+              <LoanCard
+                symbol={item.token.symbol}
+                displaySymbol={item.token.displaySymbol}
+                interestRate={item.interest}
+                price={item.activePrice}
+                loanTokenId={item.tokenId}
+                onPress={() => {
+                  navigation.navigate({
+                    name: "BorrowLoanTokenScreen",
+                    params: {
+                      loanToken: item,
+                      vault: activeVault,
+                    },
+                    merge: true,
+                  });
+                }}
+                testID={`loan_card_${index}`}
+                isBorrowHidden={!isVaultReady}
+              />
+            </View>
+          );
+        }}
+        keyExtractor={(_item, index) => index.toString()}
+        testID={props.testID}
+      />
+      {Platform.OS === "web" && (
+        <BottomSheetWebWithNavV2
+          modalRef={containerRef}
+          screenList={bottomSheetScreen}
+          isModalDisplayed={isModalDisplayed}
+          // eslint-disable-next-line react-native/no-inline-styles
+          modalStyle={{
+            position: "absolute",
+            bottom: "0",
+            height: "474px",
+            width: "375px",
+            zIndex: 50,
+            borderTopLeftRadius: 15,
+            borderTopRightRadius: 15,
+            overflow: "hidden",
+          }}
+        />
+      )}
+
+      {Platform.OS !== "web" && (
+        <BottomSheetWithNavV2
+          modalRef={bottomSheetRef}
+          screenList={bottomSheetScreen}
+          snapPoints={{
+            ios: ["30%"],
+            android: ["35%"],
+          }}
+        />
+      )}
+    </>
   );
 }
 
