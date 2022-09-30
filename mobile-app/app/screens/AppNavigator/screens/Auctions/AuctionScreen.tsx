@@ -228,7 +228,7 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
       )}
       {(showLoader || isSearching) && (
         <ThemedScrollViewV2
-          contentContainerStyle={tailwind("p-5 ", { "pt-0": showSearchInput })}
+          contentContainerStyle={tailwind("p-5", { "pt-0": showSearchInput })}
         >
           <SkeletonLoader row={6} screen={SkeletonLoaderScreen.BrowseAuction} />
         </ThemedScrollViewV2>
