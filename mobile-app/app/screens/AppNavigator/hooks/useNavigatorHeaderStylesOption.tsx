@@ -57,7 +57,7 @@ export function useNavigatorHeaderStylesOption(
       <HeaderNetworkStatus
         onPress={goToNetworkSelect}
         containerStyle={tailwind("pt-4", {
-          "pt-px": Platform.OS === "android",
+          "pt-5": Platform.OS === "android",
         })}
       />
     ),

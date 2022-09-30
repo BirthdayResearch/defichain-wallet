@@ -1280,7 +1280,7 @@
     "Close Vault": "Cancela la bóveda",
     "Edit Collateral": "Editar colateral",
     "Search vault": "Search vault",
-    "Search with vault ID or tokens": "Search with vault ID or tokens",
+    "Search with vault ID": "Search with vault ID",
     "Search results for “{{searchTerm}}”": "Buscar resultados para “{{searchTerm}}”",
     "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
     "Decentralized tokens": "Decentralized tokens",
@@ -1292,7 +1292,8 @@
     "Monitor your vaults": "Monitor your vaults",
     "Keep your vaults healthy and green, by monitoring its collateralization.": "Keep your vaults healthy and green, by monitoring its collateralization.",
     "Oracle prices": "Oracle prices",
-    "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain."
+    "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain.",
+    "Search available loan tokens": "Search available loan tokens"
   },
   "components/tabs": {
     "Browse loan tokens": "Busca tokens de préstamo",
@@ -1451,7 +1452,7 @@
     "Confirm your vault details in next screen": "Confirma los detalles de tu bóveda en la siguiente pantalla",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "El tipo de préstamo de tu bóveda determina el ratio de colateralización para pedir un préstamo.",
     "Min. collateralization ratio": "Mínimo ratio de colateralización",
-    "Select collateralization and interest scheme for your vault to start.": "Select collateralization and interest scheme for your vault to start.",
+    "Select a loan scheme for your vault.": "Select a loan scheme for your vault.",
     "Continue": "Continúa",
     "Create vault": "Crea una bóveda",
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
@@ -1764,7 +1765,8 @@
     "Interest rate": "Tasa de interés",
     "APR": "Tasa de interés anual (APR)",
     "Collateralization": "Collateralization",
-    "Vault interest": "Interés de la bóveda"
+    "Vault interest": "Interés de la bóveda",
+    "Min. collateral ratio": "Min. collateral ratio"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "TU ESTAS PIDIENDO PRESTADO MAS POR TU PRESTAMO",
