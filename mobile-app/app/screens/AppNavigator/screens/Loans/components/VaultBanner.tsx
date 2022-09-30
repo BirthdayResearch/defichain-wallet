@@ -86,7 +86,8 @@ export function VaultBanner({
             </ThemedTextV2>
             {buttonLabel !== "" && (
               <ButtonV2
-                styleProps="mt-3 text-sm"
+                customButtonStyle="py-2 px-3"
+                styleProps="mt-3"
                 label={buttonLabel}
                 onPress={onButtonPress}
                 testID="button_create_vault"
