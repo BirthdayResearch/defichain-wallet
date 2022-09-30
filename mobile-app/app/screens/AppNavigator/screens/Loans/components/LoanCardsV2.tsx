@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import {
   ThemedFlashList,
+  ThemedScrollViewV2,
   ThemedText,
   ThemedTextV2,
   ThemedViewV2,
@@ -8,7 +9,7 @@ import {
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { NumericFormat as NumberFormat } from "react-number-format";
-import { Platform, View } from "react-native";
+import { Platform, TextInput, View } from "react-native";
 import { getNativeIcon } from "@components/icons/assets";
 import {
   LoanToken,
@@ -29,6 +30,9 @@ import {
   SkeletonLoader,
   SkeletonLoaderScreen,
 } from "@components/SkeletonLoader";
+import { SearchInputV2 } from "@components/SearchInputV2";
+import { useDebounce } from "@hooks/useDebounce";
+import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { LoanParamList } from "../LoansNavigator";
 import { LoanActionButton } from "./LoanActionButton";
@@ -51,6 +55,7 @@ export interface LoanCardOptions {
 }
 
 export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
+  const { isLight } = useThemeContext();
   const loanTokens = useSelector((state: RootState) =>
     loanTokensSelector(state.loans)
   );
@@ -65,6 +70,20 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   const [filteredLoanTokens, setFilteredLoanTokens] =
     useState<LoanToken[]>(loanTokens);
   const [isVaultReady, setIsVaultReady] = useState(false);
+  const [searchString, setSearchString] = useState("");
+  const [isSearchFocus, setIsSearchFocus] = useState(false);
+  const searchRef = useRef<TextInput>();
+  const debouncedSearchTerm = useDebounce(searchString, 250);
+
+  useEffect(() => {
+    setFilteredLoanTokens(
+      loanTokens.filter((loan) =>
+        loan.token.displaySymbol
+          .toLowerCase()
+          .includes(debouncedSearchTerm.trim().toLowerCase())
+      )
+    );
+  }, [loanTokens, debouncedSearchTerm]);
 
   useEffect(() => {
     setFilteredLoanTokens(loanTokens);
@@ -86,57 +105,109 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   ) as LoanVaultActive;
 
   return (
-    /* Known intermittent issue wherein the two-column layout is not followed in web - FlashList */
-    <ThemedFlashList
-      estimatedItemSize={116}
-      contentContainerStyle={tailwind("pt-4 pb-2")}
-      data={filteredLoanTokens}
-      /* This tells FlashList to rerender if any of the props below is updated */
-      extraData={{
-        isVaultReady,
-        activeVault,
-      }}
+    <ThemedScrollViewV2
+      contentContainerStyle={tailwind("px-5 py-8 w-full")}
       ref={ref}
-      numColumns={2}
-      ListEmptyComponent={
-        <View style={tailwind("mt-1")}>
-          <SkeletonLoader row={6} screen={SkeletonLoaderScreen.LoanV2} />
-        </View>
-      }
-      renderItem={({
-        item,
-        index,
-      }: {
-        item: LoanToken;
-        index: number;
-      }): JSX.Element => {
-        return (
-          <View style={{ flexBasis: "98%" }}>
-            <LoanCard
-              symbol={item.token.symbol}
-              displaySymbol={item.token.displaySymbol}
-              interestRate={item.interest}
-              price={item.activePrice}
-              loanTokenId={item.tokenId}
-              onPress={() => {
-                navigation.navigate({
-                  name: "BorrowLoanTokenScreen",
-                  params: {
-                    loanToken: item,
-                    vault: activeVault,
-                  },
-                  merge: true,
-                });
-              }}
-              testID={`loan_card_${index}`}
-              isBorrowHidden={!isVaultReady}
-            />
+    >
+      <SearchInputV2
+        ref={searchRef}
+        value={searchString}
+        showClearButton={debouncedSearchTerm !== ""}
+        placeholder={translate(
+          "screens/LoansScreen",
+          "Search available loan tokens"
+        )}
+        containerStyle={tailwind("flex-1", [
+          "border-0.5",
+          isSearchFocus
+            ? {
+                "border-mono-light-v2-800": isLight,
+                "border-mono-dark-v2-800": !isLight,
+              }
+            : {
+                "border-mono-light-v2-00": isLight,
+                "border-mono-dark-v2-00": !isLight,
+              },
+        ])}
+        onClearInput={() => {
+          setSearchString("");
+          searchRef?.current?.focus();
+        }}
+        onChangeText={(text: string) => {
+          setSearchString(text);
+        }}
+        onFocus={() => {
+          setIsSearchFocus(true);
+        }}
+        onBlur={() => {
+          setIsSearchFocus(false);
+        }}
+      />
+      {/* Known intermittent issue wherein the two-column layout is not followed
+      in web - FlashList */}
+      <ThemedFlashList
+        estimatedItemSize={116}
+        contentContainerStyle={tailwind("pt-4 pb-2")}
+        data={filteredLoanTokens}
+        /* This tells FlashList to rerender if any of the props below is updated */
+        extraData={{
+          isVaultReady,
+          activeVault,
+        }}
+        numColumns={2}
+        ListEmptyComponent={
+          <View style={tailwind("mt-1")}>
+            <ThemedTextV2
+              style={tailwind("text-xs pl-5 my-4 font-normal-v2")}
+              light={tailwind("text-mono-light-v2-700")}
+              dark={tailwind("text-mono-dark-v2-700")}
+              testID="empty_search_result_text"
+            >
+              {debouncedSearchTerm.trim() === ""
+                ? translate("screens/LoansScreen", "Search with token name")
+                : translate(
+                    "screens/LoansScreen",
+                    "Search results for “{{searchTerm}}”",
+                    { searchTerm: debouncedSearchTerm }
+                  )}
+            </ThemedTextV2>
           </View>
-        );
-      }}
-      keyExtractor={(_item, index) => index.toString()}
-      testID={props.testID}
-    />
+        }
+        renderItem={({
+          item,
+          index,
+        }: {
+          item: LoanToken;
+          index: number;
+        }): JSX.Element => {
+          return (
+            <View style={{ flexBasis: "98%" }}>
+              <LoanCard
+                symbol={item.token.symbol}
+                displaySymbol={item.token.displaySymbol}
+                interestRate={item.interest}
+                price={item.activePrice}
+                loanTokenId={item.tokenId}
+                onPress={() => {
+                  navigation.navigate({
+                    name: "BorrowLoanTokenScreen",
+                    params: {
+                      loanToken: item,
+                      vault: activeVault,
+                    },
+                    merge: true,
+                  });
+                }}
+                testID={`loan_card_${index}`}
+                isBorrowHidden={!isVaultReady}
+              />
+            </View>
+          );
+        }}
+        keyExtractor={(_item, index) => index.toString()}
+        testID={props.testID}
+      />
+    </ThemedScrollViewV2>
   );
 }
 
