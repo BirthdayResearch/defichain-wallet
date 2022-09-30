@@ -1280,7 +1280,7 @@
     "Close Vault": "Cancela la bóveda",
     "Edit Collateral": "Editar colateral",
     "Search vault": "Search vault",
-    "Search with vault ID or tokens": "Search with vault ID or tokens",
+    "Search with vault ID": "Search with vault ID",
     "Search results for “{{searchTerm}}”": "Buscar resultados para “{{searchTerm}}”",
     "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
     "Decentralized tokens": "Decentralized tokens",

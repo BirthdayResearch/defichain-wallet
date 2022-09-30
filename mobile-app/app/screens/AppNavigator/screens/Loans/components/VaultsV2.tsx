@@ -147,10 +147,7 @@ export function VaultsV2(): JSX.Element {
             testID="empty_search_result_text"
           >
             {debouncedSearchTerm.trim() === ""
-              ? translate(
-                  "screens/LoansScreen",
-                  "Search with vault ID or tokens"
-                )
+              ? translate("screens/LoansScreen", "Search with vault ID")
               : translate(
                   "screens/LoansScreen",
                   "Search results for “{{searchTerm}}”",

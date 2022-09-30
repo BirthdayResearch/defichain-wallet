@@ -1256,7 +1256,7 @@
     "Payback Loan": "偿还贷款",
     "Close Vault": "关闭金库",
     "Search vault": "Search vault",
-    "Search with vault ID or tokens": "Search with vault ID or tokens",
+    "Search with vault ID": "Search with vault ID",
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
     "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
     "Decentralized tokens": "Decentralized tokens",
