@@ -37,6 +37,8 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
   const { hasFetchAuctionsData } = useSelector(
     (state: RootState) => state.auctions
   );
+  const [showLoader, setShowLoader] = useState(true);
+  const [isFirstLoad, setIsFirstLoad] = useState(false);
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
   const yourVaultIds = useMemo(
     () => vaults.map(({ vaultId }: LoanVault) => vaultId),
@@ -92,6 +94,22 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
       });
     }
   }, [address, blockCount, isFocused]);
+
+  useEffect(() => {
+    setIsFirstLoad(true);
+  }, []);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    if (isFocused && hasFetchAuctionsData && isFirstLoad) {
+      // extend loader for an arbitrary amount of time for flashlist to complete rendering
+      const extendedLoaderTime = 1000;
+      timeout = setTimeout(() => {
+        setShowLoader(false);
+      }, extendedLoaderTime);
+    }
+    return () => clearTimeout(timeout);
+  }, [isFocused, hasFetchAuctionsData, isFirstLoad]);
 
   useEffect(() => {
     if (showSearchInput) {
@@ -180,6 +198,13 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
 
   return (
     <ThemedViewV2 testID="auctions_screen" style={tailwind("flex-1")}>
+      {(showLoader || isSearching) && (
+        <ThemedScrollViewV2
+          contentContainerStyle={tailwind("p-5", { "pt-0": showSearchInput })}
+        >
+          <SkeletonLoader row={6} screen={SkeletonLoaderScreen.BrowseAuction} />
+        </ThemedScrollViewV2>
+      )}
       {hasFetchAuctionsData && (
         <>
           {showSearchInput ? (
@@ -218,13 +243,6 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
             yourVaultIds={yourVaultIds}
           />
         </>
-      )}
-      {(!hasFetchAuctionsData || isSearching) && (
-        <ThemedScrollViewV2
-          contentContainerStyle={tailwind("p-5", { "pt-0": showSearchInput })}
-        >
-          <SkeletonLoader row={6} screen={SkeletonLoaderScreen.BrowseAuction} />
-        </ThemedScrollViewV2>
       )}
     </ThemedViewV2>
   );
