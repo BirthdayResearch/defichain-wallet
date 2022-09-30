@@ -39,6 +39,10 @@ import {
 } from "@components/BottomSheetWithNavV2";
 import { BottomSheetModalInfo } from "@components/BottomSheetModalInfo";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { AnimatedCircularProgress } from "react-native-circular-progress";
+import { CircularProgressBase } from "react-native-circular-progress-indicator";
+import { Circle } from "react-content-loader/native";
+import * as Progress from "react-native-progress";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { LoanParamList } from "../LoansNavigator";
 import { LoanActionButton } from "./LoanActionButton";
@@ -147,7 +151,10 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
     setBottomSheetScreen([
       {
         stackScreenName: "OraclePriceInfo",
-        component: BottomSheetModalInfo({ title, description }),
+        component: BottomSheetModalInfo({
+          title,
+          description,
+        }),
         option: BottomSheetHeader,
       },
     ]);
@@ -340,6 +347,58 @@ function LoanCard({
           testID={`${displaySymbol}_borrow_button`}
         />
       )}
+      <View style={tailwind("mt-4")}>
+        <CircularProgressBase
+          value={58}
+          activeStrokeColor="#00AD1D"
+          activeStrokeSecondaryColor="#D97B01"
+          rotation={-90}
+          radius={50}
+          dashedStrokeConfig={{
+            count: 1,
+            width: 170,
+          }}
+          strokeLinecap="round"
+        />
+      </View>
+      <Progress.Circle />
+
+      <View style={tailwind("p-4")}>
+        <AnimatedCircularProgress
+          size={135}
+          width={5}
+          fill={80}
+          tintColor="#00AD1D"
+          backgroundColor="#F2F2F2"
+          arcSweepAngle={180}
+          rotation={270}
+          lineCap="round"
+          // fillLineCap={"round"}
+          renderCap={({ center }) => (
+            <Circle cx={center.x} cy={center.y} r="3" fill="#2B2B2B" />
+          )}
+          style={tailwind("-mb-10")}
+          childrenContainerStyle={tailwind("p-4")}
+        >
+          {(fill) => (
+            <View
+              style={tailwind(
+                "flex-col flex-wrap w-full items-center justify-center mb-10 -mt-2"
+              )}
+            >
+              <ThemedTextV2 numberOfLines={1} style={tailwind("px-2")}>
+                2198dhw1ndo1w189ehw9djw1wj
+              </ThemedTextV2>
+              <ThemedTextV2
+                style={tailwind("font-semibold-v2")}
+                light={tailwind("text-green-v2")}
+              >
+                246.52%
+              </ThemedTextV2>
+            </View>
+          )}
+        </AnimatedCircularProgress>
+      </View>
     </ThemedViewV2>
   );
 }
