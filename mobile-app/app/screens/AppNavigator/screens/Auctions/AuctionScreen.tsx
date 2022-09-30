@@ -198,53 +198,50 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
 
   return (
     <ThemedViewV2 testID="auctions_screen" style={tailwind("flex-1")}>
+      {!showSearchInput && !showLoader && (
+        <AuctionFilterPillGroup
+          onSearchBtnPress={() => setShowSearchInput(true)}
+          onButtonGroupChange={setActiveButtonGroup}
+          activeButtonGroup={activeButtonGroup}
+        />
+      )}
+      {hasFetchAuctionsData && showSearchInput && (
+        <View style={tailwind("px-10 mt-8 mb-2")}>
+          <ThemedTextV2
+            light={tailwind("text-mono-light-v2-700")}
+            dark={tailwind("text-mono-dark-v2-700")}
+            style={tailwind("font-normal-v2 text-xs")}
+            testID="search_title"
+          >
+            {searchString?.trim().length > 0
+              ? translate(
+                  "screens/AuctionScreen",
+                  "Search results for “{{input}}”",
+                  { input: searchString?.trim() }
+                )
+              : translate(
+                  "screens/AuctionScreen",
+                  "Search for auctions using collateral token names i.e. DFI DUSD dBTC."
+                )}
+          </ThemedTextV2>
+        </View>
+      )}
       {(showLoader || isSearching) && (
         <ThemedScrollViewV2
-          contentContainerStyle={tailwind("p-5", { "pt-0": showSearchInput })}
+          contentContainerStyle={tailwind("p-5 ", { "pt-0": showSearchInput })}
         >
           <SkeletonLoader row={6} screen={SkeletonLoaderScreen.BrowseAuction} />
         </ThemedScrollViewV2>
       )}
       {hasFetchAuctionsData && (
-        <>
-          {showSearchInput ? (
-            <View style={tailwind("px-10 mt-8 mb-2")}>
-              <ThemedTextV2
-                light={tailwind("text-mono-light-v2-700")}
-                dark={tailwind("text-mono-dark-v2-700")}
-                style={tailwind("font-normal-v2 text-xs")}
-                testID="search_title"
-              >
-                {searchString?.trim().length > 0
-                  ? translate(
-                      "screens/AuctionScreen",
-                      "Search results for “{{input}}”",
-                      { input: searchString?.trim() }
-                    )
-                  : translate(
-                      "screens/AuctionScreen",
-                      "Search for auctions using collateral token names i.e. DFI DUSD dBTC."
-                    )}
-              </ThemedTextV2>
-            </View>
-          ) : (
-            !showLoader && (
-              <AuctionFilterPillGroup
-                onSearchBtnPress={() => setShowSearchInput(true)}
-                onButtonGroupChange={setActiveButtonGroup}
-                activeButtonGroup={activeButtonGroup}
-              />
-            )
-          )}
-          <BrowseAuctions
-            activeButtonGroup={activeButtonGroup}
-            showSearchInput={showSearchInput}
-            searchString={searchString}
-            batches={batches}
-            filteredAuctionBatches={filteredAuctionBatches}
-            yourVaultIds={yourVaultIds}
-          />
-        </>
+        <BrowseAuctions
+          activeButtonGroup={activeButtonGroup}
+          showSearchInput={showSearchInput}
+          searchString={searchString}
+          batches={batches}
+          filteredAuctionBatches={filteredAuctionBatches}
+          yourVaultIds={yourVaultIds}
+        />
       )}
     </ThemedViewV2>
   );
