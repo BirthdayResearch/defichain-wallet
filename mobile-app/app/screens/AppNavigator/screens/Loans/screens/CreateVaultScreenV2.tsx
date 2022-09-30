@@ -180,7 +180,7 @@ export function CreateVaultScreenV2({ navigation, route }: Props): JSX.Element {
       >
         {translate(
           "screens/CreateVaultScreen",
-          "Select collateralization and interest scheme for your vault to start."
+          "Select a loan scheme for your vault."
         )}
       </ThemedTextV2>
 

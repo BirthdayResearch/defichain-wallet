@@ -1277,7 +1277,7 @@
     "Payback Loan": "Ripaga il prestito",
     "Close Vault": "Chiudi il Vault",
     "Search vault": "Search vault",
-    "Search with vault ID or tokens": "Search with vault ID or tokens",
+    "Search with vault ID": "Search with vault ID",
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
     "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
     "Decentralized tokens": "Decentralized tokens",
@@ -1447,7 +1447,7 @@
     "Confirm your vault details in next screen": "Conferma i dettagli del tuo vault nella prossima schermata",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "Lo schema di prestito del vault determina la collateralizzazione richiesta del vault per i prestiti.",
     "Min. collateralization ratio": "Minimo rapporto di collateralizzazione",
-    "Select collateralization and interest scheme for your vault to start.": "Select collateralization and interest scheme for your vault to start.",
+    "Select a loan scheme for your vault.": "Select a loan scheme for your vault.",
     "Continue": "Continua",
     "Create vault": "Crea un vault",
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
@@ -1759,7 +1759,8 @@
     "Interest rate": "Tasso di interesse",
     "APR": "APR",
     "Collateralization": "Collateralization",
-    "Vault interest": "Interesse del vault"
+    "Vault interest": "Interesse del vault",
+    "Min. collateral ratio": "Min. collateral ratio"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "STAI PRENDENDO IN PRESTITO DI PIÙ PER IL PRESTITO",

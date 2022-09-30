@@ -16,11 +16,7 @@ import {
   LoanVaultActive,
   LoanVaultState,
 } from "@defichain/whale-api-client/dist/api/loan";
-import {
-  NavigationProp,
-  useNavigation,
-  useScrollToTop,
-} from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { ActivePrice } from "@defichain/whale-api-client/dist/api/prices";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
@@ -37,6 +33,7 @@ import { VaultStatus } from "../VaultStatusTypes";
 interface LoanCardsProps {
   testID?: string;
   vaultId?: string;
+  scrollRef?: React.Ref<any>;
 }
 
 export interface LoanCardOptions {
@@ -100,8 +97,6 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
     );
   }, [vaultsList]);
 
-  const ref = useRef(null);
-  useScrollToTop(ref);
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
   const activeVault = vaults.find(
@@ -111,8 +106,8 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
 
   return (
     <ThemedScrollViewV2
+      ref={props.scrollRef}
       contentContainerStyle={tailwind("py-8 w-full")}
-      ref={ref}
     >
       <SearchInputV2
         ref={searchRef}

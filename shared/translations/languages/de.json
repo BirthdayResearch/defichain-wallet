@@ -1252,7 +1252,7 @@
     "Payback Loan": "Darlehensrückzahlung",
     "Close Vault": "Vault schließen",
     "Search vault": "Vaults durchsuchen",
-    "Search with vault ID or tokens": "Suche über die Vault ID oder den Token",
+    "Search with vault ID": "Suche über Vault ID",
     "Search results for “{{searchTerm}}”": "Suchergebnisse für “{{searchTerm}}”",
     "You need a vault with collaterals to borrow tokens": "Du brauchst einen Vault mit Sicherheiten, um Token zu leihen",
     "Decentralized tokens": "Dezentrale Token",
@@ -1421,7 +1421,7 @@
     "Confirm your vault details in next screen": "Bestätige die Daten deines Vaults in der nächsten Ansicht",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "Das Darlehensmodell deines Vaults bestimmt dessen erforderliche Darlehens-Besicherung.",
     "Min. collateralization ratio": "Mind. Besicherungsquote",
-    "Select collateralization and interest scheme for your vault to start.": "Wähle zu Beginn die Besicherung und das Zinsschema für deinen Vault aus.",
+    "Select a loan scheme for your vault.": "Wähle ein Darlehensmodell für deinen Vault",
     "Continue": "Weiter",
     "Create vault": "Vault erstellen",
     "By continuing, the required amount of DFI will be converted": "Wenn du fortfährst, wird die erforderliche Summe an DFI umgewandelt",
@@ -1733,7 +1733,8 @@
     "Interest rate": "Zinssatz",
     "APR": "Jahreszins",
     "Collateralization": "Besicherung",
-    "Vault interest": "Vault-Jahreszins"
+    "Vault interest": "Vault-Jahreszins",
+    "Min. collateral ratio": "Mind. Besicherungsquote"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "DU STOCKST DEIN DARLEHEN AUF",
