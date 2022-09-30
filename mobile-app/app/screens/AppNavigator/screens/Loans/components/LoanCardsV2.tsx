@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   ThemedFlashList,
   ThemedIcon,
+  ThemedScrollViewV2,
   ThemedText,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
@@ -151,18 +152,20 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   };
 
   return (
-    <>
+    <ThemedScrollViewV2>
       {vaults.length === 0 && (
-        <View style={tailwind("mx-5 mt-8 rounded-lg-v2")}>
-          <VaultBanner
-            buttonLabel="Create a vault"
-            description="You need a vault with collaterals to borrow tokens"
-            onButtonPress={goToCreateVault}
-          />
+        <>
+          <ThemedViewV2 style={tailwind("mx-5 mt-8 rounded-lg-v2")}>
+            <VaultBanner
+              buttonLabel="Create a vault"
+              description="You need a vault with collaterals to borrow tokens"
+              onButtonPress={goToCreateVault}
+            />
+          </ThemedViewV2>
           <View style={tailwind("mt-2")}>
             <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />
           </View>
-        </View>
+        </>
       )}
       {/* Known intermittent issue wherein the two-column layout is not followed in web - FlashList */}
       <ThemedFlashList
@@ -244,7 +247,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           }}
         />
       )}
-    </>
+    </ThemedScrollViewV2>
   );
 }
 
