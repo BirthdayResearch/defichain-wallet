@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import {
   ThemedFlashList,
   ThemedScrollViewV2,
@@ -26,13 +26,9 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { loanTokensSelector, vaultsSelector } from "@store/loans";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
-import {
-  SkeletonLoader,
-  SkeletonLoaderScreen,
-} from "@components/SkeletonLoader";
 import { SearchInputV2 } from "@components/SearchInputV2";
-import { useDebounce } from "@hooks/useDebounce";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { debounce } from "lodash";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { LoanParamList } from "../LoansNavigator";
 import { LoanActionButton } from "./LoanActionButton";
@@ -73,17 +69,26 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   const [searchString, setSearchString] = useState("");
   const [isSearchFocus, setIsSearchFocus] = useState(false);
   const searchRef = useRef<TextInput>();
-  const debouncedSearchTerm = useDebounce(searchString, 250);
+
+  const handleFilter = useCallback(
+    debounce((searchString: string) => {
+      setFilteredLoanTokens(
+        loanTokens.filter((loanToken) =>
+          loanToken.token.displaySymbol
+            .toLowerCase()
+            .includes(searchString.trim().toLowerCase())
+        )
+      );
+    }, 250),
+    [loanTokens, hasFetchedLoansData]
+  );
 
   useEffect(() => {
-    setFilteredLoanTokens(
-      loanTokens.filter((loan) =>
-        loan.token.displaySymbol
-          .toLowerCase()
-          .includes(debouncedSearchTerm.trim().toLowerCase())
-      )
-    );
-  }, [loanTokens, debouncedSearchTerm]);
+    if (loanTokens.length === 0) {
+      return;
+    }
+    handleFilter(searchString);
+  }, [searchString]);
 
   useEffect(() => {
     setFilteredLoanTokens(loanTokens);
@@ -112,7 +117,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
       <SearchInputV2
         ref={searchRef}
         value={searchString}
-        showClearButton={debouncedSearchTerm !== ""}
+        showClearButton={searchString !== ""}
         placeholder={translate(
           "screens/LoansScreen",
           "Search available loan tokens"
@@ -163,12 +168,12 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
               dark={tailwind("text-mono-dark-v2-700")}
               testID="empty_search_result_text"
             >
-              {debouncedSearchTerm.trim() === ""
+              {searchString.trim() === ""
                 ? translate("screens/LoansScreen", "Search with token name")
                 : translate(
                     "screens/LoansScreen",
                     "Search results for “{{searchTerm}}”",
-                    { searchTerm: debouncedSearchTerm }
+                    { searchTerm: searchString }
                   )}
             </ThemedTextV2>
           </View>
@@ -220,7 +225,6 @@ function LoanCard({
   testID,
   isBorrowHidden,
 }: LoanCardOptions): JSX.Element {
-  const LoanIcon = getNativeIcon(displaySymbol);
   const currentPrice = getPrecisedTokenValue(getActivePrice(symbol, price));
   return (
     <ThemedViewV2
@@ -230,25 +234,7 @@ function LoanCard({
       style={tailwind("p-4 mx-2 mb-4 rounded-lg-v2")}
     >
       <View style={tailwind("flex-row items-center pb-2 justify-between")}>
-        <View
-          style={tailwind("flex flex-row justify-between items-center w-full")}
-        >
-          <ThemedTextV2
-            light={tailwind("text-mono-light-v2-700")}
-            dark={tailwind("text-mono-dark-v2-700")}
-            style={tailwind("font-medium font-normal-v2")}
-            testID={`${testID}_display_symbol`}
-          >
-            {displaySymbol}
-          </ThemedTextV2>
-          <LoanIcon
-            width={36}
-            height={36}
-            style={tailwind({
-              "font-medium font-normal-v2": Platform.OS === "web",
-            })}
-          />
-        </View>
+        <MemoizedLoanIcon testID={testID} displaySymbol={displaySymbol} />
       </View>
       <NumberFormat
         decimalScale={2}
@@ -301,4 +287,40 @@ function LoanCard({
       )}
     </ThemedViewV2>
   );
+}
+
+/* 
+  Custom comparison is added because the debounced search is sluggish due to Loan Icon rendering
+*/
+const MemoizedLoanIcon = memo(
+  ({ testID, displaySymbol }: { testID: string; displaySymbol: string }) => {
+    const LoanIcon = getNativeIcon(displaySymbol);
+    return (
+      <View
+        style={tailwind("flex flex-row justify-between items-center w-full")}
+      >
+        <ThemedTextV2
+          light={tailwind("text-mono-light-v2-700")}
+          dark={tailwind("text-mono-dark-v2-700")}
+          style={tailwind("font-medium font-normal-v2")}
+          testID={`${testID}_display_symbol`}
+        >
+          {displaySymbol}
+        </ThemedTextV2>
+        <LoanIcon
+          width={36}
+          height={36}
+          style={tailwind({
+            "font-medium font-normal-v2": Platform.OS === "web",
+          })}
+        />
+      </View>
+    );
+  },
+  comparisonFn
+);
+
+function comparisonFn(prevProps: any, nextProps: any): boolean {
+  // compare objects by stringify
+  return JSON.stringify(prevProps) === JSON.stringify(nextProps);
 }
