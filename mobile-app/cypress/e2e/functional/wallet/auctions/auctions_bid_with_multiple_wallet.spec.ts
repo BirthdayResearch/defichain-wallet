@@ -82,7 +82,6 @@ context("Wallet - Auctions multi wallet bid", () => {
     cy.addCollateral("0.20000000", "DFI");
     cy.addCollateral("0.00000001", "dCD10");
     cy.getByTestID("bottom_tab_loans").click();
-    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("vault_card_0_manage_loans_button").click();
     cy.getByTestID("button_browse_loans").click();
     cy.getByTestID(
@@ -97,7 +96,6 @@ context("Wallet - Auctions multi wallet bid", () => {
     cy.getByTestID("borrow_loan_submit_button").click();
     cy.getByTestID("button_confirm_borrow_loan").click();
     cy.closeOceanInterface();
-    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     generateBlockUntilLiquidate();
     cy.checkVaultTag(
       "IN LIQUIDATION",
