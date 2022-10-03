@@ -90,7 +90,7 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
   });
 
-  it("should show correct token on loan borrow tab", () => {
+  it("should show correct token on loan borrow tab search", () => {
     cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
     cy.getByTestID("vault_card_0_status").contains("EMPTY");
     cy.getByTestID("loans_tabs_BORROW").click();
@@ -123,7 +123,7 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
   });
 
-  it("should show correct token on browse loan token screen on active vault", () => {
+  it("should show correct token on browse loan token screen on active vault on search", () => {
     cy.getByTestID("vault_card_0_manage_loans_button").click();
     cy.getByTestID("button_browse_loans").click();
     cy.getByTestID("loan_search_input").eq(1).clear().type("dTS25").wait(6000);
