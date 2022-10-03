@@ -93,7 +93,6 @@ context("Wallet - Auctions", () => {
     cy.getByTestID("borrow_loan_submit_button").click();
     cy.getByTestID("button_confirm_borrow_loan").click();
     cy.closeOceanInterface();
-    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     generateBlockUntilLiquidate();
     cy.checkVaultTag(
       "IN LIQUIDATION",
