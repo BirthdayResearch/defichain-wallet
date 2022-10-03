@@ -55,6 +55,7 @@ export interface LoanCardOptions {
   interestRate: string;
   onPress: () => void;
   testID: string;
+  parentTestID: string;
   isBorrowHidden: boolean;
 }
 
@@ -280,6 +281,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
                   });
                 }}
                 testID={`loan_card_${index}`}
+                parentTestID={props.testID}
                 isBorrowHidden={!isVaultReady}
               />
             </View>
@@ -327,6 +329,7 @@ function LoanCard({
   interestRate,
   onPress,
   testID,
+  parentTestID,
   isBorrowHidden,
 }: LoanCardOptions): JSX.Element {
   const currentPrice = getPrecisedTokenValue(getActivePrice(symbol, price));
@@ -386,7 +389,7 @@ function LoanCard({
           label={translate("components/LoanCard", "Borrow")}
           onPress={onPress}
           style={tailwind("mt-3")}
-          testID={`${displaySymbol}_borrow_button`}
+          testID={`${displaySymbol}_borrow_button_${parentTestID}`}
         />
       )}
     </ThemedViewV2>

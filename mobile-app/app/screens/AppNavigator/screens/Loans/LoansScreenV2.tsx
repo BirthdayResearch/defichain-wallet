@@ -106,7 +106,7 @@ export function LoansScreenV2(): JSX.Element {
           tabBarTestID: `loans_tabs_${TabKey.Borrow}`,
         }}
       >
-        {() => <LoanCardsV2 scrollRef={borrowScrollRef} />}
+        {() => <LoanCardsV2 scrollRef={borrowScrollRef} testID="loan_screen" />}
       </LoansTab.Screen>
       <LoansTab.Screen
         name={TabKey.YourVaults}

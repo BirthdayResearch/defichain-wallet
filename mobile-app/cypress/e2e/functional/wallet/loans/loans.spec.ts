@@ -83,9 +83,9 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("vault_card_0_status").contains("EMPTY");
     cy.getByTestID("loans_tabs_BORROW").click();
     cy.getByTestID("loan_card_dTS25").should("exist");
-    cy.getByTestID("loans_action_button_dTS25_borrow_button").should(
-      "not.exist"
-    );
+    cy.getByTestID(
+      "loans_action_button_dTS25_borrow_button_loan_screen"
+    ).should("not.exist");
     cy.getByTestID("bottom_tab_loans").click();
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
   });
@@ -105,7 +105,9 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("vault_card_0_status").contains("READY");
     cy.getByTestID("loans_tabs_BORROW").click();
     cy.getByTestID("loan_card_dTS25").should("exist");
-    cy.getByTestID("loans_action_button_dTS25_borrow_button").should("exist");
+    cy.getByTestID(
+      "loans_action_button_dTS25_borrow_button_loan_screen"
+    ).should("exist");
     cy.getByTestID("bottom_tab_loans").click();
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
   });
@@ -115,7 +117,9 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("vault_card_0_manage_loans_button").click();
     checkVaultDetailValues("READY", vaultId, "$1,500.00", "$0.00", "5");
     cy.getByTestID("button_browse_loans").click();
-    cy.getByTestID("loans_action_button_DUSD_borrow_button").click();
+    cy.getByTestID(
+      "loans_action_button_DUSD_borrow_button_loans_cards"
+    ).click();
     cy.getByTestID("form_input_borrow").type("1000").blur();
     cy.wait(3000);
     cy.getByTestID("text_input_usd_value").should("have.value", "1000.00");
@@ -287,7 +291,9 @@ context("Wallet - Loans - Take Loans", () => {
     cy.go("back");
     cy.wait(2000);
     cy.getByTestID("loans_tabs_BORROW").click();
-    cy.getByTestID("loans_action_button_dTS25_borrow_button").click();
+    cy.getByTestID(
+      "loans_action_button_dTS25_borrow_button_loan_screen"
+    ).click();
     cy.wait(2000);
     cy.getByTestID("borrow_loan_vault").click();
     cy.getByTestID("select_vault_0").click();
