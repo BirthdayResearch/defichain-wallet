@@ -42,7 +42,7 @@ import { PriceOracleInfo } from "./PriceOracleInfo";
 import { VaultBanner } from "./VaultBanner";
 
 interface LoanCardsProps {
-  testID?: string;
+  testID: string;
   vaultId?: string;
   scrollRef?: React.Ref<any>;
 }
