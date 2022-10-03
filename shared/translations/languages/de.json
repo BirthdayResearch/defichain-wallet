@@ -503,6 +503,9 @@
     "Auctions": "Auktionen",
     "About Auctions": "Auktionen",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN",
+    "How do I know the status of my bid after an auction ends?": "Wie erfahre ich den Status meines Gebots nach dem Ende einer Auktion?",
+    "For successful bidders, bid amount will be deducted, and rewards will be automatically reflect under the Portfolio page.": "Erfolgreichen Bietern wird der Gebotsbetrag abgezogen, und die Rewards werden automatisch auf der Portfolio-Seite angezeigt.",
+    "For unsuccessful bidders, the bidding amount will be returned automatically to your wallet once you have been outbid by another user.": "Nicht erfolgreichen Bietern wird der Gebotsbetrag automatisch in ihre Wallet zurückerstattet, sobald sie von einem anderen Nutzer überboten wurden.",
     "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "Bei der Versteigerung bieten die Nutzer auf die Sicherheiten in den Vaults, die in Liquidation sind, um deren ausstehende Darlehen zu begleichen. Die Liquidation erfolgt, wenn die Besicherungsquote eines Vaults unter die Mindestanforderung sinkt. In diesem Fall werden die Sicherheiten der Vaults in Tranchen von 10.000 USD aufgeteilt.",
     "How is the minimum starting bid determined?": "Wie wird das Mindeststartgebot festgelegt?",
     "The minimum starting bid is 105% of the batch's outstanding loan value. The additional 5% is included to cover the liquidation penalty, which is incurred upon vault liquidation.": "Das Startgebot liegt bei 105% des ausstehenden Darlehenswerts der Charge. Die zusätzlichen 5% dienen zur Deckung der Liquidationsstrafe, die bei der Liquidation des Vaults anfällt.",
@@ -1306,14 +1309,36 @@
     "To get started, browse on auctions and place a bid": "Durchsuche Auktionen und gib ein Gebot ab"
   },
   "components/EmptyAuctions": {
-    "No ongoing auctions": "Keine laufenden Auktionen",
-    "Check again later for any ongoing auctions that you can participate": "Schaue später noch einmal nach, ob es laufende Auktionen gibt, an denen du teilnehmen kannst"
+    "No auctions": "Keine Auktionen",
+    "There are currently no collaterals available for auction.": "Derzeit sind keine Sicherheiten zur Versteigerung verfügbar.",
+    "No Outbid Auctions": "Keine überbotenen Auktionen",
+    "You have no outbids yet": "Du hast noch keine überbotenen Gebote",
+    "No Leading Bids": "Keine führenden Gebote",
+    "You have no leading bids yet": "Du bist noch in keiner Auktion Höchstbietender",
+    "No Active Bids": "Keine aktiven Gebote",
+    "You have no active bids yet": "Du hast noch keine aktiven Gebote abgegeben"
   },
   "screens/AuctionScreen": {
     "Auctions": "Auktionen",
+    "Bid": "Bieten",
     "Place Bid": "Bieten",
     "Confirm Place Bid": "Gebot bestätigen",
-    "Auction details": "Auktionsdetails"
+    "Confirm": "Bestätigen",
+    "Auction details": "Auktionsdetails",
+    "Auction Details": "Auktionsdetails",
+    "COLLATERALS": "SICHERHEITEN",
+    "Sort Auctions": "Auktionen Sortieren",
+    "Least time left": "Geringste verbleibende Zeit",
+    "Most time left": "Meiste verbleibende Zeit",
+    "Highest value": "Höchster Wert",
+    "Lowest value": "Niedrigster Wert",
+    "Sort by": "Sortieren nach",
+    "All auctions": "Alle Auktionen",
+    "Your active bids": "Deine aktiven Gebote",
+    "Your leading bids": "Deine führenden Gebote",
+    "Outbid": "Überboten",
+    "Search for auctions using collateral token names i.e. DFI DUSD dBTC.": "Suche nach Auktionen über den Namen der Sicherheiten-Token, z. B. DFI DUSD dBTC.",
+    "Search results for “{{input}}”": "Suchergebnisse für “{{input}}”"
   },
   "components/AuctionDetailScreen": {
     "Collateral": "Sicherheiten",
@@ -1329,7 +1354,14 @@
     "Total auction value (USDT):": "Gesamtauktionswert (USDT):",
     "PLACE BID": "GEBOT ABGEBEN",
     "Batch #{{index}}": "Tranche Nr. {{index}}",
-    "Min. starting bid": "Mind. Anfangsgebot"
+    "Min. starting bid": "Mind. Anfangsgebot",
+    "Bid": "Bieten",
+    "Collaterals": "Sicherheiten",
+    "Total value": "Gesamtwert",
+    "Time remaining": "Verbleibende zeit",
+    "No time remaining": "Keine verbleibende zeit",
+    "Bid History ({{bidHistoryCount}})": "Gebotsverlauf ({{bidHistoryCount}})",
+    "Auction closed": "Auktion beendet"
   },
   "components/BatchCard": {
     "Latest bid": "Letztes Gebot",
@@ -1344,7 +1376,8 @@
     "Min. next bid": "Nächstes Mind. Gebot",
     "You are the highest bidder": "Du bist Höchstbietender",
     "From your vault": "Aus deinem Vault",
-    "Waiting for first bid": "Warten auf das erste Gebot"
+    "Waiting for first bid": "Warten auf das erste Gebot",
+    "Quick bid": "Schnelles Gebot"
   },
   "components/BatchHistory": {
     "{{h}}h {{m}}m ago": "Vor {{h}}h {{m}}min",
@@ -1364,15 +1397,20 @@
   "components/BidHistory": {
     "Bidder ID": "Bieter-ID",
     "BID #{{bidIndex}}": "GEBOT NR. {{bidIndex}}",
+    "BID#{{bidIndex}}": "GEBOT NR.{{bidIndex}}",
     "Waiting for first bid": "Warten auf das erste Gebot",
     "{{h}}{{m}} ago": "Vor {{h}}{{m}}",
-    "Minimum amount to bid is": "Mindestgebot ist"
+    "Minimum amount to bid is": "Mindestgebot ist",
+    "ALL BIDS": "ALLE GEBOTE",
+    "(Yours)": "(Deins)",
+    "Bid History": "Gebotsverlauf"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "Auktion endet in",
     "Auction time left": "Verbleibende Auktionszeit",
     "{{block}} blks": "{{block}} Blöcke",
     "~{{time}} left": "Noch ~{{time}}",
+    "{{time}} left": "Noch {{time}}",
     "Auction time remaining": "Verbleibende Auktionszeit"
   },
   "components/VaultCard": {
@@ -1753,7 +1791,8 @@
     "Search for loans": "Nach Darlehen suchen",
     "Search for loan token": "Suche nach Darlehenstoken",
     "Search for pool pairs": "Suche nach Poolpaaren",
-    "Search pool pair": "Suche Poolpaar"
+    "Search pool pair": "Suche Poolpaar",
+    "Search auctions": "Auktionen suchen"
   },
   "components/EmptyCollateral": {
     "No collateral": "Keine Sicherheiten",
@@ -1789,7 +1828,14 @@
     "Collateral": "Sicherheiten",
     "How much do you want to bid?": "Wie viel möchtest du bieten?",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "Der Wert der Token, die du setzt, ist wesentlich höher als der Gesamtwert der Auktion.",
-    "Collateral for auction": "Zu ersteigern"
+    "Collateral for auction": "Zu ersteigern",
+    "I HAVE {{ownedAmount}} {{symbol}}": "ICH HABE {{ownedAmount}} {{symbol}}",
+    "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
+    "Transaction fee": "Transaktionsgebühren",
+    "The minimum next bid is {{amount}} {{symbol}} (100%)": "Das nächste Mindestgebot beträgt {{amount}} {{symbol}} (100%)",
+    "{{percent}} min bid entered": "{{percent}} mindestgebot eingegeben",
+    "Insufficient balance": "Unzureichendes Guthaben",
+    "Auction timeout": "Zeitüberschreitung der Auktion"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "TRANSAKTIONSDETAILS",
@@ -1798,14 +1844,22 @@
     "Bid amount to place": "Zu setzender Gebotsbetrag",
     "AUCTION DETAILS": "AUKTIONSDETAILS",
     "Total auction value (USDT)": "Gesamtauktionswert (USDT)",
+    "Total auction value": "Gesamtauktionswert",
     "Vault ID": "Vault-ID",
     "Vault owner ID": "Vault-Besitzer-ID",
-    "Liquidation Height": "Liquidationsblockhöhe",
+    "Liquidation height": "Liquidationsblockhöhe",
     "CONFIRM PLACE BID": "GEBOT BESTÄTIGEN",
     "Sign Transaction": "Transaktion freigeben",
     "Placing {{amount}} {{token}} as bid for auction.": "Abgabe des Gebotsbetrags von {{amount}} {{token}}",
     "Collateral for auction": "Zu ersteigern",
-    "Insufficient funds": "Unzureichende Deckung"
+    "Insufficient funds": "Unzureichende Deckung",
+    "You are bidding": "Du bietest",
+    "Amount will be deducted from your current wallet": "Der Betrag wird von deinem aktuellen Guthaben abgezogen",
+    "Placing {{amount}} {{token}} bid": "Ich gebe ein Gebot von {{amount}} {{token}} ab",
+    "Preparing placing {{amount}} {{token}} bid": "Preparing placing {{amount}} {{token}} bid",
+    "Placed {{amount}} {{token}} bid": "Placed {{amount}} {{token}} bid",
+    "It may take a few seconds to verify": "Es kann ein paar Sekunden dauern, bis das Passwort verifiziert ist",
+    "Passcode verified!": "Passwort verifiziert!"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Abheben",
@@ -1886,9 +1940,20 @@
     "QUICK BID": "SCHNELLES GEBOT",
     "Insufficient amount to place a bid": "Der Gebotsbetrag reicht nicht aus",
     "Quick bid": "Schnelles Gebot",
+    "Quick Bid": "Schnelles Gebot",
     "Place a bid on the auction with the min. next bid": "Biete auf die Auktion mit dem nächsten Mindestgebot",
     "Min. next bid": "Nächstes Mind. Gebot",
-    "Current balance": "Aktueller Stand"
+    "Current balance": "Aktueller Stand",
+    "Leading bid": "Du bist Höchbietender",
+    "Quick rebid": "Schnelles Nachgebot",
+    "Outbid": "Überboten",
+    "Min bid": "Mind gebot",
+    "Insufficient {{symbol}} balance": "{{symbol}}-Guthaben unzureichend",
+    "Placing {{amount}} {{token}} quick bid": "Schnelles Gebot von {{amount}} {{token}} abgeben",
+    "Placed {{amount}} {{token}} quick bid": "Schnelles Gebot von {{amount}} {{token}} abgegeben",
+    "Available": "Verfügbar",
+    "Transaction fee": "Transaktionsgebühren",
+    "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}": "Dein Gebot ist höher als der Sicherheitenwert der Auktion von {{amount}} {{currency}}"
   },
   "components/WalletAddressRow": {
     "Wallet address": "Walletadresse"

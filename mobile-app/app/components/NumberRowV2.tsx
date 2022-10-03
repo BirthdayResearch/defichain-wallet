@@ -13,6 +13,7 @@ import {
 } from "./themed";
 import { IconTooltip } from "./tooltip/IconTooltip";
 import { BottomSheetAlertInfoV2, BottomSheetInfoV2 } from "./BottomSheetInfoV2";
+import { SymbolIcon } from "./SymbolIcon";
 
 type INumberRowProps = React.PropsWithChildren<ViewProps> & NumberRowProps;
 
@@ -32,6 +33,7 @@ export interface RhsNumberRowElement extends NumberRowElement {
   usdTextStyle?: StyleProp<TextStyle>;
   subValue?: NumberRowElement;
   isConverting?: boolean;
+  prefixSymbol?: string;
 }
 
 export interface NumberRowElement {
@@ -79,6 +81,14 @@ export function NumberRowV2(props: INumberRowProps): JSX.Element {
           <View
             style={tailwind("flex flex-row justify-end flex-wrap items-center")}
           >
+            {props.rhs.prefixSymbol && (
+              <View style={tailwind("pr-2")}>
+                <SymbolIcon
+                  symbol={props.rhs.prefixSymbol}
+                  styleProps={tailwind("w-6 h-6")}
+                />
+              </View>
+            )}
             <NumberFormat
               decimalScale={8}
               displayType="text"

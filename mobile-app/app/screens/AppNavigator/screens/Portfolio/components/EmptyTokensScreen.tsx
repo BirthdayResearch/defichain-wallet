@@ -6,21 +6,22 @@ import { StyleProp, ViewStyle } from "react-native";
 interface EmptyBalancesProps {
   icon: () => JSX.Element;
   title: string;
-  subTitle: string;
+  subtitle: string;
   containerStyle?: StyleProp<ViewStyle>;
+  testID?: string;
 }
 
 export function EmptyTokensScreen(props: EmptyBalancesProps): JSX.Element {
-  const { icon: Icon, title, subTitle, containerStyle } = props;
+  const { icon: Icon, title, subtitle, containerStyle, testID } = props;
   return (
     <View
       style={[
-        tailwind("flex px-15 mt-8 mb-4 text-center bg-transparent"),
+        tailwind("flex px-15 mt-11 mb-4 text-center bg-transparent"),
         containerStyle,
       ]}
-      testID="empty_portfolio"
+      testID={testID}
     >
-      <View style={tailwind("items-center mt-3")}>
+      <View style={tailwind("items-center")}>
         <Icon />
       </View>
       <ThemedTextV2
@@ -33,7 +34,7 @@ export function EmptyTokensScreen(props: EmptyBalancesProps): JSX.Element {
         testID="empty_tokens_subtitle"
         style={tailwind("text-base font-normal-v2 text-center mt-2")}
       >
-        {subTitle}
+        {subtitle}
       </ThemedTextV2>
     </View>
   );

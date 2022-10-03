@@ -42,14 +42,14 @@ export function PortfolioCard({
   // return empty portfolio if no DFI and other tokens
   if (isZeroBalance) {
     const screenDetails = getEmptyScreenDetails(ButtonGroupTabKey.AllTokens);
-    return <EmptyTokensScreen {...screenDetails} />;
+    return <EmptyTokensScreen {...screenDetails} testID="empty_portfolio" />;
   }
 
   if (filteredTokens.length === 0 && hasFetchedToken) {
     const screenDetails = getEmptyScreenDetails(
       buttonGroupOptions?.activeButtonGroup
     );
-    return <EmptyTokensScreen {...screenDetails} />;
+    return <EmptyTokensScreen {...screenDetails} testID="empty_portfolio" />;
   }
 
   return (
@@ -120,14 +120,14 @@ function PortfolioItemRow({
 function getEmptyScreenDetails(type?: ButtonGroupTabKey): {
   icon: () => JSX.Element;
   title: string;
-  subTitle: string;
+  subtitle: string;
 } {
   switch (type) {
     case ButtonGroupTabKey.Crypto:
       return {
         icon: EmptyCryptoIcon,
         title: translate("components/EmptyPortfolio", "No crypto found"),
-        subTitle: translate(
+        subtitle: translate(
           "components/EmptyPortfolio",
           "Add crypto to get started"
         ),
@@ -136,7 +136,7 @@ function getEmptyScreenDetails(type?: ButtonGroupTabKey): {
       return {
         icon: EmptyLPTokenIcon,
         title: translate("components/EmptyPortfolio", "No LP tokens found"),
-        subTitle: translate(
+        subtitle: translate(
           "components/EmptyPortfolio",
           "Add liquidity to get started"
         ),
@@ -145,7 +145,7 @@ function getEmptyScreenDetails(type?: ButtonGroupTabKey): {
       return {
         icon: EmptyDTokenIcon,
         title: translate("components/EmptyPortfolio", "No dTokens found"),
-        subTitle: translate(
+        subtitle: translate(
           "components/EmptyPortfolio",
           "Mint dTokens to get started"
         ),
@@ -155,7 +155,7 @@ function getEmptyScreenDetails(type?: ButtonGroupTabKey): {
       return {
         icon: EmptyPortfolioIcon,
         title: translate("components/EmptyPortfolio", "Empty portfolio"),
-        subTitle: translate(
+        subtitle: translate(
           "components/EmptyPortfolio",
           "Add DFI and other tokens to get started"
         ),

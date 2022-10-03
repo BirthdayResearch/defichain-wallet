@@ -1,0 +1,168 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Empty bids should match snapshot 1`] = `
+<View
+  style={
+    [
+      {
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "marginBottom": 8,
+        "marginLeft": 20,
+        "marginRight": 20,
+        "paddingBottom": 16,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 16,
+      },
+      {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
+  }
+  testID="bid_0"
+>
+  <View
+    style={
+      {
+        "alignItems": "flex-start",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "marginBottom": 4,
+      }
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "SoraSemiBold",
+              "fontSize": 12,
+              "fontWeight": "600",
+              "lineHeight": 16,
+            },
+            {
+              "color": "rgba(43, 43, 43, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      BID#0
+    </Text>
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "SoraRegular",
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 20,
+            },
+            {
+              "color": "rgba(18, 18, 18, 1)",
+            },
+          ],
+        ]
+      }
+      testID="bid_dTD10_amount"
+    >
+      1,000.00000000 dTD10
+    </Text>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "SoraRegular",
+              "fontSize": 12,
+              "fontWeight": "400",
+              "lineHeight": 16,
+            },
+            {
+              "color": "rgba(89, 89, 89, 1)",
+            },
+          ],
+        ]
+      }
+    >
+      3Hr 12Min
+    </Text>
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                },
+                undefined,
+              ],
+              {
+                "color": "rgba(89, 89, 89, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        $7.40
+      </Text>
+    </View>
+  </View>
+</View>
+`;
