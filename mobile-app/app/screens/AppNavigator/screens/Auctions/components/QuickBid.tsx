@@ -98,6 +98,7 @@ export const QuickBid = ({
         {/* -mt-1 above and mt-1 added below is kind of hack to solved React Navigation elevation bug on android for now. */}
         <View
           style={tailwind(
+            "flex-1",
             { "mt-1": Platform.OS === "ios" },
             { "mt-2": Platform.OS === "android" }
           )}
