@@ -32,6 +32,7 @@ export interface RhsNumberRowElement extends NumberRowElement {
   usdContainerStyle?: StyleProp<ViewStyle>;
   usdTextStyle?: StyleProp<TextStyle>;
   subValue?: NumberRowElement;
+  isConverting?: boolean;
   prefixSymbol?: string;
 }
 

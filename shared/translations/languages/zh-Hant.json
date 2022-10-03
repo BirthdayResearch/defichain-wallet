@@ -1259,7 +1259,7 @@
     "Payback Loan": "償還貸款",
     "Close Vault": "關閉金庫",
     "Search vault": "Search vault",
-    "Search with vault ID or tokens": "Search with vault ID or tokens",
+    "Search with vault ID": "Search with vault ID",
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
     "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
     "Decentralized tokens": "Decentralized tokens",
@@ -1271,7 +1271,9 @@
     "Monitor your vaults": "Monitor your vaults",
     "Keep your vaults healthy and green, by monitoring its collateralization.": "Keep your vaults healthy and green, by monitoring its collateralization.",
     "Oracle prices": "Oracle prices",
-    "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain."
+    "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain.",
+    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
+    "Search available loan tokens": "Search available loan tokens"
   },
   "components/tabs": {
     "Browse loan tokens": "瀏覽貸款選項",
@@ -1465,7 +1467,7 @@
     "Confirm your vault details in next screen": "在下一個屏幕上確認您的金庫細節",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "您的金庫的貸款計劃將決定您所需的貸款抵押品",
     "Min. collateralization ratio": "最低抵押率",
-    "Select collateralization and interest scheme for your vault to start.": "Select collateralization and interest scheme for your vault to start.",
+    "Select a loan scheme for your vault.": "Select a loan scheme for your vault.",
     "Continue": "繼續",
     "Create vault": "創建金庫",
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
@@ -1515,7 +1517,9 @@
     "Slippage tolerance": "交易滑價",
     "Slippage Tolerance": "交易滑價",
     "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑價是每項交易中的兌換率變化。選擇您願意接受這滑價百分比 （如下顯示)。",
-    "Settlements": "Settlements"
+    "Settlements": "Settlements",
+    "Price Oracles": "Price Oracles",
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金庫編號",
@@ -1777,7 +1781,8 @@
     "Interest rate": "利率",
     "APR": "年回報率",
     "Collateralization": "抵押",
-    "Vault interest": "金庫利息"
+    "Vault interest": "金庫利息",
+    "Min. collateral ratio": "Min. collateral ratio"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "您正要借更多貸款",

@@ -20,7 +20,6 @@ import {
   NavigationProp,
   useIsFocused,
   useNavigation,
-  useScrollToTop,
 } from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import {
@@ -46,7 +45,11 @@ import { PriceOracleInfo } from "./PriceOracleInfo";
 import { BottomSheetModalInfo } from "../../../../../components/BottomSheetModalInfo";
 // import { VaultCard } from "./VaultCard"; // @chloe for referencing
 
-export function VaultsV2(): JSX.Element {
+interface VaultsProps {
+  scrollRef?: React.Ref<any>;
+}
+
+export function VaultsV2(props: VaultsProps): JSX.Element {
   const dispatch = useAppDispatch();
   const client = useWhaleApiClient();
   const isFocused = useIsFocused();
@@ -58,8 +61,6 @@ export function VaultsV2(): JSX.Element {
   const { hasFetchedVaultsData } = useSelector(
     (state: RootState) => state.loans
   );
-  const ref = useRef(null);
-  useScrollToTop(ref);
 
   const [searchString, setSearchString] = useState("");
   const [isSearchFocus, setIsSearchFocus] = useState(false);
@@ -152,7 +153,7 @@ export function VaultsV2(): JSX.Element {
   return (
     <ThemedScrollViewV2
       contentContainerStyle={tailwind("px-5 py-8 w-full")}
-      ref={ref}
+      ref={props.scrollRef}
     >
       <View style={tailwind("flex-col w-full")}>
         <View style={tailwind("flex-row flex w-full mb-4 items-center")}>
@@ -207,10 +208,7 @@ export function VaultsV2(): JSX.Element {
             testID="empty_search_result_text"
           >
             {debouncedSearchTerm.trim() === ""
-              ? translate(
-                  "screens/LoansScreen",
-                  "Search with vault ID or tokens"
-                )
+              ? translate("screens/LoansScreen", "Search with vault ID")
               : translate(
                   "screens/LoansScreen",
                   "Search results for “{{searchTerm}}”",
