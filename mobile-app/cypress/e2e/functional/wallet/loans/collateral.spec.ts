@@ -321,18 +321,18 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
 
   it("should add DUSD as collateral", () => {
     cy.getByTestID("add_collateral_button").click();
-    addCollateral("DUSD", "10", "5.1357", "$5.08", "99", "0.32%", vaultId);
+    addCollateral("DUSD", "10", "5.1357", "$6.16", "120", "0.39%", vaultId);
   });
 
   it("should update collateral list", () => {
-    checkCollateralCardValues("DFI", "10.00000000 DFI", "$1,000.00", "63.49%");
-    checkCollateralCardValues("dBTC", "10.00000000 dBTC", "$500.00", "31.74%");
+    checkCollateralCardValues("DFI", "10.00000000 DFI", "$1,000.00", "63.45%");
+    checkCollateralCardValues("dBTC", "10.00000000 dBTC", "$500.00", "31.72%");
     checkCollateralCardValues("dETH", "10.00000000 dETH", "$70.00", "4.44%");
-    checkCollateralCardValues("DUSD", "5.13570000 DUSD", "$5.08", "0.32%");
+    checkCollateralCardValues("DUSD", "5.13570000 DUSD", "$6.16", "0.39%");
   });
 
   it("should remove dBTC collateral", () => {
-    removeCollateral("dBTC", "10", "1", "$450.00", "100", "29.51%", vaultId);
+    removeCollateral("dBTC", "10", "1", "$450.00", "100", "29.49%", vaultId);
   });
 
   it("should remove DUSD collateral", () => {
@@ -340,9 +340,9 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
       "DUSD",
       "5.1357",
       "1.8642",
-      "$3.24",
-      "99",
-      "0.21%",
+      "$3.93",
+      "120",
+      "0.26%",
       vaultId
     );
   });
@@ -353,7 +353,7 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
       "3.2715",
       "3.2715",
       "0.00000000",
-      "99",
+      "120",
       "0.00%",
       vaultId
     );
@@ -515,7 +515,6 @@ context("Wallet - Loans - 50% valid collateral token ratio", () => {
     cy.go("back");
     cy.wait(2000);
     cy.getByTestID("loans_tabs_BORROW").click();
-    cy.getByTestID("header_loans_search").click();
     cy.getByTestID("loans_search_input").type("dTS25").blur();
     cy.getByTestID(
       "loans_action_button_dTS25_borrow_button_loan_screen"
@@ -593,11 +592,11 @@ context("Wallet - Loans - 50% valid collateral token ratio", () => {
       "DUSD",
       "20",
       "20",
-      "$19.80",
-      "99",
-      "1.96%",
+      "$24.00",
+      "120",
+      "2.37%",
       vaultId,
-      "50.49%"
+      "50.69%"
     );
     cy.go("back");
   });
