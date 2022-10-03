@@ -90,7 +90,7 @@ export function VaultBanner({
                 styleProps="mt-3"
                 label={translate("components/EmptyVault", buttonLabel ?? "")}
                 onPress={onButtonPress}
-                testID="button_create_vault"
+                testID="button_create_vault_on_loans"
               />
             )}
           </View>
