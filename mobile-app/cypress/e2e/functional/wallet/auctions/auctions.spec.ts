@@ -81,7 +81,9 @@ context("Wallet - Auctions", () => {
     cy.getByTestID("bottom_tab_loans").click();
     cy.getByTestID("vault_card_0_manage_loans_button").click();
     cy.getByTestID("button_browse_loans").click();
-    cy.getByTestID("dTU10_borrow_button").click();
+    cy.getByTestID(
+      "loans_action_button_dTU10_borrow_button_loans_cards"
+    ).click();
     cy.getByTestID("max_loan_amount_text")
       .invoke("text")
       .then((text: string) => {
