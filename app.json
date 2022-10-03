@@ -9,7 +9,7 @@
     "icon": "./shared/assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
-    "jsEngine": "hermes",
+    // "jsEngine": "hermes",
     "splash": {
       "image": "./shared/assets/images/splash.png",
       "resizeMode": "cover",
