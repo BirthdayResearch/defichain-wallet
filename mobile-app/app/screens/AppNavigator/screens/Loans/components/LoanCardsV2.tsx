@@ -209,6 +209,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
         onBlur={() => {
           setIsSearchFocus(false);
         }}
+        testID="loan_search_input"
       />
       {vaults.length === 0 && (
         <ThemedViewV2 style={tailwind("mx-5 mt-8 rounded-lg-v2")}>

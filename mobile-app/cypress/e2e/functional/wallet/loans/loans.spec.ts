@@ -78,7 +78,7 @@ context("Wallet - Loans - Take Loans", () => {
     cy.createVault(0);
   });
 
-  it("should disable borrow button if vault status equal EMPTY ", () => {
+  it("should disable borrow button if vault status equal EMPTY", () => {
     cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
     cy.getByTestID("vault_card_0_status").contains("EMPTY");
     cy.getByTestID("loans_tabs_BORROW").click();
@@ -86,6 +86,17 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID(
       "loans_action_button_dTS25_borrow_button_loan_screen"
     ).should("not.exist");
+    cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
+  });
+
+  it("should show correct token on search", () => {
+    cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
+    cy.getByTestID("vault_card_0_status").contains("EMPTY");
+    cy.getByTestID("loans_tabs_BORROW").click();
+    cy.getByTestID("loan_search_input").clear().type("dTS25").wait(6000);
+    cy.getByTestID("loan_card_dTS25").should("exist");
+    cy.getByTestID("loan_card_DUSD").should("not.exist");
     cy.getByTestID("bottom_tab_loans").click();
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
   });
