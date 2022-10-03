@@ -1265,6 +1265,7 @@
     "Keep your vaults healthy and green, by monitoring its collateralization.": "Sorge dafür, dass deine Vaults gesund und im grünen Bereich bleiben, indem du ihre Besicherung überwachst.",
     "Oracle prices": "Preisorakelwerte",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "Durch Preisorakel passen sich deine Vaults und Darlehen an die Marktpreise außerhalb der Blockchain an.",
+    "Loan tokens get their prices from oracles.": "Darlehenstoken erhalten ihre Preise von Preisorakeln.",
     "Search available loan tokens": "Verfügbare Darlehenstoken suchen"
   },
   "components/tabs": {
@@ -1471,7 +1472,9 @@
     "Slippage tolerance": "Slippage-toleranz",
     "Slippage Tolerance": "Slippage-Toleranz",
     "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "Slippage sind Kursänderungen, die innerhalb eines Auftragsvorgangs auftreten. Beachte, dass die Slippage-Toleranz auch die DEX-Stabilisierungsgebühren beinhaltet. Wähle aus, wie viel Slippage du zu akzeptieren bereit bist.",
-    "Settlements": "Abrechnungen"
+    "Settlements": "Abrechnungen",
+    "Price Oracles": "Preisorakel",
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Die Preisorakel liefern Preisdaten in Echtzeit aus vertrauenswürdigen Quellen, die in die DeFiChain übernommen werden."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",

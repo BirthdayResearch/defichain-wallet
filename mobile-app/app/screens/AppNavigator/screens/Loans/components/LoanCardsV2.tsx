@@ -1,9 +1,11 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import {
   ThemedFlashList,
+  ThemedIcon,
   ThemedScrollViewV2,
   ThemedText,
   ThemedTextV2,
+  ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
 import { tailwind } from "@tailwind";
@@ -22,13 +24,22 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { loanTokensSelector, vaultsSelector } from "@store/loans";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
-import { SearchInputV2 } from "@components/SearchInputV2";
+import { useBottomSheet } from "@hooks/useBottomSheet";
+import {
+  BottomSheetNavScreen,
+  BottomSheetWebWithNavV2,
+  BottomSheetWithNavV2,
+} from "@components/BottomSheetWithNavV2";
+import { BottomSheetModalInfo } from "@components/BottomSheetModalInfo";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { SearchInputV2 } from "@components/SearchInputV2";
 import { debounce } from "lodash";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { LoanParamList } from "../LoansNavigator";
 import { LoanActionButton } from "./LoanActionButton";
 import { VaultStatus } from "../VaultStatusTypes";
+import { PriceOracleInfo } from "./PriceOracleInfo";
+import { VaultBanner } from "./VaultBanner";
 
 interface LoanCardsProps {
   testID?: string;
@@ -104,6 +115,61 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
       v.vaultId === props.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION
   ) as LoanVaultActive;
 
+  const goToCreateVault = (): void => {
+    navigation.navigate({
+      name: "CreateVaultScreen",
+      params: {},
+      merge: true,
+    });
+  };
+
+  const title = "Price Oracles";
+  const description =
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.";
+
+  const {
+    bottomSheetRef,
+    containerRef,
+    dismissModal,
+    expandModal,
+    isModalDisplayed,
+  } = useBottomSheet();
+  const [bottomSheetScreen, setBottomSheetScreen] = useState<
+    BottomSheetNavScreen[]
+  >([]);
+  const BottomSheetHeader = {
+    headerStatusBarHeight: 2,
+    headerTitle: "",
+    headerBackTitleVisible: false,
+    headerStyle: tailwind("rounded-t-xl-v2 border-b-0", {
+      "bg-mono-light-v2-100": isLight,
+      "bg-mono-dark-v2-100": !isLight,
+    }),
+    headerRight: (): JSX.Element => {
+      return (
+        <ThemedTouchableOpacityV2
+          style={tailwind("mr-5 mt-4 -mb-4")}
+          onPress={dismissModal}
+          testID="close_bottom_sheet_button"
+        >
+          <ThemedIcon iconType="Feather" name="x-circle" size={22} />
+        </ThemedTouchableOpacityV2>
+      );
+    },
+    headerLeft: () => <></>,
+  };
+
+  const onBottomSheetOraclePriceSelect = (): void => {
+    setBottomSheetScreen([
+      {
+        stackScreenName: "OraclePriceInfo",
+        component: BottomSheetModalInfo({ title, description }),
+        option: BottomSheetHeader,
+      },
+    ]);
+    expandModal();
+  };
+
   return (
     <ThemedScrollViewV2
       ref={props.scrollRef}
@@ -143,9 +209,23 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           setIsSearchFocus(false);
         }}
       />
+      {vaults.length === 0 && (
+        <ThemedViewV2 style={tailwind("mx-5 mt-8 rounded-lg-v2")}>
+          <VaultBanner
+            buttonLabel="Create a vault"
+            description="You need a vault with collaterals to borrow tokens"
+            onButtonPress={goToCreateVault}
+          />
+          <View style={tailwind("mt-2 mx-2")}>
+            <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />
+          </View>
+        </ThemedViewV2>
+      )}
       {/* Known intermittent issue wherein the two-column layout is not followed
       in web - FlashList */}
       <ThemedFlashList
+        keyExtractor={(_item, index) => index.toString()}
+        testID={props.testID}
         estimatedItemSize={116}
         contentContainerStyle={tailwind("pt-6 pb-2")}
         parentContainerStyle={tailwind("mx-3")}
@@ -205,9 +285,37 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
             </View>
           );
         }}
-        keyExtractor={(_item, index) => index.toString()}
-        testID={props.testID}
       />
+
+      {Platform.OS === "web" && (
+        <BottomSheetWebWithNavV2
+          modalRef={containerRef}
+          screenList={bottomSheetScreen}
+          isModalDisplayed={isModalDisplayed}
+          // eslint-disable-next-line react-native/no-inline-styles
+          modalStyle={{
+            position: "absolute",
+            bottom: "0",
+            height: "474px",
+            width: "375px",
+            zIndex: 50,
+            borderTopLeftRadius: 15,
+            borderTopRightRadius: 15,
+            overflow: "hidden",
+          }}
+        />
+      )}
+
+      {Platform.OS !== "web" && (
+        <BottomSheetWithNavV2
+          modalRef={bottomSheetRef}
+          screenList={bottomSheetScreen}
+          snapPoints={{
+            ios: ["30%"],
+            android: ["35%"],
+          }}
+        />
+      )}
     </ThemedScrollViewV2>
   );
 }
