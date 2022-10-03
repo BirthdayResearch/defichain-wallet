@@ -1,0 +1,1201 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`loan cards should match snapshot 1`] = `
+<RCTScrollView
+  contentContainerStyle={
+    {
+      "paddingBottom": 8,
+      "paddingLeft": 8,
+      "paddingRight": 8,
+      "paddingTop": 16,
+    }
+  }
+  data={
+    [
+      {
+        "fixedIntervalPriceId": "TS25/USD",
+        "interest": "2",
+        "token": {
+          "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
+          "creation": {
+            "height": 151,
+            "tx": "3a7e97db4b913fd249da2a59f2edd84f34e111fe1c775a01addfb3b96c147d40",
+          },
+          "decimal": 8,
+          "destruction": {
+            "height": -1,
+            "tx": "0000000000000000000000000000000000000000000000000000000000000000",
+          },
+          "displaySymbol": "dTS25",
+          "finalized": false,
+          "id": "17",
+          "isDAT": true,
+          "isLPS": false,
+          "isLoanToken": true,
+          "limit": "0",
+          "mintable": true,
+          "minted": "0",
+          "name": "",
+          "symbol": "TS25",
+          "symbolKey": "TS25",
+          "tradeable": true,
+        },
+        "tokenId": "3a7e97db4b913fd249da2a59f2edd84f34e111fe1c775a01addfb3b96c147d40",
+      },
+      {
+        "fixedIntervalPriceId": "TR50/USD",
+        "interest": "3",
+        "token": {
+          "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
+          "creation": {
+            "height": 152,
+            "tx": "57135919430b915f6f462142161e94474aae824791fa3644541102d7a7959a63",
+          },
+          "decimal": 8,
+          "destruction": {
+            "height": -1,
+            "tx": "0000000000000000000000000000000000000000000000000000000000000000",
+          },
+          "displaySymbol": "dTR50",
+          "finalized": false,
+          "id": "18",
+          "isDAT": true,
+          "isLPS": false,
+          "isLoanToken": true,
+          "limit": "0",
+          "mintable": true,
+          "minted": "0",
+          "name": "",
+          "symbol": "TR50",
+          "symbolKey": "TR50",
+          "tradeable": true,
+        },
+        "tokenId": "57135919430b915f6f462142161e94474aae824791fa3644541102d7a7959a63",
+      },
+      {
+        "fixedIntervalPriceId": "TU10/USD",
+        "interest": "1",
+        "token": {
+          "collateralAddress": "bcrt1qyrfrpadwgw7p5eh3e9h3jmu4kwlz4prx73cqny",
+          "creation": {
+            "height": 149,
+            "tx": "943c2f38cf418ff116c402f4f6ec400039223e5aa4fb41f2c4a6e69ac53a4c45",
+          },
+          "decimal": 8,
+          "destruction": {
+            "height": -1,
+            "tx": "0000000000000000000000000000000000000000000000000000000000000000",
+          },
+          "displaySymbol": "dTU10",
+          "finalized": false,
+          "id": "15",
+          "isDAT": true,
+          "isLPS": false,
+          "isLoanToken": true,
+          "limit": "0",
+          "mintable": true,
+          "minted": "0",
+          "name": "",
+          "symbol": "TU10",
+          "symbolKey": "TU10",
+          "tradeable": true,
+        },
+        "tokenId": "943c2f38cf418ff116c402f4f6ec400039223e5aa4fb41f2c4a6e69ac53a4c45",
+      },
+    ]
+  }
+  getItem={[Function]}
+  getItemCount={[Function]}
+  keyExtractor={[Function]}
+  onContentSizeChange={[Function]}
+  onLayout={[Function]}
+  onMomentumScrollBegin={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  removeClippedSubviews={false}
+  renderItem={[Function]}
+  scrollEventThrottle={50}
+  stickyHeaderIndices={[]}
+  style={
+    [
+      undefined,
+      {
+        "backgroundColor": "rgba(245, 245, 245, 1)",
+      },
+    ]
+  }
+  viewabilityConfigCallbackPairs={[]}
+>
+  <View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "flexBasis": "50%",
+            }
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "backgroundColor": "rgba(255, 255, 255, 1)",
+                "borderBottomColor": "rgba(229, 229, 229, 1)",
+                "borderBottomLeftRadius": 4,
+                "borderBottomRightRadius": 4,
+                "borderBottomWidth": 1,
+                "borderLeftColor": "rgba(229, 229, 229, 1)",
+                "borderLeftWidth": 1,
+                "borderRightColor": "rgba(229, 229, 229, 1)",
+                "borderRightWidth": 1,
+                "borderTopColor": "rgba(229, 229, 229, 1)",
+                "borderTopLeftRadius": 4,
+                "borderTopRightRadius": 4,
+                "borderTopWidth": 1,
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "marginBottom": 16,
+                "marginLeft": 8,
+                "marginRight": 8,
+                "opacity": 1,
+                "paddingBottom": 16,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "paddingTop": 16,
+              }
+            }
+            testID="loan_card_dTS25"
+          >
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingBottom": 8,
+                }
+              }
+            >
+              <View
+                style={
+                  {
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <RNSVGSvgView
+                  align="xMidYMid"
+                  bbHeight={24}
+                  bbWidth={24}
+                  fill="none"
+                  focusable={false}
+                  height={24}
+                  meetOrSlice={0}
+                  minX={0}
+                  minY={0}
+                  style={
+                    [
+                      {
+                        "backgroundColor": "transparent",
+                        "borderWidth": 0,
+                      },
+                      {
+                        "marginRight": 8,
+                      },
+                      {
+                        "flex": 0,
+                        "height": 24,
+                        "width": 24,
+                      },
+                    ]
+                  }
+                  vbHeight={36}
+                  vbWidth={36}
+                  width={24}
+                >
+                  <RNSVGGroup
+                    fill={null}
+                    propList={
+                      [
+                        "fill",
+                      ]
+                    }
+                  >
+                    <RNSVGDefs>
+                      <RNSVGLinearGradient
+                        gradient={
+                          [
+                            0,
+                            -65105,
+                            0.0703125,
+                            -327249,
+                            0.169271,
+                            -1113679,
+                            0.289062,
+                            -2424139,
+                            0.408854,
+                            -4193094,
+                            0.528646,
+                            -6486336,
+                            0.648438,
+                            -9303864,
+                            0.815104,
+                            -12645423,
+                            1,
+                            -15855909,
+                          ]
+                        }
+                        gradientTransform={null}
+                        gradientUnits={1}
+                        name="paint0_linear_7863_44577"
+                        x1="-1.8"
+                        x2="38"
+                        y1="19"
+                        y2="19"
+                      />
+                    </RNSVGDefs>
+                    <RNSVGGroup
+                      clipPath="clip0_1388_11287"
+                    >
+                      <RNSVGPath
+                        clipRule={0}
+                        d="M0.25061 18C0.25061 8.19645 8.19706 0.25 18.0006 0.25C27.8053 0.25 35.7506 8.19644 35.7506 18C35.7506 27.8036 27.8053 35.75 18.0006 35.75C8.19706 35.75 0.25061 27.8036 0.25061 18Z"
+                        fill={4279110157}
+                        fillRule={0}
+                        propList={
+                          [
+                            "fill",
+                            "fillRule",
+                            "stroke",
+                            "strokeWidth",
+                          ]
+                        }
+                        stroke={
+                          [
+                            1,
+                            "paint0_linear_7863_44577",
+                          ]
+                        }
+                        strokeWidth={0.5}
+                      />
+                    </RNSVGGroup>
+                    <RNSVGText
+                      content={null}
+                      dx={[]}
+                      dy={[]}
+                      fill={4294967295}
+                      font={
+                        {
+                          "fontSize": 10,
+                          "fontWeight": "bold",
+                          "textAnchor": "middle",
+                        }
+                      }
+                      propList={
+                        [
+                          "fill",
+                        ]
+                      }
+                      rotate={[]}
+                      x={
+                        [
+                          "50%",
+                        ]
+                      }
+                      y={
+                        [
+                          "62%",
+                        ]
+                      }
+                    >
+                      <RNSVGTSpan
+                        content="TS25"
+                        dx={[]}
+                        dy={[]}
+                        font={{}}
+                        rotate={[]}
+                        x={[]}
+                        y={[]}
+                      />
+                    </RNSVGText>
+                  </RNSVGGroup>
+                </RNSVGSvgView>
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontFamily": "MediumFont",
+                          "fontWeight": "500",
+                        },
+                        {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="loan_card_0_display_symbol"
+                >
+                  dTS25
+                </Text>
+              </View>
+              <Text />
+            </View>
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                    },
+                    {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Interest
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                      "paddingBottom": 8,
+                    },
+                    {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="loan_card_0_interest_rate"
+            >
+              2%
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                    },
+                    {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Price (USD)
+            </Text>
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                style={
+                  {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                        },
+                        {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="loan_card_0_loan_amount"
+                >
+                  $
+                  0.00
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            {
+              "flexBasis": "50%",
+            }
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "backgroundColor": "rgba(255, 255, 255, 1)",
+                "borderBottomColor": "rgba(229, 229, 229, 1)",
+                "borderBottomLeftRadius": 4,
+                "borderBottomRightRadius": 4,
+                "borderBottomWidth": 1,
+                "borderLeftColor": "rgba(229, 229, 229, 1)",
+                "borderLeftWidth": 1,
+                "borderRightColor": "rgba(229, 229, 229, 1)",
+                "borderRightWidth": 1,
+                "borderTopColor": "rgba(229, 229, 229, 1)",
+                "borderTopLeftRadius": 4,
+                "borderTopRightRadius": 4,
+                "borderTopWidth": 1,
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "marginBottom": 16,
+                "marginLeft": 8,
+                "marginRight": 8,
+                "opacity": 1,
+                "paddingBottom": 16,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "paddingTop": 16,
+              }
+            }
+            testID="loan_card_dTR50"
+          >
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingBottom": 8,
+                }
+              }
+            >
+              <View
+                style={
+                  {
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <RNSVGSvgView
+                  align="xMidYMid"
+                  bbHeight={24}
+                  bbWidth={24}
+                  fill="none"
+                  focusable={false}
+                  height={24}
+                  meetOrSlice={0}
+                  minX={0}
+                  minY={0}
+                  style={
+                    [
+                      {
+                        "backgroundColor": "transparent",
+                        "borderWidth": 0,
+                      },
+                      {
+                        "marginRight": 8,
+                      },
+                      {
+                        "flex": 0,
+                        "height": 24,
+                        "width": 24,
+                      },
+                    ]
+                  }
+                  vbHeight={36}
+                  vbWidth={36}
+                  width={24}
+                >
+                  <RNSVGGroup
+                    fill={null}
+                    propList={
+                      [
+                        "fill",
+                      ]
+                    }
+                  >
+                    <RNSVGDefs>
+                      <RNSVGLinearGradient
+                        gradient={
+                          [
+                            0,
+                            -65105,
+                            0.0703125,
+                            -327249,
+                            0.169271,
+                            -1113679,
+                            0.289062,
+                            -2424139,
+                            0.408854,
+                            -4193094,
+                            0.528646,
+                            -6486336,
+                            0.648438,
+                            -9303864,
+                            0.815104,
+                            -12645423,
+                            1,
+                            -15855909,
+                          ]
+                        }
+                        gradientTransform={null}
+                        gradientUnits={1}
+                        name="paint0_linear_7863_44577"
+                        x1="-1.8"
+                        x2="38"
+                        y1="19"
+                        y2="19"
+                      />
+                    </RNSVGDefs>
+                    <RNSVGGroup
+                      clipPath="clip0_1388_11287"
+                    >
+                      <RNSVGPath
+                        clipRule={0}
+                        d="M0.25061 18C0.25061 8.19645 8.19706 0.25 18.0006 0.25C27.8053 0.25 35.7506 8.19644 35.7506 18C35.7506 27.8036 27.8053 35.75 18.0006 35.75C8.19706 35.75 0.25061 27.8036 0.25061 18Z"
+                        fill={4279110157}
+                        fillRule={0}
+                        propList={
+                          [
+                            "fill",
+                            "fillRule",
+                            "stroke",
+                            "strokeWidth",
+                          ]
+                        }
+                        stroke={
+                          [
+                            1,
+                            "paint0_linear_7863_44577",
+                          ]
+                        }
+                        strokeWidth={0.5}
+                      />
+                    </RNSVGGroup>
+                    <RNSVGText
+                      content={null}
+                      dx={[]}
+                      dy={[]}
+                      fill={4294967295}
+                      font={
+                        {
+                          "fontSize": 10,
+                          "fontWeight": "bold",
+                          "textAnchor": "middle",
+                        }
+                      }
+                      propList={
+                        [
+                          "fill",
+                        ]
+                      }
+                      rotate={[]}
+                      x={
+                        [
+                          "50%",
+                        ]
+                      }
+                      y={
+                        [
+                          "62%",
+                        ]
+                      }
+                    >
+                      <RNSVGTSpan
+                        content="TR50"
+                        dx={[]}
+                        dy={[]}
+                        font={{}}
+                        rotate={[]}
+                        x={[]}
+                        y={[]}
+                      />
+                    </RNSVGText>
+                  </RNSVGGroup>
+                </RNSVGSvgView>
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontFamily": "MediumFont",
+                          "fontWeight": "500",
+                        },
+                        {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="loan_card_1_display_symbol"
+                >
+                  dTR50
+                </Text>
+              </View>
+              <Text />
+            </View>
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                    },
+                    {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Interest
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                      "paddingBottom": 8,
+                    },
+                    {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="loan_card_1_interest_rate"
+            >
+              3%
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                    },
+                    {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Price (USD)
+            </Text>
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                style={
+                  {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                        },
+                        {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="loan_card_1_loan_amount"
+                >
+                  $
+                  0.00
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "flexBasis": "50%",
+            }
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "backgroundColor": "rgba(255, 255, 255, 1)",
+                "borderBottomColor": "rgba(229, 229, 229, 1)",
+                "borderBottomLeftRadius": 4,
+                "borderBottomRightRadius": 4,
+                "borderBottomWidth": 1,
+                "borderLeftColor": "rgba(229, 229, 229, 1)",
+                "borderLeftWidth": 1,
+                "borderRightColor": "rgba(229, 229, 229, 1)",
+                "borderRightWidth": 1,
+                "borderTopColor": "rgba(229, 229, 229, 1)",
+                "borderTopLeftRadius": 4,
+                "borderTopRightRadius": 4,
+                "borderTopWidth": 1,
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "marginBottom": 16,
+                "marginLeft": 8,
+                "marginRight": 8,
+                "opacity": 1,
+                "paddingBottom": 16,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "paddingTop": 16,
+              }
+            }
+            testID="loan_card_dTU10"
+          >
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingBottom": 8,
+                }
+              }
+            >
+              <View
+                style={
+                  {
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <RNSVGSvgView
+                  align="xMidYMid"
+                  bbHeight={24}
+                  bbWidth={24}
+                  fill="none"
+                  focusable={false}
+                  height={24}
+                  meetOrSlice={0}
+                  minX={0}
+                  minY={0}
+                  style={
+                    [
+                      {
+                        "backgroundColor": "transparent",
+                        "borderWidth": 0,
+                      },
+                      {
+                        "marginRight": 8,
+                      },
+                      {
+                        "flex": 0,
+                        "height": 24,
+                        "width": 24,
+                      },
+                    ]
+                  }
+                  vbHeight={36}
+                  vbWidth={36}
+                  width={24}
+                >
+                  <RNSVGGroup
+                    fill={null}
+                    propList={
+                      [
+                        "fill",
+                      ]
+                    }
+                  >
+                    <RNSVGDefs>
+                      <RNSVGLinearGradient
+                        gradient={
+                          [
+                            0,
+                            -65105,
+                            0.0703125,
+                            -327249,
+                            0.169271,
+                            -1113679,
+                            0.289062,
+                            -2424139,
+                            0.408854,
+                            -4193094,
+                            0.528646,
+                            -6486336,
+                            0.648438,
+                            -9303864,
+                            0.815104,
+                            -12645423,
+                            1,
+                            -15855909,
+                          ]
+                        }
+                        gradientTransform={null}
+                        gradientUnits={1}
+                        name="paint0_linear_7863_44577"
+                        x1="-1.8"
+                        x2="38"
+                        y1="19"
+                        y2="19"
+                      />
+                    </RNSVGDefs>
+                    <RNSVGGroup
+                      clipPath="clip0_1388_11287"
+                    >
+                      <RNSVGPath
+                        clipRule={0}
+                        d="M0.25061 18C0.25061 8.19645 8.19706 0.25 18.0006 0.25C27.8053 0.25 35.7506 8.19644 35.7506 18C35.7506 27.8036 27.8053 35.75 18.0006 35.75C8.19706 35.75 0.25061 27.8036 0.25061 18Z"
+                        fill={4279110157}
+                        fillRule={0}
+                        propList={
+                          [
+                            "fill",
+                            "fillRule",
+                            "stroke",
+                            "strokeWidth",
+                          ]
+                        }
+                        stroke={
+                          [
+                            1,
+                            "paint0_linear_7863_44577",
+                          ]
+                        }
+                        strokeWidth={0.5}
+                      />
+                    </RNSVGGroup>
+                    <RNSVGText
+                      content={null}
+                      dx={[]}
+                      dy={[]}
+                      fill={4294967295}
+                      font={
+                        {
+                          "fontSize": 10,
+                          "fontWeight": "bold",
+                          "textAnchor": "middle",
+                        }
+                      }
+                      propList={
+                        [
+                          "fill",
+                        ]
+                      }
+                      rotate={[]}
+                      x={
+                        [
+                          "50%",
+                        ]
+                      }
+                      y={
+                        [
+                          "62%",
+                        ]
+                      }
+                    >
+                      <RNSVGTSpan
+                        content="TU10"
+                        dx={[]}
+                        dy={[]}
+                        font={{}}
+                        rotate={[]}
+                        x={[]}
+                        y={[]}
+                      />
+                    </RNSVGText>
+                  </RNSVGGroup>
+                </RNSVGSvgView>
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontFamily": "MediumFont",
+                          "fontWeight": "500",
+                        },
+                        {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="loan_card_2_display_symbol"
+                >
+                  dTU10
+                </Text>
+              </View>
+              <Text />
+            </View>
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                    },
+                    {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Interest
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                      "paddingBottom": 8,
+                    },
+                    {
+                      "color": "rgba(0, 0, 0, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="loan_card_2_interest_rate"
+            >
+              1%
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontSize": 12,
+                      "lineHeight": 16,
+                    },
+                    {
+                      "color": "rgba(115, 115, 115, 1)",
+                    },
+                  ],
+                ]
+              }
+            >
+              Price (USD)
+            </Text>
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                style={
+                  {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "RegularFont",
+                        "fontSize": 16,
+                        "fontWeight": "400",
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontSize": 14,
+                          "lineHeight": 20,
+                        },
+                        {
+                          "color": "rgba(0, 0, 0, 1)",
+                        },
+                      ],
+                    ]
+                  }
+                  testID="loan_card_2_loan_amount"
+                >
+                  $
+                  0.00
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;

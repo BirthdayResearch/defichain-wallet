@@ -7,7 +7,20 @@ import {
   LoanVaultLiquidated,
   LoanVaultState,
 } from "@defichain/whale-api-client/dist/api/loan";
+import { wallet } from "@store/wallet";
+import BigNumber from "bignumber.js";
 import { BatchCard } from "./BatchCard";
+
+const useAuctionBidValue = () => {
+  return {
+    minNextBidInUSD: new BigNumber("10"),
+    minStartingBidInUSD: new BigNumber("100"),
+    minStartingBidInToken: new BigNumber("11"),
+    minNextBidInToken: new BigNumber("11"),
+    totalCollateralsValueInUSD: new BigNumber("12345"),
+    hasFirstBid: false,
+  };
+};
 
 jest.mock("@shared-contexts/ThemeProvider");
 jest.mock("@shared-contexts/NetworkContext");
@@ -20,19 +33,23 @@ jest.mock("@components/BottomSheetInfo", () => ({
 jest.mock("@shared-contexts/WalletContext");
 jest.mock("@shared-contexts/DeFiScanContext");
 jest.mock("../hooks/AuctionBidValue", () => ({
-  useAuctionBidValue: () => ({
-    minNextBidInUSD: "10",
-    minStartingBidInUSD: "100",
-    minStartingBidInToken: "11",
-    minNextBidInToken: "11",
-    totalCollateralsValueInUSD: "12345",
-    hasFirstBid: false,
-  }),
+  useAuctionBidValue,
 }));
 
 describe("Batch Card", () => {
   it("should match snapshot", async () => {
     const initialState: Partial<RootState> = {
+      wallet: {
+        utxoBalance: "77",
+        tokens: [],
+        allTokens: {},
+        poolpairs: [],
+        dexPrices: {},
+        swappableTokens: {},
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true,
+        hasFetchedSwappableTokens: false,
+      },
       block: {
         count: 2000,
         masternodeCount: 10,
@@ -44,7 +61,10 @@ describe("Batch Card", () => {
 
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { block: block.reducer },
+      reducer: {
+        block: block.reducer,
+        wallet: wallet.reducer,
+      },
     });
 
     const vault: LoanVaultLiquidated = {
@@ -283,6 +303,7 @@ describe("Batch Card", () => {
     const rendered = render(
       <Provider store={store}>
         <BatchCard
+          collateralTokenSymbols={["DFI"]}
           vault={vault}
           batch={vault.batches[0]}
           onQuickBid={() => {}}
