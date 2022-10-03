@@ -285,8 +285,8 @@
     "Amount to send": "发送金额",
     "Converting": "Converting",
     "Converted": "Converted",
-    "Transaction fee": "Transaction fee",
-    "Amount to convert": "Amount to convert",
+    "Transaction fee": "交易費用",
+    "Amount to convert": "要转换的金额",
     "Send": "Send",
     "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "发送 {{amount}} {{displaySymbol}} 到 {{toAddress}}",
     "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds."
@@ -340,7 +340,7 @@
     "{{token}} to receive": "{{token}} 将会收到",
     "CONFIRM TRANSACTION": "确认发出",
     "You are converting to {{unit}}": "You are converting to {{unit}}",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "Resulting Tokens": "转换后 Tokens",
     "Resulting UTXO": "转换后 UTXO",
     "Convert {{amount}} DFI to {{target}}": "转换 {{amount}} DFI 至 {{target}}"
@@ -766,7 +766,7 @@
     "Processing loan payment…": "Processing loan payment…",
     "Payment completed": "Payment completed",
     "Preparing to create vault…": "Preparing to create vault…",
-    "Creating vault…": "Creating vault…",
+    "Creating vault": "Creating vault",
     "Vault created": "Vault created",
     "Preparing to place bid…": "Preparing to place bid…",
     "Placing bid…": "Placing bid…",
@@ -877,8 +877,8 @@
     "CONFIRM ADD LIQUIDITY": "确认增加流动资金",
     "Your LP Tokens": "您的 LP 代币",
     "You will receive LP tokens": "您将会收到 LP 代币",
-    "Amount to convert": "Amount to convert",
-    "Transaction fee": "Transaction fee",
+    "Amount to convert": "要转换的金额",
+    "Transaction fee": "交易費用",
     "Resulting pool share": "Resulting pool share",
     "{{token}} to supply": "{{token}} to supply",
     "Resulting LP tokens": "加入后产生的 LP 代币",
@@ -902,7 +902,7 @@
     "Transaction type": "交易类型",
     "Remove liquidity": "退出流动",
     "You are removing LP tokens": "You are removing LP tokens",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "Resulting pool share": "Resulting pool share",
     "LP tokens to remove": "要删除的 LP 代币",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool",
@@ -1034,7 +1034,7 @@
     "incl. stabilization fee ({{dexStabilizationFee}}%)": "incl. stabilization fee ({{dexStabilizationFee}}%)",
     "Total fees": "Total fees",
     "Settlement Value {{percentageChange}}": "Settlement Value {{percentageChange}}",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
     "Token": "Token",
@@ -1084,7 +1084,7 @@
     "To receive (incl. of fees)": "To receive (incl. of fees)",
     "Estimated to receive (incl. all fees)": "Estimated to receive (incl. all fees)",
     "Fee breakdown": "Fee breakdown",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?": "Are you sure you want to proceed with your transaction even with the high DEX stabilization fee?"
   },
   "screens/PoolSwapConfirmScreen": {
@@ -1257,10 +1257,27 @@
     "Borrow More": "增加借用量",
     "Choose Loan Token to Borrow": "选择要借用的贷款代币",
     "Payback Loan": "偿还贷款",
-    "Close Vault": "关闭金库"
+    "Close Vault": "关闭金库",
+    "Search vault": "Search vault",
+    "Search with vault ID": "Search with vault ID",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
+    "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
+    "Decentralized tokens": "Decentralized tokens",
+    "With vaults, you gain access to a rich economy of decentralized tokens.": "With vaults, you gain access to a rich economy of decentralized tokens.",
+    "Next": "Next",
+    "Done": "Done",
+    "Take control of your vault": "Take control of your vault",
+    "With a selected loan scheme, you control how much is required for your vault.": "With a selected loan scheme, you control how much is required for your vault.",
+    "Monitor your vaults": "Monitor your vaults",
+    "Keep your vaults healthy and green, by monitoring its collateralization.": "Keep your vaults healthy and green, by monitoring its collateralization.",
+    "Oracle prices": "Oracle prices",
+    "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain.",
+    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
+    "Search available loan tokens": "Search available loan tokens"
   },
   "components/tabs": {
     "Browse loan tokens": "浏览贷款选项",
+    "Borrow": "Borrow",
     "Your vaults": "您的金库",
     "Active loan": "活跃的贷款",
     "Details": "明细",
@@ -1278,8 +1295,9 @@
   "components/LoanCard": {
     "Active Price": "目前活跃价格",
     "Next Price": "下一个价格",
-    "Interest": "利息",
-    "Price (USD)": "价格(美金)"
+    "{{interestValue}} Interest": "{{interestValue}} 利息",
+    "Price (USD)": "价格(美金)",
+    "Borrow": "Borrow"
   },
   "components/InfoTextLink": {
     "Learn more about DFI": "了解更多关于 DFI",
@@ -1287,7 +1305,8 @@
     "Learn more about vaults": "了解更多关于金库的资讯",
     "Learn more about vaults and loan schemes": "了解更多关于金库和贷款计划的资讯",
     "Learn more about auctions and bidding": "了解有关拍卖和出价的更多信息",
-    "Learn about auctions": "了解更多关于拍卖和拍卖会"
+    "Learn about auctions": "了解更多关于拍卖和拍卖会",
+    "Learn more": "Learn more"
   },
   "components/EmptyBidsScreen": {
     "No active bids": "没有活跃竞投价格",
@@ -1428,6 +1447,9 @@
     "READY": "准备中"
   },
   "components/EmptyVault": {
+    "No vaults": "No vaults",
+    "Get started with loans. Create a vault for your collaterals.": "Get started with loans. Create a vault for your collaterals.",
+    "Create a vault": "Create a vault",
     "No vault created": "您尚未建立金库",
     "To get started, create a vault and add DFI and other tokens as collateral": "若要启动贷款，您需要创建一个金库，并添加DFI和其他币作为抵押品",
     "CREATE VAULT": "创建金库"
@@ -1442,7 +1464,18 @@
     "CONTINUE": "继续",
     "Confirm your vault details in next screen": "在下一个屏幕上确认您的金库细节",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "您的金库的贷款计划将决定您所需的贷款抵押品",
-    "Min. collateralization ratio": "最低抵押率"
+    "Min. collateralization ratio": "最低抵押率",
+    "Select a loan scheme for your vault.": "Select a loan scheme for your vault.",
+    "Continue": "继续",
+    "Create vault": "创建金库",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "Monitor your vault’s collateralization to prevent liquidation.": "Monitor your vault’s collateralization to prevent liquidation.",
+    "Transaction fee": "交易費用",
+    "Vault fee": "金库费用",
+    "Vault Fee": "金库费用",
+    "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.",
+    "Amount to convert": "要转换的金额",
+    "Creating vault": "创建金库"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "您正在创建金库",
@@ -1482,7 +1515,9 @@
     "Slippage tolerance": "交易滑点",
     "Slippage Tolerance": "交易滑点",
     "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑价是每项交易中的兑换率变化。选择您愿意接受这滑价的多少百分比（如下显示)。",
-    "Settlements": "Settlements"
+    "Settlements": "Settlements",
+    "Price Oracles": "Price Oracles",
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金库编号",
@@ -1742,7 +1777,10 @@
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "最低抵押率",
     "Interest rate": "利率",
-    "APR": "年回报率"
+    "APR": "年回报率",
+    "Collateralization": "抵押",
+    "Vault interest": "金库利息",
+    "Min. collateral ratio": "Min. collateral ratio"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "您正要借更多贷款",
@@ -1847,7 +1885,7 @@
     "I WANT TO WITHDRAW": "I WANT TO WITHDRAW",
     "Withdraw from": "Withdraw from",
     "Insufficient Balance": "Insufficient Balance",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "Review full details in the next screen": "Review full details in the next screen",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
@@ -1869,7 +1907,7 @@
     "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap",
     "To be confirmed": "To be confirmed",
     "Withdraw future swap": "Withdraw future swap",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "To receive (est.)": "To receive (est.)",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from {{sourceSymbol}}-{{destinationSymbol}} swap": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from {{sourceSymbol}}-{{destinationSymbol}} swap"
   },

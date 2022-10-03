@@ -33,6 +33,7 @@ context(
         .wait(6000);
       cy.setWalletTheme(walletTheme);
       cy.getByTestID("bottom_tab_loans").click();
+      cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
       cy.getByTestID("empty_vault").should("exist");
       cy.createVault(0);
       cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
@@ -58,7 +59,7 @@ context(
       cy.getByTestID("vault_card_0_manage_loans_button").click();
       checkVaultDetailValues("READY", vaultId, "$1,009.80", "$0.00", "5");
       cy.getByTestID("button_browse_loans").click();
-      cy.getByTestID("loan_card_DUSD").click();
+      cy.getByTestID("loans_action_button_DUSD_borrow_button").click();
       cy.getByTestID("form_input_borrow").type("1000").blur();
       cy.wait(3000);
       cy.getByTestID("text_input_usd_value").should("have.value", "1000.00");

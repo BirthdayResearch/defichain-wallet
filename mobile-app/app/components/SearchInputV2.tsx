@@ -35,7 +35,7 @@ export const SearchInputV2 = forwardRef<any, SearchInputProps>(
         light={light}
         dark={dark}
         style={[
-          tailwind("rounded-2xl-v2 flex flex-row items-center px-5 py-3"),
+          tailwind("rounded-full flex flex-row items-center px-5 py-3"),
           props.containerStyle,
         ]}
       >

@@ -297,7 +297,7 @@
     "Converting": "Converting",
     "Converted": "Converted",
     "Transaction fee": "Transaction fee",
-    "Amount to convert": "Amount to convert",
+    "Amount to convert": "Importo da convertire",
     "Send": "Send",
     "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Sending {{amount}} {{displaySymbol}} to {{toAddress}}",
     "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds."
@@ -781,7 +781,7 @@
     "Processing loan payment…": "Processing loan payment…",
     "Payment completed": "Payment completed",
     "Preparing to create vault…": "Preparing to create vault…",
-    "Creating vault…": "Creating vault…",
+    "Creating vault": "Creating vault",
     "Vault created": "Vault created",
     "Preparing to place bid…": "Preparing to place bid…",
     "Placing bid…": "Placing bid…",
@@ -892,7 +892,7 @@
     "CONFIRM ADD LIQUIDITY": "CONFERMA AGGIUNTA DI LIQUIDITÀ",
     "Your LP Tokens": "Your LP Tokens",
     "You will receive LP tokens": "You will receive LP tokens",
-    "Amount to convert": "Amount to convert",
+    "Amount to convert": "Importo da convertire",
     "Transaction fee": "Transaction fee",
     "Resulting pool share": "Resulting pool share",
     "{{token}} to supply": "{{token}} to supply",
@@ -1278,10 +1278,27 @@
     "Borrow More": "Prendi in prestito di più",
     "Choose Loan Token to Borrow": "Scegli il token da prestare per avere il prestito",
     "Payback Loan": "Ripaga il prestito",
-    "Close Vault": "Chiudi il Vault"
+    "Close Vault": "Chiudi il Vault",
+    "Search vault": "Search vault",
+    "Search with vault ID": "Search with vault ID",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
+    "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
+    "Decentralized tokens": "Decentralized tokens",
+    "With vaults, you gain access to a rich economy of decentralized tokens.": "With vaults, you gain access to a rich economy of decentralized tokens.",
+    "Next": "Next",
+    "Done": "Done",
+    "Take control of your vault": "Take control of your vault",
+    "With a selected loan scheme, you control how much is required for your vault.": "With a selected loan scheme, you control how much is required for your vault.",
+    "Monitor your vaults": "Monitor your vaults",
+    "Keep your vaults healthy and green, by monitoring its collateralization.": "Keep your vaults healthy and green, by monitoring its collateralization.",
+    "Oracle prices": "Oracle prices",
+    "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain.",
+    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
+    "Search available loan tokens": "Search available loan tokens"
   },
   "components/tabs": {
     "Browse loan tokens": "Sfoglia i token in prestito",
+    "Borrow": "Borrow",
     "Your vaults": "I tuoi vault",
     "Active loan": "Prestito attivo",
     "Details": "Dettagli",
@@ -1299,8 +1316,9 @@
   "components/LoanCard": {
     "Active Price": "Prezzo attivo",
     "Next Price": "Prossimo prezzo",
-    "Interest": "Interesse",
-    "Price (USD)": "Prezzo (USD)"
+    "{{interestValue}} Interest": "{{interestValue}} Interesse",
+    "Price (USD)": "Prezzo (USD)",
+    "Borrow": "Borrow"
   },
   "components/InfoTextLink": {
     "Learn more about DFI": "Per saperne di più su DFI",
@@ -1308,7 +1326,8 @@
     "Learn more about vaults": "Per saperne di più sui Vault",
     "Learn more about vaults and loan schemes": "Per saperne di più su Vault e schemi di prestito",
     "Learn more about auctions and bidding": "Per saperne di più su aste e offerte",
-    "Learn about auctions": "Scoprire le aste"
+    "Learn about auctions": "Scoprire le aste",
+    "Learn more": "Learn more"
   },
   "components/EmptyBidsScreen": {
     "No active bids": "Nessuna offerta attiva",
@@ -1449,6 +1468,9 @@
     "EDIT COLLATERAL": "MODIFICA I COLLATERALI"
   },
   "components/EmptyVault": {
+    "No vaults": "No vaults",
+    "Get started with loans. Create a vault for your collaterals.": "Get started with loans. Create a vault for your collaterals.",
+    "Create a vault": "Create a vault",
     "No vault created": "Nessun vault creato",
     "To get started, create a vault and add DFI and other tokens as collateral": "Per iniziare, crea un vault e aggiungi DFI e altri token come collaterale",
     "CREATE VAULT": "CREA UN VAULT"
@@ -1463,7 +1485,18 @@
     "CONTINUE": "CONTINUA",
     "Confirm your vault details in next screen": "Conferma i dettagli del tuo vault nella prossima schermata",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "Lo schema di prestito del vault determina la collateralizzazione richiesta del vault per i prestiti.",
-    "Min. collateralization ratio": "Minimo rapporto di collateralizzazione"
+    "Min. collateralization ratio": "Minimo rapporto di collateralizzazione",
+    "Select a loan scheme for your vault.": "Select a loan scheme for your vault.",
+    "Continue": "Continua",
+    "Create vault": "Crea un vault",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "Monitor your vault’s collateralization to prevent liquidation.": "Monitor your vault’s collateralization to prevent liquidation.",
+    "Transaction fee": "Transaction fee",
+    "Vault fee": "Commissione per il Vault",
+    "Vault Fee": "Commissione per il Vault",
+    "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.",
+    "Amount to convert": "Importo da convertire",
+    "Creating vault": "Creazione del vault"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Stai creando un vault",
@@ -1503,7 +1536,9 @@
     "Slippage tolerance": "Tolleranza di slippage",
     "Slippage Tolerance": "Tolleranza di slippage",
     "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "Lo slippage è una differenza di prezzo che si verifica durante una negoziazione su DEX. Scegli la percentuale di slippage che sei disposto ad accettare.",
-    "Settlements": "Settlements"
+    "Settlements": "Settlements",
+    "Price Oracles": "Price Oracles",
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault ID",
@@ -1763,7 +1798,10 @@
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Rapporto minimo di collateralizzazione",
     "Interest rate": "Tasso di interesse",
-    "APR": "APR"
+    "APR": "APR",
+    "Collateralization": "Collateralization",
+    "Vault interest": "Interesse del vault",
+    "Min. collateral ratio": "Min. collateral ratio"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "STAI PRENDENDO IN PRESTITO DI PIÙ PER IL PRESTITO",
