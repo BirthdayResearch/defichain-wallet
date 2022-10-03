@@ -1,12 +1,12 @@
-import { ReactElement, useCallback, useRef, useEffect } from "react";
+import { ReactElement, useCallback, useEffect, useRef } from "react";
 import { tailwind } from "@tailwind";
-import { View, Platform, ViewProps, StyleProp } from "react-native";
+import { Platform, StyleProp, View, ViewProps } from "react-native";
 import {
   BottomSheetBackgroundProps,
   BottomSheetModal as Modal,
   BottomSheetModalProps,
-  useBottomSheetModal,
   TouchableOpacity,
+  useBottomSheetModal,
 } from "@gorhom/bottom-sheet";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { ScrollView } from "react-native-gesture-handler";
@@ -110,18 +110,13 @@ export function BottomSheetModalV2(props: Props): JSX.Element {
             <View
               style={[
                 tailwind(
-                  "absolute flex-row justify-end right-5 top-3 w-full z-10"
+                  "absolute flex-row justify-end right-5 top-5 w-full z-10"
                 ),
                 closeButtonStyle,
               ]}
             >
               <TouchableOpacity onPress={closeModal}>
-                <ThemedIcon
-                  iconType="Feather"
-                  name="x-circle"
-                  size={22}
-                  style={tailwind("mt-2")}
-                />
+                <ThemedIcon iconType="Feather" name="x-circle" size={22} />
               </TouchableOpacity>
             </View>
             {children}
