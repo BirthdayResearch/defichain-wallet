@@ -763,7 +763,7 @@
     "Processing loan payment…": "Darlehensrückzahlung bearbeiten…",
     "Payment completed": "Rückzahlung abgeschlossen",
     "Preparing to create vault…": "Vorbereitung zur Vault-Erstellung…",
-    "Creating vault…": "Vault erstellen…",
+    "Creating vault": "Vault erstellen",
     "Vault created": "Vault erstellt",
     "Preparing to place bid…": "Vorbereitung der Gebotsabgabe…",
     "Placing bid…": "Gebot abgeben…",
@@ -1253,10 +1253,27 @@
     "Borrow More": "Mehr ausleihen",
     "Choose Loan Token to Borrow": "Darlehenstoken zum Ausleihen wählen",
     "Payback Loan": "Darlehensrückzahlung",
-    "Close Vault": "Vault schließen"
+    "Close Vault": "Vault schließen",
+    "Search vault": "Vaults durchsuchen",
+    "Search with vault ID": "Suche über Vault ID",
+    "Search results for “{{searchTerm}}”": "Suchergebnisse für “{{searchTerm}}”",
+    "You need a vault with collaterals to borrow tokens": "Du brauchst einen Vault mit Sicherheiten, um Token zu leihen",
+    "Decentralized tokens": "Dezentrale Token",
+    "With vaults, you gain access to a rich economy of decentralized tokens.": "Mit Vaults erhältst du Zugang zu einer umfassenden Ökonomie dezentraler Token.",
+    "Next": "Weiter",
+    "Done": "Fertig",
+    "Take control of your vault": "Kontrolliere deinen Vault",
+    "With a selected loan scheme, you control how much is required for your vault.": "Mit einem ausgewählten Darlehensmodell bestimmst du, wie viel für deinen Vault benötigt wird.",
+    "Monitor your vaults": "Überwache deine Vaults",
+    "Keep your vaults healthy and green, by monitoring its collateralization.": "Sorge dafür, dass deine Vaults gesund und im grünen Bereich bleiben, indem du ihre Besicherung überwachst.",
+    "Oracle prices": "Preisorakelwerte",
+    "With oracles, your vaults and loans align with market prices outside the blockchain.": "Durch Preisorakel passen sich deine Vaults und Darlehen an die Marktpreise außerhalb der Blockchain an.",
+    "Loan tokens get their prices from oracles.": "Darlehenstoken erhalten ihre Preise von Preisorakeln.",
+    "Search available loan tokens": "Verfügbare Darlehenstoken suchen"
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehenstoken",
+    "Borrow": "Darlehen aufnehmen",
     "Your vaults": "Deine Vaults",
     "Active loan": "Aktuelles Darlehen",
     "Details": "Details",
@@ -1274,8 +1291,9 @@
   "components/LoanCard": {
     "Active Price": "Aktueller Preis",
     "Next Price": "Nächster Preis",
-    "Interest": "Zins",
-    "Price (USD)": "Preis (USD)"
+    "{{interestValue}} Interest": "{{interestValue}} Zins",
+    "Price (USD)": "Preis (USD)",
+    "Borrow": "Leihen"
   },
   "components/InfoTextLink": {
     "Learn more about DFI": "Erfahre mehr über DFI",
@@ -1283,7 +1301,8 @@
     "Learn more about vaults": "Lerne mehr über Vaults",
     "Learn more about vaults and loan schemes": "Erfahre mehr über Vaults und Darlehensmodelle",
     "Learn more about auctions and bidding": "Erfahre mehr über Auktionen und Bieten",
-    "Learn about auctions": "Erfahre mehr über Auktionen"
+    "Learn about auctions": "Erfahre mehr über Auktionen",
+    "Learn more": "Erfahre mehr"
   },
   "components/EmptyBidsScreen": {
     "No active bids": "Keine aktiven Gebote",
@@ -1423,6 +1442,9 @@
     "READY": "BEREIT"
   },
   "components/EmptyVault": {
+    "No vaults": "Keine Vaults",
+    "Get started with loans. Create a vault for your collaterals.": "Beginne mit Darlehen. Erstelle einen Vault für deine Sicherheiten.",
+    "Create a vault": "Vault erstellen",
     "No vault created": "Kein Vault erstellt",
     "To get started, create a vault and add DFI and other tokens as collateral": "Um loszulegen, erstelle einen Vault und füge DFI und andere Token als Sicherheiten hinzu",
     "CREATE VAULT": "VAULT ERSTELLEN"
@@ -1437,7 +1459,18 @@
     "CONTINUE": "WEITER",
     "Confirm your vault details in next screen": "Bestätige die Daten deines Vaults in der nächsten Ansicht",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "Das Darlehensmodell deines Vaults bestimmt dessen erforderliche Darlehens-Besicherung.",
-    "Min. collateralization ratio": "Mind. Besicherungsquote"
+    "Min. collateralization ratio": "Mind. Besicherungsquote",
+    "Select a loan scheme for your vault.": "Wähle ein Darlehensmodell für deinen Vault",
+    "Continue": "Weiter",
+    "Create vault": "Vault erstellen",
+    "By continuing, the required amount of DFI will be converted": "Wenn du fortfährst, wird die erforderliche Summe an DFI umgewandelt",
+    "Monitor your vault’s collateralization to prevent liquidation.": "Überwache die Besicherung deines Vaults, um eine Liquidation zu verhindern.",
+    "Transaction fee": "Transaktionsgebühren",
+    "Vault fee": "Vaultgebühr",
+    "Vault Fee": "Vaultgebühr",
+    "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Die Vaultgebühr fällt beim Erstellen eines neuen Vaults an. Nach erfolgreicher Auflösung des Vaults wird die Hälfte der eingezahlten Gebühr an deine Wallet zurückgegeben, die andere Hälfte wird verbrannt.",
+    "Amount to convert": "Umzuwandelnder Betrag",
+    "Creating vault": "Erstellen eines Vaults"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Du erstellst gerade einen Vault",
@@ -1477,7 +1510,9 @@
     "Slippage tolerance": "Slippage-toleranz",
     "Slippage Tolerance": "Slippage-Toleranz",
     "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "Slippage sind Kursänderungen, die innerhalb eines Auftragsvorgangs auftreten. Beachte, dass die Slippage-Toleranz auch die DEX-Stabilisierungsgebühren beinhaltet. Wähle aus, wie viel Slippage du zu akzeptieren bereit bist.",
-    "Settlements": "Abrechnungen"
+    "Settlements": "Abrechnungen",
+    "Price Oracles": "Preisorakel",
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Die Preisorakel liefern Preisdaten in Echtzeit aus vertrauenswürdigen Quellen, die in die DeFiChain übernommen werden."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
@@ -1737,7 +1772,10 @@
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Mind. Besicherungsquote",
     "Interest rate": "Zinssatz",
-    "APR": "Jahreszins"
+    "APR": "Jahreszins",
+    "Collateralization": "Besicherung",
+    "Vault interest": "Vault-Jahreszins",
+    "Min. collateral ratio": "Mind. Besicherungsquote"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "DU STOCKST DEIN DARLEHEN AUF",

@@ -14,6 +14,7 @@ context("Wallet - Loans - Vault Details", () => {
       .sendTokenToWallet(["BTC"])
       .wait(6000);
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
     cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
@@ -40,7 +41,9 @@ context("Wallet - Loans - Vault Details", () => {
   it("should add loan", () => {
     cy.getByTestID("vault_card_0_manage_loans_button").click();
     cy.getByTestID("button_browse_loans").click();
-    cy.getByTestID("loan_card_DUSD").click();
+    cy.getByTestID(
+      "loans_action_button_DUSD_borrow_button_loans_cards"
+    ).click();
     cy.getByTestID("form_input_borrow").clear().type("100").blur();
     cy.wait(3000);
     cy.getByTestID("text_input_usd_value").should("have.value", "100.00");
@@ -129,6 +132,7 @@ context("Wallet - Loans - Close Vault", () => {
       .sendTokenToWallet(["BTC"])
       .wait(6000);
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
     cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
@@ -145,7 +149,9 @@ context("Wallet - Loans - Close Vault", () => {
   it("should add loan", () => {
     cy.getByTestID("vault_card_0_manage_loans_button").click();
     cy.getByTestID("button_browse_loans").click();
-    cy.getByTestID("loan_card_DUSD").click();
+    cy.getByTestID(
+      "loans_action_button_DUSD_borrow_button_loans_cards"
+    ).click();
     cy.getByTestID("form_input_borrow").clear().type("100").blur();
     cy.wait(3000);
     cy.getByTestID("text_input_usd_value").should("have.value", "100.00");
@@ -165,8 +171,7 @@ context("Wallet - Loans - Close Vault", () => {
     cy.getByTestID("button_confirm_payback_loan").click().wait(4000);
     cy.closeOceanInterface();
     cy.getByTestID("vault_card_0").click();
-    cy.getByTestID("vault_detail_close_vault").click();
-    cy.getByTestID("button_confirm_create_vault").click().wait(4000);
+    cy.getByTestID("vault_detail_close_vault").click().wait(4000);
     cy.getByTestID("txn_authorization_description").contains(
       `You are about to close vault ${vaultId}`
     );
@@ -316,6 +321,7 @@ context("Wallet - Loans - Health Bar", () => {
       },
     });
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
   });
 
   it("should display col ratio from vault API", () => {

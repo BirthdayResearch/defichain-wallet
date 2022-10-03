@@ -782,7 +782,7 @@
     "Processing loan payment…": "Processing loan payment…",
     "Payment completed": "Payment completed",
     "Preparing to create vault…": "Preparing to create vault…",
-    "Creating vault…": "Creating vault…",
+    "Creating vault": "Creating vault",
     "Vault created": "Vault created",
     "Preparing to place bid…": "Preparing to place bid…",
     "Placing bid…": "Placing bid…",
@@ -1281,10 +1281,27 @@
     "Choose Loan Token to Borrow": "Elige el token que quieres pedir prestado",
     "Payback Loan": "Devuelve el préstamo",
     "Close Vault": "Cancela la bóveda",
-    "Edit Collateral": "Editar colateral"
+    "Edit Collateral": "Editar colateral",
+    "Search vault": "Search vault",
+    "Search with vault ID": "Search with vault ID",
+    "Search results for “{{searchTerm}}”": "Buscar resultados para “{{searchTerm}}”",
+    "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
+    "Decentralized tokens": "Decentralized tokens",
+    "With vaults, you gain access to a rich economy of decentralized tokens.": "With vaults, you gain access to a rich economy of decentralized tokens.",
+    "Next": "Next",
+    "Done": "Done",
+    "Take control of your vault": "Take control of your vault",
+    "With a selected loan scheme, you control how much is required for your vault.": "With a selected loan scheme, you control how much is required for your vault.",
+    "Monitor your vaults": "Monitor your vaults",
+    "Keep your vaults healthy and green, by monitoring its collateralization.": "Keep your vaults healthy and green, by monitoring its collateralization.",
+    "Oracle prices": "Oracle prices",
+    "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain.",
+    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
+    "Search available loan tokens": "Search available loan tokens"
   },
   "components/tabs": {
     "Browse loan tokens": "Busca tokens de préstamo",
+    "Borrow": "Borrow",
     "Your vaults": "Tus bóvedas",
     "Active loan": "Préstamo activo",
     "Details": "Detalles",
@@ -1302,8 +1319,9 @@
   "components/LoanCard": {
     "Active Price": "Precio Activo",
     "Next Price": "Siguiente precio",
-    "Interest": "Interés",
-    "Price (USD)": "Precio (USD)"
+    "{{interestValue}} Interest": "{{interestValue}} Interés",
+    "Price (USD)": "Precio (USD)",
+    "Borrow": "Borrow"
   },
   "components/InfoTextLink": {
     "Learn more about UTXO and Token": "Aprende más sobre UTXO y Token",
@@ -1312,7 +1330,8 @@
     "Learn more about vaults and loan schemes": "Aprende más sobre las bóvedas y los tipos de préstamo",
     "Learn more about auctions and bidding": "Aprende más sobre las subastas y cómo hacer ofertas",
     "Learn about auctions": "Aprende sobre subastas",
-    "Learn more about DFI": "Aprende mas sobre DFI"
+    "Learn more about DFI": "Aprende mas sobre DFI",
+    "Learn more": "Learn more"
   },
   "components/EmptyBidsScreen": {
     "No active bids": "No hay ofertas activas",
@@ -1454,6 +1473,9 @@
     "EDIT COLLATERAL": "EDITA LOS COLATERALES"
   },
   "components/EmptyVault": {
+    "No vaults": "No vaults",
+    "Get started with loans. Create a vault for your collaterals.": "Get started with loans. Create a vault for your collaterals.",
+    "Create a vault": "Create a vault",
     "No vault created": "Ninguna bóveda ha sido creada",
     "To get started, create a vault and add DFI and other tokens as collateral": "Para empezar, crea una bóveda y añade DFI y otros tokens como colaterales",
     "CREATE VAULT": "CREA BÓVEDA"
@@ -1468,7 +1490,18 @@
     "CONTINUE": "CONTINUA",
     "Confirm your vault details in next screen": "Confirma los detalles de tu bóveda en la siguiente pantalla",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "El tipo de préstamo de tu bóveda determina el ratio de colateralización para pedir un préstamo.",
-    "Min. collateralization ratio": "Mínimo ratio de colateralización"
+    "Min. collateralization ratio": "Mínimo ratio de colateralización",
+    "Select a loan scheme for your vault.": "Select a loan scheme for your vault.",
+    "Continue": "Continúa",
+    "Create vault": "Crea una bóveda",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "Monitor your vault’s collateralization to prevent liquidation.": "Monitor your vault’s collateralization to prevent liquidation.",
+    "Transaction fee": "Transaction fee",
+    "Vault fee": "Comisión de la bóveda",
+    "Vault Fee": "Comisión de la bóveda",
+    "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.",
+    "Amount to convert": "Amount to convert",
+    "Creating vault": "Creando bóveda"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Estás creando una bóveda",
@@ -1509,7 +1542,9 @@
     "Slippage tolerance": "Tolerancia a la fluctuación",
     "Slippage Tolerance": "Tolerancia a la fluctuación",
     "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "Las fluctuaciones son cambios de tasas que ocurren durante una transacción. Elige cuanta fluctuación estás dispuesto a aceptar.",
-    "Settlements": "Settlements"
+    "Settlements": "Settlements",
+    "Price Oracles": "Price Oracles",
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Identificador de la bóveda",
@@ -1769,7 +1804,10 @@
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Ratio mínimo de colateralización",
     "Interest rate": "Tasa de interés",
-    "APR": "Tasa de interés anual (APR)"
+    "APR": "Tasa de interés anual (APR)",
+    "Collateralization": "Collateralization",
+    "Vault interest": "Interés de la bóveda",
+    "Min. collateral ratio": "Min. collateral ratio"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "TU ESTAS PIDIENDO PRESTADO MAS POR TU PRESTAMO",
