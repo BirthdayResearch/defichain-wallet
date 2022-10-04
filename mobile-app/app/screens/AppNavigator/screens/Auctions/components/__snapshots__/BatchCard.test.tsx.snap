@@ -225,7 +225,7 @@ exports[`Batch Card should match snapshot 1`] = `
               }
               testID="batch_card_no_bid_text"
             >
-              Min bid
+              Min. bid
             </Text>
           </View>
           <Text
