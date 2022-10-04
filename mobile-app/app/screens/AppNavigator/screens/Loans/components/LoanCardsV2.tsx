@@ -212,6 +212,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           onBlur={() => {
             setIsSearchFocus(false);
           }}
+          testID="loan_search_input"
         />
       )}
 
