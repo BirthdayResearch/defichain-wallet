@@ -71,7 +71,7 @@ export function AuctionsFaq(): JSX.Element {
       <ThemedTextV2 style={tailwind("text-base font-normal-v2 px-5")}>
         {translate(
           "components/AuctionsFaq",
-          "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction."
+          "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction."
         )}
       </ThemedTextV2>
 

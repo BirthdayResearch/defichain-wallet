@@ -50,7 +50,7 @@ exports[`Auctions FAQ V2 screen should match snapshot 1`] = `
         ]
       }
     >
-      Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.
+      Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.
     </Text>
     <RCTScrollView
       style={
