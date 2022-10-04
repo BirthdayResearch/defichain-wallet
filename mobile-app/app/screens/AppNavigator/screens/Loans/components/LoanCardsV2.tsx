@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ThemedFlashList,
   ThemedIcon,
@@ -34,6 +34,10 @@ import { BottomSheetModalInfo } from "@components/BottomSheetModalInfo";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { SearchInputV2 } from "@components/SearchInputV2";
 import { debounce } from "lodash";
+import {
+  SkeletonLoader,
+  SkeletonLoaderScreen,
+} from "@components/SkeletonLoader";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { LoanParamList } from "../LoansNavigator";
 import { LoanActionButton } from "./LoanActionButton";
@@ -80,6 +84,13 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   const [isSearchFocus, setIsSearchFocus] = useState(false);
   const searchRef = useRef<TextInput>();
 
+  const [showLoader, setShowLoader] = useState(true);
+  const [isFirstLoad, setIsFirstLoad] = useState(false);
+
+  const inSearchMode = useMemo(() => {
+    return isSearchFocus || searchString !== "";
+  }, [isSearchFocus, searchString]);
+
   const handleFilter = useCallback(
     debounce((searchString: string) => {
       setFilteredLoanTokens(
@@ -109,6 +120,22 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
       vaultsList.some((vault) => vault.vaultState !== VaultStatus.Empty)
     );
   }, [vaultsList]);
+
+  useEffect(() => {
+    setIsFirstLoad(true);
+  }, []);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    if (isFirstLoad) {
+      // extend loader for an arbitrary amount of time for flashlist to complete rendering
+      const extendedLoaderTime = 1000;
+      timeout = setTimeout(() => {
+        setShowLoader(false);
+      }, extendedLoaderTime);
+    }
+    return () => clearTimeout(timeout);
+  }, [isFirstLoad]);
 
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
@@ -187,6 +214,9 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
             "screens/LoansScreen",
             "Search available loan tokens"
           )}
+          inputStyle={{
+            style: tailwind("py-3"),
+          }}
           containerStyle={tailwind("flex-1 mx-5", [
             "border-0.5",
             isSearchFocus
@@ -228,6 +258,31 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           </View>
         </ThemedViewV2>
       )}
+      {showLoader && (
+        <View style={tailwind("mt-5 mx-2")}>
+          <SkeletonLoader row={6} screen={SkeletonLoaderScreen.LoanV2} />
+        </View>
+      )}
+
+      {!showLoader && inSearchMode && (
+        <View style={tailwind("mt-8 mx-5")}>
+          <ThemedTextV2
+            style={tailwind("text-xs pl-5 font-normal-v2")}
+            light={tailwind("text-mono-light-v2-700")}
+            dark={tailwind("text-mono-dark-v2-700")}
+            testID="empty_search_result_text"
+          >
+            {searchString.trim() === ""
+              ? translate("screens/LoansScreen", "Search with token name")
+              : translate(
+                  "screens/LoansScreen",
+                  "Search results for “{{searchTerm}}”",
+                  { searchTerm: searchString }
+                )}
+          </ThemedTextV2>
+        </View>
+      )}
+
       {/* Known intermittent issue wherein the two-column layout is not followed
       in web - FlashList */}
       <ThemedFlashList
@@ -241,7 +296,9 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           },
           { "pt-6": isVaultReady }
         )}
-        parentContainerStyle={tailwind("mx-3")}
+        parentContainerStyle={tailwind("mx-3", {
+          hidden: isSearchFocus && searchString.trim() === "",
+        })}
         data={filteredLoanTokens}
         /* This tells FlashList to rerender if any of the props below is updated */
         extraData={{
@@ -249,24 +306,6 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           activeVault,
         }}
         numColumns={2}
-        ListEmptyComponent={
-          <View style={tailwind("mt-2")}>
-            <ThemedTextV2
-              style={tailwind("text-xs pl-5 font-normal-v2")}
-              light={tailwind("text-mono-light-v2-700")}
-              dark={tailwind("text-mono-dark-v2-700")}
-              testID="empty_search_result_text"
-            >
-              {searchString.trim() === ""
-                ? translate("screens/LoansScreen", "Search with token name")
-                : translate(
-                    "screens/LoansScreen",
-                    "Search results for “{{searchTerm}}”",
-                    { searchTerm: searchString }
-                  )}
-            </ThemedTextV2>
-          </View>
-        }
         renderItem={({
           item,
           index,
