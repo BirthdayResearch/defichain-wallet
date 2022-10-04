@@ -30,6 +30,7 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { VaultBanner } from "./VaultBanner";
 import { VaultSectionTextRowV2 } from "./VaultSectionTextRowV2";
+import { LoanActionButton } from "./LoanActionButton";
 
 export interface VaultCardProps extends React.ComponentProps<any> {
   vault: LoanVault;
@@ -169,9 +170,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
                     </ThemedTextV2>
                   )}
                 />
-                {/* TODO: CTA style for borrow button */}
-                <ButtonV2
-                  styleProps="mt-3 text-sm"
+                <LoanActionButton
                   label="Borrow"
                   onPress={() => {
                     // TODO: should show to bottom sheet token list
@@ -181,6 +180,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
                     });
                   }}
                   testID="borrow_collateral"
+                  style={tailwind("mt-3 px-9")}
                 />
               </View>
             </View>

@@ -87,6 +87,7 @@ export function VaultBanner({
             {buttonLabel !== undefined && (
               <ButtonV2
                 customButtonStyle="py-2 px-3"
+                customTextStyle="text-xs"
                 styleProps="mt-3"
                 label={translate("components/EmptyVault", buttonLabel ?? "")}
                 onPress={onButtonPress}

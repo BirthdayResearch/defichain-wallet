@@ -15,6 +15,7 @@ interface ButtonProps extends React.PropsWithChildren<TouchableOpacityProps> {
   label?: string;
   styleProps?: string;
   customButtonStyle?: string;
+  customTextStyle?: string;
 }
 
 export function ButtonV2(props: ButtonProps): JSX.Element {
@@ -31,6 +32,7 @@ export function ButtonV2(props: ButtonProps): JSX.Element {
     fillType = "fill",
     styleProps = "m-4 mt-8",
     customButtonStyle,
+    customTextStyle,
   } = props;
   const { isLight } = useThemeContext();
   const buttonBg = {
@@ -81,7 +83,11 @@ export function ButtonV2(props: ButtonProps): JSX.Element {
       ]}
       activeOpacity={0.3}
     >
-      <Text style={tailwind(`${textStyle} font-semibold-v2 text-center`)}>
+      <Text
+        style={tailwind(
+          `${textStyle} font-semibold-v2 text-center ${customTextStyle}`
+        )}
+      >
         {label}
       </Text>
     </TouchableOpacity>
