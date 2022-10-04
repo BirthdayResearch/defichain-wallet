@@ -41,7 +41,9 @@ context("Wallet - Loans - Vault Details", () => {
   it("should add loan", () => {
     cy.getByTestID("vault_card_0_manage_loans_button").click();
     cy.getByTestID("button_browse_loans").click();
-    cy.getByTestID("loans_action_button_DUSD_borrow_button").click();
+    cy.getByTestID(
+      "loans_action_button_DUSD_borrow_button_loans_cards"
+    ).click();
     cy.getByTestID("form_input_borrow").clear().type("100").blur();
     cy.wait(3000);
     cy.getByTestID("text_input_usd_value").should("have.value", "100.00");
@@ -147,7 +149,9 @@ context("Wallet - Loans - Close Vault", () => {
   it("should add loan", () => {
     cy.getByTestID("vault_card_0_manage_loans_button").click();
     cy.getByTestID("button_browse_loans").click();
-    cy.getByTestID("loans_action_button_DUSD_borrow_button").click();
+    cy.getByTestID(
+      "loans_action_button_DUSD_borrow_button_loans_cards"
+    ).click();
     cy.getByTestID("form_input_borrow").clear().type("100").blur();
     cy.wait(3000);
     cy.getByTestID("text_input_usd_value").should("have.value", "100.00");

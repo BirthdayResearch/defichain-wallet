@@ -164,7 +164,9 @@ function borrowLoan(symbol: string, amount: string): void {
   const amountToBorrow = new BigNumber(amount).toFixed(8);
   cy.getByTestID("button_browse_loans").click();
   cy.getByTestID(`loan_card_${symbol}`).click();
-  cy.getByTestID(`loans_action_button_${symbol}_borrow_button`).click();
+  cy.getByTestID(
+    `loans_action_button_${symbol}_borrow_button_loans_cards`
+  ).click();
   cy.getByTestID("form_input_borrow").clear().type(amountToBorrow);
   cy.wait(3000);
   cy.getByTestID("borrow_loan_submit_button").click();
@@ -515,7 +517,9 @@ context("Wallet - Loans - 50% valid collateral token ratio", () => {
     cy.getByTestID("loans_tabs_BORROW").click();
     cy.getByTestID("header_loans_search").click();
     cy.getByTestID("loans_search_input").type("dTS25").blur();
-    cy.getByTestID("loans_action_button_dTS25_borrow_button").click();
+    cy.getByTestID(
+      "loans_action_button_dTS25_borrow_button_loan_screen"
+    ).click();
     cy.getByTestID("borrow_loan_vault").click();
     cy.wait(2000);
     cy.getByTestID("select_vault_0").click();
