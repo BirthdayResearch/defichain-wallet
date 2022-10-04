@@ -270,7 +270,7 @@ context("Wallet - Auctions search and sort", () => {
     cy.getByTestID("select_sort_least_time_left_check").should("exist");
     cy.getByTestID("select_sort_most_time_left_check").should("not.exist");
 
-    // Check for least time left by default selection
+    // Check for most time left
     cy.getByTestID("select_sort_most_time_left").click();
     cy.getByTestID("batch_card_0_dTD10").should("exist");
     cy.getByTestID("batch_card_1_dTU10").should("exist");
