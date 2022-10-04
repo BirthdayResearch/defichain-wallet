@@ -218,7 +218,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
 
       {vaults.length === 0 && (
         <ThemedViewV2
-          style={tailwind("mx-5 rounded-lg-v2", { "mt-8": isVaultReady })}
+          style={tailwind("mx-5 rounded-lg-v2 ", { "mt-8": isVaultReady })}
         >
           <VaultBanner
             buttonLabel="Create a vault"
@@ -236,7 +236,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
         keyExtractor={(_item, index) => index.toString()}
         testID={props.testID}
         estimatedItemSize={116}
-        contentContainerStyle={tailwind("pb-2", { "pt-6": isVaultReady })}
+        contentContainerStyle={tailwind("pb-2 pt-6")}
         parentContainerStyle={tailwind("mx-3")}
         data={filteredLoanTokens}
         /* This tells FlashList to rerender if any of the props below is updated */
