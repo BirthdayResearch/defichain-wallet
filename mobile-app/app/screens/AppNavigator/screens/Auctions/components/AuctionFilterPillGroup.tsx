@@ -56,7 +56,7 @@ export const AuctionFilterPillGroup = memo(
             <ThemedTouchableOpacityV2
               onPress={props.onSearchBtnPress}
               style={tailwind("text-center pr-4")}
-              testID="dex_search_icon"
+              testID="auction_search_icon"
             >
               <ThemedIcon
                 iconType="Feather"

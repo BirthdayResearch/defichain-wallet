@@ -49,7 +49,7 @@ export function useAuctionTime(
         : "",
     timeRemainingThemedColor: normalizedBlocks.gt(0.5)
       ? "green-v2"
-      : normalizedBlocks.gt(0.26)
+      : normalizedBlocks.gt(0.25)
       ? "orange-v2"
       : "red-v2",
     blocksRemaining,
