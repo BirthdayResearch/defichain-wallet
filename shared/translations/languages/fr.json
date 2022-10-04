@@ -1961,7 +1961,7 @@
     "Leading bid": "Offre principale",
     "Quick rebid": "Réenchère rapide",
     "Outbid": "Surenchéri",
-    "Min. bid": "Min. bid",
+    "Min. bid": "Offre min.",
     "Insufficient {{symbol}} balance": "Solde {{symbol}} insuffisant",
     "Placing {{amount}} {{token}} quick bid": "Placer une enchère rapide de {{amount}} {{token}}",
     "Placed {{amount}} {{token}} quick bid": "Placement d'une enchère rapide de {{amount}} {{token}}",

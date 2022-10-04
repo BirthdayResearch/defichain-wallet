@@ -163,7 +163,7 @@ function borrowLoan(symbol: string, amount: string): void {
   cy.getByTestID("vault_card_0_manage_loans_button").click();
   const amountToBorrow = new BigNumber(amount).toFixed(8);
   cy.getByTestID("button_browse_loans").click();
-  cy.getByTestID(`loan_card_${symbol}`).click();
+  cy.getByTestID(`loan_card_${symbol}`).filter(":visible").click();
   cy.getByTestID(
     `loans_action_button_${symbol}_borrow_button_loans_cards`
   ).click();
