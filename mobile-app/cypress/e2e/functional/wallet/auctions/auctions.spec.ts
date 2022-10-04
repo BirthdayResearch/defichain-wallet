@@ -2,19 +2,10 @@ import BigNumber from "bignumber.js";
 import { WhaleApiClient } from "@defichain/whale-api-client";
 import { LoanVaultLiquidated } from "@defichain/whale-api-client/dist/api/loan";
 import { VaultStatus } from "../../../../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes";
-import { checkValueWithinRange } from "../../../../support/walletCommands";
-
-function generateBlockUntilLiquidate(): void {
-  cy.getByTestID("playground_generate_blocks").click();
-  cy.wait(3000);
-  cy.getByTestID("vault_card_0_status")
-    .invoke("text")
-    .then((status: string) => {
-      if (status !== "IN LIQUIDATION") {
-        generateBlockUntilLiquidate();
-      }
-    });
-}
+import {
+  checkValueWithinRange,
+  generateBlockUntilLiquidate,
+} from "../../../../support/walletCommands";
 
 context("Wallet - Auctions", () => {
   let whale: WhaleApiClient;
