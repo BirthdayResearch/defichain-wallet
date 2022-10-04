@@ -210,7 +210,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           setIsSearchFocus(false);
         }}
       />
-      {vaults.length === 0 && (
+      {vaults.length === 0 && hasFetchedLoansData && (
         <ThemedViewV2 style={tailwind("mx-5 mt-8 rounded-lg-v2")}>
           <VaultBanner
             buttonLabel="Create a vault"
