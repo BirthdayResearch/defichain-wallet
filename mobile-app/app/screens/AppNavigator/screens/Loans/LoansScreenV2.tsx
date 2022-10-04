@@ -89,12 +89,20 @@ export function LoansScreenV2(): JSX.Element {
           />
         </View>
       </ThemedViewV2>
-      {activeTab === TabKey.YourVaults && (
+      <View
+        style={tailwind({
+          hidden: activeTab !== TabKey.YourVaults,
+        })}
+      >
         <VaultsV2 scrollRef={vaultScrollRef} />
-      )}
-      {activeTab === TabKey.Borrow && (
+      </View>
+      <View
+        style={tailwind({
+          hidden: activeTab !== TabKey.Borrow,
+        })}
+      >
         <LoanCardsV2 scrollRef={borrowScrollRef} testID="loan_screen" />
-      )}
+      </View>
     </ThemedViewV2>
   );
 }
