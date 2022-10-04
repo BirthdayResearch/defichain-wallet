@@ -90,14 +90,14 @@ export function LoansScreenV2(): JSX.Element {
         </View>
       </ThemedViewV2>
       <View
-        style={tailwind({
+        style={tailwind("flex-1", {
           hidden: activeTab !== TabKey.YourVaults,
         })}
       >
         <VaultsV2 scrollRef={vaultScrollRef} />
       </View>
       <View
-        style={tailwind({
+        style={tailwind("flex-1", {
           hidden: activeTab !== TabKey.Borrow,
         })}
       >
