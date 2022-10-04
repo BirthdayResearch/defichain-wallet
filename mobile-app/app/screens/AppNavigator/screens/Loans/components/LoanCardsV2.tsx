@@ -180,6 +180,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
         ref={searchRef}
         value={searchString}
         showClearButton={searchString !== ""}
+        testID="loans_search_input"
         placeholder={translate(
           "screens/LoansScreen",
           "Search available loan tokens"

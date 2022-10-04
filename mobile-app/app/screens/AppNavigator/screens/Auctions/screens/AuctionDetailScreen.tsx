@@ -143,7 +143,7 @@ export function AuctionDetailScreen(
         new BigNumber(collateral.amount)
       );
       return {
-        label: collateral.symbol,
+        label: collateral.displaySymbol,
         bSymbol: collateral.displaySymbol,
         value: collateral.amount,
         symbolUSDValue: value,

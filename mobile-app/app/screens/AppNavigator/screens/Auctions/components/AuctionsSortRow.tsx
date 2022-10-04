@@ -89,6 +89,7 @@ export const BottomSheetAssetSortList = ({
       item: AuctionsSortType;
       index: number;
     }): JSX.Element => {
+      const testID = `select_sort_${item.toLowerCase().replaceAll(" ", "_")}`;
       return (
         <ThemedTouchableOpacityV2
           dark={tailwind("border-mono-dark-v2-300")}
@@ -97,7 +98,7 @@ export const BottomSheetAssetSortList = ({
             "py-3 flex-row  items-center justify-between border-b-0.5 py-2.5",
             { "border-t-0.5": index === 0 }
           )}
-          testID={`select_sort_${item}`}
+          testID={testID}
           key={index}
           onPress={() => {
             onButtonPress(item);
@@ -113,6 +114,7 @@ export const BottomSheetAssetSortList = ({
               iconType="MaterialIcons"
               light={tailwind("text-green-v2")}
               dark={tailwind("text-green-v2")}
+              testID={`${testID}_check`}
             />
           )}
         </ThemedTouchableOpacityV2>
