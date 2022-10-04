@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { batch, useSelector } from "react-redux";
 import { tailwind } from "@tailwind";
+import { translate } from "@translations";
 import { RootState } from "@store";
 import { fetchLoanSchemes, fetchLoanTokens, fetchVaults } from "@store/loans";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
@@ -34,13 +35,13 @@ export function LoansScreenV2(): JSX.Element {
   const tabsList = [
     {
       id: TabKey.Borrow,
-      label: "Borrow",
+      label: translate("components/tabs", "Borrow"),
       disabled: false,
       handleOnPress: () => onTabChange(TabKey.Borrow),
     },
     {
       id: TabKey.YourVaults,
-      label: "Your vaults",
+      label: translate("components/tabs", "Your vaults"),
       disabled: false,
       handleOnPress: () => onTabChange(TabKey.YourVaults),
     },
