@@ -288,6 +288,9 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           );
         }}
       />
+      {vaults.length >= 1 && (
+        <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />
+      )}
 
       {Platform.OS === "web" && (
         <BottomSheetWebWithNavV2
