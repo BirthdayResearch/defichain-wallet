@@ -64,6 +64,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   const loanTokens = useSelector((state: RootState) =>
     loanTokensSelector(state.loans)
   );
+
   const vaultsList = useSelector((state: RootState) =>
     vaultsSelector(state.loans)
   );
@@ -111,6 +112,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
 
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
+
   const activeVault = vaults.find(
     (v) =>
       v.vaultId === props.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION
@@ -176,43 +178,46 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
       ref={props.scrollRef}
       contentContainerStyle={tailwind("py-8 w-full")}
     >
-      <SearchInputV2
-        ref={searchRef}
-        value={searchString}
-        showClearButton={searchString !== ""}
-        testID="loans_search_input"
-        placeholder={translate(
-          "screens/LoansScreen",
-          "Search available loan tokens"
-        )}
-        containerStyle={tailwind("flex-1 mx-5", [
-          "border-0.5",
-          isSearchFocus
-            ? {
-                "border-mono-light-v2-800": isLight,
-                "border-mono-dark-v2-800": !isLight,
-              }
-            : {
-                "border-mono-light-v2-00": isLight,
-                "border-mono-dark-v2-00": !isLight,
-              },
-        ])}
-        onClearInput={() => {
-          setSearchString("");
-          searchRef?.current?.focus();
-        }}
-        onChangeText={(text: string) => {
-          setSearchString(text);
-        }}
-        onFocus={() => {
-          setIsSearchFocus(true);
-        }}
-        onBlur={() => {
-          setIsSearchFocus(false);
-        }}
-      />
+      {isVaultReady && (
+        <SearchInputV2
+          ref={searchRef}
+          value={searchString}
+          showClearButton={searchString !== ""}
+          placeholder={translate(
+            "screens/LoansScreen",
+            "Search available loan tokens"
+          )}
+          containerStyle={tailwind("flex-1 mx-5", [
+            "border-0.5",
+            isSearchFocus
+              ? {
+                  "border-mono-light-v2-800": isLight,
+                  "border-mono-dark-v2-800": !isLight,
+                }
+              : {
+                  "border-mono-light-v2-00": isLight,
+                  "border-mono-dark-v2-00": !isLight,
+                },
+          ])}
+          onClearInput={() => {
+            setSearchString("");
+            searchRef?.current?.focus();
+          }}
+          onChangeText={(text: string) => {
+            setSearchString(text);
+          }}
+          onFocus={() => {
+            setIsSearchFocus(true);
+          }}
+          onBlur={() => {
+            setIsSearchFocus(false);
+          }}
+          testID="loan_search_input"
+        />
+      )}
+
       {vaults.length === 0 && (
-        <ThemedViewV2 style={tailwind("mx-5 mt-8 rounded-lg-v2")}>
+        <ThemedViewV2 style={tailwind("mx-5 rounded-lg-v2")}>
           <VaultBanner
             buttonLabel="Create a vault"
             description="You need a vault with collaterals to borrow tokens"
@@ -229,7 +234,13 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
         keyExtractor={(_item, index) => index.toString()}
         testID={props.testID}
         estimatedItemSize={116}
-        contentContainerStyle={tailwind("pt-6 pb-2")}
+        contentContainerStyle={tailwind(
+          "pb-2 pt-8",
+          {
+            "pt-0": vaults.length >= 1,
+          },
+          { "pt-6": isVaultReady }
+        )}
         parentContainerStyle={tailwind("mx-3")}
         data={filteredLoanTokens}
         /* This tells FlashList to rerender if any of the props below is updated */
