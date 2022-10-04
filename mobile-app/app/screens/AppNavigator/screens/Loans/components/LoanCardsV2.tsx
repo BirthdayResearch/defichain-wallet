@@ -215,7 +215,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
             "Search available loan tokens"
           )}
           inputStyle={{
-            style: tailwind("py-3"),
+            style: tailwind({ "py-3": Platform.OS === "web" }),
           }}
           containerStyle={tailwind("flex-1 mx-5", [
             "border-0.5",
