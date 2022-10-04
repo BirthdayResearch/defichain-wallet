@@ -148,11 +148,6 @@ context("Wallet - Auctions multi wallet bid", () => {
                   .invoke("text")
                   .then((nextBidForNewBidder) => {
                     cy.getByTestID("batch_card_0_quick_bid_button").click();
-                    console.log(
-                      BigNumber(nextBidForNewBidder.replace(" dTU10", "")).gt(
-                        nextBid.replace(" dTU10", "")
-                      )
-                    );
                     expect(
                       BigNumber(nextBidForNewBidder.replace(" dTU10", "")).gt(
                         nextBid.replace(" dTU10", "")
