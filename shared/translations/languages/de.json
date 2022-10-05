@@ -1947,7 +1947,7 @@
     "Leading bid": "Du bist Höchbietender",
     "Quick rebid": "Schnelles Nachgebot",
     "Outbid": "Überboten",
-    "Min bid": "Mind gebot",
+    "Min. bid": "Mind. gebot",
     "Insufficient {{symbol}} balance": "{{symbol}}-Guthaben unzureichend",
     "Placing {{amount}} {{token}} quick bid": "Schnelles Gebot von {{amount}} {{token}} abgeben",
     "Placed {{amount}} {{token}} quick bid": "Schnelles Gebot von {{amount}} {{token}} abgegeben",

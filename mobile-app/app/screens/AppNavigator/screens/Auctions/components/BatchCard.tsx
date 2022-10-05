@@ -225,7 +225,7 @@ export const BidInfo = memo(
       }
       return {
         testId: hasFirstBid ? `${testID}_next_bid` : `${testID}_no_bid`,
-        title: "Min bid",
+        title: "Min. bid",
         color: isLight ? "text-mono-light-v2-900" : "text-mono-dark-v2-900",
       };
     }, [isHighestBidder, isOutBid, hasFirstBid, isLight]);
