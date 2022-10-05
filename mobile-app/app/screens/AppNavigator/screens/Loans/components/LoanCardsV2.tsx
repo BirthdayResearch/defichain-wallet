@@ -246,7 +246,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
         />
       )}
 
-      {vaults.length === 0 && (
+      {vaults.length === 0 && hasFetchedLoansData && (
         <ThemedViewV2 style={tailwind("mx-5 rounded-lg-v2")}>
           <VaultBanner
             buttonLabel="Create a vault"
@@ -339,6 +339,13 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           );
         }}
       />
+      {vaults.length >= 1 &&
+        ((searchString.trim() !== "" &&
+          isSearchFocus &&
+          filteredLoanTokens.length > 0) ||
+          (!isSearchFocus && filteredLoanTokens.length > 0)) && (
+          <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />
+        )}
 
       {Platform.OS === "web" && (
         <BottomSheetWebWithNavV2
