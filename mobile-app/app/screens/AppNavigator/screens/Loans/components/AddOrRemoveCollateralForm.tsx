@@ -485,31 +485,34 @@ export const AddOrRemoveCollateralForm = memo(
               "Resulting collateralization"
             )}
           </ThemedText>
-          <NumberFormat
-            decimalScale={8}
-            displayType="text"
-            suffix={hasInvalidColRatio ? "" : "%"}
-            renderText={(val: string) => (
-              <ThemedText
-                style={tailwind("font-semibold pr-2")}
-                light={
-                  hasInvalidColRatio ? tailwind("text-gray-300") : colors.light
-                }
-                dark={
-                  hasInvalidColRatio ? tailwind("text-gray-300") : colors.dark
-                }
-                testID="resulting_collateralization"
-              >
-                {val}
-              </ThemedText>
-            )}
-            thousandSeparator
-            value={
-              hasInvalidColRatio
-                ? translate("components/AddOrRemoveCollateralForm", "N/A")
-                : resultingColRatio.toFixed(2)
-            }
-          />
+          {hasInvalidColRatio ? (
+            <ThemedText
+              style={tailwind("font-semibold pr-2")}
+              light={tailwind("text-gray-300")}
+              dark={tailwind("text-gray-300")}
+              testID="resulting_collateralization"
+            >
+              {translate("components/AddOrRemoveCollateralForm", "N/A")}
+            </ThemedText>
+          ) : (
+            <NumberFormat
+              decimalScale={8}
+              displayType="text"
+              suffix="%"
+              renderText={(val: string) => (
+                <ThemedText
+                  style={tailwind("font-semibold pr-2")}
+                  light={colors.light}
+                  dark={colors.dark}
+                  testID="resulting_collateralization"
+                >
+                  {val}
+                </ThemedText>
+              )}
+              thousandSeparator
+              value={resultingColRatio.toFixed(2)}
+            />
+          )}
         </View>
         <ColorBar
           displayedBarsLen={displayedColorBars}

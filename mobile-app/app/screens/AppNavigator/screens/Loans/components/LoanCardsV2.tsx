@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ThemedFlashList,
   ThemedIcon,
@@ -34,6 +34,10 @@ import { BottomSheetModalInfo } from "@components/BottomSheetModalInfo";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { SearchInputV2 } from "@components/SearchInputV2";
 import { debounce } from "lodash";
+import {
+  SkeletonLoader,
+  SkeletonLoaderScreen,
+} from "@components/SkeletonLoader";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { LoanParamList } from "../LoansNavigator";
 import { LoanActionButton } from "./LoanActionButton";
@@ -64,6 +68,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   const loanTokens = useSelector((state: RootState) =>
     loanTokensSelector(state.loans)
   );
+
   const vaultsList = useSelector((state: RootState) =>
     vaultsSelector(state.loans)
   );
@@ -78,6 +83,13 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   const [searchString, setSearchString] = useState("");
   const [isSearchFocus, setIsSearchFocus] = useState(false);
   const searchRef = useRef<TextInput>();
+
+  const [showLoader, setShowLoader] = useState(true);
+  const [isFirstLoad, setIsFirstLoad] = useState(false);
+
+  const inSearchMode = useMemo(() => {
+    return isSearchFocus || searchString !== "";
+  }, [isSearchFocus, searchString]);
 
   const handleFilter = useCallback(
     debounce((searchString: string) => {
@@ -109,8 +121,25 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
     );
   }, [vaultsList]);
 
+  useEffect(() => {
+    setIsFirstLoad(true);
+  }, []);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    if (isFirstLoad) {
+      // extend loader for an arbitrary amount of time for flashlist to complete rendering
+      const extendedLoaderTime = 1000;
+      timeout = setTimeout(() => {
+        setShowLoader(false);
+      }, extendedLoaderTime);
+    }
+    return () => clearTimeout(timeout);
+  }, [isFirstLoad]);
+
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
+
   const activeVault = vaults.find(
     (v) =>
       v.vaultId === props.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION
@@ -176,42 +205,49 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
       ref={props.scrollRef}
       contentContainerStyle={tailwind("py-8 w-full")}
     >
-      <SearchInputV2
-        ref={searchRef}
-        value={searchString}
-        showClearButton={searchString !== ""}
-        placeholder={translate(
-          "screens/LoansScreen",
-          "Search available loan tokens"
-        )}
-        containerStyle={tailwind("flex-1 mx-5", [
-          "border-0.5",
-          isSearchFocus
-            ? {
-                "border-mono-light-v2-800": isLight,
-                "border-mono-dark-v2-800": !isLight,
-              }
-            : {
-                "border-mono-light-v2-00": isLight,
-                "border-mono-dark-v2-00": !isLight,
-              },
-        ])}
-        onClearInput={() => {
-          setSearchString("");
-          searchRef?.current?.focus();
-        }}
-        onChangeText={(text: string) => {
-          setSearchString(text);
-        }}
-        onFocus={() => {
-          setIsSearchFocus(true);
-        }}
-        onBlur={() => {
-          setIsSearchFocus(false);
-        }}
-      />
-      {vaults.length === 0 && (
-        <ThemedViewV2 style={tailwind("mx-5 mt-8 rounded-lg-v2")}>
+      {isVaultReady && (
+        <SearchInputV2
+          ref={searchRef}
+          value={searchString}
+          showClearButton={searchString !== ""}
+          placeholder={translate(
+            "screens/LoansScreen",
+            "Search available loan tokens"
+          )}
+          inputStyle={{
+            style: tailwind({ "py-3": Platform.OS === "web" }),
+          }}
+          containerStyle={tailwind("flex-1 mx-5", [
+            "border-0.5",
+            isSearchFocus
+              ? {
+                  "border-mono-light-v2-800": isLight,
+                  "border-mono-dark-v2-800": !isLight,
+                }
+              : {
+                  "border-mono-light-v2-00": isLight,
+                  "border-mono-dark-v2-00": !isLight,
+                },
+          ])}
+          onClearInput={() => {
+            setSearchString("");
+            searchRef?.current?.focus();
+          }}
+          onChangeText={(text: string) => {
+            setSearchString(text);
+          }}
+          onFocus={() => {
+            setIsSearchFocus(true);
+          }}
+          onBlur={() => {
+            setIsSearchFocus(false);
+          }}
+          testID="loan_search_input"
+        />
+      )}
+
+      {vaults.length === 0 && hasFetchedLoansData && (
+        <ThemedViewV2 style={tailwind("mx-5 rounded-lg-v2")}>
           <VaultBanner
             buttonLabel="Create a vault"
             description="You need a vault with collaterals to borrow tokens"
@@ -222,14 +258,47 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           </View>
         </ThemedViewV2>
       )}
+      {showLoader && (
+        <View style={tailwind("mt-5 mx-2")}>
+          <SkeletonLoader row={6} screen={SkeletonLoaderScreen.LoanV2} />
+        </View>
+      )}
+
+      {!showLoader && inSearchMode && (
+        <View style={tailwind("mt-8 mx-5")}>
+          <ThemedTextV2
+            style={tailwind("text-xs pl-5 font-normal-v2")}
+            light={tailwind("text-mono-light-v2-700")}
+            dark={tailwind("text-mono-dark-v2-700")}
+            testID="empty_search_result_text"
+          >
+            {searchString.trim() === ""
+              ? translate("screens/LoansScreen", "Search with token name")
+              : translate(
+                  "screens/LoansScreen",
+                  "Search results for “{{searchTerm}}”",
+                  { searchTerm: searchString }
+                )}
+          </ThemedTextV2>
+        </View>
+      )}
+
       {/* Known intermittent issue wherein the two-column layout is not followed
       in web - FlashList */}
       <ThemedFlashList
         keyExtractor={(_item, index) => index.toString()}
         testID={props.testID}
         estimatedItemSize={116}
-        contentContainerStyle={tailwind("pt-6 pb-2")}
-        parentContainerStyle={tailwind("mx-3")}
+        contentContainerStyle={tailwind(
+          "pb-2 pt-8",
+          {
+            "pt-0": vaults.length >= 1,
+          },
+          { "pt-6": isVaultReady }
+        )}
+        parentContainerStyle={tailwind("mx-3", {
+          hidden: isSearchFocus && searchString.trim() === "",
+        })}
         data={filteredLoanTokens}
         /* This tells FlashList to rerender if any of the props below is updated */
         extraData={{
@@ -237,24 +306,6 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           activeVault,
         }}
         numColumns={2}
-        ListEmptyComponent={
-          <View style={tailwind("mt-2")}>
-            <ThemedTextV2
-              style={tailwind("text-xs pl-5 font-normal-v2")}
-              light={tailwind("text-mono-light-v2-700")}
-              dark={tailwind("text-mono-dark-v2-700")}
-              testID="empty_search_result_text"
-            >
-              {searchString.trim() === ""
-                ? translate("screens/LoansScreen", "Search with token name")
-                : translate(
-                    "screens/LoansScreen",
-                    "Search results for “{{searchTerm}}”",
-                    { searchTerm: searchString }
-                  )}
-            </ThemedTextV2>
-          </View>
-        }
         renderItem={({
           item,
           index,
@@ -288,6 +339,13 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           );
         }}
       />
+      {vaults.length >= 1 &&
+        ((searchString.trim() !== "" &&
+          isSearchFocus &&
+          filteredLoanTokens.length > 0) ||
+          (!isSearchFocus && filteredLoanTokens.length > 0)) && (
+          <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />
+        )}
 
       {Platform.OS === "web" && (
         <BottomSheetWebWithNavV2
