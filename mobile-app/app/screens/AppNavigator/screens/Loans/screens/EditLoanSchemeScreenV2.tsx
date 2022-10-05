@@ -233,12 +233,16 @@ function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
               displayType="text"
               renderText={(val: string) => (
                 <ThemedTextV2
-                  light={tailwind("text-green-v2")}
-                  dark={tailwind("text-green-v2")}
+                  light={tailwind("text-green-v2", {
+                    "text-mono-light-v2-900": vault.informativeRatio === "-1",
+                  })}
+                  dark={tailwind("text-green-v2", {
+                    "text-mono-dark-v2-900": vault.informativeRatio === "-1",
+                  })}
                   style={tailwind("text-sm font-semibold-v2")}
                 >
                   {vault.informativeRatio === "-1"
-                    ? translate("screens/EditCollateralScreen", "N/A")
+                    ? translate("screens/EditCollateralScreen", "Empty")
                     : `${val}%`}
                 </ThemedTextV2>
               )}
