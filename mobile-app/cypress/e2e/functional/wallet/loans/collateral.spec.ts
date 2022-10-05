@@ -392,7 +392,7 @@ context("Wallet - Loans - Add/Remove Collateral - Invalid data", () => {
       body: [],
     });
     cy.createEmptyWallet(true);
-    cy.sendDFItoWallet().wait(4000);
+    cy.sendDFItoWallet().sendDFITokentoWallet().wait(4000);
     cy.setWalletTheme(walletTheme);
     cy.getByTestID("bottom_tab_loans").click();
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
