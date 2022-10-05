@@ -529,33 +529,43 @@ exports[`onboarding network selection screen should render 1`] = `
               }
             }
           >
-            <Text
+            <View
               style={
-                [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                {
+                  "flexBasis": "0%",
+                  "flexGrow": 1,
+                  "flexShrink": 1,
+                }
+              }
+            >
+              <Text
+                style={
                   [
                     {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
                       "fontWeight": "400",
-                      "lineHeight": 20,
-                      "textAlign": "right",
+                      "lineHeight": 24,
                     },
-                    {
-                      "color": "rgba(89, 89, 89, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="network_details_last_sync"
-            >
-              lll
-            </Text>
+                    [
+                      {
+                        "fontFamily": "SoraRegular",
+                        "fontSize": 14,
+                        "fontWeight": "400",
+                        "lineHeight": 20,
+                        "textAlign": "right",
+                      },
+                      {
+                        "color": "rgba(89, 89, 89, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="network_details_last_sync"
+              >
+                lll
+              </Text>
+            </View>
           </View>
         </View>
       </View>
