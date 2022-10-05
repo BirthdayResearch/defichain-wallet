@@ -54,6 +54,8 @@ jobs:
 
       - name: EAS Build - Android
         run: eas build --platform android --non-interactive --wait --clear-cache
+        env:
+          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
 
       - run: sleep 10s
 
@@ -64,6 +66,8 @@ jobs:
 
       - name: EAS Submit - Android - Submit
         run: eas submit --platform android --latest
+        env:
+          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
 
       - name: EAS Submit - Android - Cleanup
         run: rm ANDROID_SERVICE_ACCOUNT.json
@@ -97,6 +101,8 @@ jobs:
 
       - name: EAS Build - iOS
         run: eas build --platform ios --non-interactive --wait --clear-cache
+        env:
+          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
 
       - run: sleep 10s
 
@@ -113,6 +119,7 @@ jobs:
         run: eas submit --platform ios --latest
         env:
           EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
+          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
 
       - name: EAS Submit - iOS - Cleanup
         run: rm eas.json
