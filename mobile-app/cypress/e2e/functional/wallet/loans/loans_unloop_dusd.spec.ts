@@ -24,18 +24,20 @@ context("Wallet - Loans - Unloop", () => {
     cy.getByTestID("vault_card_0_collateral_token_group_DFI").should("exist");
     cy.getByTestID("vault_card_0_collateral_token_group_dBTC").should("exist");
     cy.getByTestID("vault_card_0_collateral_token_group_DUSD").should("exist");
-    cy.getByTestID("vault_card_0_total_collateral").contains("$1,509.90");
+    cy.getByTestID("vault_card_0_total_collateral").contains("$1,512.00");
   }
 
   function takeDUSDLoan() {
     let annualInterest: string;
     cy.getByTestID("vault_card_0_manage_loans_button").click();
     cy.getByTestID("button_browse_loans").click();
-    cy.getByTestID("loans_action_button_DUSD_borrow_button").click();
+    cy.getByTestID(
+      "loans_action_button_DUSD_borrow_button_loans_cards"
+    ).click();
     cy.getByTestID("form_input_borrow").clear().type("100").blur();
     cy.wait(3000);
     cy.getByTestID("text_input_usd_value").should("have.value", "100.00");
-    cy.getByTestID("text_resulting_col_ratio").contains("1,509.90%");
+    cy.getByTestID("text_resulting_col_ratio").contains("1,512.00%");
     cy.getByTestID("text_estimated_annual_interest").then(($txt: any) => {
       annualInterest = $txt[0].textContent
         .replace(" DUSD", "")
@@ -55,9 +57,9 @@ context("Wallet - Loans - Unloop", () => {
     cy.getByTestID("text_transaction_type").contains("Borrow loan token");
     cy.getByTestID("tokens_to_borrow").contains("100.00000000");
     cy.getByTestID("tokens_to_borrow_suffix").contains("DUSD");
-    cy.getByTestID("text_collateral_amount").contains("1,509.90");
+    cy.getByTestID("text_collateral_amount").contains("1,512.00");
     cy.getByTestID("text_current_collateral_ratio").contains("N/A");
-    cy.getByTestID("text_resulting_col_ratio").contains("1,509.90");
+    cy.getByTestID("text_resulting_col_ratio").contains("1,512.00");
     cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);
     cy.getByTestID("txn_authorization_description").contains(
       "Borrowing 100.00000000 DUSD"

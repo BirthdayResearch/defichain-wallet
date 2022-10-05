@@ -1341,7 +1341,7 @@
     "Your active bids": "Your active bids",
     "Your leading bids": "Your leading bids",
     "Outbid": "Outbid",
-    "Search for auctions using collateral token names i.e. DFI DUSD dBTC.": "Search for auctions using collateral token names i.e. DFI DUSD dBTC.",
+    "Search for auctions using collateral token names i.e. DFI DUSD dBTC.": "使用抵押代幣名稱搜索拍賣，例如 DFI DUSD dBTC",
     "Search results for “{{input}}”": "Search results for “{{input}}”"
   },
   "components/AuctionDetailScreen": {
@@ -1958,7 +1958,7 @@
     "Leading bid": "Leading bid",
     "Quick rebid": "Quick rebid",
     "Outbid": "Outbid",
-    "Min bid": "最低標價",
+    "Min. bid": "最低標價",
     "Insufficient {{symbol}} balance": "Insufficient {{symbol}} balance",
     "Placing {{amount}} {{token}} quick bid": "Placing {{amount}} {{token}} quick bid",
     "Placed {{amount}} {{token}} quick bid": "Placed {{amount}} {{token}} quick bid",

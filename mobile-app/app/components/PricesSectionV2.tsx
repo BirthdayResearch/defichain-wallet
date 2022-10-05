@@ -38,7 +38,7 @@ export function PricesSectionV2({
           <NumberRowV2
             key={priceRate.label}
             lhs={{
-              value: `${priceRate.bSymbol}`,
+              value: `${priceRate.label}`,
               testID: `${testID}_${index}`,
               suffix: priceRate.bSymbol,
               themedProps: {
