@@ -78,7 +78,7 @@ context("Wallet - Loans - Take Loans", () => {
     cy.createVault(0);
   });
 
-  it("should disable borrow button and should not show search token input if vault status equal EMPTY ", () => {
+  it("should hide borrow button and search token input if vault status equal EMPTY ", () => {
     cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
     cy.getByTestID("vault_card_0_status").contains("EMPTY");
     cy.getByTestID("loans_tabs_BORROW").click();
@@ -87,17 +87,6 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID(
       "loans_action_button_dTS25_borrow_button_loan_screen"
     ).should("not.exist");
-    cy.getByTestID("bottom_tab_loans").click();
-    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
-  });
-
-  it("should show correct token on loan borrow tab search", () => {
-    cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
-    cy.getByTestID("vault_card_0_status").contains("EMPTY");
-    cy.getByTestID("loans_tabs_BORROW").click();
-    cy.getByTestID("loan_search_input").clear().type("dTS25").wait(6000);
-    cy.getByTestID("loan_card_dTS25").should("exist");
-    cy.getByTestID("loan_card_DUSD").should("not.exist");
     cy.getByTestID("bottom_tab_loans").click();
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
   });
@@ -113,10 +102,35 @@ context("Wallet - Loans - Take Loans", () => {
     addCollateral();
   });
 
+  it("should hide loan token lists when clicking on search input", () => {
+    cy.getByTestID("vault_card_0_status").contains("READY");
+    cy.getByTestID("loans_tabs_BORROW").click();
+    cy.getByTestID("loan_search_input").should("exist").click();
+    cy.getByTestID("loan_card_token_lists").should("not.exist");
+    cy.getByTestID("empty_search_result_text").should("exist");
+    cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
+  });
+
+  it("should show the correct token on search input", () => {
+    cy.getByTestID("vault_card_0_status").contains("READY");
+    cy.getByTestID("loans_tabs_BORROW").click();
+    cy.getByTestID("loan_search_input").clear().type("dTS25").wait(1000);
+    cy.getByTestID("loan_card_dTS25").should("exist");
+    cy.getByTestID("loan_card_dTR50").should("not.exist");
+    cy.getByTestID("loan_card_DUSD").should("not.exist");
+    cy.getByTestID("loan_search_input").clear().type("DUSD").wait(1000);
+    cy.getByTestID("loan_card_DUSD").should("exist");
+    cy.getByTestID("loan_card_dTS25").should("not.exist");
+    cy.getByTestID("loan_card_dTD10").should("not.exist");
+    cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
+  });
+
   it("should show borrow button and search token input if vault status equal READY ", () => {
     cy.getByTestID("vault_card_0_status").contains("READY");
     cy.getByTestID("loans_tabs_BORROW").click();
-    cy.getByTestID("loan_search_input").should("exist");
+    cy.getByTestID("loan_search_input").should("exist").clear();
     cy.getByTestID("loan_card_dTS25").should("exist");
     cy.getByTestID(
       "loans_action_button_dTS25_borrow_button_loan_screen"
@@ -125,14 +139,27 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
   });
 
+  it("should hide loan token lists when clicking on search input on vault borrow token screen", () => {
+    cy.getByTestID("vault_card_0_manage_loans_button").click();
+    cy.getByTestID("button_browse_loans").click();
+    cy.getByTestID("loan_search_input").eq(1).should("exist").click();
+    cy.getByTestID("loan_card_token_lists").should("not.exist");
+    cy.getByTestID("empty_search_result_text").should("exist");
+    cy.getByTestID("bottom_tab_loans").click();
+  });
+
   it("should show correct token on browse loan token screen on active vault on search", () => {
     cy.getByTestID("vault_card_0_manage_loans_button").click();
     cy.getByTestID("button_browse_loans").click();
-    cy.getByTestID("loan_search_input").eq(1).clear().type("dTS25").wait(6000);
-    cy.getByTestID("loan_card_dTS25").should("exist");
-    cy.getByTestID("loan_card_DUSD").should("not.exist");
+    cy.getByTestID("loan_search_input").eq(1).clear().type("dTS25").wait(1000);
+    cy.getByTestID("loan_card_dTS25").eq(1).should("exist");
+    cy.getByTestID("loan_card_DUSD").eq(1).should("not.exist");
+    cy.getByTestID("loan_card_dTR50").eq(1).should("not.exist");
+    cy.getByTestID("loan_search_input").eq(1).clear().type("dTR50").wait(1000);
+    cy.getByTestID("loan_card_dTR50").eq(1).should("exist");
+    cy.getByTestID("loan_card_dTS25").eq(1).should("not.exist");
+    cy.getByTestID("loan_card_DUSD").eq(1).should("not.exist");
     cy.getByTestID("bottom_tab_loans").click();
-    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
   });
 
   it("should add loan", () => {
