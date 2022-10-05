@@ -27,6 +27,8 @@ import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
+import { LoanSchemeOptionsV2 } from "@screens/AppNavigator/screens/Loans/components/LoanSchemeOptionsV2";
+import { ButtonV2 } from "@components/ButtonV2";
 import { useVaultStatus, VaultStatusTag } from "../components/VaultStatusTag";
 import {
   LoanSchemeOptions,
@@ -130,28 +132,43 @@ export function EditLoanSchemeScreenV2({
   }
 
   return (
-    <ThemedScrollViewV2 contentContainerStyle={tailwind("px-4 pt-0 pb-8 py-6")}>
+    <ThemedScrollViewV2 contentContainerStyle={tailwind("px-4 pt-0 pb-8 py-7")}>
       <VaultDetail vault={activeVault} />
+
       <ThemedTextV2
         light={tailwind("text-mono-light-v2-500")}
         dark={tailwind("text-mono-dark-v2-500")}
-        style={tailwind("font-normal-v2 text-xs mx-5 mt-2")}
+        style={tailwind("font-normal-v2 text-xs mx-5 mt-8")}
       >
-        {translate(
-          "screens/EditLoanSchemeScreen",
-          "You can only select a scheme lower than your vault's current collateralization."
-        )}
+        {translate("screens/EditCollateralScreen", "AVAILABLE SCHEMES")}
       </ThemedTextV2>
-
-      <LoanSchemeOptions
+      <LoanSchemeOptionsV2
+        loanSchemes={loanSchemes}
         isLoading={!hasFetchedLoanSchemes}
-        loanSchemes={filteredLoanSchemes}
         selectedLoanScheme={selectedLoanScheme}
         onLoanSchemePress={(scheme: LoanScheme) =>
           setSelectedLoanScheme(scheme)
         }
+        containerStyle={tailwind("mt-2")}
       />
-      <Button
+
+      <View style={tailwind("pt-12 px-12")}>
+        {selectedLoanScheme && (
+          <ThemedTextV2
+            style={tailwind("text-xs font-normal-v2 pb-5 text-center")}
+            light={tailwind("text-mono-light-v2-500")}
+            dark={tailwind("text-mono-dark-v2-500")}
+            testID="action_message"
+          >
+            {translate(
+              "screens/CreateVaultScreen",
+              "Review full details in the next screen"
+            )}
+          </ThemedTextV2>
+        )}
+      </View>
+
+      <ButtonV2
         disabled={
           selectedLoanScheme === undefined ||
           selectedLoanScheme.id === activeVault.loanScheme.id ||
@@ -160,19 +177,9 @@ export function EditLoanSchemeScreenV2({
         }
         label={translate("screens/EditLoanSchemeScreen", "CONTINUE")}
         onPress={onSubmit}
-        margin="mt-7 mb-2"
+        styleProps="mt-0 mx-7"
         testID="edit_loan_scheme_submit_button"
       />
-      <ThemedText
-        light={tailwind("text-gray-500")}
-        dark={tailwind("text-gray-400")}
-        style={tailwind("text-center text-xs")}
-      >
-        {translate(
-          "screens/EditLoanSchemeScreen",
-          "Confirm your vault details in next screen"
-        )}
-      </ThemedText>
     </ThemedScrollViewV2>
   );
 }
@@ -180,7 +187,7 @@ export function EditLoanSchemeScreenV2({
 function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
   const { vault } = props;
   return (
-    <View style={tailwind("")}>
+    <View>
       <ThemedTextV2
         light={tailwind("text-mono-light-v2-500")}
         dark={tailwind("text-mono-dark-v2-500")}
@@ -232,7 +239,7 @@ function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
                 >
                   {vault.informativeRatio === "-1"
                     ? translate("screens/EditCollateralScreen", "N/A")
-                    : "%"}
+                    : `${val}%`}
                 </ThemedTextV2>
               )}
               thousandSeparator
@@ -263,146 +270,16 @@ function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
           </View>
         </View>
       </ThemedViewV2>
-    </View>
-  );
-}
-
-function VaultSection(props: { vault: LoanVaultActive }): JSX.Element {
-  const { vault } = props;
-  const colRatio = new BigNumber(vault.informativeRatio);
-  const minColRatio = new BigNumber(vault.loanScheme.minColRatio);
-  const totalLoanValue = new BigNumber(vault.loanValue);
-  const totalCollateralValue = new BigNumber(vault.collateralValue);
-  const vaultState = useVaultStatus(
-    vault.state,
-    colRatio,
-    minColRatio,
-    totalLoanValue,
-    totalCollateralValue
-  );
-  const colors = useCollateralizationRatioColor({
-    colRatio,
-    minColRatio,
-    totalLoanAmount: totalLoanValue,
-    totalCollateralValue,
-  });
-  return (
-    <ThemedView
-      light={tailwind("bg-white border-gray-200")}
-      dark={tailwind("bg-gray-800 border-gray-700")}
-      style={tailwind("border rounded px-4 py-3 mb-2")}
-    >
-      <View style={tailwind("mb-2 flex flex-row")}>
-        <View style={tailwind("flex-1 mr-5")}>
-          <ThemedText
-            style={tailwind("font-medium")}
-            numberOfLines={1}
-            ellipsizeMode="middle"
-          >
-            {vault.vaultId}
-          </ThemedText>
-        </View>
-        <VaultStatusTag status={vaultState.status} />
-      </View>
-      <VaultSectionTextRow
-        testID="text_total_collateral_value"
-        value={getPrecisedTokenValue(vault.collateralValue ?? 0)}
-        prefix="$"
-        lhs={translate(
-          "screens/EditCollateralScreen",
-          "Total collateral (USD)"
-        )}
-        isOraclePrice
-      />
-      <VaultSectionTextRow
-        testID="text_total_collateral_value"
-        value={getPrecisedTokenValue(vault.loanValue ?? 0)}
-        prefix="$"
-        lhs={translate("screens/EditCollateralScreen", "Total loans (USD)")}
-        isOraclePrice
-      />
-      <VaultSectionTextRow
-        testID="text_total_collateral_value"
-        value={new BigNumber(
-          vault.informativeRatio === "-1" ? NaN : vault.informativeRatio
-        ).toFixed(2)}
-        suffix={
-          vault.informativeRatio === "-1"
-            ? translate("screens/EditCollateralScreen", "N/A")
-            : "%"
-        }
-        suffixType="text"
-        lhs={translate(
-          "screens/EditCollateralScreen",
-          "Collateralization ratio"
-        )}
-        rhsThemedProps={colors}
-        info={{
-          title: "Collateralization ratio",
-          message:
-            "The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.",
-        }}
-      />
-      <VaultSectionTextRow
-        testID="text_total_collateral_value"
-        value={new BigNumber(vault.loanScheme.minColRatio ?? 0).toFixed(2)}
-        suffix="%"
-        suffixType="text"
-        lhs={translate(
-          "screens/EditCollateralScreen",
-          "Min. collateralization ratio"
-        )}
-        info={{
-          title: "Min. collateralization ratio",
-          message:
-            "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.",
-        }}
-      />
-    </ThemedView>
-  );
-}
-
-function VaultDetails(props: {
-  label: string;
-  value: string;
-  testId: string;
-  suffix?: string;
-  disabled?: boolean;
-  containerStyle?: string;
-}): JSX.Element {
-  return (
-    <View style={tailwind("flex-1 flex-row", props.containerStyle)}>
       <ThemedTextV2
-        light={tailwind("text-mono-light-v2-700", {
-          "text-opacity-30": props.disabled === true,
-        })}
-        dark={tailwind("text-mono-dark-v2-700", {
-          "text-opacity-30": props.disabled === true,
-        })}
-        style={tailwind("text-sm font-normal-v2")}
+        light={tailwind("text-mono-light-v2-500")}
+        dark={tailwind("text-mono-dark-v2-500")}
+        style={tailwind("font-normal-v2 text-xs mx-5 mt-2")}
       >
-        {`${translate("components/LoanSchemeOptions", props.label)}:`}
-      </ThemedTextV2>
-      {/* <NumberFormat
-        displayType="text"
-        suffix={props.suffix}
-        renderText={(value: string) => (
-          <ThemedTextV2
-            light={tailwind("text-mono-light-v2-900", {
-              "text-opacity-30": props.disabled === true,
-            })}
-            dark={tailwind("text-mono-dark-v2-900", {
-              "text-opacity-30": props.disabled === true,
-            })}
-            style={tailwind("text-sm font-semibold-v2 pl-1")}
-            testID={props.testId}
-          >
-            {value}
-          </ThemedTextV2>
+        {translate(
+          "screens/EditLoanSchemeScreen",
+          "You can only select a scheme lower than your vault's current collateralization."
         )}
-        thousandSeparator
-        value={props.value}
-      /> */}
+      </ThemedTextV2>
     </View>
   );
 }
