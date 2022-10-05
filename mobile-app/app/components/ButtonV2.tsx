@@ -75,7 +75,7 @@ export function ButtonV2(props: ButtonProps): JSX.Element {
       {...props}
       style={[
         tailwind(
-          `${styleProps} p-3.5 flex-row justify-center ${buttonStyle} ${
+          `${styleProps} p-3.5 flex-row justify-center ${buttonStyle ?? ""} ${
             customButtonStyle ?? ""
           }`
         ),
@@ -85,7 +85,7 @@ export function ButtonV2(props: ButtonProps): JSX.Element {
     >
       <Text
         style={tailwind(
-          `${textStyle} font-semibold-v2 text-center ${customTextStyle}`
+          `${textStyle} font-semibold-v2 text-center ${customTextStyle ?? ""}`
         )}
       >
         {label}
