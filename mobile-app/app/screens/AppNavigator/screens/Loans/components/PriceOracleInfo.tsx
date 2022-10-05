@@ -1,8 +1,7 @@
 import { tailwind } from "@tailwind";
 import { ThemedIcon, ThemedTextV2 } from "@components/themed";
 import { translate } from "@translations";
-import { View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity, View } from "react-native";
 
 interface PriceOracleInfoProps {
   onPress: () => void;
