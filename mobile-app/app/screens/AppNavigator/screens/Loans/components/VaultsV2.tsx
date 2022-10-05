@@ -39,10 +39,9 @@ import {
 } from "@components/BottomSheetWithNavV2";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { EmptyVaultV2 } from "./EmptyVaultV2";
-import { VaultCardV2 } from "./VaultCardV2";
-import { VaultCard } from "./VaultCard";
 import { PriceOracleInfo } from "./PriceOracleInfo";
 import { BottomSheetModalInfo } from "../../../../../components/BottomSheetModalInfo";
+import { VaultCardV2 } from "./VaultCardV2";
 // import { VaultCard } from "./VaultCard"; // @chloe for referencing
 
 interface VaultsProps {

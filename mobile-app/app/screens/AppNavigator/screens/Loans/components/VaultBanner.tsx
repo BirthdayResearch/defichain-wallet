@@ -7,19 +7,25 @@ import { translate } from "@translations";
 import { ButtonV2 } from "@components/ButtonV2";
 import { openURL } from "expo-linking";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
+import { TokenIconGroupV2 } from "@components/TokenIconGroup";
+import { LoanVaultActive } from "@defichain/whale-api-client/dist/api/loan";
 import { VaultStatus } from "../VaultStatusTypes";
 
 export function VaultBanner({
   description,
   onButtonPress,
   buttonLabel,
+  vault,
   vaultId,
   vaultType,
   onCardPress,
+  testID,
 }: {
   description: string;
   onButtonPress: () => void;
-  buttonLabel?: string;
+  testID: string;
+  buttonLabel: string;
+  vault?: LoanVaultActive;
   vaultId?: string;
   vaultType?: string;
   onCardPress?: () => void;
@@ -31,7 +37,6 @@ export function VaultBanner({
         dark={tailwind("bg-mono-dark-v2-00")}
         light={tailwind("bg-mono-light-v2-00")}
         style={tailwind("p-5 rounded-lg-v2 border-0")}
-        testID="vault_card"
       >
         <View style={tailwind("flex-row items-center")}>
           {vaultType === VaultStatus.Liquidated ? (
@@ -39,12 +44,14 @@ export function VaultBanner({
               source={LiquidatedVault}
               style={{ width: 74, height: 64 }}
               resizeMode="contain"
+              testID={`${testID}_vault_type`}
             />
           ) : (
             <Image
               source={EmptyCollateral}
               style={{ width: 74, height: 64 }}
               resizeMode="contain"
+              testID={`${testID}_vault_type`}
             />
           )}
 
@@ -64,6 +71,7 @@ export function VaultBanner({
                     ]}
                     dark={tailwind("text-mono-dark-v2-700")}
                     light={tailwind("text-mono-light-v2-700")}
+                    testID={`${testID}_vault_id`}
                   >
                     {vaultId}
                   </ThemedTextV2>
@@ -80,18 +88,36 @@ export function VaultBanner({
               </>
             )}
             <ThemedTextV2
-              style={tailwind("font-normal-v2 text-sm text-right w-11/12")}
+              style={tailwind(
+                "font-normal-v2 text-sm text-right w-11/12 text-red-v2"
+              )}
+              // light={tailwind({
+              //   "text-red-v2": vaultType === VaultStatus.Liquidated,
+              // })}
+              // dark={tailwind({
+              //   "text-red-v2": vaultType === VaultStatus.Liquidated,
+              // })}
+              testID={`${testID}_vault_description`}
             >
               {translate("screens/LoansScreen", description)}
             </ThemedTextV2>
-            {buttonLabel !== undefined && (
+            {buttonLabel !== "" && (
               <ButtonV2
                 customButtonStyle="py-2 px-3"
                 customTextStyle="text-xs"
                 styleProps="mt-3"
-                label={translate("components/EmptyVault", buttonLabel ?? "")}
+                label={translate("components/EmptyVault", buttonLabel)}
                 onPress={onButtonPress}
-                testID="button_create_vault_on_loans"
+                testID={`vault_banner_button_${testID}`}
+              />
+            )}
+            {vault !== undefined && vaultType === VaultStatus.Liquidated && (
+              <TokenIconGroupV2
+                testID={`${testID}_collateral_token_group`}
+                symbols={vault.collateralAmounts?.map(
+                  (collateral) => collateral.displaySymbol
+                )}
+                maxIconToDisplay={6}
               />
             )}
           </View>

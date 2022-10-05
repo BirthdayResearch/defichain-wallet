@@ -252,6 +252,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
             buttonLabel="Create a vault"
             description="You need a vault with collaterals to borrow tokens"
             onButtonPress={goToCreateVault}
+            testID="vault_banner"
           />
           <View style={tailwind("mt-2 mx-2")}>
             <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />
