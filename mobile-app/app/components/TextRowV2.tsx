@@ -61,16 +61,18 @@ export function TextRowV2(props: TextRowProps): JSX.Element {
 
       <View style={tailwind("flex-1")}>
         <View style={tailwind("flex flex-row items-center justify-end")}>
-          <ThemedText
-            style={tailwind("text-right font-normal-v2 text-sm")}
-            light={tailwind("text-mono-light-v2-700")}
-            dark={tailwind("text-mono-dark-v2-700")}
-            testID={rhsTestID}
-            {...rhsThemedProps}
-            {...rhsOtherProps}
-          >
-            {rhsValue}
-          </ThemedText>
+          <View style={tailwind("flex-1")}>
+            <ThemedText
+              style={tailwind("text-right font-normal-v2 text-sm")}
+              light={tailwind("text-mono-light-v2-700")}
+              dark={tailwind("text-mono-dark-v2-700")}
+              testID={rhsTestID}
+              {...rhsThemedProps}
+              {...rhsOtherProps}
+            >
+              {rhsValue}
+            </ThemedText>
+          </View>
 
           {rhsOtherProps.openNewBrowserLink !== undefined && (
             <ThemedTouchableOpacityV2
