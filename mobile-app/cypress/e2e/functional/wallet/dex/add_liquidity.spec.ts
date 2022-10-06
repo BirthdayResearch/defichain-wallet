@@ -267,7 +267,8 @@ context("Wallet - DEX - Combine Add and Confirm Liquidity Spec", () => {
   });
 
   it("should get disabled submit button when max for token A, while token B doesn't have enough balanceB", () => {
-    cy.sendTokenToWallet(["BTC"]).wait(3000);
+    cy.sendTokenToWallet(["BTC"]);
+    cy.wait(5000);
     cy.getByTestID("token_input_primary_clear_button").click();
     cy.getByTestID("MAX_amount_button").first().click();
     cy.getByTestID("button_continue_add_liq").should(
