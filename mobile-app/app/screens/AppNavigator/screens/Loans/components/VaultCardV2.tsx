@@ -1,11 +1,5 @@
 import BigNumber from "bignumber.js";
-import {
-  ThemedFlatListV2,
-  ThemedIcon,
-  ThemedTextV2,
-  ThemedTouchableOpacityV2,
-  ThemedViewV2,
-} from "@components/themed";
+import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { TokenIconGroupV2 } from "@components/TokenIconGroup";
@@ -16,33 +10,41 @@ import {
   LoanToken,
   LoanVaultActive,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { Platform, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { useVaultStatus } from "@screens/AppNavigator/screens/Loans/components/VaultStatusTag";
 import { useNextCollateralizationRatio } from "@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio";
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
 import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { NumericFormat as NumberFormat } from "react-number-format";
-import {
-  BottomSheetNavScreen,
-  BottomSheetWebWithNavV2,
-  BottomSheetWithNavV2,
-} from "@components/BottomSheetWithNavV2";
-import { memo, useState } from "react";
-import { useBottomSheet } from "@hooks/useBottomSheet";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { BottomSheetNavScreen } from "@components/BottomSheetWithNavV2";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { LoanActionButton } from "./LoanActionButton";
 import { VaultSectionTextRowV2 } from "./VaultSectionTextRowV2";
 import { VaultBanner } from "./VaultBanner";
-import { TokenNameText } from "../../Portfolio/components/TokenNameText";
-import { TokenIcon } from "../../Portfolio/components/TokenIcon";
-import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 
 export interface VaultCardProps extends React.ComponentProps<any> {
   vault: LoanVault;
   testID: string;
+  dismissModal: () => void;
+  expandModal: () => void;
+  setBottomSheetScreen: React.Dispatch<
+    React.SetStateAction<BottomSheetNavScreen[]>
+  >;
+  setSnapPoints: React.Dispatch<
+    React.SetStateAction<{
+      ios: string[];
+      android: string[];
+    }>
+  >;
+  onBottomSheetLoansTokensListSelect: ({
+    onPress,
+    loanTokens,
+  }: {
+    onPress: (item: LoanToken) => void;
+    loanTokens: LoanToken[];
+  }) => void;
 }
 
 export function VaultCardV2(props: VaultCardProps): JSX.Element {
@@ -64,43 +66,8 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
     loanTokensSelector(state.loans)
   );
 
-  const { isLight } = useThemeContext();
-  const [bottomSheetScreen, setBottomSheetScreen] = useState<
-    BottomSheetNavScreen[]
-  >([]);
-  const modalSnapPoints = { ios: ["60%"], android: ["60%"] };
-  const modalHeight = { height: "60%" };
-  const {
-    bottomSheetRef,
-    containerRef,
-    dismissModal,
-    expandModal,
-    isModalDisplayed,
-  } = useBottomSheet();
-
-  const BottomSheetHeader = {
-    headerStatusBarHeight: 2,
-    headerTitle: "",
-    headerBackTitleVisible: false,
-    headerStyle: tailwind("rounded-t-xl-v2 border-b-0", {
-      "bg-mono-light-v2-100": isLight,
-      "bg-mono-dark-v2-100": !isLight,
-    }),
-    headerRight: (): JSX.Element => {
-      return (
-        <ThemedTouchableOpacityV2
-          style={tailwind("mr-5 mt-4 -mb-4")}
-          onPress={dismissModal}
-          testID="close_bottom_sheet_button"
-        >
-          <ThemedIcon iconType="Feather" name="x-circle" size={22} />
-        </ThemedTouchableOpacityV2>
-      );
-    },
-    headerLeft: () => <></>,
-  };
   const onSelectLoanToken = (item: LoanToken) => {
-    dismissModal();
+    props.dismissModal();
     navigation.navigate({
       name: "BorrowLoanTokenScreen",
       params: {
@@ -112,17 +79,10 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
   };
 
   const onBottomSheetLoansTokensListSelect = (): void => {
-    setBottomSheetScreen([
-      {
-        stackScreenName: "LoanTokensList",
-        component: BottomSheetLoanTokensList({
-          onPress: onSelectLoanToken,
-          loanTokens: loanTokens,
-        }),
-        option: BottomSheetHeader,
-      },
-    ]);
-    expandModal();
+    props.onBottomSheetLoansTokensListSelect({
+      onPress: onSelectLoanToken,
+      loanTokens: loanTokens,
+    });
   };
 
   // TODO @chloe: check where to use this
@@ -164,7 +124,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
     return [buttonLabel, text, type];
   }
   return (
-    <View style={tailwind("mb-2")} ref={containerRef}>
+    <View style={tailwind("mb-2")}>
       {vaultEmpty || vaultLiquidated ? (
         <VaultBanner
           buttonLabel={vaultDescription()[0]}
@@ -251,145 +211,19 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
                     </ThemedTextV2>
                   )}
                 />
-                <LoanActionButton
-                  label="Borrow"
-                  testID="borrow_collateral"
-                  style={tailwind("mt-3 px-9 bg-red-100")}
-                  onPress={onBottomSheetLoansTokensListSelect}
-                />
+                {canUseOperations && (
+                  <LoanActionButton
+                    label="Borrow"
+                    testID="borrow_collateral"
+                    style={tailwind("mt-3 px-9 bg-red-100")}
+                    onPress={onBottomSheetLoansTokensListSelect}
+                  />
+                )}
               </View>
             </View>
           </ThemedViewV2>
         </TouchableOpacity>
       )}
-
-      {Platform.OS === "web" && (
-        <BottomSheetWebWithNavV2
-          modalRef={containerRef}
-          screenList={bottomSheetScreen}
-          isModalDisplayed={isModalDisplayed}
-          // eslint-disable-next-line react-native/no-inline-styles
-          modalStyle={{
-            position: "absolute",
-            bottom: "0",
-            height: "404px",
-            width: "375px",
-            zIndex: 50,
-            borderTopLeftRadius: 15,
-            borderTopRightRadius: 15,
-            overflow: "hidden",
-          }}
-        />
-      )}
-      {Platform.OS !== "web" && (
-        <BottomSheetWithNavV2
-          modalRef={bottomSheetRef}
-          screenList={bottomSheetScreen}
-          snapPoints={modalSnapPoints}
-        />
-      )}
     </View>
   );
 }
-
-const BottomSheetLoanTokensList = ({
-  onPress,
-  loanTokens,
-}: // navigation
-{
-  onPress: (item: LoanToken) => void;
-  loanTokens: LoanToken[];
-  // navigation:
-}): React.MemoExoticComponent<() => JSX.Element> =>
-  memo(() => {
-    return (
-      <ThemedFlatListV2
-        contentContainerStyle={tailwind("px-5 pb-12")}
-        testID="swap_token_selection_screen"
-        data={loanTokens}
-        keyExtractor={(item) => item.tokenId}
-        renderItem={({ item }: { item: LoanToken }): JSX.Element => {
-          const currentPrice = getPrecisedTokenValue(
-            getActivePrice(item.token.symbol, item.activePrice)
-          );
-          return (
-            <ThemedTouchableOpacityV2
-              style={tailwind(
-                "flex flex-row p-5 mb-2 border-0 rounded-lg-v2 items-center justify-between"
-              )}
-              light={tailwind("bg-mono-light-v2-00")}
-              dark={tailwind("bg-mono-dark-v2-00")}
-              onPress={() => {
-                onPress(item);
-              }}
-              // onPress={onPress}
-              testID={`select_${item.token.displaySymbol}`}
-            >
-              <View style={tailwind("w-6/12 flex flex-row items-center pr-2")}>
-                <TokenIcon
-                  testID={`${item.token.displaySymbol}_icon`}
-                  token={{
-                    isLPS: item.token.isLPS,
-                    displaySymbol: item.token.displaySymbol,
-                  }}
-                  size={36}
-                />
-                <TokenNameText
-                  displaySymbol={item.token.displaySymbol}
-                  name={item.token.name}
-                  testID={item.token.displaySymbol}
-                />
-              </View>
-              <View style={tailwind("flex-1 flex-wrap flex-col items-end")}>
-                <NumberFormat
-                  value={currentPrice}
-                  thousandSeparator
-                  displayType="text"
-                  renderText={(value) => (
-                    <ThemedTextV2
-                      style={tailwind(
-                        "w-full flex-wrap font-semibold-v2 text-sm text-right"
-                      )}
-                      testID={`select_${item.token.displaySymbol}_value`}
-                    >
-                      ${value}
-                    </ThemedTextV2>
-                  )}
-                />
-                <View style={tailwind("pt-1")}>
-                  <NumberFormat
-                    value={item.interest}
-                    thousandSeparator
-                    displayType="text"
-                    renderText={(value) => (
-                      <ThemedTextV2
-                        style={tailwind(
-                          "flex-wrap font-normal-v2 text-xs text-right"
-                        )}
-                        testID={`select_${item.token.displaySymbol}_sub_value`}
-                        light={tailwind("text-mono-light-v2-700")}
-                        dark={tailwind("text-mono-dark-v2-700")}
-                      >
-                        {value}
-                      </ThemedTextV2>
-                    )}
-                    suffix="% interest"
-                  />
-                </View>
-              </View>
-            </ThemedTouchableOpacityV2>
-          );
-        }}
-        ListHeaderComponent={
-          <ThemedTextV2
-            style={tailwind("text-xl font-normal-v2 pb-4")}
-            light={tailwind("text-mono-light-v2-900")}
-            dark={tailwind("text-mono-dark-v2-900")}
-            testID="empty_search_result_text"
-          >
-            {translate("screens/SwapTokenSelectionScreen", "Select Token")}
-          </ThemedTextV2>
-        }
-      />
-    );
-  });

@@ -38,11 +38,12 @@ import {
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
 import { useBottomSheet } from "@hooks/useBottomSheet";
+import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
 import { EmptyVaultV2 } from "./EmptyVaultV2";
 import { PriceOracleInfo } from "./PriceOracleInfo";
 import { BottomSheetModalInfo } from "../../../../../components/BottomSheetModalInfo";
 import { VaultCardV2 } from "./VaultCardV2";
-// import { VaultCard } from "./VaultCard"; // @chloe for referencing
+import { BottomSheetLoanTokensList } from "./BottomSheetLoanTokensList";
 
 interface VaultsProps {
   scrollRef?: React.Ref<any>;
@@ -77,6 +78,7 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
     expandModal,
     isModalDisplayed,
   } = useBottomSheet();
+
   const BottomSheetHeader = {
     headerStatusBarHeight: 2,
     headerTitle: "",
@@ -105,11 +107,35 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
   const description =
     "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.";
 
+  const oraclePriceSheetSnapPoints = {
+    ios: ["30%"],
+    android: ["35%"],
+  };
+  const [snapPoints, setSnapPoints] = useState(oraclePriceSheetSnapPoints);
   const onBottomSheetOraclePriceSelect = (): void => {
+    setSnapPoints(oraclePriceSheetSnapPoints);
     setBottomSheetScreen([
       {
         stackScreenName: "OraclePriceInfo",
         component: BottomSheetModalInfo({ title, description }),
+        option: BottomSheetHeader,
+      },
+    ]);
+    expandModal();
+  };
+
+  const onBottomSheetLoansTokensListSelect = ({
+    onPress,
+    loanTokens,
+  }: {
+    onPress: (item: LoanToken) => void;
+    loanTokens: LoanToken[];
+  }): void => {
+    setSnapPoints({ ios: ["65%"], android: ["60%"] });
+    setBottomSheetScreen([
+      {
+        stackScreenName: "LoanTokensList",
+        component: BottomSheetLoanTokensList({ onPress, loanTokens }),
         option: BottomSheetHeader,
       },
     ]);
@@ -224,6 +250,13 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
               testID={`vault_card_${index}`}
               key={index}
               vault={vault}
+              dismissModal={dismissModal}
+              expandModal={expandModal}
+              setBottomSheetScreen={setBottomSheetScreen}
+              setSnapPoints={setSnapPoints}
+              onBottomSheetLoansTokensListSelect={
+                onBottomSheetLoansTokensListSelect
+              }
             />
           );
         })}
@@ -255,10 +288,7 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
           <BottomSheetWithNavV2
             modalRef={bottomSheetRef}
             screenList={bottomSheetScreen}
-            snapPoints={{
-              ios: ["30%"],
-              android: ["35%"],
-            }}
+            snapPoints={snapPoints}
           />
         )}
       </ThemedScrollViewV2>
