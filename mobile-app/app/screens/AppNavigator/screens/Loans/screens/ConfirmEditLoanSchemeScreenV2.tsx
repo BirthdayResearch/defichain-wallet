@@ -1,21 +1,20 @@
-import { NumberRow } from "@components/NumberRow";
-import { TextRow } from "@components/TextRow";
 import {
-  ThemedScrollView,
-  ThemedSectionTitle,
-  ThemedText,
-  ThemedView,
+  ThemedScrollViewV2,
+  ThemedTextV2,
+  ThemedViewV2,
 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { Dispatch, useEffect, useState } from "react";
 import BigNumber from "bignumber.js";
-import { InfoRow, InfoType } from "@components/InfoRow";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
+import { NumberRowV2 } from "@components/NumberRowV2";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
+import { View } from "react-native";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
+import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import {
   firstTransactionSelector,
   hasTxQueued as hasBroadcastQueued,
@@ -25,6 +24,9 @@ import {
   NativeLoggingProps,
   useLogger,
 } from "@shared-contexts/NativeLoggingProvider";
+import { useWalletContext } from "@shared-contexts/WalletContext";
+import { useAddressLabel } from "@hooks/useAddressLabel";
+import { RandomAvatar } from "@screens/AppNavigator/screens/Portfolio/components/RandomAvatar";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
@@ -39,6 +41,8 @@ export function ConfirmEditLoanSchemeScreenV2({
   navigation,
 }: Props): JSX.Element {
   const { vault, loanScheme, fee } = route.params;
+  const { address } = useWalletContext();
+  const addressLabel = useAddressLabel(address);
 
   // Submit
   const hasPendingJob = useSelector((state: RootState) =>
@@ -102,8 +106,12 @@ export function ConfirmEditLoanSchemeScreenV2({
   }, []);
 
   return (
-    <ThemedScrollView>
-      <SummaryHeader vaultId={vault.vaultId} />
+    <ThemedScrollViewV2 style={tailwind("px-5 py-8")}>
+      <SummaryHeader
+        vaultId={vault.vaultId}
+        addressLabel={addressLabel}
+        address={address}
+      />
       <SummaryTransactionDetails
         minColRatio={vault.loanScheme.minColRatio}
         newMinColRatio={loanScheme.minColRatio}
@@ -111,52 +119,87 @@ export function ConfirmEditLoanSchemeScreenV2({
         newVaultInterest={loanScheme.interestRate}
         fee={fee}
       />
-      <SubmitButtonGroup
-        isDisabled={
-          hasPendingJob ||
-          hasPendingBroadcastJob ||
-          vault.loanScheme.id === loanScheme.id
-        }
-        label={translate("screens/ConfirmEditLoanSchemeScreen", "CONFIRM EDIT")}
-        isProcessing={hasPendingJob || hasPendingBroadcastJob}
-        processingLabel={translate(
-          "screens/ConfirmEditLoanSchemeScreen",
-          getSubmitLabel()
-        )}
-        onCancel={onCancel}
-        onSubmit={onSubmit}
-        displayCancelBtn
-        title="edit_loan_scheme"
-      />
-    </ThemedScrollView>
+
+      <View style={tailwind("mb-16")}>
+        <SubmitButtonGroupV2
+          isDisabled={
+            hasPendingJob ||
+            hasPendingBroadcastJob ||
+            vault.loanScheme.id === loanScheme.id
+          }
+          label={translate("screens/ConfirmEditLoanSchemeScreen", "Edit")}
+          onCancel={onCancel}
+          onSubmit={onSubmit}
+          displayCancelBtn
+          title="edit_loan_scheme"
+        />
+      </View>
+    </ThemedScrollViewV2>
   );
 }
 
-function SummaryHeader(props: { vaultId: string }): JSX.Element {
+function SummaryHeader(props: {
+  vaultId: string;
+  addressLabel: string | null;
+  address: string | null;
+}): JSX.Element {
   return (
-    <ThemedView
-      light={tailwind("bg-white border-b border-gray-300")}
-      dark={tailwind("bg-gray-800 border-b border-gray-700")}
-      style={tailwind("flex-col px-4 py-6")}
-    >
-      <ThemedText
-        light={tailwind("text-gray-500")}
-        dark={tailwind("text-gray-400")}
-        style={tailwind("mb-1 text-sm")}
+    <ThemedViewV2>
+      <ThemedTextV2
+        light={tailwind("text-mono-light-v2-500")}
+        dark={tailwind("text-mono-dark-v2-500")}
+        style={tailwind("text-xs font-normal-v2")}
         testID="edit_loan_scheme_title"
       >
         {translate(
           "screens/ConfirmEditLoanSchemeScreen",
-          "You are editing scheme of vault"
+          "You are editing loan scheme of"
         )}
-      </ThemedText>
-      <ThemedText
+      </ThemedTextV2>
+      <ThemedTextV2
         testID="edit_loan_scheme_vault_id"
-        style={tailwind("text-sm font-medium mb-1")}
+        style={tailwind("text-sm font-normal-v2 mt-5")}
+        numberOfLines={1}
+        ellipsizeMode="tail"
       >
         {props.vaultId}
-      </ThemedText>
-    </ThemedView>
+      </ThemedTextV2>
+
+      <View>
+        <View style={tailwind("flex-row items-center mt-5")}>
+          <ThemedTextV2
+            style={tailwind("text-xs font-normal-v2")}
+            dark={tailwind("text-mono-dark-v2-500")}
+            light={tailwind("text-mono-light-v2-500")}
+          >
+            {translate("screens/common", "on")}
+          </ThemedTextV2>
+          <ThemedViewV2
+            dark={tailwind("bg-mono-dark-v2-200")}
+            light={tailwind("bg-mono-light-v2-200")}
+            style={tailwind(
+              "rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2"
+            )}
+          >
+            <RandomAvatar name={props.address} size={20} />
+            <ThemedTextV2
+              ellipsizeMode="middle"
+              numberOfLines={1}
+              style={[
+                tailwind("text-sm font-normal-v2 ml-1"),
+                {
+                  minWidth: 10,
+                  maxWidth: 108,
+                },
+              ]}
+              testID="wallet_address"
+            >
+              {props.addressLabel ?? props.address}
+            </ThemedTextV2>
+          </ThemedViewV2>
+        </View>
+      </View>
+    </ThemedViewV2>
   );
 }
 
@@ -172,87 +215,127 @@ function SummaryTransactionDetails(
   props: SummaryTransactionDetailsProps
 ): JSX.Element {
   return (
-    <>
-      <ThemedSectionTitle
-        text={translate(
-          "screens/ConfirmEditLoanSchemeScreen",
-          "TRANSACTION DETAILS"
-        )}
-      />
-      <TextRow
-        lhs={translate(
-          "screens/ConfirmEditLoanSchemeScreen",
-          "Transaction type"
-        )}
-        rhs={{
-          value: translate(
-            "screens/ConfirmEditLoanSchemeScreen",
-            "Edit loan scheme"
-          ),
-          testID: "text_transaction_type",
-        }}
-        textStyle={tailwind("text-sm font-normal")}
-      />
-      <WalletAddressRow />
-      <NumberRow
-        lhs={translate(
-          "screens/ConfirmEditLoanSchemeScreen",
-          "Prev. minimum collateralization ratio"
-        )}
-        rhs={{
-          value: new BigNumber(props.minColRatio).toFixed(2),
-          testID: "prev_min_col_ratio",
-          suffixType: "text",
-          suffix: "%",
-          style: tailwind("ml-0"),
-        }}
-      />
-      <NumberRow
-        lhs={translate(
-          "screens/ConfirmEditLoanSchemeScreen",
-          "Prev. vault interest (APR)"
-        )}
-        rhs={{
-          value: new BigNumber(props.vaultInterest).toFixed(2),
-          testID: "prev_vault_interest",
-          suffixType: "text",
-          suffix: "%",
-          style: tailwind("ml-0"),
-        }}
-      />
-      <NumberRow
-        lhs={translate(
-          "screens/ConfirmEditLoanSchemeScreen",
-          "New minimum collateralization ratio"
-        )}
-        rhs={{
-          value: new BigNumber(props.newMinColRatio).toFixed(2),
-          testID: "new_min_col_ratio",
-          suffixType: "text",
-          suffix: "%",
-          style: tailwind("ml-0"),
-        }}
-      />
-      <NumberRow
-        lhs={translate(
-          "screens/ConfirmEditLoanSchemeScreen",
-          "New vault interest (APR)"
-        )}
-        rhs={{
-          value: new BigNumber(props.newVaultInterest).toFixed(2),
-          testID: "new_vault_interest",
-          suffixType: "text",
-          suffix: "%",
-          style: tailwind("ml-0"),
-        }}
-      />
-      <InfoRow
-        type={InfoType.EstimatedFee}
-        value={props.fee.toFixed(8)}
-        testID="estimated_fee"
-        suffix="DFI"
-      />
-    </>
+    <View style={tailwind("mt-6")}>
+      <ThemedViewV2
+        dark={tailwind("border-mono-dark-v2-200")}
+        light={tailwind("border-mono-light-v2-200")}
+        style={tailwind("py-5 border-t-0.5")}
+      >
+        <NumberRowV2
+          lhs={{
+            value: translate(
+              "screens/ConfirmEditLoanSchemeScreen",
+              "Prev. min. collateralization"
+            ),
+            testID: "transaction_fee",
+            themedProps: {
+              light: tailwind("text-mono-light-v2-500"),
+              dark: tailwind("text-mono-dark-v2-500"),
+            },
+          }}
+          rhs={{
+            value: new BigNumber(props.minColRatio).toFixed(2),
+            testID: "prev_min_col_ratio",
+            suffix: "%",
+          }}
+        />
+        <View style={tailwind("mt-5")}>
+          <NumberRowV2
+            lhs={{
+              value: translate(
+                "screens/ConfirmEditLoanSchemeScreen",
+                "Prev. interest"
+              ),
+              testID: "transaction_fee",
+              themedProps: {
+                light: tailwind("text-mono-light-v2-500"),
+                dark: tailwind("text-mono-dark-v2-500"),
+              },
+            }}
+            rhs={{
+              value: new BigNumber(props.vaultInterest).toFixed(2),
+              testID: "prev_vault_interest",
+              suffix: "%",
+            }}
+          />
+        </View>
+      </ThemedViewV2>
+      <ThemedViewV2
+        dark={tailwind("border-mono-dark-v2-200")}
+        light={tailwind("border-mono-light-v2-200")}
+        style={tailwind("py-5 border-t-0.5")}
+      >
+        <NumberRowV2
+          lhs={{
+            value: translate(
+              "screens/ConfirmEditLoanSchemeScreen",
+              "New min. collateralization"
+            ),
+            testID: "transaction_fee",
+            themedProps: {
+              light: tailwind("text-mono-light-v2-500"),
+              dark: tailwind("text-mono-dark-v2-500"),
+            },
+          }}
+          rhs={{
+            value: new BigNumber(props.newMinColRatio).toFixed(2),
+            testID: "new_min_col_ratio",
+            suffix: "%",
+          }}
+        />
+        <View style={tailwind("mt-5")}>
+          <NumberRowV2
+            lhs={{
+              value: translate(
+                "screens/ConfirmEditLoanSchemeScreen",
+                "New vault interest"
+              ),
+              testID: "transaction_fee",
+              themedProps: {
+                light: tailwind("text-mono-light-v2-500"),
+                dark: tailwind("text-mono-dark-v2-500"),
+              },
+            }}
+            rhs={{
+              value: new BigNumber(props.newVaultInterest).toFixed(2),
+              testID: "new_vault_interest",
+              suffix: "%",
+            }}
+          />
+        </View>
+      </ThemedViewV2>
+      <ThemedViewV2
+        dark={tailwind("border-mono-dark-v2-200")}
+        light={tailwind("border-mono-light-v2-200")}
+        style={tailwind("py-5 border-t-0.5 border-b-0.5")}
+      >
+        <NumberRowV2
+          lhs={{
+            value: translate(
+              "screens/ConfirmEditLoanSchemeScreen",
+              "Transaction fee"
+            ),
+            themedProps: {
+              light: tailwind("text-mono-light-v2-500"),
+              dark: tailwind("text-mono-dark-v2-500"),
+            },
+            testID: "estimated_fee_label",
+          }}
+          rhs={{
+            value: new BigNumber(props.fee).toFixed(8),
+            themedProps: {
+              style: tailwind("font-normal-v2 text-sm"),
+            },
+            testID: "estimated_fee_amount",
+            suffix: " DFI",
+            usdAmount: props.fee.isNaN() ? new BigNumber(0) : props.fee,
+            usdTextStyle: tailwind("text-sm"),
+            usdContainerStyle: tailwind("pb-0"),
+          }}
+          testID="estimated_fee"
+        />
+      </ThemedViewV2>
+    </View>
   );
 }
 
