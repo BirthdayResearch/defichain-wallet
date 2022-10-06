@@ -185,7 +185,7 @@ export function TransactionAuthorization(): JSX.Element | null {
     setIsRetry(false);
     setMessage(DEFAULT_MESSAGES.message);
     setTitle(undefined);
-    setLoadingMessage(DEFAULT_MESSAGES.loadingMessage);
+    setLoadingMessage(undefined);
     setSuccessMessage(undefined);
     setAdditionalMessage(undefined);
     setAdditionalMessageUrl(undefined);
@@ -423,10 +423,7 @@ export function TransactionAuthorization(): JSX.Element | null {
       pin={pin}
       loadingMessage={
         loadingMessage ??
-        translate(
-          "screens/TransactionAuthorization",
-          DEFAULT_MESSAGES.loadingMessage
-        )
+        translate("screens/UnlockWallet", DEFAULT_MESSAGES.loadingMessage)
       }
       successMessage={
         successMessage ??
