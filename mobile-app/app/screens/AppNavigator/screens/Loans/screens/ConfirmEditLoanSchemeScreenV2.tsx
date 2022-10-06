@@ -120,7 +120,7 @@ export function ConfirmEditLoanSchemeScreenV2({
         fee={fee}
       />
 
-      <View style={tailwind("mb-16")}>
+      <View style={tailwind("my-16")}>
         <SubmitButtonGroupV2
           isDisabled={
             hasPendingJob ||
@@ -373,26 +373,37 @@ async function editLoanScheme(
         sign: signer,
         title: translate(
           "screens/ConfirmEditLoanSchemeScreen",
-          "Editing loan scheme"
+          "Editing vault {{vaultId}}",
+          {
+            vaultId, // need to find a way to truncate it
+          }
         ),
         description: translate(
           "screens/ConfirmEditLoanSchemeScreen",
-          "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%",
+          "Editing vault {{vaultId}}",
           {
-            mincolRatio: loanScheme.minColRatio,
-            ir: loanScheme.interestRate,
+            vaultId,
           }
         ),
         drawerMessages: {
-          preparing: translate(
-            "screens/OceanInterface",
-            "Preparing changes to loan scheme…"
-          ),
+          // preparing: translate(
+          //   "screens/OceanInterface",
+          //   "Preparing changes to loan scheme…"
+          // ),
           waiting: translate(
             "screens/OceanInterface",
-            "Saving changes to loan scheme…"
+            "Editing vault {{vaultId}}",
+            {
+              vaultId,
+            }
           ),
-          complete: translate("screens/OceanInterface", "Loan scheme saved"),
+          complete: translate(
+            "screens/OceanInterface",
+            "Edited vault {{vaultId}}",
+            {
+              vaultId,
+            }
+          ),
         },
         onBroadcast,
         onConfirmation,
