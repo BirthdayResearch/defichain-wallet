@@ -31,7 +31,7 @@ import { ChooseLoanTokenScreenV2 } from "./screens/ChooseLoanTokenScreenV2";
 import { BorrowLoanTokenScreen } from "./screens/BorrowLoanTokenScreen";
 import { ConfirmBorrowLoanTokenScreen } from "./screens/ConfirmBorrowLoanTokenScreen";
 import { EditLoanSchemeScreenV2 } from "./screens/EditLoanSchemeScreenV2";
-import { ConfirmEditLoanSchemeScreen } from "./screens/ConfirmEditLoanSchemeScreen";
+import { ConfirmEditLoanSchemeScreenV2 } from "./screens/ConfirmEditLoanSchemeScreenV2";
 import { BorrowMoreScreen } from "./screens/BorrowMoreScreen";
 import { CloseVaultScreen } from "./screens/CloseVaultScreen";
 import { PaymentTokenProps } from "./hooks/LoanPaymentTokenRate";
@@ -321,18 +321,14 @@ export function LoansNavigator(): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={ConfirmEditLoanSchemeScreen}
+        component={ConfirmEditLoanSchemeScreenV2}
         name="ConfirmEditLoanSchemeScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate(
-                "screens/LoansScreen",
-                "Confirm Edit Loan Scheme"
-              )}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
+          headerTitle: translate("screens/LoansScreen", "Confirm"),
         }}
       />
       <LoansStack.Screen
