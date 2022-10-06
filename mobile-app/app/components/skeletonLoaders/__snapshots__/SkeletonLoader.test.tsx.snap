@@ -118,25 +118,19 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
     [
       {
         "alignItems": "center",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
         "justifyContent": "center",
         "marginBottom": 8,
-        "paddingLeft": 8,
-        "paddingRight": 8,
+        "paddingBottom": 20,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 20,
       },
       {
         "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(229, 229, 229, 1)",
-        "borderTopWidth": 1,
       },
     ]
   }
@@ -144,10 +138,10 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight={186}
+    bbHeight={84}
     bbWidth="100%"
     focusable={false}
-    height={186}
+    height={84}
     interval={0.25}
     meetOrSlice={0}
     minX={0}
@@ -161,13 +155,13 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
         {},
         {
           "flex": 0,
-          "height": 186,
+          "height": 84,
           "width": "100%",
         },
       ]
     }
-    vbHeight={186}
-    vbWidth={400}
+    vbHeight={84}
+    vbWidth={289}
     width="100%"
   >
     <RNSVGGroup>
@@ -194,104 +188,49 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
           name="browseAuctions-animated-diff"
         >
           <RNSVGCircle
-            cx="21"
-            cy="27"
+            cx="16"
+            cy="19"
             r="16"
           />
           <RNSVGRect
-            height="26"
-            rx="3"
-            ry="3"
-            width="120"
-            x="46"
-            y="12"
+            height="24"
+            rx="5"
+            ry="5"
+            width="140"
+            x="160"
+            y="4"
           />
-          <RNSVGCircle
-            cx="347"
-            cy="21"
-            r="8"
-          />
-          <RNSVGCircle
-            cx="365"
-            cy="21"
-            r="8"
-          />
-          <RNSVGCircle
-            cx="382"
-            cy="21"
-            r="8"
+          <RNSVGRect
+            height="12"
+            rx="5"
+            ry="5"
+            width="100"
+            x="200"
+            y="30"
           />
           <RNSVGRect
             height="12"
             rx="3"
             ry="3"
-            width="120"
-            x="8"
-            y="56"
+            width="50"
+            x="0"
+            y="55"
           />
           <RNSVGRect
-            height="12"
-            rx="3"
-            ry="3"
+            height="32"
+            rx="20"
+            ry="20"
             width="110"
-            x="282"
-            y="56"
-          />
-          <RNSVGRect
-            height="12"
-            rx="3"
-            ry="3"
-            width="132"
-            x="8"
-            y="81"
-          />
-          <RNSVGRect
-            height="12"
-            rx="3"
-            ry="3"
-            width="118"
-            x="272"
-            y="81"
-          />
-          <RNSVGRect
-            height="12"
-            rx="3"
-            ry="3"
-            width="170"
-            x="8"
-            y="105"
+            x="190"
+            y="51"
           />
           <RNSVGRect
             height="12"
             rx="3"
             ry="3"
             width="140"
-            x="252"
-            y="105"
-          />
-          <RNSVGRect
-            height="12"
-            rx="3"
-            ry="3"
-            width="384"
-            x="8"
-            y="132"
-          />
-          <RNSVGRect
-            height="20"
-            rx="3"
-            ry="3"
-            width="100"
-            x="8"
-            y="162"
-          />
-          <RNSVGRect
-            height="20"
-            rx="3"
-            ry="3"
-            width="130"
-            x="118"
-            y="162"
+            x="0"
+            y="69"
           />
         </RNSVGClipPath>
         <RNSVGLinearGradient

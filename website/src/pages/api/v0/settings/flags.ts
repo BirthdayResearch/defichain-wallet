@@ -254,5 +254,19 @@ export default async function handle(
       ],
       platforms: ["ios", "android", "web"],
     },
+    {
+      id: "unloop_dusd",
+      name: "Unloop DUSD loan",
+      stage: "public",
+      version: ">2.5.0",
+      description: "Display payback DUSD loan with DUSD collateral",
+      networks: [
+        EnvironmentNetwork.MainNet,
+        EnvironmentNetwork.TestNet,
+        EnvironmentNetwork.RemotePlayground,
+        EnvironmentNetwork.LocalPlayground,
+      ],
+      platforms: ["ios", "android", "web"],
+    },
   ]);
 }

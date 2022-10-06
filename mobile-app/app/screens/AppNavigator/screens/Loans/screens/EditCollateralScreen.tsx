@@ -13,7 +13,7 @@ import BigNumber from "bignumber.js";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Platform, TouchableOpacity, View } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import {
   BottomSheetNavScreen,
   BottomSheetWebWithNav,
@@ -134,7 +134,9 @@ export function EditCollateralScreen({
             getActivePrice(
               collateralItem.token.symbol,
               collateralItem.activePrice,
-              collateralItem.factor
+              collateralItem.factor,
+              "ACTIVE",
+              "COLLATERAL"
             )
           ).gt(0)
         )
@@ -320,7 +322,9 @@ export function EditCollateralScreen({
               getActivePrice(
                 collateralItem.token.symbol,
                 collateralItem.activePrice,
-                collateralItem.factor
+                collateralItem.factor,
+                "ACTIVE",
+                "COLLATERAL"
               )
             );
             const params = {
@@ -339,6 +343,7 @@ export function EditCollateralScreen({
                 current: new BigNumber(collateral.amount),
                 vault: activeVault,
                 collateralItem,
+                collateralTokens,
               },
               option: {
                 header: () => null,

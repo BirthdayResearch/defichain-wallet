@@ -7895,11 +7895,11 @@ exports[`token icons getNativeIcon("dTLT-DUSD") should get <IcondTLT-DUSD /> sna
 exports[`token icons getNativeIcon("dTSLA") should get <IcondTSLA /> snapshot 1`] = `
 <RNSVGSvgView
   align="xMidYMid"
-  bbHeight="32"
-  bbWidth="32"
+  bbHeight="40"
+  bbWidth="40"
   fill="none"
   focusable={false}
-  height="32"
+  height="40"
   meetOrSlice={0}
   minX={0}
   minY={0}
@@ -7911,14 +7911,14 @@ exports[`token icons getNativeIcon("dTSLA") should get <IcondTSLA /> snapshot 1`
       },
       {
         "flex": 0,
-        "height": 32,
-        "width": 32,
+        "height": 40,
+        "width": 40,
       },
     ]
   }
   vbHeight={36}
   vbWidth={36}
-  width="32"
+  width="40"
 >
   <RNSVGGroup
     fill={null}
@@ -7928,6 +7928,39 @@ exports[`token icons getNativeIcon("dTSLA") should get <IcondTSLA /> snapshot 1`
       ]
     }
   >
+    <RNSVGDefs>
+      <RNSVGLinearGradient
+        gradient={
+          [
+            0,
+            -65105,
+            0.0703125,
+            -327249,
+            0.169271,
+            -1113679,
+            0.289062,
+            -2424139,
+            0.408854,
+            -4193094,
+            0.528646,
+            -6486336,
+            0.648438,
+            -9303864,
+            0.815104,
+            -12645423,
+            1,
+            -15855909,
+          ]
+        }
+        gradientTransform={null}
+        gradientUnits={1}
+        name="paint0_linear_7863_44577"
+        x1="-1.8"
+        x2="38"
+        y1="19"
+        y2="19"
+      />
+    </RNSVGDefs>
     <RNSVGGroup
       clipPath="clip0_1388_11287"
     >
@@ -7944,7 +7977,12 @@ exports[`token icons getNativeIcon("dTSLA") should get <IcondTSLA /> snapshot 1`
             "strokeWidth",
           ]
         }
-        stroke={4291611852}
+        stroke={
+          [
+            1,
+            "paint0_linear_7863_44577",
+          ]
+        }
         strokeWidth={0.5}
       />
     </RNSVGGroup>

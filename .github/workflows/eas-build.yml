@@ -13,9 +13,9 @@ jobs:
     environment: EAS Release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3.0.2
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3.1.0
 
-      - uses: actions/github-script@c713e510dbd7d213d92d41b7a7805a986f4c5c66 # tag=v6.2.0
+      - uses: actions/github-script@d4560e157075e2d93aa3022b5b51a42a880f1f93 # tag=v6.3.0
         id: version
         with:
           script: |
@@ -46,3 +46,6 @@ jobs:
 
       - name: EAS Build - iOS & Android
         run: eas build --platform all --non-interactive --wait --profile preview
+        env:
+          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
+

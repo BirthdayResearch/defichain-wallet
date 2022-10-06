@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   traefik:
-    image: traefik:v2.4
+    image: traefik:v2.9
     command:
       - "--api.insecure=true"
       - "--providers.docker=true"
@@ -51,7 +51,7 @@ services:
       -fortcanningepilogueheight=15
 
   defi-playground:
-    image: ghcr.io/jellyfishsdk/playground-api:2.59.0
+    image: ghcr.io/jellyfishsdk/playground-api:2.64.1
     depends_on:
       - defi-blockchain
     ports:
@@ -64,7 +64,7 @@ services:
       - "traefik.http.routers.playground.entrypoints=web"
 
   defi-whale:
-    image: ghcr.io/jellyfishsdk/whale-api:2.59.0
+    image: ghcr.io/jellyfishsdk/whale-api:2.64.1
     depends_on:
       - defi-blockchain
     ports:

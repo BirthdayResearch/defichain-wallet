@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { useAuctionTime } from "../hooks/AuctionTimeLeft";
 import { useAuctionBidValue } from "../hooks/AuctionBidValue";
+import { getPrecisedTokenValue } from "../helpers/precision-token-value";
 
 export function AuctionDetails(props: {
   vault: LoanVaultLiquidated;
@@ -73,7 +74,7 @@ export function AuctionDetails(props: {
           "Collateral value (USDT)"
         )}
         rhs={{
-          value: totalCollateralsValueInUSD,
+          value: getPrecisedTokenValue(totalCollateralsValueInUSD),
           testID: "text_collateral_value",
           prefix: "$",
         }}
@@ -84,7 +85,7 @@ export function AuctionDetails(props: {
         rhs={{
           suffix: batch.loan.displaySymbol,
           suffixType: "text",
-          value: minStartingBidInToken,
+          value: minStartingBidInToken.toFixed(8),
           testID: "text_min_starting_bid",
         }}
       />

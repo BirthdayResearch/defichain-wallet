@@ -1,5 +1,4 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { HeaderFont } from "@components/Text";
 import { HeaderTitle } from "@components/HeaderTitle";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
@@ -7,16 +6,28 @@ import {
   LoanVaultLiquidated,
   LoanVaultLiquidationBatch,
 } from "@defichain/whale-api-client/dist/api/loan";
+import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
+import { tailwind } from "@tailwind";
+import { ThemedTextV2 } from "@components/themed";
+import { StyleProp, ViewStyle } from "react-native";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
-import { AuctionsScreen } from "./AuctionScreen";
+import { AuctionScreen } from "./AuctionScreen";
 import { AuctionDetailScreen } from "./screens/AuctionDetailScreen";
 import { PlaceBidScreen } from "./screens/PlaceBidScreen";
 import { ConfirmPlaceBidScreen } from "./screens/ConfirmPlaceBidScreen";
 import { AuctionsFaq } from "./screens/AuctionsFaq";
+import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
+import { BidHistoryScreen } from "./screens/BidHistoryScreen";
 
 export interface AuctionsParamList {
   AuctionsScreen: {};
   AuctionDetailScreen: {
+    batch: LoanVaultLiquidationBatch;
+    vault: LoanVaultLiquidated;
+  };
+  BidHistoryScreen: {
     batch: LoanVaultLiquidationBatch;
     vault: LoanVaultLiquidated;
   };
@@ -38,25 +49,42 @@ const AuctionsStack = createStackNavigator<AuctionsParamList>();
 
 export function AuctionsNavigator(): JSX.Element {
   const headerContainerTestId = "auctions_header_container";
+  const navigation = useNavigation<NavigationProp<AuctionsParamList>>();
 
+  const screenOptions = useNavigatorScreenOptions();
+  const goToNetworkSelect = (): void => {
+    navigation.navigate("NetworkSelectionScreen");
+  };
   return (
     <AuctionsStack.Navigator
       initialRouteName="AuctionsScreen"
       screenOptions={{
-        headerTitleAlign: "center",
-        headerTitleStyle: HeaderFont,
-        headerBackTitleVisible: false,
+        ...screenOptions,
+        headerRight: () => (
+          <HeaderNetworkStatus
+            onPress={goToNetworkSelect}
+            testID="header_change_network"
+          />
+        ),
       }}
     >
       <AuctionsStack.Screen
-        component={AuctionsScreen}
+        component={AuctionScreen}
         name="AuctionScreen"
         options={{
+          headerTitleAlign: "left",
+          headerTitleContainerStyle: tailwind("ml-5"),
+          headerLeftContainerStyle: null,
           headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/AuctionScreen", "Auctions")}
-              containerTestID={headerContainerTestId}
-            />
+            <ThemedTextV2
+              style={[
+                screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
+                tailwind("text-left text-3xl font-semibold-v2"),
+                { fontSize: 28 },
+              ]}
+            >
+              {translate("screens/AuctionScreen", "Auctions")}
+            </ThemedTextV2>
           ),
         }}
       />
@@ -65,12 +93,24 @@ export function AuctionsNavigator(): JSX.Element {
         component={AuctionDetailScreen}
         name="AuctionDetailScreen"
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/AuctionScreen", "Auction details")}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          headerTitle: translate("screens/AuctionScreen", "Auction Details"),
+        }}
+      />
+
+      <AuctionsStack.Screen
+        component={BidHistoryScreen}
+        name="BidHistoryScreen"
+        options={{
+          headerTitle: translate("components/BidHistory", "Bid History"),
+        }}
+      />
+
+      <AuctionsStack.Screen
+        component={NetworkSelectionScreen}
+        name="NetworkSelectionScreen"
+        options={{
+          headerTitle: translate("screens/NetworkSelectionScreen", "Network"),
+          headerRight: undefined,
         }}
       />
 
@@ -88,12 +128,7 @@ export function AuctionsNavigator(): JSX.Element {
         component={PlaceBidScreen}
         name="PlaceBidScreen"
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/AuctionScreen", "Place Bid")}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          headerTitle: translate("screens/AuctionScreen", "Bid"),
         }}
       />
 
@@ -101,12 +136,7 @@ export function AuctionsNavigator(): JSX.Element {
         component={AuctionsFaq}
         name="AuctionsFaq"
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("components/AuctionsFaq", "Auctions FAQ")}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          headerTitle: translate("components/AuctionsFaq", "Auctions FAQ"),
           headerBackTitleVisible: false,
         }}
       />
@@ -115,12 +145,7 @@ export function AuctionsNavigator(): JSX.Element {
         component={ConfirmPlaceBidScreen}
         name="ConfirmPlaceBidScreen"
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/AuctionScreen", "Confirm Place Bid")}
-              containerTestID={headerContainerTestId}
-            />
-          ),
+          headerTitle: translate("screens/AuctionScreen", "Confirm"),
         }}
       />
     </AuctionsStack.Navigator>

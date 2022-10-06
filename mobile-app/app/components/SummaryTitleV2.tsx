@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { tailwind } from "@tailwind";
 import { getNativeIcon } from "@components/icons/assets";
 import { translate } from "@translations";
@@ -19,6 +19,7 @@ interface ISummaryTitleProps {
   iconA: string;
   iconB?: string;
   addressType?: AddressType;
+  amountTextStyle?: string;
 }
 
 export function SummaryTitleV2(props: ISummaryTitleProps): JSX.Element {
@@ -54,7 +55,9 @@ export function SummaryTitleV2(props: ISummaryTitleProps): JSX.Element {
             renderText={(value) => (
               <ThemedTextV2
                 style={tailwind(
-                  "text-3xl font-semibold-v2 flex-wrap pr-1 pl-2"
+                  `text-3xl font-semibold-v2 flex-wrap pr-1 pl-2 ${
+                    props.amountTextStyle ?? ""
+                  }`
                 )}
                 testID={props.testID}
               >

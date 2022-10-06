@@ -5207,6 +5207,12 @@
 		"borderBottomWidth": 0.5,
 		"borderLeftWidth": 0.5
 	},
+	"border-1.5": {
+		"borderTopWidth": 1.5,
+		"borderRightWidth": 1.5,
+		"borderBottomWidth": 1.5,
+		"borderLeftWidth": 1.5
+	},
 	"border-t-0": {
 		"borderTopWidth": 0
 	},
@@ -5224,6 +5230,9 @@
 	},
 	"border-t-0.5": {
 		"borderTopWidth": 0.5
+	},
+	"border-t-1.5": {
+		"borderTopWidth": 1.5
 	},
 	"border-r-0": {
 		"borderRightWidth": 0
@@ -5243,6 +5252,9 @@
 	"border-r-0.5": {
 		"borderRightWidth": 0.5
 	},
+	"border-r-1.5": {
+		"borderRightWidth": 1.5
+	},
 	"border-b-0": {
 		"borderBottomWidth": 0
 	},
@@ -5261,6 +5273,9 @@
 	"border-b-0.5": {
 		"borderBottomWidth": 0.5
 	},
+	"border-b-1.5": {
+		"borderBottomWidth": 1.5
+	},
 	"border-l-0": {
 		"borderLeftWidth": 0
 	},
@@ -5278,6 +5293,9 @@
 	},
 	"border-l-0.5": {
 		"borderLeftWidth": 0.5
+	},
+	"border-l-1.5": {
+		"borderLeftWidth": 1.5
 	},
 	"border-solid": {
 		"borderStyle": "solid"
@@ -7731,6 +7749,12 @@
 		"paddingBottom": 18,
 		"paddingLeft": 18
 	},
+	"p-5.5": {
+		"paddingTop": 22,
+		"paddingRight": 22,
+		"paddingBottom": 22,
+		"paddingLeft": 22
+	},
 	"px-0": {
 		"paddingLeft": 0,
 		"paddingRight": 0
@@ -7878,6 +7902,10 @@
 	"px-4.5": {
 		"paddingLeft": 18,
 		"paddingRight": 18
+	},
+	"px-5.5": {
+		"paddingLeft": 22,
+		"paddingRight": 22
 	},
 	"py-0": {
 		"paddingTop": 0,
@@ -8027,6 +8055,10 @@
 		"paddingTop": 18,
 		"paddingBottom": 18
 	},
+	"py-5.5": {
+		"paddingTop": 22,
+		"paddingBottom": 22
+	},
 	"pt-0": {
 		"paddingTop": 0
 	},
@@ -8137,6 +8169,9 @@
 	},
 	"pt-4.5": {
 		"paddingTop": 18
+	},
+	"pt-5.5": {
+		"paddingTop": 22
 	},
 	"pr-0": {
 		"paddingRight": 0
@@ -8249,6 +8284,9 @@
 	"pr-4.5": {
 		"paddingRight": 18
 	},
+	"pr-5.5": {
+		"paddingRight": 22
+	},
 	"pb-0": {
 		"paddingBottom": 0
 	},
@@ -8360,6 +8398,9 @@
 	"pb-4.5": {
 		"paddingBottom": 18
 	},
+	"pb-5.5": {
+		"paddingBottom": 22
+	},
 	"pl-0": {
 		"paddingLeft": 0
 	},
@@ -8470,6 +8511,9 @@
 	},
 	"pl-4.5": {
 		"paddingLeft": 18
+	},
+	"pl-5.5": {
+		"paddingLeft": 22
 	},
 	"text-left": {
 		"textAlign": "left"

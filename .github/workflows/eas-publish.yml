@@ -15,7 +15,7 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.result }}
     steps:
-      - uses: actions/github-script@c713e510dbd7d213d92d41b7a7805a986f4c5c66 # tag=v6.2.0
+      - uses: actions/github-script@d4560e157075e2d93aa3022b5b51a42a880f1f93 # tag=v6.3.0
         id: version
         with:
           script: |
@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ version ]
     steps:
-      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3.0.2
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3.1.0
       - uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3.4.1
         with:
           node-version: 16
@@ -41,7 +41,7 @@ jobs:
       - uses: expo/expo-github-action@f98a64c8874c4a163514273f34306f403e962350 # tag=v7.2.0
         with:
           eas-version: latest
-          expo-version: 4.x
+          expo-version: latest
           packager: npm
           token: ${{ secrets.EXPO_TOKEN }}
 
@@ -53,7 +53,9 @@ jobs:
           npx standard-version --release-as ${{needs.version.outputs.version}}
 
       - name: EAS Build - Android
-        run: eas build --platform android --non-interactive --wait
+        run: eas build --platform android --non-interactive --wait --clear-cache
+        env:
+          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
 
       - run: sleep 10s
 
@@ -64,6 +66,8 @@ jobs:
 
       - name: EAS Submit - Android - Submit
         run: eas submit --platform android --latest
+        env:
+          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
 
       - name: EAS Submit - Android - Cleanup
         run: rm ANDROID_SERVICE_ACCOUNT.json
@@ -76,7 +80,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ version ]
     steps:
-      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3.0.2
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3.1.0
       - uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3.4.1
         with:
           node-version: 16
@@ -84,7 +88,7 @@ jobs:
       - uses: expo/expo-github-action@f98a64c8874c4a163514273f34306f403e962350 # tag=v7.2.0
         with:
           eas-version: latest
-          expo-version: 4.x
+          expo-version: latest
           packager: npm
           token: ${{ secrets.EXPO_TOKEN }}
 
@@ -96,11 +100,13 @@ jobs:
           npx standard-version --release-as ${{needs.version.outputs.version}}
 
       - name: EAS Build - iOS
-        run: eas build --platform ios --non-interactive --wait
+        run: eas build --platform ios --non-interactive --wait --clear-cache
+        env:
+          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
 
       - run: sleep 10s
 
-        # TODO(fuxingloh): replace this in the future
+      # TODO(fuxingloh): replace this in the future
       - name: EAS Submit - iOS - Setup
         run: |
           sed -i "s/EAS_APPLE_ID/$APPLE_ID/" eas.json
@@ -113,6 +119,7 @@ jobs:
         run: eas submit --platform ios --latest
         env:
           EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
+          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
 
       - name: EAS Submit - iOS - Cleanup
         run: rm eas.json

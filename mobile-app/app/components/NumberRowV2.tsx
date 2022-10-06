@@ -1,11 +1,19 @@
 import { StyleProp, TextStyle, View, ViewProps, ViewStyle } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { tailwind } from "@tailwind";
 import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2";
-import { ThemedProps, ThemedTextV2, ThemedViewV2 } from "./themed";
+import { translate } from "@translations";
+import {
+  ThemedActivityIndicatorV2,
+  ThemedIcon,
+  ThemedProps,
+  ThemedTextV2,
+  ThemedViewV2,
+} from "./themed";
 import { IconTooltip } from "./tooltip/IconTooltip";
 import { BottomSheetAlertInfoV2, BottomSheetInfoV2 } from "./BottomSheetInfoV2";
+import { SymbolIcon } from "./SymbolIcon";
 
 type INumberRowProps = React.PropsWithChildren<ViewProps> & NumberRowProps;
 
@@ -24,6 +32,8 @@ export interface RhsNumberRowElement extends NumberRowElement {
   usdContainerStyle?: StyleProp<ViewStyle>;
   usdTextStyle?: StyleProp<TextStyle>;
   subValue?: NumberRowElement;
+  isConverting?: boolean;
+  prefixSymbol?: string;
 }
 
 export interface NumberRowElement {
@@ -71,6 +81,14 @@ export function NumberRowV2(props: INumberRowProps): JSX.Element {
           <View
             style={tailwind("flex flex-row justify-end flex-wrap items-center")}
           >
+            {props.rhs.prefixSymbol && (
+              <View style={tailwind("pr-2")}>
+                <SymbolIcon
+                  symbol={props.rhs.prefixSymbol}
+                  styleProps={tailwind("w-6 h-6")}
+                />
+              </View>
+            )}
             <NumberFormat
               decimalScale={8}
               displayType="text"
@@ -132,6 +150,36 @@ export function NumberRowV2(props: INumberRowProps): JSX.Element {
               thousandSeparator
               value={props.rhs.subValue.value}
             />
+          )}
+          {props.rhs.isConverting !== undefined && (
+            <View
+              style={tailwind(
+                "flex flex-row text-right items-center justify-end pt-1"
+              )}
+            >
+              <ThemedTextV2
+                style={tailwind("mr-1.5 text-sm font-normal-v2")}
+                light={tailwind("text-mono-light-v2-700")}
+                dark={tailwind("text-mono-dark-v2-700")}
+                testID="conversion_status"
+              >
+                {translate(
+                  "screens/common",
+                  props.rhs.isConverting ? "Converting" : "Converted"
+                )}
+              </ThemedTextV2>
+              {props.rhs.isConverting ? (
+                <ThemedActivityIndicatorV2 />
+              ) : (
+                <ThemedIcon
+                  light={tailwind("text-green-v2")}
+                  dark={tailwind("text-green-v2")}
+                  iconType="MaterialIcons"
+                  name="check-circle"
+                  size={20}
+                />
+              )}
+            </View>
           )}
         </View>
       </View>

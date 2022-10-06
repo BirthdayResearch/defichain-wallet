@@ -163,7 +163,10 @@ function borrowLoan(symbol: string, amount: string): void {
   cy.getByTestID("vault_card_0_manage_loans_button").click();
   const amountToBorrow = new BigNumber(amount).toFixed(8);
   cy.getByTestID("button_browse_loans").click();
-  cy.getByTestID(`loan_card_${symbol}`).click();
+  cy.getByTestID(`loan_card_${symbol}`).filter(":visible").click();
+  cy.getByTestID(
+    `loans_action_button_${symbol}_borrow_button_loans_cards`
+  ).click();
   cy.getByTestID("form_input_borrow").clear().type(amountToBorrow);
   cy.wait(3000);
   cy.getByTestID("borrow_loan_submit_button").click();
@@ -206,6 +209,7 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
 
   it("should create vault", () => {
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
     cy.getByTestID("vault_card_0_status").contains("EMPTY");
@@ -292,7 +296,7 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
 
   it("should add dETH as collateral", () => {
     cy.getByTestID("add_collateral_button").click();
-    addCollateral("dETH", "10", "10", "$100.00", "70", "6.25%", vaultId);
+    addCollateral("dETH", "10", "10", "$70.00", "70", "4.46%", vaultId);
   });
 
   it("should display locked collateral token in portfolio even though it has no balance", () => {
@@ -317,18 +321,18 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
 
   it("should add DUSD as collateral", () => {
     cy.getByTestID("add_collateral_button").click();
-    addCollateral("DUSD", "10", "5.1357", "$5.08", "99", "0.32%", vaultId);
+    addCollateral("DUSD", "10", "5.1357", "$6.16", "120", "0.39%", vaultId);
   });
 
   it("should update collateral list", () => {
-    checkCollateralCardValues("DFI", "10.00000000 DFI", "$1,000.00", "63.49%");
-    checkCollateralCardValues("dBTC", "10.00000000 dBTC", "$500.00", "31.74%");
-    checkCollateralCardValues("dETH", "10.00000000 dETH", "$100.00", "6.35%");
-    checkCollateralCardValues("DUSD", "5.13570000 DUSD", "$5.08", "0.32%");
+    checkCollateralCardValues("DFI", "10.00000000 DFI", "$1,000.00", "63.45%");
+    checkCollateralCardValues("dBTC", "10.00000000 dBTC", "$500.00", "31.72%");
+    checkCollateralCardValues("dETH", "10.00000000 dETH", "$70.00", "4.44%");
+    checkCollateralCardValues("DUSD", "5.13570000 DUSD", "$6.16", "0.39%");
   });
 
   it("should remove dBTC collateral", () => {
-    removeCollateral("dBTC", "10", "1", "$450.00", "100", "29.51%", vaultId);
+    removeCollateral("dBTC", "10", "1", "$450.00", "100", "29.49%", vaultId);
   });
 
   it("should remove DUSD collateral", () => {
@@ -336,9 +340,9 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
       "DUSD",
       "5.1357",
       "1.8642",
-      "$3.24",
-      "99",
-      "0.21%",
+      "$3.93",
+      "120",
+      "0.26%",
       vaultId
     );
   });
@@ -349,7 +353,7 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
       "3.2715",
       "3.2715",
       "0.00000000",
-      "99",
+      "120",
       "0.00%",
       vaultId
     );
@@ -358,7 +362,7 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
   it("should update collateral list", () => {
     checkCollateralCardValues("DFI", "10.00000000 DFI", "$1,000.00", "65.79%");
     checkCollateralCardValues("dBTC", "9.00000000 dBTC", "$450.00", "29.61%");
-    checkCollateralCardValues("dETH", "10.00000000 dETH", "$100.00", "6.58%");
+    checkCollateralCardValues("dETH", "10.00000000 dETH", "$70.00", "4.61%");
   });
 });
 
@@ -391,6 +395,7 @@ context("Wallet - Loans - Add/Remove Collateral - Invalid data", () => {
     cy.sendDFItoWallet().wait(4000);
     cy.setWalletTheme(walletTheme);
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
   });
@@ -483,6 +488,7 @@ context("Wallet - Loans - 50% valid collateral token ratio", () => {
       .wait(4000);
     cy.setWalletTheme(walletTheme);
     cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
     cy.getByTestID("vault_card_0_status").contains("EMPTY");
@@ -508,10 +514,11 @@ context("Wallet - Loans - 50% valid collateral token ratio", () => {
     );
     cy.go("back");
     cy.wait(2000);
-    cy.getByTestID("loans_tabs_BROWSE_LOANS").click();
-    cy.getByTestID("header_loans_search").click();
+    cy.getByTestID("loans_tabs_BORROW").click();
     cy.getByTestID("loans_search_input").type("dTS25").blur();
-    cy.getByTestID("loan_card_dTS25").click();
+    cy.getByTestID(
+      "loans_action_button_dTS25_borrow_button_loan_screen"
+    ).click();
     cy.getByTestID("borrow_loan_vault").click();
     cy.wait(2000);
     cy.getByTestID("select_vault_0").click();
@@ -585,11 +592,11 @@ context("Wallet - Loans - 50% valid collateral token ratio", () => {
       "DUSD",
       "20",
       "20",
-      "$19.80",
-      "99",
-      "1.94%",
+      "$24.00",
+      "120",
+      "2.37%",
       vaultId,
-      "50.47%"
+      "50.69%"
     );
     cy.go("back");
   });

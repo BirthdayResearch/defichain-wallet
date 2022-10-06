@@ -285,8 +285,8 @@
     "Amount to send": "發送金額",
     "Converting": "Converting",
     "Converted": "Converted",
-    "Transaction fee": "Transaction fee",
-    "Amount to convert": "Amount to convert",
+    "Transaction fee": "交易費用",
+    "Amount to convert": "要轉換的金額",
     "Send": "Send",
     "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "發送 {{amount}} {{displaySymbol}} 到 {{toAddress}}",
     "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds."
@@ -340,7 +340,7 @@
     "{{token}} to receive": "{{token}} 將會收到",
     "CONFIRM TRANSACTION": "確認交易",
     "You are converting to {{unit}}": "You are converting to {{unit}}",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "Resulting Tokens": "轉換後 Tokens",
     "Resulting UTXO": "轉換後 UTXO",
     "Convert {{amount}} DFI to {{target}}": "轉換 {{amount}} DFI 至 {{target}}"
@@ -504,6 +504,9 @@
     "About Auctions": "About Auctions",
     "Auctions": "清算拍賣",
     "FREQUENTLY ASKED QUESTIONS": "常見問題",
+    "How do I know the status of my bid after an auction ends?": "How do I know the status of my bid after an auction ends?",
+    "For successful bidders, bid amount will be deducted, and rewards will be automatically reflect under the Portfolio page.": "For successful bidders, bid amount will be deducted, and rewards will be automatically reflect under the Portfolio page.",
+    "For unsuccessful bidders, the bidding amount will be returned automatically to your wallet once you have been outbid by another user.": "For unsuccessful bidders, the bidding amount will be returned automatically to your wallet once you have been outbid by another user.",
     "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "金庫拍賣是用戶對已清算的金庫中的抵押品收回金庫未償還貸款的活動。當金庫的抵押品比率低於最低要求時，即進行清算，在此情況下，金庫抵押品將分為10,000美元的批次進行拍賣。",
     "How is the minimum starting bid determined?": "最低起標價是基於什麼？",
     "The minimum starting bid is 105% of the batch's outstanding loan value. The additional 5% is included to cover the liquidation penalty, which is incurred upon vault liquidation.": "最低標價是批次未償貸款價值的105%。額外的5%是用來支付清算罰款的，這在金庫清算時是會產生的。",
@@ -517,8 +520,8 @@
   },
   "screens/TransactionsScreen": {
     "Transactions": "交易紀錄",
-    "No transactions yet": "還沒有交易紀錄",
-    "Start transacting with your wallet. All UTXO transactions made will be displayed here. Other transaction types are not supported yet.": "您能開始從錢包做交易. 所有UTXO交易都會在這裡顯示.目前還不提供其他交易類型.",
+    "No transactions found": "沒有交易紀錄",
+    "Start by depositing DFI": "從存入 DFI 開始",
     "RECEIVE TOKENS": "接收的貨幣",
     "LOAD MORE": "查看更多交易紀錄",
     "Received": "收到",
@@ -684,11 +687,11 @@
     "Key in the 24 recovery words to regain access to your wallet.": "Key in the 24 recovery words to regain access to your wallet."
   },
   "screens/ErrorBoundary": {
-    "Something went wrong": "出了些問題",
-    "The app ran into a problem and could not recover. Please restart your application.": "此程序出了一些問題，關掉後請重新啟動程序."
+    "We ran into an issue": "我們遇到問題",
+    "There seems to be an issue. Try restarting the application.": "似乎存在了問題， 嘗試重新啟動應用程式。"
   },
   "screens/ConnectionBoundary": {
-    "Connection problem": "網絡連接出了問題",
+    "Refresh": "刷新",
     "There seems to be a problem with the connection. Check your network and try again.": "網絡連接不良，請查看網絡設定後重試.",
     "TRY AGAIN": "再試一次"
   },
@@ -703,7 +706,9 @@
     "Beta Features": "測試版功能",
     "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.": "輕錢包 beta 功能處於用戶驗收測試階段。 鼓勵大家使用 beta 功能，但在使用資產時建議審慎。",
     "Feature is still in Beta. Use at your own risk.": "功能仍處於測試階段。使用時風險請自己負責。",
-    "Allows the usage of custom server provider url": "Allows the usage of custom server provider url"
+    "Allows the usage of custom server provider url": "Allows the usage of custom server provider url",
+    "Unloop DUSD loan": "Unloop DUSD loan",
+    "Display payback DUSD loan with DUSD collateral": "Display payback DUSD loan with DUSD collateral"
   },
   "BottomTabNavigator": {
     "Balances": "總資金",
@@ -761,7 +766,7 @@
     "Processing loan payment…": "Processing loan payment…",
     "Payment completed": "Payment completed",
     "Preparing to create vault…": "Preparing to create vault…",
-    "Creating vault…": "Creating vault…",
+    "Creating vault": "Creating vault",
     "Vault created": "Vault created",
     "Preparing to place bid…": "Preparing to place bid…",
     "Placing bid…": "Placing bid…",
@@ -788,7 +793,9 @@
     "Swapped {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Swapped {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}",
     "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "兌換 {{amountA}} {{symbolA}} 至 {{amountB}} {{symbolB}}",
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
-    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool"
+    "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool",
+    "Paying back loan amount of {{amount}} DUSD": "Paying back loan amount of {{amount}} DUSD",
+    "Paid loan amount of {{amount}} DUSD": "Paid loan amount of {{amount}} DUSD"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "請許可程序使用相機",
@@ -870,8 +877,8 @@
     "CONFIRM ADD LIQUIDITY": "確認增加流動資金",
     "Your LP Tokens": "您的 LP 代幣",
     "You will receive LP tokens": "您將會收到 LP 代幣",
-    "Amount to convert": "Amount to convert",
-    "Transaction fee": "Transaction fee",
+    "Amount to convert": "要轉換的金額",
+    "Transaction fee": "交易費用",
     "Resulting pool share": "Resulting pool share",
     "{{token}} to supply": "{{token}} to supply",
     "Resulting LP tokens": "加入後產生的 LP 代幣",
@@ -894,7 +901,7 @@
     "Transaction type": "交易類型",
     "Remove liquidity": "退出流動",
     "You are removing LP tokens": "You are removing LP tokens",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "Resulting pool share": "Resulting pool share",
     "LP tokens to remove": "L要刪除的 LP 代幣",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool",
@@ -1027,7 +1034,7 @@
     "incl. stabilization fee ({{dexStabilizationFee}}%)": "incl. stabilization fee ({{dexStabilizationFee}}%)",
     "Total fees": "Total fees",
     "Settlement Value {{percentageChange}}": "Settlement Value {{percentageChange}}",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
     "Token": "Token",
@@ -1250,10 +1257,27 @@
     "Borrow More": "增加借用量",
     "Choose Loan Token to Borrow": "選擇要借用的貸款代幣",
     "Payback Loan": "償還貸款",
-    "Close Vault": "關閉金庫"
+    "Close Vault": "關閉金庫",
+    "Search vault": "Search vault",
+    "Search with vault ID": "Search with vault ID",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
+    "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
+    "Decentralized tokens": "Decentralized tokens",
+    "With vaults, you gain access to a rich economy of decentralized tokens.": "With vaults, you gain access to a rich economy of decentralized tokens.",
+    "Next": "Next",
+    "Done": "Done",
+    "Take control of your vault": "Take control of your vault",
+    "With a selected loan scheme, you control how much is required for your vault.": "With a selected loan scheme, you control how much is required for your vault.",
+    "Monitor your vaults": "Monitor your vaults",
+    "Keep your vaults healthy and green, by monitoring its collateralization.": "Keep your vaults healthy and green, by monitoring its collateralization.",
+    "Oracle prices": "Oracle prices",
+    "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain.",
+    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
+    "Search available loan tokens": "Search available loan tokens"
   },
   "components/tabs": {
     "Browse loan tokens": "瀏覽貸款選項",
+    "Borrow": "Borrow",
     "Your vaults": "您的金庫",
     "Active loan": "活躍的貸款",
     "Details": "明細",
@@ -1271,8 +1295,9 @@
   "components/LoanCard": {
     "Active Price": "目前活躍價格",
     "Next Price": "下一個價格",
-    "Interest": "利息",
-    "Price (USD)": "價格(美金)"
+    "{{interestValue}} Interest": "{{interestValue}} 利息",
+    "Price (USD)": "價格(美金)",
+    "Borrow": "Borrow"
   },
   "components/InfoTextLink": {
     "Learn more about DFI": "了解更多關於 DFI",
@@ -1280,21 +1305,44 @@
     "Learn more about vaults": "了解更多關於金庫的資訊",
     "Learn more about vaults and loan schemes": "了解更多關於金庫和貸款計劃的資訊",
     "Learn more about auctions and bidding": "了解有關拍賣和出價的更多信息",
-    "Learn about auctions": "了解更多關於拍賣和拍賣會"
+    "Learn about auctions": "了解更多關於拍賣和拍賣會",
+    "Learn more": "Learn more"
   },
   "components/EmptyBidsScreen": {
     "No active bids": "沒有活躍競投價格",
     "To get started, browse on auctions and place a bid": "首先，瀏覽拍賣並出價"
   },
   "components/EmptyAuctions": {
-    "No ongoing auctions": "目前沒有正在進行的拍賣會",
-    "Check again later for any ongoing auctions that you can participate": "請稍後再回到這頁面查看新增的拍賣會"
+    "No auctions": "No auctions",
+    "There are currently no collaterals available for auction.":  "There are currently no collaterals available for auction.",
+    "No Outbid Auctions": "No Outbid Auctions",
+    "You have no outbids yet": "You have no outbids yet",
+    "No Leading Bids": "No Leading Bids",
+    "You have no leading bids yet": "You have no leading bids yet",
+    "No Active Bids": "No Active Bids",
+    "You have no active bids yet": "You have no active bids yet"
   },
   "screens/AuctionScreen": {
     "Auctions": "清算拍賣",
+    "Bid": "競投出價",
     "Place Bid": "標價",
     "Confirm Place Bid": "確認出價",
-    "Auction details": "拍賣細節"
+    "Confirm": "確認",
+    "Auction details": "拍賣細節",
+    "Auction Details": "拍賣細節",
+    "COLLATERALS": "COLLATERALS",
+    "Sort Auctions": "Sort Auctions",
+    "Least time left": "Least time left",
+    "Most time left": "Most time left",
+    "Highest value": "Highest value",
+    "Lowest value": "Lowest value",
+    "Sort by": "Sort by",
+    "All auctions": "All auctions",
+    "Your active bids": "Your active bids",
+    "Your leading bids": "Your leading bids",
+    "Outbid": "Outbid",
+    "Search for auctions using collateral token names i.e. DFI DUSD dBTC.": "使用抵押代幣名稱搜索拍賣，例如 DFI DUSD dBTC",
+    "Search results for “{{input}}”": "Search results for “{{input}}”"
   },
   "components/AuctionDetailScreen": {
     "Collateral": "抵押品",
@@ -1310,7 +1358,14 @@
     "Total auction value (USDT):": "拍賣總價值（USDT）:",
     "PLACE BID": "競投出價",
     "Batch #{{index}}": "批次 #{{index}}",
-    "Min. starting bid": "最低起標價"
+    "Min. starting bid": "最低起標價",
+    "Bid": "競投出價",
+    "Collaterals": "Collaterals",
+    "Total value": "Total value",
+    "Time remaining": "Time remaining",
+    "No time remaining": "No time remaining",
+    "Bid History ({{bidHistoryCount}})": "競標歷史 ({{bidHistoryCount}})",
+    "Auction closed": "Auction closed"
   },
   "components/BatchCard": {
     "Latest bid": "最新出價",
@@ -1326,7 +1381,8 @@
     "Min. next bid": "最低標價",
     "You are the highest bidder": "您目前是出價最高的人",
     "From your vault": "來自您的金庫",
-    "Waiting for first bid": "等待第一次標價"
+    "Waiting for first bid": "等待第一次標價",
+    "Quick bid": "快速標價"
   },
   "components/BatchHistory": {
     "{{h}}h {{m}}m ago": "{{h}}時 {{m}}分前",
@@ -1347,15 +1403,20 @@
   "components/BidHistory": {
     "Bidder ID": "競標者ID",
     "BID #{{bidIndex}}": "出價 #{{bidIndex}}",
+    "BID#{{bidIndex}}": "出價#{{bidIndex}}",
     "Waiting for first bid": "等待第一次標價",
     "{{h}}{{m}} ago": "{{h}}{{m}}前",
-    "Minimum amount to bid is": "最低投標金額"
+    "Minimum amount to bid is": "最低投標金額",
+    "ALL BIDS": "ALL BIDS",
+    "(Yours)": "(Yours)",
+    "Bid History": "競標歷史"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "拍賣即將完結於",
     "Auction time left": "剩餘拍賣時間",
     "{{block}} blks": "{{block}} 區塊",
     "~{{time}} left": "~{{time}} 結束拍賣",
+    "{{time}} left": "{{time}} 結束拍賣",
     "Auction time remaining": "剩餘拍賣時間"
   },
   "components/VaultCard": {
@@ -1388,6 +1449,9 @@
     "READY": "準備中"
   },
   "components/EmptyVault": {
+    "No vaults": "No vaults",
+    "Get started with loans. Create a vault for your collaterals.": "Get started with loans. Create a vault for your collaterals.",
+    "Create a vault": "Create a vault",
     "No vault created": "您尚未建立金庫",
     "To get started, create a vault and add DFI and other tokens as collateral": "若要啟動貸款，您需要創建一個金庫，並添加DFI和其他幣作為抵押品",
     "CREATE VAULT": "創建金庫"
@@ -1402,7 +1466,18 @@
     "CONTINUE": "繼續",
     "Confirm your vault details in next screen": "在下一個屏幕上確認您的金庫細節",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "您的金庫的貸款計劃將決定您所需的貸款抵押品",
-    "Min. collateralization ratio": "最低抵押率"
+    "Min. collateralization ratio": "最低抵押率",
+    "Select a loan scheme for your vault.": "Select a loan scheme for your vault.",
+    "Continue": "繼續",
+    "Create vault": "創建金庫",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "Monitor your vault’s collateralization to prevent liquidation.": "Monitor your vault’s collateralization to prevent liquidation.",
+    "Transaction fee": "交易費用",
+    "Vault fee": "金庫費用",
+    "Vault Fee": "金庫費用",
+    "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.",
+    "Amount to convert": "要轉換的金額",
+    "Creating vault": "創建金庫"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "您正在創建金庫",
@@ -1442,7 +1517,9 @@
     "Slippage tolerance": "交易滑價",
     "Slippage Tolerance": "交易滑價",
     "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑價是每項交易中的兌換率變化。選擇您願意接受這滑價百分比 （如下顯示)。",
-    "Settlements": "Settlements"
+    "Settlements": "Settlements",
+    "Price Oracles": "Price Oracles",
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金庫編號",
@@ -1702,7 +1779,10 @@
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "最低抵押率",
     "Interest rate": "利率",
-    "APR": "年回報率"
+    "APR": "年回報率",
+    "Collateralization": "抵押",
+    "Vault interest": "金庫利息",
+    "Min. collateral ratio": "Min. collateral ratio"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "您正要借更多貸款",
@@ -1721,7 +1801,8 @@
     "Search for loans": "搜尋貸款",
     "Search for loan token": "搜尋貸款代幣",
     "Search for pool pairs": "搜索流動池配對",
-    "Search pool pair": "Search pool pair"
+    "Search pool pair": "Search pool pair",
+    "Search auctions": "Search auctions"
   },
   "components/EmptyCollateral": {
     "No collateral": "沒有抵押",
@@ -1757,7 +1838,14 @@
     "Collateral": "抵押品",
     "How much do you want to bid?": "您想出的價錢？",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "您正要出的價錢比拍賣價值還高，請檢查和確認",
-    "Collateral for auction": "待拍賣的抵押品"
+    "Collateral for auction": "待拍賣的抵押品",
+    "I HAVE {{ownedAmount}} {{symbol}}": "I HAVE {{ownedAmount}} {{symbol}}",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Transaction fee": "Transaction fee",
+    "The minimum next bid is {{amount}} {{symbol}} (100%)": "The minimum next bid is {{amount}} {{symbol}} (100%)",
+    "{{percent}} min bid entered": "{{percent}} 最低競投出價輸入",
+    "Insufficient balance": "Insufficient balance",
+    "Auction timeout": "Auction timeout"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "交易明細",
@@ -1766,14 +1854,22 @@
     "Bid amount to place": "標價金額",
     "AUCTION DETAILS": "拍賣細節",
     "Total auction value (USDT)": "拍賣總價值（USDT）",
+    "Total auction value": "拍賣總價值",
     "Vault ID": "金庫編號",
     "Vault owner ID": "金庫主權者編號",
-    "Liquidation Height": "清算高度",
+    "Liquidation height": "清算高度",
     "CONFIRM PLACE BID": "確認標價",
     "Sign Transaction": "簽下交易",
     "Placing {{amount}} {{token}} as bid for auction.": "使用 {{amount}} {{token}} 作為標價",
     "Collateral for auction": "待拍賣的抵押品",
-    "Insufficient funds": "資金不足"
+    "Insufficient funds": "資金不足",
+    "You are bidding": "You are bidding",
+    "Amount will be deducted from your current wallet": "Amount will be deducted from your current wallet",
+    "Placing {{amount}} {{token}} bid": "Placing {{amount}} {{token}} bid",
+    "It may take a few seconds to verify": "It may take a few seconds to verify",
+    "Preparing placing {{amount}} {{token}} bid": "Preparing placing {{amount}} {{token}} bid",
+    "Placed {{amount}} {{token}} bid": "Placed {{amount}} {{token}} bid",
+    "Passcode verified!": "Passcode verified!"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Withdraw",
@@ -1790,7 +1886,7 @@
     "I WANT TO WITHDRAW": "I WANT TO WITHDRAW",
     "Withdraw from": "Withdraw from",
     "Insufficient Balance": "Insufficient Balance",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "Review full details in the next screen": "Review full details in the next screen",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
@@ -1812,7 +1908,7 @@
     "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap": "Withdraw locked amount {{amountToWithdraw}} {{sourceDisplaySymbol}} from future swap",
     "To be confirmed": "To be confirmed",
     "Withdraw future swap": "提取未來兌換",
-    "Transaction fee": "Transaction fee",
+    "Transaction fee": "交易費用",
     "To receive (est.)": "To receive (est.)",
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from {{sourceSymbol}}-{{destinationSymbol}} swap": "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from {{sourceSymbol}}-{{destinationSymbol}} swap"
   },
@@ -1855,9 +1951,20 @@
     "QUICK BID": "快速標價",
     "Insufficient amount to place a bid": "餘額不足，無法出價",
     "Quick bid": "快速標價",
+    "Quick Bid": "快速標價",
     "Place a bid on the auction with the min. next bid": "以下個最低底價進行快標",
     "Min. next bid": "最低標價",
-    "Current balance": "目前餘額"
+    "Current balance": "目前餘額",
+    "Leading bid": "Leading bid",
+    "Quick rebid": "Quick rebid",
+    "Outbid": "Outbid",
+    "Min. bid": "最低標價",
+    "Insufficient {{symbol}} balance": "Insufficient {{symbol}} balance",
+    "Placing {{amount}} {{token}} quick bid": "Placing {{amount}} {{token}} quick bid",
+    "Placed {{amount}} {{token}} quick bid": "Placed {{amount}} {{token}} quick bid",
+    "Available": "可發送資金",
+    "Transaction fee": "Transaction fee",
+    "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}": "您的出價高於拍賣的抵押品價值 {{currency}}{{amount}}" 
   },
   "components/WalletAddressRow": {
     "Wallet address": "錢包地址"
@@ -1898,5 +2005,11 @@
     "APR": "年回報率",
     "{{percentage}}% in rewards": "{{percentage}}% in rewards",
     "{{percentage}}% in commissions": "{{percentage}}% in commissions"
+  },
+  "components/PaybackDUSD": {
+    "PAYBACK WITH DUSD COLLATERAL": "PAYBACK WITH DUSD COLLATERAL",
+    "Payback with DUSD collateral": "Payback with DUSD collateral",
+    "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?",
+    "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral"
   }
 }

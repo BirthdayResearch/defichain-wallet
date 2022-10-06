@@ -1,5 +1,5 @@
 import { Linking, Platform, TouchableOpacity, View } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
@@ -9,7 +9,7 @@ import { ThemedIcon, ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { PriceRateProps, PricesSectionV2 } from "@components/PricesSectionV2";
 import { BottomSheetInfoV2 } from "@components/BottomSheetInfoV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import { ButtonGroupTabKey } from "../CompositeSwapScreen";
+import { ButtonGroupTabKey } from "@screens/AppNavigator/screens/Dex/CompositeSwap/components/SwapButtonGroup";
 import { DexStabilizationType } from "../../hook/DexStabilization";
 
 interface SwapSummaryProps {
@@ -260,6 +260,7 @@ function SettlementBlockInfo({
           <ThemedTextV2
             light={tailwind("text-mono-light-v2-700")}
             dark={tailwind("text-mono-dark-v2-700")}
+            testID="execution_time_remaining"
           >
             {translate("screens/CompositeSwapScreen", "{{time}} left", {
               time: timeRemaining.trim(),

@@ -16,7 +16,7 @@ import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { useEffect } from "react";
 import { Platform } from "react-native";
-import NumberFormat from "react-number-format";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import { useTokenPrice } from "../../Portfolio/hooks/TokenPrice";
 import { ActiveUSDValue } from "../../Loans/VaultDetail/components/ActiveUSDValue";
@@ -28,7 +28,7 @@ interface BidHistoryProps {
   batchIndex: number;
   loanDisplaySymbol: string;
   loanSymbol: string;
-  minNextBidInToken: string;
+  minNextBidInToken: BigNumber;
 }
 
 export function BidHistory(props: BidHistoryProps): JSX.Element {
@@ -72,7 +72,7 @@ export function BidHistory(props: BidHistoryProps): JSX.Element {
             bidIndex={bidHistory.length - index}
             bidAmount={item.amount}
             loanDisplaySymbol={props.loanDisplaySymbol}
-            bidderAddress={item.from}
+            bidderAddress={item.address}
             bidAmountInUSD={getTokenPrice(
               props.loanSymbol,
               new BigNumber(item.amount)
@@ -84,7 +84,7 @@ export function BidHistory(props: BidHistoryProps): JSX.Element {
       }}
       ListEmptyComponent={() => (
         <EmptyBidHistory
-          minNextBid={props.minNextBidInToken}
+          minNextBid={props.minNextBidInToken.toFixed(8)}
           displaySymbol={props.loanDisplaySymbol}
         />
       )}

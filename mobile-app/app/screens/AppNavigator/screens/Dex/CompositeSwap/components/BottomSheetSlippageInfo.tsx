@@ -14,23 +14,23 @@ export const BottomSheetSlippageInfo = (): React.MemoExoticComponent<
     return (
       <ThemedViewV2
         style={tailwind(
-          "px-5 h-full",
+          "px-5 h-full flex-grow",
           { "-mt-0.5": Platform.OS === "ios" },
           { "-mt-1": Platform.OS === "android" }
         )}
       >
-        {/* -mt-1 above and mt-1 added below is kind of hack to solved React Navigation elevation bug on android for now. */}
+        {/* -mt-1 and flex-grow above and mt-1 added below is kind of hack to solved React Navigation elevation bug on android for now. */}
         <View
           style={tailwind(
-            "mb-3 flex-row items-center",
-            { "mt-1": Platform.OS === "ios" },
+            "mb-5 flex-row items-center",
+            { "mt-1 pt-2": Platform.OS === "ios" },
             { "mt-2": Platform.OS === "android" }
           )}
         >
           <ThemedTextV2
             dark={tailwind("text-mono-dark-v2-900")}
             light={tailwind("text-mono-light-v2-900")}
-            style={tailwind("pl-1 text-xl font-normal-v2")}
+            style={tailwind("text-xl font-normal-v2")}
             testID="view_pool_details_title"
           >
             {translate("components/BottomSheetInfo", "Slippage Tolerance")}
