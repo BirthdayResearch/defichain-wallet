@@ -7,7 +7,6 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { tailwind } from "@tailwind";
-import { View } from "@components";
 import { translate } from "@translations";
 import { TokenIconGroupV2 } from "@components/TokenIconGroup";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -17,7 +16,7 @@ import {
   LoanToken,
   LoanVaultActive,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { Platform, TouchableOpacity } from "react-native";
+import { Platform, TouchableOpacity, View } from "react-native";
 import { useVaultStatus } from "@screens/AppNavigator/screens/Loans/components/VaultStatusTag";
 import { useNextCollateralizationRatio } from "@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio";
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
@@ -165,7 +164,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
     return [buttonLabel, text, type];
   }
   return (
-    <View style={tailwind("mb-2")}>
+    <View style={tailwind("mb-2")} ref={containerRef}>
       {vaultEmpty || vaultLiquidated ? (
         <VaultBanner
           buttonLabel={vaultDescription()[0]}
@@ -255,7 +254,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
                 <LoanActionButton
                   label="Borrow"
                   testID="borrow_collateral"
-                  style={tailwind("mt-3 px-9")}
+                  style={tailwind("mt-3 px-9 bg-red-100")}
                   onPress={onBottomSheetLoansTokensListSelect}
                 />
               </View>
@@ -263,17 +262,23 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
           </ThemedViewV2>
         </TouchableOpacity>
       )}
-      <BottomSheetWithNavV2
-        modalRef={bottomSheetRef}
-        screenList={bottomSheetScreen}
-      />
 
       {Platform.OS === "web" && (
         <BottomSheetWebWithNavV2
           modalRef={containerRef}
           screenList={bottomSheetScreen}
           isModalDisplayed={isModalDisplayed}
-          modalStyle={modalHeight}
+          // eslint-disable-next-line react-native/no-inline-styles
+          modalStyle={{
+            position: "absolute",
+            bottom: "0",
+            height: "404px",
+            width: "375px",
+            zIndex: 50,
+            borderTopLeftRadius: 15,
+            borderTopRightRadius: 15,
+            overflow: "hidden",
+          }}
         />
       )}
       {Platform.OS !== "web" && (
