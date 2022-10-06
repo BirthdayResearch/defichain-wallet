@@ -18,10 +18,9 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";
-import BigNumber from "bignumber.js";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { SymbolIcon } from "@components/SymbolIcon";
+import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";
 import { AuctionsParamList } from "../AuctionNavigator";
 import { useAuctionBidValue } from "../hooks/AuctionBidValue";
 import { onQuickBidProps } from "./BrowseAuctions";
@@ -93,6 +92,7 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
               testID="required_collateral_token_group"
               size={24}
               symbols={collateralTokenSymbols}
+              maxIconToDisplay={6}
             />
             <View>
               <NumberFormat

@@ -2,7 +2,6 @@ import BigNumber from "bignumber.js";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { TokenIconGroupV2 } from "@components/TokenIconGroup";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { LoanParamList } from "@screens/AppNavigator/screens/Loans/LoansNavigator";
 import { loanTokensSelector, LoanVault } from "@store/loans";
@@ -20,6 +19,7 @@ import { NumericFormat as NumberFormat } from "react-number-format";
 import { BottomSheetNavScreen } from "@components/BottomSheetWithNavV2";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
+import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";
 import { LoanActionButton } from "./LoanActionButton";
 import { VaultSectionTextRowV2 } from "./VaultSectionTextRowV2";
 import { VaultBanner } from "./VaultBanner";
@@ -85,7 +85,6 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
     });
   };
 
-  // TODO @chloe: check where to use this
   const canUseOperations = useLoanOperations(vault?.state);
   const onCardPress = (): void => {
     navigation.navigate("VaultDetailScreen", {
@@ -152,6 +151,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
                     (collateral) => collateral.displaySymbol
                   )}
                   maxIconToDisplay={6}
+                  size={24}
                 />
                 <VaultSectionTextRowV2
                   testID={`${props.testID}_total_loan`}

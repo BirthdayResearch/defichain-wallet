@@ -35,12 +35,12 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { TextRowV2 } from "@components/TextRowV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { PriceRateProps, PricesSectionV2 } from "@components/PricesSectionV2";
-import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { BidInfo } from "@screens/AppNavigator/screens/Auctions/components/BatchCard";
+import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";
 import { useAuctionTime } from "../hooks/AuctionTimeLeft";
 import { useAuctionBidValue } from "../hooks/AuctionBidValue";
 import { getPrecisedTokenValue } from "../helpers/precision-token-value";
@@ -194,7 +194,8 @@ export function AuctionDetailScreen(
             symbols={batch.collaterals.map(
               (collateral) => collateral.displaySymbol
             )}
-            overlap={-16}
+            // overlap={16}
+            maxIconToDisplay={6}
           />
           <NumberFormat
             displayType="text"

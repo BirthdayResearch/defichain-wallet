@@ -7,8 +7,8 @@ import { translate } from "@translations";
 import { ButtonV2 } from "@components/ButtonV2";
 import { openURL } from "expo-linking";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
-import { TokenIconGroupV2 } from "@components/TokenIconGroup";
 import { LoanVaultActive } from "@defichain/whale-api-client/dist/api/loan";
+import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";
 import { VaultStatus } from "../VaultStatusTypes";
 
 export function VaultBanner({
