@@ -288,7 +288,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
       in web - FlashList */}
       <ThemedFlashList
         keyExtractor={(_item, index) => index.toString()}
-        testID={props.testID}
+        testID={`${props.testID}_token_lists`}
         estimatedItemSize={116}
         contentContainerStyle={tailwind(
           "pb-2 pt-8",
