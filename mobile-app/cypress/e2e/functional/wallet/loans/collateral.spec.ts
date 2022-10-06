@@ -385,7 +385,9 @@ context("Wallet - Loans - Add/Remove Collateral - Invalid data", () => {
     loanAmounts: [],
     interestAmounts: [],
   });
+
   const walletTheme = { isDark: false };
+
   beforeEach(() => {
     // TODO remove intercept wile removing vault share functionality
     cy.intercept("**/settings/flags", {
@@ -396,21 +398,18 @@ context("Wallet - Loans - Add/Remove Collateral - Invalid data", () => {
     cy.setWalletTheme(walletTheme);
     cy.getByTestID("bottom_tab_loans").click();
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
-    cy.getByTestID("empty_vault").should("exist");
-    cy.createVault(0);
   });
 
   it("should display N/A if resulting collateralization is infinity", () => {
-    cy.getByTestID("bottom_tab_loans").click();
     cy.intercept("**/vaults?size=200", {
       statusCode: 200,
-      body: { data: getVault("0") },
+      body: { data: [getVault("0")] },
     }).as("getVaults");
 
     cy.wait("@getVaults").then(() => {
       /* (collateralValueInUSD / vault.loanValue) * 100
        (any number / 0) = Infinity
-    */
+      */
       cy.wait(3000);
       cy.getByTestID("vault_card_0_edit_collaterals_button").click();
       cy.getByTestID("add_collateral_button").click();
@@ -421,15 +420,14 @@ context("Wallet - Loans - Add/Remove Collateral - Invalid data", () => {
   });
 
   it("should display N/A if resulting collateralization is NaN", () => {
-    cy.getByTestID("bottom_tab_loans").click();
     cy.intercept("**/vaults?size=200", {
       statusCode: 200,
-      body: { data: getVault("0") },
+      body: { data: [getVault("0")] },
     }).as("getVaults");
     cy.wait("@getVaults").then(() => {
       /* (collateralValueInUSD / vault.loanValue) * 100
        (any number / '') = NaN
-    */
+      */
       cy.wait(3000);
       cy.getByTestID("vault_card_0_edit_collaterals_button").click();
       cy.getByTestID("add_collateral_button").click();
@@ -440,15 +438,14 @@ context("Wallet - Loans - Add/Remove Collateral - Invalid data", () => {
   });
 
   it("should display N/A if resulting collateralization is negative", () => {
-    cy.getByTestID("bottom_tab_loans").click();
     cy.intercept("**/vaults?size=200", {
       statusCode: 200,
-      body: { data: getVault("-10") },
+      body: { data: [getVault("-10")] },
     }).as("getVaults");
     cy.wait("@getVaults").then(() => {
       /* (collateralValueInUSD / vault.loanValue) * 100
        (any number / -10) = -number
-    */
+      */
       cy.wait(3000);
       cy.getByTestID("vault_card_0_edit_collaterals_button").click();
       cy.getByTestID("add_collateral_button").click();
