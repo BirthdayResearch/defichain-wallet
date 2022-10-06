@@ -194,7 +194,6 @@ export function AuctionDetailScreen(
             symbols={batch.collaterals.map(
               (collateral) => collateral.displaySymbol
             )}
-            // overlap={16}
             maxIconToDisplay={6}
           />
           <NumberFormat
