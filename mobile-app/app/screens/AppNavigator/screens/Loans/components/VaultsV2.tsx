@@ -227,7 +227,9 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
         );
       })}
 
-      <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />
+      {!inSearchMode && (
+        <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />
+      )}
 
       {Platform.OS === "web" && (
         <BottomSheetWebWithNavV2

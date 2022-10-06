@@ -69,9 +69,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
     loanTokensSelector(state.loans)
   );
 
-  const vaultsList = useSelector((state: RootState) =>
-    vaultsSelector(state.loans)
-  );
+  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
   const { hasFetchedLoansData } = useSelector(
     (state: RootState) => state.loans
   );
@@ -117,9 +115,9 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
 
   useEffect(() => {
     setIsVaultReady(
-      vaultsList.some((vault) => vault.vaultState !== VaultStatus.Empty)
+      vaults.some((vault) => vault.vaultState !== VaultStatus.Empty)
     );
-  }, [vaultsList]);
+  }, [vaults]);
 
   useEffect(() => {
     setIsFirstLoad(true);
@@ -138,12 +136,17 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   }, [isFirstLoad]);
 
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
-  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
-
   const activeVault = vaults.find(
     (v) =>
       v.vaultId === props.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION
   ) as LoanVaultActive;
+
+  const vaultItem =
+    Object.keys(vaults).length === 1
+      ? vaults.find(
+          (v) => v.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION
+        )
+      : activeVault;
 
   const goToCreateVault = (): void => {
     navigation.navigate({
@@ -327,7 +330,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
                     name: "BorrowLoanTokenScreen",
                     params: {
                       loanToken: item,
-                      vault: activeVault,
+                      vault: vaultItem,
                     },
                     merge: true,
                   });

@@ -108,7 +108,7 @@ export function VaultBanner({
                 styleProps="mt-3"
                 label={translate("components/EmptyVault", buttonLabel)}
                 onPress={onButtonPress}
-                testID={`vault_banner_button_${testID}`}
+                testID={`${testID}_add_collateral_button`}
               />
             )}
             {vault !== undefined && vaultType === VaultStatus.Liquidated && (

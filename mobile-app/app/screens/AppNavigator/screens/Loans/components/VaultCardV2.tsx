@@ -61,7 +61,6 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
     vault.loanAmounts
   );
 
-  // list of loanTokens
   const loanTokens = useSelector((state: RootState) =>
     loanTokensSelector(state.loans)
   );
@@ -134,10 +133,14 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
       vaultId: vault.vaultId,
     });
   };
-  // TODO: go to borrow screen instead of VaultDetailScreen
-  const onBorrowPress = (): void => {
-    navigation.navigate("VaultDetailScreen", {
-      vaultId: vault.vaultId,
+
+  const onAddCollateralPress = (): void => {
+    navigation.navigate({
+      name: "EditCollateralScreen",
+      params: {
+        vaultId: vault.vaultId,
+      },
+      merge: true,
     });
   };
   const vaultEmpty = vaultState.status === VaultStatus.Empty;
@@ -168,7 +171,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
           buttonLabel={vaultDescription()[0]}
           description={vaultDescription()[1]}
           vaultId={vault.vaultId}
-          onButtonPress={onBorrowPress}
+          onButtonPress={onAddCollateralPress}
           vaultType={vaultDescription()[2]}
           onCardPress={onCardPress}
           testID={props.testID}
