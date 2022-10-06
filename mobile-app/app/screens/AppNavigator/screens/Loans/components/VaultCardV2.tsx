@@ -140,7 +140,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
           <ThemedViewV2
             dark={tailwind("bg-mono-dark-v2-00")}
             light={tailwind("bg-mono-light-v2-00")}
-            style={tailwind("px-5 py-4.5 rounded-lg-v2 border-0 bg-red-200")}
+            style={tailwind("px-5 py-3.5 rounded-lg-v2 border-0")}
             testID={props.testID}
           >
             <View style={tailwind("flex-row items-center")}>
@@ -154,7 +154,8 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
                   size={24}
                 />
                 <VaultSectionTextRowV2
-                  testID={`${props.testID}_total_loan`}
+                  customContainerStyle="mt-2"
+                  testID={`${props.testID}_loan_available`}
                   prefix={
                     VaultStatus.Liquidated === vaultState.status ? "" : "$"
                   }

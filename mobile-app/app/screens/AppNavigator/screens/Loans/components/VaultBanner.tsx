@@ -91,12 +91,6 @@ export function VaultBanner({
               style={tailwind(
                 "font-normal-v2 text-sm text-right w-11/12 text-red-v2"
               )}
-              // light={tailwind({
-              //   "text-red-v2": vaultType === VaultStatus.Liquidated,
-              // })}
-              // dark={tailwind({
-              //   "text-red-v2": vaultType === VaultStatus.Liquidated,
-              // })}
               testID={`${testID}_vault_description`}
             >
               {translate("screens/LoansScreen", description)}
