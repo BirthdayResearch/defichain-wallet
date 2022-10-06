@@ -38,10 +38,11 @@ import {
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
 import { useBottomSheet } from "@hooks/useBottomSheet";
+import { VaultCardV2 } from "@screens/AppNavigator/screens/Loans/components/VaultCardV2";
 import { EmptyVaultV2 } from "./EmptyVaultV2";
 import { PriceOracleInfo } from "./PriceOracleInfo";
 import { BottomSheetModalInfo } from "../../../../../components/BottomSheetModalInfo";
-import { VaultCardV2 } from "./VaultCardV2";
+
 // import { VaultCard } from "./VaultCard"; // @chloe for referencing
 
 interface VaultsProps {
@@ -109,7 +110,10 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
     setBottomSheetScreen([
       {
         stackScreenName: "OraclePriceInfo",
-        component: BottomSheetModalInfo({ title, description }),
+        component: BottomSheetModalInfo({
+          title,
+          description,
+        }),
         option: BottomSheetHeader,
       },
     ]);
