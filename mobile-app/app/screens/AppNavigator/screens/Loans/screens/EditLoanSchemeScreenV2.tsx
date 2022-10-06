@@ -1,11 +1,7 @@
 import {
-  ThemedScrollView,
   ThemedScrollViewV2,
-  ThemedSectionTitle,
-  ThemedText,
   ThemedTextV2,
   ThemedViewV2,
-  ThemedView,
 } from "@components/themed";
 import {
   LoanScheme,
@@ -15,28 +11,22 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useEffect, useState } from "react";
 import BigNumber from "bignumber.js";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { ascColRatioLoanScheme } from "@store/loans";
-import { Button } from "@components/Button";
 import { hasTxQueued } from "@store/transaction_queue";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { LoanSchemeOptionsV2 } from "@screens/AppNavigator/screens/Loans/components/LoanSchemeOptionsV2";
 import { ButtonV2 } from "@components/ButtonV2";
-import { useVaultStatus, VaultStatusTag } from "../components/VaultStatusTag";
-import {
-  LoanSchemeOptions,
-  WalletLoanScheme,
-} from "../components/LoanSchemeOptions";
+import { useVaultStatus } from "../components/VaultStatusTag";
+import { VaultStatus } from "../VaultStatusTypes";
+import { WalletLoanScheme } from "../components/LoanSchemeOptions";
 import { LoanParamList } from "../LoansNavigator";
-import { VaultSectionTextRow } from "../components/VaultSectionTextRow";
-import { useCollateralizationRatioColor } from "../hooks/CollateralizationRatio";
 
 type Props = StackScreenProps<LoanParamList, "EditLoanSchemeScreen">;
 
@@ -132,7 +122,7 @@ export function EditLoanSchemeScreenV2({
   }
 
   return (
-    <ThemedScrollViewV2 contentContainerStyle={tailwind("px-4 pt-0 pb-8 py-7")}>
+    <ThemedScrollViewV2 contentContainerStyle={tailwind("px-5 pt-0 pb-8 py-7")}>
       <VaultDetail vault={activeVault} />
 
       <ThemedTextV2
@@ -143,7 +133,7 @@ export function EditLoanSchemeScreenV2({
         {translate("screens/EditCollateralScreen", "AVAILABLE SCHEMES")}
       </ThemedTextV2>
       <LoanSchemeOptionsV2
-        loanSchemes={loanSchemes}
+        loanSchemes={filteredLoanSchemes}
         isLoading={!hasFetchedLoanSchemes}
         selectedLoanScheme={selectedLoanScheme}
         onLoanSchemePress={(scheme: LoanScheme) =>
@@ -186,6 +176,19 @@ export function EditLoanSchemeScreenV2({
 
 function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
   const { vault } = props;
+  const colRatio = new BigNumber(vault.informativeRatio);
+  const minColRatio = new BigNumber(vault.loanScheme.minColRatio);
+  const totalLoanValue = new BigNumber(vault.loanValue);
+  const totalCollateralValue = new BigNumber(vault.collateralValue);
+
+  const vaultState = useVaultStatus(
+    vault.state,
+    colRatio,
+    minColRatio,
+    totalLoanValue,
+    totalCollateralValue
+  );
+
   return (
     <View>
       <ThemedTextV2
@@ -233,16 +236,46 @@ function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
               displayType="text"
               renderText={(val: string) => (
                 <ThemedTextV2
-                  light={tailwind("text-green-v2", {
-                    "text-mono-light-v2-900": vault.informativeRatio === "-1",
-                  })}
-                  dark={tailwind("text-green-v2", {
-                    "text-mono-dark-v2-900": vault.informativeRatio === "-1",
-                  })}
+                  light={tailwind(
+                    "text-mono-light-v2-900",
+                    {
+                      "text-green-v2":
+                        vaultState.status === VaultStatus.Ready ||
+                        vaultState.status === VaultStatus.Healthy,
+                    },
+                    {
+                      "text-orange-v2":
+                        vaultState.status === VaultStatus.AtRisk,
+                    },
+                    {
+                      "text-red-v2":
+                        vaultState.status === VaultStatus.NearLiquidation,
+                    }
+                  )}
+                  dark={tailwind(
+                    "text-mono-dark-v2-900",
+                    {
+                      "text-green-v2":
+                        vaultState.status === VaultStatus.Ready ||
+                        vaultState.status === VaultStatus.Healthy,
+                    },
+                    {
+                      "text-orange-v2":
+                        vaultState.status === VaultStatus.AtRisk,
+                    },
+                    {
+                      "text-red-v2":
+                        vaultState.status === VaultStatus.NearLiquidation,
+                    }
+                  )}
                   style={tailwind("text-sm font-semibold-v2")}
                 >
                   {vault.informativeRatio === "-1"
-                    ? translate("screens/EditCollateralScreen", "Empty")
+                    ? translate("screens/EditCollateralScreen", "{{status}}", {
+                        status:
+                          vaultState.status.charAt(0).toUpperCase() +
+                          vaultState.status.slice(1).toLowerCase(),
+                      })
                     : `${val}%`}
                 </ThemedTextV2>
               )}
