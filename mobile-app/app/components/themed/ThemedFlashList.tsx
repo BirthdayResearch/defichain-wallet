@@ -11,6 +11,7 @@ interface ParentContainer {
 }
 
 type ThemedFlashListProps = FlashListProps<any> & ThemedProps & ParentContainer;
+const DEFAULT_ESTIMATED_ITEM_SIZE = 5;
 
 export const ThemedFlashList = forwardRef(
   (props: ThemedFlashListProps, ref: React.Ref<any>): JSX.Element => {
@@ -19,7 +20,7 @@ export const ThemedFlashList = forwardRef(
       contentContainerStyle,
       light = tailwind("bg-mono-light-v2-100"),
       dark = tailwind("bg-mono-dark-v2-100"),
-      estimatedItemSize = 5,
+      estimatedItemSize = DEFAULT_ESTIMATED_ITEM_SIZE,
       parentContainerStyle,
       ...otherProps
     } = props;
@@ -37,7 +38,11 @@ export const ThemedFlashList = forwardRef(
         ref={ref}
       >
         <FlashList
-          estimatedItemSize={estimatedItemSize}
+          estimatedItemSize={
+            estimatedItemSize === 0
+              ? DEFAULT_ESTIMATED_ITEM_SIZE // FlashList crashes if this value is 0
+              : estimatedItemSize
+          }
           contentContainerStyle={styles}
           {...otherProps}
         />
