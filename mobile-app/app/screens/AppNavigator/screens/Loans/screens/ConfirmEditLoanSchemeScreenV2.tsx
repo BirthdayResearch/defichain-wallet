@@ -18,6 +18,7 @@ import {
   firstTransactionSelector,
   hasTxQueued as hasBroadcastQueued,
 } from "@store/ocean";
+import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { LoanScheme } from "@defichain/whale-api-client/dist/api/loan";
 import {
   NativeLoggingProps,
@@ -307,7 +308,9 @@ function SummaryTransactionDetails(
             },
             testID: "estimated_fee_amount",
             suffix: " DFI",
-            usdAmount: props.fee.isNaN() ? new BigNumber(0) : props.fee,
+            usdAmount: props.fee.isNaN()
+              ? new BigNumber(0)
+              : new BigNumber(getPrecisedTokenValue(props.fee)),
             usdTextStyle: tailwind("text-sm"),
             usdContainerStyle: tailwind("pb-0"),
           }}
