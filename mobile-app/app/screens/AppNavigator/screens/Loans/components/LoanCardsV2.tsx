@@ -22,8 +22,10 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { ActivePrice } from "@defichain/whale-api-client/dist/api/prices";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
+import BigNumber from "bignumber.js";
 import { loanTokensSelector, vaultsSelector } from "@store/loans";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
+import { BottomSheetHeader as BottonSheetHeaderSort } from "@components/BottomSheetHeader";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import {
   BottomSheetNavScreen,
@@ -38,6 +40,11 @@ import {
   SkeletonLoader,
   SkeletonLoaderScreen,
 } from "@components/SkeletonLoader";
+import {
+  LoansTokensSortRow,
+  LoansTokensSortType,
+  BottomSheetTokensLoansSortList,
+} from "./LoansTokensSortRow";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { LoanParamList } from "../LoansNavigator";
 import { LoanActionButton } from "./LoanActionButton";
@@ -86,6 +93,9 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
 
   const [showLoader, setShowLoader] = useState(true);
   const [isFirstLoad, setIsFirstLoad] = useState(false);
+  const [loansTokensSortType, setLoansTokensSortType] =
+    useState<LoansTokensSortType>(LoansTokensSortType.AtoZ);
+  const [isSorted, setIsSorted] = useState<boolean>(false);
 
   const inSearchMode = useMemo(() => {
     return isSearchFocus || searchString !== "";
@@ -102,6 +112,60 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
       );
     }, 250),
     [loanTokens, hasFetchedLoansData]
+  );
+
+  const sortLoansTokensOnSort = useCallback(
+    (loansTokensSortType: LoansTokensSortType): LoanToken[] => {
+      let sortTokensFunc: (a: LoanToken, b: LoanToken) => number;
+      function getCurrentPrice(symbol: string, price?: ActivePrice) {
+        return new BigNumber(
+          getPrecisedTokenValue(getActivePrice(symbol, price))
+        );
+      }
+
+      switch (loansTokensSortType) {
+        case LoansTokensSortType.LowestOraclePrice:
+          sortTokensFunc = (a, b) =>
+            getCurrentPrice(a.token.displaySymbol, a.activePrice)
+              .minus(getCurrentPrice(b.token.displaySymbol, b.activePrice))
+              .toNumber();
+          break;
+        case LoansTokensSortType.HighestOraclePrice:
+          sortTokensFunc = (a, b) =>
+            getCurrentPrice(b.token.displaySymbol, b.activePrice)
+              .minus(getCurrentPrice(a.token.displaySymbol, a.activePrice))
+              .toNumber();
+          break;
+        case LoansTokensSortType.LowestInterest:
+          sortTokensFunc = (a, b) =>
+            new BigNumber(a.interest)
+              .minus(new BigNumber(b.interest))
+              .toNumber();
+          break;
+        case LoansTokensSortType.HighestInterest:
+          sortTokensFunc = (a, b) =>
+            new BigNumber(b.interest)
+              .minus(new BigNumber(a.interest))
+              .toNumber();
+          break;
+        case LoansTokensSortType.AtoZ:
+          sortTokensFunc = (a, b) =>
+            a.token.displaySymbol.localeCompare(b.token.displaySymbol);
+          break;
+        case LoansTokensSortType.ZtoA:
+          sortTokensFunc = (a, b) =>
+            b.token.displaySymbol.localeCompare(a.token.displaySymbol);
+          break;
+        default:
+          sortTokensFunc = (a, b) =>
+            getCurrentPrice(a.token.displaySymbol, a.activePrice)
+              .minus(getCurrentPrice(b.token.displaySymbol, b.activePrice))
+              .toNumber();
+      }
+
+      return filteredLoanTokens.sort(sortTokensFunc);
+    },
+    [filteredLoanTokens, loansTokensSortType]
   );
 
   useEffect(() => {
@@ -200,6 +264,36 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
     expandModal();
   };
 
+  const tokenLoansSortBottomSheetScreen = (): void => {
+    setBottomSheetScreen([
+      {
+        stackScreenName: "TokensLoansSortList",
+        component: BottomSheetTokensLoansSortList({
+          onButtonPress: (item: LoansTokensSortType) => {
+            setIsSorted(true);
+            sortLoansTokensOnSort(item);
+            dismissModal();
+          },
+          selectedLoansTokensSortType: loansTokensSortType,
+        }),
+        option: {
+          headerStatusBarHeight: 1,
+          headerTitle: "",
+          headerBackTitleVisible: false,
+          header: (): JSX.Element => {
+            return (
+              <BottonSheetHeaderSort
+                onClose={dismissModal}
+                headerText={translate("screens/LoansScreen", "Sort Tokens")}
+              />
+            );
+          },
+        },
+      },
+    ]);
+    expandModal();
+  };
+
   return (
     <ThemedScrollViewV2
       ref={props.scrollRef}
@@ -243,6 +337,13 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
             setIsSearchFocus(false);
           }}
           testID="loan_search_input"
+        />
+      )}
+      {isVaultReady && !isSearchFocus && (
+        <LoansTokensSortRow
+          isSorted={isSorted}
+          loansTokensSortType={loansTokensSortType}
+          onPress={tokenLoansSortBottomSheetScreen}
         />
       )}
 
@@ -289,13 +390,9 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
         keyExtractor={(_item, index) => index.toString()}
         testID={`${props.testID}_token_lists`}
         estimatedItemSize={116}
-        contentContainerStyle={tailwind(
-          "pb-2 pt-8",
-          {
-            "pt-0": vaults.length >= 1,
-          },
-          { "pt-6": isVaultReady }
-        )}
+        contentContainerStyle={tailwind("pb-2 pt-8", {
+          "pt-0": vaults.length >= 1,
+        })}
         parentContainerStyle={tailwind("mx-3", {
           hidden: isSearchFocus && searchString.trim() === "",
         })}
@@ -371,8 +468,8 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           modalRef={bottomSheetRef}
           screenList={bottomSheetScreen}
           snapPoints={{
-            ios: ["30%"],
-            android: ["35%"],
+            ios: ["65%"],
+            android: ["65%"],
           }}
         />
       )}
