@@ -8,7 +8,6 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { Dispatch, useEffect, useState } from "react";
 import BigNumber from "bignumber.js";
-import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
@@ -30,7 +29,6 @@ import { RandomAvatar } from "@screens/AppNavigator/screens/Portfolio/components
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
-import { WalletAddressRow } from "@components/WalletAddressRow";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { LoanParamList } from "../LoansNavigator";
 
@@ -83,19 +81,6 @@ export function ConfirmEditLoanSchemeScreenV2({
       () => {},
       logger
     );
-  }
-  function getSubmitLabel(): string {
-    if (!hasPendingBroadcastJob && !hasPendingJob) {
-      return "CONFIRM EDIT";
-    }
-    if (
-      hasPendingBroadcastJob &&
-      currentBroadcastJob !== undefined &&
-      currentBroadcastJob.submitButtonLabel !== undefined
-    ) {
-      return currentBroadcastJob.submitButtonLabel;
-    }
-    return "EDITING";
   }
 
   useEffect(() => {
@@ -165,39 +150,37 @@ function SummaryHeader(props: {
         {props.vaultId}
       </ThemedTextV2>
 
-      <View>
-        <View style={tailwind("flex-row items-center mt-5")}>
+      <View style={tailwind("flex-row items-center mt-5")}>
+        <ThemedTextV2
+          style={tailwind("text-xs font-normal-v2")}
+          dark={tailwind("text-mono-dark-v2-500")}
+          light={tailwind("text-mono-light-v2-500")}
+        >
+          {translate("screens/common", "on")}
+        </ThemedTextV2>
+        <ThemedViewV2
+          dark={tailwind("bg-mono-dark-v2-200")}
+          light={tailwind("bg-mono-light-v2-200")}
+          style={tailwind(
+            "rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2"
+          )}
+        >
+          <RandomAvatar name={props.address} size={20} />
           <ThemedTextV2
-            style={tailwind("text-xs font-normal-v2")}
-            dark={tailwind("text-mono-dark-v2-500")}
-            light={tailwind("text-mono-light-v2-500")}
+            ellipsizeMode="middle"
+            numberOfLines={1}
+            style={[
+              tailwind("text-sm font-normal-v2 ml-1"),
+              {
+                minWidth: 10,
+                maxWidth: 101,
+              },
+            ]}
+            testID="wallet_address"
           >
-            {translate("screens/common", "on")}
+            {props.addressLabel ?? props.address}
           </ThemedTextV2>
-          <ThemedViewV2
-            dark={tailwind("bg-mono-dark-v2-200")}
-            light={tailwind("bg-mono-light-v2-200")}
-            style={tailwind(
-              "rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2"
-            )}
-          >
-            <RandomAvatar name={props.address} size={20} />
-            <ThemedTextV2
-              ellipsizeMode="middle"
-              numberOfLines={1}
-              style={[
-                tailwind("text-sm font-normal-v2 ml-1"),
-                {
-                  minWidth: 10,
-                  maxWidth: 108,
-                },
-              ]}
-              testID="wallet_address"
-            >
-              {props.addressLabel ?? props.address}
-            </ThemedTextV2>
-          </ThemedViewV2>
-        </View>
+        </ThemedViewV2>
       </View>
     </ThemedViewV2>
   );
@@ -368,6 +351,12 @@ async function editLoanScheme(
       return new CTransactionSegWit(signed);
     };
 
+    const truncatedVaultIdFront = `${vaultId.substring(0, 3)}`;
+    const truncatedVaultIdBack = `${vaultId.substring(
+      vaultId.length - 3,
+      vaultId.length
+    )}`;
+
     dispatch(
       transactionQueue.actions.push({
         sign: signer,
@@ -375,33 +364,22 @@ async function editLoanScheme(
           "screens/ConfirmEditLoanSchemeScreen",
           "Editing vault {{vaultId}}",
           {
-            vaultId, // need to find a way to truncate it
-          }
-        ),
-        description: translate(
-          "screens/ConfirmEditLoanSchemeScreen",
-          "Editing vault {{vaultId}}",
-          {
-            vaultId,
+            vaultId: `${truncatedVaultIdFront}...${truncatedVaultIdBack}`,
           }
         ),
         drawerMessages: {
-          // preparing: translate(
-          //   "screens/OceanInterface",
-          //   "Preparing changes to loan scheme…"
-          // ),
           waiting: translate(
             "screens/OceanInterface",
             "Editing vault {{vaultId}}",
             {
-              vaultId,
+              vaultId: `${truncatedVaultIdFront}...${truncatedVaultIdBack}`,
             }
           ),
           complete: translate(
             "screens/OceanInterface",
             "Edited vault {{vaultId}}",
             {
-              vaultId,
+              vaultId: `${truncatedVaultIdFront}...${truncatedVaultIdBack}`,
             }
           ),
         },
