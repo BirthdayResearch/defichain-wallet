@@ -46,14 +46,16 @@ export function VaultSectionTextRowV2(
             >
               {val}
             </ThemedTextV2>
-            <ThemedTextV2
-              dark={tailwind("text-mono-dark-v2-900")}
-              light={tailwind("text-mono-light-v2-900")}
-              testID={`${props.testID}_suffix`}
-              {...props.rhsThemedProps}
-            >
-              {props.suffix}
-            </ThemedTextV2>
+            {props.suffix && (
+              <ThemedTextV2
+                dark={tailwind("text-mono-dark-v2-900")}
+                light={tailwind("text-mono-light-v2-900")}
+                testID={`${props.testID}_suffix`}
+                {...props.rhsThemedProps}
+              >
+                {props.suffix}
+              </ThemedTextV2>
+            )}
           </>
         )}
         thousandSeparator

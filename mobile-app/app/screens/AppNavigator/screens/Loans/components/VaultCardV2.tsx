@@ -144,7 +144,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
               )}
               testID={props.testID}
             >
-              <View style={tailwind("flex-col")}>
+              <View style={tailwind("flex-1 flex-col pr-2")}>
                 <TokenIconGroupV2
                   testID={`${props.testID}_collateral_token_group`}
                   symbols={vault.collateralAmounts?.map(
@@ -157,7 +157,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
                   testID={`${props.testID}_loan_available`}
                   prefix="$"
                   value={getPrecisedTokenValue(vault.loanValue) ?? "-"}
-                  lhs={translate("components/VaultCard", "Loan Available")}
+                  lhs={translate("components/VaultCard", "Loan available")}
                   isOraclePrice
                   customContainerStyle="mt-3"
                 />
@@ -176,7 +176,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
                 vaultStatus={vaultState.status}
                 colRatio={vault.informativeRatio}
                 minColRatio={vault.loanScheme.minColRatio}
-                onBorrowPressed={onBottomSheetLoansTokensListSelect}
+                onButtonPressed={onBottomSheetLoansTokensListSelect}
                 testID={props.testID}
               />
             </ThemedViewV2>

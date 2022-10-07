@@ -21,7 +21,7 @@ export interface VaultCardProgressProps extends React.ComponentProps<any> {
   vaultStatus: string;
   colRatio: string;
   minColRatio: string;
-  onBorrowPressed: () => void;
+  onButtonPressed: () => void;
   testID: string;
 }
 
@@ -30,16 +30,17 @@ export function VaultCardStatus({
   vaultStatus,
   colRatio,
   minColRatio,
-  onBorrowPressed,
+  onButtonPressed,
   testID,
 }: VaultCardProgressProps): JSX.Element {
   const { isLight } = useThemeContext();
   const canUseOperations = useLoanOperations(vault?.state);
+  const CIRCLE_RADIUS = 58;
 
   return (
     <View style={tailwind("flex-wrap flex-col items-center")}>
       <CircularProgress
-        radius={58}
+        radius={CIRCLE_RADIUS}
         value={
           vaultStatus === VaultStatus.Ready ||
           vaultStatus === VaultStatus.Halted
@@ -56,7 +57,9 @@ export function VaultCardStatus({
         )}
         clockwise={false}
       />
-      <View style={tailwind("h-full absolute")}>
+      <View
+        style={[tailwind("h-full absolute"), { maxHeight: CIRCLE_RADIUS * 2 }]}
+      >
         <View style={tailwind("flex-1 items-center justify-end px-2")}>
           <ThemedTextV2
             ellipsizeMode="middle"
@@ -108,7 +111,7 @@ export function VaultCardStatus({
                     "text-mono-light-v2-900",
                     getVaultStatusColor(vaultStatus, isLight, true)
                   )}
-                  style={tailwind("font-semibold-v2 text-base")}
+                  style={tailwind("font-semibold-v2 text-base text-center")}
                   testID={`${testID}_min_ratio`}
                 >
                   {value}
@@ -121,7 +124,7 @@ export function VaultCardStatus({
         {canUseOperations && (
           <ThemedTouchableOpacityV2
             onPress={
-              vaultStatus === VaultStatus.Halted ? undefined : onBorrowPressed
+              vaultStatus === VaultStatus.Halted ? undefined : onButtonPressed
             }
             style={tailwind(
               "flex-wrap border-0 rounded-full self-center px-3 py-1 mt-4"

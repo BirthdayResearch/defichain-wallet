@@ -119,14 +119,14 @@ export function VaultBanner({
               })}
               testID={`${testID}_vault_description`}
             >
-              {translate("screens/LoansScreen", description)}
+              {translate("components/VaultCard", description)}
             </ThemedTextV2>
             {buttonLabel !== "" && (
               <ButtonV2
                 customButtonStyle="py-2 px-3"
                 customTextStyle="text-xs"
                 styleProps="mt-3"
-                label={translate("components/EmptyVault", buttonLabel)}
+                label={translate("components/VaultCard", buttonLabel)}
                 onPress={onButtonPress}
                 testID={`${testID}_add_collateral_button`}
               />
@@ -141,6 +141,7 @@ export function VaultBanner({
                       (collateral) => collateral.displaySymbol
                     )}
                     maxIconToDisplay={6}
+                    size={24}
                   />
                 </View>
               )}
