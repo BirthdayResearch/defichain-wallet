@@ -196,7 +196,10 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
     setBottomSheetScreen([
       {
         stackScreenName: "OraclePriceInfo",
-        component: BottomSheetModalInfo({ title, description }),
+        component: BottomSheetModalInfo({
+          title,
+          description,
+        }),
         option: BottomSheetHeader,
       },
     ]);
@@ -204,7 +207,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   };
 
   return (
-    <View ref={containerRef}>
+    <View ref={containerRef} style={tailwind("flex-1")}>
       <ThemedScrollViewV2
         ref={props.scrollRef}
         contentContainerStyle={tailwind("py-8 w-full")}
@@ -460,7 +463,7 @@ function LoanCard({
   );
 }
 
-/* 
+/*
   Custom comparison is added because the debounced search is sluggish due to Loan Icon rendering
 */
 const MemoizedLoanIcon = memo(
