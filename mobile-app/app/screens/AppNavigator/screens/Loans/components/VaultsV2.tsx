@@ -38,12 +38,12 @@ import {
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
 import { useBottomSheet } from "@hooks/useBottomSheet";
-import { VaultCardV2 } from "@screens/AppNavigator/screens/Loans/components/VaultCardV2";
+import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
 import { EmptyVaultV2 } from "./EmptyVaultV2";
 import { PriceOracleInfo } from "./PriceOracleInfo";
 import { BottomSheetModalInfo } from "../../../../../components/BottomSheetModalInfo";
-
-// import { VaultCard } from "./VaultCard"; // @chloe for referencing
+import { VaultCardV2 } from "./VaultCardV2";
+import { BottomSheetLoanTokensList } from "./BottomSheetLoanTokensList";
 
 interface VaultsProps {
   scrollRef?: React.Ref<any>;
@@ -78,6 +78,7 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
     expandModal,
     isModalDisplayed,
   } = useBottomSheet();
+
   const BottomSheetHeader = {
     headerStatusBarHeight: 2,
     headerTitle: "",
@@ -106,7 +107,13 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
   const description =
     "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.";
 
+  const oraclePriceSheetSnapPoints = {
+    ios: ["30%"],
+    android: ["35%"],
+  };
+  const [snapPoints, setSnapPoints] = useState(oraclePriceSheetSnapPoints);
   const onBottomSheetOraclePriceSelect = (): void => {
+    setSnapPoints(oraclePriceSheetSnapPoints);
     setBottomSheetScreen([
       {
         stackScreenName: "OraclePriceInfo",
@@ -114,6 +121,24 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
           title,
           description,
         }),
+        option: BottomSheetHeader,
+      },
+    ]);
+    expandModal();
+  };
+
+  const onBottomSheetLoansTokensListSelect = ({
+    onPress,
+    loanTokens,
+  }: {
+    onPress: (item: LoanToken) => void;
+    loanTokens: LoanToken[];
+  }): void => {
+    setSnapPoints({ ios: ["65%"], android: ["60%"] });
+    setBottomSheetScreen([
+      {
+        stackScreenName: "LoanTokensList",
+        component: BottomSheetLoanTokensList({ onPress, loanTokens }),
         option: BottomSheetHeader,
       },
     ]);
@@ -154,115 +179,123 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
   }
 
   return (
-    <ThemedScrollViewV2
-      contentContainerStyle={tailwind("px-5 py-8 w-full")}
-      ref={props.scrollRef}
-    >
-      <View style={tailwind("flex-col w-full")}>
-        <View style={tailwind("flex-row flex w-full mb-4 items-center")}>
-          <SearchInputV2
-            ref={searchRef}
-            value={searchString}
-            showClearButton={debouncedSearchTerm !== ""}
-            placeholder={translate("screens/LoansScreen", "Search vault")}
-            containerStyle={tailwind("flex-1", [
-              "border-0.5",
-              isSearchFocus
-                ? {
-                    "border-mono-light-v2-800": isLight,
-                    "border-mono-dark-v2-800": !isLight,
-                  }
-                : {
-                    "border-mono-light-v2-00": isLight,
-                    "border-mono-dark-v2-00": !isLight,
-                  },
-            ])}
-            onClearInput={() => {
-              setSearchString("");
-              searchRef?.current?.focus();
-            }}
-            onChangeText={(text: string) => {
-              setSearchString(text);
-            }}
-            onFocus={() => {
-              setIsSearchFocus(true);
-            }}
-            onBlur={() => {
-              setIsSearchFocus(false);
-            }}
-          />
-          {!inSearchMode && (
-            <CreateVaultButton
-              onPress={() =>
-                navigation.navigate({
-                  name: "CreateVaultScreen",
-                  params: {},
-                  merge: true,
-                })
-              }
+    <View ref={containerRef} style={tailwind("flex-1")}>
+      <ThemedScrollViewV2
+        contentContainerStyle={tailwind("px-5 py-8 w-full")}
+        ref={props.scrollRef}
+      >
+        <View style={tailwind("flex-col w-full")}>
+          <View style={tailwind("flex-row flex w-full mb-4 items-center")}>
+            <SearchInputV2
+              ref={searchRef}
+              value={searchString}
+              showClearButton={debouncedSearchTerm !== ""}
+              placeholder={translate("screens/LoansScreen", "Search vault")}
+              containerStyle={tailwind("flex-1", [
+                "border-0.5",
+                isSearchFocus
+                  ? {
+                      "border-mono-light-v2-800": isLight,
+                      "border-mono-dark-v2-800": !isLight,
+                    }
+                  : {
+                      "border-mono-light-v2-00": isLight,
+                      "border-mono-dark-v2-00": !isLight,
+                    },
+              ])}
+              onClearInput={() => {
+                setSearchString("");
+                searchRef?.current?.focus();
+              }}
+              onChangeText={(text: string) => {
+                setSearchString(text);
+              }}
+              onFocus={() => {
+                setIsSearchFocus(true);
+              }}
+              onBlur={() => {
+                setIsSearchFocus(false);
+              }}
             />
+            {!inSearchMode && (
+              <CreateVaultButton
+                onPress={() =>
+                  navigation.navigate({
+                    name: "CreateVaultScreen",
+                    params: {},
+                    merge: true,
+                  })
+                }
+              />
+            )}
+          </View>
+          {inSearchMode && (
+            <ThemedTextV2
+              style={tailwind("text-xs pl-5 my-4 font-normal-v2")}
+              light={tailwind("text-mono-light-v2-700")}
+              dark={tailwind("text-mono-dark-v2-700")}
+              testID="empty_search_result_text"
+            >
+              {debouncedSearchTerm.trim() === ""
+                ? translate("screens/LoansScreen", "Search with vault ID")
+                : translate(
+                    "screens/LoansScreen",
+                    "Search results for “{{searchTerm}}”",
+                    { searchTerm: debouncedSearchTerm }
+                  )}
+            </ThemedTextV2>
           )}
         </View>
-        {inSearchMode && (
-          <ThemedTextV2
-            style={tailwind("text-xs pl-5 my-4 font-normal-v2")}
-            light={tailwind("text-mono-light-v2-700")}
-            dark={tailwind("text-mono-dark-v2-700")}
-            testID="empty_search_result_text"
-          >
-            {debouncedSearchTerm.trim() === ""
-              ? translate("screens/LoansScreen", "Search with vault ID")
-              : translate(
-                  "screens/LoansScreen",
-                  "Search results for “{{searchTerm}}”",
-                  { searchTerm: debouncedSearchTerm }
-                )}
-          </ThemedTextV2>
+
+        {filteredTokensWithBalance.map((vault, index) => {
+          return (
+            <VaultCardV2
+              testID={`vault_card_${index}`}
+              key={index}
+              vault={vault}
+              dismissModal={dismissModal}
+              expandModal={expandModal}
+              setBottomSheetScreen={setBottomSheetScreen}
+              setSnapPoints={setSnapPoints}
+              onBottomSheetLoansTokensListSelect={
+                onBottomSheetLoansTokensListSelect
+              }
+            />
+          );
+        })}
+
+        {!inSearchMode && (
+          <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />
         )}
-      </View>
 
-      {filteredTokensWithBalance.map((vault, index) => {
-        return (
-          <VaultCardV2
-            testID={`vault_card_${index}`}
-            key={index}
-            vault={vault}
+        {Platform.OS === "web" && (
+          <BottomSheetWebWithNavV2
+            modalRef={containerRef}
+            screenList={bottomSheetScreen}
+            isModalDisplayed={isModalDisplayed}
+            // eslint-disable-next-line react-native/no-inline-styles
+            modalStyle={{
+              position: "absolute",
+              bottom: "0",
+              height: "404px",
+              width: "375px",
+              zIndex: 50,
+              borderTopLeftRadius: 15,
+              borderTopRightRadius: 15,
+              overflow: "hidden",
+            }}
           />
-        );
-      })}
+        )}
 
-      <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />
-
-      {Platform.OS === "web" && (
-        <BottomSheetWebWithNavV2
-          modalRef={containerRef}
-          screenList={bottomSheetScreen}
-          isModalDisplayed={isModalDisplayed}
-          // eslint-disable-next-line react-native/no-inline-styles
-          modalStyle={{
-            position: "absolute",
-            bottom: "0",
-            height: "404px",
-            width: "375px",
-            zIndex: 50,
-            borderTopLeftRadius: 15,
-            borderTopRightRadius: 15,
-            overflow: "hidden",
-          }}
-        />
-      )}
-
-      {Platform.OS !== "web" && (
-        <BottomSheetWithNavV2
-          modalRef={bottomSheetRef}
-          screenList={bottomSheetScreen}
-          snapPoints={{
-            ios: ["30%"],
-            android: ["35%"],
-          }}
-        />
-      )}
-    </ThemedScrollViewV2>
+        {Platform.OS !== "web" && (
+          <BottomSheetWithNavV2
+            modalRef={bottomSheetRef}
+            screenList={bottomSheetScreen}
+            snapPoints={snapPoints}
+          />
+        )}
+      </ThemedScrollViewV2>
+    </View>
   );
 }
 

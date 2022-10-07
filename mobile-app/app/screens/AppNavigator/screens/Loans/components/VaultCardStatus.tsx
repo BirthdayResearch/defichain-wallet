@@ -13,13 +13,14 @@ import {
   getVaultStatusColor,
   getVaultStatusText,
 } from "@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatioV2";
+import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
 
 export interface VaultCardProgressProps extends React.ComponentProps<any> {
   vault: LoanVaultActive;
   vaultStatus: string;
   colRatio: string;
   minColRatio: string;
-  isLight: boolean;
   onBorrowPressed: () => void;
   testID: string;
 }
@@ -29,10 +30,12 @@ export function VaultCardStatus({
   vaultStatus,
   colRatio,
   minColRatio,
-  isLight,
   onBorrowPressed,
   testID,
 }: VaultCardProgressProps): JSX.Element {
+  const { isLight } = useThemeContext();
+  const canUseOperations = useLoanOperations(vault?.state);
+
   return (
     <View style={tailwind("flex-wrap flex-col items-center")}>
       <CircularProgress
@@ -114,29 +117,32 @@ export function VaultCardStatus({
             />
           )}
         </View>
-        <ThemedTouchableOpacityV2
-          onPress={
-            vaultStatus === VaultStatus.Halted ? undefined : onBorrowPressed
-          }
-          style={tailwind(
-            "flex-wrap border-0 rounded-full self-center px-3 py-1 mt-4"
-          )}
-          dark={tailwind("bg-mono-dark-v2-1000", {
-            "bg-gray-600": vaultStatus === VaultStatus.Halted,
-          })}
-          light={tailwind("bg-mono-light-v2-1000", {
-            "bg-gray-400": vaultStatus === VaultStatus.Halted,
-          })}
-          activeOpacity={vaultStatus === VaultStatus.Halted ? 1 : 0.7}
-        >
-          <ThemedTextV2
-            style={tailwind("flex-wrap self-center text-xs font-semibold-v2")}
-            light={tailwind("text-mono-light-v2-100")}
-            dark={tailwind("text-mono-dark-v2-100")}
+
+        {canUseOperations && (
+          <ThemedTouchableOpacityV2
+            onPress={
+              vaultStatus === VaultStatus.Halted ? undefined : onBorrowPressed
+            }
+            style={tailwind(
+              "flex-wrap border-0 rounded-full self-center px-3 py-1 mt-4"
+            )}
+            dark={tailwind("bg-mono-dark-v2-1000", {
+              "bg-gray-600": vaultStatus === VaultStatus.Halted,
+            })}
+            light={tailwind("bg-mono-light-v2-1000", {
+              "bg-gray-400": vaultStatus === VaultStatus.Halted,
+            })}
+            activeOpacity={vaultStatus === VaultStatus.Halted ? 1 : 0.7}
           >
-            {translate("components/VaultCard", "Borrow")}
-          </ThemedTextV2>
-        </ThemedTouchableOpacityV2>
+            <ThemedTextV2
+              style={tailwind("flex-wrap self-center text-xs font-semibold-v2")}
+              light={tailwind("text-mono-light-v2-100")}
+              dark={tailwind("text-mono-dark-v2-100")}
+            >
+              {translate("components/VaultCard", "Borrow")}
+            </ThemedTextV2>
+          </ThemedTouchableOpacityV2>
+        )}
       </View>
     </View>
   );

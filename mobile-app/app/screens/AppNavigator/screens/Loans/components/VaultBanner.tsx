@@ -14,7 +14,7 @@ import { openURL } from "expo-linking";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { LoanVault } from "@store/loans";
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
-import { TokenIconGroupV2 } from "@components/TokenIconGroup";
+import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";
 import { VaultStatus } from "../VaultStatusTypes";
 
 export function VaultBanner({
@@ -128,7 +128,7 @@ export function VaultBanner({
                 styleProps="mt-3"
                 label={translate("components/EmptyVault", buttonLabel)}
                 onPress={onButtonPress}
-                testID={`vault_banner_button_${testID}`}
+                testID={`${testID}_add_collateral_button`}
               />
             )}
             {vault !== undefined &&
