@@ -1439,7 +1439,15 @@
     "HALTED": "GESTOPPT",
     "IN LIQUIDATION": "IN LIQUIDATION",
     "EMPTY": "LEER",
-    "READY": "BEREIT"
+    "READY": "BEREIT",
+    "Add Collateral": "Sicherheiten hinzufügen",
+    "Add collateral to borrow": "Add collateral to borrow",
+    "Loan available": "Loan available",
+    "Total collateral": "Gesamter Besicherungswert",
+    "Borrow": "Leihen",
+    "Liquidated vault": "Liquidierter Vault",
+    "Ready": "Bereit",
+    "Halted": "Gestoppt"
   },
   "components/EmptyVault": {
     "No vaults": "Keine Vaults",
