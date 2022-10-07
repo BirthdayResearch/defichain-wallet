@@ -12,7 +12,7 @@ import {
 import { View } from "react-native";
 import { useVaultStatus } from "@screens/AppNavigator/screens/Loans/components/VaultStatusTag";
 import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
-import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
+import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { BottomSheetNavScreen } from "@components/BottomSheetWithNavV2";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
@@ -156,7 +156,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
                 <VaultSectionTextRowV2
                   testID={`${props.testID}_loan_available`}
                   prefix="$"
-                  value={getPrecisedTokenValue(vault.loanValue) ?? "-"}
+                  value={getPrecisedCurrencyValue(vault.loanValue) ?? "-"}
                   lhs={translate("components/VaultCard", "Loan available")}
                   isOraclePrice
                   customContainerStyle="mt-3"
@@ -164,7 +164,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
                 <VaultSectionTextRowV2
                   testID={`${props.testID}_total_collateral`}
                   prefix="$"
-                  value={getPrecisedTokenValue(vault.collateralValue)}
+                  value={getPrecisedCurrencyValue(vault.collateralValue)}
                   lhs={translate("components/VaultCard", "Total collateral")}
                   isOraclePrice
                   customContainerStyle="mt-2"
