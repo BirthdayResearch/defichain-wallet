@@ -6,12 +6,13 @@ import { FlashList, FlashListProps } from "@shopify/flash-list";
 import { ScrollView } from "react-native";
 import { ThemedProps } from "./index";
 
+const DEFAULT_ESTIMATED_ITEM_SIZE = 5;
+
 interface ParentContainer {
   parentContainerStyle?: { [p: string]: string };
 }
 
 type ThemedFlashListProps = FlashListProps<any> & ThemedProps & ParentContainer;
-const DEFAULT_ESTIMATED_ITEM_SIZE = 5;
 
 export const ThemedFlashList = forwardRef(
   (props: ThemedFlashListProps, ref: React.Ref<any>): JSX.Element => {
