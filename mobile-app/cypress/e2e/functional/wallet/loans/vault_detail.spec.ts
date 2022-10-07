@@ -98,18 +98,14 @@ context("Wallet - Loans - Vault Details", () => {
     cy.getByTestID("loan_scheme_option_1").click();
     cy.getByTestID("edit_loan_scheme_submit_button").click();
     cy.getByTestID("edit_loan_scheme_title").contains(
-      "You are editing scheme of vault"
+      "You are editing loan scheme of"
     );
     cy.getByTestID("edit_loan_scheme_vault_id").contains(vaultId);
-    cy.getByTestID("text_transaction_type").contains("Edit loan scheme");
     cy.getByTestID("prev_min_col_ratio").contains("150.00");
     cy.getByTestID("prev_vault_interest").contains("5.00");
     cy.getByTestID("new_min_col_ratio").contains("175.00");
     cy.getByTestID("new_vault_interest").contains("3.00");
     cy.getByTestID("button_confirm_edit_loan_scheme").click();
-    cy.getByTestID("txn_authorization_description").contains(
-      "Updating vault to min. collateralization ratio of 175% and interest rate of 3%"
-    );
     cy.closeOceanInterface();
     cy.getByTestID("vault_card_0_min_ratio").contains("175%");
     cy.getByTestID("vault_card_0").click();

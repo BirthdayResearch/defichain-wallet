@@ -49,9 +49,6 @@ export function ConfirmEditLoanSchemeScreenV2({
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
     hasBroadcastQueued(state.ocean)
   );
-  const currentBroadcastJob = useSelector((state: RootState) =>
-    firstTransactionSelector(state.ocean)
-  );
   const dispatch = useAppDispatch();
   const logger = useLogger();
   const [isOnPage, setIsOnPage] = useState<boolean>(true);
@@ -104,7 +101,6 @@ export function ConfirmEditLoanSchemeScreenV2({
         newVaultInterest={loanScheme.interestRate}
         fee={fee}
       />
-
       <View style={tailwind("my-16")}>
         <SubmitButtonGroupV2
           isDisabled={
@@ -142,10 +138,10 @@ function SummaryHeader(props: {
         )}
       </ThemedTextV2>
       <ThemedTextV2
-        testID="edit_loan_scheme_vault_id"
         style={tailwind("text-sm font-normal-v2 mt-5")}
         numberOfLines={1}
         ellipsizeMode="tail"
+        testID="edit_loan_scheme_vault_id"
       >
         {props.vaultId}
       </ThemedTextV2>
@@ -210,7 +206,7 @@ function SummaryTransactionDetails(
               "screens/ConfirmEditLoanSchemeScreen",
               "Prev. min. collateralization"
             ),
-            testID: "transaction_fee",
+            testID: "prev_min_col_ratio_label",
             themedProps: {
               light: tailwind("text-mono-light-v2-500"),
               dark: tailwind("text-mono-dark-v2-500"),
@@ -229,7 +225,7 @@ function SummaryTransactionDetails(
                 "screens/ConfirmEditLoanSchemeScreen",
                 "Prev. interest"
               ),
-              testID: "transaction_fee",
+              testID: "prev_vault_interest_label",
               themedProps: {
                 light: tailwind("text-mono-light-v2-500"),
                 dark: tailwind("text-mono-dark-v2-500"),
@@ -254,7 +250,7 @@ function SummaryTransactionDetails(
               "screens/ConfirmEditLoanSchemeScreen",
               "New min. collateralization"
             ),
-            testID: "transaction_fee",
+            testID: "new_min_col_ratio_label",
             themedProps: {
               light: tailwind("text-mono-light-v2-500"),
               dark: tailwind("text-mono-dark-v2-500"),
@@ -273,7 +269,7 @@ function SummaryTransactionDetails(
                 "screens/ConfirmEditLoanSchemeScreen",
                 "New vault interest"
               ),
-              testID: "transaction_fee",
+              testID: "new_vault_interest_label",
               themedProps: {
                 light: tailwind("text-mono-light-v2-500"),
                 dark: tailwind("text-mono-dark-v2-500"),
@@ -315,7 +311,6 @@ function SummaryTransactionDetails(
             usdTextStyle: tailwind("text-sm"),
             usdContainerStyle: tailwind("pb-0"),
           }}
-          testID="estimated_fee"
         />
       </ThemedViewV2>
     </View>
