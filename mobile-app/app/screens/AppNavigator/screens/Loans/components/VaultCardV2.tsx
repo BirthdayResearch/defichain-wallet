@@ -1,23 +1,24 @@
+import { useMemo } from "react";
+import { View } from "react-native";
+import { useSelector } from "react-redux";
 import BigNumber from "bignumber.js";
-import { ThemedTouchableOpacityV2, ThemedViewV2 } from "@components/themed";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { LoanParamList } from "@screens/AppNavigator/screens/Loans/LoansNavigator";
-import { loanTokensSelector, LoanVault } from "@store/loans";
 import {
   LoanToken,
   LoanVaultActive,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { View } from "react-native";
+import { RootState } from "@store";
+import { loanTokensSelector, LoanVault } from "@store/loans";
+import { LoanParamList } from "@screens/AppNavigator/screens/Loans/LoansNavigator";
 import { useVaultStatus } from "@screens/AppNavigator/screens/Loans/components/VaultStatusTag";
 import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
 import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
-import { BottomSheetNavScreen } from "@components/BottomSheetWithNavV2";
-import { useSelector } from "react-redux";
-import { RootState } from "@store";
-import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";
 import { VaultCardStatus } from "@screens/AppNavigator/screens/Loans/components/VaultCardStatus";
+import { ThemedTouchableOpacityV2, ThemedViewV2 } from "@components/themed";
+import { BottomSheetNavScreen } from "@components/BottomSheetWithNavV2";
+import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";
 import { VaultSectionTextRowV2 } from "./VaultSectionTextRowV2";
 import { VaultBanner } from "./VaultBanner";
 
@@ -94,10 +95,14 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
     });
   };
 
-  const vaultEmpty = vaultState.status === VaultStatus.Empty;
-  const vaultLiquidated = vaultState.status === VaultStatus.Liquidated;
+  const { isVaultEmpty, isVaultLiquidated } = useMemo(() => {
+    return {
+      isVaultEmpty: vaultState.status === VaultStatus.Empty,
+      isVaultLiquidated: vaultState.status === VaultStatus.Liquidated,
+    };
+  }, [vaultState.status]);
 
-  function vaultDescription(): string[] {
+  const vaultBanner = useMemo(() => {
     let text = "";
     let type = "";
     let buttonLabel = "";
@@ -114,18 +119,18 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
       default:
         break;
     }
-    return [buttonLabel, text, type];
-  }
+    return { buttonLabel, text, type };
+  }, [vaultState.status]);
 
   return (
     <View style={tailwind("mb-2")}>
-      {vaultEmpty || vaultLiquidated ? (
+      {isVaultEmpty || isVaultLiquidated ? (
         <VaultBanner
-          buttonLabel={vaultDescription()[0]}
-          description={vaultDescription()[1]}
+          buttonLabel={vaultBanner.buttonLabel}
+          description={vaultBanner.text}
           vaultId={vault.vaultId}
           onButtonPress={onAddCollateralPress}
-          vaultType={vaultDescription()[2]}
+          vaultType={vaultBanner.type}
           onCardPress={onCardPress}
           testID={props.testID}
           vault={vault}
