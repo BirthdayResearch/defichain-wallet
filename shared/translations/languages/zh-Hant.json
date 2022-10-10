@@ -1447,13 +1447,13 @@
     "EMPTY": "清空",
     "READY": "準備中",
     "Add Collateral": "Add Collateral",
-    "Add collateral to borrow": "Add collateral to borrow",
-    "Loan available": "Loan available",
+    "Add collateral to borrow": "添加抵押品作借貸",
+    "Loan available": "可用貸款",
     "Total collateral": "Total collateral",
     "Borrow": "Borrow",
-    "Liquidated vault": "Liquidated vault",
-    "Ready": "Ready",
-    "Halted": "Halted"
+    "Liquidated vault": "已清算金庫",
+    "Ready": "準備好",
+    "Halted": "已暫停"
   },
   "components/EmptyVault": {
     "No vaults": "No vaults",
@@ -1526,7 +1526,8 @@
     "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑價是每項交易中的兌換率變化。選擇您願意接受這滑價百分比 （如下顯示)。",
     "Settlements": "Settlements",
     "Price Oracles": "Price Oracles",
-    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain."
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.",
+    "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)": "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金庫編號",

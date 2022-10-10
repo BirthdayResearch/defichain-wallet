@@ -105,7 +105,7 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
   };
   const title = "Price Oracles";
   const description =
-    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.";
+    "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)";
 
   const oraclePriceSheetSnapPoints = {
     ios: ["30%"],
