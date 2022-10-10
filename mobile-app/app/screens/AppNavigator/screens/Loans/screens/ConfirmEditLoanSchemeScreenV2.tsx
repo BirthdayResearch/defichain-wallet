@@ -210,7 +210,7 @@ function SummaryTransactionDetails(
             },
           }}
           rhs={{
-            value: new BigNumber(props.minColRatio).toFixed(2),
+            value: new BigNumber(props.minColRatio).toFixed(0),
             testID: "prev_min_col_ratio",
             suffix: "%",
           }}
@@ -229,7 +229,7 @@ function SummaryTransactionDetails(
               },
             }}
             rhs={{
-              value: new BigNumber(props.vaultInterest).toFixed(2),
+              value: new BigNumber(props.vaultInterest).toFixed(0),
               testID: "prev_vault_interest",
               suffix: "%",
             }}

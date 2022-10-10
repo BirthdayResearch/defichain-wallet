@@ -101,10 +101,10 @@ context("Wallet - Loans - Vault Details", () => {
       "You are editing loan scheme of"
     );
     cy.getByTestID("edit_loan_scheme_vault_id").contains(vaultId);
-    cy.getByTestID("prev_min_col_ratio").contains("150.00");
-    cy.getByTestID("prev_vault_interest").contains("5.00");
-    cy.getByTestID("new_min_col_ratio").contains("175.00");
-    cy.getByTestID("new_vault_interest").contains("3.00");
+    cy.getByTestID("prev_min_col_ratio").contains("150");
+    cy.getByTestID("prev_vault_interest").contains("5");
+    cy.getByTestID("new_min_col_ratio").contains("175");
+    cy.getByTestID("new_vault_interest").contains("3");
     cy.getByTestID("button_confirm_edit_loan_scheme").click();
     cy.closeOceanInterface();
     cy.getByTestID("vault_card_0_min_ratio").contains("175%");
@@ -112,8 +112,8 @@ context("Wallet - Loans - Vault Details", () => {
     cy.getByTestID("vault_id_section_min_ratio").contains("175%");
     cy.getByTestID("text_vault_interest").contains("3");
     cy.getByTestID("vault_detail_tabs_DETAILS").click();
-    cy.getByTestID("text_min_col_ratio").contains("175.00");
-    cy.getByTestID("text_vault_interest_ratio").contains("3.00");
+    cy.getByTestID("text_min_col_ratio").contains("175");
+    cy.getByTestID("text_vault_interest_ratio").contains("3");
   });
 });
 
