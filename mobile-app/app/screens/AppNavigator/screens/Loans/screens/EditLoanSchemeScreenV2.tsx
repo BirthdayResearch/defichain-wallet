@@ -57,6 +57,7 @@ export function EditLoanSchemeScreenV2({
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
     hasBroadcastQueued(state.ocean)
   );
+
   const onSubmit = (): void => {
     if (
       selectedLoanScheme === undefined ||
@@ -130,7 +131,7 @@ export function EditLoanSchemeScreenV2({
         dark={tailwind("text-mono-dark-v2-500")}
         style={tailwind("font-normal-v2 text-xs mx-5 mt-8")}
       >
-        {translate("screens/EditCollateralScreen", "AVAILABLE SCHEMES")}
+        {translate("screens/EditLoanSchemeScreen", "AVAILABLE SCHEMES")}
       </ThemedTextV2>
       <LoanSchemeOptionsV2
         loanSchemes={filteredLoanSchemes}
@@ -151,7 +152,7 @@ export function EditLoanSchemeScreenV2({
             testID="action_message"
           >
             {translate(
-              "screens/CreateVaultScreen",
+              "screens/EditLoanSchemeScreen",
               "Review full details in the next screen"
             )}
           </ThemedTextV2>
@@ -165,7 +166,7 @@ export function EditLoanSchemeScreenV2({
           hasPendingJob ||
           hasPendingBroadcastJob
         }
-        label={translate("screens/EditLoanSchemeScreen", "CONTINUE")}
+        label={translate("screens/EditLoanSchemeScreen", "Continue")}
         onPress={onSubmit}
         styleProps="mt-0 mx-7"
         testID="edit_loan_scheme_submit_button"
@@ -178,14 +179,14 @@ function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
   const { vault } = props;
   const colRatio = new BigNumber(vault.informativeRatio);
   const minColRatio = new BigNumber(vault.loanScheme.minColRatio);
-  const totalLoanValue = new BigNumber(vault.loanValue);
+  const totalLoanAmount = new BigNumber(vault.loanValue);
   const totalCollateralValue = new BigNumber(vault.collateralValue);
 
   const vaultState = useVaultStatus(
     vault.state,
     colRatio,
     minColRatio,
-    totalLoanValue,
+    totalLoanAmount,
     totalCollateralValue
   );
 
@@ -196,7 +197,7 @@ function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
         dark={tailwind("text-mono-dark-v2-500")}
         style={tailwind("font-normal-v2 text-xs mx-5")}
       >
-        {translate("screens/EditCollateralScreen", "VAULT DETAILS")}
+        {translate("screens/EditLoanSchemeScreen", "VAULT DETAILS")}
       </ThemedTextV2>
       <ThemedViewV2
         light={tailwind("bg-mono-light-v2-00")}
@@ -222,7 +223,7 @@ function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
               ellipsizeMode="middle"
             >
               {translate(
-                "screens/EditCollateralScreen",
+                "screens/EditLoanSchemeScreen",
                 "{{interestRate}}% Interest",
                 {
                   interestRate: vault.loanScheme.interestRate,
@@ -271,7 +272,7 @@ function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
                   style={tailwind("text-sm font-semibold-v2")}
                 >
                   {vault.informativeRatio === "-1"
-                    ? translate("screens/EditCollateralScreen", "{{status}}", {
+                    ? translate("screens/VaultCard", "{{status}}", {
                         status:
                           vaultState.status.charAt(0).toUpperCase() +
                           vaultState.status.slice(1).toLowerCase(),
@@ -288,7 +289,7 @@ function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
             <NumberFormat
               displayType="text"
               suffix="%"
-              prefix={translate("screens/EditCollateralScreen", "min. ")}
+              prefix={translate("screens/EditLoanSchemeScreen", "min. ")}
               renderText={(value: string) => (
                 <ThemedTextV2
                   light={tailwind("text-mono-light-v2-700")}

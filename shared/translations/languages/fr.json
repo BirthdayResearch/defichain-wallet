@@ -1765,8 +1765,14 @@
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "MODIFIER LE SCHÉMA DE PRÊT DU VAULT",
     "Make sure your collateralization ratio is still above your min. collateralization ratio": "Assurez-vous que votre ratio de garantie reste toujours supérieur au ratio de garantie minimum.",
-    "CONTINUE": "SUIVANT",
-    "Confirm your vault details in next screen": "Validez les détails de votre vault à l'étape suivante"
+    "Continue": "Suivant",
+    "Confirm your vault details in next screen": "Validez les détails de votre vault à l'étape suivante",
+    "AVAILABLE SCHEMES": "AVAILABLE SCHEMES",
+    "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
+    "VAULT DETAILS": "DÉTAILS DU VAULT",
+    "{{interestRate}}% Interest": "{{interestRate}}% Interest",
+    "min. ": "min. ",
+    "You can only select a scheme lower than your vault's current collateralization.": "You can only select a scheme lower than your vault's current collateralization."
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "Vous modifiez le schéma du vault",
@@ -1780,7 +1786,15 @@
     "CONFIRM EDIT": "CONFIRMER MODIFICATION",
     "EDITING": "MODIFICATION",
     "CONVERTING": "CONVERSION...",
-    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Mise à jour du vault avec un ratio de garantie minimum de {{mincolRatio}}% et un taux d'intérêt de {{ir}}%."
+    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Mise à jour du vault avec un ratio de garantie minimum de {{mincolRatio}}% et un taux d'intérêt de {{ir}}%.",
+    "Edit": "Edit",
+    "You are editing loan scheme of": "You are editing loan scheme of",
+    "Prev. min. collateralization": "Prev. min. collateralization",
+    "Prev. interest": "Prev. interest",
+    "New min. collateralization": "New min. collateralization",
+    "New vault interest": "New vault interest",
+    "Transaction fee": "Transaction fee",
+    "Editing vault {{vaultId}}": "Editing vault {{vaultId}}"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Ratio de garantie min.",

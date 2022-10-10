@@ -1314,7 +1314,7 @@
   },
   "components/EmptyAuctions": {
     "No auctions": "No auctions",
-    "There are currently no collaterals available for auction.":  "There are currently no collaterals available for auction.",
+    "There are currently no collaterals available for auction.": "There are currently no collaterals available for auction.",
     "No Outbid Auctions": "No Outbid Auctions",
     "You have no outbids yet": "You have no outbids yet",
     "No Leading Bids": "No Leading Bids",
@@ -1759,8 +1759,14 @@
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "更改金庫中的貸款計劃",
     "Make sure your collateralization ratio is still above your min. collateralization ratio": "確保您的抵押率仍然高於您的最低要求抵押率",
-    "CONTINUE": "繼續",
-    "Confirm your vault details in next screen": "請在下一頁確認金庫細項"
+    "Continue": "繼續",
+    "Confirm your vault details in next screen": "請在下一頁確認金庫細項",
+    "AVAILABLE SCHEMES": "AVAILABLE SCHEMES",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "VAULT DETAILS": "VAULT DETAILS",
+    "{{interestRate}}% Interest": "{{interestRate}}% Interest",
+    "min. ": "min. ",
+    "You can only select a scheme lower than your vault's current collateralization.": "You can only select a scheme lower than your vault's current collateralization."
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "正在更改金庫計劃",
@@ -1774,7 +1780,15 @@
     "CONFIRM EDIT": "確認更改",
     "EDITING": "更改中",
     "CONVERTING": "轉換中",
-    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "更新金庫至{{mincolRatio}}%最低抵押率和{{ir}}%年利息"
+    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "更新金庫至{{mincolRatio}}%最低抵押率和{{ir}}%年利息",
+    "Edit": "編輯",
+    "You are editing loan scheme of": "You are editing loan scheme of",
+    "Prev. min. collateralization": "Prev. min. collateralization",
+    "Prev. interest": "Prev. interest",
+    "New min. collateralization": "New min. collateralization",
+    "New vault interest": "New vault interest",
+    "Transaction fee": "Transaction fee",
+    "Editing vault {{vaultId}}": "Editing vault {{vaultId}}"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "最低抵押率",
@@ -1964,7 +1978,7 @@
     "Placed {{amount}} {{token}} quick bid": "Placed {{amount}} {{token}} quick bid",
     "Available": "可發送資金",
     "Transaction fee": "Transaction fee",
-    "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}": "您的出價高於拍賣的抵押品價值 {{currency}}{{amount}}" 
+    "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}": "您的出價高於拍賣的抵押品價值 {{currency}}{{amount}}"
   },
   "components/WalletAddressRow": {
     "Wallet address": "錢包地址"

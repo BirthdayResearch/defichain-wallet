@@ -1339,7 +1339,7 @@
   },
   "components/EmptyAuctions": {
     "No auctions": "No auctions",
-    "There are currently no collaterals available for auction.":  "There are currently no collaterals available for auction.",
+    "There are currently no collaterals available for auction.": "There are currently no collaterals available for auction.",
     "No Outbid Auctions": "No Outbid Auctions",
     "You have no outbids yet": "You have no outbids yet",
     "No Leading Bids": "No Leading Bids",
@@ -1784,8 +1784,14 @@
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "EDITA EL TIPO DE PRESTAMO DE LA BOVEDA",
     "Make sure your collateralization ratio is still above your min. collateralization ratio": "Asegúarate de que el ratio de colateralización está todavía por encima del ratio mínimo de colateralización",
-    "CONTINUE": "CONTINUA",
-    "Confirm your vault details in next screen": "Confirma los detalles de tu bóveda en la siguiente pantalla"
+    "Continue": "Continua",
+    "Confirm your vault details in next screen": "Confirma los detalles de tu bóveda en la siguiente pantalla",
+    "AVAILABLE SCHEMES": "AVAILABLE SCHEMES",
+    "Review full details in the next screen": "Revisa todos los detalles en la próxima pantalla",
+    "VAULT DETAILS": "DETALLES DE LA BÓVEDA",
+    "{{interestRate}}% Interest": "{{interestRate}}% Interest",
+    "min. ": "min. ",
+    "You can only select a scheme lower than your vault's current collateralization.": "You can only select a scheme lower than your vault's current collateralization."
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "Estás editando el tipo de bóveda",
@@ -1799,7 +1805,15 @@
     "CONFIRM EDIT": "CONFIRMA EL CAMBIO",
     "EDITING": "CAMBIANDO",
     "CONVERTING": "CONVIRTIENDO",
-    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Actualizando la bóveda al mínimo ratio de colateralización de {{mincolRatio}}% y el ratio de interés de {{ir}}"
+    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Actualizando la bóveda al mínimo ratio de colateralización de {{mincolRatio}}% y el ratio de interés de {{ir}}",
+    "Edit": "Edit",
+    "You are editing loan scheme of": "You are editing loan scheme of",
+    "Prev. min. collateralization": "Prev. min. collateralization",
+    "Prev. interest": "Prev. interest",
+    "New min. collateralization": "New min. collateralization",
+    "New vault interest": "New vault interest",
+    "Transaction fee": "Transaction fee",
+    "Editing vault {{vaultId}}": "Editing vault {{vaultId}}"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Ratio mínimo de colateralización",

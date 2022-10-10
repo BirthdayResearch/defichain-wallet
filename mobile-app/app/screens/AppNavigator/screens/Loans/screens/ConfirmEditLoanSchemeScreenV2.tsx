@@ -14,11 +14,7 @@ import { RootState } from "@store";
 import { View } from "react-native";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
-import {
-  firstTransactionSelector,
-  hasTxQueued as hasBroadcastQueued,
-} from "@store/ocean";
-import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
+import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { LoanScheme } from "@defichain/whale-api-client/dist/api/loan";
 import {
   NativeLoggingProps,
@@ -139,7 +135,7 @@ function SummaryHeader(props: {
         )}
       </ThemedTextV2>
       <ThemedTextV2
-        style={tailwind("text-sm font-normal-v2 mt-5")}
+        style={tailwind("text-sm font-normal-v2 mt-1")}
         numberOfLines={1}
         ellipsizeMode="tail"
         testID="edit_loan_scheme_vault_id"
@@ -307,12 +303,6 @@ function SummaryTransactionDetails(
               style: tailwind("font-normal-v2 text-sm"),
             },
             testID: "estimated_fee_amount",
-            suffix: " DFI",
-            usdAmount: props.fee.isNaN()
-              ? new BigNumber(0)
-              : new BigNumber(getPrecisedTokenValue(props.fee)),
-            usdTextStyle: tailwind("text-sm"),
-            usdContainerStyle: tailwind("pb-0"),
           }}
         />
       </ThemedViewV2>
