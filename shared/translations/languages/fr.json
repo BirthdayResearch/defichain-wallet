@@ -1283,7 +1283,8 @@
     "Oracle prices": "Prix oracles",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "Avec les oracles, vos vaults et vos prêts s'alignent sur les prix du marché en dehors de la blockchain.",
     "Loan tokens get their prices from oracles.": "Les tokens de prêt obtiennent leurs prix des oracles.",
-    "Search available loan tokens": "Rechercher les tokens de prêt disponibles"
+    "Search available loan tokens": "Rechercher les tokens de prêt disponibles",
+    "Edit Vault": "Modifier le vault"
   },
   "components/tabs": {
     "Browse loan tokens": "Emprunter un token",
@@ -1789,7 +1790,7 @@
     "EDITING": "MODIFICATION",
     "CONVERTING": "CONVERSION...",
     "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Mise à jour du vault avec un ratio de garantie minimum de {{mincolRatio}}% et un taux d'intérêt de {{ir}}%.",
-    "Edit": "Edit",
+    "Edit": "Modifier",
     "You are editing loan scheme of": "Vous modifiez le schéma de prêt de",
     "Prev. min. collateral ratio": "Ratio de garantie min. précédent",
     "Prev. interest": "Intérêt précédent",
