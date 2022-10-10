@@ -14,6 +14,7 @@ import {
 } from "@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatioV2";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
+import { useUnitSuffix } from "@hooks/useUnitSuffix";
 
 export interface VaultCardProgressProps extends React.ComponentProps<any> {
   vault: LoanVaultActive;
@@ -35,6 +36,18 @@ export function VaultCardStatus({
   const { isLight } = useThemeContext();
   const canUseOperations = useLoanOperations(vault?.state);
   const CIRCLE_RADIUS = 58;
+  const isSuffixRequired = new BigNumber(colRatio ?? 0).gte(
+    new BigNumber(1000)
+  );
+  const valueToUnitSuffix = useUnitSuffix(
+    {
+      3: "K",
+      6: "M",
+      9: "B",
+      12: "T",
+    },
+    colRatio
+  );
 
   return (
     <View style={tailwind("flex-wrap flex-col items-center")}>
@@ -120,7 +133,7 @@ export function VaultCardStatus({
                   style={tailwind("font-semibold-v2 text-base text-center")}
                   testID={`${testID}_min_ratio`}
                 >
-                  {value}
+                  {isSuffixRequired ? valueToUnitSuffix : value}
                 </ThemedTextV2>
               )}
             />
