@@ -112,8 +112,8 @@ context("Wallet - Loans - Vault Details", () => {
     cy.getByTestID("vault_id_section_min_ratio").contains("175%");
     cy.getByTestID("text_vault_interest").contains("3");
     cy.getByTestID("vault_detail_tabs_DETAILS").click();
-    cy.getByTestID("text_min_col_ratio").contains("175");
-    cy.getByTestID("text_vault_interest_ratio").contains("3");
+    cy.getByTestID("text_min_col_ratio").contains("175.00");
+    cy.getByTestID("text_vault_interest_ratio").contains("3.00");
   });
 });
 
