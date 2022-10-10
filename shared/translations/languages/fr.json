@@ -1280,7 +1280,6 @@
     "Keep your vaults healthy and green, by monitoring its collateralization.": "Gardez vos vaults sains et verts, en surveillant leur garantie.",
     "Oracle prices": "Prix oracles",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "Avec les oracles, vos vaults et vos prêts s'alignent sur les prix du marché en dehors de la blockchain.",
-    "Loan tokens get their prices from oracles.": "Les tokens de prêt obtiennent leurs prix des oracles.",
     "Search available loan tokens": "Rechercher les tokens de prêt disponibles"
   },
   "components/tabs": {
@@ -2022,5 +2021,9 @@
     "Payback with DUSD collateral": "Remboursement avec garantie DUSD",
     "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Êtes-vous sûr de vouloir rembourser votre prêt en DUSD avec toutes les garanties en DUSD disponibles dans ce vault ?",
     "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Remboursement d'un prêt de {{amountToPayInPaymentToken}} DUSD avec une garantie en DUSD"
+  },
+  "components/PriceOracleInfo": {
+    "All prices displayed are from price oracles.": "Tous les prix affichés proviennent d'oracles de prix.",
+    "Loan tokens get their prices from oracles.": "Les tokens de prêt obtiennent leurs prix des oracles."
   }
 }

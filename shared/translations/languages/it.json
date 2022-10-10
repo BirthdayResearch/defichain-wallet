@@ -1293,7 +1293,6 @@
     "Keep your vaults healthy and green, by monitoring its collateralization.": "Keep your vaults healthy and green, by monitoring its collateralization.",
     "Oracle prices": "Oracle prices",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain.",
-    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
     "Search available loan tokens": "Search available loan tokens"
   },
   "components/tabs": {
@@ -2035,5 +2034,9 @@
     "Payback with DUSD collateral": "Payback with DUSD collateral",
     "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?",
     "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral"
+  },
+  "components/PriceOracleInfo": {
+    "All prices displayed are from price oracles.": "All prices displayed are from price oracles.",
+    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles."
   }
 }

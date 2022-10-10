@@ -262,7 +262,10 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
               testID="vault_banner"
             />
             <View style={tailwind("mt-2 mx-2")}>
-              <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />
+              <PriceOracleInfo
+                onPress={onBottomSheetOraclePriceSelect}
+                text="Loan tokens get their prices from oracles."
+              />
             </View>
           </ThemedViewV2>
         )}
@@ -352,7 +355,10 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
             isSearchFocus &&
             filteredLoanTokens.length > 0) ||
             (!isSearchFocus && filteredLoanTokens.length > 0)) && (
-            <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />
+            <PriceOracleInfo
+              onPress={onBottomSheetOraclePriceSelect}
+              text="Loan tokens get their prices from oracles."
+            />
           )}
 
         {Platform.OS === "web" && (

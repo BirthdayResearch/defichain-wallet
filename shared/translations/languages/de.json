@@ -1268,7 +1268,6 @@
     "Keep your vaults healthy and green, by monitoring its collateralization.": "Sorge dafür, dass deine Vaults gesund und im grünen Bereich bleiben, indem du ihre Besicherung überwachst.",
     "Oracle prices": "Preisorakelwerte",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "Durch Preisorakel passen sich deine Vaults und Darlehen an die Marktpreise außerhalb der Blockchain an.",
-    "Loan tokens get their prices from oracles.": "Darlehenstoken erhalten ihre Preise von Preisorakeln.",
     "Search available loan tokens": "Verfügbare Darlehenstoken suchen"
   },
   "components/tabs": {
@@ -1441,8 +1440,8 @@
     "EMPTY": "LEER",
     "READY": "BEREIT",
     "Add Collateral": "Sicherheiten hinzufügen",
-    "Add collateral to borrow": "Add collateral to borrow",
-    "Loan available": "Loan available",
+    "Add collateral to borrow": "Sicherheiten hinzufügen, um Darlehen aufnehmen zu können",
+    "Loan available": "Darlehen verfügbar",
     "Total collateral": "Gesamter Besicherungswert",
     "Borrow": "Leihen",
     "Liquidated vault": "Liquidierter Vault",
@@ -2008,5 +2007,9 @@
     "Payback with DUSD collateral": "Rückzahlung mit DUSD-Sicherheiten",
     "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Bist du sicher, dass du dein DUSD-Darlehen mit allen verfügbaren DUSD-Sicherheiten in diesem Vault zurückzahlen willst?",
     "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Rückzahlung von {{amountToPayInPaymentToken}} DUSD-Darlehen mit DUSD-Sicherheiten"
+  },
+  "components/PriceOracleInfo": {
+    "All prices displayed are from price oracles.": "Alle angezeigten Preise stammen von Preisorakeln.",
+    "Loan tokens get their prices from oracles.": "Darlehenstoken erhalten ihre Preise von Preisorakeln."
   }
 }
