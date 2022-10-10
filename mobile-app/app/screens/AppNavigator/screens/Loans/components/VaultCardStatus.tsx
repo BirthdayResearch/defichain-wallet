@@ -133,7 +133,7 @@ export function VaultCardStatus({
                   style={tailwind("font-semibold-v2 text-base text-center")}
                   testID={`${testID}_min_ratio`}
                 >
-                  {isSuffixRequired ? valueToUnitSuffix : value}
+                  {isSuffixRequired ? `${valueToUnitSuffix} %` : value}
                 </ThemedTextV2>
               )}
             />
