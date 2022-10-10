@@ -1551,7 +1551,7 @@
     "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "Las fluctuaciones son cambios de tasas que ocurren durante una transacción. Elige cuanta fluctuación estás dispuesto a aceptar.",
     "Settlements": "Asentamientos",
     "Price Oracles": "Precios de oraculos",
-    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Los oraculos proveen precios en tiempo real de fuentes confiables para el uso en DeFiChain"
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Los oraculos proveen precios en tiempo real de fuentes confiables para el uso en DeFiChain",
     "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)": "Los prestamos y los Vaults usan precios agregados obtenidos fuera de la cadena de bloques (llamado precio de oráculo)"
   },
   "screens/VaultDetailScreen": {
@@ -2041,6 +2041,7 @@
     "Payback with DUSD collateral": "Pagar con DUSD del colateral",
     "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Estás seguro de que quieres pagar to préstamo de DUSD con todo tu DUSD disponible en el colateral del Vault?",
     "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Pagando {{amountToPayInPaymentToken}} DUSD del prestamo con DUSD del colateral"
+  },
   "components/PriceOracleInfo": {
     "All prices displayed are from price oracles.": "Todos los precios son provistos por los oráculos",
     "Loan tokens get their prices from oracles.": "Tokens de préstamos toman los precios de los oráculos"
