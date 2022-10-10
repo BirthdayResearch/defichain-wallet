@@ -137,7 +137,7 @@ function SummaryHeader(props: {
       <ThemedTextV2
         style={tailwind("text-sm font-normal-v2 mt-1")}
         numberOfLines={1}
-        ellipsizeMode="tail"
+        ellipsizeMode="middle"
         testID="edit_loan_scheme_vault_id"
       >
         {props.vaultId}
