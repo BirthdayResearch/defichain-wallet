@@ -792,7 +792,9 @@
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Tausch von {{amountA}} {{fromTokenDisplaySymbol}} in {{toTokenDisplaySymbol}} beim Abrechnungsblock {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Entfernen von {{amount}} {{symbol}} aus dem Liquiditätspool",
     "Paying back loan amount of {{amount}} DUSD": "Rückzahlung des Darlehensbetrages von {{amount}} DUSD",
-    "Paid loan amount of {{amount}} DUSD": "Getilgter Darlehensbetrag von {{amount}} DUSD"
+    "Paid loan amount of {{amount}} DUSD": "Getilgter Darlehensbetrag von {{amount}} DUSD",
+    "Editing vault {{vaultId}}": "Vault bearbeiten {{vaultId}}",
+    "Edited vault {{vaultId}}": "Vault bearbeitet {{vaultId}}"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Kameranutzung erlauben",
@@ -1269,7 +1271,8 @@
     "Oracle prices": "Preisorakelwerte",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "Durch Preisorakel passen sich deine Vaults und Darlehen an die Marktpreise außerhalb der Blockchain an.",
     "Loan tokens get their prices from oracles.": "Darlehenstoken erhalten ihre Preise von Preisorakeln.",
-    "Search available loan tokens": "Verfügbare Darlehenstoken suchen"
+    "Search available loan tokens": "Verfügbare Darlehenstoken suchen",
+    "Edit Vault": "Vault bearbeiten"
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehenstoken",
@@ -1754,12 +1757,12 @@
     "Make sure your collateralization ratio is still above your min. collateralization ratio": "Vergewissere dich, dass deine Besicherungsquote immer noch über deiner Mindestbesicherungsquote liegt",
     "Continue": "Continue",
     "Confirm your vault details in next screen": "Bestätige die Daten deines Vaults in der nächsten Ansicht",
-    "AVAILABLE SCHEMES": "AVAILABLE SCHEMES",
+    "AVAILABLE SCHEMES": "ERFÜGBARE DARLEHENSMODELLE",
     "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
     "VAULT DETAILS": "VAULT DETAILS",
-    "{{interestRate}}% Interest": "{{interestRate}}% Interest",
-    "min. ": "min. ",
-    "You can only select a scheme lower than your vault's current collateralization.": "You can only select a scheme lower than your vault's current collateralization."
+    "{{interestRate}}% Interest": "{{interestRate}}% Zins",
+    "min. ": "mind. ",
+    "You can only select a scheme lower than your vault's current collateralization.": "Du kannst nur ein Darlehensmodell wählen, dessen Besicherungsquote niedriger ist die deiner aktuellen Vault-Besicherung."
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "Du bearbeitest das Vault-Modell",
@@ -1774,14 +1777,13 @@
     "EDITING": "BEARBEITEN",
     "CONVERTING": "UMWANDELN",
     "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Aktualisierung des Vaults auf eine Mind. Besicherungsquote von {{mincolRatio}}% und einen Zinssatz von {{ir}}%",
-    "Edit": "Edit",
-    "You are editing loan scheme of": "You are editing loan scheme of",
-    "Prev. min. collateralization": "Prev. min. collateralization",
-    "Prev. interest": "Prev. interest",
-    "New min. collateralization": "New min. collateralization",
-    "New vault interest": "New vault interest",
-    "Transaction fee": "Transaction fee",
-    "Editing vault {{vaultId}}": "Editing vault {{vaultId}}"
+    "Edit": "Bearbeiten",
+    "You are editing loan scheme of": "Du bearbeitest das Darlehensmodell von",
+    "Prev. min. collateral ratio": "Bisherige Mind. Besicherungsquote",
+    "Prev. interest": "Bisheriger Zins",
+    "New min. collateral ratio": "Neue Mind. Besicherungsquote",
+    "New vault interest": "Neuer Vault-Zins",
+    "Transaction fee": "Transaction fee"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Mind. Besicherungsquote",

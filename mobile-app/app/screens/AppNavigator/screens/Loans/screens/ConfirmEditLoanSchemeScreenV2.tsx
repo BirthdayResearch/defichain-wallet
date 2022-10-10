@@ -201,7 +201,7 @@ function SummaryTransactionDetails(
           lhs={{
             value: translate(
               "screens/ConfirmEditLoanSchemeScreen",
-              "Prev. min. collateralization"
+              "Prev. min. collateral ratio"
             ),
             testID: "prev_min_col_ratio_label",
             themedProps: {
@@ -245,7 +245,7 @@ function SummaryTransactionDetails(
           lhs={{
             value: translate(
               "screens/ConfirmEditLoanSchemeScreen",
-              "New min. collateralization"
+              "New min. collateral ratio"
             ),
             testID: "new_min_col_ratio_label",
             themedProps: {

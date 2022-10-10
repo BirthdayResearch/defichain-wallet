@@ -810,7 +810,9 @@
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool",
     "Paying back loan amount of {{amount}} DUSD": "Paying back loan amount of {{amount}} DUSD",
-    "Paid loan amount of {{amount}} DUSD": "Paid loan amount of {{amount}} DUSD"
+    "Paid loan amount of {{amount}} DUSD": "Paid loan amount of {{amount}} DUSD",
+    "Editing vault {{vaultId}}": "Editing vault {{vaultId}}",
+    "Edited vault {{vaultId}}": "Edited vault {{vaultId}}"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Richiesta di accesso alla fotocamera",
@@ -1802,12 +1804,11 @@
     "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Aggiornamento del vault al rapporto minimo di collateralizzazione di {{mincolRatio}}% e al tasso di interesse di {{ir}}%",
     "Edit": "Edit",
     "You are editing loan scheme of": "You are editing loan scheme of",
-    "Prev. min. collateralization": "Prev. min. collateralization",
+    "Prev. min. collateral ratio": "Prev. min. collateral ratio",
     "Prev. interest": "Prev. interest",
-    "New min. collateralization": "New min. collateralization",
+    "New min. collateral ratio": "New min. collateral ratio",
     "New vault interest": "New vault interest",
-    "Transaction fee": "Transaction fee",
-    "Editing vault {{vaultId}}": "Editing vault {{vaultId}}"
+    "Transaction fee": "Transaction fee"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Rapporto minimo di collateralizzazione",
