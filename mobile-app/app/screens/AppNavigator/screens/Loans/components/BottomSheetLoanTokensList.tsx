@@ -8,8 +8,10 @@ import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { memo } from "react";
+import { Platform } from "react-native";
 import * as React from "react";
 import { NumericFormat as NumberFormat } from "react-number-format";
+import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { getPrecisedTokenValue } from "../../Auctions/helpers/precision-token-value";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { TokenIcon } from "../../Portfolio/components/TokenIcon";
@@ -18,14 +20,25 @@ import { TokenNameText } from "../../Portfolio/components/TokenNameText";
 export const BottomSheetLoanTokensList = ({
   onPress,
   loanTokens,
+  isLight,
 }: {
   onPress: (item: LoanToken) => void;
   loanTokens: LoanToken[];
-}): React.MemoExoticComponent<() => JSX.Element> =>
-  memo(() => {
+  isLight: boolean;
+}): React.MemoExoticComponent<() => JSX.Element> => {
+  const flatListComponents = {
+    mobile: BottomSheetFlatList,
+    web: ThemedFlatListV2,
+  };
+  const FlatList =
+    Platform.OS === "web" ? flatListComponents.web : flatListComponents.mobile;
+  return memo(() => {
     return (
-      <ThemedFlatListV2
-        contentContainerStyle={tailwind("px-5 pb-12")}
+      <FlatList
+        contentContainerStyle={tailwind("px-5 pb-12", {
+          "bg-mono-light-v2-100": isLight,
+          "bg-mono-dark-v2-100": !isLight,
+        })}
         testID="swap_token_selection_screen"
         data={loanTokens}
         keyExtractor={(item) => item.tokenId}
@@ -113,3 +126,4 @@ export const BottomSheetLoanTokensList = ({
       />
     );
   });
+};

@@ -138,7 +138,7 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
     setBottomSheetScreen([
       {
         stackScreenName: "LoanTokensList",
-        component: BottomSheetLoanTokensList({ onPress, loanTokens }),
+        component: BottomSheetLoanTokensList({ onPress, loanTokens, isLight }),
         option: BottomSheetHeader,
       },
     ]);
