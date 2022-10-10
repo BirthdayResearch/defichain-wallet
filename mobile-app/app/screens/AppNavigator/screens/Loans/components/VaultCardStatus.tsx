@@ -8,7 +8,6 @@ import { LoanVaultActive } from "@defichain/whale-api-client/dist/api/loan";
 import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
 import { translate } from "@translations";
 import { Platform } from "react-native";
-import { Logging } from "@api";
 import {
   getVaultStatusColor,
   getVaultStatusText,
