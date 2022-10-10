@@ -1293,7 +1293,6 @@
     "Keep your vaults healthy and green, by monitoring its collateralization.": "Keep your vaults healthy and green, by monitoring its collateralization.",
     "Oracle prices": "Oracle prices",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain.",
-    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
     "Search available loan tokens": "Search available loan tokens"
   },
   "components/tabs": {
@@ -1335,7 +1334,7 @@
   },
   "components/EmptyAuctions": {
     "No auctions": "No auctions",
-    "There are currently no collaterals available for auction.":  "There are currently no collaterals available for auction.",
+    "There are currently no collaterals available for auction.": "There are currently no collaterals available for auction.",
     "No Outbid Auctions": "No Outbid Auctions",
     "You have no outbids yet": "You have no outbids yet",
     "No Leading Bids": "No Leading Bids",
@@ -1465,7 +1464,15 @@
     "IN LIQUIDATION": "IN LIQUIDAZIONE",
     "EMPTY": "VUOTO",
     "READY": "PRONTO",
-    "EDIT COLLATERAL": "MODIFICA I COLLATERALI"
+    "EDIT COLLATERAL": "MODIFICA I COLLATERALI",
+    "Add Collateral": "Add Collateral",
+    "Add collateral to borrow": "Add collateral to borrow",
+    "Loan available": "Loan available",
+    "Total collateral": "Total collateral",
+    "Borrow": "Borrow",
+    "Liquidated vault": "Liquidated vault",
+    "Ready": "Ready",
+    "Halted": "Halted"
   },
   "components/EmptyVault": {
     "No vaults": "No vaults",
@@ -1538,7 +1545,8 @@
     "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "Lo slippage è una differenza di prezzo che si verifica durante una negoziazione su DEX. Scegli la percentuale di slippage che sei disposto ad accettare.",
     "Settlements": "Settlements",
     "Price Oracles": "Price Oracles",
-    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain."
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.",
+    "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)": "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault ID",
@@ -2027,5 +2035,9 @@
     "Payback with DUSD collateral": "Payback with DUSD collateral",
     "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?",
     "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral"
+  },
+  "components/PriceOracleInfo": {
+    "All prices displayed are from price oracles.": "All prices displayed are from price oracles.",
+    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles."
   }
 }

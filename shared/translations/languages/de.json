@@ -1268,7 +1268,6 @@
     "Keep your vaults healthy and green, by monitoring its collateralization.": "Sorge dafür, dass deine Vaults gesund und im grünen Bereich bleiben, indem du ihre Besicherung überwachst.",
     "Oracle prices": "Preisorakelwerte",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "Durch Preisorakel passen sich deine Vaults und Darlehen an die Marktpreise außerhalb der Blockchain an.",
-    "Loan tokens get their prices from oracles.": "Darlehenstoken erhalten ihre Preise von Preisorakeln.",
     "Search available loan tokens": "Verfügbare Darlehenstoken suchen"
   },
   "components/tabs": {
@@ -1439,7 +1438,15 @@
     "HALTED": "GESTOPPT",
     "IN LIQUIDATION": "IN LIQUIDATION",
     "EMPTY": "LEER",
-    "READY": "BEREIT"
+    "READY": "BEREIT",
+    "Add Collateral": "Sicherheiten hinzufügen",
+    "Add collateral to borrow": "Sicherheiten hinzufügen, um Darlehen aufnehmen zu können",
+    "Loan available": "Darlehen verfügbar",
+    "Total collateral": "Gesamter Besicherungswert",
+    "Borrow": "Leihen",
+    "Liquidated vault": "Liquidierter Vault",
+    "Ready": "Bereit",
+    "Halted": "Gestoppt"
   },
   "components/EmptyVault": {
     "No vaults": "Keine Vaults",
@@ -1512,7 +1519,8 @@
     "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "Slippage sind Kursänderungen, die innerhalb eines Auftragsvorgangs auftreten. Beachte, dass die Slippage-Toleranz auch die DEX-Stabilisierungsgebühren beinhaltet. Wähle aus, wie viel Slippage du zu akzeptieren bereit bist.",
     "Settlements": "Abrechnungen",
     "Price Oracles": "Preisorakel",
-    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Die Preisorakel liefern Preisdaten in Echtzeit aus vertrauenswürdigen Quellen, die in die DeFiChain übernommen werden."
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Die Preisorakel liefern Preisdaten in Echtzeit aus vertrauenswürdigen Quellen, die in die DeFiChain übernommen werden.",
+    "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)": "Darlehen und Vaults verwenden aggregierte Marktpreise außerhalb der Blockchain (sogenannte Preisorakel)."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
@@ -2000,5 +2008,9 @@
     "Payback with DUSD collateral": "Rückzahlung mit DUSD-Sicherheiten",
     "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Bist du sicher, dass du dein DUSD-Darlehen mit allen verfügbaren DUSD-Sicherheiten in diesem Vault zurückzahlen willst?",
     "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Rückzahlung von {{amountToPayInPaymentToken}} DUSD-Darlehen mit DUSD-Sicherheiten"
+  },
+  "components/PriceOracleInfo": {
+    "All prices displayed are from price oracles.": "Alle angezeigten Preise stammen von Preisorakeln.",
+    "Loan tokens get their prices from oracles.": "Darlehenstoken erhalten ihre Preise von Preisorakeln."
   }
 }

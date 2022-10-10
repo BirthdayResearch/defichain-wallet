@@ -1314,7 +1314,7 @@
   },
   "components/EmptyAuctions": {
     "No auctions": "No auctions",
-    "There are currently no collaterals available for auction.":  "There are currently no collaterals available for auction.",
+    "There are currently no collaterals available for auction.": "There are currently no collaterals available for auction.",
     "No Outbid Auctions": "No Outbid Auctions",
     "You have no outbids yet": "You have no outbids yet",
     "No Leading Bids": "No Leading Bids",
@@ -1444,7 +1444,15 @@
     "HALTED": "停止",
     "IN LIQUIDATION": "清算中",
     "EMPTY": "清空",
-    "READY": "准备中"
+    "READY": "准备中",
+    "Add Collateral": "Add Collateral",
+    "Add collateral to borrow": "添加抵押品作借贷",
+    "Loan available": "可用贷款",
+    "Total collateral": "Total collateral",
+    "Borrow": "Borrow",
+    "Liquidated vault": "已清算金库",
+    "Ready": "准备好",
+    "Halted": "已暂停"
   },
   "components/EmptyVault": {
     "No vaults": "No vaults",
@@ -1517,7 +1525,8 @@
     "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑价是每项交易中的兑换率变化。选择您愿意接受这滑价的多少百分比（如下显示)。",
     "Settlements": "Settlements",
     "Price Oracles": "Price Oracles",
-    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain."
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.",
+    "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)": "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金库编号",
@@ -2010,5 +2019,9 @@
     "Payback with DUSD collateral": "Payback with DUSD collateral",
     "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?",
     "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral"
+  },
+  "components/PriceOracleInfo": {
+    "All prices displayed are from price oracles.": "All prices displayed are from price oracles.",
+    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles."
   }
 }

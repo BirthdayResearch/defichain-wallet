@@ -6,7 +6,7 @@ export function useUnitSuffix(
 ): string {
   const _value = new BigNumber(value);
   const places = _value.e !== null ? Math.floor(_value.e / 3) : 0;
-  const suffix = ` ${units[places * 3] ?? ""}`;
+  const suffix = `${units[places * 3] ?? ""}`;
 
   return _value.dividedBy(1000 ** places).toFormat(2, {
     decimalSeparator: ".",
