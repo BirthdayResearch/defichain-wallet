@@ -164,7 +164,6 @@ function getProgress(
   const currentValue = new BigNumber(collateralizationRatio)
     .minus(minColRatio)
     .dividedBy(new BigNumber(maxRatio).minus(minColRatio));
-  Logging.info(`currentValue: ${currentValue}`);
 
   if (currentValue.gt(1)) {
     return 1;
