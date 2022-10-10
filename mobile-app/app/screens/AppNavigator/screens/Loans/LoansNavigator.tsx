@@ -286,12 +286,8 @@ export function LoansNavigator(): JSX.Element {
         component={PaybackLoanScreen}
         name="PaybackLoanScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/LoansScreen", "Payback Loan")}
-            />
-          ),
+          ...screenOptions,
+          headerTitle: translate("screens/LoansScreen", "Payback Loan"),
         }}
       />
       <LoansStack.Screen
