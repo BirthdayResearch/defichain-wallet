@@ -38,26 +38,33 @@ export function VaultCardStatus({
 
   return (
     <View style={tailwind("flex-wrap flex-col items-center")}>
-      <CircularProgress
-        radius={CIRCLE_RADIUS}
-        value={
-          vaultStatus === VaultStatus.Ready ||
-          vaultStatus === VaultStatus.Halted
-            ? 1
-            : getProgress(colRatio, minColRatio)
-        }
-        maxValue={1}
-        showProgressValue={false}
-        activeStrokeWidth={3}
-        activeStrokeColor={getVaultStatusColor(vaultStatus, isLight)}
-        inActiveStrokeWidth={3}
-        inActiveStrokeColor={getColor(
-          isLight ? "mono-light-v2-100" : "mono-dark-v2-100"
-        )}
-        clockwise={false}
-      />
+      {Platform.OS !== "web" && (
+        <CircularProgress
+          radius={CIRCLE_RADIUS}
+          value={
+            vaultStatus === VaultStatus.Ready ||
+            vaultStatus === VaultStatus.Halted
+              ? 1
+              : getProgress(colRatio, minColRatio)
+          }
+          maxValue={1}
+          showProgressValue={false}
+          activeStrokeWidth={3}
+          activeStrokeColor={getVaultStatusColor(vaultStatus, isLight)}
+          inActiveStrokeWidth={3}
+          inActiveStrokeColor={getColor(
+            isLight ? "mono-light-v2-100" : "mono-dark-v2-100"
+          )}
+          clockwise={false}
+        />
+      )}
       <View
-        style={[tailwind("h-full absolute"), { maxHeight: CIRCLE_RADIUS * 2 }]}
+        style={[
+          tailwind("h-full", {
+            absolute: Platform.OS !== "web",
+          }),
+          { maxHeight: CIRCLE_RADIUS * 2 },
+        ]}
       >
         <View style={tailwind("flex-1 items-center justify-end px-2")}>
           <ThemedTextV2
