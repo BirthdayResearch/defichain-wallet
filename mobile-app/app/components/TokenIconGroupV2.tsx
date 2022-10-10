@@ -2,8 +2,6 @@ import { View } from "@components";
 import { tailwind } from "@tailwind";
 import BigNumber from "bignumber.js";
 import { SymbolIcon } from "@components/SymbolIcon";
-import { translate } from "@translations";
-import { ThemedTextV2 } from "./themed";
 
 interface TokenIconGroupV2Props {
   symbols: string[];
@@ -34,13 +32,23 @@ export function TokenIconGroupV2(props: TokenIconGroupV2Props): JSX.Element {
               key={symbol}
               style={[
                 tailwind("rounded-full p-px relative"),
-                { left: index * -10, zIndex: index * -1 },
+                {
+                  left: index * -10,
+                  zIndex: index * -1,
+                },
               ]}
             >
               <SymbolIcon
                 key={symbol}
                 symbol={symbol}
-                styleProps={{ width: props.size, height: props.size }}
+                styleProps={
+                  props.size !== undefined
+                    ? {
+                        width: props.size,
+                        height: props.size,
+                      }
+                    : undefined
+                }
               />
             </View>
           );

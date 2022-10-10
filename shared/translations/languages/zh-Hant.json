@@ -1314,7 +1314,7 @@
   },
   "components/EmptyAuctions": {
     "No auctions": "No auctions",
-    "There are currently no collaterals available for auction.":  "There are currently no collaterals available for auction.",
+    "There are currently no collaterals available for auction.": "There are currently no collaterals available for auction.",
     "No Outbid Auctions": "No Outbid Auctions",
     "You have no outbids yet": "You have no outbids yet",
     "No Leading Bids": "No Leading Bids",
@@ -1446,7 +1446,15 @@
     "HALTED": "停止",
     "IN LIQUIDATION": "清算中",
     "EMPTY": "清空",
-    "READY": "準備中"
+    "READY": "準備中",
+    "Add Collateral": "Add Collateral",
+    "Add collateral to borrow": "Add collateral to borrow",
+    "Loan available": "Loan available",
+    "Total collateral": "Total collateral",
+    "Borrow": "Borrow",
+    "Liquidated vault": "Liquidated vault",
+    "Ready": "Ready",
+    "Halted": "Halted"
   },
   "components/EmptyVault": {
     "No vaults": "No vaults",
@@ -1964,7 +1972,7 @@
     "Placed {{amount}} {{token}} quick bid": "Placed {{amount}} {{token}} quick bid",
     "Available": "可發送資金",
     "Transaction fee": "Transaction fee",
-    "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}": "您的出價高於拍賣的抵押品價值 {{currency}}{{amount}}" 
+    "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}": "您的出價高於拍賣的抵押品價值 {{currency}}{{amount}}"
   },
   "components/WalletAddressRow": {
     "Wallet address": "錢包地址"

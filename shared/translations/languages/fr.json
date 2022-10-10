@@ -1451,7 +1451,15 @@
     "HALTED": "INTERROMPU",
     "IN LIQUIDATION": "EN LIQUIDATION",
     "EMPTY": "VIDE",
-    "READY": "PARÉ"
+    "READY": "PARÉ",
+    "Add Collateral": "Ajouter des garanties",
+    "Add collateral to borrow": "Add collateral to borrow",
+    "Loan available": "Loan available",
+    "Total collateral": "Total des garanties",
+    "Borrow": "Emprunter",
+    "Liquidated vault": "Vault liquidé",
+    "Ready": "Prêt",
+    "Halted": "Intérrompu"
   },
   "components/EmptyVault": {
     "No vaults": "Aucun vault",

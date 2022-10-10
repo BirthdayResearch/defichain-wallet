@@ -117,7 +117,10 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
     setBottomSheetScreen([
       {
         stackScreenName: "OraclePriceInfo",
-        component: BottomSheetModalInfo({ title, description }),
+        component: BottomSheetModalInfo({
+          title,
+          description,
+        }),
         option: BottomSheetHeader,
       },
     ]);
