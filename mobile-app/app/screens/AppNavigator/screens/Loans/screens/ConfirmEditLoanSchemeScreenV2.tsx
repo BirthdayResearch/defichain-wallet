@@ -303,6 +303,7 @@ function SummaryTransactionDetails(
               style: tailwind("font-normal-v2 text-sm"),
             },
             testID: "estimated_fee_amount",
+            suffix: " DFI",
           }}
         />
       </ThemedViewV2>
