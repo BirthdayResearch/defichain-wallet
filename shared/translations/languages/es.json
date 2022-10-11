@@ -1796,7 +1796,7 @@
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "EDITA EL TIPO DE PRESTAMO DE LA VAULT",
     "Make sure your collateralization ratio is still above your min. collateralization ratio": "Asegúarate de que el ratio de colateralización está todavía por encima del ratio mínimo de colateralización",
-    "Continue": "Continua",
+    "Continue": "Continúa",
     "Confirm your vault details in next screen": "Confirma los detalles de tu Vault en la siguiente pantalla",
     "AVAILABLE SCHEMES": "AVAILABLE SCHEMES",
     "Review full details in the next screen": "Revisa todos los detalles en la próxima pantalla",
