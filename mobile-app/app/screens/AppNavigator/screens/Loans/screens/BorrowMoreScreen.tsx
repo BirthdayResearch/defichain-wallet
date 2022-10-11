@@ -36,7 +36,7 @@ import { useResultingCollateralRatio } from "../hooks/CollateralPrice";
 import { TransactionDetailsSection } from "./BorrowLoanTokenScreen";
 import { LoanParamList } from "../LoansNavigator";
 import { useVaultStatus, VaultStatusTag } from "../components/VaultStatusTag";
-import { useMaxLoanAmount } from "../hooks/MaxLoanAmount";
+import { useMaxLoan } from "../hooks/MaxLoanAmount";
 import { useCollateralizationRatioColor } from "../hooks/CollateralizationRatio";
 
 type Props = StackScreenProps<LoanParamList, "BorrowMoreScreen">;
@@ -85,6 +85,16 @@ export function BorrowMoreScreen({ route, navigation }: Props): JSX.Element {
   );
   const canUseOperations = useLoanOperations(vault?.state);
 
+  const maxLoanAmount = useMaxLoan({
+    totalCollateralValue: new BigNumber(vault.collateralValue),
+    collateralAmounts: vault.collateralAmounts,
+    existingLoanValue: new BigNumber(vault.loanValue),
+    minColRatio: new BigNumber(vault.loanScheme.minColRatio),
+    loanActivePrice: new BigNumber(
+      getActivePrice(loanToken?.token.symbol ?? "", loanToken?.activePrice)
+    ),
+    interestPerBlock: interestPerBlock ?? new BigNumber(NaN),
+  });
   // Form update
   const [inputValidationMessage, setInputValidationMessage] = useState("");
   const isFormValid = (): boolean => {
@@ -233,7 +243,7 @@ export function BorrowMoreScreen({ route, navigation }: Props): JSX.Element {
         <VaultInput
           vault={vault}
           loanToken={loanToken}
-          interestPerBlock={interestPerBlock}
+          maxLoanAmount={maxLoanAmount}
           displayMaxLoanAmount
         />
       </View>
@@ -278,19 +288,10 @@ export function BorrowMoreScreen({ route, navigation }: Props): JSX.Element {
       </View>
       <TransactionDetailsSection
         vault={vault}
-        amountToBorrowInToken={new BigNumber(amountToAdd.amountInToken)}
-        resultingColRatio={resultingColRatio}
-        vaultInterestRate={new BigNumber(vault.loanScheme.interestRate)}
-        loanTokenInterestRate={new BigNumber(loanToken.interest)}
-        loanTokenDisplaySymbol={loanToken.token.displaySymbol}
-        totalInterestAmount={totalAnnualInterest}
-        totalLoanWithInterest={totalLoanWithInterest}
-        loanTokenPrice={
-          new BigNumber(
-            getActivePrice(loanToken.token.symbol, loanToken.activePrice)
-          )
-        }
+        loanToken={loanToken}
+        maxLoanAmount={maxLoanAmount}
         fee={fee}
+        totalAnnualInterest={totalAnnualInterest}
       />
       <Button
         disabled={
@@ -328,14 +329,14 @@ interface VaultInputProps {
   vault: LoanVaultActive;
   loanToken?: LoanToken;
   displayMaxLoanAmount?: boolean;
-  interestPerBlock?: BigNumber;
+  maxLoanAmount: BigNumber;
 }
 
 export function VaultInput({
   vault,
   loanToken,
   displayMaxLoanAmount = false,
-  interestPerBlock,
+  maxLoanAmount,
 }: VaultInputProps): JSX.Element {
   const vaultState = useVaultStatus(
     vault.state,
@@ -362,16 +363,6 @@ export function VaultInput({
     message:
       "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.",
   };
-
-  const maxLoanAmount = useMaxLoanAmount({
-    totalCollateralValue: new BigNumber(vault.collateralValue),
-    existingLoanValue: new BigNumber(vault.loanValue),
-    minColRatio: new BigNumber(vault.loanScheme.minColRatio),
-    loanActivePrice: new BigNumber(
-      getActivePrice(loanToken?.token.symbol ?? "", loanToken?.activePrice)
-    ),
-    interestPerBlock: interestPerBlock ?? new BigNumber(NaN),
-  });
 
   return (
     <ThemedView

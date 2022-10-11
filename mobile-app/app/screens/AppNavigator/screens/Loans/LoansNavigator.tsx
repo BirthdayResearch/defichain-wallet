@@ -246,12 +246,11 @@ export function LoansNavigator(): JSX.Element {
         component={BorrowLoanTokenScreen}
         name="BorrowLoanTokenScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/LoansScreen", "Borrow Loan Token")}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
+          headerTitle: translate("screens/LoansScreen", "Borrow"),
         }}
       />
       <LoansStack.Screen
