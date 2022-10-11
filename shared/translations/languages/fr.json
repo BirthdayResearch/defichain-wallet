@@ -804,7 +804,9 @@
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Échanger {{amountA}} {{fromTokenDisplaySymbol}} à {{toTokenDisplaySymbol}} sur le bloc de règlement {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Retrait de {{amount}} {{symbol}} du pool de liquidité",
     "Paying back loan amount of {{amount}} DUSD": "Remboursement d'un prêt de {{amount}} DUSD",
-    "Paid loan amount of {{amount}} DUSD": "{{amount}} DUSD du prêt remboursés"
+    "Paid loan amount of {{amount}} DUSD": "{{amount}} DUSD du prêt remboursés",
+    "Editing vault {{vaultId}}": "Modification du vault {{vaultId}}",
+    "Edited vault {{vaultId}}": "Vault modifié {{vaultId}}"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Demande d'accès à votre caméra",
@@ -1219,9 +1221,9 @@
     "Locked": "Verrouillés",
     "Available": "Disponibles",
     "as UTXO": "comme UTXO",
-    "as Token": "comme Token",
+    "as Token": "comme token",
     "As UTXO": "Comme UTXO",
-    "As Token": "Comme Token",
+    "As Token": "Comme token",
     "Your pool shares": "Mes parts de pool",
     "Shares in {{token}}": "Parts en {{token}}",
     "Your LP tokens": "Mes tokens PL",
@@ -1281,7 +1283,8 @@
     "Oracle prices": "Prix oracles",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "Avec les oracles, vos vaults et vos prêts s'alignent sur les prix du marché en dehors de la blockchain.",
     "Loan tokens get their prices from oracles.": "Les tokens de prêt obtiennent leurs prix des oracles.",
-    "Search available loan tokens": "Rechercher les tokens de prêt disponibles"
+    "Search available loan tokens": "Rechercher les tokens de prêt disponibles",
+    "Edit Vault": "Modifier le vault"
   },
   "components/tabs": {
     "Browse loan tokens": "Emprunter un token",
@@ -1451,7 +1454,15 @@
     "HALTED": "INTERROMPU",
     "IN LIQUIDATION": "EN LIQUIDATION",
     "EMPTY": "VIDE",
-    "READY": "PARÉ"
+    "READY": "PARÉ",
+    "Add Collateral": "Ajouter des garanties",
+    "Add collateral to borrow": "Add collateral to borrow",
+    "Loan available": "Loan available",
+    "Total collateral": "Total des garanties",
+    "Borrow": "Emprunter",
+    "Liquidated vault": "Vault liquidé",
+    "Ready": "Prêt",
+    "Halted": "Intérrompu"
   },
   "components/EmptyVault": {
     "No vaults": "Aucun vault",
@@ -1524,7 +1535,8 @@
     "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "Le glissement est une différence de cours qui se produit lors d'une transaction sur un DEX. Notez que la tolérance de glissement inclut également les frais de stabilisation DEX. Donnez le montant de ce glissement que vous êtes prêt à accepter.",
     "Settlements": "Règlements",
     "Price Oracles": "Prix oracles",
-    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Les Oracles fournissent des points de données de prix en temps réel à partir de sources fiables, pour les refléter sur DeFiChain."
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Les Oracles fournissent des points de données de prix en temps réel à partir de sources fiables, pour les refléter sur DeFiChain.",
+    "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)": "Les prêts et les vaults utilisent des prix de marché agrégés en dehors de la blockchain (appelés oracles de prix)."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "N° de vault",
@@ -1765,8 +1777,14 @@
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "MODIFIER LE SCHÉMA DE PRÊT DU VAULT",
     "Make sure your collateralization ratio is still above your min. collateralization ratio": "Assurez-vous que votre ratio de garantie reste toujours supérieur au ratio de garantie minimum.",
-    "CONTINUE": "SUIVANT",
-    "Confirm your vault details in next screen": "Validez les détails de votre vault à l'étape suivante"
+    "Continue": "Suivant",
+    "Confirm your vault details in next screen": "Validez les détails de votre vault à l'étape suivante",
+    "AVAILABLE SCHEMES": "SCHÉMAS DISPONIBLES",
+    "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
+    "VAULT DETAILS": "DÉTAILS DU VAULT",
+    "{{interestRate}}% Interest": "{{interestRate}}% d'intérêt",
+    "min. ": "min. ",
+    "You can only select a scheme lower than your vault's current collateralization.": "Vous ne pouvez choisir qu'un schéma de prêt dont le ratio de garantie est inférieur à celui de votre garantie vault actuelle."
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "Vous modifiez le schéma du vault",
@@ -1780,7 +1798,14 @@
     "CONFIRM EDIT": "CONFIRMER MODIFICATION",
     "EDITING": "MODIFICATION",
     "CONVERTING": "CONVERSION...",
-    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Mise à jour du vault avec un ratio de garantie minimum de {{mincolRatio}}% et un taux d'intérêt de {{ir}}%."
+    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Mise à jour du vault avec un ratio de garantie minimum de {{mincolRatio}}% et un taux d'intérêt de {{ir}}%.",
+    "Edit": "Modifier",
+    "You are editing loan scheme of": "Vous modifiez le schéma de prêt de",
+    "Prev. min. collateral ratio": "Ratio de garantie min. précédent",
+    "Prev. interest": "Intérêt précédent",
+    "New min. collateral ratio": "Nouveau ratio de garantie min.",
+    "New vault interest": "Nouveau intérêt vault",
+    "Transaction fee": "Transaction fee"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Ratio de garantie min.",
@@ -2014,5 +2039,9 @@
     "Payback with DUSD collateral": "Remboursement avec garantie DUSD",
     "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Êtes-vous sûr de vouloir rembourser votre prêt en DUSD avec toutes les garanties en DUSD disponibles dans ce vault ?",
     "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Remboursement d'un prêt de {{amountToPayInPaymentToken}} DUSD avec une garantie en DUSD"
+  },
+  "components/PriceOracleInfo": {
+    "All prices displayed are from price oracles.": "Tous les prix affichés proviennent d'oracles de prix.",
+    "Loan tokens get their prices from oracles.": "Les tokens de prêt obtiennent leurs prix des oracles."
   }
 }
