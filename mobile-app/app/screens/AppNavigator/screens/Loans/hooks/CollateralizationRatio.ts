@@ -68,12 +68,12 @@ export function useCollateralizationRatioColorV2(
   props: CollateralizationRatioProps
 ): string {
   const stats = useCollateralRatioStats(props);
-  let ratioColor = "";
+  let ratioColor;
   if (stats.isInLiquidation) {
     ratioColor = "red-v2";
   } else if (stats.isAtRisk) {
     ratioColor = "orange-v2";
-  } else if (stats.isHealthy) {
+  } else {
     ratioColor = "green-v2";
   }
   return ratioColor;
