@@ -35,11 +35,11 @@ import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/he
 import { useToast } from "react-native-toast-notifications";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { ButtonV2 } from "@components/ButtonV2";
-import { RHFTextInput } from "@components/RHFTextInput";
 import { AuctionsParamList } from "../AuctionNavigator";
 import { useAuctionBidValue } from "../hooks/AuctionBidValue";
 import { useAuctionTime } from "../hooks/AuctionTimeLeft";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
+import { ControlledTextInput } from "../../Loans/components/ControlledTextInput";
 
 type Props = StackScreenProps<AuctionsParamList, "PlaceBidScreen">;
 
@@ -174,7 +174,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
             )}
           >
             <View style={tailwind("w-6/12 mr-2")}>
-              <RHFTextInput
+              <ControlledTextInput
                 name="bidAmount"
                 control={control}
                 testID="text_input_bid_amount"

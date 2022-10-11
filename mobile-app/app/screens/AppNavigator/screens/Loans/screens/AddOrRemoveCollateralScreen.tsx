@@ -28,7 +28,6 @@ import {
 } from "@components/TransactionCard";
 import { useToast } from "react-native-toast-notifications";
 import { useForm } from "react-hook-form";
-import { RHFTextInput } from "@components/RHFTextInput";
 import {
   TokenDropdownButton,
   TokenDropdownButtonStatus,
@@ -65,6 +64,7 @@ import {
   useValidCollateralRatio,
 } from "../hooks/CollateralPrice";
 import { CollateralItem } from "../screens/EditCollateralScreen";
+import { ControlledTextInput } from "../components/ControlledTextInput";
 
 type Props = StackScreenProps<LoanParamList, "AddOrRemoveCollateralScreen">;
 
@@ -416,7 +416,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
             )}
           >
             <View style={tailwind("w-6/12 mr-2")}>
-              <RHFTextInput
+              <ControlledTextInput
                 name="collateralAmount"
                 control={control}
                 testID="text_input_collateral_amount"
