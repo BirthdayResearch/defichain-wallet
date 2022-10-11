@@ -51,6 +51,7 @@ import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { VaultSectionTextRow } from "../components/VaultSectionTextRow";
 import { LoanParamList } from "../LoansNavigator";
+import { BottomSheetTokenListHeader } from "../components/BottomSheetTokenListHeader";
 
 type Props = StackScreenProps<LoanParamList, "EditCollateralScreen">;
 
@@ -162,11 +163,6 @@ export function EditCollateralScreen({
                   tokens: collateralTokens,
                   tokenType: TokenType.CollateralItem,
                   vault: activeVault,
-                  headerLabel: translate(
-                    "screens/EditCollateralScreen",
-                    "Select Collateral"
-                  ),
-                  onCloseButtonPress: dismissModal,
                   onTokenPress: async (item) => {
                     navigation.navigate({
                       name: "AddOrRemoveCollateralScreen",
@@ -185,35 +181,13 @@ export function EditCollateralScreen({
                   headerBackTitleVisible: false,
                   headerStyle: tailwind("rounded-t-xl-v2 border-b-0"),
                   header: () => (
-                    <ThemedViewV2
-                      style={tailwind("pt-6 pb-3 rounded-t-xl-v2 border-b-0")}
-                    >
-                      <ThemedViewV2
-                        style={tailwind(
-                          "flex flex-row justify-between items-center mx-5"
-                        )}
-                      >
-                        <ThemedTextV2
-                          style={tailwind("text-xl font-normal-v2")}
-                          dark={tailwind("text-mono-dark-v2-900")}
-                          light={tailwind("text-mono-light-v2-900")}
-                        >
-                          {translate(
-                            "screens/EditCollateralScreen",
-                            "Select Collateral"
-                          )}
-                        </ThemedTextV2>
-                        <TouchableOpacity onPress={dismissModal}>
-                          <ThemedIcon
-                            iconType="MaterialCommunityIcons"
-                            name="close-circle-outline"
-                            size={20}
-                            dark={tailwind("text-mono-dark-v2-900")}
-                            light={tailwind("text-mono-light-v2-900")}
-                          />
-                        </TouchableOpacity>
-                      </ThemedViewV2>
-                    </ThemedViewV2>
+                    <BottomSheetTokenListHeader
+                      headerLabel={translate(
+                        "screens/EditCollateralScreen",
+                        "Select Collateral"
+                      )}
+                      onCloseButtonPress={dismissModal}
+                    />
                   ),
                 },
               },

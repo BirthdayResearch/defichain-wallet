@@ -65,6 +65,7 @@ import {
 } from "../hooks/CollateralPrice";
 import { CollateralItem } from "../screens/EditCollateralScreen";
 import { ControlledTextInput } from "../components/ControlledTextInput";
+import { BottomSheetTokenListHeader } from "../components/BottomSheetTokenListHeader";
 
 type Props = StackScreenProps<LoanParamList, "AddOrRemoveCollateralScreen">;
 
@@ -463,11 +464,6 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                       tokens: collateralTokens,
                       tokenType: TokenType.CollateralItem,
                       vault: vault,
-                      headerLabel: translate(
-                        "screens/AddOrRemoveCollateralScreen",
-                        "Select Collateral"
-                      ),
-                      onCloseButtonPress: dismissModal,
                       onTokenPress: async (token) => {
                         setSelectedCollateralItem(token as CollateralItem);
                         if (selectedCollateralItem?.tokenId !== token.tokenId) {
@@ -478,8 +474,18 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                       },
                     }),
                     option: {
-                      header: () => null,
+                      headerTitle: "",
                       headerBackTitleVisible: false,
+                      headerStyle: tailwind("rounded-t-xl-v2 border-b-0"),
+                      header: () => (
+                        <BottomSheetTokenListHeader
+                          headerLabel={translate(
+                            "screens/AddOrRemoveCollateralScreen",
+                            "Select Collateral"
+                          )}
+                          onCloseButtonPress={dismissModal}
+                        />
+                      ),
                     },
                   },
                 ]);

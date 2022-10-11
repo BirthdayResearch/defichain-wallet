@@ -1,7 +1,7 @@
 import { memo } from "react";
 import * as React from "react";
 import { tailwind } from "@tailwind";
-import { Platform, TouchableOpacity, View } from "react-native";
+import { Platform, View } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -18,16 +18,12 @@ import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetai
 import { BottomSheetWithNavRouteParam } from "./BottomSheetWithNav";
 import {
   ThemedFlatListV2,
-  ThemedIcon,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
-  ThemedViewV2,
 } from "./themed";
 import { SymbolIcon } from "./SymbolIcon";
 
 interface BottomSheetTokenListProps {
-  headerLabel: string;
-  onCloseButtonPress: () => void;
   onTokenPress?: (token: CollateralItem | BottomSheetToken) => void;
   navigateToScreen?: {
     screenName: string;
@@ -57,9 +53,9 @@ export enum TokenType {
   CollateralItem = "CollateralItem",
 }
 
+const DEFAULT_FACTOR = "1";
+
 export const BottomSheetTokenList = ({
-  headerLabel,
-  onCloseButtonPress,
   onTokenPress,
   navigateToScreen,
   tokens,
@@ -89,6 +85,7 @@ export const BottomSheetTokenList = ({
     ): item is CollateralItem {
       return (item as CollateralItem).activateAfterBlock !== undefined;
     }
+
     return (
       <FlatList
         testID="bottom_sheet_token_list"
@@ -157,14 +154,32 @@ export const BottomSheetTokenList = ({
                   styleProps={tailwind("w-9 h-9")}
                 />
                 <View style={tailwind("ml-2 flex-auto")}>
-                  <ThemedTextV2
-                    testID={`token_symbol_${item.token.displaySymbol}`}
-                    style={tailwind("text-sm font-semibold-v2")}
-                    light={tailwind("text-mono-light-v2-900")}
-                    dark={tailwind("text-mono-dark-v2-900")}
-                  >
-                    {item.token.displaySymbol}
-                  </ThemedTextV2>
+                  <View style={tailwind("flex flex-row")}>
+                    <ThemedTextV2
+                      testID={`token_symbol_${item.token.displaySymbol}`}
+                      style={tailwind("text-sm font-semibold-v2")}
+                      light={tailwind("text-mono-light-v2-900")}
+                      dark={tailwind("text-mono-dark-v2-900")}
+                    >
+                      {item.token.displaySymbol}
+                    </ThemedTextV2>
+                    {item.factor !== undefined &&
+                      item.factor !== DEFAULT_FACTOR && (
+                        <ThemedTextV2
+                          style={tailwind(
+                            "h-5 flex flex-row items-center px-2 py-1 rounded border-0.5 ml-1 text-xs font-semibold-v2"
+                          )}
+                          light={tailwind(
+                            "text-mono-light-v2-700 border-mono-light-v2-700"
+                          )}
+                          dark={tailwind(
+                            "text-mono-dark-v2-700 border-mono-dark-v2-700"
+                          )}
+                        >
+                          {`${item.factor}x`}
+                        </ThemedTextV2>
+                      )}
+                  </View>
                   <ThemedTextV2
                     light={tailwind("text-mono-light-v2-700")}
                     dark={tailwind("text-mono-dark-v2-700")}
