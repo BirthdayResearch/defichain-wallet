@@ -350,7 +350,7 @@ async function editLoanScheme(
       transactionQueue.actions.push({
         sign: signer,
         title: translate(
-          "screens/ConfirmEditLoanSchemeScreen",
+          "screens/OceanInterface",
           "Editing vault {{vaultId}}",
           {
             vaultId: `${truncatedVaultIdFront}...${truncatedVaultIdBack}`,
