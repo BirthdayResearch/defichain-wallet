@@ -1298,6 +1298,7 @@
     "Keep your vaults healthy and green, by monitoring its collateralization.": "Manten tus Vaults sanas y en verde monitorizando su colateral",
     "Oracle prices": "Precios de los oráculos",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "Con los oráculos, tus Vaults y préstamos se alinean con precios de mercado fuera de la cadena de bloques",
+    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
     "Search available loan tokens": "Buscar tokens de préstamo disponibles",
     "Edit Vault": "Edit Vault"
   },
@@ -1795,15 +1796,14 @@
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "EDITA EL TIPO DE PRESTAMO DE LA VAULT",
     "Make sure your collateralization ratio is still above your min. collateralization ratio": "Asegúarate de que el ratio de colateralización está todavía por encima del ratio mínimo de colateralización",
-    "CONTINUE": "CONTINUA",
+    "Continue": "Continua",
     "Confirm your vault details in next screen": "Confirma los detalles de tu Vault en la siguiente pantalla",
     "AVAILABLE SCHEMES": "AVAILABLE SCHEMES",
     "Review full details in the next screen": "Revisa todos los detalles en la próxima pantalla",
     "VAULT DETAILS": "DETALLES DE LA BÓVEDA",
     "{{interestRate}}% Interest": "{{interestRate}}% Interest",
     "min. ": "min. ",
-    "You can only select a scheme lower than your vault's current collateralization.": "You can only select a scheme lower than your vault's current collateralization.",
-    "Continue": "Continúa"
+    "You can only select a scheme lower than your vault's current collateralization.": "You can only select a scheme lower than your vault's current collateralization."
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "Estás editando el tipo de Vault",
