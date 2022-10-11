@@ -1841,7 +1841,12 @@
     "CONFIRM CLOSE VAULT": "确认关闭金库",
     "You are about to close vault {{vaultId}}": "您即将关闭金库 {{vaultId}}",
     "CLOSING": "关闭中",
-    "Closing vault": "Closing vault"
+    "Closing vault {{vaultId}}": "Closing vault {{vaultId}}",
+    "Are you sure you want to close your vault": "Are you sure you want to close your vault",
+    "Wallet": "Wallet",
+    "All remaining collaterals will be returned to your wallet.": "All remaining collaterals will be returned to your wallet.",
+    "Close vault": "Close vault",
+    "Closed vault {{vaultId}}": "Closed vault {{vaultId}}"
   },
   "components/TokenIconGroup": {
     "more": "显示更多"

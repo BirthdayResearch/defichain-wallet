@@ -1859,7 +1859,12 @@
     "CONFIRM CLOSE VAULT": "CONFERMA LA CHIUSURA DEL VAULT",
     "You are about to close vault {{vaultId}}": "Stai per chiudere il vault {{vaultId}}",
     "CLOSING": "CHIUDI",
-    "Closing vault": "Closing vault"
+    "Closing vault {{vaultId}}": "Closing vault {{vaultId}}",
+    "Are you sure you want to close your vault": "Are you sure you want to close your vault",
+    "Wallet": "Wallet",
+    "All remaining collaterals will be returned to your wallet.": "All remaining collaterals will be returned to your wallet.",
+    "Close vault": "Close vault",
+    "Closed vault {{vaultId}}": "Closed vault {{vaultId}}"
   },
   "components/TokenIconGroup": {
     "more": "di più"
