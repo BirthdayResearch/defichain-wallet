@@ -2,71 +2,67 @@ import { View } from "@components";
 import { tailwind } from "@tailwind";
 import BigNumber from "bignumber.js";
 import { SymbolIcon } from "@components/SymbolIcon";
-import { translate } from "@translations";
-import { ThemedTextV2 } from "./themed";
 
-interface TokenIconGroupProps {
+interface TokenIconGroupV2Props {
   symbols: string[];
-  maxIconToDisplay?: number;
+  maxIconToDisplay: number;
   testID?: string;
-  size?: number;
-  overlap?: number;
-  /**
-   * Flag to "push" token container rightwards, used when no spacing is allowed at the right of TokenIconGroup
-   *
-   * In which the spacing is created by the relative position of each icon to display overlap effect
-   */
   offsetContainer?: boolean;
+  size?: number;
 }
 
-export function TokenIconGroupV2({
-  symbols,
-  maxIconToDisplay = 6,
-  testID,
-  overlap = -8,
-  size,
-  offsetContainer,
-}: TokenIconGroupProps): JSX.Element {
-  const additionalIcon = BigNumber.max(symbols.length - maxIconToDisplay, 0);
+export function TokenIconGroupV2(props: TokenIconGroupV2Props): JSX.Element {
+  const additionalIcon = BigNumber.max(
+    props.symbols?.length - props.maxIconToDisplay,
+    0
+  );
   let rightOffset = 0;
-  if (offsetContainer === true) {
+  if (props.offsetContainer === true) {
     rightOffset = additionalIcon.gt(0)
-      ? (maxIconToDisplay - 2) * overlap
-      : (symbols.length - 1) * overlap - 1;
+      ? (props.maxIconToDisplay - 2) * -5
+      : (props.symbols.length - 1) * -5 - 1;
   }
   return (
-    <View
-      style={[
-        tailwind("flex flex-row relative items-center"),
-        { right: rightOffset },
-      ]}
-    >
-      {symbols?.map((symbol, index): JSX.Element | null => {
-        if (index < maxIconToDisplay) {
+    <View style={[tailwind("flex flex-row relative"), { right: rightOffset }]}>
+      {props.symbols?.map((symbol, index): JSX.Element | null => {
+        if (index < props.maxIconToDisplay) {
           return (
             <View
-              testID={`${testID ?? ""}_${symbol}`}
+              testID={`${props.testID ?? ""}_${symbol}`}
               key={symbol}
               style={[
                 tailwind("rounded-full p-px relative"),
-                { left: index * overlap },
+                {
+                  left: index * -10,
+                  zIndex: index * -1,
+                },
               ]}
             >
               <SymbolIcon
                 key={symbol}
                 symbol={symbol}
-                styleProps={{ width: size, height: size }}
+                styleProps={
+                  props.size !== undefined
+                    ? {
+                        width: props.size,
+                        height: props.size,
+                      }
+                    : undefined
+                }
               />
             </View>
           );
         }
         return null;
       })}
-      {additionalIcon.gt(0) && (
+      {/* Keeping for future reference as current design 2.0 only displays max 6 collaterals */}
+      {/* {additionalIcon.gt(0) && (
         <ThemedTextV2
+          light={tailwind("text-gray-500")}
+          dark={tailwind("text-gray-400")}
           style={[
-            tailwind("relative text-xs font-medium-v2"),
-            { left: (maxIconToDisplay - 2) * overlap },
+            tailwind("relative text-xs font-medium"),
+            { left: (props.maxIconToDisplay - 2) * -5 },
           ]}
         >
           {`& ${additionalIcon.toFixed()} ${translate(
@@ -74,7 +70,7 @@ export function TokenIconGroupV2({
             "more"
           )}`}
         </ThemedTextV2>
-      )}
+      )} */}
     </View>
   );
 }
