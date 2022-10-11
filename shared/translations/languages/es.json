@@ -1341,7 +1341,7 @@
   },
   "components/EmptyAuctions": {
     "No auctions": "No hay subastas",
-    "There are currently no collaterals available for auction.":  "There are currently no collaterals available for auction.",
+    "There are currently no collaterals available for auction.": "There are currently no collaterals available for auction.",
     "No Outbid Auctions": "No hay subastas sobrepujadas",
     "You have no outbids yet": "No tienes sobrepujas todavía",
     "No Leading Bids": "No hay pujas en cabeza",
@@ -1802,7 +1802,8 @@
     "VAULT DETAILS": "DETALLES DE LA BÓVEDA",
     "{{interestRate}}% Interest": "{{interestRate}}% Interest",
     "min. ": "min. ",
-    "You can only select a scheme lower than your vault's current collateralization.": "You can only select a scheme lower than your vault's current collateralization."
+    "You can only select a scheme lower than your vault's current collateralization.": "You can only select a scheme lower than your vault's current collateralization.",
+    "Continue": "Continúa"
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "Estás editando el tipo de Vault",
