@@ -804,7 +804,9 @@
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Échanger {{amountA}} {{fromTokenDisplaySymbol}} à {{toTokenDisplaySymbol}} sur le bloc de règlement {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Retrait de {{amount}} {{symbol}} du pool de liquidité",
     "Paying back loan amount of {{amount}} DUSD": "Remboursement d'un prêt de {{amount}} DUSD",
-    "Paid loan amount of {{amount}} DUSD": "{{amount}} DUSD du prêt remboursés"
+    "Paid loan amount of {{amount}} DUSD": "{{amount}} DUSD du prêt remboursés",
+    "Editing vault {{vaultId}}": "Modification du vault {{vaultId}}",
+    "Edited vault {{vaultId}}": "Vault modifié {{vaultId}}"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Demande d'accès à votre caméra",
@@ -1280,7 +1282,9 @@
     "Keep your vaults healthy and green, by monitoring its collateralization.": "Gardez vos vaults sains et verts, en surveillant leur garantie.",
     "Oracle prices": "Prix oracles",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "Avec les oracles, vos vaults et vos prêts s'alignent sur les prix du marché en dehors de la blockchain.",
-    "Search available loan tokens": "Rechercher les tokens de prêt disponibles"
+    "Loan tokens get their prices from oracles.": "Les tokens de prêt obtiennent leurs prix des oracles.",
+    "Search available loan tokens": "Rechercher les tokens de prêt disponibles",
+    "Edit Vault": "Modifier le vault"
   },
   "components/tabs": {
     "Browse loan tokens": "Emprunter un token",
@@ -1773,8 +1777,14 @@
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "MODIFIER LE SCHÉMA DE PRÊT DU VAULT",
     "Make sure your collateralization ratio is still above your min. collateralization ratio": "Assurez-vous que votre ratio de garantie reste toujours supérieur au ratio de garantie minimum.",
-    "CONTINUE": "SUIVANT",
-    "Confirm your vault details in next screen": "Validez les détails de votre vault à l'étape suivante"
+    "Continue": "Suivant",
+    "Confirm your vault details in next screen": "Validez les détails de votre vault à l'étape suivante",
+    "AVAILABLE SCHEMES": "SCHÉMAS DISPONIBLES",
+    "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
+    "VAULT DETAILS": "DÉTAILS DU VAULT",
+    "{{interestRate}}% Interest": "{{interestRate}}% d'intérêt",
+    "min. ": "min. ",
+    "You can only select a scheme lower than your vault's current collateralization.": "Vous ne pouvez choisir qu'un schéma de prêt dont le ratio de garantie est inférieur à celui de votre garantie vault actuelle."
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "Vous modifiez le schéma du vault",
@@ -1788,7 +1798,14 @@
     "CONFIRM EDIT": "CONFIRMER MODIFICATION",
     "EDITING": "MODIFICATION",
     "CONVERTING": "CONVERSION...",
-    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Mise à jour du vault avec un ratio de garantie minimum de {{mincolRatio}}% et un taux d'intérêt de {{ir}}%."
+    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Mise à jour du vault avec un ratio de garantie minimum de {{mincolRatio}}% et un taux d'intérêt de {{ir}}%.",
+    "Edit": "Modifier",
+    "You are editing loan scheme of": "Vous modifiez le schéma de prêt de",
+    "Prev. min. collateral ratio": "Ratio de garantie min. précédent",
+    "Prev. interest": "Intérêt précédent",
+    "New min. collateral ratio": "Nouveau ratio de garantie min.",
+    "New vault interest": "Nouveau intérêt vault",
+    "Transaction fee": "Transaction fee"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Ratio de garantie min.",

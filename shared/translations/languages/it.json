@@ -810,7 +810,9 @@
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool",
     "Paying back loan amount of {{amount}} DUSD": "Paying back loan amount of {{amount}} DUSD",
-    "Paid loan amount of {{amount}} DUSD": "Paid loan amount of {{amount}} DUSD"
+    "Paid loan amount of {{amount}} DUSD": "Paid loan amount of {{amount}} DUSD",
+    "Editing vault {{vaultId}}": "Editing vault {{vaultId}}",
+    "Edited vault {{vaultId}}": "Edited vault {{vaultId}}"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Richiesta di accesso alla fotocamera",
@@ -1293,7 +1295,9 @@
     "Keep your vaults healthy and green, by monitoring its collateralization.": "Keep your vaults healthy and green, by monitoring its collateralization.",
     "Oracle prices": "Oracle prices",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain.",
-    "Search available loan tokens": "Search available loan tokens"
+    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
+    "Search available loan tokens": "Search available loan tokens",
+    "Edit Vault": "Edit Vault"
   },
   "components/tabs": {
     "Browse loan tokens": "Sfoglia i token in prestito",
@@ -1786,8 +1790,14 @@
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "MODIFICA LO SCHEMA DI PRESTITO DEL VAULT",
     "Make sure your collateralization ratio is still above your min. collateralization ratio": "Assicuratevi che il vostro rapporto di collateralizzazione sia ancora al di sopra del vostro rapporto di minimo collateralizzazione ",
-    "CONTINUE": "CONTINUA",
-    "Confirm your vault details in next screen": "Conferma i dettagli del tuo vault nella prossima schermata"
+    "Continue": "Continua",
+    "Confirm your vault details in next screen": "Conferma i dettagli del tuo vault nella prossima schermata",
+    "AVAILABLE SCHEMES": "AVAILABLE SCHEMES",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "VAULT DETAILS": "DETTAGLI DEI VAULT",
+    "{{interestRate}}% Interest": "{{interestRate}}% Interest",
+    "min. ": "min. ",
+    "You can only select a scheme lower than your vault's current collateralization.": "You can only select a scheme lower than your vault's current collateralization."
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "Stai modificando lo schema del vault",
@@ -1801,7 +1811,14 @@
     "CONFIRM EDIT": "CONFERMA MODIFICA",
     "EDITING": "MODIFICA",
     "CONVERTING": "CONVERTI",
-    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Aggiornamento del vault al rapporto minimo di collateralizzazione di {{mincolRatio}}% e al tasso di interesse di {{ir}}%"
+    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Aggiornamento del vault al rapporto minimo di collateralizzazione di {{mincolRatio}}% e al tasso di interesse di {{ir}}%",
+    "Edit": "Edit",
+    "You are editing loan scheme of": "You are editing loan scheme of",
+    "Prev. min. collateral ratio": "Prev. min. collateral ratio",
+    "Prev. interest": "Prev. interest",
+    "New min. collateral ratio": "New min. collateral ratio",
+    "New vault interest": "New vault interest",
+    "Transaction fee": "Transaction fee"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Rapporto minimo di collateralizzazione",

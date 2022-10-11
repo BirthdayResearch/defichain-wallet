@@ -795,7 +795,9 @@
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool",
     "Paying back loan amount of {{amount}} DUSD": "Paying back loan amount of {{amount}} DUSD",
-    "Paid loan amount of {{amount}} DUSD": "Paid loan amount of {{amount}} DUSD"
+    "Paid loan amount of {{amount}} DUSD": "Paid loan amount of {{amount}} DUSD",
+    "Editing vault {{vaultId}}": "Editing vault {{vaultId}}",
+    "Edited vault {{vaultId}}": "Edited vault {{vaultId}}"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "請許可程序使用相機",
@@ -1272,7 +1274,9 @@
     "Keep your vaults healthy and green, by monitoring its collateralization.": "Keep your vaults healthy and green, by monitoring its collateralization.",
     "Oracle prices": "Oracle prices",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain.",
-    "Search available loan tokens": "Search available loan tokens"
+    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
+    "Search available loan tokens": "Search available loan tokens",
+    "Edit Vault": "Edit Vault"
   },
   "components/tabs": {
     "Browse loan tokens": "瀏覽貸款選項",
@@ -1767,8 +1771,14 @@
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "更改金庫中的貸款計劃",
     "Make sure your collateralization ratio is still above your min. collateralization ratio": "確保您的抵押率仍然高於您的最低要求抵押率",
-    "CONTINUE": "繼續",
-    "Confirm your vault details in next screen": "請在下一頁確認金庫細項"
+    "Continue": "繼續",
+    "Confirm your vault details in next screen": "請在下一頁確認金庫細項",
+    "AVAILABLE SCHEMES": "AVAILABLE SCHEMES",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "VAULT DETAILS": "VAULT DETAILS",
+    "{{interestRate}}% Interest": "{{interestRate}}% Interest",
+    "min. ": "min. ",
+    "You can only select a scheme lower than your vault's current collateralization.": "You can only select a scheme lower than your vault's current collateralization."
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "正在更改金庫計劃",
@@ -1782,7 +1792,14 @@
     "CONFIRM EDIT": "確認更改",
     "EDITING": "更改中",
     "CONVERTING": "轉換中",
-    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "更新金庫至{{mincolRatio}}%最低抵押率和{{ir}}%年利息"
+    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "更新金庫至{{mincolRatio}}%最低抵押率和{{ir}}%年利息",
+    "Edit": "編輯",
+    "You are editing loan scheme of": "You are editing loan scheme of",
+    "Prev. min. collateral ratio": "Prev. min. collateral ratio",
+    "Prev. interest": "Prev. interest",
+    "New min. collateral ratio": "New min. collateral ratio",
+    "New vault interest": "New vault interest",
+    "Transaction fee": "Transaction fee"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "最低抵押率",
