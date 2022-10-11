@@ -49,26 +49,6 @@ export const BottomSheetLoanTokensList = ({
       return isSearchFocus || debouncedSearchTerm !== "";
     }, [isSearchFocus, debouncedSearchTerm]);
 
-    // const [filteredLoanTokens, setFilteredLoanTokens] =
-    //   React.useState(loanTokens);
-
-    // const handleFilter = React.useCallback(
-    //   debounce((searchString: string) => {
-    //     setFilteredLoanTokens(
-    //       loanTokens.filter((loanToken) =>
-    //         loanToken.token.displaySymbol
-    //           .toLowerCase()
-    //           .includes(searchString.trim().toLowerCase())
-    //       )
-    //     );
-    //   }, 250),
-    //   [loanTokens]
-    // );
-
-    // React.useEffect(() => {
-    //   handleFilter(searchString);
-    // }, [searchString]);
-
     const flatListComponents = {
       mobile: BottomSheetFlatList,
       web: ThemedFlatListV2,
@@ -80,7 +60,7 @@ export const BottomSheetLoanTokensList = ({
 
     return (
       <FlatList
-        contentContainerStyle={tailwind("px-5 pb-12 flex-1", {
+        style={tailwind("px-5 pb-12", {
           "bg-mono-light-v2-100": isLight,
           "bg-mono-dark-v2-100": !isLight,
         })}
