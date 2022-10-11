@@ -135,6 +135,13 @@ export const BottomSheetLoanTokensList = ({
             </ThemedTextV2>
           </ThemedViewV2>
         }
+        style={tailwind(
+          {
+            "bg-mono-dark-v2-100": !isLight,
+            "bg-mono-light-v2-100": isLight,
+          },
+          "rounded-t-xl-v2"
+        )}
       />
     );
   });

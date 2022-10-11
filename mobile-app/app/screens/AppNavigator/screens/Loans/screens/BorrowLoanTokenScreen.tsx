@@ -63,6 +63,7 @@ import { useMaxLoan } from "../hooks/MaxLoanAmount";
 import { useInterestPerBlock } from "../hooks/InterestPerBlock";
 import { useBlocksPerDay } from "../hooks/BlocksPerDay";
 import { BottomSheetLoanTokensList } from "../components/BottomSheetLoanTokensList";
+import { useDFIRequirementForDusdLoanAndCollateral } from "../hooks/DfiRequirementForDusdLoanAndCollateral";
 
 type Props = StackScreenProps<LoanParamList, "BorrowLoanTokenScreen">;
 
@@ -81,9 +82,7 @@ export function BorrowLoanTokenScreen({
   const loanTokens = useSelector((state: RootState) =>
     loanTokensSelector(state.loans)
   );
-  const [vault, setVault] = useState<LoanVaultActive | undefined>(
-    route.params.vault
-  );
+  const [vault, setVault] = useState<LoanVaultActive>(route.params.vault);
   const [loanToken, setLoanToken] = useState<LoanToken>(route.params.loanToken);
   const [amountToBorrow, setAmountToBorrow] = useState({
     amountInToken: new BigNumber(0),
@@ -96,20 +95,21 @@ export function BorrowLoanTokenScreen({
   );
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
   const interestPerBlock = useInterestPerBlock(
-    new BigNumber(vault?.loanScheme.interestRate ?? NaN),
+    new BigNumber(vault.loanScheme.interestRate ?? NaN),
     new BigNumber(loanToken.interest)
   );
 
   const { requiredTokensShare } = useValidCollateralRatio(
-    vault?.collateralAmounts ?? [],
-    new BigNumber(vault?.collateralValue ?? NaN),
-    new BigNumber(vault?.loanValue ?? NaN)
+    vault.collateralAmounts,
+    new BigNumber(vault.collateralValue),
+    new BigNumber(vault.loanValue)
   );
+
   const maxLoanAmount = useMaxLoan({
-    totalCollateralValue: new BigNumber(vault?.collateralValue ?? 0),
-    collateralAmounts: vault?.collateralAmounts ?? [],
-    existingLoanValue: new BigNumber(vault?.loanValue ?? 0),
-    minColRatio: new BigNumber(vault?.loanScheme.minColRatio ?? 0),
+    totalCollateralValue: new BigNumber(vault.collateralValue),
+    collateralAmounts: vault.collateralAmounts,
+    existingLoanValue: new BigNumber(vault.loanValue),
+    minColRatio: new BigNumber(vault.loanScheme.minColRatio),
     loanActivePrice: new BigNumber(
       getActivePrice(loanToken.token.symbol, loanToken.activePrice)
     ),
@@ -123,14 +123,14 @@ export function BorrowLoanTokenScreen({
     hasBroadcastQueued(state.ocean)
   );
 
+  // Form Input
   const { control, formState, setValue, trigger, watch } = useForm<{
     borrowAmount: string;
   }>({ mode: "onChange" });
   const { borrowAmount } = watch();
-
   const resultingColRatio = useResultingCollateralRatio(
-    new BigNumber(vault?.collateralValue ?? NaN),
-    new BigNumber(vault?.loanValue ?? NaN),
+    new BigNumber(vault.collateralValue),
+    new BigNumber(vault.loanValue),
     new BigNumber(borrowAmount),
     new BigNumber(
       getActivePrice(loanToken.token.symbol, loanToken.activePrice)
@@ -138,17 +138,26 @@ export function BorrowLoanTokenScreen({
     interestPerBlock
   );
 
+  const { isDFILessThanHalfOfRequiredCollateral } =
+    useDFIRequirementForDusdLoanAndCollateral({
+      collateralAmounts: vault.collateralAmounts,
+      loanAmounts: vault.loanAmounts,
+      collateralValue: new BigNumber(vault.collateralValue),
+      loanValue: new BigNumber(vault.loanValue),
+      loanToken: loanToken,
+      minColRatio: vault.loanScheme.minColRatio,
+      newDUSDLoanAmount: new BigNumber(borrowAmount),
+    });
+
   const { atRiskThreshold } = useColRatioThreshold(
-    new BigNumber(vault?.loanScheme.minColRatio ?? 0)
+    new BigNumber(vault.loanScheme.minColRatio)
   );
 
   const { light: resultingColRatioLight, dark: resultingColRatioDark } =
     useCollateralizationRatioColor({
       colRatio: resultingColRatio,
-      minColRatio: new BigNumber(vault?.loanScheme.minColRatio ?? 0),
-      totalLoanAmount: new BigNumber(vault?.loanValue ?? 0).plus(
-        borrowAmount ?? 0
-      ),
+      minColRatio: new BigNumber(vault.loanScheme.minColRatio),
+      totalLoanAmount: new BigNumber(vault.loanValue).plus(borrowAmount ?? 0),
     });
 
   // Bottom sheet
@@ -226,10 +235,6 @@ export function BorrowLoanTokenScreen({
   const toast = useToast();
   const TOAST_DURATION = 2000;
   function showToast(type: AmountButtonTypes): void {
-    if (vault === undefined) {
-      return;
-    }
-
     toast.hideAll();
     const isMax = type === AmountButtonTypes.Max;
     const toastMessage = isMax
@@ -253,11 +258,7 @@ export function BorrowLoanTokenScreen({
       loanToken.token.symbol,
       loanToken.activePrice
     );
-    if (
-      vault === undefined ||
-      borrowAmount === undefined ||
-      loanTokenPrice === "0"
-    ) {
+    if (borrowAmount === undefined || loanTokenPrice === "0") {
       return;
     }
     const annualInterest = interestPerBlock
@@ -267,12 +268,7 @@ export function BorrowLoanTokenScreen({
   };
 
   const onSubmit = async (): Promise<void> => {
-    if (
-      !formState.isValid ||
-      vault === undefined ||
-      hasPendingJob ||
-      hasPendingBroadcastJob
-    ) {
+    if (!formState.isValid || hasPendingJob || hasPendingBroadcastJob) {
       return;
     }
 
@@ -291,16 +287,16 @@ export function BorrowLoanTokenScreen({
   };
 
   const validateInput = (): void => {
-    const amount = new BigNumber(borrowAmount);
-    if (amount.isNaN() || amount.isZero() || vault === undefined) {
-      setInputValidationMessage(undefined);
-      return;
-    }
-
-    if (requiredTokensShare.isZero()) {
+    if (isDFILessThanHalfOfRequiredCollateral) {
       setInputValidationMessage({
         message:
           "A minimum of 50% DFI as collateral is required before borrowing DUSD",
+        type: ValidationMessageType.Error,
+      });
+    } else if (requiredTokensShare.isZero()) {
+      setInputValidationMessage({
+        message:
+          "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens",
         type: ValidationMessageType.Error,
       });
     } else if (resultingColRatio.isLessThan(vault.loanScheme.minColRatio)) {
@@ -335,7 +331,7 @@ export function BorrowLoanTokenScreen({
 
   useEffect(() => {
     const updatedVault = vaults.find(
-      (v) => v.vaultId === vault?.vaultId
+      (v) => v.vaultId === vault.vaultId
     ) as LoanVaultActive;
     setVault(updatedVault);
   }, [vaults]);
@@ -391,7 +387,7 @@ export function BorrowLoanTokenScreen({
               dark: tailwind("bg-mono-dark-v2-00"),
               style: tailwind("mt-6 rounded-xl-v2"),
             }}
-            disabled={vault === undefined || maxLoanAmount.isZero()}
+            disabled={maxLoanAmount.isZero()}
           >
             <View
               style={tailwind(
@@ -406,12 +402,8 @@ export function BorrowLoanTokenScreen({
                   render={({ field: { onChange, value } }) => (
                     <ThemedTextInputV2
                       style={tailwind("text-xl font-semibold-v2 w-full")}
-                      light={tailwind("text-mono-light-v2-900", {
-                        "opacity-30": vault === undefined,
-                      })}
-                      dark={tailwind("text-mono-dark-v2-900", {
-                        "opacity-30": vault === undefined,
-                      })}
+                      light={tailwind("text-mono-light-v2-900")}
+                      dark={tailwind("text-mono-dark-v2-900")}
                       keyboardType="numeric"
                       value={value}
                       onBlur={async () => {
@@ -428,18 +420,21 @@ export function BorrowLoanTokenScreen({
                       )}
                       // ref={amountInputRef}
                       testID="text_input_borrow_amount"
-                      editable={vault !== undefined}
                     />
                   )}
                   rules={{
                     required: true,
                     pattern: /^\d*\.?\d*$/,
-                    max: vault !== undefined ? maxLoanAmount.toFixed(8) : "0",
+                    max: maxLoanAmount.toFixed(8),
                     validate: {
                       greaterThanZero: (value: string) =>
                         new BigNumber(
                           value !== undefined && value !== "" ? value : 0
                         ).isGreaterThan(0),
+                      hasDFIandDUSDCollateral: () =>
+                        requiredTokensShare.isGreaterThan(0), // need >0 DFI and or DUSD to take loan
+                      isDFILessThanHalfOfRequiredCollateral: () =>
+                        !isDFILessThanHalfOfRequiredCollateral, // min 50% DFI as collateral if taking DUSD loan
                     },
                   }}
                 />
@@ -478,7 +473,7 @@ export function BorrowLoanTokenScreen({
               expandModal();
             }}
           />
-          {vault !== undefined && new BigNumber(borrowAmount).isGreaterThan(0) && (
+          {new BigNumber(borrowAmount).isGreaterThan(0) && (
             <ThemedTextV2 style={tailwind("ml-5 mt-2 font-normal-v2 text-xs")}>
               {translate("BorrowLoanTokenScreen", "Collateral Ratio: ")}
               <NumberFormat
@@ -592,7 +587,7 @@ export function BorrowLoanTokenScreen({
 }
 
 interface VaultInputProps {
-  vault?: LoanVaultActive;
+  vault: LoanVaultActive;
   onPress: () => void;
   testID?: string;
 }
@@ -611,27 +606,17 @@ function VaultInput(props: VaultInputProps): JSX.Element {
         dark={tailwind("bg-mono-dark-v2-00")}
         onPress={props.onPress}
       >
-        {props.vault === undefined ? (
+        <View style={tailwind("w-8/12")}>
           <ThemedTextV2
+            ellipsizeMode="middle"
+            numberOfLines={1}
             style={tailwind("text-sm font-normal-v2")}
             light={tailwind("text-mono-light-v2-800")}
             dark={tailwind("text-mono-dark-v2-800")}
           >
-            {translate("BorrowLoanTokenScreen", "Select vault")}
+            {props.vault.vaultId}
           </ThemedTextV2>
-        ) : (
-          <View style={tailwind("w-8/12")}>
-            <ThemedTextV2
-              ellipsizeMode="middle"
-              numberOfLines={1}
-              style={tailwind("text-sm font-normal-v2")}
-              light={tailwind("text-mono-light-v2-800")}
-              dark={tailwind("text-mono-dark-v2-800")}
-            >
-              {props.vault.vaultId}
-            </ThemedTextV2>
-          </View>
-        )}
+        </View>
 
         <ThemedIcon
           iconType="Feather"
@@ -647,7 +632,7 @@ function VaultInput(props: VaultInputProps): JSX.Element {
 }
 
 interface TransactionDetailsProps {
-  vault?: LoanVaultActive;
+  vault: LoanVaultActive;
   maxLoanAmount: BigNumber;
   loanToken: LoanToken;
   fee: BigNumber;

@@ -69,7 +69,7 @@ export interface LoanParamList {
   };
   BorrowLoanTokenScreen: {
     loanToken: LoanToken;
-    vault?: LoanVaultActive;
+    vault: LoanVaultActive;
   };
   ConfirmBorrowLoanTokenScreen: {
     loanToken: LoanToken;
