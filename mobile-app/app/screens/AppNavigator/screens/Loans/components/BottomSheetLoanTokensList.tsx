@@ -16,6 +16,7 @@ import { TextInput } from "react-native-gesture-handler";
 import { debounce } from "lodash";
 import { Platform } from "react-native";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
+import { useDebounce } from "@hooks/useDebounce";
 import { getPrecisedTokenValue } from "../../Auctions/helpers/precision-token-value";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { TokenIcon } from "../../Portfolio/components/TokenIcon";
@@ -31,25 +32,42 @@ export const BottomSheetLoanTokensList = ({
   isLight: boolean;
 }): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
-    const { isLight } = useThemeContext();
     const searchRef = React.useRef<TextInput>();
     const [searchString, setSearchString] = React.useState("");
     const [isSearchFocus, setIsSearchFocus] = React.useState(false);
-    const [filteredLoanTokens, setFilteredLoanTokens] =
-      React.useState(loanTokens);
+    const debouncedSearchTerm = useDebounce(searchString, 250);
 
-    const handleFilter = React.useCallback(
-      debounce((searchString: string) => {
-        setFilteredLoanTokens(
-          loanTokens.filter((loanToken) =>
-            loanToken.token.displaySymbol
-              .toLowerCase()
-              .includes(searchString.trim().toLowerCase())
-          )
-        );
-      }, 250),
-      [loanTokens]
-    );
+    const filterLoanTokensWithBalance = React.useMemo(() => {
+      return filterLoanTokensBySearchTerm(
+        loanTokens,
+        debouncedSearchTerm,
+        isSearchFocus
+      );
+    }, [debouncedSearchTerm, isSearchFocus]);
+
+    const inSearchMode = React.useMemo(() => {
+      return isSearchFocus || debouncedSearchTerm !== "";
+    }, [isSearchFocus, debouncedSearchTerm]);
+
+    // const [filteredLoanTokens, setFilteredLoanTokens] =
+    //   React.useState(loanTokens);
+
+    // const handleFilter = React.useCallback(
+    //   debounce((searchString: string) => {
+    //     setFilteredLoanTokens(
+    //       loanTokens.filter((loanToken) =>
+    //         loanToken.token.displaySymbol
+    //           .toLowerCase()
+    //           .includes(searchString.trim().toLowerCase())
+    //       )
+    //     );
+    //   }, 250),
+    //   [loanTokens]
+    // );
+
+    // React.useEffect(() => {
+    //   handleFilter(searchString);
+    // }, [searchString]);
 
     const flatListComponents = {
       mobile: BottomSheetFlatList,
@@ -60,18 +78,14 @@ export const BottomSheetLoanTokensList = ({
         ? flatListComponents.web
         : flatListComponents.mobile;
 
-    React.useEffect(() => {
-      handleFilter(searchString);
-    }, [searchString]);
-
     return (
       <FlatList
-        contentContainerStyle={tailwind("px-5 pb-12", {
+        contentContainerStyle={tailwind("px-5 pb-12 flex-1", {
           "bg-mono-light-v2-100": isLight,
           "bg-mono-dark-v2-100": !isLight,
         })}
         testID="swap_token_selection_screen"
-        data={filteredLoanTokens}
+        data={filterLoanTokensWithBalance}
         keyExtractor={(item) => item.tokenId}
         renderItem={({ item }: { item: LoanToken }): JSX.Element => {
           const currentPrice = getPrecisedTokenValue(
@@ -158,7 +172,10 @@ export const BottomSheetLoanTokensList = ({
               ref={searchRef}
               value={searchString}
               showClearButton={searchString !== ""}
-              placeholder={translate("screens/LoansScreen", "Search vault")}
+              placeholder={translate(
+                "screens/LoansScreen",
+                "Search token name"
+              )}
               containerStyle={tailwind("", [
                 "border-0.5",
                 isSearchFocus
@@ -185,8 +202,41 @@ export const BottomSheetLoanTokensList = ({
                 setIsSearchFocus(false);
               }}
             />
+            {inSearchMode && (
+              <View style={tailwind("mt-8 mx-5")}>
+                <ThemedTextV2
+                  style={tailwind("text-xs pl-5 font-normal-v2")}
+                  light={tailwind("text-mono-light-v2-700")}
+                  dark={tailwind("text-mono-dark-v2-700")}
+                  testID="empty_search_result_text"
+                >
+                  {searchString.trim() === ""
+                    ? translate("screens/LoansScreen", "Search with token name")
+                    : translate(
+                        "screens/LoansScreen",
+                        "Search results for “{{searchTerm}}”",
+                        { searchTerm: searchString }
+                      )}
+                </ThemedTextV2>
+              </View>
+            )}
           </View>
         }
       />
     );
   });
+
+function filterLoanTokensBySearchTerm(
+  loanTokens: LoanToken[],
+  searchTerm: string,
+  isFocused: boolean
+): LoanToken[] {
+  if (searchTerm === "") {
+    return isFocused ? [] : loanTokens;
+  }
+  return loanTokens.filter((t) => {
+    return [t.token.displaySymbol].some((searchItem) =>
+      searchItem.toLowerCase().includes(searchTerm.trim().toLowerCase())
+    );
+  });
+}
