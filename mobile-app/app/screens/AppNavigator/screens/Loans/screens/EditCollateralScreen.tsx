@@ -23,9 +23,7 @@ import {
   BottomSheetTokenList,
   TokenType,
 } from "@components/BottomSheetTokenList";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
-import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { fetchCollateralTokens } from "@store/loans";
@@ -37,17 +35,12 @@ import {
 } from "@defichain/whale-api-client/dist/api/loan";
 import { createSelector } from "@reduxjs/toolkit";
 import { IconButton } from "@components/IconButton";
-import {
-  DFITokenSelector,
-  DFIUtxoSelector,
-  tokensSelector,
-} from "@store/wallet";
+import { tokensSelector } from "@store/wallet";
 import { getCollateralPrice } from "@screens/AppNavigator/screens/Loans/hooks/CollateralPrice";
 import {
   useVaultStatus,
   VaultStatusTag,
 } from "@screens/AppNavigator/screens/Loans/components/VaultStatusTag";
-import { queueConvertTransaction } from "@hooks/wallet/Conversion";
 import { useCollateralizationRatioColor } from "@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio";
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
 import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
@@ -55,10 +48,6 @@ import { ActiveUSDValue } from "@screens/AppNavigator/screens/Loans/VaultDetail/
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { VaultSectionTextRow } from "../components/VaultSectionTextRow";
-import {
-  AddOrRemoveCollateralForm,
-  AddOrRemoveCollateralResponse,
-} from "../components/AddOrRemoveCollateralForm";
 import { LoanParamList } from "../LoansNavigator";
 
 type Props = StackScreenProps<LoanParamList, "EditCollateralScreen">;
@@ -82,19 +71,11 @@ export function EditCollateralScreen({
 }: Props): JSX.Element {
   const { vaultId } = route.params;
   const client = useWhaleApiClient();
-  const logger = useLogger();
-  const { isLight } = useThemeContext();
   const [bottomSheetScreen, setBottomSheetScreen] = useState<
     BottomSheetNavScreen[]
   >([]);
   const [activeVault, setActiveVault] = useState<LoanVaultActive>();
   const dispatch = useAppDispatch();
-  const DFIUtxo = useSelector((state: RootState) =>
-    DFIUtxoSelector(state.wallet)
-  );
-  const DFIToken = useSelector((state: RootState) =>
-    DFITokenSelector(state.wallet)
-  );
   const containerRef = useRef(null);
   const [isModalDisplayed, setIsModalDisplayed] = useState(false);
   const canUseOperations = useLoanOperations(activeVault?.state);
@@ -145,17 +126,9 @@ export function EditCollateralScreen({
   const collateralTokens: CollateralItem[] = useSelector((state: RootState) =>
     collateralSelector(state)
   );
-  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
 
   useEffect(() => {
     dispatch(fetchCollateralTokens({ client }));
-  }, []);
-
-  useEffect(() => {
-    client.fee
-      .estimate()
-      .then((f) => setFee(new BigNumber(f)))
-      .catch(logger.error);
   }, []);
 
   useEffect(() => {
@@ -180,82 +153,6 @@ export function EditCollateralScreen({
       bottomSheetRef.current?.close();
     }
   }, []);
-  const onAddCollateral = async (
-    item: AddOrRemoveCollateralResponse
-  ): Promise<void> => {
-    dismissModal();
-    const isConversionRequired =
-      item.token.id === "0"
-        ? new BigNumber(item.amount).gt(DFIToken.amount)
-        : false;
-    const collateralItem = collateralTokens.find(
-      (col) => col.token.id === item.token.id
-    );
-    if (activeVault === undefined || collateralItem === undefined) {
-      return;
-    }
-
-    const initialParams = {
-      name: "ConfirmEditCollateralScreen",
-      params: {
-        vault: activeVault,
-        amount: item.amount,
-        token: item.token,
-        fee,
-        isAdd: true,
-        collateralItem,
-        conversion: undefined,
-      },
-      merge: true,
-    };
-    if (isConversionRequired) {
-      const conversionAmount = new BigNumber(item.amount).minus(
-        DFIToken.amount
-      );
-      initialParams.params.conversion = {
-        DFIUtxo,
-        DFIToken,
-        isConversionRequired,
-        conversionAmount: new BigNumber(item.amount).minus(DFIToken.amount),
-      } as any;
-      queueConvertTransaction(
-        {
-          mode: "utxosToAccount",
-          amount: conversionAmount,
-        },
-        dispatch,
-        () => {
-          navigation.navigate(initialParams);
-        },
-        logger
-      );
-    } else {
-      navigation.navigate(initialParams);
-    }
-  };
-
-  const onRemoveCollateral = async (
-    item: AddOrRemoveCollateralResponse
-  ): Promise<void> => {
-    dismissModal();
-    const collateralItem = collateralTokens.find(
-      (col) => col.token.id === item.token.id
-    );
-    if (activeVault !== undefined && collateralItem !== undefined) {
-      navigation.navigate({
-        name: "ConfirmEditCollateralScreen",
-        params: {
-          vault: activeVault,
-          amount: item.amount,
-          token: item.token,
-          fee,
-          isAdd: false,
-          collateralItem,
-        },
-        merge: true,
-      });
-    }
-  };
 
   if (activeVault === undefined) {
     return <></>;
@@ -278,31 +175,24 @@ export function EditCollateralScreen({
                   vault: activeVault,
                   headerLabel: translate(
                     "screens/EditCollateralScreen",
-                    "Select token to add"
+                    "Select Collateral"
                   ),
                   onCloseButtonPress: dismissModal,
-                  navigateToScreen: {
-                    screenName: "AddOrRemoveCollateralForm",
-                    onButtonPress: onAddCollateral as any,
+                  onTokenPress: async (item) => {
+                    navigation.navigate({
+                      name: "AddOrRemoveCollateralScreen",
+                      params: {
+                        vault: activeVault,
+                        collateralItem: item,
+                        collateralTokens,
+                        isAdd: true,
+                      },
+                    });
+                    dismissModal();
                   },
-                  isOraclePrice: true,
                 }),
                 option: {
                   header: () => null,
-                  headerBackTitleVisible: false,
-                },
-              },
-              {
-                stackScreenName: "AddOrRemoveCollateralForm",
-                component: AddOrRemoveCollateralForm,
-                option: {
-                  headerStatusBarHeight: 1,
-                  headerBackgroundContainerStyle: tailwind("border-b", {
-                    "border-gray-200": isLight,
-                    "border-gray-700": !isLight,
-                    "-top-5": Platform.OS !== "web",
-                  }),
-                  headerTitle: "",
                   headerBackTitleVisible: false,
                 },
               },
@@ -318,36 +208,10 @@ export function EditCollateralScreen({
             (col) => col.token.id === collateral.id
           );
           if (collateralItem !== undefined) {
-            const activePrice = new BigNumber(
-              getActivePrice(
-                collateralItem.token.symbol,
-                collateralItem.activePrice,
-                collateralItem.factor,
-                "ACTIVE",
-                "COLLATERAL"
-              )
-            );
-            const params = {
-              stackScreenName: "AddOrRemoveCollateralForm",
-              component: AddOrRemoveCollateralForm,
-              initialParam: {
-                token: collateralItem.token,
-                activePrice,
-                available: "",
-                onButtonPress: undefined,
-                onCloseButtonPress: dismissModal,
-                collateralFactor: new BigNumber(
-                  collateralItem.factor ?? 0
-                ).times(100),
-                isAdd: true,
-                current: new BigNumber(collateral.amount),
-                vault: activeVault,
-                collateralItem,
-                collateralTokens,
-              },
-              option: {
-                header: () => null,
-              },
+            const addOrRemoveParams = {
+              vault: activeVault,
+              collateralItem,
+              collateralTokens,
             };
             return (
               <CollateralCard
@@ -359,20 +223,16 @@ export function EditCollateralScreen({
                 }
                 collateral={collateral}
                 onAddPress={() => {
-                  params.initialParam.available =
-                    collateralItem.available.toFixed(8);
-                  params.initialParam.onButtonPress = onAddCollateral as any;
-                  setBottomSheetScreen([params]);
-                  expandModal();
+                  navigation.navigate({
+                    name: "AddOrRemoveCollateralScreen",
+                    params: { ...addOrRemoveParams, isAdd: true },
+                  });
                 }}
                 onRemovePress={() => {
-                  params.initialParam.available = new BigNumber(
-                    collateral.amount
-                  ).toFixed(8);
-                  params.initialParam.onButtonPress = onRemoveCollateral as any;
-                  params.initialParam.isAdd = false;
-                  setBottomSheetScreen([params]);
-                  expandModal();
+                  navigation.navigate({
+                    name: "AddOrRemoveCollateralScreen",
+                    params: { ...addOrRemoveParams, isAdd: false },
+                  });
                 }}
               />
             );

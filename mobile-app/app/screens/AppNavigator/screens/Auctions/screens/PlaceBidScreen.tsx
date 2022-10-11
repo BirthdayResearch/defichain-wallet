@@ -1,11 +1,11 @@
 import { useEffect, useState, useCallback } from "react";
 import { Platform, View, Text } from "react-native";
 import { useSelector } from "react-redux";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { StackScreenProps } from "@react-navigation/stack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import BigNumber from "bignumber.js";
-import { getColor, tailwind } from "@tailwind";
+import { tailwind } from "@tailwind";
 import { RootState } from "@store";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { hasTxQueued } from "@store/transaction_queue";
@@ -15,7 +15,6 @@ import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import {
   ThemedTextV2,
-  ThemedTextInputV2,
   ThemedTouchableOpacityV2,
   ThemedViewV2,
   ThemedScrollViewV2,
@@ -36,6 +35,7 @@ import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/he
 import { useToast } from "react-native-toast-notifications";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { ButtonV2 } from "@components/ButtonV2";
+import { RHFTextInput } from "@components/RHFTextInput";
 import { AuctionsParamList } from "../AuctionNavigator";
 import { useAuctionBidValue } from "../hooks/AuctionBidValue";
 import { useAuctionTime } from "../hooks/AuctionTimeLeft";
@@ -174,46 +174,27 @@ export function PlaceBidScreen(props: Props): JSX.Element {
             )}
           >
             <View style={tailwind("w-6/12 mr-2")}>
-              <Controller
-                control={control}
-                defaultValue=""
+              <RHFTextInput
                 name="bidAmount"
-                render={({ field: { onChange, value } }) => (
-                  <ThemedTextInputV2
-                    style={tailwind("text-xl font-semibold-v2 w-full")}
-                    light={tailwind("text-mono-light-v2-900")}
-                    dark={tailwind("text-mono-dark-v2-900")}
-                    keyboardType="numeric"
-                    value={value}
-                    onBlur={async () => {
-                      await onChange(value?.trim());
-                    }}
-                    onChangeText={async (amount) => {
-                      amount = isNaN(+amount) ? "0" : amount;
-                      setValue("bidAmount", amount);
-                      await trigger("bidAmount");
-                    }}
-                    placeholder="0.00"
-                    placeholderTextColor={getColor(
-                      isLight
-                        ? bidAmount === ""
-                          ? "mono-light-v2-500"
-                          : "mono-light-v2-900"
-                        : bidAmount === ""
-                        ? "mono-dark-v2-500"
-                        : "mono-dark-v2-900"
-                    )}
-                    testID="text_input_bid_amount"
-                    editable={bidAmount !== undefined}
-                  />
-                )}
+                control={control}
+                testID="text_input_bid_amount"
+                inputProps={{
+                  keyboardType: "numeric",
+                  placeholder: "0.00",
+                  onChangeText: async (amount: string) => {
+                    amount = isNaN(+amount) ? "0" : amount;
+                    setValue("bidAmount", amount);
+                    await trigger("bidAmount");
+                  },
+                }}
+                value={bidAmount}
                 rules={{
                   required: true,
                   pattern: /^\d*\.?\d*$/,
                   validate: {
-                    min: (value) =>
+                    min: (value: string) =>
                       new BigNumber(value).gte(minNextBidInToken.toFixed(8)),
-                    hasSufficientFunds: (value) =>
+                    hasSufficientFunds: (value: string) =>
                       new BigNumber(ownedTokenAmount).gte(value),
                   },
                 }}

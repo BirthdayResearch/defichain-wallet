@@ -16,6 +16,7 @@ interface ISummaryTitleProps {
   fromAddressLabel?: string | null;
   toAddress?: string;
   toAddressLabel?: string | null;
+  toAddressTitle?: string | null;
   iconA: string;
   iconB?: string;
   addressType?: AddressType;
@@ -114,7 +115,7 @@ export function SummaryTitleV2(props: ISummaryTitleProps): JSX.Element {
               dark={tailwind("text-mono-dark-v2-500")}
               light={tailwind("text-mono-light-v2-500")}
             >
-              {translate("screens/common", "To")}
+              {props.toAddressTitle ?? translate("screens/common", "To")}
             </ThemedTextV2>
             <ThemedViewV2
               dark={tailwind("bg-mono-dark-v2-200")}

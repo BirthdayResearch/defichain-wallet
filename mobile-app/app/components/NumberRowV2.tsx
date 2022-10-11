@@ -20,7 +20,7 @@ type INumberRowProps = React.PropsWithChildren<ViewProps> & NumberRowProps;
 interface NumberRowProps extends ThemedProps {
   lhs: NumberRowElement;
   rhs: RhsNumberRowElement;
-  info?: BottomSheetAlertInfoV2;
+  info?: BottomSheetAlertInfoV2 & { iconStyle?: ThemedProps };
   containerStyle?: ThemedProps & { style: ThemedProps & StyleProp<ViewStyle> };
   customSnapPoints?: string[];
 }
@@ -68,7 +68,7 @@ export function NumberRowV2(props: INumberRowProps): JSX.Element {
               <BottomSheetInfoV2
                 alertInfo={props.info}
                 name={props.info.title}
-                infoIconStyle={tailwind("text-sm")}
+                infoIconStyle={props.info.iconStyle}
                 snapPoints={props.customSnapPoints ?? ["40%"]}
               />
             </View>

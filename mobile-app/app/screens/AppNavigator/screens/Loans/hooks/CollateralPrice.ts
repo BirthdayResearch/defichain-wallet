@@ -127,6 +127,30 @@ export function getCollateralPrice(
   };
 }
 
+export function getCollateralValue(
+  amount: BigNumber,
+  collateralItem: CollateralItem | CollateralToken
+): BigNumber {
+  const activePrice = new BigNumber(
+    getActivePrice(
+      collateralItem.token.symbol,
+      collateralItem.activePrice,
+      collateralItem.factor,
+      "ACTIVE",
+      "COLLATERAL"
+    )
+  );
+  const collateralValue = activePrice.multipliedBy(amount);
+  return collateralValue;
+}
+
+export function getCollateralFactor(
+  collateralItem: CollateralItem | CollateralToken
+): BigNumber {
+  const collateralFactor = new BigNumber(collateralItem?.factor ?? 0);
+  return collateralFactor;
+}
+
 export function getVaultShare(
   collateralAmount: BigNumber,
   price: BigNumber,

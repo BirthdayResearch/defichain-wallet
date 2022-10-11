@@ -64,6 +64,21 @@ export function useCollateralizationRatioColor(
   return style;
 }
 
+export function useCollateralizationRatioColorV2(
+  props: CollateralizationRatioProps
+): string {
+  const stats = useCollateralRatioStats(props);
+  let ratioColor = "";
+  if (stats.isInLiquidation) {
+    ratioColor = "red-v2";
+  } else if (stats.isAtRisk) {
+    ratioColor = "orange-v2";
+  } else if (stats.isHealthy) {
+    ratioColor = "green-v2";
+  }
+  return ratioColor;
+}
+
 export function useResultingCollateralizationRatioByCollateral({
   collateralValue,
   collateralRatio,
@@ -77,11 +92,12 @@ export function useResultingCollateralizationRatioByCollateral({
   minCollateralRatio: BigNumber;
   totalLoanAmount: BigNumber;
   totalCollateralValue?: BigNumber;
-  numOfColorBars: number;
+  numOfColorBars?: number;
   totalCollateralValueInUSD: BigNumber;
 }): {
   resultingColRatio: BigNumber;
   displayedColorBars: number;
+  normalizedColRatio: BigNumber;
 } {
   const hasCollateralRatio =
     !new BigNumber(collateralRatio).isNaN() &&
@@ -142,9 +158,16 @@ export function useResultingCollateralizationRatioByCollateral({
     displayedColorBars = colorBarsCount;
   }
 
+  // TODO: Replace `normalizedColRatio` with correct computation
+  const maxRatio = minCollateralRatio.multipliedBy(healthyThresholdRatio);
+  const normalizedColRatio = new BigNumber(resultingColRatio)
+    .minus(minCollateralRatio)
+    .dividedBy(maxRatio.minus(minCollateralRatio));
+
   return {
     displayedColorBars,
     resultingColRatio,
+    normalizedColRatio,
   };
 }
 
