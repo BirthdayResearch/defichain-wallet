@@ -38,6 +38,7 @@ import { NumberRowV2 } from "@components/NumberRowV2";
 import { AddressType } from "@store/wallet";
 import { TextRowV2 } from "@components/TextRowV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { WalletAlert } from "@components/WalletAlert";
 import { LoanParamList } from "../LoansNavigator";
 import { CollateralRatioRow } from "./AddOrRemoveCollateralScreen";
 
@@ -99,12 +100,30 @@ export function ConfirmEditCollateralScreen({
   }, [hasPendingBroadcastJob, currentBroadcastJob]);
 
   function onCancel(): void {
-    navigation.navigate({
-      name: "EditCollateralScreen",
-      params: {
-        vaultId: vault.vaultId,
-      },
-      merge: true,
+    WalletAlert({
+      title: translate("screens/Settings", "Cancel transaction"),
+      message: translate(
+        "screens/Settings",
+        "By cancelling, you will lose any changes you made for your transaction."
+      ),
+      buttons: [
+        {
+          text: translate("screens/Settings", "Go back"),
+          style: "default",
+        },
+        {
+          text: translate("screens/Settings", "Cancel"),
+          style: "destructive",
+          onPress: async () => {
+            navigation.navigate({
+              name: "EditCollateralScreen",
+              params: {
+                vaultId: vault.vaultId,
+              },
+            });
+          },
+        },
+      ],
     });
   }
 
