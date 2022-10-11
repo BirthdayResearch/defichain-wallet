@@ -3,7 +3,6 @@ import {
   ThemedFlatListV2,
   ThemedTouchableOpacityV2,
   ThemedTextV2,
-  ThemedViewV2,
 } from "@components/themed";
 import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
 import { tailwind } from "@tailwind";
@@ -15,6 +14,8 @@ import { SearchInputV2 } from "@components/SearchInputV2";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { TextInput } from "react-native-gesture-handler";
 import { debounce } from "lodash";
+import { Platform } from "react-native";
+import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { getPrecisedTokenValue } from "../../Auctions/helpers/precision-token-value";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { TokenIcon } from "../../Portfolio/components/TokenIcon";
@@ -23,9 +24,11 @@ import { TokenNameText } from "../../Portfolio/components/TokenNameText";
 export const BottomSheetLoanTokensList = ({
   onPress,
   loanTokens,
+  isLight,
 }: {
   onPress: (item: LoanToken) => void;
   loanTokens: LoanToken[];
+  isLight: boolean;
 }): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
     const { isLight } = useThemeContext();
@@ -48,13 +51,25 @@ export const BottomSheetLoanTokensList = ({
       [loanTokens]
     );
 
+    const flatListComponents = {
+      mobile: BottomSheetFlatList,
+      web: ThemedFlatListV2,
+    };
+    const FlatList =
+      Platform.OS === "web"
+        ? flatListComponents.web
+        : flatListComponents.mobile;
+
     React.useEffect(() => {
       handleFilter(searchString);
     }, [searchString]);
 
     return (
-      <ThemedFlatListV2
-        contentContainerStyle={tailwind("px-5 pb-12")}
+      <FlatList
+        contentContainerStyle={tailwind("px-5 pb-12", {
+          "bg-mono-light-v2-100": isLight,
+          "bg-mono-dark-v2-100": !isLight,
+        })}
         testID="swap_token_selection_screen"
         data={filteredLoanTokens}
         keyExtractor={(item) => item.tokenId}

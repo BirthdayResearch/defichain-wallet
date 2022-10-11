@@ -105,7 +105,7 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
   };
   const title = "Price Oracles";
   const description =
-    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.";
+    "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)";
 
   const oraclePriceSheetSnapPoints = {
     ios: ["30%"],
@@ -117,7 +117,10 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
     setBottomSheetScreen([
       {
         stackScreenName: "OraclePriceInfo",
-        component: BottomSheetModalInfo({ title, description }),
+        component: BottomSheetModalInfo({
+          title,
+          description,
+        }),
         option: BottomSheetHeader,
       },
     ]);
@@ -135,7 +138,7 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
     setBottomSheetScreen([
       {
         stackScreenName: "LoanTokensList",
-        component: BottomSheetLoanTokensList({ onPress, loanTokens }),
+        component: BottomSheetLoanTokensList({ onPress, loanTokens, isLight }),
         option: BottomSheetHeader,
       },
     ]);
@@ -262,7 +265,10 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
         })}
 
         {!inSearchMode && (
-          <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />
+          <PriceOracleInfo
+            onPress={onBottomSheetOraclePriceSelect}
+            text="All prices displayed are from price oracles."
+          />
         )}
 
         {Platform.OS === "web" && (

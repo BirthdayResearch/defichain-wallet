@@ -12,7 +12,7 @@ import {
 import { LoanScheme } from "@defichain/whale-api-client/dist/api/loan";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-
+import { StyleProp, ViewStyle } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 
 export interface WalletLoanScheme extends LoanScheme {
@@ -23,13 +23,17 @@ interface LoanSchemeOptionsP {
   isLoading: boolean;
   loanSchemes: WalletLoanScheme[];
   selectedLoanScheme?: LoanScheme;
+  containerStyle?: StyleProp<ViewStyle>;
   onLoanSchemePress: (scheme: LoanScheme) => void;
 }
 
 export function LoanSchemeOptionsV2(props: LoanSchemeOptionsP): JSX.Element {
   return (
     <ThemedViewV2
-      style={tailwind("mt-8 mb-1 rounded-t-lg-v2 rounded-b-lg-v2")}
+      style={[
+        tailwind("mt-8 mb-1 rounded-t-lg-v2 rounded-b-lg-v2"),
+        props.containerStyle,
+      ]}
       testID="loan_scheme_options"
       light={tailwind("bg-mono-light-v2-00")}
       dark={tailwind("bg-mono-dark-v2-00")}

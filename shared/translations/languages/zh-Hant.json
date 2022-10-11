@@ -795,7 +795,9 @@
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool",
     "Paying back loan amount of {{amount}} DUSD": "Paying back loan amount of {{amount}} DUSD",
-    "Paid loan amount of {{amount}} DUSD": "Paid loan amount of {{amount}} DUSD"
+    "Paid loan amount of {{amount}} DUSD": "Paid loan amount of {{amount}} DUSD",
+    "Editing vault {{vaultId}}": "Editing vault {{vaultId}}",
+    "Edited vault {{vaultId}}": "Edited vault {{vaultId}}"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "請許可程序使用相機",
@@ -1273,7 +1275,8 @@
     "Oracle prices": "Oracle prices",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain.",
     "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
-    "Search available loan tokens": "Search available loan tokens"
+    "Search available loan tokens": "Search available loan tokens",
+    "Edit Vault": "Edit Vault"
   },
   "components/tabs": {
     "Browse loan tokens": "瀏覽貸款選項",
@@ -1314,7 +1317,7 @@
   },
   "components/EmptyAuctions": {
     "No auctions": "No auctions",
-    "There are currently no collaterals available for auction.":  "There are currently no collaterals available for auction.",
+    "There are currently no collaterals available for auction.": "There are currently no collaterals available for auction.",
     "No Outbid Auctions": "No Outbid Auctions",
     "You have no outbids yet": "You have no outbids yet",
     "No Leading Bids": "No Leading Bids",
@@ -1446,7 +1449,15 @@
     "HALTED": "停止",
     "IN LIQUIDATION": "清算中",
     "EMPTY": "清空",
-    "READY": "準備中"
+    "READY": "準備中",
+    "Add Collateral": "Add Collateral",
+    "Add collateral to borrow": "添加抵押品作借貸",
+    "Loan available": "可用貸款",
+    "Total collateral": "Total collateral",
+    "Borrow": "Borrow",
+    "Liquidated vault": "已清算金庫",
+    "Ready": "準備好",
+    "Halted": "已暫停"
   },
   "components/EmptyVault": {
     "No vaults": "No vaults",
@@ -1519,7 +1530,8 @@
     "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "交易滑價是每項交易中的兌換率變化。選擇您願意接受這滑價百分比 （如下顯示)。",
     "Settlements": "Settlements",
     "Price Oracles": "Price Oracles",
-    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain."
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.",
+    "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)": "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金庫編號",
@@ -1759,8 +1771,14 @@
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "更改金庫中的貸款計劃",
     "Make sure your collateralization ratio is still above your min. collateralization ratio": "確保您的抵押率仍然高於您的最低要求抵押率",
-    "CONTINUE": "繼續",
-    "Confirm your vault details in next screen": "請在下一頁確認金庫細項"
+    "Continue": "繼續",
+    "Confirm your vault details in next screen": "請在下一頁確認金庫細項",
+    "AVAILABLE SCHEMES": "AVAILABLE SCHEMES",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "VAULT DETAILS": "VAULT DETAILS",
+    "{{interestRate}}% Interest": "{{interestRate}}% Interest",
+    "min. ": "min. ",
+    "You can only select a scheme lower than your vault's current collateralization.": "You can only select a scheme lower than your vault's current collateralization."
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "正在更改金庫計劃",
@@ -1774,7 +1792,14 @@
     "CONFIRM EDIT": "確認更改",
     "EDITING": "更改中",
     "CONVERTING": "轉換中",
-    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "更新金庫至{{mincolRatio}}%最低抵押率和{{ir}}%年利息"
+    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "更新金庫至{{mincolRatio}}%最低抵押率和{{ir}}%年利息",
+    "Edit": "編輯",
+    "You are editing loan scheme of": "You are editing loan scheme of",
+    "Prev. min. collateral ratio": "Prev. min. collateral ratio",
+    "Prev. interest": "Prev. interest",
+    "New min. collateral ratio": "New min. collateral ratio",
+    "New vault interest": "New vault interest",
+    "Transaction fee": "Transaction fee"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "最低抵押率",
@@ -1964,7 +1989,7 @@
     "Placed {{amount}} {{token}} quick bid": "Placed {{amount}} {{token}} quick bid",
     "Available": "可發送資金",
     "Transaction fee": "Transaction fee",
-    "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}": "您的出價高於拍賣的抵押品價值 {{currency}}{{amount}}" 
+    "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}": "您的出價高於拍賣的抵押品價值 {{currency}}{{amount}}"
   },
   "components/WalletAddressRow": {
     "Wallet address": "錢包地址"
@@ -2011,5 +2036,9 @@
     "Payback with DUSD collateral": "Payback with DUSD collateral",
     "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?",
     "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral"
+  },
+  "components/PriceOracleInfo": {
+    "All prices displayed are from price oracles.": "All prices displayed are from price oracles.",
+    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles."
   }
 }

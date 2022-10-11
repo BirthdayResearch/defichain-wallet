@@ -1,26 +1,24 @@
+import { useMemo } from "react";
+import { View } from "react-native";
+import { useSelector } from "react-redux";
 import BigNumber from "bignumber.js";
-import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { LoanParamList } from "@screens/AppNavigator/screens/Loans/LoansNavigator";
-import { loanTokensSelector, LoanVault } from "@store/loans";
 import {
   LoanToken,
   LoanVaultActive,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { TouchableOpacity, View } from "react-native";
-import { useVaultStatus } from "@screens/AppNavigator/screens/Loans/components/VaultStatusTag";
-import { useNextCollateralizationRatio } from "@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio";
-import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
-import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
-import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
-import { NumericFormat as NumberFormat } from "react-number-format";
-import { BottomSheetNavScreen } from "@components/BottomSheetWithNavV2";
-import { useSelector } from "react-redux";
 import { RootState } from "@store";
+import { loanTokensSelector, LoanVault } from "@store/loans";
+import { LoanParamList } from "@screens/AppNavigator/screens/Loans/LoansNavigator";
+import { useVaultStatus } from "@screens/AppNavigator/screens/Loans/components/VaultStatusTag";
+import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
+import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
+import { VaultCardStatus } from "@screens/AppNavigator/screens/Loans/components/VaultCardStatus";
+import { ThemedTouchableOpacityV2, ThemedViewV2 } from "@components/themed";
+import { BottomSheetNavScreen } from "@components/BottomSheetWithNavV2";
 import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";
-import { LoanActionButton } from "./LoanActionButton";
 import { VaultSectionTextRowV2 } from "./VaultSectionTextRowV2";
 import { VaultBanner } from "./VaultBanner";
 
@@ -57,10 +55,6 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
     new BigNumber(vault.loanValue),
     new BigNumber(vault.collateralValue)
   );
-  const nextCollateralizationRatio = useNextCollateralizationRatio(
-    vault.collateralAmounts,
-    vault.loanAmounts
-  );
 
   const loanTokens = useSelector((state: RootState) =>
     loanTokensSelector(state.loans)
@@ -85,7 +79,6 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
     });
   };
 
-  const canUseOperations = useLoanOperations(vault?.state);
   const onCardPress = (): void => {
     navigation.navigate("VaultDetailScreen", {
       vaultId: vault.vaultId,
@@ -101,9 +94,15 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
       merge: true,
     });
   };
-  const vaultEmpty = vaultState.status === VaultStatus.Empty;
-  const vaultLiquidated = vaultState.status === VaultStatus.Liquidated;
-  function vaultDescription(): string[] {
+
+  const { isVaultEmpty, isVaultLiquidated } = useMemo(() => {
+    return {
+      isVaultEmpty: vaultState.status === VaultStatus.Empty,
+      isVaultLiquidated: vaultState.status === VaultStatus.Liquidated,
+    };
+  }, [vaultState.status]);
+
+  const vaultBanner = useMemo(() => {
     let text = "";
     let type = "";
     let buttonLabel = "";
@@ -120,31 +119,37 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
       default:
         break;
     }
-    return [buttonLabel, text, type];
-  }
+    return { buttonLabel, text, type };
+  }, [vaultState.status]);
+
   return (
     <View style={tailwind("mb-2")}>
-      {vaultEmpty || vaultLiquidated ? (
+      {isVaultEmpty || isVaultLiquidated ? (
         <VaultBanner
-          buttonLabel={vaultDescription()[0]}
-          description={vaultDescription()[1]}
+          buttonLabel={vaultBanner.buttonLabel}
+          description={vaultBanner.text}
           vaultId={vault.vaultId}
           onButtonPress={onAddCollateralPress}
-          vaultType={vaultDescription()[2]}
+          vaultType={vaultBanner.type}
           onCardPress={onCardPress}
           testID={props.testID}
           vault={vault}
         />
       ) : (
-        <TouchableOpacity onPress={onCardPress}>
-          <ThemedViewV2
-            dark={tailwind("bg-mono-dark-v2-00")}
-            light={tailwind("bg-mono-light-v2-00")}
-            style={tailwind("px-5 py-3.5 rounded-lg-v2 border-0")}
-            testID={props.testID}
-          >
-            <View style={tailwind("flex-row items-center")}>
-              <View style={tailwind("flex-col")}>
+        <ThemedTouchableOpacityV2
+          onPress={onCardPress}
+          style={tailwind("border-0")}
+        >
+          <View style={tailwind("flex-col")}>
+            <ThemedViewV2
+              dark={tailwind("bg-mono-dark-v2-00")}
+              light={tailwind("bg-mono-light-v2-00")}
+              style={tailwind(
+                "flex-row p-5 rounded-lg-v2 border-0 items-center justify-between"
+              )}
+              testID={props.testID}
+            >
+              <View style={tailwind("flex-1 flex-col pr-2")}>
                 <TokenIconGroupV2
                   testID={`${props.testID}_collateral_token_group`}
                   symbols={vault.collateralAmounts?.map(
@@ -154,76 +159,34 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
                   size={24}
                 />
                 <VaultSectionTextRowV2
-                  customContainerStyle="mt-2"
                   testID={`${props.testID}_loan_available`}
-                  prefix={
-                    VaultStatus.Liquidated === vaultState.status ? "" : "$"
-                  }
-                  value={
-                    VaultStatus.Liquidated === vaultState.status
-                      ? "-"
-                      : getPrecisedTokenValue(vault.loanValue) ?? "-"
-                  }
-                  lhs={translate("components/VaultCard", "Loan Available")}
+                  prefix="$"
+                  value={getPrecisedCurrencyValue(vault.loanValue) ?? "-"}
+                  lhs={translate("components/VaultCard", "Loan available")}
                   isOraclePrice
+                  customContainerStyle="mt-3"
                 />
                 <VaultSectionTextRowV2
                   testID={`${props.testID}_total_collateral`}
-                  prefix={
-                    VaultStatus.Liquidated === vaultState.status ? "" : "$"
-                  }
-                  value={
-                    VaultStatus.Liquidated === vaultState.status
-                      ? "-"
-                      : getPrecisedTokenValue(vault.collateralValue)
-                  }
+                  prefix="$"
+                  value={getPrecisedCurrencyValue(vault.collateralValue)}
                   lhs={translate("components/VaultCard", "Total collateral")}
                   isOraclePrice
+                  customContainerStyle="mt-2"
                 />
               </View>
 
-              <View style={tailwind("flex-1 items-end")}>
-                <ThemedTextV2
-                  ellipsizeMode="middle"
-                  numberOfLines={1}
-                  style={[
-                    tailwind("text-sm text-right"),
-                    { minWidth: 10, maxWidth: 124 },
-                  ]}
-                  dark={tailwind("text-mono-dark-v2-700")}
-                  light={tailwind("text-mono-light-v2-700")}
-                >
-                  {vault.vaultId}
-                </ThemedTextV2>
-                <NumberFormat
-                  value={nextCollateralizationRatio?.toFixed(2)}
-                  decimalScale={2}
-                  thousandSeparator
-                  displayType="text"
-                  suffix="%"
-                  renderText={(value) => (
-                    <ThemedTextV2
-                      dark={tailwind("text-mono-dark-v2-900")}
-                      light={tailwind("text-mono-light-v2-900")}
-                      style={tailwind("font-normal-v2 text-sm")}
-                      testID={`${props.testID}_min_ratio`}
-                    >
-                      {value}
-                    </ThemedTextV2>
-                  )}
-                />
-                {canUseOperations && (
-                  <LoanActionButton
-                    label="Borrow"
-                    testID="borrow_collateral"
-                    style={tailwind("mt-3 px-9 bg-red-100")}
-                    onPress={onBottomSheetLoansTokensListSelect}
-                  />
-                )}
-              </View>
-            </View>
-          </ThemedViewV2>
-        </TouchableOpacity>
+              <VaultCardStatus
+                vault={vault}
+                vaultStatus={vaultState.status}
+                colRatio={vault.informativeRatio}
+                minColRatio={vault.loanScheme.minColRatio}
+                onButtonPressed={onBottomSheetLoansTokensListSelect}
+                testID={props.testID}
+              />
+            </ThemedViewV2>
+          </View>
+        </ThemedTouchableOpacityV2>
       )}
     </View>
   );

@@ -4,11 +4,11 @@ import { ThemedProps, ThemedTextV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { NumericFormat as NumberFormat } from "react-number-format";
 
-import { ViewProps } from "react-native";
-import { View } from "@components";
+import { View, ViewProps } from "react-native";
 
 type IVaultSectionTextProps = React.PropsWithChildren<ViewProps> &
   VaultSectionTextProps;
+
 interface VaultSectionTextProps extends NumberRowElement {
   lhs: string;
   info?: BottomSheetAlertInfo;
@@ -25,7 +25,7 @@ export function VaultSectionTextRowV2(
     <View style={tailwind(props.customContainerStyle)}>
       <ThemedTextV2
         light={tailwind("text-mono-light-v2-700")}
-        dark={tailwind("text-mono-light-v2-700")}
+        dark={tailwind("text-mono-dark-v2-700")}
         style={tailwind("text-xs font-normal-v2")}
         testID={`${props.testID}_label`}
       >
@@ -46,14 +46,16 @@ export function VaultSectionTextRowV2(
             >
               {val}
             </ThemedTextV2>
-            <ThemedTextV2
-              dark={tailwind("text-mono-dark-v2-900")}
-              light={tailwind("text-mono-light-v2-900")}
-              testID={`${props.testID}_suffix`}
-              {...props.rhsThemedProps}
-            >
-              {props.suffix}
-            </ThemedTextV2>
+            {props.suffix && (
+              <ThemedTextV2
+                dark={tailwind("text-mono-dark-v2-900")}
+                light={tailwind("text-mono-light-v2-900")}
+                testID={`${props.testID}_suffix`}
+                {...props.rhsThemedProps}
+              >
+                {props.suffix}
+              </ThemedTextV2>
+            )}
           </>
         )}
         thousandSeparator
