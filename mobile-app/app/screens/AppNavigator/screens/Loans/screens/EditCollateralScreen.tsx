@@ -4,21 +4,22 @@ import {
   ThemedScrollView,
   ThemedSectionTitle,
   ThemedText,
+  ThemedTextV2,
   ThemedView,
+  ThemedViewV2,
 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Platform, TouchableOpacity, View } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import {
   BottomSheetNavScreen,
-  BottomSheetWebWithNav,
-  BottomSheetWithNav,
-} from "@components/BottomSheetWithNav";
+  BottomSheetWebWithNavV2,
+  BottomSheetWithNavV2,
+} from "@components/BottomSheetWithNavV2";
 import {
   BottomSheetTokenList,
   TokenType,
@@ -47,6 +48,7 @@ import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/A
 import { ActiveUSDValue } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useAppDispatch } from "@hooks/useAppDispatch";
+import { useBottomSheet } from "@hooks/useBottomSheet";
 import { VaultSectionTextRow } from "../components/VaultSectionTextRow";
 import { LoanParamList } from "../LoansNavigator";
 
@@ -76,16 +78,11 @@ export function EditCollateralScreen({
   >([]);
   const [activeVault, setActiveVault] = useState<LoanVaultActive>();
   const dispatch = useAppDispatch();
-  const containerRef = useRef(null);
-  const [isModalDisplayed, setIsModalDisplayed] = useState(false);
   const canUseOperations = useLoanOperations(activeVault?.state);
 
   const tokens = useSelector((state: RootState) =>
     tokensSelector(state.wallet)
   );
-
-  const modalSnapPoints = { ios: ["60%"], android: ["60%"] };
-  const modalHeight = { height: "60%" };
 
   const getTokenAmount = (tokenId: string): BigNumber => {
     const id = tokenId === "0" ? "0_unified" : tokenId;
@@ -138,21 +135,13 @@ export function EditCollateralScreen({
     }
   }, [vaults]);
 
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
-  const expandModal = useCallback(() => {
-    if (Platform.OS === "web") {
-      setIsModalDisplayed(true);
-    } else {
-      bottomSheetRef.current?.present();
-    }
-  }, []);
-  const dismissModal = useCallback(() => {
-    if (Platform.OS === "web") {
-      setIsModalDisplayed(false);
-    } else {
-      bottomSheetRef.current?.close();
-    }
-  }, []);
+  const {
+    bottomSheetRef,
+    containerRef,
+    dismissModal,
+    expandModal,
+    isModalDisplayed,
+  } = useBottomSheet();
 
   if (activeVault === undefined) {
     return <></>;
@@ -192,8 +181,40 @@ export function EditCollateralScreen({
                   },
                 }),
                 option: {
-                  header: () => null,
+                  headerTitle: "",
                   headerBackTitleVisible: false,
+                  headerStyle: tailwind("rounded-t-xl-v2 border-b-0"),
+                  header: () => (
+                    <ThemedViewV2
+                      style={tailwind("pt-6 pb-3 rounded-t-xl-v2 border-b-0")}
+                    >
+                      <ThemedViewV2
+                        style={tailwind(
+                          "flex flex-row justify-between items-center mx-5"
+                        )}
+                      >
+                        <ThemedTextV2
+                          style={tailwind("text-xl font-normal-v2")}
+                          dark={tailwind("text-mono-dark-v2-900")}
+                          light={tailwind("text-mono-light-v2-900")}
+                        >
+                          {translate(
+                            "screens/EditCollateralScreen",
+                            "Select Collateral"
+                          )}
+                        </ThemedTextV2>
+                        <TouchableOpacity onPress={dismissModal}>
+                          <ThemedIcon
+                            iconType="MaterialCommunityIcons"
+                            name="close-circle-outline"
+                            size={20}
+                            dark={tailwind("text-mono-dark-v2-900")}
+                            light={tailwind("text-mono-light-v2-900")}
+                          />
+                        </TouchableOpacity>
+                      </ThemedViewV2>
+                    </ThemedViewV2>
+                  ),
                 },
               },
             ]);
@@ -242,24 +263,37 @@ export function EditCollateralScreen({
           }
         })}
       </ThemedScrollView>
-      <BottomSheetWithNav
+      <BottomSheetWithNavV2
         modalRef={bottomSheetRef}
         screenList={bottomSheetScreen}
       />
 
       {Platform.OS === "web" && (
-        <BottomSheetWebWithNav
+        <BottomSheetWebWithNavV2
           modalRef={containerRef}
           screenList={bottomSheetScreen}
           isModalDisplayed={isModalDisplayed}
-          modalStyle={modalHeight}
+          // eslint-disable-next-line react-native/no-inline-styles
+          modalStyle={{
+            position: "absolute",
+            bottom: "0",
+            height: "70%",
+            width: "100%",
+            zIndex: 50,
+            borderTopLeftRadius: 15,
+            borderTopRightRadius: 15,
+            overflow: "hidden",
+          }}
         />
       )}
       {Platform.OS !== "web" && (
-        <BottomSheetWithNav
+        <BottomSheetWithNavV2
           modalRef={bottomSheetRef}
           screenList={bottomSheetScreen}
-          snapPoints={modalSnapPoints}
+          snapPoints={{
+            ios: ["70%"],
+            android: ["70%"],
+          }}
         />
       )}
     </View>

@@ -208,33 +208,11 @@ export const BottomSheetTokenList = ({
             </ThemedTouchableOpacityV2>
           );
         }}
-        ListHeaderComponent={
-          <ThemedViewV2
-            light={tailwind("bg-mono-light-v2-100 text-mono-light-v2-900")}
-            dark={tailwind("bg-mono-dark-v2-100 text-mono-dark-v2-900")}
-            style={tailwind(
-              "flex flex-row justify-between items-center pt-6 pb-3"
-            )}
-          >
-            <ThemedTextV2 style={tailwind("text-xl font-normal-v2")}>
-              {headerLabel}
-            </ThemedTextV2>
-            <TouchableOpacity onPress={onCloseButtonPress}>
-              <ThemedIcon
-                iconType="MaterialCommunityIcons"
-                name="close-circle-outline"
-                size={20}
-                dark={tailwind("text-mono-dark-v2-900")}
-                light={tailwind("text-mono-light-v2-900")}
-              />
-            </TouchableOpacity>
-          </ThemedViewV2>
-        }
-        stickyHeaderIndices={[0]}
         keyExtractor={(item) => item.tokenId}
         style={tailwind({
           "bg-mono-dark-v2-100": !isLight,
           "bg-mono-light-v2-100": isLight,
+          "pt-1 -mt-1": Platform.OS === "android", // Word-around fix for line showing on android
         })}
         contentContainerStyle={tailwind("px-5 pb-20")}
       />

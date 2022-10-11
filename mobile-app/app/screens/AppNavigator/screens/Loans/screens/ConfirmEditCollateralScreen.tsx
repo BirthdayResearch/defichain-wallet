@@ -154,20 +154,6 @@ export function ConfirmEditCollateralScreen({
     );
   }
 
-  function getSubmitLabel(): string {
-    if (
-      hasPendingBroadcastJob &&
-      currentBroadcastJob !== undefined &&
-      currentBroadcastJob.submitButtonLabel !== undefined
-    ) {
-      return currentBroadcastJob.submitButtonLabel;
-    }
-    if (hasPendingBroadcastJob || hasPendingJob) {
-      return isAdd ? "ADDING" : "REMOVING";
-    }
-    return isAdd ? "CONFIRM ADD COLLATERAL" : "CONFIRM REMOVE COLLATERAL";
-  }
-
   const containerThemeOptions = {
     light: tailwind("bg-transparent border-mono-light-v2-300"),
     dark: tailwind("bg-transparent border-mono-dark-v2-300"),
