@@ -1,7 +1,7 @@
 import { View } from "@components";
 import {
   ThemedIcon,
-  ThemedScrollView,
+  ThemedScrollViewV2,
   ThemedText,
   ThemedView,
 } from "@components/themed";
@@ -29,6 +29,7 @@ import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/he
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useIsFocused } from "@react-navigation/native";
+import { VaultDetailStatus } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailStatus";
 import { VaultSectionTextRow } from "../components/VaultSectionTextRow";
 import { VaultDetailTabSection } from "./components/VaultDetailTabSection";
 import { ScrollableButton, ScrollButton } from "../components/ScrollableButton";
@@ -104,6 +105,23 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
     },
   ];
 
+  const inLiquidation = vault?.state === LoanVaultState.IN_LIQUIDATION;
+  const vaultState = useVaultStatus(
+    vault?.state,
+    new BigNumber(
+      inLiquidation || vault === undefined ? 0 : vault?.informativeRatio
+    ),
+    new BigNumber(vault === undefined ? 0 : vault?.loanScheme.minColRatio),
+    new BigNumber(inLiquidation || vault === undefined ? 0 : vault?.loanValue),
+    new BigNumber(
+      inLiquidation || vault === undefined ? 0 : vault?.collateralValue
+    )
+  );
+  const nextCollateralizationRatio = useNextCollateralizationRatio(
+    inLiquidation || vault === undefined ? [] : vault.collateralAmounts,
+    inLiquidation || vault === undefined ? [] : vault.loanAmounts
+  );
+
   useEffect(() => {
     const _vault = vaults.find((v) => v.vaultId === vaultId);
     if (_vault !== undefined) {
@@ -122,7 +140,12 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
   }
 
   return (
-    <ThemedScrollView>
+    <ThemedScrollViewV2>
+      <VaultDetailStatus
+        vault={vault}
+        vaultStatus={vaultState?.status}
+        nextColRatio={nextCollateralizationRatio}
+      />
       <ThemedView light={tailwind("bg-white")} dark={tailwind("bg-gray-800")}>
         <View style={tailwind("p-4")}>
           <VaultIdSection vault={vault} testID="vault_id_section" />
@@ -140,7 +163,7 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
         </ThemedView>
       </ThemedView>
       <VaultDetailTabSection vault={vault} tab={tab} />
-    </ThemedScrollView>
+    </ThemedScrollViewV2>
   );
 }
 

@@ -179,7 +179,7 @@ const getColorBarsCount = (
 };
 
 export function getVaultStatusColor(
-  status: string,
+  status: string | undefined,
   isLight: boolean,
   isText: boolean = false
 ): string {
@@ -197,7 +197,7 @@ export function getVaultStatusColor(
     : getColor(isLight ? "mono-light-v2-300" : "mono-dark-v2-300");
 }
 
-export function getVaultStatusText(status: string): string {
+export function getVaultStatusText(status: string | undefined): string {
   switch (status) {
     case VaultStatus.Ready:
       return "Ready";
