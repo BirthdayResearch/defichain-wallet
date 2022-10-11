@@ -33,10 +33,10 @@ import { ConfirmBorrowLoanTokenScreen } from "./screens/ConfirmBorrowLoanTokenSc
 import { EditLoanSchemeScreenV2 } from "./screens/EditLoanSchemeScreenV2";
 import { ConfirmEditLoanSchemeScreenV2 } from "./screens/ConfirmEditLoanSchemeScreenV2";
 import { BorrowMoreScreen } from "./screens/BorrowMoreScreen";
-import { CloseVaultScreen } from "./screens/CloseVaultScreen";
 import { PaymentTokenProps } from "./hooks/LoanPaymentTokenRate";
 import { LoansFaq } from "./screens/LoansFaq";
 import { LoansScreenV2 } from "./LoansScreenV2";
+import { CloseVaultScreenV2 } from "./screens/CloseVaultScreenV2";
 
 export interface LoanParamList {
   LoansScreen: {};
@@ -344,7 +344,7 @@ export function LoansNavigator(): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={CloseVaultScreen}
+        component={CloseVaultScreenV2}
         name="CloseVaultScreen"
         options={{
           headerBackTitleVisible: false,
