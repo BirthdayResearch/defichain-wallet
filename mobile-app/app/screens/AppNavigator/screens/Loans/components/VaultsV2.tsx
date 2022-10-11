@@ -138,8 +138,15 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
     setBottomSheetScreen([
       {
         stackScreenName: "LoanTokensList",
-        component: BottomSheetLoanTokensList({ onPress, loanTokens, isLight }),
-        option: BottomSheetHeader,
+        component: BottomSheetLoanTokensList({
+          onPress,
+          loanTokens,
+          isLight,
+          onCloseButtonPress: () => dismissModal(),
+        }),
+        option: {
+          header: () => null, // not using BottomSheetHeader because it is having a very thin line above modal header in android only
+        },
       },
     ]);
     expandModal();

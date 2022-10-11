@@ -14,7 +14,7 @@ import { translate } from "@translations";
 import { useEffect, useMemo, useState } from "react";
 import BigNumber from "bignumber.js";
 import { NumericFormat as NumberFormat } from "react-number-format";
-import { fetchVaults, vaultsSelector } from "@store/loans";
+import { fetchVaults, loanTokensSelector, vaultsSelector } from "@store/loans";
 import {
   LoanToken,
   LoanVaultActive,
@@ -26,11 +26,9 @@ import { RootState } from "@store";
 import { hasTxQueued } from "@store/transaction_queue";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
 import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
 import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useIsFocused } from "@react-navigation/native";
-import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import {
   AmountButtonTypes,
@@ -64,6 +62,7 @@ import {
 import { useMaxLoan } from "../hooks/MaxLoanAmount";
 import { useInterestPerBlock } from "../hooks/InterestPerBlock";
 import { useBlocksPerDay } from "../hooks/BlocksPerDay";
+import { BottomSheetLoanTokensList } from "../components/BottomSheetLoanTokensList";
 
 type Props = StackScreenProps<LoanParamList, "BorrowLoanTokenScreen">;
 
@@ -71,7 +70,6 @@ export function BorrowLoanTokenScreen({
   route,
   navigation,
 }: Props): JSX.Element {
-  const { loanToken } = route.params;
   const client = useWhaleApiClient();
   const { isLight } = useThemeContext();
   const isFocused = useIsFocused();
@@ -80,9 +78,13 @@ export function BorrowLoanTokenScreen({
   const dispatch = useAppDispatch();
   const blockCount = useSelector((state: RootState) => state.block.count);
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
+  const loanTokens = useSelector((state: RootState) =>
+    loanTokensSelector(state.loans)
+  );
   const [vault, setVault] = useState<LoanVaultActive | undefined>(
     route.params.vault
   );
+  const [loanToken, setLoanToken] = useState<LoanToken>(route.params.loanToken);
   const [amountToBorrow, setAmountToBorrow] = useState({
     amountInToken: new BigNumber(0),
     amountInUSD: new BigNumber(0),
@@ -150,7 +152,7 @@ export function BorrowLoanTokenScreen({
     });
 
   // Bottom sheet
-  const bottomSheetScreen = useMemo(() => {
+  const bottomSheetVaultList = useMemo(() => {
     return [
       {
         stackScreenName: "VaultList",
@@ -172,20 +174,34 @@ export function BorrowLoanTokenScreen({
       },
     ];
   }, []);
+  const bottomSheetLoanTokenList = useMemo(() => {
+    return [
+      {
+        stackScreenName: "LoanTokensList",
+        component: BottomSheetLoanTokensList({
+          onPress: (loanToken: LoanToken) => {
+            setLoanToken(loanToken);
+            dismissModal();
+          },
+          loanTokens,
+          isLight,
+          onCloseButtonPress: () => dismissModal(),
+        }),
+        option: {
+          header: () => null,
+        },
+      },
+    ];
+  }, []);
   const {
     bottomSheetRef,
     containerRef,
     isModalDisplayed,
     dismissModal,
     expandModal,
+    bottomSheetScreen,
+    setBottomSheetScreen,
   } = useBottomSheet();
-  const onLoanTokenInputPress = (): void => {
-    navigation.navigate({
-      name: "ChooseLoanTokenScreen",
-      params: {},
-      merge: true,
-    });
-  };
 
   // Form update
   enum ValidationMessageType {
@@ -446,13 +462,22 @@ export function BorrowLoanTokenScreen({
               <TokenDropdownButton
                 symbol={loanToken.token.displaySymbol}
                 testID="loan_token_dropdown"
-                onPress={() => {}}
+                onPress={() => {
+                  setBottomSheetScreen(bottomSheetLoanTokenList);
+                  expandModal();
+                }}
                 status={TokenDropdownButtonStatus.Enabled}
               />
             </View>
           </TransactionCard>
 
-          <VaultInput vault={vault} onPress={expandModal} />
+          <VaultInput
+            vault={vault}
+            onPress={() => {
+              setBottomSheetScreen(bottomSheetVaultList);
+              expandModal();
+            }}
+          />
           {vault !== undefined && new BigNumber(borrowAmount).isGreaterThan(0) && (
             <ThemedTextV2 style={tailwind("ml-5 mt-2 font-normal-v2 text-xs")}>
               {translate("BorrowLoanTokenScreen", "Collateral Ratio: ")}

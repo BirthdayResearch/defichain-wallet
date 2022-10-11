@@ -3,6 +3,8 @@ import {
   ThemedFlatListV2,
   ThemedTouchableOpacityV2,
   ThemedTextV2,
+  ThemedViewV2,
+  ThemedIcon,
 } from "@components/themed";
 import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
 import { tailwind } from "@tailwind";
@@ -19,10 +21,12 @@ import { TokenNameText } from "../../Portfolio/components/TokenNameText";
 
 export const BottomSheetLoanTokensList = ({
   onPress,
+  onCloseButtonPress,
   loanTokens,
   isLight,
 }: {
   onPress: (item: LoanToken) => void;
+  onCloseButtonPress: () => void;
   loanTokens: LoanToken[];
   isLight: boolean;
 }): React.MemoExoticComponent<() => JSX.Element> => {
@@ -114,14 +118,22 @@ export const BottomSheetLoanTokensList = ({
           );
         }}
         ListHeaderComponent={
-          <ThemedTextV2
-            style={tailwind("text-xl font-normal-v2 pb-4")}
-            light={tailwind("text-mono-light-v2-900")}
-            dark={tailwind("text-mono-dark-v2-900")}
-            testID="empty_search_result_text"
-          >
-            {translate("screens/SwapTokenSelectionScreen", "Select Token")}
-          </ThemedTextV2>
+          <ThemedViewV2 style={tailwind("py-5")}>
+            <View style={tailwind("w-full flex-row justify-end")}>
+              <ThemedTouchableOpacityV2
+                onPress={onCloseButtonPress}
+                style={tailwind("border-0")}
+              >
+                <ThemedIcon iconType="Feather" name="x-circle" size={22} />
+              </ThemedTouchableOpacityV2>
+            </View>
+            <ThemedTextV2
+              style={tailwind("text-xl font-normal-v2")}
+              testID="empty_search_result_text"
+            >
+              {translate("screens/SwapTokenSelectionScreen", "Select Token")}
+            </ThemedTextV2>
+          </ThemedViewV2>
         }
       />
     );
