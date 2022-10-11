@@ -1,6 +1,7 @@
 import { ThemedProps } from "@components/themed";
 import BigNumber from "bignumber.js";
-import { tailwind } from "@tailwind";
+import { getColor, tailwind } from "@tailwind";
+import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
 
 export interface CollateralizationRatioProps {
   colRatio: BigNumber;
@@ -176,3 +177,64 @@ const getColorBarsCount = (
 
   return colorBarsCount;
 };
+
+export function getVaultStatusColor(
+  status: string,
+  isLight: boolean,
+  isText: boolean = false
+): string {
+  if (status === VaultStatus.NearLiquidation) {
+    return isText ? "text-red-v2" : getColor("red-v2");
+  } else if (status === VaultStatus.AtRisk) {
+    return isText ? "text-orange-v2" : getColor("orange-v2");
+  } else if (status === VaultStatus.Healthy || status === VaultStatus.Ready) {
+    return isText ? "text-green-v2" : getColor("green-v2");
+  }
+  return isText
+    ? isLight
+      ? "text-mono-light-v2-500"
+      : "text-mono-dark-v2-500"
+    : getColor(isLight ? "mono-light-v2-300" : "mono-dark-v2-300");
+}
+
+export function getVaultStatusText(status: string): string {
+  switch (status) {
+    case VaultStatus.Ready:
+      return "Ready";
+    case VaultStatus.Halted:
+      return "Halted";
+    default:
+      return "Empty";
+  }
+}
+
+export function getProgress(
+  collateralizationRatio: string,
+  minCollateralizationRatio: string
+): number {
+  const atRiskThresholdMultiplier = 1.5;
+  const minColRatio = new BigNumber(minCollateralizationRatio);
+  const maxRatio = getMaxRatio(
+    minColRatio.multipliedBy(atRiskThresholdMultiplier)
+  );
+
+  const currentValue = new BigNumber(collateralizationRatio)
+    .minus(minColRatio)
+    .dividedBy(new BigNumber(maxRatio).minus(minColRatio));
+
+  if (currentValue.gt(1)) {
+    return 1;
+  } else if (currentValue.lt(0.01)) {
+    // for display so that the UI still shows a bit of color
+    return 0.01;
+  } else {
+    return BigNumber.min(currentValue, 1).toNumber();
+  }
+}
+
+function getMaxRatio(atRiskThreshold: BigNumber): number {
+  const healthyScaleRatio = 0.75;
+  return atRiskThreshold
+    .dividedBy(new BigNumber(1).minus(healthyScaleRatio))
+    .toNumber();
+}
