@@ -1,3 +1,4 @@
+import { View } from "@components";
 import {
   ThemedFlatListV2,
   ThemedTouchableOpacityV2,
@@ -10,9 +11,10 @@ import { memo } from "react";
 import * as React from "react";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { SearchInputV2 } from "@components/SearchInputV2";
+import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { TextInput } from "react-native-gesture-handler";
 import { debounce } from "lodash";
-import { Platform, View } from "react-native";
+import { Platform } from "react-native";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { getPrecisedTokenValue } from "../../Auctions/helpers/precision-token-value";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
@@ -29,6 +31,7 @@ export const BottomSheetLoanTokensList = ({
   isLight: boolean;
 }): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
+    const { isLight } = useThemeContext();
     const searchRef = React.useRef<TextInput>();
     const [searchString, setSearchString] = React.useState("");
     const [isSearchFocus, setIsSearchFocus] = React.useState(false);
@@ -48,10 +51,6 @@ export const BottomSheetLoanTokensList = ({
       [loanTokens]
     );
 
-    const inSearchMode = React.useMemo(() => {
-      return isSearchFocus || searchString !== "";
-    }, [isSearchFocus, searchString]);
-
     const flatListComponents = {
       mobile: BottomSheetFlatList,
       web: ThemedFlatListV2,
@@ -65,90 +64,86 @@ export const BottomSheetLoanTokensList = ({
       handleFilter(searchString);
     }, [searchString]);
 
-    const LoansListItem = React.useCallback(
-      ({ item }: { item: LoanToken }): JSX.Element => {
-        const currentPrice = getPrecisedTokenValue(
-          getActivePrice(item.token.symbol, item.activePrice)
-        );
-        return (
-          <ThemedTouchableOpacityV2
-            style={tailwind(
-              "flex flex-row p-5 mb-2 border-0 rounded-lg-v2 items-center justify-between"
-            )}
-            light={tailwind("bg-mono-light-v2-00")}
-            dark={tailwind("bg-mono-dark-v2-00")}
-            onPress={() => {
-              onPress(item);
-            }}
-            testID={`select_${item.token.displaySymbol}`}
-          >
-            <View style={tailwind("w-6/12 flex flex-row items-center pr-2")}>
-              <TokenIcon
-                testID={`${item.token.displaySymbol}_icon`}
-                token={{
-                  isLPS: item.token.isLPS,
-                  displaySymbol: item.token.displaySymbol,
-                }}
-                size={36}
-              />
-              <TokenNameText
-                displaySymbol={item.token.displaySymbol}
-                name={item.token.name}
-                testID={item.token.displaySymbol}
-              />
-            </View>
-            <View style={tailwind("flex-1 flex-wrap flex-col items-end")}>
-              <NumberFormat
-                value={currentPrice}
-                thousandSeparator
-                displayType="text"
-                renderText={(value) => (
-                  <ThemedTextV2
-                    style={tailwind(
-                      "w-full flex-wrap font-semibold-v2 text-sm text-right"
-                    )}
-                    testID={`select_${item.token.displaySymbol}_value`}
-                  >
-                    ${value}
-                  </ThemedTextV2>
-                )}
-              />
-              <View style={tailwind("pt-1")}>
-                <NumberFormat
-                  value={item.interest}
-                  thousandSeparator
-                  displayType="text"
-                  renderText={(value) => (
-                    <ThemedTextV2
-                      style={tailwind(
-                        "flex-wrap font-normal-v2 text-xs text-right"
-                      )}
-                      testID={`select_${item.token.displaySymbol}_sub_value`}
-                      light={tailwind("text-mono-light-v2-700")}
-                      dark={tailwind("text-mono-dark-v2-700")}
-                    >
-                      {value}
-                    </ThemedTextV2>
-                  )}
-                  suffix="% interest"
-                />
-              </View>
-            </View>
-          </ThemedTouchableOpacityV2>
-        );
-      },
-      []
-    );
     return (
       <FlatList
-        contentContainerStyle={tailwind("px-5 pb-15 flex-1", {
+        contentContainerStyle={tailwind("px-5 pb-12", {
           "bg-mono-light-v2-100": isLight,
           "bg-mono-dark-v2-100": !isLight,
         })}
         testID="swap_token_selection_screen"
         data={filteredLoanTokens}
         keyExtractor={(item) => item.tokenId}
-        renderItem={LoansListItem}
+        renderItem={({ item }: { item: LoanToken }): JSX.Element => {
+          const currentPrice = getPrecisedTokenValue(
+            getActivePrice(item.token.symbol, item.activePrice)
+          );
+          return (
+            <ThemedTouchableOpacityV2
+              style={tailwind(
+                "flex flex-row p-5 mb-2 border-0 rounded-lg-v2 items-center justify-between"
+              )}
+              light={tailwind("bg-mono-light-v2-00")}
+              dark={tailwind("bg-mono-dark-v2-00")}
+              onPress={() => {
+                onPress(item);
+              }}
+              testID={`select_${item.token.displaySymbol}`}
+            >
+              <View style={tailwind("w-6/12 flex flex-row items-center pr-2")}>
+                <TokenIcon
+                  testID={`${item.token.displaySymbol}_icon`}
+                  token={{
+                    isLPS: item.token.isLPS,
+                    displaySymbol: item.token.displaySymbol,
+                  }}
+                  size={36}
+                />
+                <TokenNameText
+                  displaySymbol={item.token.displaySymbol}
+                  name={item.token.name}
+                  testID={item.token.displaySymbol}
+                />
+              </View>
+              <View style={tailwind("flex-1 flex-wrap flex-col items-end")}>
+                <NumberFormat
+                  value={currentPrice}
+                  thousandSeparator
+                  displayType="text"
+                  renderText={(value) => (
+                    <ThemedTextV2
+                      style={tailwind(
+                        "w-full flex-wrap font-semibold-v2 text-sm text-right"
+                      )}
+                      testID={`select_${item.token.displaySymbol}_value`}
+                    >
+                      ${value}
+                    </ThemedTextV2>
+                  )}
+                />
+                <View style={tailwind("pt-1")}>
+                  <NumberFormat
+                    value={item.interest}
+                    thousandSeparator
+                    displayType="text"
+                    renderText={(value) => (
+                      <ThemedTextV2
+                        style={tailwind(
+                          "flex-wrap font-normal-v2 text-xs text-right"
+                        )}
+                        testID={`select_${item.token.displaySymbol}_sub_value`}
+                        light={tailwind("text-mono-light-v2-700")}
+                        dark={tailwind("text-mono-dark-v2-700")}
+                      >
+                        {value}
+                      </ThemedTextV2>
+                    )}
+                    suffix="% interest"
+                  />
+                </View>
+              </View>
+            </ThemedTouchableOpacityV2>
+          );
+        }}
         ListHeaderComponent={
           <View style={tailwind("pb-5")}>
             <ThemedTextV2
@@ -163,10 +158,7 @@ export const BottomSheetLoanTokensList = ({
               ref={searchRef}
               value={searchString}
               showClearButton={searchString !== ""}
-              placeholder={translate(
-                "screens/LoansScreen",
-                "Search available loan tokens"
-              )}
+              placeholder={translate("screens/LoansScreen", "Search vault")}
               containerStyle={tailwind("", [
                 "border-0.5",
                 isSearchFocus
@@ -193,24 +185,6 @@ export const BottomSheetLoanTokensList = ({
                 setIsSearchFocus(false);
               }}
             />
-            {inSearchMode && (
-              <View style={tailwind("mt-8 mx-5")}>
-                <ThemedTextV2
-                  style={tailwind("text-xs pl-5 font-normal-v2")}
-                  light={tailwind("text-mono-light-v2-700")}
-                  dark={tailwind("text-mono-dark-v2-700")}
-                  testID="empty_search_result_text"
-                >
-                  {searchString.trim() === ""
-                    ? translate("screens/LoansScreen", "Search with token name")
-                    : translate(
-                        "screens/LoansScreen",
-                        "Search results for “{{searchTerm}}”",
-                        { searchTerm: searchString }
-                      )}
-                </ThemedTextV2>
-              </View>
-            )}
           </View>
         }
       />
