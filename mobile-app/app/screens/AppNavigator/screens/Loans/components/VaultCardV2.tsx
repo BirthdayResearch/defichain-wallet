@@ -162,7 +162,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
                   testID={`${props.testID}_loan_available`}
                   prefix="$"
                   value={getPrecisedCurrencyValue(vault.loanValue) ?? "-"}
-                  lhs={translate("components/VaultCard", "Loan available")}
+                  lhs={translate("components/VaultCard", "Total loans")}
                   isOraclePrice
                   customContainerStyle="mt-3"
                 />
