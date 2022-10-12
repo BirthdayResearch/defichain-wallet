@@ -42,6 +42,7 @@ export function VaultBanner({
       onPress={onCardPress}
       style={tailwind("border-0")}
       activeOpacity={onCardPress === undefined ? 1 : 0.7}
+      testID={testID}
     >
       <ThemedViewV2
         dark={tailwind("bg-mono-dark-v2-00")}

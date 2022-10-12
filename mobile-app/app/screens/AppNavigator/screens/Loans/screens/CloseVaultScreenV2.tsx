@@ -225,7 +225,7 @@ function SummaryDetails(props: {
               network === EnvironmentNetwork.TestNet
                 ? 1
                 : 0.5,
-            testID: "fees_to_return_text_rhs",
+            testID: "fees_to_burn_text_rhs",
             suffix: " DFI",
             themedProps: {
               light: rowStyle.rhsThemedProps.light,
