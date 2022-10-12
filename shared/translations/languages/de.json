@@ -792,7 +792,9 @@
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Tausch von {{amountA}} {{fromTokenDisplaySymbol}} in {{toTokenDisplaySymbol}} beim Abrechnungsblock {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Entfernen von {{amount}} {{symbol}} aus dem Liquiditätspool",
     "Paying back loan amount of {{amount}} DUSD": "Rückzahlung des Darlehensbetrages von {{amount}} DUSD",
-    "Paid loan amount of {{amount}} DUSD": "Getilgter Darlehensbetrag von {{amount}} DUSD"
+    "Paid loan amount of {{amount}} DUSD": "Getilgter Darlehensbetrag von {{amount}} DUSD",
+    "Editing vault {{vaultId}}": "Vault bearbeiten {{vaultId}}",
+    "Edited vault {{vaultId}}": "Vault bearbeitet {{vaultId}}"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Kameranutzung erlauben",
@@ -1269,7 +1271,8 @@
     "Oracle prices": "Preisorakelwerte",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "Durch Preisorakel passen sich deine Vaults und Darlehen an die Marktpreise außerhalb der Blockchain an.",
     "Loan tokens get their prices from oracles.": "Darlehenstoken erhalten ihre Preise von Preisorakeln.",
-    "Search available loan tokens": "Verfügbare Darlehenstoken suchen"
+    "Search available loan tokens": "Verfügbare Darlehenstoken suchen",
+    "Edit Vault": "Vault bearbeiten"
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehenstoken",
@@ -1439,7 +1442,15 @@
     "HALTED": "GESTOPPT",
     "IN LIQUIDATION": "IN LIQUIDATION",
     "EMPTY": "LEER",
-    "READY": "BEREIT"
+    "READY": "BEREIT",
+    "Add Collateral": "Sicherheiten hinzufügen",
+    "Add collateral to borrow": "Sicherheiten hinzufügen, um Darlehen aufnehmen zu können",
+    "Loan available": "Darlehen verfügbar",
+    "Total collateral": "Gesamter Besicherungswert",
+    "Borrow": "Leihen",
+    "Liquidated vault": "Liquidierter Vault",
+    "Ready": "Bereit",
+    "Halted": "Gestoppt"
   },
   "components/EmptyVault": {
     "No vaults": "Keine Vaults",
@@ -1512,7 +1523,8 @@
     "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "Slippage sind Kursänderungen, die innerhalb eines Auftragsvorgangs auftreten. Beachte, dass die Slippage-Toleranz auch die DEX-Stabilisierungsgebühren beinhaltet. Wähle aus, wie viel Slippage du zu akzeptieren bereit bist.",
     "Settlements": "Abrechnungen",
     "Price Oracles": "Preisorakel",
-    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Die Preisorakel liefern Preisdaten in Echtzeit aus vertrauenswürdigen Quellen, die in die DeFiChain übernommen werden."
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Die Preisorakel liefern Preisdaten in Echtzeit aus vertrauenswürdigen Quellen, die in die DeFiChain übernommen werden.",
+    "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)": "Darlehen und Vaults verwenden aggregierte Marktpreise außerhalb der Blockchain (sogenannte Preisorakel)."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault-ID",
@@ -1752,8 +1764,14 @@
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "BELEIHUNGSMODELL DES VAULTS BEARBEITEN",
     "Make sure your collateralization ratio is still above your min. collateralization ratio": "Vergewissere dich, dass deine Besicherungsquote immer noch über deiner Mindestbesicherungsquote liegt",
-    "CONTINUE": "WEITER",
-    "Confirm your vault details in next screen": "Bestätige die Daten deines Vaults in der nächsten Ansicht"
+    "Continue": "Continue",
+    "Confirm your vault details in next screen": "Bestätige die Daten deines Vaults in der nächsten Ansicht",
+    "AVAILABLE SCHEMES": "ERFÜGBARE DARLEHENSMODELLE",
+    "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
+    "VAULT DETAILS": "VAULT DETAILS",
+    "{{interestRate}}% Interest": "{{interestRate}}% Zins",
+    "min. ": "mind. ",
+    "You can only select a scheme lower than your vault's current collateralization.": "Du kannst nur ein Darlehensmodell wählen, dessen Besicherungsquote niedriger ist die deiner aktuellen Vault-Besicherung."
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "Du bearbeitest das Vault-Modell",
@@ -1767,7 +1785,14 @@
     "CONFIRM EDIT": "BEARBEITEN BESTÄTIGEN",
     "EDITING": "BEARBEITEN",
     "CONVERTING": "UMWANDELN",
-    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Aktualisierung des Vaults auf eine Mind. Besicherungsquote von {{mincolRatio}}% und einen Zinssatz von {{ir}}%"
+    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Aktualisierung des Vaults auf eine Mind. Besicherungsquote von {{mincolRatio}}% und einen Zinssatz von {{ir}}%",
+    "Edit": "Bearbeiten",
+    "You are editing loan scheme of": "Du bearbeitest das Darlehensmodell von",
+    "Prev. min. collateral ratio": "Bisherige Mind. Besicherungsquote",
+    "Prev. interest": "Bisheriger Zins",
+    "New min. collateral ratio": "Neue Mind. Besicherungsquote",
+    "New vault interest": "Neuer Vault-Zins",
+    "Transaction fee": "Transaction fee"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Mind. Besicherungsquote",
@@ -2000,5 +2025,9 @@
     "Payback with DUSD collateral": "Rückzahlung mit DUSD-Sicherheiten",
     "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Bist du sicher, dass du dein DUSD-Darlehen mit allen verfügbaren DUSD-Sicherheiten in diesem Vault zurückzahlen willst?",
     "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Rückzahlung von {{amountToPayInPaymentToken}} DUSD-Darlehen mit DUSD-Sicherheiten"
+  },
+  "components/PriceOracleInfo": {
+    "All prices displayed are from price oracles.": "Alle angezeigten Preise stammen von Preisorakeln.",
+    "Loan tokens get their prices from oracles.": "Darlehenstoken erhalten ihre Preise von Preisorakeln."
   }
 }

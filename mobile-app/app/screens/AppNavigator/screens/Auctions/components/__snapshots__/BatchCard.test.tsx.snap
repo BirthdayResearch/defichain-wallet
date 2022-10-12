@@ -67,7 +67,6 @@ exports[`Batch Card should match snapshot 1`] = `
           style={
             [
               {
-                "alignItems": "center",
                 "display": "flex",
                 "flexDirection": "row",
                 "position": "relative",
@@ -94,6 +93,7 @@ exports[`Batch Card should match snapshot 1`] = `
                 },
                 {
                   "left": -0,
+                  "zIndex": -0,
                 },
               ]
             }

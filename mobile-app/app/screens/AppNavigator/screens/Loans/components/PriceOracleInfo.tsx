@@ -4,6 +4,7 @@ import { translate } from "@translations";
 import { TouchableOpacity, View } from "react-native";
 
 interface PriceOracleInfoProps {
+  text: string;
   onPress: () => void;
 }
 export function PriceOracleInfo(props: PriceOracleInfoProps): JSX.Element {
@@ -18,10 +19,7 @@ export function PriceOracleInfo(props: PriceOracleInfoProps): JSX.Element {
           light={tailwind("text-mono-light-v2-500")}
           style={tailwind("font-normal-v2 text-sm mr-1")}
         >
-          {translate(
-            "screens/LoansScreen",
-            "Loan tokens get their prices from oracles."
-          )}
+          {translate("components/PriceOracleInfo", props.text)}
         </ThemedTextV2>
 
         <ThemedIcon

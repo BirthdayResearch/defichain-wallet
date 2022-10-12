@@ -810,7 +810,9 @@
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool",
     "Paying back loan amount of {{amount}} DUSD": "Paying back loan amount of {{amount}} DUSD",
-    "Paid loan amount of {{amount}} DUSD": "Paid loan amount of {{amount}} DUSD"
+    "Paid loan amount of {{amount}} DUSD": "Paid loan amount of {{amount}} DUSD",
+    "Editing vault {{vaultId}}": "Editing vault {{vaultId}}",
+    "Edited vault {{vaultId}}": "Edited vault {{vaultId}}"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Richiesta di accesso alla fotocamera",
@@ -1294,7 +1296,8 @@
     "Oracle prices": "Oracle prices",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain.",
     "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
-    "Search available loan tokens": "Search available loan tokens"
+    "Search available loan tokens": "Search available loan tokens",
+    "Edit Vault": "Edit Vault"
   },
   "components/tabs": {
     "Browse loan tokens": "Sfoglia i token in prestito",
@@ -1335,7 +1338,7 @@
   },
   "components/EmptyAuctions": {
     "No auctions": "No auctions",
-    "There are currently no collaterals available for auction.":  "There are currently no collaterals available for auction.",
+    "There are currently no collaterals available for auction.": "There are currently no collaterals available for auction.",
     "No Outbid Auctions": "No Outbid Auctions",
     "You have no outbids yet": "You have no outbids yet",
     "No Leading Bids": "No Leading Bids",
@@ -1465,7 +1468,15 @@
     "IN LIQUIDATION": "IN LIQUIDAZIONE",
     "EMPTY": "VUOTO",
     "READY": "PRONTO",
-    "EDIT COLLATERAL": "MODIFICA I COLLATERALI"
+    "EDIT COLLATERAL": "MODIFICA I COLLATERALI",
+    "Add Collateral": "Add Collateral",
+    "Add collateral to borrow": "Add collateral to borrow",
+    "Loan available": "Loan available",
+    "Total collateral": "Total collateral",
+    "Borrow": "Borrow",
+    "Liquidated vault": "Liquidated vault",
+    "Ready": "Ready",
+    "Halted": "Halted"
   },
   "components/EmptyVault": {
     "No vaults": "No vaults",
@@ -1538,7 +1549,8 @@
     "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "Lo slippage è una differenza di prezzo che si verifica durante una negoziazione su DEX. Scegli la percentuale di slippage che sei disposto ad accettare.",
     "Settlements": "Settlements",
     "Price Oracles": "Price Oracles",
-    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain."
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.",
+    "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)": "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault ID",
@@ -1778,8 +1790,14 @@
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "MODIFICA LO SCHEMA DI PRESTITO DEL VAULT",
     "Make sure your collateralization ratio is still above your min. collateralization ratio": "Assicuratevi che il vostro rapporto di collateralizzazione sia ancora al di sopra del vostro rapporto di minimo collateralizzazione ",
-    "CONTINUE": "CONTINUA",
-    "Confirm your vault details in next screen": "Conferma i dettagli del tuo vault nella prossima schermata"
+    "Continue": "Continua",
+    "Confirm your vault details in next screen": "Conferma i dettagli del tuo vault nella prossima schermata",
+    "AVAILABLE SCHEMES": "AVAILABLE SCHEMES",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "VAULT DETAILS": "DETTAGLI DEI VAULT",
+    "{{interestRate}}% Interest": "{{interestRate}}% Interest",
+    "min. ": "min. ",
+    "You can only select a scheme lower than your vault's current collateralization.": "You can only select a scheme lower than your vault's current collateralization."
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "Stai modificando lo schema del vault",
@@ -1793,7 +1811,14 @@
     "CONFIRM EDIT": "CONFERMA MODIFICA",
     "EDITING": "MODIFICA",
     "CONVERTING": "CONVERTI",
-    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Aggiornamento del vault al rapporto minimo di collateralizzazione di {{mincolRatio}}% e al tasso di interesse di {{ir}}%"
+    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Aggiornamento del vault al rapporto minimo di collateralizzazione di {{mincolRatio}}% e al tasso di interesse di {{ir}}%",
+    "Edit": "Edit",
+    "You are editing loan scheme of": "You are editing loan scheme of",
+    "Prev. min. collateral ratio": "Prev. min. collateral ratio",
+    "Prev. interest": "Prev. interest",
+    "New min. collateral ratio": "New min. collateral ratio",
+    "New vault interest": "New vault interest",
+    "Transaction fee": "Transaction fee"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Rapporto minimo di collateralizzazione",
@@ -2027,5 +2052,9 @@
     "Payback with DUSD collateral": "Payback with DUSD collateral",
     "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?",
     "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral"
+  },
+  "components/PriceOracleInfo": {
+    "All prices displayed are from price oracles.": "All prices displayed are from price oracles.",
+    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles."
   }
 }
