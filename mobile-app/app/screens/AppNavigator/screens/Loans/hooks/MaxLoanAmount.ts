@@ -60,6 +60,6 @@ export function useMaxLoan({
   return maxLoanBoundedByColRatio.isLessThanOrEqualTo(
     maxLoanBoundedByColCondition
   )
-    ? maxLoanBoundedByColRatio
-    : maxLoanBoundedByColCondition;
+    ? maxLoanBoundedByColRatio.multipliedBy(0.99999999)
+    : maxLoanBoundedByColCondition.multipliedBy(0.99999999); // to account for rounding adjustment
 }

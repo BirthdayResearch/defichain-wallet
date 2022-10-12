@@ -465,7 +465,19 @@ export function BorrowLoanTokenScreen({
               />
             </View>
           </TransactionCard>
-
+          {resultingColRatio.isLessThan(vault.loanScheme.minColRatio) && (
+            <ThemedTextV2
+              light={tailwind("text-red-v2")}
+              dark={tailwind("text-red-v2")}
+              style={tailwind("text-xs pt-2 px-5 font-normal-v2")}
+              testID="vault_liquidation_error"
+            >
+              {translate(
+                "screens/BorrowLoanTokenScreen",
+                "Amount entered will result in vault liquidation"
+              )}
+            </ThemedTextV2>
+          )}
           <VaultInput
             vault={vault}
             onPress={() => {
