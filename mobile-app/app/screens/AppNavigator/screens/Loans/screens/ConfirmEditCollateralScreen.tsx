@@ -189,7 +189,7 @@ export function ConfirmEditCollateralScreen({
           toAddressLabel={addressLabel}
           amountTextStyle="text-xl"
           addressType={AddressType.WalletAddress}
-          toAddressTitle={translate("screens/common", "On")}
+          customToAddressTitle={translate("screens/common", "On")}
         />
       </View>
       {conversion?.isConversionRequired && (
