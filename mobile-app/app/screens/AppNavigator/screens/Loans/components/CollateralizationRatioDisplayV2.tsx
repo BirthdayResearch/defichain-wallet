@@ -95,7 +95,7 @@ export function CollateralizationRatioDisplayV2(
         )}
       </View>
       {props.showProgressBar && (
-        <View style={tailwind("mt-3")}>
+        <View style={tailwind("mt-2.5")}>
           <Progress.Bar
             progress={
               normalizedNextFactor.lt(0) &&
