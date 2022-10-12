@@ -15,7 +15,7 @@ import {
 import { LoanVault } from "@store/loans";
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
 import { useMemo } from "react";
-import { Logging } from "@api";
+import { translate } from "@translations";
 
 export interface VaultDetailStatusProps {
   vault: LoanVault;
@@ -36,18 +36,22 @@ export function VaultDetailStatus({
       : vault.informativeRatio;
   const minColRatio = vault.loanScheme.minColRatio;
   const isSuffixRequired = new BigNumber(colRatio).gte(new BigNumber(1000));
-  const valueToUnitSuffix = useUnitSuffix(
-    {
-      3: "K",
-      6: "M",
-      9: "B",
-      12: "T",
-    },
-    colRatio
+  const unit = {
+    3: "K",
+    6: "M",
+    9: "B",
+    12: "T",
+  };
+  const valueToUnitSuffix = useUnitSuffix(unit, colRatio);
+  const isNextSuffixRequired = new BigNumber(nextColRatio ?? 0).gte(
+    new BigNumber(1000)
+  );
+  const valueToUnitNextSuffix = useUnitSuffix(
+    unit,
+    nextColRatio?.toString() ?? "0"
   );
 
   const vaultProgress = useMemo(() => {
-    Logging.info(`vaultStatus: ${vaultStatus}`);
     if (vaultStatus === VaultStatus.Empty) {
       return 0;
     } else if (
@@ -97,35 +101,56 @@ export function VaultDetailStatus({
               "text-mono-light-v2-900",
               getVaultStatusColor(vaultStatus, isLight, true)
             )}
-            style={tailwind("font-normal-v2 text-2xl")}
+            style={tailwind("font-semibold-v2 text-2xl")}
             testID="vault_status"
           >
             {getVaultStatusText(vaultStatus)}
           </ThemedTextV2>
         ) : (
-          <NumberFormat
-            value={new BigNumber(colRatio).toFixed(2)}
-            decimalScale={2}
-            thousandSeparator
-            displayType="text"
-            suffix="%"
-            renderText={(value) => (
-              <ThemedTextV2
-                dark={tailwind(
-                  "text-mono-dark-v2-900",
-                  getVaultStatusColor(vaultStatus, isLight, true)
-                )}
-                light={tailwind(
-                  "text-mono-light-v2-900",
-                  getVaultStatusColor(vaultStatus, isLight, true)
-                )}
-                style={tailwind("font-semibold-v2 text-base text-center")}
-                testID="vault_min_ratio"
-              >
-                {isSuffixRequired ? `${valueToUnitSuffix} %` : value}
-              </ThemedTextV2>
-            )}
-          />
+          <View style={tailwind("flex-col items-center")}>
+            <NumberFormat
+              value={new BigNumber(colRatio).toFixed(2)}
+              decimalScale={2}
+              thousandSeparator
+              displayType="text"
+              suffix="%"
+              renderText={(value) => (
+                <ThemedTextV2
+                  dark={tailwind(
+                    "text-mono-dark-v2-900",
+                    getVaultStatusColor(vaultStatus, isLight, true)
+                  )}
+                  light={tailwind(
+                    "text-mono-light-v2-900",
+                    getVaultStatusColor(vaultStatus, isLight, true)
+                  )}
+                  style={tailwind("font-semibold-v2 text-2xl text-center")}
+                  testID="vault_ratio"
+                >
+                  {isSuffixRequired ? `${valueToUnitSuffix} %` : value}
+                </ThemedTextV2>
+              )}
+            />
+            <NumberFormat
+              value={nextColRatio?.toFixed(2) ?? 0}
+              decimalScale={2}
+              thousandSeparator
+              displayType="text"
+              suffix="%"
+              renderText={(value) => (
+                <ThemedTextV2
+                  dark={tailwind("text-mono-dark-v2-700")}
+                  light={tailwind("text-mono-light-v2-700")}
+                  style={tailwind("font-normal-v2 text-xs text-center")}
+                  testID="vault_next_col_ratio"
+                >
+                  {`${
+                    isNextSuffixRequired ? `${valueToUnitNextSuffix} %` : value
+                  } ${translate("screens/VaultDetailScreen", "next")}`}
+                </ThemedTextV2>
+              )}
+            />
+          </View>
         )}
       </View>
     </View>
