@@ -36,6 +36,7 @@ import { AddressType } from "@store/wallet";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { LoanParamList } from "../LoansNavigator";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
+import { useCollateralizationRatioColor } from "../hooks/CollateralizationRatio";
 
 type Props = StackScreenProps<LoanParamList, "ConfirmBorrowLoanTokenScreen">;
 
@@ -116,7 +117,7 @@ export function ConfirmBorrowLoanTokenScreen({
           "On"
         )}
       />
-      <HorizontalRule marginTop="mt-6" />
+      <HorizontalRule marginTop="pt-6" />
       <SummaryTransactionDetails
         fee={fee}
         vault={vault}
@@ -177,6 +178,14 @@ interface SummaryTransactionDetailsProps {
 function SummaryTransactionDetails(
   props: SummaryTransactionDetailsProps
 ): JSX.Element {
+  const borrowAmountUSD = new BigNumber(props.borrowAmount).multipliedBy(
+    getActivePrice(props.loanToken.token.symbol, props.loanToken.activePrice)
+  );
+  const { light, dark } = useCollateralizationRatioColor({
+    colRatio: props.resultCollateralRatio,
+    minColRatio: new BigNumber(props.vault.loanScheme.minColRatio),
+    totalLoanAmount: new BigNumber(props.vault.loanValue).plus(borrowAmountUSD),
+  });
   return (
     <>
       <NumberRowV2
@@ -197,7 +206,7 @@ function SummaryTransactionDetails(
           suffix: " DFI",
         }}
       />
-      <HorizontalRule />
+      <HorizontalRule marginTop="pb-5" />
       <TextRowV2
         lhs={{
           value: translate("screens/ConfirmBorrowLoanTokenScreen", "Vault"),
@@ -230,6 +239,10 @@ function SummaryTransactionDetails(
           value: props.resultCollateralRatio.toFixed(2),
           testID: "col_ratio_value",
           suffix: "%",
+          themedProps: {
+            light: light,
+            dark: dark,
+          },
         }}
         containerStyle={{
           style: tailwind("flex-row items-start w-full bg-transparent pt-5"),
@@ -312,12 +325,7 @@ function SummaryTransactionDetails(
           themedProps: {
             style: tailwind("font-semibold-v2 text-sm"),
           },
-          usdAmount: new BigNumber(props.borrowAmount).multipliedBy(
-            getActivePrice(
-              props.loanToken.token.symbol,
-              props.loanToken.activePrice
-            )
-          ),
+          usdAmount: borrowAmountUSD,
           usdTextStyle: tailwind("text-sm mt-1"),
         }}
       />
