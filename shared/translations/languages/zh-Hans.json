@@ -1263,7 +1263,6 @@
     "Search vault": "Search vault",
     "Search with vault ID": "Search with vault ID",
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
-    "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
     "Decentralized tokens": "Decentralized tokens",
     "With vaults, you gain access to a rich economy of decentralized tokens.": "With vaults, you gain access to a rich economy of decentralized tokens.",
     "Next": "Next",
@@ -1456,7 +1455,9 @@
     "Liquidated vault": "已清算金库",
     "Ready": "准备好",
     "Halted": "已暂停",
-    "Total loans": "贷款总金额"
+    "Total loans": "贷款总金额",
+    "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
+    "Create a vault": "Create a vault"
   },
   "components/EmptyVault": {
     "No vaults": "No vaults",
@@ -2040,5 +2041,9 @@
   "components/PriceOracleInfo": {
     "All prices displayed are from price oracles.": "All prices displayed are from price oracles.",
     "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles."
+  },
+  "components/BottomSheetLoanTokensList": {
+    "% interest": "% interest",
+    "Select Token": "Select Token"
   }
 }

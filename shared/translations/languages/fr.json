@@ -1271,7 +1271,6 @@
     "Search vault": "Rechercher dans les vaults",
     "Search with vault ID": "Recherche avec le n° du vault",
     "Search results for “{{searchTerm}}”": "Résultats de la recherche pour “{{searchTerm}}”",
-    "You need a vault with collaterals to borrow tokens": "Vous avez besoin d'un vault avec des garanties pour emprunter des tokens",
     "Decentralized tokens": "Tokens décentralisés",
     "With vaults, you gain access to a rich economy of decentralized tokens.": "Avec les vaults, vous accédez à une riche économie de tokens décentralisés.",
     "Next": "Suivant",
@@ -1463,7 +1462,9 @@
     "Liquidated vault": "Vault liquidé",
     "Ready": "Prêt",
     "Halted": "Intérrompu",
-    "Total loans": "Total des prêts"
+    "Total loans": "Total des prêts",
+    "You need a vault with collaterals to borrow tokens": "Vous avez besoin d'un vault avec des garanties pour emprunter des tokens",
+    "Create a vault": "Créer un vault"
   },
   "components/EmptyVault": {
     "No vaults": "Aucun vault",
@@ -2044,5 +2045,9 @@
   "components/PriceOracleInfo": {
     "All prices displayed are from price oracles.": "Tous les prix affichés proviennent d'oracles de prix.",
     "Loan tokens get their prices from oracles.": "Les tokens de prêt obtiennent leurs prix des oracles."
+  },
+  "components/BottomSheetLoanTokensList": {
+    "% interest": "% interest",
+    "Select Token": "Select Token"
   }
 }
