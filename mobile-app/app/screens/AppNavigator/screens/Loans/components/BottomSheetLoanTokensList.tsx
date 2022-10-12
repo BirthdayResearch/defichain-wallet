@@ -106,7 +106,10 @@ export const BottomSheetLoanTokensList = ({
                         {value}
                       </ThemedTextV2>
                     )}
-                    suffix="% interest"
+                    suffix={translate(
+                      "components/BottomSheetLoanTokensList",
+                      "% interest"
+                    )}
                   />
                 </View>
               </View>
@@ -120,7 +123,7 @@ export const BottomSheetLoanTokensList = ({
             dark={tailwind("text-mono-dark-v2-900")}
             testID="empty_search_result_text"
           >
-            {translate("screens/SwapTokenSelectionScreen", "Select Token")}
+            {translate("components/BottomSheetLoanTokensList", "Select Token")}
           </ThemedTextV2>
         }
       />
