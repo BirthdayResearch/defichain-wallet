@@ -359,6 +359,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     dark: tailwind("text-mono-dark-v2-900"),
   };
 
+  const readyForLoan = !hasLoan && collateralAmount;
   const disableSubmitButton =
     !formState.isValid ||
     hasPendingJob ||
@@ -656,20 +657,23 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
             collateralFactor={selectedCollateralItem.factor}
           />
           <CollateralRatioRow
-            type={hasInvalidColRatio ? "text" : "number"}
+            type={hasInvalidColRatio || readyForLoan ? "text" : "number"}
             value={
               hasInvalidColRatio
-                ? translate("screens/AddOrRemoveCollateralScreen", "Empty")
+                ? translate(
+                    "screens/AddOrRemoveCollateralScreen",
+                    readyForLoan ? "Ready" : "Empty"
+                  )
                 : resultingColRatio.toFixed(2)
             }
             rhsThemedProps={{
               light: tailwind(
-                hasInvalidColRatio
+                hasInvalidColRatio && !readyForLoan
                   ? "text-mono-light-v2-900"
                   : `text-${collateralizationColor}`
               ),
               dark: tailwind(
-                hasInvalidColRatio
+                hasInvalidColRatio && !readyForLoan
                   ? "text-mono-dark-v2-900"
                   : `text-${collateralizationColor}`
               ),
@@ -678,7 +682,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
           />
           <Progress.Bar
             style={tailwind("mt-3")}
-            progress={normalizedColRatio.toNumber()}
+            progress={readyForLoan ? 1 : normalizedColRatio.toNumber()}
             color={getColor(collateralizationColor)}
             unfilledColor={getColor(
               isLight ? "mono-light-v2-200" : "mono-dark-v2-200"
