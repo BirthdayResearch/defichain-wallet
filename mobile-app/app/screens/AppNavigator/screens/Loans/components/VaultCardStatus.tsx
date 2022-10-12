@@ -111,7 +111,10 @@ export function VaultCardStatus({
               style={tailwind("font-semibold-v2 text-base")}
               testID={`${testID}_status`}
             >
-              {getVaultStatusText(vaultStatus)}
+              {translate(
+                "components/VaultCard",
+                getVaultStatusText(vaultStatus)
+              )}
             </ThemedTextV2>
           ) : (
             <NumberFormat
