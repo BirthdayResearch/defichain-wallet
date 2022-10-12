@@ -40,7 +40,7 @@ import { TextRowV2 } from "@components/TextRowV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { WalletAlert } from "@components/WalletAlert";
 import { LoanParamList } from "../LoansNavigator";
-import { CollateralRatioRow } from "./AddOrRemoveCollateralScreen";
+import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
 
 type Props = StackScreenProps<LoanParamList, "ConfirmEditCollateralScreen">;
 
@@ -306,19 +306,20 @@ export function ConfirmEditCollateralScreen({
           themedProps: rhsThemedProps,
         }}
       />
-      <CollateralRatioRow
-        type={hasLoan ? "number" : "text"}
-        value={hasLoan ? resultingColRatio.toFixed(2) : "Ready for loan"}
-        rhsThemedProps={{
-          light: tailwind(
-            hasLoan ? `text-${collateralizationColor}` : "text-green-v2"
-          ),
-          dark: tailwind(
-            hasLoan ? `text-${collateralizationColor}` : "text-green-v2"
-          ),
-        }}
-        testID="confirm_edit_collateral_ratio"
-      />
+      <View style={tailwind("pt-5")}>
+        <CollateralizationRatioDisplayV2
+          collateralizationRatio={resultingColRatio.toFixed(2)}
+          minCollateralizationRatio={vault.loanScheme.minColRatio}
+          totalLoanAmount={vault.loanValue}
+          testID="add_remove_collateral"
+          collateralAmounts={vault.collateralAmounts}
+          isReadyForLoan={!hasLoan}
+          customReadyText={translate(
+            "screens/ConfirmEditCollateralScreen",
+            "Ready for loan"
+          )}
+        />
+      </View>
       <NumberRowV2
         containerStyle={{
           style: tailwind("flex-row items-start w-full bg-transparent pt-5"),

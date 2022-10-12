@@ -1,18 +1,16 @@
 import {
-  ThemedProps,
   ThemedScrollViewV2,
   ThemedTextV2,
   ThemedViewV2,
 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
-import { getColor, tailwind } from "@tailwind";
+import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { useEffect, useState } from "react";
 import { Platform, View } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { hasTxQueued } from "@store/transaction_queue";
@@ -47,7 +45,6 @@ import {
 } from "@components/BottomSheetTokenList";
 import { TextRowV2 } from "@components/TextRowV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import * as Progress from "react-native-progress";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useAppDispatch } from "@hooks/useAppDispatch";
@@ -68,6 +65,7 @@ import {
 import { CollateralItem } from "../screens/EditCollateralScreen";
 import { ControlledTextInput } from "../components/ControlledTextInput";
 import { BottomSheetTokenListHeader } from "../components/BottomSheetTokenListHeader";
+import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
 
 type Props = StackScreenProps<LoanParamList, "AddOrRemoveCollateralScreen">;
 
@@ -87,7 +85,6 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
   }>({ mode: "onChange" });
   const { collateralAmount } = watch();
 
-  const { isLight } = useThemeContext();
   const client = useWhaleApiClient();
   const logger = useLogger();
 
@@ -181,19 +178,13 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     getVaultShare(totalTokenBalance, activePrice, totalVaultCollateralValue) ??
     new BigNumber(0);
 
-  const { resultingColRatio, normalizedColRatio } =
-    useResultingCollateralizationRatioByCollateral({
-      collateralValue: totalTokenBalance.toFixed(8),
-      collateralRatio: new BigNumber(vault.informativeRatio ?? NaN),
-      minCollateralRatio: new BigNumber(vault.loanScheme.minColRatio),
-      totalLoanAmount: new BigNumber(vault.loanValue),
-      totalCollateralValueInUSD: totalVaultCollateralValueInUSD,
-    });
-
-  const hasInvalidColRatio =
-    resultingColRatio.isLessThanOrEqualTo(0) ||
-    resultingColRatio.isNaN() ||
-    !resultingColRatio.isFinite();
+  const { resultingColRatio } = useResultingCollateralizationRatioByCollateral({
+    collateralValue: totalTokenBalance.toFixed(8),
+    collateralRatio: new BigNumber(vault.informativeRatio ?? NaN),
+    minCollateralRatio: new BigNumber(vault.loanScheme.minColRatio),
+    totalLoanAmount: new BigNumber(vault.loanValue),
+    totalCollateralValueInUSD: totalVaultCollateralValueInUSD,
+  });
 
   const collateralizationColor = useCollateralizationRatioColorV2({
     colRatio: resultingColRatio,
@@ -201,7 +192,6 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     totalLoanAmount: new BigNumber(vault.loanValue ?? NaN),
     totalCollateralValue: totalVaultCollateralValueInUSD,
   });
-  /** *******************************ENDS HERE */
 
   const {
     requiredVaultShareTokens,
@@ -359,7 +349,6 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     dark: tailwind("text-mono-dark-v2-900"),
   };
 
-  const readyForLoan = !hasLoan && collateralAmount;
   const disableSubmitButton =
     !formState.isValid ||
     hasPendingJob ||
@@ -555,7 +544,9 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
           >
             {translate(
               "screens/AddOrRemoveCollateralScreen",
-              "Insufficient Balance"
+              isAdd
+                ? "Insufficient Balance"
+                : "Amount entered is higher than collateral"
             )}
           </ThemedTextV2>
         )}
@@ -656,40 +647,17 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
             symbol={selectedCollateralItem.token.symbol}
             collateralFactor={selectedCollateralItem.factor}
           />
-          <CollateralRatioRow
-            type={hasInvalidColRatio || readyForLoan ? "text" : "number"}
-            value={
-              hasInvalidColRatio
-                ? translate(
-                    "screens/AddOrRemoveCollateralScreen",
-                    readyForLoan ? "Ready" : "Empty"
-                  )
-                : resultingColRatio.toFixed(2)
-            }
-            rhsThemedProps={{
-              light: tailwind(
-                hasInvalidColRatio && !readyForLoan
-                  ? "text-mono-light-v2-900"
-                  : `text-${collateralizationColor}`
-              ),
-              dark: tailwind(
-                hasInvalidColRatio && !readyForLoan
-                  ? "text-mono-dark-v2-900"
-                  : `text-${collateralizationColor}`
-              ),
-            }}
-            testID="add_remove_collateral_ratio"
-          />
-          <Progress.Bar
-            style={tailwind("mt-3")}
-            progress={readyForLoan ? 1 : normalizedColRatio.toNumber()}
-            color={getColor(collateralizationColor)}
-            unfilledColor={getColor(
-              isLight ? "mono-light-v2-200" : "mono-dark-v2-200"
-            )}
-            borderWidth={0}
-            width={null}
-          />
+          <View style={tailwind("pt-5")}>
+            <CollateralizationRatioDisplayV2
+              collateralizationRatio={resultingColRatio.toFixed(2)}
+              minCollateralizationRatio={vault.loanScheme.minColRatio}
+              totalLoanAmount={vault.loanValue}
+              testID="add_remove_collateral"
+              collateralAmounts={vault.collateralAmounts}
+              isReadyForLoan={!hasLoan && formState.isValid}
+              showProgressBar
+            />
+          </View>
         </ThemedViewV2>
       </ThemedViewV2>
 
@@ -769,51 +737,6 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
         />
       )}
     </ThemedScrollViewV2>
-  );
-}
-
-export function CollateralRatioRow(props: {
-  type: "number" | "text";
-  value: string | number;
-  rhsThemedProps: ThemedProps;
-  testID: string;
-}): JSX.Element {
-  const containerThemeOptions = {
-    style: tailwind("flex-row items-start w-full mt-5"),
-    light: tailwind("bg-transparent"),
-    dark: tailwind("bg-transparent"),
-  };
-
-  const lhsProps = {
-    value: translate("screens/AddOrRemoveCollateralScreen", "Collateral ratio"),
-    testID: `${props.testID}_label`,
-    themedProps: {
-      light: tailwind("text-mono-light-v2-500"),
-      dark: tailwind("text-mono-dark-v2-500"),
-    },
-  };
-
-  return props.type === "number" ? (
-    <NumberRowV2
-      containerStyle={containerThemeOptions}
-      lhs={lhsProps}
-      rhs={{
-        value: props.value,
-        testID: `${props.testID}_value`,
-        themedProps: props.rhsThemedProps,
-        suffix: "%",
-      }}
-    />
-  ) : (
-    <TextRowV2
-      containerStyle={containerThemeOptions}
-      lhs={lhsProps}
-      rhs={{
-        value: props.value as string,
-        testID: `${props.testID}_text`,
-        themedProps: props.rhsThemedProps,
-      }}
-    />
   );
 }
 

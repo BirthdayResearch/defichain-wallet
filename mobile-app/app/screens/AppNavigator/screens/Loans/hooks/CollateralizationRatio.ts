@@ -97,7 +97,6 @@ export function useResultingCollateralizationRatioByCollateral({
 }): {
   resultingColRatio: BigNumber;
   displayedColorBars: number;
-  normalizedColRatio: BigNumber;
 } {
   const hasCollateralRatio =
     !new BigNumber(collateralRatio).isNaN() &&
@@ -158,16 +157,9 @@ export function useResultingCollateralizationRatioByCollateral({
     displayedColorBars = colorBarsCount;
   }
 
-  // TODO: Replace `normalizedColRatio` with correct computation
-  const maxRatio = minCollateralRatio.multipliedBy(healthyThresholdRatio);
-  const normalizedColRatio = new BigNumber(resultingColRatio)
-    .minus(minCollateralRatio)
-    .dividedBy(maxRatio.minus(minCollateralRatio));
-
   return {
     displayedColorBars,
     resultingColRatio,
-    normalizedColRatio,
   };
 }
 

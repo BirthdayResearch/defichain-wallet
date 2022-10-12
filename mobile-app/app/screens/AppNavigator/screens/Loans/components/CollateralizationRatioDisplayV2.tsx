@@ -16,6 +16,8 @@ interface CollateralizationRatioDisplayProps {
   totalLoanAmount: string;
   testID: string;
   showProgressBar?: boolean;
+  isReadyForLoan?: boolean;
+  customReadyText?: string;
 }
 
 export function CollateralizationRatioDisplayV2(
@@ -36,6 +38,14 @@ export function CollateralizationRatioDisplayV2(
     minColRatio: new BigNumber(props.minCollateralizationRatio),
     totalLoanAmount: new BigNumber(props.totalLoanAmount),
   });
+
+  const isReadyForLoan =
+    props.collateralAmounts.length > 0 || props.isReadyForLoan;
+  const collateralizationRatioNum = new BigNumber(props.collateralizationRatio);
+  const hasInvalidColRatio =
+    collateralizationRatioNum.isLessThanOrEqualTo(0) ||
+    collateralizationRatioNum.isNaN() ||
+    !collateralizationRatioNum.isFinite();
 
   const ratioTextColor = stats.isInLiquidation
     ? "red-v2"
@@ -58,11 +68,15 @@ export function CollateralizationRatioDisplayV2(
             )}
           </ThemedTextV2>
         </View>
-        {new BigNumber(props.collateralizationRatio).isLessThan(0) ? (
+        {hasInvalidColRatio ? (
           <>
-            {props.collateralAmounts.length > 0 ? (
+            {isReadyForLoan ? (
               <Text style={tailwind("text-sm font-normal-v2 text-green-v2")}>
-                {translate("components/CollateralizationRatioDisplay", "Ready")}
+                {props.customReadyText ??
+                  translate(
+                    "components/CollateralizationRatioDisplay",
+                    "Ready"
+                  )}
               </Text>
             ) : (
               <ThemedTextV2
@@ -97,18 +111,8 @@ export function CollateralizationRatioDisplayV2(
       {props.showProgressBar && (
         <View style={tailwind("mt-2.5")}>
           <Progress.Bar
-            progress={
-              normalizedNextFactor.lt(0) &&
-              props.collateralizationRatio.length > 0
-                ? 1
-                : normalizedNextFactor.toNumber()
-            }
-            color={getColor(
-              normalizedNextFactor.lt(0) &&
-                props.collateralizationRatio.length > 0
-                ? "green-v2"
-                : ratioTextColor
-            )}
+            progress={isReadyForLoan ? 1 : normalizedNextFactor.toNumber()}
+            color={getColor(ratioTextColor)}
             unfilledColor={getColor(
               isLight ? "mono-light-v2-200" : "mono-dark-v2-200"
             )}
