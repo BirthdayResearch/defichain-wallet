@@ -1794,7 +1794,7 @@
     "Prev. interest": "Bisheriger Zins",
     "New min. collateral ratio": "Neue Mind. Besicherungsquote",
     "New vault interest": "Neuer Vault-Zins",
-    "Transaction fee": "Transaction fee"
+    "Transaction fee": "Transaktionsgebühren"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Mind. Besicherungsquote",

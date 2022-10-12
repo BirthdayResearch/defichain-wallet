@@ -1807,7 +1807,7 @@
     "Prev. interest": "Intérêt précédent",
     "New min. collateral ratio": "Nouveau ratio de garantie min.",
     "New vault interest": "Nouveau intérêt vault",
-    "Transaction fee": "Transaction fee"
+    "Transaction fee": "Frais de transaction"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Ratio de garantie min.",
