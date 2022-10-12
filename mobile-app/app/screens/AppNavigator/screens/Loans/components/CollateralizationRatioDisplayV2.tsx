@@ -112,7 +112,7 @@ export function CollateralizationRatioDisplayV2(
             unfilledColor={getColor(
               isLight ? "mono-light-v2-200" : "mono-dark-v2-200"
             )}
-            height={8}
+            height={4}
             borderWidth={0}
             width={null}
           />
