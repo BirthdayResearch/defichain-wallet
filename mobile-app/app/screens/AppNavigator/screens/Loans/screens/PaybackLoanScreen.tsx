@@ -399,6 +399,7 @@ function TransactionDetailsSection({
       <CollateralizationRatioDisplayV2
         collateralizationRatio={resultingColRatio.toFixed(8)}
         minCollateralizationRatio={vault.loanScheme.minColRatio}
+        collateralAmounts={vault.collateralAmounts}
         totalLoanAmount={vault.loanValue}
         testID="text_resulting_col_ratio"
         showProgressBar
