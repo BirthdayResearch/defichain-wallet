@@ -1296,7 +1296,8 @@
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain.",
     "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
     "Search available loan tokens": "Search available loan tokens",
-    "Edit Vault": "Edit Vault"
+    "Edit Vault": "Edit Vault",
+    "Confirm": "Confirm"
   },
   "components/tabs": {
     "Browse loan tokens": "Sfoglia i token in prestito",

@@ -1271,7 +1271,8 @@
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "Durch Preisorakel passen sich deine Vaults und Darlehen an die Marktpreise außerhalb der Blockchain an.",
     "Loan tokens get their prices from oracles.": "Darlehenstoken erhalten ihre Preise von Preisorakeln.",
     "Search available loan tokens": "Verfügbare Darlehenstoken suchen",
-    "Edit Vault": "Vault bearbeiten"
+    "Edit Vault": "Vault bearbeiten",
+    "Confirm": "Bestätigen"
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehenstoken",

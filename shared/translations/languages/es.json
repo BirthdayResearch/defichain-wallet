@@ -1299,7 +1299,8 @@
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "Con los oráculos, tus Vaults y préstamos se alinean con precios de mercado fuera de la cadena de bloques",
     "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
     "Search available loan tokens": "Buscar tokens de préstamo disponibles",
-    "Edit Vault": "Edit Vault"
+    "Edit Vault": "Edit Vault",
+    "Confirm": "Confirmar"
   },
   "components/tabs": {
     "Browse loan tokens": "Busca tokens de préstamo",
