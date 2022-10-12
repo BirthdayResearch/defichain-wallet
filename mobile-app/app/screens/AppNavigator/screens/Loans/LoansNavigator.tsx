@@ -220,17 +220,6 @@ export function LoansNavigator(): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={ConfirmEditCollateralScreen}
-        name="ConfirmEditCollateralScreen"
-        options={{
-          ...screenOptions,
-          headerRight: () => (
-            <HeaderNetworkStatus onPress={goToNetworkSelect} />
-          ),
-          headerTitle: translate("screens/LoansScreen", "Confirm"),
-        }}
-      />
-      <LoansStack.Screen
         component={AddOrRemoveCollateralScreen}
         name="AddOrRemoveCollateralScreen"
         options={({ route }: { route: any }) => ({
@@ -243,6 +232,17 @@ export function LoansNavigator(): JSX.Element {
             route?.params?.isAdd ? "Add Collateral" : "Remove Collateral"
           ),
         })}
+      />
+      <LoansStack.Screen
+        component={ConfirmEditCollateralScreen}
+        name="ConfirmEditCollateralScreen"
+        options={{
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate("screens/LoansScreen", "Confirm"),
+        }}
       />
       <LoansStack.Screen
         component={ChooseLoanTokenScreenV2}

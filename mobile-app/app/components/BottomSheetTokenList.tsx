@@ -20,6 +20,7 @@ import {
   ThemedFlatListV2,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
+  ThemedViewV2,
 } from "./themed";
 import { SymbolIcon } from "./SymbolIcon";
 
@@ -165,19 +166,24 @@ export const BottomSheetTokenList = ({
                     </ThemedTextV2>
                     {item.factor !== undefined &&
                       item.factor !== DEFAULT_FACTOR && (
-                        <ThemedTextV2
+                        <ThemedViewV2
                           style={tailwind(
-                            "h-5 flex flex-row items-center px-2 py-1 rounded border-0.5 ml-1 text-xs font-semibold-v2"
+                            "h-5 flex flex-row items-center px-2 ml-1 rounded border-0.5"
                           )}
-                          light={tailwind(
-                            "text-mono-light-v2-700 border-mono-light-v2-700"
-                          )}
-                          dark={tailwind(
-                            "text-mono-dark-v2-700 border-mono-dark-v2-700"
-                          )}
+                          light={tailwind("border-mono-light-v2-700")}
+                          dark={tailwind("border-mono-dark-v2-700")}
                         >
-                          {`${item.factor}x`}
-                        </ThemedTextV2>
+                          <ThemedTextV2
+                            light={tailwind(
+                              "text-xs font-semibold-v2 text-mono-light-v2-700"
+                            )}
+                            dark={tailwind(
+                              "text-xs font-semibold-v2 text-mono-dark-v2-700"
+                            )}
+                          >
+                            {`${item.factor}x`}
+                          </ThemedTextV2>
+                        </ThemedViewV2>
                       )}
                   </View>
                   <ThemedTextV2

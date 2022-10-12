@@ -450,6 +450,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                 )}
                 testId="add_remove_collateral_amount_in_usd"
                 containerStyle={tailwind("w-full break-words")}
+                style={tailwind("text-sm")}
               />
             </View>
 
@@ -526,6 +527,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
             </ThemedTextV2>
           )}
 
+        {/* Conversion required warning */}
         {isConversionRequired && (
           <ThemedTextV2
             light={tailwind("text-orange-v2")}
@@ -540,12 +542,12 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
           </ThemedTextV2>
         )}
 
-        {/* Display insufficient balance error */}
+        {/* Insufficient balance error */}
         {formState.errors.collateralAmount?.type === "hasSufficientFunds" && (
           <ThemedTextV2
             light={tailwind("text-red-v2")}
             dark={tailwind("text-red-v2")}
-            style={tailwind("text-xs pt-2 mx-6 font-normal-v2")}
+            style={tailwind("text-xs pt-2 mx-5 font-normal-v2")}
             testID="add_remove_collateral_insufficient_balance"
           >
             {translate(
@@ -559,7 +561,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
       <ThemedViewV2
         light={tailwind("border-mono-light-v2-300")}
         dark={tailwind("border-mono-dark-v2-300")}
-        style={tailwind("p-5 mt-8 border-0.5 rounded-lg-v2")}
+        style={tailwind("p-5 mt-6 border-0.5 rounded-lg-v2")}
       >
         <ThemedViewV2
           light={tailwind("border-mono-light-v2-300")}
@@ -618,6 +620,15 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
             }}
           />
           <NumberRowV2
+            info={{
+              title: "Available Loan",
+              message:
+                "This is the current loan amount available for this vault.",
+              iconStyle: {
+                light: tailwind("text-mono-light-v2-500"),
+                dark: tailwind("text-mono-dark-v2-500"),
+              },
+            }}
             containerStyle={{
               style: tailwind("flex-row items-start w-full mt-5"),
             }}
@@ -692,7 +703,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
       </ThemedViewV2>
 
       <View style={tailwind("pt-16 px-7")}>
-        {/* TODO: Check if message below is still need for V2 removal */}
+        {/* TODO: Update message below for remove collateral V2 */}
         {isFeatureAvailable("dusd_vault_share") &&
           !isAdd &&
           !isValidCollateralRatio &&
@@ -746,8 +757,8 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
           modalStyle={{
             position: "absolute",
             bottom: "0",
-            height: "404px",
-            width: "375px",
+            height: "70%",
+            width: "100%",
             zIndex: 50,
             borderTopLeftRadius: 15,
             borderTopRightRadius: 15,
@@ -761,8 +772,8 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
           modalRef={bottomSheetRef}
           screenList={bottomSheetScreen}
           snapPoints={{
-            ios: ["40%"],
-            android: ["45%"],
+            ios: ["70%"],
+            android: ["70%"],
           }}
         />
       )}

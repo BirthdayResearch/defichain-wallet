@@ -23,8 +23,8 @@ export function BottomSheetTokenListHeader({
         </ThemedTextV2>
         <TouchableOpacity onPress={onCloseButtonPress}>
           <ThemedIcon
-            iconType="MaterialCommunityIcons"
-            name="close-circle-outline"
+            iconType="Feather"
+            name="x-circle"
             size={20}
             dark={tailwind("text-mono-dark-v2-900")}
             light={tailwind("text-mono-light-v2-900")}

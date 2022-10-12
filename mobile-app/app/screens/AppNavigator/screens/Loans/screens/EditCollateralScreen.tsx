@@ -237,10 +237,6 @@ export function EditCollateralScreen({
           }
         })}
       </ThemedScrollView>
-      <BottomSheetWithNavV2
-        modalRef={bottomSheetRef}
-        screenList={bottomSheetScreen}
-      />
 
       {Platform.OS === "web" && (
         <BottomSheetWebWithNavV2

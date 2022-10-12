@@ -1,4 +1,4 @@
-import { ThemedScrollViewV2 } from "@components/themed";
+import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
 import BigNumber from "bignumber.js";
 import { StackScreenProps } from "@react-navigation/stack";
 import { tailwind } from "@tailwind";
@@ -176,25 +176,27 @@ export function ConfirmEditCollateralScreen({
       style={tailwind("flex-1")}
       testID="confirm_edit_collateral_screen"
     >
-      <SummaryTitleV2
-        title={translate(
-          "screens/ConfirmEditCollateralScreen",
-          isAdd ? "You are adding collateral" : "You are removing collateral"
-        )}
-        amount={amount}
-        testID="text_confirm_edit_collateral_amount"
-        iconA={token.displaySymbol}
-        toAddress={address}
-        toAddressLabel={addressLabel}
-        amountTextStyle="text-xl"
-        addressType={AddressType.WalletAddress}
-        toAddressTitle={translate("screens/common", "On")}
-      />
+      <View style={tailwind("mb-6")}>
+        <SummaryTitleV2
+          title={translate(
+            "screens/ConfirmEditCollateralScreen",
+            isAdd ? "You are adding collateral" : "You are removing collateral"
+          )}
+          amount={amount}
+          testID="text_confirm_edit_collateral_amount"
+          iconA={token.displaySymbol}
+          toAddress={address}
+          toAddressLabel={addressLabel}
+          amountTextStyle="text-xl"
+          addressType={AddressType.WalletAddress}
+          toAddressTitle={translate("screens/common", "On")}
+        />
+      </View>
       {conversion?.isConversionRequired && (
         <NumberRowV2
           containerStyle={{
             style: tailwind(
-              "flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-6"
+              "flex-row items-start w-full bg-transparent border-t-0.5 py-5"
             ),
             ...containerThemeOptions,
           }}
@@ -220,7 +222,7 @@ export function ConfirmEditCollateralScreen({
       <NumberRowV2
         containerStyle={{
           style: tailwind(
-            "flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-5"
+            "flex-row items-start w-full bg-transparent border-t-0.5 py-5"
           ),
           ...containerThemeOptions,
         }}
@@ -244,7 +246,7 @@ export function ConfirmEditCollateralScreen({
       <NumberRowV2
         containerStyle={{
           style: tailwind(
-            "flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-5"
+            "flex-row items-start w-full bg-transparent border-t-0.5 pt-5"
           ),
           ...containerThemeOptions,
         }}
@@ -265,7 +267,7 @@ export function ConfirmEditCollateralScreen({
       />
       <NumberRowV2
         containerStyle={{
-          style: tailwind("flex-row items-start w-full bg-transparent pt-5"),
+          style: tailwind("flex-row items-start w-full bg-transparent py-5"),
           ...containerThemeOptions,
         }}
         lhs={{
@@ -287,7 +289,7 @@ export function ConfirmEditCollateralScreen({
       <TextRowV2
         containerStyle={{
           style: tailwind(
-            "flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-5"
+            "flex-row items-start w-full bg-transparent border-t-0.5 pt-5"
           ),
           ...containerThemeOptions,
         }}
@@ -366,6 +368,17 @@ export function ConfirmEditCollateralScreen({
       />
 
       <View style={tailwind("pt-12 px-7")}>
+        <ThemedTextV2
+          light={tailwind("text-mono-light-v2-500")}
+          dark={tailwind("text-mono-dark-v2-500")}
+          style={tailwind("text-center text-xs font-normal-v2 px-1")}
+        >
+          {translate(
+            "screens/ConfirmEditCollateralScreen",
+            "Final amount determined by oracle price. Resulting collateral ratio are determined upon block confirmation."
+          )}
+        </ThemedTextV2>
+
         <SubmitButtonGroupV2
           isDisabled={hasPendingJob || hasPendingBroadcastJob}
           label={translate(
@@ -376,7 +389,7 @@ export function ConfirmEditCollateralScreen({
           onCancel={onCancel}
           displayCancelBtn
           title="confirm_edit_collateral"
-          buttonStyle="mb-5.5"
+          buttonStyle="mt-5 mb-5.5"
         />
       </View>
     </ThemedScrollViewV2>
