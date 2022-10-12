@@ -609,7 +609,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                 "screens/AddOrRemoveCollateralScreen",
                 "Vault share"
               ),
-              testID: "add_remove_collateral_vault_share_label",
+              testID: "add_remove_collateral_vault_share",
               themedProps: lhsThemedProps,
             }}
             rhs={{
@@ -639,7 +639,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                 "screens/AddOrRemoveCollateralScreen",
                 "Available loan"
               ),
-              testID: "add_remove_collateral_loan_label",
+              testID: "add_remove_collateral_loan",
               themedProps: lhsThemedProps,
             }}
             rhs={{

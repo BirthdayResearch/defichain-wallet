@@ -205,7 +205,7 @@ export function ConfirmEditCollateralScreen({
               "screens/ConfirmEditCollateralScreen",
               "Amount to convert"
             ),
-            testID: "confirm_edit_amount_to_convert_label",
+            testID: "confirm_edit_amount_to_convert",
             themedProps: lhsThemedProps,
           }}
           rhs={{
@@ -231,7 +231,7 @@ export function ConfirmEditCollateralScreen({
             "screens/ConfirmEditCollateralScreen",
             "Transaction fee"
           ),
-          testID: "confirm_edit_transaction_fee_label",
+          testID: "confirm_edit_transaction_fee",
           themedProps: lhsThemedProps,
         }}
         rhs={{
@@ -255,7 +255,7 @@ export function ConfirmEditCollateralScreen({
             "screens/ConfirmEditCollateralScreen",
             "Vault share"
           ),
-          testID: "confirm_edit_vault_share_label",
+          testID: "confirm_edit_vault_share",
           themedProps: lhsThemedProps,
         }}
         rhs={{
@@ -275,7 +275,7 @@ export function ConfirmEditCollateralScreen({
             "screens/ConfirmEditCollateralScreen",
             "Collateral factor"
           ),
-          testID: "confirm_edit_collateral_factor_label",
+          testID: "confirm_edit_collateral_factor",
           themedProps: lhsThemedProps,
         }}
         rhs={{
@@ -329,7 +329,7 @@ export function ConfirmEditCollateralScreen({
             "screens/ConfirmEditCollateralScreen",
             "Available loan"
           ),
-          testID: "confirm_edit_loan_label",
+          testID: "confirm_edit_loan",
           themedProps: lhsThemedProps,
         }}
         rhs={{
@@ -351,7 +351,7 @@ export function ConfirmEditCollateralScreen({
             "screens/ConfirmEditCollateralScreen",
             "Amount to add"
           ),
-          testID: "confirm_edit_collateral_amount_label",
+          testID: "confirm_edit_collateral_amount",
           themedProps: lhsThemedProps,
         }}
         rhs={{
