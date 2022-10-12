@@ -54,8 +54,6 @@ export enum TokenType {
   CollateralItem = "CollateralItem",
 }
 
-const DEFAULT_FACTOR = "1";
-
 export const BottomSheetTokenList = ({
   onTokenPress,
   navigateToScreen,
@@ -164,27 +162,9 @@ export const BottomSheetTokenList = ({
                     >
                       {item.token.displaySymbol}
                     </ThemedTextV2>
-                    {item.factor !== undefined &&
-                      item.factor !== DEFAULT_FACTOR && (
-                        <ThemedViewV2
-                          style={tailwind(
-                            "h-5 flex flex-row items-center px-2 ml-1 rounded border-0.5"
-                          )}
-                          light={tailwind("border-mono-light-v2-700")}
-                          dark={tailwind("border-mono-dark-v2-700")}
-                        >
-                          <ThemedTextV2
-                            light={tailwind(
-                              "text-xs font-semibold-v2 text-mono-light-v2-700"
-                            )}
-                            dark={tailwind(
-                              "text-xs font-semibold-v2 text-mono-dark-v2-700"
-                            )}
-                          >
-                            {`${item.factor}x`}
-                          </ThemedTextV2>
-                        </ThemedViewV2>
-                      )}
+                    <View style={tailwind("ml-1")}>
+                      <CollateralFactorTag factor={item.factor} />
+                    </View>
                   </View>
                   <ThemedTextV2
                     light={tailwind("text-mono-light-v2-700")}
@@ -239,3 +219,25 @@ export const BottomSheetTokenList = ({
       />
     );
   });
+
+export function CollateralFactorTag({
+  factor,
+}: {
+  factor?: string;
+}): JSX.Element | null {
+  const DEFAULT_FACTOR = "1";
+  return factor !== undefined && factor !== DEFAULT_FACTOR ? (
+    <ThemedViewV2
+      style={tailwind("h-5 flex flex-row items-center px-2 rounded border-0.5")}
+      light={tailwind("border-mono-light-v2-700")}
+      dark={tailwind("border-mono-dark-v2-700")}
+    >
+      <ThemedTextV2
+        light={tailwind("text-xs font-semibold-v2 text-mono-light-v2-700")}
+        dark={tailwind("text-xs font-semibold-v2 text-mono-dark-v2-700")}
+      >
+        {`${factor}x`}
+      </ThemedTextV2>
+    </ThemedViewV2>
+  ) : null;
+}

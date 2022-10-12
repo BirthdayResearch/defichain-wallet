@@ -10,6 +10,7 @@ import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { useEffect, useState } from "react";
 import { Platform, View } from "react-native";
+import { NumericFormat as NumberFormat } from "react-number-format";
 import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { useSelector } from "react-redux";
@@ -41,6 +42,7 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import {
   BottomSheetTokenList,
+  CollateralFactorTag,
   TokenType,
 } from "@components/BottomSheetTokenList";
 import { TextRowV2 } from "@components/TextRowV2";
@@ -656,7 +658,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                 "screens/AddOrRemoveCollateralScreen",
                 "Total collateral"
               ),
-              testID: "add_remove_collateral_total_label",
+              testID: "add_remove_collateral_total",
               themedProps: lhsThemedProps,
             }}
             rhs={{
@@ -667,6 +669,12 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
               usdContainerStyle: tailwind("pt-1 pb-0"),
               themedProps: rhsThemedProps,
             }}
+          />
+          <TotalTokenCollateralRow
+            totalTokenBalance={totalTokenBalance}
+            totalUsdAmount={totalTokenValueInUSD}
+            symbol={selectedCollateralItem.token.symbol}
+            collateralFactor={selectedCollateralItem.factor}
           />
           <CollateralRatioRow
             type={hasInvalidColRatio ? "text" : "number"}
@@ -823,5 +831,74 @@ export function CollateralRatioRow(props: {
         themedProps: props.rhsThemedProps,
       }}
     />
+  );
+}
+
+function TotalTokenCollateralRow(props: {
+  totalTokenBalance: BigNumber;
+  totalUsdAmount: BigNumber;
+  symbol: string;
+  collateralFactor: string;
+}): JSX.Element {
+  return (
+    <ThemedViewV2
+      style={tailwind("flex-row items-start w-full mt-5")}
+      light={tailwind("bg-transparent")}
+      dark={tailwind("bg-transparent")}
+    >
+      <View style={tailwind("w-5/12")}>
+        <View style={tailwind("flex-row items-center justify-start")}>
+          <ThemedTextV2
+            style={tailwind("text-sm font-normal-v2")}
+            testID="add_remove_collateral_total_label"
+            light={tailwind("text-mono-light-v2-500")}
+            dark={tailwind("text-mono-dark-v2-500")}
+          >
+            {translate(
+              "screens/AddOrRemoveCollateralScreen",
+              "Total collateral"
+            )}
+          </ThemedTextV2>
+        </View>
+        <View style={tailwind("flex flex-row mt-1")}>
+          <CollateralFactorTag factor={props.collateralFactor} />
+        </View>
+      </View>
+      <View style={tailwind("flex-1")}>
+        <View>
+          <View
+            style={tailwind("flex flex-row justify-end flex-wrap items-center")}
+          >
+            <NumberFormat
+              decimalScale={8}
+              displayType="text"
+              suffix={props.symbol}
+              renderText={(val: string) => (
+                <ThemedTextV2
+                  style={tailwind("text-right font-normal-v2 text-sm")}
+                  testID="add_remove_collateral_total"
+                  light={tailwind("text-mono-light-v2-900")}
+                  dark={tailwind("text-mono-dark-v2-900")}
+                >
+                  {val}
+                </ThemedTextV2>
+              )}
+              thousandSeparator
+              value={props.totalTokenBalance.toFixed(8)}
+            />
+          </View>
+        </View>
+        <View
+          style={tailwind("flex flex-row justify-end flex-wrap items-center")}
+        >
+          <ActiveUSDValueV2
+            price={props.totalUsdAmount}
+            containerStyle={tailwind("pt-1 pb-0")}
+            testId="add_remove_collateral_total_usd_amount"
+            style={tailwind("text-sm")}
+          />
+        </View>
+      </View>
+    </ThemedViewV2>
   );
 }
