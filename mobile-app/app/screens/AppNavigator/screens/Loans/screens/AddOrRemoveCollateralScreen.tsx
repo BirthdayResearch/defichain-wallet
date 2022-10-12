@@ -649,27 +649,6 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
               themedProps: rhsThemedProps,
             }}
           />
-          <NumberRowV2
-            containerStyle={{
-              style: tailwind("flex-row items-start w-full mt-5"),
-            }}
-            lhs={{
-              value: translate(
-                "screens/AddOrRemoveCollateralScreen",
-                "Total collateral"
-              ),
-              testID: "add_remove_collateral_total",
-              themedProps: lhsThemedProps,
-            }}
-            rhs={{
-              value: getPrecisedCurrencyValue(totalTokenBalance),
-              testID: "add_remove_collateral_total",
-              usdAmount: totalTokenValueInUSD,
-              usdTextStyle: tailwind("text-sm"),
-              usdContainerStyle: tailwind("pt-1 pb-0"),
-              themedProps: rhsThemedProps,
-            }}
-          />
           <TotalTokenCollateralRow
             totalTokenBalance={totalTokenBalance}
             totalUsdAmount={totalTokenValueInUSD}
@@ -872,7 +851,7 @@ function TotalTokenCollateralRow(props: {
             <NumberFormat
               decimalScale={8}
               displayType="text"
-              suffix={props.symbol}
+              suffix={` ${props.symbol}`}
               renderText={(val: string) => (
                 <ThemedTextV2
                   style={tailwind("text-right font-normal-v2 text-sm")}
