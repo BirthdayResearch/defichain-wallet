@@ -285,6 +285,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
         <TransactionDetailsSection
           outstandingBalance={loanTokenOutstandingBal}
           resultingColRatio={resultingColRatio}
+          loanTokenAmount={loanTokenAmount}
           vault={vault}
           amountToPay={
             new BigNumber(amountToPay).isNaN()
@@ -324,6 +325,7 @@ interface TransactionDetailsProps {
   outstandingBalance: BigNumber;
   resultingColRatio: BigNumber;
   vault: LoanVaultActive;
+  loanTokenAmount: LoanVaultTokenAmount;
   amountToPay: BigNumber;
   loanTokenActivePriceInUSD: string;
 }
@@ -331,6 +333,7 @@ interface TransactionDetailsProps {
 function TransactionDetailsSection({
   outstandingBalance,
   resultingColRatio,
+  loanTokenAmount,
   vault,
   amountToPay,
   loanTokenActivePriceInUSD,
@@ -387,6 +390,7 @@ function TransactionDetailsSection({
         rhs={{
           value: loanRemaining.toFixed(8),
           testID: "total_outstanding_loan_value",
+          suffix: ` ${loanTokenAmount.displaySymbol}`,
           usdAmount: new BigNumber(loanRemaining).isNaN()
             ? new BigNumber(0)
             : new BigNumber(loanRemaining).multipliedBy(

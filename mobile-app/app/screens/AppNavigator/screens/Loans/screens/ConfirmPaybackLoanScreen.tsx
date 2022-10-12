@@ -265,8 +265,8 @@ export function ConfirmPaybackLoanScreen({
             ),
             themedProps: {
               style: tailwind("text-right text-sm font-semibold-v2"),
-              light: tailwind("text-mono-light-v2-600"),
-              dark: tailwind("text-mono-dark-v2-600"),
+              light: tailwind("text-mono-light-v2-900"),
+              dark: tailwind("text-mono-dark-v2-900"),
             },
           }}
         />
