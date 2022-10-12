@@ -1,91 +1,108 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { StackScreenProps } from "@react-navigation/stack";
 import { LoanParamList } from "@screens/AppNavigator/screens/Loans/LoansNavigator";
 import { View } from "react-native";
 import {
-  ThemedIcon,
-  ThemedScrollView,
-  ThemedText,
-  ThemedView,
+  ThemedScrollViewV2,
+  ThemedTextInputV2,
+  ThemedTextV2,
+  ThemedViewV2,
 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
-import { LoanVaultActive } from "@defichain/whale-api-client/dist/api/loan";
-import { WalletTextInput } from "@components/WalletTextInput";
+import {
+  LoanVaultActive,
+  LoanVaultTokenAmount,
+} from "@defichain/whale-api-client/dist/api/loan";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { hasTxQueued } from "@store/transaction_queue";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
-import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { NumberRow } from "@components/NumberRow";
-import { InfoRow, InfoType } from "@components/InfoRow";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
 import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
+import { tokensSelector } from "@store/wallet";
+import { activeVaultsSelector, loanTokenByTokenId } from "@store/loans";
 import {
-  DFITokenSelector,
-  DFIUtxoSelector,
-  tokensSelector,
-} from "@store/wallet";
-import { useWalletContext } from "@shared-contexts/WalletContext";
-import { fetchPrice, loanTokenByTokenId } from "@store/loans";
-import { TextRow } from "@components/TextRow";
-import {
-  queueConvertTransaction,
-  useConversion,
-} from "@hooks/wallet/Conversion";
-import { ConversionInfoText } from "@components/ConversionInfoText";
-import {
+  TransactionCard,
   AmountButtonTypes,
-  SetAmountButton,
-} from "@components/SetAmountButton";
-import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
-import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
-import { useIsFocused } from "@react-navigation/native";
-import { InputHelperText } from "@components/InputHelperText";
-import { ReservedDFIInfoText } from "@components/ReservedDFIInfoText";
-import { useAppDispatch } from "@hooks/useAppDispatch";
-import { ActiveUSDValue } from "../VaultDetail/components/ActiveUSDValue";
+} from "@components/TransactionCard";
 import {
-  getTokenAmount,
-  PaymentTokenProps,
-  useLoanPaymentTokenRate,
-} from "../hooks/LoanPaymentTokenRate";
-import { LoanPercentage } from "../components/LoanPercentage";
-import { getPrecisedTokenValue } from "../../Auctions/helpers/precision-token-value";
-import { PaymentTokenCards } from "../components/PaymentTokenCards";
-import { CollateralizationRatioValue } from "../components/CollateralizationRatioRow";
+  TokenDropdownButton,
+  TokenDropdownButtonStatus,
+} from "@components/TokenDropdownButton";
+import { Controller, useForm } from "react-hook-form";
+import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { TextRowV2 } from "@components/TextRowV2";
+import { NumberRowV2 } from "@components/NumberRowV2";
+import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { useToast } from "react-native-toast-notifications";
+import { getTokenAmount } from "../hooks/LoanPaymentTokenRate";
 import { useResultingCollateralRatio } from "../hooks/CollateralPrice";
 import { useInterestPerBlock } from "../hooks/InterestPerBlock";
+import { ActiveUSDValueV2 } from "../VaultDetail/components/ActiveUSDValueV2";
+import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
 
 type Props = StackScreenProps<LoanParamList, "PaybackLoanScreen">;
 
 export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
-  const { isFeatureAvailable } = useFeatureFlagContext();
-  const { loanTokenAmount, vault } = route.params;
-  const { address } = useWalletContext();
-  const dispatch = useAppDispatch();
-  const isFocused = useIsFocused();
-  const blockCount = useSelector((state: RootState) => state.block.count);
+  const routeParams = route.params;
+  const [vault, setVault] = useState(routeParams.vault);
+  const [loanTokenAmount, setLoanTokenAmount] = useState(
+    routeParams.loanTokenAmount
+  );
+  const vaults = useSelector((state: RootState) =>
+    activeVaultsSelector(state.loans)
+  );
+
+  useEffect(() => {
+    const vault = vaults.find((v) => v.vaultId === routeParams.vault.vaultId);
+    if (vault !== undefined) {
+      setVault(vault);
+    }
+    const loanTokenAmount = vault?.loanAmounts.find(
+      (l: LoanVaultTokenAmount) => l.id === routeParams.loanTokenAmount.id
+    );
+    if (loanTokenAmount !== undefined) {
+      setLoanTokenAmount(loanTokenAmount);
+    }
+  }, [vaults]);
+
   const tokens = useSelector((state: RootState) =>
     tokensSelector(state.wallet)
   );
-  const DFIToken = useSelector((state: RootState) =>
-    DFITokenSelector(state.wallet)
-  );
-  const DFIUtxo = useSelector((state: RootState) =>
-    DFIUtxoSelector(state.wallet)
-  );
+  const toast = useToast();
+  const TOAST_DURATION = 2000;
+  function showToast(type: AmountButtonTypes, displaySymbol: string): void {
+    toast.hideAll(); // hides old toast everytime user clicks on a new percentage
+    const isMax = type === AmountButtonTypes.Max;
+    const toastMessage = isMax
+      ? "Max available {{unit}} entered"
+      : "{{percent}} of available {{unit}} entered";
+    const toastOption = {
+      unit: displaySymbol,
+      percent: type,
+    };
+    toast.show(
+      translate("screens/PaybackLoanScreen", toastMessage, toastOption),
+      {
+        type: "wallet_toast",
+        placement: "top",
+        duration: TOAST_DURATION,
+      }
+    );
+  }
   const loanToken = useSelector((state: RootState) =>
     loanTokenByTokenId(state.loans, loanTokenAmount.id)
   );
-  const paymentTokenActivePrices = useSelector(
-    (state: RootState) => state.loans.loanPaymentTokenActivePrices
-  );
+  const { isLight } = useThemeContext();
   const canUseOperations = useLoanOperations(vault?.state);
-  const client = useWhaleApiClient();
+  // form
+  const { control, setValue, formState, trigger, watch } = useForm({
+    mode: "onChange",
+  });
+  const { amountToPay } = watch();
 
   const interestPerBlock = useInterestPerBlock(
     new BigNumber(vault?.loanScheme.interestRate ?? NaN),
@@ -99,706 +116,307 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
     loanTokenAmount.symbol,
     loanTokenAmount.activePrice
   );
-  const loanTokenOutstandingBalInUSD = loanTokenOutstandingBal.multipliedBy(
-    loanTokenActivePriceInUSD
+  const isExcess = new BigNumber(amountToPay).isGreaterThan(
+    loanTokenOutstandingBal
   );
-
-  const [selectedPaymentToken, setSelectedPaymentToken] = useState<
-    Omit<PaymentTokenProps, "tokenBalance">
-  >({
-    tokenId: loanTokenAmount.id,
-    tokenSymbol: loanTokenAmount.symbol,
-    tokenDisplaySymbol: loanTokenAmount.displaySymbol,
-  });
-
-  const [amountToPay, setAmountToPay] = useState(
-    BigNumber.min(loanTokenAmount.amount, tokenBalance).toFixed(8)
-  );
-  const { getPaymentTokens, getPaymentPenalty } = useLoanPaymentTokenRate({
-    loanToken: {
-      id: loanTokenAmount.id,
-      displaySymbol: loanTokenAmount.displaySymbol,
-      symbol: loanTokenAmount.symbol,
-    },
-    loanTokenBalance: tokenBalance,
-    loanTokenAmountActivePriceInUSD: new BigNumber(loanTokenActivePriceInUSD),
-    outstandingBalance: loanTokenOutstandingBal,
-    amountToPay: new BigNumber(amountToPay),
-  });
-
-  const { paymentTokensWithAmount, paymentPenalty } = useMemo(() => {
-    const { paymentTokenAmounts } = getPaymentTokens();
-    return {
-      paymentTokensWithAmount: paymentTokenAmounts,
-      paymentPenalty: getPaymentPenalty(selectedPaymentToken.tokenSymbol),
-    };
-  }, [amountToPay, selectedPaymentToken, paymentTokenActivePrices]);
-
-  const {
-    isExcess,
-    amountToPayInLoanToken,
-    amountToPayInPaymentToken,
-    totalPaybackWithInterest,
-    hasSufficientPaymentTokenBalance,
-    selectedPaymentTokenBalance,
-    cappedAmount,
-    outstandingBalanceInPaymentToken,
-  } = useMemo(() => {
-    const selectedPaymentTokenWithAmount = paymentTokensWithAmount.find(
-      (pTokenWithAmount) =>
-        pTokenWithAmount.paymentToken.tokenId === selectedPaymentToken.tokenId
-    ) ?? {
-      amountToPayInLoanToken: new BigNumber(NaN),
-      amountToPayInPaymentToken: new BigNumber(NaN),
-      cappedAmount: new BigNumber(NaN),
-      outstandingBalanceInPaymentToken: new BigNumber(NaN),
-      paymentToken: {
-        tokenBalance: new BigNumber(NaN),
-        tokenDisplaySymbol: "",
-        tokenId: "",
-        tokenSymbol: "",
-      },
-    };
-    const amountToPayInLoanToken =
-      selectedPaymentTokenWithAmount.amountToPayInLoanToken;
-    const amountToPayInPaymentToken =
-      selectedPaymentTokenWithAmount.amountToPayInPaymentToken;
-
-    return {
-      isExcess: new BigNumber(amountToPayInPaymentToken).isGreaterThan(
-        selectedPaymentTokenWithAmount.outstandingBalanceInPaymentToken
-      ),
-      totalPaybackWithInterest: new BigNumber(amountToPayInLoanToken).plus(
-        interestPerBlock
-      ),
-      cappedAmount: selectedPaymentTokenWithAmount.cappedAmount,
-      amountToPayInPaymentToken,
-      amountToPayInLoanToken,
-      hasSufficientPaymentTokenBalance:
-        selectedPaymentTokenWithAmount.paymentToken.tokenBalance.gte(
-          amountToPayInPaymentToken
-        ),
-      selectedPaymentTokenBalance:
-        selectedPaymentTokenWithAmount.paymentToken.tokenBalance,
-      outstandingBalanceInPaymentToken:
-        selectedPaymentTokenWithAmount.outstandingBalanceInPaymentToken,
-    };
-  }, [paymentTokensWithAmount, selectedPaymentToken]);
-
-  useEffect(() => {
-    setAmountToPay(cappedAmount.toFixed(8));
-  }, [selectedPaymentToken]);
-
-  const [isInputEmpty, setIsInputEmpty] = useState(true);
-  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
-
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
     hasBroadcastQueued(state.ocean)
   );
-  const logger = useLogger();
 
   // Resulting col ratio
   const resultingColRatio = useResultingCollateralRatio(
     new BigNumber(vault?.collateralValue ?? NaN),
     new BigNumber(vault?.loanValue ?? NaN),
-    BigNumber.min(amountToPayInLoanToken, loanTokenAmount.amount).multipliedBy(
-      -1
-    ),
+    BigNumber.min(
+      new BigNumber(amountToPay).isNaN() ? "0" : amountToPay,
+      loanTokenAmount.amount
+    ).multipliedBy(-1),
     new BigNumber(
       getActivePrice(loanTokenAmount.symbol, loanTokenAmount?.activePrice)
     ),
     interestPerBlock
   );
 
-  // Conversion
-  const { isConversionRequired, conversionAmount } = useConversion({
-    inputToken: {
-      type: selectedPaymentToken.tokenId === "0_unified" ? "token" : "others",
-      amount: new BigNumber(
-        selectedPaymentToken.tokenId === "0_unified"
-          ? BigNumber.min(
-              selectedPaymentTokenBalance,
-              amountToPayInPaymentToken.plus(paymentPenalty)
-            )
-          : 0
-      ),
-    },
-    deps: [
-      selectedPaymentToken,
-      amountToPayInPaymentToken,
-      JSON.stringify(tokens),
-    ],
-  });
-
-  useEffect(() => {
-    if (isFocused) {
-      if (loanTokenAmount.symbol === "DUSD") {
-        dispatch(
-          fetchPrice({
-            client,
-            currency: "USD",
-            token: "DFI",
-          })
-        );
-      } else {
-        dispatch(
-          fetchPrice({
-            client,
-            currency: "USD",
-            token: loanTokenAmount.symbol,
-          })
-        );
-      }
-    }
-  }, [address, blockCount, isFocused]);
-
-  useEffect(() => {
-    client.fee
-      .estimate()
-      .then((f) => setFee(new BigNumber(f)))
-      .catch(logger.error);
-  }, []);
-
-  useEffect(() => {
-    return setIsInputEmpty(new BigNumber(amountToPay).isNaN());
-  }, [amountToPay]);
-
-  const onPaymentTokenSelect = (paymentToken: PaymentTokenProps): void => {
-    setSelectedPaymentToken(paymentToken);
-  };
-
-  const navigateToConfirmScreen = (): void => {
+  const navigateToConfirmScreen = async (): Promise<void> => {
     navigation.navigate({
       name: "ConfirmPaybackLoanScreen",
       params: {
         vault,
-        amountToPayInLoanToken: new BigNumber(amountToPayInLoanToken),
-        amountToPayInPaymentToken: amountToPayInPaymentToken,
-        selectedPaymentTokenBalance: selectedPaymentTokenBalance,
-        loanTokenBalance: loanTokenOutstandingBal,
-        paymentToken: selectedPaymentToken,
-        fee,
+        amountToPay: new BigNumber(amountToPay),
+        loanTokenOutstandingBal: loanTokenOutstandingBal,
+        amountToPayInLoanToken: new BigNumber(loanTokenOutstandingBal),
+        amountToPayInPaymentToken: new BigNumber(amountToPay),
+        selectedPaymentTokenBalance: new BigNumber(tokenBalance),
+        loanTokenBalance: new BigNumber(loanTokenOutstandingBal),
+        paymentToken: {
+          tokenId: loanTokenAmount.id,
+          tokenSymbol: loanTokenAmount.symbol,
+          tokenDisplaySymbol: loanTokenAmount.displaySymbol,
+        },
         loanTokenAmount,
         excessAmount: isExcess
-          ? new BigNumber(amountToPayInPaymentToken).minus(
-              outstandingBalanceInPaymentToken
-            )
+          ? new BigNumber(amountToPay).minus(loanTokenOutstandingBal)
           : undefined,
         resultingColRatio,
-        paymentPenalty,
-        ...(isConversionRequired && {
-          conversion: {
-            isConversionRequired,
-            DFIToken,
-            DFIUtxo,
-            conversionAmount,
-          },
-        }),
+        paymentPenalty: new BigNumber(0),
       },
       merge: true,
     });
   };
-  const onChangeFromAmount = (amount: string): void => {
-    setAmountToPay(amount);
+
+  const onChangeFromAmount = async (amount: string): Promise<void> => {
+    setValue("amountToPay", amount);
+    await trigger("amountToPay");
   };
 
-  const onSubmit = async (): Promise<void> => {
-    if (
-      !hasSufficientPaymentTokenBalance ||
-      vault === undefined ||
-      hasPendingJob ||
-      hasPendingBroadcastJob
-    ) {
-      return;
-    }
-
-    if (isConversionRequired) {
-      queueConvertTransaction(
-        {
-          mode: "utxosToAccount",
-          amount: conversionAmount,
-        },
-        dispatch,
-        () => {
-          navigateToConfirmScreen();
-        },
-        logger
-      );
-    } else {
-      navigateToConfirmScreen();
-    }
-  };
+  const isContinueDisabled =
+    !formState.isValid ||
+    hasPendingJob ||
+    hasPendingBroadcastJob ||
+    !canUseOperations;
 
   return (
-    <ThemedScrollView contentContainerStyle={tailwind("pb-8")}>
-      <LoanTokenInput
-        loanTokenId={loanTokenAmount.id}
-        displaySymbol={loanTokenAmount.displaySymbol}
-        outstandingBalanceInUSD={loanTokenOutstandingBalInUSD}
-        outstandingBalance={loanTokenOutstandingBal}
-      />
-      <ThemedView
-        light={tailwind("bg-white")}
-        dark={tailwind("bg-gray-800")}
-        style={tailwind("pb-4 flex flex-col flex-1")}
+    <ThemedScrollViewV2 contentContainerStyle={tailwind("pb-8")}>
+      <ThemedTextV2
+        style={tailwind("mx-10 text-xs font-normal-v2 mt-8")}
+        light={tailwind("text-mono-light-v2-500")}
+        dark={tailwind("text-mono-dark-v2-500")}
       >
-        {isFeatureAvailable("dfi_loan_payment") &&
-          paymentTokensWithAmount.length > 1 && (
-            <PaymentTokenCards
-              onPaymentTokenSelect={onPaymentTokenSelect}
-              paymentTokens={paymentTokensWithAmount.map(
-                (pTokenWithAmount) => ({
-                  ...pTokenWithAmount,
-                  isSelected:
-                    selectedPaymentToken.tokenId ===
-                    pTokenWithAmount.paymentToken.tokenId,
-                })
-              )}
-              selectedPaymentTokenSymbol={selectedPaymentToken.tokenSymbol}
-              loanTokenSymbol={loanTokenAmount.symbol}
-            />
-          )}
-        <View style={tailwind("mt-4 px-4")}>
-          <WalletTextInput
-            inputType="numeric"
-            value={amountToPay}
-            title={translate("screens/PaybackLoanScreen", "Amount to pay")}
-            placeholder={translate(
-              "screens/PaybackLoanScreen",
-              "Enter an amount"
+        {translate("screens/PaybackLoanScreen", "I WANT TO PAY")}
+      </ThemedTextV2>
+
+      <View style={tailwind("mx-5")}>
+        <TransactionCard
+          maxValue={loanTokenOutstandingBal}
+          onChange={(amount, type) => {
+            onChangeFromAmount(amount);
+            showToast(type, loanTokenAmount.displaySymbol);
+          }}
+          componentStyle={{
+            light: tailwind("bg-transparent"),
+            dark: tailwind("bg-transparent"),
+          }}
+          containerStyle={{
+            light: tailwind("bg-transparent"),
+            dark: tailwind("bg-transparent"),
+          }}
+          amountButtonsStyle={{
+            light: tailwind("bg-mono-light-v2-00"),
+            dark: tailwind("bg-mono-dark-v2-00"),
+            style: tailwind("mt-6 rounded-xl-v2"),
+          }}
+          disabled={new BigNumber(loanTokenOutstandingBal).isZero()}
+        >
+          <View
+            style={tailwind(
+              "flex flex-row justify-between items-center pl-5 mt-4"
             )}
-            onChangeText={(text) => setAmountToPay(text)}
-            displayClearButton={amountToPay !== ""}
-            onClearButtonPress={() => setAmountToPay("")}
-            style={tailwind("h-9 w-2/5 flex-grow")}
-            testID="payback_input_text"
-            valid={hasSufficientPaymentTokenBalance || isInputEmpty}
-            {...(!hasSufficientPaymentTokenBalance &&
-              !isInputEmpty && {
-                inlineText: {
-                  type: "error",
-                  text: translate(
-                    "screens/PaybackLoanScreen",
-                    "Insufficient {{token}} to pay for the entered amount",
-                    { token: selectedPaymentToken.tokenDisplaySymbol }
-                  ),
-                },
-              })}
           >
-            <>
-              <SetAmountButton
-                amount={
-                  selectedPaymentTokenBalance.gte(
-                    outstandingBalanceInPaymentToken
-                  )
-                    ? new BigNumber(outstandingBalanceInPaymentToken)
-                    : new BigNumber(selectedPaymentTokenBalance)
+            <View style={tailwind("w-6/12 mr-2")}>
+              <Controller
+                control={control}
+                defaultValue=""
+                name="amountToPay"
+                render={({ field: { onChange, value } }) => (
+                  <ThemedTextInputV2
+                    style={tailwind("text-xl font-semibold-v2 w-full")}
+                    light={tailwind("text-mono-light-v2-900")}
+                    dark={tailwind("text-mono-dark-v2-900")}
+                    keyboardType="numeric"
+                    value={value}
+                    onBlur={async () => {
+                      await onChange(value?.trim());
+                    }}
+                    onChangeText={async (amount) => {
+                      amount = isNaN(+amount) ? "0" : amount;
+                      setValue("amountToPay", amount);
+                      await trigger("amountToPay");
+                    }}
+                    placeholder="0.00"
+                    placeholderTextColor={
+                      isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
+                    }
+                    testID="payback_input_text"
+                    editable={amountToPay !== undefined}
+                  />
+                )}
+                rules={{
+                  required: true,
+                  pattern: /^\d*\.?\d*$/,
+                  validate: {
+                    greaterThanZero: (value: string) =>
+                      new BigNumber(
+                        value !== undefined && value !== "" ? value : 0
+                      ).isGreaterThan(0),
+                    notSufficientFunds: (value) =>
+                      new BigNumber(tokenBalance).gte(value),
+                  },
+                }}
+              />
+              <ActiveUSDValueV2
+                price={
+                  new BigNumber(amountToPay).isNaN()
+                    ? new BigNumber(0)
+                    : new BigNumber(amountToPay).multipliedBy(
+                        loanTokenActivePriceInUSD
+                      )
                 }
-                onPress={onChangeFromAmount}
-                type={AmountButtonTypes.half}
+                style={tailwind("text-sm")}
+                testId="loan_outstanding_balance_usd"
+                containerStyle={tailwind("w-full break-words")}
               />
-              <SetAmountButton
-                amount={cappedAmount}
-                onPress={onChangeFromAmount}
-                type={AmountButtonTypes.max}
-                customText="MAX"
-              />
-            </>
-          </WalletTextInput>
-          <InputHelperText
-            label={`${translate("screens/PaybackLoanScreen", "Available")}: `}
-            content={new BigNumber(selectedPaymentTokenBalance).toFixed(8)}
-            styleProps={tailwind("font-medium leading-5")}
-            suffix={` ${selectedPaymentToken.tokenDisplaySymbol}`}
-            testID="available_token_balance"
-          />
-        </View>
-        {selectedPaymentToken.tokenSymbol === "DFI" && (
-          <ReservedDFIInfoText style={tailwind("mb-4 mx-4")} />
-        )}
-        {isConversionRequired && hasSufficientPaymentTokenBalance && (
-          <ConversionInfoText style={tailwind("mx-4")} />
-        )}
-        <LoanPercentage
-          amountToPayInPaymentToken={amountToPayInPaymentToken}
-          loanTokenOutstandingBalance={loanTokenOutstandingBal}
-          outstandingBalanceInPaymentToken={outstandingBalanceInPaymentToken}
-          amountToPayInLoanToken={amountToPayInLoanToken}
-          paymentTokenDisplaySymbol={selectedPaymentToken.tokenDisplaySymbol}
-          loanTokenDisplaySymbol={loanTokenAmount.displaySymbol}
-        />
-      </ThemedView>
-      {hasSufficientPaymentTokenBalance && amountToPayInPaymentToken.gt(0) && (
-        <View style={tailwind("mt-4")}>
-          <TransactionDetailsSection
-            fee={fee}
-            outstandingBalance={loanTokenOutstandingBal}
-            outstandingBalanceInPaymentToken={outstandingBalanceInPaymentToken}
-            displaySymbol={loanTokenAmount.displaySymbol}
-            isExcess={isExcess}
-            resultingColRatio={resultingColRatio}
-            vault={vault}
-            loanTokenPrice={
-              new BigNumber(
-                getActivePrice(loanTokenAmount.symbol, loanToken?.activePrice)
-              )
-            }
-            totalPaybackWithInterest={totalPaybackWithInterest}
-            selectedPaymentToken={selectedPaymentToken}
-            amountToPayInLoanToken={amountToPayInLoanToken}
-            amountToPayInPaymentToken={amountToPayInPaymentToken}
-            paymentPenalty={paymentPenalty}
-          />
-          {isExcess && (
-            <ThemedText
-              light={tailwind("text-gray-500")}
-              dark={tailwind("text-gray-400")}
-              style={tailwind("text-xs mt-2 mx-4")}
-            >
-              {translate(
-                "screens/PaybackLoanScreen",
-                "Any excess amount will be returned to your wallet."
-              )}
-            </ThemedText>
-          )}
-        </View>
-      )}
-      <View style={tailwind("mt-4 mb-2")}>
-        <SubmitButtonGroup
-          isDisabled={
-            !hasSufficientPaymentTokenBalance ||
-            amountToPayInPaymentToken.lte(0) ||
-            hasPendingJob ||
-            hasPendingBroadcastJob ||
-            !canUseOperations
-          }
-          label={translate("screens/PaybackLoanScreen", "CONTINUE")}
-          processingLabel={translate("screens/PaybackLoanScreen", "CONTINUE")}
-          onSubmit={onSubmit}
-          title="payback_loan_continue"
-          isProcessing={hasPendingJob || hasPendingBroadcastJob}
-          displayCancelBtn={false}
-        />
-      </View>
-      <ThemedText
-        light={tailwind("text-gray-500")}
-        dark={tailwind("text-gray-400")}
-        style={tailwind("text-center text-xs mb-12")}
-      >
-        {isConversionRequired
-          ? translate(
-              "screens/PaybackLoanScreen",
-              "Authorize transaction in the next screen to convert"
-            )
-          : translate(
-              "screens/PaybackLoanScreen",
-              "Review and confirm transaction in the next screen"
+            </View>
+            <TokenDropdownButton
+              symbol={loanTokenAmount.displaySymbol}
+              testID="loan_token_symbol"
+              status={TokenDropdownButtonStatus.Locked}
+            />
+          </View>
+        </TransactionCard>
+        <View style={tailwind("mt-2 mx-5")}>
+          <NumberFormat
+            decimalScale={8}
+            displayType="text"
+            renderText={(value) => (
+              <ThemedTextV2
+                light={tailwind("text-mono-light-v2-500")}
+                dark={tailwind("text-mono-light-v2-500")}
+                style={tailwind("text-xs font-normal-v2")}
+                testID="available_token_balance"
+              >
+                {value}
+              </ThemedTextV2>
             )}
-      </ThemedText>
-    </ThemedScrollView>
-  );
-}
-
-interface LoanTokenInputProps {
-  loanTokenId: string;
-  displaySymbol: string;
-  outstandingBalance: BigNumber;
-  outstandingBalanceInUSD: BigNumber;
-}
-
-export function LoanTokenInput(props: LoanTokenInputProps): JSX.Element {
-  return (
-    <ThemedView
-      light={tailwind("bg-white")}
-      dark={tailwind("bg-gray-800")}
-      style={tailwind(
-        "p-4 m-4 flex flex-col rounded-lg flex-row items-center justify-between"
-      )}
-    >
-      <ThemedText
-        light={tailwind("text-gray-400")}
-        dark={tailwind("text-gray-500")}
-        style={tailwind("text-sm")}
-      >
-        {translate("screens/PaybackLoanScreen", "Loan amount")}
-      </ThemedText>
-      <View style={tailwind("items-end")}>
-        <NumberFormat
-          value={new BigNumber(props.outstandingBalance).toFixed(8)}
-          decimalScale={8}
-          thousandSeparator
-          suffix={` ${props.displaySymbol}`}
-          displayType="text"
-          renderText={(value) => (
-            <ThemedText
-              testID="loan_outstanding_balance"
-              style={tailwind("text-sm font-medium")}
-            >
-              {value}
-            </ThemedText>
-          )}
-        />
-        <ActiveUSDValue
-          price={new BigNumber(props.outstandingBalanceInUSD)}
-          testId="loan_outstanding_balance_usd"
-          isOraclePrice
+            prefix={translate("screens/PaybackLoanScreen", "Available: ")}
+            suffix={` ${loanTokenAmount.displaySymbol}`}
+            thousandSeparator
+            value={tokenBalance.toFixed(8)}
+          />
+        </View>
+        <TransactionDetailsSection
+          outstandingBalance={loanTokenOutstandingBal}
+          resultingColRatio={resultingColRatio}
+          vault={vault}
+          amountToPay={
+            new BigNumber(amountToPay).isNaN()
+              ? new BigNumber(0)
+              : new BigNumber(amountToPay)
+          }
+          loanTokenActivePriceInUSD={loanTokenActivePriceInUSD}
         />
       </View>
-    </ThemedView>
+      <View style={tailwind(isContinueDisabled ? "mt-16" : "mt-12")}>
+        {!isContinueDisabled && (
+          <ThemedTextV2
+            style={tailwind("text-xs font-normal-v2 text-center")}
+            light={tailwind("text-mono-light-v2-500")}
+            dark={tailwind("text-mono-dark-v2-500")}
+          >
+            {translate(
+              "screens/PaybackLoanScreen",
+              "Review full details in the next screen"
+            )}
+          </ThemedTextV2>
+        )}
+      </View>
+      <SubmitButtonGroupV2
+        isDisabled={isContinueDisabled}
+        buttonStyle="mx-12 mt-5"
+        label={translate("screens/PaybackLoanScreen", "Continue")}
+        onSubmit={navigateToConfirmScreen}
+        title="payback_loan_continue"
+        displayCancelBtn={false}
+      />
+    </ThemedScrollViewV2>
   );
 }
 
 interface TransactionDetailsProps {
   outstandingBalance: BigNumber;
-  outstandingBalanceInPaymentToken: BigNumber;
-  fee: BigNumber;
-  displaySymbol: string;
-  isExcess: boolean;
   resultingColRatio: BigNumber;
   vault: LoanVaultActive;
-  totalPaybackWithInterest: BigNumber;
-  loanTokenPrice: BigNumber;
-  selectedPaymentToken: Omit<PaymentTokenProps, "tokenBalance">;
-  amountToPayInLoanToken: BigNumber;
-  amountToPayInPaymentToken: BigNumber;
-  paymentPenalty: BigNumber;
+  amountToPay: BigNumber;
+  loanTokenActivePriceInUSD: string;
 }
 
 function TransactionDetailsSection({
   outstandingBalance,
-  outstandingBalanceInPaymentToken,
-  fee,
-  displaySymbol,
-  isExcess,
   resultingColRatio,
   vault,
-  totalPaybackWithInterest,
-  loanTokenPrice,
-  selectedPaymentToken,
-  amountToPayInLoanToken,
-  amountToPayInPaymentToken,
-  paymentPenalty,
+  amountToPay,
+  loanTokenActivePriceInUSD,
 }: TransactionDetailsProps): JSX.Element {
-  const [isExpanded, setisExpanded] = useState(false);
-  // TODO(PIERRE): Display collateral alter info
-  // const collateralAlertInfo = {
-  //   title: 'Collateralization ratio',
-  //   message: 'The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.'
-  // }
-
   const rowStyle = {
-    style: tailwind("flex flex-row pb-1"),
-    dark: tailwind("bg-gray-800 border-gray-700"),
-    light: tailwind("bg-white border-gray-200"),
+    containerStyle: {
+      style: tailwind("flex-row items-start w-full bg-transparent mt-5"),
+      light: tailwind("bg-transparent border-mono-light-v2-300"),
+      dark: tailwind("bg-transparent border-mono-dark-v2-300"),
+    },
     lhsThemedProps: {
-      light: tailwind("text-gray-500"),
-      dark: tailwind("text-gray-400"),
+      style: tailwind("text-sm font-normal-v2"),
+      light: tailwind("text-mono-light-v2-500"),
+      dark: tailwind("text-mono-dark-v2-500"),
     },
     rhsThemedProps: {
-      light: tailwind("text-gray-900"),
-      dark: tailwind("text-gray-50"),
+      style: tailwind("text-sm font-normal-v2"),
+      light: tailwind("text-mono-light-v2-900"),
+      dark: tailwind("text-mono-dark-v2-900"),
     },
   };
-
+  const loanRemaining = BigNumber.max(
+    new BigNumber(outstandingBalance).minus(amountToPay),
+    0
+  );
   return (
-    <ThemedView>
-      <ThemedView
-        style={tailwind([
-          "flex flex-row py-4 mx-4 rounded-t",
-          {
-            "border-b": !isExpanded,
-          },
-        ])}
-        dark={tailwind("bg-gray-800 border-gray-700")}
-        light={tailwind("bg-white border-gray-200")}
-      >
-        <View style={tailwind("flex flex-row w-11/12 pl-4 items-center")}>
-          <View style={tailwind("w-8/12")}>
-            <ThemedText
-              style={tailwind("text-sm font-normal justify-between")}
-              {...rowStyle.lhsThemedProps}
-            >
-              {translate(
-                "screens/PaybackLoanScreen",
-                "Resulting collateralization"
-              )}
-            </ThemedText>
-          </View>
-          <View
-            style={tailwind(
-              "flex-1 flex-row justify-end flex-wrap items-center"
-            )}
-          >
-            {resultingColRatio.isLessThan(0) ? (
-              <ThemedText testID="resulting_col">
-                {translate("screens/ConfirmBorrowLoanTokenScreen", "N/A")}
-              </ThemedText>
-            ) : (
-              <CollateralizationRatioValue
-                testId="text_resulting_col_ratio"
-                value={resultingColRatio.toFixed(2)}
-                minColRatio={new BigNumber(vault.loanScheme.minColRatio)}
-                totalLoanAmount={new BigNumber(vault.loanValue).minus(
-                  BigNumber.min(
-                    totalPaybackWithInterest.multipliedBy(loanTokenPrice),
-                    0
-                  )
-                )}
-                type="current"
-                colRatio={resultingColRatio}
-              />
-            )}
-          </View>
-        </View>
-        <ThemedIcon
-          onPress={() => {
-            setisExpanded(!isExpanded);
-          }}
-          dark={tailwind("text-gray-400")}
-          light={tailwind("text-gray-500")}
-          iconType="MaterialIcons"
-          name={!isExpanded ? "expand-more" : "expand-less"}
-          size={24}
-          testID="toggle_resulting_col"
-        />
-      </ThemedView>
-      {isExpanded && (
-        <ThemedView
-          style={tailwind("px-4 mx-4 py-1 border-b")}
-          dark={tailwind("bg-gray-800 border-gray-700")}
-          light={tailwind("bg-white border-gray-200")}
-        >
-          <TextRow
-            containerStyle={{
-              style: tailwind("flex flex-row pb-1"),
-              dark: tailwind("bg-gray-800 border-gray-700"),
-              light: tailwind("bg-white border-gray-200"),
-            }}
-            lhs={{
-              value: translate("screens/PaybackLoanScreen", "Vault ID"),
-              themedProps: rowStyle.lhsThemedProps,
-              testID: "lhs_vault_id",
-            }}
-            rhs={{
-              value: vault.vaultId,
-              testID: "text_vault_id",
-              numberOfLines: 1,
-              ellipsizeMode: "middle",
-              themedProps: rowStyle.rhsThemedProps,
-            }}
-            textStyle={tailwind("text-xs font-normal")}
-          />
-          <TextRow
-            containerStyle={{
-              style: tailwind("flex flex-row pb-1"),
-              dark: tailwind("bg-gray-800 border-gray-700"),
-              light: tailwind("bg-white border-gray-200"),
-            }}
-            lhs={{
-              value: translate("screens/PaybackLoanScreen", "Min. col. ratio"),
-              themedProps: rowStyle.lhsThemedProps,
-              testID: "lhs_min_col_ratio",
-            }}
-            rhs={{
-              value: `${getPrecisedTokenValue(vault.loanScheme.minColRatio)}%`,
-              testID: "text_min_col_ratio",
-              numberOfLines: 1,
-              ellipsizeMode: "middle",
-              themedProps: rowStyle.rhsThemedProps,
-            }}
-            textStyle={tailwind("text-xs font-normal")}
-          />
-          <NumberRow
-            {...rowStyle}
-            lhs={translate(
-              "screens/PaybackLoanScreen",
-              "Total collateral (USD)"
-            )}
-            rhs={{
-              value: getPrecisedTokenValue(vault.collateralValue),
-              testID: "text_total_collateral_usd",
-              prefix: "$",
-            }}
-            textStyle={tailwind("text-xs font-normal")}
-            isOraclePrice
-          />
-          <NumberRow
-            {...rowStyle}
-            lhs={translate("screens/PaybackLoanScreen", "Total loan (USD)")}
-            rhs={{
-              value: getPrecisedTokenValue(vault.loanValue),
-              testID: "text_total_loan_usd",
-              prefix: "$",
-            }}
-            textStyle={tailwind("text-xs font-normal")}
-            isOraclePrice
-          />
-        </ThemedView>
-      )}
-      <View style={tailwind("mx-4")}>
-        {isExcess && (
-          <NumberRow
-            lhs={translate("screens/PaybackLoanScreen", "Excess amount")}
-            rhs={{
-              value: amountToPayInPaymentToken
-                .minus(outstandingBalanceInPaymentToken)
-                .toFixed(8),
-              testID: "text_excess_amount",
-              suffixType: "text",
-              suffix: selectedPaymentToken.tokenDisplaySymbol,
-            }}
-            lhsThemedProps={rowStyle.lhsThemedProps}
-            rhsThemedProps={rowStyle.rhsThemedProps}
-          />
-        )}
-        <NumberRow
-          lhs={translate("screens/PaybackLoanScreen", "Loan remaining")}
-          rhs={{
-            value: BigNumber.max(
-              outstandingBalance.minus(amountToPayInLoanToken),
-              0
-            ).toFixed(8),
-            testID: "text_resulting_loan_amount",
-            suffixType: "text",
-            suffix: displaySymbol,
-          }}
-          lhsThemedProps={rowStyle.lhsThemedProps}
-          rhsThemedProps={rowStyle.rhsThemedProps}
-        />
-        {paymentPenalty.gt(0) && (
-          <NumberRow
-            lhs={translate(
-              "screens/PaybackLoanScreen",
-              "{{paymentToken}} payment fee",
-              { paymentToken: selectedPaymentToken.tokenDisplaySymbol }
-            )}
-            rhs={{
-              value: BigNumber.max(paymentPenalty, 0).toFixed(8),
-              testID: "text_resulting_payment_penalty",
-              suffixType: "text",
-              suffix: selectedPaymentToken.tokenDisplaySymbol,
-            }}
-            lhsThemedProps={rowStyle.lhsThemedProps}
-            rhsThemedProps={rowStyle.rhsThemedProps}
-          />
-        )}
-        <InfoRow
-          type={InfoType.EstimatedFee}
-          value={fee.toFixed(8)}
-          testID="estimated_fee"
-          suffix="DFI"
-          lhsThemedProps={rowStyle.lhsThemedProps}
-          rhsThemedProps={rowStyle.rhsThemedProps}
-          containerStyle={{
-            style: tailwind("rounded-b p-4 flex-row items-start w-full"),
-            dark: tailwind("bg-gray-800"),
-            light: tailwind("bg-white"),
-          }}
-        />
-      </View>
-    </ThemedView>
+    <ThemedViewV2
+      light={tailwind("border-mono-light-v2-300")}
+      dark={tailwind("border-mono-dark-v2-300")}
+      style={tailwind("mt-6 px-5 pb-5 border-0.5 rounded-lg-v2")}
+    >
+      <TextRowV2
+        containerStyle={rowStyle.containerStyle}
+        lhs={{
+          value: translate("screens/ConfirmPlaceBidScreen", "Vault ID"),
+          testID: "lhs_vault_id",
+          themedProps: rowStyle.lhsThemedProps,
+        }}
+        rhs={{
+          value: vault.vaultId,
+          testID: "text_vault_id",
+          numberOfLines: 1,
+          ellipsizeMode: "middle",
+          themedProps: rowStyle.rhsThemedProps,
+        }}
+      />
+      <NumberRowV2
+        containerStyle={rowStyle.containerStyle}
+        lhs={{
+          value: translate("screens/ConfirmPlaceBidScreen", "Loan remaining"),
+          testID: "total_outstanding_loan_label",
+          themedProps: rowStyle.lhsThemedProps,
+        }}
+        rhs={{
+          value: loanRemaining.toFixed(8),
+          testID: "total_outstanding_loan_value",
+          usdAmount: new BigNumber(loanRemaining).isNaN()
+            ? new BigNumber(0)
+            : new BigNumber(loanRemaining).multipliedBy(
+                loanTokenActivePriceInUSD
+              ),
+          themedProps: rowStyle.rhsThemedProps,
+        }}
+      />
+
+      <CollateralizationRatioDisplayV2
+        collateralizationRatio={resultingColRatio.toFixed(8)}
+        minCollateralizationRatio={vault.loanScheme.minColRatio}
+        totalLoanAmount={vault.loanValue}
+        testID="text_resulting_col_ratio"
+        showProgressBar
+      />
+    </ThemedViewV2>
   );
 }

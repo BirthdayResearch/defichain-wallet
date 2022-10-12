@@ -85,7 +85,7 @@ export interface LoanParamList {
     vault: LoanVaultActive;
   };
   ConfirmPaybackLoanScreen: {
-    fee: BigNumber;
+    amountToPay: BigNumber;
     amountToPayInLoanToken: BigNumber;
     amountToPayInPaymentToken: BigNumber;
     selectedPaymentTokenBalance: BigNumber;
@@ -286,27 +286,16 @@ export function LoansNavigator(): JSX.Element {
         component={PaybackLoanScreen}
         name="PaybackLoanScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/LoansScreen", "Payback Loan")}
-            />
-          ),
+          ...screenOptions,
+          headerTitle: translate("screens/LoansScreen", "Payback Loan"),
         }}
       />
       <LoansStack.Screen
         component={ConfirmPaybackLoanScreen}
         name="ConfirmPaybackLoanScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate(
-                "screens/ConfirmPaybackLoanScreen",
-                "Confirm Loan Payment"
-              )}
-            />
-          ),
+          ...screenOptions,
+          headerTitle: translate("screens/ConfirmPaybackLoanScreen", "Confirm"),
         }}
       />
       <LoansStack.Screen
