@@ -182,7 +182,7 @@ export function ConfirmEditCollateralScreen({
           isAdd ? "You are adding collateral" : "You are removing collateral"
         )}
         amount={amount}
-        testID="text_collateral_amount"
+        testID="text_confirm_edit_collateral_amount"
         iconA={token.displaySymbol}
         toAddress={address}
         toAddressLabel={addressLabel}
@@ -203,13 +203,13 @@ export function ConfirmEditCollateralScreen({
               "screens/ConfirmEditCollateralScreen",
               "Amount to convert"
             ),
-            testID: "amount_to_convert_label",
+            testID: "confirm_edit_amount_to_convert_label",
             themedProps: lhsThemedProps,
           }}
           rhs={{
             value: conversion.conversionAmount.toFixed(8),
             suffix: " DFI",
-            testID: "amount_to_convert_value",
+            testID: "confirm_edit_amount_to_convert",
             themedProps: rhsThemedProps,
             usdTextStyle: tailwind("text-sm"),
             usdContainerStyle: tailwind("pb-0 pt-1"),
@@ -229,13 +229,13 @@ export function ConfirmEditCollateralScreen({
             "screens/ConfirmEditCollateralScreen",
             "Transaction fee"
           ),
-          testID: "transaction_fee_label",
+          testID: "confirm_edit_transaction_fee_label",
           themedProps: lhsThemedProps,
         }}
         rhs={{
           value: getPrecisedCurrencyValue(fee),
           suffix: " DFI",
-          testID: "transaction_fee_value",
+          testID: "confirm_edit_transaction_fee",
           themedProps: rhsThemedProps,
           usdTextStyle: tailwind("text-sm"),
           usdContainerStyle: tailwind("pb-0 pt-1"),
@@ -253,13 +253,13 @@ export function ConfirmEditCollateralScreen({
             "screens/ConfirmEditCollateralScreen",
             "Vault share"
           ),
-          testID: "vault_share_label",
+          testID: "confirm_edit_vault_share_label",
           themedProps: lhsThemedProps,
         }}
         rhs={{
           value: vaultShare.toFixed(2),
           suffix: "%",
-          testID: "vault_share_value",
+          testID: "confirm_edit_vault_share",
           themedProps: rhsThemedProps,
         }}
       />
@@ -273,13 +273,13 @@ export function ConfirmEditCollateralScreen({
             "screens/ConfirmEditCollateralScreen",
             "Collateral factor"
           ),
-          testID: "collateral_factor_label",
+          testID: "confirm_edit_collateral_factor_label",
           themedProps: lhsThemedProps,
         }}
         rhs={{
           value: collateralFactor.toFixed(2),
           suffix: "%",
-          testID: "collateral_factor_value",
+          testID: "confirm_edit_collateral_factor",
           themedProps: rhsThemedProps,
         }}
       />
@@ -293,12 +293,12 @@ export function ConfirmEditCollateralScreen({
         }}
         lhs={{
           value: translate("screens/ConfirmEditCollateralScreen", "Vault ID"),
-          testID: "vault_id_label",
+          testID: "confirm_edit_vault_id_label",
           themedProps: lhsThemedProps,
         }}
         rhs={{
           value: vault.vaultId,
-          testID: "vault_id_value",
+          testID: "confirm_edit_vault_id",
           numberOfLines: 1,
           ellipsizeMode: "middle",
           themedProps: rhsThemedProps,
@@ -315,7 +315,7 @@ export function ConfirmEditCollateralScreen({
             hasLoan ? `text-${collateralizationColor}` : "text-green-v2"
           ),
         }}
-        testID="confirm_collateral_ratio"
+        testID="confirm_edit_collateral_ratio"
       />
       <NumberRowV2
         containerStyle={{
@@ -327,12 +327,12 @@ export function ConfirmEditCollateralScreen({
             "screens/ConfirmEditCollateralScreen",
             "Available loan"
           ),
-          testID: "available_loan_label",
+          testID: "confirm_edit_loan_label",
           themedProps: lhsThemedProps,
         }}
         rhs={{
           value: getPrecisedCurrencyValue(vault.loanValue),
-          testID: "available_loan_value",
+          testID: "confirm_edit_loan",
           prefix: "$",
           themedProps: rhsThemedProps,
         }}
@@ -349,12 +349,12 @@ export function ConfirmEditCollateralScreen({
             "screens/ConfirmEditCollateralScreen",
             "Amount to add"
           ),
-          testID: "collateral_amount_label",
+          testID: "confirm_edit_collateral_amount_label",
           themedProps: lhsThemedProps,
         }}
         rhs={{
           value: amount.toFixed(8),
-          testID: "collateral_amount_value",
+          testID: "confirm_edit_collateral_amount",
           usdAmount: getCollateralValue(amount, collateralItem),
           usdTextStyle: tailwind("text-sm"),
           usdContainerStyle: tailwind("pt-1"),

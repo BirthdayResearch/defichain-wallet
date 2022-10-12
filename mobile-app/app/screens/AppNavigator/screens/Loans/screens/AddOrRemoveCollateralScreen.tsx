@@ -420,7 +420,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
               <ControlledTextInput
                 name="collateralAmount"
                 control={control}
-                testID="text_input_collateral_amount"
+                testID="text_input_add_remove_collateral_amount"
                 inputProps={{
                   keyboardType: "numeric",
                   placeholder: "0.00",
@@ -448,7 +448,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                   new BigNumber(collateralAmount),
                   selectedCollateralItem
                 )}
-                testId="collateral_value_in_usd"
+                testId="add_remove_collateral_amount_in_usd"
                 containerStyle={tailwind("w-full break-words")}
               />
             </View>
@@ -504,7 +504,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
               light={tailwind("text-mono-light-v2-500")}
               dark={tailwind("text-mono-dark-v2-500")}
               style={tailwind("text-xs pt-2 mx-5 font-normal-v2")}
-              testID="available_balance_text"
+              testID="add_remove_collateral_token_balance"
             >
               {isAdd
                 ? translate(
@@ -531,7 +531,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
             light={tailwind("text-orange-v2")}
             dark={tailwind("text-orange-v2")}
             style={tailwind("text-xs pt-2 mx-5 font-normal-v2")}
-            testID="conversion_required_text"
+            testID="conversion_required_warning"
           >
             {translate(
               "screens/AddOrRemoveCollateralScreen",
@@ -546,7 +546,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
             light={tailwind("text-red-v2")}
             dark={tailwind("text-red-v2")}
             style={tailwind("text-xs pt-2 mx-6 font-normal-v2")}
-            testID="insufficient_balance_text"
+            testID="add_remove_collateral_insufficient_balance"
           >
             {translate(
               "screens/AddOrRemoveCollateralScreen",
@@ -576,12 +576,12 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                 "screens/AddOrRemoveCollateralScreen",
                 "Vault ID"
               ),
-              testID: "edit_col_vault_id_label",
+              testID: "add_remove_collateral_vault_id_label",
               themedProps: lhsThemedProps,
             }}
             rhs={{
               value: vault.vaultId,
-              testID: `edit_col_vault_id_value`,
+              testID: `add_remove_collateral_vault_id`,
               numberOfLines: 1,
               ellipsizeMode: "middle",
               themedProps: rhsThemedProps,
@@ -605,14 +605,14 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                 "screens/AddOrRemoveCollateralScreen",
                 "Vault share"
               ),
-              testID: "edit_col_vault_share_label",
+              testID: "add_remove_collateral_vault_share_label",
               themedProps: lhsThemedProps,
             }}
             rhs={{
               value: collateralVaultShare.isNaN()
                 ? 0
                 : collateralVaultShare.toFixed(2),
-              testID: "edit_col_vault_share_value",
+              testID: "add_remove_collateral_vault_share",
               suffix: "%",
               themedProps: rhsThemedProps,
             }}
@@ -626,12 +626,12 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                 "screens/AddOrRemoveCollateralScreen",
                 "Available loan"
               ),
-              testID: "edit_col_loan_label",
+              testID: "add_remove_collateral_loan_label",
               themedProps: lhsThemedProps,
             }}
             rhs={{
               value: getPrecisedCurrencyValue(vault.loanValue),
-              testID: "edit_col_loan_value",
+              testID: "add_remove_collateral_loan",
               prefix: "$",
               themedProps: rhsThemedProps,
             }}
@@ -645,12 +645,12 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                 "screens/AddOrRemoveCollateralScreen",
                 "Total collateral"
               ),
-              testID: "token_col_amount_label",
+              testID: "add_remove_collateral_total_label",
               themedProps: lhsThemedProps,
             }}
             rhs={{
               value: getPrecisedCurrencyValue(totalTokenBalance),
-              testID: "token_col_amount_value",
+              testID: "add_remove_collateral_total",
               usdAmount: totalTokenValueInUSD,
               usdTextStyle: tailwind("text-sm"),
               usdContainerStyle: tailwind("pt-1 pb-0"),
@@ -676,7 +676,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                   : `text-${collateralizationColor}`
               ),
             }}
-            testID="col_ratio"
+            testID="add_remove_collateral_ratio"
           />
           <Progress.Bar
             style={tailwind("mt-3")}
