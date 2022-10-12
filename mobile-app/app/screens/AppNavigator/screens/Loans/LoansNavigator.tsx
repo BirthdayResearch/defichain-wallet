@@ -279,6 +279,9 @@ export function LoansNavigator(): JSX.Element {
         name="PaybackLoanScreen"
         options={{
           ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
           headerTitle: translate("screens/LoansScreen", "Payback Loan"),
         }}
       />
@@ -287,6 +290,9 @@ export function LoansNavigator(): JSX.Element {
         name="ConfirmPaybackLoanScreen"
         options={{
           ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
           headerTitle: translate("screens/ConfirmPaybackLoanScreen", "Confirm"),
         }}
       />
