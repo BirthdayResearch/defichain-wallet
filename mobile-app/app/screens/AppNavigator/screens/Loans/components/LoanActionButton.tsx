@@ -44,3 +44,55 @@ export function LoanActionButton({
     </ThemedTouchableOpacityV2>
   );
 }
+
+interface DexAddRemoveLiquidityButtonProps {
+  style?: StyleProp<ViewStyle>;
+  onAdd?: () => void;
+  onRemove?: () => void;
+  token: string;
+}
+
+export function LoanAddRemoveActionButton({
+  style,
+  onAdd,
+  onRemove,
+  token,
+}: DexAddRemoveLiquidityButtonProps): JSX.Element {
+  return (
+    <ThemedViewV2
+      style={[
+        tailwind("rounded-2xl-v2 py-2 px-3 flex flex-row items-center"),
+        style,
+      ]}
+      dark={tailwind("bg-mono-dark-v2-100")}
+      light={tailwind("bg-mono-light-v2-100")}
+    >
+      <ThemedTouchableOpacityV2
+        onPress={onRemove}
+        style={tailwind("border-r-0.5 pr-2")}
+        testID={`pool_pair_remove_${token}`}
+      >
+        <ThemedIcon
+          iconType="Feather"
+          name="minus-circle"
+          size={20}
+          dark={tailwind("text-mono-dark-v2-900")}
+          light={tailwind("text-mono-light-v2-900")}
+        />
+      </ThemedTouchableOpacityV2>
+      <ThemedTouchableOpacityV2
+        onPress={onAdd}
+        style={tailwind("pl-2")}
+        testID={`pool_pair_add_${token}`}
+      >
+        <ThemedIcon
+          iconType="Feather"
+          name="plus-circle"
+          size={20}
+          dark={tailwind("text-mono-dark-v2-900")}
+          light={tailwind("text-mono-light-v2-900")}
+        />
+      </ThemedTouchableOpacityV2>
+    </ThemedViewV2>
+  );
+}

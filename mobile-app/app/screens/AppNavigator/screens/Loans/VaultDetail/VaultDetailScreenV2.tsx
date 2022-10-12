@@ -31,7 +31,7 @@ import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useIsFocused } from "@react-navigation/native";
 import { VaultDetailStatus } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailStatus";
 import { VaultSectionTextRow } from "../components/VaultSectionTextRow";
-import { VaultDetailTabSection } from "./components/VaultDetailTabSection";
+import { VaultDetailTabSectionV2 } from "./components/VaultDetailTabSectionV2";
 import { ScrollableButton, ScrollButton } from "../components/ScrollableButton";
 import { LoanParamList } from "../LoansNavigator";
 
@@ -162,7 +162,8 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
           />
         </ThemedView>
       </ThemedView>
-      <VaultDetailTabSection vault={vault} tab={tab} />
+      {/* Julio start here */}
+      <VaultDetailTabSectionV2 vault={vault} tab={tab} />
     </ThemedScrollViewV2>
   );
 }
