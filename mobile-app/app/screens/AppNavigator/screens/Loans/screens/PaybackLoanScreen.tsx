@@ -146,22 +146,8 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
       params: {
         vault,
         amountToPay: new BigNumber(amountToPay),
-        loanTokenOutstandingBal: loanTokenOutstandingBal,
-        amountToPayInLoanToken: new BigNumber(loanTokenOutstandingBal),
-        amountToPayInPaymentToken: new BigNumber(amountToPay),
-        selectedPaymentTokenBalance: new BigNumber(tokenBalance),
-        loanTokenBalance: new BigNumber(loanTokenOutstandingBal),
-        paymentToken: {
-          tokenId: loanTokenAmount.id,
-          tokenSymbol: loanTokenAmount.symbol,
-          tokenDisplaySymbol: loanTokenAmount.displaySymbol,
-        },
         loanTokenAmount,
-        excessAmount: isExcess
-          ? new BigNumber(amountToPay).minus(loanTokenOutstandingBal)
-          : undefined,
         resultingColRatio,
-        paymentPenalty: new BigNumber(0),
       },
       merge: true,
     });

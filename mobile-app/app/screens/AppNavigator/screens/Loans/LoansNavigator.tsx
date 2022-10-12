@@ -85,18 +85,10 @@ export interface LoanParamList {
     vault: LoanVaultActive;
   };
   ConfirmPaybackLoanScreen: {
-    amountToPay: BigNumber;
-    amountToPayInLoanToken: BigNumber;
-    amountToPayInPaymentToken: BigNumber;
-    selectedPaymentTokenBalance: BigNumber;
-    loanTokenBalance: BigNumber;
-    paymentToken: Omit<PaymentTokenProps, "tokenBalance">;
     vault: LoanVaultActive;
+    amountToPay: BigNumber;
     loanTokenAmount: LoanVaultTokenAmount;
-    excessAmount?: BigNumber;
     resultingColRatio: BigNumber;
-    conversion?: ConversionParam;
-    paymentPenalty: BigNumber;
   };
   EditLoanSchemeScreen: {
     vaultId: string;
