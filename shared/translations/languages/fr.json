@@ -2048,7 +2048,7 @@
     "Loan tokens get their prices from oracles.": "Les tokens de prêt obtiennent leurs prix des oracles."
   },
   "components/BottomSheetLoanTokensList": {
-    "% interest": "% d'intérêt",
+    "% interest": " % d'intérêt",
     "Select Token": "Sélectionner le token"
   }
 }
