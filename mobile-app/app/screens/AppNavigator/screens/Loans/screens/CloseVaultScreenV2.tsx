@@ -72,9 +72,7 @@ export function CloseVaultScreenV2({ route, navigation }: Props): JSX.Element {
 
   return (
     <ThemedScrollViewV2
-      contentContainerStyle={tailwind(
-        "items-center mt-16 h-full justify-between"
-      )}
+      contentContainerStyle={tailwind("mt-16 h-full justify-between")}
       style={tailwind("px-5")}
     >
       <View style={tailwind("items-center")}>
