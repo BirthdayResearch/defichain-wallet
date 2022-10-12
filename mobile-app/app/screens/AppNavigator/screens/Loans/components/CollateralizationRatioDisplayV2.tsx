@@ -44,7 +44,6 @@ export function CollateralizationRatioDisplayV2(
   return (
     <View
       testID={`${props.testID}_collateralization_bar`}
-      style={tailwind("mb-4")}
     >
       <View style={tailwind("flex-row justify-between")}>
         <View style={tailwind("items-center flex-row")}>
