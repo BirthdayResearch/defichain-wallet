@@ -63,7 +63,7 @@ import { useMaxLoan } from "../hooks/MaxLoanAmount";
 import { useInterestPerBlock } from "../hooks/InterestPerBlock";
 import { useBlocksPerDay } from "../hooks/BlocksPerDay";
 import { BottomSheetLoanTokensList } from "../components/BottomSheetLoanTokensList";
-import { useDFIRequirementForDusdLoanAndCollateral } from "../hooks/DfiRequirementForDusdLoanAndCollateral";
+import { useDFIRequirementForDusdLoanAndCollateral } from "../hooks/DFIRequirementForDusdLoanAndCollateral";
 
 type Props = StackScreenProps<LoanParamList, "BorrowLoanTokenScreen">;
 
@@ -277,9 +277,8 @@ export function BorrowLoanTokenScreen({
       params: {
         loanToken: loanToken,
         vault: vault,
-        amountToBorrow: borrowAmount,
-        totalInterestAmount: interestPerBlock,
-        totalLoanWithInterest: totalAnnualInterest,
+        borrowAmount: borrowAmount,
+        annualInterest: totalAnnualInterest,
         fee,
         resultingColRatio,
       },
@@ -663,7 +662,7 @@ export function TransactionDetailsSection(
       <NumberRowV2
         lhs={{
           value: translate("screens/BorrowLoanTokenScreen", "Available loan"),
-          testID: "available_amount_label",
+          testID: "available_amount",
           themedProps: {
             light: tailwind("text-mono-light-v2-500"),
             dark: tailwind("text-mono-dark-v2-500"),
@@ -699,7 +698,7 @@ export function TransactionDetailsSection(
       <NumberRowV2
         lhs={{
           value: translate("screens/BorrowLoanTokenScreen", "Price"),
-          testID: "price_label",
+          testID: "price",
           themedProps: {
             light: tailwind("text-mono-light-v2-500"),
             dark: tailwind("text-mono-dark-v2-500"),
@@ -726,15 +725,15 @@ export function TransactionDetailsSection(
       />
       <NumberRowV2
         lhs={{
-          value: translate("screens/BorrowLoanTokenScreen", "Total interest"),
-          testID: "total_interest_label",
+          value: translate("screens/BorrowLoanTokenScreen", "Annual interest"),
+          testID: "total_interest",
           themedProps: {
             light: tailwind("text-mono-light-v2-500"),
             dark: tailwind("text-mono-dark-v2-500"),
           },
         }}
         info={{
-          title: translate("screens/BorrowLoanTokenScreen", "Total Interest"),
+          title: translate("screens/BorrowLoanTokenScreen", "Annual Interest"),
           message: translate(
             "screens/BorrowLoanTokenScreen",
             "This includes both interest from the token and vault selected. Price is provided by price oracles."
@@ -771,7 +770,7 @@ export function TransactionDetailsSection(
       <NumberRowV2
         lhs={{
           value: translate("screens/BorrowLoanTokenScreen", "Transaction fees"),
-          testID: "transaction_fee_label",
+          testID: "transaction_fee",
           themedProps: {
             light: tailwind("text-mono-light-v2-500"),
             dark: tailwind("text-mono-dark-v2-500"),

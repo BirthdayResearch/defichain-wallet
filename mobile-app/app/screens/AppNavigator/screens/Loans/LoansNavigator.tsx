@@ -74,9 +74,8 @@ export interface LoanParamList {
   ConfirmBorrowLoanTokenScreen: {
     loanToken: LoanToken;
     vault: LoanVaultActive;
-    amountToBorrow: string;
-    totalInterestAmount: BigNumber;
-    totalLoanWithInterest: BigNumber;
+    borrowAmount: string;
+    annualInterest: BigNumber;
     fee: BigNumber;
     resultingColRatio: BigNumber;
   };
@@ -257,15 +256,11 @@ export function LoansNavigator(): JSX.Element {
         component={ConfirmBorrowLoanTokenScreen}
         name="ConfirmBorrowLoanTokenScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate(
-                "screens/LoansScreen",
-                "Confirm Borrow Loan Token"
-              )}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
+          headerTitle: translate("screens/LoansScreen", "Confirm"),
         }}
       />
       <LoansStack.Screen
