@@ -1455,7 +1455,8 @@
     "Borrow": "Borrow",
     "Liquidated vault": "已清算金库",
     "Ready": "准备好",
-    "Halted": "已暂停"
+    "Halted": "已暂停",
+    "Total loans": "贷款总金额"
   },
   "components/EmptyVault": {
     "No vaults": "No vaults",

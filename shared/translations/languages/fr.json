@@ -1462,7 +1462,8 @@
     "Borrow": "Emprunter",
     "Liquidated vault": "Vault liquidé",
     "Ready": "Prêt",
-    "Halted": "Intérrompu"
+    "Halted": "Intérrompu",
+    "Total loans": "Total des prêts"
   },
   "components/EmptyVault": {
     "No vaults": "Aucun vault",

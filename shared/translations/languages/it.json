@@ -1476,7 +1476,8 @@
     "Borrow": "Borrow",
     "Liquidated vault": "Liquidated vault",
     "Ready": "Ready",
-    "Halted": "Halted"
+    "Halted": "Halted",
+    "Total loans": "Totale prestiti"
   },
   "components/EmptyVault": {
     "No vaults": "No vaults",

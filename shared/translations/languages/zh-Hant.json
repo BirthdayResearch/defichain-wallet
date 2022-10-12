@@ -1457,7 +1457,8 @@
     "Borrow": "Borrow",
     "Liquidated vault": "已清算金庫",
     "Ready": "準備好",
-    "Halted": "已暫停"
+    "Halted": "已暫停",
+    "Total loans": "貸款總金額"
   },
   "components/EmptyVault": {
     "No vaults": "No vaults",
