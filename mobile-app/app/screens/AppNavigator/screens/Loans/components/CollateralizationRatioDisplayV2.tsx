@@ -7,10 +7,12 @@ import { translate } from "@translations";
 import { useCollateralRatioStats } from "@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { Text, View } from "react-native";
+import { LoanVaultTokenAmount } from "@defichain/whale-api-client/dist/api/loan";
 
 interface CollateralizationRatioDisplayProps {
   collateralizationRatio: string;
   minCollateralizationRatio: string;
+  collateralAmounts: LoanVaultTokenAmount[];
   totalLoanAmount: string;
   testID: string;
   showProgressBar?: boolean;
@@ -42,9 +44,7 @@ export function CollateralizationRatioDisplayV2(
     : "green-v2";
 
   return (
-    <View
-      testID={`${props.testID}_collateralization_bar`}
-    >
+    <View testID={`${props.testID}_collateralization_bar`}>
       <View style={tailwind("flex-row justify-between")}>
         <View style={tailwind("items-center flex-row")}>
           <ThemedTextV2
@@ -59,13 +59,21 @@ export function CollateralizationRatioDisplayV2(
           </ThemedTextV2>
         </View>
         {new BigNumber(props.collateralizationRatio).isLessThan(0) ? (
-          <ThemedTextV2
-            light={tailwind("text-mono-light-v2-900")}
-            dark={tailwind("text-mono-dark-v2-900")}
-            style={tailwind("text-sm font-normal-v2")}
-          >
-            {translate("components/CollateralizationRatioDisplay", "N/A")}
-          </ThemedTextV2>
+          <>
+            {props.collateralAmounts.length > 0 ? (
+              <Text style={tailwind("text-sm font-normal-v2 text-green-v2")}>
+                {translate("components/CollateralizationRatioDisplay", "Ready")}
+              </Text>
+            ) : (
+              <ThemedTextV2
+                light={tailwind("text-mono-light-v2-900")}
+                dark={tailwind("text-mono-dark-v2-900")}
+                style={tailwind("text-sm font-normal-v2")}
+              >
+                {translate("components/CollateralizationRatioDisplay", "Empty")}
+              </ThemedTextV2>
+            )}
+          </>
         ) : (
           <NumberFormat
             value={new BigNumber(props.collateralizationRatio).toFixed(2)}
@@ -89,8 +97,18 @@ export function CollateralizationRatioDisplayV2(
       {props.showProgressBar && (
         <View style={tailwind("mt-3")}>
           <Progress.Bar
-            progress={normalizedNextFactor.toNumber()}
-            color={getColor(ratioTextColor)}
+            progress={
+              normalizedNextFactor.lt(0) &&
+              props.collateralizationRatio.length > 0
+                ? 1
+                : normalizedNextFactor.toNumber()
+            }
+            color={getColor(
+              normalizedNextFactor.lt(0) &&
+                props.collateralizationRatio.length > 0
+                ? "green-v2"
+                : ratioTextColor
+            )}
             unfilledColor={getColor(
               isLight ? "mono-light-v2-200" : "mono-dark-v2-200"
             )}
