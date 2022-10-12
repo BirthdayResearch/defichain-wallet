@@ -1771,7 +1771,7 @@
     "Confirm your vault details in next screen": "Bestätige die Daten deines Vaults in der nächsten Ansicht",
     "AVAILABLE SCHEMES": "ERFÜGBARE DARLEHENSMODELLE",
     "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
-    "VAULT DETAILS": "VAULT DETAILS",
+    "VAULT DETAILS": "VAULT-DETAILS",
     "{{interestRate}}% Interest": "{{interestRate}}% Zins",
     "min. ": "mind. ",
     "You can only select a scheme lower than your vault's current collateralization.": "Du kannst nur ein Darlehensmodell wählen, dessen Besicherungsquote niedriger ist die deiner aktuellen Vault-Besicherung."
@@ -2034,7 +2034,7 @@
     "Loan tokens get their prices from oracles.": "Darlehenstoken erhalten ihre Preise von Preisorakeln."
   },
   "components/BottomSheetLoanTokensList": {
-    "% interest": "% interest",
-    "Select Token": "Select Token"
+    "% interest": "% Zinsen",
+    "Select Token": "Token auswählen"
   }
 }
