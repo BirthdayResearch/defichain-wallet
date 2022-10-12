@@ -130,9 +130,6 @@ context("Wallet - Loans - Close Vault", () => {
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
     cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
-    cy.getByTestID("vault_card_0_vault_id").then(($txt: any) => {
-      vaultId = $txt[0].textContent;
-    });
     cy.getByTestID("vault_card_0_add_collateral_button").click();
     cy.addCollateral("10", "DFI");
     cy.addCollateral("10", "dBTC");
