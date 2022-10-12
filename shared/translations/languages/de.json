@@ -2034,7 +2034,7 @@
     "Loan tokens get their prices from oracles.": "Darlehenstoken erhalten ihre Preise von Preisorakeln."
   },
   "components/BottomSheetLoanTokensList": {
-    "% interest": " % Zinsen",
+    "% interest": "% Zinsen",
     "Select Token": "Token auswählen"
   }
 }
