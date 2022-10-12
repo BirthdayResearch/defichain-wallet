@@ -6,16 +6,16 @@ import { NumberRow } from "@components/NumberRow";
 import { SummaryTitle } from "@components/SummaryTitle";
 import { TextRow } from "@components/TextRow";
 import {
-  ThemedScrollView,
+  ThemedScrollViewV2,
   ThemedSectionTitle,
   ThemedText,
   ThemedView,
+  ThemedViewV2,
 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { Dispatch, useEffect, useState } from "react";
-import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
@@ -38,10 +38,15 @@ import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { WalletAddressRow } from "@components/WalletAddressRow";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useAppDispatch } from "@hooks/useAppDispatch";
+import { SummaryTitleV2 } from "@components/SummaryTitleV2";
+import { useAddressLabel } from "@hooks/useAddressLabel";
+import { NumberRowV2 } from "@components/NumberRowV2";
+import { TextRowV2 } from "@components/TextRowV2";
 import { ConversionParam } from "../../Portfolio/PortfolioNavigator";
 import { CollateralizationRatioRow } from "../components/CollateralizationRatioRow";
 import { PaymentTokenProps } from "../hooks/LoanPaymentTokenRate";
 import { LoanParamList } from "../LoansNavigator";
+import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
 
 type Props = StackScreenProps<LoanParamList, "ConfirmPaybackLoanScreen">;
 
@@ -51,18 +56,20 @@ export function ConfirmPaybackLoanScreen({
 }: Props): JSX.Element {
   const {
     vault,
+    amountToPay,
     amountToPayInLoanToken,
     amountToPayInPaymentToken,
     selectedPaymentTokenBalance,
     loanTokenBalance,
     paymentToken,
-    fee,
     loanTokenAmount,
     excessAmount,
     resultingColRatio,
     conversion,
     paymentPenalty,
   } = route.params;
+  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
+
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
   );
@@ -76,6 +83,13 @@ export function ConfirmPaybackLoanScreen({
   const client = useWhaleApiClient();
   const isDUSDPaymentEnabled = isFeatureAvailable("dusd_loan_payment");
   const [isOnPage, setIsOnPage] = useState<boolean>(true);
+
+  useEffect(() => {
+    client.fee
+      .estimate()
+      .then((f) => setFee(new BigNumber(f)))
+      .catch(logger.error);
+  }, []);
 
   function onCancel(): void {
     navigation.navigate({
@@ -131,59 +145,296 @@ export function ConfirmPaybackLoanScreen({
     };
   }, []);
 
+  const addressLabel = useAddressLabel(address);
+
   return (
-    <ThemedScrollView>
-      <SummaryHeader
-        amount={new BigNumber(amountToPayInLoanToken)}
-        displaySymbol={loanTokenAmount.displaySymbol}
-        amountToPayInPaymentToken={amountToPayInPaymentToken}
-        paymentToken={paymentToken}
-      />
-      <SummaryTransactionDetails
-        amountToPayInLoanToken={amountToPayInLoanToken}
-        amountToPayInPaymentToken={amountToPayInPaymentToken}
-        displaySymbol={loanTokenAmount.displaySymbol}
-        fee={fee}
-        vault={vault}
-        outstandingBalance={BigNumber.max(
-          new BigNumber(loanTokenAmount.amount).minus(amountToPayInLoanToken),
-          0
-        )}
-        excessAmount={excessAmount}
-        paymentPenalty={paymentPenalty}
-        paymentTokenDisplaySymbol={paymentToken.tokenDisplaySymbol}
-      />
-      <SummaryVaultDetails
-        vault={vault}
-        resultingColRatio={resultingColRatio}
-      />
-      {conversion?.isConversionRequired === true && (
-        <View style={tailwind("px-4 pt-2 pb-1 mt-2")}>
-          <InfoText
-            type="warning"
-            testID="conversion_warning_info_text"
-            text={translate(
-              "components/ConversionInfoText",
-              "Please wait as we convert tokens for your transaction. Conversions are irreversible."
-            )}
+    <ThemedScrollViewV2 style={tailwind("pb-4")}>
+      <ThemedViewV2 style={tailwind("flex-col px-5 py-8")}>
+        <SummaryTitleV2
+          amount={amountToPay}
+          title={translate("screens/ConfirmPlaceBidScreen", "You are paying")}
+          testID="text_send_amount"
+          iconA={loanTokenAmount.displaySymbol}
+          amountTextStyle="text-xl"
+          fromAddress={address}
+          fromAddressLabel={addressLabel}
+        />
+
+        <NumberRowV2
+          containerStyle={{
+            style: tailwind(
+              "flex-row items-start w-full bg-transparent border-t-0.5 pt-5",
+              { "mt-8": conversion?.isConversionRequired !== true }
+            ),
+            light: tailwind("bg-transparent border-mono-light-v2-300"),
+            dark: tailwind("bg-transparent border-mono-dark-v2-300"),
+          }}
+          lhs={{
+            value: translate(
+              "screens/ConfirmPlaceBidScreen",
+              "Transaction fee"
+            ),
+            testID: "transaction_fee",
+            themedProps: {
+              light: tailwind("text-mono-light-v2-500"),
+              dark: tailwind("text-mono-dark-v2-500"),
+            },
+          }}
+          rhs={{
+            value: fee.toFixed(8),
+            suffix: " DFI",
+            testID: "transaction_fee_value",
+            themedProps: {
+              light: tailwind("text-mono-light-v2-900"),
+              dark: tailwind("text-mono-dark-v2-900"),
+            },
+          }}
+        />
+
+        <TextRowV2
+          containerStyle={{
+            style: tailwind(
+              "flex-row items-start w-full bg-transparent border-t-0.5 pt-5",
+              { "mt-5": conversion?.isConversionRequired !== true }
+            ),
+            light: tailwind("bg-transparent border-mono-light-v2-300"),
+            dark: tailwind("bg-transparent border-mono-dark-v2-300"),
+          }}
+          lhs={{
+            value: translate("screens/ConfirmPlaceBidScreen", "Vault ID"),
+            testID: "lhs_vault_id",
+            themedProps: {
+              light: tailwind("text-mono-light-v2-500"),
+              dark: tailwind("text-mono-dark-v2-500"),
+            },
+          }}
+          rhs={{
+            value: vault.vaultId,
+            testID: "text_vault_id",
+            numberOfLines: 1,
+            ellipsizeMode: "middle",
+            themedProps: {
+              light: tailwind("text-mono-light-v2-900"),
+              dark: tailwind("text-mono-dark-v2-900"),
+            },
+          }}
+        />
+        <View style={tailwind("mt-5")}>
+          <CollateralizationRatioDisplayV2
+            collateralizationRatio={resultingColRatio.toFixed(8)}
+            minCollateralizationRatio={vault.loanScheme.minColRatio}
+            totalLoanAmount={vault.loanValue}
+            testID="text_resulting_col_ratio"
           />
         </View>
+
+        <NumberRowV2
+          containerStyle={{
+            style: tailwind(
+              "flex-row items-start w-full bg-transparent border-t-0.5 pt-5",
+              { "mt-8": conversion?.isConversionRequired !== true }
+            ),
+            light: tailwind("bg-transparent border-mono-light-v2-300"),
+            dark: tailwind("bg-transparent border-mono-dark-v2-300"),
+          }}
+          lhs={{
+            value: translate("screens/ConfirmPlaceBidScreen", "Loan remaining"),
+            testID: "transaction_fee",
+            themedProps: {
+              light: tailwind("text-mono-light-v2-500"),
+              dark: tailwind("text-mono-dark-v2-500"),
+            },
+          }}
+          rhs={{
+            value: fee.toFixed(8),
+            suffix: " DFI",
+            testID: "transaction_fee_value",
+            themedProps: {
+              light: tailwind("text-mono-light-v2-900"),
+              dark: tailwind("text-mono-dark-v2-900"),
+            },
+          }}
+        />
+
+        {/* {conversion?.isConversionRequired === true && (
+        <ThemedView
+          style={tailwind("border-t-0.5 pt-5 mt-8 mb-2")}
+          light={tailwind("bg-transparent border-mono-light-v2-300")}
+          dark={tailwind("bg-transparent border-mono-dark-v2-300")}
+        >
+          <NumberRowV2
+            containerStyle={{
+              style: tailwind("flex-row items-start w-full bg-transparent"),
+            }}
+            lhs={{
+              value: translate(
+                "screens/SendConfirmationScreen",
+                "Amount to convert"
+              ),
+              testID: "amount_to_convert",
+              themedProps: {
+                light: tailwind("text-mono-light-v2-500"),
+                dark: tailwind("text-mono-dark-v2-500"),
+              },
+            }}
+            rhs={{
+              value: conversion.conversionAmount.toFixed(8),
+              suffix: " DFI",
+              testID: "amount_to_convert_value",
+              themedProps: {
+                light: tailwind("text-mono-light-v2-900"),
+                dark: tailwind("text-mono-dark-v2-900"),
+              },
+            }}
+          />
+          <View
+            style={tailwind(
+              "flex flex-row text-right items-center justify-end"
+            )}
+          >
+            <ThemedTextV2
+              style={tailwind("mr-1.5 text-sm font-normal-v2")}
+              light={tailwind("text-mono-light-v2-500")}
+              dark={tailwind("text-mono-dark-v2-500")}
+              testID="conversion_status"
+            >
+              {translate(
+                "screens/ConvertConfirmScreen",
+                conversion?.isConversionRequired &&
+                  conversion?.isConverted !== true
+                  ? "Converting"
+                  : "Converted"
+              )}
+            </ThemedTextV2>
+            {conversion?.isConverted !== true && (
+              <ThemedActivityIndicatorV2 />
+            )}
+            {conversion?.isConverted === true && (
+              <ThemedIcon
+                light={tailwind("text-success-500")}
+                dark={tailwind("text-darksuccess-500")}
+                iconType="MaterialIcons"
+                name="check-circle"
+                size={20}
+              />
+            )}
+          </View>
+        </ThemedView>
       )}
-      <SubmitButtonGroup
-        isDisabled={hasPendingJob || hasPendingBroadcastJob}
-        label={translate("screens/ConfirmPaybackLoanScreen", "CONFIRM PAYMENT")}
-        isProcessing={hasPendingJob || hasPendingBroadcastJob}
-        processingLabel={translate(
-          "screens/ConfirmPaybackLoanScreen",
-          getSubmitLabel()
-        )}
+
+     
+      <NumberRowV2
+        containerStyle={{
+          style: tailwind(
+            "flex-row items-start w-full bg-transparent mt-5 border-b-0.5 pb-5"
+          ),
+          light: tailwind("bg-transparent border-mono-light-v2-300"),
+          dark: tailwind("bg-transparent border-mono-dark-v2-300"),
+        }}
+        lhs={{
+          value: translate(
+            "screens/SendConfirmationScreen",
+            "Amount to send"
+          ),
+          testID: "text_amount",
+          themedProps: {
+            light: tailwind("text-mono-light-v2-500"),
+            dark: tailwind("text-mono-dark-v2-500"),
+          },
+        }}
+        rhs={{
+          value: amount.toFixed(8),
+          testID: "text_amount",
+          suffix: ` ${token.displaySymbol}`,
+          usdAmount: amountInUsd,
+          themedProps: {
+            style: tailwind("font-semibold-v2 text-sm"),
+            light: tailwind("text-mono-light-v2-900"),
+            dark: tailwind("text-mono-dark-v2-900"),
+          },
+        }}
+      /> */}
+      </ThemedViewV2>
+      {/* {token.isLPS && (
+      <LpAcknowledgeSwitch
+        isAcknowledge={isAcknowledge}
+        onSwitch={(val) => setIsAcknowledge(val)}
+      />
+    )}
+    <View style={tailwind("mx-7")}>
+      <SubmitButtonGroupV2
+        isDisabled={
+          isSubmitting ||
+          hasPendingJob ||
+          hasPendingBroadcastJob ||
+          (token.isLPS && !isAcknowledge)
+        }
+        isCancelDisabled={
+          isSubmitting || hasPendingJob || hasPendingBroadcastJob
+        }
+        label={translate("screens/SendConfirmationScreen", "Send")}
         onCancel={onCancel}
         onSubmit={onSubmit}
         displayCancelBtn
-        title="payback_loan"
+        title="send"
+        buttonStyle="mx-5 mb-2"
       />
-    </ThemedScrollView>
+    </View> */}
+    </ThemedScrollViewV2>
   );
+  // return (
+  //   <ThemedScrollView>
+  //     <SummaryHeader
+  //       amount={new BigNumber(amountToPayInLoanToken)}
+  //       displaySymbol={loanTokenAmount.displaySymbol}
+  //       amountToPayInPaymentToken={amountToPayInPaymentToken}
+  //       paymentToken={paymentToken}
+  //     />
+  //     <SummaryTransactionDetails
+  //       amountToPayInLoanToken={amountToPayInLoanToken}
+  //       amountToPayInPaymentToken={amountToPayInPaymentToken}
+  //       displaySymbol={loanTokenAmount.displaySymbol}
+  //       fee={fee}
+  //       vault={vault}
+  //       outstandingBalance={BigNumber.max(
+  //         new BigNumber(loanTokenAmount.amount).minus(amountToPayInLoanToken),
+  //         0
+  //       )}
+  //       excessAmount={excessAmount}
+  //       paymentPenalty={paymentPenalty}
+  //       paymentTokenDisplaySymbol={paymentToken.tokenDisplaySymbol}
+  //     />
+  //     <SummaryVaultDetails
+  //       vault={vault}
+  //       resultingColRatio={resultingColRatio}
+  //     />
+  //     {conversion?.isConversionRequired === true && (
+  //       <View style={tailwind("px-4 pt-2 pb-1 mt-2")}>
+  //         <InfoText
+  //           type="warning"
+  //           testID="conversion_warning_info_text"
+  //           text={translate(
+  //             "components/ConversionInfoText",
+  //             "Please wait as we convert tokens for your transaction. Conversions are irreversible."
+  //           )}
+  //         />
+  //       </View>
+  //     )}
+  //     <SubmitButtonGroup
+  //       isDisabled={hasPendingJob || hasPendingBroadcastJob}
+  //       label={translate("screens/ConfirmPaybackLoanScreen", "CONFIRM PAYMENT")}
+  //       isProcessing={hasPendingJob || hasPendingBroadcastJob}
+  //       processingLabel={translate(
+  //         "screens/ConfirmPaybackLoanScreen",
+  //         getSubmitLabel()
+  //       )}
+  //       onCancel={onCancel}
+  //       onSubmit={onSubmit}
+  //       displayCancelBtn
+  //       title="payback_loan"
+  //     />
+  //   </ThemedScrollView>
+  // );
 }
 
 function SummaryHeader(props: {
