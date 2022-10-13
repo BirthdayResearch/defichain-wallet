@@ -22,10 +22,7 @@ import {
   CTransactionSegWit,
   TransactionSegWit,
 } from "@defichain/jellyfish-transaction";
-import {
-  getCollateralFactor,
-  getCollateralValue,
-} from "@screens/AppNavigator/screens/Loans/hooks/CollateralPrice";
+import { getCollateralValue } from "@screens/AppNavigator/screens/Loans/hooks/CollateralPrice";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { fetchVaults } from "@store/loans";
 import { useWalletContext } from "@shared-contexts/WalletContext";
@@ -167,9 +164,6 @@ export function ConfirmEditCollateralScreen({
     dark: tailwind("text-mono-dark-v2-900"),
   };
 
-  const collateralFactor = getCollateralFactor(collateralItem);
-  const hasLoan = new BigNumber(vault.loanValue).gt(0);
-
   return (
     <ThemedScrollViewV2
       contentContainerStyle={tailwind("pt-8 px-5 pb-14")}
@@ -189,7 +183,10 @@ export function ConfirmEditCollateralScreen({
           toAddressLabel={addressLabel}
           amountTextStyle="text-xl"
           addressType={AddressType.WalletAddress}
-          customToAddressTitle={translate("screens/common", "On")}
+          customToAddressTitle={translate(
+            "screens/common",
+            isAdd ? "On" : "From"
+          )}
         />
       </View>
       {conversion?.isConversionRequired && (
@@ -279,7 +276,9 @@ export function ConfirmEditCollateralScreen({
           themedProps: lhsThemedProps,
         }}
         rhs={{
-          value: collateralFactor.toFixed(2),
+          value: new BigNumber(collateralItem.factor ?? 0)
+            .times(100)
+            .toFixed(2),
           suffix: "%",
           testID: "confirm_edit_collateral_factor",
           themedProps: rhsThemedProps,
@@ -349,7 +348,7 @@ export function ConfirmEditCollateralScreen({
         lhs={{
           value: translate(
             "screens/ConfirmEditCollateralScreen",
-            "Amount to add"
+            isAdd ? "Amount to add" : "Amount to remove"
           ),
           testID: "confirm_edit_collateral_amount",
           themedProps: lhsThemedProps,
@@ -357,6 +356,7 @@ export function ConfirmEditCollateralScreen({
         rhs={{
           value: amount.toFixed(8),
           testID: "confirm_edit_collateral_amount",
+          suffix: ` ${token.displaySymbol}`,
           usdAmount: getCollateralValue(amount, collateralItem),
           usdTextStyle: tailwind("text-sm"),
           usdContainerStyle: tailwind("pt-1"),
@@ -371,11 +371,11 @@ export function ConfirmEditCollateralScreen({
         <ThemedTextV2
           light={tailwind("text-mono-light-v2-500")}
           dark={tailwind("text-mono-dark-v2-500")}
-          style={tailwind("text-center text-xs font-normal-v2 px-1")}
+          style={tailwind("text-center text-xs font-normal-v2")}
         >
           {translate(
             "screens/ConfirmEditCollateralScreen",
-            "Final amount determined by oracle price. Resulting collateral ratio are determined upon block confirmation."
+            "Prices may vary during transaction confirmation."
           )}
         </ThemedTextV2>
 

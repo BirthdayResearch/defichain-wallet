@@ -53,7 +53,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { ActiveUSDValueV2 } from "../VaultDetail/components/ActiveUSDValueV2";
 import { LoanParamList } from "../LoansNavigator";
-import { useResultingCollateralizationRatioByCollateral } from "../hooks/CollateralizationRatio";
+import { useResultingCollateralizationRatioByCollateral } from "../hooks/CollateralizationRatioV2";
 import {
   getCollateralValue,
   getVaultShare,
@@ -176,7 +176,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     new BigNumber(0);
 
   const { resultingColRatio } = useResultingCollateralizationRatioByCollateral({
-    collateralValue: totalTokenBalance.toFixed(8),
+    collateralValue: collateralAmount,
     collateralRatio: new BigNumber(vault.informativeRatio ?? NaN),
     minCollateralRatio: new BigNumber(vault.loanScheme.minColRatio),
     totalLoanAmount: new BigNumber(vault.loanValue),
@@ -198,6 +198,12 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
   const isValidCollateralRatio = requiredTokensShare?.gte(
     minRequiredTokensShare
   );
+  const displayMinVaultShareRequiredError =
+    isFeatureAvailable("dusd_vault_share") &&
+    !isAdd &&
+    !isValidCollateralRatio &&
+    hasLoan &&
+    requiredVaultShareTokens.includes(selectedCollateralItem.token.symbol);
 
   useEffect(() => {
     client.fee
@@ -224,8 +230,11 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
           : "{{percent}} of available {{symbol}} entered",
       params:
         type === AmountButtonTypes.Max
-          ? { symbol: selectedCollateralItem.token.symbol }
-          : { percent: type, symbol: selectedCollateralItem.token.symbol },
+          ? { symbol: selectedCollateralItem.token.displaySymbol }
+          : {
+              percent: type,
+              symbol: selectedCollateralItem.token.displaySymbol,
+            },
     };
     const toastOptionsOnRemove = {
       message:
@@ -343,10 +352,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     !formState.isValid ||
     hasPendingJob ||
     hasPendingBroadcastJob ||
-    (isFeatureAvailable("dusd_vault_share") &&
-      !isAdd &&
-      !isValidCollateralRatio &&
-      hasLoan);
+    displayMinVaultShareRequiredError;
 
   return (
     <ThemedScrollViewV2
@@ -482,7 +488,8 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
         {/* Display available balance for selected token */}
         {(Object.keys(formState.errors).length <= 0 ||
           formState.errors.collateralAmount?.type === "required") &&
-          !isConversionRequired && (
+          !isConversionRequired &&
+          !displayMinVaultShareRequiredError && (
             <ThemedTextV2
               light={tailwind("text-mono-light-v2-500")}
               dark={tailwind("text-mono-dark-v2-500")}
@@ -495,7 +502,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                     "Available: {{amount}} {{symbol}}",
                     {
                       amount: selectedCollateralItem.available.toFixed(8),
-                      symbol: selectedCollateralItem.token.symbol,
+                      symbol: selectedCollateralItem.token.displaySymbol,
                     }
                   )
                 : translate(
@@ -503,7 +510,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                     "Available: {{amount}} {{symbol}} collateral",
                     {
                       amount: currentTokenBalance,
-                      symbol: selectedCollateralItem.token.symbol,
+                      symbol: selectedCollateralItem.token.displaySymbol,
                     }
                   )}
             </ThemedTextV2>
@@ -537,6 +544,21 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
               isAdd
                 ? "Insufficient Balance"
                 : "Amount entered is higher than collateral"
+            )}
+          </ThemedTextV2>
+        )}
+
+        {/* Min vault share required error */}
+        {displayMinVaultShareRequiredError && formState.isValid && (
+          <ThemedTextV2
+            light={tailwind("text-red-v2")}
+            dark={tailwind("text-red-v2")}
+            style={tailwind("text-xs pt-2 mx-5 font-normal-v2")}
+            testID="vault_min_share_warning"
+          >
+            {translate(
+              "screens/BorrowLoanTokenScreen",
+              "Vault needs at least 50% DFI share"
             )}
           </ThemedTextV2>
         )}
@@ -634,7 +656,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
           <TotalTokenCollateralRow
             totalTokenBalance={totalTokenBalance}
             totalUsdAmount={totalTokenValueInUSD}
-            symbol={selectedCollateralItem.token.symbol}
+            symbol={selectedCollateralItem.token.displaySymbol}
             collateralFactor={selectedCollateralItem.factor}
           />
           <View style={tailwind("pt-5")}>
@@ -651,26 +673,6 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
       </ThemedViewV2>
 
       <View style={tailwind("pt-16 px-7")}>
-        {/* TODO: Update message below for remove collateral V2 */}
-        {isFeatureAvailable("dusd_vault_share") &&
-          !isAdd &&
-          !isValidCollateralRatio &&
-          requiredVaultShareTokens.includes(
-            selectedCollateralItem.token.symbol
-          ) &&
-          hasLoan && (
-            <ThemedTextV2
-              dark={tailwind("text-error-500")}
-              light={tailwind("text-error-500")}
-              style={tailwind("text-sm text-center")}
-              testID="vault_min_share_warning"
-            >
-              {translate(
-                "screens/BorrowLoanTokenScreen",
-                "Your vault needs at least 50% of DFI and/or DUSD as collateral"
-              )}
-            </ThemedTextV2>
-          )}
         {!disableSubmitButton && (
           <ThemedTextV2
             light={tailwind("text-mono-light-v2-500")}
