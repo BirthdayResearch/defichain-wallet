@@ -23,7 +23,11 @@ import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
 import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
 import { tokensSelector } from "@store/wallet";
-import { activeVaultsSelector, loanTokenByTokenId } from "@store/loans";
+import {
+  activeVaultsSelector,
+  fetchCollateralTokens,
+  loanTokenByTokenId,
+} from "@store/loans";
 import {
   TransactionCard,
   AmountButtonTypes,
@@ -38,6 +42,8 @@ import { TextRowV2 } from "@components/TextRowV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { useToast } from "react-native-toast-notifications";
+import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useAppDispatch } from "@hooks/useAppDispatch";
 import { getTokenAmount } from "../hooks/LoanPaymentTokenRate";
 import { useResultingCollateralRatio } from "../hooks/CollateralPrice";
 import { useInterestPerBlock } from "../hooks/InterestPerBlock";
@@ -48,12 +54,22 @@ type Props = StackScreenProps<LoanParamList, "PaybackLoanScreen">;
 
 export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
   const routeParams = route.params;
+  const client = useWhaleApiClient();
+  const dispatch = useAppDispatch();
   const [vault, setVault] = useState(routeParams.vault);
   const [loanTokenAmount, setLoanTokenAmount] = useState(
     routeParams.loanTokenAmount
   );
   const vaults = useSelector((state: RootState) =>
     activeVaultsSelector(state.loans)
+  );
+
+  useEffect(() => {
+    dispatch(fetchCollateralTokens({ client }));
+  }, []);
+
+  const collateralTokens = useSelector(
+    (state: RootState) => state.loans.collateralTokens
   );
 
   useEffect(() => {
@@ -125,10 +141,15 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
   const tokenBalance =
     token != null ? getTokenAmount(token.id, tokens) : new BigNumber(0);
   const loanTokenOutstandingBal = new BigNumber(loanTokenAmount.amount);
+  const collateralFactor =
+    collateralTokens?.find((t) => t.token.id === loanTokenAmount.id)?.factor ??
+    "1";
   const loanTokenActivePriceInUSD = getActivePrice(
     loanTokenAmount.symbol,
-    loanTokenAmount.activePrice
+    loanTokenAmount.activePrice,
+    collateralFactor
   );
+
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
   );
@@ -136,9 +157,18 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
     hasBroadcastQueued(state.ocean)
   );
 
+  const getCollateralValue = (collateralValue: string) => {
+    if (routeParams.isPaybackDUSDUsingCollateral) {
+      // In case of DUSD payment using collateral
+      return new BigNumber(collateralValue).minus(
+        new BigNumber(amountToPay).multipliedBy(loanTokenActivePriceInUSD)
+      );
+    }
+    return new BigNumber(collateralValue);
+  };
   // Resulting col ratio
   const resultingColRatio = useResultingCollateralRatio(
-    new BigNumber(vault?.collateralValue ?? NaN),
+    getCollateralValue(vault?.collateralValue ?? NaN),
     new BigNumber(vault?.loanValue ?? NaN),
     BigNumber.min(
       new BigNumber(amountToPay).isNaN() ? "0" : amountToPay,
@@ -326,6 +356,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
           outstandingBalance={loanTokenOutstandingBal}
           resultingColRatio={resultingColRatio}
           loanTokenAmount={loanTokenAmount}
+          collateralValue={getCollateralValue(vault?.collateralValue ?? NaN)}
           vault={vault}
           amountToPay={
             new BigNumber(amountToPay).isNaN()
@@ -381,6 +412,7 @@ interface TransactionDetailsProps {
   loanTokenActivePriceInUSD: string;
   collateralDUSDAmount?: string;
   isPaybackDUSDUsingCollateral?: boolean;
+  collateralValue: BigNumber;
 }
 
 function TransactionDetailsSection({
@@ -392,6 +424,7 @@ function TransactionDetailsSection({
   loanTokenActivePriceInUSD,
   collateralDUSDAmount,
   isPaybackDUSDUsingCollateral,
+  collateralValue,
 }: TransactionDetailsProps): JSX.Element {
   const rowStyle = {
     containerStyle: {
@@ -483,7 +516,7 @@ function TransactionDetailsSection({
       <CollateralizationRatioDisplayV2
         collateralizationRatio={resultingColRatio.toFixed(8)}
         minCollateralizationRatio={vault.loanScheme.minColRatio}
-        collateralValue={vault.collateralValue}
+        collateralValue={collateralValue}
         totalLoanAmount={vault.loanValue}
         testID="text_resulting_col_ratio"
         showProgressBar
