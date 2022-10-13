@@ -85,12 +85,6 @@ export function BorrowLoanTokenScreen({
   );
   const [vault, setVault] = useState<LoanVaultActive>(route.params.vault);
   const [loanToken, setLoanToken] = useState<LoanToken>(route.params.loanToken);
-  const [amountToBorrow, setAmountToBorrow] = useState({
-    amountInToken: new BigNumber(0),
-    amountInUSD: new BigNumber(0),
-    amountInput: "",
-  });
-
   const [totalAnnualInterest, setTotalAnnualInterest] = useState(
     new BigNumber(NaN)
   );
@@ -138,7 +132,7 @@ export function BorrowLoanTokenScreen({
     ),
     interestPerBlock
   );
-
+  const [disableContinue, setDisableContinue] = useState(false);
   const { isDFILessThanHalfOfRequiredCollateral } =
     useDFIRequirementForDusdLoanAndCollateral({
       collateralAmounts: vault.collateralAmounts,
@@ -342,18 +336,19 @@ export function BorrowLoanTokenScreen({
   }, [borrowAmount, vault, loanToken]);
 
   useEffect(() => {
-    setAmountToBorrow({
-      ...amountToBorrow,
-      amountInToken: new BigNumber(amountToBorrow.amountInput),
-      amountInUSD:
-        amountToBorrow.amountInput === "" ||
-        new BigNumber(amountToBorrow.amountInput).isNaN()
-          ? new BigNumber(0)
-          : new BigNumber(amountToBorrow.amountInput).times(
-              getActivePrice(loanToken.token.symbol, loanToken.activePrice)
-            ),
-    });
-  }, [amountToBorrow.amountInput]);
+    setDisableContinue(
+      resultingColRatio.isLessThan(vault.loanScheme.minColRatio) ||
+        hasPendingJob ||
+        hasPendingBroadcastJob ||
+        !formState.isValid
+    );
+  }, [
+    resultingColRatio,
+    hasPendingJob,
+    hasPendingBroadcastJob,
+    formState,
+    vault,
+  ]);
 
   return (
     <View style={tailwind("flex-1")} ref={containerRef}>
@@ -491,9 +486,7 @@ export function BorrowLoanTokenScreen({
             loanToken={loanToken}
             maxLoanAmount={maxLoanAmount}
             totalAnnualInterest={totalAnnualInterest}
-            resultingColRatio={
-              resultingColRatio.isNaN() ? new BigNumber(0) : resultingColRatio
-            }
+            resultingColRatio={resultingColRatio}
             borrowAmount={borrowAmount}
           />
         </View>
@@ -521,24 +514,24 @@ export function BorrowLoanTokenScreen({
               )}
             </ThemedTextV2>
           ) : (
-            <ThemedTextV2
-              testID="transaction_details_hint_text"
-              light={tailwind("text-mono-light-v2-500")}
-              dark={tailwind("text-mono-dark-v2-500")}
-              style={tailwind("mb-5 text-xs text-center font-normal-v2")}
-            >
-              {translate(
-                "screens/BorrowLoanTokenScreen",
-                "Review full details in the next screen"
-              )}
-            </ThemedTextV2>
+            disableContinue === false && (
+              <ThemedTextV2
+                testID="transaction_details_hint_text"
+                light={tailwind("text-mono-light-v2-500")}
+                dark={tailwind("text-mono-dark-v2-500")}
+                style={tailwind("mb-5 text-xs text-center font-normal-v2")}
+              >
+                {translate(
+                  "screens/BorrowLoanTokenScreen",
+                  "Review full details in the next screen"
+                )}
+              </ThemedTextV2>
+            )
           )}
           <ButtonV2
             fillType="fill"
             label={translate("components/Button", "Continue")}
-            disabled={
-              !formState.isValid || hasPendingJob || hasPendingBroadcastJob
-            }
+            disabled={disableContinue}
             styleProps=""
             onPress={onSubmit}
             testID="borrow_button_submit"
@@ -751,7 +744,7 @@ export function TransactionDetailsSection(
         totalLoanAmount={new BigNumber(props.vault.loanValue)
           .plus(props.borrowAmount)
           .toFixed(8)}
-        collateralAmounts={props.vault.collateralAmounts}
+        collateralValue={props.vault.collateralValue}
         testID="borrow_transaction_detail"
         showProgressBar
       />

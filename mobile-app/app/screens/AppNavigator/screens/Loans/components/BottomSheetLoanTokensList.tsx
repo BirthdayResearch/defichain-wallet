@@ -39,10 +39,6 @@ export const BottomSheetLoanTokensList = ({
   return memo(() => {
     return (
       <FlatList
-        contentContainerStyle={tailwind("px-5 pb-12", {
-          "bg-mono-light-v2-100": isLight,
-          "bg-mono-dark-v2-100": !isLight,
-        })}
         testID="swap_token_selection_screen"
         data={loanTokens}
         keyExtractor={(item) => item.tokenId}
@@ -138,6 +134,7 @@ export const BottomSheetLoanTokensList = ({
             </ThemedTextV2>
           </ThemedViewV2>
         }
+        stickyHeaderIndices={[0]}
         style={tailwind(
           {
             "bg-mono-dark-v2-100": !isLight,
@@ -145,6 +142,7 @@ export const BottomSheetLoanTokensList = ({
           },
           "rounded-t-xl-v2"
         )}
+        contentContainerStyle={tailwind("p-5 pt-0")}
       />
     );
   });
