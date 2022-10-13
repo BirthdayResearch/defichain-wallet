@@ -122,7 +122,9 @@ export function BorrowLoanTokenScreen({
   const resultingColRatio = useResultingCollateralRatio(
     new BigNumber(vault.collateralValue),
     new BigNumber(vault.loanValue),
-    new BigNumber(borrowAmount),
+    new BigNumber(borrowAmount).isNaN()
+      ? new BigNumber(0)
+      : new BigNumber(borrowAmount),
     new BigNumber(
       getActivePrice(loanToken.token.symbol, loanToken.activePrice)
     ),
@@ -727,7 +729,11 @@ export function TransactionDetailsSection(
         collateralizationRatio={props.resultingColRatio.toFixed(2)}
         minCollateralizationRatio={props.vault.loanScheme.minColRatio}
         totalLoanAmount={new BigNumber(props.vault.loanValue)
-          .plus(props.borrowAmount)
+          .plus(
+            new BigNumber(props.borrowAmount).isNaN()
+              ? new BigNumber(0)
+              : new BigNumber(props.borrowAmount)
+          )
           .toFixed(8)}
         collateralValue={props.vault.collateralValue}
         testID="borrow_transaction_detail"
