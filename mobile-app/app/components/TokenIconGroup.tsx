@@ -10,11 +10,6 @@ interface TokenIconGroupProps {
   symbols: string[];
   maxIconToDisplay: number;
   testID?: string;
-  /**
-   * Flag to "push" token container rightwards, used when no spacing is allowed at the right of TokenIconGroup
-   *
-   * In which the spacing is created by the relative position of each icon to display overlap effect
-   */
   offsetContainer?: boolean;
 }
 
