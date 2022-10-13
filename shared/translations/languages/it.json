@@ -1286,7 +1286,6 @@
     "Search vault": "Search vault",
     "Search with vault ID": "Search with vault ID",
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
-    "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
     "Decentralized tokens": "Decentralized tokens",
     "With vaults, you gain access to a rich economy of decentralized tokens.": "With vaults, you gain access to a rich economy of decentralized tokens.",
     "Next": "Next",
@@ -1299,7 +1298,8 @@
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain.",
     "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
     "Search available loan tokens": "Search available loan tokens",
-    "Edit Vault": "Edit Vault"
+    "Edit Vault": "Edit Vault",
+    "Confirm": "Confirm"
   },
   "components/tabs": {
     "Browse loan tokens": "Sfoglia i token in prestito",
@@ -1478,7 +1478,10 @@
     "Borrow": "Borrow",
     "Liquidated vault": "Liquidated vault",
     "Ready": "Ready",
-    "Halted": "Halted"
+    "Halted": "Halted",
+    "Total loans": "Totale prestiti",
+    "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
+    "Create a vault": "Create a vault"
   },
   "components/EmptyVault": {
     "No vaults": "No vaults",
@@ -2058,5 +2061,9 @@
   "components/PriceOracleInfo": {
     "All prices displayed are from price oracles.": "All prices displayed are from price oracles.",
     "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles."
+  },
+  "components/BottomSheetLoanTokensList": {
+    "% interest": "% interest",
+    "Select Token": "Select Token"
   }
 }
