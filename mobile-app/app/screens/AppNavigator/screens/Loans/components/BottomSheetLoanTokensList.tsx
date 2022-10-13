@@ -159,7 +159,7 @@ export const BottomSheetLoanTokensList = ({
                 "screens/LoansScreen",
                 "Search token name"
               )}
-              containerStyle={tailwind("", [
+              containerStyle={tailwind([
                 "border-0.5",
                 isSearchFocus
                   ? {
@@ -186,7 +186,7 @@ export const BottomSheetLoanTokensList = ({
               }}
             />
             {inSearchMode && (
-              <View style={tailwind("mt-8 mx-5")}>
+              <View style={tailwind("mt-5 mx-5")}>
                 <ThemedTextV2
                   style={tailwind("text-xs pl-5 font-normal-v2")}
                   light={tailwind("text-mono-light-v2-700")}
