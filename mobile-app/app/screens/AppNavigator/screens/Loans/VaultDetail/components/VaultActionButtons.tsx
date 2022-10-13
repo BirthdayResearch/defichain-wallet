@@ -36,24 +36,28 @@ export function VaultActionButtons({
       icon: "plus",
       isDisabled: !canUseOperations,
       onPress: onAddPressed,
+      testID: "action_add",
     },
     {
       title: "Borrow",
       icon: "arrow-down-circle",
       isDisabled: !canUseOperations || isBorrowDisabled,
       onPress: onBorrowPressed,
+      testID: "action_borrow",
     },
     {
       title: "Pay",
       icon: "credit-card",
       isDisabled: !canUseOperations || isPayDisabled,
       onPress: onPayPressed,
+      testID: "action_pay",
     },
     {
       title: "Edit",
       icon: "edit-2",
       isDisabled: !canUseOperations,
       onPress: onEditPressed,
+      testID: "action_edit",
     },
   ];
 
@@ -62,7 +66,10 @@ export function VaultActionButtons({
       style={tailwind("flex-1 flex-row items-center justify-center pt-6 px-5")}
     >
       {buttons.map((button) => (
-        <View style={tailwind("flex-1 flex-col items-center px-3")}>
+        <View
+          style={tailwind("flex-1 flex-col items-center px-3")}
+          key={button.title}
+        >
           <ThemedTouchableOpacityV2
             onPress={button.onPress}
             style={tailwind("rounded-full p-4.5")}
@@ -73,6 +80,7 @@ export function VaultActionButtons({
               "opacity-30": button.isDisabled,
             })}
             disabled={button.isDisabled}
+            testID={button.testID}
           >
             <ThemedIcon
               iconType="Feather"
