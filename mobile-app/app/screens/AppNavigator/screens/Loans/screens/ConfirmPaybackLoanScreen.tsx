@@ -145,7 +145,7 @@ export function ConfirmPaybackLoanScreen({
         <NumberRowV2
           containerStyle={{
             style: tailwind(
-              "flex-row items-start w-full bg-transparent border-t-0.5 py-5 mt-5"
+              "flex-row items-start w-full bg-transparent border-t-0.5 py-5 mt-6"
             ),
             light: tailwind("bg-transparent border-mono-light-v2-300"),
             dark: tailwind("bg-transparent border-mono-dark-v2-300"),
