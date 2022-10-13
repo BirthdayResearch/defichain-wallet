@@ -27,10 +27,15 @@ export function CollateralizationRatioDisplayV2(
   const maxRatio = getMaxRatio(
     minColRatio.multipliedBy(atRiskThresholdMultiplier)
   );
-  // TODO (Harsh) need to check condition when collateralization Ratio goes to -ve and more than maxRatio
+  const isInvalidCollateralRatio =
+    new BigNumber(props.collateralizationRatio).isLessThan(0) ||
+    new BigNumber(props.collateralizationRatio).isNaN() ||
+    !new BigNumber(props.collateralizationRatio).isFinite();
+
   const normalizedNextFactor = new BigNumber(
     props.collateralizationRatio
   ).dividedBy(maxRatio);
+
   const stats = useCollateralRatioStats({
     colRatio: new BigNumber(props.collateralizationRatio),
     minColRatio: new BigNumber(props.minCollateralizationRatio),
@@ -58,7 +63,7 @@ export function CollateralizationRatioDisplayV2(
             )}
           </ThemedTextV2>
         </View>
-        {new BigNumber(props.collateralizationRatio).isLessThan(0) ? (
+        {isInvalidCollateralRatio ? (
           <>
             {props.collateralAmounts.length > 0 ? (
               <Text style={tailwind("text-sm font-normal-v2 text-green-v2")}>
@@ -98,14 +103,14 @@ export function CollateralizationRatioDisplayV2(
         <View style={tailwind("mt-2.5")}>
           <Progress.Bar
             progress={
-              normalizedNextFactor.lt(0) &&
-              props.collateralizationRatio.length > 0
-                ? 1
+              isInvalidCollateralRatio
+                ? props.collateralAmounts.length > 0
+                  ? 1
+                  : 0
                 : normalizedNextFactor.toNumber()
             }
             color={getColor(
-              normalizedNextFactor.lt(0) &&
-                props.collateralizationRatio.length > 0
+              isInvalidCollateralRatio && props.collateralAmounts.length > 0
                 ? "green-v2"
                 : ratioTextColor
             )}
