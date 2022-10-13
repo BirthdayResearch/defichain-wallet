@@ -159,7 +159,7 @@ declare global {
        * @param {string} testID - test ID
        * @param {boolean} isDark - if dark mode
        * */
-      checkVaultTagV2: (
+      checkVaultStatusColor: (
         status: VaultStatus,
         testID: string
       ) => Chainable<Element>;
@@ -256,7 +256,7 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.add(
-  "checkVaultTagV2",
+  "checkVaultStatusColor",
   (status: VaultStatus, testID: string) => {
     let vaultItem = {
       color: "",

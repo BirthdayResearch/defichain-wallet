@@ -211,7 +211,7 @@ context("Wallet - Loans - Take Loans", () => {
   });
 
   it("should verify vault card", () => {
-    cy.checkVaultTagV2(VaultStatus.Healthy, "vault_card_0_min_ratio");
+    cy.checkVaultStatusColor(VaultStatus.Healthy, "vault_card_0_min_ratio");
     cy.getByTestID("vault_card_0_min_ratio").contains("1.50K %");
     cy.getByTestID("vault_card_0_loan_available_amount").contains("$100");
     cy.getByTestID("vault_card_0_total_collateral_amount").contains(
@@ -227,7 +227,7 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("loan_symbol").contains("DUSD");
     cy.getByTestID("loan_outstanding_balance").contains("100");
     cy.getByTestID("vault_id").contains(vaultId);
-    cy.checkVaultTagV2(VaultStatus.Healthy, "vault_card_0_min_ratio");
+    cy.checkVaultStatusColor(VaultStatus.Healthy, "vault_card_0_min_ratio");
     cy.getByTestID("loan_col_ratio")
       .invoke("text")
       .then((text) => {
@@ -278,7 +278,7 @@ context("Wallet - Loans - Take Loans", () => {
   });
 
   it("should verify vault card after adding loans", () => {
-    cy.checkVaultTagV2(VaultStatus.AtRisk, "vault_card_0_min_ratio");
+    cy.checkVaultStatusColor(VaultStatus.AtRisk, "vault_card_0_min_ratio");
     cy.getByTestID("vault_card_0_min_ratio").contains("200.53%");
     cy.getByTestID("vault_card_0_loan_available_amount").contains("$748");
     cy.getByTestID("vault_card_0_total_collateral_amount").contains(
@@ -354,7 +354,10 @@ context("Wallet - Loans - Take Loans", () => {
     );
     cy.closeOceanInterface();
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
-    cy.checkVaultTagV2(VaultStatus.NearLiquidation, "vault_card_0_min_ratio");
+    cy.checkVaultStatusColor(
+      VaultStatus.NearLiquidation,
+      "vault_card_0_min_ratio"
+    );
     cy.getByTestID("vault_card_0_min_ratio").contains("157.96%");
     cy.getByTestID("vault_card_0_loan_available_amount").contains("$823");
     cy.getByTestID("vault_card_0_loan_symbol_DUSD").should("exist");
