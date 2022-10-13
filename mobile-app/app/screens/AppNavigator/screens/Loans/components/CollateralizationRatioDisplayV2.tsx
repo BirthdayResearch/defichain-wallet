@@ -70,7 +70,7 @@ export function CollateralizationRatioDisplayV2(
         </View>
         {hasInvalidColRatio ? (
           <>
-            {isReadyForLoan ? (
+            {props.collateralAmounts.length > 0 || props.isReadyForLoan ? (
               <Text style={tailwind("text-sm font-normal-v2 text-green-v2")}>
                 {props.customReadyText ??
                   translate(
