@@ -453,7 +453,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                   "lineHeight": 20,
                 },
                 {
-                  "color": "rgba(255, 0, 0, 1)",
+                  "color": "rgba(229, 69, 69, 1)",
                 },
               ],
             ]
@@ -1626,7 +1626,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                   "lineHeight": 20,
                 },
                 {
-                  "color": "rgba(255, 0, 0, 1)",
+                  "color": "rgba(229, 69, 69, 1)",
                 },
               ],
             ]
@@ -2828,7 +2828,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                   "lineHeight": 20,
                 },
                 {
-                  "color": "rgba(255, 0, 0, 1)",
+                  "color": "rgba(229, 69, 69, 1)",
                 },
               ],
             ]
