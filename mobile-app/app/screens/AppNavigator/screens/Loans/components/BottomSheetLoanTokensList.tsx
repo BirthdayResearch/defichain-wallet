@@ -110,7 +110,10 @@ export const BottomSheetLoanTokensList = ({
                         {value}
                       </ThemedTextV2>
                     )}
-                    suffix="% interest"
+                    suffix={translate(
+                      "components/BottomSheetLoanTokensList",
+                      "% interest"
+                    )}
                   />
                 </View>
               </View>
