@@ -131,7 +131,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     : collateralAmount;
   const collateralInputValue = getCollateralValue(
     new BigNumber(collateralInputAmount),
-    collateralItem
+    selectedCollateralItem
   );
 
   // Vault collaterals value
@@ -146,8 +146,9 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
 
   // Collateral value for selected token
   const currentTokenBalance =
-    vault?.collateralAmounts?.find((c) => c.id === collateralItem?.token.id)
-      ?.amount ?? "0";
+    vault?.collateralAmounts?.find(
+      (c) => c.id === selectedCollateralItem?.token.id
+    )?.amount ?? "0";
   const totalTokenBalance = isAdd
     ? new BigNumber(currentTokenBalance)?.plus(collateralInputAmount)
     : BigNumber.max(
@@ -156,7 +157,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
       );
   const tokenCollateralValue = getCollateralValue(
     totalTokenBalance,
-    collateralItem
+    selectedCollateralItem
   );
   const totalTokenValueInUSD = new BigNumber(
     getPrecisedTokenValue(tokenCollateralValue)
@@ -164,9 +165,9 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
 
   const activePrice = new BigNumber(
     getActivePrice(
-      collateralItem.token.symbol,
-      collateralItem.activePrice,
-      collateralItem.factor,
+      selectedCollateralItem.token.symbol,
+      selectedCollateralItem.activePrice,
+      selectedCollateralItem.factor,
       "ACTIVE",
       "COLLATERAL"
     )
@@ -432,10 +433,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                 }}
               />
               <ActiveUSDValueV2
-                price={getCollateralValue(
-                  new BigNumber(collateralAmount),
-                  selectedCollateralItem
-                )}
+                price={collateralInputValue}
                 testId="add_remove_collateral_amount_in_usd"
                 containerStyle={tailwind("w-full break-words")}
                 style={tailwind("text-sm")}
@@ -480,7 +478,11 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                 ]);
                 expandModal();
               }}
-              status={TokenDropdownButtonStatus.Enabled}
+              status={
+                isAdd
+                  ? TokenDropdownButtonStatus.Enabled
+                  : TokenDropdownButtonStatus.Locked
+              }
             />
           </View>
         </TransactionCard>
