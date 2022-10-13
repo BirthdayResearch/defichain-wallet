@@ -103,6 +103,19 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
     mode: "onChange",
   });
   const { amountToPay } = watch();
+  const collateralDUSD = vault?.collateralAmounts?.find(
+    ({ symbol }) => symbol === "DUSD"
+  );
+  const collateralDUSDAmount = collateralDUSD?.amount ?? "0";
+
+  useEffect(() => {
+    if (routeParams.isPaybackDUSDUsingCollateral) {
+      setValue(
+        "amountToPay",
+        BigNumber.min(collateralDUSDAmount, loanTokenAmount.amount).toFixed(8)
+      );
+    }
+  }, [loanTokenAmount, collateralDUSDAmount]);
 
   const interestPerBlock = useInterestPerBlock(
     new BigNumber(vault?.loanScheme.interestRate ?? NaN),
@@ -115,9 +128,6 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
   const loanTokenActivePriceInUSD = getActivePrice(
     loanTokenAmount.symbol,
     loanTokenAmount.activePrice
-  );
-  const isExcess = new BigNumber(amountToPay).isGreaterThan(
-    loanTokenOutstandingBal
   );
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
@@ -145,9 +155,10 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
       name: "ConfirmPaybackLoanScreen",
       params: {
         vault,
-        amountToPay: new BigNumber(amountToPay),
         loanTokenAmount,
         resultingColRatio,
+        amountToPay: new BigNumber(amountToPay),
+        isPaybackDUSDUsingCollateral: routeParams.isPaybackDUSDUsingCollateral,
       },
       merge: true,
     });
@@ -158,11 +169,12 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
     await trigger("amountToPay");
   };
 
-  const isContinueDisabled =
-    !formState.isValid ||
-    hasPendingJob ||
-    hasPendingBroadcastJob ||
-    !canUseOperations;
+  const isContinueDisabled = routeParams.isPaybackDUSDUsingCollateral
+    ? new BigNumber(amountToPay).lte(0)
+    : !formState.isValid ||
+      hasPendingJob ||
+      hasPendingBroadcastJob ||
+      !canUseOperations;
 
   return (
     <ThemedScrollViewV2 contentContainerStyle={tailwind("pb-8")}>
@@ -171,7 +183,12 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
         light={tailwind("text-mono-light-v2-500")}
         dark={tailwind("text-mono-dark-v2-500")}
       >
-        {translate("screens/PaybackLoanScreen", "I WANT TO PAY")}
+        {translate(
+          "screens/PaybackLoanScreen",
+          routeParams.isPaybackDUSDUsingCollateral
+            ? "I WANT TO PAY WITH DUSD COLLATERAL"
+            : "I WANT TO PAY"
+        )}
       </ThemedTextV2>
 
       <View style={tailwind("mx-5")}>
@@ -195,6 +212,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
             style: tailwind("mt-6 rounded-xl-v2"),
           }}
           disabled={new BigNumber(loanTokenOutstandingBal).isZero()}
+          showAmountsBtn={!routeParams.isPaybackDUSDUsingCollateral}
         >
           <View
             style={tailwind(
@@ -204,30 +222,50 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
             <View style={tailwind("w-6/12 mr-2")}>
               <Controller
                 control={control}
-                defaultValue=""
+                defaultValue={
+                  routeParams.isPaybackDUSDUsingCollateral
+                    ? BigNumber.min(
+                        collateralDUSDAmount,
+                        loanTokenAmount.amount
+                      ).toFixed(8)
+                    : ""
+                }
                 name="amountToPay"
                 render={({ field: { onChange, value } }) => (
-                  <ThemedTextInputV2
-                    style={tailwind("text-xl font-semibold-v2 w-full")}
-                    light={tailwind("text-mono-light-v2-900")}
-                    dark={tailwind("text-mono-dark-v2-900")}
-                    keyboardType="numeric"
-                    value={value}
-                    onBlur={async () => {
-                      await onChange(value?.trim());
-                    }}
-                    onChangeText={async (amount) => {
-                      amount = isNaN(+amount) ? "0" : amount;
-                      setValue("amountToPay", amount);
-                      await trigger("amountToPay");
-                    }}
-                    placeholder="0.00"
-                    placeholderTextColor={
-                      isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
-                    }
-                    testID="payback_input_text"
-                    editable={amountToPay !== undefined}
-                  />
+                  <>
+                    {routeParams.isPaybackDUSDUsingCollateral ? (
+                      <ThemedTextV2
+                        style={tailwind("text-xl font-semibold-v2 w-full")}
+                        light={tailwind("text-mono-light-v2-900")}
+                        dark={tailwind("text-mono-dark-v2-900")}
+                        testID="payback_input_text"
+                      >
+                        {value}
+                      </ThemedTextV2>
+                    ) : (
+                      <ThemedTextInputV2
+                        style={tailwind("text-xl font-semibold-v2 w-full")}
+                        light={tailwind("text-mono-light-v2-900")}
+                        dark={tailwind("text-mono-dark-v2-900")}
+                        keyboardType="numeric"
+                        value={value}
+                        onBlur={async () => {
+                          await onChange(value?.trim());
+                        }}
+                        onChangeText={async (amount) => {
+                          amount = isNaN(+amount) ? "0" : amount;
+                          setValue("amountToPay", amount);
+                          await trigger("amountToPay");
+                        }}
+                        placeholder="0.00"
+                        placeholderTextColor={
+                          isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
+                        }
+                        testID="payback_input_text"
+                        editable={amountToPay !== undefined}
+                      />
+                    )}
+                  </>
                 )}
                 rules={{
                   required: true,
@@ -262,26 +300,28 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
             />
           </View>
         </TransactionCard>
-        <View style={tailwind("mt-2 mx-5")}>
-          <NumberFormat
-            decimalScale={8}
-            displayType="text"
-            renderText={(value) => (
-              <ThemedTextV2
-                light={tailwind("text-mono-light-v2-500")}
-                dark={tailwind("text-mono-light-v2-500")}
-                style={tailwind("text-xs font-normal-v2")}
-                testID="available_token_balance"
-              >
-                {value}
-              </ThemedTextV2>
-            )}
-            prefix={translate("screens/PaybackLoanScreen", "Available: ")}
-            suffix={` ${loanTokenAmount.displaySymbol}`}
-            thousandSeparator
-            value={tokenBalance.toFixed(8)}
-          />
-        </View>
+        {!routeParams.isPaybackDUSDUsingCollateral && (
+          <View style={tailwind("mt-2 mx-5")}>
+            <NumberFormat
+              decimalScale={8}
+              displayType="text"
+              renderText={(value) => (
+                <ThemedTextV2
+                  light={tailwind("text-mono-light-v2-500")}
+                  dark={tailwind("text-mono-light-v2-500")}
+                  style={tailwind("text-xs font-normal-v2")}
+                  testID="available_token_balance"
+                >
+                  {value}
+                </ThemedTextV2>
+              )}
+              prefix={translate("screens/PaybackLoanScreen", "Available: ")}
+              suffix={` ${loanTokenAmount.displaySymbol}`}
+              thousandSeparator
+              value={tokenBalance.toFixed(8)}
+            />
+          </View>
+        )}
         <TransactionDetailsSection
           outstandingBalance={loanTokenOutstandingBal}
           resultingColRatio={resultingColRatio}
@@ -292,10 +332,19 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
               ? new BigNumber(0)
               : new BigNumber(amountToPay)
           }
+          isPaybackDUSDUsingCollateral={
+            routeParams.isPaybackDUSDUsingCollateral
+          }
           loanTokenActivePriceInUSD={loanTokenActivePriceInUSD}
+          collateralDUSDAmount={collateralDUSDAmount}
         />
       </View>
-      <View style={tailwind(isContinueDisabled ? "mt-16" : "mt-12")}>
+      <View
+        style={[
+          tailwind("mx-5"),
+          tailwind(isContinueDisabled ? "mt-16" : "mt-12"),
+        ]}
+      >
         {!isContinueDisabled && (
           <ThemedTextV2
             style={tailwind("text-xs font-normal-v2 text-center")}
@@ -304,7 +353,9 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
           >
             {translate(
               "screens/PaybackLoanScreen",
-              "Review full details in the next screen"
+              routeParams.isPaybackDUSDUsingCollateral
+                ? "Use your DUSD collaterals to fully pay off your DUSD loan."
+                : "Review full details in the next screen"
             )}
           </ThemedTextV2>
         )}
@@ -328,6 +379,8 @@ interface TransactionDetailsProps {
   loanTokenAmount: LoanVaultTokenAmount;
   amountToPay: BigNumber;
   loanTokenActivePriceInUSD: string;
+  collateralDUSDAmount?: string;
+  isPaybackDUSDUsingCollateral?: boolean;
 }
 
 function TransactionDetailsSection({
@@ -337,6 +390,8 @@ function TransactionDetailsSection({
   vault,
   amountToPay,
   loanTokenActivePriceInUSD,
+  collateralDUSDAmount,
+  isPaybackDUSDUsingCollateral,
 }: TransactionDetailsProps): JSX.Element {
   const rowStyle = {
     containerStyle: {
@@ -400,10 +455,35 @@ function TransactionDetailsSection({
         }}
       />
 
+      {isPaybackDUSDUsingCollateral && (
+        <NumberRowV2
+          containerStyle={rowStyle.containerStyle}
+          lhs={{
+            value: translate(
+              "screens/ConfirmPlaceBidScreen",
+              "Resulting collateral"
+            ),
+            testID: "total_outstanding_loan_label",
+            themedProps: rowStyle.lhsThemedProps,
+          }}
+          rhs={{
+            value: new BigNumber(collateralDUSDAmount ?? 0)
+              .minus(amountToPay)
+              .toFixed(8),
+            testID: "total_outstanding_loan_value",
+            suffix: ` ${loanTokenAmount.displaySymbol}`,
+            usdAmount: new BigNumber(
+              new BigNumber(collateralDUSDAmount ?? 0).minus(amountToPay)
+            ).multipliedBy(loanTokenActivePriceInUSD),
+            themedProps: rowStyle.rhsThemedProps,
+          }}
+        />
+      )}
+
       <CollateralizationRatioDisplayV2
         collateralizationRatio={resultingColRatio.toFixed(8)}
         minCollateralizationRatio={vault.loanScheme.minColRatio}
-        collateralAmounts={vault.collateralAmounts}
+        collateralValue={vault.collateralValue}
         totalLoanAmount={vault.loanValue}
         testID="text_resulting_col_ratio"
         showProgressBar

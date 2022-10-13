@@ -18,6 +18,7 @@ interface TransactionCardProps {
   amountButtonsStyle?: ThemedProps & {
     style?: ThemedProps & StyleProp<ViewStyle>;
   };
+  showAmountsBtn?: boolean;
   disabled?: boolean;
 }
 
@@ -42,6 +43,7 @@ export function TransactionCard({
   containerStyle,
   amountButtonsStyle,
   disabled,
+  showAmountsBtn = true,
   children,
 }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
   return (
@@ -74,29 +76,31 @@ export function TransactionCard({
       >
         {children}
       </ThemedViewV2>
-      <ThemedViewV2
-        light={
-          amountButtonsStyle?.light ?? tailwind("border-mono-light-v2-300")
-        }
-        dark={amountButtonsStyle?.dark ?? tailwind("border-mono-dark-v2-300")}
-        style={[
-          tailwind("flex flex-row justify-around items-center py-2.5"),
-          amountButtonsStyle?.style,
-        ]}
-      >
-        {Object.values(AmountButtonTypes).map((type, index, { length }) => {
-          return (
-            <SetAmountButton
-              key={type}
-              amount={maxValue}
-              onPress={onChange}
-              type={type}
-              hasBorder={length - 1 !== index}
-              disabled={disabled}
-            />
-          );
-        })}
-      </ThemedViewV2>
+      {showAmountsBtn && (
+        <ThemedViewV2
+          light={
+            amountButtonsStyle?.light ?? tailwind("border-mono-light-v2-300")
+          }
+          dark={amountButtonsStyle?.dark ?? tailwind("border-mono-dark-v2-300")}
+          style={[
+            tailwind("flex flex-row justify-around items-center py-2.5"),
+            amountButtonsStyle?.style,
+          ]}
+        >
+          {Object.values(AmountButtonTypes).map((type, index, { length }) => {
+            return (
+              <SetAmountButton
+                key={type}
+                amount={maxValue}
+                onPress={onChange}
+                type={type}
+                hasBorder={length - 1 !== index}
+                disabled={disabled}
+              />
+            );
+          })}
+        </ThemedViewV2>
+      )}
     </ThemedViewV2>
   );
 }

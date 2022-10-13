@@ -83,12 +83,14 @@ export interface LoanParamList {
   PaybackLoanScreen: {
     loanTokenAmount: LoanVaultTokenAmount;
     vault: LoanVaultActive;
+    isPaybackDUSDUsingCollateral?: boolean;
   };
   ConfirmPaybackLoanScreen: {
     vault: LoanVaultActive;
     amountToPay: BigNumber;
     loanTokenAmount: LoanVaultTokenAmount;
     resultingColRatio: BigNumber;
+    isPaybackDUSDUsingCollateral?: boolean;
   };
   EditLoanSchemeScreen: {
     vaultId: string;

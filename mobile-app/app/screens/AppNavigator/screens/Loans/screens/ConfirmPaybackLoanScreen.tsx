@@ -42,8 +42,13 @@ export function ConfirmPaybackLoanScreen({
   route,
   navigation,
 }: Props): JSX.Element {
-  const { vault, amountToPay, loanTokenAmount, resultingColRatio } =
-    route.params;
+  const {
+    vault,
+    amountToPay,
+    loanTokenAmount,
+    resultingColRatio,
+    isPaybackDUSDUsingCollateral,
+  } = route.params;
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
   const tokens = useSelector((state: RootState) =>
     tokensSelector(state.wallet)
@@ -92,6 +97,7 @@ export function ConfirmPaybackLoanScreen({
         amountToPay,
         loanToken: loanTokenAmount,
         tokenBalance,
+        isPaybackDUSDUsingCollateral,
       },
       dispatch,
       () => {
@@ -198,7 +204,7 @@ export function ConfirmPaybackLoanScreen({
           <CollateralizationRatioDisplayV2
             collateralizationRatio={resultingColRatio.toFixed(8)}
             minCollateralizationRatio={vault.loanScheme.minColRatio}
-            collateralAmounts={vault.collateralAmounts}
+            collateralValue={vault.collateralValue}
             totalLoanAmount={vault.loanValue}
             testID="text_resulting_col_ratio"
           />
@@ -271,7 +277,7 @@ export function ConfirmPaybackLoanScreen({
           }}
         />
 
-        <View style={tailwind("mx-7 mt-12")}>
+        <View style={tailwind("mt-12")}>
           <ThemedTextV2
             style={tailwind("text-xs font-normal-v2 text-center mb-5")}
             light={tailwind("text-mono-light-v2-500")}
@@ -279,7 +285,7 @@ export function ConfirmPaybackLoanScreen({
           >
             {translate(
               "screens/ConfirmPaybackLoanScreen",
-              "Final amount determined by oracle price. Resulting collateral ratio are determined upon block confirmation."
+              "Prices may vary during transaction confirmation. Any excess payment will be returned."
             )}
           </ThemedTextV2>
           <SubmitButtonGroupV2
@@ -291,7 +297,7 @@ export function ConfirmPaybackLoanScreen({
             onCancel={onCancel}
             onSubmit={onSubmit}
             displayCancelBtn
-            buttonStyle="mb-4"
+            buttonStyle="mx-7 mb-4"
             title="payback_loan"
           />
         </View>
@@ -305,10 +311,17 @@ interface PaybackForm {
   amountToPay: BigNumber;
   tokenBalance: BigNumber;
   loanToken: LoanVaultTokenAmount;
+  isPaybackDUSDUsingCollateral?: boolean;
 }
 
 async function paybackLoanToken(
-  { vaultId, amountToPay, tokenBalance, loanToken }: PaybackForm,
+  {
+    vaultId,
+    amountToPay,
+    tokenBalance,
+    loanToken,
+    isPaybackDUSDUsingCollateral,
+  }: PaybackForm,
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   onConfirmation: () => void,
@@ -327,7 +340,9 @@ async function paybackLoanToken(
           tokenAmounts: [
             {
               token: +loanToken.id,
-              amount: BigNumber.min(tokenBalance, amountToPay),
+              amount: isPaybackDUSDUsingCollateral
+                ? new BigNumber("9999999999.99999999")
+                : BigNumber.min(tokenBalance, amountToPay),
             },
           ],
         },
