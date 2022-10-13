@@ -14,7 +14,6 @@ import { translate } from "@translations";
 import { ScrollView, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import { PortfolioParamList } from "../PortfolioNavigator";
-import { DexScreenOrigin } from "../../Dex/DexNavigator";
 
 export interface ActionButtonsProps {
   name: string;

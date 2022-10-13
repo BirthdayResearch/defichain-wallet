@@ -23,13 +23,14 @@ import { RootState } from "@store";
 import { debounce } from "lodash";
 import { HeaderSearchInputV2 } from "@components/HeaderSearchInputV2";
 import { ScrollView } from "react-native";
+import { ScreenOrigin } from "@screens/AppNavigator/AppNavigator";
 import { EmptyActivePoolpair } from "./components/EmptyActivePoolPair";
 import {
   ButtonGroupTabKey,
   PoolPairCards,
 } from "./components/PoolPairCards/PoolPairCards";
 import { ButtonGroupV2 } from "./components/ButtonGroupV2";
-import { DexParamList, DexScreenOrigin } from "./DexNavigator";
+import { DexParamList } from "./DexNavigator";
 import { AssetsFilterItem } from "../Portfolio/components/AssetsFilterRow";
 import { useFavouritePoolpairContext } from "../../../../contexts/FavouritePoolpairContext";
 
@@ -95,7 +96,7 @@ export function DexScreen(): JSX.Element {
       params: {
         pair: data,
         pairInfo: info,
-        originScreen: DexScreenOrigin.Dex_screen,
+        originScreen: ScreenOrigin.DEX_screen,
       },
       merge: true,
     });
@@ -107,7 +108,7 @@ export function DexScreen(): JSX.Element {
       params: {
         pair: data,
         pairInfo: info,
-        originScreen: DexScreenOrigin.Dex_screen,
+        originScreen: ScreenOrigin.DEX_screen,
       },
       merge: true,
     });
@@ -128,7 +129,7 @@ export function DexScreen(): JSX.Element {
             isPreselected: true,
           },
         },
-        originScreen: DexScreenOrigin.Dex_screen,
+        originScreen: ScreenOrigin.DEX_screen,
       },
       merge: true,
     });

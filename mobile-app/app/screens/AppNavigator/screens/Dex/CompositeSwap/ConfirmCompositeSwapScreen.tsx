@@ -31,6 +31,7 @@ import {
 } from "@components/themed";
 import { View } from "@components";
 import { useAppDispatch } from "@hooks/useAppDispatch";
+import { ScreenOrigin } from "@screens/AppNavigator/AppNavigator";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
@@ -40,7 +41,7 @@ import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { TextRowV2 } from "@components/TextRowV2";
 import { PricesSectionV2 } from "@components/PricesSectionV2";
 import Checkbox from "expo-checkbox";
-import { DexParamList, DexScreenOrigin } from "../DexNavigator";
+import { DexParamList } from "../DexNavigator";
 import { OwnedTokenState, TokenState } from "./CompositeSwapScreen";
 import { useDexStabilization } from "../hook/DexStabilization";
 
@@ -164,9 +165,9 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
             style: "destructive",
             onPress: async () => {
               navigation.navigate(
-                originScreen === DexScreenOrigin.Dex_screen
-                  ? DexScreenOrigin.Dex_screen
-                  : DexScreenOrigin.Portfolio_screen
+                originScreen === ScreenOrigin.DEX_screen
+                  ? ScreenOrigin.DEX_screen
+                  : ScreenOrigin.PORTFOLIO_screen
               );
             },
           },

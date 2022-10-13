@@ -32,9 +32,10 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { useToast } from "react-native-toast-notifications";
 import { openURL } from "@api/linking";
+import { ScreenOrigin } from "@screens/AppNavigator/AppNavigator";
 import { useYourPoolPairAmountBreakdown } from "./hook/YourPoolPairAmountBreakdown";
 import { useFavouritePoolpairContext } from "../../../../contexts/FavouritePoolpairContext";
-import { DexParamList, DexScreenOrigin } from "./DexNavigator";
+import { DexParamList } from "./DexNavigator";
 import { PoolPairIconV2 } from "./components/PoolPairCards/PoolPairIconV2";
 import { useTokenPrice } from "../Portfolio/hooks/TokenPrice";
 import { ActionType } from "./components/PoolPairCards/PoolPairCards";
@@ -91,6 +92,7 @@ export function PoolPairDetailsScreen({ route }: Props): JSX.Element {
       params: {
         pair: data,
         pairInfo: info,
+        originScreen: ScreenOrigin.DEX_screen,
       },
       merge: true,
     });
@@ -102,6 +104,7 @@ export function PoolPairDetailsScreen({ route }: Props): JSX.Element {
       params: {
         pair: data,
         pairInfo: info,
+        originScreen: ScreenOrigin.DEX_screen,
       },
       merge: true,
     });
@@ -112,7 +115,7 @@ export function PoolPairDetailsScreen({ route }: Props): JSX.Element {
       name: "CompositeSwap",
       params: {
         pair: data,
-        originScreen: DexScreenOrigin.Dex_screen,
+        originScreen: ScreenOrigin.DEX_screen,
         tokenSelectOption: {
           from: {
             isDisabled: true,

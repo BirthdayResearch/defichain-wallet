@@ -19,6 +19,7 @@ import {
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { PriceRateProps as PriceRatesPropsV2 } from "@components/PricesSectionV2";
 import { useNavigatorHeaderStylesOption } from "@screens/AppNavigator/hooks/useNavigatorHeaderStylesOption";
+import { ScreenOrigin } from "@screens/AppNavigator/AppNavigator";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { ConversionParam } from "../Portfolio/PortfolioNavigator";
 import {
@@ -53,7 +54,7 @@ export interface DexParamList {
         isPreselected: boolean;
       };
     };
-    originScreen: DexScreenOrigin;
+    originScreen: ScreenOrigin;
   };
   SwapTokenSelectionScreen: {
     fromToken: {
@@ -84,24 +85,24 @@ export interface DexParamList {
     estimatedAmount: BigNumber;
     totalFees: string;
     estimatedLessFeesAfterSlippage: string;
-    originScreen: DexScreenOrigin;
+    originScreen: ScreenOrigin;
   };
   AddLiquidity: {
     pair: PoolPairData;
     pairInfo: WalletToken;
-    originScreen: DexScreenOrigin;
+    originScreen: ScreenOrigin;
   };
   ConfirmAddLiquidity: {
     pair: PoolPairData;
     summary: AddLiquiditySummary;
     conversion?: ConversionParam;
     pairInfo: WalletToken;
-    originScreen: DexScreenOrigin;
+    originScreen: ScreenOrigin;
   };
   RemoveLiquidity: {
     pair: PoolPairData;
     pairInfo: WalletToken;
-    originScreen: DexScreenOrigin;
+    originScreen: ScreenOrigin;
   };
   ConfirmRemoveLiquidity: {
     amount: BigNumber;
@@ -125,7 +126,7 @@ export interface DexParamList {
     tokenBAmount: BigNumber;
     tokenA?: WalletToken;
     tokenB?: WalletToken;
-    originScreen: DexScreenOrigin;
+    originScreen: ScreenOrigin;
   };
 
   [key: string]: undefined | object;
@@ -139,11 +140,6 @@ export interface AddLiquiditySummary {
   tokenABalance: BigNumber; // token A balance (after deducting 0.1 DFI if DFI)
   tokenBBalance: BigNumber; // token B balance (after deducting 0.1 DFI if DFI)
   lmTotalTokens: string; // total LP tokens
-}
-
-export enum DexScreenOrigin {
-  Portfolio_screen = "PortfolioScreen",
-  Dex_screen = "DexScreen",
 }
 
 const DexStack = createStackNavigator<DexParamList>();

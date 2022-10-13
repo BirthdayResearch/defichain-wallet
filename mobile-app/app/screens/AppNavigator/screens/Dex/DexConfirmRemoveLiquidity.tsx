@@ -16,6 +16,7 @@ import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
+import { ScreenOrigin } from "@screens/AppNavigator/AppNavigator";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { SummaryTitleV2 } from "@components/SummaryTitleV2";
@@ -24,7 +25,7 @@ import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { PricesSectionV2 } from "@components/PricesSectionV2";
 import { useTokenPrice } from "../Portfolio/hooks/TokenPrice";
-import { DexParamList, DexScreenOrigin } from "./DexNavigator";
+import { DexParamList } from "./DexNavigator";
 
 type Props = StackScreenProps<DexParamList, "RemoveLiquidityConfirmScreen">;
 
@@ -93,9 +94,9 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
             style: "destructive",
             onPress: async () => {
               navigation.navigate(
-                originScreen === DexScreenOrigin.Dex_screen
-                  ? DexScreenOrigin.Dex_screen
-                  : DexScreenOrigin.Portfolio_screen
+                originScreen === ScreenOrigin.DEX_screen
+                  ? ScreenOrigin.DEX_screen
+                  : ScreenOrigin.PORTFOLIO_screen
               );
             },
           },
