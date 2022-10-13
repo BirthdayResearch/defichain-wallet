@@ -152,6 +152,17 @@ declare global {
         testID: string,
         isDark: boolean
       ) => Chainable<Element>;
+      /**
+       * @description Vault Tag
+       * @param {string} label - label of the vault tag
+       * @param {VaultStatus} status - vault status
+       * @param {string} testID - test ID
+       * @param {boolean} isDark - if dark mode
+       * */
+      checkVaultTagV2: (
+        status: VaultStatus,
+        testID: string
+      ) => Chainable<Element>;
     }
   }
 }
@@ -165,6 +176,7 @@ Cypress.Commands.add("createVault", (loanScheme: number = 0) => {
 });
 
 Cypress.Commands.add("addCollateral", (amount: string, symbol: string) => {
+  // TODO: change navigation for v2
   cy.getByTestID("add_collateral_button").click();
   cy.getByTestID(`select_${symbol}`).click();
   cy.getByTestID("add_collateral_button_submit").should(
@@ -240,5 +252,29 @@ Cypress.Commands.add(
     cy.getByTestID(vaultItem.symbol).should(
       nonHealthyState ? "not.exist" : "exist"
     );
+  }
+);
+
+Cypress.Commands.add(
+  "checkVaultTagV2",
+  (status: VaultStatus, testID: string) => {
+    let vaultItem = {
+      color: "",
+    };
+    const nonHealthyState = [
+      VaultStatus.Empty,
+      VaultStatus.Ready,
+      VaultStatus.Liquidated,
+    ].includes(status);
+    if (status === VaultStatus.AtRisk) {
+      vaultItem.color = "rgb(217, 123, 1)";
+    } else if (status === VaultStatus.Healthy) {
+      vaultItem.color = "rgb(0, 173, 29)";
+    } else if (status === VaultStatus.NearLiquidation) {
+      vaultItem.color = "rgb(217, 123, 1)";
+    } else if (nonHealthyState) {
+      vaultItem.color = "rgb(229, 69, 69)";
+    }
+    cy.getByTestID(testID).should("have.css", "color", vaultItem.color);
   }
 );
