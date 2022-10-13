@@ -64,6 +64,7 @@ import { useInterestPerBlock } from "../hooks/InterestPerBlock";
 import { useBlocksPerDay } from "../hooks/BlocksPerDay";
 import { BottomSheetLoanTokensList } from "../components/BottomSheetLoanTokensList";
 import { useDFIRequirementForDusdLoanAndCollateral } from "../hooks/DFIRequirementForDusdLoanAndCollateral";
+import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
 
 type Props = StackScreenProps<LoanParamList, "BorrowLoanTokenScreen">;
 
@@ -484,35 +485,16 @@ export function BorrowLoanTokenScreen({
               expandModal();
             }}
           />
-          {new BigNumber(borrowAmount).isGreaterThan(0) && (
-            <ThemedTextV2 style={tailwind("ml-5 mt-2 font-normal-v2 text-xs")}>
-              {translate("BorrowLoanTokenScreen", "Collateral Ratio: ")}
-              <NumberFormat
-                value={new BigNumber(resultingColRatio).toFixed(2)}
-                decimalScale={2}
-                thousandSeparator
-                displayType="text"
-                suffix="%"
-                renderText={(value) => (
-                  <ThemedTextV2
-                    light={resultingColRatioLight}
-                    dark={resultingColRatioDark}
-                    testID="resulting_col_ratio"
-                    style={tailwind("text-xs font-normal-v2")}
-                  >
-                    {`(${value})`}
-                  </ThemedTextV2>
-                )}
-              />
-            </ThemedTextV2>
-          )}
 
           <TransactionDetailsSection
             vault={vault}
             loanToken={loanToken}
             maxLoanAmount={maxLoanAmount}
-            fee={fee}
             totalAnnualInterest={totalAnnualInterest}
+            resultingColRatio={
+              resultingColRatio.isNaN() ? new BigNumber(0) : resultingColRatio
+            }
+            borrowAmount={borrowAmount}
           />
         </View>
 
@@ -646,8 +628,9 @@ interface TransactionDetailsProps {
   vault: LoanVaultActive;
   maxLoanAmount: BigNumber;
   loanToken: LoanToken;
-  fee: BigNumber;
   totalAnnualInterest: BigNumber;
+  resultingColRatio: BigNumber;
+  borrowAmount: string;
 }
 
 export function TransactionDetailsSection(
@@ -762,28 +745,15 @@ export function TransactionDetailsSection(
           style: tailwind("flex-row items-start w-full bg-transparent pt-5"),
         }}
       />
-      <ThemedViewV2
-        style={tailwind("border-b-0.5 w-full mb-5")}
-        light={tailwind("border-mono-light-v2-300")}
-        dark={tailwind("border-mono-dark-v2-300")}
-      />
-      <NumberRowV2
-        lhs={{
-          value: translate("screens/BorrowLoanTokenScreen", "Transaction fees"),
-          testID: "transaction_fee",
-          themedProps: {
-            light: tailwind("text-mono-light-v2-500"),
-            dark: tailwind("text-mono-dark-v2-500"),
-          },
-        }}
-        rhs={{
-          value: props.fee.toFixed(8),
-          testID: "transaction_fee_value",
-          suffix: ` DFI`,
-          themedProps: {
-            style: tailwind("font-normal-v2 text-sm"),
-          },
-        }}
+      <CollateralizationRatioDisplayV2
+        collateralizationRatio={props.resultingColRatio.toFixed(2)}
+        minCollateralizationRatio={props.vault.loanScheme.minColRatio}
+        totalLoanAmount={new BigNumber(props.vault.loanValue)
+          .plus(props.borrowAmount)
+          .toFixed(8)}
+        collateralAmounts={props.vault.collateralAmounts}
+        testID="borrow_transaction_detail"
+        showProgressBar
       />
     </ThemedViewV2>
   );
