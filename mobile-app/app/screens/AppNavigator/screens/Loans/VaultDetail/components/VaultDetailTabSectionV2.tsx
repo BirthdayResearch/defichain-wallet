@@ -1,5 +1,4 @@
 import { Tabs } from "@components/Tabs";
-import { ThemedView } from "@components/themed";
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
 import { LoanVault } from "@store/loans";
 import { useEffect, useState } from "react";
@@ -62,7 +61,9 @@ export function VaultDetailTabSectionV2({
         activeTabKey={activeTab}
         testID="vault_detail_tabs"
       />
+
       <CollateralsTabV2 vault={vault} />
+
       <LoansTabV2
         dismissModal={dismissModal}
         expandModal={expandModal}

@@ -50,6 +50,8 @@ interface DexAddRemoveLiquidityButtonProps {
   onAdd?: () => void;
   onRemove?: () => void;
   token: string;
+  leftDisabled?: boolean;
+  rightDisabled?: boolean;
 }
 
 export function LoanAddRemoveActionButton({
@@ -57,6 +59,8 @@ export function LoanAddRemoveActionButton({
   onAdd,
   onRemove,
   token,
+  leftDisabled,
+  rightDisabled,
 }: DexAddRemoveLiquidityButtonProps): JSX.Element {
   return (
     <ThemedViewV2
@@ -69,8 +73,9 @@ export function LoanAddRemoveActionButton({
     >
       <ThemedTouchableOpacityV2
         onPress={onRemove}
-        style={tailwind("border-r-0.5 pr-2")}
+        style={tailwind("border-r-0.5 pr-2", { "opacity-30": leftDisabled })}
         testID={`pool_pair_remove_${token}`}
+        disabled={leftDisabled}
       >
         <ThemedIcon
           iconType="Feather"
@@ -82,8 +87,9 @@ export function LoanAddRemoveActionButton({
       </ThemedTouchableOpacityV2>
       <ThemedTouchableOpacityV2
         onPress={onAdd}
-        style={tailwind("pl-2")}
+        style={tailwind("pl-2", { "opacity-30": rightDisabled })}
         testID={`pool_pair_add_${token}`}
+        disabled={rightDisabled}
       >
         <ThemedIcon
           iconType="Feather"
