@@ -8,7 +8,7 @@ import {
   ThemedTextV2,
   ThemedViewV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
@@ -289,9 +289,9 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
                           await trigger("amountToPay");
                         }}
                         placeholder="0.00"
-                        placeholderTextColor={
-                          isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
-                        }
+                        placeholderTextColor={getColor(
+                          isLight ? "mono-light-v2-500" : "mono-dark-v2-500"
+                        )}
                         testID="payback_input_text"
                         editable={amountToPay !== undefined}
                       />
@@ -320,7 +320,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
                       )
                 }
                 style={tailwind("text-sm")}
-                testId="loan_outstanding_balance_usd"
+                testId="payback_input_value"
                 containerStyle={tailwind("w-full break-words")}
               />
             </View>
