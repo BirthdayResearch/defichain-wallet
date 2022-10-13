@@ -24,7 +24,7 @@ jobs:
         run: npm run translation:missing
       - name: Read missing_translations.json
         id: translations
-        uses: juliangruber/read-file-action@ebfa650188272343fef925480eb4d18c5d49b925 # tag=v1.1.4
+        uses: juliangruber/read-file-action@02bbba9876a8f870efd4ad64e3b9088d3fb94d4b # tag=v1.1.6
         with:
           path: ./missing_translations.json
       - uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443 # tag=v2.2.0
