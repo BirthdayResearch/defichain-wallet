@@ -368,16 +368,18 @@ export function ConfirmEditCollateralScreen({
       />
 
       <View style={tailwind("pt-12 px-7")}>
-        <ThemedTextV2
-          light={tailwind("text-mono-light-v2-500")}
-          dark={tailwind("text-mono-dark-v2-500")}
-          style={tailwind("text-center text-xs font-normal-v2")}
-        >
-          {translate(
-            "screens/ConfirmEditCollateralScreen",
-            "Prices may vary during transaction confirmation."
-          )}
-        </ThemedTextV2>
+        {!hasPendingJob && !hasPendingBroadcastJob && (
+          <ThemedTextV2
+            light={tailwind("text-mono-light-v2-500")}
+            dark={tailwind("text-mono-dark-v2-500")}
+            style={tailwind("text-center text-xs font-normal-v2")}
+          >
+            {translate(
+              "screens/ConfirmEditCollateralScreen",
+              "Prices may vary during transaction confirmation."
+            )}
+          </ThemedTextV2>
+        )}
 
         <SubmitButtonGroupV2
           isDisabled={hasPendingJob || hasPendingBroadcastJob}
