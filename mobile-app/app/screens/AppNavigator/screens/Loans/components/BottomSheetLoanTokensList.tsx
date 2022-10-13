@@ -147,11 +147,11 @@ export const BottomSheetLoanTokensList = ({
               style={tailwind("text-xl font-normal-v2 pb-5")}
               light={tailwind("text-mono-light-v2-900")}
               dark={tailwind("text-mono-dark-v2-900")}
-              testID="empty_search_result_text"
             >
               {translate("screens/SwapTokenSelectionScreen", "Select Token")}
             </ThemedTextV2>
             <SearchInputV2
+              testID="loan_search_input"
               ref={searchRef}
               value={searchString}
               showClearButton={searchString !== ""}

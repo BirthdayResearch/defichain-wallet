@@ -47,6 +47,7 @@ export function VaultBanner({
         dark={tailwind("bg-mono-dark-v2-00")}
         light={tailwind("bg-mono-light-v2-00")}
         style={tailwind("p-5 rounded-lg-v2 border-0")}
+        testID={`${testID}_vault`}
       >
         <View style={tailwind("flex-row items-center")}>
           {vaultType === VaultStatus.Liquidated ? (
@@ -57,7 +58,7 @@ export function VaultBanner({
                 height: 64,
               }}
               resizeMode="contain"
-              testID={`${testID}_vault_type`}
+              testID={`${testID}_liquidated_vault_image`}
             />
           ) : (
             <Image
@@ -67,7 +68,7 @@ export function VaultBanner({
                 height: 64,
               }}
               resizeMode="contain"
-              testID={`${testID}_vault_type`}
+              testID={`${testID}_empty_vault_image`}
             />
           )}
 
@@ -119,14 +120,14 @@ export function VaultBanner({
               })}
               testID={`${testID}_vault_description`}
             >
-              {translate("components/VaultCard", description)}
+              {translate("screens/LoansScreen", description)}
             </ThemedTextV2>
             {buttonLabel !== "" && (
               <ButtonV2
                 customButtonStyle="py-2 px-3"
                 customTextStyle="text-xs"
                 styleProps="mt-3"
-                label={translate("components/VaultCard", buttonLabel)}
+                label={translate("screens/LoansScreen", buttonLabel)}
                 onPress={onButtonPress}
                 testID={`${testID}_add_collateral_button`}
               />
