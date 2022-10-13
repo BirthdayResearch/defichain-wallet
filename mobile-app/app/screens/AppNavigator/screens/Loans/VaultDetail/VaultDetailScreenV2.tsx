@@ -48,6 +48,7 @@ import { useBottomSheet } from "@hooks/useBottomSheet";
 import { BottomSheetLoanTokensList } from "@screens/AppNavigator/screens/Loans/components/BottomSheetLoanTokensList";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { CloseVaultButton } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/CloseVaultButton";
+import { VaultDetailSummary } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailSummary";
 import { LoanParamList } from "../LoansNavigator";
 import { ScrollableButton, ScrollButton } from "../components/ScrollableButton";
 import { VaultDetailTabSection } from "./components/VaultDetailTabSection";
@@ -130,16 +131,23 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
   ];
 
   const inLiquidation = vault?.state === LoanVaultState.IN_LIQUIDATION;
+  const totalLoanAmount = new BigNumber(
+    inLiquidation || vault === undefined ? 0 : vault?.loanValue
+  );
+  const totalCollateralValue = new BigNumber(
+    inLiquidation || vault === undefined ? 0 : vault?.collateralValue
+  );
+  const minColRatio = new BigNumber(
+    vault === undefined ? 0 : vault?.loanScheme.minColRatio
+  );
   const vaultState = useVaultStatus(
     vault?.state,
     new BigNumber(
       inLiquidation || vault === undefined ? 0 : vault?.informativeRatio
     ),
-    new BigNumber(vault === undefined ? 0 : vault?.loanScheme.minColRatio),
-    new BigNumber(inLiquidation || vault === undefined ? 0 : vault?.loanValue),
-    new BigNumber(
-      inLiquidation || vault === undefined ? 0 : vault?.collateralValue
-    )
+    minColRatio,
+    totalLoanAmount,
+    totalCollateralValue
   );
   const nextCollateralizationRatio = useNextCollateralizationRatio(
     inLiquidation || vault === undefined ? [] : vault.collateralAmounts,
@@ -278,6 +286,14 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
           onBorrowPressed={onBorrowPressed}
           onPayPressed={onPayPressed}
           onEditPressed={onEditPressed}
+        />
+        <VaultDetailSummary
+          maxLoanAmount="0"
+          totalCollateral={totalCollateralValue}
+          totalLoan={totalLoanAmount}
+          vaultId={vaultId}
+          interest={vault?.loanScheme?.interestRate}
+          minColRatio={vault?.loanScheme?.minColRatio}
         />
 
         <CloseVaultButton
