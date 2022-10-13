@@ -32,9 +32,9 @@ export function CollateralizationRatioDisplayV2(
     new BigNumber(props.collateralizationRatio).isNaN() ||
     !new BigNumber(props.collateralizationRatio).isFinite();
 
-  const normalizedNextFactor = new BigNumber(
-    props.collateralizationRatio
-  ).dividedBy(maxRatio);
+  const normalizedNextFactor = isInvalidCollateralRatio
+    ? new BigNumber(props.collateralAmounts.length > 0 ? 1 : 0)
+    : new BigNumber(props.collateralizationRatio).dividedBy(maxRatio);
 
   const stats = useCollateralRatioStats({
     colRatio: new BigNumber(props.collateralizationRatio),
@@ -102,13 +102,7 @@ export function CollateralizationRatioDisplayV2(
       {props.showProgressBar && (
         <View style={tailwind("mt-2.5")}>
           <Progress.Bar
-            progress={
-              isInvalidCollateralRatio
-                ? props.collateralAmounts.length > 0
-                  ? 1
-                  : 0
-                : normalizedNextFactor.toNumber()
-            }
+            progress={normalizedNextFactor.toNumber()}
             color={getColor(
               isInvalidCollateralRatio && props.collateralAmounts.length > 0
                 ? "green-v2"
