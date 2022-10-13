@@ -1263,7 +1263,6 @@
     "Search vault": "Search vault",
     "Search with vault ID": "Search with vault ID",
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
-    "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
     "Decentralized tokens": "Decentralized tokens",
     "With vaults, you gain access to a rich economy of decentralized tokens.": "With vaults, you gain access to a rich economy of decentralized tokens.",
     "Next": "Next",
@@ -1276,7 +1275,8 @@
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain.",
     "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
     "Search available loan tokens": "Search available loan tokens",
-    "Edit Vault": "Edit Vault"
+    "Edit Vault": "Edit Vault",
+    "Confirm": "确认"
   },
   "components/tabs": {
     "Browse loan tokens": "浏览贷款选项",
@@ -1455,7 +1455,10 @@
     "Borrow": "Borrow",
     "Liquidated vault": "已清算金库",
     "Ready": "准备好",
-    "Halted": "已暂停"
+    "Halted": "已暂停",
+    "Total loans": "贷款总金额",
+    "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
+    "Create a vault": "Create a vault"
   },
   "components/EmptyVault": {
     "No vaults": "No vaults",
@@ -1797,7 +1800,7 @@
     "Prev. interest": "Prev. interest",
     "New min. collateral ratio": "New min. collateral ratio",
     "New vault interest": "New vault interest",
-    "Transaction fee": "Transaction fee"
+    "Transaction fee": "交易費用"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "最低抵押率",
@@ -2039,5 +2042,9 @@
   "components/PriceOracleInfo": {
     "All prices displayed are from price oracles.": "All prices displayed are from price oracles.",
     "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles."
+  },
+  "components/BottomSheetLoanTokensList": {
+    "% interest": "% interest",
+    "Select Token": "Select Token"
   }
 }

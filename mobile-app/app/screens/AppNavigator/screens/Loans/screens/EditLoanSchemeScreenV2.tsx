@@ -272,11 +272,14 @@ function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
                   style={tailwind("text-sm font-semibold-v2")}
                 >
                   {vault.informativeRatio === "-1"
-                    ? translate("screens/VaultCard", "{{status}}", {
-                        status:
-                          vaultState.status.charAt(0).toUpperCase() +
-                          vaultState.status.slice(1).toLowerCase(),
-                      })
+                    ? translate(
+                        "components/VaultCard",
+                        `${vaultState.status
+                          .charAt(0)
+                          .toUpperCase()}${vaultState.status
+                          .slice(1)
+                          .toLowerCase()}`
+                      )
                     : `${val}%`}
                 </ThemedTextV2>
               )}
