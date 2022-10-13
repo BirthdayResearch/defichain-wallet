@@ -148,7 +148,10 @@ export const BottomSheetLoanTokensList = ({
               light={tailwind("text-mono-light-v2-900")}
               dark={tailwind("text-mono-dark-v2-900")}
             >
-              {translate("screens/SwapTokenSelectionScreen", "Select Token")}
+              {translate(
+                "components/BottomSheetLoanTokensList",
+                "Select Token"
+              )}
             </ThemedTextV2>
             <SearchInputV2
               testID="loan_search_input"
@@ -156,8 +159,8 @@ export const BottomSheetLoanTokensList = ({
               value={searchString}
               showClearButton={searchString !== ""}
               placeholder={translate(
-                "screens/LoansScreen",
-                "Search token name"
+                "components/BottomSheetLoanTokensList",
+                "Search with token name"
               )}
               containerStyle={tailwind([
                 "border-0.5",
@@ -194,9 +197,12 @@ export const BottomSheetLoanTokensList = ({
                   testID="empty_search_result_text"
                 >
                   {searchString.trim() === ""
-                    ? translate("screens/LoansScreen", "Search with token name")
+                    ? translate(
+                        "components/BottomSheetLoanTokensList",
+                        "Search with token name"
+                      )
                     : translate(
-                        "screens/LoansScreen",
+                        "components/BottomSheetLoanTokensList",
                         "Search results for “{{searchTerm}}”",
                         { searchTerm: searchString }
                       )}

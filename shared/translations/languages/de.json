@@ -1272,7 +1272,8 @@
     "Loan tokens get their prices from oracles.": "Darlehenstoken erhalten ihre Preise von Preisorakeln.",
     "Search available loan tokens": "Verfügbare Darlehenstoken suchen",
     "Edit Vault": "Vault bearbeiten",
-    "Confirm": "Bestätigen"
+    "Confirm": "Bestätigen",
+    "Search with token name": "Suche über den Token-Namen"
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehenstoken",
@@ -2035,6 +2036,8 @@
   },
   "components/BottomSheetLoanTokensList": {
     "% interest": "% Zinsen",
-    "Select Token": "Token auswählen"
+    "Select Token": "Token auswählen",
+    "Search with token name": "Suche über den Token-Namen",
+    "Search results for “{{searchTerm}}”": "Suchergebnisse für “{{searchTerm}}”"
   }
 }
