@@ -36,16 +36,22 @@ export function secondsToTimeAgo(d: number): string {
   return display;
 }
 
-function secondsToDhm(s: number): { d: number; h: number; m: number } {
+function secondsToDhm(s: number): {
+  d: number;
+  h: number;
+  m: number;
+  s: number;
+} {
   return {
     d: Math.floor(s / (3600 * 24)),
     h: Math.floor((s % (3600 * 24)) / 3600),
     m: Math.floor(((s % (3600 * 24)) % 3600) / 60),
+    s: s % 60,
   };
 }
 
-export function secondsToDhmsDisplay(s: number): string {
-  const { d, h, m } = secondsToDhm(s);
+export function secondsToDhmsDisplay(seconds: number): string {
+  const { d, h, m, s } = secondsToDhm(seconds);
   const dDisplay =
     d > 0 ? translate("components/BatchCard", " {{d}}d", { d }) : "";
   const hDisplay =
@@ -61,9 +67,9 @@ export function secondsToDhmsDisplay(s: number): string {
         })
       : "";
   const sDisplay =
-    s > 0
+    seconds > 0
       ? translate("components/BatchCard", " {{s}}s", {
-          s: m > 0 ? padStart(m.toString(), 2, "0") : s,
+          s: m > 0 ? padStart(s.toString(), 2, "0") : seconds,
         })
       : "";
   return `${dDisplay}${hDisplay}${mDisplay}${sDisplay}`;

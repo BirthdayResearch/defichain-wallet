@@ -8,6 +8,7 @@ export interface BottomSheetAlertInfoV2 {
   title: string;
   message: string;
 }
+
 interface BottomSheetInfoV2Props {
   name?: string;
   alertInfo?: BottomSheetAlertInfoV2;
@@ -45,11 +46,11 @@ export function BottomSheetInfoV2({
       handleComponent={EmptyHandleComponent}
       enableScroll={false}
     >
-      <View style={tailwind("px-6 pt-4")}>
+      <View style={tailwind("px-5 pt-4")}>
         <ThemedViewV2
           light={tailwind("border-mono-light-v2-300")}
           dark={tailwind("border-mono-dark-v2-300")}
-          style={tailwind("flex-row mb-2 py-5 border-b-0.5")}
+          style={tailwind("flex-row py-5 border-b-0.5")}
         >
           <ThemedTextV2
             style={tailwind("pr-10 text-xl font-normal-v2")}

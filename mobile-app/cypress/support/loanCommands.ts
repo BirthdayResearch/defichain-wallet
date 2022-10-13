@@ -156,19 +156,13 @@ declare global {
   }
 }
 
-Cypress.Commands.add(
-  "createVault",
-  (loanScheme: number = 0, hasExistingVault: boolean = false) => {
-    cy.getByTestID("bottom_tab_loans").click();
-    cy.getByTestID(
-      hasExistingVault ? "create_vault_header_button" : "button_create_vault"
-    ).click();
-    cy.getByTestID(`loan_scheme_option_${loanScheme}`).click();
-    cy.getByTestID("create_vault_submit_button").click().wait(1000);
-    cy.getByTestID("button_confirm_create_vault").click().wait(3000);
-    cy.closeOceanInterface();
-  }
-);
+Cypress.Commands.add("createVault", (loanScheme: number = 0) => {
+  cy.getByTestID("bottom_tab_loans").click();
+  cy.getByTestID("button_create_vault").click();
+  cy.getByTestID(`loan_scheme_option_${loanScheme}`).click();
+  cy.getByTestID("create_vault_submit_button").click().wait(3000);
+  cy.closeOceanInterface();
+});
 
 Cypress.Commands.add("addCollateral", (amount: string, symbol: string) => {
   cy.getByTestID("add_collateral_button").click();
@@ -209,7 +203,9 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.add("takeLoan", (amount: string, symbol: string) => {
-  cy.getByTestID(`loan_card_${symbol}`).click();
+  cy.getByTestID(
+    `loans_action_button_${symbol}_borrow_button_loans_cards`
+  ).click();
   cy.getByTestID("form_input_borrow").type(amount).blur();
   cy.getByTestID("borrow_loan_submit_button").click();
   cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);

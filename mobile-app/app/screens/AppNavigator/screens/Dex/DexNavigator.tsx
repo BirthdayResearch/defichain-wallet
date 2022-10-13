@@ -1,4 +1,8 @@
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import {
+  NavigationProp,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { createStackNavigator } from "@react-navigation/stack";
 import BigNumber from "bignumber.js";
@@ -7,9 +11,6 @@ import { translate } from "@translations";
 import { WalletToken } from "@store/wallet";
 import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Platform, StyleProp, ViewStyle } from "react-native";
-import { ThemedTextV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import {
   SelectionToken,
@@ -17,6 +18,7 @@ import {
   TokenListType,
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { PriceRateProps as PriceRatesPropsV2 } from "@components/PricesSectionV2";
+import { useNavigatorHeaderStylesOption } from "@screens/AppNavigator/hooks/useNavigatorHeaderStylesOption";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { ConversionParam } from "../Portfolio/PortfolioNavigator";
 import {
@@ -152,7 +154,11 @@ export function DexNavigator(): JSX.Element {
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreen");
   };
-  const insets = useSafeAreaInsets();
+
+  const dexScreenHeaderTitle = useNavigatorHeaderStylesOption({
+    destination: "screen/DexScreen",
+    headerTitle: "Decentralized \nExchange",
+  });
 
   return (
     <DexStack.Navigator
@@ -168,40 +174,7 @@ export function DexNavigator(): JSX.Element {
         name="DexScreen"
         options={{
           ...screenOptions,
-          headerLeft: undefined,
-          headerLeftContainerStyle: null,
-          headerTitleAlign: "left",
-          headerTitleContainerStyle: tailwind("mt-4 ml-5"),
-          headerRightContainerStyle: [
-            screenOptions.headerRightContainerStyle,
-            tailwind("mt-5 justify-start", { "pr-3": Platform.OS === "web" }),
-          ],
-          headerStyle: [
-            screenOptions.headerStyle,
-            tailwind("rounded-b-none border-b-0"),
-            {
-              shadowOpacity: 0,
-              height: (Platform.OS !== "android" ? 88 : 96) + insets.top,
-            },
-          ],
-          headerTitle: () => (
-            <ThemedTextV2
-              style={[
-                screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
-                tailwind("text-left text-3xl font-semibold-v2"),
-                // eslint-disable-next-line react-native/no-inline-styles
-                { fontSize: 28 },
-              ]}
-            >
-              {translate("screens/DexScreen", "Decentralized \nExchange")}
-            </ThemedTextV2>
-          ),
-          headerRight: () => (
-            <HeaderNetworkStatus
-              onPress={goToNetworkSelect}
-              containerStyle={tailwind({ "pt-px": Platform.OS === "android" })}
-            />
-          ),
+          ...dexScreenHeaderTitle,
         }}
       />
 

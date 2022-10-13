@@ -64,6 +64,10 @@ import { useToast } from "react-native-toast-notifications";
 import { useDisplayUtxoWarning } from "@hooks/wallet/DisplayUtxoWarning";
 import { DEXIcon as SwapTokenButton } from "@screens/WalletNavigator/assets/BottomNavIcon";
 import {
+  TokenDropdownButton,
+  TokenDropdownButtonStatus,
+} from "@components/TokenDropdownButton";
+import {
   Announcement,
   AnnouncementBannerV2,
 } from "../../Portfolio/components/Announcements";
@@ -75,20 +79,16 @@ import {
   ButtonGroupTabKey,
   SwapButtonGroup,
 } from "./components/SwapButtonGroup";
-import {
-  TokenDropdownButton,
-  TokenDropdownButtonStatus,
-} from "./components/TokenDropdownButton";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import {
   SlippageError,
   SlippageTolerance,
 } from "./components/SlippageTolerance";
-import { BottomSheetSlippageInfo } from "./components/BottomSheetSlippageInfo";
 import { FutureSwapRowTo, InstantSwapRowTo } from "./components/SwapRowTo";
 import { SwapSummary } from "./components/SwapSummary";
 import { getPrecisedCurrencyValue } from "../../Auctions/helpers/precision-token-value";
 import { useSlippageTolerance } from "../hook/SlippageTolerance";
+import { BottomSheetModalInfo } from "../../../../../components/BottomSheetModalInfo";
 
 export interface TokenState {
   id: string;
@@ -327,12 +327,15 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
     },
     headerLeft: () => <></>,
   };
+  const title = "Slippage Tolerance";
+  const description =
+    "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.";
 
   const onBottomSheetSlippageSelect = (): void => {
     setBottomSheetScreen([
       {
         stackScreenName: "SlippageInfo",
-        component: BottomSheetSlippageInfo(),
+        component: BottomSheetModalInfo({ title, description }),
         option: BottomSheetHeader,
       },
     ]);

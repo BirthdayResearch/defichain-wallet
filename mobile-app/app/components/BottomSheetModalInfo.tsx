@@ -5,12 +5,15 @@ import { translate } from "@translations";
 import { memo } from "react";
 import { Platform } from "react-native";
 
-export const BottomSheetSlippageInfo = (): React.MemoExoticComponent<
-  () => JSX.Element
-> =>
+interface BottomSheetProps {
+  title: string;
+  description: string;
+}
+
+export const BottomSheetModalInfo = (
+  props: BottomSheetProps
+): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
-    const description =
-      "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.";
     return (
       <ThemedViewV2
         style={tailwind(
@@ -33,7 +36,7 @@ export const BottomSheetSlippageInfo = (): React.MemoExoticComponent<
             style={tailwind("pl-1 text-xl font-normal-v2")}
             testID="view_pool_details_title"
           >
-            {translate("components/BottomSheetInfo", "Slippage Tolerance")}
+            {translate("components/BottomSheetInfo", props.title)}
           </ThemedTextV2>
         </View>
         <ThemedViewV2
@@ -42,7 +45,7 @@ export const BottomSheetSlippageInfo = (): React.MemoExoticComponent<
           light={tailwind("border-mono-light-v2-300")}
         >
           <ThemedTextV2 style={tailwind("mt-4 font-normal-v2")}>
-            {translate("components/BottomSheetInfo", description)}
+            {translate("components/BottomSheetInfo", props.description)}
           </ThemedTextV2>
         </ThemedViewV2>
       </ThemedViewV2>

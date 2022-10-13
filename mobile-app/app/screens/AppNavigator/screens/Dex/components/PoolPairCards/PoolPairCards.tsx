@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js";
 import { View } from "@components";
 import {
-  ThemedFlatListV2,
+  ThemedFlashList,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
 } from "@components/themed";
@@ -30,6 +30,7 @@ import { PoolSharesSection } from "@screens/AppNavigator/screens/Dex/components/
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { useToast } from "react-native-toast-notifications";
 import { useFavouritePoolpairContext } from "@contexts/FavouritePoolpairContext";
+import { Delayed } from "@components/Delayed";
 import { DexScrollable } from "../DexScrollable";
 import { TotalValueLocked } from "../TotalValueLocked";
 
@@ -130,7 +131,6 @@ export function PoolPairCards({
   }): JSX.Element => (
     <PoolCard
       index={index}
-      key={`${item.data.id}_${index}`}
       item={item}
       type={type}
       isFavouritePoolpair={isFavouritePoolpair}
@@ -143,15 +143,17 @@ export function PoolPairCards({
   );
 
   return (
-    <ThemedFlatListV2
+    <ThemedFlashList
       light={tailwind("bg-mono-light-v2-100")}
       dark={tailwind("bg-mono-dark-v2-100")}
       contentContainerStyle={tailwind("pb-4", { "pt-8": type === "your" })}
+      getItemType={(item: DexItem<WalletToken | PoolPairData>) => item.type}
       ref={ref}
       data={type === "your" ? filteredYourPairs : sortedPairs}
       numColumns={1}
-      windowSize={2}
-      initialNumToRender={5}
+      estimatedItemSize={
+        type === "your" ? filteredYourPairs.length : sortedPairs.length
+      }
       keyExtractor={(item) => item.data.id}
       testID={
         type === "your" ? "your_liquidity_tab" : "available_liquidity_tab"
@@ -164,8 +166,9 @@ export function PoolPairCards({
               <EmptyTokensScreen
                 icon={EmptyCryptoIcon}
                 containerStyle={tailwind("pt-14")}
+                testID="empty_pool_pair_screen"
                 title={translate("screens/DexScreen", "No favorites added")}
-                subTitle={translate(
+                subtitle={translate(
                   "screens/DexScreen",
                   "Tap the star icon to add your favorite pools here"
                 )}
@@ -280,44 +283,48 @@ function PoolCard({
     return <></>;
   }
   return (
-    <ThemedTouchableOpacityV2
-      style={tailwind("px-5 py-4 mb-2 rounded-lg-v2 mx-5")}
-      dark={tailwind("bg-mono-dark-v2-00")}
-      light={tailwind("bg-mono-light-v2-00")}
-      testID={type === "your" ? "pool_pair_row_your" : "pool_pair_row"}
-      onPress={() => onPress(item.data.id)}
-    >
-      <View testID={`pool_pair_row_${index}_${mappedPair.displaySymbol}`}>
-        {type === "available" ? (
-          <AvailablePool
-            symbolA={symbolA}
-            symbolB={symbolB}
-            pair={mappedPair}
-            onSwap={() => onSwap(mappedPair, yourPair as WalletToken)}
-            aToBPrice={priceRates.aToBPrice}
-            bToAPrice={priceRates.bToAPrice}
-            isFavouritePair={isFavoritePair}
-            setFavouritePoolpair={setFavouritePoolpair}
-            status={mappedPair.status}
-          />
-        ) : (
-          <YourPoolPair
-            symbolA={symbolA}
-            symbolB={symbolB}
-            walletToken={yourPair as WalletToken}
-            poolPair={mappedPair}
-            onAdd={() => onAdd(mappedPair, yourPair as WalletToken)}
-            onRemove={() => onRemove(mappedPair, yourPair as WalletToken)}
-            walletTokenAmount={new BigNumber((yourPair as WalletToken).amount)}
-            walletTokenPrice={getTokenPrice(
-              yourPair.symbol,
-              new BigNumber((yourPair as WalletToken).amount),
-              true
-            )}
-          />
-        )}
-      </View>
-    </ThemedTouchableOpacityV2>
+    <Delayed waitBeforeShow={0}>
+      <ThemedTouchableOpacityV2
+        style={tailwind("px-5 py-4 mb-2 rounded-lg-v2 mx-5")}
+        dark={tailwind("bg-mono-dark-v2-00")}
+        light={tailwind("bg-mono-light-v2-00")}
+        testID={type === "your" ? "pool_pair_row_your" : "pool_pair_row"}
+        onPress={() => onPress(item.data.id)}
+      >
+        <View testID={`pool_pair_row_${index}_${mappedPair.displaySymbol}`}>
+          {type === "available" ? (
+            <AvailablePool
+              symbolA={symbolA}
+              symbolB={symbolB}
+              pair={mappedPair}
+              onSwap={() => onSwap(mappedPair, yourPair as WalletToken)}
+              aToBPrice={priceRates.aToBPrice}
+              bToAPrice={priceRates.bToAPrice}
+              isFavouritePair={isFavoritePair}
+              setFavouritePoolpair={setFavouritePoolpair}
+              status={mappedPair.status}
+            />
+          ) : (
+            <YourPoolPair
+              symbolA={symbolA}
+              symbolB={symbolB}
+              walletToken={yourPair as WalletToken}
+              poolPair={mappedPair}
+              onAdd={() => onAdd(mappedPair, yourPair as WalletToken)}
+              onRemove={() => onRemove(mappedPair, yourPair as WalletToken)}
+              walletTokenAmount={
+                new BigNumber((yourPair as WalletToken).amount)
+              }
+              walletTokenPrice={getTokenPrice(
+                yourPair.symbol,
+                new BigNumber((yourPair as WalletToken).amount),
+                true
+              )}
+            />
+          )}
+        </View>
+      </ThemedTouchableOpacityV2>
+    </Delayed>
   );
 }
 

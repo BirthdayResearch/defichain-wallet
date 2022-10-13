@@ -2,13 +2,15 @@ import { EnvironmentNetwork } from "@environment";
 import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import dayjs from "dayjs";
 import BigNumber from "bignumber.js";
-import { secondsToHmDisplay } from "../helpers/SecondstoHm";
+import { secondsToDhmsDisplay } from "../helpers/SecondstoHm";
 
 interface AuctionTimeLeft {
   timeRemaining: string;
   startTime: string;
   blocksRemaining: number;
   blocksPerAuction: number;
+  normalizedBlocks: BigNumber;
+  timeRemainingThemedColor: string;
 }
 
 export function useAuctionTime(
@@ -31,10 +33,13 @@ export function useAuctionTime(
     0
   ).toNumber();
   const timeSpent = blocksPerAuction - blocksRemaining;
+  const normalizedBlocks = new BigNumber(blocksRemaining).dividedBy(
+    blocksPerAuction
+  );
   return {
     timeRemaining:
       blocksRemaining > 0
-        ? secondsToHmDisplay(blocksRemaining * secondsPerBlock)
+        ? secondsToDhmsDisplay(blocksRemaining * secondsPerBlock)
         : "",
     startTime:
       timeSpent > 0
@@ -42,7 +47,13 @@ export function useAuctionTime(
             .subtract(timeSpent * secondsPerBlock, "s")
             .format("LT")
         : "",
+    timeRemainingThemedColor: normalizedBlocks.gt(0.5)
+      ? "green-v2"
+      : normalizedBlocks.gt(0.25)
+      ? "orange-v2"
+      : "red-v2",
     blocksRemaining,
     blocksPerAuction,
+    normalizedBlocks,
   };
 }

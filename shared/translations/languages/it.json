@@ -297,7 +297,7 @@
     "Converting": "Converting",
     "Converted": "Converted",
     "Transaction fee": "Transaction fee",
-    "Amount to convert": "Amount to convert",
+    "Amount to convert": "Importo da convertire",
     "Send": "Send",
     "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Sending {{amount}} {{displaySymbol}} to {{toAddress}}",
     "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds."
@@ -520,6 +520,9 @@
     "About Auctions": "About Auctions",
     "Auctions": "Aste",
     "FREQUENTLY ASKED QUESTIONS": "DOMANDE FREQUENTI",
+    "How do I know the status of my bid after an auction ends?": "How do I know the status of my bid after an auction ends?",
+    "For successful bidders, bid amount will be deducted, and rewards will be automatically reflect under the Portfolio page.": "For successful bidders, bid amount will be deducted, and rewards will be automatically reflect under the Portfolio page.",
+    "For unsuccessful bidders, the bidding amount will be returned automatically to your wallet once you have been outbid by another user.": "For unsuccessful bidders, the bidding amount will be returned automatically to your wallet once you have been outbid by another user.",
     "Auction is an activity where users bid on the collateral in liquidated vaults to recover the vaults' outstanding loans. Liquidation occurs when a vault's collateralization ratio falls below its minimum requirement, upon which the vault collateral will be split into batches of $10,000 USD for auction.": "L'asta è un'attività in cui gli utenti fanno offerte sul collaterale nei vault liquidati per recuperare i prestiti in sospeso dei vault. La liquidazione avviene quando il rapporto di collateralizzazione di un vault scende al di sotto del suo requisito minimo, dopo di che il collaterale del vault sarà diviso in lotti di 10.000 USD per l'asta.",
     "How is the minimum starting bid determined?": "Come viene determinata l'offerta minima di partenza?",
     "The minimum starting bid is 105% of the batch's outstanding loan value. The additional 5% is included to cover the liquidation penalty, which is incurred upon vault liquidation.": "L'offerta minima di partenza è il 105% del valore del prestito in essere. L'addizionale 5% è previsto per coprire la penalità di liquidazione, che viene sostenuta al momento della liquidazione del vault.",
@@ -780,7 +783,7 @@
     "Processing loan payment…": "Processing loan payment…",
     "Payment completed": "Payment completed",
     "Preparing to create vault…": "Preparing to create vault…",
-    "Creating vault…": "Creating vault…",
+    "Creating vault": "Creating vault",
     "Vault created": "Vault created",
     "Preparing to place bid…": "Preparing to place bid…",
     "Placing bid…": "Placing bid…",
@@ -809,7 +812,9 @@
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Removing {{amount}} {{symbol}} from liquidity pool",
     "Paying back loan amount of {{amount}} DUSD": "Paying back loan amount of {{amount}} DUSD",
-    "Paid loan amount of {{amount}} DUSD": "Paid loan amount of {{amount}} DUSD"
+    "Paid loan amount of {{amount}} DUSD": "Paid loan amount of {{amount}} DUSD",
+    "Editing vault {{vaultId}}": "Editing vault {{vaultId}}",
+    "Edited vault {{vaultId}}": "Edited vault {{vaultId}}"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Richiesta di accesso alla fotocamera",
@@ -891,7 +896,7 @@
     "CONFIRM ADD LIQUIDITY": "CONFERMA AGGIUNTA DI LIQUIDITÀ",
     "Your LP Tokens": "Your LP Tokens",
     "You will receive LP tokens": "You will receive LP tokens",
-    "Amount to convert": "Amount to convert",
+    "Amount to convert": "Importo da convertire",
     "Transaction fee": "Transaction fee",
     "Resulting pool share": "Resulting pool share",
     "{{token}} to supply": "{{token}} to supply",
@@ -1277,10 +1282,28 @@
     "Borrow More": "Prendi in prestito di più",
     "Choose Loan Token to Borrow": "Scegli il token da prestare per avere il prestito",
     "Payback Loan": "Ripaga il prestito",
-    "Close Vault": "Chiudi il Vault"
+    "Close Vault": "Chiudi il Vault",
+    "Search vault": "Search vault",
+    "Search with vault ID": "Search with vault ID",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”",
+    "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
+    "Decentralized tokens": "Decentralized tokens",
+    "With vaults, you gain access to a rich economy of decentralized tokens.": "With vaults, you gain access to a rich economy of decentralized tokens.",
+    "Next": "Next",
+    "Done": "Done",
+    "Take control of your vault": "Take control of your vault",
+    "With a selected loan scheme, you control how much is required for your vault.": "With a selected loan scheme, you control how much is required for your vault.",
+    "Monitor your vaults": "Monitor your vaults",
+    "Keep your vaults healthy and green, by monitoring its collateralization.": "Keep your vaults healthy and green, by monitoring its collateralization.",
+    "Oracle prices": "Oracle prices",
+    "With oracles, your vaults and loans align with market prices outside the blockchain.": "With oracles, your vaults and loans align with market prices outside the blockchain.",
+    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
+    "Search available loan tokens": "Search available loan tokens",
+    "Edit Vault": "Edit Vault"
   },
   "components/tabs": {
     "Browse loan tokens": "Sfoglia i token in prestito",
+    "Borrow": "Borrow",
     "Your vaults": "I tuoi vault",
     "Active loan": "Prestito attivo",
     "Details": "Dettagli",
@@ -1298,8 +1321,9 @@
   "components/LoanCard": {
     "Active Price": "Prezzo attivo",
     "Next Price": "Prossimo prezzo",
-    "Interest": "Interesse",
-    "Price (USD)": "Prezzo (USD)"
+    "{{interestValue}} Interest": "{{interestValue}} Interesse",
+    "Price (USD)": "Prezzo (USD)",
+    "Borrow": "Borrow"
   },
   "components/InfoTextLink": {
     "Learn more about DFI": "Per saperne di più su DFI",
@@ -1307,21 +1331,44 @@
     "Learn more about vaults": "Per saperne di più sui Vault",
     "Learn more about vaults and loan schemes": "Per saperne di più su Vault e schemi di prestito",
     "Learn more about auctions and bidding": "Per saperne di più su aste e offerte",
-    "Learn about auctions": "Scoprire le aste"
+    "Learn about auctions": "Scoprire le aste",
+    "Learn more": "Learn more"
   },
   "components/EmptyBidsScreen": {
     "No active bids": "Nessuna offerta attiva",
     "To get started, browse on auctions and place a bid": "Per iniziare, naviga tra le aste e fai un'offerta"
   },
   "components/EmptyAuctions": {
-    "No ongoing auctions": "Nessuna asta in corso",
-    "Check again later for any ongoing auctions that you can participate": "Controlla di nuovo più tardi per eventuali aste in corso a cui puoi partecipare"
+    "No auctions": "No auctions",
+    "There are currently no collaterals available for auction.": "There are currently no collaterals available for auction.",
+    "No Outbid Auctions": "No Outbid Auctions",
+    "You have no outbids yet": "You have no outbids yet",
+    "No Leading Bids": "No Leading Bids",
+    "You have no leading bids yet": "You have no leading bids yet",
+    "No Active Bids": "No Active Bids",
+    "You have no active bids yet": "You have no active bids yet"
   },
   "screens/AuctionScreen": {
     "Auctions": "Aste",
+    "Bid": "Bid",
     "Place Bid": "Piazza un'offerta",
     "Confirm Place Bid": "Conferma l'offerta",
-    "Auction details": "Dettagli dell'asta"
+    "Confirm": "Conferma",
+    "Auction details": "Dettagli dell'asta",
+    "Auction Details": "Dettagli Dell'asta",
+    "COLLATERALS": "COLLATERALS",
+    "Sort Auctions": "Sort Auctions",
+    "Least time left": "Least time left",
+    "Most time left": "Most time left",
+    "Highest value": "Highest value",
+    "Lowest value": "Lowest value",
+    "Sort by": "Sort by",
+    "All auctions": "All auctions",
+    "Your active bids": "Your active bids",
+    "Your leading bids": "Your leading bids",
+    "Outbid": "Outbid",
+    "Search for auctions using collateral token names i.e. DFI DUSD dBTC.": "Search for auctions using collateral token names i.e. DFI DUSD dBTC.",
+    "Search results for “{{input}}”": "Search results for “{{input}}”"
   },
   "components/AuctionDetailScreen": {
     "Collateral": "Collaterali",
@@ -1337,7 +1384,14 @@
     "Total auction value (USDT):": "Valore totale dell'asta (USDT):",
     "PLACE BID": "PIAZZA L'OFFERTA",
     "Batch #{{index}}": "Lotto #{{index}}",
-    "Min. starting bid": "Offerta minima di partenza"
+    "Min. starting bid": "Offerta minima di partenza",
+    "Bid": "Bid",
+    "Collaterals": "Collaterali",
+    "Total value": "Total value",
+    "Time remaining": "Time remaining",
+    "No time remaining": "No time remaining",
+    "Bid History ({{bidHistoryCount}})": "Storia delle offerte ({{bidHistoryCount}})",
+    "Auction closed": "Auction closed"
   },
   "components/BatchCard": {
     "Latest bid": "Ultima offerta",
@@ -1352,7 +1406,8 @@
     "Min. next bid": "Min. prossima offerta",
     "You are the highest bidder": "Sei il miglior offerente",
     "From your vault": "Dal tuo vault",
-    "Waiting for first bid": "In attesa della prima offerta"
+    "Waiting for first bid": "In attesa della prima offerta",
+    "Quick bid": "Offerta rapida"
   },
   "components/BatchHistory": {
     "{{h}}h {{m}}m ago": "{{h}}h {{m}}m fa",
@@ -1372,15 +1427,20 @@
   "components/BidHistory": {
     "Bidder ID": "ID offerente",
     "BID #{{bidIndex}}": "Offerta #{{bidIndex}}",
+    "BID#{{bidIndex}}": "Offerta#{{bidIndex}}",
     "Waiting for first bid": "In attesa della prima offerta",
     "{{h}}{{m}} ago": "{{h}}{{m}} fa",
-    "Minimum amount to bid is": "L'importo minimo da offrire è"
+    "Minimum amount to bid is": "L'importo minimo da offrire è",
+    "ALL BIDS": "ALL BIDS",
+    "(Yours)": "(Yours)",
+    "Bid History": "Storia delle Offerte"
   },
   "components/AuctionTimeProgress": {
     "Auction ends in": "L'asta termina in",
     "Auction time left": "Tempo rimanente dell'asta",
     "{{block}} blks": "{{block}} Blocco",
     "~{{time}} left": "~{{time}} rimasto",
+    "{{time}} left": "{{time}} rimasto",
     "Auction time remaining": "Tempo rimanente dell'asta"
   },
   "components/VaultCard": {
@@ -1410,9 +1470,20 @@
     "IN LIQUIDATION": "IN LIQUIDAZIONE",
     "EMPTY": "VUOTO",
     "READY": "PRONTO",
-    "EDIT COLLATERAL": "MODIFICA I COLLATERALI"
+    "EDIT COLLATERAL": "MODIFICA I COLLATERALI",
+    "Add Collateral": "Add Collateral",
+    "Add collateral to borrow": "Add collateral to borrow",
+    "Loan available": "Loan available",
+    "Total collateral": "Total collateral",
+    "Borrow": "Borrow",
+    "Liquidated vault": "Liquidated vault",
+    "Ready": "Ready",
+    "Halted": "Halted"
   },
   "components/EmptyVault": {
+    "No vaults": "No vaults",
+    "Get started with loans. Create a vault for your collaterals.": "Get started with loans. Create a vault for your collaterals.",
+    "Create a vault": "Create a vault",
     "No vault created": "Nessun vault creato",
     "To get started, create a vault and add DFI and other tokens as collateral": "Per iniziare, crea un vault e aggiungi DFI e altri token come collaterale",
     "CREATE VAULT": "CREA UN VAULT"
@@ -1427,7 +1498,18 @@
     "CONTINUE": "CONTINUA",
     "Confirm your vault details in next screen": "Conferma i dettagli del tuo vault nella prossima schermata",
     "Loan scheme of your vault determines the required collateralization of your vault for loans.": "Lo schema di prestito del vault determina la collateralizzazione richiesta del vault per i prestiti.",
-    "Min. collateralization ratio": "Minimo rapporto di collateralizzazione"
+    "Min. collateralization ratio": "Minimo rapporto di collateralizzazione",
+    "Select a loan scheme for your vault.": "Select a loan scheme for your vault.",
+    "Continue": "Continua",
+    "Create vault": "Crea un vault",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "Monitor your vault’s collateralization to prevent liquidation.": "Monitor your vault’s collateralization to prevent liquidation.",
+    "Transaction fee": "Transaction fee",
+    "Vault fee": "Commissione per il Vault",
+    "Vault Fee": "Commissione per il Vault",
+    "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.": "Vault fee will be used to create a new vault. After the vault is successfully closed, half of the fee deposited will be returned to your wallet, with the remaining half burned.",
+    "Amount to convert": "Importo da convertire",
+    "Creating vault": "Creazione del vault"
   },
   "screens/ConfirmCreateVaultScreen": {
     "You are creating vault": "Stai creando un vault",
@@ -1467,7 +1549,10 @@
     "Slippage tolerance": "Tolleranza di slippage",
     "Slippage Tolerance": "Tolleranza di slippage",
     "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "Lo slippage è una differenza di prezzo che si verifica durante una negoziazione su DEX. Scegli la percentuale di slippage che sei disposto ad accettare.",
-    "Settlements": "Settlements"
+    "Settlements": "Settlements",
+    "Price Oracles": "Price Oracles",
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.",
+    "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)": "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)"
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "Vault ID",
@@ -1707,8 +1792,14 @@
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "MODIFICA LO SCHEMA DI PRESTITO DEL VAULT",
     "Make sure your collateralization ratio is still above your min. collateralization ratio": "Assicuratevi che il vostro rapporto di collateralizzazione sia ancora al di sopra del vostro rapporto di minimo collateralizzazione ",
-    "CONTINUE": "CONTINUA",
-    "Confirm your vault details in next screen": "Conferma i dettagli del tuo vault nella prossima schermata"
+    "Continue": "Continua",
+    "Confirm your vault details in next screen": "Conferma i dettagli del tuo vault nella prossima schermata",
+    "AVAILABLE SCHEMES": "AVAILABLE SCHEMES",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "VAULT DETAILS": "DETTAGLI DEI VAULT",
+    "{{interestRate}}% Interest": "{{interestRate}}% Interest",
+    "min. ": "min. ",
+    "You can only select a scheme lower than your vault's current collateralization.": "You can only select a scheme lower than your vault's current collateralization."
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "Stai modificando lo schema del vault",
@@ -1722,12 +1813,22 @@
     "CONFIRM EDIT": "CONFERMA MODIFICA",
     "EDITING": "MODIFICA",
     "CONVERTING": "CONVERTI",
-    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Aggiornamento del vault al rapporto minimo di collateralizzazione di {{mincolRatio}}% e al tasso di interesse di {{ir}}%"
+    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Aggiornamento del vault al rapporto minimo di collateralizzazione di {{mincolRatio}}% e al tasso di interesse di {{ir}}%",
+    "Edit": "Edit",
+    "You are editing loan scheme of": "You are editing loan scheme of",
+    "Prev. min. collateral ratio": "Prev. min. collateral ratio",
+    "Prev. interest": "Prev. interest",
+    "New min. collateral ratio": "New min. collateral ratio",
+    "New vault interest": "New vault interest",
+    "Transaction fee": "Transaction fee"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Rapporto minimo di collateralizzazione",
     "Interest rate": "Tasso di interesse",
-    "APR": "APR"
+    "APR": "APR",
+    "Collateralization": "Collateralization",
+    "Vault interest": "Interesse del vault",
+    "Min. collateral ratio": "Min. collateral ratio"
   },
   "screens/BorrowMoreScreen": {
     "YOU ARE BORROWING MORE FOR LOAN": "STAI PRENDENDO IN PRESTITO DI PIÙ PER IL PRESTITO",
@@ -1743,7 +1844,8 @@
     "Search for loans": "Cerca prestiti",
     "Search for loan token": "Cerca il token da prendere in prestito",
     "Search for pool pairs": "Ricerca di Pool-Pairs",
-    "Search pool pair": "Search pool pair"
+    "Search pool pair": "Search pool pair",
+    "Search auctions": "Search auctions"
   },
   "components/EmptyCollateral": {
     "No collateral": "Nessun collaterale",
@@ -1779,7 +1881,14 @@
     "Collateral": "Collaterali",
     "How much do you want to bid?": "Quanto vuoi offrire?",
     "The value of the tokens you are placing is considerably higher than the total auction value.": "Il valore dei token che stai piazzando è notevolmente superiore al valore totale dell'asta.",
-    "Collateral for auction": "Collaterali messi all'asta"
+    "Collateral for auction": "Collaterali messi all'asta",
+    "I HAVE {{ownedAmount}} {{symbol}}": "I HAVE {{ownedAmount}} {{symbol}}",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Transaction fee": "Transaction fee",
+    "The minimum next bid is {{amount}} {{symbol}} (100%)": "The minimum next bid is {{amount}} {{symbol}} (100%)",
+    "{{percent}} min bid entered": "{{percent}} min bid entered",
+    "Insufficient balance": "Insufficient balance",
+    "Auction timeout": "Auction timeout"
   },
   "screens/ConfirmPlaceBidScreen": {
     "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
@@ -1788,14 +1897,22 @@
     "Bid amount to place": "Importo dell'offerta da piazzare",
     "AUCTION DETAILS": "DETTAGLI DELL'ASTA",
     "Total auction value (USDT)": "Valore totale dell'asta (USDT)",
+    "Total auction value": "Valore totale dell'asta",
     "Vault ID": "Vault-ID",
     "Vault owner ID": "VID del proprietario del vault",
-    "Liquidation Height": "Livello di liquidazione",
+    "Liquidation height": "Livello di liquidazione",
     "CONFIRM PLACE BID": "CONFERMA L'OFFERTA",
     "Sign Transaction": "Firma la transazione",
     "Placing {{amount}} {{token}} as bid for auction.": "Piazza {{amount}} {{token}} come offerta per l'asta.",
     "Collateral for auction": "Collaterali messi all'asta",
-    "Insufficient funds": "Fondi insufficienti"
+    "Insufficient funds": "Fondi insufficienti",
+    "You are bidding": "You are bidding",
+    "Amount will be deducted from your current wallet": "Amount will be deducted from your current wallet",
+    "Placing {{amount}} {{token}} bid": "Placing {{amount}} {{token}} bid",
+    "Preparing placing {{amount}} {{token}} bid": "Preparing placing {{amount}} {{token}} bid",
+    "Placed {{amount}} {{token}} bid": "Placed {{amount}} {{token}} bid",
+    "It may take a few seconds to verify": "It may take a few seconds to verify",
+    "Passcode verified!": "Passcode verified!"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Preleva",
@@ -1877,9 +1994,20 @@
     "QUICK BID": "OFFERTA RAPIDA",
     "Insufficient amount to place a bid": "Importo insufficiente per fare un'offerta",
     "Quick bid": "Offerta rapida",
+    "Quick Bid": "Offerta Rapida",
+    "Place a bid on the auction with the min. next bid": "Fai un'offerta all'asta con l'offerta minima successiva",
     "Min. next bid": "Min. prossima offerta",
     "Current balance": "Saldo corrente",
-    "Place a bid on the auction with the min. next bid": "Fai un'offerta all'asta con l'offerta minima successiva"
+    "Leading bid": "Leading bid",
+    "Quick rebid": "Quick rebid",
+    "Outbid": "Outbid",
+    "Min. bid": "Min. bid",
+    "Insufficient {{symbol}} balance": "Insufficient {{symbol}} balance",
+    "Placing {{amount}} {{token}} quick bid": "Placing {{amount}} {{token}} quick bid",
+    "Placed {{amount}} {{token}} quick bid": "Placed {{amount}} {{token}} quick bid",
+    "Available": "Disponibile",
+    "Transaction fee": "Transaction fee",
+    "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}": "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}"
   },
   "components/WalletAddressRow": {
     "Wallet address": "Indirizzo del wallet"
@@ -1926,5 +2054,9 @@
     "Payback with DUSD collateral": "Payback with DUSD collateral",
     "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?",
     "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral"
+  },
+  "components/PriceOracleInfo": {
+    "All prices displayed are from price oracles.": "All prices displayed are from price oracles.",
+    "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles."
   }
 }

@@ -1,5 +1,9 @@
-export const useNetworkContext = (): { network: string } => {
+export const useNetworkContext = (): {
+  network: string;
+  networkName: string;
+} => {
   return {
     network: "Playground",
+    networkName: "regtest",
   };
 };
