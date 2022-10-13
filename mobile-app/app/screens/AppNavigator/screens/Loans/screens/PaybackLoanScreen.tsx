@@ -187,6 +187,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
         vault,
         loanTokenAmount,
         resultingColRatio,
+        loanTokenActivePriceInUSD,
         amountToPay: new BigNumber(amountToPay),
         isPaybackDUSDUsingCollateral: routeParams.isPaybackDUSDUsingCollateral,
       },
@@ -516,7 +517,7 @@ function TransactionDetailsSection({
       <CollateralizationRatioDisplayV2
         collateralizationRatio={resultingColRatio.toFixed(8)}
         minCollateralizationRatio={vault.loanScheme.minColRatio}
-        collateralValue={collateralValue}
+        collateralValue={collateralValue.toFixed(8)}
         totalLoanAmount={vault.loanValue}
         testID="text_resulting_col_ratio"
         showProgressBar

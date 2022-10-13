@@ -33,7 +33,6 @@ import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { tokensSelector } from "@store/wallet";
 import { LoanParamList } from "../LoansNavigator";
 import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
-import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { getTokenAmount } from "../hooks/LoanPaymentTokenRate";
 
 type Props = StackScreenProps<LoanParamList, "ConfirmPaybackLoanScreen">;
@@ -48,6 +47,7 @@ export function ConfirmPaybackLoanScreen({
     loanTokenAmount,
     resultingColRatio,
     isPaybackDUSDUsingCollateral,
+    loanTokenActivePriceInUSD,
   } = route.params;
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
   const tokens = useSelector((state: RootState) =>
@@ -56,10 +56,6 @@ export function ConfirmPaybackLoanScreen({
   const token = tokens?.find((t) => t.id === loanTokenAmount.id);
   const tokenBalance =
     token != null ? getTokenAmount(token.id, tokens) : new BigNumber(0);
-  const loanTokenActivePriceInUSD = getActivePrice(
-    loanTokenAmount.symbol,
-    loanTokenAmount.activePrice
-  );
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
   );
