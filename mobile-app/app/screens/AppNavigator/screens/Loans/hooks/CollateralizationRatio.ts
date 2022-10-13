@@ -64,21 +64,6 @@ export function useCollateralizationRatioColor(
   return style;
 }
 
-export function useCollateralizationRatioColorV2(
-  props: CollateralizationRatioProps
-): string {
-  const stats = useCollateralRatioStats(props);
-  let ratioColor;
-  if (stats.isInLiquidation) {
-    ratioColor = "red-v2";
-  } else if (stats.isAtRisk) {
-    ratioColor = "orange-v2";
-  } else {
-    ratioColor = "green-v2";
-  }
-  return ratioColor;
-}
-
 export function useResultingCollateralizationRatioByCollateral({
   collateralValue,
   collateralRatio,
