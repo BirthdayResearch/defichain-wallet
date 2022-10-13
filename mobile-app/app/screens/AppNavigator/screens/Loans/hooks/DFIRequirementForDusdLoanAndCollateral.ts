@@ -52,16 +52,13 @@ export function useDFIRequirementForDusdLoanAndCollateral(
     props.collateralAmounts.find((col) => col.displaySymbol === "DFI")
       ?.amount ?? 0
   );
-  const isDFILessThanHalfOfRequiredCollateral = dfiCollateralValue
-    .multipliedBy(100)
-    .isLessThan(
-      new BigNumber(props.loanValue)
-        .plus(isTakingDUSDLoan ? props.newDUSDLoanAmount : 0)
-        .multipliedBy(props.minColRatio)
-        .dividedBy(2)
-    );
+  const isDFILessThanHalfOfRequiredCollateral = dfiCollateralValue.isLessThan(
+    new BigNumber(props.loanValue)
+      .plus(isTakingDUSDLoan ? props.newDUSDLoanAmount : 0)
+      .multipliedBy(props.minColRatio)
+      .dividedBy(2)
+  );
   return {
-    isDFILessThanHalfOfRequiredCollateral:
-      hasDUSDLoan && isDFILessThanHalfOfRequiredCollateral,
+    isDFILessThanHalfOfRequiredCollateral,
   };
 }

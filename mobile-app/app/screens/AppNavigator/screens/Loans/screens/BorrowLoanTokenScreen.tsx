@@ -139,9 +139,10 @@ export function BorrowLoanTokenScreen({
       loanValue: new BigNumber(vault.loanValue),
       loanToken: loanToken,
       minColRatio: vault.loanScheme.minColRatio,
-      newDUSDLoanAmount: new BigNumber(borrowAmount),
+      newDUSDLoanAmount: new BigNumber(borrowAmount).isNaN()
+        ? new BigNumber(0)
+        : new BigNumber(borrowAmount),
     });
-
   const { atRiskThreshold } = useColRatioThreshold(
     new BigNumber(vault.loanScheme.minColRatio)
   );
