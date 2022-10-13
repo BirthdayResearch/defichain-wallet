@@ -13,7 +13,6 @@ import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useEffect, useMemo, useState } from "react";
 import BigNumber from "bignumber.js";
-import { NumericFormat as NumberFormat } from "react-number-format";
 import { fetchVaults, loanTokensSelector, vaultsSelector } from "@store/loans";
 import {
   LoanToken,
@@ -48,10 +47,7 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { useToast } from "react-native-toast-notifications";
 import { useBottomSheet } from "@hooks/useBottomSheet";
-import {
-  useCollateralizationRatioColor,
-  useColRatioThreshold,
-} from "../hooks/CollateralizationRatio";
+import { useColRatioThreshold } from "../hooks/CollateralizationRatio";
 import { ActiveUSDValueV2 } from "../VaultDetail/components/ActiveUSDValueV2";
 import { LoanParamList } from "../LoansNavigator";
 import { BottomSheetVaultList } from "../components/BottomSheetVaultList";
@@ -147,13 +143,6 @@ export function BorrowLoanTokenScreen({
   const { atRiskThreshold } = useColRatioThreshold(
     new BigNumber(vault.loanScheme.minColRatio)
   );
-
-  const { light: resultingColRatioLight, dark: resultingColRatioDark } =
-    useCollateralizationRatioColor({
-      colRatio: resultingColRatio,
-      minColRatio: new BigNumber(vault.loanScheme.minColRatio),
-      totalLoanAmount: new BigNumber(vault.loanValue).plus(borrowAmount ?? 0),
-    });
 
   // Bottom sheet
   const bottomSheetVaultList = useMemo(() => {
@@ -294,11 +283,7 @@ export function BorrowLoanTokenScreen({
         type: ValidationMessageType.Error,
       });
     } else if (resultingColRatio.isLessThan(vault.loanScheme.minColRatio)) {
-      setInputValidationMessage({
-        message:
-          "Borrowing the amount entered will result in vault liquidation",
-        type: ValidationMessageType.Error,
-      });
+      setInputValidationMessage(undefined); // this error message is moved to below quick input
     } else if (resultingColRatio < atRiskThreshold) {
       setInputValidationMessage({
         message:
