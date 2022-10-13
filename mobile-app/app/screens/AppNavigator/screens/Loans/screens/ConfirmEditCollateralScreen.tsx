@@ -56,7 +56,7 @@ export function ConfirmEditCollateralScreen({
     isAdd,
     collateralItem,
     resultingColRatio,
-    updatedCollateralAmounts,
+    totalVaultCollateralValue,
     vaultShare,
     conversion,
   } = route.params;
@@ -312,7 +312,7 @@ export function ConfirmEditCollateralScreen({
           minCollateralizationRatio={vault.loanScheme.minColRatio}
           totalLoanAmount={vault.loanValue}
           testID="add_remove_collateral"
-          collateralAmounts={updatedCollateralAmounts}
+          collateralValue={totalVaultCollateralValue.toFixed(8)}
           customReadyText={translate(
             "screens/ConfirmEditCollateralScreen",
             "Ready for loan"

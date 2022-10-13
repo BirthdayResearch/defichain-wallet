@@ -73,7 +73,7 @@ export interface LoanParamList {
     isAdd: boolean;
     collateralItem: CollateralItem;
     resultingColRatio: BigNumber;
-    updatedCollateralAmounts: LoanVaultTokenAmount[];
+    totalVaultCollateralValue: BigNumber;
     vaultShare: BigNumber;
     conversion?: ConversionParam;
   };

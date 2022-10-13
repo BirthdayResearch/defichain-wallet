@@ -134,23 +134,6 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     collateralItem
   );
 
-  //   TODO (Lyka): Update collateral amounts for remove collateral
-  const updatedCollateralAmounts = [
-    ...vault.collateralAmounts,
-    ...(new BigNumber(collateralInputAmount).gt(0)
-      ? [
-          {
-            id: selectedCollateralItem.token.id,
-            amount: collateralAmount,
-            symbol: selectedCollateralItem.token.symbol,
-            displaySymbol: selectedCollateralItem.token.displaySymbol,
-            symbolKey: selectedCollateralItem.token.symbolKey,
-            name: selectedCollateralItem.token.name,
-          },
-        ]
-      : []),
-  ];
-
   // Vault collaterals value
   const currentVaultCollateralValue =
     new BigNumber(vault.collateralValue) ?? new BigNumber(0);
@@ -275,7 +258,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
         fee,
         collateralItem,
         resultingColRatio,
-        updatedCollateralAmounts,
+        totalVaultCollateralValue,
         vaultShare: collateralVaultShare,
         conversion: undefined,
         isAdd: true,
@@ -319,7 +302,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
         fee,
         collateralItem,
         resultingColRatio,
-        updatedCollateralAmounts,
+        totalVaultCollateralValue,
         vaultShare: collateralVaultShare,
         conversion: undefined,
         isAdd: false,
@@ -660,7 +643,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
               minCollateralizationRatio={vault.loanScheme.minColRatio}
               totalLoanAmount={vault.loanValue}
               testID="add_remove_collateral"
-              collateralAmounts={updatedCollateralAmounts}
+              collateralValue={totalVaultCollateralValue.toFixed(8)}
               showProgressBar
             />
           </View>
