@@ -59,10 +59,10 @@ export function VaultActionButtons({
 
   return (
     <View
-      style={tailwind("flex-1 flex-row items-center justify-center px-8 pt-6")}
+      style={tailwind("flex-1 flex-row items-center justify-center pt-6 px-5")}
     >
       {buttons.map((button) => (
-        <View style={tailwind("flex-1 flex-col items-center ")}>
+        <View style={tailwind("flex-1 flex-col items-center px-3")}>
           <ThemedTouchableOpacityV2
             onPress={button.onPress}
             style={tailwind("rounded-full p-4.5")}
