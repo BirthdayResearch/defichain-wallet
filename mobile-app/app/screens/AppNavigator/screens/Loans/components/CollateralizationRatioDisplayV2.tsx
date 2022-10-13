@@ -7,12 +7,11 @@ import { translate } from "@translations";
 import { useCollateralRatioStats } from "@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { Text, View } from "react-native";
-import { LoanVaultTokenAmount } from "@defichain/whale-api-client/dist/api/loan";
 
 interface CollateralizationRatioDisplayProps {
   collateralizationRatio: string;
   minCollateralizationRatio: string;
-  collateralAmounts: LoanVaultTokenAmount[];
+  collateralValue: string;
   totalLoanAmount: string;
   testID: string;
   showProgressBar?: boolean;
@@ -33,7 +32,7 @@ export function CollateralizationRatioDisplayV2(
     !new BigNumber(props.collateralizationRatio).isFinite();
 
   const normalizedNextFactor = isInvalidCollateralRatio
-    ? new BigNumber(props.collateralAmounts.length > 0 ? 1 : 0)
+    ? new BigNumber(new BigNumber(props.collateralValue).gt(0) ? 1 : 0)
     : new BigNumber(props.collateralizationRatio).dividedBy(maxRatio);
 
   const stats = useCollateralRatioStats({
@@ -65,7 +64,7 @@ export function CollateralizationRatioDisplayV2(
         </View>
         {isInvalidCollateralRatio ? (
           <>
-            {props.collateralAmounts.length > 0 ? (
+            {new BigNumber(props.collateralValue).gt(0) ? (
               <Text style={tailwind("text-sm font-normal-v2 text-green-v2")}>
                 {translate("components/CollateralizationRatioDisplay", "Ready")}
               </Text>
@@ -104,7 +103,8 @@ export function CollateralizationRatioDisplayV2(
           <Progress.Bar
             progress={normalizedNextFactor.toNumber()}
             color={getColor(
-              isInvalidCollateralRatio && props.collateralAmounts.length > 0
+              isInvalidCollateralRatio &&
+                new BigNumber(props.collateralValue).gt(0)
                 ? "green-v2"
                 : ratioTextColor
             )}
