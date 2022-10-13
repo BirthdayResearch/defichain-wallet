@@ -491,9 +491,7 @@ export function BorrowLoanTokenScreen({
             loanToken={loanToken}
             maxLoanAmount={maxLoanAmount}
             totalAnnualInterest={totalAnnualInterest}
-            resultingColRatio={
-              resultingColRatio.isNaN() ? new BigNumber(0) : resultingColRatio
-            }
+            resultingColRatio={resultingColRatio}
             borrowAmount={borrowAmount}
           />
         </View>
@@ -751,7 +749,7 @@ export function TransactionDetailsSection(
         totalLoanAmount={new BigNumber(props.vault.loanValue)
           .plus(props.borrowAmount)
           .toFixed(8)}
-        collateralAmounts={props.vault.collateralAmounts}
+        collateralValue={props.vault.collateralValue}
         testID="borrow_transaction_detail"
         showProgressBar
       />
