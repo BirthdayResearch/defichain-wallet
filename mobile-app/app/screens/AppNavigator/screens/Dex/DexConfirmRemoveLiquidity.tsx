@@ -94,8 +94,8 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
             onPress: async () => {
               navigation.navigate(
                 originScreen === DexScreenOrigin.Dex_screen
-                  ? "DexScreen"
-                  : "PortfolioScreen"
+                  ? DexScreenOrigin.Dex_screen
+                  : DexScreenOrigin.Portfolio_screen
               );
             },
           },
