@@ -7,12 +7,11 @@ import { translate } from "@translations";
 import { useCollateralRatioStats } from "@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { Text, View } from "react-native";
-import { LoanVaultTokenAmount } from "@defichain/whale-api-client/dist/api/loan";
 
 interface CollateralizationRatioDisplayProps {
   collateralizationRatio: string;
   minCollateralizationRatio: string;
-  collateralAmounts: LoanVaultTokenAmount[];
+  collateralValue: string;
   totalLoanAmount: string;
   testID: string;
   showProgressBar?: boolean;
@@ -27,10 +26,15 @@ export function CollateralizationRatioDisplayV2(
   const maxRatio = getMaxRatio(
     minColRatio.multipliedBy(atRiskThresholdMultiplier)
   );
-  // TODO (Harsh) need to check condition when collateralization Ratio goes to -ve and more than maxRatio
-  const normalizedNextFactor = new BigNumber(
-    props.collateralizationRatio
-  ).dividedBy(maxRatio);
+  const isInvalidCollateralRatio =
+    new BigNumber(props.collateralizationRatio).isLessThan(0) ||
+    new BigNumber(props.collateralizationRatio).isNaN() ||
+    !new BigNumber(props.collateralizationRatio).isFinite();
+
+  const normalizedNextFactor = isInvalidCollateralRatio
+    ? new BigNumber(new BigNumber(props.collateralValue).gt(0) ? 1 : 0)
+    : new BigNumber(props.collateralizationRatio).dividedBy(maxRatio);
+
   const stats = useCollateralRatioStats({
     colRatio: new BigNumber(props.collateralizationRatio),
     minColRatio: new BigNumber(props.minCollateralizationRatio),
@@ -58,9 +62,9 @@ export function CollateralizationRatioDisplayV2(
             )}
           </ThemedTextV2>
         </View>
-        {new BigNumber(props.collateralizationRatio).isLessThan(0) ? (
+        {isInvalidCollateralRatio ? (
           <>
-            {props.collateralAmounts.length > 0 ? (
+            {new BigNumber(props.collateralValue).gt(0) ? (
               <Text style={tailwind("text-sm font-normal-v2 text-green-v2")}>
                 {translate("components/CollateralizationRatioDisplay", "Ready")}
               </Text>
@@ -97,15 +101,10 @@ export function CollateralizationRatioDisplayV2(
       {props.showProgressBar && (
         <View style={tailwind("mt-2.5")}>
           <Progress.Bar
-            progress={
-              normalizedNextFactor.lt(0) &&
-              props.collateralizationRatio.length > 0
-                ? 1
-                : normalizedNextFactor.toNumber()
-            }
+            progress={normalizedNextFactor.toNumber()}
             color={getColor(
-              normalizedNextFactor.lt(0) &&
-                props.collateralizationRatio.length > 0
+              isInvalidCollateralRatio &&
+                new BigNumber(props.collateralValue).gt(0)
                 ? "green-v2"
                 : ratioTextColor
             )}
