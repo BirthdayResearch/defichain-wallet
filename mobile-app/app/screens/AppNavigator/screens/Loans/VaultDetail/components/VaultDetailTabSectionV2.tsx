@@ -1,4 +1,3 @@
-import { Tabs } from "@components/Tabs";
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
 import { LoanVault } from "@store/loans";
 import { useEffect, useState } from "react";
@@ -18,16 +17,8 @@ import {
 import { LoansTabV2 } from "./LoansTabV2";
 import { CollateralsTabV2 } from "./CollateralsTabV2";
 
-export enum TabKey {
-  Loans = "LOANS",
-  Details = "DETAILS",
-  Collaterals = "COLLATERAL",
-  Auctions = "AUCTIONS",
-}
-
 interface VaultDetailTabSectionProps {
   vault: LoanVault;
-  tab?: TabKey;
 }
 
 export function VaultDetailTabSectionV2({

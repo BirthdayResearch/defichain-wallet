@@ -1,15 +1,12 @@
 import {
   ThemedIcon,
   ThemedScrollViewV2,
-  ThemedText,
   ThemedTouchableOpacityV2,
-  ThemedView,
 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
 import { tailwind } from "@tailwind";
-import { translate } from "@translations";
 import { useEffect, useState } from "react";
-import { Platform, TouchableOpacity, View } from "react-native";
+import { Platform, View } from "react-native";
 import {
   fetchCollateralTokens,
   loanTokensSelector,
@@ -23,17 +20,9 @@ import {
   LoanVaultState,
 } from "@defichain/whale-api-client/dist/api/loan";
 import BigNumber from "bignumber.js";
-import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
-import { openURL } from "@api/linking";
-import {
-  useVaultStatus,
-  VaultStatusTag,
-} from "@screens/AppNavigator/screens/Loans/components/VaultStatusTag";
-import { CollateralizationRatioDisplay } from "@screens/AppNavigator/screens/Loans/components/CollateralizationRatioDisplay";
+import { useVaultStatus } from "@screens/AppNavigator/screens/Loans/components/VaultStatusTag";
 import { useNextCollateralizationRatio } from "@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio";
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
-import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
-import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useIsFocused } from "@react-navigation/native";
@@ -52,7 +41,6 @@ import { VaultDetailSummary } from "@screens/AppNavigator/screens/Loans/VaultDet
 import { useMaxLoanAmount } from "@screens/AppNavigator/screens/Loans/hooks/MaxLoanAmount";
 import { VaultDetailTabSectionV2 } from "./components/VaultDetailTabSectionV2";
 import { LoanParamList } from "../LoansNavigator";
-import { ScrollButton } from "../components/ScrollableButton";
 
 type Props = StackScreenProps<LoanParamList, "VaultDetailScreen">;
 

@@ -68,46 +68,52 @@ export function LoansTabV2(props: {
   const { vault, dismissModal, expandModal, setBottomSheetScreen } = props;
   return (
     <ThemedViewV2 style={tailwind("mx-5 mt-6")}>
-      <ThemedTextV2
-        light={tailwind("text-mono-light-v2-500")}
-        dark={tailwind("text-mono-dark-v2-500")}
-        style={tailwind("text-xs font-normal-v2 mb-2 px-5")}
-      >
-        {translate("screens/Loans", "LOANS")}
-      </ThemedTextV2>
-      {vault.state === LoanVaultState.IN_LIQUIDATION
-        ? vault.batches.map((batch) => (
-            <LoanCard
-              key={batch.loan.id}
-              symbol={batch.loan.id}
-              displaySymbol={batch.loan.displaySymbol}
-              amount={batch.loan.amount}
-              vaultState={LoanVaultState.IN_LIQUIDATION}
-              loanToken={batch.loan}
-              dismissModal={dismissModal}
-              expandModal={expandModal}
-              setBottomSheetScreen={setBottomSheetScreen}
-            />
-          ))
-        : vault.loanAmounts.map((loan) => (
-            <LoanCard
-              key={loan.id}
-              symbol={loan.symbol}
-              displaySymbol={loan.displaySymbol}
-              amount={loan.amount}
-              interestAmount={
-                vault.interestAmounts.find(
-                  (interest) => interest.symbol === loan.symbol
-                )?.amount
-              }
-              vaultState={vault.state}
-              vault={vault}
-              loanToken={loan}
-              dismissModal={dismissModal}
-              expandModal={expandModal}
-              setBottomSheetScreen={setBottomSheetScreen}
-            />
-          ))}
+      {vault.state === LoanVaultState.IN_LIQUIDATION &&
+        vault.batches.map((batch) => (
+          <LoanCard
+            key={batch.loan.id}
+            symbol={batch.loan.id}
+            displaySymbol={batch.loan.displaySymbol}
+            amount={batch.loan.amount}
+            vaultState={LoanVaultState.IN_LIQUIDATION}
+            loanToken={batch.loan}
+            dismissModal={dismissModal}
+            expandModal={expandModal}
+            setBottomSheetScreen={setBottomSheetScreen}
+          />
+        ))}
+
+      {vault.state !== LoanVaultState.IN_LIQUIDATION &&
+        vault.loanValue !== "0" && (
+          <ThemedTextV2
+            light={tailwind("text-mono-light-v2-500")}
+            dark={tailwind("text-mono-dark-v2-500")}
+            style={tailwind("text-xs font-normal-v2 mb-2 px-5")}
+          >
+            {translate("screens/Loans", "LOANS")}
+          </ThemedTextV2>
+        )}
+
+      {vault.state !== LoanVaultState.IN_LIQUIDATION &&
+        vault.loanAmounts.map((loan) => (
+          <LoanCard
+            key={loan.id}
+            symbol={loan.symbol}
+            displaySymbol={loan.displaySymbol}
+            amount={loan.amount}
+            interestAmount={
+              vault.interestAmounts.find(
+                (interest) => interest.symbol === loan.symbol
+              )?.amount
+            }
+            vaultState={vault.state}
+            vault={vault}
+            loanToken={loan}
+            dismissModal={dismissModal}
+            expandModal={expandModal}
+            setBottomSheetScreen={setBottomSheetScreen}
+          />
+        ))}
     </ThemedViewV2>
   );
 }
