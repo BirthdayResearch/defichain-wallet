@@ -45,7 +45,6 @@ import { IconTooltip } from "@components/tooltip/IconTooltip";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { LoanActionButton } from "@screens/AppNavigator/screens/Loans/components/LoanActionButton";
-import { EmptyLoan } from "./EmptyLoan";
 
 interface LoanCardProps {
   symbol: string;
@@ -69,16 +68,6 @@ export function LoansTabV2(props: {
   const { vault, dismissModal, expandModal, setBottomSheetScreen } = props;
   return (
     <ThemedViewV2 style={tailwind("mx-5 mt-6")}>
-      <ThemedTextV2
-        light={tailwind("text-mono-light-v2-500")}
-        dark={tailwind("text-mono-dark-v2-500")}
-        style={tailwind("text-xs font-normal-v2 mb-2 px-5")}
-      >
-        {translate("screens/Loans", "LOANS")}
-      </ThemedTextV2>
-      {vault.state === LoanVaultState.ACTIVE && vault.loanValue === "0" && (
-        <EmptyLoan vaultId={vault.vaultId} />
-      )}
       {vault.state === LoanVaultState.IN_LIQUIDATION
         ? vault.batches.map((batch) => (
             <LoanCard
@@ -94,23 +83,32 @@ export function LoansTabV2(props: {
             />
           ))
         : vault.loanAmounts.map((loan) => (
-            <LoanCard
-              key={loan.id}
-              symbol={loan.symbol}
-              displaySymbol={loan.displaySymbol}
-              amount={loan.amount}
-              interestAmount={
-                vault.interestAmounts.find(
-                  (interest) => interest.symbol === loan.symbol
-                )?.amount
-              }
-              vaultState={vault.state}
-              vault={vault}
-              loanToken={loan}
-              dismissModal={dismissModal}
-              expandModal={expandModal}
-              setBottomSheetScreen={setBottomSheetScreen}
-            />
+            <>
+              <ThemedTextV2
+                light={tailwind("text-mono-light-v2-500")}
+                dark={tailwind("text-mono-dark-v2-500")}
+                style={tailwind("text-xs font-normal-v2 mb-2 px-5")}
+              >
+                {translate("screens/Loans", "LOANS")}
+              </ThemedTextV2>
+              <LoanCard
+                key={loan.id}
+                symbol={loan.symbol}
+                displaySymbol={loan.displaySymbol}
+                amount={loan.amount}
+                interestAmount={
+                  vault.interestAmounts.find(
+                    (interest) => interest.symbol === loan.symbol
+                  )?.amount
+                }
+                vaultState={vault.state}
+                vault={vault}
+                loanToken={loan}
+                dismissModal={dismissModal}
+                expandModal={expandModal}
+                setBottomSheetScreen={setBottomSheetScreen}
+              />
+            </>
           ))}
     </ThemedViewV2>
   );

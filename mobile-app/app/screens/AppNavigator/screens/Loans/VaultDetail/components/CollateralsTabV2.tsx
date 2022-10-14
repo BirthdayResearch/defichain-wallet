@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 import { useEffect, useState } from "react";
-import { ThemedTextV2, ThemedViewV2, ThemedIcon } from "@components/themed";
+import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { View } from "@components";
 import { SymbolIcon } from "@components/SymbolIcon";
@@ -18,7 +18,6 @@ import { RootState } from "@store";
 import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2";
 import { LoanAddRemoveActionButton } from "@screens/AppNavigator/screens/Loans/components/LoanActionButton";
 import { getCollateralPrice } from "../../hooks/CollateralPrice";
-import { EmptyCollateral } from "./EmptyCollateral";
 
 interface CollateralCardProps {
   displaySymbol: string;
@@ -84,34 +83,6 @@ export function CollateralsTabV2({ vault }: { vault: LoanVault }): JSX.Element {
             return <View key={index} />;
           }
         })}
-      <View style={tailwind("mx-5")}>
-        <ThemedTextV2
-          light={tailwind("text-mono-light-v2-500")}
-          dark={tailwind("text-mono-dark-v2-500")}
-          style={tailwind("text-xs font-normal-v2")}
-        >
-          {translate(
-            "screens/Loans",
-            "Your loan amount can be maximized by adding"
-          )}
-        </ThemedTextV2>
-        <View style={tailwind("flex flex-row")}>
-          <ThemedTextV2
-            light={tailwind("text-mono-light-v2-500")}
-            dark={tailwind("text-mono-dark-v2-500")}
-            style={tailwind("text-xs font-normal-v2 mr-1")}
-          >
-            {translate("screens/Loans", " DFI/DUSD as collaterals")}
-          </ThemedTextV2>
-          <ThemedIcon
-            size={16}
-            name="info-outline"
-            iconType="MaterialIcons"
-            dark={tailwind("text-mono-dark-v2-500")}
-            light={tailwind("text-mono-light-v2-500")}
-          />
-        </View>
-      </View>
     </View>
   );
 }
@@ -184,13 +155,15 @@ function CollateralCardDfi({
 }
 
 function CollateralCard(props: CollateralCardProps): JSX.Element {
-  //   console.log("props", props.collateralItem);
-
   const prices = getCollateralPrice(
     props.amount,
     props.collateralItem,
     props.totalCollateralValue
   );
+
+  const dusdCollateralFactor = new BigNumber(
+    props.collateralItem.factor ?? 0
+  ).times(100);
 
   return (
     <ThemedViewV2
@@ -207,22 +180,53 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
           />
 
           <View style={tailwind("ml-2")}>
-            <NumberFormat
-              value={props.amount?.toFixed(8)}
-              thousandSeparator
-              decimalScale={8}
-              displayType="text"
-              renderText={(val: string) => (
-                <ThemedTextV2
-                  dark={tailwind("text-mono-dark-v2-900")}
-                  light={tailwind("text-mono-light-v2-900")}
-                  style={tailwind("text-sm font-semibold-v2")}
-                  testID={`vault_detail_collateral_${props.displaySymbol}_amount`}
+            <View style={tailwind("flex flex-row items-center")}>
+              <NumberFormat
+                value={props.amount?.toFixed(8)}
+                thousandSeparator
+                decimalScale={8}
+                displayType="text"
+                renderText={(val: string) => (
+                  <ThemedTextV2
+                    dark={tailwind("text-mono-dark-v2-900")}
+                    light={tailwind("text-mono-light-v2-900")}
+                    style={tailwind("text-sm font-semibold-v2")}
+                    testID={`vault_detail_collateral_${props.displaySymbol}_amount`}
+                  >
+                    {val}
+                  </ThemedTextV2>
+                )}
+              />
+              {props.collateralItem.token.displaySymbol === "DUSD" && (
+                <ThemedViewV2
+                  dark={tailwind("border-mono-dark-v2-700")}
+                  light={tailwind("border-mono-light-v2-700")}
+                  style={[
+                    tailwind("border-0.5 px-2 ml-1"),
+                    { borderRadius: 5 },
+                  ]}
                 >
-                  {val}
-                </ThemedTextV2>
+                  <NumberFormat
+                    value={dusdCollateralFactor.toFixed()}
+                    thousandSeparator
+                    decimalScale={2}
+                    displayType="text"
+                    suffix="x"
+                    renderText={(val: string) => (
+                      <ThemedTextV2
+                        dark={tailwind("text-mono-dark-v2-700")}
+                        light={tailwind("text-mono-light-v2-700")}
+                        style={[tailwind("font-semibold-v2"), { fontSize: 10 }]}
+                        testID={`vault_detail_collateral_${props.displaySymbol}_vault_share`}
+                      >
+                        {val}
+                      </ThemedTextV2>
+                    )}
+                  />
+                </ThemedViewV2>
               )}
-            />
+            </View>
+
             <View style={tailwind("flex flex-row")}>
               <ActiveUSDValueV2
                 price={new BigNumber(props.amount).multipliedBy(

@@ -11,9 +11,12 @@ import {
 } from "@components/BottomSheetWithNav";
 import { ThemedTextV2, ThemedViewV2, ThemedIcon } from "@components/themed";
 import { useBottomSheet } from "@hooks/useBottomSheet";
+import {
+  BottomSheetAlertInfoV2,
+  BottomSheetInfoV2,
+} from "@components/BottomSheetInfoV2";
 import { LoansTabV2 } from "./LoansTabV2";
 import { CollateralsTabV2 } from "./CollateralsTabV2";
-import { DetailsTab } from "./DetailsTab";
 
 export enum TabKey {
   Loans = "LOANS",
@@ -27,22 +30,10 @@ interface VaultDetailTabSectionProps {
   tab?: TabKey;
 }
 
-interface VaultDetailTabsProps {
-  id: TabKey;
-  label: string;
-  disabled: boolean;
-  handleOnPress: (tabId: string) => void;
-}
-
 export function VaultDetailTabSectionV2({
   vault,
-  tab,
 }: VaultDetailTabSectionProps): JSX.Element {
-  const [activeTab, setActiveTab] = useState<string>(tab ?? TabKey.Collaterals);
-  const [detailTabs, setDetailTabs] = useState<VaultDetailTabsProps[]>([]);
-  const onPress = (tabId: string): void => {
-    setActiveTab(tabId);
-  };
+  const [isDusdLoaned, setIsDusdLoaned] = useState(false);
   const {
     bottomSheetRef,
     containerRef,
@@ -53,9 +44,32 @@ export function VaultDetailTabSectionV2({
     setBottomSheetScreen,
   } = useBottomSheet();
 
+  useEffect(() => {
+    if (vault.state !== LoanVaultState.IN_LIQUIDATION) {
+      setIsDusdLoaned(
+        vault.loanAmounts.some((loan) => loan.displaySymbol === "DUSD")
+      );
+    }
+  }, [vault]);
+
   return (
     <View ref={containerRef}>
       <CollateralsTabV2 vault={vault} />
+      <InfoText
+        dusdCollateral={isDusdLoaned}
+        info={{
+          title: translate(
+            "screens/VaultDetailScreen",
+            isDusdLoaned ? "Why you need 50% DFI" : "Max loan amount"
+          ),
+          message: translate(
+            "screens/VaultDetailScreen",
+            isDusdLoaned
+              ? "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI. This only affects vaults that has DUSD as both collateral and loan."
+              : "This is the current loan amount available for this vault."
+          ),
+        }}
+      />
 
       <LoansTabV2
         dismissModal={dismissModal}
@@ -63,21 +77,6 @@ export function VaultDetailTabSectionV2({
         setBottomSheetScreen={setBottomSheetScreen}
         vault={vault}
       />
-      {/* <ThemedView>
-        {activeTab === TabKey.Collaterals && <CollateralsTab vault={vault} />}
-        {activeTab === TabKey.Loans && (
-          <LoansTab
-            dismissModal={dismissModal}
-            expandModal={expandModal}
-            setBottomSheetScreen={setBottomSheetScreen}
-            vault={vault}
-          />
-        )}
-        {activeTab === TabKey.Details &&
-          vault.state !== LoanVaultState.IN_LIQUIDATION && (
-            <DetailsTab vault={vault} />
-          )}
-      </ThemedView> */}
       {Platform.OS === "web" ? (
         <BottomSheetWebWithNav
           modalRef={containerRef}
@@ -102,6 +101,49 @@ export function VaultDetailTabSectionV2({
           }}
         />
       )}
+    </View>
+  );
+}
+
+function InfoText({
+  dusdCollateral,
+  info,
+}: {
+  dusdCollateral: boolean;
+  info: BottomSheetAlertInfoV2;
+}): JSX.Element {
+  return (
+    <View style={tailwind("mx-10")}>
+      <ThemedTextV2
+        light={tailwind("text-mono-light-v2-500")}
+        dark={tailwind("text-mono-dark-v2-500")}
+        style={tailwind("text-xs font-normal-v2")}
+      >
+        {translate(
+          "screens/Loans",
+          dusdCollateral
+            ? "Maintain at least 50% DFI as collateral for DUSD"
+            : "Your loan amount can be maximized by adding"
+        )}
+      </ThemedTextV2>
+      <View style={tailwind("flex flex-row")}>
+        <ThemedTextV2
+          light={tailwind("text-mono-light-v2-500")}
+          dark={tailwind("text-mono-dark-v2-500")}
+          style={tailwind("text-xs font-normal-v2 mr-1")}
+        >
+          {translate(
+            "screens/Loans",
+            dusdCollateral ? "loans" : "DFI/DUSD as collaterals"
+          )}
+        </ThemedTextV2>
+        <BottomSheetInfoV2
+          alertInfo={info}
+          name={info.title}
+          infoIconStyle={tailwind("text-sm")}
+          snapPoints={["40%"]}
+        />
+      </View>
     </View>
   );
 }

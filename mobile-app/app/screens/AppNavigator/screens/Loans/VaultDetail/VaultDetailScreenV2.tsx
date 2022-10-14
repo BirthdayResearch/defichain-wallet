@@ -51,15 +51,13 @@ import { CloseVaultButton } from "@screens/AppNavigator/screens/Loans/VaultDetai
 import { VaultDetailSummary } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailSummary";
 import { VaultDetailTabSectionV2 } from "./components/VaultDetailTabSectionV2";
 import { LoanParamList } from "../LoansNavigator";
-import { ScrollableButton, ScrollButton } from "../components/ScrollableButton";
-import { VaultDetailTabSection } from "./components/VaultDetailTabSection";
-import { VaultSectionTextRow } from "../components/VaultSectionTextRow";
+import { ScrollButton } from "../components/ScrollableButton";
 
 type Props = StackScreenProps<LoanParamList, "VaultDetailScreen">;
 
 export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
   const { isLight } = useThemeContext();
-  const { vaultId, tab } = route.params;
+  const { vaultId } = route.params;
   const [vault, setVault] = useState<LoanVault>();
   const canUseOperations = useLoanOperations(vault?.state);
   const dispatch = useAppDispatch();
@@ -71,65 +69,6 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
   const loanTokens = useSelector((state: RootState) =>
     loanTokensSelector(state.loans)
   );
-
-  const vaultActionButtons: ScrollButton[] = [
-    {
-      label: "EDIT COLLATERAL",
-      disabled: !canUseOperations,
-      handleOnPress: () => {
-        if (vault === undefined) {
-          return;
-        }
-
-        navigation.navigate({
-          name: "EditCollateralScreen",
-          params: {
-            vaultId: vault.vaultId,
-          },
-          merge: true,
-        });
-      },
-      testID: "vault_detail_edit_collateral",
-    },
-    {
-      label: "EDIT LOAN SCHEME",
-      disabled: !canUseOperations || vault?.state === LoanVaultState.FROZEN,
-      handleOnPress: () => {
-        if (vault === undefined) {
-          return;
-        }
-
-        navigation.navigate({
-          name: "EditLoanSchemeScreen",
-          params: {
-            vaultId: vault.vaultId,
-          },
-          merge: true,
-        });
-      },
-      testID: "vault_detail_edit_loan_scheme",
-    },
-    {
-      label: "CLOSE VAULT",
-      disabled: !(
-        vault?.state === LoanVaultState.ACTIVE && vault.loanValue === "0"
-      ),
-      handleOnPress: () => {
-        if (vault === undefined) {
-          return;
-        }
-
-        navigation.navigate({
-          name: "CloseVaultScreen",
-          params: {
-            vaultId: vault.vaultId,
-          },
-          merge: true,
-        });
-      },
-      testID: "vault_detail_close_vault",
-    },
-  ];
 
   const inLiquidation = vault?.state === LoanVaultState.IN_LIQUIDATION;
   const totalLoanAmount = new BigNumber(
@@ -298,7 +237,6 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
         />
 
         <VaultDetailTabSectionV2 vault={vault} />
-        {/* <VaultDetailTabSection vault={vault} tab={tab} /> */}
 
         <CloseVaultButton
           vaultStatus={vaultState?.status}
