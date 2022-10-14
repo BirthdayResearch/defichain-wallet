@@ -326,14 +326,14 @@ export function ConfirmEditCollateralScreen({
         lhs={{
           value: translate(
             "screens/ConfirmEditCollateralScreen",
-            "Available loan"
+            "Max loan amount"
           ),
-          testID: "confirm_edit_loan",
+          testID: "confirm_edit_max_loan",
           themedProps: lhsThemedProps,
         }}
         rhs={{
-          value: getPrecisedCurrencyValue(vault.loanValue),
-          testID: "confirm_edit_loan",
+          value: getPrecisedCurrencyValue(vault.loanValue), // TODO (Lyka): Use KY's useMaxLoan hook
+          testID: "confirm_edit_max_loan",
           prefix: "$",
           themedProps: rhsThemedProps,
         }}

@@ -675,7 +675,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
           />
           <NumberRowV2
             info={{
-              title: "Available Loan",
+              title: "Max Loan Amount",
               message:
                 "This is the current loan amount available for this vault.",
               iconStyle: {
@@ -689,14 +689,14 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
             lhs={{
               value: translate(
                 "screens/AddOrRemoveCollateralScreen",
-                "Available loan"
+                "Max loan amount"
               ),
-              testID: "add_remove_collateral_loan",
+              testID: "add_remove_collateral_max_loan",
               themedProps: lhsThemedProps,
             }}
             rhs={{
-              value: getPrecisedCurrencyValue(vault.loanValue),
-              testID: "add_remove_collateral_loan",
+              value: getPrecisedCurrencyValue(vault.loanValue), // TODO (Lyka): Use KY's useMaxLoan hook
+              testID: "add_remove_collateral_max_loan",
               prefix: "$",
               themedProps: rhsThemedProps,
             }}
