@@ -163,7 +163,7 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
 
   const dusdCollateralFactor = new BigNumber(
     props.collateralItem.factor ?? 0
-  ).times(100);
+  ).times(1);
 
   return (
     <ThemedViewV2
