@@ -36,13 +36,7 @@ export function ControlledTextInput(props: Props): JSX.Element {
             await onChange(value?.trim());
           }}
           placeholderTextColor={getColor(
-            isLight
-              ? props.value === "" || props.value === undefined
-                ? "mono-light-v2-500"
-                : "mono-light-v2-900"
-              : props.value === "" || props.value === undefined
-              ? "mono-dark-v2-500"
-              : "mono-dark-v2-900"
+            isLight ? "mono-light-v2-500" : "mono-dark-v2-500"
           )}
           testID={props.testID}
           {...props.inputProps}

@@ -72,6 +72,11 @@ export interface AddOrRemoveCollateralResponse {
   token: TokenData;
 }
 
+interface RemoveCollateralError {
+  testID: string;
+  message: string;
+}
+
 export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
   const { vault, collateralItem, collateralTokens, isAdd } = route.params;
   const [selectedCollateralItem, setSelectedCollateralItem] =
@@ -196,15 +201,6 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     selectedCollateralItem.token.id,
     totalTokenBalance
   );
-  const isValidCollateralRatio = requiredTokensShare?.gte(
-    minRequiredTokensShare
-  );
-  const displayMinVaultShareRequiredError =
-    isFeatureAvailable("dusd_vault_share") &&
-    !isAdd &&
-    !isValidCollateralRatio &&
-    hasLoan &&
-    requiredVaultShareTokens.includes(selectedCollateralItem.token.symbol);
 
   useEffect(() => {
     client.fee
@@ -340,6 +336,57 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     }
   };
 
+  const removeCollateralErrors = {
+    HigherThanAvailableCollateral: "Amount entered is higher than collateral",
+    BelowMinCollateralRatio: "Vault does not meet min. collateral ratio", // TODO (Lyka): update msg once provided
+    ZeroRequiredTokenShare: "Insufficient DFI and/or DUSD in vault", // TODO (Lyka): update msg once provided
+    DusdAffectVault: "Vault needs at least 50% DFI share",
+  };
+
+  const getRemoveCollateralErrorMessage = ():
+    | RemoveCollateralError
+    | undefined => {
+    if (formState.errors.collateralAmount?.type === "hasSufficientFunds") {
+      return {
+        testID: "exceeds_max_collateral_error",
+        message: removeCollateralErrors.HigherThanAvailableCollateral,
+      };
+    } else if (hasLoan && resultingColRatio.lt(vault.loanScheme.minColRatio)) {
+      return {
+        testID: "below_min_collateral_ratio_error",
+        message: removeCollateralErrors.BelowMinCollateralRatio,
+      };
+    } else if (hasLoan && requiredTokensShare.isZero()) {
+      return {
+        testID: "zero_required_token_share_error",
+        message: removeCollateralErrors.ZeroRequiredTokenShare,
+      };
+    } else if (
+      hasLoan &&
+      selectedCollateralItem.token.displaySymbol === "DFI" &&
+      vault.loanAmounts.some((loan) => loan.displaySymbol === "DUSD") &&
+      vault.collateralAmounts.some((col) => col.displaySymbol === "DUSD")
+    ) {
+      const isDFILessThanHalfOfRequiredCollateral =
+        tokenCollateralValue.isLessThan(
+          new BigNumber(vault.loanValue)
+            .multipliedBy(vault.loanScheme.minColRatio)
+            .dividedBy(100)
+            .dividedBy(2)
+        );
+      if (isDFILessThanHalfOfRequiredCollateral) {
+        return {
+          testID: "dusd_affected_vault_error",
+          message: removeCollateralErrors.DusdAffectVault,
+        };
+      }
+    }
+  };
+
+  const removeCollateralError = !isAdd
+    ? getRemoveCollateralErrorMessage()
+    : undefined;
+
   const lhsThemedProps = {
     light: tailwind("text-mono-light-v2-500"),
     dark: tailwind("text-mono-dark-v2-500"),
@@ -353,7 +400,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     !formState.isValid ||
     hasPendingJob ||
     hasPendingBroadcastJob ||
-    displayMinVaultShareRequiredError;
+    !!removeCollateralError;
 
   return (
     <ThemedScrollViewV2
@@ -491,7 +538,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
         {(Object.keys(formState.errors).length <= 0 ||
           formState.errors.collateralAmount?.type === "required") &&
           !isConversionRequired &&
-          !displayMinVaultShareRequiredError && (
+          !removeCollateralError && (
             <ThemedTextV2
               light={tailwind("text-mono-light-v2-500")}
               dark={tailwind("text-mono-dark-v2-500")}
@@ -533,34 +580,33 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
           </ThemedTextV2>
         )}
 
-        {/* Insufficient balance error */}
-        {formState.errors.collateralAmount?.type === "hasSufficientFunds" && (
+        {/* Add Collateral - Insufficient balance error */}
+        {isAdd &&
+          formState.errors.collateralAmount?.type === "hasSufficientFunds" && (
+            <ThemedTextV2
+              light={tailwind("text-red-v2")}
+              dark={tailwind("text-red-v2")}
+              style={tailwind("text-xs pt-2 mx-5 font-normal-v2")}
+              testID="add_remove_collateral_insufficient_balance"
+            >
+              {translate(
+                "screens/AddOrRemoveCollateralScreen",
+                "Insufficient Balance"
+              )}
+            </ThemedTextV2>
+          )}
+
+        {/* Remove Collateral - Error */}
+        {removeCollateralError && (
           <ThemedTextV2
             light={tailwind("text-red-v2")}
             dark={tailwind("text-red-v2")}
             style={tailwind("text-xs pt-2 mx-5 font-normal-v2")}
-            testID="add_remove_collateral_insufficient_balance"
+            testID={removeCollateralError.testID}
           >
             {translate(
               "screens/AddOrRemoveCollateralScreen",
-              isAdd
-                ? "Insufficient Balance"
-                : "Amount entered is higher than collateral"
-            )}
-          </ThemedTextV2>
-        )}
-
-        {/* Min vault share required error */}
-        {displayMinVaultShareRequiredError && formState.isValid && (
-          <ThemedTextV2
-            light={tailwind("text-red-v2")}
-            dark={tailwind("text-red-v2")}
-            style={tailwind("text-xs pt-2 mx-5 font-normal-v2")}
-            testID="vault_min_share_warning"
-          >
-            {translate(
-              "screens/BorrowLoanTokenScreen",
-              "Vault needs at least 50% DFI share"
+              removeCollateralError.message
             )}
           </ThemedTextV2>
         )}
