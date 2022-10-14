@@ -16,6 +16,7 @@ import {
   LoanVaultState,
   LoanVaultTokenAmount,
 } from "@defichain/whale-api-client/dist/api/loan";
+import { LinearGradient } from "expo-linear-gradient";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { LoanParamList } from "@screens/AppNavigator/screens/Loans/LoansNavigator";
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
@@ -130,57 +131,62 @@ function LoanCard(props: LoanCardProps): JSX.Element {
   const { isFeatureAvailable } = useFeatureFlagContext();
 
   return (
-    <ThemedViewV2
-      light={tailwind("bg-mono-light-v2-00")}
-      dark={tailwind("bg-mono-dark-v2-00")}
-      style={tailwind(
-        "py-4 px-5 mb-2 rounded-lg-v2 flex flex-row items-center justify-between"
-      )}
-    >
-      <View style={tailwind("flex flex-row items-center")}>
-        <SymbolIcon
-          symbol={props.displaySymbol}
-          styleHeight={36}
-          styleWidth={36}
-          // styleProps={tailwind("w-4 h-4")}
-        />
-        {/* eslint-disable react-native/no-raw-text */}
-        <View style={tailwind("ml-2")}>
-          <ThemedTextV2
-            light={tailwind({
-              "text-gray-300":
-                props.vaultState === LoanVaultState.IN_LIQUIDATION,
-              "text-mono-light-v2-900":
-                props.vaultState !== LoanVaultState.IN_LIQUIDATION,
-            })}
-            dark={tailwind({
-              "text-gray-700":
-                props.vaultState === LoanVaultState.IN_LIQUIDATION,
-              "text-mono-dark-v2-900":
-                props.vaultState !== LoanVaultState.IN_LIQUIDATION,
-            })}
-            style={tailwind("text-sm font-semibold-v2")}
-            testID={`loan_card_${props.displaySymbol}`}
-          >
-            {`${new BigNumber(props.amount).toFixed(8)} ${props.displaySymbol}`}
-          </ThemedTextV2>
-          <ThemedTextV2
-            light={tailwind("text-mono-light-v2-700")}
-            dark={tailwind("text-mono-dark-v2-700")}
-            style={tailwind("text-xs font-normal-v2")}
-          >
-            {new BigNumber(props.interestAmount ?? 0).toFixed(8)}{" "}
-            {translate("screens/Loans", "as interest")}
-          </ThemedTextV2>
+    <View style={tailwind("")}>
+      <ThemedViewV2
+        light={tailwind("bg-mono-light-v2-00")}
+        dark={tailwind("bg-mono-dark-v2-00")}
+        style={tailwind(
+          "py-4 px-5 flex flex-row items-center justify-between",
+          { "rounded-t-lg-v2": props.displaySymbol === "DUSD" },
+          { "rounded-lg-v2": props.displaySymbol !== "DUSD" }
+        )}
+      >
+        <View style={tailwind("flex flex-row items-center")}>
+          <SymbolIcon
+            symbol={props.displaySymbol}
+            styleHeight={36}
+            styleWidth={36}
+            // styleProps={tailwind("w-4 h-4")}
+          />
+          {/* eslint-disable react-native/no-raw-text */}
+          <View style={tailwind("ml-2")}>
+            <ThemedTextV2
+              light={tailwind({
+                "text-gray-300":
+                  props.vaultState === LoanVaultState.IN_LIQUIDATION,
+                "text-mono-light-v2-900":
+                  props.vaultState !== LoanVaultState.IN_LIQUIDATION,
+              })}
+              dark={tailwind({
+                "text-gray-700":
+                  props.vaultState === LoanVaultState.IN_LIQUIDATION,
+                "text-mono-dark-v2-900":
+                  props.vaultState !== LoanVaultState.IN_LIQUIDATION,
+              })}
+              style={tailwind("text-sm font-semibold-v2")}
+              testID={`loan_card_${props.displaySymbol}`}
+            >
+              {`${new BigNumber(props.amount).toFixed(8)} ${
+                props.displaySymbol
+              }`}
+            </ThemedTextV2>
+            <ThemedTextV2
+              light={tailwind("text-mono-light-v2-700")}
+              dark={tailwind("text-mono-dark-v2-700")}
+              style={tailwind("text-xs font-normal-v2")}
+            >
+              {new BigNumber(props.interestAmount ?? 0).toFixed(8)}{" "}
+              {translate("screens/Loans", "as interest")}
+            </ThemedTextV2>
+          </View>
         </View>
-      </View>
 
-      <LoanActionButton
-        label={translate("components/Loans", "Pay")}
-        // onPress={}
-        testID={`pay_${props.displaySymbol}_loan`}
-      />
-      {/* <View style={tailwind("mt-3")}>
+        <LoanActionButton
+          label={translate("components/Loans", "Pay")}
+          // onPress={}
+          testID={`pay_${props.displaySymbol}_loan`}
+        />
+        {/* <View style={tailwind("mt-3")}>
         <VaultSectionTextRow
           value={new BigNumber(props.amount).toFixed(8)}
           lhs={translate(
@@ -239,7 +245,7 @@ function LoanCard(props: LoanCardProps): JSX.Element {
           </>
         )}
       </View> */}
-      {/* {props.vault !== undefined && (
+        {/* {props.vault !== undefined && (
         <View style={tailwind("mt-4 -mb-2")}>
           <ActionButtons
             testID={`loan_card_${props.displaySymbol}`}
@@ -262,7 +268,42 @@ function LoanCard(props: LoanCardProps): JSX.Element {
             )}
         </View>
       )} */}
-    </ThemedViewV2>
+      </ThemedViewV2>
+      {props.displaySymbol === "DUSD" && (
+        <LinearGradient
+          start={[0, 0]}
+          end={[1, 1]}
+          colors={[
+            "#FF01AF",
+            "#FB01AF",
+            "#EF01B1",
+            "#DB02B5",
+            "#C004BA",
+            "#9D06C0",
+            "#7208C8",
+            "#3F0BD1",
+            "#0E0EDB",
+          ]}
+          locations={[0, 0.13, 0.26, 0.39, 0.52, 0.64, 0.77, 0.89, 1]}
+          style={tailwind("py-2 rounded-b-lg-v2")}
+        >
+          <TouchableOpacity
+            testID="payback_dusd_loan"
+            // @ts-ignore
+            // onPress={}
+            activeOpacity={0.7}
+          >
+            <ThemedTextV2
+              light={tailwind("text-mono-light-v2-900")}
+              dark={tailwind("text-mono-dark-v2-900")}
+              style={tailwind("text-sm font-semibold-v2 text-center")}
+            >
+              {translate("screens/Loans", "Pay with DUSD collaterals")}
+            </ThemedTextV2>
+          </TouchableOpacity>
+        </LinearGradient>
+      )}
+    </View>
   );
 }
 
