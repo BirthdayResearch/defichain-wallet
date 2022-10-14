@@ -1453,7 +1453,8 @@
     "Halted": "Gestoppt",
     "Total loans": "Gesamtes Darlehen",
     "You need a vault with collaterals to borrow tokens": "Du brauchst einen Vault mit Sicherheiten, um Token zu leihen",
-    "Create a vault": "Vault erstellen"
+    "Create a vault": "Vault erstellen",
+    "Max loan amount": "Max. Darlehensbetrag"
   },
   "components/EmptyVault": {
     "No vaults": "Keine Vaults",

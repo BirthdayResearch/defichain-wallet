@@ -1460,7 +1460,8 @@
     "Halted": "已暫停",
     "Total loans": "貸款總金額",
     "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
-    "Create a vault": "Create a vault"
+    "Create a vault": "Create a vault",
+    "Max loan amount": "Max loan amount"
   },
   "components/EmptyVault": {
     "No vaults": "No vaults",
