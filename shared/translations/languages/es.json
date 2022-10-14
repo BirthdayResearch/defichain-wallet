@@ -1730,6 +1730,10 @@
     "Transaction fee": "Comision de transacción",
     "Loan remaining": "Préstamo restante",
     "Payback loan": "Devuelve el préstamo",
+    "Prices may vary during transaction confirmation.": "Prices may vary during transaction confirmation.",
+    "Any excess payment will be returned.": "Any excess payment will be returned.",
+    "Paying {{amountToPay}} {{symbol}}": "Paying {{amountToPay}} {{symbol}}",
+    "Paid {{amountToPay}} {{symbol}}": "Paid {{amountToPay}} {{symbol}}",
     "You are paying": "Estás pagando",
     "TRANSACTION DETAILS": "DETALLES DE LA TRANSACCION",
     "Transaction type": "Tipo de la transacción",
@@ -1748,6 +1752,7 @@
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "Ratio de colateralización",
+    "Collateral ratio": "Ratio de colateralización",
     "Min:": "Mínimo",
     "Next:": "Siguiente:"
   },

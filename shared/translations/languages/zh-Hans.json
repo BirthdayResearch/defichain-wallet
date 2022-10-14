@@ -1703,6 +1703,10 @@
     "Transaction fee": "交易費用",
     "Loan remaining": "Loan remaining",
     "Payback loan":  "偿还贷款",
+    "Prices may vary during transaction confirmation.": "Prices may vary during transaction confirmation.",
+    "Any excess payment will be returned.": "Any excess payment will be returned.",
+    "Paying {{amountToPay}} {{symbol}}": "Paying {{amountToPay}} {{symbol}}",
+    "Paid {{amountToPay}} {{symbol}}": "Paid {{amountToPay}} {{symbol}}",
     "You are paying": "正在付款中",
     "TRANSACTION DETAILS": "交易明细",
     "Transaction type": "交易类别",
@@ -1721,6 +1725,7 @@
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "抵押率",
+    "Collateral ratio": "抵押率",
     "Min:": "最低:",
     "Next:": "下一个:"
   },

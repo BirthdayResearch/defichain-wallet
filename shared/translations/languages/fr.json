@@ -1711,6 +1711,10 @@
     "Transaction fee": "Frais de transaction",
     "Loan remaining": "Emprunt restant",
     "Payback loan": "Remboursement du prêt",
+    "Prices may vary during transaction confirmation.": "Les prix peuvent varier pendant la confirmation de la transaction.",
+    "Any excess payment will be returned.": "Any excess payment will be returned.",
+    "Paying {{amountToPay}} {{symbol}}": "Remboursement de {{amountToPay}} {{symbol}}",
+    "Paid {{amountToPay}} {{symbol}}": "{{amountToPay}} {{symbol}} remboursé",
     "You are paying": "Vous payez",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
     "Transaction type": "Type de transaction",
@@ -1729,6 +1733,7 @@
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "Ratio de garantie",
+    "Collateral ratio": "Ratio de garantie",
     "Min:": "Min:",
     "Next:": "Prochain:"
   },
