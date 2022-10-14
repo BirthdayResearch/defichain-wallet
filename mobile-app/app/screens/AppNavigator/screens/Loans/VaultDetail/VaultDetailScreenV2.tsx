@@ -49,6 +49,7 @@ import { BottomSheetLoanTokensList } from "@screens/AppNavigator/screens/Loans/c
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { CloseVaultButton } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/CloseVaultButton";
 import { VaultDetailSummary } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailSummary";
+import { useMaxLoanAmount } from "@screens/AppNavigator/screens/Loans/hooks/MaxLoanAmount";
 import { LoanParamList } from "../LoansNavigator";
 import { ScrollableButton, ScrollButton } from "../components/ScrollableButton";
 import { VaultDetailTabSection } from "./components/VaultDetailTabSection";
@@ -153,6 +154,13 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
     inLiquidation || vault === undefined ? [] : vault.collateralAmounts,
     inLiquidation || vault === undefined ? [] : vault.loanAmounts
   );
+  const maxLoanAmount = useMaxLoanAmount({
+    totalCollateralValue: totalCollateralValue,
+    existingLoanValue: totalLoanAmount,
+    minColRatio: minColRatio,
+    loanActivePrice: new BigNumber(1),
+    interestPerBlock: new BigNumber(0),
+  });
 
   const [snapPoints, setSnapPoints] = useState({
     ios: ["30%"],
@@ -288,7 +296,7 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
           onEditPressed={onEditPressed}
         />
         <VaultDetailSummary
-          maxLoanAmount="0"
+          maxLoanAmount={maxLoanAmount}
           totalCollateral={totalCollateralValue}
           totalLoan={totalLoanAmount}
           vaultId={vaultId}

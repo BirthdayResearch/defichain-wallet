@@ -8,7 +8,7 @@ import BigNumber from "bignumber.js";
 import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 
 export interface VaultDetailSummaryProps {
-  maxLoanAmount: string;
+  maxLoanAmount: BigNumber;
   totalCollateral: BigNumber;
   totalLoan: BigNumber;
   vaultId: string;
@@ -45,7 +45,7 @@ export function VaultDetailSummary({
           outerContainerStyle: tailwind("w-6/12"),
         }}
         rhs={{
-          value: maxLoanAmount,
+          value: getPrecisedCurrencyValue(maxLoanAmount),
           testID: "max_loan_amount",
           prefix: "$",
           textStyle: tailwind("font-semibold-v2"),
