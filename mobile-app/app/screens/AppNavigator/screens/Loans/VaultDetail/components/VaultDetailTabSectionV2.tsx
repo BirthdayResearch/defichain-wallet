@@ -3,10 +3,13 @@ import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
 import { LoanVault } from "@store/loans";
 import { useEffect, useState } from "react";
 import { Platform, View } from "react-native";
+import { translate } from "@translations";
+import { tailwind } from "@tailwind";
 import {
   BottomSheetWebWithNav,
   BottomSheetWithNav,
 } from "@components/BottomSheetWithNav";
+import { ThemedTextV2, ThemedViewV2, ThemedIcon } from "@components/themed";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { LoansTabV2 } from "./LoansTabV2";
 import { CollateralsTabV2 } from "./CollateralsTabV2";
@@ -50,18 +53,8 @@ export function VaultDetailTabSectionV2({
     setBottomSheetScreen,
   } = useBottomSheet();
 
-  useEffect(() => {
-    setDetailTabs(getDetailTabs(vault, onPress));
-  }, [vault]);
-
   return (
     <View ref={containerRef}>
-      <Tabs
-        tabSections={detailTabs}
-        activeTabKey={activeTab}
-        testID="vault_detail_tabs"
-      />
-
       <CollateralsTabV2 vault={vault} />
 
       <LoansTabV2
@@ -111,54 +104,4 @@ export function VaultDetailTabSectionV2({
       )}
     </View>
   );
-}
-
-function getDetailTabs(
-  vault: LoanVault,
-  tabOnPress: (tabId: string) => void
-): VaultDetailTabsProps[] {
-  let tabs: VaultDetailTabsProps[] = [];
-
-  if (vault.state === LoanVaultState.IN_LIQUIDATION) {
-    tabs = [
-      // TODO: add auction tab
-      {
-        id: TabKey.Collaterals,
-        label: "Collateral",
-        disabled: false,
-        handleOnPress: tabOnPress,
-      },
-      {
-        id: TabKey.Loans,
-        label: "Loans",
-        disabled: false,
-        handleOnPress: tabOnPress,
-      },
-    ];
-  } else {
-    tabs = [
-      {
-        id: TabKey.Collaterals,
-        label: "Collateral",
-        disabled: false,
-        handleOnPress: tabOnPress,
-      },
-      {
-        id: TabKey.Loans,
-        label: "Loans",
-        disabled:
-          vault.state === LoanVaultState.ACTIVE &&
-          vault.collateralValue === "0",
-        handleOnPress: tabOnPress,
-      },
-      {
-        id: TabKey.Details,
-        label: "Details",
-        disabled: false,
-        handleOnPress: tabOnPress,
-      },
-    ];
-  }
-
-  return tabs;
 }

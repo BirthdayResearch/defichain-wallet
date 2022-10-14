@@ -9,7 +9,7 @@ import { StyleProp, ViewStyle } from "react-native";
 
 interface LoanActionButtonProps {
   label: string;
-  onPress: () => void;
+  onPress?: () => void;
   style?: StyleProp<ViewStyle>;
   testID: string;
   disabled?: boolean;

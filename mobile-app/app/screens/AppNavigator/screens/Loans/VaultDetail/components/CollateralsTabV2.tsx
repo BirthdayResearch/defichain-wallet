@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 import { useEffect, useState } from "react";
-import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
+import { ThemedTextV2, ThemedViewV2, ThemedIcon } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { View } from "@components";
 import { SymbolIcon } from "@components/SymbolIcon";
@@ -84,6 +84,34 @@ export function CollateralsTabV2({ vault }: { vault: LoanVault }): JSX.Element {
             return <View key={index} />;
           }
         })}
+      <View style={tailwind("mx-5")}>
+        <ThemedTextV2
+          light={tailwind("text-mono-light-v2-500")}
+          dark={tailwind("text-mono-dark-v2-500")}
+          style={tailwind("text-xs font-normal-v2")}
+        >
+          {translate(
+            "screens/Loans",
+            "Your loan amount can be maximized by adding"
+          )}
+        </ThemedTextV2>
+        <View style={tailwind("flex flex-row")}>
+          <ThemedTextV2
+            light={tailwind("text-mono-light-v2-500")}
+            dark={tailwind("text-mono-dark-v2-500")}
+            style={tailwind("text-xs font-normal-v2 mr-1")}
+          >
+            {translate("screens/Loans", " DFI/DUSD as collaterals")}
+          </ThemedTextV2>
+          <ThemedIcon
+            size={16}
+            name="info-outline"
+            iconType="MaterialIcons"
+            dark={tailwind("text-mono-dark-v2-500")}
+            light={tailwind("text-mono-light-v2-500")}
+          />
+        </View>
+      </View>
     </View>
   );
 }
@@ -101,12 +129,7 @@ function LiquidatedVaultCollateralCard({
     >
       <View style={tailwind("flex flex-row justify-between items-center")}>
         <View style={tailwind("flex flex-row items-center")}>
-          <SymbolIcon
-            symbol={displaySymbol}
-            styleHeight={36}
-            styleWidth={36}
-            styleProps={tailwind("w-4 h-4")}
-          />
+          <SymbolIcon symbol={displaySymbol} styleHeight={36} styleWidth={36} />
           <ThemedTextV2
             light={tailwind("text-gray-300")}
             dark={tailwind("text-gray-600")}
@@ -173,7 +196,7 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
     <ThemedViewV2
       light={tailwind("bg-mono-light-v2-00")}
       dark={tailwind("bg-mono-dark-v2-00")}
-      style={tailwind("p-4 mb-2 rounded-lg-v2")}
+      style={tailwind("py-4 px-5 mb-2 rounded-lg-v2")}
     >
       <View style={tailwind("flex flex-row justify-between items-center")}>
         <View style={tailwind("flex flex-row items-center")}>
