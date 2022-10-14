@@ -1277,6 +1277,7 @@
     "Search available loan tokens": "Search available loan tokens",
     "Edit Vault": "Edit Vault",
     "Confirm": "确认",
+    "Search with token name": "使用代币名称搜索"
     "Vault Details": "金库明细"
   },
   "components/tabs": {
@@ -2065,6 +2066,8 @@
   },
   "components/BottomSheetLoanTokensList": {
     "% interest": "% interest",
-    "Select Token": "Select Token"
+    "Select Token": "Select Token",
+    "Search with token name": "使用代币名称搜索",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
   }
 }

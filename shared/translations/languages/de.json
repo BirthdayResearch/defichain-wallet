@@ -1273,6 +1273,7 @@
     "Search available loan tokens": "Verfügbare Darlehenstoken durchsuchen",
     "Edit Vault": "Vault bearbeiten",
     "Confirm": "Bestätigen",
+    "Search with token name": "Suche über den Token-Namen"
     "Vault Details": "Vault Detailansicht"
   },
   "components/tabs": {
@@ -2055,6 +2056,8 @@
   },
   "components/BottomSheetLoanTokensList": {
     "% interest": "% Zinsen",
-    "Select Token": "Token auswählen"
+    "Select Token": "Token auswählen",
+    "Search with token name": "Suche über den Token-Namen",
+    "Search results for “{{searchTerm}}”": "Suchergebnisse für “{{searchTerm}}”"
   }
 }

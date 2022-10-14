@@ -5,14 +5,16 @@ import {
   checkVaultDetailValues,
 } from "../../../../support/loanCommands";
 import { VaultStatus } from "../../../../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes";
+import { checkValueWithinRange } from "../../../../support/walletCommands";
 
 function addCollateral(): void {
   cy.go("back");
   cy.wait(2000);
-  cy.getByTestID("vault_card_0_status").contains("READY");
+  cy.getByTestID("vault_card_0_status").contains("Ready");
   cy.getByTestID("vault_card_0_collateral_token_group_DFI").should("exist");
   cy.getByTestID("vault_card_0_collateral_token_group_dBTC").should("exist");
-  cy.getByTestID("vault_card_0_total_collateral").contains("$1,500.00");
+  cy.getByTestID("vault_card_0_loan_available_amount").contains("$0.00");
+  cy.getByTestID("vault_card_0_total_collateral_amount").contains("$1,500.00");
 }
 
 context("Wallet - Loans - Create Loans page", () => {
@@ -30,7 +32,8 @@ context("Wallet - Loans - Create Loans page", () => {
 
   it("should display learn more bottom sheet", () => {
     cy.getByTestID("empty_vault_learn_more").click();
-    cy.getByTestID("loans_bottom_sheet").should("exist");
+    cy.wait(2000);
+    cy.getByTestID("loans_carousel").should("exist");
     cy.getByTestID("close_bottom_sheet_button").click();
   });
 });
@@ -74,36 +77,24 @@ context("Wallet - Loans - Take Loans", () => {
     cy.setWalletTheme(walletTheme);
     cy.getByTestID("bottom_tab_loans").click();
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
-    cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
-  });
-
-  it("should hide borrow button and search token input if vault status equal EMPTY ", () => {
-    cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
-    cy.getByTestID("vault_card_0_status").contains("EMPTY");
-    cy.getByTestID("loans_tabs_BORROW").click();
-    cy.getByTestID("loan_search_input").should("not.exist");
-    cy.getByTestID("loan_card_dTS25").should("exist");
-    cy.getByTestID(
-      "loans_action_button_dTS25_borrow_button_loan_screen"
-    ).should("not.exist");
-    cy.getByTestID("bottom_tab_loans").click();
-    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
+    cy.getByTestID("vault_card_0_EMPTY_vault").should("exist");
   });
 
   it("should add collateral", () => {
-    cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
-    cy.getByTestID("vault_card_0_vault_id").then(($txt: any) => {
+    cy.getByTestID("vault_card_0_EMPTY_add_collateral_button").should("exist");
+    cy.getByTestID("vault_card_0_EMPTY_vault_id").then(($txt: any) => {
       vaultId = $txt[0].textContent;
     });
-    cy.getByTestID("vault_card_0_edit_collaterals_button").click();
+    cy.getByTestID("vault_card_0_EMPTY_add_collateral_button").click();
+    // TODO: change navigation for v2
     cy.addCollateral("10", "DFI");
     cy.addCollateral("10", "dBTC");
     addCollateral();
   });
 
   it("should hide loan token lists when clicking on search input", () => {
-    cy.getByTestID("vault_card_0_status").contains("READY");
+    cy.getByTestID("vault_card_0_status").contains("Ready");
     cy.getByTestID("loans_tabs_BORROW").click();
     cy.getByTestID("loan_search_input").should("exist").click();
     cy.getByTestID("loan_card_token_lists").should("not.exist");
@@ -113,7 +104,7 @@ context("Wallet - Loans - Take Loans", () => {
   });
 
   it("should show the correct token on search input", () => {
-    cy.getByTestID("vault_card_0_status").contains("READY");
+    cy.getByTestID("vault_card_0_status").contains("Ready");
     cy.getByTestID("loans_tabs_BORROW").click();
     cy.getByTestID("loan_search_input").clear().type("dTS25").wait(1000);
     cy.getByTestID("loan_card_dTS25").should("exist");
@@ -127,8 +118,8 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
   });
 
-  it("should show borrow button and search token input if vault status equal READY ", () => {
-    cy.getByTestID("vault_card_0_status").contains("READY");
+  it("should show borrow button and search token input if vault status equal Ready ", () => {
+    cy.getByTestID("vault_card_0_status").contains("Ready");
     cy.getByTestID("loans_tabs_BORROW").click();
     cy.getByTestID("loan_search_input").should("exist").clear();
     cy.getByTestID("loan_card_dTS25").should("exist");
@@ -140,32 +131,36 @@ context("Wallet - Loans - Take Loans", () => {
   });
 
   it("should hide loan token lists when clicking on search input on vault borrow token screen", () => {
-    cy.getByTestID("vault_card_0_manage_loans_button").click();
-    cy.getByTestID("button_browse_loans").click();
-    cy.getByTestID("loan_search_input").eq(1).should("exist").click();
+    cy.getByTestID("loans_tabs_BORROW").click();
+    cy.getByTestID("loan_search_input").should("exist").click();
     cy.getByTestID("loan_card_token_lists").should("not.exist");
     cy.getByTestID("empty_search_result_text").should("exist");
     cy.getByTestID("bottom_tab_loans").click();
   });
 
-  it("should show correct token on browse loan token screen on active vault on search", () => {
-    cy.getByTestID("vault_card_0_manage_loans_button").click();
-    cy.getByTestID("button_browse_loans").click();
-    cy.getByTestID("loan_search_input").eq(1).clear().type("dTS25").wait(1000);
-    cy.getByTestID("loan_card_dTS25").eq(1).should("exist");
-    cy.getByTestID("loan_card_DUSD").eq(1).should("not.exist");
-    cy.getByTestID("loan_card_dTR50").eq(1).should("not.exist");
-    cy.getByTestID("loan_search_input").eq(1).clear().type("dTR50").wait(1000);
-    cy.getByTestID("loan_card_dTR50").eq(1).should("exist");
-    cy.getByTestID("loan_card_dTS25").eq(1).should("not.exist");
-    cy.getByTestID("loan_card_DUSD").eq(1).should("not.exist");
-    cy.getByTestID("bottom_tab_loans").click();
+  it("should show collaterals token group", () => {
+    cy.getByTestID("vault_card_0_collateral_token_group_DFI").should("exist");
+    cy.getByTestID("vault_card_0_collateral_token_group_dBTC").should("exist");
   });
 
+  it("should show correct token on browse loan token screen on active vault on search", () => {
+    cy.getByTestID("loan_search_input").type("dTS25").wait(1000);
+    cy.getByTestID("loan_card_dTS25").should("exist");
+    cy.getByTestID("loan_card_DUSD").should("not.exist");
+    cy.getByTestID("loan_card_dTR50").should("not.exist");
+    cy.getByTestID("loan_search_input").clear().type("dTR50").wait(1000);
+    cy.getByTestID("loan_card_dTR50").should("exist");
+    cy.getByTestID("loan_card_dTS25").should("not.exist");
+    cy.getByTestID("loan_card_DUSD").should("not.exist");
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
+  });
+
+  // TODO: update for v2 vault details screen
   it("should add loan", () => {
     let annualInterest: string;
-    cy.getByTestID("vault_card_0_manage_loans_button").click();
+    cy.getByTestID("vault_card_0").click();
     checkVaultDetailValues("READY", vaultId, "$1,500.00", "$0.00", "5");
+    cy.getByTestID("vault_detail_tabs_LOANS").click();
     cy.getByTestID("button_browse_loans").click();
     cy.getByTestID(
       "loans_action_button_DUSD_borrow_button_loans_cards"
@@ -216,17 +211,12 @@ context("Wallet - Loans - Take Loans", () => {
   });
 
   it("should verify vault card", () => {
-    cy.checkVaultTag(
-      "ACTIVE",
-      VaultStatus.Healthy,
-      "vault_card_0_status",
-      walletTheme.isDark
+    cy.checkVaultStatusColor(VaultStatus.Healthy, "vault_card_0_min_ratio");
+    cy.getByTestID("vault_card_0_min_ratio").contains("1.50K %");
+    cy.getByTestID("vault_card_0_loan_available_amount").contains("$100");
+    cy.getByTestID("vault_card_0_total_collateral_amount").contains(
+      "$1,500.00"
     );
-    cy.getByTestID("vault_card_0_col_ratio").contains("1,499.99%");
-    cy.getByTestID("vault_card_0_min_ratio").contains("150%");
-    cy.getByTestID("vault_card_0_total_loan").contains("$100");
-    cy.getByTestID("vault_card_0_loan_symbol_DUSD").should("exist");
-    cy.getByTestID("vault_card_0_total_collateral").contains("$1,500.00");
   });
 
   it("should borrow more loan", () => {
@@ -237,13 +227,13 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("loan_symbol").contains("DUSD");
     cy.getByTestID("loan_outstanding_balance").contains("100");
     cy.getByTestID("vault_id").contains(vaultId);
-    cy.checkVaultTag(
-      "ACTIVE",
-      VaultStatus.Healthy,
-      "vault_status_tag",
-      walletTheme.isDark
-    );
-    cy.getByTestID("loan_col_ratio").contains("1,499.99%");
+    cy.checkVaultStatusColor(VaultStatus.Healthy, "vault_card_0_min_ratio");
+    cy.getByTestID("loan_col_ratio")
+      .invoke("text")
+      .then((text) => {
+        const loanVal = text.replace("%", "").trim();
+        checkValueWithinRange(loanVal, "1,499.99", 1);
+      });
     cy.getByTestID("loan_min_col").contains("150.00%");
     cy.getByTestID("loan_add_input").type("1000").blur();
     cy.getByTestID("loan_add_input_error").contains(
@@ -288,21 +278,17 @@ context("Wallet - Loans - Take Loans", () => {
   });
 
   it("should verify vault card after adding loans", () => {
-    cy.checkVaultTag(
-      "ACTIVE",
-      VaultStatus.AtRisk,
-      "vault_card_0_status",
-      walletTheme.isDark
+    cy.checkVaultStatusColor(VaultStatus.AtRisk, "vault_card_0_min_ratio");
+    cy.getByTestID("vault_card_0_min_ratio").contains("200.53%");
+    cy.getByTestID("vault_card_0_loan_available_amount").contains("$748");
+    cy.getByTestID("vault_card_0_total_collateral_amount").contains(
+      "$1,500.00"
     );
-    cy.getByTestID("vault_card_0_col_ratio").contains("200.53%");
-    cy.getByTestID("vault_card_0_min_ratio").contains("150%");
-    cy.getByTestID("vault_card_0_total_loan").contains("$748");
-    cy.getByTestID("vault_card_0_loan_symbol_DUSD").should("exist");
-    cy.getByTestID("vault_card_0_total_collateral").contains("$1,500.00");
   });
 
   it("should verify collaterals page", () => {
-    cy.getByTestID("vault_card_0_edit_collaterals_button").click();
+    cy.getByTestID("vault_card_0").click();
+    cy.getByTestID("vault_detail_edit_collateral").click();
     checkCollateralDetailValues(
       "ACTIVE",
       "$1,500.00",
@@ -340,35 +326,51 @@ context("Wallet - Loans - Take Loans", () => {
   it("should borrow another loan token", () => {
     cy.go("back");
     cy.wait(2000);
+    cy.go("back");
     cy.getByTestID("loans_tabs_BORROW").click();
+    cy.getByTestID("loan_search_input").clear().type("dTS25").wait(1000);
     cy.getByTestID(
       "loans_action_button_dTS25_borrow_button_loan_screen"
     ).click();
     cy.wait(2000);
-    cy.getByTestID("borrow_loan_vault").click();
-    cy.getByTestID("select_vault_0").click();
-    cy.getByTestID("form_input_borrow").clear().type("3").blur();
+    cy.getByTestID("form_input_borrow").clear().type("4.5").blur();
     cy.wait(3000);
-    cy.getByTestID("text_input_usd_value").should("have.value", "75.00");
-    cy.getByTestID("text_resulting_col_ratio").contains("157.96");
+    cy.getByTestID("text_input_usd_value")
+      .invoke("val")
+      .then((text) => {
+        const value = text.replace("$", "").trim();
+        checkValueWithinRange(value, "112.50", 1);
+      });
+    cy.getByTestID("text_resulting_col_ratio")
+      .invoke("text")
+      .then((text) => {
+        const value = text.replace("%", "").trim();
+        checkValueWithinRange(value, "151", 2);
+      });
     cy.getByTestID("borrow_loan_submit_button").click();
     cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);
     cy.getByTestID("txn_authorization_description").contains(
-      "Borrowing 3.00000000 dTS25"
+      "Borrowing 4.50000000 dTS25"
     );
-    cy.closeOceanInterface();
+    cy.closeOceanInterface().wait(5000);
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
-    cy.checkVaultTag(
-      "ACTIVE",
+    cy.checkVaultStatusColor(
       VaultStatus.NearLiquidation,
-      "vault_card_0_status",
-      walletTheme.isDark
+      "vault_card_0_min_ratio"
     );
-    cy.getByTestID("vault_card_0_col_ratio").contains("157.96%");
-    cy.getByTestID("vault_card_0_min_ratio").contains("150%");
-    cy.getByTestID("vault_card_0_total_loan").contains("$823");
-    cy.getByTestID("vault_card_0_loan_symbol_DUSD").should("exist");
-    cy.getByTestID("vault_card_0_loan_symbol_dTS25").should("exist");
-    cy.getByTestID("vault_card_0_total_collateral").contains("$1,300.00");
+    cy.getByTestID("vault_card_0_min_ratio").contains("151.07%");
+    cy.getByTestID("vault_card_0_loan_available_amount")
+      .invoke("text")
+      .then((text) => {
+        const value = text.replace("%", "").trim();
+        checkValueWithinRange(value, "860.56", 1);
+      });
+    cy.getByTestID("vault_card_0_total_collateral_amount").contains(
+      "$1,300.00"
+    );
+    cy.getByTestID("vault_card_0").click();
+    cy.getByTestID("vault_detail_tabs_LOANS").click();
+    cy.getByTestID("loan_card_DUSD").should("exist");
+    cy.getByTestID("loan_card_dTS25").should("exist");
   });
 });
