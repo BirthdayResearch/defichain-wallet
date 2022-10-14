@@ -134,7 +134,7 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
     onPress: (item: LoanToken) => void;
     loanTokens: LoanToken[];
   }): void => {
-    setSnapPoints({ ios: ["65%"], android: ["60%"] });
+    setSnapPoints({ ios: ["75%"], android: ["70%"] });
     setBottomSheetScreen([
       {
         stackScreenName: "LoanTokensList",

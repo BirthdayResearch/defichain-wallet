@@ -1271,7 +1271,6 @@
     "Search vault": "Rechercher dans les vaults",
     "Search with vault ID": "Recherche avec le n° du vault",
     "Search results for “{{searchTerm}}”": "Résultats de la recherche pour “{{searchTerm}}”",
-    "You need a vault with collaterals to borrow tokens": "Vous avez besoin d'un vault avec des garanties pour emprunter des tokens",
     "Decentralized tokens": "Tokens décentralisés",
     "With vaults, you gain access to a rich economy of decentralized tokens.": "Avec les vaults, vous accédez à une riche économie de tokens décentralisés.",
     "Next": "Suivant",
@@ -1284,7 +1283,9 @@
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "Avec les oracles, vos vaults et vos prêts s'alignent sur les prix du marché en dehors de la blockchain.",
     "Loan tokens get their prices from oracles.": "Les tokens de prêt obtiennent leurs prix des oracles.",
     "Search available loan tokens": "Rechercher les tokens de prêt disponibles",
-    "Edit Vault": "Modifier le vault"
+    "Edit Vault": "Modifier le vault",
+    "Confirm": "Confirmer",
+    "Search with token name": "Recherche avec le nom du token"
   },
   "components/tabs": {
     "Browse loan tokens": "Emprunter un token",
@@ -1463,7 +1464,9 @@
     "Liquidated vault": "Vault liquidé",
     "Ready": "Prêt",
     "Halted": "Intérrompu",
-    "Total loans": "Total des prêts"
+    "Total loans": "Total des prêts",
+    "You need a vault with collaterals to borrow tokens": "Vous avez besoin d'un vault avec des garanties pour emprunter des tokens",
+    "Create a vault": "Créer un vault"
   },
   "components/EmptyVault": {
     "No vaults": "Aucun vault",
@@ -1806,7 +1809,7 @@
     "Prev. interest": "Intérêt précédent",
     "New min. collateral ratio": "Nouveau ratio de garantie min.",
     "New vault interest": "Nouveau intérêt vault",
-    "Transaction fee": "Transaction fee"
+    "Transaction fee": "Frais de transaction"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Ratio de garantie min.",
@@ -2049,5 +2052,11 @@
   "components/PriceOracleInfo": {
     "All prices displayed are from price oracles.": "Tous les prix affichés proviennent d'oracles de prix.",
     "Loan tokens get their prices from oracles.": "Les tokens de prêt obtiennent leurs prix des oracles."
+  },
+  "components/BottomSheetLoanTokensList": {
+    "% interest": "% d'intérêt",
+    "Select Token": "Sélectionner le token",
+    "Search with token name": "Recherche avec le nom du token",
+    "Search results for “{{searchTerm}}”": "Résultats de la recherche pour “{{searchTerm}}”"
   }
 }

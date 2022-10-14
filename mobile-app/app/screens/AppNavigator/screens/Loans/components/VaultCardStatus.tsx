@@ -111,7 +111,10 @@ export function VaultCardStatus({
               style={tailwind("font-semibold-v2 text-base")}
               testID={`${testID}_status`}
             >
-              {getVaultStatusText(vaultStatus)}
+              {translate(
+                "components/VaultCard",
+                getVaultStatusText(vaultStatus)
+              )}
             </ThemedTextV2>
           ) : (
             <NumberFormat
@@ -160,6 +163,7 @@ export function VaultCardStatus({
               style={tailwind("flex-wrap self-center text-xs font-semibold-v2")}
               light={tailwind("text-mono-light-v2-100")}
               dark={tailwind("text-mono-dark-v2-100")}
+              testID="borrow_button"
             >
               {translate("components/VaultCard", "Borrow")}
             </ThemedTextV2>

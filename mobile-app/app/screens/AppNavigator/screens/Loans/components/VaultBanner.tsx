@@ -48,6 +48,7 @@ export function VaultBanner({
         dark={tailwind("bg-mono-dark-v2-00")}
         light={tailwind("bg-mono-light-v2-00")}
         style={tailwind("p-5 rounded-lg-v2 border-0")}
+        testID={`${testID}_vault`}
       >
         <View style={tailwind("flex-row items-center")}>
           {vaultType === VaultStatus.Liquidated ? (
@@ -58,7 +59,7 @@ export function VaultBanner({
                 height: 64,
               }}
               resizeMode="contain"
-              testID={`${testID}_vault_type`}
+              testID={`${testID}_liquidated_vault_image`}
             />
           ) : (
             <Image
@@ -68,7 +69,7 @@ export function VaultBanner({
                 height: 64,
               }}
               resizeMode="contain"
-              testID={`${testID}_vault_type`}
+              testID={`${testID}_empty_vault_image`}
             />
           )}
 

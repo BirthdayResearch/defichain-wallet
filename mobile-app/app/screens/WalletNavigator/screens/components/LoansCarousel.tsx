@@ -102,6 +102,7 @@ export function LoansCarousel({
         { "-mt-0.5": Platform.OS === "ios" },
         { "-mt-1": Platform.OS === "android" }
       )}
+      testID="loans_carousel"
     >
       {/* -mt-1 above and mt-1 added below is kind of hack to solved React Navigation elevation bug on android for now. */}
       <View
@@ -109,7 +110,6 @@ export function LoansCarousel({
           "mt-1": Platform.OS === "ios",
           "mt-2": Platform.OS === "android",
         })}
-        testID="loans_bottom_sheet"
       >
         <SwiperFlatList
           autoplay
