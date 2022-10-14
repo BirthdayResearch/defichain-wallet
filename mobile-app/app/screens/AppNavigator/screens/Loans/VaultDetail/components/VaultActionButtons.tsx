@@ -62,9 +62,7 @@ export function VaultActionButtons({
   ];
 
   return (
-    <View
-      style={tailwind("flex-1 flex-row items-center justify-center pt-6 px-5")}
-    >
+    <View style={tailwind("flex-1 flex-row justify-center pt-6 px-5")}>
       {buttons.map((button) => (
         <View
           style={tailwind("flex-1 flex-col items-center px-3")}
@@ -91,7 +89,7 @@ export function VaultActionButtons({
             />
           </ThemedTouchableOpacityV2>
           <ThemedTextV2
-            style={tailwind("font-normal-v2 text-xs pt-2", {
+            style={tailwind("font-normal-v2 text-xs pt-2 text-center", {
               "opacity-30": button.isDisabled,
             })}
           >
