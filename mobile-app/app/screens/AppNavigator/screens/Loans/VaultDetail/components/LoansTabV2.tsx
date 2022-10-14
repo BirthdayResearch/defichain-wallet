@@ -68,6 +68,13 @@ export function LoansTabV2(props: {
   const { vault, dismissModal, expandModal, setBottomSheetScreen } = props;
   return (
     <ThemedViewV2 style={tailwind("mx-5 mt-6")}>
+      <ThemedTextV2
+        light={tailwind("text-mono-light-v2-500")}
+        dark={tailwind("text-mono-dark-v2-500")}
+        style={tailwind("text-xs font-normal-v2 mb-2 px-5")}
+      >
+        {translate("screens/Loans", "LOANS")}
+      </ThemedTextV2>
       {vault.state === LoanVaultState.IN_LIQUIDATION
         ? vault.batches.map((batch) => (
             <LoanCard
@@ -83,32 +90,23 @@ export function LoansTabV2(props: {
             />
           ))
         : vault.loanAmounts.map((loan) => (
-            <>
-              <ThemedTextV2
-                light={tailwind("text-mono-light-v2-500")}
-                dark={tailwind("text-mono-dark-v2-500")}
-                style={tailwind("text-xs font-normal-v2 mb-2 px-5")}
-              >
-                {translate("screens/Loans", "LOANS")}
-              </ThemedTextV2>
-              <LoanCard
-                key={loan.id}
-                symbol={loan.symbol}
-                displaySymbol={loan.displaySymbol}
-                amount={loan.amount}
-                interestAmount={
-                  vault.interestAmounts.find(
-                    (interest) => interest.symbol === loan.symbol
-                  )?.amount
-                }
-                vaultState={vault.state}
-                vault={vault}
-                loanToken={loan}
-                dismissModal={dismissModal}
-                expandModal={expandModal}
-                setBottomSheetScreen={setBottomSheetScreen}
-              />
-            </>
+            <LoanCard
+              key={loan.id}
+              symbol={loan.symbol}
+              displaySymbol={loan.displaySymbol}
+              amount={loan.amount}
+              interestAmount={
+                vault.interestAmounts.find(
+                  (interest) => interest.symbol === loan.symbol
+                )?.amount
+              }
+              vaultState={vault.state}
+              vault={vault}
+              loanToken={loan}
+              dismissModal={dismissModal}
+              expandModal={expandModal}
+              setBottomSheetScreen={setBottomSheetScreen}
+            />
           ))}
     </ThemedViewV2>
   );
@@ -128,7 +126,7 @@ function LoanCard(props: LoanCardProps): JSX.Element {
 
   return (
     <TouchableOpacity
-      style={tailwind("")}
+      style={tailwind("mb-2")}
       onPress={() => {
         navigation.navigate({
           name: "BorrowMoreScreen",
@@ -327,7 +325,7 @@ function LoanActionDUSDButton({
         activeOpacity={0.7}
       >
         <ThemedTextV2
-          light={tailwind("text-mono-light-v2-900")}
+          light={tailwind("text-mono-dark-v2-900")}
           dark={tailwind("text-mono-dark-v2-900")}
           style={tailwind("text-sm font-semibold-v2 text-center")}
         >

@@ -9,7 +9,7 @@ import {
   BottomSheetWebWithNav,
   BottomSheetWithNav,
 } from "@components/BottomSheetWithNav";
-import { ThemedTextV2, ThemedViewV2, ThemedIcon } from "@components/themed";
+import { ThemedTextV2 } from "@components/themed";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import {
   BottomSheetAlertInfoV2,
@@ -65,7 +65,7 @@ export function VaultDetailTabSectionV2({
           message: translate(
             "screens/VaultDetailScreen",
             isDusdLoaned
-              ? "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI. This only affects vaults that has DUSD as both collateral and loan."
+              ? "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI. \n\n This only affects vaults that has DUSD as both collateral and loan."
               : "This is the current loan amount available for this vault."
           ),
         }}
