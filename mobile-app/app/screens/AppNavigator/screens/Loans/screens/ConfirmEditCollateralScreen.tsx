@@ -391,7 +391,7 @@ export function ConfirmEditCollateralScreen({
           onCancel={onCancel}
           displayCancelBtn
           title="confirm_edit_collateral"
-          buttonStyle="mt-5 mb-5.5"
+          buttonStyle="my-5"
         />
       </View>
     </ThemedScrollViewV2>

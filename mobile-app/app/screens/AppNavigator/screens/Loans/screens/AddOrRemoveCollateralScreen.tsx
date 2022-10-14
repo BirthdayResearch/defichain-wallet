@@ -40,9 +40,9 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import {
   BottomSheetTokenList,
-  CollateralFactorTag,
   TokenType,
 } from "@components/BottomSheetTokenList";
+import { CollateralFactorTag } from "@components/CollateralFactorTag";
 import { TextRowV2 } from "@components/TextRowV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
