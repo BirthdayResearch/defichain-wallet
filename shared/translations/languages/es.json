@@ -1287,7 +1287,6 @@
     "Search vault": "Buscar Vault",
     "Search with vault ID": "Buscar por ID del Vault",
     "Search results for “{{searchTerm}}”": "Buscar resultados para “{{searchTerm}}”",
-    "You need a vault with collaterals to borrow tokens": "Necesitas un Vault con colateral para tomar prestados tokens",
     "Decentralized tokens": "Tokens descentralizados",
     "With vaults, you gain access to a rich economy of decentralized tokens.": "Con los Vaults, obtienes acceso a la rica economía de una variedad de tokens descentralizados",
     "Next": "Siguiente",
@@ -1300,7 +1299,8 @@
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "Con los oráculos, tus Vaults y préstamos se alinean con precios de mercado fuera de la cadena de bloques",
     "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
     "Search available loan tokens": "Buscar tokens de préstamo disponibles",
-    "Edit Vault": "Edit Vault"
+    "Edit Vault": "Edit Vault",
+    "Confirm": "Confirmar"
   },
   "components/tabs": {
     "Browse loan tokens": "Busca tokens de préstamo",
@@ -1481,7 +1481,10 @@
     "Borrow": "Borrow",
     "Liquidated vault": "Liquidated vault",
     "Ready": "Ready",
-    "Halted": "Halted"
+    "Halted": "Halted",
+    "Total loans": "Préstamos totales",
+    "You need a vault with collaterals to borrow tokens": "Necesitas un Vault con colateral para tomar prestados tokens",
+    "Create a vault": "Crear Vault"
   },
   "components/EmptyVault": {
     "No vaults": "No hay Vaults",
@@ -1566,7 +1569,25 @@
     "Total collateral (USD)": "Colateral total (USD)",
     "Total loans (USD)": "Préstamos total (USD)",
     "Vault interest (APR)": "Interés anual del Vault",
-    "Min. collateralization ratio": "Ratio mínimo de colateralización"
+    "Min. collateralization ratio": "Ratio mínimo de colateralización",
+    "next": "next",
+    "Add": "Add",
+    "Borrow": "Borrow",
+    "Pay": "Pay",
+    "Edit": "Edit",
+    "Max loan amount": "Máxima cantidad del préstamo",
+    "Total collateral": "Total collateral",
+    "Total loan": "Total loan",
+    "Interest (APR)": "Interest (APR)",
+    "Min. collateral ratio": "Ratio Min. colateral",
+    "Close vault": "Cancela la Vault",
+    "Max Loan Amount": "Máxima cantidad del préstamo",
+    "This is the current loan amount available for this vault.": "This is the current loan amount available for this vault.",
+    "Min. Collateral Ratio": "Ratio Min. colateral",
+    "The amount that your vault can borrow is directly affected by the tokens you put in as collateral. Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.": "The amount that your vault can borrow is directly affected by the tokens you put in as collateral. Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.",
+    "Ready": "Prêt",
+    "Halted": "Intérrompu",
+    "Empty": "Vide"
   },
   "components/ScrollableButton": {
     "ADD COLLATERAL": "AÑADIR COLATERAL",
@@ -1824,7 +1845,7 @@
     "Prev. interest": "Prev. interest",
     "New min. collateral ratio": "New min. collateral ratio",
     "New vault interest": "New vault interest",
-    "Transaction fee": "Transaction fee"
+    "Transaction fee": "Comision de transacción"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Ratio mínimo de colateralización",
@@ -2062,5 +2083,9 @@
   "components/PriceOracleInfo": {
     "All prices displayed are from price oracles.": "Todos los precios son provistos por los oráculos",
     "Loan tokens get their prices from oracles.": "Tokens de préstamos toman los precios de los oráculos"
+  },
+  "components/BottomSheetLoanTokensList": {
+    "% interest": "% interest",
+    "Select Token": "Select Token"
   }
 }
