@@ -1285,7 +1285,7 @@
     "Search available loan tokens": "Rechercher les tokens de prêt disponibles",
     "Edit Vault": "Modifier le vault",
     "Confirm": "Confirmer",
-    "Search with token name": "Recherche avec le nom du token"
+    "Search with token name": "Recherche avec le nom du token",
     "Vault Details": "Vue détaillée du vault"
   },
   "components/tabs": {

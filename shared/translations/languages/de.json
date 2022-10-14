@@ -1273,7 +1273,7 @@
     "Search available loan tokens": "Verfügbare Darlehenstoken durchsuchen",
     "Edit Vault": "Vault bearbeiten",
     "Confirm": "Bestätigen",
-    "Search with token name": "Suche über den Token-Namen"
+    "Search with token name": "Suche über den Token-Namen",
     "Vault Details": "Vault Detailansicht"
   },
   "components/tabs": {
