@@ -15,7 +15,6 @@ interface useDFIRequirementForDusdLoanAndCollateralProps {
   loanValue: BigNumber;
   loanToken: LoanToken;
   minColRatio: string;
-  newDUSDLoanAmount: BigNumber;
 }
 
 /**
@@ -23,7 +22,7 @@ interface useDFIRequirementForDusdLoanAndCollateralProps {
  *
  * Modified formula from [DeFiCh/ain] to include new loan amount to be taken during `Borrow` flow
  *
- * Source: https://github.com/DeFiCh/ain/blob/4b3c187f590738f44f5574901f1fec233a53c226/src/masternodes/mn_checks.cpp#L3003
+ * Source: https://github.com/DeFiCh/ain/blob/a2a8ee7c12649319456b247b52164cba0727f7db/src/masternodes/mn_checks.cpp#L3003
  *
  * @returns
  */
@@ -54,11 +53,12 @@ export function useDFIRequirementForDusdLoanAndCollateral(
   );
   const isDFILessThanHalfOfRequiredCollateral = dfiCollateralValue.isLessThan(
     new BigNumber(props.loanValue)
-      .plus(isTakingDUSDLoan ? props.newDUSDLoanAmount : 0)
       .multipliedBy(props.minColRatio)
+      .dividedBy(100)
       .dividedBy(2)
   );
   return {
-    isDFILessThanHalfOfRequiredCollateral,
+    isDFILessThanHalfOfRequiredCollateral:
+      isTakingDUSDLoan && isDFILessThanHalfOfRequiredCollateral,
   };
 }

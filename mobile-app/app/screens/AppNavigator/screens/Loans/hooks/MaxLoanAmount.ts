@@ -1,5 +1,7 @@
 import { LoanVaultTokenAmount } from "@defichain/whale-api-client/dist/api/loan";
+import { RootState } from "@store";
 import BigNumber from "bignumber.js";
+import { useSelector } from "react-redux";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 
 interface useMaxLoanProps {
@@ -12,11 +14,10 @@ interface useMaxLoanProps {
 }
 
 /**
- * To calculate max loan based on two conditions:
- * 1. Max loan amount <= Total col value / min col ratio
- * 2. Max loan amount <= 2 * (DFI col value + DUSD col value) / min col ratio
- *
- * The lower value from one of these two conditions will be used as the max loan amount.
+ * To calculate max loan based on three conditions:
+ * 1. Max loan amount, A <= Total col value / min col ratio
+ * 2. Max loan amount, B <= 2 * (DFI col value + DUSD col value) / min col ratio
+ * 3. Final max loan amount = min(A, B)
  *
  * Return max loan amount if `loanActivePrice` is passed, max loan value otherwise.
  */
@@ -36,19 +37,35 @@ export function useMaxLoan({
     .dividedBy(interestPerBlock.plus(1));
 
   // 2nd condition
+  const collateralTokens = useSelector(
+    (state: RootState) => state.loans.collateralTokens
+  );
   const getSpecialCollateralValue = (): BigNumber => {
-    const dfiCollateral = collateralAmounts.find(
+    // Calculate DFI collateral value
+    const dfiCollateralAmount = collateralAmounts.find(
       (colAmount) => colAmount.displaySymbol === "DFI"
     );
     const dfiCollateralValue = new BigNumber(
-      dfiCollateral?.amount ?? 0
-    ).multipliedBy(getActivePrice("DFI", dfiCollateral?.activePrice));
-    const dusdCollateral = collateralAmounts.find(
+      dfiCollateralAmount?.amount ?? 0
+    ).multipliedBy(getActivePrice("DFI", dfiCollateralAmount?.activePrice));
+    // Calculate DUSD collateral value
+    const dusdCollateralAmount = collateralAmounts.find(
       (colAmount) => colAmount.displaySymbol === "DUSD"
     );
+    const dusdCollateralToken = collateralTokens.find(
+      (token) => token.token.displaySymbol === "DUSD"
+    );
     const dusdCollateralValue = new BigNumber(
-      dusdCollateral?.amount ?? 0
-    ).multipliedBy(getActivePrice("DUSD"));
+      dusdCollateralAmount?.amount ?? 0
+    ).multipliedBy(
+      getActivePrice(
+        "DUSD",
+        undefined,
+        dusdCollateralToken?.factor,
+        "ACTIVE",
+        "COLLATERAL"
+      )
+    );
     return dfiCollateralValue.plus(dusdCollateralValue);
   };
 
@@ -57,9 +74,11 @@ export function useMaxLoan({
     .dividedBy(minColRatio.dividedBy(100))
     .minus(existingLoanValue)
     .dividedBy(loanActivePrice);
-  return maxLoanBoundedByColRatio.isLessThanOrEqualTo(
+
+  const finalMaxLoan = maxLoanBoundedByColRatio.isLessThanOrEqualTo(
     maxLoanBoundedByColCondition
   )
     ? maxLoanBoundedByColRatio.multipliedBy(0.99999999)
     : maxLoanBoundedByColCondition.multipliedBy(0.99999999); // to account for rounding adjustment
+  return BigNumber.max(finalMaxLoan, 0); // to not return negative value
 }

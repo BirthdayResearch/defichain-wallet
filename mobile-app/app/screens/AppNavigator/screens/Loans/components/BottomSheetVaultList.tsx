@@ -130,7 +130,7 @@ export const BottomSheetVaultList = ({
                   displayType="text"
                   renderText={(value) => (
                     <ThemedTextV2
-                      style={tailwind("text-xs font-normal-v2")}
+                      style={tailwind("text-xs font-normal-v2 mt-1")}
                       light={tailwind("text-mono-light-v2-700")}
                       dark={tailwind("text-mono-dark-v2-700")}
                     >

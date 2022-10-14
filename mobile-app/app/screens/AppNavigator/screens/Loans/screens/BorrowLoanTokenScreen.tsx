@@ -136,12 +136,13 @@ export function BorrowLoanTokenScreen({
       collateralAmounts: vault.collateralAmounts,
       loanAmounts: vault.loanAmounts,
       collateralValue: new BigNumber(vault.collateralValue),
-      loanValue: new BigNumber(vault.loanValue),
+      loanValue: new BigNumber(vault.loanValue).plus(
+        new BigNumber(borrowAmount).isNaN()
+          ? new BigNumber(0)
+          : new BigNumber(borrowAmount)
+      ),
       loanToken: loanToken,
       minColRatio: vault.loanScheme.minColRatio,
-      newDUSDLoanAmount: new BigNumber(borrowAmount).isNaN()
-        ? new BigNumber(0)
-        : new BigNumber(borrowAmount),
     });
   const { atRiskThreshold } = useColRatioThreshold(
     new BigNumber(vault.loanScheme.minColRatio)
@@ -273,13 +274,7 @@ export function BorrowLoanTokenScreen({
   };
 
   const validateInput = (): void => {
-    if (isDFILessThanHalfOfRequiredCollateral) {
-      setInputValidationMessage({
-        message:
-          "A minimum of 50% DFI as collateral is required before borrowing DUSD",
-        type: ValidationMessageType.Error,
-      });
-    } else if (requiredTokensShare.isZero()) {
+    if (requiredTokensShare.isZero() || maxLoanAmount.isZero()) {
       setInputValidationMessage({
         message:
           "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens",
@@ -287,11 +282,20 @@ export function BorrowLoanTokenScreen({
       });
     } else if (resultingColRatio.isLessThan(vault.loanScheme.minColRatio)) {
       setInputValidationMessage(undefined); // this error message is moved to below quick input
-    } else if (resultingColRatio < atRiskThreshold) {
+    } else if (
+      resultingColRatio.isLessThan(atRiskThreshold) &&
+      new BigNumber(borrowAmount).isGreaterThan(0)
+    ) {
       setInputValidationMessage({
         message:
           "Amount entered may liquidate the vault. Proceed at your own risk.",
         type: ValidationMessageType.Warning,
+      });
+    } else if (isDFILessThanHalfOfRequiredCollateral) {
+      setInputValidationMessage({
+        message:
+          "A minimum of 50% DFI as collateral is required before borrowing DUSD",
+        type: ValidationMessageType.Error,
       });
     } else {
       setInputValidationMessage(undefined);
@@ -399,9 +403,8 @@ export function BorrowLoanTokenScreen({
                       }}
                       placeholder="0.00"
                       placeholderTextColor={getColor(
-                        isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
+                        isLight ? "mono-light-v2-500" : "mono-dark-v2-500"
                       )}
-                      // ref={amountInputRef}
                       testID="text_input_borrow_amount"
                     />
                   )}
@@ -432,6 +435,7 @@ export function BorrowLoanTokenScreen({
                       loanToken.activePrice
                     )
                   )}
+                  style={tailwind("text-sm")}
                   testId="borrow_amount_in_usd"
                   containerStyle={tailwind("w-full break-words")}
                 />
