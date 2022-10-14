@@ -281,9 +281,15 @@ async function closeVault(
             "screens/OceanInterface",
             "Preparing to close vault…"
           ),
-          waiting: translate("screens/OceanInterface", "Closing vault…"),
+          waiting: translate(
+            "screens/CloseVaultScreen",
+            "Closing vault {{vaultId}}",
+            {
+              vaultId: truncatedVaultId,
+            }
+          ),
           complete: translate(
-            "screens/OceanInterface",
+            "screens/CloseVaultScreen",
             "Closed vault {{vaultId}}",
             { vaultId: truncatedVaultId }
           ),
