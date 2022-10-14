@@ -113,7 +113,7 @@ export function ConfirmEditCollateralScreen({
           style: "destructive",
           onPress: async () => {
             navigation.navigate({
-              name: "EditCollateralScreen",
+              name: "VaultDetailScreen",
               params: {
                 vaultId: vault.vaultId,
               },
