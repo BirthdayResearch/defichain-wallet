@@ -4,9 +4,7 @@ import {
   ThemedScrollView,
   ThemedSectionTitle,
   ThemedText,
-  ThemedTextV2,
   ThemedView,
-  ThemedViewV2,
 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
 import { tailwind } from "@tailwind";
@@ -36,6 +34,7 @@ import {
 } from "@defichain/whale-api-client/dist/api/loan";
 import { createSelector } from "@reduxjs/toolkit";
 import { IconButton } from "@components/IconButton";
+import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
 import { tokensSelector } from "@store/wallet";
 import { getCollateralPrice } from "@screens/AppNavigator/screens/Loans/hooks/CollateralPrice";
 import {
@@ -51,7 +50,6 @@ import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { VaultSectionTextRow } from "../components/VaultSectionTextRow";
 import { LoanParamList } from "../LoansNavigator";
-import { BottomSheetTokenListHeader } from "../components/BottomSheetTokenListHeader";
 
 type Props = StackScreenProps<LoanParamList, "EditCollateralScreen">;
 

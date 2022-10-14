@@ -50,6 +50,7 @@ import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { queueConvertTransaction } from "@hooks/wallet/Conversion";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { ActiveUSDValueV2 } from "../VaultDetail/components/ActiveUSDValueV2";
 import { LoanParamList } from "../LoansNavigator";
@@ -61,7 +62,6 @@ import {
 } from "../hooks/CollateralPrice";
 import { CollateralItem } from "../screens/EditCollateralScreen";
 import { ControlledTextInput } from "../components/ControlledTextInput";
-import { BottomSheetTokenListHeader } from "../components/BottomSheetTokenListHeader";
 import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
 
 type Props = StackScreenProps<LoanParamList, "AddOrRemoveCollateralScreen">;
