@@ -1284,7 +1284,9 @@
     "Loan tokens get their prices from oracles.": "Les tokens de prêt obtiennent leurs prix des oracles.",
     "Search available loan tokens": "Rechercher les tokens de prêt disponibles",
     "Edit Vault": "Modifier le vault",
-    "Confirm": "Confirmer"
+    "Confirm": "Confirmer",
+    "Search with token name": "Recherche avec le nom du token",
+    "Vault Details": "Vue détaillée du vault"
   },
   "components/tabs": {
     "Browse loan tokens": "Emprunter un token",
@@ -1465,7 +1467,8 @@
     "Halted": "Intérrompu",
     "Total loans": "Total des prêts",
     "You need a vault with collaterals to borrow tokens": "Vous avez besoin d'un vault avec des garanties pour emprunter des tokens",
-    "Create a vault": "Créer un vault"
+    "Create a vault": "Créer un vault",
+    "Max loan amount": "Montant max. du prêt"
   },
   "components/EmptyVault": {
     "No vaults": "Aucun vault",
@@ -1552,18 +1555,18 @@
     "Min. collateralization ratio": "Ratio de garantie min.",
     "next": "le suivant",
     "Add": "Ajouter",
-    "Borrow": "Borrow",
+    "Borrow": "Emprunter",
     "Pay": "Rembourser",
-    "Edit": "Edit",
-    "Max loan amount": "Max loan amount",
-    "Total collateral": "Total collateral",
-    "Total loan": "Total loan",
+    "Edit": "Modifier",
+    "Max loan amount": "Montant max. du prêt",
+    "Total collateral": "Total des garanties",
+    "Total loan": "Total des prêts",
     "Interest (APR)": "Intérêt (TAEG)",
-    "Min. collateral ratio": "Min. collateral ratio",
-    "Close vault": "Close vault",
-    "Max Loan Amount": "Max Loan Amount",
+    "Min. collateral ratio": "Ratio de garantie min.",
+    "Close vault": "Fermer le vault",
+    "Max Loan Amount": "Montant max. du prêt",
     "This is the current loan amount available for this vault.": "Il s'agit du montant du prêt actuellement disponible pour ce vault.",
-    "Min. Collateral Ratio": "Min. Collateral Ratio",
+    "Min. Collateral Ratio": "Ratio de garantie min.",
     "The amount that your vault can borrow is directly affected by the tokens you put in as collateral. Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.": "Le montant que votre vault peut emprunter est directement affecté par les tokens que vous mettez en garantie. L'ajout de DFI et/ou de DUSD augmentera votre pouvoir d'emprunt et vous aidera à maximiser le montant du prêt de votre vault.",
     "Ready": "Prêt",
     "Halted": "Intérrompu",
@@ -2067,6 +2070,8 @@
   },
   "components/BottomSheetLoanTokensList": {
     "% interest": "% d'intérêt",
-    "Select Token": "Sélectionner le token"
+    "Select Token": "Sélectionner le token",
+    "Search with token name": "Recherche avec le nom du token",
+    "Search results for “{{searchTerm}}”": "Résultats de la recherche pour “{{searchTerm}}”"
   }
 }

@@ -1276,7 +1276,9 @@
     "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
     "Search available loan tokens": "Search available loan tokens",
     "Edit Vault": "Edit Vault",
-    "Confirm": "確認"
+    "Confirm": "確認",
+    "Search with token name": "使用代幣名稱搜索",
+    "Vault Details": "金庫明細"
   },
   "components/tabs": {
     "Browse loan tokens": "瀏覽貸款選項",
@@ -1460,7 +1462,8 @@
     "Halted": "已暫停",
     "Total loans": "貸款總金額",
     "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
-    "Create a vault": "Create a vault"
+    "Create a vault": "Create a vault",
+    "Max loan amount": "Max loan amount"
   },
   "components/EmptyVault": {
     "No vaults": "No vaults",
@@ -2064,6 +2067,8 @@
   },
   "components/BottomSheetLoanTokensList": {
     "% interest": "% interest",
-    "Select Token": "Select Token"
+    "Select Token": "Select Token",
+    "Search with token name": "使用代幣名稱搜索",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
   }
 }

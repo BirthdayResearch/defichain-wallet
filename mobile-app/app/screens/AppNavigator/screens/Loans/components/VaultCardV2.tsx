@@ -19,6 +19,7 @@ import { VaultCardStatus } from "@screens/AppNavigator/screens/Loans/components/
 import { ThemedTouchableOpacityV2, ThemedViewV2 } from "@components/themed";
 import { BottomSheetNavScreen } from "@components/BottomSheetWithNavV2";
 import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";
+import { useMaxLoanAmount } from "@screens/AppNavigator/screens/Loans/hooks/MaxLoanAmount";
 import { VaultSectionTextRowV2 } from "./VaultSectionTextRowV2";
 import { VaultBanner } from "./VaultBanner";
 
@@ -55,6 +56,13 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
     new BigNumber(vault.loanValue),
     new BigNumber(vault.collateralValue)
   );
+  const maxLoanAmount = useMaxLoanAmount({
+    totalCollateralValue: new BigNumber(vault.collateralValue),
+    existingLoanValue: new BigNumber(vault.loanValue),
+    minColRatio: new BigNumber(vault.loanScheme.minColRatio),
+    loanActivePrice: new BigNumber(1),
+    interestPerBlock: new BigNumber(0),
+  });
 
   const loanTokens = useSelector((state: RootState) =>
     loanTokensSelector(state.loans)
@@ -119,7 +127,11 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
       default:
         break;
     }
-    return { buttonLabel, text, type };
+    return {
+      buttonLabel,
+      text,
+      type,
+    };
   }, [vaultState.status]);
 
   return (
@@ -131,8 +143,8 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
           vaultId={vault.vaultId}
           onButtonPress={onAddCollateralPress}
           vaultType={vaultBanner.type}
-          onCardPress={onCardPress}
-          testID={props.testID}
+          onCardPress={isVaultLiquidated ? undefined : onCardPress}
+          testID={`${props.testID}_${vaultBanner.type}`}
           vault={vault}
         />
       ) : (
@@ -159,10 +171,10 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
                   size={24}
                 />
                 <VaultSectionTextRowV2
-                  testID={`${props.testID}_loan_available`}
+                  testID={`${props.testID}_max_loan_amount`}
                   prefix="$"
-                  value={getPrecisedCurrencyValue(vault.loanValue) ?? "-"}
-                  lhs={translate("components/VaultCard", "Total loans")}
+                  value={getPrecisedCurrencyValue(maxLoanAmount) ?? "-"}
+                  lhs={translate("components/VaultCard", "Max loan amount")}
                   isOraclePrice
                   customContainerStyle="mt-3"
                 />

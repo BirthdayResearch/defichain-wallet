@@ -1300,7 +1300,9 @@
     "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
     "Search available loan tokens": "Buscar tokens de préstamo disponibles",
     "Edit Vault": "Edit Vault",
-    "Confirm": "Confirmar"
+    "Confirm": "Confirmar",
+    "Search with token name": "Buscar por nombre de token",
+    "Vault Details": "Detalles del Vault"
   },
   "components/tabs": {
     "Browse loan tokens": "Busca tokens de préstamo",
@@ -1484,7 +1486,8 @@
     "Halted": "Halted",
     "Total loans": "Préstamos totales",
     "You need a vault with collaterals to borrow tokens": "Necesitas un Vault con colateral para tomar prestados tokens",
-    "Create a vault": "Crear Vault"
+    "Create a vault": "Crear Vault",
+    "Max loan amount": "Max loan amount"
   },
   "components/EmptyVault": {
     "No vaults": "No hay Vaults",
@@ -2086,6 +2089,8 @@
   },
   "components/BottomSheetLoanTokensList": {
     "% interest": "% interest",
-    "Select Token": "Select Token"
+    "Select Token": "Select Token",
+    "Search with token name": "Buscar por nombre de token",
+    "Search results for “{{searchTerm}}”": "Buscar resultados para “{{searchTerm}}”"
   }
 }

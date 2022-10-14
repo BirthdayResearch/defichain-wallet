@@ -104,7 +104,10 @@ export function VaultDetailStatus({
             style={tailwind("font-semibold-v2 text-2xl")}
             testID="vault_status"
           >
-            {getVaultStatusText(vaultStatus)}
+            {translate(
+              "screens/VaultDetailScreen",
+              getVaultStatusText(vaultStatus)
+            )}
           </ThemedTextV2>
         ) : (
           <View style={tailwind("flex-col items-center")}>
