@@ -258,23 +258,14 @@ Cypress.Commands.add(
 Cypress.Commands.add(
   "checkVaultStatusColor",
   (status: VaultStatus, testID: string) => {
-    let vaultItem = {
-      color: "",
-    };
-    const nonHealthyState = [
-      VaultStatus.Empty,
-      VaultStatus.Ready,
-      VaultStatus.Liquidated,
-    ].includes(status);
+    let vaultItemColor = "rgb(204, 204, 204)";
     if (status === VaultStatus.AtRisk) {
-      vaultItem.color = "rgb(217, 123, 1)";
+      vaultItemColor = "rgb(217, 123, 1)";
     } else if (status === VaultStatus.Healthy) {
-      vaultItem.color = "rgb(0, 173, 29)";
+      vaultItemColor = "rgb(0, 173, 29)";
     } else if (status === VaultStatus.NearLiquidation) {
-      vaultItem.color = "rgb(217, 123, 1)";
-    } else if (nonHealthyState) {
-      vaultItem.color = "rgb(229, 69, 69)";
+      vaultItemColor = "rgb(229, 69, 69)";
     }
-    cy.getByTestID(testID).should("have.css", "color", vaultItem.color);
+    cy.getByTestID(testID).should("have.css", "color", vaultItemColor);
   }
 );
