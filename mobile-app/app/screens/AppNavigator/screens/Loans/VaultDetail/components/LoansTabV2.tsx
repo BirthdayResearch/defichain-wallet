@@ -8,7 +8,6 @@ import {
 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { SymbolIcon } from "@components/SymbolIcon";
-import { IconButton } from "@components/IconButton";
 import { translate } from "@translations";
 import { fetchVaults, LoanVault } from "@store/loans";
 import {
@@ -21,7 +20,6 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { LoanParamList } from "@screens/AppNavigator/screens/Loans/LoansNavigator";
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
 import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
-import { ActiveUSDValue } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue";
 import { BottomSheetNavScreen } from "@components/BottomSheetWithNav";
 import { Text, TouchableOpacity, View } from "react-native";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
@@ -48,7 +46,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { LoanActionButton } from "@screens/AppNavigator/screens/Loans/components/LoanActionButton";
 import { EmptyLoan } from "./EmptyLoan";
-import { VaultSectionTextRow } from "../../components/VaultSectionTextRow";
 
 interface LoanCardProps {
   symbol: string;
@@ -120,6 +117,7 @@ export function LoansTabV2(props: {
 }
 
 function LoanCard(props: LoanCardProps): JSX.Element {
+  const navigation = useNavigation<NavigationProp<LoanParamList>>();
   const canUseOperations = useLoanOperations(props.vault?.state);
   const activePrice = new BigNumber(
     getActivePrice(props.symbol, props.loanToken.activePrice)
@@ -131,7 +129,19 @@ function LoanCard(props: LoanCardProps): JSX.Element {
   const { isFeatureAvailable } = useFeatureFlagContext();
 
   return (
-    <View style={tailwind("")}>
+    <TouchableOpacity
+      style={tailwind("")}
+      onPress={() => {
+        navigation.navigate({
+          name: "BorrowMoreScreen",
+          merge: true,
+          params: {
+            vault: props.vault,
+            loanTokenAmount: props.loanToken,
+          },
+        });
+      }}
+    >
       <ThemedViewV2
         light={tailwind("bg-mono-light-v2-00")}
         dark={tailwind("bg-mono-dark-v2-00")}
@@ -146,7 +156,6 @@ function LoanCard(props: LoanCardProps): JSX.Element {
             symbol={props.displaySymbol}
             styleHeight={36}
             styleWidth={36}
-            // styleProps={tailwind("w-4 h-4")}
           />
           {/* eslint-disable react-native/no-raw-text */}
           <View style={tailwind("ml-2")}>
@@ -181,133 +190,43 @@ function LoanCard(props: LoanCardProps): JSX.Element {
           </View>
         </View>
 
-        <LoanActionButton
-          label={translate("components/Loans", "Pay")}
-          // onPress={}
-          testID={`pay_${props.displaySymbol}_loan`}
-        />
-        {/* <View style={tailwind("mt-3")}>
-        <VaultSectionTextRow
-          value={new BigNumber(props.amount).toFixed(8)}
-          lhs={translate(
-            "components/VaultDetailsLoansTab",
-            "Outstanding balance"
-          )}
-          testID={`loan_card_${props.displaySymbol}_outstanding_balance`}
-          suffixType="text"
-          suffix={` ${props.displaySymbol}`}
-          style={tailwind("text-sm font-medium")}
-          rhsThemedProps={{
-            light: tailwind({
-              "text-gray-300":
-                props.vaultState === LoanVaultState.IN_LIQUIDATION,
-              "text-black": props.vaultState !== LoanVaultState.IN_LIQUIDATION,
-            }),
-            dark: tailwind({
-              "text-gray-700":
-                props.vaultState === LoanVaultState.IN_LIQUIDATION,
-              "text-white": props.vaultState !== LoanVaultState.IN_LIQUIDATION,
-            }),
-          }}
-        />
-        <ActiveUSDValue
-          price={new BigNumber(props.amount).multipliedBy(activePrice)}
-          containerStyle={tailwind("justify-end")}
-          isOraclePrice
-          testId={`loan_card_${props.displaySymbol}_outstanding_balance_value`}
-        />
-        {props.vaultState !== LoanVaultState.IN_LIQUIDATION && (
-          <>
-            <View style={tailwind("pt-1.5")}>
-              <VaultSectionTextRow
-                value={new BigNumber(props.interestAmount ?? 0).toFixed(8)}
-                lhs={translate(
-                  "components/VaultDetailsLoansTab",
-                  "Interest amount"
-                )}
-                testID="text_interest_amount"
-                suffixType="text"
-                suffix={` ${props.displaySymbol}`}
-                info={{
-                  title: "Interest amount",
-                  message:
-                    "This amount is the total interest amount from both vault and token interest rate.",
-                }}
-              />
-              <ActiveUSDValue
-                price={new BigNumber(props.interestAmount ?? 0).multipliedBy(
-                  activePrice
-                )}
-                containerStyle={tailwind("justify-end")}
-                isOraclePrice
-              />
-            </View>
-          </>
-        )}
-      </View> */}
-        {/* {props.vault !== undefined && (
-        <View style={tailwind("mt-4 -mb-2")}>
-          <ActionButtons
-            testID={`loan_card_${props.displaySymbol}`}
-            vault={props.vault}
-            loanToken={props.loanToken}
-            canUseOperations={canUseOperations}
+        {props.vault !== undefined && (
+          <LoanActionButton
+            label={translate("components/Loans", "Pay")}
+            disabled={!canUseOperations}
+            onPress={() => {
+              navigation.navigate({
+                name: "PaybackLoanScreen",
+                merge: true,
+                params: {
+                  vault: props.vault,
+                  loanTokenAmount: props.loanToken,
+                },
+              });
+            }}
+            testID={`pay_${props.displaySymbol}_loan`}
           />
-          {isDUSDAsCollateral &&
-            props.displaySymbol === "DUSD" &&
-            isFeatureAvailable("unloop_dusd") && (
-              <PaybackDUSDLoan
-                vault={props.vault}
-                paybackAmount={new BigNumber(props.loanToken.amount)}
-                activePrice={activePrice}
-                loanToken={props.loanToken}
-                dismissModal={props.dismissModal}
-                expandModal={props.expandModal}
-                setBottomSheetScreen={props.setBottomSheetScreen}
-              />
-            )}
-        </View>
-      )} */}
+        )}
       </ThemedViewV2>
-      {props.displaySymbol === "DUSD" && (
-        <LinearGradient
-          start={[0, 0]}
-          end={[1, 1]}
-          colors={[
-            "#FF01AF",
-            "#FB01AF",
-            "#EF01B1",
-            "#DB02B5",
-            "#C004BA",
-            "#9D06C0",
-            "#7208C8",
-            "#3F0BD1",
-            "#0E0EDB",
-          ]}
-          locations={[0, 0.13, 0.26, 0.39, 0.52, 0.64, 0.77, 0.89, 1]}
-          style={tailwind("py-2 rounded-b-lg-v2")}
-        >
-          <TouchableOpacity
-            testID="payback_dusd_loan"
-            // @ts-ignore
-            // onPress={}
-            activeOpacity={0.7}
-          >
-            <ThemedTextV2
-              light={tailwind("text-mono-light-v2-900")}
-              dark={tailwind("text-mono-dark-v2-900")}
-              style={tailwind("text-sm font-semibold-v2 text-center")}
-            >
-              {translate("screens/Loans", "Pay with DUSD collaterals")}
-            </ThemedTextV2>
-          </TouchableOpacity>
-        </LinearGradient>
-      )}
-    </View>
+      {isDUSDAsCollateral &&
+        props.vault !== undefined &&
+        props.displaySymbol === "DUSD" &&
+        isFeatureAvailable("unloop_dusd") && (
+          <LoanActionDUSDButton
+            vault={props.vault}
+            paybackAmount={new BigNumber(props.loanToken.amount)}
+            activePrice={activePrice}
+            loanToken={props.loanToken}
+            dismissModal={props.dismissModal}
+            expandModal={props.expandModal}
+            setBottomSheetScreen={props.setBottomSheetScreen}
+          />
+        )}
+    </TouchableOpacity>
   );
 }
 
-function PaybackDUSDLoan({
+function LoanActionDUSDButton({
   loanToken,
   vault,
   dismissModal,
@@ -386,73 +305,38 @@ function PaybackDUSDLoan({
     expandModal();
   };
   return (
-    <IconButton
-      iconLabel={translate(
-        "components/PaybackDUSD",
-        "PAYBACK WITH DUSD COLLATERAL"
-      )}
-      style={tailwind("mb-2 p-2 w-full justify-center flex-1")}
-      testID="loan_card_DUSD_payback_dusd_loan"
-      onPress={onPaybackDUSD}
-    />
-  );
-}
-
-function ActionButtons({
-  vault,
-  loanToken,
-  canUseOperations,
-  testID,
-}: {
-  vault: LoanVaultActive;
-  loanToken: LoanVaultTokenAmount;
-  canUseOperations: boolean;
-  testID: string;
-}): JSX.Element {
-  const navigation = useNavigation<NavigationProp<LoanParamList>>();
-  return (
-    <View style={tailwind("flex flex-row justify-between -mx-2")}>
-      <View style={tailwind("flex flex-row flex-wrap flex-1 justify-between")}>
-        <IconButton
-          disabled={!canUseOperations}
-          iconLabel={translate(
-            "components/VaultDetailsLoansTab",
-            "PAYBACK LOAN"
-          )}
-          style={tailwind("mb-2 p-2 mx-2 flex-grow justify-center")}
-          testID={`${testID}_payback_loan`}
-          onPress={() => {
-            navigation.navigate({
-              name: "PaybackLoanScreen",
-              merge: true,
-              params: {
-                vault,
-                loanTokenAmount: loanToken,
-              },
-            });
-          }}
-        />
-        <IconButton
-          disabled={!canUseOperations || vault.state === LoanVaultState.FROZEN}
-          iconLabel={translate(
-            "components/VaultDetailsLoansTab",
-            "BORROW MORE"
-          )}
-          style={tailwind("mb-2 p-2 mx-2 flex-grow justify-center")}
-          testID={`${testID}_borrow_more`}
-          onPress={() => {
-            navigation.navigate({
-              name: "BorrowMoreScreen",
-              merge: true,
-              params: {
-                vault,
-                loanTokenAmount: loanToken,
-              },
-            });
-          }}
-        />
-      </View>
-    </View>
+    <LinearGradient
+      start={[0, 0]}
+      end={[1, 1]}
+      colors={[
+        "#FF01AF",
+        "#FB01AF",
+        "#EF01B1",
+        "#DB02B5",
+        "#C004BA",
+        "#9D06C0",
+        "#7208C8",
+        "#3F0BD1",
+        "#0E0EDB",
+      ]}
+      locations={[0, 0.13, 0.26, 0.39, 0.52, 0.64, 0.77, 0.89, 1]}
+      style={tailwind("py-2 rounded-b-lg-v2")}
+    >
+      <TouchableOpacity
+        // testID="loan_card_DUSD_payback_dusd_loan"
+        testID="pay_dusd_loan"
+        onPress={onPaybackDUSD}
+        activeOpacity={0.7}
+      >
+        <ThemedTextV2
+          light={tailwind("text-mono-light-v2-900")}
+          dark={tailwind("text-mono-dark-v2-900")}
+          style={tailwind("text-sm font-semibold-v2 text-center")}
+        >
+          {translate("screens/Loans", "Pay with DUSD collaterals")}
+        </ThemedTextV2>
+      </TouchableOpacity>
+    </LinearGradient>
   );
 }
 
