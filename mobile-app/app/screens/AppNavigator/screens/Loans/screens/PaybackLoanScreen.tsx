@@ -455,7 +455,7 @@ function TransactionDetailsSection({
       <TextRowV2
         containerStyle={rowStyle.containerStyle}
         lhs={{
-          value: translate("screens/ConfirmPlaceBidScreen", "Vault ID"),
+          value: translate("screens/PaybackLoanScreen", "Vault ID"),
           testID: "lhs_vault_id",
           themedProps: rowStyle.lhsThemedProps,
         }}
@@ -470,7 +470,7 @@ function TransactionDetailsSection({
       <NumberRowV2
         containerStyle={rowStyle.containerStyle}
         lhs={{
-          value: translate("screens/ConfirmPlaceBidScreen", "Loan remaining"),
+          value: translate("screens/PaybackLoanScreen", "Loan remaining"),
           testID: "total_outstanding_loan_label",
           themedProps: rowStyle.lhsThemedProps,
         }}
@@ -492,7 +492,7 @@ function TransactionDetailsSection({
           containerStyle={rowStyle.containerStyle}
           lhs={{
             value: translate(
-              "screens/ConfirmPlaceBidScreen",
+              "screens/PaybackLoanScreen",
               "Resulting collateral"
             ),
             testID: "total_outstanding_loan_label",
