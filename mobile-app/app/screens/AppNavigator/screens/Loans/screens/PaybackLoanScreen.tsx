@@ -174,9 +174,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
       new BigNumber(amountToPay).isNaN() ? "0" : amountToPay,
       loanTokenAmount.amount
     ).multipliedBy(-1),
-    new BigNumber(
-      getActivePrice(loanTokenAmount.symbol, loanTokenAmount?.activePrice)
-    ),
+    new BigNumber(loanTokenActivePriceInUSD),
     interestPerBlock
   );
 
