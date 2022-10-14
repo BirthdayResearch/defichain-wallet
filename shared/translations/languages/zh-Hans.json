@@ -1276,7 +1276,8 @@
     "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
     "Search available loan tokens": "Search available loan tokens",
     "Edit Vault": "Edit Vault",
-    "Confirm": "确认"
+    "Confirm": "确认",
+    "Vault Details": "金库明细"
   },
   "components/tabs": {
     "Browse loan tokens": "浏览贷款选项",

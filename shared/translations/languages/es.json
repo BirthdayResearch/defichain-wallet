@@ -1300,7 +1300,8 @@
     "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
     "Search available loan tokens": "Buscar tokens de préstamo disponibles",
     "Edit Vault": "Edit Vault",
-    "Confirm": "Confirmar"
+    "Confirm": "Confirmar",
+    "Vault Details": "Detalles del Vault"
   },
   "components/tabs": {
     "Browse loan tokens": "Busca tokens de préstamo",

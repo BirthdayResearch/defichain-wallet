@@ -1284,7 +1284,8 @@
     "Loan tokens get their prices from oracles.": "Les tokens de prêt obtiennent leurs prix des oracles.",
     "Search available loan tokens": "Rechercher les tokens de prêt disponibles",
     "Edit Vault": "Modifier le vault",
-    "Confirm": "Confirmer"
+    "Confirm": "Confirmer",
+    "Vault Details": "Vue détaillée du vault"
   },
   "components/tabs": {
     "Browse loan tokens": "Emprunter un token",

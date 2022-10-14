@@ -1272,7 +1272,8 @@
     "Loan tokens get their prices from oracles.": "Darlehenstoken erhalten ihre Preise von Preisorakeln.",
     "Search available loan tokens": "Verfügbare Darlehenstoken durchsuchen",
     "Edit Vault": "Vault bearbeiten",
-    "Confirm": "Bestätigen"
+    "Confirm": "Bestätigen",
+    "Vault Details": "Vault Detailansicht"
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehenstoken",
