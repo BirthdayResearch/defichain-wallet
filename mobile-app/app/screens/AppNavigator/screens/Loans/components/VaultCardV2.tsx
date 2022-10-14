@@ -143,7 +143,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
           vaultId={vault.vaultId}
           onButtonPress={onAddCollateralPress}
           vaultType={vaultBanner.type}
-          onCardPress={onCardPress}
+          onCardPress={isVaultLiquidated ? undefined : onCardPress}
           testID={props.testID}
           vault={vault}
         />
