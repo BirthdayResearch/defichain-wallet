@@ -51,6 +51,7 @@ import { useAppDispatch } from "@hooks/useAppDispatch";
 import { queueConvertTransaction } from "@hooks/wallet/Conversion";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
+import { LoanVaultTokenAmount } from "@defichain/whale-api-client/dist/api/loan";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { ActiveUSDValueV2 } from "../VaultDetail/components/ActiveUSDValueV2";
 import { LoanParamList } from "../LoansNavigator";
@@ -63,6 +64,7 @@ import {
 import { CollateralItem } from "../screens/EditCollateralScreen";
 import { ControlledTextInput } from "../components/ControlledTextInput";
 import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
+import { useMaxLoan } from "../hooks/MaxLoanAmount";
 
 type Props = StackScreenProps<LoanParamList, "AddOrRemoveCollateralScreen">;
 
@@ -189,18 +191,43 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     totalCollateralValueInUSD: totalVaultCollateralValueInUSD,
   });
 
-  const {
-    requiredVaultShareTokens,
-    requiredTokensShare,
-    minRequiredTokensShare,
-    hasLoan,
-  } = useValidCollateralRatio(
+  const { requiredTokensShare, hasLoan } = useValidCollateralRatio(
     vault?.collateralAmounts ?? [],
     totalVaultCollateralValue,
     new BigNumber(vault.loanValue),
     selectedCollateralItem.token.id,
     totalTokenBalance
   );
+
+  const getUpdatedCollateralAmounts = (): LoanVaultTokenAmount[] => {
+    const collateralAmountToUpdate: LoanVaultTokenAmount = {
+      id: selectedCollateralItem.token.id,
+      amount: tokenCollateralValue.toFixed(8),
+      symbol: selectedCollateralItem.token.symbol,
+      displaySymbol: selectedCollateralItem.token.displaySymbol,
+      symbolKey: selectedCollateralItem.token.symbolKey,
+      name: selectedCollateralItem.token.name,
+      activePrice: selectedCollateralItem.activePrice,
+    };
+    const collateralExists = vault.collateralAmounts.find(
+      (col) => col.id === selectedCollateralItem.token.id
+    );
+    if (collateralExists) {
+      const updatedCollateralAmounts = vault.collateralAmounts.map((col) =>
+        col.id === collateralAmountToUpdate.id ? collateralAmountToUpdate : col
+      );
+      return updatedCollateralAmounts;
+    } else {
+      return [...vault.collateralAmounts, collateralAmountToUpdate];
+    }
+  };
+
+  const maxLoanAmount = useMaxLoan({
+    totalCollateralValue: totalVaultCollateralValue,
+    collateralAmounts: getUpdatedCollateralAmounts(),
+    existingLoanValue: new BigNumber(vault.loanValue),
+    minColRatio: new BigNumber(vault.loanScheme.minColRatio),
+  });
 
   useEffect(() => {
     client.fee
@@ -250,33 +277,26 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     );
   }
 
-  const onAddCollateral = async ({
-    amount,
-    token,
-    collateralItem,
-  }: AddOrRemoveCollateralResponse): Promise<void> => {
+  const onAddCollateral = async (
+    props: LoanParamList["ConfirmEditCollateralScreen"]
+  ): Promise<void> => {
     const initialParams = {
       name: "ConfirmEditCollateralScreen",
       params: {
-        vault,
-        amount,
-        token,
-        fee,
-        collateralItem,
-        resultingColRatio,
-        totalVaultCollateralValue,
-        vaultShare: collateralVaultShare,
+        ...props,
         conversion: undefined,
         isAdd: true,
       },
     };
     if (isConversionRequired) {
-      const conversionAmount = new BigNumber(amount).minus(DFIToken.amount);
+      const conversionAmount = new BigNumber(props.amount).minus(
+        DFIToken.amount
+      );
       initialParams.params.conversion = {
         DFIUtxo,
         DFIToken,
         isConversionRequired,
-        conversionAmount: new BigNumber(amount).minus(DFIToken.amount),
+        conversionAmount: new BigNumber(props.amount).minus(DFIToken.amount),
       } as any;
       queueConvertTransaction(
         {
@@ -294,22 +314,13 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     }
   };
 
-  const onRemoveCollateral = async ({
-    amount,
-    token,
-    collateralItem,
-  }: AddOrRemoveCollateralResponse): Promise<void> => {
+  const onRemoveCollateral = async (
+    props: LoanParamList["ConfirmEditCollateralScreen"]
+  ): Promise<void> => {
     navigation.navigate({
       name: "ConfirmEditCollateralScreen",
       params: {
-        vault,
-        amount,
-        token,
-        fee,
-        collateralItem,
-        resultingColRatio,
-        totalVaultCollateralValue,
-        vaultShare: collateralVaultShare,
+        ...props,
         conversion: undefined,
         isAdd: false,
       },
@@ -328,6 +339,14 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
       collateralItem,
       amount: new BigNumber(collateralAmount),
       token: selectedCollateralItem.token,
+      vault,
+      fee,
+      resultingColRatio,
+      totalVaultCollateralValue,
+      vaultShare: collateralVaultShare,
+      maxLoanAmount,
+      conversion: undefined,
+      isAdd,
     };
     if (isAdd) {
       onAddCollateral(params);
@@ -695,7 +714,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
               themedProps: lhsThemedProps,
             }}
             rhs={{
-              value: getPrecisedCurrencyValue(vault.loanValue), // TODO (Lyka): Use KY's useMaxLoan hook
+              value: getPrecisedCurrencyValue(maxLoanAmount),
               testID: "add_remove_collateral_max_loan",
               prefix: "$",
               themedProps: rhsThemedProps,

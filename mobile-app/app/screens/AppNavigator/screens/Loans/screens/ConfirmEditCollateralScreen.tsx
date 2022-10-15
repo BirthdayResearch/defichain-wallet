@@ -55,6 +55,7 @@ export function ConfirmEditCollateralScreen({
     resultingColRatio,
     totalVaultCollateralValue,
     vaultShare,
+    maxLoanAmount,
     conversion,
   } = route.params;
   const { address } = useWalletContext();
@@ -332,7 +333,7 @@ export function ConfirmEditCollateralScreen({
           themedProps: lhsThemedProps,
         }}
         rhs={{
-          value: getPrecisedCurrencyValue(vault.loanValue), // TODO (Lyka): Use KY's useMaxLoan hook
+          value: getPrecisedCurrencyValue(maxLoanAmount),
           testID: "confirm_edit_max_loan",
           prefix: "$",
           themedProps: rhsThemedProps,

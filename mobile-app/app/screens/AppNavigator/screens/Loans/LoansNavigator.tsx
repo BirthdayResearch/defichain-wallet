@@ -75,6 +75,7 @@ export interface LoanParamList {
     resultingColRatio: BigNumber;
     totalVaultCollateralValue: BigNumber;
     vaultShare: BigNumber;
+    maxLoanAmount: BigNumber;
     conversion?: ConversionParam;
   };
   BorrowLoanTokenScreen: {
