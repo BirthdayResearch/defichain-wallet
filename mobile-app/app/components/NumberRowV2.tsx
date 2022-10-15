@@ -1,4 +1,11 @@
-import { StyleProp, TextStyle, View, ViewProps, ViewStyle } from "react-native";
+import {
+  Platform,
+  StyleProp,
+  TextStyle,
+  View,
+  ViewProps,
+  ViewStyle,
+} from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { tailwind } from "@tailwind";
@@ -64,7 +71,9 @@ export function NumberRowV2(props: INumberRowProps): JSX.Element {
             {props.lhs.value}
           </ThemedTextV2>
           {props.info != null && (
-            <View style={tailwind("ml-1 mt-0.5")}>
+            <View
+              style={tailwind("ml-1", { "mt-0.5": Platform.OS === "android" })}
+            >
               <BottomSheetInfoV2
                 alertInfo={props.info}
                 name={props.info.title}
