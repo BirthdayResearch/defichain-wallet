@@ -39,8 +39,9 @@ import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { CloseVaultButton } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/CloseVaultButton";
 import { VaultDetailSummary } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailSummary";
 import { useMaxLoanAmount } from "@screens/AppNavigator/screens/Loans/hooks/MaxLoanAmount";
-import { VaultDetailTokensSection } from "./components/VaultDetailTokensSection";
 import { LoanParamList } from "../LoansNavigator";
+import { VaultDetailCollateralsRow } from "./components/VaultDetailCollateralsRow";
+import { VaultDetailLoansRow } from "./components/VaultDetailLoansRow";
 
 type Props = StackScreenProps<LoanParamList, "VaultDetailScreen">;
 
@@ -231,9 +232,13 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
           interest={vault?.loanScheme?.interestRate}
           minColRatio={vault?.loanScheme?.minColRatio}
         />
-
-        <VaultDetailTokensSection vault={vault} />
-
+        <VaultDetailCollateralsRow vault={vault} />
+        <VaultDetailLoansRow
+          dismissModal={dismissModal}
+          expandModal={expandModal}
+          setBottomSheetScreen={setBottomSheetScreen}
+          vault={vault}
+        />
         <CloseVaultButton
           vaultStatus={vaultState?.status}
           canUseOperations={canUseOperations}

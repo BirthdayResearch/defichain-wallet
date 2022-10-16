@@ -59,7 +59,7 @@ interface LoanCardProps {
   setBottomSheetScreen: (val: BottomSheetNavScreen[]) => void;
 }
 
-export function LoansRow(props: {
+export function VaultDetailLoansRow(props: {
   vault: LoanVault;
   dismissModal: () => void;
   expandModal: () => void;

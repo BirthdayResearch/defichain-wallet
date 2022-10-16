@@ -20,7 +20,6 @@ import { CreateVaultScreenV2 } from "@screens/AppNavigator/screens/Loans/screens
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { VaultDetailScreenV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/VaultDetailScreenV2";
-import { VaultDetailScreen } from "@screens/AppNavigator/screens/Loans/VaultDetail/VaultDetailScreen";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { ConfirmCreateVaultScreen } from "./screens/ConfirmCreateVaultScreen";
 import {

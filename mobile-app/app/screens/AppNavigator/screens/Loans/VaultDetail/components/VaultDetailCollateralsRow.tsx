@@ -15,6 +15,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2";
 import { LoanAddRemoveActionButton } from "@screens/AppNavigator/screens/Loans/components/LoanActionButton";
+import {
+  BottomSheetInfoV2,
+  BottomSheetAlertInfoV2,
+} from "@components/BottomSheetInfoV2";
 import { getCollateralPrice } from "../../hooks/CollateralPrice";
 
 interface CollateralCardProps {
@@ -24,8 +28,13 @@ interface CollateralCardProps {
   totalCollateralValue: BigNumber;
 }
 
-export function CollateralsRow({ vault }: { vault: LoanVault }): JSX.Element {
+export function VaultDetailCollateralsRow({
+  vault,
+}: {
+  vault: LoanVault;
+}): JSX.Element {
   const [hideDFIStaticCard, setHideDFIStaticCard] = useState<boolean>(false);
+  const [isDusdLoaned, setIsDusdLoaned] = useState<boolean>(false);
   const collateralTokens = useSelector(
     (state: RootState) => state.loans.collateralTokens
   );
@@ -36,7 +45,15 @@ export function CollateralsRow({ vault }: { vault: LoanVault }): JSX.Element {
         vault.collateralAmounts.some((col) => col.displaySymbol === "DFI")
       );
     }
-  }, [vault]);
+  }, []);
+
+  useEffect(() => {
+    if (vault.state !== LoanVaultState.IN_LIQUIDATION) {
+      setIsDusdLoaned(
+        vault.loanAmounts.some((loan) => loan.displaySymbol === "DUSD")
+      );
+    }
+  }, []);
 
   return (
     <View style={tailwind("mx-5 mt-6")}>
@@ -81,6 +98,31 @@ export function CollateralsRow({ vault }: { vault: LoanVault }): JSX.Element {
             return <View key={index} />;
           }
         })}
+
+      <InfoText
+        firstText={translate(
+          "screens/VaultDetailScreenCollateralSection",
+          isDusdLoaned
+            ? "Maintain at least 50% DFI as collateral for DUSD"
+            : "Your loan amount can be maximized by adding"
+        )}
+        secondText={translate(
+          "screens/VaultDetailScreenCollateralSection",
+          isDusdLoaned ? "loans" : "DFI/DUSD as collaterals"
+        )}
+        info={{
+          title: translate(
+            "screens/VaultDetailScreenCollateralSection",
+            isDusdLoaned ? "Why you need 50% DFI" : "Max loan amount"
+          ),
+          message: translate(
+            "screens/VaultDetailScreenCollateralSection",
+            isDusdLoaned
+              ? "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI. \n\n This only affects vaults that has DUSD as both collateral and loan."
+              : "This is the current loan amount available for this vault."
+          ),
+        }}
+      />
     </View>
   );
 }
@@ -261,5 +303,43 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
         />
       </View>
     </ThemedViewV2>
+  );
+}
+
+// Some re render and logic issue here. dunno why yet
+function InfoText({
+  firstText,
+  secondText,
+  info,
+}: {
+  firstText: string;
+  secondText: string;
+  info: BottomSheetAlertInfoV2;
+}): JSX.Element {
+  return (
+    <View style={tailwind("mx-5")}>
+      <ThemedTextV2
+        light={tailwind("text-mono-light-v2-500")}
+        dark={tailwind("text-mono-dark-v2-500")}
+        style={tailwind("text-xs font-normal-v2")}
+      >
+        {firstText}
+      </ThemedTextV2>
+      <View style={tailwind("flex flex-row")}>
+        <ThemedTextV2
+          light={tailwind("text-mono-light-v2-500")}
+          dark={tailwind("text-mono-dark-v2-500")}
+          style={tailwind("text-xs font-normal-v2 mr-1")}
+        >
+          {secondText}
+        </ThemedTextV2>
+        <BottomSheetInfoV2
+          alertInfo={info}
+          name="info-text"
+          infoIconStyle={tailwind("text-sm")}
+          snapPoints={["40%"]}
+        />
+      </View>
+    </View>
   );
 }
