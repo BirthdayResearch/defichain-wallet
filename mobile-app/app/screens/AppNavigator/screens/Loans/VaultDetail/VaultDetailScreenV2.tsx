@@ -39,7 +39,7 @@ import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { CloseVaultButton } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/CloseVaultButton";
 import { VaultDetailSummary } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailSummary";
 import { useMaxLoanAmount } from "@screens/AppNavigator/screens/Loans/hooks/MaxLoanAmount";
-import { VaultDetailTabSectionV2 } from "./components/VaultDetailTabSectionV2";
+import { VaultDetailTokensSection } from "./components/VaultDetailTokensSection";
 import { LoanParamList } from "../LoansNavigator";
 
 type Props = StackScreenProps<LoanParamList, "VaultDetailScreen">;
@@ -232,7 +232,7 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
           minColRatio={vault?.loanScheme?.minColRatio}
         />
 
-        <VaultDetailTabSectionV2 vault={vault} />
+        <VaultDetailTokensSection vault={vault} />
 
         <CloseVaultButton
           vaultStatus={vaultState?.status}

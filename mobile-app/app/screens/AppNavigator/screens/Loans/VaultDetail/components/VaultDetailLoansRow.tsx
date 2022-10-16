@@ -59,7 +59,7 @@ interface LoanCardProps {
   setBottomSheetScreen: (val: BottomSheetNavScreen[]) => void;
 }
 
-export function LoansTabV2(props: {
+export function LoansRow(props: {
   vault: LoanVault;
   dismissModal: () => void;
   expandModal: () => void;
@@ -90,7 +90,7 @@ export function LoansTabV2(props: {
             dark={tailwind("text-mono-dark-v2-500")}
             style={tailwind("text-xs font-normal-v2 mb-2 px-5")}
           >
-            {translate("screens/Loans", "LOANS")}
+            {translate("screens/VaultDetailScreenLoansSection", "LOANS")}
           </ThemedTextV2>
         )}
 
@@ -123,9 +123,6 @@ function LoanCard(props: LoanCardProps): JSX.Element {
   const canUseOperations = useLoanOperations(props.vault?.state);
   const activePrice = new BigNumber(
     getActivePrice(props.symbol, props.loanToken.activePrice)
-  );
-  const isDUSDAsCollateral = props.vault?.collateralAmounts?.some(
-    ({ symbol }) => symbol === "DUSD"
   );
 
   const { isFeatureAvailable } = useFeatureFlagContext();
@@ -187,14 +184,17 @@ function LoanCard(props: LoanCardProps): JSX.Element {
               style={tailwind("text-xs font-normal-v2")}
             >
               {new BigNumber(props.interestAmount ?? 0).toFixed(8)}{" "}
-              {translate("screens/Loans", "as interest")}
+              {translate(
+                "screens/VaultDetailScreenLoansSection",
+                "as interest"
+              )}
             </ThemedTextV2>
           </View>
         </View>
 
         {props.vault !== undefined && (
           <LoanActionButton
-            label={translate("components/Loans", "Pay")}
+            label={translate("components/VaultDetailScreenLoansSection", "Pay")}
             disabled={!canUseOperations}
             onPress={() => {
               navigation.navigate({
@@ -210,8 +210,7 @@ function LoanCard(props: LoanCardProps): JSX.Element {
           />
         )}
       </ThemedViewV2>
-      {isDUSDAsCollateral &&
-        props.vault !== undefined &&
+      {props.vault !== undefined &&
         props.displaySymbol === "DUSD" &&
         isFeatureAvailable("unloop_dusd") && (
           <LoanActionDUSDButton
@@ -335,7 +334,10 @@ function LoanActionDUSDButton({
           dark={tailwind("text-mono-dark-v2-900")}
           style={tailwind("text-sm font-semibold-v2 text-center")}
         >
-          {translate("screens/Loans", "Pay with DUSD collaterals")}
+          {translate(
+            "screens/VaultDetailScreenLoansSection",
+            "Pay with DUSD collaterals"
+          )}
         </ThemedTextV2>
       </TouchableOpacity>
     </LinearGradient>

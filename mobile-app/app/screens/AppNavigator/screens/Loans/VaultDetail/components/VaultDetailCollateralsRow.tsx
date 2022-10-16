@@ -4,15 +4,13 @@ import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { View } from "@components";
 import { SymbolIcon } from "@components/SymbolIcon";
-
-import { translate } from "@translations";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { LoanVault } from "@store/loans";
 import {
   CollateralToken,
   LoanVaultState,
 } from "@defichain/whale-api-client/dist/api/loan";
-
+import { translate } from "@translations";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2";
@@ -26,7 +24,7 @@ interface CollateralCardProps {
   totalCollateralValue: BigNumber;
 }
 
-export function CollateralsTabV2({ vault }: { vault: LoanVault }): JSX.Element {
+export function CollateralsRow({ vault }: { vault: LoanVault }): JSX.Element {
   const [hideDFIStaticCard, setHideDFIStaticCard] = useState<boolean>(false);
   const collateralTokens = useSelector(
     (state: RootState) => state.loans.collateralTokens
@@ -47,7 +45,7 @@ export function CollateralsTabV2({ vault }: { vault: LoanVault }): JSX.Element {
         dark={tailwind("text-mono-dark-v2-500")}
         style={tailwind("text-xs font-normal-v2 mb-2 px-5")}
       >
-        {translate("screens/Loans", "COLLATERALS")}
+        {translate("screens/VaultDetailScreenCollateralSection", "COLLATERALS")}
       </ThemedTextV2>
       {vault.state === LoanVaultState.IN_LIQUIDATION &&
         vault.batches.length > 0 &&
@@ -124,6 +122,7 @@ function CollateralCardDfi({
       light={tailwind("bg-mono-light-v2-00")}
       dark={tailwind("bg-mono-dark-v2-00")}
       style={tailwind("py-4 px-5 mb-2 rounded-lg-v2")}
+      testID="collateral_card_dfi_empty"
     >
       <View style={tailwind("flex flex-row justify-between items-center")}>
         <View style={tailwind("flex flex-row items-center")}>
@@ -170,6 +169,7 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
       light={tailwind("bg-mono-light-v2-00")}
       dark={tailwind("bg-mono-dark-v2-00")}
       style={tailwind("py-4 px-5 mb-2 rounded-lg-v2")}
+      testID={`vault_detail_collateral_${props.displaySymbol}`}
     >
       <View style={tailwind("flex flex-row justify-between items-center")}>
         <View style={tailwind("flex flex-row items-center")}>

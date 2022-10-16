@@ -1560,6 +1560,23 @@
     "Halted": "Gestoppt",
     "Empty": "Leer"
   },
+  "screens/VaultDetailScreenCollateralSection": {
+    "Why you need 50% DFI": "Warum du 50 % DFI brauchst",
+    "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI. \n\n This only affects vaults that has DUSD as both collateral and loan.": "Bei DUSD-Darlehen, die DUSD als Sicherheit enthalten, müssen mindestens 50 % der Sicherheiten in Form von DFI vorliegen. \n\n Dies betrifft nur Vaults, die sowohl DUSD als Sicherheit als auch als Darlehen haben.",
+    "Max loan amount": "Max loan amount",
+    "This is the current loan amount available for this vault.": "Dies ist der aktuell verfügbare Darlehensbetrag für diesen Vault.",
+    "Maintain at least 50% DFI as collateral for DUSD": "Für DUSD-Darlehen brauchst du mindestens 50 % DFI als Besicherung.",
+    "Your loan amount can be maximized by adding": "Dein Darlehen kann durch Hinzufügen von",
+    "DFI/DUSD as collaterals": "DFI/DUSD als Sicherheiten maximiert werden",
+    "COLLATERALS": "SICHERHEITEN"
+  },
+  "screens/VaultDetailScreenLoansSection": {
+    "Pay with DUSD collaterals": "Tilgen mit DUSD-Sicherheiten",
+    "LOANS": "LOANS",
+    "as interest": "as interest",
+    "Pay": "Tilgen",
+    "Paying loan": "Paying loan"
+  },
   "components/ScrollableButton": {
     "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
     "TAKE COLLATERAL": "SICHERHEITEN ENTNEHMEN",

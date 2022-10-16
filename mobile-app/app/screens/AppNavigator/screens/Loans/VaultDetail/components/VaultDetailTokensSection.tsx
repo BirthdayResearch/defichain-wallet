@@ -1,30 +1,30 @@
-import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
 import { LoanVault } from "@store/loans";
 import { useEffect, useState } from "react";
 import { Platform, View } from "react-native";
-import { translate } from "@translations";
 import { tailwind } from "@tailwind";
 import {
   BottomSheetWebWithNav,
   BottomSheetWithNav,
 } from "@components/BottomSheetWithNav";
-import { ThemedTextV2 } from "@components/themed";
-import { useBottomSheet } from "@hooks/useBottomSheet";
+import { translate } from "@translations";
 import {
-  BottomSheetAlertInfoV2,
   BottomSheetInfoV2,
+  BottomSheetAlertInfoV2,
 } from "@components/BottomSheetInfoV2";
-import { LoansTabV2 } from "./LoansTabV2";
-import { CollateralsTabV2 } from "./CollateralsTabV2";
+import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
+import { useBottomSheet } from "@hooks/useBottomSheet";
+import { ThemedTextV2 } from "@components/themed";
+import { LoansRow } from "./VaultDetailLoansRow";
+import { CollateralsRow } from "./VaultDetailCollateralsRow";
 
 interface VaultDetailTabSectionProps {
   vault: LoanVault;
 }
 
-export function VaultDetailTabSectionV2({
+export function VaultDetailTokensSection({
   vault,
 }: VaultDetailTabSectionProps): JSX.Element {
-  const [isDusdLoaned, setIsDusdLoaned] = useState(false);
+  const [isDusdLoaned, setIsDusdLoaned] = useState<boolean>(false);
   const {
     bottomSheetRef,
     containerRef,
@@ -41,28 +41,36 @@ export function VaultDetailTabSectionV2({
         vault.loanAmounts.some((loan) => loan.displaySymbol === "DUSD")
       );
     }
-  }, [vault]);
+  }, []);
 
   return (
     <View ref={containerRef}>
-      <CollateralsTabV2 vault={vault} />
+      <CollateralsRow vault={vault} />
       <InfoText
-        dusdCollateral={isDusdLoaned}
+        firstText={translate(
+          "screens/VaultDetailScreenCollateralSection",
+          isDusdLoaned
+            ? "Maintain at least 50% DFI as collateral for DUSD"
+            : "Your loan amount can be maximized by adding"
+        )}
+        secondText={translate(
+          "screens/VaultDetailScreenCollateralSection",
+          isDusdLoaned ? "loans" : "DFI/DUSD as collaterals"
+        )}
         info={{
           title: translate(
-            "screens/VaultDetailScreen",
+            "screens/VaultDetailScreenCollateralSection",
             isDusdLoaned ? "Why you need 50% DFI" : "Max loan amount"
           ),
           message: translate(
-            "screens/VaultDetailScreen",
+            "screens/VaultDetailScreenCollateralSection",
             isDusdLoaned
               ? "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI. \n\n This only affects vaults that has DUSD as both collateral and loan."
               : "This is the current loan amount available for this vault."
           ),
         }}
       />
-
-      <LoansTabV2
+      <LoansRow
         dismissModal={dismissModal}
         expandModal={expandModal}
         setBottomSheetScreen={setBottomSheetScreen}
@@ -96,11 +104,14 @@ export function VaultDetailTabSectionV2({
   );
 }
 
+// Some re render issue here why yet
 function InfoText({
-  dusdCollateral,
+  firstText,
+  secondText,
   info,
 }: {
-  dusdCollateral: boolean;
+  firstText: string;
+  secondText: string;
   info: BottomSheetAlertInfoV2;
 }): JSX.Element {
   return (
@@ -110,12 +121,7 @@ function InfoText({
         dark={tailwind("text-mono-dark-v2-500")}
         style={tailwind("text-xs font-normal-v2")}
       >
-        {translate(
-          "screens/Loans",
-          dusdCollateral
-            ? "Maintain at least 50% DFI as collateral for DUSD"
-            : "Your loan amount can be maximized by adding"
-        )}
+        {firstText}
       </ThemedTextV2>
       <View style={tailwind("flex flex-row")}>
         <ThemedTextV2
@@ -123,14 +129,11 @@ function InfoText({
           dark={tailwind("text-mono-dark-v2-500")}
           style={tailwind("text-xs font-normal-v2 mr-1")}
         >
-          {translate(
-            "screens/Loans",
-            dusdCollateral ? "loans" : "DFI/DUSD as collaterals"
-          )}
+          {secondText}
         </ThemedTextV2>
         <BottomSheetInfoV2
           alertInfo={info}
-          name={info.title}
+          name="info-text"
           infoIconStyle={tailwind("text-sm")}
           snapPoints={["40%"]}
         />
