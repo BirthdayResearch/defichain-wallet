@@ -291,8 +291,16 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
                 suffix="%"
                 renderText={(val: string) => (
                   <ThemedTextV2
-                    dark={tailwind("text-mono-dark-v2-700")}
-                    light={tailwind("text-mono-light-v2-700")}
+                    dark={tailwind("text-mono-dark-v2-700", {
+                      "text-red-v2":
+                        props.displaySymbol === "DFI" &&
+                        val < new BigNumber(50).toFixed(2),
+                    })}
+                    light={tailwind("text-mono-light-v2-700", {
+                      "text-red-v2":
+                        props.displaySymbol === "DFI" &&
+                        val < new BigNumber(50).toFixed(2),
+                    })}
                     style={tailwind("text-xs font-normal-v2")}
                     testID={`vault_detail_collateral_${props.displaySymbol}_vault_share`}
                   >
