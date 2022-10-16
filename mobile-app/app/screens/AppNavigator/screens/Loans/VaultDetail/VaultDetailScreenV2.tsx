@@ -144,6 +144,7 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
   }, [blockCount]);
 
   const onAddPressed = () => {};
+  const onRemovePressed = () => {};
 
   const onBorrowPressed = () => {
     setSnapPoints({
@@ -232,7 +233,11 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
           interest={vault?.loanScheme?.interestRate}
           minColRatio={vault?.loanScheme?.minColRatio}
         />
-        <VaultDetailCollateralsRow vault={vault} />
+        <VaultDetailCollateralsRow
+          vault={vault}
+          onAddPress={onAddPressed}
+          onRemovePress={onRemovePressed}
+        />
         <VaultDetailLoansRow
           dismissModal={dismissModal}
           expandModal={expandModal}

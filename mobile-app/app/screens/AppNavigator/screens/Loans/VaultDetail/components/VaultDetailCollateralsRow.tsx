@@ -26,12 +26,18 @@ interface CollateralCardProps {
   amount: BigNumber;
   collateralItem: CollateralToken;
   totalCollateralValue: BigNumber;
+  onAddCollateralPress: () => void;
+  onRemoveCollateralPress: () => void;
 }
 
 export function VaultDetailCollateralsRow({
   vault,
+  onAddPress,
+  onRemovePress,
 }: {
   vault: LoanVault;
+  onAddPress: () => void;
+  onRemovePress: () => void;
 }): JSX.Element {
   const [hideDFIStaticCard, setHideDFIStaticCard] = useState<boolean>(false);
   const [isDusdLoaned, setIsDusdLoaned] = useState<boolean>(false);
@@ -75,7 +81,7 @@ export function VaultDetailCollateralsRow({
           );
         })}
 
-      {!hideDFIStaticCard && <CollateralCardDfi />}
+      {!hideDFIStaticCard && <CollateralCardDfi onDFIAdd={onAddPress} />}
 
       {vault.state !== LoanVaultState.IN_LIQUIDATION &&
         vault.collateralAmounts.map((collateral, index) => {
@@ -91,6 +97,8 @@ export function VaultDetailCollateralsRow({
                 totalCollateralValue={new BigNumber(vault.collateralValue)}
                 displaySymbol={collateral.displaySymbol}
                 amount={new BigNumber(collateral.amount)}
+                onAddCollateralPress={onAddPress}
+                onRemoveCollateralPress={onRemovePress}
               />
             );
           } else {
@@ -157,7 +165,7 @@ function LiquidatedVaultCollateralCard({
 function CollateralCardDfi({
   onDFIAdd,
 }: {
-  onDFIAdd?: () => void;
+  onDFIAdd: () => void;
 }): JSX.Element {
   return (
     <ThemedViewV2
@@ -297,8 +305,8 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
         </View>
 
         <LoanAddRemoveActionButton
-          //   onAdd={props.onAdd}
-          //   onRemove={props.onRemove}
+          onAdd={props.onAddCollateralPress}
+          onRemove={props.onRemoveCollateralPress}
           token={props.displaySymbol}
         />
       </View>
