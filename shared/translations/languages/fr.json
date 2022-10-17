@@ -1679,7 +1679,7 @@
     "Max available {{unit}} entered": "Max. de {{unit}} disponibles saisis",
     "{{percent}} of available {{unit}} entered": "{{percent}} des {{unit}} disponibles saisis",
     "Use your DUSD collaterals to fully pay off your DUSD loan.": "Utilisez vos garanties en DUSD pour rembourser entièrement votre prêt en DUSD.",
-    "Insufficient {{unit}}; max entered": "Insufficient {{unit}}; max entered",
+    "Insufficient {{unit}}; max entered": "{{unit}} insuffisants ; max. saisi",
     "VAULT IN USE": "VAULT EN SERVICE",
     "How much of the loan do you want to pay?": "Quelle part du prêt voulez-vous rembourser?",
     "Enter an amount": "Donnez un montant",
