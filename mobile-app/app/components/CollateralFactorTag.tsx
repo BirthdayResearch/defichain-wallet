@@ -8,7 +8,7 @@ export function CollateralFactorTag({
   factor?: string;
 }): JSX.Element | null {
   const DEFAULT_FACTOR = new BigNumber(1);
-  return factor !== undefined && !DEFAULT_FACTOR.isEqualTo(factor) ? (
+  return factor && !DEFAULT_FACTOR.isEqualTo(factor) ? (
     <ThemedViewV2
       style={tailwind("h-5 flex flex-row items-center px-2 rounded border-0.5")}
       light={tailwind("border-mono-light-v2-700")}
