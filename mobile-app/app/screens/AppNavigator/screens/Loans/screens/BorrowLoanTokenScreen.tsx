@@ -156,7 +156,7 @@ export function BorrowLoanTokenScreen({
         component: BottomSheetVaultList({
           headerLabel: translate(
             "screens/BorrowLoanTokenScreen",
-            "Select Vault to Use"
+            "Select Vault To Use"
           ),
           onCloseButtonPress: () => dismissModal(),
           onVaultPress: (vault: LoanVaultActive) => {
@@ -277,7 +277,7 @@ export function BorrowLoanTokenScreen({
     if (requiredTokensShare.isZero() || maxLoanAmount.isZero()) {
       setInputValidationMessage({
         message:
-          "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens",
+          "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.",
         type: ValidationMessageType.Error,
       });
     } else if (resultingColRatio.isLessThan(vault.loanScheme.minColRatio)) {
@@ -294,7 +294,7 @@ export function BorrowLoanTokenScreen({
     } else if (isDFILessThanHalfOfRequiredCollateral) {
       setInputValidationMessage({
         message:
-          "A minimum of 50% DFI as collateral is required before borrowing DUSD",
+          "A minimum of 50% DFI as collateral is required before borrowing DUSD.",
         type: ValidationMessageType.Error,
       });
     } else {
@@ -341,6 +341,13 @@ export function BorrowLoanTokenScreen({
     formState,
     vault,
   ]);
+
+  useEffect(() => {
+    const triggerInput = async (): Promise<void> => {
+      await trigger("borrowAmount"); // trigger form validation on vault change
+    };
+    triggerInput();
+  }, [vault]);
 
   return (
     <View style={tailwind("flex-1")} ref={containerRef}>
@@ -574,7 +581,7 @@ function VaultInput(props: VaultInputProps): JSX.Element {
   return (
     <View style={tailwind("")}>
       <ThemedSectionTitleV2
-        text={translate("BorrowLoanTokenScreen", "WITH VAULT")}
+        text={translate("screens/BorrowLoanTokenScreen", "WITH VAULT")}
       />
       <ThemedTouchableOpacityV2
         style={tailwind(
