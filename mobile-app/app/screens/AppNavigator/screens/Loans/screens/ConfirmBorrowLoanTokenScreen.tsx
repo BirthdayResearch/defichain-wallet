@@ -134,7 +134,7 @@ export function ConfirmBorrowLoanTokenScreen({
       >
         {translate(
           "screens/ConfirmBorrowLoanTokenScreen",
-          "Final amount determined by oracle price. Resulting collateral ratio are determined upon block confirmation."
+          "Prices may vary during transaction confirmation."
         )}
       </ThemedTextV2>
       <SubmitButtonGroupV2
@@ -311,7 +311,10 @@ function SummaryTransactionDetails(
       />
       <NumberRowV2
         lhs={{
-          value: translate("screens/BorrowLoanTokenScreen", "Amount to borrow"),
+          value: translate(
+            "screens/ConfirmBorrowLoanTokenScreen",
+            "Amount to borrow"
+          ),
           testID: "tokens_to_borrow",
           themedProps: {
             light: tailwind("text-mono-light-v2-500"),
@@ -372,7 +375,7 @@ async function borrowLoanToken(
       transactionQueue.actions.push({
         sign: signer,
         title: translate(
-          "screens/ConfirmBorrowLoanTokenScreen",
+          "screens/OceanInterface",
           "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}",
           {
             amount: borrowAmount.toFixed(8),
