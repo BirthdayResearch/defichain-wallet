@@ -9,7 +9,7 @@ interface PriceOracleInfoProps {
 }
 export function PriceOracleInfo(props: PriceOracleInfoProps): JSX.Element {
   return (
-    <View style={tailwind("items-center")}>
+    <View style={tailwind("items-center")} testID="oracle_price_info">
       <TouchableOpacity
         onPress={props.onPress}
         style={tailwind("text-center flex-row items-center")}
