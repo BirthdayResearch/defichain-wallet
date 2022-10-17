@@ -33,7 +33,6 @@ import { BorrowLoanTokenScreen } from "./screens/BorrowLoanTokenScreen";
 import { ConfirmBorrowLoanTokenScreen } from "./screens/ConfirmBorrowLoanTokenScreen";
 import { EditLoanSchemeScreenV2 } from "./screens/EditLoanSchemeScreenV2";
 import { ConfirmEditLoanSchemeScreenV2 } from "./screens/ConfirmEditLoanSchemeScreenV2";
-import { BorrowMoreScreen } from "./screens/BorrowMoreScreen";
 import { CloseVaultScreen } from "./screens/CloseVaultScreen";
 import { PaymentTokenProps } from "./hooks/LoanPaymentTokenRate";
 import { LoansFaq } from "./screens/LoansFaq";
@@ -80,14 +79,13 @@ export interface LoanParamList {
   };
   BorrowLoanTokenScreen: {
     loanToken: LoanToken;
-    vault?: LoanVaultActive;
+    vault: LoanVaultActive;
   };
   ConfirmBorrowLoanTokenScreen: {
     loanToken: LoanToken;
     vault: LoanVaultActive;
-    amountToBorrow: string;
-    totalInterestAmount: BigNumber;
-    totalLoanWithInterest: BigNumber;
+    borrowAmount: string;
+    annualInterest: BigNumber;
     fee: BigNumber;
     resultingColRatio: BigNumber;
   };
@@ -259,27 +257,22 @@ export function LoansNavigator(): JSX.Element {
         component={BorrowLoanTokenScreen}
         name="BorrowLoanTokenScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/LoansScreen", "Borrow Loan Token")}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
+          headerTitle: translate("screens/LoansScreen", "Borrow"),
         }}
       />
       <LoansStack.Screen
         component={ConfirmBorrowLoanTokenScreen}
         name="ConfirmBorrowLoanTokenScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate(
-                "screens/LoansScreen",
-                "Confirm Borrow Loan Token"
-              )}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
+          headerTitle: translate("screens/LoansScreen", "Confirm"),
         }}
       />
       <LoansStack.Screen
@@ -337,18 +330,6 @@ export function LoansNavigator(): JSX.Element {
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
           headerTitle: translate("screens/LoansScreen", "Confirm"),
-        }}
-      />
-      <LoansStack.Screen
-        component={BorrowMoreScreen}
-        name="BorrowMoreScreen"
-        options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/LoansScreen", "Borrow More")}
-            />
-          ),
         }}
       />
       <LoansStack.Screen

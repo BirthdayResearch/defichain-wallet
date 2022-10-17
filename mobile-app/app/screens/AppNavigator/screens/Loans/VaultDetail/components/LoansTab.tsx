@@ -4,8 +4,9 @@ import { tailwind } from "@tailwind";
 import { SymbolIcon } from "@components/SymbolIcon";
 import { IconButton } from "@components/IconButton";
 import { translate } from "@translations";
-import { LoanVault } from "@store/loans";
+import { loanTokensSelector, LoanVault } from "@store/loans";
 import {
+  LoanToken,
   LoanVaultActive,
   LoanVaultState,
   LoanVaultTokenAmount,
@@ -18,6 +19,8 @@ import { ActiveUSDValue } from "@screens/AppNavigator/screens/Loans/VaultDetail/
 import { BottomSheetNavScreen } from "@components/BottomSheetWithNav";
 import { View } from "react-native";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
+import { useSelector } from "react-redux";
+import { RootState } from "@store";
 import { EmptyLoan } from "./EmptyLoan";
 import { VaultSectionTextRow } from "../../components/VaultSectionTextRow";
 
@@ -28,7 +31,8 @@ interface LoanCardProps {
   interestAmount?: string;
   vaultState: LoanVaultState;
   vault?: LoanVaultActive;
-  loanToken: LoanVaultTokenAmount;
+  loanTokenAmount: LoanVaultTokenAmount;
+  loanToken: LoanToken;
   dismissModal: () => void;
   expandModal: () => void;
   setBottomSheetScreen: (val: BottomSheetNavScreen[]) => void;
@@ -41,6 +45,14 @@ export function LoansTab(props: {
   setBottomSheetScreen: (val: BottomSheetNavScreen[]) => void;
 }): JSX.Element {
   const { vault, dismissModal, expandModal, setBottomSheetScreen } = props;
+  const loanTokens = useSelector((state: RootState) =>
+    loanTokensSelector(state.loans)
+  );
+  const getLoanTokenById = (tokenId: string): LoanToken => {
+    return loanTokens.find(
+      (loanToken) => loanToken.token.id === tokenId
+    ) as LoanToken;
+  };
   return (
     <ThemedView style={tailwind("p-4")}>
       {vault.state === LoanVaultState.ACTIVE && vault.loanValue === "0" && (
@@ -54,7 +66,8 @@ export function LoansTab(props: {
               displaySymbol={batch.loan.displaySymbol}
               amount={batch.loan.amount}
               vaultState={LoanVaultState.IN_LIQUIDATION}
-              loanToken={batch.loan}
+              loanTokenAmount={batch.loan}
+              loanToken={getLoanTokenById(batch.loan.id)}
               dismissModal={dismissModal}
               expandModal={expandModal}
               setBottomSheetScreen={setBottomSheetScreen}
@@ -73,7 +86,8 @@ export function LoansTab(props: {
               }
               vaultState={vault.state}
               vault={vault}
-              loanToken={loan}
+              loanTokenAmount={loan}
+              loanToken={getLoanTokenById(loan.id)}
               dismissModal={dismissModal}
               expandModal={expandModal}
               setBottomSheetScreen={setBottomSheetScreen}
@@ -86,7 +100,7 @@ export function LoansTab(props: {
 function LoanCard(props: LoanCardProps): JSX.Element {
   const canUseOperations = useLoanOperations(props.vault?.state);
   const activePrice = new BigNumber(
-    getActivePrice(props.symbol, props.loanToken.activePrice)
+    getActivePrice(props.symbol, props.loanTokenAmount.activePrice)
   );
   const isDUSDAsCollateral = props.vault?.collateralAmounts?.some(
     ({ symbol }) => symbol === "DUSD"
@@ -184,6 +198,7 @@ function LoanCard(props: LoanCardProps): JSX.Element {
           <ActionButtons
             testID={`loan_card_${props.displaySymbol}`}
             vault={props.vault}
+            loanTokenAmount={props.loanTokenAmount}
             loanToken={props.loanToken}
             canUseOperations={canUseOperations}
           />
@@ -192,8 +207,8 @@ function LoanCard(props: LoanCardProps): JSX.Element {
             isFeatureAvailable("unloop_dusd") && (
               <PaybackDUSDLoan
                 vault={props.vault}
-                paybackAmount={new BigNumber(props.loanToken.amount)}
-                loanToken={props.loanToken}
+                paybackAmount={new BigNumber(props.loanTokenAmount.amount)}
+                loanToken={props.loanTokenAmount}
               />
             )}
         </View>
@@ -246,12 +261,14 @@ function PaybackDUSDLoan({
 
 function ActionButtons({
   vault,
+  loanTokenAmount,
   loanToken,
   canUseOperations,
   testID,
 }: {
   vault: LoanVaultActive;
-  loanToken: LoanVaultTokenAmount;
+  loanTokenAmount: LoanVaultTokenAmount;
+  loanToken: LoanToken;
   canUseOperations: boolean;
   testID: string;
 }): JSX.Element {
@@ -273,7 +290,7 @@ function ActionButtons({
               merge: true,
               params: {
                 vault,
-                loanTokenAmount: loanToken,
+                loanTokenAmount,
               },
             });
           }}
@@ -288,11 +305,11 @@ function ActionButtons({
           testID={`${testID}_borrow_more`}
           onPress={() => {
             navigation.navigate({
-              name: "BorrowMoreScreen",
+              name: "BorrowLoanTokenScreen",
               merge: true,
               params: {
                 vault,
-                loanTokenAmount: loanToken,
+                loanToken,
               },
             });
           }}

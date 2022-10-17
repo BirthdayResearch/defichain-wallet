@@ -16,7 +16,7 @@ interface ISummaryTitleProps {
   fromAddressLabel?: string | null;
   toAddress?: string;
   toAddressLabel?: string | null;
-  customToAddressTitle?: string | null;
+  customToAddressTitle?: string;
   iconA: string;
   iconB?: string;
   addressType?: AddressType;

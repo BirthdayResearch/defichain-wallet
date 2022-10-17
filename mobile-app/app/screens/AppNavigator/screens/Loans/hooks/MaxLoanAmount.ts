@@ -1,30 +1,8 @@
-import BigNumber from "bignumber.js";
 import { LoanVaultTokenAmount } from "@defichain/whale-api-client/dist/api/loan";
 import { RootState } from "@store";
+import BigNumber from "bignumber.js";
 import { useSelector } from "react-redux";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
-
-interface useMaxLoanAmountProps {
-  totalCollateralValue: BigNumber;
-  existingLoanValue: BigNumber;
-  minColRatio: BigNumber;
-  loanActivePrice: BigNumber;
-  interestPerBlock: BigNumber;
-}
-
-export function useMaxLoanAmount({
-  totalCollateralValue,
-  existingLoanValue,
-  minColRatio,
-  loanActivePrice,
-  interestPerBlock,
-}: useMaxLoanAmountProps): BigNumber {
-  return totalCollateralValue
-    .dividedBy(minColRatio.dividedBy(100))
-    .minus(existingLoanValue)
-    .dividedBy(loanActivePrice)
-    .dividedBy(interestPerBlock.plus(1));
-}
 
 interface useMaxLoanProps {
   totalCollateralValue: BigNumber;
