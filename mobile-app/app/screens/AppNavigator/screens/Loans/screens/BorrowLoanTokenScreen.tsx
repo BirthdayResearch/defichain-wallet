@@ -629,15 +629,15 @@ export function TransactionDetailsSection(
     >
       <NumberRowV2
         lhs={{
-          value: translate("screens/BorrowLoanTokenScreen", "Available loan"),
-          testID: "available_amount",
+          value: translate("screens/BorrowLoanTokenScreen", "Max loan amount"),
+          testID: "max_loan_amount",
           themedProps: {
             light: tailwind("text-mono-light-v2-500"),
             dark: tailwind("text-mono-dark-v2-500"),
           },
         }}
         info={{
-          title: translate("screens/BorrowLoanTokenScreen", "Available Loans"),
+          title: translate("screens/BorrowLoanTokenScreen", "Max Loan Amount"),
           message: translate(
             "screens/BorrowLoanTokenScreen",
             "This is the current loan amount available for this vault."
