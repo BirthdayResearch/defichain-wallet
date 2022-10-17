@@ -1272,9 +1272,10 @@
     "Oracle prices": "Preisorakelwerte",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "Durch Preisorakel passen sich deine Vaults und Darlehen an die Marktpreise außerhalb der Blockchain an.",
     "Loan tokens get their prices from oracles.": "Darlehenstoken erhalten ihre Preise von Preisorakeln.",
-    "Search available loan tokens": "Verfügbare Darlehenstoken suchen",
+    "Search available loan tokens": "Verfügbare Darlehenstoken durchsuchen",
     "Edit Vault": "Vault bearbeiten",
-    "Confirm": "Bestätigen"
+    "Confirm": "Bestätigen",
+    "Search with token name": "Suche über den Token-Namen"
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehenstoken",
@@ -1321,7 +1322,7 @@
     "No Leading Bids": "Keine führenden Gebote",
     "You have no leading bids yet": "Du bist noch in keiner Auktion Höchstbietender",
     "No Active Bids": "Keine aktiven Gebote",
-    "You have no active bids yet": "Du hast noch keine aktiven Gebote abgegeben"
+    "You have no active bids yet": "Du hast noch keine aktiven Gebote"
   },
   "screens/AuctionScreen": {
     "Auctions": "Auktionen",
@@ -1977,7 +1978,7 @@
     "Leading bid": "Du bist Höchbietender",
     "Quick rebid": "Schnelles Nachgebot",
     "Outbid": "Überboten",
-    "Min. bid": "Mind. gebot",
+    "Min. bid": "Mind. Gebot",
     "Insufficient {{symbol}} balance": "{{symbol}}-Guthaben unzureichend",
     "Placing {{amount}} {{token}} quick bid": "Schnelles Gebot von {{amount}} {{token}} abgeben",
     "Placed {{amount}} {{token}} quick bid": "Schnelles Gebot von {{amount}} {{token}} abgegeben",
@@ -2010,7 +2011,7 @@
     "Receive": "Empfangen",
     "Swap": "Tausch",
     "Transactions": "Transaktionen",
-    "Future swap": "Future swap"
+    "Future swap": "Future Swap"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "{{poolPair}}-Pool",
@@ -2037,6 +2038,8 @@
   },
   "components/BottomSheetLoanTokensList": {
     "% interest": "% Zinsen",
-    "Select Token": "Token auswählen"
+    "Select Token": "Token auswählen",
+    "Search with token name": "Suche über den Token-Namen",
+    "Search results for “{{searchTerm}}”": "Suchergebnisse für “{{searchTerm}}”"
   }
 }

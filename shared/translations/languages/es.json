@@ -1302,7 +1302,8 @@
     "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
     "Search available loan tokens": "Buscar tokens de préstamo disponibles",
     "Edit Vault": "Edit Vault",
-    "Confirm": "Confirmar"
+    "Confirm": "Confirmar",
+    "Search with token name": "Buscar por nombre de token"
   },
   "components/tabs": {
     "Browse loan tokens": "Busca tokens de préstamo",
@@ -2070,6 +2071,8 @@
   },
   "components/BottomSheetLoanTokensList": {
     "% interest": "% interest",
-    "Select Token": "Select Token"
+    "Select Token": "Select Token",
+    "Search with token name": "Buscar por nombre de token",
+    "Search results for “{{searchTerm}}”": "Buscar resultados para “{{searchTerm}}”"
   }
 }
