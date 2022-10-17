@@ -101,7 +101,9 @@ export function VaultDetailStatus({
               "text-mono-light-v2-900",
               getVaultStatusColor(vaultStatus, isLight, true)
             )}
-            style={tailwind("font-semibold-v2 text-2xl")}
+            style={tailwind("font-semibold-v2 text-2xl", {
+              "font-normal-v2": vaultStatus === VaultStatus.Empty,
+            })}
             testID="vault_status"
           >
             {translate(
