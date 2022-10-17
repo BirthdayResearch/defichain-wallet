@@ -347,11 +347,10 @@ export function LoansNavigator(): JSX.Element {
         component={CloseVaultScreenV2}
         name="CloseVaultScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/LoansScreen", "Close Vault")}
-            />
+          ...screenOptions,
+          headerTitle: translate("screens/LoansScreen", "Close Vault"),
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
         }}
       />
