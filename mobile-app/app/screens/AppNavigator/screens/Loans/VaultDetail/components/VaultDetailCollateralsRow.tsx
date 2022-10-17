@@ -50,9 +50,7 @@ export function VaultDetailCollateralsRow({
       setHideDFIStaticCard(
         vault.collateralAmounts.some((col) => col.displaySymbol === "DFI")
       );
-    }
 
-    if (vault.state !== LoanVaultState.IN_LIQUIDATION) {
       setIsDusdLoaned(
         vault.loanAmounts.some((loan) => loan.displaySymbol === "DUSD")
       );
