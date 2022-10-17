@@ -28,7 +28,7 @@ export function InstantSwapRowTo({
             dark={tailwind("text-mono-dark-v2-700")}
             testID="tokenB_value"
           >
-            {val === "" ? "0.00" : val}
+            {val === "" || Number.isNaN(val) ? "0.00" : val}
           </ThemedTextV2>
         )}
         value={new BigNumber(tokenAmount).toFixed(8)}
