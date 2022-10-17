@@ -15,6 +15,7 @@ interface CollateralizationRatioDisplayProps {
   totalLoanAmount: string;
   testID: string;
   showProgressBar?: boolean;
+  customReadyText?: string;
 }
 
 export function CollateralizationRatioDisplayV2(
@@ -66,7 +67,11 @@ export function CollateralizationRatioDisplayV2(
           <>
             {new BigNumber(props.collateralValue).gt(0) ? (
               <Text style={tailwind("text-sm font-normal-v2 text-green-v2")}>
-                {translate("components/CollateralizationRatioDisplay", "Ready")}
+                {props.customReadyText ??
+                  translate(
+                    "components/CollateralizationRatioDisplay",
+                    "Ready"
+                  )}
               </Text>
             ) : (
               <ThemedTextV2

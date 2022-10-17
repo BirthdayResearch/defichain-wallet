@@ -140,7 +140,6 @@ export function SwapSummary({
                 }}
                 styledMessage={SettlementMessage()}
                 name="test2"
-                infoIconStyle={[tailwind("text-xs")]}
                 snapPoints={["55%"]}
                 triggerComponent={
                   <View style={tailwind("flex flex-row")}>

@@ -26,6 +26,7 @@ import {
   CollateralItem,
   EditCollateralScreen,
 } from "./screens/EditCollateralScreen";
+import { AddOrRemoveCollateralScreen } from "./screens/AddOrRemoveCollateralScreen";
 import { ConfirmEditCollateralScreen } from "./screens/ConfirmEditCollateralScreen";
 import { ChooseLoanTokenScreenV2 } from "./screens/ChooseLoanTokenScreenV2";
 import { BorrowLoanTokenScreen } from "./screens/BorrowLoanTokenScreen";
@@ -54,6 +55,12 @@ export interface LoanParamList {
   EditCollateralScreen: {
     vaultId: string;
   };
+  AddOrRemoveCollateralScreen: {
+    vault: LoanVaultActive;
+    collateralItem: CollateralItem;
+    collateralTokens: CollateralItem[];
+    isAdd: boolean;
+  };
   ChooseLoanTokenScreen: {
     vaultId?: string;
   };
@@ -64,6 +71,10 @@ export interface LoanParamList {
     fee: BigNumber;
     isAdd: boolean;
     collateralItem: CollateralItem;
+    resultingColRatio: BigNumber;
+    totalVaultCollateralValue: BigNumber;
+    vaultShare: BigNumber;
+    maxLoanAmount: BigNumber;
     conversion?: ConversionParam;
   };
   BorrowLoanTokenScreen: {
@@ -208,22 +219,29 @@ export function LoansNavigator(): JSX.Element {
         }}
       />
       <LoansStack.Screen
+        component={AddOrRemoveCollateralScreen}
+        name="AddOrRemoveCollateralScreen"
+        options={({ route }: { route: any }) => ({
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate(
+            "screens/LoansScreen",
+            route?.params?.isAdd ? "Add Collateral" : "Remove Collateral"
+          ),
+        })}
+      />
+      <LoansStack.Screen
         component={ConfirmEditCollateralScreen}
         name="ConfirmEditCollateralScreen"
-        options={({ route }: { route: any }) => ({
-          headerBackTitleVisible: false,
-          headerTitle: () => {
-            const isAdd = route?.params?.isAdd as boolean;
-            return (
-              <HeaderTitle
-                text={translate(
-                  "screens/LoansScreen",
-                  `Confirm ${isAdd ? "Add" : "Remove"} Collateral`
-                )}
-              />
-            );
-          },
-        })}
+        options={{
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate("screens/LoansScreen", "Confirm"),
+        }}
       />
       <LoansStack.Screen
         component={ChooseLoanTokenScreenV2}

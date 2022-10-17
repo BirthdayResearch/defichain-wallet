@@ -1,6 +1,5 @@
 import { LoanScheme } from "@defichain/whale-api-client/dist/api/loan";
 import BigNumber from "bignumber.js";
-import { VaultStatus } from "../../../../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes";
 import { checkValueWithinRange } from "../../../../support/walletCommands";
 
 function setupWalletForConversion(): void {
@@ -45,6 +44,21 @@ context("Wallet - Loans - Create vault", () => {
     cy.getByTestID("bottom_tab_loans").click();
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
+  });
+
+  it("should display carousel bottom sheet", () => {
+    cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
+    cy.getByTestID("empty_vault").should("exist");
+    cy.getByTestID("empty_vault_learn_more").should("exist").click();
+    cy.getByTestID("loans_carousel").should("exist");
+    cy.getByTestID("Next_button")
+      .should("exist")
+      .should("not.have.attr", "disabled");
+    cy.getByTestID("Next_button").click().click().click();
+    cy.getByTestID("Next_button").should("not.exist");
+    cy.getByTestID("Done_button").should("exist").click();
+    cy.getByTestID("loans_carousel").should("not.exist");
   });
 
   it("should navigate to create vault screen", () => {
@@ -172,29 +186,31 @@ context("Wallet - Loans - Confirm create vault", () => {
 
   it("should verify if vault was created", () => {
     cy.getByTestID("bottom_tab_loans").click();
-    cy.getByTestID("vault_card_0").should("exist");
-    cy.checkVaultTag(
-      "EMPTY",
-      VaultStatus.Empty,
-      "vault_card_0_status",
-      walletTheme.isDark
+    cy.getByTestID("vault_card_0_EMPTY_vault").should("exist");
+    cy.getByTestID("vault_card_0_EMPTY_empty_vault_image").should("exist");
+    cy.getByTestID("vault_card_0_EMPTY_vault_description").should(
+      "have.text",
+      "Add collateral to borrow"
     );
-    cy.getByTestID("vault_card_0_collateral_none").contains("None");
-    cy.getByTestID("vault_card_0_total_loan").contains("$0.00");
-    cy.getByTestID("vault_card_0_total_collateral").contains("$0.00");
-    cy.getByTestID("icon-tooltip").should("exist");
+    cy.getByTestID("oracle_price_info")
+      .should("exist")
+      .contains("All prices displayed are from price oracles.");
   });
 
-  it("should display tooltip message for oracle pricing", () => {
+  it("should display bottom sheet for oracle pricing", () => {
     cy.getByTestID("bottom_tab_loans").click();
-    cy.getByTestID("icon-tooltip").should("exist").first().click();
-    cy.getByTestID("icon-tooltip-text")
+    cy.getByTestID("oracle_price_info").should("exist").first().click();
+    cy.getByTestID("oracle_price_info_title")
+      .should("exist")
+      .should("have.text", "Price Oracles");
+    cy.getByTestID("oracle_price_info_description")
       .should("exist")
       .should(
         "have.text",
-        "This icon indicates that the price is provided by Oracles instead of the DEX"
+        "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)"
       );
-    cy.wait(2000); // manual condition to hide popover/tooltip on web
-    cy.getByTestID("icon-tooltip-text").should("not.exist");
+    cy.getByTestID("close_bottom_sheet_button").click();
+    cy.getByTestID("oracle_price_info_title").should("not.exist");
+    cy.getByTestID("oracle_price_info_description").should("not.exist");
   });
 });
