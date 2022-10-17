@@ -97,6 +97,8 @@ export interface LoanParamList {
   ConfirmPaybackLoanScreen: {
     vault: LoanVaultActive;
     amountToPay: BigNumber;
+    fee: BigNumber;
+    tokenBalance: BigNumber;
     loanTokenAmount: LoanVaultTokenAmount;
     resultingColRatio: BigNumber;
     isPaybackDUSDUsingCollateral?: boolean;

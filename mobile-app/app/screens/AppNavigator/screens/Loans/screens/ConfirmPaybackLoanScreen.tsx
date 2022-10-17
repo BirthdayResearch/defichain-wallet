@@ -30,7 +30,6 @@ import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { TextRowV2 } from "@components/TextRowV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
-import { tokensSelector } from "@store/wallet";
 import { LoanParamList } from "../LoansNavigator";
 import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
 import { getTokenAmount } from "../hooks/LoanPaymentTokenRate";
@@ -42,20 +41,15 @@ export function ConfirmPaybackLoanScreen({
   navigation,
 }: Props): JSX.Element {
   const {
+    fee,
     vault,
     amountToPay,
+    tokenBalance,
     loanTokenAmount,
     resultingColRatio,
     isPaybackDUSDUsingCollateral,
     loanTokenActivePriceInUSD,
   } = route.params;
-  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
-  const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
-  );
-  const token = tokens?.find((t) => t.id === loanTokenAmount.id);
-  const tokenBalance =
-    token != null ? getTokenAmount(token.id, tokens) : new BigNumber(0);
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
   );
@@ -63,17 +57,10 @@ export function ConfirmPaybackLoanScreen({
     hasBroadcastQueued(state.ocean)
   );
   const dispatch = useAppDispatch();
-  const logger = useLogger();
   const { address } = useWalletContext();
   const client = useWhaleApiClient();
   const [isOnPage, setIsOnPage] = useState<boolean>(true);
-
-  useEffect(() => {
-    client.fee
-      .estimate()
-      .then((f) => setFee(new BigNumber(f)))
-      .catch(logger.error);
-  }, []);
+  const logger = useLogger();
 
   function onCancel(): void {
     navigation.navigate({

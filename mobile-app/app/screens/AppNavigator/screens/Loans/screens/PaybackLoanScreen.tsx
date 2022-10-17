@@ -44,6 +44,7 @@ import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { useToast } from "react-native-toast-notifications";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useAppDispatch } from "@hooks/useAppDispatch";
+import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { getTokenAmount } from "../hooks/LoanPaymentTokenRate";
 import { useResultingCollateralRatio } from "../hooks/CollateralPrice";
 import { useInterestPerBlock } from "../hooks/InterestPerBlock";
@@ -112,6 +113,15 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
     ({ symbol }) => symbol === "DUSD"
   );
   const collateralDUSDAmount = collateralDUSD?.amount ?? "0";
+  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
+  const logger = useLogger();
+
+  useEffect(() => {
+    client.fee
+      .estimate()
+      .then((f) => setFee(new BigNumber(f)))
+      .catch(logger.error);
+  }, []);
 
   useEffect(() => {
     if (routeParams.isPaybackDUSDUsingCollateral) {
@@ -171,7 +181,9 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
     navigation.navigate({
       name: "ConfirmPaybackLoanScreen",
       params: {
+        fee,
         vault,
+        tokenBalance,
         loanTokenAmount,
         resultingColRatio,
         loanTokenActivePriceInUSD,
