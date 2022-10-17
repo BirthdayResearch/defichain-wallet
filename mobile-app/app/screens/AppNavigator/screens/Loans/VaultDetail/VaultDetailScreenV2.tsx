@@ -18,6 +18,7 @@ import { RootState } from "@store";
 import {
   LoanToken,
   LoanVaultState,
+  LoanVaultTokenAmount,
 } from "@defichain/whale-api-client/dist/api/loan";
 import BigNumber from "bignumber.js";
 import { useVaultStatus } from "@screens/AppNavigator/screens/Loans/components/VaultStatusTag";
@@ -39,6 +40,7 @@ import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { CloseVaultButton } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/CloseVaultButton";
 import { VaultDetailSummary } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailSummary";
 import { useMaxLoanAmount } from "@screens/AppNavigator/screens/Loans/hooks/MaxLoanAmount";
+import { BottomSheetPayBackList } from "@screens/AppNavigator/screens/Loans/components/BottomSheetPayBackList";
 import { LoanParamList } from "../LoansNavigator";
 import { VaultDetailCollateralsRow } from "./components/VaultDetailCollateralsRow";
 import { VaultDetailLoansRow } from "./components/VaultDetailLoansRow";
@@ -143,7 +145,19 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
     }
   }, [blockCount]);
 
-  const onAddPressed = () => {};
+  const onAddPressed = () => {
+    if (vault === undefined) {
+      return;
+    }
+
+    navigation.navigate({
+      name: "EditCollateralScreen",
+      params: {
+        vaultId: vault.vaultId,
+      },
+      merge: true,
+    });
+  };
   const onRemovePressed = () => {};
 
   const onBorrowPressed = () => {
@@ -175,7 +189,44 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
     expandModal();
   };
 
-  const onPayPressed = () => {};
+  const onPayPressed = () => {
+    if (vault === undefined || vault.state === LoanVaultState.IN_LIQUIDATION) {
+      return;
+    }
+
+    setSnapPoints({
+      ios: ["65%"],
+      android: ["60%"],
+    });
+    setBottomSheetScreen([
+      {
+        stackScreenName: "PayTokensList",
+        component: BottomSheetPayBackList({
+          onPress: (item: LoanVaultTokenAmount) => {
+            dismissModal();
+            navigateToPayScreen(item);
+          },
+          onPayDUSDPress: () => {},
+          vault: vault,
+          data: vault.loanAmounts,
+          isLight: isLight,
+        }),
+        option: BottomSheetHeader,
+      },
+    ]);
+    expandModal();
+  };
+
+  const navigateToPayScreen = (loanToken: LoanVaultTokenAmount) => {
+    navigation.navigate({
+      name: "PaybackLoanScreen",
+      merge: true,
+      params: {
+        vault: vault,
+        loanTokenAmount: loanToken,
+      },
+    });
+  };
 
   const onEditPressed = () => {
     if (vault === undefined) {
@@ -239,9 +290,8 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
           onRemovePress={onRemovePressed}
         />
         <VaultDetailLoansRow
-          dismissModal={dismissModal}
-          expandModal={expandModal}
-          setBottomSheetScreen={setBottomSheetScreen}
+          onPay={navigateToPayScreen}
+          onPaybackDUSD={() => {}}
           vault={vault}
         />
         <CloseVaultButton
