@@ -1,8 +1,8 @@
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { StyleProp, TextStyle, View } from "react-native";
+import { View } from "react-native";
 import { BottomSheetModalV2 } from "./BottomSheetModalV2";
-import { ThemedIcon, ThemedTextV2, ThemedViewV2 } from "./themed";
+import { ThemedIcon, ThemedProps, ThemedTextV2, ThemedViewV2 } from "./themed";
 
 export interface BottomSheetAlertInfoV2 {
   title: string;
@@ -12,7 +12,7 @@ export interface BottomSheetAlertInfoV2 {
 interface BottomSheetInfoV2Props {
   name?: string;
   alertInfo?: BottomSheetAlertInfoV2;
-  infoIconStyle?: StyleProp<TextStyle>;
+  infoIconStyle?: ThemedProps;
   triggerComponent?: JSX.Element;
   snapPoints?: (string | number)[];
   styledMessage?: JSX.Element;
@@ -21,6 +21,7 @@ interface BottomSheetInfoV2Props {
 export function BottomSheetInfoV2({
   name,
   alertInfo,
+  infoIconStyle,
   triggerComponent,
   snapPoints,
   styledMessage,
@@ -38,8 +39,10 @@ export function BottomSheetInfoV2({
             size={16}
             name="info-outline"
             iconType="MaterialIcons"
-            dark={tailwind("text-mono-dark-v2-700")}
-            light={tailwind("text-mono-light-v2-700")}
+            {...(infoIconStyle ?? {
+              dark: tailwind("text-mono-dark-v2-700"),
+              light: tailwind("text-mono-light-v2-700"),
+            })}
           />
         )
       }
