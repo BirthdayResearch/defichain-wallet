@@ -118,7 +118,7 @@ export function CloseVaultScreenV2({ route, navigation }: Props): JSX.Element {
           label={translate("screens/CloseVaultScreen", "Close vault")}
           displayCancelBtn={false}
           onSubmit={onSubmit}
-          buttonStyle="mt-4"
+          buttonStyle="mt-4 mx-7"
           title="close_vault"
         />
       </View>
