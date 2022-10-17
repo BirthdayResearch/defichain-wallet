@@ -1297,7 +1297,8 @@
     "Loan tokens get their prices from oracles.": "Loan tokens get their prices from oracles.",
     "Search available loan tokens": "Search available loan tokens",
     "Edit Vault": "Edit Vault",
-    "Confirm": "Confirm"
+    "Confirm": "Confirm",
+    "Search with token name": "Search with token name"
   },
   "components/tabs": {
     "Browse loan tokens": "Sfoglia i token in prestito",
@@ -2078,6 +2079,8 @@
   },
   "components/BottomSheetLoanTokensList": {
     "% interest": "% interest",
-    "Select Token": "Select Token"
+    "Select Token": "Select Token",
+    "Search with token name": "Search with token name",
+    "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
   }
 }
