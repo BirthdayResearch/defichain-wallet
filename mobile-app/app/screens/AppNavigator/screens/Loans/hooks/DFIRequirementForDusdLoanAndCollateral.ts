@@ -32,9 +32,6 @@ export function useDFIRequirementForDusdLoanAndCollateral(
   const collateralTokens: CollateralToken[] = useSelector(
     (state: RootState) => state.loans.collateralTokens
   );
-  const hasDUSDLoan = props.loanAmounts.some(
-    (loan) => loan.displaySymbol === "DUSD"
-  );
   const isTakingDUSDLoan = props.loanToken.token.displaySymbol === "DUSD";
 
   const dfiCollateralToken = collateralTokens.find(
