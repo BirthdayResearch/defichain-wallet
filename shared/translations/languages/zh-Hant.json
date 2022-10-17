@@ -1666,6 +1666,15 @@
   },
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "您正在償還貸款",
+    "I WANT TO PAY": "I WANT TO PAY",
+    "I WANT TO PAY WITH DUSD COLLATERAL": "I WANT TO PAY WITH DUSD COLLATERAL",
+    "Available: ": "現有可使用: ",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Use your DUSD collaterals to fully pay off your DUSD loan.": "Use your DUSD collaterals to fully pay off your DUSD loan.",
+    "Continue": "繼續",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "Insufficient {{unit}}; max entered": "Insufficient {{unit}}; max entered",
     "VAULT IN USE": "金庫使用中",
     "How much of the loan do you want to pay?": "您想償還多少貸款？",
     "Enter an amount": "輸入金額",
@@ -1699,6 +1708,13 @@
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "確認付款",
     "PAYING": "付款中",
+    "Transaction fee": "交易費用",
+    "Loan remaining": "Loan remaining",
+    "Payback loan": "償還貸款",
+    "Prices may vary during transaction confirmation.": "交易確認期間價格可能會有所不同。",
+    "Any excess payment will be returned.": "所冇超額付款將被退回。",
+    "Paying {{amountToPay}} {{symbol}}": "付款中 {{amountToPay}} {{symbol}}",
+    "Paid {{amountToPay}} {{symbol}}": "已付款  {{amountToPay}} {{symbol}}",
     "You are paying": "正在付款",
     "TRANSACTION DETAILS": "交易明細",
     "Transaction type": "交易類別",
@@ -1717,7 +1733,7 @@
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "抵押率",
-    "Collateral ratio": "Collateral ratio",
+    "Collateral ratio": "抵押率",
     "Ready": "Ready",
     "Min:": "最低:",
     "Next:": "下一個:"

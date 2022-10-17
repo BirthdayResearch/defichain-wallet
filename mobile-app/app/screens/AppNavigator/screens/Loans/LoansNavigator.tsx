@@ -92,20 +92,17 @@ export interface LoanParamList {
   PaybackLoanScreen: {
     loanTokenAmount: LoanVaultTokenAmount;
     vault: LoanVaultActive;
+    isPaybackDUSDUsingCollateral?: boolean;
   };
   ConfirmPaybackLoanScreen: {
-    fee: BigNumber;
-    amountToPayInLoanToken: BigNumber;
-    amountToPayInPaymentToken: BigNumber;
-    selectedPaymentTokenBalance: BigNumber;
-    loanTokenBalance: BigNumber;
-    paymentToken: Omit<PaymentTokenProps, "tokenBalance">;
     vault: LoanVaultActive;
+    amountToPay: BigNumber;
+    fee: BigNumber;
+    tokenBalance: BigNumber;
     loanTokenAmount: LoanVaultTokenAmount;
-    excessAmount?: BigNumber;
     resultingColRatio: BigNumber;
-    conversion?: ConversionParam;
-    paymentPenalty: BigNumber;
+    isPaybackDUSDUsingCollateral?: boolean;
+    loanTokenActivePriceInUSD: string;
   };
   EditLoanSchemeScreen: {
     vaultId: string;
@@ -297,27 +294,22 @@ export function LoansNavigator(): JSX.Element {
         component={PaybackLoanScreen}
         name="PaybackLoanScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/LoansScreen", "Payback Loan")}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
+          headerTitle: translate("screens/LoansScreen", "Payback Loan"),
         }}
       />
       <LoansStack.Screen
         component={ConfirmPaybackLoanScreen}
         name="ConfirmPaybackLoanScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate(
-                "screens/ConfirmPaybackLoanScreen",
-                "Confirm Loan Payment"
-              )}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
+          headerTitle: translate("screens/ConfirmPaybackLoanScreen", "Confirm"),
         }}
       />
       <LoansStack.Screen

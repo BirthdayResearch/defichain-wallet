@@ -1,21 +1,13 @@
 import { View } from "react-native";
-import { NumericFormat as NumberFormat } from "react-number-format";
-import { InfoRow, InfoType } from "@components/InfoRow";
-import { InfoText } from "@components/InfoText";
-import { NumberRow } from "@components/NumberRow";
-import { SummaryTitle } from "@components/SummaryTitle";
-import { TextRow } from "@components/TextRow";
 import {
-  ThemedScrollView,
-  ThemedSectionTitle,
-  ThemedText,
-  ThemedView,
+  ThemedScrollViewV2,
+  ThemedTextV2,
+  ThemedViewV2,
 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { Dispatch, useEffect, useState } from "react";
-import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
@@ -27,21 +19,20 @@ import {
 } from "@shared-contexts/NativeLoggingProvider";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
-import {
-  LoanVaultActive,
-  LoanVaultTokenAmount,
-} from "@defichain/whale-api-client/dist/api/loan";
+import { LoanVaultTokenAmount } from "@defichain/whale-api-client/dist/api/loan";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { fetchVaults } from "@store/loans";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
-import { WalletAddressRow } from "@components/WalletAddressRow";
-import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { ConversionParam } from "../../Portfolio/PortfolioNavigator";
-import { CollateralizationRatioRow } from "../components/CollateralizationRatioRow";
-import { PaymentTokenProps } from "../hooks/LoanPaymentTokenRate";
+import { SummaryTitleV2 } from "@components/SummaryTitleV2";
+import { useAddressLabel } from "@hooks/useAddressLabel";
+import { NumberRowV2 } from "@components/NumberRowV2";
+import { TextRowV2 } from "@components/TextRowV2";
+import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { LoanParamList } from "../LoansNavigator";
+import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
+import { getTokenAmount } from "../hooks/LoanPaymentTokenRate";
 
 type Props = StackScreenProps<LoanParamList, "ConfirmPaybackLoanScreen">;
 
@@ -50,18 +41,14 @@ export function ConfirmPaybackLoanScreen({
   navigation,
 }: Props): JSX.Element {
   const {
-    vault,
-    amountToPayInLoanToken,
-    amountToPayInPaymentToken,
-    selectedPaymentTokenBalance,
-    loanTokenBalance,
-    paymentToken,
     fee,
+    vault,
+    amountToPay,
+    tokenBalance,
     loanTokenAmount,
-    excessAmount,
     resultingColRatio,
-    conversion,
-    paymentPenalty,
+    isPaybackDUSDUsingCollateral,
+    loanTokenActivePriceInUSD,
   } = route.params;
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
@@ -70,12 +57,10 @@ export function ConfirmPaybackLoanScreen({
     hasBroadcastQueued(state.ocean)
   );
   const dispatch = useAppDispatch();
-  const logger = useLogger();
   const { address } = useWalletContext();
-  const { isFeatureAvailable } = useFeatureFlagContext();
   const client = useWhaleApiClient();
-  const isDUSDPaymentEnabled = isFeatureAvailable("dusd_loan_payment");
   const [isOnPage, setIsOnPage] = useState<boolean>(true);
+  const logger = useLogger();
 
   function onCancel(): void {
     navigation.navigate({
@@ -92,14 +77,10 @@ export function ConfirmPaybackLoanScreen({
     await paybackLoanToken(
       {
         vaultId: vault.vaultId,
+        amountToPay,
         loanToken: loanTokenAmount,
-        amountToPayInLoanToken,
-        amountToPayInPaymentToken,
-        selectedPaymentTokenBalance,
-        loanTokenBalance,
-        paymentToken,
-        paymentPenalty,
-        isDUSDPaymentEnabled,
+        tokenBalance,
+        isPaybackDUSDUsingCollateral,
       },
       dispatch,
       () => {
@@ -117,13 +98,6 @@ export function ConfirmPaybackLoanScreen({
     );
   }
 
-  function getSubmitLabel(): string {
-    if (!hasPendingBroadcastJob && !hasPendingJob) {
-      return "CONFIRM PAYMENT";
-    }
-    return "PAYING";
-  }
-
   useEffect(() => {
     setIsOnPage(true);
     return () => {
@@ -131,276 +105,215 @@ export function ConfirmPaybackLoanScreen({
     };
   }, []);
 
+  const addressLabel = useAddressLabel(address);
+  const loanRemaining = new BigNumber(loanTokenAmount.amount).minus(
+    amountToPay
+  );
   return (
-    <ThemedScrollView>
-      <SummaryHeader
-        amount={new BigNumber(amountToPayInLoanToken)}
-        displaySymbol={loanTokenAmount.displaySymbol}
-        amountToPayInPaymentToken={amountToPayInPaymentToken}
-        paymentToken={paymentToken}
-      />
-      <SummaryTransactionDetails
-        amountToPayInLoanToken={amountToPayInLoanToken}
-        amountToPayInPaymentToken={amountToPayInPaymentToken}
-        displaySymbol={loanTokenAmount.displaySymbol}
-        fee={fee}
-        vault={vault}
-        outstandingBalance={BigNumber.max(
-          new BigNumber(loanTokenAmount.amount).minus(amountToPayInLoanToken),
-          0
-        )}
-        excessAmount={excessAmount}
-        paymentPenalty={paymentPenalty}
-        paymentTokenDisplaySymbol={paymentToken.tokenDisplaySymbol}
-      />
-      <SummaryVaultDetails
-        vault={vault}
-        resultingColRatio={resultingColRatio}
-      />
-      {conversion?.isConversionRequired === true && (
-        <View style={tailwind("px-4 pt-2 pb-1 mt-2")}>
-          <InfoText
-            type="warning"
-            testID="conversion_warning_info_text"
-            text={translate(
-              "components/ConversionInfoText",
-              "Please wait as we convert tokens for your transaction. Conversions are irreversible."
-            )}
+    <ThemedScrollViewV2 style={tailwind("pb-4")}>
+      <ThemedViewV2 style={tailwind("flex-col px-5 py-8")}>
+        <SummaryTitleV2
+          amount={amountToPay}
+          title={translate(
+            "screens/ConfirmPaybackLoanScreen",
+            "You are paying"
+          )}
+          testID="text_send_amount"
+          iconA={loanTokenAmount.displaySymbol}
+          amountTextStyle="text-xl"
+          fromAddress={address}
+          fromAddressLabel={addressLabel}
+        />
+
+        <NumberRowV2
+          containerStyle={{
+            style: tailwind(
+              "flex-row items-start w-full bg-transparent border-t-0.5 py-5 mt-6"
+            ),
+            light: tailwind("bg-transparent border-mono-light-v2-300"),
+            dark: tailwind("bg-transparent border-mono-dark-v2-300"),
+          }}
+          lhs={{
+            value: translate(
+              "screens/ConfirmPaybackLoanScreen",
+              "Transaction fee"
+            ),
+            testID: "transaction_fee",
+            themedProps: {
+              light: tailwind("text-mono-light-v2-500"),
+              dark: tailwind("text-mono-dark-v2-500"),
+            },
+          }}
+          rhs={{
+            value: fee.toFixed(8),
+            suffix: " DFI",
+            testID: "transaction_fee_value",
+            themedProps: {
+              light: tailwind("text-mono-light-v2-900"),
+              dark: tailwind("text-mono-dark-v2-900"),
+            },
+          }}
+        />
+
+        <TextRowV2
+          containerStyle={{
+            style: tailwind(
+              "flex-row items-start w-full bg-transparent border-t-0.5 pt-5"
+            ),
+            light: tailwind("bg-transparent border-mono-light-v2-300"),
+            dark: tailwind("bg-transparent border-mono-dark-v2-300"),
+          }}
+          lhs={{
+            value: translate("screens/ConfirmPaybackLoanScreen", "Vault ID"),
+            testID: "text_vault_id",
+            themedProps: {
+              light: tailwind("text-mono-light-v2-500"),
+              dark: tailwind("text-mono-dark-v2-500"),
+            },
+          }}
+          rhs={{
+            value: vault.vaultId,
+            testID: "vault_id",
+            numberOfLines: 1,
+            ellipsizeMode: "middle",
+            themedProps: {
+              light: tailwind("text-mono-light-v2-900"),
+              dark: tailwind("text-mono-dark-v2-900"),
+            },
+          }}
+        />
+
+        <View style={tailwind("my-5")}>
+          <CollateralizationRatioDisplayV2
+            collateralizationRatio={resultingColRatio.toFixed(8)}
+            minCollateralizationRatio={vault.loanScheme.minColRatio}
+            collateralValue={vault.collateralValue}
+            totalLoanAmount={vault.loanValue}
+            testID="text_resulting_col_ratio"
           />
         </View>
-      )}
-      <SubmitButtonGroup
-        isDisabled={hasPendingJob || hasPendingBroadcastJob}
-        label={translate("screens/ConfirmPaybackLoanScreen", "CONFIRM PAYMENT")}
-        isProcessing={hasPendingJob || hasPendingBroadcastJob}
-        processingLabel={translate(
-          "screens/ConfirmPaybackLoanScreen",
-          getSubmitLabel()
-        )}
-        onCancel={onCancel}
-        onSubmit={onSubmit}
-        displayCancelBtn
-        title="payback_loan"
-      />
-    </ThemedScrollView>
-  );
-}
 
-function SummaryHeader(props: {
-  amount: BigNumber;
-  paymentToken: Omit<PaymentTokenProps, "tokenBalance">;
-  amountToPayInPaymentToken: BigNumber;
-  displaySymbol: string;
-  conversion?: ConversionParam;
-}): JSX.Element {
-  return (
-    <ThemedView
-      dark={tailwind("bg-gray-800 border-b border-gray-700")}
-      light={tailwind("bg-white border-b border-gray-300")}
-      style={tailwind("flex-col px-4 py-8")}
-    >
-      <SummaryTitle
-        amount={props.amountToPayInPaymentToken}
-        suffix={props.paymentToken.tokenDisplaySymbol}
-        suffixType="text"
-        testID="text_payment_amount"
-        title={translate("screens/ConfirmPaybackLoanScreen", "You are paying")}
-      />
-      {props.paymentToken.tokenDisplaySymbol !== props.displaySymbol && (
-        <View style={tailwind("flex flex-row")}>
-          <NumberFormat
-            decimalScale={8}
-            displayType="text"
-            renderText={(value) => (
-              <ThemedText
-                light={tailwind("text-gray-500")}
-                dark={tailwind("text-gray-400")}
-                style={tailwind("text-sm pr-1")}
-              >
-                {value}
-              </ThemedText>
-            )}
-            thousandSeparator
-            value={props.amount.toFixed(8)}
-          />
-          <ThemedText
-            light={tailwind("text-gray-500")}
-            dark={tailwind("text-gray-400")}
-            style={tailwind("text-sm")}
+        <NumberRowV2
+          containerStyle={{
+            style: tailwind(
+              "flex-row items-start w-full bg-transparent border-t-0.5 pt-5"
+            ),
+            light: tailwind("bg-transparent border-mono-light-v2-300"),
+            dark: tailwind("bg-transparent border-mono-dark-v2-300"),
+          }}
+          lhs={{
+            value: translate(
+              "screens/ConfirmPaybackLoanScreen",
+              "Loan remaining"
+            ),
+            testID: "text_resulting_loan_amount",
+            themedProps: {
+              light: tailwind("text-mono-light-v2-500"),
+              dark: tailwind("text-mono-dark-v2-500"),
+            },
+          }}
+          rhs={{
+            value: loanRemaining.toFixed(8),
+            suffix: ` ${loanTokenAmount.displaySymbol}`,
+            testID: "resulting_loan_amount",
+            usdAmount: new BigNumber(loanRemaining).multipliedBy(
+              loanTokenActivePriceInUSD
+            ),
+            themedProps: {
+              light: tailwind("text-mono-light-v2-900"),
+              dark: tailwind("text-mono-dark-v2-900"),
+            },
+          }}
+        />
+
+        <NumberRowV2
+          containerStyle={{
+            style: tailwind(
+              "flex-row items-start w-full bg-transparent border-b-0.5"
+            ),
+            light: tailwind("bg-transparent border-mono-light-v2-300"),
+            dark: tailwind("bg-transparent border-mono-dark-v2-300"),
+          }}
+          lhs={{
+            value: translate(
+              "screens/ConfirmPaybackLoanScreen",
+              "Amount to pay"
+            ),
+            testID: "text_tokens_to_pay",
+            themedProps: {
+              light: tailwind("text-mono-light-v2-500"),
+              dark: tailwind("text-mono-dark-v2-500"),
+            },
+          }}
+          rhs={{
+            value: amountToPay.toFixed(8),
+            suffix: ` ${loanTokenAmount.displaySymbol}`,
+            testID: "tokens_to_pay",
+            usdAmount: new BigNumber(amountToPay).multipliedBy(
+              loanTokenActivePriceInUSD
+            ),
+            themedProps: {
+              style: tailwind("text-right text-sm font-semibold-v2"),
+              light: tailwind("text-mono-light-v2-900"),
+              dark: tailwind("text-mono-dark-v2-900"),
+            },
+          }}
+        />
+
+        <View style={tailwind("mt-12")}>
+          <ThemedTextV2
+            style={tailwind("text-xs font-normal-v2 text-center")}
+            light={tailwind("text-mono-light-v2-500")}
+            dark={tailwind("text-mono-dark-v2-500")}
           >
-            {props.displaySymbol}
-          </ThemedText>
+            {translate(
+              "screens/ConfirmPaybackLoanScreen",
+              "Prices may vary during transaction confirmation."
+            )}
+          </ThemedTextV2>
+          <ThemedTextV2
+            style={tailwind("text-xs font-normal-v2 text-center mb-5")}
+            light={tailwind("text-mono-light-v2-500")}
+            dark={tailwind("text-mono-dark-v2-500")}
+          >
+            {translate(
+              "screens/ConfirmPaybackLoanScreen",
+              "Any excess payment will be returned."
+            )}
+          </ThemedTextV2>
+          <SubmitButtonGroupV2
+            isDisabled={hasPendingJob || hasPendingBroadcastJob}
+            label={translate(
+              "screens/ConfirmPaybackLoanScreen",
+              "Payback loan"
+            )}
+            onCancel={onCancel}
+            onSubmit={onSubmit}
+            displayCancelBtn
+            buttonStyle="mx-7 mb-4"
+            title="payback_loan"
+          />
         </View>
-      )}
-    </ThemedView>
-  );
-}
-
-interface SummaryTransactionDetailsProps {
-  amountToPayInLoanToken: BigNumber;
-  amountToPayInPaymentToken: BigNumber;
-  outstandingBalance: BigNumber;
-  displaySymbol: string;
-  fee: BigNumber;
-  vault: LoanVaultActive;
-  excessAmount?: BigNumber;
-  paymentPenalty: BigNumber;
-  paymentTokenDisplaySymbol: string;
-}
-
-function SummaryTransactionDetails(
-  props: SummaryTransactionDetailsProps
-): JSX.Element {
-  return (
-    <>
-      <ThemedSectionTitle
-        text={translate(
-          "screens/ConfirmPaybackLoanScreen",
-          "TRANSACTION DETAILS"
-        )}
-      />
-      <TextRow
-        lhs={translate("screens/ConfirmPaybackLoanScreen", "Transaction type")}
-        rhs={{
-          value: translate("screens/ConfirmPaybackLoanScreen", "Loan payment"),
-          testID: "text_transaction_type",
-        }}
-        textStyle={tailwind("text-sm font-normal")}
-      />
-      <WalletAddressRow />
-      <NumberRow
-        lhs={translate("screens/ConfirmPaybackLoanScreen", "Amount to pay")}
-        rhs={{
-          value: props.amountToPayInPaymentToken.toFixed(8),
-          testID: "tokens_to_pay",
-          suffixType: "text",
-          suffix: props.paymentTokenDisplaySymbol,
-        }}
-      />
-      {props.excessAmount !== undefined && (
-        <NumberRow
-          lhs={translate("screens/PaybackLoanScreen", "Excess amount")}
-          rhs={{
-            value: props.excessAmount.toFixed(8),
-            testID: "text_excess_amount",
-            suffixType: "text",
-            suffix: props.paymentTokenDisplaySymbol,
-          }}
-        />
-      )}
-      <NumberRow
-        lhs={translate("screens/PaybackLoanScreen", "Remaining loan amount")}
-        rhs={{
-          value: props.outstandingBalance.toFixed(8),
-          testID: "text_resulting_loan_amount",
-          suffixType: "text",
-          suffix: props.displaySymbol,
-        }}
-      />
-      {props.paymentPenalty.gt(0) && (
-        <NumberRow
-          lhs={translate(
-            "screens/PaybackLoanScreen",
-            "{{paymentToken}} payment fee",
-            { paymentToken: props.paymentTokenDisplaySymbol }
-          )}
-          rhs={{
-            value: BigNumber.max(props.paymentPenalty, 0).toFixed(8),
-            testID: "text_resulting_payment_penalty",
-            suffixType: "text",
-            suffix: props.paymentTokenDisplaySymbol,
-          }}
-        />
-      )}
-      <InfoRow
-        type={InfoType.EstimatedFee}
-        value={props.fee.toFixed(8)}
-        testID="estimated_fee"
-        suffix="DFI"
-      />
-    </>
-  );
-}
-
-function SummaryVaultDetails(props: {
-  vault: LoanVaultActive;
-  resultingColRatio: BigNumber;
-}): JSX.Element {
-  const collateralAlertInfo = {
-    title: "Collateralization ratio",
-    message:
-      "The collateralization ratio represents the amount of collateral deposited in a vault in relation to the loan amount, expressed in percentage.",
-  };
-
-  return (
-    <>
-      <ThemedSectionTitle
-        text={translate("screens/ConfirmPaybackLoanScreen", "VAULT DETAILS")}
-      />
-      <TextRow
-        lhs={translate("screens/ConfirmPaybackLoanScreen", "Vault ID")}
-        rhs={{
-          value: props.vault.vaultId,
-          testID: "text_vault_id",
-          numberOfLines: 1,
-          ellipsizeMode: "middle",
-        }}
-        textStyle={tailwind("text-sm font-normal")}
-      />
-      {props.resultingColRatio.isLessThan(0) ? (
-        <TextRow
-          lhs={translate(
-            "screens/ConfirmPaybackLoanScreen",
-            "Resulting collateralization"
-          )}
-          rhs={{
-            value: translate("screens/ConfirmPaybackLoanScreen", "N/A"),
-            testID: "text_current_collateral_ratio",
-          }}
-          textStyle={tailwind("text-sm font-normal")}
-          info={collateralAlertInfo}
-        />
-      ) : (
-        <CollateralizationRatioRow
-          label={translate(
-            "screens/ConfirmPaybackLoanScreen",
-            "Resulting collateralization"
-          )}
-          value={props.resultingColRatio.toFixed(2)}
-          testId="text_resulting_col_ratio"
-          type="current"
-          minColRatio={new BigNumber(props.vault.loanScheme.minColRatio)}
-          totalLoanAmount={new BigNumber(props.vault.loanValue)}
-          colRatio={props.resultingColRatio}
-        />
-      )}
-    </>
+      </ThemedViewV2>
+    </ThemedScrollViewV2>
   );
 }
 
 interface PaybackForm {
   vaultId: string;
-  amountToPayInLoanToken: BigNumber;
-  amountToPayInPaymentToken: BigNumber;
-  selectedPaymentTokenBalance: BigNumber;
-  loanTokenBalance: BigNumber;
-  paymentToken: Omit<PaymentTokenProps, "tokenBalance">;
+  amountToPay: BigNumber;
+  tokenBalance: BigNumber;
   loanToken: LoanVaultTokenAmount;
-  paymentPenalty: BigNumber;
-  isDUSDPaymentEnabled: boolean;
+  isPaybackDUSDUsingCollateral?: boolean;
 }
 
 async function paybackLoanToken(
   {
     vaultId,
-    amountToPayInLoanToken,
-    amountToPayInPaymentToken,
-    selectedPaymentTokenBalance,
-    loanTokenBalance,
-    paymentToken,
+    amountToPay,
+    tokenBalance,
     loanToken,
-    paymentPenalty,
-    isDUSDPaymentEnabled,
+    isPaybackDUSDUsingCollateral,
   }: PaybackForm,
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
@@ -413,76 +326,33 @@ async function paybackLoanToken(
     ): Promise<CTransactionSegWit> => {
       const script = await account.getScript();
       const builder = account.withTransactionBuilder();
-      const signed = isDUSDPaymentEnabled
-        ? await builder.loans.paybackLoanV2(
+      const signed = await builder.loans.paybackLoan(
+        {
+          vaultId: vaultId,
+          from: script,
+          tokenAmounts: [
             {
-              vaultId: vaultId,
-              from: script,
-              loans: [
-                {
-                  dToken: +loanToken.id,
-                  amounts: [
-                    {
-                      token:
-                        paymentToken.tokenId === "0_unified"
-                          ? 0
-                          : +paymentToken.tokenId,
-                      amount: BigNumber.min(
-                        selectedPaymentTokenBalance,
-                        amountToPayInPaymentToken.plus(paymentPenalty)
-                      ),
-                    },
-                  ],
-                },
-              ],
+              token: +loanToken.id,
+              amount: isPaybackDUSDUsingCollateral
+                ? new BigNumber("9999999999.99999999")
+                : BigNumber.min(tokenBalance, amountToPay),
             },
-            script
-          )
-        : await builder.loans.paybackLoan(
-            {
-              vaultId: vaultId,
-              from: script,
-              tokenAmounts: [
-                {
-                  token:
-                    paymentToken.tokenId === "0_unified"
-                      ? 0
-                      : +paymentToken.tokenId,
-                  amount: BigNumber.min(
-                    selectedPaymentTokenBalance,
-                    amountToPayInPaymentToken.plus(paymentPenalty)
-                  ),
-                },
-              ],
-            },
-            script
-          );
+          ],
+        },
+        script
+      );
       return new CTransactionSegWit(signed);
     };
-
-    const textToTranslate =
-      paymentToken.tokenDisplaySymbol === loanToken.displaySymbol
-        ? "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment."
-        : "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.";
 
     dispatch(
       transactionQueue.actions.push({
         sign: signer,
-        title: translate("screens/ConfirmPaybackLoanScreen", "Paying loan"),
-        description: translate(
+        title: translate(
           "screens/ConfirmPaybackLoanScreen",
-          textToTranslate,
+          "Paying {{amountToPay}} {{symbol}}",
           {
-            amountToPayInLoanToken: BigNumber.min(
-              loanTokenBalance,
-              amountToPayInLoanToken
-            ).toFixed(8),
-            amountToPayInPaymentToken: BigNumber.min(
-              selectedPaymentTokenBalance,
-              amountToPayInPaymentToken
-            ).toFixed(8),
+            amountToPay: amountToPay.toFixed(8),
             symbol: loanToken.displaySymbol,
-            paymentSymbol: paymentToken.tokenDisplaySymbol,
           }
         ),
         drawerMessages: {
@@ -491,10 +361,21 @@ async function paybackLoanToken(
             "Preparing loan payment…"
           ),
           waiting: translate(
-            "screens/OceanInterface",
-            "Processing loan payment…"
+            "screens/ConfirmPaybackLoanScreen",
+            "Paying {{amountToPay}} {{symbol}}",
+            {
+              amountToPay: amountToPay.toFixed(8),
+              symbol: loanToken.displaySymbol,
+            }
           ),
-          complete: translate("screens/OceanInterface", "Payment completed"),
+          complete: translate(
+            "screens/ConfirmPaybackLoanScreen",
+            "Paid {{amountToPay}} {{symbol}}",
+            {
+              amountToPay: amountToPay.toFixed(8),
+              symbol: loanToken.displaySymbol,
+            }
+          ),
         },
         onBroadcast,
         onConfirmation,

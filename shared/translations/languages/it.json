@@ -1685,6 +1685,15 @@
   },
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "STAI PAGANDO PER IL PRESTITO",
+    "I WANT TO PAY": "I WANT TO PAY",
+    "I WANT TO PAY WITH DUSD COLLATERAL": "I WANT TO PAY WITH DUSD COLLATERAL",
+    "Available: ": "Disponibile: ",
+    "Review full details in the next screen": "Review full details in the next screen",
+    "Use your DUSD collaterals to fully pay off your DUSD loan.": "Use your DUSD collaterals to fully pay off your DUSD loan.",
+    "Continue": "Continua",
+    "Max available {{unit}} entered": "Max available {{unit}} entered",
+    "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "Insufficient {{unit}}; max entered": "Insufficient {{unit}}; max entered",
     "VAULT IN USE": "VAULT IN USO",
     "Enter an amount": "Inserisci un importo",
     "Available": "Disponibile",
@@ -1718,6 +1727,13 @@
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "CONFERMA IL PAGAMENTO",
     "PAYING": "PAGA",
+    "Transaction fee": "Transaction fee",
+    "Loan remaining": "Prestito rimanente",
+    "Payback loan": "Ripaga il prestito",
+    "Prices may vary during transaction confirmation.": "Prices may vary during transaction confirmation.",
+    "Any excess payment will be returned.": "Any excess payment will be returned.",
+    "Paying {{amountToPay}} {{symbol}}": "Paying {{amountToPay}} {{symbol}}",
+    "Paid {{amountToPay}} {{symbol}}": "Paid {{amountToPay}} {{symbol}}",
     "You are paying": "Stai pagando",
     "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
     "Transaction type": "Tipo di transazione",
@@ -1736,7 +1752,7 @@
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "Rapporto di collateralizzazione",
-    "Collateral ratio": "Collateral ratio",
+    "Collateral ratio": "Rapporto di collateralizzazione",
     "Ready": "Ready",
     "Min:": "Min:",
     "Next:": "Prossimo:"
