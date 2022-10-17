@@ -357,9 +357,10 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
 
   const removeCollateralErrors = {
     HigherThanAvailableCollateral: "Amount entered is higher than collateral",
-    BelowMinCollateralRatio: "Vault does not meet min. collateral ratio", // TODO (Lyka): update msg once provided
-    ZeroRequiredTokenShare: "Insufficient DFI and/or DUSD in vault", // TODO (Lyka): update msg once provided
-    DusdAffectVault: "Vault needs at least 50% DFI share",
+    BelowMinCollateralRatio: "Vault does not meet min. collateral ratio",
+    ZeroRequiredTokenShare:
+      "Insufficient DFI and/or DUSD in vault to maintain active loans",
+    DusdAffectVault: "Active DUSD loans require 50% DFI collaterals",
   };
 
   const getRemoveCollateralErrorMessage = ():

@@ -1657,7 +1657,9 @@
     "A small amount of UTXO is reserved for fees": "Ein geringer UTXO-Betrag ist für Gebühren reserviert",
     "Insufficient Balance": "Unzureichendes Guthaben",
     "Amount entered is higher than collateral": "Der eingegebene Betrag ist höher als die Besicherung erlaubt",
-    "Vault needs at least 50% DFI share": "Vault needs at least 50% DFI share",
+    "Vault does not meet min. collateral ratio": "Vault erfüllt die Mindestbesicherungsquote nicht",
+    "Insufficient DFI and/or DUSD in vault to maintain active loans": "Unzureichende DFI und/oder DUSD im Vault zur Aufrechterhaltung aktiver Darlehen",
+    "Active DUSD loans require 50% DFI collaterals": "Aktive DUSD-Darlehen erfordern 50% DFI-Besicherung",
     "By continuing, the required amount of DFI will be converted": "Wenn du fortfährst, wird die erforderliche Summe an DFI umgewandelt",
     "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht"
   },
@@ -1767,7 +1769,6 @@
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "Besicherungsquote",
     "Collateral ratio": "Besicherungsquote",
-    "Ready": "Bereit",
     "Min:": "Mind.:",
     "Next:": "Nächste:",
     "Empty": "Leer",

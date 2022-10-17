@@ -1662,7 +1662,9 @@
     "A small amount of UTXO is reserved for fees": "保留少量 UTXO 用于交易费用",
     "Insufficient Balance": "Insufficient Balance",
     "Amount entered is higher than collateral": "Amount entered is higher than collateral",
-    "Vault needs at least 50% DFI share": "Vault needs at least 50% DFI share",
+    "Vault does not meet min. collateral ratio": "Vault does not meet min. collateral ratio",
+    "Insufficient DFI and/or DUSD in vault to maintain active loans": "Insufficient DFI and/or DUSD in vault to maintain active loans",
+    "Active DUSD loans require 50% DFI collaterals": "Active DUSD loans require 50% DFI collaterals",
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
     "Review full details in the next screen": "Review full details in the next screen"
   },
@@ -1748,7 +1750,7 @@
     "PAYING": "付款中",
     "Transaction fee": "交易費用",
     "Loan remaining": "Loan remaining",
-    "Payback loan":  "偿还贷款",
+    "Payback loan": "偿还贷款",
     "Prices may vary during transaction confirmation.": "交易确认期间价格可能会有所不同。",
     "Any excess payment will be returned.": "所冇超额付款将被退回。",
     "Paying {{amountToPay}} {{symbol}}": "付款中 {{amountToPay}} {{symbol}}",
@@ -1772,7 +1774,6 @@
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "抵押率",
     "Collateral ratio": "抵押率",
-    "Ready": "Ready",
     "Min:": "最低:",
     "Next:": "下一个:",
     "Empty": "清空",
