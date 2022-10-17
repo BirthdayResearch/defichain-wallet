@@ -90,24 +90,13 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
   );
   const toast = useToast();
   const TOAST_DURATION = 2000;
-  function showToast(type: AmountButtonTypes, displaySymbol: string): void {
+  function showToast(message: string): void {
     toast.hideAll(); // hides old toast everytime user clicks on a new percentage
-    const isMax = type === AmountButtonTypes.Max;
-    const toastMessage = isMax
-      ? "Max available {{unit}} entered"
-      : "{{percent}} of available {{unit}} entered";
-    const toastOption = {
-      unit: displaySymbol,
-      percent: type,
-    };
-    toast.show(
-      translate("screens/PaybackLoanScreen", toastMessage, toastOption),
-      {
-        type: "wallet_toast",
-        placement: "top",
-        duration: TOAST_DURATION,
-      }
-    );
+    toast.show(message, {
+      type: "wallet_toast",
+      placement: "top",
+      duration: TOAST_DURATION,
+    });
   }
   const loanToken = useSelector((state: RootState) =>
     loanTokenByTokenId(state.loans, loanTokenAmount.id)
@@ -193,8 +182,28 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
     });
   };
 
-  const onChangeFromAmount = async (amount: string): Promise<void> => {
-    setValue("amountToPay", amount);
+  const onChangeFromAmount = async (
+    amount: string,
+    type: AmountButtonTypes
+  ): Promise<void> => {
+    let toastMessage;
+    if (tokenBalance.lt(amount)) {
+      toastMessage = "Insufficient {{unit}}; max amount entered";
+      setValue("amountToPay", tokenBalance.toFixed(8));
+    } else {
+      const isMax = type === AmountButtonTypes.Max;
+      toastMessage = isMax
+        ? "Max available {{unit}} entered"
+        : "{{percent}} of available {{unit}} entered";
+      setValue("amountToPay", amount);
+    }
+    const toastOption = {
+      unit: loanTokenAmount.displaySymbol,
+      percent: type,
+    };
+    showToast(
+      translate("screens/PaybackLoanScreen", toastMessage, toastOption)
+    );
     await trigger("amountToPay");
   };
 
@@ -224,8 +233,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
         <TransactionCard
           maxValue={loanTokenOutstandingBal}
           onChange={(amount, type) => {
-            onChangeFromAmount(amount);
-            showToast(type, loanTokenAmount.displaySymbol);
+            onChangeFromAmount(amount, type);
           }}
           componentStyle={{
             light: tailwind("bg-transparent"),
