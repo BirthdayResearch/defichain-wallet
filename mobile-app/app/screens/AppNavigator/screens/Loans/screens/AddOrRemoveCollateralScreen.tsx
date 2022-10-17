@@ -533,7 +533,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                       header: () => (
                         <BottomSheetTokenListHeader
                           headerLabel={translate(
-                            "screens/AddOrRemoveCollateralScreen",
+                            "screens/EditCollateralScreen",
                             "Select Collateral"
                           )}
                           onCloseButtonPress={dismissModal}
