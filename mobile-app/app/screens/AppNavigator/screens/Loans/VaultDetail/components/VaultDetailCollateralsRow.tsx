@@ -51,15 +51,13 @@ export function VaultDetailCollateralsRow({
         vault.collateralAmounts.some((col) => col.displaySymbol === "DFI")
       );
     }
-  }, []);
 
-  useEffect(() => {
     if (vault.state !== LoanVaultState.IN_LIQUIDATION) {
       setIsDusdLoaned(
         vault.loanAmounts.some((loan) => loan.displaySymbol === "DUSD")
       );
     }
-  }, []);
+  }, [vault]);
 
   return (
     <View style={tailwind("mx-5 mt-6")}>
