@@ -188,7 +188,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
   ): Promise<void> => {
     let toastMessage;
     if (tokenBalance.lt(amount)) {
-      toastMessage = "Insufficient {{unit}}; max amount entered";
+      toastMessage = "Insufficient {{unit}}; max entered";
       setValue("amountToPay", tokenBalance.toFixed(8));
     } else {
       const isMax = type === AmountButtonTypes.Max;

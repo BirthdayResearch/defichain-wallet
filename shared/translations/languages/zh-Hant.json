@@ -1674,6 +1674,7 @@
     "Continue": "繼續",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
+    "Insufficient {{unit}}; max entered": "Insufficient {{unit}}; max entered",
     "VAULT IN USE": "金庫使用中",
     "How much of the loan do you want to pay?": "您想償還多少貸款？",
     "Enter an amount": "輸入金額",

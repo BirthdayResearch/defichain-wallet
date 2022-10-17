@@ -1667,6 +1667,7 @@
     "Continue": "Weiter",
     "Max available {{unit}} entered": "Max. verfügbare {{unit}} eingegeben",
     "{{percent}} of available {{unit}} entered": "{{percent}} der verfügbaren {{unit}} eingegeben",
+    "Insufficient {{unit}}; max entered": "Insufficient {{unit}}; max entered",
     "VAULT IN USE": "AKTIVER VAULT",
     "How much of the loan do you want to pay?": "Wie viel des Darlehens willst du zurückzahlen?",
     "Enter an amount": "Gib einen Betrag ein",

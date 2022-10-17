@@ -1699,6 +1699,7 @@
     "Continue": "Continúa",
     "Max available {{unit}} entered": "Max disponibre {{unit}} introducidos",
     "{{percent}} of available {{unit}} entered": "{{percent}} de {{unit}} disponible introducido",
+    "Insufficient {{unit}}; max entered": "Insufficient {{unit}}; max entered",
     "VAULT IN USE": "VAULT EN USO",
     "Enter an amount": "Introduce una cantidad",
     "Available": "Disponible",
