@@ -142,7 +142,15 @@ export const BottomSheetLoanTokensList = ({
           );
         }}
         ListHeaderComponent={
-          <View style={tailwind("pb-5")}>
+          <ThemedViewV2 style={tailwind("py-5")}>
+            <View style={tailwind("w-full flex-row justify-end")}>
+              <ThemedTouchableOpacityV2
+                onPress={onCloseButtonPress}
+                style={tailwind("border-0")}
+              >
+                <ThemedIcon iconType="Feather" name="x-circle" size={22} />
+              </ThemedTouchableOpacityV2>
+            </View>
             <ThemedTextV2
               style={tailwind("text-xl font-normal-v2 pb-5")}
               light={tailwind("text-mono-light-v2-900")}
@@ -209,7 +217,7 @@ export const BottomSheetLoanTokensList = ({
                 </ThemedTextV2>
               </View>
             )}
-          </View>
+          </ThemedViewV2>
         }
         stickyHeaderIndices={[0]}
         style={tailwind(
