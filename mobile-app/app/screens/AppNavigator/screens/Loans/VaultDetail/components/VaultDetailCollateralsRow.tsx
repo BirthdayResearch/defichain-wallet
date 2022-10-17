@@ -16,8 +16,8 @@ import { RootState } from "@store";
 import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2";
 import { LoanAddRemoveActionButton } from "@screens/AppNavigator/screens/Loans/components/LoanActionButton";
 import {
-  BottomSheetInfoV2,
   BottomSheetAlertInfoV2,
+  BottomSheetInfoV2,
 } from "@components/BottomSheetInfoV2";
 import { getCollateralPrice } from "../../hooks/CollateralPrice";
 
@@ -126,7 +126,7 @@ export function VaultDetailCollateralsRow({
           message: translate(
             "screens/VaultDetailScreenCollateralSection",
             isDusdLoaned
-              ? "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI. \n\n This only affects vaults that has DUSD as both collateral and loan."
+              ? "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan."
               : "This is the current loan amount available for this vault."
           ),
         }}
@@ -294,12 +294,12 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
                     dark={tailwind("text-mono-dark-v2-700", {
                       "text-red-v2":
                         props.displaySymbol === "DFI" &&
-                        val < new BigNumber(50).toFixed(2),
+                        new BigNumber(prices.vaultShare).lt(new BigNumber(50)),
                     })}
                     light={tailwind("text-mono-light-v2-700", {
                       "text-red-v2":
                         props.displaySymbol === "DFI" &&
-                        val < new BigNumber(50).toFixed(2),
+                        new BigNumber(prices.vaultShare).lt(new BigNumber(50)),
                     })}
                     style={tailwind("text-xs font-normal-v2")}
                     testID={`vault_detail_collateral_${props.displaySymbol}_vault_share`}
