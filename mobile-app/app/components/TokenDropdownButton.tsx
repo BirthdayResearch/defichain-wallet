@@ -17,7 +17,7 @@ export enum TokenDropdownButtonStatus {
 export function TokenDropdownButton(props: {
   symbol?: string;
   testID: string;
-  onPress: () => void;
+  onPress?: () => void;
   status: TokenDropdownButtonStatus;
 }): JSX.Element {
   const Icon =

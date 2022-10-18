@@ -44,6 +44,7 @@ import { LoanActionButton } from "./LoanActionButton";
 import { VaultStatus } from "../VaultStatusTypes";
 import { PriceOracleInfo } from "./PriceOracleInfo";
 import { VaultBanner } from "./VaultBanner";
+import { BottomSheetVaultList } from "./BottomSheetVaultList";
 
 interface LoanCardsProps {
   testID: string;
@@ -115,7 +116,14 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
 
   useEffect(() => {
     setIsVaultReady(
-      vaults.some((vault) => vault.vaultState !== VaultStatus.Empty)
+      vaults.some((vault) =>
+        [
+          VaultStatus.Ready,
+          VaultStatus.Healthy,
+          VaultStatus.AtRisk,
+          VaultStatus.NearLiquidation,
+        ].includes(vault.vaultState)
+      )
     );
   }, [vaults]);
 
@@ -166,10 +174,11 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
     dismissModal,
     expandModal,
     isModalDisplayed,
+    bottomSheetScreen,
+    setBottomSheetScreen,
+    snapPoints,
+    setSnapPoints,
   } = useBottomSheet();
-  const [bottomSheetScreen, setBottomSheetScreen] = useState<
-    BottomSheetNavScreen[]
-  >([]);
   const BottomSheetHeader = {
     headerStatusBarHeight: 2,
     headerTitle: "",
@@ -192,7 +201,46 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
     headerLeft: () => <></>,
   };
 
+  const onBorrowPress = (loanToken: LoanToken): void => {
+    setSnapPoints({
+      ios: ["60%"],
+      android: ["60%"],
+    });
+    setBottomSheetScreen([
+      {
+        stackScreenName: "VaultList",
+        component: BottomSheetVaultList({
+          headerLabel: translate(
+            "screens/BorrowLoanTokenScreen",
+            "Select Vault to Use"
+          ),
+          onCloseButtonPress: () => dismissModal(),
+          onVaultPress: (vault: LoanVaultActive) => {
+            dismissModal();
+            navigation.navigate({
+              name: "BorrowLoanTokenScreen",
+              params: {
+                vault: vault,
+                loanToken: loanToken,
+              },
+              merge: true,
+            });
+          },
+          vaults,
+        }),
+        option: {
+          header: () => null,
+        },
+      },
+    ]);
+    expandModal();
+  };
+
   const onBottomSheetOraclePriceSelect = (): void => {
+    setSnapPoints({
+      ios: ["30%"],
+      android: ["35%"],
+    });
     setBottomSheetScreen([
       {
         stackScreenName: "OraclePriceInfo",
@@ -333,14 +381,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
                   price={item.activePrice}
                   loanTokenId={item.tokenId}
                   onPress={() => {
-                    navigation.navigate({
-                      name: "BorrowLoanTokenScreen",
-                      params: {
-                        loanToken: item,
-                        vault: vaultItem,
-                      },
-                      merge: true,
-                    });
+                    onBorrowPress(item);
                   }}
                   testID={`loan_card_${index}`}
                   parentTestID={props.testID}
@@ -384,10 +425,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           <BottomSheetWithNavV2
             modalRef={bottomSheetRef}
             screenList={bottomSheetScreen}
-            snapPoints={{
-              ios: ["30%"],
-              android: ["35%"],
-            }}
+            snapPoints={snapPoints}
           />
         )}
       </ThemedScrollViewV2>
