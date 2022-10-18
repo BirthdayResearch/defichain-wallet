@@ -32,7 +32,6 @@ import {
   LoanVaultState,
   LoanVaultTokenAmount,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { createSelector } from "@reduxjs/toolkit";
 import { IconButton } from "@components/IconButton";
 import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
 import { tokensSelector } from "@store/wallet";
@@ -43,13 +42,13 @@ import {
 } from "@screens/AppNavigator/screens/Loans/components/VaultStatusTag";
 import { useCollateralizationRatioColor } from "@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio";
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
-import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
 import { ActiveUSDValue } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { VaultSectionTextRow } from "../components/VaultSectionTextRow";
 import { LoanParamList } from "../LoansNavigator";
+import { useCollateralTokenList } from "../hooks/CollateralTokenList";
 
 type Props = StackScreenProps<LoanParamList, "EditCollateralScreen">;
 
@@ -83,45 +82,8 @@ export function EditCollateralScreen({
     tokensSelector(state.wallet)
   );
 
-  const getTokenAmount = (tokenId: string): BigNumber => {
-    const id = tokenId === "0" ? "0_unified" : tokenId;
-    const _token = tokens.find((t) => t.id === id);
-    const reservedDFI = 0.1;
-    return BigNumber.max(
-      new BigNumber(_token === undefined ? 0 : _token.amount).minus(
-        _token?.id === "0_unified" ? reservedDFI : 0
-      ),
-      0
-    );
-  };
-
   const { vaults } = useSelector((state: RootState) => state.loans);
-  const collateralSelector = createSelector(
-    (state: RootState) => state.loans.collateralTokens,
-    (collaterals) =>
-      collaterals
-        .map((c) => {
-          return {
-            ...c,
-            available: getTokenAmount(c.token.id),
-          };
-        })
-        .filter((collateralItem) =>
-          new BigNumber(
-            getActivePrice(
-              collateralItem.token.symbol,
-              collateralItem.activePrice,
-              collateralItem.factor,
-              "ACTIVE",
-              "COLLATERAL"
-            )
-          ).gt(0)
-        )
-        .sort((a, b) => b.available.minus(a.available).toNumber())
-  );
-  const collateralTokens: CollateralItem[] = useSelector((state: RootState) =>
-    collateralSelector(state)
-  );
+  const { collateralTokens } = useCollateralTokenList();
 
   useEffect(() => {
     dispatch(fetchCollateralTokens({ client }));
@@ -158,7 +120,6 @@ export function EditCollateralScreen({
               {
                 stackScreenName: "TokenList",
                 component: BottomSheetTokenList({
-                  tokens: collateralTokens,
                   tokenType: TokenType.CollateralItem,
                   vault: activeVault,
                   onTokenPress: async (item) => {
