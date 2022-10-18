@@ -108,7 +108,7 @@ export function useResultingCollateralizationRatioByCollateral({
   minCollateralRatio: BigNumber;
   totalLoanAmount: BigNumber;
   totalCollateralValue?: BigNumber;
-  numOfColorBars: number;
+  numOfColorBars?: number;
   totalCollateralValueInUSD: BigNumber;
 }): {
   resultingColRatio: BigNumber;
