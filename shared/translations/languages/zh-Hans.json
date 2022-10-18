@@ -818,7 +818,8 @@
     "To": "到",
     "Converting": "转换中",
     "Converted": "Converted",
-    "for": "for"
+    "for": "for",
+    "On": "On"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "为您的钱包创建新的密码",
@@ -1252,6 +1253,7 @@
     "Confirm Create Vault": "确认创建金库",
     "Vault Detail": "金库明细",
     "Add Collateral": "添加抵押资金",
+    "Remove Collateral": "移除抵押",
     "Confirm Add Collateral": "确认添加抵押资金",
     "Confirm Remove Collateral": "确认移除抵押品",
     "Edit Collateral": "更改抵押品",
@@ -1537,7 +1539,11 @@
     "Settlements": "Settlements",
     "Price Oracles": "Price Oracles",
     "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.",
-    "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)": "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)"
+    "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)": "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)",
+    "Vault Share": "Vault Share",
+    "Vault share indicates the percentage a token will represent based on the total collateral value.": "Vault share indicates the percentage a token will represent based on the total collateral value.",
+    "Max Loan Amount": "最高的贷款金额",
+    "This is the current loan amount available for this vault.": "This is the current loan amount available for this vault."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "金库编号",
@@ -1622,7 +1628,8 @@
     "Total loans (USD)": "贷款总金额(美金)",
     "Collateralization ratio": "抵押率",
     "Min. collateralization ratio": "最低抵押率",
-    "Vault interest (APR)": "金库利息 (APR)"
+    "Vault interest (APR)": "金库利息 (APR)",
+    "Select Collateral": "Select Collateral"
   },
   "components/AddOrRemoveCollateralForm": {
     "How much {{symbol}} to add?": "您要添加多少{{symbol}}?",
@@ -1638,6 +1645,28 @@
     "N/A": "不适用",
     "Vault %": "金库 %",
     "Vault requirement": "Vault requirement"
+  },
+  "screens/AddOrRemoveCollateralScreen": {
+    "Vault ID": "金库编号",
+    "Vault share": "Vault share",
+    "Max loan amount": "最高的贷款金额",
+    "Total collateral": "抵押资金总价值",
+    "Max available {{symbol}} entered": "Max available {{symbol}} entered",
+    "{{percent}} of available {{symbol}} entered": "{{percent}} of available {{symbol}} entered",
+    "Max available collateral entered": "Max available collateral entered",
+    "{{percent}} of available collateral entered": "{{percent}} of available collateral entered",
+    "I WANT TO ADD": "I WANT TO ADD",
+    "I WANT TO REMOVE": "I WANT TO REMOVE",
+    "Available: {{amount}} {{symbol}}": "现有可使用: {{amount}} {{symbol}}",
+    "Available: {{amount}} {{symbol}} collateral": "Available: {{amount}} {{symbol}} collateral",
+    "A small amount of UTXO is reserved for fees": "保留少量 UTXO 用于交易费用",
+    "Insufficient Balance": "Insufficient Balance",
+    "Amount entered is higher than collateral": "Amount entered is higher than collateral",
+    "Vault does not meet min. collateral ratio": "Vault does not meet min. collateral ratio",
+    "Insufficient DFI and/or DUSD in vault to maintain active loans": "Insufficient DFI and/or DUSD in vault to maintain active loans",
+    "Active DUSD loans require 50% DFI collaterals": "Active DUSD loans require 50% DFI collaterals",
+    "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
+    "Review full details in the next screen": "Review full details in the next screen"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "向金库增加抵押品",
@@ -1660,7 +1689,20 @@
     "Add Collateral": "加入抵押",
     "Remove Collateral": "移除抵押",
     "CONFIRM REMOVE COLLATERAL": "确认移除抵押品",
-    "N/A": "不适用"
+    "N/A": "不适用",
+    "You are adding collateral": "You are adding collateral",
+    "You are removing collateral": "You are removing collateral",
+    "Amount to convert": "要转换的金额",
+    "Transaction fee": "交易費用",
+    "Collateral factor": "抵押品系数",
+    "Amount to add": "Amount to add",
+    "Amount to remove": "退出数量",
+    "Prices may vary during transaction confirmation.": "Prices may vary during transaction confirmation.",
+    "Remove collateral": "移除抵押",
+    "Adding {{amount}} {{symbol}} as collateral": "加入{{amount}} {{symbol}}作为抵押",
+    "Removing {{amount}} {{symbol}} as collateral": "Removing {{amount}} {{symbol}} as collateral",
+    "Added {{amount}} {{symbol}} as collateral": "Added {{amount}} {{symbol}} as collateral",
+    "Removed {{amount}} {{symbol}} as collateral": "Removed {{amount}} {{symbol}} as collateral"
   },
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "您正在清还贷款",
@@ -1709,7 +1751,7 @@
     "PAYING": "付款中",
     "Transaction fee": "交易費用",
     "Loan remaining": "Loan remaining",
-    "Payback loan":  "偿还贷款",
+    "Payback loan": "偿还贷款",
     "Prices may vary during transaction confirmation.": "交易确认期间价格可能会有所不同。",
     "Paying {{amountToPay}} {{symbol}}": "付款中 {{amountToPay}} {{symbol}}",
     "Paid {{amountToPay}} {{symbol}}": "已付款 {{amountToPay}} {{symbol}}",
@@ -1732,9 +1774,11 @@
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "抵押率",
     "Collateral ratio": "抵押率",
-    "Ready": "Ready",
     "Min:": "最低:",
-    "Next:": "下一个:"
+    "Next:": "下一个:",
+    "Empty": "清空",
+    "Ready": "准备就绪",
+    "Ready for loan": "Ready for loan"
   },
   "screens/BorrowLoanTokenScreen": {
     "Borrow loan token": "借用贷款代币",

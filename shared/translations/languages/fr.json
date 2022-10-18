@@ -827,7 +827,8 @@
     "To": "Contre des",
     "Converting": "Conversion",
     "Converted": "Converti",
-    "for": "à"
+    "for": "à",
+    "On": "Sur"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Créez un nouveau code d'accès pour votre portefeuille",
@@ -1260,6 +1261,7 @@
     "Confirm Create Vault": "Confirmer la création d'un vault",
     "Vault Detail": "Vue détaillée du vault",
     "Add Collateral": "Ajouter des garanties",
+    "Remove Collateral": "Retirer des garanties",
     "Confirm Add Collateral": "Confirmez l'ajout de garantie",
     "Confirm Remove Collateral": "Retrait de garantie",
     "Edit Collateral": "Modifier les garanties",
@@ -1544,7 +1546,11 @@
     "Settlements": "Règlements",
     "Price Oracles": "Prix oracles",
     "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Les Oracles fournissent des points de données de prix en temps réel à partir de sources fiables, pour les refléter sur DeFiChain.",
-    "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)": "Les prêts et les vaults utilisent des prix de marché agrégés en dehors de la blockchain (appelés oracles de prix)."
+    "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)": "Les prêts et les vaults utilisent des prix de marché agrégés en dehors de la blockchain (appelés oracles de prix).",
+    "Vault Share": "Part de vault",
+    "Vault share indicates the percentage a token will represent based on the total collateral value.": "La part du vault indique le pourcentage que représentera un token par rapport à la valeur totale de la garantie.",
+    "Max Loan Amount": "Montant max. du prêt",
+    "This is the current loan amount available for this vault.": "Il s'agit du montant actuel du prêt disponible pour ce vault."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "N° de vault",
@@ -1629,7 +1635,8 @@
     "Total loans (USD)": "Total des prêts (USD)",
     "Collateralization ratio": "Ratio de garantie",
     "Min. collateralization ratio": "Ratio de garantie min.",
-    "Vault interest (APR)": "Intérêt du vault (TAEG)"
+    "Vault interest (APR)": "Intérêt du vault (TAEG)",
+    "Select Collateral": "Sélectionner la garantie"
   },
   "components/AddOrRemoveCollateralForm": {
     "How much {{symbol}} to add?": "Combien de {{symbol}} à ajouter ?",
@@ -1645,6 +1652,28 @@
     "N/A": "S/O",
     "Vault %": "Vault %",
     "Vault requirement": "Exigence du vault"
+  },
+  "screens/AddOrRemoveCollateralScreen": {
+    "Vault ID": "N° de vault",
+    "Vault share": "Part de vault",
+    "Max loan amount": "Montant max. du prêt",
+    "Total collateral": "Garantie totale",
+    "Max available {{symbol}} entered": "Max. de {{symbol}} disponibles saisis",
+    "{{percent}} of available {{symbol}} entered": "{{percent}} des {{symbol}} disponibles saisis",
+    "Max available collateral entered": "Montant maximum de la garantie disponible sais",
+    "{{percent}} of available collateral entered": "{{percent}} de la garantie disponible saisie",
+    "I WANT TO ADD": "JE VEUX AJOUTER",
+    "I WANT TO REMOVE": "JE VEUX RETIRER",
+    "Available: {{amount}} {{symbol}}": "Disponibles: {{amount}} {{symbol}}",
+    "Available: {{amount}} {{symbol}} collateral": "Disponible: {{amount}} {{symbol}} garantie",
+    "A small amount of UTXO is reserved for fees": "Une petite quantité d'UTXO est réservée aux frais.",
+    "Insufficient Balance": "Solde insuffisant",
+    "Amount entered is higher than collateral": "Le montant saisi est supérieur à la garantie",
+    "Vault does not meet min. collateral ratio": "Le vault ne respecte pas le ratio de garantie min.",
+    "Insufficient DFI and/or DUSD in vault to maintain active loans": "Insuffisance de DFI et/ou de DUSD dans le vault pour maintenir les prêts actifs",
+    "Active DUSD loans require 50% DFI collaterals": "Les prêts DUSD actifs nécessitent 50% de garantie en DFI",
+    "By continuing, the required amount of DFI will be converted": "En continuant, le montant requis de DFI sera converti.",
+    "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Vous ajoutez des garanties à",
@@ -1667,7 +1696,20 @@
     "Add Collateral": "Ajouter des garanties",
     "Remove Collateral": "Retirer des garanties",
     "CONFIRM REMOVE COLLATERAL": "VALIDER LE RETRAIT DE GARANTIE",
-    "N/A": "S/O"
+    "N/A": "S/O",
+    "You are adding collateral": "Vous ajoutez de la garantie",
+    "You are removing collateral": "Vous retirez de la garantie",
+    "Amount to convert": "Montant à convertir",
+    "Transaction fee": "Frais de transaction",
+    "Collateral factor": "Facteur de garantie",
+    "Amount to add": "Montant à ajouter",
+    "Amount to remove": "Montant à retirer",
+    "Prices may vary during transaction confirmation.": "Les prix peuvent varier pendant la confirmation de la transaction.",
+    "Remove collateral": "Retirer des garanties",
+    "Adding {{amount}} {{symbol}} as collateral": "Ajout de {{amount}} {{symbol}} comme garantie",
+    "Removing {{amount}} {{symbol}} as collateral": "Retirer {{amount}} {{symbol}} de garantie",
+    "Added {{amount}} {{symbol}} as collateral": "Ajouté de {{amount}} {{symbol}} comme garantie",
+    "Removed {{amount}} {{symbol}} as collateral": "Retiré {{amount}} {{symbol}} de garantie"
   },
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "VOUS REMBOURSEZ LE PRÊT",
@@ -1740,9 +1782,11 @@
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "Ratio de garantie",
     "Collateral ratio": "Ratio de garantie",
-    "Ready": "Prêt",
     "Min:": "Min:",
-    "Next:": "Prochain:"
+    "Next:": "Prochain:",
+    "Empty": "Vide",
+    "Ready": "Prêt",
+    "Ready for loan": "Prêt pour un emprunt"
   },
   "screens/BorrowLoanTokenScreen": {
     "Borrow loan token": "Emprunter un token de prêt",
