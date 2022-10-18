@@ -158,7 +158,6 @@ export function EditCollateralScreen({
               {
                 stackScreenName: "TokenList",
                 component: BottomSheetTokenList({
-                  tokens: collateralTokens,
                   tokenType: TokenType.CollateralItem,
                   vault: activeVault,
                   onTokenPress: async (item) => {
