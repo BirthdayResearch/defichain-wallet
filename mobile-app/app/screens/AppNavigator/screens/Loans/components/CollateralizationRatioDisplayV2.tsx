@@ -64,9 +64,13 @@ export function CollateralizationRatioDisplayV2(
           </ThemedTextV2>
         </View>
         {isInvalidCollateralRatio ? (
-          <View style={tailwind("flex-row justify-end flex-1 text-right")}>
+          <View style={tailwind("flex-row justify-end flex-1")}>
             {new BigNumber(props.collateralValue).gt(0) ? (
-              <Text style={tailwind("text-sm font-normal-v2 text-green-v2")}>
+              <Text
+                style={tailwind(
+                  "text-sm font-normal-v2 text-green-v2 text-right"
+                )}
+              >
                 {props.customReadyText ??
                   translate(
                     "components/CollateralizationRatioDisplay",
@@ -77,7 +81,7 @@ export function CollateralizationRatioDisplayV2(
               <ThemedTextV2
                 light={tailwind("text-mono-light-v2-900")}
                 dark={tailwind("text-mono-dark-v2-900")}
-                style={tailwind("text-sm font-normal-v2")}
+                style={tailwind("text-sm font-normal-v2 text-right")}
               >
                 {translate("components/CollateralizationRatioDisplay", "Empty")}
               </ThemedTextV2>
@@ -94,7 +98,7 @@ export function CollateralizationRatioDisplayV2(
               <Text
                 testID={`${props.testID ?? ""}_col_ratio`}
                 style={tailwind(
-                  `text-sm font-normal-v2 text-${ratioTextColor}`
+                  `text-sm font-normal-v2 text-right text-${ratioTextColor}`
                 )}
               >
                 {value}
