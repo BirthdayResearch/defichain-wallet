@@ -7,13 +7,6 @@ import { getDefaultTheme } from "@constants/Theme";
 import { PlaygroundNavigator } from "../PlaygroundNavigator/PlaygroundNavigator";
 import { AppLinking, BottomTabNavigator } from "./BottomTabNavigator";
 
-export enum ScreenOrigin {
-  PORTFOLIO_screen = "PortfolioScreen",
-  DEX_screen = "DexScreen",
-  LOANS_screen = "LoansScreen",
-  AUCTIONS_screen = "AuctionsScreen",
-}
-
 const App = createStackNavigator<AppParamList>();
 
 export interface AppParamList {

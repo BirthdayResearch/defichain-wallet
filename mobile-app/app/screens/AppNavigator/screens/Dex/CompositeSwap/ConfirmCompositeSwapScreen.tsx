@@ -31,7 +31,7 @@ import {
 } from "@components/themed";
 import { View } from "@components";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { ScreenOrigin } from "@screens/AppNavigator/AppNavigator";
+import { ScreenName } from "@screens/enum";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
@@ -165,9 +165,9 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
             style: "destructive",
             onPress: async () => {
               navigation.navigate(
-                originScreen === ScreenOrigin.DEX_screen
-                  ? ScreenOrigin.DEX_screen
-                  : ScreenOrigin.PORTFOLIO_screen
+                originScreen === ScreenName.DEX_screen
+                  ? ScreenName.DEX_screen
+                  : ScreenName.PORTFOLIO_screen
               );
             },
           },

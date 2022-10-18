@@ -16,7 +16,7 @@ import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { ScreenOrigin } from "@screens/AppNavigator/AppNavigator";
+import { ScreenName } from "@screens/enum";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { SummaryTitleV2 } from "@components/SummaryTitleV2";
@@ -94,9 +94,9 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
             style: "destructive",
             onPress: async () => {
               navigation.navigate(
-                originScreen === ScreenOrigin.DEX_screen
-                  ? ScreenOrigin.DEX_screen
-                  : ScreenOrigin.PORTFOLIO_screen
+                originScreen === ScreenName.DEX_screen
+                  ? ScreenName.DEX_screen
+                  : ScreenName.PORTFOLIO_screen
               );
             },
           },

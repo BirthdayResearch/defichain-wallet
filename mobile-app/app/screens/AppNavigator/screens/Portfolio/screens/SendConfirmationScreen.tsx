@@ -29,6 +29,7 @@ import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { View } from "@components";
+import { ScreenName } from "@screens/enum";
 import {
   ThemedActivityIndicatorV2,
   ThemedIcon,
@@ -57,6 +58,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
     conversion,
     toAddressLabel,
     addressType,
+    originScreen,
   } = route.params;
   const logger = useLogger();
   const hasPendingJob = useSelector((state: RootState) =>
@@ -118,7 +120,11 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
             text: translate("screens/Settings", "Cancel"),
             style: "destructive",
             onPress: async () => {
-              navigation.navigate("PortfolioScreen");
+              navigation.navigate(
+                originScreen === ScreenName.DEX_screen
+                  ? ScreenName.DEX_screen
+                  : ScreenName.PORTFOLIO_screen
+              );
             },
           },
         ],

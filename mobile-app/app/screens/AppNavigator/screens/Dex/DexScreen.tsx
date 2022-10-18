@@ -23,7 +23,7 @@ import { RootState } from "@store";
 import { debounce } from "lodash";
 import { HeaderSearchInputV2 } from "@components/HeaderSearchInputV2";
 import { ScrollView } from "react-native";
-import { ScreenOrigin } from "@screens/AppNavigator/AppNavigator";
+import { ScreenName } from "@screens/enum";
 import { EmptyActivePoolpair } from "./components/EmptyActivePoolPair";
 import {
   ButtonGroupTabKey,
@@ -96,7 +96,7 @@ export function DexScreen(): JSX.Element {
       params: {
         pair: data,
         pairInfo: info,
-        originScreen: ScreenOrigin.DEX_screen,
+        originScreen: ScreenName.DEX_screen,
       },
       merge: true,
     });
@@ -108,7 +108,7 @@ export function DexScreen(): JSX.Element {
       params: {
         pair: data,
         pairInfo: info,
-        originScreen: ScreenOrigin.DEX_screen,
+        originScreen: ScreenName.DEX_screen,
       },
       merge: true,
     });
@@ -129,7 +129,7 @@ export function DexScreen(): JSX.Element {
             isPreselected: true,
           },
         },
-        originScreen: ScreenOrigin.DEX_screen,
+        originScreen: ScreenName.DEX_screen,
       },
       merge: true,
     });

@@ -27,6 +27,7 @@ import {
   ConvertTokenUnit,
   getDisplayUnit,
 } from "@screens/AppNavigator/screens/Portfolio/screens/ConvertScreen";
+import { ScreenName } from "@screens/enum";
 import { ConversionMode } from "./ConvertScreen";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
@@ -41,6 +42,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
     mode,
     amount,
     fee,
+    originScreen,
   } = route.params;
   const { address } = useWalletContext();
   const addressLabel = useAddressLabel(address);
@@ -99,7 +101,11 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
             text: translate("screens/Settings", "Cancel"),
             style: "destructive",
             onPress: async () => {
-              navigation.navigate("PortfolioScreen");
+              navigation.navigate(
+                originScreen === ScreenName.DEX_screen
+                  ? ScreenName.DEX_screen
+                  : ScreenName.PORTFOLIO_screen
+              );
             },
           },
         ],

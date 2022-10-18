@@ -31,7 +31,7 @@ import {
 } from "@shared-contexts/NativeLoggingProvider";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
-import { ScreenOrigin } from "@screens/AppNavigator/AppNavigator";
+import { ScreenName } from "@screens/enum";
 import { useTokenPrice } from "../Portfolio/hooks/TokenPrice";
 import { DexParamList } from "./DexNavigator";
 
@@ -110,9 +110,9 @@ export function ConfirmAddLiquidityScreen({ route }: Props): JSX.Element {
             style: "destructive",
             onPress: async () => {
               navigation.navigate(
-                originScreen === ScreenOrigin.DEX_screen
-                  ? ScreenOrigin.DEX_screen
-                  : ScreenOrigin.PORTFOLIO_screen
+                originScreen === ScreenName.DEX_screen
+                  ? ScreenName.DEX_screen
+                  : ScreenName.PORTFOLIO_screen
               );
             },
           },
