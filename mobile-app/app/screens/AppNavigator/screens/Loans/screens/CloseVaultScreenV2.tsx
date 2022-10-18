@@ -84,7 +84,9 @@ export function CloseVaultScreenV2({ route, navigation }: Props): JSX.Element {
           ]}
           resizeMode="contain"
         />
-        <ThemedTextV2 style={tailwind("mb-1 font-normal-v2 text-base mt-6")}>
+        <ThemedTextV2
+          style={tailwind("mb-1 font-normal-v2 text-base mt-6 mx-7")}
+        >
           {translate(
             "screens/CloseVaultScreen",
             "Are you sure you want to close your vault"
@@ -118,7 +120,7 @@ export function CloseVaultScreenV2({ route, navigation }: Props): JSX.Element {
           label={translate("screens/CloseVaultScreen", "Close vault")}
           displayCancelBtn={false}
           onSubmit={onSubmit}
-          buttonStyle="mt-4 mx-7"
+          buttonStyle="mt-5 mx-7"
           title="close_vault"
         />
       </View>
@@ -142,99 +144,95 @@ function SummaryDetails(props: {
     },
   };
   return (
-    <>
-      <ThemedViewV2
-        style={tailwind("p-5 border-0.5 mt-6 w-full rounded-lg-v2")}
-        dark={tailwind("border-gray-300")}
-        light={tailwind("border-gray-300")}
-      >
-        <View
-          style={tailwind("flex flex-row pb-5 items-center justify-between")}
-        >
-          <ThemedTextV2>
-            <ThemedTextV2
-              style={tailwind("text-sm font-normal-v2")}
-              light={rowStyle.lhsThemedProps.light}
-              dark={rowStyle.lhsThemedProps.dark}
-            >
-              {translate("screens/CloseVaultScreen", "Wallet")}
-            </ThemedTextV2>
-          </ThemedTextV2>
-          <ThemedViewV2
-            dark={tailwind("bg-mono-dark-v2-200")}
-            light={tailwind("bg-mono-light-v2-200")}
-            style={tailwind(
-              "rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2"
-            )}
+    <ThemedViewV2
+      style={tailwind("p-5 border-0.5 mt-6 w-full rounded-lg-v2")}
+      dark={tailwind("border-mono-dark-v2-300")}
+      light={tailwind("border-mono-light-v2-300")}
+    >
+      <View style={tailwind("flex flex-row pb-5 items-center justify-between")}>
+        <ThemedTextV2>
+          <ThemedTextV2
+            style={tailwind("text-sm font-normal-v2")}
+            light={rowStyle.lhsThemedProps.light}
+            dark={rowStyle.lhsThemedProps.dark}
           >
-            <RandomAvatar name={props.address} size={20} />
-            <ThemedTextV2
-              ellipsizeMode="middle"
-              numberOfLines={1}
-              style={[
-                tailwind("text-sm font-normal-v2 ml-1 w-28 text-right"),
-                {
-                  minWidth: 10,
-                  maxWidth: 101,
-                },
-              ]}
-              testID="wallet_address"
-            >
-              {props.addressLabel ?? props.address}
-            </ThemedTextV2>
-          </ThemedViewV2>
-        </View>
-        <NumberRowV2
-          containerStyle={{
-            style: tailwind("pb-5 flex-row items-start w-full bg-transparent"),
-          }}
-          lhs={{
-            value: translate("screens/CloseVaultScreen", "Fees to return"),
-            testID: "fees_to_return_text_lhs",
-            themedProps: {
-              light: rowStyle.lhsThemedProps.light,
-              dark: rowStyle.lhsThemedProps.dark,
-            },
-          }}
-          rhs={{
-            value:
-              network === EnvironmentNetwork.MainNet ||
-              network === EnvironmentNetwork.TestNet
-                ? 1
-                : 0.5,
-            testID: "fees_to_return_text_rhs",
-            suffix: " DFI",
-            themedProps: {
-              light: rowStyle.rhsThemedProps.light,
-              dark: rowStyle.rhsThemedProps.dark,
-            },
-          }}
-        />
-        <NumberRowV2
-          lhs={{
-            value: translate("screens/CloseVaultScreen", "Fees to burn"),
-            testID: "fees_to_burn_text_lhs",
-            themedProps: {
-              light: rowStyle.lhsThemedProps.light,
-              dark: rowStyle.lhsThemedProps.dark,
-            },
-          }}
-          rhs={{
-            value:
-              network === EnvironmentNetwork.MainNet ||
-              network === EnvironmentNetwork.TestNet
-                ? 1
-                : 0.5,
-            testID: "fees_to_burn_text_rhs",
-            suffix: " DFI",
-            themedProps: {
-              light: rowStyle.rhsThemedProps.light,
-              dark: rowStyle.rhsThemedProps.dark,
-            },
-          }}
-        />
-      </ThemedViewV2>
-    </>
+            {translate("screens/CloseVaultScreen", "Wallet")}
+          </ThemedTextV2>
+        </ThemedTextV2>
+        <ThemedViewV2
+          dark={tailwind("bg-mono-dark-v2-200")}
+          light={tailwind("bg-mono-light-v2-200")}
+          style={tailwind(
+            "rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2"
+          )}
+        >
+          <RandomAvatar name={props.address} size={20} />
+          <ThemedTextV2
+            ellipsizeMode="middle"
+            numberOfLines={1}
+            style={[
+              tailwind("text-sm font-normal-v2 ml-1 w-28 text-right"),
+              {
+                minWidth: 10,
+                maxWidth: 101,
+              },
+            ]}
+            testID="wallet_address"
+          >
+            {props.addressLabel ?? props.address}
+          </ThemedTextV2>
+        </ThemedViewV2>
+      </View>
+      <NumberRowV2
+        containerStyle={{
+          style: tailwind("pb-5 flex-row items-start w-full bg-transparent"),
+        }}
+        lhs={{
+          value: translate("screens/CloseVaultScreen", "Fees to return"),
+          testID: "fees_to_return_text_lhs",
+          themedProps: {
+            light: rowStyle.lhsThemedProps.light,
+            dark: rowStyle.lhsThemedProps.dark,
+          },
+        }}
+        rhs={{
+          value:
+            network === EnvironmentNetwork.MainNet ||
+            network === EnvironmentNetwork.TestNet
+              ? 1
+              : 0.5,
+          testID: "fees_to_return_text_rhs",
+          suffix: " DFI",
+          themedProps: {
+            light: rowStyle.rhsThemedProps.light,
+            dark: rowStyle.rhsThemedProps.dark,
+          },
+        }}
+      />
+      <NumberRowV2
+        lhs={{
+          value: translate("screens/CloseVaultScreen", "Fees to burn"),
+          testID: "fees_to_burn_text_lhs",
+          themedProps: {
+            light: rowStyle.lhsThemedProps.light,
+            dark: rowStyle.lhsThemedProps.dark,
+          },
+        }}
+        rhs={{
+          value:
+            network === EnvironmentNetwork.MainNet ||
+            network === EnvironmentNetwork.TestNet
+              ? 1
+              : 0.5,
+          testID: "fees_to_burn_text_rhs",
+          suffix: " DFI",
+          themedProps: {
+            light: rowStyle.rhsThemedProps.light,
+            dark: rowStyle.rhsThemedProps.dark,
+          },
+        }}
+      />
+    </ThemedViewV2>
   );
 }
 
