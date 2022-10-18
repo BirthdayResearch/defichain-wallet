@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import { memo } from "react";
 import { tailwind } from "@tailwind";
 import {
   ThemedIcon,
@@ -87,12 +87,6 @@ export const BottomSheetTokensLoansSortList = ({
     const assetSortList: LoansTokensSortType[] =
       Object.values(LoansTokensSortType);
 
-    const getTransformTestID = useCallback(
-      (text: LoansTokensSortType): string => {
-        return text;
-      },
-      []
-    );
     const renderItem = ({
       item,
       index,
