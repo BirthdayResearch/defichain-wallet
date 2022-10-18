@@ -50,8 +50,8 @@ export function CollateralizationRatioDisplayV2(
 
   return (
     <View testID={`${props.testID}_collateralization_bar`}>
-      <View style={tailwind("flex-row justify-between")}>
-        <View style={tailwind("items-center flex-row")}>
+      <View style={tailwind("flex-row items-start justify-between")}>
+        <View style={tailwind("w-5/12")}>
           <ThemedTextV2
             style={tailwind("text-sm font-normal-v2")}
             light={tailwind("text-mono-light-v2-500")}
@@ -64,7 +64,7 @@ export function CollateralizationRatioDisplayV2(
           </ThemedTextV2>
         </View>
         {isInvalidCollateralRatio ? (
-          <View style={tailwind("flex-row justify-end flex-1")}>
+          <View style={tailwind("flex-row justify-end flex-1 text-right")}>
             {new BigNumber(props.collateralValue).gt(0) ? (
               <Text style={tailwind("text-sm font-normal-v2 text-green-v2")}>
                 {props.customReadyText ??
