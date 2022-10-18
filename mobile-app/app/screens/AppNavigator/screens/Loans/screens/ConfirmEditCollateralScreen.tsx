@@ -250,7 +250,7 @@ export function ConfirmEditCollateralScreen({
         }}
         lhs={{
           value: translate(
-            "screens/ConfirmEditCollateralScreen",
+            "screens/AddOrRemoveCollateralScreen",
             "Vault share"
           ),
           testID: "confirm_edit_vault_share",
@@ -294,7 +294,7 @@ export function ConfirmEditCollateralScreen({
           ...containerThemeOptions,
         }}
         lhs={{
-          value: translate("screens/ConfirmEditCollateralScreen", "Vault ID"),
+          value: translate("screens/AddOrRemoveCollateralScreen", "Vault ID"),
           testID: "confirm_edit_vault_id_label",
           themedProps: lhsThemedProps,
         }}
@@ -314,7 +314,7 @@ export function ConfirmEditCollateralScreen({
           testID="add_remove_collateral"
           collateralValue={totalVaultCollateralValue.toFixed(8)}
           customReadyText={translate(
-            "screens/ConfirmEditCollateralScreen",
+            "components/CollateralizationRatioDisplay",
             "Ready for loan"
           )}
         />
@@ -326,7 +326,7 @@ export function ConfirmEditCollateralScreen({
         }}
         lhs={{
           value: translate(
-            "screens/ConfirmEditCollateralScreen",
+            "screens/AddOrRemoveCollateralScreen",
             "Max loan amount"
           ),
           testID: "confirm_edit_max_loan",
@@ -450,7 +450,7 @@ async function modifyCollateral(
       transactionQueue.actions.push({
         sign: signer,
         title: translate(
-          "screens/EditCollateralScreen",
+          "screens/ConfirmEditCollateralScreen",
           isAdd
             ? "Adding {{amount}} {{symbol}} as collateral"
             : "Removing {{amount}} {{symbol}} as collateral",
@@ -471,7 +471,7 @@ async function modifyCollateral(
             }
           ),
           waiting: translate(
-            "screens/OceanInterface",
+            "screens/ConfirmEditCollateralScreen",
             isAdd
               ? "Adding {{amount}} {{symbol}} as collateral"
               : "Removing {{amount}} {{symbol}} as collateral",
@@ -481,7 +481,7 @@ async function modifyCollateral(
             }
           ),
           complete: translate(
-            "screens/OceanInterface",
+            "screens/ConfirmEditCollateralScreen",
             isAdd
               ? "Added {{amount}} {{symbol}} as collateral"
               : "Removed {{amount}} {{symbol}} as collateral",

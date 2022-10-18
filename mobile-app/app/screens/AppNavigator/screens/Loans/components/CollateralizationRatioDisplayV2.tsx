@@ -50,8 +50,8 @@ export function CollateralizationRatioDisplayV2(
 
   return (
     <View testID={`${props.testID}_collateralization_bar`}>
-      <View style={tailwind("flex-row justify-between")}>
-        <View style={tailwind("items-center flex-row")}>
+      <View style={tailwind("flex-row items-start justify-between")}>
+        <View style={tailwind("w-5/12")}>
           <ThemedTextV2
             style={tailwind("text-sm font-normal-v2")}
             light={tailwind("text-mono-light-v2-500")}
@@ -64,9 +64,13 @@ export function CollateralizationRatioDisplayV2(
           </ThemedTextV2>
         </View>
         {isInvalidCollateralRatio ? (
-          <>
+          <View style={tailwind("flex-row justify-end flex-1")}>
             {new BigNumber(props.collateralValue).gt(0) ? (
-              <Text style={tailwind("text-sm font-normal-v2 text-green-v2")}>
+              <Text
+                style={tailwind(
+                  "text-sm font-normal-v2 text-green-v2 text-right"
+                )}
+              >
                 {props.customReadyText ??
                   translate(
                     "components/CollateralizationRatioDisplay",
@@ -77,12 +81,12 @@ export function CollateralizationRatioDisplayV2(
               <ThemedTextV2
                 light={tailwind("text-mono-light-v2-900")}
                 dark={tailwind("text-mono-dark-v2-900")}
-                style={tailwind("text-sm font-normal-v2")}
+                style={tailwind("text-sm font-normal-v2 text-right")}
               >
                 {translate("components/CollateralizationRatioDisplay", "Empty")}
               </ThemedTextV2>
             )}
-          </>
+          </View>
         ) : (
           <NumberFormat
             value={new BigNumber(props.collateralizationRatio).toFixed(2)}
@@ -94,7 +98,7 @@ export function CollateralizationRatioDisplayV2(
               <Text
                 testID={`${props.testID ?? ""}_col_ratio`}
                 style={tailwind(
-                  `text-sm font-normal-v2 text-${ratioTextColor}`
+                  `text-sm font-normal-v2 text-right text-${ratioTextColor}`
                 )}
               >
                 {value}
