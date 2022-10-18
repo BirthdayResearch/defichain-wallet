@@ -71,7 +71,7 @@ export interface PortfolioParamList {
     conversion?: ConversionParam;
     toAddressLabel?: string;
     addressType?: AddressType;
-    originScreen: ScreenName;
+    originScreen?: ScreenName;
   };
   TokenDetailScreen: { token: WalletToken };
   ConvertScreen: { mode: ConversionMode };
