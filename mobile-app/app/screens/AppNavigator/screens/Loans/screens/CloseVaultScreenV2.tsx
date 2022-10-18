@@ -84,7 +84,7 @@ export function CloseVaultScreenV2({ route, navigation }: Props): JSX.Element {
           ]}
           resizeMode="contain"
         />
-        <ThemedTextV2 style={tailwind("mb-1 font-normal-v2 text-sm mt-6")}>
+        <ThemedTextV2 style={tailwind("mb-1 font-normal-v2 text-base mt-6")}>
           {translate(
             "screens/CloseVaultScreen",
             "Are you sure you want to close your vault"
@@ -172,7 +172,7 @@ function SummaryDetails(props: {
               ellipsizeMode="middle"
               numberOfLines={1}
               style={[
-                tailwind("text-sm font-normal-v2 ml-1 w-28"),
+                tailwind("text-sm font-normal-v2 ml-1 w-28 text-right"),
                 {
                   minWidth: 10,
                   maxWidth: 101,
