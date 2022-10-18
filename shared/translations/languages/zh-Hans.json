@@ -1701,6 +1701,7 @@
     "Total loan (USD)": "Total loan (USD)",
     "Total collateral (USD)": "Total collateral (USD)",
     "Loan remaining": "Loan remaining",
+    "Any excess payment will be returned.": "所冇超额付款将被退回。",
     "{{paymentToken}} payment fee": "{{paymentToken}} 手续费"
   },
   "screens/ConfirmPaybackLoanScreen": {
@@ -1710,7 +1711,6 @@
     "Loan remaining": "Loan remaining",
     "Payback loan":  "偿还贷款",
     "Prices may vary during transaction confirmation.": "交易确认期间价格可能会有所不同。",
-    "Any excess payment will be returned.": "所冇超额付款将被退回。",
     "Paying {{amountToPay}} {{symbol}}": "付款中 {{amountToPay}} {{symbol}}",
     "Paid {{amountToPay}} {{symbol}}": "已付款 {{amountToPay}} {{symbol}}",
     "You are paying": "正在付款中",

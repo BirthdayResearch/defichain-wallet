@@ -1696,6 +1696,7 @@
     "Total loan (USD)": "Gesamtdarlehen (USD)",
     "Total collateral (USD)": "Gesamter Besicherungswert (USD)",
     "Loan remaining": "Verbleibendes Darlehen",
+    "Any excess payment will be returned.": "Eine eventuelle Überzahlung wird zurückerstattet.",
     "{{paymentToken}} payment fee": "{{paymentToken}}-Zahlungsgebühr"
   },
   "screens/ConfirmPaybackLoanScreen": {
@@ -1705,7 +1706,6 @@
     "Loan remaining": "Verbleibendes Darlehen",
     "Payback loan": "Darlehensrückzahlung",
     "Prices may vary during transaction confirmation.": "Preise können während der Transaktionsbestätigung variieren.",
-    "Any excess payment will be returned.": "Eine eventuelle Überzahlung wird zurückerstattet.",
     "Paying {{amountToPay}} {{symbol}}": "Rückzahlung von {{amountToPay}} {{symbol}}",
     "Paid {{amountToPay}} {{symbol}}": "{{amountToPay}} {{symbol}} getilgt",
     "You are paying": "Du tilgst",
