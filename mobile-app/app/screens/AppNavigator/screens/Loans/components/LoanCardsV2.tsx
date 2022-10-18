@@ -56,7 +56,7 @@ interface LoanCardsProps {
   testID: string;
   vaultId?: string;
   scrollRef?: React.Ref<any>;
-  sortRef: React.Ref<any>;
+  sortRef?: React.Ref<any>;
 }
 export interface LoanCardOptions {
   loanTokenId: string;
@@ -92,7 +92,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   const [showLoader, setShowLoader] = useState(true);
   const [isFirstLoad, setIsFirstLoad] = useState(false);
   const [loansTokensSortType, setLoansTokensSortType] =
-    useState<LoansTokensSortType>(LoansTokensSortType.AtoZ);
+    useState<LoansTokensSortType>(LoansTokensSortType.LowestOraclePrice);
   const [isSorted, setIsSorted] = useState<boolean>(false);
 
   const inSearchMode = useMemo(() => {
@@ -342,11 +342,13 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
               }}
               testID="loan_search_input"
             />
-            <LoansTokensSortRow
-              isSorted={isSorted}
-              loansTokensSortType={loansTokensSortType}
-              onPress={tokenLoansSortBottomSheetScreen}
-            />
+            {!isSearchFocus && (
+              <LoansTokensSortRow
+                isSorted={isSorted}
+                loansTokensSortType={loansTokensSortType}
+                onPress={tokenLoansSortBottomSheetScreen}
+              />
+            )}
           </>
         )}
 
