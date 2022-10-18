@@ -40,7 +40,7 @@ export function VaultDetailCollateralsRow({
   onRemovePress: () => void;
 }): JSX.Element {
   const [hideDFIStaticCard, setHideDFIStaticCard] = useState<boolean>(false);
-  const [isDusdLoaned, setIsDusdLoaned] = useState<boolean>(false);
+  const [isAffectedVault, setIsAffectedVault] = useState<boolean>(false); // Affected Vault means having DUSD in both collaterals and loans
   const collateralTokens = useSelector(
     (state: RootState) => state.loans.collateralTokens
   );
@@ -51,8 +51,9 @@ export function VaultDetailCollateralsRow({
         vault.collateralAmounts.some((col) => col.displaySymbol === "DFI")
       );
 
-      setIsDusdLoaned(
-        vault.loanAmounts.some((loan) => loan.displaySymbol === "DUSD")
+      setIsAffectedVault(
+        vault.collateralAmounts.some((col) => col.displaySymbol === "DUSD") &&
+          vault.loanAmounts.some((loan) => loan.displaySymbol === "DUSD")
       );
     }
   }, [vault]);
@@ -106,22 +107,22 @@ export function VaultDetailCollateralsRow({
       <InfoText
         firstText={translate(
           "screens/VaultDetailScreenCollateralSection",
-          isDusdLoaned
+          isAffectedVault
             ? "Maintain at least 50% DFI as collateral for DUSD"
             : "Your loan amount can be maximized by adding"
         )}
         secondText={translate(
           "screens/VaultDetailScreenCollateralSection",
-          isDusdLoaned ? "loans" : "DFI/DUSD as collaterals"
+          isAffectedVault ? "loans" : "DFI/DUSD as collaterals"
         )}
         info={{
           title: translate(
             "screens/VaultDetailScreenCollateralSection",
-            isDusdLoaned ? "Why you need 50% DFI" : "Max loan amount"
+            isAffectedVault ? "Why you need 50% DFI" : "Max loan amount"
           ),
           message: translate(
             "screens/VaultDetailScreenCollateralSection",
-            isDusdLoaned
+            isAffectedVault
               ? "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan."
               : "This is the current loan amount available for this vault."
           ),
