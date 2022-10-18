@@ -33,10 +33,9 @@ import { BorrowLoanTokenScreen } from "./screens/BorrowLoanTokenScreen";
 import { ConfirmBorrowLoanTokenScreen } from "./screens/ConfirmBorrowLoanTokenScreen";
 import { EditLoanSchemeScreenV2 } from "./screens/EditLoanSchemeScreenV2";
 import { ConfirmEditLoanSchemeScreenV2 } from "./screens/ConfirmEditLoanSchemeScreenV2";
-import { CloseVaultScreen } from "./screens/CloseVaultScreen";
-import { PaymentTokenProps } from "./hooks/LoanPaymentTokenRate";
 import { LoansFaq } from "./screens/LoansFaq";
 import { LoansScreenV2 } from "./LoansScreenV2";
+import { CloseVaultScreenV2 } from "./screens/CloseVaultScreenV2";
 
 export interface LoanParamList {
   LoansScreen: {};
@@ -335,14 +334,13 @@ export function LoansNavigator(): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={CloseVaultScreen}
+        component={CloseVaultScreenV2}
         name="CloseVaultScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/LoansScreen", "Close Vault")}
-            />
+          ...screenOptions,
+          headerTitle: translate("screens/LoansScreen", "Close Vault"),
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
         }}
       />

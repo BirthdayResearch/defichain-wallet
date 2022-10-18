@@ -76,17 +76,6 @@ export function SubmitButtonGroupV2({
     }
   };
 
-  // const getSubmittingLabel = (): string | undefined => {
-  //   if (counter === null && processingLabel !== undefined) {
-  //     return processingLabel
-  //     return processingLabel
-  //   }
-  //   if (processingLabel !== undefined) {
-  //     return `${processingLabel} (${counter ?? '-'})`
-  //   }
-  //   return undefined
-  // }
-
   return (
     <View style={tailwind("w-full")}>
       {tryAgain ? (
