@@ -1277,7 +1277,16 @@
     "Search available loan tokens": "Search available loan tokens",
     "Edit Vault": "Edit Vault",
     "Confirm": "确认",
-    "Search with token name": "使用代币名称搜索"
+    "Search with token name": "使用代币名称搜索",
+    "Sort Tokens": "Sort Tokens",
+    "Sort by": "Sort by",
+    "AVAILABLE TOKENS": "AVAILABLE TOKENS",
+    "Lowest oracle price": "Lowest oracle price",
+    "Highest oracle price": "Highest oracle price",
+    "Lowest interest": "Lowest interest",
+    "Highest interest": "Highest interest",
+    "A to Z": "A 到 Z",
+    "Z to A": "Z 到 A"
   },
   "components/tabs": {
     "Browse loan tokens": "浏览贷款选项",

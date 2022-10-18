@@ -1285,7 +1285,16 @@
     "Search available loan tokens": "Rechercher les tokens de prêt disponibles",
     "Edit Vault": "Modifier le vault",
     "Confirm": "Confirmer",
-    "Search with token name": "Recherche avec le nom du token"
+    "Search with token name": "Recherche avec le nom du token",
+    "Sort Tokens": "Trier les tokens",
+    "Sort by": "Trier par",
+    "AVAILABLE TOKENS": "TOKENS DISPONIBLES",
+    "Lowest oracle price": "Prix d'oracle le plus bas",
+    "Highest oracle price": "Prix d'oracle le plus élevé",
+    "Lowest interest": "Intérêt le plus bas",
+    "Highest interest": "Intérêt le plus élevé",
+    "A to Z": "A à Z",
+    "Z to A": "Z à A"
   },
   "components/tabs": {
     "Browse loan tokens": "Emprunter un token",

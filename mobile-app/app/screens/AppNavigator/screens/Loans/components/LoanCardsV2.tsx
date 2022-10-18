@@ -278,6 +278,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
           onButtonPress: (item: LoansTokensSortType) => {
             setIsSorted(true);
             sortLoansTokensOnSort(item);
+            setLoansTokensSortType(item);
             dismissModal();
           },
           selectedLoansTokensSortType: loansTokensSortType,
