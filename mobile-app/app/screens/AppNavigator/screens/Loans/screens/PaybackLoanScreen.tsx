@@ -198,17 +198,11 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
     amount: string,
     type: AmountButtonTypes
   ): Promise<void> => {
-    let toastMessage;
-    if (tokenBalance.lt(amount)) {
-      toastMessage = "Insufficient {{unit}}; max entered";
-      setValue("amountToPay", tokenBalance.toFixed(8));
-    } else {
-      const isMax = type === AmountButtonTypes.Max;
-      toastMessage = isMax
-        ? "Max available {{unit}} entered"
-        : "{{percent}} of available {{unit}} entered";
-      setValue("amountToPay", amount);
-    }
+    const isMax = type === AmountButtonTypes.Max;
+    const toastMessage = isMax
+      ? "Max available {{unit}} entered"
+      : "{{percent}} of available {{unit}} entered";
+    setValue("amountToPay", amount);
     const toastOption = {
       unit: loanTokenAmount.displaySymbol,
       percent: type,
@@ -243,7 +237,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
 
       <View style={tailwind("mx-5")}>
         <TransactionCard
-          maxValue={loanTokenOutstandingBal}
+          maxValue={tokenBalance}
           onChange={(amount, type) => {
             onChangeFromAmount(amount, type);
           }}
@@ -260,7 +254,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
             dark: tailwind("bg-mono-dark-v2-00"),
             style: tailwind("mt-6 rounded-xl-v2"),
           }}
-          disabled={new BigNumber(loanTokenOutstandingBal).isZero()}
+          disabled={new BigNumber(tokenBalance).isZero()}
           showAmountsBtn={!routeParams.isPaybackDUSDUsingCollateral}
         >
           <View
@@ -405,6 +399,8 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
               "screens/PaybackLoanScreen",
               routeParams.isPaybackDUSDUsingCollateral
                 ? "Use your DUSD collaterals to fully pay off your DUSD loan."
+                : new BigNumber(loanTokenOutstandingBal).lt(amountToPay)
+                ? "Any excess payment will be returned."
                 : "Review full details in the next screen"
             )}
           </ThemedTextV2>
