@@ -17,6 +17,21 @@ function addCollateral(): void {
   cy.getByTestID("vault_card_0_total_collateral_amount").contains("$1,500.00");
 }
 
+function checkTokensSortingOrder(
+  sortedType: string,
+  firstToken: string,
+  lastToken: string
+): void {
+  const containerTestID = '[data-testid="loan_screen_token_lists"]';
+  const sortButtonTestID = "loans_tokens_sort_toggle";
+  cy.getByTestID(sortButtonTestID).click();
+  cy.getByTestID(`select_sort_${sortedType}`).click();
+  cy.wait(3000);
+  cy.getByTestID(sortButtonTestID).contains(sortedType);
+  cy.get(containerTestID).children().first().contains(firstToken);
+  cy.get(containerTestID).children().last().contains(lastToken);
+}
+
 context("Wallet - Loans - Create Loans page", () => {
   before(() => {
     cy.createEmptyWallet(true);
@@ -130,6 +145,18 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
   });
 
+  it("should show borrow button and search token input if vault status equal Ready ", () => {
+    cy.getByTestID("vault_card_0_status").contains("Ready");
+    cy.getByTestID("loans_tabs_BORROW").click();
+    cy.getByTestID("loan_search_input").should("exist").clear();
+    cy.getByTestID("loan_card_dTS25").should("exist");
+    cy.getByTestID(
+      "loans_action_button_dTS25_borrow_button_loan_screen"
+    ).should("exist");
+    cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
+  });
+
   it("should hide loan token lists when clicking on search input on vault borrow token screen", () => {
     cy.getByTestID("loans_tabs_BORROW").click();
     cy.getByTestID("loan_search_input").should("exist").click();
@@ -152,7 +179,31 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("loan_card_dTR50").should("exist");
     cy.getByTestID("loan_card_dTS25").should("not.exist");
     cy.getByTestID("loan_card_DUSD").should("not.exist");
-    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
+    cy.getByTestID("loan_search_input").clear().wait(1000);
+  });
+
+  it("should sort tokens based on Lowest interest", () => {
+    checkTokensSortingOrder("Lowest interest", "DUSD", "dTR50");
+  });
+
+  it("should sort tokens based on Highest interest", () => {
+    checkTokensSortingOrder("Highest interest", "dTR50", "DUSD");
+  });
+
+  it("should sort tokens based on A to Z", () => {
+    checkTokensSortingOrder("Highest interest", "dTD10", "DUSD");
+  });
+
+  it("should sort tokens based on Z to A", () => {
+    checkTokensSortingOrder("Highest interest", "DUSD", "dTD10");
+  });
+
+  it("should sort tokens based on Lowest oracle price", () => {
+    checkTokensSortingOrder("Lowest oracle price", "DUSD", "dTD10");
+  });
+
+  it("should sort tokens based on Lowest oracle price", () => {
+    checkTokensSortingOrder("Lowest oracle price", "dTD10", "DUSD");
   });
 
   // TODO: update for v2 vault details screen

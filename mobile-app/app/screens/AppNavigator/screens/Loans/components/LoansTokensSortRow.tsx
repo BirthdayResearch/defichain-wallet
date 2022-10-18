@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { tailwind } from "@tailwind";
 import {
   ThemedIcon,
@@ -87,6 +87,12 @@ export const BottomSheetTokensLoansSortList = ({
     const assetSortList: LoansTokensSortType[] =
       Object.values(LoansTokensSortType);
 
+    const getTransformTestID = useCallback(
+      (text: LoansTokensSortType): string => {
+        return text;
+      },
+      []
+    );
     const renderItem = ({
       item,
       index,
@@ -94,7 +100,6 @@ export const BottomSheetTokensLoansSortList = ({
       item: LoansTokensSortType;
       index: number;
     }): JSX.Element => {
-      const testID = `select_sort_${item.toLowerCase().replaceAll(" ", "_")}`;
       return (
         <ThemedTouchableOpacityV2
           dark={tailwind("border-mono-dark-v2-300")}
@@ -103,7 +108,7 @@ export const BottomSheetTokensLoansSortList = ({
             "py-3 flex-row  items-center justify-between border-b-0.5 py-2.5",
             { "border-t-0.5": index === 0 }
           )}
-          testID={testID}
+          testID={`select_sort_${item}`}
           key={index}
           onPress={() => {
             onButtonPress(item);
@@ -119,7 +124,7 @@ export const BottomSheetTokensLoansSortList = ({
               iconType="MaterialIcons"
               light={tailwind("text-green-v2")}
               dark={tailwind("text-green-v2")}
-              testID={`${testID}_check`}
+              testID={`${item}_check`}
             />
           )}
         </ThemedTouchableOpacityV2>
