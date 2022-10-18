@@ -179,7 +179,7 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("loan_card_dTR50").should("exist");
     cy.getByTestID("loan_card_dTS25").should("not.exist");
     cy.getByTestID("loan_card_DUSD").should("not.exist");
-    cy.getByTestID("loan_search_input").clear().wait(1000);
+    cy.getByTestID("loan_search_input").clear().blur().wait(1000);
   });
 
   it("should sort tokens based on Lowest interest", () => {

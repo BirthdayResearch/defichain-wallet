@@ -392,7 +392,6 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
             </ThemedTextV2>
           </View>
         )}
-
         {/* Known intermittent issue wherein the two-column layout is not followed
       in web - FlashList */}
         <ThemedFlashList
