@@ -1764,6 +1764,7 @@
     "Total collateral (USD)": "Totale garanzia (USD)",
     "Loan remaining": "Prestito rimanente",
     "{{paymentToken}} payment fee": "Fee di pagamento {{paymentToken}}",
+    "Any excess payment will be returned.": "Any excess payment will be returned.",
     "How much of the loan do you want to pay?": "Quanto del prestito vuoi pagare?"
   },
   "screens/ConfirmPaybackLoanScreen": {
@@ -1773,7 +1774,6 @@
     "Loan remaining": "Prestito rimanente",
     "Payback loan": "Ripaga il prestito",
     "Prices may vary during transaction confirmation.": "Prices may vary during transaction confirmation.",
-    "Any excess payment will be returned.": "Any excess payment will be returned.",
     "Paying {{amountToPay}} {{symbol}}": "Paying {{amountToPay}} {{symbol}}",
     "Paid {{amountToPay}} {{symbol}}": "Paid {{amountToPay}} {{symbol}}",
     "You are paying": "Stai pagando",
