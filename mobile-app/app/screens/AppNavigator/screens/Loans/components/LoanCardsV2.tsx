@@ -56,8 +56,8 @@ interface LoanCardsProps {
   testID: string;
   vaultId?: string;
   scrollRef?: React.Ref<any>;
+  sortRef: React.Ref<any>;
 }
-
 export interface LoanCardOptions {
   loanTokenId: string;
   symbol: string;
@@ -302,7 +302,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   };
 
   return (
-    <View ref={containerRef} style={tailwind("flex-1")}>
+    <View style={tailwind("flex-1")}>
       <ThemedScrollViewV2
         ref={props.scrollRef}
         contentContainerStyle={tailwind("py-8 w-full")}
@@ -461,14 +461,14 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
 
         {Platform.OS === "web" && (
           <BottomSheetWebWithNavV2
-            modalRef={containerRef}
+            modalRef={props.sortRef}
             screenList={bottomSheetScreen}
             isModalDisplayed={isModalDisplayed}
             // eslint-disable-next-line react-native/no-inline-styles
             modalStyle={{
               position: "absolute",
               bottom: "0",
-              height: "474px",
+              height: "505px",
               width: "375px",
               zIndex: 50,
               borderTopLeftRadius: 15,

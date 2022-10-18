@@ -1,13 +1,13 @@
 import { memo } from "react";
 import { tailwind } from "@tailwind";
 import {
-  ThemedFlashList,
   ThemedIcon,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
 } from "@components/themed";
 import { Platform, View } from "react-native";
 import { translate } from "@translations";
+import { ThemedFlatListV2 } from "@components/themed/ThemedFlatListV2";
 import { ThemedBottomSheetFlatList } from "@components/themed/ThemedBottomSheetFlatList";
 
 export enum LoansTokensSortType {
@@ -78,7 +78,7 @@ export const BottomSheetTokensLoansSortList = ({
   memo(() => {
     const flatListComponents = {
       mobile: ThemedBottomSheetFlatList,
-      web: ThemedFlashList,
+      web: ThemedFlatListV2,
     };
     const FlatList =
       Platform.OS === "web"
@@ -130,7 +130,6 @@ export const BottomSheetTokensLoansSortList = ({
       <FlatList
         keyExtractor={(item) => item}
         data={assetSortList}
-        // parentContainerStyle={tailwind("px-5")}
         contentContainerStyle={tailwind("px-5")}
         renderItem={renderItem}
       />
