@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 import { useEffect, useState } from "react";
-import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
+import { ThemedIcon, ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { View } from "@components";
 import { SymbolIcon } from "@components/SymbolIcon";
@@ -105,15 +105,11 @@ export function VaultDetailCollateralsRow({
         })}
 
       <InfoText
-        firstText={translate(
+        displayText={translate(
           "screens/VaultDetailScreenCollateralSection",
           isAffectedVault
-            ? "Maintain at least 50% DFI as collateral for DUSD"
-            : "Your loan amount can be maximized by adding"
-        )}
-        secondText={translate(
-          "screens/VaultDetailScreenCollateralSection",
-          isAffectedVault ? "loans" : "DFI/DUSD as collaterals"
+            ? "Maintain at least 50% DFI as collateral for DUSD loans"
+            : "Your loan amount can be maximized by adding DFI/DUSD as collaterals"
         )}
         info={{
           title: translate(
@@ -319,40 +315,37 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
   );
 }
 
-// Some re render and logic issue here. dunno why yet
 function InfoText({
-  firstText,
-  secondText,
+  displayText,
   info,
 }: {
-  firstText: string;
-  secondText: string;
+  displayText: string;
   info: BottomSheetAlertInfoV2;
 }): JSX.Element {
   return (
-    <View style={tailwind("mx-5")}>
+    <View style={tailwind("flex-row mx-5 items-center")}>
       <ThemedTextV2
         light={tailwind("text-mono-light-v2-500")}
         dark={tailwind("text-mono-dark-v2-500")}
-        style={tailwind("text-xs font-normal-v2")}
+        style={tailwind("flex-1 flex-wrap text-xs font-normal-v2 pr-1")}
       >
-        {firstText}
+        {displayText}
       </ThemedTextV2>
-      <View style={tailwind("flex flex-row")}>
-        <ThemedTextV2
-          light={tailwind("text-mono-light-v2-500")}
-          dark={tailwind("text-mono-dark-v2-500")}
-          style={tailwind("text-xs font-normal-v2 mr-1")}
-        >
-          {secondText}
-        </ThemedTextV2>
-        <BottomSheetInfoV2
-          alertInfo={info}
-          name="info-text"
-          infoIconStyle={tailwind("text-sm")}
-          snapPoints={["40%"]}
-        />
-      </View>
+      <BottomSheetInfoV2
+        alertInfo={info}
+        name="info-text"
+        infoIconStyle={tailwind("text-sm")}
+        snapPoints={["40%"]}
+        triggerComponent={
+          <ThemedIcon
+            size={16}
+            name="info-outline"
+            iconType="MaterialIcons"
+            dark={tailwind("text-mono-dark-v2-500")}
+            light={tailwind("text-mono-light-v2-500")}
+          />
+        }
+      />
     </View>
   );
 }

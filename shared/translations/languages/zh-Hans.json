@@ -1572,8 +1572,7 @@
     "Max loan amount": "Max loan amount",
     "This is the current loan amount available for this vault.": "This is the current loan amount available for this vault.",
     "Maintain at least 50% DFI as collateral for DUSD": "Maintain at least 50% DFI as collateral for DUSD",
-    "Your loan amount can be maximized by adding": "Your loan amount can be maximized by adding",
-    "DFI/DUSD as collaterals": "DFI/DUSD as collaterals",
+    "Your loan amount can be maximized by adding DFI/DUSD as collaterals": "Your loan amount can be maximized by adding DFI/DUSD as collaterals",
     "COLLATERALS": "COLLATERALS"
   },
   "screens/VaultDetailScreenLoansSection": {
