@@ -224,13 +224,8 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   const description =
     "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.";
 
-  const {
-    bottomSheetRef,
-    containerRef,
-    dismissModal,
-    expandModal,
-    isModalDisplayed,
-  } = useBottomSheet();
+  const { bottomSheetRef, dismissModal, expandModal, isModalDisplayed } =
+    useBottomSheet();
   const [bottomSheetScreen, setBottomSheetScreen] = useState<
     BottomSheetNavScreen[]
   >([]);
