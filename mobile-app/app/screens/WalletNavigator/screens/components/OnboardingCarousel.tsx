@@ -75,9 +75,13 @@ export function ImageSlide({
         <ThemedTextV2 style={tailwind("text-xl font-semibold-v2 text-center")}>
           {translate("screens/OnboardingCarousel", title)}
         </ThemedTextV2>
-        <ThemedTextV2 style={tailwind("font-normal-v2 text-center mt-2")}>
-          {translate("screens/OnboardingCarousel", subtitle)}
-        </ThemedTextV2>
+        <View style={tailwind("flex-row")}>
+          <ThemedTextV2
+            style={tailwind("font-normal-v2 text-center mt-2 flex-1 flex-wrap")}
+          >
+            {translate("screens/OnboardingCarousel", subtitle)}
+          </ThemedTextV2>
+        </View>
       </View>
     </View>
   );
