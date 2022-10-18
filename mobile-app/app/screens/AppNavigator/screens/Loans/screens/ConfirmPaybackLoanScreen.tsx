@@ -262,23 +262,13 @@ export function ConfirmPaybackLoanScreen({
 
         <View style={tailwind("mt-12")}>
           <ThemedTextV2
-            style={tailwind("text-xs font-normal-v2 text-center")}
-            light={tailwind("text-mono-light-v2-500")}
-            dark={tailwind("text-mono-dark-v2-500")}
-          >
-            {translate(
-              "screens/ConfirmPaybackLoanScreen",
-              "Prices may vary during transaction confirmation."
-            )}
-          </ThemedTextV2>
-          <ThemedTextV2
             style={tailwind("text-xs font-normal-v2 text-center mb-5")}
             light={tailwind("text-mono-light-v2-500")}
             dark={tailwind("text-mono-dark-v2-500")}
           >
             {translate(
               "screens/ConfirmPaybackLoanScreen",
-              "Any excess payment will be returned."
+              "Prices may vary during transaction confirmation."
             )}
           </ThemedTextV2>
           <SubmitButtonGroupV2
