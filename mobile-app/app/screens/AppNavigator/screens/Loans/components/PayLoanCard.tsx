@@ -81,10 +81,10 @@ export function PayLoanCard(props: PayLoanCardProps): JSX.Element {
               dark={tailwind("text-mono-dark-v2-700")}
               style={tailwind("text-xs font-normal-v2")}
             >
-              {new BigNumber(props.interestAmount ?? 0).toFixed(8)}{" "}
               {translate(
                 "screens/VaultDetailScreenLoansSection",
-                "as interest"
+                "{{value}} as interest",
+                { value: new BigNumber(props.interestAmount ?? 0).toFixed(8) }
               )}
             </ThemedTextV2>
           </View>
@@ -92,7 +92,7 @@ export function PayLoanCard(props: PayLoanCardProps): JSX.Element {
 
         {props.vault !== undefined && (
           <LoanActionButton
-            label={translate("components/VaultDetailScreenLoansSection", "Pay")}
+            label={translate("screens/VaultDetailScreenLoansSection", "Pay")}
             disabled={!canUseOperations}
             onPress={props.onPay}
             testID={`pay_${props.displaySymbol}_loan`}

@@ -1548,15 +1548,15 @@
     "Total loans (USD)": "貸款總金額(美金)",
     "Vault interest (APR)": "金庫利息",
     "Min. collateralization ratio": "最低抵押率",
-    "next": "next",
-    "Add": "Add",
+    "next": "下一個",
+    "Add": "添加",
     "Borrow": "Borrow",
     "Pay": "Pay",
     "Edit": "Edit",
     "Max loan amount": "Max loan amount",
     "Total collateral": "Total collateral",
     "Total loan": "Total loan",
-    "Interest (APR)": "Interest (APR)",
+    "Interest (APR)": "年利息 (APR)",
     "Min. collateral ratio": "Min. collateral ratio",
     "Close vault": "Close vault",
     "Max Loan Amount": "Max Loan Amount",
@@ -1565,7 +1565,8 @@
     "The amount that your vault can borrow is directly affected by the tokens you put in as collateral. Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.": "The amount that your vault can borrow is directly affected by the tokens you put in as collateral. Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.",
     "Ready": "Ready",
     "Halted": "Halted",
-    "Empty": "Empty"
+    "Empty": "Empty",
+    "Select Loan": "Select Loan"
   },
   "screens/VaultDetailScreenCollateralSection": {
     "Why you need 50% DFI": "Why you need 50% DFI",
@@ -1580,7 +1581,7 @@
   "screens/VaultDetailScreenLoansSection": {
     "Pay with DUSD collaterals": "Pay with DUSD collaterals",
     "LOANS": "LOANS",
-    "as interest": "as interest",
+    "{{value}} as interest": "{{value}} as interest",
     "Pay": "Pay",
     "Paying loan": "Paying loan"
   },

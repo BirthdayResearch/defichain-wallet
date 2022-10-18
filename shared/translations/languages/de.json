@@ -1558,7 +1558,8 @@
     "The amount that your vault can borrow is directly affected by the tokens you put in as collateral. Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.": "Der Betrag, den du über deinen Vault ausleihen kannst, hängt direkt von den Token ab, die du als Sicherheiten einsetzt. Wenn du DFI und/oder DUSD als Sicherheiten einsetzt, kannst du mehr Darlehen aufnehmen und den Betrag für deinen Vault maximieren.",
     "Ready": "Bereit",
     "Halted": "Gestoppt",
-    "Empty": "Leer"
+    "Empty": "Leer",
+    "Select Loan": "Darlehen auswählen"
   },
   "screens/VaultDetailScreenCollateralSection": {
     "Why you need 50% DFI": "Warum du 50 % DFI brauchst",
@@ -1572,8 +1573,8 @@
   },
   "screens/VaultDetailScreenLoansSection": {
     "Pay with DUSD collaterals": "Tilgen mit DUSD-Sicherheiten",
-    "LOANS": "LOANS",
-    "as interest": "as interest",
+    "LOANS": "DARLEHEN",
+    "{{value}} as interest": "{{value}} als Zins",
     "Pay": "Tilgen",
     "Paying loan": "Paying loan"
   },
