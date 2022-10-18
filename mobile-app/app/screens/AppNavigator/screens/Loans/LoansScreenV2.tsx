@@ -8,7 +8,7 @@ import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useIsFocused, useScrollToTop } from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { ThemedViewV2, ThemedScrollViewV2 } from "@components/themed";
+import { ThemedViewV2 } from "@components/themed";
 import { View } from "react-native";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { LoanCardsV2 } from "./components/LoanCardsV2";
@@ -76,7 +76,7 @@ export function LoansScreenV2(): JSX.Element {
 
   return (
     <View ref={containerRef} style={tailwind("flex-1")}>
-      <ThemedViewV2 testID="loans_screen" style={tailwind("flex-grow ")}>
+      <ThemedViewV2 testID="loans_screen" style={tailwind("flex-1")}>
         <ThemedViewV2
           light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-100")}
           dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-100")}
@@ -102,7 +102,7 @@ export function LoansScreenV2(): JSX.Element {
           <VaultsV2 scrollRef={vaultScrollRef} />
         </View>
         <View
-          style={tailwind("flex-1", {
+          style={tailwind("flex-1 flex-grow", {
             hidden: activeTab !== TabKey.Borrow,
           })}
         >
