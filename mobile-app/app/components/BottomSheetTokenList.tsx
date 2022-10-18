@@ -12,9 +12,8 @@ import { CollateralItem } from "@screens/AppNavigator/screens/Loans/screens/Edit
 import { LoanVaultActive } from "@defichain/whale-api-client/dist/api/loan";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
-import { useSelector } from "react-redux";
-import { RootState } from "@store";
 import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2";
+import { useCollateralTokenList } from "@screens/AppNavigator/screens/Loans/hooks/CollateralTokenList";
 import { BottomSheetWithNavRouteParam } from "./BottomSheetWithNav";
 import {
   ThemedFlatListV2,
@@ -30,7 +29,6 @@ interface BottomSheetTokenListProps {
     screenName: string;
     onButtonPress?: (item: AddOrRemoveCollateralResponse) => void;
   };
-  tokens: Array<CollateralItem | BottomSheetToken>;
   vault?: LoanVaultActive;
   tokenType: TokenType;
   isOraclePrice?: boolean;
@@ -57,15 +55,12 @@ export enum TokenType {
 export const BottomSheetTokenList = ({
   onTokenPress,
   navigateToScreen,
-  tokens,
   vault,
   tokenType,
   isOraclePrice,
 }: BottomSheetTokenListProps): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
-    const collateralTokens = useSelector(
-      (state: RootState) => state.loans.collateralTokens
-    );
+    const { collateralTokens } = useCollateralTokenList();
     const { isLight } = useThemeContext();
     const navigation =
       useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>();
@@ -88,7 +83,7 @@ export const BottomSheetTokenList = ({
     return (
       <FlatList
         testID="bottom_sheet_token_list"
-        data={tokens}
+        data={collateralTokens}
         renderItem={({
           item,
         }: {

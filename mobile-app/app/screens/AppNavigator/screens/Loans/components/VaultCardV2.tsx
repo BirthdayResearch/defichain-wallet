@@ -19,8 +19,14 @@ import { VaultCardStatus } from "@screens/AppNavigator/screens/Loans/components/
 import { ThemedTouchableOpacityV2, ThemedViewV2 } from "@components/themed";
 import { BottomSheetNavScreen } from "@components/BottomSheetWithNavV2";
 import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";
+import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
+import {
+  BottomSheetTokenList,
+  TokenType,
+} from "@components/BottomSheetTokenList";
 import { VaultSectionTextRowV2 } from "./VaultSectionTextRowV2";
 import { VaultBanner } from "./VaultBanner";
+import { useCollateralTokenList } from "../hooks/CollateralTokenList";
 
 export interface VaultCardProps extends React.ComponentProps<any> {
   vault: LoanVault;
@@ -56,6 +62,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
     new BigNumber(vault.collateralValue)
   );
 
+  const { collateralTokens } = useCollateralTokenList();
   const loanTokens = useSelector((state: RootState) =>
     loanTokensSelector(state.loans)
   );
@@ -86,13 +93,43 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
   };
 
   const onAddCollateralPress = (): void => {
-    navigation.navigate({
-      name: "EditCollateralScreen",
-      params: {
-        vaultId: vault.vaultId,
+    props.setSnapPoints({ ios: ["70%"], android: ["70%"] });
+    props.setBottomSheetScreen([
+      {
+        stackScreenName: "TokenList",
+        component: BottomSheetTokenList({
+          tokenType: TokenType.CollateralItem,
+          vault: vault,
+          onTokenPress: async (item) => {
+            navigation.navigate({
+              name: "AddOrRemoveCollateralScreen",
+              params: {
+                vault,
+                collateralItem: item,
+                collateralTokens,
+                isAdd: true,
+              },
+            });
+            props.dismissModal();
+          },
+        }),
+        option: {
+          headerTitle: "",
+          headerBackTitleVisible: false,
+          headerStyle: tailwind("rounded-t-xl-v2 border-b-0"),
+          header: () => (
+            <BottomSheetTokenListHeader
+              headerLabel={translate(
+                "screens/EditCollateralScreen",
+                "Select Collateral"
+              )}
+              onCloseButtonPress={props.dismissModal}
+            />
+          ),
+        },
       },
-      merge: true,
-    });
+    ]);
+    props.expandModal();
   };
 
   const { isVaultEmpty, isVaultLiquidated } = useMemo(() => {

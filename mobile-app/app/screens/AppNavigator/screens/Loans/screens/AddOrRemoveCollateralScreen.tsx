@@ -515,7 +515,6 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                   {
                     stackScreenName: "TokenList",
                     component: BottomSheetTokenList({
-                      tokens: collateralTokens,
                       tokenType: TokenType.CollateralItem,
                       vault: vault,
                       onTokenPress: async (token) => {
