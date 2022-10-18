@@ -106,8 +106,9 @@ export function ConfirmPaybackLoanScreen({
   }, []);
 
   const addressLabel = useAddressLabel(address);
-  const loanRemaining = new BigNumber(loanTokenAmount.amount).minus(
-    amountToPay
+  const loanRemaining = BigNumber.max(
+    0,
+    new BigNumber(loanTokenAmount.amount).minus(amountToPay)
   );
   return (
     <ThemedScrollViewV2 style={tailwind("pb-4")}>
