@@ -357,10 +357,6 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
     [filteredTokens, assetSortType, denominationCurrency]
   );
 
-  useEffect(() => {
-    setAssetSortType(PortfolioSortType.HighestDenominationValue); // reset sorting state upon denominationCurrency change
-  }, [denominationCurrency]);
-
   // token tab items
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(
     ButtonGroupTabKey.AllTokens

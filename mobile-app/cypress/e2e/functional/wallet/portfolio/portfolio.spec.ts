@@ -1249,6 +1249,21 @@ context("Wallet - Portfolio - Your Assets - All tokens tab", () => {
   });
 });
 
+context("Wallet - Portfolio - Sorting function - Currency change", () => {
+  before(() => {
+    cy.createEmptyWallet(true);
+    cy.getByTestID("header_settings").click();
+    cy.getByTestID("bottom_tab_portfolio").click();
+    cy.sendDFItoWallet().wait(3000);
+    cy.sendTokenToWallet(["BTC", "BTC", "LTC", "DUSD"]).wait(7000); // token transfer taking time sometime to avoid failure increasing wait time here
+  });
+  it("should persist sorting type when currency change", () => {
+    checkAssetsSortingOrder("Lowest value (USDT)", "dLTC", "dBTC");
+    togglePortfolioDenomination("DFI");
+    checkAssetsSortingOrder("Lowest value (DFI)", "dLTC", "dBTC");
+  });
+});
+
 context(
   "Wallet - Portfolio - Your Assets - DFI currency - Sorting function  - All tokens tab",
   () => {
