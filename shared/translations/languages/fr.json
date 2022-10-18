@@ -1751,6 +1751,7 @@
     "Total loan (USD)": "Emprunt total (USD)",
     "Total collateral (USD)": "Valeur totale de la garantie (USD)",
     "Loan remaining": "Emprunt restant",
+    "Any excess payment will be returned.": "Tout remboursement excédentaire sera restitué.",
     "{{paymentToken}} payment fee": "Frais de paiement {{paymentToken}}"
   },
   "screens/ConfirmPaybackLoanScreen": {
@@ -1760,7 +1761,6 @@
     "Loan remaining": "Emprunt restant",
     "Payback loan": "Remboursement du prêt",
     "Prices may vary during transaction confirmation.": "Les prix peuvent varier pendant la confirmation de la transaction.",
-    "Any excess payment will be returned.": "Tout remboursement excédentaire sera restitué.",
     "Paying {{amountToPay}} {{symbol}}": "Remboursement de {{amountToPay}} {{symbol}}",
     "Paid {{amountToPay}} {{symbol}}": "{{amountToPay}} {{symbol}} remboursé",
     "You are paying": "Vous payez",
