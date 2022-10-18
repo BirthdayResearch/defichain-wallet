@@ -116,7 +116,14 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
 
   useEffect(() => {
     setIsVaultReady(
-      vaults.some((vault) => vault.vaultState !== VaultStatus.Empty)
+      vaults.some((vault) =>
+        [
+          VaultStatus.Ready,
+          VaultStatus.Healthy,
+          VaultStatus.AtRisk,
+          VaultStatus.NearLiquidation,
+        ].includes(vault.vaultState)
+      )
     );
   }, [vaults]);
 
