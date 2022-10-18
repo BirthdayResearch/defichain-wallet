@@ -64,7 +64,7 @@ export function CollateralizationRatioDisplayV2(
           </ThemedTextV2>
         </View>
         {isInvalidCollateralRatio ? (
-          <>
+          <View style={tailwind("flex-row justify-end flex-1")}>
             {new BigNumber(props.collateralValue).gt(0) ? (
               <Text style={tailwind("text-sm font-normal-v2 text-green-v2")}>
                 {props.customReadyText ??
@@ -82,7 +82,7 @@ export function CollateralizationRatioDisplayV2(
                 {translate("components/CollateralizationRatioDisplay", "Empty")}
               </ThemedTextV2>
             )}
-          </>
+          </View>
         ) : (
           <NumberFormat
             value={new BigNumber(props.collateralizationRatio).toFixed(2)}
