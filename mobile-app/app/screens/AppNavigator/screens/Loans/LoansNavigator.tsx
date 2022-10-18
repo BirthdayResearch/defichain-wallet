@@ -26,6 +26,7 @@ import {
   CollateralItem,
   EditCollateralScreen,
 } from "./screens/EditCollateralScreen";
+import { AddOrRemoveCollateralScreen } from "./screens/AddOrRemoveCollateralScreen";
 import { ConfirmEditCollateralScreen } from "./screens/ConfirmEditCollateralScreen";
 import { ChooseLoanTokenScreenV2 } from "./screens/ChooseLoanTokenScreenV2";
 import { BorrowLoanTokenScreen } from "./screens/BorrowLoanTokenScreen";
@@ -212,6 +213,20 @@ export function LoansNavigator(): JSX.Element {
             />
           ),
         }}
+      />
+      <LoansStack.Screen
+        component={AddOrRemoveCollateralScreen}
+        name="AddOrRemoveCollateralScreen"
+        options={({ route }: { route: any }) => ({
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate(
+            "screens/LoansScreen",
+            route?.params?.isAdd ? "Add Collateral" : "Remove Collateral"
+          ),
+        })}
       />
       <LoansStack.Screen
         component={ConfirmEditCollateralScreen}
