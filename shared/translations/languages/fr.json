@@ -1851,7 +1851,7 @@
     "You are about to close vault {{vaultId}}": "Vous êtes sur le point de fermer le vault {{vaultId}}",
     "CLOSING": "FERMETURE...",
     "Closing vault {{vaultId}}": "Fermeture du vault {{vaultId}}",
-    "Are you sure you want to close your vault": "Êtes-vous sûr de vouloir fermer votre vault",
+    "Are you sure you want to close your vault {{truncatedVaultId}}?": "Êtes-vous sûr de vouloir fermer votre vault {{truncatedVaultId}}?",
     "Wallet": "Portefeuille",
     "All remaining collaterals will be returned to your wallet.": "Toutes les garanties restantes seront retournées dans votre portefeuille.",
     "Close vault": "Fermer le vault",

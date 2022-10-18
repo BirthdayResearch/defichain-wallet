@@ -70,6 +70,11 @@ export function CloseVaultScreenV2({ route, navigation }: Props): JSX.Element {
     };
   }, []);
 
+  const truncatedVaultId = `${vaultId.substring(0, 3)}...${vaultId.substring(
+    vaultId.length - 3,
+    vaultId.length
+  )}`;
+
   return (
     <ThemedScrollViewV2
       contentContainerStyle={tailwind("mt-16 h-full justify-between")}
@@ -85,20 +90,17 @@ export function CloseVaultScreenV2({ route, navigation }: Props): JSX.Element {
           resizeMode="contain"
         />
         <ThemedTextV2
-          style={tailwind("mb-1 font-normal-v2 text-base mt-6 mx-7")}
+          style={tailwind(
+            "mb-1 font-normal-v2 text-base mt-6 mx-7 text-center"
+          )}
         >
           {translate(
             "screens/CloseVaultScreen",
-            "Are you sure you want to close your vault"
+            "Are you sure you want to close your vault {{truncatedVaultId}}?",
+            {
+              truncatedVaultId,
+            }
           )}
-        </ThemedTextV2>
-        <ThemedTextV2
-          style={tailwind("font-normal-v2 text-sm mt-1 w-56")}
-          numberOfLines={1}
-          ellipsizeMode="middle"
-          testID="edit_loan_scheme_vault_id"
-        >
-          {`${vaultId}?`}
         </ThemedTextV2>
         <SummaryDetails address={address} addressLabel={addressLabel} />
       </View>
@@ -171,10 +173,13 @@ function SummaryDetails(props: {
             ellipsizeMode="middle"
             numberOfLines={1}
             style={[
-              tailwind("text-sm font-normal-v2 ml-1 w-28 text-right"),
+              tailwind("text-sm font-normal-v2 ml-1", {
+                "mx-2": props.addressLabel !== undefined,
+                "text-right w-28": props.addressLabel === undefined,
+              }),
               {
                 minWidth: 10,
-                maxWidth: 101,
+                maxWidth: props.addressLabel !== undefined ? 101 : 0,
               },
             ]}
             testID="wallet_address"
