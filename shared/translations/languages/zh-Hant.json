@@ -1799,6 +1799,8 @@
     "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.": "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.",
     "A minimum of 50% DFI as collateral is required before borrowing DUSD.": "A minimum of 50% DFI as collateral is required before borrowing DUSD.",
     "Review full details in the next screen": "Review full details in the next screen",
+    "Max loan amount entered": "已輸入最高貸款金額的",
+    "{{percent}} of max loan amount entered": "已輸入最高貸款金額的 {{percent}}%",
     "SELECT VAULT FOR COLLATERAL": "選擇金庫抵押",
     "Select a vault to use": "選擇要使用的金庫",
     "Choose a vault to use": "選擇要使用的金庫",
