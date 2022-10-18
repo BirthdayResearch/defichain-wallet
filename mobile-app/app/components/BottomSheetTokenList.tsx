@@ -12,11 +12,8 @@ import { CollateralItem } from "@screens/AppNavigator/screens/Loans/screens/Edit
 import { LoanVaultActive } from "@defichain/whale-api-client/dist/api/loan";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
-import { useSelector } from "react-redux";
-import { RootState } from "@store";
 import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2";
-import { createSelector } from "@reduxjs/toolkit";
-import { tokensSelector } from "@store/wallet";
+import { useCollateralTokenList } from "@screens/AppNavigator/screens/Loans/hooks/CollateralTokenList";
 import { BottomSheetWithNavRouteParam } from "./BottomSheetWithNav";
 import {
   ThemedFlatListV2,
@@ -63,6 +60,7 @@ export const BottomSheetTokenList = ({
   isOraclePrice,
 }: BottomSheetTokenListProps): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
+    const { collateralTokens } = useCollateralTokenList();
     const { isLight } = useThemeContext();
     const navigation =
       useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>();
@@ -81,49 +79,6 @@ export const BottomSheetTokenList = ({
     ): item is CollateralItem {
       return (item as CollateralItem).activateAfterBlock !== undefined;
     }
-
-    const tokens = useSelector((state: RootState) =>
-      tokensSelector(state.wallet)
-    );
-
-    const getTokenAmount = (tokenId: string): BigNumber => {
-      const id = tokenId === "0" ? "0_unified" : tokenId;
-      const _token = tokens.find((t) => t.id === id);
-      const reservedDFI = 0.1;
-      return BigNumber.max(
-        new BigNumber(_token === undefined ? 0 : _token.amount).minus(
-          _token?.id === "0_unified" ? reservedDFI : 0
-        ),
-        0
-      );
-    };
-
-    const collateralSelector = createSelector(
-      (state: RootState) => state.loans.collateralTokens,
-      (collaterals) =>
-        collaterals
-          .map((c) => {
-            return {
-              ...c,
-              available: getTokenAmount(c.token.id),
-            };
-          })
-          .filter((collateralItem) =>
-            new BigNumber(
-              getActivePrice(
-                collateralItem.token.symbol,
-                collateralItem.activePrice,
-                collateralItem.factor,
-                "ACTIVE",
-                "COLLATERAL"
-              )
-            ).gt(0)
-          )
-          .sort((a, b) => b.available.minus(a.available).toNumber())
-    );
-    const collateralTokens: CollateralItem[] = useSelector((state: RootState) =>
-      collateralSelector(state)
-    );
 
     return (
       <FlatList
