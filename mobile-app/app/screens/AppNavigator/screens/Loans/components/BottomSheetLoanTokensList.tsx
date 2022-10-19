@@ -3,6 +3,8 @@ import {
   ThemedFlatListV2,
   ThemedTouchableOpacityV2,
   ThemedTextV2,
+  ThemedViewV2,
+  ThemedIcon,
 } from "@components/themed";
 import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
 import { tailwind } from "@tailwind";
@@ -24,10 +26,12 @@ import { TokenNameText } from "../../Portfolio/components/TokenNameText";
 
 export const BottomSheetLoanTokensList = ({
   onPress,
+  onCloseButtonPress,
   loanTokens,
   isLight,
 }: {
   onPress: (item: LoanToken) => void;
+  onCloseButtonPress: () => void;
   loanTokens: LoanToken[];
   isLight: boolean;
 }): React.MemoExoticComponent<() => JSX.Element> =>
@@ -60,10 +64,6 @@ export const BottomSheetLoanTokensList = ({
 
     return (
       <FlatList
-        style={tailwind("px-5 pb-12", {
-          "bg-mono-light-v2-100": isLight,
-          "bg-mono-dark-v2-100": !isLight,
-        })}
         testID="swap_token_selection_screen"
         data={filterLoanTokensWithBalance}
         keyExtractor={(item) => item.tokenId}
@@ -142,7 +142,15 @@ export const BottomSheetLoanTokensList = ({
           );
         }}
         ListHeaderComponent={
-          <View style={tailwind("pb-5")}>
+          <ThemedViewV2 style={tailwind("py-5")}>
+            <View style={tailwind("w-full flex-row justify-end")}>
+              <ThemedTouchableOpacityV2
+                onPress={onCloseButtonPress}
+                style={tailwind("border-0")}
+              >
+                <ThemedIcon iconType="Feather" name="x-circle" size={22} />
+              </ThemedTouchableOpacityV2>
+            </View>
             <ThemedTextV2
               style={tailwind("text-xl font-normal-v2 pb-5")}
               light={tailwind("text-mono-light-v2-900")}
@@ -209,8 +217,17 @@ export const BottomSheetLoanTokensList = ({
                 </ThemedTextV2>
               </View>
             )}
-          </View>
+          </ThemedViewV2>
         }
+        stickyHeaderIndices={[0]}
+        style={tailwind(
+          {
+            "bg-mono-dark-v2-100": !isLight,
+            "bg-mono-light-v2-100": isLight,
+          },
+          "rounded-t-xl-v2"
+        )}
+        contentContainerStyle={tailwind("p-5 pt-0")}
       />
     );
   });
