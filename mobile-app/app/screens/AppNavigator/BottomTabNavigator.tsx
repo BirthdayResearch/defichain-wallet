@@ -92,6 +92,7 @@ export function BottomTabNavigator(): JSX.Element {
               }),
             tabBarTestID: "bottom_tab_dex",
             tabBarIcon: ({ color }) => <DEXIcon color={color} size={24} />,
+            unmountOnBlur: true,
           }}
         />
 
@@ -107,6 +108,7 @@ export function BottomTabNavigator(): JSX.Element {
               }),
             tabBarTestID: "bottom_tab_loans",
             tabBarIcon: ({ color }) => <LoansIcon color={color} size={24} />,
+            unmountOnBlur: true,
           }}
         />
 
@@ -122,6 +124,7 @@ export function BottomTabNavigator(): JSX.Element {
               }),
             tabBarTestID: "bottom_tab_auctions",
             tabBarIcon: ({ color }) => <AuctionsIcon color={color} size={24} />,
+            unmountOnBlur: true,
           }}
         />
       </BottomTab.Navigator>
