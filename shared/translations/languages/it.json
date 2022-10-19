@@ -1879,7 +1879,9 @@
     "Total loan + annual interest": "Totale del prestito + interesse annuale"
   },
   "components/BottomSheetVaultList": {
-    "Collateralization ratio": "Rapporto di collateralizzazione"
+    "Collateralization ratio": "Rapporto di collateralizzazione",
+    "{{value}}% interest": "{{value}}% interest",
+    "min. {{value}}%": "min. {{value}}%"
   },
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "MODIFICA LO SCHEMA DI PRESTITO DEL VAULT",
