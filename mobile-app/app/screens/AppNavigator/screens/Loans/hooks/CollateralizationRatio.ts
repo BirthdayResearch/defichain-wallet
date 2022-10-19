@@ -10,8 +10,6 @@ export interface CollateralizationRatioProps {
 }
 
 export interface CollateralizationRatioStats {
-  atRiskThreshold: BigNumber;
-  liquidatedThreshold: BigNumber;
   isInLiquidation: boolean;
   isAtRisk: boolean;
   isHealthy: boolean;
@@ -24,15 +22,13 @@ export function useCollateralRatioStats({
   totalLoanAmount,
   totalCollateralValue,
 }: CollateralizationRatioProps): CollateralizationRatioStats {
-  const atRiskThreshold = new BigNumber(minColRatio).multipliedBy(1.5);
-  const liquidatedThreshold = new BigNumber(minColRatio).multipliedBy(1.25);
+  const { atRiskThreshold, liquidatedThreshold } =
+    useColRatioThreshold(minColRatio);
   const isInLiquidation =
     totalLoanAmount.gt(0) && colRatio.isLessThan(liquidatedThreshold);
   const isAtRisk =
     totalLoanAmount.gt(0) && colRatio.isLessThan(atRiskThreshold);
   return {
-    atRiskThreshold,
-    liquidatedThreshold,
     isInLiquidation,
     isAtRisk,
     isHealthy: !isInLiquidation && !isAtRisk && totalLoanAmount.gt(0),
@@ -45,6 +41,12 @@ export function useCollateralRatioStats({
   };
 }
 
+export function useColRatioThreshold(minColRatio: BigNumber) {
+  const atRiskThreshold = new BigNumber(minColRatio).multipliedBy(1.5);
+  const liquidatedThreshold = new BigNumber(minColRatio).multipliedBy(1.25);
+  return { atRiskThreshold, liquidatedThreshold };
+}
+
 export function useCollateralizationRatioColor(
   props: CollateralizationRatioProps
 ): ThemedProps {
@@ -52,14 +54,14 @@ export function useCollateralizationRatioColor(
   const stats = useCollateralRatioStats(props);
 
   if (stats.isInLiquidation) {
-    style.light = tailwind("text-error-500");
-    style.dark = tailwind("text-darkerror-500");
+    style.light = tailwind("text-red-v2");
+    style.dark = tailwind("text-red-v2");
   } else if (stats.isAtRisk) {
-    style.light = tailwind("text-warning-500");
-    style.dark = tailwind("text-darkwarning-500");
-  } else if (stats.isHealthy) {
-    style.light = tailwind("text-success-500");
-    style.dark = tailwind("text-darksuccess-500");
+    style.light = tailwind("text-orange-v2");
+    style.dark = tailwind("text-orange-v2");
+  } else if (stats.isHealthy || stats.isReady) {
+    style.light = tailwind("text-green-v2");
+    style.dark = tailwind("text-green-v2");
   }
   return style;
 }
