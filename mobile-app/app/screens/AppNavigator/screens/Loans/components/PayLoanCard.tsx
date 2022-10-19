@@ -43,19 +43,19 @@ export function PayLoanCard(props: PayLoanCardProps): JSX.Element {
       <ThemedViewV2
         light={tailwind("bg-mono-light-v2-00")}
         dark={tailwind("bg-mono-dark-v2-00")}
-        style={tailwind(
-          "py-4 px-5 flex flex-row items-center justify-between rounded-lg-v2",
-          { "rounded-t-lg-v2": showPayWithDUSD }
-        )}
+        style={tailwind("py-4 px-5 flex flex-row w-full items-center", {
+          "rounded-t-lg-v2": showPayWithDUSD,
+          "rounded-lg-v2": !showPayWithDUSD,
+        })}
       >
-        <View style={tailwind("flex flex-row items-center")}>
+        <View style={tailwind("flex-1 flex-row items-center pr-1")}>
           <SymbolIcon
             symbol={props.displaySymbol}
             styleHeight={36}
             styleWidth={36}
           />
           {/* eslint-disable react-native/no-raw-text */}
-          <View style={tailwind("ml-2")}>
+          <View style={tailwind("ml-2 flex-1")}>
             <ThemedTextV2
               light={tailwind({
                 "text-gray-300":

@@ -175,8 +175,8 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
           tokenType: TokenType.CollateralItem,
           vault: vault as LoanVaultActive,
           onTokenPress: async (item) => {
-            navigateToAddRemoveCollateralScreen(item, true);
             dismissModal();
+            navigateToAddRemoveCollateralScreen(item, true);
           },
         }),
         option: {
@@ -239,9 +239,7 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
           loanTokens,
           isLight,
         }),
-        option: {
-          header: () => null, // not using BottomSheetHeader because it is having a very thin line above modal header in android only
-        },
+        option: BottomSheetHeader,
       },
     ]);
     expandModal();
@@ -260,11 +258,13 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
       {
         stackScreenName: "PayTokensList",
         component: BottomSheetPayBackList({
-          onPress: (item: LoanVaultTokenAmount) => {
+          onPress: (
+            item: LoanVaultTokenAmount,
+            isPayDUSDUsingCollateral: boolean
+          ) => {
             dismissModal();
-            navigateToPayScreen(item);
+            navigateToPayScreen(item, isPayDUSDUsingCollateral);
           },
-          onPayDUSDPress: () => {},
           vault: vault,
           data: vault.loanAmounts,
           isLight: isLight,
@@ -275,13 +275,17 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
     expandModal();
   };
 
-  const navigateToPayScreen = (loanToken: LoanVaultTokenAmount) => {
+  const navigateToPayScreen = (
+    loanToken: LoanVaultTokenAmount,
+    isPayDUSDUsingCollateral: boolean
+  ) => {
     navigation.navigate({
       name: "PaybackLoanScreen",
       merge: true,
       params: {
         vault: vault,
         loanTokenAmount: loanToken,
+        isPaybackDUSDUsingCollateral: isPayDUSDUsingCollateral,
       },
     });
   };
@@ -353,11 +357,7 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
             navigateToAddRemoveCollateralScreen(collateralItem, false);
           }}
         />
-        <VaultDetailLoansRow
-          onPay={navigateToPayScreen}
-          onPaybackDUSD={() => {}}
-          vault={vault}
-        />
+        <VaultDetailLoansRow onPay={navigateToPayScreen} vault={vault} />
         <CloseVaultButton
           vaultStatus={vaultState?.status}
           canUseOperations={canUseOperations}

@@ -13,13 +13,14 @@ import { PayLoanCard } from "@screens/AppNavigator/screens/Loans/components/PayL
 
 export const BottomSheetPayBackList = ({
   onPress,
-  onPayDUSDPress,
   vault,
   data,
   isLight,
 }: {
-  onPress: (item: LoanVaultTokenAmount) => void;
-  onPayDUSDPress: () => void;
+  onPress: (
+    item: LoanVaultTokenAmount,
+    isPayDUSDUsingCollateral: boolean
+  ) => void;
   vault: LoanVaultActive;
   data: LoanVaultTokenAmount[];
   isLight: boolean;
@@ -58,8 +59,8 @@ export const BottomSheetPayBackList = ({
               vaultState={vault.state}
               vault={vault}
               loanToken={item}
-              onPay={() => onPress(item)}
-              onPaybackDUSD={onPayDUSDPress}
+              onPay={() => onPress(item, false)}
+              onPaybackDUSD={() => onPress(item, true)}
             />
           );
         }}

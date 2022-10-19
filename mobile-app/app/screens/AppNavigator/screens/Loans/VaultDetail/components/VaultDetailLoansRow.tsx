@@ -10,10 +10,12 @@ import { PayLoanCard } from "@screens/AppNavigator/screens/Loans/components/PayL
 
 export function VaultDetailLoansRow(props: {
   vault: LoanVault;
-  onPay: (item: LoanVaultTokenAmount) => void;
-  onPaybackDUSD: () => void;
+  onPay: (
+    item: LoanVaultTokenAmount,
+    isPayDUSDUsingCollateral: boolean
+  ) => void;
 }): JSX.Element {
-  const { vault, onPay, onPaybackDUSD } = props;
+  const { vault, onPay } = props;
   return (
     <ThemedViewV2 style={tailwind("mx-5 mt-6")}>
       {vault.state === LoanVaultState.IN_LIQUIDATION &&
@@ -54,8 +56,8 @@ export function VaultDetailLoansRow(props: {
             vaultState={vault.state}
             vault={vault}
             loanToken={loan}
-            onPay={() => onPay(loan)}
-            onPaybackDUSD={onPaybackDUSD}
+            onPay={() => onPay(loan, false)}
+            onPaybackDUSD={() => onPay(loan, true)}
           />
         ))}
     </ThemedViewV2>
