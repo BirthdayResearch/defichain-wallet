@@ -137,6 +137,7 @@ export function VaultDetailCollateralsRow({
               : "This is the current loan amount available for this vault."
           ),
         }}
+        isAffectedVault={isAffectedVault}
       />
     </View>
   );
@@ -333,9 +334,11 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
 function InfoText({
   displayText,
   info,
+  isAffectedVault,
 }: {
   displayText: string;
   info: BottomSheetAlertInfoV2;
+  isAffectedVault: boolean;
 }): JSX.Element {
   return (
     <View style={tailwind("flex-row mx-5 items-center")}>
@@ -350,7 +353,7 @@ function InfoText({
         alertInfo={info}
         name="info-text"
         infoIconStyle={tailwind("text-sm")}
-        snapPoints={["40%"]}
+        snapPoints={isAffectedVault ? ["50%"] : ["40%"]}
         triggerComponent={
           <ThemedIcon
             size={16}

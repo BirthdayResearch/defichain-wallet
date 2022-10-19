@@ -153,7 +153,7 @@ export function VaultDetailSummary({
         info={{
           title: translate(
             "screens/VaultDetailScreen",
-            "Min. collateral Ratio"
+            "Min. Collateral Ratio"
           ),
           message: translate(
             "screens/VaultDetailScreen",

@@ -1585,8 +1585,8 @@
   },
   "screens/VaultDetailScreenCollateralSection": {
     "Why you need 50% DFI": "Pourquoi vous avez besoin de 50 % de DFI",
-    "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI. \n\n This only affects vaults that has DUSD as both collateral and loan.": "Les prêts en DUSD qui contiennent des DUSD comme garantie doivent maintenir au moins 50% de la garantie sous forme de DFI. \n\n Ceci n'affecte que les vaults qui ont des DUSD à la fois comme garantie et comme prêt.",
-    "Max loan amount": "Max loan amount",
+    "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.": "Les prêts en DUSD qui contiennent des DUSD comme garantie doivent maintenir au moins 50% de la garantie sous forme de DFI.\n\nCeci n'affecte que les vaults qui ont des DUSD à la fois comme garantie et comme prêt.",
+    "Max loan amount": "Montant max. du prêt",
     "This is the current loan amount available for this vault.": "Il s'agit du montant du prêt actuellement disponible pour ce vault.",
     "Maintain at least 50% DFI as collateral for DUSD loans": "Maintenez au moins 50 % de DFI comme garantie pour les prêts en DUSD",
     "Your loan amount can be maximized by adding DFI/DUSD as collaterals": "Le montant de votre prêt peut être maximisé en ajoutant DFI/DUSD comme garanties",
