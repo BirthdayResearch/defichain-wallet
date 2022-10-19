@@ -1866,7 +1866,7 @@
   },
   "components/BottomSheetVaultList": {
     "Collateralization ratio": "Ratio de garantie",
-    "Select Vault": "Select Vault",
+    "Select Vault": "Vault auswählen",
     "{{value}}% interest": "{{value}}% d'intérêt",
     "min. {{value}}%": "min. {{value}}%"
   },
