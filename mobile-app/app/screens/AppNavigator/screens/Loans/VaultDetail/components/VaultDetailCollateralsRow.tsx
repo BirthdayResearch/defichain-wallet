@@ -18,6 +18,7 @@ import {
   BottomSheetInfoV2,
 } from "@components/BottomSheetInfoV2";
 import { CollateralItem } from "@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen";
+import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
 import { getCollateralPrice } from "../../hooks/CollateralPrice";
 
 interface CollateralCardProps {
@@ -27,16 +28,19 @@ interface CollateralCardProps {
   totalCollateralValue: BigNumber;
   onAddCollateralPress: () => void;
   onRemoveCollateralPress: () => void;
+  vaultStatus?: string;
 }
 
 export function VaultDetailCollateralsRow({
   vault,
   collateralTokens,
+  vaultStatus,
   onAddPress,
   onRemovePress,
 }: {
   vault: LoanVault;
   collateralTokens: CollateralItem[];
+  vaultStatus?: string;
   onAddPress: (collateralItem: CollateralItem) => void;
   onRemovePress: (collateralItem: CollateralItem) => void;
 }): JSX.Element {
@@ -105,6 +109,7 @@ export function VaultDetailCollateralsRow({
                 amount={new BigNumber(collateral.amount)}
                 onAddCollateralPress={() => onAddPress(collateralItem)}
                 onRemoveCollateralPress={() => onRemovePress(collateralItem)}
+                vaultStatus={vaultStatus}
               />
             );
           } else {
@@ -144,9 +149,9 @@ function LiquidatedVaultCollateralCard({
 }): JSX.Element {
   return (
     <ThemedViewV2
-      light={tailwind("bg-white border-gray-200")}
-      dark={tailwind("bg-gray-800 border-gray-700")}
-      style={tailwind("p-4 mb-2 border rounded")}
+      light={tailwind("bg-mono-light-v2-00")}
+      dark={tailwind("bg-mono-dark-v2-00")}
+      style={tailwind("p-4 mb-2 rounded-lg-v2")}
     >
       <View style={tailwind("flex flex-row justify-between items-center")}>
         <View style={tailwind("flex flex-row items-center")}>
@@ -318,6 +323,7 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
           onAdd={props.onAddCollateralPress}
           onRemove={props.onRemoveCollateralPress}
           token={props.displaySymbol}
+          leftDisabled={props.vaultStatus === VaultStatus.Halted}
         />
       </View>
     </ThemedViewV2>

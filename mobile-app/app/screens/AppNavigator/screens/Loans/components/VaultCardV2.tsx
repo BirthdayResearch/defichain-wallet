@@ -64,7 +64,7 @@ export function VaultCardV2(props: VaultCardProps): JSX.Element {
   );
   const maxLoanAmount = useMaxLoan({
     totalCollateralValue: new BigNumber(vault.collateralValue),
-    collateralAmounts: vault.collateralAmounts,
+    collateralAmounts: vault.collateralAmounts ?? [],
     existingLoanValue: new BigNumber(vault.loanValue),
     minColRatio: new BigNumber(vault.loanScheme.minColRatio),
   });

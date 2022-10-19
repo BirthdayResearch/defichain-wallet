@@ -345,6 +345,7 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
         <VaultDetailCollateralsRow
           vault={vault}
           collateralTokens={collateralTokens}
+          vaultStatus={vaultState?.status}
           onAddPress={(collateralItem) => {
             navigateToAddRemoveCollateralScreen(collateralItem, true);
           }}

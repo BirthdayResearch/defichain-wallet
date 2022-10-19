@@ -56,6 +56,10 @@ export function VaultDetailSummary({
             "screens/VaultDetailScreen",
             "This is the current loan amount available for this vault."
           ),
+          iconStyle: {
+            light: tailwind("text-mono-light-v2-500"),
+            dark: tailwind("text-mono-dark-v2-500"),
+          },
         }}
       />
       <NumberRowV2
@@ -155,6 +159,10 @@ export function VaultDetailSummary({
             "screens/VaultDetailScreen",
             "The amount that your vault can borrow is directly affected by the tokens you put in as collateral. Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount."
           ),
+          iconStyle: {
+            light: tailwind("text-mono-light-v2-500"),
+            dark: tailwind("text-mono-dark-v2-500"),
+          },
         }}
       />
     </ThemedViewV2>
