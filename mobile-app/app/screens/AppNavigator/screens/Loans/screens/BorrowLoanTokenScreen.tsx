@@ -171,7 +171,7 @@ export function BorrowLoanTokenScreen({
         },
       },
     ];
-  }, []);
+  }, [vault]);
   const bottomSheetLoanTokenList = useMemo(() => {
     return [
       {
