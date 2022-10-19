@@ -122,7 +122,9 @@ export const BottomSheetVaultList = ({
               </View>
               {selectedVault && selectedVault.vaultId === item.vaultId && (
                 <ThemedIcon
-                  style={tailwind("h-full mt-0.5")}
+                  style={tailwind("h-full mt-0.5", {
+                    "mt-1 ml-1.5": Platform.OS === "android",
+                  })}
                   light={tailwind("text-green-v2")}
                   dark={tailwind("text-green-v2")}
                   iconType="MaterialIcons"
