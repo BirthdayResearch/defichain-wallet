@@ -1853,7 +1853,6 @@
   },
   "components/BottomSheetVaultList": {
     "Collateralization ratio": "Besicherungsquote",
-    "Select Vault": "Vault auswählen",
     "{{value}}% interest": "{{value}}% Zinsen",
     "min. {{value}}%": "mind. {{value}}%"
   },

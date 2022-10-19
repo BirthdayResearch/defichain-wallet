@@ -1885,7 +1885,6 @@
   },
   "components/BottomSheetVaultList": {
     "Collateralization ratio": "Ratio de colateralización",
-    "Select Vault": "Select Vault",
     "{{value}}% interest": "{{value}}% interest",
     "min. {{value}}%": "min. {{value}}%"
   },

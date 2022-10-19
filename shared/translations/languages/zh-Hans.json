@@ -1858,7 +1858,6 @@
   },
   "components/BottomSheetVaultList": {
     "Collateralization ratio": "抵押率",
-    "Select Vault": "Select Vault",
     "{{value}}% interest": "{{value}}% interest",
     "min. {{value}}%": "min. {{value}}%"
   },
