@@ -226,13 +226,13 @@ export function BorrowLoanTokenScreen({
     toast.hideAll();
     const isMax = type === AmountButtonTypes.Max;
     const toastMessage = isMax
-      ? "Max available loan entered"
-      : "{{percent}} of available loan entered";
+      ? "Max loan amount entered"
+      : "{{percent}} of max loan amount entered";
     const toastOption = {
       percent: type,
     };
     toast.show(
-      translate("screens/CompositeSwapScreen", toastMessage, toastOption),
+      translate("screens/BorrowLoanTokenScreen", toastMessage, toastOption),
       {
         type: "wallet_toast",
         placement: "top",
