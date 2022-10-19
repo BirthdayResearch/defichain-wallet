@@ -1793,6 +1793,8 @@
     "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.": "Nicht genügend DFI und/oder DUSD im Vault. Füge mehr hinzu, um dToken zu minten.",
     "A minimum of 50% DFI as collateral is required before borrowing DUSD.": "Ein Minimum von 50% DFI als Sicherheit ist erforderlich, bevor DUSD geliehen werden können.",
     "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
+    "Max loan amount entered": "Maximaler Darlehensbetrag eingegeben",
+    "{{percent}} of max loan amount entered": "{{percent}} des max. Darlehensbetrags eingegeben",
     "SELECT VAULT FOR COLLATERAL": "VAULT FÜR SICHERHEITEN AUSWÄHLEN",
     "Select a vault to use": "Zu verwendenden Vault auswählen",
     "Choose a vault to use": "Wähle einen zu verwendenden Vault",
