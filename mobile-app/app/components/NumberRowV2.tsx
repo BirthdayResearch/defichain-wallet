@@ -1,4 +1,11 @@
-import { StyleProp, TextStyle, View, ViewProps, ViewStyle } from "react-native";
+import {
+  Platform,
+  StyleProp,
+  TextStyle,
+  View,
+  ViewProps,
+  ViewStyle,
+} from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { tailwind } from "@tailwind";
@@ -20,7 +27,7 @@ type INumberRowProps = React.PropsWithChildren<ViewProps> & NumberRowProps;
 interface NumberRowProps extends ThemedProps {
   lhs: NumberRowElement;
   rhs: RhsNumberRowElement;
-  info?: BottomSheetAlertInfoV2;
+  info?: BottomSheetAlertInfoV2 & { iconStyle?: ThemedProps };
   containerStyle?: ThemedProps & { style: ThemedProps & StyleProp<ViewStyle> };
   customSnapPoints?: string[];
 }
@@ -65,11 +72,13 @@ export function NumberRowV2(props: INumberRowProps): JSX.Element {
             {props.lhs.value}
           </ThemedTextV2>
           {props.info != null && (
-            <View style={tailwind("ml-1 mt-0.5")}>
+            <View
+              style={tailwind("ml-1", { "mt-0.5": Platform.OS === "android" })}
+            >
               <BottomSheetInfoV2
                 alertInfo={props.info}
                 name={props.info.title}
-                infoIconStyle={tailwind("text-sm")}
+                infoIconStyle={props.info.iconStyle}
                 snapPoints={props.customSnapPoints ?? ["40%"]}
               />
             </View>

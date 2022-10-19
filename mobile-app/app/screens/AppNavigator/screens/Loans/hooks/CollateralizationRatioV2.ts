@@ -11,6 +11,8 @@ export interface CollateralizationRatioProps {
 }
 
 export interface CollateralizationRatioStats {
+  atRiskThreshold: BigNumber;
+  liquidatedThreshold: BigNumber;
   isInLiquidation: boolean;
   isAtRisk: boolean;
   isHealthy: boolean;
@@ -23,13 +25,15 @@ export function useCollateralRatioStats({
   totalLoanAmount,
   totalCollateralValue,
 }: CollateralizationRatioProps): CollateralizationRatioStats {
-  const { atRiskThreshold, liquidatedThreshold } =
-    useColRatioThreshold(minColRatio);
+  const atRiskThreshold = new BigNumber(minColRatio).multipliedBy(1.5);
+  const liquidatedThreshold = new BigNumber(minColRatio).multipliedBy(1.25);
   const isInLiquidation =
     totalLoanAmount.gt(0) && colRatio.isLessThan(liquidatedThreshold);
   const isAtRisk =
     totalLoanAmount.gt(0) && colRatio.isLessThan(atRiskThreshold);
   return {
+    atRiskThreshold,
+    liquidatedThreshold,
     isInLiquidation,
     isAtRisk,
     isHealthy: !isInLiquidation && !isAtRisk && totalLoanAmount.gt(0),
@@ -42,12 +46,6 @@ export function useCollateralRatioStats({
   };
 }
 
-export function useColRatioThreshold(minColRatio: BigNumber) {
-  const atRiskThreshold = new BigNumber(minColRatio).multipliedBy(1.5);
-  const liquidatedThreshold = new BigNumber(minColRatio).multipliedBy(1.25);
-  return { atRiskThreshold, liquidatedThreshold };
-}
-
 export function useCollateralizationRatioColor(
   props: CollateralizationRatioProps
 ): ThemedProps {
@@ -55,16 +53,46 @@ export function useCollateralizationRatioColor(
   const stats = useCollateralRatioStats(props);
 
   if (stats.isInLiquidation) {
-    style.light = tailwind("text-red-v2");
-    style.dark = tailwind("text-red-v2");
+    style.light = tailwind("text-error-500");
+    style.dark = tailwind("text-darkerror-500");
   } else if (stats.isAtRisk) {
-    style.light = tailwind("text-orange-v2");
-    style.dark = tailwind("text-orange-v2");
-  } else if (stats.isHealthy || stats.isReady) {
-    style.light = tailwind("text-green-v2");
-    style.dark = tailwind("text-green-v2");
+    style.light = tailwind("text-warning-500");
+    style.dark = tailwind("text-darkwarning-500");
+  } else if (stats.isHealthy) {
+    style.light = tailwind("text-success-500");
+    style.dark = tailwind("text-darksuccess-500");
   }
   return style;
+}
+
+export function getVaultStatusColor(
+  status: string,
+  isLight: boolean,
+  isText: boolean = false
+): string {
+  if (status === VaultStatus.NearLiquidation) {
+    return isText ? "text-red-v2" : getColor("red-v2");
+  } else if (status === VaultStatus.AtRisk) {
+    return isText ? "text-orange-v2" : getColor("orange-v2");
+  } else if (status === VaultStatus.Healthy || status === VaultStatus.Ready) {
+    return isText ? "text-green-v2" : getColor("green-v2");
+  }
+  return isText
+    ? isLight
+      ? "text-mono-light-v2-500"
+      : "text-mono-dark-v2-500"
+    : getColor(isLight ? "mono-light-v2-300" : "mono-dark-v2-300");
+}
+
+export function getVaultStatusText(status: string): string {
+  switch (status) {
+    case VaultStatus.Ready:
+      return "Ready";
+    case VaultStatus.Halted:
+      return "Halted";
+    default:
+      return "Empty";
+  }
 }
 
 export function useResultingCollateralizationRatioByCollateral({
@@ -80,7 +108,7 @@ export function useResultingCollateralizationRatioByCollateral({
   minCollateralRatio: BigNumber;
   totalLoanAmount: BigNumber;
   totalCollateralValue?: BigNumber;
-  numOfColorBars: number;
+  numOfColorBars?: number;
   totalCollateralValueInUSD: BigNumber;
 }): {
   resultingColRatio: BigNumber;
@@ -179,64 +207,3 @@ const getColorBarsCount = (
 
   return colorBarsCount;
 };
-
-export function getVaultStatusColor(
-  status: string | undefined,
-  isLight: boolean,
-  isText: boolean = false
-): string {
-  if (status === VaultStatus.NearLiquidation) {
-    return isText ? "text-red-v2" : getColor("red-v2");
-  } else if (status === VaultStatus.AtRisk) {
-    return isText ? "text-orange-v2" : getColor("orange-v2");
-  } else if (status === VaultStatus.Healthy || status === VaultStatus.Ready) {
-    return isText ? "text-green-v2" : getColor("green-v2");
-  }
-  return isText
-    ? isLight
-      ? "text-mono-light-v2-500"
-      : "text-mono-dark-v2-500"
-    : getColor(isLight ? "mono-light-v2-300" : "mono-dark-v2-300");
-}
-
-export function getVaultStatusText(status: string | undefined): string {
-  switch (status) {
-    case VaultStatus.Ready:
-      return "Ready";
-    case VaultStatus.Halted:
-      return "Halted";
-    default:
-      return "Empty";
-  }
-}
-
-export function getProgress(
-  collateralizationRatio: string,
-  minCollateralizationRatio: string
-): number {
-  const atRiskThresholdMultiplier = 1.5;
-  const minColRatio = new BigNumber(minCollateralizationRatio);
-  const maxRatio = getMaxRatio(
-    minColRatio.multipliedBy(atRiskThresholdMultiplier)
-  );
-
-  const currentValue = new BigNumber(collateralizationRatio)
-    .minus(minColRatio)
-    .dividedBy(new BigNumber(maxRatio).minus(minColRatio));
-
-  if (currentValue.gt(1)) {
-    return 1;
-  } else if (currentValue.lt(0.01)) {
-    // for display so that the UI still shows a bit of color
-    return 0.01;
-  } else {
-    return BigNumber.min(currentValue, 1).toNumber();
-  }
-}
-
-function getMaxRatio(atRiskThreshold: BigNumber): number {
-  const healthyScaleRatio = 0.75;
-  return atRiskThreshold
-    .dividedBy(new BigNumber(1).minus(healthyScaleRatio))
-    .toNumber();
-}
