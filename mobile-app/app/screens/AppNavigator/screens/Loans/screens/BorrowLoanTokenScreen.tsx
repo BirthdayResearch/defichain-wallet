@@ -163,6 +163,7 @@ export function BorrowLoanTokenScreen({
             setVault(vault);
             dismissModal();
           },
+          selectedVault: vault,
           vaults,
         }),
         option: {
@@ -170,7 +171,7 @@ export function BorrowLoanTokenScreen({
         },
       },
     ];
-  }, []);
+  }, [vault]);
   const bottomSheetLoanTokenList = useMemo(() => {
     return [
       {
