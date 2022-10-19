@@ -1608,7 +1608,7 @@
     "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI. \n\n This only affects vaults that has DUSD as both collateral and loan.": "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI. \n\n This only affects vaults that has DUSD as both collateral and loan.",
     "Max loan amount": "Max loan amount",
     "This is the current loan amount available for this vault.": "This is the current loan amount available for this vault.",
-    "Maintain at least 50% DFI as collateral for DUSD": "Maintain at least 50% DFI as collateral for DUSD",
+    "Maintain at least 50% DFI as collateral for DUSD loans": "Maintain at least 50% DFI as collateral for DUSD loans",
     "Your loan amount can be maximized by adding DFI/DUSD as collaterals": "Your loan amount can be maximized by adding DFI/DUSD as collaterals",
     "COLLATERALS": "COLLATERALS"
   },
