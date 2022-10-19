@@ -27,7 +27,7 @@ export function CollateralizationRatio(
         dark={tailwind("text-green-v2")}
         style={tailwind("text-sm font-semibold-v2")}
       >
-        {translate("components/CollateralizationRatio", "Ready")}
+        {translate("components/CollateralizationRatioDisplay", "Ready")}
       </ThemedTextV2>
     );
   }

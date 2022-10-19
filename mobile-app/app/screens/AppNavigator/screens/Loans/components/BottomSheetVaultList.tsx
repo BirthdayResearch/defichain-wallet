@@ -113,7 +113,11 @@ export const BottomSheetVaultList = ({
                       light={tailwind("text-mono-light-v2-700")}
                       dark={tailwind("text-mono-dark-v2-700")}
                     >
-                      {translate("", "{{value}}% interest", { value })}
+                      {translate(
+                        "components/BottomSheetVaultList",
+                        "{{value}}% interest",
+                        { value }
+                      )}
                     </ThemedTextV2>
                   )}
                 />
@@ -134,7 +138,11 @@ export const BottomSheetVaultList = ({
                       light={tailwind("text-mono-light-v2-700")}
                       dark={tailwind("text-mono-dark-v2-700")}
                     >
-                      {translate("", "min. {{value}}%", { value })}
+                      {translate(
+                        "components/BottomSheetVaultList",
+                        "min. {{value}}%",
+                        { value }
+                      )}
                     </ThemedTextV2>
                   )}
                 />
