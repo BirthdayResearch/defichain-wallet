@@ -30,6 +30,7 @@ interface BottomSheetVaultListProps {
     screenName: string;
     onButtonPress: () => void;
   };
+  selectedVault?: LoanVault;
   vaults: LoanVault[];
 }
 
@@ -37,6 +38,7 @@ export const BottomSheetVaultList = ({
   headerLabel,
   onCloseButtonPress,
   onVaultPress,
+  selectedVault,
   vaults,
 }: BottomSheetVaultListProps): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
@@ -90,12 +92,12 @@ export const BottomSheetVaultList = ({
               }}
               testID={`select_vault_${index}`}
               style={tailwind(
-                "px-5 py-4.5 mb-2 flex flex-row items-center justify-between rounded-lg-v2"
+                "px-5 py-4.5 mb-2 flex flex-row items-center rounded-lg-v2"
               )}
               light={tailwind("bg-mono-light-v2-00")}
               dark={tailwind("bg-mono-dark-v2-00")}
             >
-              <View style={tailwind("w-6/12 mr-12")}>
+              <View style={tailwind("w-6/12")}>
                 <ThemedTextV2
                   ellipsizeMode="middle"
                   numberOfLines={1}
@@ -118,26 +120,41 @@ export const BottomSheetVaultList = ({
                   )}
                 />
               </View>
-              <View style={tailwind("flex items-end")}>
-                <CollateralizationRatio
-                  totalLoanAmount={new BigNumber(item.loanValue)}
-                  colRatio={new BigNumber(item.collateralRatio)}
-                  minColRatio={new BigNumber(item.loanScheme.minColRatio)}
+              {selectedVault && selectedVault.vaultId === item.vaultId && (
+                <ThemedIcon
+                  style={tailwind("h-full mt-0.5", {
+                    "mt-1 ml-1.5": Platform.OS === "android",
+                  })}
+                  light={tailwind("text-green-v2")}
+                  dark={tailwind("text-green-v2")}
+                  iconType="MaterialIcons"
+                  name="check-circle"
+                  size={16}
+                  testID="selected_vault_indicator"
                 />
-                <NumericFormat
-                  value={item.loanScheme.minColRatio}
-                  thousandSeparator
-                  displayType="text"
-                  renderText={(value) => (
-                    <ThemedTextV2
-                      style={tailwind("text-xs font-normal-v2 mt-1")}
-                      light={tailwind("text-mono-light-v2-700")}
-                      dark={tailwind("text-mono-dark-v2-700")}
-                    >
-                      {translate("", "min. {{value}}%", { value })}
-                    </ThemedTextV2>
-                  )}
-                />
+              )}
+              <View style={tailwind("flex-1")}>
+                <View style={tailwind("flex items-end")}>
+                  <CollateralizationRatio
+                    totalLoanAmount={new BigNumber(item.loanValue)}
+                    colRatio={new BigNumber(item.collateralRatio)}
+                    minColRatio={new BigNumber(item.loanScheme.minColRatio)}
+                  />
+                  <NumericFormat
+                    value={item.loanScheme.minColRatio}
+                    thousandSeparator
+                    displayType="text"
+                    renderText={(value) => (
+                      <ThemedTextV2
+                        style={tailwind("text-xs font-normal-v2 mt-1")}
+                        light={tailwind("text-mono-light-v2-700")}
+                        dark={tailwind("text-mono-dark-v2-700")}
+                      >
+                        {translate("", "min. {{value}}%", { value })}
+                      </ThemedTextV2>
+                    )}
+                  />
+                </View>
               </View>
             </ThemedTouchableOpacityV2>
           );
