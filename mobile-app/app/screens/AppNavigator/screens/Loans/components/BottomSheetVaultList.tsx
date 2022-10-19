@@ -127,8 +127,8 @@ export const BottomSheetVaultList = ({
                   dark={tailwind("text-green-v2")}
                   iconType="MaterialIcons"
                   name="check-circle"
-                  size={18}
-                  testID="playground_status_indicator"
+                  size={16}
+                  testID="selected_vault_indicator"
                 />
               )}
               <View style={tailwind("flex-1")}>
