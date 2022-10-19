@@ -31,7 +31,7 @@ import { ConfirmEditCollateralScreen } from "./screens/ConfirmEditCollateralScre
 import { ChooseLoanTokenScreen } from "./screens/ChooseLoanTokenScreen";
 import { BorrowLoanTokenScreen } from "./screens/BorrowLoanTokenScreen";
 import { ConfirmBorrowLoanTokenScreen } from "./screens/ConfirmBorrowLoanTokenScreen";
-import { EditLoanSchemeScreenV2 } from "./screens/EditLoanSchemeScreenV2";
+import { EditLoanSchemeScreen } from "./screens/EditLoanSchemeScreen";
 import { ConfirmEditLoanSchemeScreen } from "./screens/ConfirmEditLoanSchemeScreen";
 import { LoansFaq } from "./screens/LoansFaq";
 import { LoansScreen } from "./LoansScreen";
@@ -312,7 +312,7 @@ export function LoansNavigator(): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={EditLoanSchemeScreenV2}
+        component={EditLoanSchemeScreen}
         name="EditLoanSchemeScreen"
         options={{
           ...screenOptions,
