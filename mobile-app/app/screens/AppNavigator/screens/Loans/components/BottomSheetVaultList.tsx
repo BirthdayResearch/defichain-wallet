@@ -21,8 +21,6 @@ import { NumericFormat } from "react-number-format";
 import { CollateralizationRatio } from "./CollateralizationRatio";
 
 interface BottomSheetVaultListProps {
-  headerLabel: string;
-  onCloseButtonPress: () => void;
   onVaultPress: (vault: LoanVaultActive) => void;
   navigateToScreen?: {
     screenName: string;
@@ -32,8 +30,6 @@ interface BottomSheetVaultListProps {
 }
 
 export const BottomSheetVaultList = ({
-  headerLabel,
-  onCloseButtonPress,
   onVaultPress,
   vaults,
 }: BottomSheetVaultListProps): React.MemoExoticComponent<() => JSX.Element> =>

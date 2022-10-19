@@ -211,11 +211,6 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
       {
         stackScreenName: "VaultList",
         component: BottomSheetVaultList({
-          headerLabel: translate(
-            "screens/BorrowLoanTokenScreen",
-            "Select Vault"
-          ),
-          onCloseButtonPress: () => dismissModal(),
           onVaultPress: (vault: LoanVaultActive) => {
             dismissModal();
             navigation.navigate({
