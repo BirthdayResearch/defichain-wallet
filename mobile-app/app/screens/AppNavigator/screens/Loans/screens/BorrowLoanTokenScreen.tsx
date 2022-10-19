@@ -163,6 +163,7 @@ export function BorrowLoanTokenScreen({
             setVault(vault);
             dismissModal();
           },
+          selectedVault: vault,
           vaults,
         }),
         option: {
