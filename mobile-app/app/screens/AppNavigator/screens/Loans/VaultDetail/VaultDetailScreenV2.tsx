@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import {
   LoanToken,
+  LoanVaultActive,
   LoanVaultState,
   LoanVaultTokenAmount,
 } from "@defichain/whale-api-client/dist/api/loan";
@@ -41,9 +42,18 @@ import { CloseVaultButton } from "@screens/AppNavigator/screens/Loans/VaultDetai
 import { VaultDetailSummary } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailSummary";
 import { useMaxLoan } from "@screens/AppNavigator/screens/Loans/hooks/MaxLoanAmount";
 import { BottomSheetPayBackList } from "@screens/AppNavigator/screens/Loans/components/BottomSheetPayBackList";
-import { LoanParamList } from "../LoansNavigator";
-import { VaultDetailCollateralsRow } from "./components/VaultDetailCollateralsRow";
+import { useCollateralTokenList } from "@screens/AppNavigator/screens/Loans/hooks/CollateralTokenList";
+import { CollateralItem } from "@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen";
+import {
+  BottomSheetToken,
+  BottomSheetTokenList,
+  TokenType,
+} from "@components/BottomSheetTokenList";
+import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
+import { translate } from "@translations";
 import { VaultDetailLoansRow } from "./components/VaultDetailLoansRow";
+import { VaultDetailCollateralsRow } from "./components/VaultDetailCollateralsRow";
+import { LoanParamList } from "../LoansNavigator";
 
 type Props = StackScreenProps<LoanParamList, "VaultDetailScreen">;
 
@@ -56,6 +66,7 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
   const client = useWhaleApiClient();
   const blockCount = useSelector((state: RootState) => state.block.count);
   const isFocused = useIsFocused();
+  const { collateralTokens } = useCollateralTokenList();
 
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
   const loanTokens = useSelector((state: RootState) =>
@@ -97,8 +108,8 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
   });
 
   const [snapPoints, setSnapPoints] = useState({
-    ios: ["30%"],
-    android: ["35%"],
+    ios: ["75%"],
+    android: ["70%"],
   });
   const [bottomSheetScreen, setBottomSheetScreen] = useState<
     BottomSheetNavScreen[]
@@ -153,15 +164,56 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
       return;
     }
 
-    navigation.navigate({
-      name: "EditCollateralScreen",
-      params: {
-        vaultId: vault.vaultId,
+    setSnapPoints({
+      ios: ["75%"],
+      android: ["70%"],
+    });
+    setBottomSheetScreen([
+      {
+        stackScreenName: "TokenList",
+        component: BottomSheetTokenList({
+          tokenType: TokenType.CollateralItem,
+          vault: vault as LoanVaultActive,
+          onTokenPress: async (item) => {
+            navigateToAddRemoveCollateralScreen(item, true);
+            dismissModal();
+          },
+        }),
+        option: {
+          headerTitle: "",
+          headerBackTitleVisible: false,
+          headerStyle: tailwind("rounded-t-xl-v2 border-b-0"),
+          header: () => (
+            <BottomSheetTokenListHeader
+              headerLabel={translate(
+                "screens/EditCollateralScreen",
+                "Select Collateral"
+              )}
+              onCloseButtonPress={dismissModal}
+            />
+          ),
+        },
       },
-      merge: true,
+    ]);
+    expandModal();
+  };
+
+  const navigateToAddRemoveCollateralScreen = (
+    collateralItem: CollateralItem | BottomSheetToken,
+    isAdd: boolean
+  ) => {
+    const addOrRemoveParams = {
+      vault: vault as LoanVaultActive,
+      collateralItem,
+      collateralTokens,
+      isAdd,
+    };
+
+    navigation.navigate({
+      name: "AddOrRemoveCollateralScreen",
+      params: addOrRemoveParams,
     });
   };
-  const onRemovePressed = () => {};
 
   const onBorrowPressed = () => {
     setSnapPoints({
@@ -292,8 +344,13 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
         />
         <VaultDetailCollateralsRow
           vault={vault}
-          onAddPress={onAddPressed}
-          onRemovePress={onRemovePressed}
+          collateralTokens={collateralTokens}
+          onAddPress={(collateralItem) => {
+            navigateToAddRemoveCollateralScreen(collateralItem, true);
+          }}
+          onRemovePress={(collateralItem) => {
+            navigateToAddRemoveCollateralScreen(collateralItem, false);
+          }}
         />
         <VaultDetailLoansRow
           onPay={navigateToPayScreen}

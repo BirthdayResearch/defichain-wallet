@@ -11,14 +11,13 @@ import {
   LoanVaultState,
 } from "@defichain/whale-api-client/dist/api/loan";
 import { translate } from "@translations";
-import { useSelector } from "react-redux";
-import { RootState } from "@store";
 import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2";
 import { LoanAddRemoveActionButton } from "@screens/AppNavigator/screens/Loans/components/LoanActionButton";
 import {
   BottomSheetAlertInfoV2,
   BottomSheetInfoV2,
 } from "@components/BottomSheetInfoV2";
+import { CollateralItem } from "@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen";
 import { getCollateralPrice } from "../../hooks/CollateralPrice";
 
 interface CollateralCardProps {
@@ -32,18 +31,17 @@ interface CollateralCardProps {
 
 export function VaultDetailCollateralsRow({
   vault,
+  collateralTokens,
   onAddPress,
   onRemovePress,
 }: {
   vault: LoanVault;
-  onAddPress: () => void;
-  onRemovePress: () => void;
+  collateralTokens: CollateralItem[];
+  onAddPress: (collateralItem: CollateralItem) => void;
+  onRemovePress: (collateralItem: CollateralItem) => void;
 }): JSX.Element {
   const [hideDFIStaticCard, setHideDFIStaticCard] = useState<boolean>(false);
   const [isAffectedVault, setIsAffectedVault] = useState<boolean>(false); // Affected Vault means having DUSD in both collaterals and loans
-  const collateralTokens = useSelector(
-    (state: RootState) => state.loans.collateralTokens
-  );
 
   useEffect(() => {
     if (vault.state !== LoanVaultState.IN_LIQUIDATION) {
@@ -78,7 +76,18 @@ export function VaultDetailCollateralsRow({
           );
         })}
 
-      {!hideDFIStaticCard && <CollateralCardDfi onDFIAdd={onAddPress} />}
+      {!hideDFIStaticCard && (
+        <CollateralCardDfi
+          onDFIAdd={() => {
+            const collateralItem = collateralTokens.find(
+              (col) => col.token.displaySymbol === "DFI"
+            );
+            if (collateralItem !== undefined) {
+              onAddPress(collateralItem);
+            }
+          }}
+        />
+      )}
 
       {vault.state !== LoanVaultState.IN_LIQUIDATION &&
         vault.collateralAmounts.map((collateral, index) => {
@@ -94,8 +103,8 @@ export function VaultDetailCollateralsRow({
                 totalCollateralValue={new BigNumber(vault.collateralValue)}
                 displaySymbol={collateral.displaySymbol}
                 amount={new BigNumber(collateral.amount)}
-                onAddCollateralPress={onAddPress}
-                onRemoveCollateralPress={onRemovePress}
+                onAddCollateralPress={() => onAddPress(collateralItem)}
+                onRemoveCollateralPress={() => onRemovePress(collateralItem)}
               />
             );
           } else {
