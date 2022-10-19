@@ -1,8 +1,6 @@
 import { View } from "@components";
 import {
-  ThemedIcon,
   ThemedFlatList,
-  ThemedViewV2,
   ThemedTouchableOpacityV2,
   ThemedTextV2,
 } from "@components/themed";
@@ -90,7 +88,7 @@ export const BottomSheetVaultList = ({
               }}
               testID={`select_vault_${index}`}
               style={tailwind(
-                "px-5 py-4.5 mb-2 flex flex-row items-center justify-between rounded-lg-v2"
+                "px-5 py-4.5 mt-2 flex flex-row items-center justify-between rounded-lg-v2"
               )}
               light={tailwind("bg-mono-light-v2-00")}
               dark={tailwind("bg-mono-dark-v2-00")}
@@ -142,31 +140,14 @@ export const BottomSheetVaultList = ({
             </ThemedTouchableOpacityV2>
           );
         }}
-        ListHeaderComponent={
-          <ThemedViewV2 style={tailwind("py-5")}>
-            <View style={tailwind("w-full flex-row justify-end")}>
-              <ThemedTouchableOpacityV2
-                onPress={onCloseButtonPress}
-                style={tailwind("border-0")}
-              >
-                <ThemedIcon iconType="Feather" name="x-circle" size={22} />
-              </ThemedTouchableOpacityV2>
-            </View>
-            <ThemedTextV2 style={tailwind("text-xl font-normal-v2")}>
-              {headerLabel}
-            </ThemedTextV2>
-          </ThemedViewV2>
-        }
+        style={tailwind({
+          "bg-mono-dark-v2-100": !isLight,
+          "bg-mono-light-v2-100": isLight,
+          "pt-1 -mt-1": Platform.OS === "android", // Word-around fix for line showing on android
+        })}
+        contentContainerStyle={tailwind("px-5 pb-20")}
         stickyHeaderIndices={[0]}
         keyExtractor={(item) => item.vaultId}
-        style={tailwind(
-          {
-            "bg-mono-dark-v2-100": !isLight,
-            "bg-mono-light-v2-100": isLight,
-          },
-          "rounded-t-xl-v2"
-        )}
-        contentContainerStyle={tailwind("p-5 pt-0")}
       />
     );
   });

@@ -39,6 +39,7 @@ import {
 } from "@components/BottomSheetWithNavV2";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
+import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
 import { EmptyVaultV2 } from "./EmptyVaultV2";
 import { PriceOracleInfo } from "./PriceOracleInfo";
 import { BottomSheetModalInfo } from "../../../../../components/BottomSheetModalInfo";
@@ -142,10 +143,20 @@ export function VaultsV2(props: VaultsProps): JSX.Element {
           onPress,
           loanTokens,
           isLight,
-          onCloseButtonPress: () => dismissModal(),
         }),
         option: {
-          header: () => null, // not using BottomSheetHeader because it is having a very thin line above modal header in android only
+          headerTitle: "",
+          headerBackTitleVisible: false,
+          headerStyle: tailwind("rounded-t-xl-v2 border-b-0"),
+          header: () => (
+            <BottomSheetTokenListHeader
+              headerLabel={translate(
+                "components/BottomSheetLoanTokensList",
+                "Select Token"
+              )}
+              onCloseButtonPress={dismissModal}
+            />
+          ),
         },
       },
     ]);

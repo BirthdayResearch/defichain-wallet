@@ -47,6 +47,7 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { useToast } from "react-native-toast-notifications";
 import { useBottomSheet } from "@hooks/useBottomSheet";
+import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
 import { useColRatioThreshold } from "../hooks/CollateralizationRatio";
 import { ActiveUSDValueV2 } from "../VaultDetail/components/ActiveUSDValueV2";
 import { LoanParamList } from "../LoansNavigator";
@@ -166,7 +167,18 @@ export function BorrowLoanTokenScreen({
           vaults,
         }),
         option: {
-          header: () => null,
+          headerTitle: "",
+          headerBackTitleVisible: false,
+          headerStyle: tailwind("rounded-t-xl-v2 border-b-0"),
+          header: () => (
+            <BottomSheetTokenListHeader
+              headerLabel={translate(
+                "screens/BorrowLoanTokenScreen",
+                "Select Vault"
+              )}
+              onCloseButtonPress={dismissModal}
+            />
+          ),
         },
       },
     ];
@@ -182,10 +194,20 @@ export function BorrowLoanTokenScreen({
           },
           loanTokens,
           isLight,
-          onCloseButtonPress: () => dismissModal(),
         }),
         option: {
-          header: () => null,
+          headerTitle: "",
+          headerBackTitleVisible: false,
+          headerStyle: tailwind("rounded-t-xl-v2 border-b-0"),
+          header: () => (
+            <BottomSheetTokenListHeader
+              headerLabel={translate(
+                "components/BottomSheetLoanTokensList",
+                "Select Token"
+              )}
+              onCloseButtonPress={dismissModal}
+            />
+          ),
         },
       },
     ];
