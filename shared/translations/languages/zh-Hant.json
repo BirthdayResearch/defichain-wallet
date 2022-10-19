@@ -1896,7 +1896,9 @@
     "BORROWING": "借用"
   },
   "components/BottomSheetVaultList": {
-    "Collateralization ratio": "抵押率"
+    "Collateralization ratio": "抵押率",
+    "{{value}}% interest": "{{value}}% interest",
+    "min. {{value}}%": "min. {{value}}%"
   },
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "更改金庫中的貸款計劃",

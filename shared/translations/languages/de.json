@@ -1889,7 +1889,9 @@
     "BORROWING": "LEIHEN"
   },
   "components/BottomSheetVaultList": {
-    "Collateralization ratio": "Besicherungsquote"
+    "Collateralization ratio": "Besicherungsquote",
+    "{{value}}% interest": "{{value}}% Zinsen",
+    "min. {{value}}%": "mind. {{value}}%"
   },
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "BELEIHUNGSMODELL DES VAULTS BEARBEITEN",

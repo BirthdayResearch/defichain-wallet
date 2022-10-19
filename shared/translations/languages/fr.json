@@ -1902,7 +1902,9 @@
     "BORROWING": "EMPRUNT..."
   },
   "components/BottomSheetVaultList": {
-    "Collateralization ratio": "Ratio de garantie"
+    "Collateralization ratio": "Ratio de garantie",
+    "{{value}}% interest": "{{value}}% d'intérêt",
+    "min. {{value}}%": "min. {{value}}%"
   },
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "MODIFIER LE SCHÉMA DE PRÊT DU VAULT",
