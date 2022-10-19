@@ -39,7 +39,7 @@ import { BottomSheetLoanTokensList } from "@screens/AppNavigator/screens/Loans/c
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { CloseVaultButton } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/CloseVaultButton";
 import { VaultDetailSummary } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailSummary";
-import { useMaxLoanAmount } from "@screens/AppNavigator/screens/Loans/hooks/MaxLoanAmount";
+import { useMaxLoan } from "@screens/AppNavigator/screens/Loans/hooks/MaxLoanAmount";
 import { BottomSheetPayBackList } from "@screens/AppNavigator/screens/Loans/components/BottomSheetPayBackList";
 import { LoanParamList } from "../LoansNavigator";
 import { VaultDetailCollateralsRow } from "./components/VaultDetailCollateralsRow";
@@ -81,16 +81,19 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
     totalLoanAmount,
     totalCollateralValue
   );
+  const collateralAmounts =
+    inLiquidation || vault === undefined ? [] : vault.collateralAmounts;
+  const loanAmounts =
+    inLiquidation || vault === undefined ? [] : vault.loanAmounts;
   const nextCollateralizationRatio = useNextCollateralizationRatio(
-    inLiquidation || vault === undefined ? [] : vault.collateralAmounts,
-    inLiquidation || vault === undefined ? [] : vault.loanAmounts
+    collateralAmounts,
+    loanAmounts
   );
-  const maxLoanAmount = useMaxLoanAmount({
+  const maxLoanAmount = useMaxLoan({
     totalCollateralValue: totalCollateralValue,
+    collateralAmounts: collateralAmounts,
     existingLoanValue: totalLoanAmount,
     minColRatio: minColRatio,
-    loanActivePrice: new BigNumber(1),
-    interestPerBlock: new BigNumber(0),
   });
 
   const [snapPoints, setSnapPoints] = useState({
@@ -162,8 +165,8 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
 
   const onBorrowPressed = () => {
     setSnapPoints({
-      ios: ["65%"],
-      android: ["60%"],
+      ios: ["75%"],
+      android: ["70%"],
     });
     setBottomSheetScreen([
       {
@@ -180,10 +183,13 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
               merge: true,
             });
           },
+          onCloseButtonPress: dismissModal,
           loanTokens,
           isLight,
         }),
-        option: BottomSheetHeader,
+        option: {
+          header: () => null, // not using BottomSheetHeader because it is having a very thin line above modal header in android only
+        },
       },
     ]);
     expandModal();
