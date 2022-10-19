@@ -1884,7 +1884,9 @@
     "BORROWING": "PIDIENDO PRESTADO"
   },
   "components/BottomSheetVaultList": {
-    "Collateralization ratio": "Ratio de colateralización"
+    "Collateralization ratio": "Ratio de colateralización",
+    "{{value}}% interest": "{{value}}% interest",
+    "min. {{value}}%": "min. {{value}}%"
   },
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "EDITA EL TIPO DE PRESTAMO DE LA VAULT",

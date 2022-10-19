@@ -156,7 +156,7 @@ export function BorrowLoanTokenScreen({
         component: BottomSheetVaultList({
           headerLabel: translate(
             "screens/BorrowLoanTokenScreen",
-            "Select Vault To Use"
+            "Select Vault"
           ),
           onCloseButtonPress: () => dismissModal(),
           onVaultPress: (vault: LoanVaultActive) => {
