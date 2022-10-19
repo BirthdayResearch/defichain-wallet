@@ -1830,6 +1830,7 @@
     "I WANT TO BORROW": "JE VEUX EMPRUNTER",
     "WITH VAULT": "AVEC VAULT",
     "Select Vault To Use": "Sélectionnez le vault à utiliser",
+    "Select Vault": "Sélectionner le vault",
     "Max loan amount": "Montant max. du prêt",
     "Max Loan Amount": "Montant max. du prêt",
     "This is the current loan amount available for this vault.": "Il s'agit du montant actuel du prêt disponible pour ce vault.",
