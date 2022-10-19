@@ -52,6 +52,7 @@ export interface WalletToken extends AddressToken {
 export interface DexItem {
   type: "your" | "available";
   data: PoolPairData;
+  hasStockSplit: boolean;
 }
 
 const initialState: WalletState = {
@@ -137,6 +138,7 @@ export const fetchPoolPairs = createAsyncThunk(
     return pairs.map((data) => ({
       type: "available",
       data,
+      hasStockSplit: false,
     }));
   }
 );
@@ -211,9 +213,27 @@ export const wallet = createSlice({
       fetchPoolPairs.fulfilled,
       (state, action: PayloadAction<DexItem[]>) => {
         state.hasFetchedPoolpairData = true;
-        state.poolpairs = action.payload.filter(
-          ({ data }) => !data.symbol.includes("/v1")
-        ); // Filter out v1 pairs due to stock split
+
+        // Get pre stocksplit stocks
+        const stockSplitPairs = action.payload.filter(({ data }) => {
+          return data.symbol.includes("/v1");
+        });
+
+        // Filter out v1 pairs due to stocksplit, excluding post stocksplit (without "/v1" indicator)
+        state.poolpairs = action.payload
+          .filter(({ data }) => !data.symbol.includes("/v1"))
+          .map((item) => {
+            return {
+              ...item,
+              // poolpairs with added hasStockSplit boolean indicator for post stocksplit
+              hasStockSplit: stockSplitPairs.some((pair) => {
+                return (
+                  pair.data.symbol === `${item.data.symbol}/v1` ||
+                  item.data.symbol.includes("/v1")
+                );
+              }),
+            };
+          });
       }
     );
     builder.addCase(
