@@ -1806,6 +1806,7 @@
     "I WANT TO BORROW": "I WANT TO BORROW",
     "WITH VAULT": "WITH VAULT",
     "Select Vault To Use": "Select Vault To Use",
+    "Select Vault": "Select Vault",
     "Max loan amount": "Importo massimo del prestito",
     "Max Loan Amount": "Max Loan Amount",
     "This is the current loan amount available for this vault.": "This is the current loan amount available for this vault.",
@@ -1878,7 +1879,9 @@
     "Total loan + annual interest": "Totale del prestito + interesse annuale"
   },
   "components/BottomSheetVaultList": {
-    "Collateralization ratio": "Rapporto di collateralizzazione"
+    "Collateralization ratio": "Rapporto di collateralizzazione",
+    "{{value}}% interest": "{{value}}% interest",
+    "min. {{value}}%": "min. {{value}}%"
   },
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "MODIFICA LO SCHEMA DI PRESTITO DEL VAULT",

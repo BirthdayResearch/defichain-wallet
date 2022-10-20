@@ -1785,6 +1785,7 @@
     "I WANT TO BORROW": "I WANT TO BORROW",
     "WITH VAULT": "WITH VAULT",
     "Select Vault To Use": "Select Vault To Use",
+    "Select Vault": "选择金库",
     "Max loan amount": "最高的贷款金额",
     "Max Loan Amount": "最高的贷款金额",
     "This is the current loan amount available for this vault.": "This is the current loan amount available for this vault.",
@@ -1857,7 +1858,9 @@
     "BORROWING": "借用"
   },
   "components/BottomSheetVaultList": {
-    "Collateralization ratio": "抵押率"
+    "Collateralization ratio": "抵押率",
+    "{{value}}% interest": "{{value}}% interest",
+    "min. {{value}}%": "min. {{value}}%"
   },
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "更改金库中贷款计划",

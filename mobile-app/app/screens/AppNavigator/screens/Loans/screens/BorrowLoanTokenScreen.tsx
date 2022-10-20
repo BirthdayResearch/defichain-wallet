@@ -47,6 +47,7 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { useToast } from "react-native-toast-notifications";
 import { useBottomSheet } from "@hooks/useBottomSheet";
+import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
 import { useColRatioThreshold } from "../hooks/CollateralizationRatio";
 import { ActiveUSDValueV2 } from "../VaultDetail/components/ActiveUSDValueV2";
 import { LoanParamList } from "../LoansNavigator";
@@ -154,23 +155,30 @@ export function BorrowLoanTokenScreen({
       {
         stackScreenName: "VaultList",
         component: BottomSheetVaultList({
-          headerLabel: translate(
-            "screens/BorrowLoanTokenScreen",
-            "Select Vault To Use"
-          ),
-          onCloseButtonPress: () => dismissModal(),
           onVaultPress: (vault: LoanVaultActive) => {
             setVault(vault);
             dismissModal();
           },
+          selectedVault: vault,
           vaults,
         }),
         option: {
-          header: () => null,
+          headerTitle: "",
+          headerBackTitleVisible: false,
+          headerStyle: tailwind("rounded-t-xl-v2 border-b-0"),
+          header: () => (
+            <BottomSheetTokenListHeader
+              headerLabel={translate(
+                "screens/BorrowLoanTokenScreen",
+                "Select Vault"
+              )}
+              onCloseButtonPress={dismissModal}
+            />
+          ),
         },
       },
     ];
-  }, []);
+  }, [vault]);
   const bottomSheetLoanTokenList = useMemo(() => {
     return [
       {
@@ -182,10 +190,20 @@ export function BorrowLoanTokenScreen({
           },
           loanTokens,
           isLight,
-          onCloseButtonPress: () => dismissModal(),
         }),
         option: {
-          header: () => null,
+          headerTitle: "",
+          headerBackTitleVisible: false,
+          headerStyle: tailwind("rounded-t-xl-v2 border-b-0"),
+          header: () => (
+            <BottomSheetTokenListHeader
+              headerLabel={translate(
+                "components/BottomSheetLoanTokensList",
+                "Select Token"
+              )}
+              onCloseButtonPress={dismissModal}
+            />
+          ),
         },
       },
     ];
@@ -282,6 +300,12 @@ export function BorrowLoanTokenScreen({
       });
     } else if (resultingColRatio.isLessThan(vault.loanScheme.minColRatio)) {
       setInputValidationMessage(undefined); // this error message is moved to below quick input
+    } else if (isDFILessThanHalfOfRequiredCollateral) {
+      setInputValidationMessage({
+        message:
+          "A minimum of 50% DFI as collateral is required before borrowing DUSD.",
+        type: ValidationMessageType.Error,
+      });
     } else if (
       resultingColRatio.isLessThan(atRiskThreshold) &&
       new BigNumber(borrowAmount).isGreaterThan(0)
@@ -290,12 +314,6 @@ export function BorrowLoanTokenScreen({
         message:
           "Amount entered may liquidate the vault. Proceed at your own risk.",
         type: ValidationMessageType.Warning,
-      });
-    } else if (isDFILessThanHalfOfRequiredCollateral) {
-      setInputValidationMessage({
-        message:
-          "A minimum of 50% DFI as collateral is required before borrowing DUSD.",
-        type: ValidationMessageType.Error,
       });
     } else {
       setInputValidationMessage(undefined);
