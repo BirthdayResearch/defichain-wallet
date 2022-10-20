@@ -1577,7 +1577,7 @@
     "Max Loan Amount": "Montant max. du prêt",
     "This is the current loan amount available for this vault.": "Il s'agit du montant du prêt actuellement disponible pour ce vault.",
     "Min. Collateral Ratio": "Ratio de garantie min.",
-    "This is the current min. col ratio set for this vault. The higher the percentage, the lower the vault interest will be. Min. collateral ratio can be changed anytime, under the 'Edit' button of this page.": "This is the current min. col ratio set for this vault. The higher the percentage, the lower the vault interest will be. Min. collateral ratio can be changed anytime, under the 'Edit' button of this page.",
+    "This is the current min. col ratio set for this vault. The higher the percentage, the lower the vault interest will be. Min. collateral ratio can be changed anytime, under the 'Edit' button of this page.": "Il s'agit du ratio de garantie min. actuellement défini pour ce vault. Plus le pourcentage est élevé, plus l'intérêt du vault sera bas. Le ratio de garantie minimum peut être modifié à tout moment, en cliquant sur le bouton \"Editer\" de cette page.",
     "Ready": "Prêt",
     "Halted": "Intérrompu",
     "Empty": "Vide",
@@ -1586,8 +1586,8 @@
   "screens/VaultDetailScreenCollateralSection": {
     "Why you need 50% DFI": "Pourquoi vous avez besoin de 50 % de DFI",
     "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.": "Les prêts en DUSD qui contiennent des DUSD comme garantie doivent maintenir au moins 50% de la garantie sous forme de DFI.\n\nCeci n'affecte que les vaults qui ont des DUSD à la fois comme garantie et comme prêt.",
-    "DFI/DUSD collaterals": "DFI/DUSD collaterals",
-    "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.": "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.",
+    "DFI/DUSD collaterals": "Garanties DFI/DUSD",
+    "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.": "L'ajout de DFI et/ou de DUSD augmentera votre capacité d'emprunt et vous aidera à maximiser le montant du prêt de votre vault.",
     "Maintain at least 50% DFI as collateral for DUSD loans": "Maintenez au moins 50 % de DFI comme garantie pour les prêts en DUSD",
     "Your loan amount can be maximized by adding DFI/DUSD as collaterals": "Le montant de votre prêt peut être maximisé en ajoutant DFI/DUSD comme garanties",
     "COLLATERALS": "GARANTIE"
