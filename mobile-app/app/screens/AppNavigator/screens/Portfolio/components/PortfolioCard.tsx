@@ -45,7 +45,12 @@ export function PortfolioCard({
     return <EmptyTokensScreen {...screenDetails} testID="empty_portfolio" />;
   }
 
-  if (filteredTokens.length === 0 && hasFetchedToken) {
+  if (
+    !isZeroBalance &&
+    filteredTokens.length === 0 &&
+    hasFetchedToken &&
+    buttonGroupOptions?.activeButtonGroup !== "ALL_TOKENS"
+  ) {
     const screenDetails = getEmptyScreenDetails(
       buttonGroupOptions?.activeButtonGroup
     );
