@@ -157,7 +157,7 @@ export function VaultDetailSummary({
           ),
           message: translate(
             "screens/VaultDetailScreen",
-            "The amount that your vault can borrow is directly affected by the tokens you put in as collateral. Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount."
+            "This is the current min. col ratio set for this vault. The higher the percentage, the lower the vault interest will be. Min. collateral ratio can be changed anytime, under the 'Edit' button of this page."
           ),
           iconStyle: {
             light: tailwind("text-mono-light-v2-500"),

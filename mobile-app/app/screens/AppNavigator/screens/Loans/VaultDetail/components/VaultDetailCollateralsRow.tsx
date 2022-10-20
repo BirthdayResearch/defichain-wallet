@@ -128,13 +128,13 @@ export function VaultDetailCollateralsRow({
         info={{
           title: translate(
             "screens/VaultDetailScreenCollateralSection",
-            isAffectedVault ? "Why you need 50% DFI" : "Max loan amount"
+            isAffectedVault ? "Why you need 50% DFI" : "DFI/DUSD collaterals"
           ),
           message: translate(
             "screens/VaultDetailScreenCollateralSection",
             isAffectedVault
               ? "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan."
-              : "This is the current loan amount available for this vault."
+              : "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount."
           ),
         }}
         isAffectedVault={isAffectedVault}
