@@ -1,8 +1,4 @@
-import {
-  ThemedIcon,
-  ThemedScrollViewV2,
-  ThemedTouchableOpacityV2,
-} from "@components/themed";
+import { ThemedScrollViewV2 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
 import { tailwind } from "@tailwind";
 import { useEffect, useState } from "react";
@@ -114,29 +110,22 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
   const [bottomSheetScreen, setBottomSheetScreen] = useState<
     BottomSheetNavScreen[]
   >([]);
-  const BottomSheetHeader = {
-    headerStatusBarHeight: 2,
-    headerTitle: "",
-    headerBackTitleVisible: false,
-    headerStyle: tailwind("rounded-t-xl-v2 border-b-0", {
-      "bg-mono-light-v2-100": isLight,
-      "bg-mono-dark-v2-100": !isLight,
-    }),
-    headerRight: (): JSX.Element => {
-      return (
-        <ThemedTouchableOpacityV2
-          style={tailwind("mr-5", {
-            "mt-4 -mb-4": Platform.OS === "ios",
-            "mt-1.5": Platform.OS === "android",
-          })}
-          onPress={dismissModal}
-          testID="close_bottom_sheet_button"
-        >
-          <ThemedIcon iconType="Feather" name="x-circle" size={22} />
-        </ThemedTouchableOpacityV2>
-      );
-    },
-    headerLeft: () => <></>,
+  const getBottomSheetHeader = (label: string) => {
+    return {
+      headerStatusBarHeight: 2,
+      headerTitle: "",
+      headerBackTitleVisible: false,
+      headerStyle: tailwind("rounded-t-xl-v2 border-b-0", {
+        "bg-mono-light-v2-100": isLight,
+        "bg-mono-dark-v2-100": !isLight,
+      }),
+      header: () => (
+        <BottomSheetTokenListHeader
+          headerLabel={label}
+          onCloseButtonPress={dismissModal}
+        />
+      ),
+    };
   };
   const {
     bottomSheetRef,
@@ -179,20 +168,9 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
             navigateToAddRemoveCollateralScreen(item, true);
           },
         }),
-        option: {
-          headerTitle: "",
-          headerBackTitleVisible: false,
-          headerStyle: tailwind("rounded-t-xl-v2 border-b-0"),
-          header: () => (
-            <BottomSheetTokenListHeader
-              headerLabel={translate(
-                "screens/EditCollateralScreen",
-                "Select Collateral"
-              )}
-              onCloseButtonPress={dismissModal}
-            />
-          ),
-        },
+        option: getBottomSheetHeader(
+          translate("screens/EditCollateralScreen", "Select Collateral")
+        ),
       },
     ]);
     expandModal();
@@ -235,11 +213,12 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
               merge: true,
             });
           },
-          onCloseButtonPress: dismissModal,
           loanTokens,
           isLight,
         }),
-        option: BottomSheetHeader,
+        option: getBottomSheetHeader(
+          translate("components/BottomSheetLoanTokensList", "Select Token")
+        ),
       },
     ]);
     expandModal();
@@ -269,7 +248,9 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
           data: vault.loanAmounts,
           isLight: isLight,
         }),
-        option: BottomSheetHeader,
+        option: getBottomSheetHeader(
+          translate("screens/VaultDetailScreen", "Select Loan")
+        ),
       },
     ]);
     expandModal();

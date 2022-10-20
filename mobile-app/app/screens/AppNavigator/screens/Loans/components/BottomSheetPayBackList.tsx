@@ -1,10 +1,9 @@
-import { ThemedFlatListV2, ThemedTextV2 } from "@components/themed";
+import { ThemedFlatListV2 } from "@components/themed";
 import {
   LoanVaultActive,
   LoanVaultTokenAmount,
 } from "@defichain/whale-api-client/dist/api/loan";
 import { tailwind } from "@tailwind";
-import { translate } from "@translations";
 import * as React from "react";
 import { memo } from "react";
 import { Platform } from "react-native";
@@ -37,7 +36,7 @@ export const BottomSheetPayBackList = ({
 
     return (
       <FlatList
-        style={tailwind("px-5 pb-12", {
+        style={tailwind("px-5 pb-12 pt-2", {
           "bg-mono-light-v2-100": isLight,
           "bg-mono-dark-v2-100": !isLight,
         })}
@@ -64,15 +63,6 @@ export const BottomSheetPayBackList = ({
             />
           );
         }}
-        ListHeaderComponent={
-          <ThemedTextV2
-            style={tailwind("text-xl font-normal-v2 pb-5")}
-            light={tailwind("text-mono-light-v2-900")}
-            dark={tailwind("text-mono-dark-v2-900")}
-          >
-            {translate("screens/VaultDetailScreen", "Select Loan")}
-          </ThemedTextV2>
-        }
       />
     );
   });
