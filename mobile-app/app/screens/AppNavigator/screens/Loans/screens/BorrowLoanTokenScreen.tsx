@@ -302,8 +302,7 @@ export function BorrowLoanTokenScreen({
       setInputValidationMessage(undefined); // this error message is moved to below quick input
     } else if (isDFILessThanHalfOfRequiredCollateral) {
       setInputValidationMessage({
-        message:
-          "A minimum of 50% DFI as collateral is required before borrowing DUSD.",
+        message: "Insufficient DFI in vault. Add more to borrow DUSD.",
         type: ValidationMessageType.Error,
       });
     } else if (
