@@ -524,7 +524,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
       CommonActions.reset({
         routes: [
           {
-            name: translate("BottomTabNavigator", "Portfolio"),
+            name: "Portfolio",
             state: {
               routes: [{ name: "PortfolioScreen" }],
             },

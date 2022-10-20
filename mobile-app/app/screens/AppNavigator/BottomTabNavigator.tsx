@@ -65,7 +65,7 @@ export function BottomTabNavigator(): JSX.Element {
       >
         <BottomTab.Screen
           component={PortfolioNavigator}
-          name={translate("BottomTabNavigator", "Portfolio")}
+          name="Portfolio"
           options={{
             tabBarLabel: ({ focused, color }) =>
               getTabBarLabel({

@@ -147,7 +147,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
     pair: PoolPairData;
     token: WalletToken;
   }): void => {
-    navigation.navigate(translate("BottomTabNavigator", "Portfolio"), {
+    navigation.navigate("Portfolio", {
       screen: destination,
       initial: false,
       params: {
@@ -165,7 +165,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
     pair?: PoolPairData;
     fromToken?: WalletToken;
   }): void => {
-    navigation.navigate(translate("BottomTabNavigator", "Portfolio"), {
+    navigation.navigate("Portfolio", {
       screen: "CompositeSwap",
       initial: false,
       params: {

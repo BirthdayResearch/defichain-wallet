@@ -20,11 +20,7 @@ export function LanguageSelectionScreen(): JSX.Element {
   const resetNavigationStack = () => {
     navigation.dispatch(
       CommonActions.reset({
-        routes: [
-          {
-            name: "SettingsScreen",
-          },
-        ],
+        routes: [{ name: "SettingsScreen" }],
       })
     );
   };
