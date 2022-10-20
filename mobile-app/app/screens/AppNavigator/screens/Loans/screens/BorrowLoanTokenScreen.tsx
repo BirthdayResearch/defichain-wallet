@@ -300,6 +300,12 @@ export function BorrowLoanTokenScreen({
       });
     } else if (resultingColRatio.isLessThan(vault.loanScheme.minColRatio)) {
       setInputValidationMessage(undefined); // this error message is moved to below quick input
+    } else if (isDFILessThanHalfOfRequiredCollateral) {
+      setInputValidationMessage({
+        message:
+          "A minimum of 50% DFI as collateral is required before borrowing DUSD.",
+        type: ValidationMessageType.Error,
+      });
     } else if (
       resultingColRatio.isLessThan(atRiskThreshold) &&
       new BigNumber(borrowAmount).isGreaterThan(0)
@@ -308,12 +314,6 @@ export function BorrowLoanTokenScreen({
         message:
           "Amount entered may liquidate the vault. Proceed at your own risk.",
         type: ValidationMessageType.Warning,
-      });
-    } else if (isDFILessThanHalfOfRequiredCollateral) {
-      setInputValidationMessage({
-        message:
-          "A minimum of 50% DFI as collateral is required before borrowing DUSD.",
-        type: ValidationMessageType.Error,
       });
     } else {
       setInputValidationMessage(undefined);
