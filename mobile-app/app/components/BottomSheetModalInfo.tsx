@@ -34,7 +34,7 @@ export const BottomSheetModalInfo = (
             dark={tailwind("text-mono-dark-v2-900")}
             light={tailwind("text-mono-light-v2-900")}
             style={tailwind("pl-1 text-xl font-normal-v2")}
-            testID="view_pool_details_title"
+            testID="oracle_price_info_title"
           >
             {translate("components/BottomSheetInfo", props.title)}
           </ThemedTextV2>
@@ -43,6 +43,7 @@ export const BottomSheetModalInfo = (
           style={tailwind("border-t-0.5")}
           dark={tailwind("border-mono-dark-v2-300")}
           light={tailwind("border-mono-light-v2-300")}
+          testID="oracle_price_info_description"
         >
           <ThemedTextV2 style={tailwind("mt-4 font-normal-v2")}>
             {translate("components/BottomSheetInfo", props.description)}

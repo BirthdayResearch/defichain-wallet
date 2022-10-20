@@ -18,7 +18,7 @@
     "date-fns": "^2.29.3",
     "lodash": "^4.17.21",
     "next": "12.3.1",
-    "next-sitemap": "^3.1.22",
+    "next-sitemap": "^3.1.24",
     "nextjs-progressbar": "^0.0.14",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -28,17 +28,17 @@
     "schema-dts": "^1.1.0"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "4.23.1",
+    "@netlify/plugin-nextjs": "4.25.0",
     "@next/eslint-plugin-next": "12.3.1",
     "@types/cors": "^2.8.12",
     "@types/lodash": "^4.14.185",
-    "@types/node": "^16.11.62",
+    "@types/node": "^16.11.65",
     "@types/react": "17.0.38",
     "autoprefixer": "^10.4.12",
     "eslint-config-next": "12.3.1",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
-    "postcss": "^8.4.16",
+    "postcss": "^8.4.18",
     "tailwindcss": "^2.2.19",
     "typescript": "4.5.5"
   }

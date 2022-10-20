@@ -1,10 +1,9 @@
 import { View } from "@components";
 import {
-  ThemedTouchableOpacity,
-  ThemedText,
-  ThemedView,
-  ThemedIcon,
   ThemedFlatList,
+  ThemedTouchableOpacityV2,
+  ThemedTextV2,
+  ThemedIcon,
 } from "@components/themed";
 import {
   LoanVaultActive,
@@ -17,29 +16,24 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { memo } from "react";
 import * as React from "react";
-import { Platform, TouchableOpacity } from "react-native";
+import { Platform } from "react-native";
 import BigNumber from "bignumber.js";
-import {
-  useVaultStatus,
-  VaultStatusTag,
-} from "@screens/AppNavigator/screens/Loans/components/VaultStatusTag";
+import { NumericFormat } from "react-number-format";
 import { CollateralizationRatio } from "./CollateralizationRatio";
 
 interface BottomSheetVaultListProps {
-  headerLabel: string;
-  onCloseButtonPress: () => void;
-  onVaultPress?: (vault: LoanVaultActive) => void;
+  onVaultPress: (vault: LoanVaultActive) => void;
   navigateToScreen?: {
     screenName: string;
     onButtonPress: () => void;
   };
+  selectedVault?: LoanVault;
   vaults: LoanVault[];
 }
 
 export const BottomSheetVaultList = ({
-  headerLabel,
-  onCloseButtonPress,
   onVaultPress,
+  selectedVault,
   vaults,
 }: BottomSheetVaultListProps): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
@@ -53,120 +47,129 @@ export const BottomSheetVaultList = ({
         ? flatListComponents.web
         : flatListComponents.mobile;
 
+    // Remove halted, liquidated vault then sort in ascending order of col ratio
+    const filteredVaults = React.useMemo(() => {
+      const _vaults = vaults.filter((vault) => {
+        return (
+          vault.state !== LoanVaultState.IN_LIQUIDATION &&
+          vault.state !== LoanVaultState.FROZEN &&
+          vault.state !== LoanVaultState.UNKNOWN &&
+          vault.collateralAmounts.length !== 0
+        );
+      }) as LoanVaultActive[];
+
+      return _vaults.sort((a, b) => {
+        const _a = new BigNumber(a.informativeRatio);
+        const _b = new BigNumber(b.informativeRatio);
+        if (_a.isNegative() && _b.isNegative()) {
+          return 0;
+        } else if (_a.isNegative() || _a.isLessThanOrEqualTo(_b)) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
+    }, [vaults]);
     return (
       <FlatList
-        data={vaults}
+        data={filteredVaults}
         renderItem={({
           item,
           index,
         }: {
-          item: LoanVault;
+          item: LoanVaultActive;
           index: number;
         }): JSX.Element => {
-          const colRatio =
-            item.state === LoanVaultState.IN_LIQUIDATION
-              ? 0
-              : item.collateralRatio;
-          const totalLoanAmount =
-            item.state === LoanVaultState.IN_LIQUIDATION ? 0 : item.loanValue;
-          const totalCollateralValue =
-            item.state === LoanVaultState.IN_LIQUIDATION
-              ? 0
-              : item.collateralValue;
-          // eslint-disable-next-line
-          const vaultState = useVaultStatus(
-            item.state,
-            new BigNumber(colRatio),
-            new BigNumber(item.loanScheme.minColRatio),
-            new BigNumber(totalLoanAmount),
-            new BigNumber(totalCollateralValue)
-          );
           return (
-            <ThemedTouchableOpacity
-              disabled={
-                !(
-                  item.state === LoanVaultState.ACTIVE ||
-                  item.state === LoanVaultState.MAY_LIQUIDATE
-                )
-              }
+            <ThemedTouchableOpacityV2
               onPress={() => {
-                if (
-                  onVaultPress !== undefined &&
-                  item.state !== LoanVaultState.IN_LIQUIDATION
-                ) {
-                  onVaultPress(item);
-                }
+                onVaultPress(item);
               }}
               testID={`select_vault_${index}`}
               style={tailwind(
-                "px-4 py-3.5 flex flex-row items-center justify-between"
+                "px-5 py-4.5 mt-2 flex flex-row items-center rounded-lg-v2"
               )}
+              light={tailwind("bg-mono-light-v2-00")}
+              dark={tailwind("bg-mono-dark-v2-00")}
             >
-              <View style={tailwind("flex flex-row w-6/12 flex-1 mr-12")}>
-                <ThemedText
+              <View style={tailwind("w-6/12")}>
+                <ThemedTextV2
                   ellipsizeMode="middle"
                   numberOfLines={1}
-                  style={tailwind("w-4/12 flex-grow mr-2")}
+                  style={tailwind("text-sm font-semibold-v2 mb-1")}
                 >
                   {item.vaultId}
-                </ThemedText>
-                <VaultStatusTag status={vaultState.status} />
-              </View>
-              <View style={tailwind("flex items-end")}>
-                <ThemedText
-                  light={tailwind("text-gray-400")}
-                  dark={tailwind("text-gray-500")}
-                  style={tailwind("text-xs")}
-                >
-                  {translate(
-                    "components/BottomSheetVaultList",
-                    "Collateralization ratio"
+                </ThemedTextV2>
+                <NumericFormat
+                  value={item.loanScheme.interestRate}
+                  thousandSeparator
+                  displayType="text"
+                  renderText={(value) => (
+                    <ThemedTextV2
+                      style={tailwind("text-xs font-normal-v2")}
+                      light={tailwind("text-mono-light-v2-700")}
+                      dark={tailwind("text-mono-dark-v2-700")}
+                    >
+                      {translate(
+                        "components/BottomSheetVaultList",
+                        "{{value}}% interest",
+                        { value }
+                      )}
+                    </ThemedTextV2>
                   )}
-                </ThemedText>
-                <CollateralizationRatio
-                  totalLoanAmount={
-                    item.state === LoanVaultState.IN_LIQUIDATION
-                      ? new BigNumber(0)
-                      : new BigNumber(item.loanValue)
-                  }
-                  colRatio={
-                    item.state === LoanVaultState.IN_LIQUIDATION
-                      ? new BigNumber(0)
-                      : new BigNumber(item.collateralRatio)
-                  }
-                  minColRatio={
-                    item.state === LoanVaultState.IN_LIQUIDATION
-                      ? new BigNumber(0)
-                      : new BigNumber(item.loanScheme.minColRatio)
-                  }
                 />
               </View>
-            </ThemedTouchableOpacity>
+              {selectedVault && selectedVault.vaultId === item.vaultId && (
+                <ThemedIcon
+                  style={tailwind("h-full mt-0.5", {
+                    "mt-1 ml-1.5": Platform.OS === "android",
+                  })}
+                  light={tailwind("text-green-v2")}
+                  dark={tailwind("text-green-v2")}
+                  iconType="MaterialIcons"
+                  name="check-circle"
+                  size={16}
+                  testID="selected_vault_indicator"
+                />
+              )}
+              <View style={tailwind("flex-1")}>
+                <View style={tailwind("flex items-end")}>
+                  <CollateralizationRatio
+                    totalLoanAmount={new BigNumber(item.loanValue)}
+                    colRatio={new BigNumber(item.collateralRatio)}
+                    minColRatio={new BigNumber(item.loanScheme.minColRatio)}
+                  />
+                  <NumericFormat
+                    value={item.loanScheme.minColRatio}
+                    thousandSeparator
+                    displayType="text"
+                    renderText={(value) => (
+                      <ThemedTextV2
+                        style={tailwind("text-xs font-normal-v2 mt-1")}
+                        light={tailwind("text-mono-light-v2-700")}
+                        dark={tailwind("text-mono-dark-v2-700")}
+                      >
+                        {translate(
+                          "components/BottomSheetVaultList",
+                          "min. {{value}}%",
+                          { value }
+                        )}
+                      </ThemedTextV2>
+                    )}
+                  />
+                </View>
+              </View>
+            </ThemedTouchableOpacityV2>
           );
         }}
-        ListHeaderComponent={
-          <ThemedView
-            light={tailwind("bg-white border-gray-200")}
-            dark={tailwind("bg-gray-800 border-gray-700")}
-            style={tailwind(
-              "flex flex-row justify-between items-center px-4 py-2 border-b",
-              { "py-3.5 border-t -mb-px": Platform.OS === "android" }
-            )}
-          >
-            <ThemedText style={tailwind("text-lg font-medium")}>
-              {headerLabel}
-            </ThemedText>
-            <TouchableOpacity onPress={onCloseButtonPress}>
-              <ThemedIcon iconType="MaterialIcons" name="close" size={20} />
-            </TouchableOpacity>
-          </ThemedView>
-        }
+        style={tailwind({
+          "bg-mono-dark-v2-100": !isLight,
+          "bg-mono-light-v2-100": isLight,
+          "pt-1 -mt-1": Platform.OS === "android", // Word-around fix for line showing on android
+        })}
+        contentContainerStyle={tailwind("px-5 pb-20")}
         stickyHeaderIndices={[0]}
         keyExtractor={(item) => item.vaultId}
-        style={tailwind({
-          "bg-gray-800": !isLight,
-          "bg-white": isLight,
-        })}
       />
     );
   });

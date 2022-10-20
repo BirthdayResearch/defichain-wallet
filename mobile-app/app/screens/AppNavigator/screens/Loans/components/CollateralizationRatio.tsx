@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import { ThemedText } from "@components/themed";
+import { ThemedText, ThemedTextV2 } from "@components/themed";
 import { translate } from "@translations";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { tailwind } from "@tailwind";
@@ -22,13 +22,13 @@ export function CollateralizationRatio(
 
   if (props.colRatio.isLessThan(0) || props.colRatio.isNaN()) {
     return (
-      <ThemedText
-        light={tailwind("text-gray-700")}
-        dark={tailwind("text-gray-200")}
-        style={tailwind("text-sm")}
+      <ThemedTextV2
+        light={tailwind("text-green-v2")}
+        dark={tailwind("text-green-v2")}
+        style={tailwind("text-sm font-semibold-v2")}
       >
-        {translate("components/CollateralizationRatio", "N/A")}
-      </ThemedText>
+        {translate("components/CollateralizationRatioDisplay", "Ready")}
+      </ThemedTextV2>
     );
   }
 
@@ -40,9 +40,12 @@ export function CollateralizationRatio(
       displayType="text"
       thousandSeparator
       renderText={(value) => (
-        <ThemedText style={tailwind("text-sm")} {...ratioThemedProps}>
+        <ThemedTextV2
+          style={tailwind("text-sm font-semibold-v2")}
+          {...ratioThemedProps}
+        >
           {value}
-        </ThemedText>
+        </ThemedTextV2>
       )}
     />
   );

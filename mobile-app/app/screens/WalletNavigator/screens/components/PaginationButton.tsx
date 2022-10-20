@@ -60,6 +60,7 @@ export function PaginationButton({
         "bg-black": endOfPagination && isLight,
         "bg-white": endOfPagination && !isLight,
       })}
+      testID={`${buttonLabel}_button`}
     >
       <ThemedTextV2
         style={tailwind("font-semibold-v2 text-center text-base")}

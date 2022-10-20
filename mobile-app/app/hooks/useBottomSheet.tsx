@@ -4,6 +4,11 @@ import { Platform } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { BottomSheetNavScreen } from "@components/BottomSheetWithNav";
 
+interface SnapPoints {
+  ios: string[];
+  android: string[];
+}
+
 export const useBottomSheet = (): {
   isModalDisplayed: boolean;
   setIsModalDisplayed: (val: boolean) => void;
@@ -13,6 +18,8 @@ export const useBottomSheet = (): {
   expandModal: () => void;
   bottomSheetScreen: BottomSheetNavScreen[];
   setBottomSheetScreen: (val: BottomSheetNavScreen[]) => void;
+  snapPoints: SnapPoints;
+  setSnapPoints: (val: SnapPoints) => void;
 } => {
   const [isModalDisplayed, setIsModalDisplayed] = useState(false);
   const containerRef = useRef(null);
@@ -20,6 +27,10 @@ export const useBottomSheet = (): {
   const [bottomSheetScreen, setBottomSheetScreen] = useState<
     BottomSheetNavScreen[]
   >([]);
+  const [snapPoints, setSnapPoints] = useState<SnapPoints>({
+    ios: ["50%"],
+    android: ["60%"],
+  });
 
   const expandModal = useCallback(() => {
     if (Platform.OS === "web") {
@@ -45,5 +56,7 @@ export const useBottomSheet = (): {
     expandModal,
     bottomSheetScreen,
     setBottomSheetScreen,
+    snapPoints,
+    setSnapPoints,
   };
 };

@@ -804,7 +804,12 @@
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Échanger {{amountA}} {{fromTokenDisplaySymbol}} à {{toTokenDisplaySymbol}} sur le bloc de règlement {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Retrait de {{amount}} {{symbol}} du pool de liquidité",
     "Paying back loan amount of {{amount}} DUSD": "Remboursement d'un prêt de {{amount}} DUSD",
-    "Paid loan amount of {{amount}} DUSD": "{{amount}} DUSD du prêt remboursés"
+    "Paid loan amount of {{amount}} DUSD": "{{amount}} DUSD du prêt remboursés",
+    "Editing vault {{vaultId}}": "Modification du vault {{vaultId}}",
+    "Edited vault {{vaultId}}": "Vault modifié {{vaultId}}",
+    "Borrowing {{amount}} {{symbol}}": "Emprunt de {{amount}} {{symbol}}",
+    "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Emprunt de {{amount}} {{symbol}} avec le vault {{vaultId}}",
+    "Borrowed {{amount}} {{symbol}}": "{{amount}} {{symbol}} empruntés"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Demande d'accès à votre caméra",
@@ -822,7 +827,8 @@
     "To": "Contre des",
     "Converting": "Conversion",
     "Converted": "Converti",
-    "for": "à"
+    "for": "à",
+    "On": "Sur"
   },
   "screens/ChangePinScreen": {
     "Create new passcode for your wallet": "Créez un nouveau code d'accès pour votre portefeuille",
@@ -1219,9 +1225,9 @@
     "Locked": "Verrouillés",
     "Available": "Disponibles",
     "as UTXO": "comme UTXO",
-    "as Token": "comme Token",
+    "as Token": "comme token",
     "As UTXO": "Comme UTXO",
-    "As Token": "Comme Token",
+    "As Token": "Comme token",
     "Your pool shares": "Mes parts de pool",
     "Shares in {{token}}": "Parts en {{token}}",
     "Your LP tokens": "Mes tokens PL",
@@ -1255,10 +1261,12 @@
     "Confirm Create Vault": "Confirmer la création d'un vault",
     "Vault Detail": "Vue détaillée du vault",
     "Add Collateral": "Ajouter des garanties",
+    "Remove Collateral": "Retirer des garanties",
     "Confirm Add Collateral": "Confirmez l'ajout de garantie",
     "Confirm Remove Collateral": "Retrait de garantie",
     "Edit Collateral": "Modifier les garanties",
     "Borrow Loan Token": "Emprunter un token de prêt",
+    "Borrow": "Emprunter",
     "Confirm Borrow Loan Token": "Confirmer l'emprunt de tokens de prêt",
     "Edit Loan Scheme": "Éditer le schéma de prêts",
     "Confirm Edit Loan Scheme": "Confirmer l'édition du schéma de prêt",
@@ -1269,7 +1277,6 @@
     "Search vault": "Rechercher dans les vaults",
     "Search with vault ID": "Recherche avec le n° du vault",
     "Search results for “{{searchTerm}}”": "Résultats de la recherche pour “{{searchTerm}}”",
-    "You need a vault with collaterals to borrow tokens": "Vous avez besoin d'un vault avec des garanties pour emprunter des tokens",
     "Decentralized tokens": "Tokens décentralisés",
     "With vaults, you gain access to a rich economy of decentralized tokens.": "Avec les vaults, vous accédez à une riche économie de tokens décentralisés.",
     "Next": "Suivant",
@@ -1281,7 +1288,10 @@
     "Oracle prices": "Prix oracles",
     "With oracles, your vaults and loans align with market prices outside the blockchain.": "Avec les oracles, vos vaults et vos prêts s'alignent sur les prix du marché en dehors de la blockchain.",
     "Loan tokens get their prices from oracles.": "Les tokens de prêt obtiennent leurs prix des oracles.",
-    "Search available loan tokens": "Rechercher les tokens de prêt disponibles"
+    "Search available loan tokens": "Rechercher les tokens de prêt disponibles",
+    "Edit Vault": "Modifier le vault",
+    "Confirm": "Confirmer",
+    "Search with token name": "Recherche avec le nom du token"
   },
   "components/tabs": {
     "Browse loan tokens": "Emprunter un token",
@@ -1451,7 +1461,18 @@
     "HALTED": "INTERROMPU",
     "IN LIQUIDATION": "EN LIQUIDATION",
     "EMPTY": "VIDE",
-    "READY": "PARÉ"
+    "READY": "PARÉ",
+    "Add Collateral": "Ajouter des garanties",
+    "Add collateral to borrow": "Add collateral to borrow",
+    "Loan available": "Loan available",
+    "Total collateral": "Total des garanties",
+    "Borrow": "Emprunter",
+    "Liquidated vault": "Vault liquidé",
+    "Ready": "Prêt",
+    "Halted": "Intérrompu",
+    "Total loans": "Total des prêts",
+    "You need a vault with collaterals to borrow tokens": "Vous avez besoin d'un vault avec des garanties pour emprunter des tokens",
+    "Create a vault": "Créer un vault"
   },
   "components/EmptyVault": {
     "No vaults": "Aucun vault",
@@ -1524,7 +1545,12 @@
     "Slippages are rate charges that occur within an order transaction. Note that the slippage tolerance also includes the DEX stabilization fees. Choose how much of this slippage you are willing to accept.": "Le glissement est une différence de cours qui se produit lors d'une transaction sur un DEX. Notez que la tolérance de glissement inclut également les frais de stabilisation DEX. Donnez le montant de ce glissement que vous êtes prêt à accepter.",
     "Settlements": "Règlements",
     "Price Oracles": "Prix oracles",
-    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Les Oracles fournissent des points de données de prix en temps réel à partir de sources fiables, pour les refléter sur DeFiChain."
+    "Oracles provide real time price data points from trusted sources, to reflect onto DeFiChain.": "Les Oracles fournissent des points de données de prix en temps réel à partir de sources fiables, pour les refléter sur DeFiChain.",
+    "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)": "Les prêts et les vaults utilisent des prix de marché agrégés en dehors de la blockchain (appelés oracles de prix).",
+    "Vault Share": "Part de vault",
+    "Vault share indicates the percentage a token will represent based on the total collateral value.": "La part du vault indique le pourcentage que représentera un token par rapport à la valeur totale de la garantie.",
+    "Max Loan Amount": "Montant max. du prêt",
+    "This is the current loan amount available for this vault.": "Il s'agit du montant actuel du prêt disponible pour ce vault."
   },
   "screens/VaultDetailScreen": {
     "Vault ID": "N° de vault",
@@ -1609,7 +1635,8 @@
     "Total loans (USD)": "Total des prêts (USD)",
     "Collateralization ratio": "Ratio de garantie",
     "Min. collateralization ratio": "Ratio de garantie min.",
-    "Vault interest (APR)": "Intérêt du vault (TAEG)"
+    "Vault interest (APR)": "Intérêt du vault (TAEG)",
+    "Select Collateral": "Sélectionner la garantie"
   },
   "components/AddOrRemoveCollateralForm": {
     "How much {{symbol}} to add?": "Combien de {{symbol}} à ajouter ?",
@@ -1625,6 +1652,28 @@
     "N/A": "S/O",
     "Vault %": "Vault %",
     "Vault requirement": "Exigence du vault"
+  },
+  "screens/AddOrRemoveCollateralScreen": {
+    "Vault ID": "N° de vault",
+    "Vault share": "Part de vault",
+    "Max loan amount": "Montant max. du prêt",
+    "Total collateral": "Garantie totale",
+    "Max available {{symbol}} entered": "Max. de {{symbol}} disponibles saisis",
+    "{{percent}} of available {{symbol}} entered": "{{percent}} des {{symbol}} disponibles saisis",
+    "Max available collateral entered": "Montant maximum de la garantie disponible sais",
+    "{{percent}} of available collateral entered": "{{percent}} de la garantie disponible saisie",
+    "I WANT TO ADD": "JE VEUX AJOUTER",
+    "I WANT TO REMOVE": "JE VEUX RETIRER",
+    "Available: {{amount}} {{symbol}}": "Disponibles: {{amount}} {{symbol}}",
+    "Available: {{amount}} {{symbol}} collateral": "Disponible: {{amount}} {{symbol}} garantie",
+    "A small amount of UTXO is reserved for fees": "Une petite quantité d'UTXO est réservée aux frais.",
+    "Insufficient Balance": "Solde insuffisant",
+    "Amount entered is higher than collateral": "Le montant saisi est supérieur à la garantie",
+    "Vault does not meet min. collateral ratio": "Le vault ne respecte pas le ratio de garantie min.",
+    "Insufficient DFI and/or DUSD in vault to maintain active loans": "Insuffisance de DFI et/ou de DUSD dans le vault pour maintenir les prêts actifs",
+    "Active DUSD loans require 50% DFI collaterals": "Les prêts DUSD actifs nécessitent 50% de garantie en DFI",
+    "By continuing, the required amount of DFI will be converted": "En continuant, le montant requis de DFI sera converti.",
+    "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "Vous ajoutez des garanties à",
@@ -1647,10 +1696,32 @@
     "Add Collateral": "Ajouter des garanties",
     "Remove Collateral": "Retirer des garanties",
     "CONFIRM REMOVE COLLATERAL": "VALIDER LE RETRAIT DE GARANTIE",
-    "N/A": "S/O"
+    "N/A": "S/O",
+    "You are adding collateral": "Vous ajoutez de la garantie",
+    "You are removing collateral": "Vous retirez de la garantie",
+    "Amount to convert": "Montant à convertir",
+    "Transaction fee": "Frais de transaction",
+    "Collateral factor": "Facteur de garantie",
+    "Amount to add": "Montant à ajouter",
+    "Amount to remove": "Montant à retirer",
+    "Prices may vary during transaction confirmation.": "Les prix peuvent varier pendant la confirmation de la transaction.",
+    "Remove collateral": "Retirer des garanties",
+    "Adding {{amount}} {{symbol}} as collateral": "Ajout de {{amount}} {{symbol}} comme garantie",
+    "Removing {{amount}} {{symbol}} as collateral": "Retirer {{amount}} {{symbol}} de garantie",
+    "Added {{amount}} {{symbol}} as collateral": "Ajouté de {{amount}} {{symbol}} comme garantie",
+    "Removed {{amount}} {{symbol}} as collateral": "Retiré {{amount}} {{symbol}} de garantie"
   },
   "screens/PaybackLoanScreen": {
     "YOU ARE PAYING FOR LOAN": "VOUS REMBOURSEZ LE PRÊT",
+    "I WANT TO PAY": "JE VEUX REMBOURSER",
+    "I WANT TO PAY WITH DUSD COLLATERAL": "JE VEUX REMBOURSER AVEC DES GARANTIES EN DUSD",
+    "Available: ": "Disponibles: ",
+    "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
+    "Continue": "Suivant",
+    "Max available {{unit}} entered": "Max. de {{unit}} disponibles saisis",
+    "{{percent}} of available {{unit}} entered": "{{percent}} des {{unit}} disponibles saisis",
+    "Use your DUSD collaterals to fully pay off your DUSD loan.": "Utilisez vos garanties en DUSD pour rembourser entièrement votre prêt en DUSD.",
+    "Insufficient {{unit}}; max entered": "{{unit}} insuffisants ; max. saisi",
     "VAULT IN USE": "VAULT EN SERVICE",
     "How much of the loan do you want to pay?": "Quelle part du prêt voulez-vous rembourser?",
     "Enter an amount": "Donnez un montant",
@@ -1680,11 +1751,18 @@
     "Total loan (USD)": "Emprunt total (USD)",
     "Total collateral (USD)": "Valeur totale de la garantie (USD)",
     "Loan remaining": "Emprunt restant",
+    "Any excess payment will be returned.": "Tout remboursement excédentaire sera restitué.",
     "{{paymentToken}} payment fee": "Frais de paiement {{paymentToken}}"
   },
   "screens/ConfirmPaybackLoanScreen": {
     "CONFIRM PAYMENT": "CONFIRMER LE PAIEMENT",
     "PAYING": "PAIEMENT",
+    "Transaction fee": "Frais de transaction",
+    "Loan remaining": "Emprunt restant",
+    "Payback loan": "Remboursement du prêt",
+    "Prices may vary during transaction confirmation.": "Les prix peuvent varier pendant la confirmation de la transaction.",
+    "Paying {{amountToPay}} {{symbol}}": "Remboursement de {{amountToPay}} {{symbol}}",
+    "Paid {{amountToPay}} {{symbol}}": "{{amountToPay}} {{symbol}} remboursé",
     "You are paying": "Vous payez",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
     "Transaction type": "Type de transaction",
@@ -1703,15 +1781,37 @@
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "Ratio de garantie",
+    "Collateral ratio": "Ratio de garantie",
     "Min:": "Min:",
-    "Next:": "Prochain:"
+    "Next:": "Prochain:",
+    "Empty": "Vide",
+    "Ready": "Prêt",
+    "Ready for loan": "Prêt pour un emprunt"
   },
   "screens/BorrowLoanTokenScreen": {
     "Borrow loan token": "Emprunter un token de prêt",
+    "I WANT TO BORROW": "JE VEUX EMPRUNTER",
+    "WITH VAULT": "AVEC VAULT",
+    "Select Vault To Use": "Sélectionnez le vault à utiliser",
+    "Select Vault": "Sélectionner le vault",
+    "Max loan amount": "Montant max. du prêt",
+    "Max Loan Amount": "Montant max. du prêt",
+    "This is the current loan amount available for this vault.": "Il s'agit du montant actuel du prêt disponible pour ce vault.",
+    "% interest": "% intérêt",
+    "Annual interest": "Intérêt annuel",
+    "Annual Interest": "Intérêt Annuel",
+    "This includes both interest from the token and vault selected. Price is provided by price oracles.": "Le montant indiqué comprend les intérêts du token et du vault sélectionnés. Le prix est fourni par des oracles de prix.",
+    "Amount entered will result in vault liquidation": "Le montant saisi entraînera la liquidation du vault.",
+    "Amount entered may liquidate the vault. Proceed at your own risk.": "Le montant donné peut entraîner la liquidation du vault. Procédez à vos propres risques.",
+    "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.": "Insuffisance de DFI et/ou de DUSD dans le vault. Ajoutez-en plus pour commencer le minting des dTokens.",
+    "A minimum of 50% DFI as collateral is required before borrowing DUSD.": "Un minimum de 50 % de DFI comme garantie est requis avant d'emprunter des DUSD.",
+    "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
+    "Max loan amount entered": "Montant max. du prêt saisi",
+    "{{percent}} of max loan amount entered": "{{percent}} du montant max. du prêt saisi",
     "SELECT VAULT FOR COLLATERAL": "SÉLECTIONNER LE VAULT POUR LA GARANTIE",
     "Select a vault to use": "Sélectionnez un vault à utiliser",
     "Choose a vault to use": "Choisissez un vault à utiliser",
-    "Price (USD)": "Prix (USD)",
+    "Price": "Prix",
     "Interest": "Intérêt",
     "Total collateral (USD)": "Valeur totale de la garantie (USD)",
     "Vault interest": "Intérêt du vault",
@@ -1731,7 +1831,6 @@
     "Insufficient vault collateral to borrow this amount": "Garanties du vault insuffisantes pour emprunter ce montant",
     "This amount may place the vault in liquidation": "Ce montant peut placer le vault en liquidation",
     "Unable to proceed because of errors": "Impossible de poursuivre en raison d'erreurs",
-    "Max loan amount": "Montant max. du prêt",
     "USD": "USD",
     "How many {{token}} tokens to borrow?": "Combien de {{token}} souhaitez-vous emprunter ?",
     "Your vault needs at least 50% of DFI and/or DUSD as collateral": "Votre vault nécessite au moins 50 % de DFI et/ou de DUSD en tant que garantie",
@@ -1739,6 +1838,13 @@
   },
   "screens/ConfirmBorrowLoanTokenScreen": {
     "You are borrowing": "Vous empruntez",
+    "Transaction fee": "Frais de transaction",
+    "Collateral ratio": "Ratio de garantie",
+    "Price": "Prix",
+    "Prices may vary during transaction confirmation.": "Les prix peuvent varier pendant la confirmation de la transaction.",
+    "Borrow": "Emprunter",
+    "Amount to borrow": "Montant à emprunter",
+    "On": "Sur",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
     "Transaction type": "Type de transaction",
     "Borrow loan token": "Emprunter un token de prêt",
@@ -1760,13 +1866,21 @@
     "BORROWING": "EMPRUNT..."
   },
   "components/BottomSheetVaultList": {
-    "Collateralization ratio": "Ratio de garantie"
+    "Collateralization ratio": "Ratio de garantie",
+    "{{value}}% interest": "{{value}}% d'intérêt",
+    "min. {{value}}%": "min. {{value}}%"
   },
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "MODIFIER LE SCHÉMA DE PRÊT DU VAULT",
     "Make sure your collateralization ratio is still above your min. collateralization ratio": "Assurez-vous que votre ratio de garantie reste toujours supérieur au ratio de garantie minimum.",
-    "CONTINUE": "SUIVANT",
-    "Confirm your vault details in next screen": "Validez les détails de votre vault à l'étape suivante"
+    "Continue": "Suivant",
+    "Confirm your vault details in next screen": "Validez les détails de votre vault à l'étape suivante",
+    "AVAILABLE SCHEMES": "SCHÉMAS DISPONIBLES",
+    "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
+    "VAULT DETAILS": "DÉTAILS DU VAULT",
+    "{{interestRate}}% Interest": "{{interestRate}}% d'intérêt",
+    "min. ": "min. ",
+    "You can only select a scheme lower than your vault's current collateralization.": "Vous ne pouvez choisir qu'un schéma de prêt dont le ratio de garantie est inférieur à celui de votre garantie vault actuelle."
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "Vous modifiez le schéma du vault",
@@ -1780,7 +1894,14 @@
     "CONFIRM EDIT": "CONFIRMER MODIFICATION",
     "EDITING": "MODIFICATION",
     "CONVERTING": "CONVERSION...",
-    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Mise à jour du vault avec un ratio de garantie minimum de {{mincolRatio}}% et un taux d'intérêt de {{ir}}%."
+    "Updating vault to min. collateralization ratio of {{mincolRatio}}% and interest rate of {{ir}}%": "Mise à jour du vault avec un ratio de garantie minimum de {{mincolRatio}}% et un taux d'intérêt de {{ir}}%.",
+    "Edit": "Modifier",
+    "You are editing loan scheme of": "Vous modifiez le schéma de prêt de",
+    "Prev. min. collateral ratio": "Ratio de garantie min. précédent",
+    "Prev. interest": "Intérêt précédent",
+    "New min. collateral ratio": "Nouveau ratio de garantie min.",
+    "New vault interest": "Nouveau intérêt vault",
+    "Transaction fee": "Frais de transaction"
   },
   "components/LoanSchemeOptions": {
     "Min. collateralization ratio": "Ratio de garantie min.",
@@ -1821,7 +1942,12 @@
     "CONFIRM CLOSE VAULT": "CONFIRMER LA FERMETURE DU VAULT",
     "You are about to close vault {{vaultId}}": "Vous êtes sur le point de fermer le vault {{vaultId}}",
     "CLOSING": "FERMETURE...",
-    "Closing vault": "Fermeture du vault"
+    "Closing vault {{vaultId}}": "Fermeture du vault {{vaultId}}",
+    "Are you sure you want to close your vault {{truncatedVaultId}}?": "Êtes-vous sûr de vouloir fermer votre vault {{truncatedVaultId}}?",
+    "Wallet": "Portefeuille",
+    "All remaining collaterals will be returned to your wallet.": "Toutes les garanties restantes seront retournées dans votre portefeuille.",
+    "Close vault": "Fermer le vault",
+    "Closed vault {{vaultId}}": "Vault {{vaultId}} fermé"
   },
   "components/TokenIconGroup": {
     "more": "autres"
@@ -2014,5 +2140,15 @@
     "Payback with DUSD collateral": "Remboursement avec garantie DUSD",
     "Are you sure you want to payback your DUSD loan with all available DUSD collateral in this vault?": "Êtes-vous sûr de vouloir rembourser votre prêt en DUSD avec toutes les garanties en DUSD disponibles dans ce vault ?",
     "Paying {{amountToPayInPaymentToken}} DUSD loan with DUSD collateral": "Remboursement d'un prêt de {{amountToPayInPaymentToken}} DUSD avec une garantie en DUSD"
+  },
+  "components/PriceOracleInfo": {
+    "All prices displayed are from price oracles.": "Tous les prix affichés proviennent d'oracles de prix.",
+    "Loan tokens get their prices from oracles.": "Les tokens de prêt obtiennent leurs prix des oracles."
+  },
+  "components/BottomSheetLoanTokensList": {
+    "% interest": "% d'intérêt",
+    "Select Token": "Sélectionner le token",
+    "Search with token name": "Recherche avec le nom du token",
+    "Search results for “{{searchTerm}}”": "Résultats de la recherche pour “{{searchTerm}}”"
   }
 }

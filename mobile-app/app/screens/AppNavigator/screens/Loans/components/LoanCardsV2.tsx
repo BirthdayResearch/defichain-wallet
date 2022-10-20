@@ -38,12 +38,14 @@ import {
   SkeletonLoader,
   SkeletonLoaderScreen,
 } from "@components/SkeletonLoader";
+import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { LoanParamList } from "../LoansNavigator";
 import { LoanActionButton } from "./LoanActionButton";
 import { VaultStatus } from "../VaultStatusTypes";
 import { PriceOracleInfo } from "./PriceOracleInfo";
 import { VaultBanner } from "./VaultBanner";
+import { BottomSheetVaultList } from "./BottomSheetVaultList";
 
 interface LoanCardsProps {
   testID: string;
@@ -69,9 +71,7 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
     loanTokensSelector(state.loans)
   );
 
-  const vaultsList = useSelector((state: RootState) =>
-    vaultsSelector(state.loans)
-  );
+  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
   const { hasFetchedLoansData } = useSelector(
     (state: RootState) => state.loans
   );
@@ -117,9 +117,16 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
 
   useEffect(() => {
     setIsVaultReady(
-      vaultsList.some((vault) => vault.vaultState !== VaultStatus.Empty)
+      vaults.some((vault) =>
+        [
+          VaultStatus.Ready,
+          VaultStatus.Healthy,
+          VaultStatus.AtRisk,
+          VaultStatus.NearLiquidation,
+        ].includes(vault.vaultState)
+      )
     );
-  }, [vaultsList]);
+  }, [vaults]);
 
   useEffect(() => {
     setIsFirstLoad(true);
@@ -138,12 +145,17 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   }, [isFirstLoad]);
 
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
-  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
-
   const activeVault = vaults.find(
     (v) =>
       v.vaultId === props.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION
   ) as LoanVaultActive;
+
+  const vaultItem =
+    Object.keys(vaults).length === 1
+      ? vaults.find(
+          (v) => v.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION
+        )
+      : activeVault;
 
   const goToCreateVault = (): void => {
     navigation.navigate({
@@ -163,10 +175,11 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
     dismissModal,
     expandModal,
     isModalDisplayed,
+    bottomSheetScreen,
+    setBottomSheetScreen,
+    snapPoints,
+    setSnapPoints,
   } = useBottomSheet();
-  const [bottomSheetScreen, setBottomSheetScreen] = useState<
-    BottomSheetNavScreen[]
-  >([]);
   const BottomSheetHeader = {
     headerStatusBarHeight: 2,
     headerTitle: "",
@@ -189,11 +202,59 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
     headerLeft: () => <></>,
   };
 
+  const onBorrowPress = (loanToken: LoanToken): void => {
+    setSnapPoints({
+      ios: ["60%"],
+      android: ["60%"],
+    });
+    setBottomSheetScreen([
+      {
+        stackScreenName: "VaultList",
+        component: BottomSheetVaultList({
+          onVaultPress: (vault: LoanVaultActive) => {
+            dismissModal();
+            navigation.navigate({
+              name: "BorrowLoanTokenScreen",
+              params: {
+                vault: vault,
+                loanToken: loanToken,
+              },
+              merge: true,
+            });
+          },
+          vaults,
+        }),
+        option: {
+          headerTitle: "",
+          headerBackTitleVisible: false,
+          headerStyle: tailwind("rounded-t-xl-v2 border-b-0"),
+          header: () => (
+            <BottomSheetTokenListHeader
+              headerLabel={translate(
+                "screens/BorrowLoanTokenScreen",
+                "Select Vault"
+              )}
+              onCloseButtonPress={dismissModal}
+            />
+          ),
+        },
+      },
+    ]);
+    expandModal();
+  };
+
   const onBottomSheetOraclePriceSelect = (): void => {
+    setSnapPoints({
+      ios: ["30%"],
+      android: ["35%"],
+    });
     setBottomSheetScreen([
       {
         stackScreenName: "OraclePriceInfo",
-        component: BottomSheetModalInfo({ title, description }),
+        component: BottomSheetModalInfo({
+          title,
+          description,
+        }),
         option: BottomSheetHeader,
       },
     ]);
@@ -201,182 +262,181 @@ export function LoanCardsV2(props: LoanCardsProps): JSX.Element {
   };
 
   return (
-    <ThemedScrollViewV2
-      ref={props.scrollRef}
-      contentContainerStyle={tailwind("py-8 w-full")}
-    >
-      {isVaultReady && (
-        <SearchInputV2
-          ref={searchRef}
-          value={searchString}
-          showClearButton={searchString !== ""}
-          placeholder={translate(
-            "screens/LoansScreen",
-            "Search available loan tokens"
-          )}
-          inputStyle={{
-            style: tailwind({ "py-3": Platform.OS === "web" }),
-          }}
-          containerStyle={tailwind("flex-1 mx-5", [
-            "border-0.5",
-            isSearchFocus
-              ? {
-                  "border-mono-light-v2-800": isLight,
-                  "border-mono-dark-v2-800": !isLight,
-                }
-              : {
-                  "border-mono-light-v2-00": isLight,
-                  "border-mono-dark-v2-00": !isLight,
-                },
-          ])}
-          onClearInput={() => {
-            setSearchString("");
-            searchRef?.current?.focus();
-          }}
-          onChangeText={(text: string) => {
-            setSearchString(text);
-          }}
-          onFocus={() => {
-            setIsSearchFocus(true);
-          }}
-          onBlur={() => {
-            setIsSearchFocus(false);
-          }}
-          testID="loan_search_input"
-        />
-      )}
-
-      {vaults.length === 0 && hasFetchedLoansData && (
-        <ThemedViewV2 style={tailwind("mx-5 rounded-lg-v2")}>
-          <VaultBanner
-            buttonLabel="Create a vault"
-            description="You need a vault with collaterals to borrow tokens"
-            onButtonPress={goToCreateVault}
+    <View ref={containerRef} style={tailwind("flex-1")}>
+      <ThemedScrollViewV2
+        ref={props.scrollRef}
+        contentContainerStyle={tailwind("py-8 w-full")}
+      >
+        {isVaultReady && (
+          <SearchInputV2
+            ref={searchRef}
+            value={searchString}
+            showClearButton={searchString !== ""}
+            placeholder={translate(
+              "screens/LoansScreen",
+              "Search available loan tokens"
+            )}
+            inputStyle={{
+              style: tailwind({ "py-3": Platform.OS === "web" }),
+            }}
+            containerStyle={tailwind("flex-1 mx-5", [
+              "border-0.5",
+              isSearchFocus
+                ? {
+                    "border-mono-light-v2-800": isLight,
+                    "border-mono-dark-v2-800": !isLight,
+                  }
+                : {
+                    "border-mono-light-v2-00": isLight,
+                    "border-mono-dark-v2-00": !isLight,
+                  },
+            ])}
+            onClearInput={() => {
+              setSearchString("");
+              searchRef?.current?.focus();
+            }}
+            onChangeText={(text: string) => {
+              setSearchString(text);
+            }}
+            onFocus={() => {
+              setIsSearchFocus(true);
+            }}
+            onBlur={() => {
+              setIsSearchFocus(false);
+            }}
+            testID="loan_search_input"
           />
-          <View style={tailwind("mt-2 mx-2")}>
-            <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />
-          </View>
-        </ThemedViewV2>
-      )}
-      {showLoader && (
-        <View style={tailwind("mt-5 mx-2")}>
-          <SkeletonLoader row={6} screen={SkeletonLoaderScreen.LoanV2} />
-        </View>
-      )}
-
-      {!showLoader && inSearchMode && (
-        <View style={tailwind("mt-8 mx-5")}>
-          <ThemedTextV2
-            style={tailwind("text-xs pl-5 font-normal-v2")}
-            light={tailwind("text-mono-light-v2-700")}
-            dark={tailwind("text-mono-dark-v2-700")}
-            testID="empty_search_result_text"
-          >
-            {searchString.trim() === ""
-              ? translate("screens/LoansScreen", "Search with token name")
-              : translate(
-                  "screens/LoansScreen",
-                  "Search results for “{{searchTerm}}”",
-                  { searchTerm: searchString }
-                )}
-          </ThemedTextV2>
-        </View>
-      )}
-
-      {/* Known intermittent issue wherein the two-column layout is not followed
-      in web - FlashList */}
-      <ThemedFlashList
-        keyExtractor={(_item, index) => index.toString()}
-        testID={`${props.testID}_token_lists`}
-        estimatedItemSize={116}
-        contentContainerStyle={tailwind(
-          "pb-2 pt-8",
-          {
-            "pt-0": vaults.length >= 1,
-          },
-          { "pt-6": isVaultReady }
         )}
-        parentContainerStyle={tailwind("mx-3", {
-          hidden: isSearchFocus && searchString.trim() === "",
-        })}
-        data={filteredLoanTokens}
-        /* This tells FlashList to rerender if any of the props below is updated */
-        extraData={{
-          isVaultReady,
-          activeVault,
-        }}
-        numColumns={2}
-        renderItem={({
-          item,
-          index,
-        }: {
-          item: LoanToken;
-          index: number;
-        }): JSX.Element => {
-          return (
-            <View style={{ flexBasis: "98%" }}>
-              <LoanCard
-                symbol={item.token.symbol}
-                displaySymbol={item.token.displaySymbol}
-                interestRate={item.interest}
-                price={item.activePrice}
-                loanTokenId={item.tokenId}
-                onPress={() => {
-                  navigation.navigate({
-                    name: "BorrowLoanTokenScreen",
-                    params: {
-                      loanToken: item,
-                      vault: activeVault,
-                    },
-                    merge: true,
-                  });
-                }}
-                testID={`loan_card_${index}`}
-                parentTestID={props.testID}
-                isBorrowHidden={!isVaultReady}
+
+        {vaults.length === 0 && hasFetchedLoansData && (
+          <ThemedViewV2 style={tailwind("mx-5 rounded-lg-v2")}>
+            <VaultBanner
+              buttonLabel="Create a vault"
+              description="You need a vault with collaterals to borrow tokens"
+              onButtonPress={goToCreateVault}
+              testID="vault_banner"
+            />
+            <View style={tailwind("mt-2 mx-2")}>
+              <PriceOracleInfo
+                onPress={onBottomSheetOraclePriceSelect}
+                text="Loan tokens get their prices from oracles."
               />
             </View>
-          );
-        }}
-      />
-      {vaults.length >= 1 &&
-        ((searchString.trim() !== "" &&
-          isSearchFocus &&
-          filteredLoanTokens.length > 0) ||
-          (!isSearchFocus && filteredLoanTokens.length > 0)) && (
-          <PriceOracleInfo onPress={onBottomSheetOraclePriceSelect} />
+          </ThemedViewV2>
+        )}
+        {showLoader && (
+          <View style={tailwind("mt-5 mx-2")}>
+            <SkeletonLoader row={6} screen={SkeletonLoaderScreen.LoanV2} />
+          </View>
         )}
 
-      {Platform.OS === "web" && (
-        <BottomSheetWebWithNavV2
-          modalRef={containerRef}
-          screenList={bottomSheetScreen}
-          isModalDisplayed={isModalDisplayed}
-          // eslint-disable-next-line react-native/no-inline-styles
-          modalStyle={{
-            position: "absolute",
-            bottom: "0",
-            height: "474px",
-            width: "375px",
-            zIndex: 50,
-            borderTopLeftRadius: 15,
-            borderTopRightRadius: 15,
-            overflow: "hidden",
-          }}
-        />
-      )}
+        {!showLoader && inSearchMode && (
+          <View style={tailwind("mt-8 mx-5")}>
+            <ThemedTextV2
+              style={tailwind("text-xs pl-5 font-normal-v2")}
+              light={tailwind("text-mono-light-v2-700")}
+              dark={tailwind("text-mono-dark-v2-700")}
+              testID="empty_search_result_text"
+            >
+              {searchString.trim() === ""
+                ? translate("screens/LoansScreen", "Search with token name")
+                : translate(
+                    "screens/LoansScreen",
+                    "Search results for “{{searchTerm}}”",
+                    { searchTerm: searchString }
+                  )}
+            </ThemedTextV2>
+          </View>
+        )}
 
-      {Platform.OS !== "web" && (
-        <BottomSheetWithNavV2
-          modalRef={bottomSheetRef}
-          screenList={bottomSheetScreen}
-          snapPoints={{
-            ios: ["30%"],
-            android: ["35%"],
+        {/* Known intermittent issue wherein the two-column layout is not followed
+      in web - FlashList */}
+        <ThemedFlashList
+          keyExtractor={(_item, index) => index.toString()}
+          testID={`${props.testID}_token_lists`}
+          estimatedItemSize={116}
+          contentContainerStyle={tailwind(
+            "pb-2 pt-8",
+            {
+              "pt-0": vaults.length >= 1,
+            },
+            { "pt-6": isVaultReady }
+          )}
+          parentContainerStyle={tailwind("mx-3", {
+            hidden: isSearchFocus && searchString.trim() === "",
+          })}
+          data={filteredLoanTokens}
+          /* This tells FlashList to rerender if any of the props below is updated */
+          extraData={{
+            isVaultReady,
+            activeVault,
+          }}
+          numColumns={2}
+          renderItem={({
+            item,
+            index,
+          }: {
+            item: LoanToken;
+            index: number;
+          }): JSX.Element => {
+            return (
+              <View style={{ flexBasis: "98%" }}>
+                <LoanCard
+                  symbol={item.token.symbol}
+                  displaySymbol={item.token.displaySymbol}
+                  interestRate={item.interest}
+                  price={item.activePrice}
+                  loanTokenId={item.tokenId}
+                  onPress={() => {
+                    onBorrowPress(item);
+                  }}
+                  testID={`loan_card_${index}`}
+                  parentTestID={props.testID}
+                  isBorrowHidden={!isVaultReady}
+                />
+              </View>
+            );
           }}
         />
-      )}
-    </ThemedScrollViewV2>
+        {vaults.length >= 1 &&
+          ((searchString.trim() !== "" &&
+            isSearchFocus &&
+            filteredLoanTokens.length > 0) ||
+            (!isSearchFocus && filteredLoanTokens.length > 0)) && (
+            <PriceOracleInfo
+              onPress={onBottomSheetOraclePriceSelect}
+              text="Loan tokens get their prices from oracles."
+            />
+          )}
+
+        {Platform.OS === "web" && (
+          <BottomSheetWebWithNavV2
+            modalRef={containerRef}
+            screenList={bottomSheetScreen}
+            isModalDisplayed={isModalDisplayed}
+            // eslint-disable-next-line react-native/no-inline-styles
+            modalStyle={{
+              position: "absolute",
+              bottom: "0",
+              height: "404px",
+              width: "375px",
+              zIndex: 50,
+              borderTopLeftRadius: 15,
+              borderTopRightRadius: 15,
+              overflow: "hidden",
+            }}
+          />
+        )}
+
+        {Platform.OS !== "web" && (
+          <BottomSheetWithNavV2
+            modalRef={bottomSheetRef}
+            screenList={bottomSheetScreen}
+            snapPoints={snapPoints}
+          />
+        )}
+      </ThemedScrollViewV2>
+    </View>
   );
 }
 
@@ -454,7 +514,7 @@ function LoanCard({
   );
 }
 
-/* 
+/*
   Custom comparison is added because the debounced search is sluggish due to Loan Icon rendering
 */
 const MemoizedLoanIcon = memo(
