@@ -22,10 +22,7 @@ export function LanguageSelectionScreen(): JSX.Element {
       CommonActions.reset({
         routes: [
           {
-            name: translate("BottomTabNavigator", "Portfolio"),
-            state: {
-              routes: [{ name: "PortfolioScreen" }],
-            },
+            name: "SettingsScreen",
           },
         ],
       })
