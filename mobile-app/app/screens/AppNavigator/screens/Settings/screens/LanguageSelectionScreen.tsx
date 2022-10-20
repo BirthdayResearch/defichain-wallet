@@ -5,10 +5,32 @@ import {
 } from "@components/themed";
 import { getAppLanguages, translate } from "@translations";
 import { tailwind } from "@tailwind";
+import {
+  CommonActions,
+  NavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
 import { RowLanguageItem } from "../components/RowLanguageItem";
+import { SettingsParamList } from "../SettingsNavigator";
 
 export function LanguageSelectionScreen(): JSX.Element {
+  const navigation = useNavigation<NavigationProp<SettingsParamList>>();
   const languages = getAppLanguages();
+
+  const resetNavigationStack = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        routes: [
+          {
+            name: translate("BottomTabNavigator", "Portfolio"),
+            state: {
+              routes: [{ name: "PortfolioScreen" }],
+            },
+          },
+        ],
+      })
+    );
+  };
 
   return (
     <ThemedScrollViewV2
@@ -30,6 +52,7 @@ export function LanguageSelectionScreen(): JSX.Element {
             key={index}
             languageItem={language}
             isLast={index === languages.length - 1}
+            onSwitchLanguage={resetNavigationStack}
           />
         ))}
       </ThemedViewV2>
