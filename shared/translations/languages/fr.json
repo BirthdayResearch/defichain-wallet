@@ -1804,7 +1804,7 @@
     "Amount entered will result in vault liquidation": "Le montant saisi entraînera la liquidation du vault.",
     "Amount entered may liquidate the vault. Proceed at your own risk.": "Le montant donné peut entraîner la liquidation du vault. Procédez à vos propres risques.",
     "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.": "Insuffisance de DFI et/ou de DUSD dans le vault. Ajoutez-en plus pour commencer le minting des dTokens.",
-    "A minimum of 50% DFI as collateral is required before borrowing DUSD.": "Un minimum de 50 % de DFI comme garantie est requis avant d'emprunter des DUSD.",
+    "Insufficient DFI in vault. Add more to borrow DUSD.": "Insuffisance de DFI dans le vault. Ajoutez-en plus pour emprunter des DUSD.",
     "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
     "Max loan amount entered": "Montant max. du prêt saisi",
     "{{percent}} of max loan amount entered": "{{percent}} du montant max. du prêt saisi",
