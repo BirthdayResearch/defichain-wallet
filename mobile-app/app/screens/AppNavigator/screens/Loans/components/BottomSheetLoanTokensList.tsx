@@ -4,7 +4,6 @@ import {
   ThemedTouchableOpacityV2,
   ThemedTextV2,
   ThemedViewV2,
-  ThemedIcon,
 } from "@components/themed";
 import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
 import { tailwind } from "@tailwind";
@@ -13,9 +12,7 @@ import { memo } from "react";
 import * as React from "react";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { SearchInputV2 } from "@components/SearchInputV2";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { TextInput } from "react-native-gesture-handler";
-import { debounce } from "lodash";
 import { Platform } from "react-native";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { useDebounce } from "@hooks/useDebounce";
@@ -26,12 +23,10 @@ import { TokenNameText } from "../../Portfolio/components/TokenNameText";
 
 export const BottomSheetLoanTokensList = ({
   onPress,
-  onCloseButtonPress,
   loanTokens,
   isLight,
 }: {
   onPress: (item: LoanToken) => void;
-  onCloseButtonPress: () => void;
   loanTokens: LoanToken[];
   isLight: boolean;
 }): React.MemoExoticComponent<() => JSX.Element> =>
@@ -74,7 +69,7 @@ export const BottomSheetLoanTokensList = ({
           return (
             <ThemedTouchableOpacityV2
               style={tailwind(
-                "flex flex-row p-5 mb-2 border-0 rounded-lg-v2 items-center justify-between"
+                "flex flex-row p-5 mt-2 border-0 rounded-lg-v2 items-center justify-between"
               )}
               light={tailwind("bg-mono-light-v2-00")}
               dark={tailwind("bg-mono-dark-v2-00")}
@@ -142,25 +137,7 @@ export const BottomSheetLoanTokensList = ({
           );
         }}
         ListHeaderComponent={
-          <ThemedViewV2 style={tailwind("py-5")}>
-            <View style={tailwind("w-full flex-row justify-end")}>
-              <ThemedTouchableOpacityV2
-                onPress={onCloseButtonPress}
-                style={tailwind("border-0")}
-              >
-                <ThemedIcon iconType="Feather" name="x-circle" size={22} />
-              </ThemedTouchableOpacityV2>
-            </View>
-            <ThemedTextV2
-              style={tailwind("text-xl font-normal-v2 pb-5")}
-              light={tailwind("text-mono-light-v2-900")}
-              dark={tailwind("text-mono-dark-v2-900")}
-            >
-              {translate(
-                "components/BottomSheetLoanTokensList",
-                "Select Token"
-              )}
-            </ThemedTextV2>
+          <ThemedViewV2 style={tailwind("pt-2 pb-3")}>
             <SearchInputV2
               testID="loan_search_input"
               ref={searchRef}
@@ -220,14 +197,12 @@ export const BottomSheetLoanTokensList = ({
           </ThemedViewV2>
         }
         stickyHeaderIndices={[0]}
-        style={tailwind(
-          {
-            "bg-mono-dark-v2-100": !isLight,
-            "bg-mono-light-v2-100": isLight,
-          },
-          "rounded-t-xl-v2"
-        )}
-        contentContainerStyle={tailwind("p-5 pt-0")}
+        style={tailwind({
+          "bg-mono-dark-v2-100": !isLight,
+          "bg-mono-light-v2-100": isLight,
+          "pt-1 -mt-1": Platform.OS === "android", // Word-around fix for line showing on android
+        })}
+        contentContainerStyle={tailwind("px-5 pb-20")}
       />
     );
   });
