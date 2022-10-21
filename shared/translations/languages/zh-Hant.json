@@ -1787,6 +1787,7 @@
     "I WANT TO BORROW": "I WANT TO BORROW",
     "WITH VAULT": "WITH VAULT",
     "Select Vault To Use": "Select Vault To Use",
+    "Select Vault": "選擇金庫",
     "Max loan amount": "最高的貸款金額",
     "Max Loan Amount": "最高的貸款金額",
     "This is the current loan amount available for this vault.": "This is the current loan amount available for this vault.",
@@ -1797,7 +1798,7 @@
     "Amount entered will result in vault liquidation": "Amount entered will result in vault liquidation",
     "Amount entered may liquidate the vault. Proceed at your own risk.": "Amount entered may liquidate the vault. Proceed at your own risk.",
     "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.": "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.",
-    "A minimum of 50% DFI as collateral is required before borrowing DUSD.": "A minimum of 50% DFI as collateral is required before borrowing DUSD.",
+    "Insufficient DFI in vault. Add more to borrow DUSD.": "Insufficient DFI in vault. Add more to borrow DUSD.",
     "Review full details in the next screen": "Review full details in the next screen",
     "Max loan amount entered": "已輸入最高貸款金額的",
     "{{percent}} of max loan amount entered": "已輸入最高貸款金額的 {{percent}}%",
@@ -1859,7 +1860,9 @@
     "BORROWING": "借用"
   },
   "components/BottomSheetVaultList": {
-    "Collateralization ratio": "抵押率"
+    "Collateralization ratio": "抵押率",
+    "{{value}}% interest": "{{value}}% interest",
+    "min. {{value}}%": "min. {{value}}%"
   },
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "更改金庫中的貸款計劃",

@@ -37,6 +37,7 @@ import {
   SkeletonLoader,
   SkeletonLoaderScreen,
 } from "@components/SkeletonLoader";
+import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { LoanParamList } from "../LoansNavigator";
 import { LoanActionButton } from "./LoanActionButton";
@@ -209,11 +210,6 @@ export function LoanCards(props: LoanCardsProps): JSX.Element {
       {
         stackScreenName: "VaultList",
         component: BottomSheetVaultList({
-          headerLabel: translate(
-            "screens/BorrowLoanTokenScreen",
-            "Select Vault to Use"
-          ),
-          onCloseButtonPress: () => dismissModal(),
           onVaultPress: (vault: LoanVaultActive) => {
             dismissModal();
             navigation.navigate({
@@ -228,7 +224,18 @@ export function LoanCards(props: LoanCardsProps): JSX.Element {
           vaults,
         }),
         option: {
-          header: () => null,
+          headerTitle: "",
+          headerBackTitleVisible: false,
+          headerStyle: tailwind("rounded-t-xl-v2 border-b-0"),
+          header: () => (
+            <BottomSheetTokenListHeader
+              headerLabel={translate(
+                "screens/BorrowLoanTokenScreen",
+                "Select Vault"
+              )}
+              onCloseButtonPress={dismissModal}
+            />
+          ),
         },
       },
     ]);
@@ -410,7 +417,7 @@ export function LoanCards(props: LoanCardsProps): JSX.Element {
             modalStyle={{
               position: "absolute",
               bottom: "0",
-              height: "474px",
+              height: "404px",
               width: "375px",
               zIndex: 50,
               borderTopLeftRadius: 15,

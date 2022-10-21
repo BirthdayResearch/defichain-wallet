@@ -7,14 +7,14 @@ export const UNEXPECTED_FAILURE = "UNEXPECTED_FAILURE";
 
 export const DEFAULT_MESSAGES = {
   message: "Enter passcode to continue",
-  loadingMessage: "Signing your transaction...",
+  loadingMessage: "It may take a few seconds to verify",
   authorizedTransactionMessage: {
     title: "Transaction signed",
     description:
       "Your wallet is your responsibility, do not forget to store your 24 recovery words.",
   },
   grantedAccessMessage: {
-    title: "Success!",
+    title: "Passcode verified!",
     description: "",
   },
 };
