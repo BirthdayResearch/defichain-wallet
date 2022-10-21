@@ -154,11 +154,9 @@ const PortfolioStack = createStackNavigator<PortfolioParamList>();
 export function PortfolioNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const { isLight } = useThemeContext();
-
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreen");
   };
-
   const screenOptions = useNavigatorScreenOptions();
   return (
     <PortfolioStack.Navigator
@@ -361,6 +359,16 @@ export function PortfolioNavigator(): JSX.Element {
       />
 
       <PortfolioStack.Screen
+        component={NetworkDetails}
+        name="NetworkDetails"
+        options={{
+          headerTitle: translate("screens/NetworkDetails", "Wallet Network"),
+          headerBackTitleVisible: false,
+          headerBackTestID: "network_details_header_back",
+        }}
+      />
+
+      <PortfolioStack.Screen
         component={NetworkSelectionScreen}
         name="NetworkSelectionScreen"
         options={{
@@ -368,16 +376,6 @@ export function PortfolioNavigator(): JSX.Element {
           headerTitle: translate("screens/NetworkSelectionScreen", "Network"),
           headerBackTitleVisible: false,
           headerRight: undefined,
-        }}
-      />
-
-      <PortfolioStack.Screen
-        component={NetworkDetails}
-        name="NetworkDetails"
-        options={{
-          headerTitle: translate("screens/NetworkDetails", "Wallet Network"),
-          headerBackTitleVisible: false,
-          headerBackTestID: "network_details_header_back",
         }}
       />
 
