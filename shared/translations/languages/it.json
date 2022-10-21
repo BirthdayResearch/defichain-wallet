@@ -1815,6 +1815,7 @@
     "I WANT TO BORROW": "I WANT TO BORROW",
     "WITH VAULT": "WITH VAULT",
     "Select Vault To Use": "Select Vault To Use",
+    "Select Vault": "Select Vault",
     "Max loan amount": "Importo massimo del prestito",
     "Max Loan Amount": "Max Loan Amount",
     "This is the current loan amount available for this vault.": "This is the current loan amount available for this vault.",
@@ -1825,7 +1826,7 @@
     "Amount entered will result in vault liquidation": "Amount entered will result in vault liquidation",
     "Amount entered may liquidate the vault. Proceed at your own risk.": "Amount entered may liquidate the vault. Proceed at your own risk.",
     "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.": "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.",
-    "A minimum of 50% DFI as collateral is required before borrowing DUSD.": "A minimum of 50% DFI as collateral is required before borrowing DUSD.",
+    "Insufficient DFI in vault. Add more to borrow DUSD.": "Insufficient DFI in vault. Add more to borrow DUSD.",
     "Review full details in the next screen": "Review full details in the next screen",
     "Max loan amount entered": "Max loan amount entered",
     "{{percent}} of max loan amount entered": "{{percent}} of max loan amount entered",
@@ -1887,7 +1888,9 @@
     "Total loan + annual interest": "Totale del prestito + interesse annuale"
   },
   "components/BottomSheetVaultList": {
-    "Collateralization ratio": "Rapporto di collateralizzazione"
+    "Collateralization ratio": "Rapporto di collateralizzazione",
+    "{{value}}% interest": "{{value}}% interest",
+    "min. {{value}}%": "min. {{value}}%"
   },
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "MODIFICA LO SCHEMA DI PRESTITO DEL VAULT",
