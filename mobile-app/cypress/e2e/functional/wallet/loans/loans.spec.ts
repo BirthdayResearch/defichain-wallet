@@ -97,19 +97,19 @@ context("Wallet - Loans", () => {
   });
 
   it("should sort tokens based on A to Z", () => {
-    checkTokensSortingOrder("Highest interest", "dTD10", "DUSD");
+    checkTokensSortingOrder("A to Z", "dTD10", "DUSD");
   });
 
   it("should sort tokens based on Z to A", () => {
-    checkTokensSortingOrder("Highest interest", "DUSD", "dTD10");
+    checkTokensSortingOrder("Z to A", "DUSD", "dTD10");
   });
 
   it("should sort tokens based on Lowest oracle price", () => {
     checkTokensSortingOrder("Lowest oracle price", "DUSD", "dTD10");
   });
 
-  it("should sort tokens based on Lowest oracle price", () => {
-    checkTokensSortingOrder("Lowest oracle price", "dTD10", "DUSD");
+  it("should sort tokens based on Highest oracle price", () => {
+    checkTokensSortingOrder("Highest oracle price", "dTD10", "DUSD");
   });
 });
 

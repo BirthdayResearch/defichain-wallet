@@ -569,13 +569,10 @@ function LoanCard({
         displayType="text"
         renderText={(value: string) => (
           <View style={tailwind("flex flex-row items-center")}>
-            <ThemedText
-              testID={`${testID}_loan_amount`}
-              style={tailwind("text-sm")}
-            >
+            <ThemedText style={tailwind("text-sm")}>
               <ThemedTextV2
                 style={tailwind("font-semibold-v2")}
-                testID={`${testID}_interest_rate`}
+                testID={`${testID}_oracle_price`}
                 // eslint-disable-next-line react-native/no-raw-text
               >
                 ${value}
