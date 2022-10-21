@@ -227,10 +227,7 @@ export const wallet = createSlice({
               ...item,
               // poolpairs with added hasStockSplit boolean indicator for post stocksplit
               hasStockSplit: stockSplitPairs.some((pair) => {
-                return (
-                  pair.data.symbol === `${item.data.symbol}/v1` ||
-                  item.data.symbol.includes("/v1")
-                );
+                return pair.data.symbol === `${item.data.symbol}/v1`;
               }),
             };
           });
