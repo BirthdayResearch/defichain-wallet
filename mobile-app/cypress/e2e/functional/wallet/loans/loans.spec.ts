@@ -56,7 +56,7 @@ context("Wallet - Loans - Create Loans page", () => {
 context("Wallet - Loans", () => {
   before(() => {
     cy.createEmptyWallet(true);
-    cy.sendDFItoWallet().wait(6000);
+    cy.sendDFItoWallet().sendDFITokentoWallet().wait(6000);
   });
 
   it("should display correct loans tokens from API", () => {
@@ -77,6 +77,39 @@ context("Wallet - Loans", () => {
           .contains(price > 0 ? `$${Number(new BigNumber(price).toFixed(2)).toLocaleString()}` : '-') */
       });
     });
+  });
+
+  it("should create vaults and add collaterals", () => {
+    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
+    cy.createVault(0);
+    cy.getByTestID("vault_card_0_EMPTY_add_collateral_button").click();
+    cy.addCollateral("10", "DFI");
+    cy.getByTestID("loans_tabs_BORROW").click();
+    cy.getByTestID("loans_tokens_sort_row").should("exist");
+  });
+
+  it("should sort tokens based on Lowest interest", () => {
+    checkTokensSortingOrder("Lowest interest", "DUSD", "dTR50");
+  });
+
+  it("should sort tokens based on Highest interest", () => {
+    checkTokensSortingOrder("Highest interest", "dTR50", "DUSD");
+  });
+
+  it("should sort tokens based on A to Z", () => {
+    checkTokensSortingOrder("Highest interest", "dTD10", "DUSD");
+  });
+
+  it("should sort tokens based on Z to A", () => {
+    checkTokensSortingOrder("Highest interest", "DUSD", "dTD10");
+  });
+
+  it("should sort tokens based on Lowest oracle price", () => {
+    checkTokensSortingOrder("Lowest oracle price", "DUSD", "dTD10");
+  });
+
+  it("should sort tokens based on Lowest oracle price", () => {
+    checkTokensSortingOrder("Lowest oracle price", "dTD10", "DUSD");
   });
 });
 
@@ -102,7 +135,6 @@ context("Wallet - Loans - Take Loans", () => {
       vaultId = $txt[0].textContent;
     });
     cy.getByTestID("vault_card_0_EMPTY_add_collateral_button").click();
-    // TODO: change navigation for v2
     cy.addCollateral("10", "DFI");
     cy.addCollateral("10", "dBTC");
     addCollateral();
@@ -180,30 +212,6 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("loan_card_dTS25").should("not.exist");
     cy.getByTestID("loan_card_DUSD").should("not.exist");
     cy.getByTestID("loan_search_input").clear().blur().wait(1000);
-  });
-
-  it("should sort tokens based on Lowest interest", () => {
-    checkTokensSortingOrder("Lowest interest", "DUSD", "dTR50");
-  });
-
-  it("should sort tokens based on Highest interest", () => {
-    checkTokensSortingOrder("Highest interest", "dTR50", "DUSD");
-  });
-
-  it("should sort tokens based on A to Z", () => {
-    checkTokensSortingOrder("Highest interest", "dTD10", "DUSD");
-  });
-
-  it("should sort tokens based on Z to A", () => {
-    checkTokensSortingOrder("Highest interest", "DUSD", "dTD10");
-  });
-
-  it("should sort tokens based on Lowest oracle price", () => {
-    checkTokensSortingOrder("Lowest oracle price", "DUSD", "dTD10");
-  });
-
-  it("should sort tokens based on Lowest oracle price", () => {
-    checkTokensSortingOrder("Lowest oracle price", "dTD10", "DUSD");
   });
 
   // TODO: update for v2 vault details screen
