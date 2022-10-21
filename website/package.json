@@ -18,7 +18,7 @@
     "date-fns": "^2.29.3",
     "lodash": "^4.17.21",
     "next": "12.3.1",
-    "next-sitemap": "^3.1.24",
+    "next-sitemap": "^3.1.29",
     "nextjs-progressbar": "^0.0.14",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -28,11 +28,11 @@
     "schema-dts": "^1.1.0"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "4.25.0",
+    "@netlify/plugin-nextjs": "4.27.3",
     "@next/eslint-plugin-next": "12.3.1",
     "@types/cors": "^2.8.12",
     "@types/lodash": "^4.14.185",
-    "@types/node": "^16.11.65",
+    "@types/node": "^16.11.68",
     "@types/react": "17.0.38",
     "autoprefixer": "^10.4.12",
     "eslint-config-next": "12.3.1",
