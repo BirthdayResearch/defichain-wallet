@@ -27,7 +27,6 @@ import { useIsFocused } from "@react-navigation/native";
 import { VaultDetailStatus } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailStatus";
 import { VaultActionButtons } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultActionButtons";
 import {
-  BottomSheetNavScreen,
   BottomSheetWebWithNavV2,
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
@@ -107,9 +106,6 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
     ios: ["75%"],
     android: ["70%"],
   });
-  const [bottomSheetScreen, setBottomSheetScreen] = useState<
-    BottomSheetNavScreen[]
-  >([]);
   const getBottomSheetHeader = (label: string) => {
     return {
       headerStatusBarHeight: 2,
@@ -133,6 +129,8 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
     dismissModal,
     expandModal,
     isModalDisplayed,
+    bottomSheetScreen,
+    setBottomSheetScreen,
   } = useBottomSheet();
 
   useEffect(() => {
