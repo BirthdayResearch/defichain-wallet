@@ -303,7 +303,7 @@ export function DexScreen(): JSX.Element {
   >([]);
   useEffect(() => {
     // display brand new poolpairs, stocksplit stocks are considered as old poolpairs
-    const sorted = pairs.filter((x) => !x.hasStockSplit).slice(-5);
+    const sorted = pairs.filter((pair) => !pair.hasStockSplit).slice(-5);
     setNewPoolsPairs(sorted);
   }, [pairs]);
 
