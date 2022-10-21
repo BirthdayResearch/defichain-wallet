@@ -12,7 +12,7 @@ import { ThemedViewV2 } from "@components/themed";
 import { View } from "react-native";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { LoanCards } from "./components/LoanCards";
-import { VaultsV2 } from "./components/VaultsV2";
+import { Vaults } from "./components/Vaults";
 import { ButtonGroupV2 } from "../Dex/components/ButtonGroupV2";
 
 enum TabKey {
@@ -20,7 +20,7 @@ enum TabKey {
   YourVaults = "YOUR_VAULTS",
 }
 
-export function LoansScreenV2(): JSX.Element {
+export function LoansScreen(): JSX.Element {
   const { address } = useWalletContext();
   const isFocused = useIsFocused();
   const blockCount = useSelector((state: RootState) => state.block.count);
@@ -99,7 +99,7 @@ export function LoansScreenV2(): JSX.Element {
             hidden: activeTab !== TabKey.YourVaults,
           })}
         >
-          <VaultsV2 scrollRef={vaultScrollRef} />
+          <Vaults scrollRef={vaultScrollRef} />
         </View>
         <View
           style={tailwind("flex-1 flex-grow", {
