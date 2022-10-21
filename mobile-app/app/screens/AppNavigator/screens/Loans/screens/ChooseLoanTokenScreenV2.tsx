@@ -2,7 +2,7 @@ import { ThemedView } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
 import { tailwind } from "@tailwind";
 import { LoanParamList } from "../LoansNavigator";
-import { LoanCardsV2 } from "../components/LoanCardsV2";
+import { LoanCardsV2 } from "../components/LoanCards";
 
 type Props = StackScreenProps<LoanParamList, "ChooseLoanTokenScreen">;
 
