@@ -28,13 +28,13 @@ import {
 } from "./screens/EditCollateralScreen";
 import { AddOrRemoveCollateralScreen } from "./screens/AddOrRemoveCollateralScreen";
 import { ConfirmEditCollateralScreen } from "./screens/ConfirmEditCollateralScreen";
-import { ChooseLoanTokenScreenV2 } from "./screens/ChooseLoanTokenScreenV2";
+import { ChooseLoanTokenScreen } from "./screens/ChooseLoanTokenScreen";
 import { BorrowLoanTokenScreen } from "./screens/BorrowLoanTokenScreen";
 import { ConfirmBorrowLoanTokenScreen } from "./screens/ConfirmBorrowLoanTokenScreen";
-import { EditLoanSchemeScreenV2 } from "./screens/EditLoanSchemeScreenV2";
-import { ConfirmEditLoanSchemeScreenV2 } from "./screens/ConfirmEditLoanSchemeScreenV2";
+import { EditLoanSchemeScreen } from "./screens/EditLoanSchemeScreen";
+import { ConfirmEditLoanSchemeScreen } from "./screens/ConfirmEditLoanSchemeScreen";
 import { LoansFaq } from "./screens/LoansFaq";
-import { LoansScreenV2 } from "./LoansScreenV2";
+import { LoansScreen } from "./LoansScreen";
 import { CloseVaultScreenV2 } from "./screens/CloseVaultScreenV2";
 
 export interface LoanParamList {
@@ -151,7 +151,7 @@ export function LoansNavigator(): JSX.Element {
       }}
     >
       <LoansStack.Screen
-        component={LoansScreenV2}
+        component={LoansScreen}
         name="LoansScreen"
         options={{
           ...screenOptions,
@@ -239,7 +239,7 @@ export function LoansNavigator(): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={ChooseLoanTokenScreenV2}
+        component={ChooseLoanTokenScreen}
         name="ChooseLoanTokenScreen"
         options={{
           headerBackTitleVisible: false,
@@ -311,7 +311,7 @@ export function LoansNavigator(): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={EditLoanSchemeScreenV2}
+        component={EditLoanSchemeScreen}
         name="EditLoanSchemeScreen"
         options={{
           ...screenOptions,
@@ -322,7 +322,7 @@ export function LoansNavigator(): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={ConfirmEditLoanSchemeScreenV2}
+        component={ConfirmEditLoanSchemeScreen}
         name="ConfirmEditLoanSchemeScreen"
         options={{
           ...screenOptions,
