@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { tailwind } from "@tailwind";
 import {
   ThemedScrollViewV2,
@@ -19,7 +19,7 @@ import {
 import { useIsFocused } from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
-import { fetchVaults, LoanVault, vaultsSelector } from "@store/loans";
+import { fetchVaults } from "@store/loans";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import {
   SkeletonLoader,
@@ -39,11 +39,6 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
   );
   const [showLoader, setShowLoader] = useState(true);
   const [isFirstLoad, setIsFirstLoad] = useState(false);
-  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
-  const yourVaultIds = useMemo(
-    () => vaults.map(({ vaultId }: LoanVault) => vaultId),
-    [vaults]
-  );
 
   // Search
   const [showSearchInput, setShowSearchInput] = useState(false);
@@ -240,7 +235,6 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
           searchString={searchString}
           batches={batches}
           filteredAuctionBatches={filteredAuctionBatches}
-          yourVaultIds={yourVaultIds}
         />
       )}
     </ThemedViewV2>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Platform, View } from "react-native";
+import { View } from "react-native";
 import { useSelector, batch as reduxBatch } from "react-redux";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
@@ -20,17 +20,9 @@ import {
 } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootState } from "@store";
-import {
-  auctions as storeAuctions,
-  fetchAuctions,
-  fetchBidHistory,
-} from "@store/auctions";
+import { fetchAuctions, fetchBidHistory } from "@store/auctions";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { LoanVaultLiquidationBatch } from "@defichain/whale-api-client/dist/api/loan";
-import {
-  BottomSheetWebWithNav,
-  BottomSheetWithNav,
-} from "@components/BottomSheetWithNav";
 import { ButtonV2 } from "@components/ButtonV2";
 import { TextRowV2 } from "@components/TextRowV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
@@ -82,8 +74,7 @@ export function AuctionDetailScreen(
   } = useAuctionTime(vault.liquidationHeight, blockCount);
 
   const isFocused = useIsFocused();
-  const { bottomSheetRef, containerRef, isModalDisplayed, bottomSheetScreen } =
-    useBottomSheet();
+  const { containerRef } = useBottomSheet();
 
   const { getTokenPrice } = useTokenPrice();
 
