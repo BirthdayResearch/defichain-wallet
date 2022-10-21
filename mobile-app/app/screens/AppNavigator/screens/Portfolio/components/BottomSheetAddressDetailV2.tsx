@@ -51,6 +51,7 @@ interface BottomSheetAddressDetailProps {
   navigateToScreen: {
     screenName: string;
   };
+  onSwitchAddress: () => void;
 }
 
 export const BottomSheetAddressDetailV2 = (
@@ -182,6 +183,7 @@ export const BottomSheetAddressDetailV2 = (
       dispatch(loans.actions.setHasFetchedVaultsData(false));
       await setIndex(index);
       props.onCloseButtonPress();
+      props.onSwitchAddress();
     };
 
     const AddressListItem = useCallback(

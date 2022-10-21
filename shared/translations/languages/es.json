@@ -1824,7 +1824,7 @@
     "Amount entered will result in vault liquidation": "Amount entered will result in vault liquidation",
     "Amount entered may liquidate the vault. Proceed at your own risk.": "Amount entered may liquidate the vault. Proceed at your own risk.",
     "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.": "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.",
-    "A minimum of 50% DFI as collateral is required before borrowing DUSD.": "A minimum of 50% DFI as collateral is required before borrowing DUSD.",
+    "Insufficient DFI in vault. Add more to borrow DUSD.": "Insufficient DFI in vault. Add more to borrow DUSD.",
     "Review full details in the next screen": "Review full details in the next screen",
     "Max loan amount entered": "Max loan amount entered",
     "{{percent}} of max loan amount entered": "{{percent}} of max loan amount entered",
