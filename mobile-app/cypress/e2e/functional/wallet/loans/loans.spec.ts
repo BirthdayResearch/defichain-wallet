@@ -24,12 +24,70 @@ function checkTokensSortingOrder(
 ): void {
   const containerTestID = '[data-testid="loan_screen_token_lists"]';
   const sortButtonTestID = "loans_tokens_sort_toggle";
+
   cy.getByTestID(sortButtonTestID).click();
   cy.getByTestID(`select_sort_${sortedType}`).click();
   cy.wait(3000);
   cy.getByTestID(sortButtonTestID).contains(sortedType);
   cy.get(containerTestID).children().first().contains(firstToken);
   cy.get(containerTestID).children().last().contains(lastToken);
+
+  switch (sortedType) {
+    case "Lowest interest":
+      cy.getByTestID("loan_card_0_interest_rate")
+        .invoke("text")
+        .then((text) => {
+          const firstVal = text.split("% Interest")[0];
+          cy.getByTestID("loan_card_4_interest_rate")
+            .invoke("text")
+            .then((text) => {
+              const secondVal = text.split("% Interest")[0];
+              expect(Number(firstVal)).to.be.lessThan(Number(secondVal));
+            });
+        });
+      break;
+    case "Highest interest":
+      cy.getByTestID("loan_card_0_interest_rate")
+        .invoke("text")
+        .then((text) => {
+          const firstVal = text.split("% Interest")[0];
+          cy.getByTestID("loan_card_4_interest_rate")
+            .invoke("text")
+            .then((text) => {
+              const secondVal = text.split("% Interest")[0];
+              expect(Number(firstVal)).to.be.greaterThan(Number(secondVal));
+            });
+        });
+      break;
+    case "Lowest oracle price":
+      cy.getByTestID("loan_card_0_oracle_price")
+        .invoke("text")
+        .then((text) => {
+          const firstVal = text.split("$")[1];
+          cy.getByTestID("loan_card_4_oracle_price")
+            .invoke("text")
+            .then((text) => {
+              const secondVal = text.split("$")[1];
+              expect(Number(firstVal)).to.be.lessThan(Number(secondVal));
+            });
+        });
+      break;
+    case "Highest oracle price":
+      cy.getByTestID("loan_card_0_oracle_price")
+        .invoke("text")
+        .then((text) => {
+          const firstVal = text.split("$")[1];
+          cy.getByTestID("loan_card_4_oracle_price")
+            .invoke("text")
+            .then((text) => {
+              const secondVal = text.split("$")[1];
+              expect(Number(firstVal)).to.be.greaterThan(Number(secondVal));
+            });
+        });
+      break;
+
+    default:
+  }
 }
 
 context("Wallet - Loans - Create Loans page", () => {
