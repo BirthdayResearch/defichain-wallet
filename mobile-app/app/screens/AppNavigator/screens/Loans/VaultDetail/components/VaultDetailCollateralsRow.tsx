@@ -260,7 +260,7 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
                   dark={tailwind("border-mono-dark-v2-700")}
                   light={tailwind("border-mono-light-v2-700")}
                   style={[
-                    tailwind("border-0.5 px-2 ml-1"),
+                    tailwind("border-0.5 px-2 py-1 ml-1"),
                     { borderRadius: 5 },
                   ]}
                 >
@@ -274,7 +274,7 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
                       <ThemedTextV2
                         dark={tailwind("text-mono-dark-v2-700")}
                         light={tailwind("text-mono-light-v2-700")}
-                        style={[tailwind("font-semibold-v2"), { fontSize: 10 }]}
+                        style={tailwind("font-semibold-v2 text-2xs leading-3")}
                         testID={`vault_detail_collateral_${props.displaySymbol}_vault_share`}
                       >
                         {val}
