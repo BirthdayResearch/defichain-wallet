@@ -410,7 +410,9 @@
     "Passcode verified!": "Passcode verified!",
     "Provider": "Provider",
     "Custom": "Custom",
-    "Default": "Default"
+    "Default": "Default",
+    "Cancel transaction": "Cancel transaction",
+    "By cancelling, you will lose any changes you made for your transaction.": "By cancelling, you will lose any changes you made for your transaction."
   },
   "screens/AboutScreen": {
     "About": "关于",
