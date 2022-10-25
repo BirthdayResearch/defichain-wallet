@@ -1,15 +1,15 @@
 import { View } from "@components";
 import {
   ThemedFlatListV2,
-  ThemedTouchableOpacityV2,
   ThemedTextV2,
+  ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
 import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { memo } from "react";
 import * as React from "react";
+import { memo } from "react";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { SearchInputV2 } from "@components/SearchInputV2";
 import { TextInput } from "react-native-gesture-handler";
@@ -176,7 +176,7 @@ export const BottomSheetLoanTokensList = ({
             {inSearchMode && (
               <View style={tailwind("mt-5 mx-5")}>
                 <ThemedTextV2
-                  style={tailwind("text-xs pl-5 font-normal-v2")}
+                  style={tailwind("text-xs font-normal-v2")}
                   light={tailwind("text-mono-light-v2-700")}
                   dark={tailwind("text-mono-dark-v2-700")}
                   testID="empty_search_result_text"

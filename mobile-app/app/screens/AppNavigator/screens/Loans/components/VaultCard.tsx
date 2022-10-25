@@ -19,6 +19,7 @@ import { VaultCardStatus } from "@screens/AppNavigator/screens/Loans/components/
 import { ThemedTouchableOpacityV2, ThemedViewV2 } from "@components/themed";
 import { BottomSheetNavScreen } from "@components/BottomSheetWithNavV2";
 import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";
+import { useMaxLoan } from "@screens/AppNavigator/screens/Loans/hooks/MaxLoanAmount";
 import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
 import {
   BottomSheetTokenList,
@@ -61,6 +62,12 @@ export function VaultCard(props: VaultCardProps): JSX.Element {
     new BigNumber(vault.loanValue),
     new BigNumber(vault.collateralValue)
   );
+  const maxLoanAmount = useMaxLoan({
+    totalCollateralValue: new BigNumber(vault.collateralValue),
+    collateralAmounts: vault.collateralAmounts ?? [],
+    existingLoanValue: new BigNumber(vault.loanValue),
+    minColRatio: new BigNumber(vault.loanScheme.minColRatio),
+  });
 
   const { collateralTokens } = useCollateralTokenList();
   const loanTokens = useSelector((state: RootState) =>
@@ -93,7 +100,10 @@ export function VaultCard(props: VaultCardProps): JSX.Element {
   };
 
   const onAddCollateralPress = (): void => {
-    props.setSnapPoints({ ios: ["70%"], android: ["70%"] });
+    props.setSnapPoints({
+      ios: ["70%"],
+      android: ["70%"],
+    });
     props.setBottomSheetScreen([
       {
         stackScreenName: "TokenList",
@@ -156,7 +166,11 @@ export function VaultCard(props: VaultCardProps): JSX.Element {
       default:
         break;
     }
-    return { buttonLabel, text, type };
+    return {
+      buttonLabel,
+      text,
+      type,
+    };
   }, [vaultState.status]);
 
   return (
@@ -168,7 +182,7 @@ export function VaultCard(props: VaultCardProps): JSX.Element {
           vaultId={vault.vaultId}
           onButtonPress={onAddCollateralPress}
           vaultType={vaultBanner.type}
-          onCardPress={onCardPress}
+          onCardPress={isVaultLiquidated ? undefined : onCardPress}
           testID={`${props.testID}_${vaultBanner.type}`}
           vault={vault}
         />
@@ -196,10 +210,10 @@ export function VaultCard(props: VaultCardProps): JSX.Element {
                   size={24}
                 />
                 <VaultSectionTextRowV2
-                  testID={`${props.testID}_loan_available`}
+                  testID={`${props.testID}_max_loan_amount`}
                   prefix="$"
-                  value={getPrecisedCurrencyValue(vault.loanValue) ?? "-"}
-                  lhs={translate("components/VaultCard", "Total loans")}
+                  value={getPrecisedCurrencyValue(maxLoanAmount) ?? "-"}
+                  lhs={translate("components/VaultCard", "Max loan amount")}
                   isOraclePrice
                   customContainerStyle="mt-3"
                 />

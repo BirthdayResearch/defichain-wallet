@@ -19,9 +19,9 @@ import { useNavigatorHeaderStylesOption } from "@screens/AppNavigator/hooks/useN
 import { CreateVaultScreenV2 } from "@screens/AppNavigator/screens/Loans/screens/CreateVaultScreenV2";
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { VaultDetailScreenV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/VaultDetailScreenV2";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { ConfirmCreateVaultScreen } from "./screens/ConfirmCreateVaultScreen";
-import { VaultDetailScreen } from "./VaultDetail/VaultDetailScreen";
 import {
   CollateralItem,
   EditCollateralScreen,
@@ -191,15 +191,14 @@ export function LoansNavigator(): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={VaultDetailScreen}
+        component={VaultDetailScreenV2}
         name="VaultDetailScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/LoansScreen", "Vault Detail")}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
+          headerTitle: translate("screens/LoansScreen", "Vault Details"),
         }}
       />
       <LoansStack.Screen
