@@ -1,6 +1,6 @@
 import { StackNavigationOptions } from "@react-navigation/stack";
 import { tailwind } from "@tailwind";
-import { Platform, StyleProp, View, ViewStyle } from "react-native";
+import { Platform, StyleProp, ViewStyle } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ThemedTextV2 } from "@components/themed";
 import { translate } from "@translations";
@@ -26,15 +26,13 @@ export function useNavigatorHeaderStylesOption(
 
   return {
     headerLeft: undefined,
+    headerLeftContainerStyle: null,
     headerTitleAlign: "left",
-    headerTitleContainerStyle: tailwind("ml-5"),
+    headerTitleContainerStyle: tailwind("mt-4 ml-5"),
     headerRightContainerStyle: [
       screenOptions.headerRightContainerStyle,
-      tailwind("justify-start", {
-        "pr-3": Platform.OS === "web",
-      }),
+      tailwind("mt-5 justify-start", { "pr-3": Platform.OS === "web" }),
     ],
-    headerLeftContainerStyle: tailwind("pl-1"),
     headerStyle: [
       screenOptions.headerStyle,
       tailwind("rounded-b-none border-b-0"),
@@ -44,23 +42,23 @@ export function useNavigatorHeaderStylesOption(
       },
     ],
     headerTitle: () => (
-      <View>
-        <ThemedTextV2
-          style={[
-            screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
-            tailwind("text-left text-3xl font-semibold-v2"),
-            // eslint-disable-next-line react-native/no-inline-styles
-            { fontSize: 28 },
-          ]}
-        >
-          {translate(props.destination, props.headerTitle)}
-        </ThemedTextV2>
-      </View>
+      <ThemedTextV2
+        style={[
+          screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
+          tailwind("text-left text-3xl font-semibold-v2"),
+          // eslint-disable-next-line react-native/no-inline-styles
+          { fontSize: 28 },
+        ]}
+      >
+        {translate(props.destination, props.headerTitle)}
+      </ThemedTextV2>
     ),
     headerRight: () => (
       <HeaderNetworkStatus
         onPress={goToNetworkSelect}
-        containerStyle={tailwind("pt-5")}
+        containerStyle={tailwind("pt-4", {
+          "pt-5": Platform.OS === "android",
+        })}
       />
     ),
   };
