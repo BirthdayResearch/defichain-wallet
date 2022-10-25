@@ -232,6 +232,7 @@
   "screens/SendScreen": {
     "Send": "Senden",
     "Estimated fee": "Voraussichtliche Gebühr",
+    "Continue": "Weiter",
     "CONTINUE": "WEITER",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
     "SEND": "SENDEN",
