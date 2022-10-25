@@ -3,12 +3,14 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { tailwind } from "@tailwind";
 import { useEffect, useState } from "react";
 import { Platform, View } from "react-native";
+import { openURL } from "@api/linking";
 import {
   fetchCollateralTokens,
   loanTokensSelector,
   LoanVault,
   vaultsSelector,
 } from "@store/loans";
+import { WalletAlert } from "@components/WalletAlert";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import {
@@ -46,6 +48,7 @@ import {
 } from "@components/BottomSheetTokenList";
 import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
 import { translate } from "@translations";
+import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { VaultDetailLoansRow } from "./components/VaultDetailLoansRow";
 import { VaultDetailCollateralsRow } from "./components/VaultDetailCollateralsRow";
 import { LoanParamList } from "../LoansNavigator";
@@ -62,6 +65,7 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
   const blockCount = useSelector((state: RootState) => state.block.count);
   const isFocused = useIsFocused();
   const { collateralTokens } = useCollateralTokenList();
+  const { getVaultsUrl } = useDeFiScanContext();
 
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
   const loanTokens = useSelector((state: RootState) =>
@@ -145,6 +149,35 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
       dispatch(fetchCollateralTokens({ client }));
     }
   }, [blockCount]);
+
+  useEffect(() => {
+    if (vault?.state === LoanVaultState.IN_LIQUIDATION) {
+      WalletAlert({
+        title: translate("screens/VaultCard", "Liquidated vault"),
+        message: translate(
+          "screens/VaultCard",
+          "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details."
+        ),
+        buttons: [
+          {
+            text: translate("screens/Settings", "Go back"),
+            style: "cancel",
+            onPress: async () => {
+              navigation.navigate("LoansScreen", {});
+            },
+          },
+          {
+            text: translate("screens/Settings", "View in Scan"),
+            style: "destructive",
+            onPress: async () => {
+              openURL(getVaultsUrl(vaultId));
+              navigation.navigate("LoansScreen", {});
+            },
+          },
+        ],
+      });
+    }
+  }, [vault?.state]);
 
   const onAddPressed = () => {
     if (vault === undefined) {

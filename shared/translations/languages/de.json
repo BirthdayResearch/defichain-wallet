@@ -1468,6 +1468,7 @@
     "Total collateral": "Gesamter Besicherungswert",
     "Borrow": "Leihen",
     "Liquidated vault": "Liquidierter Vault",
+    "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details.": "Der Vault wurde liquidiert und steht jetzt zur Versteigerung. Sieh dir deinen Vault auf DeFiScan an, um mehr zu erfahren.",
     "Ready": "Bereit",
     "Halted": "Gestoppt",
     "Total loans": "Gesamtes Darlehen",
