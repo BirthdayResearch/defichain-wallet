@@ -78,7 +78,7 @@ export function ImageSlide({
         source={isLight ? imageLight : imageDark}
         style={{ width: 204, height: 136 }}
       />
-      <View style={tailwind("items-center justify-center mt-7 pb-15")}>
+      <View style={tailwind("items-center justify-center mt-7 pb-10")}>
         <ThemedTextV2 style={tailwind("text-xl font-semibold-v2 text-center")}>
           {translate("screens/LoansScreen", title)}
         </ThemedTextV2>
