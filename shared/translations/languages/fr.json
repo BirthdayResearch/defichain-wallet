@@ -419,7 +419,9 @@
     "Passcode verified!": "Code d'accès vérifié ! ",
     "Provider": "Fournisseur",
     "Custom": "Personnalisé",
-    "Default": "Par défaut"
+    "Default": "Par défaut",
+    "Cancel transaction": "Annuler la transaction",
+    "By cancelling, you will lose any changes you made for your transaction.": "En annulant, vous perdrez toutes les modifications apportées à votre transaction."
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",
