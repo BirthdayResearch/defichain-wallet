@@ -1,8 +1,4 @@
-import {
-  NavigationProp,
-  useNavigation,
-  useRoute,
-} from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { createStackNavigator } from "@react-navigation/stack";
 import BigNumber from "bignumber.js";
@@ -18,7 +14,8 @@ import {
   TokenListType,
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { PriceRateProps as PriceRatesPropsV2 } from "@components/PricesSectionV2";
-import { useNavigatorHeaderStylesOption } from "@screens/AppNavigator/hooks/useNavigatorHeaderStylesOption";
+import { ThemedTextV2 } from "@components/themed";
+import { StyleProp, View, ViewStyle } from "react-native";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { ConversionParam } from "../Portfolio/PortfolioNavigator";
 import {
@@ -139,15 +136,10 @@ const DexStack = createStackNavigator<DexParamList>();
 
 export function DexNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>();
-  const screenOptions = useNavigatorScreenOptions();
+  const screenOptions = useNavigatorScreenOptions({});
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreen");
   };
-
-  const dexScreenHeaderTitle = useNavigatorHeaderStylesOption({
-    destination: "screen/DexScreen",
-    headerTitle: "Decentralized \nExchange",
-  });
 
   return (
     <DexStack.Navigator
@@ -163,7 +155,23 @@ export function DexNavigator(): JSX.Element {
         name="DexScreen"
         options={{
           ...screenOptions,
-          ...dexScreenHeaderTitle,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitleAlign: "left",
+          headerTitleContainerStyle: tailwind("ml-5"),
+          headerLeftContainerStyle: null,
+          headerTitle: () => (
+            <ThemedTextV2
+              style={[
+                screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
+                tailwind("text-left text-3xl font-semibold-v2 mt-1"),
+                { fontSize: 28 },
+              ]}
+            >
+              {translate("screen/DexScreen", "Decentralized \nExchange")}
+            </ThemedTextV2>
+          ),
         }}
       />
 

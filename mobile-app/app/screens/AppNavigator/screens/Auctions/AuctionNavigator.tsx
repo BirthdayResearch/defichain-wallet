@@ -51,7 +51,7 @@ export function AuctionsNavigator(): JSX.Element {
   const headerContainerTestId = "auctions_header_container";
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>();
 
-  const screenOptions = useNavigatorScreenOptions();
+  const screenOptions = useNavigatorScreenOptions({ isRounded: true });
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreen");
   };
