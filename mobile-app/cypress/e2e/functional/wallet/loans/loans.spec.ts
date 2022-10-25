@@ -42,7 +42,9 @@ function checkTokensSortingOrder(
             .invoke("text")
             .then((text) => {
               const secondVal = text.split("% Interest")[0];
-              expect(Number(firstVal)).to.be.lessThan(Number(secondVal));
+              expect(Number.parseInt(firstVal)).to.be.lessThan(
+                Number.parseInt(secondVal)
+              );
             });
         });
       break;
@@ -55,7 +57,9 @@ function checkTokensSortingOrder(
             .invoke("text")
             .then((text) => {
               const secondVal = text.split("% Interest")[0];
-              expect(Number(firstVal)).to.be.greaterThan(Number(secondVal));
+              expect(Number.parseInt(firstVal)).to.be.greaterThan(
+                Number.parseInt(secondVal)
+              );
             });
         });
       break;
@@ -68,7 +72,9 @@ function checkTokensSortingOrder(
             .invoke("text")
             .then((text) => {
               const secondVal = text.split("$")[1];
-              expect(Number(firstVal)).to.be.lessThan(Number(secondVal));
+              expect(Number.parseInt(firstVal)).to.be.lessThan(
+                Number.parseInt(secondVal)
+              );
             });
         });
       break;
@@ -81,7 +87,9 @@ function checkTokensSortingOrder(
             .invoke("text")
             .then((text) => {
               const secondVal = text.split("$")[1];
-              expect(Number(firstVal)).to.be.greaterThan(Number(secondVal));
+              expect(Number.parseInt(firstVal)).to.be.greaterThan(
+                Number.parseInt(secondVal)
+              );
             });
         });
       break;
