@@ -19,7 +19,7 @@ import { getDefaultTheme } from "@constants/Theme";
 import { BottomSheetModal as BottomSheetModalWeb } from "./BottomSheetModal.web";
 
 interface BottomSheetWithNavProps {
-  modalRef: React.Ref<BottomSheetModalMethods>;
+  modalRef?: React.Ref<BottomSheetModalMethods>;
   screenList: BottomSheetNavScreen[];
   snapPoints?: {
     ios: string[];
