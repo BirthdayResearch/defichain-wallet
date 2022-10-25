@@ -307,7 +307,6 @@ describe("Batch Card", () => {
           vault={vault}
           batch={vault.batches[0]}
           onQuickBid={() => {}}
-          isVaultOwner={false}
           testID="batch_card"
         />
       </Provider>

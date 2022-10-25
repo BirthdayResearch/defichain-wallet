@@ -1,5 +1,4 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { HeaderTitle } from "@components/HeaderTitle";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import {
@@ -48,7 +47,6 @@ export interface AuctionsParamList {
 const AuctionsStack = createStackNavigator<AuctionsParamList>();
 
 export function AuctionsNavigator(): JSX.Element {
-  const headerContainerTestId = "auctions_header_container";
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>();
 
   const screenOptions = useNavigatorScreenOptions();

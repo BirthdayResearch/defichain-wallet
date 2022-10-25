@@ -28,7 +28,6 @@ import { EmptyAuction } from "./EmptyAuction";
 interface Props {
   batches: AuctionBatchProps[];
   filteredAuctionBatches: AuctionBatchProps[];
-  yourVaultIds: string[];
   activeButtonGroup: ButtonGroupTabKey;
   showSearchInput: boolean;
   searchString: string;
@@ -54,7 +53,6 @@ export function BrowseAuctions({
   filteredAuctionBatches,
   showSearchInput,
   searchString,
-  yourVaultIds,
   activeButtonGroup,
 }: Props): JSX.Element {
   // Asset sort bottom sheet list
@@ -209,7 +207,6 @@ export function BrowseAuctions({
         showSearchInput={showSearchInput}
         auctionBatches={sortTokensAssetOnType(assetSortType)}
         onQuickBid={onQuickBid}
-        yourVaultIds={yourVaultIds}
       />
       {Platform.OS === "web" ? (
         <BottomSheetWebWithNavV2
@@ -244,13 +241,11 @@ export function BrowseAuctions({
 
 function BatchCards({
   auctionBatches,
-  yourVaultIds,
   showSearchInput,
   onQuickBid,
   activeButtonGroup,
 }: {
   auctionBatches: AuctionBatchProps[];
-  yourVaultIds: string[];
   showSearchInput: boolean;
   onQuickBid: (props: onQuickBidProps) => void;
   activeButtonGroup: ButtonGroupTabKey;
@@ -259,23 +254,16 @@ function BatchCards({
   useScrollToTop(ref);
 
   const RenderItems = useCallback(
-    ({
-      item,
-      index,
-    }: {
-      item: AuctionBatchProps;
-      index: number;
-    }): JSX.Element => {
-      const { auction, collateralTokenSymbols, ...batch } = item;
+    (props: { item: AuctionBatchProps; index: number }): JSX.Element => {
+      const { auction, collateralTokenSymbols, ...batch } = props.item;
       return (
         <BatchCard
           vault={auction}
           batch={batch}
           collateralTokenSymbols={collateralTokenSymbols}
           key={`${auction.vaultId}_${batch.index}`}
-          testID={`batch_card_${index}`}
+          testID={`batch_card_${props.index}`}
           onQuickBid={onQuickBid}
-          isVaultOwner={yourVaultIds.includes(auction.vaultId)}
         />
       );
     },
