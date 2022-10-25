@@ -2,6 +2,7 @@ import { ThemedTextV2, ThemedTouchableOpacityV2 } from "@components/themed";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
+import { ScreenName } from "@screens/enum";
 import { DexParamList } from "../DexNavigator";
 
 export function SwapButton(): JSX.Element {
@@ -14,7 +15,7 @@ export function SwapButton(): JSX.Element {
       onPress={() =>
         navigation.navigate({
           name: "CompositeSwap",
-          params: {},
+          params: { originScreen: ScreenName.DEX_screen },
           merge: true,
         })
       }

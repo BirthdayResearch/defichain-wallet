@@ -19,22 +19,22 @@ import { useNavigatorHeaderStylesOption } from "@screens/AppNavigator/hooks/useN
 import { CreateVaultScreenV2 } from "@screens/AppNavigator/screens/Loans/screens/CreateVaultScreenV2";
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { VaultDetailScreenV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/VaultDetailScreenV2";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { ConfirmCreateVaultScreen } from "./screens/ConfirmCreateVaultScreen";
-import { VaultDetailScreen } from "./VaultDetail/VaultDetailScreen";
 import {
   CollateralItem,
   EditCollateralScreen,
 } from "./screens/EditCollateralScreen";
 import { AddOrRemoveCollateralScreen } from "./screens/AddOrRemoveCollateralScreen";
 import { ConfirmEditCollateralScreen } from "./screens/ConfirmEditCollateralScreen";
-import { ChooseLoanTokenScreenV2 } from "./screens/ChooseLoanTokenScreenV2";
+import { ChooseLoanTokenScreen } from "./screens/ChooseLoanTokenScreen";
 import { BorrowLoanTokenScreen } from "./screens/BorrowLoanTokenScreen";
 import { ConfirmBorrowLoanTokenScreen } from "./screens/ConfirmBorrowLoanTokenScreen";
-import { EditLoanSchemeScreenV2 } from "./screens/EditLoanSchemeScreenV2";
-import { ConfirmEditLoanSchemeScreenV2 } from "./screens/ConfirmEditLoanSchemeScreenV2";
+import { EditLoanSchemeScreen } from "./screens/EditLoanSchemeScreen";
+import { ConfirmEditLoanSchemeScreen } from "./screens/ConfirmEditLoanSchemeScreen";
 import { LoansFaq } from "./screens/LoansFaq";
-import { LoansScreenV2 } from "./LoansScreenV2";
+import { LoansScreen } from "./LoansScreen";
 import { CloseVaultScreenV2 } from "./screens/CloseVaultScreenV2";
 
 export interface LoanParamList {
@@ -151,7 +151,7 @@ export function LoansNavigator(): JSX.Element {
       }}
     >
       <LoansStack.Screen
-        component={LoansScreenV2}
+        component={LoansScreen}
         name="LoansScreen"
         options={{
           ...screenOptions,
@@ -191,15 +191,14 @@ export function LoansNavigator(): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={VaultDetailScreen}
+        component={VaultDetailScreenV2}
         name="VaultDetailScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/LoansScreen", "Vault Detail")}
-            />
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
+          headerTitle: translate("screens/LoansScreen", "Vault Details"),
         }}
       />
       <LoansStack.Screen
@@ -240,7 +239,7 @@ export function LoansNavigator(): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={ChooseLoanTokenScreenV2}
+        component={ChooseLoanTokenScreen}
         name="ChooseLoanTokenScreen"
         options={{
           headerBackTitleVisible: false,
@@ -312,7 +311,7 @@ export function LoansNavigator(): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={EditLoanSchemeScreenV2}
+        component={EditLoanSchemeScreen}
         name="EditLoanSchemeScreen"
         options={{
           ...screenOptions,
@@ -323,7 +322,7 @@ export function LoansNavigator(): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={ConfirmEditLoanSchemeScreenV2}
+        component={ConfirmEditLoanSchemeScreen}
         name="ConfirmEditLoanSchemeScreen"
         options={{
           ...screenOptions,

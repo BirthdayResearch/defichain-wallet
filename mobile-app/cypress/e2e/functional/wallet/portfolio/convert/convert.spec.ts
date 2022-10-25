@@ -112,6 +112,9 @@ context("Wallet - Convert DFI", () => {
       "disabled"
     );
     cy.getByTestID("button_cancel_convert").click();
+    cy.getByTestID("dfi_balance_card").should("exist").click();
+    cy.getByTestID("convert_button").click();
+    cy.getByTestID("convert_input").clear().type("1");
     cy.getByTestID("convert_input").should("exist");
 
     cy.getByTestID("button_continue_convert").click();
@@ -128,6 +131,8 @@ context("Wallet - Convert DFI", () => {
     cy.getByTestID("resulting_utxo_sub_value").contains("70.00%");
     cy.getByTestID("transaction_fee_value").should("exist");
     cy.getByTestID("button_cancel_convert").click();
+    cy.getByTestID("dfi_balance_card").should("exist").click();
+    cy.getByTestID("convert_button").click();
   });
 
   it("should test UTXO to account conversion", () => {
@@ -139,7 +144,10 @@ context("Wallet - Convert DFI", () => {
       "disabled"
     );
     cy.getByTestID("button_cancel_convert").click();
-    cy.getByTestID("convert_input").should("exist");
+    cy.getByTestID("dfi_balance_card").should("exist").click();
+    cy.getByTestID("convert_button").click();
+    cy.getByTestID("button_convert_mode_toggle").click().wait(4000);
+    cy.getByTestID("convert_input").clear().type("1");
 
     cy.getByTestID("button_continue_convert").click();
 
@@ -162,15 +170,6 @@ context("Wallet - Convert UTXO to Account", () => {
     createDFIWallet();
     cy.getByTestID("convert_input").clear().type("1");
     cy.getByTestID("button_continue_convert").click();
-    cy.getByTestID("button_confirm_convert").should(
-      "not.have.attr",
-      "disabled"
-    );
-    cy.getByTestID("button_cancel_convert").click();
-    cy.getByTestID("convert_input").should("exist");
-
-    cy.getByTestID("button_continue_convert").click();
-
     cy.getByTestID("button_confirm_convert").click().wait(4000);
     cy.closeOceanInterface().wait(5000);
     cy.getByTestID("dfi_total_balance_amount").contains("29.999");
@@ -185,15 +184,6 @@ context("Wallet - Convert UTXO to Account", () => {
     createDFIWallet();
     cy.getByTestID("convert_input").clear().type(oldAmount);
     cy.getByTestID("button_continue_convert").click();
-    cy.getByTestID("button_confirm_convert").should(
-      "not.have.attr",
-      "disabled"
-    );
-    cy.getByTestID("button_cancel_convert").click();
-    cy.getByTestID("convert_input")
-      .should("exist")
-      .should("have.value", oldAmount);
-    cy.getByTestID("button_continue_convert").click();
     cy.getByTestID("button_confirm_convert").click().wait(2000);
     // Check for authorization page description
     cy.getByTestID("txn_authorization_title").contains(
@@ -203,7 +193,10 @@ context("Wallet - Convert UTXO to Account", () => {
     // Cancel send on authorisation page
     cy.getByTestID("cancel_authorization").click();
     cy.getByTestID("button_cancel_convert").click();
+    cy.getByTestID("dfi_balance_card").should("exist").click();
+    cy.getByTestID("convert_button").click();
     // Update the input amount
+    cy.getByTestID("button_convert_mode_toggle").click().wait(4000);
     cy.getByTestID("convert_input").clear().type(newAmount);
     cy.getByTestID("button_continue_convert").click();
     // Confirm convert
@@ -231,15 +224,6 @@ context("Wallet - Convert Account to UTXO", () => {
     cy.getByTestID("button_convert_mode_toggle").click().wait(4000);
     cy.getByTestID("convert_input").clear().type("1");
     cy.getByTestID("button_continue_convert").click();
-    cy.getByTestID("button_confirm_convert").should(
-      "not.have.attr",
-      "disabled"
-    );
-    cy.getByTestID("button_cancel_convert").click();
-    cy.getByTestID("convert_input").should("exist");
-
-    cy.getByTestID("button_continue_convert").click();
-
     cy.getByTestID("button_confirm_convert").click().wait(4000);
     cy.closeOceanInterface().wait(5000);
 
@@ -261,7 +245,9 @@ context("Wallet - Convert Account to UTXO", () => {
       "disabled"
     );
     cy.getByTestID("button_cancel_convert").click();
-    cy.getByTestID("convert_input").should("exist");
+    cy.getByTestID("dfi_balance_card").should("exist").click();
+    cy.getByTestID("convert_button").click();
+    cy.getByTestID("convert_input").clear().type(oldAmount);
 
     cy.getByTestID("button_continue_convert").click();
 
@@ -273,6 +259,8 @@ context("Wallet - Convert Account to UTXO", () => {
     // Cancel send on authorisation page
     cy.getByTestID("cancel_authorization").click();
     cy.getByTestID("button_cancel_convert").click();
+    cy.getByTestID("dfi_balance_card").should("exist").click();
+    cy.getByTestID("convert_button").click();
     // Update the input amount
     cy.getByTestID("convert_input").clear().type(newAmount);
     cy.getByTestID("button_continue_convert").click();
