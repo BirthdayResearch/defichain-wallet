@@ -243,6 +243,7 @@
   "screens/SendScreen": {
     "Send": "Invia",
     "Estimated fee": "Commmisione stimata",
+    "Continue": "Continua",
     "CONTINUE": "CONTINUA",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Una piccola quantità di UTXO (0,1 DFI (UTXO)) è riservata per le commissioni.",
     "SEND": "INVIA",

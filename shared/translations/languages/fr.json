@@ -242,6 +242,7 @@
   "screens/SendScreen": {
     "Send": "Envoyer",
     "Estimated fee": "Frais estimés",
+    "Continue": "Suivant",
     "CONTINUE": "SUIVANT",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Une petite quantité d'UTXO (0,1 DFI (UTXO)) est réservée aux frais.",
     "SEND": "ENVOYER",
