@@ -166,18 +166,20 @@ export function DexNavigator(): JSX.Element {
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
           headerTitleAlign: "left",
-          headerTitleContainerStyle: tailwind("ml-5"),
+          headerTitleContainerStyle: tailwind("ml-5 -mb-3"),
           headerLeftContainerStyle: null,
           headerTitle: () => (
-            <ThemedTextV2
-              style={[
-                screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
-                tailwind("text-left text-3xl font-semibold-v2 mt-1"),
-                { fontSize: 28 },
-              ]}
-            >
-              {translate("screens/DexScreen", "Decentralized \nExchange")}
-            </ThemedTextV2>
+            <View style={tailwind("pt-4")}>
+              <ThemedTextV2
+                style={[
+                  screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
+                  tailwind("text-left text-3xl font-semibold-v2"),
+                  { fontSize: 28 },
+                ]}
+              >
+                {translate("screens/DexScreen", "Decentralized \nExchange")}
+              </ThemedTextV2>
+            </View>
           ),
         }}
       />
