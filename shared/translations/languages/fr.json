@@ -419,7 +419,9 @@
     "Passcode verified!": "Code d'accès vérifié ! ",
     "Provider": "Fournisseur",
     "Custom": "Personnalisé",
-    "Default": "Par défaut"
+    "Default": "Par défaut",
+    "Cancel transaction": "Annuler la transaction",
+    "By cancelling, you will lose any changes you made for your transaction.": "En annulant, vous perdrez toutes les modifications apportées à votre transaction."
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",
@@ -1292,6 +1294,15 @@
     "Edit Vault": "Modifier le vault",
     "Confirm": "Confirmer",
     "Search with token name": "Recherche avec le nom du token",
+    "Sort Tokens": "Trier les tokens",
+    "Sort by": "Trier par",
+    "AVAILABLE TOKENS": "TOKENS DISPONIBLES",
+    "Lowest oracle price": "Prix d'oracle le plus bas",
+    "Highest oracle price": "Prix d'oracle le plus élevé",
+    "Lowest interest": "Intérêt le plus bas",
+    "Highest interest": "Intérêt le plus élevé",
+    "A to Z": "A à Z",
+    "Z to A": "Z à A",
     "Vault Details": "Vue détaillée du vault"
   },
   "components/tabs": {

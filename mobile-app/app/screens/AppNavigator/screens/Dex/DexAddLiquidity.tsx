@@ -79,7 +79,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
     tokensSelector(state.wallet)
   );
   const { getTokenPrice } = useTokenPrice();
-  const { pair: pairData, pairInfo } = props.route.params;
+  const { pair: pairData, pairInfo, originScreen } = props.route.params;
 
   // breakdown summary state
   const [hasAInputAmount, setHasAInputAmount] = useState(false);
@@ -250,6 +250,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
                 conversionAmount,
               },
               pairInfo,
+              originScreen: originScreen,
             },
             merge: true,
           });
@@ -277,6 +278,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
                 isConverted: true, // to pass loading component for tokens conversion in confirm screen
               },
               pairInfo,
+              originScreen: originScreen,
             },
             merge: true,
           });
@@ -297,6 +299,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
           },
           pair,
           pairInfo,
+          originScreen: originScreen,
         },
         merge: true,
       });

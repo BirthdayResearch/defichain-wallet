@@ -276,8 +276,10 @@ context("Wallet - DEX - Remove Liquidity Confirm Txn", () => {
             cy.getByTestID("button_continue_remove_liq").click();
             cy.getByTestID("button_cancel_remove").click();
             cy.getByTestID("remove_liquidity_calculation_summary").should(
-              "exist"
+              "not.exist"
             );
+            cy.getByTestID(`pool_pair_remove_${tokensPair}`).click().wait(1000);
+            cy.getByTestID("MAX_amount_button").click().wait(200);
             cy.getByTestID("button_continue_remove_liq").click();
             cy.getByTestID("confirm_title").should(
               "have.text",
@@ -394,6 +396,8 @@ context("Wallet - DEX - Remove Liquidity Confirm Txn", () => {
     // Cancel send on authorisation page
     cy.getByTestID("cancel_authorization").click();
     cy.getByTestID("button_cancel_remove").click();
+    cy.getByTestID("remove_liquidity_calculation_summary").should("not.exist");
+    cy.getByTestID(`pool_pair_remove_${tokensPair}`).click().wait(1000);
 
     // Update input values MAX
     cy.getByTestID("MAX_amount_button").click().wait(200);

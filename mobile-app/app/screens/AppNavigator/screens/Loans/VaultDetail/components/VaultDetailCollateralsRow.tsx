@@ -17,6 +17,7 @@ import {
   BottomSheetAlertInfoV2,
   BottomSheetInfoV2,
 } from "@components/BottomSheetInfoV2";
+import { CollateralFactorTag } from "@components/CollateralFactorTag";
 import { CollateralItem } from "@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen";
 import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
 import { getCollateralPrice } from "../../hooks/CollateralPrice";
@@ -218,10 +219,6 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
     props.totalCollateralValue
   );
 
-  const dusdCollateralFactor = new BigNumber(
-    props.collateralItem.factor ?? 0
-  ).times(1);
-
   return (
     <ThemedViewV2
       light={tailwind("bg-mono-light-v2-00")}
@@ -255,34 +252,13 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
                   </ThemedTextV2>
                 )}
               />
-              {props.collateralItem.token.displaySymbol === "DUSD" && (
-                <ThemedViewV2
-                  dark={tailwind("border-mono-dark-v2-700")}
-                  light={tailwind("border-mono-light-v2-700")}
-                  style={[
-                    tailwind("border-0.5 px-2 py-1 ml-1"),
-                    { borderRadius: 5 },
-                  ]}
-                >
-                  <NumberFormat
-                    value={dusdCollateralFactor.toFixed()}
-                    thousandSeparator
-                    decimalScale={2}
-                    displayType="text"
-                    suffix="x"
-                    renderText={(val: string) => (
-                      <ThemedTextV2
-                        dark={tailwind("text-mono-dark-v2-700")}
-                        light={tailwind("text-mono-light-v2-700")}
-                        style={tailwind("font-semibold-v2 text-2xs leading-3")}
-                        testID={`vault_detail_collateral_${props.displaySymbol}_vault_share`}
-                      >
-                        {val}
-                      </ThemedTextV2>
-                    )}
-                  />
-                </ThemedViewV2>
-              )}
+              <CollateralFactorTag
+                factor={props.collateralItem.factor}
+                containerStyle={tailwind(
+                  "h-5 flex flex-row items-center rounded px-2 py-1 ml-1 border-0.5"
+                )}
+                textStyle={tailwind("font-semibold-v2 text-2xs leading-3")}
+              />
             </View>
 
             <View style={tailwind("flex flex-row")}>

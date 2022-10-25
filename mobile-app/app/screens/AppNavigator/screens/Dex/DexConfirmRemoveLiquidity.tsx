@@ -1,3 +1,4 @@
+import { WalletAlert } from "@components/WalletAlert";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
@@ -15,6 +16,7 @@ import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
+import { ScreenName } from "@screens/enum";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { SummaryTitleV2 } from "@components/SummaryTitleV2";
@@ -28,8 +30,15 @@ import { DexParamList } from "./DexNavigator";
 type Props = StackScreenProps<DexParamList, "RemoveLiquidityConfirmScreen">;
 
 export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
-  const { pair, pairInfo, amount, fee, tokenAAmount, tokenBAmount } =
-    route.params;
+  const {
+    pair,
+    pairInfo,
+    amount,
+    fee,
+    tokenAAmount,
+    tokenBAmount,
+    originScreen,
+  } = route.params;
   const dispatch = useAppDispatch();
   const { getTokenPrice } = useTokenPrice();
   const hasPendingJob = useSelector((state: RootState) =>
@@ -69,10 +78,29 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
 
   function onCancel(): void {
     if (!isSubmitting) {
-      navigation.navigate({
-        name: "RemoveLiquidity",
-        params: { pair, pairInfo },
-        merge: true,
+      WalletAlert({
+        title: translate("screens/Settings", "Cancel transaction"),
+        message: translate(
+          "screens/Settings",
+          "By cancelling, you will lose any changes you made for your transaction."
+        ),
+        buttons: [
+          {
+            text: translate("screens/Settings", "Go back"),
+            style: "cancel",
+          },
+          {
+            text: translate("screens/Settings", "Cancel"),
+            style: "destructive",
+            onPress: async () => {
+              navigation.navigate(
+                originScreen === ScreenName.DEX_screen
+                  ? ScreenName.DEX_screen
+                  : ScreenName.PORTFOLIO_screen
+              );
+            },
+          },
+        ],
       });
     }
   }
