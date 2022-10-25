@@ -412,7 +412,8 @@
     "Custom": "Benutzerdefiniert",
     "Default": "Standard",
     "Cancel transaction": "Transaktion abbrechen",
-    "By cancelling, you will lose any changes you made for your transaction.": "Wenn du die Transaktion abbrichst, gehen alle Änderungen, die du für deine Transaktion vorgenommen hast, verloren."
+    "By cancelling, you will lose any changes you made for your transaction.": "Wenn du die Transaktion abbrichst, gehen alle Änderungen, die du für deine Transaktion vorgenommen hast, verloren.",
+    "View on Scan": "Ansicht auf Scan"
   },
   "screens/AboutScreen": {
     "About": "Über",
@@ -1581,7 +1582,8 @@
     "Ready": "Bereit",
     "Halted": "Gestoppt",
     "Empty": "Leer",
-    "Select Loan": "Darlehen auswählen"
+    "Select Loan": "Darlehen auswählen",
+    "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details.": "Der Vault wurde liquidiert und steht jetzt zur Versteigerung. Sieh dir deinen Vault auf DeFiScan an, um mehr zu erfahren."
   },
   "screens/VaultDetailScreenCollateralSection": {
     "Why you need 50% DFI": "Warum du 50 % DFI brauchst",

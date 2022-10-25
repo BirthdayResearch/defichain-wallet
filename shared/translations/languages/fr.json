@@ -422,7 +422,8 @@
     "Custom": "Personnalisé",
     "Default": "Par défaut",
     "Cancel transaction": "Annuler la transaction",
-    "By cancelling, you will lose any changes you made for your transaction.": "En annulant, vous perdrez toutes les modifications apportées à votre transaction."
+    "By cancelling, you will lose any changes you made for your transaction.": "En annulant, vous perdrez toutes les modifications apportées à votre transaction.",
+    "View on Scan": "Voir sur Scan"
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",
@@ -1593,7 +1594,8 @@
     "Ready": "Prêt",
     "Halted": "Intérrompu",
     "Empty": "Vide",
-    "Select Loan": "Sélectionnez le prêt"
+    "Select Loan": "Sélectionnez le prêt",
+    "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details.": "Le vault a été liquidé et est maintenant disponible aux enchères. Consultez votre vault sur DeFiScan pour plus de détails."
   },
   "screens/VaultDetailScreenCollateralSection": {
     "Why you need 50% DFI": "Pourquoi vous avez besoin de 50 % de DFI",
