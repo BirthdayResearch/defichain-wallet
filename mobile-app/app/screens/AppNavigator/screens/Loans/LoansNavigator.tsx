@@ -168,7 +168,7 @@ export function LoansNavigator(): JSX.Element {
                 { fontSize: 28 },
               ]}
             >
-              {translate("screen/LoansScreen", "Loans")}
+              {translate("screens/LoansScreen", "Loans")}
             </ThemedTextV2>
           ),
         }}

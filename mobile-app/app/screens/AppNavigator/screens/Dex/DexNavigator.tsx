@@ -169,7 +169,7 @@ export function DexNavigator(): JSX.Element {
                 { fontSize: 28 },
               ]}
             >
-              {translate("screen/DexScreen", "Decentralized \nExchange")}
+              {translate("screens/DexScreen", "Decentralized \nExchange")}
             </ThemedTextV2>
           ),
         }}
