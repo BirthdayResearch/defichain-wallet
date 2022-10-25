@@ -1,6 +1,6 @@
 import { StackNavigationOptions } from "@react-navigation/stack";
 import { tailwind } from "@tailwind";
-import { Dimensions, Platform, StyleProp, ViewStyle } from "react-native";
+import { Platform, StyleProp, View, ViewStyle } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ThemedTextV2 } from "@components/themed";
 import { translate } from "@translations";
@@ -23,14 +23,11 @@ export function useNavigatorHeaderStylesOption(
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreen");
   };
-  const { width } = Dimensions.get("window");
 
   return {
     headerLeft: undefined,
     headerTitleAlign: "left",
-    headerTitleContainerStyle: {
-      width: width - (Platform.OS === "ios" ? 200 : 180),
-    },
+    headerTitleContainerStyle: tailwind("ml-5"),
     headerRightContainerStyle: [
       screenOptions.headerRightContainerStyle,
       tailwind("justify-start", {
@@ -43,20 +40,22 @@ export function useNavigatorHeaderStylesOption(
       tailwind("rounded-b-none border-b-0"),
       {
         shadowOpacity: 0,
-        height: 76 + insets.top,
+        height: (Platform.OS !== "android" ? 88 : 96) + insets.top,
       },
     ],
     headerTitle: () => (
-      <ThemedTextV2
-        style={[
-          screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
-          tailwind("text-left text-3xl font-semibold-v2"),
-          // eslint-disable-next-line react-native/no-inline-styles
-          { fontSize: 28 },
-        ]}
-      >
-        {translate(props.destination, props.headerTitle)}
-      </ThemedTextV2>
+      <View>
+        <ThemedTextV2
+          style={[
+            screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
+            tailwind("text-left text-3xl font-semibold-v2"),
+            // eslint-disable-next-line react-native/no-inline-styles
+            { fontSize: 28 },
+          ]}
+        >
+          {translate(props.destination, props.headerTitle)}
+        </ThemedTextV2>
+      </View>
     ),
     headerRight: () => (
       <HeaderNetworkStatus
