@@ -155,7 +155,7 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
       WalletAlert({
         title: translate("components/VaultCard", "Liquidated vault"),
         message: translate(
-          "components/VaultCard",
+          "screens/VaultDetailScreen",
           "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details."
         ),
         buttons: [
@@ -167,7 +167,7 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
             },
           },
           {
-            text: translate("components/VaultCard", "View on Scan"),
+            text: translate("screens/Settings", "View on Scan"),
             style: "destructive",
             onPress: async () => {
               openURL(getVaultsUrl(vaultId));
