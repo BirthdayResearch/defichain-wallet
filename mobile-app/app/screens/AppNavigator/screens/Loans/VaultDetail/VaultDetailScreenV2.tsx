@@ -167,7 +167,7 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
             },
           },
           {
-            text: translate("screens/Settings", "View in Scan"),
+            text: translate("components/VaultCard", "View on Scan"),
             style: "destructive",
             onPress: async () => {
               openURL(getVaultsUrl(vaultId));

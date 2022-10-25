@@ -1476,6 +1476,7 @@
     "Total collateral": "Total collateral",
     "Borrow": "Borrow",
     "Liquidated vault": "已清算金庫",
+    "View on Scan": "往 DeFi Scan 查看",
     "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details.": "金庫已被清算，現在進行可以拍賣。 在 DeFiScan 上查看您的金庫以獲取更多詳細信息。",
     "Ready": "準備好",
     "Halted": "已暫停",

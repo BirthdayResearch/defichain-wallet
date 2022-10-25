@@ -1500,6 +1500,7 @@
     "Total collateral": "Total collateral",
     "Borrow": "Borrow",
     "Liquidated vault": "Liquidated vault",
+    "View on Scan": "View on Scan",
     "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details.": "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details.",
     "Ready": "Ready",
     "Halted": "Halted",

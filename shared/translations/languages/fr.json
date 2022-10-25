@@ -1481,6 +1481,7 @@
     "Total collateral": "Total des garanties",
     "Borrow": "Emprunter",
     "Liquidated vault": "Vault liquidé",
+    "View on Scan": "Voir sur Scan",
     "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details.": "Le vault a été liquidé et est maintenant disponible aux enchères. Consultez votre vault sur DeFiScan pour plus de détails.",
     "Ready": "Prêt",
     "Halted": "Intérrompu",
