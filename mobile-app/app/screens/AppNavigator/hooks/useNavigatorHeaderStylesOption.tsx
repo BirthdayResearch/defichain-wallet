@@ -12,6 +12,7 @@ import { useNavigatorScreenOptions } from "../../../hooks/useNavigatorScreenOpti
 interface NavigatorHeaderProps {
   destination: string;
   headerTitle: string;
+  networkScreenPath?: string;
 }
 
 export function useNavigatorHeaderStylesOption(
@@ -21,7 +22,11 @@ export function useNavigatorHeaderStylesOption(
   const screenOptions = useNavigatorScreenOptions();
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
   const goToNetworkSelect = (): void => {
-    navigation.navigate("NetworkSelectionScreen");
+    navigation.navigate(
+      props.networkScreenPath
+        ? props.networkScreenPath
+        : "NetworkSelectionScreenPortfolio"
+    );
   };
 
   return {

@@ -48,12 +48,11 @@ export interface AuctionsParamList {
 const AuctionsStack = createStackNavigator<AuctionsParamList>();
 
 export function AuctionsNavigator(): JSX.Element {
-  const headerContainerTestId = "auctions_header_container";
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>();
 
   const screenOptions = useNavigatorScreenOptions();
   const goToNetworkSelect = (): void => {
-    navigation.navigate("NetworkSelectionScreen");
+    navigation.navigate("NetworkSelectionScreenAuction");
   };
   return (
     <AuctionsStack.Navigator
@@ -107,7 +106,7 @@ export function AuctionsNavigator(): JSX.Element {
 
       <AuctionsStack.Screen
         component={NetworkSelectionScreen}
-        name="NetworkSelectionScreen"
+        name="NetworkSelectionScreenAuction"
         options={{
           headerTitle: translate("screens/NetworkSelectionScreen", "Network"),
           headerRight: undefined,

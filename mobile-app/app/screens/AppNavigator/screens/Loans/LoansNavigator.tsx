@@ -21,6 +21,7 @@ import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { VaultDetailScreenV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/VaultDetailScreenV2";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
+import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { ConfirmCreateVaultScreen } from "./screens/ConfirmCreateVaultScreen";
 import {
   CollateralItem,
@@ -135,10 +136,11 @@ export function LoansNavigator(): JSX.Element {
   const loansScreenHeaderTitle = useNavigatorHeaderStylesOption({
     destination: "screen/LoansScreen",
     headerTitle: "Loans",
+    networkScreenPath: "NetworkSelectionScreenDex",
   });
 
   const goToNetworkSelect = (): void => {
-    navigation.navigate("NetworkSelectionScreen");
+    navigation.navigate("NetworkSelectionScreenDex");
   };
 
   return (
@@ -158,6 +160,17 @@ export function LoansNavigator(): JSX.Element {
           ...loansScreenHeaderTitle,
         }}
       />
+
+      <LoansStack.Screen
+        component={NetworkSelectionScreen}
+        name="NetworkSelectionScreenDex"
+        options={{
+          ...screenOptions,
+          headerTitle: translate("screens/NetworkSelectionScreen", "Network"),
+          headerRight: undefined,
+        }}
+      />
+
       <LoansStack.Screen
         component={NetworkDetails}
         name="NetworkDetails"
