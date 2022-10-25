@@ -410,7 +410,9 @@
     "Passcode verified!": "Passwort verifiziert!",
     "Provider": "Anbieter",
     "Custom": "Benutzerdefiniert",
-    "Default": "Standard"
+    "Default": "Standard",
+    "Cancel transaction": "Transaktion abbrechen",
+    "By cancelling, you will lose any changes you made for your transaction.": "Wenn du die Transaktion abbrichst, gehen alle Änderungen, die du für deine Transaktion vorgenommen hast, verloren."
   },
   "screens/AboutScreen": {
     "About": "Über",
