@@ -156,6 +156,7 @@ function TotalLiquidityValue({
           decimalScale={0}
           thousandSeparator
           displayType="text"
+          valueIsNumericString
           renderText={(val: string) => (
             <ThemedText
               style={tailwind("font-semibold-v2 text-sm")}
