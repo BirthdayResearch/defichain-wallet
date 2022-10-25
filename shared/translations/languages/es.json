@@ -1316,7 +1316,8 @@
     "Lowest interest": "Lowest interest",
     "Highest interest": "Highest interest",
     "A to Z": "A a Z",
-    "Z to A": "Z a A"
+    "Z to A": "Z a A",
+    "Vault Details": "Detalles del Vault"
   },
   "components/tabs": {
     "Browse loan tokens": "Busca tokens de préstamo",
@@ -1500,7 +1501,8 @@
     "Halted": "Halted",
     "Total loans": "Préstamos totales",
     "You need a vault with collaterals to borrow tokens": "Necesitas un Vault con colateral para tomar prestados tokens",
-    "Create a vault": "Crear Vault"
+    "Create a vault": "Crear Vault",
+    "Max loan amount": "Max loan amount"
   },
   "components/EmptyVault": {
     "No vaults": "No hay Vaults",
@@ -1589,7 +1591,42 @@
     "Total collateral (USD)": "Colateral total (USD)",
     "Total loans (USD)": "Préstamos total (USD)",
     "Vault interest (APR)": "Interés anual del Vault",
-    "Min. collateralization ratio": "Ratio mínimo de colateralización"
+    "Min. collateralization ratio": "Ratio mínimo de colateralización",
+    "next": "next",
+    "Add": "Add",
+    "Borrow": "Borrow",
+    "Pay": "Pay",
+    "Edit": "Edit",
+    "Max loan amount": "Máxima cantidad del préstamo",
+    "Total collateral": "Total collateral",
+    "Total loan": "Total loan",
+    "Interest (APR)": "Interest (APR)",
+    "Min. collateral ratio": "Ratio Min. colateral",
+    "Close vault": "Cancela la Vault",
+    "Max Loan Amount": "Máxima cantidad del préstamo",
+    "This is the current loan amount available for this vault.": "This is the current loan amount available for this vault.",
+    "Min. Collateral Ratio": "Ratio Min. colateral",
+    "This is the current min. col ratio set for this vault. The higher the percentage, the lower the vault interest will be. Min. collateral ratio can be changed anytime, under the 'Edit' button of this page.": "This is the current min. col ratio set for this vault. The higher the percentage, the lower the vault interest will be. Min. collateral ratio can be changed anytime, under the 'Edit' button of this page.",
+    "Ready": "Prêt",
+    "Halted": "Intérrompu",
+    "Empty": "Vide",
+    "Select Loan": "Select Loan"
+  },
+  "screens/VaultDetailScreenCollateralSection": {
+    "Why you need 50% DFI": "Why you need 50% DFI",
+    "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.": "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.",
+    "DFI/DUSD collaterals": "DFI/DUSD collaterals",
+    "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.": "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.",
+    "Maintain at least 50% DFI as collateral for DUSD loans": "Maintain at least 50% DFI as collateral for DUSD loans",
+    "Your loan amount can be maximized by adding DFI/DUSD as collaterals": "Your loan amount can be maximized by adding DFI/DUSD as collaterals",
+    "COLLATERALS": "COLLATERALS"
+  },
+  "screens/VaultDetailScreenLoansSection": {
+    "Pay with DUSD collaterals": "Pay with DUSD collaterals",
+    "LOANS": "LOANS",
+    "{{value}} as interest": "{{value}} as interest",
+    "Pay": "Pay",
+    "Paying loan": "Paying loan"
   },
   "components/ScrollableButton": {
     "ADD COLLATERAL": "AÑADIR COLATERAL",

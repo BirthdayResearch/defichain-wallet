@@ -1288,7 +1288,8 @@
     "Lowest interest": "Niedrigster Zins",
     "Highest interest": "Höchster Zins",
     "A to Z": "A bis Z",
-    "Z to A": "Z bis A"
+    "Z to A": "Z bis A",
+    "Vault Details": "Vault Detailansicht"
   },
   "components/tabs": {
     "Browse loan tokens": "Darlehenstoken",
@@ -1469,7 +1470,8 @@
     "Halted": "Gestoppt",
     "Total loans": "Gesamtes Darlehen",
     "You need a vault with collaterals to borrow tokens": "Du brauchst einen Vault mit Sicherheiten, um Token zu leihen",
-    "Create a vault": "Vault erstellen"
+    "Create a vault": "Vault erstellen",
+    "Max loan amount": "Max. Darlehensbetrag"
   },
   "components/EmptyVault": {
     "No vaults": "Keine Vaults",
@@ -1557,7 +1559,42 @@
     "Total collateral (USD)": "Gesamter Besicherungswert (USD)",
     "Total loans (USD)": "Gesamtes Darlehen (USD)",
     "Vault interest (APR)": "Vault-Jahreszins",
-    "Min. collateralization ratio": "Mind. Besicherungsquote"
+    "Min. collateralization ratio": "Mind. Besicherungsquote",
+    "next": "nächste",
+    "Add": "Hinzufügen",
+    "Borrow": "Leihen",
+    "Pay": "Tilgen",
+    "Edit": "Bearbeiten",
+    "Max loan amount": "Max. Darlehensbetrag",
+    "Total collateral": "Gesamter Besicherungswert",
+    "Total loan": "Gesamtes Darlehen",
+    "Interest (APR)": "Jahreszins",
+    "Min. collateral ratio": "Mind. Besicherungsquote",
+    "Close vault": "Vault schließen",
+    "Max Loan Amount": "Max. Darlehensbetrag",
+    "This is the current loan amount available for this vault.": "Dies ist der aktuell verfügbare Darlehensbetrag für diesen Vault.",
+    "Min. Collateral Ratio": "Mind. Besicherungsquote",
+    "This is the current min. col ratio set for this vault. The higher the percentage, the lower the vault interest will be. Min. collateral ratio can be changed anytime, under the 'Edit' button of this page.": "Dies ist die derzeitig eingestellte Mindestbesicherungsquote für diesen Vault. Je höher der Prozentsatz, desto niedriger sind die Vaultzinsen. Die Mindestbesicherungsquote kann jederzeit über die Schaltfläche 'Bearbeiten' auf dieser Seite geändert werden.",
+    "Ready": "Bereit",
+    "Halted": "Gestoppt",
+    "Empty": "Leer",
+    "Select Loan": "Darlehen auswählen"
+  },
+  "screens/VaultDetailScreenCollateralSection": {
+    "Why you need 50% DFI": "Warum du 50 % DFI brauchst",
+    "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.": "Bei DUSD-Darlehen, die DUSD als Sicherheit enthalten, müssen mindestens 50 % der Sicherheiten in Form von DFI vorliegen.\n\nDies betrifft nur Vaults, die sowohl DUSD als Sicherheit als auch als Darlehen haben.",
+    "DFI/DUSD collaterals": "DFI/DUSD-Sicherheiten",
+    "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.": "Die Aufnahme von DFI und/oder DUSD erhöht deine Kreditfähigkeit und hilft, den Darlehensbetrag deines Vault zu maximieren.",
+    "Maintain at least 50% DFI as collateral for DUSD loans": "Für DUSD-Darlehen brauchst du mindestens 50% DFI als Besicherung",
+    "Your loan amount can be maximized by adding DFI/DUSD as collaterals": "Dein Darlehen kann durch Hinzufügen von DFI/DUSD als Sicherheiten maximiert werden",
+    "COLLATERALS": "SICHERHEITEN"
+  },
+  "screens/VaultDetailScreenLoansSection": {
+    "Pay with DUSD collaterals": "Tilgen mit DUSD-Sicherheiten",
+    "LOANS": "DARLEHEN",
+    "{{value}} as interest": "{{value}} als Zins",
+    "Pay": "Tilgen",
+    "Paying loan": "Paying loan"
   },
   "components/ScrollableButton": {
     "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
