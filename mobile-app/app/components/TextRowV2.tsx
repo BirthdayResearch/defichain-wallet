@@ -1,4 +1,4 @@
-import { StyleProp, View, TextProps, ViewStyle } from "react-native";
+import { StyleProp, TextProps, View, ViewStyle } from "react-native";
 import { tailwind } from "@tailwind";
 import { openURL } from "@api/linking";
 import {
@@ -13,7 +13,9 @@ interface TextRowElement extends TextProps {
   value: string;
   testID?: string;
   themedProps?: ThemedProps;
+  outerContainerStyle?: StyleProp<ViewStyle>;
 }
+
 interface TextRowProps {
   lhs: TextRowElement;
   rhs: TextRowElement & { openNewBrowserLink?: string };
@@ -44,7 +46,7 @@ export function TextRowV2(props: TextRowProps): JSX.Element {
             dark: tailwind("bg-transparent"),
           })}
     >
-      <View style={tailwind("w-5/12")}>
+      <View style={[tailwind("w-5/12"), props.lhs.outerContainerStyle]}>
         <View style={tailwind("flex-row items-center justify-start")}>
           <ThemedText
             style={tailwind("text-sm font-normal-v2 flex-wrap mr-1")}
@@ -59,7 +61,7 @@ export function TextRowV2(props: TextRowProps): JSX.Element {
         </View>
       </View>
 
-      <View style={tailwind("flex-1")}>
+      <View style={[tailwind("flex-1"), props.rhs.outerContainerStyle]}>
         <View style={tailwind("flex flex-row items-center justify-end")}>
           <View style={tailwind("flex-1")}>
             <ThemedText
