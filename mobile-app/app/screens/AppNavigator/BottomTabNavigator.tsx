@@ -82,7 +82,7 @@ export function BottomTabNavigator(): JSX.Element {
 
         <BottomTab.Screen
           component={DexNavigator}
-          name={translate("BottomTabNavigator", "DEX")}
+          name="DEX"
           options={{
             tabBarLabel: ({ focused, color }) =>
               getTabBarLabel({
@@ -97,7 +97,7 @@ export function BottomTabNavigator(): JSX.Element {
 
         <BottomTab.Screen
           component={LoansNavigator}
-          name={translate("BottomTabNavigator", "Loans")}
+          name="Loans"
           options={{
             tabBarLabel: ({ focused, color }) =>
               getTabBarLabel({
@@ -112,7 +112,7 @@ export function BottomTabNavigator(): JSX.Element {
 
         <BottomTab.Screen
           component={AuctionsNavigator}
-          name={translate("BottomTabNavigator", "Auctions")}
+          name="Auctions"
           options={{
             tabBarLabel: ({ focused, color }) =>
               getTabBarLabel({
@@ -147,3 +147,30 @@ export const AppLinking = {
     },
   },
 };
+
+export const bottomTabRoutes = [
+  {
+    name: "Portfolio",
+    state: {
+      routes: [{ name: "PortfolioScreen" }],
+    },
+  },
+  {
+    name: "DEX",
+    state: {
+      routes: [{ name: "DexScreen" }],
+    },
+  },
+  {
+    name: "Loans",
+    state: {
+      routes: [{ name: "LoansScreen" }],
+    },
+  },
+  {
+    name: "Auctions",
+    state: {
+      routes: [{ name: "AuctionScreen" }],
+    },
+  },
+];

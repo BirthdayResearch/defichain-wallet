@@ -216,14 +216,11 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
           >
             <InfoTextLinkV2
               onPress={() =>
-                navigation.navigate(
-                  translate("BottomTabNavigator", "Portfolio"),
-                  {
-                    screen: "TokensVsUtxoFaq",
-                    merge: true,
-                    initial: false,
-                  }
-                )
+                navigation.navigate("Portfolio", {
+                  screen: "TokensVsUtxoFaq",
+                  merge: true,
+                  initial: false,
+                })
               }
               text="Learn more about DFI"
               testId="dfi_learn_more"

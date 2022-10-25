@@ -10,6 +10,7 @@ import {
   NavigationProp,
   useNavigation,
 } from "@react-navigation/native";
+import { bottomTabRoutes } from "@screens/AppNavigator/BottomTabNavigator";
 import { RowLanguageItem } from "../components/RowLanguageItem";
 import { SettingsParamList } from "../SettingsNavigator";
 
@@ -20,7 +21,7 @@ export function LanguageSelectionScreen(): JSX.Element {
   const resetNavigationStack = () => {
     navigation.dispatch(
       CommonActions.reset({
-        routes: [{ name: "SettingsScreen" }],
+        routes: bottomTabRoutes,
       })
     );
   };
