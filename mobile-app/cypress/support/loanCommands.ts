@@ -76,14 +76,18 @@ export function checkVaultDetailValues(
   status: string,
   vaultID: string,
   totalCollateral: string,
+  maxLoanAmount: string,
   totalLoans: string,
-  vaultInterest: string
+  vaultInterest: string,
+  minColRatio: string
 ): void {
-  cy.getByTestID(`vault_detail_status`).contains(status);
-  cy.getByTestID(`vault_detail_id`).contains(vaultID);
-  cy.getByTestID(`text_total_collateral_value`).contains(totalCollateral);
-  cy.getByTestID(`text_total_loan_value`).contains(totalLoans);
-  cy.getByTestID(`text_vault_interest`).contains(vaultInterest);
+  cy.getByTestID(`vault_status`).contains(status);
+  cy.getByTestID(`collateral_vault_id`).contains(vaultID);
+  cy.getByTestID(`total_collateral`).contains(totalCollateral);
+  cy.getByTestID(`max_loan_amount`).contains(maxLoanAmount);
+  cy.getByTestID(`total_loan`).contains(totalLoans);
+  cy.getByTestID(`interest`).contains(vaultInterest);
+  cy.getByTestID(`min_col_ratio`).contains(minColRatio);
 }
 
 export function checkVaultDetailCollateralAmounts(
@@ -120,6 +124,7 @@ declare global {
        * @param {string} symbol - symbol of token
        * */
       addCollateral: (amount: string, symbol: string) => Chainable<Element>;
+      addCollateralV2: (amount: string, symbol: string) => Chainable<Element>;
 
       /**
        * @description Remove Collateral
@@ -188,6 +193,20 @@ Cypress.Commands.add("addCollateral", (amount: string, symbol: string) => {
   cy.closeOceanInterface();
 });
 
+Cypress.Commands.add("addCollateralV2", (amount: string, symbol: string) => {
+  // cy.getByTestID("action_add").click();
+  cy.getByTestID(`select_${symbol}`).click();
+  cy.getByTestID("add_remove_collateral_button_submit").should(
+    "have.attr",
+    "aria-disabled"
+  );
+  cy.getByTestID("text_input_add_remove_collateral_amount").type(amount).blur();
+  cy.getByTestID("add_remove_collateral_button_submit").click();
+  cy.wait(3000);
+  cy.getByTestID("button_confirm_confirm_edit_collateral").click().wait(3000);
+  cy.closeOceanInterface();
+});
+
 Cypress.Commands.add(
   "removeCollateral",
   (amount: string, symbol: string, resultingCollateralization?: number) => {
@@ -216,7 +235,7 @@ Cypress.Commands.add("takeLoan", (amount: string, symbol: string) => {
   cy.getByTestID(
     `loans_action_button_${symbol}_borrow_button_loans_cards`
   ).click();
-  cy.getByTestID("form_input_borrow").type(amount).blur();
+  cy.getByTestID("text_input_borrow_amount").type(amount).blur();
   cy.getByTestID("borrow_loan_submit_button").click();
   cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);
   cy.closeOceanInterface();

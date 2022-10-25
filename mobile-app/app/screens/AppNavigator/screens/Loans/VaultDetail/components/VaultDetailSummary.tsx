@@ -40,7 +40,7 @@ export function VaultDetailSummary({
       <NumberRowV2
         lhs={{
           value: translate("screens/VaultDetailScreen", "Max loan amount"),
-          testID: "max_loan_amount",
+          testID: "max_loan_amount_label",
           themedProps: titleThemedProps,
           outerContainerStyle: tailwind("w-6/12"),
         }}
@@ -65,7 +65,7 @@ export function VaultDetailSummary({
       <NumberRowV2
         lhs={{
           value: translate("screens/VaultDetailScreen", "Total collateral"),
-          testID: "max_loan_amount",
+          testID: "total_collateral_label",
           themedProps: titleThemedProps,
         }}
         rhs={{
@@ -80,12 +80,12 @@ export function VaultDetailSummary({
       <NumberRowV2
         lhs={{
           value: translate("screens/VaultDetailScreen", "Total loan"),
-          testID: "total_loan",
+          testID: "total_loan_label",
           themedProps: titleThemedProps,
         }}
         rhs={{
           value: getPrecisedCurrencyValue(totalLoan),
-          testID: "max_loan_amount",
+          testID: "total_loan",
           prefix: "$",
         }}
         containerStyle={{
@@ -108,6 +108,7 @@ export function VaultDetailSummary({
           ellipsizeMode: "middle",
           numberOfLines: 1,
           outerContainerStyle: tailwind("flex-none w-5/12"),
+          testID: "collateral_vault_id",
         }}
         containerStyle={{
           style: tailwind(
@@ -120,7 +121,7 @@ export function VaultDetailSummary({
       <NumberRowV2
         lhs={{
           value: translate("screens/VaultDetailScreen", "Interest (APR)"),
-          testID: "max_loan_amount",
+          testID: "interest_label",
           themedProps: titleThemedProps,
         }}
         rhs={{
@@ -138,13 +139,13 @@ export function VaultDetailSummary({
             "screens/VaultDetailScreen",
             "Min. collateral ratio"
           ),
-          testID: "min_col_ratio",
+          testID: "min_col_ratio_label",
           themedProps: titleThemedProps,
           outerContainerStyle: tailwind("w-7/12"),
         }}
         rhs={{
           value: minColRatio,
-          testID: "max_loan_amount",
+          testID: "min_col_ratio",
           suffix: "%",
         }}
         containerStyle={{

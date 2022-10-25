@@ -210,7 +210,7 @@ export function VaultCard(props: VaultCardProps): JSX.Element {
                   size={24}
                 />
                 <VaultSectionTextRowV2
-                  testID={`${props.testID}_max_loan_amount`}
+                  testID={`${props.testID}_max_loan`}
                   prefix="$"
                   value={getPrecisedCurrencyValue(maxLoanAmount) ?? "-"}
                   lhs={translate("components/VaultCard", "Max loan amount")}
