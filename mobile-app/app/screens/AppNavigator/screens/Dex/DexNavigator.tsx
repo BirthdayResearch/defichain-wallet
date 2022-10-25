@@ -16,6 +16,7 @@ import {
 import { PriceRateProps as PriceRatesPropsV2 } from "@components/PricesSectionV2";
 import { ThemedTextV2 } from "@components/themed";
 import { StyleProp, View, ViewStyle } from "react-native";
+import { ScreenName } from "@screens/enum";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { ConversionParam } from "../Portfolio/PortfolioNavigator";
 import {
@@ -50,6 +51,7 @@ export interface DexParamList {
         isPreselected: boolean;
       };
     };
+    originScreen: ScreenName;
   };
   SwapTokenSelectionScreen: {
     fromToken: {
@@ -80,20 +82,24 @@ export interface DexParamList {
     estimatedAmount: BigNumber;
     totalFees: string;
     estimatedLessFeesAfterSlippage: string;
+    originScreen: ScreenName;
   };
   AddLiquidity: {
     pair: PoolPairData;
     pairInfo: WalletToken;
+    originScreen: ScreenName;
   };
   ConfirmAddLiquidity: {
     pair: PoolPairData;
     summary: AddLiquiditySummary;
     conversion?: ConversionParam;
     pairInfo: WalletToken;
+    originScreen: ScreenName;
   };
   RemoveLiquidity: {
     pair: PoolPairData;
     pairInfo: WalletToken;
+    originScreen: ScreenName;
   };
   ConfirmRemoveLiquidity: {
     amount: BigNumber;
@@ -117,6 +123,7 @@ export interface DexParamList {
     tokenBAmount: BigNumber;
     tokenA?: WalletToken;
     tokenB?: WalletToken;
+    originScreen: ScreenName;
   };
 
   [key: string]: undefined | object;

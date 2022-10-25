@@ -31,6 +31,7 @@ import {
   SwapTokenSelectionScreen,
   TokenListType,
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
+import { ScreenName } from "@screens/enum";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { PortfolioScreen } from "./PortfolioScreen";
 import { ReceiveScreen } from "./screens/ReceiveScreen";
@@ -70,6 +71,7 @@ export interface PortfolioParamList {
     conversion?: ConversionParam;
     toAddressLabel?: string;
     addressType?: AddressType;
+    originScreen?: ScreenName;
   };
   TokenDetailScreen: { token: WalletToken };
   ConvertScreen: { mode: ConversionMode };
@@ -81,6 +83,7 @@ export interface PortfolioParamList {
     targetUnit: ConvertTokenUnit;
     targetBalance: BigNumber;
     fee: BigNumber;
+    originScreen: ScreenName;
   };
   BarCodeScanner: { onQrScanned: (value: string) => void };
   TokenVsUtxoScreen: undefined;
