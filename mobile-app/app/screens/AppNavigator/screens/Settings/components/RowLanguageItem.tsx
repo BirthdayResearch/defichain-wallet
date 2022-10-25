@@ -5,20 +5,19 @@ import {
 } from "@components/themed";
 import { WalletAlert } from "@components/WalletAlert";
 import { useLanguageContext } from "@shared-contexts/LanguageProvider";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { tailwind } from "@tailwind";
 import { AppLanguageItem, translate } from "@translations";
 import { View, Text } from "react-native";
-import { SettingsParamList } from "../SettingsNavigator";
 
 export function RowLanguageItem({
   languageItem,
   isLast,
+  onSwitchLanguage,
 }: {
   languageItem: AppLanguageItem;
   isLast: boolean;
+  onSwitchLanguage: () => void;
 }): JSX.Element {
-  const navigation = useNavigation<NavigationProp<SettingsParamList>>();
   const { language, setLanguage } = useLanguageContext();
 
   const onPress = async (): Promise<void> => {
@@ -43,7 +42,7 @@ export function RowLanguageItem({
           style: "destructive",
           onPress: async () => {
             await setLanguage(languageItem.locale);
-            navigation.goBack();
+            onSwitchLanguage();
           },
         },
       ],
