@@ -71,7 +71,7 @@ import { BottomSheetHeaderBackButton } from "@screens/AppNavigator/screens/Portf
 import { BottomSheetHeader } from "@components/BottomSheetHeader";
 import * as SplashScreen from "expo-splash-screen";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { bottomTabDefaultRoutes } from "@screens/AppNavigator/BottomTabNavigator";
+import { bottomTabDefaultRoutes } from "@screens/AppNavigator/constants/DefaultRoutes";
 import { AddressSelectionButtonV2 } from "./components/AddressSelectionButtonV2";
 import { ActionButtons } from "./components/ActionButtons";
 import {

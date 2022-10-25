@@ -10,7 +10,7 @@ import {
   NavigationProp,
   useNavigation,
 } from "@react-navigation/native";
-import { bottomTabDefaultRoutes } from "@screens/AppNavigator/BottomTabNavigator";
+import { bottomTabDefaultRoutes } from "@screens/AppNavigator/constants/DefaultRoutes";
 import { RowLanguageItem } from "../components/RowLanguageItem";
 import { SettingsParamList } from "../SettingsNavigator";
 
