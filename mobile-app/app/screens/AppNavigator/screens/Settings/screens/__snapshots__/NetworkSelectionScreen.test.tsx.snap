@@ -526,12 +526,32 @@ exports[`onboarding network selection screen should render 1`] = `
           }
         >
           <View
+            accessibilityState={
+              {
+                "disabled": true,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
               {
                 "alignItems": "center",
+                "borderBottomColor": "rgba(204, 204, 204, 1)",
+                "borderLeftColor": "rgba(204, 204, 204, 1)",
+                "borderRightColor": "rgba(204, 204, 204, 1)",
+                "borderTopColor": "rgba(204, 204, 204, 1)",
                 "display": "flex",
                 "flexDirection": "row",
                 "justifyContent": "flex-end",
+                "opacity": 1,
               }
             }
           >
