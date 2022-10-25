@@ -1,3 +1,4 @@
+import { WalletAlert } from "@components/WalletAlert";
 import { Dispatch, useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
@@ -28,6 +29,7 @@ import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { View } from "@components";
+import { ScreenName } from "@screens/enum";
 import {
   ThemedActivityIndicatorV2,
   ThemedIcon,
@@ -56,6 +58,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
     conversion,
     toAddressLabel,
     addressType,
+    originScreen,
   } = route.params;
   const logger = useLogger();
   const hasPendingJob = useSelector((state: RootState) =>
@@ -102,12 +105,29 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
 
   function onCancel(): void {
     if (!isSubmitting) {
-      navigation.navigate({
-        name: "SendScreen",
-        params: {
-          token,
-        },
-        merge: true,
+      WalletAlert({
+        title: translate("screens/Settings", "Cancel transaction"),
+        message: translate(
+          "screens/Settings",
+          "By cancelling, you will lose any changes you made for your transaction."
+        ),
+        buttons: [
+          {
+            text: translate("screens/Settings", "Go back"),
+            style: "cancel",
+          },
+          {
+            text: translate("screens/Settings", "Cancel"),
+            style: "destructive",
+            onPress: async () => {
+              navigation.navigate(
+                originScreen === ScreenName.DEX_screen
+                  ? ScreenName.DEX_screen
+                  : ScreenName.PORTFOLIO_screen
+              );
+            },
+          },
+        ],
       });
     }
   }

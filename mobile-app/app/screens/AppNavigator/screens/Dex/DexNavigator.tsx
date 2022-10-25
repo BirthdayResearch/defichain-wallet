@@ -1,8 +1,4 @@
-import {
-  NavigationProp,
-  useNavigation,
-  useRoute,
-} from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { createStackNavigator } from "@react-navigation/stack";
 import BigNumber from "bignumber.js";
@@ -19,6 +15,7 @@ import {
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { PriceRateProps as PriceRatesPropsV2 } from "@components/PricesSectionV2";
 import { useNavigatorHeaderStylesOption } from "@screens/AppNavigator/hooks/useNavigatorHeaderStylesOption";
+import { ScreenName } from "@screens/enum";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { ConversionParam } from "../Portfolio/PortfolioNavigator";
 import {
@@ -53,6 +50,7 @@ export interface DexParamList {
         isPreselected: boolean;
       };
     };
+    originScreen: ScreenName;
   };
   SwapTokenSelectionScreen: {
     fromToken: {
@@ -83,20 +81,24 @@ export interface DexParamList {
     estimatedAmount: BigNumber;
     totalFees: string;
     estimatedLessFeesAfterSlippage: string;
+    originScreen: ScreenName;
   };
   AddLiquidity: {
     pair: PoolPairData;
     pairInfo: WalletToken;
+    originScreen: ScreenName;
   };
   ConfirmAddLiquidity: {
     pair: PoolPairData;
     summary: AddLiquiditySummary;
     conversion?: ConversionParam;
     pairInfo: WalletToken;
+    originScreen: ScreenName;
   };
   RemoveLiquidity: {
     pair: PoolPairData;
     pairInfo: WalletToken;
+    originScreen: ScreenName;
   };
   ConfirmRemoveLiquidity: {
     amount: BigNumber;
@@ -120,6 +122,7 @@ export interface DexParamList {
     tokenBAmount: BigNumber;
     tokenA?: WalletToken;
     tokenB?: WalletToken;
+    originScreen: ScreenName;
   };
 
   [key: string]: undefined | object;
