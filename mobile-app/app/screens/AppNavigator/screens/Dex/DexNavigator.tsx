@@ -143,7 +143,7 @@ const DexStack = createStackNavigator<DexParamList>();
 
 export function DexNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>();
-  const screenOptions = useNavigatorScreenOptions({});
+  const screenOptions = useNavigatorScreenOptions();
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreen");
   };

@@ -58,7 +58,7 @@ export function SettingsNavigator(): JSX.Element {
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreen");
   };
-  const screenOptions = useNavigatorScreenOptions({});
+  const screenOptions = useNavigatorScreenOptions();
 
   return (
     <SettingsStack.Navigator

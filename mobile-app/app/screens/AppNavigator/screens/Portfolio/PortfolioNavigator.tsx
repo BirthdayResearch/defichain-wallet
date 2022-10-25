@@ -160,7 +160,7 @@ export function PortfolioNavigator(): JSX.Element {
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreen");
   };
-  const screenOptions = useNavigatorScreenOptions({});
+  const screenOptions = useNavigatorScreenOptions();
   return (
     <PortfolioStack.Navigator
       initialRouteName="PortfolioScreen"

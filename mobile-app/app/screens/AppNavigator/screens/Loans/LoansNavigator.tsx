@@ -132,7 +132,7 @@ const LoansStack = createStackNavigator<LoanParamList>();
 export function LoansNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
   const headerContainerTestId = "loans_header_container";
-  const screenOptions = useNavigatorScreenOptions({});
+  const screenOptions = useNavigatorScreenOptions();
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreen");
   };

@@ -9,7 +9,7 @@ interface Props {
 }
 
 export function useNavigatorScreenOptions(
-  props: Props
+  props: Props = {}
 ): StackNavigationOptions {
   const { isLight } = useThemeContext();
   const { width } = Dimensions.get("window");

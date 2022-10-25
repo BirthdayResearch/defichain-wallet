@@ -79,7 +79,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
     walletAddressFromStore
   ); // combine labeled wallet address with jellyfish's api wallet
   const [isSearchFocus, setIsSearchFocus] = useState(false);
-  const { headerStyle }: StackNavigationOptions = useNavigatorScreenOptions({});
+  const { headerStyle }: StackNavigationOptions = useNavigatorScreenOptions();
   const { getAddressUrl } = useDeFiScanContext();
   const { wallet, addressLength } = useWalletContext();
   const searchRef = createRef<TextInput>();

@@ -12,7 +12,7 @@ export interface PlaygroundParamList {
 const PlaygroundStack = createStackNavigator<PlaygroundParamList>();
 
 export function PlaygroundNavigator(): JSX.Element {
-  const screenOptions = useNavigatorScreenOptions({});
+  const screenOptions = useNavigatorScreenOptions();
   return (
     <PlaygroundProvider>
       <PlaygroundStack.Navigator>
