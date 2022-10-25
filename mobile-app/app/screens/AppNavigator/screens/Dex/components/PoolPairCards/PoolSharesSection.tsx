@@ -17,7 +17,7 @@ export function PoolSharesSection(props: PoolSharesSectionProps): JSX.Element {
         displayType="text"
         renderText={(textValue) => (
           <ThemedTextV2
-            style={tailwind("text-sm font-semibold-v2")}
+            style={tailwind("text-xs font-semibold-v2")}
             testID={`pool_share_amount_${props.tokenID}`}
           >
             {textValue}
@@ -33,7 +33,7 @@ export function PoolSharesSection(props: PoolSharesSectionProps): JSX.Element {
           <ThemedTextV2
             light={tailwind("text-mono-light-v2-700")}
             dark={tailwind("text-mono-dark-v2-700")}
-            style={tailwind("text-sm font-normal-v2")}
+            style={tailwind("text-xs font-normal-v2")}
             testID={`pool_share_value_${props.tokenID}`}
           >
             {textValue}
