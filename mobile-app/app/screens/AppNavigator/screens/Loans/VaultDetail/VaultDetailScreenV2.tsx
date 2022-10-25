@@ -153,9 +153,9 @@ export function VaultDetailScreenV2({ route, navigation }: Props): JSX.Element {
   useEffect(() => {
     if (vault?.state === LoanVaultState.IN_LIQUIDATION) {
       WalletAlert({
-        title: translate("screens/VaultCard", "Liquidated vault"),
+        title: translate("components/VaultCard", "Liquidated vault"),
         message: translate(
-          "screens/VaultCard",
+          "components/VaultCard",
           "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details."
         ),
         buttons: [
