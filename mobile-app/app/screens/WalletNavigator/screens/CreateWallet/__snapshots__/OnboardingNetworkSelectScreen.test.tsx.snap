@@ -441,9 +441,12 @@ exports[`onboarding network selection screen should render 1`] = `
     >
       <View
         style={
-          {
-            "width": "41.666667%",
-          }
+          [
+            {
+              "width": "41.666667%",
+            },
+            undefined,
+          ]
         }
       >
         <View
@@ -486,11 +489,14 @@ exports[`onboarding network selection screen should render 1`] = `
       </View>
       <View
         style={
-          {
-            "flexBasis": "0%",
-            "flexGrow": 1,
-            "flexShrink": 1,
-          }
+          [
+            {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+            },
+            undefined,
+          ]
         }
       >
         <View
@@ -694,9 +700,12 @@ exports[`onboarding network selection screen should render 1`] = `
     >
       <View
         style={
-          {
-            "width": "41.666667%",
-          }
+          [
+            {
+              "width": "41.666667%",
+            },
+            undefined,
+          ]
         }
       >
         <View
@@ -738,11 +747,14 @@ exports[`onboarding network selection screen should render 1`] = `
       </View>
       <View
         style={
-          {
-            "flexBasis": "0%",
-            "flexGrow": 1,
-            "flexShrink": 1,
-          }
+          [
+            {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+            },
+            undefined,
+          ]
         }
       >
         <View>

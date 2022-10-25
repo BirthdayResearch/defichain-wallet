@@ -1285,7 +1285,8 @@
     "Search available loan tokens": "Search available loan tokens",
     "Edit Vault": "Edit Vault",
     "Confirm": "确认",
-    "Search with token name": "使用代币名称搜索"
+    "Search with token name": "使用代币名称搜索",
+    "Vault Details": "金库明细"
   },
   "components/tabs": {
     "Browse loan tokens": "浏览贷款选项",
@@ -1467,7 +1468,8 @@
     "Halted": "已暂停",
     "Total loans": "贷款总金额",
     "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
-    "Create a vault": "Create a vault"
+    "Create a vault": "Create a vault",
+    "Max loan amount": "Max loan amount"
   },
   "components/EmptyVault": {
     "No vaults": "No vaults",
@@ -1555,7 +1557,42 @@
     "Total collateral (USD)": "抵押资金总价值 (美金)",
     "Total loans (USD)": "贷款总金额(美金)",
     "Vault interest (APR)": "金库利息",
-    "Min. collateralization ratio": "最低抵押率"
+    "Min. collateralization ratio": "最低抵押率",
+    "next": "下一个",
+    "Add": "添加",
+    "Borrow": "Borrow",
+    "Pay": "Pay",
+    "Edit": "Edit",
+    "Max loan amount": "Max loan amount",
+    "Total collateral": "Total collateral",
+    "Total loan": "Total loan",
+    "Interest (APR)": "年利息 (APR)",
+    "Min. collateral ratio": "Min. collateral ratio",
+    "Close vault": "Close vault",
+    "Max Loan Amount": "Max Loan Amount",
+    "This is the current loan amount available for this vault.": "This is the current loan amount available for this vault.",
+    "Min. Collateral Ratio": "Min. Collateral Ratio",
+    "This is the current min. col ratio set for this vault. The higher the percentage, the lower the vault interest will be. Min. collateral ratio can be changed anytime, under the 'Edit' button of this page.": "This is the current min. col ratio set for this vault. The higher the percentage, the lower the vault interest will be. Min. collateral ratio can be changed anytime, under the 'Edit' button of this page.",
+    "Ready": "Ready",
+    "Halted": "Halted",
+    "Empty": "Empty",
+    "Select Loan": "Select Loan"
+  },
+  "screens/VaultDetailScreenCollateralSection": {
+    "Why you need 50% DFI": "Why you need 50% DFI",
+    "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.": "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.",
+    "DFI/DUSD collaterals": "DFI/DUSD collaterals",
+    "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.": "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.",
+    "Maintain at least 50% DFI as collateral for DUSD loans": "Maintain at least 50% DFI as collateral for DUSD loans",
+    "Your loan amount can be maximized by adding DFI/DUSD as collaterals": "Your loan amount can be maximized by adding DFI/DUSD as collaterals",
+    "COLLATERALS": "COLLATERALS"
+  },
+  "screens/VaultDetailScreenLoansSection": {
+    "Pay with DUSD collaterals": "Pay with DUSD collaterals",
+    "LOANS": "LOANS",
+    "{{value}} as interest": "{{value}} as interest",
+    "Pay": "Pay",
+    "Paying loan": "Paying loan"
   },
   "components/ScrollableButton": {
     "ADD COLLATERAL": "加入抵押品",
@@ -1787,6 +1824,7 @@
     "I WANT TO BORROW": "I WANT TO BORROW",
     "WITH VAULT": "WITH VAULT",
     "Select Vault To Use": "Select Vault To Use",
+    "Select Vault": "选择金库",
     "Max loan amount": "最高的贷款金额",
     "Max Loan Amount": "最高的贷款金额",
     "This is the current loan amount available for this vault.": "This is the current loan amount available for this vault.",
@@ -1797,7 +1835,7 @@
     "Amount entered will result in vault liquidation": "Amount entered will result in vault liquidation",
     "Amount entered may liquidate the vault. Proceed at your own risk.": "Amount entered may liquidate the vault. Proceed at your own risk.",
     "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.": "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.",
-    "A minimum of 50% DFI as collateral is required before borrowing DUSD.": "A minimum of 50% DFI as collateral is required before borrowing DUSD.",
+    "Insufficient DFI in vault. Add more to borrow DUSD.": "Insufficient DFI in vault. Add more to borrow DUSD.",
     "Review full details in the next screen": "Review full details in the next screen",
     "Max loan amount entered": "已输入最高贷款金额",
     "{{percent}} of max loan amount entered": "已输入最高贷款金额的 {{percent}}%",
@@ -1859,7 +1897,9 @@
     "BORROWING": "借用"
   },
   "components/BottomSheetVaultList": {
-    "Collateralization ratio": "抵押率"
+    "Collateralization ratio": "抵押率",
+    "{{value}}% interest": "{{value}}% interest",
+    "min. {{value}}%": "min. {{value}}%"
   },
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "更改金库中贷款计划",

@@ -16,7 +16,7 @@ interface VaultHealthItem {
 }
 
 export function useVaultStatus(
-  status: LoanVaultState,
+  status: LoanVaultState | undefined,
   collateralRatio: BigNumber,
   minColRatio: BigNumber,
   totalLoanAmount: BigNumber,

@@ -9,9 +9,10 @@ import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusType
 import { translate } from "@translations";
 import { Platform } from "react-native";
 import {
+  getProgress,
   getVaultStatusColor,
   getVaultStatusText,
-} from "@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatioV2";
+} from "@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
 import { useUnitSuffix } from "@hooks/useUnitSuffix";
@@ -172,35 +173,4 @@ export function VaultCardStatus({
       </View>
     </View>
   );
-}
-
-function getProgress(
-  collateralizationRatio: string,
-  minCollateralizationRatio: string
-): number {
-  const atRiskThresholdMultiplier = 1.5;
-  const minColRatio = new BigNumber(minCollateralizationRatio);
-  const maxRatio = getMaxRatio(
-    minColRatio.multipliedBy(atRiskThresholdMultiplier)
-  );
-
-  const currentValue = new BigNumber(collateralizationRatio)
-    .minus(minColRatio)
-    .dividedBy(new BigNumber(maxRatio).minus(minColRatio));
-
-  if (currentValue.gt(1)) {
-    return 1;
-  } else if (currentValue.lt(0.01)) {
-    // for display so that the UI still shows a bit of color
-    return 0.01;
-  } else {
-    return BigNumber.min(currentValue, 1).toNumber();
-  }
-}
-
-function getMaxRatio(atRiskThreshold: BigNumber): number {
-  const healthyScaleRatio = 0.75;
-  return atRiskThreshold
-    .dividedBy(new BigNumber(1).minus(healthyScaleRatio))
-    .toNumber();
 }

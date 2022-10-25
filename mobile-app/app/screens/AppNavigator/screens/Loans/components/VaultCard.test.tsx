@@ -7,6 +7,11 @@ import { RootState } from "@store";
 import { Provider } from "react-redux";
 import { VaultCard, VaultCardProps } from "./VaultCard";
 
+jest.mock("react-native-reanimated", () => "react-native-reanimated/mock");
+jest.mock(
+  "react-native-circular-progress-indicator",
+  () => "react-native-circular-progress-indicator/mock"
+);
 jest.mock("@shared-contexts/ThemeProvider");
 jest.mock("@shared-contexts/DeFiScanContext");
 jest.mock("@components/BottomSheetInfo", () => ({
@@ -69,7 +74,13 @@ describe("Vault card", () => {
   });
 
   it("should match snapshot of liquidated vault", async () => {
-    const lockedVault: VaultCardProps = {
+    const lockedVault: Omit<
+      VaultCardProps,
+      | "dismissModal"
+      | "expandModal"
+      | "setBottomSheetScreen"
+      | "onBottomSheetLoansTokensListSelect"
+    > = {
       vault: {
         vaultId: "22ffasd5ca123123123123123121231061",
         loanScheme: {
@@ -88,7 +99,15 @@ describe("Vault card", () => {
     };
     const rendered = render(
       <Provider store={store}>
-        <VaultCard vault={lockedVault.vault} testID={lockedVault.testID} />
+        <VaultCard
+          dismissModal={() => jest.fn}
+          expandModal={() => jest.fn}
+          setBottomSheetScreen={() => jest.fn}
+          setSnapPoints={() => jest.fn}
+          onBottomSheetLoansTokensListSelect={() => jest.fn}
+          vault={lockedVault.vault}
+          testID={lockedVault.testID}
+        />
       </Provider>
     );
     expect(rendered.toJSON()).toMatchSnapshot();
@@ -115,6 +134,11 @@ describe("Vault card", () => {
         interestValue: "1",
       },
       testID: "vault",
+      dismissModal: () => jest.fn,
+      expandModal: () => jest.fn,
+      setBottomSheetScreen: () => jest.fn,
+      setSnapPoints: () => jest.fn,
+      onBottomSheetLoansTokensListSelect: () => jest.fn,
     };
     const rendered = render(
       <Provider store={store}>
@@ -125,7 +149,13 @@ describe("Vault card", () => {
   });
 
   it("should match snapshot of healthy vault", async () => {
-    const safeVault: VaultCardProps = {
+    const safeVault: Omit<
+      VaultCardProps,
+      | "dismissModal"
+      | "expandModal"
+      | "setBottomSheetScreen"
+      | "onBottomSheetLoansTokensListSelect"
+    > = {
       vault: {
         vaultId: "22ffasd5ca123123123123123121231061",
         loanAmounts: [],
@@ -148,14 +178,28 @@ describe("Vault card", () => {
     };
     const rendered = render(
       <Provider store={store}>
-        <VaultCard vault={safeVault.vault} testID={safeVault.testID} />
+        <VaultCard
+          dismissModal={() => jest.fn}
+          expandModal={() => jest.fn}
+          setBottomSheetScreen={() => jest.fn}
+          setSnapPoints={() => jest.fn}
+          onBottomSheetLoansTokensListSelect={() => jest.fn}
+          vault={safeVault.vault}
+          testID={safeVault.testID}
+        />
       </Provider>
     );
     expect(rendered.toJSON()).toMatchSnapshot();
   });
 
   it("should match snapshot of active vault", async () => {
-    const newVault: VaultCardProps = {
+    const newVault: Omit<
+      VaultCardProps,
+      | "dismissModal"
+      | "expandModal"
+      | "setBottomSheetScreen"
+      | "onBottomSheetLoansTokensListSelect"
+    > = {
       vault: {
         vaultId: "22ffasd5ca123123123123123121231061",
         loanAmounts: [],
@@ -178,7 +222,15 @@ describe("Vault card", () => {
     };
     const rendered = render(
       <Provider store={store}>
-        <VaultCard vault={newVault.vault} testID={newVault.testID} />
+        <VaultCard
+          dismissModal={() => jest.fn}
+          expandModal={() => jest.fn}
+          setBottomSheetScreen={() => jest.fn}
+          setSnapPoints={() => jest.fn}
+          onBottomSheetLoansTokensListSelect={() => jest.fn}
+          vault={newVault.vault}
+          testID={newVault.testID}
+        />
       </Provider>
     );
     expect(rendered.toJSON()).toMatchSnapshot();

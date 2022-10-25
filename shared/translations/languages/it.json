@@ -1306,7 +1306,8 @@
     "Search available loan tokens": "Search available loan tokens",
     "Edit Vault": "Edit Vault",
     "Confirm": "Confirm",
-    "Search with token name": "Search with token name"
+    "Search with token name": "Search with token name",
+    "Vault Details": "Dettaglio del Vault"
   },
   "components/tabs": {
     "Browse loan tokens": "Sfoglia i token in prestito",
@@ -1488,7 +1489,8 @@
     "Halted": "Halted",
     "Total loans": "Totale prestiti",
     "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
-    "Create a vault": "Create a vault"
+    "Create a vault": "Create a vault",
+    "Max loan amount": "Max loan amount"
   },
   "components/EmptyVault": {
     "No vaults": "No vaults",
@@ -1576,7 +1578,42 @@
     "Total loans (USD)": "Totale prestiti (USD)",
     "Vault interest (APR)": "Interesse del vault (APR)",
     "Min. collateralization ratio": "Minimo rapporto di collateralizzazione",
-    "Your vault is at risk of liquidation. Prevent liquidity by adding more collateral or paying back loans.": "Il tuo caveau è a rischio di liquidazione. Previeni la liquidità aggiungendo altre garanzie o ripagando i prestiti."
+    "Your vault is at risk of liquidation. Prevent liquidity by adding more collateral or paying back loans.": "Il tuo caveau è a rischio di liquidazione. Previeni la liquidità aggiungendo altre garanzie o ripagando i prestiti.",
+    "next": "next",
+    "Add": "Add",
+    "Borrow": "Borrow",
+    "Pay": "Pay",
+    "Edit": "Edit",
+    "Max loan amount": "Max loan amount",
+    "Total collateral": "Total collateral",
+    "Total loan": "Total loan",
+    "Interest (APR)": "Interest (APR)",
+    "Min. collateral ratio": "Min. collateral ratio",
+    "Close vault": "Close vault",
+    "Max Loan Amount": "Max Loan Amount",
+    "This is the current loan amount available for this vault.": "This is the current loan amount available for this vault.",
+    "Min. Collateral Ratio": "Min. Collateral Ratio",
+    "This is the current min. col ratio set for this vault. The higher the percentage, the lower the vault interest will be. Min. collateral ratio can be changed anytime, under the 'Edit' button of this page.": "This is the current min. col ratio set for this vault. The higher the percentage, the lower the vault interest will be. Min. collateral ratio can be changed anytime, under the 'Edit' button of this page.",
+    "Ready": "Ready",
+    "Halted": "Halted",
+    "Empty": "Empty",
+    "Select Loan": "Select Loan"
+  },
+  "screens/VaultDetailScreenCollateralSection": {
+    "Why you need 50% DFI": "Why you need 50% DFI",
+    "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.": "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.",
+    "DFI/DUSD collaterals": "DFI/DUSD collaterals",
+    "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.": "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.",
+    "Maintain at least 50% DFI as collateral for DUSD loans": "Maintain at least 50% DFI as collateral for DUSD loans",
+    "Your loan amount can be maximized by adding DFI/DUSD as collaterals": "Your loan amount can be maximized by adding DFI/DUSD as collaterals",
+    "COLLATERALS": "COLLATERALS"
+  },
+  "screens/VaultDetailScreenLoansSection": {
+    "Pay with DUSD collaterals": "Pay with DUSD collaterals",
+    "LOANS": "LOANS",
+    "{{value}} as interest": "{{value}} as interest",
+    "Pay": "Pay",
+    "Paying loan": "Paying loan"
   },
   "components/ScrollableButton": {
     "ADD COLLATERAL": "AGGIUNGI COLLATERALE",
@@ -1808,6 +1845,7 @@
     "I WANT TO BORROW": "I WANT TO BORROW",
     "WITH VAULT": "WITH VAULT",
     "Select Vault To Use": "Select Vault To Use",
+    "Select Vault": "Select Vault",
     "Max loan amount": "Importo massimo del prestito",
     "Max Loan Amount": "Max Loan Amount",
     "This is the current loan amount available for this vault.": "This is the current loan amount available for this vault.",
@@ -1818,7 +1856,7 @@
     "Amount entered will result in vault liquidation": "Amount entered will result in vault liquidation",
     "Amount entered may liquidate the vault. Proceed at your own risk.": "Amount entered may liquidate the vault. Proceed at your own risk.",
     "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.": "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.",
-    "A minimum of 50% DFI as collateral is required before borrowing DUSD.": "A minimum of 50% DFI as collateral is required before borrowing DUSD.",
+    "Insufficient DFI in vault. Add more to borrow DUSD.": "Insufficient DFI in vault. Add more to borrow DUSD.",
     "Review full details in the next screen": "Review full details in the next screen",
     "Max loan amount entered": "Max loan amount entered",
     "{{percent}} of max loan amount entered": "{{percent}} of max loan amount entered",
@@ -1880,7 +1918,9 @@
     "Total loan + annual interest": "Totale del prestito + interesse annuale"
   },
   "components/BottomSheetVaultList": {
-    "Collateralization ratio": "Rapporto di collateralizzazione"
+    "Collateralization ratio": "Rapporto di collateralizzazione",
+    "{{value}}% interest": "{{value}}% interest",
+    "min. {{value}}%": "min. {{value}}%"
   },
   "screens/EditLoanSchemeScreen": {
     "EDIT LOAN SCHEME OF VAULT": "MODIFICA LO SCHEMA DI PRESTITO DEL VAULT",
