@@ -232,6 +232,7 @@
   "screens/SendScreen": {
     "Send": "移出資金",
     "Estimated fee": "所需費用(大約)",
+    "Continue": "繼續",
     "CONTINUE": "繼續",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要預留一些可使用的 UTXO (0.1 DFI (UTXO)) 作為費用",
     "SEND": "移出資金",
