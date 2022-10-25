@@ -152,11 +152,9 @@ function TotalLiquidityValue({
         </ThemedTextV2>
       ) : (
         <NumberFormat
-          value={value}
-          decimalScale={0}
+          value={BigNumber(value).toFixed(2)}
           thousandSeparator
           displayType="text"
-          valueIsNumericString
           renderText={(val: string) => (
             <ThemedText
               style={tailwind("font-semibold-v2 text-sm")}
