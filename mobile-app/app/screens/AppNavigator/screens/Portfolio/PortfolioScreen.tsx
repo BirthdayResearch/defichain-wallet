@@ -71,7 +71,7 @@ import { BottomSheetHeaderBackButton } from "@screens/AppNavigator/screens/Portf
 import { BottomSheetHeader } from "@components/BottomSheetHeader";
 import * as SplashScreen from "expo-splash-screen";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { bottomTabRoutes } from "@screens/AppNavigator/BottomTabNavigator";
+import { bottomTabDefaultRoutes } from "@screens/AppNavigator/BottomTabNavigator";
 import { AddressSelectionButtonV2 } from "./components/AddressSelectionButtonV2";
 import { ActionButtons } from "./components/ActionButtons";
 import {
@@ -523,7 +523,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const resetNavigationStack = () => {
     navigation.dispatch(
       CommonActions.reset({
-        routes: bottomTabRoutes,
+        routes: bottomTabDefaultRoutes,
       })
     );
   };

@@ -148,7 +148,7 @@ export const AppLinking = {
   },
 };
 
-export const bottomTabRoutes = [
+export const bottomTabDefaultRoutes = [
   {
     name: "Portfolio",
     state: {
