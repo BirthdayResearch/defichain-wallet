@@ -182,6 +182,9 @@ context("Wallet - Addresses", () => {
           cy.getByTestID("confirm_title").contains("You are sending");
           // Cancel button
           cy.getByTestID("button_cancel_send").click();
+          cy.getByTestID("portfolio_list").should("exist");
+          cy.getByTestID("send_balance_button").click().wait(3000);
+          cy.getByTestID("select_DFI").click().wait(3000);
           cy.getByTestID("address_input").should("exist");
 
           cy.getByTestID("button_confirm_send_continue").click();

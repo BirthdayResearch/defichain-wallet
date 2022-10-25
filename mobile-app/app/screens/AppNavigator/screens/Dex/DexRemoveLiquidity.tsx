@@ -75,7 +75,7 @@ export function RemoveLiquidityScreen(props: Props): JSX.Element {
   const [hasInputAmount, setHasInputAmount] = useState(false);
 
   // gather required data
-  const { pair, pairInfo } = props.route.params;
+  const { pair, pairInfo, originScreen } = props.route.params;
   const tokenA = useSelector((state: RootState) =>
     tokenSelector(state.wallet, pair.tokenA.id)
   );
@@ -106,6 +106,7 @@ export function RemoveLiquidityScreen(props: Props): JSX.Element {
       fee,
       tokenA,
       tokenB,
+      originScreen,
     });
   };
 
