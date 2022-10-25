@@ -49,6 +49,7 @@ export interface NumberRowElement {
   suffix?: string;
   testID: string;
   themedProps?: ThemedProps & { style?: ThemedProps & StyleProp<ViewStyle> };
+  outerContainerStyle?: StyleProp<ViewStyle>;
 }
 
 export function NumberRowV2(props: INumberRowProps): JSX.Element {
@@ -61,7 +62,7 @@ export function NumberRowV2(props: INumberRowProps): JSX.Element {
       light={props.containerStyle?.light ?? tailwind("bg-transparent")}
       dark={props.containerStyle?.dark ?? tailwind("bg-transparent")}
     >
-      <View style={tailwind("w-5/12")}>
+      <View style={[tailwind("w-5/12"), props.lhs.outerContainerStyle]}>
         <View style={tailwind("flex-row items-center justify-start")}>
           <ThemedTextV2
             style={tailwind("text-sm font-normal-v2")}
@@ -85,7 +86,7 @@ export function NumberRowV2(props: INumberRowProps): JSX.Element {
         </View>
       </View>
 
-      <View style={tailwind("flex-1")}>
+      <View style={[tailwind("flex-1"), props.rhs.outerContainerStyle]}>
         <View>
           <View
             style={tailwind("flex flex-row justify-end flex-wrap items-center")}
