@@ -1287,6 +1287,15 @@
     "Edit Vault": "Edit Vault",
     "Confirm": "确认",
     "Search with token name": "使用代币名称搜索",
+    "Sort Tokens": "Sort Tokens",
+    "Sort by": "Sort by",
+    "AVAILABLE TOKENS": "AVAILABLE TOKENS",
+    "Lowest oracle price": "Lowest oracle price",
+    "Highest oracle price": "Highest oracle price",
+    "Lowest interest": "Lowest interest",
+    "Highest interest": "Highest interest",
+    "A to Z": "A 到 Z",
+    "Z to A": "Z 到 A",
     "Vault Details": "金库明细"
   },
   "components/tabs": {

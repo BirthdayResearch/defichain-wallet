@@ -1311,6 +1311,15 @@
     "Edit Vault": "Edit Vault",
     "Confirm": "Confirmar",
     "Search with token name": "Buscar por nombre de token",
+    "Sort Tokens": "Sort Tokens",
+    "Sort by": "Ordenar por",
+    "AVAILABLE TOKENS": "TOKENS DISPONIBLES",
+    "Lowest oracle price": "Lowest oracle price",
+    "Highest oracle price": "Highest oracle price",
+    "Lowest interest": "Lowest interest",
+    "Highest interest": "Highest interest",
+    "A to Z": "A a Z",
+    "Z to A": "Z a A",
     "Vault Details": "Detalles del Vault"
   },
   "components/tabs": {

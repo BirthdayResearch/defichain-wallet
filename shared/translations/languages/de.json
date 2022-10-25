@@ -1283,6 +1283,15 @@
     "Edit Vault": "Vault bearbeiten",
     "Confirm": "Bestätigen",
     "Search with token name": "Suche über den Token-Namen",
+    "Sort Tokens": "Token sortieren",
+    "Sort by": "Sortieren nach",
+    "AVAILABLE TOKENS": "VERFÜGBARE TOKENS",
+    "Lowest oracle price": "Niedrigster Orakelpreis",
+    "Highest oracle price": "Höchster Orakelpreis",
+    "Lowest interest": "Niedrigster Zins",
+    "Highest interest": "Höchster Zins",
+    "A to Z": "A bis Z",
+    "Z to A": "Z bis A",
     "Vault Details": "Vault Detailansicht"
   },
   "components/tabs": {
