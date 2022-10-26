@@ -52,7 +52,7 @@ context("Wallet - Loans - Vault Details", () => {
     cy.closeOceanInterface();
   });
 
-  it.only("should verify vault details page", () => {
+  it("should verify vault details page", () => {
     cy.getByTestID("vault_card_0").click();
     checkVaultDetailValues(
       "", // ACTIVE vault

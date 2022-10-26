@@ -81,13 +81,13 @@ export function checkVaultDetailValues(
   vaultInterest: string,
   minColRatio: string
 ): void {
-  cy.getByTestID(`vault_status`).contains(status);
-  cy.getByTestID(`collateral_vault_id`).contains(vaultID);
-  cy.getByTestID(`total_collateral`).contains(totalCollateral);
-  cy.getByTestID(`max_loan_amount`).contains(maxLoanAmount);
-  cy.getByTestID(`total_loan`).contains(totalLoans);
-  cy.getByTestID(`interest`).contains(vaultInterest);
-  cy.getByTestID(`min_col_ratio`).contains(minColRatio);
+  cy.getByTestID("vault_status").contains(status);
+  cy.getByTestID("collateral_vault_id").contains(vaultID);
+  cy.getByTestID("total_collateral").contains(totalCollateral);
+  cy.getByTestID("max_loan_amount").contains(maxLoanAmount);
+  cy.getByTestID("total_loan").contains(totalLoans);
+  cy.getByTestID("interest").contains(vaultInterest);
+  cy.getByTestID("min_col_ratio").contains(minColRatio);
 }
 
 export function checkVaultDetailCollateralAmounts(
