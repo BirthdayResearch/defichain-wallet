@@ -95,14 +95,14 @@ export function checkVaultDetailCollateralAmounts(
   displaySymbol: string,
   vaultShare: string
 ): void {
-  cy.getByTestID(`vault_detail_collateral_${displaySymbol}`).contains(
-    displaySymbol
-  );
+  // cy.getByTestID(`vault_detail_collateral_${displaySymbol}`).contains(
+  //   displaySymbol
+  // );
   cy.getByTestID(
     `vault_detail_collateral_${displaySymbol}_vault_share`
   ).contains(vaultShare);
   cy.getByTestID(`vault_detail_collateral_${displaySymbol}_amount`).contains(
-    `${amount} ${displaySymbol}`
+    amount
   );
 }
 

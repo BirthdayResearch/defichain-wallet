@@ -17,42 +17,71 @@ context("Wallet - Loans - Vault Details", () => {
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
-    cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
-    cy.getByTestID("vault_card_0_vault_id").then(($txt: any) => {
+    // cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
+    cy.getByTestID("vault_card_0_EMPTY_add_collateral_button").should("exist");
+    cy.getByTestID("vault_card_0_EMPTY_vault_id").then(($txt: any) => {
       vaultId = $txt[0].textContent;
     });
   });
 
   it("should check empty state", () => {
-    cy.getByTestID("vault_card_0").click();
-    cy.getByTestID("vault_detail_tabs_COLLATERAL").click();
-    cy.getByTestID("vault_detail_tabs_LOANS").should(
-      "have.attr",
+    cy.getByTestID("vault_card_0_EMPTY").click();
+    checkVaultDetailValues(
+      "Empty",
+      vaultId,
+      "$0.00",
+      "$0.00",
+      "$0.00",
+      "5%",
+      "150%"
+    );
+    cy.getByTestID("action_borrow").should("have.attr", "aria-disabled");
+    cy.getByTestID("action_pay").should("have.attr", "aria-disabled");
+    cy.getByTestID("collateral_card_dfi_empty").should("exist");
+    cy.getByTestID("button_close_vault").should(
+      "not.have.attr",
       "aria-disabled"
     );
-    cy.getByTestID("button_add_collateral").click();
-    cy.addCollateral("10", "DFI");
-    cy.addCollateral("10", "dBTC");
     cy.go("back");
-    cy.wait(2000);
-    cy.getByTestID("bottom_tab_loans").click();
+  });
+
+  it("should add collaterals", () => {
+    cy.getByTestID("vault_card_0_EMPTY_add_collateral_button").click();
+    cy.addCollateral("10", "DFI");
+    cy.getByTestID("vault_card_0_").click();
+    cy.getByTestID("action_add").click();
+    cy.addCollateral("10", "dBTC");
+  });
+
+  it("should check ready state", () => {
+    cy.getByTestID("vault_card_0_").click();
+    checkVaultDetailValues(
+      "Ready",
+      vaultId,
+      "$1,500.00",
+      "$1,000.00",
+      "$0.00",
+      "5%",
+      "150%"
+    );
+    cy.getByTestID("action_borrow").should("not.have.attr", "aria-disabled");
+    cy.getByTestID("action_pay").should("have.attr", "aria-disabled");
+    cy.getByTestID("collateral_card_dfi_empty").should("not.exist");
+    checkVaultDetailCollateralAmounts("10.00000000", "DFI", "66.67%");
+    checkVaultDetailCollateralAmounts("10.00000000", "dBTC", "33.33%");
   });
 
   it("should add loan", () => {
-    cy.getByTestID("vault_card_0_manage_loans_button").click();
-    cy.getByTestID("button_browse_loans").click();
-    cy.getByTestID(
-      "loans_action_button_DUSD_borrow_button_loans_cards"
-    ).click();
-    cy.getByTestID("form_input_borrow").clear().type("100").blur();
-    cy.wait(3000);
-    cy.getByTestID("text_input_usd_value").should("have.value", "100.00");
-    cy.getByTestID("borrow_loan_submit_button").click();
+    cy.getByTestID("action_borrow").click();
+    cy.getByTestID("select_DUSD").click();
+    cy.getByTestID("text_input_borrow_amount").clear().type("100").blur();
+    cy.getByTestID("borrow_amount_in_usd").contains("$100.00");
+    cy.getByTestID("borrow_button_submit").click();
     cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);
     cy.closeOceanInterface();
   });
 
-  it("should verify vault details page", () => {
+  it("should check active state", () => {
     cy.getByTestID("vault_card_0").click();
     checkVaultDetailValues(
       "", // ACTIVE vault
@@ -67,20 +96,20 @@ context("Wallet - Loans - Vault Details", () => {
     cy.getByTestID("vault_id_section_min_ratio").contains("150%");
   });
 
-  it("should verify collaterals tab", () => {
-    checkVaultDetailCollateralAmounts("10.00000000", "DFI", "66.67%");
-    checkVaultDetailCollateralAmounts("10.00000000", "dBTC", "33.33%");
-  });
+  // it("should verify collaterals tab", () => {
+  //   checkVaultDetailCollateralAmounts("10.00000000", "DFI", "66.67%");
+  //   checkVaultDetailCollateralAmounts("10.00000000", "dBTC", "33.33%");
+  // });
 
-  it("should verify vault details tab", () => {
-    cy.getByTestID("vault_detail_tabs_DETAILS").click();
-    cy.getByTestID("text_min_col_ratio").contains("150");
-    cy.getByTestID("text_vault_interest_ratio").contains("5.00");
-    cy.getByTestID("text_col_ratio").contains("1,499.99%");
-    cy.getByTestID("text_collateral_value").contains("$1,500.00");
-    cy.getByTestID("text_active_loans").contains("1");
-    cy.getByTestID("text_total_loan_value").contains("$100");
-  });
+  // it("should verify vault details tab", () => {
+  //   cy.getByTestID("vault_detail_tabs_DETAILS").click();
+  //   cy.getByTestID("text_min_col_ratio").contains("150");
+  //   cy.getByTestID("text_vault_interest_ratio").contains("5.00");
+  //   cy.getByTestID("text_col_ratio").contains("1,499.99%");
+  //   cy.getByTestID("text_collateral_value").contains("$1,500.00");
+  //   cy.getByTestID("text_active_loans").contains("1");
+  //   cy.getByTestID("text_total_loan_value").contains("$100");
+  // });
 
   it("should verify loan tab", () => {
     cy.getByTestID("vault_detail_tabs_LOANS").click();

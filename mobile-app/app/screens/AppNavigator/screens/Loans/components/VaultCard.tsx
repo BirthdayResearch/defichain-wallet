@@ -190,6 +190,7 @@ export function VaultCard(props: VaultCardProps): JSX.Element {
         <ThemedTouchableOpacityV2
           onPress={onCardPress}
           style={tailwind("border-0")}
+          testID={`${props.testID}_${vaultBanner.type}`}
         >
           <View style={tailwind("flex-col")}>
             <ThemedViewV2
