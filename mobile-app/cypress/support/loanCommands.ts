@@ -124,7 +124,6 @@ declare global {
        * @param {string} symbol - symbol of token
        * */
       addCollateral: (amount: string, symbol: string) => Chainable<Element>;
-      addCollateralV2: (amount: string, symbol: string) => Chainable<Element>;
 
       /**
        * @description Remove Collateral
@@ -181,20 +180,6 @@ Cypress.Commands.add("createVault", (loanScheme: number = 0) => {
 });
 
 Cypress.Commands.add("addCollateral", (amount: string, symbol: string) => {
-  cy.getByTestID(`select_${symbol}`).click();
-  cy.getByTestID("add_remove_collateral_button_submit").should(
-    "have.attr",
-    "aria-disabled"
-  );
-  cy.getByTestID("text_input_add_remove_collateral_amount").type(amount).blur();
-  cy.getByTestID("add_remove_collateral_button_submit").click();
-  cy.wait(3000);
-  cy.getByTestID("button_confirm_confirm_edit_collateral").click().wait(3000);
-  cy.closeOceanInterface();
-});
-
-Cypress.Commands.add("addCollateralV2", (amount: string, symbol: string) => {
-  // cy.getByTestID("action_add").click();
   cy.getByTestID(`select_${symbol}`).click();
   cy.getByTestID("add_remove_collateral_button_submit").should(
     "have.attr",

@@ -37,7 +37,7 @@ context(
       cy.getByTestID("empty_vault").should("exist");
       cy.createVault(0);
       cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
-      cy.getByTestID("vault_card_0_vault_id").then(($txt: any) => {
+      cy.getByTestID("vault_card_0_EMPTY_vault_id").then(($txt: any) => {
         vaultId = $txt[0].textContent;
       });
       cy.getByTestID("vault_card_0_edit_collaterals_button").click();
@@ -54,10 +54,18 @@ context(
       cy.getByTestID("vault_card_0_total_collateral").contains("$1,009.80");
     });
 
-    it("should add loan using DFI and DUSD as 50% vault share", () => {
+    it.only("should add loan using DFI and DUSD as 50% vault share", () => {
       let annualInterest: string;
       cy.getByTestID("vault_card_0_manage_loans_button").click();
-      checkVaultDetailValues("READY", vaultId, "$1,009.80", "$0.00", "5");
+      checkVaultDetailValues(
+        "Ready",
+        vaultId,
+        "$1,009.80",
+        "$900", // TODO (Lyka): Update max loan amount
+        "$0.00",
+        "5",
+        "150"
+      );
       cy.getByTestID("button_browse_loans").click();
       cy.getByTestID("loans_action_button_DUSD_borrow_button").click();
       cy.getByTestID("form_input_borrow").type("1000").blur();

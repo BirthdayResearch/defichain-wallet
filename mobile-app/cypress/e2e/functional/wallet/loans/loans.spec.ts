@@ -68,7 +68,10 @@ function checkTokensSortingOrder(
             .invoke("text")
             .then((text) => {
               const secondVal = text.split("$")[1];
-              expect(Number(firstVal)).to.be.greaterThan(Number(secondVal));
+              const secondValNoComma = secondVal.replace(/,/g, "");
+              expect(Number(firstVal)).to.be.greaterThan(
+                Number(secondValNoComma)
+              );
             });
         });
       break;
@@ -109,7 +112,7 @@ context("Wallet - Loans", () => {
     cy.intercept("**/loans/tokens?size=200").as("loans");
     cy.wait(["@loans"]).then((intercept: any) => {
       const { data } = intercept.response.body;
-      data.forEach((loan: LoanToken, i) => {
+      data.forEach((loan: LoanToken, i: number) => {
         // const price = loan.activePrice?.active?.amount ?? 0
         cy.getByTestID(`loan_card_${i}_display_symbol`).contains(
           loan.token.displaySymbol
@@ -380,7 +383,7 @@ context("Wallet - Loans - Take Loans", () => {
       .invoke("text")
       .then((text) => {
         const value = text.replace("%", "").trim();
-        checkValueWithinRange(value, "151", 2);
+        checkValueWithinRange(value, "174", 2);
       });
     cy.getByTestID("borrow_button_submit").click();
     cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);
@@ -393,18 +396,17 @@ context("Wallet - Loans - Take Loans", () => {
       VaultStatus.NearLiquidation,
       "vault_card_0_min_ratio"
     );
-    cy.getByTestID("vault_card_0_min_ratio").contains("151.07%");
-    cy.getByTestID("vault_card_0_loan_available_amount")
+    cy.getByTestID("vault_card_0_min_ratio").contains("174");
+    cy.getByTestID("vault_card_0_max_loan_amount")
       .invoke("text")
       .then((text) => {
         const value = text.replace("%", "").trim();
-        checkValueWithinRange(value, "860.56", 1);
+        checkValueWithinRange(value, "139.46", 1);
       });
     cy.getByTestID("vault_card_0_total_collateral_amount").contains(
-      "$1,300.00"
+      "$1,500.00"
     );
     cy.getByTestID("vault_card_0").click();
-    cy.getByTestID("vault_detail_tabs_LOANS").click();
     cy.getByTestID("loan_card_DUSD").should("exist");
     cy.getByTestID("loan_card_dTS25").should("exist");
   });

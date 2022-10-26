@@ -52,9 +52,17 @@ context("Wallet - Loans - Vault Details", () => {
     cy.closeOceanInterface();
   });
 
-  it("should verify vault details page", () => {
+  it.only("should verify vault details page", () => {
     cy.getByTestID("vault_card_0").click();
-    checkVaultDetailValues("ACTIVE", vaultId, "$1,500.00", "$100", "5");
+    checkVaultDetailValues(
+      "", // ACTIVE vault
+      vaultId,
+      "$1,500.00",
+      "$900", // TODO (Lyka): Update max loan amount
+      "$100",
+      "5",
+      "150"
+    );
     cy.getByTestID("vault_id_section_col_ratio").contains("1,499.99%");
     cy.getByTestID("vault_id_section_min_ratio").contains("150%");
   });
