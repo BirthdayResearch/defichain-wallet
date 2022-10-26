@@ -458,7 +458,7 @@ export function LoanCards(props: LoanCardsProps): JSX.Element {
             {
               "pt-0": vaults.length >= 1,
             },
-            { "pt-4": loansTokensSortType.length >= 1 && searchString !== "" }
+            { "pt-4": searchString !== "" }
           )}
           parentContainerStyle={tailwind("mx-3", {
             hidden: isSearchFocus && searchString.trim() === "",
