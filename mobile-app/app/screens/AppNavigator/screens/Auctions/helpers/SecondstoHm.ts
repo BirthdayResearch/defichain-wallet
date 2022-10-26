@@ -54,9 +54,9 @@ export function secondsToDhmsDisplay(seconds: number): string {
         })
       : "";
   const sDisplay =
-    seconds > 0
+    s > 0
       ? translate("components/BatchCard", " {{s}}s", {
-          s: m > 0 ? padStart(s.toString(), 2, "0") : seconds,
+          s: padStart(s.toString(), 2, "0"),
         })
       : "";
   return `${dDisplay}${hDisplay}${mDisplay}${sDisplay}`;
