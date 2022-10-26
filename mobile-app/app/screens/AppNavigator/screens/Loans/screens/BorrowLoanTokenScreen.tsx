@@ -591,7 +591,6 @@ export function BorrowLoanTokenScreen({
 interface VaultInputProps {
   vault: LoanVaultActive;
   onPress: () => void;
-  testID?: string;
 }
 
 function VaultInput(props: VaultInputProps): JSX.Element {
@@ -645,6 +644,9 @@ interface TransactionDetailsProps {
 export function TransactionDetailsSection(
   props: TransactionDetailsProps
 ): JSX.Element {
+  const isEmptyBorrowAmount =
+    new BigNumber(props.borrowAmount).isNaN() ||
+    new BigNumber(props.borrowAmount).isZero();
   return (
     <ThemedViewV2
       light={tailwind("border-mono-light-v2-300")}
@@ -755,11 +757,15 @@ export function TransactionDetailsSection(
         }}
       />
       <CollateralizationRatioDisplayV2
-        collateralizationRatio={props.resultingColRatio.toFixed(2)}
+        collateralizationRatio={
+          isEmptyBorrowAmount
+            ? props.vault.collateralRatio
+            : props.resultingColRatio.toFixed(2)
+        }
         minCollateralizationRatio={props.vault.loanScheme.minColRatio}
         totalLoanAmount={new BigNumber(props.vault.loanValue)
           .plus(
-            new BigNumber(props.borrowAmount).isNaN()
+            isEmptyBorrowAmount
               ? new BigNumber(0)
               : new BigNumber(props.borrowAmount)
           )
