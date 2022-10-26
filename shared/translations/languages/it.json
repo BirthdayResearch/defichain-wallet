@@ -243,6 +243,7 @@
   "screens/SendScreen": {
     "Send": "Invia",
     "Estimated fee": "Commmisione stimata",
+    "Continue": "Continua",
     "CONTINUE": "CONTINUA",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Una piccola quantità di UTXO (0,1 DFI (UTXO)) è riservata per le commissioni.",
     "SEND": "INVIA",
@@ -425,7 +426,8 @@
     "Custom": "Custom",
     "Default": "Default",
     "Cancel transaction": "Cancel transaction",
-    "By cancelling, you will lose any changes you made for your transaction.": "By cancelling, you will lose any changes you made for your transaction."
+    "By cancelling, you will lose any changes you made for your transaction.": "By cancelling, you will lose any changes you made for your transaction.",
+    "View on Scan": "View on Scan"
   },
   "screens/AboutScreen": {
     "About": "Informazioni su",
@@ -1494,6 +1496,7 @@
     "Total collateral": "Total collateral",
     "Borrow": "Borrow",
     "Liquidated vault": "Liquidated vault",
+    "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details.": "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details.",
     "Ready": "Ready",
     "Halted": "Halted",
     "Total loans": "Totale prestiti",
@@ -1606,7 +1609,8 @@
     "Ready": "Ready",
     "Halted": "Halted",
     "Empty": "Empty",
-    "Select Loan": "Select Loan"
+    "Select Loan": "Select Loan",
+    "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details.": "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details."
   },
   "screens/VaultDetailScreenCollateralSection": {
     "Why you need 50% DFI": "Why you need 50% DFI",

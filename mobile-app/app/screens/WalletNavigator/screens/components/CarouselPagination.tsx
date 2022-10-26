@@ -16,15 +16,20 @@ export function CarouselPaginationWithNextButton(
   props: CarouselPaginationWithNextButtonProps
 ): JSX.Element {
   return (
-    <>
+    <View
+      style={tailwind({
+        "-mt-5 mb-10": Platform.OS === "ios",
+        "-mt-8": Platform.OS === "android",
+      })}
+    >
       <Pagination {...props} paginationStyle={styles.paginationContainer} />
-      <View style={tailwind("px-15", { "pb-20": Platform.OS !== "web" })}>
+      <View style={tailwind("px-15")}>
         <PaginationButton
           {...props}
           paginationStyle={styles.paginationContainer}
         />
       </View>
-    </>
+    </View>
   );
 }
 
@@ -32,7 +37,7 @@ const styles = StyleSheet.create({
   paginationContainer: {
     bottom: 0,
     height: 6,
-    marginBottom: 75,
+    marginBottom: 64,
     marginVertical: 0,
     position: undefined,
   },

@@ -14,7 +14,8 @@ import {
   TokenListType,
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { PriceRateProps as PriceRatesPropsV2 } from "@components/PricesSectionV2";
-import { useNavigatorHeaderStylesOption } from "@screens/AppNavigator/hooks/useNavigatorHeaderStylesOption";
+import { ThemedTextV2 } from "@components/themed";
+import { StyleProp, View, ViewStyle } from "react-native";
 import { ScreenName } from "@screens/enum";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { ConversionParam } from "../Portfolio/PortfolioNavigator";
@@ -147,11 +148,6 @@ export function DexNavigator(): JSX.Element {
     navigation.navigate("NetworkSelectionScreen");
   };
 
-  const dexScreenHeaderTitle = useNavigatorHeaderStylesOption({
-    destination: "screen/DexScreen",
-    headerTitle: "Decentralized \nExchange",
-  });
-
   return (
     <DexStack.Navigator
       initialRouteName="DexScreen"
@@ -166,7 +162,25 @@ export function DexNavigator(): JSX.Element {
         name="DexScreen"
         options={{
           ...screenOptions,
-          ...dexScreenHeaderTitle,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitleAlign: "left",
+          headerTitleContainerStyle: tailwind("ml-5 -mb-3"),
+          headerLeftContainerStyle: null,
+          headerTitle: () => (
+            <View style={tailwind("pt-4")}>
+              <ThemedTextV2
+                style={[
+                  screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
+                  tailwind("text-left text-3xl font-semibold-v2"),
+                  { fontSize: 28 },
+                ]}
+              >
+                {translate("screens/DexScreen", "Decentralized \nExchange")}
+              </ThemedTextV2>
+            </View>
+          ),
         }}
       />
 

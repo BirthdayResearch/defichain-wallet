@@ -232,6 +232,7 @@
   "screens/SendScreen": {
     "Send": "移出資金",
     "Estimated fee": "所需費用(大約)",
+    "Continue": "繼續",
     "CONTINUE": "繼續",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要預留一些可使用的 UTXO (0.1 DFI (UTXO)) 作為費用",
     "SEND": "移出資金",
@@ -412,7 +413,8 @@
     "Custom": "Custom",
     "Default": "Default",
     "Cancel transaction": "Cancel transaction",
-    "By cancelling, you will lose any changes you made for your transaction.": "By cancelling, you will lose any changes you made for your transaction."
+    "By cancelling, you will lose any changes you made for your transaction.": "By cancelling, you will lose any changes you made for your transaction.",
+    "View on Scan": "往 DeFi Scan 查看"
   },
   "screens/AboutScreen": {
     "About": "關於",
@@ -1587,7 +1589,8 @@
     "Ready": "Ready",
     "Halted": "Halted",
     "Empty": "Empty",
-    "Select Loan": "Select Loan"
+    "Select Loan": "Select Loan",
+    "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details.": "金库已被清算，现在进行可以拍卖。在 DeFiScan 上查看您的金库以获取更多详细信息。"
   },
   "screens/VaultDetailScreenCollateralSection": {
     "Why you need 50% DFI": "Why you need 50% DFI",

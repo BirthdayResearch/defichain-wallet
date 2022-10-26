@@ -34,7 +34,6 @@ export interface BatchCardProps {
   testID: string;
   collateralTokenSymbols: string[];
   onQuickBid: (props: onQuickBidProps) => void;
-  isVaultOwner: boolean;
 }
 
 export function BatchCard(props: BatchCardProps): JSX.Element {
