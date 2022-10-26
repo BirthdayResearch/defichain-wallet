@@ -1816,7 +1816,8 @@
     "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "Rückzahlung eines Darlehensbetrags von {{amountToPayInPaymentToken}} {{paymentSymbol}}",
     "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "Rückzahlung eines Darlehensbetrags von {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}).",
     "Confirm Loan Payment": "Darlehensrückzahlung bestätigen",
-    "Resulting collateralization": "Resultierende Besicherungsquote"
+    "Resulting collateralization": "Resultierende Besicherungsquote",
+    "Confirm": "Bestätigen"
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "Besicherungsquote",

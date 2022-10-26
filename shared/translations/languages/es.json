@@ -1848,7 +1848,8 @@
     "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "Estoy pagando  {{amountToPayInPaymentToken}} {{paymentSymbol}} como método para pager el préstamo.",
     "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "Estoy pagando {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) como método para pagar el préstamo.",
     "Confirm Loan Payment": "Confirma el pago del préstamo",
-    "Resulting collateralization": "Colateralización resultante"
+    "Resulting collateralization": "Colateralización resultante",
+    "Confirm": "Confirmar"
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "Ratio de colateralización",

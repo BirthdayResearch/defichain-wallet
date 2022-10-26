@@ -1821,7 +1821,8 @@
     "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "正在付款 {{amountToPayInPaymentToken}} {{paymentSymbol}} 作为支付贷款。",
     "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "正在付款 {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) 作为支付贷款。",
     "Confirm Loan Payment": "确认贷款支付",
-    "Resulting collateralization": "最终抵押率"
+    "Resulting collateralization": "最终抵押率",
+    "Confirm": "确认"
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "抵押率",

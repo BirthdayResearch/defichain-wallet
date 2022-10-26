@@ -1829,7 +1829,8 @@
     "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "Paiement de {{amountToPayInPaymentToken}} {{paymentSymbol}} en remboursement du prêt.",
     "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "Paiement de {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) en remboursement du prêt.",
     "Confirm Loan Payment": "Confirmer le remboursement du prêt",
-    "Resulting collateralization": "Garantie correspondante"
+    "Resulting collateralization": "Garantie correspondante",
+    "Confirm": "Confirmer"
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "Ratio de garantie",
