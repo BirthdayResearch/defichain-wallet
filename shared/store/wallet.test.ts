@@ -192,6 +192,7 @@ describe("wallet reducer", () => {
             commission: 0,
           },
         },
+        hasStockSplit: false,
       },
     ];
 
@@ -246,6 +247,7 @@ describe("wallet reducer", () => {
             commission: 0,
           },
         },
+        hasStockSplit: true,
       },
     ];
     const action = { type: fetchPoolPairs.fulfilled.type, payload };

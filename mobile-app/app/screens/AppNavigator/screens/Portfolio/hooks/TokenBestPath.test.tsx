@@ -129,6 +129,7 @@ describe("Token Best Path - Get Best Path (DEX)", () => {
           commission: 0,
         },
       },
+      hasStockSplit: false,
     },
     {
       type: "available",
@@ -177,6 +178,7 @@ describe("Token Best Path - Get Best Path (DEX)", () => {
           commission: 0,
         },
       },
+      hasStockSplit: false,
     },
     {
       type: "available",
@@ -225,6 +227,7 @@ describe("Token Best Path - Get Best Path (DEX)", () => {
           commission: 0,
         },
       },
+      hasStockSplit: false,
     },
   ];
 

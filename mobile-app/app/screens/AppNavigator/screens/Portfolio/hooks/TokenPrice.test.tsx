@@ -70,6 +70,7 @@ describe("Token Price - Get Token Price (DEX)", () => {
           commission: 0,
         },
       },
+      hasStockSplit: false,
     },
     {
       type: "available",
@@ -118,6 +119,7 @@ describe("Token Price - Get Token Price (DEX)", () => {
           commission: 0,
         },
       },
+      hasStockSplit: false,
     },
     {
       type: "available",
@@ -166,6 +168,7 @@ describe("Token Price - Get Token Price (DEX)", () => {
           commission: 0,
         },
       },
+      hasStockSplit: false,
     },
   ];
 
