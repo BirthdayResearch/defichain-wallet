@@ -28,7 +28,6 @@ import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/he
 import { BottomSheetHeader as BottonSheetHeaderSort } from "@components/BottomSheetHeader";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import {
-  BottomSheetNavScreen,
   BottomSheetWebWithNavV2,
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
@@ -214,13 +213,6 @@ export function LoanCards(props: LoanCardsProps): JSX.Element {
       v.vaultId === props.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION
   ) as LoanVaultActive;
 
-  const vaultItem =
-    Object.keys(vaults).length === 1
-      ? vaults.find(
-          (v) => v.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION
-        )
-      : activeVault;
-
   const goToCreateVault = (): void => {
     navigation.navigate({
       name: "CreateVaultScreen",
@@ -405,7 +397,7 @@ export function LoanCards(props: LoanCardsProps): JSX.Element {
               }}
               testID="loan_search_input"
             />
-            {!isSearchFocus && (
+            {!isSearchFocus && searchString === "" && (
               <LoansTokensSortRow
                 isSorted={isSorted}
                 loansTokensSortType={loansTokensSortType}
@@ -461,9 +453,13 @@ export function LoanCards(props: LoanCardsProps): JSX.Element {
           keyExtractor={(_item, index) => index.toString()}
           testID={`${props.testID}_token_lists`}
           estimatedItemSize={116}
-          contentContainerStyle={tailwind("pb-2 pt-8", {
-            "pt-0": vaults.length >= 1,
-          })}
+          contentContainerStyle={tailwind(
+            "pb-2 pt-8",
+            {
+              "pt-0": vaults.length >= 1,
+            },
+            { "pt-4": loansTokensSortType.length >= 1 && searchString !== "" }
+          )}
           parentContainerStyle={tailwind("mx-3", {
             hidden: isSearchFocus && searchString.trim() === "",
           })}
