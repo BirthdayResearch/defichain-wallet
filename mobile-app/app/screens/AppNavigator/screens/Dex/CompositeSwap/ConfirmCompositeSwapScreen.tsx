@@ -1,3 +1,4 @@
+import { WalletAlert } from "@components/WalletAlert";
 import { Dispatch, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getColor, tailwind } from "@tailwind";
@@ -30,6 +31,7 @@ import {
 } from "@components/themed";
 import { View } from "@components";
 import { useAppDispatch } from "@hooks/useAppDispatch";
+import { ScreenName } from "@screens/enum";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
@@ -66,6 +68,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
     estimatedAmount,
     totalFees,
     estimatedLessFeesAfterSlippage,
+    originScreen,
   } = route.params;
   const navigation = useNavigation<NavigationProp<DexParamList>>();
   const dispatch = useAppDispatch();
@@ -146,10 +149,29 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
 
   function onCancel(): void {
     if (!isSubmitting) {
-      navigation.navigate({
-        name: "CompositeSwap",
-        params: {},
-        merge: true,
+      WalletAlert({
+        title: translate("screens/Settings", "Cancel transaction"),
+        message: translate(
+          "screens/Settings",
+          "By cancelling, you will lose any changes you made for your transaction."
+        ),
+        buttons: [
+          {
+            text: translate("screens/Settings", "Go back"),
+            style: "cancel",
+          },
+          {
+            text: translate("screens/Settings", "Cancel"),
+            style: "destructive",
+            onPress: async () => {
+              navigation.navigate(
+                originScreen === ScreenName.DEX_screen
+                  ? ScreenName.DEX_screen
+                  : ScreenName.PORTFOLIO_screen
+              );
+            },
+          },
+        ],
       });
     }
   }

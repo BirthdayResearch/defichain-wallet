@@ -121,9 +121,9 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                   ],
                 ]
               }
-              testID="vault_loan_available_label"
+              testID="vault_max_loan_amount_label"
             >
-              Total loans
+              Max loan amount
             </Text>
             <Text
               style={
@@ -147,9 +147,9 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                   ],
                 ]
               }
-              testID="vault_loan_available_amount"
+              testID="vault_max_loan_amount_amount"
             >
-              $100.00
+              $0.00
             </Text>
           </View>
           <View
@@ -511,9 +511,9 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                   ],
                 ]
               }
-              testID="vault_loan_available_label"
+              testID="vault_max_loan_amount_label"
             >
-              Total loans
+              Max loan amount
             </Text>
             <Text
               style={
@@ -537,9 +537,9 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                   ],
                 ]
               }
-              testID="vault_loan_available_amount"
+              testID="vault_max_loan_amount_amount"
             >
-              $100.00
+              $0.00
             </Text>
           </View>
           <View
@@ -901,9 +901,9 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                   ],
                 ]
               }
-              testID="vault_loan_available_label"
+              testID="vault_max_loan_amount_label"
             >
-              Total loans
+              Max loan amount
             </Text>
             <Text
               style={
@@ -927,9 +927,9 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                   ],
                 ]
               }
-              testID="vault_loan_available_amount"
+              testID="vault_max_loan_amount_amount"
             >
-              $100.00
+              $0.00
             </Text>
           </View>
           <View
@@ -1181,7 +1181,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
   <View
     accessible={true}
     collapsable={false}
-    focusable={true}
+    focusable={false}
     onClick={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}

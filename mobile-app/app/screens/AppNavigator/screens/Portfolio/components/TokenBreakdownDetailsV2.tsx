@@ -362,6 +362,7 @@ function DFITokenBreakDownDetailsRow({
           thousandSeparator
           prefix=" ("
           suffix="%)"
+          valueIsNumericString
         />
       ) : (
         <TextSkeletonLoader
@@ -409,6 +410,7 @@ function DFITokenBreakDownDetailsRow({
     </ThemedViewV2>
   );
 }
+
 function TokenBreakdownDetailsRow({
   amount,
   label,

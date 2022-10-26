@@ -176,15 +176,13 @@ Cypress.Commands.add("createVault", (loanScheme: number = 0) => {
 });
 
 Cypress.Commands.add("addCollateral", (amount: string, symbol: string) => {
-  // TODO: change navigation for v2
-  cy.getByTestID("add_collateral_button").click();
   cy.getByTestID(`select_${symbol}`).click();
-  cy.getByTestID("add_collateral_button_submit").should(
+  cy.getByTestID("add_remove_collateral_button_submit").should(
     "have.attr",
     "aria-disabled"
   );
-  cy.getByTestID("form_input_text").type(amount).blur();
-  cy.getByTestID("add_collateral_button_submit").click();
+  cy.getByTestID("text_input_add_remove_collateral_amount").type(amount).blur();
+  cy.getByTestID("add_remove_collateral_button_submit").click();
   cy.wait(3000);
   cy.getByTestID("button_confirm_confirm_edit_collateral").click().wait(3000);
   cy.closeOceanInterface();
