@@ -759,7 +759,7 @@ export function TransactionDetailsSection(
       <CollateralizationRatioDisplayV2
         collateralizationRatio={
           isEmptyBorrowAmount
-            ? props.vault.collateralRatio
+            ? props.vault.informativeRatio
             : props.resultingColRatio.toFixed(2)
         }
         minCollateralizationRatio={props.vault.loanScheme.minColRatio}
