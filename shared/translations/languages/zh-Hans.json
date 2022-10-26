@@ -414,7 +414,8 @@
     "Default": "Default",
     "Cancel transaction": "Cancel transaction",
     "By cancelling, you will lose any changes you made for your transaction.": "By cancelling, you will lose any changes you made for your transaction.",
-    "View on Scan": "往 DeFi Scan 查看"
+    "View on Scan": "往 DeFi Scan 查看",
+    "Go back": "回到上一页"
   },
   "screens/AboutScreen": {
     "About": "关于",

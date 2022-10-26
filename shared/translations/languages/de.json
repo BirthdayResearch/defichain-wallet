@@ -413,7 +413,8 @@
     "Default": "Standard",
     "Cancel transaction": "Transaktion abbrechen",
     "By cancelling, you will lose any changes you made for your transaction.": "Wenn du die Transaktion abbrichst, gehen alle Änderungen, die du für deine Transaktion vorgenommen hast, verloren.",
-    "View on Scan": "Ansicht auf Scan"
+    "View on Scan": "Ansicht auf Scan",
+    "Go back": "Zurück"
   },
   "screens/AboutScreen": {
     "About": "Über",

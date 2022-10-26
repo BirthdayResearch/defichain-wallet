@@ -423,7 +423,8 @@
     "Default": "Par défaut",
     "Cancel transaction": "Annuler la transaction",
     "By cancelling, you will lose any changes you made for your transaction.": "En annulant, vous perdrez toutes les modifications apportées à votre transaction.",
-    "View on Scan": "Voir sur Scan"
+    "View on Scan": "Voir sur Scan",
+    "Go back": "Retour"
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",

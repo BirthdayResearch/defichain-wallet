@@ -426,7 +426,8 @@
     "Default": "Predeterminado",
     "Cancel transaction": "Cancel transaction",
     "By cancelling, you will lose any changes you made for your transaction.": "By cancelling, you will lose any changes you made for your transaction.",
-    "View on Scan": "View on Scan"
+    "View on Scan": "View on Scan",
+    "Go back": "Vuelve atrás"
   },
   "screens/AboutScreen": {
     "About": "Más información",
