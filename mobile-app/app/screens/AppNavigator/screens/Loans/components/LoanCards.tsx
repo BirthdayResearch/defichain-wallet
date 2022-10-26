@@ -28,7 +28,6 @@ import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/he
 import { BottomSheetHeader as BottonSheetHeaderSort } from "@components/BottomSheetHeader";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import {
-  BottomSheetNavScreen,
   BottomSheetWebWithNavV2,
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
@@ -41,6 +40,7 @@ import {
   SkeletonLoaderScreen,
 } from "@components/SkeletonLoader";
 import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
+import { ListRenderItemInfo } from "@shopify/flash-list";
 import {
   LoansTokensSortRow,
   LoansTokensSortType,
@@ -61,7 +61,6 @@ interface LoanCardsProps {
   sortRef?: React.Ref<any>;
 }
 export interface LoanCardOptions {
-  loanTokenId: string;
   symbol: string;
   displaySymbol: string;
   price?: ActivePrice;
@@ -213,13 +212,6 @@ export function LoanCards(props: LoanCardsProps): JSX.Element {
     (v) =>
       v.vaultId === props.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION
   ) as LoanVaultActive;
-
-  const vaultItem =
-    Object.keys(vaults).length === 1
-      ? vaults.find(
-          (v) => v.vaultId && v.state !== LoanVaultState.IN_LIQUIDATION
-        )
-      : activeVault;
 
   const goToCreateVault = (): void => {
     navigation.navigate({
@@ -477,18 +469,14 @@ export function LoanCards(props: LoanCardsProps): JSX.Element {
           renderItem={({
             item,
             index,
-          }: {
-            item: LoanToken;
-            index: number;
-          }): JSX.Element => {
+          }: ListRenderItemInfo<LoanToken>): JSX.Element => {
             return (
-              <View style={{ flexBasis: "98%" }}>
+              <View style={{ flexBasis: "100%" }}>
                 <LoanCard
                   symbol={item.token.symbol}
                   displaySymbol={item.token.displaySymbol}
                   interestRate={item.interest}
                   price={item.activePrice}
-                  loanTokenId={item.tokenId}
                   onPress={() => {
                     onBorrowPress(item);
                   }}
