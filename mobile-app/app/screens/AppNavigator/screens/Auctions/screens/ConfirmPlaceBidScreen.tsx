@@ -17,17 +17,12 @@ import {
   NativeLoggingProps,
   useLogger,
 } from "@shared-contexts/NativeLoggingProvider";
-import {
-  ThemedScrollViewV2,
-  ThemedTextV2,
-  ThemedViewV2,
-} from "@components/themed";
+import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { SummaryTitleV2 } from "@components/SummaryTitleV2";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import { TextRowV2 } from "@components/TextRowV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { View } from "@components";
 import { AuctionsParamList } from "../AuctionNavigator";

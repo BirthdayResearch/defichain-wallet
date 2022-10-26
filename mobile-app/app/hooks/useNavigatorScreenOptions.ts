@@ -4,7 +4,13 @@ import { tailwind } from "@tailwind";
 import { Dimensions, Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export function useNavigatorScreenOptions(): StackNavigationOptions {
+interface Props {
+  isRounded?: boolean;
+}
+
+export function useNavigatorScreenOptions(
+  props: Props = {}
+): StackNavigationOptions {
   const { isLight } = useThemeContext();
   const { width } = Dimensions.get("window");
   const insets = useSafeAreaInsets();
@@ -22,11 +28,18 @@ export function useNavigatorScreenOptions(): StackNavigationOptions {
       "right-5": Platform.OS !== "ios",
     }),
     headerStyle: [
-      tailwind("rounded-b-2xl border-b", {
-        "bg-mono-light-v2-00 border-mono-light-v2-100": isLight,
-        "bg-mono-dark-v2-00 border-mono-dark-v2-100": !isLight,
+      tailwind({
+        "bg-mono-light-v2-00": isLight,
+        "bg-mono-dark-v2-00": !isLight,
+        "rounded-b-2xl border-b": props.isRounded !== undefined,
+        "border-mono-light-v2-00": isLight && props.isRounded !== undefined,
+        "border-mono-dark-v2-100": !isLight && props.isRounded !== undefined,
+        "rounded-b-none border-b-0": props.isRounded === undefined,
       }),
-      { height: 76 + insets.top },
+      {
+        height: (Platform.OS !== "android" ? 88 : 96) + insets.top,
+        shadowOpacity: 0,
+      },
     ],
     headerBackgroundContainerStyle: tailwind({
       "bg-mono-light-v2-100": isLight,

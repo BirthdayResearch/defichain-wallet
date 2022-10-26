@@ -11,7 +11,6 @@ import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { hasTxQueued } from "@store/transaction_queue";
 import { translate } from "@translations";
 import { useBottomSheet } from "@hooks/useBottomSheet";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import {
   ThemedTextV2,
@@ -72,7 +71,6 @@ export function PlaceBidScreen(props: Props): JSX.Element {
   );
   const logger = useLogger();
   const client = useWhaleApiClient();
-  const { isLight } = useThemeContext();
   const toast = useToast();
   const TOAST_DURATION = 2000;
 
