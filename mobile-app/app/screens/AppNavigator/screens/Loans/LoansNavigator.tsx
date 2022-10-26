@@ -136,11 +136,11 @@ export function LoansNavigator(): JSX.Element {
   const loansScreenHeaderTitle = useNavigatorHeaderStylesOption({
     destination: "screen/LoansScreen",
     headerTitle: "Loans",
-    networkScreenPath: "NetworkSelectionScreenDex",
+    networkScreenPath: "NetworkSelectionScreenLoans",
   });
 
   const goToNetworkSelect = (): void => {
-    navigation.navigate("NetworkSelectionScreenDex");
+    navigation.navigate("NetworkSelectionScreenLoans");
   };
 
   return (
