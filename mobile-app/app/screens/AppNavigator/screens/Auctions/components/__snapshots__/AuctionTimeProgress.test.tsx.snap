@@ -81,7 +81,7 @@ exports[`Auction time progress should match snapshot 1`] = `
           ]
         }
       >
-        ~ 5m 00s left
+        ~ 5m left
          
         (
         100 blks
