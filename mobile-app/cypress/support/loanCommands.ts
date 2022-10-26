@@ -195,8 +195,10 @@ Cypress.Commands.add("addCollateral", (amount: string, symbol: string) => {
 Cypress.Commands.add(
   "removeCollateral",
   (amount: string, symbol: string, resultingCollateralization?: number) => {
-    cy.getByTestID(`collateral_card_remove_${symbol}`).click();
-    cy.getByTestID("form_input_text").type(amount).blur();
+    cy.getByTestID(`collateral_remove_${symbol}`).click();
+    cy.getByTestID("text_input_add_remove_collateral_amount")
+      .type(amount)
+      .blur();
     if (resultingCollateralization !== undefined) {
       cy.getByTestID("resulting_collateralization")
         .invoke("text")
@@ -205,12 +207,10 @@ Cypress.Commands.add(
           expect(colRatio).to.be.closeTo(resultingCollateralization, 1);
         });
     }
-    cy.getByTestID("add_collateral_button_submit").click();
+    cy.getByTestID("add_remove_collateral_button_submit").click();
     cy.getByTestID("button_confirm_confirm_edit_collateral").click().wait(3000);
-    cy.getByTestID("txn_authorization_description").contains(
-      `Removing ${new BigNumber(amount).toFixed(
-        8
-      )} ${symbol} collateral from vault`
+    cy.getByTestID("txn_authorization_title").contains(
+      `Removing ${new BigNumber(amount).toFixed(8)} ${symbol} as collateral`
     );
     cy.closeOceanInterface();
   }

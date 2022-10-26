@@ -13,7 +13,6 @@ interface LoanActionButtonProps {
   style?: StyleProp<ViewStyle>;
   testID: string;
   disabled?: boolean;
-  iconLeft?: () => JSX.Element;
 }
 
 export function LoanActionButton({
@@ -74,7 +73,7 @@ export function LoanAddRemoveActionButton({
       <ThemedTouchableOpacityV2
         onPress={onRemove}
         style={tailwind("border-r-0.5 pr-2", { "opacity-30": leftDisabled })}
-        testID={`pool_pair_remove_${token}`}
+        testID={`collateral_remove_${token}`}
         disabled={leftDisabled}
       >
         <ThemedIcon
@@ -88,7 +87,7 @@ export function LoanAddRemoveActionButton({
       <ThemedTouchableOpacityV2
         onPress={onAdd}
         style={tailwind("pl-2", { "opacity-30": rightDisabled })}
-        testID={`pool_pair_add_${token}`}
+        testID={`collateral_add_${token}`}
         disabled={rightDisabled}
       >
         <ThemedIcon
