@@ -49,7 +49,8 @@ function checkTokensSortingOrder(
       cy.getByTestID("loan_card_0_oracle_price")
         .invoke("text")
         .then((text) => {
-          const firstVal = text.split("$")[1];
+          const value = text.split("$")[1];
+          const firstVal = value.replace(/,/g, "");
           cy.getByTestID("loan_card_4_oracle_price")
             .invoke("text")
             .then((text) => {
@@ -63,7 +64,8 @@ function checkTokensSortingOrder(
       cy.getByTestID("loan_card_0_oracle_price")
         .invoke("text")
         .then((text) => {
-          const firstVal = text.split("$")[1];
+          const value = text.split("$")[1];
+          const firstVal = value.replace(/,/g, "");
           cy.getByTestID("loan_card_4_oracle_price")
             .invoke("text")
             .then((text) => {

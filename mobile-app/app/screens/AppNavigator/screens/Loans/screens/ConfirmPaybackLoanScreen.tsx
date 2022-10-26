@@ -32,7 +32,6 @@ import { TextRowV2 } from "@components/TextRowV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { LoanParamList } from "../LoansNavigator";
 import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
-import { getTokenAmount } from "../hooks/LoanPaymentTokenRate";
 
 type Props = StackScreenProps<LoanParamList, "ConfirmPaybackLoanScreen">;
 
@@ -266,6 +265,7 @@ export function ConfirmPaybackLoanScreen({
             style={tailwind("text-xs font-normal-v2 text-center mb-5")}
             light={tailwind("text-mono-light-v2-500")}
             dark={tailwind("text-mono-dark-v2-500")}
+            testID="confirm_payback_loan_message"
           >
             {translate(
               "screens/ConfirmPaybackLoanScreen",

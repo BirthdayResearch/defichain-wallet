@@ -121,7 +121,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                   ],
                 ]
               }
-              testID="vault_max_loan_amount_label"
+              testID="vault_max_loan_label"
             >
               Max loan amount
             </Text>
@@ -147,7 +147,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                   ],
                 ]
               }
-              testID="vault_max_loan_amount_amount"
+              testID="vault_max_loan_amount"
             >
               $0.00
             </Text>
@@ -377,7 +377,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                     ],
                   ]
                 }
-                testID="borrow_button"
+                testID="vault_borrow_button"
               >
                 Borrow
               </Text>
@@ -511,7 +511,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                   ],
                 ]
               }
-              testID="vault_max_loan_amount_label"
+              testID="vault_max_loan_label"
             >
               Max loan amount
             </Text>
@@ -537,7 +537,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                   ],
                 ]
               }
-              testID="vault_max_loan_amount_amount"
+              testID="vault_max_loan_amount"
             >
               $0.00
             </Text>
@@ -767,7 +767,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                     ],
                   ]
                 }
-                testID="borrow_button"
+                testID="vault_borrow_button"
               >
                 Borrow
               </Text>
@@ -901,7 +901,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                   ],
                 ]
               }
-              testID="vault_max_loan_amount_label"
+              testID="vault_max_loan_label"
             >
               Max loan amount
             </Text>
@@ -927,7 +927,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                   ],
                 ]
               }
-              testID="vault_max_loan_amount_amount"
+              testID="vault_max_loan_amount"
             >
               $0.00
             </Text>
@@ -1157,7 +1157,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                     ],
                   ]
                 }
-                testID="borrow_button"
+                testID="vault_borrow_button"
               >
                 Borrow
               </Text>

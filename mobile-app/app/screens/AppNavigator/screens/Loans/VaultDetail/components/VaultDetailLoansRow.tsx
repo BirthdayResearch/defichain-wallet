@@ -36,6 +36,7 @@ export function VaultDetailLoansRow(props: {
             light={tailwind("text-mono-light-v2-500")}
             dark={tailwind("text-mono-dark-v2-500")}
             style={tailwind("text-xs font-normal-v2 mb-2 px-5")}
+            testID="vault_detail_loans_section"
           >
             {translate("screens/VaultDetailScreenLoansSection", "LOANS")}
           </ThemedTextV2>
