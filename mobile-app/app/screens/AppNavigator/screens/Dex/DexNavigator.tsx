@@ -1,8 +1,4 @@
-import {
-  NavigationProp,
-  useNavigation,
-  useRoute,
-} from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { createStackNavigator } from "@react-navigation/stack";
 import BigNumber from "bignumber.js";
@@ -18,7 +14,9 @@ import {
   TokenListType,
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { PriceRateProps as PriceRatesPropsV2 } from "@components/PricesSectionV2";
-import { useNavigatorHeaderStylesOption } from "@screens/AppNavigator/hooks/useNavigatorHeaderStylesOption";
+import { ThemedTextV2 } from "@components/themed";
+import { StyleProp, View, ViewStyle } from "react-native";
+import { ScreenName } from "@screens/enum";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { ConversionParam } from "../Portfolio/PortfolioNavigator";
 import {
@@ -53,6 +51,7 @@ export interface DexParamList {
         isPreselected: boolean;
       };
     };
+    originScreen: ScreenName;
   };
   SwapTokenSelectionScreen: {
     fromToken: {
@@ -83,20 +82,24 @@ export interface DexParamList {
     estimatedAmount: BigNumber;
     totalFees: string;
     estimatedLessFeesAfterSlippage: string;
+    originScreen: ScreenName;
   };
   AddLiquidity: {
     pair: PoolPairData;
     pairInfo: WalletToken;
+    originScreen: ScreenName;
   };
   ConfirmAddLiquidity: {
     pair: PoolPairData;
     summary: AddLiquiditySummary;
     conversion?: ConversionParam;
     pairInfo: WalletToken;
+    originScreen: ScreenName;
   };
   RemoveLiquidity: {
     pair: PoolPairData;
     pairInfo: WalletToken;
+    originScreen: ScreenName;
   };
   ConfirmRemoveLiquidity: {
     amount: BigNumber;
@@ -120,6 +123,7 @@ export interface DexParamList {
     tokenBAmount: BigNumber;
     tokenA?: WalletToken;
     tokenB?: WalletToken;
+    originScreen: ScreenName;
   };
 
   [key: string]: undefined | object;
@@ -144,12 +148,6 @@ export function DexNavigator(): JSX.Element {
     navigation.navigate("NetworkSelectionScreenDex");
   };
 
-  const dexScreenHeaderTitle = useNavigatorHeaderStylesOption({
-    destination: "screen/DexScreen",
-    headerTitle: "Decentralized \nExchange",
-    networkScreenPath: "NetworkSelectionScreenDex",
-  });
-
   return (
     <DexStack.Navigator
       initialRouteName="DexScreen"
@@ -164,7 +162,25 @@ export function DexNavigator(): JSX.Element {
         name="DexScreen"
         options={{
           ...screenOptions,
-          ...dexScreenHeaderTitle,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitleAlign: "left",
+          headerTitleContainerStyle: tailwind("ml-5 -mb-3"),
+          headerLeftContainerStyle: null,
+          headerTitle: () => (
+            <View style={tailwind("pt-4")}>
+              <ThemedTextV2
+                style={[
+                  screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
+                  tailwind("text-left text-3xl font-semibold-v2"),
+                  { fontSize: 28 },
+                ]}
+              >
+                {translate("screens/DexScreen", "Decentralized \nExchange")}
+              </ThemedTextV2>
+            </View>
+          ),
         }}
       />
 

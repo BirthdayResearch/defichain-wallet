@@ -62,7 +62,13 @@ export function TextRowV2(props: TextRowProps): JSX.Element {
       </View>
 
       <View style={[tailwind("flex-1"), props.rhs.outerContainerStyle]}>
-        <View style={tailwind("flex flex-row items-center justify-end")}>
+        <ThemedTouchableOpacityV2
+          onPress={async () =>
+            await openURL(rhsOtherProps.openNewBrowserLink as string)
+          }
+          disabled={rhsOtherProps.openNewBrowserLink === undefined}
+          style={tailwind("flex flex-row items-center justify-end")}
+        >
           <View style={tailwind("flex-1")}>
             <ThemedText
               style={tailwind("text-right font-normal-v2 text-sm")}
@@ -77,12 +83,7 @@ export function TextRowV2(props: TextRowProps): JSX.Element {
           </View>
 
           {rhsOtherProps.openNewBrowserLink !== undefined && (
-            <ThemedTouchableOpacityV2
-              onPress={async () =>
-                await openURL(rhsOtherProps.openNewBrowserLink as string)
-              }
-              style={tailwind("border-b-0")}
-            >
+            <View style={tailwind("border-b-0")}>
               <ThemedIcon
                 iconType="MaterialIcons"
                 style={tailwind("pl-1")}
@@ -91,9 +92,9 @@ export function TextRowV2(props: TextRowProps): JSX.Element {
                 name="open-in-new"
                 size={18}
               />
-            </ThemedTouchableOpacityV2>
+            </View>
           )}
-        </View>
+        </ThemedTouchableOpacityV2>
       </View>
     </ThemedView>
   );

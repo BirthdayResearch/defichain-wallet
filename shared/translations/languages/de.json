@@ -232,6 +232,7 @@
   "screens/SendScreen": {
     "Send": "Senden",
     "Estimated fee": "Voraussichtliche Gebühr",
+    "Continue": "Weiter",
     "CONTINUE": "WEITER",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Ein kleiner Betrag an UTXO (0.1 DFI (UTXO)) ist für Gebühren reserviert.",
     "SEND": "SENDEN",
@@ -409,7 +410,10 @@
     "Passcode verified!": "Passwort verifiziert!",
     "Provider": "Anbieter",
     "Custom": "Benutzerdefiniert",
-    "Default": "Standard"
+    "Default": "Standard",
+    "Cancel transaction": "Transaktion abbrechen",
+    "By cancelling, you will lose any changes you made for your transaction.": "Wenn du die Transaktion abbrichst, gehen alle Änderungen, die du für deine Transaktion vorgenommen hast, verloren.",
+    "View on Scan": "Ansicht auf Scan"
   },
   "screens/AboutScreen": {
     "About": "Über",
@@ -1280,6 +1284,15 @@
     "Edit Vault": "Vault bearbeiten",
     "Confirm": "Bestätigen",
     "Search with token name": "Suche über den Token-Namen",
+    "Sort Tokens": "Token sortieren",
+    "Sort by": "Sortieren nach",
+    "AVAILABLE TOKENS": "VERFÜGBARE TOKENS",
+    "Lowest oracle price": "Niedrigster Orakelpreis",
+    "Highest oracle price": "Höchster Orakelpreis",
+    "Lowest interest": "Niedrigster Zins",
+    "Highest interest": "Höchster Zins",
+    "A to Z": "A bis Z",
+    "Z to A": "Z bis A",
     "Vault Details": "Vault Detailansicht"
   },
   "components/tabs": {
@@ -1569,7 +1582,8 @@
     "Ready": "Bereit",
     "Halted": "Gestoppt",
     "Empty": "Leer",
-    "Select Loan": "Darlehen auswählen"
+    "Select Loan": "Darlehen auswählen",
+    "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details.": "Der Vault wurde liquidiert und steht jetzt zur Versteigerung. Sieh dir deinen Vault auf DeFiScan an, um mehr zu erfahren."
   },
   "screens/VaultDetailScreenCollateralSection": {
     "Why you need 50% DFI": "Warum du 50 % DFI brauchst",

@@ -154,8 +154,8 @@ export function EmptyVaultV2(props: EmptyVaultProps): JSX.Element {
           modalRef={bottomSheetRef}
           screenList={bottomSheetScreen}
           snapPoints={{
-            ios: ["60%"],
-            android: ["75%"],
+            ios: ["80%"],
+            android: ["70%"],
           }}
         />
       )}

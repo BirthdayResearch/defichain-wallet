@@ -13,6 +13,7 @@ interface NavigatorHeaderProps {
   destination: string;
   headerTitle: string;
   networkScreenPath?: string;
+  headerTitleContainerStyle?: StyleProp<ViewStyle>;
 }
 
 export function useNavigatorHeaderStylesOption(
@@ -33,10 +34,11 @@ export function useNavigatorHeaderStylesOption(
     headerLeft: undefined,
     headerLeftContainerStyle: null,
     headerTitleAlign: "left",
-    headerTitleContainerStyle: tailwind("mt-4 ml-5"),
+    headerTitleContainerStyle:
+      props.headerTitleContainerStyle ?? tailwind("mt-4 ml-5"),
     headerRightContainerStyle: [
       screenOptions.headerRightContainerStyle,
-      tailwind("mt-5 justify-start", { "pr-3": Platform.OS === "web" }),
+      tailwind("mt-5 justify-start", { "pr-5": Platform.OS === "web" }),
     ],
     headerStyle: [
       screenOptions.headerStyle,
@@ -61,9 +63,9 @@ export function useNavigatorHeaderStylesOption(
     headerRight: () => (
       <HeaderNetworkStatus
         onPress={goToNetworkSelect}
-        containerStyle={tailwind("pt-4", {
-          "pt-5": Platform.OS === "android",
-        })}
+        // containerStyle={tailwind({
+        //   "pt-5": Platform.OS === "android",
+        // })}
       />
     ),
   };

@@ -1,5 +1,4 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { HeaderTitle } from "@components/HeaderTitle";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import {
@@ -50,7 +49,7 @@ const AuctionsStack = createStackNavigator<AuctionsParamList>();
 export function AuctionsNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>();
 
-  const screenOptions = useNavigatorScreenOptions();
+  const screenOptions = useNavigatorScreenOptions({ isRounded: true });
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreenAuction");
   };

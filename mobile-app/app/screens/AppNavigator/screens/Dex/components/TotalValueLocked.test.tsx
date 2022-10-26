@@ -3,7 +3,11 @@ import { TotalValueLocked } from "./TotalValueLocked";
 
 jest.mock("@shared-contexts/ThemeProvider");
 jest.mock("@react-navigation/native", () => ({
+  ...jest.requireActual("@react-navigation/native"),
   useNavigation: jest.fn(),
+  useRoute: () => ({
+    params: {},
+  }),
 }));
 
 describe("Total Value Locked", () => {

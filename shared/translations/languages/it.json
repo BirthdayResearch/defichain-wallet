@@ -243,6 +243,7 @@
   "screens/SendScreen": {
     "Send": "Invia",
     "Estimated fee": "Commmisione stimata",
+    "Continue": "Continua",
     "CONTINUE": "CONTINUA",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "Una piccola quantità di UTXO (0,1 DFI (UTXO)) è riservata per le commissioni.",
     "SEND": "INVIA",
@@ -423,7 +424,10 @@
     "Passcode verified!": "Passcode verified!",
     "Provider": "Provider",
     "Custom": "Custom",
-    "Default": "Default"
+    "Default": "Default",
+    "Cancel transaction": "Cancel transaction",
+    "By cancelling, you will lose any changes you made for your transaction.": "By cancelling, you will lose any changes you made for your transaction.",
+    "View on Scan": "View on Scan"
   },
   "screens/AboutScreen": {
     "About": "Informazioni su",
@@ -1305,6 +1309,15 @@
     "Edit Vault": "Edit Vault",
     "Confirm": "Confirm",
     "Search with token name": "Search with token name",
+    "Sort Tokens": "Sort Tokens",
+    "Sort by": "Sort by",
+    "AVAILABLE TOKENS": "AVAILABLE TOKENS",
+    "Lowest oracle price": "Lowest oracle price",
+    "Highest oracle price": "Highest oracle price",
+    "Lowest interest": "Lowest interest",
+    "Highest interest": "Highest interest",
+    "A to Z": "Da A a Z",
+    "Z to A": "Da Z a A",
     "Vault Details": "Dettaglio del Vault"
   },
   "components/tabs": {
@@ -1483,6 +1496,7 @@
     "Total collateral": "Total collateral",
     "Borrow": "Borrow",
     "Liquidated vault": "Liquidated vault",
+    "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details.": "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details.",
     "Ready": "Ready",
     "Halted": "Halted",
     "Total loans": "Totale prestiti",
@@ -1595,7 +1609,8 @@
     "Ready": "Ready",
     "Halted": "Halted",
     "Empty": "Empty",
-    "Select Loan": "Select Loan"
+    "Select Loan": "Select Loan",
+    "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details.": "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details."
   },
   "screens/VaultDetailScreenCollateralSection": {
     "Why you need 50% DFI": "Why you need 50% DFI",

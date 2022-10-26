@@ -15,11 +15,13 @@ import {
   LoanVaultActive,
   LoanVaultTokenAmount,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { useNavigatorHeaderStylesOption } from "@screens/AppNavigator/hooks/useNavigatorHeaderStylesOption";
 import { CreateVaultScreenV2 } from "@screens/AppNavigator/screens/Loans/screens/CreateVaultScreenV2";
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { VaultDetailScreenV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/VaultDetailScreenV2";
+import { tailwind } from "@tailwind";
+import { ThemedTextV2 } from "@components/themed";
+import { StyleProp, ViewStyle } from "react-native";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { ConfirmCreateVaultScreen } from "./screens/ConfirmCreateVaultScreen";
@@ -132,13 +134,6 @@ export function LoansNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
   const headerContainerTestId = "loans_header_container";
   const screenOptions = useNavigatorScreenOptions();
-
-  const loansScreenHeaderTitle = useNavigatorHeaderStylesOption({
-    destination: "screen/LoansScreen",
-    headerTitle: "Loans",
-    networkScreenPath: "NetworkSelectionScreenLoans",
-  });
-
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreenLoans");
   };
@@ -157,13 +152,32 @@ export function LoansNavigator(): JSX.Element {
         name="LoansScreen"
         options={{
           ...screenOptions,
-          ...loansScreenHeaderTitle,
+          headerRight: () => (
+            <HeaderNetworkStatus
+              onPress={goToNetworkSelect}
+              testID="header_change_network"
+            />
+          ),
+          headerTitleAlign: "left",
+          headerTitleContainerStyle: tailwind("ml-5"),
+          headerLeftContainerStyle: null,
+          headerTitle: () => (
+            <ThemedTextV2
+              style={[
+                screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
+                tailwind("text-left text-3xl font-semibold-v2"),
+                { fontSize: 28 },
+              ]}
+            >
+              {translate("screens/LoansScreen", "Loans")}
+            </ThemedTextV2>
+          ),
         }}
       />
 
       <LoansStack.Screen
         component={NetworkSelectionScreen}
-        name="NetworkSelectionScreenDex"
+        name="NetworkSelectionScreenLoans"
         options={{
           ...screenOptions,
           headerTitle: translate("screens/NetworkSelectionScreen", "Network"),
