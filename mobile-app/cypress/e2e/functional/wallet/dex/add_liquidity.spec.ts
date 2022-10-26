@@ -395,6 +395,7 @@ context("Wallet - DEX - Add Liquidity Confirm Txn", () => {
     // Cancel send on authorisation page
     cy.getByTestID("cancel_authorization").click();
     cy.getByTestID("button_cancel_add").click();
+    cy.getByTestID("pool_pair_add_dBTC-DFI").click().wait(1000);
     // Update the input amount
     cy.getByTestID("token_input_primary_clear_button").click();
     cy.getByTestID("token_input_primary").type(newAmount);

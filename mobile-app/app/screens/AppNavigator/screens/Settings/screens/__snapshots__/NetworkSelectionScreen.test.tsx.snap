@@ -467,9 +467,12 @@ exports[`onboarding network selection screen should render 1`] = `
       >
         <View
           style={
-            {
-              "width": "41.666667%",
-            }
+            [
+              {
+                "width": "41.666667%",
+              },
+              undefined,
+            ]
           }
         >
           <View
@@ -512,20 +515,43 @@ exports[`onboarding network selection screen should render 1`] = `
         </View>
         <View
           style={
-            {
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
-            }
+            [
+              {
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+              },
+              undefined,
+            ]
           }
         >
           <View
+            accessibilityState={
+              {
+                "disabled": true,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
               {
                 "alignItems": "center",
+                "borderBottomColor": "rgba(204, 204, 204, 1)",
+                "borderLeftColor": "rgba(204, 204, 204, 1)",
+                "borderRightColor": "rgba(204, 204, 204, 1)",
+                "borderTopColor": "rgba(204, 204, 204, 1)",
                 "display": "flex",
                 "flexDirection": "row",
                 "justifyContent": "flex-end",
+                "opacity": 1,
               }
             }
           >
@@ -720,9 +746,12 @@ exports[`onboarding network selection screen should render 1`] = `
       >
         <View
           style={
-            {
-              "width": "41.666667%",
-            }
+            [
+              {
+                "width": "41.666667%",
+              },
+              undefined,
+            ]
           }
         >
           <View
@@ -764,11 +793,14 @@ exports[`onboarding network selection screen should render 1`] = `
         </View>
         <View
           style={
-            {
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
-            }
+            [
+              {
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+              },
+              undefined,
+            ]
           }
         >
           <View>

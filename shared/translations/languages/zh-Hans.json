@@ -232,6 +232,7 @@
   "screens/SendScreen": {
     "Send": "移出资金",
     "Estimated fee": "所需费用(大约)",
+    "Continue": "继续",
     "CONTINUE": "继续",
     "A small UTXO amount (0.1 DFI (UTXO)) is reserved for fees.": "需要预留一些可使用的 UTXO (0.1 DFI (UTXO)) 作为费用",
     "SEND": "移出资金",
@@ -410,7 +411,10 @@
     "Passcode verified!": "Passcode verified!",
     "Provider": "Provider",
     "Custom": "Custom",
-    "Default": "Default"
+    "Default": "Default",
+    "Cancel transaction": "Cancel transaction",
+    "By cancelling, you will lose any changes you made for your transaction.": "By cancelling, you will lose any changes you made for your transaction.",
+    "View on Scan": "往 DeFi Scan 查看"
   },
   "screens/AboutScreen": {
     "About": "关于",
@@ -1283,7 +1287,17 @@
     "Search available loan tokens": "Search available loan tokens",
     "Edit Vault": "Edit Vault",
     "Confirm": "确认",
-    "Search with token name": "使用代币名称搜索"
+    "Search with token name": "使用代币名称搜索",
+    "Sort Tokens": "Sort Tokens",
+    "Sort by": "Sort by",
+    "AVAILABLE TOKENS": "AVAILABLE TOKENS",
+    "Lowest oracle price": "Lowest oracle price",
+    "Highest oracle price": "Highest oracle price",
+    "Lowest interest": "Lowest interest",
+    "Highest interest": "Highest interest",
+    "A to Z": "A 到 Z",
+    "Z to A": "Z 到 A",
+    "Vault Details": "金库明细"
   },
   "components/tabs": {
     "Browse loan tokens": "浏览贷款选项",
@@ -1465,7 +1479,8 @@
     "Halted": "已暂停",
     "Total loans": "贷款总金额",
     "You need a vault with collaterals to borrow tokens": "You need a vault with collaterals to borrow tokens",
-    "Create a vault": "Create a vault"
+    "Create a vault": "Create a vault",
+    "Max loan amount": "Max loan amount"
   },
   "components/EmptyVault": {
     "No vaults": "No vaults",
@@ -1553,7 +1568,43 @@
     "Total collateral (USD)": "抵押资金总价值 (美金)",
     "Total loans (USD)": "贷款总金额(美金)",
     "Vault interest (APR)": "金库利息",
-    "Min. collateralization ratio": "最低抵押率"
+    "Min. collateralization ratio": "最低抵押率",
+    "next": "下一个",
+    "Add": "添加",
+    "Borrow": "Borrow",
+    "Pay": "Pay",
+    "Edit": "Edit",
+    "Max loan amount": "Max loan amount",
+    "Total collateral": "Total collateral",
+    "Total loan": "Total loan",
+    "Interest (APR)": "年利息 (APR)",
+    "Min. collateral ratio": "Min. collateral ratio",
+    "Close vault": "Close vault",
+    "Max Loan Amount": "Max Loan Amount",
+    "This is the current loan amount available for this vault.": "This is the current loan amount available for this vault.",
+    "Min. Collateral Ratio": "Min. Collateral Ratio",
+    "This is the current min. col ratio set for this vault. The higher the percentage, the lower the vault interest will be. Min. collateral ratio can be changed anytime, under the 'Edit' button of this page.": "This is the current min. col ratio set for this vault. The higher the percentage, the lower the vault interest will be. Min. collateral ratio can be changed anytime, under the 'Edit' button of this page.",
+    "Ready": "Ready",
+    "Halted": "Halted",
+    "Empty": "Empty",
+    "Select Loan": "Select Loan",
+    "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details.": "金库已被清算，现在进行可以拍卖。在 DeFiScan 上查看您的金库以获取更多详细信息。"
+  },
+  "screens/VaultDetailScreenCollateralSection": {
+    "Why you need 50% DFI": "Why you need 50% DFI",
+    "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.": "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.",
+    "DFI/DUSD collaterals": "DFI/DUSD collaterals",
+    "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.": "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.",
+    "Maintain at least 50% DFI as collateral for DUSD loans": "Maintain at least 50% DFI as collateral for DUSD loans",
+    "Your loan amount can be maximized by adding DFI/DUSD as collaterals": "Your loan amount can be maximized by adding DFI/DUSD as collaterals",
+    "COLLATERALS": "COLLATERALS"
+  },
+  "screens/VaultDetailScreenLoansSection": {
+    "Pay with DUSD collaterals": "Pay with DUSD collaterals",
+    "LOANS": "LOANS",
+    "{{value}} as interest": "{{value}} as interest",
+    "Pay": "Pay",
+    "Paying loan": "Paying loan"
   },
   "components/ScrollableButton": {
     "ADD COLLATERAL": "加入抵押品",

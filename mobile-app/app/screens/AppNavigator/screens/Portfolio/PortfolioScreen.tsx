@@ -71,6 +71,7 @@ import { BottomSheetHeaderBackButton } from "@screens/AppNavigator/screens/Portf
 import { BottomSheetHeader } from "@components/BottomSheetHeader";
 import * as SplashScreen from "expo-splash-screen";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
+import { bottomTabDefaultRoutes } from "@screens/AppNavigator/constants/DefaultRoutes";
 import { AddressSelectionButtonV2 } from "./components/AddressSelectionButtonV2";
 import { ActionButtons } from "./components/ActionButtons";
 import {
@@ -522,32 +523,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const resetNavigationStack = () => {
     navigation.dispatch(
       CommonActions.reset({
-        routes: [
-          {
-            name: translate("BottomTabNavigator", "Portfolio"),
-            state: {
-              routes: [{ name: "PortfolioScreen" }],
-            },
-          },
-          {
-            name: translate("BottomTabNavigator", "DEX"),
-            state: {
-              routes: [{ name: "DexScreen" }],
-            },
-          },
-          {
-            name: translate("BottomTabNavigator", "Loans"),
-            state: {
-              routes: [{ name: "LoansScreen" }],
-            },
-          },
-          {
-            name: translate("BottomTabNavigator", "Auctions"),
-            state: {
-              routes: [{ name: "AuctionScreen" }],
-            },
-          },
-        ],
+        routes: bottomTabDefaultRoutes,
       })
     );
   };

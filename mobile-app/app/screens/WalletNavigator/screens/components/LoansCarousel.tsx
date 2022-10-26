@@ -20,6 +20,7 @@ import { getColor, tailwind } from "@tailwind";
 import { CarouselPaginationWithNextButton } from "@screens/WalletNavigator/screens/components/CarouselPagination";
 import React from "react";
 import { translate } from "@translations";
+import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
 interface CarouselImage {
   imageDark: ImageSourcePropType;
@@ -77,7 +78,7 @@ export function ImageSlide({
         source={isLight ? imageLight : imageDark}
         style={{ width: 204, height: 136 }}
       />
-      <View style={tailwind("items-center justify-center mt-7 mb-5")}>
+      <View style={tailwind("items-center justify-center mt-7 pb-10")}>
         <ThemedTextV2 style={tailwind("text-xl font-semibold-v2 text-center")}>
           {translate("screens/LoansScreen", title)}
         </ThemedTextV2>
@@ -95,10 +96,24 @@ export function LoansCarousel({
   dismissModal: () => void;
 }): JSX.Element {
   const { isLight } = useThemeContext();
+  const bottomSheetComponents = {
+    mobile: BottomSheetScrollView,
+    web: ThemedScrollViewV2,
+  };
+
+  const ScrollView =
+    Platform.OS === "web"
+      ? bottomSheetComponents.web
+      : bottomSheetComponents.mobile;
 
   return (
-    <ThemedScrollViewV2
+    <ScrollView
+      contentContainerStyle={tailwind("pb-6")}
       style={tailwind(
+        {
+          "bg-mono-dark-v2-100": !isLight,
+          "bg-mono-light-v2-100": isLight,
+        },
         { "-mt-0.5": Platform.OS === "ios" },
         { "-mt-1": Platform.OS === "android" }
       )}
@@ -140,6 +155,6 @@ export function LoansCarousel({
           showPagination
         />
       </View>
-    </ThemedScrollViewV2>
+    </ScrollView>
   );
 }
