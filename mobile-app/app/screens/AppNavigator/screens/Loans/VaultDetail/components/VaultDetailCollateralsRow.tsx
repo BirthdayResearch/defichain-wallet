@@ -322,6 +322,7 @@ function InfoText({
         light={tailwind("text-mono-light-v2-500")}
         dark={tailwind("text-mono-dark-v2-500")}
         style={tailwind("flex-1 flex-wrap text-xs font-normal-v2 pr-1")}
+        testID="info_text"
       >
         {displayText}
       </ThemedTextV2>
