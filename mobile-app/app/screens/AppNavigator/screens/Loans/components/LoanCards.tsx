@@ -40,6 +40,7 @@ import {
   SkeletonLoaderScreen,
 } from "@components/SkeletonLoader";
 import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
+import { ListRenderItemInfo } from "@shopify/flash-list";
 import {
   LoansTokensSortRow,
   LoansTokensSortType,
@@ -60,7 +61,6 @@ interface LoanCardsProps {
   sortRef?: React.Ref<any>;
 }
 export interface LoanCardOptions {
-  loanTokenId: string;
   symbol: string;
   displaySymbol: string;
   price?: ActivePrice;
@@ -473,18 +473,14 @@ export function LoanCards(props: LoanCardsProps): JSX.Element {
           renderItem={({
             item,
             index,
-          }: {
-            item: LoanToken;
-            index: number;
-          }): JSX.Element => {
+          }: ListRenderItemInfo<LoanToken>): JSX.Element => {
             return (
-              <View style={{ flexBasis: "98%" }}>
+              <View style={{ flexBasis: "100%" }}>
                 <LoanCard
                   symbol={item.token.symbol}
                   displaySymbol={item.token.displaySymbol}
                   interestRate={item.interest}
                   price={item.activePrice}
-                  loanTokenId={item.tokenId}
                   onPress={() => {
                     onBorrowPress(item);
                   }}
