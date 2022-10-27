@@ -103,7 +103,7 @@ exports[`estimated fee info scanner should match snapshot of estimated fee 1`] =
       }
       testID="text_fee"
     >
-      100
+      100.00000000
     </Text>
     <Text
       style={
@@ -237,7 +237,7 @@ exports[`estimated fee info scanner should match snapshot of vault fee 1`] = `
       }
       testID="text_fee"
     >
-      100
+      100.00000000
     </Text>
     <Text
       style={

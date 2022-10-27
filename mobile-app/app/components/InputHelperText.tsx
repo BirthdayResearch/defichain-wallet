@@ -8,6 +8,7 @@ import {
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { StyleProp, ViewProps } from "react-native";
 import { TextProps } from "@components";
+import BigNumber from "bignumber.js";
 import { SuffixType } from "./NumberRow";
 
 interface InputHelperTextProps extends React.PropsWithChildren<ViewProps> {
@@ -35,7 +36,6 @@ export function InputHelperText(props: InputHelperTextProps): JSX.Element {
       </ThemedText>
 
       <NumberFormat
-        decimalScale={8}
         displayType="text"
         renderText={(value) => (
           <ThemedText
@@ -49,7 +49,7 @@ export function InputHelperText(props: InputHelperTextProps): JSX.Element {
         )}
         suffix={props.suffixType !== "component" ? props.suffix : ""}
         thousandSeparator
-        value={props.content}
+        value={BigNumber(props.content).toFixed(8)}
       />
       {props.suffixType === "component" && props.children}
     </ThemedView>
@@ -71,7 +71,6 @@ export function InputHelperTextV2(props: InputHelperTextProps): JSX.Element {
       </ThemedTextV2>
 
       <NumberFormat
-        decimalScale={8}
         displayType="text"
         renderText={(value) => (
           <ThemedTextV2
@@ -85,7 +84,7 @@ export function InputHelperTextV2(props: InputHelperTextProps): JSX.Element {
         )}
         suffix={props.suffixType !== "component" ? props.suffix : ""}
         thousandSeparator
-        value={props.content}
+        value={BigNumber(props.content).toFixed(8)}
       />
       {props.suffixType === "component" && props.children}
     </ThemedViewV2>

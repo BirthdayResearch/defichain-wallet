@@ -32,7 +32,6 @@ export function SummaryTitle(props: SummaryTitleProps): JSX.Element {
 
       <View style={tailwind("flex-row items-center")}>
         <NumberFormat
-          decimalScale={8}
           displayType="text"
           renderText={(value) => (
             <ThemedText

@@ -190,7 +190,6 @@ export function AuctionDetailScreen(
           <NumberFormat
             displayType="text"
             prefix="$"
-            decimalScale={2}
             renderText={(value: string) => (
               <ThemedTextV2
                 light={tailwind("text-mono-light-v2-1000")}
@@ -209,7 +208,7 @@ export function AuctionDetailScreen(
               </ThemedTextV2>
             )}
             thousandSeparator
-            value={totalPrecisedCollateralsValue}
+            value={BigNumber(totalPrecisedCollateralsValue).toFixed(2)}
           />
         </View>
 

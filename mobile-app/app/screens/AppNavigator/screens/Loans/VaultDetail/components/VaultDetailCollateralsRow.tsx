@@ -239,7 +239,6 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
               <NumberFormat
                 value={props.amount?.toFixed(8)}
                 thousandSeparator
-                decimalScale={8}
                 displayType="text"
                 renderText={(val: string) => (
                   <ThemedTextV2
@@ -270,7 +269,6 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
               <NumberFormat
                 value={prices.vaultShare?.toFixed(2)}
                 thousandSeparator
-                decimalScale={2}
                 displayType="text"
                 suffix="%"
                 renderText={(val: string) => (

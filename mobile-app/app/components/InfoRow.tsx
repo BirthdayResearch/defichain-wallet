@@ -3,6 +3,7 @@ import { translate } from "@translations";
 import { StyleProp, View, ViewStyle } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { BottomSheetInfo } from "@components/BottomSheetInfo";
+import BigNumber from "bignumber.js";
 import { ThemedProps, ThemedText, ThemedView } from "./themed";
 
 interface InfoRowProps {
@@ -87,7 +88,6 @@ export function InfoRow(props: InfoRowProps): JSX.Element {
         style={tailwind("flex-1 flex-row justify-end flex-wrap items-center")}
       >
         <NumberFormat
-          decimalScale={8}
           displayType="text"
           renderText={(val: string) => (
             <ThemedText
@@ -101,7 +101,7 @@ export function InfoRow(props: InfoRowProps): JSX.Element {
             </ThemedText>
           )}
           thousandSeparator
-          value={props.value}
+          value={BigNumber(props.value).toFixed(8)}
         />
         {typeof props.suffix === "string" ? (
           <ThemedText

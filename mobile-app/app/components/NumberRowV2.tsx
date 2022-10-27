@@ -100,7 +100,6 @@ export function NumberRowV2(props: INumberRowProps): JSX.Element {
               </View>
             )}
             <NumberFormat
-              decimalScale={8}
               displayType="text"
               prefix={props.rhs.prefix}
               suffix={
@@ -121,7 +120,7 @@ export function NumberRowV2(props: INumberRowProps): JSX.Element {
                 </ThemedTextV2>
               )}
               thousandSeparator
-              value={props.rhs.value}
+              value={BigNumber(props.rhs.value).toFixed(8)}
             />
           </View>
         </View>
@@ -142,7 +141,6 @@ export function NumberRowV2(props: INumberRowProps): JSX.Element {
           {props.rhs.isOraclePrice === true && <IconTooltip />}
           {props.rhs.subValue !== undefined && (
             <NumberFormat
-              decimalScale={8}
               displayType="text"
               prefix={props.rhs.subValue.prefix}
               suffix={props.rhs.subValue.suffix}
@@ -158,7 +156,7 @@ export function NumberRowV2(props: INumberRowProps): JSX.Element {
                 </ThemedTextV2>
               )}
               thousandSeparator
-              value={props.rhs.subValue.value}
+              value={BigNumber(props.rhs.subValue.value).toFixed(8)}
             />
           )}
           {props.rhs.isConverting !== undefined && (

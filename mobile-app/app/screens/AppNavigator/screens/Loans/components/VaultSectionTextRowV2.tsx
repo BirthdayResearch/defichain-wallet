@@ -5,6 +5,7 @@ import { tailwind } from "@tailwind";
 import { NumericFormat as NumberFormat } from "react-number-format";
 
 import { View, ViewProps } from "react-native";
+import BigNumber from "bignumber.js";
 
 type IVaultSectionTextProps = React.PropsWithChildren<ViewProps> &
   VaultSectionTextProps;
@@ -32,7 +33,6 @@ export function VaultSectionTextRowV2(
         {props.lhs}
       </ThemedTextV2>
       <NumberFormat
-        decimalScale={8}
         displayType="text"
         prefix={props.prefix}
         renderText={(val: string) => (
@@ -59,7 +59,7 @@ export function VaultSectionTextRowV2(
           </>
         )}
         thousandSeparator
-        value={props.value}
+        value={BigNumber(props.value).toFixed(8)}
       />
     </View>
   );

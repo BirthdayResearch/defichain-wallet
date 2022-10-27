@@ -77,7 +77,6 @@ export function NumberRow(props: INumberRowProps): JSX.Element {
             style={tailwind("flex flex-row justify-end flex-wrap items-center")}
           >
             <NumberFormat
-              decimalScale={8}
               displayType="text"
               prefix={props.rhs.prefix}
               renderText={(val: string) => (
@@ -112,7 +111,7 @@ export function NumberRow(props: INumberRowProps): JSX.Element {
                 </Text>
               )}
               thousandSeparator
-              value={props.rhs.value}
+              value={BigNumber(props.rhs.value).toFixed(8)}
             />
           </View>
         </View>

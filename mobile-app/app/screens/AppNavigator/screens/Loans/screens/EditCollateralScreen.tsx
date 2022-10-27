@@ -34,7 +34,6 @@ import {
 } from "@defichain/whale-api-client/dist/api/loan";
 import { IconButton } from "@components/IconButton";
 import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
-import { tokensSelector } from "@store/wallet";
 import { getCollateralPrice } from "@screens/AppNavigator/screens/Loans/hooks/CollateralPrice";
 import {
   useVaultStatus,
@@ -77,10 +76,6 @@ export function EditCollateralScreen({
   const [activeVault, setActiveVault] = useState<LoanVaultActive>();
   const dispatch = useAppDispatch();
   const canUseOperations = useLoanOperations(activeVault?.state);
-
-  const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
-  );
 
   const { vaults } = useSelector((state: RootState) => state.loans);
   const { collateralTokens } = useCollateralTokenList();
@@ -418,9 +413,8 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
           <CardLabel text="Collateral amount (USD)" />
           <View style={tailwind("mt-0.5")}>
             <NumberFormat
-              value={collateral.amount}
+              value={BigNumber(collateral.amount).toFixed(8)}
               thousandSeparator
-              decimalScale={8}
               displayType="text"
               suffix={` ${collateral.displaySymbol}`}
               renderText={(val: string) => (
@@ -446,7 +440,6 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
           <NumberFormat
             value={prices.vaultShare.toFixed(2)}
             thousandSeparator
-            decimalScale={2}
             displayType="text"
             suffix="%"
             renderText={(val: string) => (

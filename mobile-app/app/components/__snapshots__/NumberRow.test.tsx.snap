@@ -130,7 +130,7 @@ exports[`Number row should match snapshot for component suffix 1`] = `
             }
             testID="foo_test"
           >
-            100
+            100.00000000
           </Text>
         </Text>
       </View>
@@ -283,7 +283,7 @@ exports[`Number row should match snapshot for text suffix 1`] = `
             }
             testID="foo_test"
           >
-            100
+            100.00000000
           </Text>
           <Text>
              

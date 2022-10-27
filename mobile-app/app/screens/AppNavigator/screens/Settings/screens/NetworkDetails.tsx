@@ -17,6 +17,7 @@ import { translate } from "@translations";
 import { TextRow } from "@components/TextRow";
 import { NumberRow } from "@components/NumberRow";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
+import BigNumber from "bignumber.js";
 
 export function NetworkDetails(): JSX.Element {
   const { network } = useNetworkContext();
@@ -136,7 +137,6 @@ function BlocksInfoRow({ blockCount }: { blockCount?: number }): JSX.Element {
         >
           <View style={tailwind("flex-row items-center")}>
             <NumberFormat
-              decimalScale={8}
               displayType="text"
               renderText={(val: string) => (
                 <ThemedText
@@ -151,7 +151,9 @@ function BlocksInfoRow({ blockCount }: { blockCount?: number }): JSX.Element {
                 </ThemedText>
               )}
               thousandSeparator
-              value={blockCount}
+              value={
+                blockCount ? blockCount.toFixed(8) : BigNumber("0").toFixed(8)
+              }
             />
             <View style={tailwind("ml-2 flex-grow-0 justify-center")}>
               <ThemedIcon

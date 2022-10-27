@@ -817,7 +817,7 @@ exports[`onboarding network selection screen should render 1`] = `
               }
               testID="network_details_total_masternodes"
             >
-              10
+              10.00000000
             </Text>
           </View>
         </View>

@@ -43,7 +43,6 @@ export function LoanPercentage({
           "You are paying"
         )} `}</ThemedText>
         <NumberFormat
-          decimalScale={2}
           displayType="text"
           renderText={(value) => (
             <ThemedText
@@ -62,7 +61,7 @@ export function LoanPercentage({
                   .dividedBy(outstandingBalanceInPaymentToken)
                   .multipliedBy(100)
                   .toFixed(2)
-              : "0"
+              : BigNumber("0").toFixed(2)
           }
         />
         <ThemedText {...textStyle}>{` ${translate(

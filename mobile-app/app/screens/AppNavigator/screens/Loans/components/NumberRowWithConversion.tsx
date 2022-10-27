@@ -6,6 +6,7 @@ import {
   BottomSheetAlertInfo,
   BottomSheetInfo,
 } from "@components/BottomSheetInfo";
+import BigNumber from "bignumber.js";
 
 type INumberRowProps = React.PropsWithChildren<ViewProps> &
   NumberRowWithConversionProps;
@@ -62,7 +63,6 @@ export function NumberRowWithConversion(props: INumberRowProps): JSX.Element {
 
       <View style={tailwind("flex-1 flex-col justify-end flex-wrap items-end")}>
         <NumberFormat
-          decimalScale={8}
           displayType="text"
           prefix={props.rhs.prefix}
           renderText={(val: string) => (
@@ -95,12 +95,11 @@ export function NumberRowWithConversion(props: INumberRowProps): JSX.Element {
             </Text>
           )}
           thousandSeparator
-          value={props.rhs.value}
+          value={BigNumber(props.rhs.value).toFixed(8)}
         />
 
         {props.rhsConversion !== undefined && (
           <NumberFormat
-            decimalScale={8}
             displayType="text"
             prefix={props.rhsConversion.prefix}
             renderText={(val: string) => (
@@ -151,7 +150,7 @@ export function NumberRowWithConversion(props: INumberRowProps): JSX.Element {
               </Text>
             )}
             thousandSeparator
-            value={props.rhsConversion.value}
+            value={BigNumber(props.rhsConversion.value).toFixed(8)}
           />
         )}
       </View>

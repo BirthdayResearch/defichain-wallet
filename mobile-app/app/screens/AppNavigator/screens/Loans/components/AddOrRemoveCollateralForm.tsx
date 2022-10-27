@@ -270,7 +270,6 @@ export const AddOrRemoveCollateralForm = memo(
           >
             <NumberFormat
               value={collateralFactor.toFixed(2)}
-              decimalScale={2}
               displayType="text"
               suffix={`% ${translate(
                 "components/AddOrRemoveCollateralForm",
@@ -348,7 +347,6 @@ export const AddOrRemoveCollateralForm = memo(
                     activePrice.multipliedBy(available)
                   )}
                   thousandSeparator
-                  decimalScale={2}
                   displayType="text"
                   prefix="$"
                   renderText={(val: string) => (
@@ -393,7 +391,6 @@ export const AddOrRemoveCollateralForm = memo(
               <NumberFormat
                 value={requiredTokensShare.toFixed(2)}
                 thousandSeparator
-                decimalScale={2}
                 displayType="text"
                 suffix="%"
                 renderText={(val: string) => (
@@ -456,9 +453,8 @@ export const AddOrRemoveCollateralForm = memo(
                 </ThemedText>
               ) : (
                 <NumberFormat
-                  value={vaultValue}
+                  value={BigNumber(vaultValue).toFixed(2)}
                   thousandSeparator
-                  decimalScale={2}
                   displayType="text"
                   suffix="%"
                   renderText={(val: string) => (
@@ -496,7 +492,6 @@ export const AddOrRemoveCollateralForm = memo(
             </ThemedText>
           ) : (
             <NumberFormat
-              decimalScale={8}
               displayType="text"
               suffix="%"
               renderText={(val: string) => (

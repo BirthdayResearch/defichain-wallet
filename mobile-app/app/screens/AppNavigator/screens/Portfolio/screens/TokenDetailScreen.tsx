@@ -31,10 +31,6 @@ import { InfoTextLinkV2 } from "@components/InfoTextLink";
 import { ThemedTouchableListItem } from "@components/themed/ThemedTouchableListItem";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { ConversionMode } from "./ConvertScreen";
-import {
-  LockedBalance,
-  useTokenLockedBalance,
-} from "../hooks/TokenLockedBalance";
 import { useTokenPrice } from "../hooks/TokenPrice";
 import { useDenominationCurrency } from "../hooks/PortfolioCurrency";
 import { TokenBreakdownDetailsV2 } from "../components/TokenBreakdownDetailsV2";
@@ -48,7 +44,6 @@ interface TokenActionItems {
   onPress: () => void;
   testID: string;
   iconType: IconType;
-  border?: boolean;
   isLast?: boolean;
 }
 
@@ -111,13 +106,6 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
   const { denominationCurrency } = useDenominationCurrency();
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
   const { getTokenPrice } = useTokenPrice(denominationCurrency); // input based on selected denomination from portfolio tab
-  const lockedToken = (useTokenLockedBalance({
-    displaySymbol: "DFI",
-    denominationCurrency: denominationCurrency,
-  }) as LockedBalance) ?? {
-    amount: new BigNumber(0),
-    tokenValue: new BigNumber(0),
-  };
   const DFIUnified = useSelector((state: RootState) =>
     unifiedDFISelector(state.wallet)
   );
@@ -197,8 +185,6 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
       <View style={tailwind("p-5 pb-12")}>
         <TokenBreakdownDetailsV2
           hasFetchedToken={hasFetchedToken}
-          lockedAmount={lockedToken.amount}
-          lockedValue={lockedToken.tokenValue}
           availableAmount={new BigNumber(DFIUnified.amount)}
           availableValue={availableValue}
           testID="dfi"
@@ -453,7 +439,6 @@ function TokenSummary(props: {
         ) : (
           <View style={[tailwind("flex-col"), { marginLeft: "auto" }]}>
             <NumberFormat
-              decimalScale={8}
               displayType="text"
               renderText={(value) => (
                 <ThemedTextV2
@@ -467,7 +452,6 @@ function TokenSummary(props: {
               value={new BigNumber(props.token.amount).toFixed(8)}
             />
             <NumberFormat
-              decimalScale={8}
               displayType="text"
               prefix={
                 denominationCurrency === PortfolioButtonGroupTabKey.USDT

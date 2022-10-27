@@ -149,7 +149,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
               }
               testID="vault_max_loan_amount_amount"
             >
-              $0.00
+              $0.00000000
             </Text>
           </View>
           <View
@@ -539,7 +539,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
               }
               testID="vault_max_loan_amount_amount"
             >
-              $0.00
+              $0.00000000
             </Text>
           </View>
           <View
@@ -929,7 +929,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
               }
               testID="vault_max_loan_amount_amount"
             >
-              $0.00
+              $0.00000000
             </Text>
           </View>
           <View

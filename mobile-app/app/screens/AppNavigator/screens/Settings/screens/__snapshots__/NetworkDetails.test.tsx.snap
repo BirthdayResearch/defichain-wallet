@@ -506,7 +506,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
               }
               testID="network_details_block_height"
             >
-              2,000
+              2,000.00000000
             </Text>
             <View
               style={
@@ -667,7 +667,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
                 }
                 testID="network_details_total_masternodes"
               >
-                10
+                10.00000000
               </Text>
             </Text>
           </View>

@@ -40,6 +40,7 @@ import {
   SkeletonLoaderScreen,
 } from "@components/SkeletonLoader";
 import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
+import { ListRenderItemInfo } from "@shopify/flash-list";
 import {
   LoansTokensSortRow,
   LoansTokensSortType,
@@ -60,7 +61,6 @@ interface LoanCardsProps {
   sortRef?: React.Ref<any>;
 }
 export interface LoanCardOptions {
-  loanTokenId: string;
   symbol: string;
   displaySymbol: string;
   price?: ActivePrice;
@@ -473,10 +473,7 @@ export function LoanCards(props: LoanCardsProps): JSX.Element {
           renderItem={({
             item,
             index,
-          }: {
-            item: LoanToken;
-            index: number;
-          }): JSX.Element => {
+          }: ListRenderItemInfo<LoanToken>): JSX.Element => {
             return (
               <View style={{ flexBasis: "98%" }}>
                 <LoanCard
@@ -484,7 +481,6 @@ export function LoanCards(props: LoanCardsProps): JSX.Element {
                   displaySymbol={item.token.displaySymbol}
                   interestRate={item.interest}
                   price={item.activePrice}
-                  loanTokenId={item.tokenId}
                   onPress={() => {
                     onBorrowPress(item);
                   }}
@@ -560,7 +556,6 @@ function LoanCard({
         <MemoizedLoanIcon testID={testID} displaySymbol={displaySymbol} />
       </View>
       <NumberFormat
-        decimalScale={2}
         thousandSeparator
         displayType="text"
         renderText={(value: string) => (
@@ -576,10 +571,9 @@ function LoanCard({
             </ThemedText>
           </View>
         )}
-        value={currentPrice}
+        value={BigNumber(currentPrice).toFixed(2)}
       />
       <NumberFormat
-        decimalScale={2}
         thousandSeparator
         displayType="text"
         renderText={(value: string) => (
@@ -594,7 +588,7 @@ function LoanCard({
             })}
           </ThemedTextV2>
         )}
-        value={interestRate}
+        value={BigNumber(interestRate).toFixed(2)}
         suffix="%"
       />
       {!isBorrowHidden && (

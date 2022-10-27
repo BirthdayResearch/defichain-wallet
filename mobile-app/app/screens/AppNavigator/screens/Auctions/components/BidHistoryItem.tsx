@@ -48,9 +48,8 @@ export function BidHistoryItem({
             ` ${translate("components/BidHistory", "(Yours)")}`}
         </ThemedTextV2>
         <NumberFormat
-          value={bidAmount}
+          value={BigNumber(bidAmount).toFixed(8)}
           thousandSeparator
-          decimalScale={8}
           suffix={` ${loanDisplaySymbol}`}
           fixedDecimalScale
           displayType="text"

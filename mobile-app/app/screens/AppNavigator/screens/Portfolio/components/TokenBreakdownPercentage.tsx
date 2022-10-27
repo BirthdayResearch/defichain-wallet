@@ -11,7 +11,6 @@ import { BalanceText } from "./BalanceText";
 interface TokenBreakdownPercentageProps {
   lockedAmount: BigNumber;
   displaySymbol: string;
-  symbol: string;
   testID: string;
 }
 
@@ -72,7 +71,6 @@ function LockedPercentageItem(props: LockedPercentageItemProps): JSX.Element {
       <NumberFormat
         value={props.lockedAmount.toFixed(8)}
         thousandSeparator
-        decimalScale={8}
         displayType="text"
         suffix={` ${props.displaySymbol}`}
         renderText={(value) => (

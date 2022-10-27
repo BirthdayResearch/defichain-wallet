@@ -120,7 +120,6 @@ export function VaultCardStatus({
           ) : (
             <NumberFormat
               value={new BigNumber(colRatio).toFixed(2)}
-              decimalScale={2}
               thousandSeparator
               displayType="text"
               suffix="%"

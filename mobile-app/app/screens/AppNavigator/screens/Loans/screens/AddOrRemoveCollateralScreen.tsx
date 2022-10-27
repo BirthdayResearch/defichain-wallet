@@ -20,7 +20,6 @@ import {
   getPrecisedCurrencyValue,
   getPrecisedTokenValue,
 } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
-import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import {
   AmountButtonTypes,
   TransactionCard,
@@ -108,7 +107,6 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
   );
 
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
-  const { isFeatureAvailable } = useFeatureFlagContext();
 
   const TOAST_DURATION = 2000;
   const toast = useToast();
@@ -834,7 +832,6 @@ function TotalTokenCollateralRow(props: {
             style={tailwind("flex flex-row justify-end flex-wrap items-center")}
           >
             <NumberFormat
-              decimalScale={8}
               displayType="text"
               suffix={` ${props.symbol}`}
               renderText={(val: string) => (

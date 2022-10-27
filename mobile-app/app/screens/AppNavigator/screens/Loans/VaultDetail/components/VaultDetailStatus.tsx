@@ -115,7 +115,6 @@ export function VaultDetailStatus({
           <View style={tailwind("flex-col items-center")}>
             <NumberFormat
               value={new BigNumber(colRatio).toFixed(2)}
-              decimalScale={2}
               thousandSeparator
               displayType="text"
               suffix="%"
@@ -137,8 +136,7 @@ export function VaultDetailStatus({
               )}
             />
             <NumberFormat
-              value={nextColRatio?.toFixed(2) ?? 0}
-              decimalScale={2}
+              value={nextColRatio?.toFixed(2) ?? BigNumber(0).toFixed(2)}
               thousandSeparator
               displayType="text"
               suffix="%"

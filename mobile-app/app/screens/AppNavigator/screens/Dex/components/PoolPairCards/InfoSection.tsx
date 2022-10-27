@@ -146,7 +146,6 @@ function PoolPairInfoLine({
       </ThemedText>
       <View style={tailwind("items-end")}>
         <NumberFormat
-          decimalScale={value.decimalScale}
           displayType="text"
           renderText={(textValue) => (
             <ThemedText
@@ -169,7 +168,7 @@ function PoolPairInfoLine({
           thousandSeparator
           suffix={value.suffix}
           prefix={value.prefix}
-          value={value.text}
+          value={BigNumber(value.text).toFixed(value.decimalScale)}
         />
         {usdValue !== undefined && (
           <ActiveUSDValue
