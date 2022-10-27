@@ -423,7 +423,8 @@
     "Default": "Par défaut",
     "Cancel transaction": "Annuler la transaction",
     "By cancelling, you will lose any changes you made for your transaction.": "En annulant, vous perdrez toutes les modifications apportées à votre transaction.",
-    "View on Scan": "Voir sur Scan"
+    "View on Scan": "Voir sur Scan",
+    "Go back": "Retour"
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",
@@ -1828,7 +1829,8 @@
     "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "Paiement de {{amountToPayInPaymentToken}} {{paymentSymbol}} en remboursement du prêt.",
     "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "Paiement de {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) en remboursement du prêt.",
     "Confirm Loan Payment": "Confirmer le remboursement du prêt",
-    "Resulting collateralization": "Garantie correspondante"
+    "Resulting collateralization": "Garantie correspondante",
+    "Confirm": "Confirmer"
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "Ratio de garantie",

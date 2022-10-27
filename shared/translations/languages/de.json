@@ -413,7 +413,8 @@
     "Default": "Standard",
     "Cancel transaction": "Transaktion abbrechen",
     "By cancelling, you will lose any changes you made for your transaction.": "Wenn du die Transaktion abbrichst, gehen alle Änderungen, die du für deine Transaktion vorgenommen hast, verloren.",
-    "View on Scan": "Ansicht auf Scan"
+    "View on Scan": "Ansicht auf Scan",
+    "Go back": "Zurück"
   },
   "screens/AboutScreen": {
     "About": "Über",
@@ -1815,7 +1816,8 @@
     "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "Rückzahlung eines Darlehensbetrags von {{amountToPayInPaymentToken}} {{paymentSymbol}}",
     "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "Rückzahlung eines Darlehensbetrags von {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}).",
     "Confirm Loan Payment": "Darlehensrückzahlung bestätigen",
-    "Resulting collateralization": "Resultierende Besicherungsquote"
+    "Resulting collateralization": "Resultierende Besicherungsquote",
+    "Confirm": "Bestätigen"
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "Besicherungsquote",

@@ -427,7 +427,8 @@
     "Default": "Default",
     "Cancel transaction": "Cancel transaction",
     "By cancelling, you will lose any changes you made for your transaction.": "By cancelling, you will lose any changes you made for your transaction.",
-    "View on Scan": "View on Scan"
+    "View on Scan": "View on Scan",
+    "Go back": "Torna indietro"
   },
   "screens/AboutScreen": {
     "About": "Informazioni su",
@@ -1842,7 +1843,8 @@
     "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "Sto pagando {{amountToPayInPaymentToken}} {{paymentSymbol}} come pagamento del prestito.",
     "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "Pagando {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) come pagamento del prestito.",
     "Confirm Loan Payment": "Conferma il pagamento del prestito",
-    "Resulting collateralization": "Garanzia corrispondente"
+    "Resulting collateralization": "Garanzia corrispondente",
+    "Confirm": "Conferma"
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "Rapporto di collateralizzazione",

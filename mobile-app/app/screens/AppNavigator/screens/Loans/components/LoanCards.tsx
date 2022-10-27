@@ -397,7 +397,7 @@ export function LoanCards(props: LoanCardsProps): JSX.Element {
               }}
               testID="loan_search_input"
             />
-            {!isSearchFocus && (
+            {!isSearchFocus && searchString === "" && (
               <LoansTokensSortRow
                 isSorted={isSorted}
                 loansTokensSortType={loansTokensSortType}
@@ -453,9 +453,13 @@ export function LoanCards(props: LoanCardsProps): JSX.Element {
           keyExtractor={(_item, index) => index.toString()}
           testID={`${props.testID}_token_lists`}
           estimatedItemSize={116}
-          contentContainerStyle={tailwind("pb-2 pt-8", {
-            "pt-0": vaults.length >= 1,
-          })}
+          contentContainerStyle={tailwind(
+            "pb-2 pt-8",
+            {
+              "pt-0": vaults.length >= 1,
+            },
+            { "pt-4": searchString !== "" }
+          )}
           parentContainerStyle={tailwind("mx-3", {
             hidden: isSearchFocus && searchString.trim() === "",
           })}
