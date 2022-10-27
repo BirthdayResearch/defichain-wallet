@@ -123,7 +123,7 @@ function SetAmountButton({
 }: SetAmountButtonProps): JSX.Element {
   const decimalPlace = 8;
   let value = amount.toFixed(decimalPlace);
-  const [userPressedState, setUserPressedState] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
 
   switch (type) {
     case AmountButtonTypes.TwentyFive:
@@ -146,8 +146,8 @@ function SetAmountButton({
       onPress={() => {
         onPress(value, type);
       }}
-      onPressIn={() => setUserPressedState(true)}
-      onPressOut={() => setUserPressedState(false)}
+      onPressIn={() => setIsPressed(true)}
+      onPressOut={() => setIsPressed(false)}
       testID={`${type}_amount_button`}
       disabled={disabled}
     >
@@ -158,10 +158,10 @@ function SetAmountButton({
       >
         <ThemedViewV2
           light={tailwind({
-            "bg-mono-light-v2-100 rounded-lg-v2": userPressedState,
+            "bg-mono-light-v2-100 rounded-lg-v2": isPressed,
           })}
           dark={tailwind({
-            "bg-mono-dark-v2-100 rounded-lg-v2": userPressedState,
+            "bg-mono-dark-v2-100 rounded-lg-v2": isPressed,
           })}
           style={tailwind("mx-1")}
         >
