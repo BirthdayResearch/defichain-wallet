@@ -16,7 +16,12 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import dayjs from "dayjs";
 import { useEffect, useRef, useState } from "react";
-import { RefreshControl, TouchableOpacity, View } from "react-native";
+import {
+  ListRenderItemInfo,
+  RefreshControl,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import {
@@ -26,6 +31,7 @@ import {
   ThemedTouchableOpacity,
 } from "@components/themed";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
+import BigNumber from "bignumber.js";
 import { EmptyTransaction } from "./EmptyTransaction";
 import { activitiesToViewModel, VMTransaction } from "./screens/stateProcessor";
 
@@ -135,7 +141,7 @@ export function TransactionsScreen(): JSX.Element {
           refreshing={loadingState === "loadingMore"}
         />
       }
-      renderItem={({ item, index }: { item: VMTransaction; index: number }) => (
+      renderItem={({ item, index }: ListRenderItemInfo<VMTransaction>) => (
         <TransactionRow index={index} item={item} navigation={navigation} />
       )}
       style={tailwind("w-full")}
@@ -192,7 +198,6 @@ function TransactionRow({
 
         <View style={tailwind("flex-row ml-3 w-32 justify-end items-center")}>
           <NumberFormat
-            decimalScale={8}
             displayType="text"
             renderText={(value) => (
               <ThemedText
@@ -204,7 +209,7 @@ function TransactionRow({
               </ThemedText>
             )}
             thousandSeparator
-            value={amount}
+            value={BigNumber(amount).toFixed(8)}
           />
 
           <View style={tailwind("ml-2 items-start")}>

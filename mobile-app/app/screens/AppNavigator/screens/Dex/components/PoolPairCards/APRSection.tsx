@@ -4,6 +4,7 @@ import { NumericFormat as NumberFormat } from "react-number-format";
 import { isEqual } from "lodash";
 import { tailwind } from "@tailwind";
 import { ThemedTextV2 } from "@components/themed";
+import BigNumber from "bignumber.js";
 
 interface APRSectionProps {
   label: string;
@@ -26,7 +27,6 @@ export const APRSection = memo((props: APRSectionProps): JSX.Element => {
         {props.label}
       </ThemedTextV2>
       <NumberFormat
-        decimalScale={props.value.decimalScale}
         displayType="text"
         renderText={(value) => (
           <ThemedTextV2
@@ -40,7 +40,7 @@ export const APRSection = memo((props: APRSectionProps): JSX.Element => {
         )}
         thousandSeparator
         suffix={props.value.suffix}
-        value={props.value.text}
+        value={BigNumber(props.value.text).toFixed(props.value.decimalScale)}
       />
     </View>
   );

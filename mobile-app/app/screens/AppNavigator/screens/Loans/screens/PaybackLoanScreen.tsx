@@ -346,7 +346,6 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
         {!routeParams.isPaybackDUSDUsingCollateral && (
           <View style={tailwind("mt-2 mx-5")}>
             <NumberFormat
-              decimalScale={8}
               displayType="text"
               renderText={(value) => (
                 <ThemedTextV2

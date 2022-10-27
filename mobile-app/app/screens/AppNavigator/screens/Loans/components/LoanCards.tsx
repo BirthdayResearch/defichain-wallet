@@ -24,7 +24,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import BigNumber from "bignumber.js";
 import { loanTokensSelector, vaultsSelector } from "@store/loans";
-import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
+import {
+  getPrecisedCurrencyValue,
+  getPrecisedTokenValue,
+} from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { BottomSheetHeader as BottonSheetHeaderSort } from "@components/BottomSheetHeader";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import {
@@ -556,7 +559,6 @@ function LoanCard({
         <MemoizedLoanIcon testID={testID} displaySymbol={displaySymbol} />
       </View>
       <NumberFormat
-        decimalScale={2}
         thousandSeparator
         displayType="text"
         renderText={(value: string) => (
@@ -572,10 +574,9 @@ function LoanCard({
             </ThemedText>
           </View>
         )}
-        value={currentPrice}
+        value={getPrecisedCurrencyValue(currentPrice)}
       />
       <NumberFormat
-        decimalScale={2}
         thousandSeparator
         displayType="text"
         renderText={(value: string) => (
@@ -590,7 +591,7 @@ function LoanCard({
             })}
           </ThemedTextV2>
         )}
-        value={interestRate}
+        value={BigNumber(interestRate).toFixed(2)}
         suffix="%"
       />
       {!isBorrowHidden && (
