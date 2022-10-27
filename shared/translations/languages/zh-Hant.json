@@ -414,7 +414,8 @@
     "Default": "Default",
     "Cancel transaction": "Cancel transaction",
     "By cancelling, you will lose any changes you made for your transaction.": "By cancelling, you will lose any changes you made for your transaction.",
-    "View on Scan": "往 DeFi Scan 查看"
+    "View on Scan": "往 DeFi Scan 查看",
+    "Go back": "回到上一頁"
   },
   "screens/AboutScreen": {
     "About": "關於",
@@ -1822,7 +1823,8 @@
     "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} as loan payment.": "正在付款 {{amountToPayInPaymentToken}} {{paymentSymbol}} 作為支付貸款。",
     "Paying {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) as loan payment.": "正在付款 {{amountToPayInPaymentToken}} {{paymentSymbol}} ({{amountToPayInLoanToken}} {{symbol}}) 作為支付貸款。",
     "Confirm Loan Payment": "確認償還貸款",
-    "Resulting collateralization": "最終抵押率"
+    "Resulting collateralization": "最終抵押率",
+    "Confirm": "確認"
   },
   "components/CollateralizationRatioDisplay": {
     "Collateralization ratio": "抵押率",
