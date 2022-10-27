@@ -5,7 +5,15 @@ import {
   checkVaultDetailValues,
 } from "../../../../support/loanCommands";
 
-context.only("Wallet - Loans - Vault Details", () => {
+function borrowLoan(symbol: string, amount: string) {
+  cy.getByTestID(`select_${symbol}`).click();
+  cy.getByTestID("text_input_borrow_amount").clear().type(amount).blur();
+  cy.getByTestID("borrow_button_submit").click();
+  cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);
+  cy.closeOceanInterface();
+}
+
+context("Wallet - Loans - Vault Details", () => {
   let vaultId = "";
 
   before(() => {
@@ -74,12 +82,7 @@ context.only("Wallet - Loans - Vault Details", () => {
 
   it("should add loan", () => {
     cy.getByTestID("action_borrow").click();
-    cy.getByTestID("select_DUSD").click();
-    cy.getByTestID("text_input_borrow_amount").clear().type("100").blur();
-    cy.getByTestID("borrow_amount_in_usd").contains("$100.00");
-    cy.getByTestID("borrow_button_submit").click();
-    cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);
-    cy.closeOceanInterface();
+    borrowLoan("DUSD", "100");
   });
 
   it("should check active state", () => {
@@ -189,48 +192,41 @@ context("Wallet - Loans - Close Vault", () => {
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
       .sendDFITokentoWallet()
-      .sendTokenToWallet(["BTC"])
+      .sendTokenToWallet(["BTC", "DUSD"])
       .wait(6000);
     cy.getByTestID("bottom_tab_loans").click();
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
-    cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
-    cy.getByTestID("vault_card_0_add_collateral_button").click();
+    cy.getByTestID("vault_card_0_EMPTY_add_collateral_button").click();
     cy.addCollateral("10", "DFI");
+    cy.getByTestID("vault_card_0").click();
+    cy.getByTestID("action_add").click();
     cy.addCollateral("10", "dBTC");
-    cy.go("back");
+    cy.getByTestID("vault_card_0").click();
+    cy.getByTestID("action_add").click();
+    cy.addCollateral("10", "DUSD");
     cy.wait(2000);
   });
 
   it("should add loan", () => {
     cy.getByTestID("vault_card_0").click();
-    cy.getByTestID("vault_detail_tabs_LOANS").click();
-    cy.getByTestID("button_browse_loans").click();
-    cy.getByTestID(
-      "loans_action_button_DUSD_borrow_button_loans_cards"
-    ).click();
-    cy.getByTestID("form_input_borrow").clear().type("100").blur();
-    cy.wait(3000);
-    cy.getByTestID("text_input_usd_value").should("have.value", "100.00");
-    cy.getByTestID("borrow_loan_submit_button").click();
-    cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);
-    cy.closeOceanInterface();
+    cy.getByTestID("action_borrow").click();
+    borrowLoan("DUSD", "100");
+    cy.getByTestID("vault_card_0").click();
+    cy.getByTestID("button_close_vault").should("have.attr", "aria-disabled");
   });
 
   it("should be able to close vault", () => {
     cy.sendTokenToWallet(["DUSD"]).sendTokenToWallet(["DUSD"]).wait(3000);
-    cy.getByTestID("bottom_tab_loans").click();
-    cy.getByTestID("vault_card_0").click().wait(3000);
-    cy.getByTestID("vault_detail_tabs_LOANS").click();
-    cy.getByTestID("loan_card_DUSD_payback_loan").click();
+    cy.getByTestID("loans_action_button_pay_DUSD_loan").click();
     cy.getByTestID("payback_input_text").clear().type("102").blur();
     cy.getByTestID("button_confirm_payback_loan_continue").click().wait(3000);
     cy.getByTestID("button_confirm_payback_loan").click().wait(4000);
     cy.closeOceanInterface();
     cy.getByTestID("vault_card_0").click();
 
-    cy.getByTestID("vault_detail_close_vault").click().wait(4000);
+    cy.getByTestID("button_close_vault").click().wait(4000);
     cy.getByTestID("fees_to_return_text_lhs_label").should(
       "have.text",
       "Fees to return"
