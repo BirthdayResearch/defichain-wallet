@@ -52,10 +52,10 @@ function checkTokensSortingOrder(
           const firstVal = text.split("$")[1];
           cy.getByTestID("loan_card_4_oracle_price")
             .invoke("text")
-            .then((text2) => {
-              const secondVal = text2.split("$")[1];
-              const secondValNoComma = secondVal.replace(/,/g, "");
-              expect(Number(firstVal)).to.be.lessThan(Number(secondValNoComma));
+            .then((text) => {
+              const value = text.split("$")[1];
+              const secondVal = value.replace(/,/g, "");
+              expect(Number(firstVal)).to.be.lessThan(Number(secondVal));
             });
         });
       break;
@@ -67,11 +67,9 @@ function checkTokensSortingOrder(
           cy.getByTestID("loan_card_4_oracle_price")
             .invoke("text")
             .then((text) => {
-              const secondVal = text.split("$")[1];
-              const secondValNoComma = secondVal.replace(/,/g, "");
-              expect(Number(firstVal)).to.be.greaterThan(
-                Number(secondValNoComma)
-              );
+              const value = text.split("$")[1];
+              const secondVal = value.replace(/,/g, "");
+              expect(Number(firstVal)).to.be.greaterThan(Number(secondVal));
             });
         });
       break;
@@ -182,7 +180,8 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("vault_card_0_EMPTY_vault_id").then(($txt: any) => {
       vaultId = $txt[0].textContent;
     });
-    cy.getByTestID("vault_card_0_EMPTY_add_collateral_button").click();
+    cy.getByTestID("vault_card_0_EMPTY_vault").click();
+    cy.getByTestID("action_add").click();
     cy.addCollateral("10", "DFI");
     cy.getByTestID("vault_card_0").click();
     cy.getByTestID("action_add").click();
@@ -289,9 +288,9 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("select_DUSD").click();
     cy.getByTestID("text_input_borrow_amount").type("1000").blur();
     cy.getByTestID("borrow_amount_in_usd").contains("$1,000.00");
-    cy.getByTestID("vault_liquidation_error").contains(
-      "Amount entered will result in vault liquidation"
-    );
+    cy.getByTestID("vault_liquidation_error")
+      .should("be.visible")
+      .contains("Amount entered will result in vault liquidation");
     cy.getByTestID("borrow_transaction_detail_col_ratio").contains("150.00%");
     cy.getByTestID("borrow_button_submit").should("have.attr", "aria-disabled");
     cy.getByTestID("text_input_borrow_amount").clear().type("100").blur();
@@ -334,9 +333,9 @@ context("Wallet - Loans - Take Loans", () => {
       });
     cy.getByTestID("text_input_borrow_amount").type("1000").blur();
     cy.getByTestID("borrow_amount_in_usd").contains("$1,000.00");
-    cy.getByTestID("vault_liquidation_error").contains(
-      "Amount entered will result in vault liquidation"
-    );
+    cy.getByTestID("vault_liquidation_error")
+      .should("be.visible")
+      .contains("Amount entered will result in vault liquidation");
     cy.getByTestID("borrow_transaction_detail_col_ratio").contains("136");
     cy.getByTestID("borrow_button_submit").should("have.attr", "aria-disabled");
     cy.getByTestID("text_input_borrow_amount").clear().type("648").blur();
