@@ -129,7 +129,7 @@ function LoanActionDUSDButton({
       style={tailwind("py-2 rounded-b-lg-v2")}
     >
       <TouchableOpacity
-        testID="pay_dusd_loan"
+        testID="payback_using_DUSD_collateral"
         onPress={onPaybackDUSD}
         activeOpacity={0.7}
       >

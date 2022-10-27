@@ -138,7 +138,7 @@ context("Wallet - Loans - Vault Details", () => {
     cy.getByTestID("info_text").contains(
       "Your loan amount can be maximized by adding DFI/DUSD as collaterals"
     );
-    cy.getByTestID("pay_dusd_loan").should("not.exist");
+    cy.getByTestID("payback_using_DUSD_collateral").should("not.exist");
     cy.getByTestID("action_add").click();
     cy.addCollateral("10", "DUSD");
     cy.getByTestID("vault_card_0").click();
@@ -155,7 +155,7 @@ context("Wallet - Loans - Vault Details", () => {
     cy.getByTestID("info_text").contains(
       "Maintain at least 50% DFI as collateral for DUSD loans"
     );
-    cy.getByTestID("pay_dusd_loan").should("exist");
+    cy.getByTestID("payback_using_DUSD_collateral").should("exist");
   });
 
   it("should be able to edit loan scheme", () => {

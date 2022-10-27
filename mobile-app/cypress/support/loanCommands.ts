@@ -233,11 +233,9 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.add("takeLoan", (amount: string, symbol: string) => {
-  cy.getByTestID(
-    `loans_action_button_${symbol}_borrow_button_loans_cards`
-  ).click();
+  cy.getByTestID(`select_${symbol}`).click();
   cy.getByTestID("text_input_borrow_amount").type(amount).blur();
-  cy.getByTestID("borrow_loan_submit_button").click();
+  cy.getByTestID("borrow_button_submit").click();
   cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);
   cy.closeOceanInterface();
 });
