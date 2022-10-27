@@ -73,15 +73,21 @@ export function checkCollateralCardValues(
 }
 
 export function checkVaultDetailValues(
-  status: string,
   vaultID: string,
   totalCollateral: string,
   maxLoanAmount: string,
   totalLoans: string,
   vaultInterest: string,
-  minColRatio: string
+  minColRatio: string,
+  status?: string,
+  vaultRatio?: string
 ): void {
-  cy.getByTestID("vault_status").contains(status);
+  if (status !== undefined) {
+    cy.getByTestID("vault_status").contains(status);
+  }
+  if (vaultRatio !== undefined) {
+    cy.getByTestID("vault_ratio").contains(vaultRatio);
+  }
   cy.getByTestID("collateral_vault_id").contains(vaultID);
   cy.getByTestID("total_collateral").contains(totalCollateral);
   cy.getByTestID("max_loan_amount").contains(maxLoanAmount);
@@ -104,6 +110,16 @@ export function checkVaultDetailCollateralAmounts(
   cy.getByTestID(`vault_detail_collateral_${displaySymbol}_amount`).contains(
     amount
   );
+}
+
+export function checkVaultDetailLoansAmount(
+  amount: string,
+  displaySymbol: string,
+  interest: string
+) {
+  cy.getByTestID(`loan_card_${displaySymbol}`).should("exist");
+  cy.getByTestID(`loan_card_${displaySymbol}_amount`).contains(amount);
+  cy.getByTestID(`loan_card_${displaySymbol}_interest`).contains(interest);
 }
 
 declare global {

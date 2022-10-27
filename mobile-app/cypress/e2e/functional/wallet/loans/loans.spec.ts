@@ -276,13 +276,13 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("vault_card_0").click();
     checkVaultDetailValues(
-      "Ready",
       vaultId,
       "$1,500.00",
       "$1,000.00",
       "$0.00",
       "5",
-      "150"
+      "150",
+      "Ready"
     );
     cy.getByTestID("action_borrow").click();
     cy.getByTestID("select_DUSD").click();

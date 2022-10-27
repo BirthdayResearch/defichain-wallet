@@ -1,23 +1,24 @@
 import BigNumber from "bignumber.js";
 import {
   checkVaultDetailCollateralAmounts,
+  checkVaultDetailLoansAmount,
   checkVaultDetailValues,
 } from "../../../../support/loanCommands";
 
-context("Wallet - Loans - Vault Details", () => {
+context.only("Wallet - Loans - Vault Details", () => {
   let vaultId = "";
 
   before(() => {
     cy.createEmptyWallet(true);
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
-      .sendTokenToWallet(["BTC"])
+      .sendDFITokentoWallet()
+      .sendTokenToWallet(["BTC", "DUSD"])
       .wait(6000);
     cy.getByTestID("bottom_tab_loans").click();
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
     cy.getByTestID("empty_vault").should("exist");
     cy.createVault(0);
-    // cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
     cy.getByTestID("vault_card_0_EMPTY_add_collateral_button").should("exist");
     cy.getByTestID("vault_card_0_EMPTY_vault_id").then(($txt: any) => {
       vaultId = $txt[0].textContent;
@@ -27,13 +28,13 @@ context("Wallet - Loans - Vault Details", () => {
   it("should check empty state", () => {
     cy.getByTestID("vault_card_0_EMPTY").click();
     checkVaultDetailValues(
-      "Empty",
       vaultId,
-      "$0.00",
-      "$0.00",
-      "$0.00",
+      "0.00",
+      "0.00",
+      "0.00",
       "5%",
-      "150%"
+      "150%",
+      "Empty"
     );
     cy.getByTestID("action_borrow").should("have.attr", "aria-disabled");
     cy.getByTestID("action_pay").should("have.attr", "aria-disabled");
@@ -48,21 +49,21 @@ context("Wallet - Loans - Vault Details", () => {
   it("should add collaterals", () => {
     cy.getByTestID("vault_card_0_EMPTY_add_collateral_button").click();
     cy.addCollateral("10", "DFI");
-    cy.getByTestID("vault_card_0_").click();
+    cy.getByTestID("vault_card_0").click();
     cy.getByTestID("action_add").click();
     cy.addCollateral("10", "dBTC");
   });
 
   it("should check ready state", () => {
-    cy.getByTestID("vault_card_0_").click();
+    cy.getByTestID("vault_card_0").click();
     checkVaultDetailValues(
-      "Ready",
       vaultId,
-      "$1,500.00",
-      "$1,000.00",
-      "$0.00",
+      "1,500.00",
+      "1,000.00",
+      "0.00",
       "5%",
-      "150%"
+      "150%",
+      "Ready"
     );
     cy.getByTestID("action_borrow").should("not.have.attr", "aria-disabled");
     cy.getByTestID("action_pay").should("have.attr", "aria-disabled");
@@ -84,54 +85,78 @@ context("Wallet - Loans - Vault Details", () => {
   it("should check active state", () => {
     cy.getByTestID("vault_card_0").click();
     checkVaultDetailValues(
-      "", // ACTIVE vault
       vaultId,
-      "$1,500.00",
-      "$900", // TODO (Lyka): Update max loan amount
-      "$100",
+      "1,500.00",
+      "900.00",
+      "100.00",
+      "5%",
+      "150%",
+      undefined, // ACTIVE vault
+      "1.50K"
+    );
+    cy.getByTestID("action_pay").should("not.have.attr", "aria-disabled");
+    checkVaultDetailLoansAmount("100.0", "DUSD", "0.00");
+    cy.getByTestID("button_close_vault").should("have.attr", "aria-disabled");
+  });
+
+  it("should be able to add more collateral", () => {
+    cy.getByTestID("action_add").click();
+    cy.addCollateral("10", "DFI");
+    cy.getByTestID("vault_card_0").click();
+    checkVaultDetailValues(
+      vaultId,
+      "2,500",
+      "1,566.67",
+      "100.00",
+      "5%",
+      "150%",
+      undefined,
+      "2.50K"
+    );
+  });
+
+  it("should be able to remove collateral", () => {
+    cy.removeCollateral("10", "dBTC");
+    cy.getByTestID("vault_card_0").click();
+    checkVaultDetailValues(
+      vaultId,
+      "2,000.00",
+      "1,233.3",
+      "100.0",
       "5",
-      "150"
+      "150",
+      undefined,
+      "2.00K"
     );
-    cy.getByTestID("vault_id_section_col_ratio").contains("1,499.99%");
-    cy.getByTestID("vault_id_section_min_ratio").contains("150%");
   });
 
-  // it("should verify collaterals tab", () => {
-  //   checkVaultDetailCollateralAmounts("10.00000000", "DFI", "66.67%");
-  //   checkVaultDetailCollateralAmounts("10.00000000", "dBTC", "33.33%");
-  // });
-
-  // it("should verify vault details tab", () => {
-  //   cy.getByTestID("vault_detail_tabs_DETAILS").click();
-  //   cy.getByTestID("text_min_col_ratio").contains("150");
-  //   cy.getByTestID("text_vault_interest_ratio").contains("5.00");
-  //   cy.getByTestID("text_col_ratio").contains("1,499.99%");
-  //   cy.getByTestID("text_collateral_value").contains("$1,500.00");
-  //   cy.getByTestID("text_active_loans").contains("1");
-  //   cy.getByTestID("text_total_loan_value").contains("$100");
-  // });
-
-  it("should verify loan tab", () => {
-    cy.getByTestID("vault_detail_tabs_LOANS").click();
-    cy.getByTestID("loan_card_DUSD").contains("DUSD");
-    cy.getByTestID("loan_card_DUSD_outstanding_balance").contains("100");
-    cy.getByTestID("loan_card_DUSD_payback_loan").should("exist");
-  });
-
-  it("should edit loan scheme", () => {
-    // Vault should not be able to close if there are existing loans
-    cy.getByTestID("vault_detail_close_vault").should(
-      "have.attr",
-      "aria-disabled"
+  it("should display different collateral message for affected vault", () => {
+    // Affected vault: have both DUSD in collaterals and loans
+    cy.getByTestID("info_text").contains(
+      "Your loan amount can be maximized by adding DFI/DUSD as collaterals"
     );
-    cy.getByTestID("vault_detail_edit_collateral").click();
-    cy.url().should("include", "Loans/EditCollateralScreen");
-    cy.go("back");
-    cy.wait(2000);
-    cy.getByTestID("vault_detail_edit_loan_scheme").click();
+    cy.getByTestID("pay_dusd_loan").should("not.exist");
+    cy.getByTestID("action_add").click();
+    cy.addCollateral("10", "DUSD");
+    cy.getByTestID("vault_card_0").click();
+    checkVaultDetailValues(
+      vaultId,
+      "2,012.00",
+      "1,241.33",
+      "100.0",
+      "5",
+      "150",
+      undefined,
+      "2.01K"
+    );
+    cy.getByTestID("info_text").contains(
+      "Maintain at least 50% DFI as collateral for DUSD loans"
+    );
+    cy.getByTestID("pay_dusd_loan").should("exist");
   });
 
   it("should be able to edit loan scheme", () => {
+    cy.getByTestID("action_edit").click();
     cy.getByTestID("loan_scheme_option_1").click();
     cy.getByTestID("edit_loan_scheme_submit_button").click();
     cy.getByTestID("edit_loan_scheme_title").contains(
@@ -144,13 +169,17 @@ context("Wallet - Loans - Vault Details", () => {
     cy.getByTestID("new_vault_interest").contains("3");
     cy.getByTestID("button_confirm_edit_loan_scheme").click();
     cy.closeOceanInterface();
-    cy.getByTestID("vault_card_0_min_ratio").contains("175%");
     cy.getByTestID("vault_card_0").click();
-    cy.getByTestID("vault_id_section_min_ratio").contains("175%");
-    cy.getByTestID("text_vault_interest").contains("3");
-    cy.getByTestID("vault_detail_tabs_DETAILS").click();
-    cy.getByTestID("text_min_col_ratio").contains("175.00");
-    cy.getByTestID("text_vault_interest_ratio").contains("3.00");
+    checkVaultDetailValues(
+      vaultId,
+      "2,012.00",
+      "1,049.71",
+      "100.0",
+      "3",
+      "175",
+      undefined,
+      "2.01K"
+    );
   });
 });
 
