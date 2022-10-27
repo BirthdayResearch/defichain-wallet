@@ -389,7 +389,8 @@ context("Wallet - Loans - Health Bar", () => {
   });
 
   it("should display col ratio from vault API", () => {
-    cy.getByTestID("vault_card_0_col_ratio").contains("993.92");
+    cy.getByTestID("vault_card_0").click();
+    cy.getByTestID("vault_ratio").contains("993.92");
   });
 
   it("should calculate next ratio using next price from oracle", () => {
@@ -398,12 +399,12 @@ context("Wallet - Loans - Health Bar", () => {
       .dividedBy(loanInNextPrice)
       .multipliedBy(100)
       .toFixed(2);
-    cy.getByTestID("vault_card_0_next_ratio")
+    cy.getByTestID("vault_next_col_ratio")
       .invoke("text")
       .then((nextRatio: string) => {
-        expect(nextRatio).to.equal(`~${nextRatioValue}%`);
+        expect(nextRatio).to.equal(`${nextRatioValue}% next`);
       });
-    cy.getByTestID("vault_card_0_col_ratio")
+    cy.getByTestID("vault_ratio")
       .invoke("text")
       .then((colRatio: string) => {
         const colRatioValue = new BigNumber(colRatio.replace("%", ""));
