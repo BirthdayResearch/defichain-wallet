@@ -8,20 +8,17 @@ import { SymbolIcon } from "@components/SymbolIcon";
 import {
   LoanVaultActive,
   LoanVaultState,
-  LoanVaultTokenAmount,
 } from "@defichain/whale-api-client/dist/api/loan";
 import { translate } from "@translations";
 import { LoanActionButton } from "@screens/AppNavigator/screens/Loans/components/LoanActionButton";
 import { LinearGradient } from "expo-linear-gradient";
 
 interface PayLoanCardProps {
-  symbol: string;
   displaySymbol: string;
   amount: string;
   interestAmount?: string;
   vaultState: LoanVaultState;
   vault?: LoanVaultActive;
-  loanToken: LoanVaultTokenAmount;
   onPay?: () => void;
   onPaybackDUSD?: () => void;
 }
@@ -47,6 +44,7 @@ export function PayLoanCard(props: PayLoanCardProps): JSX.Element {
           "rounded-t-lg-v2": showPayWithDUSD,
           "rounded-lg-v2": !showPayWithDUSD,
         })}
+        testID={`loan_card_${props.displaySymbol}`}
       >
         <View style={tailwind("flex-1 flex-row items-center pr-1")}>
           <SymbolIcon
@@ -70,7 +68,7 @@ export function PayLoanCard(props: PayLoanCardProps): JSX.Element {
                   props.vaultState !== LoanVaultState.IN_LIQUIDATION,
               })}
               style={tailwind("text-sm font-semibold-v2")}
-              testID={`loan_card_${props.displaySymbol}`}
+              testID={`loan_card_${props.displaySymbol}_amount`}
             >
               {`${new BigNumber(props.amount).toFixed(8)} ${
                 props.displaySymbol
@@ -80,6 +78,7 @@ export function PayLoanCard(props: PayLoanCardProps): JSX.Element {
               light={tailwind("text-mono-light-v2-700")}
               dark={tailwind("text-mono-dark-v2-700")}
               style={tailwind("text-xs font-normal-v2")}
+              testID={`loan_card_${props.displaySymbol}_interest`}
             >
               {translate(
                 "screens/VaultDetailScreenLoansSection",
@@ -130,7 +129,6 @@ function LoanActionDUSDButton({
       style={tailwind("py-2 rounded-b-lg-v2")}
     >
       <TouchableOpacity
-        // testID="loan_card_DUSD_payback_dusd_loan"
         testID="pay_dusd_loan"
         onPress={onPaybackDUSD}
         activeOpacity={0.7}

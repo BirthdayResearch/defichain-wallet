@@ -66,13 +66,13 @@ context(
     it("should add loan using DFI and DUSD as 50% vault share", () => {
       cy.getByTestID("vault_card_0").click();
       checkVaultDetailValues(
-        "Ready",
         vaultId,
         "$1,014.00",
         "$676",
         "$0.00",
         "5",
-        "150"
+        "150",
+        "Ready"
       );
       cy.getByTestID("action_borrow").click();
       cy.getByTestID("select_DUSD").click();
