@@ -32,7 +32,6 @@ import { TextRowV2 } from "@components/TextRowV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { LoanParamList } from "../LoansNavigator";
 import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
-import { getTokenAmount } from "../hooks/LoanPaymentTokenRate";
 
 type Props = StackScreenProps<LoanParamList, "ConfirmPaybackLoanScreen">;
 
