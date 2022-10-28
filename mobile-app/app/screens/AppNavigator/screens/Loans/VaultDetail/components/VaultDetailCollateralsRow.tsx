@@ -266,6 +266,7 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
                 price={new BigNumber(props.amount).multipliedBy(
                   prices.activePrice
                 )}
+                testId={`vault_detail_collateral_${props.displaySymbol}_usd`}
               />
               <NumberFormat
                 value={prices.vaultShare?.toFixed(2)}

@@ -2,60 +2,38 @@ import "@testing-library/cypress/add-commands";
 import BigNumber from "bignumber.js";
 import { VaultStatus } from "../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes";
 
-export function checkCollateralDetailValues(
-  status: string,
-  totalCollateral: string,
-  totalLoans: string,
-  totalColRatio: number | undefined,
-  colRatioSuffix: string,
-  totalMinCol: string,
-  totalVaultInterest: string
-): void {
-  cy.getByTestID("collateral_vault_tag").contains(status);
-  cy.getByTestID("text_total_collateral_value").contains(totalCollateral);
-  cy.getByTestID("text_total_loans_value").contains(totalLoans);
-  if (totalColRatio !== undefined) {
-    cy.getByTestID("text_col_ratio_value")
-      .invoke("text")
-      .then((colRatioText) => {
-        const colRatio = parseFloat(colRatioText.replace("%", ""));
-        expect(colRatio).to.be.closeTo(totalColRatio, 1);
-      });
-  }
-  cy.getByTestID("text_col_ratio_value_suffix").contains(colRatioSuffix);
-  cy.getByTestID("text_min_col_ratio_value").contains(totalMinCol);
-  cy.getByTestID("text_vault_interest_value").contains(totalVaultInterest);
-}
-
 export function checkCollateralFormValues(
   title: string,
   symbol: string,
   balance: string
 ): void {
-  cy.getByTestID("form_title").contains(title);
-  cy.getByTestID(`token_symbol_${symbol}`).contains(symbol);
-  cy.getByTestID("form_balance_text").contains(balance);
+  cy.getByTestID("add_remove_title").contains(title);
+  cy.getByTestID(
+    "token_select_button_add_remove_collateral_quick_input_display_symbol"
+  ).contains(symbol);
+  cy.getByTestID("add_remove_collateral_token_balance").contains(balance);
 }
 
 export function checkConfirmEditCollateralValues(
   title: string,
   vaultId: string,
-  type: string,
   colFactor: string,
   symbol: string,
   amount: string,
   colValue: string,
   vaultShare: string
 ): void {
-  cy.getByTestID("edit_collateral_confirm_title").contains(title);
-  cy.getByTestID("edit_collateral_confirm_vault_id").contains(vaultId);
-  cy.getByTestID("text_transaction_type").contains(type);
-  cy.getByTestID("collateral_factor").contains(colFactor);
-  cy.getByTestID("text_token_id").contains(symbol);
-  cy.getByTestID("collateral_amount").contains(amount);
-  cy.getByTestID("collateral_amount_suffix").contains(symbol);
-  cy.getByTestID("collateral_value").contains(colValue);
-  cy.getByTestID("edit_collateral_confirm_vault_share").contains(vaultShare);
+  cy.getByTestID("confirm_title").contains(title);
+  cy.getByTestID("text_confirm_edit_collateral_amount").contains(amount);
+  cy.getByTestID("confirm_edit_vault_id").contains(vaultId);
+  cy.getByTestID("confirm_edit_collateral_factor").contains(colFactor);
+  cy.getByTestID("confirm_edit_collateral_amount").contains(
+    `${amount} ${symbol}`
+  );
+  cy.getByTestID("confirm_edit_collateral_amount_rhsUsdAmount").contains(
+    colValue
+  );
+  cy.getByTestID("confirm_edit_vault_share").contains(vaultShare);
 }
 
 export function checkCollateralCardValues(
@@ -64,12 +42,11 @@ export function checkCollateralCardValues(
   dollarValue: string,
   vaultShare: string
 ): void {
-  cy.getByTestID(`collateral_card_symbol_${symbol}`).contains(symbol);
-  cy.getByTestID(`collateral_card_col_amount_${symbol}`).contains(amount);
-  cy.getByTestID(`collateral_card_col_amount_usd_${symbol}`).contains(
-    dollarValue
+  cy.getByTestID(`vault_detail_collateral_${symbol}_amount`).contains(amount);
+  cy.getByTestID(`vault_detail_collateral_${symbol}_usd`).contains(dollarValue);
+  cy.getByTestID(`vault_detail_collateral_${symbol}_vault_share`).contains(
+    vaultShare
   );
-  cy.getByTestID(`collateral_card_vault_share_${symbol}`).contains(vaultShare);
 }
 
 export function checkVaultDetailValues(
