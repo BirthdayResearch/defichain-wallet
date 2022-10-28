@@ -102,7 +102,7 @@ function borrowLoan(symbol: string, amount: string): void {
   cy.closeOceanInterface();
 }
 
-context.skip("Wallet - Loans - Add/Remove Collateral", () => {
+context("Wallet - Loans - Add/Remove Collateral", () => {
   let vaultId = "";
 
   function validateCollateralInPortfolio(
@@ -290,7 +290,7 @@ context.skip("Wallet - Loans - Add/Remove Collateral", () => {
   });
 });
 
-context.skip("Wallet - Loans - Add/Remove Collateral - Invalid data", () => {
+context("Wallet - Loans - Add/Remove Collateral - Invalid data", () => {
   const getVault = (loanValue: string): any => ({
     vaultId: "vaultidhere",
     loanScheme: {
