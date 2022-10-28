@@ -212,7 +212,7 @@ context("Wallet - Loans - Close Vault", () => {
   it("should add loan", () => {
     cy.getByTestID("vault_card_0").click();
     cy.getByTestID("action_borrow").click();
-    borrowLoan("DUSD", "100");
+    borrowLoan("DUSD", "10");
     cy.getByTestID("vault_card_0").click();
     cy.getByTestID("button_close_vault").should("have.attr", "aria-disabled");
   });
@@ -220,7 +220,8 @@ context("Wallet - Loans - Close Vault", () => {
   it("should be able to close vault", () => {
     cy.sendTokenToWallet(["DUSD"]).sendTokenToWallet(["DUSD"]).wait(3000);
     cy.getByTestID("loans_action_button_pay_DUSD_loan").click();
-    cy.getByTestID("payback_input_text").clear().type("102").blur();
+    cy.getByTestID("payback_input_text").clear().type("12").blur();
+    cy.wait(3000);
     cy.getByTestID("button_confirm_payback_loan_continue").click().wait(3000);
     cy.getByTestID("button_confirm_payback_loan").click().wait(4000);
     cy.closeOceanInterface();

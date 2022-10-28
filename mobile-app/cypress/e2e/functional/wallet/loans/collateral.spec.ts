@@ -16,8 +16,7 @@ function addCollateral(
   usdValue: string,
   colFactor: string,
   vaultShare: string,
-  vaultId: string,
-  vaultRequirementPercentage?: string
+  vaultId: string
 ): void {
   const precisedAmount = new BigNumber(amount).toFixed(8);
   cy.getByTestID(`select_${token}`).click();
@@ -26,19 +25,8 @@ function addCollateral(
     "aria-disabled"
   );
   checkCollateralFormValues("I WANT TO ADD", token, balance);
-  if (vaultRequirementPercentage === undefined) {
-    // cy.getByTestID("bottom-sheet-vault-percentage-text").contains("N/A");
-  }
-  cy.wait(3000);
   cy.getByTestID("text_input_add_remove_collateral_amount").type(amount).blur();
   cy.wait(3000);
-  // if (vaultRequirementPercentage === undefined) {
-  //   cy.getByTestID("bottom-sheet-vault-percentage-text").contains(vaultShare);
-  // } else {
-  //   cy.getByTestID("bottom-sheet-vault-requirement-text").contains(
-  //     vaultRequirementPercentage
-  //   );
-  // }
   cy.getByTestID("add_remove_collateral_button_submit").click();
   checkConfirmEditCollateralValues(
     "You are adding collateral",
@@ -434,16 +422,7 @@ context("Wallet - Loans - 50% valid collateral token ratio", () => {
     cy.wait(3000);
     cy.getByTestID("vault_card_0_EMPTY").click();
     cy.getByTestID("action_add").click();
-    addCollateral(
-      "dBTC",
-      "10",
-      "10",
-      "$500.00",
-      "100",
-      "100.00%",
-      vaultId,
-      "0.00%"
-    );
+    addCollateral("dBTC", "10", "10", "$500.00", "100", "100.00%", vaultId);
     cy.getByTestID("vault_card_0").click();
     cy.getByTestID("action_borrow").click().wait(2000);
     cy.getByTestID("select_dTS25").click();
@@ -459,28 +438,10 @@ context("Wallet - Loans - 50% valid collateral token ratio", () => {
     cy.wait(3000);
     cy.getByTestID("vault_card_0_EMPTY").click();
     cy.getByTestID("action_add").click();
-    addCollateral(
-      "dBTC",
-      "10",
-      "10",
-      "$500.00",
-      "100",
-      "100.00%",
-      vaultId,
-      "0.00%"
-    );
+    addCollateral("dBTC", "10", "10", "$500.00", "100", "100.00%", vaultId);
     cy.getByTestID("vault_card_0").click();
     cy.getByTestID("action_add").click();
-    addCollateral(
-      "DFI",
-      "18",
-      "10",
-      "$1,000.00",
-      "100",
-      "66.67%",
-      vaultId,
-      "66.67%"
-    );
+    addCollateral("DFI", "18", "10", "$1,000.00", "100", "66.67%", vaultId);
     cy.getByTestID("vault_card_0").click();
     borrowLoan("DUSD", "1");
     cy.getByTestID("vault_card_0").click();
@@ -504,40 +465,13 @@ context("Wallet - Loans - 50% valid collateral token ratio", () => {
     cy.wait(3000);
     cy.getByTestID("vault_card_0_EMPTY").click();
     cy.getByTestID("action_add").click();
-    addCollateral(
-      "dBTC",
-      "10",
-      "10",
-      "$500.00",
-      "100",
-      "0.00%",
-      vaultId,
-      "0.00%"
-    );
+    addCollateral("dBTC", "10", "10", "$500.00", "100", "0.00%", vaultId);
     cy.getByTestID("vault_card_0").click();
     cy.getByTestID("action_add").click();
-    addCollateral(
-      "DFI",
-      "18",
-      "4.9",
-      "$490.00",
-      "100",
-      "49.49%",
-      vaultId,
-      "49.49%"
-    );
+    addCollateral("DFI", "18", "4.9", "$490.00", "100", "49.49%", vaultId);
     cy.getByTestID("vault_card_0").click();
     cy.getByTestID("action_add").click();
-    addCollateral(
-      "DUSD",
-      "20",
-      "20",
-      "$24.00",
-      "120",
-      "2.37%",
-      vaultId,
-      "50.69%"
-    );
+    addCollateral("DUSD", "20", "20", "$24.00", "120", "2.37%", vaultId);
     cy.getByTestID("vault_card_0").click();
     cy.getByTestID("vault_detail_collateral_DFI_vault_share").should(
       "have.css",

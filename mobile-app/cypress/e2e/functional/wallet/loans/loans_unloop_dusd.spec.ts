@@ -113,11 +113,11 @@ context("Wallet - Loans - Unloop", () => {
       cy.closeOceanInterface();
       cy.getByTestID("vault_card_0").should("exist").click();
       cy.getByTestID("payback_using_DUSD_collateral").should("not.exist");
-      cy.getByTestID("loan_card_DUSD")
+      cy.getByTestID("loan_card_DUSD_amount")
         .invoke("text")
         .then((text: string) => {
-          const amountToPay = text.split("InterestBorrow")[1];
-          checkValueWithinRange(amountToPay.replace(" DUSD", ""), "90", 0.1);
+          const amountToPay = text.replace(" DUSD", "");
+          checkValueWithinRange(amountToPay, "90", 0.1);
         });
     });
 
@@ -128,14 +128,12 @@ context("Wallet - Loans - Unloop", () => {
       cy.getByTestID("action_add").click();
       cy.addCollateral("100", "DUSD");
       cy.getByTestID("vault_card_0").should("exist").click();
-      cy.getByTestID("loan_card_DUSD")
+      cy.getByTestID("loan_card_DUSD_amount")
         .invoke("text")
         .then((textValue: string) => {
-          const amountToPay = textValue.split("InterestBorrow")[1];
+          const amountToPay = textValue.replace(" DUSD", "");
           cy.getByTestID("payback_using_DUSD_collateral").click();
-          cy.getByTestID("payback_input_text").contains(
-            amountToPay.replace(" DUSD", "")
-          );
+          cy.getByTestID("payback_input_text").contains(amountToPay);
           cy.getByTestID("total_outstanding_loan_value").contains(
             "0.00000000 DUSD"
           );
