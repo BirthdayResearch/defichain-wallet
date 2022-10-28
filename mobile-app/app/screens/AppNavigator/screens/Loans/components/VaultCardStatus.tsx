@@ -93,6 +93,7 @@ export function VaultCardStatus({
                 maxWidth: 124,
               },
             ]}
+            testID={`${testID}_vault_id`}
             dark={tailwind("text-mono-dark-v2-700")}
             light={tailwind("text-mono-light-v2-700")}
           >
