@@ -321,7 +321,7 @@ context("Wallet - Loans - Add/Remove Collateral - Invalid data", () => {
       body: [],
     });
     cy.createEmptyWallet(true);
-    cy.sendDFItoWallet().wait(4000);
+    cy.sendDFItoWallet().sendDFITokentoWallet().wait(4000);
     cy.setWalletTheme(walletTheme);
     cy.getByTestID("bottom_tab_loans").click();
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
@@ -329,7 +329,7 @@ context("Wallet - Loans - Add/Remove Collateral - Invalid data", () => {
     cy.createVault(0);
   });
 
-  it.skip("should display N/A if resulting collateralization is infinity", () => {
+  it("should display Ready if resulting collateralization is infinity", () => {
     cy.getByTestID("bottom_tab_loans").click();
     cy.intercept("**/vaults?size=200", {
       statusCode: 200,
@@ -341,15 +341,18 @@ context("Wallet - Loans - Add/Remove Collateral - Invalid data", () => {
        (any number / 0) = Infinity
     */
       cy.wait(3000);
-      cy.getByTestID("vault_card_0_edit_collaterals_button").click();
-      cy.getByTestID("add_collateral_button").click();
+      cy.getByTestID("vault_card_0_EMPTY").click();
+      cy.getByTestID("action_add").click();
       cy.getByTestID("select_DFI").click();
       cy.getByTestID("MAX_amount_button").click();
-      cy.getByTestID("resulting_collateralization").should("have.text", "N/A");
+      cy.getByTestID("resulting_collateralization").should(
+        "have.text",
+        "Ready"
+      );
     });
   });
 
-  it.skip("should display N/A if resulting collateralization is NaN", () => {
+  it("should display Ready if resulting collateralization is NaN", () => {
     cy.getByTestID("bottom_tab_loans").click();
     cy.intercept("**/vaults?size=200", {
       statusCode: 200,
@@ -360,15 +363,18 @@ context("Wallet - Loans - Add/Remove Collateral - Invalid data", () => {
        (any number / '') = NaN
     */
       cy.wait(3000);
-      cy.getByTestID("vault_card_0_edit_collaterals_button").click();
-      cy.getByTestID("add_collateral_button").click();
+      cy.getByTestID("vault_card_0_EMPTY").click();
+      cy.getByTestID("action_add").click();
       cy.getByTestID("select_DFI").click();
       cy.getByTestID("MAX_amount_button").click();
-      cy.getByTestID("resulting_collateralization").should("have.text", "N/A");
+      cy.getByTestID("resulting_collateralization").should(
+        "have.text",
+        "Ready"
+      );
     });
   });
 
-  it.skip("should display N/A if resulting collateralization is negative", () => {
+  it("should display Ready if resulting collateralization is negative", () => {
     cy.getByTestID("bottom_tab_loans").click();
     cy.intercept("**/vaults?size=200", {
       statusCode: 200,
@@ -379,11 +385,14 @@ context("Wallet - Loans - Add/Remove Collateral - Invalid data", () => {
        (any number / -10) = -number
     */
       cy.wait(3000);
-      cy.getByTestID("vault_card_0_edit_collaterals_button").click();
-      cy.getByTestID("add_collateral_button").click();
+      cy.getByTestID("vault_card_0_EMPTY").click();
+      cy.getByTestID("action_add").click();
       cy.getByTestID("select_DFI").click();
       cy.getByTestID("MAX_amount_button").click();
-      cy.getByTestID("resulting_collateralization").should("have.text", "N/A");
+      cy.getByTestID("resulting_collateralization").should(
+        "have.text",
+        "Ready"
+      );
     });
   });
 });
