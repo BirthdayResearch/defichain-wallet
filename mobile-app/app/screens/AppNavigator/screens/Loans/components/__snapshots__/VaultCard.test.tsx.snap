@@ -290,6 +290,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                     ],
                   ]
                 }
+                testID="vault_vault_id"
               >
                 22ffasd5ca123123123123123121231061
               </Text>
@@ -681,6 +682,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                     ],
                   ]
                 }
+                testID="vault_vault_id"
               >
                 22ffasd5ca123123123123123121231061
               </Text>
@@ -1072,6 +1074,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                     ],
                   ]
                 }
+                testID="vault_vault_id"
               >
                 22ffasd5ca123123123123123121231061
               </Text>
