@@ -257,7 +257,7 @@ export function ConfirmEditCollateralScreen({
           themedProps: lhsThemedProps,
         }}
         rhs={{
-          value: vaultShare.toFixed(2),
+          value: vaultShare.isNaN() ? 0 : vaultShare.toFixed(2),
           suffix: "%",
           testID: "confirm_edit_vault_share",
           themedProps: rhsThemedProps,
