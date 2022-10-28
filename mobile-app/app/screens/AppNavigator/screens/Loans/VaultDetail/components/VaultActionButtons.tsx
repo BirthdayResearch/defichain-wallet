@@ -70,7 +70,9 @@ export function VaultActionButtons({
         >
           <ThemedTouchableOpacityV2
             onPress={button.onPress}
-            style={tailwind("rounded-full p-4.5")}
+            style={tailwind(
+              "rounded-full w-15 h-15 items-center justify-center mx-2.5"
+            )}
             light={tailwind("bg-mono-light-v2-00", {
               "opacity-30": button.isDisabled,
             })}
