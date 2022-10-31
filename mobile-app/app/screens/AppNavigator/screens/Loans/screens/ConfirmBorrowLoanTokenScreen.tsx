@@ -107,7 +107,7 @@ export function ConfirmBorrowLoanTokenScreen({
           "screens/ConfirmBorrowLoanTokenScreen",
           "You are borrowing"
         )}
-        testID="text_send_amount"
+        testID="text_borrow_amount"
         iconA={loanToken.token.displaySymbol}
         toAddress={address}
         toAddressLabel={addressLabel}
