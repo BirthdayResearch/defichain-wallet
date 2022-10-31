@@ -48,7 +48,7 @@
     "bignumber.js": "^9.1.0",
     "buffer": "^6.0.3",
     "classnames": "^2.3.2",
-    "dayjs": "^1.11.5",
+    "dayjs": "^1.11.6",
     "defichain": "^2.67.2",
     "expo": "^46.0.16",
     "expo-asset": "~8.6.1",
