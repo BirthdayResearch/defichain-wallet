@@ -2,9 +2,9 @@ import { CollateralToken } from "@defichain/whale-api-client/dist/api/loan";
 import BigNumber from "bignumber.js";
 import { EnvironmentNetwork } from "../../../../../../shared/environment";
 import {
-  checkCollateralCardValues,
   checkCollateralFormValues,
   checkConfirmEditCollateralValues,
+  checkVaultDetailCollateralAmounts,
   checkVaultDetailValues,
 } from "../../../../support/loanCommands";
 import { checkValueWithinRange } from "../../../../support/walletCommands";
@@ -192,7 +192,12 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
   });
 
   it("should update collateral list", () => {
-    checkCollateralCardValues("DFI", "10.00000000", "$1,000.00", "100.00%");
+    checkVaultDetailCollateralAmounts(
+      "DFI",
+      "10.00000000",
+      "$1,000.00",
+      "100.00%"
+    );
   });
 
   it("should add dBTC as collateral", () => {
@@ -234,10 +239,20 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
 
   it("should update collateral list", () => {
     cy.getByTestID("vault_card_0").click();
-    checkCollateralCardValues("DFI", "10.00000000", "$1,000.00", "63.45%");
-    checkCollateralCardValues("dBTC", "10.00000000", "$500.00", "31.72%");
-    checkCollateralCardValues("dETH", "10.00000000", "$70.00", "4.44%");
-    checkCollateralCardValues("DUSD", "5.13570000", "$6.16", "0.39%");
+    checkVaultDetailCollateralAmounts(
+      "DFI",
+      "10.00000000",
+      "$1,000.00",
+      "63.45%"
+    );
+    checkVaultDetailCollateralAmounts(
+      "dBTC",
+      "10.00000000",
+      "$500.00",
+      "31.72%"
+    );
+    checkVaultDetailCollateralAmounts("dETH", "10.00000000", "$70.00", "4.44%");
+    checkVaultDetailCollateralAmounts("DUSD", "5.13570000", "$6.16", "0.39%");
   });
 
   it("should remove dBTC collateral", () => {
@@ -272,9 +287,19 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
 
   it("should update collateral list", () => {
     cy.getByTestID("vault_card_0").click();
-    checkCollateralCardValues("DFI", "10.00000000", "$1,000.00", "65.79%");
-    checkCollateralCardValues("dBTC", "9.00000000", "$450.00", "29.61%");
-    checkCollateralCardValues("dETH", "10.00000000", "$70.00", "4.61%");
+    checkVaultDetailCollateralAmounts(
+      "DFI",
+      "10.00000000",
+      "$1,000.00",
+      "65.79%"
+    );
+    checkVaultDetailCollateralAmounts(
+      "dBTC",
+      "9.00000000",
+      "$450.00",
+      "29.61%"
+    );
+    checkVaultDetailCollateralAmounts("dETH", "10.00000000", "$70.00", "4.61%");
   });
 });
 

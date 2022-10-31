@@ -36,19 +36,6 @@ export function checkConfirmEditCollateralValues(
   cy.getByTestID("confirm_edit_vault_share").contains(vaultShare);
 }
 
-export function checkCollateralCardValues(
-  symbol: string,
-  amount: string,
-  dollarValue: string,
-  vaultShare: string
-): void {
-  cy.getByTestID(`vault_detail_collateral_${symbol}_amount`).contains(amount);
-  cy.getByTestID(`vault_detail_collateral_${symbol}_usd`).contains(dollarValue);
-  cy.getByTestID(`vault_detail_collateral_${symbol}_vault_share`).contains(
-    vaultShare
-  );
-}
-
 export function checkVaultDetailValues(
   vaultID: string,
   totalCollateral: string,
@@ -74,18 +61,15 @@ export function checkVaultDetailValues(
 }
 
 export function checkVaultDetailCollateralAmounts(
+  symbol: string,
   amount: string,
-  displaySymbol: string,
+  dollarValue: string,
   vaultShare: string
 ): void {
-  // cy.getByTestID(`vault_detail_collateral_${displaySymbol}`).contains(
-  //   displaySymbol
-  // );
-  cy.getByTestID(
-    `vault_detail_collateral_${displaySymbol}_vault_share`
-  ).contains(vaultShare);
-  cy.getByTestID(`vault_detail_collateral_${displaySymbol}_amount`).contains(
-    amount
+  cy.getByTestID(`vault_detail_collateral_${symbol}_amount`).contains(amount);
+  cy.getByTestID(`vault_detail_collateral_${symbol}_usd`).contains(dollarValue);
+  cy.getByTestID(`vault_detail_collateral_${symbol}_vault_share`).contains(
+    vaultShare
   );
 }
 

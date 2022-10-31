@@ -76,8 +76,18 @@ context("Wallet - Loans - Vault Details", () => {
     cy.getByTestID("action_borrow").should("not.have.attr", "aria-disabled");
     cy.getByTestID("action_pay").should("have.attr", "aria-disabled");
     cy.getByTestID("collateral_card_dfi_empty").should("not.exist");
-    checkVaultDetailCollateralAmounts("10.00000000", "DFI", "66.67%");
-    checkVaultDetailCollateralAmounts("10.00000000", "dBTC", "33.33%");
+    checkVaultDetailCollateralAmounts(
+      "DFI",
+      "10.00000000",
+      "$1,000.00",
+      "66.67%"
+    );
+    checkVaultDetailCollateralAmounts(
+      "dBTC",
+      "10.00000000",
+      "$500.00",
+      "33.33%"
+    );
   });
 
   it("should add loan", () => {
