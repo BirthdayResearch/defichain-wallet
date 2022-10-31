@@ -40,7 +40,7 @@ export function VaultDetailSummary({
       <NumberRowV2
         lhs={{
           value: translate("screens/VaultDetailScreen", "Max loan amount"),
-          testID: "max_loan_amount_label",
+          testID: "max_loan_amount",
           themedProps: titleThemedProps,
           outerContainerStyle: tailwind("w-6/12"),
         }}
@@ -65,7 +65,7 @@ export function VaultDetailSummary({
       <NumberRowV2
         lhs={{
           value: translate("screens/VaultDetailScreen", "Total collateral"),
-          testID: "total_collateral_label",
+          testID: "total_collateral",
           themedProps: titleThemedProps,
         }}
         rhs={{
@@ -80,7 +80,7 @@ export function VaultDetailSummary({
       <NumberRowV2
         lhs={{
           value: translate("screens/VaultDetailScreen", "Total loan"),
-          testID: "total_loan_label",
+          testID: "total_loan",
           themedProps: titleThemedProps,
         }}
         rhs={{
@@ -121,7 +121,7 @@ export function VaultDetailSummary({
       <NumberRowV2
         lhs={{
           value: translate("screens/VaultDetailScreen", "Interest (APR)"),
-          testID: "interest_label",
+          testID: "interest",
           themedProps: titleThemedProps,
         }}
         rhs={{
@@ -139,7 +139,7 @@ export function VaultDetailSummary({
             "screens/VaultDetailScreen",
             "Min. collateral ratio"
           ),
-          testID: "min_col_ratio_label",
+          testID: "min_col_ratio",
           themedProps: titleThemedProps,
           outerContainerStyle: tailwind("w-7/12"),
         }}
