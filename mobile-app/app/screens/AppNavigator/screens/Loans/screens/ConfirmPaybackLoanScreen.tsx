@@ -265,6 +265,7 @@ export function ConfirmPaybackLoanScreen({
             style={tailwind("text-xs font-normal-v2 text-center mb-5")}
             light={tailwind("text-mono-light-v2-500")}
             dark={tailwind("text-mono-dark-v2-500")}
+            testID="confirm_payback_loan_message"
           >
             {translate(
               "screens/ConfirmPaybackLoanScreen",

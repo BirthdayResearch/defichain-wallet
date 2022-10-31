@@ -1,14 +1,34 @@
 import BigNumber from "bignumber.js";
-import { VaultStatus } from "../../../../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes";
 import { checkValueWithinRange } from "../../../../support/walletCommands";
 
-function addCollateral(): void {
+function createWalletAndVault(): void {
+  const walletTheme = { isDark: false };
+  cy.createEmptyWallet(true);
+  cy.sendDFITokentoWallet()
+    .sendDFITokentoWallet()
+    .sendDFItoWallet()
+    .sendTokenToWallet(["BTC"])
+    .wait(6000);
+  cy.setWalletTheme(walletTheme);
   cy.go("back");
-  cy.wait(2000);
-  cy.getByTestID("vault_card_0_status").contains("READY");
+  cy.getByTestID("bottom_tab_loans").click();
+  cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
+  cy.getByTestID("empty_vault").should("exist");
+  cy.createVault(0);
+  cy.getByTestID("vault_card_0_borrow_button").should("not.exist");
+  cy.getByTestID("vault_card_0_EMPTY_vault_id").should("exist");
+  cy.getByTestID("vault_card_0_EMPTY_add_collateral_button").click();
+  cy.addCollateral("10", "DFI");
+  cy.getByTestID("vault_card_0").click();
+  cy.getByTestID("action_add").click();
+  cy.addCollateral("10", "dBTC");
+}
+
+function addCollateral(): void {
+  cy.getByTestID("vault_card_0_status").contains("Ready");
   cy.getByTestID("vault_card_0_collateral_token_group_DFI").should("exist");
   cy.getByTestID("vault_card_0_collateral_token_group_dBTC").should("exist");
-  cy.getByTestID("vault_card_0_total_collateral").contains("$1,500.00");
+  cy.getByTestID("vault_card_0_total_collateral_amount").contains("$1,500.00");
 }
 
 function sendTokenToRandomAddress(tokenId: string, isMax = false): void {
@@ -17,9 +37,15 @@ function sendTokenToRandomAddress(tokenId: string, isMax = false): void {
   cy.getByTestID(`portfolio_row_${tokenId}`).click();
   cy.getByTestID("send_button").click();
   cy.getByTestID("address_input").clear().type(randomAddress).blur();
-  isMax
-    ? cy.getByTestID("MAX_amount_button").click()
-    : cy.getByTestID("amount_input").clear().type("10").blur();
+  if (isMax) {
+    cy.getByTestID("max_value")
+      .invoke("text")
+      .then((maxValue) => {
+        cy.getByTestID("amount_input").clear().type(maxValue).blur();
+      });
+  } else {
+    cy.getByTestID("amount_input").clear().type("10").blur();
+  }
   cy.getByTestID("button_confirm_send_continue").click();
   cy.getByTestID("button_confirm_send").click().wait(3000);
   cy.closeOceanInterface();
@@ -28,207 +54,141 @@ function sendTokenToRandomAddress(tokenId: string, isMax = false): void {
 function validate50PercentButton(
   loanTokenSymbol: string,
   paymentTokenSymbol: string,
-  loanToPaymentTokenRate: number,
   canPayWholeLoanAmount: boolean
 ): void {
-  const penaltyFee = new BigNumber(1.01);
   cy.getByTestID("50%_amount_button").click();
   if (canPayWholeLoanAmount) {
-    cy.getByTestID("payback_input_text_error").should("not.exist");
+    cy.getByTestID("continue_payback_loan_message").should("exist");
     cy.getByTestID("button_confirm_payback_loan_continue").should(
       "not.have.attr",
       "aria-disabled"
     );
-    cy.getByTestID("loan_outstanding_balance")
-      .invoke("text")
-      .then((text) => {
-        const outstandingBalance = new BigNumber(
-          text.replace(loanTokenSymbol, "").trim()
-        );
-        if (loanTokenSymbol === paymentTokenSymbol) {
-          cy.getByTestID("payback_input_text")
-            .invoke("val")
-            .then((text) => {
-              checkValueWithinRange(
-                text,
-                outstandingBalance.div(2).toFixed(8),
-                1
-              );
-            });
-        } else {
-          cy.getByTestID("payback_input_text")
-            .invoke("val")
-            .then((text) => {
-              checkValueWithinRange(
-                text,
-                outstandingBalance
-                  .multipliedBy(loanToPaymentTokenRate)
-                  .multipliedBy(penaltyFee)
-                  .div(2)
-                  .toFixed(8),
-                1
-              );
-            });
-        }
-        cy.getByTestID("loan_payment_percentage").should("have.text", "50.00%");
-      });
-    return;
+    cy.getByTestID("total_outstanding_loan_value").should(
+      "have.text",
+      `0.00000000 ${loanTokenSymbol}`
+    );
   }
-
   cy.getByTestID("available_token_balance")
     .invoke("text")
     .then((text) => {
-      const availableBalance = new BigNumber(
-        text.replace(paymentTokenSymbol, "").trim()
+      const availableToken = new BigNumber(
+        text.replace("Available:", "").replace(paymentTokenSymbol, "").trim()
       );
-      if (availableBalance.isZero()) {
-        cy.getByTestID("button_confirm_payback_loan_continue").should(
-          "have.attr",
-          "aria-disabled"
-        );
-        cy.getByTestID("payback_input_text").should(
-          "have.value",
-          new BigNumber(0).toFixed(8)
-        );
-        return;
-      }
-      cy.getByTestID("payback_input_text")
-        .invoke("val")
-        .then((text) => {
-          checkValueWithinRange(text, availableBalance.div(2).toFixed(8), 1);
-        });
+      cy.getByTestID("payback_input_text").should(
+        "have.value",
+        availableToken.div(2).toFixed(8)
+      );
     });
 }
 
 function validateMaxButton(
   loanTokenSymbol: string,
   paymentTokenSymbol: string,
-  loanToPaymentTokenRate: number,
   canPayWholeLoanAmount: boolean
 ): void {
   cy.getByTestID("MAX_amount_button").click();
   if (canPayWholeLoanAmount) {
-    const penaltyFee = new BigNumber(1.01);
-    cy.getByTestID("payback_input_text_error").should("not.exist");
+    cy.getByTestID("continue_payback_loan_message").should("exist");
     cy.getByTestID("button_confirm_payback_loan_continue").should(
       "not.have.attr",
       "aria-disabled"
     );
-    cy.getByTestID("loan_payment_percentage").should("have.text", "100.00%");
-
-    if (loanTokenSymbol === paymentTokenSymbol) {
-      cy.getByTestID("loan_outstanding_balance")
-        .invoke("text")
-        .then((text) => {
-          const outstandingBalance = new BigNumber(
-            text.replace(loanTokenSymbol, "").trim()
-          );
-          cy.getByTestID("payback_input_text").should(
-            "have.value",
-            outstandingBalance.toFixed(8)
-          );
-        });
-    } else {
-      cy.getByTestID("loan_outstanding_balance")
-        .invoke("text")
-        .then((text) => {
-          const outstandingBalance = new BigNumber(
-            text.replace(loanTokenSymbol, "").trim()
-          );
-          cy.getByTestID("payback_input_text")
-            .invoke("val")
-            .then((text) => {
-              checkValueWithinRange(
-                text,
-                outstandingBalance
-                  .multipliedBy(loanToPaymentTokenRate)
-                  .multipliedBy(penaltyFee)
-                  .toFixed(8),
-                1
-              );
-            });
-        });
-    }
-    return;
+    cy.getByTestID("total_outstanding_loan_value").should(
+      "have.text",
+      `0.00000000 ${loanTokenSymbol}`
+    );
   }
-
   cy.getByTestID("available_token_balance")
     .invoke("text")
     .then((text) => {
       const availableBalance = new BigNumber(
-        text.replace(paymentTokenSymbol, "").trim()
+        text.replace("Available:", "").replace(paymentTokenSymbol, "").trim()
       );
-      if (availableBalance.isZero()) {
-        cy.getByTestID("button_confirm_payback_loan_continue").should(
-          "have.attr",
-          "aria-disabled"
-        );
-        cy.getByTestID("payback_input_text").should(
-          "have.value",
-          new BigNumber(0).toFixed(8)
-        );
-        cy.getByTestID("loan_payment_percentage").should("have.text", "0%");
-        return;
-      }
       cy.getByTestID("payback_input_text")
         .invoke("val")
-        .then((text) => {
-          checkValueWithinRange(text, availableBalance.toFixed(8), 1);
+        .then((val) => {
+          checkValueWithinRange(val, availableBalance.toFixed(8), 1);
         });
     });
 }
 
 function borrowFirstLoan(loanTokenSymbol: string, amount: string = "10"): void {
   const amountToBorrow = new BigNumber(amount).toFixed(8);
-  cy.getByTestID("button_browse_loans").click();
-  cy.getByTestID(
-    `loans_action_button_${loanTokenSymbol}_borrow_button_loans_cards`
-  ).click();
-  cy.getByTestID("form_input_borrow").clear().type(amountToBorrow);
-  cy.wait(3000);
-  cy.getByTestID("borrow_loan_submit_button").click();
+  cy.getByTestID(`select_${loanTokenSymbol}`).click();
+  cy.getByTestID("text_input_borrow_amount").clear().type(amountToBorrow);
+  cy.getByTestID("borrow_button_submit").click();
   cy.getByTestID("text_borrow_amount").contains(amountToBorrow);
-  cy.getByTestID("text_borrow_amount_suffix").contains(loanTokenSymbol);
   cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);
-  cy.getByTestID("txn_authorization_description").contains(
+  cy.getByTestID("txn_authorization_title").contains(
     `Borrowing ${amountToBorrow} ${loanTokenSymbol}`
   );
   cy.closeOceanInterface();
 }
 
+function checkPaybackLoanDetails(
+  vaultId: string,
+  tokenSymbol: string,
+  tokenAmount: string
+): void {
+  cy.getByTestID("payback_loan_title").contains("I WANT TO PAY");
+  cy.getByTestID(
+    "token_select_button_loan_token_symbol_display_symbol"
+  ).contains(tokenSymbol);
+  cy.getByTestID("payback_input_text").clear().type(tokenAmount).blur();
+  cy.getByTestID("available_token_balance").should("exist");
+  cy.getByTestID("lhs_vault_id").contains("Vault ID");
+  cy.getByTestID("text_vault_id").contains(vaultId);
+  cy.getByTestID("total_outstanding_loan_label_label").contains(
+    "Loan remaining"
+  );
+  cy.getByTestID("total_outstanding_loan_value").should("exist");
+  cy.getByTestID("total_outstanding_loan_value_rhsUsdAmount").should("exist");
+  cy.getByTestID("text_resulting_col_ratio_collateralization_bar").should(
+    "exist"
+  );
+  cy.getByTestID("continue_payback_loan_message").should("exist");
+}
+
+function checkPaybackLoanConfirmDetails(
+  vaultId: string,
+  tokenSymbol: string,
+  tokenAmount: string
+): void {
+  cy.getByTestID("confirm_title").contains("You are paying");
+  cy.getByTestID("text_send_amount").contains(tokenAmount);
+  cy.getByTestID("wallet_address").should("exist");
+  cy.getByTestID("transaction_fee_label").contains("Transaction fee");
+  cy.getByTestID("transaction_fee_value").contains("DFI");
+  cy.getByTestID("text_vault_id").contains("Vault ID");
+  cy.getByTestID("vault_id").contains(vaultId);
+  cy.getByTestID("text_resulting_col_ratio_collateralization_bar").should(
+    "exist"
+  );
+  cy.getByTestID("text_resulting_loan_amount_label").contains("Loan remaining");
+  cy.getByTestID("resulting_loan_amount").contains(tokenSymbol);
+  cy.getByTestID("text_tokens_to_pay_label").contains("Amount to pay");
+  cy.getByTestID("tokens_to_pay").contains(`${tokenAmount} ${tokenSymbol}`);
+  cy.getByTestID("confirm_payback_loan_message").contains(
+    "Prices may vary during transaction confirmation."
+  );
+}
+
 context("Wallet - Loans - Payback DUSD Loans", () => {
   let vaultId = "";
-  const walletTheme = { isDark: false };
   before(() => {
     cy.setFeatureFlags(["dusd_loan_payment", "dfi_loan_payment"]);
-    cy.createEmptyWallet(true);
-    cy.sendDFITokentoWallet()
-      .sendDFITokentoWallet()
-      .sendDFItoWallet()
-      .sendTokenToWallet(["BTC"])
-      .wait(6000);
-    cy.setWalletTheme(walletTheme);
-    cy.go("back");
-    cy.getByTestID("bottom_tab_dex").click();
-    cy.getByTestID("bottom_tab_loans").click();
-    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
-    cy.getByTestID("empty_vault").should("exist");
-    cy.createVault(0);
-    cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
+    createWalletAndVault();
     cy.getByTestID("vault_card_0_vault_id").then(($txt: any) => {
       vaultId = $txt[0].textContent;
     });
-    cy.getByTestID("vault_card_0_edit_collaterals_button").click();
-    cy.addCollateral("10", "DFI");
-    cy.addCollateral("10", "dBTC");
   });
 
   it("should add collateral", () => {
     addCollateral();
   });
 
-  it("should add DUSD loan", () => {
-    cy.getByTestID("vault_card_0_manage_loans_button").click();
+  it("should borrow DUSD loan", () => {
+    cy.getByTestID("vault_card_0_borrow_button").contains("Borrow").click();
     borrowFirstLoan("DUSD");
   });
 
@@ -238,77 +198,49 @@ context("Wallet - Loans - Payback DUSD Loans", () => {
         data: [],
       },
     }).as("getTokens");
-    cy.getByTestID("vault_card_0_manage_loans_button").click();
-    cy.getByTestID("loan_card_DUSD_payback_loan").click();
+    cy.getByTestID("vault_card_0").click();
     cy.wait("@getTokens").then(() => {
-      cy.getByTestID("payment_token_card_DUSD").should("exist");
-      cy.getByTestID("payment_token_card_DFI").should("exist");
+      cy.getByTestID("loan_card_DUSD").should("exist");
+      cy.getByTestID("loans_action_button_pay_DUSD_loan").should("exist");
     });
-
-    cy.getByTestID("payment_token_card_DFI").click();
-    cy.getByTestID("text_penalty_fee_warning").contains(
-      "A 5% fee is applied when you pay with DFI."
-    );
-    cy.getByTestID("payment_token_card_DUSD").click();
+    cy.getByTestID("loans_action_button_pay_DUSD_loan").click();
   });
 
-  it("should display loan amount and its USD value", () => {
-    cy.getByTestID("loan_outstanding_balance")
+  it("should display DUSD loan amount and its USD value", () => {
+    cy.getByTestID("total_outstanding_loan_value")
       .invoke("text")
       .then((text) => {
-        const outstandingBalance = new BigNumber(
-          text.replace("DUSD", "").trim()
-        );
-        checkValueWithinRange(outstandingBalance.toFixed(8), "10", 0.05);
+        const outstandingBalance = text.replace(" DUSD", "").trim();
+        checkValueWithinRange(outstandingBalance, "10", 0.05);
       });
-    cy.getByTestID("loan_outstanding_balance_usd").should(
-      "have.text",
-      "≈ $10.00"
-    );
+    cy.getByTestID("total_outstanding_loan_value_rhsUsdAmount")
+      .invoke("text")
+      .then((text) => {
+        const outstandingBalanceInUsd = text.replace("$", "");
+        checkValueWithinRange(outstandingBalanceInUsd, "12", 0.05);
+      });
   });
 
-  /* Paying DUSD with DUSD */
   it("should have 0 available DUSD", () => {
-    sendTokenToRandomAddress("12"); // Empty out DUSD in wallet
+    sendTokenToRandomAddress("12", true); // Empty out DUSD in wallet
     cy.getByTestID("bottom_tab_loans").click();
-    cy.getByTestID("available_token_balance").should(
-      "have.text",
-      "0.00000000 DUSD"
-    );
+    cy.getByTestID("available_token_balance").contains("0.00000000 DUSD");
   });
 
-  it("should display 0 if MAX/50% button is pressed with 0 DUSD", () => {
-    validate50PercentButton("DUSD", "DUSD", 1, false);
-    validateMaxButton("DUSD", "DUSD", 1, false);
-  });
-
-  /* Paying DUSD with DFI */
-  it("should display 50% of loan amount if 50% button is pressed with sufficient DFI", () => {
-    cy.getByTestID("payment_token_card_DFI").click();
-    cy.getByTestID("50%_amount_button").click();
+  it("should not allow user to continue payback if entered DUSD exceeds available balance", () => {
+    cy.getByTestID("payback_input_text").clear().type("100");
+    cy.getByTestID("continue_payback_loan_message").should("not.exist");
     cy.getByTestID("button_confirm_payback_loan_continue").should(
-      "not.have.attr",
+      "have.attr",
       "aria-disabled"
     );
-    cy.getByTestID("payback_input_text")
-      .invoke("val")
-      .then((text) => {
-        checkValueWithinRange(text, "0.05", 0.0005);
-      });
-    cy.getByTestID("loan_payment_percentage").should("have.text", "50.00%");
   });
 
-  it("should cap to available DFI balance if MAX button is pressed with sufficient DFI", () => {
-    cy.getByTestID("MAX_amount_button").click();
-    cy.getByTestID("button_confirm_payback_loan_continue").should(
-      "not.have.attr",
-      "aria-disabled"
-    );
-    cy.getByTestID("payback_input_text")
-      .invoke("val")
-      .then((text) => {
-        checkValueWithinRange(text, "0.1", 0.0005);
-      });
+  it("should not be able to press 25%-50%-75%-MAX quick inputs with 0 DUSD", () => {
+    cy.getByTestID("25%_amount_button").should("have.attr", "aria-disabled");
+    cy.getByTestID("50%_amount_button").should("have.attr", "aria-disabled");
+    cy.getByTestID("75%_amount_button").should("have.attr", "aria-disabled");
+    cy.getByTestID("MAX_amount_button").should("have.attr", "aria-disabled");
   });
 
   /* Paying DUSD sufficient DUSD */
@@ -316,159 +248,65 @@ context("Wallet - Loans - Payback DUSD Loans", () => {
     cy.sendTokenToWallet(["DUSD", "DUSD"]).wait(10000);
   });
 
-  it("should display vault info", () => {
-    cy.getByTestID("toggle_resulting_col").click().wait(1000);
-    cy.getByTestID("resulting_col").should("have.text", "N/A");
-    cy.getByTestID("text_vault_id").should("have.text", vaultId);
-    cy.getByTestID("text_min_col_ratio").should("have.text", "150.00%");
-    cy.getByTestID("text_total_collateral_usd").should(
-      "have.text",
-      "$1,500.00"
-    );
-    cy.getByTestID("text_total_loan_usd")
-      .invoke("text")
-      .then((text) => {
-        const totalLoanUSD = new BigNumber(text.replace("$", "").trim());
-        checkValueWithinRange(
-          totalLoanUSD.toFixed(8),
-          new BigNumber(10).toFixed(8),
-          0.05
-        );
-      });
+  it("should display 50% of available DUSD if 50% button is pressed with sufficient DUSD", () => {
+    validate50PercentButton("DUSD", "DUSD", false);
   });
 
-  it("should display 50% of loan amount if 50% button is pressed with sufficient DUSD", () => {
-    cy.getByTestID("payment_token_card_DUSD").click();
-    cy.getByTestID("50%_amount_button").click();
-    cy.getByTestID("payback_input_text_error").should("not.exist");
+  it("should display 100% of loan amount if MAX button is pressed with sufficient DUSD", () => {
+    validateMaxButton("DUSD", "DUSD", true);
+  });
+
+  it("should allow excess amount when paying DUSD", () => {
+    cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("vault_card_0").click();
+    cy.getByTestID("loans_action_button_pay_DUSD_loan").click();
+    cy.getByTestID("total_outstanding_loan_value")
+      .invoke("text")
+      .then((text) => {
+        const outstandingBalance = new BigNumber(
+          text.replace("DUSD", "").trim()
+        );
+        const excessiveAmount = outstandingBalance.plus(5);
+        cy.getByTestID("payback_input_text")
+          .type(excessiveAmount.toFixed(8))
+          .blur();
+      });
+    cy.getByTestID("total_outstanding_loan_value").contains("0.00000000 DUSD");
+    cy.getByTestID("continue_payback_loan_message").contains(
+      "Any excess payment will be returned."
+    );
     cy.getByTestID("button_confirm_payback_loan_continue").should(
       "not.have.attr",
       "aria-disabled"
     );
-    cy.getByTestID("loan_outstanding_balance")
-      .invoke("text")
-      .then((text) => {
-        const outstandingBalance = new BigNumber(
-          text.replace("DUSD", "").trim()
-        );
-        cy.getByTestID("payback_input_text").should(
-          "have.value",
-          outstandingBalance.div(2).toFixed(8)
-        );
-        cy.getByTestID("loan_payment_percentage").should("have.text", "50.00%");
-      });
   });
 
-  it("should display 100% of loan amount if MAX button is pressed with sufficient DUSD", () => {
-    validateMaxButton("DUSD", "DUSD", 10, true);
+  it("should be able to payback DUSD loans with DUSD", () => {
+    checkPaybackLoanDetails(vaultId, "DUSD", "10");
+    cy.getByTestID("continue_payback_loan_message").contains(
+      "Review full details in the next screen"
+    );
+    cy.getByTestID("button_confirm_payback_loan_continue").click().wait(3000);
+
+    checkPaybackLoanConfirmDetails(vaultId, "DUSD", "10.00000000");
+    cy.getByTestID("button_confirm_payback_loan").click().wait(4000);
+    cy.getByTestID("txn_authorization_title").contains(
+      "Paying 10.00000000 DUSD"
+    );
+    cy.closeOceanInterface();
+    cy.wait(3000);
   });
-
-  it("should display excess amount details when paying with DUSD", () => {
-    cy.getByTestID("payback_input_text").clear().type("20").blur();
-    cy.getByTestID("loan_outstanding_balance")
-      .invoke("text")
-      .then((text) => {
-        const outstandingBalance = new BigNumber(
-          text.replace("DUSD", "").trim()
-        );
-        const excessAmount = new BigNumber(20).minus(outstandingBalance);
-        cy.getByTestID("text_excess_amount").should(
-          "have.text",
-          excessAmount.toFixed(8)
-        );
-      });
-  });
-
-  it("should display conversion if DFI UTXO to pay whole loan amount", () => {
-    cy.intercept("**/balance", {
-      data: 10.0,
-    }).as("getUTXO");
-    cy.intercept("**/address/**/tokens?size=*", {
-      body: {
-        data: [],
-      },
-    }).as("getTokens");
-    cy.getByTestID("payment_token_card_DFI").click();
-    cy.wait("@getUTXO")
-      .wait("@getTokens")
-      .then(() => {
-        cy.wait(2000);
-        cy.getByTestID("MAX_amount_button").click();
-        cy.getByTestID("conversion_info_text").should("exist");
-      });
-  });
-
-  it("should not display conversion if DFI UTXO is < 0.1", () => {
-    cy.intercept("**/balance", {
-      data: 0.05,
-    }).as("getUTXO");
-    cy.intercept("**/address/**/tokens?size=*", {
-      body: {
-        data: [],
-      },
-    }).as("getTokens");
-    cy.wait("@getUTXO")
-      .wait("@getTokens")
-      .then(() => {
-        cy.wait(2000);
-        cy.getByTestID("payment_token_card_DFI").click();
-        cy.getByTestID("MAX_amount_button").click();
-        cy.getByTestID("conversion_info_text").should("not.exist");
-      });
-  });
-
-  /* This is a cypress issue. Tested that it works as expected when executing the steps out of cypress */
-  // it('should be able to payback DUSD loans with DUSD', function () {
-  //   cy.getByTestID('payback_input_text').clear().type('11').blur()
-  //   cy.getByTestID('loan_outstanding_balance').invoke('text').then(text => {
-  //     const outstandingBalance = new BigNumber(text.replace('DUSD', '').trim())
-  //     cy.getByTestID('text_excess_amount').contains(new BigNumber(11).minus(outstandingBalance).toFixed(8))
-  //   })
-
-  //   cy.getByTestID('button_confirm_payback_loan_continue').click().wait(3000)
-  //   cy.getByTestID('text_transaction_type').contains('Loan payment')
-  //   cy.getByTestID('text_payment_amount').contains('11.00000000')
-  //   cy.getByTestID('text_payment_amount_suffix').contains('DUSD')
-  //   cy.getByTestID('text_resulting_loan_amount').contains('0.00000000')
-  //   cy.getByTestID('text_resulting_loan_amount_suffix').contains('DUSD')
-  //   cy.getByTestID('tokens_to_pay').contains('11.00000000')
-  //   cy.getByTestID('tokens_to_pay_suffix').contains('DUSD')
-  //   cy.getByTestID('text_vault_id').contains(vaultId)
-  //   cy.getByTestID('text_current_collateral_ratio').contains('N/A')
-  //   cy.getByTestID('button_confirm_payback_loan').click().wait(4000)
-  //   cy.getByTestID('txn_authorization_description')
-  //     .contains('Paying 11.00000000 DUSD')
-  //   cy.closeOceanInterface()
-  //   cy.wait(3000)
-  // })
 });
 
 context("Wallet - Loans Payback Non-DUSD Loans", () => {
   let vaultId = "";
-  const walletTheme = { isDark: false };
 
   before(() => {
     cy.setFeatureFlags(["dusd_loan_payment", "dfi_loan_payment"]);
-    cy.createEmptyWallet(true);
-    cy.sendDFItoWallet()
-      .sendDFITokentoWallet()
-      .sendDFItoWallet()
-      .sendDFITokentoWallet()
-      .sendTokenToWallet(["BTC"])
-      .wait(6000);
-    cy.setWalletTheme(walletTheme);
-    cy.go("back");
-    cy.getByTestID("bottom_tab_loans").click();
-    cy.getByTestID("loans_tabs_YOUR_VAULTS").click();
-    cy.getByTestID("empty_vault").should("exist");
-    cy.createVault(0);
-    cy.getByTestID("vault_card_0_manage_loans_button").should("not.exist");
+    createWalletAndVault();
     cy.getByTestID("vault_card_0_vault_id").then(($txt: any) => {
       vaultId = $txt[0].textContent;
     });
-    cy.getByTestID("vault_card_0_edit_collaterals_button").click();
-    cy.addCollateral("10", "DFI");
-    cy.addCollateral("10", "dBTC");
   });
 
   it("should add collateral", () => {
@@ -476,187 +314,111 @@ context("Wallet - Loans Payback Non-DUSD Loans", () => {
   });
 
   it("should borrow dTU10 loan", () => {
-    cy.getByTestID("vault_card_0_manage_loans_button").click();
-    cy.getByTestID("button_browse_loans").click();
-    cy.getByTestID(
-      "loans_action_button_dTU10_borrow_button_loans_cards"
-    ).click();
-
-    cy.getByTestID("form_input_borrow").clear().type("10").blur();
-    cy.wait(3000);
-    cy.getByTestID("borrow_loan_submit_button").click();
-    cy.getByTestID("text_borrow_amount").contains("10.00000000");
-    cy.getByTestID("text_borrow_amount_suffix").contains("dTU10");
-    cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);
-    cy.getByTestID("txn_authorization_description").contains(
-      "Borrowing 10.00000000 dTU10"
-    );
-    cy.closeOceanInterface();
+    cy.getByTestID("vault_card_0_borrow_button").contains("Borrow").click();
+    borrowFirstLoan("dTU10");
   });
 
-  it("should show payment tokens for DUSD loans regardless of wallet balance", () => {
+  it("should show payment tokens for non-DUSD loans regardless of wallet balance", () => {
     cy.intercept("**/address/**/tokens?size=*", {
       body: {
         data: [],
       },
     }).as("getTokens");
-    cy.getByTestID("vault_card_0_manage_loans_button").click();
-    cy.getByTestID("loan_card_dTU10_payback_loan").click();
+    cy.getByTestID("vault_card_0").click();
     cy.wait("@getTokens").then(() => {
-      cy.getByTestID("payment_token_card_dTU10").should("exist");
-      cy.getByTestID("payment_token_card_DUSD").should("exist");
+      cy.getByTestID("loan_card_dTU10").should("exist");
+      cy.getByTestID("loans_action_button_pay_dTU10_loan").should("exist");
     });
-
-    cy.getByTestID("payment_token_card_DUSD").click();
-    cy.getByTestID("text_penalty_fee_warning").contains(
-      "A 5% fee is applied when you pay with DUSD."
-    );
-    cy.getByTestID("payment_token_card_dTU10").click();
+    cy.getByTestID("loans_action_button_pay_dTU10_loan").click();
   });
 
-  /* Paying dTU10 with dTU10 balance */
-  it("should topup dTU10 to pay for previous dTU10 loan", () => {
-    cy.sendTokenToWallet(["TU10"]).wait(6000);
-  });
-
-  it("should display 50% of loan amount if 50% button is pressed with sufficient dTU10", () => {
-    validate50PercentButton("dTU10", "dTU10", 1, true);
-  });
-
-  it("should display 100% of loan amount if MAX button is pressed with sufficient dTU10", () => {
-    validateMaxButton("dTU10", "dTU10", 1, true);
-  });
-
-  it("should display loan amount and its USD value", () => {
-    cy.getByTestID("loan_outstanding_balance")
+  it("should display dTU10 loan amount and its USD value", () => {
+    cy.getByTestID("total_outstanding_loan_value")
       .invoke("text")
       .then((text) => {
-        const outstandingBalance = new BigNumber(
-          text.replace("dTU10", "").trim()
-        );
-        checkValueWithinRange(
-          outstandingBalance.toFixed(8),
-          new BigNumber(10).toFixed(8),
-          0.05
-        );
+        const outstandingBalance = text.replace(" dTU10", "");
+        checkValueWithinRange(outstandingBalance, "10", 0.05);
       });
-    cy.getByTestID("loan_outstanding_balance_usd")
+    cy.getByTestID("total_outstanding_loan_value_rhsUsdAmount")
       .invoke("text")
       .then((text) => {
-        const outstandingBalanceUSD = new BigNumber(
-          text.replace("≈ $", "").trim()
-        );
-        checkValueWithinRange(
-          outstandingBalanceUSD.toFixed(2),
-          new BigNumber(100).toFixed(2),
-          5
-        );
+        const outstandingBalanceUSD = text.replace("$", "");
+        checkValueWithinRange(outstandingBalanceUSD, "105", 5);
       });
-  });
-
-  it("should display insufficient error if dTU10 is not enough", () => {
-    cy.getByTestID("payback_input_text").clear().type("100");
-    cy.getByTestID("payback_input_text_error").should(
-      "have.text",
-      "Insufficient dTU10 to pay for the entered amount"
-    );
-  });
-
-  it("should be able to payback dTU10 loans with dTU10", () => {
-    cy.getByTestID("payback_input_text").clear().type("12").blur();
-    cy.getByTestID("button_confirm_payback_loan_continue").click().wait(3000);
-    cy.getByTestID("confirm_title").contains("You are paying");
-    cy.getByTestID("text_payment_amount").contains("12.00000000");
-    cy.getByTestID("text_payment_amount_suffix").contains("dTU10");
-    cy.getByTestID("text_transaction_type").contains("Loan payment");
-    cy.getByTestID("tokens_to_pay").contains("12.00000000");
-    cy.getByTestID("tokens_to_pay_suffix").contains("dTU10");
-    cy.getByTestID("text_resulting_loan_amount").contains("0.00000000");
-    cy.getByTestID("text_resulting_loan_amount_suffix").contains("dTU10");
-    cy.getByTestID("text_vault_id").contains(vaultId);
-    cy.getByTestID("text_current_collateral_ratio").contains("N/A");
-    cy.getByTestID("button_confirm_payback_loan").click().wait(4000);
-    cy.getByTestID("txn_authorization_description").contains(
-      "Paying 12.00000000 dTU10"
-    );
-    cy.closeOceanInterface();
-    cy.wait(3000);
-    cy.checkVaultTag(
-      "READY",
-      VaultStatus.Ready,
-      "vault_card_0_status",
-      walletTheme.isDark
-    );
   });
 
   it("should have 0 available dTU10", () => {
     sendTokenToRandomAddress("13", true); // Empty out dTU10 in wallet
     cy.getByTestID("bottom_tab_loans").click();
-    cy.getByTestID("vault_card_0_manage_loans_button").click();
-    cy.getByTestID("button_browse_loans").should("exist");
+    cy.getByTestID("available_token_balance").contains("0.00000000 dTU10");
   });
 
-  it("should borrow dTU10 loan to be paid with DUSD", () => {
-    borrowFirstLoan("dTU10", "3");
-    cy.getByTestID("vault_card_0_manage_loans_button").click();
-    cy.getByTestID("loan_card_dTU10_payback_loan").click();
-  });
-
-  /* Paying dTU10 with DUSD balance */
-  it("should display 0 if MAX/50% button is pressed with 0 DUSD", () => {
-    cy.getByTestID("payment_token_card_DUSD").click();
-    validateMaxButton("dTU10", "DUSD", 10, false);
-    validate50PercentButton("dTU10", "DUSD", 1, false);
-  });
-
-  it("should display 50% of available balance if 50% button is pressed with insufficient DUSD", () => {
-    cy.sendTokenToWallet(["DUSD", "DUSD"]).wait(10000);
-    validate50PercentButton("dTU10", "DUSD", 10, false);
-  });
-
-  it("should display 100% of loan amount if MAX button is pressed with insufficient DUSD", () => {
-    validateMaxButton("dTU10", "DUSD", 10, false);
-  });
-
-  it("should display 50% of loan amount if 50% button is pressed with sufficient DUSD", () => {
-    cy.sendTokenToWallet(["DUSD", "DUSD"]).wait(10000);
-    validate50PercentButton("dTU10", "DUSD", 10, true);
-  });
-
-  it("should display 100% of loan amount if MAX button is pressed with sufficient DUSD", () => {
-    validateMaxButton("dTU10", "DUSD", 10, true);
-  });
-
-  it("should display insufficient error if DUSD is not enough", () => {
+  it("should not allow user to continue payback if entered dTU10 exceeds available balance", () => {
     cy.getByTestID("payback_input_text").clear().type("100");
-    cy.getByTestID("payback_input_text_error").should(
-      "have.text",
-      "Insufficient DUSD to pay for the entered amount"
+    cy.getByTestID("continue_payback_loan_message").should("not.exist");
+    cy.getByTestID("button_confirm_payback_loan_continue").should(
+      "have.attr",
+      "aria-disabled"
     );
   });
 
-  it("should be able to partially payback dTU10 loans with DUSD", () => {
-    cy.getByTestID("payback_input_text").clear().type("20");
+  it("should not be able to press 25%-50%-75%-MAX quick inputs with 0 dTU10", () => {
+    cy.getByTestID("25%_amount_button").should("have.attr", "aria-disabled");
+    cy.getByTestID("50%_amount_button").should("have.attr", "aria-disabled");
+    cy.getByTestID("75%_amount_button").should("have.attr", "aria-disabled");
+    cy.getByTestID("MAX_amount_button").should("have.attr", "aria-disabled");
+  });
+
+  /* Paying dTU10 with sufficient dTU10 */
+  it("should topup dTU10 to pay for previous dTU10 loan", () => {
+    cy.sendTokenToWallet(["TU10", "TU10"]).wait(6000);
+  });
+
+  it("should display 50% of available dTU10 if 50% button is pressed with sufficient dTU10", () => {
+    validate50PercentButton("dTU10", "dTU10", false);
+  });
+
+  it("should display 100% of available dTU10 if MAX button is pressed with sufficient dTU10", () => {
+    validateMaxButton("dTU10", "dTU10", false);
+  });
+
+  it("should allow excess amount when paying Non-DUSD", () => {
+    cy.getByTestID("bottom_tab_loans").click();
+    cy.getByTestID("vault_card_0").click();
+    cy.getByTestID("loans_action_button_pay_dTU10_loan").click();
+    cy.getByTestID("total_outstanding_loan_value")
+      .invoke("text")
+      .then((text) => {
+        const outstandingBalance = new BigNumber(
+          text.replace("dTU10", "").trim()
+        );
+        const excessiveAmount = outstandingBalance.plus(2);
+        cy.getByTestID("payback_input_text")
+          .type(excessiveAmount.toFixed(8))
+          .blur();
+      });
+    cy.getByTestID("total_outstanding_loan_value").contains("0.00000000 dTU10");
+    cy.getByTestID("continue_payback_loan_message").contains(
+      "Any excess payment will be returned."
+    );
+    cy.getByTestID("button_confirm_payback_loan_continue").should(
+      "not.have.attr",
+      "aria-disabled"
+    );
+  });
+
+  it("should be able to payback dTU10 loans with dTU10", () => {
+    checkPaybackLoanDetails(vaultId, "dTU10", "10");
+    cy.getByTestID("continue_payback_loan_message").contains(
+      "Review full details in the next screen"
+    );
     cy.getByTestID("button_confirm_payback_loan_continue").click().wait(3000);
-    cy.getByTestID("confirm_title").contains("You are paying");
-    cy.getByTestID("text_payment_amount").contains("20.00000000");
-    cy.getByTestID("text_payment_amount_suffix").contains("DUSD");
-    cy.getByTestID("text_transaction_type").contains("Loan payment");
-    cy.getByTestID("tokens_to_pay").contains("20.00000000");
-    cy.getByTestID("tokens_to_pay_suffix").contains("DUSD");
-    cy.getByTestID("text_resulting_loan_amount_suffix").contains("dTU10");
-    cy.getByTestID("text_vault_id").contains(vaultId);
+    checkPaybackLoanConfirmDetails(vaultId, "dTU10", "10.00000000");
     cy.getByTestID("button_confirm_payback_loan").click().wait(4000);
-    cy.getByTestID("txn_authorization_description").contains(
-      "Paying 20.00000000 DUSD"
+    cy.getByTestID("txn_authorization_title").contains(
+      "Paying 10.00000000 dTU10"
     );
     cy.closeOceanInterface();
     cy.wait(3000);
-    cy.checkVaultTag(
-      "ACTIVE",
-      VaultStatus.Healthy,
-      "vault_card_0_status",
-      walletTheme.isDark
-    );
   });
 });
