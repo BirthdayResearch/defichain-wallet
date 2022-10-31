@@ -22,11 +22,9 @@ export function VaultDetailLoansRow(props: {
         vault.batches.map((batch) => (
           <PayLoanCard
             key={batch.loan.id}
-            symbol={batch.loan.id}
             displaySymbol={batch.loan.displaySymbol}
             amount={batch.loan.amount}
             vaultState={LoanVaultState.IN_LIQUIDATION}
-            loanToken={batch.loan}
           />
         ))}
 
@@ -36,6 +34,7 @@ export function VaultDetailLoansRow(props: {
             light={tailwind("text-mono-light-v2-500")}
             dark={tailwind("text-mono-dark-v2-500")}
             style={tailwind("text-xs font-normal-v2 mb-2 px-5")}
+            testID="vault_detail_loans_section"
           >
             {translate("screens/VaultDetailScreenLoansSection", "LOANS")}
           </ThemedTextV2>
@@ -45,7 +44,6 @@ export function VaultDetailLoansRow(props: {
         vault.loanAmounts.map((loan) => (
           <PayLoanCard
             key={loan.id}
-            symbol={loan.symbol}
             displaySymbol={loan.displaySymbol}
             amount={loan.amount}
             interestAmount={
@@ -55,7 +53,6 @@ export function VaultDetailLoansRow(props: {
             }
             vaultState={vault.state}
             vault={vault}
-            loanToken={loan}
             onPay={() => onPay(loan, false)}
             onPaybackDUSD={() => onPay(loan, true)}
           />

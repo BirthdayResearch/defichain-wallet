@@ -6,7 +6,7 @@ import {
 import { tailwind } from "@tailwind";
 import * as React from "react";
 import { memo } from "react";
-import { Platform } from "react-native";
+import { ListRenderItemInfo, Platform } from "react-native";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { PayLoanCard } from "@screens/AppNavigator/screens/Loans/components/PayLoanCard";
 
@@ -43,11 +43,10 @@ export const BottomSheetPayBackList = ({
         testID="swap_token_selection_screen"
         data={data}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }: { item: LoanVaultTokenAmount }) => {
+        renderItem={({ item }: ListRenderItemInfo<LoanVaultTokenAmount>) => {
           return (
             <PayLoanCard
               key={item.id}
-              symbol={item.symbol}
               displaySymbol={item.displaySymbol}
               amount={item.amount}
               interestAmount={
@@ -57,7 +56,6 @@ export const BottomSheetPayBackList = ({
               }
               vaultState={vault.state}
               vault={vault}
-              loanToken={item}
               onPay={() => onPress(item, false)}
               onPaybackDUSD={() => onPress(item, true)}
             />

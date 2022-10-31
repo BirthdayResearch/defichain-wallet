@@ -226,6 +226,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
         style={tailwind("mx-10 text-xs font-normal-v2 mt-8")}
         light={tailwind("text-mono-light-v2-500")}
         dark={tailwind("text-mono-dark-v2-500")}
+        testID="payback_loan_title"
       >
         {translate(
           "screens/PaybackLoanScreen",
@@ -394,6 +395,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
             style={tailwind("text-xs font-normal-v2 text-center")}
             light={tailwind("text-mono-light-v2-500")}
             dark={tailwind("text-mono-dark-v2-500")}
+            testID="continue_payback_loan_message"
           >
             {translate(
               "screens/PaybackLoanScreen",
@@ -511,14 +513,14 @@ function TransactionDetailsSection({
               "screens/PaybackLoanScreen",
               "Resulting collateral"
             ),
-            testID: "total_outstanding_loan_label",
+            testID: "resulting_collateral_amount_label",
             themedProps: rowStyle.lhsThemedProps,
           }}
           rhs={{
             value: new BigNumber(collateralDUSDAmount ?? 0)
               .minus(amountToPay)
               .toFixed(8),
-            testID: "total_outstanding_loan_value",
+            testID: "resulting_collateral_amount",
             suffix: ` ${loanTokenAmount.displaySymbol}`,
             usdAmount: new BigNumber(
               new BigNumber(collateralDUSDAmount ?? 0).minus(amountToPay)

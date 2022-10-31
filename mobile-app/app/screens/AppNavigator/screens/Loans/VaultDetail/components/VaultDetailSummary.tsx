@@ -65,7 +65,7 @@ export function VaultDetailSummary({
       <NumberRowV2
         lhs={{
           value: translate("screens/VaultDetailScreen", "Total collateral"),
-          testID: "max_loan_amount",
+          testID: "total_collateral",
           themedProps: titleThemedProps,
         }}
         rhs={{
@@ -85,7 +85,7 @@ export function VaultDetailSummary({
         }}
         rhs={{
           value: getPrecisedCurrencyValue(totalLoan),
-          testID: "max_loan_amount",
+          testID: "total_loan",
           prefix: "$",
         }}
         containerStyle={{
@@ -97,6 +97,7 @@ export function VaultDetailSummary({
           value: translate("screens/VaultDetailScreen", "Vault ID"),
           themedProps: titleThemedProps,
           outerContainerStyle: tailwind("flex-1"),
+          testID: "collateral_vault_id_label",
         }}
         rhs={{
           value: vaultId,
@@ -108,6 +109,7 @@ export function VaultDetailSummary({
           ellipsizeMode: "middle",
           numberOfLines: 1,
           outerContainerStyle: tailwind("flex-none w-5/12"),
+          testID: "collateral_vault_id",
         }}
         containerStyle={{
           style: tailwind(
@@ -120,7 +122,7 @@ export function VaultDetailSummary({
       <NumberRowV2
         lhs={{
           value: translate("screens/VaultDetailScreen", "Interest (APR)"),
-          testID: "max_loan_amount",
+          testID: "interest",
           themedProps: titleThemedProps,
         }}
         rhs={{
@@ -144,7 +146,7 @@ export function VaultDetailSummary({
         }}
         rhs={{
           value: minColRatio,
-          testID: "max_loan_amount",
+          testID: "min_col_ratio",
           suffix: "%",
         }}
         containerStyle={{
