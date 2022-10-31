@@ -235,6 +235,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
 
   useEffect(() => {
     /* timeout added to auto display keyboard on Android */
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     Platform.OS === "android"
       ? setTimeout(() => amountInputRef?.current?.focus(), 0)
       : amountInputRef?.current?.focus();
@@ -401,23 +402,34 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
                 defaultValue=""
                 name="amount"
                 render={({ field: { onChange, value } }) => (
-                  <ThemedTextInputV2
-                    style={tailwind(
-                      "text-3xl text-center font-semibold-v2 w-full"
+                  <View
+                    style={tailwind("flex-row items-baseline justify-center")}
+                  >
+                    <ThemedTextInputV2
+                      style={tailwind("text-3xl text-center font-semibold-v2")}
+                      light={tailwind("text-mono-light-v2-900")}
+                      dark={tailwind("text-mono-dark-v2-900")}
+                      keyboardType="numeric"
+                      value={value}
+                      onChange={onChange}
+                      onChangeText={onAmountChange}
+                      placeholder="0.00"
+                      placeholderTextColor={getColor(
+                        isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
+                      )}
+                      testID="amount_input"
+                      ref={amountInputRef}
+                    />
+                    {Platform.OS !== "web" && (
+                      <ThemedTextV2
+                        style={tailwind(
+                          "text-xl font-normal-v2 pl-2 text-left"
+                        )}
+                      >
+                        {token.displaySymbol}
+                      </ThemedTextV2>
                     )}
-                    light={tailwind("text-mono-light-v2-900")}
-                    dark={tailwind("text-mono-dark-v2-900")}
-                    keyboardType="numeric"
-                    value={value}
-                    onChange={onChange}
-                    onChangeText={onAmountChange}
-                    placeholder="0.00"
-                    placeholderTextColor={getColor(
-                      isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
-                    )}
-                    testID="amount_input"
-                    ref={amountInputRef}
-                  />
+                  </View>
                 )}
                 rules={{
                   required: true,
