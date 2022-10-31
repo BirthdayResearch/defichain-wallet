@@ -223,6 +223,7 @@ export function BorrowLoanTokenScreen({
     Warning,
     Error,
   }
+
   const [inputValidationMessage, setInputValidationMessage] = useState<{
     message: string;
     type: ValidationMessageType;
@@ -240,6 +241,7 @@ export function BorrowLoanTokenScreen({
   // Toast
   const toast = useToast();
   const TOAST_DURATION = 2000;
+
   function showToast(type: AmountButtonTypes): void {
     toast.hideAll();
     const isMax = type === AmountButtonTypes.Max;
@@ -328,7 +330,12 @@ export function BorrowLoanTokenScreen({
 
   useEffect(() => {
     if (isFocused) {
-      dispatch(fetchVaults({ address, client }));
+      dispatch(
+        fetchVaults({
+          address,
+          client,
+        })
+      );
     }
   }, [blockCount, address, isFocused]);
 
@@ -523,6 +530,7 @@ export function BorrowLoanTokenScreen({
                 "text-orange-v2":
                   inputValidationMessage.type === ValidationMessageType.Warning,
               })}
+              testID="validation_message"
             >
               {translate(
                 "screens/BorrowLoanTokenScreen",
@@ -591,7 +599,6 @@ export function BorrowLoanTokenScreen({
 interface VaultInputProps {
   vault: LoanVaultActive;
   onPress: () => void;
-  testID?: string;
 }
 
 function VaultInput(props: VaultInputProps): JSX.Element {
@@ -645,6 +652,9 @@ interface TransactionDetailsProps {
 export function TransactionDetailsSection(
   props: TransactionDetailsProps
 ): JSX.Element {
+  const isEmptyBorrowAmount =
+    new BigNumber(props.borrowAmount).isNaN() ||
+    new BigNumber(props.borrowAmount).isZero();
   return (
     <ThemedViewV2
       light={tailwind("border-mono-light-v2-300")}
@@ -755,11 +765,15 @@ export function TransactionDetailsSection(
         }}
       />
       <CollateralizationRatioDisplayV2
-        collateralizationRatio={props.resultingColRatio.toFixed(2)}
+        collateralizationRatio={
+          isEmptyBorrowAmount
+            ? props.vault.informativeRatio
+            : props.resultingColRatio.toFixed(2)
+        }
         minCollateralizationRatio={props.vault.loanScheme.minColRatio}
         totalLoanAmount={new BigNumber(props.vault.loanValue)
           .plus(
-            new BigNumber(props.borrowAmount).isNaN()
+            isEmptyBorrowAmount
               ? new BigNumber(0)
               : new BigNumber(props.borrowAmount)
           )

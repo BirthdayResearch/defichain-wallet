@@ -126,7 +126,7 @@ export function VaultBanner({
             {buttonLabel !== "" && (
               <ButtonV2
                 customButtonStyle="py-2 px-3"
-                customTextStyle="text-xs"
+                customTextStyle="text-sm"
                 styleProps="mt-3"
                 label={translate("components/VaultCard", buttonLabel)}
                 onPress={onButtonPress}

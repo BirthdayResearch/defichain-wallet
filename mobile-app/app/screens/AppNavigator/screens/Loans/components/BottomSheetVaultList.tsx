@@ -16,7 +16,7 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { memo } from "react";
 import * as React from "react";
-import { Platform } from "react-native";
+import { ListRenderItemInfo, Platform } from "react-native";
 import BigNumber from "bignumber.js";
 import { NumericFormat } from "react-number-format";
 import { CollateralizationRatio } from "./CollateralizationRatio";
@@ -76,10 +76,7 @@ export const BottomSheetVaultList = ({
         renderItem={({
           item,
           index,
-        }: {
-          item: LoanVaultActive;
-          index: number;
-        }): JSX.Element => {
+        }: ListRenderItemInfo<LoanVaultActive>): JSX.Element => {
           return (
             <ThemedTouchableOpacityV2
               onPress={() => {
@@ -136,7 +133,7 @@ export const BottomSheetVaultList = ({
                 <View style={tailwind("flex items-end")}>
                   <CollateralizationRatio
                     totalLoanAmount={new BigNumber(item.loanValue)}
-                    colRatio={new BigNumber(item.collateralRatio)}
+                    colRatio={new BigNumber(item.informativeRatio)}
                     minColRatio={new BigNumber(item.loanScheme.minColRatio)}
                   />
                   <NumericFormat
