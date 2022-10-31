@@ -466,6 +466,7 @@ function ConversionResultCard(props: {
           })}`}
         </ThemedTextV2>
         <NumberFormat
+          decimalScale={8}
           displayType="text"
           renderText={(value) => (
             <ThemedTextV2
@@ -478,7 +479,7 @@ function ConversionResultCard(props: {
             </ThemedTextV2>
           )}
           thousandSeparator
-          value={BigNumber(props.totalTargetAmount).toFixed(8)}
+          value={props.totalTargetAmount}
         />
       </ThemedViewV2>
     </ThemedViewV2>
