@@ -58,6 +58,13 @@ export function checkVaultDetailValues(
   cy.getByTestID("total_loan").contains(totalLoans);
   cy.getByTestID("interest").contains(vaultInterest);
   cy.getByTestID("min_col_ratio").contains(minColRatio);
+  // Vault detail labels
+  cy.getByTestID("collateral_vault_id_label").contains("Vault ID");
+  cy.getByTestID("total_collateral_label").contains("Total collateral");
+  cy.getByTestID("max_loan_amount_label").contains("Max loan amount");
+  cy.getByTestID("total_loan_label").contains("Total loan");
+  cy.getByTestID("interest_label").contains("Interest (APR)");
+  cy.getByTestID("min_col_ratio_label").contains("Min. collateral ratio");
 }
 
 export function checkVaultDetailCollateralAmounts(

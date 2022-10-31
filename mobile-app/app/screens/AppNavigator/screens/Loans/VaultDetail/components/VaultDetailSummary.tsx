@@ -97,6 +97,7 @@ export function VaultDetailSummary({
           value: translate("screens/VaultDetailScreen", "Vault ID"),
           themedProps: titleThemedProps,
           outerContainerStyle: tailwind("flex-1"),
+          testID: "collateral_vault_id_label",
         }}
         rhs={{
           value: vaultId,
