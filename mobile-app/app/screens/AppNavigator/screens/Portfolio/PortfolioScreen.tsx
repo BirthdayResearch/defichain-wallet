@@ -1,8 +1,4 @@
-import {
-  CommonActions,
-  useIsFocused,
-  useScrollToTop,
-} from "@react-navigation/native";
+import { useIsFocused, useScrollToTop } from "@react-navigation/native";
 import {
   ThemedIcon,
   ThemedScrollViewV2,
@@ -40,7 +36,7 @@ import { batch, useSelector } from "react-redux";
 import { Announcements } from "@screens/AppNavigator/screens/Portfolio/components/Announcements";
 import { DFIBalanceCard } from "@screens/AppNavigator/screens/Portfolio/components/DFIBalanceCard";
 import { translate } from "@translations";
-import { Platform, RefreshControl, View } from "react-native";
+import { Button, Platform, RefreshControl, Text, View } from "react-native";
 import { RootState } from "@store";
 import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 import {
@@ -71,7 +67,8 @@ import { BottomSheetHeaderBackButton } from "@screens/AppNavigator/screens/Portf
 import { BottomSheetHeader } from "@components/BottomSheetHeader";
 import * as SplashScreen from "expo-splash-screen";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { bottomTabDefaultRoutes } from "@screens/AppNavigator/constants/DefaultRoutes";
+import i18n from "i18next";
+import { useTranslation } from "react-i18next";
 import { AddressSelectionButtonV2 } from "./components/AddressSelectionButtonV2";
 import { ActionButtons } from "./components/ActionButtons";
 import {
@@ -90,6 +87,7 @@ import {
 } from "./components/TotalPortfolio";
 import { useTokenPrice } from "./hooks/TokenPrice";
 import { PortfolioParamList } from "./PortfolioNavigator";
+import { useLanguageKEK } from "../Dex/hook/Language";
 
 type Props = StackScreenProps<PortfolioParamList, "PortfolioScreen">;
 
@@ -98,6 +96,17 @@ export interface PortfolioRowToken extends WalletToken {
 }
 
 export function PortfolioScreen({ navigation }: Props): JSX.Element {
+  const { t } = useTranslation();
+  const { language, setLanguage } = useLanguageKEK();
+
+  const switchLang = useCallback(
+    (l: string) => {
+      setLanguage(l);
+      i18n.changeLanguage(l);
+    },
+    [language]
+  );
+
   const { isLight } = useThemeContext();
   const isFocused = useIsFocused();
   const height = useBottomTabBarHeight();
@@ -484,6 +493,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
     if (Platform.OS === "web") {
       setIsModalDisplayed(true);
     } else {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       isSortBottomSheet
         ? bottomSheetSortRef.current?.present()
         : bottomSheetRef.current?.present();
@@ -493,6 +503,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
     if (Platform.OS === "web") {
       setIsModalDisplayed(false);
     } else {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       isSortBottomSheet
         ? bottomSheetSortRef.current?.close()
         : bottomSheetRef.current?.close();
@@ -520,14 +531,6 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
     },
   };
 
-  const resetNavigationStack = () => {
-    navigation.dispatch(
-      CommonActions.reset({
-        routes: bottomTabDefaultRoutes,
-      })
-    );
-  };
-
   const addressBottomSheetScreen = useMemo(() => {
     return [
       {
@@ -547,7 +550,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           navigateToScreen: {
             screenName: "CreateOrEditAddressLabelFormV2",
           },
-          onSwitchAddress: resetNavigationStack,
+          // onSwitchAddress: resetNavigationStack,
         }),
         option: addressBottomSheetHeader,
       },
@@ -606,6 +609,22 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
             />
           </ThemedTouchableOpacityV2>
         </ThemedViewV2>
+
+        <View>
+          <Text>{t("Welcome to React") as string}</Text>
+          <Button
+            onPress={() => {
+              switchLang("de");
+            }}
+            title="DE"
+          />
+          <Button
+            onPress={() => {
+              switchLang("en");
+            }}
+            title="EN"
+          />
+        </View>
 
         <TotalPortfolio
           totalAvailableValue={totalAvailableValue}
