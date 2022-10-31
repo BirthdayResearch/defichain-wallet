@@ -8,6 +8,7 @@ import BigNumber from "bignumber.js";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { StyleProp, ViewStyle } from "react-native";
+import { useState } from "react";
 
 interface TransactionCardProps {
   maxValue: BigNumber;
@@ -83,7 +84,7 @@ export function TransactionCard({
           }
           dark={amountButtonsStyle?.dark ?? tailwind("border-mono-dark-v2-300")}
           style={[
-            tailwind("flex flex-row justify-around items-center py-2.5"),
+            tailwind("flex flex-row justify-center items-center py-2"),
             amountButtonsStyle?.style,
           ]}
         >
@@ -122,6 +123,7 @@ function SetAmountButton({
 }: SetAmountButtonProps): JSX.Element {
   const decimalPlace = 8;
   let value = amount.toFixed(decimalPlace);
+  const [isPressed, setIsPressed] = useState(false);
 
   switch (type) {
     case AmountButtonTypes.TwentyFive:
@@ -144,6 +146,8 @@ function SetAmountButton({
       onPress={() => {
         onPress(value, type);
       }}
+      onPressIn={() => setIsPressed(true)}
+      onPressOut={() => setIsPressed(false)}
       testID={`${type}_amount_button`}
       disabled={disabled}
     >
@@ -152,17 +156,27 @@ function SetAmountButton({
         dark={tailwind("border-mono-dark-v2-300")}
         style={tailwind({ "border-r-0.5": hasBorder })}
       >
-        <ThemedTextV2
-          light={tailwind("text-mono-light-v2-700", {
-            "opacity-30": disabled,
+        <ThemedViewV2
+          light={tailwind({
+            "bg-mono-light-v2-100 rounded-lg-v2": isPressed,
           })}
-          dark={tailwind("text-mono-dark-v2-700", {
-            "opacity-30": disabled,
+          dark={tailwind({
+            "bg-mono-dark-v2-100 rounded-lg-v2": isPressed,
           })}
-          style={tailwind("font-semibold-v2 text-xs px-7")}
+          style={tailwind("mx-1")}
         >
-          {translate("component/max", type)}
-        </ThemedTextV2>
+          <ThemedTextV2
+            light={tailwind("text-mono-light-v2-700", {
+              "opacity-30": disabled,
+            })}
+            dark={tailwind("text-mono-dark-v2-700", {
+              "opacity-30": disabled,
+            })}
+            style={tailwind("font-semibold-v2 text-xs px-6 py-1")}
+          >
+            {translate("component/max", type)}
+          </ThemedTextV2>
+        </ThemedViewV2>
       </ThemedViewV2>
     </ThemedTouchableOpacityV2>
   );
