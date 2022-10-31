@@ -70,6 +70,7 @@ export function CollateralizationRatioDisplayV2(
                 style={tailwind(
                   "text-sm font-normal-v2 text-green-v2 text-right"
                 )}
+                testID="resulting_collateralization"
               >
                 {props.customReadyText ??
                   translate(
