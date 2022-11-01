@@ -223,6 +223,7 @@ export function BorrowLoanTokenScreen({
     Warning,
     Error,
   }
+
   const [inputValidationMessage, setInputValidationMessage] = useState<{
     message: string;
     type: ValidationMessageType;
@@ -240,6 +241,7 @@ export function BorrowLoanTokenScreen({
   // Toast
   const toast = useToast();
   const TOAST_DURATION = 2000;
+
   function showToast(type: AmountButtonTypes): void {
     toast.hideAll();
     const isMax = type === AmountButtonTypes.Max;
@@ -328,7 +330,12 @@ export function BorrowLoanTokenScreen({
 
   useEffect(() => {
     if (isFocused) {
-      dispatch(fetchVaults({ address, client }));
+      dispatch(
+        fetchVaults({
+          address,
+          client,
+        })
+      );
     }
   }, [blockCount, address, isFocused]);
 
@@ -523,6 +530,7 @@ export function BorrowLoanTokenScreen({
                 "text-orange-v2":
                   inputValidationMessage.type === ValidationMessageType.Warning,
               })}
+              testID="validation_message"
             >
               {translate(
                 "screens/BorrowLoanTokenScreen",

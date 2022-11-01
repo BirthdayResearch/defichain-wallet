@@ -271,7 +271,11 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
         isAdd ? toastOptionsOnAdd.message : toastOptionsOnRemove.message,
         isAdd ? toastOptionsOnAdd.params : toastOptionsOnRemove.params
       ),
-      { type: "wallet_toast", placement: "top", duration: TOAST_DURATION }
+      {
+        type: "wallet_toast",
+        placement: "top",
+        duration: TOAST_DURATION,
+      }
     );
   }
 
@@ -435,6 +439,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
           style={tailwind("mx-5 text-xs font-normal-v2")}
           light={tailwind("text-mono-light-v2-500")}
           dark={tailwind("text-mono-dark-v2-500")}
+          testID="add_remove_title"
         >
           {translate(
             "screens/AddOrRemoveCollateralScreen",
