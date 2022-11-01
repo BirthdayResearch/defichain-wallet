@@ -1,4 +1,5 @@
 import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
+import BigNumber from "bignumber.js";
 import { checkVaultDetailValues } from "../../../../support/loanCommands";
 import { VaultStatus } from "../../../../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes";
 import { checkValueWithinRange } from "../../../../support/walletCommands";
@@ -118,7 +119,7 @@ context("Wallet - Loans", () => {
           loan.token.displaySymbol
         );
         cy.getByTestID(`loan_card_${i}_interest_rate`).contains(
-          `${loan.interest}%`
+          `${BigNumber(loan.interest).toFixed(2)}%`
         );
         // TODO update to fix volatility
         /* cy.getByTestID(`loan_card_${i}_loan_amount`)
