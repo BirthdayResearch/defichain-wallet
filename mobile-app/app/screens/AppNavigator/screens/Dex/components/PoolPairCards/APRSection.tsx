@@ -17,6 +17,7 @@ interface APRSectionProps {
 }
 
 export const APRSection = memo((props: APRSectionProps): JSX.Element => {
+  BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
   return (
     <View style={tailwind("flex flex-col items-end")}>
       <ThemedTextV2

@@ -162,6 +162,8 @@ function TransactionRow({
   const { color, iconName, amount, desc, medianTime, token } = item;
 
   const rowId = `transaction_row_${index}`;
+
+  BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
   return (
     <ThemedTouchableOpacity
       dark={tailwind("bg-gray-800 border-b border-gray-700")}

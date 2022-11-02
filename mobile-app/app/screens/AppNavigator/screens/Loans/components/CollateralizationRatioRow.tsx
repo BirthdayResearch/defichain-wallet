@@ -71,6 +71,8 @@ export function CollateralizationRatioValue(
     totalLoanAmount: props.totalLoanAmount,
   });
 
+  BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
+
   return (
     <NumberFormat
       value={BigNumber(props.value).toFixed(2)}

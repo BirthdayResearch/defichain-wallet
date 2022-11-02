@@ -23,6 +23,8 @@ export function TokenAmountText({
   const { isBalancesDisplayed, hiddenBalanceText } =
     useDisplayBalancesContext();
 
+  BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
+
   return (
     <NumberFormat
       displayType="text"

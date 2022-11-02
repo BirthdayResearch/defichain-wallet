@@ -37,6 +37,7 @@ export function VaultCardStatus({
   const { isLight } = useThemeContext();
   const canUseOperations = useLoanOperations(vault?.state);
   const CIRCLE_RADIUS = 58;
+  BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
   const isSuffixRequired = new BigNumber(colRatio ?? 0).gte(
     new BigNumber(1000)
   );

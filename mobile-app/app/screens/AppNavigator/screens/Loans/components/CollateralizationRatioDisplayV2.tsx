@@ -48,6 +48,8 @@ export function CollateralizationRatioDisplayV2(
     ? "orange-v2"
     : "green-v2";
 
+  BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
+
   return (
     <View testID={`${props.testID}_collateralization_bar`}>
       <View style={tailwind("flex-row items-start justify-between")}>

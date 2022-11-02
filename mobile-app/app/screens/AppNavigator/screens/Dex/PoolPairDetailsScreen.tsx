@@ -480,6 +480,7 @@ function APRDetail(props: {
   reward: number;
   commission: number;
 }): JSX.Element {
+  BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
   return (
     <ThemedViewV2
       style={tailwind("border-b-0.5 pb-5 flex-row")}
@@ -614,7 +615,6 @@ interface PoolPairActionRowProps {
   onPress: () => void;
   testID: string;
   iconType: IconType;
-  border?: boolean;
   isLast?: boolean;
 }
 

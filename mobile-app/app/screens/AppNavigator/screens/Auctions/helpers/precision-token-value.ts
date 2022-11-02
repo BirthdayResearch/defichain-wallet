@@ -9,6 +9,7 @@ import BigNumber from "bignumber.js";
 export function getPrecisedTokenValue(
   value: string | number | BigNumber
 ): string {
+  BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
   const usdValue = new BigNumber(value);
   return usdValue.isLessThanOrEqualTo(0.1)
     ? usdValue.toFixed(8)
@@ -25,6 +26,7 @@ export function getPrecisedTokenValue(
 export function getPrecisedCurrencyValue(
   value: string | number | BigNumber
 ): string {
+  BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
   const currencyValue = new BigNumber(value);
   return currencyValue.isLessThanOrEqualTo(0.1) &&
     currencyValue.isGreaterThan(0)
