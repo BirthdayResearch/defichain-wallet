@@ -36,6 +36,7 @@ import { WalletToast } from "@components/WalletToast";
 import { StoreServiceProvider } from "@contexts/StoreServiceProvider";
 import { ServiceProviderPersistence } from "@api/wallet/service_provider";
 import { FavouritePoolpairProvider } from "@contexts/FavouritePoolpairContext";
+import BigNumber from "bignumber.js";
 
 /**
  * Loads
@@ -66,6 +67,8 @@ export default function App(): JSX.Element | null {
   const customToast = {
     wallet_toast: (toast: ToastProps) => <WalletToast toast={toast} />,
   };
+
+  BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
 
   return (
     <NativeLoggingProvider>

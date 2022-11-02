@@ -15,7 +15,6 @@ export function InstantSwapRowTo({
   tokenAmount,
   tokenUsdAmount,
 }: InstantSwapRowToProps): JSX.Element {
-  BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
   return (
     <View style={tailwind("w-6/12 mr-2")}>
       <NumberFormat

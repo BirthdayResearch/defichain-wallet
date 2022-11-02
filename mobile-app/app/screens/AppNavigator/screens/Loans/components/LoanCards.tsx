@@ -545,7 +545,6 @@ function LoanCard({
   isBorrowHidden,
 }: LoanCardOptions): JSX.Element {
   const currentPrice = getPrecisedTokenValue(getActivePrice(symbol, price));
-  BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
 
   return (
     <ThemedViewV2

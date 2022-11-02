@@ -128,7 +128,6 @@ export function ConvertScreen(props: Props): JSX.Element {
   }
 
   function convert(sourceToken: ConversionIO, targetToken: ConversionIO): void {
-    BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
     if (hasPendingJob || hasPendingBroadcastJob) {
       return;
     }

@@ -222,7 +222,6 @@ export const AddOrRemoveCollateralForm = memo(
       resultingColRatio.isLessThanOrEqualTo(0) ||
       resultingColRatio.isNaN() ||
       !resultingColRatio.isFinite();
-    BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
 
     return (
       <ScrollView

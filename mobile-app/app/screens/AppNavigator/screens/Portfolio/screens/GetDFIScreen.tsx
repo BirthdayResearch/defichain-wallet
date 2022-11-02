@@ -227,7 +227,6 @@ function DFIOraclePrice(): JSX.Element {
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0;
   const logger = useLogger();
   const DFITokenIcon = getNativeIcon("_UTXO");
-  BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
 
   useEffect(() => {
     client.prices
