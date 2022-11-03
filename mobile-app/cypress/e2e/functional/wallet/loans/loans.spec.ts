@@ -4,6 +4,8 @@ import { checkVaultDetailValues } from "../../../../support/loanCommands";
 import { VaultStatus } from "../../../../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes";
 import { checkValueWithinRange } from "../../../../support/walletCommands";
 
+BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
+
 function checkTokensSortingOrder(
   sortedType: string,
   firstToken: string,
@@ -195,7 +197,11 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("vault_card_0_status").contains("Ready");
     cy.getByTestID("vault_card_0_collateral_token_group_DFI").should("exist");
     cy.getByTestID("vault_card_0_collateral_token_group_dBTC").should("exist");
-    cy.getByTestID("vault_card_0_max_loan_amount").contains("$1,000.00");
+    cy.getByTestID("vault_card_0_max_loan_amount")
+      .invoke("text")
+      .then((text) => {
+        checkValueWithinRange("1000.00", text.replace("$", ""));
+      });
     cy.getByTestID("vault_card_0_total_collateral_amount").contains(
       "$1,500.00"
     );

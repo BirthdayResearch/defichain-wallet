@@ -9,6 +9,8 @@ import {
 } from "../../../../support/loanCommands";
 import { checkValueWithinRange } from "../../../../support/walletCommands";
 
+BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
+
 function addCollateral(
   token: string,
   balance: string,

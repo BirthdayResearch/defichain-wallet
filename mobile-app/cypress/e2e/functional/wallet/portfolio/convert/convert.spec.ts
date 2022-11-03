@@ -1,6 +1,8 @@
 import BigNumber from "bignumber.js";
 import { checkValueWithinRange } from "../../../../../support/walletCommands";
 
+BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
+
 function createDFIWallet(): void {
   cy.createEmptyWallet(true);
   cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet().wait(10000);
