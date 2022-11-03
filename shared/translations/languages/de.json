@@ -1287,7 +1287,7 @@
     "Search with token name": "Suche über den Token-Namen",
     "Sort Tokens": "Token sortieren",
     "Sort by": "Sortieren nach",
-    "AVAILABLE TOKENS": "VERFÜGBARE TOKENS",
+    "AVAILABLE TOKENS": "VERFÜGBARE TOKEN",
     "Lowest oracle price": "Niedrigster Orakelpreis",
     "Highest oracle price": "Höchster Orakelpreis",
     "Lowest interest": "Niedrigster Zins",
@@ -1311,7 +1311,7 @@
     "Auction details": "Auktionsdetails",
     "Vault details": "Vault-Details",
     "Bid history": "Gebotsverlauf",
-    "Rewards": "Belohnungen"
+    "Rewards": "Rewards"
   },
   "components/LoanCard": {
     "Active Price": "Aktueller Preis",
