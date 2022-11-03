@@ -403,31 +403,55 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
                 name="amount"
                 render={({ field: { onChange, value } }) => (
                   <View
-                    style={tailwind("flex-row items-baseline justify-center")}
+                    style={tailwind("flex-row justify-center flex-1", {
+                      "items-baseline": Platform.OS !== "android",
+                    })}
                   >
-                    <ThemedTextInputV2
-                      style={tailwind("text-3xl text-center font-semibold-v2")}
-                      light={tailwind("text-mono-light-v2-900")}
-                      dark={tailwind("text-mono-dark-v2-900")}
-                      keyboardType="numeric"
-                      value={value}
-                      onChange={onChange}
-                      onChangeText={onAmountChange}
-                      placeholder="0.00"
-                      placeholderTextColor={getColor(
-                        isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
-                      )}
-                      testID="amount_input"
-                      ref={amountInputRef}
-                    />
-                    {Platform.OS !== "web" && (
-                      <ThemedTextV2
-                        style={tailwind(
-                          "text-xl font-normal-v2 pl-2 text-left"
+                    <View
+                      style={tailwind("max-w-4/5", {
+                        "max-w-3/4": Platform.OS === "android",
+                      })}
+                    >
+                      <ThemedTextInputV2
+                        style={[
+                          tailwind(
+                            "text-3xl text-center font-semibold-v2 text-right",
+                            {
+                              "h-20 flex-wrap flex-1":
+                                Platform.OS === "android",
+                            }
+                          ),
+                          { minWidth: 105 },
+                        ]}
+                        light={tailwind("text-mono-light-v2-900")}
+                        dark={tailwind("text-mono-dark-v2-900")}
+                        keyboardType="numeric"
+                        value={value}
+                        onChange={onChange}
+                        onChangeText={onAmountChange}
+                        placeholder="0.00"
+                        placeholderTextColor={getColor(
+                          isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
                         )}
+                        testID="amount_input"
+                        ref={amountInputRef}
+                        multiline
+                      />
+                    </View>
+                    {Platform.OS !== "web" && (
+                      <View
+                        style={tailwind({
+                          "justify-end mb-5": Platform.OS === "android",
+                        })}
                       >
-                        {token.displaySymbol}
-                      </ThemedTextV2>
+                        <ThemedTextV2
+                          style={tailwind(
+                            "text-lg font-normal-v2 pl-1 text-left"
+                          )}
+                        >
+                          {token.displaySymbol}
+                        </ThemedTextV2>
+                      </View>
                     )}
                   </View>
                 )}
