@@ -2,104 +2,92 @@ import "@testing-library/cypress/add-commands";
 import BigNumber from "bignumber.js";
 import { VaultStatus } from "../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes";
 
-export function checkCollateralDetailValues(
-  status: string,
-  totalCollateral: string,
-  totalLoans: string,
-  totalColRatio: number | undefined,
-  colRatioSuffix: string,
-  totalMinCol: string,
-  totalVaultInterest: string
-): void {
-  cy.getByTestID("collateral_vault_tag").contains(status);
-  cy.getByTestID("text_total_collateral_value").contains(totalCollateral);
-  cy.getByTestID("text_total_loans_value").contains(totalLoans);
-  if (totalColRatio !== undefined) {
-    cy.getByTestID("text_col_ratio_value")
-      .invoke("text")
-      .then((colRatioText) => {
-        const colRatio = parseFloat(colRatioText.replace("%", ""));
-        expect(colRatio).to.be.closeTo(totalColRatio, 1);
-      });
-  }
-  cy.getByTestID("text_col_ratio_value_suffix").contains(colRatioSuffix);
-  cy.getByTestID("text_min_col_ratio_value").contains(totalMinCol);
-  cy.getByTestID("text_vault_interest_value").contains(totalVaultInterest);
-}
-
 export function checkCollateralFormValues(
   title: string,
   symbol: string,
   balance: string
 ): void {
-  cy.getByTestID("form_title").contains(title);
-  cy.getByTestID(`token_symbol_${symbol}`).contains(symbol);
-  cy.getByTestID("form_balance_text").contains(balance);
+  cy.getByTestID("add_remove_title").contains(title);
+  cy.getByTestID(
+    "token_select_button_add_remove_collateral_quick_input_display_symbol"
+  ).contains(symbol);
+  cy.getByTestID("add_remove_collateral_token_balance").contains(balance);
 }
 
 export function checkConfirmEditCollateralValues(
   title: string,
   vaultId: string,
-  type: string,
   colFactor: string,
   symbol: string,
   amount: string,
   colValue: string,
   vaultShare: string
 ): void {
-  cy.getByTestID("edit_collateral_confirm_title").contains(title);
-  cy.getByTestID("edit_collateral_confirm_vault_id").contains(vaultId);
-  cy.getByTestID("text_transaction_type").contains(type);
-  cy.getByTestID("collateral_factor").contains(colFactor);
-  cy.getByTestID("text_token_id").contains(symbol);
-  cy.getByTestID("collateral_amount").contains(amount);
-  cy.getByTestID("collateral_amount_suffix").contains(symbol);
-  cy.getByTestID("collateral_value").contains(colValue);
-  cy.getByTestID("edit_collateral_confirm_vault_share").contains(vaultShare);
+  cy.getByTestID("confirm_title").contains(title);
+  cy.getByTestID("text_confirm_edit_collateral_amount").contains(amount);
+  cy.getByTestID("confirm_edit_vault_id").contains(vaultId);
+  cy.getByTestID("confirm_edit_collateral_factor").contains(colFactor);
+  cy.getByTestID("confirm_edit_collateral_amount").contains(
+    `${amount} ${symbol}`
+  );
+  cy.getByTestID("confirm_edit_collateral_amount_rhsUsdAmount").contains(
+    colValue
+  );
+  cy.getByTestID("confirm_edit_vault_share").contains(vaultShare);
 }
 
-export function checkCollateralCardValues(
+export function checkVaultDetailValues(
+  vaultID: string,
+  totalCollateral: string,
+  maxLoanAmount: string,
+  totalLoans: string,
+  vaultInterest: string,
+  minColRatio: string,
+  status?: string,
+  vaultRatio?: string
+): void {
+  if (status !== undefined) {
+    cy.getByTestID("vault_status").contains(status);
+  }
+  if (vaultRatio !== undefined) {
+    cy.getByTestID("vault_ratio").contains(vaultRatio);
+  }
+  cy.getByTestID("collateral_vault_id").contains(vaultID);
+  cy.getByTestID("total_collateral").contains(totalCollateral);
+  cy.getByTestID("max_loan_amount").contains(maxLoanAmount);
+  cy.getByTestID("total_loan").contains(totalLoans);
+  cy.getByTestID("interest").contains(vaultInterest);
+  cy.getByTestID("min_col_ratio").contains(minColRatio);
+  // Vault detail labels
+  cy.getByTestID("collateral_vault_id_label").contains("Vault ID");
+  cy.getByTestID("total_collateral_label").contains("Total collateral");
+  cy.getByTestID("max_loan_amount_label").contains("Max loan amount");
+  cy.getByTestID("total_loan_label").contains("Total loan");
+  cy.getByTestID("interest_label").contains("Interest (APR)");
+  cy.getByTestID("min_col_ratio_label").contains("Min. collateral ratio");
+}
+
+export function checkVaultDetailCollateralAmounts(
   symbol: string,
   amount: string,
   dollarValue: string,
   vaultShare: string
 ): void {
-  cy.getByTestID(`collateral_card_symbol_${symbol}`).contains(symbol);
-  cy.getByTestID(`collateral_card_col_amount_${symbol}`).contains(amount);
-  cy.getByTestID(`collateral_card_col_amount_usd_${symbol}`).contains(
-    dollarValue
+  cy.getByTestID(`vault_detail_collateral_${symbol}_amount`).contains(amount);
+  cy.getByTestID(`vault_detail_collateral_${symbol}_usd`).contains(dollarValue);
+  cy.getByTestID(`vault_detail_collateral_${symbol}_vault_share`).contains(
+    vaultShare
   );
-  cy.getByTestID(`collateral_card_vault_share_${symbol}`).contains(vaultShare);
 }
 
-export function checkVaultDetailValues(
-  status: string,
-  vaultID: string,
-  totalCollateral: string,
-  totalLoans: string,
-  vaultInterest: string
-): void {
-  cy.getByTestID(`vault_detail_status`).contains(status);
-  cy.getByTestID(`vault_detail_id`).contains(vaultID);
-  cy.getByTestID(`text_total_collateral_value`).contains(totalCollateral);
-  cy.getByTestID(`text_total_loan_value`).contains(totalLoans);
-  cy.getByTestID(`text_vault_interest`).contains(vaultInterest);
-}
-
-export function checkVaultDetailCollateralAmounts(
+export function checkVaultDetailLoansAmount(
   amount: string,
   displaySymbol: string,
-  vaultShare: string
-): void {
-  cy.getByTestID(`vault_detail_collateral_${displaySymbol}`).contains(
-    displaySymbol
-  );
-  cy.getByTestID(
-    `vault_detail_collateral_${displaySymbol}_vault_share`
-  ).contains(vaultShare);
-  cy.getByTestID(`vault_detail_collateral_${displaySymbol}_amount`).contains(
-    `${amount} ${displaySymbol}`
-  );
+  interest: string
+) {
+  cy.getByTestID(`loan_card_${displaySymbol}`).should("exist");
+  cy.getByTestID(`loan_card_${displaySymbol}_amount`).contains(amount);
+  cy.getByTestID(`loan_card_${displaySymbol}_interest`).contains(interest);
 }
 
 declare global {
@@ -191,8 +179,10 @@ Cypress.Commands.add("addCollateral", (amount: string, symbol: string) => {
 Cypress.Commands.add(
   "removeCollateral",
   (amount: string, symbol: string, resultingCollateralization?: number) => {
-    cy.getByTestID(`collateral_card_remove_${symbol}`).click();
-    cy.getByTestID("form_input_text").type(amount).blur();
+    cy.getByTestID(`collateral_remove_${symbol}`).click();
+    cy.getByTestID("text_input_add_remove_collateral_amount")
+      .type(amount)
+      .blur();
     if (resultingCollateralization !== undefined) {
       cy.getByTestID("resulting_collateralization")
         .invoke("text")
@@ -201,23 +191,19 @@ Cypress.Commands.add(
           expect(colRatio).to.be.closeTo(resultingCollateralization, 1);
         });
     }
-    cy.getByTestID("add_collateral_button_submit").click();
+    cy.getByTestID("add_remove_collateral_button_submit").click();
     cy.getByTestID("button_confirm_confirm_edit_collateral").click().wait(3000);
-    cy.getByTestID("txn_authorization_description").contains(
-      `Removing ${new BigNumber(amount).toFixed(
-        8
-      )} ${symbol} collateral from vault`
+    cy.getByTestID("txn_authorization_title").contains(
+      `Removing ${new BigNumber(amount).toFixed(8)} ${symbol} as collateral`
     );
     cy.closeOceanInterface();
   }
 );
 
 Cypress.Commands.add("takeLoan", (amount: string, symbol: string) => {
-  cy.getByTestID(
-    `loans_action_button_${symbol}_borrow_button_loans_cards`
-  ).click();
-  cy.getByTestID("form_input_borrow").type(amount).blur();
-  cy.getByTestID("borrow_loan_submit_button").click();
+  cy.getByTestID(`select_${symbol}`).click();
+  cy.getByTestID("text_input_borrow_amount").type(amount).blur();
+  cy.getByTestID("borrow_button_submit").click();
   cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);
   cy.closeOceanInterface();
 });

@@ -93,6 +93,7 @@ export function VaultCardStatus({
                 maxWidth: 124,
               },
             ]}
+            testID={`${testID}_vault_id`}
             dark={tailwind("text-mono-dark-v2-700")}
             light={tailwind("text-mono-light-v2-700")}
           >
@@ -164,7 +165,7 @@ export function VaultCardStatus({
               style={tailwind("flex-wrap self-center text-xs font-semibold-v2")}
               light={tailwind("text-mono-light-v2-100")}
               dark={tailwind("text-mono-dark-v2-100")}
-              testID="borrow_button"
+              testID={`${testID}_borrow_button`}
             >
               {translate("components/VaultCard", "Borrow")}
             </ThemedTextV2>
