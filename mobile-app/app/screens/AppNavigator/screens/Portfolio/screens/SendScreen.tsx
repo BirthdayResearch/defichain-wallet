@@ -403,7 +403,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
                 name="amount"
                 render={({ field: { onChange, value } }) => (
                   <View
-                    style={tailwind("flex-row justify-center flex-1", {
+                    style={tailwind("flex-row justify-center w-full", {
                       "items-baseline": Platform.OS !== "android",
                     })}
                   >
@@ -419,6 +419,9 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
                             {
                               "h-20 flex-wrap flex-1":
                                 Platform.OS === "android",
+                            },
+                            {
+                              "text-center": Platform.OS === "web",
                             }
                           ),
                           { minWidth: 105 },
@@ -438,21 +441,21 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
                         multiline
                       />
                     </View>
-                    {Platform.OS !== "web" && (
-                      <View
-                        style={tailwind({
-                          "justify-end mb-5": Platform.OS === "android",
-                        })}
+                    {/* {Platform.OS !== "web" && ( */}
+                    <View
+                      style={tailwind({
+                        "justify-end mb-5": Platform.OS === "android",
+                      })}
+                    >
+                      <ThemedTextV2
+                        style={tailwind(
+                          "text-lg font-normal-v2 pl-1 text-left"
+                        )}
                       >
-                        <ThemedTextV2
-                          style={tailwind(
-                            "text-lg font-normal-v2 pl-1 text-left"
-                          )}
-                        >
-                          {token.displaySymbol}
-                        </ThemedTextV2>
-                      </View>
-                    )}
+                        {token.displaySymbol}
+                      </ThemedTextV2>
+                    </View>
+                    {/* )} */}
                   </View>
                 )}
                 rules={{
