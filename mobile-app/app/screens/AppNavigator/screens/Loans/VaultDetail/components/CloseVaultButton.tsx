@@ -29,6 +29,7 @@ export function CloseVaultButton({
         "opacity-30": isCloseVaultDisabled,
       })}
       disabled={isCloseVaultDisabled}
+      testID="button_close_vault"
     >
       <ThemedTextV2
         style={tailwind("font-normal-v2 text-sm py-4.5")}

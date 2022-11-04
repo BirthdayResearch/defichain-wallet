@@ -78,9 +78,9 @@ exports[`Transaction Card should match snapshot 1`] = `
             "alignItems": "center",
             "display": "flex",
             "flexDirection": "row",
-            "justifyContent": "space-around",
-            "paddingBottom": 10,
-            "paddingTop": 10,
+            "justifyContent": "center",
+            "paddingBottom": 8,
+            "paddingTop": 8,
           },
           undefined,
         ],
@@ -134,33 +134,47 @@ exports[`Transaction Card should match snapshot 1`] = `
           ]
         }
       >
-        <Text
+        <View
           style={
             [
               {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
+                "marginLeft": 4,
+                "marginRight": 4,
               },
-              [
-                {
-                  "fontFamily": "SoraSemiBold",
-                  "fontSize": 12,
-                  "fontWeight": "600",
-                  "lineHeight": 16,
-                  "paddingLeft": 28,
-                  "paddingRight": 28,
-                },
-                {
-                  "color": "rgba(89, 89, 89, 1)",
-                },
-              ],
+              {},
             ]
           }
         >
-          25%
-        </Text>
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "SoraSemiBold",
+                    "fontSize": 12,
+                    "fontWeight": "600",
+                    "lineHeight": 16,
+                    "paddingBottom": 4,
+                    "paddingLeft": 24,
+                    "paddingRight": 24,
+                    "paddingTop": 4,
+                  },
+                  {
+                    "color": "rgba(89, 89, 89, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            25%
+          </Text>
+        </View>
       </View>
     </View>
     <View
@@ -204,33 +218,47 @@ exports[`Transaction Card should match snapshot 1`] = `
           ]
         }
       >
-        <Text
+        <View
           style={
             [
               {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
+                "marginLeft": 4,
+                "marginRight": 4,
               },
-              [
-                {
-                  "fontFamily": "SoraSemiBold",
-                  "fontSize": 12,
-                  "fontWeight": "600",
-                  "lineHeight": 16,
-                  "paddingLeft": 28,
-                  "paddingRight": 28,
-                },
-                {
-                  "color": "rgba(89, 89, 89, 1)",
-                },
-              ],
+              {},
             ]
           }
         >
-          50%
-        </Text>
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "SoraSemiBold",
+                    "fontSize": 12,
+                    "fontWeight": "600",
+                    "lineHeight": 16,
+                    "paddingBottom": 4,
+                    "paddingLeft": 24,
+                    "paddingRight": 24,
+                    "paddingTop": 4,
+                  },
+                  {
+                    "color": "rgba(89, 89, 89, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            50%
+          </Text>
+        </View>
       </View>
     </View>
     <View
@@ -274,33 +302,47 @@ exports[`Transaction Card should match snapshot 1`] = `
           ]
         }
       >
-        <Text
+        <View
           style={
             [
               {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
+                "marginLeft": 4,
+                "marginRight": 4,
               },
-              [
-                {
-                  "fontFamily": "SoraSemiBold",
-                  "fontSize": 12,
-                  "fontWeight": "600",
-                  "lineHeight": 16,
-                  "paddingLeft": 28,
-                  "paddingRight": 28,
-                },
-                {
-                  "color": "rgba(89, 89, 89, 1)",
-                },
-              ],
+              {},
             ]
           }
         >
-          75%
-        </Text>
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "SoraSemiBold",
+                    "fontSize": 12,
+                    "fontWeight": "600",
+                    "lineHeight": 16,
+                    "paddingBottom": 4,
+                    "paddingLeft": 24,
+                    "paddingRight": 24,
+                    "paddingTop": 4,
+                  },
+                  {
+                    "color": "rgba(89, 89, 89, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            75%
+          </Text>
+        </View>
       </View>
     </View>
     <View
@@ -342,33 +384,47 @@ exports[`Transaction Card should match snapshot 1`] = `
           ]
         }
       >
-        <Text
+        <View
           style={
             [
               {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
+                "marginLeft": 4,
+                "marginRight": 4,
               },
-              [
-                {
-                  "fontFamily": "SoraSemiBold",
-                  "fontSize": 12,
-                  "fontWeight": "600",
-                  "lineHeight": 16,
-                  "paddingLeft": 28,
-                  "paddingRight": 28,
-                },
-                {
-                  "color": "rgba(89, 89, 89, 1)",
-                },
-              ],
+              {},
             ]
           }
         >
-          MAX
-        </Text>
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "SoraSemiBold",
+                    "fontSize": 12,
+                    "fontWeight": "600",
+                    "lineHeight": 16,
+                    "paddingBottom": 4,
+                    "paddingLeft": 24,
+                    "paddingRight": 24,
+                    "paddingTop": 4,
+                  },
+                  {
+                    "color": "rgba(89, 89, 89, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            MAX
+          </Text>
+        </View>
       </View>
     </View>
   </View>
