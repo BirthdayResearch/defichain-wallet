@@ -105,7 +105,7 @@
     "tailwindcss": "^2.2.19"
   },
   "devDependencies": {
-    "@babel/core": "^7.19.6",
+    "@babel/core": "^7.20.2",
     "@cypress/code-coverage": "^3.10.0",
     "@expo/metro-config": "0.4.0",
     "@expo/webpack-config": "^0.17.2",
