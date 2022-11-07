@@ -34,7 +34,7 @@ export function DexActionButton({
       <ThemedTextV2
         light={tailwind("text-mono-light-v2-900")}
         dark={tailwind("text-mono-dark-v2-900")}
-        style={tailwind("font-semibold-v2 text-sm text-center")}
+        style={tailwind("font-semibold-v2 text-xs text-center")}
         testID={testID}
       >
         {label}
