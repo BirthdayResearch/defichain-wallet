@@ -50,10 +50,8 @@ export function DexScreen(): JSX.Element {
   const tokens = useSelector((state: RootState) =>
     tokensSelector(state.wallet)
   );
-  const [expandedCardIds, setExpandedCardIds] = useState<string[]>([]);
 
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
-    setExpandedCardIds([]);
     setActiveButtonGroup(buttonGroupTabKey);
     handleButtonFilter(buttonGroupTabKey);
   };
@@ -371,8 +369,6 @@ export function DexScreen(): JSX.Element {
           hasFetchedPoolpairData &&
           !isSearching && (
             <PoolPairCards
-              expandedCardIds={expandedCardIds}
-              setExpandedCardIds={setExpandedCardIds}
               availablePairs={filteredAvailablePairs}
               yourPairs={yourLPTokens}
               onAdd={onAdd}
@@ -380,7 +376,6 @@ export function DexScreen(): JSX.Element {
               onSwap={onSwap}
               onPress={onPress}
               type="available"
-              setIsSearching={setIsSearching}
               searchString={searchString}
               showSearchInput={showSearchInput}
               topLiquidityPairs={topLiquidityPairs}
@@ -394,8 +389,6 @@ export function DexScreen(): JSX.Element {
         )}
         {activeTab === TabKey.YourPoolPair && yourLPTokens.length > 0 && (
           <PoolPairCards
-            expandedCardIds={expandedCardIds}
-            setExpandedCardIds={setExpandedCardIds}
             availablePairs={filteredAvailablePairs}
             yourPairs={yourLPTokens}
             onAdd={onAdd}
@@ -403,7 +396,6 @@ export function DexScreen(): JSX.Element {
             onSwap={onSwap}
             onPress={onPress}
             type="your"
-            setIsSearching={setIsSearching}
             searchString={searchString}
             showSearchInput={showSearchInput}
             topLiquidityPairs={topLiquidityPairs}
