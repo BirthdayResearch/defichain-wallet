@@ -492,7 +492,7 @@ context("Wallet - Loans - 50% valid collateral token ratio", () => {
     cy.wait(3000);
     cy.getByTestID("vault_card_0_EMPTY").click();
     cy.getByTestID("action_add").click();
-    addCollateral("dBTC", "10", "10", "$500.00", "100", "0.00%", vaultId);
+    addCollateral("dBTC", "10", "10", "$500.00", "100", "100.00%", vaultId);
     cy.getByTestID("vault_card_0").click();
     cy.getByTestID("action_add").click();
     addCollateral("DFI", "18", "4.9", "$490.00", "100", "49.49%", vaultId);
