@@ -20,9 +20,9 @@ export function checkValueWithinRange(
   expectedVal: string,
   range: number = 2
 ): void {
-  const value = new BigNumber(actualVal.replace(/[≈$,]/gi, "").trim());
+  const value = new BigNumber(actualVal.replace(/[≈$,%()K]/gi, "").trim());
   const expectedValue = new BigNumber(
-    expectedVal.replace(/[≈$,]/gi, "").trim()
+    expectedVal.replace(/[≈$,%()K]/gi, "").trim()
   );
   expect(
     value.gte(expectedValue.minus(range)),

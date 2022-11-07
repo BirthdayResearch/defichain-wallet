@@ -210,7 +210,7 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
   it("should add dETH as collateral", () => {
     cy.getByTestID("vault_card_0").click();
     cy.getByTestID("action_add").click();
-    addCollateral("dETH", "10", "10", "$70.00", "70", "4.46%", vaultId);
+    addCollateral("dETH", "10", "10", "$70.00", "70", "4.45%", vaultId);
   });
 
   it("should display locked collateral token in portfolio even though it has no balance", () => {
@@ -245,7 +245,7 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
       "DFI",
       "10.00000000",
       "$1,000.00",
-      "63.45%"
+      "63.44%"
     );
     checkVaultDetailCollateralAmounts(
       "dBTC",
@@ -267,9 +267,9 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
       "DUSD",
       "5.1357",
       "1.8642",
-      "$2.24",
+      "$2.23",
       "120",
-      "0.26%",
+      "0.25%",
       vaultId
     );
   });
@@ -280,7 +280,7 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
       "DUSD",
       "3.2715",
       "3.2715",
-      "$3.93",
+      "$3.92",
       "120",
       "0.00%",
       vaultId
@@ -293,15 +293,15 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
       "DFI",
       "10.00000000",
       "$1,000.00",
-      "65.79%"
+      "65.78%"
     );
     checkVaultDetailCollateralAmounts(
       "dBTC",
       "9.00000000",
       "$450.00",
-      "29.61%"
+      "29.60%"
     );
-    checkVaultDetailCollateralAmounts("dETH", "10.00000000", "$70.00", "4.61%");
+    checkVaultDetailCollateralAmounts("dETH", "10.00000000", "$70.00", "4.60%");
   });
 });
 

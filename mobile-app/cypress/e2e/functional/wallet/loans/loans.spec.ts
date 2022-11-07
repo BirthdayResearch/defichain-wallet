@@ -300,19 +300,35 @@ context("Wallet - Loans - Take Loans", () => {
     cy.getByTestID("vault_liquidation_error")
       .should("be.visible")
       .contains("Amount entered will result in vault liquidation");
-    cy.getByTestID("borrow_transaction_detail_col_ratio").contains("150.00%");
+    cy.getByTestID("borrow_transaction_detail_col_ratio")
+      .invoke("text")
+      .then((text) => {
+        checkValueWithinRange("150.00", text, 0.1);
+      });
     cy.getByTestID("borrow_button_submit").should("have.attr", "aria-disabled");
     cy.getByTestID("text_input_borrow_amount").clear().type("100").blur();
     cy.getByTestID("borrow_amount_in_usd").contains("$100.00");
-    cy.getByTestID("borrow_transaction_detail_col_ratio").contains("1,500.00%");
+    cy.getByTestID("borrow_transaction_detail_col_ratio")
+      .invoke("text")
+      .then((text) => {
+        checkValueWithinRange("1,500.00", text, 0.1);
+      });
     cy.getByTestID("borrow_button_submit").click();
     // Confirm borrow screen
     cy.getByTestID("confirm_title").contains("You are borrowing");
     cy.getByTestID("text_borrow_amount").contains("100.00000000");
     cy.getByTestID("transaction_fee_value").should("exist");
     cy.getByTestID("vault_id_value").contains(vaultId);
-    cy.getByTestID("col_ratio_value").contains("1,500.00");
-    cy.getByTestID("estimated_annual_interest").contains("5.00000000 DUSD");
+    cy.getByTestID("col_ratio_value")
+      .invoke("text")
+      .then((text) => {
+        checkValueWithinRange("1,500.00", text, 0.1);
+      });
+    cy.getByTestID("estimated_annual_interest")
+      .invoke("text")
+      .then((text) => {
+        checkValueWithinRange("5.00000000", text.replace(" DUSD", ""), 0.1);
+      });
     cy.getByTestID("tokens_to_borrow").contains("100 DUSD");
     cy.getByTestID("tokens_to_borrow_rhsUsdAmount").contains("$100.00");
     cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);
@@ -324,7 +340,11 @@ context("Wallet - Loans - Take Loans", () => {
 
   it("should verify vault card", () => {
     cy.checkVaultStatusColor(VaultStatus.Healthy, "vault_card_0_min_ratio");
-    cy.getByTestID("vault_card_0_min_ratio").contains("1.50K %");
+    cy.getByTestID("vault_card_0_min_ratio")
+      .invoke("text")
+      .then((text) => {
+        checkValueWithinRange("1.50", text.replace("K %", ""), 0.1);
+      });
     cy.getByTestID("vault_card_0_max_loan_amount").should("exist");
     cy.getByTestID("vault_card_0_total_collateral_amount").contains(
       "$1,500.00"
