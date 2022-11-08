@@ -232,7 +232,8 @@
     "Copy": "Copiar",
     "Share": "Compartir",
     "WALLET ADDRESS": "DIRECCIÓN DE LA BILLETERA",
-    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Usar QR or direccion de billetera para recibir cualquier token (DST) o DFI"
+    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Usar QR or direccion de billetera para recibir cualquier token (DST) o DFI",
+    "Get DFI": "Get DFI"
   },
   "components/toaster": {
     "Copied": "Copiado",
