@@ -262,14 +262,14 @@ function USDValueRow(props: {
 function CurrencySwitcher({ currency }: { currency: string }): JSX.Element {
   return (
     <ThemedViewV2
-      style={tailwind("py-1 px-2 rounded-lg border-0.5", {
+      style={tailwind("py-1 px-2 rounded-lg border-0.5 self-center", {
         "-mb-1.5": Platform.OS === "android",
       })}
       light={tailwind("border-mono-light-v2-900")}
       dark={tailwind("border-mono-dark-v2-900")}
     >
       <ThemedTextV2
-        style={tailwind("text-xs text-center font-normal-v2")}
+        style={tailwind("text-xs font-normal-v2")}
         testID="portfolio_active_currency"
       >
         {currency}

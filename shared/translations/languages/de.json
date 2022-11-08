@@ -1253,8 +1253,8 @@
     "Create Vault": "Vault erstellen",
     "Confirm Create Vault": "Bestätige Vault-Erstellung",
     "Vault Detail": "Vault Detailansicht",
-    "Add Collateral": "Sicherheiten Hinzufügen",
-    "Remove Collateral": "Sicherheiten Entfernen",
+    "Add Collateral": "Sicherheiten hinzufügen",
+    "Remove Collateral": "Sicherheiten entfernen",
     "Confirm Add Collateral": "Bestätige das Hinzufügen von Sicherheiten",
     "Confirm Remove Collateral": "Entfernen von Sicherheiten",
     "Edit Collateral": "Sicherheiten bearbeiten",
@@ -1705,7 +1705,7 @@
     "I WANT TO ADD": "ICH MÖCHTE FOLGENDES HINZUFÜGEN",
     "I WANT TO REMOVE": "ICH MÖCHTE FOLGENDES ENTFERNEN",
     "Available: {{amount}} {{symbol}}": "Verfügbar: {{amount}} {{symbol}}",
-    "Available: {{amount}} {{symbol}} collateral": "Verfügbar: {{amount}} {{symbol}}-sicherheiten",
+    "Available: {{amount}} {{symbol}} collateral": "Verfügbar: {{amount}} {{symbol}}-Sicherheiten",
     "A small amount of UTXO is reserved for fees": "Ein geringer UTXO-Betrag ist für Gebühren reserviert",
     "Insufficient Balance": "Unzureichendes Guthaben",
     "Amount entered is higher than collateral": "Der eingegebene Betrag ist höher als die Besicherung erlaubt",
@@ -1920,7 +1920,7 @@
     "VAULT DETAILS": "VAULT-DETAILS",
     "{{interestRate}}% Interest": "{{interestRate}}% Zins",
     "min. ": "mind. ",
-    "You can only select a scheme lower than your vault's current collateralization.": "Du kannst nur ein Darlehensmodell wählen, dessen Besicherungsquote niedriger ist die deiner aktuellen Vault-Besicherung."
+    "You can only select a scheme lower than your vault's current collateralization.": "Du kannst nur ein Darlehensmodell wählen, dessen Besicherungsquote niedriger ist als die deiner aktuellen Vault-Besicherung."
   },
   "screens/ConfirmEditLoanSchemeScreen": {
     "You are editing scheme of vault": "Du bearbeitest das Vault-Modell",

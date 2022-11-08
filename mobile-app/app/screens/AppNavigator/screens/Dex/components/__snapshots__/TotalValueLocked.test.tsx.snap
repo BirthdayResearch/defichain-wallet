@@ -188,8 +188,8 @@ exports[`Total Value Locked should match snapshot 1`] = `
                 "borderTopRightRadius": 20,
                 "opacity": 1,
                 "paddingBottom": 8,
-                "paddingLeft": 20,
-                "paddingRight": 20,
+                "paddingLeft": 16,
+                "paddingRight": 16,
                 "paddingTop": 8,
               }
             }
@@ -206,9 +206,9 @@ exports[`Total Value Locked should match snapshot 1`] = `
                   [
                     {
                       "fontFamily": "SoraSemiBold",
-                      "fontSize": 14,
+                      "fontSize": 12,
                       "fontWeight": "600",
-                      "lineHeight": 20,
+                      "lineHeight": 16,
                     },
                     {
                       "color": "rgba(242, 242, 242, 1)",
