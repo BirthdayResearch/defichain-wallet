@@ -346,12 +346,12 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                   "borderTopRightRadius": 9999,
                   "borderTopWidth": 0,
                   "flexWrap": "wrap",
-                  "marginTop": 16,
+                  "marginTop": 8,
                   "opacity": 1,
-                  "paddingBottom": 4,
-                  "paddingLeft": 12,
-                  "paddingRight": 12,
-                  "paddingTop": 4,
+                  "paddingBottom": 8,
+                  "paddingLeft": 16,
+                  "paddingRight": 16,
+                  "paddingTop": 8,
                 }
               }
             >
@@ -738,12 +738,12 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                   "borderTopRightRadius": 9999,
                   "borderTopWidth": 0,
                   "flexWrap": "wrap",
-                  "marginTop": 16,
+                  "marginTop": 8,
                   "opacity": 1,
-                  "paddingBottom": 4,
-                  "paddingLeft": 12,
-                  "paddingRight": 12,
-                  "paddingTop": 4,
+                  "paddingBottom": 8,
+                  "paddingLeft": 16,
+                  "paddingRight": 16,
+                  "paddingTop": 8,
                 }
               }
             >
@@ -1130,12 +1130,12 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                   "borderTopRightRadius": 9999,
                   "borderTopWidth": 0,
                   "flexWrap": "wrap",
-                  "marginTop": 16,
+                  "marginTop": 8,
                   "opacity": 1,
-                  "paddingBottom": 4,
-                  "paddingLeft": 12,
-                  "paddingRight": 12,
-                  "paddingTop": 4,
+                  "paddingBottom": 8,
+                  "paddingLeft": 16,
+                  "paddingRight": 16,
+                  "paddingTop": 8,
                 }
               }
             >
