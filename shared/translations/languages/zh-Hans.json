@@ -2124,7 +2124,11 @@
     "Reset default service provider": "重置预设 服务供应商",
     "Provider": "服务提供者",
     "Reset provider": "重置提供者",
-    "This will reset the service provider\nto the default URL.": "这会将服务提供商重置为默认网络连结。"
+    "This will reset the service provider\nto the default URL.": "这会将服务提供商重置为默认网络连结。",
+    "Reset Service Provider": "Reset Service Provider",
+    "Go back": "Go back",
+    "GO BACK": "GO BACK",
+    "Reset": "Reset"
   },
   "components/QuickBid": {
     "QUICK BID": "快速标价",
