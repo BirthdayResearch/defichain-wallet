@@ -2111,7 +2111,7 @@
     "Server": "Serveur",
     "Service Provider": "Fournisseur de services",
     "UNLOCK": "Déverrouiller",
-    "RESET": "Réinitialiser",
+    "RESET": "RÉINITIALISATION",
     "Endpoint URL": "URL du point de terminaison",
     "ENDPOINT URL": "URL DU POINT DE TERMINAISON",
     "Custom": "Personnalisé",
@@ -2127,7 +2127,11 @@
     "Reset default service provider": "Réinitialiser le fournisseur de services par défaut",
     "Provider": "Fournisseur",
     "Reset provider": "Réinitialiser le fournisseur",
-    "This will reset the service provider\nto the default URL.": "Ceci réinitialisera le fournisseur de services à l'URL par défaut."
+    "This will reset the service provider\nto the default URL.": "Ceci réinitialisera le fournisseur de services à l'URL par défaut.",
+    "Reset Service Provider": "Réinitialiser le fournisseur de services",
+    "Go back": "Retour",
+    "GO BACK": "RETOUR",
+    "Reset": "Réinitialiser"
   },
   "components/QuickBid": {
     "QUICK BID": "ENCHÈRE RAPIDE",

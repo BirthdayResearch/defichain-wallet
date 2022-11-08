@@ -2097,7 +2097,7 @@
     "Server": "Server",
     "Service Provider": "Dienstanbieter",
     "UNLOCK": "Entsperren",
-    "RESET": "Zurücksetzen",
+    "RESET": "ZURÜCKSETZEN",
     "Endpoint URL": "URL des Endpunkts",
     "ENDPOINT URL": "URL DES ENDPUNKTS",
     "Custom": "Benutzerdefiniert",
@@ -2113,7 +2113,11 @@
     "Reset default service provider": "Standarddienstanbieter zurücksetzen",
     "Provider": "Anbieter",
     "Reset provider": "Anbieter zurücksetzen",
-    "This will reset the service provider\nto the default URL.": "Damit wird der Dienstanbieter auf die Standard-URL zurückgesetzt."
+    "This will reset the service provider\nto the default URL.": "Damit wird der Dienstanbieter auf die Standard-URL zurückgesetzt.",
+    "Reset Service Provider": "Dienstanbieter zurücksetzen",
+    "Go back": "Zurück",
+    "GO BACK": "ZURÜCK",
+    "Reset": "Zurücksetzen"
   },
   "components/QuickBid": {
     "QUICK BID": "SCHNELLES GEBOT",
