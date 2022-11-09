@@ -41,7 +41,7 @@ import {
 } from "@components/SkeletonLoader";
 import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
 import { ListRenderItemInfo } from "@shopify/flash-list";
-import { getNumberFormatValue } from "@screens/AppNavigator/hooks/getNumberFormatValue";
+import { getNumberFormatValue } from "@api/number-format-value";
 import {
   LoansTokensSortRow,
   LoansTokensSortType,

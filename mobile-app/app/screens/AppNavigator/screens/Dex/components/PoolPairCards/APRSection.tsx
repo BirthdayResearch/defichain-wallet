@@ -4,7 +4,7 @@ import { NumericFormat as NumberFormat } from "react-number-format";
 import { isEqual } from "lodash";
 import { tailwind } from "@tailwind";
 import { ThemedTextV2 } from "@components/themed";
-import { getNumberFormatValue } from "@screens/AppNavigator/hooks/getNumberFormatValue";
+import { getNumberFormatValue } from "@api/number-format-value";
 
 interface APRSectionProps {
   label: string;

@@ -31,7 +31,7 @@ import {
   ThemedTouchableOpacity,
 } from "@components/themed";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
-import { getNumberFormatValue } from "@screens/AppNavigator/hooks/getNumberFormatValue";
+import { getNumberFormatValue } from "@api/number-format-value";
 import { EmptyTransaction } from "./EmptyTransaction";
 import { activitiesToViewModel, VMTransaction } from "./screens/stateProcessor";
 

@@ -10,7 +10,7 @@ import { translate } from "@translations";
 import { useCollateralizationRatioColor } from "@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { BottomSheetInfo } from "@components/BottomSheetInfo";
-import { getNumberFormatValue } from "@screens/AppNavigator/hooks/getNumberFormatValue";
+import { getNumberFormatValue } from "@api/number-format-value";
 
 interface CollateralizationRatioDisplayProps {
   collateralizationRatio: string;
