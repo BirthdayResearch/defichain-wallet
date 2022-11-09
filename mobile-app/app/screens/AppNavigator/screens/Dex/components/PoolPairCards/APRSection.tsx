@@ -40,7 +40,11 @@ export const APRSection = memo((props: APRSectionProps): JSX.Element => {
         )}
         thousandSeparator
         suffix={props.value.suffix}
-        value={BigNumber(props.value.text).toFixed(props.value.decimalScale)}
+        value={
+          BigNumber(props.value.text).isNaN()
+            ? BigNumber("0").toFixed(props.value.decimalScale)
+            : BigNumber(props.value.text).toFixed(props.value.decimalScale)
+        }
       />
     </View>
   );

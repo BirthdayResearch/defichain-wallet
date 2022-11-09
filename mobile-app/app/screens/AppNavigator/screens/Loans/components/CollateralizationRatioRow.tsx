@@ -73,7 +73,11 @@ export function CollateralizationRatioValue(
 
   return (
     <NumberFormat
-      value={BigNumber(props.value).toFixed(2)}
+      value={
+        BigNumber(props.value).isNaN()
+          ? BigNumber("0").toFixed(2)
+          : BigNumber(props.value).toFixed(2)
+      }
       thousandSeparator
       displayType="text"
       suffix="%"

@@ -453,7 +453,11 @@ export const AddOrRemoveCollateralForm = memo(
                 </ThemedText>
               ) : (
                 <NumberFormat
-                  value={BigNumber(vaultValue).toFixed(2)}
+                  value={
+                    BigNumber(vaultValue).isNaN()
+                      ? BigNumber("0").toFixed(2)
+                      : BigNumber(vaultValue).toFixed(2)
+                  }
                   thousandSeparator
                   displayType="text"
                   suffix="%"

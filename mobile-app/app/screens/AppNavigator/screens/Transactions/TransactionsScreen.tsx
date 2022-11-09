@@ -210,7 +210,11 @@ function TransactionRow({
               </ThemedText>
             )}
             thousandSeparator
-            value={BigNumber(amount).toFixed(8)}
+            value={
+              BigNumber(amount).isNaN()
+                ? BigNumber("0").toFixed(8)
+                : BigNumber(amount).toFixed(8)
+            }
           />
 
           <View style={tailwind("ml-2 items-start")}>

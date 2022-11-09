@@ -143,7 +143,11 @@ function MinAndNextRatioText(props: {
           {translate("components/CollateralizationRatioDisplay", "Min:")}
         </ThemedText>
         <NumberFormat
-          value={BigNumber(props.minColRatio).toFixed(2)}
+          value={
+            BigNumber(props.minColRatio).isNaN()
+              ? BigNumber("0").toFixed(2)
+              : BigNumber(props.minColRatio).toFixed(2)
+          }
           thousandSeparator
           displayType="text"
           suffix="%"

@@ -46,6 +46,8 @@ import BigNumber from "bignumber.js";
 
 // eslint-disable-next-line import/no-default-export
 export default function App(): JSX.Element | null {
+  BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
+
   const isLoaded = useCachedResources();
   const colorScheme = useColorScheme();
   const logger = useLogger();
@@ -67,8 +69,6 @@ export default function App(): JSX.Element | null {
   const customToast = {
     wallet_toast: (toast: ToastProps) => <WalletToast toast={toast} />,
   };
-
-  BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
 
   return (
     <NativeLoggingProvider>

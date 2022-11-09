@@ -590,7 +590,11 @@ function LoanCard({
             })}
           </ThemedTextV2>
         )}
-        value={BigNumber(interestRate).toFixed(2)}
+        value={
+          BigNumber(interestRate).isNaN()
+            ? BigNumber("0").toFixed(2)
+            : BigNumber(interestRate).toFixed(2)
+        }
         suffix="%"
       />
       {!isBorrowHidden && (
