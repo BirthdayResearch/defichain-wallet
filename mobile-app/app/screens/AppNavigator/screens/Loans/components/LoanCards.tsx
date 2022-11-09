@@ -41,6 +41,7 @@ import {
 } from "@components/SkeletonLoader";
 import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
 import { ListRenderItemInfo } from "@shopify/flash-list";
+import { getNumberFormatValue } from "@screens/AppNavigator/hooks/getNumberFormatValue";
 import {
   LoansTokensSortRow,
   LoansTokensSortType,
@@ -590,11 +591,7 @@ function LoanCard({
             })}
           </ThemedTextV2>
         )}
-        value={
-          BigNumber(interestRate).isNaN()
-            ? BigNumber("0").toFixed(2)
-            : BigNumber(interestRate).toFixed(2)
-        }
+        value={getNumberFormatValue(interestRate, 2)}
         suffix="%"
       />
       {!isBorrowHidden && (

@@ -31,7 +31,7 @@ import {
   ThemedTouchableOpacity,
 } from "@components/themed";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
-import BigNumber from "bignumber.js";
+import { getNumberFormatValue } from "@screens/AppNavigator/hooks/getNumberFormatValue";
 import { EmptyTransaction } from "./EmptyTransaction";
 import { activitiesToViewModel, VMTransaction } from "./screens/stateProcessor";
 
@@ -210,11 +210,7 @@ function TransactionRow({
               </ThemedText>
             )}
             thousandSeparator
-            value={
-              BigNumber(amount).isNaN()
-                ? BigNumber("0").toFixed(8)
-                : BigNumber(amount).toFixed(8)
-            }
+            value={getNumberFormatValue(amount, 8)}
           />
 
           <View style={tailwind("ml-2 items-start")}>

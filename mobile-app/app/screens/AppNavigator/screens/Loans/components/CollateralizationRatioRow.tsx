@@ -1,8 +1,8 @@
 import { View } from "@components";
 import { BottomSheetInfo } from "@components/BottomSheetInfo";
 import { ThemedText, ThemedView } from "@components/themed";
+import { getNumberFormatValue } from "@screens/AppNavigator/hooks/getNumberFormatValue";
 import { tailwind } from "@tailwind";
-import BigNumber from "bignumber.js";
 
 import { NumericFormat as NumberFormat } from "react-number-format";
 import {
@@ -73,11 +73,7 @@ export function CollateralizationRatioValue(
 
   return (
     <NumberFormat
-      value={
-        BigNumber(props.value).isNaN()
-          ? BigNumber("0").toFixed(2)
-          : BigNumber(props.value).toFixed(2)
-      }
+      value={getNumberFormatValue(props.value, 2)}
       thousandSeparator
       displayType="text"
       suffix="%"

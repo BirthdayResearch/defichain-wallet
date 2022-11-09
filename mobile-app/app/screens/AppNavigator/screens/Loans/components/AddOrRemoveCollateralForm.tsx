@@ -34,6 +34,7 @@ import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/he
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { TokenIconGroup } from "@components/TokenIconGroup";
 import { IconTooltip } from "@components/tooltip/IconTooltip";
+import { getNumberFormatValue } from "@screens/AppNavigator/hooks/getNumberFormatValue";
 import { CollateralItem } from "../screens/EditCollateralScreen";
 import {
   getCollateralPrice,
@@ -453,11 +454,7 @@ export const AddOrRemoveCollateralForm = memo(
                 </ThemedText>
               ) : (
                 <NumberFormat
-                  value={
-                    BigNumber(vaultValue).isNaN()
-                      ? BigNumber("0").toFixed(2)
-                      : BigNumber(vaultValue).toFixed(2)
-                  }
+                  value={getNumberFormatValue(vaultValue, 2)}
                   thousandSeparator
                   displayType="text"
                   suffix="%"
