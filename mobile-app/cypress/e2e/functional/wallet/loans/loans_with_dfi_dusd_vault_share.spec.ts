@@ -1,5 +1,6 @@
 import { checkVaultDetailValues } from "../../../../support/loanCommands";
 import { EnvironmentNetwork } from "../../../../../../shared/environment";
+import { checkValueWithinRange } from "../../../../support/walletCommands";
 
 context(
   "Wallet - Loans - Take Loans using DFI and DUSD as 50% vault share",
@@ -81,23 +82,33 @@ context(
       cy.getByTestID("vault_liquidation_error")
         .should("be.visible")
         .contains("Amount entered will result in vault liquidation");
-      cy.getByTestID("borrow_transaction_detail_col_ratio").contains("101.40%");
+      cy.getByTestID("borrow_transaction_detail_col_ratio")
+        .invoke("text")
+        .then((text) => {
+          checkValueWithinRange("101.40%", text, 0.1);
+        });
       cy.getByTestID("borrow_button_submit").should(
         "have.attr",
         "aria-disabled"
       );
       cy.getByTestID("text_input_borrow_amount").clear().type("100").blur();
       cy.getByTestID("borrow_amount_in_usd").contains("$100.00");
-      cy.getByTestID("borrow_transaction_detail_col_ratio").contains(
-        "1,014.00%"
-      );
+      cy.getByTestID("borrow_transaction_detail_col_ratio")
+        .invoke("text")
+        .then((text) => {
+          checkValueWithinRange("1,014.00%", text, 0.1);
+        });
       cy.getByTestID("borrow_button_submit").click();
       // Confirm borrow screen
       cy.getByTestID("confirm_title").contains("You are borrowing");
       cy.getByTestID("text_borrow_amount").contains("100.00000000");
       cy.getByTestID("transaction_fee_value").should("exist");
       cy.getByTestID("vault_id_value").contains(vaultId);
-      cy.getByTestID("col_ratio_value").contains("1,014");
+      cy.getByTestID("col_ratio_value")
+        .invoke("text")
+        .then((text) => {
+          checkValueWithinRange("1014", text, 0.1);
+        });
       cy.getByTestID("tokens_to_borrow").contains("100 DUSD");
       cy.getByTestID("tokens_to_borrow_rhsUsdAmount").contains("$100.00");
       cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);

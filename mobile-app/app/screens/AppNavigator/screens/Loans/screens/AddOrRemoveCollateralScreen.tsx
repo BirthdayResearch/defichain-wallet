@@ -837,7 +837,6 @@ function TotalTokenCollateralRow(props: {
             style={tailwind("flex flex-row justify-end flex-wrap items-center")}
           >
             <NumberFormat
-              decimalScale={8}
               displayType="text"
               suffix={` ${props.symbol}`}
               renderText={(val: string) => (

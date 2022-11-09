@@ -36,6 +36,7 @@ import { WalletToast } from "@components/WalletToast";
 import { StoreServiceProvider } from "@contexts/StoreServiceProvider";
 import { ServiceProviderPersistence } from "@api/wallet/service_provider";
 import { FavouritePoolpairProvider } from "@contexts/FavouritePoolpairContext";
+import BigNumber from "bignumber.js";
 
 /**
  * Loads
@@ -45,6 +46,8 @@ import { FavouritePoolpairProvider } from "@contexts/FavouritePoolpairContext";
 
 // eslint-disable-next-line import/no-default-export
 export default function App(): JSX.Element | null {
+  BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
+
   const isLoaded = useCachedResources();
   const colorScheme = useColorScheme();
   const logger = useLogger();

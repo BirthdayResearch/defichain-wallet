@@ -10,6 +10,8 @@ import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import BigNumber from "bignumber.js";
 import { checkValueWithinRange } from "../../support/walletCommands";
 
+BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
+
 interface DexItem {
   type: "your" | "available";
   data: PoolPairData;

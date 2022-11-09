@@ -97,7 +97,6 @@ export function BatchCard(props: BatchCardProps): JSX.Element {
               <NumberFormat
                 displayType="text"
                 prefix="$"
-                decimalScale={2}
                 renderText={(value: string) => (
                   <ThemedTextV2
                     light={tailwind("text-mono-light-v2-1000")}

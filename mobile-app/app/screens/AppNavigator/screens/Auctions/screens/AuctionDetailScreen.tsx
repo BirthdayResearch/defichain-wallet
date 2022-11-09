@@ -35,7 +35,10 @@ import { BidInfo } from "@screens/AppNavigator/screens/Auctions/components/Batch
 import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";
 import { useAuctionTime } from "../hooks/AuctionTimeLeft";
 import { useAuctionBidValue } from "../hooks/AuctionBidValue";
-import { getPrecisedTokenValue } from "../helpers/precision-token-value";
+import {
+  getPrecisedCurrencyValue,
+  getPrecisedTokenValue,
+} from "../helpers/precision-token-value";
 import { useTokenPrice } from "../../Portfolio/hooks/TokenPrice";
 import { AuctionVaultDetails } from "../components/AuctionVaultDetails";
 import { AuctionsParamList } from "../AuctionNavigator";
@@ -190,7 +193,6 @@ export function AuctionDetailScreen(
           <NumberFormat
             displayType="text"
             prefix="$"
-            decimalScale={2}
             renderText={(value: string) => (
               <ThemedTextV2
                 light={tailwind("text-mono-light-v2-1000")}
@@ -209,7 +211,7 @@ export function AuctionDetailScreen(
               </ThemedTextV2>
             )}
             thousandSeparator
-            value={totalPrecisedCollateralsValue}
+            value={getPrecisedCurrencyValue(totalPrecisedCollateralsValue)}
           />
         </View>
 
