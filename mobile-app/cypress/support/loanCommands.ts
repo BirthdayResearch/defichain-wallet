@@ -1,6 +1,9 @@
 import "@testing-library/cypress/add-commands";
 import BigNumber from "bignumber.js";
 import { VaultStatus } from "../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes";
+import { checkValueWithinRange } from "./walletCommands";
+
+BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
 
 export function checkCollateralFormValues(
   title: string,
@@ -33,7 +36,11 @@ export function checkConfirmEditCollateralValues(
   cy.getByTestID("confirm_edit_collateral_amount_rhsUsdAmount").contains(
     colValue
   );
-  cy.getByTestID("confirm_edit_vault_share").contains(vaultShare);
+  cy.getByTestID("confirm_edit_vault_share")
+    .invoke("text")
+    .then((val) => {
+      checkValueWithinRange(val, vaultShare, 0.1);
+    });
 }
 
 export function checkVaultDetailValues(
@@ -50,11 +57,19 @@ export function checkVaultDetailValues(
     cy.getByTestID("vault_status").contains(status);
   }
   if (vaultRatio !== undefined) {
-    cy.getByTestID("vault_ratio").contains(vaultRatio);
+    cy.getByTestID("vault_ratio")
+      .invoke("text")
+      .then((val) => {
+        checkValueWithinRange(val, vaultRatio, 0.1);
+      });
   }
   cy.getByTestID("collateral_vault_id").contains(vaultID);
   cy.getByTestID("total_collateral").contains(totalCollateral);
-  cy.getByTestID("max_loan_amount").contains(maxLoanAmount);
+  cy.getByTestID("max_loan_amount")
+    .invoke("text")
+    .then((val) => {
+      checkValueWithinRange(val, maxLoanAmount, 0.1);
+    });
   cy.getByTestID("total_loan").contains(totalLoans);
   cy.getByTestID("interest").contains(vaultInterest);
   cy.getByTestID("min_col_ratio").contains(minColRatio);
@@ -75,9 +90,11 @@ export function checkVaultDetailCollateralAmounts(
 ): void {
   cy.getByTestID(`vault_detail_collateral_${symbol}_amount`).contains(amount);
   cy.getByTestID(`vault_detail_collateral_${symbol}_usd`).contains(dollarValue);
-  cy.getByTestID(`vault_detail_collateral_${symbol}_vault_share`).contains(
-    vaultShare
-  );
+  cy.getByTestID(`vault_detail_collateral_${symbol}_vault_share`)
+    .invoke("text")
+    .then((val) => {
+      checkValueWithinRange(val, vaultShare, 0.1);
+    });
 }
 
 export function checkVaultDetailLoansAmount(

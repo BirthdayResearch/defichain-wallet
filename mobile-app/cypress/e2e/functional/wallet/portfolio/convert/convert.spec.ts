@@ -1,6 +1,8 @@
 import BigNumber from "bignumber.js";
 import { checkValueWithinRange } from "../../../../../support/walletCommands";
 
+BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
+
 function createDFIWallet(): void {
   cy.createEmptyWallet(true);
   cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet().wait(10000);
@@ -154,7 +156,11 @@ context("Wallet - Convert DFI", () => {
     cy.getByTestID("confirm_title").contains("You are converting to tokens");
     cy.getByTestID("text_convert_amount").contains("1.00000000");
     cy.getByTestID("resulting_tokens_value").contains("11.00000000");
-    cy.getByTestID("resulting_tokens_sub_value").contains("36.79%");
+    cy.getByTestID("resulting_tokens_sub_value")
+      .invoke("text")
+      .then((text) => {
+        checkValueWithinRange("36.79%", text, 0.1);
+      });
     cy.getByTestID("resulting_utxo_value")
       .invoke("text")
       .then((text: string) => {

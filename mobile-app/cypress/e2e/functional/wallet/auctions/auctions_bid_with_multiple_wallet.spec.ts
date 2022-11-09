@@ -7,6 +7,8 @@ import {
   generateBlockUntilLiquidate,
 } from "../../../../support/walletCommands";
 
+BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
+
 context("Wallet - Auctions multi wallet bid", () => {
   let whale: WhaleApiClient;
   let retries = 0;

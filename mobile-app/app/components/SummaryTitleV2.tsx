@@ -51,7 +51,6 @@ export function SummaryTitleV2(props: ISummaryTitleProps): JSX.Element {
           )}
 
           <NumberFormat
-            decimalScale={8}
             displayType="text"
             renderText={(value) => (
               <ThemedTextV2

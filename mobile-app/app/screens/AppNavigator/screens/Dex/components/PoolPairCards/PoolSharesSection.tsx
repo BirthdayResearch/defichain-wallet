@@ -13,7 +13,6 @@ export function PoolSharesSection(props: PoolSharesSectionProps): JSX.Element {
   return (
     <View style={tailwind("flex flex-col")}>
       <NumberFormat
-        decimalScale={8}
         displayType="text"
         renderText={(textValue) => (
           <ThemedTextV2
@@ -27,7 +26,6 @@ export function PoolSharesSection(props: PoolSharesSectionProps): JSX.Element {
         value={props.walletTokenAmount.toFixed(8)}
       />
       <NumberFormat
-        decimalScale={2}
         displayType="text"
         renderText={(textValue) => (
           <ThemedTextV2

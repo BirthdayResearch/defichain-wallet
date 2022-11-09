@@ -41,6 +41,7 @@ import {
 } from "@components/SkeletonLoader";
 import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
 import { ListRenderItemInfo } from "@shopify/flash-list";
+import { getNumberFormatValue } from "@api/number-format-value";
 import {
   LoansTokensSortRow,
   LoansTokensSortType,
@@ -545,6 +546,7 @@ function LoanCard({
   isBorrowHidden,
 }: LoanCardOptions): JSX.Element {
   const currentPrice = getPrecisedTokenValue(getActivePrice(symbol, price));
+
   return (
     <ThemedViewV2
       testID={`loan_card_${displaySymbol}`}
@@ -575,7 +577,6 @@ function LoanCard({
         value={currentPrice}
       />
       <NumberFormat
-        decimalScale={2}
         thousandSeparator
         displayType="text"
         renderText={(value: string) => (
@@ -590,7 +591,7 @@ function LoanCard({
             })}
           </ThemedTextV2>
         )}
-        value={interestRate}
+        value={getNumberFormatValue(interestRate, 2)}
         suffix="%"
       />
       {!isBorrowHidden && (

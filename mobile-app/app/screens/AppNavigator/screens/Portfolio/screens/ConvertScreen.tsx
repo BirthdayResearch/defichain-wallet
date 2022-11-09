@@ -258,7 +258,6 @@ export function ConvertScreen(props: Props): JSX.Element {
             </ThemedTextV2>
             {inlineTextStatus === InlineTextStatus.Default && (
               <NumberFormat
-                decimalScale={8}
                 displayType="text"
                 suffix={` ${getDisplayUnit(sourceToken.unit)}`}
                 renderText={(value) => (
@@ -436,7 +435,6 @@ function ConversionResultCard(props: {
           })}`}
         </ThemedTextV2>
         <NumberFormat
-          decimalScale={8}
           displayType="text"
           renderText={(value) => (
             <ThemedTextV2

@@ -91,7 +91,6 @@ export function CollateralizationRatioDisplayV2(
         ) : (
           <NumberFormat
             value={new BigNumber(props.collateralizationRatio).toFixed(2)}
-            decimalScale={2}
             thousandSeparator
             displayType="text"
             suffix="%"
