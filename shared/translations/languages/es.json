@@ -334,7 +334,8 @@
     "{{percent}} of available {{unit}} entered": "{{percent}} de {{unit}} disponible introducido",
     "A small amount of UTXO is reserved for fees": "Una cantidad pequeña de UTXO es reservada para las tarifas",
     "Available {{unit}}": "Disponible {{unit}}",
-    "Resulting {{unit}}": "Resultando {{unit}}"
+    "Resulting {{unit}}": "Resultando {{unit}}",
+    "TO RECEIVE": "A RECIBIR"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm": "Confirmar",

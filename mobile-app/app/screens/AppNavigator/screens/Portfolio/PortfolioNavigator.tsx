@@ -320,7 +320,7 @@ export function PortfolioNavigator(): JSX.Element {
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerTitle: translate("screens/ConvertScreen", "Convert"),
+          headerTitle: translate("screens/ConvertScreen", "Convert DFI"),
         }}
       />
 

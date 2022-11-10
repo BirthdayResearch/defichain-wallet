@@ -40,10 +40,11 @@ context("Wallet - Convert DFI", () => {
       "aria-disabled"
     );
     cy.getByTestID("source_balance").contains(19.9);
-    cy.getByTestID("convert_source").contains("UTXO");
-    cy.getByTestID("convert_target").contains("Token");
+    cy.getByTestID("convert_token_button_FROM_display_symbol").contains("UTXO");
+    cy.getByTestID("convert_token_button_TO_display_symbol").contains("Token");
     cy.getByTestID("convert_input").type("1");
-    cy.getByTestID("convert_input_clear_button").click();
+    cy.getByTestID("convert_input").clear();
+    // cy.getByTestID("convert_input_clear_button").click();
     cy.getByTestID("button_continue_convert").should(
       "have.attr",
       "aria-disabled"
@@ -60,8 +61,10 @@ context("Wallet - Convert DFI", () => {
   it("should swap conversion", () => {
     cy.getByTestID("button_convert_mode_toggle").click().wait(4000);
     cy.getByTestID("source_balance").contains(10);
-    cy.getByTestID("convert_source").contains("Token");
-    cy.getByTestID("convert_target").contains("UTXO");
+    cy.getByTestID("convert_token_button_FROM_display_symbol").contains(
+      "Token"
+    );
+    cy.getByTestID("convert_token_button_TO_display_symbol").contains("UTXO");
     cy.getByTestID("button_continue_convert").should(
       "not.have.attr",
       "disabled"
