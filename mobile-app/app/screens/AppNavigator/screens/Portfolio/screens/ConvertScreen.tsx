@@ -175,7 +175,9 @@ export function ConvertScreen(props: Props): JSX.Element {
   return (
     <ThemedScrollViewV2 testID="convert_screen">
       <ThemedTextV2
-        style={tailwind("mx-10 text-xs font-normal-v2 mt-8 uppercase")}
+        style={tailwind(
+          "mx-10 text-xs font-normal-v2 mt-8 mb-4 tracking-wide-v2 uppercase"
+        )}
         light={tailwind("text-mono-light-v2-500")}
         dark={tailwind("text-mono-dark-v2-500")}
         testID="source_balance"
@@ -211,9 +213,7 @@ export function ConvertScreen(props: Props): JSX.Element {
           }}
         >
           <View
-            style={tailwind(
-              "flex flex-row justify-between items-center pl-5 mt-4"
-            )}
+            style={tailwind("flex flex-row justify-between items-center pl-5")}
           >
             <View style={tailwind("w-6/12 mr-2")}>
               <ThemedTextInputV2
@@ -254,7 +254,11 @@ export function ConvertScreen(props: Props): JSX.Element {
         </TransactionCard>
 
         <ThemedTextV2
-          style={tailwind("font-normal-v2 text-xs mx-5 mt-2")}
+          style={tailwind("font-normal-v2 text-xs mx-5", {
+            "mt-2":
+              inlineTextStatus === InlineTextStatus.Error ||
+              inlineTextStatus === InlineTextStatus.Warning,
+          })}
           light={tailwind("text-mono-light-v2-500", {
             "text-red-v2": inlineTextStatus === InlineTextStatus.Error,
             "text-orange-v2": inlineTextStatus === InlineTextStatus.Warning,
@@ -279,7 +283,7 @@ export function ConvertScreen(props: Props): JSX.Element {
           )}
         </ThemedTextV2>
 
-        <View style={tailwind("my-6 flex-row")}>
+        <View style={tailwind("my-8 flex-row")}>
           <ThemedViewV2
             dark={tailwind("border-mono-dark-v2-300")}
             light={tailwind("border-mono-light-v2-300")}
@@ -294,7 +298,7 @@ export function ConvertScreen(props: Props): JSX.Element {
         </View>
 
         <ThemedTextV2
-          style={tailwind("px-5 text-xs font-normal-v2")}
+          style={tailwind("px-5 text-xs font-normal-v2 tracking-wide-v2")}
           light={tailwind("text-mono-light-v2-500")}
           dark={tailwind("text-mono-dark-v2-500")}
           testID="tokenB_displaySymbol"
@@ -379,7 +383,7 @@ export function ConvertScreen(props: Props): JSX.Element {
         </View>
       </View>
       <View
-        style={tailwind("w-full px-7 pb-10 mt-20", {
+        style={tailwind("w-full px-12 pb-10 mt-20", {
           "mt-5": canConvert(convAmount, sourceToken.amount),
         })}
       >
@@ -514,7 +518,7 @@ function ConversionResultCard(props: {
           displayType="text"
           renderText={(value) => (
             <ThemedTextV2
-              style={tailwind("flex-1 font-semibold-v2 text-sm text-right")}
+              style={tailwind("flex-1 font-normal-v2 text-sm text-right")}
               light={tailwind("text-mono-light-v2-800")}
               dark={tailwind("text-mono-dark-v2-800")}
               testID="convert_result_amount"
@@ -575,14 +579,17 @@ function FixedTokenButton(props: {
       testID={`token_select_button_${props.testID}`}
       dark={tailwind("bg-mono-dark-v2-00 text-mono-dark-v2-500")}
       light={tailwind("bg-mono-light-v2-00 text-mono-light-v2-500")}
-      style={tailwind("flex flex-row items-center rounded-xl-v2 px-3 py-2.5")}
+      style={tailwind("flex flex-row rounded-xl px-3")}
       disabled
     >
       {props.symbol !== undefined && Icon !== undefined && (
         <>
-          <Icon testID="fixed_token_icon" height={28} width={28} />
+          <View style={tailwind("my-2")}>
+            <Icon testID="fixed_token_icon" height={24} width={24} />
+          </View>
+
           <ThemedTextV2
-            style={tailwind("ml-2 text-sm font-semibold-v2")}
+            style={tailwind("ml-2 text-sm font-semibold-v2 my-2.5")}
             dark={tailwind("text-mono-dark-v2-900")}
             light={tailwind("text-mono-light-v2-900")}
             testID={`convert_token_button_${props.testID}_display_symbol`}

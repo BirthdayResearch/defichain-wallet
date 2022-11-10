@@ -439,9 +439,11 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
       return;
     }
     /* timeout added to auto display keyboard on Android */
-    Platform.OS === "android"
-      ? setTimeout(() => amountInputRef?.current?.focus(), 0)
-      : amountInputRef?.current?.focus();
+    if (Platform.OS === "android") {
+      setTimeout(() => amountInputRef?.current?.focus(), 0);
+    } else {
+      amountInputRef?.current?.focus();
+    }
     setHasShownInputFocusBefore(true);
   }, [selectedTokenA, selectedTokenB]);
 
@@ -855,7 +857,9 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
           )}
 
           <ThemedTextV2
-            style={tailwind("mx-10 text-xs font-normal-v2 mt-8")}
+            style={tailwind(
+              "mx-10 text-xs font-normal-v2 mt-8 tracking-wide-v2"
+            )}
             light={tailwind("text-mono-light-v2-500")}
             dark={tailwind("text-mono-dark-v2-500")}
             testID="text_balance_amount"
@@ -1061,7 +1065,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
               light={tailwind("bg-transparent")}
             >
               <ThemedTextV2
-                style={tailwind("px-5 text-xs font-normal-v2")}
+                style={tailwind("px-5 text-xs font-normal-v2 tracking-wide-v2")}
                 light={tailwind("text-mono-light-v2-500")}
                 dark={tailwind("text-mono-dark-v2-500")}
                 testID="tokenB_displaySymbol"

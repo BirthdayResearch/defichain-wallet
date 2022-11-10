@@ -8670,6 +8670,9 @@
 	"tracking-wide": {
 		"letterSpacing": "0.025em"
 	},
+	"tracking-wide-v2": {
+		"letterSpacing": "0.02em"
+	},
 	"tracking-wider": {
 		"letterSpacing": "0.05em"
 	},
