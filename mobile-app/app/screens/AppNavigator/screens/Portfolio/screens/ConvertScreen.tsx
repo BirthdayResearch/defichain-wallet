@@ -175,7 +175,7 @@ export function ConvertScreen(props: Props): JSX.Element {
   return (
     <ThemedScrollViewV2 testID="convert_screen">
       <ThemedTextV2
-        style={tailwind("mx-10 text-xs font-normal-v2 mt-8 uppercase ")}
+        style={tailwind("mx-10 text-xs font-normal-v2 mt-8 uppercase")}
         light={tailwind("text-mono-light-v2-500")}
         dark={tailwind("text-mono-dark-v2-500")}
         testID="source_balance"
@@ -293,96 +293,90 @@ export function ConvertScreen(props: Props): JSX.Element {
           />
         </View>
 
-        <ThemedViewV2
-          style={tailwind("border-0 ")}
-          dark={tailwind("bg-transparent")}
-          light={tailwind("bg-transparent")}
+        <ThemedTextV2
+          style={tailwind("px-5 text-xs font-normal-v2")}
+          light={tailwind("text-mono-light-v2-500")}
+          dark={tailwind("text-mono-dark-v2-500")}
+          testID="tokenB_displaySymbol"
         >
-          <ThemedTextV2
-            style={tailwind("px-5 text-xs font-normal-v2")}
-            light={tailwind("text-mono-light-v2-500")}
-            dark={tailwind("text-mono-dark-v2-500")}
-            testID="tokenB_displaySymbol"
-          >
-            {translate("screens/ConvertScreen", "TO RECEIVE")}
-          </ThemedTextV2>
+          {translate("screens/ConvertScreen", "TO RECEIVE")}
+        </ThemedTextV2>
 
-          <View
-            style={tailwind(
-              "flex flex-row justify-between items-center pl-5 mt-4"
-            )}
-          >
-            <View style={tailwind("w-6/12 mr-2")}>
-              <NumberFormat
-                value={
-                  getNumberFormatValue(convAmount, 8) ===
-                  getNumberFormatValue(0, 8)
-                    ? "0.00"
-                    : getNumberFormatValue(convAmount, 8)
-                }
-                thousandSeparator
-                displayType="text"
-                renderText={(value) => (
-                  <ThemedTextV2
-                    style={tailwind("text-left font-normal-v2 text-xl")}
-                    light={tailwind("text-mono-light-v2-700")}
-                    dark={tailwind("text-mono-dark-v2-700")}
-                  >
-                    {value}
-                  </ThemedTextV2>
-                )}
-              />
-              <NumberFormat
-                value={getNumberFormatValue(convAmount, 2)}
-                thousandSeparator
-                displayType="text"
-                prefix="$"
-                renderText={(value) => (
-                  <ThemedTextV2
-                    light={tailwind("text-mono-light-v2-700")}
-                    dark={tailwind("text-mono-dark-v2-700")}
-                    style={tailwind("text-sm font-normal-v2")}
-                  >
-                    {value}
-                  </ThemedTextV2>
-                )}
-              />
-            </View>
-            <FixedTokenButton
-              testID={TokenListType.To}
-              symbol={targetToken?.displaySymbol}
-              unit={targetToken.unit}
-            />
-          </View>
-
-          <View style={tailwind("flex-col w-full")}>
-            <ConversionResultCard
-              unit={getDisplayUnit(targetToken.unit)}
-              oriTargetAmount={targetToken.amount}
-              totalTargetAmount={
-                amount !== ""
-                  ? BigNumber.maximum(
-                      new BigNumber(targetToken.amount).plus(convAmount),
-                      0
-                    ).toFixed(8)
-                  : "-"
+        <View
+          style={tailwind(
+            "flex flex-row justify-between items-center pl-5 mt-4"
+          )}
+        >
+          <View style={tailwind("w-6/12 mr-2")}>
+            <NumberFormat
+              value={
+                getNumberFormatValue(convAmount, 8) ===
+                getNumberFormatValue(0, 8)
+                  ? "0.00"
+                  : getNumberFormatValue(convAmount, 8)
               }
+              thousandSeparator
+              displayType="text"
+              renderText={(value) => (
+                <ThemedTextV2
+                  style={tailwind("text-left font-normal-v2 text-xl")}
+                  light={tailwind("text-mono-light-v2-700")}
+                  dark={tailwind("text-mono-dark-v2-700")}
+                >
+                  {value}
+                </ThemedTextV2>
+              )}
             />
-
-            {canConvert(convAmount, sourceToken.amount) && (
-              <ThemedTextV2
-                style={tailwind("font-normal-v2 text-xs text-center pt-12")}
-                light={tailwind("text-mono-light-v2-500")}
-                dark={tailwind("text-mono-dark-v2-500")}
-              >
-                {`${translate(
-                  "screens/ConvertScreen",
-                  "Review full details in the next screen"
-                )}`}
-              </ThemedTextV2>
-            )}
+            <NumberFormat
+              value={getNumberFormatValue(convAmount, 2)}
+              thousandSeparator
+              displayType="text"
+              prefix="$"
+              renderText={(value) => (
+                <ThemedTextV2
+                  light={tailwind("text-mono-light-v2-700")}
+                  dark={tailwind("text-mono-dark-v2-700")}
+                  style={tailwind("text-sm font-normal-v2")}
+                >
+                  {value}
+                </ThemedTextV2>
+              )}
+            />
           </View>
-        </ThemedViewV2>
+          <FixedTokenButton
+            testID={TokenListType.To}
+            symbol={targetToken?.displaySymbol}
+            unit={targetToken.unit}
+          />
+        </View>
+
+        <View style={tailwind("flex-col w-full")}>
+          <ConversionResultCard
+            unit={getDisplayUnit(targetToken.unit)}
+            oriTargetAmount={targetToken.amount}
+            totalTargetAmount={
+              amount !== ""
+                ? BigNumber.maximum(
+                    new BigNumber(targetToken.amount).plus(convAmount),
+                    0
+                  ).toFixed(8)
+                : "-"
+            }
+          />
+
+          {canConvert(convAmount, sourceToken.amount) && (
+            <ThemedTextV2
+              style={tailwind("font-normal-v2 text-xs text-center pt-12")}
+              light={tailwind("text-mono-light-v2-500")}
+              dark={tailwind("text-mono-dark-v2-500")}
+            >
+              {`${translate(
+                "screens/ConvertScreen",
+                "Review full details in the next screen"
+              )}`}
+            </ThemedTextV2>
+          )}
+        </View>
       </View>
       <View
         style={tailwind("w-full px-7 pb-10 mt-20", {
@@ -440,14 +434,12 @@ function getDFIBalances(
 function ConvertToggleButton(props: { onPress: () => void }): JSX.Element {
   return (
     <ThemedTouchableOpacityV2
-      style={tailwind("border-0 pt-10 items-center z-50")}
+      style={tailwind("border-0 items-center")}
       onPress={props.onPress}
     >
       <ThemedViewV2
         testID="button_convert_mode_toggle"
-        style={tailwind(
-          "absolute bottom-0 w-10 h-10 rounded-full items-center justify-center right-0 -mr-4"
-        )}
+        style={tailwind("w-10 h-10 rounded-full items-center justify-center")}
         light={tailwind("bg-mono-light-v2-900")}
         dark={tailwind("bg-mono-dark-v2-900")}
       >
@@ -455,8 +447,8 @@ function ConvertToggleButton(props: { onPress: () => void }): JSX.Element {
           iconType="MaterialIcons"
           name="swap-calls"
           size={24}
-          light={tailwind("text-mono-dark-v2-900")}
-          dark={tailwind("text-mono-light-v2-900")}
+          light={tailwind("text-mono-light-v2-00")}
+          dark={tailwind("text-mono-dark-v2-00")}
         />
       </ThemedViewV2>
     </ThemedTouchableOpacityV2>

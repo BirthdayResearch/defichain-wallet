@@ -44,7 +44,6 @@ context("Wallet - Convert DFI", () => {
     cy.getByTestID("convert_token_button_TO_display_symbol").contains("Token");
     cy.getByTestID("convert_input").type("1");
     cy.getByTestID("convert_input").clear();
-    // cy.getByTestID("convert_input_clear_button").click();
     cy.getByTestID("button_continue_convert").should(
       "have.attr",
       "aria-disabled"
