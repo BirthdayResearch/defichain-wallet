@@ -223,7 +223,8 @@
     "Copy": "Kopieren",
     "Share": "Teilen",
     "WALLET ADDRESS": "WALLETADRESSE",
-    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Verwende den QR-Code oder die Wallet-Adresse, um Token (DST) oder DFI zu erhalten"
+    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Verwende den QR-Code oder die Wallet-Adresse, um Token (DST) oder DFI zu erhalten",
+    "Get DFI": "DFI erwerben"
   },
   "components/toaster": {
     "Copied": "Kopiert",
@@ -2097,7 +2098,7 @@
     "Server": "Server",
     "Service Provider": "Dienstanbieter",
     "UNLOCK": "Entsperren",
-    "RESET": "Zurücksetzen",
+    "RESET": "ZURÜCKSETZEN",
     "Endpoint URL": "URL des Endpunkts",
     "ENDPOINT URL": "URL DES ENDPUNKTS",
     "Custom": "Benutzerdefiniert",
@@ -2113,7 +2114,11 @@
     "Reset default service provider": "Standarddienstanbieter zurücksetzen",
     "Provider": "Anbieter",
     "Reset provider": "Anbieter zurücksetzen",
-    "This will reset the service provider\nto the default URL.": "Damit wird der Dienstanbieter auf die Standard-URL zurückgesetzt."
+    "This will reset the service provider\nto the default URL.": "Damit wird der Dienstanbieter auf die Standard-URL zurückgesetzt.",
+    "Reset Service Provider": "Dienstanbieter zurücksetzen",
+    "Go back": "Zurück",
+    "GO BACK": "ZURÜCK",
+    "Reset": "Zurücksetzen"
   },
   "components/QuickBid": {
     "QUICK BID": "SCHNELLES GEBOT",

@@ -5,6 +5,8 @@ import {
   checkVaultDetailValues,
 } from "../../../../support/loanCommands";
 
+BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
+
 function borrowLoan(symbol: string, amount: string) {
   cy.getByTestID(`select_${symbol}`).click();
   cy.getByTestID("text_input_borrow_amount").clear().type(amount).blur();

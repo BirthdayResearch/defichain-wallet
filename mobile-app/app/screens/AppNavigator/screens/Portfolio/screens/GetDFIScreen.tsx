@@ -268,7 +268,6 @@ function DFIOraclePrice(): JSX.Element {
       <NumberFormat
         displayType="text"
         prefix="$"
-        decimalScale={2}
         renderText={(val: string) => (
           <ThemedTextV2
             light={tailwind("text-mono-light-v2-900")}

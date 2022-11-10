@@ -2,6 +2,8 @@ import { LoanScheme } from "@defichain/whale-api-client/dist/api/loan";
 import BigNumber from "bignumber.js";
 import { checkValueWithinRange } from "../../../../support/walletCommands";
 
+BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
+
 function setupWalletForConversion(): void {
   cy.getByTestID("bottom_tab_portfolio").click();
   cy.getByTestID("portfolio_list").should("exist");

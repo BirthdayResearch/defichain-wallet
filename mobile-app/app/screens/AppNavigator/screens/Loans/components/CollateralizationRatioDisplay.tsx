@@ -10,6 +10,7 @@ import { translate } from "@translations";
 import { useCollateralizationRatioColor } from "@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { BottomSheetInfo } from "@components/BottomSheetInfo";
+import { getNumberFormatValue } from "@api/number-format-value";
 
 interface CollateralizationRatioDisplayProps {
   collateralizationRatio: string;
@@ -108,7 +109,6 @@ function CollateralizationRatioText(props: {
       ) : (
         <NumberFormat
           value={new BigNumber(props.colRatio).toFixed(2)}
-          decimalScale={2}
           thousandSeparator
           displayType="text"
           suffix="%"
@@ -144,8 +144,7 @@ function MinAndNextRatioText(props: {
           {translate("components/CollateralizationRatioDisplay", "Min:")}
         </ThemedText>
         <NumberFormat
-          value={props.minColRatio}
-          decimalScale={2}
+          value={getNumberFormatValue(props.minColRatio, 2)}
           thousandSeparator
           displayType="text"
           suffix="%"
@@ -180,7 +179,6 @@ function MinAndNextRatioText(props: {
           </ThemedText>
           <NumberFormat
             value={new BigNumber(props.nextColRatio).toFixed(2)}
-            decimalScale={2}
             thousandSeparator
             displayType="text"
             prefix="~"
