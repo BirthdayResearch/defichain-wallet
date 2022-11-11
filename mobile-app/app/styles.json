@@ -8670,14 +8670,14 @@
 	"tracking-wide": {
 		"letterSpacing": "0.025em"
 	},
-	"tracking-wide-v2": {
-		"letterSpacing": "0.02em"
-	},
 	"tracking-wider": {
 		"letterSpacing": "0.05em"
 	},
 	"tracking-widest": {
 		"letterSpacing": "0.1em"
+	},
+	"tracking-wide-v2": {
+		"letterSpacing": "0.02em"
 	},
 	"text-transparent": {
 		"color": "transparent"

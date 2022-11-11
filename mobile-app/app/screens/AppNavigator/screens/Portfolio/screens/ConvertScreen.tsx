@@ -33,6 +33,7 @@ import { NumericFormat as NumberFormat } from "react-number-format";
 import { getNumberFormatValue } from "@api/number-format-value";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { TokenListType } from "../../Dex/CompositeSwap/SwapTokenSelectionScreen";
+import { useTokenPrice } from "../hooks/TokenPrice";
 
 export type ConversionMode = "utxosToAccount" | "accountToUtxos";
 type Props = StackScreenProps<PortfolioParamList, "ConvertScreen">;
@@ -53,6 +54,7 @@ export enum ConvertTokenUnit {
 }
 
 export function ConvertScreen(props: Props): JSX.Element {
+  const { getTokenPrice } = useTokenPrice();
   const { isLight } = useThemeContext();
   const client = useWhaleApiClient();
   const logger = useLogger();
@@ -230,7 +232,10 @@ export function ConvertScreen(props: Props): JSX.Element {
                 testID="convert_input"
               />
               <NumberFormat
-                value={getNumberFormatValue(amount, 2)}
+                value={getNumberFormatValue(
+                  getTokenPrice(sourceToken.symbol, BigNumber(amount)),
+                  2
+                )}
                 thousandSeparator
                 displayType="text"
                 prefix="$"
@@ -332,7 +337,10 @@ export function ConvertScreen(props: Props): JSX.Element {
               )}
             />
             <NumberFormat
-              value={getNumberFormatValue(convAmount, 2)}
+              value={getNumberFormatValue(
+                getTokenPrice(targetToken.symbol, BigNumber(convAmount)),
+                2
+              )}
               thousandSeparator
               displayType="text"
               prefix="$"
@@ -579,7 +587,7 @@ function FixedTokenButton(props: {
       testID={`token_select_button_${props.testID}`}
       dark={tailwind("bg-mono-dark-v2-00 text-mono-dark-v2-500")}
       light={tailwind("bg-mono-light-v2-00 text-mono-light-v2-500")}
-      style={tailwind("flex flex-row rounded-xl px-3")}
+      style={tailwind("flex flex-row rounded-lg-v2 px-3")}
       disabled
     >
       {props.symbol !== undefined && Icon !== undefined && (
