@@ -8676,6 +8676,9 @@
 	"tracking-widest": {
 		"letterSpacing": "0.1em"
 	},
+	"tracking-wide-v2": {
+		"letterSpacing": "0.02em"
+	},
 	"text-transparent": {
 		"color": "transparent"
 	},
