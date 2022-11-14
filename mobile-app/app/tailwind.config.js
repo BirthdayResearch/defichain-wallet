@@ -197,6 +197,9 @@ module.exports = {
       height: {
         15: 60,
       },
+      letterSpacing: {
+        "wide-v2": "0.02em"
+      },
     },
   },
 };
