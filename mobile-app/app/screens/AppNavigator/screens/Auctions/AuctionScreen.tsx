@@ -10,7 +10,7 @@ import { RootState } from "@store";
 import { StackScreenProps } from "@react-navigation/stack";
 import { translate } from "@translations";
 import { View } from "react-native";
-import { HeaderSearchInputV2 } from "@components/HeaderSearchInputV2";
+import { HeaderSearchInput } from "@components/HeaderSearchInput";
 import {
   AuctionBatchProps,
   fetchAuctions,
@@ -115,7 +115,7 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
             dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-100")}
             style={tailwind("pb-4.5 rounded-b-2xl border-b")}
           >
-            <HeaderSearchInputV2
+            <HeaderSearchInput
               searchString={searchString}
               onClearInput={() => setSearchString("")}
               onChangeInput={(text: string) => {

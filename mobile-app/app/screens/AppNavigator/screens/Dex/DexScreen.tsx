@@ -21,7 +21,7 @@ import { translate } from "@translations";
 import { tokensSelector, WalletToken } from "@store/wallet";
 import { RootState } from "@store";
 import { debounce } from "lodash";
-import { HeaderSearchInputV2 } from "@components/HeaderSearchInputV2";
+import { HeaderSearchInput } from "@components/HeaderSearchInput";
 import { ScrollView } from "react-native";
 import { ScreenName } from "@screens/enum";
 import { EmptyActivePoolpair } from "./components/EmptyActivePoolPair";
@@ -185,7 +185,7 @@ export function DexScreen(): JSX.Element {
               dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-100")}
               style={tailwind("pb-5 rounded-b-2xl border-b")}
             >
-              <HeaderSearchInputV2
+              <HeaderSearchInput
                 searchString={searchString}
                 onClearInput={() => setSearchString("")}
                 onChangeInput={(text: string) => {
