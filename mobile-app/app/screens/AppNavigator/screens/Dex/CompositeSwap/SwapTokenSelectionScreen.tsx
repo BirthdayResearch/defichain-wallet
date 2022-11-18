@@ -6,8 +6,8 @@ import {
   ThemedTouchableOpacityV2,
 } from "@components/themed";
 import { tailwind } from "@tailwind";
-import { TextInput, View } from "react-native";
-import { SearchInputV2 } from "@components/SearchInputV2";
+import { ListRenderItemInfo, TextInput, View } from "react-native";
+import { SearchInput } from "@components/SearchInput";
 import { useMemo, useRef, useState } from "react";
 import { useDebounce } from "@hooks/useDebounce";
 import { TokenIcon } from "@screens/AppNavigator/screens/Portfolio/components/TokenIcon";
@@ -88,7 +88,9 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
       testID="swap_token_selection_screen"
       data={filteredTokensWithBalance}
       keyExtractor={(item) => item.tokenId}
-      renderItem={({ item }: { item: SelectionToken }): JSX.Element => {
+      renderItem={({
+        item,
+      }: ListRenderItemInfo<SelectionToken>): JSX.Element => {
         return (
           <TokenItem
             fromToken={fromToken}
@@ -101,7 +103,7 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
       }}
       ListHeaderComponent={
         <View style={tailwind("flex-col mt-8")}>
-          <SearchInputV2
+          <SearchInput
             ref={searchRef}
             value={searchString}
             showClearButton={debouncedSearchTerm !== ""}

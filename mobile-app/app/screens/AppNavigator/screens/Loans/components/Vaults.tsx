@@ -26,7 +26,7 @@ import {
   SkeletonLoader,
   SkeletonLoaderScreen,
 } from "@components/SkeletonLoader";
-import { SearchInputV2 } from "@components/SearchInputV2";
+import { SearchInput } from "@components/SearchInput";
 import { translate } from "@translations";
 import { Platform, TextInput, View } from "react-native";
 import { useDebounce } from "@hooks/useDebounce";
@@ -204,7 +204,7 @@ export function Vaults(props: VaultsProps): JSX.Element {
       >
         <View style={tailwind("flex-col w-full")}>
           <View style={tailwind("flex-row flex w-full mb-4 items-center")}>
-            <SearchInputV2
+            <SearchInput
               ref={searchRef}
               value={searchString}
               showClearButton={debouncedSearchTerm !== ""}

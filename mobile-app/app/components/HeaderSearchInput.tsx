@@ -4,7 +4,7 @@ import { translate } from "@translations";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { SearchInputV2 } from "./SearchInputV2";
+import { SearchInput } from "./SearchInput";
 import { ThemedIcon, ThemedViewV2 } from "./themed";
 
 interface HeaderSearchInputProps {
@@ -46,7 +46,7 @@ export function HeaderSearchInput(props: HeaderSearchInputProps): JSX.Element {
           size={24}
         />
       </TouchableOpacity>
-      <SearchInputV2
+      <SearchInput
         light={tailwind("bg-mono-light-v2-100")}
         dark={tailwind("bg-mono-dark-v2-100")}
         inputStyle={{

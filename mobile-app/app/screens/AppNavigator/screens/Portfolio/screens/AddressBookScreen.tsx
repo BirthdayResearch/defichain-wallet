@@ -44,7 +44,7 @@ import LightEmptyAddress from "@assets/images/empty-address-light.png";
 import DarkEmptyAddress from "@assets/images/empty-address-dark.png";
 import { ButtonV2 } from "@components/ButtonV2";
 import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
-import { SearchInputV2 } from "@components/SearchInputV2";
+import { SearchInput } from "@components/SearchInput";
 import { RefreshIcon } from "@screens/WalletNavigator/assets/RefreshIcon";
 import { ButtonGroupV2 } from "../../Dex/components/ButtonGroupV2";
 import {
@@ -208,9 +208,11 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
       return;
     }
 
-    activeButtonGroup === ButtonGroupTabKey.Whitelisted
-      ? setFilteredAddressBook(sortByFavourite(addressBook))
-      : setFilteredWalletAddress(sortByFavourite(walletAddress));
+    if (activeButtonGroup === ButtonGroupTabKey.Whitelisted) {
+      setFilteredAddressBook(sortByFavourite(addressBook));
+    } else {
+      setFilteredWalletAddress(sortByFavourite(walletAddress));
+    }
   }, [addressBook, walletAddress, searchString, activeButtonGroup]);
 
   useEffect(() => {
@@ -225,11 +227,9 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
 
   const AddressListItem = useCallback(
     ({
-      item,
-      index,
-      testIDSuffix,
       selectedAddress,
       onAddressSelect,
+      ...props
     }: {
       item: LocalAddress;
       index: number;
@@ -237,6 +237,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
       selectedAddress?: string;
       onAddressSelect?: (address: string) => void;
     }): JSX.Element => {
+      const { item, index, testIDSuffix } = props;
       // condition to hide icon from send page
       const enableAddressSelect =
         selectedAddress !== undefined && onAddressSelect !== undefined;
@@ -393,7 +394,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
       >
         <View style={tailwind("flex flex-row items-center mt-8")}>
           <View style={tailwind("flex-1")}>
-            <SearchInputV2
+            <SearchInput
               value={searchString}
               ref={searchRef}
               containerStyle={[
