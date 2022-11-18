@@ -29,7 +29,7 @@ import {
   ButtonGroupTabKey,
   PoolPairCards,
 } from "./components/PoolPairCards/PoolPairCards";
-import { ButtonGroupV2 } from "./components/ButtonGroupV2";
+import { ButtonGroup } from "./components/ButtonGroup";
 import { DexParamList } from "./DexNavigator";
 import { AssetsFilterItem } from "../Portfolio/components/AssetsFilterRow";
 import { useFavouritePoolpairContext } from "../../../../contexts/FavouritePoolpairContext";
@@ -340,7 +340,7 @@ export function DexScreen(): JSX.Element {
             )}
           >
             <View style={tailwind("w-full px-5")}>
-              <ButtonGroupV2
+              <ButtonGroup
                 buttons={tabsList}
                 activeButtonGroupItem={activeTab}
                 testID="dex_tabs"

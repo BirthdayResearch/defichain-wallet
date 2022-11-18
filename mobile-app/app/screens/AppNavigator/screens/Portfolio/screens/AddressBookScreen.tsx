@@ -46,7 +46,7 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
 import { SearchInput } from "@components/SearchInput";
 import { RefreshIcon } from "@screens/WalletNavigator/assets/RefreshIcon";
-import { ButtonGroupV2 } from "../../Dex/components/ButtonGroupV2";
+import { ButtonGroup } from "../../Dex/components/ButtonGroup";
 import {
   FavoriteCheckIcon,
   FavoriteUnCheckIcon,
@@ -379,7 +379,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
         )}
       >
         <View style={tailwind("w-full px-5")}>
-          <ButtonGroupV2
+          <ButtonGroup
             buttons={buttonGroup}
             activeButtonGroupItem={activeButtonGroup}
             testID="address_button_group"
