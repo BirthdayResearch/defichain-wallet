@@ -40,7 +40,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { TextRowV2 } from "@components/TextRowV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { useToast } from "react-native-toast-notifications";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useAppDispatch } from "@hooks/useAppDispatch";
@@ -407,7 +407,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
           </ThemedTextV2>
         )}
       </View>
-      <SubmitButtonGroupV2
+      <SubmitButtonGroup
         isDisabled={isContinueDisabled}
         buttonStyle="mx-12 mt-5"
         label={translate("screens/PaybackLoanScreen", "Continue")}

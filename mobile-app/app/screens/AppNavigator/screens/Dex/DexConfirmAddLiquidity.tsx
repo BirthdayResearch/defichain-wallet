@@ -30,7 +30,7 @@ import {
   useLogger,
 } from "@shared-contexts/NativeLoggingProvider";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { ScreenName } from "@screens/enum";
 import { useTokenPrice } from "../Portfolio/hooks/TokenPrice";
 import { DexParamList } from "./DexNavigator";
@@ -47,7 +47,6 @@ export function ConfirmAddLiquidityScreen({ route }: Props): JSX.Element {
   const {
     pair,
     conversion,
-    pairInfo,
     originScreen,
     summary: { fee, percentage, tokenAAmount, tokenBAmount, lmTotalTokens },
   } = route.params;
@@ -299,7 +298,7 @@ export function ConfirmAddLiquidityScreen({ route }: Props): JSX.Element {
       </ThemedViewV2>
 
       <View style={tailwind("py-14 px-3")}>
-        <SubmitButtonGroupV2
+        <SubmitButtonGroup
           isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
           label={translate("screens/ConfirmAddLiq", "Add liquidity")}
           onSubmit={addLiquidity}

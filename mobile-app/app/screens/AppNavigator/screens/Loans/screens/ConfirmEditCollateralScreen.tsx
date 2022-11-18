@@ -34,7 +34,7 @@ import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { AddressType } from "@store/wallet";
 import { TextRowV2 } from "@components/TextRowV2";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { WalletAlert } from "@components/WalletAlert";
 import { LoanParamList } from "../LoansNavigator";
 import { CollateralizationRatioDisplay } from "../components/CollateralizationRatioDisplay";
@@ -382,7 +382,7 @@ export function ConfirmEditCollateralScreen({
           </ThemedTextV2>
         )}
 
-        <SubmitButtonGroupV2
+        <SubmitButtonGroup
           isDisabled={hasPendingJob || hasPendingBroadcastJob}
           label={translate(
             "screens/ConfirmEditCollateralScreen",

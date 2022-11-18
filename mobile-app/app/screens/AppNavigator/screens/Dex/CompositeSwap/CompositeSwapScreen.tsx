@@ -53,7 +53,7 @@ import {
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
 import { PriceRateProps } from "@components/PricesSection";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { TokenListType } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { useSwappableTokens } from "@screens/AppNavigator/screens/Dex/hook/SwappableTokens";
 import {
@@ -1178,7 +1178,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
               "mt-5": formState.isValid && isBothTokensSelected(),
             })}
           >
-            <SubmitButtonGroupV2
+            <SubmitButtonGroup
               isDisabled={
                 !formState.isValid ||
                 hasPendingJob ||

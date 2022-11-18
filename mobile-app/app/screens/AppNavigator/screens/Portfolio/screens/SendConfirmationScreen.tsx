@@ -40,7 +40,7 @@ import {
 } from "@components/themed";
 import { SummaryTitleV2 } from "@components/SummaryTitleV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
 type Props = StackScreenProps<PortfolioParamList, "SendConfirmationScreen">;
@@ -283,7 +283,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
         />
       )}
       <View style={tailwind("mx-7")}>
-        <SubmitButtonGroupV2
+        <SubmitButtonGroup
           isDisabled={
             isSubmitting ||
             hasPendingJob ||

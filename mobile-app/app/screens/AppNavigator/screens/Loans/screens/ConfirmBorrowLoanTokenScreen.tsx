@@ -33,7 +33,7 @@ import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { TextRowV2 } from "@components/TextRowV2";
 import { AddressType } from "@store/wallet";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { LoanParamList } from "../LoansNavigator";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { useCollateralizationRatioColor } from "../hooks/CollateralizationRatio";
@@ -137,7 +137,7 @@ export function ConfirmBorrowLoanTokenScreen({
           "Prices may vary during transaction confirmation."
         )}
       </ThemedTextV2>
-      <SubmitButtonGroupV2
+      <SubmitButtonGroup
         isDisabled={hasPendingJob || hasPendingBroadcastJob}
         label={translate("screens/ConfirmBorrowLoanTokenScreen", "Borrow")}
         onCancel={onCancel}

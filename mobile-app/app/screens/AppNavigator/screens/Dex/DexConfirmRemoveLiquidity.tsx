@@ -9,7 +9,7 @@ import BigNumber from "bignumber.js";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Dispatch } from "redux";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { ThemedScrollViewV2, ThemedViewV2 } from "@components/themed";
 import { RootState } from "@store";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
@@ -235,7 +235,7 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
         />
       </ThemedViewV2>
       <View style={tailwind("py-14 px-3")}>
-        <SubmitButtonGroupV2
+        <SubmitButtonGroup
           isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
           label={translate(
             "screens/ConfirmRemoveLiquidity",

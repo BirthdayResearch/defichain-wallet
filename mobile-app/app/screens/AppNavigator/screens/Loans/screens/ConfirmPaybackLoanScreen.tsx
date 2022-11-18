@@ -29,7 +29,7 @@ import { SummaryTitleV2 } from "@components/SummaryTitleV2";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { TextRowV2 } from "@components/TextRowV2";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { LoanParamList } from "../LoansNavigator";
 import { CollateralizationRatioDisplay } from "../components/CollateralizationRatioDisplay";
 
@@ -272,7 +272,7 @@ export function ConfirmPaybackLoanScreen({
               "Prices may vary during transaction confirmation."
             )}
           </ThemedTextV2>
-          <SubmitButtonGroupV2
+          <SubmitButtonGroup
             isDisabled={hasPendingJob || hasPendingBroadcastJob}
             label={translate(
               "screens/ConfirmPaybackLoanScreen",

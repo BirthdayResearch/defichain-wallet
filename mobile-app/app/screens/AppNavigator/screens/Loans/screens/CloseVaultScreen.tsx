@@ -27,7 +27,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import CloseVaultImg from "@assets/images/loans/close_vault.png";
 import { LoanParamList } from "../LoansNavigator";
 
@@ -117,7 +117,7 @@ export function CloseVaultScreen({ route, navigation }: Props): JSX.Element {
             "All remaining collaterals will be returned to your wallet."
           )}
         </ThemedTextV2>
-        <SubmitButtonGroupV2
+        <SubmitButtonGroup
           isDisabled={hasPendingJob || hasPendingBroadcastJob}
           label={translate("screens/CloseVaultScreen", "Close vault")}
           displayCancelBtn={false}
