@@ -16,7 +16,7 @@ import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { SummaryTitleV2 } from "@components/SummaryTitleV2";
+import { SummaryTitle } from "@components/SummaryTitle";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { AddressType } from "@store/wallet";
@@ -89,7 +89,7 @@ export function ConfirmWithdrawFutureSwapScreen({
       contentContainerStyle={tailwind("flex-grow justify-between pb-4")}
     >
       <View>
-        <SummaryTitleV2
+        <SummaryTitle
           title={translate(
             "screens/ConfirmWithdrawFutureSwapScreen",
             "You are withdrawing"

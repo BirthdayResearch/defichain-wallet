@@ -19,7 +19,7 @@ import { translate } from "@translations";
 import { ScreenName } from "@screens/enum";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { SummaryTitleV2 } from "@components/SummaryTitleV2";
+import { SummaryTitle } from "@components/SummaryTitle";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
@@ -109,7 +109,7 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
   return (
     <ThemedScrollViewV2 style={tailwind("py-8 px-5")}>
       <ThemedViewV2 style={tailwind("flex-col mb-9")}>
-        <SummaryTitleV2
+        <SummaryTitle
           iconA={pair.tokenA.displaySymbol}
           iconB={pair.tokenB.displaySymbol}
           fromAddress={address}

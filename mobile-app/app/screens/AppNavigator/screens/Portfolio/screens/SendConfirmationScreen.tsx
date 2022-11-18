@@ -38,7 +38,7 @@ import {
   ThemedView,
   ThemedViewV2,
 } from "@components/themed";
-import { SummaryTitleV2 } from "@components/SummaryTitleV2";
+import { SummaryTitle } from "@components/SummaryTitle";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { PortfolioParamList } from "../PortfolioNavigator";
@@ -135,7 +135,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
   return (
     <ThemedScrollViewV2 style={tailwind("pb-4")}>
       <ThemedViewV2 style={tailwind("flex-col px-5 py-8")}>
-        <SummaryTitleV2
+        <SummaryTitle
           amount={amount}
           title={translate("screens/SendConfirmationScreen", "You are sending")}
           testID="text_send_amount"

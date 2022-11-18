@@ -25,7 +25,7 @@ import { fetchVaults } from "@store/loans";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { SummaryTitleV2 } from "@components/SummaryTitleV2";
+import { SummaryTitle } from "@components/SummaryTitle";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { TextRowV2 } from "@components/TextRowV2";
@@ -112,7 +112,7 @@ export function ConfirmPaybackLoanScreen({
   return (
     <ThemedScrollViewV2 style={tailwind("pb-4")}>
       <ThemedViewV2 style={tailwind("flex-col px-5 py-8")}>
-        <SummaryTitleV2
+        <SummaryTitle
           amount={amountToPay}
           title={translate(
             "screens/ConfirmPaybackLoanScreen",
