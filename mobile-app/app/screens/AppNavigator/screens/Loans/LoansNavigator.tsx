@@ -18,7 +18,7 @@ import {
 import { CreateVaultScreenV2 } from "@screens/AppNavigator/screens/Loans/screens/CreateVaultScreenV2";
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { VaultDetailScreenV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/VaultDetailScreenV2";
+import { VaultDetailScreen } from "@screens/AppNavigator/screens/Loans/VaultDetail/VaultDetailScreen";
 import { tailwind } from "@tailwind";
 import { ThemedTextV2 } from "@components/themed";
 import { StyleProp, ViewStyle } from "react-native";
@@ -206,7 +206,7 @@ export function LoansNavigator(): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={VaultDetailScreenV2}
+        component={VaultDetailScreen}
         name="VaultDetailScreen"
         options={{
           ...screenOptions,
