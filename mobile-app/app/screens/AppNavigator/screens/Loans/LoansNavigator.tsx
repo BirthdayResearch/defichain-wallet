@@ -22,7 +22,6 @@ import { tailwind } from "@tailwind";
 import { ThemedTextV2 } from "@components/themed";
 import { StyleProp, ViewStyle } from "react-native";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
-import { ConfirmCreateVaultScreen } from "./screens/ConfirmCreateVaultScreen";
 import {
   CollateralItem,
   EditCollateralScreen,
@@ -41,11 +40,6 @@ export interface LoanParamList {
   LoansScreen: {};
   CreateVaultScreen: {
     loanScheme?: LoanScheme;
-  };
-  ConfirmCreateVaultScreen: {
-    loanScheme: LoanScheme;
-    fee: BigNumber;
-    conversion?: ConversionParam;
   };
   VaultDetailScreen: {
     vaultId: string;
@@ -185,18 +179,6 @@ export function LoansNavigator(): JSX.Element {
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
           headerTitle: translate("screens/LoansScreen", "Create Vault"),
-        }}
-      />
-      <LoansStack.Screen
-        component={ConfirmCreateVaultScreen}
-        name="ConfirmCreateVaultScreen"
-        options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate("screens/LoansScreen", "Confirm Create Vault")}
-            />
-          ),
         }}
       />
       <LoansStack.Screen
