@@ -18,7 +18,7 @@ interface VaultSectionTextProps extends NumberRowElement {
   customContainerStyle?: string;
 }
 
-export function VaultSectionTextRowV2(
+export function VaultSectionTextRow(
   props: IVaultSectionTextProps
 ): JSX.Element {
   return (
