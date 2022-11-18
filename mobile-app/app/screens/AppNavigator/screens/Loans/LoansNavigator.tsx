@@ -35,7 +35,7 @@ import { EditLoanSchemeScreen } from "./screens/EditLoanSchemeScreen";
 import { ConfirmEditLoanSchemeScreen } from "./screens/ConfirmEditLoanSchemeScreen";
 import { LoansFaq } from "./screens/LoansFaq";
 import { LoansScreen } from "./LoansScreen";
-import { CloseVaultScreenV2 } from "./screens/CloseVaultScreenV2";
+import { CloseVaultScreen } from "./screens/CloseVaultScreen";
 
 export interface LoanParamList {
   LoansScreen: {};
@@ -327,7 +327,7 @@ export function LoansNavigator(): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={CloseVaultScreenV2}
+        component={CloseVaultScreen}
         name="CloseVaultScreen"
         options={{
           ...screenOptions,
