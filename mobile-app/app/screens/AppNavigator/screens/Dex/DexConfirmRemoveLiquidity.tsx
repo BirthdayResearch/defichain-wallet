@@ -23,7 +23,7 @@ import { SummaryTitleV2 } from "@components/SummaryTitleV2";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import { PricesSectionV2 } from "@components/PricesSectionV2";
+import { PricesSection } from "@components/PricesSection";
 import { useTokenPrice } from "../Portfolio/hooks/TokenPrice";
 import { DexParamList } from "./DexNavigator";
 
@@ -172,7 +172,7 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
         light={tailwind("border-mono-light-v2-300")}
         style={tailwind("pt-5 border-t-0.5 border-b-0.5")}
       >
-        <PricesSectionV2
+        <PricesSection
           key="prices"
           testID="confirm_pricerate_value"
           priceRates={[

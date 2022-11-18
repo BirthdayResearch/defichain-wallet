@@ -52,7 +52,7 @@ import {
   BottomSheetWebWithNavV2,
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
-import { PriceRateProps } from "@components/PricesSectionV2";
+import { PriceRateProps } from "@components/PricesSection";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { TokenListType } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { useSwappableTokens } from "@screens/AppNavigator/screens/Dex/hook/SwappableTokens";
@@ -1144,7 +1144,6 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
                   instantSwapPriceRate={priceRates}
                   activeTab={activeButtonGroup}
                   executionBlock={executionBlock}
-                  transactionDate={transactionDate}
                   transactionFee={fee}
                   totalFees={totalFees}
                   dexStabilizationFee={dexStabilizationFee}

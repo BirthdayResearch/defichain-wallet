@@ -39,7 +39,7 @@ import { ConfirmSummaryTitle } from "@components/ConfirmSummaryTitle";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { TextRowV2 } from "@components/TextRowV2";
-import { PricesSectionV2 } from "@components/PricesSectionV2";
+import { PricesSection } from "@components/PricesSection";
 import Checkbox from "expo-checkbox";
 import { DexParamList } from "../DexNavigator";
 import { OwnedTokenState, TokenState } from "./CompositeSwapScreen";
@@ -257,7 +257,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
           light={tailwind("border-gray-300")}
           style={tailwind("py-5 border-t-0.5")}
         >
-          <PricesSectionV2
+          <PricesSection
             priceRates={priceRates}
             testID="instant_swap_summary"
           />

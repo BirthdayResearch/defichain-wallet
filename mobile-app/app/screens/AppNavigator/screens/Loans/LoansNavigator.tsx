@@ -4,7 +4,6 @@ import { HeaderTitle } from "@components/HeaderTitle";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { ConversionParam } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
-import { TabKey } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailTabSection";
 import { PaybackLoanScreen } from "@screens/AppNavigator/screens/Loans/screens/PaybackLoanScreen";
 import { ConfirmPaybackLoanScreen } from "@screens/AppNavigator/screens/Loans/screens/ConfirmPaybackLoanScreen";
 import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
@@ -30,7 +29,6 @@ import {
 } from "./screens/EditCollateralScreen";
 import { AddOrRemoveCollateralScreen } from "./screens/AddOrRemoveCollateralScreen";
 import { ConfirmEditCollateralScreen } from "./screens/ConfirmEditCollateralScreen";
-import { ChooseLoanTokenScreen } from "./screens/ChooseLoanTokenScreen";
 import { BorrowLoanTokenScreen } from "./screens/BorrowLoanTokenScreen";
 import { ConfirmBorrowLoanTokenScreen } from "./screens/ConfirmBorrowLoanTokenScreen";
 import { EditLoanSchemeScreen } from "./screens/EditLoanSchemeScreen";
@@ -51,7 +49,6 @@ export interface LoanParamList {
   };
   VaultDetailScreen: {
     vaultId: string;
-    tab?: TabKey;
   };
   EditCollateralScreen: {
     vaultId: string;
@@ -61,9 +58,6 @@ export interface LoanParamList {
     collateralItem: CollateralItem;
     collateralTokens: CollateralItem[];
     isAdd: boolean;
-  };
-  ChooseLoanTokenScreen: {
-    vaultId?: string;
   };
   ConfirmEditCollateralScreen: {
     vault: LoanVaultActive;
@@ -251,21 +245,6 @@ export function LoansNavigator(): JSX.Element {
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
           headerTitle: translate("screens/LoansScreen", "Confirm"),
-        }}
-      />
-      <LoansStack.Screen
-        component={ChooseLoanTokenScreen}
-        name="ChooseLoanTokenScreen"
-        options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate(
-                "screens/LoansScreen",
-                "Choose Loan Token to Borrow"
-              )}
-            />
-          ),
         }}
       />
       <LoansStack.Screen
