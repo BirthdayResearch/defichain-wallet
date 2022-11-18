@@ -37,7 +37,7 @@ import { TextRowV2 } from "@components/TextRowV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { WalletAlert } from "@components/WalletAlert";
 import { LoanParamList } from "../LoansNavigator";
-import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
+import { CollateralizationRatioDisplay } from "../components/CollateralizationRatioDisplay";
 
 type Props = StackScreenProps<LoanParamList, "ConfirmEditCollateralScreen">;
 
@@ -307,7 +307,7 @@ export function ConfirmEditCollateralScreen({
         }}
       />
       <View style={tailwind("pt-5")}>
-        <CollateralizationRatioDisplayV2
+        <CollateralizationRatioDisplay
           collateralizationRatio={resultingColRatio.toFixed(2)}
           minCollateralizationRatio={vault.loanScheme.minColRatio}
           totalLoanAmount={vault.loanValue}

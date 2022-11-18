@@ -62,7 +62,7 @@ import {
 } from "../hooks/CollateralPrice";
 import { CollateralItem } from "../screens/EditCollateralScreen";
 import { ControlledTextInput } from "../components/ControlledTextInput";
-import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
+import { CollateralizationRatioDisplay } from "../components/CollateralizationRatioDisplay";
 import { useMaxLoan } from "../hooks/MaxLoanAmount";
 
 type Props = StackScreenProps<LoanParamList, "AddOrRemoveCollateralScreen">;
@@ -730,7 +730,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
             collateralFactor={selectedCollateralItem.factor}
           />
           <View style={tailwind("pt-5")}>
-            <CollateralizationRatioDisplayV2
+            <CollateralizationRatioDisplay
               collateralizationRatio={resultingColRatio.toFixed(2)}
               minCollateralizationRatio={vault.loanScheme.minColRatio}
               totalLoanAmount={vault.loanValue}

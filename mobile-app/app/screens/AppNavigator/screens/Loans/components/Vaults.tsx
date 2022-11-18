@@ -40,7 +40,7 @@ import {
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
 import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
-import { EmptyVaultV2 } from "./EmptyVaultV2";
+import { EmptyVault } from "./EmptyVault";
 import { PriceOracleInfo } from "./PriceOracleInfo";
 import { BottomSheetModalInfo } from "../../../../../components/BottomSheetModalInfo";
 import { VaultCard } from "./VaultCard";
@@ -193,7 +193,7 @@ export function Vaults(props: VaultsProps): JSX.Element {
       </View>
     );
   } else if (vaults?.length === 0) {
-    return <EmptyVaultV2 handleRefresh={() => {}} isLoading={false} />;
+    return <EmptyVault handleRefresh={() => {}} isLoading={false} />;
   }
 
   return (

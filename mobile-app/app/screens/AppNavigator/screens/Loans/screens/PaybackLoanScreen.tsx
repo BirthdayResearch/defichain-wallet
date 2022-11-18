@@ -49,7 +49,7 @@ import { getTokenAmount } from "../hooks/LoanPaymentTokenRate";
 import { useResultingCollateralRatio } from "../hooks/CollateralPrice";
 import { useInterestPerBlock } from "../hooks/InterestPerBlock";
 import { ActiveUSDValueV2 } from "../VaultDetail/components/ActiveUSDValueV2";
-import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
+import { CollateralizationRatioDisplay } from "../components/CollateralizationRatioDisplay";
 
 type Props = StackScreenProps<LoanParamList, "PaybackLoanScreen">;
 
@@ -529,7 +529,7 @@ function TransactionDetailsSection({
         />
       )}
 
-      <CollateralizationRatioDisplayV2
+      <CollateralizationRatioDisplay
         collateralizationRatio={resultingColRatio.toFixed(8)}
         minCollateralizationRatio={vault.loanScheme.minColRatio}
         collateralValue={collateralValue.toFixed(8)}

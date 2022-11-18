@@ -31,7 +31,7 @@ import { NumberRowV2 } from "@components/NumberRowV2";
 import { TextRowV2 } from "@components/TextRowV2";
 import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
 import { LoanParamList } from "../LoansNavigator";
-import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
+import { CollateralizationRatioDisplay } from "../components/CollateralizationRatioDisplay";
 
 type Props = StackScreenProps<LoanParamList, "ConfirmPaybackLoanScreen">;
 
@@ -184,7 +184,7 @@ export function ConfirmPaybackLoanScreen({
         />
 
         <View style={tailwind("my-5")}>
-          <CollateralizationRatioDisplayV2
+          <CollateralizationRatioDisplay
             collateralizationRatio={resultingColRatio.toFixed(8)}
             minCollateralizationRatio={vault.loanScheme.minColRatio}
             collateralValue={vault.collateralValue}

@@ -1,11 +1,26 @@
-import { RefreshControl } from "react-native";
-import { Button } from "@components/Button";
-import { ThemedIcon, ThemedScrollView, ThemedText } from "@components/themed";
+import { Image, Platform, RefreshControl } from "react-native";
+import {
+  ThemedIcon,
+  ThemedScrollViewV2,
+  ThemedTextV2,
+  ThemedTouchableOpacityV2,
+} from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { InfoTextLink } from "@components/InfoTextLink";
+import { InfoTextLinkV2 } from "@components/InfoTextLink";
 import { View } from "@components";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { ButtonV2 } from "@components/ButtonV2";
+import EmptyVaultImage from "@assets/images/loans/empty_vault.png";
+import {
+  BottomSheetNavScreen,
+  BottomSheetWebWithNavV2,
+  BottomSheetWithNavV2,
+} from "@components/BottomSheetWithNavV2";
+import { useState } from "react";
+import { LoansCarousel } from "@screens/WalletNavigator/screens/components/LoansCarousel";
+import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useBottomSheet } from "@hooks/useBottomSheet";
 import { LoanParamList } from "../LoansNavigator";
 
 interface EmptyVaultProps {
@@ -15,47 +30,88 @@ interface EmptyVaultProps {
 
 export function EmptyVault(props: EmptyVaultProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
-  const goToVaultsFaq = (): void => {
-    navigation.navigate({
-      name: "LoansFaq",
-      params: {
-        activeSessions: [2],
+  const { isLight } = useThemeContext();
+  const [bottomSheetScreen, setBottomSheetScreen] = useState<
+    BottomSheetNavScreen[]
+  >([]);
+
+  const {
+    bottomSheetRef,
+    containerRef,
+    dismissModal,
+    expandModal,
+    isModalDisplayed,
+  } = useBottomSheet();
+
+  const BottomSheetHeader = {
+    headerStatusBarHeight: 2,
+    headerTitle: "",
+    headerBackTitleVisible: false,
+    headerStyle: tailwind("rounded-t-xl-v2 border-b-0", {
+      "bg-mono-light-v2-100": isLight,
+      "bg-mono-dark-v2-100": !isLight,
+    }),
+    headerRight: (): JSX.Element => {
+      return (
+        <ThemedTouchableOpacityV2
+          style={tailwind("mr-5 mt-4 -mb-4")}
+          onPress={dismissModal}
+          testID="close_bottom_sheet_button"
+        >
+          <ThemedIcon iconType="Feather" name="x-circle" size={22} />
+        </ThemedTouchableOpacityV2>
+      );
+    },
+    headerLeft: () => <></>,
+  };
+  const onBottomSheetLoansInfoSelect = (): void => {
+    function LoansCarouselComponent() {
+      return <LoansCarousel dismissModal={dismissModal} />;
+    }
+    setBottomSheetScreen([
+      {
+        stackScreenName: "LoansCarousel",
+        component: LoansCarouselComponent,
+        option: BottomSheetHeader,
       },
-    });
+    ]);
+    expandModal();
   };
   return (
-    <ThemedScrollView
+    <ThemedScrollViewV2
       refreshControl={
         <RefreshControl
           onRefresh={props.handleRefresh}
           refreshing={props.isLoading}
         />
       }
-      contentContainerStyle={tailwind("px-8 pt-32 pb-2 text-center")}
+      contentContainerStyle={tailwind("px-8 pt-6 pb-2")}
       testID="empty_vault"
+      ref={containerRef}
     >
-      <ThemedIcon
-        light={tailwind("text-black")}
-        dark={tailwind("text-white")}
-        iconType="MaterialCommunityIcons"
-        name="shield-off"
-        size={44}
-        style={tailwind("pb-5 text-center")}
-      />
+      <View style={tailwind("pb-8 items-center")}>
+        <Image source={EmptyVaultImage} style={{ width: 204, height: 136 }} />
+      </View>
 
-      <ThemedText style={tailwind("text-2xl pb-2 font-semibold text-center")}>
-        {translate("components/EmptyVault", "No vault created")}
-      </ThemedText>
+      <ThemedTextV2
+        style={tailwind("text-xl pb-2 font-semibold-v2 text-center")}
+        testID="empty_vault_title"
+      >
+        {translate("components/EmptyVault", "No vaults")}
+      </ThemedTextV2>
 
-      <ThemedText style={tailwind("text-sm pb-4 text-center opacity-60")}>
+      <ThemedTextV2
+        style={tailwind("text-center font-normal-v2 px-4")}
+        testID="empty_vault_description"
+      >
         {translate(
           "components/EmptyVault",
-          "To get started, create a vault and add DFI and other tokens as collateral"
+          "Get started with loans. Create a vault for your collaterals."
         )}
-      </ThemedText>
+      </ThemedTextV2>
 
-      <Button
-        label={translate("components/EmptyVault", "CREATE VAULT")}
+      <ButtonV2
+        label={translate("components/EmptyVault", "Create a vault")}
         onPress={() =>
           navigation.navigate({
             name: "CreateVaultScreen",
@@ -64,16 +120,45 @@ export function EmptyVault(props: EmptyVaultProps): JSX.Element {
           })
         }
         testID="button_create_vault"
-        title="Create vault"
-        margin="m-0 mb-4"
       />
-      <View style={tailwind("flex items-center")}>
-        <InfoTextLink
-          onPress={goToVaultsFaq}
-          text="Learn more about vaults"
+      <View style={tailwind("items-center pt-2")}>
+        <InfoTextLinkV2
+          onPress={onBottomSheetLoansInfoSelect}
+          text="Learn more"
           testId="empty_vault_learn_more"
+          textStyle={tailwind("text-sm")}
         />
       </View>
-    </ThemedScrollView>
+
+      {Platform.OS === "web" && (
+        <BottomSheetWebWithNavV2
+          modalRef={containerRef}
+          screenList={bottomSheetScreen}
+          isModalDisplayed={isModalDisplayed}
+          // eslint-disable-next-line react-native/no-inline-styles
+          modalStyle={{
+            position: "absolute",
+            bottom: "0",
+            height: "474px",
+            width: "375px",
+            zIndex: 50,
+            borderTopLeftRadius: 15,
+            borderTopRightRadius: 15,
+            overflow: "hidden",
+          }}
+        />
+      )}
+
+      {Platform.OS !== "web" && (
+        <BottomSheetWithNavV2
+          modalRef={bottomSheetRef}
+          screenList={bottomSheetScreen}
+          snapPoints={{
+            ios: ["80%"],
+            android: ["70%"],
+          }}
+        />
+      )}
+    </ThemedScrollViewV2>
   );
 }
