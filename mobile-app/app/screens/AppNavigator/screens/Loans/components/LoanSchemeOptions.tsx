@@ -27,7 +27,7 @@ interface LoanSchemeOptionsP {
   onLoanSchemePress: (scheme: LoanScheme) => void;
 }
 
-export function LoanSchemeOptionsV2(props: LoanSchemeOptionsP): JSX.Element {
+export function LoanSchemeOptions(props: LoanSchemeOptionsP): JSX.Element {
   return (
     <ThemedViewV2
       style={[
