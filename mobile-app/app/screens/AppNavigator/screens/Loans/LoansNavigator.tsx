@@ -14,7 +14,7 @@ import {
   LoanVaultActive,
   LoanVaultTokenAmount,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { CreateVaultScreenV2 } from "@screens/AppNavigator/screens/Loans/screens/CreateVaultScreenV2";
+import { CreateVaultScreen } from "@screens/AppNavigator/screens/Loans/screens/CreateVaultScreen";
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { VaultDetailScreen } from "@screens/AppNavigator/screens/Loans/VaultDetail/VaultDetailScreen";
@@ -177,7 +177,7 @@ export function LoansNavigator(): JSX.Element {
         }}
       />
       <LoansStack.Screen
-        component={CreateVaultScreenV2}
+        component={CreateVaultScreen}
         name="CreateVaultScreen"
         options={{
           ...screenOptions,
