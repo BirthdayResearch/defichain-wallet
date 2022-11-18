@@ -18,7 +18,7 @@
     "date-fns": "^2.29.3",
     "lodash": "^4.17.21",
     "next": "12.3.3",
-    "next-sitemap": "^3.1.30",
+    "next-sitemap": "^3.1.32",
     "nextjs-progressbar": "^0.0.14",
     "react": "17.0.2",
     "react-dom": "17.0.2",
