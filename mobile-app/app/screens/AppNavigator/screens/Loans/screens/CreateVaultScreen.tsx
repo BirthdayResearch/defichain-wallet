@@ -23,7 +23,7 @@ import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { DFIUtxoSelector } from "@store/wallet";
 import { queueConvertTransaction } from "@hooks/wallet/Conversion";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { LoanSchemeOptionsV2 } from "@screens/AppNavigator/screens/Loans/components/LoanSchemeOptionsV2";
+import { LoanSchemeOptions } from "@screens/AppNavigator/screens/Loans/components/LoanSchemeOptions";
 import { ButtonV2 } from "@components/ButtonV2";
 import {
   ConversionStatus,
@@ -184,7 +184,7 @@ export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
         )}
       </ThemedTextV2>
 
-      <LoanSchemeOptionsV2
+      <LoanSchemeOptions
         loanSchemes={loanSchemes}
         isLoading={!hasFetchedLoanSchemes}
         selectedLoanScheme={selectedLoanScheme}
