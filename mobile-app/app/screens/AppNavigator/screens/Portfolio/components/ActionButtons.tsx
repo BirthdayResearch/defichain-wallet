@@ -13,12 +13,14 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { ScrollView, Text, View } from "react-native";
 import { useSelector } from "react-redux";
+import { getNativeIcon } from "@components/icons/assets";
+import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
 export interface ActionButtonsProps {
   name: string;
-  icon: IconName;
-  iconType: IconType;
+  icon?: IconName;
+  iconType?: IconType;
   iconSize?: number;
   onPress: () => void;
   testID: string;
@@ -41,6 +43,12 @@ export function ActionButtons(): JSX.Element {
         showsHorizontalScrollIndicator={false}
         horizontal
       >
+        <ActionButton
+          name={translate("components/ActionButtons", "Get DFI")}
+          iconSize={28}
+          testID="get_DFI_btn"
+          onPress={() => navigation.navigate("GetDFIScreen")}
+        />
         <ActionButton
           name={translate("components/ActionButtons", "Send")}
           icon="arrow-up-right"
@@ -99,6 +107,8 @@ export function ActionButtons(): JSX.Element {
 }
 
 function ActionButton(props: ActionButtonsProps): JSX.Element {
+  const DFIIcon = getNativeIcon("DFIlogo");
+  const { isLight } = useThemeContext();
   return (
     <View style={tailwind("items-center")}>
       <ThemedTouchableOpacityV2
@@ -110,13 +120,22 @@ function ActionButton(props: ActionButtonsProps): JSX.Element {
         onPress={props.onPress}
         testID={props.testID}
       >
-        <ThemedIcon
-          dark={tailwind("text-mono-dark-v2-900")}
-          light={tailwind("text-mono-light-v2-900")}
-          iconType={props.iconType}
-          name={props.icon}
-          size={props.iconSize ?? 24}
-        />
+        {props.iconType === undefined ? (
+          isLight ? (
+            <DFIIcon width={20} height={20} color="#000" />
+          ) : (
+            <DFIIcon width={20} height={20} color="#FFF" />
+          )
+        ) : (
+          <ThemedIcon
+            dark={tailwind("text-mono-dark-v2-900")}
+            light={tailwind("text-mono-light-v2-900")}
+            iconType={props.iconType}
+            name={props.icon}
+            size={props.iconSize ?? 24}
+          />
+        )}
+
         {props.badge !== undefined && (
           <View
             style={tailwind(
