@@ -18,9 +18,9 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
     style={
       {
         "flexDirection": "row",
-        "height": 56,
+        "height": 64,
         "justifyContent": "center",
-        "width": "75%",
+        "width": "83.333333%",
       }
     }
   >
@@ -35,23 +35,22 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "rgba(255, 0, 175, 0.1)",
-            "borderBottomColor": "rgba(255, 0, 175, 1)",
-            "borderBottomLeftRadius": 16,
-            "borderBottomRightRadius": 16,
+            "borderBottomColor": "rgba(0, 173, 29, 1)",
+            "borderBottomLeftRadius": 9999,
+            "borderBottomRightRadius": 9999,
             "borderBottomWidth": 1,
-            "borderLeftColor": "rgba(255, 0, 175, 1)",
+            "borderLeftColor": "rgba(0, 173, 29, 1)",
             "borderLeftWidth": 1,
-            "borderRightColor": "rgba(255, 0, 175, 1)",
+            "borderRightColor": "rgba(0, 173, 29, 1)",
             "borderRightWidth": 1,
-            "borderTopColor": "rgba(255, 0, 175, 1)",
-            "borderTopLeftRadius": 16,
-            "borderTopRightRadius": 16,
+            "borderTopColor": "rgba(0, 173, 29, 1)",
+            "borderTopLeftRadius": 9999,
+            "borderTopRightRadius": 9999,
             "borderTopWidth": 1,
-            "height": 32,
+            "height": 36,
             "justifyContent": "center",
             "position": "relative",
-            "width": 32,
+            "width": 36,
           }
         }
       >
@@ -65,10 +64,11 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
                 "lineHeight": 24,
               },
               {
-                "color": "rgba(255, 0, 175, 1)",
-                "fontFamily": "MediumFont",
-                "fontWeight": "500",
-                "position": "absolute",
+                "color": "rgba(0, 173, 29, 1)",
+                "fontFamily": "SoraSemiBold",
+                "fontSize": 18,
+                "fontWeight": "600",
+                "lineHeight": 28,
               },
             ]
           }
@@ -86,17 +86,17 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
               },
               [
                 {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 14,
-                  "fontWeight": "500",
-                  "lineHeight": 20,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
                   "position": "absolute",
                   "textAlign": "center",
-                  "top": 36,
+                  "top": 48,
                   "width": 80,
                 },
                 {
-                  "color": "rgba(255, 0, 175, 1)",
+                  "color": "rgba(0, 173, 29, 1)",
                 },
               ],
             ]
@@ -109,10 +109,10 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
     <View
       style={
         {
-          "backgroundColor": "rgba(245, 245, 245, 1)",
+          "backgroundColor": "rgba(18, 18, 18, 1)",
           "flexGrow": 1,
-          "height": 4,
-          "marginTop": 14,
+          "height": 1,
+          "marginTop": 16,
         }
       }
     />
@@ -127,23 +127,22 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "transparent",
-            "borderBottomColor": "rgba(229, 229, 229, 1)",
-            "borderBottomLeftRadius": 16,
-            "borderBottomRightRadius": 16,
+            "borderBottomColor": "rgba(18, 18, 18, 1)",
+            "borderBottomLeftRadius": 9999,
+            "borderBottomRightRadius": 9999,
             "borderBottomWidth": 1,
-            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderLeftColor": "rgba(18, 18, 18, 1)",
             "borderLeftWidth": 1,
-            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(18, 18, 18, 1)",
             "borderRightWidth": 1,
-            "borderTopColor": "rgba(229, 229, 229, 1)",
-            "borderTopLeftRadius": 16,
-            "borderTopRightRadius": 16,
+            "borderTopColor": "rgba(18, 18, 18, 1)",
+            "borderTopLeftRadius": 9999,
+            "borderTopRightRadius": 9999,
             "borderTopWidth": 1,
-            "height": 32,
+            "height": 36,
             "justifyContent": "center",
             "position": "relative",
-            "width": 32,
+            "width": 36,
           }
         }
       >
@@ -157,10 +156,11 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
                 "lineHeight": 24,
               },
               {
-                "color": "rgba(115, 115, 115, 1)",
-                "fontFamily": "MediumFont",
-                "fontWeight": "500",
-                "position": "absolute",
+                "color": "rgba(18, 18, 18, 1)",
+                "fontFamily": "SoraSemiBold",
+                "fontSize": 18,
+                "fontWeight": "600",
+                "lineHeight": 28,
               },
             ]
           }
@@ -178,17 +178,17 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
               },
               [
                 {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 14,
-                  "fontWeight": "500",
-                  "lineHeight": 20,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
                   "position": "absolute",
                   "textAlign": "center",
-                  "top": 36,
+                  "top": 48,
                   "width": 80,
                 },
                 {
-                  "color": "rgba(115, 115, 115, 1)",
+                  "color": "rgba(18, 18, 18, 1)",
                 },
               ],
             ]
@@ -201,10 +201,10 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
     <View
       style={
         {
-          "backgroundColor": "rgba(245, 245, 245, 1)",
+          "backgroundColor": "rgba(18, 18, 18, 1)",
           "flexGrow": 1,
-          "height": 4,
-          "marginTop": 14,
+          "height": 1,
+          "marginTop": 16,
         }
       }
     />
@@ -219,23 +219,22 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "transparent",
-            "borderBottomColor": "rgba(229, 229, 229, 1)",
-            "borderBottomLeftRadius": 16,
-            "borderBottomRightRadius": 16,
+            "borderBottomColor": "rgba(18, 18, 18, 1)",
+            "borderBottomLeftRadius": 9999,
+            "borderBottomRightRadius": 9999,
             "borderBottomWidth": 1,
-            "borderLeftColor": "rgba(229, 229, 229, 1)",
+            "borderLeftColor": "rgba(18, 18, 18, 1)",
             "borderLeftWidth": 1,
-            "borderRightColor": "rgba(229, 229, 229, 1)",
+            "borderRightColor": "rgba(18, 18, 18, 1)",
             "borderRightWidth": 1,
-            "borderTopColor": "rgba(229, 229, 229, 1)",
-            "borderTopLeftRadius": 16,
-            "borderTopRightRadius": 16,
+            "borderTopColor": "rgba(18, 18, 18, 1)",
+            "borderTopLeftRadius": 9999,
+            "borderTopRightRadius": 9999,
             "borderTopWidth": 1,
-            "height": 32,
+            "height": 36,
             "justifyContent": "center",
             "position": "relative",
-            "width": 32,
+            "width": 36,
           }
         }
       >
@@ -249,10 +248,11 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
                 "lineHeight": 24,
               },
               {
-                "color": "rgba(115, 115, 115, 1)",
-                "fontFamily": "MediumFont",
-                "fontWeight": "500",
-                "position": "absolute",
+                "color": "rgba(18, 18, 18, 1)",
+                "fontFamily": "SoraSemiBold",
+                "fontSize": 18,
+                "fontWeight": "600",
+                "lineHeight": 28,
               },
             ]
           }
@@ -270,17 +270,17 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
               },
               [
                 {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 14,
-                  "fontWeight": "500",
-                  "lineHeight": 20,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
                   "position": "absolute",
                   "textAlign": "center",
-                  "top": 36,
+                  "top": 48,
                   "width": 80,
                 },
                 {
-                  "color": "rgba(115, 115, 115, 1)",
+                  "color": "rgba(18, 18, 18, 1)",
                 },
               ],
             ]
@@ -293,3 +293,5 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
   </View>
 </View>
 `;
+
+exports[`Create wallet step indicator should match snapshot wne there is zero steps available 1`] = `null`;

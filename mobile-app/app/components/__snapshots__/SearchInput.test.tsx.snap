@@ -7,15 +7,16 @@ exports[`Search Input should match snapshot 1`] = `
       [
         {
           "alignItems": "center",
-          "borderBottomLeftRadius": 8,
-          "borderBottomRightRadius": 8,
-          "borderTopLeftRadius": 8,
-          "borderTopRightRadius": 8,
+          "borderBottomLeftRadius": 9999,
+          "borderBottomRightRadius": 9999,
+          "borderTopLeftRadius": 9999,
+          "borderTopRightRadius": 9999,
           "display": "flex",
           "flexDirection": "row",
-          "paddingBottom": 4,
-          "paddingLeft": 8,
-          "paddingTop": 4,
+          "paddingBottom": 12,
+          "paddingLeft": 20,
+          "paddingRight": 20,
+          "paddingTop": 12,
         },
         {
           "flexBasis": "0%",
@@ -24,27 +25,34 @@ exports[`Search Input should match snapshot 1`] = `
         },
       ],
       {
-        "backgroundColor": "rgba(245, 245, 245, 1)",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
       },
     ]
   }
 >
   <Text />
   <TextInput
-    placeholderTextColor="rgba(0, 0, 0, 0.4)"
+    placeholderTextColor="rgba(115, 115, 115, 1)"
+    selectionColor="rgba(255, 0, 140, 1)"
     showClearButton={true}
     style={
       [
         [
+          undefined,
           {
+            "flexBasis": "0%",
             "flexGrow": 1,
-            "height": 32,
+            "flexShrink": 1,
+            "fontFamily": "SoraRegular",
+            "fontSize": 12,
+            "fontWeight": "400",
+            "lineHeight": 16,
             "width": "66.666667%",
           },
           {},
         ],
         {
-          "color": "rgba(64, 64, 64, 1)",
+          "color": "rgba(43, 43, 43, 1)",
         },
       ]
     }
@@ -62,37 +70,16 @@ exports[`Search Input should match snapshot 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       {
+        "alignItems": "center",
         "backgroundColor": "transparent",
+        "display": "flex",
+        "flexDirection": "row",
+        "marginLeft": 8,
         "opacity": 1,
-        "paddingBottom": 2,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 2,
-        "position": "relative",
       }
     }
+    testID="undefined_clear_btn"
   >
-    <View
-      style={
-        [
-          {
-            "borderBottomLeftRadius": 9999,
-            "borderBottomRightRadius": 9999,
-            "borderTopLeftRadius": 9999,
-            "borderTopRightRadius": 9999,
-            "height": 16,
-            "left": 12,
-            "position": "absolute",
-            "top": 8,
-            "width": "75%",
-            "zIndex": -1,
-          },
-          {
-            "backgroundColor": "rgba(38, 38, 38, 1)",
-          },
-        ]
-      }
-    />
     <Text />
   </View>
 </View>
