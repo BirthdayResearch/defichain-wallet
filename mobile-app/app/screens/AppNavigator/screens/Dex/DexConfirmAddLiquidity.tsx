@@ -18,7 +18,7 @@ import {
 import { RootState } from "@store";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { useAppDispatch } from "@hooks/useAppDispatch";
@@ -51,6 +51,7 @@ export function ConfirmAddLiquidityScreen({ route }: Props): JSX.Element {
     originScreen,
     summary: { fee, percentage, tokenAAmount, tokenBAmount, lmTotalTokens },
   } = route.params;
+  const { tailwind } = useStyles();
   const dispatch = useAppDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const lmTokenAmount = percentage.times(pair.totalLiquidity.token);

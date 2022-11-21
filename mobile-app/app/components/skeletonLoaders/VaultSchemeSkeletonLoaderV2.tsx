@@ -5,7 +5,7 @@ import ContentLoader, {
   Rect,
 } from "react-content-loader/native";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedViewV2 } from "@components/themed";
 
 export function VaultSchemesSkeletonLoaderV2(
@@ -13,6 +13,7 @@ export function VaultSchemesSkeletonLoaderV2(
     IContentLoaderProps & { children?: React.ReactNode; last: boolean }
 ): JSX.Element {
   const { isLight } = useThemeContext();
+  const { tailwind } = useStyles();
   const { last, ...otherProps } = props;
   return (
     <ThemedViewV2

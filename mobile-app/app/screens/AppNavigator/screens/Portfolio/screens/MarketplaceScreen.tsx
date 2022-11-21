@@ -7,7 +7,7 @@ import {
   ThemedTouchableListItem,
   ThemedFlashList,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { openURL } from "@api/linking";
 import Kucoin from "@assets/images/exchanges/Kucoin.png";
@@ -98,6 +98,7 @@ const exchanges: ExchangeProps[] = [
 ];
 
 export function MarketplaceScreen(): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedFlashList
       estimatedItemSize={8}
@@ -144,6 +145,7 @@ function ExchangeItemRow({
   isLast: boolean;
   testID: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedTouchableListItem
       onPress={async () => await openURL(url)}

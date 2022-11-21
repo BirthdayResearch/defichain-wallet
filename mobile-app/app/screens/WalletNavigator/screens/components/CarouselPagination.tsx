@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import React from "react";
 import { Platform, StyleSheet, View } from "react-native";
 import { Pagination, PaginationProps } from "react-native-swiper-flatlist";
@@ -15,6 +15,7 @@ interface CarouselPaginationWithNextButtonProps extends PaginationProps {
 export function CarouselPaginationWithNextButton(
   props: CarouselPaginationWithNextButtonProps
 ): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View
       style={tailwind({

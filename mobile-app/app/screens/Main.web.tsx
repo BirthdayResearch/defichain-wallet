@@ -3,7 +3,7 @@ import { Theme } from "@react-navigation/native/lib/typescript/src/types";
 
 import { StyleSheet, View } from "react-native";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { EnvironmentName, getEnvironment } from "@environment";
 import { getReleaseChannel } from "@api/releaseChannel";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -15,6 +15,7 @@ export function Main(): JSX.Element {
   const env = getEnvironment(getReleaseChannel());
   const { isLight } = useThemeContext();
   const DeFiChainTheme: Theme = getDefaultTheme(isLight);
+  const { tailwind } = useStyles();
 
   return (
     <SafeAreaProvider>

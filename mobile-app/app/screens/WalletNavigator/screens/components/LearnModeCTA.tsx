@@ -3,7 +3,7 @@ import {
   ThemedTextV2,
   ThemedTouchableOpacityV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 
 interface LearnMoreCTAProps {
@@ -15,6 +15,7 @@ export function LearnMoreCTA({
   onPress,
   testId,
 }: LearnMoreCTAProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedTouchableOpacityV2
       style={tailwind("mt-2 flex-row items-center justify-center border-b-0")}

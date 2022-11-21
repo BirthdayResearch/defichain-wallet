@@ -6,7 +6,7 @@ import {
 } from "@components/themed";
 import { ScrollView, StyleProp, ViewStyle } from "react-native";
 import { PropsWithChildren } from "react";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { View } from "@components";
 import { DexActionButton } from "@screens/AppNavigator/screens/Dex/components/DexActionButton";
@@ -26,6 +26,7 @@ interface DexScrollableProps {
 export function DexScrollable(
   props: PropsWithChildren<DexScrollableProps>
 ): JSX.Element {
+  const { tailwind } = useStyles();
   const { containerStyle, children, testID, sectionHeading, sectionStyle } =
     props;
   return (
@@ -70,6 +71,7 @@ function DexScrollableCard({
   testID,
   isSwap = false,
 }: DexScrollableCardProps): JSX.Element {
+  const { tailwind } = useStyles();
   const [symbolA, symbolB] = [
     poolpair.tokenA.displaySymbol,
     poolpair.tokenB.displaySymbol,
@@ -127,6 +129,7 @@ function TotalLiquidityValue({
   value: string;
   testId: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const isSuffixRequired = new BigNumber(value ?? 0).gte(
     new BigNumber(1000000)
   );

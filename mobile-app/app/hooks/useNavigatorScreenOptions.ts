@@ -1,6 +1,6 @@
 import { StackNavigationOptions } from "@react-navigation/stack";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { Dimensions, Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -11,6 +11,7 @@ interface Props {
 export function useNavigatorScreenOptions(
   props: Props = {}
 ): StackNavigationOptions {
+  const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
   const { width } = Dimensions.get("window");
   const insets = useSafeAreaInsets();

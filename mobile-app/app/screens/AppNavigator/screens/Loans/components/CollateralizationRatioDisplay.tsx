@@ -1,7 +1,7 @@
 import * as Progress from "react-native-progress";
 import BigNumber from "bignumber.js";
 
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { View } from "@components";
 import { ThemedText, ThemedView } from "@components/themed";
@@ -23,6 +23,7 @@ interface CollateralizationRatioDisplayProps {
 export function CollateralizationRatioDisplay(
   props: CollateralizationRatioDisplayProps
 ): JSX.Element {
+  const { tailwind } = useStyles();
   const atRiskThresholdMultiplier = 1.5;
   const minColRatio = new BigNumber(props.minCollateralizationRatio);
   const maxRatio = getMaxRatio(
@@ -205,6 +206,7 @@ function HealthBar(props: {
   normalizedNextRatio: BigNumber;
 }): JSX.Element {
   const { isLight } = useThemeContext();
+  const { tailwind, getColor } = useStyles();
 
   return (
     <View style={tailwind("relative")}>

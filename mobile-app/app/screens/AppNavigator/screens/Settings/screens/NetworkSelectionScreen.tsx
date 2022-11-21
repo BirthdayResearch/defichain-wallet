@@ -11,7 +11,7 @@ import {
   ThemedSectionTitleV2,
   ThemedScrollViewV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { TextRowV2 } from "@components/TextRowV2";
@@ -23,6 +23,7 @@ import { hasTxQueued } from "@store/transaction_queue";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 
 export function NetworkSelectionScreen(): JSX.Element {
+  const { tailwind } = useStyles();
   const networks = getEnvironment(getReleaseChannel()).networks;
   const {
     count: blockCount,
@@ -126,6 +127,7 @@ export function NetworkSelectionScreen(): JSX.Element {
 }
 
 function BlocksInfoRow({ blockCount }: { blockCount?: number }): JSX.Element {
+  const { tailwind } = useStyles();
   const { getBlocksUrl } = useDeFiScanContext();
 
   const onBlockUrlPressed = async (): Promise<void> => {
@@ -189,6 +191,7 @@ function BlocksInfoRow({ blockCount }: { blockCount?: number }): JSX.Element {
 }
 
 function TransactionOngoingMessage(): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("px-5 mt-2")}>
       <Text style={tailwind("text-xs font-normal-v2 text-orange-v2")}>

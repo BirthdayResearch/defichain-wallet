@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { batch, useSelector } from "react-redux";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { RootState } from "@store";
 import { fetchLoanSchemes, fetchLoanTokens, fetchVaults } from "@store/loans";
@@ -21,6 +21,7 @@ enum TabKey {
 }
 
 export function LoansScreen(): JSX.Element {
+  const { tailwind } = useStyles();
   const { address } = useWalletContext();
   const isFocused = useIsFocused();
   const blockCount = useSelector((state: RootState) => state.block.count);

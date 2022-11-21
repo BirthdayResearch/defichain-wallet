@@ -29,7 +29,9 @@ import {
 import { FeatureFlagProvider } from "@contexts/FeatureFlagContext";
 import { WalletAddressIndexPersistence } from "@api/wallet/address_index";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { tailwind } from "@tailwind";
+import { TailwindProvider } from 'tailwind-rn';
+import utilities from './app/tailwind.json';
+import { useStyles } from "@tailwind";
 import { ToastProvider } from "react-native-toast-notifications";
 import { ToastProps } from "react-native-toast-notifications/lib/typescript/toast";
 import { WalletToast } from "@components/WalletToast";
@@ -48,6 +50,7 @@ import BigNumber from "bignumber.js";
 export default function App(): JSX.Element | null {
   BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
 
+  const { tailwind } = useStyles();
   const isLoaded = useCachedResources();
   const colorScheme = useColorScheme();
   const logger = useLogger();
@@ -88,29 +91,31 @@ export default function App(): JSX.Element | null {
                       <StoreProvider>
                         <StatsProvider>
                           <FeatureFlagProvider>
-                            <ThemeProvider
-                              api={ThemePersistence}
-                              colorScheme={colorScheme}
-                            >
-                              <LanguageProvider
-                                api={LanguagePersistence}
-                                locale={Localization.locale}
+                            <TailwindProvider utilities={utilities}>
+                              <ThemeProvider
+                                api={ThemePersistence}
+                                colorScheme={colorScheme}
                               >
-                                <DisplayBalancesProvider>
-                                  <ConnectionBoundary>
-                                    <GestureHandlerRootView
-                                      style={tailwind("flex-1")}
-                                    >
-                                      <ToastProvider renderType={customToast}>
-                                        <FavouritePoolpairProvider>
-                                          <Main />
-                                        </FavouritePoolpairProvider>
-                                      </ToastProvider>
-                                    </GestureHandlerRootView>
-                                  </ConnectionBoundary>
-                                </DisplayBalancesProvider>
-                              </LanguageProvider>
-                            </ThemeProvider>
+                                <LanguageProvider
+                                  api={LanguagePersistence}
+                                  locale={Localization.locale}
+                                >
+                                  <DisplayBalancesProvider>
+                                    <ConnectionBoundary>
+                                      <GestureHandlerRootView
+                                        style={tailwind("flex-1")}
+                                      >
+                                        <ToastProvider renderType={customToast}>
+                                          <FavouritePoolpairProvider>
+                                            <Main />
+                                          </FavouritePoolpairProvider>
+                                        </ToastProvider>
+                                      </GestureHandlerRootView>
+                                    </ConnectionBoundary>
+                                  </DisplayBalancesProvider>
+                                </LanguageProvider>
+                              </ThemeProvider>
+                            </TailwindProvider>
                           </FeatureFlagProvider>
                         </StatsProvider>
                       </StoreProvider>

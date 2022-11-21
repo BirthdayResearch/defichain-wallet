@@ -8,7 +8,7 @@ import {
   useIsFocused,
   useNavigation,
 } from "@react-navigation/native";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { RootState } from "@store";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
@@ -105,6 +105,7 @@ export interface OwnedTokenState extends TokenState {
 type Props = StackScreenProps<DexParamList, "CompositeSwapScreen">;
 
 export function CompositeSwapScreen({ route }: Props): JSX.Element {
+  const { tailwind, getColor } = useStyles();
   const logger = useLogger();
   const client = useWhaleApiClient();
   const whaleRpcClient = useWhaleRpcClient();

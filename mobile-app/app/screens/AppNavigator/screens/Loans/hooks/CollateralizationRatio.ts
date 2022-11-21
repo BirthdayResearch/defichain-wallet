@@ -1,6 +1,6 @@
 import { ThemedProps } from "@components/themed";
 import BigNumber from "bignumber.js";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
 
 export interface CollateralizationRatioProps {
@@ -52,6 +52,7 @@ export function useCollateralizationRatioColor(
   props: CollateralizationRatioProps
 ): ThemedProps {
   const style: ThemedProps = {};
+  const { tailwind } = useStyles();
   const stats = useCollateralRatioStats(props);
 
   if (stats.isInLiquidation) {
@@ -185,6 +186,8 @@ export function getVaultStatusColor(
   isLight: boolean,
   isText: boolean = false
 ): string {
+  const { getColor } = useStyles();
+
   if (status === VaultStatus.NearLiquidation) {
     return isText ? "text-red-v2" : getColor("red-v2");
   } else if (status === VaultStatus.AtRisk) {

@@ -4,7 +4,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { Dispatch, useEffect, useState } from "react";
 import BigNumber from "bignumber.js";
@@ -36,6 +36,7 @@ export function ConfirmEditLoanSchemeScreen({
   navigation,
 }: Props): JSX.Element {
   const { vault, loanScheme, fee } = route.params;
+  const { tailwind } = useStyles();
   const { address } = useWalletContext();
   const addressLabel = useAddressLabel(address);
 
@@ -121,6 +122,7 @@ function SummaryHeader(props: {
   addressLabel: string | null;
   address: string | null;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2>
       <ThemedTextV2
@@ -190,6 +192,7 @@ interface SummaryTransactionDetailsProps {
 function SummaryTransactionDetails(
   props: SummaryTransactionDetailsProps
 ): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("mt-6")}>
       <ThemedViewV2

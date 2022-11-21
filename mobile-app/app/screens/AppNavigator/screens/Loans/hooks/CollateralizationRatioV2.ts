@@ -1,6 +1,6 @@
 import { ThemedProps } from "@components/themed";
 import BigNumber from "bignumber.js";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
 
 export interface CollateralizationRatioProps {
@@ -25,6 +25,7 @@ export function useCollateralRatioStats({
   totalLoanAmount,
   totalCollateralValue,
 }: CollateralizationRatioProps): CollateralizationRatioStats {
+  const { getColor, tailwind } = useStyles();
   const atRiskThreshold = new BigNumber(minColRatio).multipliedBy(1.5);
   const liquidatedThreshold = new BigNumber(minColRatio).multipliedBy(1.25);
   const isInLiquidation =

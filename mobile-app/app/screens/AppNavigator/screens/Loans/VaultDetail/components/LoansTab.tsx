@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 import { ThemedText, ThemedView } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { SymbolIcon } from "@components/SymbolIcon";
 import { IconButton } from "@components/IconButton";
 import { translate } from "@translations";
@@ -45,6 +45,7 @@ export function LoansTab(props: {
   setBottomSheetScreen: (val: BottomSheetNavScreen[]) => void;
 }): JSX.Element {
   const { vault, dismissModal, expandModal, setBottomSheetScreen } = props;
+  const { tailwind } = useStyles();
   const loanTokens = useSelector((state: RootState) =>
     loanTokensSelector(state.loans)
   );
@@ -98,6 +99,7 @@ export function LoansTab(props: {
 }
 
 function LoanCard(props: LoanCardProps): JSX.Element {
+  const { tailwind } = useStyles();
   const canUseOperations = useLoanOperations(props.vault?.state);
   const activePrice = new BigNumber(
     getActivePrice(props.symbol, props.loanTokenAmount.activePrice)
@@ -226,6 +228,7 @@ function PaybackDUSDLoan({
   vault: LoanVaultActive;
   paybackAmount: BigNumber;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
   const collateralDUSD = vault?.collateralAmounts?.find(
     ({ symbol }) => symbol === "DUSD"
@@ -272,6 +275,7 @@ function ActionButtons({
   canUseOperations: boolean;
   testID: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
   return (
     <View style={tailwind("flex flex-row justify-between -mx-2")}>

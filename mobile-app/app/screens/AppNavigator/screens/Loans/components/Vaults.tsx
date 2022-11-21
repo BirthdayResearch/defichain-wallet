@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import {
   ThemedIcon,
   ThemedScrollViewV2,
@@ -51,6 +51,7 @@ interface VaultsProps {
 }
 
 export function Vaults(props: VaultsProps): JSX.Element {
+  const { tailwind } = useStyles();
   const dispatch = useAppDispatch();
   const client = useWhaleApiClient();
   const isFocused = useIsFocused();
@@ -321,6 +322,7 @@ export function Vaults(props: VaultsProps): JSX.Element {
 }
 
 function CreateVaultButton(props: { onPress: () => void }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedTouchableOpacityV2
       style={tailwind(

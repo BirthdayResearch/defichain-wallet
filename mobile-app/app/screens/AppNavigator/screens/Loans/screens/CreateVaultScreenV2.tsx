@@ -2,7 +2,7 @@ import { View } from "@components";
 import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { Dispatch, useEffect, useState } from "react";
 import { LoanScheme } from "@defichain/whale-api-client/dist/api/loan";
@@ -40,6 +40,7 @@ import { LoanParamList } from "../LoansNavigator";
 type Props = StackScreenProps<LoanParamList, "CreateVaultScreen">;
 
 export function CreateVaultScreenV2({ navigation, route }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const dispatch = useAppDispatch();
   const client = useWhaleApiClient();
   const { network } = useNetworkContext();
@@ -232,6 +233,7 @@ function ButtonActionMessage(props: {
   isConversionRequired: boolean;
   hasSelectedLoanScheme: boolean;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("pt-12 px-12")}>
       {props.hasSelectedLoanScheme && (

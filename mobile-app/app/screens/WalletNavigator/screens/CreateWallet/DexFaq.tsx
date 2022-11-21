@@ -3,10 +3,11 @@ import {
   AccordionContent,
   WalletAccordionV2,
 } from "@components/WalletAccordionV2";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 
 export function DexFaq(): JSX.Element {
+  const { tailwind } = useStyles();
   const faqContent: AccordionContent[] = [
     {
       title: translate("components/DexFaq", "Transaction fees"),

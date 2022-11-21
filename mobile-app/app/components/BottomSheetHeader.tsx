@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { StyleProp, ViewProps } from "react-native";
 import {
   ThemedIcon,
@@ -23,6 +23,7 @@ export function BottomSheetHeader({
   containerStyle,
   onClose,
 }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       style={[

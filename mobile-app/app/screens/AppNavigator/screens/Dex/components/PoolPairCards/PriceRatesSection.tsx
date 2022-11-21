@@ -2,7 +2,7 @@ import { memo } from "react";
 import BigNumber from "bignumber.js";
 import { View } from "react-native";
 import { isEqual } from "lodash";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedTextV2 } from "@components/themed";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import {
@@ -25,6 +25,7 @@ interface PriceRatesSectionProps {
 
 export const PriceRatesSection = memo(
   ({ tokenA, tokenB }: PriceRatesSectionProps): JSX.Element => {
+    const { tailwind } = useStyles();
     if (
       new BigNumber(tokenA.priceRate).isNaN() ||
       new BigNumber(tokenB.priceRate).isNaN()
@@ -76,6 +77,7 @@ function PriceRateValue(props: {
   suffix: string;
   testID: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("flex flex-row")}>
       <NumberFormat

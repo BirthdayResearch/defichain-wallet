@@ -10,7 +10,7 @@ import {
   ThemedView,
 } from "@components/themed";
 import { LoanScheme } from "@defichain/whale-api-client/dist/api/loan";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 
 import { NumericFormat as NumberFormat } from "react-number-format";
@@ -27,6 +27,7 @@ interface LoanSchemeOptionsP {
 }
 
 export function LoanSchemeOptions(props: LoanSchemeOptionsP): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("mb-1")} testID="loan_scheme_options">
       {props.isLoading ? (
@@ -107,6 +108,7 @@ function LoanSchemeOptionData(props: {
   suffix?: string;
   disabled?: boolean;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("flex-1")}>
       <ThemedText

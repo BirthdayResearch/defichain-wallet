@@ -1,5 +1,5 @@
 import { ThemedIcon, ThemedText } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { TouchableOpacity } from "react-native";
 
@@ -10,6 +10,7 @@ export function AddressListEditButton({
   isEditing: boolean;
   handleOnPress: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <TouchableOpacity
       onPress={handleOnPress}

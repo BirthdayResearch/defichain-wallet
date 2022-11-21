@@ -7,7 +7,7 @@ import {
   LoanScheme,
   LoanVaultActive,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { useEffect, useState } from "react";
 import BigNumber from "bignumber.js";
@@ -35,6 +35,7 @@ export function EditLoanSchemeScreen({
   navigation,
 }: Props): JSX.Element {
   const { vaultId } = route.params;
+  const { tailwind } = useStyles();
   const { vaults } = useSelector((state: RootState) => state.loans);
   const loanSchemes = useSelector((state: RootState) =>
     ascColRatioLoanScheme(state.loans)
@@ -177,6 +178,7 @@ export function EditLoanSchemeScreen({
 
 function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
   const { vault } = props;
+  const { tailwind } = useStyles();
   const colRatio = new BigNumber(vault.informativeRatio);
   const minColRatio = new BigNumber(vault.loanScheme.minColRatio);
   const totalLoanAmount = new BigNumber(vault.loanValue);

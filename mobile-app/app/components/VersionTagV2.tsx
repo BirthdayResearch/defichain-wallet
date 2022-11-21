@@ -1,9 +1,10 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { nativeApplicationVersion } from "expo-application";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { translate } from "@translations";
 
 export function VersionTagV2(): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       light={tailwind("bg-transparent")}

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { View } from "@components/index";
 import { PinTextInputV2 } from "@components/PinTextInputV2";
 import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import {
   CREATE_STEPS,
@@ -17,6 +17,7 @@ import { LearnMoreCTA } from "../components/LearnModeCTA";
 type Props = StackScreenProps<WalletParamList, "PinCreation">;
 
 export function PinCreation({ route }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<WalletParamList>>();
   const { pinLength, words, type } = route.params;
   const [newPin, setNewPin] = useState("");

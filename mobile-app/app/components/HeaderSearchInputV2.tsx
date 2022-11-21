@@ -1,5 +1,5 @@
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native";
@@ -19,6 +19,7 @@ interface HeaderSearchInputProps {
 export function HeaderSearchInputV2(
   props: HeaderSearchInputProps
 ): JSX.Element {
+  const { tailwind } = useStyles();
   const safeAreaInsets = useSafeAreaInsets();
   const { isLight } = useThemeContext();
   const [isSearchFocus, setIsSearchFocus] = useState(false);

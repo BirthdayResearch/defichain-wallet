@@ -12,7 +12,7 @@ import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/typ
 import { NavigationContainer } from "@react-navigation/native";
 import { AddOrRemoveCollateralFormProps } from "@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm";
 import { Platform, View } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { CreateOrEditAddressLabelFormProps } from "@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelForm";
 import { getDefaultTheme } from "@constants/Theme";
@@ -46,6 +46,7 @@ export interface BottomSheetWithNavRouteParam {
 
 export const BottomSheetWithNavV2 = React.memo(
   (props: BottomSheetWithNavProps): JSX.Element => {
+    const { tailwind } = useStyles();
     const { modalRef, snapPoints } = props;
 
     const getSnapPoints = (): string[] => {
@@ -89,6 +90,7 @@ export const BottomSheetWebWithNavV2 = React.memo(
       modalStyle?: { [other: string]: any };
     }
   ): JSX.Element => {
+    const { tailwind } = useStyles();
     return (
       <BottomSheetModalWeb
         screenList={props.screenList}
@@ -105,6 +107,7 @@ export const BottomSheetWebWithNavV2 = React.memo(
 );
 
 function Navigator(props: BottomSheetWithNavProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
   const DeFiChainTheme = getDefaultTheme(isLight);
   const BottomSheetWithNavStack =

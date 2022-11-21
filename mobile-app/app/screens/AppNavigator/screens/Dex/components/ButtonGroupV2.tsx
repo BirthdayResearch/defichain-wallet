@@ -1,6 +1,6 @@
 import { View } from "@components";
 import { ThemedProps, ThemedTextV2, ThemedViewV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import BigNumber from "bignumber.js";
 import {
   StyleProp,
@@ -30,6 +30,7 @@ interface Buttons {
 }
 
 export function ButtonGroupV2(props: ButtonGroupProps): JSX.Element {
+  const { tailwind } = useStyles();
   const buttonWidth = new BigNumber(100).dividedBy(props.buttons.length);
   return (
     <ThemedViewV2
@@ -72,6 +73,7 @@ interface ButtonGroupItemProps {
 }
 
 function ButtonGroupItem(props: ButtonGroupItemProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <TouchableOpacity
       onPress={props.onPress}

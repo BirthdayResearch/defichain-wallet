@@ -1,5 +1,5 @@
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import * as React from "react";
 import ContentLoader, {
   Circle,
@@ -13,6 +13,7 @@ export function MnemonicWordSkeletonLoader(
     IContentLoaderProps & { children?: React.ReactNode }
 ): JSX.Element {
   const { isLight } = useThemeContext();
+  const { tailwind } = useStyles();
   return (
     <ThemedView
       testID="mnemonic_word_skeleton_loader"

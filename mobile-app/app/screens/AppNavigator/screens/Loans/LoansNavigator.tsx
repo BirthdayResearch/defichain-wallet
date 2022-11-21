@@ -1,5 +1,4 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { HeaderFont } from "@components/Text";
 import { HeaderTitle } from "@components/HeaderTitle";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
@@ -19,7 +18,7 @@ import { CreateVaultScreenV2 } from "@screens/AppNavigator/screens/Loans/screens
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { VaultDetailScreenV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/VaultDetailScreenV2";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedTextV2 } from "@components/themed";
 import { StyleProp, ViewStyle } from "react-native";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
@@ -130,6 +129,7 @@ export interface LoanParamList {
 const LoansStack = createStackNavigator<LoanParamList>();
 
 export function LoansNavigator(): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
   const headerContainerTestId = "loans_header_container";
   const screenOptions = useNavigatorScreenOptions();
@@ -142,7 +142,7 @@ export function LoansNavigator(): JSX.Element {
       initialRouteName="LoansScreen"
       screenOptions={{
         headerTitleAlign: "center",
-        headerTitleStyle: HeaderFont,
+        headerTitleStyle: tailwind("font-semibold"),
         headerBackTitleVisible: false,
       }}
     >

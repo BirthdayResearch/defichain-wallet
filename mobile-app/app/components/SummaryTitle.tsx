@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js";
 
 import { NumericFormat as NumberFormat } from "react-number-format";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ViewProps } from "react-native";
 import { ThemedText } from "./themed";
 import { View } from ".";
@@ -19,6 +19,7 @@ interface ISummaryTitleProps {
 }
 
 export function SummaryTitle(props: SummaryTitleProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <>
       <ThemedText

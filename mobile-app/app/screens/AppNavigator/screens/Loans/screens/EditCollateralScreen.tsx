@@ -7,7 +7,7 @@ import {
   ThemedView,
 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { useEffect, useState } from "react";
@@ -69,6 +69,7 @@ export function EditCollateralScreen({
   navigation,
   route,
 }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const { vaultId } = route.params;
   const client = useWhaleApiClient();
   const [bottomSheetScreen, setBottomSheetScreen] = useState<
@@ -360,6 +361,7 @@ interface CollateralCardProps {
 
 function CollateralCard(props: CollateralCardProps): JSX.Element {
   const { collateral, collateralItem, totalCollateralValue, vault } = props;
+  const { tailwind } = useStyles();
   const canUseOperations = useLoanOperations(vault.state);
   const prices = getCollateralPrice(
     new BigNumber(collateral.amount),
@@ -473,6 +475,7 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
 }
 
 function CardLabel(props: { text: string }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedText
       light={tailwind("text-gray-500")}
@@ -488,6 +491,7 @@ function AddCollateralButton(props: {
   disabled: boolean;
   onPress: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <TouchableOpacity
       disabled={props.disabled}

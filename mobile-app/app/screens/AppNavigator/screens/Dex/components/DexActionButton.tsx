@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import {
   ThemedIcon,
   ThemedTextV2,
@@ -22,6 +22,7 @@ export function DexActionButton({
   testID,
   disabled,
 }: DexActionButtonProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedTouchableOpacityV2
       style={[tailwind("rounded-2xl-v2 py-2 px-4"), style]}
@@ -56,6 +57,7 @@ export function DexAddRemoveLiquidityButton({
   onRemove,
   pairToken,
 }: DexAddRemoveLiquidityButtonProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       style={[

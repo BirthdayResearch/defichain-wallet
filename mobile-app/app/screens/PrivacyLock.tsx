@@ -10,7 +10,7 @@ import { EnvironmentName, getEnvironment } from "@environment";
 import { useEffect } from "react";
 import { BackHandler } from "react-native";
 import { ThemedView } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import {
   NativeLoggingProps,
   useLogger,
@@ -37,6 +37,7 @@ function shouldReauthenticate(): boolean {
 }
 
 export function PrivacyLock(): JSX.Element {
+  const { tailwind } = useStyles();
   const privacyLock = usePrivacyLockContext();
   const appState = useAppStateContext();
   const logger = useLogger();

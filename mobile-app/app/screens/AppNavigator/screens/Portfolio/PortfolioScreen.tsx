@@ -27,7 +27,7 @@ import {
   tokensSelector,
   WalletToken,
 } from "@store/wallet";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import BigNumber from "bignumber.js";
 import React, {
   useCallback,
@@ -98,6 +98,7 @@ export interface PortfolioRowToken extends WalletToken {
 }
 
 export function PortfolioScreen({ navigation }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
   const isFocused = useIsFocused();
   const height = useBottomTabBarHeight();
@@ -695,6 +696,7 @@ function AssetSortRow(props: {
   denominationCurrency: string;
   onPress: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const highestCurrencyValue = translate(
     "screens/PortfolioScreen",
     "Highest value ({{denominationCurrency}})",

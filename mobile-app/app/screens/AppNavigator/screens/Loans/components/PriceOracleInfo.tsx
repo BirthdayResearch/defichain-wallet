@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedIcon, ThemedTextV2 } from "@components/themed";
 import { translate } from "@translations";
 import { TouchableOpacity, View } from "react-native";
@@ -8,6 +8,7 @@ interface PriceOracleInfoProps {
   onPress: () => void;
 }
 export function PriceOracleInfo(props: PriceOracleInfoProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("items-center")} testID="oracle_price_info">
       <TouchableOpacity

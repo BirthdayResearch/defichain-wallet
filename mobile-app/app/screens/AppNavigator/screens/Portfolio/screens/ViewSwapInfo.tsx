@@ -1,6 +1,6 @@
 import { Platform, View } from "react-native";
 import { memo } from "react";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import BigNumber from "bignumber.js";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
@@ -23,6 +23,7 @@ export const ViewSwapInfo = ({
   transactionDate,
 }: ViewSwapInfoProps): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
+    const { tailwind } = useStyles();
     const { getTokenPrice } = useTokenPrice();
     const themedProps = {
       light: tailwind("text-mono-light-v2-700"),

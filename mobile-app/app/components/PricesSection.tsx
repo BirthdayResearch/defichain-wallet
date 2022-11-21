@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { NumberRow } from "@components/NumberRow";
 import { translate } from "@translations";
 import { ThemedSectionTitle } from "./themed";
@@ -21,6 +21,7 @@ export function PricesSection({
   sectionTitle?: string;
   isCompact?: boolean;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const rowStyle = {
     lhsThemedProps: {
       light: tailwind("text-gray-500"),

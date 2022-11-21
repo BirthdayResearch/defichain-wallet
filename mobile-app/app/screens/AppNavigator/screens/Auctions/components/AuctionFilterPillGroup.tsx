@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import {
   ThemedIcon,
   ThemedTouchableOpacityV2,
@@ -16,6 +16,7 @@ export const AuctionFilterPillGroup = memo(
     onButtonGroupChange: (buttonGroupTabKey: ButtonGroupTabKey) => void;
     activeButtonGroup: ButtonGroupTabKey;
   }) => {
+    const { tailwind } = useStyles();
     const buttonGroup = [
       {
         id: ButtonGroupTabKey.AllBids,

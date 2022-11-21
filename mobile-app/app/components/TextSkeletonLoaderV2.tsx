@@ -1,5 +1,5 @@
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import ContentLoader, {
   Rect,
   IContentLoaderProps,
@@ -20,6 +20,7 @@ interface TextSkeletonLoaderProps {
 export function TextSkeletonLoaderV2(
   props: TextSkeletonLoaderProps
 ): JSX.Element {
+  const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
   return (
     <ThemedViewV2

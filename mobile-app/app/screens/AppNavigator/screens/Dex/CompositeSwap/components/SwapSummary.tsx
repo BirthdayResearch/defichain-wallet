@@ -1,7 +1,7 @@
 import { Linking, Platform, TouchableOpacity, View } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
@@ -35,6 +35,7 @@ export function SwapSummary({
   dexStabilizationType,
   timeRemaining,
 }: SwapSummaryProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { getTokenPrice } = useTokenPrice();
 
   return (
@@ -204,6 +205,7 @@ function SettlementBlockInfo({
   transactionDate?: string;
   timeRemaining: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const { getBlocksCountdownUrl } = useDeFiScanContext();
 
   const onBlockUrlPressed = async (): Promise<void> => {

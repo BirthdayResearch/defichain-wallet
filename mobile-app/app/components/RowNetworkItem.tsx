@@ -8,7 +8,7 @@ import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import { EnvironmentNetwork, isPlayground } from "@environment";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { SettingsParamList } from "@screens/AppNavigator/screens/Settings/SettingsNavigator";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 
 interface RowNetworkItemProps {
@@ -17,6 +17,7 @@ interface RowNetworkItemProps {
 }
 
 export function RowNetworkItem(props: RowNetworkItemProps): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<SettingsParamList>>();
   const { network, updateNetwork } = useNetworkContext();
 

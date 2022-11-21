@@ -1,6 +1,6 @@
 import { StyleProp, ViewStyle } from "react-native";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { Text, View } from ".";
 import { ThemedText } from "./themed";
@@ -26,6 +26,7 @@ export const RESTORE_STEPS = ["Restore", "Secure"];
 export function CreateWalletStepIndicator(
   props: StepIndicatorProps
 ): JSX.Element {
+  const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
   const { current, total, style: containerViewStyle, steps = [] } = props;
   if (total === undefined && steps.length === 0) {
@@ -122,6 +123,7 @@ function StepNode(props: {
   content: string;
   isLight: boolean;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const { stepperStyle, textStyle } = getStepNodeStyle(
     props.isLight,
     props.current,
@@ -153,6 +155,7 @@ function Description(props: {
   current: number;
   content: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedText
       dark={tailwind(

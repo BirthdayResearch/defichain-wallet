@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 import { NumericFormat as NumberFormat } from "react-number-format";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { getNativeIcon } from "@components/icons/assets";
 import { translate } from "@translations";
 import { RandomAvatar } from "@screens/AppNavigator/screens/Portfolio/components/RandomAvatar";
@@ -27,6 +27,7 @@ interface ConfirmSummaryTitleV2Props {
 export function ConfirmSummaryTitle(
   props: ConfirmSummaryTitleV2Props
 ): JSX.Element {
+  const { tailwind } = useStyles();
   const IconA = getNativeIcon(props.iconA);
   const IconB = getNativeIcon(props.iconB);
 

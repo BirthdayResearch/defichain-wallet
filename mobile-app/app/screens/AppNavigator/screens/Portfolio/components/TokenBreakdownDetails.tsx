@@ -2,7 +2,7 @@ import { View } from "@components";
 import { TextSkeletonLoader } from "@components/TextSkeletonLoader";
 import { ThemedProps, ThemedText } from "@components/themed";
 import { WalletToken } from "@store/wallet";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { StyleProp, TextProps, ViewProps } from "react-native";
@@ -26,6 +26,7 @@ interface TokenBreakdownDetailProps {
 export function TokenBreakdownDetails(
   props: TokenBreakdownDetailProps
 ): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <>
       <TokenBreakdownDetailsRow
@@ -139,6 +140,7 @@ function TokenBreakdownDetailsRow({
   prefix,
   suffix,
 }: TokenBreakdownDetailsRowProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={[tailwind("flex-row flex-1 items-center"), containerStyle]}>
       <ThemedText

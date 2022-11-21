@@ -1,9 +1,10 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { nativeApplicationVersion } from "expo-application";
 import { ThemedText, ThemedView } from "@components/themed";
 import { translate } from "@translations";
 
 export function VersionTag(): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedView
       dark={tailwind("border-gray-700")}

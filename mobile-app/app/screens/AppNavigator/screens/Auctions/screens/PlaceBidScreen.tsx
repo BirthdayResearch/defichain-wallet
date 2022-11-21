@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { StackScreenProps } from "@react-navigation/stack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import BigNumber from "bignumber.js";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { RootState } from "@store";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { hasTxQueued } from "@store/transaction_queue";
@@ -49,6 +49,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
   );
   const ownedToken = tokens.find((token) => token.id === batch.loan.id);
 
+  const { tailwind } = useStyles();
   const { minNextBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(
     batch,
     vault.liquidationPenalty

@@ -1,9 +1,10 @@
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import { isPlayground } from "@environment";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 
 export function PlaygroundConnection(): JSX.Element {
+  const { tailwind } = useStyles();
   const { network } = useNetworkContext();
 
   return (

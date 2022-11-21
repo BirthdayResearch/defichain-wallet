@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 import { NumericFormat as NumberFormat } from "react-number-format";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { getNativeIcon } from "@components/icons/assets";
 import { translate } from "@translations";
 import { RandomAvatar } from "@screens/AppNavigator/screens/Portfolio/components/RandomAvatar";
@@ -24,6 +24,7 @@ interface ISummaryTitleProps {
 }
 
 export function SummaryTitleV2(props: ISummaryTitleProps): JSX.Element {
+  const { tailwind } = useStyles();
   const IconA = getNativeIcon(props.iconA);
   const IconB =
     props.iconB !== undefined ? getNativeIcon(props.iconB) : undefined;

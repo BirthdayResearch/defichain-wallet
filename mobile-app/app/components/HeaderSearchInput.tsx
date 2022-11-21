@@ -1,5 +1,5 @@
 import { View } from "@components";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { Platform, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -16,6 +16,7 @@ interface HeaderSearchInputProps {
 }
 
 export function HeaderSearchInput(props: HeaderSearchInputProps): JSX.Element {
+  const { tailwind } = useStyles();
   const safeAreaInsets = useSafeAreaInsets();
   return (
     <ThemedView

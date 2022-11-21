@@ -11,7 +11,7 @@ import ImageDLight from "@assets/images/onboarding/welcome-screen-d-light.png";
 import { View } from "@components/index";
 import { ThemedTextV2 } from "@components/themed";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { CarouselPagination } from "@screens/WalletNavigator/screens/components/CarouselPagination";
 
@@ -64,6 +64,7 @@ export function ImageSlide({
   title,
   subtitle,
 }: CarouselImage): JSX.Element {
+  const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
   return (
     <View style={tailwind("flex-1 items-center justify-center px-10")}>
@@ -84,6 +85,7 @@ export function ImageSlide({
 }
 
 export function OnboardingCarousel(): JSX.Element {
+  const { getColor, tailwind } = useStyles();
   const { isLight } = useThemeContext();
   return (
     <SwiperFlatList

@@ -1,6 +1,6 @@
 import { Platform, StyleProp, ViewStyle } from "react-native";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { ThemedIcon, ThemedTextV2 } from "./themed";
@@ -28,6 +28,7 @@ export const RESTORE_STEPS = ["RESTORE", "SECURE"];
 export function CreateWalletStepIndicatorV2(
   props: StepIndicatorProps
 ): JSX.Element {
+  const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
   const {
     current,
@@ -123,6 +124,7 @@ function StepNode(props: {
   isLight: boolean;
   isComplete?: boolean;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const { stepperStyle, textStyle } = getStepNodeStyle(
     props.isLight,
     props.current,
@@ -164,6 +166,7 @@ function Description(props: {
   content: string;
   textStyle: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedTextV2
       dark={tailwind(props.textStyle)}

@@ -10,7 +10,7 @@ import {
   ThemedViewV2,
   ThemedSectionTitleV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { TextRowV2 } from "@components/TextRowV2";
@@ -20,6 +20,7 @@ import { getReleaseChannel } from "@api/releaseChannel";
 import { NetworkItemRowV2 } from "@components/NetworkItemRowV2";
 
 export function OnboardingNetworkSelectScreen(): JSX.Element {
+  const { tailwind } = useStyles();
   const networks = getEnvironment(getReleaseChannel()).networks;
   const {
     count: blockCount,
@@ -108,6 +109,7 @@ export function OnboardingNetworkSelectScreen(): JSX.Element {
 }
 
 function BlocksInfoRow({ blockCount }: { blockCount?: number }): JSX.Element {
+  const { tailwind } = useStyles();
   const { getBlocksUrl } = useDeFiScanContext();
 
   const onBlockUrlPressed = async (): Promise<void> => {

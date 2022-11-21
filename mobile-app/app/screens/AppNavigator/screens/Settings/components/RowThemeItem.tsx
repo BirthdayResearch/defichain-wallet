@@ -5,10 +5,11 @@ import { ThemePersistence } from "@api";
 import { Switch } from "@components";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 
 export function RowThemeItem(props: { border?: boolean }): JSX.Element {
+  const { tailwind } = useStyles();
   const { setTheme, isLight } = useThemeContext();
   const [isDark, setIsDark] = useState<boolean>(!isLight);
   return (

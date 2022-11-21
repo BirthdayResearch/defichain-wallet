@@ -1,7 +1,7 @@
 import { StyleProp, TextInputProps, ViewStyle } from "react-native";
 import { ThemedIcon, ThemedTextInput, ThemedView } from "@components/themed";
 import { ClearButton } from "@components/WalletTextInput";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 
 type SearchInputProps = React.PropsWithChildren<TextInputProps> &
   ISearchInputProps;
@@ -14,6 +14,7 @@ interface ISearchInputProps {
 
 export function SearchInput(props: SearchInputProps): JSX.Element {
   const { onClearInput, containerStyle, ...otherProps } = props;
+  const { tailwind } = useStyles();
   return (
     <ThemedView
       light={tailwind("bg-gray-100")}

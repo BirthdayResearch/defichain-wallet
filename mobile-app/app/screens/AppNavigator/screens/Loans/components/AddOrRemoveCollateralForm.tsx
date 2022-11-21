@@ -10,7 +10,7 @@ import {
 } from "@components/themed";
 import { WalletTextInput } from "@components/WalletTextInput";
 import { StackScreenProps } from "@react-navigation/stack";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { memo, useEffect, useState } from "react";
@@ -73,6 +73,7 @@ export interface AddOrRemoveCollateralResponse {
 
 export const AddOrRemoveCollateralForm = memo(
   ({ route }: Props): JSX.Element => {
+    const { tailwind } = useStyles();
     const { isLight } = useThemeContext();
     const {
       token,

@@ -1,7 +1,7 @@
 import { TouchableOpacity, View } from "react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import BigNumber from "bignumber.js";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import {
   ThemedIcon,
@@ -34,6 +34,7 @@ export function PaymentTokenCards({
   selectedPaymentTokenSymbol,
   loanTokenSymbol,
 }: PaymentTokenCardsProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { isFeatureAvailable } = useFeatureFlagContext();
   const isDUSDPaymentEnabled = isFeatureAvailable("dusd_loan_payment");
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
@@ -122,6 +123,7 @@ interface PaymentTokenCardProps {
 }
 
 function PaymentTokenCard(props: PaymentTokenCardProps): JSX.Element {
+  const { tailwind } = useStyles();
   const Icon = getNativeIcon(props.paymentToken.tokenDisplaySymbol);
   return (
     <ThemedTouchableOpacity

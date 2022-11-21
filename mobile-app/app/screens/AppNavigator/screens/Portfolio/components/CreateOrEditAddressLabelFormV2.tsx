@@ -8,7 +8,7 @@ import {
 } from "@components/themed";
 import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { Platform, View } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { WalletTextInput } from "@components/WalletTextInput";
 import { LabeledAddress, LocalAddress } from "@store/userPreferences";
@@ -41,6 +41,7 @@ type Props = StackScreenProps<
 
 export const CreateOrEditAddressLabelFormV2 = memo(
   ({ route, navigation }: Props): JSX.Element => {
+    const { tailwind } = useStyles();
     // const { isLight } = useThemeContext()
     const { title, isAddressBook, address, addressLabel, onSaveButtonPress } =
       route.params;
@@ -294,6 +295,7 @@ export const CreateOrEditAddressLabelFormV2 = memo(
 );
 
 function AddressDisplay({ address }: { address: string }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("flex flex-col mt-8 items-center")}>
       <RandomAvatar name={address} size={64} />
@@ -320,6 +322,7 @@ function AddressInput({
   validateAddressInput: (val: string) => boolean;
   addressInputErrorMessage: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <WalletTextInput
       value={addressInput}

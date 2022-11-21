@@ -9,7 +9,7 @@ import {
 import { EnvironmentNetwork } from "@environment";
 import { StackScreenProps } from "@react-navigation/stack";
 import { useNetworkContext } from "@shared-contexts/NetworkContext";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { Dispatch, useEffect, useState } from "react";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
@@ -33,6 +33,7 @@ type Props = StackScreenProps<LoanParamList, "CloseVaultScreen">;
 
 export function CloseVaultScreen({ route, navigation }: Props): JSX.Element {
   const { vaultId } = route.params;
+  const { tailwind } = useStyles();
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
   );

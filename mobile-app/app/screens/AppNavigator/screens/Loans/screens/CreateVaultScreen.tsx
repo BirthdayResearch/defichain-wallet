@@ -7,7 +7,7 @@ import {
 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { useEffect, useState } from "react";
 import { LoanScheme } from "@defichain/whale-api-client/dist/api/loan";
@@ -29,6 +29,7 @@ import { LoanParamList } from "../LoansNavigator";
 type Props = StackScreenProps<LoanParamList, "CreateVaultScreen">;
 
 export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const dispatch = useAppDispatch();
   const client = useWhaleApiClient();
   const loanSchemes = useSelector((state: RootState) =>

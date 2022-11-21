@@ -4,7 +4,7 @@ import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import { EnvironmentNetwork, isPlayground } from "@environment";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { SettingsParamList } from "@screens/AppNavigator/screens/Settings/SettingsNavigator";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { ThemedTextV2 } from "./themed/ThemedTextV2";
 
@@ -16,6 +16,7 @@ interface NetworkItemRowProps {
 }
 
 export function NetworkItemRowV2(props: NetworkItemRowProps): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<SettingsParamList>>();
   const { network, updateNetwork } = useNetworkContext();
 

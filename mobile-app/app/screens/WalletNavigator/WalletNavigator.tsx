@@ -5,7 +5,7 @@ import {
 } from "@react-navigation/native";
 import { Theme } from "@react-navigation/native/lib/typescript/src/types";
 import { createStackNavigator } from "@react-navigation/stack";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import * as Linking from "expo-linking";
 import { useRef } from "react";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
@@ -73,6 +73,7 @@ const LinkingConfiguration: LinkingOptions<ReactNavigation.RootParamList> = {
 };
 
 export function WalletNavigator(): JSX.Element {
+  const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
   const navigationRef =
     useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null);

@@ -8,7 +8,7 @@ import {
   ThemedTextV2,
   ThemedViewV2,
 } from "@components/themed";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
@@ -55,6 +55,7 @@ type Props = StackScreenProps<LoanParamList, "PaybackLoanScreen">;
 
 export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
   const routeParams = route.params;
+  const { tailwind, getColor } = useStyles();
   const client = useWhaleApiClient();
   const dispatch = useAppDispatch();
   const [vault, setVault] = useState(routeParams.vault);
@@ -442,6 +443,7 @@ function TransactionDetailsSection({
   isPaybackDUSDUsingCollateral,
   collateralValue,
 }: TransactionDetailsProps): JSX.Element {
+  const { tailwind } = useStyles();
   const rowStyle = {
     containerStyle: {
       style: tailwind("flex-row items-start w-full bg-transparent mt-5"),

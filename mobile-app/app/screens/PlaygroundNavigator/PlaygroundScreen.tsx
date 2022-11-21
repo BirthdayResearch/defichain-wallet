@@ -4,7 +4,7 @@ import { WalletContextProvider } from "@shared-contexts/WalletContext";
 import { WalletNodeProvider } from "@shared-contexts/WalletNodeProvider";
 import { useWalletPersistenceContext } from "@shared-contexts/WalletPersistenceContext";
 import { isPlayground } from "@environment";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { WalletAddressIndexPersistence } from "@api/wallet/address_index";
 import { PlaygroundOperations } from "@screens/PlaygroundNavigator/sections/PlaygroundOperations";
 import { PlaygroundConnection } from "./sections/PlaygroundConnection";
@@ -14,6 +14,7 @@ import { PlaygroundWallet } from "./sections/PlaygroundWallet";
 import { PlaygroundStatusInfo } from "./sections/PlaygroundStatusInfo";
 
 export function PlaygroundScreen(): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedScrollViewV2
       contentInsetAdjustmentBehavior="always"

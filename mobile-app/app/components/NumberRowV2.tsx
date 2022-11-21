@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2";
 import { translate } from "@translations";
 import {
@@ -53,6 +53,7 @@ export interface NumberRowElement {
 }
 
 export function NumberRowV2(props: INumberRowProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       style={

@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import BigNumber from "bignumber.js";
 import { StyleProp, TextStyle } from "react-native";
 import { NumberRowV2 } from "./NumberRowV2";
@@ -20,6 +20,7 @@ export function PricesSectionV2({
   testID: string;
   sectionTitle?: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const rowStyle = {
     lhsThemedProps: {
       light: tailwind("text-mono-light-v2-500"),

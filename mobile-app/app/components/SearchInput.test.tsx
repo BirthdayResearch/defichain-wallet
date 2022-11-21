@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { render } from "@testing-library/react-native";
 import { SearchInput } from "./SearchInput";
 

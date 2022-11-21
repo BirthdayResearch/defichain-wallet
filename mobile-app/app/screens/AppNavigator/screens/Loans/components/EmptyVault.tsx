@@ -1,7 +1,7 @@
 import { RefreshControl } from "react-native";
 import { Button } from "@components/Button";
 import { ThemedIcon, ThemedScrollView, ThemedText } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { InfoTextLink } from "@components/InfoTextLink";
 import { View } from "@components";
@@ -14,6 +14,7 @@ interface EmptyVaultProps {
 }
 
 export function EmptyVault(props: EmptyVaultProps): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
   const goToVaultsFaq = (): void => {
     navigation.navigate({

@@ -9,7 +9,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { useEffect, useMemo, useState } from "react";
 import BigNumber from "bignumber.js";
@@ -69,6 +69,7 @@ export function BorrowLoanTokenScreen({
   route,
   navigation,
 }: Props): JSX.Element {
+  const { tailwind, getColor } = useStyles();
   const client = useWhaleApiClient();
   const { isLight } = useThemeContext();
   const isFocused = useIsFocused();
@@ -602,6 +603,7 @@ interface VaultInputProps {
 }
 
 function VaultInput(props: VaultInputProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("")}>
       <ThemedSectionTitleV2
@@ -652,6 +654,7 @@ interface TransactionDetailsProps {
 export function TransactionDetailsSection(
   props: TransactionDetailsProps
 ): JSX.Element {
+  const { tailwind } = useStyles();
   const isEmptyBorrowAmount =
     new BigNumber(props.borrowAmount).isNaN() ||
     new BigNumber(props.borrowAmount).isZero();

@@ -18,7 +18,7 @@ import {
   tokensSelector,
   WalletToken,
 } from "@store/wallet";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import * as React from "react";
@@ -44,6 +44,7 @@ type Props = StackScreenProps<DexParamList, "PoolPairDetailsScreen">;
 
 export function PoolPairDetailsScreen({ route }: Props): JSX.Element {
   const { id } = route.params;
+  const { tailwind } = useStyles();
   const poolPair = useSelector((state: RootState) =>
     poolPairSelector(state.wallet, id)
   );
@@ -180,6 +181,7 @@ function Header(props: {
   setFavouritePair: (id: string) => void;
   onLinkPress: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const toast = useToast();
   const TOAST_DURATION = 2000;
   const showToast = (type: ActionType): void => {
@@ -258,6 +260,7 @@ function Header(props: {
 
 function PoolPairDetail({ poolPair }: { poolPair: DexItem }): JSX.Element {
   const { getTokenPrice } = useTokenPrice();
+  const { tailwind } = useStyles();
 
   return (
     <ThemedViewV2
@@ -347,6 +350,7 @@ function PoolPairDetail({ poolPair }: { poolPair: DexItem }): JSX.Element {
 
 function PriceRateDetail({ poolPair }: { poolPair: DexItem }): JSX.Element {
   const { getTokenPrice } = useTokenPrice();
+  const { tailwind } = useStyles();
 
   return (
     <ThemedViewV2
@@ -407,6 +411,7 @@ function YourPoolPairTokenBreakdown(props: {
   const { tokenATotal, tokenBTotal } = useYourPoolPairAmountBreakdown(
     props.yourLpToken
   );
+  const { tailwind } = useStyles();
 
   return (
     <ThemedViewV2
@@ -480,6 +485,7 @@ function APRDetail(props: {
   reward: number;
   commission: number;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       style={tailwind("border-b-0.5 pb-5 flex-row")}
@@ -566,6 +572,7 @@ function PoolPairActionSection({
   onRemove,
   onSwap,
 }: PoolPairActionSectionProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("flex-1 pt-12")}>
       <ThemedViewV2
@@ -625,6 +632,7 @@ function PoolPairActionRow({
   iconType,
   isLast,
 }: PoolPairActionRowProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedTouchableListItem onPress={onPress} isLast={isLast} testID={testID}>
       <ThemedTextV2

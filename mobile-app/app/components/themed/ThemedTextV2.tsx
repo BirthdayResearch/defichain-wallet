@@ -1,5 +1,5 @@
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 
 import { Text, TextProps } from "../Text";
 import { ThemedProps } from "./index";
@@ -8,6 +8,7 @@ type ThemedTextProps = TextProps & ThemedProps;
 
 export function ThemedTextV2(props: ThemedTextProps): JSX.Element {
   const { isLight } = useThemeContext();
+  const { tailwind } = useStyles();
   const {
     style,
     light = tailwind("text-mono-light-v2-900"),

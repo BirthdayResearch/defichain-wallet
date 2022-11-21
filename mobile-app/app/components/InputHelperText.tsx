@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import {
   ThemedView,
   ThemedText,
@@ -20,6 +20,7 @@ interface InputHelperTextProps extends React.PropsWithChildren<ViewProps> {
   labelStyleProps?: StyleProp<TextProps>;
 }
 export function InputHelperText(props: InputHelperTextProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedView
       light={tailwind("bg-transparent")}
@@ -56,6 +57,7 @@ export function InputHelperText(props: InputHelperTextProps): JSX.Element {
   );
 }
 export function InputHelperTextV2(props: InputHelperTextProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       light={tailwind("bg-transparent")}

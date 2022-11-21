@@ -6,7 +6,7 @@ import BigNumber from "bignumber.js";
 import Checkbox from "expo-checkbox";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
-import { tailwind, getColor } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { DeFiAddress } from "@defichain/jellyfish-address";
 import { NetworkName } from "@defichain/jellyfish-network";
@@ -46,6 +46,7 @@ import { PortfolioParamList } from "../PortfolioNavigator";
 type Props = StackScreenProps<PortfolioParamList, "SendConfirmationScreen">;
 
 export function SendConfirmationScreen({ route }: Props): JSX.Element {
+  const { tailwind, getColor } = useStyles();
   const { address } = useWalletContext();
   const addressLabel = useAddressLabel(address);
   const network = useNetworkContext();
@@ -309,6 +310,7 @@ function LpAcknowledgeSwitch(props: {
   isAcknowledge: boolean;
   onSwitch: (val: boolean) => void;
 }): JSX.Element {
+  const { tailwind, getColor } = useStyles();
   return (
     <View style={tailwind("px-10 py-8 pt-4 flex flex-row justify-center")}>
       <Checkbox

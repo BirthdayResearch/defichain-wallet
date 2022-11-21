@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { ThemedViewV2 } from "@components/themed";
 import { ButtonGroupV2 } from "../../components/ButtonGroupV2";
@@ -20,6 +20,7 @@ export function SwapButtonGroup({
   onPress,
   disableFutureSwap = false,
 }: SwapButtonGroupProps): JSX.Element {
+  const { tailwind } = useStyles();
   const buttonGroup = [
     {
       id: ButtonGroupTabKey.InstantSwap,

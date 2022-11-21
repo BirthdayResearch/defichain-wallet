@@ -2,7 +2,7 @@ import { useDisplayBalancesContext } from "@contexts/DisplayBalancesContext";
 import { ThemedProps, ThemedTextV2 } from "@components/themed";
 import { TextProps, View } from "@components";
 import { Platform, StyleProp, TextStyle } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 
 interface BalanceTextProps {
   symbol?: string;
@@ -19,6 +19,7 @@ export function BalanceTextV2({
   containerStyle,
   ...otherProps
 }: BalanceTextProps & ThemedProps & TextProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { isBalancesDisplayed, hiddenBalanceText } =
     useDisplayBalancesContext();
 

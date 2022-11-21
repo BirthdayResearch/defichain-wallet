@@ -5,7 +5,7 @@ import { Control, Controller, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useToast } from "react-native-toast-notifications";
 import { StackScreenProps } from "@react-navigation/stack";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { debounce } from "lodash";
 import { fromAddress } from "@defichain/jellyfish-address";
 import { NetworkName } from "@defichain/jellyfish-network";
@@ -71,6 +71,7 @@ export interface BottomSheetToken {
 }
 
 export function SendScreen({ route, navigation }: Props): JSX.Element {
+  const { tailwind, getColor } = useStyles();
   const dispatch = useAppDispatch();
   const logger = useLogger();
   const { networkName } = useNetworkContext();
@@ -619,6 +620,7 @@ function AddressRow({
   onAddressChange: (address: string) => void;
   inputFooter?: React.ReactElement;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const defaultValue = "";
   return (
     <Controller
@@ -726,6 +728,7 @@ function AmountCard({
   onPress,
   onAmountChange,
 }: AmountForm): JSX.Element {
+  const { tailwind } = useStyles();
   const maxAmount = BigNumber.max(token.amount, 0);
   return (
     <>

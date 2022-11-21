@@ -8,7 +8,7 @@ import {
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedTextV2 } from "@components/themed";
 import { StyleProp, ViewStyle } from "react-native";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
@@ -47,6 +47,7 @@ export interface AuctionsParamList {
 const AuctionsStack = createStackNavigator<AuctionsParamList>();
 
 export function AuctionsNavigator(): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>();
 
   const screenOptions = useNavigatorScreenOptions({ isRounded: true });

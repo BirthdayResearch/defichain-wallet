@@ -2,7 +2,7 @@ import { memo } from "react";
 import { View } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { isEqual } from "lodash";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedTextV2 } from "@components/themed";
 import { getNumberFormatValue } from "@api/number-format-value";
 
@@ -17,6 +17,7 @@ interface APRSectionProps {
 }
 
 export const APRSection = memo((props: APRSectionProps): JSX.Element => {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("flex flex-col items-end")}>
       <ThemedTextV2

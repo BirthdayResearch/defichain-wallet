@@ -1,12 +1,13 @@
 import { Button } from "@components/Button";
 import { ThemedScrollView, ThemedText } from "@components/themed";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 
 import { LoanParamList } from "../../LoansNavigator";
 
 export function EmptyLoan({ vaultId }: { vaultId: string }): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
   return (
     <ThemedScrollView

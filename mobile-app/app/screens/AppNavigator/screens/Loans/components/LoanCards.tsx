@@ -8,7 +8,7 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { Platform, TextInput, View } from "react-native";
@@ -73,6 +73,7 @@ export interface LoanCardOptions {
 }
 
 export function LoanCards(props: LoanCardsProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
   const loanTokens = useSelector((state: RootState) =>
     loanTokensSelector(state.loans)
@@ -545,6 +546,7 @@ function LoanCard({
   parentTestID,
   isBorrowHidden,
 }: LoanCardOptions): JSX.Element {
+  const { tailwind } = useStyles();
   const currentPrice = getPrecisedTokenValue(getActivePrice(symbol, price));
 
   return (
@@ -611,6 +613,7 @@ function LoanCard({
 */
 const MemoizedLoanIcon = memo(
   ({ testID, displaySymbol }: { testID: string; displaySymbol: string }) => {
+    const { tailwind } = useStyles();
     const LoanIcon = getNativeIcon(displaySymbol);
     return (
       <View

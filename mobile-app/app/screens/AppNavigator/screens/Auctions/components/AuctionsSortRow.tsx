@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import {
   ThemedFlatListV2,
   ThemedIcon,
@@ -22,6 +22,7 @@ export function AuctionsSortRow(props: {
   assetSortType: AuctionsSortType;
   onPress: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View
       style={tailwind("px-10 mt-4 mb-2 flex flex-row justify-between")}
@@ -81,6 +82,7 @@ export const BottomSheetAssetSortList = ({
         ? flatListComponents.web
         : flatListComponents.mobile;
     const assetSortList: AuctionsSortType[] = Object.values(AuctionsSortType);
+    const { tailwind } = useStyles();
 
     const renderItem = ({
       item,
@@ -89,6 +91,7 @@ export const BottomSheetAssetSortList = ({
       item: AuctionsSortType;
       index: number;
     }): JSX.Element => {
+      const { tailwind } = useStyles();
       const testID = `select_sort_${item.toLowerCase().replaceAll(" ", "_")}`;
       return (
         <ThemedTouchableOpacityV2

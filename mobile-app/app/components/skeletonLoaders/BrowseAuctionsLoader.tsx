@@ -5,7 +5,7 @@ import ContentLoader, {
   Rect,
 } from "react-content-loader/native";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedViewV2 } from "../themed";
 
 type BrowseAuctionsLoaderProps = JSX.IntrinsicAttributes &
@@ -15,6 +15,7 @@ export function BrowseAuctionsLoader(
   props: BrowseAuctionsLoaderProps
 ): JSX.Element {
   const { isLight } = useThemeContext();
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       light={tailwind("bg-mono-light-v2-00")}

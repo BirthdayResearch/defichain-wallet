@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import {
   ThemedTextV2,
   ThemedIcon,
@@ -22,6 +22,7 @@ export function ViewPoolHeader({
   testID,
   onPress,
 }: ViewPoolHeaderProps): JSX.Element {
+  const { tailwind } = useStyles();
   const TokenIconA = getNativeIcon(tokenASymbol);
   const TokenIconB = getNativeIcon(tokenBSymbol);
   return (

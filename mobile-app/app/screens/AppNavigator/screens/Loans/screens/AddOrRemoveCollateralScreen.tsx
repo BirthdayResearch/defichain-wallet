@@ -4,7 +4,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { useEffect, useState } from "react";
@@ -80,6 +80,7 @@ interface RemoveCollateralError {
 
 export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
   const { vault, collateralItem, collateralTokens, isAdd } = route.params;
+  const { tailwind } = useStyles();
   const [selectedCollateralItem, setSelectedCollateralItem] =
     useState<CollateralItem>(collateralItem);
 
@@ -807,6 +808,7 @@ function TotalTokenCollateralRow(props: {
   symbol: string;
   collateralFactor: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       style={tailwind("flex-row items-start w-full mt-5")}

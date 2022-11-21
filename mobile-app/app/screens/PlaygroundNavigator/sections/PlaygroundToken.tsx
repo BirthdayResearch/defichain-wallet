@@ -10,11 +10,12 @@ import {
   PlaygroundStatusType,
 } from "@screens/PlaygroundNavigator/components/PlaygroundStatus";
 import { ThemedIcon, ThemedViewV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { PlaygroundTitle } from "../components/PlaygroundTitle";
 import { PlaygroundAction } from "../components/PlaygroundAction";
 
 export function PlaygroundToken(): JSX.Element | null {
+  const { tailwind } = useStyles();
   const { wallet } = useWalletContext();
   const { rpc, api } = usePlaygroundContext();
   const [status, setStatus] = useState<PlaygroundConnectionStatus>(

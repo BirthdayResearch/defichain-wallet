@@ -10,7 +10,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { LoanScheme } from "@defichain/whale-api-client/dist/api/loan";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { StyleProp, ViewStyle } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
@@ -28,6 +28,7 @@ interface LoanSchemeOptionsP {
 }
 
 export function LoanSchemeOptionsV2(props: LoanSchemeOptionsP): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       style={[
@@ -115,6 +116,7 @@ function LoanSchemeOptionData(props: {
   disabled?: boolean;
   containerStyle?: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("flex-1 flex-row", props.containerStyle)}>
       <ThemedTextV2

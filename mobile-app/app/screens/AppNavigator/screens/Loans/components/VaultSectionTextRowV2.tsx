@@ -1,7 +1,7 @@
 import { BottomSheetAlertInfo } from "@components/BottomSheetInfo";
 import { NumberRowElement } from "@components/NumberRow";
 import { ThemedProps, ThemedTextV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { NumericFormat as NumberFormat } from "react-number-format";
 
 import { View, ViewProps } from "react-native";
@@ -21,6 +21,7 @@ interface VaultSectionTextProps extends NumberRowElement {
 export function VaultSectionTextRowV2(
   props: IVaultSectionTextProps
 ): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind(props.customContainerStyle)}>
       <ThemedTextV2

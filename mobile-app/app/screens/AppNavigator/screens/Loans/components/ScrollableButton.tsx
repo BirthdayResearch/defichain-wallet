@@ -1,7 +1,7 @@
 import { View } from "@components";
 import { IconButton } from "@components/IconButton";
 import { IconName, IconType, ThemedScrollView } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 
 import { StyleProp, ViewStyle } from "react-native";
@@ -23,6 +23,7 @@ export interface ScrollButton {
 export function ScrollableButton(
   props: ScrollableButtonProps
 ): JSX.Element | null {
+  const { tailwind } = useStyles();
   if (props.buttons.length === 0) {
     return null;
   }

@@ -1,7 +1,7 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { View } from "@components/index";
 import { ThemedScrollViewV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { ImageBackground } from "react-native";
 import { ButtonV2 } from "@components/ButtonV2";
@@ -17,6 +17,7 @@ import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { WalletParamList } from "../WalletNavigator";
 
 export function Onboarding(): JSX.Element {
+  const { tailwind } = useStyles();
   const navigator = useNavigation<NavigationProp<WalletParamList>>();
   const { isLight } = useThemeContext();
   const { top: topInset } = useSafeAreaInsets();

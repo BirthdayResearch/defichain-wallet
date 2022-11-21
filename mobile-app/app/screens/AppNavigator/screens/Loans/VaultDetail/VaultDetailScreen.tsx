@@ -6,7 +6,7 @@ import {
   ThemedView,
 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
@@ -38,6 +38,7 @@ type Props = StackScreenProps<LoanParamList, "VaultDetailScreen">;
 
 export function VaultDetailScreen({ route, navigation }: Props): JSX.Element {
   const { vaultId, tab } = route.params;
+  const { tailwind } = useStyles();
   const [vault, setVault] = useState<LoanVault>();
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
   const canUseOperations = useLoanOperations(vault?.state);
@@ -151,6 +152,7 @@ function VaultIdSection({
   vault: LoanVault;
   testID: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const { getVaultsUrl } = useDeFiScanContext();
   const colRatio =
     vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.informativeRatio;
@@ -236,6 +238,7 @@ function VaultIdSection({
 }
 
 function VaultInfoSection(props: { vault?: LoanVault }): JSX.Element | null {
+  const { tailwind } = useStyles();
   if (props.vault === undefined) {
     return null;
   }

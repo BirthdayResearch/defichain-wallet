@@ -15,7 +15,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { WalletAlert } from "@components/WalletAlert";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { Platform, TouchableOpacity } from "react-native";
 import { View } from "@components";
@@ -31,6 +31,7 @@ export interface CreateMnemonicWalletHandle {
 }
 
 export function CreateMnemonicWallet({ navigation }: Props): JSX.Element {
+  const { tailwind, getColor } = useStyles();
   const [words, setWords] = useState<string[]>(
     MnemonicUnprotected.generateWords()
   );
@@ -182,6 +183,7 @@ function RecoveryWordRow(props: {
   key: number;
   border: boolean;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       dark={tailwind("border-mono-dark-v2-300")}

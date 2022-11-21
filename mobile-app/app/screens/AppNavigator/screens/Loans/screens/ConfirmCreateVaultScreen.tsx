@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 import { LoanScheme } from "@defichain/whale-api-client/dist/api/loan";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { translate } from "@translations";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { View } from "@components";
 import { TextRow } from "@components/TextRow";
 import BigNumber from "bignumber.js";
@@ -48,6 +48,7 @@ export function ConfirmCreateVaultScreen({
   navigation,
 }: Props): JSX.Element {
   const { loanScheme, fee, conversion } = route.params;
+  const { tailwind } = useStyles();
   const logger = useLogger();
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
@@ -197,6 +198,7 @@ function SummaryTransactionDetails(props: {
   fee: BigNumber;
   conversion?: ConversionParam;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const { network } = useNetworkContext();
   const vaultFee = new BigNumber(
     network === EnvironmentNetwork.MainNet ||
@@ -257,6 +259,7 @@ function SummaryTransactionDetails(props: {
 }
 
 function SummaryVaultDetails(props: { loanScheme: LoanScheme }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <>
       <ThemedSectionTitle

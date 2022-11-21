@@ -14,7 +14,7 @@ import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/typ
 import { NavigationContainer, Theme } from "@react-navigation/native";
 import { AddOrRemoveCollateralFormProps } from "@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm";
 import { Platform, View } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { CreateOrEditAddressLabelFormProps } from "@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelForm";
 import { getDefaultTheme } from "@constants/Theme";
@@ -48,6 +48,7 @@ export interface BottomSheetWithNavRouteParam {
 
 export const BottomSheetWithNav = React.memo(
   (props: BottomSheetWithNavProps): JSX.Element => {
+    const { tailwind } = useStyles();
     const getSnapPoints = (): string[] => {
       if (Platform.OS === "ios") {
         return props.snapPoints?.ios ?? ["50%"];

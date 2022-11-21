@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { InfoTextLinkV2 } from "@components/InfoTextLink";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { translate } from "@translations";
@@ -17,6 +17,7 @@ export function EmptyAuction({
   subtitle: string;
   showInfo?: boolean;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>();
   const { isLight } = useThemeContext();
   const goToAuctionsFaq = (): void => {

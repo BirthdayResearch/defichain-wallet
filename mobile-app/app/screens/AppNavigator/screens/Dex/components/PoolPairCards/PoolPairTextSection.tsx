@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { ThemedText } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { getNativeIcon } from "@components/icons/assets";
 
 interface PoolPairTextSectionProps {
@@ -11,6 +11,7 @@ interface PoolPairTextSectionProps {
 
 export const PoolPairTextSection = React.memo(
   ({ symbolA, symbolB }: PoolPairTextSectionProps): JSX.Element => {
+    const { tailwind } = useStyles();
     const poolpairSymbol = `${symbolA}-${symbolB}`;
     return (
       <View style={tailwind("flex-row flex-shrink break-words items-center")}>
@@ -30,6 +31,7 @@ export function PoolPairIcon(props: {
   symbolA: string;
   symbolB: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const IconA = getNativeIcon(props.symbolA);
   const IconB = getNativeIcon(props.symbolB);
   return (

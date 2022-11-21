@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { ThemedText, ThemedTouchableOpacity } from "./themed";
 
@@ -17,6 +17,7 @@ interface SetAmountButtonProps {
 }
 
 export function SetAmountButton(props: SetAmountButtonProps): JSX.Element {
+  const { tailwind } = useStyles();
   const decimalPlace = 8;
   const text =
     props.customText !== undefined

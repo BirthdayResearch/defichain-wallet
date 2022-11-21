@@ -1,5 +1,5 @@
 import { StyleProp, View, ViewStyle } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { IconButton } from "@components/IconButton";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
@@ -35,6 +35,7 @@ export function ActionSection({
   type,
   pair,
 }: ActionSectionProps): JSX.Element {
+  const { tailwind } = useStyles();
   const isSwapDisabled = !pair.tradeEnabled || !pair.status;
 
   return (
@@ -58,6 +59,7 @@ export function YourPairActions({
   onRemove,
   symbol,
 }: YourPairActionsProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <>
       <ActionButton
@@ -86,6 +88,7 @@ function AvailablePairActions({
   symbol,
   isSwapDisabled,
 }: AvailablePairActionsProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <>
       <ActionButton

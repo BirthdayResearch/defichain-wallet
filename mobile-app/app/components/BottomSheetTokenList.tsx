@@ -1,6 +1,6 @@
 import { memo } from "react";
 import * as React from "react";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { Platform, View } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
@@ -60,6 +60,7 @@ export const BottomSheetTokenList = ({
   isOraclePrice,
 }: BottomSheetTokenListProps): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
+    const { tailwind } = useStyles();
     const { collateralTokens } = useCollateralTokenList();
     const { isLight } = useThemeContext();
     const navigation =

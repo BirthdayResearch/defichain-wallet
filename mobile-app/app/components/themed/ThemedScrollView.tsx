@@ -1,5 +1,5 @@
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { forwardRef } from "react";
 
 import { ScrollView } from "react-native";
@@ -10,6 +10,7 @@ type ThemedScrollViewProps = ScrollView["props"] & ThemedProps;
 export const ThemedScrollView = forwardRef(
   (props: ThemedScrollViewProps, ref: React.Ref<any>): JSX.Element => {
     const { isLight } = useThemeContext();
+    const { tailwind } = useStyles();
     const {
       style,
       light = tailwind("bg-gray-50"),

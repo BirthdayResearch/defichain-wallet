@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { StyleProp, View, ViewStyle } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
@@ -22,6 +22,7 @@ export enum InfoType {
 }
 
 export function InfoRow(props: InfoRowProps): JSX.Element {
+  const { tailwind } = useStyles();
   const alertInfo = new Map([
     [
       InfoType.EstimatedFee,
