@@ -1,25 +1,22 @@
 import { tailwind } from "@tailwind";
 import { nativeApplicationVersion } from "expo-application";
-import { ThemedText, ThemedView } from "@components/themed";
+import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { translate } from "@translations";
 
 export function VersionTag(): JSX.Element {
   return (
-    <ThemedView
-      dark={tailwind("border-gray-700")}
-      light={tailwind("border-gray-200")}
-      style={tailwind("border rounded py-0.5 px-2")}
+    <ThemedViewV2
+      light={tailwind("bg-transparent")}
+      dark={tailwind("bg-transparent")}
     >
-      <ThemedText
-        dark={tailwind("text-gray-400")}
-        light={tailwind("text-gray-500")}
-        style={tailwind("text-sm font-medium")}
+      <ThemedTextV2
+        style={tailwind("text-2xs font-normal-v2 text-center")}
         testID="version_tag"
       >
-        {translate("components/VersionTag", "Version {{number}}", {
+        {translate("components/VersionTag", "VERSION {{number}}", {
           number: nativeApplicationVersion ?? "0.0.0",
         })}
-      </ThemedText>
-    </ThemedView>
+      </ThemedTextV2>
+    </ThemedViewV2>
   );
 }

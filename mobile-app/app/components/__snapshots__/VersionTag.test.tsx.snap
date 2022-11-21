@@ -4,25 +4,9 @@ exports[`version tag should render 1`] = `
 <View
   style={
     [
+      undefined,
       {
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftWidth": 1,
-        "borderRightWidth": 1,
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "paddingBottom": 2,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 2,
-      },
-      {
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderTopColor": "rgba(229, 229, 229, 1)",
+        "backgroundColor": "transparent",
       },
     ]
   }
@@ -38,20 +22,20 @@ exports[`version tag should render 1`] = `
         },
         [
           {
-            "fontFamily": "MediumFont",
-            "fontSize": 14,
-            "fontWeight": "500",
-            "lineHeight": 20,
+            "fontFamily": "SoraRegular",
+            "fontSize": 10,
+            "fontWeight": "400",
+            "textAlign": "center",
           },
           {
-            "color": "rgba(115, 115, 115, 1)",
+            "color": "rgba(18, 18, 18, 1)",
           },
         ],
       ]
     }
     testID="version_tag"
   >
-    Version mock
+    VERSION mock
   </Text>
 </View>
 `;

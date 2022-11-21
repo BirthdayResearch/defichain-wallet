@@ -19,11 +19,11 @@ import {
 } from "@shared-contexts/NativeLoggingProvider";
 import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { SummaryTitleV2 } from "@components/SummaryTitleV2";
+import { SummaryTitle } from "@components/SummaryTitle";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { View } from "@components";
 import { AuctionsParamList } from "../AuctionNavigator";
 import { useAuctionTime } from "../hooks/AuctionTimeLeft";
@@ -117,7 +117,7 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
       style={tailwind("flex-1")}
       testID="confirm_place_bid_screen"
     >
-      <SummaryTitleV2
+      <SummaryTitle
         title={translate("screens/ConfirmPlaceBidScreen", "You are bidding")}
         amount={bidAmount}
         testID="text_bid_amount_title"
@@ -193,7 +193,7 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
             "Amount will be deducted from your current wallet"
           )}
         </ThemedTextV2>
-        <SubmitButtonGroupV2
+        <SubmitButtonGroup
           isDisabled={
             isSubmitting ||
             hasPendingJob ||

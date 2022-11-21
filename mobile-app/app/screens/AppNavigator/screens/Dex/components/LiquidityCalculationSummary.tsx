@@ -1,7 +1,7 @@
 import { ThemedViewV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { StyleProp, ViewStyle } from "react-native";
-import { PricesSectionV2, PriceRateProps } from "@components/PricesSectionV2";
+import { PricesSection, PriceRateProps } from "@components/PricesSection";
 import {
   NumberRowV2,
   NumberRowElement,
@@ -28,7 +28,7 @@ export function LiquidityCalculationSummary({
         dark={tailwind("border-mono-dark-v2-300")}
         style={containerStyle}
       >
-        <PricesSectionV2
+        <PricesSection
           key="prices"
           testID="pricerate_value"
           priceRates={priceRatesOption}

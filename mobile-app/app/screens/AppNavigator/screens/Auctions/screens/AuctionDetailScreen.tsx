@@ -26,7 +26,7 @@ import { LoanVaultLiquidationBatch } from "@defichain/whale-api-client/dist/api/
 import { ButtonV2 } from "@components/ButtonV2";
 import { TextRowV2 } from "@components/TextRowV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import { PriceRateProps, PricesSectionV2 } from "@components/PricesSectionV2";
+import { PriceRateProps, PricesSection } from "@components/PricesSection";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
@@ -221,7 +221,7 @@ export function AuctionDetailScreen(
           dark={tailwind("border-mono-dark-v2-300")}
           style={tailwind("pt-5 px-5 mt-8 border-0.5 rounded-lg-v2")}
         >
-          <PricesSectionV2
+          <PricesSection
             priceRates={loanCollaterals}
             testID="auction_detail_loan_collaterals"
           />

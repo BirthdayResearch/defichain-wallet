@@ -4,7 +4,6 @@ import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import BigNumber from "bignumber.js";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { StackScreenProps } from "@react-navigation/stack";
 import { tailwind } from "@tailwind";
 import { RootState } from "@store";
 import { translate } from "@translations";
@@ -20,12 +19,13 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { SearchInputV2 } from "@components/SearchInputV2";
+import { SearchInput } from "@components/SearchInput";
 import { ButtonV2 } from "@components/ButtonV2";
 import {
   SkeletonLoader,
   SkeletonLoaderScreen,
 } from "@components/SkeletonLoader";
+import { ListRenderItemInfo } from "@shopify/flash-list";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import { TokenIcon } from "../components/TokenIcon";
@@ -48,9 +48,7 @@ export interface BottomSheetToken {
   reserve?: string;
 }
 
-type Props = StackScreenProps<PortfolioParamList, "TokenSelectionScreen">;
-
-export function TokenSelectionScreen(_props: Props): JSX.Element {
+export function TokenSelectionScreen(): JSX.Element {
   const { isLight } = useThemeContext();
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const tokens = useSelector((state: RootState) =>
@@ -79,7 +77,9 @@ export function TokenSelectionScreen(_props: Props): JSX.Element {
       testID="token_selection_screen"
       parentContainerStyle={tailwind("pb-4")}
       data={filteredTokensWithBalance}
-      renderItem={({ item }: { item: TokenSelectionItem }): JSX.Element => {
+      renderItem={({
+        item,
+      }: ListRenderItemInfo<TokenSelectionItem>): JSX.Element => {
         return (
           <TokenSelectionRow
             item={item}
@@ -97,7 +97,7 @@ export function TokenSelectionScreen(_props: Props): JSX.Element {
       }}
       ListHeaderComponent={
         <ThemedViewV2 style={tailwind("mx-5 mt-8")}>
-          <SearchInputV2
+          <SearchInput
             value={searchString}
             containerStyle={tailwind([
               "border-0.5",

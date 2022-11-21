@@ -17,8 +17,8 @@ import {
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { dfiConversionCrafter } from "@api/transaction/dfi_converter";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { SummaryTitleV2 } from "@components/SummaryTitleV2";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SummaryTitle } from "@components/SummaryTitle";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { View } from "react-native";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
@@ -116,7 +116,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
   return (
     <ThemedScrollViewV2 style={tailwind("pb-4")}>
       <ThemedViewV2 style={tailwind("flex-col px-5 py-8")}>
-        <SummaryTitleV2
+        <SummaryTitle
           title={translate(
             "screens/ConvertConfirmScreen",
             "You are converting to {{unit}}",
@@ -247,7 +247,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
         />
 
         <View style={tailwind("mt-20")}>
-          <SubmitButtonGroupV2
+          <SubmitButtonGroup
             isDisabled={false}
             title="convert"
             label={translate("screens/ConvertConfirmScreen", "Convert")}
