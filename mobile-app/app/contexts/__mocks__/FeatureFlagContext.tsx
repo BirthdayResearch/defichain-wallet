@@ -16,6 +16,7 @@ export function useFeatureFlagContext(): FeatureFlagContextI {
           EnvironmentNetwork.RemotePlayground,
         ],
         platforms: ["ios", "android", "web"],
+        app: ["MOBILE_LW"],
       },
     ],
     enabledFeatures: ["future_swap", "dfi_loan_payment"],

@@ -28,6 +28,7 @@ export default async function handle(
         EnvironmentNetwork.LocalPlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
     },
     {
       id: "auction",
@@ -42,6 +43,7 @@ export default async function handle(
         EnvironmentNetwork.LocalPlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
     },
     {
       id: "dfi_loan_payment",
@@ -56,6 +58,7 @@ export default async function handle(
         EnvironmentNetwork.LocalPlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
     },
     {
       id: "local_storage",
@@ -70,6 +73,7 @@ export default async function handle(
         EnvironmentNetwork.LocalPlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
     },
     {
       id: "dusd_vault_share",
@@ -84,6 +88,7 @@ export default async function handle(
         EnvironmentNetwork.LocalPlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
     },
     {
       id: "dusd_loan_payment",
@@ -97,6 +102,7 @@ export default async function handle(
         EnvironmentNetwork.LocalPlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
     },
     {
       id: "future_swap",
@@ -111,6 +117,7 @@ export default async function handle(
         EnvironmentNetwork.LocalPlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
     },
     {
       id: "service_provider",
@@ -125,6 +132,7 @@ export default async function handle(
         EnvironmentNetwork.LocalPlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
     },
     {
       id: "onboarding_v2",
@@ -139,6 +147,7 @@ export default async function handle(
         EnvironmentNetwork.LocalPlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
     },
     {
       id: "dusd_dfi_high_fee",
@@ -154,6 +163,7 @@ export default async function handle(
         EnvironmentNetwork.LocalPlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
     },
     {
       id: "dusd_dex_high_fee",
@@ -169,6 +179,7 @@ export default async function handle(
         EnvironmentNetwork.LocalPlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
     },
     {
       id: "setting_v2",
@@ -183,6 +194,7 @@ export default async function handle(
         EnvironmentNetwork.LocalPlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
     },
     {
       id: "portfolio_v2",
@@ -197,6 +209,7 @@ export default async function handle(
         EnvironmentNetwork.LocalPlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
     },
     {
       id: "add_liquidity_v2",
@@ -211,6 +224,7 @@ export default async function handle(
         EnvironmentNetwork.LocalPlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
     },
     {
       id: "remove_liquidity_v2",
@@ -225,6 +239,7 @@ export default async function handle(
         EnvironmentNetwork.LocalPlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
     },
     {
       id: "send_v2",
@@ -239,6 +254,7 @@ export default async function handle(
         EnvironmentNetwork.LocalPlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
     },
     {
       id: "composite_swap_v2",
@@ -253,6 +269,7 @@ export default async function handle(
         EnvironmentNetwork.LocalPlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
     },
     {
       id: "unloop_dusd",
@@ -267,6 +284,7 @@ export default async function handle(
         EnvironmentNetwork.LocalPlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
     },
   ]);
 }
