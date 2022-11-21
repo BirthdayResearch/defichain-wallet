@@ -7,7 +7,7 @@ import { ImageBackground } from "react-native";
 import { ButtonV2 } from "@components/ButtonV2";
 import GridBackgroundImageLight from "@assets/images/onboarding/grid-background-light.png";
 import GridBackgroundImageDark from "@assets/images/onboarding/grid-background-dark.png";
-import { VersionTagV2 } from "@components/VersionTagV2";
+import { VersionTag } from "@components/VersionTag";
 import { OnboardingCarousel } from "@screens/WalletNavigator/screens/components/OnboardingCarousel";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -60,7 +60,7 @@ export function Onboarding(): JSX.Element {
             testID="restore_wallet_button"
           />
         </ImageBackground>
-        <VersionTagV2 />
+        <VersionTag />
       </View>
     </ThemedScrollViewV2>
   );

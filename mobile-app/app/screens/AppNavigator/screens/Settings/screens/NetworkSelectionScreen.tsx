@@ -18,7 +18,7 @@ import { TextRowV2 } from "@components/TextRowV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { getEnvironment } from "@environment";
 import { getReleaseChannel } from "@api/releaseChannel";
-import { NetworkItemRowV2 } from "@components/NetworkItemRowV2";
+import { NetworkItemRow } from "@components/NetworkItemRow";
 import { hasTxQueued } from "@store/transaction_queue";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 
@@ -59,7 +59,7 @@ export function NetworkSelectionScreen(): JSX.Element {
         dark={tailwind("bg-mono-dark-v2-00")}
       >
         {networks.map((network, index) => (
-          <NetworkItemRowV2
+          <NetworkItemRow
             disabled={hasPendingJob || hasPendingBroadcastJob}
             key={index}
             network={network}

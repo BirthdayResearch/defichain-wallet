@@ -20,7 +20,7 @@ import DeFiChainWalletImageLight from "@assets/images/DeFiChainWallet-light.png"
 import DeFiChainWalletImageDark from "@assets/images/DeFiChainWallet-dark.png";
 import GridBackgroundImageLight from "@assets/images/about-grid-bg-light.png";
 import GridBackgroundImageDark from "@assets/images/about-grid-bg-dark.png";
-import { VersionTagV2 } from "@components/VersionTagV2";
+import { VersionTag } from "@components/VersionTag";
 import { SettingsParamList } from "../SettingsNavigator";
 
 interface AboutScreenLinks {
@@ -135,7 +135,7 @@ export function AboutScreen(): JSX.Element {
         />
 
         <View style={tailwind("mt-3")}>
-          <VersionTagV2 />
+          <VersionTag />
         </View>
 
         {hasBetaFeatures && (

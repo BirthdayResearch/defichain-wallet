@@ -15,9 +15,9 @@ import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { ButtonV2 } from "@components/ButtonV2";
 import {
-  CreateWalletStepIndicatorV2,
+  CreateWalletStepIndicator,
   RESTORE_STEPS,
-} from "@components/CreateWalletStepIndicatorV2";
+} from "@components/CreateWalletStepIndicator";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { WalletParamList } from "../../WalletNavigator";
 
@@ -116,7 +116,7 @@ export function RestoreMnemonicWallet(): JSX.Element {
       )}
     >
       <View style={tailwind("px-5 mb-12")}>
-        <CreateWalletStepIndicatorV2
+        <CreateWalletStepIndicator
           current={1}
           steps={RESTORE_STEPS}
           style={tailwind("px-16")}

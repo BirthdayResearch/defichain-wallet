@@ -29,15 +29,15 @@ import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { SummaryTitleV2 } from "@components/SummaryTitleV2";
+import { SummaryTitle } from "@components/SummaryTitle";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { AddressType } from "@store/wallet";
 import { TextRowV2 } from "@components/TextRowV2";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { WalletAlert } from "@components/WalletAlert";
 import { LoanParamList } from "../LoansNavigator";
-import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
+import { CollateralizationRatioDisplay } from "../components/CollateralizationRatioDisplay";
 
 type Props = StackScreenProps<LoanParamList, "ConfirmEditCollateralScreen">;
 
@@ -172,7 +172,7 @@ export function ConfirmEditCollateralScreen({
       testID="confirm_edit_collateral_screen"
     >
       <View style={tailwind("mb-6")}>
-        <SummaryTitleV2
+        <SummaryTitle
           title={translate(
             "screens/ConfirmEditCollateralScreen",
             isAdd ? "You are adding collateral" : "You are removing collateral"
@@ -307,7 +307,7 @@ export function ConfirmEditCollateralScreen({
         }}
       />
       <View style={tailwind("pt-5")}>
-        <CollateralizationRatioDisplayV2
+        <CollateralizationRatioDisplay
           collateralizationRatio={resultingColRatio.toFixed(2)}
           minCollateralizationRatio={vault.loanScheme.minColRatio}
           totalLoanAmount={vault.loanValue}
@@ -382,7 +382,7 @@ export function ConfirmEditCollateralScreen({
           </ThemedTextV2>
         )}
 
-        <SubmitButtonGroupV2
+        <SubmitButtonGroup
           isDisabled={hasPendingJob || hasPendingBroadcastJob}
           label={translate(
             "screens/ConfirmEditCollateralScreen",

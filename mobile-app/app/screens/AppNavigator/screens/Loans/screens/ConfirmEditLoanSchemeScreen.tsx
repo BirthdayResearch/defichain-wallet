@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { View } from "react-native";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { LoanScheme } from "@defichain/whale-api-client/dist/api/loan";
 import {
@@ -99,7 +99,7 @@ export function ConfirmEditLoanSchemeScreen({
         fee={fee}
       />
       <View style={tailwind("my-16")}>
-        <SubmitButtonGroupV2
+        <SubmitButtonGroup
           isDisabled={
             hasPendingJob ||
             hasPendingBroadcastJob ||

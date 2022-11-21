@@ -61,7 +61,7 @@ import { useInterestPerBlock } from "../hooks/InterestPerBlock";
 import { useBlocksPerDay } from "../hooks/BlocksPerDay";
 import { BottomSheetLoanTokensList } from "../components/BottomSheetLoanTokensList";
 import { useDFIRequirementForDusdLoanAndCollateral } from "../hooks/DFIRequirementForDusdLoanAndCollateral";
-import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
+import { CollateralizationRatioDisplay } from "../components/CollateralizationRatioDisplay";
 
 type Props = StackScreenProps<LoanParamList, "BorrowLoanTokenScreen">;
 
@@ -764,7 +764,7 @@ export function TransactionDetailsSection(
           style: tailwind("flex-row items-start w-full bg-transparent pt-5"),
         }}
       />
-      <CollateralizationRatioDisplayV2
+      <CollateralizationRatioDisplay
         collateralizationRatio={
           isEmptyBorrowAmount
             ? props.vault.informativeRatio
