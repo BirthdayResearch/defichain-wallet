@@ -45,7 +45,7 @@ export function ActionButtons(): JSX.Element {
       >
         <ActionButton
           name={translate("components/ActionButtons", "Get DFI")}
-          iconSize={28}
+          iconSize={20}
           testID="get_DFI_btn"
           onPress={() => navigation.navigate("GetDFIScreen")}
         />
@@ -122,9 +122,17 @@ function ActionButton(props: ActionButtonsProps): JSX.Element {
       >
         {props.iconType === undefined ? (
           isLight ? (
-            <DFIIcon width={20} height={20} color="#000" />
+            <DFIIcon
+              width={props.iconSize}
+              height={props.iconSize}
+              color="#000"
+            />
           ) : (
-            <DFIIcon width={20} height={20} color="#FFF" />
+            <DFIIcon
+              width={props.iconSize}
+              height={props.iconSize}
+              color="#FFF"
+            />
           )
         ) : (
           <ThemedIcon
