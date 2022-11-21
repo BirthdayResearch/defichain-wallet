@@ -22,6 +22,7 @@ describe("feature flag screen", () => {
         EnvironmentNetwork.RemotePlayground,
       ],
       platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
       value: true,
     };
     const rendered = render(

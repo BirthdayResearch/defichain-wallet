@@ -38,6 +38,7 @@ export interface FeatureFlag {
   description: string;
   networks: EnvironmentNetwork[];
   platforms: Platform[];
+  app: App[];
 }
 
 export interface DeFiChainStatus {
@@ -108,6 +109,8 @@ export interface DeFiChainStatus {
 }
 
 export type Platform = "ios" | "android" | "windows" | "macos" | "web";
+
+export type App = "MOBILE_LW" | "DESKTOP_LW" | "SCAN";
 
 export type FEATURE_FLAG_ID =
   | "loan"

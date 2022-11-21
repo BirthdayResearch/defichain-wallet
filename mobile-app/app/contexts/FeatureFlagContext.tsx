@@ -81,6 +81,7 @@ export function FeatureFlagProvider(
     return featureFlags.some((flag: FeatureFlag) => {
       if (
         flag.networks?.includes(network) &&
+        flag.app?.includes("MOBILE_LW") &&
         flag.platforms?.includes(Platform.OS)
       ) {
         if (Platform.OS === "web") {
