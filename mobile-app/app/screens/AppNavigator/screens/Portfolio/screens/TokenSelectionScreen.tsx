@@ -4,7 +4,6 @@ import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import BigNumber from "bignumber.js";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { StackScreenProps } from "@react-navigation/stack";
 import { useStyles } from "@tailwind";
 import { RootState } from "@store";
 import { translate } from "@translations";
@@ -49,9 +48,7 @@ export interface BottomSheetToken {
   reserve?: string;
 }
 
-type Props = StackScreenProps<PortfolioParamList, "TokenSelectionScreen">;
-
-export function TokenSelectionScreen(_props: Props): JSX.Element {
+export function TokenSelectionScreen(): JSX.Element {
   const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();

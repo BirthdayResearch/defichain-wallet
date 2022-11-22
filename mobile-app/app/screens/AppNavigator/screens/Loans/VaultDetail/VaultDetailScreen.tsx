@@ -185,105 +185,6 @@ export function VaultDetailScreen({ route, navigation }: Props): JSX.Element {
       return;
     }
 
-<<<<<<< HEAD
-function VaultIdSection({
-  vault,
-  testID,
-}: {
-  vault: LoanVault;
-  testID: string;
-}): JSX.Element {
-  const { tailwind } = useStyles();
-  const { getVaultsUrl } = useDeFiScanContext();
-  const colRatio =
-    vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.informativeRatio;
-  const totalLoanAmount =
-    vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.loanValue;
-  const totalCollateralValue =
-    vault.state === LoanVaultState.IN_LIQUIDATION ? 0 : vault.collateralValue;
-  const vaultState = useVaultStatus(
-    vault.state,
-    new BigNumber(colRatio),
-    new BigNumber(vault.loanScheme.minColRatio),
-    new BigNumber(totalLoanAmount),
-    new BigNumber(totalCollateralValue)
-  );
-  const collateralAmounts =
-    vault.state === LoanVaultState.IN_LIQUIDATION
-      ? []
-      : vault.collateralAmounts;
-  const loanAmounts =
-    vault.state === LoanVaultState.IN_LIQUIDATION ? [] : vault.loanAmounts;
-  const nextCollateralizationRatio = useNextCollateralizationRatio(
-    collateralAmounts,
-    loanAmounts
-  );
-  return (
-    <>
-      <ThemedView
-        light={tailwind("bg-white")}
-        dark={tailwind("bg-gray-800")}
-        style={tailwind("flex flex-row items-center")}
-      >
-        <View style={tailwind("flex flex-1")}>
-          <View style={tailwind("flex flex-row mb-2 items-center")}>
-            <ThemedText
-              light={tailwind("text-gray-400")}
-              dark={tailwind("text-gray-500")}
-              style={tailwind("text-xs mr-1")}
-            >
-              {translate("screens/VaultDetailScreen", "Vault ID")}
-            </ThemedText>
-            <VaultStatusTag
-              status={vaultState.status}
-              testID="vault_detail_status"
-            />
-          </View>
-          <View style={tailwind("flex flex-row mb-2 items-center")}>
-            <ThemedText
-              testID="vault_detail_id"
-              style={tailwind("text-sm font-semibold w-8/12 flex-1 mr-2")}
-            >
-              {vault.vaultId}
-            </ThemedText>
-            <TouchableOpacity
-              onPress={async () =>
-                await openURL(getVaultsUrl(vault.vaultId ?? ""))
-              }
-            >
-              <ThemedIcon
-                dark={tailwind("text-darkprimary-500")}
-                iconType="MaterialIcons"
-                light={tailwind("text-primary-500")}
-                name="open-in-new"
-                size={22}
-                style={tailwind("-mr-1")}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ThemedView>
-      {vault.state !== LoanVaultState.IN_LIQUIDATION &&
-        vaultState.status !== VaultStatus.Empty &&
-        vaultState.status !== VaultStatus.Ready && (
-          <CollateralizationRatioDisplay
-            collateralizationRatio={vault.informativeRatio}
-            minCollateralizationRatio={vault.loanScheme.minColRatio}
-            totalLoanAmount={vault.loanValue}
-            nextCollateralizationRatio={nextCollateralizationRatio?.toFixed(8)}
-            testID={testID}
-          />
-        )}
-    </>
-  );
-}
-
-function VaultInfoSection(props: { vault?: LoanVault }): JSX.Element | null {
-  const { tailwind } = useStyles();
-  if (props.vault === undefined) {
-    return null;
-  }
-=======
     setSnapPoints({
       ios: ["75%"],
       android: ["70%"],
@@ -317,7 +218,6 @@ function VaultInfoSection(props: { vault?: LoanVault }): JSX.Element | null {
       collateralTokens,
       isAdd,
     };
->>>>>>> 5c28d60af3872d5c833e2d689a45052416e1ed2a
 
     navigation.navigate({
       name: "AddOrRemoveCollateralScreen",
