@@ -66,7 +66,7 @@ import {
   BottomSheetWebWithNavV2,
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
-import { CreateOrEditAddressLabelFormV2 } from "@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelFormV2";
+import { CreateOrEditAddressLabelForm } from "@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelForm";
 import { BottomSheetHeaderBackButton } from "@screens/AppNavigator/screens/Portfolio/components/BottomSheetHeaderBackButton";
 import { BottomSheetHeader } from "@components/BottomSheetHeader";
 import * as SplashScreen from "expo-splash-screen";
@@ -484,19 +484,19 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const expandModal = useCallback((isSortBottomSheet: boolean) => {
     if (Platform.OS === "web") {
       setIsModalDisplayed(true);
+    } else if (isSortBottomSheet) {
+      bottomSheetSortRef.current?.present();
     } else {
-      isSortBottomSheet
-        ? bottomSheetSortRef.current?.present()
-        : bottomSheetRef.current?.present();
+      bottomSheetRef.current?.present();
     }
   }, []);
   const dismissModal = useCallback((isSortBottomSheet: boolean) => {
     if (Platform.OS === "web") {
       setIsModalDisplayed(false);
+    } else if (isSortBottomSheet) {
+      bottomSheetSortRef.current?.close();
     } else {
-      isSortBottomSheet
-        ? bottomSheetSortRef.current?.close()
-        : bottomSheetRef.current?.close();
+      bottomSheetRef.current?.close();
     }
   }, []);
 
@@ -546,15 +546,15 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           },
           onCloseButtonPress: () => dismissModal(false),
           navigateToScreen: {
-            screenName: "CreateOrEditAddressLabelFormV2",
+            screenName: "CreateOrEditAddressLabelForm",
           },
           onSwitchAddress: resetNavigationStack,
         }),
         option: addressBottomSheetHeader,
       },
       {
-        stackScreenName: "CreateOrEditAddressLabelFormV2",
-        component: CreateOrEditAddressLabelFormV2,
+        stackScreenName: "CreateOrEditAddressLabelForm",
+        component: CreateOrEditAddressLabelForm,
         option: {
           ...addressBottomSheetHeader,
           headerLeft: (): JSX.Element => <BottomSheetHeaderBackButton />,

@@ -41,7 +41,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import {
   AmountButtonTypes,
   TransactionCard,
@@ -236,9 +236,11 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
 
   useEffect(() => {
     /* timeout added to auto display keyboard on Android */
-    Platform.OS === "android"
-      ? setTimeout(() => amountInputRef?.current?.focus(), 0)
-      : amountInputRef?.current?.focus();
+    if (Platform.OS === "android") {
+      setTimeout(() => amountInputRef?.current?.focus(), 0);
+    } else {
+      amountInputRef?.current?.focus();
+    }
   }, []);
 
   useEffect(() => {
@@ -584,7 +586,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
                   )}
             </ThemedTextV2>
           )}
-          <SubmitButtonGroupV2
+          <SubmitButtonGroup
             isDisabled={
               !formState.isValid ||
               hasPendingJob ||

@@ -20,12 +20,13 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { SearchInputV2 } from "@components/SearchInputV2";
+import { SearchInput } from "@components/SearchInput";
 import { ButtonV2 } from "@components/ButtonV2";
 import {
   SkeletonLoader,
   SkeletonLoaderScreen,
 } from "@components/SkeletonLoader";
+import { ListRenderItemInfo } from "@shopify/flash-list";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import { TokenIcon } from "../components/TokenIcon";
@@ -80,7 +81,9 @@ export function TokenSelectionScreen(_props: Props): JSX.Element {
       testID="token_selection_screen"
       parentContainerStyle={tailwind("pb-4")}
       data={filteredTokensWithBalance}
-      renderItem={({ item }: { item: TokenSelectionItem }): JSX.Element => {
+      renderItem={({
+        item,
+      }: ListRenderItemInfo<TokenSelectionItem>): JSX.Element => {
         return (
           <TokenSelectionRow
             item={item}
@@ -98,7 +101,7 @@ export function TokenSelectionScreen(_props: Props): JSX.Element {
       }}
       ListHeaderComponent={
         <ThemedViewV2 style={tailwind("mx-5 mt-8")}>
-          <SearchInputV2
+          <SearchInput
             value={searchString}
             containerStyle={tailwind([
               "border-0.5",

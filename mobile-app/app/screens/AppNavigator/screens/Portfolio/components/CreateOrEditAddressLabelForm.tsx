@@ -1,14 +1,16 @@
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { StackScreenProps } from "@react-navigation/stack";
 import { BottomSheetWithNavRouteParam } from "@components/BottomSheetWithNav";
-import { ThemedScrollView, ThemedText } from "@components/themed";
+import {
+  ThemedScrollViewV2,
+  ThemedText,
+  ThemedTextV2,
+} from "@components/themed";
 import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { Platform, View } from "react-native";
 import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { WalletTextInput } from "@components/WalletTextInput";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { LabeledAddress, LocalAddress } from "@store/userPreferences";
 import { fromAddress } from "@defichain/jellyfish-address";
 import { useNetworkContext } from "@shared-contexts/NetworkContext";
@@ -19,6 +21,9 @@ import { MnemonicStorage } from "@api/wallet/mnemonic_storage";
 import { useWalletNodeContext } from "@shared-contexts/WalletNodeProvider";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useAppDispatch } from "@hooks/useAppDispatch";
+import { WalletTextInputV2 } from "@components/WalletTextInputV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
+import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { RandomAvatar } from "./RandomAvatar";
 
 export interface CreateOrEditAddressLabelFormProps {
@@ -40,11 +45,12 @@ export const CreateOrEditAddressLabelForm = memo(
     const { isLight } = useThemeContext();
     const { title, isAddressBook, address, addressLabel, onSaveButtonPress } =
       route.params;
+    const { isLight } = useThemeContext();
     const [labelInput, setLabelInput] = useState(addressLabel?.label);
     const [addressInput, setAddressInput] = useState<string | undefined>();
     const bottomSheetComponents = {
       mobile: BottomSheetScrollView,
-      web: ThemedScrollView,
+      web: ThemedScrollViewV2,
     };
     const ScrollView =
       Platform.OS === "web"
@@ -57,17 +63,27 @@ export const CreateOrEditAddressLabelForm = memo(
     const [labelInputErrorMessage, setLabelInputErrorMessage] = useState("");
     const [addressInputErrorMessage, setAddressInputErrorMessage] =
       useState("");
+    const [labelInputLength, setLabelInputLength] = useState(0);
+
+    useEffect(() => {
+      if (labelInput !== undefined) {
+        setLabelInputLength(labelInput.trim().length);
+      }
+    }, [labelInput]);
+
     const validateLabelInput = (input: string): boolean => {
-      if (input !== undefined && input.trim().length > 30) {
-        setLabelInputErrorMessage(
-          "Address label is too long (max 30 characters)"
-        );
-        return false;
+      if (input !== undefined) {
+        if (input.trim().length > 40) {
+          setLabelInputErrorMessage("Invalid label. Maximum of 40 characters.");
+          return false;
+        }
+
+        if (isAddressBook && input.trim() === "") {
+          setLabelInputErrorMessage("Please enter an address label");
+          return false;
+        }
       }
-      if (isAddressBook && input.trim() === "") {
-        setLabelInputErrorMessage("Please enter an address label");
-        return false;
-      }
+
       setLabelInputErrorMessage("");
       return true;
     };
@@ -173,52 +189,49 @@ export const CreateOrEditAddressLabelForm = memo(
 
     return (
       <ScrollView
-        style={tailwind([
-          "p-4 flex-1 pb-0",
-          {
-            "bg-white": isLight,
-            "bg-gray-800": !isLight,
-          },
-        ])}
         contentContainerStyle={tailwind("pb-6")}
         testID="create_or_edit_label_address_form"
+        style={tailwind("px-4 pt-2 flex-1", {
+          "bg-mono-dark-v2-100": !isLight,
+          "bg-mono-light-v2-100": isLight,
+        })}
       >
-        <View style={tailwind("mb-2 flex-1")}>
-          <ThemedText
+        <View style={tailwind("flex-1")}>
+          <ThemedTextV2
             testID="form_title"
-            style={tailwind("flex-1 text-xl font-semibold")}
+            style={tailwind("flex-1 text-center font-normal-v2 text-xl")}
           >
             {translate("components/CreateOrEditAddressLabelForm", title)}
-          </ThemedText>
+          </ThemedTextV2>
         </View>
         {address !== undefined && <AddressDisplay address={address} />}
-        <ThemedText
-          style={tailwind("text-xs font-medium")}
-          light={tailwind("text-gray-400")}
-          dark={tailwind("text-gray-500")}
+        <ThemedTextV2
+          style={tailwind("font-normal-v2 text-xs mt-4 mb-2 ml-5")}
+          light={tailwind("text-mono-light-v2-500")}
+          dark={tailwind("text-mono-dark-v2-500")}
         >
-          {translate(
-            "components/CreateOrEditAddressLabelForm",
-            "ADDRESS LABEL"
-          )}
-        </ThemedText>
-        <WalletTextInput
+          {translate("components/CreateOrEditAddressLabelForm", "LABEL")}
+        </ThemedTextV2>
+        <WalletTextInputV2
           value={labelInput}
           inputType="default"
           displayClearButton={labelInput !== "" && labelInput !== undefined}
           onChangeText={(text: string) => {
             setLabelInput(text);
             validateLabelInput(text);
+            setLabelInputLength(text.trim().length);
           }}
           onClearButtonPress={() => {
             setLabelInput("");
-            isAddressBook
-              ? validateLabelInput("")
-              : setLabelInputErrorMessage("");
+            if (isAddressBook) {
+              validateLabelInput("");
+            } else {
+              setLabelInputErrorMessage("");
+            }
           }}
           placeholder={translate(
             "components/CreateOrEditAddressLabelForm",
-            "Enter address label"
+            "Enter label"
           )}
           style={tailwind("h-9 w-6/12 flex-grow")}
           hasBottomSheet
@@ -232,6 +245,19 @@ export const CreateOrEditAddressLabelForm = memo(
           }}
           testID="address_book_label_input"
         />
+        {labelInputErrorMessage === "" && (
+          <ThemedTextV2
+            style={tailwind("font-normal-v2 text-xs mt-2 ml-5")}
+            light={tailwind("text-mono-light-v2-500")}
+            dark={tailwind("text-mono-dark-v2-500")}
+          >
+            {translate(
+              "components/CreateOrEditAddressLabelForm",
+              "{{length}}/40 characters",
+              { length: labelInputLength.toString() }
+            )}
+          </ThemedTextV2>
+        )}
 
         {isAddressBook && (
           <>
@@ -257,7 +283,7 @@ export const CreateOrEditAddressLabelForm = memo(
             isCancelDisabled={false}
             label={translate(
               "components/CreateOrEditAddressLabelForm",
-              "SAVE CHANGES"
+              "Save changes"
             )}
             onCancel={() => navigation.goBack()}
             onSubmit={handleSubmit}
@@ -273,15 +299,16 @@ export const CreateOrEditAddressLabelForm = memo(
 function AddressDisplay({ address }: { address: string }): JSX.Element {
   const { tailwind } = useStyles();
   return (
-    <View style={tailwind("flex flex-row mb-4 items-center")}>
-      <RandomAvatar name={address} size={32} />
-      <ThemedText
-        style={tailwind("text-sm ml-2 flex-1", {
-          "w-10/12": Platform.OS === "web",
-        })}
+    <View style={tailwind("flex flex-col mt-8 items-center")}>
+      <RandomAvatar name={address} size={64} />
+      <ThemedTextV2
+        style={tailwind(
+          "mt-2 flex-1 font-normal-v2 text-sm text-center w-3/5",
+          { "w-10/12": Platform.OS === "web" }
+        )}
       >
         {address}
-      </ThemedText>
+      </ThemedTextV2>
     </View>
   );
 }

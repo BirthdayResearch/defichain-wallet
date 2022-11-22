@@ -1,109 +1,142 @@
-import { View } from "@components";
-import {
-  ThemedIcon,
-  ThemedScrollView,
-  ThemedText,
-  ThemedView,
-} from "@components/themed";
+import { ThemedScrollViewV2 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
 import { useStyles } from "@tailwind";
-import { translate } from "@translations";
 import { useEffect, useState } from "react";
-import { TouchableOpacity } from "react-native";
-import { fetchCollateralTokens, LoanVault, vaultsSelector } from "@store/loans";
-import { useSelector } from "react-redux";
-import { RootState } from "@store";
-import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
-import BigNumber from "bignumber.js";
-import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
+import { Platform, View } from "react-native";
 import { openURL } from "@api/linking";
 import {
-  useVaultStatus,
-  VaultStatusTag,
-} from "@screens/AppNavigator/screens/Loans/components/VaultStatusTag";
-import { CollateralizationRatioDisplay } from "@screens/AppNavigator/screens/Loans/components/CollateralizationRatioDisplay";
+  fetchCollateralTokens,
+  loanTokensSelector,
+  LoanVault,
+  vaultsSelector,
+} from "@store/loans";
+import { WalletAlert } from "@components/WalletAlert";
+import { useSelector } from "react-redux";
+import { RootState } from "@store";
+import {
+  LoanToken,
+  LoanVaultActive,
+  LoanVaultState,
+  LoanVaultTokenAmount,
+} from "@defichain/whale-api-client/dist/api/loan";
+import BigNumber from "bignumber.js";
+import { useVaultStatus } from "@screens/AppNavigator/screens/Loans/components/VaultStatusTag";
 import { useNextCollateralizationRatio } from "@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio";
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
-import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
-import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useIsFocused } from "@react-navigation/native";
-import { VaultSectionTextRow } from "../components/VaultSectionTextRow";
-import { VaultDetailTabSection } from "./components/VaultDetailTabSection";
-import { ScrollableButton, ScrollButton } from "../components/ScrollableButton";
+import { VaultDetailStatus } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailStatus";
+import { VaultActionButtons } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultActionButtons";
+import {
+  BottomSheetWebWithNavV2,
+  BottomSheetWithNavV2,
+} from "@components/BottomSheetWithNavV2";
+import { useBottomSheet } from "@hooks/useBottomSheet";
+import { BottomSheetLoanTokensList } from "@screens/AppNavigator/screens/Loans/components/BottomSheetLoanTokensList";
+import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { CloseVaultButton } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/CloseVaultButton";
+import { VaultDetailSummary } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailSummary";
+import { useMaxLoan } from "@screens/AppNavigator/screens/Loans/hooks/MaxLoanAmount";
+import { BottomSheetPayBackList } from "@screens/AppNavigator/screens/Loans/components/BottomSheetPayBackList";
+import { useCollateralTokenList } from "@screens/AppNavigator/screens/Loans/hooks/CollateralTokenList";
+import { CollateralItem } from "@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen";
+import {
+  BottomSheetToken,
+  BottomSheetTokenList,
+  TokenType,
+} from "@components/BottomSheetTokenList";
+import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
+import { translate } from "@translations";
+import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
+import { VaultDetailLoansRow } from "./components/VaultDetailLoansRow";
+import { VaultDetailCollateralsRow } from "./components/VaultDetailCollateralsRow";
 import { LoanParamList } from "../LoansNavigator";
 
 type Props = StackScreenProps<LoanParamList, "VaultDetailScreen">;
 
 export function VaultDetailScreen({ route, navigation }: Props): JSX.Element {
-  const { vaultId, tab } = route.params;
   const { tailwind } = useStyles();
+  const { isLight } = useThemeContext();
+  const { vaultId } = route.params;
   const [vault, setVault] = useState<LoanVault>();
-  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
   const canUseOperations = useLoanOperations(vault?.state);
   const dispatch = useAppDispatch();
   const client = useWhaleApiClient();
   const blockCount = useSelector((state: RootState) => state.block.count);
   const isFocused = useIsFocused();
-  const vaultActionButtons: ScrollButton[] = [
-    {
-      label: "EDIT COLLATERAL",
-      disabled: !canUseOperations,
-      handleOnPress: () => {
-        if (vault === undefined) {
-          return;
-        }
+  const { collateralTokens } = useCollateralTokenList();
+  const { getVaultsUrl } = useDeFiScanContext();
 
-        navigation.navigate({
-          name: "EditCollateralScreen",
-          params: {
-            vaultId: vault.vaultId,
-          },
-          merge: true,
-        });
-      },
-      testID: "vault_detail_edit_collateral",
-    },
-    {
-      label: "EDIT LOAN SCHEME",
-      disabled: !canUseOperations || vault?.state === LoanVaultState.FROZEN,
-      handleOnPress: () => {
-        if (vault === undefined) {
-          return;
-        }
+  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
+  const loanTokens = useSelector((state: RootState) =>
+    loanTokensSelector(state.loans)
+  );
 
-        navigation.navigate({
-          name: "EditLoanSchemeScreen",
-          params: {
-            vaultId: vault.vaultId,
-          },
-          merge: true,
-        });
-      },
-      testID: "vault_detail_edit_loan_scheme",
-    },
-    {
-      label: "CLOSE VAULT",
-      disabled: !(
-        vault?.state === LoanVaultState.ACTIVE && vault.loanValue === "0"
+  const inLiquidation = vault?.state === LoanVaultState.IN_LIQUIDATION;
+  const totalLoanAmount = new BigNumber(
+    inLiquidation || vault === undefined ? 0 : vault?.loanValue
+  );
+  const totalCollateralValue = new BigNumber(
+    inLiquidation || vault === undefined ? 0 : vault?.collateralValue
+  );
+  const minColRatio = new BigNumber(
+    vault === undefined ? 0 : vault?.loanScheme.minColRatio
+  );
+  const vaultState = useVaultStatus(
+    vault?.state,
+    new BigNumber(
+      inLiquidation || vault === undefined ? 0 : vault?.informativeRatio
+    ),
+    minColRatio,
+    totalLoanAmount,
+    totalCollateralValue
+  );
+  const collateralAmounts =
+    inLiquidation || vault === undefined ? [] : vault.collateralAmounts;
+  const loanAmounts =
+    inLiquidation || vault === undefined ? [] : vault.loanAmounts;
+  const nextCollateralizationRatio = useNextCollateralizationRatio(
+    collateralAmounts,
+    loanAmounts
+  );
+  const maxLoanAmount = useMaxLoan({
+    totalCollateralValue: totalCollateralValue,
+    collateralAmounts: collateralAmounts,
+    existingLoanValue: totalLoanAmount,
+    minColRatio: minColRatio,
+  });
+
+  const [snapPoints, setSnapPoints] = useState({
+    ios: ["75%"],
+    android: ["70%"],
+  });
+  const getBottomSheetHeader = (label: string) => {
+    return {
+      headerStatusBarHeight: 2,
+      headerTitle: "",
+      headerBackTitleVisible: false,
+      headerStyle: tailwind("rounded-t-xl-v2 border-b-0", {
+        "bg-mono-light-v2-100": isLight,
+        "bg-mono-dark-v2-100": !isLight,
+      }),
+      header: () => (
+        <BottomSheetTokenListHeader
+          headerLabel={label}
+          onCloseButtonPress={dismissModal}
+        />
       ),
-      handleOnPress: () => {
-        if (vault === undefined) {
-          return;
-        }
-
-        navigation.navigate({
-          name: "CloseVaultScreen",
-          params: {
-            vaultId: vault.vaultId,
-          },
-          merge: true,
-        });
-      },
-      testID: "vault_detail_close_vault",
-    },
-  ];
+    };
+  };
+  const {
+    bottomSheetRef,
+    containerRef,
+    dismissModal,
+    expandModal,
+    isModalDisplayed,
+    bottomSheetScreen,
+    setBottomSheetScreen,
+  } = useBottomSheet();
 
   useEffect(() => {
     const _vault = vaults.find((v) => v.vaultId === vaultId);
@@ -118,33 +151,41 @@ export function VaultDetailScreen({ route, navigation }: Props): JSX.Element {
     }
   }, [blockCount]);
 
-  if (vault === undefined) {
-    return <></>;
-  }
+  useEffect(() => {
+    if (vault?.state === LoanVaultState.IN_LIQUIDATION) {
+      WalletAlert({
+        title: translate("components/VaultCard", "Liquidated vault"),
+        message: translate(
+          "screens/VaultDetailScreen",
+          "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details."
+        ),
+        buttons: [
+          {
+            text: translate("screens/Settings", "Go back"),
+            style: "cancel",
+            onPress: async () => {
+              navigation.navigate("LoansScreen", {});
+            },
+          },
+          {
+            text: translate("screens/Settings", "View on Scan"),
+            style: "destructive",
+            onPress: async () => {
+              openURL(getVaultsUrl(vaultId));
+              navigation.navigate("LoansScreen", {});
+            },
+          },
+        ],
+      });
+    }
+  }, [vault?.state]);
 
-  return (
-    <ThemedScrollView>
-      <ThemedView light={tailwind("bg-white")} dark={tailwind("bg-gray-800")}>
-        <View style={tailwind("p-4")}>
-          <VaultIdSection vault={vault} testID="vault_id_section" />
-          <VaultInfoSection vault={vault} />
-        </View>
-        <ThemedView
-          light={tailwind("border-gray-200")}
-          dark={tailwind("border-gray-700")}
-          style={tailwind("pb-4 border-b")}
-        >
-          <ScrollableButton
-            buttons={vaultActionButtons}
-            containerStyle={tailwind("pl-4")}
-          />
-        </ThemedView>
-      </ThemedView>
-      <VaultDetailTabSection vault={vault} tab={tab} />
-    </ThemedScrollView>
-  );
-}
+  const onAddPressed = () => {
+    if (vault === undefined) {
+      return;
+    }
 
+<<<<<<< HEAD
 function VaultIdSection({
   vault,
   testID,
@@ -242,86 +283,225 @@ function VaultInfoSection(props: { vault?: LoanVault }): JSX.Element | null {
   if (props.vault === undefined) {
     return null;
   }
+=======
+    setSnapPoints({
+      ios: ["75%"],
+      android: ["70%"],
+    });
+    setBottomSheetScreen([
+      {
+        stackScreenName: "TokenList",
+        component: BottomSheetTokenList({
+          tokenType: TokenType.CollateralItem,
+          vault: vault as LoanVaultActive,
+          onTokenPress: async (item) => {
+            dismissModal();
+            navigateToAddRemoveCollateralScreen(item, true);
+          },
+        }),
+        option: getBottomSheetHeader(
+          translate("screens/EditCollateralScreen", "Select Collateral")
+        ),
+      },
+    ]);
+    expandModal();
+  };
 
-  if (props.vault.state === LoanVaultState.IN_LIQUIDATION) {
-    return (
-      <View style={tailwind("flex -mb-2")}>
-        <VaultSectionTextRow
-          value={props.vault.batchCount}
-          lhs={translate("screens/VaultDetailScreen", "Auction batches")}
-          testID="text_auction_batches"
-        />
-      </View>
-    );
+  const navigateToAddRemoveCollateralScreen = (
+    collateralItem: CollateralItem | BottomSheetToken,
+    isAdd: boolean
+  ) => {
+    const addOrRemoveParams = {
+      vault: vault as LoanVaultActive,
+      collateralItem,
+      collateralTokens,
+      isAdd,
+    };
+>>>>>>> 5c28d60af3872d5c833e2d689a45052416e1ed2a
+
+    navigation.navigate({
+      name: "AddOrRemoveCollateralScreen",
+      params: addOrRemoveParams,
+    });
+  };
+
+  const onBorrowPressed = () => {
+    setSnapPoints({
+      ios: ["75%"],
+      android: ["70%"],
+    });
+    setBottomSheetScreen([
+      {
+        stackScreenName: "LoanTokensList",
+        component: BottomSheetLoanTokensList({
+          onPress: (item: LoanToken) => {
+            dismissModal();
+            navigation.navigate({
+              name: "BorrowLoanTokenScreen",
+              params: {
+                vault: vault,
+                loanToken: item,
+              },
+              merge: true,
+            });
+          },
+          loanTokens,
+          isLight,
+        }),
+        option: getBottomSheetHeader(
+          translate("components/BottomSheetLoanTokensList", "Select Token")
+        ),
+      },
+    ]);
+    expandModal();
+  };
+
+  const onPayPressed = () => {
+    if (vault === undefined || vault.state === LoanVaultState.IN_LIQUIDATION) {
+      return;
+    }
+
+    setSnapPoints({
+      ios: ["65%"],
+      android: ["60%"],
+    });
+    setBottomSheetScreen([
+      {
+        stackScreenName: "PayTokensList",
+        component: BottomSheetPayBackList({
+          onPress: (
+            item: LoanVaultTokenAmount,
+            isPayDUSDUsingCollateral: boolean
+          ) => {
+            dismissModal();
+            navigateToPayScreen(item, isPayDUSDUsingCollateral);
+          },
+          vault: vault,
+          data: vault.loanAmounts,
+          isLight: isLight,
+        }),
+        option: getBottomSheetHeader(
+          translate("screens/VaultDetailScreen", "Select Loan")
+        ),
+      },
+    ]);
+    expandModal();
+  };
+
+  const navigateToPayScreen = (
+    loanToken: LoanVaultTokenAmount,
+    isPayDUSDUsingCollateral: boolean
+  ) => {
+    navigation.navigate({
+      name: "PaybackLoanScreen",
+      merge: true,
+      params: {
+        vault: vault,
+        loanTokenAmount: loanToken,
+        isPaybackDUSDUsingCollateral: isPayDUSDUsingCollateral,
+      },
+    });
+  };
+
+  const onEditPressed = () => {
+    if (vault === undefined) {
+      return;
+    }
+
+    navigation.navigate({
+      name: "EditLoanSchemeScreen",
+      params: {
+        vaultId: vault.vaultId,
+      },
+      merge: true,
+    });
+  };
+
+  const onCloseVaultPressed = () => {
+    if (vault === undefined) {
+      return;
+    }
+
+    navigation.navigate({
+      name: "CloseVaultScreen",
+      params: {
+        vaultId: vault.vaultId,
+      },
+      merge: true,
+    });
+  };
+
+  if (vault === undefined) {
+    return <></>;
   }
 
   return (
-    <View style={tailwind("flex -mb-2")}>
-      {props.vault.state === LoanVaultState.ACTIVE &&
-      props.vault.collateralValue === "0" &&
-      props.vault.loanValue === "0" ? (
-        <>
-          <VaultSectionTextRow
-            value={props.vault.loanScheme.minColRatio}
-            lhs={translate(
-              "screens/VaultDetailScreen",
-              "Min. collateralization ratio"
-            )}
-            testID="text_min_col_ratio"
-            suffixType="text"
-            suffix="%"
-            info={{
-              title: "Min. collateralization ratio",
-              message:
-                "Minimum required collateralization ratio based on loan scheme selected. A vault will go into liquidation when the collateralization ratio goes below the minimum requirement.",
+    <View ref={containerRef} style={tailwind("flex-1")}>
+      <ThemedScrollViewV2 contentContainerStyle={tailwind("w-full pb-12")}>
+        <VaultDetailStatus
+          vault={vault}
+          vaultStatus={vaultState?.status}
+          nextColRatio={nextCollateralizationRatio}
+        />
+        <VaultActionButtons
+          vaultStatus={vaultState?.status}
+          canUseOperations={canUseOperations}
+          onAddPressed={onAddPressed}
+          onBorrowPressed={onBorrowPressed}
+          onPayPressed={onPayPressed}
+          onEditPressed={onEditPressed}
+        />
+        <VaultDetailSummary
+          maxLoanAmount={maxLoanAmount}
+          totalCollateral={totalCollateralValue}
+          totalLoan={totalLoanAmount}
+          vaultId={vaultId}
+          interest={vault?.loanScheme?.interestRate}
+          minColRatio={vault?.loanScheme?.minColRatio}
+        />
+        <VaultDetailCollateralsRow
+          vault={vault}
+          collateralTokens={collateralTokens}
+          vaultStatus={vaultState?.status}
+          onAddPress={(collateralItem) => {
+            navigateToAddRemoveCollateralScreen(collateralItem, true);
+          }}
+          onRemovePress={(collateralItem) => {
+            navigateToAddRemoveCollateralScreen(collateralItem, false);
+          }}
+        />
+        <VaultDetailLoansRow onPay={navigateToPayScreen} vault={vault} />
+        <CloseVaultButton
+          vaultStatus={vaultState?.status}
+          canUseOperations={canUseOperations}
+          onCloseVaultPressed={onCloseVaultPressed}
+        />
+
+        {Platform.OS === "web" ? (
+          <BottomSheetWebWithNavV2
+            modalRef={containerRef}
+            screenList={bottomSheetScreen}
+            isModalDisplayed={isModalDisplayed}
+            // eslint-disable-next-line react-native/no-inline-styles
+            modalStyle={{
+              position: "absolute",
+              bottom: "0",
+              height: "404px",
+              width: "375px",
+              zIndex: 50,
+              borderTopLeftRadius: 15,
+              borderTopRightRadius: 15,
+              overflow: "hidden",
             }}
           />
-          <VaultSectionTextRow
-            value={props.vault.loanScheme.interestRate}
-            lhs={translate("screens/VaultDetailScreen", "Vault interest (APR)")}
-            testID="text_vault_interest"
-            suffixType="text"
-            suffix="%"
-            info={{
-              title: "Annual vault interest",
-              message:
-                "Annual vault interest rate based on the loan scheme selected.",
-            }}
+        ) : (
+          <BottomSheetWithNavV2
+            modalRef={bottomSheetRef}
+            screenList={bottomSheetScreen}
+            snapPoints={snapPoints}
           />
-        </>
-      ) : (
-        <>
-          <VaultSectionTextRow
-            value={getPrecisedTokenValue(props.vault.collateralValue)}
-            lhs={translate(
-              "screens/VaultDetailScreen",
-              "Total collateral (USD)"
-            )}
-            testID="text_total_collateral_value"
-            prefix="$"
-            isOraclePrice
-          />
-          <VaultSectionTextRow
-            value={getPrecisedTokenValue(props.vault.loanValue)}
-            lhs={translate("screens/VaultDetailScreen", "Total loans (USD)")}
-            testID="text_total_loan_value"
-            prefix="$"
-            isOraclePrice
-          />
-          <VaultSectionTextRow
-            value={props.vault.loanScheme.interestRate}
-            lhs={translate("screens/VaultDetailScreen", "Vault interest (APR)")}
-            testID="text_vault_interest"
-            suffixType="text"
-            suffix="%"
-            info={{
-              title: "Annual vault interest",
-              message:
-                "Annual vault interest rate based on the loan scheme selected.",
-            }}
-          />
-        </>
-      )}
+        )}
+      </ThemedScrollViewV2>
     </View>
   );
 }

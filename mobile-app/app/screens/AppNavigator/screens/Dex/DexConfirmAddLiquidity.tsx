@@ -22,7 +22,7 @@ import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { SummaryTitleV2 } from "@components/SummaryTitleV2";
+import { SummaryTitle } from "@components/SummaryTitle";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import {
@@ -30,7 +30,7 @@ import {
   useLogger,
 } from "@shared-contexts/NativeLoggingProvider";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { ScreenName } from "@screens/enum";
 import { useTokenPrice } from "../Portfolio/hooks/TokenPrice";
 import { DexParamList } from "./DexNavigator";
@@ -47,7 +47,6 @@ export function ConfirmAddLiquidityScreen({ route }: Props): JSX.Element {
   const {
     pair,
     conversion,
-    pairInfo,
     originScreen,
     summary: { fee, percentage, tokenAAmount, tokenBAmount, lmTotalTokens },
   } = route.params;
@@ -125,7 +124,7 @@ export function ConfirmAddLiquidityScreen({ route }: Props): JSX.Element {
   return (
     <ThemedScrollViewV2 style={tailwind("py-8 px-5")}>
       <ThemedViewV2 style={tailwind("flex-col pb-4 mb-4")}>
-        <SummaryTitleV2
+        <SummaryTitle
           iconA={pair.tokenA.displaySymbol}
           iconB={pair.tokenB.displaySymbol}
           fromAddress={address}
@@ -300,7 +299,7 @@ export function ConfirmAddLiquidityScreen({ route }: Props): JSX.Element {
       </ThemedViewV2>
 
       <View style={tailwind("py-14 px-3")}>
-        <SubmitButtonGroupV2
+        <SubmitButtonGroup
           isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
           label={translate("screens/ConfirmAddLiq", "Add liquidity")}
           onSubmit={addLiquidity}

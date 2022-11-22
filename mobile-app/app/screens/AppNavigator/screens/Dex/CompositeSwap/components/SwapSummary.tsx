@@ -6,7 +6,7 @@ import { translate } from "@translations";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { ThemedIcon, ThemedTextV2, ThemedViewV2 } from "@components/themed";
-import { PriceRateProps, PricesSectionV2 } from "@components/PricesSectionV2";
+import { PriceRateProps, PricesSection } from "@components/PricesSection";
 import { BottomSheetInfoV2 } from "@components/BottomSheetInfoV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { ButtonGroupTabKey } from "@screens/AppNavigator/screens/Dex/CompositeSwap/components/SwapButtonGroup";
@@ -17,7 +17,6 @@ interface SwapSummaryProps {
   activeTab: ButtonGroupTabKey;
   transactionFee: BigNumber;
   executionBlock?: number;
-  transactionDate?: string;
   totalFees: string;
   dexStabilizationFee: string;
   dexStabilizationType: DexStabilizationType;
@@ -28,7 +27,6 @@ export function SwapSummary({
   instantSwapPriceRate,
   activeTab,
   executionBlock,
-  transactionDate,
   transactionFee,
   totalFees,
   dexStabilizationFee,
@@ -42,7 +40,7 @@ export function SwapSummary({
     <>
       {activeTab === ButtonGroupTabKey.InstantSwap ? (
         <View testID="instant_swap_summary">
-          <PricesSectionV2
+          <PricesSection
             priceRates={instantSwapPriceRate}
             testID="instant_swap_prices"
           />
@@ -99,7 +97,6 @@ export function SwapSummary({
         <View>
           <SettlementBlockInfo
             executionBlock={executionBlock}
-            transactionDate={transactionDate}
             timeRemaining={timeRemaining}
           />
           <NumberRowV2
@@ -202,7 +199,6 @@ function SettlementBlockInfo({
   timeRemaining,
 }: {
   executionBlock?: number;
-  transactionDate?: string;
   timeRemaining: string;
 }): JSX.Element {
   const { tailwind } = useStyles();

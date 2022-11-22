@@ -9,8 +9,8 @@ import { translate } from "@translations";
 import {
   CREATE_STEPS,
   RESTORE_STEPS,
-  CreateWalletStepIndicatorV2,
-} from "@components/CreateWalletStepIndicatorV2";
+  CreateWalletStepIndicator,
+} from "@components/CreateWalletStepIndicator";
 import { WalletParamList } from "../../WalletNavigator";
 import { LearnMoreCTA } from "../components/LearnModeCTA";
 
@@ -46,7 +46,7 @@ export function PinCreation({ route }: Props): JSX.Element {
       testID="screen_create_pin"
     >
       <View style={tailwind("px-5 mb-12")}>
-        <CreateWalletStepIndicatorV2
+        <CreateWalletStepIndicator
           current={isCreateWallet ? 3 : 2}
           steps={isCreateWallet ? CREATE_STEPS : RESTORE_STEPS}
           style={tailwind(isCreateWallet ? "px-4" : "px-16")}

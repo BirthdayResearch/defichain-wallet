@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { ThemedViewV2 } from "@components/themed";
-import { ButtonGroupV2 } from "../../components/ButtonGroupV2";
+import { ButtonGroup } from "../../components/ButtonGroup";
 
 export enum ButtonGroupTabKey {
   InstantSwap = "INSTANT_SWAP",
@@ -41,7 +41,7 @@ export function SwapButtonGroup({
       style={tailwind("flex flex-col items-center rounded-b-2xl-v2 border-b")}
     >
       <View style={tailwind("w-full px-5")}>
-        <ButtonGroupV2
+        <ButtonGroup
           buttons={buttonGroup}
           activeButtonGroupItem={activeButtonGroup}
           testID="swap_tabs"

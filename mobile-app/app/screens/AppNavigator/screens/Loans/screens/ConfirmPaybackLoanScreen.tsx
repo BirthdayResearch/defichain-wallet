@@ -25,13 +25,13 @@ import { fetchVaults } from "@store/loans";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { SummaryTitleV2 } from "@components/SummaryTitleV2";
+import { SummaryTitle } from "@components/SummaryTitle";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { TextRowV2 } from "@components/TextRowV2";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { LoanParamList } from "../LoansNavigator";
-import { CollateralizationRatioDisplayV2 } from "../components/CollateralizationRatioDisplayV2";
+import { CollateralizationRatioDisplay } from "../components/CollateralizationRatioDisplay";
 
 type Props = StackScreenProps<LoanParamList, "ConfirmPaybackLoanScreen">;
 
@@ -113,7 +113,7 @@ export function ConfirmPaybackLoanScreen({
   return (
     <ThemedScrollViewV2 style={tailwind("pb-4")}>
       <ThemedViewV2 style={tailwind("flex-col px-5 py-8")}>
-        <SummaryTitleV2
+        <SummaryTitle
           amount={amountToPay}
           title={translate(
             "screens/ConfirmPaybackLoanScreen",
@@ -185,7 +185,7 @@ export function ConfirmPaybackLoanScreen({
         />
 
         <View style={tailwind("my-5")}>
-          <CollateralizationRatioDisplayV2
+          <CollateralizationRatioDisplay
             collateralizationRatio={resultingColRatio.toFixed(8)}
             minCollateralizationRatio={vault.loanScheme.minColRatio}
             collateralValue={vault.collateralValue}
@@ -273,7 +273,7 @@ export function ConfirmPaybackLoanScreen({
               "Prices may vary during transaction confirmation."
             )}
           </ThemedTextV2>
-          <SubmitButtonGroupV2
+          <SubmitButtonGroup
             isDisabled={hasPendingJob || hasPendingBroadcastJob}
             label={translate(
               "screens/ConfirmPaybackLoanScreen",

@@ -13,7 +13,7 @@ import { View } from "react-native";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { LoanCards } from "./components/LoanCards";
 import { Vaults } from "./components/Vaults";
-import { ButtonGroupV2 } from "../Dex/components/ButtonGroupV2";
+import { ButtonGroup } from "../Dex/components/ButtonGroup";
 
 enum TabKey {
   Borrow = "BORROW",
@@ -86,7 +86,7 @@ export function LoansScreen(): JSX.Element {
           )}
         >
           <View style={tailwind("w-full px-5")}>
-            <ButtonGroupV2
+            <ButtonGroup
               buttons={tabsList}
               activeButtonGroupItem={activeTab}
               testID="loans_tabs"

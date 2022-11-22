@@ -1,7 +1,7 @@
 import {
   CREATE_STEPS,
-  CreateWalletStepIndicatorV2,
-} from "@components/CreateWalletStepIndicatorV2";
+  CreateWalletStepIndicator,
+} from "@components/CreateWalletStepIndicator";
 import { View } from "@components/index";
 import {
   ThemedScrollViewV2,
@@ -115,7 +115,7 @@ export function VerifyMnemonicWallet({
       style={tailwind("flex-1")}
     >
       <View style={tailwind("px-5 mb-12")}>
-        <CreateWalletStepIndicatorV2
+        <CreateWalletStepIndicator
           current={2}
           steps={CREATE_STEPS}
           style={tailwind("px-4")}

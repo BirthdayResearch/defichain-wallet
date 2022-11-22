@@ -7,8 +7,8 @@ import { MnemonicUnprotected } from "@api/wallet";
 import { useEffect, useLayoutEffect, useState } from "react";
 import {
   CREATE_STEPS,
-  CreateWalletStepIndicatorV2,
-} from "@components/CreateWalletStepIndicatorV2";
+  CreateWalletStepIndicator,
+} from "@components/CreateWalletStepIndicator";
 import {
   ThemedScrollViewV2,
   ThemedTextV2,
@@ -129,7 +129,7 @@ export function CreateMnemonicWallet({ navigation }: Props): JSX.Element {
       style={tailwind("flex-1")}
     >
       <View style={tailwind("px-5 mb-12")}>
-        <CreateWalletStepIndicatorV2
+        <CreateWalletStepIndicator
           current={1}
           steps={CREATE_STEPS}
           style={tailwind("px-4")}
@@ -180,7 +180,6 @@ export function CreateMnemonicWallet({ navigation }: Props): JSX.Element {
 function RecoveryWordRow(props: {
   index: number;
   word: string;
-  key: number;
   border: boolean;
 }): JSX.Element {
   const { tailwind } = useStyles();

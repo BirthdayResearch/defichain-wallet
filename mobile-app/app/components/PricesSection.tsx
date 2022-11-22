@@ -1,68 +1,62 @@
 import { useStyles } from "@tailwind";
-import { NumberRow } from "@components/NumberRow";
-import { translate } from "@translations";
-import { ThemedSectionTitle } from "./themed";
+import BigNumber from "bignumber.js";
+import { StyleProp, TextStyle } from "react-native";
+import { NumberRowV2 } from "./NumberRowV2";
 
 export interface PriceRateProps {
   label: string;
   value: string;
-  aSymbol: string;
-  bSymbol: string;
+  aSymbol?: string;
+  bSymbol?: string;
+  symbolUSDValue?: BigNumber;
+  usdTextStyle?: StyleProp<TextStyle>;
 }
 
 export function PricesSection({
   priceRates,
-  sectionTitle,
-  isCompact = false,
   testID,
 }: {
   priceRates: PriceRateProps[];
   testID: string;
-  sectionTitle?: string;
-  isCompact?: boolean;
 }): JSX.Element {
   const { tailwind } = useStyles();
   const rowStyle = {
     lhsThemedProps: {
-      light: tailwind("text-gray-500"),
-      dark: tailwind("text-gray-400"),
+      light: tailwind("text-mono-light-v2-500"),
+      dark: tailwind("text-mono-dark-v2-500"),
     },
     rhsThemedProps: {
-      light: tailwind("text-gray-900"),
-      dark: tailwind("text-gray-50"),
+      light: tailwind("text-mono-light-v2-900"),
+      dark: tailwind("text-mono-dark-v2-900"),
     },
   };
 
   return (
     <>
-      {sectionTitle !== undefined && (
-        <ThemedSectionTitle
-          testID="pricerate_title"
-          text={translate("components/PricesSection", sectionTitle)}
-          style={tailwind("px-4 pt-6 pb-2 text-xs text-gray-500 font-medium")}
-        />
-      )}
       {priceRates.map((priceRate, index) => {
         return (
-          <NumberRow
+          <NumberRowV2
             key={priceRate.label}
-            lhsStyle={tailwind("w-4/12")}
-            lhs={priceRate.label}
+            lhs={{
+              value: `${priceRate.label}`,
+              testID: `${testID}_${index}`,
+              suffix: priceRate.bSymbol,
+              themedProps: {
+                light: rowStyle.lhsThemedProps.light,
+                dark: rowStyle.lhsThemedProps.dark,
+              },
+            }}
             rhs={{
               value: priceRate.value,
               testID: `${testID}_${index}`,
-              prefix: "≈ ",
-              suffix: priceRate.bSymbol,
-              suffixType: "text",
+              suffix: priceRate.bSymbol != null ? ` ${priceRate.bSymbol}` : "",
+              usdAmount: priceRate.symbolUSDValue,
+              themedProps: {
+                light: rowStyle.rhsThemedProps.light,
+                dark: rowStyle.rhsThemedProps.dark,
+              },
+              usdTextStyle: priceRate.usdTextStyle,
             }}
-            textStyle={tailwind("text-sm font-normal")}
-            {...(isCompact && {
-              lhsThemedProps: rowStyle.lhsThemedProps,
-              rhsThemedProps: rowStyle.rhsThemedProps,
-              dark: tailwind("bg-gray-800"),
-              light: tailwind("bg-white"),
-              style: tailwind("py-1 px-4 flex-row items-start w-full"),
-            })}
           />
         );
       })}

@@ -61,7 +61,6 @@ export interface PortfolioParamList {
   ReceiveScreen: undefined;
   MarketplaceScreen: undefined;
   SendScreen: { token?: WalletToken };
-  TokenSelectionScreen: {};
   SendConfirmationScreen: {
     token: WalletToken;
     destination: string;

@@ -11,9 +11,9 @@ import { translate } from "@translations";
 import * as React from "react";
 import { memo } from "react";
 import { NumericFormat as NumberFormat } from "react-number-format";
-import { SearchInputV2 } from "@components/SearchInputV2";
+import { SearchInput } from "@components/SearchInput";
 import { TextInput } from "react-native-gesture-handler";
-import { Platform } from "react-native";
+import { ListRenderItemInfo, Platform } from "react-native";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { useDebounce } from "@hooks/useDebounce";
 import { getPrecisedTokenValue } from "../../Auctions/helpers/precision-token-value";
@@ -63,7 +63,7 @@ export const BottomSheetLoanTokensList = ({
         testID="swap_token_selection_screen"
         data={filterLoanTokensWithBalance}
         keyExtractor={(item) => item.tokenId}
-        renderItem={({ item }: { item: LoanToken }): JSX.Element => {
+        renderItem={({ item }: ListRenderItemInfo<LoanToken>): JSX.Element => {
           const currentPrice = getPrecisedTokenValue(
             getActivePrice(item.token.symbol, item.activePrice)
           );
@@ -139,7 +139,7 @@ export const BottomSheetLoanTokensList = ({
         }}
         ListHeaderComponent={
           <ThemedViewV2 style={tailwind("pt-2 pb-3")}>
-            <SearchInputV2
+            <SearchInput
               testID="loan_search_input"
               ref={searchRef}
               value={searchString}

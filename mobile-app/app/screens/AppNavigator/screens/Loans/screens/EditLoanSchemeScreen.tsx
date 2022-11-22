@@ -21,7 +21,7 @@ import { hasTxQueued } from "@store/transaction_queue";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { LoanSchemeOptionsV2 } from "@screens/AppNavigator/screens/Loans/components/LoanSchemeOptionsV2";
+import { LoanSchemeOptions } from "@screens/AppNavigator/screens/Loans/components/LoanSchemeOptions";
 import { ButtonV2 } from "@components/ButtonV2";
 import { useVaultStatus } from "../components/VaultStatusTag";
 import { VaultStatus } from "../VaultStatusTypes";
@@ -134,7 +134,7 @@ export function EditLoanSchemeScreen({
       >
         {translate("screens/EditLoanSchemeScreen", "AVAILABLE SCHEMES")}
       </ThemedTextV2>
-      <LoanSchemeOptionsV2
+      <LoanSchemeOptions
         loanSchemes={filteredLoanSchemes}
         isLoading={!hasFetchedLoanSchemes}
         selectedLoanScheme={selectedLoanScheme}

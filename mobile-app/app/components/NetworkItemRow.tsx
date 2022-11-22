@@ -15,7 +15,7 @@ interface NetworkItemRowProps {
   disabled?: boolean;
 }
 
-export function NetworkItemRowV2(props: NetworkItemRowProps): JSX.Element {
+export function NetworkItemRow(props: NetworkItemRowProps): JSX.Element {
   const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<SettingsParamList>>();
   const { network, updateNetwork } = useNetworkContext();
