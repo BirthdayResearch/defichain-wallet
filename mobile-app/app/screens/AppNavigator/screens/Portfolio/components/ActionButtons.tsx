@@ -42,6 +42,9 @@ export function ActionButtons(): JSX.Element {
   const DFIToken = useSelector((state: RootState) =>
     DFITokenSelector(state.wallet)
   );
+  const hasDFIBalance =
+    hasFetchedToken &&
+    new BigNumber(DFIUtxo.amount ?? 0).plus(DFIToken.amount ?? 0).gt(0);
 
   return (
     <View testID="action_button_group">
@@ -52,17 +55,14 @@ export function ActionButtons(): JSX.Element {
         showsHorizontalScrollIndicator={false}
         horizontal
       >
-        {hasFetchedToken &&
-          new BigNumber(DFIUtxo.amount ?? 0)
-            .plus(DFIToken.amount ?? 0)
-            .gt(0) && (
-            <ActionButton
-              name={translate("components/ActionButtons", "Get DFI")}
-              iconSize={20}
-              testID="get_DFI_btn"
-              onPress={() => navigation.navigate("GetDFIScreen")}
-            />
-          )}
+        {hasDFIBalance && (
+          <ActionButton
+            name={translate("components/ActionButtons", "Get DFI")}
+            iconSize={20}
+            testID="get_DFI_btn"
+            onPress={() => navigation.navigate("GetDFIScreen")}
+          />
+        )}
         <ActionButton
           name={translate("components/ActionButtons", "Send")}
           icon="arrow-up-right"
