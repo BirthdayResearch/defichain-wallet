@@ -187,7 +187,6 @@ export function getVaultStatusColor(
   isText: boolean = false
 ): string {
   const { getColor } = useStyles();
-
   if (status === VaultStatus.NearLiquidation) {
     return isText ? "text-red-v2" : getColor("red-v2");
   } else if (status === VaultStatus.AtRisk) {

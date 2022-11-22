@@ -42,7 +42,6 @@ type Props = StackScreenProps<
 export const CreateOrEditAddressLabelForm = memo(
   ({ route, navigation }: Props): JSX.Element => {
     const { tailwind } = useStyles();
-    const { isLight } = useThemeContext();
     const { title, isAddressBook, address, addressLabel, onSaveButtonPress } =
       route.params;
     const { isLight } = useThemeContext();

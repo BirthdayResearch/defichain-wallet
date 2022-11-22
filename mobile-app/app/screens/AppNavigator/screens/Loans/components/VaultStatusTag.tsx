@@ -61,7 +61,6 @@ export function VaultStatusTag({
   testID?: string;
 }): JSX.Element {
   const { tailwind } = useStyles();
-
   if (status === VaultStatus.Unknown) {
     return <></>;
   }
