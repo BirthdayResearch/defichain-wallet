@@ -59,7 +59,7 @@ export function ActionButtons(): JSX.Element {
           <ActionButton
             name={translate("components/ActionButtons", "Get DFI")}
             iconSize={20}
-            testID="get_DFI_btn"
+            testID="get_DFI_action_btn"
             onPress={() => navigation.navigate("GetDFIScreen")}
           />
         )}
