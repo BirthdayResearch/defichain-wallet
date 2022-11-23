@@ -12,7 +12,6 @@ import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { translate } from "@translations";
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { getDefaultTheme } from "@constants/Theme";
 import { PinCreation } from "@screens/WalletNavigator/screens/CreateWallet/PinCreation";
 import { PinConfirmation } from "@screens/WalletNavigator/screens/CreateWallet/PinConfirmation";
 import { Onboarding } from "@screens/WalletNavigator/screens/Onboarding";
@@ -73,11 +72,11 @@ const LinkingConfiguration: LinkingOptions<ReactNavigation.RootParamList> = {
 };
 
 export function WalletNavigator(): JSX.Element {
-  const { tailwind } = useStyles();
+  const { tailwind, getDefaultTheme } = useStyles();
   const { isLight } = useThemeContext();
   const navigationRef =
     useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null);
-  const DeFiChainTheme: Theme = getDefaultTheme(isLight);
+  const DeFiChainTheme: Theme = getDefaultTheme();
   const insets = useSafeAreaInsets();
 
   const goToNetworkSelect = (): void => {

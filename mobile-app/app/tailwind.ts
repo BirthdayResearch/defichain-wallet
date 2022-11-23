@@ -1,71 +1,41 @@
 import classNames, { Argument } from "classnames";
 import { useTailwind } from 'tailwind-rn';
-
-// TODO(platno): Move this to theme
-const fonts = {
-  "font-light": {
-    fontFamily: "LightFont",
-    fontWeight: "300",
-  },
-  "font-normal": {
-    fontFamily: "RegularFont",
-    fontWeight: "400",
-  },
-  "font-medium": {
-    fontFamily: "MediumFont",
-    fontWeight: "500",
-  },
-  "font-semibold": {
-    fontFamily: "SemiBoldFont",
-    fontWeight: "600",
-  },
-  "font-bold": {
-    fontFamily: "BoldFont",
-    fontWeight: "700",
-  },
-  "font-light-v2": {
-    fontFamily: "SoraLight",
-    fontWeight: "300",
-  },
-  "font-normal-v2": {
-    fontFamily: "SoraRegular",
-    fontWeight: "400",
-  },
-  "font-medium-v2": {
-    fontFamily: "SoraMedium",
-    fontWeight: "500",
-  },
-  "font-semibold-v2": {
-    fontFamily: "SoraSemiBold",
-    fontWeight: "600",
-  },
-  "font-bold-v2": {
-    fontFamily: "SoraBold",
-    fontWeight: "700",
-  },
-};
+import { DarkTheme, DefaultTheme } from "@react-navigation/native";
+import { Theme } from "@react-navigation/native/lib/typescript/src/types";
+import { useThemeContext } from "@shared-contexts/ThemeProvider";
 
 export function useStyles(): {
   tailwind: (...args: Argument[]) => { [key: string]: string },
-  getColor: (colorClassName: string) => string;
+  getColor: (colorClassName: string) => string,
+  getDefaultTheme: () => Theme,
 } {
   const tailwind = useTailwind();
+  const theme = useThemeContext();
   
   const getStyles = (...args: Argument[]) => {
     return tailwind(classNames(args));
   };
 
   const getColor = (colorClassName: string) => {
-    const { color } = tailwind(colorClassName);
+    const { color } = tailwind(`text-${colorClassName}`);
+    return color;
+  };
 
-    //TODO(platno): I need to fix getting color from theme
-    console.log('getColor', colorClassName, color);
-
-    return '#ffffff';
-  }
+  const getDefaultTheme = () => {
+    const defaultTheme = theme?.isLight ? DefaultTheme : DarkTheme;
+    return {
+      ...defaultTheme,
+      colors: {
+        ...defaultTheme.colors,
+        primary: getColor(theme?.isLight ? "mono-light-v2-900" : "mono-dark-v2-900"),
+        border: getColor(theme?.isLight ? "mono-light-v2-100" : "mono-dark-v2-100"),
+      },
+    };
+  };
 
   return {
     tailwind: getStyles,
-    getColor
+    getColor,
+    getDefaultTheme,
   };
 }

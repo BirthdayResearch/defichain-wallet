@@ -13,9 +13,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { AddOrRemoveCollateralFormProps } from "@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm";
 import { Platform, View } from "react-native";
 import { useStyles } from "@tailwind";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { CreateOrEditAddressLabelFormProps } from "@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelForm";
-import { getDefaultTheme } from "@constants/Theme";
 import { BottomSheetModal as BottomSheetModalWeb } from "./BottomSheetModal.web";
 
 interface BottomSheetWithNavProps {
@@ -107,9 +105,8 @@ export const BottomSheetWebWithNavV2 = React.memo(
 );
 
 function Navigator(props: BottomSheetWithNavProps): JSX.Element {
-  const { tailwind } = useStyles();
-  const { isLight } = useThemeContext();
-  const DeFiChainTheme = getDefaultTheme(isLight);
+  const { tailwind, getDefaultTheme } = useStyles();
+  const DeFiChainTheme: Theme = getDefaultTheme();
   const BottomSheetWithNavStack =
     createStackNavigator<BottomSheetWithNavRouteParam>();
   const screenOptions = useMemo<StackNavigationOptions>(

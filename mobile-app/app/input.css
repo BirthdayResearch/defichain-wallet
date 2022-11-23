@@ -1,1 +1,51 @@
 @tailwind utilities;
+
+.font-light {
+  font-family: LightFont;
+  font-weight: 300;
+}
+
+.font-normal {
+  font-family: RegularFont;
+  font-weight: 400;
+}
+
+.font-medium {
+  font-family: MediumFont;
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-family: SemiBoldFont;
+  font-weight: 600;
+}
+
+.font-bold {
+  font-family: BoldFont;
+  font-weight: 700;
+}
+
+.font-light-v2 {
+  font-family: SoraLight;
+  font-weight: 300;
+}
+
+.font-normal-v2 {
+  font-family: SoraRegular;
+  font-weight: 400;
+}
+
+.font-medium-v2 {
+  font-family: SoraMedium;
+  font-weight: 500;
+}
+
+.font-semibold-v2 {
+  font-family: SoraSemiBold;
+  font-weight: 600;
+}
+
+.font-bold-v2 {
+  font-family: SoraBold;
+  font-weight: 700;
+}

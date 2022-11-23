@@ -1,6 +1,5 @@
 module.exports = {
   content: {
-    relative: true,
     files: [
       './**/*.{ts,tsx}',
     ],
@@ -208,6 +207,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
   corePlugins: require('tailwind-rn/unsupported-core-plugins')
 }

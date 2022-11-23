@@ -91,11 +91,11 @@ export default function App(): JSX.Element | null {
                       <StoreProvider>
                         <StatsProvider>
                           <FeatureFlagProvider>
-                            <TailwindProvider utilities={utilities}>
-                              <ThemeProvider
-                                api={ThemePersistence}
-                                colorScheme={colorScheme}
-                              >
+                            <ThemeProvider
+                              api={ThemePersistence}
+                              colorScheme={colorScheme}
+                            >
+                              <TailwindProvider utilities={utilities}>
                                 <LanguageProvider
                                   api={LanguagePersistence}
                                   locale={Localization.locale}
@@ -114,8 +114,8 @@ export default function App(): JSX.Element | null {
                                     </ConnectionBoundary>
                                   </DisplayBalancesProvider>
                                 </LanguageProvider>
-                              </ThemeProvider>
-                            </TailwindProvider>
+                              </TailwindProvider>
+                            </ThemeProvider>
                           </FeatureFlagProvider>
                         </StatsProvider>
                       </StoreProvider>
