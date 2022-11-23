@@ -242,6 +242,7 @@ Cypress.Commands.add("setFeatureFlags", (flags: string[], stage?: string) => {
       EnvironmentNetwork.TestNet,
     ],
     platforms: ["ios", "android", "web"],
+    app: ["MOBILE_LW"],
   }));
   cy.intercept("**/settings/flags", {
     statusCode: 200,
