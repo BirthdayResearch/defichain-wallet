@@ -53,7 +53,7 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
               "width": 60,
             }
           }
-          testID="get_DFI_btn"
+          testID="get_DFI_action_btn"
         >
           <RNSVGSvgView
             align="xMidYMid"

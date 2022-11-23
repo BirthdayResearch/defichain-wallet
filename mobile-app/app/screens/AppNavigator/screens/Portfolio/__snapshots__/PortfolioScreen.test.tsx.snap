@@ -560,7 +560,7 @@ exports[`portfolio page should match snapshot 1`] = `
                     "width": 60,
                   }
                 }
-                testID="get_DFI_btn"
+                testID="get_DFI_action_btn"
               >
                 <RNSVGSvgView
                   align="xMidYMid"
