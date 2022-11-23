@@ -20,7 +20,7 @@
     "react-devtools:open": "react-devtools",
     "translation:missing": "ts-node shared/translations/reporter/index.ts",
     "build:tailwind": "cd ./mobile-app/app && tailwindcss --input ./input.css --output ./tailwind.css --no-autoprefixer && tailwind-rn --input ./tailwind.css --output ./tailwind.json",
-		"dev:tailwind": "cd ./mobile-app/app && concurrently \"tailwindcss --input ./input.css --output ./tailwind.css --no-autoprefixer --watch\" \"tailwind-rn --input ./tailwind.css --output ./tailwind.json --watch\""
+    "dev:tailwind": "cd ./mobile-app/app && concurrently \"tailwindcss --input ./input.css --output ./tailwind.css --no-autoprefixer --watch\" \"tailwind-rn --input ./tailwind.css --output ./tailwind.json --watch\""
   },
   "dependencies": {
     "@defichain/jellyfish-address": "^2.69.0",
