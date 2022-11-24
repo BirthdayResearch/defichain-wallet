@@ -2175,7 +2175,8 @@
     "Receive": "接收",
     "Swap": "兑换",
     "Transactions": "交易纪录",
-    "Future swap": "Future swap"
+    "Future swap": "Future swap",
+    "Get DFI": "获取 DFI"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "Pool {{poolPair}}",
