@@ -2,11 +2,23 @@
 
 exports[`recovery word screen should match snapshot 1`] = `
 <RCTScrollView
+  contentContainerStyle={
+    {
+      "paddingBottom": 64,
+      "paddingLeft": 20,
+      "paddingRight": 20,
+      "paddingTop": 32,
+    }
+  }
   style={
-    Array [
-      undefined,
-      Object {
-        "backgroundColor": "rgba(250, 250, 250, 1)",
+    [
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      {
+        "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
   }
@@ -15,98 +27,115 @@ exports[`recovery word screen should match snapshot 1`] = `
   <View>
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Array [
-            Object {
-              "fontFamily": "MediumFont",
-              "fontSize": 14,
-              "fontWeight": "500",
-              "lineHeight": 20,
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 24,
+          [
+            {
+              "fontFamily": "SoraRegular",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "textAlign": "center",
             },
-            Object {
-              "color": "rgba(0, 0, 0, 1)",
+            {
+              "color": "rgba(18, 18, 18, 1)",
             },
           ],
         ]
       }
     >
-      Keep your recovery words safe and private
+      Take note of the correct spelling and order. Keep your recovery words confidential and secure.
     </Text>
     <View
       style={
-        Object {
-          "paddingBottom": 48,
-        }
+        [
+          {
+            "borderBottomLeftRadius": 10,
+            "borderBottomRightRadius": 10,
+            "borderTopLeftRadius": 10,
+            "borderTopRightRadius": 10,
+            "marginTop": 32,
+          },
+          {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
       }
     >
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_1_number"
         >
-          1
-          .
+          1.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -118,62 +147,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_2_number"
         >
-          2
-          .
+          2.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -185,62 +223,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_3_number"
         >
-          3
-          .
+          3.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -252,62 +299,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_4_number"
         >
-          4
-          .
+          4.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -319,62 +375,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_5_number"
         >
-          5
-          .
+          5.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -386,62 +451,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_6_number"
         >
-          6
-          .
+          6.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -453,62 +527,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_7_number"
         >
-          7
-          .
+          7.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -520,62 +603,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_8_number"
         >
-          8
-          .
+          8.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -587,62 +679,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_9_number"
         >
-          9
-          .
+          9.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -654,62 +755,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_10_number"
         >
-          10
-          .
+          10.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -721,62 +831,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_11_number"
         >
-          11
-          .
+          11.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -788,62 +907,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_12_number"
         >
-          12
-          .
+          12.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -855,62 +983,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_13_number"
         >
-          13
-          .
+          13.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -922,62 +1059,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_14_number"
         >
-          14
-          .
+          14.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -989,62 +1135,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_15_number"
         >
-          15
-          .
+          15.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -1056,62 +1211,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_16_number"
         >
-          16
-          .
+          16.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -1123,62 +1287,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_17_number"
         >
-          17
-          .
+          17.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -1190,62 +1363,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_18_number"
         >
-          18
-          .
+          18.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -1257,62 +1439,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_19_number"
         >
-          19
-          .
+          19.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -1324,62 +1515,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_20_number"
         >
-          20
-          .
+          20.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -1391,62 +1591,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_21_number"
         >
-          21
-          .
+          21.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -1458,62 +1667,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_22_number"
         >
-          22
-          .
+          22.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -1525,62 +1743,71 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
+              "borderBottomWidth": 0.5,
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_23_number"
         >
-          23
-          .
+          23.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]
@@ -1592,62 +1819,70 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "flexDirection": "row",
-              "paddingBottom": 12,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 12,
+              "justifyContent": "center",
+              "marginLeft": 20,
+              "marginRight": 20,
+              "paddingBottom": 18,
+              "paddingTop": 18,
             },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomColor": "rgba(229, 229, 229, 1)",
-              "borderBottomWidth": 1,
-              "borderLeftColor": "rgba(229, 229, 229, 1)",
-              "borderRightColor": "rgba(229, 229, 229, 1)",
-              "borderTopColor": "rgba(229, 229, 229, 1)",
+            {
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
             },
           ]
         }
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
-                  "width": 40,
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                  "width": 44,
                 },
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+                {
+                  "color": "rgba(115, 115, 115, 1)",
                 },
               ],
             ]
           }
           testID="word_24_number"
         >
-          24
-          .
+          24.
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                undefined,
-                Object {
-                  "color": "rgba(0, 0, 0, 1)",
+              [
+                {
+                  "flexGrow": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(43, 43, 43, 1)",
                 },
               ],
             ]

@@ -15,7 +15,7 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.result }}
     steps:
-      - uses: actions/github-script@9ac08808f993958e9de277fe43a64532a609130e
+      - uses: actions/github-script@d556feaca394842dc55e4734bf3bb9f685482fa0 # tag=v6.3.3
         id: version
         with:
           script: |
@@ -33,15 +33,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ version ]
     steps:
-      - uses: actions/checkout@dcd71f646680f2efd8db4afa5ad64fdcba30e748
-      - uses: actions/setup-node@56337c425554a6be30cdef71bf441f15be286854
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3.1.0
+      - uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # tag=v3.5.1
         with:
           node-version: 16
 
-      - uses: expo/expo-github-action@f98a64c8874c4a163514273f34306f403e962350
+      - uses: expo/expo-github-action@f98a64c8874c4a163514273f34306f403e962350 # tag=v7.2.0
         with:
           eas-version: latest
-          expo-version: 4.x
+          expo-version: latest
           packager: npm
           token: ${{ secrets.EXPO_TOKEN }}
 
@@ -53,7 +53,9 @@ jobs:
           npx standard-version --release-as ${{needs.version.outputs.version}}
 
       - name: EAS Build - Android
-        run: eas build --platform android --non-interactive --wait
+        run: eas build --platform android --non-interactive --wait --clear-cache
+        env:
+          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
 
       - run: sleep 10s
 
@@ -64,27 +66,29 @@ jobs:
 
       - name: EAS Submit - Android - Submit
         run: eas submit --platform android --latest
+        env:
+          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
 
       - name: EAS Submit - Android - Cleanup
         run: rm ANDROID_SERVICE_ACCOUNT.json
         if: always()
 
-  # TODO(thedoublejay): remove once migration process
-  eas-release-ios-legacy:
-    name: EAS Release iOS Legacy
+
+  eas-release-ios:
+    name: EAS Release iOS
     environment: EAS Release
     runs-on: ubuntu-latest
     needs: [ version ]
     steps:
-      - uses: actions/checkout@dcd71f646680f2efd8db4afa5ad64fdcba30e748
-      - uses: actions/setup-node@56337c425554a6be30cdef71bf441f15be286854
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3.1.0
+      - uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # tag=v3.5.1
         with:
           node-version: 16
 
-      - uses: expo/expo-github-action@f98a64c8874c4a163514273f34306f403e962350
+      - uses: expo/expo-github-action@f98a64c8874c4a163514273f34306f403e962350 # tag=v7.2.0
         with:
           eas-version: latest
-          expo-version: 4.x
+          expo-version: latest
           packager: npm
           token: ${{ secrets.EXPO_TOKEN }}
 
@@ -95,13 +99,15 @@ jobs:
           git config --global user.name "defichain-bot"
           npx standard-version --release-as ${{needs.version.outputs.version}}
 
-      - name: EAS Build - iOS - Legacy
-        run: eas build --platform ios --non-interactive --wait
+      - name: EAS Build - iOS
+        run: eas build --platform ios --non-interactive --wait --clear-cache
+        env:
+          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
 
       - run: sleep 10s
 
-        # TODO(fuxingloh): replace this in the future
-      - name: EAS Submit - iOS - Legacy - Setup
+      # TODO(fuxingloh): replace this in the future
+      - name: EAS Submit - iOS - Setup
         run: |
           sed -i "s/EAS_APPLE_ID/$APPLE_ID/" eas.json
           sed -i "s/EAS_ASC_APP_ID/$ASC_APP_ID/" eas.json
@@ -109,58 +115,11 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           ASC_APP_ID: ${{ secrets.ASC_APP_ID }}
 
-      - name: EAS Submit - iOS - Legacy - Submit
+      - name: EAS Submit - iOS - Submit
         run: eas submit --platform ios --latest
         env:
           EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
-
-      - name: EAS Submit - iOS - Cleanup
-        run: rm eas.json
-        if: always()
-
-  eas-release-ios-new:
-    name: EAS Release iOS New
-    environment: EAS iOS New Release
-    runs-on: ubuntu-latest
-    needs: [ version ]
-    steps:
-      - uses: actions/checkout@dcd71f646680f2efd8db4afa5ad64fdcba30e748
-      - uses: actions/setup-node@5b52f097d36d4b0b2f94ed6de710023fbb8b2236
-        with:
-          node-version: 16
-
-      - uses: expo/expo-github-action@1bde34e5c788ddc62e8d0fa9fc2dea222cdcaae1
-        with:
-          eas-version: latest
-          expo-version: 4.x
-          packager: npm
-          token: ${{ secrets.EXPO_TOKEN }}
-
-      - run: npm ci
-
-      - run: |
-          git config --global user.email "github-bot@defichain.com"
-          git config --global user.name "defichain-bot"
-          npx standard-version --release-as ${{needs.version.outputs.version}}
-
-      - name: EAS Build - iOS - New
-        run: eas build --platform ios --non-interactive --wait --profile=ios_production
-
-      - run: sleep 10s
-
-        # TODO(fuxingloh): replace this in the future
-      - name: EAS Submit - iOS - New - Setup
-        run: |
-          sed -i "s/EAS_APPLE_ID/$APPLE_ID/" eas.json
-          sed -i "s/EAS_ASC_APP_ID/$ASC_APP_ID/" eas.json
-        env:
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          ASC_APP_ID: ${{ secrets.ASC_APP_ID }}
-
-      - name: EAS Submit - iOS - New - Submit
-        run: eas submit --platform ios --latest
-        env:
-          EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
+          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
 
       - name: EAS Submit - iOS - Cleanup
         run: rm eas.json

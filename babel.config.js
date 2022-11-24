@@ -30,7 +30,7 @@ module.exports = function (api) {
   }
 
   if (process.env.NODE_ENV === 'production') {
-    plugins.push('transform-remove-console')
+    plugins.push(['transform-remove-console', { 'exclude': ['error', 'warn'] }])
   }
 
   return {

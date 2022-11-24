@@ -1,27 +1,22 @@
-import { StyleProp, ViewStyle } from 'react-native'
-import { Text, View } from '.'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { tailwind } from '@tailwind'
-import { translate } from '@translations'
-import { ThemedText } from './themed'
+import { Platform, StyleProp, ViewStyle } from "react-native";
+import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { tailwind } from "@tailwind";
+import { translate } from "@translations";
+import { useLogger } from "@shared-contexts/NativeLoggingProvider";
+import { ThemedIcon, ThemedTextV2 } from "./themed";
+import { Text, View } from ".";
 
 interface StepIndicatorProps {
-  current: number
-  total?: number
-  steps?: string[]
-  style?: StyleProp<ViewStyle>
+  current: number;
+  total?: number;
+  steps?: string[];
+  style?: StyleProp<ViewStyle>;
+  isComplete?: boolean;
 }
 
-export const CREATE_STEPS = [
-  'Recovery',
-  'Verify',
-  'Secure'
-]
+export const CREATE_STEPS = ["RECOVERY", "VERIFY", "SECURE"];
 
-export const RESTORE_STEPS = [
-  'Restore',
-  'Secure'
-]
+export const RESTORE_STEPS = ["RESTORE", "SECURE"];
 
 /**
  * @param props
@@ -30,32 +25,39 @@ export const RESTORE_STEPS = [
  * @param {string[]} props.steps description displayed for each step
  * @returns {JSX.Element}
  */
-export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Element {
-  const { isLight } = useThemeContext()
+export function CreateWalletStepIndicator(
+  props: StepIndicatorProps
+): JSX.Element {
+  const { isLight } = useThemeContext();
   const {
     current,
     total,
     style: containerViewStyle,
-    steps = []
-  } = props
-  if (total === undefined && steps.length === 0) {
-    throw Error('Invalid prop for CreateWalletStepIndicator')
+    steps = [],
+    isComplete,
+  } = props;
+  const logger = useLogger();
+  const totalStep = total ?? steps.length;
+  if (totalStep === 0 || totalStep > 5 || current <= 0 || current > totalStep) {
+    logger.error("Invalid prop for CreateWalletStepIndicator");
+    return <></>;
   }
 
-  const totalStep = total ?? steps.length
-  if (totalStep > 5 || current <= 0 || current > totalStep) {
-    throw Error('Invalid prop for CreateWalletStepIndicator')
-  }
-
-  function following (): JSX.Element[] {
-    const arr: JSX.Element[] = []
+  function following(): JSX.Element[] {
+    const arr: JSX.Element[] = [];
     for (let i = 1; i < totalStep; i++) {
-      const iconStyle = isLight ? (current >= i + 1 ? 'bg-primary-500' : 'bg-gray-100') : (current >= i + 1 ? 'bg-darkprimary-400' : 'bg-gray-600')
+      const lineStyle =
+        current >= i + 1
+          ? "bg-green-v2"
+          : isLight
+          ? "bg-mono-light-v2-900"
+          : "bg-mono-dark-v2-900";
       arr.push(
         <View
           key={i * 2}
-          style={tailwind(`h-1 flex-grow mt-3.5 ${iconStyle}`)}
-        />)
+          style={tailwind(`h-px flex-grow mt-4 ${lineStyle}`)}
+        />
+      );
       arr.push(
         <StepNode
           content={steps[i]}
@@ -63,78 +65,114 @@ export function CreateWalletStepIndicator (props: StepIndicatorProps): JSX.Eleme
           isLight={isLight}
           key={i * 2 + 1}
           step={i + 1}
-        />)
+          isComplete={isComplete}
+        />
+      );
     }
-    return arr
+    return arr;
   }
 
   return (
-    <View style={[tailwind('flex-col justify-center items-center w-full'), containerViewStyle]}>
-      <View style={tailwind('flex-row justify-center w-9/12 h-14')}>
+    <View
+      style={[
+        tailwind("flex-col justify-center items-center w-full"),
+        containerViewStyle,
+      ]}
+    >
+      <View style={tailwind("flex-row justify-center w-10/12 h-16")}>
         <StepNode
           content={steps[0]}
           current={current}
           isLight={isLight}
           step={1}
+          isComplete={isComplete}
         />
-
         {following()}
       </View>
     </View>
-  )
+  );
 }
 
-function getStepNodeStyle (isLight: boolean, current: number, step: number): { stepperStyle: string, textStyle: string } {
-  let stepperStyle
-  let textStyle
-  if (current === step) {
-    stepperStyle = isLight ? 'bg-primary-500 bg-opacity-10 border border-primary-500' : 'bg-darkprimary-300 border border-darkprimary-600'
-    textStyle = isLight ? 'text-primary-500' : 'text-darkprimary-700'
-  } else if (current > step) {
-    stepperStyle = isLight ? 'bg-primary-500 border border-primary-500' : 'bg-darkprimary-500 border border-darkprimary-600'
-    textStyle = 'text-white'
-  } else {
-    stepperStyle = isLight ? 'bg-transparent border border-gray-200' : 'bg-gray-700 border border-gray-200'
-    textStyle = isLight ? 'text-gray-500' : 'text-gray-400'
+function getStepNodeStyle(
+  isLight: boolean,
+  current: number,
+  step: number,
+  isComplete?: boolean
+): { stepperStyle: string; textStyle: string } {
+  let stepperStyle = isLight
+    ? "border border-mono-light-v2-900"
+    : "border border-mono-dark-v2-900";
+  let textStyle = isLight ? "text-mono-light-v2-900" : "text-mono-dark-v2-900";
+  if (isComplete !== true && current === step) {
+    stepperStyle = "border border-green-v2";
+    textStyle = "text-green-v2";
+  } else if (isComplete === true || current > step) {
+    stepperStyle = "border bg-green-v2 border-green-v2";
+    textStyle = "text-green-v2";
   }
   return {
     stepperStyle,
-    textStyle
-  }
+    textStyle,
+  };
 }
 
-function StepNode (props: { step: number, current: number, content: string, isLight: boolean }): JSX.Element {
-  const {
-    stepperStyle,
-    textStyle
-  } = getStepNodeStyle(props.isLight, props.current, props.step)
+function StepNode(props: {
+  step: number;
+  current: number;
+  content: string;
+  isLight: boolean;
+  isComplete?: boolean;
+}): JSX.Element {
+  const { stepperStyle, textStyle } = getStepNodeStyle(
+    props.isLight,
+    props.current,
+    props.step,
+    props.isComplete
+  );
   return (
-    <View style={tailwind('flex-col')}>
+    <View style={tailwind("flex-col")}>
       <View
-        style={tailwind(`h-8 w-8 rounded-2xl justify-center items-center relative ${stepperStyle}`)}
+        style={tailwind(
+          `h-9 w-9 rounded-full justify-center items-center relative ${stepperStyle}`
+        )}
       >
-        <Text style={tailwind(`${textStyle} font-medium absolute`)}>
-          {props.step}
-        </Text>
-
-        <Description
-          content={props.content}
-          current={props.current}
-          step={props.step}
-        />
+        {props.isComplete === true || props.current > props.step ? (
+          <ThemedIcon
+            size={18}
+            name="check"
+            iconType="Feather"
+            dark={tailwind("text-mono-dark-v2-00")}
+            light={tailwind("text-mono-light-v2-00")}
+          />
+        ) : (
+          <Text
+            style={tailwind([
+              `${textStyle} font-semibold-v2 text-lg`,
+              { "-mt-1.5": Platform.OS === "android" },
+            ])}
+          >
+            {props.step}
+          </Text>
+        )}
+        <Description content={props.content} textStyle={textStyle} />
       </View>
     </View>
-  )
+  );
 }
 
-function Description (props: { step: number, current: number, content: string }): JSX.Element {
+function Description(props: {
+  content: string;
+  textStyle: string;
+}): JSX.Element {
   return (
-    <ThemedText
-      dark={tailwind(props.current === props.step ? 'text-darkprimary-400' : 'text-gray-400')}
-      light={tailwind(props.current === props.step ? 'text-primary-500' : 'text-gray-500')}
-      style={tailwind('text-center text-sm font-medium top-9 absolute w-20')}
+    <ThemedTextV2
+      dark={tailwind(props.textStyle)}
+      light={tailwind(props.textStyle)}
+      style={tailwind(
+        "text-center text-xs font-normal-v2 top-12 absolute w-20"
+      )}
     >
-      {translate('components/CreateWalletIndicator', props.content)}
-    </ThemedText>
-  )
+      {translate("components/CreateWalletIndicator", props.content)}
+    </ThemedTextV2>
+  );
 }

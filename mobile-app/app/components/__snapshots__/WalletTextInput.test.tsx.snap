@@ -3,46 +3,57 @@
 exports[`wallet text input should render with default keyboard 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "flexDirection": "column",
         "width": "100%",
       },
-      Object {
+      {
         "backgroundColor": "transparent",
       },
     ]
   }
 >
-  <Text
-    style={
-      Array [
-        Object {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
-        Array [
-          Object {
-            "fontSize": 16,
-            "lineHeight": 24,
-          },
-          Object {
-            "color": "rgba(64, 64, 64, 1)",
-          },
-        ],
-      ]
-    }
-    testID="titleTestID"
-    text="foo"
-  >
-    foo
-  </Text>
   <View
     style={
-      Array [
-        Object {
+      {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontSize": 16,
+              "lineHeight": 24,
+            },
+            {
+              "color": "rgba(64, 64, 64, 1)",
+            },
+          ],
+        ]
+      }
+      testID="titleTestID"
+      text="foo"
+    >
+      foo
+    </Text>
+  </View>
+  <View
+    style={
+      [
+        {
           "borderBottomLeftRadius": 4,
           "borderBottomRightRadius": 4,
           "borderBottomWidth": 1,
@@ -55,7 +66,7 @@ exports[`wallet text input should render with default keyboard 1`] = `
           "marginTop": 8,
           "width": "100%",
         },
-        Object {
+        {
           "backgroundColor": "rgba(255, 255, 255, 1)",
           "borderBottomColor": "rgba(255, 0, 0, 1)",
           "borderLeftColor": "rgba(255, 0, 0, 1)",
@@ -67,9 +78,9 @@ exports[`wallet text input should render with default keyboard 1`] = `
   >
     <View
       style={
-        Array [
-          Array [
-            Object {
+        [
+          [
+            {
               "alignItems": "center",
               "flexDirection": "row",
               "justifyContent": "space-between",
@@ -80,52 +91,50 @@ exports[`wallet text input should render with default keyboard 1`] = `
             },
             false,
           ],
-          Object {
+          {
             "backgroundColor": "transparent",
           },
         ]
       }
     >
       <TextInput
-        allowFontScaling={true}
         editable={true}
         keyboardType="default"
         onBlur={[Function]}
         onFocus={[Function]}
         placeholder="bar"
         placeholderTextColor="rgba(0, 0, 0, 0.4)"
-        rejectResponderTermination={true}
         style={
-          Array [
+          [
             undefined,
-            Object {
+            {
               "color": "rgba(64, 64, 64, 1)",
             },
           ]
         }
         testID="testID"
-        underlineColorAndroid="transparent"
         value=""
       />
     </View>
+    <View />
   </View>
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Array [
-          Object {
+        [
+          {
             "fontSize": 14,
             "lineHeight": 20,
             "marginBottom": 4,
             "marginTop": 4,
           },
-          Object {
+          {
             "color": "rgba(255, 0, 0, 1)",
           },
         ],
@@ -141,46 +150,57 @@ exports[`wallet text input should render with default keyboard 1`] = `
 exports[`wallet text input should render with numeric keyboard 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "flexDirection": "column",
         "width": "100%",
       },
-      Object {
+      {
         "backgroundColor": "transparent",
       },
     ]
   }
 >
-  <Text
-    style={
-      Array [
-        Object {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
-        Array [
-          Object {
-            "fontSize": 16,
-            "lineHeight": 24,
-          },
-          Object {
-            "color": "rgba(64, 64, 64, 1)",
-          },
-        ],
-      ]
-    }
-    testID="titleTestID"
-    text="foo"
-  >
-    foo
-  </Text>
   <View
     style={
-      Array [
-        Object {
+      {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontSize": 16,
+              "lineHeight": 24,
+            },
+            {
+              "color": "rgba(64, 64, 64, 1)",
+            },
+          ],
+        ]
+      }
+      testID="titleTestID"
+      text="foo"
+    >
+      foo
+    </Text>
+  </View>
+  <View
+    style={
+      [
+        {
           "borderBottomLeftRadius": 4,
           "borderBottomRightRadius": 4,
           "borderBottomWidth": 1,
@@ -193,7 +213,7 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
           "marginTop": 8,
           "width": "100%",
         },
-        Object {
+        {
           "backgroundColor": "rgba(255, 255, 255, 1)",
           "borderBottomColor": "rgba(255, 0, 0, 1)",
           "borderLeftColor": "rgba(255, 0, 0, 1)",
@@ -205,9 +225,9 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
   >
     <View
       style={
-        Array [
-          Array [
-            Object {
+        [
+          [
+            {
               "alignItems": "center",
               "flexDirection": "row",
               "justifyContent": "space-between",
@@ -218,52 +238,50 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
             },
             false,
           ],
-          Object {
+          {
             "backgroundColor": "transparent",
           },
         ]
       }
     >
       <TextInput
-        allowFontScaling={true}
         editable={true}
         keyboardType="default"
         onBlur={[Function]}
         onFocus={[Function]}
         placeholder="bar"
         placeholderTextColor="rgba(0, 0, 0, 0.4)"
-        rejectResponderTermination={true}
         style={
-          Array [
+          [
             undefined,
-            Object {
+            {
               "color": "rgba(64, 64, 64, 1)",
             },
           ]
         }
         testID="testID"
-        underlineColorAndroid="transparent"
         value=""
       />
     </View>
+    <View />
   </View>
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Array [
-          Object {
+        [
+          {
             "fontSize": 14,
             "lineHeight": 20,
             "marginBottom": 4,
             "marginTop": 4,
           },
-          Object {
+          {
             "color": "rgba(255, 0, 0, 1)",
           },
         ],

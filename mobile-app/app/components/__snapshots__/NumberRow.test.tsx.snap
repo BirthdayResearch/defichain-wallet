@@ -3,8 +3,8 @@
 exports[`Number row should match snapshot for component suffix 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "flex-start",
         "flexDirection": "row",
         "paddingBottom": 16,
@@ -13,7 +13,7 @@ exports[`Number row should match snapshot for component suffix 1`] = `
         "paddingTop": 16,
         "width": "100%",
       },
-      Object {
+      {
         "backgroundColor": "rgba(255, 255, 255, 1)",
         "borderBottomColor": "rgba(229, 229, 229, 1)",
         "borderBottomWidth": 1,
@@ -26,14 +26,14 @@ exports[`Number row should match snapshot for component suffix 1`] = `
 >
   <View
     style={
-      Object {
+      {
         "width": "50%",
       }
     }
   >
     <View
       style={
-        Object {
+        {
           "alignItems": "flex-end",
           "flexDirection": "row",
           "justifyContent": "flex-start",
@@ -42,22 +42,22 @@ exports[`Number row should match snapshot for component suffix 1`] = `
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Array [
-                Object {
+            [
+              [
+                {
                   "fontSize": 14,
                   "lineHeight": 20,
                 },
                 undefined,
               ],
-              Object {
+              {
                 "color": "rgba(0, 0, 0, 1)",
               },
             ],
@@ -71,63 +71,84 @@ exports[`Number row should match snapshot for component suffix 1`] = `
   </View>
   <View
     style={
-      Object {
-        "alignItems": "center",
+      {
         "flexBasis": "0%",
-        "flexDirection": "row",
         "flexGrow": 1,
         "flexShrink": 1,
-        "flexWrap": "wrap",
-        "justifyContent": "flex-end",
       }
     }
   >
-    <Text
-      style={
-        Array [
-          Object {
-            "fontSize": 14,
-            "lineHeight": 20,
-            "textAlign": "right",
-          },
-          undefined,
-          undefined,
-        ]
-      }
-    >
-      <Text
+    <View>
+      <View
         style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                undefined,
-                undefined,
-              ],
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-              },
-            ],
-          ]
+          {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "flexWrap": "wrap",
+            "justifyContent": "flex-end",
+          }
         }
-        testID="foo_test"
       >
-        100
-      </Text>
-    </Text>
+        <Text
+          style={
+            [
+              {
+                "fontSize": 14,
+                "lineHeight": 20,
+                "textAlign": "right",
+              },
+              undefined,
+              undefined,
+            ]
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                      "textAlign": "right",
+                    },
+                    undefined,
+                    undefined,
+                  ],
+                  {
+                    "color": "rgba(115, 115, 115, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="foo_test"
+          >
+            100
+          </Text>
+        </Text>
+      </View>
+    </View>
     <Text>
       $
     </Text>
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+          "flexWrap": "wrap",
+          "justifyContent": "flex-end",
+        }
+      }
+    />
   </View>
 </View>
 `;
@@ -135,8 +156,8 @@ exports[`Number row should match snapshot for component suffix 1`] = `
 exports[`Number row should match snapshot for text suffix 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "alignItems": "flex-start",
         "flexDirection": "row",
         "paddingBottom": 16,
@@ -145,7 +166,7 @@ exports[`Number row should match snapshot for text suffix 1`] = `
         "paddingTop": 16,
         "width": "100%",
       },
-      Object {
+      {
         "backgroundColor": "rgba(255, 255, 255, 1)",
         "borderBottomColor": "rgba(229, 229, 229, 1)",
         "borderBottomWidth": 1,
@@ -158,14 +179,14 @@ exports[`Number row should match snapshot for text suffix 1`] = `
 >
   <View
     style={
-      Object {
+      {
         "width": "50%",
       }
     }
   >
     <View
       style={
-        Object {
+        {
           "alignItems": "flex-end",
           "flexDirection": "row",
           "justifyContent": "flex-start",
@@ -174,22 +195,22 @@ exports[`Number row should match snapshot for text suffix 1`] = `
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Array [
-                Object {
+            [
+              [
+                {
                   "fontSize": 14,
                   "lineHeight": 20,
                 },
                 undefined,
               ],
-              Object {
+              {
                 "color": "rgba(0, 0, 0, 1)",
               },
             ],
@@ -203,92 +224,113 @@ exports[`Number row should match snapshot for text suffix 1`] = `
   </View>
   <View
     style={
-      Object {
-        "alignItems": "center",
+      {
         "flexBasis": "0%",
-        "flexDirection": "row",
         "flexGrow": 1,
         "flexShrink": 1,
-        "flexWrap": "wrap",
-        "justifyContent": "flex-end",
       }
     }
   >
-    <Text
+    <View>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "flexWrap": "wrap",
+            "justifyContent": "flex-end",
+          }
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "fontSize": 14,
+                "lineHeight": 20,
+                "textAlign": "right",
+              },
+              undefined,
+              undefined,
+            ]
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                      "textAlign": "right",
+                    },
+                    undefined,
+                    undefined,
+                  ],
+                  {
+                    "color": "rgba(115, 115, 115, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="foo_test"
+          >
+            100
+          </Text>
+          <Text>
+             
+          </Text>
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                      "marginLeft": 4,
+                    },
+                    undefined,
+                    undefined,
+                  ],
+                  {
+                    "color": "rgba(115, 115, 115, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="foo_test_suffix"
+          >
+            $
+          </Text>
+        </Text>
+      </View>
+    </View>
+    <View
       style={
-        Array [
-          Object {
-            "fontSize": 14,
-            "lineHeight": 20,
-            "textAlign": "right",
-          },
-          undefined,
-          undefined,
-        ]
+        {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+          "flexWrap": "wrap",
+          "justifyContent": "flex-end",
+        }
       }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                undefined,
-                undefined,
-              ],
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-              },
-            ],
-          ]
-        }
-        testID="foo_test"
-      >
-        100
-      </Text>
-      <Text>
-         
-      </Text>
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "marginLeft": 4,
-                },
-                undefined,
-                undefined,
-              ],
-              Object {
-                "color": "rgba(115, 115, 115, 1)",
-              },
-            ],
-          ]
-        }
-        testID="foo_test_suffix"
-      >
-        $
-      </Text>
-    </Text>
+    />
   </View>
 </View>
 `;

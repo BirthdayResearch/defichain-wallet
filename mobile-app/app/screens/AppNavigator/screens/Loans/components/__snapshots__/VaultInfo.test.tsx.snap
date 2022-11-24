@@ -3,7 +3,7 @@
 exports[`Vault info should render label with token icon group 1`] = `
 <View
   style={
-    Object {
+    {
       "alignItems": "center",
       "flexDirection": "row",
       "marginBottom": 4,
@@ -14,26 +14,26 @@ exports[`Vault info should render label with token icon group 1`] = `
 >
   <View
     style={
-      Object {
+      {
         "width": "50%",
       }
     }
   >
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Array [
-            Object {
+          [
+            {
               "fontSize": 12,
               "lineHeight": 16,
             },
-            Object {
+            {
               "color": "rgba(115, 115, 115, 1)",
             },
           ],
@@ -45,7 +45,7 @@ exports[`Vault info should render label with token icon group 1`] = `
   </View>
   <View
     style={
-      Object {
+      {
         "alignItems": "center",
         "flexBasis": "0%",
         "flexDirection": "row",
@@ -58,16 +58,22 @@ exports[`Vault info should render label with token icon group 1`] = `
   >
     <View
       style={
-        Object {
-          "display": "flex",
-          "flexDirection": "row",
-        }
+        [
+          {
+            "display": "flex",
+            "flexDirection": "row",
+            "position": "relative",
+          },
+          {
+            "right": -15,
+          },
+        ]
       }
     >
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomLeftRadius": 9999,
               "borderBottomRightRadius": 9999,
               "borderTopLeftRadius": 9999,
@@ -78,7 +84,7 @@ exports[`Vault info should render label with token icon group 1`] = `
               "paddingTop": 1,
               "position": "relative",
             },
-            Object {
+            {
               "left": -0,
             },
           ]
@@ -95,12 +101,12 @@ exports[`Vault info should render label with token icon group 1`] = `
           minX={0}
           minY={0}
           style={
-            Array [
-              Object {
+            [
+              {
                 "backgroundColor": "transparent",
                 "borderWidth": 0,
               },
-              Object {
+              {
                 "flex": 0,
                 "height": 16,
                 "width": 16,
@@ -116,7 +122,7 @@ exports[`Vault info should render label with token icon group 1`] = `
               d="M31.521 19.87c-2.137 8.572-10.82 13.788-19.393 11.651C3.558 29.384-1.659 20.702.479 12.131 2.616 3.56 11.298-1.659 19.87.48c8.573 2.137 13.79 10.82 11.652 19.392z"
               fill={4294415130}
               propList={
-                Array [
+                [
                   "fill",
                 ]
               }
@@ -125,7 +131,7 @@ exports[`Vault info should render label with token icon group 1`] = `
               d="M22.96 14.04c.313-2.101-1.276-3.23-3.448-3.985l.705-2.846-1.72-.432-.686 2.772a67.899 67.899 0 00-1.379-.327l.691-2.79L15.404 6l-.705 2.846a57.2 57.2 0 01-1.099-.26l.002-.01-2.372-.596-.458 1.85s1.277.296 1.25.314c.696.175.822.64.801 1.008l-.802 3.243c.048.012.11.03.179.057l-.182-.045-1.125 4.543c-.085.213-.302.533-.789.412.018.025-1.25-.315-1.25-.315L8 21.031l2.239.562c.416.105.824.215 1.226.319l-.712 2.88 1.718.431.706-2.849c.469.129.925.247 1.37.359l-.702 2.835 1.72.432.712-2.874c2.934.56 5.14.334 6.068-2.339.748-2.152-.037-3.393-1.58-4.202 1.123-.261 1.97-1.006 2.196-2.545zm-4.012 5.8c-.497 1.961-3.858.901-4.948.635L14.883 17c1.09.267 4.584.796 4.065 2.84zm.991-6.05c-.538 1.993-3.861.98-4.939.732L15.95 11c1.079.248 4.55.712 3.99 2.79z"
               fill={4294967295}
               propList={
-                Array [
+                [
                   "fill",
                 ]
               }
@@ -135,8 +141,8 @@ exports[`Vault info should render label with token icon group 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomLeftRadius": 9999,
               "borderBottomRightRadius": 9999,
               "borderTopLeftRadius": 9999,
@@ -147,7 +153,7 @@ exports[`Vault info should render label with token icon group 1`] = `
               "paddingTop": 1,
               "position": "relative",
             },
-            Object {
+            {
               "left": -5,
             },
           ]
@@ -164,12 +170,12 @@ exports[`Vault info should render label with token icon group 1`] = `
           minX={0}
           minY={0}
           style={
-            Array [
-              Object {
+            [
+              {
                 "backgroundColor": "transparent",
                 "borderWidth": 0,
               },
-              Object {
+              {
                 "flex": 0,
                 "height": 16,
                 "width": 16,
@@ -185,7 +191,7 @@ exports[`Vault info should render label with token icon group 1`] = `
               d="M16 0C7.163 0 0 7.163 0 16s7.163 16 16 16c8.838 0 16-7.163 16-16S24.838 0 16 0z"
               fill={4292272107}
               propList={
-                Array [
+                [
                   "fill",
                 ]
               }
@@ -194,7 +200,7 @@ exports[`Vault info should render label with token icon group 1`] = `
               d="M16.25 16.529l-1.656 5.618 8.888.003c.305 0 .525.29.441.583l-.765 2.67a.609.609 0 01-.586.441L8.973 25.84l2.298-7.769-2.544.789.544-1.847 2.546-.789 3.23-10.911a.61.61 0 01.585-.442l3.443.002c.305 0 .524.291.441.583l-2.718 9.222 2.544-.788-.545 1.847-2.547.792z"
               fill={4281621917}
               propList={
-                Array [
+                [
                   "fill",
                 ]
               }
@@ -204,8 +210,8 @@ exports[`Vault info should render label with token icon group 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomLeftRadius": 9999,
               "borderBottomRightRadius": 9999,
               "borderTopLeftRadius": 9999,
@@ -216,7 +222,7 @@ exports[`Vault info should render label with token icon group 1`] = `
               "paddingTop": 1,
               "position": "relative",
             },
-            Object {
+            {
               "left": -10,
             },
           ]
@@ -233,12 +239,12 @@ exports[`Vault info should render label with token icon group 1`] = `
           minX={0}
           minY={0}
           style={
-            Array [
-              Object {
+            [
+              {
                 "backgroundColor": "transparent",
                 "borderWidth": 0,
               },
-              Object {
+              {
                 "flex": 0,
                 "height": 16,
                 "width": 16,
@@ -288,7 +294,7 @@ exports[`Vault info should render label with token icon group 1`] = `
               fill={null}
               fillRule={0}
               propList={
-                Array [
+                [
                   "fill",
                   "fillRule",
                 ]
@@ -299,7 +305,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                 fill={4294176214}
                 fillRule={1}
                 propList={
-                  Array [
+                  [
                     "fill",
                     "fillRule",
                   ]
@@ -310,7 +316,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                 height="100%"
                 maskContentUnits={1}
                 maskTransform={
-                  Array [
+                  [
                     1,
                     0,
                     0,
@@ -322,7 +328,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                 maskUnits={0}
                 name="dDOGE_svg__b"
                 propList={
-                  Array [
+                  [
                     "fill",
                   ]
                 }
@@ -346,7 +352,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293382032}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -354,7 +360,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                 />
                 <RNSVGGroup
                   matrix={
-                    Array [
+                    [
                       1,
                       0,
                       0,
@@ -369,7 +375,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     height="100%"
                     maskContentUnits={1}
                     maskTransform={
-                      Array [
+                      [
                         1,
                         0,
                         0,
@@ -381,7 +387,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     maskUnits={0}
                     name="dDOGE_svg__d"
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -403,7 +409,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     fillRule={1}
                     mask="dDOGE_svg__d"
                     propList={
-                      Array [
+                      [
                         "fill",
                         "fillRule",
                       ]
@@ -412,7 +418,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                 </RNSVGGroup>
                 <RNSVGGroup
                   matrix={
-                    Array [
+                    [
                       1,
                       0,
                       0,
@@ -427,7 +433,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     height="100%"
                     maskContentUnits={1}
                     maskTransform={
-                      Array [
+                      [
                         1,
                         0,
                         0,
@@ -439,7 +445,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     maskUnits={0}
                     name="dDOGE_svg__f"
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -461,7 +467,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     fillRule={1}
                     mask="dDOGE_svg__f"
                     propList={
-                      Array [
+                      [
                         "fill",
                         "fillRule",
                       ]
@@ -473,7 +479,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293111633}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -484,7 +490,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293910444}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -492,7 +498,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                 />
                 <RNSVGGroup
                   matrix={
-                    Array [
+                    [
                       1,
                       0,
                       0,
@@ -507,7 +513,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     height="100%"
                     maskContentUnits={1}
                     maskTransform={
-                      Array [
+                      [
                         1,
                         0,
                         0,
@@ -519,7 +525,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     maskUnits={0}
                     name="dDOGE_svg__h"
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -541,7 +547,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     fillRule={1}
                     mask="dDOGE_svg__h"
                     propList={
-                      Array [
+                      [
                         "fill",
                         "fillRule",
                       ]
@@ -553,7 +559,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291269429}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -564,7 +570,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293976237}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -575,7 +581,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293976239}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -586,7 +592,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293976237}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -597,7 +603,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293976238}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -608,7 +614,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293976497}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -619,7 +625,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292990117}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -630,7 +636,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292923809}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -641,7 +647,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293318568}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -652,7 +658,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294108341}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -660,7 +666,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                 />
                 <RNSVGGroup
                   matrix={
-                    Array [
+                    [
                       1,
                       0,
                       0,
@@ -675,7 +681,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     height="100%"
                     maskContentUnits={1}
                     maskTransform={
-                      Array [
+                      [
                         1,
                         0,
                         0,
@@ -687,7 +693,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     maskUnits={0}
                     name="dDOGE_svg__j"
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -709,7 +715,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     fillRule={1}
                     mask="dDOGE_svg__j"
                     propList={
-                      Array [
+                      [
                         "fill",
                         "fillRule",
                       ]
@@ -718,7 +724,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                 </RNSVGGroup>
                 <RNSVGGroup
                   matrix={
-                    Array [
+                    [
                       1,
                       0,
                       0,
@@ -733,7 +739,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     height="100%"
                     maskContentUnits={1}
                     maskTransform={
-                      Array [
+                      [
                         1,
                         0,
                         0,
@@ -745,7 +751,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     maskUnits={0}
                     name="dDOGE_svg__l"
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -767,7 +773,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     fillRule={1}
                     mask="dDOGE_svg__l"
                     propList={
-                      Array [
+                      [
                         "fill",
                         "fillRule",
                       ]
@@ -779,7 +785,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293112148}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -790,7 +796,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293186724}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -801,7 +807,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293116530}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -812,7 +818,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294107822}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -823,7 +829,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291335222}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -834,7 +840,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292122928}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -842,7 +848,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                 />
                 <RNSVGGroup
                   matrix={
-                    Array [
+                    [
                       1,
                       0,
                       0,
@@ -857,7 +863,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     height="100%"
                     maskContentUnits={1}
                     maskTransform={
-                      Array [
+                      [
                         1,
                         0,
                         0,
@@ -869,7 +875,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     maskUnits={0}
                     name="dDOGE_svg__n"
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -891,7 +897,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     fillRule={1}
                     mask="dDOGE_svg__n"
                     propList={
-                      Array [
+                      [
                         "fill",
                         "fillRule",
                       ]
@@ -903,7 +909,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291335222}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -914,7 +920,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4286927123}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -925,7 +931,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290476834}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -936,7 +942,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291335222}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -947,7 +953,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293116530}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -958,7 +964,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293111891}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -969,7 +975,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4286268424}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -977,7 +983,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                 />
                 <RNSVGGroup
                   matrix={
-                    Array [
+                    [
                       1,
                       0,
                       0,
@@ -992,7 +998,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     height="100%"
                     maskContentUnits={1}
                     maskTransform={
-                      Array [
+                      [
                         1,
                         0,
                         0,
@@ -1004,7 +1010,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     maskUnits={0}
                     name="dDOGE_svg__p"
                     propList={
-                      Array [
+                      [
                         "fill",
                       ]
                     }
@@ -1026,7 +1032,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                     fillRule={1}
                     mask="dDOGE_svg__p"
                     propList={
-                      Array [
+                      [
                         "fill",
                         "fillRule",
                       ]
@@ -1038,7 +1044,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291137072}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1049,7 +1055,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291990051}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1060,7 +1066,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292256323}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1071,7 +1077,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4286861331}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1082,7 +1088,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4286400015}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1093,7 +1099,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293448598}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1104,7 +1110,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292453958}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1115,7 +1121,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293117304}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1126,7 +1132,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293381775}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1137,7 +1143,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292586577}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1148,7 +1154,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291990566}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1159,7 +1165,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293249667}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1170,7 +1176,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293382032}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1181,7 +1187,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292122928}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1192,7 +1198,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292122670}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1203,7 +1209,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292587088}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1214,7 +1220,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293050736}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1225,7 +1231,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291990309}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1236,7 +1242,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291990824}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1247,7 +1253,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293117303}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1258,7 +1264,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291924516}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1269,7 +1275,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293050736}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1280,7 +1286,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290411040}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1291,7 +1297,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293050736}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1302,7 +1308,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290476833}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1313,7 +1319,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290476576}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1324,7 +1330,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293375061}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1335,7 +1341,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293243475}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1346,7 +1352,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292189504}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1357,7 +1363,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293243475}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1368,7 +1374,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293111375}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1379,7 +1385,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290937640}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1390,7 +1396,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293112148}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1401,7 +1407,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293111889}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1412,7 +1418,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292123454}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1423,7 +1429,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292518725}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1434,7 +1440,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294634952}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1445,7 +1451,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4278979848}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1456,7 +1462,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293975979}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1467,7 +1473,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290410784}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1478,7 +1484,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290411040}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1489,7 +1495,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290411554}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1500,7 +1506,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290147355}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1511,7 +1517,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4286543714}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1522,7 +1528,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293243218}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1533,7 +1539,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4279307269}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1544,7 +1550,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291269429}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1555,7 +1561,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292848717}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1566,7 +1572,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293844391}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1577,7 +1583,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293910445}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1588,7 +1594,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4287595885}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1599,7 +1605,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293979099}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1610,7 +1616,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293117822}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1621,7 +1627,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292726687}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1632,7 +1638,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4288780938}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1643,7 +1649,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293581738}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1654,7 +1660,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293116530}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1665,7 +1671,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294831285}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1676,7 +1682,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291401271}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1687,7 +1693,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293252773}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1698,7 +1704,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293055395}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1709,7 +1715,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292858273}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1720,7 +1726,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292660895}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1731,7 +1737,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292923809}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1742,7 +1748,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294304944}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1753,7 +1759,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293910444}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1764,7 +1770,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292858017}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1775,7 +1781,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292595102}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1786,7 +1792,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293515944}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1797,7 +1803,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294635209}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1808,7 +1814,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293253038}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1819,7 +1825,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293450937}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1830,7 +1836,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293187237}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1841,7 +1847,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293055653}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1852,7 +1858,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293910445}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1863,7 +1869,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294173615}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1874,7 +1880,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294239408}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1885,7 +1891,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291805845}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1896,7 +1902,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294634953}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1907,7 +1913,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293509497}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1918,7 +1924,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293111632}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1929,7 +1935,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4286861073}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1940,7 +1946,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290476577}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1951,7 +1957,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4278914054}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1962,7 +1968,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290410784}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1973,7 +1979,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290477090}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1984,7 +1990,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4286861329}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -1995,7 +2001,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291269429}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2006,7 +2012,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290476576}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2017,7 +2023,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293246584}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2028,7 +2034,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290410783}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2039,7 +2045,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290476833}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2050,7 +2056,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292521825}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2061,7 +2067,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290410784}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2072,7 +2078,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293768533}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2083,7 +2089,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4285558622}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2094,7 +2100,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291543732}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2105,7 +2111,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291724578}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2116,7 +2122,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291860535}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2127,7 +2133,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293309268}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2138,7 +2144,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4287256870}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2149,7 +2155,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291401015}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2160,7 +2166,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4280227082}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2171,7 +2177,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291203119}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2182,7 +2188,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4285554502}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2193,7 +2199,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294636242}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2204,7 +2210,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290278940}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2215,7 +2221,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293311858}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2226,7 +2232,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4286413929}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2237,7 +2243,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4284702541}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2248,7 +2254,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291137840}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2259,7 +2265,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4289295397}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2270,7 +2276,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291467064}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2281,7 +2287,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290146842}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2292,7 +2298,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292655217}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2303,7 +2309,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4287255828}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2314,7 +2320,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291664184}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2325,7 +2331,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4286137099}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2336,7 +2342,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292124994}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2347,7 +2353,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291137842}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2358,7 +2364,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292257618}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2369,7 +2375,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292719205}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2380,7 +2386,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290940723}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2391,7 +2397,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292787064}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2402,7 +2408,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290411554}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2413,7 +2419,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293772928}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2424,7 +2430,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291467577}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2435,7 +2441,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292058939}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2446,7 +2452,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294767571}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2457,7 +2463,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294107058}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2468,7 +2474,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290411040}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2479,7 +2485,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293580960}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2490,7 +2496,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292320562}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2501,7 +2507,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290279198}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2512,7 +2518,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292056360}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2523,7 +2529,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292851558}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2534,7 +2540,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291725330}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2545,7 +2551,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291003429}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2556,7 +2562,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291727916}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2567,7 +2573,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292520783}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2578,7 +2584,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291857947}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2589,7 +2595,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293978559}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2600,7 +2606,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293846198}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2611,7 +2617,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293580702}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2622,7 +2628,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292852073}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2633,7 +2639,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4289753630}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2644,7 +2650,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291598391}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2655,7 +2661,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290477347}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2666,7 +2672,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4288570393}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2677,7 +2683,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4289164068}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2688,7 +2694,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290476577}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2699,7 +2705,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4285282824}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2710,7 +2716,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290410783}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2721,7 +2727,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4286334734}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2732,7 +2738,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4287781911}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2743,7 +2749,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4286269198}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2754,7 +2760,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4289030426}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2765,7 +2771,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4286466318}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2776,7 +2782,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292524652}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2787,7 +2793,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294569419}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2798,7 +2804,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294371262}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2809,7 +2815,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293183615}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2820,7 +2826,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293448086}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2831,7 +2837,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293116787}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2842,7 +2848,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292921224}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2853,7 +2859,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293050736}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2864,7 +2870,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292984682}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2875,7 +2881,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293777570}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2886,7 +2892,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293645724}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2897,7 +2903,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293382033}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2908,7 +2914,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293580960}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2919,7 +2925,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292454475}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2930,7 +2936,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293249925}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2941,7 +2947,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293448086}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2952,7 +2958,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292984425}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2963,7 +2969,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293579154}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2974,7 +2980,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292395912}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2985,7 +2991,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294832850}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -2996,7 +3002,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292322371}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3007,7 +3013,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293780146}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3018,7 +3024,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292387650}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3029,7 +3035,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290156639}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3040,7 +3046,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4279965717}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3051,7 +3057,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290419809}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3062,7 +3068,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292656236}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3073,7 +3079,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4289762140}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3084,7 +3090,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292393066}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3095,7 +3101,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291797068}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3106,7 +3112,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293112147}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3117,7 +3123,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292984425}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3128,7 +3134,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293380472}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3139,7 +3145,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4283779134}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3150,7 +3156,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291201327}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3161,7 +3167,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293511282}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3172,7 +3178,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293380730}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3183,7 +3189,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292783441}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3194,7 +3200,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4283581744}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3205,7 +3211,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290353758}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3216,7 +3222,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290015255}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3227,7 +3233,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293778340}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3238,7 +3244,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293445234}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3249,7 +3255,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4285028420}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3260,7 +3266,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293511026}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3271,7 +3277,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293379957}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3282,7 +3288,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290608419}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3293,7 +3299,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290015512}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3304,7 +3310,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4278387458}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3315,7 +3321,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293177683}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3326,7 +3332,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4285293916}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3337,7 +3343,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293976237}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3348,7 +3354,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294042029}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3359,7 +3365,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293782760}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3370,7 +3376,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293578121}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3381,7 +3387,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4283388490}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3392,7 +3398,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4279308563}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3403,7 +3409,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4280032287}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3414,7 +3420,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4280098082}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3425,7 +3431,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4281541903}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3436,7 +3442,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4289238381}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3447,7 +3453,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293968231}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3458,7 +3464,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292321603}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3469,7 +3475,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294835448}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3480,7 +3486,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4282468158}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3491,7 +3497,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294307039}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3502,7 +3508,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4284108096}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3513,7 +3519,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4278847751}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3524,7 +3530,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4288122488}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3535,7 +3541,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4285359957}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3546,7 +3552,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290353500}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3557,7 +3563,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4288517246}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3568,7 +3574,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294309366}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3579,7 +3585,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4286938217}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3590,7 +3596,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290952624}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3601,7 +3607,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291269429}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3612,7 +3618,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294045418}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3623,7 +3629,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294375157}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3634,7 +3640,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293515944}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3645,7 +3651,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294111983}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3656,7 +3662,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293977539}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3667,7 +3673,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294701004}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3678,7 +3684,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293910453}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3689,7 +3695,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294042817}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3700,7 +3706,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294437575}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3711,7 +3717,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293448345}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3722,7 +3728,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293645981}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3733,7 +3739,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292921222}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3744,7 +3750,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294305726}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3755,7 +3761,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294900704}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3766,7 +3772,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294309105}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3777,7 +3783,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293910444}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3788,7 +3794,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292589171}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3799,7 +3805,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4283847767}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3810,7 +3816,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293977270}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3821,7 +3827,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293910701}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3832,7 +3838,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294895761}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3843,7 +3849,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4279175686}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3854,7 +3860,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4286598160}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3865,7 +3871,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4288964634}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3876,7 +3882,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292728266}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3887,7 +3893,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4280098082}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3898,7 +3904,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4279045384}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3909,7 +3915,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4278387462}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3920,7 +3926,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292597968}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3931,7 +3937,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4280229399}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3942,7 +3948,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291743439}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3953,7 +3959,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4279045384}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3964,7 +3970,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292983671}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3975,7 +3981,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293844908}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3986,7 +3992,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293640826}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -3997,7 +4003,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292397726}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4008,7 +4014,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4283913814}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4019,7 +4025,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292852073}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4030,7 +4036,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292919151}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4041,7 +4047,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292919408}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4052,7 +4058,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293116528}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4063,7 +4069,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292195945}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4074,7 +4080,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292196203}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4085,7 +4091,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4283581744}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4096,7 +4102,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291931734}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4107,7 +4113,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293444979}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4118,7 +4124,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293839988}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4129,7 +4135,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294899159}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4140,7 +4146,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293644688}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4151,7 +4157,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291538532}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4162,7 +4168,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4284239682}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4173,7 +4179,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4284108096}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4184,7 +4190,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4282990392}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4195,7 +4201,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4288385660}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4206,7 +4212,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4289965469}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4217,7 +4223,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4287925110}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4228,7 +4234,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4287991158}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4239,7 +4245,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4287925110}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4250,7 +4256,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4289044626}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4261,7 +4267,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4285754211}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4272,7 +4278,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4286346595}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4283,7 +4289,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4283321151}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4294,7 +4300,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293848553}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4305,7 +4311,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4288845953}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4316,7 +4322,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294243572}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4327,7 +4333,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4287661681}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4338,7 +4344,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292787564}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4349,7 +4355,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4288516729}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4360,7 +4366,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4286543717}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4371,7 +4377,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4288516729}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4382,7 +4388,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4287925110}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4393,7 +4399,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292722032}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4404,7 +4410,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293180790}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4415,7 +4421,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294243572}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4426,7 +4432,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293716707}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4437,7 +4443,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293318566}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4448,7 +4454,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292529049}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4459,7 +4465,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293716968}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4470,7 +4476,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294835709}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4481,7 +4487,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293190885}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4492,7 +4498,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293846198}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4503,7 +4509,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293121445}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4514,7 +4520,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292722028}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4525,7 +4531,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291803261}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4536,7 +4542,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291207753}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4547,7 +4553,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292522838}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4558,7 +4564,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293904227}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4569,7 +4575,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4286870095}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4580,7 +4586,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294177260}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4591,7 +4597,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293182321}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4602,7 +4608,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291867238}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4613,7 +4619,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293116786}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4624,7 +4630,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294045934}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4635,7 +4641,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292130408}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4646,7 +4652,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290426281}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4657,7 +4663,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291742393}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4668,7 +4674,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291018675}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4679,7 +4685,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4288386954}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4690,7 +4696,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4286608734}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4701,7 +4707,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291149743}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4712,7 +4718,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293782764}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4723,7 +4729,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4290031521}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4734,7 +4740,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4287728248}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4745,7 +4751,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4293121445}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4756,7 +4762,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4294704382}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4767,7 +4773,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292006092}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4778,7 +4784,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4292401367}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4789,7 +4795,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291999345}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4800,7 +4806,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4291611335}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4811,7 +4817,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4288123782}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4822,7 +4828,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4288189319}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4833,7 +4839,7 @@ exports[`Vault info should render label with token icon group 1`] = `
                   fill={4284241994}
                   fillRule={1}
                   propList={
-                    Array [
+                    [
                       "fill",
                       "fillRule",
                     ]
@@ -4846,8 +4852,8 @@ exports[`Vault info should render label with token icon group 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomLeftRadius": 9999,
               "borderBottomRightRadius": 9999,
               "borderTopLeftRadius": 9999,
@@ -4858,7 +4864,7 @@ exports[`Vault info should render label with token icon group 1`] = `
               "paddingTop": 1,
               "position": "relative",
             },
-            Object {
+            {
               "left": -15,
             },
           ]
@@ -4875,12 +4881,12 @@ exports[`Vault info should render label with token icon group 1`] = `
           minX={0}
           minY={0}
           style={
-            Array [
-              Object {
+            [
+              {
                 "backgroundColor": "transparent",
                 "borderWidth": 0,
               },
-              Object {
+              {
                 "flex": 0,
                 "height": 16,
                 "width": 16,
@@ -4897,7 +4903,7 @@ exports[`Vault info should render label with token icon group 1`] = `
               cy={16}
               fill={4292929019}
               propList={
-                Array [
+                [
                   "fill",
                 ]
               }
@@ -4907,7 +4913,7 @@ exports[`Vault info should render label with token icon group 1`] = `
               d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
               fill={4294967295}
               propList={
-                Array [
+                [
                   "fill",
                 ]
               }
@@ -4917,7 +4923,7 @@ exports[`Vault info should render label with token icon group 1`] = `
               fill={4284645098}
               fillOpacity={0.8}
               propList={
-                Array [
+                [
                   "fill",
                   "fillOpacity",
                 ]
@@ -4927,7 +4933,7 @@ exports[`Vault info should render label with token icon group 1`] = `
               d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
               fill={4294967295}
               propList={
-                Array [
+                [
                   "fill",
                 ]
               }
@@ -4937,7 +4943,7 @@ exports[`Vault info should render label with token icon group 1`] = `
               fill={4284645098}
               fillOpacity={0.6}
               propList={
-                Array [
+                [
                   "fill",
                   "fillOpacity",
                 ]
@@ -4947,7 +4953,7 @@ exports[`Vault info should render label with token icon group 1`] = `
               d="M15.998 20.573l7.497-4.353-7.497-3.348z"
               fill={4284645098}
               propList={
-                Array [
+                [
                   "fill",
                 ]
               }
@@ -4957,8 +4963,8 @@ exports[`Vault info should render label with token icon group 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomLeftRadius": 9999,
               "borderBottomRightRadius": 9999,
               "borderTopLeftRadius": 9999,
@@ -4969,7 +4975,7 @@ exports[`Vault info should render label with token icon group 1`] = `
               "paddingTop": 1,
               "position": "relative",
             },
-            Object {
+            {
               "left": -20,
             },
           ]
@@ -4986,12 +4992,12 @@ exports[`Vault info should render label with token icon group 1`] = `
           minX={0}
           minY={0}
           style={
-            Array [
-              Object {
+            [
+              {
                 "backgroundColor": "transparent",
                 "borderWidth": 0,
               },
-              Object {
+              {
                 "flex": 0,
                 "height": 16,
                 "width": 16,
@@ -5008,7 +5014,7 @@ exports[`Vault info should render label with token icon group 1`] = `
               cy={16}
               fill={4291752936}
               propList={
-                Array [
+                [
                   "fill",
                 ]
               }
@@ -5018,7 +5024,7 @@ exports[`Vault info should render label with token icon group 1`] = `
               d="M23.504 16.665l-.009-.017-.001-.003-.016-.052v-.001l-.001-.002v-.001l-.002-.001v-.002l-.001-.001-.002-.003a3.269 3.269 0 00-1.068-1.599v-.001l-.047-.036-.02-.015-.016-.012-.006-.005-.014-.01-.007-.006-.014-.01-.007-.005-.015-.012-.008-.004-.015-.012-.008-.005-.016-.01-.008-.005-.01-.014-.008-.006-.016-.011-.009-.006-.016-.01-.008-.007-.017-.01-.008-.007-.017-.012-.009-.006-.019-.011-.008-.006-.019-.012-.008-.006-.019-.011-.008-.006-.019-.012-.01-.005-.018-.011-.01-.006-.02-.01-.01-.005-.02-.012-.01-.006-.021-.012-.01-.005-.021-.012-.01-.007-.021-.012-.011-.006-.022-.011-.011-.007-.022-.011-.015-.008v-.002c-.011-.006-.023-.011-.033-.018a4.562 4.562 0 00-1.461-.461c.143-.154.273-.318.391-.492l.019-.028h.001l.009-.014.011-.019.006-.008.012-.019.006-.008.011-.019.006-.009.012-.018.006-.009.01-.018.007-.009.01-.018.006-.008.01-.018.005-.008.01-.018.004-.008.01-.017.005-.008.009-.017.005-.008.008-.017.005-.008.008-.017.005-.008.01-.016.004-.008.01-.015.005-.008.008-.015.005-.008.008-.015.003-.007.008-.015.003-.007.009-.015.003-.007.008-.015.003-.007.007-.014.003-.008.007-.014.003-.007.007-.014.003-.007.007-.017.01-.021.02-.048.002-.001c.219-.54.27-1.134.147-1.704v-.002l-.002-.002-.001-.002v-.001l-.001-.002-.001-.001-.001-.001v-.002a.54.54 0 00-.012-.047v-.005l-.001-.001-.001-.002v.002l-.006-.013a.941.941 0 00-.017-.067l-.018-.067-.008-.015-.002-.003-.014-.046v-.001l-.001-.001-.001-.002v-.001l-.001-.002-.001-.001-.001-.001a2.904 2.904 0 00-.95-1.423l-.001-.001-.04-.032-.018-.013-.015-.011-.006-.005-.012-.01L20 9.408l-.012-.01-.006-.005-.014-.009-.006-.005-.015-.01-.006-.006-.015-.01-.006-.005-.014-.01-.008-.005-.015-.01-.007-.005-.015-.01-.008-.005-.015-.01-.008-.004-.016-.01-.008-.004-.015-.01-.008-.004-.016-.01-.008-.005-.016-.01-.008-.005-.016-.01-.008-.006-.018-.01-.008-.004-.018-.01-.008-.006-.018-.01-.009-.006-.018-.01-.008-.006-.019-.012-.01-.005-.018-.011-.01-.006-.02-.01-.01-.006-.02-.01-.014-.007-.001-.001-.03-.016c-.874-.454-1.984-.59-3.1-.304l-.291.074-.736-2.859-1.703.437.73 2.85-1.362.35-.733-2.842-1.702.437.732 2.85-3.512.904.467 1.816 1.415-.363a.876.876 0 011.067.63l1.965 7.643a.585.585 0 01-.42.712l-1.24.319.072 2.16 3.508-.902.742 2.845 1.702-.438-.733-2.851 1.362-.35.733 2.851 1.702-.437-.736-2.863.709-.184c1.258-.324 2.276-1.062 2.892-1.982l.02-.03.002-.001.01-.015.014-.021.006-.01.014-.022.006-.011.012-.02.007-.011.012-.021.005-.01.012-.02.005-.01.012-.021.006-.01.01-.02.005-.01.011-.02.005-.01.012-.019.005-.01.011-.018.006-.01.01-.018.005-.01.01-.018.005-.01.01-.017.004-.01.01-.017.004-.01.009-.017.004-.008.01-.017.004-.008.008-.017.005-.007.009-.018.004-.007.01-.017.004-.008.008-.017.005-.008.007-.017.005-.007.007-.017.004-.007.008-.018.01-.024c.008-.018.017-.035.023-.053v-.002a3.272 3.272 0 00.167-1.917V16.9l-.002-.002v-.001l-.001-.002v-.001l-.002-.001v-.002l-.001-.001-.012-.052v-.004l-.001-.001v-.002l-.002-.001v-.001l-.001-.002v-.001l-.002-.001v-.002l-.001-.001v-.002l-.002-.001v-.001l-.001-.002-.003-.005c-.006-.025-.011-.051-.02-.075 0-.016-.004-.042-.006-.071zM13.5 11.552c.29-.074 1.492-.376 1.888-.48.63-.16 1.25-.098 1.735.136l.016.007.007.003.01.005.005.003.01.005.005.003.01.005.004.003.01.005.005.003.01.005.005.003.01.005.005.003.01.005.004.003.01.005.005.002.01.006.005.002.008.006.005.003.009.006.005.003.008.006.005.002.008.005.005.003.007.005.005.002.008.005.005.003.008.004.005.003.007.005.004.003.008.005.003.002.008.005.002.002.008.005.003.002.008.004.003.002.006.006.003.002.008.005.01.006c.009.005.016.012.024.016.248.188.43.449.52.746l.003.004.007.025h.001l.005.01.01.034a.212.212 0 01.007.04l.004.008v.001a.122.122 0 00.007.025l.002.004c.064.304.03.62-.097.904l-.01.026-.007.012-.005.008v.004l-.004.007-.001.004-.005.008-.001.004-.005.008-.002.005-.004.007-.002.004-.004.008-.002.005-.004.007-.002.005-.005.008-.002.004-.005.008-.003.005-.004.008-.003.005-.005.008-.002.004-.007.009-.002.005-.006.008-.003.005-.006.009-.003.004-.006.009-.002.005-.006.008-.003.005-.006.009-.003.005-.006.008-.002.005-.006.008-.003.005-.007.01-.003.004-.008.01-.002.004-.008.01-.002.004-.008.01-.005.006-.01.015c-.313.438-.826.793-1.456.954-.397.102-1.595.416-1.885.49l-.893-3.46zm6.656 5.86l.005.007v.002c.002.01.005.017.006.027l.001.001v.002l.002.001v.002c.067.335.02.683-.137.987l-.015.028-.007.013-.005.01-.003.004-.005.008-.002.005-.005.008-.003.005-.006.008-.003.005-.006.009-.002.004-.006.009-.003.005-.006.008-.003.005-.006.009-.002.004-.006.009-.003.005-.006.008-.003.005-.006.009-.002.004-.007.009-.002.005-.008.009-.002.005-.008.01-.002.004-.007.01-.003.005-.006.011-.003.005-.007.01-.004.006-.006.011-.004.006-.009.011-.004.006-.008.011-.004.006-.008.012-.004.005-.008.012-.004.005-.008.012-.007.007-.013.016c-.38.486-.994.885-1.739 1.076-.47.122-1.89.493-2.235.581l-.966-3.76c.344-.09 1.768-.448 2.238-.569.745-.191 1.476-.137 2.042.104l.018.008.01.004.013.005.006.002.012.006.007.002.012.006.006.002.013.006.004.003.012.005.005.003.012.006.005.003.012.006.005.002.01.005.005.003.01.005.005.003.01.005.004.003.01.005.005.003.01.005.005.003.01.005.005.003.01.005.004.003.01.005.005.003.01.005.005.003.008.006.005.002.009.006.004.003.009.006.005.003.008.006.005.002.009.006.004.003.008.005.005.002.009.006.011.009.027.017c.285.192.496.475.6.802l.003.006.008.025v.002l.005.008.01.039c.008.003.009.018.007.037z"
               fill={4278894990}
               propList={
-                Array [
+                [
                   "fill",
                 ]
               }
@@ -5028,27 +5034,27 @@ exports[`Vault info should render label with token icon group 1`] = `
       </View>
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Array [
-                Object {
+            [
+              [
+                {
                   "fontFamily": "MediumFont",
                   "fontSize": 12,
                   "fontWeight": "500",
                   "lineHeight": 16,
                   "position": "relative",
                 },
-                Object {
+                {
                   "left": -15,
                 },
               ],
-              Object {
+              {
                 "color": "rgba(115, 115, 115, 1)",
               },
             ],

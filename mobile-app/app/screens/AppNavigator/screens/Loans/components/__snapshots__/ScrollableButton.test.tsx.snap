@@ -3,7 +3,7 @@
 exports[`Scrollable button should match snapshot 1`] = `
 <View
   style={
-    Object {
+    {
       "height": 32,
     }
   }
@@ -12,12 +12,12 @@ exports[`Scrollable button should match snapshot 1`] = `
     horizontal={true}
     showsHorizontalScrollIndicator={false}
     style={
-      Array [
-        Object {
+      [
+        {
           "display": "flex",
           "flexDirection": "row",
         },
-        Object {
+        {
           "backgroundColor": "rgba(255, 255, 255, 1)",
         },
       ]
@@ -26,6 +26,7 @@ exports[`Scrollable button should match snapshot 1`] = `
     <View>
       <View
         accessible={true}
+        collapsable={false}
         focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}
@@ -35,7 +36,7 @@ exports[`Scrollable button should match snapshot 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Object {
+          {
             "alignItems": "center",
             "backgroundColor": "rgba(255, 255, 255, 1)",
             "borderBottomColor": "rgba(212, 212, 212, 1)",
@@ -63,16 +64,16 @@ exports[`Scrollable button should match snapshot 1`] = `
         <Text />
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Array [
-                  Object {
+              [
+                [
+                  {
                     "fontFamily": "MediumFont",
                     "fontSize": 14,
                     "fontWeight": "500",
@@ -82,7 +83,7 @@ exports[`Scrollable button should match snapshot 1`] = `
                   },
                   undefined,
                 ],
-                Object {
+                {
                   "color": "rgba(255, 0, 175, 1)",
                 },
               ],
@@ -93,7 +94,13 @@ exports[`Scrollable button should match snapshot 1`] = `
         </Text>
       </View>
       <View
+        accessibilityState={
+          {
+            "disabled": false,
+          }
+        }
         accessible={true}
+        collapsable={false}
         focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}
@@ -103,7 +110,7 @@ exports[`Scrollable button should match snapshot 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Object {
+          {
             "alignItems": "center",
             "backgroundColor": "rgba(255, 255, 255, 1)",
             "borderBottomColor": "rgba(212, 212, 212, 1)",
@@ -131,16 +138,16 @@ exports[`Scrollable button should match snapshot 1`] = `
         <Text />
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Array [
-                  Object {
+              [
+                [
+                  {
                     "fontFamily": "MediumFont",
                     "fontSize": 14,
                     "fontWeight": "500",
@@ -150,7 +157,7 @@ exports[`Scrollable button should match snapshot 1`] = `
                   },
                   undefined,
                 ],
-                Object {
+                {
                   "color": "rgba(255, 0, 175, 1)",
                 },
               ],
@@ -161,7 +168,13 @@ exports[`Scrollable button should match snapshot 1`] = `
         </Text>
       </View>
       <View
+        accessibilityState={
+          {
+            "disabled": true,
+          }
+        }
         accessible={true}
+        collapsable={false}
         focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}
@@ -171,7 +184,7 @@ exports[`Scrollable button should match snapshot 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Object {
+          {
             "alignItems": "center",
             "backgroundColor": "rgba(245, 245, 245, 1)",
             "borderBottomColor": "rgba(245, 245, 245, 1)",
@@ -199,16 +212,16 @@ exports[`Scrollable button should match snapshot 1`] = `
         <Text />
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Array [
-                  Object {
+              [
+                [
+                  {
                     "fontFamily": "MediumFont",
                     "fontSize": 14,
                     "fontWeight": "500",
@@ -218,7 +231,7 @@ exports[`Scrollable button should match snapshot 1`] = `
                   },
                   undefined,
                 ],
-                Object {
+                {
                   "color": "rgba(212, 212, 212, 1)",
                 },
               ],

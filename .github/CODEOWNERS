@@ -1,18 +1,18 @@
 # Define individuals that are responsible for code in a repository.
 # More details are here: https://help.github.com/articles/about-codeowners/
 
-/.github/                                       @fuxingloh @thedoublejay
+/.github/                                       @fuxingloh @thedoublejay @kyleleow @pierregee
 /.husky/                                        @fuxingloh @thedoublejay
 
-/mobile-app/app/                                @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy
-/mobile-app/app/api                             @fuxingloh @thedoublejay @ivan-zynesis
+/mobile-app/app/                                @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @lykalabrada
+/mobile-app/app/api                             @fuxingloh @thedoublejay @kyleleow @pierregee
 
-/shared/assets                                  @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy
-/shared/translations                            @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy
-/mobile-app/cypress                             @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy
+/shared/assets                                  @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817
+/shared/translations                            @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817
+/mobile-app/cypress                             @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817
 
-/website                                        @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy
-/website/src/pages/api                          @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy
+/website                                        @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817
+/website/src/pages/api                          @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817
 
 /.codeclimate.yml                               @fuxingloh @thedoublejay
 /.versionrc.js                                  @fuxingloh @thedoublejay
@@ -28,9 +28,9 @@ jest.config.js                                  @fuxingloh @thedoublejay
 metro.config.js                                 @fuxingloh @thedoublejay
 tsconfig.json                                   @fuxingloh @thedoublejay
 
-package.json                                    @thedoublejay
-package-lock.json                               @thedoublejay
-/docker-compose.yml                             @thedoublejay
+package.json                                    @thedoublejay @kyleleow @pierregee
+package-lock.json                               @thedoublejay @kyleleow @pierregee
+/docker-compose.yml                             @thedoublejay @kyleleow @pierregee
 
 BETA_TESTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy
 CONTRIBUTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy

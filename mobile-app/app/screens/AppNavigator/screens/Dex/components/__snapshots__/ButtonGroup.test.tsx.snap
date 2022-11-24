@@ -3,17 +3,13 @@
 exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
 <View
   style={
-    Array [
-      Object {
-        "borderBottomLeftRadius": 16,
-        "borderBottomRightRadius": 16,
-        "borderTopLeftRadius": 16,
-        "borderTopRightRadius": 16,
+    [
+      {
         "display": "flex",
         "flexDirection": "row",
       },
-      Object {
-        "backgroundColor": "rgba(245, 245, 245, 1)",
+      {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
       },
     ]
   }
@@ -21,6 +17,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
 >
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -30,53 +27,63 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "backgroundColor": "rgba(255, 229, 247, 1)",
-        "borderBottomLeftRadius": 16,
-        "borderBottomRightRadius": 16,
-        "borderTopLeftRadius": 16,
-        "borderTopRightRadius": 16,
-        "justifyContent": "center",
+      {
         "opacity": 1,
-        "overflowWrap": "break-word",
-        "paddingBottom": 8,
-        "paddingLeft": 12,
-        "paddingRight": 12,
-        "paddingTop": 8,
+        "paddingLeft": 8,
+        "paddingRight": 8,
         "width": "33.33%",
       }
     }
     testID="foo_ALL_PAIRS_active"
   >
-    <Text
+    <View
       style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
+        [
+          {
+            "borderBottomColor": "rgba(255, 0, 140, 1)",
+            "borderBottomWidth": 2,
+            "borderLeftColor": "rgba(255, 0, 140, 1)",
+            "borderRightColor": "rgba(255, 0, 140, 1)",
+            "borderTopColor": "rgba(255, 0, 140, 1)",
+            "justifyContent": "center",
+            "overflowWrap": "break-word",
+            "paddingBottom": 16,
+            "paddingTop": 10,
           },
-          Array [
-            Object {
-              "fontFamily": "MediumFont",
-              "fontSize": 14,
-              "fontWeight": "500",
-              "lineHeight": 20,
-              "textAlign": "center",
-            },
-            Object {
-              "color": "rgba(255, 0, 175, 1)",
-            },
-          ],
         ]
       }
     >
-      All pairs
-    </Text>
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "SoraSemiBold",
+                "fontSize": 14,
+                "fontWeight": "600",
+                "lineHeight": 20,
+                "textAlign": "center",
+              },
+              {
+                "color": "rgba(255, 0, 140, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        All pairs
+      </Text>
+    </View>
   </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -86,52 +93,62 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "borderBottomLeftRadius": 16,
-        "borderBottomRightRadius": 16,
-        "borderTopLeftRadius": 16,
-        "borderTopRightRadius": 16,
-        "justifyContent": "center",
+      {
         "opacity": 1,
-        "overflowWrap": "break-word",
-        "paddingBottom": 8,
-        "paddingLeft": 12,
-        "paddingRight": 12,
-        "paddingTop": 8,
+        "paddingLeft": 8,
+        "paddingRight": 8,
         "width": "33.33%",
       }
     }
     testID="foo_DFI_PAIRS"
   >
-    <Text
+    <View
       style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
+        [
+          {
+            "borderBottomColor": "rgba(255, 0, 140, 1)",
+            "borderLeftColor": "rgba(255, 0, 140, 1)",
+            "borderRightColor": "rgba(255, 0, 140, 1)",
+            "borderTopColor": "rgba(255, 0, 140, 1)",
+            "justifyContent": "center",
+            "overflowWrap": "break-word",
+            "paddingBottom": 16,
+            "paddingTop": 10,
           },
-          Array [
-            Object {
-              "fontFamily": "MediumFont",
-              "fontSize": 14,
-              "fontWeight": "500",
-              "lineHeight": 20,
-              "textAlign": "center",
-            },
-            Object {
-              "color": "rgba(23, 23, 23, 1)",
-            },
-          ],
         ]
       }
     >
-      DFI pairs
-    </Text>
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "SoraSemiBold",
+                "fontSize": 14,
+                "fontWeight": "600",
+                "lineHeight": 20,
+                "textAlign": "center",
+              },
+              {
+                "color": "rgba(18, 18, 18, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        DFI pairs
+      </Text>
+    </View>
   </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -141,49 +158,58 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "borderBottomLeftRadius": 16,
-        "borderBottomRightRadius": 16,
-        "borderTopLeftRadius": 16,
-        "borderTopRightRadius": 16,
-        "justifyContent": "center",
+      {
         "opacity": 1,
-        "overflowWrap": "break-word",
-        "paddingBottom": 8,
-        "paddingLeft": 12,
-        "paddingRight": 12,
-        "paddingTop": 8,
+        "paddingLeft": 8,
+        "paddingRight": 8,
         "width": "33.33%",
       }
     }
     testID="foo_DUSD_PAIRS"
   >
-    <Text
+    <View
       style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
+        [
+          {
+            "borderBottomColor": "rgba(255, 0, 140, 1)",
+            "borderLeftColor": "rgba(255, 0, 140, 1)",
+            "borderRightColor": "rgba(255, 0, 140, 1)",
+            "borderTopColor": "rgba(255, 0, 140, 1)",
+            "justifyContent": "center",
+            "overflowWrap": "break-word",
+            "paddingBottom": 16,
+            "paddingTop": 10,
           },
-          Array [
-            Object {
-              "fontFamily": "MediumFont",
-              "fontSize": 14,
-              "fontWeight": "500",
-              "lineHeight": 20,
-              "textAlign": "center",
-            },
-            Object {
-              "color": "rgba(23, 23, 23, 1)",
-            },
-          ],
         ]
       }
     >
-      DUSD pairs
-    </Text>
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "SoraSemiBold",
+                "fontSize": 14,
+                "fontWeight": "600",
+                "lineHeight": 20,
+                "textAlign": "center",
+              },
+              {
+                "color": "rgba(18, 18, 18, 1)",
+              },
+            ],
+          ]
+        }
+      >
+        DUSD pairs
+      </Text>
+    </View>
   </View>
 </View>
 `;

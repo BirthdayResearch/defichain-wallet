@@ -1,42 +1,49 @@
-import { FeeInfoRow } from '@components/FeeInfoRow'
-import { NumberRow } from '@components/NumberRow'
-import { TextRow } from '@components/TextRow'
-import { ThemedIcon, ThemedScrollView, ThemedSectionTitle, ThemedText, ThemedView } from '@components/themed'
-import BigNumber from 'bignumber.js'
-import { StackScreenProps } from '@react-navigation/stack'
-import { tailwind } from '@tailwind'
-import { translate } from '@translations'
-import { Dispatch, useEffect, useState } from 'react'
-import { View } from 'react-native'
-import { LoanParamList } from '../LoansNavigator'
-import { SymbolIcon } from '@components/SymbolIcon'
-import NumberFormat from 'react-number-format'
-import { SubmitButtonGroup } from '@components/SubmitButtonGroup'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '@store'
-import { hasTxQueued, transactionQueue } from '@store/transaction_queue'
-import { firstTransactionSelector, hasTxQueued as hasBroadcastQueued } from '@store/ocean'
-import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
-import { NativeLoggingProps, useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { WhaleWalletAccount } from '@defichain/whale-api-wallet'
-import { CTransactionSegWit, TransactionSegWit } from '@defichain/jellyfish-transaction'
-import { CollateralItem } from '@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen'
-import { getCollateralPrice } from '@screens/AppNavigator/screens/Loans/hooks/CollateralPrice'
-import { onTransactionBroadcast } from '@api/transaction/transaction_commands'
-import { fetchVaults } from '@store/loans'
-import { useWalletContext } from '@shared-contexts/WalletContext'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { ConversionTag } from '@components/ConversionTag'
-import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
-import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
-import { WalletAddressRow } from '@components/WalletAddressRow'
-import { getPrecisedTokenValue } from '@screens/AppNavigator/screens/Auctions/helpers/precision-token-value'
+import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
+import BigNumber from "bignumber.js";
+import { StackScreenProps } from "@react-navigation/stack";
+import { tailwind } from "@tailwind";
+import { translate } from "@translations";
+import { Dispatch, useEffect, useState } from "react";
+import { View } from "react-native";
+import { useSelector } from "react-redux";
+import { RootState } from "@store";
+import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
+import {
+  firstTransactionSelector,
+  hasTxQueued as hasBroadcastQueued,
+} from "@store/ocean";
+import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
+import {
+  NativeLoggingProps,
+  useLogger,
+} from "@shared-contexts/NativeLoggingProvider";
+import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
+import {
+  CTransactionSegWit,
+  TransactionSegWit,
+} from "@defichain/jellyfish-transaction";
+import { getCollateralValue } from "@screens/AppNavigator/screens/Loans/hooks/CollateralPrice";
+import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
+import { fetchVaults } from "@store/loans";
+import { useWalletContext } from "@shared-contexts/WalletContext";
+import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
+import { useAppDispatch } from "@hooks/useAppDispatch";
+import { SummaryTitle } from "@components/SummaryTitle";
+import { useAddressLabel } from "@hooks/useAddressLabel";
+import { NumberRowV2 } from "@components/NumberRowV2";
+import { AddressType } from "@store/wallet";
+import { TextRowV2 } from "@components/TextRowV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
+import { WalletAlert } from "@components/WalletAlert";
+import { LoanParamList } from "../LoansNavigator";
+import { CollateralizationRatioDisplay } from "../components/CollateralizationRatioDisplay";
 
-type Props = StackScreenProps<LoanParamList, 'ConfirmEditCollateralScreen'>
+type Props = StackScreenProps<LoanParamList, "ConfirmEditCollateralScreen">;
 
-export function ConfirmEditCollateralScreen ({
+export function ConfirmEditCollateralScreen({
   route,
-  navigation
+  navigation,
 }: Props): JSX.Element {
   const {
     vault,
@@ -45,318 +52,450 @@ export function ConfirmEditCollateralScreen ({
     fee,
     isAdd,
     collateralItem,
-    conversion
-  } = route.params
-  const { address } = useWalletContext()
-  const client = useWhaleApiClient()
-  const hasPendingJob = useSelector((state: RootState) => hasTxQueued(state.transactionQueue))
-  const hasPendingBroadcastJob = useSelector((state: RootState) => hasBroadcastQueued(state.ocean))
-  const currentBroadcastJob = useSelector((state: RootState) => firstTransactionSelector(state.ocean))
-  const [isOnPage, setIsOnPage] = useState<boolean>(true)
-  const dispatch = useDispatch()
-  const logger = useLogger()
+    resultingColRatio,
+    totalVaultCollateralValue,
+    vaultShare,
+    maxLoanAmount,
+    conversion,
+  } = route.params;
+  const { address } = useWalletContext();
+  const addressLabel = useAddressLabel(address);
+  const client = useWhaleApiClient();
+  const hasPendingJob = useSelector((state: RootState) =>
+    hasTxQueued(state.transactionQueue)
+  );
+  const hasPendingBroadcastJob = useSelector((state: RootState) =>
+    hasBroadcastQueued(state.ocean)
+  );
+  const currentBroadcastJob = useSelector((state: RootState) =>
+    firstTransactionSelector(state.ocean)
+  );
+
+  const [isConverting, setIsConverting] = useState<boolean>(false);
+  const [isOnPage, setIsOnPage] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
+  const logger = useLogger();
 
   useEffect(() => {
-    setIsOnPage(true)
+    setIsOnPage(true);
     return () => {
-      setIsOnPage(false)
-    }
-  }, [])
+      setIsOnPage(false);
+    };
+  }, []);
 
-  function onCancel (): void {
-    navigation.navigate({
-      name: 'EditCollateralScreen',
-      params: {
-        vaultId: vault.vaultId
-      },
-      merge: true
-    })
+  useEffect(() => {
+    if (conversion?.isConversionRequired) {
+      if (
+        hasPendingBroadcastJob &&
+        currentBroadcastJob !== undefined &&
+        currentBroadcastJob.submitButtonLabel !== undefined
+      ) {
+        setIsConverting(true);
+      } else {
+        setIsConverting(false);
+      }
+    }
+  }, [hasPendingBroadcastJob, currentBroadcastJob]);
+
+  function onCancel(): void {
+    WalletAlert({
+      title: translate("screens/Settings", "Cancel transaction"),
+      message: translate(
+        "screens/Settings",
+        "By cancelling, you will lose any changes you made for your transaction."
+      ),
+      buttons: [
+        {
+          text: translate("screens/Settings", "Go back"),
+          style: "default",
+        },
+        {
+          text: translate("screens/Settings", "Cancel"),
+          style: "destructive",
+          onPress: async () => {
+            navigation.navigate({
+              name: "VaultDetailScreen",
+              params: {
+                vaultId: vault.vaultId,
+              },
+            });
+          },
+        },
+      ],
+    });
   }
 
-  async function onSubmit (): Promise<void> {
+  async function onSubmit(): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
-      return
+      return;
     }
-    await modifyCollateral({
-      vaultId: vault.vaultId,
-      token,
-      tokenAmount: amount,
-      isAdd
-    }, dispatch, logger, () => {
-      onTransactionBroadcast(isOnPage, navigation.dispatch, 1)
-    }, () => {
-      dispatch(fetchVaults({
-        address,
-        client
-      }))
-    })
+    await modifyCollateral(
+      {
+        vaultId: vault.vaultId,
+        token,
+        tokenAmount: amount,
+        isAdd,
+      },
+      dispatch,
+      logger,
+      () => {
+        onTransactionBroadcast(isOnPage, navigation.dispatch);
+      },
+      () => {
+        dispatch(
+          fetchVaults({
+            address,
+            client,
+          })
+        );
+      }
+    );
   }
 
-  function getSubmitLabel (): string {
-    if (hasPendingBroadcastJob && currentBroadcastJob !== undefined && currentBroadcastJob.submitButtonLabel !== undefined) {
-      return currentBroadcastJob.submitButtonLabel
-    }
-    if (hasPendingBroadcastJob || hasPendingJob) {
-      return isAdd ? 'ADDING' : 'REMOVING'
-    }
-    return isAdd ? 'CONFIRM ADD COLLATERAL' : 'CONFIRM REMOVE COLLATERAL'
-  }
+  const containerThemeOptions = {
+    light: tailwind("bg-transparent border-mono-light-v2-300"),
+    dark: tailwind("bg-transparent border-mono-dark-v2-300"),
+  };
+  const lhsThemedProps = {
+    light: tailwind("text-mono-light-v2-500"),
+    dark: tailwind("text-mono-dark-v2-500"),
+  };
+  const rhsThemedProps = {
+    light: tailwind("text-mono-light-v2-900"),
+    dark: tailwind("text-mono-dark-v2-900"),
+  };
 
   return (
-    <ThemedScrollView>
-      <SummaryHeader vaultId={vault.vaultId} isAdd={isAdd} conversion={conversion} />
-      <CollateralSection
-        totalCollateralValue={new BigNumber(vault.collateralValue)}
-        collateralItem={collateralItem}
-        token={token}
-        amount={amount}
-        fee={fee}
-        conversion={conversion}
-        isAdd={isAdd}
-        vault={vault}
-      />
-      <SubmitButtonGroup
-        isDisabled={hasPendingJob || hasPendingBroadcastJob}
-        label={translate('screens/ConfirmEditCollateralScreen', `CONFIRM ${isAdd ? 'ADD' : 'REMOVE'} COLLATERAL`)}
-        isProcessing={hasPendingJob || hasPendingBroadcastJob}
-        processingLabel={translate('screens/ConfirmEditCollateralScreen', getSubmitLabel())}
-        onCancel={onCancel}
-        onSubmit={onSubmit}
-        displayCancelBtn
-        title='confirm_edit_collateral'
-      />
-    </ThemedScrollView>
-  )
-}
-
-function SummaryHeader (props: { vaultId: string, isAdd: boolean, conversion?: ConversionParam }): JSX.Element {
-  return (
-    <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-300')}
-      style={tailwind('flex-col px-4 py-6')}
+    <ThemedScrollViewV2
+      contentContainerStyle={tailwind("pt-8 px-5 pb-14")}
+      style={tailwind("flex-1")}
+      testID="confirm_edit_collateral_screen"
     >
-      <ThemedText
-        light={tailwind('text-gray-500')}
-        dark={tailwind('text-gray-400')}
-        style={tailwind('mb-2')}
-        testID='edit_collateral_confirm_title'
-      >
-        {translate('screens/ConfirmEditCollateralScreen', props.isAdd ? 'You are adding collateral to' : 'You are removing collateral from')}
-      </ThemedText>
-      <View style={tailwind('flex flex-row items-center')}>
-        <ThemedView
-          light={tailwind('bg-gray-100')}
-          dark={tailwind('bg-gray-700')}
-          style={tailwind('w-8 h-8 rounded-full flex items-center justify-center mr-2')}
-        >
-          <ThemedIcon
-            iconType='MaterialIcons'
-            name='shield'
-            size={14}
-            light={tailwind('text-gray-600')}
-            dark={tailwind('text-gray-300')}
-          />
-        </ThemedView>
-        <ThemedText
-          light={tailwind('text-gray-900')}
-          dark={tailwind('text-gray-50')}
-          style={tailwind('text-sm font-medium flex-1 w-8/12')}
-          testID='edit_collateral_confirm_vault_id'
-        >
-          {props.vaultId}
-        </ThemedText>
+      <View style={tailwind("mb-6")}>
+        <SummaryTitle
+          title={translate(
+            "screens/ConfirmEditCollateralScreen",
+            isAdd ? "You are adding collateral" : "You are removing collateral"
+          )}
+          amount={amount}
+          testID="text_confirm_edit_collateral_amount"
+          iconA={token.displaySymbol}
+          toAddress={address}
+          toAddressLabel={addressLabel}
+          amountTextStyle="text-xl"
+          addressType={AddressType.WalletAddress}
+          customToAddressTitle={translate(
+            "screens/common",
+            isAdd ? "On" : "From"
+          )}
+        />
       </View>
-      {props.conversion?.isConversionRequired === true && <ConversionTag />}
-    </ThemedView>
-  )
-}
+      {conversion?.isConversionRequired && (
+        <NumberRowV2
+          containerStyle={{
+            style: tailwind(
+              "flex-row items-start w-full bg-transparent border-t-0.5 py-5"
+            ),
+            ...containerThemeOptions,
+          }}
+          lhs={{
+            value: translate(
+              "screens/ConfirmEditCollateralScreen",
+              "Amount to convert"
+            ),
+            testID: "confirm_edit_amount_to_convert",
+            themedProps: lhsThemedProps,
+          }}
+          rhs={{
+            value: conversion.conversionAmount.toFixed(8),
+            suffix: " DFI",
+            testID: "confirm_edit_amount_to_convert",
+            themedProps: rhsThemedProps,
+            usdTextStyle: tailwind("text-sm"),
+            usdContainerStyle: tailwind("pb-0 pt-1"),
+            isConverting: isConverting,
+          }}
+        />
+      )}
+      <NumberRowV2
+        containerStyle={{
+          style: tailwind(
+            "flex-row items-start w-full bg-transparent border-t-0.5 py-5"
+          ),
+          ...containerThemeOptions,
+        }}
+        lhs={{
+          value: translate(
+            "screens/ConfirmEditCollateralScreen",
+            "Transaction fee"
+          ),
+          testID: "confirm_edit_transaction_fee",
+          themedProps: lhsThemedProps,
+        }}
+        rhs={{
+          value: getPrecisedCurrencyValue(fee),
+          suffix: " DFI",
+          testID: "confirm_edit_transaction_fee",
+          themedProps: rhsThemedProps,
+          usdTextStyle: tailwind("text-sm"),
+          usdContainerStyle: tailwind("pb-0 pt-1"),
+        }}
+      />
+      <NumberRowV2
+        containerStyle={{
+          style: tailwind(
+            "flex-row items-start w-full bg-transparent border-t-0.5 pt-5"
+          ),
+          ...containerThemeOptions,
+        }}
+        lhs={{
+          value: translate(
+            "screens/AddOrRemoveCollateralScreen",
+            "Vault share"
+          ),
+          testID: "confirm_edit_vault_share",
+          themedProps: lhsThemedProps,
+        }}
+        rhs={{
+          value: vaultShare.isNaN() ? 0 : vaultShare.toFixed(2),
+          suffix: "%",
+          testID: "confirm_edit_vault_share",
+          themedProps: rhsThemedProps,
+        }}
+      />
+      <NumberRowV2
+        containerStyle={{
+          style: tailwind("flex-row items-start w-full bg-transparent py-5"),
+          ...containerThemeOptions,
+        }}
+        lhs={{
+          value: translate(
+            "screens/ConfirmEditCollateralScreen",
+            "Collateral factor"
+          ),
+          testID: "confirm_edit_collateral_factor",
+          themedProps: lhsThemedProps,
+        }}
+        rhs={{
+          value: new BigNumber(collateralItem.factor ?? 0)
+            .times(100)
+            .toFixed(2),
+          suffix: "%",
+          testID: "confirm_edit_collateral_factor",
+          themedProps: rhsThemedProps,
+        }}
+      />
 
-interface CollateralSectionProps {
-  collateralItem: CollateralItem
-  token: TokenData
-  amount: BigNumber
-  totalCollateralValue: BigNumber
-  conversion?: ConversionParam
-  isAdd: boolean
-  fee: BigNumber
-  vault: LoanVaultActive
-}
-
-function CollateralSection (props: CollateralSectionProps): JSX.Element {
-  const currentBalance = props.vault?.collateralAmounts?.find((c) => c.id === props.token.id)?.amount ?? '0'
-  const amount = props.isAdd ? props.amount.plus(currentBalance) : BigNumber.max(0, new BigNumber(currentBalance).minus(props.amount))
-  const initialPrices = getCollateralPrice(props.amount, props.collateralItem, props.totalCollateralValue)
-  const totalCollateralValue = props.isAdd ? props.totalCollateralValue.plus(initialPrices.collateralPrice) : props.totalCollateralValue.minus(initialPrices.collateralPrice)
-  const prices = getCollateralPrice(amount, props.collateralItem, totalCollateralValue)
-  return (
-    <>
-      <ThemedSectionTitle
-        text={translate('screens/ConfirmEditCollateralScreen', 'TRANSACTION DETAILS')}
-      />
-      <TextRow
-        lhs={translate('screens/ConfirmEditCollateralScreen', 'Transaction type')}
-        rhs={{
-          value: props.conversion?.isConversionRequired === true
-            ? translate('screens/ConfirmEditCollateralScreen', `Convert & ${props.isAdd ? 'add collateral' : 'remove collateral'}`)
-            : translate('screens/ConfirmEditCollateralScreen', `${props.isAdd ? 'Add Collateral' : 'Remove Collateral'}`),
-          testID: 'text_transaction_type'
+      <TextRowV2
+        containerStyle={{
+          style: tailwind(
+            "flex-row items-start w-full bg-transparent border-t-0.5 pt-5"
+          ),
+          ...containerThemeOptions,
         }}
-        textStyle={tailwind('text-sm font-normal')}
-      />
-      <WalletAddressRow />
-      <FeeInfoRow
-        type='ESTIMATED_FEE'
-        value={props.fee.toFixed(8)}
-        testID='text_fee'
-        suffix='DFI'
-      />
-      <TextRow
-        lhs={translate('screens/ConfirmEditCollateralScreen', 'Token')}
-        rhs={{
-          value: props.token.displaySymbol,
-          testID: 'text_token_id'
+        lhs={{
+          value: translate("screens/AddOrRemoveCollateralScreen", "Vault ID"),
+          testID: "confirm_edit_vault_id_label",
+          themedProps: lhsThemedProps,
         }}
-        textStyle={tailwind('text-sm font-normal')}
-      />
-      <NumberRow
-        lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateralization factor')}
         rhs={{
-          value: prices.collateralFactor.multipliedBy(100).toFixed(2),
-          testID: 'collateral_factor',
-          suffixType: 'text',
-          suffix: '%',
-          style: tailwind('ml-0')
+          value: vault.vaultId,
+          testID: "confirm_edit_vault_id",
+          numberOfLines: 1,
+          ellipsizeMode: "middle",
+          themedProps: rhsThemedProps,
         }}
       />
-      <NumberRow
-        lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateral amount (USD)')}
-        rhs={{
-          value: props.amount.toFixed(8),
-          testID: 'collateral_amount',
-          suffixType: 'text',
-          suffix: props.token.displaySymbol
-        }}
-      />
-      <NumberRow
-        lhs={translate('screens/ConfirmEditCollateralScreen', 'Collateral value (USD)')}
-        rhs={{
-          value: getPrecisedTokenValue(prices.collateralPrice),
-          testID: 'collateral_value',
-          prefix: '$'
-        }}
-      />
-      <VaultProportionRow
-        lhs={translate('screens/ConfirmEditCollateralScreen', 'Vault %')}
-        tokenId={props.token.displaySymbol}
-        proportion={prices.vaultShare}
-      />
-    </>
-  )
-}
-
-function VaultProportionRow (props: { lhs: string, tokenId: string, proportion: BigNumber }): JSX.Element {
-  return (
-    <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-200')}
-      style={tailwind('p-4 flex-row items-start w-full justify-between')}
-    >
-      <View style={tailwind('w-5/12')}>
-        <ThemedText style={tailwind('text-sm')}>
-          {props.lhs}
-        </ThemedText>
+      <View style={tailwind("pt-5")}>
+        <CollateralizationRatioDisplay
+          collateralizationRatio={resultingColRatio.toFixed(2)}
+          minCollateralizationRatio={vault.loanScheme.minColRatio}
+          totalLoanAmount={vault.loanValue}
+          testID="add_remove_collateral"
+          collateralValue={totalVaultCollateralValue.toFixed(8)}
+          customReadyText={translate(
+            "components/CollateralizationRatioDisplay",
+            "Ready for loan"
+          )}
+        />
       </View>
+      <NumberRowV2
+        containerStyle={{
+          style: tailwind("flex-row items-start w-full bg-transparent pt-5"),
+          ...containerThemeOptions,
+        }}
+        lhs={{
+          value: translate(
+            "screens/AddOrRemoveCollateralScreen",
+            "Max loan amount"
+          ),
+          testID: "confirm_edit_max_loan",
+          themedProps: lhsThemedProps,
+        }}
+        rhs={{
+          value: getPrecisedCurrencyValue(maxLoanAmount),
+          testID: "confirm_edit_max_loan",
+          prefix: "$",
+          themedProps: rhsThemedProps,
+        }}
+      />
+      <NumberRowV2
+        containerStyle={{
+          style: tailwind(
+            "flex-row items-start w-full bg-transparent border-b-0.5 pt-5"
+          ),
+          ...containerThemeOptions,
+        }}
+        lhs={{
+          value: translate(
+            "screens/ConfirmEditCollateralScreen",
+            isAdd ? "Amount to add" : "Amount to remove"
+          ),
+          testID: "confirm_edit_collateral_amount",
+          themedProps: lhsThemedProps,
+        }}
+        rhs={{
+          value: amount.toFixed(8),
+          testID: "confirm_edit_collateral_amount",
+          suffix: ` ${token.displaySymbol}`,
+          usdAmount: getCollateralValue(amount, collateralItem),
+          usdTextStyle: tailwind("text-sm"),
+          usdContainerStyle: tailwind("pt-1"),
+          themedProps: {
+            light: tailwind("text-mono-light-v2-900 font-semibold-v2"),
+            dark: tailwind("text-mono-dark-v2-900 font-semibold-v2"),
+          },
+        }}
+      />
 
-      <ThemedView
-        light={tailwind('bg-gray-50')}
-        dark={tailwind('bg-gray-900')}
-        style={tailwind('flex flex-row py-1 px-1.5 rounded-2xl')}
-      >
-        <SymbolIcon symbol={props.tokenId} />
-        {props.proportion.isNaN()
-          ? (
-            <ThemedText
-              light={tailwind('text-gray-900')}
-              dark={tailwind('text-gray-50')}
-              style={tailwind('text-xs font-medium ml-1')}
-              testID='edit_collateral_confirm_vault_share'
-            >{translate('screens/ConfirmEditCollateralScreen', 'N/A')}
-            </ThemedText>
-          )
-          : (
-            <NumberFormat
-              value={props.proportion.toFixed(2)}
-              decimalScale={2}
-              displayType='text'
-              thousandSeparator
-              suffix='%'
-              renderText={value =>
-                <ThemedText
-                  light={tailwind('text-gray-700')}
-                  dark={tailwind('text-gray-300')}
-                  style={tailwind('text-xs font-medium ml-1')}
-                  testID='edit_collateral_confirm_vault_share'
-                >
-                  {value}
-                </ThemedText>}
-            />)}
-      </ThemedView>
-    </ThemedView>
-  )
+      <View style={tailwind("pt-12 px-7")}>
+        {!hasPendingJob && !hasPendingBroadcastJob && (
+          <ThemedTextV2
+            light={tailwind("text-mono-light-v2-500")}
+            dark={tailwind("text-mono-dark-v2-500")}
+            style={tailwind("text-center text-xs font-normal-v2")}
+          >
+            {translate(
+              "screens/ConfirmEditCollateralScreen",
+              "Prices may vary during transaction confirmation."
+            )}
+          </ThemedTextV2>
+        )}
+
+        <SubmitButtonGroup
+          isDisabled={hasPendingJob || hasPendingBroadcastJob}
+          label={translate(
+            "screens/ConfirmEditCollateralScreen",
+            isAdd ? "Add collateral" : "Remove collateral"
+          )}
+          onSubmit={onSubmit}
+          onCancel={onCancel}
+          displayCancelBtn
+          title="confirm_edit_collateral"
+          buttonStyle="my-5"
+        />
+      </View>
+    </ThemedScrollViewV2>
+  );
 }
 
 interface ModifyCollateralForm {
-  vaultId: string
-  tokenAmount: BigNumber
-  token: TokenData
-  isAdd: boolean
+  vaultId: string;
+  tokenAmount: BigNumber;
+  token: TokenData;
+  isAdd: boolean;
 }
 
-async function modifyCollateral ({
-  vaultId,
-  tokenAmount,
-  token,
-  isAdd
-}: ModifyCollateralForm, dispatch: Dispatch<any>, logger: NativeLoggingProps, onBroadcast: () => void, onConfirmation: () => void): Promise<void> {
+async function modifyCollateral(
+  { vaultId, tokenAmount, token, isAdd }: ModifyCollateralForm,
+  dispatch: Dispatch<any>,
+  logger: NativeLoggingProps,
+  onBroadcast: () => void,
+  onConfirmation: () => void
+): Promise<void> {
   try {
-    const signer = async (account: WhaleWalletAccount): Promise<CTransactionSegWit> => {
-      const script = await account.getScript()
-      const builder = account.withTransactionBuilder()
+    const signer = async (
+      account: WhaleWalletAccount
+    ): Promise<CTransactionSegWit> => {
+      const script = await account.getScript();
+      const builder = account.withTransactionBuilder();
 
       const signed: TransactionSegWit = isAdd
-        ? await builder.loans.depositToVault({
-          vaultId,
-          from: script,
-          tokenAmount: {
-            token: +token.id,
-            amount: tokenAmount
-          }
-        }, script)
-        : await builder.loans.withdrawFromVault({
-          vaultId,
-          tokenAmount: {
-            token: +token.id,
-            amount: tokenAmount
-          },
-          to: script
-        }, script)
-      return new CTransactionSegWit(signed)
-    }
+        ? await builder.loans.depositToVault(
+            {
+              vaultId,
+              from: script,
+              tokenAmount: {
+                token: +token.id,
+                amount: tokenAmount,
+              },
+            },
+            script
+          )
+        : await builder.loans.withdrawFromVault(
+            {
+              vaultId,
+              tokenAmount: {
+                token: +token.id,
+                amount: tokenAmount,
+              },
+              to: script,
+            },
+            script
+          );
+      return new CTransactionSegWit(signed);
+    };
 
-    dispatch(transactionQueue.actions.push({
-      sign: signer,
-      title: translate('screens/EditCollateralScreen', isAdd ? 'Adding collateral' : 'Removing collateral'),
-      description: translate('screens/EditCollateralScreen', isAdd
-        ? 'Adding {{amount}} {{symbol}} as collateral'
-        : 'Removing {{amount}} {{symbol}} collateral from vault', {
-        amount: tokenAmount.toFixed(8),
-        symbol: token.displaySymbol
-      }),
-      onConfirmation,
-      onBroadcast
-    }))
+    dispatch(
+      transactionQueue.actions.push({
+        sign: signer,
+        title: translate(
+          "screens/ConfirmEditCollateralScreen",
+          isAdd
+            ? "Adding {{amount}} {{symbol}} as collateral"
+            : "Removing {{amount}} {{symbol}} as collateral",
+          {
+            amount: tokenAmount.toFixed(8),
+            symbol: token.displaySymbol,
+          }
+        ),
+        drawerMessages: {
+          preparing: translate(
+            "screens/OceanInterface",
+            isAdd
+              ? "Preparing to add collaterals…"
+              : "Preparing to remove collaterals…",
+            {
+              amount: tokenAmount.toFixed(8),
+              symbol: token.displaySymbol,
+            }
+          ),
+          waiting: translate(
+            "screens/ConfirmEditCollateralScreen",
+            isAdd
+              ? "Adding {{amount}} {{symbol}} as collateral"
+              : "Removing {{amount}} {{symbol}} as collateral",
+            {
+              amount: tokenAmount.toFixed(8),
+              symbol: token.displaySymbol,
+            }
+          ),
+          complete: translate(
+            "screens/ConfirmEditCollateralScreen",
+            isAdd
+              ? "Added {{amount}} {{symbol}} as collateral"
+              : "Removed {{amount}} {{symbol}} as collateral",
+            {
+              amount: tokenAmount.toFixed(8),
+              symbol: token.displaySymbol,
+            }
+          ),
+        },
+        onConfirmation,
+        onBroadcast,
+      })
+    );
   } catch (e) {
-    logger.error(e)
+    logger.error(e);
   }
 }

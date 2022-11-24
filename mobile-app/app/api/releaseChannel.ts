@@ -1,14 +1,14 @@
-import * as Updates from 'expo-updates'
-import { Platform } from 'react-native'
+import * as Updates from "expo-updates";
+import { Platform } from "react-native";
 
-export function getReleaseChannel (): string {
+export function getReleaseChannel(): string {
   if (__DEV__) {
-    return 'development'
+    return "development";
   }
 
-  if (Platform.OS === 'web') {
-    return 'production'
+  if (Platform.OS === "web") {
+    return "production";
   }
 
-  return Updates.releaseChannel
+  return Updates.channel || "production";
 }

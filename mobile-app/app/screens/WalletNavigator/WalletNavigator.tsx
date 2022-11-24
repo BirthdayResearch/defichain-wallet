@@ -1,80 +1,231 @@
-import { LinkingOptions, NavigationContainer, NavigationContainerRef } from '@react-navigation/native'
-import { Theme } from '@react-navigation/native/lib/typescript/src/types'
-import { createStackNavigator } from '@react-navigation/stack'
-import { tailwind } from '@tailwind'
-import * as Linking from 'expo-linking'
-import { useRef } from 'react'
-import { HeaderFont } from '@components'
-import { HeaderTitle } from '@components/HeaderTitle'
-import { getDefaultTheme } from '@constants/Theme'
-import { useThemeContext } from '@shared-contexts/ThemeProvider'
-import { translate } from '@translations'
-import { CreateMnemonicWallet } from './screens/CreateWallet/CreateMnemonicWallet'
-import { CreateWalletGuidelines } from './screens/CreateWallet/CreateWalletGuidelines'
-import { RecoveryWordsFaq } from './screens/CreateWallet/RecoveryWordsFaq'
-import { PinConfirmation } from './screens/CreateWallet/PinConfirmation'
-import { PinCreation } from './screens/CreateWallet/PinCreation'
-import { VerifyMnemonicWallet } from './screens/CreateWallet/VerifyMnemonicWallet'
-import { OnboardingNetworkSelectScreen } from './screens/CreateWallet/OnboardingNetworkSelectScreen'
-import { Onboarding } from './screens/Onboarding'
-import { RestoreMnemonicWallet } from './screens/RestoreWallet/RestoreMnemonicWallet'
-import { PasscodeFaq } from './screens/CreateWallet/PasscodeFaq'
-import { NetworkDetails } from '@screens/AppNavigator/screens/Settings/screens/NetworkDetails'
+import {
+  LinkingOptions,
+  NavigationContainer,
+  NavigationContainerRef,
+} from "@react-navigation/native";
+import { Theme } from "@react-navigation/native/lib/typescript/src/types";
+import { createStackNavigator } from "@react-navigation/stack";
+import { tailwind } from "@tailwind";
+import * as Linking from "expo-linking";
+import { useRef } from "react";
+import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { translate } from "@translations";
+import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { getDefaultTheme } from "@constants/Theme";
+import { PinCreation } from "@screens/WalletNavigator/screens/CreateWallet/PinCreation";
+import { PinConfirmation } from "@screens/WalletNavigator/screens/CreateWallet/PinConfirmation";
+import { Onboarding } from "@screens/WalletNavigator/screens/Onboarding";
+import { WalletPersistenceDataI } from "@shared-contexts/WalletPersistenceContext";
+import { EncryptedProviderData } from "@defichain/jellyfish-wallet-encrypted";
+import { Dimensions, Platform } from "react-native";
+import { OnboardingNetworkSelectScreen } from "./screens/CreateWallet/OnboardingNetworkSelectScreen";
+import { RecoveryWordsFaq } from "./screens/CreateWallet/RecoveryWordsFaq";
+import { PasscodeFaq } from "./screens/CreateWallet/PasscodeFaq";
+import { WalletCreateRestoreSuccess } from "./screens/CreateWallet/WalletCreateRestoreSuccess";
+import { RestoreMnemonicWallet } from "./screens/RestoreWallet/RestoreMnemonicWallet";
+import { VerifyMnemonicWallet } from "./screens/CreateWallet/VerifyMnemonicWallet";
+import { CreateWalletGuidelines } from "./screens/CreateWallet/CreateWalletGuidelines";
+import { CreateMnemonicWallet } from "././screens/CreateWallet/CreateMnemonicWallet";
 
-type PinCreationType = 'create' | 'restore'
+type PinCreationType = "create" | "restore";
 
 export interface WalletParamList {
-  WalletOnboardingScreen: undefined
-  CreateMnemonicWallet: undefined
-  WalletNetworkSelectScreen: undefined
   VerifyMnemonicWallet: {
-    words: string[]
-  }
-  RestoreMnemonicWallet: undefined
+    words: string[];
+  };
+  WalletCreateRestoreSuccess: {
+    isWalletRestored: boolean;
+    data: WalletPersistenceDataI<EncryptedProviderData>;
+  };
   PinCreation: {
-    pinLength: 4 | 6
-    words: string[]
-    type: PinCreationType
-  }
+    pinLength: 4 | 6;
+    words: string[];
+    type: PinCreationType;
+  };
   PinConfirmation: {
-    pin: string
-    words: string[]
-    type: PinCreationType
-  }
+    pin: string;
+    words: string[];
+    type: PinCreationType;
+  };
 
-  [key: string]: undefined | object
+  [key: string]: undefined | object;
 }
 
-const WalletStack = createStackNavigator<WalletParamList>()
+const WalletStack = createStackNavigator<WalletParamList>();
 
 const LinkingConfiguration: LinkingOptions<ReactNavigation.RootParamList> = {
-  prefixes: [Linking.makeUrl('/')],
+  prefixes: [Linking.createURL("/")],
   config: {
     screens: {
-      Onboarding: 'wallet/onboarding',
-      OnboardingNetworkSelectScreen: 'wallet/mnemonic/network',
-      CreateMnemonicWallet: 'wallet/mnemonic/create',
-      CreateWalletGuidelines: 'wallet/onboarding/guidelines',
-      RecoveryWordsFaq: 'wallet/onboarding/guidelines/recovery',
-      VerifyMnemonicWallet: 'wallet/mnemonic/create/verify',
-      RestoreMnemonicWallet: 'wallet/mnemonic/restore',
-      PinCreation: 'wallet/pin/create',
-      PinConfirmation: 'wallet/pin/confirm',
-      PasscodeFaq: 'wallet/pin/faq'
-    }
-  }
-}
+      Onboarding: "wallet/onboarding",
+      OnboardingNetworkSelectScreen: "wallet/mnemonic/network",
+      CreateMnemonicWallet: "wallet/mnemonic/create",
+      CreateWalletGuidelines: "wallet/onboarding/guidelines",
+      RecoveryWordsFaq: "wallet/onboarding/guidelines/recovery",
+      VerifyMnemonicWallet: "wallet/mnemonic/create/verify",
+      RestoreMnemonicWallet: "wallet/mnemonic/restore",
+      PinCreation: "wallet/pin/create",
+      PinConfirmation: "wallet/pin/confirm",
+      PasscodeFaq: "wallet/pin/faq",
+    },
+  },
+};
 
-export function WalletNavigator (): JSX.Element {
-  const { isLight } = useThemeContext()
-  const navigationRef = useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null)
-  const DeFiChainTheme: Theme = getDefaultTheme(isLight)
-  const headerContainerTestId = 'wallet_header_container'
+export function WalletNavigator(): JSX.Element {
+  const { isLight } = useThemeContext();
+  const navigationRef =
+    useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null);
+  const DeFiChainTheme: Theme = getDefaultTheme(isLight);
+  const insets = useSafeAreaInsets();
 
   const goToNetworkSelect = (): void => {
-    // @ts-expect-error
     // TODO(kyleleow) update typings
-    navigationRef.current?.navigate({ name: 'OnboardingNetworkSelectScreen' })
+    // @ts-expect-error
+    navigationRef.current?.navigate({ name: "OnboardingNetworkSelectScreen" });
+  };
+
+  function WalletStacks(): JSX.Element {
+    const { width } = Dimensions.get("window");
+
+    return (
+      <WalletStack.Navigator
+        initialRouteName="Onboarding"
+        screenOptions={{
+          headerTitleStyle: tailwind("font-normal-v2 text-xl text-center"),
+          headerTitleContainerStyle: {
+            width: width - (Platform.OS === "ios" ? 200 : 180),
+          },
+          headerTitleAlign: "center",
+          headerBackTitleVisible: false,
+          headerRightContainerStyle: tailwind("pr-5 pb-2"),
+          headerLeftContainerStyle: tailwind("pl-5 relative", {
+            "right-2": Platform.OS === "ios",
+            "right-5": Platform.OS !== "ios",
+          }),
+          headerStyle: [
+            tailwind("rounded-b-2xl border-b", {
+              "bg-mono-light-v2-00 border-mono-light-v2-100": isLight,
+              "bg-mono-dark-v2-00 border-mono-dark-v2-100": !isLight,
+            }),
+            { height: 76 + insets.top },
+          ],
+          headerBackgroundContainerStyle: tailwind({
+            "bg-mono-light-v2-100": isLight,
+            "bg-mono-dark-v2-100": !isLight,
+          }),
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+        }}
+      >
+        <WalletStack.Screen
+          component={Onboarding}
+          name="Onboarding"
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <WalletStack.Screen
+          component={CreateWalletGuidelines}
+          name="CreateWalletGuidelines"
+          options={{
+            headerTitle: translate("screens/WalletNavigator", "New Wallet"),
+          }}
+        />
+
+        <WalletStack.Screen
+          component={CreateMnemonicWallet}
+          name="CreateMnemonicWallet"
+          options={{
+            headerTitle: translate(
+              "screens/WalletNavigator",
+              "View Recovery Words"
+            ),
+            headerRight: undefined,
+          }}
+        />
+
+        <WalletStack.Screen
+          component={VerifyMnemonicWallet}
+          name="VerifyMnemonicWallet"
+          options={{
+            headerTitle: translate("screens/WalletNavigator", "Verify Words"),
+            headerRight: undefined,
+          }}
+        />
+
+        <WalletStack.Screen
+          component={RestoreMnemonicWallet}
+          name="RestoreMnemonicWallet"
+          options={{
+            headerTitle: translate("screens/WalletNavigator", "Restore Wallet"),
+          }}
+        />
+
+        <WalletStack.Screen
+          component={WalletCreateRestoreSuccess}
+          name="WalletCreateRestoreSuccess"
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <WalletStack.Screen
+          component={OnboardingNetworkSelectScreen}
+          name="OnboardingNetworkSelectScreen"
+          options={{
+            headerTitle: translate("screens/NetworkDetails", "Network"),
+            headerRight: undefined,
+          }}
+        />
+
+        <WalletStack.Screen
+          component={RecoveryWordsFaq}
+          name="RecoveryWordsFaq"
+          options={{
+            headerTitle: translate(
+              "screens/WalletNavigator",
+              "About Recovery Words"
+            ),
+            headerRight: undefined,
+          }}
+        />
+
+        <WalletStack.Screen
+          component={PasscodeFaq}
+          name="PasscodeFaq"
+          options={{
+            headerTitle: translate("screens/WalletNavigator", "About Passcode"),
+            headerRight: undefined,
+          }}
+        />
+
+        <WalletStack.Screen
+          component={PinCreation}
+          name="PinCreation"
+          options={{
+            headerTitle: translate(
+              "screens/WalletNavigator",
+              "Create Passcode"
+            ),
+            headerRight: undefined,
+          }}
+        />
+        <WalletStack.Screen
+          component={PinConfirmation}
+          name="PinConfirmation"
+          options={{
+            headerTitle: translate(
+              "screens/WalletNavigator",
+              "Verify Passcode"
+            ),
+            headerRight: undefined,
+          }}
+        />
+      </WalletStack.Navigator>
+    );
   }
 
   return (
@@ -83,142 +234,7 @@ export function WalletNavigator (): JSX.Element {
       ref={navigationRef}
       theme={DeFiChainTheme}
     >
-      <WalletStack.Navigator
-        initialRouteName='Onboarding'
-        screenOptions={{ headerTitleStyle: HeaderFont, headerTitleAlign: 'center' }}
-      >
-        <WalletStack.Screen
-          component={Onboarding}
-          name='Onboarding'
-          options={{
-            headerShown: false
-          }}
-        />
-
-        <WalletStack.Screen
-          component={CreateWalletGuidelines}
-          name='CreateWalletGuidelines'
-          options={{
-            headerTitle: () => (
-              <HeaderTitle
-                text={translate('screens/WalletNavigator', 'Guidelines')}
-                subHeadingType='NetworkSelect' onPress={goToNetworkSelect}
-                containerTestID={headerContainerTestId}
-              />
-            ),
-            headerBackTitleVisible: false
-          }}
-        />
-
-        <WalletStack.Screen
-          component={OnboardingNetworkSelectScreen}
-          name='OnboardingNetworkSelectScreen'
-          options={{
-            headerTitle: translate('screens/WalletNavigator', 'Select network'),
-            headerBackTitleVisible: false
-          }}
-        />
-
-        <WalletStack.Screen
-          component={RecoveryWordsFaq}
-          name='RecoveryWordsFaq'
-          options={{
-            headerTitle: translate('screens/WalletNavigator', 'Recovery Words FAQ'),
-            headerBackTitleVisible: false
-          }}
-        />
-
-        <WalletStack.Screen
-          component={CreateMnemonicWallet}
-          name='CreateMnemonicWallet'
-          options={{
-            headerTitle: () => (
-              <HeaderTitle
-                text={translate('screens/WalletNavigator', 'Display recovery words')}
-                containerTestID={headerContainerTestId}
-              />
-            ),
-            headerRightContainerStyle: tailwind('px-2 py-2'),
-            headerBackTitleVisible: false
-          }}
-        />
-
-        <WalletStack.Screen
-          component={VerifyMnemonicWallet}
-          name='VerifyMnemonicWallet'
-          options={{
-            headerTitle: () => (
-              <HeaderTitle
-                text={translate('screens/WalletNavigator', 'Verify words')}
-                containerTestID={headerContainerTestId}
-              />
-            ),
-            headerBackTitleVisible: false
-          }}
-        />
-
-        <WalletStack.Screen
-          component={RestoreMnemonicWallet}
-          name='RestoreMnemonicWallet'
-          options={{
-            headerTitle: () => (
-              <HeaderTitle
-                text={translate('screens/WalletNavigator', 'Restore Wallet')}
-                subHeadingType='NetworkSelect' onPress={goToNetworkSelect}
-                containerTestID={headerContainerTestId}
-              />
-            ),
-            headerBackTitleVisible: false
-          }}
-        />
-
-        <WalletStack.Screen
-          component={PinCreation}
-          name='PinCreation'
-          options={{
-            headerTitle: () => (
-              <HeaderTitle
-                text={translate('screens/WalletNavigator', 'Create a passcode')}
-                containerTestID={headerContainerTestId}
-              />
-            ),
-            headerBackTitleVisible: false
-          }}
-        />
-
-        <WalletStack.Screen
-          component={PinConfirmation}
-          name='PinConfirmation'
-          options={{
-            headerTitle: () => (
-              <HeaderTitle
-                text={translate('screens/WalletNavigator', 'Verify passcode')}
-                containerTestID={headerContainerTestId}
-              />
-            ),
-            headerBackTitleVisible: false
-          }}
-        />
-
-        <WalletStack.Screen
-          component={PasscodeFaq}
-          name='PasscodeFaq'
-          options={{
-            headerTitle: translate('screens/WalletNavigator', 'Passcode FAQ'),
-            headerBackTitleVisible: false
-          }}
-        />
-
-        <WalletStack.Screen
-          component={NetworkDetails}
-          name='NetworkDetails'
-          options={{
-            headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
-            headerBackTitleVisible: false,
-            headerBackTestID: 'network_details_header_back'
-          }}
-        />
-      </WalletStack.Navigator>
+      <WalletStacks />
     </NavigationContainer>
-  )
+  );
 }

@@ -3,34 +3,14 @@
 exports[`Vault card should match snapshot of active vault 1`] = `
 <View
   style={
-    Array [
-      Object {
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftWidth": 1,
-        "borderRightWidth": 1,
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "marginBottom": 8,
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 16,
-      },
-      Object {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderTopColor": "rgba(229, 229, 229, 1)",
-      },
-    ]
+    {
+      "marginBottom": 8,
+    }
   }
 >
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -40,1021 +20,373 @@ exports[`Vault card should match snapshot of active vault 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
+      {
+        "borderBottomColor": "rgba(204, 204, 204, 1)",
         "borderBottomWidth": 0,
-        "marginBottom": 8,
+        "borderLeftColor": "rgba(204, 204, 204, 1)",
+        "borderLeftWidth": 0,
+        "borderRightColor": "rgba(204, 204, 204, 1)",
+        "borderRightWidth": 0,
+        "borderTopColor": "rgba(204, 204, 204, 1)",
+        "borderTopWidth": 0,
         "opacity": 1,
       }
     }
-    testID="vault"
+    testID="vault_"
   >
     <View
       style={
-        Object {
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "marginBottom": 16,
+        {
+          "flexDirection": "column",
         }
       }
     >
       <View
         style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexBasis": "0%",
-            "flexDirection": "row",
-            "flexGrow": 1,
-            "flexShrink": 1,
-          }
+          [
+            {
+              "alignItems": "center",
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderBottomWidth": 0,
+              "borderLeftWidth": 0,
+              "borderRightWidth": 0,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "borderTopWidth": 0,
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "paddingBottom": 20,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 20,
+            },
+            {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+            },
+          ]
         }
+        testID="vault"
       >
         <View
           style={
-            Object {
-              "display": "flex",
+            {
               "flexBasis": "0%",
               "flexDirection": "column",
               "flexGrow": 1,
               "flexShrink": 1,
+              "paddingRight": 8,
             }
           }
         >
           <View
             style={
-              Object {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-                "justifyContent": "space-between",
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "flexDirection": "column",
-                }
-              }
-            >
-              <View
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                  }
-                }
-              >
-                <Text
-                  style={
-                    Array [
-                      Object {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
-                      Array [
-                        Object {
-                          "fontSize": 12,
-                          "lineHeight": 16,
-                          "marginRight": 6,
-                        },
-                        Object {
-                          "color": "rgba(163, 163, 163, 1)",
-                        },
-                      ],
-                    ]
-                  }
-                >
-                  Vault ID
-                </Text>
-                <View
-                  style={
-                    Array [
-                      Object {
-                        "alignItems": "center",
-                        "display": "flex",
-                        "flexDirection": "row",
-                        "paddingBottom": 2,
-                        "paddingLeft": 8,
-                        "paddingRight": 8,
-                        "paddingTop": 2,
-                      },
-                      Object {
-                        "backgroundColor": "rgba(255, 230, 230, 1)",
-                      },
-                    ]
-                  }
-                >
-                  <Text
-                    style={
-                      Array [
-                        Object {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
-                        Array [
-                          Object {
-                            "fontFamily": "MediumFont",
-                            "fontSize": 12,
-                            "fontWeight": "500",
-                            "lineHeight": 16,
-                          },
-                          Object {
-                            "color": "rgba(230, 0, 0, 1)",
-                          },
-                        ],
-                      ]
-                    }
-                    testID="vault_status"
-                  >
-                    ACTIVE
-                  </Text>
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      Array [
-                        Object {
-                          "color": undefined,
-                          "fontSize": 14,
-                        },
-                        Array [
-                          Object {
-                            "marginLeft": 4,
-                            "paddingTop": 1,
-                          },
-                          Object {
-                            "color": "rgba(230, 0, 0, 1)",
-                          },
-                        ],
-                        Object {
-                          "fontFamily": "material-community",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                        Object {},
-                      ]
-                    }
-                    testID="vault_tag_NEAR LIQUIDATION"
-                  >
-                    󰢼
-                  </Text>
-                </View>
-              </View>
-              <View
-                accessible={true}
-                focusable={true}
-                onClick={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "flexDirection": "row",
-                    "marginBottom": 2,
-                    "opacity": 1,
-                  }
-                }
-              >
-                <Text
-                  ellipsizeMode="middle"
-                  numberOfLines={1}
-                  style={
-                    Array [
-                      Object {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
-                      Array [
-                        Object {
-                          "flexShrink": 1,
-                          "fontFamily": "SemiBoldFont",
-                          "fontWeight": "600",
-                          "marginRight": 2,
-                          "width": 224,
-                        },
-                        Object {
-                          "color": "rgba(0, 0, 0, 1)",
-                        },
-                      ],
-                    ]
-                  }
-                  testID="vault_vault_id"
-                >
-                  22ffasd5ca123123123123123121231061
-                </Text>
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    Array [
-                      Object {
-                        "color": undefined,
-                        "fontSize": 18,
-                      },
-                      Array [
-                        undefined,
-                        Object {
-                          "color": "rgba(255, 0, 175, 1)",
-                        },
-                      ],
-                      Object {
-                        "fontFamily": "material",
-                        "fontStyle": "normal",
-                        "fontWeight": "normal",
-                      },
-                      Object {},
-                    ]
-                  }
-                >
-                  
-                </Text>
-              </View>
-            </View>
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": undefined,
-                    "fontSize": 30,
-                  },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "rgba(0, 0, 0, 1)",
-                    },
-                  ],
-                  Object {
-                    "fontFamily": "material",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
-              }
-            >
-              
-            </Text>
-          </View>
-          <View
-            style={
-              Object {
-                "display": "flex",
-                "flexDirection": "row",
-              }
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontSize": 12,
-                      "lineHeight": 16,
-                      "marginRight": 4,
-                    },
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
-                    },
-                  ],
-                ]
-              }
-            >
-              Collateral:
-            </Text>
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontSize": 12,
-                      "lineHeight": 16,
-                      "marginLeft": 4,
-                    },
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="vault_collateral_none"
-            >
-              None
-            </Text>
-            <View
-              style={
-                Object {
+              [
+                {
                   "display": "flex",
                   "flexDirection": "row",
-                }
-              }
-            />
-          </View>
-        </View>
-      </View>
-    </View>
-    <View
-      style={
-        Object {
-          "marginBottom": 16,
-        }
-      }
-      testID="vault_collateralization_bar"
-    >
-      <View
-        style={
-          Object {
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-          }
-        }
-      >
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "flexDirection": "row",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
+                  "position": "relative",
                 },
-                Array [
-                  Object {
-                    "fontSize": 14,
-                    "lineHeight": 20,
-                    "marginRight": 2,
-                  },
-                  Object {
-                    "color": "rgba(0, 0, 0, 1)",
-                  },
-                ],
+                {
+                  "right": 0,
+                },
               ]
-            }
-          >
-            Collateralization ratio
-          </Text>
-        </View>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontFamily": "SemiBoldFont",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
-                Object {
-                  "color": "rgba(2, 179, 27, 1)",
-                },
-              ],
-            ]
-          }
-          testID="vault_col_ratio"
-        >
-          
-        </Text>
-      </View>
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginBottom": 12,
-          }
-        }
-      >
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-              "flexDirection": "row",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontSize": 12,
-                    "lineHeight": 16,
-                    "marginRight": 2,
-                  },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-          >
-            Min:
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontSize": 12,
-                    "lineHeight": 16,
-                  },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="vault_min_ratio"
-          >
-            100%
-          </Text>
-        </View>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-              "flexDirection": "row",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontSize": 12,
-                    "lineHeight": 16,
-                    "marginRight": 2,
-                  },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-          >
-            Next:
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontSize": 12,
-                    "lineHeight": 16,
-                  },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="vault_next_ratio"
-          >
-            -~1.00%
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "position": "relative",
-          }
-        }
-      >
-        <View
-          animated={true}
-          animationConfig={
-            Object {
-              "bounciness": 0,
-            }
-          }
-          animationType="spring"
-          indeterminate={false}
-          indeterminateAnimationDuration={1000}
-          onLayout={[Function]}
-          progress={NaN}
-          style={
-            Array [
-              Object {
-                "backgroundColor": "rgba(245, 245, 245, 1)",
-                "borderColor": "rgba(212, 212, 212, 1)",
-                "borderRadius": 8,
-                "borderWidth": 1,
-                "overflow": "hidden",
-                "width": null,
-              },
-              undefined,
-            ]
-          }
-          useNativeDriver={false}
-        >
-          <View
-            style={
-              Object {
-                "backgroundColor": "rgba(255, 255, 255, 1)",
-                "height": 12,
-                "transform": Array [
-                  Object {
-                    "translateX": 0,
-                  },
-                  Object {
-                    "translateX": NaN,
-                  },
-                  Object {
-                    "scaleX": NaN,
-                  },
-                ],
-              }
             }
           />
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "display": "flex",
-            "flexDirection": "row",
-            "marginTop": 4,
-          }
-        }
-      >
-        <View
-          style={
-            Array [
-              Array [
-                Object {
-                  "height": 4,
-                },
-                Object {
-                  "width": "20.83%",
-                },
-              ],
-              Object {
-                "backgroundColor": "rgba(255, 153, 153, 1)",
-              },
-            ]
-          }
-        />
-        <View
-          style={
-            Array [
-              Array [
-                Object {
-                  "height": 4,
-                },
-                Object {
-                  "width": "4.17%",
-                },
-              ],
-              Object {
-                "backgroundColor": "rgba(255, 213, 169, 1)",
-              },
-            ]
-          }
-        />
-        <View
-          style={
-            Array [
-              Object {
-                "flexBasis": "0%",
-                "flexGrow": 1,
-                "flexShrink": 1,
-                "height": 4,
-              },
-              Object {
-                "backgroundColor": "rgba(154, 225, 164, 1)",
-              },
-            ]
-          }
-        />
-      </View>
-    </View>
-    <View
-      style={
-        Object {
-          "display": "flex",
-          "flexDirection": "row",
-          "flexWrap": "wrap",
-          "marginBottom": -8,
-        }
-      }
-    >
-      <View
-        style={
-          Array [
-            Object {
-              "flexDirection": "row",
-              "marginBottom": 4,
-              "marginTop": 4,
-              "width": "100%",
-            },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
-          ]
-        }
-      >
-        <View
-          style={
-            Object {
-              "width": "50%",
-            }
-          }
-        >
           <View
             style={
-              Object {
-                "alignItems": "flex-end",
-                "flexDirection": "row",
-                "justifyContent": "flex-start",
+              {
+                "marginTop": 12,
               }
             }
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                    ],
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
+                  [
+                    {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
+                      "lineHeight": 16,
+                    },
+                    {
+                      "color": "rgba(89, 89, 89, 1)",
                     },
                   ],
                 ]
               }
-              testID="vault_total_loan_label"
+              testID="vault_max_loan_label"
             >
-              Total loans (USD)
+              Max loan amount
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
+                      "lineHeight": 16,
+                    },
+                    {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="vault_max_loan_amount"
+            >
+              $0.00
             </Text>
           </View>
-        </View>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "flexBasis": "0%",
-              "flexDirection": "row",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "flexWrap": "wrap",
-              "justifyContent": "flex-end",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                  "marginLeft": 0,
-                },
-                undefined,
-              ]
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(23, 23, 23, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="vault_total_loan"
-            >
-              $100.00
-            </Text>
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Array [
-            Object {
-              "flexDirection": "row",
-              "marginBottom": 4,
-              "marginTop": 4,
-              "width": "100%",
-            },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
-          ]
-        }
-      >
-        <View
-          style={
-            Object {
-              "width": "50%",
-            }
-          }
-        >
           <View
             style={
-              Object {
-                "alignItems": "flex-end",
-                "flexDirection": "row",
-                "justifyContent": "flex-start",
+              {
+                "marginTop": 8,
               }
             }
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                    ],
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
+                  [
+                    {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
+                      "lineHeight": 16,
+                    },
+                    {
+                      "color": "rgba(89, 89, 89, 1)",
                     },
                   ],
                 ]
               }
               testID="vault_total_collateral_label"
             >
-              Total collateral (USD)
+              Total collateral
             </Text>
-          </View>
-        </View>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "flexBasis": "0%",
-              "flexDirection": "row",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "flexWrap": "wrap",
-              "justifyContent": "flex-end",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                  "marginLeft": 0,
-                },
-                undefined,
-              ]
-            }
-          >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(23, 23, 23, 1)",
+                  [
+                    {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
+                      "lineHeight": 16,
+                    },
+                    {
+                      "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
                 ]
               }
-              testID="vault_total_collateral"
+              testID="vault_total_collateral_amount"
+            />
+          </View>
+        </View>
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "column",
+              "flexWrap": "wrap",
+            }
+          }
+        >
+          <react-native-circular-progress-indicator/mock
+            activeStrokeColor="rgba(229, 69, 69, 1)"
+            activeStrokeWidth={3}
+            clockwise={false}
+            inActiveStrokeColor="rgba(242, 242, 242, 1)"
+            inActiveStrokeWidth={3}
+            maxValue={1}
+            radius={58}
+            showProgressValue={false}
+            value={0.01}
+          />
+          <View
+            style={
+              [
+                {
+                  "height": "100%",
+                  "position": "absolute",
+                },
+                {
+                  "maxHeight": 116,
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flexBasis": "0%",
+                  "flexGrow": 1,
+                  "flexShrink": 1,
+                  "justifyContent": "flex-end",
+                  "paddingLeft": 8,
+                  "paddingRight": 8,
+                }
+              }
             >
-              
-            </Text>
-          </Text>
+              <Text
+                ellipsizeMode="middle"
+                numberOfLines={1}
+                style={
+                  [
+                    {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 12,
+                          "fontWeight": "400",
+                          "lineHeight": 16,
+                          "paddingLeft": 8,
+                          "paddingRight": 8,
+                        },
+                        {
+                          "maxWidth": 124,
+                          "minWidth": 10,
+                        },
+                      ],
+                      {
+                        "color": "rgba(89, 89, 89, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="vault_vault_id"
+              >
+                22ffasd5ca123123123123123121231061
+              </Text>
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "SoraSemiBold",
+                        "fontSize": 16,
+                        "fontWeight": "600",
+                        "lineHeight": 24,
+                        "textAlign": "center",
+                      },
+                      {
+                        "color": "rgba(229, 69, 69, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="vault_min_ratio"
+              >
+                0.00%
+              </Text>
+            </View>
+            <View
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignSelf": "center",
+                  "backgroundColor": "rgba(0, 0, 0, 1)",
+                  "borderBottomLeftRadius": 9999,
+                  "borderBottomRightRadius": 9999,
+                  "borderBottomWidth": 0,
+                  "borderLeftWidth": 0,
+                  "borderRightWidth": 0,
+                  "borderTopLeftRadius": 9999,
+                  "borderTopRightRadius": 9999,
+                  "borderTopWidth": 0,
+                  "flexWrap": "wrap",
+                  "marginTop": 8,
+                  "opacity": 1,
+                  "paddingBottom": 8,
+                  "paddingLeft": 16,
+                  "paddingRight": 16,
+                  "paddingTop": 8,
+                }
+              }
+            >
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "alignSelf": "center",
+                        "flexWrap": "wrap",
+                        "fontFamily": "SoraSemiBold",
+                        "fontSize": 12,
+                        "fontWeight": "600",
+                        "lineHeight": 16,
+                      },
+                      {
+                        "color": "rgba(242, 242, 242, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="vault_borrow_button"
+              >
+                Borrow
+              </Text>
+            </View>
+          </View>
         </View>
       </View>
-    </View>
-  </View>
-  <View
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "flexWrap": "wrap",
-          "marginBottom": -8,
-          "marginTop": 16,
-        },
-        Object {
-          "borderBottomColor": "rgba(229, 229, 229, 1)",
-          "borderLeftColor": "rgba(229, 229, 229, 1)",
-          "borderRightColor": "rgba(229, 229, 229, 1)",
-          "borderTopColor": "rgba(229, 229, 229, 1)",
-        },
-      ]
-    }
-  >
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(212, 212, 212, 1)",
-          "borderBottomLeftRadius": 4,
-          "borderBottomRightRadius": 4,
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(212, 212, 212, 1)",
-          "borderLeftWidth": 1,
-          "borderRightColor": "rgba(212, 212, 212, 1)",
-          "borderRightWidth": 1,
-          "borderTopColor": "rgba(212, 212, 212, 1)",
-          "borderTopLeftRadius": 4,
-          "borderTopRightRadius": 4,
-          "borderTopWidth": 1,
-          "flexDirection": "row",
-          "marginBottom": 8,
-          "marginRight": 8,
-          "opacity": 1,
-          "paddingBottom": 4,
-          "paddingLeft": 4,
-          "paddingRight": 4,
-          "paddingTop": 4,
-        }
-      }
-      testID="vault_edit_collaterals_button"
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Array [
-                Object {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 14,
-                  "fontWeight": "500",
-                  "lineHeight": 16,
-                  "paddingLeft": 4,
-                  "paddingRight": 4,
-                },
-                undefined,
-              ],
-              Object {
-                "color": "rgba(255, 0, 175, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        EDIT COLLATERAL
-      </Text>
     </View>
   </View>
 </View>
@@ -1063,34 +395,14 @@ exports[`Vault card should match snapshot of active vault 1`] = `
 exports[`Vault card should match snapshot of at-risk vault 1`] = `
 <View
   style={
-    Array [
-      Object {
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftWidth": 1,
-        "borderRightWidth": 1,
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "marginBottom": 8,
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 16,
-      },
-      Object {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderTopColor": "rgba(229, 229, 229, 1)",
-      },
-    ]
+    {
+      "marginBottom": 8,
+    }
   }
 >
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -1100,993 +412,373 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
+      {
+        "borderBottomColor": "rgba(204, 204, 204, 1)",
         "borderBottomWidth": 0,
-        "marginBottom": 8,
+        "borderLeftColor": "rgba(204, 204, 204, 1)",
+        "borderLeftWidth": 0,
+        "borderRightColor": "rgba(204, 204, 204, 1)",
+        "borderRightWidth": 0,
+        "borderTopColor": "rgba(204, 204, 204, 1)",
+        "borderTopWidth": 0,
         "opacity": 1,
       }
     }
-    testID="vault"
+    testID="vault_"
   >
     <View
       style={
-        Object {
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "marginBottom": 16,
+        {
+          "flexDirection": "column",
         }
       }
     >
       <View
         style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexBasis": "0%",
-            "flexDirection": "row",
-            "flexGrow": 1,
-            "flexShrink": 1,
-          }
+          [
+            {
+              "alignItems": "center",
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderBottomWidth": 0,
+              "borderLeftWidth": 0,
+              "borderRightWidth": 0,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "borderTopWidth": 0,
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "paddingBottom": 20,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 20,
+            },
+            {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+            },
+          ]
         }
+        testID="vault"
       >
         <View
           style={
-            Object {
-              "display": "flex",
+            {
               "flexBasis": "0%",
               "flexDirection": "column",
               "flexGrow": 1,
               "flexShrink": 1,
+              "paddingRight": 8,
             }
           }
         >
           <View
             style={
-              Object {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-                "justifyContent": "space-between",
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "flexDirection": "column",
-                }
-              }
-            >
-              <View
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                  }
-                }
-              >
-                <Text
-                  style={
-                    Array [
-                      Object {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
-                      Array [
-                        Object {
-                          "fontSize": 12,
-                          "lineHeight": 16,
-                          "marginRight": 6,
-                        },
-                        Object {
-                          "color": "rgba(163, 163, 163, 1)",
-                        },
-                      ],
-                    ]
-                  }
-                >
-                  Vault ID
-                </Text>
-                <View
-                  style={
-                    Array [
-                      Object {
-                        "alignItems": "center",
-                        "display": "flex",
-                        "flexDirection": "row",
-                        "paddingBottom": 2,
-                        "paddingLeft": 8,
-                        "paddingRight": 8,
-                        "paddingTop": 2,
-                      },
-                      Object {
-                        "backgroundColor": "rgba(255, 230, 230, 1)",
-                      },
-                    ]
-                  }
-                >
-                  <Text
-                    style={
-                      Array [
-                        Object {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
-                        Array [
-                          Object {
-                            "fontFamily": "MediumFont",
-                            "fontSize": 12,
-                            "fontWeight": "500",
-                            "lineHeight": 16,
-                          },
-                          Object {
-                            "color": "rgba(230, 0, 0, 1)",
-                          },
-                        ],
-                      ]
-                    }
-                    testID="vault_status"
-                  >
-                    ACTIVE
-                  </Text>
-                  <Text />
-                </View>
-              </View>
-              <View
-                accessible={true}
-                focusable={true}
-                onClick={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "flexDirection": "row",
-                    "marginBottom": 2,
-                    "opacity": 1,
-                  }
-                }
-              >
-                <Text
-                  ellipsizeMode="middle"
-                  numberOfLines={1}
-                  style={
-                    Array [
-                      Object {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
-                      Array [
-                        Object {
-                          "flexShrink": 1,
-                          "fontFamily": "SemiBoldFont",
-                          "fontWeight": "600",
-                          "marginRight": 2,
-                          "width": 224,
-                        },
-                        Object {
-                          "color": "rgba(0, 0, 0, 1)",
-                        },
-                      ],
-                    ]
-                  }
-                  testID="vault_vault_id"
-                >
-                  22ffasd5ca123123123123123121231061
-                </Text>
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    Array [
-                      Object {
-                        "color": undefined,
-                        "fontSize": 18,
-                      },
-                      Array [
-                        undefined,
-                        Object {
-                          "color": "rgba(255, 0, 175, 1)",
-                        },
-                      ],
-                      Object {
-                        "fontFamily": "material",
-                        "fontStyle": "normal",
-                        "fontWeight": "normal",
-                      },
-                      Object {},
-                    ]
-                  }
-                >
-                  
-                </Text>
-              </View>
-            </View>
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": undefined,
-                    "fontSize": 30,
-                  },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "rgba(0, 0, 0, 1)",
-                    },
-                  ],
-                  Object {
-                    "fontFamily": "material",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
-              }
-            >
-              
-            </Text>
-          </View>
-          <View
-            style={
-              Object {
-                "display": "flex",
-                "flexDirection": "row",
-              }
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontSize": 12,
-                      "lineHeight": 16,
-                      "marginRight": 4,
-                    },
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
-                    },
-                  ],
-                ]
-              }
-            >
-              Collateral:
-            </Text>
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontSize": 12,
-                      "lineHeight": 16,
-                      "marginLeft": 4,
-                    },
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="vault_collateral_none"
-            >
-              None
-            </Text>
-            <View
-              style={
-                Object {
+              [
+                {
                   "display": "flex",
                   "flexDirection": "row",
-                }
-              }
-            />
-          </View>
-        </View>
-      </View>
-    </View>
-    <View
-      style={
-        Object {
-          "marginBottom": 16,
-        }
-      }
-      testID="vault_collateralization_bar"
-    >
-      <View
-        style={
-          Object {
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-          }
-        }
-      >
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "flexDirection": "row",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
+                  "position": "relative",
                 },
-                Array [
-                  Object {
-                    "fontSize": 14,
-                    "lineHeight": 20,
-                    "marginRight": 2,
-                  },
-                  Object {
-                    "color": "rgba(0, 0, 0, 1)",
-                  },
-                ],
+                {
+                  "right": 0,
+                },
               ]
-            }
-          >
-            Collateralization ratio
-          </Text>
-        </View>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontFamily": "SemiBoldFont",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
-                Object {
-                  "color": "rgba(2, 179, 27, 1)",
-                },
-              ],
-            ]
-          }
-          testID="vault_col_ratio"
-        >
-          
-        </Text>
-      </View>
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginBottom": 12,
-          }
-        }
-      >
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-              "flexDirection": "row",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontSize": 12,
-                    "lineHeight": 16,
-                    "marginRight": 2,
-                  },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-          >
-            Min:
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontSize": 12,
-                    "lineHeight": 16,
-                  },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="vault_min_ratio"
-          >
-            100%
-          </Text>
-        </View>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-              "flexDirection": "row",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontSize": 12,
-                    "lineHeight": 16,
-                    "marginRight": 2,
-                  },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-          >
-            Next:
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontSize": 12,
-                    "lineHeight": 16,
-                  },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="vault_next_ratio"
-          >
-            -~1.00%
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "position": "relative",
-          }
-        }
-      >
-        <View
-          animated={true}
-          animationConfig={
-            Object {
-              "bounciness": 0,
-            }
-          }
-          animationType="spring"
-          indeterminate={false}
-          indeterminateAnimationDuration={1000}
-          onLayout={[Function]}
-          progress={NaN}
-          style={
-            Array [
-              Object {
-                "backgroundColor": "rgba(245, 245, 245, 1)",
-                "borderColor": "rgba(212, 212, 212, 1)",
-                "borderRadius": 8,
-                "borderWidth": 1,
-                "overflow": "hidden",
-                "width": null,
-              },
-              undefined,
-            ]
-          }
-          useNativeDriver={false}
-        >
-          <View
-            style={
-              Object {
-                "backgroundColor": "rgba(255, 255, 255, 1)",
-                "height": 12,
-                "transform": Array [
-                  Object {
-                    "translateX": 0,
-                  },
-                  Object {
-                    "translateX": NaN,
-                  },
-                  Object {
-                    "scaleX": NaN,
-                  },
-                ],
-              }
             }
           />
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "display": "flex",
-            "flexDirection": "row",
-            "marginTop": 4,
-          }
-        }
-      >
-        <View
-          style={
-            Array [
-              Array [
-                Object {
-                  "height": 4,
-                },
-                Object {
-                  "width": "20.83%",
-                },
-              ],
-              Object {
-                "backgroundColor": "rgba(255, 153, 153, 1)",
-              },
-            ]
-          }
-        />
-        <View
-          style={
-            Array [
-              Array [
-                Object {
-                  "height": 4,
-                },
-                Object {
-                  "width": "4.17%",
-                },
-              ],
-              Object {
-                "backgroundColor": "rgba(255, 213, 169, 1)",
-              },
-            ]
-          }
-        />
-        <View
-          style={
-            Array [
-              Object {
-                "flexBasis": "0%",
-                "flexGrow": 1,
-                "flexShrink": 1,
-                "height": 4,
-              },
-              Object {
-                "backgroundColor": "rgba(154, 225, 164, 1)",
-              },
-            ]
-          }
-        />
-      </View>
-    </View>
-    <View
-      style={
-        Object {
-          "display": "flex",
-          "flexDirection": "row",
-          "flexWrap": "wrap",
-          "marginBottom": -8,
-        }
-      }
-    >
-      <View
-        style={
-          Array [
-            Object {
-              "flexDirection": "row",
-              "marginBottom": 4,
-              "marginTop": 4,
-              "width": "100%",
-            },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
-          ]
-        }
-      >
-        <View
-          style={
-            Object {
-              "width": "50%",
-            }
-          }
-        >
           <View
             style={
-              Object {
-                "alignItems": "flex-end",
-                "flexDirection": "row",
-                "justifyContent": "flex-start",
+              {
+                "marginTop": 12,
               }
             }
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                    ],
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
+                  [
+                    {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
+                      "lineHeight": 16,
+                    },
+                    {
+                      "color": "rgba(89, 89, 89, 1)",
                     },
                   ],
                 ]
               }
-              testID="vault_total_loan_label"
+              testID="vault_max_loan_label"
             >
-              Total loans (USD)
+              Max loan amount
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
+                      "lineHeight": 16,
+                    },
+                    {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="vault_max_loan_amount"
+            >
+              $0.00
             </Text>
           </View>
-        </View>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "flexBasis": "0%",
-              "flexDirection": "row",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "flexWrap": "wrap",
-              "justifyContent": "flex-end",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                  "marginLeft": 0,
-                },
-                undefined,
-              ]
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(23, 23, 23, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="vault_total_loan"
-            >
-              $100.00
-            </Text>
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Array [
-            Object {
-              "flexDirection": "row",
-              "marginBottom": 4,
-              "marginTop": 4,
-              "width": "100%",
-            },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
-          ]
-        }
-      >
-        <View
-          style={
-            Object {
-              "width": "50%",
-            }
-          }
-        >
           <View
             style={
-              Object {
-                "alignItems": "flex-end",
-                "flexDirection": "row",
-                "justifyContent": "flex-start",
+              {
+                "marginTop": 8,
               }
             }
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                    ],
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
+                  [
+                    {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
+                      "lineHeight": 16,
+                    },
+                    {
+                      "color": "rgba(89, 89, 89, 1)",
                     },
                   ],
                 ]
               }
               testID="vault_total_collateral_label"
             >
-              Total collateral (USD)
+              Total collateral
             </Text>
-          </View>
-        </View>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "flexBasis": "0%",
-              "flexDirection": "row",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "flexWrap": "wrap",
-              "justifyContent": "flex-end",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                  "marginLeft": 0,
-                },
-                undefined,
-              ]
-            }
-          >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(23, 23, 23, 1)",
+                  [
+                    {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
+                      "lineHeight": 16,
+                    },
+                    {
+                      "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
                 ]
               }
-              testID="vault_total_collateral"
+              testID="vault_total_collateral_amount"
+            />
+          </View>
+        </View>
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "column",
+              "flexWrap": "wrap",
+            }
+          }
+        >
+          <react-native-circular-progress-indicator/mock
+            activeStrokeColor="rgba(229, 69, 69, 1)"
+            activeStrokeWidth={3}
+            clockwise={false}
+            inActiveStrokeColor="rgba(242, 242, 242, 1)"
+            inActiveStrokeWidth={3}
+            maxValue={1}
+            radius={58}
+            showProgressValue={false}
+            value={0.01}
+          />
+          <View
+            style={
+              [
+                {
+                  "height": "100%",
+                  "position": "absolute",
+                },
+                {
+                  "maxHeight": 116,
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flexBasis": "0%",
+                  "flexGrow": 1,
+                  "flexShrink": 1,
+                  "justifyContent": "flex-end",
+                  "paddingLeft": 8,
+                  "paddingRight": 8,
+                }
+              }
             >
-              
-            </Text>
-          </Text>
+              <Text
+                ellipsizeMode="middle"
+                numberOfLines={1}
+                style={
+                  [
+                    {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 12,
+                          "fontWeight": "400",
+                          "lineHeight": 16,
+                          "paddingLeft": 8,
+                          "paddingRight": 8,
+                        },
+                        {
+                          "maxWidth": 124,
+                          "minWidth": 10,
+                        },
+                      ],
+                      {
+                        "color": "rgba(89, 89, 89, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="vault_vault_id"
+              >
+                22ffasd5ca123123123123123121231061
+              </Text>
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "SoraSemiBold",
+                        "fontSize": 16,
+                        "fontWeight": "600",
+                        "lineHeight": 24,
+                        "textAlign": "center",
+                      },
+                      {
+                        "color": "rgba(229, 69, 69, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="vault_min_ratio"
+              >
+                0.00%
+              </Text>
+            </View>
+            <View
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignSelf": "center",
+                  "backgroundColor": "rgba(0, 0, 0, 1)",
+                  "borderBottomLeftRadius": 9999,
+                  "borderBottomRightRadius": 9999,
+                  "borderBottomWidth": 0,
+                  "borderLeftWidth": 0,
+                  "borderRightWidth": 0,
+                  "borderTopLeftRadius": 9999,
+                  "borderTopRightRadius": 9999,
+                  "borderTopWidth": 0,
+                  "flexWrap": "wrap",
+                  "marginTop": 8,
+                  "opacity": 1,
+                  "paddingBottom": 8,
+                  "paddingLeft": 16,
+                  "paddingRight": 16,
+                  "paddingTop": 8,
+                }
+              }
+            >
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "alignSelf": "center",
+                        "flexWrap": "wrap",
+                        "fontFamily": "SoraSemiBold",
+                        "fontSize": 12,
+                        "fontWeight": "600",
+                        "lineHeight": 16,
+                      },
+                      {
+                        "color": "rgba(242, 242, 242, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="vault_borrow_button"
+              >
+                Borrow
+              </Text>
+            </View>
+          </View>
         </View>
       </View>
-    </View>
-  </View>
-  <View
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "flexWrap": "wrap",
-          "marginBottom": -8,
-          "marginTop": 16,
-        },
-        Object {
-          "borderBottomColor": "rgba(229, 229, 229, 1)",
-          "borderLeftColor": "rgba(229, 229, 229, 1)",
-          "borderRightColor": "rgba(229, 229, 229, 1)",
-          "borderTopColor": "rgba(229, 229, 229, 1)",
-        },
-      ]
-    }
-  >
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(212, 212, 212, 1)",
-          "borderBottomLeftRadius": 4,
-          "borderBottomRightRadius": 4,
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(212, 212, 212, 1)",
-          "borderLeftWidth": 1,
-          "borderRightColor": "rgba(212, 212, 212, 1)",
-          "borderRightWidth": 1,
-          "borderTopColor": "rgba(212, 212, 212, 1)",
-          "borderTopLeftRadius": 4,
-          "borderTopRightRadius": 4,
-          "borderTopWidth": 1,
-          "flexDirection": "row",
-          "marginBottom": 8,
-          "marginRight": 8,
-          "opacity": 1,
-          "paddingBottom": 4,
-          "paddingLeft": 4,
-          "paddingRight": 4,
-          "paddingTop": 4,
-        }
-      }
-      testID="vault_edit_collaterals_button"
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Array [
-                Object {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 14,
-                  "fontWeight": "500",
-                  "lineHeight": 16,
-                  "paddingLeft": 4,
-                  "paddingRight": 4,
-                },
-                undefined,
-              ],
-              Object {
-                "color": "rgba(255, 0, 175, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        EDIT COLLATERAL
-      </Text>
     </View>
   </View>
 </View>
@@ -2095,34 +787,14 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
 exports[`Vault card should match snapshot of healthy vault 1`] = `
 <View
   style={
-    Array [
-      Object {
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftWidth": 1,
-        "borderRightWidth": 1,
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "marginBottom": 8,
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 16,
-      },
-      Object {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderTopColor": "rgba(229, 229, 229, 1)",
-      },
-    ]
+    {
+      "marginBottom": 8,
+    }
   }
 >
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -2132,1021 +804,373 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
+      {
+        "borderBottomColor": "rgba(204, 204, 204, 1)",
         "borderBottomWidth": 0,
-        "marginBottom": 8,
+        "borderLeftColor": "rgba(204, 204, 204, 1)",
+        "borderLeftWidth": 0,
+        "borderRightColor": "rgba(204, 204, 204, 1)",
+        "borderRightWidth": 0,
+        "borderTopColor": "rgba(204, 204, 204, 1)",
+        "borderTopWidth": 0,
         "opacity": 1,
       }
     }
-    testID="vault"
+    testID="vault_"
   >
     <View
       style={
-        Object {
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "marginBottom": 16,
+        {
+          "flexDirection": "column",
         }
       }
     >
       <View
         style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexBasis": "0%",
-            "flexDirection": "row",
-            "flexGrow": 1,
-            "flexShrink": 1,
-          }
+          [
+            {
+              "alignItems": "center",
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderBottomWidth": 0,
+              "borderLeftWidth": 0,
+              "borderRightWidth": 0,
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10,
+              "borderTopWidth": 0,
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "paddingBottom": 20,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 20,
+            },
+            {
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+            },
+          ]
         }
+        testID="vault"
       >
         <View
           style={
-            Object {
-              "display": "flex",
+            {
               "flexBasis": "0%",
               "flexDirection": "column",
               "flexGrow": 1,
               "flexShrink": 1,
+              "paddingRight": 8,
             }
           }
         >
           <View
             style={
-              Object {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-                "justifyContent": "space-between",
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "flexDirection": "column",
-                }
-              }
-            >
-              <View
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                  }
-                }
-              >
-                <Text
-                  style={
-                    Array [
-                      Object {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
-                      Array [
-                        Object {
-                          "fontSize": 12,
-                          "lineHeight": 16,
-                          "marginRight": 6,
-                        },
-                        Object {
-                          "color": "rgba(163, 163, 163, 1)",
-                        },
-                      ],
-                    ]
-                  }
-                >
-                  Vault ID
-                </Text>
-                <View
-                  style={
-                    Array [
-                      Object {
-                        "alignItems": "center",
-                        "display": "flex",
-                        "flexDirection": "row",
-                        "paddingBottom": 2,
-                        "paddingLeft": 8,
-                        "paddingRight": 8,
-                        "paddingTop": 2,
-                      },
-                      Object {
-                        "backgroundColor": "rgba(255, 230, 230, 1)",
-                      },
-                    ]
-                  }
-                >
-                  <Text
-                    style={
-                      Array [
-                        Object {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
-                        Array [
-                          Object {
-                            "fontFamily": "MediumFont",
-                            "fontSize": 12,
-                            "fontWeight": "500",
-                            "lineHeight": 16,
-                          },
-                          Object {
-                            "color": "rgba(230, 0, 0, 1)",
-                          },
-                        ],
-                      ]
-                    }
-                    testID="vault_status"
-                  >
-                    ACTIVE
-                  </Text>
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      Array [
-                        Object {
-                          "color": undefined,
-                          "fontSize": 14,
-                        },
-                        Array [
-                          Object {
-                            "marginLeft": 4,
-                            "paddingTop": 1,
-                          },
-                          Object {
-                            "color": "rgba(230, 0, 0, 1)",
-                          },
-                        ],
-                        Object {
-                          "fontFamily": "material-community",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                        Object {},
-                      ]
-                    }
-                    testID="vault_tag_NEAR LIQUIDATION"
-                  >
-                    󰢼
-                  </Text>
-                </View>
-              </View>
-              <View
-                accessible={true}
-                focusable={true}
-                onClick={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "flexDirection": "row",
-                    "marginBottom": 2,
-                    "opacity": 1,
-                  }
-                }
-              >
-                <Text
-                  ellipsizeMode="middle"
-                  numberOfLines={1}
-                  style={
-                    Array [
-                      Object {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
-                      Array [
-                        Object {
-                          "flexShrink": 1,
-                          "fontFamily": "SemiBoldFont",
-                          "fontWeight": "600",
-                          "marginRight": 2,
-                          "width": 224,
-                        },
-                        Object {
-                          "color": "rgba(0, 0, 0, 1)",
-                        },
-                      ],
-                    ]
-                  }
-                  testID="vault_vault_id"
-                >
-                  22ffasd5ca123123123123123121231061
-                </Text>
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    Array [
-                      Object {
-                        "color": undefined,
-                        "fontSize": 18,
-                      },
-                      Array [
-                        undefined,
-                        Object {
-                          "color": "rgba(255, 0, 175, 1)",
-                        },
-                      ],
-                      Object {
-                        "fontFamily": "material",
-                        "fontStyle": "normal",
-                        "fontWeight": "normal",
-                      },
-                      Object {},
-                    ]
-                  }
-                >
-                  
-                </Text>
-              </View>
-            </View>
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": undefined,
-                    "fontSize": 30,
-                  },
-                  Array [
-                    undefined,
-                    Object {
-                      "color": "rgba(0, 0, 0, 1)",
-                    },
-                  ],
-                  Object {
-                    "fontFamily": "material",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
-              }
-            >
-              
-            </Text>
-          </View>
-          <View
-            style={
-              Object {
-                "display": "flex",
-                "flexDirection": "row",
-              }
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontSize": 12,
-                      "lineHeight": 16,
-                      "marginRight": 4,
-                    },
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
-                    },
-                  ],
-                ]
-              }
-            >
-              Collateral:
-            </Text>
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontSize": 12,
-                      "lineHeight": 16,
-                      "marginLeft": 4,
-                    },
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="vault_collateral_none"
-            >
-              None
-            </Text>
-            <View
-              style={
-                Object {
+              [
+                {
                   "display": "flex",
                   "flexDirection": "row",
-                }
-              }
-            />
-          </View>
-        </View>
-      </View>
-    </View>
-    <View
-      style={
-        Object {
-          "marginBottom": 16,
-        }
-      }
-      testID="vault_collateralization_bar"
-    >
-      <View
-        style={
-          Object {
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-          }
-        }
-      >
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "flexDirection": "row",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
+                  "position": "relative",
                 },
-                Array [
-                  Object {
-                    "fontSize": 14,
-                    "lineHeight": 20,
-                    "marginRight": 2,
-                  },
-                  Object {
-                    "color": "rgba(0, 0, 0, 1)",
-                  },
-                ],
+                {
+                  "right": 0,
+                },
               ]
-            }
-          >
-            Collateralization ratio
-          </Text>
-        </View>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              Array [
-                Object {
-                  "fontFamily": "SemiBoldFont",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
-                Object {
-                  "color": "rgba(2, 179, 27, 1)",
-                },
-              ],
-            ]
-          }
-          testID="vault_col_ratio"
-        >
-          
-        </Text>
-      </View>
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginBottom": 12,
-          }
-        }
-      >
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-              "flexDirection": "row",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontSize": 12,
-                    "lineHeight": 16,
-                    "marginRight": 2,
-                  },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-          >
-            Min:
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontSize": 12,
-                    "lineHeight": 16,
-                  },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="vault_min_ratio"
-          >
-            100%
-          </Text>
-        </View>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-              "flexDirection": "row",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontSize": 12,
-                    "lineHeight": 16,
-                    "marginRight": 2,
-                  },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-          >
-            Next:
-          </Text>
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
-                Array [
-                  Object {
-                    "fontSize": 12,
-                    "lineHeight": 16,
-                  },
-                  Object {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
-                ],
-              ]
-            }
-            testID="vault_next_ratio"
-          >
-            -~1.00%
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "position": "relative",
-          }
-        }
-      >
-        <View
-          animated={true}
-          animationConfig={
-            Object {
-              "bounciness": 0,
-            }
-          }
-          animationType="spring"
-          indeterminate={false}
-          indeterminateAnimationDuration={1000}
-          onLayout={[Function]}
-          progress={NaN}
-          style={
-            Array [
-              Object {
-                "backgroundColor": "rgba(245, 245, 245, 1)",
-                "borderColor": "rgba(212, 212, 212, 1)",
-                "borderRadius": 8,
-                "borderWidth": 1,
-                "overflow": "hidden",
-                "width": null,
-              },
-              undefined,
-            ]
-          }
-          useNativeDriver={false}
-        >
-          <View
-            style={
-              Object {
-                "backgroundColor": "rgba(255, 255, 255, 1)",
-                "height": 12,
-                "transform": Array [
-                  Object {
-                    "translateX": 0,
-                  },
-                  Object {
-                    "translateX": NaN,
-                  },
-                  Object {
-                    "scaleX": NaN,
-                  },
-                ],
-              }
             }
           />
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "display": "flex",
-            "flexDirection": "row",
-            "marginTop": 4,
-          }
-        }
-      >
-        <View
-          style={
-            Array [
-              Array [
-                Object {
-                  "height": 4,
-                },
-                Object {
-                  "width": "20.83%",
-                },
-              ],
-              Object {
-                "backgroundColor": "rgba(255, 153, 153, 1)",
-              },
-            ]
-          }
-        />
-        <View
-          style={
-            Array [
-              Array [
-                Object {
-                  "height": 4,
-                },
-                Object {
-                  "width": "4.17%",
-                },
-              ],
-              Object {
-                "backgroundColor": "rgba(255, 213, 169, 1)",
-              },
-            ]
-          }
-        />
-        <View
-          style={
-            Array [
-              Object {
-                "flexBasis": "0%",
-                "flexGrow": 1,
-                "flexShrink": 1,
-                "height": 4,
-              },
-              Object {
-                "backgroundColor": "rgba(154, 225, 164, 1)",
-              },
-            ]
-          }
-        />
-      </View>
-    </View>
-    <View
-      style={
-        Object {
-          "display": "flex",
-          "flexDirection": "row",
-          "flexWrap": "wrap",
-          "marginBottom": -8,
-        }
-      }
-    >
-      <View
-        style={
-          Array [
-            Object {
-              "flexDirection": "row",
-              "marginBottom": 4,
-              "marginTop": 4,
-              "width": "100%",
-            },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
-          ]
-        }
-      >
-        <View
-          style={
-            Object {
-              "width": "50%",
-            }
-          }
-        >
           <View
             style={
-              Object {
-                "alignItems": "flex-end",
-                "flexDirection": "row",
-                "justifyContent": "flex-start",
+              {
+                "marginTop": 12,
               }
             }
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                    ],
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
+                  [
+                    {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
+                      "lineHeight": 16,
+                    },
+                    {
+                      "color": "rgba(89, 89, 89, 1)",
                     },
                   ],
                 ]
               }
-              testID="vault_total_loan_label"
+              testID="vault_max_loan_label"
             >
-              Total loans (USD)
+              Max loan amount
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "fontFamily": "RegularFont",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
+                      "lineHeight": 16,
+                    },
+                    {
+                      "color": "rgba(18, 18, 18, 1)",
+                    },
+                  ],
+                ]
+              }
+              testID="vault_max_loan_amount"
+            >
+              $0.00
             </Text>
           </View>
-        </View>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "flexBasis": "0%",
-              "flexDirection": "row",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "flexWrap": "wrap",
-              "justifyContent": "flex-end",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                  "marginLeft": 0,
-                },
-                undefined,
-              ]
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(23, 23, 23, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="vault_total_loan"
-            >
-              $100.00
-            </Text>
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Array [
-            Object {
-              "flexDirection": "row",
-              "marginBottom": 4,
-              "marginTop": 4,
-              "width": "100%",
-            },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
-          ]
-        }
-      >
-        <View
-          style={
-            Object {
-              "width": "50%",
-            }
-          }
-        >
           <View
             style={
-              Object {
-                "alignItems": "flex-end",
-                "flexDirection": "row",
-                "justifyContent": "flex-start",
+              {
+                "marginTop": 8,
               }
             }
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                    ],
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
+                  [
+                    {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
+                      "lineHeight": 16,
+                    },
+                    {
+                      "color": "rgba(89, 89, 89, 1)",
                     },
                   ],
                 ]
               }
               testID="vault_total_collateral_label"
             >
-              Total collateral (USD)
+              Total collateral
             </Text>
-          </View>
-        </View>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "flexBasis": "0%",
-              "flexDirection": "row",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "flexWrap": "wrap",
-              "justifyContent": "flex-end",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                  "marginLeft": 0,
-                },
-                undefined,
-              ]
-            }
-          >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(23, 23, 23, 1)",
+                  [
+                    {
+                      "fontFamily": "SoraRegular",
+                      "fontSize": 12,
+                      "fontWeight": "400",
+                      "lineHeight": 16,
+                    },
+                    {
+                      "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
                 ]
               }
-              testID="vault_total_collateral"
+              testID="vault_total_collateral_amount"
+            />
+          </View>
+        </View>
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "column",
+              "flexWrap": "wrap",
+            }
+          }
+        >
+          <react-native-circular-progress-indicator/mock
+            activeStrokeColor="rgba(229, 69, 69, 1)"
+            activeStrokeWidth={3}
+            clockwise={false}
+            inActiveStrokeColor="rgba(242, 242, 242, 1)"
+            inActiveStrokeWidth={3}
+            maxValue={1}
+            radius={58}
+            showProgressValue={false}
+            value={0.01}
+          />
+          <View
+            style={
+              [
+                {
+                  "height": "100%",
+                  "position": "absolute",
+                },
+                {
+                  "maxHeight": 116,
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flexBasis": "0%",
+                  "flexGrow": 1,
+                  "flexShrink": 1,
+                  "justifyContent": "flex-end",
+                  "paddingLeft": 8,
+                  "paddingRight": 8,
+                }
+              }
             >
-              
-            </Text>
-          </Text>
+              <Text
+                ellipsizeMode="middle"
+                numberOfLines={1}
+                style={
+                  [
+                    {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "fontFamily": "SoraRegular",
+                          "fontSize": 12,
+                          "fontWeight": "400",
+                          "lineHeight": 16,
+                          "paddingLeft": 8,
+                          "paddingRight": 8,
+                        },
+                        {
+                          "maxWidth": 124,
+                          "minWidth": 10,
+                        },
+                      ],
+                      {
+                        "color": "rgba(89, 89, 89, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="vault_vault_id"
+              >
+                22ffasd5ca123123123123123121231061
+              </Text>
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "SoraSemiBold",
+                        "fontSize": 16,
+                        "fontWeight": "600",
+                        "lineHeight": 24,
+                        "textAlign": "center",
+                      },
+                      {
+                        "color": "rgba(229, 69, 69, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="vault_min_ratio"
+              >
+                0.00%
+              </Text>
+            </View>
+            <View
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignSelf": "center",
+                  "backgroundColor": "rgba(0, 0, 0, 1)",
+                  "borderBottomLeftRadius": 9999,
+                  "borderBottomRightRadius": 9999,
+                  "borderBottomWidth": 0,
+                  "borderLeftWidth": 0,
+                  "borderRightWidth": 0,
+                  "borderTopLeftRadius": 9999,
+                  "borderTopRightRadius": 9999,
+                  "borderTopWidth": 0,
+                  "flexWrap": "wrap",
+                  "marginTop": 8,
+                  "opacity": 1,
+                  "paddingBottom": 8,
+                  "paddingLeft": 16,
+                  "paddingRight": 16,
+                  "paddingTop": 8,
+                }
+              }
+            >
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "RegularFont",
+                      "fontSize": 16,
+                      "fontWeight": "400",
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "alignSelf": "center",
+                        "flexWrap": "wrap",
+                        "fontFamily": "SoraSemiBold",
+                        "fontSize": 12,
+                        "fontWeight": "600",
+                        "lineHeight": 16,
+                      },
+                      {
+                        "color": "rgba(242, 242, 242, 1)",
+                      },
+                    ],
+                  ]
+                }
+                testID="vault_borrow_button"
+              >
+                Borrow
+              </Text>
+            </View>
+          </View>
         </View>
       </View>
-    </View>
-  </View>
-  <View
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "flexWrap": "wrap",
-          "marginBottom": -8,
-          "marginTop": 16,
-        },
-        Object {
-          "borderBottomColor": "rgba(229, 229, 229, 1)",
-          "borderLeftColor": "rgba(229, 229, 229, 1)",
-          "borderRightColor": "rgba(229, 229, 229, 1)",
-          "borderTopColor": "rgba(229, 229, 229, 1)",
-        },
-      ]
-    }
-  >
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(212, 212, 212, 1)",
-          "borderBottomLeftRadius": 4,
-          "borderBottomRightRadius": 4,
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(212, 212, 212, 1)",
-          "borderLeftWidth": 1,
-          "borderRightColor": "rgba(212, 212, 212, 1)",
-          "borderRightWidth": 1,
-          "borderTopColor": "rgba(212, 212, 212, 1)",
-          "borderTopLeftRadius": 4,
-          "borderTopRightRadius": 4,
-          "borderTopWidth": 1,
-          "flexDirection": "row",
-          "marginBottom": 8,
-          "marginRight": 8,
-          "opacity": 1,
-          "paddingBottom": 4,
-          "paddingLeft": 4,
-          "paddingRight": 4,
-          "paddingTop": 4,
-        }
-      }
-      testID="vault_edit_collaterals_button"
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Array [
-                Object {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 14,
-                  "fontWeight": "500",
-                  "lineHeight": 16,
-                  "paddingLeft": 4,
-                  "paddingRight": 4,
-                },
-                undefined,
-              ],
-              Object {
-                "color": "rgba(255, 0, 175, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        EDIT COLLATERAL
-      </Text>
     </View>
   </View>
 </View>
@@ -3155,35 +1179,15 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
 exports[`Vault card should match snapshot of liquidated vault 1`] = `
 <View
   style={
-    Array [
-      Object {
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftWidth": 1,
-        "borderRightWidth": 1,
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "marginBottom": 8,
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 16,
-      },
-      Object {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderTopColor": "rgba(229, 229, 229, 1)",
-      },
-    ]
+    {
+      "marginBottom": 8,
+    }
   }
 >
   <View
     accessible={true}
-    focusable={true}
+    collapsable={false}
+    focusable={false}
     onClick={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -3192,40 +1196,67 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
+      {
+        "borderBottomColor": "rgba(204, 204, 204, 1)",
         "borderBottomWidth": 0,
-        "marginBottom": 8,
+        "borderLeftColor": "rgba(204, 204, 204, 1)",
+        "borderLeftWidth": 0,
+        "borderRightColor": "rgba(204, 204, 204, 1)",
+        "borderRightWidth": 0,
+        "borderTopColor": "rgba(204, 204, 204, 1)",
+        "borderTopWidth": 0,
         "opacity": 1,
       }
     }
-    testID="vault"
+    testID="vault_IN LIQUIDATION"
   >
     <View
       style={
-        Object {
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "marginBottom": 16,
-        }
+        [
+          {
+            "borderBottomLeftRadius": 10,
+            "borderBottomRightRadius": 10,
+            "borderBottomWidth": 0,
+            "borderLeftWidth": 0,
+            "borderRightWidth": 0,
+            "borderTopLeftRadius": 10,
+            "borderTopRightRadius": 10,
+            "borderTopWidth": 0,
+            "paddingBottom": 20,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+            "paddingTop": 20,
+          },
+          {
+            "backgroundColor": "rgba(255, 255, 255, 1)",
+          },
+        ]
       }
+      testID="vault_IN LIQUIDATION_vault"
     >
       <View
         style={
-          Object {
+          {
             "alignItems": "center",
-            "display": "flex",
-            "flexBasis": "0%",
             "flexDirection": "row",
-            "flexGrow": 1,
-            "flexShrink": 1,
           }
         }
       >
+        <Image
+          resizeMode="contain"
+          source={1}
+          style={
+            {
+              "height": 64,
+              "width": 74,
+            }
+          }
+          testID="vault_IN LIQUIDATION_liquidated_vault_image"
+        />
         <View
           style={
-            Object {
-              "display": "flex",
+            {
+              "alignItems": "flex-end",
               "flexBasis": "0%",
               "flexDirection": "column",
               "flexGrow": 1,
@@ -3234,582 +1265,103 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
           }
         >
           <View
+            accessibilityState={
+              {
+                "disabled": false,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              Object {
+              {
                 "alignItems": "center",
-                "display": "flex",
+                "borderBottomColor": "rgba(204, 204, 204, 1)",
+                "borderBottomWidth": 0,
+                "borderLeftColor": "rgba(204, 204, 204, 1)",
+                "borderLeftWidth": 0,
+                "borderRightColor": "rgba(204, 204, 204, 1)",
+                "borderRightWidth": 0,
+                "borderTopColor": "rgba(204, 204, 204, 1)",
+                "borderTopWidth": 0,
                 "flexDirection": "row",
-                "justifyContent": "space-between",
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "flexDirection": "column",
-                }
-              }
-            >
-              <View
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                  }
-                }
-              >
-                <Text
-                  style={
-                    Array [
-                      Object {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
-                      Array [
-                        Object {
-                          "fontSize": 12,
-                          "lineHeight": 16,
-                          "marginRight": 6,
-                        },
-                        Object {
-                          "color": "rgba(163, 163, 163, 1)",
-                        },
-                      ],
-                    ]
-                  }
-                >
-                  Vault ID
-                </Text>
-                <View
-                  style={
-                    Array [
-                      Object {
-                        "alignItems": "center",
-                        "display": "flex",
-                        "flexDirection": "row",
-                        "paddingBottom": 2,
-                        "paddingLeft": 8,
-                        "paddingRight": 8,
-                        "paddingTop": 2,
-                      },
-                      Object {
-                        "backgroundColor": "rgba(245, 245, 245, 1)",
-                      },
-                    ]
-                  }
-                >
-                  <Text
-                    style={
-                      Array [
-                        Object {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
-                        Array [
-                          Object {
-                            "fontFamily": "MediumFont",
-                            "fontSize": 12,
-                            "fontWeight": "500",
-                            "lineHeight": 16,
-                          },
-                          Object {
-                            "color": "rgba(115, 115, 115, 1)",
-                          },
-                        ],
-                      ]
-                    }
-                    testID="vault_status"
-                  >
-                    IN LIQUIDATION
-                  </Text>
-                </View>
-              </View>
-              <View
-                accessible={true}
-                focusable={true}
-                onClick={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "flexDirection": "row",
-                    "marginBottom": 2,
-                    "opacity": 1,
-                  }
-                }
-              >
-                <Text
-                  ellipsizeMode="middle"
-                  numberOfLines={1}
-                  style={
-                    Array [
-                      Object {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
-                      Array [
-                        Object {
-                          "flexShrink": 1,
-                          "fontFamily": "SemiBoldFont",
-                          "fontWeight": "600",
-                          "marginRight": 2,
-                          "width": 224,
-                        },
-                        Object {
-                          "color": "rgba(0, 0, 0, 1)",
-                        },
-                      ],
-                    ]
-                  }
-                  testID="vault_vault_id"
-                >
-                  22ffasd5ca123123123123123121231061
-                </Text>
-                <Text />
-              </View>
-            </View>
-          </View>
-          <View
-            style={
-              Object {
-                "display": "flex",
-                "flexDirection": "row",
+                "opacity": 1,
               }
             }
           >
             <Text
+              ellipsizeMode="middle"
+              numberOfLines={1}
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
-                      "fontSize": 12,
-                      "lineHeight": 16,
-                      "marginRight": 4,
-                    },
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
-                    },
-                  ],
-                ]
-              }
-            >
-              Collateral:
-            </Text>
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Object {
-                      "fontSize": 12,
-                      "lineHeight": 16,
-                      "marginLeft": 4,
-                    },
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="vault_collateral_none"
-            >
-              None
-            </Text>
-            <View
-              style={
-                Object {
-                  "display": "flex",
-                  "flexDirection": "row",
-                }
-              }
-            />
-          </View>
-        </View>
-      </View>
-    </View>
-    <View
-      style={
-        Object {
-          "display": "flex",
-          "flexDirection": "row",
-          "flexWrap": "wrap",
-          "marginBottom": -8,
-        }
-      }
-    >
-      <View
-        style={
-          Array [
-            Object {
-              "flexDirection": "row",
-              "marginBottom": 4,
-              "marginTop": 4,
-              "width": "100%",
-            },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
-          ]
-        }
-      >
-        <View
-          style={
-            Object {
-              "width": "50%",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "alignItems": "flex-end",
-                "flexDirection": "row",
-                "justifyContent": "flex-start",
-              }
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                      },
-                      Object {
+                  [
+                    [
+                      {
                         "fontSize": 12,
                         "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                    ],
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="vault_total_loan_label"
-            >
-              Total loans (USD)
-            </Text>
-          </View>
-        </View>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "flexBasis": "0%",
-              "flexDirection": "row",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "flexWrap": "wrap",
-              "justifyContent": "flex-end",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                  "marginLeft": 0,
-                },
-                undefined,
-              ]
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
                         "textAlign": "right",
                       },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
+                      {
+                        "maxWidth": 124,
+                        "minWidth": 10,
                       },
-                      undefined,
                     ],
-                    Object {
-                      "color": "rgba(23, 23, 23, 1)",
+                    {
+                      "color": "rgba(89, 89, 89, 1)",
                     },
                   ],
                 ]
               }
-              testID="vault_total_loan"
+              testID="vault_IN LIQUIDATION_vault_id"
             >
-              -
+              22ffasd5ca123123123123123121231061
             </Text>
+            <Text />
+          </View>
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "SoraRegular",
+                    "fontSize": 12,
+                    "fontWeight": "400",
+                    "lineHeight": 16,
+                    "marginTop": 4,
+                    "textAlign": "right",
+                    "width": "91.666667%",
+                  },
+                  {
+                    "color": "rgba(229, 69, 69, 1)",
+                  },
+                ],
+              ]
+            }
+            testID="vault_IN LIQUIDATION_vault_description"
+          >
+            Liquidated vault
           </Text>
         </View>
       </View>
-      <View
-        style={
-          Array [
-            Object {
-              "flexDirection": "row",
-              "marginBottom": 4,
-              "marginTop": 4,
-              "width": "100%",
-            },
-            Object {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
-          ]
-        }
-      >
-        <View
-          style={
-            Object {
-              "width": "50%",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "alignItems": "flex-end",
-                "flexDirection": "row",
-                "justifyContent": "flex-start",
-              }
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                    ],
-                    Object {
-                      "color": "rgba(115, 115, 115, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="vault_total_collateral_label"
-            >
-              Total collateral (USD)
-            </Text>
-          </View>
-        </View>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "flexBasis": "0%",
-              "flexDirection": "row",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "flexWrap": "wrap",
-              "justifyContent": "flex-end",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
-                Object {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                  "marginLeft": 0,
-                },
-                undefined,
-              ]
-            }
-          >
-            <Text
-              style={
-                Array [
-                  Object {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
-                  Array [
-                    Array [
-                      Object {
-                        "fontSize": 14,
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
-                      Object {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                        "marginLeft": 0,
-                      },
-                      undefined,
-                    ],
-                    Object {
-                      "color": "rgba(23, 23, 23, 1)",
-                    },
-                  ],
-                ]
-              }
-              testID="vault_total_collateral"
-            >
-              -
-            </Text>
-          </Text>
-        </View>
-      </View>
-    </View>
-  </View>
-  <View
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "flexWrap": "wrap",
-          "marginBottom": -8,
-          "marginTop": 16,
-        },
-        Object {
-          "borderBottomColor": "rgba(229, 229, 229, 1)",
-          "borderLeftColor": "rgba(229, 229, 229, 1)",
-          "borderRightColor": "rgba(229, 229, 229, 1)",
-          "borderTopColor": "rgba(229, 229, 229, 1)",
-        },
-      ]
-    }
-  >
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgba(245, 245, 245, 1)",
-          "borderBottomColor": "rgba(245, 245, 245, 1)",
-          "borderBottomLeftRadius": 4,
-          "borderBottomRightRadius": 4,
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(245, 245, 245, 1)",
-          "borderLeftWidth": 1,
-          "borderRightColor": "rgba(245, 245, 245, 1)",
-          "borderRightWidth": 1,
-          "borderTopColor": "rgba(245, 245, 245, 1)",
-          "borderTopLeftRadius": 4,
-          "borderTopRightRadius": 4,
-          "borderTopWidth": 1,
-          "flexDirection": "row",
-          "marginBottom": 8,
-          "marginRight": 8,
-          "opacity": 1,
-          "paddingBottom": 4,
-          "paddingLeft": 4,
-          "paddingRight": 4,
-          "paddingTop": 4,
-        }
-      }
-      testID="vault_edit_collaterals_button"
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Array [
-                Object {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 14,
-                  "fontWeight": "500",
-                  "lineHeight": 16,
-                  "paddingLeft": 4,
-                  "paddingRight": 4,
-                },
-                undefined,
-              ],
-              Object {
-                "color": "rgba(212, 212, 212, 1)",
-              },
-            ],
-          ]
-        }
-      >
-        EDIT COLLATERAL
-      </Text>
     </View>
   </View>
 </View>

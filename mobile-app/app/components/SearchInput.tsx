@@ -1,49 +1,73 @@
-import { ThemedIcon, ThemedTextInput, ThemedView } from '@components/themed'
-import { ClearButton } from '@components/WalletTextInput'
-import { tailwind } from '@tailwind'
+import { StyleProp, TextInputProps, TextStyle, ViewStyle } from "react-native";
+import {
+  ThemedIcon,
+  ThemedProps,
+  ThemedTextInputV2,
+  ThemedViewV2,
+} from "@components/themed";
+import { ClearButtonV2 } from "@components/WalletTextInputV2";
+import { tailwind } from "@tailwind";
+import { forwardRef } from "react";
 
-import { TextInputProps } from 'react-native'
+type SearchInputProps = React.PropsWithChildren<TextInputProps> &
+  ISearchInputProps;
 
-type SearchInputProps = React.PropsWithChildren<TextInputProps> & ISearchInputProps
-
-interface ISearchInputProps {
-  showClearButton: boolean
-  onClearInput: () => void
+interface ISearchInputProps extends ThemedProps {
+  showClearButton: boolean;
+  inputStyle?: ThemedProps & {
+    style?: StyleProp<TextStyle>;
+  };
+  containerStyle?: StyleProp<ViewStyle>;
+  onClearInput: () => void;
 }
 
-export function SearchInput (props: SearchInputProps): JSX.Element {
-  const {
-    onClearInput,
-    ...otherProps
-  } = props
-  return (
-    <ThemedView
-      light={tailwind('bg-gray-100')}
-      dark={tailwind('bg-gray-900')}
-      style={tailwind('rounded-lg flex flex-row items-center py-1 pl-2 flex-1')}
-    >
-      <ThemedIcon
-        iconType='MaterialIcons'
-        name='search'
-        size={16}
-        light={tailwind('text-gray-600')}
-        dark={tailwind('text-gray-300')}
-        style={tailwind('mr-2')}
-      />
-      <ThemedTextInput
-        {...otherProps}
-        style={tailwind('flex-grow w-8/12 h-8')}
-      />
-      {props.showClearButton &&
-        (
-          <ClearButton
+export const SearchInput = forwardRef<any, SearchInputProps>(
+  (props: SearchInputProps, ref: React.Ref<any>): JSX.Element => {
+    const {
+      onClearInput,
+      containerStyle,
+      inputStyle,
+      light = tailwind("bg-mono-light-v2-00"),
+      dark = tailwind("bg-mono-dark-v2-00"),
+      testID,
+      ...otherProps
+    } = props;
+    return (
+      <ThemedViewV2
+        light={light}
+        dark={dark}
+        style={[
+          tailwind("rounded-full flex flex-row items-center px-5 py-3"),
+          props.containerStyle,
+        ]}
+      >
+        <ThemedIcon
+          iconType="Feather"
+          name="search"
+          size={16}
+          light={tailwind("text-mono-light-v2-500")}
+          dark={tailwind("text-mono-light-v2-500")}
+          style={tailwind("mr-2 my-px")}
+        />
+        <ThemedTextInputV2
+          ref={ref}
+          testID={testID}
+          {...otherProps}
+          style={[
+            inputStyle?.style,
+            tailwind("flex-grow w-8/12 font-normal-v2 flex-1 text-xs"),
+            tailwind({ "mr-4": !props.showClearButton }),
+          ]}
+          dark={inputStyle?.dark}
+          light={inputStyle?.light}
+        />
+        {props.showClearButton && (
+          <ClearButtonV2
             onPress={onClearInput}
-            iconThemedProps={{
-              light: tailwind('text-gray-300'),
-              dark: tailwind('text-gray-600')
-            }}
+            testID={`${testID}_clear_btn`}
           />
         )}
-    </ThemedView>
-  )
-}
+      </ThemedViewV2>
+    );
+  }
+);

@@ -1,23 +1,23 @@
-import { SecuredStoreAPI } from '@api'
+import { SecuredStoreAPI } from "@api";
 
-const KEY = 'WALLET_ADDRESS.INDEX'
+const KEY = "WALLET_ADDRESS.INDEX";
 
-async function getLength (): Promise<number> {
-  const str = await SecuredStoreAPI.getItem(`${KEY}.length`)
-  return str === undefined ? 0 : Number(str)
+async function getLength(): Promise<number> {
+  const str = await SecuredStoreAPI.getItem(`${KEY}.length`);
+  return str === undefined ? 0 : Number(str);
 }
 
-async function setLength (count: number): Promise<void> {
-  await SecuredStoreAPI.setItem(`${KEY}.length`, `${count}`)
+async function setLength(count: number): Promise<void> {
+  await SecuredStoreAPI.setItem(`${KEY}.length`, `${count}`);
 }
 
-async function getActive (): Promise<number> {
-  const str = await SecuredStoreAPI.getItem(`${KEY}.active`)
-  return str === undefined ? 0 : Number(str)
+async function getActive(): Promise<number> {
+  const str = await SecuredStoreAPI.getItem(`${KEY}.active`);
+  return str === undefined ? 0 : Number(str);
 }
 
-async function setActive (count: number): Promise<void> {
-  await SecuredStoreAPI.setItem(`${KEY}.active`, `${count}`)
+async function setActive(count: number): Promise<void> {
+  await SecuredStoreAPI.setItem(`${KEY}.active`, `${count}`);
 }
 
 /**
@@ -28,5 +28,5 @@ export const WalletAddressIndexPersistence = {
   getLength,
   setLength,
   getActive,
-  setActive
-}
+  setActive,
+};

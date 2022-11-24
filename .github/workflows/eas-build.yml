@@ -13,9 +13,9 @@ jobs:
     environment: EAS Release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@dcd71f646680f2efd8db4afa5ad64fdcba30e748
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3.1.0
 
-      - uses: actions/github-script@9ac08808f993958e9de277fe43a64532a609130e
+      - uses: actions/github-script@d556feaca394842dc55e4734bf3bb9f685482fa0 # tag=v6.3.3
         id: version
         with:
           script: |
@@ -26,11 +26,11 @@ jobs:
 
           result-encoding: string
 
-      - uses: actions/setup-node@56337c425554a6be30cdef71bf441f15be286854
+      - uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # tag=v3.5.1
         with:
           node-version: 16
 
-      - uses: expo/expo-github-action@f98a64c8874c4a163514273f34306f403e962350
+      - uses: expo/expo-github-action@f98a64c8874c4a163514273f34306f403e962350 # tag=v7.2.0
         with:
           eas-version: latest
           expo-version: 4.x
@@ -46,3 +46,6 @@ jobs:
 
       - name: EAS Build - iOS & Android
         run: eas build --platform all --non-interactive --wait --profile preview
+        env:
+          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
+

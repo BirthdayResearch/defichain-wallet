@@ -1,111 +1,149 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`info text should match snapshot for error At least 50% of the vault must be in DFI when taking a loan 1`] = `
-Array [
-  <Text
-    allowFontScaling={false}
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingLeft": 20,
+        "width": "100%",
+      },
+      {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
+  }
+>
+  <View
     style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          undefined,
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
+      {
+        "alignItems": "center",
         "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
+        "width": "75%",
       }
     }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
-    style={
-      Array [
-        Object {
-          "marginLeft": 12,
-          "marginRight": 12,
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
-    }
   >
-    <View>
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          [
+            undefined,
+            {
+              "color": "rgba(255, 0, 0, 1)",
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
+          ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      
+    </Text>
+    <View
+      style={
+        {
+          "marginLeft": 10,
+          "width": "100%",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
         }
       >
-        Error Code: 4
-      </Text>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 4
+        </Text>
+      </View>
       <Text
         ellipsizeMode="tail"
-        numberOfLines={1}
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
+            [
+              {
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
+              {
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Insufficient DFI collateral (≥50%)
+        Insufficient DFI collateral. (≥50%)
       </Text>
     </View>
-  </RCTScrollView>,
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -115,167 +153,193 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
+      {
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
+        [
+          {
+            "color": undefined,
+            "fontSize": 18,
           },
-          Array [
-            Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+          [
+            {
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
-            Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+            {
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
         ]
       }
     >
-      OK
+      
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;
 
 exports[`info text should match snapshot for error Cannot payback loan while any of the asset's price is invalid 1`] = `
-Array [
-  <Text
-    allowFontScaling={false}
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingLeft": 20,
+        "width": "100%",
+      },
+      {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
+  }
+>
+  <View
     style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          undefined,
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
+      {
+        "alignItems": "center",
         "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
+        "width": "75%",
       }
     }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
-    style={
-      Array [
-        Object {
-          "marginLeft": 12,
-          "marginRight": 12,
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
-    }
   >
-    <View>
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          [
+            undefined,
+            {
+              "color": "rgba(255, 0, 0, 1)",
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
+          ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      
+    </Text>
+    <View
+      style={
+        {
+          "marginLeft": 10,
+          "width": "100%",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
         }
       >
-        Error Code: 6
-      </Text>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 6
+        </Text>
+      </View>
       <Text
         ellipsizeMode="tail"
-        numberOfLines={1}
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
+            [
+              {
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
+              {
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Cannot payback loan due to invalid price
+        Unable to payback loan due to invalid price.
       </Text>
     </View>
-  </RCTScrollView>,
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -285,156 +349,181 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
+      {
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
+        [
+          {
+            "color": undefined,
+            "fontSize": 18,
           },
-          Array [
-            Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+          [
+            {
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
-            Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+            {
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
         ]
       }
     >
-      OK
+      
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;
 
 exports[`info text should match snapshot for error Error: Not found, code: 404, message: Page not found 1`] = `
-Array [
-  <Text
-    allowFontScaling={false}
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingLeft": 20,
+        "width": "100%",
+      },
+      {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
+  }
+>
+  <View
     style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          undefined,
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
+      {
+        "alignItems": "center",
         "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
+        "width": "75%",
       }
     }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
-    style={
-      Array [
-        Object {
-          "marginLeft": 12,
-          "marginRight": 12,
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
-    }
   >
-    <View>
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          [
+            undefined,
+            {
+              "color": "rgba(255, 0, 0, 1)",
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
+          ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      
+    </Text>
+    <View
+      style={
+        {
+          "marginLeft": 10,
+          "width": "100%",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
         }
       >
-        Error Code: 0
-      </Text>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 0
+        </Text>
+      </View>
       <Text
         ellipsizeMode="tail"
-        numberOfLines={1}
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
+            [
+              {
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
+              {
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
@@ -443,9 +532,10 @@ Array [
         404, message Page not found
       </Text>
     </View>
-  </RCTScrollView>,
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -455,167 +545,193 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
+      {
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
+        [
+          {
+            "color": undefined,
+            "fontSize": 18,
           },
-          Array [
-            Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+          [
+            {
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
-            Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+            {
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
         ]
       }
     >
-      OK
+      
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;
 
 exports[`info text should match snapshot for error Lack of liquidity 1`] = `
-Array [
-  <Text
-    allowFontScaling={false}
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingLeft": 20,
+        "width": "100%",
+      },
+      {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
+  }
+>
+  <View
     style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          undefined,
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
+      {
+        "alignItems": "center",
         "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
+        "width": "75%",
       }
     }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
-    style={
-      Array [
-        Object {
-          "marginLeft": 12,
-          "marginRight": 12,
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
-    }
   >
-    <View>
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          [
+            undefined,
+            {
+              "color": "rgba(255, 0, 0, 1)",
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
+          ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      
+    </Text>
+    <View
+      style={
+        {
+          "marginLeft": 10,
+          "width": "100%",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
         }
       >
-        Error Code: 5
-      </Text>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 5
+        </Text>
+      </View>
       <Text
         ellipsizeMode="tail"
-        numberOfLines={1}
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
+            [
+              {
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
+              {
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Pool does not have enough liquidity
+        Insufficient liquidity.
       </Text>
     </View>
-  </RCTScrollView>,
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -625,167 +741,193 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
+      {
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
+        [
+          {
+            "color": undefined,
+            "fontSize": 18,
           },
-          Array [
-            Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+          [
+            {
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
-            Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+            {
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
         ]
       }
     >
-      OK
+      
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;
 
 exports[`info text should match snapshot for error No live fixed prices 1`] = `
-Array [
-  <Text
-    allowFontScaling={false}
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingLeft": 20,
+        "width": "100%",
+      },
+      {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
+  }
+>
+  <View
     style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          undefined,
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
+      {
+        "alignItems": "center",
         "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
+        "width": "75%",
       }
     }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
-    style={
-      Array [
-        Object {
-          "marginLeft": 12,
-          "marginRight": 12,
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
-    }
   >
-    <View>
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          [
+            undefined,
+            {
+              "color": "rgba(255, 0, 0, 1)",
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
+          ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      
+    </Text>
+    <View
+      style={
+        {
+          "marginLeft": 10,
+          "width": "100%",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
         }
       >
-        Error Code: 7
-      </Text>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 7
+        </Text>
+      </View>
       <Text
         ellipsizeMode="tail"
-        numberOfLines={1}
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
+            [
+              {
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
+              {
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        No live fixed prices for loan token
+        No live fixed prices for loan token.
       </Text>
     </View>
-  </RCTScrollView>,
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -795,167 +937,193 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
+      {
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
+        [
+          {
+            "color": undefined,
+            "fontSize": 18,
           },
-          Array [
-            Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+          [
+            {
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
-            Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+            {
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
         ]
       }
     >
-      OK
+      
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;
 
-exports[`info text should match snapshot for error Price is higher than indicated. 1`] = `
-Array [
-  <Text
-    allowFontScaling={false}
+exports[`info text should match snapshot for error Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed. 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingLeft": 20,
+        "width": "100%",
+      },
+      {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
+  }
+>
+  <View
     style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          undefined,
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
+      {
+        "alignItems": "center",
         "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
+        "width": "75%",
       }
     }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
-    style={
-      Array [
-        Object {
-          "marginLeft": 12,
-          "marginRight": 12,
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
-    }
   >
-    <View>
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          [
+            undefined,
+            {
+              "color": "rgba(255, 0, 0, 1)",
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
+          ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      
+    </Text>
+    <View
+      style={
+        {
+          "marginLeft": 10,
+          "width": "100%",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
         }
       >
-        Error Code: 3
-      </Text>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 0
+        </Text>
+      </View>
       <Text
         ellipsizeMode="tail"
-        numberOfLines={1}
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
+            [
+              {
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
+              {
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Price is higher than indicated
+        Swap price is higher than the range allowed by the slippage tolerance. Increase tolerance percentage to proceed.
       </Text>
     </View>
-  </RCTScrollView>,
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -965,132 +1133,156 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
+      {
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
+        [
+          {
+            "color": undefined,
+            "fontSize": 18,
           },
-          Array [
-            Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+          [
+            {
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
-            Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+            {
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
         ]
       }
     >
-      OK
+      
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;
 
 exports[`info text should match snapshot for error UnknownError 1`] = `
-Array [
-  <Text />,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingLeft": 20,
+        "width": "100%",
+      },
+      {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
         "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
+        "width": "75%",
       }
     }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
-    style={
-      Array [
-        Object {
-          "marginLeft": 12,
-          "marginRight": 12,
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
-    }
   >
-    <View>
-      <Text
+    <Text />
+    <View
+      style={
+        {
+          "marginLeft": 10,
+          "width": "100%",
+        }
+      }
+    >
+      <View
         style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
+          {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
         }
       >
-        Error Code: 0
-      </Text>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 0
+        </Text>
+      </View>
       <Text
         ellipsizeMode="tail"
-        numberOfLines={1}
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
+            [
+              {
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
+              {
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
@@ -1099,9 +1291,10 @@ Array [
         UnknownError
       </Text>
     </View>
-  </RCTScrollView>,
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -1111,167 +1304,161 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
+      {
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
-    <Text
-      style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          Array [
-            Object {
-              "fontSize": 14,
-              "lineHeight": 20,
-            },
-            Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
-            },
-          ],
-        ]
-      }
-    >
-      OK
-    </Text>
-  </View>,
-]
+    <Text />
+  </View>
+</View>
 `;
 
 exports[`info text should match snapshot for error Vault does not have enough collateralization ratio defined by loan scheme 1`] = `
-Array [
-  <Text
-    allowFontScaling={false}
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingLeft": 20,
+        "width": "100%",
+      },
+      {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
+  }
+>
+  <View
     style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          undefined,
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
+      {
+        "alignItems": "center",
         "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
+        "width": "75%",
       }
     }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
-    style={
-      Array [
-        Object {
-          "marginLeft": 12,
-          "marginRight": 12,
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
-    }
   >
-    <View>
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          [
+            undefined,
+            {
+              "color": "rgba(255, 0, 0, 1)",
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
+          ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      
+    </Text>
+    <View
+      style={
+        {
+          "marginLeft": 10,
+          "width": "100%",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
         }
       >
-        Error Code: 8
-      </Text>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 8
+        </Text>
+      </View>
       <Text
         ellipsizeMode="tail"
-        numberOfLines={1}
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
+            [
+              {
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
+              {
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Vault does not have enough col. ratio
+        Vault does not meet min. collateral ratio. Add collateral to proceed.
       </Text>
     </View>
-  </RCTScrollView>,
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -1281,167 +1468,193 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
+      {
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
+        [
+          {
+            "color": undefined,
+            "fontSize": 18,
           },
-          Array [
-            Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+          [
+            {
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
-            Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+            {
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
         ]
       }
     >
-      OK
+      
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;
 
 exports[`info text should match snapshot for error amount is less than 1`] = `
-Array [
-  <Text
-    allowFontScaling={false}
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingLeft": 20,
+        "width": "100%",
+      },
+      {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
+  }
+>
+  <View
     style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          undefined,
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
+      {
+        "alignItems": "center",
         "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
+        "width": "75%",
       }
     }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
-    style={
-      Array [
-        Object {
-          "marginLeft": 12,
-          "marginRight": 12,
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
-    }
   >
-    <View>
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          [
+            undefined,
+            {
+              "color": "rgba(255, 0, 0, 1)",
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
+          ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      
+    </Text>
+    <View
+      style={
+        {
+          "marginLeft": 10,
+          "width": "100%",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
         }
       >
-        Error Code: 2
-      </Text>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 2
+        </Text>
+      </View>
       <Text
         ellipsizeMode="tail"
-        numberOfLines={1}
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
+            [
+              {
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
+              {
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Not enough balance
+        Insufficient balance. Top up to proceed.
       </Text>
     </View>
-  </RCTScrollView>,
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -1451,167 +1664,193 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
+      {
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
+        [
+          {
+            "color": undefined,
+            "fontSize": 18,
           },
-          Array [
-            Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+          [
+            {
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
-            Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+            {
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
         ]
       }
     >
-      OK
+      
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;
 
 exports[`info text should match snapshot for error no prevouts available to create a transaction 1`] = `
-Array [
-  <Text
-    allowFontScaling={false}
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingLeft": 20,
+        "width": "100%",
+      },
+      {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
+  }
+>
+  <View
     style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          undefined,
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
+      {
+        "alignItems": "center",
         "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
+        "width": "75%",
       }
     }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
-    style={
-      Array [
-        Object {
-          "marginLeft": 12,
-          "marginRight": 12,
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
-    }
   >
-    <View>
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          [
+            undefined,
+            {
+              "color": "rgba(255, 0, 0, 1)",
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
+          ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      
+    </Text>
+    <View
+      style={
+        {
+          "marginLeft": 10,
+          "width": "100%",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
         }
       >
-        Error Code: 1
-      </Text>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 1
+        </Text>
+      </View>
       <Text
         ellipsizeMode="tail"
-        numberOfLines={1}
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
+            [
+              {
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
+              {
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Insufficient UTXO DFI
+        Insufficient UTXO DFI.
       </Text>
     </View>
-  </RCTScrollView>,
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -1621,167 +1860,193 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
+      {
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
+        [
+          {
+            "color": undefined,
+            "fontSize": 18,
           },
-          Array [
-            Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+          [
+            {
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
-            Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+            {
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
         ]
       }
     >
-      OK
+      
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;
 
 exports[`info text should match snapshot for error not enough balance after combing all prevouts 1`] = `
-Array [
-  <Text
-    allowFontScaling={false}
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderBottomColor": "rgba(255, 0, 0, 1)",
+        "borderBottomLeftRadius": 10,
+        "borderBottomRightRadius": 10,
+        "borderBottomWidth": 0.5,
+        "borderLeftColor": "rgba(255, 0, 0, 1)",
+        "borderLeftWidth": 0.5,
+        "borderRightColor": "rgba(255, 0, 0, 1)",
+        "borderRightWidth": 0.5,
+        "borderTopColor": "rgba(255, 0, 0, 1)",
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "borderTopWidth": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingLeft": 20,
+        "width": "100%",
+      },
+      {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+      },
+    ]
+  }
+>
+  <View
     style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 20,
-        },
-        Array [
-          undefined,
-          Object {
-            "color": "rgba(255, 0, 0, 1)",
-          },
-        ],
-        Object {
-          "fontFamily": "material",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
-    }
-  >
-    
-  </Text>,
-  <RCTScrollView
-    contentContainerStyle={
-      Object {
+      {
+        "alignItems": "center",
         "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingTop": 12,
+        "width": "75%",
       }
     }
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
-    style={
-      Array [
-        Object {
-          "marginLeft": 12,
-          "marginRight": 12,
-        },
-        Object {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
-      ]
-    }
   >
-    <View>
-      <Text
-        style={
-          Array [
-            Object {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": undefined,
+            "fontSize": 20,
+          },
+          [
+            undefined,
+            {
+              "color": "rgba(255, 0, 0, 1)",
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
-                "fontSize": 14,
-                "fontWeight": "700",
-                "lineHeight": 20,
-              },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
-              },
-            ],
-          ]
+          ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      
+    </Text>
+    <View
+      style={
+        {
+          "marginLeft": 10,
+          "width": "100%",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
         }
       >
-        Error Code: 1
-      </Text>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Error Code: 1
+        </Text>
+      </View>
       <Text
         ellipsizeMode="tail"
-        numberOfLines={1}
+        numberOfLines={0}
+        onTextLayout={[Function]}
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
-                "fontFamily": "BoldFont",
+            [
+              {
+                "fontFamily": "SoraRegular",
                 "fontSize": 14,
-                "fontWeight": "700",
+                "fontWeight": "400",
                 "lineHeight": 20,
               },
-              Object {
-                "color": "rgba(0, 0, 0, 1)",
+              {
+                "color": "rgba(89, 89, 89, 1)",
               },
             ],
           ]
         }
       >
-        Insufficient UTXO DFI
+        Insufficient UTXO DFI.
       </Text>
     </View>
-  </RCTScrollView>,
+  </View>
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -1791,57 +2056,45 @@ Array [
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderBottomLeftRadius": 4,
-        "borderBottomRightRadius": 4,
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(212, 212, 212, 1)",
-        "borderTopLeftRadius": 4,
-        "borderTopRightRadius": 4,
-        "borderTopWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 12,
+      {
         "opacity": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 4,
       }
     }
     testID="oceanInterface_close"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
-        Array [
-          Object {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
+        [
+          {
+            "color": undefined,
+            "fontSize": 18,
           },
-          Array [
-            Object {
-              "fontSize": 14,
-              "lineHeight": 20,
+          [
+            {
+              "fontFamily": "SoraBold",
+              "fontWeight": "700",
+              "paddingBottom": 24,
+              "paddingLeft": 20,
+              "paddingRight": 20,
+              "paddingTop": 24,
             },
-            Object {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "MediumFont",
-              "fontWeight": "500",
+            {
+              "color": "rgba(89, 89, 89, 1)",
             },
           ],
+          {
+            "fontFamily": "material",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
         ]
       }
     >
-      OK
+      
     </Text>
-  </View>,
-]
+  </View>
+</View>
 `;

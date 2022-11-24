@@ -1,22 +1,29 @@
-
-import { View } from '@components/index'
-import { ThemedText } from '@components/themed'
-import { tailwind } from '@tailwind'
-import { PlaygroundStatus, PlaygroundStatusProps } from './PlaygroundStatus'
+import { View } from "@components/index";
+import { ThemedTextV2 } from "@components/themed";
+import { tailwind } from "@tailwind";
+import { PlaygroundStatus, PlaygroundStatusProps } from "./PlaygroundStatus";
 
 interface PlaygroundTitleProps {
-  title: string
-  status: PlaygroundStatusProps
+  title: string;
+  status: PlaygroundStatusProps;
 }
 
-export function PlaygroundTitle (props: PlaygroundTitleProps): JSX.Element {
+export function PlaygroundTitle(props: PlaygroundTitleProps): JSX.Element {
   return (
-    <View style={tailwind('px-4 py-1 mb-1 mt-4 flex-row flex items-center')}>
-      <ThemedText style={tailwind('text-lg font-semibold mr-2')}>
+    <View
+      style={tailwind(
+        "px-5 mb-2 mt-6 flex-row flex items-center justify-between"
+      )}
+    >
+      <ThemedTextV2
+        dark={tailwind("text-mono-dark-v2-500")}
+        light={tailwind("text-mono-light-v2-500")}
+        style={tailwind("font-normal-v2 text-xs")}
+      >
         {props.title}
-      </ThemedText>
+      </ThemedTextV2>
 
       <PlaygroundStatus {...props.status} />
     </View>
-  )
+  );
 }

@@ -1,64 +1,70 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { AnnouncementData, DefiChainStatus, FeatureFlag } from '@shared-types/website'
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  AnnouncementData,
+  DeFiChainStatus,
+  FeatureFlag,
+} from "@shared-types/website";
 
 export const statusWebsiteSlice = createApi({
-  reducerPath: 'websiteStatus',
+  reducerPath: "websiteStatus",
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://status.defichain.com/api'
+    baseUrl: "https://api.status.jellyfishsdk.com",
   }),
-  endpoints: builder => ({
-    getStatus: builder.query<DefiChainStatus, any>({
+  endpoints: (builder) => ({
+    getBlockchainStatus: builder.query<DeFiChainStatus, any>({
       query: () => ({
-        url: '/v2/summary.json',
-        method: 'GET',
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          mode: 'no-cors'
-        }
-      })
-    })
-  })
-})
+        url: "/blockchain",
+        method: "GET",
+      }),
+    }),
+    // Ocean API
+    getOceanStatus: builder.query<DeFiChainStatus, any>({
+      query: () => ({
+        url: "/overall",
+        method: "GET",
+      }),
+    }),
+  }),
+});
 
 export const announcementWebsiteSlice = createApi({
-  reducerPath: 'website',
+  reducerPath: "website",
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://wallet.defichain.com/api/v0'
+    baseUrl: "https://wallet.defichain.com/api/v0",
   }),
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     getAnnouncements: builder.query<AnnouncementData[], any>({
       query: () => ({
-        url: '/announcements',
-        method: 'GET',
+        url: "/announcements",
+        method: "GET",
         headers: {
-          'Access-Control-Allow-Origin': '*',
-          mode: 'no-cors'
-        }
-      })
+          "Access-Control-Allow-Origin": "*",
+          mode: "no-cors",
+        },
+      }),
     }),
     getFeatureFlags: builder.query<FeatureFlag[], any>({
       query: () => ({
-        url: '/settings/flags',
-        method: 'GET',
+        url: "/settings/flags",
+        method: "GET",
         headers: {
-          'Access-Control-Allow-Origin': '*',
-          mode: 'no-cors'
-        }
-      })
-    })
-  })
-})
+          "Access-Control-Allow-Origin": "*",
+          mode: "no-cors",
+        },
+      }),
+    }),
+  }),
+});
 
-const { useGetStatusQuery } = statusWebsiteSlice
-const {
-  useGetAnnouncementsQuery,
-  useGetFeatureFlagsQuery,
-  usePrefetch
-} = announcementWebsiteSlice
+const { useGetBlockchainStatusQuery, useGetOceanStatusQuery } =
+  statusWebsiteSlice;
+const { useGetAnnouncementsQuery, useGetFeatureFlagsQuery, usePrefetch } =
+  announcementWebsiteSlice;
 
 export {
-  useGetStatusQuery,
+  useGetBlockchainStatusQuery,
+  useGetOceanStatusQuery,
   useGetAnnouncementsQuery,
   useGetFeatureFlagsQuery,
-  usePrefetch
-}
+  usePrefetch,
+};

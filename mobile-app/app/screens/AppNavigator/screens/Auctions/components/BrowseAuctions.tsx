@@ -1,46 +1,66 @@
-import { useCallback, useEffect } from 'react'
-import { tailwind } from '@tailwind'
-import { ThemedFlatList, ThemedScrollView } from '@components/themed'
-import { BatchCard } from '@screens/AppNavigator/screens/Auctions/components/BatchCard'
-import { Platform, View } from 'react-native'
-import { useDispatch, useSelector, batch } from 'react-redux'
-import { RootState } from '@store'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { SkeletonLoader, SkeletonLoaderScreen } from '@components/SkeletonLoader'
-import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
-import { AuctionBatchProps, auctionsSearchByTermSelector, fetchAuctions } from '@store/auctions'
-import { EmptyAuction } from './EmptyAuction'
-import { BottomSheetWebWithNav, BottomSheetWithNav } from '@components/BottomSheetWithNav'
-import { useBottomSheet } from '@hooks/useBottomSheet'
-import BigNumber from 'bignumber.js'
-import { QuickBid } from './QuickBid'
-import { useDebounce } from '@hooks/useDebounce'
-import { fetchVaults, LoanVault, vaultsSelector } from '@store/loans'
-import { useWalletContext } from '@shared-contexts/WalletContext'
-import { fetchTokens, tokensSelector } from '@store/wallet'
-import { useIsFocused } from '@react-navigation/native'
+import { useCallback, useRef, useState } from "react";
+import { useScrollToTop } from "@react-navigation/native";
+import { tailwind } from "@tailwind";
+import { BatchCard } from "@screens/AppNavigator/screens/Auctions/components/BatchCard";
+import { Platform, View } from "react-native";
+import {
+  LoanVaultLiquidated,
+  LoanVaultLiquidationBatch,
+} from "@defichain/whale-api-client/dist/api/loan";
+import { AuctionBatchProps } from "@store/auctions";
+import { useBottomSheet } from "@hooks/useBottomSheet";
+import BigNumber from "bignumber.js";
+import { translate } from "@translations";
+import {
+  BottomSheetWebWithNavV2,
+  BottomSheetWithNavV2,
+} from "@components/BottomSheetWithNavV2";
+import { BottomSheetHeader } from "@components/BottomSheetHeader";
+import { ThemedFlashList } from "@components/themed/ThemedFlashList";
+import { QuickBid } from "./QuickBid";
+import {
+  AuctionsSortRow,
+  AuctionsSortType,
+  BottomSheetAssetSortList,
+} from "./AuctionsSortRow";
+import { EmptyAuction } from "./EmptyAuction";
 
 interface Props {
-  searchString: string
+  batches: AuctionBatchProps[];
+  filteredAuctionBatches: AuctionBatchProps[];
+  activeButtonGroup: ButtonGroupTabKey;
+  showSearchInput: boolean;
+  searchString: string;
 }
 
+export enum ButtonGroupTabKey {
+  AllBids = "ALL_BIDS",
+  YourActiveBids = "YOUR_ACTIVE_BIDS",
+  YourLeadingBids = "YOUR_LEADING_BIDS",
+  Outbid = "OUT_BID",
+}
 export interface onQuickBidProps {
-  batch: LoanVaultLiquidationBatch
-  vaultId: string
-  minNextBidInToken: string
-  vaultLiquidationHeight: LoanVaultLiquidated['liquidationHeight']
-  minNextBidInUSD: string
+  batch: LoanVaultLiquidationBatch;
+  vaultId: string;
+  minNextBidInToken: BigNumber;
+  vaultLiquidationHeight: LoanVaultLiquidated["liquidationHeight"];
+  minNextBidInUSD: BigNumber;
+  totalCollateralsValueInUSD: BigNumber;
 }
 
-export function BrowseAuctions ({ searchString }: Props): JSX.Element {
-  const dispatch = useDispatch()
-  const client = useWhaleApiClient()
-  const { address } = useWalletContext()
-  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const blockCount = useSelector((state: RootState) => state.block.count)
-  const { hasFetchAuctionsData } = useSelector((state: RootState) => state.auctions)
-  const vaults = useSelector((state: RootState) => vaultsSelector(state.loans))
-  const isFocused = useIsFocused()
+export function BrowseAuctions({
+  batches,
+  filteredAuctionBatches,
+  showSearchInput,
+  searchString,
+  activeButtonGroup,
+}: Props): JSX.Element {
+  // Asset sort bottom sheet list
+  const [assetSortType, setAssetSortType] = useState<AuctionsSortType>(
+    AuctionsSortType.LeastTimeLeft
+  ); // to display selected sorted type text
+  const [isSorted, setIsSorted] = useState<boolean>(false); // to display acsending/descending icon
+  const [isQuickBidOpen, setQuickBidOpen] = useState<boolean>(false);
 
   const {
     bottomSheetRef,
@@ -49,143 +69,257 @@ export function BrowseAuctions ({ searchString }: Props): JSX.Element {
     expandModal,
     isModalDisplayed,
     bottomSheetScreen,
-    setBottomSheetScreen
-  } = useBottomSheet()
+    setBottomSheetScreen,
+  } = useBottomSheet();
 
-  // Search
-  const debouncedSearchTerm = useDebounce(searchString, 500)
-  const filteredAuctionBatches = useSelector((state: RootState) => auctionsSearchByTermSelector(state.auctions, debouncedSearchTerm))
+  const assetSortBottomSheetScreen = (): void => {
+    setBottomSheetScreen([
+      {
+        stackScreenName: "AssetSortList",
+        component: BottomSheetAssetSortList({
+          onButtonPress: (item: AuctionsSortType) => {
+            setIsSorted(true);
+            setAssetSortType(item);
+            dismissModal();
+          },
+          selectedAssetSortType: assetSortType,
+        }),
+        option: {
+          headerStatusBarHeight: 1,
+          headerTitle: "",
+          headerBackTitleVisible: false,
+          header: (): JSX.Element => {
+            return (
+              <BottomSheetHeader
+                onClose={dismissModal}
+                headerText={translate("screens/AuctionScreen", "Sort Auctions")}
+              />
+            );
+          },
+        },
+      },
+    ]);
+    expandModal();
+  };
 
-  useEffect(() => {
-    if (isFocused) {
-      batch(() => {
-        dispatch(fetchTokens({ client, address }))
-        dispatch(fetchAuctions({ client }))
-        dispatch(fetchVaults({ client, address }))
-      })
-    }
-  }, [address, blockCount, isFocused])
+  const sortTokensAssetOnType = useCallback(
+    (assetSortType: AuctionsSortType): AuctionBatchProps[] => {
+      let sortTokensFunc: (
+        a: AuctionBatchProps,
+        b: AuctionBatchProps
+      ) => number;
+      switch (assetSortType) {
+        // TODO enable filter after implementing total usd collateral value calculation on api side
+        // case AuctionsSortType.HighestValue:
+        //   sortTokensFunc = (a, b) =>
+        //     new BigNumber(b.totalCollateralsValueInUSD)
+        //       .minus(a.totalCollateralsValueInUSD)
+        //       .toNumber();
+        //   break;
+        // case AuctionsSortType.LowestValue:
+        //   sortTokensFunc = (a, b) =>
+        //     new BigNumber(a.totalCollateralsValueInUSD)
+        //       .minus(b.totalCollateralsValueInUSD)
+        //       .toNumber();
+        //   break;
+        case AuctionsSortType.MostTimeLeft:
+          sortTokensFunc = (a, b) =>
+            new BigNumber(b.auction.liquidationHeight)
+              .minus(a.auction.liquidationHeight)
+              .toNumber();
+          break;
+        case AuctionsSortType.LeastTimeLeft:
+        default:
+          sortTokensFunc = (a, b) =>
+            new BigNumber(a.auction.liquidationHeight)
+              .minus(b.auction.liquidationHeight)
+              .toNumber();
+      }
+      return filteredAuctionBatches.sort(sortTokensFunc);
+    },
+    [filteredAuctionBatches, assetSortType]
+  );
 
   const onQuickBid = (props: onQuickBidProps): void => {
-    const ownedToken = tokens.find(token => token.id === props.batch.loan.id)
-    const currentBalance = new BigNumber(ownedToken?.amount ?? 0)
-    setBottomSheetScreen([{
-      stackScreenName: 'Quick Bid',
-      option: {
-        header: () => null,
-        headerBackTitleVisible: false
+    setQuickBidOpen(true);
+    setBottomSheetScreen([
+      {
+        stackScreenName: "Quick Bid",
+        option: {
+          headerStatusBarHeight: 1,
+          headerTitle: "",
+          headerBackTitleVisible: false,
+          header: (): JSX.Element => {
+            return (
+              <BottomSheetHeader
+                headerStyle={{
+                  style: tailwind(
+                    "text-lg font-semibold-v2 text-center mt-5 pt-0.5"
+                  ),
+                  light: tailwind("text-mono-light-v2-1000"),
+                  dark: tailwind("text-mono-dark-v2-1000"),
+                }}
+                containerStyle={tailwind("pb-4")}
+                onClose={() => {
+                  dismissModal();
+                  setQuickBidOpen(false);
+                }}
+                headerText={translate("components/QuickBid", "Quick Bid")}
+              />
+            );
+          },
+        },
+        component: QuickBid({
+          vaultId: props.vaultId,
+          index: props.batch.index,
+          loanTokenId: props.batch.loan.id,
+          loanTokenDisplaySymbol: props.batch.loan.displaySymbol,
+          onCloseButtonPress: () => {
+            dismissModal();
+            setQuickBidOpen(false);
+          },
+          minNextBid: props.minNextBidInToken.toFixed(8),
+          minNextBidInUSD: props.minNextBidInUSD,
+          totalCollateralsValueInUSD: props.totalCollateralsValueInUSD,
+          vaultLiquidationHeight: props.vaultLiquidationHeight,
+        }),
       },
-      component: QuickBid({
-        vaultId: props.vaultId,
-        index: props.batch.index,
-        loanTokenId: props.batch.loan.id,
-        loanTokenSymbol: props.batch.loan.symbol,
-        loanTokenDisplaySymbol: props.batch.loan.displaySymbol,
-        onCloseButtonPress: dismissModal,
-        minNextBid: new BigNumber(props.minNextBidInToken),
-        minNextBidInUSD: props.minNextBidInUSD,
-        currentBalance: currentBalance,
-        vaultLiquidationHeight: props.vaultLiquidationHeight
-      })
-    }])
-    expandModal()
+    ]);
+    expandModal();
+  };
+
+  if (batches?.length === 0 || (showSearchInput && searchString === "")) {
+    return <></>;
   }
 
   return (
-    <View
-      ref={containerRef}
-      style={tailwind('h-full')}
-      testID='auctions_cards'
-    >
-      {hasFetchAuctionsData
-        ? (
-          <>
-            {filteredAuctionBatches.length === 0
-              ? <EmptyAuction />
-              : (
-                <BatchCards
-                  auctionBatches={filteredAuctionBatches}
-                  onQuickBid={onQuickBid}
-                  vaults={vaults}
-                />
-              )}
-          </>)
-        : (
-          <ThemedScrollView contentContainerStyle={tailwind('p-4')}>
-            <SkeletonLoader
-              row={6}
-              screen={SkeletonLoaderScreen.BrowseAuction}
-            />
-          </ThemedScrollView>
-        )}
-
-      {Platform.OS === 'web' && (
-        <BottomSheetWebWithNav
-          modalRef={containerRef}
-          screenList={bottomSheetScreen}
-          isModalDisplayed={isModalDisplayed}
-          modalStyle={{
-            position: 'absolute',
-            height: '240px',
-            width: '375px',
-            zIndex: 50,
-            bottom: 0
-          }}
+    <View ref={containerRef} style={tailwind("flex-1")} testID="auctions_cards">
+      {!showSearchInput && (
+        <AuctionsSortRow
+          isSorted={isSorted}
+          assetSortType={assetSortType}
+          onPress={assetSortBottomSheetScreen}
         />
       )}
 
-      {Platform.OS !== 'web' && (
-        <BottomSheetWithNav
+      <BatchCards
+        activeButtonGroup={activeButtonGroup}
+        showSearchInput={showSearchInput}
+        auctionBatches={sortTokensAssetOnType(assetSortType)}
+        onQuickBid={onQuickBid}
+      />
+      {Platform.OS === "web" ? (
+        <BottomSheetWebWithNavV2
+          modalRef={containerRef}
+          screenList={bottomSheetScreen}
+          isModalDisplayed={isModalDisplayed}
+          // eslint-disable-next-line react-native/no-inline-styles
+          modalStyle={{
+            position: "absolute",
+            bottom: "0",
+            height: "404px",
+            width: "375px",
+            zIndex: 50,
+            borderTopLeftRadius: 15,
+            borderTopRightRadius: 15,
+            overflow: "hidden",
+          }}
+        />
+      ) : (
+        <BottomSheetWithNavV2
           modalRef={bottomSheetRef}
           screenList={bottomSheetScreen}
           snapPoints={{
-            ios: ['40%'],
-            android: ['40%']
+            ios: [isQuickBidOpen ? "60%" : "45%"],
+            android: [isQuickBidOpen ? "60%" : "45%"],
           }}
         />
       )}
     </View>
-  )
+  );
 }
 
-function BatchCards ({
+function BatchCards({
   auctionBatches,
-  vaults,
-  onQuickBid
+  showSearchInput,
+  onQuickBid,
+  activeButtonGroup,
 }: {
-  auctionBatches: AuctionBatchProps[]
-  vaults: LoanVault[]
-  onQuickBid: (props: onQuickBidProps) => void
+  auctionBatches: AuctionBatchProps[];
+  showSearchInput: boolean;
+  onQuickBid: (props: onQuickBidProps) => void;
+  activeButtonGroup: ButtonGroupTabKey;
 }): JSX.Element {
-  const RenderItems = useCallback(({
-    item,
-    index
-  }: { item: AuctionBatchProps, index: number }): JSX.Element => {
-    const { auction, ...batch } = item
-    return (
-      <View key={auction.vaultId}>
+  const ref = useRef(null);
+  useScrollToTop(ref);
+
+  const RenderItems = useCallback(
+    (props: { item: AuctionBatchProps; index: number }): JSX.Element => {
+      const { auction, collateralTokenSymbols, ...batch } = props.item;
+      return (
         <BatchCard
           vault={auction}
           batch={batch}
+          collateralTokenSymbols={collateralTokenSymbols}
           key={`${auction.vaultId}_${batch.index}`}
-          testID={`batch_card_${index}`}
+          testID={`batch_card_${props.index}`}
           onQuickBid={onQuickBid}
-          isVaultOwner={vaults.some(vault => vault.vaultId === auction.vaultId)}
         />
-      </View>
-    )
-  }, [])
+      );
+    },
+    []
+  );
 
+  const emptyScreenDetails = getEmptyScreenDetails(activeButtonGroup);
   return (
-    <ThemedFlatList
-      contentContainerStyle={tailwind('p-4 pb-2')}
+    <ThemedFlashList
+      contentContainerStyle={tailwind("pb-2")}
       data={auctionBatches}
-      numColumns={1}
-      initialNumToRender={5}
-      windowSize={2}
+      ref={ref}
+      estimatedItemSize={30}
       keyExtractor={(_item, index) => index.toString()}
-      testID='available_liquidity_tab'
+      ListEmptyComponent={
+        <>
+          {showSearchInput === false && (
+            <View style={tailwind("mx-5 mt-1")}>
+              <EmptyAuction
+                title={emptyScreenDetails.title}
+                subtitle={emptyScreenDetails.subtitle}
+              />
+            </View>
+          )}
+        </>
+      }
+      testID="auction_lists"
       renderItem={RenderItems}
     />
-  )
+  );
+}
+
+function getEmptyScreenDetails(type?: ButtonGroupTabKey): {
+  title: string;
+  subtitle: string;
+} {
+  switch (type) {
+    case ButtonGroupTabKey.Outbid:
+      return {
+        title: "No Outbid Auctions",
+        subtitle: "You have no outbids yet",
+      };
+    case ButtonGroupTabKey.YourActiveBids:
+      return {
+        title: "No Active Bids",
+        subtitle: "You have no active bids yet",
+      };
+    case ButtonGroupTabKey.YourLeadingBids:
+      return {
+        title: "No Leading Bids",
+        subtitle: "You have no leading bids yet",
+      };
+    default:
+      return {
+        title: "No Auctions",
+        subtitle: "There are currently no collaterals available for auction.",
+      };
+  }
 }

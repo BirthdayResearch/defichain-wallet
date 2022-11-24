@@ -1,487 +1,603 @@
-import BigNumber from 'bignumber.js'
-import { View } from '@components'
+import BigNumber from "bignumber.js";
+import { View } from "@components";
 import {
-  ThemedFlatList,
-  ThemedIcon,
-  ThemedText,
-  ThemedView
-} from '@components/themed'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { tailwind } from '@tailwind'
-import { translate } from '@translations'
-import { ActionSection } from './ActionSection'
-import { PoolPairTextSection } from './PoolPairTextSection'
-import { InfoSection } from './InfoSection'
-import { APRSection } from './APRSection'
-import { useTokenPrice } from '@screens/AppNavigator/screens/Balances/hooks/TokenPrice'
-import { useTokenBestPath } from '@screens/AppNavigator/screens/Balances/hooks/TokenBestPath'
-import { PriceRatesSection } from './PriceRatesSection'
-import React, { useEffect, useState } from 'react'
-import { TouchableOpacity } from 'react-native'
-import { WalletToken } from '@store/wallet'
-import { useDebounce } from '@hooks/useDebounce'
-import { useFavouritePoolpairs } from '../../hook/FavouritePoolpairs'
-import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import NumberFormat from 'react-number-format'
-import { ActiveUSDValue } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue'
-import { useSelector } from 'react-redux'
-import { RootState } from '@store'
-import { TotalValueLocked } from '../TotalValueLocked'
-import { ButtonGroup } from '../ButtonGroup'
+  ThemedFlashList,
+  ThemedTextV2,
+  ThemedTouchableOpacityV2,
+} from "@components/themed";
+import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
+import { tailwind } from "@tailwind";
+import { translate } from "@translations";
+import { useTokenBestPath } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenBestPath";
+import React, { useEffect, useRef, useState } from "react";
+import { useScrollToTop } from "@react-navigation/native";
+import { WalletToken } from "@store/wallet";
+import { useDebounce } from "@hooks/useDebounce";
+import { AddressToken } from "@defichain/whale-api-client/dist/api/address";
+import { useSelector } from "react-redux";
+import { RootState } from "@store";
+import { EmptyCryptoIcon } from "@screens/AppNavigator/screens/Portfolio/assets/EmptyCryptoIcon";
+import { EmptyTokensScreen } from "@screens/AppNavigator/screens/Portfolio/components/EmptyTokensScreen";
+import { PoolPairIconV2 } from "@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolPairIconV2";
+import {
+  DexActionButton,
+  DexAddRemoveLiquidityButton,
+} from "@screens/AppNavigator/screens/Dex/components/DexActionButton";
+import { FavoriteButton } from "@screens/AppNavigator/screens/Dex/components/FavoriteButton";
+import { PriceRatesSection } from "@screens/AppNavigator/screens/Dex/components/PoolPairCards/PriceRatesSection";
+import { APRSection } from "@screens/AppNavigator/screens/Dex/components/PoolPairCards/APRSection";
+import { PoolSharesSection } from "@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolSharesSection";
+import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
+import { useToast } from "react-native-toast-notifications";
+import { useFavouritePoolpairContext } from "@contexts/FavouritePoolpairContext";
+import { Delayed } from "@components/Delayed";
+import { DexScrollable } from "../DexScrollable";
+import { TotalValueLocked } from "../TotalValueLocked";
 
 interface DexItem<T> {
-  type: 'your' | 'available'
-  data: T
+  type: "your" | "available";
+  data: T;
 }
 
 export enum ButtonGroupTabKey {
-  AllPairs = 'ALL_PAIRS',
-  DFIPairs = 'DFI_PAIRS',
-  DUSDPairs = 'DUSD_PAIRS'
+  AllPairs = "ALL_PAIRS",
+  DFIPairs = "DFI_PAIRS",
+  DUSDPairs = "DUSD_PAIRS",
+  FavouritePairs = "FAVOURITE_PAIRS",
 }
 
 interface PoolPairCardProps {
-  availablePairs: Array<DexItem<PoolPairData>>
-  yourPairs: Array<DexItem<WalletToken>>
-  onAdd: (data: PoolPairData) => void
-  onRemove: (data: PoolPairData) => void
-  onSwap: (data: PoolPairData) => void
-  type: 'your' | 'available'
-  setIsSearching: (isSearching: boolean) => void
-  searchString: string
-  buttonGroupOptions?: {
-    onButtonGroupPress: (key: ButtonGroupTabKey) => void
-    activeButtonGroup: string
-    setActiveButtonGroup: (key: ButtonGroupTabKey) => void
-  }
-  showSearchInput?: boolean
+  availablePairs: Array<DexItem<PoolPairData>>;
+  yourPairs: Array<DexItem<WalletToken>>;
+  onAdd: (data: PoolPairData, info: WalletToken) => void;
+  onRemove: (data: PoolPairData, info: WalletToken) => void;
+  onSwap: (data: PoolPairData) => void;
+  onPress: (id: string) => void;
+  type: "your" | "available";
+  searchString: string;
+  showSearchInput?: boolean;
+  topLiquidityPairs: Array<DexItem<PoolPairData>>;
+  newPoolsPairs: Array<DexItem<PoolPairData>>;
+  activeButtonGroup: ButtonGroupTabKey;
 }
 
-export function PoolPairCards ({
+export function PoolPairCards({
   availablePairs,
   onAdd,
   onRemove,
   onSwap,
+  onPress,
   type,
   searchString,
-  setIsSearching,
   yourPairs,
-  buttonGroupOptions,
-  showSearchInput
+  showSearchInput,
+  topLiquidityPairs,
+  newPoolsPairs,
+  activeButtonGroup,
 }: PoolPairCardProps): JSX.Element {
-  const { isFavouritePoolpair, setFavouritePoolpair } = useFavouritePoolpairs()
+  const { isFavouritePoolpair, setFavouritePoolpair } =
+    useFavouritePoolpairContext();
   const sortedPairs = sortPoolpairsByFavourite(
     availablePairs,
     isFavouritePoolpair
-  )
-  const [expandedCardIds, setExpandedCardIds] = useState<string[]>([])
-
+  );
+  const { tvl } = useSelector((state: RootState) => state.block);
   const [filteredYourPairs, setFilteredYourPairs] =
-    useState<Array<DexItem<WalletToken>>>(yourPairs)
-  const debouncedSearchTerm = useDebounce(searchString, 500)
-  const { tvl } = useSelector((state: RootState) => state.block)
-  const buttonGroup = [
-    {
-      id: ButtonGroupTabKey.AllPairs,
-      label: translate('screens/DexScreen', 'All pairs'),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.AllPairs)
-    },
-    {
-      id: ButtonGroupTabKey.DFIPairs,
-      label: translate('screens/DexScreen', 'DFI pairs'),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.DFIPairs)
-    },
-    {
-      id: ButtonGroupTabKey.DUSDPairs,
-      label: translate('screens/DexScreen', 'DUSD pairs'),
-      handleOnPress: () => onButtonGroupChange(ButtonGroupTabKey.DUSDPairs)
-    }
-  ]
-  const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
-    if (buttonGroupOptions !== undefined) {
-      setExpandedCardIds([])
-      buttonGroupOptions.setActiveButtonGroup(buttonGroupTabKey)
-      buttonGroupOptions.onButtonGroupPress(buttonGroupTabKey)
-    }
-  }
+    useState<Array<DexItem<WalletToken>>>(yourPairs);
+  const debouncedSearchTerm = useDebounce(searchString, 500);
+  const ref = useRef(null);
+  useScrollToTop(ref);
 
-  const pairSortingFn = (pairA: DexItem<WalletToken>, pairB: DexItem<WalletToken>): number => (
-    availablePairs.findIndex(x => x.data.id === pairA.data.id) -
-    availablePairs.findIndex(x => x.data.id === pairB.data.id)
-  )
+  const pairSortingFn = (
+    pairA: DexItem<WalletToken>,
+    pairB: DexItem<WalletToken>
+  ): number =>
+    availablePairs.findIndex((x) => x.data.id === pairA.data.id) -
+    availablePairs.findIndex((x) => x.data.id === pairB.data.id);
 
   useEffect(() => {
-    setIsSearching(false)
     if (showSearchInput === false) {
-      setFilteredYourPairs(yourPairs.sort(pairSortingFn))
-      return
+      setFilteredYourPairs(yourPairs.sort(pairSortingFn));
+      return;
     }
 
-    if (debouncedSearchTerm !== undefined && debouncedSearchTerm.trim().length > 0) {
+    if (
+      debouncedSearchTerm !== undefined &&
+      debouncedSearchTerm.trim().length > 0
+    ) {
       setFilteredYourPairs(
-        yourPairs.filter((pair) =>
-          pair.data.displaySymbol
-            .toLowerCase()
-            .includes(debouncedSearchTerm.trim().toLowerCase())
-        ).sort(pairSortingFn)
-      )
+        yourPairs
+          .filter((pair) =>
+            pair.data.displaySymbol
+              .toLowerCase()
+              .includes(debouncedSearchTerm.trim().toLowerCase())
+          )
+          .sort(pairSortingFn)
+      );
     } else {
-      setFilteredYourPairs([])
+      setFilteredYourPairs([]);
     }
-  }, [yourPairs, debouncedSearchTerm, showSearchInput])
+  }, [yourPairs, debouncedSearchTerm, showSearchInput]);
 
   const renderItem = ({
     item,
-    index
+    index,
   }: {
-    item: DexItem<WalletToken | PoolPairData>
-    index: number
+    item: DexItem<WalletToken | PoolPairData>;
+    index: number;
   }): JSX.Element => (
     <PoolCard
       index={index}
-      key={`${item.data.id}_${index}`}
       item={item}
-      expandedCardIds={expandedCardIds}
       type={type}
       isFavouritePoolpair={isFavouritePoolpair}
       setFavouritePoolpair={setFavouritePoolpair}
       onAdd={onAdd}
       onRemove={onRemove}
       onSwap={onSwap}
-      setExpandedCardIds={setExpandedCardIds}
-    />)
+      onPress={onPress}
+    />
+  );
+
   return (
-    <ThemedFlatList
-      light={tailwind('bg-gray-50')}
-      dark={tailwind('bg-gray-900')}
-      contentContainerStyle={tailwind('p-4 pb-2')}
-      data={type === 'your' ? filteredYourPairs : sortedPairs}
+    <ThemedFlashList
+      light={tailwind("bg-mono-light-v2-100")}
+      dark={tailwind("bg-mono-dark-v2-100")}
+      contentContainerStyle={tailwind("pb-4", { "pt-8": type === "your" })}
+      getItemType={(item: DexItem<WalletToken | PoolPairData>) => item.type}
+      ref={ref}
+      data={type === "your" ? filteredYourPairs : sortedPairs}
       numColumns={1}
-      windowSize={2}
-      initialNumToRender={5}
+      estimatedItemSize={
+        type === "your" ? filteredYourPairs.length : sortedPairs.length
+      }
       keyExtractor={(item) => item.data.id}
       testID={
-        type === 'your' ? 'your_liquidity_tab' : 'available_liquidity_tab'
+        type === "your" ? "your_liquidity_tab" : "available_liquidity_tab"
       }
       renderItem={renderItem}
-      ListHeaderComponent={
+      ListEmptyComponent={
         <>
-          {type === 'available' &&
-            buttonGroupOptions !== undefined &&
-            showSearchInput === false &&
-            (
-              <>
-                <View style={tailwind('mb-4')}>
-                  <ButtonGroup buttons={buttonGroup} activeButtonGroupItem={buttonGroupOptions.activeButtonGroup} testID='dex_button_group' />
-                </View>
-                <View style={tailwind('mb-4')}>
-                  <TotalValueLocked tvl={tvl ?? 0} />
-                </View>
-              </>
+          {showSearchInput === false &&
+            activeButtonGroup === ButtonGroupTabKey.FavouritePairs && (
+              <EmptyTokensScreen
+                icon={EmptyCryptoIcon}
+                containerStyle={tailwind("pt-14")}
+                testID="empty_pool_pair_screen"
+                title={translate("screens/DexScreen", "No favorites added")}
+                subtitle={translate(
+                  "screens/DexScreen",
+                  "Tap the star icon to add your favorite pools here"
+                )}
+              />
             )}
         </>
       }
+      ListHeaderComponent={
+        <>
+          {type === "available" &&
+          showSearchInput === false &&
+          activeButtonGroup === ButtonGroupTabKey.AllPairs ? (
+            <>
+              <TotalValueLocked tvl={tvl ?? 0} />
+              {topLiquidityPairs?.length > 0 && (
+                <TopLiquiditySection
+                  onPress={onPress}
+                  onActionPress={onSwap}
+                  pairs={topLiquidityPairs}
+                />
+              )}
+              {newPoolsPairs?.length > 0 && (
+                <NewPoolsSection
+                  onPress={onPress}
+                  onActionPress={onAdd}
+                  pairs={newPoolsPairs}
+                />
+              )}
+              <View>
+                <ThemedTextV2
+                  dark={tailwind("text-mono-dark-v2-500")}
+                  light={tailwind("text-mono-light-v2-500")}
+                  style={tailwind(
+                    "font-normal-v2 text-xs uppercase pl-10 mb-2"
+                  )}
+                >
+                  {translate("screens/DexScreen", "Available pairs")}
+                </ThemedTextV2>
+              </View>
+            </>
+          ) : (
+            <></>
+          )}
+        </>
+      }
     />
-  )
+  );
 }
 
 interface PoolCardProps {
-  item: DexItem<WalletToken | PoolPairData>
-  expandedCardIds: string[]
-  setExpandedCardIds: (ids: string[]) => void
-  isFavouritePoolpair: (id: string) => boolean
-  setFavouritePoolpair: (id: string) => void
-  onAdd: (data: PoolPairData) => void
-  onRemove: (data: PoolPairData) => void
-  onSwap: (data: PoolPairData) => void
-  type: 'your' | 'available'
-  index: number
+  item: DexItem<WalletToken | PoolPairData>;
+  onAdd: (data: PoolPairData, info: WalletToken) => void;
+  onRemove: (data: PoolPairData, info: WalletToken) => void;
+  onSwap: (data: PoolPairData, info: WalletToken) => void;
+  onPress: (id: string) => void;
+  type: "your" | "available";
+  index: number;
+  isFavouritePoolpair: (id: string) => boolean;
+  setFavouritePoolpair: (id: string) => void;
 }
 
-const PoolCard = ({
-  index,
+function PoolCard({
   item,
-  expandedCardIds,
   isFavouritePoolpair,
   setFavouritePoolpair,
   type,
+  onSwap,
+  onPress,
+  index,
   onAdd,
   onRemove,
-  onSwap,
-  setExpandedCardIds
-}: PoolCardProps): JSX.Element => {
-  const { getTokenPrice } = useTokenPrice()
-  const { calculatePriceRates } = useTokenBestPath()
-  const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet)
-  const blockCount = useSelector((state: RootState) => state.block.count)
-  const { data: yourPair } = item
-  const isFavouritePair = isFavouritePoolpair(yourPair.id)
+}: PoolCardProps): JSX.Element {
+  const { calculatePriceRates } = useTokenBestPath();
+  const { getTokenPrice } = useTokenPrice();
+  const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet);
+  const blockCount = useSelector((state: RootState) => state.block.count);
+  const { data: yourPair } = item;
+  const isFavoritePair = isFavouritePoolpair(yourPair.id);
+
   const [priceRates, setPriceRates] = useState({
-    aToBPrice: new BigNumber(''),
-    bToAPrice: new BigNumber(''),
-    estimated: new BigNumber('')
-  })
+    aToBPrice: new BigNumber(""),
+    bToAPrice: new BigNumber(""),
+    estimated: new BigNumber(""),
+  });
 
   const poolPairData = pairs.find(
     (pr) => pr.data.symbol === (yourPair as AddressToken).symbol
-  )
-  const mappedPair = poolPairData?.data
+  );
+  const mappedPair = poolPairData?.data;
 
   useEffect(() => {
-    void getPriceRates()
-  }, [mappedPair, blockCount])
+    void getPriceRates();
+  }, [mappedPair, blockCount]);
 
   const getPriceRates = async (): Promise<void> => {
     if (mappedPair !== undefined) {
       const priceRates = await calculatePriceRates(
         mappedPair.tokenA.id,
         mappedPair.tokenB.id,
-        new BigNumber('1')
-      )
-      setPriceRates(priceRates)
+        new BigNumber("1")
+      );
+      setPriceRates(priceRates);
     }
-  }
+  };
 
   const [symbolA, symbolB] =
     mappedPair?.tokenA != null && mappedPair?.tokenB != null
       ? [mappedPair.tokenA.displaySymbol, mappedPair.tokenB.displaySymbol]
-      : yourPair.symbol.split('-')
-  const toRemove = new BigNumber(1)
-    .times((yourPair as WalletToken).amount)
-    .decimalPlaces(8, BigNumber.ROUND_DOWN)
-  const ratioToTotal = toRemove.div(mappedPair?.totalLiquidity?.token ?? 1)
-  const symbol = `${symbolA}-${symbolB}`
-
-  // assume defid will trim the dust values too
-  const tokenATotal = ratioToTotal
-    .times(mappedPair?.tokenA.reserve ?? 0)
-    .decimalPlaces(8, BigNumber.ROUND_DOWN)
-  const tokenBTotal = ratioToTotal
-    .times(mappedPair?.tokenB.reserve ?? 0)
-    .decimalPlaces(8, BigNumber.ROUND_DOWN)
-  const isExpanded = expandedCardIds.some((id) => id === yourPair.id)
-
-  const onCollapseToggle = (): void => {
-    if (isExpanded) {
-      setExpandedCardIds(
-        expandedCardIds.filter((id) => id !== yourPair.id))
-    } else {
-      setExpandedCardIds([...expandedCardIds, yourPair.id])
-    }
-  }
+      : yourPair.symbol.split("-");
 
   if (mappedPair === undefined) {
-    return <></>
+    return <></>;
   }
   return (
-    <ThemedView
-      dark={tailwind('bg-gray-800 border-gray-700')}
-      light={tailwind('bg-white border-gray-200')}
-      style={tailwind('p-4 mb-2 border rounded')}
-      testID={type === 'your' ? 'pool_pair_row_your' : 'pool_pair_row'}
-    >
-      <View
-        style={tailwind('flex flex-row justify-between w-full')}
-        testID={`pool_pair_row_${index}_${symbol}`}
+    <Delayed waitBeforeShow={0}>
+      <ThemedTouchableOpacityV2
+        style={tailwind("px-5 py-4 mb-2 rounded-lg-v2 mx-5")}
+        dark={tailwind("bg-mono-dark-v2-00")}
+        light={tailwind("bg-mono-light-v2-00")}
+        testID={type === "your" ? "pool_pair_row_your" : "pool_pair_row"}
+        onPress={() => onPress(item.data.id)}
       >
-        <View style={tailwind('w-3/5 flex-row items-center')}>
-          <PoolPairTextSection
-            symbolA={symbolA}
-            symbolB={symbolB}
-          />
-          {type === 'available' && (
-            <TouchableOpacity
-              onPress={() => setFavouritePoolpair(yourPair.id)}
-              style={tailwind('p-1.5 flex-row items-center')}
-              testID={`favorite_${symbolA}-${symbolB}`}
-            >
-              <ThemedIcon
-                iconType='MaterialIcons'
-                name={isFavouritePair ? 'star' : 'star-outline'}
-                size={20}
-                light={tailwind(
-                  isFavouritePair ? 'text-warning-500' : 'text-gray-600'
-                )}
-                dark={tailwind(
-                  isFavouritePair ? 'text-darkwarning-500' : 'text-gray-300'
-                )}
-              />
-            </TouchableOpacity>
-          )}
-        </View>
-        {mappedPair?.apr?.total !== undefined && mappedPair?.apr?.total !== null && (
-          <APRSection
-            label={`${translate('screens/DexScreen', 'APR')}: `}
-            value={{
-              text: new BigNumber(
-                isNaN(mappedPair.apr.total) ? 0 : mappedPair.apr.total
-              )
-                .times(100)
-                .toFixed(2),
-              decimalScale: 2,
-              testID: `apr_${symbol}`,
-              suffix: '%'
-            }}
-          />
-        )}
-      </View>
-      {type === 'available'
-        ? (
-          <PriceRatesSection
-            {...getSortedPriceRates({
-              mappedPair,
-              aToBPrice: priceRates.aToBPrice,
-              bToAPrice: priceRates.bToAPrice
-            })}
-          />
-        )
-        : (
-          <View style={tailwind('flex flex-col mt-2')}>
-            <ThemedText
-              dark={tailwind('text-gray-400')}
-              light={tailwind('text-gray-500')}
-              style={tailwind('text-xs font-normal leading-3 mt-1')}
-            >
-              {translate('screens/DexScreen', 'Your share in pool')}
-            </ThemedText>
-            <NumberFormat
-              decimalScale={8}
-              displayType='text'
-              renderText={(textValue) => (
-                <ThemedText
-                  testID={`share_in_pool_${symbol}`}
-                  style={tailwind('text-sm leading-4 font-semibold mb-1 mt-2')}
-                >
-                  {textValue}
-                </ThemedText>
-              )}
-              thousandSeparator
-              value={(yourPair as WalletToken).amount}
+        <View testID={`pool_pair_row_${index}_${mappedPair.displaySymbol}`}>
+          {type === "available" ? (
+            <AvailablePool
+              symbolA={symbolA}
+              symbolB={symbolB}
+              pair={mappedPair}
+              onSwap={() => onSwap(mappedPair, yourPair as WalletToken)}
+              aToBPrice={priceRates.aToBPrice}
+              bToAPrice={priceRates.bToAPrice}
+              isFavouritePair={isFavoritePair}
+              setFavouritePoolpair={setFavouritePoolpair}
+              status={mappedPair.status}
             />
-            <ActiveUSDValue
-              price={getTokenPrice(
+          ) : (
+            <YourPoolPair
+              symbolA={symbolA}
+              symbolB={symbolB}
+              walletToken={yourPair as WalletToken}
+              poolPair={mappedPair}
+              onAdd={() => onAdd(mappedPair, yourPair as WalletToken)}
+              onRemove={() => onRemove(mappedPair, yourPair as WalletToken)}
+              walletTokenAmount={
+                new BigNumber((yourPair as WalletToken).amount)
+              }
+              walletTokenPrice={getTokenPrice(
                 yourPair.symbol,
                 new BigNumber((yourPair as WalletToken).amount),
                 true
               )}
-              testId={`share_in_pool_${symbol}_USD`}
             />
-          </View>
-        )}
-      <View
-        style={tailwind('flex flex-row justify-between items-center mt-4 -mb-2 flex-wrap')}
-      >
-        <View style={tailwind('mb-2')}>
-          <ActionSection
-            onAdd={() => onAdd(mappedPair)}
-            onRemove={() => onRemove(mappedPair)}
-            onSwap={() => onSwap(mappedPair)}
-            symbol={symbol}
-            type={type}
-            pair={mappedPair}
-          />
+          )}
         </View>
-        <TouchableOpacity
-          onPress={onCollapseToggle}
-          style={tailwind('flex flex-row pb-2 pt-1.5')}
-          testID={`details_${symbol}`}
-        >
-          <ThemedIcon
-            light={tailwind('text-primary-500')}
-            dark={tailwind('text-darkprimary-500')}
-            iconType='MaterialIcons'
-            name={!isExpanded ? 'expand-more' : 'expand-less'}
-            size={32}
-          />
-        </TouchableOpacity>
-      </View>
-      {
-        isExpanded &&
-          <View>
-            <ThemedView
-              style={tailwind('border-b h-px mt-4')}
-              light={tailwind('border-gray-100')}
-              dark={tailwind('border-gray-700')}
-            />
-            <InfoSection
-              type={type}
-              pair={mappedPair}
-              tokenATotal={
-              type === 'your'
-                ? tokenATotal.toFixed(8)
-                : mappedPair?.tokenA.reserve
-            }
-              tokenBTotal={
-              type === 'your'
-                ? tokenBTotal.toFixed(8)
-                : mappedPair?.tokenB.reserve
-            }
-              testID={type}
-            />
-          </View>
-      }
-    </ThemedView>
-  )
+      </ThemedTouchableOpacityV2>
+    </Delayed>
+  );
 }
 
-function getSortedPriceRates ({
+interface AvailablePoolProps {
+  symbolA: string;
+  symbolB: string;
+  onSwap: () => void;
+  pair: PoolPairData;
+  aToBPrice: BigNumber;
+  bToAPrice: BigNumber;
+  isFavouritePair: boolean;
+  setFavouritePoolpair: (id: string) => void;
+  status: boolean;
+}
+
+export type ActionType = "SET_FAVOURITE" | "UNSET_FAVOURITE";
+
+function AvailablePool(props: AvailablePoolProps): JSX.Element {
+  const toast = useToast();
+  const TOAST_DURATION = 2000;
+  const showToast = (type: ActionType): void => {
+    toast.hideAll();
+    const toastMessage =
+      type === "SET_FAVOURITE"
+        ? "Pool added as favorite"
+        : "Pool removed from favorites";
+    toast.show(translate("screens/PoolPairDetailsScreen", toastMessage), {
+      type: "wallet_toast",
+      placement: "top",
+      duration: TOAST_DURATION,
+    });
+  };
+  return (
+    <>
+      <View
+        style={tailwind("flex flex-row justify-between items-center w-full")}
+      >
+        <View style={tailwind("flex flex-row items-center")}>
+          <PoolPairIconV2
+            symbolA={props.symbolA}
+            symbolB={props.symbolB}
+            customSize={36}
+            iconBStyle={tailwind("-ml-4 mr-2")}
+          />
+          <ThemedTextV2
+            style={tailwind("font-semibold-v2 text-base mr-2")}
+            testID={`pair_symbol_${props.symbolA}-${props.symbolB}`}
+          >
+            {`${props.symbolA}-${props.symbolB}`}
+          </ThemedTextV2>
+          <FavoriteButton
+            pairId={props.pair.id}
+            isFavouritePair={props.isFavouritePair}
+            onPress={() => {
+              showToast(
+                props.isFavouritePair ? "UNSET_FAVOURITE" : "SET_FAVOURITE"
+              );
+              props.setFavouritePoolpair(props.pair.id);
+            }}
+          />
+        </View>
+        <DexActionButton
+          label={translate("screens/DexScreen", "Swap")}
+          onPress={props.onSwap}
+          testID={`composite_swap_button_${props.pair.id}`}
+          style={tailwind("py-2 px-4")}
+          disabled={!props.status}
+        />
+      </View>
+      <View style={tailwind("flex flex-row justify-between mt-3")}>
+        <PriceRatesSection
+          {...getSortedPriceRates({
+            mappedPair: props.pair,
+            aToBPrice: props.aToBPrice,
+            bToAPrice: props.bToAPrice,
+          })}
+        />
+        {props.pair?.apr?.total !== undefined &&
+          props.pair?.apr?.total !== null && (
+            <APRSection
+              label={`${translate("screens/DexScreen", "APR")}`}
+              value={{
+                text: new BigNumber(
+                  isNaN(props.pair.apr.total) ? 0 : props.pair.apr.total
+                )
+                  .times(100)
+                  .toFixed(2),
+                decimalScale: 2,
+                testID: `apr_${props.symbolA}-${props.symbolB}`,
+                suffix: "%",
+              }}
+            />
+          )}
+      </View>
+    </>
+  );
+}
+
+interface YourPoolPairProps {
+  onAdd: () => void;
+  onRemove: () => void;
+  symbolA: string;
+  symbolB: string;
+  poolPair: PoolPairData;
+  walletToken: WalletToken;
+  walletTokenPrice: BigNumber;
+  walletTokenAmount: BigNumber;
+}
+
+function YourPoolPair(props: YourPoolPairProps): JSX.Element {
+  return (
+    <>
+      <View
+        style={tailwind("flex flex-row justify-between items-center w-full")}
+      >
+        <View style={tailwind("flex flex-row items-center")}>
+          <PoolPairIconV2
+            symbolA={props.symbolA}
+            symbolB={props.symbolB}
+            customSize={36}
+            iconBStyle={tailwind("-ml-4 mr-2")}
+          />
+          <ThemedTextV2
+            style={tailwind("font-semibold-v2 text-base")}
+            testID={`pair_symbol_${props.symbolA}-${props.symbolB}`}
+          >
+            {`${props.symbolA}-${props.symbolB}`}
+          </ThemedTextV2>
+        </View>
+        <DexAddRemoveLiquidityButton
+          onAdd={props.onAdd}
+          onRemove={props.onRemove}
+          pairToken={`${props.symbolA}-${props.symbolB}`}
+        />
+      </View>
+      <View style={tailwind("flex flex-row justify-between mt-3")}>
+        <PoolSharesSection
+          walletTokenPrice={props.walletTokenPrice}
+          walletTokenAmount={props.walletTokenAmount}
+          tokenID={props.walletToken.id}
+        />
+        {props.poolPair?.apr?.total !== undefined &&
+          props.poolPair?.apr?.total !== null && (
+            <APRSection
+              label={`${translate("screens/DexScreen", "APR")}`}
+              value={{
+                text: new BigNumber(
+                  isNaN(props.poolPair.apr.total) ? 0 : props.poolPair.apr.total
+                )
+                  .times(100)
+                  .toFixed(2),
+                decimalScale: 2,
+                testID: `apr_${props.symbolA}-${props.symbolB}`,
+                suffix: "%",
+              }}
+            />
+          )}
+      </View>
+    </>
+  );
+}
+
+function getSortedPriceRates({
   mappedPair,
   aToBPrice,
-  bToAPrice
+  bToAPrice,
 }: {
-  mappedPair: PoolPairData
-  aToBPrice: BigNumber
-  bToAPrice: BigNumber
+  mappedPair: PoolPairData;
+  aToBPrice: BigNumber;
+  bToAPrice: BigNumber;
 }): {
   tokenA: {
-    symbol: string
-    displaySymbol: string
-    priceRate: BigNumber
-  }
+    symbol: string;
+    displaySymbol: string;
+    priceRate: BigNumber;
+  };
   tokenB: {
-    symbol: string
-    displaySymbol: string
-    priceRate: BigNumber
-  }
+    symbol: string;
+    displaySymbol: string;
+    priceRate: BigNumber;
+  };
 } {
   const tokenA = {
     symbol: mappedPair.tokenA.symbol,
     displaySymbol: mappedPair.tokenA.displaySymbol,
-    priceRate: aToBPrice
-  }
+    priceRate: aToBPrice,
+  };
   const tokenB = {
     symbol: mappedPair.tokenB.symbol,
     displaySymbol: mappedPair.tokenB.displaySymbol,
-    priceRate: bToAPrice
-  }
-
-  if (
-    mappedPair.tokenB.symbol === 'DFI' ||
-    (mappedPair.tokenB.symbol === 'DUSD' && mappedPair.tokenA.symbol !== 'DFI')
-  ) {
-    return {
-      tokenA: tokenB,
-      tokenB: tokenA
-    }
-  }
+    priceRate: bToAPrice,
+  };
 
   return {
     tokenA,
-    tokenB
-  }
+    tokenB,
+  };
 }
 
-function sortPoolpairsByFavourite (
+function sortPoolpairsByFavourite(
   pairs: Array<DexItem<PoolPairData>>,
   isFavouritePair: (id: string) => boolean
 ): Array<DexItem<PoolPairData>> {
   return pairs.slice().sort((firstPair, secondPair) => {
     if (isFavouritePair(firstPair.data.id)) {
-      return -1
+      return -1;
     }
     if (isFavouritePair(secondPair.data.id)) {
-      return 1
+      return 1;
     }
-    return 0
-  })
+    return 0;
+  });
+}
+
+function TopLiquiditySection({
+  pairs,
+  onPress,
+  onActionPress,
+}: {
+  pairs: Array<DexItem<PoolPairData>>;
+  onPress: (id: string) => void;
+  onActionPress: (data: PoolPairData) => void;
+}): JSX.Element {
+  return (
+    <DexScrollable
+      testID="dex_top_liquidity"
+      sectionHeading="TOP LIQUIDITY"
+      sectionStyle={tailwind("mb-6")}
+    >
+      {pairs.map((pairItem, index) => (
+        <DexScrollable.Card
+          key={`${pairItem.data.id}_${index}`}
+          poolpair={pairItem.data}
+          style={tailwind("mr-2")}
+          onActionPress={() => onActionPress(pairItem.data)}
+          onPress={() => onPress(pairItem.data.id)}
+          label={translate("screens/DexScreen", "Swap")}
+          testID={`composite_swap_${pairItem.data.id}`}
+          isSwap
+        />
+      ))}
+    </DexScrollable>
+  );
+}
+
+function NewPoolsSection({
+  pairs,
+  onPress,
+  onActionPress,
+}: {
+  pairs: Array<DexItem<PoolPairData | WalletToken>>;
+  onPress: (id: string) => void;
+  onActionPress: (data: PoolPairData, info: WalletToken) => void;
+}): JSX.Element {
+  return (
+    <DexScrollable
+      testID="dex_new_pools"
+      sectionHeading="NEW POOLS"
+      sectionStyle={tailwind("mb-6")}
+    >
+      {pairs.map((pairItem, index) => (
+        <DexScrollable.Card
+          key={`${pairItem.data.id}_${index}`}
+          poolpair={pairItem.data as PoolPairData}
+          style={tailwind("mr-2")}
+          onActionPress={() =>
+            onActionPress(
+              pairItem.data as PoolPairData,
+              pairItem.data as WalletToken
+            )
+          }
+          onPress={() => onPress(pairItem.data.id)}
+          label={translate("screens/DexScreen", "Add to LP")}
+          testID={`add_liquidity_${pairItem.data.id}`}
+        />
+      ))}
+    </DexScrollable>
+  );
 }

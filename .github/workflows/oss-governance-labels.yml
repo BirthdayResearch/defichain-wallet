@@ -13,9 +13,9 @@ jobs:
   Labels:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@dcd71f646680f2efd8db4afa5ad64fdcba30e748
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3.1.0
 
-      - uses: micnncim/action-label-syncer@0e9c5104859d0e78219af63791636eba42382b5d
+      - uses: micnncim/action-label-syncer@3abd5ab72fda571e69fffd97bd4e0033dd5f495c # tag=v1.3.0
         with:
           prune: false
         env:

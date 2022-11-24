@@ -1,24 +1,22 @@
-// @ts-expect-error
-// TODO: add typings one available
-import Cache from 'lru-cache'
+import Cache from "lru-cache";
 
 class LruCache {
-  private readonly cache
+  private readonly cache: Cache<string, any>;
 
-  constructor () {
+  constructor() {
     // setting maxAge to 10 min
     this.cache = new Cache({
       max: 1000,
-      ttl: 1000 * 60 * 5
-    })
+      ttl: 1000 * 60 * 5,
+    });
   }
 
   /**
    * @param key {string} of item with 'network' prefixed
    * @return {string | null}
    */
-  get (key: string): any {
-    return this.cache.get(key)
+  get(key: string): any {
+    return this.cache.get(key);
   }
 
   /**
@@ -26,13 +24,13 @@ class LruCache {
    * @param value {any} to set
    * @param ttl {number} TTL
    */
-  set (key: string, value: any, ttl?: number): void {
-    this.cache.set(key, value, { ttl })
+  set(key: string, value: any, ttl?: number): void {
+    this.cache.set(key, value, { ttl });
   }
 
-  clear (): void {
-    this.cache.reset()
+  clear(): void {
+    this.cache.clear();
   }
 }
 
-export const CacheApi = new LruCache()
+export const CacheApi = new LruCache();

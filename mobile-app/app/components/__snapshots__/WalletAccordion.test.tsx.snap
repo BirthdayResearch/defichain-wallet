@@ -3,9 +3,9 @@
 exports[`wallet accordion should render 1`] = `
 <RCTScrollView
   style={
-    Array [
+    [
       undefined,
-      Object {
+      {
         "backgroundColor": "rgba(250, 250, 250, 1)",
       },
     ]
@@ -14,22 +14,22 @@ exports[`wallet accordion should render 1`] = `
   <View>
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "MediumFont",
               "fontSize": 12,
               "fontWeight": "500",
               "lineHeight": 16,
               "marginTop": 32,
             },
-            Object {
+            {
               "color": "rgba(163, 163, 163, 1)",
             },
           ],
@@ -41,8 +41,8 @@ exports[`wallet accordion should render 1`] = `
     </Text>
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "borderBottomLeftRadius": 8,
             "borderBottomRightRadius": 8,
             "borderBottomWidth": 1,
@@ -54,7 +54,7 @@ exports[`wallet accordion should render 1`] = `
             "marginTop": 8,
             "overflow": "hidden",
           },
-          Object {
+          {
             "backgroundColor": "rgba(255, 255, 255, 1)",
             "borderBottomColor": "rgba(229, 229, 229, 1)",
             "borderLeftColor": "rgba(229, 229, 229, 1)",
@@ -65,11 +65,11 @@ exports[`wallet accordion should render 1`] = `
       }
     >
       <View
-        style={Object {}}
+        style={{}}
       >
         <View
           accessibilityState={
-            Object {
+            {
               "expanded": false,
             }
           }
@@ -85,9 +85,9 @@ exports[`wallet accordion should render 1`] = `
         >
           <View
             style={
-              Array [
-                Array [
-                  Object {
+              [
+                [
+                  {
                     "alignItems": "center",
                     "flexDirection": "row",
                     "justifyContent": "space-between",
@@ -99,7 +99,7 @@ exports[`wallet accordion should render 1`] = `
                   false,
                   false,
                 ],
-                Object {
+                {
                   "borderBottomColor": "rgba(229, 229, 229, 1)",
                   "borderLeftColor": "rgba(229, 229, 229, 1)",
                   "borderRightColor": "rgba(229, 229, 229, 1)",
@@ -110,16 +110,16 @@ exports[`wallet accordion should render 1`] = `
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Array [
-                      Object {
+                  [
+                    [
+                      {
                         "flexBasis": "0%",
                         "flexGrow": 1,
                         "flexShrink": 1,
@@ -128,7 +128,7 @@ exports[`wallet accordion should render 1`] = `
                       },
                       false,
                     ],
-                    Object {
+                    {
                       "color": "rgba(115, 115, 115, 1)",
                     },
                   ],
@@ -141,24 +141,26 @@ exports[`wallet accordion should render 1`] = `
           </View>
         </View>
         <View
+          collapsable={false}
           pointerEvents="none"
           style={
-            Object {
+            {
               "height": 0,
               "overflow": "hidden",
             }
           }
         >
           <View
+            collapsable={false}
             forwardedRef={[Function]}
             onLayout={[Function]}
-            style={Object {}}
+            style={{}}
           >
             <View
               style={
-                Array [
-                  Array [
-                    Object {
+                [
+                  [
+                    {
                       "paddingBottom": 16,
                       "paddingLeft": 16,
                       "paddingRight": 16,
@@ -166,7 +168,7 @@ exports[`wallet accordion should render 1`] = `
                     },
                     false,
                   ],
-                  Object {
+                  {
                     "borderBottomColor": "rgba(229, 229, 229, 1)",
                     "borderLeftColor": "rgba(229, 229, 229, 1)",
                     "borderRightColor": "rgba(229, 229, 229, 1)",
@@ -177,7 +179,7 @@ exports[`wallet accordion should render 1`] = `
             >
               <View
                 style={
-                  Object {
+                  {
                     "flexDirection": "row",
                     "justifyContent": "flex-start",
                   }
@@ -185,22 +187,22 @@ exports[`wallet accordion should render 1`] = `
               >
                 <Text
                   style={
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      Array [
-                        Object {
+                      [
+                        {
                           "flexBasis": "0%",
                           "flexGrow": 1,
                           "flexShrink": 1,
                           "fontSize": 14,
                           "lineHeight": 20,
                         },
-                        Object {
+                        {
                           "color": "rgba(82, 82, 82, 1)",
                         },
                       ],
@@ -212,7 +214,7 @@ exports[`wallet accordion should render 1`] = `
               </View>
               <View
                 style={
-                  Object {
+                  {
                     "flexDirection": "row",
                     "justifyContent": "flex-start",
                   }
@@ -220,22 +222,22 @@ exports[`wallet accordion should render 1`] = `
               >
                 <Text
                   style={
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      Array [
-                        Object {
+                      [
+                        {
                           "fontFamily": "BoldFont",
                           "fontSize": 14,
                           "fontWeight": "700",
                           "lineHeight": 20,
                           "width": "8.333333%",
                         },
-                        Object {
+                        {
                           "color": "rgba(0, 0, 0, 1)",
                         },
                       ],
@@ -246,22 +248,22 @@ exports[`wallet accordion should render 1`] = `
                 </Text>
                 <Text
                   style={
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "RegularFont",
                         "fontSize": 16,
                         "fontWeight": "400",
                         "lineHeight": 24,
                       },
-                      Array [
-                        Object {
+                      [
+                        {
                           "flexBasis": "0%",
                           "flexGrow": 1,
                           "flexShrink": 1,
                           "fontSize": 14,
                           "lineHeight": 20,
                         },
-                        Object {
+                        {
                           "color": "rgba(82, 82, 82, 1)",
                         },
                       ],

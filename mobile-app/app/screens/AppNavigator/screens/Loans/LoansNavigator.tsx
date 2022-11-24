@@ -1,332 +1,324 @@
-import { createStackNavigator } from '@react-navigation/stack'
-import { HeaderFont } from '@components/Text'
-import { HeaderTitle } from '@components/HeaderTitle'
-import { LoanScheme, LoanToken, LoanVaultActive, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
-import { translate } from '@translations'
-import { NetworkDetails } from '../Settings/screens/NetworkDetails'
-import { LoansScreen } from './LoansScreen'
-import { CreateVaultScreen } from './screens/CreateVaultScreen'
-import { ConfirmCreateVaultScreen } from './screens/ConfirmCreateVaultScreen'
-import BigNumber from 'bignumber.js'
-import { VaultDetailScreen } from './VaultDetail/VaultDetailScreen'
-import { EditCollateralScreen, CollateralItem } from './screens/EditCollateralScreen'
-import { ConfirmEditCollateralScreen } from './screens/ConfirmEditCollateralScreen'
-import { ChooseLoanTokenScreen } from './screens/ChooseLoanTokenScreen'
-import { BorrowLoanTokenScreen } from './screens/BorrowLoanTokenScreen'
-import { ConfirmBorrowLoanTokenScreen } from './screens/ConfirmBorrowLoanTokenScreen'
-import { ConversionParam } from '@screens/AppNavigator/screens/Balances/BalancesNavigator'
-import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
-import { LoansFaq } from '@screens/AppNavigator/screens/Loans/screens/LoansFaq'
-import { TabKey } from '@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailTabSection'
-import { PaybackLoanScreen } from '@screens/AppNavigator/screens/Loans/screens/PaybackLoanScreen'
-import { ConfirmPaybackLoanScreen } from '@screens/AppNavigator/screens/Loans/screens/ConfirmPaybackLoanScreen'
-import { EditLoanSchemeScreen } from './screens/EditLoanSchemeScreen'
-import { ConfirmEditLoanSchemeScreen } from './screens/ConfirmEditLoanSchemeScreen'
-import { BorrowMoreScreen } from './screens/BorrowMoreScreen'
-import { CloseVaultScreen } from './screens/CloseVaultScreen'
-import { PaymentTokenProps } from './hooks/LoanPaymentTokenRate'
+import { createStackNavigator } from "@react-navigation/stack";
+import { HeaderFont } from "@components/Text";
+import { HeaderTitle } from "@components/HeaderTitle";
+import { translate } from "@translations";
+import BigNumber from "bignumber.js";
+import { ConversionParam } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
+import { PaybackLoanScreen } from "@screens/AppNavigator/screens/Loans/screens/PaybackLoanScreen";
+import { ConfirmPaybackLoanScreen } from "@screens/AppNavigator/screens/Loans/screens/ConfirmPaybackLoanScreen";
+import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
+import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
+import {
+  LoanScheme,
+  LoanToken,
+  LoanVaultActive,
+  LoanVaultTokenAmount,
+} from "@defichain/whale-api-client/dist/api/loan";
+import { CreateVaultScreen } from "@screens/AppNavigator/screens/Loans/screens/CreateVaultScreen";
+import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { VaultDetailScreen } from "@screens/AppNavigator/screens/Loans/VaultDetail/VaultDetailScreen";
+import { tailwind } from "@tailwind";
+import { ThemedTextV2 } from "@components/themed";
+import { StyleProp, ViewStyle } from "react-native";
+import { NetworkDetails } from "../Settings/screens/NetworkDetails";
+import {
+  CollateralItem,
+  EditCollateralScreen,
+} from "./screens/EditCollateralScreen";
+import { AddOrRemoveCollateralScreen } from "./screens/AddOrRemoveCollateralScreen";
+import { ConfirmEditCollateralScreen } from "./screens/ConfirmEditCollateralScreen";
+import { BorrowLoanTokenScreen } from "./screens/BorrowLoanTokenScreen";
+import { ConfirmBorrowLoanTokenScreen } from "./screens/ConfirmBorrowLoanTokenScreen";
+import { EditLoanSchemeScreen } from "./screens/EditLoanSchemeScreen";
+import { ConfirmEditLoanSchemeScreen } from "./screens/ConfirmEditLoanSchemeScreen";
+import { LoansFaq } from "./screens/LoansFaq";
+import { LoansScreen } from "./LoansScreen";
+import { CloseVaultScreen } from "./screens/CloseVaultScreen";
 
 export interface LoanParamList {
-  LoansScreen: {
-  }
+  LoansScreen: {};
   CreateVaultScreen: {
-    loanScheme?: LoanScheme
-  }
-  ConfirmCreateVaultScreen: {
-    loanScheme: LoanScheme
-    fee: BigNumber
-    conversion?: ConversionParam
-  }
+    loanScheme?: LoanScheme;
+  };
   VaultDetailScreen: {
-    vaultId: string
-    tab?: TabKey
-  }
+    vaultId: string;
+  };
   EditCollateralScreen: {
-    vaultId: string
-  }
-  ChooseLoanTokenScreen: {
-    vaultId?: string
-  }
+    vaultId: string;
+  };
+  AddOrRemoveCollateralScreen: {
+    vault: LoanVaultActive;
+    collateralItem: CollateralItem;
+    collateralTokens: CollateralItem[];
+    isAdd: boolean;
+  };
   ConfirmEditCollateralScreen: {
-    vault: LoanVaultActive
-    amount: BigNumber
-    token: TokenData
-    fee: BigNumber
-    isAdd: boolean
-    collateralItem: CollateralItem
-    conversion?: ConversionParam
-  }
+    vault: LoanVaultActive;
+    amount: BigNumber;
+    token: TokenData;
+    fee: BigNumber;
+    isAdd: boolean;
+    collateralItem: CollateralItem;
+    resultingColRatio: BigNumber;
+    totalVaultCollateralValue: BigNumber;
+    vaultShare: BigNumber;
+    maxLoanAmount: BigNumber;
+    conversion?: ConversionParam;
+  };
   BorrowLoanTokenScreen: {
-    loanToken: LoanToken
-    vault?: LoanVaultActive
-  }
+    loanToken: LoanToken;
+    vault: LoanVaultActive;
+  };
   ConfirmBorrowLoanTokenScreen: {
-    loanToken: LoanToken
-    vault: LoanVaultActive
-    amountToBorrow: string
-    totalInterestAmount: BigNumber
-    totalLoanWithInterest: BigNumber
-    fee: BigNumber
-    resultingColRatio: BigNumber
-  }
+    loanToken: LoanToken;
+    vault: LoanVaultActive;
+    borrowAmount: string;
+    annualInterest: BigNumber;
+    fee: BigNumber;
+    resultingColRatio: BigNumber;
+  };
   PaybackLoanScreen: {
-    loanTokenAmount: LoanVaultTokenAmount
-    vault: LoanVaultActive
-  }
+    loanTokenAmount: LoanVaultTokenAmount;
+    vault: LoanVaultActive;
+    isPaybackDUSDUsingCollateral?: boolean;
+  };
   ConfirmPaybackLoanScreen: {
-    fee: BigNumber
-    amountToPayInLoanToken: BigNumber
-    amountToPayInPaymentToken: BigNumber
-    selectedPaymentTokenBalance: BigNumber
-    loanTokenBalance: BigNumber
-    paymentToken: Omit<PaymentTokenProps, 'tokenBalance'>
-    vault: LoanVaultActive
-    loanTokenAmount: LoanVaultTokenAmount
-    excessAmount?: BigNumber
-    resultingColRatio: BigNumber
-    conversion?: ConversionParam
-    paymentPenalty: BigNumber
-  }
+    vault: LoanVaultActive;
+    amountToPay: BigNumber;
+    fee: BigNumber;
+    tokenBalance: BigNumber;
+    loanTokenAmount: LoanVaultTokenAmount;
+    resultingColRatio: BigNumber;
+    isPaybackDUSDUsingCollateral?: boolean;
+    loanTokenActivePriceInUSD: string;
+  };
   EditLoanSchemeScreen: {
-    vaultId: string
-  }
+    vaultId: string;
+  };
   ConfirmEditLoanSchemeScreen: {
-    vault: LoanVaultActive
-    loanScheme: LoanScheme
-    fee: BigNumber
-  }
+    vault: LoanVaultActive;
+    loanScheme: LoanScheme;
+    fee: BigNumber;
+  };
   BorrowMoreScreen: {
-    loanTokenAmount: LoanVaultTokenAmount
-    vault: LoanVaultActive
-  }
+    loanTokenAmount: LoanVaultTokenAmount;
+    vault: LoanVaultActive;
+  };
   CloseVaultScreen: {
-    vaultId: string
-  }
+    vaultId: string;
+  };
   LoansFaq: {
-    activeSessions?: number[]
-  }
-  [key: string]: undefined | object
+    activeSessions?: number[];
+  };
+
+  [key: string]: undefined | object;
 }
 
-const LoansStack = createStackNavigator<LoanParamList>()
+const LoansStack = createStackNavigator<LoanParamList>();
 
-export function LoansNavigator (): JSX.Element {
-  const headerContainerTestId = 'loans_header_container'
+export function LoansNavigator(): JSX.Element {
+  const navigation = useNavigation<NavigationProp<LoanParamList>>();
+  const headerContainerTestId = "loans_header_container";
+  const screenOptions = useNavigatorScreenOptions();
+  const goToNetworkSelect = (): void => {
+    navigation.navigate("NetworkSelectionScreen");
+  };
 
   return (
     <LoansStack.Navigator
-      initialRouteName='LoansScreen'
+      initialRouteName="LoansScreen"
       screenOptions={{
-        headerTitleAlign: 'center',
+        headerTitleAlign: "center",
         headerTitleStyle: HeaderFont,
-        headerBackTitleVisible: false
+        headerBackTitleVisible: false,
       }}
     >
       <LoansStack.Screen
         component={LoansScreen}
-        name='LoansScreen'
+        name="LoansScreen"
         options={{
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/LoansScreen', 'Loans')}
-              containerTestID={headerContainerTestId}
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus
+              onPress={goToNetworkSelect}
+              testID="header_change_network"
             />
-          )
+          ),
+          headerTitleAlign: "left",
+          headerTitleContainerStyle: tailwind("ml-5"),
+          headerLeftContainerStyle: null,
+          headerTitle: () => (
+            <ThemedTextV2
+              style={[
+                screenOptions.headerTitleStyle as Array<StyleProp<ViewStyle>>,
+                tailwind("text-left text-3xl font-semibold-v2"),
+                { fontSize: 28 },
+              ]}
+            >
+              {translate("screens/LoansScreen", "Loans")}
+            </ThemedTextV2>
+          ),
         }}
       />
       <LoansStack.Screen
         component={NetworkDetails}
-        name='NetworkDetails'
+        name="NetworkDetails"
         options={{
-          headerTitle: translate('screens/NetworkDetails', 'Wallet Network'),
+          headerTitle: translate("screens/NetworkDetails", "Wallet Network"),
           headerBackTitleVisible: false,
-          headerBackTestID: 'network_details_header_back'
+          headerBackTestID: "network_details_header_back",
         }}
       />
       <LoansStack.Screen
         component={CreateVaultScreen}
-        name='CreateVaultScreen'
+        name="CreateVaultScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/LoansScreen', 'Create Vault')}
-            />
-          )
-        }}
-      />
-      <LoansStack.Screen
-        component={ConfirmCreateVaultScreen}
-        name='ConfirmCreateVaultScreen'
-        options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/LoansScreen', 'Confirm Create Vault')}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate("screens/LoansScreen", "Create Vault"),
         }}
       />
       <LoansStack.Screen
         component={VaultDetailScreen}
-        name='VaultDetailScreen'
+        name="VaultDetailScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/LoansScreen', 'Vault Detail')}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate("screens/LoansScreen", "Vault Details"),
         }}
       />
       <LoansStack.Screen
         component={EditCollateralScreen}
-        name='EditCollateralScreen'
+        name="EditCollateralScreen"
         options={{
           headerBackTitleVisible: false,
           headerTitle: () => (
             <HeaderTitle
-              text={translate('screens/LoansScreen', 'Edit Collateral')}
+              text={translate("screens/LoansScreen", "Edit Collateral")}
             />
-          )
+          ),
         }}
       />
       <LoansStack.Screen
-        component={ConfirmEditCollateralScreen}
-        name='ConfirmEditCollateralScreen'
+        component={AddOrRemoveCollateralScreen}
+        name="AddOrRemoveCollateralScreen"
         options={({ route }: { route: any }) => ({
-          headerBackTitleVisible: false,
-          headerTitle: () => {
-            const isAdd = route?.params?.isAdd as boolean
-            return (
-              <HeaderTitle
-                text={translate('screens/LoansScreen', `Confirm ${isAdd ? 'Add' : 'Remove'} Collateral`)}
-              />
-            )
-          }
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate(
+            "screens/LoansScreen",
+            route?.params?.isAdd ? "Add Collateral" : "Remove Collateral"
+          ),
         })}
       />
       <LoansStack.Screen
-        component={ChooseLoanTokenScreen}
-        name='ChooseLoanTokenScreen'
+        component={ConfirmEditCollateralScreen}
+        name="ConfirmEditCollateralScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/LoansScreen', 'Choose Loan Token to Borrow')}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate("screens/LoansScreen", "Confirm"),
         }}
       />
       <LoansStack.Screen
         component={BorrowLoanTokenScreen}
-        name='BorrowLoanTokenScreen'
+        name="BorrowLoanTokenScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/LoansScreen', 'Borrow Loan Token')}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate("screens/LoansScreen", "Borrow"),
         }}
       />
       <LoansStack.Screen
         component={ConfirmBorrowLoanTokenScreen}
-        name='ConfirmBorrowLoanTokenScreen'
+        name="ConfirmBorrowLoanTokenScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/LoansScreen', 'Confirm Borrow Loan Token')}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate("screens/LoansScreen", "Confirm"),
         }}
       />
       <LoansStack.Screen
         component={LoansFaq}
-        name='LoansFaq'
+        name="LoansFaq"
         options={{
           headerTitle: () => (
             <HeaderTitle
-              text={translate('components/LoansFaq', 'Loans FAQ')}
+              text={translate("components/LoansFaq", "Loans FAQ")}
               containerTestID={headerContainerTestId}
             />
           ),
-          headerBackTitleVisible: false
+          headerBackTitleVisible: false,
         }}
       />
       <LoansStack.Screen
         component={PaybackLoanScreen}
-        name='PaybackLoanScreen'
+        name="PaybackLoanScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/LoansScreen', 'Payback Loan')}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate("screens/LoansScreen", "Payback Loan"),
         }}
       />
       <LoansStack.Screen
         component={ConfirmPaybackLoanScreen}
-        name='ConfirmPaybackLoanScreen'
+        name="ConfirmPaybackLoanScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/ConfirmPaybackLoanScreen', 'Confirm Loan Payment')}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate("screens/ConfirmPaybackLoanScreen", "Confirm"),
         }}
       />
       <LoansStack.Screen
         component={EditLoanSchemeScreen}
-        name='EditLoanSchemeScreen'
+        name="EditLoanSchemeScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/LoansScreen', 'Edit Loan Scheme')}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate("screens/LoansScreen", "Edit Vault"),
         }}
       />
       <LoansStack.Screen
         component={ConfirmEditLoanSchemeScreen}
-        name='ConfirmEditLoanSchemeScreen'
+        name="ConfirmEditLoanSchemeScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/LoansScreen', 'Confirm Edit Loan Scheme')}
-            />
-          )
-        }}
-      />
-      <LoansStack.Screen
-        component={BorrowMoreScreen}
-        name='BorrowMoreScreen'
-        options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/LoansScreen', 'Borrow More')}
-            />
-          )
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate("screens/LoansScreen", "Confirm"),
         }}
       />
       <LoansStack.Screen
         component={CloseVaultScreen}
-        name='CloseVaultScreen'
+        name="CloseVaultScreen"
         options={{
-          headerBackTitleVisible: false,
-          headerTitle: () => (
-            <HeaderTitle
-              text={translate('screens/LoansScreen', 'Close Vault')}
-            />
-          )
+          ...screenOptions,
+          headerTitle: translate("screens/LoansScreen", "Close Vault"),
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
         }}
       />
     </LoansStack.Navigator>
-  )
+  );
 }

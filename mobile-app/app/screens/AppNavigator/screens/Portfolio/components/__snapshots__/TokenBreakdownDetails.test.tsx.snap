@@ -1,0 +1,338 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Token Breakdown Details should match snapshot 1`] = `
+[
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          [
+            [
+              {
+                "fontSize": 12,
+                "lineHeight": 16,
+                "paddingRight": 56,
+              },
+              {
+                "fontFamily": "MediumFont",
+                "fontWeight": "500",
+              },
+            ],
+            {
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
+      }
+      testID="foo_locked_label"
+    >
+      Locked
+    </Text>
+    <View
+      style={
+        {
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "justifyContent": "flex-end",
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontSize": 12,
+                  "lineHeight": 16,
+                },
+                undefined,
+              ],
+              {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+          ]
+        }
+        testID="foo_locked_amount"
+      >
+        1.00000000
+      </Text>
+    </View>
+  </View>,
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+        },
+        {
+          "marginBottom": 8,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          [
+            [
+              {
+                "fontSize": 12,
+                "lineHeight": 16,
+                "paddingRight": 56,
+              },
+              undefined,
+            ],
+            {
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
+      }
+      testID="foo_locked_value_label"
+    />
+    <View
+      style={
+        {
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "justifyContent": "flex-end",
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontSize": 12,
+                  "lineHeight": 16,
+                },
+                undefined,
+              ],
+              {
+                "color": "rgba(115, 115, 115, 1)",
+              },
+            ],
+          ]
+        }
+        testID="foo_locked_value_amount"
+      >
+        ≈ $123.00
+      </Text>
+    </View>
+  </View>,
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          [
+            [
+              {
+                "fontSize": 12,
+                "lineHeight": 16,
+                "paddingRight": 56,
+              },
+              {
+                "fontFamily": "MediumFont",
+                "fontWeight": "500",
+              },
+            ],
+            {
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
+      }
+      testID="foo_available_label"
+    >
+      Available
+    </Text>
+    <View
+      style={
+        {
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "justifyContent": "flex-end",
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontSize": 12,
+                  "lineHeight": 16,
+                },
+                undefined,
+              ],
+              {
+                "color": "rgba(0, 0, 0, 1)",
+              },
+            ],
+          ]
+        }
+        testID="foo_available_amount"
+      >
+        99.00000000
+      </Text>
+    </View>
+  </View>,
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          [
+            [
+              {
+                "fontSize": 12,
+                "lineHeight": 16,
+                "paddingRight": 56,
+              },
+              undefined,
+            ],
+            {
+              "color": "rgba(115, 115, 115, 1)",
+            },
+          ],
+        ]
+      }
+      testID="foo_available_value_label"
+    />
+    <View
+      style={
+        {
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "justifyContent": "flex-end",
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontSize": 12,
+                  "lineHeight": 16,
+                },
+                undefined,
+              ],
+              {
+                "color": "rgba(115, 115, 115, 1)",
+              },
+            ],
+          ]
+        }
+        testID="foo_available_value_amount"
+      >
+        ≈ $999,999.12
+      </Text>
+    </View>
+  </View>,
+]
+`;

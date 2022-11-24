@@ -3,6 +3,7 @@
 exports[`button should be clickable 1`] = `
 <View
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -12,7 +13,7 @@ exports[`button should be clickable 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "rgba(255, 229, 247, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -41,7 +42,13 @@ exports[`button should be clickable 1`] = `
 
 exports[`button should match styling of button type fill-primary 1`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": false,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -51,7 +58,7 @@ exports[`button should match styling of button type fill-primary 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "rgba(255, 229, 247, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -73,14 +80,14 @@ exports[`button should match styling of button type fill-primary 1`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "rgba(255, 0, 175, 1)",
           "fontFamily": "BoldFont",
           "fontWeight": "700",
@@ -96,7 +103,13 @@ exports[`button should match styling of button type fill-primary 1`] = `
 
 exports[`button should match styling of button type fill-primary 2`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -106,7 +119,7 @@ exports[`button should match styling of button type fill-primary 2`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "rgba(229, 229, 229, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -132,14 +145,14 @@ exports[`button should match styling of button type fill-primary 2`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "rgba(163, 163, 163, 1)",
           "fontFamily": "BoldFont",
           "fontWeight": "700",
@@ -155,7 +168,13 @@ exports[`button should match styling of button type fill-primary 2`] = `
 
 exports[`button should match styling of button type fill-primary 3`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -165,7 +184,7 @@ exports[`button should match styling of button type fill-primary 3`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "rgba(229, 229, 229, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -190,21 +209,18 @@ exports[`button should match styling of button type fill-primary 3`] = `
   }
 >
   <ActivityIndicator
-    animating={true}
     color="#ff00af"
-    hidesWhenStopped={true}
-    size="small"
   />
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "rgba(163, 163, 163, 1)",
           "fontFamily": "BoldFont",
           "fontWeight": "700",
@@ -221,7 +237,13 @@ exports[`button should match styling of button type fill-primary 3`] = `
 
 exports[`button should match styling of button type fill-secondary 1`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": false,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -231,7 +253,7 @@ exports[`button should match styling of button type fill-secondary 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "rgba(232, 222, 255, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -253,14 +275,14 @@ exports[`button should match styling of button type fill-secondary 1`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "rgba(91, 15, 255, 1)",
           "fontFamily": "BoldFont",
           "fontWeight": "700",
@@ -276,7 +298,13 @@ exports[`button should match styling of button type fill-secondary 1`] = `
 
 exports[`button should match styling of button type fill-secondary 2`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -286,7 +314,7 @@ exports[`button should match styling of button type fill-secondary 2`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "rgba(229, 229, 229, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -312,14 +340,14 @@ exports[`button should match styling of button type fill-secondary 2`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "rgba(163, 163, 163, 1)",
           "fontFamily": "BoldFont",
           "fontWeight": "700",
@@ -335,7 +363,13 @@ exports[`button should match styling of button type fill-secondary 2`] = `
 
 exports[`button should match styling of button type fill-secondary 3`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -345,7 +379,7 @@ exports[`button should match styling of button type fill-secondary 3`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "rgba(229, 229, 229, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -370,21 +404,18 @@ exports[`button should match styling of button type fill-secondary 3`] = `
   }
 >
   <ActivityIndicator
-    animating={true}
     color="#ff00af"
-    hidesWhenStopped={true}
-    size="small"
   />
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "rgba(163, 163, 163, 1)",
           "fontFamily": "BoldFont",
           "fontWeight": "700",
@@ -401,7 +432,13 @@ exports[`button should match styling of button type fill-secondary 3`] = `
 
 exports[`button should match styling of button type flat-primary 1`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": false,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -411,7 +448,7 @@ exports[`button should match styling of button type flat-primary 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "transparent",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -433,14 +470,14 @@ exports[`button should match styling of button type flat-primary 1`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "rgba(255, 0, 175, 1)",
           "fontFamily": "BoldFont",
           "fontWeight": "700",
@@ -456,7 +493,13 @@ exports[`button should match styling of button type flat-primary 1`] = `
 
 exports[`button should match styling of button type flat-primary 2`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -466,7 +509,7 @@ exports[`button should match styling of button type flat-primary 2`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "rgba(229, 229, 229, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -492,14 +535,14 @@ exports[`button should match styling of button type flat-primary 2`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "rgba(163, 163, 163, 1)",
           "fontFamily": "BoldFont",
           "fontWeight": "700",
@@ -515,7 +558,13 @@ exports[`button should match styling of button type flat-primary 2`] = `
 
 exports[`button should match styling of button type flat-primary 3`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -525,7 +574,7 @@ exports[`button should match styling of button type flat-primary 3`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "rgba(229, 229, 229, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -550,21 +599,18 @@ exports[`button should match styling of button type flat-primary 3`] = `
   }
 >
   <ActivityIndicator
-    animating={true}
     color="#ff00af"
-    hidesWhenStopped={true}
-    size="small"
   />
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "rgba(163, 163, 163, 1)",
           "fontFamily": "BoldFont",
           "fontWeight": "700",
@@ -581,7 +627,13 @@ exports[`button should match styling of button type flat-primary 3`] = `
 
 exports[`button should match styling of button type flat-secondary 1`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": false,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -591,7 +643,7 @@ exports[`button should match styling of button type flat-secondary 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "transparent",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -613,14 +665,14 @@ exports[`button should match styling of button type flat-secondary 1`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "rgba(91, 15, 255, 1)",
           "fontFamily": "BoldFont",
           "fontWeight": "700",
@@ -636,7 +688,13 @@ exports[`button should match styling of button type flat-secondary 1`] = `
 
 exports[`button should match styling of button type flat-secondary 2`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -646,7 +704,7 @@ exports[`button should match styling of button type flat-secondary 2`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "rgba(229, 229, 229, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -672,14 +730,14 @@ exports[`button should match styling of button type flat-secondary 2`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "rgba(163, 163, 163, 1)",
           "fontFamily": "BoldFont",
           "fontWeight": "700",
@@ -695,7 +753,13 @@ exports[`button should match styling of button type flat-secondary 2`] = `
 
 exports[`button should match styling of button type flat-secondary 3`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -705,7 +769,7 @@ exports[`button should match styling of button type flat-secondary 3`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "rgba(229, 229, 229, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -730,21 +794,18 @@ exports[`button should match styling of button type flat-secondary 3`] = `
   }
 >
   <ActivityIndicator
-    animating={true}
     color="#ff00af"
-    hidesWhenStopped={true}
-    size="small"
   />
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "rgba(163, 163, 163, 1)",
           "fontFamily": "BoldFont",
           "fontWeight": "700",
@@ -761,7 +822,13 @@ exports[`button should match styling of button type flat-secondary 3`] = `
 
 exports[`button should match styling of button type outline-primary 1`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": false,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -771,7 +838,7 @@ exports[`button should match styling of button type outline-primary 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "transparent",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -793,14 +860,14 @@ exports[`button should match styling of button type outline-primary 1`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "rgba(255, 0, 175, 1)",
           "fontFamily": "BoldFont",
           "fontWeight": "700",
@@ -816,7 +883,13 @@ exports[`button should match styling of button type outline-primary 1`] = `
 
 exports[`button should match styling of button type outline-primary 2`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -826,7 +899,7 @@ exports[`button should match styling of button type outline-primary 2`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "rgba(229, 229, 229, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -852,14 +925,14 @@ exports[`button should match styling of button type outline-primary 2`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "rgba(163, 163, 163, 1)",
           "fontFamily": "BoldFont",
           "fontWeight": "700",
@@ -875,7 +948,13 @@ exports[`button should match styling of button type outline-primary 2`] = `
 
 exports[`button should match styling of button type outline-primary 3`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -885,7 +964,7 @@ exports[`button should match styling of button type outline-primary 3`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "rgba(229, 229, 229, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -910,21 +989,18 @@ exports[`button should match styling of button type outline-primary 3`] = `
   }
 >
   <ActivityIndicator
-    animating={true}
     color="#ff00af"
-    hidesWhenStopped={true}
-    size="small"
   />
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "rgba(163, 163, 163, 1)",
           "fontFamily": "BoldFont",
           "fontWeight": "700",
@@ -941,7 +1017,13 @@ exports[`button should match styling of button type outline-primary 3`] = `
 
 exports[`button should match styling of button type outline-secondary 1`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": false,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -951,7 +1033,7 @@ exports[`button should match styling of button type outline-secondary 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "transparent",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -973,14 +1055,14 @@ exports[`button should match styling of button type outline-secondary 1`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "rgba(91, 15, 255, 1)",
           "fontFamily": "BoldFont",
           "fontWeight": "700",
@@ -996,7 +1078,13 @@ exports[`button should match styling of button type outline-secondary 1`] = `
 
 exports[`button should match styling of button type outline-secondary 2`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -1006,7 +1094,7 @@ exports[`button should match styling of button type outline-secondary 2`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "rgba(229, 229, 229, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -1032,14 +1120,14 @@ exports[`button should match styling of button type outline-secondary 2`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "rgba(163, 163, 163, 1)",
           "fontFamily": "BoldFont",
           "fontWeight": "700",
@@ -1055,7 +1143,13 @@ exports[`button should match styling of button type outline-secondary 2`] = `
 
 exports[`button should match styling of button type outline-secondary 3`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -1065,7 +1159,7 @@ exports[`button should match styling of button type outline-secondary 3`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "rgba(229, 229, 229, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,
@@ -1090,21 +1184,18 @@ exports[`button should match styling of button type outline-secondary 3`] = `
   }
 >
   <ActivityIndicator
-    animating={true}
     color="#ff00af"
-    hidesWhenStopped={true}
-    size="small"
   />
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Object {
+        {
           "color": "rgba(163, 163, 163, 1)",
           "fontFamily": "BoldFont",
           "fontWeight": "700",
@@ -1121,7 +1212,13 @@ exports[`button should match styling of button type outline-secondary 3`] = `
 
 exports[`button should not be clickable when disabled 1`] = `
 <View
+  accessibilityState={
+    {
+      "disabled": true,
+    }
+  }
   accessible={true}
+  collapsable={false}
   focusable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
@@ -1131,7 +1228,7 @@ exports[`button should not be clickable when disabled 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={
-    Object {
+    {
       "backgroundColor": "rgba(229, 229, 229, 1)",
       "borderBottomLeftRadius": 4,
       "borderBottomRightRadius": 4,

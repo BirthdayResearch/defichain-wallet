@@ -1,53 +1,83 @@
-import { StackScreenProps } from '@react-navigation/stack'
-import { View } from '@components/index'
-import { ThemedScrollView, ThemedText, ThemedView } from '@components/themed'
-import { tailwind } from '@tailwind'
-import { translate } from '@translations'
-import { SettingsParamList } from '../SettingsNavigator'
+import { StackScreenProps } from "@react-navigation/stack";
+import {
+  ThemedScrollViewV2,
+  ThemedViewV2,
+  ThemedTextV2,
+} from "@components/themed";
+import { tailwind } from "@tailwind";
+import { translate } from "@translations";
+import { SettingsParamList } from "../SettingsNavigator";
 
-type Props = StackScreenProps<SettingsParamList, 'RecoveryWordsScreen'>
+type Props = StackScreenProps<SettingsParamList, "RecoveryWordsScreen">;
 
-export function RecoveryWordsScreen ({ route }: Props): JSX.Element {
-  const { words } = route.params
+export function RecoveryWordsScreen({ route }: Props): JSX.Element {
+  const { words } = route.params;
   return (
-    <ThemedScrollView testID='recovery_word_screen'>
-      <ThemedText style={tailwind('pt-6 pb-4 px-4 text-sm font-medium')}>
-        {translate('screens/RecoveryWordsScreen', 'Keep your recovery words safe and private')}
-      </ThemedText>
+    <ThemedScrollViewV2
+      contentContainerStyle={tailwind("pt-8 px-5 pb-16")}
+      style={tailwind("flex-1")}
+      testID="recovery_word_screen"
+    >
+      <ThemedTextV2
+        style={tailwind("font-normal-v2 text-base text-center px-5")}
+      >
+        {translate(
+          "screens/RecoveryWordsScreen",
+          "Take note of the correct spelling and order. Keep your recovery words confidential and secure."
+        )}
+      </ThemedTextV2>
 
-      <View style={tailwind('pb-12')}>
+      <ThemedViewV2
+        dark={tailwind("bg-mono-dark-v2-00")}
+        light={tailwind("bg-mono-light-v2-00")}
+        style={tailwind("rounded-lg-v2 mt-8")}
+      >
         {words.map((word, index) => {
           return (
-            <MnemonicWordRow
+            <RecoveryWordRow
               index={index}
               key={index}
               word={word}
+              border={index < words.length - 1}
             />
-          )
+          );
         })}
-      </View>
-    </ThemedScrollView>
-  )
+      </ThemedViewV2>
+    </ThemedScrollViewV2>
+  );
 }
 
-function MnemonicWordRow (props: { word: string, index: number }): JSX.Element {
+function RecoveryWordRow(props: {
+  index: number;
+  word: string;
+  border: boolean;
+}): JSX.Element {
   return (
-    <ThemedView
-      dark={tailwind('bg-gray-800 border-b border-gray-700')}
-      light={tailwind('bg-white border-b border-gray-200')}
-      style={tailwind('flex-row px-4 py-3')}
+    <ThemedViewV2
+      dark={tailwind("border-mono-dark-v2-300")}
+      light={tailwind("border-mono-light-v2-300")}
+      style={tailwind([
+        "py-4.5 mx-5 flex-row justify-center",
+        { "border-b-0.5": props.border },
+      ])}
     >
-      <ThemedText
-        style={tailwind('w-10')}
+      <ThemedTextV2
+        dark={tailwind("text-mono-dark-v2-500")}
+        light={tailwind("text-mono-light-v2-500")}
+        style={tailwind("w-11 text-sm font-normal-v2")}
         testID={`word_${props.index + 1}_number`}
       >
-        {props.index + 1}
-        .
-      </ThemedText>
+        {`${props.index + 1}.`}
+      </ThemedTextV2>
 
-      <ThemedText testID={`word_${props.index + 1}`}>
+      <ThemedTextV2
+        dark={tailwind("text-mono-dark-v2-800")}
+        light={tailwind("text-mono-light-v2-800")}
+        style={tailwind("flex-grow text-sm font-normal-v2")}
+        testID={`word_${props.index + 1}`}
+      >
         {props.word}
-      </ThemedText>
-    </ThemedView>
-  )
+      </ThemedTextV2>
+    </ThemedViewV2>
+  );
 }

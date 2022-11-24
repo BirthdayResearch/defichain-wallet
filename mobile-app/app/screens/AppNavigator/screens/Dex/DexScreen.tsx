@@ -1,282 +1,369 @@
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import {
-  NavigationProp,
-  useIsFocused,
-  useNavigation
-} from '@react-navigation/native'
-import { useEffect, useState, useLayoutEffect, useCallback } from 'react'
-import * as React from 'react'
-import BigNumber from 'bignumber.js'
-import { useSelector, useDispatch } from 'react-redux'
-import { View } from '@components'
+import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import * as React from "react";
+import { useCallback, useEffect, useState } from "react";
+import BigNumber from "bignumber.js";
+import { useSelector } from "react-redux";
+import { View } from "@components";
 import {
   SkeletonLoader,
-  SkeletonLoaderScreen
-} from '@components/SkeletonLoader'
-import { ThemedScrollView } from '@components/themed'
-import { tailwind } from '@tailwind'
-import { translate } from '@translations'
-import { DexParamList } from './DexNavigator'
-import { DisplayDexGuidelinesPersistence } from '@api'
-import { DexGuidelines } from './DexGuidelines'
-import { useLogger } from '@shared-contexts/NativeLoggingProvider'
-import { Tabs } from '@components/Tabs'
-import { fetchTokens, tokensSelector, WalletToken } from '@store/wallet'
-import { RootState } from '@store'
-import { HeaderSearchIcon } from '@components/HeaderSearchIcon'
-import { HeaderSearchInput } from '@components/HeaderSearchInput'
-import { EmptyActivePoolpair } from './components/EmptyActivePoolPair'
-import { debounce } from 'lodash'
-import { useWhaleApiClient } from '@shared-contexts/WhaleContext'
-import { useWalletContext } from '@shared-contexts/WalletContext'
-import { ButtonGroupTabKey, PoolPairCards } from './components/PoolPairCards/PoolPairCards'
-import { SwapButton } from './components/SwapButton'
+  SkeletonLoaderScreen,
+} from "@components/SkeletonLoader";
+import {
+  ThemedIcon,
+  ThemedScrollViewV2,
+  ThemedTextV2,
+  ThemedTouchableOpacityV2,
+  ThemedViewV2,
+} from "@components/themed";
+import { tailwind } from "@tailwind";
+import { translate } from "@translations";
+import { tokensSelector, WalletToken } from "@store/wallet";
+import { RootState } from "@store";
+import { debounce } from "lodash";
+import { HeaderSearchInput } from "@components/HeaderSearchInput";
+import { ScrollView } from "react-native";
+import { ScreenName } from "@screens/enum";
+import { EmptyActivePoolpair } from "./components/EmptyActivePoolPair";
+import {
+  ButtonGroupTabKey,
+  PoolPairCards,
+} from "./components/PoolPairCards/PoolPairCards";
+import { ButtonGroup } from "./components/ButtonGroup";
+import { DexParamList } from "./DexNavigator";
+import { AssetsFilterItem } from "../Portfolio/components/AssetsFilterRow";
+import { useFavouritePoolpairContext } from "../../../../contexts/FavouritePoolpairContext";
 
 enum TabKey {
-  YourPoolPair = 'YOUR_POOL_PAIRS',
-  AvailablePoolPair = 'AVAILABLE_POOL_PAIRS'
+  YourPoolPair = "YOUR_POOL_PAIRS",
+  AvailablePoolPair = "AVAILABLE_POOL_PAIRS",
 }
 
 interface DexItem<T> {
-  type: 'your' | 'available'
-  data: T
+  type: "your" | "available";
+  data: T;
 }
 
-export function DexScreen (): JSX.Element {
-  const logger = useLogger()
-  const client = useWhaleApiClient()
-  const { address } = useWalletContext()
-  const dispatch = useDispatch()
-  const isFocused = useIsFocused()
-  const navigation = useNavigation<NavigationProp<DexParamList>>()
-  const [activeTab, setActiveTab] = useState<string>(TabKey.AvailablePoolPair)
-  const [isLoaded, setIsLoaded] = useState<boolean>(false)
-  const [displayGuidelines, setDisplayGuidelines] = useState<boolean>(true)
-  const tokens = useSelector((state: RootState) => tokensSelector(state.wallet))
-  const blockCount = useSelector((state: RootState) => state.block.count)
-  const {
-    poolpairs: pairs,
-    hasFetchedPoolpairData
-  } = useSelector(
+export function DexScreen(): JSX.Element {
+  const navigation = useNavigation<NavigationProp<DexParamList>>();
+  const [activeTab, setActiveTab] = useState<string>(TabKey.AvailablePoolPair);
+  const tokens = useSelector((state: RootState) =>
+    tokensSelector(state.wallet)
+  );
+
+  const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
+    setActiveButtonGroup(buttonGroupTabKey);
+    handleButtonFilter(buttonGroupTabKey);
+  };
+
+  const { poolpairs: pairs, hasFetchedPoolpairData } = useSelector(
     (state: RootState) => state.wallet
-  )
+  );
   const yourLPTokens = useSelector(() => {
     const _yourLPTokens: Array<DexItem<WalletToken>> = tokens
       .filter(({ isLPS }) => isLPS)
       .map((data) => ({
-        type: 'your',
-        data: data
-      }))
-    return _yourLPTokens
-  })
+        type: "your",
+        data: data,
+      }));
+    return _yourLPTokens;
+  });
+
   const onTabChange = (tabKey: TabKey): void => {
-    setActiveTab(tabKey)
-  }
+    setActiveTab(tabKey);
+  };
 
   const tabsList = [
     {
       id: TabKey.AvailablePoolPair,
-      label: translate('screens/DexScreen', 'Browse pool pairs'),
+      label: translate("screens/DexScreen", "Available pairs"),
       disabled: false,
-      handleOnPress: () => onTabChange(TabKey.AvailablePoolPair)
+      handleOnPress: () => onTabChange(TabKey.AvailablePoolPair),
     },
     {
       id: TabKey.YourPoolPair,
-      label: translate('screens/DexScreen', 'Your pool pairs'),
+      label: translate("screens/DexScreen", "Your pool pairs"),
       disabled: false,
-      handleOnPress: () => onTabChange(TabKey.YourPoolPair)
-    }
-  ]
+      handleOnPress: () => onTabChange(TabKey.YourPoolPair),
+    },
+  ];
 
-  const onAdd = (data: PoolPairData): void => {
+  const onAdd = (data: PoolPairData, info: WalletToken): void => {
     navigation.navigate({
-      name: 'AddLiquidity',
-      params: { pair: data },
-      merge: true
-    })
-  }
+      name: "AddLiquidity",
+      params: {
+        pair: data,
+        pairInfo: info,
+        originScreen: ScreenName.DEX_screen,
+      },
+      merge: true,
+    });
+  };
 
-  const onRemove = (data: PoolPairData): void => {
+  const onRemove = (data: PoolPairData, info: WalletToken): void => {
     navigation.navigate({
-      name: 'RemoveLiquidity',
-      params: { pair: data },
-      merge: true
-    })
-  }
+      name: "RemoveLiquidity",
+      params: {
+        pair: data,
+        pairInfo: info,
+        originScreen: ScreenName.DEX_screen,
+      },
+      merge: true,
+    });
+  };
 
   const onSwap = (data: PoolPairData): void => {
     navigation.navigate({
-      name: 'CompositeSwap',
-      params: { pair: data },
-      merge: true
-    })
-  }
+      name: "CompositeSwap",
+      params: {
+        pair: data,
+        tokenSelectOption: {
+          from: {
+            isDisabled: true,
+            isPreselected: true,
+          },
+          to: {
+            isDisabled: true,
+            isPreselected: true,
+          },
+        },
+        originScreen: ScreenName.DEX_screen,
+      },
+      merge: true,
+    });
+  };
+
+  const onPress = (id: string): void => {
+    navigation.navigate({
+      name: "PoolPairDetailsScreen",
+      params: { id: id },
+      merge: true,
+    });
+  };
 
   // Search
-  const [showSearchInput, setShowSearchInput] = useState(false)
-  const [searchString, setSearchString] = useState('')
+  const [showSearchInput, setShowSearchInput] = useState(false);
+  const [searchString, setSearchString] = useState("");
   const [filteredAvailablePairs, setFilteredAvailablePairs] =
-    useState<Array<DexItem<PoolPairData>>>(pairs)
-  const [isSearching, setIsSearching] = useState(false)
+    useState<Array<DexItem<PoolPairData>>>(pairs);
+  const [isSearching, setIsSearching] = useState(false);
   const handleFilter = useCallback(
     debounce((searchString: string) => {
-      setIsSearching(false)
+      setIsSearching(false);
       if (searchString !== undefined && searchString.trim().length > 0) {
         setFilteredAvailablePairs(
-          pairs.filter((pair) =>
-            pair.data.displaySymbol
-              .toLowerCase()
-              .includes(searchString.trim().toLowerCase())
-          ).sort((firstPair, secondPair) =>
-            new BigNumber(secondPair.data.totalLiquidity.usd ?? 0).minus(firstPair.data.totalLiquidity.usd ?? 0).toNumber() ??
-            new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber()
-          )
-        )
+          pairs
+            .filter((pair) =>
+              pair.data.displaySymbol
+                .toLowerCase()
+                .includes(searchString.trim().toLowerCase())
+            )
+            .sort(
+              (firstPair, secondPair) =>
+                new BigNumber(secondPair.data.totalLiquidity.usd ?? 0)
+                  .minus(firstPair.data.totalLiquidity.usd ?? 0)
+                  .toNumber() ??
+                new BigNumber(secondPair.data.id)
+                  .minus(firstPair.data.id)
+                  .toNumber()
+            )
+        );
       } else {
-        setFilteredAvailablePairs([])
+        setFilteredAvailablePairs([]);
       }
     }, 500),
     [activeTab, pairs]
-  )
-  const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(ButtonGroupTabKey.AllPairs)
-  const handleButtonFilter = useCallback((buttonGroupTabKey: ButtonGroupTabKey) => {
-    const filteredPairs = pairs.filter((pair) => {
-      const tokenADisplaySymbol = pair.data.tokenA.displaySymbol
-      const tokenBDisplaySymbol = pair.data.tokenB.displaySymbol
-
-      switch (buttonGroupTabKey) {
-        case ButtonGroupTabKey.DFIPairs:
-          return tokenADisplaySymbol.includes('DFI') || tokenBDisplaySymbol.includes('DFI')
-
-        case ButtonGroupTabKey.DUSDPairs:
-          return tokenADisplaySymbol.includes('DUSD') || tokenBDisplaySymbol.includes('DUSD')
-
-        default:
-          return true
-      }
-    }).sort((firstPair, secondPair) =>
-      new BigNumber(secondPair.data.totalLiquidity.usd ?? 0).minus(firstPair.data.totalLiquidity.usd ?? 0).toNumber() ??
-      new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber()
-    )
-    setFilteredAvailablePairs(
-      filteredPairs
-    )
-  },
-    [pairs]
-  )
-
-  useEffect(() => {
-    if (isFocused) {
-      dispatch(fetchTokens({
-        client,
-        address
-      }))
-    }
-  }, [address, blockCount, isFocused])
-
-  useEffect(() => {
-    DisplayDexGuidelinesPersistence.get()
-      .then((shouldDisplayGuidelines: boolean) => {
-        setDisplayGuidelines(shouldDisplayGuidelines)
-      })
-      .catch(logger.error)
-      .finally(() => setIsLoaded(true))
-  }, [])
-
-  useEffect(() => {
-    if (showSearchInput) {
-      setIsSearching(true)
-      handleFilter(searchString)
-    }
-  }, [searchString, hasFetchedPoolpairData])
-
-  // Update local state - filter available pair when pairs update
-  useEffect(() => {
-    if (!showSearchInput) {
-      handleButtonFilter(activeButtonGroup)
-      return
-    }
-
-    if (searchString !== undefined && searchString.trim().length > 0) {
-      handleFilter(searchString)
-    }
-  }, [pairs])
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerLeft: (): JSX.Element => {
-        if (!displayGuidelines) {
-          return (
-            <HeaderSearchIcon
-              onPress={() => {
-                setShowSearchInput(true)
-                setFilteredAvailablePairs([])
-              }}
-              testID='dex_search_icon'
-              style={tailwind('pl-4')}
-            />
-          )
-        }
-        return <></>
-      },
-      headerRight: (): JSX.Element => {
-        if (!displayGuidelines) {
-          return <SwapButton />
-        }
-        return <></>
-      }
-    })
-  }, [navigation, displayGuidelines])
+  );
 
   useEffect(() => {
     if (showSearchInput) {
       navigation.setOptions({
         header: (): JSX.Element => (
-          <HeaderSearchInput
-            searchString={searchString}
-            onClearInput={() => setSearchString('')}
-            onChangeInput={(text: string) => {
-              setSearchString(text)
-            }}
-            onCancelPress={() => {
-              setSearchString('')
-              setShowSearchInput(false)
-            }}
-            placeholder='Search for pool pairs'
-            testID='dex_search_input'
-          />
-        )
-      })
+          <ThemedViewV2>
+            <ThemedViewV2
+              light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-100")}
+              dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-100")}
+              style={tailwind("pb-5 rounded-b-2xl border-b")}
+            >
+              <HeaderSearchInput
+                searchString={searchString}
+                onClearInput={() => setSearchString("")}
+                onChangeInput={(text: string) => {
+                  setSearchString(text);
+                }}
+                onCancelPress={() => {
+                  setSearchString("");
+                  setShowSearchInput(false);
+                }}
+                placeholder="Search pool pair"
+                testID="dex_search_input"
+              />
+            </ThemedViewV2>
+          </ThemedViewV2>
+        ),
+      });
     } else {
       navigation.setOptions({
-        header: undefined
-      })
-      handleButtonFilter(activeButtonGroup)
+        header: undefined,
+      });
+      handleButtonFilter(activeButtonGroup);
     }
-  }, [showSearchInput, searchString])
+  }, [showSearchInput, searchString]);
 
-  const onGuidelinesClose = async (): Promise<void> => {
-    await DisplayDexGuidelinesPersistence.set(false)
-    setDisplayGuidelines(false)
-  }
+  const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(
+    ButtonGroupTabKey.AllPairs
+  );
+  const { isFavouritePoolpair, favouritePoolpairs } =
+    useFavouritePoolpairContext();
 
-  if (!isLoaded) {
-    return <></>
-  }
+  const handleButtonFilter = useCallback(
+    (buttonGroupTabKey: ButtonGroupTabKey) => {
+      const filteredPairs = pairs
+        .filter((pair) => {
+          const tokenADisplaySymbol = pair.data.tokenA.displaySymbol;
+          const tokenBDisplaySymbol = pair.data.tokenB.displaySymbol;
 
-  if (displayGuidelines) {
-    return <DexGuidelines onClose={onGuidelinesClose} />
-  }
+          switch (buttonGroupTabKey) {
+            case ButtonGroupTabKey.DFIPairs:
+              return (
+                tokenADisplaySymbol.includes("DFI") ||
+                tokenBDisplaySymbol.includes("DFI")
+              );
+
+            case ButtonGroupTabKey.DUSDPairs:
+              return (
+                tokenADisplaySymbol.includes("DUSD") ||
+                tokenBDisplaySymbol.includes("DUSD")
+              );
+
+            case ButtonGroupTabKey.FavouritePairs:
+              return isFavouritePoolpair(pair.data.id);
+
+            default:
+              return true;
+          }
+        })
+        .sort(
+          (firstPair, secondPair) =>
+            new BigNumber(secondPair.data.totalLiquidity.usd ?? 0)
+              .minus(firstPair.data.totalLiquidity.usd ?? 0)
+              .toNumber() ??
+            new BigNumber(secondPair.data.id)
+              .minus(firstPair.data.id)
+              .toNumber()
+        );
+      setFilteredAvailablePairs(filteredPairs);
+    },
+    [pairs, favouritePoolpairs]
+  );
+
+  useEffect(() => {
+    if (showSearchInput) {
+      setIsSearching(true);
+      handleFilter(searchString);
+    }
+  }, [searchString, hasFetchedPoolpairData]);
+
+  // Update local state - filter available pair when pairs update
+  useEffect(() => {
+    if (!showSearchInput) {
+      handleButtonFilter(activeButtonGroup);
+      return;
+    }
+
+    if (searchString !== undefined && searchString.trim().length > 0) {
+      handleFilter(searchString);
+    }
+  }, [pairs, favouritePoolpairs]);
+
+  const onSearchBtnPress = (): void => {
+    setShowSearchInput(true);
+    setFilteredAvailablePairs([]);
+  };
+
+  // Top Liquidity pairs
+  const [topLiquidityPairs, setTopLiquidityPairs] = useState<
+    Array<DexItem<PoolPairData>>
+  >([]);
+  useEffect(() => {
+    const sorted = pairs
+      .map((item) => item)
+      .sort(
+        (firstPair, secondPair) =>
+          new BigNumber(secondPair.data.totalLiquidity.usd ?? 0)
+            .minus(firstPair.data.totalLiquidity.usd ?? 0)
+            .toNumber() ??
+          new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber()
+      )
+      .slice(0, 5);
+    setTopLiquidityPairs(sorted);
+  }, [pairs]);
+
+  // New pool pairs
+  const [newPoolsPairs, setNewPoolsPairs] = useState<
+    Array<DexItem<PoolPairData>>
+  >([]);
+  useEffect(() => {
+    const sorted = pairs.map((item) => item).slice(-5);
+    setNewPoolsPairs(sorted);
+  }, [pairs]);
 
   return (
-    <>
-      <Tabs tabSections={tabsList} testID='dex_tabs' activeTabKey={activeTab} />
-      <View style={tailwind('flex-1')}>
+    <ThemedViewV2 style={tailwind("flex-1")}>
+      {showSearchInput ? (
+        <View style={tailwind("px-10 mt-8 mb-2")}>
+          <ThemedTextV2
+            light={tailwind("text-mono-light-v2-700")}
+            dark={tailwind("text-mono-dark-v2-700")}
+            style={tailwind("font-normal-v2 text-xs")}
+            testID="search_title"
+          >
+            {searchString?.trim().length > 0
+              ? translate(
+                  "screens/DexScreen",
+                  "Search results for “{{input}}”",
+                  { input: searchString?.trim() }
+                )
+              : translate(
+                  "screens/DexScreen",
+                  "Search for pool pair with token name"
+                )}
+          </ThemedTextV2>
+        </View>
+      ) : (
+        <>
+          <ThemedViewV2
+            light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-100")}
+            dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-100")}
+            style={tailwind(
+              "flex flex-col items-center pt-4 rounded-b-2xl border-b"
+            )}
+          >
+            <View style={tailwind("w-full px-5")}>
+              <ButtonGroup
+                buttons={tabsList}
+                activeButtonGroupItem={activeTab}
+                testID="dex_tabs"
+                lightThemeStyle={tailwind("bg-transparent")}
+                darkThemeStyle={tailwind("bg-transparent")}
+              />
+            </View>
+          </ThemedViewV2>
+          {activeTab === TabKey.AvailablePoolPair && (
+            <DexFilterPillGroup
+              onSearchBtnPress={onSearchBtnPress}
+              onButtonGroupChange={onButtonGroupChange}
+              activeButtonGroup={activeButtonGroup}
+            />
+          )}
+        </>
+      )}
+      <View style={tailwind("flex-1")}>
         {activeTab === TabKey.AvailablePoolPair &&
           (!hasFetchedPoolpairData || isSearching) && (
-            <ThemedScrollView contentContainerStyle={tailwind('p-4')}>
+            <ThemedScrollViewV2 contentContainerStyle={tailwind("px-5")}>
               <SkeletonLoader row={4} screen={SkeletonLoaderScreen.Dex} />
-            </ThemedScrollView>
+            </ThemedScrollViewV2>
           )}
         {activeTab === TabKey.AvailablePoolPair &&
           hasFetchedPoolpairData &&
@@ -287,15 +374,13 @@ export function DexScreen (): JSX.Element {
               onAdd={onAdd}
               onRemove={onRemove}
               onSwap={onSwap}
-              type='available'
-              setIsSearching={setIsSearching}
+              onPress={onPress}
+              type="available"
               searchString={searchString}
-              buttonGroupOptions={{
-                activeButtonGroup: activeButtonGroup,
-                setActiveButtonGroup: setActiveButtonGroup,
-                onButtonGroupPress: handleButtonFilter
-              }}
               showSearchInput={showSearchInput}
+              topLiquidityPairs={topLiquidityPairs}
+              newPoolsPairs={newPoolsPairs}
+              activeButtonGroup={activeButtonGroup}
             />
           )}
 
@@ -309,13 +394,90 @@ export function DexScreen (): JSX.Element {
             onAdd={onAdd}
             onRemove={onRemove}
             onSwap={onSwap}
-            type='your'
-            setIsSearching={setIsSearching}
+            onPress={onPress}
+            type="your"
             searchString={searchString}
             showSearchInput={showSearchInput}
+            topLiquidityPairs={topLiquidityPairs}
+            newPoolsPairs={newPoolsPairs}
+            activeButtonGroup={activeButtonGroup}
           />
         )}
       </View>
-    </>
-  )
+    </ThemedViewV2>
+  );
 }
+
+const DexFilterPillGroup = React.memo(
+  (props: {
+    onSearchBtnPress: () => void;
+    onButtonGroupChange: (buttonGroupTabKey: ButtonGroupTabKey) => void;
+    activeButtonGroup: ButtonGroupTabKey;
+  }) => {
+    const buttonGroup = [
+      {
+        id: ButtonGroupTabKey.AllPairs,
+        label: translate("screens/DexScreen", "All pairs"),
+        handleOnPress: () =>
+          props.onButtonGroupChange(ButtonGroupTabKey.AllPairs),
+      },
+      {
+        id: ButtonGroupTabKey.DFIPairs,
+        label: translate("screens/DexScreen", "DFI pairs"),
+        handleOnPress: () =>
+          props.onButtonGroupChange(ButtonGroupTabKey.DFIPairs),
+      },
+      {
+        id: ButtonGroupTabKey.DUSDPairs,
+        label: translate("screens/DexScreen", "DUSD pairs"),
+        handleOnPress: () =>
+          props.onButtonGroupChange(ButtonGroupTabKey.DUSDPairs),
+      },
+      {
+        id: ButtonGroupTabKey.FavouritePairs,
+        label: translate("screens/DexScreen", "Favorites"),
+        handleOnPress: () =>
+          props.onButtonGroupChange(ButtonGroupTabKey.FavouritePairs),
+      },
+    ];
+    return (
+      <View style={tailwind("my-4")}>
+        <ThemedViewV2 testID="dex_button_group">
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={tailwind(
+              "flex justify-between items-center flex-row px-5"
+            )}
+          >
+            <ThemedTouchableOpacityV2
+              onPress={props.onSearchBtnPress}
+              style={tailwind("text-center pr-4")}
+              testID="dex_search_icon"
+            >
+              <ThemedIcon
+                iconType="Feather"
+                name="search"
+                size={24}
+                light={tailwind("text-mono-light-v2-700")}
+                dark={tailwind("text-mono-dark-v2-700")}
+              />
+            </ThemedTouchableOpacityV2>
+            {buttonGroup.map((button, index) => (
+              <AssetsFilterItem
+                key={button.id}
+                label={button.label}
+                onPress={button.handleOnPress}
+                isActive={props.activeButtonGroup === button.id}
+                testID={`dex_button_group_${button.id}`}
+                additionalStyles={
+                  !(buttonGroup.length === index) ? tailwind("mr-3") : undefined
+                }
+              />
+            ))}
+          </ScrollView>
+        </ThemedViewV2>
+      </View>
+    );
+  }
+);

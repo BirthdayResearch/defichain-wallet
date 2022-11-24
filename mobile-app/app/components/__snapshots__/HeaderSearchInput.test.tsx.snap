@@ -3,107 +3,119 @@
 exports[`Header search input should match snapshot 1`] = `
 <View
   style={
-    Array [
-      Array [
-        Object {
+    [
+      [
+        {
           "alignItems": "center",
           "display": "flex",
           "flexDirection": "row",
-          "paddingBottom": 8,
-          "paddingLeft": 16,
-          "paddingRight": 16,
+          "paddingBottom": 2,
+          "paddingLeft": 12,
+          "paddingRight": 20,
         },
-        Object {
-          "paddingTop": 96,
+        {
+          "paddingTop": 114,
         },
       ],
-      Object {
+      {
         "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderTopColor": "rgba(229, 229, 229, 1)",
       },
     ]
   }
 >
   <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "borderBottomLeftRadius": 8,
-          "borderBottomRightRadius": 8,
-          "borderTopLeftRadius": 8,
-          "borderTopRightRadius": 8,
-          "display": "flex",
-          "flexBasis": "0%",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "flexShrink": 1,
-          "paddingBottom": 4,
-          "paddingLeft": 8,
-          "paddingTop": 4,
-        },
-        Object {
-          "backgroundColor": "rgba(245, 245, 245, 1)",
+      {
+        "marginRight": 16,
+        "opacity": 1,
+      }
+    }
+    testID="search_dex_bar_close"
+  >
+    <Text />
+  </View>
+  <View
+    style={
+      [
+        [
+          {
+            "alignItems": "center",
+            "borderBottomLeftRadius": 9999,
+            "borderBottomRightRadius": 9999,
+            "borderTopLeftRadius": 9999,
+            "borderTopRightRadius": 9999,
+            "display": "flex",
+            "flexDirection": "row",
+            "paddingBottom": 12,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+            "paddingTop": 12,
+          },
+          {
+            "borderBottomColor": "rgba(242, 242, 242, 1)",
+            "borderBottomWidth": 0.5,
+            "borderLeftColor": "rgba(242, 242, 242, 1)",
+            "borderLeftWidth": 0.5,
+            "borderRightColor": "rgba(242, 242, 242, 1)",
+            "borderRightWidth": 0.5,
+            "borderTopColor": "rgba(242, 242, 242, 1)",
+            "borderTopWidth": 0.5,
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          },
+        ],
+        {
+          "backgroundColor": "rgba(242, 242, 242, 1)",
         },
       ]
     }
   >
     <Text />
     <TextInput
-      allowFontScaling={true}
       autoFocus={true}
+      onBlur={[Function]}
       onChangeText={[MockFunction]}
+      onFocus={[Function]}
       placeholder="Search"
-      placeholderTextColor="rgba(0, 0, 0, 0.4)"
-      rejectResponderTermination={true}
+      placeholderTextColor="rgba(115, 115, 115, 1)"
+      selectionColor="rgba(255, 0, 140, 1)"
       showClearButton={false}
       style={
-        Array [
-          Object {
-            "flexGrow": 1,
-            "height": 32,
-            "width": "66.666667%",
-          },
-          Object {
-            "color": "rgba(64, 64, 64, 1)",
+        [
+          [
+            undefined,
+            {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "fontFamily": "SoraRegular",
+              "fontSize": 12,
+              "fontWeight": "400",
+              "lineHeight": 16,
+              "width": "66.666667%",
+            },
+            {
+              "marginRight": 16,
+            },
+          ],
+          {
+            "color": "rgba(18, 18, 18, 1)",
           },
         ]
       }
-      underlineColorAndroid="transparent"
       value=""
     />
-  </View>
-  <View
-    style={
-      Object {
-        "display": "flex",
-        "justifyContent": "center",
-        "marginLeft": 8,
-      }
-    }
-  >
-    <View
-      accessible={true}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "opacity": 1,
-        }
-      }
-      testID="search_dex_bar_close"
-    >
-      <Text />
-    </View>
   </View>
 </View>
 `;

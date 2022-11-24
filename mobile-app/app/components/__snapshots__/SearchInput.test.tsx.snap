@@ -3,50 +3,63 @@
 exports[`Search Input should match snapshot 1`] = `
 <View
   style={
-    Array [
-      Object {
-        "alignItems": "center",
-        "borderBottomLeftRadius": 8,
-        "borderBottomRightRadius": 8,
-        "borderTopLeftRadius": 8,
-        "borderTopRightRadius": 8,
-        "display": "flex",
-        "flexBasis": "0%",
-        "flexDirection": "row",
-        "flexGrow": 1,
-        "flexShrink": 1,
-        "paddingBottom": 4,
-        "paddingLeft": 8,
-        "paddingTop": 4,
-      },
-      Object {
-        "backgroundColor": "rgba(245, 245, 245, 1)",
+    [
+      [
+        {
+          "alignItems": "center",
+          "borderBottomLeftRadius": 9999,
+          "borderBottomRightRadius": 9999,
+          "borderTopLeftRadius": 9999,
+          "borderTopRightRadius": 9999,
+          "display": "flex",
+          "flexDirection": "row",
+          "paddingBottom": 12,
+          "paddingLeft": 20,
+          "paddingRight": 20,
+          "paddingTop": 12,
+        },
+        {
+          "flexBasis": "0%",
+          "flexGrow": 1,
+          "flexShrink": 1,
+        },
+      ],
+      {
+        "backgroundColor": "rgba(255, 255, 255, 1)",
       },
     ]
   }
 >
   <Text />
   <TextInput
-    allowFontScaling={true}
-    placeholderTextColor="rgba(0, 0, 0, 0.4)"
-    rejectResponderTermination={true}
+    placeholderTextColor="rgba(115, 115, 115, 1)"
+    selectionColor="rgba(255, 0, 140, 1)"
     showClearButton={true}
     style={
-      Array [
-        Object {
-          "flexGrow": 1,
-          "height": 32,
-          "width": "66.666667%",
-        },
-        Object {
-          "color": "rgba(64, 64, 64, 1)",
+      [
+        [
+          undefined,
+          {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "fontFamily": "SoraRegular",
+            "fontSize": 12,
+            "fontWeight": "400",
+            "lineHeight": 16,
+            "width": "66.666667%",
+          },
+          {},
+        ],
+        {
+          "color": "rgba(43, 43, 43, 1)",
         },
       ]
     }
-    underlineColorAndroid="transparent"
   />
   <View
     accessible={true}
+    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -56,38 +69,17 @@ exports[`Search Input should match snapshot 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
+      {
+        "alignItems": "center",
         "backgroundColor": "transparent",
+        "display": "flex",
+        "flexDirection": "row",
+        "marginLeft": 8,
         "opacity": 1,
-        "paddingBottom": 2,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 2,
-        "position": "relative",
       }
     }
+    testID="undefined_clear_btn"
   >
-    <View
-      style={
-        Array [
-          Object {
-            "borderBottomLeftRadius": 9999,
-            "borderBottomRightRadius": 9999,
-            "borderTopLeftRadius": 9999,
-            "borderTopRightRadius": 9999,
-            "height": 16,
-            "left": 12,
-            "position": "absolute",
-            "top": 8,
-            "width": "75%",
-            "zIndex": -1,
-          },
-          Object {
-            "backgroundColor": "rgba(38, 38, 38, 1)",
-          },
-        ]
-      }
-    />
     <Text />
   </View>
 </View>

@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { configureStore } from '@reduxjs/toolkit'
-import { authentication } from './authentication'
-import { block } from './block'
-import { ocean } from './ocean'
-import { transactionQueue } from './transaction_queue'
-import { wallet } from './wallet'
-import { loans } from './loans'
-import { auctions } from './auctions'
-import { announcementWebsiteSlice, statusWebsiteSlice } from '@store/website'
-import { userPreferences } from '@store/userPreferences'
-import { useDispatch } from 'react-redux'
-
+import { configureStore } from "@reduxjs/toolkit";
+import { announcementWebsiteSlice, statusWebsiteSlice } from "@store/website";
+import { userPreferences } from "@store/userPreferences";
+import { authentication } from "./authentication";
+import { block } from "./block";
+import { ocean } from "./ocean";
+import { transactionQueue } from "./transaction_queue";
+import { wallet } from "./wallet";
+import { loans } from "./loans";
+import { auctions } from "./auctions";
+import { futureSwaps } from "./futureSwap";
 /**
  * RootState for DeFiChain Wallet App
  *
@@ -20,7 +19,7 @@ import { useDispatch } from 'react-redux'
  *
  * Non-global state should be managed independently within its own React Component.
  */
-export function initializeStore () {
+export function initializeStore() {
   return configureStore({
     reducer: {
       block: block.reducer,
@@ -32,15 +31,15 @@ export function initializeStore () {
       authentication: authentication.reducer,
       [announcementWebsiteSlice.reducerPath]: announcementWebsiteSlice.reducer,
       [statusWebsiteSlice.reducerPath]: statusWebsiteSlice.reducer,
-      userPreferences: userPreferences.reducer
+      userPreferences: userPreferences.reducer,
+      futureSwaps: futureSwaps.reducer,
     },
-    middleware: getDefaultMiddleware =>
+    middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({ serializableCheck: false })
         .concat(announcementWebsiteSlice.middleware)
-        .concat(statusWebsiteSlice.middleware)
-  })
+        .concat(statusWebsiteSlice.middleware),
+  });
 }
 
-export type RootStore = ReturnType<typeof initializeStore>
-export type RootState = ReturnType<RootStore['getState']>
-export const useAppDispatch = () => useDispatch<any>()
+export type RootStore = ReturnType<typeof initializeStore>;
+export type RootState = ReturnType<RootStore["getState"]>;

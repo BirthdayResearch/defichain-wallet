@@ -1,57 +1,47 @@
-import { memo } from 'react'
-import { View } from 'react-native'
-import NumberFormat from 'react-number-format'
-import { isEqual } from 'lodash'
-import { tailwind } from '@tailwind'
-import { ThemedText } from '@components/themed'
+import { memo } from "react";
+import { View } from "react-native";
+import { NumericFormat as NumberFormat } from "react-number-format";
+import { isEqual } from "lodash";
+import { tailwind } from "@tailwind";
+import { ThemedTextV2 } from "@components/themed";
+import { getNumberFormatValue } from "@api/number-format-value";
 
 interface APRSectionProps {
-  label: string
+  label: string;
   value: {
-    decimalScale: number
-    suffix?: string
-    testID: string
-    text: string
-  }
+    decimalScale: number;
+    suffix?: string;
+    testID: string;
+    text: string;
+  };
 }
 
 export const APRSection = memo((props: APRSectionProps): JSX.Element => {
   return (
-    <View
-      style={tailwind(
-        'flex flex-shrink'
-      )}
-    >
-      <View style={tailwind(
-        'py-1 px-2 items-center border border-gray-200 rounded break-words'
-      )}
+    <View style={tailwind("flex flex-col items-end")}>
+      <ThemedTextV2
+        dark={tailwind("text-green-v2")}
+        light={tailwind("text-green-v2")}
+        style={tailwind("text-xs font-semibold-v2")}
       >
-        <ThemedText
-          dark={tailwind('text-gray-400')}
-          light={tailwind('text-gray-500')}
-          style={tailwind('text-xs font-normal')}
-        >
-          {props.label}
-        </ThemedText>
-        <NumberFormat
-          decimalScale={props.value.decimalScale}
-          displayType='text'
-          renderText={(value) => (
-            <ThemedText
-              style={tailwind('text-sm font-semibold')}
-              light={tailwind('text-success-600')}
-              dark={tailwind('text-darksuccess-600')}
-              testID={props.value.testID}
-
-            >
-              {value}
-            </ThemedText>
-          )}
-          thousandSeparator
-          suffix={props.value.suffix}
-          value={props.value.text}
-        />
-      </View>
+        {props.label}
+      </ThemedTextV2>
+      <NumberFormat
+        displayType="text"
+        renderText={(value) => (
+          <ThemedTextV2
+            style={tailwind("text-xs font-semibold-v2 text-right")}
+            dark={tailwind("text-green-v2")}
+            light={tailwind("text-green-v2")}
+            testID={props.value.testID}
+          >
+            {value}
+          </ThemedTextV2>
+        )}
+        thousandSeparator
+        suffix={props.value.suffix}
+        value={getNumberFormatValue(props.value.text, props.value.decimalScale)}
+      />
     </View>
-  )
-}, isEqual)
+  );
+}, isEqual);

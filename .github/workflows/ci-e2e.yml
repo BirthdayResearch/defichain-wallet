@@ -16,38 +16,39 @@ concurrency:
 jobs:
   main:
     name: Cypress
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     strategy:
       fail-fast: false # https://github.com/cypress-io/github-action/issues/48
       matrix:
         containers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
     steps:
-      - uses: actions/checkout@dcd71f646680f2efd8db4afa5ad64fdcba30e748
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3.1.0
 
       - name: Setup Playground
         run: docker-compose -f docker-compose.yml up -d
 
-      - uses: actions/setup-node@56337c425554a6be30cdef71bf441f15be286854
+      - uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # tag=v3.5.1
         with:
           node-version: 16
           cache: 'npm'
 
       - run: npm ci
 
-      - run: .github/workflows/ci/wait-for http://localhost:3001/_actuator/probes/liveness -t 120
-      - run: .github/workflows/ci/wait-for http://localhost:3002/_actuator/probes/liveness -t 120
-      - run: .github/workflows/ci/wait-for http://localhost:19551/ping -t 120
+      - run: .github/workflows/ci/wait-for http://localhost:3001/_actuator/probes/liveness -t 240
+      - run: .github/workflows/ci/wait-for http://localhost:3002/_actuator/probes/liveness -t 240
+      - run: .github/workflows/ci/wait-for http://localhost:19551/ping -t 240
 
-      - uses: cypress-io/github-action@16aacf8ea6a67e5e5d907d34bc3be8ad0e6e979f
+      - uses: cypress-io/github-action@032c1ed6197b579a85b6759a05daa6370ea71f8b # v4.2.1
         with:
+          config-file: cypress.config.js
           install: false
           record: true
           parallel: true
           start: npm run start:web
           wait-on: 'http://localhost:19006'
           browser: chrome
-          spec: mobile-app/cypress/integration/**
+          spec: mobile-app/cypress/e2e/**
           tag: ${{ github.event_name }}
           project: ./mobile-app
         env:
@@ -55,4 +56,4 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: codecov/codecov-action@e3c560433a6cc60aec8812599b7844a7b4fa0d71
+      - uses: codecov/codecov-action@d9f34f8cd5cb3b3eb79b3e4b5dae3a16df499a70 # tag=v3.1.1
