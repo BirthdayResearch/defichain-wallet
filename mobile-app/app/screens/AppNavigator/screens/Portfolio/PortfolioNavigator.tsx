@@ -127,7 +127,7 @@ export interface PortfolioParamList {
   TransactionDetailScreen: {
     tx: VMTransaction;
   };
-  GetDFIScreen: {};
+  GetDFIScreen: undefined;
   SwapTokenSelectionScreen: {
     fromToken: {
       symbol?: string;

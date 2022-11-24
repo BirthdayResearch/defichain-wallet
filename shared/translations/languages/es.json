@@ -2198,7 +2198,8 @@
     "Receive": "Recibir",
     "Swap": "Cambiar",
     "Transactions": "Transacciones",
-    "Future swap": "Cambio a futuros"
+    "Future swap": "Cambio a futuros",
+    "Get DFI": "Obtener DFI"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "{{poolPair}} Pool",

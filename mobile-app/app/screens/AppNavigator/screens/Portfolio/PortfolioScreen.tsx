@@ -632,7 +632,9 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           isSorted={isSorted}
           denominationCurrency={denominationCurrency}
         />
-        <DFIBalanceCard denominationCurrency={denominationCurrency} />
+        {activeButtonGroup === ButtonGroupTabKey.AllTokens && (
+          <DFIBalanceCard denominationCurrency={denominationCurrency} />
+        )}
         {!hasFetchedToken ? (
           <View style={tailwind("px-5")}>
             <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Portfolio} />
