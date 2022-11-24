@@ -10,7 +10,7 @@ import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootState } from "@store";
 import { futureSwapSelector } from "@store/futureSwap";
-import { tailwind } from "@tailwind";
+import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { ScrollView, Text, View } from "react-native";
 import { useSelector } from "react-redux";
@@ -138,7 +138,7 @@ function ActionButton(props: ActionButtonsProps): JSX.Element {
           <DFIIcon
             width={props.iconSize}
             height={props.iconSize}
-            color={isLight ? "#000" : "#FFF"}
+            color={getColor(isLight ? "mono-light-v2-900" : "mono-dark-v2-900")}
           />
         ) : (
           <ThemedIcon
