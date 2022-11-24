@@ -109,6 +109,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.2",
     "@cypress/code-coverage": "^3.10.0",
+    "@expo/dev-server": "0.1.120",
     "@expo/metro-config": "0.4.0",
     "@expo/webpack-config": "^0.17.2",
     "@testing-library/cypress": "^8.0.7",
@@ -126,7 +127,7 @@
     "babel-plugin-istanbul": "^6.1.1",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "colors": "1.4.0",
-    "copy-webpack-plugin": "^11.0.0",
+    "copy-webpack-plugin": "^6.4.1",
     "cypress": "^10.11.0",
     "cypress-image-diff-js": "^1.22.0",
     "eslint": "^8.28.0",
