@@ -31,7 +31,6 @@ import { WalletAddressIndexPersistence } from "@api/wallet/address_index";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { TailwindProvider } from 'tailwind-rn';
 import utilities from './app/tailwind.json';
-import { useStyles } from "@tailwind";
 import { ToastProvider } from "react-native-toast-notifications";
 import { ToastProps } from "react-native-toast-notifications/lib/typescript/toast";
 import { WalletToast } from "@components/WalletToast";
@@ -50,7 +49,6 @@ import BigNumber from "bignumber.js";
 export default function App(): JSX.Element | null {
   BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
 
-  const { tailwind } = useStyles();
   const isLoaded = useCachedResources();
   const colorScheme = useColorScheme();
   const logger = useLogger();
@@ -103,7 +101,7 @@ export default function App(): JSX.Element | null {
                                   <DisplayBalancesProvider>
                                     <ConnectionBoundary>
                                       <GestureHandlerRootView
-                                        style={tailwind("flex-1")}
+                                        style={{ "flexBasis": "0%", "flexGrow": 1, "flexShrink": 1 }}
                                       >
                                         <ToastProvider renderType={customToast}>
                                           <FavouritePoolpairProvider>
