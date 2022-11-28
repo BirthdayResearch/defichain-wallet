@@ -1848,6 +1848,18 @@
 			"borderLeftColor": "rgb(217 123 1 / var(--tw-border-opacity))"
 		}
 	},
+	"bg-white": {
+		"style": {
+			"--tw-bg-opacity": 1,
+			"backgroundColor": "rgb(255 255 255 / var(--tw-bg-opacity))"
+		}
+	},
+	"bg-black": {
+		"style": {
+			"--tw-bg-opacity": 1,
+			"backgroundColor": "rgb(0 0 0 / var(--tw-bg-opacity))"
+		}
+	},
 	"bg-gray-100": {
 		"style": {
 			"--tw-bg-opacity": 1,
@@ -1858,18 +1870,6 @@
 		"style": {
 			"--tw-bg-opacity": 1,
 			"backgroundColor": "rgb(82 82 82 / var(--tw-bg-opacity))"
-		}
-	},
-	"bg-black": {
-		"style": {
-			"--tw-bg-opacity": 1,
-			"backgroundColor": "rgb(0 0 0 / var(--tw-bg-opacity))"
-		}
-	},
-	"bg-white": {
-		"style": {
-			"--tw-bg-opacity": 1,
-			"backgroundColor": "rgb(255 255 255 / var(--tw-bg-opacity))"
 		}
 	},
 	"bg-gray-800": {
@@ -2883,6 +2883,12 @@
 			"letterSpacing": "0.02em"
 		}
 	},
+	"text-primary-500": {
+		"style": {
+			"--tw-text-opacity": 1,
+			"color": "rgb(255 0 175 / var(--tw-text-opacity))"
+		}
+	},
 	"text-mono-dark-v2-900": {
 		"style": {
 			"--tw-text-opacity": 1,
@@ -3007,12 +3013,6 @@
 		"style": {
 			"--tw-text-opacity": 1,
 			"color": "rgb(255 255 255 / var(--tw-text-opacity))"
-		}
-	},
-	"text-primary-500": {
-		"style": {
-			"--tw-text-opacity": 1,
-			"color": "rgb(255 0 175 / var(--tw-text-opacity))"
 		}
 	},
 	"text-darkprimary-500": {
