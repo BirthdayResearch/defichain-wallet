@@ -17,7 +17,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:2.11.1
+    image: defi/defichain:master-1d169a751
     command: >
       defid
       -printtoconsole
@@ -49,9 +49,10 @@ services:
       -fortcanningspringheight=13
       -fortcanninggreatworldheight=14
       -fortcanningepilogueheight=15
+      -grandcentralheight=16
 
   defi-playground:
-    image: ghcr.io/jellyfishsdk/playground-api:2.69.0
+    image: ghcr.io/jellyfishsdk/playground-api:2.70.0
     depends_on:
       - defi-blockchain
     ports:
@@ -64,7 +65,7 @@ services:
       - "traefik.http.routers.playground.entrypoints=web"
 
   defi-whale:
-    image: ghcr.io/jellyfishsdk/whale-api:2.69.0
+    image: ghcr.io/jellyfishsdk/whale-api:2.70.0
     depends_on:
       - defi-blockchain
     ports:
