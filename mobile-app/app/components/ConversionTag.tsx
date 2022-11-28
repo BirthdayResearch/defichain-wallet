@@ -1,8 +1,9 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { ThemedIcon, ThemedText, ThemedView } from "./themed";
 
 export function ConversionTag(): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedView
       light={tailwind("bg-warning-100")}

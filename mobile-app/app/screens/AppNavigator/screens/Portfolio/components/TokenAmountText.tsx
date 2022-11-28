@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { View } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
@@ -20,6 +20,7 @@ export function TokenAmountText({
   tokenAmount,
   denominationCurrency,
 }: TokenAmountTextProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { isBalancesDisplayed, hiddenBalanceText } =
     useDisplayBalancesContext();
 

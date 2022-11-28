@@ -1,5 +1,5 @@
 import { ViewProps } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedViewV2 } from "./ThemedViewV2";
 import { ThemedTouchableOpacityV2 } from "./ThemedTouchableOpacityV2";
 
@@ -25,6 +25,7 @@ export function ThemedTouchableListItem(props: IListProps): JSX.Element {
     children,
     ...otherProps
   } = props;
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       style={tailwind({

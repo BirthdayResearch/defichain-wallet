@@ -1,5 +1,5 @@
 import { ThemedProps, ThemedTouchableOpacityV2 } from "@components/themed";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { FavoriteCheckIcon } from "@screens/AppNavigator/screens/Settings/assets/FavoriteIcon";
 import { StyleProp, ViewProps } from "react-native";
 
@@ -11,14 +11,16 @@ interface FavoriteIconsProps {
   themedStyle?: ThemedProps;
   additionalStyle?: StyleProp<ViewProps>;
 }
-export function FavoriteButton({
-  pairId,
-  isFavouritePair,
-  onPress,
-  themedStyle,
-  additionalStyle = tailwind("w-5 h-5"),
-  customSize = 14,
-}: FavoriteIconsProps): JSX.Element {
+export function FavoriteButton(props: FavoriteIconsProps): JSX.Element {
+  const { getColor, tailwind } = useStyles();
+  const {
+    pairId,
+    isFavouritePair,
+    onPress,
+    themedStyle,
+    additionalStyle = tailwind("w-5 h-5"),
+    customSize = 14,
+  } = props;
   const themed = themedStyle ?? {
     dark: tailwind({
       "bg-mono-dark-v2-100": !isFavouritePair,

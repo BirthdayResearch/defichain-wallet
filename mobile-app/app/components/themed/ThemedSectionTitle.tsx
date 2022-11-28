@@ -1,5 +1,5 @@
 import { TextProps } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedProps } from ".";
 import { ThemedText } from "./ThemedText";
 
@@ -10,6 +10,7 @@ interface IThemedSectionTitle {
 }
 
 export function ThemedSectionTitle(props: SectionTitleProp): JSX.Element {
+  const { tailwind } = useStyles();
   const {
     style = tailwind("px-4 pt-6 pb-2 text-xs text-gray-500 font-medium"),
     light = tailwind("bg-gray-50 text-gray-500"),

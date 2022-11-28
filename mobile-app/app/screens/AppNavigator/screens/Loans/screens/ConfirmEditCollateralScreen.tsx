@@ -1,7 +1,7 @@
 import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
 import BigNumber from "bignumber.js";
 import { StackScreenProps } from "@react-navigation/stack";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { Dispatch, useEffect, useState } from "react";
 import { View } from "react-native";
@@ -58,6 +58,7 @@ export function ConfirmEditCollateralScreen({
     maxLoanAmount,
     conversion,
   } = route.params;
+  const { tailwind } = useStyles();
   const { address } = useWalletContext();
   const addressLabel = useAddressLabel(address);
   const client = useWhaleApiClient();

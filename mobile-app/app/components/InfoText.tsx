@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { TextProps } from ".";
 import {
   ThemedIcon,
@@ -16,6 +16,7 @@ interface InfoTextProp extends ThemedProps, TextProps {
 export type InfoTextType = "warning" | "error" | "success";
 
 export function InfoText(props: InfoTextProp): JSX.Element {
+  const { tailwind } = useStyles();
   const {
     type = "warning",
     style,
@@ -80,6 +81,7 @@ export type InfoTextTypeV2 = "warning" | "error" | "success";
 
 export function InfoTextV2(props: InfoTextPropV2): JSX.Element {
   const { style, ...otherProps } = props;
+  const { tailwind } = useStyles();
 
   return (
     <ThemedTextV2

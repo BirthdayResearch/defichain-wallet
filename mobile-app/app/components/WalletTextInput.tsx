@@ -16,7 +16,7 @@ import {
   ThemedTouchableOpacity,
   ThemedProps,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { View } from "@components";
 import { translate } from "@translations";
 
@@ -49,6 +49,7 @@ interface IWalletTextInputProps {
 
 export const WalletTextInput = forwardRef<any, WalletTextInputProps>(
   (props: WalletTextInputProps, ref: React.Ref<any>): JSX.Element => {
+    const { tailwind } = useStyles();
     const [isFocus, setIsFocus] = useState(false);
     const {
       title,

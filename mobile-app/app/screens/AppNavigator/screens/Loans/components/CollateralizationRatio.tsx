@@ -2,7 +2,7 @@ import BigNumber from "bignumber.js";
 import { ThemedTextV2 } from "@components/themed";
 import { translate } from "@translations";
 import { NumericFormat as NumberFormat } from "react-number-format";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { useCollateralizationRatioColor } from "@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio";
 
 interface CollateralizationRatioProps {
@@ -14,6 +14,7 @@ interface CollateralizationRatioProps {
 export function CollateralizationRatio(
   props: CollateralizationRatioProps
 ): JSX.Element {
+  const { tailwind } = useStyles();
   const ratioThemedProps = useCollateralizationRatioColor({
     colRatio: props.colRatio,
     minColRatio: props.minColRatio,

@@ -1,5 +1,5 @@
 import { View } from "@components";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { memo } from "react";
 import {
@@ -23,6 +23,7 @@ interface TabOption {
 }
 
 const Tabs = memo((props: TabsProps): JSX.Element => {
+  const { tailwind } = useStyles();
   function FixedTab(): JSX.Element {
     return (
       <ThemedView
@@ -110,6 +111,7 @@ function comparisonFn(prevProps: TabsProps, nextProps: TabsProps): boolean {
 }
 
 function TabLabel(props: { tab: TabOption; isActive: boolean }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedText
       light={tailwind({

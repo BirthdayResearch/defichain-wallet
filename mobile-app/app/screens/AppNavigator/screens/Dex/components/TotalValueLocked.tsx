@@ -1,7 +1,7 @@
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import GridBackgroundDark from "@assets/images/onboarding/grid-background-dark.png";
 import GridBackgroundLight from "@assets/images/onboarding/grid-background-light.png";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { ImageBackground, View } from "react-native";
@@ -11,6 +11,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { SwapButton } from "./SwapButton";
 
 export function TotalValueLocked(props: { tvl: number }): JSX.Element {
+  const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
   return (
     <View style={tailwind("px-5 mt-2 mb-6")}>

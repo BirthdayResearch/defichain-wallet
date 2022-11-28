@@ -14,7 +14,7 @@ import { ThemedScrollViewV2, ThemedViewV2 } from "@components/themed";
 import { RootState } from "@store";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { ScreenName } from "@screens/enum";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
@@ -39,6 +39,7 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
     tokenBAmount,
     originScreen,
   } = route.params;
+  const { tailwind } = useStyles();
   const dispatch = useAppDispatch();
   const { getTokenPrice } = useTokenPrice();
   const hasPendingJob = useSelector((state: RootState) =>

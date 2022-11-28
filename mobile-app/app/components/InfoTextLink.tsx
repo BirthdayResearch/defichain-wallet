@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import {
   StyleProp,
@@ -22,6 +22,7 @@ interface InfoTextLinkProps {
 }
 
 export function InfoTextLink(props: InfoTextLinkProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <TouchableOpacity
       onPress={props.onPress}
@@ -51,6 +52,7 @@ export function InfoTextLink(props: InfoTextLinkProps): JSX.Element {
 }
 
 export function InfoTextLinkV2(props: InfoTextLinkProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedTouchableOpacityV2
       onPress={props.onPress}

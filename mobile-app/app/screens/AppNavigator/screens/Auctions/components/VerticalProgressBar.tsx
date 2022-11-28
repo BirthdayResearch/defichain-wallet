@@ -1,7 +1,7 @@
 import { View } from "@components";
 import { memo } from "react";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import * as Progress from "react-native-progress";
 
 interface VerticalProgressBarProps {
@@ -12,6 +12,7 @@ interface VerticalProgressBarProps {
 
 export const VerticalProgressBar = memo(
   (props: VerticalProgressBarProps): JSX.Element => {
+    const { getColor, tailwind } = useStyles();
     const { isLight } = useThemeContext();
 
     return (

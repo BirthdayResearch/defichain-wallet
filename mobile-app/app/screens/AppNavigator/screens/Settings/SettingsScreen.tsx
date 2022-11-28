@@ -14,7 +14,7 @@ import { useWalletPersistenceContext } from "@shared-contexts/WalletPersistenceC
 import { StackScreenProps } from "@react-navigation/stack";
 import { authentication, Authentication } from "@store/authentication";
 import { ocean } from "@store/ocean";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { getAppLanguages, translate } from "@translations";
 import { useCallback } from "react";
 import { Text } from "react-native";
@@ -31,6 +31,7 @@ import { SettingsParamList } from "./SettingsNavigator";
 type Props = StackScreenProps<SettingsParamList, "SettingsScreen">;
 
 export function SettingsScreen({ navigation }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const logger = useLogger();
   const dispatch = useAppDispatch();
   const walletContext = useWalletPersistenceContext();
@@ -236,6 +237,7 @@ export function SettingsScreen({ navigation }: Props): JSX.Element {
 }
 
 function RowExitWalletItem(): JSX.Element {
+  const { tailwind } = useStyles();
   const { clearWallets } = useWalletPersistenceContext();
   const { clearAddressBook } = useAddressBook();
 
@@ -291,6 +293,7 @@ function PrivacyLockToggle({
   onToggle: (newValue: boolean) => void;
   authenticationName?: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("flex py-4.5 flex-row items-center justify-between")}>
       <ThemedTextV2
@@ -328,6 +331,7 @@ function NavigateItemRow({
   onPress,
   border,
 }: INavigateItemRow): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       style={tailwind({ "border-b-0.5": border })}

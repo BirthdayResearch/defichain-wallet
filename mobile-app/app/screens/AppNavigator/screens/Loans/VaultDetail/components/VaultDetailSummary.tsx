@@ -1,5 +1,5 @@
 import { ThemedViewV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { translate } from "@translations";
 import { TextRowV2 } from "@components/TextRowV2";
@@ -24,6 +24,7 @@ export function VaultDetailSummary({
   interest,
   minColRatio,
 }: VaultDetailSummaryProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { getVaultsUrl } = useDeFiScanContext();
   const titleThemedProps = {
     light: tailwind("text-mono-light-v2-500"),

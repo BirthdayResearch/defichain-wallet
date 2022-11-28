@@ -4,7 +4,7 @@ import { Platform, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
 import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import { RootState } from "@store";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { useServiceProviderContext } from "@contexts/StoreServiceProvider";
 import { ThemedIcon, ThemedText } from "./themed";
 
@@ -29,6 +29,7 @@ export function HeaderTitle({
   containerTestID,
   children,
 }: HeaderTitleProps): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
 
   const goToNetworkDetails = (): void => {
@@ -65,6 +66,7 @@ export function HeaderTitle({
 }
 
 export function ConnectionStatus(): JSX.Element {
+  const { tailwind } = useStyles();
   const { network } = useNetworkContext();
   const { isCustomUrl } = useServiceProviderContext();
   const connected = useSelector((state: RootState) => state.block.connected);
@@ -106,6 +108,7 @@ export function ConnectionStatus(): JSX.Element {
 }
 
 function HeaderNetworkSelect(): JSX.Element {
+  const { tailwind } = useStyles();
   const { network } = useNetworkContext();
 
   return (

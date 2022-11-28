@@ -9,7 +9,7 @@ import {
 } from "@screens/TransactionAuthorization/api/transaction_types";
 import { useNonInitialEffect } from "@hooks/useNonInitialEffect";
 import { ButtonV2 } from "@components/ButtonV2";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { Button } from "./Button";
 
 interface SubmitButtonGroupItems {
@@ -33,6 +33,7 @@ export function SubmitButtonGroup({
   onSubmit,
   onCancel,
 }: SubmitButtonGroupItems): JSX.Element {
+  const { tailwind } = useStyles();
   const error = useSelector((state: RootState) => state.transactionQueue.err);
   const [intervalId, setIntervalId] = useState<ReturnType<
     typeof setInterval

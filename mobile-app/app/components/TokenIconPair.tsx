@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { getNativeIcon } from "@components/icons/assets";
 import { ThemedText, ThemedView } from "@components/themed";
 
@@ -6,6 +6,7 @@ export function TokenIconPair(props: {
   iconA: string;
   iconB: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   // icons
   const TokenIconA = getNativeIcon(props.iconA);
   const TokenIconB = getNativeIcon(props.iconB);

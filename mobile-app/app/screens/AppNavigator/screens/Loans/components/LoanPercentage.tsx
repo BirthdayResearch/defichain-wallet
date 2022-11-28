@@ -5,7 +5,7 @@ import { NumericFormat as NumberFormat } from "react-number-format";
 import { Text, View } from "@components";
 import { ThemedText } from "@components/themed";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 
 interface LoanPercentageProps {
@@ -25,6 +25,7 @@ export function LoanPercentage({
   paymentTokenDisplaySymbol,
   loanTokenDisplaySymbol,
 }: LoanPercentageProps): JSX.Element {
+  const { tailwind, getColor } = useStyles();
   const { isLight } = useThemeContext();
   const textStyle = {
     style: tailwind("text-sm"),

@@ -2,12 +2,11 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { createStackNavigator } from "@react-navigation/stack";
 import BigNumber from "bignumber.js";
-import { HeaderFont } from "@components/Text";
 import { translate } from "@translations";
 import { WalletToken } from "@store/wallet";
 import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import {
   SelectionToken,
   SwapTokenSelectionScreen,
@@ -142,6 +141,7 @@ export interface AddLiquiditySummary {
 const DexStack = createStackNavigator<DexParamList>();
 
 export function DexNavigator(): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<DexParamList>>();
   const screenOptions = useNavigatorScreenOptions();
   const goToNetworkSelect = (): void => {
@@ -153,7 +153,7 @@ export function DexNavigator(): JSX.Element {
       initialRouteName="DexScreen"
       screenOptions={{
         headerTitleAlign: "center",
-        headerTitleStyle: HeaderFont,
+        headerTitleStyle: tailwind("font-semibold"),
         headerBackTitleVisible: false,
       }}
     >

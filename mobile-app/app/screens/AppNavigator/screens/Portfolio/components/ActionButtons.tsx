@@ -10,7 +10,7 @@ import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootState } from "@store";
 import { futureSwapSelector } from "@store/futureSwap";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { ScrollView, Text, View } from "react-native";
 import { useSelector } from "react-redux";
@@ -30,6 +30,7 @@ export interface ActionButtonsProps {
 }
 
 export function ActionButtons(): JSX.Element {
+  const { tailwind } = useStyles();
   const { isFeatureAvailable } = useFeatureFlagContext();
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const futureSwaps = useSelector((state: RootState) =>
@@ -123,6 +124,7 @@ export function ActionButtons(): JSX.Element {
 function ActionButton(props: ActionButtonsProps): JSX.Element {
   const DFIIcon = getNativeIcon("DFIlogo");
   const { isLight } = useThemeContext();
+  const { tailwind, getColor } = useStyles();
   return (
     <View style={tailwind("items-center")}>
       <ThemedTouchableOpacityV2

@@ -2,7 +2,7 @@ import { View } from "@components";
 import { TextSkeletonLoader } from "@components/TextSkeletonLoader";
 import { ThemedIcon, ThemedText, ThemedView } from "@components/themed";
 import { RootState } from "@store";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import BigNumber from "bignumber.js";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
@@ -17,6 +17,7 @@ interface TokenBreakdownPercentageProps {
 export function TokenBreakdownPercentage(
   props: TokenBreakdownPercentageProps
 ): JSX.Element {
+  const { tailwind } = useStyles();
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
   const { hasFetchedVaultsData } = useSelector(
     (state: RootState) => state.loans
@@ -55,6 +56,7 @@ interface LockedPercentageItemProps {
 }
 
 function LockedPercentageItem(props: LockedPercentageItemProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedView
       style={tailwind("flex flex-row items-center py-1 px-2 rounded-xl")}

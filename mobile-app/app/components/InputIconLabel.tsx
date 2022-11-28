@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedText } from "./themed";
 
 export enum IconLabelScreenType {
@@ -13,6 +13,7 @@ interface InputIconLabelProps {
 }
 
 export function InputIconLabel(props: InputIconLabelProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedText
       dark={tailwind("text-gray-400")}

@@ -18,7 +18,7 @@ import {
   ThemedTextInputV2,
   ThemedViewV2,
 } from "@components/themed";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 
 type WalletTextInputProps = React.PropsWithChildren<TextInputProps> &
   IWalletTextInputProps;
@@ -67,6 +67,8 @@ export const WalletTransactionCardTextInput = forwardRef<
     displayTickIcon,
     ...otherProps
   } = props;
+
+  const { tailwind, getColor } = useStyles();
 
   const textInputComponents = {
     ios: TextInputIOS,
@@ -186,6 +188,7 @@ export function ClearButtonV2(props: {
   testID?: string;
   iconThemedProps?: ThemedProps;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <TouchableOpacity
       testID={props.testID}

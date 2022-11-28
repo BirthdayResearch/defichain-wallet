@@ -4,13 +4,14 @@ import {
   AccordionContent,
 } from "@components/WalletAccordionV2";
 import { StackScreenProps } from "@react-navigation/stack";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { LoanParamList } from "../LoansNavigator";
 
 type Props = StackScreenProps<LoanParamList, "LoansFaq">;
 
 export function LoansFaq({ route }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const activeSessions = route.params.activeSessions;
   const faqContent: AccordionContent[] = [
     {

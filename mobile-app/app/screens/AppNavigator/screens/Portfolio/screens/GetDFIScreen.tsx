@@ -13,7 +13,7 @@ import {
 import { useToast } from "react-native-toast-notifications";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import {
   NativeLoggingProps,
@@ -45,6 +45,7 @@ export async function onShare(
 type Props = StackScreenProps<PortfolioParamList, "GetDFIScreen">;
 
 export function GetDFIScreen({ navigation }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedScrollViewV2
       contentContainerStyle={tailwind("mx-5 pb-24")}
@@ -59,6 +60,7 @@ export function GetDFIScreen({ navigation }: Props): JSX.Element {
 }
 
 function StepOne({ onPress }: { onPress: () => void }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("mt-8")}>
       <View style={tailwind("px-5 pb-4")}>
@@ -113,6 +115,7 @@ function StepOne({ onPress }: { onPress: () => void }): JSX.Element {
 }
 
 function StepTwo(): JSX.Element {
+  const { tailwind } = useStyles();
   const logger = useLogger();
   const { isLight } = useThemeContext();
   const { address } = useWalletContext();
@@ -222,6 +225,7 @@ function StepTwo(): JSX.Element {
 }
 
 function DFIOraclePrice(): JSX.Element {
+  const { tailwind } = useStyles();
   const [price, setPrice] = useState("0");
   const client = useWhaleApiClient();
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0;
@@ -286,6 +290,7 @@ function DFIOraclePrice(): JSX.Element {
 }
 
 function CopyIcon(): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedIcon
       iconType="Feather"

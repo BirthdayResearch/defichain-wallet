@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import {
   ThemedIcon,
   ThemedTextV2,
@@ -22,6 +22,7 @@ export function LoanActionButton({
   testID,
   disabled,
 }: LoanActionButtonProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedTouchableOpacityV2
       style={[
@@ -61,6 +62,7 @@ export function LoanAddRemoveActionButton({
   leftDisabled,
   rightDisabled,
 }: DexAddRemoveLiquidityButtonProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       style={[

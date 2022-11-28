@@ -3,7 +3,7 @@ import {
   ThemedTextV2,
   ThemedViewV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { Dispatch, useEffect, useState } from "react";
@@ -52,6 +52,7 @@ export function ConfirmBorrowLoanTokenScreen({
     fee,
     resultingColRatio,
   } = route.params;
+  const { tailwind } = useStyles();
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
   );
@@ -157,6 +158,7 @@ function HorizontalRule({
   marginTop?: string;
   marginBottom?: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       style={tailwind(`border-b-0.5 ${marginTop} ${marginBottom}`)}
@@ -178,6 +180,7 @@ interface SummaryTransactionDetailsProps {
 function SummaryTransactionDetails(
   props: SummaryTransactionDetailsProps
 ): JSX.Element {
+  const { tailwind } = useStyles();
   const borrowAmountUSD = new BigNumber(props.borrowAmount).multipliedBy(
     getActivePrice(props.loanToken.token.symbol, props.loanToken.activePrice)
   );

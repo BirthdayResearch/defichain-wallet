@@ -11,7 +11,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { WalletAlert } from "@components/WalletAlert";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { ButtonV2 } from "@components/ButtonV2";
 import {
@@ -22,6 +22,7 @@ import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { WalletParamList } from "../../WalletNavigator";
 
 export function RestoreMnemonicWallet(): JSX.Element {
+  const { tailwind, getColor } = useStyles();
   const navigation = useNavigation<NavigationProp<WalletParamList>>();
   const {
     control,

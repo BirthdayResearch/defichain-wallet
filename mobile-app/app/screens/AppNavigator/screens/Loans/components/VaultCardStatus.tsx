@@ -1,4 +1,4 @@
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import CircularProgress from "react-native-circular-progress-indicator";
 import BigNumber from "bignumber.js";
 import { View } from "@components";
@@ -34,6 +34,7 @@ export function VaultCardStatus({
   onButtonPressed,
   testID,
 }: VaultCardProgressProps): JSX.Element {
+  const { tailwind, getColor } = useStyles();
   const { isLight } = useThemeContext();
   const canUseOperations = useLoanOperations(vault?.state);
   const CIRCLE_RADIUS = 58;

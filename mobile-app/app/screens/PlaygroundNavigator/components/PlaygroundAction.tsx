@@ -1,6 +1,6 @@
 import { ThemedTouchableListItem, ThemedTextV2 } from "@components/themed";
 import { StyleProp, TextStyle } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 
 interface PlaygroundActionProps {
   title: string;
@@ -21,6 +21,7 @@ export function PlaygroundAction({
   onPress,
   disabled,
 }: PlaygroundActionProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedTouchableListItem
       isLast={isLast}

@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import {
   ThemedIcon,
   ThemedText,
@@ -58,6 +58,7 @@ export function AddressControlModal({
 }: {
   onClose: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("w-full pb-16")}>
       <ThemedView
@@ -110,6 +111,7 @@ export function AddressControlCard({
 }: {
   onClose: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const { address, addressLength, setIndex, wallet } = useWalletContext();
   const [availableAddresses, setAvailableAddresses] = useState<string[]>([]);
   const [canCreateAddress, setCanCreateAddress] = useState<boolean>(false);
@@ -222,6 +224,7 @@ export function AddressItemRow({
   index: number;
   onPress: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
   );
@@ -287,6 +290,7 @@ export function DiscoverWalletAddress({
 }: {
   size?: number;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const { discoverWalletAddresses } = useWalletContext();
   return (
     <TouchableOpacity

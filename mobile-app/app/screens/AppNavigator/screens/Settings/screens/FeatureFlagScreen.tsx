@@ -5,7 +5,7 @@ import {
   ThemedView,
 } from "@components/themed";
 import { Switch } from "@components/index";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
@@ -18,6 +18,7 @@ export interface BetaFeaturesI extends FeatureFlag {
 }
 
 export function FeatureFlagScreen(): JSX.Element {
+  const { tailwind } = useStyles();
   const { featureFlags, enabledFeatures, updateEnabledFeatures } =
     useFeatureFlagContext();
   const [betaFeatures, setBetaFeatures] = useState<BetaFeaturesI[]>([]);
@@ -106,6 +107,7 @@ export function FeatureFlagItem({
   item,
   onChange,
 }: FeatureFlagItemProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View testID={`feature_${item.id}_row`}>
       <ThemedView

@@ -1,5 +1,5 @@
 import { StyleProp, TextProps, View, ViewStyle } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { openURL } from "@api/linking";
 import {
   ThemedIcon,
@@ -23,6 +23,7 @@ interface TextRowProps {
 }
 
 export function TextRowV2(props: TextRowProps): JSX.Element {
+  const { tailwind } = useStyles();
   const {
     themedProps: lhsThemedProps,
     testID: lhsTestID,

@@ -1,6 +1,6 @@
 import { View, Platform } from "react-native";
 import { memo } from "react";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { translate } from "@translations";
 import { NumberRowV2 } from "@components/NumberRowV2";
@@ -13,6 +13,7 @@ export const ViewFeeDetails = ({
   feeData,
 }: ViewPoolDetailsProps): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
+    const { tailwind } = useStyles();
     return (
       <ThemedViewV2
         style={tailwind(

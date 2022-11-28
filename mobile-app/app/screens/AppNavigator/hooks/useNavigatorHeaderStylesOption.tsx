@@ -1,5 +1,5 @@
 import { StackNavigationOptions } from "@react-navigation/stack";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { Platform, StyleProp, ViewStyle } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ThemedTextV2 } from "@components/themed";
@@ -18,6 +18,7 @@ interface NavigatorHeaderProps {
 export function useNavigatorHeaderStylesOption(
   props: NavigatorHeaderProps
 ): StackNavigationOptions {
+  const { tailwind } = useStyles();
   const insets = useSafeAreaInsets();
   const screenOptions = useNavigatorScreenOptions();
   const navigation = useNavigation<NavigationProp<LoanParamList>>();

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Dimensions, Platform, Text, View } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import {
   ThemedScrollViewV2,
@@ -23,6 +23,7 @@ import { ResetButton } from "../components/ResetButton";
 type Props = StackScreenProps<SettingsParamList, "ServiceProviderScreen">;
 
 export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const logger = useLogger();
   const dispatch = useAppDispatch();
   // show all content for small screen and web to adjust margins and paddings

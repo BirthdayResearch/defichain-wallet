@@ -1,5 +1,5 @@
 import { ThemedIcon, ThemedText, ThemedView } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
@@ -60,6 +60,7 @@ export function VaultStatusTag({
   status: VaultStatus;
   testID?: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   if (status === VaultStatus.Unknown) {
     return <></>;
   }

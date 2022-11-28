@@ -8,11 +8,12 @@ import {
   ThemedTouchableListItem,
   ThemedViewV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { openURL } from "@api/linking";
 
 export function CommunityScreen(): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedFlatList
       ListHeaderComponent={
@@ -93,6 +94,7 @@ function CommunityItemRow({
   first: boolean;
   last: boolean;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const handlePress = async (): Promise<void> => {
     await openURL(item.url);
   };

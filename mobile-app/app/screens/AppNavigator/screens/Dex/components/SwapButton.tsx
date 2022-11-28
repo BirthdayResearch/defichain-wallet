@@ -1,11 +1,12 @@
 import { ThemedTextV2, ThemedTouchableOpacityV2 } from "@components/themed";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { ScreenName } from "@screens/enum";
 import { DexParamList } from "../DexNavigator";
 
 export function SwapButton(): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<DexParamList>>();
   return (
     <ThemedTouchableOpacityV2

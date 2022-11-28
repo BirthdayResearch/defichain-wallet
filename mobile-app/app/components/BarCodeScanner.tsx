@@ -2,7 +2,7 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { BarCodeScanner as DefaultBarCodeScanner } from "expo-barcode-scanner";
 import { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import tailwind from "tailwind-rn";
+import { useStyles } from "@tailwind";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
 import { translate } from "@translations";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
@@ -13,6 +13,7 @@ type Props = StackScreenProps<PortfolioParamList, "BarCodeScanner">;
 
 export function BarCodeScanner({ route, navigation }: Props): JSX.Element {
   // null => undetermined
+  const { tailwind } = useStyles();
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [value, setValue] = useState<string>();
   const logger = useLogger();

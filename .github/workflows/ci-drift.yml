@@ -24,13 +24,12 @@ jobs:
       - run: npm ci
 
       - name: "Drift Detection: tailwind.config.js"
-        working-directory: mobile-app/app
         run: |
-          export BEFORE=$(openssl sha1 styles.json | sed 's/^.* //')
-          npx create-tailwind-rn
-          export AFTER=$(openssl sha1 styles.json | sed 's/^.* //')
+          export BEFORE=$(openssl sha1 tailwind.json | sed 's/^.* //')
+          npm run tailwind:build
+          export AFTER=$(openssl sha1 tailwind.json | sed 's/^.* //')
 
           if [ "$BEFORE" != "$AFTER" ] ; then
-            echo "Drift detected: tailwind.config.js, please run 'npx create-tailwind-rn' in the /app directory."
+            echo "Drift detected: tailwind.config.js, please run 'npm run tailwind:build' in the root directory."
             exit 1
           fi

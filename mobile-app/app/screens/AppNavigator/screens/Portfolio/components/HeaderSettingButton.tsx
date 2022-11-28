@@ -1,11 +1,12 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { getColor } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { TouchableOpacity } from "react-native";
 import { SettingsParamList } from "../../Settings/SettingsNavigator";
 import { SettingsIcon } from "../assets/SettingsIcon";
 
 export function HeaderSettingButton(): JSX.Element {
+  const { getColor } = useStyles();
   const navigation = useNavigation<NavigationProp<SettingsParamList>>();
   const { isLight } = useThemeContext();
 

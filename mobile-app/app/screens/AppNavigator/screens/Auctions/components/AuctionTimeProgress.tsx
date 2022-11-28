@@ -2,7 +2,7 @@ import { View } from "@components";
 import { memo } from "react";
 import { ThemedText } from "@components/themed";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 
 import * as Progress from "react-native-progress";
@@ -19,6 +19,7 @@ interface AuctionTimeProgressProps {
 
 export const AuctionTimeProgress = memo(
   (props: AuctionTimeProgressProps): JSX.Element => {
+    const { getColor, tailwind } = useStyles();
     const { isLight } = useThemeContext();
     const { timeRemaining, blocksRemaining, blocksPerAuction } = useAuctionTime(
       props.liquidationHeight,

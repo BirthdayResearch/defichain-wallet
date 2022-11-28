@@ -3,7 +3,7 @@ import { Image } from "react-native";
 import { useSelector } from "react-redux";
 import { StackScreenProps } from "@react-navigation/stack";
 import { EnvironmentNetwork } from "@environment";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { RootState } from "@store";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
@@ -35,6 +35,7 @@ type Props = StackScreenProps<LoanParamList, "CloseVaultScreen">;
 
 export function CloseVaultScreen({ route, navigation }: Props): JSX.Element {
   const { vaultId } = route.params;
+  const { tailwind } = useStyles();
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
   );

@@ -1,6 +1,6 @@
 import { View } from "@components/index";
 import { ThemedTextV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { PlaygroundStatus, PlaygroundStatusProps } from "./PlaygroundStatus";
 
 interface PlaygroundTitleProps {
@@ -9,6 +9,7 @@ interface PlaygroundTitleProps {
 }
 
 export function PlaygroundTitle(props: PlaygroundTitleProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View
       style={tailwind(

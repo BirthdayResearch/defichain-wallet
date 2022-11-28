@@ -1,5 +1,5 @@
 import { View } from "@components";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import BigNumber from "bignumber.js";
 import { SymbolIcon } from "@components/SymbolIcon";
 
@@ -12,6 +12,7 @@ interface TokenIconGroupV2Props {
 }
 
 export function TokenIconGroupV2(props: TokenIconGroupV2Props): JSX.Element {
+  const { tailwind } = useStyles();
   const additionalIcon = BigNumber.max(
     props.symbols?.length - props.maxIconToDisplay,
     0

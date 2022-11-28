@@ -10,7 +10,7 @@ import {
   ThemedTextV2,
   ThemedTouchableOpacityV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import {
   DFITokenSelector,
@@ -123,7 +123,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
     },
     deps: [pair, tokenAAmount, tokenBAmount, balanceA, balanceB],
   });
-
+  const { tailwind } = useStyles();
   const toast = useToast();
   const TOAST_DURATION = 2000;
   const {
@@ -143,6 +143,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
       "bg-mono-dark-v2-100": !isLight,
     }),
     headerRight: (): JSX.Element => {
+      const { tailwind } = useStyles();
       return (
         <ThemedTouchableOpacityV2
           style={tailwind("mr-5 mt-4 -mb-4")}

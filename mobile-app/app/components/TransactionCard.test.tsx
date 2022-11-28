@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { render } from "@testing-library/react-native";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";

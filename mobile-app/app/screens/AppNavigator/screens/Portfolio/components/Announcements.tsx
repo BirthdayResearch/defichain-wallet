@@ -7,7 +7,7 @@ import {
   ThemedView,
   ThemedViewV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { useGetAnnouncementsQuery } from "@store/website";
 import { AnnouncementData } from "@shared-types/website";
 import { satisfies } from "semver";
@@ -30,6 +30,7 @@ import {
 import { useDisplayAnnouncement } from "../hooks/DisplayAnnouncement";
 
 export function Announcements(): JSX.Element {
+  const { tailwind } = useStyles();
   const { data: announcements, isSuccess } = useGetAnnouncementsQuery({});
 
   const { language } = useLanguageContext();
@@ -247,6 +248,7 @@ export function AnnouncementBannerV2({
   testID,
   containerStyle,
 }: AnnouncementBannerProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
   const isOtherAnnouncement =
     announcement.type === undefined ||

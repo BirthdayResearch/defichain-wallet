@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleProp, TextStyle, TouchableOpacityProps } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import {
   ThemedIcon,
   ThemedProps,
@@ -24,6 +24,7 @@ interface IconButtonProps extends TouchableOpacityProps {
 
 export function IconButton(props: IconButtonProps): JSX.Element {
   const { disabled = false } = props;
+  const { tailwind } = useStyles();
   return (
     <ThemedTouchableOpacity
       light={tailwind({

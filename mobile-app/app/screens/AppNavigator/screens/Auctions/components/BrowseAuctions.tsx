@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import { useScrollToTop } from "@react-navigation/native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { BatchCard } from "@screens/AppNavigator/screens/Auctions/components/BatchCard";
 import { Platform, View } from "react-native";
 import {
@@ -55,6 +55,7 @@ export function BrowseAuctions({
   searchString,
   activeButtonGroup,
 }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   // Asset sort bottom sheet list
   const [assetSortType, setAssetSortType] = useState<AuctionsSortType>(
     AuctionsSortType.LeastTimeLeft
@@ -250,6 +251,7 @@ function BatchCards({
   onQuickBid: (props: onQuickBidProps) => void;
   activeButtonGroup: ButtonGroupTabKey;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const ref = useRef(null);
   useScrollToTop(ref);
 

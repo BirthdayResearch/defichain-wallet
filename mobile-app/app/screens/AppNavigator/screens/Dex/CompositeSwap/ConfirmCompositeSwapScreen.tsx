@@ -1,7 +1,7 @@
 import { WalletAlert } from "@components/WalletAlert";
 import { Dispatch, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { StackScreenProps } from "@react-navigation/stack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import BigNumber from "bignumber.js";
@@ -70,6 +70,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
     estimatedLessFeesAfterSlippage,
     originScreen,
   } = route.params;
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<DexParamList>>();
   const dispatch = useAppDispatch();
   const logger = useLogger();
@@ -482,6 +483,7 @@ function DexStabAcknowledgeCheckBox(props: {
   onSwitch: (val: boolean) => void;
   message: string;
 }): JSX.Element {
+  const { tailwind, getColor } = useStyles();
   return (
     <View style={tailwind("px-7 flex flex-row justify-center")}>
       <Checkbox

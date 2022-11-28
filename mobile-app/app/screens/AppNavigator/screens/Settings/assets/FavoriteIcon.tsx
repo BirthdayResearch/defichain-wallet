@@ -1,5 +1,5 @@
 import Svg, { Path } from "react-native-svg";
-import { getColor } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 
 interface FavoriteIconI {
@@ -9,13 +9,15 @@ interface FavoriteIconI {
   light?: string;
 }
 
-export function FavoriteCheckIcon({
-  testID,
-  size,
-  dark = getColor("brand-v2-500"),
-  light = getColor("brand-v2-500"),
-}: FavoriteIconI): JSX.Element {
+export function FavoriteCheckIcon(props: FavoriteIconI): JSX.Element {
   const { isLight } = useThemeContext();
+  const { getColor } = useStyles();
+  const {
+    testID,
+    size,
+    dark = getColor("brand-v2-500"),
+    light = getColor("brand-v2-500"),
+  } = props;
   return (
     <Svg
       width={size}
@@ -36,6 +38,7 @@ export function FavoriteUnCheckIcon({
   testID,
   size,
 }: FavoriteIconI): JSX.Element {
+  const { getColor } = useStyles();
   return (
     <Svg
       width={size}

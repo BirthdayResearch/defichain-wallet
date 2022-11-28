@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { Text } from "./Text";
 
 export type ButtonFillType = "fill" | "flat";
@@ -20,6 +20,7 @@ interface ButtonProps extends React.PropsWithChildren<TouchableOpacityProps> {
 
 export function ButtonV2(props: ButtonProps): JSX.Element {
   const [buttonState, setButtonState] = useState(ButtonState.default);
+  const { tailwind } = useStyles();
 
   useEffect(() => {
     setButtonState(

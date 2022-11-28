@@ -4,7 +4,7 @@ import {
   ThemedTextV2,
   ThemedViewV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { useSelector } from "react-redux";
 import { useIsFocused } from "@react-navigation/native";
@@ -27,6 +27,7 @@ type BatchDetailScreenProps = StackScreenProps<
 
 export function BidHistoryScreen(props: BatchDetailScreenProps): JSX.Element {
   const { batch, vault } = props.route.params;
+  const { tailwind } = useStyles();
   const client = useWhaleApiClient();
   const dispatch = useAppDispatch();
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0;

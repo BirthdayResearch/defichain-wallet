@@ -5,7 +5,7 @@ import {
   Feather,
 } from "@expo/vector-icons";
 import { IconProps } from "@expo/vector-icons/build/createIconSet";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 
 import { ThemedProps } from "./index";
 
@@ -23,6 +23,7 @@ type ThemedIconProps = ThemedProps & IThemedIcon & IconProps<any>;
 
 export function ThemedIcon(props: ThemedIconProps): JSX.Element {
   const { isLight } = useThemeContext();
+  const { tailwind } = useStyles();
   const {
     style,
     iconType,

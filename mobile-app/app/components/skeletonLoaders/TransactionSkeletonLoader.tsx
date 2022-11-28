@@ -5,7 +5,7 @@ import ContentLoader, {
   Rect,
 } from "react-content-loader/native";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedView } from "../themed";
 
 export function TransactionSkeletonLoader(
@@ -13,6 +13,7 @@ export function TransactionSkeletonLoader(
     IContentLoaderProps & { children?: React.ReactNode }
 ): JSX.Element {
   const { isLight } = useThemeContext();
+  const { tailwind } = useStyles();
   return (
     <ThemedView
       dark={tailwind("bg-gray-800 border-b border-gray-700")}

@@ -1,6 +1,6 @@
 import { View, Platform } from "react-native";
 import { memo } from "react";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import BigNumber from "bignumber.js";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { AddressToken } from "@defichain/whale-api-client/dist/api/address";
@@ -35,6 +35,7 @@ export const ViewPoolDetails = ({
   pairInfo,
 }: ViewPoolDetailsProps): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
+    const { tailwind } = useStyles();
     return (
       <ThemedViewV2
         style={tailwind(
@@ -87,6 +88,7 @@ function AddLiquidityDetails({
   pairInfo,
   pairData,
 }: AddLiquidityDetailsProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet);
   const poolPairData = pairs.find(
     (pr) => pr.data.symbol === (pairInfo as AddressToken).symbol
@@ -225,6 +227,7 @@ function RemoveLiquidityDetails({
   pairInfo,
   pairData,
 }: RemoveLiquidityDetailsProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet);
   const poolPairData = pairs.find(
     (pr) => pr.data.symbol === (pairInfo as AddressToken).symbol

@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedTextV2 } from "@components/themed";
 import { View } from "@components";
 import { Platform } from "react-native";
@@ -12,6 +12,7 @@ export function TokenNameText({
   displaySymbol: string;
   name: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("ml-2 flex-auto")}>
       <ThemedTextV2

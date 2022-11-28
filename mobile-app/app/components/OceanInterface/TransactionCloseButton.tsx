@@ -1,5 +1,5 @@
 import { TouchableOpacity } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedIcon } from "@components/themed";
 
 interface TransactionCloseButtonProps {
@@ -9,6 +9,7 @@ interface TransactionCloseButtonProps {
 export function TransactionCloseButton(
   props: TransactionCloseButtonProps
 ): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <TouchableOpacity onPress={props.onPress} testID="oceanInterface_close">
       <ThemedIcon
