@@ -334,7 +334,8 @@
     "{{percent}} of available {{unit}} entered": "{{percent}} des {{unit}} disponibles saisis",
     "A small amount of UTXO is reserved for fees": "Une petite quantité d'UTXO est réservée aux frais.",
     "Available {{unit}}": "{{unit}} Disponible",
-    "Resulting {{unit}}": "{{unit}} Restants"
+    "Resulting {{unit}}": "{{unit}} Restants",
+    "TO RECEIVE": "A RECEVOIR"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm": "Confirmer",
@@ -829,7 +830,7 @@
     "CANCEL": "ANNULER",
     "Cancel": "Annuler",
     "TRY AGAIN": "RÉESSAYER",
-    "From": "Des",
+    "From": "du",
     "To": "Contre des",
     "Converting": "Conversion",
     "Converted": "Converti",
@@ -1026,7 +1027,7 @@
     "Slippage tolerance": "Tolérance de glissement",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
     "PRICE DETAILS": "DÉTAILS DU PRIX",
-    "FROM": "DES",
+    "FROM": "du",
     "TO": "CONTRE DES",
     "Total to be swapped": "Total à échanger",
     "Instant Swap": "Échange instantané",
@@ -2056,7 +2057,7 @@
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Retirer",
-    "FROM": "DES",
+    "FROM": "DU",
     "TO": "CONTRE DES",
     "Enter an amount": "Donner un montant",
     "Amount to withdraw": "Montant à retirer",
@@ -2178,7 +2179,8 @@
     "Receive": "Recevoir",
     "Swap": "Échanger",
     "Transactions": "Transactions",
-    "Future swap": "Échange à terme"
+    "Future swap": "Échange à terme",
+    "Get DFI": "Obtenir DFI"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "Pool {{poolPair}}",

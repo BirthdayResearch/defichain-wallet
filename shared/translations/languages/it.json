@@ -335,7 +335,8 @@
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
     "A small amount of UTXO is reserved for fees": "A small amount of UTXO is reserved for fees",
     "Available {{unit}}": "Disponibile {{unit}}",
-    "Resulting {{unit}}": "Risultato {{unit}}"
+    "Resulting {{unit}}": "Risultato {{unit}}",
+    "TO RECEIVE": "TO RECEIVE"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm": "Confirm",
@@ -2192,7 +2193,8 @@
     "Receive": "Ricevi",
     "Swap": "Scambia",
     "Transactions": "Transazioni",
-    "Future swap": "Future swap"
+    "Future swap": "Future swap",
+    "Get DFI": "Get DFI"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "{{poolPair}} Pool",

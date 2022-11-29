@@ -35,7 +35,7 @@ jobs:
         env:
           EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
 
-      - uses: marocchino/sticky-pull-request-comment@adca94abcaf73c10466a71cc83ae561fd66d1a56 # tag=v2.3.0
+      - uses: marocchino/sticky-pull-request-comment@fcf6fe9e4a0409cd9316a5011435be0f3327f1e1 # v2.3.1
         with:
           GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           header: wallet-preview

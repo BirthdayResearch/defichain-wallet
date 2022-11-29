@@ -16,14 +16,14 @@ import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { SummaryTitleV2 } from "@components/SummaryTitleV2";
+import { SummaryTitle } from "@components/SummaryTitle";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { AddressType } from "@store/wallet";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { View } from "react-native";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { useFutureSwapDate } from "../../Dex/hook/FutureSwap";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
@@ -89,7 +89,7 @@ export function ConfirmWithdrawFutureSwapScreen({
       contentContainerStyle={tailwind("flex-grow justify-between pb-4")}
     >
       <View>
-        <SummaryTitleV2
+        <SummaryTitle
           title={translate(
             "screens/ConfirmWithdrawFutureSwapScreen",
             "You are withdrawing"
@@ -151,7 +151,7 @@ export function ConfirmWithdrawFutureSwapScreen({
       </View>
 
       <View style={tailwind("pt-12 mx-3")}>
-        <SubmitButtonGroupV2
+        <SubmitButtonGroup
           isDisabled={hasPendingJob || hasPendingBroadcastJob || isEnded}
           title="withdraw_future_swap"
           label={translate(

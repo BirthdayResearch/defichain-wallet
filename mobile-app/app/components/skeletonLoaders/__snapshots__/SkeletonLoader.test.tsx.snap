@@ -1320,25 +1320,17 @@ exports[`Skeleton Loader should match snapshot of vault scheme skeleton loader 1
     [
       {
         "alignItems": "center",
-        "borderBottomLeftRadius": 8,
-        "borderBottomRightRadius": 8,
-        "borderBottomWidth": 1,
-        "borderLeftWidth": 1,
-        "borderRightWidth": 1,
-        "borderTopLeftRadius": 8,
-        "borderTopRightRadius": 8,
-        "borderTopWidth": 1,
+        "borderBottomWidth": 0.5,
         "justifyContent": "center",
-        "marginBottom": 4,
-        "paddingBottom": 8,
-        "paddingTop": 8,
+        "marginLeft": 20,
+        "marginRight": 20,
       },
       {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderTopColor": "rgba(212, 212, 212, 1)",
+        "backgroundColor": "transparent",
+        "borderBottomColor": "rgba(204, 204, 204, 1)",
+        "borderLeftColor": "rgba(204, 204, 204, 1)",
+        "borderRightColor": "rgba(204, 204, 204, 1)",
+        "borderTopColor": "rgba(204, 204, 204, 1)",
       },
     ]
   }
@@ -1346,10 +1338,10 @@ exports[`Skeleton Loader should match snapshot of vault scheme skeleton loader 1
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight={50}
+    bbHeight={90}
     bbWidth="100%"
     focusable={false}
-    height={50}
+    height={90}
     interval={0.25}
     meetOrSlice={1}
     minX={0}
@@ -1363,13 +1355,13 @@ exports[`Skeleton Loader should match snapshot of vault scheme skeleton loader 1
         {},
         {
           "flex": 0,
-          "height": 50,
+          "height": 90,
           "width": "100%",
         },
       ]
     }
-    vbHeight={50}
-    vbWidth={400}
+    vbHeight={90}
+    vbWidth={300}
     width="100%"
   >
     <RNSVGGroup>
@@ -1395,42 +1387,26 @@ exports[`Skeleton Loader should match snapshot of vault scheme skeleton loader 1
         <RNSVGClipPath
           name="vault_scheme-animated-diff"
         >
+          <RNSVGRect
+            height="20"
+            rx="4"
+            ry="4"
+            width="160"
+            x="6"
+            y="22"
+          />
+          <RNSVGRect
+            height="20"
+            rx="4"
+            ry="4"
+            width="160"
+            x="6"
+            y="50"
+          />
           <RNSVGCircle
-            cx="50"
-            cy="29"
-            r="8"
-          />
-          <RNSVGRect
-            height="20"
-            rx="4"
-            ry="4"
-            width="120"
-            x="81"
-            y="6"
-          />
-          <RNSVGRect
-            height="10"
-            rx="4"
-            ry="4"
-            width="80"
-            x="81"
-            y="34"
-          />
-          <RNSVGRect
-            height="20"
-            rx="4"
-            ry="4"
-            width="100"
-            x="220"
-            y="6"
-          />
-          <RNSVGRect
-            height="10"
-            rx="4"
-            ry="4"
-            width="80"
-            x="220"
-            y="34"
+            cx="280"
+            cy="45"
+            r="14"
           />
         </RNSVGClipPath>
         <RNSVGLinearGradient

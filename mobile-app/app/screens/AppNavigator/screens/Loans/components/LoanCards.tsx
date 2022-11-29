@@ -33,7 +33,7 @@ import {
 } from "@components/BottomSheetWithNavV2";
 import { BottomSheetModalInfo } from "@components/BottomSheetModalInfo";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { SearchInputV2 } from "@components/SearchInputV2";
+import { SearchInput } from "@components/SearchInput";
 import { debounce } from "lodash";
 import {
   SkeletonLoader,
@@ -360,7 +360,7 @@ export function LoanCards(props: LoanCardsProps): JSX.Element {
       >
         {isVaultReady && (
           <>
-            <SearchInputV2
+            <SearchInput
               ref={searchRef}
               value={searchString}
               showClearButton={searchString !== ""}

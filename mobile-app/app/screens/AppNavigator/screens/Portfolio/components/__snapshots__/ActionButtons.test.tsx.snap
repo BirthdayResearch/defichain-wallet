@@ -53,6 +53,111 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
               "width": 60,
             }
           }
+          testID="get_DFI_action_btn"
+        >
+          <RNSVGSvgView
+            align="xMidYMid"
+            bbHeight={20}
+            bbWidth={20}
+            color={4279374354}
+            focusable={false}
+            height={20}
+            meetOrSlice={0}
+            minX={0}
+            minY={0}
+            style={
+              [
+                {
+                  "backgroundColor": "transparent",
+                  "borderWidth": 0,
+                },
+                {
+                  "flex": 0,
+                  "height": 20,
+                  "width": 20,
+                },
+              ]
+            }
+            tintColor={4279374354}
+            vbHeight={20}
+            vbWidth={21}
+            width={20}
+          >
+            <RNSVGGroup>
+              <RNSVGPath
+                d="M13.0951 17.4544V2.54556C16.3054 3.50444 18.6522 6.48333 18.6522 10C18.6522 13.5167 16.3054 16.4961 13.0951 17.4544ZM10.8722 0V8.42833L9.60242 7.15889L9.44016 3.99056L10.7644 0.00555563C9.91529 0.0144445 9.09506 0.135555 8.30984 0.343889L7.66911 2.27L5.85305 1.35944C5.13452 1.77778 4.46989 2.27833 3.87917 2.85667L7.24288 4.54167L7.34124 6.47L5.41293 6.37111L3.7269 3.00889C3.14897 3.59944 2.64771 4.26333 2.22927 4.98222L3.14063 6.79833L1.21287 7.43833C1.00504 8.22333 0.883891 9.04333 0.875 9.89222L4.86166 8.56833L8.03088 8.73L9.30067 10L8.03088 11.27L4.86166 11.4317L0.875 10.1078C0.883891 10.9567 1.00504 11.7767 1.21287 12.5617L3.14063 13.2017L2.22927 15.0178C2.64771 15.7367 3.14897 16.4006 3.7269 16.9911L5.41293 13.6289L7.34124 13.53L7.24288 15.4578L3.87917 17.1433C4.46989 17.7211 5.13452 18.2217 5.85305 18.6406L7.66911 17.73L8.30984 19.6561C9.09506 19.8639 9.91529 19.9856 10.7644 19.9944L9.44016 16.0094L9.60242 12.8411L10.8722 11.5717V20C16.3965 20 20.875 15.5228 20.875 10C20.875 4.47722 16.3965 0 10.8722 0Z"
+                fill={4279374354}
+                propList={
+                  [
+                    "fill",
+                  ]
+                }
+              />
+            </RNSVGGroup>
+          </RNSVGSvgView>
+        </View>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                  "marginTop": 8,
+                  "textAlign": "center",
+                },
+                {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Get DFI
+        </Text>
+      </View>
+      <View
+        style={
+          {
+            "alignItems": "center",
+          }
+        }
+      >
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomLeftRadius": 9999,
+              "borderBottomRightRadius": 9999,
+              "borderTopLeftRadius": 9999,
+              "borderTopRightRadius": 9999,
+              "height": 60,
+              "justifyContent": "center",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "opacity": 1,
+              "width": 60,
+            }
+          }
           testID="send_balance_button"
         >
           <Text />

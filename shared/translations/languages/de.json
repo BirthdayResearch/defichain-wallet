@@ -324,7 +324,8 @@
     "{{percent}} of available {{unit}} entered": "{{percent}} der verfügbaren {{unit}} eingegeben",
     "A small amount of UTXO is reserved for fees": "Ein geringer UTXO-Betrag ist für Gebühren reserviert",
     "Available {{unit}}": "Verfügbare {{unit}}",
-    "Resulting {{unit}}": "Resultierende {{unit}}"
+    "Resulting {{unit}}": "Resultierende {{unit}}",
+    "TO RECEIVE": "ZU ERHALTEN"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm": "Bestätigen",
@@ -780,7 +781,7 @@
     "Preparing to convert…": "Konvertierung vorbereiten…",
     "Converting {{symbolA}} to {{symbolB}}": "Wandle {{symbolA}} in {{symbolB}} um",
     "Conversion completed": "Konvertierung abgeschlossen",
-    "Converting {{amount}} DFI {{symbolA}} to {{symbolB}}": "Konvertierung von {{amount}}-DFI {{symbolA}} in {{symbolB}}",
+    "Converting {{amount}} DFI {{symbolA}} to {{symbolB}}": "Konvertierung von {{amount}} DFI {{symbolA}} in {{symbolB}}",
     "{{amount}} DFI converted to {{symbolB}}": "{{amount}}-DFI umgewandelt in {{symbolB}}",
     "Preparing your transaction…": "Deine Transaktion vorbereiten…",
     "Processing future swap transaction…": "Verarbeiten der Future-Swap-Transaktion…",
@@ -882,7 +883,7 @@
     "Your pooled {{symbol}}": "Deine {{symbol}} im Pool",
     "Transaction type": "Transaktionsart",
     "Add liquidity": "Liquidität hinzufügen",
-    "Convert & add liquidity": "Umrechnen & Liquidität hinzufügen",
+    "Convert & add liquidity": "Umwandeln & Liquidität hinzufügen",
     "CONFIRM ADD LIQUIDITY": "LIQUIDITÄT HINZUFÜGEN BESTÄTIGEN",
     "Your LP Tokens": "Deine LP-Token",
     "You will receive LP tokens": "Du erhältst folgende LP-Token",
@@ -1032,7 +1033,7 @@
     "Are you certain you want to proceed with this swap despite the DEX Stabilization fees of {{fee}} that will be incurred as part of the composite path (DUSD -> {{tokenB}})?": "Bist du dir sicher, dass du diesen Tausch trotz der DEX-Stabilisierungsgebühren in Höhe von {{fee}}, die im Verlauf des zusammengesetzten Pfads beim Komposit-Swap (DUSD -> {{tokenB}}) anfallen werden, durchführen willst?",
     "DEX stabilization fee": "DEX-Stabilisierungsgebühr",
     "Future swap uses the oracle price of the selected token on the settlement block": "Future Swap verwendet den Orakelpreis des ausgewählten Tokens beim Abrechnungsblock",
-    "You are buying dTokens at 5% more than the oracle price at settlement block.": "Du kaufst dTokens zu einem Preis, der 5 % über dem Orakelpreis beim Abrechnungsblock liegt",
+    "You are buying dTokens at 5% more than the oracle price at settlement block.": "Du kaufst dToken zu einem Preis, der 5 % über dem Orakelpreis beim Abrechnungsblock liegt",
     "You are buying {{displaySymbol}} at 5% more than the oracle price at settlement block.": "Du kaufst {{displaySymbol}} zu einem Preis, der 5 % über dem Orakelpreis beim Abrechnungsblock liegt.",
     "You are selling your {{displaySymbol}} at 5% less than the oracle price at settlement block.": "Du verkaufst {{displaySymbol}} zu einem Preis, der 5 % unter dem Orakelpreis beim Abrechnungsblock liegt.",
     "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
@@ -2164,7 +2165,8 @@
     "Receive": "Empfangen",
     "Swap": "Tausch",
     "Transactions": "Transaktionen",
-    "Future swap": "Future Swap"
+    "Future swap": "Future Swap",
+    "Get DFI": "DFI erhalten"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "{{poolPair}}-Pool",

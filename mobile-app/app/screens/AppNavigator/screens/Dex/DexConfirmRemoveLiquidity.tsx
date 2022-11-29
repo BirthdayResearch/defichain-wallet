@@ -9,7 +9,7 @@ import BigNumber from "bignumber.js";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Dispatch } from "redux";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { ThemedScrollViewV2, ThemedViewV2 } from "@components/themed";
 import { RootState } from "@store";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
@@ -19,11 +19,11 @@ import { translate } from "@translations";
 import { ScreenName } from "@screens/enum";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { SummaryTitleV2 } from "@components/SummaryTitleV2";
+import { SummaryTitle } from "@components/SummaryTitle";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import { PricesSectionV2 } from "@components/PricesSectionV2";
+import { PricesSection } from "@components/PricesSection";
 import { useTokenPrice } from "../Portfolio/hooks/TokenPrice";
 import { DexParamList } from "./DexNavigator";
 
@@ -109,7 +109,7 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
   return (
     <ThemedScrollViewV2 style={tailwind("py-8 px-5")}>
       <ThemedViewV2 style={tailwind("flex-col mb-9")}>
-        <SummaryTitleV2
+        <SummaryTitle
           iconA={pair.tokenA.displaySymbol}
           iconB={pair.tokenB.displaySymbol}
           fromAddress={address}
@@ -172,7 +172,7 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
         light={tailwind("border-mono-light-v2-300")}
         style={tailwind("pt-5 border-t-0.5 border-b-0.5")}
       >
-        <PricesSectionV2
+        <PricesSection
           key="prices"
           testID="confirm_pricerate_value"
           priceRates={[
@@ -235,7 +235,7 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
         />
       </ThemedViewV2>
       <View style={tailwind("py-14 px-3")}>
-        <SubmitButtonGroupV2
+        <SubmitButtonGroup
           isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
           label={translate(
             "screens/ConfirmRemoveLiquidity",

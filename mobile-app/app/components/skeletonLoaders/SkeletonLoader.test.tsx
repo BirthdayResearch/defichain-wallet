@@ -71,7 +71,9 @@ describe("Skeleton Loader", () => {
   });
 
   it("should match snapshot of vault scheme skeleton loader", async () => {
-    const component = <VaultSchemesSkeletonLoader uniqueKey="vault_scheme" />;
+    const component = (
+      <VaultSchemesSkeletonLoader uniqueKey="vault_scheme" last={false} />
+    );
     const rendered = render(component);
     expect(rendered.toJSON()).toMatchSnapshot();
   });
