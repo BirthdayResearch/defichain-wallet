@@ -170,5 +170,10 @@
       "**.test.tsx",
       "**.snap"
     ]
+  },
+  "overrides": {
+    "react-native-circular-progress-indicator": {
+      "react-native-svg": "13.4.0"
+    }
   }
 }
