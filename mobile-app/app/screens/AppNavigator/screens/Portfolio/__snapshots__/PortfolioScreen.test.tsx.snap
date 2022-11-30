@@ -93,162 +93,7 @@ exports[`portfolio page should match snapshot 1`] = `
                 },
               ]
             }
-          >
-            <RNSVGSvgView
-              align="xMidYMid"
-              bbHeight={24}
-              bbWidth={24}
-              fill="none"
-              focusable={false}
-              height={24}
-              meetOrSlice={0}
-              minX={0}
-              minY={0}
-              style={
-                [
-                  {
-                    "backgroundColor": "transparent",
-                    "borderWidth": 0,
-                  },
-                  {
-                    "flex": 0,
-                    "height": 24,
-                    "width": 24,
-                  },
-                ]
-              }
-              vbHeight={80}
-              vbWidth={80}
-              width={24}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <RNSVGGroup
-                fill={null}
-                propList={
-                  [
-                    "fill",
-                  ]
-                }
-              >
-                <RNSVGMask
-                  height={80}
-                  maskContentUnits={1}
-                  maskTransform={
-                    [
-                      1,
-                      0,
-                      0,
-                      1,
-                      0,
-                      0,
-                    ]
-                  }
-                  maskUnits={1}
-                  name="mask__bauhaus"
-                  width={80}
-                  x={0}
-                  y={0}
-                >
-                  <RNSVGRect
-                    fill={4294967295}
-                    height={80}
-                    propList={
-                      [
-                        "fill",
-                      ]
-                    }
-                    rx={160}
-                    width={80}
-                    x={0}
-                    y={0}
-                  />
-                </RNSVGMask>
-                <RNSVGGroup
-                  mask="mask__bauhaus"
-                >
-                  <RNSVGRect
-                    fill={4284158207}
-                    height={80}
-                    propList={
-                      [
-                        "fill",
-                      ]
-                    }
-                    width={80}
-                    x={0}
-                    y={0}
-                  />
-                  <RNSVGRect
-                    fill={4294945863}
-                    height={80}
-                    matrix={
-                      [
-                        -0.46947156278589075,
-                        -0.882947592858927,
-                        0.882947592858927,
-                        -0.46947156278589075,
-                        23.46095879707855,
-                        94.0967662257927,
-                      ]
-                    }
-                    propList={
-                      [
-                        "fill",
-                      ]
-                    }
-                    width={80}
-                    x={10}
-                    y={30}
-                  />
-                  <RNSVGCircle
-                    cx={40}
-                    cy={40}
-                    fill={4278234397}
-                    matrix={
-                      [
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                      ]
-                    }
-                    propList={
-                      [
-                        "fill",
-                      ]
-                    }
-                    r={16}
-                  />
-                  <RNSVGLine
-                    matrix={
-                      [
-                        -0.5591929034707467,
-                        0.8290375725550417,
-                        -0.8290375725550417,
-                        -0.5591929034707467,
-                        91.52921904103154,
-                        33.2062132366282,
-                      ]
-                    }
-                    propList={
-                      [
-                        "stroke",
-                        "strokeWidth",
-                      ]
-                    }
-                    stroke={4279316113}
-                    strokeWidth={2}
-                    x1={0}
-                    x2={80}
-                    y1={40}
-                    y2={40}
-                  />
-                </RNSVGGroup>
-              </RNSVGGroup>
-            </RNSVGSvgView>
-          </View>
+          />
           <Text
             ellipsizeMode="middle"
             numberOfLines={1}
@@ -564,9 +409,9 @@ exports[`portfolio page should match snapshot 1`] = `
               >
                 <RNSVGSvgView
                   align="xMidYMid"
-                  bbHeight={20}
-                  bbWidth={20}
-                  color={4279374354}
+                  bbHeight="20"
+                  bbWidth="20"
+                  color="rgba(18, 18, 18, 1)"
                   focusable={false}
                   height={20}
                   meetOrSlice={0}
@@ -585,18 +430,26 @@ exports[`portfolio page should match snapshot 1`] = `
                       },
                     ]
                   }
-                  tintColor={4279374354}
+                  tintColor="rgba(18, 18, 18, 1)"
                   vbHeight={20}
                   vbWidth={21}
                   width={20}
                 >
                   <RNSVGGroup>
                     <RNSVGPath
+                      clipRule={0}
                       d="M13.0951 17.4544V2.54556C16.3054 3.50444 18.6522 6.48333 18.6522 10C18.6522 13.5167 16.3054 16.4961 13.0951 17.4544ZM10.8722 0V8.42833L9.60242 7.15889L9.44016 3.99056L10.7644 0.00555563C9.91529 0.0144445 9.09506 0.135555 8.30984 0.343889L7.66911 2.27L5.85305 1.35944C5.13452 1.77778 4.46989 2.27833 3.87917 2.85667L7.24288 4.54167L7.34124 6.47L5.41293 6.37111L3.7269 3.00889C3.14897 3.59944 2.64771 4.26333 2.22927 4.98222L3.14063 6.79833L1.21287 7.43833C1.00504 8.22333 0.883891 9.04333 0.875 9.89222L4.86166 8.56833L8.03088 8.73L9.30067 10L8.03088 11.27L4.86166 11.4317L0.875 10.1078C0.883891 10.9567 1.00504 11.7767 1.21287 12.5617L3.14063 13.2017L2.22927 15.0178C2.64771 15.7367 3.14897 16.4006 3.7269 16.9911L5.41293 13.6289L7.34124 13.53L7.24288 15.4578L3.87917 17.1433C4.46989 17.7211 5.13452 18.2217 5.85305 18.6406L7.66911 17.73L8.30984 19.6561C9.09506 19.8639 9.91529 19.9856 10.7644 19.9944L9.44016 16.0094L9.60242 12.8411L10.8722 11.5717V20C16.3965 20 20.875 15.5228 20.875 10C20.875 4.47722 16.3965 0 10.8722 0Z"
-                      fill={4279374354}
+                      fill={
+                        {
+                          "payload": 4279374354,
+                          "type": 0,
+                        }
+                      }
+                      fillRule={0}
                       propList={
                         [
                           "fill",
+                          "fillRule",
                         ]
                       }
                     />
@@ -1352,8 +1205,8 @@ exports[`portfolio page should match snapshot 1`] = `
             >
               <RNSVGSvgView
                 align="xMidYMid"
-                bbHeight={36}
-                bbWidth={36}
+                bbHeight="36"
+                bbWidth="36"
                 focusable={false}
                 height={36}
                 meetOrSlice={0}
@@ -1378,19 +1231,29 @@ exports[`portfolio page should match snapshot 1`] = `
               >
                 <RNSVGGroup>
                   <RNSVGCircle
-                    cx={16}
-                    cy={16}
-                    fill={4294901935}
+                    cx="16"
+                    cy="16"
+                    fill={
+                      {
+                        "payload": 4294901935,
+                        "type": 0,
+                      }
+                    }
                     propList={
                       [
                         "fill",
                       ]
                     }
-                    r={16}
+                    r="16"
                   />
                   <RNSVGPath
                     d="M18.217 23.454V8.546c3.21.958 5.555 3.937 5.555 7.454s-2.346 6.496-5.555 7.454M15.994 6v8.428l-1.269-1.27-.162-3.167 1.324-3.985a9.952 9.952 0 00-2.454.338l-.64 1.926-1.816-.91a10.03 10.03 0 00-1.974 1.497l3.363 1.685.098 1.928-1.927-.099L8.85 9.01a10.035 10.035 0 00-1.497 1.973l.911 1.816-1.927.64A9.978 9.978 0 006 15.892l3.986-1.324 3.168.162 1.27 1.27-1.27 1.27-3.168.162L6 16.108c.009.849.13 1.669.338 2.454l1.927.64-.911 1.816c.418.719.92 1.383 1.497 1.973l1.686-3.362 1.927-.099-.098 1.928-3.363 1.685a10.04 10.04 0 001.974 1.498l1.815-.911.64 1.926a9.94 9.94 0 002.455.338l-1.324-3.985.162-3.168 1.27-1.27V26c5.522 0 10-4.477 10-10s-4.478-10-10-10"
-                    fill={4294967295}
+                    fill={
+                      {
+                        "payload": 4294967295,
+                        "type": 0,
+                      }
+                    }
                     propList={
                       [
                         "fill",
@@ -1656,8 +1519,8 @@ exports[`portfolio page should match snapshot 1`] = `
             >
               <RNSVGSvgView
                 align="xMidYMid"
-                bbHeight={36}
-                bbWidth={36}
+                bbHeight="36"
+                bbWidth="36"
                 focusable={false}
                 height={36}
                 meetOrSlice={0}
@@ -1684,7 +1547,12 @@ exports[`portfolio page should match snapshot 1`] = `
                 <RNSVGGroup>
                   <RNSVGPath
                     d="M31.521 19.87c-2.137 8.572-10.82 13.788-19.393 11.651C3.558 29.384-1.659 20.702.479 12.131 2.616 3.56 11.298-1.659 19.87.48c8.573 2.137 13.79 10.82 11.652 19.392z"
-                    fill={4294830545}
+                    fill={
+                      {
+                        "payload": 4294830545,
+                        "type": 0,
+                      }
+                    }
                     propList={
                       [
                         "fill",
@@ -1693,7 +1561,12 @@ exports[`portfolio page should match snapshot 1`] = `
                   />
                   <RNSVGPath
                     d="M22.96 14.04c.313-2.101-1.276-3.23-3.448-3.985l.705-2.846-1.72-.432-.686 2.772a67.899 67.899 0 00-1.379-.327l.691-2.79L15.404 6l-.705 2.846a57.2 57.2 0 01-1.099-.26l.002-.01-2.372-.596-.458 1.85s1.277.296 1.25.314c.696.175.822.64.801 1.008l-.802 3.243c.048.012.11.03.179.057l-.182-.045-1.125 4.543c-.085.213-.302.533-.789.412.018.025-1.25-.315-1.25-.315L8 21.031l2.239.562c.416.105.824.215 1.226.319l-.712 2.88 1.718.431.706-2.849c.469.129.925.247 1.37.359l-.702 2.835 1.72.432.712-2.874c2.934.56 5.14.334 6.068-2.339.748-2.152-.037-3.393-1.58-4.202 1.123-.261 1.97-1.006 2.196-2.545zm-4.012 5.8c-.497 1.961-3.858.901-4.948.635L14.883 17c1.09.267 4.584.796 4.065 2.84zm.991-6.05c-.538 1.993-3.861.98-4.939.732L15.95 11c1.079.248 4.55.712 3.99 2.79z"
-                    fill={4294415130}
+                    fill={
+                      {
+                        "payload": 4294415130,
+                        "type": 0,
+                      }
+                    }
                     propList={
                       [
                         "fill",
@@ -1949,8 +1822,8 @@ exports[`portfolio page should match snapshot 1`] = `
             >
               <RNSVGSvgView
                 align="xMidYMid"
-                bbHeight={36}
-                bbWidth={36}
+                bbHeight="36"
+                bbWidth="36"
                 focusable={false}
                 height={36}
                 meetOrSlice={0}
@@ -1976,19 +1849,29 @@ exports[`portfolio page should match snapshot 1`] = `
               >
                 <RNSVGGroup>
                   <RNSVGCircle
-                    cx={16}
-                    cy={16}
-                    fill={4292929019}
+                    cx="16"
+                    cy="16"
+                    fill={
+                      {
+                        "payload": 4292929019,
+                        "type": 0,
+                      }
+                    }
                     propList={
                       [
                         "fill",
                       ]
                     }
-                    r={16}
+                    r="16"
                   />
                   <RNSVGPath
                     d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
-                    fill={4294967295}
+                    fill={
+                      {
+                        "payload": 4294967295,
+                        "type": 0,
+                      }
+                    }
                     propList={
                       [
                         "fill",
@@ -1997,7 +1880,12 @@ exports[`portfolio page should match snapshot 1`] = `
                   />
                   <RNSVGPath
                     d="M23.5 17.616l-7.502 10.379v-6.027l7.502-4.352zm-7.502-4.744v7.701L8.5 16.22l7.498-3.348zm0-8.872l7.497 12.22-7.497-3.35V4z"
-                    fill={4284645098}
+                    fill={
+                      {
+                        "payload": 4284645098,
+                        "type": 0,
+                      }
+                    }
                     fillOpacity={0.8}
                     propList={
                       [
@@ -2008,7 +1896,12 @@ exports[`portfolio page should match snapshot 1`] = `
                   />
                   <RNSVGPath
                     d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
-                    fill={4294967295}
+                    fill={
+                      {
+                        "payload": 4294967295,
+                        "type": 0,
+                      }
+                    }
                     propList={
                       [
                         "fill",
@@ -2017,7 +1910,12 @@ exports[`portfolio page should match snapshot 1`] = `
                   />
                   <RNSVGPath
                     d="M8.5 17.616l7.498 4.351v6.028L8.5 17.616zM15.998 4v8.87L8.5 16.22 15.998 4z"
-                    fill={4284645098}
+                    fill={
+                      {
+                        "payload": 4284645098,
+                        "type": 0,
+                      }
+                    }
                     fillOpacity={0.6}
                     propList={
                       [
@@ -2028,7 +1926,12 @@ exports[`portfolio page should match snapshot 1`] = `
                   />
                   <RNSVGPath
                     d="M15.998 20.573l7.497-4.353-7.497-3.348z"
-                    fill={4284645098}
+                    fill={
+                      {
+                        "payload": 4284645098,
+                        "type": 0,
+                      }
+                    }
                     propList={
                       [
                         "fill",
