@@ -233,7 +233,8 @@
     "Copy": "Copier",
     "Share": "Partager",
     "WALLET ADDRESS": "ADRESSE DU PORTEFEUILLE",
-    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Utiliser l'adresse QR ou Wallet pour recevoir des tokens (DST) ou des DFI"
+    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Utiliser l'adresse QR ou Wallet pour recevoir des tokens (DST) ou des DFI",
+    "Get DFI": "Obtenir DFI"
   },
   "components/toaster": {
     "Copied": "Copié",
@@ -333,7 +334,8 @@
     "{{percent}} of available {{unit}} entered": "{{percent}} des {{unit}} disponibles saisis",
     "A small amount of UTXO is reserved for fees": "Une petite quantité d'UTXO est réservée aux frais.",
     "Available {{unit}}": "{{unit}} Disponible",
-    "Resulting {{unit}}": "{{unit}} Restants"
+    "Resulting {{unit}}": "{{unit}} Restants",
+    "TO RECEIVE": "A RECEVOIR"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm": "Confirmer",
@@ -828,7 +830,7 @@
     "CANCEL": "ANNULER",
     "Cancel": "Annuler",
     "TRY AGAIN": "RÉESSAYER",
-    "From": "Des",
+    "From": "du",
     "To": "Contre des",
     "Converting": "Conversion",
     "Converted": "Converti",
@@ -1025,7 +1027,7 @@
     "Slippage tolerance": "Tolérance de glissement",
     "TRANSACTION DETAILS": "DÉTAILS DE LA TRANSACTION",
     "PRICE DETAILS": "DÉTAILS DU PRIX",
-    "FROM": "DES",
+    "FROM": "du",
     "TO": "CONTRE DES",
     "Total to be swapped": "Total à échanger",
     "Instant Swap": "Échange instantané",
@@ -2055,7 +2057,7 @@
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Retirer",
-    "FROM": "DES",
+    "FROM": "DU",
     "TO": "CONTRE DES",
     "Enter an amount": "Donner un montant",
     "Amount to withdraw": "Montant à retirer",
@@ -2111,7 +2113,7 @@
     "Server": "Serveur",
     "Service Provider": "Fournisseur de services",
     "UNLOCK": "Déverrouiller",
-    "RESET": "Réinitialiser",
+    "RESET": "RÉINITIALISATION",
     "Endpoint URL": "URL du point de terminaison",
     "ENDPOINT URL": "URL DU POINT DE TERMINAISON",
     "Custom": "Personnalisé",
@@ -2127,7 +2129,11 @@
     "Reset default service provider": "Réinitialiser le fournisseur de services par défaut",
     "Provider": "Fournisseur",
     "Reset provider": "Réinitialiser le fournisseur",
-    "This will reset the service provider\nto the default URL.": "Ceci réinitialisera le fournisseur de services à l'URL par défaut."
+    "This will reset the service provider\nto the default URL.": "Ceci réinitialisera le fournisseur de services à l'URL par défaut.",
+    "Reset Service Provider": "Réinitialiser le fournisseur de services",
+    "Go back": "Retour",
+    "GO BACK": "RETOUR",
+    "Reset": "Réinitialiser"
   },
   "components/QuickBid": {
     "QUICK BID": "ENCHÈRE RAPIDE",
@@ -2173,7 +2179,8 @@
     "Receive": "Recevoir",
     "Swap": "Échanger",
     "Transactions": "Transactions",
-    "Future swap": "Échange à terme"
+    "Future swap": "Échange à terme",
+    "Get DFI": "Obtenir DFI"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "Pool {{poolPair}}",

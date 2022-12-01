@@ -1,121 +1,73 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Empty vault should match snapshot 1`] = `
-<RCTScrollView
-  contentContainerStyle={
-    {
-      "paddingBottom": 8,
-      "paddingLeft": 32,
-      "paddingRight": 32,
-      "paddingTop": 128,
-      "textAlign": "center",
-    }
-  }
-  refreshControl={
-    <RefreshControlMock
-      onRefresh={[Function]}
-      refreshing={false}
-    />
-  }
-  style={
-    [
-      undefined,
-      {
-        "backgroundColor": "rgba(250, 250, 250, 1)",
-      },
-    ]
-  }
-  testID="empty_vault"
->
-  <RCTRefreshControl />
-  <View>
-    <Text />
-    <Text
-      style={
-        [
-          {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          [
-            {
-              "fontFamily": "SemiBoldFont",
-              "fontSize": 24,
-              "fontWeight": "600",
-              "lineHeight": 32,
-              "paddingBottom": 8,
-              "textAlign": "center",
-            },
-            {
-              "color": "rgba(0, 0, 0, 1)",
-            },
-          ],
-        ]
-      }
-    >
-      No vault created
-    </Text>
-    <Text
-      style={
-        [
-          {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
-          [
-            {
-              "fontSize": 14,
-              "lineHeight": 20,
-              "opacity": 0.6,
-              "paddingBottom": 16,
-              "textAlign": "center",
-            },
-            {
-              "color": "rgba(0, 0, 0, 1)",
-            },
-          ],
-        ]
-      }
-    >
-      To get started, create a vault and add DFI and other tokens as collateral
-    </Text>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
+[
+  <View
+    onLayout={[Function]}
+    pointerEvents="box-none"
+    style={
+      [
+        undefined,
         {
-          "backgroundColor": "rgba(255, 229, 247, 1)",
-          "borderBottomLeftRadius": 4,
-          "borderBottomRightRadius": 4,
-          "borderTopLeftRadius": 4,
-          "borderTopRightRadius": 4,
-          "flexDirection": "row",
-          "justifyContent": "center",
-          "marginBottom": 16,
-          "marginLeft": 0,
-          "marginRight": 0,
-          "marginTop": 0,
-          "opacity": 1,
-          "paddingBottom": 12,
-          "paddingLeft": 12,
-          "paddingRight": 12,
-          "paddingTop": 12,
-        }
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        {
+          "bottom": 0,
+          "overflow": "hidden",
+          "top": 0,
+        },
+      ]
+    }
+  />,
+  <RCTScrollView
+    contentContainerStyle={
+      {
+        "paddingBottom": 8,
+        "paddingLeft": 32,
+        "paddingRight": 32,
+        "paddingTop": 24,
       }
-      testID="button_create_vault"
-    >
+    }
+    refreshControl={
+      <RefreshControlMock
+        onRefresh={[Function]}
+        refreshing={false}
+      />
+    }
+    style={
+      [
+        undefined,
+        {
+          "backgroundColor": "rgba(242, 242, 242, 1)",
+        },
+      ]
+    }
+    testID="empty_vault"
+  >
+    <RCTRefreshControl />
+    <View>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "paddingBottom": 32,
+          }
+        }
+      >
+        <Image
+          source={1}
+          style={
+            {
+              "height": 136,
+              "width": 204,
+            }
+          }
+        />
+      </View>
       <Text
         style={
           [
@@ -125,26 +77,52 @@ exports[`Empty vault should match snapshot 1`] = `
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            {
-              "color": "rgba(255, 0, 175, 1)",
-              "fontFamily": "BoldFont",
-              "fontWeight": "700",
-              "textAlign": "center",
-            },
+            [
+              {
+                "fontFamily": "SoraSemiBold",
+                "fontSize": 20,
+                "fontWeight": "600",
+                "lineHeight": 28,
+                "paddingBottom": 8,
+                "textAlign": "center",
+              },
+              {
+                "color": "rgba(18, 18, 18, 1)",
+              },
+            ],
           ]
         }
+        testID="empty_vault_title"
       >
-        CREATE VAULT
+        No vaults
       </Text>
-    </View>
-    <View
-      style={
-        {
-          "alignItems": "center",
-          "display": "flex",
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "SoraRegular",
+                "fontWeight": "400",
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "textAlign": "center",
+              },
+              {
+                "color": "rgba(18, 18, 18, 1)",
+              },
+            ],
+          ]
         }
-      }
-    >
+        testID="empty_vault_description"
+      >
+        Get started with loans. Create a vault for your collaterals.
+      </Text>
       <View
         accessible={true}
         collapsable={false}
@@ -158,15 +136,23 @@ exports[`Empty vault should match snapshot 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           {
-            "alignItems": "flex-end",
+            "backgroundColor": "rgba(18, 18, 18, 1)",
+            "borderRadius": 26,
             "flexDirection": "row",
-            "justifyContent": "flex-start",
+            "justifyContent": "center",
+            "marginBottom": 16,
+            "marginLeft": 16,
+            "marginRight": 16,
+            "marginTop": 32,
             "opacity": 1,
+            "paddingBottom": 14,
+            "paddingLeft": 14,
+            "paddingRight": 14,
+            "paddingTop": 14,
           }
         }
-        testID="empty_vault_learn_more"
+        testID="button_create_vault"
       >
-        <Text />
         <Text
           style={
             [
@@ -176,30 +162,89 @@ exports[`Empty vault should match snapshot 1`] = `
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              [
-                [
-                  {
-                    "fontFamily": "MediumFont",
-                    "fontSize": 12,
-                    "fontWeight": "500",
-                    "lineHeight": 16,
-                    "marginLeft": 4,
-                    "paddingLeft": 4,
-                    "paddingRight": 4,
-                  },
-                  undefined,
-                ],
-                {
-                  "color": "rgba(255, 0, 175, 1)",
-                },
-              ],
+              {
+                "color": "rgba(242, 242, 242, 1)",
+                "fontFamily": "SoraSemiBold",
+                "fontWeight": "600",
+                "textAlign": "center",
+              },
             ]
           }
         >
-          Learn more about vaults
+          Create a vault
         </Text>
       </View>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "paddingTop": 8,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "borderBottomColor": "rgba(204, 204, 204, 1)",
+              "borderLeftColor": "rgba(204, 204, 204, 1)",
+              "borderRightColor": "rgba(204, 204, 204, 1)",
+              "borderTopColor": "rgba(204, 204, 204, 1)",
+              "flexDirection": "row",
+              "justifyContent": "flex-start",
+              "opacity": 1,
+            }
+          }
+          testID="empty_vault_learn_more"
+        >
+          <Text />
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "RegularFont",
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "fontFamily": "SoraMedium",
+                      "fontSize": 12,
+                      "fontWeight": "500",
+                      "lineHeight": 16,
+                      "marginLeft": 4,
+                      "paddingLeft": 4,
+                      "paddingRight": 4,
+                    },
+                    {
+                      "fontSize": 14,
+                      "lineHeight": 20,
+                    },
+                  ],
+                  {
+                    "color": "rgba(18, 18, 18, 1)",
+                  },
+                ],
+              ]
+            }
+          >
+            Learn more
+          </Text>
+        </View>
+      </View>
     </View>
-  </View>
-</RCTScrollView>
+  </RCTScrollView>,
+]
 `;

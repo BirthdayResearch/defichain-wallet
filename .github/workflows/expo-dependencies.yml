@@ -25,7 +25,7 @@ jobs:
       - run: npx expo-cli upgrade
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@b4d51739f96fca8047ad065eccef63442d8e99f7 # tag=v4.2.0
+        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04 # v4.2.3
         with:
           token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           labels: kind/dependencies

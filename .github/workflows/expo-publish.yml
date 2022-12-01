@@ -28,6 +28,6 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - run: npm ci
-      - run: eas update --auto
+      - run: eas update --auto --branch main --message 'Update with commit ${{ github.sha }}'
         env:
           EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}

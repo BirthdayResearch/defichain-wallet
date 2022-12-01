@@ -45,7 +45,6 @@ export function ConfirmSummaryTitle(
         <View style={tailwind("flex-row items-center mt-2")}>
           <IconA height={32} width={32} />
           <NumberFormat
-            decimalScale={8}
             displayType="text"
             renderText={(value) => (
               <ThemedTextV2
@@ -92,7 +91,6 @@ export function ConfirmSummaryTitle(
               </View>
             ) : (
               <NumberFormat
-                decimalScale={8}
                 displayType="text"
                 renderText={(value) => (
                   <ThemedTextV2

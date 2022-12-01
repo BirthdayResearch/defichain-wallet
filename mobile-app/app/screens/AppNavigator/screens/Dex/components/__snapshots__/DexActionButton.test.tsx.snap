@@ -40,9 +40,9 @@ exports[`Dex Action Buttons <DexActionButton /> - should match snapshot 1`] = `
         [
           {
             "fontFamily": "SoraSemiBold",
-            "fontSize": 14,
+            "fontSize": 12,
             "fontWeight": "600",
-            "lineHeight": 20,
+            "lineHeight": 16,
             "textAlign": "center",
           },
           {

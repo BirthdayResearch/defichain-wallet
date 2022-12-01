@@ -61,7 +61,6 @@ export interface PortfolioParamList {
   ReceiveScreen: undefined;
   MarketplaceScreen: undefined;
   SendScreen: { token?: WalletToken };
-  TokenSelectionScreen: {};
   SendConfirmationScreen: {
     token: WalletToken;
     destination: string;
@@ -128,7 +127,7 @@ export interface PortfolioParamList {
   TransactionDetailScreen: {
     tx: VMTransaction;
   };
-  GetDFIScreen: {};
+  GetDFIScreen: undefined;
   SwapTokenSelectionScreen: {
     fromToken: {
       symbol?: string;
@@ -158,7 +157,7 @@ export function PortfolioNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const { isLight } = useThemeContext();
   const goToNetworkSelect = (): void => {
-    navigation.navigate("NetworkSelectionScreen");
+    navigation.navigate("NetworkSelectionScreenPortfolio");
   };
   const screenOptions = useNavigatorScreenOptions();
   return (
@@ -320,7 +319,7 @@ export function PortfolioNavigator(): JSX.Element {
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerTitle: translate("screens/ConvertScreen", "Convert"),
+          headerTitle: translate("screens/ConvertScreen", "Convert DFI"),
         }}
       />
 
@@ -373,7 +372,7 @@ export function PortfolioNavigator(): JSX.Element {
 
       <PortfolioStack.Screen
         component={NetworkSelectionScreen}
-        name="NetworkSelectionScreen"
+        name="NetworkSelectionScreenPortfolio"
         options={{
           ...screenOptions,
           headerTitle: translate("screens/NetworkSelectionScreen", "Network"),

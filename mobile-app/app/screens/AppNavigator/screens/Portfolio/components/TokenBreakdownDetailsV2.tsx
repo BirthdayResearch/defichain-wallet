@@ -23,8 +23,6 @@ import { PortfolioButtonGroupTabKey } from "./TotalPortfolio";
 
 interface TokenBreakdownDetailProps {
   hasFetchedToken: boolean;
-  lockedAmount: BigNumber;
-  lockedValue: BigNumber;
   availableAmount: BigNumber;
   availableValue: BigNumber;
   dfiUtxo?: WalletToken;
@@ -346,10 +344,9 @@ function DFITokenBreakDownDetailsRow({
         <NumberFormat
           value={
             percentageValue.isNaN()
-              ? new BigNumber("0").toFixed(8)
-              : percentageValue.toFixed(8)
+              ? new BigNumber("0").toFixed(2)
+              : percentageValue.toFixed(2)
           }
-          decimalScale={2}
           displayType="text"
           renderText={(value) => (
             <ThemedTextV2

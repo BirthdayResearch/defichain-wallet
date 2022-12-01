@@ -19,6 +19,13 @@
     "/*.config.js"
   ],
   "rules": {
+    "react/no-unescaped-entities": "off",
+    "react/no-unstable-nested-components": "off",
+    "@typescript-eslint/return-await": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "curly": [
       "error",

@@ -13,7 +13,7 @@ import {
   SwapTokenSelectionScreen,
   TokenListType,
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
-import { PriceRateProps as PriceRatesPropsV2 } from "@components/PricesSectionV2";
+import { PriceRateProps as PriceRatesPropsV2 } from "@components/PricesSection";
 import { ThemedTextV2 } from "@components/themed";
 import { StyleProp, View, ViewStyle } from "react-native";
 import { ScreenName } from "@screens/enum";
@@ -145,7 +145,7 @@ export function DexNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>();
   const screenOptions = useNavigatorScreenOptions();
   const goToNetworkSelect = (): void => {
-    navigation.navigate("NetworkSelectionScreen");
+    navigation.navigate("NetworkSelectionScreenDex");
   };
 
   return (
@@ -186,7 +186,7 @@ export function DexNavigator(): JSX.Element {
 
       <DexStack.Screen
         component={NetworkSelectionScreen}
-        name="NetworkSelectionScreen"
+        name="NetworkSelectionScreenDex"
         options={{
           ...screenOptions,
           headerTitle: translate("screens/NetworkSelectionScreen", "Network"),

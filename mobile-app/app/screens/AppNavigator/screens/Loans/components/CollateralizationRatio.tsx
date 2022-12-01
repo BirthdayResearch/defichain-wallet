@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import { ThemedText, ThemedTextV2 } from "@components/themed";
+import { ThemedTextV2 } from "@components/themed";
 import { translate } from "@translations";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { tailwind } from "@tailwind";
@@ -35,7 +35,6 @@ export function CollateralizationRatio(
   return (
     <NumberFormat
       value={props.colRatio.toFixed(2)}
-      decimalScale={2}
       suffix="%"
       displayType="text"
       thousandSeparator

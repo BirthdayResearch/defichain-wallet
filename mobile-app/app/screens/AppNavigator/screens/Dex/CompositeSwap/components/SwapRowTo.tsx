@@ -18,7 +18,6 @@ export function InstantSwapRowTo({
   return (
     <View style={tailwind("w-6/12 mr-2")}>
       <NumberFormat
-        decimalScale={8}
         displayType="text"
         thousandSeparator
         renderText={(val: string) => (

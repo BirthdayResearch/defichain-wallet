@@ -26,7 +26,7 @@ import { LoanVaultLiquidationBatch } from "@defichain/whale-api-client/dist/api/
 import { ButtonV2 } from "@components/ButtonV2";
 import { TextRowV2 } from "@components/TextRowV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import { PriceRateProps, PricesSectionV2 } from "@components/PricesSectionV2";
+import { PriceRateProps, PricesSection } from "@components/PricesSection";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
@@ -35,7 +35,10 @@ import { BidInfo } from "@screens/AppNavigator/screens/Auctions/components/Batch
 import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";
 import { useAuctionTime } from "../hooks/AuctionTimeLeft";
 import { useAuctionBidValue } from "../hooks/AuctionBidValue";
-import { getPrecisedTokenValue } from "../helpers/precision-token-value";
+import {
+  getPrecisedCurrencyValue,
+  getPrecisedTokenValue,
+} from "../helpers/precision-token-value";
 import { useTokenPrice } from "../../Portfolio/hooks/TokenPrice";
 import { AuctionVaultDetails } from "../components/AuctionVaultDetails";
 import { AuctionsParamList } from "../AuctionNavigator";
@@ -190,7 +193,6 @@ export function AuctionDetailScreen(
           <NumberFormat
             displayType="text"
             prefix="$"
-            decimalScale={2}
             renderText={(value: string) => (
               <ThemedTextV2
                 light={tailwind("text-mono-light-v2-1000")}
@@ -209,7 +211,7 @@ export function AuctionDetailScreen(
               </ThemedTextV2>
             )}
             thousandSeparator
-            value={totalPrecisedCollateralsValue}
+            value={getPrecisedCurrencyValue(totalPrecisedCollateralsValue)}
           />
         </View>
 
@@ -219,7 +221,7 @@ export function AuctionDetailScreen(
           dark={tailwind("border-mono-dark-v2-300")}
           style={tailwind("pt-5 px-5 mt-8 border-0.5 rounded-lg-v2")}
         >
-          <PricesSectionV2
+          <PricesSection
             priceRates={loanCollaterals}
             testID="auction_detail_loan_collaterals"
           />

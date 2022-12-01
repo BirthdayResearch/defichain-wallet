@@ -2,6 +2,7 @@ import { render } from "@testing-library/react-native";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { RootState } from "@store";
+import { setTokenSymbol, wallet } from "@store/wallet";
 import { futureSwaps } from "@store/futureSwap";
 import { ActionButtons } from "./ActionButtons";
 
@@ -18,10 +19,36 @@ describe("DFI Action Buttons", () => {
         futureSwaps: [],
         executionBlock: 0,
       },
+      wallet: {
+        utxoBalance: "77",
+        tokens: [
+          {
+            id: "0",
+            symbol: "DFI",
+            symbolKey: "DFI",
+            displaySymbol: "DFI",
+            isDAT: true,
+            isLPS: false,
+            isLoanToken: false,
+            amount: "23",
+            name: "DeFiChain",
+          },
+        ].map(setTokenSymbol),
+        allTokens: {},
+        poolpairs: [],
+        dexPrices: {},
+        swappableTokens: {},
+        hasFetchedPoolpairData: false,
+        hasFetchedToken: true,
+        hasFetchedSwappableTokens: false,
+      },
     };
     const store = configureStore({
       preloadedState: initialState,
-      reducer: { futureSwaps: futureSwaps.reducer },
+      reducer: {
+        wallet: wallet.reducer,
+        futureSwaps: futureSwaps.reducer,
+      },
     });
 
     const rendered = render(

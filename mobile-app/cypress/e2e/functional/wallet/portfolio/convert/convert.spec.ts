@@ -1,6 +1,8 @@
 import BigNumber from "bignumber.js";
 import { checkValueWithinRange } from "../../../../../support/walletCommands";
 
+BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
+
 function createDFIWallet(): void {
   cy.createEmptyWallet(true);
   cy.sendDFItoWallet().sendDFItoWallet().sendDFITokentoWallet().wait(10000);
@@ -38,10 +40,10 @@ context("Wallet - Convert DFI", () => {
       "aria-disabled"
     );
     cy.getByTestID("source_balance").contains(19.9);
-    cy.getByTestID("convert_source").contains("UTXO");
-    cy.getByTestID("convert_target").contains("Token");
+    cy.getByTestID("convert_token_button_FROM_display_symbol").contains("UTXO");
+    cy.getByTestID("convert_token_button_TO_display_symbol").contains("Token");
     cy.getByTestID("convert_input").type("1");
-    cy.getByTestID("convert_input_clear_button").click();
+    cy.getByTestID("convert_input").clear();
     cy.getByTestID("button_continue_convert").should(
       "have.attr",
       "aria-disabled"
@@ -58,8 +60,10 @@ context("Wallet - Convert DFI", () => {
   it("should swap conversion", () => {
     cy.getByTestID("button_convert_mode_toggle").click().wait(4000);
     cy.getByTestID("source_balance").contains(10);
-    cy.getByTestID("convert_source").contains("Token");
-    cy.getByTestID("convert_target").contains("UTXO");
+    cy.getByTestID("convert_token_button_FROM_display_symbol").contains(
+      "Token"
+    );
+    cy.getByTestID("convert_token_button_TO_display_symbol").contains("UTXO");
     cy.getByTestID("button_continue_convert").should(
       "not.have.attr",
       "disabled"
@@ -154,7 +158,11 @@ context("Wallet - Convert DFI", () => {
     cy.getByTestID("confirm_title").contains("You are converting to tokens");
     cy.getByTestID("text_convert_amount").contains("1.00000000");
     cy.getByTestID("resulting_tokens_value").contains("11.00000000");
-    cy.getByTestID("resulting_tokens_sub_value").contains("36.79%");
+    cy.getByTestID("resulting_tokens_sub_value")
+      .invoke("text")
+      .then((text) => {
+        checkValueWithinRange("36.79%", text, 0.1);
+      });
     cy.getByTestID("resulting_utxo_value")
       .invoke("text")
       .then((text: string) => {

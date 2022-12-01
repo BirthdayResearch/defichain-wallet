@@ -52,8 +52,8 @@ import {
   BottomSheetWebWithNavV2,
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
-import { PriceRateProps } from "@components/PricesSectionV2";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { PriceRateProps } from "@components/PricesSection";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { TokenListType } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { useSwappableTokens } from "@screens/AppNavigator/screens/Dex/hook/SwappableTokens";
 import {
@@ -439,9 +439,11 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
       return;
     }
     /* timeout added to auto display keyboard on Android */
-    Platform.OS === "android"
-      ? setTimeout(() => amountInputRef?.current?.focus(), 0)
-      : amountInputRef?.current?.focus();
+    if (Platform.OS === "android") {
+      setTimeout(() => amountInputRef?.current?.focus(), 0);
+    } else {
+      amountInputRef?.current?.focus();
+    }
     setHasShownInputFocusBefore(true);
   }, [selectedTokenA, selectedTokenB]);
 
@@ -855,7 +857,9 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
           )}
 
           <ThemedTextV2
-            style={tailwind("mx-10 text-xs font-normal-v2 mt-8")}
+            style={tailwind(
+              "mx-10 text-xs font-normal-v2 mt-8 tracking-wide-v2"
+            )}
             light={tailwind("text-mono-light-v2-500")}
             dark={tailwind("text-mono-dark-v2-500")}
             testID="text_balance_amount"
@@ -1061,7 +1065,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
               light={tailwind("bg-transparent")}
             >
               <ThemedTextV2
-                style={tailwind("px-5 text-xs font-normal-v2")}
+                style={tailwind("px-5 text-xs font-normal-v2 tracking-wide-v2")}
                 light={tailwind("text-mono-light-v2-500")}
                 dark={tailwind("text-mono-dark-v2-500")}
                 testID="tokenB_displaySymbol"
@@ -1140,7 +1144,6 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
                   instantSwapPriceRate={priceRates}
                   activeTab={activeButtonGroup}
                   executionBlock={executionBlock}
-                  transactionDate={transactionDate}
                   transactionFee={fee}
                   totalFees={totalFees}
                   dexStabilizationFee={dexStabilizationFee}
@@ -1175,7 +1178,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
               "mt-5": formState.isValid && isBothTokensSelected(),
             })}
           >
-            <SubmitButtonGroupV2
+            <SubmitButtonGroup
               isDisabled={
                 !formState.isValid ||
                 hasPendingJob ||

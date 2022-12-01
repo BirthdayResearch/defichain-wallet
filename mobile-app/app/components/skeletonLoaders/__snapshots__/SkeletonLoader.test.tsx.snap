@@ -24,7 +24,7 @@ exports[`Skeleton Loader should match snapshot of address skeleton loader 1`] = 
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight={35}
+    bbHeight="35"
     bbWidth="100%"
     focusable={false}
     height={35}
@@ -54,10 +54,10 @@ exports[`Skeleton Loader should match snapshot of address skeleton loader 1`] = 
       <RNSVGRect
         clipPath="address-animated-diff"
         fill={
-          [
-            1,
-            "address-diff",
-          ]
+          {
+            "brushRef": "address-diff",
+            "type": 1,
+          }
         }
         height="100%"
         propList={
@@ -103,8 +103,8 @@ exports[`Skeleton Loader should match snapshot of address skeleton loader 1`] = 
           name="address-diff"
           x1="-100%"
           x2="0%"
-          y1={0}
-          y2={0}
+          y1="0"
+          y2="0"
         />
       </RNSVGDefs>
     </RNSVGGroup>
@@ -138,7 +138,7 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight={84}
+    bbHeight="84"
     bbWidth="100%"
     focusable={false}
     height={84}
@@ -168,10 +168,10 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
       <RNSVGRect
         clipPath="browseAuctions-animated-diff"
         fill={
-          [
-            1,
-            "browseAuctions-diff",
-          ]
+          {
+            "brushRef": "browseAuctions-diff",
+            "type": 1,
+          }
         }
         height="100%"
         propList={
@@ -249,8 +249,8 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
           name="browseAuctions-diff"
           x1="-100%"
           x2="0%"
-          y1={0}
-          y2={0}
+          y1="0"
+          y2="0"
         />
       </RNSVGDefs>
     </RNSVGGroup>
@@ -274,7 +274,7 @@ exports[`Skeleton Loader should match snapshot of dex price skeleton loader 1`] 
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight={30}
+    bbHeight="30"
     bbWidth="100%"
     focusable={false}
     height={30}
@@ -304,10 +304,10 @@ exports[`Skeleton Loader should match snapshot of dex price skeleton loader 1`] 
       <RNSVGRect
         clipPath="dexPrice-animated-diff"
         fill={
-          [
-            1,
-            "dexPrice-diff",
-          ]
+          {
+            "brushRef": "dexPrice-diff",
+            "type": 1,
+          }
         }
         height="100%"
         propList={
@@ -348,8 +348,8 @@ exports[`Skeleton Loader should match snapshot of dex price skeleton loader 1`] 
           name="dexPrice-diff"
           x1="-100%"
           x2="0%"
-          y1={0}
-          y2={0}
+          y1="0"
+          y2="0"
         />
       </RNSVGDefs>
     </RNSVGGroup>
@@ -381,7 +381,7 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight={88}
+    bbHeight="88"
     bbWidth="100%"
     focusable={false}
     height={88}
@@ -411,10 +411,10 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
       <RNSVGRect
         clipPath="dex-animated-diff"
         fill={
-          [
-            1,
-            "dex-diff",
-          ]
+          {
+            "brushRef": "dex-diff",
+            "type": 1,
+          }
         }
         height="100%"
         propList={
@@ -492,8 +492,8 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
           name="dex-diff"
           x1="-100%"
           x2="0%"
-          y1={0}
-          y2={0}
+          y1="0"
+          y2="0"
         />
       </RNSVGDefs>
     </RNSVGGroup>
@@ -551,7 +551,7 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
   >
     <RNSVGSvgView
       align="xMidYMid"
-      bbHeight={144}
+      bbHeight="144"
       bbWidth="100%"
       focusable={false}
       height={144}
@@ -581,10 +581,10 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
         <RNSVGRect
           clipPath="loan-animated-diff"
           fill={
-            [
-              1,
-              "loan-diff",
-            ]
+            {
+              "brushRef": "loan-diff",
+              "type": 1,
+            }
           }
           height="100%"
           propList={
@@ -662,8 +662,8 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
             name="loan-diff"
             x1="-100%"
             x2="0%"
-            y1={0}
-            y2={0}
+            y1="0"
+            y2="0"
           />
         </RNSVGDefs>
       </RNSVGGroup>
@@ -699,7 +699,7 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
   >
     <RNSVGSvgView
       align="xMidYMid"
-      bbHeight={144}
+      bbHeight="144"
       bbWidth="100%"
       focusable={false}
       height={144}
@@ -729,10 +729,10 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
         <RNSVGRect
           clipPath="loan-animated-diff"
           fill={
-            [
-              1,
-              "loan-diff",
-            ]
+            {
+              "brushRef": "loan-diff",
+              "type": 1,
+            }
           }
           height="100%"
           propList={
@@ -810,8 +810,8 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
             name="loan-diff"
             x1="-100%"
             x2="0%"
-            y1={0}
-            y2={0}
+            y1="0"
+            y2="0"
           />
         </RNSVGDefs>
       </RNSVGGroup>
@@ -847,7 +847,7 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight={47}
+    bbHeight="47"
     bbWidth="100%"
     focusable={false}
     height={47}
@@ -877,10 +877,10 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
       <RNSVGRect
         clipPath="mnemonic_word-animated-diff"
         fill={
-          [
-            1,
-            "mnemonic_word-diff",
-          ]
+          {
+            "brushRef": "mnemonic_word-diff",
+            "type": 1,
+          }
         }
         height="100%"
         propList={
@@ -936,8 +936,8 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
           name="mnemonic_word-diff"
           x1="-100%"
           x2="0%"
-          y1={0}
-          y2={0}
+          y1="0"
+          y2="0"
         />
       </RNSVGDefs>
     </RNSVGGroup>
@@ -970,7 +970,7 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight={20}
+    bbHeight="20"
     bbWidth="100%"
     focusable={false}
     height={20}
@@ -1000,10 +1000,10 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
       <RNSVGRect
         clipPath="mnemonic_word_v2-animated-diff"
         fill={
-          [
-            1,
-            "mnemonic_word_v2-diff",
-          ]
+          {
+            "brushRef": "mnemonic_word_v2-diff",
+            "type": 1,
+          }
         }
         height="100%"
         propList={
@@ -1044,8 +1044,8 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
           name="mnemonic_word_v2-diff"
           x1="-100%"
           x2="0%"
-          y1={0}
-          y2={0}
+          y1="0"
+          y2="0"
         />
       </RNSVGDefs>
     </RNSVGGroup>
@@ -1077,7 +1077,7 @@ exports[`Skeleton Loader should match snapshot of portfolio skeleton loader 1`] 
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight={44}
+    bbHeight="44"
     bbWidth="100%"
     focusable={false}
     height={44}
@@ -1107,10 +1107,10 @@ exports[`Skeleton Loader should match snapshot of portfolio skeleton loader 1`] 
       <RNSVGRect
         clipPath="portfolio_scheme-animated-diff"
         fill={
-          [
-            1,
-            "portfolio_scheme-diff",
-          ]
+          {
+            "brushRef": "portfolio_scheme-diff",
+            "type": 1,
+          }
         }
         height="100%"
         propList={
@@ -1180,8 +1180,8 @@ exports[`Skeleton Loader should match snapshot of portfolio skeleton loader 1`] 
           name="portfolio_scheme-diff"
           x1="-100%"
           x2="0%"
-          y1={0}
-          y2={0}
+          y1="0"
+          y2="0"
         />
       </RNSVGDefs>
     </RNSVGGroup>
@@ -1216,7 +1216,7 @@ exports[`Skeleton Loader should match snapshot of transaction skeleton loader 1`
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight={47}
+    bbHeight="47"
     bbWidth="100%"
     focusable={false}
     height={47}
@@ -1246,10 +1246,10 @@ exports[`Skeleton Loader should match snapshot of transaction skeleton loader 1`
       <RNSVGRect
         clipPath="transaction-animated-diff"
         fill={
-          [
-            1,
-            "transaction-diff",
-          ]
+          {
+            "brushRef": "transaction-diff",
+            "type": 1,
+          }
         }
         height="100%"
         propList={
@@ -1305,8 +1305,8 @@ exports[`Skeleton Loader should match snapshot of transaction skeleton loader 1`
           name="transaction-diff"
           x1="-100%"
           x2="0%"
-          y1={0}
-          y2={0}
+          y1="0"
+          y2="0"
         />
       </RNSVGDefs>
     </RNSVGGroup>
@@ -1320,25 +1320,17 @@ exports[`Skeleton Loader should match snapshot of vault scheme skeleton loader 1
     [
       {
         "alignItems": "center",
-        "borderBottomLeftRadius": 8,
-        "borderBottomRightRadius": 8,
-        "borderBottomWidth": 1,
-        "borderLeftWidth": 1,
-        "borderRightWidth": 1,
-        "borderTopLeftRadius": 8,
-        "borderTopRightRadius": 8,
-        "borderTopWidth": 1,
+        "borderBottomWidth": 0.5,
         "justifyContent": "center",
-        "marginBottom": 4,
-        "paddingBottom": 8,
-        "paddingTop": 8,
+        "marginLeft": 20,
+        "marginRight": 20,
       },
       {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(212, 212, 212, 1)",
-        "borderLeftColor": "rgba(212, 212, 212, 1)",
-        "borderRightColor": "rgba(212, 212, 212, 1)",
-        "borderTopColor": "rgba(212, 212, 212, 1)",
+        "backgroundColor": "transparent",
+        "borderBottomColor": "rgba(204, 204, 204, 1)",
+        "borderLeftColor": "rgba(204, 204, 204, 1)",
+        "borderRightColor": "rgba(204, 204, 204, 1)",
+        "borderTopColor": "rgba(204, 204, 204, 1)",
       },
     ]
   }
@@ -1346,10 +1338,10 @@ exports[`Skeleton Loader should match snapshot of vault scheme skeleton loader 1
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight={50}
+    bbHeight="90"
     bbWidth="100%"
     focusable={false}
-    height={50}
+    height={90}
     interval={0.25}
     meetOrSlice={1}
     minX={0}
@@ -1363,23 +1355,23 @@ exports[`Skeleton Loader should match snapshot of vault scheme skeleton loader 1
         {},
         {
           "flex": 0,
-          "height": 50,
+          "height": 90,
           "width": "100%",
         },
       ]
     }
-    vbHeight={50}
-    vbWidth={400}
+    vbHeight={90}
+    vbWidth={300}
     width="100%"
   >
     <RNSVGGroup>
       <RNSVGRect
         clipPath="vault_scheme-animated-diff"
         fill={
-          [
-            1,
-            "vault_scheme-diff",
-          ]
+          {
+            "brushRef": "vault_scheme-diff",
+            "type": 1,
+          }
         }
         height="100%"
         propList={
@@ -1395,42 +1387,26 @@ exports[`Skeleton Loader should match snapshot of vault scheme skeleton loader 1
         <RNSVGClipPath
           name="vault_scheme-animated-diff"
         >
+          <RNSVGRect
+            height="20"
+            rx="4"
+            ry="4"
+            width="160"
+            x="6"
+            y="22"
+          />
+          <RNSVGRect
+            height="20"
+            rx="4"
+            ry="4"
+            width="160"
+            x="6"
+            y="50"
+          />
           <RNSVGCircle
-            cx="50"
-            cy="29"
-            r="8"
-          />
-          <RNSVGRect
-            height="20"
-            rx="4"
-            ry="4"
-            width="120"
-            x="81"
-            y="6"
-          />
-          <RNSVGRect
-            height="10"
-            rx="4"
-            ry="4"
-            width="80"
-            x="81"
-            y="34"
-          />
-          <RNSVGRect
-            height="20"
-            rx="4"
-            ry="4"
-            width="100"
-            x="220"
-            y="6"
-          />
-          <RNSVGRect
-            height="10"
-            rx="4"
-            ry="4"
-            width="80"
-            x="220"
-            y="34"
+            cx="280"
+            cy="45"
+            r="14"
           />
         </RNSVGClipPath>
         <RNSVGLinearGradient
@@ -1449,8 +1425,8 @@ exports[`Skeleton Loader should match snapshot of vault scheme skeleton loader 1
           name="vault_scheme-diff"
           x1="-100%"
           x2="0%"
-          y1={0}
-          y2={0}
+          y1="0"
+          y2="0"
         />
       </RNSVGDefs>
     </RNSVGGroup>
@@ -1490,7 +1466,7 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight={130}
+    bbHeight="130"
     bbWidth="100%"
     focusable={false}
     height={130}
@@ -1520,10 +1496,10 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
       <RNSVGRect
         clipPath="vault-animated-diff"
         fill={
-          [
-            1,
-            "vault-diff",
-          ]
+          {
+            "brushRef": "vault-diff",
+            "type": 1,
+          }
         }
         height="100%"
         propList={
@@ -1604,8 +1580,8 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
           name="vault-diff"
           x1="-100%"
           x2="0%"
-          y1={0}
-          y2={0}
+          y1="0"
+          y2="0"
         />
       </RNSVGDefs>
     </RNSVGGroup>

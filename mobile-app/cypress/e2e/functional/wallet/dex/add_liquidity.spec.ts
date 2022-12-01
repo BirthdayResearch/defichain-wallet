@@ -1,4 +1,5 @@
 import BigNumber from "bignumber.js";
+import { checkValueWithinRange } from "../../../../support/walletCommands";
 
 function setupWallet(): void {
   cy.createEmptyWallet(true);
@@ -101,7 +102,11 @@ context("Wallet - DEX - Add Liquidity", () => {
     cy.getByTestID("pooled_DFI_value_USDT_rhsUsdAmount").contains(
       "$10,000,000.00"
     );
-    cy.getByTestID("apr_dBTC-DFI_amount").contains("4,458.84%");
+    cy.getByTestID("apr_dBTC-DFI_amount")
+      .invoke("text")
+      .then((text) => {
+        checkValueWithinRange("4,458.84", text, 0.1);
+      });
     cy.getByTestID("close_bottom_sheet_button").click();
   });
 
