@@ -4,15 +4,15 @@
 /.github/                                       @fuxingloh @thedoublejay @kyleleow @pierregee
 /.husky/                                        @fuxingloh @thedoublejay
 
-/mobile-app/app/                                @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @lykalabrada
+/mobile-app/app/                                @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @lykalabrada @nattadex @veralygit
 /mobile-app/app/api                             @fuxingloh @thedoublejay @kyleleow @pierregee
 
-/shared/assets                                  @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817
-/shared/translations                            @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817
-/mobile-app/cypress                             @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817
+/shared/assets                                  @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @lykalabrada @nattadex @veralygit
+/shared/translations                            @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @lykalabrada @nattadex @veralygit
+/mobile-app/cypress                             @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @lykalabrada @nattadex @veralygit
 
-/website                                        @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817
-/website/src/pages/api                          @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817
+/website                                        @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @lykalabrada @nattadex @veralygit
+/website/src/pages/api                          @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @lykalabrada @nattadex @veralygit
 
 /.codeclimate.yml                               @fuxingloh @thedoublejay
 /.versionrc.js                                  @fuxingloh @thedoublejay
