@@ -13,7 +13,7 @@ import {
   SwapTokenSelectionScreen,
   TokenListType,
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
-import { PriceRateProps as PriceRatesPropsV2 } from "@components/PricesSectionV2";
+import { PriceRateProps as PriceRatesPropsV2 } from "@components/PricesSection";
 import { ThemedTextV2 } from "@components/themed";
 import { StyleProp, View, ViewStyle } from "react-native";
 import { ScreenName } from "@screens/enum";

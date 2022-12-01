@@ -34,6 +34,7 @@ import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/he
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { TokenIconGroup } from "@components/TokenIconGroup";
 import { IconTooltip } from "@components/tooltip/IconTooltip";
+import { getNumberFormatValue } from "@api/number-format-value";
 import { CollateralItem } from "../screens/EditCollateralScreen";
 import {
   getCollateralPrice,
@@ -270,7 +271,6 @@ export const AddOrRemoveCollateralForm = memo(
           >
             <NumberFormat
               value={collateralFactor.toFixed(2)}
-              decimalScale={2}
               displayType="text"
               suffix={`% ${translate(
                 "components/AddOrRemoveCollateralForm",
@@ -348,7 +348,6 @@ export const AddOrRemoveCollateralForm = memo(
                     activePrice.multipliedBy(available)
                   )}
                   thousandSeparator
-                  decimalScale={2}
                   displayType="text"
                   prefix="$"
                   renderText={(val: string) => (
@@ -393,7 +392,6 @@ export const AddOrRemoveCollateralForm = memo(
               <NumberFormat
                 value={requiredTokensShare.toFixed(2)}
                 thousandSeparator
-                decimalScale={2}
                 displayType="text"
                 suffix="%"
                 renderText={(val: string) => (
@@ -456,9 +454,8 @@ export const AddOrRemoveCollateralForm = memo(
                 </ThemedText>
               ) : (
                 <NumberFormat
-                  value={vaultValue}
+                  value={getNumberFormatValue(vaultValue, 2)}
                   thousandSeparator
-                  decimalScale={2}
                   displayType="text"
                   suffix="%"
                   renderText={(val: string) => (
@@ -496,7 +493,6 @@ export const AddOrRemoveCollateralForm = memo(
             </ThemedText>
           ) : (
             <NumberFormat
-              decimalScale={8}
               displayType="text"
               suffix="%"
               renderText={(val: string) => (

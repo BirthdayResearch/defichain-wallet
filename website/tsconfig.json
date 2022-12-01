@@ -28,7 +28,8 @@
       "@shared-types/*": [
         "../../shared/types/*"
       ]
-    }
+    },
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",

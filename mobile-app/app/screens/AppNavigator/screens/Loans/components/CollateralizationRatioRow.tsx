@@ -1,6 +1,7 @@
 import { View } from "@components";
 import { BottomSheetInfo } from "@components/BottomSheetInfo";
 import { ThemedText, ThemedView } from "@components/themed";
+import { getNumberFormatValue } from "@api/number-format-value";
 import { tailwind } from "@tailwind";
 
 import { NumericFormat as NumberFormat } from "react-number-format";
@@ -72,8 +73,7 @@ export function CollateralizationRatioValue(
 
   return (
     <NumberFormat
-      value={props.value}
-      decimalScale={2}
+      value={getNumberFormatValue(props.value, 2)}
       thousandSeparator
       displayType="text"
       suffix="%"

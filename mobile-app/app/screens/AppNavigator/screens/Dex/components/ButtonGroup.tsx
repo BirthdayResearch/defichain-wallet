@@ -1,12 +1,13 @@
-import {
-  ThemedProps,
-  ThemedText,
-  ThemedTouchableOpacity,
-  ThemedView,
-} from "@components/themed";
+import { View } from "@components";
+import { ThemedProps, ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import BigNumber from "bignumber.js";
-import { StyleProp, TextStyle, TouchableOpacityProps } from "react-native";
+import {
+  StyleProp,
+  TextStyle,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from "react-native";
 
 interface ButtonGroupProps {
   buttons: Buttons[];
@@ -25,15 +26,16 @@ interface Buttons {
   id: string;
   label: string;
   handleOnPress: () => void;
+  isDisabled?: boolean;
 }
 
 export function ButtonGroup(props: ButtonGroupProps): JSX.Element {
   const buttonWidth = new BigNumber(100).dividedBy(props.buttons.length);
   return (
-    <ThemedView
-      light={props.lightThemeStyle ?? tailwind("bg-gray-100")}
-      dark={props.darkThemeStyle ?? tailwind("bg-gray-800")}
-      style={tailwind("rounded-2xl flex flex-row")}
+    <ThemedViewV2
+      light={props.lightThemeStyle ?? tailwind("bg-mono-light-v2-00")}
+      dark={props.darkThemeStyle ?? tailwind("bg-mono-dark-v2-00")}
+      style={tailwind("flex flex-row")}
       testID={props.testID}
       {...props.containerThemedProps}
     >
@@ -49,9 +51,10 @@ export function ButtonGroup(props: ButtonGroupProps): JSX.Element {
           modalStyle={props.modalStyle}
           customButtonGroupStyle={props.customButtonGroupStyle}
           customActiveStyle={props.customActiveStyle}
+          isDisabled={button.isDisabled}
         />
       ))}
-    </ThemedView>
+    </ThemedViewV2>
   );
 }
 
@@ -65,36 +68,51 @@ interface ButtonGroupItemProps {
   modalStyle?: StyleProp<TextStyle>;
   customButtonGroupStyle?: StyleProp<TouchableOpacityProps>;
   customActiveStyle?: ThemedProps;
+  isDisabled?: boolean;
 }
 
 function ButtonGroupItem(props: ButtonGroupItemProps): JSX.Element {
   return (
-    <ThemedTouchableOpacity
+    <TouchableOpacity
       onPress={props.onPress}
-      light={tailwind({ "bg-primary-50": props.isActive })}
-      dark={tailwind({ "bg-darkprimary-50": props.isActive })}
       {...(props.isActive && props.customActiveStyle)}
       style={
         props.customButtonGroupStyle ?? [
-          tailwind(["rounded-2xl break-words justify-center py-2 px-3"]),
+          tailwind("px-2"),
           { width: `${props.width.toFixed(2)}%` },
         ]
       }
       testID={`${props.testID}${props.isActive ? "_active" : ""}`}
+      disabled={props.isDisabled}
     >
-      <ThemedText
-        light={tailwind({
-          "text-primary-500": props.isActive,
-          "text-gray-900": !props.isActive,
-        })}
-        dark={tailwind({
-          "text-darkprimary-500": props.isActive,
-          "text-gray-50": !props.isActive,
-        })}
-        style={props.labelStyle ?? tailwind("font-medium text-sm text-center")}
+      <View
+        style={
+          props.customButtonGroupStyle ?? [
+            tailwind([
+              "break-words justify-center pt-2.5 pb-4 border-brand-v2-500",
+              { "border-b-2 border-brand-v2-500": props.isActive },
+            ]),
+          ]
+        }
       >
-        {props.label}
-      </ThemedText>
-    </ThemedTouchableOpacity>
+        <ThemedTextV2
+          light={tailwind({
+            "text-brand-v2-500": props.isActive,
+            "text-mono-light-v2-900": !props.isActive,
+            "text-opacity-30": props.isDisabled,
+          })}
+          dark={tailwind({
+            "text-brand-v2-500": props.isActive,
+            "text-mono-dark-v2-900": !props.isActive,
+            "text-opacity-30": props.isDisabled,
+          })}
+          style={
+            props.labelStyle ?? tailwind("font-semibold-v2 text-sm text-center")
+          }
+        >
+          {props.label}
+        </ThemedTextV2>
+      </View>
+    </TouchableOpacity>
   );
 }

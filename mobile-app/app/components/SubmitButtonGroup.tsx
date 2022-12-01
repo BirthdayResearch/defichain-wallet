@@ -8,6 +8,8 @@ import {
   UNEXPECTED_FAILURE,
 } from "@screens/TransactionAuthorization/api/transaction_types";
 import { useNonInitialEffect } from "@hooks/useNonInitialEffect";
+import { ButtonV2 } from "@components/ButtonV2";
+import { tailwind } from "@tailwind";
 import { Button } from "./Button";
 
 interface SubmitButtonGroupItems {
@@ -16,20 +18,18 @@ interface SubmitButtonGroupItems {
   title: string;
   label: string;
   displayCancelBtn: boolean;
-  isProcessing?: boolean;
-  processingLabel?: string;
+  buttonStyle?: string;
   onSubmit: () => Promise<void>;
   onCancel?: () => void;
 }
 
 export function SubmitButtonGroup({
+  buttonStyle,
   isDisabled,
   isCancelDisabled,
   displayCancelBtn,
   title,
   label,
-  isProcessing,
-  processingLabel,
   onSubmit,
   onCancel,
 }: SubmitButtonGroupItems): JSX.Element {
@@ -37,7 +37,6 @@ export function SubmitButtonGroup({
   const [intervalId, setIntervalId] = useState<ReturnType<
     typeof setInterval
   > | null>(null);
-  const [counter, setCounter] = useState<number | null>(null);
   const [tryAgain, setTryAgain] = useState(false);
 
   // avoid setting up try again button on initial load
@@ -55,7 +54,6 @@ export function SubmitButtonGroup({
 
   const submit = (): void => {
     let count = TRY_AGAIN_TIMER_COUNT;
-    setCounter(count);
     if (intervalId !== null) {
       clearInterval(intervalId);
       setIntervalId(null);
@@ -63,12 +61,10 @@ export function SubmitButtonGroup({
     void onSubmit();
     const id: ReturnType<typeof setInterval> = setInterval(() => {
       count -= 1;
-      setCounter(count);
       if (count < 0) {
         updateTryAgainStat();
         clearInterval(id);
         setIntervalId(null);
-        setCounter(null);
       }
     }, 1000);
     setIntervalId(id);
@@ -80,18 +76,8 @@ export function SubmitButtonGroup({
     }
   };
 
-  const getSubmittingLabel = (): string | undefined => {
-    if (counter === null && processingLabel !== undefined) {
-      return processingLabel;
-    }
-    if (processingLabel !== undefined) {
-      return `${processingLabel} (${counter ?? "-"})`;
-    }
-    return undefined;
-  };
-
   return (
-    <View>
+    <View style={tailwind("w-full")}>
       {tryAgain ? (
         <Button
           label={translate("screens/common", "TRY AGAIN")}
@@ -104,28 +90,25 @@ export function SubmitButtonGroup({
           disabled={isDisabled}
         />
       ) : (
-        <Button
+        <ButtonV2
           disabled={isDisabled}
-          label={label}
+          label={translate("screens/common", label)}
           onPress={submit}
           testID={`button_confirm_${title}`}
-          title={title}
-          isSubmitting={isProcessing}
-          submittingLabel={getSubmittingLabel()}
+          styleProps={buttonStyle}
         />
       )}
 
       {displayCancelBtn && (
-        <Button
+        <ButtonV2
           disabled={
             isCancelDisabled === undefined ? isDisabled : isCancelDisabled
           }
-          fill="flat"
-          label={translate("screens/common", "CANCEL")}
-          margin="m-4 mt-0"
+          fillType="flat"
+          label={translate("screens/common", "Cancel")}
+          styleProps="-mt-3"
           onPress={onCancel}
           testID={`button_cancel_${title}`}
-          title="cancel"
         />
       )}
     </View>

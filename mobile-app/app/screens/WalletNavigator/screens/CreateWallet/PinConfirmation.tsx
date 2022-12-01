@@ -13,8 +13,8 @@ import { WalletParamList } from "@screens/WalletNavigator/WalletNavigator";
 import {
   CREATE_STEPS,
   RESTORE_STEPS,
-  CreateWalletStepIndicatorV2,
-} from "@components/CreateWalletStepIndicatorV2";
+  CreateWalletStepIndicator,
+} from "@components/CreateWalletStepIndicator";
 import { PinTextInputV2 } from "@components/PinTextInputV2";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { WalletPersistenceDataI } from "@shared-contexts/WalletPersistenceContext";
@@ -100,7 +100,7 @@ export function PinConfirmation({ route }: Props): JSX.Element {
           { "mb-12": spinnerMessage === undefined },
         ])}
       >
-        <CreateWalletStepIndicatorV2
+        <CreateWalletStepIndicator
           current={isCreateWallet ? 3 : 2}
           steps={isCreateWallet ? CREATE_STEPS : RESTORE_STEPS}
           style={tailwind(isCreateWallet ? "px-4" : "px-16")}

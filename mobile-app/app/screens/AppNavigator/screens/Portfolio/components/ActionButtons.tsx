@@ -5,20 +5,24 @@ import {
   ThemedTextV2,
   ThemedTouchableOpacityV2,
 } from "@components/themed";
+import { DFITokenSelector, DFIUtxoSelector } from "@store/wallet";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootState } from "@store";
 import { futureSwapSelector } from "@store/futureSwap";
-import { tailwind } from "@tailwind";
+import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { ScrollView, Text, View } from "react-native";
 import { useSelector } from "react-redux";
+import { getNativeIcon } from "@components/icons/assets";
+import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import BigNumber from "bignumber.js";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
 export interface ActionButtonsProps {
   name: string;
-  icon: IconName;
-  iconType: IconType;
+  icon?: IconName;
+  iconType?: IconType;
   iconSize?: number;
   onPress: () => void;
   testID: string;
@@ -31,6 +35,16 @@ export function ActionButtons(): JSX.Element {
   const futureSwaps = useSelector((state: RootState) =>
     futureSwapSelector(state)
   );
+  const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
+  const DFIUtxo = useSelector((state: RootState) =>
+    DFIUtxoSelector(state.wallet)
+  );
+  const DFIToken = useSelector((state: RootState) =>
+    DFITokenSelector(state.wallet)
+  );
+  const hasDFIBalance =
+    hasFetchedToken &&
+    new BigNumber(DFIUtxo.amount ?? 0).plus(DFIToken.amount ?? 0).gt(0);
 
   return (
     <View testID="action_button_group">
@@ -41,6 +55,14 @@ export function ActionButtons(): JSX.Element {
         showsHorizontalScrollIndicator={false}
         horizontal
       >
+        {hasDFIBalance && (
+          <ActionButton
+            name={translate("components/ActionButtons", "Get DFI")}
+            iconSize={20}
+            testID="get_DFI_action_btn"
+            onPress={() => navigation.navigate("GetDFIScreen")}
+          />
+        )}
         <ActionButton
           name={translate("components/ActionButtons", "Send")}
           icon="arrow-up-right"
@@ -99,6 +121,8 @@ export function ActionButtons(): JSX.Element {
 }
 
 function ActionButton(props: ActionButtonsProps): JSX.Element {
+  const DFIIcon = getNativeIcon("DFIlogo");
+  const { isLight } = useThemeContext();
   return (
     <View style={tailwind("items-center")}>
       <ThemedTouchableOpacityV2
@@ -110,13 +134,22 @@ function ActionButton(props: ActionButtonsProps): JSX.Element {
         onPress={props.onPress}
         testID={props.testID}
       >
-        <ThemedIcon
-          dark={tailwind("text-mono-dark-v2-900")}
-          light={tailwind("text-mono-light-v2-900")}
-          iconType={props.iconType}
-          name={props.icon}
-          size={props.iconSize ?? 24}
-        />
+        {props.iconType === undefined ? (
+          <DFIIcon
+            width={props.iconSize}
+            height={props.iconSize}
+            color={getColor(isLight ? "mono-light-v2-900" : "mono-dark-v2-900")}
+          />
+        ) : (
+          <ThemedIcon
+            dark={tailwind("text-mono-dark-v2-900")}
+            light={tailwind("text-mono-light-v2-900")}
+            iconType={props.iconType}
+            name={props.icon}
+            size={props.iconSize ?? 24}
+          />
+        )}
+
         {props.badge !== undefined && (
           <View
             style={tailwind(

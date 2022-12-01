@@ -21,7 +21,7 @@ import { translate } from "@translations";
 import { tokensSelector, WalletToken } from "@store/wallet";
 import { RootState } from "@store";
 import { debounce } from "lodash";
-import { HeaderSearchInputV2 } from "@components/HeaderSearchInputV2";
+import { HeaderSearchInput } from "@components/HeaderSearchInput";
 import { ScrollView } from "react-native";
 import { ScreenName } from "@screens/enum";
 import { EmptyActivePoolpair } from "./components/EmptyActivePoolPair";
@@ -29,7 +29,7 @@ import {
   ButtonGroupTabKey,
   PoolPairCards,
 } from "./components/PoolPairCards/PoolPairCards";
-import { ButtonGroupV2 } from "./components/ButtonGroupV2";
+import { ButtonGroup } from "./components/ButtonGroup";
 import { DexParamList } from "./DexNavigator";
 import { AssetsFilterItem } from "../Portfolio/components/AssetsFilterRow";
 import { useFavouritePoolpairContext } from "../../../../contexts/FavouritePoolpairContext";
@@ -50,10 +50,8 @@ export function DexScreen(): JSX.Element {
   const tokens = useSelector((state: RootState) =>
     tokensSelector(state.wallet)
   );
-  const [expandedCardIds, setExpandedCardIds] = useState<string[]>([]);
 
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
-    setExpandedCardIds([]);
     setActiveButtonGroup(buttonGroupTabKey);
     handleButtonFilter(buttonGroupTabKey);
   };
@@ -187,7 +185,7 @@ export function DexScreen(): JSX.Element {
               dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-100")}
               style={tailwind("pb-5 rounded-b-2xl border-b")}
             >
-              <HeaderSearchInputV2
+              <HeaderSearchInput
                 searchString={searchString}
                 onClearInput={() => setSearchString("")}
                 onChangeInput={(text: string) => {
@@ -342,7 +340,7 @@ export function DexScreen(): JSX.Element {
             )}
           >
             <View style={tailwind("w-full px-5")}>
-              <ButtonGroupV2
+              <ButtonGroup
                 buttons={tabsList}
                 activeButtonGroupItem={activeTab}
                 testID="dex_tabs"
@@ -371,8 +369,6 @@ export function DexScreen(): JSX.Element {
           hasFetchedPoolpairData &&
           !isSearching && (
             <PoolPairCards
-              expandedCardIds={expandedCardIds}
-              setExpandedCardIds={setExpandedCardIds}
               availablePairs={filteredAvailablePairs}
               yourPairs={yourLPTokens}
               onAdd={onAdd}
@@ -380,7 +376,6 @@ export function DexScreen(): JSX.Element {
               onSwap={onSwap}
               onPress={onPress}
               type="available"
-              setIsSearching={setIsSearching}
               searchString={searchString}
               showSearchInput={showSearchInput}
               topLiquidityPairs={topLiquidityPairs}
@@ -394,8 +389,6 @@ export function DexScreen(): JSX.Element {
         )}
         {activeTab === TabKey.YourPoolPair && yourLPTokens.length > 0 && (
           <PoolPairCards
-            expandedCardIds={expandedCardIds}
-            setExpandedCardIds={setExpandedCardIds}
             availablePairs={filteredAvailablePairs}
             yourPairs={yourLPTokens}
             onAdd={onAdd}
@@ -403,7 +396,6 @@ export function DexScreen(): JSX.Element {
             onSwap={onSwap}
             onPress={onPress}
             type="your"
-            setIsSearching={setIsSearching}
             searchString={searchString}
             showSearchInput={showSearchInput}
             topLiquidityPairs={topLiquidityPairs}

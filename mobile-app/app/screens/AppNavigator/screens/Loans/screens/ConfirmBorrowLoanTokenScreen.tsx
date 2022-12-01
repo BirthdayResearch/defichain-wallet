@@ -28,12 +28,12 @@ import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { SummaryTitleV2 } from "@components/SummaryTitleV2";
+import { SummaryTitle } from "@components/SummaryTitle";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { TextRowV2 } from "@components/TextRowV2";
 import { AddressType } from "@store/wallet";
-import { SubmitButtonGroupV2 } from "@components/SubmitButtonGroupV2";
+import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { LoanParamList } from "../LoansNavigator";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { useCollateralizationRatioColor } from "../hooks/CollateralizationRatio";
@@ -101,7 +101,7 @@ export function ConfirmBorrowLoanTokenScreen({
 
   return (
     <ThemedScrollViewV2 contentContainerStyle={tailwind("px-5 py-8")}>
-      <SummaryTitleV2
+      <SummaryTitle
         amount={new BigNumber(borrowAmount)}
         title={translate(
           "screens/ConfirmBorrowLoanTokenScreen",
@@ -137,7 +137,7 @@ export function ConfirmBorrowLoanTokenScreen({
           "Prices may vary during transaction confirmation."
         )}
       </ThemedTextV2>
-      <SubmitButtonGroupV2
+      <SubmitButtonGroup
         isDisabled={hasPendingJob || hasPendingBroadcastJob}
         label={translate("screens/ConfirmBorrowLoanTokenScreen", "Borrow")}
         onCancel={onCancel}

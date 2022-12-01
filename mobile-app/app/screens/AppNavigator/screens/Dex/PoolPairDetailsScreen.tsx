@@ -614,7 +614,6 @@ interface PoolPairActionRowProps {
   onPress: () => void;
   testID: string;
   iconType: IconType;
-  border?: boolean;
   isLast?: boolean;
 }
 

@@ -165,7 +165,6 @@ export const BottomSheetVaultList = ({
           "pt-1 -mt-1": Platform.OS === "android", // Word-around fix for line showing on android
         })}
         contentContainerStyle={tailwind("px-5 pb-20")}
-        stickyHeaderIndices={[0]}
         keyExtractor={(item) => item.vaultId}
       />
     );

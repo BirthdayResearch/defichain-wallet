@@ -25,7 +25,6 @@ export function TokenAmountText({
 
   return (
     <NumberFormat
-      decimalScale={8}
       displayType="text"
       renderText={(value) => (
         <View style={tailwind("flex flex-1")}>

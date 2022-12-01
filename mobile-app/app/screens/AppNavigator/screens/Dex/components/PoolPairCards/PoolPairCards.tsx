@@ -54,11 +54,8 @@ interface PoolPairCardProps {
   onSwap: (data: PoolPairData) => void;
   onPress: (id: string) => void;
   type: "your" | "available";
-  setIsSearching: (isSearching: boolean) => void;
   searchString: string;
   showSearchInput?: boolean;
-  expandedCardIds: string[];
-  setExpandedCardIds: (ids: string[]) => void;
   topLiquidityPairs: Array<DexItem<PoolPairData>>;
   newPoolsPairs: Array<DexItem<PoolPairData>>;
   activeButtonGroup: ButtonGroupTabKey;
@@ -390,7 +387,7 @@ function AvailablePool(props: AvailablePoolProps): JSX.Element {
           label={translate("screens/DexScreen", "Swap")}
           onPress={props.onSwap}
           testID={`composite_swap_button_${props.pair.id}`}
-          style={tailwind("py-2 px-3")}
+          style={tailwind("py-2 px-4")}
           disabled={!props.status}
         />
       </View>

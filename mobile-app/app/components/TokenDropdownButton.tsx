@@ -34,7 +34,7 @@ export function TokenDropdownButton(props: {
         "opacity-30": props.status === TokenDropdownButtonStatus.Disabled,
         "opacity-100": props.status !== TokenDropdownButtonStatus.Disabled,
       })}
-      style={tailwind("flex flex-row items-center rounded-xl-v2 px-3 py-2.5")}
+      style={tailwind("flex flex-row items-center rounded-lg-v2 px-3 py-2.5")}
       disabled={props.status !== TokenDropdownButtonStatus.Enabled}
     >
       {props.symbol === undefined && (
@@ -48,7 +48,7 @@ export function TokenDropdownButton(props: {
       )}
       {props.symbol !== undefined && Icon !== undefined && (
         <>
-          <Icon testID="tokenA_icon" height={28} width={28} />
+          <Icon testID="tokenA_icon" height={24} width={24} />
           <ThemedTextV2
             style={tailwind("ml-2 text-sm font-semibold-v2")}
             dark={tailwind("text-mono-dark-v2-900", {

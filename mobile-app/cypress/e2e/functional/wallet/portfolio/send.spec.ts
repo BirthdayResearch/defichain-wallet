@@ -1,6 +1,8 @@
 import { WhaleApiClient } from "@defichain/whale-api-client";
 import BigNumber from "bignumber.js";
 
+BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
+
 const validateAmountButtonResult = (value: string, usdValue: string): void => {
   cy.getByTestID("amount_input").should("have.value", value);
 

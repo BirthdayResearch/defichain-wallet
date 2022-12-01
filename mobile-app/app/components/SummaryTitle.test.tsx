@@ -1,4 +1,4 @@
-import { SummaryTitleV2 } from "@components/SummaryTitleV2";
+import { SummaryTitle } from "@components/SummaryTitle";
 import BigNumber from "bignumber.js";
 import { render } from "@testing-library/react-native";
 
@@ -7,7 +7,7 @@ jest.mock("@shared-contexts/ThemeProvider");
 describe("Summary Title V2", () => {
   it("should match snapshot", async () => {
     const renderer = render(
-      <SummaryTitleV2
+      <SummaryTitle
         title="foo"
         testID="testID"
         amount={new BigNumber(0.123456789)}

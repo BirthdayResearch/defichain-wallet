@@ -121,7 +121,6 @@ export function VaultCardStatus({
           ) : (
             <NumberFormat
               value={new BigNumber(colRatio).toFixed(2)}
-              decimalScale={2}
               thousandSeparator
               displayType="text"
               suffix="%"
@@ -151,7 +150,7 @@ export function VaultCardStatus({
               vaultStatus === VaultStatus.Halted ? undefined : onButtonPressed
             }
             style={tailwind(
-              "flex-wrap border-0 rounded-full self-center px-3 py-1 mt-4"
+              "flex-wrap border-0 rounded-full self-center px-4 py-2 mt-2"
             )}
             dark={tailwind("bg-mono-dark-v2-1000", {
               "bg-gray-600": vaultStatus === VaultStatus.Halted,

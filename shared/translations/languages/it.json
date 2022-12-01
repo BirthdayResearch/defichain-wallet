@@ -234,7 +234,8 @@
     "Copy": "Copia",
     "Share": "Condividi",
     "WALLET ADDRESS": "INDIRIZZO WALLET",
-    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Use QR or Wallet address to receive any tokens (DST) or DFI"
+    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Use QR or Wallet address to receive any tokens (DST) or DFI",
+    "Get DFI": "Get DFI"
   },
   "components/toaster": {
     "Copied": "Copiato",
@@ -334,7 +335,8 @@
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
     "A small amount of UTXO is reserved for fees": "A small amount of UTXO is reserved for fees",
     "Available {{unit}}": "Disponibile {{unit}}",
-    "Resulting {{unit}}": "Risultato {{unit}}"
+    "Resulting {{unit}}": "Risultato {{unit}}",
+    "TO RECEIVE": "TO RECEIVE"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm": "Confirm",
@@ -2141,7 +2143,11 @@
     "Reset default service provider": "Reset default service provider",
     "Provider": "Provider",
     "Reset provider": "Reset provider",
-    "This will reset the service provider\nto the default URL.": "This will reset the service provider\nto the default URL."
+    "This will reset the service provider\nto the default URL.": "This will reset the service provider\nto the default URL.",
+    "Reset Service Provider": "Reset Service Provider",
+    "Go back": "Go back",
+    "GO BACK": "GO BACK",
+    "Reset": "Reset"
   },
   "components/QuickBid": {
     "QUICK BID": "OFFERTA RAPIDA",
@@ -2187,7 +2193,8 @@
     "Receive": "Ricevi",
     "Swap": "Scambia",
     "Transactions": "Transazioni",
-    "Future swap": "Future swap"
+    "Future swap": "Future swap",
+    "Get DFI": "Get DFI"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "{{poolPair}} Pool",
