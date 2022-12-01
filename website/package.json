@@ -31,7 +31,7 @@
     "@netlify/plugin-nextjs": "4.29.2",
     "@next/eslint-plugin-next": "13.0.5",
     "@types/cors": "^2.8.12",
-    "@types/lodash": "^4.14.190",
+    "@types/lodash": "^4.14.191",
     "@types/node": "^16.18.4",
     "@types/react": "17.0.38",
     "autoprefixer": "^10.4.13",
