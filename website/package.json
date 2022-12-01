@@ -15,13 +15,17 @@
     "classnames": "^2.3.2",
     "cors": "^2.8.5",
     "date-fns": "^2.29.3",
+    "lodash": "^4.17.21",
     "next": "13.0.5",
     "next-sitemap": "^3.1.32",
     "nextjs-progressbar": "^0.0.16",
+    "react": "18.1.0",
+    "react-icons": "^4.7.1",
     "react-schemaorg": "^2.0.0",
     "schema-dts": "^1.1.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.191",
     "@types/react": "^18.0.25",
     "@types/node": "^16.11.7",
     "@netlify/plugin-nextjs": "4.29.2",
