@@ -157,7 +157,7 @@ export function PortfolioNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const { isLight } = useThemeContext();
   const goToNetworkSelect = (): void => {
-    navigation.navigate("NetworkSelectionScreen");
+    navigation.navigate("NetworkSelectionScreenPortfolio");
   };
   const screenOptions = useNavigatorScreenOptions();
   return (
@@ -372,7 +372,7 @@ export function PortfolioNavigator(): JSX.Element {
 
       <PortfolioStack.Screen
         component={NetworkSelectionScreen}
-        name="NetworkSelectionScreen"
+        name="NetworkSelectionScreenPortfolio"
         options={{
           ...screenOptions,
           headerTitle: translate("screens/NetworkSelectionScreen", "Network"),

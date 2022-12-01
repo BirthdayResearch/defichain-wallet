@@ -145,7 +145,7 @@ export function DexNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>();
   const screenOptions = useNavigatorScreenOptions();
   const goToNetworkSelect = (): void => {
-    navigation.navigate("NetworkSelectionScreen");
+    navigation.navigate("NetworkSelectionScreenDex");
   };
 
   return (
@@ -186,7 +186,7 @@ export function DexNavigator(): JSX.Element {
 
       <DexStack.Screen
         component={NetworkSelectionScreen}
-        name="NetworkSelectionScreen"
+        name="NetworkSelectionScreenDex"
         options={{
           ...screenOptions,
           headerTitle: translate("screens/NetworkSelectionScreen", "Network"),
