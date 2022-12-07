@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { ToastProps } from "react-native-toast-notifications/lib/typescript/toast";
 import { ThemedText, ThemedView } from "./themed";
@@ -8,6 +8,7 @@ interface WalletToastProps {
 }
 
 export function WalletToast(props: WalletToastProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedView
       style={tailwind("py-2 px-4 mt-16 rounded-3xl")}

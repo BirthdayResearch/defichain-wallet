@@ -2,8 +2,7 @@ import * as Linking from "expo-linking";
 import { LinkingOptions, NavigationContainer } from "@react-navigation/native";
 import { Theme } from "@react-navigation/native/lib/typescript/src/types";
 import { createStackNavigator } from "@react-navigation/stack";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { getDefaultTheme } from "@constants/Theme";
+import { useStyles } from "@tailwind";
 import { PlaygroundNavigator } from "../PlaygroundNavigator/PlaygroundNavigator";
 import { AppLinking, BottomTabNavigator } from "./BottomTabNavigator";
 
@@ -18,8 +17,8 @@ export interface AppParamList {
 }
 
 export function AppNavigator(): JSX.Element {
-  const { isLight } = useThemeContext();
-  const DeFiChainTheme: Theme = getDefaultTheme(isLight);
+  const { getDefaultTheme } = useStyles();
+  const DeFiChainTheme: Theme = getDefaultTheme();
 
   return (
     <NavigationContainer linking={LinkingConfiguration} theme={DeFiChainTheme}>

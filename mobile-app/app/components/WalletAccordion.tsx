@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Accordion from "react-native-collapsible/Accordion";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { View } from "react-native";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import {
@@ -27,6 +27,7 @@ export interface AccordionContent {
 }
 
 export function WalletAccordion(props: AccordionProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
   const [activeSections, setActiveSections] = useState<number[] | string[]>(
     props.activeSections ?? []

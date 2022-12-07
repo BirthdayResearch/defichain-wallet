@@ -1,7 +1,7 @@
 import { Component, ReactElement } from "react";
 import { Image } from "react-native";
 import ImageGenericError from "@assets/images/misc/generic_error.png";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { Logging } from "@api";
 import { Text, View } from "../../components";
@@ -15,6 +15,7 @@ interface State {
 }
 
 export function ErrorDisplayComponent(): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View
       style={tailwind("bg-mono-dark-v2-100 flex-1 items-center pt-44 px-14")}

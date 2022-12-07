@@ -4,7 +4,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { ScrollView, StyleProp, ViewStyle } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 
 export enum ButtonGroupTabKey {
@@ -21,6 +21,7 @@ interface AssetsFilterRowProps {
 }
 
 export function AssetsFilterRow(props: AssetsFilterRowProps): JSX.Element {
+  const { tailwind } = useStyles();
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
     props.setActiveButtonGroup(buttonGroupTabKey);
     props.onButtonGroupPress(buttonGroupTabKey);
@@ -83,6 +84,7 @@ export interface AssetsFilterItemProps {
 }
 
 export function AssetsFilterItem(props: AssetsFilterItemProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedTouchableOpacityV2
       onPress={props.onPress}

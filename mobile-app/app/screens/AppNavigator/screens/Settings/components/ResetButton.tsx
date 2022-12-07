@@ -1,5 +1,5 @@
 import { ThemedTextV2, ThemedTouchableOpacityV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { WalletAlert } from "@components/WalletAlert";
 import { View, Text } from "react-native";
@@ -17,6 +17,7 @@ import { useServiceProviderContext } from "@contexts/StoreServiceProvider";
 import { SettingsParamList } from "../SettingsNavigator";
 
 export function ResetButton(): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<SettingsParamList>>();
   const logger = useLogger();
   const dispatch = useAppDispatch();

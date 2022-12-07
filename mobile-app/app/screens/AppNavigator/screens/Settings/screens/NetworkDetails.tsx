@@ -12,13 +12,14 @@ import {
   ThemedText,
   ThemedView,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { TextRow } from "@components/TextRow";
 import { NumberRow } from "@components/NumberRow";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 
 export function NetworkDetails(): JSX.Element {
+  const { tailwind } = useStyles();
   const { network } = useNetworkContext();
   const {
     connected,
@@ -71,6 +72,7 @@ export function NetworkDetails(): JSX.Element {
 }
 
 function NetworkStatusRow({ connected }: { connected: boolean }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedView
       dark={tailwind("bg-gray-800 border-b border-gray-700")}
@@ -111,6 +113,7 @@ function NetworkStatusRow({ connected }: { connected: boolean }): JSX.Element {
 }
 
 function BlocksInfoRow({ blockCount }: { blockCount?: number }): JSX.Element {
+  const { tailwind } = useStyles();
   const { getBlocksUrl } = useDeFiScanContext();
 
   const onBlockUrlPressed = async (): Promise<void> => {

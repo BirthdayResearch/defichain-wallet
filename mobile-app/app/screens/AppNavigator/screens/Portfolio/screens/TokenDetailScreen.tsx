@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Linking, TouchableOpacity } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import BigNumber from "bignumber.js";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { StackScreenProps } from "@react-navigation/stack";
@@ -103,6 +103,7 @@ const usePoolPairToken = (
 };
 
 export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const { denominationCurrency } = useDenominationCurrency();
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
   const { getTokenPrice } = useTokenPrice(denominationCurrency); // input based on selected denomination from portfolio tab
@@ -371,6 +372,7 @@ function TokenSummary(props: {
   border?: boolean;
   usdAmount: BigNumber;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const { denominationCurrency } = useDenominationCurrency();
   const { getTokenUrl } = useDeFiScanContext();
   const onTokenUrlPressed = async (): Promise<void> => {
@@ -497,6 +499,7 @@ function TokenActionRow({
   iconType,
   isLast,
 }: TokenActionItems): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedTouchableListItem onPress={onPress} isLast={isLast} testID={testID}>
       <ThemedTextV2

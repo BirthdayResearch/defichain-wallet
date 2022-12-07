@@ -4,7 +4,7 @@ import { useUnitSuffix } from "@hooks/useUnitSuffix";
 import { Platform, View } from "react-native";
 import CircularProgress from "react-native-circular-progress-indicator";
 import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedTextV2 } from "@components/themed";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import {
@@ -28,6 +28,7 @@ export function VaultDetailStatus({
   vaultStatus,
   nextColRatio,
 }: VaultDetailStatusProps): JSX.Element {
+  const { tailwind, getColor } = useStyles();
   const { isLight } = useThemeContext();
   const CIRCLE_RADIUS = 78;
   const colRatio =

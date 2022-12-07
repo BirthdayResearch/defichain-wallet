@@ -9,7 +9,7 @@ import {
   TransactionCardStatus,
 } from "@components/TransactionCard";
 import { WalletTransactionCardTextInput } from "@components/WalletTransactionCardTextInput";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 
@@ -26,6 +26,7 @@ export function AddLiquidityInputCard(props: {
   showUTXOFeesMsg: boolean;
   hasInputAmount?: boolean;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const Icon = getNativeIcon(props.symbol);
   return (
     <>

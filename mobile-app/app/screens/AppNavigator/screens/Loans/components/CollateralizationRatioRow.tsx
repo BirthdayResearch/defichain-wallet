@@ -2,7 +2,7 @@ import { View } from "@components";
 import { BottomSheetInfo } from "@components/BottomSheetInfo";
 import { ThemedText, ThemedView } from "@components/themed";
 import { getNumberFormatValue } from "@api/number-format-value";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 
 import { NumericFormat as NumberFormat } from "react-number-format";
 import {
@@ -20,6 +20,7 @@ interface CollateralizationRatioRowProps extends CollateralizationRatioProps {
 export function CollateralizationRatioRow(
   props: CollateralizationRatioRowProps
 ): JSX.Element {
+  const { tailwind } = useStyles();
   const alertInfo = {
     title: "Collateralization ratio",
     message:
@@ -65,6 +66,7 @@ export function CollateralizationRatioValue(
     testId: string;
   }
 ): JSX.Element {
+  const { tailwind } = useStyles();
   const { light, dark } = useCollateralizationRatioColor({
     colRatio: props.colRatio,
     minColRatio: props.minColRatio,

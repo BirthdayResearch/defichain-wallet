@@ -12,7 +12,7 @@ import {
   OceanTransaction,
   TransactionStatusCode,
 } from "@store/ocean";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Animated } from "react-native";
@@ -91,6 +91,7 @@ async function waitForTxConfirmation(
  *  Need to get the height of bottom tab via `useBottomTabBarHeight()` hook to be called on screen.
  * */
 export function OceanInterface(): JSX.Element | null {
+  const { tailwind } = useStyles();
   const logger = useLogger();
   const dispatch = useAppDispatch();
   const client = useWhaleApiClient();

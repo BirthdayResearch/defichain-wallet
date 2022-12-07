@@ -16,7 +16,7 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { tokensSelector, WalletToken } from "@store/wallet";
 import { RootState } from "@store";
@@ -45,6 +45,7 @@ interface DexItem<T> {
 }
 
 export function DexScreen(): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<DexParamList>>();
   const [activeTab, setActiveTab] = useState<string>(TabKey.AvailablePoolPair);
   const tokens = useSelector((state: RootState) =>
@@ -414,6 +415,7 @@ const DexFilterPillGroup = React.memo(
     onButtonGroupChange: (buttonGroupTabKey: ButtonGroupTabKey) => void;
     activeButtonGroup: ButtonGroupTabKey;
   }) => {
+    const { tailwind } = useStyles();
     const buttonGroup = [
       {
         id: ButtonGroupTabKey.AllPairs,

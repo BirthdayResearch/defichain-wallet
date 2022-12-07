@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import {
   ThemedIcon,
   ThemedTextV2,
@@ -25,6 +25,7 @@ export function VaultActionButtons({
   onPayPressed,
   onEditPressed,
 }: VaultActionButtonsProps): JSX.Element {
+  const { tailwind } = useStyles();
   const isBorrowDisabled =
     vaultStatus === VaultStatus.Empty || vaultStatus === VaultStatus.Halted;
   const isPayDisabled =

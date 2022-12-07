@@ -1,6 +1,6 @@
 import * as Progress from "react-native-progress";
 import BigNumber from "bignumber.js";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { ThemedTextV2 } from "@components/themed";
 import { translate } from "@translations";
@@ -21,6 +21,7 @@ interface CollateralizationRatioDisplayProps {
 export function CollateralizationRatioDisplay(
   props: CollateralizationRatioDisplayProps
 ): JSX.Element {
+  const { tailwind, getColor } = useStyles();
   const { isLight } = useThemeContext();
   const atRiskThresholdMultiplier = 1.5;
   const minColRatio = new BigNumber(props.minCollateralizationRatio);

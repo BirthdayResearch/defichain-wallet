@@ -2,7 +2,7 @@ import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/Loa
 import BigNumber from "bignumber.js";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { TouchableOpacity, View } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { SymbolIcon } from "@components/SymbolIcon";
 import {
@@ -24,6 +24,7 @@ interface PayLoanCardProps {
 }
 
 export function PayLoanCard(props: PayLoanCardProps): JSX.Element {
+  const { tailwind } = useStyles();
   const canUseOperations = useLoanOperations(props.vault?.state);
 
   const { isFeatureAvailable } = useFeatureFlagContext();
@@ -110,6 +111,7 @@ function LoanActionDUSDButton({
 }: {
   onPaybackDUSD?: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <LinearGradient
       start={[0, 0]}

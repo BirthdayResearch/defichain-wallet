@@ -3,10 +3,11 @@ import {
   AccordionContent,
   WalletAccordionV2,
 } from "@components/WalletAccordionV2";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 
 export function AuctionsFaq(): JSX.Element {
+  const { tailwind } = useStyles();
   const faqContent: AccordionContent[] = [
     {
       title: translate(

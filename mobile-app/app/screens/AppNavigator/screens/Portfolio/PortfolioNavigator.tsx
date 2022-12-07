@@ -5,7 +5,7 @@ import BigNumber from "bignumber.js";
 import { Image, Platform } from "react-native";
 import { BarCodeScanner } from "@components/BarCodeScanner";
 import { HeaderTitle } from "@components/HeaderTitle";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { LocalAddress } from "@store/userPreferences";
 import { FutureSwapData } from "@store/futureSwap";
@@ -154,6 +154,7 @@ export interface ConversionParam {
 const PortfolioStack = createStackNavigator<PortfolioParamList>();
 
 export function PortfolioNavigator(): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const { isLight } = useThemeContext();
   const goToNetworkSelect = (): void => {

@@ -8,11 +8,12 @@ import {
   PlaygroundStatusType,
 } from "@screens/PlaygroundNavigator/components/PlaygroundStatus";
 import { ThemedViewV2, ThemedIcon } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { PlaygroundTitle } from "../components/PlaygroundTitle";
 import { PlaygroundAction } from "../components/PlaygroundAction";
 
 export function PlaygroundUTXO(): JSX.Element {
+  const { tailwind } = useStyles();
   const { wallet } = useWalletContext();
   const { api, rpc } = usePlaygroundContext();
   const [status, setStatus] = useState<PlaygroundConnectionStatus>(

@@ -15,7 +15,7 @@ import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { RootState } from "@store";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { hasTxQueued } from "@store/transaction_queue";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { tokenSelector } from "@store/wallet";
@@ -44,6 +44,7 @@ import { LiquidityCalculationSummary } from "./components/LiquidityCalculationSu
 type Props = StackScreenProps<DexParamList, "RemoveLiquidity">;
 
 export function RemoveLiquidityScreen(props: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const logger = useLogger();
   const client = useWhaleApiClient();
   const toast = useToast();
@@ -409,6 +410,7 @@ function RemoveLiquidityInputCard(props: {
   setIsInputFocus: (flag: boolean) => void;
   showErrMsg: boolean;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const IconA = getNativeIcon(props.tokenA);
   const IconB = getNativeIcon(props.tokenB);
   return (

@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { View, StyleProp, TextProps } from "react-native";
 import { ThemedTextV2, ThemedProps } from "@components/themed";
 import { NumericFormat as NumberFormat } from "react-number-format";
@@ -15,23 +15,25 @@ interface ViewPoolAmountRowProps {
   suffix?: string;
 }
 
-export function ViewPoolAmountRow({
-  label = "",
-  labelTextStyle,
-  labelThemeProps = {
-    dark: tailwind("text-mono-dark-v2-500"),
-    light: tailwind("text-mono-light-v2-500"),
-  },
-  valueTextStyle,
-  valueThemeProps = {
-    dark: tailwind("text-mono-dark-v2-900"),
-    light: tailwind("text-mono-light-v2-900"),
-  },
-  amount,
-  testID,
-  prefix,
-  suffix,
-}: ViewPoolAmountRowProps): JSX.Element {
+export function ViewPoolAmountRow(props: ViewPoolAmountRowProps): JSX.Element {
+  const { tailwind } = useStyles();
+  const {
+    label = "",
+    labelTextStyle,
+    labelThemeProps = {
+      dark: tailwind("text-mono-dark-v2-500"),
+      light: tailwind("text-mono-light-v2-500"),
+    },
+    valueTextStyle,
+    valueThemeProps = {
+      dark: tailwind("text-mono-dark-v2-900"),
+      light: tailwind("text-mono-light-v2-900"),
+    },
+    amount,
+    testID,
+    prefix,
+    suffix,
+  } = props;
   return (
     <View style={tailwind("flex-row justify-between items-start")}>
       <ThemedTextV2

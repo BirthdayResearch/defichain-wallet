@@ -5,7 +5,7 @@ import {
 } from "@components/themed";
 import { WalletAlert } from "@components/WalletAlert";
 import { useLanguageContext } from "@shared-contexts/LanguageProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { AppLanguageItem, translate } from "@translations";
 import { View, Text } from "react-native";
 
@@ -18,6 +18,7 @@ export function RowLanguageItem({
   isLast: boolean;
   onSwitchLanguage: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const { language, setLanguage } = useLanguageContext();
 
   const onPress = async (): Promise<void> => {

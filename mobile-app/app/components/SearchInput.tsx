@@ -6,7 +6,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { ClearButtonV2 } from "@components/WalletTextInputV2";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { forwardRef } from "react";
 
 type SearchInputProps = React.PropsWithChildren<TextInputProps> &
@@ -23,6 +23,7 @@ interface ISearchInputProps extends ThemedProps {
 
 export const SearchInput = forwardRef<any, SearchInputProps>(
   (props: SearchInputProps, ref: React.Ref<any>): JSX.Element => {
+    const { tailwind } = useStyles();
     const {
       onClearInput,
       containerStyle,

@@ -5,7 +5,7 @@ import {
   ThemedTextV2,
 } from "@components/themed";
 import { Platform } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { ThemedFlatListV2 } from "@components/themed/ThemedFlatListV2";
 import { ThemedBottomSheetFlatList } from "@components/themed/ThemedBottomSheetFlatList";
@@ -31,6 +31,7 @@ export const BottomSheetAssetSortList = ({
   selectedAssetSortType,
 }: BottomSheetAssetSortProps): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
+    const { tailwind } = useStyles();
     const flatListComponents = {
       mobile: ThemedBottomSheetFlatList,
       web: ThemedFlatListV2,

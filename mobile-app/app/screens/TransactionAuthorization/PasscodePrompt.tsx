@@ -6,7 +6,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { DfTxSigner } from "@store/transaction_queue";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { Platform, SafeAreaView, View } from "react-native";
 import {
@@ -49,6 +49,7 @@ interface PasscodePromptProps {
 // Todo(suraj) Remove code duplication and figure out a way to add focus to PinInput
 
 const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
+  const { tailwind } = useStyles();
   return (
     <>
       <ThemedTouchableOpacityV2
@@ -170,6 +171,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
 
 export const PasscodePrompt = React.memo(
   (props: PasscodePromptProps): JSX.Element => {
+    const { tailwind } = useStyles();
     const containerRef = React.useRef(null);
     const getSnapPoints = (): string[] => {
       if (Platform.OS === "ios") {
@@ -258,6 +260,7 @@ function EmptyHandleComponent(): JSX.Element {
 }
 
 function SuccessIndicator(): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("flex flex-col items-center py-4.5 mb-0.5")}>
       <ThemedIcon

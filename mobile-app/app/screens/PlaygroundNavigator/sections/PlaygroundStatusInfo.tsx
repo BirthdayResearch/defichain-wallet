@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-raw-text */
 import { useWalletPersistenceContext } from "@shared-contexts/WalletPersistenceContext";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import {
@@ -11,6 +11,7 @@ import {
 import { PlaygroundAction } from "../components/PlaygroundAction";
 
 export function PlaygroundStatusInfo(): JSX.Element | null {
+  const { tailwind } = useStyles();
   const { wallets } = useWalletPersistenceContext();
   const count = useSelector((state: RootState) => state.block.count);
 

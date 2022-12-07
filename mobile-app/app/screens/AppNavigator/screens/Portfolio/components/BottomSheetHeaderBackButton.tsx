@@ -1,10 +1,11 @@
 import { ThemedIcon, ThemedTouchableOpacityV2 } from "@components/themed";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { BottomSheetWithNavRouteParam } from "@components/BottomSheetWithNav";
 import * as React from "react";
 
 export function BottomSheetHeaderBackButton(): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation =
     useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>();
   return (

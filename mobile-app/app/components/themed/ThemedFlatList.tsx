@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 
 import { FlatList } from "react-native";
 import { ThemedProps } from "./index";
@@ -10,6 +10,7 @@ type ThemedFlatListProps = FlatList["props"] & ThemedProps;
 export const ThemedFlatList = forwardRef(
   (props: ThemedFlatListProps, ref: React.Ref<any>): JSX.Element => {
     const { isLight } = useThemeContext();
+    const { tailwind } = useStyles();
     const {
       style,
       light = tailwind("bg-gray-100"),

@@ -12,7 +12,7 @@ import {
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { LoanVault } from "@store/loans";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { memo } from "react";
 import * as React from "react";
@@ -37,6 +37,7 @@ export const BottomSheetVaultList = ({
   vaults,
 }: BottomSheetVaultListProps): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
+    const { tailwind } = useStyles();
     const { isLight } = useThemeContext();
     const flatListComponents = {
       mobile: BottomSheetFlatList,

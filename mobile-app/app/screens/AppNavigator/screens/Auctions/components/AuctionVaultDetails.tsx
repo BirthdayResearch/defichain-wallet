@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { TextRowV2 } from "@components/TextRowV2";
 import { translate } from "@translations";
 import { NumberRowV2 } from "@components/NumberRowV2";
@@ -17,6 +17,7 @@ export function AuctionVaultDetails({
   testID,
   showLinkToVault,
 }: AuctionVaultDetailsProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { getVaultsUrl, getAddressUrl } = useDeFiScanContext();
 
   const containerThemeOptions = {

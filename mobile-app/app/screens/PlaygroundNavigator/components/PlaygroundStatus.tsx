@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-raw-text */
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedIcon, ThemedTextV2 } from "@components/themed";
 import { View } from "react-native";
 
@@ -30,6 +30,7 @@ export function PlaygroundStatus({
   offline,
   type,
 }: PlaygroundStatusProps): JSX.Element {
+  const { tailwind } = useStyles();
   if (online !== undefined && online) {
     return (
       <View style={tailwind("flex flex-row items-center")}>

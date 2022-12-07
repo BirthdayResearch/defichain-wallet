@@ -5,7 +5,7 @@ import ContentLoader, {
   Rect,
 } from "react-content-loader/native";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { View } from "react-native";
 import { ThemedViewV2 } from "../themed";
 
@@ -42,6 +42,7 @@ export function LoanSkeletonLoaderV2(
   loaderProps: LoanSkeletonLoaderProps
 ): JSX.Element {
   const { isLight } = useThemeContext();
+  const { tailwind } = useStyles();
   const skeletonCols = Array.from(Array(2), (_v, i) => i + 1);
 
   return (

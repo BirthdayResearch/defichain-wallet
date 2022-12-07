@@ -9,7 +9,7 @@ import {
 import { translate } from "@translations";
 import React, { memo, useCallback, useMemo, useState } from "react";
 import { Platform, TouchableOpacity } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { useSelector } from "react-redux";
@@ -40,6 +40,7 @@ export const BottomSheetAddressBook = (
   props: BottomSheetAddressBookProps
 ): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
+    const { tailwind } = useStyles();
     const { isLight } = useThemeContext();
     const flatListComponents = {
       mobile: BottomSheetFlatList,
@@ -244,6 +245,7 @@ function WalletCounterDisplay({
 }: {
   addressLength: number;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedText
       light={tailwind("text-gray-400")}

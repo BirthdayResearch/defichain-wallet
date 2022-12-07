@@ -5,7 +5,7 @@ import {
   ThemedTextV2,
   ThemedTouchableOpacityV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ListRenderItemInfo, TextInput, View } from "react-native";
 import { SearchInput } from "@components/SearchInput";
 import { useMemo, useRef, useState } from "react";
@@ -49,6 +49,7 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
     isSearchDTokensOnly = false,
   } = route.params;
 
+  const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
   const { getTokenPrice } = useTokenPrice();
 
@@ -196,6 +197,7 @@ function TokenItem({
   getTokenPrice,
   listType,
 }: TokenItemProps): JSX.Element {
+  const { tailwind } = useStyles();
   const activePriceUSDT = getTokenPrice(
     item.token.symbol,
     new BigNumber("1"),

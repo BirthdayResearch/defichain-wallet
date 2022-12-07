@@ -6,7 +6,7 @@ import {
   LoanVaultActive,
   LoanVaultState,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
@@ -14,6 +14,7 @@ import { useNextCollateralizationRatio } from "../../hooks/NextCollateralization
 import { CollateralizationRatioRow } from "../../components/CollateralizationRatioRow";
 
 export function DetailsTab({ vault }: { vault: LoanVaultActive }): JSX.Element {
+  const { tailwind } = useStyles();
   const nextCollateralizationRatio = useNextCollateralizationRatio(
     vault.collateralAmounts,
     vault.loanAmounts
@@ -42,6 +43,7 @@ function VaultDetailsSection(props: {
   minColRatio: BigNumber;
   vaultInterest: BigNumber;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <>
       <ThemedSectionTitle
@@ -97,6 +99,7 @@ interface CollateralizationRatioSectionProps {
 function CollateralizationRatioSection(
   props: CollateralizationRatioSectionProps
 ): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <>
       <ThemedSectionTitle

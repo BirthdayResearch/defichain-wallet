@@ -1,5 +1,5 @@
 import { ThemedViewV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { StyleProp, ViewStyle } from "react-native";
 import { PricesSection, PriceRateProps } from "@components/PricesSection";
 import {
@@ -21,6 +21,7 @@ export function LiquidityCalculationSummary({
   resultingLprhs,
   containerStyle,
 }: LiquidityCalculationSummaryProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <>
       <ThemedViewV2

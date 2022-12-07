@@ -7,7 +7,7 @@ import {
   ThemedTextV2,
 } from "@components/themed";
 import { useNetworkContext } from "@shared-contexts/NetworkContext";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { WalletParamList } from "@screens/WalletNavigator/WalletNavigator";
 import {
@@ -26,6 +26,7 @@ import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 type Props = StackScreenProps<WalletParamList, "PinConfirmation">;
 
 export function PinConfirmation({ route }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<WalletParamList>>();
   const logger = useLogger();
   const [isComplete, setIsComplete] = useState<boolean>(false); // To complete the last stepper node when pin is verified.

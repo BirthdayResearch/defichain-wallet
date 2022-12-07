@@ -11,7 +11,7 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import DarkNewWallet from "@assets/images/dark-wallet-guidelines.png";
 import LightNewWallet from "@assets/images/light-wallet-guidelines.png";
@@ -41,6 +41,7 @@ const guidelines: GuidelineItem[] = [
 ];
 
 export function CreateWalletGuidelines({ navigation }: Props): JSX.Element {
+  const { tailwind, getColor } = useStyles();
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = (): void =>
     setIsEnabled((previousState) => !previousState);

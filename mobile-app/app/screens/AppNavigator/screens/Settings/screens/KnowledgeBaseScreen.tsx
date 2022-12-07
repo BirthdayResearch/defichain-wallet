@@ -7,13 +7,14 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { SettingsParamList } from "../SettingsNavigator";
 
 type Props = StackScreenProps<SettingsParamList, "KnowledgeBaseScreen">;
 
 export function KnowledgeBaseScreen({ navigation }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const knowledgeBaseItems = [
     {
       label: "Auctions",
@@ -96,6 +97,7 @@ function NavigateItemRow({
   onPress: () => void;
   border: boolean;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedTouchableOpacityV2
       onPress={onPress}

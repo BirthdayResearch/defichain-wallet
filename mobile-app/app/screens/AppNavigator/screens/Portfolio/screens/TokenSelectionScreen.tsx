@@ -4,7 +4,7 @@ import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import BigNumber from "bignumber.js";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { RootState } from "@store";
 import { translate } from "@translations";
 import { tokensSelector, WalletToken } from "@store/wallet";
@@ -49,6 +49,7 @@ export interface BottomSheetToken {
 }
 
 export function TokenSelectionScreen(): JSX.Element {
+  const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const tokens = useSelector((state: RootState) =>
@@ -184,6 +185,7 @@ function TokenSelectionRow({
   item,
   onPress,
 }: TokenSelectionRowProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedTouchableOpacityV2
       disabled={new BigNumber(item.available).lte(0)}
@@ -238,6 +240,7 @@ function EmptyAsset({
 }: {
   navigation: NavigationProp<PortfolioParamList>;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedScrollViewV2
       contentContainerStyle={tailwind(

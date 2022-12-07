@@ -2,7 +2,7 @@ import { useNetInfo, fetch } from "@react-native-community/netinfo";
 import { View, Image } from "react-native";
 import ImageConnectionProblem from "@assets/images/misc/connection_problem.png";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { ButtonV2 } from "@components/ButtonV2";
 
@@ -18,6 +18,7 @@ export default function ConnectionBoundary(
 }
 
 function ConnectionErrorComponent(): JSX.Element {
+  const { tailwind } = useStyles();
   const checkConnectivity = (): void => {
     void fetch();
   };

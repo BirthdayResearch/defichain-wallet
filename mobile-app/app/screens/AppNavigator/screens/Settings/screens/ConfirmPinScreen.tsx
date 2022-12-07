@@ -15,7 +15,7 @@ import {
   useWalletPersistenceContext,
   WalletPersistenceDataI,
 } from "@shared-contexts/WalletPersistenceContext";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -25,6 +25,7 @@ import { SettingsParamList } from "../SettingsNavigator";
 type Props = StackScreenProps<SettingsParamList, "ConfirmPinScreen">;
 
 export function ConfirmPinScreen({ route }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const logger = useLogger();
   const navigation = useNavigation();
   const { network } = useNetworkContext();
@@ -146,6 +147,7 @@ export function ConfirmPinScreen({ route }: Props): JSX.Element {
 }
 
 function SuccessIndicator(): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("flex flex-col items-center my-5")}>
       <MaterialIcons

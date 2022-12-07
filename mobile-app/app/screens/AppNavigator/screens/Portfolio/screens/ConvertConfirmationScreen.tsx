@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import {
   NativeLoggingProps,
@@ -44,6 +44,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
     fee,
     originScreen,
   } = route.params;
+  const { tailwind } = useStyles();
   const { address } = useWalletContext();
   const addressLabel = useAddressLabel(address);
   const hasPendingJob = useSelector((state: RootState) =>

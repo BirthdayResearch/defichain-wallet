@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { View } from "@components";
 import { translate } from "@translations";
 import { IconButton } from "@components/IconButton";
@@ -22,6 +22,7 @@ export interface BidCardProps {
 }
 
 export function BidCard(props: BidCardProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { batch, vaultId, liquidationHeight, testID } = props;
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0;
 

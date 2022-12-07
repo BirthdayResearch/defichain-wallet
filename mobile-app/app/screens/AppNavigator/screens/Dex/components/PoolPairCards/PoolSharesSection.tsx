@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import BigNumber from "bignumber.js";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { ThemedTextV2 } from "@components/themed";
@@ -10,6 +10,7 @@ interface PoolSharesSectionProps {
   tokenID: string;
 }
 export function PoolSharesSection(props: PoolSharesSectionProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("flex flex-col")}>
       <NumberFormat

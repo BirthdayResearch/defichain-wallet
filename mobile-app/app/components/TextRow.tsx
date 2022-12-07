@@ -1,5 +1,5 @@
 import { StyleProp, TextStyle, View, TextProps, ViewStyle } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedProps, ThemedText, ThemedView } from "./themed";
 import { BottomSheetAlertInfo, BottomSheetInfo } from "./BottomSheetInfo";
 
@@ -18,6 +18,7 @@ interface TextRowProps {
 
 export function TextRow(props: TextRowProps): JSX.Element {
   const { themedProps, testID, value, ...otherProps } = props.rhs;
+  const { tailwind } = useStyles();
   return (
     <ThemedView
       {...(props.containerStyle != null

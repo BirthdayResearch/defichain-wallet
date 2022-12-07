@@ -8,13 +8,14 @@ import {
   TextInputProps,
 } from "react-native";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 
 export const ThemedTextInput = forwardRef(
   (
     props: React.PropsWithChildren<TextInputProps>,
     ref: React.Ref<any>
   ): JSX.Element => {
+    const { tailwind } = useStyles();
     const { isLight } = useThemeContext();
     const { style, keyboardType, ...otherProps } = props;
 

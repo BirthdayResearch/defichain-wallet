@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleProp, View, ViewProps } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { getNativeIcon } from "@components/icons/assets";
 
 interface PoolPairIconV2Props {
@@ -11,13 +11,15 @@ interface PoolPairIconV2Props {
   testID?: string;
 }
 
-export function PoolPairIconV2({
-  symbolA,
-  symbolB,
-  customSize = 40,
-  iconBStyle = tailwind("-ml-4"),
-  testID,
-}: PoolPairIconV2Props): JSX.Element {
+export function PoolPairIconV2(props: PoolPairIconV2Props): JSX.Element {
+  const { tailwind } = useStyles();
+  const {
+    symbolA,
+    symbolB,
+    customSize = 40,
+    iconBStyle = tailwind("-ml-4"),
+    testID,
+  } = props;
   const IconA = getNativeIcon(symbolA);
   const IconB = getNativeIcon(symbolB);
   return (

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import BigNumber from "bignumber.js";
 import { StackScreenProps } from "@react-navigation/stack";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { getNativeIcon } from "@components/icons/assets";
 import {
@@ -45,6 +45,7 @@ import { PortfolioParamList } from "../PortfolioNavigator";
 type Props = StackScreenProps<PortfolioParamList, "WithdrawFutureSwapScreen">;
 
 export function WithdrawFutureSwapScreen(props: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const {
     futureSwap: { source, destination },
     executionBlock,

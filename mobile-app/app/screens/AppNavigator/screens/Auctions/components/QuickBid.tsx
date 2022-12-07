@@ -1,7 +1,7 @@
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { memo, useEffect, useState } from "react";
 import * as React from "react";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { SymbolIcon } from "@components/SymbolIcon";
 import { translate } from "@translations";
 import { Platform, Text, View } from "react-native";
@@ -45,6 +45,7 @@ export const QuickBid = ({
   totalCollateralsValueInUSD,
 }: QuickBidProps): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
+    const { tailwind } = useStyles();
     const tokens = useSelector((state: RootState) =>
       tokensSelector(state.wallet)
     );

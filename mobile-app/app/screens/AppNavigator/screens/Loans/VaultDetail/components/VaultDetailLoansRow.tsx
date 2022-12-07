@@ -1,5 +1,5 @@
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { LoanVault } from "@store/loans";
 import {
@@ -16,6 +16,7 @@ export function VaultDetailLoansRow(props: {
   ) => void;
 }): JSX.Element {
   const { vault, onPay } = props;
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2 style={tailwind("mx-5 mt-6")}>
       {vault.state === LoanVaultState.IN_LIQUIDATION &&

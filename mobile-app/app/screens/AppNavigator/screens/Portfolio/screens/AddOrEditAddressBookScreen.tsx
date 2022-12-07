@@ -17,7 +17,7 @@ import { useWalletNodeContext } from "@shared-contexts/WalletNodeProvider";
 import { RootState } from "@store";
 import { authentication, Authentication } from "@store/authentication";
 import { userPreferences } from "@store/userPreferences";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { openURL } from "@api/linking";
 import { translate } from "@translations";
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
@@ -39,6 +39,7 @@ export function AddOrEditAddressBookScreen({
 }: Props): JSX.Element {
   const { title, onSaveButtonPress, address, addressLabel, isAddNew } =
     route.params;
+  const { tailwind } = useStyles();
   const [labelInput, setLabelInput] = useState(addressLabel?.label);
   const [addressInput, setAddressInput] = useState<string | undefined>(address);
   const [isEditable, setIsEditable] = useState(isAddNew);
@@ -410,6 +411,7 @@ export function AddOrEditAddressBookScreen({
 }
 
 function CopyAddressComponent(props: { address: string }): JSX.Element {
+  const { tailwind } = useStyles();
   const { getAddressUrl } = useDeFiScanContext();
   const [showToast, setShowToast] = useState(false);
   const toast = useToast();
