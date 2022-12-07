@@ -5,7 +5,7 @@ import { AddressToken } from "@defichain/whale-api-client/dist/api/address";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { RootState } from "@store";
 import { WalletToken } from "@store/wallet";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { useMemo } from "react";
@@ -36,6 +36,7 @@ interface TokenBreakdownDetailProps {
 export function TokenBreakdownDetailsV2(
   props: TokenBreakdownDetailProps
 ): JSX.Element {
+  const { tailwind } = useStyles();
   const { denominationCurrency } = useDenominationCurrency();
   const lockedToken = (useTokenLockedBalance({
     displaySymbol: props.token.displaySymbol,
@@ -306,23 +307,25 @@ interface DFITokenBreakdownRowProps extends TokenBreakdownDetailsRowProps {
   percentageValue: BigNumber;
 }
 
-function DFITokenBreakDownDetailsRow({
-  amount,
-  label,
-  testID,
-  hasFetchedToken,
-  labelTextStyle,
-  valueTextStyle,
-  valueThemeProps = {
-    light: tailwind("text-mono-light-v2-900"),
-    dark: tailwind("text-mono-dark-v2-900"),
-  },
-  containerStyle,
-  prefix,
-  suffix,
-  percentageValue,
-  border,
-}: DFITokenBreakdownRowProps): JSX.Element {
+function DFITokenBreakDownDetailsRow(props: DFITokenBreakdownRowProps): JSX.Element {
+  const { tailwind } = useStyles();
+  const {
+    amount,
+    label,
+    testID,
+    hasFetchedToken,
+    labelTextStyle,
+    valueTextStyle,
+    valueThemeProps = {
+      light: tailwind("text-mono-light-v2-900"),
+      dark: tailwind("text-mono-dark-v2-900"),
+    },
+    containerStyle,
+    prefix,
+    suffix,
+    percentageValue,
+    border,
+  } = props;
   return (
     <ThemedViewV2
       light={tailwind("border-mono-light-v2-300")}
@@ -408,22 +411,24 @@ function DFITokenBreakDownDetailsRow({
   );
 }
 
-function TokenBreakdownDetailsRow({
-  amount,
-  label,
-  testID,
-  hasFetchedToken,
-  labelTextStyle,
-  valueTextStyle,
-  valueThemeProps = {
-    light: tailwind("text-mono-light-v2-900"),
-    dark: tailwind("text-mono-dark-v2-900"),
-  },
-  containerStyle,
-  prefix,
-  suffix,
-  border,
-}: TokenBreakdownDetailsRowProps): JSX.Element {
+function TokenBreakdownDetailsRow(props: TokenBreakdownDetailsRowProps): JSX.Element {
+  const { tailwind } = useStyles();
+  const {
+    amount,
+    label,
+    testID,
+    hasFetchedToken,
+    labelTextStyle,
+    valueTextStyle,
+    valueThemeProps = {
+      light: tailwind("text-mono-light-v2-900"),
+      dark: tailwind("text-mono-dark-v2-900"),
+    },
+    containerStyle,
+    prefix,
+    suffix,
+    border,
+  } = props;
   return (
     <ThemedViewV2
       light={tailwind("border-mono-light-v2-300")}

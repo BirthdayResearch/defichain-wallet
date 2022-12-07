@@ -5,7 +5,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import BigNumber from "bignumber.js";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { StyleProp, ViewStyle } from "react-native";
 import { useState } from "react";
@@ -47,6 +47,7 @@ export function TransactionCard({
   showAmountsBtn = true,
   children,
 }: React.PropsWithChildren<TransactionCardProps>): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       light={
@@ -121,6 +122,7 @@ function SetAmountButton({
   hasBorder,
   disabled,
 }: SetAmountButtonProps): JSX.Element {
+  const { tailwind } = useStyles();
   const decimalPlace = 8;
   let value = amount.toFixed(decimalPlace);
   const [isPressed, setIsPressed] = useState(false);

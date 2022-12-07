@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedTextV2, ThemedTouchableOpacityV2 } from "@components/themed";
 import { translate } from "@translations";
 import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
@@ -14,6 +14,7 @@ export function CloseVaultButton({
   canUseOperations,
   onCloseVaultPressed,
 }: CloseVaultButtonProps): JSX.Element {
+  const { tailwind } = useStyles();
   const isCloseVaultDisabled =
     !canUseOperations ||
     (vaultStatus !== VaultStatus.Empty && vaultStatus !== VaultStatus.Ready);

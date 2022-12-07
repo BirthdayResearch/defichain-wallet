@@ -5,7 +5,7 @@ import {
   DFIUtxoSelector,
   unifiedDFISelector,
 } from "@store/wallet";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { TouchableOpacity, Text, View, Platform } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { ThemedTouchableOpacityV2 } from "@components/themed";
@@ -26,6 +26,7 @@ interface DFIBalaceCardProps {
 export function DFIBalanceCard({
   denominationCurrency,
 }: DFIBalaceCardProps): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const DFIToken = useSelector((state: RootState) =>
     DFITokenSelector(state.wallet)
@@ -122,6 +123,7 @@ export function DFIBalanceCard({
 }
 
 function GetDFIBtn(): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   return (
     <LinearGradient

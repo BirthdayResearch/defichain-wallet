@@ -1,9 +1,10 @@
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { EmptyLPTokenIcon } from "../../Portfolio/assets/EmptyLPTokenIcon";
 
 export function EmptyActivePoolpair(): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       style={tailwind("flex items-center pt-16 px-14 h-full")}

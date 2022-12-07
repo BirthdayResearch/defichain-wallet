@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { ThemedText } from "@components/themed";
@@ -23,6 +23,7 @@ export function InfoSection({
   tokenBTotal,
   testID,
 }: InfoSectionProps): JSX.Element {
+  const { tailwind } = useStyles();
   const pairSymbol =
     pair?.tokenA.displaySymbol !== undefined &&
     pair?.tokenB.displaySymbol !== undefined
@@ -128,6 +129,7 @@ function PoolPairInfoLine({
   usdValue,
   isTitle,
 }: PoolPairInfoLineProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View
       style={tailwind([

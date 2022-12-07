@@ -10,7 +10,7 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { openURL } from "@api/linking";
@@ -117,6 +117,7 @@ const SOCIAL_LINKS: AboutScreenSocialLinks[] = [
 ];
 
 export function AboutScreen(): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<SettingsParamList>>();
   const { hasBetaFeatures } = useFeatureFlagContext();
   const { isLight } = useThemeContext();
@@ -230,6 +231,7 @@ function LinkItemRow({
   onPress,
   iconName,
 }: AboutScreenLinks): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation();
   const handlePress = async (): Promise<void> => {
     if (onPress !== undefined) {
@@ -277,6 +279,7 @@ function SocialIcon({
   url,
   testID,
 }: AboutScreenSocialLinks): JSX.Element {
+  const { tailwind } = useStyles();
   const handlePress = async (): Promise<void> => {
     await openURL(url);
   };
@@ -310,6 +313,7 @@ function AboutLinkItem({
   link: AboutLinks;
   isLast: boolean;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedTouchableListItem
       testID={link.testID}

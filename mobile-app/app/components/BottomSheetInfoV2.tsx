@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { View } from "react-native";
 import { BottomSheetModalV2 } from "./BottomSheetModalV2";
@@ -26,6 +26,7 @@ export function BottomSheetInfoV2({
   snapPoints,
   styledMessage,
 }: BottomSheetInfoV2Props): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <BottomSheetModalV2 // V2 component for close modal x button and rounded edges
       name={name}

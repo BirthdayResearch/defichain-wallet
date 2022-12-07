@@ -1,5 +1,5 @@
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import * as React from "react";
 import ContentLoader, {
   IContentLoaderProps,
@@ -11,6 +11,7 @@ export function MnemonicWordSkeletonLoaderV2(
   props: JSX.IntrinsicAttributes &
     IContentLoaderProps & { children?: React.ReactNode; border: boolean }
 ): JSX.Element {
+  const { getColor, tailwind } = useStyles();
   const { isLight } = useThemeContext();
   const { border, ...otherProps } = props;
   return (

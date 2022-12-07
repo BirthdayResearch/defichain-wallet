@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { NumericFormat as NumberFormat } from "react-number-format";
@@ -25,6 +25,7 @@ export function BidHistoryItem({
   bidAmountInUSD,
   bidBlockTime,
 }: BidHistoryItemProps): JSX.Element {
+  const { tailwind } = useStyles();
   const bidTime = useBidTimeAgo(bidBlockTime);
   const { address } = useWalletContext();
 

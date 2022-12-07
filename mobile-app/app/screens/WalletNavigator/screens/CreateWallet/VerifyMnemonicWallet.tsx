@@ -12,7 +12,7 @@ import {
 import { WalletAlert } from "@components/WalletAlert";
 import { getEnvironment } from "@environment";
 import { StackScreenProps } from "@react-navigation/stack";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { shuffle } from "lodash";
 import { useEffect, useState } from "react";
@@ -35,6 +35,7 @@ export function VerifyMnemonicWallet({
 }: Props): JSX.Element {
   const recoveryWords = route.params.words;
 
+  const { tailwind } = useStyles();
   const [selectedWords, setSelectedWords] = useState<string[]>([
     ...recoveryWords,
   ]);
@@ -181,6 +182,7 @@ function RecoveryWordRow({
   onWordSelect,
   lineNumber,
 }: RecoveryWordItem): JSX.Element {
+  const { tailwind } = useStyles();
   const [selectedWord, setSelectedWord] = useState<string>();
   return (
     <View style={tailwind("mb-5")}>

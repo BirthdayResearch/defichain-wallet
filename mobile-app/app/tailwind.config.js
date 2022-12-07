@@ -1,4 +1,9 @@
 module.exports = {
+  content: {
+    files: [
+      './**/*.{ts,tsx}',
+    ],
+  },
   theme: {
     extend: {
       colors: {
@@ -202,4 +207,5 @@ module.exports = {
       },
     },
   },
-};
+  corePlugins: require('tailwind-rn/unsupported-core-plugins')
+}

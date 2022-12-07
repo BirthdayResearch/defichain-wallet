@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { render } from "@testing-library/react-native";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
@@ -9,6 +9,7 @@ jest.mock("@shared-contexts/ThemeProvider");
 
 describe("Transaction Card", () => {
   it("should match snapshot", async () => {
+    const { tailwind } = useStyles();
     const rendered = render(
       <TransactionCard maxValue={new BigNumber(100)} onChange={() => {}}>
         <ThemedViewV2

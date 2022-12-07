@@ -1,5 +1,5 @@
 import { ThemedIcon, ThemedTextV2, ThemedViewV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { TouchableOpacity } from "react-native";
 
 export function BottomSheetTokenListHeader({
@@ -9,6 +9,7 @@ export function BottomSheetTokenListHeader({
   headerLabel: string;
   onCloseButtonPress: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2 style={tailwind("pt-6 pb-3 rounded-t-xl-v2 border-b-0")}>
       <ThemedViewV2

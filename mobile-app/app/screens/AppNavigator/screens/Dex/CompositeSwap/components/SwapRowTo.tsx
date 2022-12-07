@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { ThemedTextV2 } from "@components/themed";
 import { NumericFormat as NumberFormat } from "react-number-format";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import BigNumber from "bignumber.js";
 import { translate } from "@translations";
 import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2";
@@ -15,6 +15,7 @@ export function InstantSwapRowTo({
   tokenAmount,
   tokenUsdAmount,
 }: InstantSwapRowToProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("w-6/12 mr-2")}>
       <NumberFormat
@@ -48,6 +49,7 @@ interface FutureSwapRowToProps {
 export function FutureSwapRowTo({
   oraclePriceText,
 }: FutureSwapRowToProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("w-1/3")}>
       <ThemedTextV2

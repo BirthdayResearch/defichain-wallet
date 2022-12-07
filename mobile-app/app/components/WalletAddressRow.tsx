@@ -1,11 +1,12 @@
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { View } from "@components";
 import { AddressSelectionButton } from "@screens/AppNavigator/screens/Portfolio/components/AddressSelectionButton";
 import { ThemedView, ThemedText } from "./themed";
 
 export function WalletAddressRow(): JSX.Element {
+  const { tailwind } = useStyles();
   const { address, addressLength } = useWalletContext();
 
   return (

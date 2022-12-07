@@ -5,7 +5,7 @@ import {
   ThemedTextV2,
   ThemedTouchableOpacityV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { InfoTextLinkV2 } from "@components/InfoTextLink";
 import { View } from "@components";
@@ -29,6 +29,7 @@ interface EmptyVaultProps {
 }
 
 export function EmptyVault(props: EmptyVaultProps): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
   const { isLight } = useThemeContext();
   const [bottomSheetScreen, setBottomSheetScreen] = useState<

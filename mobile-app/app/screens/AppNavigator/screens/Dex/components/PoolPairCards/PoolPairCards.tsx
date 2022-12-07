@@ -6,7 +6,7 @@ import {
   ThemedTouchableOpacityV2,
 } from "@components/themed";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { useTokenBestPath } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenBestPath";
 import React, { useEffect, useRef, useState } from "react";
@@ -75,6 +75,7 @@ export function PoolPairCards({
   newPoolsPairs,
   activeButtonGroup,
 }: PoolPairCardProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { isFavouritePoolpair, setFavouritePoolpair } =
     useFavouritePoolpairContext();
   const sortedPairs = sortPoolpairsByFavourite(
@@ -238,6 +239,7 @@ function PoolCard({
   onAdd,
   onRemove,
 }: PoolCardProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { calculatePriceRates } = useTokenBestPath();
   const { getTokenPrice } = useTokenPrice();
   const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet);
@@ -340,6 +342,7 @@ interface AvailablePoolProps {
 export type ActionType = "SET_FAVOURITE" | "UNSET_FAVOURITE";
 
 function AvailablePool(props: AvailablePoolProps): JSX.Element {
+  const { tailwind } = useStyles();
   const toast = useToast();
   const TOAST_DURATION = 2000;
   const showToast = (type: ActionType): void => {
@@ -432,6 +435,7 @@ interface YourPoolPairProps {
 }
 
 function YourPoolPair(props: YourPoolPairProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <>
       <View
@@ -545,6 +549,7 @@ function TopLiquiditySection({
   onPress: (id: string) => void;
   onActionPress: (data: PoolPairData) => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <DexScrollable
       testID="dex_top_liquidity"
@@ -576,6 +581,7 @@ function NewPoolsSection({
   onPress: (id: string) => void;
   onActionPress: (data: PoolPairData, info: WalletToken) => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <DexScrollable
       testID="dex_new_pools"

@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js";
 import { useEffect, useState } from "react";
 import { ThemedIcon, ThemedTextV2, ThemedViewV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { View } from "@components";
 import { SymbolIcon } from "@components/SymbolIcon";
 import { NumericFormat as NumberFormat } from "react-number-format";
@@ -45,6 +45,7 @@ export function VaultDetailCollateralsRow({
   onAddPress: (collateralItem: CollateralItem) => void;
   onRemovePress: (collateralItem: CollateralItem) => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const [hideDFIStaticCard, setHideDFIStaticCard] = useState<boolean>(false);
   const [isAffectedVault, setIsAffectedVault] = useState<boolean>(false); // Affected Vault means having DUSD in both collaterals and loans
 
@@ -149,6 +150,7 @@ function LiquidatedVaultCollateralCard({
 }: {
   displaySymbol: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       light={tailwind("bg-mono-light-v2-00")}
@@ -176,6 +178,7 @@ function CollateralCardDfi({
 }: {
   onDFIAdd: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       light={tailwind("bg-mono-light-v2-00")}
@@ -213,6 +216,7 @@ function CollateralCardDfi({
 }
 
 function CollateralCard(props: CollateralCardProps): JSX.Element {
+  const { tailwind } = useStyles();
   const prices = getCollateralPrice(
     props.amount,
     props.collateralItem,
@@ -315,6 +319,7 @@ function InfoText({
   info: BottomSheetAlertInfoV2;
   isAffectedVault: boolean;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("flex-row mx-5 items-center")}>
       <ThemedTextV2

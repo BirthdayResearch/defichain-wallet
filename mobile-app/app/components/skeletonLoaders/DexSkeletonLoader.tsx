@@ -5,7 +5,7 @@ import ContentLoader, {
   Rect,
 } from "react-content-loader/native";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedViewV2 } from "../themed";
 
 export function DexSkeletonLoader(
@@ -13,6 +13,7 @@ export function DexSkeletonLoader(
     IContentLoaderProps & { children?: React.ReactNode }
 ): JSX.Element {
   const { isLight } = useThemeContext();
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       style={tailwind("px-5 py-4 mb-2 rounded-lg-v2")}

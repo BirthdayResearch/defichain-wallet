@@ -2,7 +2,7 @@ import { View } from "@components";
 import { TextSkeletonLoader } from "@components/TextSkeletonLoader";
 import { ThemedIcon, ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { RootState } from "@store";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { NumericFormat as NumberFormat } from "react-number-format";
@@ -41,6 +41,7 @@ interface PortfolioButtonGroup {
 }
 
 export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
   const { hasFetchedVaultsData } = useSelector(
     (state: RootState) => state.loans
@@ -198,6 +199,7 @@ function USDValueRow(props: {
   isAddition: boolean;
   denominationCurrency?: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   if (props.isLoading) {
     return (
       <View style={tailwind("mt-1")}>
@@ -260,6 +262,7 @@ function USDValueRow(props: {
 }
 
 function CurrencySwitcher({ currency }: { currency: string }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       style={tailwind("py-1 px-2 rounded-lg border-0.5 self-center", {

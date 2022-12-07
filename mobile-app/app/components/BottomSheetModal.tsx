@@ -1,5 +1,5 @@
 import { ReactElement, useCallback, useRef, useEffect } from "react";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { View, Platform, ViewProps, StyleProp } from "react-native";
 import {
   BottomSheetBackgroundProps,
@@ -23,6 +23,7 @@ type Props = ThemedProps &
   };
 
 export function BottomSheetModal(props: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const bottomSheetModalRef = useRef<Modal>(null);
   const { dismiss } = useBottomSheetModal();
   const { isLight } = useThemeContext();

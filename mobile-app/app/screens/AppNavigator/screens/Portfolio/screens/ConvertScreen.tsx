@@ -18,7 +18,7 @@ import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { RootState } from "@store";
 import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { hasTxQueued } from "@store/transaction_queue";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { tokensSelector } from "@store/wallet";
@@ -54,6 +54,7 @@ export enum ConvertTokenUnit {
 }
 
 export function ConvertScreen(props: Props): JSX.Element {
+  const { tailwind, getColor } = useStyles();
   const { getTokenPrice } = useTokenPrice();
   const { isLight } = useThemeContext();
   const client = useWhaleApiClient();
@@ -444,6 +445,7 @@ function getDFIBalances(
 }
 
 function ConvertToggleButton(props: { onPress: () => void }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedTouchableOpacityV2
       style={tailwind("border-0 items-center")}
@@ -472,6 +474,7 @@ function ConversionResultCard(props: {
   oriTargetAmount: string;
   totalTargetAmount: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       style={tailwind("flex-col w-full p-5 mt-6 rounded-lg-v2 border-0.5")}
@@ -581,6 +584,7 @@ function FixedTokenButton(props: {
   testID: string;
   unit: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const Icon = getNativeIcon(props.symbol);
   return (
     <ThemedTouchableOpacityV2

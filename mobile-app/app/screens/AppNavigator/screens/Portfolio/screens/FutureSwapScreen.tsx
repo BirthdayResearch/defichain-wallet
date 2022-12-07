@@ -8,7 +8,7 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { translate } from "@translations";
 import { useCallback, useEffect } from "react";
 import { NumericFormat as NumberFormat } from "react-number-format";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { batch, useSelector } from "react-redux";
 import { RootState } from "@store";
 import {
@@ -35,6 +35,7 @@ import { PortfolioParamList } from "../PortfolioNavigator";
 type Props = StackScreenProps<PortfolioParamList, "FutureSwapScreen">;
 
 export function FutureSwapScreen({ navigation }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const isFocused = useIsFocused();
   const dispatch = useAppDispatch();
   const whaleRpcClient = useWhaleRpcClient();
@@ -179,6 +180,7 @@ function ExecutionBlockInfo({
   transactionDate: string;
   timeRemaining: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const { getBlocksCountdownUrl } = useDeFiScanContext();
   return (
     <ThemedTouchableOpacityV2
@@ -228,6 +230,7 @@ function ExecutionBlockInfo({
 }
 
 function FooterNote(): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("px-10 py-12 justify-center")}>
       <ThemedTextV2

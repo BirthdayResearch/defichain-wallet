@@ -1,6 +1,6 @@
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedActivityIndicator } from "@components/themed";
 import { Text } from "./Text";
 
@@ -18,6 +18,7 @@ interface ButtonProps extends React.PropsWithChildren<TouchableOpacityProps> {
 }
 
 export function Button(props: ButtonProps): JSX.Element {
+  const { tailwind } = useStyles();
   const {
     label,
     submittingLabel,

@@ -12,7 +12,7 @@ import {
   useScrollToTop,
 } from "@react-navigation/native";
 import { RootState } from "@store";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import dayjs from "dayjs";
 import { useEffect, useRef, useState } from "react";
@@ -48,6 +48,7 @@ export function formatBlockTime(date: number): string {
 }
 
 export function TransactionsScreen(): JSX.Element {
+  const { tailwind } = useStyles();
   const client = useWhaleApiClient();
   const { address } = useWalletContext();
   const { isLight } = useThemeContext();
@@ -159,6 +160,7 @@ function TransactionRow({
   item: VMTransaction;
   index: number;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const { color, iconName, amount, desc, medianTime, token } = item;
 
   const rowId = `transaction_row_${index}`;
@@ -236,6 +238,7 @@ function TransactionRow({
 }
 
 function LoadMore({ onPress }: { onPress: () => void }): JSX.Element | null {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("flex-1 items-center justify-center w-full m-1")}>
       <TouchableOpacity

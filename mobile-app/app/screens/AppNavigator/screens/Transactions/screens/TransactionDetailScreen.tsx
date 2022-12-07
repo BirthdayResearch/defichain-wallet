@@ -7,7 +7,7 @@ import {
 } from "@components/themed";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { StackScreenProps } from "@react-navigation/stack";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { useCallback } from "react";
 import { Linking, View } from "react-native";
@@ -19,6 +19,7 @@ type Props = StackScreenProps<PortfolioParamList, "TransactionDetailScreen">;
 export function TransactionDetailScreen(props: Props): JSX.Element {
   const { tx } = props.route.params;
   const { getTransactionUrl } = useDeFiScanContext();
+  const { tailwind } = useStyles();
 
   function RenderRow({ lhs, rhs }: { lhs: string; rhs: string }): JSX.Element {
     return (

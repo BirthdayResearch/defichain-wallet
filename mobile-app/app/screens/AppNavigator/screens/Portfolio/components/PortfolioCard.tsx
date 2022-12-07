@@ -1,7 +1,7 @@
 import { ThemedTouchableOpacityV2 } from "@components/themed";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { View } from "@components";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { RootState } from "@store";
 import { useSelector } from "react-redux";
 import { Platform } from "react-native";
@@ -37,6 +37,7 @@ export function PortfolioCard({
   buttonGroupOptions,
   denominationCurrency,
 }: PortfolioCardProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
 
   // return empty portfolio if no DFI and other tokens
@@ -86,6 +87,7 @@ function PortfolioItemRow({
   onPress: () => void;
   denominationCurrency: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const testID = `portfolio_row_${token.id}`;
 
   return (

@@ -4,7 +4,7 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { Image, View } from "react-native";
 import EmptyCollateral from "@assets/images/loans/empty_collateral.png";
 import LiquidatedVault from "@assets/images/loans/liquidated_vault.png";
@@ -36,6 +36,7 @@ export function VaultBanner({
   vaultType?: string;
   onCardPress?: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const { getVaultsUrl } = useDeFiScanContext();
   return (
     <ThemedTouchableOpacityV2

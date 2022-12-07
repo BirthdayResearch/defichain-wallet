@@ -1,6 +1,6 @@
 import { View } from "@components";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { memo } from "react";
 import { Platform } from "react-native";
@@ -14,6 +14,7 @@ export const BottomSheetModalInfo = (
   props: BottomSheetProps
 ): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
+    const { tailwind } = useStyles();
     return (
       <ThemedViewV2
         style={tailwind(

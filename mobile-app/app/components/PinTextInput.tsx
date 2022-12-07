@@ -4,7 +4,7 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from "react-native-confirmation-code-field";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 
 export interface PinTextInputItem {
   cellCount: number;
@@ -25,6 +25,7 @@ export function PinTextInput({
   value,
   onChange,
 }: PinTextInputItem): JSX.Element {
+  const { tailwind } = useStyles();
   const ref = useBlurOnFulfill({ value, cellCount });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,

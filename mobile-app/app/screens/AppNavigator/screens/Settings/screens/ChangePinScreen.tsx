@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { View } from "@components/index";
 import { PinTextInputV2 } from "@components/PinTextInputV2";
 import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { LearnMoreCTA } from "@screens/WalletNavigator/screens/components/LearnModeCTA";
 import { SettingsParamList } from "../SettingsNavigator";
@@ -12,6 +12,7 @@ import { SettingsParamList } from "../SettingsNavigator";
 type Props = StackScreenProps<SettingsParamList, "ChangePinScreen">;
 
 export function ChangePinScreen({ route }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<SettingsParamList>>();
   const { pinLength, words } = route.params;
   const [newPin, setNewPin] = useState("");

@@ -7,7 +7,7 @@ import {
   ThemedTextV2,
   ThemedTouchableOpacityV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import {
   LoanVaultLiquidationBatch,
@@ -37,6 +37,7 @@ export interface BatchCardProps {
 }
 
 export function BatchCard(props: BatchCardProps): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>();
   const { address } = useWalletContext();
   const { batch, testID, vault, collateralTokenSymbols } = props;
@@ -203,6 +204,7 @@ export const BidInfo = memo(
     isOutBid: boolean;
     testID: string;
   }): JSX.Element => {
+    const { tailwind } = useStyles();
     const { isLight } = useThemeContext();
     const { testId, title, icon, color } = useMemo(() => {
       if (isHighestBidder) {
@@ -262,6 +264,7 @@ export const AuctionBidStatus = memo(
     type: AuctionBidStatusType;
     testID: string;
   }): JSX.Element => {
+    const { tailwind } = useStyles();
     return (
       <View style={tailwind("flex-row w-full items-center justify-between")}>
         <View style={tailwind("flex flex-row items-center justify-between")}>

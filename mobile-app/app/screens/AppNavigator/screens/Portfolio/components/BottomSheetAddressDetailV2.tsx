@@ -9,7 +9,7 @@ import {
 import { translate } from "@translations";
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { Platform } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { useToast } from "react-native-toast-notifications";
 import { debounce } from "lodash";
@@ -58,6 +58,7 @@ export const BottomSheetAddressDetailV2 = (
   props: BottomSheetAddressDetailProps
 ): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
+    const { tailwind } = useStyles();
     const { isLight } = useThemeContext();
     const flatListComponents = {
       mobile: BottomSheetFlatList,
@@ -391,6 +392,7 @@ function ActiveAddress({
   address: string;
   onPress: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("flex-row w-full mt-1 items-center justify-center")}>
       <ThemedTouchableOpacityV2
@@ -414,6 +416,7 @@ function WalletCounterDisplay({
 }: {
   addressLength: number;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedText
       light={tailwind("text-mono-light-v2-500")}
@@ -431,6 +434,7 @@ function DiscoverWalletAddress({
 }: {
   onPress: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedTouchableOpacityV2
       onPress={onPress}

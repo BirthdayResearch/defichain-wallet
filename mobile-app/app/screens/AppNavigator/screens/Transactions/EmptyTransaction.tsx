@@ -1,7 +1,7 @@
 import { NavigationProp } from "@react-navigation/native";
 import { RefreshControl, Image, View } from "react-native";
 import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import ImageNoTransaction from "@assets/images/portfolio/no_transaction.png";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
@@ -13,6 +13,7 @@ interface EmptyTransactionProps {
 }
 
 export function EmptyTransaction(props: EmptyTransactionProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedScrollViewV2
       refreshControl={

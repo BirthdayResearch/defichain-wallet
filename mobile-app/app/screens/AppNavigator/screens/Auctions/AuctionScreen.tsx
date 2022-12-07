@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import {
   ThemedScrollViewV2,
   ThemedTextV2,
@@ -34,6 +34,7 @@ import { AuctionFilterPillGroup } from "./components/AuctionFilterPillGroup";
 type Props = StackScreenProps<AuctionsParamList, "AuctionScreen">;
 
 export function AuctionScreen({ navigation }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const { hasFetchAuctionsData } = useSelector(
     (state: RootState) => state.auctions
   );

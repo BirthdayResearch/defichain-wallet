@@ -11,7 +11,7 @@ import {
   ThemedScrollViewV2,
   ThemedTouchableOpacityV2,
 } from "@components/themed";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import {
   NavigationProp,
@@ -51,6 +51,7 @@ type BatchDetailScreenProps = StackScreenProps<
 export function AuctionDetailScreen(
   props: BatchDetailScreenProps
 ): JSX.Element {
+  const { tailwind, getColor } = useStyles();
   const { batch: batchFromParam, vault } = props.route.params;
   const [batch, setBatch] = useState<LoanVaultLiquidationBatch>(batchFromParam);
 

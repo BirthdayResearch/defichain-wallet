@@ -3,7 +3,7 @@ import {
   LoanVaultActive,
   LoanVaultTokenAmount,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import * as React from "react";
 import { memo } from "react";
 import { ListRenderItemInfo, Platform } from "react-native";
@@ -25,6 +25,7 @@ export const BottomSheetPayBackList = ({
   isLight: boolean;
 }): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
+    const { tailwind } = useStyles();
     const flatListComponents = {
       mobile: BottomSheetFlatList,
       web: ThemedFlatListV2,

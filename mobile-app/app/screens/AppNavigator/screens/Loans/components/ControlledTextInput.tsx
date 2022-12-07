@@ -1,6 +1,6 @@
 import { ThemedProps, ThemedTextInputV2 } from "@components/themed";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { Control, Controller } from "react-hook-form";
 import { TextInputProps } from "react-native";
 
@@ -19,6 +19,7 @@ interface Props {
 }
 
 export function ControlledTextInput(props: Props): JSX.Element {
+  const { getColor, tailwind } = useStyles();
   const { isLight } = useThemeContext();
 
   return (

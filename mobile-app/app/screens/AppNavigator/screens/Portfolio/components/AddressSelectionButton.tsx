@@ -3,7 +3,7 @@ import {
   ThemedTouchableOpacity,
   ThemedView,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { Platform } from "react-native";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { RandomAvatar } from "./RandomAvatar";
@@ -19,6 +19,7 @@ interface AddressSelectionButtonProps {
 export function AddressSelectionButton(
   props: AddressSelectionButtonProps
 ): JSX.Element {
+  const { tailwind } = useStyles();
   const addressLabel = useAddressLabel(props.address);
   return (
     <ThemedTouchableOpacity

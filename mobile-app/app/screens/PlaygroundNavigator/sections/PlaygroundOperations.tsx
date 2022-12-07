@@ -13,10 +13,11 @@ import {
 } from "@screens/PlaygroundNavigator/components/PlaygroundStatus";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { ThemedViewV2, ThemedIcon } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { PlaygroundAction } from "../components/PlaygroundAction";
 
 export function PlaygroundOperations(): JSX.Element {
+  const { tailwind } = useStyles();
   const { wallet } = useWalletContext();
   const client = useWhaleApiClient();
   const dispatch = useAppDispatch();

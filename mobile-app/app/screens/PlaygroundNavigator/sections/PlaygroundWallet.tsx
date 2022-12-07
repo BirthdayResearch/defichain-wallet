@@ -4,13 +4,14 @@ import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import { useWalletPersistenceContext } from "@shared-contexts/WalletPersistenceContext";
 import { View } from "@components/index";
 import { ThemedViewV2, ThemedIcon } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { PlaygroundStatusType } from "@screens/PlaygroundNavigator/components/PlaygroundStatus";
 import { PlaygroundTitle } from "../components/PlaygroundTitle";
 import { PlaygroundAction } from "../components/PlaygroundAction";
 import { MnemonicEncrypted, MnemonicUnprotected } from "../../../api/wallet";
 
 export function PlaygroundWallet(): JSX.Element | null {
+  const { tailwind } = useStyles();
   const { wallets, clearWallets, setWallet } = useWalletPersistenceContext();
   const { network, updateNetwork } = useNetworkContext();
 

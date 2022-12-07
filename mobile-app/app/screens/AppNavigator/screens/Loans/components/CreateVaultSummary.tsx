@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 import { ThemedViewV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { translate } from "@translations";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
@@ -25,6 +25,7 @@ export function CreateVaultSummary({
   convertAmount,
   conversionStatus,
 }: CreateVaultSummaryProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { getTokenPrice } = useTokenPrice();
 
   return (
@@ -91,6 +92,7 @@ function ConvertSummary(props: {
   convertAmount: BigNumber;
   conversionStatus: ConversionStatus;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const isConverting = props.conversionStatus === ConversionStatus.Processing;
 
   return (

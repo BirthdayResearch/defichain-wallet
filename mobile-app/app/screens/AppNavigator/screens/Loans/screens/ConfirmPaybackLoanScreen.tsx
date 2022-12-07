@@ -4,7 +4,7 @@ import {
   ThemedTextV2,
   ThemedViewV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { Dispatch, useEffect, useState } from "react";
@@ -49,6 +49,7 @@ export function ConfirmPaybackLoanScreen({
     isPaybackDUSDUsingCollateral,
     loanTokenActivePriceInUSD,
   } = route.params;
+  const { tailwind } = useStyles();
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
   );

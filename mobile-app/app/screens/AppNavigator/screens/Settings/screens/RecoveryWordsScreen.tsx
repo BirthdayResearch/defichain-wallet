@@ -4,7 +4,7 @@ import {
   ThemedViewV2,
   ThemedTextV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { SettingsParamList } from "../SettingsNavigator";
 
@@ -12,6 +12,7 @@ type Props = StackScreenProps<SettingsParamList, "RecoveryWordsScreen">;
 
 export function RecoveryWordsScreen({ route }: Props): JSX.Element {
   const { words } = route.params;
+  const { tailwind } = useStyles();
   return (
     <ThemedScrollViewV2
       contentContainerStyle={tailwind("pt-8 px-5 pb-16")}
@@ -52,6 +53,7 @@ function RecoveryWordRow(props: {
   word: string;
   border: boolean;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       dark={tailwind("border-mono-dark-v2-300")}

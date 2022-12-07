@@ -3,7 +3,7 @@ import { TouchableOpacity, Platform, StatusBar } from "react-native";
 import Popover, { PopoverPlacement } from "react-native-popover-view";
 import { translate } from "@translations";
 import { ThemedIcon, ThemedProps, ThemedText } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 
 interface IconTooltipProps extends ThemedProps {
   size?: number;
@@ -13,6 +13,7 @@ export function IconTooltip(props: IconTooltipProps): JSX.Element {
   const offsetAndroidHeight =
     StatusBar.currentHeight !== undefined ? StatusBar.currentHeight * -1 : 0;
   const [showPopover, setShowPopover] = useState(false);
+  const { tailwind } = useStyles();
 
   // to fix memory leak error
   useEffect(() => {

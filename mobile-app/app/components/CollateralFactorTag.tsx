@@ -1,19 +1,21 @@
 import { StyleProp, TextStyle, ViewStyle } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import BigNumber from "bignumber.js";
 import { ThemedTextV2, ThemedViewV2 } from "./themed";
 
-export function CollateralFactorTag({
-  factor,
-  containerStyle = tailwind(
-    "h-5 flex flex-row items-center px-2 rounded border-0.5"
-  ),
-  textStyle = tailwind("text-xs font-semibold-v2"),
-}: {
+export function CollateralFactorTag(props: {
   factor?: string;
   containerStyle?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
 }): JSX.Element | null {
+  const { tailwind } = useStyles();
+  const {
+    factor,
+    containerStyle = tailwind(
+      "h-5 flex flex-row items-center px-2 rounded border-0.5"
+    ),
+    textStyle = tailwind("text-xs font-semibold-v2"),
+  } = props;
   const DEFAULT_FACTOR = new BigNumber(1);
   return factor !== undefined && !DEFAULT_FACTOR.isEqualTo(factor) ? (
     <ThemedViewV2

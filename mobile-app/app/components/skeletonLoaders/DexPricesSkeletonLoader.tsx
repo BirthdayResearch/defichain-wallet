@@ -4,7 +4,7 @@ import ContentLoader, {
   Rect,
 } from "react-content-loader/native";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedViewV2 } from "@components/themed";
 
 export function DexPricesSkeletonLoader(
@@ -12,6 +12,7 @@ export function DexPricesSkeletonLoader(
     IContentLoaderProps & { children?: React.ReactNode }
 ): JSX.Element {
   const { isLight } = useThemeContext();
+  const { tailwind } = useStyles();
   return (
     <ThemedViewV2
       style={tailwind("w-full")}

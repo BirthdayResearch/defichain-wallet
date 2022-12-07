@@ -1,7 +1,7 @@
 import { TextProps, View } from "@components";
 import { ThemedProps, ThemedText } from "@components/themed";
 import { TokenIconGroup } from "@components/TokenIconGroup";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 
@@ -20,6 +20,7 @@ interface VaultInfoProps {
 }
 
 export function VaultInfo(props: VaultInfoProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("flex-row items-center w-full my-1")}>
       <View style={tailwind("w-6/12")}>

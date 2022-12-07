@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { StyleProp, TextStyle, View } from "react-native";
 import { ThemedIcon, ThemedText } from "./themed";
@@ -19,6 +19,7 @@ export function BottomSheetInfo({
   alertInfo,
   infoIconStyle,
 }: BottomSheetInfoProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <BottomSheetModal
       name={name}

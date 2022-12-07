@@ -1,6 +1,6 @@
 import { Text, Platform } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { OceanInterface } from "@components/OceanInterface/OceanInterface";
 import {
@@ -33,13 +33,17 @@ const getTabBarLabel = ({
   focused: boolean;
   color: string;
   title: string;
-}): JSX.Element => (
-  <Text style={{ color, ...tailwind("font-normal-v2 text-xs") }}>
-    {focused ? title : ""}
-  </Text>
-);
+}): JSX.Element => {
+  const { tailwind } = useStyles();
+  return (
+    <Text style={{ color, ...tailwind("font-normal-v2 text-xs") }}>
+      {focused ? title : ""}
+    </Text>
+  );
+};
 
 export function BottomTabNavigator(): JSX.Element {
+  const { getColor, tailwind } = useStyles();
   const { isLight } = useThemeContext();
   return (
     <>

@@ -1,6 +1,6 @@
 import { ThemedScrollViewV2 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { useEffect, useState } from "react";
 import { Platform, View } from "react-native";
 import { openURL } from "@api/linking";
@@ -56,6 +56,7 @@ import { LoanParamList } from "../LoansNavigator";
 type Props = StackScreenProps<LoanParamList, "VaultDetailScreen">;
 
 export function VaultDetailScreen({ route, navigation }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
   const { vaultId } = route.params;
   const [vault, setVault] = useState<LoanVault>();

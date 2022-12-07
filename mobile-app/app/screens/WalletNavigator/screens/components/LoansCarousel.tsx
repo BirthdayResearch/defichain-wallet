@@ -16,7 +16,7 @@ import ImageCLight from "@assets/images/loans/loans_3_light.png";
 import ImageDLight from "@assets/images/loans/loans_4_light.png";
 import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { CarouselPaginationWithNextButton } from "@screens/WalletNavigator/screens/components/CarouselPagination";
 import React from "react";
 import { translate } from "@translations";
@@ -71,6 +71,7 @@ export function ImageSlide({
   title,
   subtitle,
 }: CarouselImage): JSX.Element {
+  const { getColor, tailwind } = useStyles();
   const { isLight } = useThemeContext();
   return (
     <View style={tailwind("items-center justify-center px-15 py-4")}>
@@ -95,6 +96,7 @@ export function LoansCarousel({
 }: {
   dismissModal: () => void;
 }): JSX.Element {
+  const { getColor, tailwind } = useStyles();
   const { isLight } = useThemeContext();
   const bottomSheetComponents = {
     mobile: BottomSheetScrollView,

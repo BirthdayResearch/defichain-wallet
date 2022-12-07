@@ -18,7 +18,7 @@ import {
   setUserPreferences,
   userPreferences,
 } from "@store/userPreferences";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { createRef, useCallback, useEffect, useState } from "react";
 import {
@@ -63,6 +63,7 @@ export enum ButtonGroupTabKey {
 
 export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   const { selectedAddress, onAddressSelect } = route.params;
+  const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
   const { network } = useNetworkContext();
   const dispatch = useAppDispatch();
@@ -520,6 +521,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
 
 function EmptyDisplay({ onPress }: { onPress: () => void }): JSX.Element {
   const { isLight } = useThemeContext();
+  const { tailwind } = useStyles();
   return (
     <View
       style={tailwind("px-5 text-center mt-10")}
@@ -561,6 +563,7 @@ export function DiscoverWalletAddressV2({
 }: {
   size?: number;
 }): JSX.Element {
+  const { tailwind, getColor } = useStyles();
   const { discoverWalletAddresses } = useWalletContext();
   const { isLight } = useThemeContext();
   return (

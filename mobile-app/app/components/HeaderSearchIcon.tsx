@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import {
   StyleProp,
   TouchableOpacity,
@@ -13,6 +13,7 @@ interface HeaderSearchIconProps {
 }
 
 export function HeaderSearchIcon(props: HeaderSearchIconProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <TouchableOpacity
       onPress={props.onPress}

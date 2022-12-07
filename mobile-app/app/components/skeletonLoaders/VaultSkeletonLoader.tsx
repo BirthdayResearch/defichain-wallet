@@ -4,7 +4,7 @@ import ContentLoader, {
   Rect,
 } from "react-content-loader/native";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedView } from "../themed";
 
 type VaultSkeletonLoaderProps = JSX.IntrinsicAttributes &
@@ -14,6 +14,7 @@ export function VaultSkeletonLoader(
   props: VaultSkeletonLoaderProps
 ): JSX.Element {
   const { isLight } = useThemeContext();
+  const { tailwind } = useStyles();
   return (
     <ThemedView
       dark={tailwind("bg-gray-800 border border-gray-700")}

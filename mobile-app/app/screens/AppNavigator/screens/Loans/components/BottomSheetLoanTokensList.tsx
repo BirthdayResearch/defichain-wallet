@@ -6,7 +6,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import * as React from "react";
 import { memo } from "react";
@@ -31,6 +31,7 @@ export const BottomSheetLoanTokensList = ({
   isLight: boolean;
 }): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
+    const { tailwind } = useStyles();
     const searchRef = React.useRef<TextInput>();
     const [searchString, setSearchString] = React.useState("");
     const [isSearchFocus, setIsSearchFocus] = React.useState(false);

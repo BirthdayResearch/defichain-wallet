@@ -1,7 +1,7 @@
 import { useServiceProviderContext } from "@contexts/StoreServiceProvider";
 import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import { RootState } from "@store";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import {
   Platform,
@@ -23,6 +23,7 @@ export function HeaderNetworkStatus({
   testID?: string;
   containerStyle?: StyleProp<ViewStyle>;
 }): JSX.Element {
+  const { tailwind, getColor } = useStyles();
   const { network } = useNetworkContext();
   const { isCustomUrl } = useServiceProviderContext();
   const { connected } = useSelector((state: RootState) => state.block);

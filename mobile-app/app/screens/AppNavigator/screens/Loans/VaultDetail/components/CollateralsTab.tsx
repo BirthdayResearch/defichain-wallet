@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 import { ThemedText, ThemedView } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { View } from "@components";
 import { SymbolIcon } from "@components/SymbolIcon";
 import { translate } from "@translations";
@@ -24,6 +24,7 @@ interface CollateralCardProps {
 }
 
 export function CollateralsTab({ vault }: { vault: LoanVault }): JSX.Element {
+  const { tailwind } = useStyles();
   const collateralTokens = useSelector(
     (state: RootState) => state.loans.collateralTokens
   );
@@ -73,6 +74,7 @@ function LiquidatedVaultCollateralCard({
 }: {
   displaySymbol: string;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedView
       light={tailwind("bg-white border-gray-200")}
@@ -96,6 +98,7 @@ function LiquidatedVaultCollateralCard({
 }
 
 function CollateralCard(props: CollateralCardProps): JSX.Element {
+  const { tailwind } = useStyles();
   const prices = getCollateralPrice(
     props.amount,
     props.collateralItem,
@@ -173,6 +176,7 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
 }
 
 function CardLabel(props: { text: string }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedText
       light={tailwind("text-gray-500")}

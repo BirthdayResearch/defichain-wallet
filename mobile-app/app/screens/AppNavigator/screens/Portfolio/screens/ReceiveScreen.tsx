@@ -10,7 +10,7 @@ import {
 } from "@components/themed";
 import { useToast } from "react-native-toast-notifications";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import {
   NativeLoggingProps,
@@ -32,6 +32,7 @@ export async function onShare(
 }
 
 export function ReceiveScreen(): JSX.Element {
+  const { tailwind } = useStyles();
   const logger = useLogger();
   const { address } = useWalletContext();
   const [showToast, setShowToast] = useState(false);

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { translate } from "@translations";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedIcon, ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { View, TouchableOpacity, Platform } from "react-native";
@@ -34,6 +34,7 @@ export function TransactionError({
   errMsg,
   onClose,
 }: TransactionErrorProps): JSX.Element {
+  const { tailwind } = useStyles();
   const logger = useLogger();
   const [expand, setExpand] = useState(false);
   const [canExpand, setCanExpand] = useState(false);

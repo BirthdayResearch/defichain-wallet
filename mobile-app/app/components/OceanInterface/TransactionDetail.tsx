@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { openURL } from "@api/linking";
 import {
@@ -29,6 +29,7 @@ export function TransactionDetail({
   title,
   oceanStatusCode,
 }: TransactionDetailProps): JSX.Element {
+  const { tailwind } = useStyles();
   title = title ?? translate("screens/OceanInterface", "Broadcasting...");
 
   return (

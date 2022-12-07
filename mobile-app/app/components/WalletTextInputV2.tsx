@@ -18,7 +18,7 @@ import {
   ThemedSectionTitleV2,
   ThemedTextInputV2,
 } from "@components/themed";
-import { getColor, tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { MaterialIcons } from "@expo/vector-icons";
 
 type WalletTextInputProps = React.PropsWithChildren<TextInputProps> &
@@ -51,6 +51,7 @@ interface IWalletTextInputProps {
 
 export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(
   (props: WalletTextInputProps, ref: React.Ref<any>): JSX.Element => {
+    const { tailwind, getColor } = useStyles();
     const [isFocus, setIsFocus] = useState(false);
     const {
       title,
@@ -201,6 +202,7 @@ export function ClearButtonV2(props: {
   testID?: string;
   iconThemedProps?: ThemedProps;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <TouchableOpacity
       testID={props.testID}

@@ -1,5 +1,5 @@
 import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import {
   ImageBackground,
@@ -31,6 +31,7 @@ import { useNetworkContext } from "@shared-contexts/NetworkContext";
 type Props = StackScreenProps<WalletParamList, "WalletCreateRestoreSuccess">;
 
 export function WalletCreateRestoreSuccess({ route }: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const { isWalletRestored, data } = route.params;
   const { network } = useNetworkContext();
   const { isLight } = useThemeContext();

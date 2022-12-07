@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { useSelector } from "react-redux";
 import BigNumber from "bignumber.js";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import {
   LoanToken,
@@ -53,6 +53,7 @@ export interface VaultCardProps extends React.ComponentProps<any> {
 }
 
 export function VaultCard(props: VaultCardProps): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
   const vault = props.vault as LoanVaultActive;
   const vaultState = useVaultStatus(

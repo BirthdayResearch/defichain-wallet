@@ -4,7 +4,7 @@ import {
   ThemedTouchableOpacityV2,
 } from "@components/themed";
 import { getNativeIcon } from "@components/icons/assets";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 
 export enum TokenDropdownButtonStatus {
@@ -20,6 +20,7 @@ export function TokenDropdownButton(props: {
   onPress?: () => void;
   status: TokenDropdownButtonStatus;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const Icon =
     props.symbol !== undefined ? getNativeIcon(props.symbol) : undefined;
   return (

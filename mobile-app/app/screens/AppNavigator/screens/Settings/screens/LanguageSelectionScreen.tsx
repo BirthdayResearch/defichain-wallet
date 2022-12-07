@@ -4,7 +4,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { getAppLanguages, translate } from "@translations";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import {
   CommonActions,
   NavigationProp,
@@ -15,6 +15,7 @@ import { RowLanguageItem } from "../components/RowLanguageItem";
 import { SettingsParamList } from "../SettingsNavigator";
 
 export function LanguageSelectionScreen(): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<SettingsParamList>>();
   const languages = getAppLanguages();
 

@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ActiveUSDValue } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValue";
 import { ThemedProps, ThemedText, ThemedView } from "./themed";
 import { BottomSheetAlertInfo, BottomSheetInfo } from "./BottomSheetInfo";
@@ -39,6 +39,7 @@ export interface NumberRowElement {
 }
 
 export function NumberRow(props: INumberRowProps): JSX.Element {
+  const { tailwind } = useStyles();
   const rhsStyle = [
     tailwind("text-sm text-right"),
     props.textStyle,

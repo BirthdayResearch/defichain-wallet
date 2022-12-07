@@ -1,6 +1,6 @@
 import { StyleProp, TextStyle, View, ViewProps, Text } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedProps, ThemedView, ThemedText } from "@components/themed";
 import {
   BottomSheetAlertInfo,
@@ -29,6 +29,7 @@ export interface NumberRowElement {
 }
 
 export function NumberRowWithConversion(props: INumberRowProps): JSX.Element {
+  const { tailwind } = useStyles();
   const rhsStyle = [
     tailwind("text-sm text-right w-full"),
     props.textStyle,

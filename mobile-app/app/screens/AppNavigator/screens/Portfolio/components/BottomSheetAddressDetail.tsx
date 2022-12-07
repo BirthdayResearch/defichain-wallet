@@ -9,7 +9,7 @@ import {
 import { translate } from "@translations";
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { Platform, TouchableOpacity } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { openURL } from "@api/linking";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { IconButton } from "@components/IconButton";
@@ -58,6 +58,7 @@ export const BottomSheetAddressDetail = (
   props: BottomSheetAddressDetailProps
 ): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
+    const { tailwind } = useStyles();
     const { isLight } = useThemeContext();
     const flatListComponents = {
       mobile: BottomSheetFlatList,
@@ -387,6 +388,7 @@ function ActiveAddress({
   address: string;
   onPress: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   const { getAddressUrl } = useDeFiScanContext();
   return (
     <View style={tailwind("flex-row items-center")}>
@@ -431,6 +433,7 @@ function AddressDetailAction({
   onReceivePress: () => void;
   onTransactionsButtonPress: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View style={tailwind("flex flex-row justify-center")}>
       <IconButton
@@ -461,6 +464,7 @@ function WalletCounterDisplay({
 }: {
   addressLength: number;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedText
       light={tailwind("text-gray-400")}
@@ -482,6 +486,7 @@ function DiscoverWalletAddress({
 }: {
   onPress: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <TouchableOpacity onPress={onPress} testID="discover_wallet_addresses">
       <ThemedIcon

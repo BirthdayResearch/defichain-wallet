@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import {
   ThemedIcon,
   ThemedTextV2,
@@ -24,6 +24,7 @@ export function LoansTokensSortRow(props: {
   loansTokensSortType: LoansTokensSortType;
   onPress: () => void;
 }): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <View
       style={tailwind("px-10 mt-6 mb-2 flex flex-row justify-between")}
@@ -76,6 +77,7 @@ export const BottomSheetTokensLoansSortList = ({
   () => JSX.Element
 > =>
   memo(() => {
+    const { tailwind } = useStyles();
     const flatListComponents = {
       mobile: ThemedBottomSheetFlatList,
       web: ThemedFlatListV2,

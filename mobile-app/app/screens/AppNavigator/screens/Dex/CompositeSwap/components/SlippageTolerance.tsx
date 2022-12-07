@@ -5,7 +5,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import BigNumber from "bignumber.js";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { useEffect, useState } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
@@ -48,6 +48,7 @@ export function SlippageTolerance({
   isEditing,
   setIsEditing,
 }: React.PropsWithChildren<SlippageToleranceCardProps>): JSX.Element {
+  const { tailwind } = useStyles();
   const [selectedSlippage, setSelectedSlippage] = useState(slippage.toFixed(8));
   const [isRiskWarningDisplayed, setIsRiskWarningDisplayed] = useState(false);
 
@@ -261,6 +262,7 @@ function PercentageAmountButton({
   percentageAmount,
   isSelected,
 }: PercentageAmountButtonProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedTouchableOpacityV2
       light={tailwind({ "bg-mono-light-v2-900": isSelected })}
@@ -297,6 +299,7 @@ function CustomAmountButton({
   customAmount,
   setIsCustomSlippage,
 }: CustomAmountButtonProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <ThemedTouchableOpacityV2
       light={tailwind("bg-transparent", {

@@ -1,5 +1,5 @@
 import { TouchableOpacity } from "react-native";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedIcon, ThemedTextV2 } from "@components/themed";
 
 interface TransactionIDButtonProps {
@@ -11,6 +11,7 @@ export function TransactionIDButton({
   txid,
   onPress,
 }: TransactionIDButtonProps): JSX.Element {
+  const { tailwind } = useStyles();
   return (
     <TouchableOpacity
       onPress={onPress}

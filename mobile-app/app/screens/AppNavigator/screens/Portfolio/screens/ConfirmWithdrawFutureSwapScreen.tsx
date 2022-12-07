@@ -1,5 +1,5 @@
 import { ThemedScrollViewV2, ThemedViewV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { Dispatch, useEffect, useState } from "react";
@@ -37,6 +37,7 @@ export function ConfirmWithdrawFutureSwapScreen({
   navigation,
 }: Props): JSX.Element {
   const { source, destination, fee, executionBlock } = route.params;
+  const { tailwind } = useStyles();
   const { address } = useWalletContext();
   const addressLabel = useAddressLabel(address);
   const { getTokenPrice } = useTokenPrice();

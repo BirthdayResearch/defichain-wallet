@@ -2,7 +2,7 @@ import { Dispatch, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import { RootState } from "@store";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
@@ -32,6 +32,7 @@ import { AuctionVaultDetails } from "../components/AuctionVaultDetails";
 type Props = StackScreenProps<AuctionsParamList, "ConfirmPlaceBidScreen">;
 
 export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
+  const { tailwind } = useStyles();
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>();
   const dispatch = useAppDispatch();
   const logger = useLogger();

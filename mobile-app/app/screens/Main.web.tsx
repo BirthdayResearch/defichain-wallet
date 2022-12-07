@@ -2,19 +2,17 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Theme } from "@react-navigation/native/lib/typescript/src/types";
 
 import { StyleSheet, View } from "react-native";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { EnvironmentName, getEnvironment } from "@environment";
 import { getReleaseChannel } from "@api/releaseChannel";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { getDefaultTheme } from "@constants/Theme";
 import { RootNavigator } from "./RootNavigator";
 import { PlaygroundNavigator } from "./PlaygroundNavigator/PlaygroundNavigator";
 
 export function Main(): JSX.Element {
   const env = getEnvironment(getReleaseChannel());
-  const { isLight } = useThemeContext();
-  const DeFiChainTheme: Theme = getDefaultTheme(isLight);
+  const { tailwind, getDefaultTheme } = useStyles();
+  const DeFiChainTheme: Theme = getDefaultTheme();
 
   return (
     <SafeAreaProvider>

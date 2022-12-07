@@ -1,6 +1,6 @@
 import { ThemedTextV2, ThemedTouchableOpacityV2 } from "@components/themed";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import React, { useCallback, useEffect, useState } from "react";
 import { PaginationProps } from "react-native-swiper-flatlist";
@@ -14,6 +14,7 @@ export function PaginationButton({
   dismissModal,
   size,
 }: PaginationButtonProps): JSX.Element {
+  const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
 
   const [curIndex, setCurIndex] = useState(paginationIndex);

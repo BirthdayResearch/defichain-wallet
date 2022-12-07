@@ -1,4 +1,4 @@
-import { tailwind } from "@tailwind";
+import { useStyles } from "@tailwind";
 import { ThemedTextV2 } from "@components/themed";
 import { View } from "@components";
 import { StyleProp, ViewStyle } from "react-native";
@@ -13,6 +13,7 @@ interface EmptyBalancesProps {
 
 export function EmptyTokensScreen(props: EmptyBalancesProps): JSX.Element {
   const { icon: Icon, title, subtitle, containerStyle, testID } = props;
+  const { tailwind } = useStyles();
   return (
     <View
       style={[
