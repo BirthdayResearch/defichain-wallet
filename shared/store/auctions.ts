@@ -1,4 +1,3 @@
-import BigNumber from "bignumber.js";
 import { WhaleApiClient } from "@defichain/whale-api-client";
 import {
   LoanVaultLiquidated,

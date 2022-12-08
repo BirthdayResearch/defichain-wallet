@@ -25,6 +25,6 @@ describe("getMnemonicHdNodeProvider for encrypted mnemonic", () => {
     const prompt = { prompt: jest.fn() };
     expect(() => {
       MnemonicEncrypted.initProvider(data, options, prompt);
-    }).toThrowError("Unexpected WalletPersistenceDataI");
+    }).toThrow("Unexpected WalletPersistenceDataI");
   });
 });
