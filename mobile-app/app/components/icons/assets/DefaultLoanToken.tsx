@@ -9,8 +9,7 @@ import Svg, {
 } from "react-native-svg";
 
 export function DefaultLoanToken(
-  symbol: string,
-  isLight: boolean
+  symbol: string
 ): (props: SvgProps) => JSX.Element {
   return function (props: SvgProps): JSX.Element {
     const GElement = G as any;
