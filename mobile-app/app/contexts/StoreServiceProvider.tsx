@@ -70,7 +70,7 @@ function _useServiceProviderUrl({
     url,
   };
 }
-
+/* eslint-disable react/no-unused-prop-types */
 interface ServiceProviderContextProps {
   url: NonNullable<string>;
   defaultUrl: string;
