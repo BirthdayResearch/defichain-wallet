@@ -71,7 +71,7 @@ export function ImageSlide({
   title,
   subtitle,
 }: CarouselImage): JSX.Element {
-  const { getColor, tailwind } = useStyles();
+  const { tailwind } = useStyles();
   const { isLight } = useThemeContext();
   return (
     <View style={tailwind("items-center justify-center px-15 py-4")}>

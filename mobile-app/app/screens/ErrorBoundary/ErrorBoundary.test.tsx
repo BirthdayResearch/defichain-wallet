@@ -4,11 +4,11 @@ import ErrorBoundary from "./ErrorBoundary";
 
 describe("ErrorBoundary", () => {
   let consoleErrorSpy: jest.SpyInstance;
-  let errorMock: Error;
+  // let errorMock: Error;
 
   beforeAll(() => {
     consoleErrorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
-    errorMock = new Error("This is a test error!");
+    // errorMock = new Error("This is a test error!");
   });
 
   afterAll(() => {

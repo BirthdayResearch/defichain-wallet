@@ -46,7 +46,7 @@ import { PortfolioParamList } from "../PortfolioNavigator";
 type Props = StackScreenProps<PortfolioParamList, "SendConfirmationScreen">;
 
 export function SendConfirmationScreen({ route }: Props): JSX.Element {
-  const { tailwind, getColor } = useStyles();
+  const { tailwind } = useStyles();
   const { address } = useWalletContext();
   const addressLabel = useAddressLabel(address);
   const network = useNetworkContext();
