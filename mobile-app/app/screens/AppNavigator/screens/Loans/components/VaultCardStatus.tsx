@@ -105,11 +105,11 @@ export function VaultCardStatus({
             <ThemedTextV2
               dark={tailwind(
                 "text-mono-dark-v2-900",
-                getVaultStatusColor(vaultStatus, isLight, true)
+                getVaultStatusColor(vaultStatus, getColor, isLight, true)
               )}
               light={tailwind(
                 "text-mono-light-v2-900",
-                getVaultStatusColor(vaultStatus, isLight, true)
+                getVaultStatusColor(vaultStatus, getColor, isLight, true)
               )}
               style={tailwind("font-semibold-v2 text-base")}
               testID={`${testID}_status`}
