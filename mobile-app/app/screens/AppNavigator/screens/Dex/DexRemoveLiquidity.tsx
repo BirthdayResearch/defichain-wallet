@@ -276,7 +276,6 @@ export function RemoveLiquidityScreen(props: Props): JSX.Element {
               onPercentageChange={(amount, type) =>
                 onPercentagePress(amount, type)
               }
-              symbol={pair.tokenA.displaySymbol}
               setIsInputFocus={setIsInputFocus}
               status={transactionCardStatus}
               showErrMsg={hasError}
@@ -402,7 +401,6 @@ function RemoveLiquidityInputCard(props: {
   tokenA: string;
   tokenB: string;
   balance: BigNumber;
-  symbol: string;
   onPercentageChange: (amount: string, type: AmountButtonTypes) => void;
   onChange: (amount: string) => void;
   current: string;

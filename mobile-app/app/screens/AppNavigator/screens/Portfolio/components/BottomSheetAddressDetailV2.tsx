@@ -8,7 +8,7 @@ import {
 } from "@components/themed";
 import { translate } from "@translations";
 import React, { memo, useCallback, useEffect, useState } from "react";
-import { Platform } from "react-native";
+import { Platform, ListRenderItemInfo } from "react-native";
 import { useStyles } from "@tailwind";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { useToast } from "react-native-toast-notifications";
@@ -188,7 +188,7 @@ export const BottomSheetAddressDetailV2 = (
     };
 
     const AddressListItem = useCallback(
-      ({ item, index }: { item: string; index: number }): JSX.Element => {
+      ({ item, index }: ListRenderItemInfo<string>): JSX.Element => {
         const isSelected = item === props.address;
         const hasLabel =
           labeledAddresses?.[item]?.label != null &&
@@ -358,7 +358,7 @@ export const BottomSheetAddressDetailV2 = (
               "mt-12 px-5 flex flex-row items-center justify-between w-full"
             )}
           >
-            <WalletCounterDisplay addressLength={addressLength} />
+            <WalletCounterDisplay />
             <DiscoverWalletAddress onPress={discoverWalletAddresses} />
           </View>
         </ThemedViewV2>
@@ -411,11 +411,7 @@ function ActiveAddress({
   );
 }
 
-function WalletCounterDisplay({
-  addressLength,
-}: {
-  addressLength: number;
-}): JSX.Element {
+function WalletCounterDisplay(): JSX.Element {
   const { tailwind } = useStyles();
   return (
     <ThemedText

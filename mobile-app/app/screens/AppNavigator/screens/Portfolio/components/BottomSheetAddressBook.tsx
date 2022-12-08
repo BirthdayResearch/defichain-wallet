@@ -8,7 +8,7 @@ import {
 } from "@components/themed";
 import { translate } from "@translations";
 import React, { memo, useCallback, useMemo, useState } from "react";
-import { Platform, TouchableOpacity } from "react-native";
+import { Platform, TouchableOpacity, ListRenderItemInfo } from "react-native";
 import { useStyles } from "@tailwind";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
@@ -180,7 +180,7 @@ export const BottomSheetAddressBook = (
     }, [isEditing, addresses]);
 
     const AddressListItem = useCallback(
-      ({ item, index }: { item: string; index: number }): JSX.Element => {
+      ({ item, index }: ListRenderItemInfo<string>): JSX.Element => {
         return (
           <ThemedTouchableOpacity
             key={item}
