@@ -1,7 +1,7 @@
 import { memo } from "react";
 import * as React from "react";
 import { useStyles } from "@tailwind";
-import { Platform, View } from "react-native";
+import { Platform, View, ListRenderItemInfo } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -87,9 +87,9 @@ export const BottomSheetTokenList = ({
         data={collateralTokens}
         renderItem={({
           item,
-        }: {
-          item: CollateralItem | BottomSheetToken;
-        }): JSX.Element => {
+        }: ListRenderItemInfo<
+          CollateralItem | BottomSheetToken
+        >): JSX.Element => {
           const activePrice =
             tokenType === TokenType.CollateralItem
               ? new BigNumber(
