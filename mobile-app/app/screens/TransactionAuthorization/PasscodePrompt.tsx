@@ -23,7 +23,13 @@ import * as React from "react";
 import Modal from "react-overlays/Modal";
 import { PinTextInputV2 } from "@components/PinTextInputV2";
 
-interface PasscodePromptProps {
+interface PasscodePromptProps extends PromptContentProps {
+  promptModalName: string;
+  modalRef: React.RefObject<BottomSheetModalMethods>;
+  onModalCancel: () => void;
+}
+
+interface PromptContentProps {
   onCancel: (err: string) => void;
   title: string;
   message: string;
@@ -33,22 +39,15 @@ interface PasscodePromptProps {
   onPinInput: (pin: string) => void;
   pin: string;
   loadingMessage: string;
-  authorizedTransactionMessage: { title: string; description: string };
-  grantedAccessMessage: { title: string; description: string };
   isRetry: boolean;
   attemptsRemaining: number;
   maxPasscodeAttempt: number;
-  promptModalName: string;
-  modalRef: React.RefObject<BottomSheetModalMethods>;
-  onModalCancel: () => void;
-  additionalMessage?: string;
-  additionalMessageUrl?: string;
   successMessage?: string;
 }
 
 // Todo(suraj) Remove code duplication and figure out a way to add focus to PinInput
 
-const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
+const PromptContent = React.memo((props: PromptContentProps): JSX.Element => {
   const { tailwind } = useStyles();
   return (
     <>
