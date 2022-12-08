@@ -16,6 +16,7 @@ import { auctions, fetchBidHistory } from "@store/auctions";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import BigNumber from "bignumber.js";
 import { NumericFormat as NumberFormat } from "react-number-format";
+import { ListRenderItemInfo } from "@shopify/flash-list";
 import { BidHistoryItem } from "../components/BidHistoryItem";
 import { AuctionsParamList } from "../AuctionNavigator";
 import { useTokenPrice } from "../../Portfolio/hooks/TokenPrice";
@@ -82,10 +83,7 @@ export function BidHistoryScreen(props: BatchDetailScreenProps): JSX.Element {
         renderItem={({
           item,
           index,
-        }: {
-          item: VaultAuctionBatchHistory;
-          index: number;
-        }): JSX.Element => {
+        }: ListRenderItemInfo<VaultAuctionBatchHistory>): JSX.Element => {
           return (
             <BidHistoryItem
               bidIndex={bidHistory.length - index}

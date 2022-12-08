@@ -28,7 +28,7 @@ import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { openURL } from "@api/linking";
 import { PoolPairIconV2 } from "@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolPairIconV2";
-import { View } from "react-native";
+import { View, ListRenderItemInfo } from "react-native";
 import { OraclePriceType, useFutureSwapDate } from "../../Dex/hook/FutureSwap";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
@@ -83,7 +83,7 @@ export function FutureSwapScreen({ navigation }: Props): JSX.Element {
   };
 
   const FutureSwapListItem = useCallback(
-    ({ item }: { item: FutureSwapData }): JSX.Element => {
+    ({ item }: ListRenderItemInfo<FutureSwapData>): JSX.Element => {
       const testID = `${item.source.displaySymbol}-${item.destination.displaySymbol}`;
       return (
         <ThemedTouchableOpacityV2

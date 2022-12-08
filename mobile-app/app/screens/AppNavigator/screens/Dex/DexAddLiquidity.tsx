@@ -143,7 +143,6 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
       "bg-mono-dark-v2-100": !isLight,
     }),
     headerRight: (): JSX.Element => {
-      const { tailwind } = useStyles();
       return (
         <ThemedTouchableOpacityV2
           style={tailwind("mr-5 mt-4 -mb-4")}
@@ -524,7 +523,6 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
               status={tokenATransactionCardStatus}
               showInsufficientTokenMsg={hasAError}
               showUTXOFeesMsg={showUTXOFeesAMsg}
-              hasInputAmount={hasAInputAmount}
             />
             <AddLiquidityInputCard
               balance={balanceB}
@@ -547,7 +545,6 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
               status={tokenBTransactionCardStatus}
               showInsufficientTokenMsg={hasBError}
               showUTXOFeesMsg={showUTXOFeesBMsg}
-              hasInputAmount={hasBInputAmount}
             />
           </View>
 
