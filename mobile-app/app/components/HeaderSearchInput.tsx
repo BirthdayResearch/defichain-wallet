@@ -1,4 +1,3 @@
-import { View } from "@components";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { useStyles } from "@tailwind";
 import { translate } from "@translations";
