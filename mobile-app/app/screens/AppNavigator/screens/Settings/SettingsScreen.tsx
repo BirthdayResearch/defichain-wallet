@@ -288,7 +288,6 @@ function PrivacyLockToggle({
   onToggle,
   authenticationName,
 }: {
-  disabled?: boolean;
   value: boolean;
   onToggle: (newValue: boolean) => void;
   authenticationName?: string;
