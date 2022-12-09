@@ -3,39 +3,18 @@
 exports[`Auction time progress should match snapshot 1`] = `
 [
   <View
-    style={
-      {
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "marginBottom": 8,
-        "width": "100%",
-      }
-    }
+    style={{}}
   >
     <View
-      style={
-        {
-          "width": "50%",
-        }
-      }
+      style={{}}
     >
       <Text
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              {
-                "color": "rgba(115, 115, 115, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -44,39 +23,18 @@ exports[`Auction time progress should match snapshot 1`] = `
       </Text>
     </View>
     <View
-      style={
-        {
-          "display": "flex",
-          "flexBasis": "0%",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "flexShrink": 1,
-          "flexWrap": "wrap",
-          "justifyContent": "flex-end",
-        }
-      }
+      style={{}}
     >
       <Text
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
               [
-                {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                  "textAlign": "right",
-                },
+                {},
                 undefined,
               ],
-              {
-                "color": "rgba(23, 23, 23, 1)",
-              },
+              {},
             ],
           ]
         }
@@ -105,7 +63,7 @@ exports[`Auction time progress should match snapshot 1`] = `
       [
         {
           "backgroundColor": "gray-100",
-          "borderColor": "rgba(212, 212, 212, 1)",
+          "borderColor": "#ffffff",
           "borderRadius": 8,
           "borderWidth": 1,
           "overflow": "hidden",
@@ -120,7 +78,7 @@ exports[`Auction time progress should match snapshot 1`] = `
       collapsable={false}
       style={
         {
-          "backgroundColor": "rgba(90, 169, 230, 1)",
+          "backgroundColor": "#ffffff",
           "height": 8,
           "transform": [
             {

@@ -4,15 +4,8 @@ exports[`receive page should match snapshot 1`] = `
 <RCTScrollView
   style={
     [
-      {
-        "paddingBottom": 16,
-        "paddingLeft": 24,
-        "paddingRight": 24,
-        "paddingTop": 8,
-      },
-      {
-        "backgroundColor": "rgba(242, 242, 242, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="receive_screen"
@@ -21,27 +14,10 @@ exports[`receive page should match snapshot 1`] = `
     <Text
       style={
         [
-          {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
+          {},
           [
-            {
-              "fontFamily": "SoraRegular",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-              "paddingBottom": 16,
-              "paddingLeft": 32,
-              "paddingRight": 32,
-              "paddingTop": 16,
-              "textAlign": "center",
-            },
-            {
-              "color": "rgba(18, 18, 18, 1)",
-            },
+            {},
+            {},
           ],
         ]
       }
@@ -49,31 +25,11 @@ exports[`receive page should match snapshot 1`] = `
       Use QR or Wallet address to receive any tokens (DST) or DFI
     </Text>
     <View
-      style={
-        {
-          "alignItems": "center",
-          "marginBottom": 8,
-          "marginLeft": 8,
-          "marginRight": 8,
-          "marginTop": 8,
-        }
-      }
+      style={{}}
       testID="qr_code_container"
     >
       <View
-        style={
-          {
-            "backgroundColor": "rgba(255, 255, 255, 1)",
-            "borderBottomLeftRadius": 6,
-            "borderBottomRightRadius": 6,
-            "borderTopLeftRadius": 6,
-            "borderTopRightRadius": 6,
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 16,
-            "paddingTop": 16,
-          }
-        }
+        style={{}}
       >
         <RNSVGSvgView
           bbHeight="196"
@@ -20293,27 +20249,10 @@ exports[`receive page should match snapshot 1`] = `
       selectable={true}
       style={
         [
-          {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
+          {},
           [
-            {
-              "fontFamily": "SoraRegular",
-              "fontSize": 12,
-              "fontWeight": "400",
-              "lineHeight": 16,
-              "paddingBottom": 8,
-              "paddingLeft": 8,
-              "paddingRight": 8,
-              "paddingTop": 32,
-              "textAlign": "center",
-            },
-            {
-              "color": "rgba(115, 115, 115, 1)",
-            },
+            {},
+            {},
           ],
         ]
       }
@@ -20322,38 +20261,17 @@ exports[`receive page should match snapshot 1`] = `
       WALLET ADDRESS
     </Text>
     <View
-      style={
-        {
-          "marginLeft": 28,
-          "marginRight": 28,
-        }
-      }
+      style={{}}
     >
       <Text
         numberOfLines={2}
         selectable={true}
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraRegular",
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 20,
-                "paddingBottom": 48,
-                "paddingLeft": 20,
-                "paddingRight": 20,
-                "textAlign": "center",
-              },
-              {
-                "color": "rgba(18, 18, 18, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -20383,58 +20301,26 @@ exports[`receive page should match snapshot 1`] = `
       <View
         style={
           [
-            {
-              "borderTopLeftRadius": 6,
-              "borderTopRightRadius": 6,
-            },
-            {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
+            {},
+            {},
           ]
         }
       >
         <View
           style={
             [
-              {
-                "alignItems": "center",
-                "borderBottomWidth": 1,
-                "flexDirection": "row",
-                "justifyContent": "center",
-                "marginLeft": 20,
-                "marginRight": 20,
-                "paddingBottom": 16,
-                "paddingTop": 16,
-              },
-              {
-                "borderBottomColor": "rgba(204, 204, 204, 1)",
-                "borderLeftColor": "rgba(204, 204, 204, 1)",
-                "borderRightColor": "rgba(204, 204, 204, 1)",
-                "borderTopColor": "rgba(204, 204, 204, 1)",
-              },
+              {},
+              {},
             ]
           }
         >
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
-                  {
-                    "flexGrow": 1,
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                  },
-                  {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
+                  {},
+                  {},
                 ],
               ]
             }
@@ -20466,57 +20352,26 @@ exports[`receive page should match snapshot 1`] = `
       <View
         style={
           [
-            {
-              "borderBottomLeftRadius": 6,
-              "borderBottomRightRadius": 6,
-            },
-            {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
+            {},
+            {},
           ]
         }
       >
         <View
           style={
             [
-              {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "justifyContent": "center",
-                "marginLeft": 20,
-                "marginRight": 20,
-                "paddingBottom": 16,
-                "paddingTop": 16,
-              },
-              {
-                "borderBottomColor": "rgba(204, 204, 204, 1)",
-                "borderLeftColor": "rgba(204, 204, 204, 1)",
-                "borderRightColor": "rgba(204, 204, 204, 1)",
-                "borderTopColor": "rgba(204, 204, 204, 1)",
-              },
+              {},
+              {},
             ]
           }
         >
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
-                  {
-                    "flexGrow": 1,
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                  },
-                  {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
+                  {},
+                  {},
                 ],
               ]
             }

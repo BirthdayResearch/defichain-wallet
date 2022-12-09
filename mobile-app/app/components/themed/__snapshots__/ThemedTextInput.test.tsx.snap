@@ -8,9 +8,7 @@ exports[`text input should match snapshot with OS android period comma locale 1`
   style={
     [
       undefined,
-      {
-        "color": "rgba(64, 64, 64, 1)",
-      },
+      {},
     ]
   }
   value="123"
@@ -25,9 +23,7 @@ exports[`text input should match snapshot with OS android period decimal locale 
   style={
     [
       undefined,
-      {
-        "color": "rgba(64, 64, 64, 1)",
-      },
+      {},
     ]
   }
   value="123"
@@ -42,9 +38,7 @@ exports[`text input should match snapshot with OS android period unknown locale 
   style={
     [
       undefined,
-      {
-        "color": "rgba(64, 64, 64, 1)",
-      },
+      {},
     ]
   }
   value="123"
@@ -59,9 +53,7 @@ exports[`text input should match snapshot with OS ios period comma locale 1`] = 
   style={
     [
       undefined,
-      {
-        "color": "rgba(64, 64, 64, 1)",
-      },
+      {},
     ]
   }
   value="123"
@@ -76,9 +68,7 @@ exports[`text input should match snapshot with OS ios period decimal locale 1`] 
   style={
     [
       undefined,
-      {
-        "color": "rgba(64, 64, 64, 1)",
-      },
+      {},
     ]
   }
   value="123"
@@ -93,9 +83,7 @@ exports[`text input should match snapshot with OS ios period unknown locale 1`] 
   style={
     [
       undefined,
-      {
-        "color": "rgba(64, 64, 64, 1)",
-      },
+      {},
     ]
   }
   value="123"

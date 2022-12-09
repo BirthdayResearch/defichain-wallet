@@ -4,43 +4,13 @@ exports[`info text should match snapshot for error At least 50% of the vault mus
 <View
   style={
     [
-      {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(255, 0, 0, 1)",
-        "borderBottomLeftRadius": 10,
-        "borderBottomRightRadius": 10,
-        "borderBottomWidth": 0.5,
-        "borderLeftColor": "rgba(255, 0, 0, 1)",
-        "borderLeftWidth": 0.5,
-        "borderRightColor": "rgba(255, 0, 0, 1)",
-        "borderRightWidth": 0.5,
-        "borderTopColor": "rgba(255, 0, 0, 1)",
-        "borderTopLeftRadius": 10,
-        "borderTopRightRadius": 10,
-        "borderTopWidth": 0.5,
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingLeft": 20,
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-      },
+      {},
+      {},
     ]
   }
 >
   <View
-    style={
-      {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingBottom": 12,
-        "paddingTop": 12,
-        "width": "75%",
-      }
-    }
+    style={{}}
   >
     <Text
       allowFontScaling={false}
@@ -53,9 +23,7 @@ exports[`info text should match snapshot for error At least 50% of the vault mus
           },
           [
             undefined,
-            {
-              "color": "rgba(255, 0, 0, 1)",
-            },
+            {},
           ],
           {
             "fontFamily": "material",
@@ -69,41 +37,18 @@ exports[`info text should match snapshot for error At least 50% of the vault mus
       
     </Text>
     <View
-      style={
-        {
-          "marginLeft": 10,
-          "width": "100%",
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -117,22 +62,10 @@ exports[`info text should match snapshot for error At least 50% of the vault mus
         onTextLayout={[Function]}
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraRegular",
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 20,
-              },
-              {
-                "color": "rgba(89, 89, 89, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -169,17 +102,8 @@ exports[`info text should match snapshot for error At least 50% of the vault mus
             "fontSize": 18,
           },
           [
-            {
-              "fontFamily": "SoraBold",
-              "fontWeight": "700",
-              "paddingBottom": 24,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 24,
-            },
-            {
-              "color": "rgba(89, 89, 89, 1)",
-            },
+            {},
+            {},
           ],
           {
             "fontFamily": "material",
@@ -200,43 +124,13 @@ exports[`info text should match snapshot for error Cannot payback loan while any
 <View
   style={
     [
-      {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(255, 0, 0, 1)",
-        "borderBottomLeftRadius": 10,
-        "borderBottomRightRadius": 10,
-        "borderBottomWidth": 0.5,
-        "borderLeftColor": "rgba(255, 0, 0, 1)",
-        "borderLeftWidth": 0.5,
-        "borderRightColor": "rgba(255, 0, 0, 1)",
-        "borderRightWidth": 0.5,
-        "borderTopColor": "rgba(255, 0, 0, 1)",
-        "borderTopLeftRadius": 10,
-        "borderTopRightRadius": 10,
-        "borderTopWidth": 0.5,
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingLeft": 20,
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-      },
+      {},
+      {},
     ]
   }
 >
   <View
-    style={
-      {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingBottom": 12,
-        "paddingTop": 12,
-        "width": "75%",
-      }
-    }
+    style={{}}
   >
     <Text
       allowFontScaling={false}
@@ -249,9 +143,7 @@ exports[`info text should match snapshot for error Cannot payback loan while any
           },
           [
             undefined,
-            {
-              "color": "rgba(255, 0, 0, 1)",
-            },
+            {},
           ],
           {
             "fontFamily": "material",
@@ -265,41 +157,18 @@ exports[`info text should match snapshot for error Cannot payback loan while any
       
     </Text>
     <View
-      style={
-        {
-          "marginLeft": 10,
-          "width": "100%",
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -313,22 +182,10 @@ exports[`info text should match snapshot for error Cannot payback loan while any
         onTextLayout={[Function]}
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraRegular",
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 20,
-              },
-              {
-                "color": "rgba(89, 89, 89, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -365,17 +222,8 @@ exports[`info text should match snapshot for error Cannot payback loan while any
             "fontSize": 18,
           },
           [
-            {
-              "fontFamily": "SoraBold",
-              "fontWeight": "700",
-              "paddingBottom": 24,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 24,
-            },
-            {
-              "color": "rgba(89, 89, 89, 1)",
-            },
+            {},
+            {},
           ],
           {
             "fontFamily": "material",
@@ -396,43 +244,13 @@ exports[`info text should match snapshot for error Error: Not found, code: 404, 
 <View
   style={
     [
-      {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(255, 0, 0, 1)",
-        "borderBottomLeftRadius": 10,
-        "borderBottomRightRadius": 10,
-        "borderBottomWidth": 0.5,
-        "borderLeftColor": "rgba(255, 0, 0, 1)",
-        "borderLeftWidth": 0.5,
-        "borderRightColor": "rgba(255, 0, 0, 1)",
-        "borderRightWidth": 0.5,
-        "borderTopColor": "rgba(255, 0, 0, 1)",
-        "borderTopLeftRadius": 10,
-        "borderTopRightRadius": 10,
-        "borderTopWidth": 0.5,
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingLeft": 20,
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-      },
+      {},
+      {},
     ]
   }
 >
   <View
-    style={
-      {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingBottom": 12,
-        "paddingTop": 12,
-        "width": "75%",
-      }
-    }
+    style={{}}
   >
     <Text
       allowFontScaling={false}
@@ -445,9 +263,7 @@ exports[`info text should match snapshot for error Error: Not found, code: 404, 
           },
           [
             undefined,
-            {
-              "color": "rgba(255, 0, 0, 1)",
-            },
+            {},
           ],
           {
             "fontFamily": "material",
@@ -461,41 +277,18 @@ exports[`info text should match snapshot for error Error: Not found, code: 404, 
       
     </Text>
     <View
-      style={
-        {
-          "marginLeft": 10,
-          "width": "100%",
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -509,22 +302,10 @@ exports[`info text should match snapshot for error Error: Not found, code: 404, 
         onTextLayout={[Function]}
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraRegular",
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 20,
-              },
-              {
-                "color": "rgba(89, 89, 89, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -561,17 +342,8 @@ exports[`info text should match snapshot for error Error: Not found, code: 404, 
             "fontSize": 18,
           },
           [
-            {
-              "fontFamily": "SoraBold",
-              "fontWeight": "700",
-              "paddingBottom": 24,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 24,
-            },
-            {
-              "color": "rgba(89, 89, 89, 1)",
-            },
+            {},
+            {},
           ],
           {
             "fontFamily": "material",
@@ -592,43 +364,13 @@ exports[`info text should match snapshot for error Lack of liquidity 1`] = `
 <View
   style={
     [
-      {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(255, 0, 0, 1)",
-        "borderBottomLeftRadius": 10,
-        "borderBottomRightRadius": 10,
-        "borderBottomWidth": 0.5,
-        "borderLeftColor": "rgba(255, 0, 0, 1)",
-        "borderLeftWidth": 0.5,
-        "borderRightColor": "rgba(255, 0, 0, 1)",
-        "borderRightWidth": 0.5,
-        "borderTopColor": "rgba(255, 0, 0, 1)",
-        "borderTopLeftRadius": 10,
-        "borderTopRightRadius": 10,
-        "borderTopWidth": 0.5,
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingLeft": 20,
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-      },
+      {},
+      {},
     ]
   }
 >
   <View
-    style={
-      {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingBottom": 12,
-        "paddingTop": 12,
-        "width": "75%",
-      }
-    }
+    style={{}}
   >
     <Text
       allowFontScaling={false}
@@ -641,9 +383,7 @@ exports[`info text should match snapshot for error Lack of liquidity 1`] = `
           },
           [
             undefined,
-            {
-              "color": "rgba(255, 0, 0, 1)",
-            },
+            {},
           ],
           {
             "fontFamily": "material",
@@ -657,41 +397,18 @@ exports[`info text should match snapshot for error Lack of liquidity 1`] = `
       
     </Text>
     <View
-      style={
-        {
-          "marginLeft": 10,
-          "width": "100%",
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -705,22 +422,10 @@ exports[`info text should match snapshot for error Lack of liquidity 1`] = `
         onTextLayout={[Function]}
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraRegular",
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 20,
-              },
-              {
-                "color": "rgba(89, 89, 89, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -757,17 +462,8 @@ exports[`info text should match snapshot for error Lack of liquidity 1`] = `
             "fontSize": 18,
           },
           [
-            {
-              "fontFamily": "SoraBold",
-              "fontWeight": "700",
-              "paddingBottom": 24,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 24,
-            },
-            {
-              "color": "rgba(89, 89, 89, 1)",
-            },
+            {},
+            {},
           ],
           {
             "fontFamily": "material",
@@ -788,43 +484,13 @@ exports[`info text should match snapshot for error No live fixed prices 1`] = `
 <View
   style={
     [
-      {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(255, 0, 0, 1)",
-        "borderBottomLeftRadius": 10,
-        "borderBottomRightRadius": 10,
-        "borderBottomWidth": 0.5,
-        "borderLeftColor": "rgba(255, 0, 0, 1)",
-        "borderLeftWidth": 0.5,
-        "borderRightColor": "rgba(255, 0, 0, 1)",
-        "borderRightWidth": 0.5,
-        "borderTopColor": "rgba(255, 0, 0, 1)",
-        "borderTopLeftRadius": 10,
-        "borderTopRightRadius": 10,
-        "borderTopWidth": 0.5,
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingLeft": 20,
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-      },
+      {},
+      {},
     ]
   }
 >
   <View
-    style={
-      {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingBottom": 12,
-        "paddingTop": 12,
-        "width": "75%",
-      }
-    }
+    style={{}}
   >
     <Text
       allowFontScaling={false}
@@ -837,9 +503,7 @@ exports[`info text should match snapshot for error No live fixed prices 1`] = `
           },
           [
             undefined,
-            {
-              "color": "rgba(255, 0, 0, 1)",
-            },
+            {},
           ],
           {
             "fontFamily": "material",
@@ -853,41 +517,18 @@ exports[`info text should match snapshot for error No live fixed prices 1`] = `
       
     </Text>
     <View
-      style={
-        {
-          "marginLeft": 10,
-          "width": "100%",
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -901,22 +542,10 @@ exports[`info text should match snapshot for error No live fixed prices 1`] = `
         onTextLayout={[Function]}
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraRegular",
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 20,
-              },
-              {
-                "color": "rgba(89, 89, 89, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -953,17 +582,8 @@ exports[`info text should match snapshot for error No live fixed prices 1`] = `
             "fontSize": 18,
           },
           [
-            {
-              "fontFamily": "SoraBold",
-              "fontWeight": "700",
-              "paddingBottom": 24,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 24,
-            },
-            {
-              "color": "rgba(89, 89, 89, 1)",
-            },
+            {},
+            {},
           ],
           {
             "fontFamily": "material",
@@ -984,43 +604,13 @@ exports[`info text should match snapshot for error Swap price is higher than the
 <View
   style={
     [
-      {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(255, 0, 0, 1)",
-        "borderBottomLeftRadius": 10,
-        "borderBottomRightRadius": 10,
-        "borderBottomWidth": 0.5,
-        "borderLeftColor": "rgba(255, 0, 0, 1)",
-        "borderLeftWidth": 0.5,
-        "borderRightColor": "rgba(255, 0, 0, 1)",
-        "borderRightWidth": 0.5,
-        "borderTopColor": "rgba(255, 0, 0, 1)",
-        "borderTopLeftRadius": 10,
-        "borderTopRightRadius": 10,
-        "borderTopWidth": 0.5,
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingLeft": 20,
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-      },
+      {},
+      {},
     ]
   }
 >
   <View
-    style={
-      {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingBottom": 12,
-        "paddingTop": 12,
-        "width": "75%",
-      }
-    }
+    style={{}}
   >
     <Text
       allowFontScaling={false}
@@ -1033,9 +623,7 @@ exports[`info text should match snapshot for error Swap price is higher than the
           },
           [
             undefined,
-            {
-              "color": "rgba(255, 0, 0, 1)",
-            },
+            {},
           ],
           {
             "fontFamily": "material",
@@ -1049,41 +637,18 @@ exports[`info text should match snapshot for error Swap price is higher than the
       
     </Text>
     <View
-      style={
-        {
-          "marginLeft": 10,
-          "width": "100%",
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -1097,22 +662,10 @@ exports[`info text should match snapshot for error Swap price is higher than the
         onTextLayout={[Function]}
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraRegular",
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 20,
-              },
-              {
-                "color": "rgba(89, 89, 89, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -1149,17 +702,8 @@ exports[`info text should match snapshot for error Swap price is higher than the
             "fontSize": 18,
           },
           [
-            {
-              "fontFamily": "SoraBold",
-              "fontWeight": "700",
-              "paddingBottom": 24,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 24,
-            },
-            {
-              "color": "rgba(89, 89, 89, 1)",
-            },
+            {},
+            {},
           ],
           {
             "fontFamily": "material",
@@ -1180,81 +724,28 @@ exports[`info text should match snapshot for error UnknownError 1`] = `
 <View
   style={
     [
-      {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(255, 0, 0, 1)",
-        "borderBottomLeftRadius": 10,
-        "borderBottomRightRadius": 10,
-        "borderBottomWidth": 0.5,
-        "borderLeftColor": "rgba(255, 0, 0, 1)",
-        "borderLeftWidth": 0.5,
-        "borderRightColor": "rgba(255, 0, 0, 1)",
-        "borderRightWidth": 0.5,
-        "borderTopColor": "rgba(255, 0, 0, 1)",
-        "borderTopLeftRadius": 10,
-        "borderTopRightRadius": 10,
-        "borderTopWidth": 0.5,
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingLeft": 20,
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-      },
+      {},
+      {},
     ]
   }
 >
   <View
-    style={
-      {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingBottom": 12,
-        "paddingTop": 12,
-        "width": "75%",
-      }
-    }
+    style={{}}
   >
     <Text />
     <View
-      style={
-        {
-          "marginLeft": 10,
-          "width": "100%",
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -1268,22 +759,10 @@ exports[`info text should match snapshot for error UnknownError 1`] = `
         onTextLayout={[Function]}
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraRegular",
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 20,
-              },
-              {
-                "color": "rgba(89, 89, 89, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -1319,43 +798,13 @@ exports[`info text should match snapshot for error Vault does not have enough co
 <View
   style={
     [
-      {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(255, 0, 0, 1)",
-        "borderBottomLeftRadius": 10,
-        "borderBottomRightRadius": 10,
-        "borderBottomWidth": 0.5,
-        "borderLeftColor": "rgba(255, 0, 0, 1)",
-        "borderLeftWidth": 0.5,
-        "borderRightColor": "rgba(255, 0, 0, 1)",
-        "borderRightWidth": 0.5,
-        "borderTopColor": "rgba(255, 0, 0, 1)",
-        "borderTopLeftRadius": 10,
-        "borderTopRightRadius": 10,
-        "borderTopWidth": 0.5,
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingLeft": 20,
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-      },
+      {},
+      {},
     ]
   }
 >
   <View
-    style={
-      {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingBottom": 12,
-        "paddingTop": 12,
-        "width": "75%",
-      }
-    }
+    style={{}}
   >
     <Text
       allowFontScaling={false}
@@ -1368,9 +817,7 @@ exports[`info text should match snapshot for error Vault does not have enough co
           },
           [
             undefined,
-            {
-              "color": "rgba(255, 0, 0, 1)",
-            },
+            {},
           ],
           {
             "fontFamily": "material",
@@ -1384,41 +831,18 @@ exports[`info text should match snapshot for error Vault does not have enough co
       
     </Text>
     <View
-      style={
-        {
-          "marginLeft": 10,
-          "width": "100%",
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -1432,22 +856,10 @@ exports[`info text should match snapshot for error Vault does not have enough co
         onTextLayout={[Function]}
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraRegular",
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 20,
-              },
-              {
-                "color": "rgba(89, 89, 89, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -1484,17 +896,8 @@ exports[`info text should match snapshot for error Vault does not have enough co
             "fontSize": 18,
           },
           [
-            {
-              "fontFamily": "SoraBold",
-              "fontWeight": "700",
-              "paddingBottom": 24,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 24,
-            },
-            {
-              "color": "rgba(89, 89, 89, 1)",
-            },
+            {},
+            {},
           ],
           {
             "fontFamily": "material",
@@ -1515,43 +918,13 @@ exports[`info text should match snapshot for error amount is less than 1`] = `
 <View
   style={
     [
-      {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(255, 0, 0, 1)",
-        "borderBottomLeftRadius": 10,
-        "borderBottomRightRadius": 10,
-        "borderBottomWidth": 0.5,
-        "borderLeftColor": "rgba(255, 0, 0, 1)",
-        "borderLeftWidth": 0.5,
-        "borderRightColor": "rgba(255, 0, 0, 1)",
-        "borderRightWidth": 0.5,
-        "borderTopColor": "rgba(255, 0, 0, 1)",
-        "borderTopLeftRadius": 10,
-        "borderTopRightRadius": 10,
-        "borderTopWidth": 0.5,
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingLeft": 20,
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-      },
+      {},
+      {},
     ]
   }
 >
   <View
-    style={
-      {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingBottom": 12,
-        "paddingTop": 12,
-        "width": "75%",
-      }
-    }
+    style={{}}
   >
     <Text
       allowFontScaling={false}
@@ -1564,9 +937,7 @@ exports[`info text should match snapshot for error amount is less than 1`] = `
           },
           [
             undefined,
-            {
-              "color": "rgba(255, 0, 0, 1)",
-            },
+            {},
           ],
           {
             "fontFamily": "material",
@@ -1580,41 +951,18 @@ exports[`info text should match snapshot for error amount is less than 1`] = `
       
     </Text>
     <View
-      style={
-        {
-          "marginLeft": 10,
-          "width": "100%",
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -1628,22 +976,10 @@ exports[`info text should match snapshot for error amount is less than 1`] = `
         onTextLayout={[Function]}
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraRegular",
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 20,
-              },
-              {
-                "color": "rgba(89, 89, 89, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -1680,17 +1016,8 @@ exports[`info text should match snapshot for error amount is less than 1`] = `
             "fontSize": 18,
           },
           [
-            {
-              "fontFamily": "SoraBold",
-              "fontWeight": "700",
-              "paddingBottom": 24,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 24,
-            },
-            {
-              "color": "rgba(89, 89, 89, 1)",
-            },
+            {},
+            {},
           ],
           {
             "fontFamily": "material",
@@ -1711,43 +1038,13 @@ exports[`info text should match snapshot for error no prevouts available to crea
 <View
   style={
     [
-      {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(255, 0, 0, 1)",
-        "borderBottomLeftRadius": 10,
-        "borderBottomRightRadius": 10,
-        "borderBottomWidth": 0.5,
-        "borderLeftColor": "rgba(255, 0, 0, 1)",
-        "borderLeftWidth": 0.5,
-        "borderRightColor": "rgba(255, 0, 0, 1)",
-        "borderRightWidth": 0.5,
-        "borderTopColor": "rgba(255, 0, 0, 1)",
-        "borderTopLeftRadius": 10,
-        "borderTopRightRadius": 10,
-        "borderTopWidth": 0.5,
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingLeft": 20,
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-      },
+      {},
+      {},
     ]
   }
 >
   <View
-    style={
-      {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingBottom": 12,
-        "paddingTop": 12,
-        "width": "75%",
-      }
-    }
+    style={{}}
   >
     <Text
       allowFontScaling={false}
@@ -1760,9 +1057,7 @@ exports[`info text should match snapshot for error no prevouts available to crea
           },
           [
             undefined,
-            {
-              "color": "rgba(255, 0, 0, 1)",
-            },
+            {},
           ],
           {
             "fontFamily": "material",
@@ -1776,41 +1071,18 @@ exports[`info text should match snapshot for error no prevouts available to crea
       
     </Text>
     <View
-      style={
-        {
-          "marginLeft": 10,
-          "width": "100%",
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -1824,22 +1096,10 @@ exports[`info text should match snapshot for error no prevouts available to crea
         onTextLayout={[Function]}
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraRegular",
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 20,
-              },
-              {
-                "color": "rgba(89, 89, 89, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -1876,17 +1136,8 @@ exports[`info text should match snapshot for error no prevouts available to crea
             "fontSize": 18,
           },
           [
-            {
-              "fontFamily": "SoraBold",
-              "fontWeight": "700",
-              "paddingBottom": 24,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 24,
-            },
-            {
-              "color": "rgba(89, 89, 89, 1)",
-            },
+            {},
+            {},
           ],
           {
             "fontFamily": "material",
@@ -1907,43 +1158,13 @@ exports[`info text should match snapshot for error not enough balance after comb
 <View
   style={
     [
-      {
-        "alignItems": "center",
-        "borderBottomColor": "rgba(255, 0, 0, 1)",
-        "borderBottomLeftRadius": 10,
-        "borderBottomRightRadius": 10,
-        "borderBottomWidth": 0.5,
-        "borderLeftColor": "rgba(255, 0, 0, 1)",
-        "borderLeftWidth": 0.5,
-        "borderRightColor": "rgba(255, 0, 0, 1)",
-        "borderRightWidth": 0.5,
-        "borderTopColor": "rgba(255, 0, 0, 1)",
-        "borderTopLeftRadius": 10,
-        "borderTopRightRadius": 10,
-        "borderTopWidth": 0.5,
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingLeft": 20,
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-      },
+      {},
+      {},
     ]
   }
 >
   <View
-    style={
-      {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-        "paddingBottom": 12,
-        "paddingTop": 12,
-        "width": "75%",
-      }
-    }
+    style={{}}
   >
     <Text
       allowFontScaling={false}
@@ -1956,9 +1177,7 @@ exports[`info text should match snapshot for error not enough balance after comb
           },
           [
             undefined,
-            {
-              "color": "rgba(255, 0, 0, 1)",
-            },
+            {},
           ],
           {
             "fontFamily": "material",
@@ -1972,41 +1191,18 @@ exports[`info text should match snapshot for error not enough balance after comb
       
     </Text>
     <View
-      style={
-        {
-          "marginLeft": 10,
-          "width": "100%",
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -2020,22 +1216,10 @@ exports[`info text should match snapshot for error not enough balance after comb
         onTextLayout={[Function]}
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraRegular",
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 20,
-              },
-              {
-                "color": "rgba(89, 89, 89, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -2072,17 +1256,8 @@ exports[`info text should match snapshot for error not enough balance after comb
             "fontSize": 18,
           },
           [
-            {
-              "fontFamily": "SoraBold",
-              "fontWeight": "700",
-              "paddingBottom": 24,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 24,
-            },
-            {
-              "color": "rgba(89, 89, 89, 1)",
-            },
+            {},
+            {},
           ],
           {
             "fontFamily": "material",

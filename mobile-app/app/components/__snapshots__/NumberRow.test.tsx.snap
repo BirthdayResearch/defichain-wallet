@@ -4,62 +4,27 @@ exports[`Number row should match snapshot for component suffix 1`] = `
 <View
   style={
     [
-      {
-        "alignItems": "flex-start",
-        "flexDirection": "row",
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 16,
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderTopColor": "rgba(229, 229, 229, 1)",
-      },
+      {},
+      {},
     ]
   }
 >
   <View
-    style={
-      {
-        "width": "50%",
-      }
-    }
+    style={{}}
   >
     <View
-      style={
-        {
-          "alignItems": "flex-end",
-          "flexDirection": "row",
-          "justifyContent": "flex-start",
-        }
-      }
+      style={{}}
     >
       <Text
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
               [
-                {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                },
+                {},
                 undefined,
               ],
-              {
-                "color": "rgba(0, 0, 0, 1)",
-              },
+              {},
             ],
           ]
         }
@@ -70,34 +35,16 @@ exports[`Number row should match snapshot for component suffix 1`] = `
     </View>
   </View>
   <View
-    style={
-      {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-      }
-    }
+    style={{}}
   >
     <View>
       <View
-        style={
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "justifyContent": "flex-end",
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontSize": 14,
-                "lineHeight": 20,
-                "textAlign": "right",
-              },
+              {},
               undefined,
               undefined,
             ]
@@ -106,25 +53,14 @@ exports[`Number row should match snapshot for component suffix 1`] = `
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
                   [
-                    {
-                      "fontSize": 14,
-                      "lineHeight": 20,
-                      "textAlign": "right",
-                    },
+                    {},
                     undefined,
                     undefined,
                   ],
-                  {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
+                  {},
                 ],
               ]
             }
@@ -139,15 +75,7 @@ exports[`Number row should match snapshot for component suffix 1`] = `
       $
     </Text>
     <View
-      style={
-        {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "flexWrap": "wrap",
-          "justifyContent": "flex-end",
-        }
-      }
+      style={{}}
     />
   </View>
 </View>
@@ -157,62 +85,27 @@ exports[`Number row should match snapshot for text suffix 1`] = `
 <View
   style={
     [
-      {
-        "alignItems": "flex-start",
-        "flexDirection": "row",
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 16,
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderTopColor": "rgba(229, 229, 229, 1)",
-      },
+      {},
+      {},
     ]
   }
 >
   <View
-    style={
-      {
-        "width": "50%",
-      }
-    }
+    style={{}}
   >
     <View
-      style={
-        {
-          "alignItems": "flex-end",
-          "flexDirection": "row",
-          "justifyContent": "flex-start",
-        }
-      }
+      style={{}}
     >
       <Text
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
               [
-                {
-                  "fontSize": 14,
-                  "lineHeight": 20,
-                },
+                {},
                 undefined,
               ],
-              {
-                "color": "rgba(0, 0, 0, 1)",
-              },
+              {},
             ],
           ]
         }
@@ -223,34 +116,16 @@ exports[`Number row should match snapshot for text suffix 1`] = `
     </View>
   </View>
   <View
-    style={
-      {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-      }
-    }
+    style={{}}
   >
     <View>
       <View
-        style={
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "justifyContent": "flex-end",
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontSize": 14,
-                "lineHeight": 20,
-                "textAlign": "right",
-              },
+              {},
               undefined,
               undefined,
             ]
@@ -259,25 +134,14 @@ exports[`Number row should match snapshot for text suffix 1`] = `
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
                   [
-                    {
-                      "fontSize": 14,
-                      "lineHeight": 20,
-                      "textAlign": "right",
-                    },
+                    {},
                     undefined,
                     undefined,
                   ],
-                  {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
+                  {},
                 ],
               ]
             }
@@ -291,25 +155,14 @@ exports[`Number row should match snapshot for text suffix 1`] = `
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
                   [
-                    {
-                      "fontSize": 14,
-                      "lineHeight": 20,
-                      "marginLeft": 4,
-                    },
+                    {},
                     undefined,
                     undefined,
                   ],
-                  {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
+                  {},
                 ],
               ]
             }
@@ -321,15 +174,7 @@ exports[`Number row should match snapshot for text suffix 1`] = `
       </View>
     </View>
     <View
-      style={
-        {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "flexWrap": "wrap",
-          "justifyContent": "flex-end",
-        }
-      }
+      style={{}}
     />
   </View>
 </View>

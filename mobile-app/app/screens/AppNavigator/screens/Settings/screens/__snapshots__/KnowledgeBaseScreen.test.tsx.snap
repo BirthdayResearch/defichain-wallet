@@ -2,23 +2,11 @@
 
 exports[`knowledge base screen should render 1`] = `
 <RCTScrollView
-  contentContainerStyle={
-    {
-      "paddingBottom": 64,
-      "paddingLeft": 20,
-      "paddingRight": 20,
-    }
-  }
+  contentContainerStyle={{}}
   style={
     [
-      {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-      },
-      {
-        "backgroundColor": "rgba(242, 242, 242, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="knowledge_base_screen"
@@ -27,26 +15,10 @@ exports[`knowledge base screen should render 1`] = `
     <Text
       style={
         [
-          {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
+          {},
           [
-            {
-              "fontFamily": "SoraRegular",
-              "fontSize": 12,
-              "fontWeight": "400",
-              "lineHeight": 16,
-              "paddingBottom": 8,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 24,
-            },
-            {
-              "color": "rgba(115, 115, 115, 1)",
-            },
+            {},
+            {},
           ],
         ]
       }
@@ -58,15 +30,8 @@ exports[`knowledge base screen should render 1`] = `
     <View
       style={
         [
-          {
-            "borderBottomLeftRadius": 10,
-            "borderBottomRightRadius": 10,
-            "borderTopLeftRadius": 10,
-            "borderTopRightRadius": 10,
-          },
-          {
-            "backgroundColor": "rgba(255, 255, 255, 1)",
-          },
+          {},
+          {},
         ]
       }
     >
@@ -83,20 +48,7 @@ exports[`knowledge base screen should render 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 1,
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginLeft": 20,
-            "marginRight": 16,
             "opacity": 1,
-            "paddingBottom": 18,
-            "paddingTop": 18,
           }
         }
         testID="auctions_faq"
@@ -104,22 +56,10 @@ exports[`knowledge base screen should render 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -141,20 +81,7 @@ exports[`knowledge base screen should render 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 1,
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginLeft": 20,
-            "marginRight": 16,
             "opacity": 1,
-            "paddingBottom": 18,
-            "paddingTop": 18,
           }
         }
         testID="dex_faq"
@@ -162,22 +89,10 @@ exports[`knowledge base screen should render 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -199,20 +114,7 @@ exports[`knowledge base screen should render 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 1,
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginLeft": 20,
-            "marginRight": 16,
             "opacity": 1,
-            "paddingBottom": 18,
-            "paddingTop": 18,
           }
         }
         testID="liquidity_mining_faq"
@@ -220,22 +122,10 @@ exports[`knowledge base screen should render 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -257,20 +147,7 @@ exports[`knowledge base screen should render 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 1,
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginLeft": 20,
-            "marginRight": 16,
             "opacity": 1,
-            "paddingBottom": 18,
-            "paddingTop": 18,
           }
         }
         testID="loans_faq"
@@ -278,22 +155,10 @@ exports[`knowledge base screen should render 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -315,20 +180,7 @@ exports[`knowledge base screen should render 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 1,
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginLeft": 20,
-            "marginRight": 16,
             "opacity": 1,
-            "paddingBottom": 18,
-            "paddingTop": 18,
           }
         }
         testID="passcode_faq"
@@ -336,22 +188,10 @@ exports[`knowledge base screen should render 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -373,20 +213,7 @@ exports[`knowledge base screen should render 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 1,
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginLeft": 20,
-            "marginRight": 16,
             "opacity": 1,
-            "paddingBottom": 18,
-            "paddingTop": 18,
           }
         }
         testID="recovery_words_faq"
@@ -394,22 +221,10 @@ exports[`knowledge base screen should render 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -431,19 +246,7 @@ exports[`knowledge base screen should render 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginLeft": 20,
-            "marginRight": 16,
             "opacity": 1,
-            "paddingBottom": 18,
-            "paddingTop": 18,
           }
         }
         testID="utxo_and_token_faq"
@@ -451,22 +254,10 @@ exports[`knowledge base screen should render 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }

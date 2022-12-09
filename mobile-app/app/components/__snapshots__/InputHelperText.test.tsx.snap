@@ -4,43 +4,21 @@ exports[`input helper text should render 1`] = `
 <View
   style={
     [
-      {
-        "flexBasis": "0%",
-        "flexDirection": "row",
-        "flexGrow": 1,
-        "flexShrink": 1,
-        "flexWrap": "wrap",
-        "fontSize": 14,
-        "lineHeight": 20,
-        "marginBottom": 16,
-        "marginTop": 4,
-      },
-      {
-        "backgroundColor": "transparent",
-      },
+      {},
+      {},
     ]
   }
 >
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
+        {},
         [
           [
-            {
-              "fontSize": 14,
-              "lineHeight": 20,
-            },
+            {},
             undefined,
           ],
-          {
-            "color": "rgba(163, 163, 163, 1)",
-          },
+          {},
         ],
       ]
     }
@@ -50,23 +28,13 @@ exports[`input helper text should render 1`] = `
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
+        {},
         [
           [
-            {
-              "fontSize": 14,
-              "lineHeight": 20,
-            },
+            {},
             undefined,
           ],
-          {
-            "color": "rgba(64, 64, 64, 1)",
-          },
+          {},
         ],
       ]
     }

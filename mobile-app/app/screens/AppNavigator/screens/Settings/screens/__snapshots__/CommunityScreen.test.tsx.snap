@@ -64,13 +64,8 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
   stickyHeaderIndices={[]}
   style={
     [
-      {
-        "paddingLeft": 20,
-        "paddingRight": 20,
-      },
-      {
-        "backgroundColor": "rgba(242, 242, 242, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="community_flat_list"
@@ -83,26 +78,10 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       <Text
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraRegular",
-                "fontSize": 12,
-                "fontWeight": "400",
-                "lineHeight": 16,
-                "paddingBottom": 8,
-                "paddingLeft": 20,
-                "paddingRight": 20,
-                "paddingTop": 24,
-              },
-              {
-                "color": "rgba(115, 115, 115, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -119,15 +98,8 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       <View
         style={
           [
-            {
-              "borderTopLeftRadius": 10,
-              "borderTopRightRadius": 10,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-            },
-            {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
+            {},
+            {},
           ]
         }
       >
@@ -135,12 +107,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           style={
             [
               {},
-              {
-                "borderBottomColor": "rgba(204, 204, 204, 1)",
-                "borderLeftColor": "rgba(204, 204, 204, 1)",
-                "borderRightColor": "rgba(204, 204, 204, 1)",
-                "borderTopColor": "rgba(204, 204, 204, 1)",
-              },
+              {},
             ]
           }
           testID="announcements"
@@ -158,47 +125,17 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               {
-                "alignItems": "center",
-                "borderBottomColor": "rgba(204, 204, 204, 1)",
-                "borderBottomWidth": 0,
-                "borderLeftColor": "rgba(204, 204, 204, 1)",
-                "borderLeftWidth": 0,
-                "borderRightColor": "rgba(204, 204, 204, 1)",
-                "borderRightWidth": 0,
-                "borderTopColor": "rgba(204, 204, 204, 1)",
-                "borderTopWidth": 0,
-                "display": "flex",
-                "flexDirection": "row",
-                "justifyContent": "space-between",
                 "opacity": 1,
-                "paddingBottom": 18,
-                "paddingTop": 18,
               }
             }
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "flexBasis": "0%",
-                      "flexGrow": 1,
-                      "flexShrink": 1,
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                      "marginRight": 16,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -217,28 +154,16 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       <View
         style={
           [
-            {
-              "paddingLeft": 20,
-              "paddingRight": 20,
-            },
-            {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
+            {},
+            {},
           ]
         }
       >
         <View
           style={
             [
-              {
-                "borderTopWidth": 0.5,
-              },
-              {
-                "borderBottomColor": "rgba(204, 204, 204, 1)",
-                "borderLeftColor": "rgba(204, 204, 204, 1)",
-                "borderRightColor": "rgba(204, 204, 204, 1)",
-                "borderTopColor": "rgba(204, 204, 204, 1)",
-              },
+              {},
+              {},
             ]
           }
           testID="faq"
@@ -256,47 +181,17 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               {
-                "alignItems": "center",
-                "borderBottomColor": "rgba(204, 204, 204, 1)",
-                "borderBottomWidth": 0,
-                "borderLeftColor": "rgba(204, 204, 204, 1)",
-                "borderLeftWidth": 0,
-                "borderRightColor": "rgba(204, 204, 204, 1)",
-                "borderRightWidth": 0,
-                "borderTopColor": "rgba(204, 204, 204, 1)",
-                "borderTopWidth": 0,
-                "display": "flex",
-                "flexDirection": "row",
-                "justifyContent": "space-between",
                 "opacity": 1,
-                "paddingBottom": 18,
-                "paddingTop": 18,
               }
             }
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "flexBasis": "0%",
-                      "flexGrow": 1,
-                      "flexShrink": 1,
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                      "marginRight": 16,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -315,28 +210,16 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       <View
         style={
           [
-            {
-              "paddingLeft": 20,
-              "paddingRight": 20,
-            },
-            {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
+            {},
+            {},
           ]
         }
       >
         <View
           style={
             [
-              {
-                "borderTopWidth": 0.5,
-              },
-              {
-                "borderBottomColor": "rgba(204, 204, 204, 1)",
-                "borderLeftColor": "rgba(204, 204, 204, 1)",
-                "borderRightColor": "rgba(204, 204, 204, 1)",
-                "borderTopColor": "rgba(204, 204, 204, 1)",
-              },
+              {},
+              {},
             ]
           }
           testID="gh"
@@ -354,47 +237,17 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               {
-                "alignItems": "center",
-                "borderBottomColor": "rgba(204, 204, 204, 1)",
-                "borderBottomWidth": 0,
-                "borderLeftColor": "rgba(204, 204, 204, 1)",
-                "borderLeftWidth": 0,
-                "borderRightColor": "rgba(204, 204, 204, 1)",
-                "borderRightWidth": 0,
-                "borderTopColor": "rgba(204, 204, 204, 1)",
-                "borderTopWidth": 0,
-                "display": "flex",
-                "flexDirection": "row",
-                "justifyContent": "space-between",
                 "opacity": 1,
-                "paddingBottom": 18,
-                "paddingTop": 18,
               }
             }
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "flexBasis": "0%",
-                      "flexGrow": 1,
-                      "flexShrink": 1,
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                      "marginRight": 16,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -413,28 +266,16 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       <View
         style={
           [
-            {
-              "paddingLeft": 20,
-              "paddingRight": 20,
-            },
-            {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
+            {},
+            {},
           ]
         }
       >
         <View
           style={
             [
-              {
-                "borderTopWidth": 0.5,
-              },
-              {
-                "borderBottomColor": "rgba(204, 204, 204, 1)",
-                "borderLeftColor": "rgba(204, 204, 204, 1)",
-                "borderRightColor": "rgba(204, 204, 204, 1)",
-                "borderTopColor": "rgba(204, 204, 204, 1)",
-              },
+              {},
+              {},
             ]
           }
           testID="tg_en"
@@ -452,47 +293,17 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               {
-                "alignItems": "center",
-                "borderBottomColor": "rgba(204, 204, 204, 1)",
-                "borderBottomWidth": 0,
-                "borderLeftColor": "rgba(204, 204, 204, 1)",
-                "borderLeftWidth": 0,
-                "borderRightColor": "rgba(204, 204, 204, 1)",
-                "borderRightWidth": 0,
-                "borderTopColor": "rgba(204, 204, 204, 1)",
-                "borderTopWidth": 0,
-                "display": "flex",
-                "flexDirection": "row",
-                "justifyContent": "space-between",
                 "opacity": 1,
-                "paddingBottom": 18,
-                "paddingTop": 18,
               }
             }
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "flexBasis": "0%",
-                      "flexGrow": 1,
-                      "flexShrink": 1,
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                      "marginRight": 16,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -511,28 +322,16 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       <View
         style={
           [
-            {
-              "paddingLeft": 20,
-              "paddingRight": 20,
-            },
-            {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
+            {},
+            {},
           ]
         }
       >
         <View
           style={
             [
-              {
-                "borderTopWidth": 0.5,
-              },
-              {
-                "borderBottomColor": "rgba(204, 204, 204, 1)",
-                "borderLeftColor": "rgba(204, 204, 204, 1)",
-                "borderRightColor": "rgba(204, 204, 204, 1)",
-                "borderTopColor": "rgba(204, 204, 204, 1)",
-              },
+              {},
+              {},
             ]
           }
           testID="tg_de"
@@ -550,47 +349,17 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               {
-                "alignItems": "center",
-                "borderBottomColor": "rgba(204, 204, 204, 1)",
-                "borderBottomWidth": 0,
-                "borderLeftColor": "rgba(204, 204, 204, 1)",
-                "borderLeftWidth": 0,
-                "borderRightColor": "rgba(204, 204, 204, 1)",
-                "borderRightWidth": 0,
-                "borderTopColor": "rgba(204, 204, 204, 1)",
-                "borderTopWidth": 0,
-                "display": "flex",
-                "flexDirection": "row",
-                "justifyContent": "space-between",
                 "opacity": 1,
-                "paddingBottom": 18,
-                "paddingTop": 18,
               }
             }
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "flexBasis": "0%",
-                      "flexGrow": 1,
-                      "flexShrink": 1,
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                      "marginRight": 16,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -609,30 +378,16 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       <View
         style={
           [
-            {
-              "borderBottomLeftRadius": 10,
-              "borderBottomRightRadius": 10,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-            },
-            {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
+            {},
+            {},
           ]
         }
       >
         <View
           style={
             [
-              {
-                "borderTopWidth": 0.5,
-              },
-              {
-                "borderBottomColor": "rgba(204, 204, 204, 1)",
-                "borderLeftColor": "rgba(204, 204, 204, 1)",
-                "borderRightColor": "rgba(204, 204, 204, 1)",
-                "borderTopColor": "rgba(204, 204, 204, 1)",
-              },
+              {},
+              {},
             ]
           }
           testID="wechat"
@@ -650,47 +405,17 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               {
-                "alignItems": "center",
-                "borderBottomColor": "rgba(204, 204, 204, 1)",
-                "borderBottomWidth": 0,
-                "borderLeftColor": "rgba(204, 204, 204, 1)",
-                "borderLeftWidth": 0,
-                "borderRightColor": "rgba(204, 204, 204, 1)",
-                "borderRightWidth": 0,
-                "borderTopColor": "rgba(204, 204, 204, 1)",
-                "borderTopWidth": 0,
-                "display": "flex",
-                "flexDirection": "row",
-                "justifyContent": "space-between",
                 "opacity": 1,
-                "paddingBottom": 18,
-                "paddingTop": 18,
               }
             }
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "flexBasis": "0%",
-                      "flexGrow": 1,
-                      "flexShrink": 1,
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                      "marginRight": 16,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }

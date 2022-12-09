@@ -4,72 +4,25 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
 <View
   style={
     [
-      {
-        "alignItems": "center",
-        "flexDirection": "column",
-        "justifyContent": "center",
-        "width": "100%",
-      },
+      {},
       undefined,
     ]
   }
 >
   <View
-    style={
-      {
-        "flexDirection": "row",
-        "height": 64,
-        "justifyContent": "center",
-        "width": "83.333333%",
-      }
-    }
+    style={{}}
   >
     <View
-      style={
-        {
-          "flexDirection": "column",
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(0, 173, 29, 1)",
-            "borderBottomLeftRadius": 9999,
-            "borderBottomRightRadius": 9999,
-            "borderBottomWidth": 1,
-            "borderLeftColor": "rgba(0, 173, 29, 1)",
-            "borderLeftWidth": 1,
-            "borderRightColor": "rgba(0, 173, 29, 1)",
-            "borderRightWidth": 1,
-            "borderTopColor": "rgba(0, 173, 29, 1)",
-            "borderTopLeftRadius": 9999,
-            "borderTopRightRadius": 9999,
-            "borderTopWidth": 1,
-            "height": 36,
-            "justifyContent": "center",
-            "position": "relative",
-            "width": 36,
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              {
-                "color": "rgba(0, 173, 29, 1)",
-                "fontFamily": "SoraSemiBold",
-                "fontSize": 18,
-                "fontWeight": "600",
-                "lineHeight": 28,
-              },
+              {},
+              {},
             ]
           }
         >
@@ -78,26 +31,10 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 12,
-                  "fontWeight": "400",
-                  "lineHeight": 16,
-                  "position": "absolute",
-                  "textAlign": "center",
-                  "top": 48,
-                  "width": 80,
-                },
-                {
-                  "color": "rgba(0, 173, 29, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -107,61 +44,19 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
       </View>
     </View>
     <View
-      style={
-        {
-          "backgroundColor": "rgba(18, 18, 18, 1)",
-          "flexGrow": 1,
-          "height": 1,
-          "marginTop": 16,
-        }
-      }
+      style={{}}
     />
     <View
-      style={
-        {
-          "flexDirection": "column",
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(18, 18, 18, 1)",
-            "borderBottomLeftRadius": 9999,
-            "borderBottomRightRadius": 9999,
-            "borderBottomWidth": 1,
-            "borderLeftColor": "rgba(18, 18, 18, 1)",
-            "borderLeftWidth": 1,
-            "borderRightColor": "rgba(18, 18, 18, 1)",
-            "borderRightWidth": 1,
-            "borderTopColor": "rgba(18, 18, 18, 1)",
-            "borderTopLeftRadius": 9999,
-            "borderTopRightRadius": 9999,
-            "borderTopWidth": 1,
-            "height": 36,
-            "justifyContent": "center",
-            "position": "relative",
-            "width": 36,
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              {
-                "color": "rgba(18, 18, 18, 1)",
-                "fontFamily": "SoraSemiBold",
-                "fontSize": 18,
-                "fontWeight": "600",
-                "lineHeight": 28,
-              },
+              {},
+              {},
             ]
           }
         >
@@ -170,26 +65,10 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 12,
-                  "fontWeight": "400",
-                  "lineHeight": 16,
-                  "position": "absolute",
-                  "textAlign": "center",
-                  "top": 48,
-                  "width": 80,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -199,61 +78,19 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
       </View>
     </View>
     <View
-      style={
-        {
-          "backgroundColor": "rgba(18, 18, 18, 1)",
-          "flexGrow": 1,
-          "height": 1,
-          "marginTop": 16,
-        }
-      }
+      style={{}}
     />
     <View
-      style={
-        {
-          "flexDirection": "column",
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(18, 18, 18, 1)",
-            "borderBottomLeftRadius": 9999,
-            "borderBottomRightRadius": 9999,
-            "borderBottomWidth": 1,
-            "borderLeftColor": "rgba(18, 18, 18, 1)",
-            "borderLeftWidth": 1,
-            "borderRightColor": "rgba(18, 18, 18, 1)",
-            "borderRightWidth": 1,
-            "borderTopColor": "rgba(18, 18, 18, 1)",
-            "borderTopLeftRadius": 9999,
-            "borderTopRightRadius": 9999,
-            "borderTopWidth": 1,
-            "height": 36,
-            "justifyContent": "center",
-            "position": "relative",
-            "width": 36,
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              {
-                "color": "rgba(18, 18, 18, 1)",
-                "fontFamily": "SoraSemiBold",
-                "fontSize": 18,
-                "fontWeight": "600",
-                "lineHeight": 28,
-              },
+              {},
+              {},
             ]
           }
         >
@@ -262,26 +99,10 @@ exports[`Create wallet step indicator should match snapshot 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 12,
-                  "fontWeight": "400",
-                  "lineHeight": 16,
-                  "position": "absolute",
-                  "textAlign": "center",
-                  "top": 48,
-                  "width": 80,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }

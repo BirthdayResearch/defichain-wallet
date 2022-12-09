@@ -4,30 +4,14 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
 <RCTScrollView
   style={
     [
-      {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-      },
-      {
-        "backgroundColor": "rgba(242, 242, 242, 1)",
-      },
+      {},
+      {},
     ]
   }
 >
   <View>
     <View
-      style={
-        {
-          "alignItems": "center",
-          "flexBasis": "0%",
-          "flexGrow": 1,
-          "flexShrink": 1,
-          "justifyContent": "center",
-          "marginBottom": 44,
-          "marginTop": 48,
-        }
-      }
+      style={{}}
     >
       <RNSVGSvgView
         align="xMidYMid"
@@ -77,51 +61,26 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
       <Image
         resizeMode="contain"
         source={1}
-        style={
-          {
-            "flexWrap": "wrap",
-            "height": 24,
-            "marginTop": 20,
-            "width": 256,
-          }
-        }
+        style={{}}
       />
       <View
-        style={
-          {
-            "marginTop": 12,
-          }
-        }
+        style={{}}
       >
         <View
           style={
             [
               undefined,
-              {
-                "backgroundColor": "transparent",
-              },
+              {},
             ]
           }
         >
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
-                  {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 10,
-                    "fontWeight": "400",
-                    "textAlign": "center",
-                  },
-                  {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
+                  {},
+                  {},
                 ],
               ]
             }
@@ -133,13 +92,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
       </View>
       <View
         accessibilityIgnoresInvertColors={true}
-        style={
-          {
-            "marginTop": 40,
-            "overflow": "hidden",
-            "width": "100%",
-          }
-        }
+        style={{}}
       >
         <Image
           resizeMode="cover"
@@ -155,43 +108,22 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
               },
               {
                 "height": undefined,
-                "width": "100%",
+                "width": undefined,
               },
-              {
-                "height": 224,
-              },
+              {},
             ]
           }
         />
         <View
-          style={
-            {
-              "flexDirection": "column",
-              "marginTop": 64,
-            }
-          }
+          style={{}}
         >
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
-                  {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 10,
-                    "fontWeight": "400",
-                    "lineHeight": 16,
-                    "textAlign": "center",
-                    "textTransform": "uppercase",
-                  },
-                  {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
+                  {},
+                  {},
                 ],
               ]
             }
@@ -201,24 +133,10 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
-                  {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 10,
-                    "fontWeight": "400",
-                    "lineHeight": 16,
-                    "textAlign": "center",
-                    "textTransform": "uppercase",
-                  },
-                  {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
+                  {},
+                  {},
                 ],
               ]
             }
@@ -227,13 +145,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
           </Text>
         </View>
         <View
-          style={
-            {
-              "flexDirection": "row",
-              "justifyContent": "center",
-              "paddingTop": 44,
-            }
-          }
+          style={{}}
         >
           <View
             accessible={true}
@@ -248,22 +160,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               {
-                "alignItems": "center",
-                "backgroundColor": "rgba(18, 18, 18, 1)",
-                "borderBottomLeftRadius": 9999,
-                "borderBottomRightRadius": 9999,
-                "borderBottomWidth": 0,
-                "borderLeftWidth": 0,
-                "borderRightWidth": 0,
-                "borderTopLeftRadius": 9999,
-                "borderTopRightRadius": 9999,
-                "borderTopWidth": 0,
-                "height": 40,
-                "justifyContent": "center",
-                "marginLeft": 16,
-                "marginRight": 16,
                 "opacity": 1,
-                "width": 40,
               }
             }
             testID="youtube_social"
@@ -283,22 +180,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               {
-                "alignItems": "center",
-                "backgroundColor": "rgba(18, 18, 18, 1)",
-                "borderBottomLeftRadius": 9999,
-                "borderBottomRightRadius": 9999,
-                "borderBottomWidth": 0,
-                "borderLeftWidth": 0,
-                "borderRightWidth": 0,
-                "borderTopLeftRadius": 9999,
-                "borderTopRightRadius": 9999,
-                "borderTopWidth": 0,
-                "height": 40,
-                "justifyContent": "center",
-                "marginLeft": 16,
-                "marginRight": 16,
                 "opacity": 1,
-                "width": 40,
               }
             }
             testID="twitter_social"
@@ -318,22 +200,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               {
-                "alignItems": "center",
-                "backgroundColor": "rgba(18, 18, 18, 1)",
-                "borderBottomLeftRadius": 9999,
-                "borderBottomRightRadius": 9999,
-                "borderBottomWidth": 0,
-                "borderLeftWidth": 0,
-                "borderRightWidth": 0,
-                "borderTopLeftRadius": 9999,
-                "borderTopRightRadius": 9999,
-                "borderTopWidth": 0,
-                "height": 40,
-                "justifyContent": "center",
-                "marginLeft": 16,
-                "marginRight": 16,
                 "opacity": 1,
-                "width": 40,
               }
             }
             testID="reddit_social"
@@ -353,22 +220,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               {
-                "alignItems": "center",
-                "backgroundColor": "rgba(18, 18, 18, 1)",
-                "borderBottomLeftRadius": 9999,
-                "borderBottomRightRadius": 9999,
-                "borderBottomWidth": 0,
-                "borderLeftWidth": 0,
-                "borderRightWidth": 0,
-                "borderTopLeftRadius": 9999,
-                "borderTopRightRadius": 9999,
-                "borderTopWidth": 0,
-                "height": 40,
-                "justifyContent": "center",
-                "marginLeft": 16,
-                "marginRight": 16,
                 "opacity": 1,
-                "width": 40,
               }
             }
             testID="github"
@@ -391,60 +243,21 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomLeftRadius": 10,
-          "borderBottomRightRadius": 10,
-          "borderBottomWidth": 0,
-          "borderLeftWidth": 0,
-          "borderRightWidth": 0,
-          "borderTopLeftRadius": 10,
-          "borderTopRightRadius": 10,
-          "borderTopWidth": 0,
-          "flexDirection": "row",
-          "marginBottom": 8,
-          "marginLeft": 20,
-          "marginRight": 20,
           "opacity": 1,
-          "paddingBottom": 16,
-          "paddingLeft": 20,
-          "paddingRight": 20,
-          "paddingTop": 16,
         }
       }
       testID="community_link"
     >
       <View
-        style={
-          {
-            "flexBasis": "0%",
-            "flexDirection": "column",
-            "flexGrow": 1,
-            "flexShrink": 1,
-            "marginRight": 32,
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "flexWrap": "wrap",
-                  "fontFamily": "SoraSemiBold",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -454,24 +267,10 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "flexWrap": "wrap",
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                  "paddingTop": 1,
-                },
-                {
-                  "color": "rgba(89, 89, 89, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -494,60 +293,21 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomLeftRadius": 10,
-          "borderBottomRightRadius": 10,
-          "borderBottomWidth": 0,
-          "borderLeftWidth": 0,
-          "borderRightWidth": 0,
-          "borderTopLeftRadius": 10,
-          "borderTopRightRadius": 10,
-          "borderTopWidth": 0,
-          "flexDirection": "row",
-          "marginBottom": 8,
-          "marginLeft": 20,
-          "marginRight": 20,
           "opacity": 1,
-          "paddingBottom": 16,
-          "paddingLeft": 20,
-          "paddingRight": 20,
-          "paddingTop": 16,
         }
       }
       testID="knowledge_base_link"
     >
       <View
-        style={
-          {
-            "flexBasis": "0%",
-            "flexDirection": "column",
-            "flexGrow": 1,
-            "flexShrink": 1,
-            "marginRight": 32,
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "flexWrap": "wrap",
-                  "fontFamily": "SoraSemiBold",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -557,24 +317,10 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "flexWrap": "wrap",
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                  "paddingTop": 1,
-                },
-                {
-                  "color": "rgba(89, 89, 89, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -597,60 +343,21 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomLeftRadius": 10,
-          "borderBottomRightRadius": 10,
-          "borderBottomWidth": 0,
-          "borderLeftWidth": 0,
-          "borderRightWidth": 0,
-          "borderTopLeftRadius": 10,
-          "borderTopRightRadius": 10,
-          "borderTopWidth": 0,
-          "flexDirection": "row",
-          "marginBottom": 8,
-          "marginLeft": 20,
-          "marginRight": 20,
           "opacity": 1,
-          "paddingBottom": 16,
-          "paddingLeft": 20,
-          "paddingRight": 20,
-          "paddingTop": 16,
         }
       }
       testID="explorer_link"
     >
       <View
-        style={
-          {
-            "flexBasis": "0%",
-            "flexDirection": "column",
-            "flexGrow": 1,
-            "flexShrink": 1,
-            "marginRight": 32,
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "flexWrap": "wrap",
-                  "fontFamily": "SoraSemiBold",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -660,24 +367,10 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "flexWrap": "wrap",
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                  "paddingTop": 1,
-                },
-                {
-                  "color": "rgba(89, 89, 89, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -700,60 +393,21 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         {
-          "alignItems": "center",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomLeftRadius": 10,
-          "borderBottomRightRadius": 10,
-          "borderBottomWidth": 0,
-          "borderLeftWidth": 0,
-          "borderRightWidth": 0,
-          "borderTopLeftRadius": 10,
-          "borderTopRightRadius": 10,
-          "borderTopWidth": 0,
-          "flexDirection": "row",
-          "marginBottom": 8,
-          "marginLeft": 20,
-          "marginRight": 20,
           "opacity": 1,
-          "paddingBottom": 16,
-          "paddingLeft": 20,
-          "paddingRight": 20,
-          "paddingTop": 16,
         }
       }
       testID="official_website"
     >
       <View
-        style={
-          {
-            "flexBasis": "0%",
-            "flexDirection": "column",
-            "flexGrow": 1,
-            "flexShrink": 1,
-            "marginRight": 32,
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "flexWrap": "wrap",
-                  "fontFamily": "SoraSemiBold",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -763,24 +417,10 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "flexWrap": "wrap",
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                  "paddingTop": 1,
-                },
-                {
-                  "color": "rgba(89, 89, 89, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -793,26 +433,10 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
     <Text
       style={
         [
-          {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
+          {},
           [
-            {
-              "fontFamily": "SoraRegular",
-              "fontSize": 12,
-              "fontWeight": "400",
-              "lineHeight": 16,
-              "marginLeft": 40,
-              "marginRight": 40,
-              "marginTop": 24,
-              "textTransform": "uppercase",
-            },
-            {
-              "color": "rgba(115, 115, 115, 1)",
-            },
+            {},
+            {},
           ],
         ]
       }
@@ -822,36 +446,16 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
     <View
       style={
         [
-          {
-            "borderBottomLeftRadius": 10,
-            "borderBottomRightRadius": 10,
-            "borderTopLeftRadius": 10,
-            "borderTopRightRadius": 10,
-            "flexDirection": "column",
-            "marginLeft": 20,
-            "marginRight": 20,
-            "marginTop": 8,
-            "paddingLeft": 20,
-            "paddingRight": 20,
-          },
-          {
-            "backgroundColor": "rgba(255, 255, 255, 1)",
-          },
+          {},
+          {},
         ]
       }
     >
       <View
         style={
           [
-            {
-              "borderBottomWidth": 0.5,
-            },
-            {
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-            },
+            {},
+            {},
           ]
         }
         testID="privacy_policy_button"
@@ -869,46 +473,17 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderBottomWidth": 0,
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderLeftWidth": 0,
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderRightWidth": 0,
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "borderTopWidth": 0,
-              "display": "flex",
-              "flexDirection": "row",
-              "justifyContent": "space-between",
               "opacity": 1,
-              "paddingBottom": 18,
-              "paddingTop": 18,
             }
           }
         >
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
-                  {
-                    "flexBasis": "0%",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                  },
-                  {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
+                  {},
+                  {},
                 ],
               ]
             }
@@ -921,15 +496,8 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
       <View
         style={
           [
-            {
-              "borderBottomWidth": 0.5,
-            },
-            {
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-            },
+            {},
+            {},
           ]
         }
         testID="licenses_button"
@@ -947,46 +515,17 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderBottomWidth": 0,
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderLeftWidth": 0,
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderRightWidth": 0,
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "borderTopWidth": 0,
-              "display": "flex",
-              "flexDirection": "row",
-              "justifyContent": "space-between",
               "opacity": 1,
-              "paddingBottom": 18,
-              "paddingTop": 18,
             }
           }
         >
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
-                  {
-                    "flexBasis": "0%",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                  },
-                  {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
+                  {},
+                  {},
                 ],
               ]
             }
@@ -1000,12 +539,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
         style={
           [
             {},
-            {
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-            },
+            {},
           ]
         }
         testID="white_paper"
@@ -1023,46 +557,17 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderBottomWidth": 0,
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderLeftWidth": 0,
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderRightWidth": 0,
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "borderTopWidth": 0,
-              "display": "flex",
-              "flexDirection": "row",
-              "justifyContent": "space-between",
               "opacity": 1,
-              "paddingBottom": 18,
-              "paddingTop": 18,
             }
           }
         >
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
-                  {
-                    "flexBasis": "0%",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                  },
-                  {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
+                  {},
+                  {},
                 ],
               ]
             }
@@ -1076,27 +581,10 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
     <Text
       style={
         [
-          {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
+          {},
           [
-            {
-              "fontFamily": "SoraRegular",
-              "fontSize": 12,
-              "fontWeight": "400",
-              "lineHeight": 16,
-              "marginBottom": 48,
-              "marginLeft": 40,
-              "marginRight": 40,
-              "marginTop": 48,
-              "textAlign": "center",
-            },
-            {
-              "color": "rgba(115, 115, 115, 1)",
-            },
+            {},
+            {},
           ],
         ]
       }

@@ -2,20 +2,10 @@
 
 exports[`portfolio page should match snapshot 1`] = `
 <View
-  style={
-    {
-      "flexBasis": "0%",
-      "flexGrow": 1,
-      "flexShrink": 1,
-    }
-  }
+  style={{}}
 >
   <RCTScrollView
-    contentContainerStyle={
-      {
-        "paddingBottom": 48,
-      }
-    }
+    contentContainerStyle={{}}
     refreshControl={
       <RefreshControlMock
         onRefresh={[Function]}
@@ -25,9 +15,7 @@ exports[`portfolio page should match snapshot 1`] = `
     style={
       [
         undefined,
-        {
-          "backgroundColor": "rgba(242, 242, 242, 1)",
-        },
+        {},
       ]
     }
     testID="portfolio_list"
@@ -37,16 +25,8 @@ exports[`portfolio page should match snapshot 1`] = `
       <View
         style={
           [
-            {
-              "alignItems": "center",
-              "display": "flex",
-              "flexDirection": "row",
-              "paddingLeft": 20,
-              "paddingRight": 20,
-            },
-            {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
+            {},
+            {},
           ]
         }
       >
@@ -65,12 +45,7 @@ exports[`portfolio page should match snapshot 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "alignItems": "center",
-              "backgroundColor": "transparent",
-              "display": "flex",
-              "flexDirection": "row",
               "opacity": 1,
-              "overflow": "hidden",
             }
           }
           testID="switch_account_button"
@@ -78,19 +53,8 @@ exports[`portfolio page should match snapshot 1`] = `
           <View
             style={
               [
-                {
-                  "borderBottomLeftRadius": 9999,
-                  "borderBottomRightRadius": 9999,
-                  "borderTopLeftRadius": 9999,
-                  "borderTopRightRadius": 9999,
-                  "paddingBottom": 2,
-                  "paddingLeft": 2,
-                  "paddingRight": 2,
-                  "paddingTop": 2,
-                },
-                {
-                  "backgroundColor": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ]
             }
           />
@@ -99,29 +63,16 @@ exports[`portfolio page should match snapshot 1`] = `
             numberOfLines={1}
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
                   [
-                    {
-                      "fontFamily": "SoraSemiBold",
-                      "fontSize": 14,
-                      "fontWeight": "600",
-                      "lineHeight": 20,
-                      "marginLeft": 8,
-                    },
+                    {},
                     {
                       "maxWidth": 124,
                       "minWidth": 10,
                     },
                   ],
-                  {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
+                  {},
                 ],
               ]
             }
@@ -145,8 +96,6 @@ exports[`portfolio page should match snapshot 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "backgroundColor": "transparent",
-              "marginLeft": 8,
               "opacity": 1,
             }
           }
@@ -158,30 +107,14 @@ exports[`portfolio page should match snapshot 1`] = `
       <View
         style={
           [
-            {
-              "borderBottomLeftRadius": 15,
-              "borderBottomRightRadius": 15,
-              "paddingBottom": 20,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 20,
-            },
-            {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
+            {},
+            {},
           ]
         }
         testID="total_portfolio_card"
       >
         <View
-          style={
-            {
-              "alignItems": "center",
-              "display": "flex",
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-            }
-          }
+          style={{}}
         >
           <View
             accessible={true}
@@ -198,11 +131,7 @@ exports[`portfolio page should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
                 "opacity": 1,
-                "width": "83.333333%",
               }
             }
             testID="portfolio_currency_switcher"
@@ -210,21 +139,10 @@ exports[`portfolio page should match snapshot 1`] = `
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "alignItems": "center",
-                      "display": "flex",
-                      "flexDirection": "row",
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -232,30 +150,16 @@ exports[`portfolio page should match snapshot 1`] = `
               <Text
                 style={
                   [
-                    {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                    {},
                     [
                       [
-                        {
-                          "alignItems": "center",
-                          "display": "flex",
-                          "flexDirection": "row",
-                          "fontFamily": "SoraSemiBold",
-                          "fontWeight": "600",
-                          "marginRight": 8,
-                        },
+                        {},
                         {
                           "fontSize": 28,
                           "lineHeight": 36,
                         },
                       ],
-                      {
-                        "color": "rgba(18, 18, 18, 1)",
-                      },
+                      {},
                     ],
                   ]
                 }
@@ -264,58 +168,23 @@ exports[`portfolio page should match snapshot 1`] = `
                 $0.00
               </Text>
               <View
-                style={
-                  {
-                    "paddingBottom": 4,
-                  }
-                }
+                style={{}}
               >
                 <View
                   style={
                     [
-                      {
-                        "alignSelf": "center",
-                        "borderBottomLeftRadius": 8,
-                        "borderBottomRightRadius": 8,
-                        "borderBottomWidth": 0.5,
-                        "borderLeftWidth": 0.5,
-                        "borderRightWidth": 0.5,
-                        "borderTopLeftRadius": 8,
-                        "borderTopRightRadius": 8,
-                        "borderTopWidth": 0.5,
-                        "paddingBottom": 4,
-                        "paddingLeft": 8,
-                        "paddingRight": 8,
-                        "paddingTop": 4,
-                      },
-                      {
-                        "borderBottomColor": "rgba(18, 18, 18, 1)",
-                        "borderLeftColor": "rgba(18, 18, 18, 1)",
-                        "borderRightColor": "rgba(18, 18, 18, 1)",
-                        "borderTopColor": "rgba(18, 18, 18, 1)",
-                      },
+                      {},
+                      {},
                     ]
                   }
                 >
                   <Text
                     style={
                       [
-                        {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
+                        {},
                         [
-                          {
-                            "fontFamily": "SoraRegular",
-                            "fontSize": 12,
-                            "fontWeight": "400",
-                            "lineHeight": 16,
-                          },
-                          {
-                            "color": "rgba(18, 18, 18, 1)",
-                          },
+                          {},
+                          {},
                         ],
                       ]
                     }
@@ -355,26 +224,13 @@ exports[`portfolio page should match snapshot 1`] = `
         testID="action_button_group"
       >
         <RCTScrollView
-          contentContainerStyle={
-            {
-              "display": "flex",
-              "justifyContent": "space-between",
-              "marginTop": 32,
-              "minWidth": "100%",
-              "paddingLeft": 20,
-              "paddingRight": 20,
-            }
-          }
+          contentContainerStyle={{}}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >
           <View>
             <View
-              style={
-                {
-                  "alignItems": "center",
-                }
-              }
+              style={{}}
             >
               <View
                 accessible={true}
@@ -391,18 +247,7 @@ exports[`portfolio page should match snapshot 1`] = `
                 onStartShouldSetResponder={[Function]}
                 style={
                   {
-                    "alignItems": "center",
-                    "backgroundColor": "rgba(255, 255, 255, 1)",
-                    "borderBottomLeftRadius": 9999,
-                    "borderBottomRightRadius": 9999,
-                    "borderTopLeftRadius": 9999,
-                    "borderTopRightRadius": 9999,
-                    "height": 60,
-                    "justifyContent": "center",
-                    "marginLeft": 10,
-                    "marginRight": 10,
                     "opacity": 1,
-                    "width": 60,
                   }
                 }
                 testID="get_DFI_action_btn"
@@ -411,7 +256,7 @@ exports[`portfolio page should match snapshot 1`] = `
                   align="xMidYMid"
                   bbHeight="20"
                   bbWidth="20"
-                  color="rgba(18, 18, 18, 1)"
+                  color="#ffffff"
                   focusable={false}
                   height={20}
                   meetOrSlice={0}
@@ -430,7 +275,7 @@ exports[`portfolio page should match snapshot 1`] = `
                       },
                     ]
                   }
-                  tintColor="rgba(18, 18, 18, 1)"
+                  tintColor="#ffffff"
                   vbHeight={20}
                   vbWidth={21}
                   width={20}
@@ -441,7 +286,7 @@ exports[`portfolio page should match snapshot 1`] = `
                       d="M13.0951 17.4544V2.54556C16.3054 3.50444 18.6522 6.48333 18.6522 10C18.6522 13.5167 16.3054 16.4961 13.0951 17.4544ZM10.8722 0V8.42833L9.60242 7.15889L9.44016 3.99056L10.7644 0.00555563C9.91529 0.0144445 9.09506 0.135555 8.30984 0.343889L7.66911 2.27L5.85305 1.35944C5.13452 1.77778 4.46989 2.27833 3.87917 2.85667L7.24288 4.54167L7.34124 6.47L5.41293 6.37111L3.7269 3.00889C3.14897 3.59944 2.64771 4.26333 2.22927 4.98222L3.14063 6.79833L1.21287 7.43833C1.00504 8.22333 0.883891 9.04333 0.875 9.89222L4.86166 8.56833L8.03088 8.73L9.30067 10L8.03088 11.27L4.86166 11.4317L0.875 10.1078C0.883891 10.9567 1.00504 11.7767 1.21287 12.5617L3.14063 13.2017L2.22927 15.0178C2.64771 15.7367 3.14897 16.4006 3.7269 16.9911L5.41293 13.6289L7.34124 13.53L7.24288 15.4578L3.87917 17.1433C4.46989 17.7211 5.13452 18.2217 5.85305 18.6406L7.66911 17.73L8.30984 19.6561C9.09506 19.8639 9.91529 19.9856 10.7644 19.9944L9.44016 16.0094L9.60242 12.8411L10.8722 11.5717V20C16.3965 20 20.875 15.5228 20.875 10C20.875 4.47722 16.3965 0 10.8722 0Z"
                       fill={
                         {
-                          "payload": 4279374354,
+                          "payload": 4294967295,
                           "type": 0,
                         }
                       }
@@ -459,24 +304,10 @@ exports[`portfolio page should match snapshot 1`] = `
               <Text
                 style={
                   [
-                    {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                    {},
                     [
-                      {
-                        "fontFamily": "SoraRegular",
-                        "fontSize": 12,
-                        "fontWeight": "400",
-                        "lineHeight": 16,
-                        "marginTop": 8,
-                        "textAlign": "center",
-                      },
-                      {
-                        "color": "rgba(18, 18, 18, 1)",
-                      },
+                      {},
+                      {},
                     ],
                   ]
                 }
@@ -485,11 +316,7 @@ exports[`portfolio page should match snapshot 1`] = `
               </Text>
             </View>
             <View
-              style={
-                {
-                  "alignItems": "center",
-                }
-              }
+              style={{}}
             >
               <View
                 accessible={true}
@@ -506,18 +333,7 @@ exports[`portfolio page should match snapshot 1`] = `
                 onStartShouldSetResponder={[Function]}
                 style={
                   {
-                    "alignItems": "center",
-                    "backgroundColor": "rgba(255, 255, 255, 1)",
-                    "borderBottomLeftRadius": 9999,
-                    "borderBottomRightRadius": 9999,
-                    "borderTopLeftRadius": 9999,
-                    "borderTopRightRadius": 9999,
-                    "height": 60,
-                    "justifyContent": "center",
-                    "marginLeft": 10,
-                    "marginRight": 10,
                     "opacity": 1,
-                    "width": 60,
                   }
                 }
                 testID="send_balance_button"
@@ -527,24 +343,10 @@ exports[`portfolio page should match snapshot 1`] = `
               <Text
                 style={
                   [
-                    {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                    {},
                     [
-                      {
-                        "fontFamily": "SoraRegular",
-                        "fontSize": 12,
-                        "fontWeight": "400",
-                        "lineHeight": 16,
-                        "marginTop": 8,
-                        "textAlign": "center",
-                      },
-                      {
-                        "color": "rgba(18, 18, 18, 1)",
-                      },
+                      {},
+                      {},
                     ],
                   ]
                 }
@@ -553,11 +355,7 @@ exports[`portfolio page should match snapshot 1`] = `
               </Text>
             </View>
             <View
-              style={
-                {
-                  "alignItems": "center",
-                }
-              }
+              style={{}}
             >
               <View
                 accessible={true}
@@ -574,18 +372,7 @@ exports[`portfolio page should match snapshot 1`] = `
                 onStartShouldSetResponder={[Function]}
                 style={
                   {
-                    "alignItems": "center",
-                    "backgroundColor": "rgba(255, 255, 255, 1)",
-                    "borderBottomLeftRadius": 9999,
-                    "borderBottomRightRadius": 9999,
-                    "borderTopLeftRadius": 9999,
-                    "borderTopRightRadius": 9999,
-                    "height": 60,
-                    "justifyContent": "center",
-                    "marginLeft": 10,
-                    "marginRight": 10,
                     "opacity": 1,
-                    "width": 60,
                   }
                 }
                 testID="receive_balance_button"
@@ -595,24 +382,10 @@ exports[`portfolio page should match snapshot 1`] = `
               <Text
                 style={
                   [
-                    {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                    {},
                     [
-                      {
-                        "fontFamily": "SoraRegular",
-                        "fontSize": 12,
-                        "fontWeight": "400",
-                        "lineHeight": 16,
-                        "marginTop": 8,
-                        "textAlign": "center",
-                      },
-                      {
-                        "color": "rgba(18, 18, 18, 1)",
-                      },
+                      {},
+                      {},
                     ],
                   ]
                 }
@@ -621,11 +394,7 @@ exports[`portfolio page should match snapshot 1`] = `
               </Text>
             </View>
             <View
-              style={
-                {
-                  "alignItems": "center",
-                }
-              }
+              style={{}}
             >
               <View
                 accessible={true}
@@ -642,18 +411,7 @@ exports[`portfolio page should match snapshot 1`] = `
                 onStartShouldSetResponder={[Function]}
                 style={
                   {
-                    "alignItems": "center",
-                    "backgroundColor": "rgba(255, 255, 255, 1)",
-                    "borderBottomLeftRadius": 9999,
-                    "borderBottomRightRadius": 9999,
-                    "borderTopLeftRadius": 9999,
-                    "borderTopRightRadius": 9999,
-                    "height": 60,
-                    "justifyContent": "center",
-                    "marginLeft": 10,
-                    "marginRight": 10,
                     "opacity": 1,
-                    "width": 60,
                   }
                 }
                 testID="swap_tokens_button"
@@ -663,24 +421,10 @@ exports[`portfolio page should match snapshot 1`] = `
               <Text
                 style={
                   [
-                    {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                    {},
                     [
-                      {
-                        "fontFamily": "SoraRegular",
-                        "fontSize": 12,
-                        "fontWeight": "400",
-                        "lineHeight": 16,
-                        "marginTop": 8,
-                        "textAlign": "center",
-                      },
-                      {
-                        "color": "rgba(18, 18, 18, 1)",
-                      },
+                      {},
+                      {},
                     ],
                   ]
                 }
@@ -689,11 +433,7 @@ exports[`portfolio page should match snapshot 1`] = `
               </Text>
             </View>
             <View
-              style={
-                {
-                  "alignItems": "center",
-                }
-              }
+              style={{}}
             >
               <View
                 accessible={true}
@@ -710,18 +450,7 @@ exports[`portfolio page should match snapshot 1`] = `
                 onStartShouldSetResponder={[Function]}
                 style={
                   {
-                    "alignItems": "center",
-                    "backgroundColor": "rgba(255, 255, 255, 1)",
-                    "borderBottomLeftRadius": 9999,
-                    "borderBottomRightRadius": 9999,
-                    "borderTopLeftRadius": 9999,
-                    "borderTopRightRadius": 9999,
-                    "height": 60,
-                    "justifyContent": "center",
-                    "marginLeft": 10,
-                    "marginRight": 10,
                     "opacity": 1,
-                    "width": 60,
                   }
                 }
                 testID="transaction_button"
@@ -731,24 +460,10 @@ exports[`portfolio page should match snapshot 1`] = `
               <Text
                 style={
                   [
-                    {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                    {},
                     [
-                      {
-                        "fontFamily": "SoraRegular",
-                        "fontSize": 12,
-                        "fontWeight": "400",
-                        "lineHeight": 16,
-                        "marginTop": 8,
-                        "textAlign": "center",
-                      },
-                      {
-                        "color": "rgba(18, 18, 18, 1)",
-                      },
+                      {},
+                      {},
                     ],
                   ]
                 }
@@ -762,23 +477,14 @@ exports[`portfolio page should match snapshot 1`] = `
       <View
         style={
           [
-            {
-              "marginBottom": 32,
-              "marginTop": 32,
-            },
-            {
-              "backgroundColor": "rgba(242, 242, 242, 1)",
-            },
+            {},
+            {},
           ]
         }
         testID="portfolio_button_group"
       >
         <RCTScrollView
-          contentContainerStyle={
-            {
-              "paddingLeft": 20,
-            }
-          }
+          contentContainerStyle={{}}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >
@@ -798,22 +504,7 @@ exports[`portfolio page should match snapshot 1`] = `
               onStartShouldSetResponder={[Function]}
               style={
                 {
-                  "backgroundColor": "rgba(18, 18, 18, 1)",
-                  "borderBottomLeftRadius": 16,
-                  "borderBottomRightRadius": 16,
-                  "borderBottomWidth": 1,
-                  "borderLeftWidth": 1,
-                  "borderRightWidth": 1,
-                  "borderTopLeftRadius": 16,
-                  "borderTopRightRadius": 16,
-                  "borderTopWidth": 1,
-                  "marginRight": 12,
                   "opacity": 1,
-                  "paddingBottom": 8,
-                  "paddingLeft": 16,
-                  "paddingRight": 16,
-                  "paddingTop": 8,
-                  "textAlign": "center",
                 }
               }
               testID="portfolio_button_group_ALL_TOKENS_active"
@@ -821,23 +512,10 @@ exports[`portfolio page should match snapshot 1`] = `
               <Text
                 style={
                   [
-                    {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                    {},
                     [
-                      {
-                        "fontFamily": "SoraRegular",
-                        "fontSize": 12,
-                        "fontWeight": "400",
-                        "lineHeight": 16,
-                        "textAlign": "center",
-                      },
-                      {
-                        "color": "rgba(242, 242, 242, 1)",
-                      },
+                      {},
+                      {},
                     ],
                   ]
                 }
@@ -860,25 +538,7 @@ exports[`portfolio page should match snapshot 1`] = `
               onStartShouldSetResponder={[Function]}
               style={
                 {
-                  "borderBottomColor": "rgba(89, 89, 89, 1)",
-                  "borderBottomLeftRadius": 16,
-                  "borderBottomRightRadius": 16,
-                  "borderBottomWidth": 1,
-                  "borderLeftColor": "rgba(89, 89, 89, 1)",
-                  "borderLeftWidth": 1,
-                  "borderRightColor": "rgba(89, 89, 89, 1)",
-                  "borderRightWidth": 1,
-                  "borderTopColor": "rgba(89, 89, 89, 1)",
-                  "borderTopLeftRadius": 16,
-                  "borderTopRightRadius": 16,
-                  "borderTopWidth": 1,
-                  "marginRight": 12,
                   "opacity": 1,
-                  "paddingBottom": 8,
-                  "paddingLeft": 16,
-                  "paddingRight": 16,
-                  "paddingTop": 8,
-                  "textAlign": "center",
                 }
               }
               testID="portfolio_button_group_d_TOKENS"
@@ -886,23 +546,10 @@ exports[`portfolio page should match snapshot 1`] = `
               <Text
                 style={
                   [
-                    {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                    {},
                     [
-                      {
-                        "fontFamily": "SoraRegular",
-                        "fontSize": 12,
-                        "fontWeight": "400",
-                        "lineHeight": 16,
-                        "textAlign": "center",
-                      },
-                      {
-                        "color": "rgba(89, 89, 89, 1)",
-                      },
+                      {},
+                      {},
                     ],
                   ]
                 }
@@ -925,25 +572,7 @@ exports[`portfolio page should match snapshot 1`] = `
               onStartShouldSetResponder={[Function]}
               style={
                 {
-                  "borderBottomColor": "rgba(89, 89, 89, 1)",
-                  "borderBottomLeftRadius": 16,
-                  "borderBottomRightRadius": 16,
-                  "borderBottomWidth": 1,
-                  "borderLeftColor": "rgba(89, 89, 89, 1)",
-                  "borderLeftWidth": 1,
-                  "borderRightColor": "rgba(89, 89, 89, 1)",
-                  "borderRightWidth": 1,
-                  "borderTopColor": "rgba(89, 89, 89, 1)",
-                  "borderTopLeftRadius": 16,
-                  "borderTopRightRadius": 16,
-                  "borderTopWidth": 1,
-                  "marginRight": 12,
                   "opacity": 1,
-                  "paddingBottom": 8,
-                  "paddingLeft": 16,
-                  "paddingRight": 16,
-                  "paddingTop": 8,
-                  "textAlign": "center",
                 }
               }
               testID="portfolio_button_group_CRYPTO"
@@ -951,23 +580,10 @@ exports[`portfolio page should match snapshot 1`] = `
               <Text
                 style={
                   [
-                    {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                    {},
                     [
-                      {
-                        "fontFamily": "SoraRegular",
-                        "fontSize": 12,
-                        "fontWeight": "400",
-                        "lineHeight": 16,
-                        "textAlign": "center",
-                      },
-                      {
-                        "color": "rgba(89, 89, 89, 1)",
-                      },
+                      {},
+                      {},
                     ],
                   ]
                 }
@@ -990,25 +606,7 @@ exports[`portfolio page should match snapshot 1`] = `
               onStartShouldSetResponder={[Function]}
               style={
                 {
-                  "borderBottomColor": "rgba(89, 89, 89, 1)",
-                  "borderBottomLeftRadius": 16,
-                  "borderBottomRightRadius": 16,
-                  "borderBottomWidth": 1,
-                  "borderLeftColor": "rgba(89, 89, 89, 1)",
-                  "borderLeftWidth": 1,
-                  "borderRightColor": "rgba(89, 89, 89, 1)",
-                  "borderRightWidth": 1,
-                  "borderTopColor": "rgba(89, 89, 89, 1)",
-                  "borderTopLeftRadius": 16,
-                  "borderTopRightRadius": 16,
-                  "borderTopWidth": 1,
-                  "marginRight": 12,
                   "opacity": 1,
-                  "paddingBottom": 8,
-                  "paddingLeft": 16,
-                  "paddingRight": 16,
-                  "paddingTop": 8,
-                  "textAlign": "center",
                 }
               }
               testID="portfolio_button_group_LP_TOKENS"
@@ -1016,23 +614,10 @@ exports[`portfolio page should match snapshot 1`] = `
               <Text
                 style={
                   [
-                    {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                    {},
                     [
-                      {
-                        "fontFamily": "SoraRegular",
-                        "fontSize": 12,
-                        "fontWeight": "400",
-                        "lineHeight": 16,
-                        "textAlign": "center",
-                      },
-                      {
-                        "color": "rgba(89, 89, 89, 1)",
-                      },
+                      {},
+                      {},
                     ],
                   ]
                 }
@@ -1044,37 +629,16 @@ exports[`portfolio page should match snapshot 1`] = `
         </RCTScrollView>
       </View>
       <View
-        style={
-          {
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "paddingLeft": 40,
-            "paddingRight": 40,
-          }
-        }
+        style={{}}
         testID="toggle_sorting_assets"
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 12,
-                  "fontWeight": "400",
-                  "lineHeight": 16,
-                  "paddingRight": 4,
-                },
-                {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -1096,13 +660,6 @@ exports[`portfolio page should match snapshot 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "display": "flex",
-              "flexDirection": "row",
               "opacity": 1,
             }
           }
@@ -1111,22 +668,10 @@ exports[`portfolio page should match snapshot 1`] = `
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
-                  {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 12,
-                    "fontWeight": "400",
-                    "lineHeight": 16,
-                  },
-                  {
-                    "color": "rgba(43, 43, 43, 1)",
-                  },
+                  {},
+                  {},
                 ],
               ]
             }
@@ -1137,30 +682,11 @@ exports[`portfolio page should match snapshot 1`] = `
         </View>
       </View>
       <View
-        style={
-          {
-            "borderBottomLeftRadius": 10,
-            "borderBottomRightRadius": 10,
-            "borderTopLeftRadius": 10,
-            "borderTopRightRadius": 10,
-            "marginLeft": 20,
-            "marginRight": 20,
-            "marginTop": 8,
-          }
-        }
+        style={{}}
         testID="dfi_balance_card"
       >
         <View
-          style={
-            {
-              "borderBottomLeftRadius": 10,
-              "borderBottomRightRadius": 10,
-              "borderTopLeftRadius": 10,
-              "borderTopRightRadius": 10,
-              "flexDirection": "column",
-              "overflow": "hidden",
-            }
-          }
+          style={{}}
         >
           <View
             accessibilityState={
@@ -1182,26 +708,12 @@ exports[`portfolio page should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               {
-                "alignItems": "flex-start",
-                "backgroundColor": "rgba(255, 255, 255, 1)",
-                "display": "flex",
-                "flexDirection": "row",
                 "opacity": 1,
-                "paddingBottom": 18,
-                "paddingLeft": 20,
-                "paddingRight": 20,
-                "paddingTop": 18,
               }
             }
           >
             <View
-              style={
-                {
-                  "alignItems": "center",
-                  "flexDirection": "row",
-                  "width": "58.333333%",
-                }
-              }
+              style={{}}
             >
               <RNSVGSvgView
                 align="xMidYMid"
@@ -1263,34 +775,15 @@ exports[`portfolio page should match snapshot 1`] = `
                 </RNSVGGroup>
               </RNSVGSvgView>
               <View
-                style={
-                  {
-                    "flexBasis": "auto",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                    "marginLeft": 8,
-                  }
-                }
+                style={{}}
               >
                 <Text
                   style={
                     [
-                      {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
+                      {},
                       [
-                        {
-                          "fontFamily": "SoraSemiBold",
-                          "fontSize": 14,
-                          "fontWeight": "600",
-                          "lineHeight": 20,
-                        },
-                        {
-                          "color": "rgba(18, 18, 18, 1)",
-                        },
+                        {},
+                        {},
                       ],
                     ]
                   }
@@ -1303,23 +796,10 @@ exports[`portfolio page should match snapshot 1`] = `
                   numberOfLines={1}
                   style={
                     [
-                      {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
+                      {},
                       [
-                        {
-                          "fontFamily": "SoraRegular",
-                          "fontSize": 12,
-                          "fontWeight": "400",
-                          "lineHeight": 16,
-                          "marginTop": 4,
-                        },
-                        {
-                          "color": "rgba(89, 89, 89, 1)",
-                        },
+                        {},
+                        {},
                       ],
                     ]
                   }
@@ -1330,48 +810,20 @@ exports[`portfolio page should match snapshot 1`] = `
               </View>
             </View>
             <View
-              style={
-                {
-                  "flexDirection": "row",
-                  "justifyContent": "flex-end",
-                  "width": "41.666667%",
-                }
-              }
+              style={{}}
             >
               <View
-                style={
-                  {
-                    "display": "flex",
-                    "flexBasis": "0%",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                  }
-                }
+                style={{}}
               >
                 <Text
                   style={
                     [
-                      {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
+                      {},
                       [
                         [
-                          {
-                            "fontFamily": "SoraSemiBold",
-                            "fontSize": 14,
-                            "fontWeight": "600",
-                            "justifyContent": "flex-end",
-                            "lineHeight": 20,
-                            "marginBottom": 4,
-                            "textAlign": "right",
-                          },
+                          {},
                         ],
-                        {
-                          "color": "rgba(18, 18, 18, 1)",
-                        },
+                        {},
                       ],
                     ]
                   }
@@ -1379,24 +831,10 @@ exports[`portfolio page should match snapshot 1`] = `
                   <Text
                     style={
                       [
-                        {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
+                        {},
                         [
-                          {
-                            "flexWrap": "wrap",
-                            "fontFamily": "SoraSemiBold",
-                            "fontSize": 14,
-                            "fontWeight": "600",
-                            "lineHeight": 20,
-                            "textAlign": "right",
-                          },
-                          {
-                            "color": "rgba(18, 18, 18, 1)",
-                          },
+                          {},
+                          {},
                         ],
                       ]
                     }
@@ -1408,41 +846,21 @@ exports[`portfolio page should match snapshot 1`] = `
                 <View
                   style={
                     [
-                      {
-                        "alignItems": "center",
-                        "display": "flex",
-                        "flexDirection": "row",
-                      },
-                      {
-                        "justifyContent": "flex-end",
-                      },
+                      {},
+                      {},
                     ]
                   }
                 >
                   <Text
                     style={
                       [
-                        {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
+                        {},
                         [
                           [
-                            {
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 12,
-                              "fontWeight": "400",
-                              "lineHeight": 16,
-                            },
-                            {
-                              "textAlign": "right",
-                            },
+                            {},
+                            {},
                           ],
-                          {
-                            "color": "rgba(89, 89, 89, 1)",
-                          },
+                          {},
                         ],
                       ]
                     }
@@ -1457,12 +875,7 @@ exports[`portfolio page should match snapshot 1`] = `
         </View>
       </View>
       <View
-        style={
-          {
-            "marginLeft": 20,
-            "marginRight": 20,
-          }
-        }
+        style={{}}
         testID="card_balance_row_container"
       >
         <View
@@ -1480,42 +893,16 @@ exports[`portfolio page should match snapshot 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomLeftRadius": 10,
-              "borderBottomRightRadius": 10,
-              "borderBottomWidth": 0,
-              "borderLeftWidth": 0,
-              "borderRightWidth": 0,
-              "borderTopLeftRadius": 10,
-              "borderTopRightRadius": 10,
-              "borderTopWidth": 0,
-              "marginTop": 8,
               "opacity": 1,
-              "paddingBottom": 18,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 18,
             }
           }
           testID="portfolio_row_1"
         >
           <View
-            style={
-              {
-                "alignItems": "flex-start",
-                "display": "flex",
-                "flexDirection": "row",
-              }
-            }
+            style={{}}
           >
             <View
-              style={
-                {
-                  "alignItems": "center",
-                  "flexDirection": "row",
-                  "width": "58.333333%",
-                }
-              }
+              style={{}}
             >
               <RNSVGSvgView
                 align="xMidYMid"
@@ -1576,34 +963,15 @@ exports[`portfolio page should match snapshot 1`] = `
                 </RNSVGGroup>
               </RNSVGSvgView>
               <View
-                style={
-                  {
-                    "flexBasis": "auto",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                    "marginLeft": 8,
-                  }
-                }
+                style={{}}
               >
                 <Text
                   style={
                     [
-                      {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
+                      {},
                       [
-                        {
-                          "fontFamily": "SoraSemiBold",
-                          "fontSize": 14,
-                          "fontWeight": "600",
-                          "lineHeight": 20,
-                        },
-                        {
-                          "color": "rgba(18, 18, 18, 1)",
-                        },
+                        {},
+                        {},
                       ],
                     ]
                   }
@@ -1616,23 +984,10 @@ exports[`portfolio page should match snapshot 1`] = `
                   numberOfLines={1}
                   style={
                     [
-                      {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
+                      {},
                       [
-                        {
-                          "fontFamily": "SoraRegular",
-                          "fontSize": 12,
-                          "fontWeight": "400",
-                          "lineHeight": 16,
-                          "marginTop": 4,
-                        },
-                        {
-                          "color": "rgba(89, 89, 89, 1)",
-                        },
+                        {},
+                        {},
                       ],
                     ]
                   }
@@ -1643,48 +998,20 @@ exports[`portfolio page should match snapshot 1`] = `
               </View>
             </View>
             <View
-              style={
-                {
-                  "flexDirection": "row",
-                  "justifyContent": "flex-end",
-                  "width": "41.666667%",
-                }
-              }
+              style={{}}
             >
               <View
-                style={
-                  {
-                    "display": "flex",
-                    "flexBasis": "0%",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                  }
-                }
+                style={{}}
               >
                 <Text
                   style={
                     [
-                      {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
+                      {},
                       [
                         [
-                          {
-                            "fontFamily": "SoraSemiBold",
-                            "fontSize": 14,
-                            "fontWeight": "600",
-                            "justifyContent": "flex-end",
-                            "lineHeight": 20,
-                            "marginBottom": 4,
-                            "textAlign": "right",
-                          },
+                          {},
                         ],
-                        {
-                          "color": "rgba(18, 18, 18, 1)",
-                        },
+                        {},
                       ],
                     ]
                   }
@@ -1692,24 +1019,10 @@ exports[`portfolio page should match snapshot 1`] = `
                   <Text
                     style={
                       [
-                        {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
+                        {},
                         [
-                          {
-                            "flexWrap": "wrap",
-                            "fontFamily": "SoraSemiBold",
-                            "fontSize": 14,
-                            "fontWeight": "600",
-                            "lineHeight": 20,
-                            "textAlign": "right",
-                          },
-                          {
-                            "color": "rgba(18, 18, 18, 1)",
-                          },
+                          {},
+                          {},
                         ],
                       ]
                     }
@@ -1721,41 +1034,21 @@ exports[`portfolio page should match snapshot 1`] = `
                 <View
                   style={
                     [
-                      {
-                        "alignItems": "center",
-                        "display": "flex",
-                        "flexDirection": "row",
-                      },
-                      {
-                        "justifyContent": "flex-end",
-                      },
+                      {},
+                      {},
                     ]
                   }
                 >
                   <Text
                     style={
                       [
-                        {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
+                        {},
                         [
                           [
-                            {
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 12,
-                              "fontWeight": "400",
-                              "lineHeight": 16,
-                            },
-                            {
-                              "textAlign": "right",
-                            },
+                            {},
+                            {},
                           ],
-                          {
-                            "color": "rgba(89, 89, 89, 1)",
-                          },
+                          {},
                         ],
                       ]
                     }
@@ -1783,42 +1076,16 @@ exports[`portfolio page should match snapshot 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-              "borderBottomLeftRadius": 10,
-              "borderBottomRightRadius": 10,
-              "borderBottomWidth": 0,
-              "borderLeftWidth": 0,
-              "borderRightWidth": 0,
-              "borderTopLeftRadius": 10,
-              "borderTopRightRadius": 10,
-              "borderTopWidth": 0,
-              "marginTop": 8,
               "opacity": 1,
-              "paddingBottom": 18,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 18,
             }
           }
           testID="portfolio_row_2"
         >
           <View
-            style={
-              {
-                "alignItems": "flex-start",
-                "display": "flex",
-                "flexDirection": "row",
-              }
-            }
+            style={{}}
           >
             <View
-              style={
-                {
-                  "alignItems": "center",
-                  "flexDirection": "row",
-                  "width": "58.333333%",
-                }
-              }
+              style={{}}
             >
               <RNSVGSvgView
                 align="xMidYMid"
@@ -1941,34 +1208,15 @@ exports[`portfolio page should match snapshot 1`] = `
                 </RNSVGGroup>
               </RNSVGSvgView>
               <View
-                style={
-                  {
-                    "flexBasis": "auto",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                    "marginLeft": 8,
-                  }
-                }
+                style={{}}
               >
                 <Text
                   style={
                     [
-                      {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
+                      {},
                       [
-                        {
-                          "fontFamily": "SoraSemiBold",
-                          "fontSize": 14,
-                          "fontWeight": "600",
-                          "lineHeight": 20,
-                        },
-                        {
-                          "color": "rgba(18, 18, 18, 1)",
-                        },
+                        {},
+                        {},
                       ],
                     ]
                   }
@@ -1981,23 +1229,10 @@ exports[`portfolio page should match snapshot 1`] = `
                   numberOfLines={1}
                   style={
                     [
-                      {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
+                      {},
                       [
-                        {
-                          "fontFamily": "SoraRegular",
-                          "fontSize": 12,
-                          "fontWeight": "400",
-                          "lineHeight": 16,
-                          "marginTop": 4,
-                        },
-                        {
-                          "color": "rgba(89, 89, 89, 1)",
-                        },
+                        {},
+                        {},
                       ],
                     ]
                   }
@@ -2008,48 +1243,20 @@ exports[`portfolio page should match snapshot 1`] = `
               </View>
             </View>
             <View
-              style={
-                {
-                  "flexDirection": "row",
-                  "justifyContent": "flex-end",
-                  "width": "41.666667%",
-                }
-              }
+              style={{}}
             >
               <View
-                style={
-                  {
-                    "display": "flex",
-                    "flexBasis": "0%",
-                    "flexGrow": 1,
-                    "flexShrink": 1,
-                  }
-                }
+                style={{}}
               >
                 <Text
                   style={
                     [
-                      {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
+                      {},
                       [
                         [
-                          {
-                            "fontFamily": "SoraSemiBold",
-                            "fontSize": 14,
-                            "fontWeight": "600",
-                            "justifyContent": "flex-end",
-                            "lineHeight": 20,
-                            "marginBottom": 4,
-                            "textAlign": "right",
-                          },
+                          {},
                         ],
-                        {
-                          "color": "rgba(18, 18, 18, 1)",
-                        },
+                        {},
                       ],
                     ]
                   }
@@ -2057,24 +1264,10 @@ exports[`portfolio page should match snapshot 1`] = `
                   <Text
                     style={
                       [
-                        {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
+                        {},
                         [
-                          {
-                            "flexWrap": "wrap",
-                            "fontFamily": "SoraSemiBold",
-                            "fontSize": 14,
-                            "fontWeight": "600",
-                            "lineHeight": 20,
-                            "textAlign": "right",
-                          },
-                          {
-                            "color": "rgba(18, 18, 18, 1)",
-                          },
+                          {},
+                          {},
                         ],
                       ]
                     }
@@ -2086,41 +1279,21 @@ exports[`portfolio page should match snapshot 1`] = `
                 <View
                   style={
                     [
-                      {
-                        "alignItems": "center",
-                        "display": "flex",
-                        "flexDirection": "row",
-                      },
-                      {
-                        "justifyContent": "flex-end",
-                      },
+                      {},
+                      {},
                     ]
                   }
                 >
                   <Text
                     style={
                       [
-                        {
-                          "fontFamily": "RegularFont",
-                          "fontSize": 16,
-                          "fontWeight": "400",
-                          "lineHeight": 24,
-                        },
+                        {},
                         [
                           [
-                            {
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 12,
-                              "fontWeight": "400",
-                              "lineHeight": 16,
-                            },
-                            {
-                              "textAlign": "right",
-                            },
+                            {},
+                            {},
                           ],
-                          {
-                            "color": "rgba(89, 89, 89, 1)",
-                          },
+                          {},
                         ],
                       ]
                     }

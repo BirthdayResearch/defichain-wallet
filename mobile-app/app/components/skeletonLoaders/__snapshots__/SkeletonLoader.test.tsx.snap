@@ -4,20 +4,8 @@ exports[`Skeleton Loader should match snapshot of address skeleton loader 1`] = 
 <View
   style={
     [
-      {
-        "borderBottomWidth": 1,
-        "paddingBottom": 12,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 12,
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(245, 245, 245, 1)",
-        "borderLeftColor": "rgba(245, 245, 245, 1)",
-        "borderRightColor": "rgba(245, 245, 245, 1)",
-        "borderTopColor": "rgba(245, 245, 245, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="address_skeleton_loader"
@@ -116,22 +104,8 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
 <View
   style={
     [
-      {
-        "alignItems": "center",
-        "borderBottomLeftRadius": 10,
-        "borderBottomRightRadius": 10,
-        "borderTopLeftRadius": 10,
-        "borderTopRightRadius": 10,
-        "justifyContent": "center",
-        "marginBottom": 8,
-        "paddingBottom": 20,
-        "paddingLeft": 20,
-        "paddingRight": 20,
-        "paddingTop": 20,
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="browse_auctions_skeleton_loader"
@@ -262,12 +236,8 @@ exports[`Skeleton Loader should match snapshot of dex price skeleton loader 1`] 
 <View
   style={
     [
-      {
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="dex_skeleton_price_loader"
@@ -361,20 +331,8 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
 <View
   style={
     [
-      {
-        "borderBottomLeftRadius": 10,
-        "borderBottomRightRadius": 10,
-        "borderTopLeftRadius": 10,
-        "borderTopRightRadius": 10,
-        "marginBottom": 8,
-        "paddingBottom": 16,
-        "paddingLeft": 20,
-        "paddingRight": 20,
-        "paddingTop": 16,
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="dex_skeleton_loader"
@@ -505,18 +463,8 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
 <View
   style={
     [
-      {
-        "flexDirection": "row",
-        "justifyContent": "space-around",
-        "marginLeft": 8,
-        "marginRight": 8,
-        "marginTop": 8,
-        "paddingBottom": 4,
-        "paddingTop": 4,
-      },
-      {
-        "backgroundColor": "rgba(250, 250, 250, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="loan_skeleton_loader"
@@ -525,27 +473,12 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
     style={
       [
         [
-          {
-            "borderBottomLeftRadius": 4,
-            "borderBottomRightRadius": 4,
-            "borderTopLeftRadius": 4,
-            "borderTopRightRadius": 4,
-          },
+          {},
           {
             "flexBasis": "47%",
           },
         ],
-        {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(229, 229, 229, 1)",
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(229, 229, 229, 1)",
-          "borderLeftWidth": 1,
-          "borderRightColor": "rgba(229, 229, 229, 1)",
-          "borderRightWidth": 1,
-          "borderTopColor": "rgba(229, 229, 229, 1)",
-          "borderTopWidth": 1,
-        },
+        {},
       ]
     }
   >
@@ -673,27 +606,12 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
     style={
       [
         [
-          {
-            "borderBottomLeftRadius": 4,
-            "borderBottomRightRadius": 4,
-            "borderTopLeftRadius": 4,
-            "borderTopRightRadius": 4,
-          },
+          {},
           {
             "flexBasis": "47%",
           },
         ],
-        {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(229, 229, 229, 1)",
-          "borderBottomWidth": 1,
-          "borderLeftColor": "rgba(229, 229, 229, 1)",
-          "borderLeftWidth": 1,
-          "borderRightColor": "rgba(229, 229, 229, 1)",
-          "borderRightWidth": 1,
-          "borderTopColor": "rgba(229, 229, 229, 1)",
-          "borderTopWidth": 1,
-        },
+        {},
       ]
     }
   >
@@ -824,23 +742,8 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
 <View
   style={
     [
-      {
-        "alignItems": "center",
-        "justifyContent": "center",
-        "paddingBottom": 8,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 8,
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderTopColor": "rgba(229, 229, 229, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="mnemonic_word_skeleton_loader"
@@ -949,21 +852,8 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
 <View
   style={
     [
-      {
-        "borderBottomWidth": 0.5,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginLeft": 20,
-        "marginRight": 20,
-        "paddingBottom": 20,
-        "paddingTop": 20,
-      },
-      {
-        "borderBottomColor": "rgba(204, 204, 204, 1)",
-        "borderLeftColor": "rgba(204, 204, 204, 1)",
-        "borderRightColor": "rgba(204, 204, 204, 1)",
-        "borderTopColor": "rgba(204, 204, 204, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="mnemonic_word_skeleton_loader"
@@ -1032,11 +922,11 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
           gradient={
             [
               0,
-              -855310,
+              -1,
               0.5,
               -1,
               1,
-              -855310,
+              -1,
             ]
           }
           gradientTransform={null}
@@ -1057,20 +947,8 @@ exports[`Skeleton Loader should match snapshot of portfolio skeleton loader 1`] 
 <View
   style={
     [
-      {
-        "alignItems": "center",
-        "borderBottomLeftRadius": 10,
-        "borderBottomRightRadius": 10,
-        "borderTopLeftRadius": 10,
-        "borderTopRightRadius": 10,
-        "justifyContent": "center",
-        "marginTop": 8,
-        "paddingBottom": 16,
-        "paddingTop": 16,
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="portfolio_skeleton_loader"
@@ -1193,23 +1071,8 @@ exports[`Skeleton Loader should match snapshot of transaction skeleton loader 1`
 <View
   style={
     [
-      {
-        "alignItems": "center",
-        "justifyContent": "center",
-        "paddingBottom": 8,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 8,
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderTopColor": "rgba(229, 229, 229, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="transaction_skeleton_loader"
@@ -1318,20 +1181,8 @@ exports[`Skeleton Loader should match snapshot of vault scheme skeleton loader 1
 <View
   style={
     [
-      {
-        "alignItems": "center",
-        "borderBottomWidth": 0.5,
-        "justifyContent": "center",
-        "marginLeft": 20,
-        "marginRight": 20,
-      },
-      {
-        "backgroundColor": "transparent",
-        "borderBottomColor": "rgba(204, 204, 204, 1)",
-        "borderLeftColor": "rgba(204, 204, 204, 1)",
-        "borderRightColor": "rgba(204, 204, 204, 1)",
-        "borderTopColor": "rgba(204, 204, 204, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="portfolio_skeleton_loader"
@@ -1438,28 +1289,8 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
 <View
   style={
     [
-      {
-        "alignItems": "center",
-        "justifyContent": "center",
-        "marginLeft": 16,
-        "marginRight": 16,
-        "marginTop": 8,
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 16,
-      },
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-        "borderBottomColor": "rgba(229, 229, 229, 1)",
-        "borderBottomWidth": 1,
-        "borderLeftColor": "rgba(229, 229, 229, 1)",
-        "borderLeftWidth": 1,
-        "borderRightColor": "rgba(229, 229, 229, 1)",
-        "borderRightWidth": 1,
-        "borderTopColor": "rgba(229, 229, 229, 1)",
-        "borderTopWidth": 1,
-      },
+      {},
+      {},
     ]
   }
   testID="vault_skeleton_loader"

@@ -5,22 +5,10 @@ exports[`Summary Title V2 should match snapshot 1`] = `
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
+        {},
         [
-          {
-            "fontFamily": "SoraRegular",
-            "fontSize": 12,
-            "fontWeight": "400",
-            "lineHeight": 16,
-          },
-          {
-            "color": "rgba(115, 115, 115, 1)",
-          },
+          {},
+          {},
         ],
       ]
     }
@@ -29,27 +17,13 @@ exports[`Summary Title V2 should match snapshot 1`] = `
     foo
   </Text>,
   <View
-    style={
-      {
-        "flexDirection": "column",
-      }
-    }
+    style={{}}
   >
     <View
-      style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "marginTop": 8,
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "flexDirection": "row",
-          }
-        }
+        style={{}}
       >
         <RNSVGSvgView
           align="xMidYMid"
@@ -66,9 +40,7 @@ exports[`Summary Title V2 should match snapshot 1`] = `
                 "backgroundColor": "transparent",
                 "borderWidth": 0,
               },
-              {
-                "zIndex": 10,
-              },
+              {},
               {
                 "flex": 0,
                 "height": 32,
@@ -128,9 +100,7 @@ exports[`Summary Title V2 should match snapshot 1`] = `
                 "backgroundColor": "transparent",
                 "borderWidth": 0,
               },
-              {
-                "marginLeft": -12,
-              },
+              {},
               {
                 "flex": 0,
                 "height": 32,
@@ -177,25 +147,10 @@ exports[`Summary Title V2 should match snapshot 1`] = `
       <Text
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "flexWrap": "wrap",
-                "fontFamily": "SoraSemiBold",
-                "fontSize": 30,
-                "fontWeight": "600",
-                "lineHeight": 36,
-                "paddingLeft": 8,
-                "paddingRight": 4,
-              },
-              {
-                "color": "rgba(18, 18, 18, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -205,33 +160,15 @@ exports[`Summary Title V2 should match snapshot 1`] = `
       </Text>
     </View>
     <View
-      style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "marginTop": 20,
-        }
-      }
+      style={{}}
     >
       <Text
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraRegular",
-                "fontSize": 12,
-                "fontWeight": "400",
-                "lineHeight": 16,
-              },
-              {
-                "color": "rgba(115, 115, 115, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -241,24 +178,8 @@ exports[`Summary Title V2 should match snapshot 1`] = `
       <View
         style={
           [
-            {
-              "alignItems": "center",
-              "borderBottomLeftRadius": 9999,
-              "borderBottomRightRadius": 9999,
-              "borderTopLeftRadius": 9999,
-              "borderTopRightRadius": 9999,
-              "display": "flex",
-              "flexDirection": "row",
-              "marginLeft": 8,
-              "overflow": "hidden",
-              "paddingBottom": 4,
-              "paddingLeft": 4,
-              "paddingRight": 10,
-              "paddingTop": 4,
-            },
-            {
-              "backgroundColor": "rgba(217, 217, 217, 1)",
-            },
+            {},
+            {},
           ]
         }
       >
@@ -267,29 +188,16 @@ exports[`Summary Title V2 should match snapshot 1`] = `
           numberOfLines={1}
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
                 [
-                  {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                    "marginLeft": 4,
-                  },
+                  {},
                   {
                     "maxWidth": 108,
                     "minWidth": 10,
                   },
                 ],
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
               ],
             ]
           }

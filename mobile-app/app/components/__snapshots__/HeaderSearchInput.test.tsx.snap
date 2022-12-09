@@ -5,21 +5,12 @@ exports[`Header search input should match snapshot 1`] = `
   style={
     [
       [
-        {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "paddingBottom": 2,
-          "paddingLeft": 12,
-          "paddingRight": 20,
-        },
+        {},
         {
           "paddingTop": 114,
         },
       ],
-      {
-        "backgroundColor": "rgba(255, 255, 255, 1)",
-      },
+      {},
     ]
   }
 >
@@ -36,7 +27,6 @@ exports[`Header search input should match snapshot 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       {
-        "marginRight": 16,
         "opacity": 1,
       }
     }
@@ -48,36 +38,10 @@ exports[`Header search input should match snapshot 1`] = `
     style={
       [
         [
-          {
-            "alignItems": "center",
-            "borderBottomLeftRadius": 9999,
-            "borderBottomRightRadius": 9999,
-            "borderTopLeftRadius": 9999,
-            "borderTopRightRadius": 9999,
-            "display": "flex",
-            "flexDirection": "row",
-            "paddingBottom": 12,
-            "paddingLeft": 20,
-            "paddingRight": 20,
-            "paddingTop": 12,
-          },
-          {
-            "borderBottomColor": "rgba(242, 242, 242, 1)",
-            "borderBottomWidth": 0.5,
-            "borderLeftColor": "rgba(242, 242, 242, 1)",
-            "borderLeftWidth": 0.5,
-            "borderRightColor": "rgba(242, 242, 242, 1)",
-            "borderRightWidth": 0.5,
-            "borderTopColor": "rgba(242, 242, 242, 1)",
-            "borderTopWidth": 0.5,
-            "flexBasis": "0%",
-            "flexGrow": 1,
-            "flexShrink": 1,
-          },
+          {},
+          {},
         ],
-        {
-          "backgroundColor": "rgba(242, 242, 242, 1)",
-        },
+        {},
       ]
     }
   >
@@ -88,30 +52,17 @@ exports[`Header search input should match snapshot 1`] = `
       onChangeText={[MockFunction]}
       onFocus={[Function]}
       placeholder="Search"
-      placeholderTextColor="rgba(115, 115, 115, 1)"
-      selectionColor="rgba(255, 0, 140, 1)"
+      placeholderTextColor="#ffffff"
+      selectionColor="#ffffff"
       showClearButton={false}
       style={
         [
           [
             undefined,
-            {
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "fontFamily": "SoraRegular",
-              "fontSize": 12,
-              "fontWeight": "400",
-              "lineHeight": 16,
-              "width": "66.666667%",
-            },
-            {
-              "marginRight": 16,
-            },
+            {},
+            {},
           ],
-          {
-            "color": "rgba(18, 18, 18, 1)",
-          },
+          {},
         ]
       }
       value=""

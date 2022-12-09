@@ -2,24 +2,11 @@
 
 exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
 <RCTScrollView
-  contentContainerStyle={
-    {
-      "paddingBottom": 64,
-      "paddingLeft": 20,
-      "paddingRight": 20,
-      "paddingTop": 32,
-    }
-  }
+  contentContainerStyle={{}}
   style={
     [
-      {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-      },
-      {
-        "backgroundColor": "rgba(242, 242, 242, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="loans_faq"
@@ -28,24 +15,10 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
     <Text
       style={
         [
-          {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
+          {},
           [
-            {
-              "fontFamily": "SoraRegular",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-            },
-            {
-              "color": "rgba(18, 18, 18, 1)",
-            },
+            {},
+            {},
           ],
         ]
       }
@@ -56,9 +29,7 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
       style={
         [
           undefined,
-          {
-            "backgroundColor": "rgba(242, 242, 242, 1)",
-          },
+          {},
         ]
       }
       testID="loans_faq_accordion"
@@ -67,25 +38,10 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 12,
-                  "fontWeight": "400",
-                  "lineHeight": 16,
-                  "marginTop": 32,
-                  "paddingLeft": 20,
-                  "paddingRight": 20,
-                },
-                {
-                  "color": "rgba(115, 115, 115, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -96,17 +52,8 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
         <View
           style={
             [
-              {
-                "borderBottomLeftRadius": 8,
-                "borderBottomRightRadius": 8,
-                "borderTopLeftRadius": 8,
-                "borderTopRightRadius": 8,
-                "marginTop": 8,
-                "overflow": "hidden",
-              },
-              {
-                "backgroundColor": "rgba(255, 255, 255, 1)",
-              },
+              {},
+              {},
             ]
           }
         >
@@ -133,51 +80,21 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                 style={
                   [
                     [
-                      {
-                        "alignItems": "flex-start",
-                        "flexDirection": "row",
-                        "justifyContent": "space-between",
-                        "marginLeft": 20,
-                        "marginRight": 20,
-                        "paddingBottom": 16,
-                        "paddingTop": 16,
-                      },
+                      {},
                       false,
-                      {
-                        "paddingBottom": 4,
-                      },
+                      {},
                     ],
-                    {
-                      "borderBottomColor": "rgba(204, 204, 204, 1)",
-                      "borderLeftColor": "rgba(204, 204, 204, 1)",
-                      "borderRightColor": "rgba(204, 204, 204, 1)",
-                      "borderTopColor": "rgba(204, 204, 204, 1)",
-                    },
+                    {},
                   ]
                 }
               >
                 <Text
                   style={
                     [
-                      {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
+                      {},
                       [
-                        {
-                          "flexBasis": "0%",
-                          "flexGrow": 1,
-                          "flexShrink": 1,
-                          "fontFamily": "SoraSemiBold",
-                          "fontSize": 14,
-                          "fontWeight": "600",
-                          "lineHeight": 20,
-                        },
-                        {
-                          "color": "rgba(18, 18, 18, 1)",
-                        },
+                        {},
+                        {},
                       ],
                     ]
                   }
@@ -202,55 +119,23 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                   style={
                     [
                       [
-                        {
-                          "marginLeft": 20,
-                          "marginRight": 20,
-                          "paddingBottom": 16,
-                          "paddingTop": 16,
-                        },
-                        {
-                          "borderBottomWidth": 1,
-                        },
+                        {},
+                        {},
                       ],
-                      {
-                        "borderBottomColor": "rgba(204, 204, 204, 1)",
-                        "borderLeftColor": "rgba(204, 204, 204, 1)",
-                        "borderRightColor": "rgba(204, 204, 204, 1)",
-                        "borderTopColor": "rgba(204, 204, 204, 1)",
-                      },
+                      {},
                     ]
                   }
                 >
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -285,51 +170,21 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                 style={
                   [
                     [
-                      {
-                        "alignItems": "flex-start",
-                        "flexDirection": "row",
-                        "justifyContent": "space-between",
-                        "marginLeft": 20,
-                        "marginRight": 20,
-                        "paddingBottom": 16,
-                        "paddingTop": 16,
-                      },
-                      {
-                        "borderBottomWidth": 1,
-                      },
+                      {},
+                      {},
                       false,
                     ],
-                    {
-                      "borderBottomColor": "rgba(204, 204, 204, 1)",
-                      "borderLeftColor": "rgba(204, 204, 204, 1)",
-                      "borderRightColor": "rgba(204, 204, 204, 1)",
-                      "borderTopColor": "rgba(204, 204, 204, 1)",
-                    },
+                    {},
                   ]
                 }
               >
                 <Text
                   style={
                     [
-                      {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
+                      {},
                       [
-                        {
-                          "flexBasis": "0%",
-                          "flexGrow": 1,
-                          "flexShrink": 1,
-                          "fontFamily": "SoraRegular",
-                          "fontSize": 14,
-                          "fontWeight": "400",
-                          "lineHeight": 20,
-                        },
-                        {
-                          "color": "rgba(89, 89, 89, 1)",
-                        },
+                        {},
+                        {},
                       ],
                     ]
                   }
@@ -359,53 +214,23 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                   style={
                     [
                       [
-                        {
-                          "marginLeft": 20,
-                          "marginRight": 20,
-                          "paddingBottom": 16,
-                          "paddingTop": 16,
-                        },
+                        {},
                         false,
                       ],
-                      {
-                        "borderBottomColor": "rgba(204, 204, 204, 1)",
-                        "borderLeftColor": "rgba(204, 204, 204, 1)",
-                        "borderRightColor": "rgba(204, 204, 204, 1)",
-                        "borderTopColor": "rgba(204, 204, 204, 1)",
-                      },
+                      {},
                     ]
                   }
                 >
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -414,35 +239,15 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     </Text>
                   </View>
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -451,34 +256,15 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     </Text>
                   </View>
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "fontFamily": "SoraBold",
-                              "fontSize": 14,
-                              "fontWeight": "700",
-                              "lineHeight": 20,
-                              "textAlign": "center",
-                              "width": "8.333333%",
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -488,25 +274,10 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -515,34 +286,15 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     </Text>
                   </View>
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "fontFamily": "SoraBold",
-                              "fontSize": 14,
-                              "fontWeight": "700",
-                              "lineHeight": 20,
-                              "textAlign": "center",
-                              "width": "8.333333%",
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -552,25 +304,10 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -579,34 +316,15 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     </Text>
                   </View>
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "fontFamily": "SoraBold",
-                              "fontSize": 14,
-                              "fontWeight": "700",
-                              "lineHeight": 20,
-                              "textAlign": "center",
-                              "width": "8.333333%",
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -616,25 +334,10 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -669,51 +372,21 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                 style={
                   [
                     [
-                      {
-                        "alignItems": "flex-start",
-                        "flexDirection": "row",
-                        "justifyContent": "space-between",
-                        "marginLeft": 20,
-                        "marginRight": 20,
-                        "paddingBottom": 16,
-                        "paddingTop": 16,
-                      },
-                      {
-                        "borderBottomWidth": 1,
-                      },
+                      {},
+                      {},
                       false,
                     ],
-                    {
-                      "borderBottomColor": "rgba(204, 204, 204, 1)",
-                      "borderLeftColor": "rgba(204, 204, 204, 1)",
-                      "borderRightColor": "rgba(204, 204, 204, 1)",
-                      "borderTopColor": "rgba(204, 204, 204, 1)",
-                    },
+                    {},
                   ]
                 }
               >
                 <Text
                   style={
                     [
-                      {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
+                      {},
                       [
-                        {
-                          "flexBasis": "0%",
-                          "flexGrow": 1,
-                          "flexShrink": 1,
-                          "fontFamily": "SoraRegular",
-                          "fontSize": 14,
-                          "fontWeight": "400",
-                          "lineHeight": 20,
-                        },
-                        {
-                          "color": "rgba(89, 89, 89, 1)",
-                        },
+                        {},
+                        {},
                       ],
                     ]
                   }
@@ -743,52 +416,23 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                   style={
                     [
                       [
-                        {
-                          "marginLeft": 20,
-                          "marginRight": 20,
-                          "paddingBottom": 16,
-                          "paddingTop": 16,
-                        },
+                        {},
                         false,
                       ],
-                      {
-                        "borderBottomColor": "rgba(204, 204, 204, 1)",
-                        "borderLeftColor": "rgba(204, 204, 204, 1)",
-                        "borderRightColor": "rgba(204, 204, 204, 1)",
-                        "borderTopColor": "rgba(204, 204, 204, 1)",
-                      },
+                      {},
                     ]
                   }
                 >
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "fontFamily": "SoraBold",
-                              "fontSize": 14,
-                              "fontWeight": "700",
-                              "lineHeight": 20,
-                              "textAlign": "center",
-                              "width": "8.333333%",
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -798,25 +442,10 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -825,34 +454,15 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     </Text>
                   </View>
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "fontFamily": "SoraBold",
-                              "fontSize": 14,
-                              "fontWeight": "700",
-                              "lineHeight": 20,
-                              "textAlign": "center",
-                              "width": "8.333333%",
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -862,25 +472,10 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -889,34 +484,15 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     </Text>
                   </View>
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "fontFamily": "SoraBold",
-                              "fontSize": 14,
-                              "fontWeight": "700",
-                              "lineHeight": 20,
-                              "textAlign": "center",
-                              "width": "8.333333%",
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -926,25 +502,10 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -953,34 +514,15 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     </Text>
                   </View>
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "fontFamily": "SoraBold",
-                              "fontSize": 14,
-                              "fontWeight": "700",
-                              "lineHeight": 20,
-                              "textAlign": "center",
-                              "width": "8.333333%",
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -990,25 +532,10 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -1017,34 +544,15 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     </Text>
                   </View>
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "fontFamily": "SoraBold",
-                              "fontSize": 14,
-                              "fontWeight": "700",
-                              "lineHeight": 20,
-                              "textAlign": "center",
-                              "width": "8.333333%",
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -1054,25 +562,10 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -1081,34 +574,15 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     </Text>
                   </View>
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "fontFamily": "SoraBold",
-                              "fontSize": 14,
-                              "fontWeight": "700",
-                              "lineHeight": 20,
-                              "textAlign": "center",
-                              "width": "8.333333%",
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -1118,25 +592,10 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -1145,34 +604,15 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     </Text>
                   </View>
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "fontFamily": "SoraBold",
-                              "fontSize": 14,
-                              "fontWeight": "700",
-                              "lineHeight": 20,
-                              "textAlign": "center",
-                              "width": "8.333333%",
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -1182,25 +622,10 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -1235,51 +660,21 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                 style={
                   [
                     [
-                      {
-                        "alignItems": "flex-start",
-                        "flexDirection": "row",
-                        "justifyContent": "space-between",
-                        "marginLeft": 20,
-                        "marginRight": 20,
-                        "paddingBottom": 16,
-                        "paddingTop": 16,
-                      },
-                      {
-                        "borderBottomWidth": 1,
-                      },
+                      {},
+                      {},
                       false,
                     ],
-                    {
-                      "borderBottomColor": "rgba(204, 204, 204, 1)",
-                      "borderLeftColor": "rgba(204, 204, 204, 1)",
-                      "borderRightColor": "rgba(204, 204, 204, 1)",
-                      "borderTopColor": "rgba(204, 204, 204, 1)",
-                    },
+                    {},
                   ]
                 }
               >
                 <Text
                   style={
                     [
-                      {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
+                      {},
                       [
-                        {
-                          "flexBasis": "0%",
-                          "flexGrow": 1,
-                          "flexShrink": 1,
-                          "fontFamily": "SoraRegular",
-                          "fontSize": 14,
-                          "fontWeight": "400",
-                          "lineHeight": 20,
-                        },
-                        {
-                          "color": "rgba(89, 89, 89, 1)",
-                        },
+                        {},
+                        {},
                       ],
                     ]
                   }
@@ -1309,53 +704,23 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                   style={
                     [
                       [
-                        {
-                          "marginLeft": 20,
-                          "marginRight": 20,
-                          "paddingBottom": 16,
-                          "paddingTop": 16,
-                        },
+                        {},
                         false,
                       ],
-                      {
-                        "borderBottomColor": "rgba(204, 204, 204, 1)",
-                        "borderLeftColor": "rgba(204, 204, 204, 1)",
-                        "borderRightColor": "rgba(204, 204, 204, 1)",
-                        "borderTopColor": "rgba(204, 204, 204, 1)",
-                      },
+                      {},
                     ]
                   }
                 >
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -1364,34 +729,15 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     </Text>
                   </View>
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "fontFamily": "SoraBold",
-                              "fontSize": 14,
-                              "fontWeight": "700",
-                              "lineHeight": 20,
-                              "textAlign": "center",
-                              "width": "8.333333%",
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -1401,25 +747,10 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -1428,34 +759,15 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     </Text>
                   </View>
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "fontFamily": "SoraBold",
-                              "fontSize": 14,
-                              "fontWeight": "700",
-                              "lineHeight": 20,
-                              "textAlign": "center",
-                              "width": "8.333333%",
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -1465,25 +777,10 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -1492,35 +789,15 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                     </Text>
                   </View>
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -1555,51 +832,21 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                 style={
                   [
                     [
-                      {
-                        "alignItems": "flex-start",
-                        "flexDirection": "row",
-                        "justifyContent": "space-between",
-                        "marginLeft": 20,
-                        "marginRight": 20,
-                        "paddingBottom": 16,
-                        "paddingTop": 16,
-                      },
-                      {
-                        "borderBottomWidth": 1,
-                      },
+                      {},
+                      {},
                       false,
                     ],
-                    {
-                      "borderBottomColor": "rgba(204, 204, 204, 1)",
-                      "borderLeftColor": "rgba(204, 204, 204, 1)",
-                      "borderRightColor": "rgba(204, 204, 204, 1)",
-                      "borderTopColor": "rgba(204, 204, 204, 1)",
-                    },
+                    {},
                   ]
                 }
               >
                 <Text
                   style={
                     [
-                      {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
+                      {},
                       [
-                        {
-                          "flexBasis": "0%",
-                          "flexGrow": 1,
-                          "flexShrink": 1,
-                          "fontFamily": "SoraRegular",
-                          "fontSize": 14,
-                          "fontWeight": "400",
-                          "lineHeight": 20,
-                        },
-                        {
-                          "color": "rgba(89, 89, 89, 1)",
-                        },
+                        {},
+                        {},
                       ],
                     ]
                   }
@@ -1629,53 +876,23 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                   style={
                     [
                       [
-                        {
-                          "marginLeft": 20,
-                          "marginRight": 20,
-                          "paddingBottom": 16,
-                          "paddingTop": 16,
-                        },
+                        {},
                         false,
                       ],
-                      {
-                        "borderBottomColor": "rgba(204, 204, 204, 1)",
-                        "borderLeftColor": "rgba(204, 204, 204, 1)",
-                        "borderRightColor": "rgba(204, 204, 204, 1)",
-                        "borderTopColor": "rgba(204, 204, 204, 1)",
-                      },
+                      {},
                     ]
                   }
                 >
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }
@@ -1710,49 +927,21 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                 style={
                   [
                     [
-                      {
-                        "alignItems": "flex-start",
-                        "flexDirection": "row",
-                        "justifyContent": "space-between",
-                        "marginLeft": 20,
-                        "marginRight": 20,
-                        "paddingBottom": 16,
-                        "paddingTop": 16,
-                      },
+                      {},
                       false,
                       false,
                     ],
-                    {
-                      "borderBottomColor": "rgba(204, 204, 204, 1)",
-                      "borderLeftColor": "rgba(204, 204, 204, 1)",
-                      "borderRightColor": "rgba(204, 204, 204, 1)",
-                      "borderTopColor": "rgba(204, 204, 204, 1)",
-                    },
+                    {},
                   ]
                 }
               >
                 <Text
                   style={
                     [
-                      {
-                        "fontFamily": "RegularFont",
-                        "fontSize": 16,
-                        "fontWeight": "400",
-                        "lineHeight": 24,
-                      },
+                      {},
                       [
-                        {
-                          "flexBasis": "0%",
-                          "flexGrow": 1,
-                          "flexShrink": 1,
-                          "fontFamily": "SoraRegular",
-                          "fontSize": 14,
-                          "fontWeight": "400",
-                          "lineHeight": 20,
-                        },
-                        {
-                          "color": "rgba(89, 89, 89, 1)",
-                        },
+                        {},
+                        {},
                       ],
                     ]
                   }
@@ -1782,53 +971,23 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
                   style={
                     [
                       [
-                        {
-                          "marginLeft": 20,
-                          "marginRight": 20,
-                          "paddingBottom": 16,
-                          "paddingTop": 16,
-                        },
+                        {},
                         false,
                       ],
-                      {
-                        "borderBottomColor": "rgba(204, 204, 204, 1)",
-                        "borderLeftColor": "rgba(204, 204, 204, 1)",
-                        "borderRightColor": "rgba(204, 204, 204, 1)",
-                        "borderTopColor": "rgba(204, 204, 204, 1)",
-                      },
+                      {},
                     ]
                   }
                 >
                   <View
-                    style={
-                      {
-                        "flexDirection": "row",
-                        "justifyContent": "flex-start",
-                      }
-                    }
+                    style={{}}
                   >
                     <Text
                       style={
                         [
-                          {
-                            "fontFamily": "RegularFont",
-                            "fontSize": 16,
-                            "fontWeight": "400",
-                            "lineHeight": 24,
-                          },
+                          {},
                           [
-                            {
-                              "flexBasis": "0%",
-                              "flexGrow": 1,
-                              "flexShrink": 1,
-                              "fontFamily": "SoraRegular",
-                              "fontSize": 14,
-                              "fontWeight": "400",
-                              "lineHeight": 20,
-                            },
-                            {
-                              "color": "rgba(18, 18, 18, 1)",
-                            },
+                            {},
+                            {},
                           ],
                         ]
                       }

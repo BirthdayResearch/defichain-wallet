@@ -4,43 +4,21 @@ exports[`wallet text input should render with default keyboard 1`] = `
 <View
   style={
     [
-      {
-        "flexDirection": "column",
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "transparent",
-      },
+      {},
+      {},
     ]
   }
 >
   <View
-    style={
-      {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-      }
-    }
+    style={{}}
   >
     <Text
       style={
         [
-          {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
+          {},
           [
-            {
-              "fontSize": 16,
-              "lineHeight": 24,
-            },
-            {
-              "color": "rgba(64, 64, 64, 1)",
-            },
+            {},
+            {},
           ],
         ]
       }
@@ -53,26 +31,8 @@ exports[`wallet text input should render with default keyboard 1`] = `
   <View
     style={
       [
-        {
-          "borderBottomLeftRadius": 4,
-          "borderBottomRightRadius": 4,
-          "borderBottomWidth": 1,
-          "borderLeftWidth": 1,
-          "borderRightWidth": 1,
-          "borderTopLeftRadius": 4,
-          "borderTopRightRadius": 4,
-          "borderTopWidth": 1,
-          "flexDirection": "column",
-          "marginTop": 8,
-          "width": "100%",
-        },
-        {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(255, 0, 0, 1)",
-          "borderLeftColor": "rgba(255, 0, 0, 1)",
-          "borderRightColor": "rgba(255, 0, 0, 1)",
-          "borderTopColor": "rgba(255, 0, 0, 1)",
-        },
+        {},
+        {},
       ]
     }
   >
@@ -80,20 +40,10 @@ exports[`wallet text input should render with default keyboard 1`] = `
       style={
         [
           [
-            {
-              "alignItems": "center",
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-              "paddingBottom": 8,
-              "paddingLeft": 8,
-              "paddingRight": 8,
-              "paddingTop": 8,
-            },
+            {},
             false,
           ],
-          {
-            "backgroundColor": "transparent",
-          },
+          {},
         ]
       }
     >
@@ -107,9 +57,7 @@ exports[`wallet text input should render with default keyboard 1`] = `
         style={
           [
             undefined,
-            {
-              "color": "rgba(64, 64, 64, 1)",
-            },
+            {},
           ]
         }
         testID="testID"
@@ -121,22 +69,10 @@ exports[`wallet text input should render with default keyboard 1`] = `
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
+        {},
         [
-          {
-            "fontSize": 14,
-            "lineHeight": 20,
-            "marginBottom": 4,
-            "marginTop": 4,
-          },
-          {
-            "color": "rgba(255, 0, 0, 1)",
-          },
+          {},
+          {},
         ],
       ]
     }
@@ -151,43 +87,21 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
 <View
   style={
     [
-      {
-        "flexDirection": "column",
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "transparent",
-      },
+      {},
+      {},
     ]
   }
 >
   <View
-    style={
-      {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-      }
-    }
+    style={{}}
   >
     <Text
       style={
         [
-          {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
+          {},
           [
-            {
-              "fontSize": 16,
-              "lineHeight": 24,
-            },
-            {
-              "color": "rgba(64, 64, 64, 1)",
-            },
+            {},
+            {},
           ],
         ]
       }
@@ -200,26 +114,8 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
   <View
     style={
       [
-        {
-          "borderBottomLeftRadius": 4,
-          "borderBottomRightRadius": 4,
-          "borderBottomWidth": 1,
-          "borderLeftWidth": 1,
-          "borderRightWidth": 1,
-          "borderTopLeftRadius": 4,
-          "borderTopRightRadius": 4,
-          "borderTopWidth": 1,
-          "flexDirection": "column",
-          "marginTop": 8,
-          "width": "100%",
-        },
-        {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(255, 0, 0, 1)",
-          "borderLeftColor": "rgba(255, 0, 0, 1)",
-          "borderRightColor": "rgba(255, 0, 0, 1)",
-          "borderTopColor": "rgba(255, 0, 0, 1)",
-        },
+        {},
+        {},
       ]
     }
   >
@@ -227,20 +123,10 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
       style={
         [
           [
-            {
-              "alignItems": "center",
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-              "paddingBottom": 8,
-              "paddingLeft": 8,
-              "paddingRight": 8,
-              "paddingTop": 8,
-            },
+            {},
             false,
           ],
-          {
-            "backgroundColor": "transparent",
-          },
+          {},
         ]
       }
     >
@@ -254,9 +140,7 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
         style={
           [
             undefined,
-            {
-              "color": "rgba(64, 64, 64, 1)",
-            },
+            {},
           ]
         }
         testID="testID"
@@ -268,22 +152,10 @@ exports[`wallet text input should render with numeric keyboard 1`] = `
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
+        {},
         [
-          {
-            "fontSize": 14,
-            "lineHeight": 20,
-            "marginBottom": 4,
-            "marginTop": 4,
-          },
-          {
-            "color": "rgba(255, 0, 0, 1)",
-          },
+          {},
+          {},
         ],
       ]
     }

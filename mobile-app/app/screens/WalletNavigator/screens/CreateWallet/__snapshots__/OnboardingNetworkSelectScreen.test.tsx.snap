@@ -4,16 +4,8 @@ exports[`onboarding network selection screen should render 1`] = `
 <View
   style={
     [
-      {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-        "paddingLeft": 20,
-        "paddingRight": 20,
-      },
-      {
-        "backgroundColor": "rgba(242, 242, 242, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="network_details"
@@ -21,26 +13,10 @@ exports[`onboarding network selection screen should render 1`] = `
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
+        {},
         [
-          {
-            "fontFamily": "SoraRegular",
-            "fontSize": 12,
-            "fontWeight": "400",
-            "lineHeight": 16,
-            "paddingBottom": 8,
-            "paddingLeft": 20,
-            "paddingRight": 20,
-            "paddingTop": 24,
-          },
-          {
-            "color": "rgba(115, 115, 115, 1)",
-          },
+          {},
+          {},
         ],
       ]
     }
@@ -52,32 +28,16 @@ exports[`onboarding network selection screen should render 1`] = `
   <View
     style={
       [
-        {
-          "borderBottomLeftRadius": 10,
-          "borderBottomRightRadius": 10,
-          "borderTopLeftRadius": 10,
-          "borderTopRightRadius": 10,
-          "paddingLeft": 20,
-          "paddingRight": 20,
-        },
-        {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
+        {},
+        {},
       ]
     }
   >
     <View
       style={
         [
-          {
-            "borderBottomWidth": 0.5,
-          },
-          {
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-          },
+          {},
+          {},
         ]
       }
       testID="button_network_Local"
@@ -95,43 +55,17 @@ exports[`onboarding network selection screen should render 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 0,
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderLeftWidth": 0,
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderRightWidth": 0,
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "borderTopWidth": 0,
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
             "opacity": 1,
-            "paddingBottom": 18,
-            "paddingTop": 18,
           }
         }
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -145,15 +79,8 @@ exports[`onboarding network selection screen should render 1`] = `
     <View
       style={
         [
-          {
-            "borderBottomWidth": 0.5,
-          },
-          {
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-          },
+          {},
+          {},
         ]
       }
       testID="button_network_Playground"
@@ -171,43 +98,17 @@ exports[`onboarding network selection screen should render 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 0,
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderLeftWidth": 0,
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderRightWidth": 0,
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "borderTopWidth": 0,
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
             "opacity": 1,
-            "paddingBottom": 18,
-            "paddingTop": 18,
           }
         }
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -221,15 +122,8 @@ exports[`onboarding network selection screen should render 1`] = `
     <View
       style={
         [
-          {
-            "borderBottomWidth": 0.5,
-          },
-          {
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-          },
+          {},
+          {},
         ]
       }
       testID="button_network_TestNet"
@@ -247,43 +141,17 @@ exports[`onboarding network selection screen should render 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 0,
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderLeftWidth": 0,
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderRightWidth": 0,
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "borderTopWidth": 0,
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
             "opacity": 1,
-            "paddingBottom": 18,
-            "paddingTop": 18,
           }
         }
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -298,12 +166,7 @@ exports[`onboarding network selection screen should render 1`] = `
       style={
         [
           {},
-          {
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-          },
+          {},
         ]
       }
       testID="button_network_MainNet"
@@ -321,43 +184,17 @@ exports[`onboarding network selection screen should render 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           {
-            "alignItems": "center",
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderBottomWidth": 0,
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderLeftWidth": 0,
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderRightWidth": 0,
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-            "borderTopWidth": 0,
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
             "opacity": 1,
-            "paddingBottom": 18,
-            "paddingTop": 18,
           }
         }
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -372,26 +209,10 @@ exports[`onboarding network selection screen should render 1`] = `
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
+        {},
         [
-          {
-            "fontFamily": "SoraRegular",
-            "fontSize": 12,
-            "fontWeight": "400",
-            "lineHeight": 16,
-            "paddingBottom": 8,
-            "paddingLeft": 20,
-            "paddingRight": 20,
-            "paddingTop": 24,
-          },
-          {
-            "color": "rgba(115, 115, 115, 1)",
-          },
+          {},
+          {},
         ],
       ]
     }
@@ -403,82 +224,37 @@ exports[`onboarding network selection screen should render 1`] = `
   <View
     style={
       [
-        {
-          "borderBottomLeftRadius": 10,
-          "borderBottomRightRadius": 10,
-          "borderTopLeftRadius": 10,
-          "borderTopRightRadius": 10,
-          "paddingBottom": 20,
-          "paddingLeft": 20,
-          "paddingRight": 20,
-          "paddingTop": 20,
-        },
-        {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
+        {},
+        {},
       ]
     }
   >
     <View
       style={
         [
-          {
-            "alignItems": "flex-start",
-            "backgroundColor": "transparent",
-            "borderBottomWidth": 0.5,
-            "flexDirection": "row",
-            "paddingBottom": 18,
-            "width": "100%",
-          },
-          {
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-          },
+          {},
+          {},
         ]
       }
     >
       <View
         style={
           [
-            {
-              "width": "41.666667%",
-            },
+            {},
             undefined,
           ]
         }
       >
         <View
-          style={
-            {
-              "alignItems": "center",
-              "flexDirection": "row",
-              "justifyContent": "flex-start",
-            }
-          }
+          style={{}}
         >
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
-                  {
-                    "flexWrap": "wrap",
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                    "marginRight": 4,
-                  },
-                  {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
+                  {},
+                  {},
                 ],
               ]
             }
@@ -490,11 +266,7 @@ exports[`onboarding network selection screen should render 1`] = `
       <View
         style={
           [
-            {
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
-            },
+            {},
             undefined,
           ]
         }
@@ -517,47 +289,20 @@ exports[`onboarding network selection screen should render 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "display": "flex",
-              "flexDirection": "row",
-              "justifyContent": "flex-end",
               "opacity": 1,
             }
           }
         >
           <View
-            style={
-              {
-                "flexBasis": "0%",
-                "flexGrow": 1,
-                "flexShrink": 1,
-              }
-            }
+            style={{}}
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                      "textAlign": "right",
-                    },
-                    {
-                      "color": "rgba(89, 89, 89, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -572,50 +317,21 @@ exports[`onboarding network selection screen should render 1`] = `
     <View
       style={
         [
-          {
-            "alignItems": "flex-start",
-            "backgroundColor": "transparent",
-            "borderBottomWidth": 0.5,
-            "flexDirection": "row",
-            "paddingBottom": 18,
-            "paddingTop": 18,
-            "width": "100%",
-          },
-          {
-            "borderBottomColor": "rgba(204, 204, 204, 1)",
-            "borderLeftColor": "rgba(204, 204, 204, 1)",
-            "borderRightColor": "rgba(204, 204, 204, 1)",
-            "borderTopColor": "rgba(204, 204, 204, 1)",
-          },
+          {},
+          {},
         ]
       }
     >
       <View
-        style={
-          {
-            "width": "41.666667%",
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -624,13 +340,7 @@ exports[`onboarding network selection screen should render 1`] = `
         </Text>
       </View>
       <View
-        style={
-          {
-            "flexBasis": "0%",
-            "flexGrow": 1,
-            "flexShrink": 1,
-          }
-        }
+        style={{}}
       >
         <View
           accessible={true}
@@ -651,35 +361,15 @@ exports[`onboarding network selection screen should render 1`] = `
           testID="block_detail_explorer_url"
         >
           <View
-            style={
-              {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "justifyContent": "flex-end",
-              }
-            }
+            style={{}}
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "flexWrap": "wrap",
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                      "textAlign": "right",
-                    },
-                    {
-                      "color": "rgba(89, 89, 89, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -688,13 +378,7 @@ exports[`onboarding network selection screen should render 1`] = `
               2,000
             </Text>
             <View
-              style={
-                {
-                  "flexGrow": 0,
-                  "justifyContent": "center",
-                  "marginLeft": 4,
-                }
-              }
+              style={{}}
             >
               <Text />
             </View>
@@ -705,57 +389,29 @@ exports[`onboarding network selection screen should render 1`] = `
     <View
       style={
         [
-          {
-            "alignItems": "flex-start",
-            "backgroundColor": "transparent",
-            "flexDirection": "row",
-            "paddingTop": 18,
-            "width": "100%",
-          },
-          {
-            "backgroundColor": "transparent",
-          },
+          {},
+          {},
         ]
       }
     >
       <View
         style={
           [
-            {
-              "width": "41.666667%",
-            },
+            {},
             undefined,
           ]
         }
       >
         <View
-          style={
-            {
-              "alignItems": "center",
-              "flexDirection": "row",
-              "justifyContent": "flex-start",
-            }
-          }
+          style={{}}
         >
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
-                  {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                  },
-                  {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
+                  {},
+                  {},
                 ],
               ]
             }
@@ -768,50 +424,25 @@ exports[`onboarding network selection screen should render 1`] = `
       <View
         style={
           [
-            {
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
-            },
+            {},
             undefined,
           ]
         }
       >
         <View>
           <View
-            style={
-              {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-                "flexWrap": "wrap",
-                "justifyContent": "flex-end",
-              }
-            }
+            style={{}}
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
                     [
-                      {
-                        "fontFamily": "SoraRegular",
-                        "fontSize": 14,
-                        "fontWeight": "400",
-                        "lineHeight": 20,
-                        "textAlign": "right",
-                      },
+                      {},
                       undefined,
                     ],
-                    {
-                      "color": "rgba(89, 89, 89, 1)",
-                    },
+                    {},
                   ],
                 ]
               }
@@ -822,15 +453,7 @@ exports[`onboarding network selection screen should render 1`] = `
           </View>
         </View>
         <View
-          style={
-            {
-              "alignItems": "center",
-              "display": "flex",
-              "flexDirection": "row",
-              "flexWrap": "wrap",
-              "justifyContent": "flex-end",
-            }
-          }
+          style={{}}
         />
       </View>
     </View>

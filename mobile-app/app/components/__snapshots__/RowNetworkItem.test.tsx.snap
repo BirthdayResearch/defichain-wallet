@@ -14,21 +14,7 @@ exports[`Row network item should match snapshot 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     {
-      "alignItems": "center",
-      "backgroundColor": "rgba(255, 255, 255, 1)",
-      "borderBottomColor": "rgba(229, 229, 229, 1)",
-      "borderBottomWidth": 1,
-      "borderLeftColor": "rgba(229, 229, 229, 1)",
-      "borderRightColor": "rgba(229, 229, 229, 1)",
-      "borderTopColor": "rgba(229, 229, 229, 1)",
-      "display": "flex",
-      "flexDirection": "row",
-      "justifyContent": "space-between",
       "opacity": 1,
-      "paddingBottom": 16,
-      "paddingLeft": 16,
-      "paddingRight": 8,
-      "paddingTop": 16,
     }
   }
   testID="button_network_Local"
@@ -36,20 +22,10 @@ exports[`Row network item should match snapshot 1`] = `
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
+        {},
         [
-          {
-            "fontFamily": "MediumFont",
-            "fontWeight": "500",
-          },
-          {
-            "color": "rgba(0, 0, 0, 1)",
-          },
+          {},
+          {},
         ],
       ]
     }

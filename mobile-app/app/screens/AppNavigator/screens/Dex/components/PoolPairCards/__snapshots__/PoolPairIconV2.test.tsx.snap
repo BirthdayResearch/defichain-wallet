@@ -2,11 +2,7 @@
 
 exports[`Pool pair icon component should match snapshot with 2 token 1`] = `
 <View
-  style={
-    {
-      "flexDirection": "row",
-    }
-  }
+  style={{}}
 >
   <RNSVGSvgView
     align="xMidYMid"
@@ -23,10 +19,7 @@ exports[`Pool pair icon component should match snapshot with 2 token 1`] = `
           "backgroundColor": "transparent",
           "borderWidth": 0,
         },
-        {
-          "position": "relative",
-          "zIndex": 10,
-        },
+        {},
         {
           "flex": 0,
           "height": 36,
@@ -84,9 +77,7 @@ exports[`Pool pair icon component should match snapshot with 2 token 1`] = `
           "backgroundColor": "transparent",
           "borderWidth": 0,
         },
-        {
-          "marginLeft": -16,
-        },
+        {},
         {
           "flex": 0,
           "height": 36,

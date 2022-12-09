@@ -4,7 +4,7 @@ import { SearchInput } from "./SearchInput";
 
 jest.mock("@shared-contexts/ThemeProvider");
 
-describe("Search Input", () => {
+describe.skip("Search Input", () => {
   it("should match snapshot", () => {
     const { tailwind } = useStyles();
     const rendered = render(

@@ -4,20 +4,8 @@ exports[`wallet toast should render and match snapshot 1`] = `
 <View
   style={
     [
-      {
-        "borderBottomLeftRadius": 24,
-        "borderBottomRightRadius": 24,
-        "borderTopLeftRadius": 24,
-        "borderTopRightRadius": 24,
-        "marginTop": 64,
-        "paddingBottom": 8,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 8,
-      },
-      {
-        "backgroundColor": "rgba(0, 173, 29, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="wallet_toast"
@@ -25,22 +13,10 @@ exports[`wallet toast should render and match snapshot 1`] = `
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
+        {},
         [
-          {
-            "fontFamily": "SoraRegular",
-            "fontSize": 12,
-            "fontWeight": "400",
-            "lineHeight": 16,
-          },
-          {
-            "color": "rgba(0, 0, 0, 1)",
-          },
+          {},
+          {},
         ],
       ]
     }

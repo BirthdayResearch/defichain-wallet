@@ -2,14 +2,7 @@
 
 exports[`Total Value Locked should match snapshot 1`] = `
 <View
-  style={
-    {
-      "marginBottom": 24,
-      "marginTop": 8,
-      "paddingLeft": 20,
-      "paddingRight": 20,
-    }
-  }
+  style={{}}
 >
   <ViewManagerAdapter_ExpoLinearGradient
     proxiedProperties={
@@ -34,12 +27,7 @@ exports[`Total Value Locked should match snapshot 1`] = `
     }
     style={
       [
-        {
-          "borderBottomLeftRadius": 10,
-          "borderBottomRightRadius": 10,
-          "borderTopLeftRadius": 10,
-          "borderTopRightRadius": 10,
-        },
+        {},
         {
           "padding": 0.5,
         },
@@ -49,30 +37,14 @@ exports[`Total Value Locked should match snapshot 1`] = `
     <View
       style={
         [
-          {
-            "borderBottomLeftRadius": 10,
-            "borderBottomRightRadius": 10,
-            "borderTopLeftRadius": 10,
-            "borderTopRightRadius": 10,
-          },
-          {
-            "backgroundColor": "rgba(242, 242, 242, 1)",
-          },
+          {},
+          {},
         ]
       }
     >
       <View
         accessibilityIgnoresInvertColors={true}
-        style={
-          {
-            "borderBottomLeftRadius": 10,
-            "borderBottomRightRadius": 10,
-            "borderTopLeftRadius": 10,
-            "borderTopRightRadius": 10,
-            "overflow": "hidden",
-            "width": "100%",
-          }
-        }
+        style={{}}
       >
         <Image
           resizeMode="cover"
@@ -88,53 +60,25 @@ exports[`Total Value Locked should match snapshot 1`] = `
               },
               {
                 "height": undefined,
-                "width": "100%",
+                "width": undefined,
               },
-              {
-                "height": 224,
-              },
+              {},
             ]
           }
         />
         <View
-          style={
-            {
-              "alignItems": "center",
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-              "paddingBottom": 14,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 14,
-            }
-          }
+          style={{}}
         >
           <View
-            style={
-              {
-                "width": "66.666667%",
-              }
-            }
+            style={{}}
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraSemiBold",
-                      "fontSize": 16,
-                      "fontWeight": "600",
-                      "lineHeight": 24,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -145,22 +89,10 @@ exports[`Total Value Locked should match snapshot 1`] = `
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 12,
-                      "fontWeight": "400",
-                      "lineHeight": 16,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -181,38 +113,17 @@ exports[`Total Value Locked should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               {
-                "backgroundColor": "rgba(0, 0, 0, 1)",
-                "borderBottomLeftRadius": 20,
-                "borderBottomRightRadius": 20,
-                "borderTopLeftRadius": 20,
-                "borderTopRightRadius": 20,
                 "opacity": 1,
-                "paddingBottom": 8,
-                "paddingLeft": 16,
-                "paddingRight": 16,
-                "paddingTop": 8,
               }
             }
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraSemiBold",
-                      "fontSize": 12,
-                      "fontWeight": "600",
-                      "lineHeight": 16,
-                    },
-                    {
-                      "color": "rgba(242, 242, 242, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }

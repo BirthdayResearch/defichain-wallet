@@ -4,31 +4,14 @@ exports[`Empty bids should match snapshot 1`] = `
 <View
   style={
     [
-      {
-        "backgroundColor": "transparent",
-        "display": "flex",
-        "marginBottom": 16,
-        "marginTop": 44,
-        "paddingLeft": 60,
-        "paddingRight": 60,
-        "textAlign": "center",
-      },
-      {
-        "marginBottom": 0,
-        "marginTop": 48,
-        "paddingLeft": 44,
-        "paddingRight": 44,
-      },
+      {},
+      {},
     ]
   }
   testID="empty_auctions_screen"
 >
   <View
-    style={
-      {
-        "alignItems": "center",
-      }
-    }
+    style={{}}
   >
     <RNSVGSvgView
       align="xMidYMid"
@@ -331,24 +314,10 @@ exports[`Empty bids should match snapshot 1`] = `
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
+        {},
         [
-          {
-            "fontFamily": "SoraSemiBold",
-            "fontSize": 20,
-            "fontWeight": "600",
-            "lineHeight": 28,
-            "marginTop": 32,
-            "textAlign": "center",
-          },
-          {
-            "color": "rgba(18, 18, 18, 1)",
-          },
+          {},
+          {},
         ],
       ]
     }
@@ -359,24 +328,10 @@ exports[`Empty bids should match snapshot 1`] = `
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
+        {},
         [
-          {
-            "fontFamily": "SoraRegular",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-            "marginTop": 8,
-            "textAlign": "center",
-          },
-          {
-            "color": "rgba(18, 18, 18, 1)",
-          },
+          {},
+          {},
         ],
       ]
     }

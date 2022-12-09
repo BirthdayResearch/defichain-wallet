@@ -4,39 +4,18 @@ exports[`wallet transactional card text input should render with default keyboar
 <View
   style={
     [
-      {
-        "flexDirection": "column",
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "transparent",
-      },
+      {},
+      {},
     ]
   }
 >
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
+        {},
         [
-          {
-            "fontFamily": "SoraRegular",
-            "fontSize": 12,
-            "fontWeight": "400",
-            "lineHeight": 16,
-            "paddingBottom": 8,
-            "paddingLeft": 20,
-            "paddingRight": 20,
-            "paddingTop": 24,
-          },
-          {
-            "color": "rgba(115, 115, 115, 1)",
-          },
+          {},
+          {},
         ],
       ]
     }
@@ -48,40 +27,15 @@ exports[`wallet transactional card text input should render with default keyboar
   <View
     style={
       [
-        {
-          "borderBottomLeftRadius": 10,
-          "borderBottomRightRadius": 10,
-          "borderBottomWidth": 0.5,
-          "borderLeftWidth": 0.5,
-          "borderRightWidth": 0.5,
-          "borderTopLeftRadius": 10,
-          "borderTopRightRadius": 10,
-          "borderTopWidth": 0.5,
-          "flexDirection": "column",
-          "width": "100%",
-        },
-        {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(229, 69, 69, 1)",
-          "borderLeftColor": "rgba(229, 69, 69, 1)",
-          "borderRightColor": "rgba(229, 69, 69, 1)",
-          "borderTopColor": "rgba(229, 69, 69, 1)",
-        },
+        {},
+        {},
       ]
     }
   >
     <View
       style={
         [
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "paddingBottom": 8,
-            "paddingLeft": 20,
-            "paddingRight": 12,
-            "paddingTop": 8,
-          },
+          {},
           false,
           undefined,
         ]
@@ -92,21 +46,12 @@ exports[`wallet transactional card text input should render with default keyboar
         keyboardType="default"
         onBlur={[Function]}
         placeholder="bar"
-        placeholderTextColor="rgba(115, 115, 115, 1)"
-        selectionColor="rgba(255, 0, 140, 1)"
+        placeholderTextColor="#ffffff"
+        selectionColor="#ffffff"
         style={
           [
-            {
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "fontFamily": "SoraRegular",
-              "fontWeight": "400",
-              "height": 20,
-            },
-            {
-              "color": "rgba(43, 43, 43, 1)",
-            },
+            {},
+            {},
           ]
         }
         testID="testID"
@@ -118,14 +63,7 @@ exports[`wallet transactional card text input should render with default keyboar
   <Text
     style={
       [
-        {
-          "color": "rgba(229, 69, 69, 1)",
-          "fontFamily": "SoraRegular",
-          "fontSize": 12,
-          "fontWeight": "400",
-          "lineHeight": 16,
-          "marginTop": 8,
-        },
+        {},
         undefined,
       ]
     }
@@ -140,39 +78,18 @@ exports[`wallet transactional card text input should render with numeric keyboar
 <View
   style={
     [
-      {
-        "flexDirection": "column",
-        "width": "100%",
-      },
-      {
-        "backgroundColor": "transparent",
-      },
+      {},
+      {},
     ]
   }
 >
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
+        {},
         [
-          {
-            "fontFamily": "SoraRegular",
-            "fontSize": 12,
-            "fontWeight": "400",
-            "lineHeight": 16,
-            "paddingBottom": 8,
-            "paddingLeft": 20,
-            "paddingRight": 20,
-            "paddingTop": 24,
-          },
-          {
-            "color": "rgba(115, 115, 115, 1)",
-          },
+          {},
+          {},
         ],
       ]
     }
@@ -184,40 +101,15 @@ exports[`wallet transactional card text input should render with numeric keyboar
   <View
     style={
       [
-        {
-          "borderBottomLeftRadius": 10,
-          "borderBottomRightRadius": 10,
-          "borderBottomWidth": 0.5,
-          "borderLeftWidth": 0.5,
-          "borderRightWidth": 0.5,
-          "borderTopLeftRadius": 10,
-          "borderTopRightRadius": 10,
-          "borderTopWidth": 0.5,
-          "flexDirection": "column",
-          "width": "100%",
-        },
-        {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "borderBottomColor": "rgba(229, 69, 69, 1)",
-          "borderLeftColor": "rgba(229, 69, 69, 1)",
-          "borderRightColor": "rgba(229, 69, 69, 1)",
-          "borderTopColor": "rgba(229, 69, 69, 1)",
-        },
+        {},
+        {},
       ]
     }
   >
     <View
       style={
         [
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "paddingBottom": 8,
-            "paddingLeft": 20,
-            "paddingRight": 12,
-            "paddingTop": 8,
-          },
+          {},
           false,
           undefined,
         ]
@@ -228,21 +120,12 @@ exports[`wallet transactional card text input should render with numeric keyboar
         keyboardType="default"
         onBlur={[Function]}
         placeholder="bar"
-        placeholderTextColor="rgba(115, 115, 115, 1)"
-        selectionColor="rgba(255, 0, 140, 1)"
+        placeholderTextColor="#ffffff"
+        selectionColor="#ffffff"
         style={
           [
-            {
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "fontFamily": "SoraRegular",
-              "fontWeight": "400",
-              "height": 20,
-            },
-            {
-              "color": "rgba(43, 43, 43, 1)",
-            },
+            {},
+            {},
           ]
         }
         testID="testID"
@@ -254,14 +137,7 @@ exports[`wallet transactional card text input should render with numeric keyboar
   <Text
     style={
       [
-        {
-          "color": "rgba(229, 69, 69, 1)",
-          "fontFamily": "SoraRegular",
-          "fontSize": 12,
-          "fontWeight": "400",
-          "lineHeight": 16,
-          "marginTop": 8,
-        },
+        {},
         undefined,
       ]
     }

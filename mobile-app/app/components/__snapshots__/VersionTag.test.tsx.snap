@@ -5,31 +5,17 @@ exports[`version tag should render 1`] = `
   style={
     [
       undefined,
-      {
-        "backgroundColor": "transparent",
-      },
+      {},
     ]
   }
 >
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
+        {},
         [
-          {
-            "fontFamily": "SoraRegular",
-            "fontSize": 10,
-            "fontWeight": "400",
-            "textAlign": "center",
-          },
-          {
-            "color": "rgba(18, 18, 18, 1)",
-          },
+          {},
+          {},
         ],
       ]
     }

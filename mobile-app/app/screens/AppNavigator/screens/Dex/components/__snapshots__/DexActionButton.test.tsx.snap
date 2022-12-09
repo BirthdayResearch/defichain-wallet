@@ -14,16 +14,7 @@ exports[`Dex Action Buttons <DexActionButton /> - should match snapshot 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     {
-      "backgroundColor": "rgba(242, 242, 242, 1)",
-      "borderBottomLeftRadius": 20,
-      "borderBottomRightRadius": 20,
-      "borderTopLeftRadius": 20,
-      "borderTopRightRadius": 20,
       "opacity": 1,
-      "paddingBottom": 8,
-      "paddingLeft": 16,
-      "paddingRight": 16,
-      "paddingTop": 8,
     }
   }
   testID="dex_action_button_Composite_Swap_2"
@@ -31,23 +22,10 @@ exports[`Dex Action Buttons <DexActionButton /> - should match snapshot 1`] = `
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
+        {},
         [
-          {
-            "fontFamily": "SoraSemiBold",
-            "fontSize": 12,
-            "fontWeight": "600",
-            "lineHeight": 16,
-            "textAlign": "center",
-          },
-          {
-            "color": "rgba(18, 18, 18, 1)",
-          },
+          {},
+          {},
         ],
       ]
     }
@@ -63,24 +41,10 @@ exports[`Dex Action Buttons <DexAddRemoveLiquidityButton /> - should match snaps
   style={
     [
       [
-        {
-          "alignItems": "center",
-          "borderBottomLeftRadius": 20,
-          "borderBottomRightRadius": 20,
-          "borderTopLeftRadius": 20,
-          "borderTopRightRadius": 20,
-          "display": "flex",
-          "flexDirection": "row",
-          "paddingBottom": 8,
-          "paddingLeft": 12,
-          "paddingRight": 12,
-          "paddingTop": 8,
-        },
+        {},
         undefined,
       ],
-      {
-        "backgroundColor": "rgba(242, 242, 242, 1)",
-      },
+      {},
     ]
   }
 >
@@ -97,13 +61,7 @@ exports[`Dex Action Buttons <DexAddRemoveLiquidityButton /> - should match snaps
     onStartShouldSetResponder={[Function]}
     style={
       {
-        "borderBottomColor": "rgba(204, 204, 204, 1)",
-        "borderLeftColor": "rgba(204, 204, 204, 1)",
-        "borderRightColor": "rgba(204, 204, 204, 1)",
-        "borderRightWidth": 0.5,
-        "borderTopColor": "rgba(204, 204, 204, 1)",
         "opacity": 1,
-        "paddingRight": 8,
       }
     }
     testID="pool_pair_remove_foo"
@@ -123,12 +81,7 @@ exports[`Dex Action Buttons <DexAddRemoveLiquidityButton /> - should match snaps
     onStartShouldSetResponder={[Function]}
     style={
       {
-        "borderBottomColor": "rgba(204, 204, 204, 1)",
-        "borderLeftColor": "rgba(204, 204, 204, 1)",
-        "borderRightColor": "rgba(204, 204, 204, 1)",
-        "borderTopColor": "rgba(204, 204, 204, 1)",
         "opacity": 1,
-        "paddingLeft": 8,
       }
     }
     testID="pool_pair_add_foo"

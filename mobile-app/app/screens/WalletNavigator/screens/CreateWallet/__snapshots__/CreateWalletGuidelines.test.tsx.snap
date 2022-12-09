@@ -2,36 +2,17 @@
 
 exports[`create wallet guidelines v2 should match snapshot 1`] = `
 <RCTScrollView
-  contentContainerStyle={
-    {
-      "paddingBottom": 64,
-      "paddingLeft": 20,
-      "paddingRight": 20,
-      "paddingTop": 48,
-    }
-  }
+  contentContainerStyle={{}}
   style={
     [
-      {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-      },
-      {
-        "backgroundColor": "rgba(242, 242, 242, 1)",
-      },
+      {},
+      {},
     ]
   }
 >
   <View>
     <View
-      style={
-        {
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "center",
-        }
-      }
+      style={{}}
     >
       <Image
         source={1}
@@ -46,26 +27,10 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
     <Text
       style={
         [
-          {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
+          {},
           [
-            {
-              "fontFamily": "SoraRegular",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-              "marginTop": 28,
-              "paddingLeft": 12,
-              "paddingRight": 12,
-              "textAlign": "center",
-            },
-            {
-              "color": "rgba(18, 18, 18, 1)",
-            },
+            {},
+            {},
           ],
         ]
       }
@@ -85,15 +50,6 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         {
-          "alignItems": "center",
-          "borderBottomColor": "rgba(204, 204, 204, 1)",
-          "borderBottomWidth": 0,
-          "borderLeftColor": "rgba(204, 204, 204, 1)",
-          "borderRightColor": "rgba(204, 204, 204, 1)",
-          "borderTopColor": "rgba(204, 204, 204, 1)",
-          "flexDirection": "row",
-          "justifyContent": "center",
-          "marginTop": 8,
           "opacity": 1,
         }
       }
@@ -103,24 +59,10 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
       <Text
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraSemiBold",
-                "fontSize": 14,
-                "fontWeight": "600",
-                "lineHeight": 20,
-                "paddingLeft": 6,
-                "textAlign": "center",
-              },
-              {
-                "color": "rgba(18, 18, 18, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -129,44 +71,16 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
       </Text>
     </View>
     <View
-      style={
-        {
-          "marginTop": 48,
-          "paddingLeft": 24,
-          "paddingRight": 24,
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "alignItems": "flex-start",
-            "display": "flex",
-            "flexDirection": "row",
-            "marginBottom": 12,
-            "marginTop": 12,
-          }
-        }
+        style={{}}
       >
         <View
           style={
             [
-              {
-                "alignItems": "center",
-                "borderBottomLeftRadius": 9999,
-                "borderBottomRightRadius": 9999,
-                "borderTopLeftRadius": 9999,
-                "borderTopRightRadius": 9999,
-                "display": "flex",
-                "flexDirection": "row",
-                "height": 24,
-                "justifyContent": "center",
-                "marginTop": 4,
-                "width": 24,
-              },
-              {
-                "backgroundColor": "rgba(89, 89, 89, 1)",
-              },
+              {},
+              {},
             ]
           }
         >
@@ -175,26 +89,10 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "flexBasis": "0%",
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 12,
-                  "fontWeight": "400",
-                  "lineHeight": 16,
-                  "marginLeft": 16,
-                },
-                {
-                  "color": "rgba(89, 89, 89, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -203,35 +101,13 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
         </Text>
       </View>
       <View
-        style={
-          {
-            "alignItems": "flex-start",
-            "display": "flex",
-            "flexDirection": "row",
-            "marginBottom": 12,
-            "marginTop": 12,
-          }
-        }
+        style={{}}
       >
         <View
           style={
             [
-              {
-                "alignItems": "center",
-                "borderBottomLeftRadius": 9999,
-                "borderBottomRightRadius": 9999,
-                "borderTopLeftRadius": 9999,
-                "borderTopRightRadius": 9999,
-                "display": "flex",
-                "flexDirection": "row",
-                "height": 24,
-                "justifyContent": "center",
-                "marginTop": 4,
-                "width": 24,
-              },
-              {
-                "backgroundColor": "rgba(89, 89, 89, 1)",
-              },
+              {},
+              {},
             ]
           }
         >
@@ -240,26 +116,10 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "flexBasis": "0%",
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 12,
-                  "fontWeight": "400",
-                  "lineHeight": 16,
-                  "marginLeft": 16,
-                },
-                {
-                  "color": "rgba(89, 89, 89, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -268,14 +128,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
         </Text>
       </View>
       <View
-        style={
-          {
-            "alignItems": "flex-start",
-            "display": "flex",
-            "flexDirection": "row",
-            "marginTop": 12,
-          }
-        }
+        style={{}}
       >
         <View
           accessibilityRole="checkbox"
@@ -306,15 +159,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
                 "height": 20,
                 "width": 20,
               },
-              {
-                "borderBottomLeftRadius": 4,
-                "borderBottomRightRadius": 4,
-                "borderTopLeftRadius": 4,
-                "borderTopRightRadius": 4,
-                "height": 24,
-                "marginTop": 4,
-                "width": 24,
-              },
+              {},
               false,
               false,
               undefined,
@@ -336,10 +181,6 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "borderBottomWidth": 0,
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
               "opacity": 1,
             }
           }
@@ -347,23 +188,10 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
-                  {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 12,
-                    "fontWeight": "400",
-                    "lineHeight": 16,
-                    "marginLeft": 16,
-                  },
-                  {
-                    "color": "rgba(89, 89, 89, 1)",
-                  },
+                  {},
+                  {},
                 ],
               ]
             }
@@ -391,18 +219,8 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         {
-          "backgroundColor": "rgba(18, 18, 18, 0.3)",
           "borderRadius": 26,
-          "flexDirection": "row",
-          "justifyContent": "center",
-          "marginLeft": 28,
-          "marginRight": 28,
-          "marginTop": 48,
           "opacity": 1,
-          "paddingBottom": 14,
-          "paddingLeft": 14,
-          "paddingRight": 14,
-          "paddingTop": 14,
         }
       }
       testID="create_recovery_words_button"
@@ -410,18 +228,8 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
       <Text
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
-            {
-              "color": "rgba(242, 242, 242, 1)",
-              "fontFamily": "SoraSemiBold",
-              "fontWeight": "600",
-              "textAlign": "center",
-            },
+            {},
+            {},
           ]
         }
       >

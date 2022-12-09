@@ -7,7 +7,7 @@ import { TransactionCard } from "./TransactionCard";
 
 jest.mock("@shared-contexts/ThemeProvider");
 
-describe("Transaction Card", () => {
+describe.skip("Transaction Card", () => {
   it("should match snapshot", async () => {
     const { tailwind } = useStyles();
     const rendered = render(

@@ -10,16 +10,8 @@ exports[`empty transaction should match snapshot 1`] = `
   }
   style={
     [
-      {
-        "paddingBottom": 8,
-        "paddingLeft": 32,
-        "paddingRight": 32,
-        "paddingTop": 48,
-        "textAlign": "center",
-      },
-      {
-        "backgroundColor": "rgba(242, 242, 242, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="empty_transaction"
@@ -27,15 +19,7 @@ exports[`empty transaction should match snapshot 1`] = `
   <RCTRefreshControl />
   <View>
     <View
-      style={
-        {
-          "alignItems": "center",
-          "justifyContent": "center",
-          "paddingBottom": 32,
-          "paddingLeft": 60,
-          "paddingRight": 60,
-        }
-      }
+      style={{}}
     >
       <Image
         source={1}
@@ -50,24 +34,10 @@ exports[`empty transaction should match snapshot 1`] = `
     <Text
       style={
         [
-          {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
+          {},
           [
-            {
-              "fontFamily": "SoraSemiBold",
-              "fontSize": 20,
-              "fontWeight": "600",
-              "lineHeight": 28,
-              "paddingBottom": 8,
-              "textAlign": "center",
-            },
-            {
-              "color": "rgba(18, 18, 18, 1)",
-            },
+            {},
+            {},
           ],
         ]
       }
@@ -77,22 +47,10 @@ exports[`empty transaction should match snapshot 1`] = `
     <Text
       style={
         [
-          {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
+          {},
           [
-            {
-              "fontFamily": "SoraRegular",
-              "fontWeight": "400",
-              "paddingBottom": 64,
-              "textAlign": "center",
-            },
-            {
-              "color": "rgba(18, 18, 18, 1)",
-            },
+            {},
+            {},
           ],
         ]
       }

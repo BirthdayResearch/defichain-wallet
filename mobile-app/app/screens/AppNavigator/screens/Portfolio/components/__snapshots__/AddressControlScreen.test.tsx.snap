@@ -4,73 +4,29 @@ exports[`DFI address control should match snapshot for Address Control Card 1`] 
 
 exports[`DFI address control should match snapshot for Address Control Modal 1`] = `
 <View
-  style={
-    {
-      "paddingBottom": 64,
-      "width": "100%",
-    }
-  }
+  style={{}}
 >
   <View
     style={
       [
-        {
-          "borderBottomWidth": 2,
-        },
-        {
-          "borderBottomColor": "rgba(245, 245, 245, 1)",
-          "borderLeftColor": "rgba(245, 245, 245, 1)",
-          "borderRightColor": "rgba(245, 245, 245, 1)",
-          "borderTopColor": "rgba(245, 245, 245, 1)",
-        },
+        {},
+        {},
       ]
     }
   >
     <View
-      style={
-        {
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "paddingTop": 8,
-          "width": "100%",
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "MediumFont",
-                  "fontSize": 18,
-                  "fontWeight": "500",
-                  "lineHeight": 28,
-                  "marginLeft": 8,
-                  "marginRight": 8,
-                },
-                {
-                  "color": "rgba(23, 23, 23, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -120,17 +76,11 @@ exports[`DFI address control should match snapshot for Address Control Modal 1`]
     </View>
   </View>
   <RCTScrollView
-    contentContainerStyle={
-      {
-        "paddingBottom": 32,
-      }
-    }
+    contentContainerStyle={{}}
     style={
       [
         undefined,
-        {
-          "color": "rgba(23, 23, 23, 1)",
-        },
+        {},
       ]
     }
   >
@@ -144,9 +94,7 @@ exports[`DFI address control should match snapshot for Address Control Screen 1`
   style={
     [
       undefined,
-      {
-        "backgroundColor": "rgba(250, 250, 250, 1)",
-      },
+      {},
     ]
   }
 >
@@ -154,28 +102,10 @@ exports[`DFI address control should match snapshot for Address Control Screen 1`
     <Text
       style={
         [
-          {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
+          {},
           [
-            {
-              "color": "rgba(115, 115, 115, 1)",
-              "fontFamily": "MediumFont",
-              "fontSize": 12,
-              "fontWeight": "500",
-              "lineHeight": 16,
-              "paddingBottom": 8,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 24,
-            },
-            {
-              "backgroundColor": "rgba(250, 250, 250, 1)",
-              "color": "rgba(115, 115, 115, 1)",
-            },
+            {},
+            {},
           ],
         ]
       }
@@ -207,62 +137,26 @@ exports[`DFI address control should match snapshot for Address Item Row 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     {
-      "backgroundColor": "rgba(255, 255, 255, 1)",
-      "borderBottomColor": "rgba(245, 245, 245, 1)",
-      "borderBottomWidth": 1,
-      "borderLeftColor": "rgba(245, 245, 245, 1)",
-      "borderRightColor": "rgba(245, 245, 245, 1)",
-      "borderTopColor": "rgba(245, 245, 245, 1)",
       "opacity": 1,
-      "paddingBottom": 16,
-      "paddingLeft": 16,
-      "paddingRight": 8,
-      "paddingTop": 16,
     }
   }
   testID="address_row_0"
 >
   <View
-    style={
-      {
-        "alignItems": "center",
-        "flexDirection": "row",
-        "flexGrow": 1,
-      }
-    }
+    style={{}}
   >
     <View
-      style={
-        {
-          "flexBasis": "auto",
-          "flexGrow": 1,
-          "flexShrink": 1,
-          "marginLeft": 12,
-        }
-      }
+      style={{}}
     >
       <Text
         ellipsizeMode="middle"
         numberOfLines={1}
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 20,
-                "width": "100%",
-              },
-              {
-                "color": "rgba(23, 23, 23, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -274,12 +168,8 @@ exports[`DFI address control should match snapshot for Address Item Row 1`] = `
     <View
       style={
         [
-          {
-            "marginLeft": 4,
-          },
-          {
-            "backgroundColor": "rgba(239, 246, 253, 1)",
-          },
+          {},
+          {},
         ]
       }
       testID="address_active_indicator_bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9"
@@ -287,24 +177,10 @@ exports[`DFI address control should match snapshot for Address Item Row 1`] = `
       <Text
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "MediumFont",
-                "fontSize": 12,
-                "fontWeight": "500",
-                "lineHeight": 16,
-                "paddingLeft": 4,
-                "paddingRight": 4,
-              },
-              {
-                "color": "rgba(90, 169, 230, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -313,13 +189,7 @@ exports[`DFI address control should match snapshot for Address Item Row 1`] = `
       </Text>
     </View>
     <View
-      style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "marginLeft": 12,
-        }
-      }
+      style={{}}
     >
       <Text
         allowFontScaling={false}
@@ -332,9 +202,7 @@ exports[`DFI address control should match snapshot for Address Item Row 1`] = `
             },
             [
               undefined,
-              {
-                "color": "rgba(23, 23, 23, 1)",
-              },
+              {},
             ],
             {
               "fontFamily": "material",

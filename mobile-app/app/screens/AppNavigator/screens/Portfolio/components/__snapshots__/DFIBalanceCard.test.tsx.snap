@@ -2,30 +2,11 @@
 
 exports[`DFI Balance Card should match snapshot 1`] = `
 <View
-  style={
-    {
-      "borderBottomLeftRadius": 10,
-      "borderBottomRightRadius": 10,
-      "borderTopLeftRadius": 10,
-      "borderTopRightRadius": 10,
-      "marginLeft": 20,
-      "marginRight": 20,
-      "marginTop": 8,
-    }
-  }
+  style={{}}
   testID="dfi_balance_card"
 >
   <View
-    style={
-      {
-        "borderBottomLeftRadius": 10,
-        "borderBottomRightRadius": 10,
-        "borderTopLeftRadius": 10,
-        "borderTopRightRadius": 10,
-        "flexDirection": "column",
-        "overflow": "hidden",
-      }
-    }
+    style={{}}
   >
     <View
       accessibilityState={
@@ -45,26 +26,12 @@ exports[`DFI Balance Card should match snapshot 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         {
-          "alignItems": "flex-start",
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-          "display": "flex",
-          "flexDirection": "row",
           "opacity": 1,
-          "paddingBottom": 18,
-          "paddingLeft": 20,
-          "paddingRight": 20,
-          "paddingTop": 18,
         }
       }
     >
       <View
-        style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "width": "58.333333%",
-          }
-        }
+        style={{}}
       >
         <RNSVGSvgView
           align="xMidYMid"
@@ -126,34 +93,15 @@ exports[`DFI Balance Card should match snapshot 1`] = `
           </RNSVGGroup>
         </RNSVGSvgView>
         <View
-          style={
-            {
-              "flexBasis": "auto",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "marginLeft": 8,
-            }
-          }
+          style={{}}
         >
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
-                  {
-                    "fontFamily": "SoraSemiBold",
-                    "fontSize": 14,
-                    "fontWeight": "600",
-                    "lineHeight": 20,
-                  },
-                  {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
+                  {},
+                  {},
                 ],
               ]
             }
@@ -166,23 +114,10 @@ exports[`DFI Balance Card should match snapshot 1`] = `
             numberOfLines={1}
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
-                  {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 12,
-                    "fontWeight": "400",
-                    "lineHeight": 16,
-                    "marginTop": 4,
-                  },
-                  {
-                    "color": "rgba(89, 89, 89, 1)",
-                  },
+                  {},
+                  {},
                 ],
               ]
             }
@@ -193,48 +128,20 @@ exports[`DFI Balance Card should match snapshot 1`] = `
         </View>
       </View>
       <View
-        style={
-          {
-            "flexDirection": "row",
-            "justifyContent": "flex-end",
-            "width": "41.666667%",
-          }
-        }
+        style={{}}
       >
         <View
-          style={
-            {
-              "display": "flex",
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
-            }
-          }
+          style={{}}
         >
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
                   [
-                    {
-                      "fontFamily": "SoraSemiBold",
-                      "fontSize": 14,
-                      "fontWeight": "600",
-                      "justifyContent": "flex-end",
-                      "lineHeight": 20,
-                      "marginBottom": 4,
-                      "textAlign": "right",
-                    },
+                    {},
                   ],
-                  {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
+                  {},
                 ],
               ]
             }
@@ -242,24 +149,10 @@ exports[`DFI Balance Card should match snapshot 1`] = `
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "flexWrap": "wrap",
-                      "fontFamily": "SoraSemiBold",
-                      "fontSize": 14,
-                      "fontWeight": "600",
-                      "lineHeight": 20,
-                      "textAlign": "right",
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -271,41 +164,21 @@ exports[`DFI Balance Card should match snapshot 1`] = `
           <View
             style={
               [
-                {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "flexDirection": "row",
-                },
-                {
-                  "justifyContent": "flex-end",
-                },
+                {},
+                {},
               ]
             }
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
                     [
-                      {
-                        "fontFamily": "SoraRegular",
-                        "fontSize": 12,
-                        "fontWeight": "400",
-                        "lineHeight": 16,
-                      },
-                      {
-                        "textAlign": "right",
-                      },
+                      {},
+                      {},
                     ],
-                    {
-                      "color": "rgba(89, 89, 89, 1)",
-                    },
+                    {},
                   ],
                 ]
               }

@@ -15,7 +15,6 @@ exports[`Header search icon should match snapshot 1`] = `
   style={
     {
       "opacity": 1,
-      "paddingRight": 16,
     }
   }
 >

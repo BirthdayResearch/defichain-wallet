@@ -14,19 +14,8 @@ exports[`button should be clickable 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     {
-      "backgroundColor": "rgba(18, 18, 18, 1)",
       "borderRadius": 26,
-      "flexDirection": "row",
-      "justifyContent": "center",
-      "marginBottom": 16,
-      "marginLeft": 16,
-      "marginRight": 16,
-      "marginTop": 32,
       "opacity": 1,
-      "paddingBottom": 14,
-      "paddingLeft": 14,
-      "paddingRight": 14,
-      "paddingTop": 14,
     }
   }
   testID="primary_button"
@@ -34,18 +23,8 @@ exports[`button should be clickable 1`] = `
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
-        {
-          "color": "rgba(242, 242, 242, 1)",
-          "fontFamily": "SoraSemiBold",
-          "fontWeight": "600",
-          "textAlign": "center",
-        },
+        {},
+        {},
       ]
     }
   />
@@ -71,37 +50,16 @@ exports[`button should match styling of button type fill 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     {
-      "backgroundColor": "rgba(18, 18, 18, 1)",
       "borderRadius": 26,
-      "flexDirection": "row",
-      "justifyContent": "center",
-      "marginBottom": 16,
-      "marginLeft": 16,
-      "marginRight": 16,
-      "marginTop": 32,
       "opacity": 1,
-      "paddingBottom": 14,
-      "paddingLeft": 14,
-      "paddingRight": 14,
-      "paddingTop": 14,
     }
   }
 >
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
-        {
-          "color": "rgba(242, 242, 242, 1)",
-          "fontFamily": "SoraSemiBold",
-          "fontWeight": "600",
-          "textAlign": "center",
-        },
+        {},
+        {},
       ]
     }
   >
@@ -129,37 +87,16 @@ exports[`button should match styling of button type fill 2`] = `
   onStartShouldSetResponder={[Function]}
   style={
     {
-      "backgroundColor": "rgba(18, 18, 18, 0.3)",
       "borderRadius": 26,
-      "flexDirection": "row",
-      "justifyContent": "center",
-      "marginBottom": 16,
-      "marginLeft": 16,
-      "marginRight": 16,
-      "marginTop": 32,
       "opacity": 1,
-      "paddingBottom": 14,
-      "paddingLeft": 14,
-      "paddingRight": 14,
-      "paddingTop": 14,
     }
   }
 >
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
-        {
-          "color": "rgba(242, 242, 242, 1)",
-          "fontFamily": "SoraSemiBold",
-          "fontWeight": "600",
-          "textAlign": "center",
-        },
+        {},
+        {},
       ]
     }
   >
@@ -187,37 +124,16 @@ exports[`button should match styling of button type flat 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     {
-      "backgroundColor": "transparent",
       "borderRadius": 26,
-      "flexDirection": "row",
-      "justifyContent": "center",
-      "marginBottom": 16,
-      "marginLeft": 16,
-      "marginRight": 16,
-      "marginTop": 32,
       "opacity": 1,
-      "paddingBottom": 14,
-      "paddingLeft": 14,
-      "paddingRight": 14,
-      "paddingTop": 14,
     }
   }
 >
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
-        {
-          "color": "rgba(18, 18, 18, 1)",
-          "fontFamily": "SoraSemiBold",
-          "fontWeight": "600",
-          "textAlign": "center",
-        },
+        {},
+        {},
       ]
     }
   >
@@ -245,37 +161,16 @@ exports[`button should match styling of button type flat 2`] = `
   onStartShouldSetResponder={[Function]}
   style={
     {
-      "backgroundColor": "transparent",
       "borderRadius": 26,
-      "flexDirection": "row",
-      "justifyContent": "center",
-      "marginBottom": 16,
-      "marginLeft": 16,
-      "marginRight": 16,
-      "marginTop": 32,
       "opacity": 1,
-      "paddingBottom": 14,
-      "paddingLeft": 14,
-      "paddingRight": 14,
-      "paddingTop": 14,
     }
   }
 >
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
-        {
-          "color": "rgba(18, 18, 18, 0.3)",
-          "fontFamily": "SoraSemiBold",
-          "fontWeight": "600",
-          "textAlign": "center",
-        },
+        {},
+        {},
       ]
     }
   >
@@ -303,19 +198,8 @@ exports[`button should not be clickable when disabled 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     {
-      "backgroundColor": "rgba(18, 18, 18, 0.3)",
       "borderRadius": 26,
-      "flexDirection": "row",
-      "justifyContent": "center",
-      "marginBottom": 16,
-      "marginLeft": 16,
-      "marginRight": 16,
-      "marginTop": 32,
       "opacity": 1,
-      "paddingBottom": 14,
-      "paddingLeft": 14,
-      "paddingRight": 14,
-      "paddingTop": 14,
     }
   }
   testID="primary_button"
@@ -323,18 +207,8 @@ exports[`button should not be clickable when disabled 1`] = `
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
-        {
-          "color": "rgba(242, 242, 242, 1)",
-          "fontFamily": "SoraSemiBold",
-          "fontWeight": "600",
-          "textAlign": "center",
-        },
+        {},
+        {},
       ]
     }
   />

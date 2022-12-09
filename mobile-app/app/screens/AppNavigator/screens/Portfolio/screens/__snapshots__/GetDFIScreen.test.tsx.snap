@@ -2,61 +2,29 @@
 
 exports[`Get DFI page should match snapshot 1`] = `
 <RCTScrollView
-  contentContainerStyle={
-    {
-      "marginLeft": 20,
-      "marginRight": 20,
-      "paddingBottom": 96,
-    }
-  }
+  contentContainerStyle={{}}
   style={
     [
-      {
-        "display": "flex",
-      },
-      {
-        "backgroundColor": "rgba(242, 242, 242, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="get_dfi_screen"
 >
   <View>
     <View
-      style={
-        {
-          "marginTop": 32,
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "paddingBottom": 16,
-            "paddingLeft": 20,
-            "paddingRight": 20,
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 12,
-                  "fontWeight": "400",
-                  "lineHeight": 16,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -66,20 +34,10 @@ exports[`Get DFI page should match snapshot 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontWeight": "400",
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -90,15 +48,8 @@ exports[`Get DFI page should match snapshot 1`] = `
       <View
         style={
           [
-            {
-              "borderBottomLeftRadius": 10,
-              "borderBottomRightRadius": 10,
-              "borderTopLeftRadius": 10,
-              "borderTopRightRadius": 10,
-            },
-            {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
+            {},
+            {},
           ]
         }
       >
@@ -115,19 +66,7 @@ exports[`Get DFI page should match snapshot 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "display": "flex",
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-              "marginLeft": 20,
-              "marginRight": 16,
               "opacity": 1,
-              "paddingBottom": 18,
-              "paddingTop": 18,
             }
           }
           testID="get_exchanges"
@@ -135,22 +74,10 @@ exports[`Get DFI page should match snapshot 1`] = `
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
-                  {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 14,
-                    "fontWeight": "400",
-                    "lineHeight": 20,
-                  },
-                  {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
+                  {},
+                  {},
                 ],
               ]
             }
@@ -173,12 +100,6 @@ exports[`Get DFI page should match snapshot 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-            "marginLeft": 20,
-            "marginRight": 20,
-            "marginTop": 8,
             "opacity": 1,
           }
         }
@@ -187,23 +108,10 @@ exports[`Get DFI page should match snapshot 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraSemiBold",
-                  "fontSize": 12,
-                  "fontWeight": "600",
-                  "lineHeight": 16,
-                  "marginLeft": 4,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -213,40 +121,18 @@ exports[`Get DFI page should match snapshot 1`] = `
       </View>
     </View>
     <View
-      style={
-        {
-          "marginTop": 32,
-          "paddingLeft": 20,
-          "paddingRight": 20,
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "paddingBottom": 16,
-          }
-        }
+        style={{}}
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 12,
-                  "fontWeight": "400",
-                  "lineHeight": 16,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -256,20 +142,10 @@ exports[`Get DFI page should match snapshot 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontWeight": "400",
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -278,36 +154,16 @@ exports[`Get DFI page should match snapshot 1`] = `
         </Text>
       </View>
       <View
-        style={
-          {
-            "display": "flex",
-            "flexDirection": "row",
-          }
-        }
+        style={{}}
       >
         <View
-          style={
-            {
-              "alignItems": "center",
-            }
-          }
+          style={{}}
         >
           <View
             style={
               [
-                {
-                  "borderBottomLeftRadius": 8,
-                  "borderBottomRightRadius": 8,
-                  "borderTopLeftRadius": 8,
-                  "borderTopRightRadius": 8,
-                  "paddingBottom": 8,
-                  "paddingLeft": 8,
-                  "paddingRight": 8,
-                  "paddingTop": 8,
-                },
-                {
-                  "backgroundColor": "rgba(255, 255, 255, 1)",
-                },
+                {},
+                {},
               ]
             }
             testID="qr_code_container"
@@ -20526,37 +20382,15 @@ exports[`Get DFI page should match snapshot 1`] = `
           </View>
         </View>
         <View
-          style={
-            {
-              "flexBasis": "0%",
-              "flexGrow": 1,
-              "flexShrink": 1,
-              "flexWrap": "wrap",
-              "justifyContent": "space-between",
-              "paddingLeft": 20,
-            }
-          }
+          style={{}}
         >
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
-                  {
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 12,
-                    "fontWeight": "400",
-                    "lineHeight": 16,
-                    "marginBottom": 1,
-                  },
-                  {
-                    "color": "rgba(115, 115, 115, 1)",
-                  },
+                  {},
+                  {},
                 ],
               ]
             }
@@ -20577,10 +20411,7 @@ exports[`Get DFI page should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               {
-                "display": "flex",
-                "flexDirection": "row",
                 "opacity": 1,
-                "width": "100%",
               }
             }
             testID="copy_button"
@@ -20591,22 +20422,10 @@ exports[`Get DFI page should match snapshot 1`] = `
               selectable={true}
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -20620,11 +20439,7 @@ exports[`Get DFI page should match snapshot 1`] = `
             </Text>
           </View>
           <View
-            style={
-              {
-                "alignItems": "flex-start",
-              }
-            }
+            style={{}}
           >
             <View
               accessible={true}
@@ -20639,24 +20454,7 @@ exports[`Get DFI page should match snapshot 1`] = `
               onStartShouldSetResponder={[Function]}
               style={
                 {
-                  "borderBottomColor": "rgba(89, 89, 89, 1)",
-                  "borderBottomLeftRadius": 9999,
-                  "borderBottomRightRadius": 9999,
-                  "borderBottomWidth": 1,
-                  "borderLeftColor": "rgba(89, 89, 89, 1)",
-                  "borderLeftWidth": 1,
-                  "borderRightColor": "rgba(89, 89, 89, 1)",
-                  "borderRightWidth": 1,
-                  "borderTopColor": "rgba(89, 89, 89, 1)",
-                  "borderTopLeftRadius": 9999,
-                  "borderTopRightRadius": 9999,
-                  "borderTopWidth": 1,
-                  "marginTop": 8,
                   "opacity": 1,
-                  "paddingBottom": 8,
-                  "paddingLeft": 16,
-                  "paddingRight": 16,
-                  "paddingTop": 8,
                 }
               }
               testID="share_button"
@@ -20664,23 +20462,10 @@ exports[`Get DFI page should match snapshot 1`] = `
               <Text
                 style={
                   [
-                    {
-                      "fontFamily": "RegularFont",
-                      "fontSize": 16,
-                      "fontWeight": "400",
-                      "lineHeight": 24,
-                    },
+                    {},
                     [
-                      {
-                        "fontFamily": "SoraRegular",
-                        "fontSize": 12,
-                        "fontWeight": "400",
-                        "lineHeight": 16,
-                        "textAlign": "center",
-                      },
-                      {
-                        "color": "rgba(89, 89, 89, 1)",
-                      },
+                      {},
+                      {},
                     ],
                   ]
                 }
@@ -20695,31 +20480,8 @@ exports[`Get DFI page should match snapshot 1`] = `
     <View
       style={
         [
-          {
-            "alignItems": "center",
-            "borderBottomLeftRadius": 8,
-            "borderBottomRightRadius": 8,
-            "borderBottomWidth": 0.5,
-            "borderLeftWidth": 0.5,
-            "borderRightWidth": 0.5,
-            "borderTopLeftRadius": 8,
-            "borderTopRightRadius": 8,
-            "borderTopWidth": 0.5,
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginTop": 40,
-            "paddingBottom": 18,
-            "paddingLeft": 20,
-            "paddingRight": 20,
-            "paddingTop": 18,
-          },
-          {
-            "borderBottomColor": "rgba(18, 18, 18, 1)",
-            "borderLeftColor": "rgba(18, 18, 18, 1)",
-            "borderRightColor": "rgba(18, 18, 18, 1)",
-            "borderTopColor": "rgba(18, 18, 18, 1)",
-          },
+          {},
+          {},
         ]
       }
     >
@@ -20736,9 +20498,6 @@ exports[`Get DFI page should match snapshot 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
             "opacity": 1,
           }
         }
@@ -20758,9 +20517,7 @@ exports[`Get DFI page should match snapshot 1`] = `
                 "backgroundColor": "transparent",
                 "borderWidth": 0,
               },
-              {
-                "marginRight": 8,
-              },
+              {},
               {
                 "flex": 0,
                 "height": 24,
@@ -20808,23 +20565,10 @@ exports[`Get DFI page should match snapshot 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraSemiBold",
-                  "fontSize": 14,
-                  "fontWeight": "600",
-                  "lineHeight": 20,
-                  "marginRight": 8,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -20836,22 +20580,10 @@ exports[`Get DFI page should match snapshot 1`] = `
       <Text
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraSemiBold",
-                "fontSize": 14,
-                "fontWeight": "600",
-                "lineHeight": 20,
-              },
-              {
-                "color": "rgba(18, 18, 18, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }

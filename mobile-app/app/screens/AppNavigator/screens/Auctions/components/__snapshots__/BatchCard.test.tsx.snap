@@ -14,63 +14,26 @@ exports[`Batch Card should match snapshot 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     {
-      "backgroundColor": "rgba(255, 255, 255, 1)",
-      "borderBottomLeftRadius": 10,
-      "borderBottomRightRadius": 10,
-      "borderTopLeftRadius": 10,
-      "borderTopRightRadius": 10,
-      "marginBottom": 8,
-      "marginLeft": 20,
-      "marginRight": 20,
       "opacity": 1,
-      "overflow": "hidden",
     }
   }
   testID="batch_card"
 >
   <View
     onLayout={[Function]}
-    style={
-      {
-        "alignItems": "flex-start",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
-      }
-    }
+    style={{}}
     testID="batch_card_DUSD"
   >
     <View
-      style={
-        {
-          "flexBasis": "0%",
-          "flexGrow": 1,
-          "flexShrink": 1,
-          "paddingBottom": 20,
-          "paddingLeft": 20,
-          "paddingRight": 14,
-          "paddingTop": 20,
-        }
-      }
+      style={{}}
     >
       <View
-        style={
-          {
-            "alignItems": "flex-start",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-          }
-        }
+        style={{}}
       >
         <View
           style={
             [
-              {
-                "display": "flex",
-                "flexDirection": "row",
-                "position": "relative",
-              },
+              {},
               {
                 "right": 0,
               },
@@ -80,17 +43,7 @@ exports[`Batch Card should match snapshot 1`] = `
           <View
             style={
               [
-                {
-                  "borderBottomLeftRadius": 9999,
-                  "borderBottomRightRadius": 9999,
-                  "borderTopLeftRadius": 9999,
-                  "borderTopRightRadius": 9999,
-                  "paddingBottom": 1,
-                  "paddingLeft": 1,
-                  "paddingRight": 1,
-                  "paddingTop": 1,
-                  "position": "relative",
-                },
+                {},
                 {
                   "left": -0,
                   "zIndex": -0,
@@ -164,21 +117,10 @@ exports[`Batch Card should match snapshot 1`] = `
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
-                  {
-                    "fontFamily": "SoraSemiBold",
-                    "fontWeight": "600",
-                    "textAlign": "right",
-                  },
-                  {
-                    "color": "rgba(0, 0, 0, 1)",
-                  },
+                  {},
+                  {},
                 ],
               ]
             }
@@ -187,52 +129,21 @@ exports[`Batch Card should match snapshot 1`] = `
             $12,345.00
           </Text>
           <Text
-            style={
-              {
-                "color": "rgba(0, 173, 29, 1)",
-                "fontFamily": "SoraRegular",
-                "fontSize": 12,
-                "fontWeight": "400",
-                "lineHeight": 16,
-                "textAlign": "right",
-              }
-            }
+            style={{}}
           >
              28m 30s left
           </Text>
         </View>
       </View>
       <View
-        style={
-          {
-            "alignItems": "flex-end",
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginTop": 8,
-          }
-        }
+        style={{}}
       >
         <View>
           <View
-            style={
-              {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-              }
-            }
+            style={{}}
           >
             <Text
-              style={
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 12,
-                  "fontWeight": "400",
-                  "lineHeight": 16,
-                }
-              }
+              style={{}}
               testID="batch_card_no_bid_text"
             >
               Min. bid
@@ -241,24 +152,10 @@ exports[`Batch Card should match snapshot 1`] = `
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
-                  {
-                    "flexWrap": "wrap",
-                    "fontFamily": "SoraRegular",
-                    "fontSize": 12,
-                    "fontWeight": "400",
-                    "lineHeight": 16,
-                    "marginTop": 4,
-                  },
-                  {
-                    "color": "rgba(89, 89, 89, 1)",
-                  },
+                  {},
+                  {},
                 ],
               ]
             }
@@ -281,19 +178,7 @@ exports[`Batch Card should match snapshot 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               {
-                "alignItems": "center",
-                "backgroundColor": "rgba(242, 242, 242, 1)",
-                "borderBottomLeftRadius": 20,
-                "borderBottomRightRadius": 20,
-                "borderTopLeftRadius": 20,
-                "borderTopRightRadius": 20,
-                "display": "flex",
-                "flexDirection": "row",
                 "opacity": 1,
-                "paddingBottom": 8,
-                "paddingLeft": 12,
-                "paddingRight": 12,
-                "paddingTop": 8,
               }
             }
             testID="batch_card_quick_bid_button"
@@ -358,24 +243,10 @@ exports[`Batch Card should match snapshot 1`] = `
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraSemiBold",
-                      "fontSize": 12,
-                      "fontWeight": "600",
-                      "lineHeight": 16,
-                      "marginLeft": 4,
-                      "textAlign": "center",
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -389,9 +260,7 @@ exports[`Batch Card should match snapshot 1`] = `
     <View
       style={
         [
-          {
-            "width": 6,
-          },
+          {},
           {
             "height": 0,
             "transform": [
@@ -418,8 +287,8 @@ exports[`Batch Card should match snapshot 1`] = `
         style={
           [
             {
-              "backgroundColor": "rgba(217, 217, 217, 1)",
-              "borderColor": "rgba(0, 173, 29, 1)",
+              "backgroundColor": "#ffffff",
+              "borderColor": "#ffffff",
               "borderRadius": 0,
               "borderWidth": 0,
               "overflow": "hidden",
@@ -452,7 +321,7 @@ exports[`Batch Card should match snapshot 1`] = `
           collapsable={false}
           style={
             {
-              "backgroundColor": "rgba(0, 173, 29, 1)",
+              "backgroundColor": "#ffffff",
               "height": 6,
               "transform": [
                 {

@@ -2,23 +2,11 @@
 
 exports[`language selection screen should render 1`] = `
 <RCTScrollView
-  contentContainerStyle={
-    {
-      "paddingBottom": 64,
-      "paddingLeft": 20,
-      "paddingRight": 20,
-    }
-  }
+  contentContainerStyle={{}}
   style={
     [
-      {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-      },
-      {
-        "backgroundColor": "rgba(242, 242, 242, 1)",
-      },
+      {},
+      {},
     ]
   }
   testID="language_selection_screen"
@@ -27,26 +15,10 @@ exports[`language selection screen should render 1`] = `
     <Text
       style={
         [
-          {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
+          {},
           [
-            {
-              "fontFamily": "SoraRegular",
-              "fontSize": 12,
-              "fontWeight": "400",
-              "lineHeight": 16,
-              "paddingBottom": 8,
-              "paddingLeft": 20,
-              "paddingRight": 20,
-              "paddingTop": 24,
-            },
-            {
-              "color": "rgba(115, 115, 115, 1)",
-            },
+            {},
+            {},
           ],
         ]
       }
@@ -58,32 +30,16 @@ exports[`language selection screen should render 1`] = `
     <View
       style={
         [
-          {
-            "borderBottomLeftRadius": 10,
-            "borderBottomRightRadius": 10,
-            "borderTopLeftRadius": 10,
-            "borderTopRightRadius": 10,
-            "paddingLeft": 20,
-            "paddingRight": 20,
-          },
-          {
-            "backgroundColor": "rgba(255, 255, 255, 1)",
-          },
+          {},
+          {},
         ]
       }
     >
       <View
         style={
           [
-            {
-              "borderBottomWidth": 0.5,
-            },
-            {
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-            },
+            {},
+            {},
           ]
         }
         testID="button_language_English"
@@ -101,53 +57,20 @@ exports[`language selection screen should render 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderBottomWidth": 0,
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderLeftWidth": 0,
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderRightWidth": 0,
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "borderTopWidth": 0,
-              "display": "flex",
-              "flexDirection": "row",
-              "justifyContent": "space-between",
               "opacity": 1,
-              "paddingBottom": 18,
-              "paddingTop": 18,
             }
           }
         >
           <View
-            style={
-              {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-              }
-            }
+            style={{}}
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                      "paddingRight": 4,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -162,15 +85,8 @@ exports[`language selection screen should render 1`] = `
       <View
         style={
           [
-            {
-              "borderBottomWidth": 0.5,
-            },
-            {
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-            },
+            {},
+            {},
           ]
         }
         testID="button_language_German"
@@ -188,53 +104,20 @@ exports[`language selection screen should render 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderBottomWidth": 0,
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderLeftWidth": 0,
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderRightWidth": 0,
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "borderTopWidth": 0,
-              "display": "flex",
-              "flexDirection": "row",
-              "justifyContent": "space-between",
               "opacity": 1,
-              "paddingBottom": 18,
-              "paddingTop": 18,
             }
           }
         >
           <View
-            style={
-              {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-              }
-            }
+            style={{}}
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                      "paddingRight": 4,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -245,22 +128,10 @@ exports[`language selection screen should render 1`] = `
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -279,15 +150,8 @@ exports[`language selection screen should render 1`] = `
       <View
         style={
           [
-            {
-              "borderBottomWidth": 0.5,
-            },
-            {
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-            },
+            {},
+            {},
           ]
         }
         testID="button_language_Simplified Chinese"
@@ -305,53 +169,20 @@ exports[`language selection screen should render 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderBottomWidth": 0,
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderLeftWidth": 0,
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderRightWidth": 0,
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "borderTopWidth": 0,
-              "display": "flex",
-              "flexDirection": "row",
-              "justifyContent": "space-between",
               "opacity": 1,
-              "paddingBottom": 18,
-              "paddingTop": 18,
             }
           }
         >
           <View
-            style={
-              {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-              }
-            }
+            style={{}}
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                      "paddingRight": 4,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -362,22 +193,10 @@ exports[`language selection screen should render 1`] = `
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -396,15 +215,8 @@ exports[`language selection screen should render 1`] = `
       <View
         style={
           [
-            {
-              "borderBottomWidth": 0.5,
-            },
-            {
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-            },
+            {},
+            {},
           ]
         }
         testID="button_language_Traditional Chinese"
@@ -422,53 +234,20 @@ exports[`language selection screen should render 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderBottomWidth": 0,
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderLeftWidth": 0,
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderRightWidth": 0,
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "borderTopWidth": 0,
-              "display": "flex",
-              "flexDirection": "row",
-              "justifyContent": "space-between",
               "opacity": 1,
-              "paddingBottom": 18,
-              "paddingTop": 18,
             }
           }
         >
           <View
-            style={
-              {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-              }
-            }
+            style={{}}
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                      "paddingRight": 4,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -479,22 +258,10 @@ exports[`language selection screen should render 1`] = `
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -513,15 +280,8 @@ exports[`language selection screen should render 1`] = `
       <View
         style={
           [
-            {
-              "borderBottomWidth": 0.5,
-            },
-            {
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-            },
+            {},
+            {},
           ]
         }
         testID="button_language_French"
@@ -539,53 +299,20 @@ exports[`language selection screen should render 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderBottomWidth": 0,
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderLeftWidth": 0,
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderRightWidth": 0,
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "borderTopWidth": 0,
-              "display": "flex",
-              "flexDirection": "row",
-              "justifyContent": "space-between",
               "opacity": 1,
-              "paddingBottom": 18,
-              "paddingTop": 18,
             }
           }
         >
           <View
-            style={
-              {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-              }
-            }
+            style={{}}
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                      "paddingRight": 4,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -596,22 +323,10 @@ exports[`language selection screen should render 1`] = `
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -630,15 +345,8 @@ exports[`language selection screen should render 1`] = `
       <View
         style={
           [
-            {
-              "borderBottomWidth": 0.5,
-            },
-            {
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-            },
+            {},
+            {},
           ]
         }
         testID="button_language_Spanish"
@@ -656,53 +364,20 @@ exports[`language selection screen should render 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderBottomWidth": 0,
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderLeftWidth": 0,
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderRightWidth": 0,
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "borderTopWidth": 0,
-              "display": "flex",
-              "flexDirection": "row",
-              "justifyContent": "space-between",
               "opacity": 1,
-              "paddingBottom": 18,
-              "paddingTop": 18,
             }
           }
         >
           <View
-            style={
-              {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-              }
-            }
+            style={{}}
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                      "paddingRight": 4,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -713,22 +388,10 @@ exports[`language selection screen should render 1`] = `
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -748,12 +411,7 @@ exports[`language selection screen should render 1`] = `
         style={
           [
             {},
-            {
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-            },
+            {},
           ]
         }
         testID="button_language_Italian"
@@ -771,53 +429,20 @@ exports[`language selection screen should render 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderBottomWidth": 0,
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderLeftWidth": 0,
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderRightWidth": 0,
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "borderTopWidth": 0,
-              "display": "flex",
-              "flexDirection": "row",
-              "justifyContent": "space-between",
               "opacity": 1,
-              "paddingBottom": 18,
-              "paddingTop": 18,
             }
           }
         >
           <View
-            style={
-              {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-              }
-            }
+            style={{}}
           >
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                      "paddingRight": 4,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }
@@ -828,22 +453,10 @@ exports[`language selection screen should render 1`] = `
             <Text
               style={
                 [
-                  {
-                    "fontFamily": "RegularFont",
-                    "fontSize": 16,
-                    "fontWeight": "400",
-                    "lineHeight": 24,
-                  },
+                  {},
                   [
-                    {
-                      "fontFamily": "SoraRegular",
-                      "fontSize": 14,
-                      "fontWeight": "400",
-                      "lineHeight": 20,
-                    },
-                    {
-                      "color": "rgba(18, 18, 18, 1)",
-                    },
+                    {},
+                    {},
                   ],
                 ]
               }

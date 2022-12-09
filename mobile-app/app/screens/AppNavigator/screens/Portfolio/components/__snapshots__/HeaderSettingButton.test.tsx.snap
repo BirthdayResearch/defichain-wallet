@@ -66,7 +66,7 @@ exports[`Header Setting Button should match snapshot 1`] = `
         }
         stroke={
           {
-            "payload": 4279374354,
+            "payload": 4294967295,
             "type": 0,
           }
         }

@@ -24,14 +24,7 @@ exports[`Empty vault should match snapshot 1`] = `
     }
   />,
   <RCTScrollView
-    contentContainerStyle={
-      {
-        "paddingBottom": 8,
-        "paddingLeft": 32,
-        "paddingRight": 32,
-        "paddingTop": 24,
-      }
-    }
+    contentContainerStyle={{}}
     refreshControl={
       <RefreshControlMock
         onRefresh={[Function]}
@@ -41,9 +34,7 @@ exports[`Empty vault should match snapshot 1`] = `
     style={
       [
         undefined,
-        {
-          "backgroundColor": "rgba(242, 242, 242, 1)",
-        },
+        {},
       ]
     }
     testID="empty_vault"
@@ -51,12 +42,7 @@ exports[`Empty vault should match snapshot 1`] = `
     <RCTRefreshControl />
     <View>
       <View
-        style={
-          {
-            "alignItems": "center",
-            "paddingBottom": 32,
-          }
-        }
+        style={{}}
       >
         <Image
           source={1}
@@ -71,24 +57,10 @@ exports[`Empty vault should match snapshot 1`] = `
       <Text
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraSemiBold",
-                "fontSize": 20,
-                "fontWeight": "600",
-                "lineHeight": 28,
-                "paddingBottom": 8,
-                "textAlign": "center",
-              },
-              {
-                "color": "rgba(18, 18, 18, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -99,23 +71,10 @@ exports[`Empty vault should match snapshot 1`] = `
       <Text
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraRegular",
-                "fontWeight": "400",
-                "paddingLeft": 16,
-                "paddingRight": 16,
-                "textAlign": "center",
-              },
-              {
-                "color": "rgba(18, 18, 18, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -136,19 +95,8 @@ exports[`Empty vault should match snapshot 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           {
-            "backgroundColor": "rgba(18, 18, 18, 1)",
             "borderRadius": 26,
-            "flexDirection": "row",
-            "justifyContent": "center",
-            "marginBottom": 16,
-            "marginLeft": 16,
-            "marginRight": 16,
-            "marginTop": 32,
             "opacity": 1,
-            "paddingBottom": 14,
-            "paddingLeft": 14,
-            "paddingRight": 14,
-            "paddingTop": 14,
           }
         }
         testID="button_create_vault"
@@ -156,18 +104,8 @@ exports[`Empty vault should match snapshot 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              {
-                "color": "rgba(242, 242, 242, 1)",
-                "fontFamily": "SoraSemiBold",
-                "fontWeight": "600",
-                "textAlign": "center",
-              },
+              {},
+              {},
             ]
           }
         >
@@ -175,12 +113,7 @@ exports[`Empty vault should match snapshot 1`] = `
         </Text>
       </View>
       <View
-        style={
-          {
-            "alignItems": "center",
-            "paddingTop": 8,
-          }
-        }
+        style={{}}
       >
         <View
           accessible={true}
@@ -195,13 +128,6 @@ exports[`Empty vault should match snapshot 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             {
-              "alignItems": "center",
-              "borderBottomColor": "rgba(204, 204, 204, 1)",
-              "borderLeftColor": "rgba(204, 204, 204, 1)",
-              "borderRightColor": "rgba(204, 204, 204, 1)",
-              "borderTopColor": "rgba(204, 204, 204, 1)",
-              "flexDirection": "row",
-              "justifyContent": "flex-start",
               "opacity": 1,
             }
           }
@@ -211,31 +137,13 @@ exports[`Empty vault should match snapshot 1`] = `
           <Text
             style={
               [
-                {
-                  "fontFamily": "RegularFont",
-                  "fontSize": 16,
-                  "fontWeight": "400",
-                  "lineHeight": 24,
-                },
+                {},
                 [
                   [
-                    {
-                      "fontFamily": "SoraMedium",
-                      "fontSize": 12,
-                      "fontWeight": "500",
-                      "lineHeight": 16,
-                      "marginLeft": 4,
-                      "paddingLeft": 4,
-                      "paddingRight": 4,
-                    },
-                    {
-                      "fontSize": 14,
-                      "lineHeight": 20,
-                    },
+                    {},
+                    {},
                   ],
-                  {
-                    "color": "rgba(18, 18, 18, 1)",
-                  },
+                  {},
                 ],
               ]
             }

@@ -7,47 +7,18 @@ exports[`feature flag screen should render FeatureFlagItem 1`] = `
   <View
     style={
       [
-        {
-          "alignItems": "center",
-          "borderBottomLeftRadius": 8,
-          "borderBottomRightRadius": 8,
-          "borderTopLeftRadius": 8,
-          "borderTopRightRadius": 8,
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "marginLeft": 20,
-          "marginRight": 20,
-          "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "paddingTop": 16,
-        },
-        {
-          "backgroundColor": "rgba(255, 255, 255, 1)",
-        },
+        {},
+        {},
       ]
     }
   >
     <Text
       style={
         [
-          {
-            "fontFamily": "RegularFont",
-            "fontSize": 16,
-            "fontWeight": "400",
-            "lineHeight": 24,
-          },
+          {},
           [
-            {
-              "fontFamily": "SoraRegular",
-              "fontSize": 14,
-              "fontWeight": "400",
-              "lineHeight": 20,
-            },
-            {
-              "color": "rgba(18, 18, 18, 1)",
-            },
+            {},
+            {},
           ],
         ]
       }
@@ -55,12 +26,7 @@ exports[`feature flag screen should render FeatureFlagItem 1`] = `
       Future swap
     </Text>
     <View
-      style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-        }
-      }
+      style={{}}
     >
       <RCTSwitch
         accessibilityRole="switch"
@@ -90,27 +56,10 @@ exports[`feature flag screen should render FeatureFlagItem 1`] = `
   <Text
     style={
       [
-        {
-          "fontFamily": "RegularFont",
-          "fontSize": 16,
-          "fontWeight": "400",
-          "lineHeight": 24,
-        },
+        {},
         [
-          {
-            "fontFamily": "SoraRegular",
-            "fontSize": 12,
-            "fontWeight": "400",
-            "lineHeight": 16,
-            "marginBottom": 8,
-            "paddingBottom": 8,
-            "paddingLeft": 40,
-            "paddingRight": 40,
-            "paddingTop": 8,
-          },
-          {
-            "color": "rgba(115, 115, 115, 1)",
-          },
+          {},
+          {},
         ],
       ]
     }
@@ -125,46 +74,22 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
   style={
     [
       undefined,
-      {
-        "backgroundColor": "rgba(242, 242, 242, 1)",
-      },
+      {},
     ]
   }
   testID="features_flag_screen"
 >
   <View>
     <View
-      style={
-        {
-          "flexBasis": "0%",
-          "flexGrow": 1,
-          "flexShrink": 1,
-          "paddingBottom": 32,
-          "paddingLeft": 40,
-          "paddingRight": 40,
-          "paddingTop": 32,
-        }
-      }
+      style={{}}
     >
       <Text
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraRegular",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
-              {
-                "color": "rgba(18, 18, 18, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
@@ -178,47 +103,18 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
       <View
         style={
           [
-            {
-              "alignItems": "center",
-              "borderBottomLeftRadius": 8,
-              "borderBottomRightRadius": 8,
-              "borderTopLeftRadius": 8,
-              "borderTopRightRadius": 8,
-              "display": "flex",
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-              "marginLeft": 20,
-              "marginRight": 20,
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 16,
-            },
-            {
-              "backgroundColor": "rgba(255, 255, 255, 1)",
-            },
+            {},
+            {},
           ]
         }
       >
         <Text
           style={
             [
-              {
-                "fontFamily": "RegularFont",
-                "fontSize": 16,
-                "fontWeight": "400",
-                "lineHeight": 24,
-              },
+              {},
               [
-                {
-                  "fontFamily": "SoraRegular",
-                  "fontSize": 14,
-                  "fontWeight": "400",
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "rgba(18, 18, 18, 1)",
-                },
+                {},
+                {},
               ],
             ]
           }
@@ -226,12 +122,7 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
           Future swap
         </Text>
         <View
-          style={
-            {
-              "alignItems": "center",
-              "flexDirection": "row",
-            }
-          }
+          style={{}}
         >
           <RCTSwitch
             accessibilityRole="switch"
@@ -261,27 +152,10 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
       <Text
         style={
           [
-            {
-              "fontFamily": "RegularFont",
-              "fontSize": 16,
-              "fontWeight": "400",
-              "lineHeight": 24,
-            },
+            {},
             [
-              {
-                "fontFamily": "SoraRegular",
-                "fontSize": 12,
-                "fontWeight": "400",
-                "lineHeight": 16,
-                "marginBottom": 8,
-                "paddingBottom": 8,
-                "paddingLeft": 40,
-                "paddingRight": 40,
-                "paddingTop": 8,
-              },
-              {
-                "color": "rgba(115, 115, 115, 1)",
-              },
+              {},
+              {},
             ],
           ]
         }
