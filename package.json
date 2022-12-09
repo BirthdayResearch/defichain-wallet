@@ -23,17 +23,17 @@
     "tailwind:dev": "cd ./mobile-app/app && concurrently \"tailwindcss --input ./input.css --output ./tailwind.css --no-autoprefixer --watch\" \"tailwind-rn --input ./tailwind.css --output ./tailwind.json --watch\""
   },
   "dependencies": {
-    "@defichain/jellyfish-address": "^3.5.2",
-    "@defichain/jellyfish-api-core": "^3.5.2",
-    "@defichain/jellyfish-network": "^3.5.2",
-    "@defichain/jellyfish-transaction": "^3.5.2",
-    "@defichain/jellyfish-transaction-builder": "^3.5.2",
-    "@defichain/jellyfish-wallet": "^3.5.2",
-    "@defichain/jellyfish-wallet-encrypted": "^3.5.2",
-    "@defichain/jellyfish-wallet-mnemonic": "^3.5.2",
-    "@defichain/playground-api-client": "^3.5.2",
-    "@defichain/whale-api-client": "^3.5.2",
-    "@defichain/whale-api-wallet": "^3.5.2",
+    "@defichain/jellyfish-address": "^3.5.3",
+    "@defichain/jellyfish-api-core": "^3.5.3",
+    "@defichain/jellyfish-network": "^3.5.3",
+    "@defichain/jellyfish-transaction": "^3.5.3",
+    "@defichain/jellyfish-transaction-builder": "^3.5.3",
+    "@defichain/jellyfish-wallet": "^3.5.3",
+    "@defichain/jellyfish-wallet-encrypted": "^3.5.3",
+    "@defichain/jellyfish-wallet-mnemonic": "^3.5.3",
+    "@defichain/playground-api-client": "^3.5.3",
+    "@defichain/whale-api-client": "^3.5.3",
+    "@defichain/whale-api-wallet": "^3.5.3",
     "@expo-google-fonts/ibm-plex-sans": "^0.2.2",
     "@expo-google-fonts/sora": "^0.2.2",
     "@expo/vector-icons": "^13.0.0",
@@ -51,8 +51,8 @@
     "bignumber.js": "^9.1.1",
     "buffer": "^6.0.3",
     "classnames": "^2.3.2",
-    "dayjs": "^1.11.6",
-    "defichain": "^3.5.2",
+    "dayjs": "^1.11.7",
+    "defichain": "^3.5.3",
     "expo": "^47.0.8",
     "expo-asset": "~8.6.2",
     "expo-barcode-scanner": "~12.1.0",
@@ -89,10 +89,10 @@
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-popover-view": "^5.1.7",
     "react-native-progress": "^5.0.0",
-    "react-native-reanimated": "2.12.0",
+    "react-native-reanimated": "2.13.0",
     "react-native-safe-area-context": "4.4.1",
     "react-native-screens": "~3.18.2",
-    "react-native-svg": "13.4.0",
+    "react-native-svg": "13.6.0",
     "react-native-swiper-flatlist": "^3.0.17",
     "react-native-toast-notifications": "^3.3.1",
     "react-native-web": "~0.18.10",
@@ -118,7 +118,7 @@
     "@types/lodash": "^4.14.191",
     "@types/randomcolor": "^0.5.7",
     "@types/react": "~18.0.26",
-    "@types/react-native": "~0.70.7",
+    "@types/react-native": "~0.70.8",
     "@types/react-native-loading-spinner-overlay": "^0.5.3",
     "@types/react-test-renderer": "^18.0.0",
     "@types/semver": "^7.3.13",
@@ -176,7 +176,7 @@
   },
   "overrides": {
     "react-native-circular-progress-indicator": {
-      "react-native-svg": "13.4.0"
+      "react-native-svg": "13.6.0"
     }
   }
 }
