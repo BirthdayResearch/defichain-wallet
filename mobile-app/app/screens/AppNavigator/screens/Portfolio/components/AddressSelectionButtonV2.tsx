@@ -9,7 +9,6 @@ import { RandomAvatar } from "./RandomAvatar";
 
 interface AddressSelectionButtonProps {
   address: string;
-  addressLength: number;
   onPress?: () => void;
   disabled?: boolean;
 }

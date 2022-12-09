@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import {
   CodeField,
   useBlurOnFulfill,
@@ -47,7 +47,7 @@ export function PinTextInputV2({
       alignItems: "center" as "center",
       backgroundColor: "transparent",
       borderRadius: 10,
-      borderStyle: "solid" as  "solid",
+      borderStyle: "solid" as "solid",
       borderWidth: 1,
       display: "flex" as "flex",
       fontSize: 20,

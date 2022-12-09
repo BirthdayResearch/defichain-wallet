@@ -24,7 +24,6 @@ export function AddLiquidityInputCard(props: {
   setIsInputFocus: (flag: boolean) => void;
   showInsufficientTokenMsg: boolean;
   showUTXOFeesMsg: boolean;
-  hasInputAmount?: boolean;
 }): JSX.Element {
   const { tailwind } = useStyles();
   const Icon = getNativeIcon(props.symbol);

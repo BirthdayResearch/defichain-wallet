@@ -91,7 +91,6 @@ export const BottomSheetAssetSortList = ({
       item: AuctionsSortType;
       index: number;
     }): JSX.Element => {
-      const { tailwind } = useStyles();
       const testID = `select_sort_${item.toLowerCase().replaceAll(" ", "_")}`;
       return (
         <ThemedTouchableOpacityV2

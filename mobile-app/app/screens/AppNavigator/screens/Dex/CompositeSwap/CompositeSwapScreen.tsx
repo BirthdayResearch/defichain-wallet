@@ -69,7 +69,7 @@ import {
 } from "@components/TokenDropdownButton";
 import {
   Announcement,
-  AnnouncementBannerV2,
+  AnnouncementBanner,
 } from "../../Portfolio/components/Announcements";
 import { useDexStabilization } from "../hook/DexStabilization";
 import { useFutureSwap, useFutureSwapDate } from "../hook/FutureSwap";
@@ -833,7 +833,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
             dexStabilizationType !== "none" &&
             dexStabilizationAnnouncement !== undefined && (
               <View style={tailwind("flex mx-5 mt-8 rounded")}>
-                <AnnouncementBannerV2
+                <AnnouncementBanner
                   announcement={dexStabilizationAnnouncement}
                   testID="swap_announcements_banner"
                   containerStyle={{
@@ -846,7 +846,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
 
           {activeButtonGroup === ButtonGroupTabKey.FutureSwap && (
             <View style={tailwind("flex mx-5 mt-8 rounded")}>
-              <AnnouncementBannerV2
+              <AnnouncementBanner
                 announcement={oraclePriceAnnouncement}
                 testID="oracle_announcements_banner"
                 containerStyle={{

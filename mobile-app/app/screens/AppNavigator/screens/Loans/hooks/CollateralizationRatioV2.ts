@@ -25,7 +25,6 @@ export function useCollateralRatioStats({
   totalLoanAmount,
   totalCollateralValue,
 }: CollateralizationRatioProps): CollateralizationRatioStats {
-  const { getColor, tailwind } = useStyles();
   const atRiskThreshold = new BigNumber(minColRatio).multipliedBy(1.5);
   const liquidatedThreshold = new BigNumber(minColRatio).multipliedBy(1.25);
   const isInLiquidation =
@@ -69,10 +68,10 @@ export function useCollateralizationRatioColor(
 
 export function getVaultStatusColor(
   status: string,
+  getColor: (colorClassName: string) => string,
   isLight: boolean,
   isText: boolean = false
 ): string {
-  const { getColor } = useStyles();
   if (status === VaultStatus.NearLiquidation) {
     return isText ? "text-red-v2" : getColor("red-v2");
   } else if (status === VaultStatus.AtRisk) {

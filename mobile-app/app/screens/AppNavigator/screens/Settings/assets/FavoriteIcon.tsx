@@ -5,11 +5,14 @@ import { useThemeContext } from "@shared-contexts/ThemeProvider";
 interface FavoriteIconI {
   size: number;
   testID?: string;
+}
+
+interface FavoriteCheckIconI extends FavoriteIconI {
   dark?: string;
   light?: string;
 }
 
-export function FavoriteCheckIcon(props: FavoriteIconI): JSX.Element {
+export function FavoriteCheckIcon(props: FavoriteCheckIconI): JSX.Element {
   const { isLight } = useThemeContext();
   const { getColor } = useStyles();
   const {

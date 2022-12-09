@@ -10,6 +10,7 @@ import {
   PortfolioIcon,
 } from "@screens/WalletNavigator/assets/BottomNavIcon";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { Style } from "tailwind-rn/dist";
 import { PortfolioNavigator } from "./screens/Portfolio/PortfolioNavigator";
 import { DexNavigator } from "./screens/Dex/DexNavigator";
 import { LoansNavigator } from "./screens/Loans/LoansNavigator";
@@ -28,13 +29,14 @@ const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 const getTabBarLabel = ({
   focused,
   color,
+  tailwind,
   title,
 }: {
   focused: boolean;
   color: string;
   title: string;
+  tailwind: (_classNames: string) => Style;
 }): JSX.Element => {
-  const { tailwind } = useStyles();
   return (
     <Text style={{ color, ...tailwind("font-normal-v2 text-xs") }}>
       {focused ? title : ""}
@@ -75,6 +77,7 @@ export function BottomTabNavigator(): JSX.Element {
               getTabBarLabel({
                 focused,
                 color,
+                tailwind,
                 title: translate("BottomTabNavigator", "Portfolio"),
               }),
             tabBarTestID: "bottom_tab_portfolio",
@@ -92,6 +95,7 @@ export function BottomTabNavigator(): JSX.Element {
               getTabBarLabel({
                 focused,
                 color,
+                tailwind,
                 title: translate("BottomTabNavigator", "DEX"),
               }),
             tabBarTestID: "bottom_tab_dex",
@@ -107,6 +111,7 @@ export function BottomTabNavigator(): JSX.Element {
               getTabBarLabel({
                 focused,
                 color,
+                tailwind,
                 title: translate("BottomTabNavigator", "Loans"),
               }),
             tabBarTestID: "bottom_tab_loans",
@@ -122,6 +127,7 @@ export function BottomTabNavigator(): JSX.Element {
               getTabBarLabel({
                 focused,
                 color,
+                tailwind,
                 title: translate("BottomTabNavigator", "Auctions"),
               }),
             tabBarTestID: "bottom_tab_auctions",

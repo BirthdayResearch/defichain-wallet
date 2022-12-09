@@ -11,14 +11,14 @@ beforeEach(() => {
 
 it("should log error", () => {
   Logging.error(new Error("foo"));
-  expect(consoleError).toBeCalled();
-  expect(error).toBeCalledTimes(1);
-  expect(error).toBeCalledWith(new Error("foo"));
+  expect(consoleError).toHaveBeenCalled();
+  expect(error).toHaveBeenCalledTimes(1);
+  expect(error).toHaveBeenCalledWith(new Error("foo"));
 });
 
 it("should log info", () => {
   Logging.info("bar");
-  expect(consoleLog).toBeCalled();
-  expect(info).toBeCalledTimes(1);
-  expect(info).toBeCalledWith("bar");
+  expect(consoleLog).toHaveBeenCalled();
+  expect(info).toHaveBeenCalledTimes(1);
+  expect(info).toHaveBeenCalledWith("bar");
 });

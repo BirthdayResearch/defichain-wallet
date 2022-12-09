@@ -9,5 +9,5 @@ it("<CommunityScreen /> should match snapshot", async () => {
   expect(tree.toJSON()).toMatchSnapshot();
   const receiveButton = await tree.findByTestId("gh");
   fireEvent.press(receiveButton);
-  expect(Linking.canOpenURL).toBeCalled();
+  expect(Linking.canOpenURL).toHaveBeenCalled();
 });

@@ -1,8 +1,6 @@
 module.exports = {
   content: {
-    files: [
-      './**/*.{ts,tsx}',
-    ],
+    files: ["./**/*.{ts,tsx}"],
   },
   theme: {
     extend: {
@@ -203,9 +201,10 @@ module.exports = {
         15: 60,
       },
       letterSpacing: {
-        "wide-v2": "0.02em"
+        "wide-v2": "0.02em",
       },
     },
   },
-  corePlugins: require('tailwind-rn/unsupported-core-plugins')
-}
+  // eslint-disable-next-line global-require
+  corePlugins: require("tailwind-rn/unsupported-core-plugins"),
+};

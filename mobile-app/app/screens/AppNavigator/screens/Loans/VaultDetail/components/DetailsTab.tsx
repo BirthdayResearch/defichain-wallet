@@ -2,10 +2,7 @@ import { View } from "@components";
 import { NumberRow } from "@components/NumberRow";
 import { TextRow } from "@components/TextRow";
 import { ThemedSectionTitle } from "@components/themed";
-import {
-  LoanVaultActive,
-  LoanVaultState,
-} from "@defichain/whale-api-client/dist/api/loan";
+import { LoanVaultActive } from "@defichain/whale-api-client/dist/api/loan";
 import { useStyles } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
@@ -32,7 +29,6 @@ export function DetailsTab({ vault }: { vault: LoanVaultActive }): JSX.Element {
         totalCollateralsValue={new BigNumber(vault.collateralValue)}
         numberOfLoans={vault.loanAmounts.length}
         totalLoansValue={new BigNumber(vault.loanValue)}
-        vaultState={vault.state}
         minColRatio={new BigNumber(vault.loanScheme.minColRatio)}
       />
     </View>
@@ -92,7 +88,6 @@ interface CollateralizationRatioSectionProps {
   totalCollateralsValue: BigNumber;
   numberOfLoans: number;
   totalLoansValue: BigNumber;
-  vaultState: LoanVaultState;
   minColRatio: BigNumber;
 }
 

@@ -104,7 +104,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const height = useBottomTabBarHeight();
   const client = useWhaleApiClient();
   const whaleRpcClient = useWhaleRpcClient();
-  const { address, addressLength } = useWalletContext();
+  const { address } = useWalletContext();
   const { denominationCurrency, setDenominationCurrency } =
     useDenominationCurrency();
 
@@ -588,7 +588,6 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
         >
           <AddressSelectionButtonV2
             address={address}
-            addressLength={addressLength}
             onPress={() => expandModal(false)}
           />
           <ThemedTouchableOpacityV2

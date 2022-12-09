@@ -114,11 +114,7 @@ export function TransactionsScreen(): JSX.Element {
     (loadingState === "success" || loadingState === "background")
   ) {
     return (
-      <EmptyTransaction
-        handleRefresh={loadData}
-        loadingStatus={loadingState}
-        navigation={navigation}
-      />
+      <EmptyTransaction handleRefresh={loadData} loadingStatus={loadingState} />
     );
   }
 

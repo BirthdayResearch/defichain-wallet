@@ -5,13 +5,9 @@ import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { translate } from "@translations";
 import { NumberRowV2 } from "@components/NumberRowV2";
 
-interface ViewPoolDetailsProps {
-  feeData?: [];
-}
-
-export const ViewFeeDetails = ({
-  feeData,
-}: ViewPoolDetailsProps): React.MemoExoticComponent<() => JSX.Element> =>
+export const ViewFeeDetails = (): React.MemoExoticComponent<
+  () => JSX.Element
+> =>
   memo(() => {
     const { tailwind } = useStyles();
     return (

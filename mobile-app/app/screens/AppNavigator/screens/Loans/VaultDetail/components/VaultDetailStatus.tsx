@@ -74,7 +74,11 @@ export function VaultDetailStatus({
           maxValue={1}
           showProgressValue={false}
           activeStrokeWidth={3}
-          activeStrokeColor={getVaultStatusColor(vaultStatus, isLight)}
+          activeStrokeColor={getVaultStatusColor(
+            vaultStatus,
+            getColor,
+            isLight
+          )}
           inActiveStrokeWidth={3}
           inActiveStrokeColor={getColor(
             isLight ? "mono-light-v2-00" : "mono-dark-v2-00"
@@ -96,11 +100,11 @@ export function VaultDetailStatus({
           <ThemedTextV2
             dark={tailwind(
               "text-mono-dark-v2-900",
-              getVaultStatusColor(vaultStatus, isLight, true)
+              getVaultStatusColor(vaultStatus, getColor, isLight, true)
             )}
             light={tailwind(
               "text-mono-light-v2-900",
-              getVaultStatusColor(vaultStatus, isLight, true)
+              getVaultStatusColor(vaultStatus, getColor, isLight, true)
             )}
             style={tailwind("font-semibold-v2 text-2xl", {
               "font-normal-v2": vaultStatus === VaultStatus.Empty,
@@ -123,11 +127,11 @@ export function VaultDetailStatus({
                 <ThemedTextV2
                   dark={tailwind(
                     "text-mono-dark-v2-900",
-                    getVaultStatusColor(vaultStatus, isLight, true)
+                    getVaultStatusColor(vaultStatus, getColor, isLight, true)
                   )}
                   light={tailwind(
                     "text-mono-light-v2-900",
-                    getVaultStatusColor(vaultStatus, isLight, true)
+                    getVaultStatusColor(vaultStatus, getColor, isLight, true)
                   )}
                   style={tailwind("font-semibold-v2 text-2xl text-center")}
                   testID="vault_ratio"

@@ -29,8 +29,7 @@ import {
 import { FeatureFlagProvider } from "@contexts/FeatureFlagContext";
 import { WalletAddressIndexPersistence } from "@api/wallet/address_index";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { TailwindProvider } from 'tailwind-rn';
-import utilities from './app/tailwind.json';
+import { TailwindProvider } from "tailwind-rn";
 import { ToastProvider } from "react-native-toast-notifications";
 import { ToastProps } from "react-native-toast-notifications/lib/typescript/toast";
 import { WalletToast } from "@components/WalletToast";
@@ -38,6 +37,7 @@ import { StoreServiceProvider } from "@contexts/StoreServiceProvider";
 import { ServiceProviderPersistence } from "@api/wallet/service_provider";
 import { FavouritePoolpairProvider } from "@contexts/FavouritePoolpairContext";
 import BigNumber from "bignumber.js";
+import utilities from "./app/tailwind.json";
 
 /**
  * Loads
@@ -102,7 +102,11 @@ export default function App(): JSX.Element | null {
                                   <DisplayBalancesProvider>
                                     <ConnectionBoundary>
                                       <GestureHandlerRootView
-                                        style={{ "flexBasis": "0%", "flexGrow": 1, "flexShrink": 1 }}
+                                        style={{
+                                          flexBasis: "0%",
+                                          flexGrow: 1,
+                                          flexShrink: 1,
+                                        }}
                                       >
                                         <ToastProvider renderType={customToast}>
                                           <FavouritePoolpairProvider>

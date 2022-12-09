@@ -1,10 +1,8 @@
 import {
   ThemedIcon,
   ThemedProps,
-  ThemedText,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
-  ThemedView,
   ThemedViewV2,
 } from "@components/themed";
 import { useStyles } from "@tailwind";
@@ -13,14 +11,10 @@ import { AnnouncementData } from "@shared-types/website";
 import { satisfies } from "semver";
 import { useLanguageContext } from "@shared-contexts/LanguageProvider";
 import { openURL } from "@api/linking";
-import { Platform, StyleProp, TouchableOpacity, ViewStyle } from "react-native";
+import { Platform, StyleProp, ViewStyle } from "react-native";
 import { nativeApplicationVersion } from "expo-application";
-import { translate } from "@translations";
-import { Text } from "@components";
-import { MaterialIcons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { useApiStatus } from "@hooks/useApiStatus";
-import { IconProps } from "@expo/vector-icons/build/createIconSet";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { useServiceProviderContext } from "@contexts/StoreServiceProvider";
 import {
@@ -120,7 +114,7 @@ export function Announcements(): JSX.Element {
   }
 
   return (
-    <AnnouncementBannerV2
+    <AnnouncementBanner
       announcement={announcementToDisplay}
       hideAnnouncement={hideAnnouncement}
       testID="announcements_banner"
@@ -137,113 +131,6 @@ interface AnnouncementBannerProps {
 }
 
 export function AnnouncementBanner({
-  hideAnnouncement,
-  announcement,
-  testID,
-}: AnnouncementBannerProps): JSX.Element {
-  const { isLight } = useThemeContext();
-  const { tailwind } = useStyles();
-  const icons: { [key in AnnouncementData["type"]]: IconProps<any>["name"] } = {
-    EMERGENCY: "warning",
-    OTHER_ANNOUNCEMENT: "campaign",
-    OUTAGE: "warning",
-    SCAN: "campaign",
-  };
-  const isOtherAnnouncement =
-    announcement.type === undefined ||
-    announcement.type === "OTHER_ANNOUNCEMENT";
-
-  return (
-    <ThemedView
-      testID={testID}
-      style={tailwind("px-4 py-3 flex-row items-center")}
-      light={tailwind({
-        "bg-primary-700": isOtherAnnouncement,
-        "bg-warning-100": !isOtherAnnouncement,
-      })}
-      dark={tailwind({
-        "bg-darkprimary-700": isOtherAnnouncement,
-        "bg-darkwarning-100": !isOtherAnnouncement,
-      })}
-    >
-      {announcement.id !== undefined && (
-        <MaterialIcons
-          style={tailwind([
-            "mr-1",
-            {
-              "text-white": !isLight || isOtherAnnouncement,
-              "text-gray-900": !(!isLight || isOtherAnnouncement),
-            },
-          ])}
-          iconType="MaterialIcons"
-          name="close"
-          size={18}
-          onPress={() => {
-            if (announcement.id === undefined) {
-              return;
-            }
-            if (hideAnnouncement !== undefined) {
-              hideAnnouncement(announcement.id);
-            }
-          }}
-          testID="close_announcement"
-        />
-      )}
-
-      <MaterialIcons
-        style={tailwind([
-          "mr-2.5",
-          {
-            "text-white": isOtherAnnouncement,
-            "text-warning-600": !isOtherAnnouncement && isLight,
-            "text-darkwarning-600": !isOtherAnnouncement && !isLight,
-          },
-        ])}
-        iconType="MaterialIcons"
-        name={icons[announcement.type ?? "OTHER_ANNOUNCEMENT"]}
-        size={
-          icons[announcement.type ?? "OTHER_ANNOUNCEMENT"] === "warning"
-            ? 24
-            : 28
-        }
-      />
-      <Text
-        style={tailwind([
-          "text-xs flex-auto",
-          {
-            "text-white": !isLight || (isLight && isOtherAnnouncement),
-            "text-gray-900": !isOtherAnnouncement && isLight,
-          },
-        ])}
-        testID="announcements_text"
-      >
-        {`${announcement.content} `}
-      </Text>
-      {announcement.url !== undefined && announcement.url.length !== 0 && (
-        <TouchableOpacity
-          onPress={async () => await openURL(announcement.url)}
-          style={tailwind("ml-2 py-1")}
-        >
-          <ThemedText
-            style={tailwind("text-sm font-medium")}
-            light={tailwind({
-              "text-white": isOtherAnnouncement,
-              "text-warning-600": !isOtherAnnouncement,
-            })}
-            dark={tailwind({
-              "text-white": isOtherAnnouncement,
-              "text-darkwarning-600": !isOtherAnnouncement,
-            })}
-          >
-            {translate("components/Announcements", "DETAILS")}
-          </ThemedText>
-        </TouchableOpacity>
-      )}
-    </ThemedView>
-  );
-}
-
-export function AnnouncementBannerV2({
   hideAnnouncement,
   announcement,
   testID,

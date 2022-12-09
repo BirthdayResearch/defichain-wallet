@@ -97,7 +97,6 @@ export const BottomSheetWebWithNav = React.memo(
     const { tailwind } = useStyles();
     return (
       <BottomSheetModalWeb
-        screenList={props.screenList}
         ref={props.modalRef}
         isModalDisplayed={props.isModalDisplayed}
         modalStyle={props.modalStyle}
@@ -110,7 +109,7 @@ export const BottomSheetWebWithNav = React.memo(
   }
 );
 
-function Navigator(props: BottomSheetWithNavProps): JSX.Element {
+function Navigator(props: { screenList: BottomSheetNavScreen[] }): JSX.Element {
   const { getDefaultTheme } = useStyles();
   const DeFiChainTheme: Theme = getDefaultTheme();
   const BottomSheetWithNavStack =

@@ -65,7 +65,11 @@ export function VaultCardStatus({
           maxValue={1}
           showProgressValue={false}
           activeStrokeWidth={3}
-          activeStrokeColor={getVaultStatusColor(vaultStatus, isLight)}
+          activeStrokeColor={getVaultStatusColor(
+            vaultStatus,
+            getColor,
+            isLight
+          )}
           inActiveStrokeWidth={3}
           inActiveStrokeColor={getColor(
             isLight ? "mono-light-v2-100" : "mono-dark-v2-100"
@@ -105,11 +109,11 @@ export function VaultCardStatus({
             <ThemedTextV2
               dark={tailwind(
                 "text-mono-dark-v2-900",
-                getVaultStatusColor(vaultStatus, isLight, true)
+                getVaultStatusColor(vaultStatus, getColor, isLight, true)
               )}
               light={tailwind(
                 "text-mono-light-v2-900",
-                getVaultStatusColor(vaultStatus, isLight, true)
+                getVaultStatusColor(vaultStatus, getColor, isLight, true)
               )}
               style={tailwind("font-semibold-v2 text-base")}
               testID={`${testID}_status`}
@@ -129,11 +133,11 @@ export function VaultCardStatus({
                 <ThemedTextV2
                   dark={tailwind(
                     "text-mono-dark-v2-900",
-                    getVaultStatusColor(vaultStatus, isLight, true)
+                    getVaultStatusColor(vaultStatus, getColor, isLight, true)
                   )}
                   light={tailwind(
                     "text-mono-light-v2-900",
-                    getVaultStatusColor(vaultStatus, isLight, true)
+                    getVaultStatusColor(vaultStatus, getColor, isLight, true)
                   )}
                   style={tailwind("font-semibold-v2 text-base text-center")}
                   testID={`${testID}_min_ratio`}

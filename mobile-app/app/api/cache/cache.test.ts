@@ -13,7 +13,7 @@ describe("CacheApi", () => {
     const obj = { label: "foo" };
     const key = "TEST_KEY";
     CacheApi.set(key, obj, 100);
-    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const res = CacheApi.get(key);
     expect(res).toEqual(undefined);
   });

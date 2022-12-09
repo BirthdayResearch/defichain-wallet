@@ -19,12 +19,12 @@ describe("network", () => {
     expect(await SecuredStoreAPI.getNetwork()).toBe(
       EnvironmentNetwork.LocalPlayground
     );
-    expect(getItem).toBeCalled();
+    expect(getItem).toHaveBeenCalled();
   });
 
   it("should call setItem", async () => {
     await SecuredStoreAPI.setNetwork(EnvironmentNetwork.RemotePlayground);
-    expect(setItem).toBeCalled();
+    expect(setItem).toHaveBeenCalled();
   });
 
   it("should get Local Playground", async () => {
@@ -55,19 +55,19 @@ describe("item", () => {
 
   it("should getItem with environment and network prefixed key", async () => {
     await SecuredStoreAPI.getItem("get");
-    expect(getItem).toBeCalledTimes(2);
-    expect(getItem).toBeCalledWith("Development.NETWORK");
-    expect(getItem).toBeCalledWith("Development.Playground.get");
+    expect(getItem).toHaveBeenCalledTimes(2);
+    expect(getItem).toHaveBeenCalledWith("Development.NETWORK");
+    expect(getItem).toHaveBeenCalledWith("Development.Playground.get");
   });
 
   it("should setItem with environment and network prefixed key", async () => {
     await SecuredStoreAPI.setItem("set", "value");
-    expect(setItem).toBeCalledWith("Development.Playground.set", "value");
+    expect(setItem).toHaveBeenCalledWith("Development.Playground.set", "value");
   });
 
   it("should removeItem with environment and network prefixed key", async () => {
     await SecuredStoreAPI.removeItem("remove");
-    expect(removeItem).toBeCalledWith("Development.Playground.remove");
+    expect(removeItem).toHaveBeenCalledWith("Development.Playground.remove");
   });
 });
 
@@ -78,7 +78,7 @@ describe("byte length validation", () => {
 
   it("should set if 1 byte length", async () => {
     await SecuredStoreAPI.setItem("key", "1");
-    expect(setItem).toBeCalledWith("Development.Local.key", "1");
+    expect(setItem).toHaveBeenCalledWith("Development.Local.key", "1");
   });
 
   it("should set if 100 byte length", async () => {
@@ -86,7 +86,7 @@ describe("byte length validation", () => {
       "key",
       "0000000000100000000020000000003000000000400000000050000000006000000000700000000080000000009000000000"
     );
-    expect(setItem).toBeCalledWith(
+    expect(setItem).toHaveBeenCalledWith(
       "Development.Local.key",
       "0000000000100000000020000000003000000000400000000050000000006000000000700000000080000000009000000000"
     );
@@ -104,7 +104,7 @@ describe("byte length validation", () => {
     const text = generateText(2047, "0");
 
     await SecuredStoreAPI.setItem("key", text);
-    expect(setItem).toBeCalledWith("Development.Local.key", text);
+    expect(setItem).toHaveBeenCalledWith("Development.Local.key", text);
   });
 
   it("should error if 2048 byte length", async () => {
@@ -129,14 +129,14 @@ describe("byte length validation", () => {
       const text = generateText(1, "好");
 
       await SecuredStoreAPI.setItem("key", text);
-      expect(setItem).toBeCalledWith("Development.Local.key", text);
+      expect(setItem).toHaveBeenCalledWith("Development.Local.key", text);
     });
 
     it("should set if 2046 byte length utf-8", async () => {
       const text = generateText(682, "好");
 
       await SecuredStoreAPI.setItem("key", text);
-      expect(setItem).toBeCalledWith("Development.Local.key", text);
+      expect(setItem).toHaveBeenCalledWith("Development.Local.key", text);
     });
 
     it("should error if 2049 byte length", async () => {

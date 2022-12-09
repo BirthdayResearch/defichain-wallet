@@ -65,7 +65,6 @@ export function YourPairActions({
       <ActionButton
         name="add"
         onPress={onAdd}
-        pair={symbol}
         label={translate("screens/DexScreen", "ADD")}
         style={tailwind("p-2 mr-2 mb-2")}
         testID={`pool_pair_add_${symbol}`}
@@ -73,7 +72,6 @@ export function YourPairActions({
       <ActionButton
         name="remove"
         onPress={onRemove}
-        pair={symbol}
         label={translate("screens/DexScreen", "REMOVE")}
         style={tailwind("p-2 mr-2 mb-2")}
         testID={`pool_pair_remove_${symbol}`}
@@ -94,7 +92,6 @@ function AvailablePairActions({
       <ActionButton
         name="add"
         onPress={onAdd}
-        pair={symbol}
         label={translate("screens/DexScreen", "ADD")}
         style={tailwind("p-2 mr-2 mb-2")}
         testID={`pool_pair_add_${symbol}`}
@@ -102,7 +99,6 @@ function AvailablePairActions({
       <ActionButton
         name="swap-horiz"
         onPress={onSwap}
-        pair={symbol}
         label={translate("screens/DexScreen", "SWAP")}
         disabled={isSwapDisabled}
         style={tailwind("p-2 mr-2 mb-2")}
@@ -114,7 +110,6 @@ function AvailablePairActions({
 
 interface ActionButtonProps {
   name: IconName;
-  pair: string;
   onPress: () => void;
   label: string;
   style?: StyleProp<ViewStyle>;

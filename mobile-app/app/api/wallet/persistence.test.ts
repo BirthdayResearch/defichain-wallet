@@ -21,7 +21,7 @@ describe("WalletPersistence.get()", () => {
       .mockResolvedValueOnce(EnvironmentNetwork.LocalPlayground)
       .mockResolvedValueOnce(null);
 
-    await expect(WalletPersistence.get()).rejects.toThrowError(
+    await expect(WalletPersistence.get()).rejects.toThrow(
       `WALLET.count=${1} but 0 doesn't exist`
     );
   });
@@ -34,8 +34,8 @@ describe("WalletPersistence.get()", () => {
     const items = await WalletPersistence.get();
     expect(items.length).toStrictEqual(0);
 
-    expect(getItem).toBeCalledWith("Development.NETWORK");
-    expect(getItem).toBeCalledWith("Development.Local.WALLET.count");
+    expect(getItem).toHaveBeenCalledWith("Development.NETWORK");
+    expect(getItem).toHaveBeenCalledWith("Development.Local.WALLET.count");
   });
 
   it("should get non empty", async () => {
@@ -68,8 +68,8 @@ describe("WalletPersistence.set()", () => {
 
     await WalletPersistence.set([]);
 
-    expect(getItem).toBeCalledTimes(3);
-    expect(setItem).toBeCalledWith("Development.Local.WALLET.count", "0");
+    expect(getItem).toHaveBeenCalledTimes(3);
+    expect(setItem).toHaveBeenCalledWith("Development.Local.WALLET.count", "0");
   });
 
   it("should set 1 wallet, clear 0 wallet", async () => {
@@ -83,8 +83,8 @@ describe("WalletPersistence.set()", () => {
       { raw: "raw-1", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" },
     ]);
 
-    expect(getItem).toBeCalledTimes(4);
-    expect(setItem).toBeCalledWith(
+    expect(getItem).toHaveBeenCalledTimes(4);
+    expect(setItem).toHaveBeenCalledWith(
       "Development.Local.WALLET.0",
       JSON.stringify({
         raw: "raw-1",
@@ -92,7 +92,7 @@ describe("WalletPersistence.set()", () => {
         version: "v1",
       })
     );
-    expect(setItem).toBeCalledWith("Development.Local.WALLET.count", "1");
+    expect(setItem).toHaveBeenCalledWith("Development.Local.WALLET.count", "1");
   });
 
   it("should set 1 wallet, clear 1 wallet", async () => {
@@ -107,10 +107,10 @@ describe("WalletPersistence.set()", () => {
       { raw: "raw-1", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" },
     ]);
 
-    expect(getItem).toBeCalledTimes(5);
-    expect(removeItem).toBeCalledWith("Development.Local.WALLET.0");
+    expect(getItem).toHaveBeenCalledTimes(5);
+    expect(removeItem).toHaveBeenCalledWith("Development.Local.WALLET.0");
 
-    expect(setItem).toBeCalledWith(
+    expect(setItem).toHaveBeenCalledWith(
       "Development.Local.WALLET.0",
       JSON.stringify({
         raw: "raw-1",
@@ -118,7 +118,7 @@ describe("WalletPersistence.set()", () => {
         version: "v1",
       })
     );
-    expect(setItem).toBeCalledWith("Development.Local.WALLET.count", "1");
+    expect(setItem).toHaveBeenCalledWith("Development.Local.WALLET.count", "1");
   });
 
   it("should set 1 wallet, clear 3 wallet", async () => {
@@ -135,12 +135,12 @@ describe("WalletPersistence.set()", () => {
       { raw: "raw-1", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" },
     ]);
 
-    expect(getItem).toBeCalledTimes(7);
-    expect(removeItem).toBeCalledWith("Development.Local.WALLET.0");
-    expect(removeItem).toBeCalledWith("Development.Local.WALLET.1");
-    expect(removeItem).toBeCalledWith("Development.Local.WALLET.2");
+    expect(getItem).toHaveBeenCalledTimes(7);
+    expect(removeItem).toHaveBeenCalledWith("Development.Local.WALLET.0");
+    expect(removeItem).toHaveBeenCalledWith("Development.Local.WALLET.1");
+    expect(removeItem).toHaveBeenCalledWith("Development.Local.WALLET.2");
 
-    expect(setItem).toBeCalledWith(
+    expect(setItem).toHaveBeenCalledWith(
       "Development.Local.WALLET.0",
       JSON.stringify({
         raw: "raw-1",
@@ -148,7 +148,7 @@ describe("WalletPersistence.set()", () => {
         version: "v1",
       })
     );
-    expect(setItem).toBeCalledWith("Development.Local.WALLET.count", "1");
+    expect(setItem).toHaveBeenCalledWith("Development.Local.WALLET.count", "1");
   });
 
   it("should set 2 wallet, clear 0 wallet", async () => {
@@ -164,9 +164,9 @@ describe("WalletPersistence.set()", () => {
       { raw: "raw-2", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" },
     ]);
 
-    expect(getItem).toBeCalledTimes(5);
+    expect(getItem).toHaveBeenCalledTimes(5);
 
-    expect(setItem).toBeCalledWith(
+    expect(setItem).toHaveBeenCalledWith(
       "Development.Local.WALLET.0",
       JSON.stringify({
         raw: "raw-1",
@@ -174,7 +174,7 @@ describe("WalletPersistence.set()", () => {
         version: "v1",
       })
     );
-    expect(setItem).toBeCalledWith(
+    expect(setItem).toHaveBeenCalledWith(
       "Development.Local.WALLET.1",
       JSON.stringify({
         raw: "raw-2",
@@ -182,7 +182,7 @@ describe("WalletPersistence.set()", () => {
         version: "v1",
       })
     );
-    expect(setItem).toBeCalledWith("Development.Local.WALLET.count", "2");
+    expect(setItem).toHaveBeenCalledWith("Development.Local.WALLET.count", "2");
   });
 
   it("should set 2 wallet, clear 1 wallet", async () => {
@@ -199,11 +199,11 @@ describe("WalletPersistence.set()", () => {
       { raw: "raw-2", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" },
     ]);
 
-    expect(getItem).toBeCalledTimes(6);
+    expect(getItem).toHaveBeenCalledTimes(6);
 
-    expect(removeItem).toBeCalledWith("Development.Local.WALLET.0");
+    expect(removeItem).toHaveBeenCalledWith("Development.Local.WALLET.0");
 
-    expect(setItem).toBeCalledWith(
+    expect(setItem).toHaveBeenCalledWith(
       "Development.Local.WALLET.0",
       JSON.stringify({
         raw: "raw-1",
@@ -211,7 +211,7 @@ describe("WalletPersistence.set()", () => {
         version: "v1",
       })
     );
-    expect(setItem).toBeCalledWith(
+    expect(setItem).toHaveBeenCalledWith(
       "Development.Local.WALLET.1",
       JSON.stringify({
         raw: "raw-2",
@@ -219,7 +219,7 @@ describe("WalletPersistence.set()", () => {
         version: "v1",
       })
     );
-    expect(setItem).toBeCalledWith("Development.Local.WALLET.count", "2");
+    expect(setItem).toHaveBeenCalledWith("Development.Local.WALLET.count", "2");
   });
 
   it("should set 3 wallet, clear 3 wallet", async () => {
@@ -240,12 +240,12 @@ describe("WalletPersistence.set()", () => {
       { raw: "raw-3", type: WalletType.MNEMONIC_UNPROTECTED, version: "v1" },
     ]);
 
-    expect(getItem).toBeCalledTimes(9);
-    expect(removeItem).toBeCalledWith("Development.Local.WALLET.0");
-    expect(removeItem).toBeCalledWith("Development.Local.WALLET.1");
-    expect(removeItem).toBeCalledWith("Development.Local.WALLET.2");
+    expect(getItem).toHaveBeenCalledTimes(9);
+    expect(removeItem).toHaveBeenCalledWith("Development.Local.WALLET.0");
+    expect(removeItem).toHaveBeenCalledWith("Development.Local.WALLET.1");
+    expect(removeItem).toHaveBeenCalledWith("Development.Local.WALLET.2");
 
-    expect(setItem).toBeCalledWith(
+    expect(setItem).toHaveBeenCalledWith(
       "Development.Local.WALLET.0",
       JSON.stringify({
         raw: "raw-1",
@@ -253,7 +253,7 @@ describe("WalletPersistence.set()", () => {
         version: "v1",
       })
     );
-    expect(setItem).toBeCalledWith(
+    expect(setItem).toHaveBeenCalledWith(
       "Development.Local.WALLET.1",
       JSON.stringify({
         raw: "raw-2",
@@ -261,7 +261,7 @@ describe("WalletPersistence.set()", () => {
         version: "v1",
       })
     );
-    expect(setItem).toBeCalledWith(
+    expect(setItem).toHaveBeenCalledWith(
       "Development.Local.WALLET.2",
       JSON.stringify({
         raw: "raw-3",
@@ -269,6 +269,6 @@ describe("WalletPersistence.set()", () => {
         version: "v1",
       })
     );
-    expect(setItem).toBeCalledWith("Development.Local.WALLET.count", "3");
+    expect(setItem).toHaveBeenCalledWith("Development.Local.WALLET.count", "3");
   });
 });

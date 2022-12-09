@@ -101,12 +101,6 @@ export function TransactionAuthorization(): JSX.Element | null {
     DEFAULT_MESSAGES.loadingMessage
   );
   const [successMessage, setSuccessMessage] = useState<string | undefined>();
-  const [additionalMessage, setAdditionalMessage] = useState<
-    string | undefined
-  >();
-  const [additionalMessageUrl, setAdditionalMessageUrl] = useState<
-    string | undefined
-  >();
 
   const closeModal = (): void => {
     dismiss(modalName);
@@ -189,8 +183,6 @@ export function TransactionAuthorization(): JSX.Element | null {
     setTitle(undefined);
     setLoadingMessage(DEFAULT_MESSAGES.loadingMessage);
     setSuccessMessage(undefined);
-    setAdditionalMessage(undefined);
-    setAdditionalMessageUrl(undefined);
     setTransactionStatus(TransactionStatus.IDLE); // very last step, open up for next task
   };
 
@@ -315,8 +307,6 @@ export function TransactionAuthorization(): JSX.Element | null {
       setMessage(authentication.message);
       setTitle(authentication.title);
       setLoadingMessage(authentication.loading);
-      setAdditionalMessage(authentication.additionalMessage);
-      setAdditionalMessageUrl(authentication.additionalMessageUrl);
       setSuccessMessage(authentication.successMessage);
 
       authenticateFor(onPrompt, authentication, onRetry, retries, logger)
@@ -432,26 +422,6 @@ export function TransactionAuthorization(): JSX.Element | null {
           DEFAULT_MESSAGES.grantedAccessMessage.title
         )
       }
-      authorizedTransactionMessage={{
-        title: translate(
-          "screens/TransactionAuthorization",
-          DEFAULT_MESSAGES.authorizedTransactionMessage.title
-        ),
-        description: translate(
-          "screens/TransactionAuthorization",
-          DEFAULT_MESSAGES.authorizedTransactionMessage.description
-        ),
-      }}
-      grantedAccessMessage={{
-        title: translate(
-          "screens/UnlockWallet",
-          DEFAULT_MESSAGES.grantedAccessMessage.title
-        ),
-        description: translate(
-          "screens/UnlockWallet",
-          DEFAULT_MESSAGES.grantedAccessMessage.description
-        ),
-      }}
       isRetry={isRetry}
       attemptsRemaining={attemptsRemaining}
       maxPasscodeAttempt={MAX_PASSCODE_ATTEMPT}
@@ -470,8 +440,6 @@ export function TransactionAuthorization(): JSX.Element | null {
           closeModal();
         }
       }}
-      additionalMessage={additionalMessage}
-      additionalMessageUrl={additionalMessageUrl}
     />
   );
 }

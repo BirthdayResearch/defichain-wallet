@@ -64,7 +64,7 @@ describe("button", () => {
     const receiveButton = await rendered.findByTestId("primary_button");
     fireEvent.press(receiveButton);
     expect(rendered.toJSON()).toMatchSnapshot();
-    expect(onPress).toBeCalled();
+    expect(onPress).toHaveBeenCalled();
   });
 
   it("should not be clickable when disabled", async () => {
@@ -78,6 +78,6 @@ describe("button", () => {
     const receiveButton = await rendered.findByTestId("primary_button");
     fireEvent.press(receiveButton);
     expect(rendered.toJSON()).toMatchSnapshot();
-    expect(onPress).toBeCalledTimes(0);
+    expect(onPress).toHaveBeenCalledTimes(0);
   });
 });
