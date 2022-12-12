@@ -279,7 +279,7 @@ const getAllTokens = async (client: WhaleApiClient): Promise<TokenData[]> => {
       200,
       next
     );
-    allTokens.push(..._allTokens);
+    allTokens.push(..._allTokens.filter((token) => token.isDAT));
     hasNext = _allTokens.hasNext;
     next = _allTokens.nextToken;
   } while (hasNext);
