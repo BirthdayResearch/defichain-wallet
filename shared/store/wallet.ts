@@ -175,7 +175,7 @@ export const fetchTokens = createAsyncThunk(
     utxoBalance: string;
   }> => {
     const tokens = await client.address.listToken(address, size);
-    const allTokens = await getAllTokens(client, size);
+    const allTokens = await getAllTokens(client);
     const utxoBalance = await client.address.getBalance(address);
     return {
       tokens,
@@ -269,17 +269,14 @@ export const wallet = createSlice({
 /**
  * Recursively get all tokens based on pagination info from ApiPagedResponse class
  */
-const getAllTokens = async (
-  client: WhaleApiClient,
-  size: number
-): Promise<TokenData[]> => {
+const getAllTokens = async (client: WhaleApiClient): Promise<TokenData[]> => {
   const allTokens: TokenData[] = [];
   let hasNext = false;
   let next;
 
   do {
     const _allTokens: ApiPagedResponse<TokenData> = await client.tokens.list(
-      size,
+      200,
       next
     );
     allTokens.push(..._allTokens);
