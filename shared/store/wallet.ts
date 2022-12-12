@@ -175,7 +175,7 @@ export const fetchTokens = createAsyncThunk(
     utxoBalance: string;
   }> => {
     const tokens = await client.address.listToken(address, size);
-    const allTokens = await getAllTokens(client, size);
+    const allTokens = await getAllTokens(client, 999);
     const utxoBalance = await client.address.getBalance(address);
     return {
       tokens,
@@ -273,6 +273,7 @@ const getAllTokens = async (
   client: WhaleApiClient,
   size: number
 ): Promise<TokenData[]> => {
+  const sizeLimit = 200;
   const allTokens: TokenData[] = [];
   let hasNext = false;
   let next;
@@ -285,7 +286,7 @@ const getAllTokens = async (
     allTokens.push(..._allTokens);
     hasNext = _allTokens.hasNext;
     next = _allTokens.nextToken;
-  } while (hasNext);
+  } while (hasNext && size > sizeLimit);
   return allTokens;
 };
 
