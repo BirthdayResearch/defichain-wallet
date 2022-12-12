@@ -31,7 +31,7 @@
     "@types/node": "^16.11.7",
     "@netlify/plugin-nextjs": "4.29.3",
     "@next/eslint-plugin-next": "13.0.6",
-    "@types/cors": "^2.8.12",
+    "@types/cors": "^2.8.13",
     "autoprefixer": "^10.4.13",
     "eslint-config-next": "13.0.6",
     "eslint-plugin-import": "2.26.0",
