@@ -46,16 +46,6 @@ labels:
     matcher:
       files: ".github/**"
 
-  - label: area/website
-    sync: true
-    matcher:
-      files: "website/**"
-
-  - label: area/website-api
-    sync: true
-    matcher:
-      files: "website/src/api/**"
-
   - label: area/api
     sync: true
     matcher:

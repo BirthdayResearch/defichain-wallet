@@ -1,4 +1,4 @@
-import { EnvironmentNetwork } from "@environment";
+import { EnvironmentNetwork } from "@waveshq/wallet-core";
 import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import dayjs from "dayjs";
 import BigNumber from "bignumber.js";

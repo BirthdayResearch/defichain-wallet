@@ -1,4 +1,4 @@
-import { EnvironmentNetwork } from "../../../../../../shared/environment";
+import { EnvironmentNetwork } from "@waveshq/wallet-core";
 
 context("Wallet - Auctions search and sort", () => {
   beforeEach(() => {

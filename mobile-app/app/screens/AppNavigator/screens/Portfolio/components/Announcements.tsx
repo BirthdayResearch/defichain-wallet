@@ -9,7 +9,7 @@ import {
 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { useGetAnnouncementsQuery } from "@store/website";
-import { AnnouncementData } from "@shared-types/website";
+import { AnnouncementData } from "@waveshq/wallet-core";
 import { satisfies } from "semver";
 import { useLanguageContext } from "@shared-contexts/LanguageProvider";
 import { openURL } from "@api/linking";
@@ -132,6 +132,7 @@ interface AnnouncementBannerProps {
   hideAnnouncement?: (id: string) => void;
   announcement: Announcement;
   testID: string;
+  // eslint-disable-next-line react/no-unused-prop-types
   containerStyle?: ThemedProps & { style?: ThemedProps & StyleProp<ViewStyle> };
 }
 

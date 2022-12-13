@@ -1,5 +1,5 @@
 import { UserPreferences } from "@store/userPreferences";
-import { EnvironmentNetwork } from "@environment";
+import { EnvironmentNetwork } from "@waveshq/wallet-core";
 import { Provider } from "./provider";
 
 /**

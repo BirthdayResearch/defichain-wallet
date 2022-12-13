@@ -1,6 +1,6 @@
 import * as FileSystem from "expo-file-system";
 import { UserPreferences } from "@store/userPreferences";
-import { EnvironmentNetwork } from "@environment";
+import { EnvironmentNetwork } from "@waveshq/wallet-core";
 import { Logging } from "@api";
 import { ILocalStorage } from "./index";
 

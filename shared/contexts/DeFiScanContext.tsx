@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo } from "react";
-import { EnvironmentNetwork } from "@environment";
+import { EnvironmentNetwork } from "@waveshq/wallet-core";
 import { useNetworkContext } from "./NetworkContext";
 
 interface DeFiScanContextI {

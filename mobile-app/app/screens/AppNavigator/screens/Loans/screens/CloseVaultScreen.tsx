@@ -2,7 +2,7 @@ import { Dispatch, useEffect, useState } from "react";
 import { Image } from "react-native";
 import { useSelector } from "react-redux";
 import { StackScreenProps } from "@react-navigation/stack";
-import { EnvironmentNetwork } from "@environment";
+import { EnvironmentNetwork } from "@waveshq/wallet-core";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { RootState } from "@store";
