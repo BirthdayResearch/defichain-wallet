@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { AnnouncementData } from "@shared-types/website";
+import { AnnouncementData } from "@waveshq/wallet-core";
 import Cors from "cors";
 import { runMiddleware } from "../../../utils/middleware";
 

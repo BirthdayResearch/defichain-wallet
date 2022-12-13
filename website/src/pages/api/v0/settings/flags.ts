@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { FeatureFlag } from "@shared-types/website";
 import Cors from "cors";
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
+import { EnvironmentNetwork, FeatureFlag } from "@waveshq/wallet-core";
 import { runMiddleware } from "../../../../utils/middleware";
 
 export const cors = Cors({

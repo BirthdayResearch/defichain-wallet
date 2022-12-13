@@ -4,12 +4,12 @@ import {
   ThemedTextV2,
   ThemedView,
 } from "@components/themed";
-import { Switch } from "@components/index";
+import { Switch } from "@components";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
-import { FeatureFlag, FEATURE_FLAG_ID } from "@shared-types/website";
+import { FeatureFlag, FeatureFlagID } from "@waveshq/wallet-core";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { WalletAlert } from "@components/WalletAlert";
 
@@ -22,7 +22,7 @@ export function FeatureFlagScreen(): JSX.Element {
     useFeatureFlagContext();
   const [betaFeatures, setBetaFeatures] = useState<BetaFeaturesI[]>([]);
 
-  const getBetaFeature = (flags: FEATURE_FLAG_ID[]): BetaFeaturesI[] => {
+  const getBetaFeature = (flags: FeatureFlagID[]): BetaFeaturesI[] => {
     return featureFlags.reduce(
       (features: BetaFeaturesI[], item: FeatureFlag) => {
         if (item.stage === "beta") {
@@ -45,7 +45,7 @@ export function FeatureFlagScreen(): JSX.Element {
     feature: FeatureFlag,
     value: boolean
   ): Promise<void> => {
-    const flags: FEATURE_FLAG_ID[] = value
+    const flags: FeatureFlagID[] = value
       ? [...enabledFeatures, feature.id]
       : enabledFeatures.filter((e) => e !== feature.id);
     if (value) {
