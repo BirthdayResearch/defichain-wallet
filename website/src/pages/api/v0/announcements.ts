@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { AnnouncementData } from "@waveshq/wallet-core";
 import Cors from "cors";
 import { runMiddleware } from "../../../utils/middleware";
 
@@ -9,7 +8,7 @@ export const cors = Cors({
 
 export default async function handle(
   req: NextApiRequest,
-  res: NextApiResponse<AnnouncementData[]>
+  res: NextApiResponse<any[]>
 ): Promise<void> {
   await runMiddleware(req, res, cors);
   res.json([]);
