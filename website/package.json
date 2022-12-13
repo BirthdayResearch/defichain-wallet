@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.4",
     "@tailwindcss/line-clamp": "^0.4.2",
+    "@waveshq/wallet-core": "^0.0.1",
     "classnames": "^2.3.2",
     "cors": "^2.8.5",
     "date-fns": "^2.29.3",
