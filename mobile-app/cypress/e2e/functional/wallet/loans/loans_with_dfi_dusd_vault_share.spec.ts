@@ -1,5 +1,5 @@
+import { EnvironmentNetwork } from "@waveshq/wallet-core";
 import { checkVaultDetailValues } from "../../../../support/loanCommands";
-import { EnvironmentNetwork } from "../../../../../../shared/environment";
 import { checkValueWithinRange } from "../../../../support/walletCommands";
 
 context(

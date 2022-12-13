@@ -1,4 +1,4 @@
-import { EnvironmentNetwork } from "../environment";
+import { EnvironmentNetwork } from "@waveshq/wallet-core";
 
 export interface AnnouncementText {
   en: string;
