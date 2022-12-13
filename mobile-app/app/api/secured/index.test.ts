@@ -1,5 +1,5 @@
 import * as ExpoSecureStore from "expo-secure-store";
-import { EnvironmentNetwork } from "@environment";
+import { EnvironmentNetwork } from "@waveshq/wallet-core";
 import { SecuredStoreAPI } from "@api";
 
 // TODO(fuxingloh): 'jest-expo' only test native (provider.native.ts) by default, need to improve testing capability
