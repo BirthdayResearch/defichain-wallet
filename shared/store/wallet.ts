@@ -1,4 +1,4 @@
-import { WhaleApiClient } from "@defichain/whale-api-client";
+import { ApiPagedResponse, WhaleApiClient } from "@defichain/whale-api-client";
 import { AddressToken } from "@defichain/whale-api-client/dist/api/address";
 import {
   AllSwappableTokensResult,
@@ -175,12 +175,12 @@ export const fetchTokens = createAsyncThunk(
     utxoBalance: string;
   }> => {
     const tokens = await client.address.listToken(address, size);
-    const allTokens = await client.tokens.list(size);
+    const allTokens = await getAllTokens(client);
     const utxoBalance = await client.address.getBalance(address);
     return {
       tokens,
-      utxoBalance,
       allTokens,
+      utxoBalance,
     };
   }
 );
@@ -265,6 +265,26 @@ export const wallet = createSlice({
     );
   },
 });
+
+/**
+ * Recursively get all tokens based on pagination info from ApiPagedResponse class
+ */
+const getAllTokens = async (client: WhaleApiClient): Promise<TokenData[]> => {
+  const allTokens: TokenData[] = [];
+  let hasNext = false;
+  let next;
+
+  do {
+    const _allTokens: ApiPagedResponse<TokenData> = await client.tokens.list(
+      200,
+      next
+    );
+    allTokens.push(..._allTokens.filter((token) => token.isDAT));
+    hasNext = _allTokens.hasNext;
+    next = _allTokens.nextToken;
+  } while (hasNext);
+  return allTokens;
+};
 
 const rawTokensSelector = createSelector(
   (state: WalletState) => state.tokens,
