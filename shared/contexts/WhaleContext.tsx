@@ -1,6 +1,6 @@
 import { WhaleApiClient, WhaleRpcClient } from "@defichain/whale-api-client";
 import React, { createContext, useContext, useMemo } from "react";
-import { EnvironmentNetwork } from "@environment";
+import { EnvironmentNetwork } from "@waveshq/wallet-core";
 import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import { useServiceProviderContext } from "@contexts/StoreServiceProvider";
 

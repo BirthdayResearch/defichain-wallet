@@ -41,9 +41,6 @@
       "@components/*": [
         "components/*"
       ],
-      "@environment": [
-        "../../shared/environment"
-      ],
       "@hooks/*": [
         "hooks/*"
       ],

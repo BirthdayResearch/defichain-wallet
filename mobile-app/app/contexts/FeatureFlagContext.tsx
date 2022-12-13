@@ -1,4 +1,4 @@
-import { getEnvironment } from "@environment";
+import { getEnvironment } from "@waveshq/wallet-core";
 import { FeatureFlag, FEATURE_FLAG_ID } from "@shared-types/website";
 import { useGetFeatureFlagsQuery, usePrefetch } from "@store/website";
 import { nativeApplicationVersion } from "expo-application";

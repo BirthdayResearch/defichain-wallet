@@ -1,6 +1,6 @@
 import React, { useEffect, PropsWithChildren } from "react";
 import { useSelector } from "react-redux";
-import { isPlayground } from "@environment";
+import { isPlayground } from "@waveshq/wallet-core";
 import { RootState } from "@store";
 import { block } from "@store/block";
 import { useNetworkContext } from "@shared-contexts/NetworkContext";

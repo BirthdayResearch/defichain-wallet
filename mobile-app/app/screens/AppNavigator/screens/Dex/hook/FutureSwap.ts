@@ -1,5 +1,5 @@
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
-import { EnvironmentNetwork } from "@environment";
+import { EnvironmentNetwork } from "@waveshq/wallet-core";
 import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import { RootState } from "@store";
 import { tokenSelectorByDisplaySymbol } from "@store/wallet";

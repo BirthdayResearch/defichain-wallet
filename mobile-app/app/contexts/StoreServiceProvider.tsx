@@ -7,7 +7,7 @@ import {
   useMemo,
 } from "react";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { EnvironmentNetwork } from "@environment";
+import { EnvironmentNetwork } from "@waveshq/wallet-core";
 import { useNetworkContext } from "@shared-contexts/NetworkContext";
 
 const _useDefaultDefiChainURL = (): string => {
@@ -71,6 +71,7 @@ function _useServiceProviderUrl({
   };
 }
 
+/* eslint-disable react/no-unused-prop-types */
 interface ServiceProviderContextProps {
   url: NonNullable<string>;
   defaultUrl: string;

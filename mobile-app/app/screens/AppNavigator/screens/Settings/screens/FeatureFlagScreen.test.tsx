@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react-native";
-import { EnvironmentNetwork } from "@environment";
+import { EnvironmentNetwork } from "@waveshq/wallet-core";
 import {
   FeatureFlagScreen,
   FeatureFlagItem,

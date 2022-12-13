@@ -5,7 +5,7 @@ import {
 } from "@components/themed";
 import { WalletAlert } from "@components/WalletAlert";
 import { useNetworkContext } from "@shared-contexts/NetworkContext";
-import { EnvironmentNetwork, isPlayground } from "@environment";
+import { EnvironmentNetwork, isPlayground } from "@waveshq/wallet-core";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { SettingsParamList } from "@screens/AppNavigator/screens/Settings/SettingsNavigator";
 import { tailwind } from "@tailwind";

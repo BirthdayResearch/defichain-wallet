@@ -1,6 +1,6 @@
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { useNetworkContext } from "@shared-contexts/NetworkContext";
-import { isPlayground } from "@environment";
+import { isPlayground } from "@waveshq/wallet-core";
 import { tailwind } from "@tailwind";
 
 export function PlaygroundConnection(): JSX.Element {

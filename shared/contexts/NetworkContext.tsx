@@ -6,8 +6,7 @@ import React, {
   useState,
   PropsWithChildren,
 } from "react";
-import { getJellyfishNetwork } from "@shared-api/wallet/network";
-import { EnvironmentNetwork } from "@environment";
+import { EnvironmentNetwork, getJellyfishNetwork } from "@waveshq/wallet-core";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 
 interface NetworkContextI {

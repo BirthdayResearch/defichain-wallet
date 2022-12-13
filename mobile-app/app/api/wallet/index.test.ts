@@ -1,6 +1,6 @@
 import { MnemonicProviderData } from "@defichain/jellyfish-wallet-mnemonic";
 import { WhaleApiClient } from "@defichain/whale-api-client";
-import { EnvironmentNetwork } from "@environment";
+import { EnvironmentNetwork } from "@waveshq/wallet-core";
 import {
   WalletPersistenceDataI,
   WalletType,

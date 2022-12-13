@@ -46,6 +46,7 @@
     "@react-navigation/stack": "^6.3.7",
     "@reduxjs/toolkit": "^1.9.1",
     "@shopify/flash-list": "1.4.0",
+    "@waveshq/wallet-core": "^0.0.1",
     "bignumber.js": "^9.1.1",
     "buffer": "^6.0.3",
     "classnames": "^2.3.2",

@@ -1,4 +1,4 @@
-import { EnvironmentNetwork } from "@environment";
+import { EnvironmentNetwork } from "@waveshq/wallet-core";
 import { Text, View } from "react-native";
 import { render } from "@testing-library/react-native";
 import {

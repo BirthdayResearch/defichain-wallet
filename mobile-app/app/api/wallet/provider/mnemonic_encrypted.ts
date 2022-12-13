@@ -6,8 +6,7 @@ import {
   Scrypt,
 } from "@defichain/jellyfish-wallet-encrypted";
 import * as Random from "expo-random";
-import { EnvironmentNetwork } from "@environment";
-import { getBip32Option } from "@shared-api/wallet/network";
+import { EnvironmentNetwork, getBip32Option } from "@waveshq/wallet-core";
 import {
   WalletPersistenceDataI,
   WalletType,
