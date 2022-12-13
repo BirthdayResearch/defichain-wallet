@@ -3,9 +3,6 @@
   "private": true,
   "license": "MIT",
   "main": "index.js",
-  "workspaces": [
-    "./website"
-  ],
   "scripts": {
     "prepare": "husky install",
     "lint": "eslint . --fix",
