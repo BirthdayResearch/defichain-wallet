@@ -21,12 +21,6 @@
     "paths": {
       "@components/*": [
         "components/*"
-      ],
-      "@shared-types": [
-        "../../shared/types"
-      ],
-      "@shared-types/*": [
-        "../../shared/types/*"
       ]
     },
     "incremental": true
