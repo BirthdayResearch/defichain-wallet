@@ -16,12 +16,6 @@
 import "@cypress/code-coverage/support";
 import "./commands";
 
-Cypress.Server.defaults({
-  ignore: (xhr: Request) => {
-    return xhr.url.match(/^.+\/v0\/(playground)\/.+$/);
-  },
-});
-
 Cypress.on("uncaught:exception", (err) => {
   if (
     err.message.includes(
