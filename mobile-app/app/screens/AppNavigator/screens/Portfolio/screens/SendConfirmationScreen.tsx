@@ -27,8 +27,8 @@ import { WalletToken } from "@store/wallet";
 import {
   hasTxQueued,
   hasOceanTXQueued,
+  transactionQueue,
 } from "@waveshq/walletkit-ui/dist/store";
-import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { View } from "@components";

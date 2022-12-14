@@ -17,7 +17,6 @@ import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { ascColRatioLoanScheme } from "@store/loans";
-import { hasTxQueued } from "@store/transaction_queue";
 import {
   hasTxQueued,
   hasOceanTXQueued,

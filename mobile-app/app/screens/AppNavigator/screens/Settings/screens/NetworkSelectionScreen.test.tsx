@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { RootState } from "@store";
-import { block } from "@store/block";
-import { ocean } from "@waveshq/walletkit-ui/dist/store";
-import { transactionQueue } from "@store/transaction_queue";
+import {
+  ocean,
+  block,
+  transactionQueue,
+} from "@waveshq/walletkit-ui/dist/store";
 import { render } from "@testing-library/react-native";
 import { Provider } from "react-redux";
 import { NetworkSelectionScreen } from "./NetworkSelectionScreen";

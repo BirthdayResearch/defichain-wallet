@@ -24,7 +24,6 @@ import {
 } from "@components/SkeletonLoader";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { hasTxQueued } from "@store/transaction_queue";
 import {
   hasTxQueued,
   hasOceanTXQueued,

@@ -25,7 +25,6 @@ import { wallet as walletReducer } from "@store/wallet";
 import { useSelector } from "react-redux";
 import { loans } from "@store/loans";
 import { RootState } from "@store";
-import { hasTxQueued } from "@store/transaction_queue";
 import {
   hasTxQueued,
   hasOceanTXQueued,

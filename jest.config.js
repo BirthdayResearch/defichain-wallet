@@ -1,7 +1,8 @@
 module.exports = {
-  preset: "jest-expo",
+  preset: "ts-jest",
   transform: {
-    "\\.[jt]sx?$": "babel-jest",
+    "^.+\\.(ts|tsx)?$": "ts-jest",
+    "^.+\\.(js|jsx)$": "babel-jest",
   },
   testPathIgnorePatterns: ["mobile-app/cypress/.*"],
   collectCoverageFrom: [

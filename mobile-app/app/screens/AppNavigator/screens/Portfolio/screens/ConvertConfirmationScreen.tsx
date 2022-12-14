@@ -9,8 +9,8 @@ import { RootState } from "@store";
 import {
   hasTxQueued,
   hasOceanTXQueued,
+  transactionQueue,
 } from "@waveshq/walletkit-ui/dist/store";
-import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import {

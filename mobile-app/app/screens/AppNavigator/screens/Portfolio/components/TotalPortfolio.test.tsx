@@ -3,7 +3,7 @@ import { RootState } from "@store";
 import { setTokenSymbol, wallet } from "@store/wallet";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { block } from "@store/block";
+import { block } from "@waveshq/walletkit-ui/dist/store/block";
 import BigNumber from "bignumber.js";
 import { loans } from "@store/loans";
 import { PortfolioButtonGroupTabKey, TotalPortfolio } from "./TotalPortfolio";

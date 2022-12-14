@@ -14,7 +14,6 @@ import {
 } from "@components/themed";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { hasTxQueued } from "@store/transaction_queue";
 import {
   hasTxQueued,
   hasOceanTXQueued,

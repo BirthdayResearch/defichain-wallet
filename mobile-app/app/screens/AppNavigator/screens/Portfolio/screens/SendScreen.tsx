@@ -27,7 +27,6 @@ import {
   hasTxQueued,
   hasOceanTXQueued,
 } from "@waveshq/walletkit-ui/dist/store";
-import { hasTxQueued } from "@store/transaction_queue";
 import { useDisplayUtxoWarning } from "@hooks/wallet/DisplayUtxoWarning";
 import {
   queueConvertTransaction,

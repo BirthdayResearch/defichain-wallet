@@ -14,7 +14,6 @@ import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { hasTxQueued } from "@store/transaction_queue";
 import {
   hasTxQueued,
   hasOceanTXQueued,

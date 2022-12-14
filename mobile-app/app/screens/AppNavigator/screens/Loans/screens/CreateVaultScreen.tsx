@@ -18,10 +18,10 @@ import {
   fetchVaults,
 } from "@store/loans";
 import { RootState } from "@store";
-import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import {
   hasTxQueued,
   hasOceanTXQueued,
+  transactionQueue,
 } from "@waveshq/walletkit-ui/dist/store";
 import { DFIUtxoSelector } from "@store/wallet";
 import { queueConvertTransaction } from "@hooks/wallet/Conversion";
