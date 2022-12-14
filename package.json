@@ -98,7 +98,7 @@
     "@cypress/code-coverage": "^3.10.0",
     "@expo/metro-config": "0.5.1",
     "@expo/webpack-config": "^0.17.3",
-    "@testing-library/cypress": "^9.0.0",
+    "@testing-library/cypress": "^8.0.7",
     "@testing-library/react-native": "^11.5.0",
     "@types/find-in-files": "^0.5.1",
     "@types/i18n-js": "^3.8.3",
@@ -113,7 +113,7 @@
     "babel-plugin-istanbul": "^6.1.1",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "colors": "1.4.0",
-    "cypress": "^12.1.0",
+    "cypress": "^10.11.0",
     "cypress-image-diff-js": "^1.22.0",
     "eslint": "^8.29.0",
     "eslint-config-airbnb": "^19.0.4",
@@ -163,9 +163,6 @@
   "overrides": {
     "react-native-circular-progress-indicator": {
       "react-native-svg": "13.5.0"
-    },
-    "cypress-image-diff-js": {
-      "cypress": "^12.1.0"
     }
   }
 }
