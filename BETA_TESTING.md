@@ -40,13 +40,13 @@ Should you need utxoDFI or Tokens for testing, you may generate them using DeFi 
 1. Create your wallet
 2. Click on `Settings` via bottom navigation bar
 3. Click on `Playground`
-  <div>
-    <img alt="settings" width="40%" src="/.github/images/beta_testing/settings.jpg" />
-  </div>
+<div>
+  <img alt="settings" width="40%" src="/.github/images/beta_testing/settings.jpg" />
+</div>
 4. It should open a new screen where you can do various operations (e.g. top-up 10 utxoDFI, 10 dBTC Token etc.)
-  <div>
-    <img alt="playground" width="40%" src="/.github/images/beta_testing/playground.jpg" />
-  </div>
+<div>
+  <img alt="playground" width="40%" src="/.github/images/beta_testing/playground.jpg" />
+</div>
 5. Click on any operation (e.g. top-up 10 utxoDFI)
 6. Click on `Fetch Balances`
 7. Click on `Back` and navigate to `Portfolio` screen via bottom navigation bar
