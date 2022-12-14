@@ -1,4 +1,4 @@
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { render } from "@testing-library/react-native";
 import { RowNetworkItem } from "./RowNetworkItem";
 

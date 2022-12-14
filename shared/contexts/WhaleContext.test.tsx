@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { Text, View } from "react-native";
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { StoreServiceProvider } from "@contexts/StoreServiceProvider";
 import { ServiceProviderPersistence } from "@api/wallet/service_provider";
 import * as NetworkContext from "./NetworkContext";

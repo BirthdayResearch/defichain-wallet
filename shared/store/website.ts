@@ -3,7 +3,7 @@ import {
   AnnouncementData,
   DeFiChainStatus,
   FeatureFlag,
-} from "@waveshq/wallet-core";
+} from "@waveshq/walletkit-core";
 
 export const statusWebsiteSlice = createApi({
   reducerPath: "websiteStatus",

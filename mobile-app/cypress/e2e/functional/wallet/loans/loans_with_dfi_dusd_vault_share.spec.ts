@@ -1,4 +1,4 @@
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { checkVaultDetailValues } from "../../../../support/loanCommands";
 import { checkValueWithinRange } from "../../../../support/walletCommands";
 

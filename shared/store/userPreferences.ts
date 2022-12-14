@@ -5,7 +5,7 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { LocalStorageProvider } from "@api/local_storage/provider";
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 
 export interface LabeledAddress {
   [address: string]: LocalAddress;

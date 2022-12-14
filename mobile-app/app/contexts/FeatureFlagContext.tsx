@@ -2,7 +2,7 @@ import {
   getEnvironment,
   FeatureFlag,
   FeatureFlagID,
-} from "@waveshq/wallet-core";
+} from "@waveshq/walletkit-core";
 import { useGetFeatureFlagsQuery, usePrefetch } from "@store/website";
 import { nativeApplicationVersion } from "expo-application";
 import {

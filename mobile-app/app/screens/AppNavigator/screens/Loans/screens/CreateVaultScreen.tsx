@@ -29,7 +29,7 @@ import {
   ConversionStatus,
   CreateVaultSummary,
 } from "@screens/AppNavigator/screens/Loans/components/CreateVaultSummary";
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";

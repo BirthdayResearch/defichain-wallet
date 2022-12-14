@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { FeatureFlagID } from "@waveshq/wallet-core";
+import { FeatureFlagID } from "@waveshq/walletkit-core";
 
 const KEY = "WALLET.ENABLED_FEATURES";
 

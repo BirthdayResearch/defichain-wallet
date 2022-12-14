@@ -1,6 +1,6 @@
 import { EncryptedProviderData } from "@defichain/jellyfish-wallet-encrypted";
 import { MnemonicEncrypted } from "@api/wallet";
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import {
   WalletPersistenceDataI,
   WalletType,

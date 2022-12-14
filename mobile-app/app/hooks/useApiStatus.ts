@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { getReleaseChannel } from "@api/releaseChannel";
-import { getEnvironment } from "@waveshq/wallet-core";
+import { getEnvironment } from "@waveshq/walletkit-core";
 import dayjs from "dayjs";
 import {
   useGetBlockchainStatusQuery,

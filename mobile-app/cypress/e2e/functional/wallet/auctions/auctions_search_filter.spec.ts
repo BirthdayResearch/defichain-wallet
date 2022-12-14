@@ -1,4 +1,4 @@
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 
 context("Wallet - Auctions search and sort", () => {
   beforeEach(() => {

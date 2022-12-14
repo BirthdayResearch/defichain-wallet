@@ -7,7 +7,7 @@ import {
   useMemo,
 } from "react";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { useNetworkContext } from "@shared-contexts/NetworkContext";
 
 const _useDefaultDefiChainURL = (): string => {

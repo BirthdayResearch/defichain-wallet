@@ -9,7 +9,7 @@ import {
 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { useGetAnnouncementsQuery } from "@store/website";
-import { AnnouncementData } from "@waveshq/wallet-core";
+import { AnnouncementData } from "@waveshq/walletkit-core";
 import { satisfies } from "semver";
 import { useLanguageContext } from "@shared-contexts/LanguageProvider";
 import { openURL } from "@api/linking";

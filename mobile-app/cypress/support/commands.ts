@@ -3,7 +3,7 @@ import "@testing-library/cypress/add-commands";
 import "./onboardingCommands";
 import "./walletCommands";
 import "./loanCommands";
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const compareSnapshotCommand = require("cypress-image-diff-js/dist/command");

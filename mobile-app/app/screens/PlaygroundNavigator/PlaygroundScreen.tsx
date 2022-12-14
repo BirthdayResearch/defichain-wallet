@@ -3,7 +3,7 @@ import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import { WalletContextProvider } from "@shared-contexts/WalletContext";
 import { WalletNodeProvider } from "@shared-contexts/WalletNodeProvider";
 import { useWalletPersistenceContext } from "@shared-contexts/WalletPersistenceContext";
-import { isPlayground } from "@waveshq/wallet-core";
+import { isPlayground } from "@waveshq/walletkit-core";
 import { tailwind } from "@tailwind";
 import { WalletAddressIndexPersistence } from "@api/wallet/address_index";
 import { PlaygroundOperations } from "@screens/PlaygroundNavigator/sections/PlaygroundOperations";
