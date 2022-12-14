@@ -1,15 +1,10 @@
 {
   "extends": "expo/tsconfig.base",
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "jsx": "react-native",
-    "lib": [
-      "dom",
-      "esnext"
-    ],
+    "lib": ["dom", "esnext"],
     "moduleResolution": "node",
     "noEmit": true,
     "skipLibCheck": true,
@@ -17,66 +12,26 @@
     "strict": true,
     "baseUrl": "mobile-app/app",
     "paths": {
-      "@api": [
-        "api"
-      ],
-      "@api/*": [
-        "api/*"
-      ],
-      "@assets": [
-        "../../shared/assets"
-      ],
-      "@assets/*": [
-        "../../shared/assets/*"
-      ],
-      "@constants/*": [
-        "constants/*"
-      ],
-      "@contexts/*": [
-        "contexts/*"
-      ],
-      "@components": [
-        "components"
-      ],
-      "@components/*": [
-        "components/*"
-      ],
-      "@hooks/*": [
-        "hooks/*"
-      ],
-      "@shared-api": [
-        "../../shared/api"
-      ],
-      "@shared-api/*": [
-        "../../shared/api/*"
-      ],
-      "@shared-contexts": [
-        "../../shared/contexts"
-      ],
-      "@shared-contexts/*": [
-        "../../shared/contexts/*"
-      ],
-      "@shared-types": [
-        "../../shared/types"
-      ],
-      "@shared-types/*": [
-        "../../shared/types/*"
-      ],
-      "@screens/*": [
-        "screens/*"
-      ],
-      "@store": [
-        "../../shared/store"
-      ],
-      "@store/*": [
-        "../../shared/store/*"
-      ],
-      "@translations": [
-        "../../shared/translations"
-      ],
-      "@tailwind": [
-        "tailwind"
-      ]
+      "@api": ["api"],
+      "@api/*": ["api/*"],
+      "@assets": ["../../shared/assets"],
+      "@assets/*": ["../../shared/assets/*"],
+      "@constants/*": ["constants/*"],
+      "@contexts/*": ["contexts/*"],
+      "@components": ["components"],
+      "@components/*": ["components/*"],
+      "@hooks/*": ["hooks/*"],
+      "@shared-api": ["../../shared/api"],
+      "@shared-api/*": ["../../shared/api/*"],
+      "@shared-contexts": ["../../shared/contexts"],
+      "@shared-contexts/*": ["../../shared/contexts/*"],
+      "@shared-types": ["../../shared/types"],
+      "@shared-types/*": ["../../shared/types/*"],
+      "@screens/*": ["screens/*"],
+      "@store": ["../../shared/store"],
+      "@store/*": ["../../shared/store/*"],
+      "@translations": ["../../shared/translations"],
+      "@tailwind": ["tailwind"]
     }
   }
 }

@@ -3,7 +3,7 @@ name: CI
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
 
 concurrency:
@@ -19,7 +19,7 @@ jobs:
       - uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # tag=v3.5.1
         with:
           node-version: 16
-          cache: 'npm'
+          cache: "npm"
 
       - run: npm ci
       - run: tsc --project mobile-app/tsconfig.json
@@ -46,7 +46,7 @@ jobs:
       - uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # tag=v3.5.1
         with:
           node-version: 16
-          cache: 'npm'
+          cache: "npm"
 
       - run: npm ci
       - run: npm run test:ci

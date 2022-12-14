@@ -48,4 +48,3 @@ jobs:
         run: eas build --platform all --non-interactive --wait --profile preview
         env:
           EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
-

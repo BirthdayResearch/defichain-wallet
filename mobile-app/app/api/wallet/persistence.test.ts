@@ -1,5 +1,5 @@
 import * as ExpoSecureStore from "expo-secure-store";
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { WalletType } from "@shared-contexts/WalletPersistenceContext";
 import { WalletPersistence } from "./persistence";
 

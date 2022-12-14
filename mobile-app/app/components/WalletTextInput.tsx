@@ -196,18 +196,19 @@ export const WalletTextInput = forwardRef<any, WalletTextInputProps>(
             {inlineText?.text}
           </ThemedText>
         )}
-        {inlineText?.type === "helper" && typeof inlineText?.text === "string" && (
-          <ThemedText
-            light={tailwind("text-error-500")}
-            dark={tailwind("text-darkerror-500")}
-            style={tailwind("text-sm my-1")}
-            testID={
-              props.testID !== undefined ? `${props.testID}_error` : undefined
-            }
-          >
-            {inlineText?.text}
-          </ThemedText>
-        )}
+        {inlineText?.type === "helper" &&
+          typeof inlineText?.text === "string" && (
+            <ThemedText
+              light={tailwind("text-error-500")}
+              dark={tailwind("text-darkerror-500")}
+              style={tailwind("text-sm my-1")}
+              testID={
+                props.testID !== undefined ? `${props.testID}_error` : undefined
+              }
+            >
+              {inlineText?.text}
+            </ThemedText>
+          )}
 
         {inlineText?.type === "helper" &&
           typeof inlineText?.text !== "string" &&

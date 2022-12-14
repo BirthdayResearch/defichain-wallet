@@ -3,7 +3,7 @@ version: v1
 issue:
   labels:
     - prefix: triage
-      list: [ "accepted" ]
+      list: ["accepted"]
       multiple: false
       author_association:
         collaborator: true
@@ -67,11 +67,11 @@ issue:
 
     - prefix: priority
       multiple: true
-      list: [ "urgent-now", "important-soon", "low" ]
+      list: ["urgent-now", "important-soon", "low"]
       needs:
         comment: |
           @$AUTHOR: Thanks for opening an issue, an appropriate priority will be added soon.
-          
+
           The priority labels can be added by foundation members by writing /priority [type] in a comment.
       author_association:
         collaborator: true
@@ -80,7 +80,7 @@ issue:
 
     - prefix: design
       multiple: false
-      list: [ "in-progress", "ready" ]
+      list: ["in-progress", "ready"]
       author_association:
         collaborator: true
         member: true
@@ -134,12 +134,12 @@ issue:
     - regex: '\W*v?(\d+\.\d+\.\d+)\W*'
       github_release: true
       ignore_case: true
-      label: 'version/$CAPTURED'
+      label: "version/$CAPTURED"
 
     - regex: '\W*iOS\W*'
-      label: 'platform/ios'
+      label: "platform/ios"
       ignore_case: true
 
     - regex: '\W*Android\W*'
-      label: 'platform/android'
+      label: "platform/android"
       ignore_case: true

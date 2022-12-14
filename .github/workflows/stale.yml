@@ -1,8 +1,8 @@
-name: 'Close stale issues and PR'
+name: "Close stale issues and PR"
 
 on:
   schedule:
-    - cron: '30 22 * * *'
+    - cron: "30 22 * * *"
 
 jobs:
   stale:
@@ -17,7 +17,7 @@ jobs:
 
           days-before-issue-stale: 40
           days-before-issue-close: 5
-          exempt-issue-labels: 'triage/accepted,kind/feature,good first issue'
+          exempt-issue-labels: "triage/accepted,kind/feature,good first issue"
           stale-issue-message: "This issue is stale because it has been open for 40 days without any activity. Please remove the stale label or this will be closed in 5 days."
           stale-issue-label: "stale"
 

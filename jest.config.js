@@ -19,7 +19,7 @@ module.exports = {
     "!**/_shim.js",
     "!**/screens/PlaygroundNavigator/**",
     "!**/cypress-coverage/**",
-    "!**/jest-coverage/**"
+    "!**/jest-coverage/**",
   ],
   coverageDirectory: "jest-coverage",
   setupFiles: ["./jest.setup.js"],

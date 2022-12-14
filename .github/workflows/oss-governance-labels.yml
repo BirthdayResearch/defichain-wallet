@@ -2,8 +2,8 @@ name: OSS Governance
 
 on:
   push:
-    branches: [ main ]
-    paths: [ .github/labels.yml ]
+    branches: [main]
+    paths: [.github/labels.yml]
 
 permissions:
   contents: read

@@ -34,19 +34,20 @@ The test will run on [DeFi Playground](https://github.com/DeFiCh/wallet#testing)
 ## Test Data
 
 ### How to generate assets for your wallet
+
 Should you need utxoDFI or Tokens for testing, you may generate them using DeFi Playground in the Wallet.
 
 1. Create your wallet
-2. Click on `Settings` via bottom navigation bar 
+2. Click on `Settings` via bottom navigation bar
 3. Click on `Playground`
-      <div>
-        <img alt="settings" width="40%" src="/.github/images/beta_testing/settings.jpg" />
-      </div>
+  <div>
+    <img alt="settings" width="40%" src="/.github/images/beta_testing/settings.jpg" />
+  </div>
 4. It should open a new screen where you can do various operations (e.g. top-up 10 utxoDFI, 10 dBTC Token etc.)
-      <div>
-        <img alt="playground" width="40%" src="/.github/images/beta_testing/playground.jpg" />
-      </div>
-5. Click on any operation (e.g. top-up 10 utxoDFI) 
+  <div>
+    <img alt="playground" width="40%" src="/.github/images/beta_testing/playground.jpg" />
+  </div>
+5. Click on any operation (e.g. top-up 10 utxoDFI)
 6. Click on `Fetch Balances`
 7. Click on `Back` and navigate to `Portfolio` screen via bottom navigation bar
 8. Check if your balance has been updated
@@ -59,6 +60,7 @@ via [GitHub Discussions](https://github.com/DeFiCh/wallet/discussions/categories
 .
 
 **Do include the following before leaving a comment / post:**
+
 - Operating System (OS): Android / iOS
 - OS Version: Android 12, iOS 15, etc.
 - Mobile Device: Samsung S21, iPhone 12, etc.
@@ -66,6 +68,7 @@ via [GitHub Discussions](https://github.com/DeFiCh/wallet/discussions/categories
 <!-- Kindly attach screenshot for better reference -->
 
 _Additional comment(s) / pain point(s):_
+
 - Was it easy to use?
 - Did anything not work according to expectation?
 - What pain point(s) you may have experienced and hope to overcome?
