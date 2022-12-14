@@ -13,7 +13,7 @@ import {
   MnemonicUnprotected,
   PasscodeAttemptCounter,
 } from "@api/wallet";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useWalletNodeContext } from "@shared-contexts/WalletNodeProvider";
 import {
   useWalletPersistenceContext,
@@ -140,6 +140,7 @@ export function TransactionAuthorization(): JSX.Element | null {
       PROMPT_PIN_PROMISE = undefined;
     } else if (transactionStatus === TransactionStatus.AUTHORIZED) {
       PROMPT_PIN_PROMISE = undefined;
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       transaction === undefined
         ? dispatch(authenticationStore.actions.dismiss())
         : dispatch(transactionQueue.actions.pop());
@@ -377,6 +378,7 @@ export function TransactionAuthorization(): JSX.Element | null {
   useEffect(() => {
     if (transactionStatus === TransactionStatus.AUTHORIZED) {
       setTimeout(() => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         transaction === undefined
           ? dispatch(authenticationStore.actions.dismiss())
           : dispatch(transactionQueue.actions.pop());

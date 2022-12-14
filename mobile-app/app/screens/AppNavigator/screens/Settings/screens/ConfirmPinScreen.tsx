@@ -10,7 +10,7 @@ import {
   ThemedScrollViewV2,
   ThemedTextV2,
 } from "@components/themed";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import {
   useWalletPersistenceContext,
   WalletPersistenceDataI,

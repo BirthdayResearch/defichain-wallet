@@ -10,7 +10,7 @@ import {
 } from "@defichain/jellyfish-wallet";
 import { EncryptedProviderData } from "@defichain/jellyfish-wallet-encrypted";
 import { MnemonicProviderData } from "@defichain/jellyfish-wallet-mnemonic";
-import { useNetworkContext } from "./NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { WalletPersistenceDataI, WalletType } from "./WalletPersistenceContext";
 import {
   MnemonicEncrypted,

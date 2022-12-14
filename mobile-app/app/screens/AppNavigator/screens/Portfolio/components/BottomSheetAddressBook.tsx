@@ -23,7 +23,7 @@ import {
   setAddressBook,
   setUserPreferences,
 } from "@store/userPreferences";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { RandomAvatar } from "./RandomAvatar";
 
@@ -179,6 +179,7 @@ export const BottomSheetAddressBook = (
     }, [isEditing, addresses]);
 
     const AddressListItem = useCallback(
+      // eslint-disable-next-line react/no-unused-prop-types
       ({ item, index }: { item: string; index: number }): JSX.Element => {
         return (
           <ThemedTouchableOpacity

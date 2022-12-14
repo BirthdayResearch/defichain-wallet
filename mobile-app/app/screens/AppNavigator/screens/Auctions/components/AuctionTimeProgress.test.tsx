@@ -2,7 +2,6 @@ import { render } from "@testing-library/react-native";
 import { AuctionTimeProgress } from "./AuctionTimeProgress";
 
 jest.mock("@shared-contexts/ThemeProvider");
-jest.mock("@shared-contexts/NetworkContext");
 
 describe("Auction time progress", () => {
   it("should match snapshot", async () => {

@@ -8,7 +8,7 @@ import {
 } from "react";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 
 const _useDefaultDefiChainURL = (): string => {
   const { network } = useNetworkContext();

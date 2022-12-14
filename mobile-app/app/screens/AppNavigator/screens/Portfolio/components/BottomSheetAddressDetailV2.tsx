@@ -34,7 +34,7 @@ import {
   setAddresses,
   setUserPreferences,
 } from "@store/userPreferences";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { openURL } from "@api/linking";
@@ -187,6 +187,7 @@ export const BottomSheetAddressDetailV2 = (
     };
 
     const AddressListItem = useCallback(
+      // eslint-disable-next-line react/no-unused-prop-types
       ({ item, index }: { item: string; index: number }): JSX.Element => {
         const isSelected = item === props.address;
         const hasLabel =
@@ -357,7 +358,7 @@ export const BottomSheetAddressDetailV2 = (
               "mt-12 px-5 flex flex-row items-center justify-between w-full"
             )}
           >
-            <WalletCounterDisplay addressLength={addressLength} />
+            <WalletCounterDisplay />
             <DiscoverWalletAddress onPress={discoverWalletAddresses} />
           </View>
         </ThemedViewV2>
@@ -409,11 +410,7 @@ function ActiveAddress({
   );
 }
 
-function WalletCounterDisplay({
-  addressLength,
-}: {
-  addressLength: number;
-}): JSX.Element {
+function WalletCounterDisplay(): JSX.Element {
   return (
     <ThemedText
       light={tailwind("text-mono-light-v2-500")}

@@ -7,7 +7,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import { BidCard } from "./BidCard";
 
 jest.mock("@shared-contexts/ThemeProvider");
-jest.mock("@shared-contexts/NetworkContext");
 
 describe("Bid Card", () => {
   it("should match snapshot", async () => {

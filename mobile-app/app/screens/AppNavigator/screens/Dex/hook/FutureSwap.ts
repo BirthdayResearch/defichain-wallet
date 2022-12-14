@@ -1,6 +1,6 @@
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { RootState } from "@store";
 import { tokenSelectorByDisplaySymbol } from "@store/wallet";
 import BigNumber from "bignumber.js";

@@ -4,7 +4,7 @@ import { BidHistoryItem } from "./BidHistoryItem";
 
 jest.mock("@shared-contexts/WalletContext");
 jest.mock("@shared-contexts/ThemeProvider");
-jest.mock("@shared-contexts/NetworkContext");
+
 jest.mock("../hooks/BidTimeAgo", () => ({
   useBidTimeAgo: () => "3Hr 12Min",
 }));

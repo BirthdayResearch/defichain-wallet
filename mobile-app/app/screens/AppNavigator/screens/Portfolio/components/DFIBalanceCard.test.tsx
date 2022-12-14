@@ -9,7 +9,7 @@ import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
 import { DFIBalanceCard } from "./DFIBalanceCard";
 
 jest.mock("@shared-contexts/ThemeProvider");
-jest.mock("@shared-contexts/NetworkContext");
+
 jest.mock("../../../../../contexts/DisplayBalancesContext");
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),

@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-raw-text */
 import { MnemonicStorage } from "@api/wallet/mnemonic_storage";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useWalletPersistenceContext } from "@shared-contexts/WalletPersistenceContext";
 import { View } from "@components/index";
 import { ThemedViewV2, ThemedIcon } from "@components/themed";

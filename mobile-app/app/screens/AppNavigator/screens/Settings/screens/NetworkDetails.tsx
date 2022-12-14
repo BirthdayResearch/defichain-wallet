@@ -1,4 +1,4 @@
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { RootState } from "@store";
 import dayjs from "dayjs";
 import { useSelector } from "react-redux";

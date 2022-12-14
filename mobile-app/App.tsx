@@ -1,11 +1,16 @@
 import * as SplashScreen from "expo-splash-screen";
 import "./_shim";
-import { SecuredStoreAPI, LanguagePersistence, ThemePersistence } from "@api";
+import {
+  SecuredStoreAPI,
+  LanguagePersistence,
+  ThemePersistence,
+  Logging,
+} from "@api";
 import { AppStateContextProvider } from "@contexts/AppStateContext";
 import { DeFiScanProvider } from "@shared-contexts/DeFiScanContext";
 import { DisplayBalancesProvider } from "@contexts/DisplayBalancesContext";
 import { PrivacyLockContextProvider } from "@contexts/LocalAuthContext";
-import { NetworkProvider } from "@shared-contexts/NetworkContext";
+import { NetworkProvider } from "@waveshq/walletkit-ui";
 import { StatsProvider } from "@shared-contexts/StatsProvider";
 import { StoreProvider } from "@contexts/StoreProvider";
 import { ThemeProvider, useTheme } from "@shared-contexts/ThemeProvider";
@@ -75,7 +80,7 @@ export default function App(): JSX.Element | null {
       <ErrorBoundary>
         <AppStateContextProvider>
           <PrivacyLockContextProvider>
-            <NetworkProvider api={SecuredStoreAPI}>
+            <NetworkProvider api={SecuredStoreAPI} logger={Logging}>
               <StoreServiceProvider api={ServiceProviderPersistence}>
                 <WhaleProvider>
                   <DeFiScanProvider>

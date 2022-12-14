@@ -2,7 +2,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
 import { Platform, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { RootState } from "@store";
 import { tailwind } from "@tailwind";
 import { useServiceProviderContext } from "@contexts/StoreServiceProvider";

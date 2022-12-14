@@ -10,7 +10,7 @@ import { debounce } from "lodash";
 import { fromAddress } from "@defichain/jellyfish-address";
 import { NetworkName } from "@defichain/jellyfish-network";
 import { translate } from "@translations";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";

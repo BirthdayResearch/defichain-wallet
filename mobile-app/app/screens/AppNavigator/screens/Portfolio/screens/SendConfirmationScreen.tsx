@@ -16,7 +16,7 @@ import {
 } from "@defichain/jellyfish-transaction/dist";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import {
   NativeLoggingProps,
   useLogger,

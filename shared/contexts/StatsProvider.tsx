@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { isPlayground } from "@waveshq/walletkit-core";
 import { RootState } from "@store";
 import { block } from "@store/block";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useWhaleApiClient } from "./WhaleContext";

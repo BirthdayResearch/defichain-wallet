@@ -6,7 +6,7 @@ import { block } from "@store/block";
 import { NetworkDetails } from "./NetworkDetails";
 
 jest.mock("@shared-contexts/ThemeProvider");
-jest.mock("@shared-contexts/NetworkContext");
+
 jest.mock("@shared-contexts/DeFiScanContext");
 
 jest.mock("dayjs", () => () => ({ format: () => "Sep 14, 9:07 pm" }));

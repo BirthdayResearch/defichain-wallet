@@ -30,7 +30,7 @@ import {
   CreateVaultSummary,
 } from "@screens/AppNavigator/screens/Loans/components/CreateVaultSummary";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction";

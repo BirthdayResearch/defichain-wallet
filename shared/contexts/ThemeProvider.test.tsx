@@ -2,8 +2,6 @@ import { render, renderHook } from "@testing-library/react-native";
 import { Text, View } from "react-native";
 import { ThemeProvider, useTheme, useThemeContext } from "./ThemeProvider";
 
-jest.mock("@shared-contexts/NetworkContext");
-
 describe.skip("useTheme hook test", () => {
   it("should pass when theme is not set", async () => {
     const desiredTheme = "dark";

@@ -6,7 +6,7 @@ import React, {
   useState,
   PropsWithChildren,
 } from "react";
-import { useNetworkContext } from "./NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 
 export enum WalletType {
   MNEMONIC_UNPROTECTED = "MNEMONIC_UNPROTECTED",

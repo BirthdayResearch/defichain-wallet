@@ -26,7 +26,7 @@ import { EncryptedProviderData } from "@defichain/jellyfish-wallet-encrypted";
 import { MAX_ALLOWED_ADDRESSES } from "@shared-contexts/WalletContext";
 import { WalletAddressIndexPersistence } from "@api/wallet/address_index";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 
 type Props = StackScreenProps<WalletParamList, "WalletCreateRestoreSuccess">;
 

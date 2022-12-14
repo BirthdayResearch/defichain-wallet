@@ -1,5 +1,5 @@
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { isPlayground } from "@waveshq/walletkit-core";
 import { tailwind } from "@tailwind";
 

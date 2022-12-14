@@ -7,7 +7,6 @@ import { DexItem, wallet } from "@store/wallet";
 import { block } from "@store/block";
 import { useTokenBestPath } from "./TokenBestPath";
 
-jest.mock("@shared-contexts/NetworkContext");
 jest.mock("@react-navigation/native", () => ({
   useIsFocused: jest.fn(),
 }));

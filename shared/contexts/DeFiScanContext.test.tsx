@@ -8,7 +8,6 @@ import {
   useDeFiScanContext,
 } from "./DeFiScanContext";
 
-jest.mock("@shared-contexts/NetworkContext");
 describe("DeFiScanContext test", () => {
   const baseDefiScanUrl = "https://defiscan.live";
 

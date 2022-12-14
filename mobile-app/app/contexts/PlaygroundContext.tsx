@@ -5,7 +5,7 @@ import {
 import { createContext, useContext, useMemo } from "react";
 import * as React from "react";
 import { EnvironmentNetwork, isPlayground } from "@waveshq/walletkit-core";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 
 interface PlaygroundContextI {
   rpc: PlaygroundRpcClient;
