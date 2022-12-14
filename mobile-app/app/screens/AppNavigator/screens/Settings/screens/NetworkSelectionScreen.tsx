@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { useSelector } from "react-redux";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { TouchableOpacity, Linking } from "react-native";
-import { View, Text } from "@components/index";
+import { View, Text } from "@components";
 import {
   ThemedIcon,
   ThemedTextV2,
@@ -19,8 +19,10 @@ import { NumberRowV2 } from "@components/NumberRowV2";
 import { getEnvironment } from "@waveshq/walletkit-core";
 import { getReleaseChannel } from "@api/releaseChannel";
 import { NetworkItemRow } from "@components/NetworkItemRow";
-import { hasTxQueued } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 
 export function NetworkSelectionScreen(): JSX.Element {
   const networks = getEnvironment(getReleaseChannel()).networks;
@@ -33,7 +35,7 @@ export function NetworkSelectionScreen(): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const syncFormattedDate =
     lastSuccessfulSync != null ? dayjs(lastSuccessfulSync).format("lll") : "";

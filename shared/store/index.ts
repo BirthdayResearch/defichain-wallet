@@ -2,10 +2,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { announcementWebsiteSlice, statusWebsiteSlice } from "@store/website";
 import { userPreferences } from "@store/userPreferences";
+import {
+  transactionQueue,
+  block,
+  ocean,
+} from "@waveshq/walletkit-ui/dist/store";
 import { authentication } from "./authentication";
-import { block } from "./block";
-import { ocean } from "./ocean";
-import { transactionQueue } from "./transaction_queue";
 import { wallet } from "./wallet";
 import { loans } from "./loans";
 import { auctions } from "./auctions";
