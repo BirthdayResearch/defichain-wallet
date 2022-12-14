@@ -2,11 +2,11 @@ name: OSS Governance
 
 on:
   pull_request_target:
-    types: [ synchronize, opened, labeled, unlabeled ]
+    types: [synchronize, opened, labeled, unlabeled]
   issues:
-    types: [ opened, labeled, unlabeled ]
+    types: [opened, labeled, unlabeled]
   issue_comment:
-    types: [ created ]
+    types: [created]
 
 permissions:
   contents: read

@@ -6,7 +6,7 @@ import {
   PrivacyLockContextI,
   usePrivacyLockContext,
 } from "@contexts/LocalAuthContext";
-import { EnvironmentName, getEnvironment } from "@waveshq/wallet-core";
+import { EnvironmentName, getEnvironment } from "@waveshq/walletkit-core";
 import { useEffect } from "react";
 import { BackHandler } from "react-native";
 import { ThemedView } from "@components/themed";

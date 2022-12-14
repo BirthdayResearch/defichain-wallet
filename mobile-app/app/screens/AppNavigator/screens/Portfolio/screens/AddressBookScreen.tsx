@@ -31,7 +31,7 @@ import {
   TextInput,
 } from "react-native";
 import { useSelector } from "react-redux";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { debounce } from "lodash";

@@ -1,6 +1,6 @@
 import { CollateralToken } from "@defichain/whale-api-client/dist/api/loan";
 import BigNumber from "bignumber.js";
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import {
   checkCollateralFormValues,
   checkConfirmEditCollateralValues,

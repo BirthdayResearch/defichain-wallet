@@ -1,9 +1,9 @@
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { render } from "@testing-library/react-native";
 import { RowNetworkItem } from "./RowNetworkItem";
 
 jest.mock("@shared-contexts/ThemeProvider");
-jest.mock("@shared-contexts/NetworkContext");
+
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
 }));

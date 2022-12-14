@@ -36,7 +36,7 @@ import {
   setAddresses,
   setUserPreferences,
 } from "@store/userPreferences";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useWalletAddress } from "@hooks/useWalletAddress";
@@ -203,6 +203,7 @@ export const BottomSheetAddressDetail = (
     };
 
     const AddressListItem = useCallback(
+      // eslint-disable-next-line react/no-unused-prop-types
       ({ item, index }: { item: string; index: number }): JSX.Element => {
         return (
           <ThemedTouchableOpacity

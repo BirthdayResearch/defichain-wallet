@@ -1,7 +1,5 @@
 {
-  "extends": [
-    "github>waveshq/standard//renovate-config/web"
-  ],
+  "extends": ["github>waveshq/standard//renovate-config/web"],
   "packageRules": [
     {
       "matchPackagePatterns": [

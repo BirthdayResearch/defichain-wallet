@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
   pull_request:
 
-concurrency: 
+concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
-  
+
 jobs:
   translations:
     name: Missing Report
@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # tag=v3.5.1
         with:
           node-version: 16
-          cache: 'npm'
+          cache: "npm"
       - run: npm ci
       - name: Find missing translations
         id: find_string
@@ -37,11 +37,11 @@ jobs:
             ```json
             ${{ steps.translations.outputs.content }}
             ```
-      - name: Send missing translations to Slack workflow  
+      - name: Send missing translations to Slack workflow
         if: ${{ fromJson(steps.translations.outputs.content).totalMissingCount != 0 }}
         uses: slackapi/slack-github-action@007b2c3c751a190b6f0f040e47ed024deaa72844 # tag=v1.23.0
         id: slack_missing_translation_workflow
         with:
           payload-file-path: "./missing_translations.json"
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_MISSING_TRANSLATION_WEBHOOK_URL }}      
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_MISSING_TRANSLATION_WEBHOOK_URL }}

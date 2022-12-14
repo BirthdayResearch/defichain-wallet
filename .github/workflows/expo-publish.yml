@@ -2,7 +2,7 @@ name: Expo Main Preview
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}

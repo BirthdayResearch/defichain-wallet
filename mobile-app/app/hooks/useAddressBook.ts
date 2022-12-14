@@ -1,4 +1,4 @@
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { RootState } from "@store";
 import { setAddressBook, setUserPreferences } from "@store/userPreferences";
 import { useSelector } from "react-redux";

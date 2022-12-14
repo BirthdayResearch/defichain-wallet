@@ -1,5 +1,5 @@
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import dayjs from "dayjs";
 import BigNumber from "bignumber.js";
 import { secondsToDhmsDisplay } from "../helpers/SecondstoHm";

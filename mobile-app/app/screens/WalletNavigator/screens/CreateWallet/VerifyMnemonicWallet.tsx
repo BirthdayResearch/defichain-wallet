@@ -10,7 +10,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { WalletAlert } from "@components/WalletAlert";
-import { getEnvironment } from "@waveshq/wallet-core";
+import { getEnvironment } from "@waveshq/walletkit-core";
 import { StackScreenProps } from "@react-navigation/stack";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";

@@ -1,4 +1,4 @@
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { Text, View } from "react-native";
 import { render } from "@testing-library/react-native";
 import {
@@ -8,7 +8,6 @@ import {
   useDeFiScanContext,
 } from "./DeFiScanContext";
 
-jest.mock("@shared-contexts/NetworkContext");
 describe("DeFiScanContext test", () => {
   const baseDefiScanUrl = "https://defiscan.live";
 

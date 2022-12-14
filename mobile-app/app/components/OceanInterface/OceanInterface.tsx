@@ -4,7 +4,7 @@ import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
 import { WhaleApiClient } from "@defichain/whale-api-client";
 import { Transaction } from "@defichain/whale-api-client/dist/api/transactions";
-import { getEnvironment } from "@waveshq/wallet-core";
+import { getEnvironment } from "@waveshq/walletkit-core";
 import { RootState } from "@store";
 import {
   firstTransactionSelector,

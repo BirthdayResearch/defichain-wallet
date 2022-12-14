@@ -11,7 +11,7 @@ jest.mock("@react-navigation/native", () => ({
 jest.mock("@shared-contexts/DeFiScanContext", () => ({
   useDeFiScanContext: () => ({ getblocksUrl: jest.fn() }),
 }));
-jest.mock("@shared-contexts/NetworkContext");
+
 jest.mock("@shared-contexts/ThemeProvider");
 
 describe("onboarding network selection screen", () => {

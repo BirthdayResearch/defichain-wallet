@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useMemo } from "react";
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
-import { useNetworkContext } from "./NetworkContext";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 
 interface DeFiScanContextI {
   getTransactionUrl: (txid: string, rawtx?: string) => string;

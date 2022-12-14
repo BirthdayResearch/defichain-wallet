@@ -1,4 +1,4 @@
-import { AnnouncementData } from "@waveshq/wallet-core";
+import { AnnouncementData } from "@waveshq/walletkit-core";
 import { useLanguageContext } from "@shared-contexts/LanguageProvider";
 import { nativeApplicationVersion } from "expo-application";
 import { useCallback, useState } from "react";

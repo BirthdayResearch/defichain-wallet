@@ -4,8 +4,8 @@ import {
   ThemedTouchableOpacity,
 } from "@components/themed";
 import { WalletAlert } from "@components/WalletAlert";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
-import { EnvironmentNetwork, isPlayground } from "@waveshq/wallet-core";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
+import { EnvironmentNetwork, isPlayground } from "@waveshq/walletkit-core";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { SettingsParamList } from "@screens/AppNavigator/screens/Settings/SettingsNavigator";
 import { tailwind } from "@tailwind";

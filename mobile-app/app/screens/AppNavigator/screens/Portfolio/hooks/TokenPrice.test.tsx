@@ -7,7 +7,6 @@ import { DexItem, wallet } from "@store/wallet";
 import { block } from "@store/block";
 import { useTokenPrice } from "./TokenPrice";
 
-jest.mock("@shared-contexts/NetworkContext");
 jest.mock("@react-navigation/native", () => ({
   useIsFocused: jest.fn(),
 }));

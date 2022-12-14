@@ -9,7 +9,7 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
-import { FeatureFlag, FeatureFlagID } from "@waveshq/wallet-core";
+import { FeatureFlag, FeatureFlagID } from "@waveshq/walletkit-core";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { WalletAlert } from "@components/WalletAlert";
 

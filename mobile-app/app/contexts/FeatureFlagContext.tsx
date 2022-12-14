@@ -2,7 +2,7 @@ import {
   getEnvironment,
   FeatureFlag,
   FeatureFlagID,
-} from "@waveshq/wallet-core";
+} from "@waveshq/walletkit-core";
 import { useGetFeatureFlagsQuery, usePrefetch } from "@store/website";
 import { nativeApplicationVersion } from "expo-application";
 import {
@@ -18,7 +18,7 @@ import { satisfies } from "semver";
 import { FeatureFlagPersistence } from "@api";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { getReleaseChannel } from "@api/releaseChannel";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useServiceProviderContext } from "./StoreServiceProvider";
 
 const MAX_RETRY = 3;

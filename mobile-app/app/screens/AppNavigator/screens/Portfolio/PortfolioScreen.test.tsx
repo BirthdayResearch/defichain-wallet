@@ -22,7 +22,7 @@ jest.mock("@shared-contexts/LanguageProvider");
 jest.mock("@shared-contexts/DeFiScanContext");
 jest.mock("@shared-contexts/WalletContext");
 jest.mock("@shared-contexts/WalletPersistenceContext");
-jest.mock("@shared-contexts/NetworkContext");
+
 jest.mock("@contexts/DisplayBalancesContext");
 
 jest.mock("@react-navigation/native", () => ({

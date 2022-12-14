@@ -7,7 +7,7 @@ import {
 } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { useSelector } from "react-redux";
 import { CacheApi } from "@api/cache";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 
 interface CalculatePriceRatesProps {

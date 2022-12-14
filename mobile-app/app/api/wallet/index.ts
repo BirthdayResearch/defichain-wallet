@@ -8,7 +8,10 @@ import {
   WhaleWalletAccount,
   WhaleWalletAccountProvider,
 } from "@defichain/whale-api-wallet";
-import { EnvironmentNetwork, getJellyfishNetwork } from "@waveshq/wallet-core";
+import {
+  EnvironmentNetwork,
+  getJellyfishNetwork,
+} from "@waveshq/walletkit-core";
 
 export function initJellyfishWallet<HdNode extends WalletHdNode>(
   provider: WalletHdNodeProvider<HdNode>,

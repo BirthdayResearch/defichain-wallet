@@ -2,7 +2,7 @@ import { Dispatch, useEffect, useState } from "react";
 import { Image } from "react-native";
 import { useSelector } from "react-redux";
 import { StackScreenProps } from "@react-navigation/stack";
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { RootState } from "@store";
@@ -11,7 +11,7 @@ import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import {
   NativeLoggingProps,

@@ -4,11 +4,11 @@
 
 Translation matrix should be keyed as such:
 
-en | file location        | text/key | translation
----|----------------------|----------|--------------
-zh | screens/ScreenName   | Hello    | 你好
-zh | screens/ScreenName   | Bye      | 再见
-de | screens/ScreenName   | Bye      | Tschüss
+| en  | file location      | text/key | translation |
+| --- | ------------------ | -------- | ----------- |
+| zh  | screens/ScreenName | Hello    | 你好        |
+| zh  | screens/ScreenName | Bye      | 再见        |
+| de  | screens/ScreenName | Bye      | Tschüss     |
 
 In this matrix, the key will always be the english representation of the text. Hence, the 'key' must be verbose.
 
@@ -24,11 +24,11 @@ The benefits of this design allows:
 
 ## Testing Guides
 
-Type | Location
----- | ----------------------------------------
-ui   | [app/screens/**.test.ts](mobile-app/app/screens)
-api  | [app/hooks/**.test.ts](mobile-app/app/hooks)
-e2e  | [cypress/e2e/functional](mobile-app/cypress/e2e/functional)
+| Type | Location                                                    |
+| ---- | ----------------------------------------------------------- |
+| ui   | [app/screens/\*\*.test.ts](mobile-app/app/screens)          |
+| api  | [app/hooks/\*\*.test.ts](mobile-app/app/hooks)              |
+| e2e  | [cypress/e2e/functional](mobile-app/cypress/e2e/functional) |
 
 ### Element should have `testID` attributes
 
@@ -67,11 +67,9 @@ Tailwind should be used to write all styles, and styles file should be avoided. 
 should separate it into its own component.
 
 ```tsx
-<View style={tailwind('flex-1 items-center justify-center')}>
-  <Button title='Click' onPress={() => setCount(count + 2)} />
-  <Text testID='count'>
-    Count: {count}
-  </Text>
+<View style={tailwind("flex-1 items-center justify-center")}>
+  <Button title="Click" onPress={() => setCount(count + 2)} />
+  <Text testID="count">Count: {count}</Text>
 </View>
 ```
 

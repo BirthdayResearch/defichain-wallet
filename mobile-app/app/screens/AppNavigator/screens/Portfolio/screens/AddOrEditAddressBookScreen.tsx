@@ -12,7 +12,7 @@ import { useWalletAddress } from "@hooks/useWalletAddress";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { StackScreenProps } from "@react-navigation/stack";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useWalletNodeContext } from "@shared-contexts/WalletNodeProvider";
 import { RootState } from "@store";
 import { authentication, Authentication } from "@store/authentication";

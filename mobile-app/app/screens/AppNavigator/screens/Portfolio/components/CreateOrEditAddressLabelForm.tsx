@@ -13,7 +13,7 @@ import { translate } from "@translations";
 import { WalletTextInput } from "@components/WalletTextInput";
 import { LabeledAddress, LocalAddress } from "@store/userPreferences";
 import { fromAddress } from "@defichain/jellyfish-address";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { authentication, Authentication } from "@store/authentication";

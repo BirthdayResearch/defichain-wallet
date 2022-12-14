@@ -2,6 +2,7 @@
 [![wallet](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/count/oqk3fk/main&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/oqk3fk/runs)
 [![codecov](https://codecov.io/gh/DeFiCh/wallet/branch/main/graph/badge.svg?token=83SCBQBEVJ)](https://codecov.io/gh/DeFiCh/wallet)
 [![Maintainability](https://api.codeclimate.com/v1/badges/30297425fadcab8fbba4/maintainability)](https://codeclimate.com/github/DeFiCh/wallet/maintainability)
+
 <div>
   <a href="https://apps.apple.com/us/app/defichain-wallet/id1572472820"><img width="130" height="50" src="/.github/images/app_store.svg" alt="app store" /></a>
   <a href='https://play.google.com/store/apps/details?id=com.defichain.app'><img width="130" height="50" alt='Get it on Google Play' src='/.github/images/play_store.svg'/></a>
@@ -31,7 +32,7 @@ In the production environment, only **MainNet** is available, and debugging is n
 
 Preview builds are created by 2 workflow. First at each pull request
 via [`expo-preview.yml`](/.github/workflows/expo-preview.yml) workflow, release are prefixed `pr-preview-`. Secondly
-at  [`release-publish.yml`](/.github/workflows/eas-publish.yml) workflow on type "prereleased".
+at [`release-publish.yml`](/.github/workflows/eas-publish.yml) workflow on type "prereleased".
 
 In the preview environment, all networks are available, and debugging is enabled.
 
@@ -82,18 +83,18 @@ shared/
 DeFiChain Wallet project is structured with 3 core directories. Each pull request will likely carry significant changes
 into those directories.
 
-Directory               | Description
-------------------------|-------------
-`/.github`              | GitHub Workflow for shift left automation
-`/app/api`              | API and middlewares logic for application, for non-UI logic only
-`/shared/assets`        | assets of the project that can be loaded at startup
-`/app/components`       | top level components for a atomic shared design language
-`/app/contexts`         | shared contexts for application, non-UI logic
-`/app/hooks`            | shared hooks for application, for UI logic only
-`/app/screens`          | screens hierarchy tree matching directory hierarchy tree
-`/shared/store`         | global state that is used at least more than once in screens, for UI logic only
-`/shared/translations`  | various language translations
-`/cypress`              | E2E tested facilitated through web testing technologies
+| Directory              | Description                                                                     |
+| ---------------------- | ------------------------------------------------------------------------------- |
+| `/.github`             | GitHub Workflow for shift left automation                                       |
+| `/app/api`             | API and middlewares logic for application, for non-UI logic only                |
+| `/shared/assets`       | assets of the project that can be loaded at startup                             |
+| `/app/components`      | top level components for a atomic shared design language                        |
+| `/app/contexts`        | shared contexts for application, non-UI logic                                   |
+| `/app/hooks`           | shared hooks for application, for UI logic only                                 |
+| `/app/screens`         | screens hierarchy tree matching directory hierarchy tree                        |
+| `/shared/store`        | global state that is used at least more than once in screens, for UI logic only |
+| `/shared/translations` | various language translations                                                   |
+| `/cypress`             | E2E tested facilitated through web testing technologies                         |
 
 ### Testing
 

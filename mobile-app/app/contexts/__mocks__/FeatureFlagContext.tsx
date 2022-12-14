@@ -1,4 +1,4 @@
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { FeatureFlagContextI } from "../FeatureFlagContext";
 
 export function useFeatureFlagContext(): FeatureFlagContextI {

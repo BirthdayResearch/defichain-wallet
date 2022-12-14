@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { AnnouncementData } from "@waveshq/wallet-core";
+import { AnnouncementData } from "@waveshq/walletkit-core";
 import { useApiStatus } from "@hooks/useApiStatus";
 
 const deFiChainStatusUrl = "https://www.defichainstatus.com/";

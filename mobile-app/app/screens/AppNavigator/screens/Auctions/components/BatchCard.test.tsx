@@ -23,7 +23,7 @@ const useAuctionBidValue = () => {
 };
 
 jest.mock("@shared-contexts/ThemeProvider");
-jest.mock("@shared-contexts/NetworkContext");
+
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
 }));

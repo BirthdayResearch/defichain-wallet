@@ -1,5 +1,5 @@
 import { UserPreferences } from "@store/userPreferences";
-import { EnvironmentNetwork } from "@waveshq/wallet-core";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ILocalStorage } from "./index";
 

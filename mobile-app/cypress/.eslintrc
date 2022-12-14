@@ -18,6 +18,7 @@
     "@typescript-eslint/no-unused-expressions": "off",
     "radix": "off",
     "no-plusplus": "off",
-    "import/no-cycle": "off"
+    "import/no-cycle": "off",
+    "import/no-extraneous-dependencies": "off"
   }
 }

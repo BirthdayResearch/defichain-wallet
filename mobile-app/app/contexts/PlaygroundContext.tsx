@@ -4,8 +4,8 @@ import {
 } from "@defichain/playground-api-client";
 import { createContext, useContext, useMemo } from "react";
 import * as React from "react";
-import { EnvironmentNetwork, isPlayground } from "@waveshq/wallet-core";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { EnvironmentNetwork, isPlayground } from "@waveshq/walletkit-core";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 
 interface PlaygroundContextI {
   rpc: PlaygroundRpcClient;

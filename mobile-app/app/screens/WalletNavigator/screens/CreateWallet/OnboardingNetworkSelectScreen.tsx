@@ -15,7 +15,7 @@ import { translate } from "@translations";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { TextRowV2 } from "@components/TextRowV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import { getEnvironment } from "@waveshq/wallet-core";
+import { getEnvironment } from "@waveshq/walletkit-core";
 import { getReleaseChannel } from "@api/releaseChannel";
 import { NetworkItemRow } from "@components/NetworkItemRow";
 
