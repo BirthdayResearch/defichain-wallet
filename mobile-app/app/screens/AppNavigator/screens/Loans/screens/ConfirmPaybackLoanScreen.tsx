@@ -10,8 +10,11 @@ import BigNumber from "bignumber.js";
 import { Dispatch, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+  transactionQueue,
+} from "@waveshq/walletkit-ui/dist/store";
 import { StackScreenProps } from "@react-navigation/stack";
 import {
   NativeLoggingProps,
@@ -53,7 +56,7 @@ export function ConfirmPaybackLoanScreen({
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const dispatch = useAppDispatch();
   const { address } = useWalletContext();

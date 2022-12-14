@@ -6,8 +6,11 @@ import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { RootState } from "@store";
-import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+  transactionQueue,
+} from "@waveshq/walletkit-ui/dist/store";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
@@ -39,7 +42,7 @@ export function CloseVaultScreen({ route, navigation }: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const dispatch = useAppDispatch();
   const logger = useLogger();

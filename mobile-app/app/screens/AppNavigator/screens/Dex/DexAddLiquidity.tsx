@@ -20,8 +20,10 @@ import {
 } from "@store/wallet";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { hasTxQueued } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 import {
   queueConvertTransaction,
   useConversion,
@@ -72,7 +74,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs);
   const tokens = useSelector((state: RootState) =>

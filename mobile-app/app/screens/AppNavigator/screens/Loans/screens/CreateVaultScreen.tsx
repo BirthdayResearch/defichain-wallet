@@ -19,7 +19,10 @@ import {
 } from "@store/loans";
 import { RootState } from "@store";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 import { DFIUtxoSelector } from "@store/wallet";
 import { queueConvertTransaction } from "@hooks/wallet/Conversion";
 import { useAppDispatch } from "@hooks/useAppDispatch";
@@ -55,7 +58,7 @@ export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const DFIUtxo = useSelector((state: RootState) =>
     DFIUtxoSelector(state.wallet)

@@ -22,8 +22,10 @@ import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { hasTxQueued } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
 import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
@@ -112,7 +114,7 @@ export function BorrowLoanTokenScreen({
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
 
   // Form Input

@@ -12,7 +12,10 @@ import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { hasTxQueued } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 import { useServiceProviderContext } from "@contexts/StoreServiceProvider";
 import { SettingsParamList } from "../SettingsNavigator";
 
@@ -24,7 +27,7 @@ export function ResetButton(): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const { url, defaultUrl, setUrl } = useServiceProviderContext();
 

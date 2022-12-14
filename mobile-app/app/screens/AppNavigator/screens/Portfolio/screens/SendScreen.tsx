@@ -23,7 +23,10 @@ import {
   WalletToken,
 } from "@store/wallet";
 import { LocalAddress } from "@store/userPreferences";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 import { hasTxQueued } from "@store/transaction_queue";
 import { useDisplayUtxoWarning } from "@hooks/wallet/DisplayUtxoWarning";
 import {
@@ -97,7 +100,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const DFIUtxo = useSelector((state: RootState) =>
     DFIUtxoSelector(state.wallet)

@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { RootState } from "@store";
 import { transactionQueue } from "@store/transaction_queue";
-import { ocean } from "@store/ocean";
+import { ocean } from "@waveshq/walletkit-ui/dist/store";
 import { block } from "@store/block";
 import {
   AddressControlCard,

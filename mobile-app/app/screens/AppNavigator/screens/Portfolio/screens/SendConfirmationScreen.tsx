@@ -24,7 +24,10 @@ import {
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { RootState } from "@store";
 import { WalletToken } from "@store/wallet";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAddressLabel } from "@hooks/useAddressLabel";
@@ -65,7 +68,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const dispatch = useAppDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);

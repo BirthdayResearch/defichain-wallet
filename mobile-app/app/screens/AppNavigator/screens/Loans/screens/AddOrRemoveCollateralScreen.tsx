@@ -13,8 +13,10 @@ import { NumericFormat as NumberFormat } from "react-number-format";
 import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { hasTxQueued } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 import { DFITokenSelector, DFIUtxoSelector } from "@store/wallet";
 import {
   getPrecisedCurrencyValue,
@@ -103,7 +105,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
 
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
