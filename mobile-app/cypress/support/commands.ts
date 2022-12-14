@@ -232,7 +232,7 @@ Cypress.Commands.add("setFeatureFlags", (flags: string[], stage?: string) => {
   const body = flags.map((flag) => ({
     id: flag,
     name: flag,
-    stage: stage ?? "public",
+    stage: stage ? stage : "public",
     version: ">0.0.0",
     description: `Display ${flag} features`,
     networks: [
