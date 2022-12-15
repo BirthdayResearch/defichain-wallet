@@ -6,7 +6,7 @@ import {
   BetaFeaturesI,
 } from "./FeatureFlagScreen";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 jest.mock("@contexts/FeatureFlagContext");
 
 describe("feature flag screen", () => {

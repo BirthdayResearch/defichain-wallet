@@ -17,7 +17,7 @@ jest.mock("@react-navigation/bottom-tabs", () => ({
 }));
 jest.mock("@contexts/FeatureFlagContext");
 jest.mock("randomcolor", () => jest.fn().mockReturnValue("#ffffff"));
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 jest.mock("@shared-contexts/LanguageProvider");
 jest.mock("@shared-contexts/DeFiScanContext");
 jest.mock("@shared-contexts/WalletContext");

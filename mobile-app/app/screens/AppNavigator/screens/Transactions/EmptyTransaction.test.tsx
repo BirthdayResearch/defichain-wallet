@@ -2,7 +2,7 @@ import { render } from "@testing-library/react-native";
 import { EmptyTransaction } from "./EmptyTransaction";
 
 jest.mock("@react-navigation/native");
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("empty transaction", () => {
   it("should match snapshot", async () => {

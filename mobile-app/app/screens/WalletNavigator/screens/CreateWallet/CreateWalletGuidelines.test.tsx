@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { CreateWalletGuidelines } from "./CreateWalletGuidelines";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 describe("create wallet guidelines v2", () => {
   it("should match snapshot", () => {
     const navigation: any = {

@@ -2,7 +2,7 @@ import { render } from "@testing-library/react-native";
 
 import { Tabs } from "./Tabs";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("Tabs component", () => {
   it("should match snapshot with 2 tabs", async () => {

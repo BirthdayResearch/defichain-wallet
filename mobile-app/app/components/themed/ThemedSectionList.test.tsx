@@ -2,7 +2,7 @@ import { render } from "@testing-library/react-native";
 import { Text } from "react-native";
 import { ThemedSectionList } from "./ThemedSectionList";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("themed section list", () => {
   it("should match snapshot with", () => {

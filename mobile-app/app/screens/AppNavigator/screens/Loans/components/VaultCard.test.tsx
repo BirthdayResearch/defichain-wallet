@@ -12,7 +12,7 @@ jest.mock(
   "react-native-circular-progress-indicator",
   () => "react-native-circular-progress-indicator/mock"
 );
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 jest.mock("@shared-contexts/DeFiScanContext");
 jest.mock("@components/BottomSheetInfo", () => ({
   BottomSheetInfo: () => <></>,

@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { InputHelperText } from "./InputHelperText";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("input helper text", () => {
   it("should render", async () => {

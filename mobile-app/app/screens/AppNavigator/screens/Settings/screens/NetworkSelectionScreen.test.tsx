@@ -16,7 +16,7 @@ jest.mock("@shared-contexts/DeFiScanContext", () => ({
   useDeFiScanContext: () => ({ getblocksUrl: jest.fn() }),
 }));
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("onboarding network selection screen", () => {
   it("should render", async () => {

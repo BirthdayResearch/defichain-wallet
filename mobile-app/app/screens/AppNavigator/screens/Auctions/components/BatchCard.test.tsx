@@ -22,7 +22,7 @@ const useAuctionBidValue = () => {
   };
 };
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),

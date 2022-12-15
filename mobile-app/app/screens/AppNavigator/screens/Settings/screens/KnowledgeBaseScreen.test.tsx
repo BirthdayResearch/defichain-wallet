@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { KnowledgeBaseScreen } from "./KnowledgeBaseScreen";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 jest.mock("@contexts/FeatureFlagContext");
 
 describe("knowledge base screen", () => {

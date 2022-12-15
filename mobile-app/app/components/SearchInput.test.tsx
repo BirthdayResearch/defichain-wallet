@@ -2,7 +2,7 @@ import { tailwind } from "@tailwind";
 import { render } from "@testing-library/react-native";
 import { SearchInput } from "./SearchInput";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("Search Input", () => {
   it("should match snapshot", () => {

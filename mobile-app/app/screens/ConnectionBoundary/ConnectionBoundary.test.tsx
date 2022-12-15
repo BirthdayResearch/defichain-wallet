@@ -2,7 +2,7 @@ import { render } from "@testing-library/react-native";
 import { Text } from "react-native";
 import ConnectionBoundary from "./ConnectionBoundary";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 jest.mock("@react-native-community/netinfo", () => ({
   useNetInfo: jest

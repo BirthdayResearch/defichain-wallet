@@ -11,7 +11,7 @@ import { DexPricesSkeletonLoader } from "./DexPricesSkeletonLoader";
 import { MnemonicWordSkeletonLoaderV2 } from "./MnemonicWordSkeletonLoaderV2";
 import { PortfolioSkeletonLoader } from "./PortfolioSkeletonLoader";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("Skeleton Loader", () => {
   it("should match snapshot of dex skeleton loader", async () => {

@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { VersionTag } from "./VersionTag";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("version tag", () => {
   it("should render", async () => {

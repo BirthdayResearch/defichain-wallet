@@ -2,7 +2,7 @@ import { render } from "@testing-library/react-native";
 
 import { WalletAccordion } from "./WalletAccordion";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("wallet accordion", () => {
   it("should render", async () => {

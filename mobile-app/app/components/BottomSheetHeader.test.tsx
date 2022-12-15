@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { BottomSheetHeader } from "./BottomSheetHeader";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("Bottom sheet header", () => {
   it("should match snapshot", async () => {

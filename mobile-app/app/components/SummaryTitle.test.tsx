@@ -2,7 +2,7 @@ import { SummaryTitle } from "@components/SummaryTitle";
 import BigNumber from "bignumber.js";
 import { render } from "@testing-library/react-native";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("Summary Title V2", () => {
   it("should match snapshot", async () => {

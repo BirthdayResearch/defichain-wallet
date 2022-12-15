@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { FavoriteButton } from "./FavoriteButton";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("Favorite Button", () => {
   it("should match snapshot", () => {

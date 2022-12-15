@@ -6,7 +6,7 @@ import { userPreferences } from "@store/userPreferences";
 
 import { WalletAddressRow } from "./WalletAddressRow";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 jest.mock("@shared-contexts/WalletContext");
 
 describe("Wallet Address Row", () => {

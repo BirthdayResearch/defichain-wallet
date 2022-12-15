@@ -2,7 +2,7 @@ import { render } from "@testing-library/react-native";
 import { Text } from "react-native";
 import { NumberRow } from "./NumberRow";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("Number row", () => {
   it("should match snapshot for text suffix", () => {

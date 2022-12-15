@@ -8,7 +8,7 @@ import { loans } from "@store/loans";
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
 import { DFIBalanceCard } from "./DFIBalanceCard";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 jest.mock("../../../../../contexts/DisplayBalancesContext");
 jest.mock("@react-navigation/native", () => ({

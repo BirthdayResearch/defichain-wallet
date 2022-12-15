@@ -5,7 +5,7 @@ import { IconName } from "./themed";
 
 const buttonName: IconName[] = ["swap-vert", "swap-horiz", "add", "remove"];
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("icon button", () => {
   buttonName.forEach((name) => {

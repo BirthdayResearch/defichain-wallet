@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { ConversionDetailsRow } from "./ConversionDetailsRow";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("Conversion Details Row", () => {
   it("should match snapshot", async () => {

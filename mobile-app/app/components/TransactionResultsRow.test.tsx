@@ -2,7 +2,7 @@ import { render } from "@testing-library/react-native";
 
 import { TransactionResultsRow } from "./TransactionResultsRow";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("Transaction Results Row", () => {
   it("should match snapshot", async () => {

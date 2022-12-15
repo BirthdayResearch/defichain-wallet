@@ -8,7 +8,7 @@ import { ServiceProviderPersistence } from "@api/wallet/service_provider";
 import { WhaleProvider } from "@shared-contexts/WhaleContext";
 import { HeaderTitle } from "./HeaderTitle";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),

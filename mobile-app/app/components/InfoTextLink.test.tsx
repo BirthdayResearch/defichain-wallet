@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { InfoTextLink } from "./InfoTextLink";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("Info text link", () => {
   it("should match snapshot", () => {

@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { ButtonGroup } from "./ButtonGroup";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("ButtonGroup component", () => {
   it("should match snapshot with 2 buttons", async () => {

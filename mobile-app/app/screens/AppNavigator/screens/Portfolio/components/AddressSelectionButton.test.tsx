@@ -5,7 +5,7 @@ import { render } from "@testing-library/react-native";
 import { Provider } from "react-redux";
 import { AddressSelectionButton } from "./AddressSelectionButton";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("Address Selection Button", () => {
   it("should match snapshot", async () => {

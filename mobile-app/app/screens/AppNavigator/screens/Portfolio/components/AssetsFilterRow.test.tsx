@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { AssetsFilterRow } from "./AssetsFilterRow";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("Portfolio Filter Buttons", () => {
   it("should match snapshot for Assets filter Buttons component", async () => {

@@ -6,7 +6,7 @@ jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
 }));
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 jest.mock("@contexts/FeatureFlagContext");
 
 it("<AboutScreen /> should match snapshot", async () => {
@@ -14,5 +14,5 @@ it("<AboutScreen /> should match snapshot", async () => {
   expect(tree.toJSON()).toMatchSnapshot();
   const privacyPolicy = await tree.findByTestId("privacy_policy_button");
   fireEvent.press(privacyPolicy);
-  expect(Linking.canOpenURL).toBeCalled();
+  expect(Linking.canOpenURL).toHaveBeenCalled();
 });

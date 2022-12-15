@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { RecoveryWordsScreen } from "./RecoveryWordsScreen";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 describe("recovery word screen", () => {
   it("should match snapshot", async () => {

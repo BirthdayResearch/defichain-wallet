@@ -5,7 +5,7 @@ import { RootState } from "@store";
 import { block } from "@waveshq/walletkit-ui/dist/store/block";
 import { NetworkDetails } from "./NetworkDetails";
 
-jest.mock("@shared-contexts/ThemeProvider");
+jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 
 jest.mock("@shared-contexts/DeFiScanContext");
 
