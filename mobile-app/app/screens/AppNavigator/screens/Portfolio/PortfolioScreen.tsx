@@ -19,7 +19,7 @@ import {
 } from "@shared-contexts/WhaleContext";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { StackScreenProps } from "@react-navigation/stack";
-import { ocean } from "@store/ocean";
+import { ocean } from "@waveshq/walletkit-ui/dist/store";
 import {
   dexPricesSelectorByDenomination,
   fetchDexPrice,

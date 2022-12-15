@@ -22,8 +22,12 @@ import {
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { RootState } from "@store";
 import { authentication as authenticationStore } from "@store/authentication";
-import { ocean } from "@store/ocean";
-import { DfTxSigner, first, transactionQueue } from "@store/transaction_queue";
+import {
+  ocean,
+  DfTxSigner,
+  first,
+  transactionQueue,
+} from "@waveshq/walletkit-ui/dist/store";
 import { translate } from "@translations";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import {

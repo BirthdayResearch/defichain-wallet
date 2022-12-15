@@ -24,8 +24,10 @@ import {
 } from "@components/SkeletonLoader";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { hasTxQueued } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 import { wallet as walletReducer } from "@store/wallet";
 import { loans } from "@store/loans";
 import { useAppDispatch } from "@hooks/useAppDispatch";
@@ -226,7 +228,7 @@ export function AddressItemRow({
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
 
   return (

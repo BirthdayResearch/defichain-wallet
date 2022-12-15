@@ -4,7 +4,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { renderHook } from "@testing-library/react-native";
 import BigNumber from "bignumber.js";
 import { DexItem, wallet } from "@store/wallet";
-import { block } from "@store/block";
+import { block } from "@waveshq/walletkit-ui/dist/store/block";
 import { useTokenBestPath } from "./TokenBestPath";
 
 jest.mock("@react-navigation/native", () => ({

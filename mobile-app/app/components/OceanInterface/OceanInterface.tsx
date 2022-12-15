@@ -11,7 +11,7 @@ import {
   ocean,
   OceanTransaction,
   TransactionStatusCode,
-} from "@store/ocean";
+} from "@waveshq/walletkit-ui/dist/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useCallback, useEffect, useRef, useState } from "react";

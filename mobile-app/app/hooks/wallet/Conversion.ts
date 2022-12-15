@@ -12,7 +12,7 @@ import {
   dfiConversionCrafter,
 } from "@api/transaction/dfi_converter";
 import { NativeLoggingProps } from "@shared-contexts/NativeLoggingProvider";
-import { transactionQueue } from "@store/transaction_queue";
+import { transactionQueue } from "@waveshq/walletkit-ui/dist/store";
 
 interface useConversionProps {
   inputToken: InputToken;

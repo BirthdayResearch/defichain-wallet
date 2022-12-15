@@ -4,7 +4,7 @@ import * as Clipboard from "expo-clipboard";
 import { Provider } from "react-redux";
 import { RootState } from "@store";
 import { wallet } from "@store/wallet";
-import { block } from "@store/block";
+import { block } from "@waveshq/walletkit-ui/dist/store/block";
 import { GetDFIScreen } from "./GetDFIScreen";
 
 jest.mock("@shared-contexts/WalletContext");

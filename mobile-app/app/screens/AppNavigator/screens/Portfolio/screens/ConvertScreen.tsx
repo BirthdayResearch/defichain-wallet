@@ -16,8 +16,10 @@ import {
 } from "@components/themed";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { RootState } from "@store";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
-import { hasTxQueued } from "@store/transaction_queue";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
@@ -69,7 +71,7 @@ export function ConvertScreen(props: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const [mode, setMode] = useState(props.route.params.mode);

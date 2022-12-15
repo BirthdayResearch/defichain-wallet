@@ -2,7 +2,7 @@ import { render } from "@testing-library/react-native";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import { RootState } from "@store";
-import { block } from "@store/block";
+import { block } from "@waveshq/walletkit-ui/dist/store/block";
 import {
   LoanVaultLiquidated,
   LoanVaultState,

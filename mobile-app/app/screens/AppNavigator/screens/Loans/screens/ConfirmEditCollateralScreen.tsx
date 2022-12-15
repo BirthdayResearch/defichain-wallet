@@ -7,11 +7,12 @@ import { Dispatch, useEffect, useState } from "react";
 import { View } from "react-native";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import {
   firstTransactionSelector,
-  hasTxQueued as hasBroadcastQueued,
-} from "@store/ocean";
+  hasTxQueued,
+  hasOceanTXQueued,
+  transactionQueue,
+} from "@waveshq/walletkit-ui/dist/store";
 import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
 import {
   NativeLoggingProps,
@@ -65,7 +66,7 @@ export function ConfirmEditCollateralScreen({
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const currentBroadcastJob = useSelector((state: RootState) =>
     firstTransactionSelector(state.ocean)

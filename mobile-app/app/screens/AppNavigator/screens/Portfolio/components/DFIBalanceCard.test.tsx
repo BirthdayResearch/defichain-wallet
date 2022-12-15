@@ -3,7 +3,7 @@ import { RootState } from "@store";
 import { setTokenSymbol, wallet } from "@store/wallet";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { block } from "@store/block";
+import { block } from "@waveshq/walletkit-ui/dist/store/block";
 import { loans } from "@store/loans";
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
 import { DFIBalanceCard } from "./DFIBalanceCard";

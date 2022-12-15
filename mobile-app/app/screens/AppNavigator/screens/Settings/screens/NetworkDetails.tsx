@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import { useSelector } from "react-redux";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { TouchableOpacity, Linking } from "react-native";
-import { View } from "@components/index";
+import { View } from "@components";
 import {
   ThemedIcon,
   ThemedScrollView,

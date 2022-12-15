@@ -6,8 +6,11 @@ import BigNumber from "bignumber.js";
 import { Dispatch, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
-import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+  transactionQueue,
+} from "@waveshq/walletkit-ui/dist/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import {
@@ -50,7 +53,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const dispatch = useAppDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);

@@ -13,7 +13,7 @@ import { useWalletNodeContext } from "@shared-contexts/WalletNodeProvider";
 import { useWalletPersistenceContext } from "@shared-contexts/WalletPersistenceContext";
 import { StackScreenProps } from "@react-navigation/stack";
 import { authentication, Authentication } from "@store/authentication";
-import { ocean } from "@store/ocean";
+import { ocean } from "@waveshq/walletkit-ui/dist/store";
 import { tailwind } from "@tailwind";
 import { getAppLanguages, translate } from "@translations";
 import { useCallback } from "react";

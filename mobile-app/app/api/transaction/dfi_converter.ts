@@ -1,6 +1,6 @@
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
-import { DfTxSigner } from "@store/transaction_queue";
+import { DfTxSigner } from "@waveshq/walletkit-ui/dist/store";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import {
   CTransactionSegWit,

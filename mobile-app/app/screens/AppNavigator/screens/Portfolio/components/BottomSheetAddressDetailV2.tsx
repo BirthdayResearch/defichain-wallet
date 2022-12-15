@@ -25,8 +25,10 @@ import { wallet as walletReducer } from "@store/wallet";
 import { useSelector } from "react-redux";
 import { loans } from "@store/loans";
 import { RootState } from "@store";
-import { hasTxQueued } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { BottomSheetWithNavRouteParam } from "@components/BottomSheetWithNav";
 import {
@@ -87,7 +89,7 @@ export const BottomSheetAddressDetailV2 = (
       hasTxQueued(state.transactionQueue)
     );
     const hasPendingBroadcastJob = useSelector((state: RootState) =>
-      hasBroadcastQueued(state.ocean)
+      hasOceanTXQueued(state.ocean)
     );
     const navigation =
       useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>();

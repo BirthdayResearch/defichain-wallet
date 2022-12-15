@@ -12,8 +12,11 @@ import { Dispatch } from "redux";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { ThemedScrollViewV2, ThemedViewV2 } from "@components/themed";
 import { RootState } from "@store";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
-import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+  transactionQueue,
+} from "@waveshq/walletkit-ui/dist/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { ScreenName } from "@screens/enum";
@@ -45,7 +48,7 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigation = useNavigation<NavigationProp<DexParamList>>();

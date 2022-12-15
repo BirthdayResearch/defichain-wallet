@@ -5,7 +5,7 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { DfTxSigner } from "@store/transaction_queue";
+import { DfTxSigner } from "@waveshq/walletkit-ui/dist/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { Platform, SafeAreaView, View } from "react-native";
@@ -23,6 +23,7 @@ import * as React from "react";
 import Modal from "react-overlays/Modal";
 import { PinTextInputV2 } from "@components/PinTextInputV2";
 
+/* eslint-disable react/no-unused-prop-types */
 interface PasscodePromptProps {
   onCancel: (err: string) => void;
   title: string;

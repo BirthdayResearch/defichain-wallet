@@ -21,8 +21,10 @@ import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { hasTxQueued } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 import { ConversionInfoText } from "@components/ConversionInfoText";
 import { DFITokenSelector } from "@store/wallet";
 import {
@@ -90,7 +92,7 @@ export const AddOrRemoveCollateralForm = memo(
       hasTxQueued(state.transactionQueue)
     );
     const hasPendingBroadcastJob = useSelector((state: RootState) =>
-      hasBroadcastQueued(state.ocean)
+      hasOceanTXQueued(state.ocean)
     );
     const DFIToken = useSelector((state: RootState) =>
       DFITokenSelector(state.wallet)

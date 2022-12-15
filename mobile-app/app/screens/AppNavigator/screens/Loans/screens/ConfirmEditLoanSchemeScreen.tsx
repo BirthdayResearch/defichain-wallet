@@ -12,9 +12,12 @@ import { NumberRowV2 } from "@components/NumberRowV2";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { View } from "react-native";
-import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+  transactionQueue,
+} from "@waveshq/walletkit-ui/dist/store";
 import { LoanScheme } from "@defichain/whale-api-client/dist/api/loan";
 import {
   NativeLoggingProps,
@@ -44,7 +47,7 @@ export function ConfirmEditLoanSchemeScreen({
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const dispatch = useAppDispatch();
   const logger = useLogger();
