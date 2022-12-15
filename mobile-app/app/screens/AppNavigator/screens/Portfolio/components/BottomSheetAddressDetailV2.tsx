@@ -20,7 +20,7 @@ import {
 } from "@shared-contexts/WalletContext";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { wallet as walletReducer } from "@store/wallet";
 import { useSelector } from "react-redux";
 import { loans } from "@store/loans";

@@ -2,7 +2,7 @@ import {
   SkeletonLoader,
   SkeletonLoaderScreen,
 } from "@components/SkeletonLoader";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { MaterialIcons } from "@expo/vector-icons";

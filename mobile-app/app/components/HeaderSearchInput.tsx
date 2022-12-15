@@ -1,4 +1,4 @@
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useState } from "react";

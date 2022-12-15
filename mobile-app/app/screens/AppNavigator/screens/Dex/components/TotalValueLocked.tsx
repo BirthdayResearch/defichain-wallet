@@ -6,7 +6,7 @@ import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { ImageBackground, View } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { LinearGradient } from "expo-linear-gradient";
 import { SwapButton } from "./SwapButton";
 

@@ -14,7 +14,6 @@ import {
   AddressItemRow,
 } from "./AddressControlScreen";
 
-jest.mock("@shared-contexts/ThemeProvider");
 jest.mock("@shared-contexts/WalletContext");
 jest.mock("@react-navigation/native", () => ({
   useNavigation: () => ({

@@ -16,8 +16,6 @@ jest.mock("@shared-contexts/DeFiScanContext", () => ({
   useDeFiScanContext: () => ({ getblocksUrl: jest.fn() }),
 }));
 
-jest.mock("@shared-contexts/ThemeProvider");
-
 describe("onboarding network selection screen", () => {
   it("should render", async () => {
     const initialState: Partial<RootState> = {

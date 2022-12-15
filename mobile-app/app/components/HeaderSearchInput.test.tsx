@@ -1,7 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { HeaderSearchInput } from "./HeaderSearchInput";
 
-jest.mock("@shared-contexts/ThemeProvider");
 jest.mock("react-native-safe-area-context", () => ({
   useSafeAreaInsets: () => ({ top: 100 }),
 }));

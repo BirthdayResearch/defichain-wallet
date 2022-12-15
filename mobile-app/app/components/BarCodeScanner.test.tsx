@@ -1,8 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { BarCodeScanner } from "./BarCodeScanner";
 
-jest.mock("@shared-contexts/ThemeProvider");
-
 describe("barcode scanner", () => {
   it("should match snapshot", async () => {
     const navigation: any = {

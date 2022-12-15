@@ -1,8 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { WalletCreateRestoreSuccess } from "./WalletCreateRestoreSuccess";
 
-jest.mock("@shared-contexts/ThemeProvider");
-
 jest.mock("@shared-contexts/WhaleContext", () => ({
   useWhaleApiClient: () => ({ client: jest.fn() }),
 }));

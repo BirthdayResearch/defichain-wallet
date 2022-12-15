@@ -2,7 +2,7 @@ import { useState } from "react";
 import Accordion from "react-native-collapsible/Accordion";
 import { tailwind } from "@tailwind";
 import { View } from "react-native";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import {
   ThemedIcon,
   ThemedScrollView,

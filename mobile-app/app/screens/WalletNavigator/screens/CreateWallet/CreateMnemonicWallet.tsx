@@ -21,7 +21,7 @@ import { Platform, TouchableOpacity } from "react-native";
 import { View } from "@components";
 import { ButtonV2 } from "@components/ButtonV2";
 import { RefreshIcon } from "@screens/WalletNavigator/assets/RefreshIcon";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { WalletParamList } from "../../WalletNavigator";
 
 type Props = StackScreenProps<WalletParamList, "CreateMnemonicWallet">;

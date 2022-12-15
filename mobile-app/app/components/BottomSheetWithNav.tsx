@@ -15,7 +15,7 @@ import { NavigationContainer, Theme } from "@react-navigation/native";
 import { AddOrRemoveCollateralFormProps } from "@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm";
 import { Platform, View } from "react-native";
 import { tailwind } from "@tailwind";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { CreateOrEditAddressLabelFormProps } from "@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelForm";
 import { getDefaultTheme } from "@constants/Theme";
 import { ThemedViewV2 } from "@components/themed";

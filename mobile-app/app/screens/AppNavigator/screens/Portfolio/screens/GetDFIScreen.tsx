@@ -11,7 +11,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { useToast } from "react-native-toast-notifications";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";

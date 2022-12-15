@@ -10,7 +10,7 @@ import ImageCLight from "@assets/images/onboarding/welcome-screen-c-light.png";
 import ImageDLight from "@assets/images/onboarding/welcome-screen-d-light.png";
 import { View } from "@components/index";
 import { ThemedTextV2 } from "@components/themed";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { CarouselPagination } from "@screens/WalletNavigator/screens/components/CarouselPagination";

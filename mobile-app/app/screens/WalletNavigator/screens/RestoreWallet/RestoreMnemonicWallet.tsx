@@ -10,7 +10,7 @@ import { Platform, TextInput, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { WalletAlert } from "@components/WalletAlert";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { ButtonV2 } from "@components/ButtonV2";

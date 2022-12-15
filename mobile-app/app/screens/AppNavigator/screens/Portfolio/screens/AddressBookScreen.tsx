@@ -32,7 +32,7 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { debounce } from "lodash";
 import { openURL } from "@api/linking";

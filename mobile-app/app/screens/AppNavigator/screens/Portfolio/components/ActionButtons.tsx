@@ -15,7 +15,7 @@ import { translate } from "@translations";
 import { ScrollView, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import { getNativeIcon } from "@components/icons/assets";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import BigNumber from "bignumber.js";
 import { PortfolioParamList } from "../PortfolioNavigator";
 

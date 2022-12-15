@@ -1,7 +1,7 @@
 import * as Progress from "react-native-progress";
 import BigNumber from "bignumber.js";
 import { getColor, tailwind } from "@tailwind";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { ThemedTextV2 } from "@components/themed";
 import { translate } from "@translations";
 import { useCollateralRatioStats } from "@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio";

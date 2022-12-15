@@ -4,7 +4,7 @@ import * as Progress from "react-native-progress";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { Text, View } from "@components";
 import { ThemedText } from "@components/themed";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 

@@ -1,5 +1,5 @@
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { tailwind } from "@tailwind";
 import { ThemedActivityIndicator } from "@components/themed";
 import { Text } from "./Text";

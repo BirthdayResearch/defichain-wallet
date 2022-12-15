@@ -8,7 +8,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { tailwind } from "@tailwind";
 import * as Linking from "expo-linking";
 import { useRef } from "react";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { translate } from "@translations";
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
 import { useSafeAreaInsets } from "react-native-safe-area-context";

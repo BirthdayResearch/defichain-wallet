@@ -7,7 +7,6 @@ import { AppIcon } from "../AppIcon";
 import { getNativeIcon } from "./index";
 
 jest.mock("randomcolor", () => jest.fn().mockReturnValue("#ffffff"));
-jest.mock("@shared-contexts/ThemeProvider");
 
 const icons = [
   "_UTXO",

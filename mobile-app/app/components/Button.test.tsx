@@ -2,8 +2,6 @@ import { fireEvent, render } from "@testing-library/react-native";
 import { Text } from "react-native";
 import { Button, ButtonColorType, ButtonFillType } from "./Button";
 
-jest.mock("@shared-contexts/ThemeProvider");
-
 const buttonFill: ButtonFillType[] = ["fill", "outline", "flat"];
 const buttonColor: ButtonColorType[] = ["primary", "secondary"];
 
@@ -64,7 +62,7 @@ describe("button", () => {
     const receiveButton = await rendered.findByTestId("primary_button");
     fireEvent.press(receiveButton);
     expect(rendered.toJSON()).toMatchSnapshot();
-    expect(onPress).toBeCalled();
+    expect(onPress).toHaveBeenCalled();
   });
 
   it("should not be clickable when disabled", async () => {
@@ -78,6 +76,6 @@ describe("button", () => {
     const receiveButton = await rendered.findByTestId("primary_button");
     fireEvent.press(receiveButton);
     expect(rendered.toJSON()).toMatchSnapshot();
-    expect(onPress).toBeCalledTimes(0);
+    expect(onPress).toHaveBeenCalledTimes(0);
   });
 });

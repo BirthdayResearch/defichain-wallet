@@ -4,7 +4,6 @@ import {
   DexAddRemoveLiquidityButton,
 } from "./DexActionButton";
 
-jest.mock("@shared-contexts/ThemeProvider");
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
 }));

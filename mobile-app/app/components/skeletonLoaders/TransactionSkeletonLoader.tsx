@@ -4,7 +4,7 @@ import ContentLoader, {
   IContentLoaderProps,
   Rect,
 } from "react-content-loader/native";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { tailwind } from "@tailwind";
 import { ThemedView } from "../themed";
 

@@ -5,7 +5,7 @@ import {
   useClearByFocusCell,
 } from "react-native-confirmation-code-field";
 import { getColor, tailwind } from "@tailwind";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 
 export interface PinTextInputItem {
   cellCount: number;
