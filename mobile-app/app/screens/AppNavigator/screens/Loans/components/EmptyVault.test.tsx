@@ -3,7 +3,6 @@ import { render } from "@testing-library/react-native";
 
 import { EmptyVault } from "./EmptyVault";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 jest.mock("@react-navigation/native", () => ({
   ...jest.requireActual("@react-navigation/native"),
   useNavigation: jest.fn(),

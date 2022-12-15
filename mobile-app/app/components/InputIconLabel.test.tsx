@@ -1,7 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { IconLabelScreenType, InputIconLabel } from "./InputIconLabel";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 const screenType = [IconLabelScreenType.Balance, IconLabelScreenType.DEX];
 
 describe("input icon label", () => {

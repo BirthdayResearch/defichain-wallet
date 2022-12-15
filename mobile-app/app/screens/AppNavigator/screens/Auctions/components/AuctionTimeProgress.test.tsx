@@ -1,8 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { AuctionTimeProgress } from "./AuctionTimeProgress";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
-
 describe("Auction time progress", () => {
   it("should match snapshot", async () => {
     const liquidationHeight = 1100;

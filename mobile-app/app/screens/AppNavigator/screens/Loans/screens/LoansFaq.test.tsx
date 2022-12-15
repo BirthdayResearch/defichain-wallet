@@ -1,7 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { LoansFaq } from "./LoansFaq";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
 }));

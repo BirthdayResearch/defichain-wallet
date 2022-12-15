@@ -8,7 +8,6 @@ import BigNumber from "bignumber.js";
 import { loans } from "@store/loans";
 import { PortfolioButtonGroupTabKey, TotalPortfolio } from "./TotalPortfolio";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 jest.mock("@contexts/DisplayBalancesContext");
 
 describe("DFI Total Portfolio Card", () => {

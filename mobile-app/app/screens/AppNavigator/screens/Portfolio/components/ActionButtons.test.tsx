@@ -6,7 +6,6 @@ import { setTokenSymbol, wallet } from "@store/wallet";
 import { futureSwaps } from "@store/futureSwap";
 import { ActionButtons } from "./ActionButtons";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 jest.mock("@contexts/FeatureFlagContext");
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),

@@ -5,8 +5,6 @@ import BigNumber from "bignumber.js";
 import { ThemedTextV2, ThemedViewV2 } from "./themed";
 import { TransactionCard } from "./TransactionCard";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
-
 describe("Transaction Card", () => {
   it("should match snapshot", async () => {
     const rendered = render(

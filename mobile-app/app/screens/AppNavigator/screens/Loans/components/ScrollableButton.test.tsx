@@ -2,7 +2,6 @@ import { render } from "@testing-library/react-native";
 
 import { ScrollableButton, ScrollButton } from "./ScrollableButton";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
 }));

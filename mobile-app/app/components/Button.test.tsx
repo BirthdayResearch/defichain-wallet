@@ -2,8 +2,6 @@ import { fireEvent, render } from "@testing-library/react-native";
 import { Text } from "react-native";
 import { Button, ButtonColorType, ButtonFillType } from "./Button";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
-
 const buttonFill: ButtonFillType[] = ["fill", "outline", "flat"];
 const buttonColor: ButtonColorType[] = ["primary", "secondary"];
 

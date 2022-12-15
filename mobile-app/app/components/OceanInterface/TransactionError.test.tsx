@@ -1,7 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { TransactionError, ErrorCodes, ErrorMapping } from "./TransactionError";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 jest.mock("@shared-contexts/NativeLoggingProvider");
 
 describe("info text", () => {

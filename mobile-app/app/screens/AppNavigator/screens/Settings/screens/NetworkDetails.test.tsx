@@ -5,8 +5,6 @@ import { RootState } from "@store";
 import { block } from "@waveshq/walletkit-ui/dist/store/block";
 import { NetworkDetails } from "./NetworkDetails";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
-
 jest.mock("@shared-contexts/DeFiScanContext");
 
 jest.mock("dayjs", () => () => ({ format: () => "Sep 14, 9:07 pm" }));

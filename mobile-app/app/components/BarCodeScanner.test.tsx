@@ -1,8 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { BarCodeScanner } from "./BarCodeScanner";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
-
 describe("barcode scanner", () => {
   it("should match snapshot", async () => {
     const navigation: any = {

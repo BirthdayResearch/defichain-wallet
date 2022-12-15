@@ -1,7 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { CreateWalletStepIndicator } from "./CreateWalletStepIndicator";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 jest.mock("@shared-contexts/NativeLoggingProvider");
 
 describe("Create wallet step indicator", () => {

@@ -4,7 +4,6 @@ import {
   DexAddRemoveLiquidityButton,
 } from "./DexActionButton";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
 }));

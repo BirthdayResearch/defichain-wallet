@@ -2,8 +2,6 @@ import { render } from "@testing-library/react-native";
 
 import { TransactionResultsRow } from "./TransactionResultsRow";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
-
 describe("Transaction Results Row", () => {
   it("should match snapshot", async () => {
     const tokens = [

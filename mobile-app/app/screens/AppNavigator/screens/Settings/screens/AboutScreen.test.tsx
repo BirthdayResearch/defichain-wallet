@@ -6,7 +6,6 @@ jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
 }));
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 jest.mock("@contexts/FeatureFlagContext");
 
 it("<AboutScreen /> should match snapshot", async () => {

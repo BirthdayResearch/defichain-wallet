@@ -3,7 +3,6 @@ import BigNumber from "bignumber.js";
 import { TokenBreakdownDetails } from "./TokenBreakdownDetails";
 import { PortfolioButtonGroupTabKey } from "./TotalPortfolio";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 jest.mock("../../../../../contexts/DisplayBalancesContext");
 
 describe("Token Breakdown Details", () => {

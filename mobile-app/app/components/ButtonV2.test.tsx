@@ -2,8 +2,6 @@ import { fireEvent, render } from "@testing-library/react-native";
 import { Text } from "react-native";
 import { ButtonV2, ButtonFillType } from "./ButtonV2";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
-
 const buttonFill: ButtonFillType[] = ["fill", "flat"];
 
 describe("button", () => {

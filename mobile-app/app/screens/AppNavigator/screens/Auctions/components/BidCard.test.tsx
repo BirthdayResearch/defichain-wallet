@@ -6,8 +6,6 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { BidCard } from "./BidCard";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
-
 describe("Bid Card", () => {
   it("should match snapshot", async () => {
     const initialState: Partial<RootState> = {

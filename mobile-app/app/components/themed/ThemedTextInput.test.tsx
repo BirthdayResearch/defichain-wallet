@@ -3,7 +3,6 @@ import * as Localization from "expo-localization";
 import { Platform } from "react-native";
 import { ThemedTextInput } from "./ThemedTextInput";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 jest.mock("expo-localization");
 
 const platform = ["ios", "android"];

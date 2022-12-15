@@ -4,7 +4,6 @@ import {
   WalletTransactionCardTextInput,
 } from "./WalletTransactionCardTextInput";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 const WalletInputType: InputType[] = ["default", "numeric"];
 
 describe("wallet transactional card text input", () => {

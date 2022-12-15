@@ -20,8 +20,6 @@ jest.mock("react-native-toast-notifications", () => ({
   }),
 }));
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
-
 describe("receive page", () => {
   it("should match snapshot", async () => {
     const initialState: Partial<RootState> = {

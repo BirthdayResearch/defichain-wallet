@@ -54,7 +54,6 @@ jest.mock("react-native-toast-notifications", () => ({
   }),
 }));
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
 const navigation: any = {
   navigate: jest.fn(),
 };

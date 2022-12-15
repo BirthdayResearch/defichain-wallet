@@ -1,8 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { PinTextInput } from "./PinTextInput";
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts/ThemeProvider");
-
 describe("Pin text input", () => {
   it("should match snapshot", () => {
     const rendered = render(
