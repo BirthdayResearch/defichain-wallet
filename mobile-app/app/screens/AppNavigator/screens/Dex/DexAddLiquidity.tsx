@@ -38,7 +38,7 @@ import {
   BottomSheetWebWithNavV2,
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { ButtonV2 } from "@components/ButtonV2";
 import { useToast } from "react-native-toast-notifications";
 import { useBottomSheet } from "@hooks/useBottomSheet";

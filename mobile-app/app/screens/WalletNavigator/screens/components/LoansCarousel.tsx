@@ -15,7 +15,7 @@ import ImageBLight from "@assets/images/loans/loans_2_light.png";
 import ImageCLight from "@assets/images/loans/loans_3_light.png";
 import ImageDLight from "@assets/images/loans/loans_4_light.png";
 import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { getColor, tailwind } from "@tailwind";
 import { CarouselPaginationWithNextButton } from "@screens/WalletNavigator/screens/components/CarouselPagination";
 import React from "react";

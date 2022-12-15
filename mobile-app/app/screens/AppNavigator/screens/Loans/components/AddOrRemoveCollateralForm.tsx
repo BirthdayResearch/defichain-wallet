@@ -17,7 +17,7 @@ import { memo, useEffect, useState } from "react";
 import { Platform, TouchableOpacity, View, Text } from "react-native";
 import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";

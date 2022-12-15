@@ -15,7 +15,7 @@ import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import DarkNewWallet from "@assets/images/dark-wallet-guidelines.png";
 import LightNewWallet from "@assets/images/light-wallet-guidelines.png";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { ButtonV2 } from "@components/ButtonV2";
 import { WalletParamList } from "../../WalletNavigator";
 import { LearnMoreCTA } from "../components/LearnModeCTA";

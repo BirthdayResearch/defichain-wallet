@@ -11,7 +11,7 @@ import React, { memo, useCallback, useMemo, useState } from "react";
 import { Platform, TouchableOpacity } from "react-native";
 import { tailwind } from "@tailwind";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import {

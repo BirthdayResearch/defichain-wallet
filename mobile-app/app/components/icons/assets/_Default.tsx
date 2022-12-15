@@ -2,7 +2,7 @@ import { RootState } from "@store";
 import { tokenSelectorByDisplaySymbol } from "@store/wallet";
 import { SvgProps } from "react-native-svg";
 import { useSelector } from "react-redux";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { DefaultLoanToken } from "./DefaultLoanToken";
 import { DefaultLPS } from "./DefaultLPS";
 import { DefaultToken } from "./DefaultToken";

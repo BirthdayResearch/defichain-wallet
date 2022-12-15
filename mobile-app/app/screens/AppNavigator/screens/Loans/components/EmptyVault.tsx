@@ -19,7 +19,7 @@ import {
 } from "@components/BottomSheetWithNavV2";
 import { useState } from "react";
 import { LoansCarousel } from "@screens/WalletNavigator/screens/components/LoansCarousel";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { LoanParamList } from "../LoansNavigator";
 

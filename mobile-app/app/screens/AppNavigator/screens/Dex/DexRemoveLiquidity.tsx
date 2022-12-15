@@ -25,7 +25,7 @@ import {
   BottomSheetWebWithNavV2,
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { WalletTransactionCardTextInput } from "@components/WalletTransactionCardTextInput";
 import {
   AmountButtonTypes,

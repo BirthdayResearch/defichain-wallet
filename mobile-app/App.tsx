@@ -10,10 +10,13 @@ import { AppStateContextProvider } from "@contexts/AppStateContext";
 import { DeFiScanProvider } from "@shared-contexts/DeFiScanContext";
 import { DisplayBalancesProvider } from "@contexts/DisplayBalancesContext";
 import { PrivacyLockContextProvider } from "@contexts/LocalAuthContext";
-import { NetworkProvider } from "@waveshq/walletkit-ui";
+import {
+  NetworkProvider,
+  ThemeProvider,
+  useTheme,
+} from "@waveshq/walletkit-ui";
 import { StatsProvider } from "@shared-contexts/StatsProvider";
 import { StoreProvider } from "@contexts/StoreProvider";
-import { ThemeProvider, useTheme } from "@shared-contexts/ThemeProvider";
 import { WalletPersistenceProvider } from "@shared-contexts/WalletPersistenceContext";
 import { WhaleProvider } from "@shared-contexts/WhaleContext";
 import { useCachedResources } from "@hooks/useCachedResources";
@@ -60,6 +63,7 @@ export default function App(): JSX.Element | null {
   const { isThemeLoaded } = useTheme({
     api: ThemePersistence,
     colorScheme,
+    logger: Logging,
   });
   const { isLanguageLoaded } = useLanguage({
     api: LanguagePersistence,
@@ -96,6 +100,7 @@ export default function App(): JSX.Element | null {
                             <ThemeProvider
                               api={ThemePersistence}
                               colorScheme={colorScheme}
+                              logger={Logging}
                             >
                               <LanguageProvider
                                 api={LanguagePersistence}

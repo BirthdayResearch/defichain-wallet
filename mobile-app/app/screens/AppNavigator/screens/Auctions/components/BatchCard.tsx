@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { SymbolIcon } from "@components/SymbolIcon";
 import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";
 import { AuctionsParamList } from "../AuctionNavigator";

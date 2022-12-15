@@ -21,7 +21,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { useApiStatus } from "@hooks/useApiStatus";
 import { IconProps } from "@expo/vector-icons/build/createIconSet";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useServiceProviderContext } from "@contexts/StoreServiceProvider";
 import {
   blockChainIsDownContent,

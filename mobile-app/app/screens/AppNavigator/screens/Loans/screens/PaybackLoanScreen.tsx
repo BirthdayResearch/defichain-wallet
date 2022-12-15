@@ -39,7 +39,7 @@ import {
   TokenDropdownButtonStatus,
 } from "@components/TokenDropdownButton";
 import { Controller, useForm } from "react-hook-form";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { TextRowV2 } from "@components/TextRowV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";

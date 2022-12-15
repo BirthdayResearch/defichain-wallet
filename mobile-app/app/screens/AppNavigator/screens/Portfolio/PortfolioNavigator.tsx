@@ -13,7 +13,7 @@ import { TransactionsScreen } from "@screens/AppNavigator/screens/Transactions/T
 import { TransactionDetailScreen } from "@screens/AppNavigator/screens/Transactions/screens/TransactionDetailScreen";
 import { VMTransaction } from "@screens/AppNavigator/screens/Transactions/screens/stateProcessor";
 import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import GridBackgroundImageLight from "@assets/images/onboarding/grid-background-light.png";
 import GridBackgroundImageDark from "@assets/images/onboarding/grid-background-dark.png";
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";

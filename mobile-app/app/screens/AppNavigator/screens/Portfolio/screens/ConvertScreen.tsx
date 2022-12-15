@@ -3,7 +3,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 import BigNumber from "bignumber.js";
 import React, { useEffect, useState } from "react";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useSelector } from "react-redux";
 import { View } from "@components";
 import {

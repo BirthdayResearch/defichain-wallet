@@ -32,7 +32,7 @@ import {
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
 import { BottomSheetModalInfo } from "@components/BottomSheetModalInfo";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { SearchInput } from "@components/SearchInput";
 import { debounce } from "lodash";
 import {

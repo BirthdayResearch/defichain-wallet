@@ -9,7 +9,7 @@ import {
   LoansIcon,
   PortfolioIcon,
 } from "@screens/WalletNavigator/assets/BottomNavIcon";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { PortfolioNavigator } from "./screens/Portfolio/PortfolioNavigator";
 import { DexNavigator } from "./screens/Dex/DexNavigator";
 import { LoansNavigator } from "./screens/Loans/LoansNavigator";

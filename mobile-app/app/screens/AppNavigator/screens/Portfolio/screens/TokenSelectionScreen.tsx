@@ -9,7 +9,7 @@ import { RootState } from "@store";
 import { translate } from "@translations";
 import { tokensSelector, WalletToken } from "@store/wallet";
 import { useDebounce } from "@hooks/useDebounce";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import ImageEmptyAssets from "@assets/images/send/empty-assets.png";
 import {

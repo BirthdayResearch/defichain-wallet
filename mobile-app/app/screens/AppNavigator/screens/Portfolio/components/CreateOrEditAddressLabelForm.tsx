@@ -23,7 +23,7 @@ import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { RandomAvatar } from "./RandomAvatar";
 
 export interface CreateOrEditAddressLabelFormProps {

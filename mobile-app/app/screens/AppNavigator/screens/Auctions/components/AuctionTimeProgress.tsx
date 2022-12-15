@@ -1,7 +1,7 @@
 import { View } from "@components";
 import { memo } from "react";
 import { ThemedText } from "@components/themed";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 

@@ -1,4 +1,4 @@
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import {
   MaterialCommunityIcons,
   MaterialIcons,

@@ -2,7 +2,7 @@ import { tailwind } from "@tailwind";
 import { InfoTextLinkV2 } from "@components/InfoTextLink";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { translate } from "@translations";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { AuctionsParamList } from "../AuctionNavigator";
 import { EmptyTokensScreen } from "../../Portfolio/components/EmptyTokensScreen";
 import { EmptyAuctionsDark } from "../../Portfolio/assets/EmptyAuctionsDark";

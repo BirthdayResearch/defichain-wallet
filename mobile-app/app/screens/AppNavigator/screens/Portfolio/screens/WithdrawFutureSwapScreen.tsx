@@ -33,7 +33,7 @@ import { InputHelperTextV2 } from "@components/InputHelperText";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { ButtonV2 } from "@components/ButtonV2";
 import { useBottomSheet } from "@hooks/useBottomSheet";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { ViewSwapInfo } from "@screens/AppNavigator/screens/Portfolio/screens/ViewSwapInfo";
 import { Platform, View } from "react-native";
 import {

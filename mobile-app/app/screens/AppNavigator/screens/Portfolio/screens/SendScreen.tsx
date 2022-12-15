@@ -13,7 +13,7 @@ import { translate } from "@translations";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { RootState } from "@store";
 import {
   AddressType,

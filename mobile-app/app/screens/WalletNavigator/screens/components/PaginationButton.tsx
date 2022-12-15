@@ -1,5 +1,5 @@
 import { ThemedTextV2, ThemedTouchableOpacityV2 } from "@components/themed";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import React, { useCallback, useEffect, useState } from "react";
