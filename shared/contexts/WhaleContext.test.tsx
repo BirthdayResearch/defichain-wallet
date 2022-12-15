@@ -1,12 +1,12 @@
 import { render } from "@testing-library/react-native";
 import { Text, View } from "react-native";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
-import { StoreServiceProvider } from "@contexts/StoreServiceProvider";
 import { ServiceProviderPersistence } from "@api/wallet/service_provider";
-import * as NetworkContext from "@waveshq/walletkit-ui";
+import * as WalletkitUI from "@waveshq/walletkit-ui";
+import { Logging } from "@api";
 import { useWhaleApiClient, WhaleProvider } from "./WhaleContext";
 
-const networkContext = jest.spyOn(NetworkContext, "useNetworkContext");
+const networkContext = jest.spyOn(WalletkitUI, "useNetworkContext");
 
 describe("Whale Context test", () => {
   const networkDetails = [
@@ -73,11 +73,14 @@ describe("Whale Context test", () => {
         }
 
         const rendered = render(
-          <StoreServiceProvider api={ServiceProviderPersistence}>
+          <WalletkitUI.StoreServiceProvider
+            api={ServiceProviderPersistence}
+            logger={Logging}
+          >
             <WhaleProvider>
               <WhaleProviderComponent />
             </WhaleProvider>
-          </StoreServiceProvider>
+          </WalletkitUI.StoreServiceProvider>
         );
         expect(rendered.toJSON()).toMatchSnapshot();
       });

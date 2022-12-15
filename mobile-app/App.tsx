@@ -14,6 +14,7 @@ import {
   NetworkProvider,
   ThemeProvider,
   useTheme,
+  StoreServiceProvider,
 } from "@waveshq/walletkit-ui";
 import { StatsProvider } from "@shared-contexts/StatsProvider";
 import { StoreProvider } from "@contexts/StoreProvider";
@@ -41,7 +42,6 @@ import { tailwind } from "@tailwind";
 import { ToastProvider } from "react-native-toast-notifications";
 import { ToastProps } from "react-native-toast-notifications/lib/typescript/toast";
 import { WalletToast } from "@components/WalletToast";
-import { StoreServiceProvider } from "@contexts/StoreServiceProvider";
 import { ServiceProviderPersistence } from "@api/wallet/service_provider";
 import { FavouritePoolpairProvider } from "@contexts/FavouritePoolpairContext";
 import BigNumber from "bignumber.js";
@@ -85,7 +85,10 @@ export default function App(): JSX.Element | null {
         <AppStateContextProvider>
           <PrivacyLockContextProvider>
             <NetworkProvider api={SecuredStoreAPI} logger={Logging}>
-              <StoreServiceProvider api={ServiceProviderPersistence}>
+              <StoreServiceProvider
+                api={ServiceProviderPersistence}
+                logger={Logging}
+              >
                 <WhaleProvider>
                   <DeFiScanProvider>
                     <WalletPersistenceProvider

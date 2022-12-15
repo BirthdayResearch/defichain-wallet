@@ -3,9 +3,10 @@ import { Provider } from "react-redux";
 import { render } from "@testing-library/react-native";
 import { RootState } from "@store";
 import { block } from "@waveshq/walletkit-ui/dist/store/block";
-import { StoreServiceProvider } from "@contexts/StoreServiceProvider";
+import { StoreServiceProvider } from "@waveshq/walletkit-ui";
 import { ServiceProviderPersistence } from "@api/wallet/service_provider";
 import { WhaleProvider } from "@shared-contexts/WhaleContext";
+import { Logging } from "@api";
 import { HeaderTitle } from "./HeaderTitle";
 
 jest.mock("@react-navigation/native", () => ({
@@ -29,7 +30,7 @@ describe("Header title", () => {
     });
     const component = (
       <Provider store={store}>
-        <StoreServiceProvider api={ServiceProviderPersistence}>
+        <StoreServiceProvider api={ServiceProviderPersistence} logger={Logging}>
           <WhaleProvider>
             <HeaderTitle
               text="Foo"

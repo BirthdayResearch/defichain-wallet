@@ -22,7 +22,7 @@ import { MnemonicStorage } from "@api/wallet/mnemonic_storage";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useAddressBook } from "@hooks/useAddressBook";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { useServiceProviderContext } from "@contexts/StoreServiceProvider";
+import { useServiceProviderContext } from "@waveshq/walletkit-ui";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useLanguageContext } from "@shared-contexts/LanguageProvider";
 import { RowThemeItem } from "./components/RowThemeItem";

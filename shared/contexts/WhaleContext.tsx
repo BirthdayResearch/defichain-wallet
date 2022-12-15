@@ -1,8 +1,10 @@
 import { WhaleApiClient, WhaleRpcClient } from "@defichain/whale-api-client";
 import React, { createContext, useContext, useMemo } from "react";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
-import { useNetworkContext } from "@waveshq/walletkit-ui";
-import { useServiceProviderContext } from "@contexts/StoreServiceProvider";
+import {
+  useNetworkContext,
+  useServiceProviderContext,
+} from "@waveshq/walletkit-ui";
 
 const WhaleApiClientContext = createContext<{
   whaleAPI: WhaleApiClient;

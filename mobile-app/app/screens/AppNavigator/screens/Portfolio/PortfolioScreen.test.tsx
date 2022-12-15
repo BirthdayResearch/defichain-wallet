@@ -4,12 +4,13 @@ import { Provider } from "react-redux";
 import { RootState } from "@store";
 import { wallet, setTokenSymbol } from "@store/wallet";
 import { block } from "@waveshq/walletkit-ui/dist/store/block";
+import { StoreServiceProvider } from "@waveshq/walletkit-ui";
 import { loans } from "@store/loans";
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
 import { futureSwaps } from "@store/futureSwap";
 import { WhaleProvider } from "@shared-contexts/WhaleContext";
 import { ServiceProviderPersistence } from "@api/wallet/service_provider";
-import { StoreServiceProvider } from "@contexts/StoreServiceProvider";
+import { Logging } from "@api";
 import { PortfolioScreen } from "./PortfolioScreen";
 
 jest.mock("@react-navigation/bottom-tabs", () => ({
@@ -204,7 +205,7 @@ describe("portfolio page", () => {
     const route: any = {};
     const component = (
       <Provider store={store}>
-        <StoreServiceProvider api={ServiceProviderPersistence}>
+        <StoreServiceProvider api={ServiceProviderPersistence} logger={Logging}>
           <WhaleProvider>
             <PortfolioScreen navigation={navigation} route={route} />
           </WhaleProvider>
@@ -326,7 +327,7 @@ describe("portfolio page", () => {
 
     const component = (
       <Provider store={store}>
-        <StoreServiceProvider api={ServiceProviderPersistence}>
+        <StoreServiceProvider api={ServiceProviderPersistence} logger={Logging}>
           <WhaleProvider>
             <PortfolioScreen navigation={navigation} route={route} />
           </WhaleProvider>
