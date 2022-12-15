@@ -6,7 +6,7 @@
     "strict": true,
     "moduleResolution": "node",
     "target": "es2019",
-    "lib": ["dom", "dom.iterable", "es2022"],
+    "lib": ["dom", "dom.iterable", "es2019"],
     "types": ["cypress", "@testing-library/cypress"]
   }
 }
