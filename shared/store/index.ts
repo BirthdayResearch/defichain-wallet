@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { configureStore } from "@reduxjs/toolkit";
-import { announcementWebsiteSlice, statusWebsiteSlice } from "@store/website";
 import { userPreferences } from "@store/userPreferences";
 import {
   transactionQueue,
   block,
   ocean,
+  wallet,
+  announcementWebsiteSlice,
+  statusWebsiteSlice,
 } from "@waveshq/walletkit-ui/dist/store";
 import { authentication } from "./authentication";
-import { wallet } from "./wallet";
 import { loans } from "./loans";
 import { auctions } from "./auctions";
 import { futureSwaps } from "./futureSwap";

@@ -5,7 +5,7 @@ import BigNumber from "bignumber.js";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { AddressToken } from "@defichain/whale-api-client/dist/api/address";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
-import { WalletToken } from "@store/wallet";
+import { WalletToken } from "@waveshq/walletkit-ui/dist/store";
 import { useDenominationCurrency } from "@screens/AppNavigator/screens/Portfolio/hooks/PortfolioCurrency";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { translate } from "@translations";

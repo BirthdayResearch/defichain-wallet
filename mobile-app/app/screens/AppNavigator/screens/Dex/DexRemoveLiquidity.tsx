@@ -16,11 +16,11 @@ import { RootState } from "@store";
 import {
   hasTxQueued,
   hasOceanTXQueued,
+  tokenSelector,
 } from "@waveshq/walletkit-ui/dist/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { tokenSelector } from "@store/wallet";
 import {
   BottomSheetWebWithNavV2,
   BottomSheetWithNavV2,

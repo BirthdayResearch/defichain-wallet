@@ -2,3 +2,4 @@ mobile-app/app/styles.json
 .expo
 node_modules
 jest-coverage
+web-build

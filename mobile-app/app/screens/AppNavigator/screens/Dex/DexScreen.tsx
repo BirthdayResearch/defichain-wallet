@@ -18,7 +18,7 @@ import {
 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { tokensSelector, WalletToken } from "@store/wallet";
+import { tokensSelector, WalletToken } from "@waveshq/walletkit-ui/dist/store";
 import { RootState } from "@store";
 import { debounce } from "lodash";
 import { HeaderSearchInput } from "@components/HeaderSearchInput";

@@ -7,7 +7,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { tailwind } from "@tailwind";
 import { RootState } from "@store";
 import { translate } from "@translations";
-import { tokensSelector, WalletToken } from "@store/wallet";
+import { tokensSelector, WalletToken } from "@waveshq/walletkit-ui/dist/store";
 import { useDebounce } from "@hooks/useDebounce";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";

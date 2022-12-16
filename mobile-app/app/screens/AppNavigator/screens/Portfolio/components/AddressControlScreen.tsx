@@ -27,8 +27,8 @@ import { RootState } from "@store";
 import {
   hasTxQueued,
   hasOceanTXQueued,
+  wallet as walletReducer,
 } from "@waveshq/walletkit-ui/dist/store";
-import { wallet as walletReducer } from "@store/wallet";
 import { loans } from "@store/loans";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { PortfolioParamList } from "../PortfolioNavigator";

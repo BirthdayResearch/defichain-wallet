@@ -1,5 +1,5 @@
 import { RootState } from "@store";
-import { WalletToken } from "@store/wallet";
+import { WalletToken } from "@waveshq/walletkit-ui/dist/store";
 import BigNumber from "bignumber.js";
 import { useSelector } from "react-redux";
 

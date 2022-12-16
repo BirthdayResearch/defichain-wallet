@@ -14,12 +14,10 @@ import { RootState } from "@store";
 import {
   hasTxQueued,
   hasOceanTXQueued,
-} from "@waveshq/walletkit-ui/dist/store";
-import {
   DFITokenSelector,
   DFIUtxoSelector,
   tokensSelector,
-} from "@store/wallet";
+} from "@waveshq/walletkit-ui/dist/store";
 import {
   queueConvertTransaction,
   useConversion,

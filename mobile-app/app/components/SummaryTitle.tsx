@@ -4,7 +4,7 @@ import { tailwind } from "@tailwind";
 import { getNativeIcon } from "@components/icons/assets";
 import { translate } from "@translations";
 import { RandomAvatar } from "@screens/AppNavigator/screens/Portfolio/components/RandomAvatar";
-import { AddressType } from "@store/wallet";
+import { AddressType } from "@waveshq/walletkit-ui/dist/store";
 import { View } from ".";
 import { ThemedTextV2, ThemedViewV2 } from "./themed";
 

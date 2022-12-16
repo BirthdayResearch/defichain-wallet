@@ -22,8 +22,8 @@ import {
   hasTxQueued,
   hasOceanTXQueued,
   transactionQueue,
+  DFIUtxoSelector,
 } from "@waveshq/walletkit-ui/dist/store";
-import { DFIUtxoSelector } from "@store/wallet";
 import { queueConvertTransaction } from "@hooks/wallet/Conversion";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { LoanSchemeOptions } from "@screens/AppNavigator/screens/Loans/components/LoanSchemeOptions";
