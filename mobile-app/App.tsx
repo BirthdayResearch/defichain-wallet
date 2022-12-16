@@ -12,9 +12,9 @@ import { DisplayBalancesProvider } from "@contexts/DisplayBalancesContext";
 import { PrivacyLockContextProvider } from "@contexts/LocalAuthContext";
 import {
   NetworkProvider,
+  StoreServiceProvider,
   ThemeProvider,
   useTheme,
-  StoreServiceProvider,
 } from "@waveshq/walletkit-ui";
 import { StatsProvider } from "@shared-contexts/StatsProvider";
 import { StoreProvider } from "@contexts/StoreProvider";
