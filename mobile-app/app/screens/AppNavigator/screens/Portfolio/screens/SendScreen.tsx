@@ -10,10 +10,9 @@ import { debounce } from "lodash";
 import { fromAddress } from "@defichain/jellyfish-address";
 import { NetworkName } from "@defichain/jellyfish-network";
 import { translate } from "@translations";
-import { useNetworkContext } from "@waveshq/walletkit-ui";
+import { useNetworkContext, useThemeContext } from "@waveshq/walletkit-ui";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { useThemeContext } from "@waveshq/walletkit-ui";
 import { RootState } from "@store";
 import {
   AddressType,
@@ -21,12 +20,10 @@ import {
   DFIUtxoSelector,
   tokensSelector,
   WalletToken,
-} from "@store/wallet";
-import { LocalAddress } from "@store/userPreferences";
-import {
   hasTxQueued,
   hasOceanTXQueued,
 } from "@waveshq/walletkit-ui/dist/store";
+import { LocalAddress } from "@store/userPreferences";
 import { useDisplayUtxoWarning } from "@hooks/wallet/DisplayUtxoWarning";
 import {
   queueConvertTransaction,

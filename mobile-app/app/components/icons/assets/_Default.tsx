@@ -1,5 +1,5 @@
 import { RootState } from "@store";
-import { tokenSelectorByDisplaySymbol } from "@store/wallet";
+import { tokenSelectorByDisplaySymbol } from "@waveshq/walletkit-ui/dist/store";
 import { SvgProps } from "react-native-svg";
 import { useSelector } from "react-redux";
 import { useThemeContext } from "@waveshq/walletkit-ui";

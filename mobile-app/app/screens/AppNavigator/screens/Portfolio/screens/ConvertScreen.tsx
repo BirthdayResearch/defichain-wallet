@@ -19,11 +19,11 @@ import { RootState } from "@store";
 import {
   hasTxQueued,
   hasOceanTXQueued,
+  tokensSelector,
 } from "@waveshq/walletkit-ui/dist/store";
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { tokensSelector } from "@store/wallet";
 import { getNativeIcon } from "@components/icons/assets";
 import { ButtonV2 } from "@components/ButtonV2";
 import {

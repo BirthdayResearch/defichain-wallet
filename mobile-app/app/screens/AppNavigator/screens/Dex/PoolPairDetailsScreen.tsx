@@ -17,7 +17,7 @@ import {
   poolPairSelector,
   tokensSelector,
   WalletToken,
-} from "@store/wallet";
+} from "@waveshq/walletkit-ui/dist/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";

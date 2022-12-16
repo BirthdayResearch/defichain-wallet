@@ -1,6 +1,6 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { AddressType, WalletToken } from "@store/wallet";
+import { AddressType, WalletToken } from "@waveshq/walletkit-ui/dist/store";
 import BigNumber from "bignumber.js";
 import { Image, Platform } from "react-native";
 import { BarCodeScanner } from "@components/BarCodeScanner";

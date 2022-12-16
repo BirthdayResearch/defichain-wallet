@@ -24,9 +24,9 @@ import { RootState } from "@store";
 import {
   hasTxQueued,
   hasOceanTXQueued,
+  DFITokenSelector,
 } from "@waveshq/walletkit-ui/dist/store";
 import { ConversionInfoText } from "@components/ConversionInfoText";
-import { DFITokenSelector } from "@store/wallet";
 import {
   AmountButtonTypes,
   SetAmountButton,

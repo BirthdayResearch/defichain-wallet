@@ -19,14 +19,14 @@ import {
 } from "@shared-contexts/WhaleContext";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { StackScreenProps } from "@react-navigation/stack";
-import { ocean } from "@waveshq/walletkit-ui/dist/store";
 import {
+  ocean,
   dexPricesSelectorByDenomination,
   fetchDexPrice,
   fetchTokens,
   tokensSelector,
   WalletToken,
-} from "@store/wallet";
+} from "@waveshq/walletkit-ui/dist/store";
 import { tailwind } from "@tailwind";
 import BigNumber from "bignumber.js";
 import React, {

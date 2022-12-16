@@ -15,7 +15,7 @@ import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { ButtonV2 } from "@components/ButtonV2";
-import { tokensSelector } from "@store/wallet";
+import { tokensSelector } from "@waveshq/walletkit-ui/dist/store";
 import { ScrollView } from "react-native-gesture-handler";
 import { useSignBidAndSend } from "../hooks/SignBidAndSend";
 import { useAuctionTime } from "../hooks/AuctionTimeLeft";

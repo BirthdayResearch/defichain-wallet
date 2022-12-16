@@ -13,6 +13,7 @@ import {
   hasTxQueued,
   hasOceanTXQueued,
   transactionQueue,
+  AddressType,
 } from "@waveshq/walletkit-ui/dist/store";
 import { StackScreenProps } from "@react-navigation/stack";
 import {
@@ -35,7 +36,6 @@ import { SummaryTitle } from "@components/SummaryTitle";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { TextRowV2 } from "@components/TextRowV2";
-import { AddressType } from "@store/wallet";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { LoanParamList } from "../LoansNavigator";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";

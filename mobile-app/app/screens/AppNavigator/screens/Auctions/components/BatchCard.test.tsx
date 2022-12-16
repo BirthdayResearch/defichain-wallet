@@ -7,7 +7,7 @@ import {
   LoanVaultLiquidated,
   LoanVaultState,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { wallet } from "@store/wallet";
+import { wallet } from "@waveshq/walletkit-ui/dist/store";
 import BigNumber from "bignumber.js";
 import { BatchCard } from "./BatchCard";
 

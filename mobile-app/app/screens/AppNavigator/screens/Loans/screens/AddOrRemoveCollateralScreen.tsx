@@ -16,8 +16,9 @@ import { RootState } from "@store";
 import {
   hasTxQueued,
   hasOceanTXQueued,
+  DFITokenSelector,
+  DFIUtxoSelector,
 } from "@waveshq/walletkit-ui/dist/store";
-import { DFITokenSelector, DFIUtxoSelector } from "@store/wallet";
 import {
   getPrecisedCurrencyValue,
   getPrecisedTokenValue,

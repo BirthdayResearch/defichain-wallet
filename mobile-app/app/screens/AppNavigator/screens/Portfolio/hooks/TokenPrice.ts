@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import BigNumber from "bignumber.js";
 import { RootState } from "@store";
 import { useSelector } from "react-redux";
-import { dexPricesSelectorByDenomination } from "@store/wallet";
+import { dexPricesSelectorByDenomination } from "@waveshq/walletkit-ui/dist/store";
 
 interface TokenPrice {
   getTokenPrice: (

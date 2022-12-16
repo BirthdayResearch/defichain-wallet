@@ -12,7 +12,7 @@ import {
   tokensSelector,
   unifiedDFISelector,
   WalletToken,
-} from "@store/wallet";
+} from "@waveshq/walletkit-ui/dist/store";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { View } from "@components";

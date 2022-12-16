@@ -10,6 +10,7 @@ import { RootState } from "@store";
 import {
   hasTxQueued,
   hasOceanTXQueued,
+  tokensSelector,
 } from "@waveshq/walletkit-ui/dist/store";
 import { translate } from "@translations";
 import { useBottomSheet } from "@hooks/useBottomSheet";
@@ -31,7 +32,6 @@ import {
   TokenDropdownButton,
   TokenDropdownButtonStatus,
 } from "@components/TokenDropdownButton";
-import { tokensSelector } from "@store/wallet";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useToast } from "react-native-toast-notifications";
 import { NumberRowV2 } from "@components/NumberRowV2";

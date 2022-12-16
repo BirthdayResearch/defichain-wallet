@@ -6,7 +6,7 @@ import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { usePlaygroundContext } from "@contexts/PlaygroundContext";
 import { useEffect, useState } from "react";
 import { WalletAddressIndexPersistence } from "@api/wallet/address_index";
-import { fetchTokens } from "@store/wallet";
+import { fetchTokens } from "@waveshq/walletkit-ui/dist/store";
 import {
   PlaygroundConnectionStatus,
   PlaygroundStatusType,

@@ -11,7 +11,7 @@ import { translate } from "@translations";
 import { useTokenBestPath } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenBestPath";
 import React, { useEffect, useRef, useState } from "react";
 import { useScrollToTop } from "@react-navigation/native";
-import { WalletToken } from "@store/wallet";
+import { WalletToken } from "@waveshq/walletkit-ui";
 import { useDebounce } from "@hooks/useDebounce";
 import { AddressToken } from "@defichain/whale-api-client/dist/api/address";
 import { useSelector } from "react-redux";

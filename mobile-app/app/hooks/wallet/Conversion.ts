@@ -6,13 +6,13 @@ import {
   DFITokenSelector,
   DFIUtxoSelector,
   unifiedDFISelector,
-} from "@store/wallet";
+  transactionQueue,
+} from "@waveshq/walletkit-ui/dist/store";
 import {
   ConversionMode,
   dfiConversionCrafter,
 } from "@api/transaction/dfi_converter";
 import { NativeLoggingProps } from "@shared-contexts/NativeLoggingProvider";
-import { transactionQueue } from "@waveshq/walletkit-ui/dist/store";
 
 interface useConversionProps {
   inputToken: InputToken;
