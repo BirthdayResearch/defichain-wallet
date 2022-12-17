@@ -114,7 +114,7 @@
     "colors": "1.4.0",
     "cypress": "^10.11.0",
     "cypress-image-diff-js": "^1.22.0",
-    "eslint": "^8.29.0",
+    "eslint": "^8.30.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-node": "^4.1.0",
