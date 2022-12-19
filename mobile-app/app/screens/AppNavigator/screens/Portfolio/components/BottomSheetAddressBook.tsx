@@ -11,7 +11,7 @@ import React, { memo, useCallback, useMemo, useState } from "react";
 import { Platform, TouchableOpacity } from "react-native";
 import { tailwind } from "@tailwind";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
-import { useThemeContext } from "@waveshq/walletkit-ui";
+import { useNetworkContext, useThemeContext } from "@waveshq/walletkit-ui";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import {
@@ -25,7 +25,6 @@ import {
   setAddressBook,
   setUserPreferences,
 } from "@store/userPreferences";
-import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { RandomAvatar } from "./RandomAvatar";
 
