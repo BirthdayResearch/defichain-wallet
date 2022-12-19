@@ -11,7 +11,6 @@ import { tailwind } from "@tailwind";
 import { useGetAnnouncementsQuery } from "@waveshq/walletkit-ui/dist/store";
 import { AnnouncementData } from "@waveshq/walletkit-core";
 import { satisfies } from "semver";
-import { useLanguageContext } from "@shared-contexts/LanguageProvider";
 import { openURL } from "@api/linking";
 import { Platform, StyleProp, TouchableOpacity, ViewStyle } from "react-native";
 import { nativeApplicationVersion } from "expo-application";
@@ -21,7 +20,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { useApiStatus } from "@hooks/useApiStatus";
 import { IconProps } from "@expo/vector-icons/build/createIconSet";
-import { useThemeContext } from "@waveshq/walletkit-ui";
+import { useLanguageContext, useThemeContext } from "@waveshq/walletkit-ui";
 import { useServiceProviderContext } from "@contexts/StoreServiceProvider";
 import {
   blockChainIsDownContent,

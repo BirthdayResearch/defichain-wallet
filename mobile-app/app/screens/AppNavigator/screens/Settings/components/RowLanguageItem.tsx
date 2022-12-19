@@ -4,7 +4,7 @@ import {
   ThemedTouchableListItem,
 } from "@components/themed";
 import { WalletAlert } from "@components/WalletAlert";
-import { useLanguageContext } from "@shared-contexts/LanguageProvider";
+import { useLanguageContext } from "@waveshq/walletkit-ui";
 import { tailwind } from "@tailwind";
 import { AppLanguageItem, translate } from "@translations";
 import { View, Text } from "react-native";

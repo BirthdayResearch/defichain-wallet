@@ -1,3 +1,9 @@
+export const useLanguageContext = (): { language: string } => {
+  return {
+    language: "en",
+  };
+};
+
 export const useNetworkContext = (): {
   network: string;
   networkName: string;
