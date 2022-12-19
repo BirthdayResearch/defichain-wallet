@@ -7,7 +7,7 @@ import {
   fetchDexPrice,
   fetchSwappableTokens,
   tokensSelector,
-} from "@store/wallet";
+} from "@waveshq/walletkit-ui/dist/store";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
 import { BottomSheetToken } from "@components/BottomSheetTokenList";
 import { CacheApi } from "@api/cache";

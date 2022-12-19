@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { RootState } from "@store";
-import { wallet } from "@store/wallet";
+import { wallet } from "@waveshq/walletkit-ui/dist/store";
 import { render, RenderAPI } from "@testing-library/react-native";
 import { Provider } from "react-redux";
 import { AppIcon } from "../AppIcon";

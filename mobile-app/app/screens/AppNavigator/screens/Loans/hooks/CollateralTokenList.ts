@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@store";
-import { tokensSelector } from "@store/wallet";
+import { tokensSelector } from "@waveshq/walletkit-ui/dist/store";
 import BigNumber from "bignumber.js";
 import { useSelector } from "react-redux";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";

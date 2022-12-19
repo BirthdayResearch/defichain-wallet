@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
-import { PlaygroundProvider } from "@contexts/PlaygroundContext";
+import { PlaygroundProvider } from "@waveshq/walletkit-ui";
 import { PlaygroundScreen } from "./PlaygroundScreen";
 
 export interface PlaygroundParamList {

@@ -1,7 +1,7 @@
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
 import { RootState } from "@store";
 import { vaultsSelector } from "@store/loans";
-import { dexPricesSelectorByDenomination } from "@store/wallet";
+import { dexPricesSelectorByDenomination } from "@waveshq/walletkit-ui/dist/store";
 import BigNumber from "bignumber.js";
 import { clone } from "lodash";
 import { useCallback, useEffect, useState } from "react";

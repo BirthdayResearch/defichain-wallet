@@ -3,7 +3,7 @@ import { fireEvent, render } from "@testing-library/react-native";
 import * as Clipboard from "expo-clipboard";
 import { Provider } from "react-redux";
 import { RootState } from "@store";
-import { wallet } from "@store/wallet";
+import { wallet } from "@waveshq/walletkit-ui/dist/store";
 import { ReceiveScreen } from "./ReceiveScreen";
 
 jest.mock("@shared-contexts/WalletContext");

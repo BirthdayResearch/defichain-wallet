@@ -2,7 +2,7 @@ import { render } from "@testing-library/react-native";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { RootState } from "@store";
-import { setTokenSymbol, wallet } from "@store/wallet";
+import { setTokenSymbol, wallet } from "@waveshq/walletkit-ui/dist/store";
 import { futureSwaps } from "@store/futureSwap";
 import { ActionButtons } from "./ActionButtons";
 

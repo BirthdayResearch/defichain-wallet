@@ -21,10 +21,10 @@ import { RootState } from "@store";
 import {
   hasTxQueued,
   hasOceanTXQueued,
+  tokensSelector,
 } from "@waveshq/walletkit-ui/dist/store";
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
 import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
-import { tokensSelector } from "@store/wallet";
 import {
   activeVaultsSelector,
   fetchCollateralTokens,

@@ -22,15 +22,15 @@ import {
 } from "@shared-contexts/WalletContext";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
-import { useThemeContext } from "@waveshq/walletkit-ui";
-import { wallet as walletReducer } from "@store/wallet";
-import { useSelector } from "react-redux";
-import { loans } from "@store/loans";
-import { RootState } from "@store";
+import { useThemeContext, useNetworkContext } from "@waveshq/walletkit-ui";
 import {
+  wallet as walletReducer,
   hasTxQueued,
   hasOceanTXQueued,
 } from "@waveshq/walletkit-ui/dist/store";
+import { useSelector } from "react-redux";
+import { loans } from "@store/loans";
+import { RootState } from "@store";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { BottomSheetWithNavRouteParam } from "@components/BottomSheetWithNav";
 import {
@@ -38,7 +38,6 @@ import {
   setAddresses,
   setUserPreferences,
 } from "@store/userPreferences";
-import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useWalletAddress } from "@hooks/useWalletAddress";

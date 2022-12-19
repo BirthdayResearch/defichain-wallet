@@ -17,13 +17,11 @@ import {
   DFIUtxoSelector,
   tokensSelector,
   WalletToken,
-} from "@store/wallet";
-import { useSelector } from "react-redux";
-import { RootState } from "@store";
-import {
   hasTxQueued,
   hasOceanTXQueued,
 } from "@waveshq/walletkit-ui/dist/store";
+import { useSelector } from "react-redux";
+import { RootState } from "@store";
 import {
   queueConvertTransaction,
   useConversion,

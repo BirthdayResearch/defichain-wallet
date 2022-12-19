@@ -9,6 +9,7 @@ import {
   hasTxQueued,
   hasOceanTXQueued,
   transactionQueue,
+  AddressType,
 } from "@waveshq/walletkit-ui/dist/store";
 import { StackScreenProps } from "@react-navigation/stack";
 import {
@@ -22,7 +23,6 @@ import { useAppDispatch } from "@hooks/useAppDispatch";
 import { SummaryTitle } from "@components/SummaryTitle";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
-import { AddressType } from "@store/wallet";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { View } from "react-native";

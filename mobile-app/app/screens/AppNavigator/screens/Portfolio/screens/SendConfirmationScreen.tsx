@@ -23,8 +23,8 @@ import {
 } from "@shared-contexts/NativeLoggingProvider";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { RootState } from "@store";
-import { WalletToken } from "@store/wallet";
 import {
+  WalletToken,
   hasTxQueued,
   hasOceanTXQueued,
   transactionQueue,

@@ -8,7 +8,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { tailwind } from "@tailwind";
-import { useGetAnnouncementsQuery } from "@store/website";
+import { useGetAnnouncementsQuery } from "@waveshq/walletkit-ui/dist/store";
 import { AnnouncementData } from "@waveshq/walletkit-core";
 import { satisfies } from "semver";
 import { useLanguageContext } from "@shared-contexts/LanguageProvider";

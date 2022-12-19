@@ -12,6 +12,7 @@ import {
   hasTxQueued,
   hasOceanTXQueued,
   transactionQueue,
+  AddressType,
 } from "@waveshq/walletkit-ui/dist/store";
 import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
 import {
@@ -33,7 +34,6 @@ import { useAppDispatch } from "@hooks/useAppDispatch";
 import { SummaryTitle } from "@components/SummaryTitle";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import { AddressType } from "@store/wallet";
 import { TextRowV2 } from "@components/TextRowV2";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { WalletAlert } from "@components/WalletAlert";

@@ -3,10 +3,10 @@ import { View } from "@components";
 import { PlaygroundTitle } from "@screens/PlaygroundNavigator/components/PlaygroundTitle";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
-import { usePlaygroundContext } from "@contexts/PlaygroundContext";
+import { usePlaygroundContext } from "@waveshq/walletkit-ui";
 import { useEffect, useState } from "react";
 import { WalletAddressIndexPersistence } from "@api/wallet/address_index";
-import { fetchTokens } from "@store/wallet";
+import { fetchTokens } from "@waveshq/walletkit-ui/dist/store";
 import {
   PlaygroundConnectionStatus,
   PlaygroundStatusType,

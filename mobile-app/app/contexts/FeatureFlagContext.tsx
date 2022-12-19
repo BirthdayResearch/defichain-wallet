@@ -3,7 +3,10 @@ import {
   FeatureFlag,
   FeatureFlagID,
 } from "@waveshq/walletkit-core";
-import { useGetFeatureFlagsQuery, usePrefetch } from "@store/website";
+import {
+  useGetFeatureFlagsQuery,
+  usePrefetch,
+} from "@waveshq/walletkit-ui/dist/store";
 import { nativeApplicationVersion } from "expo-application";
 import {
   createContext,
