@@ -3,8 +3,6 @@ import { Provider } from "react-redux";
 import { render } from "@testing-library/react-native";
 import { RootState } from "@store";
 import { block } from "@waveshq/walletkit-ui/dist/store/block";
-import { StoreServiceProvider } from "@contexts/StoreServiceProvider";
-import { ServiceProviderPersistence } from "@api/wallet/service_provider";
 import { WhaleProvider } from "@shared-contexts/WhaleContext";
 import { HeaderTitle } from "./HeaderTitle";
 
@@ -29,16 +27,14 @@ describe("Header title", () => {
     });
     const component = (
       <Provider store={store}>
-        <StoreServiceProvider api={ServiceProviderPersistence}>
-          <WhaleProvider>
-            <HeaderTitle
-              text="Foo"
-              subHeadingType="Status"
-              onPress={jest.fn()}
-              disabled={false}
-            />
-          </WhaleProvider>
-        </StoreServiceProvider>
+        <WhaleProvider>
+          <HeaderTitle
+            text="Foo"
+            subHeadingType="Status"
+            onPress={jest.fn()}
+            disabled={false}
+          />
+        </WhaleProvider>
       </Provider>
     );
     const rendered = render(component);

@@ -15,7 +15,7 @@ import {
   hasTxQueued,
   hasOceanTXQueued,
 } from "@waveshq/walletkit-ui/dist/store";
-import { useServiceProviderContext } from "@contexts/StoreServiceProvider";
+import { useServiceProviderContext } from "@waveshq/walletkit-ui";
 import { SettingsParamList } from "../SettingsNavigator";
 
 export function ResetButton(): JSX.Element {

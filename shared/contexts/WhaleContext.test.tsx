@@ -1,12 +1,14 @@
 import { render } from "@testing-library/react-native";
 import { Text, View } from "react-native";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
-import { StoreServiceProvider } from "@contexts/StoreServiceProvider";
-import { ServiceProviderPersistence } from "@api/wallet/service_provider";
-import * as NetworkContext from "@waveshq/walletkit-ui";
+import * as WalletkitUI from "@waveshq/walletkit-ui";
 import { useWhaleApiClient, WhaleProvider } from "./WhaleContext";
 
-const networkContext = jest.spyOn(NetworkContext, "useNetworkContext");
+const networkContext = jest.spyOn(WalletkitUI, "useNetworkContext");
+const storeServiceContext = jest.spyOn(
+  WalletkitUI,
+  "useServiceProviderContext"
+);
 
 describe("Whale Context test", () => {
   const networkDetails = [
@@ -37,6 +39,10 @@ describe("Whale Context test", () => {
       it("should match snapshot", () => {
         networkContext.mockImplementation(() => ({
           network: networkDetail.name,
+        }));
+        storeServiceContext.mockImplementation(() => ({
+          url: networkDetail.url,
+          isCustomUrl: false,
         }));
         function WhaleProviderComponent(): JSX.Element {
           const client = useWhaleApiClient();
@@ -73,11 +79,9 @@ describe("Whale Context test", () => {
         }
 
         const rendered = render(
-          <StoreServiceProvider api={ServiceProviderPersistence}>
-            <WhaleProvider>
-              <WhaleProviderComponent />
-            </WhaleProvider>
-          </StoreServiceProvider>
+          <WhaleProvider>
+            <WhaleProviderComponent />
+          </WhaleProvider>
         );
         expect(rendered.toJSON()).toMatchSnapshot();
       });

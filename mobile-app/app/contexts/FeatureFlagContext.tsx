@@ -21,8 +21,10 @@ import { satisfies } from "semver";
 import { FeatureFlagPersistence } from "@api";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { getReleaseChannel } from "@api/releaseChannel";
-import { useNetworkContext } from "@waveshq/walletkit-ui";
-import { useServiceProviderContext } from "./StoreServiceProvider";
+import {
+  useNetworkContext,
+  useServiceProviderContext,
+} from "@waveshq/walletkit-ui";
 
 const MAX_RETRY = 3;
 export interface FeatureFlagContextI {
