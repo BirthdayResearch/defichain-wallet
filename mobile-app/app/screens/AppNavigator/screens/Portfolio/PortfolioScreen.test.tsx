@@ -21,7 +21,6 @@ jest.mock("@react-navigation/bottom-tabs", () => ({
 jest.mock("@contexts/FeatureFlagContext");
 jest.mock("randomcolor", () => jest.fn().mockReturnValue("#ffffff"));
 
-jest.mock("@shared-contexts/LanguageProvider");
 jest.mock("@shared-contexts/DeFiScanContext");
 jest.mock("@shared-contexts/WalletContext");
 jest.mock("@shared-contexts/WalletPersistenceContext");

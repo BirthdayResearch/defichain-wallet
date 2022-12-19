@@ -11,8 +11,10 @@ import { DeFiScanProvider } from "@shared-contexts/DeFiScanContext";
 import { DisplayBalancesProvider } from "@contexts/DisplayBalancesContext";
 import { PrivacyLockContextProvider } from "@contexts/LocalAuthContext";
 import {
+  LanguageProvider,
   NetworkProvider,
   ThemeProvider,
+  useLanguage,
   useTheme,
 } from "@waveshq/walletkit-ui";
 import { StatsProvider } from "@shared-contexts/StatsProvider";
@@ -23,10 +25,6 @@ import { useCachedResources } from "@hooks/useCachedResources";
 import ConnectionBoundary from "@screens/ConnectionBoundary/ConnectionBoundary";
 import ErrorBoundary from "@screens/ErrorBoundary/ErrorBoundary";
 import { Main } from "@screens/Main";
-import {
-  LanguageProvider,
-  useLanguage,
-} from "@shared-contexts/LanguageProvider";
 import * as Localization from "expo-localization";
 import { useColorScheme } from "react-native";
 import { WalletPersistence } from "@api/wallet";
@@ -45,6 +43,7 @@ import { StoreServiceProvider } from "@contexts/StoreServiceProvider";
 import { ServiceProviderPersistence } from "@api/wallet/service_provider";
 import { FavouritePoolpairProvider } from "@contexts/FavouritePoolpairContext";
 import BigNumber from "bignumber.js";
+import i18n from "i18n-js";
 
 /**
  * Loads
@@ -60,6 +59,10 @@ export default function App(): JSX.Element | null {
   const colorScheme = useColorScheme();
   const logger = useLogger();
 
+  const onChangeLocale = (currentLanguage: string) => {
+    i18n.locale = currentLanguage;
+  };
+
   const { isThemeLoaded } = useTheme({
     api: ThemePersistence,
     colorScheme,
@@ -68,6 +71,8 @@ export default function App(): JSX.Element | null {
   const { isLanguageLoaded } = useLanguage({
     api: LanguagePersistence,
     locale: Localization.locale,
+    logger: Logging,
+    onChangeLocale,
   });
 
   if (!isLoaded && !isThemeLoaded && !isLanguageLoaded) {
@@ -105,6 +110,8 @@ export default function App(): JSX.Element | null {
                               <LanguageProvider
                                 api={LanguagePersistence}
                                 locale={Localization.locale}
+                                logger={Logging}
+                                onChangeLocale={onChangeLocale}
                               >
                                 <DisplayBalancesProvider>
                                   <ConnectionBoundary>

@@ -24,7 +24,7 @@ import { useAddressBook } from "@hooks/useAddressBook";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useServiceProviderContext } from "@contexts/StoreServiceProvider";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
-import { useLanguageContext } from "@shared-contexts/LanguageProvider";
+import { useLanguageContext } from "@waveshq/walletkit-ui";
 import { RowThemeItem } from "./components/RowThemeItem";
 import { SettingsParamList } from "./SettingsNavigator";
 

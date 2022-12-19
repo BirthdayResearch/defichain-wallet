@@ -1,5 +1,5 @@
 import { AnnouncementData } from "@waveshq/walletkit-core";
-import { useLanguageContext } from "@shared-contexts/LanguageProvider";
+import { useLanguageContext } from "@waveshq/walletkit-ui";
 import { nativeApplicationVersion } from "expo-application";
 import { useCallback, useState } from "react";
 import { useTokenBestPath } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenBestPath";
