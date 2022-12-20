@@ -55,6 +55,7 @@ import { AddLiquidityScreen } from "../Dex/DexAddLiquidity";
 import { ConfirmAddLiquidityScreen } from "../Dex/DexConfirmAddLiquidity";
 import { CompositeSwapScreen } from "../Dex/CompositeSwap/CompositeSwapScreen";
 import { ConfirmCompositeSwapScreen } from "../Dex/CompositeSwap/ConfirmCompositeSwapScreen";
+import { OCGProposalsScreen } from "./screens/OCG/OCGProposalsScreen";
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined;
@@ -591,6 +592,17 @@ export function PortfolioNavigator(): JSX.Element {
             "components/UtxoVsTokenFaq",
             "About UTXO And Tokens"
           ),
+        }}
+      />
+      <PortfolioStack.Screen
+        component={OCGProposalsScreen}
+        name="OCGProposalsScreen"
+        options={{
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate("screens/OCGProposalsScreen", "Proposals"),
         }}
       />
     </PortfolioStack.Navigator>
