@@ -1,8 +1,5 @@
 import { render } from "@testing-library/react-native";
 import { WalletCreateRestoreSuccess } from "./WalletCreateRestoreSuccess";
-jest.mock("@waveshq/walletkit-ui", () => ({
-  useWalletPersistenceContext: () => ({ setWallet: jest.fn() }),
-}));
 jest.mock("react-native-safe-area-context", () => ({
   useSafeAreaInsets: () => ({ top: 100, bottom: 100 }),
 }));

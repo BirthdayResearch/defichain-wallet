@@ -92,3 +92,10 @@ export const useWhaleApiClient = () => ({
 });
 
 export const useWhaleRpcClient = jest.fn();
+export const useWalletPersistenceContext = () => ({
+  wallets: [],
+});
+export enum WalletType {
+  MNEMONIC_UNPROTECTED = "MNEMONIC_UNPROTECTED",
+  MNEMONIC_ENCRYPTED = "MNEMONIC_ENCRYPTED",
+}
