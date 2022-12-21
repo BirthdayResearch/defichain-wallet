@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-raw-text */
-import { useWalletPersistenceContext } from "@shared-contexts/WalletPersistenceContext";
+import { useWalletPersistenceContext } from "@waveshq/walletkit-ui";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { useSelector } from "react-redux";

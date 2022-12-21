@@ -8,7 +8,7 @@ import {
   fetchSwappableTokens,
   tokensSelector,
 } from "@waveshq/walletkit-ui/dist/store";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { BottomSheetToken } from "@components/BottomSheetTokenList";
 import { CacheApi } from "@api/cache";
 import { useNetworkContext } from "@waveshq/walletkit-ui";

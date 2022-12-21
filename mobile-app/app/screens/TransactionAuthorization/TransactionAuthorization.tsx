@@ -13,13 +13,13 @@ import {
   MnemonicUnprotected,
   PasscodeAttemptCounter,
 } from "@api/wallet";
-import { useNetworkContext } from "@waveshq/walletkit-ui";
-import { useWalletNodeContext } from "@shared-contexts/WalletNodeProvider";
 import {
+  useNetworkContext,
+  useWalletNodeContext,
   useWalletPersistenceContext,
   WalletType,
-} from "@shared-contexts/WalletPersistenceContext";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+} from "@waveshq/walletkit-ui";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { RootState } from "@store";
 import { authentication as authenticationStore } from "@store/authentication";
 import {

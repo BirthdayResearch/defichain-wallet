@@ -15,11 +15,11 @@ import {
   StoreServiceProvider,
   ThemeProvider,
   useTheme,
+  WhaleProvider,
+  WalletPersistenceProvider,
 } from "@waveshq/walletkit-ui";
 import { StatsProvider } from "@shared-contexts/StatsProvider";
 import { StoreProvider } from "@contexts/StoreProvider";
-import { WalletPersistenceProvider } from "@shared-contexts/WalletPersistenceContext";
-import { WhaleProvider } from "@shared-contexts/WhaleContext";
 import { useCachedResources } from "@hooks/useCachedResources";
 import ConnectionBoundary from "@screens/ConnectionBoundary/ConnectionBoundary";
 import ErrorBoundary from "@screens/ErrorBoundary/ErrorBoundary";
@@ -96,6 +96,7 @@ export default function App(): JSX.Element | null {
                         ...WalletPersistence,
                         ...WalletAddressIndexPersistence,
                       }}
+                      logger={Logging}
                     >
                       <StoreProvider>
                         <StatsProvider>

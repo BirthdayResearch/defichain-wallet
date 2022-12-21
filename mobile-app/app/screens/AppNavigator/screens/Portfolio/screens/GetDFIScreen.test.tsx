@@ -14,7 +14,7 @@ jest.mock("expo-clipboard", () => ({
   setStringAsync: jest.fn(),
 }));
 
-jest.mock("@shared-contexts/WhaleContext", () => ({
+jest.mock("@waveshq/walletkit-ui/dist/contexts", () => ({
   useWhaleApiClient: () => ({
     prices: {
       get: async () => ({

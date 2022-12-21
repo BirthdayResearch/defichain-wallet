@@ -23,7 +23,7 @@ import { fetchLoanTokens } from "@store/loans";
 import {
   useWhaleApiClient,
   useWhaleRpcClient,
-} from "@shared-contexts/WhaleContext";
+} from "@waveshq/walletkit-ui/dist/contexts";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { openURL } from "@api/linking";
@@ -82,6 +82,7 @@ export function FutureSwapScreen({ navigation }: Props): JSX.Element {
   };
 
   const FutureSwapListItem = useCallback(
+    // eslint-disable-next-line react/no-unused-prop-types
     ({ item }: { item: FutureSwapData }): JSX.Element => {
       const testID = `${item.source.displaySymbol}-${item.destination.displaySymbol}`;
       return (

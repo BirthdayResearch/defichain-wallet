@@ -14,7 +14,7 @@ import {
   LoanVault,
   vaultsSelector,
 } from "@store/loans";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import {
   NavigationProp,

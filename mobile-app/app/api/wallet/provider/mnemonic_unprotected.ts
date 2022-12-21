@@ -5,10 +5,7 @@ import {
 } from "@defichain/jellyfish-wallet-mnemonic";
 import * as Random from "expo-random";
 import { EnvironmentNetwork, getBip32Option } from "@waveshq/walletkit-core";
-import {
-  WalletPersistenceDataI,
-  WalletType,
-} from "@shared-contexts/WalletPersistenceContext";
+import { WalletPersistenceDataI, WalletType } from "@waveshq/walletkit-ui";
 
 function initProvider(
   data: WalletPersistenceDataI<MnemonicProviderData>,

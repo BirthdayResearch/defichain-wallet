@@ -1,9 +1,6 @@
 import { MnemonicProviderData } from "@defichain/jellyfish-wallet-mnemonic";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
-import {
-  WalletPersistenceDataI,
-  WalletType,
-} from "@shared-contexts/WalletPersistenceContext";
+import { WalletPersistenceDataI, WalletType } from "@waveshq/walletkit-ui";
 import { MnemonicUnprotected } from "@api/wallet";
 
 beforeEach(() => {

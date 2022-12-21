@@ -1,7 +1,7 @@
 import { PropsWithChildren, useMemo } from "react";
 import { Provider } from "react-redux";
 import { initializeStore } from "@store";
-import { useWalletPersistenceContext } from "../../../shared/contexts/WalletPersistenceContext";
+import { useWalletPersistenceContext } from "@waveshq/walletkit-ui";
 
 /**
  * Store that is memoized to network & wallets setting.
