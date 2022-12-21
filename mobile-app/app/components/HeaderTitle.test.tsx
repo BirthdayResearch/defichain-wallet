@@ -3,7 +3,6 @@ import { Provider } from "react-redux";
 import { render } from "@testing-library/react-native";
 import { RootState } from "@store";
 import { block } from "@waveshq/walletkit-ui/dist/store/block";
-import { WhaleProvider } from "@shared-contexts/WhaleContext";
 import { HeaderTitle } from "./HeaderTitle";
 
 jest.mock("@react-navigation/native", () => ({
@@ -27,14 +26,12 @@ describe("Header title", () => {
     });
     const component = (
       <Provider store={store}>
-        <WhaleProvider>
-          <HeaderTitle
-            text="Foo"
-            subHeadingType="Status"
-            onPress={jest.fn()}
-            disabled={false}
-          />
-        </WhaleProvider>
+        <HeaderTitle
+          text="Foo"
+          subHeadingType="Status"
+          onPress={jest.fn()}
+          disabled={false}
+        />
       </Provider>
     );
     const rendered = render(component);

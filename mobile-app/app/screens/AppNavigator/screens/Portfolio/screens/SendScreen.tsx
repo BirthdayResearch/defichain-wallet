@@ -11,7 +11,7 @@ import { fromAddress } from "@defichain/jellyfish-address";
 import { NetworkName } from "@defichain/jellyfish-network";
 import { translate } from "@translations";
 import { useNetworkContext, useThemeContext } from "@waveshq/walletkit-ui";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { RootState } from "@store";
 import {

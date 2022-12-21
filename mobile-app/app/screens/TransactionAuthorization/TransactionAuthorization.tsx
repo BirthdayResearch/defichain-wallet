@@ -19,7 +19,7 @@ import {
   useWalletPersistenceContext,
   WalletType,
 } from "@shared-contexts/WalletPersistenceContext";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { RootState } from "@store";
 import { authentication as authenticationStore } from "@store/authentication";
 import {

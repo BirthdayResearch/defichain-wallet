@@ -26,7 +26,7 @@ import {
   BottomSheetWithNav,
 } from "@components/BottomSheetWithNav";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import {
   TokenDropdownButton,

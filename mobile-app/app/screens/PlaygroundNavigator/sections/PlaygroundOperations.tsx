@@ -2,7 +2,7 @@
 import { View } from "@components";
 import { PlaygroundTitle } from "@screens/PlaygroundNavigator/components/PlaygroundTitle";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { usePlaygroundContext } from "@waveshq/walletkit-ui";
 import { useEffect, useState } from "react";
 import { WalletAddressIndexPersistence } from "@api/wallet/address_index";

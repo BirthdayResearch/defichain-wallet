@@ -1,7 +1,7 @@
 import { View } from "@components";
 import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { Dispatch, useEffect, useState } from "react";

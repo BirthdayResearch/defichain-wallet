@@ -13,10 +13,6 @@ import {
 import { useDisplayBalancesContext } from "@contexts/DisplayBalancesContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useWalletPersistenceContext } from "@shared-contexts/WalletPersistenceContext";
-import {
-  useWhaleApiClient,
-  useWhaleRpcClient,
-} from "@shared-contexts/WhaleContext";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { StackScreenProps } from "@react-navigation/stack";
 import {
@@ -49,7 +45,11 @@ import {
   fetchLoanTokens,
   fetchVaults,
 } from "@store/loans";
-import { useThemeContext } from "@waveshq/walletkit-ui";
+import {
+  useThemeContext,
+  useWhaleApiClient,
+  useWhaleRpcClient,
+} from "@waveshq/walletkit-ui";
 import {
   SkeletonLoader,
   SkeletonLoaderScreen,

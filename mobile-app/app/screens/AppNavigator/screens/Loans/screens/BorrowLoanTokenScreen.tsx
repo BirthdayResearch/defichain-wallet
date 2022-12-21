@@ -18,7 +18,7 @@ import {
   LoanToken,
   LoanVaultActive,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";

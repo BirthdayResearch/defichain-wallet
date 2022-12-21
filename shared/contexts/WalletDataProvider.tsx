@@ -13,7 +13,7 @@ import { useWalletContext } from "@shared-contexts/WalletContext";
 import { fetchVaults } from "@store/loans";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
-import { useWhaleApiClient } from "./WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 
 export function WalletDataProvider(
   props: PropsWithChildren<any>

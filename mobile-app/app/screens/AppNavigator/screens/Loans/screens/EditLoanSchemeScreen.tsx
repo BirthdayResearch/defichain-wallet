@@ -21,7 +21,7 @@ import {
   hasTxQueued,
   hasOceanTXQueued,
 } from "@waveshq/walletkit-ui/dist/store";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { LoanSchemeOptions } from "@screens/AppNavigator/screens/Loans/components/LoanSchemeOptions";
 import { ButtonV2 } from "@components/ButtonV2";

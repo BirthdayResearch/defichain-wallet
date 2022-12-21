@@ -6,7 +6,7 @@ import { block } from "@waveshq/walletkit-ui/dist/store/block";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { useWhaleApiClient } from "./WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 
 export function StatsProvider(
   props: PropsWithChildren<any>

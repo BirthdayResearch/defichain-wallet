@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { useIsFocused } from "@react-navigation/native";
 import { RootState } from "@store";
 import { StackScreenProps } from "@react-navigation/stack";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { VaultAuctionBatchHistory } from "@defichain/whale-api-client/dist/api/loan";
 import { auctions, fetchBidHistory } from "@store/auctions";
 import { useAppDispatch } from "@hooks/useAppDispatch";
@@ -82,6 +82,7 @@ export function BidHistoryScreen(props: BatchDetailScreenProps): JSX.Element {
           item,
           index,
         }: {
+          // eslint-disable-next-line react/no-unused-prop-types
           item: VaultAuctionBatchHistory;
           index: number;
         }): JSX.Element => {
