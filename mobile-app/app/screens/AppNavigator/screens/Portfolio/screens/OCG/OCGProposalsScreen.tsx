@@ -12,14 +12,17 @@ import { useState } from "react";
 import { View } from "react-native";
 import { ButtonV2 } from "@components/ButtonV2";
 import { AnnouncementBannerV2 } from "@screens/AppNavigator/screens/Portfolio/components/Announcements";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
 
 export function OCGProposalsScreen(): JSX.Element {
-  const [selectedProposal, setSelectedProposal] = useState<OCGType>(
-    OCGType.CFP
+  const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
+  const [selectedProposal, setSelectedProposal] = useState<OCGProposalType>(
+    OCGProposalType.CFP
   );
   const itemList = [
     {
-      id: OCGType.CFP,
+      id: OCGProposalType.CFP,
       title: translate(
         "screens/OCGProposalsScreen",
         "Community Funding Proposal"
@@ -30,7 +33,7 @@ export function OCGProposalsScreen(): JSX.Element {
       ),
     },
     {
-      id: OCGType.DFIP,
+      id: OCGProposalType.DFIP,
       title: translate(
         "screens/OCGProposalsScreen",
         "DeFiChain Improvement Proposal "
@@ -41,6 +44,12 @@ export function OCGProposalsScreen(): JSX.Element {
       ),
     },
   ];
+
+  function onContinue() {
+    navigation.navigate("ProposalDetailScreen", {
+      proposalType: selectedProposal,
+    });
+  }
 
   return (
     <ThemedScrollViewV2
@@ -83,6 +92,7 @@ export function OCGProposalsScreen(): JSX.Element {
         label={translate("screens/OCGProposalsScreen", "Continue")}
         styleProps="mt-2 mx-7"
         testID="proposal_continue_button"
+        onPress={onContinue}
       />
     </ThemedScrollViewV2>
   );
@@ -143,7 +153,7 @@ function ProposalsItem({
   );
 }
 
-export enum OCGType {
+export enum OCGProposalType {
   CFP = "CFP",
   DFIP = "DFIP",
 }

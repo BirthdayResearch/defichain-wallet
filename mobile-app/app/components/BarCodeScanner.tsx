@@ -1,6 +1,6 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import { BarCodeScanner as DefaultBarCodeScanner } from "expo-barcode-scanner";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import tailwind from "tailwind-rn";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
@@ -39,6 +39,14 @@ export function BarCodeScanner({ route, navigation }: Props): JSX.Element {
       })
       .catch(logger.error);
   }, []);
+
+  useLayoutEffect(() => {
+    if (route.params.title !== undefined && route.params.title !== "") {
+      navigation.setOptions({
+        headerTitle: route.params.title,
+      });
+    }
+  }, [navigation]);
 
   if (hasPermission === null) {
     return (
