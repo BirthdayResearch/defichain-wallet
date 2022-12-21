@@ -9,8 +9,11 @@ import {
 import { Switch, View } from "@components";
 import { WalletAlert } from "@components/WalletAlert";
 import { usePrivacyLockContext } from "@contexts/LocalAuthContext";
-import { useWalletNodeContext } from "@shared-contexts/WalletNodeProvider";
-import { useWalletPersistenceContext } from "@shared-contexts/WalletPersistenceContext";
+import {
+  useWalletPersistenceContext,
+  useServiceProviderContext,
+  useWalletNodeContext,
+} from "@waveshq/walletkit-ui";
 import { StackScreenProps } from "@react-navigation/stack";
 import { authentication, Authentication } from "@store/authentication";
 import { ocean } from "@waveshq/walletkit-ui/dist/store";
@@ -22,7 +25,6 @@ import { MnemonicStorage } from "@api/wallet/mnemonic_storage";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useAddressBook } from "@hooks/useAddressBook";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { useServiceProviderContext } from "@waveshq/walletkit-ui";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useLanguageContext } from "@shared-contexts/LanguageProvider";
 import { RowThemeItem } from "./components/RowThemeItem";
@@ -286,6 +288,7 @@ function PrivacyLockToggle({
   onToggle,
   authenticationName,
 }: {
+  // eslint-disable-next-line react/no-unused-prop-types
   disabled?: boolean;
   value: boolean;
   onToggle: (newValue: boolean) => void;

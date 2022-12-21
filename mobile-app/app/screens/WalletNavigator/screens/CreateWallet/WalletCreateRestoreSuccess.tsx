@@ -20,15 +20,13 @@ import { initJellyfishWallet, MnemonicEncrypted } from "@api/wallet";
 import {
   useWalletPersistenceContext,
   WalletPersistenceDataI,
-} from "@shared-contexts/WalletPersistenceContext";
-import { EncryptedProviderData } from "@defichain/jellyfish-wallet-encrypted";
-import { MAX_ALLOWED_ADDRESSES } from "@shared-contexts/WalletContext";
-import { WalletAddressIndexPersistence } from "@api/wallet/address_index";
-import {
   useNetworkContext,
   useThemeContext,
   useWhaleApiClient,
 } from "@waveshq/walletkit-ui";
+import { EncryptedProviderData } from "@defichain/jellyfish-wallet-encrypted";
+import { MAX_ALLOWED_ADDRESSES } from "@shared-contexts/WalletContext";
+import { WalletAddressIndexPersistence } from "@api/wallet/address_index";
 
 type Props = StackScreenProps<WalletParamList, "WalletCreateRestoreSuccess">;
 

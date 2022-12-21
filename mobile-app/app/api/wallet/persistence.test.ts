@@ -1,6 +1,6 @@
 import * as ExpoSecureStore from "expo-secure-store";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
-import { WalletType } from "@shared-contexts/WalletPersistenceContext";
+import { WalletType } from "@waveshq/walletkit-ui";
 import { WalletPersistence } from "./persistence";
 
 // TODO(fuxingloh): 'jest-expo' only test native (provider.native.ts) by default, need to improve testing capability

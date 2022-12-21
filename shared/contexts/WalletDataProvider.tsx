@@ -1,14 +1,16 @@
 import React, { useEffect, PropsWithChildren } from "react";
 import { batch, useSelector } from "react-redux";
 import { RootState } from "@store";
-import { useNetworkContext } from "@waveshq/walletkit-ui";
+import {
+  useNetworkContext,
+  useWalletPersistenceContext,
+} from "@waveshq/walletkit-ui";
 import {
   fetchDexPrice,
   fetchPoolPairs,
   fetchTokens,
 } from "@waveshq/walletkit-ui/dist/store";
 import { fetchUserPreferences } from "@store/userPreferences";
-import { useWalletPersistenceContext } from "@shared-contexts/WalletPersistenceContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { fetchVaults } from "@store/loans";
 import { useAppDispatch } from "@hooks/useAppDispatch";
