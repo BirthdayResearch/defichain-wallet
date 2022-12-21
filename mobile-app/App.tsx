@@ -96,6 +96,7 @@ export default function App(): JSX.Element | null {
                         ...WalletPersistence,
                         ...WalletAddressIndexPersistence,
                       }}
+                      logger={Logging}
                     >
                       <StoreProvider>
                         <StatsProvider>
