@@ -1,12 +1,15 @@
 import { ThemedScrollViewV2 } from "@components/themed";
-import { useNetworkContext } from "@waveshq/walletkit-ui";
+import {
+  useNetworkContext,
+  WalletNodeProvider,
+  useWalletPersistenceContext,
+} from "@waveshq/walletkit-ui";
 import { WalletContextProvider } from "@shared-contexts/WalletContext";
-import { WalletNodeProvider } from "@shared-contexts/WalletNodeProvider";
-import { useWalletPersistenceContext } from "@shared-contexts/WalletPersistenceContext";
 import { isPlayground } from "@waveshq/walletkit-core";
 import { tailwind } from "@tailwind";
 import { WalletAddressIndexPersistence } from "@api/wallet/address_index";
 import { PlaygroundOperations } from "@screens/PlaygroundNavigator/sections/PlaygroundOperations";
+import { MnemonicEncrypted, MnemonicUnprotected } from "@api/wallet";
 import { PlaygroundConnection } from "./sections/PlaygroundConnection";
 import { PlaygroundToken } from "./sections/PlaygroundToken";
 import { PlaygroundUTXO } from "./sections/PlaygroundUTXO";
@@ -40,7 +43,11 @@ function PlaygroundWalletSection(): JSX.Element | null {
   }
 
   return (
-    <WalletNodeProvider data={wallets[0]}>
+    <WalletNodeProvider
+      data={wallets[0]}
+      MnemonicUnprotected={MnemonicUnprotected}
+      MnemonicEncrypted={MnemonicEncrypted}
+    >
       <WalletContextProvider api={WalletAddressIndexPersistence}>
         <PlaygroundOperations />
         <PlaygroundUTXO />

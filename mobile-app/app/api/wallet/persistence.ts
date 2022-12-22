@@ -1,5 +1,5 @@
 import { SecuredStoreAPI } from "@api";
-import { WalletPersistenceDataI } from "@shared-contexts/WalletPersistenceContext";
+import { WalletPersistenceDataI } from "@waveshq/walletkit-ui";
 
 async function get(): Promise<Array<WalletPersistenceDataI<any>>> {
   const count: string = (await SecuredStoreAPI.getItem("WALLET.count")) ?? "0";

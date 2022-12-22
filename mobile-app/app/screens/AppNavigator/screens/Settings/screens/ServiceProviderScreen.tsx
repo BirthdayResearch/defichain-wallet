@@ -14,8 +14,10 @@ import { MnemonicStorage } from "@api/wallet/mnemonic_storage";
 import { StackScreenProps } from "@react-navigation/stack";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { useServiceProviderContext } from "@waveshq/walletkit-ui";
-import { useWalletNodeContext } from "@shared-contexts/WalletNodeProvider";
+import {
+  useServiceProviderContext,
+  useWalletNodeContext,
+} from "@waveshq/walletkit-ui";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { SettingsParamList } from "../SettingsNavigator";
 import { ResetButton } from "../components/ResetButton";

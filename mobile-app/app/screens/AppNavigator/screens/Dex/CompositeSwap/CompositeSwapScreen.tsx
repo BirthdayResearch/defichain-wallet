@@ -26,7 +26,7 @@ import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import {
   useWhaleApiClient,
   useWhaleRpcClient,
-} from "@shared-contexts/WhaleContext";
+} from "@waveshq/walletkit-ui/dist/contexts";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { StackScreenProps } from "@react-navigation/stack";
 import {

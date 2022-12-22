@@ -8,7 +8,7 @@ import {
 import { useSelector } from "react-redux";
 import { CacheApi } from "@api/cache";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 
 interface CalculatePriceRatesProps {
   aToBPrice: BigNumber;

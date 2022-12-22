@@ -1,12 +1,5 @@
 import { render } from "@testing-library/react-native";
 import { WalletCreateRestoreSuccess } from "./WalletCreateRestoreSuccess";
-
-jest.mock("@shared-contexts/WhaleContext", () => ({
-  useWhaleApiClient: () => ({ client: jest.fn() }),
-}));
-jest.mock("@shared-contexts/WalletPersistenceContext", () => ({
-  useWalletPersistenceContext: () => ({ setWallet: jest.fn() }),
-}));
 jest.mock("react-native-safe-area-context", () => ({
   useSafeAreaInsets: () => ({ top: 100, bottom: 100 }),
 }));

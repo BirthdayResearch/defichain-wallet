@@ -44,7 +44,7 @@ import { TextRowV2 } from "@components/TextRowV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { useToast } from "react-native-toast-notifications";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { getTokenAmount } from "../hooks/LoanPaymentTokenRate";

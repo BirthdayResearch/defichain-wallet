@@ -3,3 +3,4 @@ mobile-app/app/styles.json
 node_modules
 jest-coverage
 web-build
+mobile-app/coverage

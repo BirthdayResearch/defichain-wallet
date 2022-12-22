@@ -29,7 +29,7 @@ import { NumberRowV2 } from "@components/NumberRowV2";
 import { PriceRateProps, PricesSection } from "@components/PricesSection";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import { BidInfo } from "@screens/AppNavigator/screens/Auctions/components/BatchCard";
 import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";

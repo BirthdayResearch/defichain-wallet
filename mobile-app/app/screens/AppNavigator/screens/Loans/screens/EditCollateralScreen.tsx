@@ -22,7 +22,7 @@ import {
   BottomSheetTokenList,
   TokenType,
 } from "@components/BottomSheetTokenList";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { fetchCollateralTokens } from "@store/loans";

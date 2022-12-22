@@ -4,7 +4,7 @@ import {
 } from "@components/SkeletonLoader";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { MaterialIcons } from "@expo/vector-icons";
 import {
   NavigationProp,
