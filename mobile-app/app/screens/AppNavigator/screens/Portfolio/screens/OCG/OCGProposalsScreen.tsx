@@ -46,7 +46,11 @@ export function OCGProposalsScreen(): JSX.Element {
   ];
 
   function onContinue() {
-    navigation.navigate("ProposalDetailScreen", {
+    const screen =
+      selectedProposal === OCGProposalType.CFP
+        ? "CFPDetailScreen"
+        : "DFIPDetailScreen";
+    navigation.navigate(screen, {
       proposalType: selectedProposal,
     });
   }
@@ -54,9 +58,9 @@ export function OCGProposalsScreen(): JSX.Element {
   return (
     <ThemedScrollViewV2
       style={tailwind("py-6 px-5")}
-      contentContainerStyle={tailwind("flex-1")}
+      contentContainerStyle={tailwind("flex-grow justify-between")}
     >
-      <View style={tailwind("flex-1")}>
+      <View>
         <AnnouncementBannerV2
           announcement={{
             content: translate(
@@ -78,6 +82,7 @@ export function OCGProposalsScreen(): JSX.Element {
         >
           {itemList.map((item, index) => (
             <ProposalsItem
+              key={item.id}
               id={item.id}
               title={item.title}
               description={item.description}

@@ -13,7 +13,13 @@ import { canOpenURL } from "expo-linking";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
 
-export function ProposalURLInput(): JSX.Element {
+interface ProposalURLInputProps {
+  urlValidity: (isValid: boolean) => void;
+}
+
+export function ProposalURLInput({
+  urlValidity,
+}: ProposalURLInputProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const [input, setInput] = useState<string | undefined>(undefined);
   const [status, setStatus] = useState<ProposalInputStatus>(
@@ -27,7 +33,6 @@ export function ProposalURLInput(): JSX.Element {
         setStatus(ProposalInputStatus.Default);
         return;
       }
-      setStatus(ProposalInputStatus.Verifying);
       const isValid = await canOpenURL(input);
       setStatus(
         isValid ? ProposalInputStatus.Verified : ProposalInputStatus.Invalid
@@ -37,6 +42,10 @@ export function ProposalURLInput(): JSX.Element {
     checkUrlValidity();
   }, [input]);
 
+  useEffect(() => {
+    urlValidity(status === ProposalInputStatus.Verified);
+  }, [status]);
+
   const onQrButtonPress = (): void => {
     navigation.navigate({
       name: "BarCodeScanner",
@@ -44,7 +53,7 @@ export function ProposalURLInput(): JSX.Element {
         onQrScanned: (value: string) => {
           setInput(value);
         },
-        title: translate("screens/ProposalDetailScreen", "Scan Github URL"),
+        title: translate("screens/OCGDetailScreen", "Scan Github URL"),
       },
       merge: true,
     });
@@ -54,8 +63,8 @@ export function ProposalURLInput(): JSX.Element {
     <View style={tailwind("flex")}>
       <WalletTextInputV2
         inputType="default"
-        title={translate("screens/ProposalDetailScreen", "GITHUB DISCUSSION")}
-        placeholder={translate("screens/ProposalDetailScreen", "Paste URL")}
+        title={translate("screens/OCGDetailScreen", "GITHUB DISCUSSION")}
+        placeholder={translate("screens/OCGDetailScreen", "Paste URL")}
         inputContainerStyle={tailwind("px-5 py-4.5")}
         displayClearButton={hasInput}
         valid={status !== ProposalInputStatus.Invalid}
@@ -88,7 +97,7 @@ function InputComponent({
   ) : (
     <ThemedTouchableOpacityV2
       onPress={onQrPressed}
-      style={tailwind("border-0")}
+      style={tailwind("border-0 pl-2")}
       testID="qr_code_button"
     >
       <ThemedIcon
@@ -109,13 +118,13 @@ function InlineState({ status }: { status: ProposalInputStatus }): JSX.Element {
       displayText = "Verified";
       break;
     case ProposalInputStatus.Invalid:
-      displayText = "Invalid URL";
+      displayText = "URL should be a valid Github URL";
       break;
     default:
       displayText = "Add URL here to get started";
       break;
   }
-  const translatedText = translate("screens/ProposalDetailScreen", displayText);
+  const translatedText = translate("screens/OCGDetailScreen", displayText);
 
   return (
     <View style={tailwind("mt-2 ml-5")}>
