@@ -18,10 +18,10 @@ import {
   AddressType,
   DFITokenSelector,
   DFIUtxoSelector,
+  hasOceanTXQueued,
+  hasTxQueued,
   tokensSelector,
   WalletToken,
-  hasTxQueued,
-  hasOceanTXQueued,
 } from "@waveshq/walletkit-ui/dist/store";
 import { LocalAddress } from "@store/userPreferences";
 import { useDisplayUtxoWarning } from "@hooks/wallet/DisplayUtxoWarning";
@@ -468,6 +468,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
             <AddressRow
               control={control}
               networkName={networkName}
+              title={translate("screens/SendScreen", "SEND TO")}
               onContactButtonPress={() =>
                 navigation.navigate({
                   name: "AddressBookScreen",
@@ -603,7 +604,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
   );
 }
 
-function AddressRow({
+export function AddressRow({
   control,
   networkName,
   onContactButtonPress,
@@ -611,6 +612,7 @@ function AddressRow({
   onClearButtonPress,
   onAddressChange,
   inputFooter,
+  title,
 }: {
   control: Control;
   networkName: NetworkName;
@@ -619,6 +621,7 @@ function AddressRow({
   onClearButtonPress: () => void;
   onAddressChange: (address: string) => void;
   inputFooter?: React.ReactElement;
+  title: string;
 }): JSX.Element {
   const defaultValue = "";
   return (
@@ -643,7 +646,7 @@ function AddressRow({
               value={value}
               displayClearButton={value !== defaultValue}
               onClearButtonPress={onClearButtonPress}
-              title={translate("screens/SendScreen", "SEND TO")}
+              title={title}
               titleTestID="title_to_address"
               inputType="default"
               inputFooter={inputFooter}

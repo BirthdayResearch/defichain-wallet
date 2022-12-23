@@ -46,9 +46,11 @@ export function DFIPDetailScreen(): JSX.Element {
           <View style={tailwind("pt-6")}>
             <WalletTextInputV2
               inputType="default"
+              multiline
+              testID="input_title"
               title={translate("screens/OCGDetailScreen", "PROPOSAL TITLE")}
               placeholder={translate("screens/OCGDetailScreen", "Title")}
-              inputContainerStyle={tailwind("px-5 py-4.5")}
+              style={tailwind("w-3/5 flex-grow pb-1 font-normal-v2")}
               inlineText={{
                 type: "helper",
                 text: translate(
@@ -61,6 +63,8 @@ export function DFIPDetailScreen(): JSX.Element {
               }}
               value={title}
               onChangeText={setTitle}
+              displayClearButton={!isTitleEmpty}
+              onClearButtonPress={() => setTitle("")}
             />
           </View>
         )}

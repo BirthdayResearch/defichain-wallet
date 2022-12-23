@@ -1,25 +1,48 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { translate } from "@translations";
-import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
+import { ThemedTextV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { ProposalURLInput } from "@screens/AppNavigator/screens/Portfolio/components/ProposalURLInput";
 import { Platform, View } from "react-native";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { ButtonV2 } from "@components/ButtonV2";
-import { useThemeContext } from "@waveshq/walletkit-ui";
+import { useNetworkContext, useThemeContext } from "@waveshq/walletkit-ui";
 import { BottomSheetInfoV2 } from "@components/BottomSheetInfoV2";
 import { LoanAddRemoveActionButton } from "@screens/AppNavigator/screens/Loans/components/LoanActionButton";
+import { AddressRow } from "@screens/AppNavigator/screens/Portfolio/screens/SendScreen";
+import { useForm } from "react-hook-form";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export function CFPDetailScreen(): JSX.Element {
   const { isLight } = useThemeContext();
-
+  const { networkName } = useNetworkContext();
+  const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const [isUrlValid, setUrlValid] = useState<boolean>(false);
+
+  // form
+  const { control, setValue, getValues, trigger } = useForm({
+    mode: "onChange",
+  });
+
+  const onAddressSelect = useCallback(
+    async (savedAddress: string) => {
+      setValue("address", savedAddress, { shouldDirty: true });
+      navigation.goBack();
+      await trigger("address");
+    },
+    [navigation]
+  );
 
   function onContinuePress() {}
 
   return (
-    <ThemedScrollViewV2
+    <KeyboardAwareScrollView
       contentContainerStyle={tailwind("flex-grow px-5 pb-6 justify-between")}
+      style={tailwind(
+        `${isLight ? "bg-mono-light-v2-100" : "bg-mono-dark-v2-100"}`
+      )}
     >
       <View>
         <ProposalURLInput urlValidity={setUrlValid} />
@@ -27,9 +50,11 @@ export function CFPDetailScreen(): JSX.Element {
           <View style={tailwind("pt-6")}>
             <WalletTextInputV2
               inputType="default"
+              multiline
+              testID="input_title"
               title={translate("screens/OCGDetailScreen", "PROPOSAL TITLE")}
               placeholder={translate("screens/OCGDetailScreen", "Title")}
-              inputContainerStyle={tailwind("px-5 py-4.5")}
+              style={tailwind("w-3/5 flex-grow pb-1 font-normal-v2")}
               inlineText={{
                 type: "helper",
                 text: translate(
@@ -52,14 +77,40 @@ export function CFPDetailScreen(): JSX.Element {
               titleStyle={tailwind("pt-4")}
             />
             <VotingCycles />
-            <WalletTextInputV2
-              inputType="default"
+            <AddressRow
+              control={control}
+              networkName={networkName}
               title={translate("screens/OCGDetailScreen", "RECEIVING ADDRESS")}
-              placeholder={translate(
-                "screens/OCGDetailScreen",
-                "Paste address"
-              )}
-              inputContainerStyle={tailwind("px-5 py-4.5")}
+              onContactButtonPress={() =>
+                navigation.navigate({
+                  name: "AddressBookScreen",
+                  params: {
+                    selectedAddress: getValues("address"),
+                    onAddressSelect,
+                  },
+                  merge: true,
+                })
+              }
+              onQrButtonPress={() =>
+                navigation.navigate({
+                  name: "BarCodeScanner",
+                  params: {
+                    onQrScanned: async (value: any) => {
+                      setValue("address", value, { shouldDirty: true });
+                      await trigger("address");
+                    },
+                  },
+                  merge: true,
+                })
+              }
+              onClearButtonPress={async () => {
+                setValue("address", "");
+                await trigger("address");
+              }}
+              onAddressChange={async (address) => {
+                setValue("address", address, { shouldDirty: true });
+                await trigger("address");
+              }}
             />
           </View>
         )}
@@ -82,14 +133,13 @@ export function CFPDetailScreen(): JSX.Element {
           onPress={onContinuePress}
         />
       </View>
-    </ThemedScrollViewV2>
+    </KeyboardAwareScrollView>
   );
 }
 
 function VotingCycles(): JSX.Element {
   const [cycle, setCycle] = useState<number>(1);
-  const MIN_CYCLE = 1;
-  const MAX_CYCLE = 100;
+  const [minCycle, maxCycle] = [1, 100];
 
   return (
     <View>
@@ -129,13 +179,22 @@ function VotingCycles(): JSX.Element {
         inputContainerStyle={tailwind("pl-5 pr-4 py-2.5")}
         value={cycle.toString()}
         onChangeText={(text: string) => setCycle(Number(text))}
+        valid={cycle >= minCycle && cycle <= maxCycle}
+        inlineText={{
+          type: "error",
+          text: translate(
+            "screens/OCGDetailScreen",
+            "Cycles should be 1-100 only"
+          ),
+          style: tailwind("pl-5"),
+        }}
       >
         <LoanAddRemoveActionButton
           token="cycle"
-          onAdd={() => setCycle(Math.min(cycle + 1, MAX_CYCLE))}
-          onRemove={() => setCycle(Math.max(cycle - 1, MIN_CYCLE))}
-          leftDisabled={cycle <= MIN_CYCLE}
-          rightDisabled={cycle >= MAX_CYCLE}
+          onAdd={() => setCycle(Math.min(cycle + 1, maxCycle))}
+          onRemove={() => setCycle(Math.max(cycle - 1, minCycle))}
+          leftDisabled={cycle <= minCycle}
+          rightDisabled={cycle >= maxCycle}
         />
       </WalletTextInputV2>
     </View>

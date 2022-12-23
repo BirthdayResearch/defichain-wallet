@@ -1,7 +1,6 @@
 import { translate } from "@translations";
 import { tailwind } from "@tailwind";
 import {
-  ThemedActivityIndicatorV2,
   ThemedIcon,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
@@ -9,7 +8,6 @@ import {
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
-import { canOpenURL } from "expo-linking";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
 
@@ -33,7 +31,8 @@ export function ProposalURLInput({
         setStatus(ProposalInputStatus.Default);
         return;
       }
-      const isValid = await canOpenURL(input);
+      const regex = /https?:\/\/github\.com\/(?:[^/\s]+\/)+(?:issues\/\d+)$/gm;
+      const isValid = regex.test(input);
       setStatus(
         isValid ? ProposalInputStatus.Verified : ProposalInputStatus.Invalid
       );
@@ -62,10 +61,13 @@ export function ProposalURLInput({
   return (
     <View style={tailwind("flex")}>
       <WalletTextInputV2
+        autoCapitalize="none"
         inputType="default"
+        multiline
+        testID="input_url"
         title={translate("screens/OCGDetailScreen", "GITHUB DISCUSSION")}
         placeholder={translate("screens/OCGDetailScreen", "Paste URL")}
-        inputContainerStyle={tailwind("px-5 py-4.5")}
+        style={tailwind("w-3/5 flex-grow pb-1 font-normal-v2")}
         displayClearButton={hasInput}
         valid={status !== ProposalInputStatus.Invalid}
         value={input}
@@ -76,9 +78,7 @@ export function ProposalURLInput({
           setInput("");
         }}
       >
-        {!hasInput && (
-          <InputComponent status={status} onQrPressed={onQrButtonPress} />
-        )}
+        {!hasInput && <InputComponent onQrPressed={onQrButtonPress} />}
       </WalletTextInputV2>
       <InlineState status={status} />
     </View>
@@ -86,15 +86,11 @@ export function ProposalURLInput({
 }
 
 function InputComponent({
-  status,
   onQrPressed,
 }: {
-  status: ProposalInputStatus;
   onQrPressed: () => void;
 }): JSX.Element {
-  return status === ProposalInputStatus.Verifying ? (
-    <ThemedActivityIndicatorV2 />
-  ) : (
+  return (
     <ThemedTouchableOpacityV2
       onPress={onQrPressed}
       style={tailwind("border-0 pl-2")}
@@ -164,7 +160,6 @@ function InlineState({ status }: { status: ProposalInputStatus }): JSX.Element {
 
 export enum ProposalInputStatus {
   Default,
-  Verifying,
   Verified,
   Invalid,
 }
