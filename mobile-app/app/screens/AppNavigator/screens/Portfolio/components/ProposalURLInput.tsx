@@ -10,20 +10,34 @@ import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
+import { Controller, useForm } from "react-hook-form";
 
 interface ProposalURLInputProps {
   urlValidity: (isValid: boolean) => void;
+  onChangeUrlInput?: (text: string) => void;
 }
 
 export function ProposalURLInput({
   urlValidity,
+  onChangeUrlInput,
 }: ProposalURLInputProps): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
-  const [input, setInput] = useState<string | undefined>(undefined);
   const [status, setStatus] = useState<ProposalInputStatus>(
     ProposalInputStatus.Default
   );
-  const hasInput = input !== "" && input !== undefined;
+
+  // form
+  const {
+    control,
+    setValue,
+    getValues,
+    trigger,
+    formState: { isValid },
+  } = useForm({
+    mode: "onChange",
+  });
+  const url = getValues("url");
+  const hasInput = url !== "" && url !== undefined;
 
   useEffect(() => {
     async function checkUrlValidity() {
@@ -31,26 +45,29 @@ export function ProposalURLInput({
         setStatus(ProposalInputStatus.Default);
         return;
       }
-      const regex = /https?:\/\/github\.com\/(?:[^/\s]+\/)+(?:issues\/\d+)$/gm;
-      const isValid = regex.test(input);
       setStatus(
         isValid ? ProposalInputStatus.Verified : ProposalInputStatus.Invalid
       );
     }
 
     checkUrlValidity();
-  }, [input]);
+  }, [url]);
 
   useEffect(() => {
     urlValidity(status === ProposalInputStatus.Verified);
   }, [status]);
+
+  async function setInputValue(value: string) {
+    setValue("url", value);
+    await trigger("url");
+  }
 
   const onQrButtonPress = (): void => {
     navigation.navigate({
       name: "BarCodeScanner",
       params: {
         onQrScanned: (value: string) => {
-          setInput(value);
+          setInputValue(value);
         },
         title: translate("screens/OCGDetailScreen", "Scan Github URL"),
       },
@@ -60,26 +77,38 @@ export function ProposalURLInput({
 
   return (
     <View style={tailwind("flex")}>
-      <WalletTextInputV2
-        autoCapitalize="none"
-        inputType="default"
-        multiline
-        testID="input_url"
-        title={translate("screens/OCGDetailScreen", "GITHUB DISCUSSION")}
-        placeholder={translate("screens/OCGDetailScreen", "Paste URL")}
-        style={tailwind("w-3/5 flex-grow pb-1 font-normal-v2")}
-        displayClearButton={hasInput}
-        valid={status !== ProposalInputStatus.Invalid}
-        value={input}
-        onChangeText={(text: string) => {
-          setInput(text);
+      <Controller
+        control={control}
+        defaultValue=""
+        name="url"
+        render={({ field: { onChange, value } }) => (
+          <WalletTextInputV2
+            autoCapitalize="none"
+            inputType="default"
+            multiline
+            testID="input_url"
+            title={translate("screens/OCGDetailScreen", "GITHUB DISCUSSION")}
+            placeholder={translate("screens/OCGDetailScreen", "Paste URL")}
+            style={tailwind("w-3/5 flex-grow pb-1 font-normal-v2")}
+            displayClearButton={hasInput}
+            valid={status !== ProposalInputStatus.Invalid}
+            value={value}
+            onChangeText={(text) => {
+              onChange(text);
+              if (onChangeUrlInput) {
+                onChangeUrlInput(text);
+              }
+            }}
+            onClearButtonPress={() => setInputValue("")}
+          >
+            {!hasInput && <InputComponent onQrPressed={onQrButtonPress} />}
+          </WalletTextInputV2>
+        )}
+        rules={{
+          pattern: /https?:\/\/github\.com\/(?:[^/\s]+\/)+(?:issues\/\d+)$/gm,
         }}
-        onClearButtonPress={() => {
-          setInput("");
-        }}
-      >
-        {!hasInput && <InputComponent onQrPressed={onQrButtonPress} />}
-      </WalletTextInputV2>
+      />
+
       <InlineState status={status} />
     </View>
   );
