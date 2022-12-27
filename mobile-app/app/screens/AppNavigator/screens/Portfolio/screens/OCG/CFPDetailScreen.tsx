@@ -16,7 +16,16 @@ import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/Port
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import BigNumber from "bignumber.js";
 import { useConversion } from "@hooks/wallet/Conversion";
-import { PROPOSAL_FEE } from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
+import {
+  OCGProposalType,
+  PROPOSAL_FEE,
+} from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
+import { useSelector } from "react-redux";
+import { RootState } from "@store";
+import {
+  hasOceanTXQueued,
+  hasTxQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 
 export function CFPDetailScreen(): JSX.Element {
   const { isLight } = useThemeContext();
@@ -29,6 +38,13 @@ export function CFPDetailScreen(): JSX.Element {
   });
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const [isUrlValid, setUrlValid] = useState<boolean>(false);
+
+  const hasPendingJob = useSelector((state: RootState) =>
+    hasTxQueued(state.transactionQueue)
+  );
+  const hasPendingBroadcastJob = useSelector((state: RootState) =>
+    hasOceanTXQueued(state.ocean)
+  );
 
   // form
   const {
@@ -46,6 +62,7 @@ export function CFPDetailScreen(): JSX.Element {
   const [amount, setAmount] = useState<string>("");
   const [cycle, setCycle] = useState<number>(1);
   const [minCycle, maxCycle] = [1, 100];
+  const address = getValues("address");
 
   const onAddressSelect = useCallback(
     async (savedAddress: string) => {
@@ -61,11 +78,32 @@ export function CFPDetailScreen(): JSX.Element {
       return;
     }
 
+    navigation.navigate("OCGConfirmScreen", {
+      type: OCGProposalType.CFP,
+      url: url,
+      title: title,
+      amountRequest: BigNumber(amount),
+      cycle: cycle,
+      receivingAddress: address,
+    });
+
     if (isConversionRequired) {
       // todo convert and navigate
     } else {
       // todo navigate
     }
+  }
+
+  // todo for testing only
+  function onLongPress() {
+    navigation.navigate("OCGConfirmScreen", {
+      type: OCGProposalType.CFP,
+      url: "https://github.com/defich/dfips/issues/123",
+      title: "DFIP-2211-F: Limit FutureSwap volume #238",
+      amountRequest: BigNumber(30),
+      cycle: 2,
+      receivingAddress: "bcrt1qewk22gnvzs3hqfrc8y535qdgjj227rmpc78ggs",
+    });
   }
 
   function isFieldEmpty(value: string | undefined): boolean {
@@ -188,7 +226,10 @@ export function CFPDetailScreen(): JSX.Element {
           styleProps="mt-5 mx-7"
           testID="proposal_continue_button"
           onPress={onContinuePress}
-          disabled={!isButtonEnabled()}
+          onLongPress={onLongPress}
+          disabled={
+            !isButtonEnabled() || hasPendingJob || hasPendingBroadcastJob
+          }
         />
       </View>
     </KeyboardAwareScrollView>

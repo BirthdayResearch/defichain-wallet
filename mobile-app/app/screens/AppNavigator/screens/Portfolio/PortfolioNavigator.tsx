@@ -55,9 +55,13 @@ import { AddLiquidityScreen } from "../Dex/DexAddLiquidity";
 import { ConfirmAddLiquidityScreen } from "../Dex/DexConfirmAddLiquidity";
 import { CompositeSwapScreen } from "../Dex/CompositeSwap/CompositeSwapScreen";
 import { ConfirmCompositeSwapScreen } from "../Dex/CompositeSwap/ConfirmCompositeSwapScreen";
-import { OCGProposalsScreen } from "./screens/OCG/OCGProposalsScreen";
+import {
+  OCGProposalsScreen,
+  OCGProposalType,
+} from "./screens/OCG/OCGProposalsScreen";
 import { CFPDetailScreen } from "./screens/OCG/CFPDetailScreen";
 import { DFIPDetailScreen } from "./screens/OCG/DFIPDetailScreen";
+import { OCGConfirmScreen } from "./screens/OCG/OCGConfirmScreen";
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined;
@@ -144,6 +148,15 @@ export interface PortfolioParamList {
     onTokenPress: (item: SelectionToken) => {};
     isFutureSwap?: boolean;
     isSearchDTokensOnly?: boolean;
+  };
+  OCGConfirmScreen: {
+    type: OCGProposalType;
+    url: string;
+    title: string;
+    amountRequest?: BigNumber;
+    cycle?: number;
+    receivingAddress?: string;
+    conversion?: ConversionParam;
   };
 
   [key: string]: undefined | object;
@@ -630,6 +643,17 @@ export function PortfolioNavigator(): JSX.Element {
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
           headerTitle: translate("screens/OCGDetailScreen", "DFIP Details"),
+        }}
+      />
+      <PortfolioStack.Screen
+        component={OCGConfirmScreen}
+        name="OCGConfirmScreen"
+        options={{
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate("screens/OCGConfirmScreen", "Confirm"),
         }}
       />
     </PortfolioStack.Navigator>

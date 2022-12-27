@@ -9,9 +9,21 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useConversion } from "@hooks/wallet/Conversion";
 import BigNumber from "bignumber.js";
-import { PROPOSAL_FEE } from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
+import {
+  OCGProposalType,
+  PROPOSAL_FEE,
+} from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
+import { useSelector } from "react-redux";
+import { RootState } from "@store";
+import {
+  hasOceanTXQueued,
+  hasTxQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 
 export function DFIPDetailScreen(): JSX.Element {
+  const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const { isLight } = useThemeContext();
 
   const { isConversionRequired } = useConversion({
@@ -21,7 +33,15 @@ export function DFIPDetailScreen(): JSX.Element {
     },
   });
 
+  const hasPendingJob = useSelector((state: RootState) =>
+    hasTxQueued(state.transactionQueue)
+  );
+  const hasPendingBroadcastJob = useSelector((state: RootState) =>
+    hasOceanTXQueued(state.ocean)
+  );
+
   const [isUrlValid, setUrlValid] = useState<boolean>(false);
+  const [url, setUrl] = useState<string>("");
   const [title, setTitle] = useState<string | undefined>();
   const isTitleEmpty = title === undefined || title.trim() === "";
 
@@ -30,6 +50,11 @@ export function DFIPDetailScreen(): JSX.Element {
       return;
     }
 
+    navigation.navigate("OCGConfirmScreen", {
+      type: OCGProposalType.DFIP,
+      url: url,
+      title: title,
+    });
     if (isConversionRequired) {
       // todo convert and navigate
     } else {
@@ -42,7 +67,7 @@ export function DFIPDetailScreen(): JSX.Element {
       contentContainerStyle={tailwind("flex-grow px-5 pb-6 justify-between")}
     >
       <View>
-        <ProposalURLInput urlValidity={setUrlValid} />
+        <ProposalURLInput urlValidity={setUrlValid} onChangeUrlInput={setUrl} />
         {isUrlValid && (
           <View style={tailwind("pt-6")}>
             <WalletTextInputV2
@@ -85,7 +110,7 @@ export function DFIPDetailScreen(): JSX.Element {
           label={translate("screens/OCGDetailScreen", "Continue")}
           styleProps="mt-5 mx-7"
           testID="proposal_continue_button"
-          disabled={isTitleEmpty}
+          disabled={isTitleEmpty || hasPendingJob || hasPendingBroadcastJob}
           onPress={onContinuePress}
         />
       </View>
