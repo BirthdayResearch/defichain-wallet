@@ -9,6 +9,7 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useConversion } from "@hooks/wallet/Conversion";
 import BigNumber from "bignumber.js";
+import { PROPOSAL_FEE } from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
 
 export function DFIPDetailScreen(): JSX.Element {
   const { isLight } = useThemeContext();
@@ -16,7 +17,7 @@ export function DFIPDetailScreen(): JSX.Element {
   const { isConversionRequired } = useConversion({
     inputToken: {
       type: "utxo",
-      amount: new BigNumber(0.05),
+      amount: new BigNumber(PROPOSAL_FEE),
     },
   });
 

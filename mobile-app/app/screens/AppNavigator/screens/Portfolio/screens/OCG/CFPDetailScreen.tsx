@@ -14,17 +14,38 @@ import { useForm } from "react-hook-form";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import BigNumber from "bignumber.js";
+import { useConversion } from "@hooks/wallet/Conversion";
+import { PROPOSAL_FEE } from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
 
 export function CFPDetailScreen(): JSX.Element {
   const { isLight } = useThemeContext();
   const { networkName } = useNetworkContext();
+  const { isConversionRequired } = useConversion({
+    inputToken: {
+      type: "utxo",
+      amount: new BigNumber(PROPOSAL_FEE),
+    },
+  });
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const [isUrlValid, setUrlValid] = useState<boolean>(false);
 
   // form
-  const { control, setValue, getValues, trigger } = useForm({
+  const {
+    control,
+    setValue,
+    getValues,
+    trigger,
+    formState: { isValid },
+  } = useForm({
     mode: "onChange",
   });
+
+  const [url, setUrl] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+  const [amount, setAmount] = useState<string>("");
+  const [cycle, setCycle] = useState<number>(1);
+  const [minCycle, maxCycle] = [1, 100];
 
   const onAddressSelect = useCallback(
     async (savedAddress: string) => {
@@ -35,7 +56,33 @@ export function CFPDetailScreen(): JSX.Element {
     [navigation]
   );
 
-  function onContinuePress() {}
+  function onContinuePress() {
+    if (!isButtonEnabled()) {
+      return;
+    }
+
+    if (isConversionRequired) {
+      // todo convert and navigate
+    } else {
+      // todo navigate
+    }
+  }
+
+  function isFieldEmpty(value: string | undefined): boolean {
+    return value === undefined || value.trim() === "";
+  }
+
+  function isButtonEnabled(): boolean {
+    return (
+      !isFieldEmpty(url) &&
+      !isFieldEmpty(title) &&
+      !isFieldEmpty(amount) &&
+      BigNumber(amount).gte(minCycle) &&
+      BigNumber(amount).lte(maxCycle) &&
+      cycle > 0 &&
+      isValid
+    );
+  }
 
   return (
     <KeyboardAwareScrollView
@@ -45,13 +92,15 @@ export function CFPDetailScreen(): JSX.Element {
       )}
     >
       <View>
-        <ProposalURLInput urlValidity={setUrlValid} />
+        <ProposalURLInput urlValidity={setUrlValid} onChangeUrlInput={setUrl} />
         {isUrlValid && (
           <View style={tailwind("pt-6")}>
             <WalletTextInputV2
               inputType="default"
               multiline
               testID="input_title"
+              value={title}
+              onChangeText={setTitle}
               title={translate("screens/OCGDetailScreen", "PROPOSAL TITLE")}
               placeholder={translate("screens/OCGDetailScreen", "Title")}
               style={tailwind("w-3/5 flex-grow pb-1 font-normal-v2")}
@@ -68,6 +117,9 @@ export function CFPDetailScreen(): JSX.Element {
             />
             <WalletTextInputV2
               inputType="numeric"
+              testID="input_amount"
+              value={amount}
+              onChangeText={setAmount}
               title={translate(
                 "screens/OCGDetailScreen",
                 "AMOUNT REQUESTED IN DFI"
@@ -76,7 +128,12 @@ export function CFPDetailScreen(): JSX.Element {
               inputContainerStyle={tailwind("px-5 py-4.5")}
               titleStyle={tailwind("pt-4")}
             />
-            <VotingCycles />
+            <VotingCycles
+              cycle={cycle}
+              setCycle={setCycle}
+              minCycle={minCycle}
+              maxCycle={maxCycle}
+            />
             <AddressRow
               control={control}
               networkName={networkName}
@@ -131,16 +188,24 @@ export function CFPDetailScreen(): JSX.Element {
           styleProps="mt-5 mx-7"
           testID="proposal_continue_button"
           onPress={onContinuePress}
+          disabled={!isButtonEnabled()}
         />
       </View>
     </KeyboardAwareScrollView>
   );
 }
 
-function VotingCycles(): JSX.Element {
-  const [cycle, setCycle] = useState<number>(1);
-  const [minCycle, maxCycle] = [1, 100];
-
+function VotingCycles({
+  cycle,
+  setCycle,
+  minCycle,
+  maxCycle,
+}: {
+  cycle: number;
+  setCycle: (cycle: number) => void;
+  minCycle: number;
+  maxCycle: number;
+}): JSX.Element {
   return (
     <View>
       <View
