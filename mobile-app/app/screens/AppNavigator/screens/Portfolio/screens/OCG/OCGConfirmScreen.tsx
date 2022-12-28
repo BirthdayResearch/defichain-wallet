@@ -24,6 +24,9 @@ import {
   hasOceanTXQueued,
   hasTxQueued,
 } from "@waveshq/walletkit-ui/dist/store";
+import { WalletAlert } from "@components/WalletAlert";
+import { ScreenName } from "@screens/enum";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 type Props = StackScreenProps<PortfolioParamList, "OCGConfirmScreen">;
 
@@ -39,6 +42,8 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
   } = route.params;
   const isCFPType = type === OCGProposalType.CFP;
 
+  const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
+
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
   );
@@ -47,12 +52,42 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
   );
 
   const [isAcknowledge, setIsAcknowledge] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function onSubmit() {
-    return null;
+    if (!isAcknowledge || hasPendingJob || hasPendingBroadcastJob) {
+      return null;
+    }
+
+    setIsSubmitting(true);
   }
 
-  function onCancel() {}
+  function onCancel() {
+    if (isSubmitting) {
+      return;
+    }
+
+    WalletAlert({
+      title: translate("screens/Settings", "Cancel transaction"),
+      message: translate(
+        "screens/Settings",
+        "By cancelling, you will lose any changes you made for your transaction."
+      ),
+      buttons: [
+        {
+          text: translate("screens/Settings", "Go back"),
+          style: "cancel",
+        },
+        {
+          text: translate("screens/Settings", "Cancel"),
+          style: "destructive",
+          onPress: async () => {
+            navigation.navigate(ScreenName.PORTFOLIO_screen);
+          },
+        },
+      ],
+    });
+  }
 
   return (
     <ThemedScrollViewV2 contentContainerStyle={tailwind("py-8 px-5")}>
@@ -111,13 +146,14 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
         onSwitch={setIsAcknowledge}
       />
       <SubmitButtonGroup
-        isDisabled={hasPendingJob || hasPendingBroadcastJob}
+        isDisabled={!isAcknowledge || hasPendingJob || hasPendingBroadcastJob}
         title="submit"
         label={translate("screens/OCGConfirmScreen", "Submit")}
         displayCancelBtn
         onSubmit={onSubmit}
         onCancel={onCancel}
         buttonStyle="mx-7 mt-5"
+        isCancelDisabled={false}
       />
     </ThemedScrollViewV2>
   );
