@@ -1,5 +1,8 @@
 import { StackScreenProps } from "@react-navigation/stack";
-import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
+import {
+  ConversionParam,
+  PortfolioParamList,
+} from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
 import {
   ThemedScrollViewV2,
   ThemedTextV2,
@@ -32,7 +35,7 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
     amountRequest,
     cycle,
     receivingAddress,
-    // conversion,
+    conversion,
   } = route.params;
   const isCFPType = type === OCGProposalType.CFP;
 
@@ -45,13 +48,6 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
 
   const [isAcknowledge, setIsAcknowledge] = useState<boolean>(false);
 
-  function getFormattedTitle() {
-    const index = title.indexOf(":");
-    const titleFirst = title.substring(0, index).trim();
-    const titleLast = title.substring(index + 1).trim();
-    return `${titleFirst}:\n${titleLast}`;
-  }
-
   async function onSubmit() {
     return null;
   }
@@ -60,20 +56,10 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
 
   return (
     <ThemedScrollViewV2 contentContainerStyle={tailwind("py-8 px-5")}>
-      <ThemedTextV2
-        style={tailwind("text-xs font-normal-v2")}
-        light={tailwind("text-mono-light-v2-500")}
-        dark={tailwind("text-mono-dark-v2-500")}
-      >
-        {translate("screens/OCGConfirmScreen", "You are proposing")}
-      </ThemedTextV2>
-      <ThemedTextV2
-        style={tailwind("text-xl font-semibold-v2 mt-2 pb-8")}
-        light={tailwind("text-mono-light-v2-900")}
-        dark={tailwind("text-mono-dark-v2-900")}
-      >
-        {getFormattedTitle()}
-      </ThemedTextV2>
+      <HeaderSection title={title} />
+      {conversion !== undefined && conversion.isConversionRequired && (
+        <ConversionSection conversion={conversion} />
+      )}
       <ThemedViewV2
         style={tailwind("pt-5 border-t-0.5 ")}
         light={tailwind("text-mono-light-v2-900 border-mono-light-v2-300")}
@@ -134,6 +120,66 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
         buttonStyle="mx-7 mt-5"
       />
     </ThemedScrollViewV2>
+  );
+}
+
+function HeaderSection({ title }: { title: string }): JSX.Element {
+  function getFormattedTitle() {
+    const index = title.indexOf(":");
+    const titleFirst = title.substring(0, index).trim();
+    const titleLast = title.substring(index + 1).trim();
+    return `${titleFirst}:\n${titleLast}`;
+  }
+
+  return (
+    <View>
+      <ThemedTextV2
+        style={tailwind("text-xs font-normal-v2")}
+        light={tailwind("text-mono-light-v2-500")}
+        dark={tailwind("text-mono-dark-v2-500")}
+      >
+        {translate("screens/OCGConfirmScreen", "You are proposing")}
+      </ThemedTextV2>
+      <ThemedTextV2
+        style={tailwind("text-xl font-semibold-v2 mt-2 pb-8")}
+        light={tailwind("text-mono-light-v2-900")}
+        dark={tailwind("text-mono-dark-v2-900")}
+      >
+        {getFormattedTitle()}
+      </ThemedTextV2>
+    </View>
+  );
+}
+
+function ConversionSection({
+  conversion,
+}: {
+  conversion: ConversionParam;
+}): JSX.Element {
+  return (
+    <ThemedViewV2
+      style={tailwind("py-5 border-t-0.5")}
+      light={tailwind("border-mono-light-v2-300")}
+      dark={tailwind("border-mono-dark-v2-300")}
+    >
+      <NumberRowV2
+        containerStyle={{
+          style: tailwind("flex-row items-start w-full bg-transparent"),
+        }}
+        lhs={{
+          value: translate("screens/OCGConfirmScreen", "Amount to convert"),
+          testID: "amount_to_convert",
+          themedProps: lhsTheme,
+        }}
+        rhs={{
+          value: conversion.conversionAmount.toFixed(8),
+          suffix: " DFI",
+          testID: "amount_to_convert_value",
+          themedProps: rhsTheme,
+          isConverting: !conversion.isConverted,
+        }}
+      />
+    </ThemedViewV2>
   );
 }
 

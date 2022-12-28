@@ -163,4 +163,4 @@ export enum OCGProposalType {
   DFIP = "DFIP",
 }
 
-export const PROPOSAL_FEE = 150;
+export const PROPOSAL_FEE = 2.0;

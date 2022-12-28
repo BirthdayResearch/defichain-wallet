@@ -7,7 +7,10 @@ import { View } from "react-native";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { ButtonV2 } from "@components/ButtonV2";
 import { useThemeContext } from "@waveshq/walletkit-ui";
-import { useConversion } from "@hooks/wallet/Conversion";
+import {
+  queueConvertTransaction,
+  useConversion,
+} from "@hooks/wallet/Conversion";
 import BigNumber from "bignumber.js";
 import {
   OCGProposalType,
@@ -18,21 +21,34 @@ import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/Port
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import {
+  DFITokenSelector,
+  DFIUtxoSelector,
   hasOceanTXQueued,
   hasTxQueued,
 } from "@waveshq/walletkit-ui/dist/store";
+import { useAppDispatch } from "@hooks/useAppDispatch";
+import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 
 export function DFIPDetailScreen(): JSX.Element {
+  const logger = useLogger();
+  const dispatch = useAppDispatch();
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const { isLight } = useThemeContext();
 
-  const { isConversionRequired } = useConversion({
+  const { isConversionRequired, conversionAmount } = useConversion({
     inputToken: {
       type: "utxo",
       amount: new BigNumber(PROPOSAL_FEE),
     },
+    deps: [PROPOSAL_FEE],
   });
 
+  const DFIToken = useSelector((state: RootState) =>
+    DFITokenSelector(state.wallet)
+  );
+  const DFIUtxo = useSelector((state: RootState) =>
+    DFIUtxoSelector(state.wallet)
+  );
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
   );
@@ -46,20 +62,62 @@ export function DFIPDetailScreen(): JSX.Element {
   const isTitleEmpty = title === undefined || title.trim() === "";
 
   function onContinuePress() {
-    if (isTitleEmpty) {
+    if (isTitleEmpty || hasPendingJob || hasPendingBroadcastJob) {
       return;
     }
 
-    navigation.navigate("OCGConfirmScreen", {
+    const params: PortfolioParamList["OCGConfirmScreen"] = {
       type: OCGProposalType.DFIP,
       url: url,
       title: title,
-    });
+      ...(isConversionRequired && {
+        conversion: {
+          isConversionRequired,
+          DFIToken,
+          DFIUtxo,
+          conversionAmount,
+        },
+      }),
+    };
+
     if (isConversionRequired) {
-      // todo convert and navigate
+      queueConvertTransaction(
+        {
+          mode: "accountToUtxos",
+          amount: conversionAmount,
+        },
+        dispatch,
+        () => {
+          navigation.navigate("OCGConfirmScreen", params);
+        },
+        logger,
+        () => {
+          params.conversion = {
+            DFIUtxo,
+            DFIToken,
+            isConversionRequired: true,
+            conversionAmount,
+            isConverted: true,
+          };
+          navigation.navigate({
+            name: "OCGConfirmScreen",
+            params,
+            merge: true,
+          });
+        }
+      );
     } else {
-      // todo navigate
+      navigation.navigate("OCGConfirmScreen", params);
     }
+  }
+
+  // todo for testing only
+  function onLongPress() {
+    navigation.navigate("OCGConfirmScreen", {
+      type: OCGProposalType.DFIP,
+      url: "https://github.com/defich/dfips/issues/123",
+      title: "DFIP-2211-F: Limit FutureSwap volume #238",
+    });
   }
 
   return (
@@ -110,8 +168,9 @@ export function DFIPDetailScreen(): JSX.Element {
           label={translate("screens/OCGDetailScreen", "Continue")}
           styleProps="mt-5 mx-7"
           testID="proposal_continue_button"
-          disabled={isTitleEmpty || hasPendingJob || hasPendingBroadcastJob}
+          // disabled={isTitleEmpty || hasPendingJob || hasPendingBroadcastJob}
           onPress={onContinuePress}
+          onLongPress={onLongPress}
         />
       </View>
     </ThemedScrollViewV2>

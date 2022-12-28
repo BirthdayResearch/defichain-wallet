@@ -15,7 +15,10 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import BigNumber from "bignumber.js";
-import { useConversion } from "@hooks/wallet/Conversion";
+import {
+  queueConvertTransaction,
+  useConversion,
+} from "@hooks/wallet/Conversion";
 import {
   OCGProposalType,
   PROPOSAL_FEE,
@@ -23,22 +26,35 @@ import {
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import {
+  DFITokenSelector,
+  DFIUtxoSelector,
   hasOceanTXQueued,
   hasTxQueued,
 } from "@waveshq/walletkit-ui/dist/store";
+import { useLogger } from "@shared-contexts/NativeLoggingProvider";
+import { useAppDispatch } from "@hooks/useAppDispatch";
 
 export function CFPDetailScreen(): JSX.Element {
+  const logger = useLogger();
+  const dispatch = useAppDispatch();
   const { isLight } = useThemeContext();
   const { networkName } = useNetworkContext();
-  const { isConversionRequired } = useConversion({
+  const { isConversionRequired, conversionAmount } = useConversion({
     inputToken: {
       type: "utxo",
       amount: new BigNumber(PROPOSAL_FEE),
     },
+    deps: [PROPOSAL_FEE],
   });
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const [isUrlValid, setUrlValid] = useState<boolean>(false);
 
+  const DFIToken = useSelector((state: RootState) =>
+    DFITokenSelector(state.wallet)
+  );
+  const DFIUtxo = useSelector((state: RootState) =>
+    DFIUtxoSelector(state.wallet)
+  );
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
   );
@@ -74,23 +90,55 @@ export function CFPDetailScreen(): JSX.Element {
   );
 
   function onContinuePress() {
-    if (!isButtonEnabled()) {
+    if (!isButtonEnabled() || hasPendingJob || hasPendingBroadcastJob) {
       return;
     }
 
-    navigation.navigate("OCGConfirmScreen", {
+    const params: PortfolioParamList["OCGConfirmScreen"] = {
       type: OCGProposalType.CFP,
       url: url,
       title: title,
       amountRequest: BigNumber(amount),
       cycle: cycle,
       receivingAddress: address,
-    });
+      ...(isConversionRequired && {
+        conversion: {
+          isConversionRequired,
+          DFIToken,
+          DFIUtxo,
+          conversionAmount,
+        },
+      }),
+    };
 
     if (isConversionRequired) {
-      // todo convert and navigate
+      queueConvertTransaction(
+        {
+          mode: "accountToUtxos",
+          amount: conversionAmount,
+        },
+        dispatch,
+        () => {
+          navigation.navigate("OCGConfirmScreen", params);
+        },
+        logger,
+        () => {
+          params.conversion = {
+            DFIUtxo,
+            DFIToken,
+            isConversionRequired: true,
+            conversionAmount,
+            isConverted: true,
+          };
+          navigation.navigate({
+            name: "OCGConfirmScreen",
+            params,
+            merge: true,
+          });
+        }
+      );
     } else {
-      // todo navigate
+      navigation.navigate("OCGConfirmScreen", params);
     }
   }
 
@@ -227,9 +275,9 @@ export function CFPDetailScreen(): JSX.Element {
           testID="proposal_continue_button"
           onPress={onContinuePress}
           onLongPress={onLongPress}
-          disabled={
-            !isButtonEnabled() || hasPendingJob || hasPendingBroadcastJob
-          }
+          // disabled={
+          //   !isButtonEnabled() || hasPendingJob || hasPendingBroadcastJob
+          // }
         />
       </View>
     </KeyboardAwareScrollView>
