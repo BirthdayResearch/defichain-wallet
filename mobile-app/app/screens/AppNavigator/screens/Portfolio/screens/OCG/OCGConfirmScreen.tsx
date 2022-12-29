@@ -14,7 +14,6 @@ import { TextRowV2 } from "@components/TextRowV2";
 import { TouchableOpacity, View } from "react-native";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import BigNumber from "bignumber.js";
-import { OCGProposalType } from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
 import Checkbox from "expo-checkbox";
 import { useState } from "react";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
@@ -27,6 +26,7 @@ import {
 import { WalletAlert } from "@components/WalletAlert";
 import { ScreenName } from "@screens/enum";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { OCGProposalType } from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
 
 type Props = StackScreenProps<PortfolioParamList, "OCGConfirmScreen">;
 
@@ -152,7 +152,7 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
         displayCancelBtn
         onSubmit={onSubmit}
         onCancel={onCancel}
-        buttonStyle="mx-7 mt-5"
+        buttonStyle="mx-7 mt-5 mb-2"
         isCancelDisabled={false}
       />
     </ThemedScrollViewV2>

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { translate } from "@translations";
 import { ThemedTextV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
@@ -19,10 +19,6 @@ import {
   queueConvertTransaction,
   useConversion,
 } from "@hooks/wallet/Conversion";
-import {
-  OCGProposalType,
-  PROPOSAL_FEE,
-} from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import {
@@ -33,18 +29,25 @@ import {
 } from "@waveshq/walletkit-ui/dist/store";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useAppDispatch } from "@hooks/useAppDispatch";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { OCGProposalType } from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
 
 export function CFPDetailScreen(): JSX.Element {
   const logger = useLogger();
   const dispatch = useAppDispatch();
   const { isLight } = useThemeContext();
   const { networkName } = useNetworkContext();
+  const client = useWhaleApiClient();
+
+  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
+  const [amount, setAmount] = useState<string>("");
+  const proposalFee = getCFPFee(BigNumber(amount ?? 0));
   const { isConversionRequired, conversionAmount } = useConversion({
     inputToken: {
       type: "utxo",
-      amount: new BigNumber(PROPOSAL_FEE),
+      amount: proposalFee.plus(fee),
     },
-    deps: [PROPOSAL_FEE],
+    deps: [fee, amount],
   });
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const [isUrlValid, setUrlValid] = useState<boolean>(false);
@@ -75,10 +78,16 @@ export function CFPDetailScreen(): JSX.Element {
 
   const [url, setUrl] = useState<string>("");
   const [title, setTitle] = useState<string>("");
-  const [amount, setAmount] = useState<string>("");
   const [cycle, setCycle] = useState<number>(1);
   const [minCycle, maxCycle] = [1, 100];
   const address = getValues("address");
+
+  useEffect(() => {
+    client.fee
+      .estimate()
+      .then((f) => setFee(new BigNumber(f)))
+      .catch(logger.error);
+  }, []);
 
   const onAddressSelect = useCallback(
     async (savedAddress: string) => {
@@ -93,7 +102,6 @@ export function CFPDetailScreen(): JSX.Element {
     if (!isButtonEnabled() || hasPendingJob || hasPendingBroadcastJob) {
       return;
     }
-
     const params: PortfolioParamList["OCGConfirmScreen"] = {
       type: OCGProposalType.CFP,
       url: url,
@@ -163,9 +171,9 @@ export function CFPDetailScreen(): JSX.Element {
       !isFieldEmpty(url) &&
       !isFieldEmpty(title) &&
       !isFieldEmpty(amount) &&
-      BigNumber(amount).gte(minCycle) &&
-      BigNumber(amount).lte(maxCycle) &&
       cycle > 0 &&
+      BigNumber(cycle).gte(minCycle) &&
+      BigNumber(cycle).lte(maxCycle) &&
       isValid
     );
   }
@@ -275,6 +283,7 @@ export function CFPDetailScreen(): JSX.Element {
           testID="proposal_continue_button"
           onPress={onContinuePress}
           onLongPress={onLongPress}
+          disabled={!isButtonEnabled()}
           // disabled={
           //   !isButtonEnabled() || hasPendingJob || hasPendingBroadcastJob
           // }
@@ -352,5 +361,13 @@ function VotingCycles({
         />
       </WalletTextInputV2>
     </View>
+  );
+}
+
+function getCFPFee(requestedAmount?: BigNumber): BigNumber {
+  const CFP_MIN_FEE = 10;
+  const amount = requestedAmount ?? new BigNumber(0);
+  return new BigNumber(
+    Math.max(amount.multipliedBy(0.01).toNumber(), CFP_MIN_FEE)
   );
 }

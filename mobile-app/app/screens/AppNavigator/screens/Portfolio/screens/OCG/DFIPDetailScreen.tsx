@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { translate } from "@translations";
 import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
@@ -6,16 +6,12 @@ import { ProposalURLInput } from "@screens/AppNavigator/screens/Portfolio/compon
 import { View } from "react-native";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { ButtonV2 } from "@components/ButtonV2";
-import { useThemeContext } from "@waveshq/walletkit-ui";
+import { useNetworkContext, useThemeContext } from "@waveshq/walletkit-ui";
 import {
   queueConvertTransaction,
   useConversion,
 } from "@hooks/wallet/Conversion";
 import BigNumber from "bignumber.js";
-import {
-  OCGProposalType,
-  PROPOSAL_FEE,
-} from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
 import { useSelector } from "react-redux";
@@ -28,19 +24,26 @@ import {
 } from "@waveshq/walletkit-ui/dist/store";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
+import { OCGProposalType } from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
 
 export function DFIPDetailScreen(): JSX.Element {
   const logger = useLogger();
   const dispatch = useAppDispatch();
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const { isLight } = useThemeContext();
+  const client = useWhaleApiClient();
+  const { network } = useNetworkContext();
 
+  const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
+  const proposalFee = getDFIPFee(network);
   const { isConversionRequired, conversionAmount } = useConversion({
     inputToken: {
       type: "utxo",
-      amount: new BigNumber(PROPOSAL_FEE),
+      amount: fee.plus(proposalFee),
     },
-    deps: [PROPOSAL_FEE],
+    deps: [fee],
   });
 
   const DFIToken = useSelector((state: RootState) =>
@@ -60,6 +63,13 @@ export function DFIPDetailScreen(): JSX.Element {
   const [url, setUrl] = useState<string>("");
   const [title, setTitle] = useState<string | undefined>();
   const isTitleEmpty = title === undefined || title.trim() === "";
+
+  useEffect(() => {
+    client.fee
+      .estimate()
+      .then((f) => setFee(new BigNumber(f)))
+      .catch(logger.error);
+  }, []);
 
   function onContinuePress() {
     if (isTitleEmpty || hasPendingJob || hasPendingBroadcastJob) {
@@ -175,4 +185,15 @@ export function DFIPDetailScreen(): JSX.Element {
       </View>
     </ThemedScrollViewV2>
   );
+}
+
+function getDFIPFee(network: EnvironmentNetwork): BigNumber {
+  switch (network) {
+    case EnvironmentNetwork.MainNet:
+      return new BigNumber(100);
+    case EnvironmentNetwork.TestNet:
+      return new BigNumber(50);
+    default:
+      return new BigNumber(5);
+  }
 }
