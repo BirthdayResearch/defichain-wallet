@@ -111,13 +111,15 @@ export function ActionButtons(): JSX.Element {
             })
           }
         />
-        <ActionButton
-          name={translate("components/ActionButtons", "CFP/DFIP")}
-          icon="file"
-          iconType="Feather"
-          testID="cfp_dfip_button"
-          onPress={() => navigation.navigate("OCGProposalsScreen")}
-        />
+        {isFeatureAvailable("ocg_cfp_dfip") && (
+          <ActionButton
+            name={translate("components/ActionButtons", "CFP/DFIP")}
+            icon="file"
+            iconType="Feather"
+            testID="cfp_dfip_button"
+            onPress={() => navigation.navigate("OCGProposalsScreen")}
+          />
+        )}
         <ActionButton
           name={translate("components/ActionButtons", "Transactions")}
           icon="calendar"
