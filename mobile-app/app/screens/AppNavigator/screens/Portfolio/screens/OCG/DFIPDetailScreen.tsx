@@ -63,6 +63,7 @@ export function DFIPDetailScreen(): JSX.Element {
   const [url, setUrl] = useState<string>("");
   const [title, setTitle] = useState<string | undefined>();
   const isTitleEmpty = title === undefined || title.trim() === "";
+  const isTitleValid = !isTitleEmpty && new Blob([title]).size <= 128;
 
   useEffect(() => {
     client.fee
@@ -72,7 +73,7 @@ export function DFIPDetailScreen(): JSX.Element {
   }, []);
 
   function onContinuePress() {
-    if (isTitleEmpty || hasPendingJob || hasPendingBroadcastJob) {
+    if (!isTitleValid || hasPendingJob || hasPendingBroadcastJob) {
       return;
     }
 
@@ -178,7 +179,7 @@ export function DFIPDetailScreen(): JSX.Element {
           label={translate("screens/OCGDetailScreen", "Continue")}
           styleProps="mt-5 mx-7"
           testID="proposal_continue_button"
-          // disabled={isTitleEmpty || hasPendingJob || hasPendingBroadcastJob}
+          // disabled={!isTitleValid || hasPendingJob || hasPendingBroadcastJob}
           onPress={onContinuePress}
           onLongPress={onLongPress}
         />

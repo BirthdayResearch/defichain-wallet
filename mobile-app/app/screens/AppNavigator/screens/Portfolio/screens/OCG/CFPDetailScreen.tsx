@@ -170,8 +170,8 @@ export function CFPDetailScreen(): JSX.Element {
     return (
       !isFieldEmpty(url) &&
       !isFieldEmpty(title) &&
+      new Blob([title]).size <= 128 &&
       !isFieldEmpty(amount) &&
-      cycle > 0 &&
       BigNumber(cycle).gte(minCycle) &&
       BigNumber(cycle).lte(maxCycle) &&
       isValid
