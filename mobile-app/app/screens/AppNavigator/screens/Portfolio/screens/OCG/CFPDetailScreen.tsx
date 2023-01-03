@@ -328,7 +328,10 @@ function VotingCycles({
           <BottomSheetInfoV2
             alertInfo={{
               title: translate("screens/OCGDetailScreen", "Voting Cycles"),
-              message: translate("screens/OCGDetailScreen", "-"),
+              message: translate(
+                "screens/OCGDetailScreen",
+                "Cycles determine the duration for which a proposal can accept votes. Each voting cycle lasts ~130,000 blocks."
+              ),
             }}
             name="voting_cycles"
             infoIconStyle={{
