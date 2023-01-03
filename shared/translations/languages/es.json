@@ -2229,5 +2229,50 @@
     "Select Token": "Select Token",
     "Search with token name": "Buscar por nombre de token",
     "Search results for “{{searchTerm}}”": "Buscar resultados para “{{searchTerm}}”"
+  },
+  "screens/OCGProposalsScreen": {
+    "Proposals": "Proposals",
+    "Community Funding Proposal": "Community Funding Proposal",
+    "Proposal to build on top of the DeFiChain blockchain, and funded by the Community Development Fund.": "Proposal to build on top of the DeFiChain blockchain, and funded by the Community Development Fund.",
+    "DeFiChain Improvement Proposal": "DeFiChain Improvement Proposal",
+    "Proposal to improve the key function(s) on DeFiChain.": "Proposal to improve the key function(s) on DeFiChain.",
+    "An active discussion on Github is required in creating a proposal. Click here if you haven’t created one yet.": "An active discussion on Github is required in creating a proposal. Click here if you haven’t created one yet.",
+    "PROPOSAL TYPE": "PROPOSAL TYPE",
+    "Continue": "Continuar"
+  },
+  "screens/OCGDetailScreen": {
+    "CFP Details": "CFP Details",
+    "DFIP Details": "DFIP Details",
+    "PROPOSAL TITLE": "PROPOSAL TITLE",
+    "Title": "Title",
+    "Make sure this matches the title from Github.": "Make sure this matches the title from Github.",
+    "AMOUNT REQUESTED IN DFI": "AMOUNT REQUESTED IN DFI",
+    "RECEIVING ADDRESS": "RECEIVING ADDRESS",
+    "Review full proposal details in the next screen": "Review full proposal details in the next screen",
+    "Continue": "Continuar",
+    "CYCLES": "CYCLES",
+    "Voting Cycles": "Voting Cycles",
+    "Cycles should be 1-100 only": "Cycles should be 1-100 only",
+    "Scan Github URL": "Scan Github URL",
+    "GITHUB DISCUSSION": "GITHUB DISCUSSION",
+    "Paste URL": "Paste URL",
+    "Verified": "Verified",
+    "URL should be a valid Github URL": "URL should be a valid Github URL",
+    "Add URL here to get started": "Add URL here to get started"
+  },
+  "screens/OCGConfirmScreen": {
+    "Confirm": "Confirmar",
+    "Proposal type": "Proposal type",
+    "Submit": "Submit",
+    "You are proposing": "You are proposing",
+    "Amount to convert": "Cantidad a convertir",
+    "Amount requested": "Amount requested",
+    "Cycle": "Cycle",
+    "Receiving address": "Receiving address",
+    "Proposal fee": "Proposal fee",
+    "Transaction fee": "Comision de transacción",
+    "I acknowledge all proposal details to be correct and final. Once submitted, the proposal is no longer editable. View your posted proposal in DeFiScan.": "I acknowledge all proposal details to be correct and final. Once submitted, the proposal is no longer editable. View your posted proposal in DeFiScan.",
+    "Submitting proposal {{title}}": "Submitting proposal {{title}}",
+    "Proposal Submitted": "Proposal Submitted"
   }
 }

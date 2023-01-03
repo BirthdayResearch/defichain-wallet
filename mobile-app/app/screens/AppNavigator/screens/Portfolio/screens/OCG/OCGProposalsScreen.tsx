@@ -36,7 +36,7 @@ export function OCGProposalsScreen(): JSX.Element {
       id: OCGProposalType.DFIP,
       title: translate(
         "screens/OCGProposalsScreen",
-        "DeFiChain Improvement Proposal "
+        "DeFiChain Improvement Proposal"
       ),
       description: translate(
         "screens/OCGProposalsScreen",

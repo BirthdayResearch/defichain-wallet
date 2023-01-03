@@ -222,7 +222,7 @@ export function CFPDetailScreen(): JSX.Element {
                 "screens/OCGDetailScreen",
                 "AMOUNT REQUESTED IN DFI"
               )}
-              placeholder={translate("screens/OCGDetailScreen", "0.00 DFI")}
+              placeholder="0.00 DFI"
               inputContainerStyle={tailwind("px-5 py-4.5")}
               titleStyle={tailwind("pt-4")}
             />
@@ -328,10 +328,7 @@ function VotingCycles({
           <BottomSheetInfoV2
             alertInfo={{
               title: translate("screens/OCGDetailScreen", "Voting Cycles"),
-              message: translate(
-                "screens/OCGDetailScreen",
-                "Explain here what voting cycles are and what is it for the users."
-              ),
+              message: translate("screens/OCGDetailScreen", "-"),
             }}
             name="voting_cycles"
             infoIconStyle={{
