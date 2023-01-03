@@ -104,6 +104,8 @@ export function CFPDetailScreen(): JSX.Element {
     }
     const params: PortfolioParamList["OCGConfirmScreen"] = {
       type: OCGProposalType.CFP,
+      fee,
+      proposalFee,
       url: url,
       title: title,
       amountRequest: BigNumber(amount),
@@ -154,6 +156,8 @@ export function CFPDetailScreen(): JSX.Element {
   function onLongPress() {
     navigation.navigate("OCGConfirmScreen", {
       type: OCGProposalType.CFP,
+      fee,
+      proposalFee,
       url: "https://github.com/defich/dfips/issues/123",
       title: "DFIP-2211-F: Limit FutureSwap volume #238",
       amountRequest: BigNumber(30),

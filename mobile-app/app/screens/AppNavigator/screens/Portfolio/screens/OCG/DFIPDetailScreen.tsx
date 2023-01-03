@@ -79,6 +79,8 @@ export function DFIPDetailScreen(): JSX.Element {
 
     const params: PortfolioParamList["OCGConfirmScreen"] = {
       type: OCGProposalType.DFIP,
+      fee,
+      proposalFee,
       url: url,
       title: title,
       ...(isConversionRequired && {
@@ -126,6 +128,8 @@ export function DFIPDetailScreen(): JSX.Element {
   function onLongPress() {
     navigation.navigate("OCGConfirmScreen", {
       type: OCGProposalType.DFIP,
+      fee,
+      proposalFee,
       url: "https://github.com/defich/dfips/issues/123",
       title: "DFIP-2211-F: Limit FutureSwap volume #238",
     });

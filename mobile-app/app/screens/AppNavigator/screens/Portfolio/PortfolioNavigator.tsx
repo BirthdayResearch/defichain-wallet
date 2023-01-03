@@ -151,6 +151,8 @@ export interface PortfolioParamList {
   };
   OCGConfirmScreen: {
     type: OCGProposalType;
+    fee: BigNumber;
+    proposalFee: BigNumber;
     url: string;
     title: string;
     amountRequest?: BigNumber;

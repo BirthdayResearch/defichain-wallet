@@ -15,24 +15,42 @@ import { TouchableOpacity, View } from "react-native";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import BigNumber from "bignumber.js";
 import Checkbox from "expo-checkbox";
-import { useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import {
   hasOceanTXQueued,
   hasTxQueued,
+  transactionQueue,
 } from "@waveshq/walletkit-ui/dist/store";
 import { WalletAlert } from "@components/WalletAlert";
 import { ScreenName } from "@screens/enum";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { OCGProposalType } from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
+import {
+  NativeLoggingProps,
+  useLogger,
+} from "@shared-contexts/NativeLoggingProvider";
+import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
+import { CTransactionSegWit } from "@defichain/jellyfish-transaction";
+import { DeFiAddress } from "@defichain/jellyfish-address";
+import { NetworkName } from "@defichain/jellyfish-network";
+import {
+  CreateCfp,
+  CreateVoc,
+} from "@defichain/jellyfish-transaction/dist/script/dftx/dftx_governance";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
+import { useAppDispatch } from "@hooks/useAppDispatch";
+import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 
 type Props = StackScreenProps<PortfolioParamList, "OCGConfirmScreen">;
 
 export function OCGConfirmScreen({ route }: Props): JSX.Element {
   const {
     type,
+    fee,
+    proposalFee,
     url,
     title,
     amountRequest,
@@ -43,6 +61,9 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
   const isCFPType = type === OCGProposalType.CFP;
 
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
+  const logger = useLogger();
+  const network = useNetworkContext();
+  const dispatch = useAppDispatch();
 
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
@@ -51,15 +72,45 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
     hasOceanTXQueued(state.ocean)
   );
 
+  const [isOnPage, setIsOnPage] = useState<boolean>(true);
   const [isAcknowledge, setIsAcknowledge] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  async function onSubmit() {
+  const { proposalCode, proposalTitle } = getFormattedTitle();
+
+  useEffect(() => {
+    setIsOnPage(true);
+    return () => {
+      setIsOnPage(false);
+    };
+  }, []);
+
+  async function onSubmit(): Promise<void> {
     if (!isAcknowledge || hasPendingJob || hasPendingBroadcastJob) {
-      return null;
+      return;
     }
 
+    const form = {
+      networkName: network.networkName,
+      isCFPType,
+      url,
+      title,
+      proposalCode,
+      amountRequest,
+      cycle,
+      receivingAddress,
+    };
+
     setIsSubmitting(true);
+    await constructSignedProposalAndSend(
+      form,
+      dispatch,
+      () => {
+        onTransactionBroadcast(isOnPage, navigation.dispatch);
+      },
+      logger
+    );
+    setIsSubmitting(false);
   }
 
   function onCancel() {
@@ -89,9 +140,22 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
     });
   }
 
+  function getFormattedTitle(): {
+    proposalCode: string;
+    proposalTitle: string;
+  } {
+    const index = title.indexOf(":");
+    const proposalCode = title.substring(0, index).trim();
+    const proposalTitle = title.substring(index + 1).trim();
+    return {
+      proposalCode,
+      proposalTitle,
+    };
+  }
+
   return (
     <ThemedScrollViewV2 contentContainerStyle={tailwind("py-8 px-5")}>
-      <HeaderSection title={title} />
+      <HeaderSection title={`${proposalCode}:\n${proposalTitle}`} />
       {conversion !== undefined && conversion.isConversionRequired && (
         <ConversionSection conversion={conversion} />
       )}
@@ -137,10 +201,7 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
             receivingAddress={receivingAddress}
           />
         )}
-      <FeeSection
-        proposalFee={BigNumber(150)}
-        transactionFee={BigNumber(0.05)}
-      />
+      <FeeSection proposalFee={proposalFee} transactionFee={fee} />
       <AcknowledgeSwitch
         isAcknowledge={isAcknowledge}
         onSwitch={setIsAcknowledge}
@@ -160,13 +221,6 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
 }
 
 function HeaderSection({ title }: { title: string }): JSX.Element {
-  function getFormattedTitle() {
-    const index = title.indexOf(":");
-    const titleFirst = title.substring(0, index).trim();
-    const titleLast = title.substring(index + 1).trim();
-    return `${titleFirst}:\n${titleLast}`;
-  }
-
   return (
     <View>
       <ThemedTextV2
@@ -181,7 +235,7 @@ function HeaderSection({ title }: { title: string }): JSX.Element {
         light={tailwind("text-mono-light-v2-900")}
         dark={tailwind("text-mono-dark-v2-900")}
       >
-        {getFormattedTitle()}
+        {title}
       </ThemedTextV2>
     </View>
   );
@@ -376,3 +430,101 @@ const rhsTheme = {
   light: tailwind("text-mono-light-v2-900"),
   dark: tailwind("text-mono-dark-v2-900"),
 };
+
+interface ProposalForm {
+  networkName: NetworkName;
+  isCFPType: boolean;
+  url: string;
+  title: string;
+  proposalCode: string;
+}
+
+interface CFPProposalForm extends ProposalForm {
+  amountRequest: BigNumber;
+  cycle: number;
+  receivingAddress: string;
+}
+
+async function constructSignedProposalAndSend(
+  form: ProposalForm,
+  dispatch: Dispatch<any>,
+  onBroadcast: () => void,
+  logger: NativeLoggingProps
+) {
+  try {
+    const signer = async (
+      account: WhaleWalletAccount
+    ): Promise<CTransactionSegWit> => {
+      const script = await account.getScript();
+      const builder = account.withTransactionBuilder();
+
+      if (form.isCFPType) {
+        const cfpForm = form as CFPProposalForm;
+        const to = DeFiAddress.from(
+          cfpForm.networkName,
+          cfpForm.receivingAddress
+        ).getScript();
+        const cfp: CreateCfp = {
+          type: 0x01,
+          address: to,
+          nAmount: cfpForm.amountRequest,
+          nCycles: cfpForm.cycle,
+          title: cfpForm.title,
+          context: cfpForm.url,
+          contexthash: "",
+          options: 0x00,
+        };
+        const signed = await builder.governance.createCfp(cfp, script);
+        return new CTransactionSegWit(signed);
+      } else {
+        const dfip: CreateVoc = {
+          type: 0x02,
+          title: form.title,
+          context: form.url,
+          contexthash: "",
+          nAmount: new BigNumber(0),
+          address: {
+            stack: [],
+          },
+          nCycles: 1,
+          options: 0x00,
+        };
+        const signed = await builder.governance.createVoc(dfip, script);
+        return new CTransactionSegWit(signed);
+      }
+    };
+
+    dispatch(
+      transactionQueue.actions.push({
+        sign: signer,
+        title: translate(
+          "screens/OCGConfirmScreen",
+          "Submitting proposal {{title}}",
+          {
+            title: form.proposalCode,
+          }
+        ),
+        drawerMessages: {
+          preparing: translate(
+            "screens/OCGConfirmScreen",
+            "Submitting proposal {{title}}",
+            {
+              title: form.proposalCode,
+            }
+          ),
+          waiting: translate(
+            "screens/OCGConfirmScreen",
+            "Submitting proposal {{title}}",
+            {
+              title: form.proposalCode,
+            }
+          ),
+          complete: translate("screens/OCGConfirmScreen", "Proposal Submitted"),
+        },
+        onBroadcast,
+      })
+    );
+  } catch (e) {
+    logger.error(e);
+  }
+}
