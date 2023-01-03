@@ -14,7 +14,7 @@ import { Controller, useForm } from "react-hook-form";
 
 interface ProposalURLInputProps {
   urlValidity: (isValid: boolean) => void;
-  onChangeUrlInput?: (text: string) => void;
+  onChangeUrlInput: (text: string) => void;
 }
 
 export function ProposalURLInput({
@@ -60,6 +60,7 @@ export function ProposalURLInput({
   async function setInputValue(value: string) {
     setValue("url", value);
     await trigger("url");
+    onChangeUrlInput(value);
   }
 
   const onQrButtonPress = (): void => {
@@ -95,9 +96,7 @@ export function ProposalURLInput({
             value={value}
             onChangeText={(text) => {
               onChange(text);
-              if (onChangeUrlInput) {
-                onChangeUrlInput(text);
-              }
+              onChangeUrlInput(text);
             }}
             onClearButtonPress={() => setInputValue("")}
           >
