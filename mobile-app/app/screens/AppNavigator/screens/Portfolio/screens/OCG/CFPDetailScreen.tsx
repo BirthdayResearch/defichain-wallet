@@ -287,10 +287,9 @@ export function CFPDetailScreen(): JSX.Element {
           testID="proposal_continue_button"
           onPress={onContinuePress}
           onLongPress={onLongPress}
-          disabled={!isButtonEnabled()}
-          // disabled={
-          //   !isButtonEnabled() || hasPendingJob || hasPendingBroadcastJob
-          // }
+          disabled={
+            !isButtonEnabled() || hasPendingJob || hasPendingBroadcastJob
+          }
         />
       </View>
     </KeyboardAwareScrollView>
