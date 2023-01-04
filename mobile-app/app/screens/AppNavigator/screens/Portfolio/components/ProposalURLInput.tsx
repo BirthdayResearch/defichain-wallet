@@ -178,6 +178,7 @@ function InlineState({ status }: { status: ProposalInputStatus }): JSX.Element {
           dark={tailwind("text-mono-dark-v2-500", {
             "text-red-v2": status === ProposalInputStatus.Invalid,
           })}
+          testID="url_invalid_text"
         >
           {translatedText}
         </ThemedTextV2>

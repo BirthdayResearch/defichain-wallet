@@ -182,7 +182,7 @@ export function DFIPDetailScreen(): JSX.Element {
         <ButtonV2
           label={translate("screens/OCGDetailScreen", "Continue")}
           styleProps="mt-5 mx-7"
-          testID="proposal_continue_button"
+          testID="dfip_continue_button"
           disabled={!isTitleValid || hasPendingJob || hasPendingBroadcastJob}
           onPress={onContinuePress}
           onLongPress={onLongPress}

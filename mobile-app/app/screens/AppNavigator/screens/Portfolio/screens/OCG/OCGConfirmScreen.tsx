@@ -168,10 +168,12 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
           lhs={{
             value: translate("screens/OCGConfirmScreen", "Proposal type"),
             themedProps: lhsTheme,
+            testID: "proposal_type_label",
           }}
           rhs={{
             value: type,
             themedProps: rhsTheme,
+            testID: "proposal_type_value",
           }}
         />
       </ThemedViewV2>
@@ -184,10 +186,12 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
           lhs={{
             value: "Github",
             themedProps: lhsTheme,
+            testID: "github_label",
           }}
           rhs={{
             value: url,
             themedProps: rhsTheme,
+            testID: "github_value",
           }}
         />
       </ThemedViewV2>
@@ -251,6 +255,7 @@ function ConversionSection({
       style={tailwind("py-5 border-t-0.5")}
       light={tailwind("border-mono-light-v2-300")}
       dark={tailwind("border-mono-dark-v2-300")}
+      testID="convert_section"
     >
       <NumberRowV2
         containerStyle={{
@@ -287,6 +292,7 @@ function CFPSection({
       style={tailwind("py-4 border-b-0.5")}
       light={tailwind("border-mono-light-v2-300")}
       dark={tailwind("border-mono-dark-v2-300")}
+      testID="cfp_section"
     >
       <NumberRowV2
         lhs={{
@@ -295,7 +301,7 @@ function CFPSection({
           themedProps: lhsTheme,
         }}
         rhs={{
-          testID: "amount_requested",
+          testID: "amount_requested_value",
           value: amountRequest?.toFixed(8),
           suffix: " DFI",
           themedProps: rhsTheme,
@@ -309,7 +315,7 @@ function CFPSection({
             themedProps: lhsTheme,
           }}
           rhs={{
-            testID: "cycle",
+            testID: "cycle_value",
             value: cycle,
             suffix: ` ${translate("screens/OCGConfirmScreen", "Cycle")}`,
             themedProps: rhsTheme,
@@ -320,10 +326,12 @@ function CFPSection({
         lhs={{
           value: translate("screens/OCGConfirmScreen", "Receiving address"),
           themedProps: lhsTheme,
+          testID: "receiving_address_label",
         }}
         rhs={{
           value: receivingAddress,
           themedProps: rhsTheme,
+          testID: "receiving_address_value",
         }}
       />
     </ThemedViewV2>
@@ -350,7 +358,7 @@ function FeeSection({
           themedProps: lhsTheme,
         }}
         rhs={{
-          testID: "proposal_fee",
+          testID: "proposal_fee_value",
           value: proposalFee?.toFixed(8),
           suffix: " DFI",
           themedProps: rhsTheme,
@@ -372,7 +380,7 @@ function FeeSection({
             themedProps: lhsTheme,
           }}
           rhs={{
-            testID: "transaction_fee",
+            testID: "transaction_fee_value",
             value: transactionFee?.toFixed(8),
             suffix: " DFI",
             themedProps: rhsTheme,
@@ -397,7 +405,7 @@ function AcknowledgeSwitch({
         style={tailwind("h-6 w-6 mt-1 rounded")}
         onValueChange={onSwitch}
         color={isAcknowledge ? getColor("brand-v2-500") : undefined}
-        testID="lp_ack_switch"
+        testID="switch_ack_proposal"
       />
       <TouchableOpacity
         style={tailwind("flex-1")}
@@ -405,6 +413,7 @@ function AcknowledgeSwitch({
         onPress={() => {
           onSwitch(!isAcknowledge);
         }}
+        testID="button_ack_proposal"
       >
         <ThemedTextV2
           style={tailwind("ml-4 flex-1 text-xs font-normal-v2")}

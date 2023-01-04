@@ -284,7 +284,7 @@ export function CFPDetailScreen(): JSX.Element {
         <ButtonV2
           label={translate("screens/OCGDetailScreen", "Continue")}
           styleProps="mt-5 mx-7"
-          testID="proposal_continue_button"
+          testID="cfp_continue_button"
           onPress={onContinuePress}
           onLongPress={onLongPress}
           disabled={
@@ -342,6 +342,7 @@ function VotingCycles({
       </View>
       <WalletTextInputV2
         inputType="number-pad"
+        testID="input_cycle"
         inputContainerStyle={tailwind("pl-5 pr-4 py-2.5")}
         value={cycle.toString()}
         onChangeText={(text: string) => setCycle(Number(text))}
