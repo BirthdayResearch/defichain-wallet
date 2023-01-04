@@ -311,13 +311,13 @@ function CFPSection({
         <NumberRowV2
           lhs={{
             testID: "cycle",
-            value: translate("screens/OCGConfirmScreen", "Cycle"),
+            value: translate("screens/OCGConfirmScreen", "Cycle(s)"),
             themedProps: lhsTheme,
           }}
           rhs={{
             testID: "cycle_value",
             value: cycle,
-            suffix: ` ${translate("screens/OCGConfirmScreen", "Cycle")}`,
+            suffix: ` ${translate("screens/OCGConfirmScreen", "Cycle(s)")}`,
             themedProps: rhsTheme,
           }}
         />

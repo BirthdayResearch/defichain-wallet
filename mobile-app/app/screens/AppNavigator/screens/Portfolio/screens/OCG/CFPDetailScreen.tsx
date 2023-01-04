@@ -317,7 +317,7 @@ function VotingCycles({
           light={tailwind("text-mono-light-v2-500")}
           dark={tailwind("text-mono-dark-v2-500")}
         >
-          {translate("screens/OCGDetailScreen", "CYCLES")}
+          {translate("screens/OCGDetailScreen", "CYCLE(S)")}
         </ThemedTextV2>
         <View
           style={tailwind("ml-1", {
@@ -326,10 +326,10 @@ function VotingCycles({
         >
           <BottomSheetInfoV2
             alertInfo={{
-              title: translate("screens/OCGDetailScreen", "Voting Cycles"),
+              title: translate("screens/OCGDetailScreen", "Voting Cycle(s)"),
               message: translate(
                 "screens/OCGDetailScreen",
-                "Cycles determine the duration for which a proposal can accept votes. Each voting cycle lasts ~130,000 blocks."
+                "Cycle(s) determine the duration for which a proposal can accept votes. Each voting cycle lasts ~130,000 blocks."
               ),
             }}
             name="voting_cycles"
@@ -351,7 +351,7 @@ function VotingCycles({
           type: "error",
           text: translate(
             "screens/OCGDetailScreen",
-            "Cycles should be 1-100 only"
+            "Cycle(s) should be 1-100 only"
           ),
           style: tailwind("pl-5"),
         }}

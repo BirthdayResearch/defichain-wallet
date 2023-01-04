@@ -95,7 +95,7 @@ export function OCGProposalsScreen(): JSX.Element {
       </View>
       <ButtonV2
         label={translate("screens/OCGProposalsScreen", "Continue")}
-        styleProps="mt-2 mx-7"
+        styleProps="mt-5 mx-7"
         testID="proposal_continue_button"
         onPress={onContinue}
       />
