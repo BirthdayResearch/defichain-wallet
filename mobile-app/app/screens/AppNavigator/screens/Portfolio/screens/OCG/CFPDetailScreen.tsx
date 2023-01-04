@@ -188,6 +188,8 @@ export function CFPDetailScreen(): JSX.Element {
               title={translate("screens/OCGDetailScreen", "PROPOSAL TITLE")}
               placeholder={translate("screens/OCGDetailScreen", "Title")}
               style={tailwind("w-3/5 flex-grow pb-1 font-normal-v2")}
+              displayClearButton={!isFieldEmpty(title)}
+              onClearButtonPress={() => setTitle("")}
               inlineText={{
                 type: "helper",
                 text: translate(
@@ -209,8 +211,10 @@ export function CFPDetailScreen(): JSX.Element {
                 "AMOUNT REQUESTED IN DFI"
               )}
               placeholder="0.00 DFI"
-              inputContainerStyle={tailwind("px-5 py-4.5")}
+              inputContainerStyle={tailwind("py-4.5")}
               titleStyle={tailwind("pt-4")}
+              displayClearButton={!isFieldEmpty(amount)}
+              onClearButtonPress={() => setAmount("")}
             />
             <VotingCycles
               cycle={cycle}
