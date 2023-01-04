@@ -152,20 +152,6 @@ export function CFPDetailScreen(): JSX.Element {
     }
   }
 
-  // todo for testing only
-  function onLongPress() {
-    navigation.navigate("OCGConfirmScreen", {
-      type: OCGProposalType.CFP,
-      fee,
-      proposalFee,
-      url: "https://github.com/defich/dfips/issues/123",
-      title: "DFIP-2211-F: Limit FutureSwap volume #238",
-      amountRequest: BigNumber(30),
-      cycle: 2,
-      receivingAddress: "bcrt1qewk22gnvzs3hqfrc8y535qdgjj227rmpc78ggs",
-    });
-  }
-
   function isFieldEmpty(value: string | undefined): boolean {
     return value === undefined || value.trim() === "";
   }
@@ -286,7 +272,6 @@ export function CFPDetailScreen(): JSX.Element {
           styleProps="mt-5 mx-7"
           testID="cfp_continue_button"
           onPress={onContinuePress}
-          onLongPress={onLongPress}
           disabled={
             !isButtonEnabled() || hasPendingJob || hasPendingBroadcastJob
           }

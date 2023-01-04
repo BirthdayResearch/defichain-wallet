@@ -124,17 +124,6 @@ export function DFIPDetailScreen(): JSX.Element {
     }
   }
 
-  // todo for testing only
-  function onLongPress() {
-    navigation.navigate("OCGConfirmScreen", {
-      type: OCGProposalType.DFIP,
-      fee,
-      proposalFee,
-      url: "https://github.com/defich/dfips/issues/123",
-      title: "DFIP-2211-F: Limit FutureSwap volume #238",
-    });
-  }
-
   return (
     <ThemedScrollViewV2
       contentContainerStyle={tailwind("flex-grow px-5 pb-6 justify-between")}
@@ -185,7 +174,6 @@ export function DFIPDetailScreen(): JSX.Element {
           testID="dfip_continue_button"
           disabled={!isTitleValid || hasPendingJob || hasPendingBroadcastJob}
           onPress={onContinuePress}
-          onLongPress={onLongPress}
         />
       </View>
     </ThemedScrollViewV2>
