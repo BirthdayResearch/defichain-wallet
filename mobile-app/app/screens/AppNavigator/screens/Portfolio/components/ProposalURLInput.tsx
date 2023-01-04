@@ -1,15 +1,9 @@
 import { translate } from "@translations";
 import { tailwind } from "@tailwind";
-import {
-  ThemedIcon,
-  ThemedTextV2,
-  ThemedTouchableOpacityV2,
-} from "@components/themed";
+import { ThemedIcon, ThemedTextV2 } from "@components/themed";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
 import { Controller, useForm } from "react-hook-form";
 
 interface ProposalURLInputProps {
@@ -21,7 +15,6 @@ export function ProposalURLInput({
   urlValidity,
   onChangeUrlInput,
 }: ProposalURLInputProps): JSX.Element {
-  const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const [status, setStatus] = useState<ProposalInputStatus>(
     ProposalInputStatus.Default
   );
@@ -63,19 +56,6 @@ export function ProposalURLInput({
     onChangeUrlInput(value);
   }
 
-  const onQrButtonPress = (): void => {
-    navigation.navigate({
-      name: "BarCodeScanner",
-      params: {
-        onQrScanned: (value: string) => {
-          setInputValue(value);
-        },
-        title: translate("screens/OCGDetailScreen", "Scan Github URL"),
-      },
-      merge: true,
-    });
-  };
-
   return (
     <View style={tailwind("flex")}>
       <Controller
@@ -99,9 +79,7 @@ export function ProposalURLInput({
               onChangeUrlInput(text);
             }}
             onClearButtonPress={() => setInputValue("")}
-          >
-            {!hasInput && <InputComponent onQrPressed={onQrButtonPress} />}
-          </WalletTextInputV2>
+          />
         )}
         rules={{
           pattern: /https?:\/\/github\.com\/(?:[^/\s]+\/)+(?:issues\/\d+)$/gm,
@@ -110,28 +88,6 @@ export function ProposalURLInput({
 
       <InlineState status={status} />
     </View>
-  );
-}
-
-function InputComponent({
-  onQrPressed,
-}: {
-  onQrPressed: () => void;
-}): JSX.Element {
-  return (
-    <ThemedTouchableOpacityV2
-      onPress={onQrPressed}
-      style={tailwind("border-0 pl-2")}
-      testID="qr_code_button"
-    >
-      <ThemedIcon
-        dark={tailwind("text-mono-dark-v2-700")}
-        light={tailwind("text-mono-light-v2-700")}
-        iconType="MaterialIcons"
-        name="qr-code"
-        size={20}
-      />
-    </ThemedTouchableOpacityV2>
   );
 }
 
