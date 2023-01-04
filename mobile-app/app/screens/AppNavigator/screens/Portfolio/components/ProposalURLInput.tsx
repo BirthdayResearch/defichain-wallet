@@ -51,7 +51,7 @@ export function ProposalURLInput({
     }
 
     checkUrlValidity();
-  }, [url]);
+  }, [isValid, url]);
 
   useEffect(() => {
     urlValidity(status === ProposalInputStatus.Verified);
