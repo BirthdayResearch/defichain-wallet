@@ -76,8 +76,6 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
   const [isAcknowledge, setIsAcknowledge] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { proposalCode, proposalTitle } = getFormattedTitle();
-
   useEffect(() => {
     setIsOnPage(true);
     return () => {
@@ -95,7 +93,6 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
       isCFPType,
       url,
       title,
-      proposalCode,
       amountRequest,
       cycle,
       receivingAddress,
@@ -140,22 +137,9 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
     });
   }
 
-  function getFormattedTitle(): {
-    proposalCode: string;
-    proposalTitle: string;
-  } {
-    const index = title.indexOf(":");
-    const proposalCode = title.substring(0, index).trim();
-    const proposalTitle = title.substring(index + 1).trim();
-    return {
-      proposalCode,
-      proposalTitle,
-    };
-  }
-
   return (
     <ThemedScrollViewV2 contentContainerStyle={tailwind("py-8 px-5")}>
-      <HeaderSection title={`${proposalCode}:\n${proposalTitle}`} />
+      <HeaderSection title={title} />
       {conversion !== undefined && conversion.isConversionRequired && (
         <ConversionSection conversion={conversion} />
       )}
@@ -445,7 +429,6 @@ interface ProposalForm {
   isCFPType: boolean;
   url: string;
   title: string;
-  proposalCode: string;
 }
 
 interface CFPProposalForm extends ProposalForm {
@@ -506,28 +489,13 @@ async function constructSignedProposalAndSend(
     dispatch(
       transactionQueue.actions.push({
         sign: signer,
-        title: translate(
-          "screens/OCGConfirmScreen",
-          "Submitting proposal {{title}}",
-          {
-            title: form.proposalCode,
-          }
-        ),
+        title: translate("screens/OCGConfirmScreen", "Submitting proposal"),
         drawerMessages: {
           preparing: translate(
             "screens/OCGConfirmScreen",
-            "Submitting proposal {{title}}",
-            {
-              title: form.proposalCode,
-            }
+            "Submitting proposal"
           ),
-          waiting: translate(
-            "screens/OCGConfirmScreen",
-            "Submitting proposal {{title}}",
-            {
-              title: form.proposalCode,
-            }
-          ),
+          waiting: translate("screens/OCGConfirmScreen", "Submitting proposal"),
           complete: translate("screens/OCGConfirmScreen", "Proposal Submitted"),
         },
         onBroadcast,
