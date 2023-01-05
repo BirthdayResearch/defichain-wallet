@@ -2255,7 +2255,7 @@
     "Proposal Fees": "Frais de proposition",
     "Transaction fee": "Frais de transaction",
     "I acknowledge all proposal details to be correct and final. Once submitted, the proposal is no longer editable. View your posted proposal in DeFiScan.": "Je reconnais que tous les détails de la proposition sont corrects et définitifs. Une fois soumise, la proposition n'est plus modifiable. Consulter ma proposition affichée dans DeFiScan. ",
-    "Submitting proposal {{title}}": "Soumettre proposition {{title}}",
+    "Submitting proposal": "Soumettre proposition",
     "Proposal Submitted": "Proposition soumise"
   }
 }

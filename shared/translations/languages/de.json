@@ -2241,7 +2241,7 @@
     "Proposal Fees": "Proposal-Gebühren",
     "Transaction fee": "Transaktionsgebühren",
     "I acknowledge all proposal details to be correct and final. Once submitted, the proposal is no longer editable. View your posted proposal in DeFiScan.": "Ich bestätige, dass alle Angaben im Antrag korrekt und endgültig sind. Nach der Einreichung kann das Proposal nicht mehr bearbeitet werden. Anzeige deines eingereichten Proposals in DeFiScan",
-    "Submitting proposal {{title}}": "Proposal {{title}} einreichen",
+    "Submitting proposal": "Proposal einreichen",
     "Proposal Submitted": "Proposal eingereicht"
   }
 }
