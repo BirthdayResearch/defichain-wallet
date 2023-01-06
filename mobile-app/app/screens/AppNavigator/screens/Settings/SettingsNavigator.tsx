@@ -11,6 +11,7 @@ import { ChangePinScreen } from "@screens/AppNavigator/screens/Settings/screens/
 import { ConfirmPinScreen } from "@screens/AppNavigator/screens/Settings/screens/ConfirmPinScreen";
 import { LocalAddress } from "@store/userPreferences";
 import { NetworkSelectionScreen } from "@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreen";
+import { CfpDfipProposalsFaq } from "@screens/AppNavigator/screens/Portfolio/screens/CfpDfipProposalsFaq";
 import { AboutScreen } from "./screens/AboutScreen";
 import { CommunityScreen } from "./screens/CommunityScreen";
 import { LanguageSelectionScreen } from "./screens/LanguageSelectionScreen";
@@ -257,6 +258,17 @@ export function SettingsNavigator(): JSX.Element {
           headerTitle: translate(
             "components/UtxoVsTokenFaq",
             "About UTXO And Tokens"
+          ),
+        }}
+      />
+
+      <SettingsStack.Screen
+        component={CfpDfipProposalsFaq}
+        name="CfpDfipProposalsFaq"
+        options={{
+          headerTitle: translate(
+            "components/CfpDfipProposalsFaq",
+            "About On-Chain Governance"
           ),
         }}
       />
