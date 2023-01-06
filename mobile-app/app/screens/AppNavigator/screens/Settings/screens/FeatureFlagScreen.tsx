@@ -45,6 +45,10 @@ export function FeatureFlagScreen(): JSX.Element {
     feature: FeatureFlag,
     value: boolean
   ): Promise<void> => {
+    const message =
+      feature.id === "ocg_cfp_dfip"
+        ? "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?"
+        : "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?";
     const flags: FeatureFlagID[] = value
       ? [...enabledFeatures, feature.id]
       : enabledFeatures.filter((e) => e !== feature.id);
@@ -55,10 +59,7 @@ export function FeatureFlagScreen(): JSX.Element {
           "Enable {{feature}} (Beta)",
           { feature: translate("screens/Settings", feature.name) }
         ),
-        message: translate(
-          "screens/FeatureFlagScreen",
-          "This feature is still in Beta, upon activation you will be expose to some risks. Do you want to continue?"
-        ),
+        message: translate("screens/FeatureFlagScreen", message),
         buttons: [
           {
             text: translate("screens/FeatureFlagScreen", "Cancel"),
