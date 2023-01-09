@@ -461,7 +461,8 @@
     "Auctions": "Enchères",
     "Liquidity Mining": "Liquidity mining",
     "Liquidity mining": "Liquidity mining",
-    "UTXO and Tokens": "UTXO et tokens"
+    "UTXO and Tokens": "UTXO et tokens",
+    "On-Chain Governance": "Gouvernance on-chain"
   },
   "components/UtxoVsTokenFaq": {
     "About UTXO And Tokens": "UTXO et tokens",
@@ -528,6 +529,21 @@
     "The minimum starting bid is 105% of the batch's outstanding loan value. The additional 5% is included to cover the liquidation penalty, which is incurred upon vault liquidation.": "L'offre minimale de départ est de 105 % de la valeur du prêt en cours du lot. Les 5 % supplémentaires sont inclus pour couvrir la pénalité de liquidation, qui est encourue lors de la liquidation du vault.",
     "How is the minimum next bid determined?": "Comment l'enchère minimale est-elle déterminée ?",
     "The minimum next bid is 1% above the previous bid price.": "Une surenchère doit être supérieure d'au moins 1 % à l'offre précédente."
+  },
+  "components/CfpDfipProposalsFaq": {
+    "About On-Chain Governance": "À propos de la gouvernance on-chain",
+    "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN",
+    "On-chain governance (OCG) is a system for managing verified community proposals for DeFiChain. Proposals can now be submitted using the mobile Light Wallet.": "La gouvernance on-chain (GOC) est un système de gestion des propositions vérifiées de la communauté pour DeFiChain. Les propositions peuvent maintenant être soumises à l'aide du portefeuille léger mobile",
+    "What is the difference between a DFIP and CFP?": "Quelle est la différence entre une DFIP et une CFP ?",
+    "DeFiChain Improvement proposal (DFIP) aims to improve the key function(s) on DeFiChain.\nCommunity Funding Proposal (CFP) are community projects that build on top of DeFiChain. All approved CFPs are funded by the Community Development fund.": "Une proposition d'amélioration de DeFiChain (DFIP) vise à améliorer la ou les fonctions clés de DeFiChain.\nLes propositions de financement communautaire (CFP) sont des projets communautaires qui s'appuient sur DeFiChain. Tous les CFP approuvés sont financés par le fonds de développement communautaire, le Community Development Fund.",
+    "How are proposal fees calculated?": "Comment les frais de proposition sont-ils calculés ?",
+    "Proposal fees differ between DFIPs and CFPs. The cost of a DFIP proposal (vote of confidence) will be 50 DFI. Subsequently, a CFP proposal will cost 1% of the requested amount (DFI) or 10 DFI, whichever is larger. Proposal fee are automatically calculated and shown in the confirmation page.": "Les frais de proposition diffèrent entre les DFIP et les CFP. Le coût d'une proposition DFIP (vote de confiance) sera de 50 DFI. Par la suite, une proposition CFP coûtera 1% du montant demandé (DFI) ou 10 DFI, le montant le plus élevé étant retenu. Les frais de proposition sont automatiquement calculés et indiqués dans la page de confirmation.",
+    "Where can I find more details for all submitted proposals?": "Où puis-je trouver plus de détails pour toutes les propositions soumises ?",
+    "You may find all on-chain proposals on DeFiscan, under On-Chain Governance tab.": "Vous pouvez trouver toutes les propositions on-chain sur DeFiScan, sous l'onglet On-Chain Governance.",
+    "Can I vote on proposals using Light Wallet?": "Puis-je voter sur des propositions en utilisant le portefeuille léger ?",
+    "No, only proposal submissions can be done through Light Wallet. Currently, voting can only be submitted on chain using commands via CLI. Voting commands can be generated on DeFiscan via On-Chain Governance tab > Proposal details > Submit vote.\nYou will need to own a full node wallet and at least one masternode to vote.": "Non, seules les soumissions de propositions peuvent être faites via portefeuille léger. Actuellement, le vote peut seulement être soumis sur la chaîne en utilisant des commandes via ILC. Les commandes de vote peuvent être générées sur DeFiScan via l'onglet On-Chain Governance > Proposal details > Submit vote.\nVous devrez posséder un portefeuille full node et au moins un masternode pour voter.",
+    "Are they other ways to submit proposals?": "Existe-t-il d'autres façons de soumettre des propositions ?",
+    "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiscan, under On-Chain Governance tab > Submit proposal.": "Si vous possédez un portefeuille de nœud complet, vous pouvez également choisir de soumettre en utilisant des commandes via ILC. Les commandes peuvent être générées sur DeFiScan, sous l'onglet On-Chain Governance > Submit proposal."
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "RÈSEAU",
@@ -816,7 +832,8 @@
     "Edited vault {{vaultId}}": "Vault modifié {{vaultId}}",
     "Borrowing {{amount}} {{symbol}}": "Emprunt de {{amount}} {{symbol}}",
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Emprunt de {{amount}} {{symbol}} avec le vault {{vaultId}}",
-    "Borrowed {{amount}} {{symbol}}": "{{amount}} {{symbol}} empruntés"
+    "Borrowed {{amount}} {{symbol}}": "{{amount}} {{symbol}} empruntés",
+    "Requested amount is higher than available amount.": "Le montant demandé est supérieur au montant disponible."
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Demande d'accès à votre caméra",
@@ -2229,7 +2246,7 @@
     "Make sure this matches the title from Github.": "Achte darauf, dass er mit dem Titel von Github übereinstimmt.",
     "AMOUNT REQUESTED IN DFI": "MONTANT DEMANDÉ EN DFI",
     "RECEIVING ADDRESS": "ADRESSE DE RÉCEPTION",
-    "Review full proposal details in the next screen": "Review full proposal details in the next screen",
+    "Review full proposal details in the next screen": "Examiner tous les détails de la proposition dans l'écran suivant",
     "Continue": "Suivant",
     "CYCLE(S)": "CYCLE(S)",
     "Voting Cycle(s)": "Cycle(s) de vote",
@@ -2240,7 +2257,7 @@
     "Verified": "Vérifié",
     "URL should be a valid Github URL": "L'URL doit être une URL Github valide",
     "Add URL here to get started": "Ajouter l'URL ici pour commencer",
-    "Cycle(s) determine the duration for which a proposal can accept votes. Each voting cycle lasts ~130,000 blocks.": "Le(s) cycle(s) détermine(nt) la durée pendant laquelle une proposition peut accepter des votes. Chaque cycle de vote dure ~130 000 blocs."
+    "Cycle(s) determine the duration for which a proposal can accept votes. Each voting cycle lasts ~260,000 blocks, or approximately 90 days.": "Le(s) cycle(s) détermine(nt) la durée pendant laquelle une proposition peut accepter des votes. Chaque cycle de vote dure ~260 000 blocs, soit environ 90 jours."
   },
   "screens/OCGConfirmScreen": {
     "Confirm": "Confirmer",
@@ -2256,6 +2273,7 @@
     "Transaction fee": "Frais de transaction",
     "I acknowledge all proposal details to be correct and final. Once submitted, the proposal is no longer editable. View your posted proposal in DeFiScan.": "Je reconnais que tous les détails de la proposition sont corrects et définitifs. Une fois soumise, la proposition n'est plus modifiable. Consulter ma proposition affichée dans DeFiScan. ",
     "Submitting proposal": "Soumettre proposition",
-    "Proposal Submitted": "Proposition soumise"
+    "Proposal Submitted": "Proposition soumise",
+    "Proposals fees are implemented to encourage more responsible submissions.\nProposal fees are calculated based on the type of proposal selected, and the requested amount (only for CFP).\nRefer to our FAQ section for more detailed breakdown.": "Les frais de proposition sont mis en place pour encourager des soumissions plus responsables.\nLes frais de proposition sont calculés en fonction du type de proposition sélectionné, et du montant demandé (uniquement pour les CFP).\nVeuillez vous référer à notre section FAQ pour une explication plus détaillée."
   }
 }

@@ -351,7 +351,7 @@ function FeeSection({
           title: translate("screens/OCGConfirmScreen", "Proposal Fees"),
           message: translate(
             "screens/OCGConfirmScreen",
-            "Proposals fees are implemented to  encourage more responsible submissions.\nProposal fees are calculated based on the type of proposal selected, and the requested amount (only for CFP).\nRefer to our FAQ section for more detailed breakdown."
+            "Proposals fees are implemented to encourage more responsible submissions.\nProposal fees are calculated based on the type of proposal selected, and the requested amount (only for CFP).\nRefer to our FAQ section for more detailed breakdown."
           ),
           iconStyle: {
             light: tailwind("text-mono-light-v2-500"),
