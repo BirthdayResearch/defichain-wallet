@@ -318,7 +318,7 @@ function VotingCycles({
               title: translate("screens/OCGDetailScreen", "Voting Cycle(s)"),
               message: translate(
                 "screens/OCGDetailScreen",
-                "Cycle(s) determine the duration for which a proposal can accept votes. Each voting cycle lasts ~130,000 blocks."
+                "Cycle(s) determine the duration for which a proposal can accept votes. Each voting cycle lasts ~260,000 blocks, or approximately 90 days."
               ),
             }}
             name="voting_cycles"

@@ -521,7 +521,7 @@
     "The minimum next bid is 1% above the previous bid price.": "Das nächste Mindestgebot liegt 1 % über dem vorherigen Gebotspreis."
   },
   "components/CfpDfipProposalsFaq": {
-    "About On-Chain Governance": "Über On-Chain-Governance",
+    "About On-Chain Governance": "On-Chain-Governance",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN",
     "On-chain governance (OCG) is a system for managing verified community proposals for DeFiChain. Proposals can now be submitted using the mobile Light Wallet.": "On-Chain-Governance (OCG) ist ein System zur Verwaltung von verifizierten Community-Vorschlägen für DeFiChain. Vorschläge können jetzt über die mobile Lightwallet eingereicht werden.",
     "What is the difference between a DFIP and CFP?": "Was ist der Unterschied zwischen einem DFIP und einem CFP?",
