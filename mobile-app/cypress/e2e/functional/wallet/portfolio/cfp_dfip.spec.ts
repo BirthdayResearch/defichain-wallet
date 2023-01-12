@@ -1,4 +1,31 @@
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { checkValueWithinRange } from "../../../../support/walletCommands";
+
+function setupFeatureFlag() {
+  // mock feature flag to make cfip/dfip action button appear
+  const flags = [
+    {
+      id: "ocg_cfp_dfip",
+      name: "CFP/DFIP proposal(s)",
+      stage: "alpha",
+      version: ">2.14.0",
+      description: "Allows the submission of CFP/DFIP proposals",
+      networks: [
+        EnvironmentNetwork.MainNet,
+        EnvironmentNetwork.TestNet,
+        EnvironmentNetwork.RemotePlayground,
+        EnvironmentNetwork.LocalPlayground,
+      ],
+      platforms: ["ios", "android", "web"],
+      app: ["MOBILE_LW"],
+    },
+  ];
+
+  cy.intercept("**/settings/flags", {
+    statusCode: 200,
+    body: flags,
+  });
+}
 
 function setupWalletForConversion(): void {
   cy.getByTestID("bottom_tab_portfolio").click();
@@ -62,6 +89,7 @@ const DfipData = {
 context("QA-780-2: Wallet - Submit CFP", () => {
   before(() => {
     cy.createEmptyWallet(true);
+    setupFeatureFlag();
     cy.sendDFItoWallet().sendDFItoWallet().wait(6000);
     cy.getByTestID("bottom_tab_portfolio").click();
     cy.getByTestID("cfp_dfip_button").click();
@@ -150,6 +178,7 @@ context("QA-780-2: Wallet - Submit CFP", () => {
 context("QA-780-3: Wallet - Submit CFP - Convert", () => {
   before(() => {
     cy.createEmptyWallet(true);
+    setupFeatureFlag();
     cy.sendDFItoWallet().sendDFITokentoWallet().wait(6000);
     setupWalletForConversion();
     cy.getByTestID("cfp_dfip_button").click();
@@ -206,6 +235,7 @@ context("QA-780-3: Wallet - Submit CFP - Convert", () => {
 context("QA-780-4: Wallet - Submit DFIP", () => {
   before(() => {
     cy.createEmptyWallet(true);
+    setupFeatureFlag();
     cy.sendDFItoWallet().wait(6000);
     cy.getByTestID("cfp_dfip_button").click();
     cy.url().should("include", "app/OCGProposalsScreen");
