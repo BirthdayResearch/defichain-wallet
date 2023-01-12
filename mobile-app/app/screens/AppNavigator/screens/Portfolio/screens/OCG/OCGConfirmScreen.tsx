@@ -222,6 +222,7 @@ function HeaderSection({ title }: { title: string }): JSX.Element {
         style={tailwind("text-xl font-semibold-v2 mt-2 pb-8")}
         light={tailwind("text-mono-light-v2-900")}
         dark={tailwind("text-mono-dark-v2-900")}
+        testID="proposal_title"
       >
         {title}
       </ThemedTextV2>

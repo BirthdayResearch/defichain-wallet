@@ -22,8 +22,8 @@ import { useEffect, useState } from "react";
 import { useApiStatus } from "@hooks/useApiStatus";
 import { IconProps } from "@expo/vector-icons/build/createIconSet";
 import {
-  useThemeContext,
   useServiceProviderContext,
+  useThemeContext,
 } from "@waveshq/walletkit-ui";
 import {
   blockChainIsDownContent,
@@ -290,6 +290,7 @@ export function AnnouncementBannerV2({
         <ThemedTouchableOpacityV2
           onPress={async () => await openURL(announcement.url)}
           style={tailwind("ml-3.5 pl-1 py-1")}
+          testID={`${testID}_url_button`}
         >
           <ThemedIcon
             iconType="Feather"

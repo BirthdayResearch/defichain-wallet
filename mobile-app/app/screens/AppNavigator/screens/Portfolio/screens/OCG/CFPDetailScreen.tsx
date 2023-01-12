@@ -178,7 +178,7 @@ export function CFPDetailScreen(): JSX.Element {
       <View>
         <ProposalURLInput urlValidity={setUrlValid} onChangeUrlInput={setUrl} />
         {isUrlValid && (
-          <View style={tailwind("pt-6")}>
+          <View style={tailwind("pt-6")} testID="detail_container">
             <WalletTextInputV2
               inputType="default"
               multiline
