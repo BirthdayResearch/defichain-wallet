@@ -9,7 +9,6 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { useNetworkContext, useThemeContext } from "@waveshq/walletkit-ui";
 import { BottomSheetInfoV2 } from "@components/BottomSheetInfoV2";
 import { LoanAddRemoveActionButton } from "@screens/AppNavigator/screens/Loans/components/LoanActionButton";
-import { AddressRow } from "@screens/AppNavigator/screens/Portfolio/screens/SendScreen";
 import { useForm } from "react-hook-form";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
@@ -31,6 +30,7 @@ import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { OCGProposalType } from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
+import { AddressRow } from "@screens/AppNavigator/screens/Portfolio/components/AddressRow";
 
 export function CFPDetailScreen(): JSX.Element {
   const logger = useLogger();
@@ -256,6 +256,7 @@ export function CFPDetailScreen(): JSX.Element {
                 setValue("address", address, { shouldDirty: true });
                 await trigger("address");
               }}
+              address={address}
             />
           </View>
         )}
