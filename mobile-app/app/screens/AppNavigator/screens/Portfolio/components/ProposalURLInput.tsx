@@ -33,7 +33,7 @@ export function ProposalURLInput({
   const hasInput = url !== "" && url !== undefined;
 
   useEffect(() => {
-    async function checkUrlValidity() {
+    function checkUrlValidity() {
       if (!hasInput) {
         setStatus(ProposalInputStatus.Default);
         return;
