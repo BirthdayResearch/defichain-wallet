@@ -82,7 +82,7 @@ export function ProposalURLInput({
           />
         )}
         rules={{
-          pattern: /https?:\/\/github\.com\/(?:[^/\s]+\/)+(?:issues\/\d+)$/gm,
+          pattern: /https?:\/\/github\.com\/defich\/dfips\/issues\/\d+$/gim,
         }}
       />
 
