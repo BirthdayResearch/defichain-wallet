@@ -47,7 +47,7 @@ export function CfpDfipProposalsFaq(): JSX.Element {
         {
           text: translate(
             "components/CfpDfipProposalsFaq",
-            "You may find all on-chain proposals on DeFiscan, under On-Chain Governance tab."
+            "You may find all on-chain proposals on DeFiScan, under On-Chain Governance tab."
           ),
           type: "paragraph",
         },
@@ -62,7 +62,7 @@ export function CfpDfipProposalsFaq(): JSX.Element {
         {
           text: translate(
             "components/CfpDfipProposalsFaq",
-            "No, only proposal submissions can be done through Light Wallet. Currently, voting can only be submitted on chain using commands via CLI. Voting commands can be generated on DeFiscan via On-Chain Governance tab > Proposal details > Submit vote.\nYou will need to own a full node wallet and at least one masternode to vote."
+            "No, only proposal submissions can be done through Light Wallet. Currently, voting can only be submitted on chain using commands via CLI. Voting commands can be generated on DeFiScan via On-Chain Governance tab > Proposal details > Submit vote.\nYou will need to own a full node wallet and at least one masternode to vote."
           ),
           type: "paragraph",
         },
@@ -77,7 +77,7 @@ export function CfpDfipProposalsFaq(): JSX.Element {
         {
           text: translate(
             "components/CfpDfipProposalsFaq",
-            "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiscan, under On-Chain Governance tab > Submit proposal."
+            "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under On-Chain Governance tab > Submit proposal."
           ),
           type: "paragraph",
         },
