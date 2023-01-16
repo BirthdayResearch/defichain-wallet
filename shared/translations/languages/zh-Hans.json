@@ -2253,7 +2253,7 @@
     "Verified": "审核通过",
     "URL should be a valid Github URL": "该地址必须是有效的Github地址",
     "Add URL here to get started": "请添加网址",
-    "Cycle(s) determine the duration for which a proposal can accept votes. Each voting cycle lasts ~260,000 blocks, or approximately 90 days.": "投票周期决定了提案接受投票的时长。每一个投票周期长达260,000个区块，或大约90天。"
+    "Cycle(s) determine the duration for which a proposal can accept votes.": "投票周期决定了提案接受投票的时长。"
   },
   "screens/OCGConfirmScreen": {
     "Confirm": "确认",

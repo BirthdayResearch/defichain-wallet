@@ -2257,7 +2257,7 @@
     "Verified": "Vérifié",
     "URL should be a valid Github URL": "L'URL doit être une URL Github valide",
     "Add URL here to get started": "Ajouter l'URL ici pour commencer",
-    "Cycle(s) determine the duration for which a proposal can accept votes. Each voting cycle lasts ~260,000 blocks, or approximately 90 days.": "Le(s) cycle(s) détermine(nt) la durée pendant laquelle une proposition peut accepter des votes. Chaque cycle de vote dure ~260 000 blocs, soit environ 90 jours."
+    "Cycle(s) determine the duration for which a proposal can accept votes.": "Le(s) cycle(s) détermine(nt) la durée pendant laquelle une proposition peut accepter des votes."
   },
   "screens/OCGConfirmScreen": {
     "Confirm": "Confirmer",
