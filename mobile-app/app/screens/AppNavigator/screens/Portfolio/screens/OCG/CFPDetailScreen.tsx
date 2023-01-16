@@ -335,7 +335,10 @@ function VotingCycles({
         testID="input_cycle"
         inputContainerStyle={tailwind("pl-5 pr-4 py-2.5")}
         value={cycle.toString()}
-        onChangeText={(text: string) => setCycle(Number(text))}
+        onChangeText={(text: string) => {
+          const value = Number(text);
+          setCycle(isNaN(value) ? 0 : value);
+        }}
         valid={cycle >= minCycle && cycle <= maxCycle}
         inlineText={{
           type: "error",
