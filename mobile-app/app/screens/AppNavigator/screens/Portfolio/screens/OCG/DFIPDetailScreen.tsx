@@ -38,13 +38,6 @@ export function DFIPDetailScreen(): JSX.Element {
 
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
   const proposalFee = getDFIPFee(network);
-  const { isConversionRequired, conversionAmount } = useConversion({
-    inputToken: {
-      type: "utxo",
-      amount: fee.plus(proposalFee),
-    },
-    deps: [fee],
-  });
 
   const DFIToken = useSelector((state: RootState) =>
     DFITokenSelector(state.wallet)
@@ -58,6 +51,13 @@ export function DFIPDetailScreen(): JSX.Element {
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
     hasOceanTXQueued(state.ocean)
   );
+  const { isConversionRequired, conversionAmount } = useConversion({
+    inputToken: {
+      type: "utxo",
+      amount: fee.plus(proposalFee),
+    },
+    deps: [fee, DFIUtxo],
+  });
 
   const [isUrlValid, setUrlValid] = useState<boolean>(false);
   const [url, setUrl] = useState<string>("");

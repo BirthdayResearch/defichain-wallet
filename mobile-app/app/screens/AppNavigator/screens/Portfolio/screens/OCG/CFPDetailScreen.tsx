@@ -42,13 +42,6 @@ export function CFPDetailScreen(): JSX.Element {
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
   const [amount, setAmount] = useState<string>("");
   const proposalFee = getCFPFee(BigNumber(amount ?? 0));
-  const { isConversionRequired, conversionAmount } = useConversion({
-    inputToken: {
-      type: "utxo",
-      amount: proposalFee.plus(fee),
-    },
-    deps: [fee, amount],
-  });
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const [isUrlValid, setUrlValid] = useState<boolean>(false);
 
@@ -64,6 +57,14 @@ export function CFPDetailScreen(): JSX.Element {
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
     hasOceanTXQueued(state.ocean)
   );
+
+  const { isConversionRequired, conversionAmount } = useConversion({
+    inputToken: {
+      type: "utxo",
+      amount: proposalFee.plus(fee),
+    },
+    deps: [fee, amount, DFIUtxo],
+  });
 
   // form
   const {
