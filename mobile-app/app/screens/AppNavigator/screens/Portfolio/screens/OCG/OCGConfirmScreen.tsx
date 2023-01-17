@@ -388,7 +388,7 @@ function AcknowledgeSwitch({
   onSwitch: (val: boolean) => void;
 }): JSX.Element {
   return (
-    <View style={tailwind("px-7 pt-16 flex flex-row justify-center")}>
+    <View style={tailwind("px-7 pt-16 flex-1 flex-row justify-center")}>
       <Checkbox
         value={isAcknowledge}
         style={tailwind("h-6 w-6 mt-1 rounded")}
