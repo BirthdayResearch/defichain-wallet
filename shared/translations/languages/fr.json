@@ -2261,7 +2261,7 @@
     "URL should be a valid Github URL": "L'URL doit être une URL Github valide",
     "Add URL here to get started": "Ajouter l'URL ici pour commencer",
     "Cycle(s) determine the duration for which a proposal can accept votes.": "Le(s) cycle(s) détermine(nt) la durée pendant laquelle une proposition peut accepter des votes.",
-    "Title exceeds max character limit of 128.": "Title exceeds max character limit of 128."
+    "Title exceeds max character limit of 128.": "Le titre dépasse la limite maximale de 128 caractères."
   },
   "screens/OCGConfirmScreen": {
     "Confirm": "Confirmer",
