@@ -6,8 +6,8 @@ exports[`feature flag screen should render FeatureFlagItem 1`] = `
 >
   <View
     style={
-      Array [
-        Object {
+      [
+        {
           "alignItems": "center",
           "borderBottomLeftRadius": 8,
           "borderBottomRightRadius": 8,
@@ -23,7 +23,7 @@ exports[`feature flag screen should render FeatureFlagItem 1`] = `
           "paddingRight": 16,
           "paddingTop": 16,
         },
-        Object {
+        {
           "backgroundColor": "rgba(255, 255, 255, 1)",
         },
       ]
@@ -31,21 +31,21 @@ exports[`feature flag screen should render FeatureFlagItem 1`] = `
   >
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "SoraRegular",
               "fontSize": 14,
               "fontWeight": "400",
               "lineHeight": 20,
             },
-            Object {
+            {
               "color": "rgba(18, 18, 18, 1)",
             },
           ],
@@ -56,7 +56,7 @@ exports[`feature flag screen should render FeatureFlagItem 1`] = `
     </Text>
     <View
       style={
-        Object {
+        {
           "alignItems": "center",
           "flexDirection": "row",
         }
@@ -69,12 +69,12 @@ exports[`feature flag screen should render FeatureFlagItem 1`] = `
         onStartShouldSetResponder={[Function]}
         onTintColor="#02B31B"
         style={
-          Array [
-            Object {
+          [
+            {
               "height": 31,
               "width": 51,
             },
-            Object {
+            {
               "backgroundColor": "#E5E5E5",
               "borderRadius": 16,
             },
@@ -89,15 +89,15 @@ exports[`feature flag screen should render FeatureFlagItem 1`] = `
   </View>
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        Array [
-          Object {
+        [
+          {
             "fontFamily": "SoraRegular",
             "fontSize": 12,
             "fontWeight": "400",
@@ -108,7 +108,7 @@ exports[`feature flag screen should render FeatureFlagItem 1`] = `
             "paddingRight": 40,
             "paddingTop": 8,
           },
-          Object {
+          {
             "color": "rgba(115, 115, 115, 1)",
           },
         ],
@@ -123,9 +123,9 @@ exports[`feature flag screen should render FeatureFlagItem 1`] = `
 exports[`feature flag screen should render FeatureFlagScreen 1`] = `
 <RCTScrollView
   style={
-    Array [
+    [
       undefined,
-      Object {
+      {
         "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
@@ -135,7 +135,7 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
   <View>
     <View
       style={
-        Object {
+        {
           "flexBasis": "0%",
           "flexGrow": 1,
           "flexShrink": 1,
@@ -148,21 +148,21 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "SoraRegular",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Object {
+              {
                 "color": "rgba(18, 18, 18, 1)",
               },
             ],
@@ -177,8 +177,8 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
     >
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "alignItems": "center",
               "borderBottomLeftRadius": 8,
               "borderBottomRightRadius": 8,
@@ -194,7 +194,7 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
               "paddingRight": 16,
               "paddingTop": 16,
             },
-            Object {
+            {
               "backgroundColor": "rgba(255, 255, 255, 1)",
             },
           ]
@@ -202,21 +202,21 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(18, 18, 18, 1)",
                 },
               ],
@@ -227,7 +227,7 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
         </Text>
         <View
           style={
-            Object {
+            {
               "alignItems": "center",
               "flexDirection": "row",
             }
@@ -240,12 +240,12 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
             onStartShouldSetResponder={[Function]}
             onTintColor="#02B31B"
             style={
-              Array [
-                Object {
+              [
+                {
                   "height": 31,
                   "width": 51,
                 },
-                Object {
+                {
                   "backgroundColor": "#E5E5E5",
                   "borderRadius": 16,
                 },
@@ -260,15 +260,15 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
       </View>
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "SoraRegular",
                 "fontSize": 12,
                 "fontWeight": "400",
@@ -279,7 +279,7 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
                 "paddingRight": 40,
                 "paddingTop": 8,
               },
-              Object {
+              {
                 "color": "rgba(115, 115, 115, 1)",
               },
             ],

@@ -3,7 +3,7 @@
 exports[`Vault card should match snapshot of active vault 1`] = `
 <View
   style={
-    Object {
+    {
       "marginBottom": 8,
     }
   }
@@ -20,7 +20,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
+      {
         "borderBottomColor": "rgba(204, 204, 204, 1)",
         "borderBottomWidth": 0,
         "borderLeftColor": "rgba(204, 204, 204, 1)",
@@ -36,15 +36,15 @@ exports[`Vault card should match snapshot of active vault 1`] = `
   >
     <View
       style={
-        Object {
+        {
           "flexDirection": "column",
         }
       }
     >
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "alignItems": "center",
               "borderBottomLeftRadius": 10,
               "borderBottomRightRadius": 10,
@@ -61,7 +61,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
               "paddingRight": 20,
               "paddingTop": 20,
             },
-            Object {
+            {
               "backgroundColor": "rgba(255, 255, 255, 1)",
             },
           ]
@@ -70,7 +70,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
       >
         <View
           style={
-            Object {
+            {
               "flexBasis": "0%",
               "flexDirection": "column",
               "flexGrow": 1,
@@ -81,13 +81,13 @@ exports[`Vault card should match snapshot of active vault 1`] = `
         >
           <View
             style={
-              Array [
-                Object {
+              [
+                {
                   "display": "flex",
                   "flexDirection": "row",
                   "position": "relative",
                 },
-                Object {
+                {
                   "right": 0,
                 },
               ]
@@ -95,28 +95,28 @@ exports[`Vault card should match snapshot of active vault 1`] = `
           />
           <View
             style={
-              Object {
+              {
                 "marginTop": 12,
               }
             }
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "SoraRegular",
                       "fontSize": 12,
                       "fontWeight": "400",
                       "lineHeight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(89, 89, 89, 1)",
                     },
                   ],
@@ -128,21 +128,21 @@ exports[`Vault card should match snapshot of active vault 1`] = `
             </Text>
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "SoraRegular",
                       "fontSize": 12,
                       "fontWeight": "400",
                       "lineHeight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
@@ -155,28 +155,28 @@ exports[`Vault card should match snapshot of active vault 1`] = `
           </View>
           <View
             style={
-              Object {
+              {
                 "marginTop": 8,
               }
             }
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "SoraRegular",
                       "fontSize": 12,
                       "fontWeight": "400",
                       "lineHeight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(89, 89, 89, 1)",
                     },
                   ],
@@ -188,21 +188,21 @@ exports[`Vault card should match snapshot of active vault 1`] = `
             </Text>
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "SoraRegular",
                       "fontSize": 12,
                       "fontWeight": "400",
                       "lineHeight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
@@ -214,7 +214,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
         </View>
         <View
           style={
-            Object {
+            {
               "alignItems": "center",
               "flexDirection": "column",
               "flexWrap": "wrap",
@@ -234,12 +234,12 @@ exports[`Vault card should match snapshot of active vault 1`] = `
           />
           <View
             style={
-              Array [
-                Object {
+              [
+                {
                   "height": "100%",
                   "position": "absolute",
                 },
-                Object {
+                {
                   "maxHeight": 116,
                 },
               ]
@@ -247,7 +247,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
           >
             <View
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "flexBasis": "0%",
                   "flexGrow": 1,
@@ -262,16 +262,16 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                 ellipsizeMode="middle"
                 numberOfLines={1}
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Array [
-                        Object {
+                    [
+                      [
+                        {
                           "fontFamily": "SoraRegular",
                           "fontSize": 12,
                           "fontWeight": "400",
@@ -279,12 +279,12 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                           "paddingLeft": 8,
                           "paddingRight": 8,
                         },
-                        Object {
+                        {
                           "maxWidth": 124,
                           "minWidth": 10,
                         },
                       ],
-                      Object {
+                      {
                         "color": "rgba(89, 89, 89, 1)",
                       },
                     ],
@@ -296,22 +296,22 @@ exports[`Vault card should match snapshot of active vault 1`] = `
               </Text>
               <Text
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "SoraSemiBold",
                         "fontSize": 16,
                         "fontWeight": "600",
                         "lineHeight": 24,
                         "textAlign": "center",
                       },
-                      Object {
+                      {
                         "color": "rgba(229, 69, 69, 1)",
                       },
                     ],
@@ -334,7 +334,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
               style={
-                Object {
+                {
                   "alignSelf": "center",
                   "backgroundColor": "rgba(0, 0, 0, 1)",
                   "borderBottomLeftRadius": 9999,
@@ -357,15 +357,15 @@ exports[`Vault card should match snapshot of active vault 1`] = `
             >
               <Text
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Object {
+                    [
+                      {
                         "alignSelf": "center",
                         "flexWrap": "wrap",
                         "fontFamily": "SoraSemiBold",
@@ -373,7 +373,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
                         "fontWeight": "600",
                         "lineHeight": 16,
                       },
-                      Object {
+                      {
                         "color": "rgba(242, 242, 242, 1)",
                       },
                     ],
@@ -395,7 +395,7 @@ exports[`Vault card should match snapshot of active vault 1`] = `
 exports[`Vault card should match snapshot of at-risk vault 1`] = `
 <View
   style={
-    Object {
+    {
       "marginBottom": 8,
     }
   }
@@ -412,7 +412,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
+      {
         "borderBottomColor": "rgba(204, 204, 204, 1)",
         "borderBottomWidth": 0,
         "borderLeftColor": "rgba(204, 204, 204, 1)",
@@ -428,15 +428,15 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
   >
     <View
       style={
-        Object {
+        {
           "flexDirection": "column",
         }
       }
     >
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "alignItems": "center",
               "borderBottomLeftRadius": 10,
               "borderBottomRightRadius": 10,
@@ -453,7 +453,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
               "paddingRight": 20,
               "paddingTop": 20,
             },
-            Object {
+            {
               "backgroundColor": "rgba(255, 255, 255, 1)",
             },
           ]
@@ -462,7 +462,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
       >
         <View
           style={
-            Object {
+            {
               "flexBasis": "0%",
               "flexDirection": "column",
               "flexGrow": 1,
@@ -473,13 +473,13 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
         >
           <View
             style={
-              Array [
-                Object {
+              [
+                {
                   "display": "flex",
                   "flexDirection": "row",
                   "position": "relative",
                 },
-                Object {
+                {
                   "right": 0,
                 },
               ]
@@ -487,28 +487,28 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
           />
           <View
             style={
-              Object {
+              {
                 "marginTop": 12,
               }
             }
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "SoraRegular",
                       "fontSize": 12,
                       "fontWeight": "400",
                       "lineHeight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(89, 89, 89, 1)",
                     },
                   ],
@@ -520,21 +520,21 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
             </Text>
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "SoraRegular",
                       "fontSize": 12,
                       "fontWeight": "400",
                       "lineHeight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
@@ -547,28 +547,28 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
           </View>
           <View
             style={
-              Object {
+              {
                 "marginTop": 8,
               }
             }
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "SoraRegular",
                       "fontSize": 12,
                       "fontWeight": "400",
                       "lineHeight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(89, 89, 89, 1)",
                     },
                   ],
@@ -580,21 +580,21 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
             </Text>
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "SoraRegular",
                       "fontSize": 12,
                       "fontWeight": "400",
                       "lineHeight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
@@ -606,7 +606,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
         </View>
         <View
           style={
-            Object {
+            {
               "alignItems": "center",
               "flexDirection": "column",
               "flexWrap": "wrap",
@@ -626,12 +626,12 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
           />
           <View
             style={
-              Array [
-                Object {
+              [
+                {
                   "height": "100%",
                   "position": "absolute",
                 },
-                Object {
+                {
                   "maxHeight": 116,
                 },
               ]
@@ -639,7 +639,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
           >
             <View
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "flexBasis": "0%",
                   "flexGrow": 1,
@@ -654,16 +654,16 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                 ellipsizeMode="middle"
                 numberOfLines={1}
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Array [
-                        Object {
+                    [
+                      [
+                        {
                           "fontFamily": "SoraRegular",
                           "fontSize": 12,
                           "fontWeight": "400",
@@ -671,12 +671,12 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                           "paddingLeft": 8,
                           "paddingRight": 8,
                         },
-                        Object {
+                        {
                           "maxWidth": 124,
                           "minWidth": 10,
                         },
                       ],
-                      Object {
+                      {
                         "color": "rgba(89, 89, 89, 1)",
                       },
                     ],
@@ -688,22 +688,22 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
               </Text>
               <Text
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "SoraSemiBold",
                         "fontSize": 16,
                         "fontWeight": "600",
                         "lineHeight": 24,
                         "textAlign": "center",
                       },
-                      Object {
+                      {
                         "color": "rgba(229, 69, 69, 1)",
                       },
                     ],
@@ -726,7 +726,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
               style={
-                Object {
+                {
                   "alignSelf": "center",
                   "backgroundColor": "rgba(0, 0, 0, 1)",
                   "borderBottomLeftRadius": 9999,
@@ -749,15 +749,15 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
             >
               <Text
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Object {
+                    [
+                      {
                         "alignSelf": "center",
                         "flexWrap": "wrap",
                         "fontFamily": "SoraSemiBold",
@@ -765,7 +765,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
                         "fontWeight": "600",
                         "lineHeight": 16,
                       },
-                      Object {
+                      {
                         "color": "rgba(242, 242, 242, 1)",
                       },
                     ],
@@ -787,7 +787,7 @@ exports[`Vault card should match snapshot of at-risk vault 1`] = `
 exports[`Vault card should match snapshot of healthy vault 1`] = `
 <View
   style={
-    Object {
+    {
       "marginBottom": 8,
     }
   }
@@ -804,7 +804,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
+      {
         "borderBottomColor": "rgba(204, 204, 204, 1)",
         "borderBottomWidth": 0,
         "borderLeftColor": "rgba(204, 204, 204, 1)",
@@ -820,15 +820,15 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
   >
     <View
       style={
-        Object {
+        {
           "flexDirection": "column",
         }
       }
     >
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "alignItems": "center",
               "borderBottomLeftRadius": 10,
               "borderBottomRightRadius": 10,
@@ -845,7 +845,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
               "paddingRight": 20,
               "paddingTop": 20,
             },
-            Object {
+            {
               "backgroundColor": "rgba(255, 255, 255, 1)",
             },
           ]
@@ -854,7 +854,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
       >
         <View
           style={
-            Object {
+            {
               "flexBasis": "0%",
               "flexDirection": "column",
               "flexGrow": 1,
@@ -865,13 +865,13 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
         >
           <View
             style={
-              Array [
-                Object {
+              [
+                {
                   "display": "flex",
                   "flexDirection": "row",
                   "position": "relative",
                 },
-                Object {
+                {
                   "right": 0,
                 },
               ]
@@ -879,28 +879,28 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
           />
           <View
             style={
-              Object {
+              {
                 "marginTop": 12,
               }
             }
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "SoraRegular",
                       "fontSize": 12,
                       "fontWeight": "400",
                       "lineHeight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(89, 89, 89, 1)",
                     },
                   ],
@@ -912,21 +912,21 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
             </Text>
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "SoraRegular",
                       "fontSize": 12,
                       "fontWeight": "400",
                       "lineHeight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
@@ -939,28 +939,28 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
           </View>
           <View
             style={
-              Object {
+              {
                 "marginTop": 8,
               }
             }
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "SoraRegular",
                       "fontSize": 12,
                       "fontWeight": "400",
                       "lineHeight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(89, 89, 89, 1)",
                     },
                   ],
@@ -972,21 +972,21 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
             </Text>
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "SoraRegular",
                       "fontSize": 12,
                       "fontWeight": "400",
                       "lineHeight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
@@ -998,7 +998,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
         </View>
         <View
           style={
-            Object {
+            {
               "alignItems": "center",
               "flexDirection": "column",
               "flexWrap": "wrap",
@@ -1018,12 +1018,12 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
           />
           <View
             style={
-              Array [
-                Object {
+              [
+                {
                   "height": "100%",
                   "position": "absolute",
                 },
-                Object {
+                {
                   "maxHeight": 116,
                 },
               ]
@@ -1031,7 +1031,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
           >
             <View
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "flexBasis": "0%",
                   "flexGrow": 1,
@@ -1046,16 +1046,16 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                 ellipsizeMode="middle"
                 numberOfLines={1}
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Array [
-                        Object {
+                    [
+                      [
+                        {
                           "fontFamily": "SoraRegular",
                           "fontSize": 12,
                           "fontWeight": "400",
@@ -1063,12 +1063,12 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                           "paddingLeft": 8,
                           "paddingRight": 8,
                         },
-                        Object {
+                        {
                           "maxWidth": 124,
                           "minWidth": 10,
                         },
                       ],
-                      Object {
+                      {
                         "color": "rgba(89, 89, 89, 1)",
                       },
                     ],
@@ -1080,22 +1080,22 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
               </Text>
               <Text
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Object {
+                    [
+                      {
                         "fontFamily": "SoraSemiBold",
                         "fontSize": 16,
                         "fontWeight": "600",
                         "lineHeight": 24,
                         "textAlign": "center",
                       },
-                      Object {
+                      {
                         "color": "rgba(229, 69, 69, 1)",
                       },
                     ],
@@ -1118,7 +1118,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
               style={
-                Object {
+                {
                   "alignSelf": "center",
                   "backgroundColor": "rgba(0, 0, 0, 1)",
                   "borderBottomLeftRadius": 9999,
@@ -1141,15 +1141,15 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
             >
               <Text
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Object {
+                    [
+                      {
                         "alignSelf": "center",
                         "flexWrap": "wrap",
                         "fontFamily": "SoraSemiBold",
@@ -1157,7 +1157,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
                         "fontWeight": "600",
                         "lineHeight": 16,
                       },
-                      Object {
+                      {
                         "color": "rgba(242, 242, 242, 1)",
                       },
                     ],
@@ -1179,7 +1179,7 @@ exports[`Vault card should match snapshot of healthy vault 1`] = `
 exports[`Vault card should match snapshot of liquidated vault 1`] = `
 <View
   style={
-    Object {
+    {
       "marginBottom": 8,
     }
   }
@@ -1196,7 +1196,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
+      {
         "borderBottomColor": "rgba(204, 204, 204, 1)",
         "borderBottomWidth": 0,
         "borderLeftColor": "rgba(204, 204, 204, 1)",
@@ -1212,8 +1212,8 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
   >
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "borderBottomLeftRadius": 10,
             "borderBottomRightRadius": 10,
             "borderBottomWidth": 0,
@@ -1227,7 +1227,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
             "paddingRight": 20,
             "paddingTop": 20,
           },
-          Object {
+          {
             "backgroundColor": "rgba(255, 255, 255, 1)",
           },
         ]
@@ -1236,7 +1236,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
     >
       <View
         style={
-          Object {
+          {
             "alignItems": "center",
             "flexDirection": "row",
           }
@@ -1246,7 +1246,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
           resizeMode="contain"
           source={1}
           style={
-            Object {
+            {
               "height": 64,
               "width": 74,
             }
@@ -1255,7 +1255,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
         />
         <View
           style={
-            Object {
+            {
               "alignItems": "flex-end",
               "flexBasis": "0%",
               "flexDirection": "column",
@@ -1266,7 +1266,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
         >
           <View
             accessibilityState={
-              Object {
+              {
                 "disabled": false,
               }
             }
@@ -1281,7 +1281,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "borderBottomColor": "rgba(204, 204, 204, 1)",
                 "borderBottomWidth": 0,
@@ -1300,26 +1300,26 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
               ellipsizeMode="middle"
               numberOfLines={1}
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Array [
-                      Object {
+                  [
+                    [
+                      {
                         "fontSize": 12,
                         "lineHeight": 16,
                         "textAlign": "right",
                       },
-                      Object {
+                      {
                         "maxWidth": 124,
                         "minWidth": 10,
                       },
                     ],
-                    Object {
+                    {
                       "color": "rgba(89, 89, 89, 1)",
                     },
                   ],
@@ -1333,15 +1333,15 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
           </View>
           <Text
             style={
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "RegularFont",
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "SoraRegular",
                     "fontSize": 12,
                     "fontWeight": "400",
@@ -1350,7 +1350,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
                     "textAlign": "right",
                     "width": "91.666667%",
                   },
-                  Object {
+                  {
                     "color": "rgba(229, 69, 69, 1)",
                   },
                 ],

@@ -9,38 +9,38 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
     />
   }
   data={
-    Array [
-      Object {
+    [
+      {
         "icon": "bell",
         "id": "announcements",
         "title": "Announcements",
         "url": "https://t.me/defichain_announcements",
       },
-      Object {
+      {
         "icon": "help-circle",
         "id": "faq",
         "title": "Frequently asked questions",
         "url": "https://defichain.com/learn/#faq",
       },
-      Object {
+      {
         "icon": "flag",
         "id": "gh",
         "title": "Report issue on GitHub",
         "url": "https://github.com/DeFiCh/wallet/issues",
       },
-      Object {
+      {
         "icon": "message-square",
         "id": "tg_en",
         "title": "Telegram (EN)",
         "url": "https://t.me/defiblockchain",
       },
-      Object {
+      {
         "icon": "message-square",
         "id": "tg_de",
         "title": "Telegram (DE)",
         "url": "https://t.me/defiblockchain_DE",
       },
-      Object {
+      {
         "icon": "message-square",
         "id": "wechat",
         "title": "WeChat",
@@ -61,20 +61,20 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
   removeClippedSubviews={false}
   renderItem={[Function]}
   scrollEventThrottle={50}
-  stickyHeaderIndices={Array []}
+  stickyHeaderIndices={[]}
   style={
-    Array [
-      Object {
+    [
+      {
         "paddingLeft": 20,
         "paddingRight": 20,
       },
-      Object {
+      {
         "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
   }
   testID="community_flat_list"
-  viewabilityConfigCallbackPairs={Array []}
+  viewabilityConfigCallbackPairs={[]}
 >
   <View>
     <View
@@ -82,16 +82,16 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Array [
-                Object {
+            [
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 12,
                   "fontWeight": "400",
@@ -103,7 +103,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                 },
                 undefined,
               ],
-              Object {
+              {
                 "color": "rgba(115, 115, 115, 1)",
               },
             ],
@@ -121,14 +121,14 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
     >
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderTopLeftRadius": 10,
               "borderTopRightRadius": 10,
               "paddingLeft": 20,
               "paddingRight": 20,
             },
-            Object {
+            {
               "backgroundColor": "rgba(255, 255, 255, 1)",
             },
           ]
@@ -136,9 +136,9 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       >
         <View
           style={
-            Array [
-              Object {},
-              Object {
+            [
+              {},
+              {
                 "borderBottomColor": "rgba(204, 204, 204, 1)",
                 "borderLeftColor": "rgba(204, 204, 204, 1)",
                 "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -160,7 +160,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "borderBottomColor": "rgba(204, 204, 204, 1)",
                 "borderBottomWidth": 0,
@@ -181,15 +181,15 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "flexBasis": "0%",
                       "flexGrow": 1,
                       "flexShrink": 1,
@@ -199,7 +199,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                       "lineHeight": 20,
                       "marginRight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
@@ -219,12 +219,12 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
     >
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "paddingLeft": 20,
               "paddingRight": 20,
             },
-            Object {
+            {
               "backgroundColor": "rgba(255, 255, 255, 1)",
             },
           ]
@@ -232,11 +232,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       >
         <View
           style={
-            Array [
-              Object {
+            [
+              {
                 "borderTopWidth": 0.5,
               },
-              Object {
+              {
                 "borderBottomColor": "rgba(204, 204, 204, 1)",
                 "borderLeftColor": "rgba(204, 204, 204, 1)",
                 "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -258,7 +258,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "borderBottomColor": "rgba(204, 204, 204, 1)",
                 "borderBottomWidth": 0,
@@ -279,15 +279,15 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "flexBasis": "0%",
                       "flexGrow": 1,
                       "flexShrink": 1,
@@ -297,7 +297,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                       "lineHeight": 20,
                       "marginRight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
@@ -317,12 +317,12 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
     >
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "paddingLeft": 20,
               "paddingRight": 20,
             },
-            Object {
+            {
               "backgroundColor": "rgba(255, 255, 255, 1)",
             },
           ]
@@ -330,11 +330,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       >
         <View
           style={
-            Array [
-              Object {
+            [
+              {
                 "borderTopWidth": 0.5,
               },
-              Object {
+              {
                 "borderBottomColor": "rgba(204, 204, 204, 1)",
                 "borderLeftColor": "rgba(204, 204, 204, 1)",
                 "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -356,7 +356,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "borderBottomColor": "rgba(204, 204, 204, 1)",
                 "borderBottomWidth": 0,
@@ -377,15 +377,15 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "flexBasis": "0%",
                       "flexGrow": 1,
                       "flexShrink": 1,
@@ -395,7 +395,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                       "lineHeight": 20,
                       "marginRight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
@@ -415,12 +415,12 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
     >
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "paddingLeft": 20,
               "paddingRight": 20,
             },
-            Object {
+            {
               "backgroundColor": "rgba(255, 255, 255, 1)",
             },
           ]
@@ -428,11 +428,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       >
         <View
           style={
-            Array [
-              Object {
+            [
+              {
                 "borderTopWidth": 0.5,
               },
-              Object {
+              {
                 "borderBottomColor": "rgba(204, 204, 204, 1)",
                 "borderLeftColor": "rgba(204, 204, 204, 1)",
                 "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -454,7 +454,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "borderBottomColor": "rgba(204, 204, 204, 1)",
                 "borderBottomWidth": 0,
@@ -475,15 +475,15 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "flexBasis": "0%",
                       "flexGrow": 1,
                       "flexShrink": 1,
@@ -493,7 +493,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                       "lineHeight": 20,
                       "marginRight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
@@ -513,12 +513,12 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
     >
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "paddingLeft": 20,
               "paddingRight": 20,
             },
-            Object {
+            {
               "backgroundColor": "rgba(255, 255, 255, 1)",
             },
           ]
@@ -526,11 +526,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       >
         <View
           style={
-            Array [
-              Object {
+            [
+              {
                 "borderTopWidth": 0.5,
               },
-              Object {
+              {
                 "borderBottomColor": "rgba(204, 204, 204, 1)",
                 "borderLeftColor": "rgba(204, 204, 204, 1)",
                 "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -552,7 +552,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "borderBottomColor": "rgba(204, 204, 204, 1)",
                 "borderBottomWidth": 0,
@@ -573,15 +573,15 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "flexBasis": "0%",
                       "flexGrow": 1,
                       "flexShrink": 1,
@@ -591,7 +591,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                       "lineHeight": 20,
                       "marginRight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(18, 18, 18, 1)",
                     },
                   ],
@@ -611,14 +611,14 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
     >
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomLeftRadius": 10,
               "borderBottomRightRadius": 10,
               "paddingLeft": 20,
               "paddingRight": 20,
             },
-            Object {
+            {
               "backgroundColor": "rgba(255, 255, 255, 1)",
             },
           ]
@@ -626,11 +626,11 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
       >
         <View
           style={
-            Array [
-              Object {
+            [
+              {
                 "borderTopWidth": 0.5,
               },
-              Object {
+              {
                 "borderBottomColor": "rgba(204, 204, 204, 1)",
                 "borderLeftColor": "rgba(204, 204, 204, 1)",
                 "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -652,7 +652,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "borderBottomColor": "rgba(204, 204, 204, 1)",
                 "borderBottomWidth": 0,
@@ -673,15 +673,15 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "flexBasis": "0%",
                       "flexGrow": 1,
                       "flexShrink": 1,
@@ -691,7 +691,7 @@ exports[`<CommunityScreen /> should match snapshot 1`] = `
                       "lineHeight": 20,
                       "marginRight": 16,
                     },
-                    Object {
+                    {
                       "color": "rgba(18, 18, 18, 1)",
                     },
                   ],

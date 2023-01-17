@@ -3,12 +3,12 @@
 exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
 <View
   style={
-    Array [
-      Object {
+    [
+      {
         "display": "flex",
         "flexDirection": "row",
       },
-      Object {
+      {
         "backgroundColor": "rgba(255, 255, 255, 1)",
       },
     ]
@@ -27,7 +27,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
+      {
         "opacity": 1,
         "paddingLeft": 8,
         "paddingRight": 8,
@@ -38,8 +38,8 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
   >
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "borderBottomColor": "rgba(255, 0, 140, 1)",
             "borderBottomWidth": 2,
             "borderLeftColor": "rgba(255, 0, 140, 1)",
@@ -55,22 +55,22 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "SoraSemiBold",
                 "fontSize": 14,
                 "fontWeight": "600",
                 "lineHeight": 20,
                 "textAlign": "center",
               },
-              Object {
+              {
                 "color": "rgba(255, 0, 140, 1)",
               },
             ],
@@ -93,7 +93,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
+      {
         "opacity": 1,
         "paddingLeft": 8,
         "paddingRight": 8,
@@ -104,8 +104,8 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
   >
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "borderBottomColor": "rgba(255, 0, 140, 1)",
             "borderLeftColor": "rgba(255, 0, 140, 1)",
             "borderRightColor": "rgba(255, 0, 140, 1)",
@@ -120,22 +120,22 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "SoraSemiBold",
                 "fontSize": 14,
                 "fontWeight": "600",
                 "lineHeight": 20,
                 "textAlign": "center",
               },
-              Object {
+              {
                 "color": "rgba(18, 18, 18, 1)",
               },
             ],
@@ -158,7 +158,7 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
+      {
         "opacity": 1,
         "paddingLeft": 8,
         "paddingRight": 8,
@@ -169,8 +169,8 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
   >
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "borderBottomColor": "rgba(255, 0, 140, 1)",
             "borderLeftColor": "rgba(255, 0, 140, 1)",
             "borderRightColor": "rgba(255, 0, 140, 1)",
@@ -185,22 +185,22 @@ exports[`ButtonGroup component should match snapshot with 2 buttons 1`] = `
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "SoraSemiBold",
                 "fontSize": 14,
                 "fontWeight": "600",
                 "lineHeight": 20,
                 "textAlign": "center",
               },
-              Object {
+              {
                 "color": "rgba(18, 18, 18, 1)",
               },
             ],

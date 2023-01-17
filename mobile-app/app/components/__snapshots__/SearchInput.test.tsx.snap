@@ -3,9 +3,9 @@
 exports[`Search Input should match snapshot 1`] = `
 <View
   style={
-    Array [
-      Array [
-        Object {
+    [
+      [
+        {
           "alignItems": "center",
           "borderBottomLeftRadius": 9999,
           "borderBottomRightRadius": 9999,
@@ -18,13 +18,13 @@ exports[`Search Input should match snapshot 1`] = `
           "paddingRight": 20,
           "paddingTop": 12,
         },
-        Object {
+        {
           "flexBasis": "0%",
           "flexGrow": 1,
           "flexShrink": 1,
         },
       ],
-      Object {
+      {
         "backgroundColor": "rgba(255, 255, 255, 1)",
       },
     ]
@@ -36,10 +36,10 @@ exports[`Search Input should match snapshot 1`] = `
     selectionColor="rgba(255, 0, 140, 1)"
     showClearButton={true}
     style={
-      Array [
-        Array [
+      [
+        [
           undefined,
-          Object {
+          {
             "flexBasis": "0%",
             "flexGrow": 1,
             "flexShrink": 1,
@@ -49,9 +49,9 @@ exports[`Search Input should match snapshot 1`] = `
             "lineHeight": 16,
             "width": "66.666667%",
           },
-          Object {},
+          {},
         ],
-        Object {
+        {
           "color": "rgba(43, 43, 43, 1)",
         },
       ]
@@ -69,7 +69,7 @@ exports[`Search Input should match snapshot 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
+      {
         "alignItems": "center",
         "backgroundColor": "transparent",
         "display": "flex",

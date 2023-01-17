@@ -3,7 +3,7 @@
 exports[`recovery word screen should match snapshot 1`] = `
 <RCTScrollView
   contentContainerStyle={
-    Object {
+    {
       "paddingBottom": 64,
       "paddingLeft": 20,
       "paddingRight": 20,
@@ -11,13 +11,13 @@ exports[`recovery word screen should match snapshot 1`] = `
     }
   }
   style={
-    Array [
-      Object {
+    [
+      {
         "flexBasis": "0%",
         "flexGrow": 1,
         "flexShrink": 1,
       },
-      Object {
+      {
         "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
@@ -27,15 +27,15 @@ exports[`recovery word screen should match snapshot 1`] = `
   <View>
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "SoraRegular",
               "fontSize": 16,
               "fontWeight": "400",
@@ -44,7 +44,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingRight": 20,
               "textAlign": "center",
             },
-            Object {
+            {
               "color": "rgba(18, 18, 18, 1)",
             },
           ],
@@ -55,15 +55,15 @@ exports[`recovery word screen should match snapshot 1`] = `
     </Text>
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "borderBottomLeftRadius": 10,
             "borderBottomRightRadius": 10,
             "borderTopLeftRadius": 10,
             "borderTopRightRadius": 10,
             "marginTop": 32,
           },
-          Object {
+          {
             "backgroundColor": "rgba(255, 255, 255, 1)",
           },
         ]
@@ -71,8 +71,8 @@ exports[`recovery word screen should match snapshot 1`] = `
     >
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -81,7 +81,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -92,22 +92,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -119,22 +119,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -147,8 +147,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -157,7 +157,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -168,22 +168,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -195,22 +195,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -223,8 +223,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -233,7 +233,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -244,22 +244,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -271,22 +271,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -299,8 +299,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -309,7 +309,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -320,22 +320,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -347,22 +347,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -375,8 +375,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -385,7 +385,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -396,22 +396,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -423,22 +423,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -451,8 +451,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -461,7 +461,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -472,22 +472,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -499,22 +499,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -527,8 +527,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -537,7 +537,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -548,22 +548,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -575,22 +575,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -603,8 +603,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -613,7 +613,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -624,22 +624,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -651,22 +651,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -679,8 +679,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -689,7 +689,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -700,22 +700,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -727,22 +727,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -755,8 +755,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -765,7 +765,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -776,22 +776,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -803,22 +803,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -831,8 +831,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -841,7 +841,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -852,22 +852,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -879,22 +879,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -907,8 +907,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -917,7 +917,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -928,22 +928,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -955,22 +955,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -983,8 +983,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -993,7 +993,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -1004,22 +1004,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -1031,22 +1031,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -1059,8 +1059,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -1069,7 +1069,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -1080,22 +1080,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -1107,22 +1107,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -1135,8 +1135,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -1145,7 +1145,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -1156,22 +1156,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -1183,22 +1183,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -1211,8 +1211,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -1221,7 +1221,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -1232,22 +1232,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -1259,22 +1259,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -1287,8 +1287,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -1297,7 +1297,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -1308,22 +1308,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -1335,22 +1335,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -1363,8 +1363,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -1373,7 +1373,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -1384,22 +1384,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -1411,22 +1411,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -1439,8 +1439,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -1449,7 +1449,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -1460,22 +1460,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -1487,22 +1487,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -1515,8 +1515,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -1525,7 +1525,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -1536,22 +1536,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -1563,22 +1563,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -1591,8 +1591,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -1601,7 +1601,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -1612,22 +1612,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -1639,22 +1639,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -1667,8 +1667,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -1677,7 +1677,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -1688,22 +1688,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -1715,22 +1715,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -1743,8 +1743,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "borderBottomWidth": 0.5,
               "flexDirection": "row",
               "justifyContent": "center",
@@ -1753,7 +1753,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -1764,22 +1764,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -1791,22 +1791,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],
@@ -1819,8 +1819,8 @@ exports[`recovery word screen should match snapshot 1`] = `
       </View>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "flexDirection": "row",
               "justifyContent": "center",
               "marginLeft": 20,
@@ -1828,7 +1828,7 @@ exports[`recovery word screen should match snapshot 1`] = `
               "paddingBottom": 18,
               "paddingTop": 18,
             },
-            Object {
+            {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -1839,22 +1839,22 @@ exports[`recovery word screen should match snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                   "width": 44,
                 },
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -1866,22 +1866,22 @@ exports[`recovery word screen should match snapshot 1`] = `
         </Text>
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Object {
+              [
+                {
                   "flexGrow": 1,
                   "fontFamily": "SoraRegular",
                   "fontSize": 14,
                   "fontWeight": "400",
                   "lineHeight": 20,
                 },
-                Object {
+                {
                   "color": "rgba(43, 43, 43, 1)",
                 },
               ],

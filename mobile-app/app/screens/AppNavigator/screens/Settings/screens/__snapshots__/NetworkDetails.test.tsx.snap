@@ -3,9 +3,9 @@
 exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
 <RCTScrollView
   style={
-    Array [
+    [
       undefined,
-      Object {
+      {
         "backgroundColor": "rgba(250, 250, 250, 1)",
       },
     ]
@@ -15,15 +15,15 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
   <View>
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Array [
-            Object {
+          [
+            {
               "color": "rgba(115, 115, 115, 1)",
               "fontFamily": "MediumFont",
               "fontSize": 12,
@@ -34,7 +34,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
               "paddingRight": 16,
               "paddingTop": 24,
             },
-            Object {
+            {
               "backgroundColor": "rgba(250, 250, 250, 1)",
               "color": "rgba(115, 115, 115, 1)",
             },
@@ -48,8 +48,8 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
     </Text>
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "alignItems": "flex-start",
             "flexDirection": "row",
             "paddingBottom": 16,
@@ -58,7 +58,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
             "paddingTop": 16,
             "width": "100%",
           },
-          Object {
+          {
             "backgroundColor": "rgba(255, 255, 255, 1)",
             "borderBottomColor": "rgba(229, 229, 229, 1)",
             "borderBottomWidth": 1,
@@ -71,14 +71,14 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
     >
       <View
         style={
-          Object {
+          {
             "width": "50%",
           }
         }
       >
         <View
           style={
-            Object {
+            {
               "alignItems": "center",
               "flexDirection": "row",
               "justifyContent": "flex-start",
@@ -87,22 +87,22 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
         >
           <Text
             style={
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "RegularFont",
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Array [
-                  Array [
-                    Object {
+                [
+                  [
+                    {
                       "fontFamily": "MediumFont",
                       "fontWeight": "500",
                     },
                     undefined,
                   ],
-                  Object {
+                  {
                     "color": "rgba(0, 0, 0, 1)",
                   },
                 ],
@@ -115,7 +115,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       </View>
       <View
         style={
-          Object {
+          {
             "flexBasis": "0%",
             "flexGrow": 1,
             "flexShrink": 1,
@@ -124,23 +124,23 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Array [
-                  Object {
+              [
+                [
+                  {
                     "fontFamily": "MediumFont",
                     "fontWeight": "500",
                     "textAlign": "right",
                   },
                   undefined,
                 ],
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -154,8 +154,8 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
     </View>
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "alignItems": "center",
             "display": "flex",
             "flexDirection": "row",
@@ -166,7 +166,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
             "paddingTop": 16,
             "width": "100%",
           },
-          Object {
+          {
             "backgroundColor": "rgba(255, 255, 255, 1)",
             "borderBottomColor": "rgba(229, 229, 229, 1)",
             "borderBottomWidth": 1,
@@ -179,19 +179,19 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "MediumFont",
                 "fontWeight": "500",
               },
-              Object {
+              {
                 "color": "rgba(0, 0, 0, 1)",
               },
             ],
@@ -202,12 +202,12 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       </Text>
       <View
         style={
-          Array [
-            Object {
+          [
+            {
               "alignItems": "center",
               "flexDirection": "row",
             },
-            Object {
+            {
               "color": "rgba(115, 115, 115, 1)",
             },
           ]
@@ -215,7 +215,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       >
         <View
           style={
-            Object {
+            {
               "backgroundColor": "rgba(16, 185, 129, 1)",
               "borderBottomLeftRadius": 9999,
               "borderBottomRightRadius": 9999,
@@ -230,25 +230,25 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
         />
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Array [
-                  Object {
+              [
+                [
+                  {
                     "fontFamily": "MediumFont",
                     "fontWeight": "500",
                     "textAlign": "right",
                   },
-                  Object {
+                  {
                     "lineHeight": 20,
                   },
                 ],
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -262,15 +262,15 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
     </View>
     <Text
       style={
-        Array [
-          Object {
+        [
+          {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          Array [
-            Object {
+          [
+            {
               "color": "rgba(115, 115, 115, 1)",
               "fontFamily": "MediumFont",
               "fontSize": 12,
@@ -281,7 +281,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
               "paddingRight": 16,
               "paddingTop": 24,
             },
-            Object {
+            {
               "backgroundColor": "rgba(250, 250, 250, 1)",
               "color": "rgba(115, 115, 115, 1)",
             },
@@ -295,8 +295,8 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
     </Text>
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "alignItems": "flex-start",
             "flexDirection": "row",
             "paddingBottom": 16,
@@ -305,7 +305,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
             "paddingTop": 16,
             "width": "100%",
           },
-          Object {
+          {
             "backgroundColor": "rgba(255, 255, 255, 1)",
             "borderBottomColor": "rgba(229, 229, 229, 1)",
             "borderBottomWidth": 1,
@@ -318,14 +318,14 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
     >
       <View
         style={
-          Object {
+          {
             "width": "50%",
           }
         }
       >
         <View
           style={
-            Object {
+            {
               "alignItems": "center",
               "flexDirection": "row",
               "justifyContent": "flex-start",
@@ -334,22 +334,22 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
         >
           <Text
             style={
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "RegularFont",
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Array [
-                  Array [
-                    Object {
+                [
+                  [
+                    {
                       "fontFamily": "MediumFont",
                       "fontWeight": "500",
                     },
                     undefined,
                   ],
-                  Object {
+                  {
                     "color": "rgba(0, 0, 0, 1)",
                   },
                 ],
@@ -362,7 +362,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       </View>
       <View
         style={
-          Object {
+          {
             "flexBasis": "0%",
             "flexGrow": 1,
             "flexShrink": 1,
@@ -371,23 +371,23 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              Array [
-                Array [
-                  Object {
+              [
+                [
+                  {
                     "fontFamily": "MediumFont",
                     "fontWeight": "500",
                     "textAlign": "right",
                   },
                   undefined,
                 ],
-                Object {
+                {
                   "color": "rgba(115, 115, 115, 1)",
                 },
               ],
@@ -401,8 +401,8 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
     </View>
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "alignItems": "center",
             "display": "flex",
             "flexDirection": "row",
@@ -413,7 +413,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
             "paddingTop": 16,
             "width": "100%",
           },
-          Object {
+          {
             "backgroundColor": "rgba(255, 255, 255, 1)",
             "borderBottomColor": "rgba(229, 229, 229, 1)",
             "borderBottomWidth": 1,
@@ -426,19 +426,19 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
     >
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            Array [
-              Object {
+            [
+              {
                 "fontFamily": "MediumFont",
                 "fontWeight": "500",
               },
-              Object {
+              {
                 "color": "rgba(0, 0, 0, 1)",
               },
             ],
@@ -449,7 +449,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       </Text>
       <View
         style={
-          Object {
+          {
             "alignItems": "center",
             "flexDirection": "row",
           }
@@ -467,7 +467,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            Object {
+            {
               "opacity": 1,
             }
           }
@@ -475,7 +475,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
         >
           <View
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "flexDirection": "row",
               }
@@ -483,22 +483,22 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontFamily": "RegularFont",
                     "fontSize": 16,
                     "fontWeight": "400",
                     "lineHeight": 24,
                   },
-                  Array [
-                    Object {
+                  [
+                    {
                       "color": "rgba(115, 115, 115, 1)",
                       "flexWrap": "wrap",
                       "fontFamily": "MediumFont",
                       "fontWeight": "500",
                       "textAlign": "right",
                     },
-                    Object {
+                    {
                       "color": "rgba(255, 0, 175, 1)",
                     },
                   ],
@@ -510,7 +510,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
             </Text>
             <View
               style={
-                Object {
+                {
                   "flexGrow": 0,
                   "justifyContent": "center",
                   "marginLeft": 8,
@@ -525,8 +525,8 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
     </View>
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "alignItems": "flex-start",
             "flexDirection": "row",
             "paddingBottom": 16,
@@ -535,7 +535,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
             "paddingTop": 16,
             "width": "100%",
           },
-          Object {
+          {
             "backgroundColor": "rgba(255, 255, 255, 1)",
             "borderBottomColor": "rgba(229, 229, 229, 1)",
             "borderBottomWidth": 1,
@@ -548,14 +548,14 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
     >
       <View
         style={
-          Object {
+          {
             "width": "50%",
           }
         }
       >
         <View
           style={
-            Object {
+            {
               "alignItems": "flex-end",
               "flexDirection": "row",
               "justifyContent": "flex-start",
@@ -564,27 +564,27 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
         >
           <Text
             style={
-              Array [
-                Object {
+              [
+                {
                   "fontFamily": "RegularFont",
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                Array [
-                  Array [
-                    Object {
+                [
+                  [
+                    {
                       "fontSize": 14,
                       "lineHeight": 20,
                     },
-                    Object {
+                    {
                       "fontFamily": "MediumFont",
                       "fontSize": 16,
                       "fontWeight": "500",
                       "lineHeight": 24,
                     },
                   ],
-                  Object {
+                  {
                     "color": "rgba(0, 0, 0, 1)",
                   },
                 ],
@@ -598,7 +598,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
       </View>
       <View
         style={
-          Object {
+          {
             "flexBasis": "0%",
             "flexGrow": 1,
             "flexShrink": 1,
@@ -608,7 +608,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
         <View>
           <View
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "display": "flex",
                 "flexDirection": "row",
@@ -619,13 +619,13 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
           >
             <Text
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "fontSize": 14,
                     "lineHeight": 20,
                     "textAlign": "right",
                   },
-                  Object {
+                  {
                     "fontFamily": "MediumFont",
                     "fontSize": 16,
                     "fontWeight": "500",
@@ -637,21 +637,21 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
             >
               <Text
                 style={
-                  Array [
-                    Object {
+                  [
+                    {
                       "fontFamily": "RegularFont",
                       "fontSize": 16,
                       "fontWeight": "400",
                       "lineHeight": 24,
                     },
-                    Array [
-                      Array [
-                        Object {
+                    [
+                      [
+                        {
                           "fontSize": 14,
                           "lineHeight": 20,
                           "textAlign": "right",
                         },
-                        Object {
+                        {
                           "fontFamily": "MediumFont",
                           "fontSize": 16,
                           "fontWeight": "500",
@@ -659,7 +659,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
                         },
                         undefined,
                       ],
-                      Object {
+                      {
                         "color": "rgba(115, 115, 115, 1)",
                       },
                     ],
@@ -674,7 +674,7 @@ exports[`NetworkDetails <NetworkDetails /> should render components 1`] = `
         </View>
         <View
           style={
-            Object {
+            {
               "alignItems": "center",
               "display": "flex",
               "flexDirection": "row",

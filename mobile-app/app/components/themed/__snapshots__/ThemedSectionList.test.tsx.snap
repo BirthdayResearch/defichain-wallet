@@ -3,9 +3,9 @@
 exports[`themed section list should match snapshot with 1`] = `
 <RCTScrollView
   data={
-    Array [
-      Object {
-        "data": Array [
+    [
+      {
+        "data": [
           "Foo",
           "Bar",
           "Test",
@@ -27,14 +27,14 @@ exports[`themed section list should match snapshot with 1`] = `
   renderItem={[Function]}
   scrollEventThrottle={50}
   stickyHeaderIndices={
-    Array [
+    [
       0,
     ]
   }
   style={
-    Array [
+    [
       undefined,
-      Object {
+      {
         "backgroundColor": "rgba(250, 250, 250, 1)",
       },
     ]
