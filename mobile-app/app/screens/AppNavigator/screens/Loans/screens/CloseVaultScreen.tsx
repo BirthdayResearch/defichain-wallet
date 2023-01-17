@@ -7,8 +7,8 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { RootState } from "@store";
 import {
-  hasTxQueued,
   hasOceanTXQueued,
+  hasTxQueued,
   transactionQueue,
 } from "@waveshq/walletkit-ui/dist/store";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
@@ -80,7 +80,7 @@ export function CloseVaultScreen({ route, navigation }: Props): JSX.Element {
 
   return (
     <ThemedScrollViewV2
-      contentContainerStyle={tailwind("mt-16 h-full justify-between")}
+      contentContainerStyle={tailwind("mt-16 justify-between")}
       style={tailwind("px-5")}
     >
       <View style={tailwind("items-center")}>
@@ -88,7 +88,10 @@ export function CloseVaultScreen({ route, navigation }: Props): JSX.Element {
           source={CloseVaultImg}
           style={[
             tailwind("items-center justify-center"),
-            { width: 122, height: 95 },
+            {
+              width: 122,
+              height: 95,
+            },
           ]}
           resizeMode="contain"
         />
