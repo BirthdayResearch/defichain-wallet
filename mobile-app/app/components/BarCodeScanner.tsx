@@ -41,7 +41,11 @@ export function BarCodeScanner({ route, navigation }: Props): JSX.Element {
   }, []);
 
   useLayoutEffect(() => {
-    if (route.params.title !== undefined && route.params.title !== "") {
+    if (
+      route.params !== undefined &&
+      route.params.title !== undefined &&
+      route.params.title !== ""
+    ) {
       navigation.setOptions({
         headerTitle: route.params.title,
       });
