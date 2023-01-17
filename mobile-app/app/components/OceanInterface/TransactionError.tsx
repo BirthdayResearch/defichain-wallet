@@ -1,9 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { translate } from "@translations";
 import { tailwind } from "@tailwind";
 import { ThemedIcon, ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { View, TouchableOpacity, Platform } from "react-native";
+import { Platform, TouchableOpacity, View } from "react-native";
 import { TransactionCloseButton } from "./TransactionCloseButton";
 
 interface TransactionErrorProps {
@@ -23,6 +23,7 @@ export enum ErrorCodes {
   VaultNotEnoughCollateralization = 8,
   DustValue = 9,
   ZeroBalance = 10,
+  CfpProposalExceedAmount = 11,
 }
 
 export interface ErrorMapping {
@@ -190,6 +191,11 @@ function errorMessageMapping(err: string): ErrorMapping {
     return {
       code: ErrorCodes.DustValue,
       message: "Input amount is too low. Increase the amount to continue.",
+    };
+  } else if (err.includes("proposal wants to gain all money")) {
+    return {
+      code: ErrorCodes.CfpProposalExceedAmount,
+      message: "Requested amount is higher than available amount.",
     };
   }
 

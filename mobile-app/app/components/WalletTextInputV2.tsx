@@ -12,18 +12,18 @@ import {
 } from "react-native";
 import { useBottomSheetInternal } from "@gorhom/bottom-sheet";
 import {
-  ThemedViewV2,
   ThemedIcon,
   ThemedProps,
   ThemedSectionTitleV2,
   ThemedTextInputV2,
+  ThemedViewV2,
 } from "@components/themed";
 import { getColor, tailwind } from "@tailwind";
 import { MaterialIcons } from "@expo/vector-icons";
 
 type WalletTextInputProps = React.PropsWithChildren<TextInputProps> &
   IWalletTextInputProps;
-export type InputType = "default" | "numeric";
+export type InputType = "default" | "numeric" | "number-pad";
 
 interface IWalletTextInputProps {
   inputType: InputType;
@@ -47,6 +47,7 @@ interface IWalletTextInputProps {
   displayTickIcon?: boolean;
   helperContainerStyle?: StyleProp<ViewStyle>;
   borderContainerStyle?: StyleProp<ViewStyle>;
+  titleStyle?: StyleProp<ViewStyle>;
 }
 
 export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(
@@ -69,6 +70,7 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(
       displayTickIcon,
       helperContainerStyle,
       borderContainerStyle,
+      titleStyle,
       ...otherProps
     } = props;
 
@@ -92,7 +94,11 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(
         style={tailwind(`${containerStyle ?? "w-full flex-col"}`)}
       >
         {title !== undefined && (
-          <ThemedSectionTitleV2 testID={titleTestID} text={title} />
+          <ThemedSectionTitleV2
+            testID={titleTestID}
+            text={title}
+            customStyle={titleStyle}
+          />
         )}
         <ThemedViewV2
           light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-00", {

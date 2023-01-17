@@ -452,7 +452,8 @@
     "Auctions": "清算拍賣",
     "Liquidity Mining": "流動性挖礦",
     "Liquidity mining": "流動性挖礦",
-    "UTXO and Tokens": "UTXO and Tokens"
+    "UTXO and Tokens": "UTXO and Tokens",
+    "On-Chain Governance": "鏈上治理"
   },
   "components/UtxoVsTokenFaq": {
     "About UTXO And Tokens": "About UTXO And Tokens",
@@ -519,6 +520,21 @@
     "The minimum starting bid is 105% of the batch's outstanding loan value. The additional 5% is included to cover the liquidation penalty, which is incurred upon vault liquidation.": "最低標價是批次未償貸款價值的105%。額外的5%是用來支付清算罰款的，這在金庫清算時是會產生的。",
     "How is the minimum next bid determined?": "下一次出最低標價是如何計算的？",
     "The minimum next bid is 1% above the previous bid price.": "下一次的最低出價是要比上一次的出價高1%。"
+  },
+  "components/CfpDfipProposalsFaq": {
+    "About On-Chain Governance": "關於鏈上治理",
+    "FREQUENTLY ASKED QUESTIONS": "常見問題",
+    "On-chain governance (OCG) is a system for managing verified community proposals for DeFiChain. Proposals can now be submitted using the mobile Light Wallet.": "鏈上治理（On-Chain Governance, OCG）是個用於管理經過驗證DeFiChain社區提案的系統。現已可以使用移動端Light Wallet提交提案。",
+    "What is the difference between a DFIP and CFP?": "DFIP和CFP有什麼區別呢？",
+    "How are proposal fees calculated?": "提案費用是如何計算的？",
+    "DeFiChain Improvement proposal (DFIP) aims to improve the key function(s) on DeFiChain.\nCommunity Funding Proposal (CFP) are community projects that build on top of DeFiChain. All approved CFPs are funded by the Community Development fund.": "DeFiChain 改進提案（DeFiChain Improvement Proposal, DFIP）旨在改進DeFiChain鏈上的關鍵功能。\n社區資助提案（Community Funding Proposal, CFP）則是在DeFiChain生態上建立社區項目。所有獲批的CFP均由社區發展基金資助。",
+    "Proposal fees differ between DFIPs and CFPs. The cost of a DFIP proposal (vote of confidence) will be 50 DFI. Subsequently, a CFP proposal will cost 1% of the requested amount (DFI) or 10 DFI, whichever is larger. Proposal fee are automatically calculated and shown in the confirmation page.": "DFIP和CFP的提案費用不同。每一個DFIP（信任投票）需要花費50 DFI。此外，CFP則花費請求金額的1% 或 10 DFI，視何者為高。提案費用會自動計算並顯示在確認頁面中。",
+    "Where can I find more details for all submitted proposals?": "在哪裡可以找到所有已提交提案的詳細資料？",
+    "You may find all on-chain proposals on DeFiScan, under On-Chain Governance tab.": "你可以在DeFiScan裡的On-Chain Governance選項查看所有鏈上的提案。",
+    "Can I vote on proposals using Light Wallet?": "是否可以使用Light Wallet對提案進行投票？",
+    "No, only proposal submissions can be done through Light Wallet. Currently, voting can only be submitted on chain using commands via CLI. Voting commands can be generated on DeFiScan via On-Chain Governance tab > Proposal details > Submit vote.\nYou will need to own a full node wallet and at least one masternode to vote.": "不行。 Light Wallet只能提交提案。目前只能通過CLI命令行界面在鏈上進行投票。可以在DeFiScan裡的 \"On-Chain Governance\" 選項 > \"Proposal details\" > \"Submit vote\" 生成投票命令。\n您需要擁有一個全節點錢包和至少一個主節點才能投票。",
+    "Are they other ways to submit proposals?": "還有其他的方式提交提案嗎？",
+    "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under On-Chain Governance tab > Submit proposal.": "如果您擁有全節點錢包，你可以選擇通過CLI界面使用命令進行提交。該命令可以在DeFiScan上生成，在\"On-Chain Governance\" > \"Submit proposal\" 選項裡。"
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "網絡",
@@ -715,7 +731,10 @@
     "Feature is still in Beta. Use at your own risk.": "功能仍處於測試階段。使用時風險請自己負責。",
     "Allows the usage of custom server provider url": "Allows the usage of custom server provider url",
     "Unloop DUSD loan": "Unloop DUSD loan",
-    "Display payback DUSD loan with DUSD collateral": "Display payback DUSD loan with DUSD collateral"
+    "Display payback DUSD loan with DUSD collateral": "Display payback DUSD loan with DUSD collateral",
+    "CFP/DFIP proposal(s)": "CFP/DFIP 提案",
+    "Allows the submission of CFP/DFIP proposals": "允許提交 CFP/DFIP 提案",
+    "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?": "激活後，您將能夠使用您活躍的移動端Light Wallet賬戶直接提交 CFP/DFIP 提案。你要繼續嗎？"
   },
   "BottomTabNavigator": {
     "Balances": "總資金",
@@ -807,7 +826,8 @@
     "Edited vault {{vaultId}}": "Edited vault {{vaultId}}",
     "Borrowing {{amount}} {{symbol}}": "Borrowing {{amount}} {{symbol}}",
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}",
-    "Borrowed {{amount}} {{symbol}}": "Borrowed {{amount}} {{symbol}}"
+    "Borrowed {{amount}} {{symbol}}": "Borrowed {{amount}} {{symbol}}",
+    "Requested amount is higher than available amount.": "您請求的金額高於可用金額。"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "請許可程序使用相機",
@@ -2207,5 +2227,54 @@
     "Select Token": "Select Token",
     "Search with token name": "使用代幣名稱搜索",
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
+  },
+  "screens/OCGProposalsScreen": {
+    "Proposals": "提案書",
+    "Community Funding Proposal": "社區資助提案 (CFP)",
+    "Proposal to build on top of the DeFiChain blockchain, and funded by the Community Development Fund.": "該選項是用於搭建在DeFiChain區塊鏈之上且由社區發展基金資助",
+    "DeFiChain Improvement Proposal": "DeFiChain 改進提案 (DFIP)",
+    "Proposal to improve the key function(s) on DeFiChain.": "該選項用於改進DeFiChain關鍵功能",
+    "An active discussion on Github is required in creating a proposal. Click here if you haven’t created one yet.": "創建提案需要在Github上有活躍的討論帖子。如還未創建可以點擊這裡創建。",
+    "PROPOSAL TYPE": "提案類型",
+    "Continue": "繼續"
+  },
+  "screens/OCGDetailScreen": {
+    "CFP Details": "CFP 詳情",
+    "DFIP Details": "DFIP 詳情",
+    "PROPOSAL TITLE": "提案標題",
+    "Title": "標題",
+    "Make sure this matches the title from Github.": "請確保這標題和Github的一致",
+    "AMOUNT REQUESTED IN DFI": "要求的DFI數量",
+    "RECEIVING ADDRESS": "收款地址",
+    "Review full proposal details in the next screen": "在下一個界面中查看提案的詳細信息",
+    "Continue": "繼續",
+    "CYCLE(S)": "週期",
+    "Voting Cycle(s)": "投票週期",
+    "Cycle(s) should be 1-100 only": "只可以選擇1-100 週期",
+    "Scan Github URL": "Scan Github URL",
+    "GITHUB DISCUSSION": "GITHUB討論連接",
+    "Paste URL": "粘貼網址",
+    "Verified": "審核通過",
+    "URL should be a valid Github URL": "該地址必須是有效的Github地址",
+    "Add URL here to get started": "請添加網址",
+    "Cycle(s) determine the duration for which a proposal can accept votes.": "投票週期決定了提案接受投票的時長。",
+    "Title exceeds max character limit of 128.": "Title exceeds max character limit of 128."
+  },
+  "screens/OCGConfirmScreen": {
+    "Confirm": "確認",
+    "Proposal type": "提案類型",
+    "Submit": "提案",
+    "You are proposing": "你正在提案",
+    "Amount to convert": "要轉換的金額",
+    "Amount requested": "要求數量",
+    "Cycle(s)": "週期",
+    "Receiving address": "收款地址",
+    "Proposal fee": "提案費用",
+    "Proposal Fees": "提案費用",
+    "Transaction fee": "交易費用",
+    "I acknowledge all proposal details to be correct and final. Once submitted, the proposal is no longer editable. View your posted proposal in DeFiScan.": "我清楚了解我所提交的提案細節是最終且正確的。一旦提交，該提案將無法修改。在DeFiChain上查看您所提交的提案。",
+    "Submitting proposal": "正在提交提案",
+    "Proposal Submitted": "提案提交完成",
+    "Proposals fees are implemented to encourage more responsible submissions.\nProposal fees are calculated based on the type of proposal selected, and the requested amount (only for CFP).\nRefer to our FAQ section for more detailed breakdown.": "實施提案費用是為了鼓勵更負責任的提案。\n提案費用是根據所選的提案類型和要求的金額進行計算的（僅適用於CFP）。請參閱我們的FAQ部分以獲得更詳細的資料。"
   }
 }
