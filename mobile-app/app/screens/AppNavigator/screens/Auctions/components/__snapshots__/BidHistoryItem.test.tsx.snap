@@ -3,8 +3,8 @@
 exports[`Empty bids should match snapshot 1`] = `
 <View
   style={
-    [
-      {
+    Array [
+      Object {
         "borderBottomLeftRadius": 10,
         "borderBottomRightRadius": 10,
         "borderTopLeftRadius": 10,
@@ -17,7 +17,7 @@ exports[`Empty bids should match snapshot 1`] = `
         "paddingRight": 20,
         "paddingTop": 16,
       },
-      {
+      Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
       },
     ]
@@ -26,7 +26,7 @@ exports[`Empty bids should match snapshot 1`] = `
 >
   <View
     style={
-      {
+      Object {
         "alignItems": "flex-start",
         "display": "flex",
         "flexDirection": "row",
@@ -37,21 +37,21 @@ exports[`Empty bids should match snapshot 1`] = `
   >
     <Text
       style={
-        [
-          {
+        Array [
+          Object {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "SoraSemiBold",
               "fontSize": 12,
               "fontWeight": "600",
               "lineHeight": 16,
             },
-            {
+            Object {
               "color": "rgba(43, 43, 43, 1)",
             },
           ],
@@ -62,21 +62,21 @@ exports[`Empty bids should match snapshot 1`] = `
     </Text>
     <Text
       style={
-        [
-          {
+        Array [
+          Object {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "SoraRegular",
               "fontSize": 14,
               "fontWeight": "400",
               "lineHeight": 20,
             },
-            {
+            Object {
               "color": "rgba(18, 18, 18, 1)",
             },
           ],
@@ -89,7 +89,7 @@ exports[`Empty bids should match snapshot 1`] = `
   </View>
   <View
     style={
-      {
+      Object {
         "alignItems": "center",
         "display": "flex",
         "flexDirection": "row",
@@ -99,21 +99,21 @@ exports[`Empty bids should match snapshot 1`] = `
   >
     <Text
       style={
-        [
-          {
+        Array [
+          Object {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "SoraRegular",
               "fontSize": 12,
               "fontWeight": "400",
               "lineHeight": 16,
             },
-            {
+            Object {
               "color": "rgba(89, 89, 89, 1)",
             },
           ],
@@ -124,8 +124,8 @@ exports[`Empty bids should match snapshot 1`] = `
     </Text>
     <View
       style={
-        [
-          {
+        Array [
+          Object {
             "alignItems": "center",
             "display": "flex",
             "flexDirection": "row",
@@ -136,16 +136,16 @@ exports[`Empty bids should match snapshot 1`] = `
     >
       <Text
         style={
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            [
-              [
-                {
+            Array [
+              Array [
+                Object {
                   "fontFamily": "SoraRegular",
                   "fontSize": 12,
                   "fontWeight": "400",
@@ -153,7 +153,7 @@ exports[`Empty bids should match snapshot 1`] = `
                 },
                 undefined,
               ],
-              {
+              Object {
                 "color": "rgba(89, 89, 89, 1)",
               },
             ],

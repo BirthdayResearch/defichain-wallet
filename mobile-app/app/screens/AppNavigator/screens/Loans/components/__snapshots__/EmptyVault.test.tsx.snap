@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Empty vault should match snapshot 1`] = `
-[
+Array [
   <View
     onLayout={[Function]}
     pointerEvents="box-none"
     style={
-      [
+      Array [
         undefined,
-        {
+        Object {
           "bottom": 0,
           "left": 0,
           "position": "absolute",
           "right": 0,
           "top": 0,
         },
-        {
+        Object {
           "bottom": 0,
           "overflow": "hidden",
           "top": 0,
@@ -25,7 +25,7 @@ exports[`Empty vault should match snapshot 1`] = `
   />,
   <RCTScrollView
     contentContainerStyle={
-      {
+      Object {
         "paddingBottom": 8,
         "paddingLeft": 32,
         "paddingRight": 32,
@@ -39,9 +39,9 @@ exports[`Empty vault should match snapshot 1`] = `
       />
     }
     style={
-      [
+      Array [
         undefined,
-        {
+        Object {
           "backgroundColor": "rgba(242, 242, 242, 1)",
         },
       ]
@@ -52,7 +52,7 @@ exports[`Empty vault should match snapshot 1`] = `
     <View>
       <View
         style={
-          {
+          Object {
             "alignItems": "center",
             "paddingBottom": 32,
           }
@@ -61,7 +61,7 @@ exports[`Empty vault should match snapshot 1`] = `
         <Image
           source={1}
           style={
-            {
+            Object {
               "height": 136,
               "width": 204,
             }
@@ -70,15 +70,15 @@ exports[`Empty vault should match snapshot 1`] = `
       </View>
       <Text
         style={
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "SoraSemiBold",
                 "fontSize": 20,
                 "fontWeight": "600",
@@ -86,7 +86,7 @@ exports[`Empty vault should match snapshot 1`] = `
                 "paddingBottom": 8,
                 "textAlign": "center",
               },
-              {
+              Object {
                 "color": "rgba(18, 18, 18, 1)",
               },
             ],
@@ -98,22 +98,22 @@ exports[`Empty vault should match snapshot 1`] = `
       </Text>
       <Text
         style={
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "SoraRegular",
                 "fontWeight": "400",
                 "paddingLeft": 16,
                 "paddingRight": 16,
                 "textAlign": "center",
               },
-              {
+              Object {
                 "color": "rgba(18, 18, 18, 1)",
               },
             ],
@@ -135,7 +135,7 @@ exports[`Empty vault should match snapshot 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          {
+          Object {
             "backgroundColor": "rgba(18, 18, 18, 1)",
             "borderRadius": 26,
             "flexDirection": "row",
@@ -155,14 +155,14 @@ exports[`Empty vault should match snapshot 1`] = `
       >
         <Text
           style={
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              {
+              Object {
                 "color": "rgba(242, 242, 242, 1)",
                 "fontFamily": "SoraSemiBold",
                 "fontWeight": "600",
@@ -176,7 +176,7 @@ exports[`Empty vault should match snapshot 1`] = `
       </View>
       <View
         style={
-          {
+          Object {
             "alignItems": "center",
             "paddingTop": 8,
           }
@@ -194,7 +194,7 @@ exports[`Empty vault should match snapshot 1`] = `
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            {
+            Object {
               "alignItems": "center",
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
@@ -210,16 +210,16 @@ exports[`Empty vault should match snapshot 1`] = `
           <Text />
           <Text
             style={
-              [
-                {
+              Array [
+                Object {
                   "fontFamily": "RegularFont",
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                [
-                  [
-                    {
+                Array [
+                  Array [
+                    Object {
                       "fontFamily": "SoraMedium",
                       "fontSize": 12,
                       "fontWeight": "500",
@@ -228,12 +228,12 @@ exports[`Empty vault should match snapshot 1`] = `
                       "paddingLeft": 4,
                       "paddingRight": 4,
                     },
-                    {
+                    Object {
                       "fontSize": 14,
                       "lineHeight": 20,
                     },
                   ],
-                  {
+                  Object {
                     "color": "rgba(18, 18, 18, 1)",
                   },
                 ],

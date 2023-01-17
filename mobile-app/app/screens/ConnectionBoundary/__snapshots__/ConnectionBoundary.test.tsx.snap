@@ -3,8 +3,8 @@
 exports[`offline screen should match snapshot when offline 1`] = `
 <View
   style={
-    [
-      {
+    Array [
+      Object {
         "alignItems": "center",
         "flexBasis": "0%",
         "flexGrow": 1,
@@ -13,7 +13,7 @@ exports[`offline screen should match snapshot when offline 1`] = `
         "paddingLeft": 40,
         "paddingRight": 40,
       },
-      {
+      Object {
         "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
@@ -22,7 +22,7 @@ exports[`offline screen should match snapshot when offline 1`] = `
 >
   <View
     style={
-      {
+      Object {
         "alignItems": "center",
         "justifyContent": "center",
         "paddingBottom": 32,
@@ -34,7 +34,7 @@ exports[`offline screen should match snapshot when offline 1`] = `
     <Image
       source={1}
       style={
-        {
+        Object {
           "height": 59,
           "width": 163,
         }
@@ -43,15 +43,15 @@ exports[`offline screen should match snapshot when offline 1`] = `
   </View>
   <Text
     style={
-      [
-        {
+      Array [
+        Object {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        [
-          {
+        Array [
+          Object {
             "fontFamily": "SoraSemiBold",
             "fontSize": 20,
             "fontWeight": "600",
@@ -59,7 +59,7 @@ exports[`offline screen should match snapshot when offline 1`] = `
             "paddingBottom": 8,
             "textAlign": "center",
           },
-          {
+          Object {
             "color": "rgba(18, 18, 18, 1)",
           },
         ],
@@ -70,21 +70,21 @@ exports[`offline screen should match snapshot when offline 1`] = `
   </Text>
   <Text
     style={
-      [
-        {
+      Array [
+        Object {
           "fontFamily": "RegularFont",
           "fontSize": 16,
           "fontWeight": "400",
           "lineHeight": 24,
         },
-        [
-          {
+        Array [
+          Object {
             "fontFamily": "SoraRegular",
             "fontWeight": "400",
             "paddingBottom": 48,
             "textAlign": "center",
           },
-          {
+          Object {
             "color": "rgba(18, 18, 18, 1)",
           },
         ],
@@ -105,7 +105,7 @@ exports[`offline screen should match snapshot when offline 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      {
+      Object {
         "backgroundColor": "rgba(18, 18, 18, 1)",
         "borderRadius": 26,
         "flexDirection": "row",
@@ -126,14 +126,14 @@ exports[`offline screen should match snapshot when offline 1`] = `
   >
     <Text
       style={
-        [
-          {
+        Array [
+          Object {
             "fontFamily": "RegularFont",
             "fontSize": 16,
             "fontWeight": "400",
             "lineHeight": 24,
           },
-          {
+          Object {
             "color": "rgba(242, 242, 242, 1)",
             "fontFamily": "SoraSemiBold",
             "fontWeight": "600",

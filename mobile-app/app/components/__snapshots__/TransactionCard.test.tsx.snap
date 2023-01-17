@@ -3,9 +3,9 @@
 exports[`Transaction Card should match snapshot 1`] = `
 <View
   style={
-    [
-      [
-        {
+    Array [
+      Array [
+        Object {
           "borderBottomLeftRadius": 10,
           "borderBottomRightRadius": 10,
           "borderTopLeftRadius": 10,
@@ -13,7 +13,7 @@ exports[`Transaction Card should match snapshot 1`] = `
         },
         undefined,
       ],
-      {
+      Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
       },
     ]
@@ -21,9 +21,9 @@ exports[`Transaction Card should match snapshot 1`] = `
 >
   <View
     style={
-      [
+      Array [
         undefined,
-        {
+        Object {
           "backgroundColor": "rgba(255, 255, 255, 1)",
         },
       ]
@@ -31,15 +31,15 @@ exports[`Transaction Card should match snapshot 1`] = `
   >
     <View
       style={
-        [
-          {
+        Array [
+          Object {
             "alignItems": "center",
             "borderBottomWidth": 0.5,
             "display": "flex",
             "flexDirection": "row",
             "paddingBottom": 8,
           },
-          {
+          Object {
             "borderBottomColor": "rgba(204, 204, 204, 1)",
             "borderLeftColor": "rgba(204, 204, 204, 1)",
             "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -50,16 +50,16 @@ exports[`Transaction Card should match snapshot 1`] = `
     >
       <Text
         style={
-          [
-            {
+          Array [
+            Object {
               "fontFamily": "RegularFont",
               "fontSize": 16,
               "fontWeight": "400",
               "lineHeight": 24,
             },
-            [
+            Array [
               undefined,
-              {
+              Object {
                 "color": "rgba(18, 18, 18, 1)",
               },
             ],
@@ -72,9 +72,9 @@ exports[`Transaction Card should match snapshot 1`] = `
   </View>
   <View
     style={
-      [
-        [
-          {
+      Array [
+        Array [
+          Object {
             "alignItems": "center",
             "display": "flex",
             "flexDirection": "row",
@@ -84,7 +84,7 @@ exports[`Transaction Card should match snapshot 1`] = `
           },
           undefined,
         ],
-        {
+        Object {
           "borderBottomColor": "rgba(204, 204, 204, 1)",
           "borderLeftColor": "rgba(204, 204, 204, 1)",
           "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -105,7 +105,7 @@ exports[`Transaction Card should match snapshot 1`] = `
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
       style={
-        {
+        Object {
           "borderBottomColor": "rgba(204, 204, 204, 1)",
           "borderBottomWidth": 0,
           "borderLeftColor": "rgba(204, 204, 204, 1)",
@@ -121,11 +121,11 @@ exports[`Transaction Card should match snapshot 1`] = `
     >
       <View
         style={
-          [
-            {
+          Array [
+            Object {
               "borderRightWidth": 0.5,
             },
-            {
+            Object {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -136,26 +136,26 @@ exports[`Transaction Card should match snapshot 1`] = `
       >
         <View
           style={
-            [
-              {
+            Array [
+              Object {
                 "marginLeft": 4,
                 "marginRight": 4,
               },
-              {},
+              Object {},
             ]
           }
         >
           <Text
             style={
-              [
-                {
+              Array [
+                Object {
                   "fontFamily": "RegularFont",
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                [
-                  {
+                Array [
+                  Object {
                     "fontFamily": "SoraSemiBold",
                     "fontSize": 12,
                     "fontWeight": "600",
@@ -165,7 +165,7 @@ exports[`Transaction Card should match snapshot 1`] = `
                     "paddingRight": 24,
                     "paddingTop": 4,
                   },
-                  {
+                  Object {
                     "color": "rgba(89, 89, 89, 1)",
                   },
                 ],
@@ -189,7 +189,7 @@ exports[`Transaction Card should match snapshot 1`] = `
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
       style={
-        {
+        Object {
           "borderBottomColor": "rgba(204, 204, 204, 1)",
           "borderBottomWidth": 0,
           "borderLeftColor": "rgba(204, 204, 204, 1)",
@@ -205,11 +205,11 @@ exports[`Transaction Card should match snapshot 1`] = `
     >
       <View
         style={
-          [
-            {
+          Array [
+            Object {
               "borderRightWidth": 0.5,
             },
-            {
+            Object {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -220,26 +220,26 @@ exports[`Transaction Card should match snapshot 1`] = `
       >
         <View
           style={
-            [
-              {
+            Array [
+              Object {
                 "marginLeft": 4,
                 "marginRight": 4,
               },
-              {},
+              Object {},
             ]
           }
         >
           <Text
             style={
-              [
-                {
+              Array [
+                Object {
                   "fontFamily": "RegularFont",
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                [
-                  {
+                Array [
+                  Object {
                     "fontFamily": "SoraSemiBold",
                     "fontSize": 12,
                     "fontWeight": "600",
@@ -249,7 +249,7 @@ exports[`Transaction Card should match snapshot 1`] = `
                     "paddingRight": 24,
                     "paddingTop": 4,
                   },
-                  {
+                  Object {
                     "color": "rgba(89, 89, 89, 1)",
                   },
                 ],
@@ -273,7 +273,7 @@ exports[`Transaction Card should match snapshot 1`] = `
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
       style={
-        {
+        Object {
           "borderBottomColor": "rgba(204, 204, 204, 1)",
           "borderBottomWidth": 0,
           "borderLeftColor": "rgba(204, 204, 204, 1)",
@@ -289,11 +289,11 @@ exports[`Transaction Card should match snapshot 1`] = `
     >
       <View
         style={
-          [
-            {
+          Array [
+            Object {
               "borderRightWidth": 0.5,
             },
-            {
+            Object {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -304,26 +304,26 @@ exports[`Transaction Card should match snapshot 1`] = `
       >
         <View
           style={
-            [
-              {
+            Array [
+              Object {
                 "marginLeft": 4,
                 "marginRight": 4,
               },
-              {},
+              Object {},
             ]
           }
         >
           <Text
             style={
-              [
-                {
+              Array [
+                Object {
                   "fontFamily": "RegularFont",
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                [
-                  {
+                Array [
+                  Object {
                     "fontFamily": "SoraSemiBold",
                     "fontSize": 12,
                     "fontWeight": "600",
@@ -333,7 +333,7 @@ exports[`Transaction Card should match snapshot 1`] = `
                     "paddingRight": 24,
                     "paddingTop": 4,
                   },
-                  {
+                  Object {
                     "color": "rgba(89, 89, 89, 1)",
                   },
                 ],
@@ -357,7 +357,7 @@ exports[`Transaction Card should match snapshot 1`] = `
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
       style={
-        {
+        Object {
           "borderBottomColor": "rgba(204, 204, 204, 1)",
           "borderBottomWidth": 0,
           "borderLeftColor": "rgba(204, 204, 204, 1)",
@@ -373,9 +373,9 @@ exports[`Transaction Card should match snapshot 1`] = `
     >
       <View
         style={
-          [
-            {},
-            {
+          Array [
+            Object {},
+            Object {
               "borderBottomColor": "rgba(204, 204, 204, 1)",
               "borderLeftColor": "rgba(204, 204, 204, 1)",
               "borderRightColor": "rgba(204, 204, 204, 1)",
@@ -386,26 +386,26 @@ exports[`Transaction Card should match snapshot 1`] = `
       >
         <View
           style={
-            [
-              {
+            Array [
+              Object {
                 "marginLeft": 4,
                 "marginRight": 4,
               },
-              {},
+              Object {},
             ]
           }
         >
           <Text
             style={
-              [
-                {
+              Array [
+                Object {
                   "fontFamily": "RegularFont",
                   "fontSize": 16,
                   "fontWeight": "400",
                   "lineHeight": 24,
                 },
-                [
-                  {
+                Array [
+                  Object {
                     "fontFamily": "SoraSemiBold",
                     "fontSize": 12,
                     "fontWeight": "600",
@@ -415,7 +415,7 @@ exports[`Transaction Card should match snapshot 1`] = `
                     "paddingRight": 24,
                     "paddingTop": 4,
                   },
-                  {
+                  Object {
                     "color": "rgba(89, 89, 89, 1)",
                   },
                 ],

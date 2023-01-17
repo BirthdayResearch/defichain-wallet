@@ -3,12 +3,12 @@
 exports[`Portfolio Filter Buttons should match snapshot for Assets filter Buttons component 1`] = `
 <View
   style={
-    [
-      {
+    Array [
+      Object {
         "marginBottom": 32,
         "marginTop": 32,
       },
-      {
+      Object {
         "backgroundColor": "rgba(242, 242, 242, 1)",
       },
     ]
@@ -17,7 +17,7 @@ exports[`Portfolio Filter Buttons should match snapshot for Assets filter Button
 >
   <RCTScrollView
     contentContainerStyle={
-      {
+      Object {
         "paddingLeft": 20,
       }
     }
@@ -37,7 +37,7 @@ exports[`Portfolio Filter Buttons should match snapshot for Assets filter Button
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          {
+          Object {
             "borderBottomColor": "rgba(89, 89, 89, 1)",
             "borderBottomLeftRadius": 16,
             "borderBottomRightRadius": 16,
@@ -63,22 +63,22 @@ exports[`Portfolio Filter Buttons should match snapshot for Assets filter Button
       >
         <Text
           style={
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              [
-                {
+              Array [
+                Object {
                   "fontFamily": "SoraRegular",
                   "fontSize": 12,
                   "fontWeight": "400",
                   "lineHeight": 16,
                   "textAlign": "center",
                 },
-                {
+                Object {
                   "color": "rgba(89, 89, 89, 1)",
                 },
               ],
@@ -100,7 +100,7 @@ exports[`Portfolio Filter Buttons should match snapshot for Assets filter Button
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          {
+          Object {
             "borderBottomColor": "rgba(89, 89, 89, 1)",
             "borderBottomLeftRadius": 16,
             "borderBottomRightRadius": 16,
@@ -126,22 +126,22 @@ exports[`Portfolio Filter Buttons should match snapshot for Assets filter Button
       >
         <Text
           style={
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              [
-                {
+              Array [
+                Object {
                   "fontFamily": "SoraRegular",
                   "fontSize": 12,
                   "fontWeight": "400",
                   "lineHeight": 16,
                   "textAlign": "center",
                 },
-                {
+                Object {
                   "color": "rgba(89, 89, 89, 1)",
                 },
               ],
@@ -163,7 +163,7 @@ exports[`Portfolio Filter Buttons should match snapshot for Assets filter Button
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          {
+          Object {
             "borderBottomColor": "rgba(89, 89, 89, 1)",
             "borderBottomLeftRadius": 16,
             "borderBottomRightRadius": 16,
@@ -189,22 +189,22 @@ exports[`Portfolio Filter Buttons should match snapshot for Assets filter Button
       >
         <Text
           style={
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              [
-                {
+              Array [
+                Object {
                   "fontFamily": "SoraRegular",
                   "fontSize": 12,
                   "fontWeight": "400",
                   "lineHeight": 16,
                   "textAlign": "center",
                 },
-                {
+                Object {
                   "color": "rgba(89, 89, 89, 1)",
                 },
               ],
@@ -226,7 +226,7 @@ exports[`Portfolio Filter Buttons should match snapshot for Assets filter Button
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          {
+          Object {
             "borderBottomColor": "rgba(89, 89, 89, 1)",
             "borderBottomLeftRadius": 16,
             "borderBottomRightRadius": 16,
@@ -252,22 +252,22 @@ exports[`Portfolio Filter Buttons should match snapshot for Assets filter Button
       >
         <Text
           style={
-            [
-              {
+            Array [
+              Object {
                 "fontFamily": "RegularFont",
                 "fontSize": 16,
                 "fontWeight": "400",
                 "lineHeight": 24,
               },
-              [
-                {
+              Array [
+                Object {
                   "fontFamily": "SoraRegular",
                   "fontSize": 12,
                   "fontWeight": "400",
                   "lineHeight": 16,
                   "textAlign": "center",
                 },
-                {
+                Object {
                   "color": "rgba(89, 89, 89, 1)",
                 },
               ],

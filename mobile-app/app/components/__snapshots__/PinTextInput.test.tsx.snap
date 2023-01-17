@@ -3,7 +3,7 @@
 exports[`Pin text input should match snapshot 1`] = `
 <View
   style={
-    {
+    Object {
       "flexDirection": "row",
       "justifyContent": "center",
       "marginBottom": 16,
@@ -12,7 +12,7 @@ exports[`Pin text input should match snapshot 1`] = `
 >
   <View
     style={
-      {
+      Object {
         "flexDirection": "row",
         "justifyContent": "space-between",
       }
@@ -21,8 +21,8 @@ exports[`Pin text input should match snapshot 1`] = `
     <View
       onLayout={[Function]}
       style={
-        [
-          {
+        Array [
+          Object {
             "alignItems": "center",
             "backgroundColor": "#ffffff",
             "borderColor": "rgba(0, 0, 0, 0.2)",
@@ -41,13 +41,13 @@ exports[`Pin text input should match snapshot 1`] = `
             "textAlign": "center",
             "width": 20,
           },
-          {
+          Object {
             "backgroundColor": "#ff00af",
             "borderColor": "#ff00af",
             "borderRadius": 10,
           },
           false,
-          {
+          Object {
             "marginLeft": 0,
           },
         ]
@@ -57,8 +57,8 @@ exports[`Pin text input should match snapshot 1`] = `
     <View
       onLayout={[Function]}
       style={
-        [
-          {
+        Array [
+          Object {
             "alignItems": "center",
             "backgroundColor": "#ffffff",
             "borderColor": "rgba(0, 0, 0, 0.2)",
@@ -77,7 +77,7 @@ exports[`Pin text input should match snapshot 1`] = `
             "textAlign": "center",
             "width": 20,
           },
-          {
+          Object {
             "backgroundColor": "#ff00af",
             "borderColor": "#ff00af",
             "borderRadius": 10,
@@ -91,8 +91,8 @@ exports[`Pin text input should match snapshot 1`] = `
     <View
       onLayout={[Function]}
       style={
-        [
-          {
+        Array [
+          Object {
             "alignItems": "center",
             "backgroundColor": "#ffffff",
             "borderColor": "rgba(0, 0, 0, 0.2)",
@@ -111,7 +111,7 @@ exports[`Pin text input should match snapshot 1`] = `
             "textAlign": "center",
             "width": 20,
           },
-          {
+          Object {
             "backgroundColor": "#ff00af",
             "borderColor": "#ff00af",
             "borderRadius": 10,
@@ -125,8 +125,8 @@ exports[`Pin text input should match snapshot 1`] = `
     <View
       onLayout={[Function]}
       style={
-        [
-          {
+        Array [
+          Object {
             "alignItems": "center",
             "backgroundColor": "#ffffff",
             "borderColor": "rgba(0, 0, 0, 0.2)",
@@ -155,8 +155,8 @@ exports[`Pin text input should match snapshot 1`] = `
     <View
       onLayout={[Function]}
       style={
-        [
-          {
+        Array [
+          Object {
             "alignItems": "center",
             "backgroundColor": "#ffffff",
             "borderColor": "rgba(0, 0, 0, 0.2)",
@@ -185,8 +185,8 @@ exports[`Pin text input should match snapshot 1`] = `
     <View
       onLayout={[Function]}
       style={
-        [
-          {
+        Array [
+          Object {
             "alignItems": "center",
             "backgroundColor": "#ffffff",
             "borderColor": "rgba(0, 0, 0, 0.2)",
@@ -228,7 +228,7 @@ exports[`Pin text input should match snapshot 1`] = `
       onPressOut={[Function]}
       spellCheck={false}
       style={
-        {
+        Object {
           "bottom": 0,
           "fontSize": 1,
           "left": 0,

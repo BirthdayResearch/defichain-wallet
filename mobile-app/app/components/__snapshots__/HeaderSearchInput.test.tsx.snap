@@ -3,9 +3,9 @@
 exports[`Header search input should match snapshot 1`] = `
 <View
   style={
-    [
-      [
-        {
+    Array [
+      Array [
+        Object {
           "alignItems": "center",
           "display": "flex",
           "flexDirection": "row",
@@ -13,11 +13,11 @@ exports[`Header search input should match snapshot 1`] = `
           "paddingLeft": 12,
           "paddingRight": 20,
         },
-        {
+        Object {
           "paddingTop": 114,
         },
       ],
-      {
+      Object {
         "backgroundColor": "rgba(255, 255, 255, 1)",
       },
     ]
@@ -35,7 +35,7 @@ exports[`Header search input should match snapshot 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      {
+      Object {
         "marginRight": 16,
         "opacity": 1,
       }
@@ -46,9 +46,9 @@ exports[`Header search input should match snapshot 1`] = `
   </View>
   <View
     style={
-      [
-        [
-          {
+      Array [
+        Array [
+          Object {
             "alignItems": "center",
             "borderBottomLeftRadius": 9999,
             "borderBottomRightRadius": 9999,
@@ -61,7 +61,7 @@ exports[`Header search input should match snapshot 1`] = `
             "paddingRight": 20,
             "paddingTop": 12,
           },
-          {
+          Object {
             "borderBottomColor": "rgba(242, 242, 242, 1)",
             "borderBottomWidth": 0.5,
             "borderLeftColor": "rgba(242, 242, 242, 1)",
@@ -75,7 +75,7 @@ exports[`Header search input should match snapshot 1`] = `
             "flexShrink": 1,
           },
         ],
-        {
+        Object {
           "backgroundColor": "rgba(242, 242, 242, 1)",
         },
       ]
@@ -92,10 +92,10 @@ exports[`Header search input should match snapshot 1`] = `
       selectionColor="rgba(255, 0, 140, 1)"
       showClearButton={false}
       style={
-        [
-          [
+        Array [
+          Array [
             undefined,
-            {
+            Object {
               "flexBasis": "0%",
               "flexGrow": 1,
               "flexShrink": 1,
@@ -105,11 +105,11 @@ exports[`Header search input should match snapshot 1`] = `
               "lineHeight": 16,
               "width": "66.666667%",
             },
-            {
+            Object {
               "marginRight": 16,
             },
           ],
-          {
+          Object {
             "color": "rgba(18, 18, 18, 1)",
           },
         ]
