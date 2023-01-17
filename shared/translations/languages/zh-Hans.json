@@ -2256,7 +2256,8 @@
     "Verified": "审核通过",
     "URL should be a valid Github URL": "该地址必须是有效的Github地址",
     "Add URL here to get started": "请添加网址",
-    "Cycle(s) determine the duration for which a proposal can accept votes.": "投票周期决定了提案接受投票的时长。"
+    "Cycle(s) determine the duration for which a proposal can accept votes.": "投票周期决定了提案接受投票的时长。",
+    "Title exceeds max character limit of 128.": "Title exceeds max character limit of 128."
   },
   "screens/OCGConfirmScreen": {
     "Confirm": "确认",

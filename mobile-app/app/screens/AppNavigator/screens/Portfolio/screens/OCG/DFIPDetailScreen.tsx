@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { translate } from "@translations";
 import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
@@ -62,8 +62,6 @@ export function DFIPDetailScreen(): JSX.Element {
   const [isUrlValid, setUrlValid] = useState<boolean>(false);
   const [url, setUrl] = useState<string>("");
   const [title, setTitle] = useState<string | undefined>();
-  const isTitleEmpty = title === undefined || title.trim() === "";
-  const isTitleValid = !isTitleEmpty && new Blob([title]).size <= 128;
 
   useEffect(() => {
     client.fee
@@ -72,8 +70,22 @@ export function DFIPDetailScreen(): JSX.Element {
       .catch(logger.error);
   }, []);
 
+  const titleStatus = useMemo(() => {
+    const isEmpty = title === undefined || title.trim() === "";
+    const maxTitleLength = 128;
+    return {
+      isEmpty: isEmpty,
+      isValidToSubmit: !isEmpty && new Blob([title]).size <= maxTitleLength,
+      shouldShowError: !isEmpty && new Blob([title]).size > maxTitleLength,
+    };
+  }, [title]);
+
   function onContinuePress() {
-    if (!isTitleValid || hasPendingJob || hasPendingBroadcastJob) {
+    if (
+      !titleStatus.isValidToSubmit ||
+      hasPendingJob ||
+      hasPendingBroadcastJob
+    ) {
       return;
     }
 
@@ -82,7 +94,7 @@ export function DFIPDetailScreen(): JSX.Element {
       fee,
       proposalFee,
       url: url,
-      title: title,
+      title: title!,
       ...(isConversionRequired && {
         conversion: {
           isConversionRequired,
@@ -140,19 +152,26 @@ export function DFIPDetailScreen(): JSX.Element {
               placeholder={translate("screens/OCGDetailScreen", "Title")}
               style={tailwind("w-3/5 flex-grow pb-1 font-normal-v2")}
               inlineText={{
-                type: "helper",
+                type: titleStatus.shouldShowError ? "error" : "helper",
                 text: translate(
                   "screens/OCGDetailScreen",
-                  "Make sure this matches the title from Github."
+                  titleStatus.shouldShowError
+                    ? "Title exceeds max character limit of 128."
+                    : "Make sure this matches the title from Github."
                 ),
-                style: tailwind("pl-5 text-mono-light-v2-500", {
-                  "text-mono-dark-v2-500": !isLight,
+                style: tailwind("pl-5", {
+                  "text-red-v2": titleStatus.shouldShowError,
+                  "text-mono-light-v2-500":
+                    !titleStatus.shouldShowError && isLight,
+                  "text-mono-dark-v2-500":
+                    !titleStatus.shouldShowError && !isLight,
                 }),
               }}
               value={title}
               onChangeText={setTitle}
-              displayClearButton={!isTitleEmpty}
+              displayClearButton={!titleStatus.isEmpty}
               onClearButtonPress={() => setTitle("")}
+              valid={!titleStatus.shouldShowError}
             />
           </View>
         )}
@@ -172,7 +191,11 @@ export function DFIPDetailScreen(): JSX.Element {
           label={translate("screens/OCGDetailScreen", "Continue")}
           styleProps="mt-5 mx-7"
           testID="dfip_continue_button"
-          disabled={!isTitleValid || hasPendingJob || hasPendingBroadcastJob}
+          disabled={
+            !titleStatus.isValidToSubmit ||
+            hasPendingJob ||
+            hasPendingBroadcastJob
+          }
           onPress={onContinuePress}
         />
       </View>

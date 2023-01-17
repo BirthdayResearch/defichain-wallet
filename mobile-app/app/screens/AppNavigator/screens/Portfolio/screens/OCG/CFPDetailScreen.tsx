@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { translate } from "@translations";
 import { ThemedTextV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
@@ -89,6 +89,16 @@ export function CFPDetailScreen(): JSX.Element {
       .catch(logger.error);
   }, []);
 
+  const titleStatus = useMemo(() => {
+    const isEmpty = title === undefined || title.trim() === "";
+    const maxTitleLength = 128;
+    return {
+      isEmpty: isEmpty,
+      isValidToSubmit: !isEmpty && new Blob([title]).size <= maxTitleLength,
+      shouldShowError: !isEmpty && new Blob([title]).size > maxTitleLength,
+    };
+  }, [title]);
+
   const onAddressSelect = useCallback(
     async (savedAddress: string) => {
       setValue("address", savedAddress, { shouldDirty: true });
@@ -159,8 +169,7 @@ export function CFPDetailScreen(): JSX.Element {
   function isButtonEnabled(): boolean {
     return (
       !isFieldEmpty(url) &&
-      !isFieldEmpty(title) &&
-      new Blob([title]).size <= 128 &&
+      titleStatus.isValidToSubmit &&
       !isFieldEmpty(amount) &&
       BigNumber(cycle).gte(minCycle) &&
       BigNumber(cycle).lte(maxCycle) &&
@@ -191,15 +200,22 @@ export function CFPDetailScreen(): JSX.Element {
               displayClearButton={!isFieldEmpty(title)}
               onClearButtonPress={() => setTitle("")}
               inlineText={{
-                type: "helper",
+                type: titleStatus.shouldShowError ? "error" : "helper",
                 text: translate(
                   "screens/OCGDetailScreen",
-                  "Make sure this matches the title from Github."
+                  titleStatus.shouldShowError
+                    ? "Title exceeds max character limit of 128."
+                    : "Make sure this matches the title from Github."
                 ),
-                style: tailwind("pl-5 text-mono-light-v2-500", {
-                  "text-mono-dark-v2-500": !isLight,
+                style: tailwind("pl-5", {
+                  "text-red-v2": titleStatus.shouldShowError,
+                  "text-mono-light-v2-500":
+                    !titleStatus.shouldShowError && isLight,
+                  "text-mono-dark-v2-500":
+                    !titleStatus.shouldShowError && !isLight,
                 }),
               }}
+              valid={!titleStatus.shouldShowError}
             />
             <WalletTextInputV2
               inputType="numeric"
