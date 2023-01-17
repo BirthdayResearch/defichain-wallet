@@ -731,7 +731,10 @@
     "Feature is still in Beta. Use at your own risk.": "功能仍处于测试阶段。使用时风险请自己负责。",
     "Allows the usage of custom server provider url": "Allows the usage of custom server provider url",
     "Unloop DUSD loan": "Unloop DUSD loan",
-    "Display payback DUSD loan with DUSD collateral": "Display payback DUSD loan with DUSD collateral"
+    "Display payback DUSD loan with DUSD collateral": "Display payback DUSD loan with DUSD collateral",
+    "CFP/DFIP proposal(s)": "CFP/DFIP 提案",
+    "Allows the submission of CFP/DFIP proposals": "允许提交 CFP/DFIP 提案",
+    "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?": "激活后，您将能够使用您活跃的移动端Light Wallet账户直接提交 CFP/DFIP 提案。 你要继续吗？"
   },
   "BottomTabNavigator": {
     "Balances": "总资金",

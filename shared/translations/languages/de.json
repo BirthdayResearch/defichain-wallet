@@ -729,7 +729,10 @@
     "Feature is still in Beta. Use at your own risk.": "Diese Funktionalität ist noch im Beta-Stadium. Verwendung auf eigene Gefahr.",
     "Allows the usage of custom server provider url": "Ermöglicht die Verwendung einer benutzerdefinierten Server-Provider-URL",
     "Unloop DUSD loan": "DUSD-Darlehen auflösen",
-    "Display payback DUSD loan with DUSD collateral": "Rückzahlungen von DUSD-Darlehen mit DUSD-Sicherheiten anzeigen"
+    "Display payback DUSD loan with DUSD collateral": "Rückzahlungen von DUSD-Darlehen mit DUSD-Sicherheiten anzeigen",
+    "CFP/DFIP proposal(s)": "CFP/DFIP-Proposal(s)",
+    "Allows the submission of CFP/DFIP proposals": "Ermöglicht die Einreichung von CFP/DFIP-Proposals",
+    "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?": "Nach der Aktivierung kannst du CFP/DFIP-Proposals direkt über den aktiven Account deiner mobilen Lightwallet einreichen. Möchtest du fortfahren?"
   },
   "BottomTabNavigator": {
     "Balances": "Guthaben",
