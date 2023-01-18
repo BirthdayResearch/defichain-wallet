@@ -271,8 +271,8 @@ function PoolCard({
               symbolB={symbolB}
               pair={mappedPair}
               onSwap={() => onSwap(mappedPair, yourPair as WalletToken)}
-              aToBPrice={new BigNumber(mappedPair.priceRatio.ba)}
-              bToAPrice={new BigNumber(mappedPair.priceRatio.ab)}
+              aToBPrice={new BigNumber(mappedPair.priceRatio.ab)}
+              bToAPrice={new BigNumber(mappedPair.priceRatio.ba)}
               isFavouritePair={isFavoritePair}
               setFavouritePoolpair={setFavouritePoolpair}
               status={mappedPair.status}
@@ -483,12 +483,12 @@ function getSortedPriceRates({
   const tokenA = {
     symbol: mappedPair.tokenA.symbol,
     displaySymbol: mappedPair.tokenA.displaySymbol,
-    priceRate: aToBPrice,
+    priceRate: bToAPrice,
   };
   const tokenB = {
     symbol: mappedPair.tokenB.symbol,
     displaySymbol: mappedPair.tokenB.displaySymbol,
-    priceRate: bToAPrice,
+    priceRate: aToBPrice,
   };
 
   return {
