@@ -19,10 +19,10 @@ import {
 } from "@store/loans";
 import { RootState } from "@store";
 import {
-  hasTxQueued,
-  hasOceanTXQueued,
-  transactionQueue,
   DFIUtxoSelector,
+  hasOceanTXQueued,
+  hasTxQueued,
+  transactionQueue,
 } from "@waveshq/walletkit-ui/dist/store";
 import { queueConvertTransaction } from "@hooks/wallet/Conversion";
 import { useAppDispatch } from "@hooks/useAppDispatch";
@@ -96,7 +96,9 @@ export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
     }
 
     if (conversionStatus === ConversionStatus.Required) {
-      const convertAmount = new BigNumber(RESERVE_AMOUNT).minus(DFIUtxo.amount);
+      const convertAmount = new BigNumber(RESERVE_AMOUNT)
+        .minus(DFIUtxo.amount)
+        .plus(fee);
       queueConvertTransaction(
         {
           mode: "accountToUtxos",
