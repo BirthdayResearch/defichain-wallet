@@ -81,7 +81,8 @@ export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
 
   const vaultFee = new BigNumber(
     network === EnvironmentNetwork.MainNet ||
-    network === EnvironmentNetwork.TestNet
+    network === EnvironmentNetwork.TestNet ||
+    network === EnvironmentNetwork.DevNet
       ? 2
       : 1
   );

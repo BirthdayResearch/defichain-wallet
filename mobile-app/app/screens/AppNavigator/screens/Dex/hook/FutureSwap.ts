@@ -86,7 +86,8 @@ export function useFutureSwapDate(
   const { network } = useNetworkContext();
   const secondsPerBlock =
     network === EnvironmentNetwork.MainNet ||
-    network === EnvironmentNetwork.TestNet
+    network === EnvironmentNetwork.TestNet ||
+    network === EnvironmentNetwork.DevNet
       ? 30
       : 3;
   const blocksRemaining = BigNumber.max(

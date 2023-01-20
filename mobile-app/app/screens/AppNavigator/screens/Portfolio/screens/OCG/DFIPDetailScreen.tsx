@@ -208,6 +208,7 @@ function getDFIPFee(network: EnvironmentNetwork): BigNumber {
     case EnvironmentNetwork.MainNet:
       return new BigNumber(100);
     case EnvironmentNetwork.TestNet:
+    case EnvironmentNetwork.DevNet:
       return new BigNumber(50);
     default:
       return new BigNumber(5);
