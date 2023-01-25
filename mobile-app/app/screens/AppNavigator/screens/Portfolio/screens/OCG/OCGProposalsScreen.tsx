@@ -57,8 +57,7 @@ export function OCGProposalsScreen(): JSX.Element {
 
   return (
     <ThemedScrollViewV2
-      style={tailwind("py-6 px-5")}
-      contentContainerStyle={tailwind("flex-grow justify-between")}
+      contentContainerStyle={tailwind("flex-grow justify-between py-6 px-5")}
     >
       <View>
         <AnnouncementBannerV2
