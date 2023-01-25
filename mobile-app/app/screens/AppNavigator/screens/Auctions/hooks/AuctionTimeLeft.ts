@@ -20,12 +20,14 @@ export function useAuctionTime(
   const { network } = useNetworkContext();
   const blocksPerAuction =
     network === EnvironmentNetwork.MainNet ||
-    network === EnvironmentNetwork.TestNet
+    network === EnvironmentNetwork.TestNet ||
+    network === EnvironmentNetwork.DevNet
       ? 720
       : 36;
   const secondsPerBlock =
     network === EnvironmentNetwork.MainNet ||
-    network === EnvironmentNetwork.TestNet
+    network === EnvironmentNetwork.TestNet ||
+    network === EnvironmentNetwork.DevNet
       ? 30
       : 3;
   const blocksRemaining = BigNumber.max(

@@ -209,7 +209,8 @@ function SummaryDetails(props: {
         rhs={{
           value:
             network === EnvironmentNetwork.MainNet ||
-            network === EnvironmentNetwork.TestNet
+            network === EnvironmentNetwork.TestNet ||
+            network === EnvironmentNetwork.DevNet
               ? 1
               : 0.5,
           testID: "fees_to_return_text_rhs",
@@ -232,7 +233,8 @@ function SummaryDetails(props: {
         rhs={{
           value:
             network === EnvironmentNetwork.MainNet ||
-            network === EnvironmentNetwork.TestNet
+            network === EnvironmentNetwork.TestNet ||
+            network === EnvironmentNetwork.DevNet
               ? 1
               : 0.5,
           testID: "fees_to_burn_text_rhs",

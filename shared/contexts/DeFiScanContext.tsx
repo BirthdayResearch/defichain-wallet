@@ -64,6 +64,8 @@ function getNetworkParams(network: EnvironmentNetwork): string {
       return "";
     case EnvironmentNetwork.TestNet:
       return `?network=${EnvironmentNetwork.TestNet}`;
+    case EnvironmentNetwork.DevNet:
+      return `?network=${EnvironmentNetwork.DevNet}`;
 
     case EnvironmentNetwork.LocalPlayground:
     case EnvironmentNetwork.RemotePlayground:
