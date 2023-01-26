@@ -71,7 +71,7 @@ export function CfpDfipProposalsFaq(): JSX.Element {
     {
       title: translate(
         "components/CfpDfipProposalsFaq",
-        "Are they other ways to submit proposals?"
+        "Are there other ways to submit proposals?"
       ),
       content: [
         {
