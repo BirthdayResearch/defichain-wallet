@@ -62,7 +62,7 @@ function verifyConfirmScreen(
 ) {
   cy.getByTestID("proposal_title").contains(title);
   cy.getByTestID("proposal_type_value").contains(isDfip ? "DFIP" : "CFP");
-  cy.getByTestID("github_value").contains(githubUrl);
+  cy.getByTestID("discussion_value").contains(githubUrl);
   cy.getByTestID("proposal_fee_value").contains(proposalFee);
   cy.getByTestID("transaction_fee_value").should("exist");
   if (requestedAmount !== undefined) {

@@ -11,9 +11,9 @@ import { tailwind } from "@tailwind";
 import { useState } from "react";
 import { View } from "react-native";
 import { ButtonV2 } from "@components/ButtonV2";
-import { AnnouncementBannerV2 } from "@screens/AppNavigator/screens/Portfolio/components/Announcements";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
+import { openURL } from "@api/linking";
 
 export function OCGProposalsScreen(): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
@@ -57,21 +57,21 @@ export function OCGProposalsScreen(): JSX.Element {
 
   return (
     <ThemedScrollViewV2
-      style={tailwind("py-6 px-5")}
-      contentContainerStyle={tailwind("flex-grow justify-between")}
+      contentContainerStyle={tailwind("py-8 px-5 flex-grow justify-between")}
     >
       <View>
-        <AnnouncementBannerV2
-          announcement={{
-            content: translate(
-              "screens/OCGProposalsScreen",
-              "An active discussion on Github is required in creating a proposal. Click here if you haven’t created one yet."
-            ),
-            url: "https://github.com/DeFiCh/dfips",
-            type: "OUTAGE",
-          }}
-          testID="ocg_proposal_banner"
-        />
+        {/* <AnnouncementBannerV2 */}
+        {/*  announcement={{ */}
+        {/*    content: translate( */}
+        {/*      "screens/OCGProposalsScreen", */}
+        {/*      "An active discussion on Github is required in creating a proposal. Click here if you haven’t created one yet." */}
+        {/*    ), */}
+        {/*    url: "https://github.com/DeFiCh/dfips", */}
+        {/*    type: "OUTAGE", */}
+        {/*  }} */}
+        {/*  testID="ocg_proposal_banner" */}
+        {/* /> */}
+        <DiscussionBanner />
         <ThemedSectionTitleV2
           text={translate("screens/OCGProposalsScreen", "PROPOSAL TYPE")}
         />
@@ -100,6 +100,57 @@ export function OCGProposalsScreen(): JSX.Element {
         onPress={onContinue}
       />
     </ThemedScrollViewV2>
+  );
+}
+
+function DiscussionBanner(): JSX.Element {
+  const githubLink = "https://github.com/DeFiCh/dfips/issues";
+  const redditLink = "https://www.reddit.com/r/defiblockchain/";
+  return (
+    <ThemedViewV2
+      style={tailwind("rounded-xl-v2 border-0.5 px-5 py-4")}
+      dark={tailwind("border-mono-dark-v2-900")}
+      light={tailwind("border-mono-light-v2-900")}
+    >
+      <ThemedTextV2 style={tailwind("font-normal-v2 text-xs pb-4")}>
+        {translate(
+          "screens/OCGProposalsScreen",
+          "An active discussion on GitHub or Reddit is encouraged before creating a proposal."
+        )}
+      </ThemedTextV2>
+      <View style={tailwind("flex-row items-center")}>
+        <ThemedTouchableOpacityV2
+          style={tailwind("flex-row items-center")}
+          onPress={async () => await openURL(githubLink)}
+        >
+          <ThemedIcon
+            dark={tailwind("text-mono-dark-v2-900")}
+            light={tailwind("text-mono-light-v2-900")}
+            iconType="MaterialCommunityIcons"
+            name="github"
+            size={20}
+          />
+          <ThemedTextV2 style={tailwind("font-normal-v2 text-xs pl-2")}>
+            {translate("screens/OCGProposalsScreen", "GitHub")}
+          </ThemedTextV2>
+        </ThemedTouchableOpacityV2>
+        <ThemedTouchableOpacityV2
+          style={tailwind("flex-row items-center ml-6")}
+          onPress={async () => await openURL(redditLink)}
+        >
+          <ThemedIcon
+            dark={tailwind("text-mono-dark-v2-900")}
+            light={tailwind("text-mono-light-v2-900")}
+            iconType="MaterialCommunityIcons"
+            name="reddit"
+            size={20}
+          />
+          <ThemedTextV2 style={tailwind("font-normal-v2 text-xs pl-2")}>
+            {translate("screens/OCGProposalsScreen", "Reddit")}
+          </ThemedTextV2>
+        </ThemedTouchableOpacityV2>
+      </View>
+    </ThemedViewV2>
   );
 }
 
