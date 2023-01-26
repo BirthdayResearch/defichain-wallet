@@ -47,7 +47,9 @@ function selectOwnAddress() {
 
 function verifyDefaultInputState(isDfip: boolean) {
   const type = isDfip ? "dfip" : "cfp";
-  cy.getByTestID("url_status_text").contains("Add URL here to get started");
+  cy.getByTestID("url_status_text").contains(
+    "Add GitHub or Reddit link to get started"
+  );
   cy.getByTestID("detail_container").should("not.exist");
   cy.getByTestID(`${type}_continue_button`).should("not.be.enabled");
 }

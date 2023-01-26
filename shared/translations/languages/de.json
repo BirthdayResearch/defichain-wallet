@@ -452,7 +452,7 @@
     "Liquidity Mining": "Liquiditäts-Mining",
     "Liquidity mining": "Liquiditäts-Mining",
     "UTXO and Tokens": "UTXO und Token",
-    "On-Chain Governance": "On-Chain-Governance"
+    "Governance": "Governance"
   },
   "components/UtxoVsTokenFaq": {
     "About UTXO And Tokens": "UTXO und Token",
@@ -521,7 +521,7 @@
     "The minimum next bid is 1% above the previous bid price.": "Das nächste Mindestgebot liegt 1 % über dem vorherigen Gebotspreis."
   },
   "components/CfpDfipProposalsFaq": {
-    "About On-Chain Governance": "On-Chain-Governance",
+    "About Governance": "Governance",
     "FREQUENTLY ASKED QUESTIONS": "HÄUFIG GESTELLTE FRAGEN",
     "On-chain governance (OCG) is a system for managing verified community proposals for DeFiChain. Proposals can now be submitted using the mobile Light Wallet.": "On-Chain-Governance (OCG) ist ein System zur Verwaltung von verifizierten Community-Vorschlägen für DeFiChain. Vorschläge können jetzt über die mobile Lightwallet eingereicht werden.",
     "What is the difference between a DFIP and CFP?": "Was ist der Unterschied zwischen einem DFIP und einem CFP?",
@@ -2218,12 +2218,12 @@
     "Search results for “{{searchTerm}}”": "Suchergebnisse für “{{searchTerm}}”"
   },
   "screens/OCGProposalsScreen": {
-    "Proposals": "Proposals",
+    "Governance": "Governance",
     "Community Funding Proposal": "Community Funding Proposal",
     "Proposal to build on top of the DeFiChain blockchain, and funded by the Community Development Fund.": "Vorschlag, der auf der DeFiChain-Blockchain aufbaut und durch den Entwicklungsfonds der Community, den \"Community Development Fund\" finanziert wird.",
     "DeFiChain Improvement Proposal": "DeFiChain Improvement Proposal",
     "Proposal to improve the key function(s) on DeFiChain.": "Vorschlag zur Verbesserung der DeFiChain-Schlüsselfunktion(en).",
-    "An active discussion on Github is required in creating a proposal. Click here if you haven’t created one yet.": "Um einen Vorschlag, ein sog. Proposal zu erstellen, ist eine aktive Diskussion auf Github erforderlich. Klicke hier, wenn du noch kein Proposal erstellt hast.",
+    "An active discussion on GitHub or Reddit is encouraged before creating a proposal.": "An active discussion on GitHub or Reddit is encouraged before creating a proposal.",
     "PROPOSAL TYPE": "PROPOSAL-TYP",
     "Continue": "Weiter"
   },
@@ -2232,7 +2232,7 @@
     "DFIP Details": "DFIP-Details",
     "PROPOSAL TITLE": "TITEL DES PROPOSALS",
     "Title": "Titel",
-    "Make sure this matches the title from Github.": "Achte darauf, dass er mit dem Github-Titel übereinstimmt.",
+    "Make sure that the name added here is the same as from the one posted in GitHub or Reddit.": "Make sure that the name added here is the same as from the one posted in GitHub or Reddit.",
     "AMOUNT REQUESTED IN DFI": "BEANTRAGTER BETRAG IN DFI ",
     "RECEIVING ADDRESS": "EMPFANGSADRESSE",
     "Review full proposal details in the next screen": "Überprüfe alle Details des Proposals in der nächsten Ansicht",
@@ -2241,17 +2241,18 @@
     "Voting Cycle(s)": "Abstimmungs-Zyklen",
     "Cycle(s) should be 1-100 only": "Die Zahl der Zyklen sollte nur 1-100 sein",
     "Scan Github URL": "Github URL prüfen",
-    "GITHUB DISCUSSION": "GITHUB-DISKUSSION",
+    "DISCUSSION": "DISCUSSION",
     "Paste URL": "URL einfügen",
     "Verified": "Verifiziert",
-    "URL should be a valid Github URL": "URL sollte eine gültige Github-URL sein",
-    "Add URL here to get started": "URL hier einfügen, um zu beginnen",
+    "URL should be a valid GitHub or Reddit URL": "URL should be a valid GitHub or Reddit URL",
+    "Add GitHub or Reddit link to get started": "Add GitHub or Reddit link to get started",
     "Cycle(s) determine the duration for which a proposal can accept votes.": "Zyklen bestimmen die Dauer, für die ein Proposal Stimmen annehmen kann.",
     "Title exceeds max character limit of 128.": "Titel überschreitet die maximale Zeichenanzahl von 128."
   },
   "screens/OCGConfirmScreen": {
     "Confirm": "Bestätigen",
     "Proposal type": "Proposal-Typ",
+    "Discussion": "Discussion",
     "Submit": "Einreichen",
     "You are proposing": "Du reichst folgendes Proposal ein",
     "Amount to convert": "Umzuwandelnder Betrag",
