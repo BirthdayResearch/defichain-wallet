@@ -32,11 +32,12 @@ export function AddressRow({
   address,
   onMatchedAddress,
   onAddressType,
+  showQrButton = true,
 }: {
   control: Control;
   networkName: NetworkName;
   onContactButtonPress: () => void;
-  onQrButtonPress: () => void;
+  onQrButtonPress?: () => void;
   onClearButtonPress: () => void;
   onAddressChange: (address: string) => void;
   inputFooter?: React.ReactElement;
@@ -44,6 +45,7 @@ export function AddressRow({
   address: string;
   onMatchedAddress?: (matchedAddress?: LocalAddress) => void;
   onAddressType?: (addressType?: AddressType) => void;
+  showQrButton?: boolean;
 }): JSX.Element {
   const { fetchWalletAddresses } = useWalletAddress();
 
@@ -167,21 +169,23 @@ export function AddressRow({
                         size={24}
                       />
                     </ThemedTouchableOpacity>
-                    <ThemedTouchableOpacity
-                      dark={tailwind("bg-black")}
-                      light={tailwind("bg-white")}
-                      onPress={onQrButtonPress}
-                      style={tailwind("w-9 p-1.5 rounded")}
-                      testID="qr_code_button"
-                    >
-                      <ThemedIcon
-                        dark={tailwind("text-mono-dark-v2-700")}
-                        light={tailwind("text-mono-light-v2-700")}
-                        iconType="MaterialIcons"
-                        name="qr-code"
-                        size={24}
-                      />
-                    </ThemedTouchableOpacity>
+                    {showQrButton && (
+                      <ThemedTouchableOpacity
+                        dark={tailwind("bg-black")}
+                        light={tailwind("bg-white")}
+                        onPress={onQrButtonPress}
+                        style={tailwind("w-9 p-1.5 rounded")}
+                        testID="qr_code_button"
+                      >
+                        <ThemedIcon
+                          dark={tailwind("text-mono-dark-v2-700")}
+                          light={tailwind("text-mono-light-v2-700")}
+                          iconType="MaterialIcons"
+                          name="qr-code"
+                          size={24}
+                        />
+                      </ThemedTouchableOpacity>
+                    )}
                   </>
                 )}
               </WalletTextInputV2>

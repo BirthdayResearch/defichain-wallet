@@ -31,6 +31,7 @@ import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { OCGProposalType } from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
 import { AddressRow } from "@screens/AppNavigator/screens/Portfolio/components/AddressRow";
+import { ButtonGroupTabKey } from "@screens/AppNavigator/screens/Portfolio/screens/AddressBookScreen";
 
 export function CFPDetailScreen(): JSX.Element {
   const logger = useLogger();
@@ -249,22 +250,12 @@ export function CFPDetailScreen(): JSX.Element {
                   params: {
                     selectedAddress: getValues("address"),
                     onAddressSelect,
+                    disabledTab: ButtonGroupTabKey.Whitelisted,
                   },
                   merge: true,
                 })
               }
-              onQrButtonPress={() =>
-                navigation.navigate({
-                  name: "BarCodeScanner",
-                  params: {
-                    onQrScanned: async (value: any) => {
-                      setValue("address", value, { shouldDirty: true });
-                      await trigger("address");
-                    },
-                  },
-                  merge: true,
-                })
-              }
+              showQrButton={false}
               onClearButtonPress={async () => {
                 setValue("address", "");
                 await trigger("address");
