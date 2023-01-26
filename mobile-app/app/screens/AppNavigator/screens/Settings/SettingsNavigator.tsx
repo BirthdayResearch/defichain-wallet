@@ -268,7 +268,7 @@ export function SettingsNavigator(): JSX.Element {
         options={{
           headerTitle: translate(
             "components/CfpDfipProposalsFaq",
-            "About On-Chain Governance"
+            "About Governance"
           ),
         }}
       />
