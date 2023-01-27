@@ -60,17 +60,6 @@ export function OCGProposalsScreen(): JSX.Element {
       contentContainerStyle={tailwind("py-8 px-5 flex-grow justify-between")}
     >
       <View>
-        {/* <AnnouncementBannerV2 */}
-        {/*  announcement={{ */}
-        {/*    content: translate( */}
-        {/*      "screens/OCGProposalsScreen", */}
-        {/*      "An active discussion on Github is required in creating a proposal. Click here if you haven’t created one yet." */}
-        {/*    ), */}
-        {/*    url: "https://github.com/DeFiCh/dfips", */}
-        {/*    type: "OUTAGE", */}
-        {/*  }} */}
-        {/*  testID="ocg_proposal_banner" */}
-        {/* /> */}
         <DiscussionBanner />
         <ThemedSectionTitleV2
           text={translate("screens/OCGProposalsScreen", "PROPOSAL TYPE")}
@@ -111,6 +100,7 @@ function DiscussionBanner(): JSX.Element {
       style={tailwind("rounded-xl-v2 border-0.5 px-5 py-4")}
       dark={tailwind("border-mono-dark-v2-900")}
       light={tailwind("border-mono-light-v2-900")}
+      testID="ocg_proposal_banner"
     >
       <ThemedTextV2 style={tailwind("font-normal-v2 text-xs pb-4")}>
         {translate(
@@ -122,6 +112,7 @@ function DiscussionBanner(): JSX.Element {
         <ThemedTouchableOpacityV2
           style={tailwind("flex-row items-center")}
           onPress={async () => await openURL(githubLink)}
+          testID="ocg_proposal_banner_github"
         >
           <ThemedIcon
             dark={tailwind("text-mono-dark-v2-900")}
@@ -137,6 +128,7 @@ function DiscussionBanner(): JSX.Element {
         <ThemedTouchableOpacityV2
           style={tailwind("flex-row items-center ml-6")}
           onPress={async () => await openURL(redditLink)}
+          testID="ocg_proposal_banner_reddit"
         >
           <ThemedIcon
             dark={tailwind("text-mono-dark-v2-900")}
