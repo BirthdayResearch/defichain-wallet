@@ -265,6 +265,7 @@ export function CFPDetailScreen(): JSX.Element {
                 await trigger("address");
               }}
               address={address}
+              onlyLocalAddress
             />
           </View>
         )}
