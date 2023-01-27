@@ -622,7 +622,7 @@ export function PortfolioNavigator(): JSX.Element {
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerTitle: translate("screens/OCGProposalsScreen", "Proposals"),
+          headerTitle: translate("screens/OCGProposalsScreen", "Governance"),
         }}
       />
       <PortfolioStack.Screen
