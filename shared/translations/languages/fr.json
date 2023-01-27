@@ -533,7 +533,7 @@
   "components/CfpDfipProposalsFaq": {
     "About Governance": "À propos de la gouvernance",
     "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS",
-    "Governance on DeFiChain is a system for managing verified community proposals. Proposals can now be submitted using the mobile Light Wallet.": "Governance on DeFiChain is a system for managing verified community proposals. Proposals can now be submitted using the mobile Light Wallet.",
+    "Governance on DeFiChain is a system for managing verified community proposals. Proposals can now be submitted using the mobile Light Wallet.": "La gouvernance sur DeFiChain est un système de gestion des propositions de communauté vérifiées.",
     "What is the difference between a DFIP and CFP?": "Quelle est la différence entre une DFIP et une CFP ?",
     "DeFiChain Improvement proposal (DFIP) aims to improve the key function(s) on DeFiChain.\nCommunity Funding Proposal (CFP) are community projects that build on top of DeFiChain. All approved CFPs are funded by the Community Development fund.": "Une proposition d'amélioration de DeFiChain (DFIP) vise à améliorer la ou les fonctions clés de DeFiChain.\nLes propositions de financement communautaire (CFP) sont des projets communautaires qui s'appuient sur DeFiChain. Tous les CFP approuvés sont financés par le fonds de développement communautaire, le Community Development Fund.",
     "How are proposal fees calculated?": "Comment les frais de proposition sont-ils calculés ?",
@@ -2237,7 +2237,7 @@
     "Proposal to build on top of the DeFiChain blockchain, and funded by the Community Development Fund.": "Proposition de construire sur la blockchain DeFiChain, et financée par le fonds de développement communautaire, le Community Development Fund.",
     "DeFiChain Improvement Proposal": "DeFiChain Improvement Proposal",
     "Proposal to improve the key function(s) on DeFiChain.": "Proposition pour améliorer la ou les fonctions clés sur DeFiChain.",
-    "An active discussion on GitHub or Reddit is encouraged before creating a proposal.": "An active discussion on GitHub or Reddit is encouraged before creating a proposal.",
+    "An active discussion on GitHub or Reddit is encouraged before creating a proposal.": "Une discussion active sur GitHub ou Reddit est encouragée avant la création d'une proposition. ",
     "PROPOSAL TYPE": "TYPE DE PROPOSITION",
     "Continue": "Suivant"
   },
@@ -2246,7 +2246,7 @@
     "DFIP Details": "Détails DFIP",
     "PROPOSAL TITLE": "TITRE DE LA PROPOSITION",
     "Title": "Titre",
-    "Make sure that the name added here is the same as from the one posted in GitHub or Reddit.": "Make sure that the name added here is the same as from the one posted in GitHub or Reddit.",
+    "Make sure that the name added here is the same as from the one posted in GitHub or Reddit.": "Assurez-vous que le nom ajouté ici est le même que celui qui a été posté sur GitHub ou Reddit.",
     "AMOUNT REQUESTED IN DFI": "MONTANT DEMANDÉ EN DFI",
     "RECEIVING ADDRESS": "ADRESSE DE RÉCEPTION",
     "Review full proposal details in the next screen": "Examiner tous les détails de la proposition dans l'écran suivant",
@@ -2258,8 +2258,8 @@
     "DISCUSSION": "DISCUSSION",
     "Paste URL": "Coller l'URL",
     "Verified": "Vérifié",
-    "URL should be a valid GitHub or Reddit URL": "URL should be a valid GitHub or Reddit URL",
-    "Add GitHub or Reddit link to get started": "Add GitHub or Reddit link to get started",
+    "URL should be a valid GitHub or Reddit URL": "L'URL doit être une URL Github ou Reddit valide.",
+    "Add GitHub or Reddit link to get started": "Ajouter le lien GitHub ou Reddit pour commencer",
     "Cycle(s) determine the duration for which a proposal can accept votes.": "Le(s) cycle(s) détermine(nt) la durée pendant laquelle une proposition peut accepter des votes.",
     "Title exceeds max character limit of 128.": "Le titre dépasse la limite maximale de 128 caractères."
   },
