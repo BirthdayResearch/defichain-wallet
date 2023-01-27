@@ -68,7 +68,7 @@ export function ProposalURLInput({
             inputType="default"
             multiline
             testID="input_url"
-            title={translate("screens/OCGDetailScreen", "GITHUB DISCUSSION")}
+            title={translate("screens/OCGDetailScreen", "DISCUSSION")}
             placeholder={translate("screens/OCGDetailScreen", "Paste URL")}
             style={tailwind("w-3/5 flex-grow pb-1 font-normal-v2")}
             displayClearButton={hasInput}
@@ -82,7 +82,8 @@ export function ProposalURLInput({
           />
         )}
         rules={{
-          pattern: /https?:\/\/github\.com\/defich\/dfips\/issues\/\d+$/gim,
+          pattern:
+            /(https?:\/\/github\.com\/defich\/dfips\/issues\/\d+)|(https?:\/\/www\.reddit\.com\/r\/defiblockchain\/(.*))$/gim, // check if valid GitHub or Reddit URL
         }}
       />
 
@@ -98,10 +99,10 @@ function InlineState({ status }: { status: ProposalInputStatus }): JSX.Element {
       displayText = "Verified";
       break;
     case ProposalInputStatus.Invalid:
-      displayText = "URL should be a valid Github URL";
+      displayText = "URL should be a valid GitHub or Reddit URL";
       break;
     default:
-      displayText = "Add URL here to get started";
+      displayText = "Add GitHub or Reddit link to get started";
       break;
   }
   const translatedText = translate("screens/OCGDetailScreen", displayText);

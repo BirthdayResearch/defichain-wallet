@@ -168,14 +168,14 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
       >
         <TextRowV2
           lhs={{
-            value: "Github",
+            value: translate("screens/OCGConfirmScreen", "Discussion"),
             themedProps: lhsTheme,
-            testID: "github_label",
+            testID: "discussion_label",
           }}
           rhs={{
             value: url,
             themedProps: rhsTheme,
-            testID: "github_value",
+            testID: "discussion_value",
           }}
         />
       </ThemedViewV2>
