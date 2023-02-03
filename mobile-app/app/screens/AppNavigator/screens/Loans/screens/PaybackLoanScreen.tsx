@@ -148,7 +148,11 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
   const loanTokenActivePriceInUSD = getActivePrice(
     loanTokenAmount.symbol,
     loanTokenAmount.activePrice,
-    collateralFactor
+    routeParams.isPaybackDUSDUsingCollateral === true
+      ? collateralFactor
+      : undefined,
+    undefined,
+    routeParams.isPaybackDUSDUsingCollateral === true ? "COLLATERAL" : undefined
   );
 
   const hasPendingJob = useSelector((state: RootState) =>
