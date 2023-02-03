@@ -206,7 +206,6 @@ export function DFIPDetailScreen(): JSX.Element {
 function getDFIPFee(network: EnvironmentNetwork): BigNumber {
   switch (network) {
     case EnvironmentNetwork.MainNet:
-      return new BigNumber(100);
     case EnvironmentNetwork.TestNet:
     case EnvironmentNetwork.DevNet:
       return new BigNumber(50);
