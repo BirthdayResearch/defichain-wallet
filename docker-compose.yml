@@ -27,6 +27,9 @@ services:
       -rpcpassword=playground
       -rpcworkqueue=512
       -masternode_operator=mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy
+      -masternode_operator=mps7BdmwEF2vQ9DREDyNPibqsuSRZ8LuwQ
+      -masternode_operator=bcrt1qmfvw3dp3u6fdvqkdc0y3lr0e596le9cf22vtsv
+      -masternode_operator=bcrt1qurwyhta75n2g75u2u5nds9p6w9v62y8wr40d2r
       -regtest=1
       -jellyfish_regtest=1
       -txnotokens=0
