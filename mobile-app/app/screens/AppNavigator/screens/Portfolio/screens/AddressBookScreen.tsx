@@ -1,10 +1,10 @@
 import { View } from "@components";
 import {
   ThemedIcon,
+  ThemedSectionTitleV2,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
   ThemedViewV2,
-  ThemedSectionTitleV2,
 } from "@components/themed";
 import {
   StackNavigationOptions,
@@ -22,13 +22,13 @@ import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { createRef, useCallback, useEffect, useState } from "react";
 import {
-  Platform,
-  TouchableOpacity,
   Image,
-  StyleProp,
-  ViewStyle,
+  Platform,
   ScrollView,
+  StyleProp,
   TextInput,
+  TouchableOpacity,
+  ViewStyle,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { useNetworkContext, useThemeContext } from "@waveshq/walletkit-ui";
@@ -61,7 +61,7 @@ export enum ButtonGroupTabKey {
 }
 
 export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
-  const { selectedAddress, onAddressSelect } = route.params;
+  const { selectedAddress, onAddressSelect, disabledTab } = route.params;
   const { isLight } = useThemeContext();
   const { network } = useNetworkContext();
   const dispatch = useAppDispatch();
@@ -93,15 +93,19 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
       id: ButtonGroupTabKey.Whitelisted,
       label: translate("screens/AddressBookScreen", "Whitelisted"),
       handleOnPress: () => setActiveButtonGroup(ButtonGroupTabKey.Whitelisted),
+      isDisabled: disabledTab === ButtonGroupTabKey.Whitelisted,
     },
     {
       id: ButtonGroupTabKey.YourAddress,
       label: translate("screens/AddressBookScreen", "Your address"),
       handleOnPress: () => setActiveButtonGroup(ButtonGroupTabKey.YourAddress),
+      isDisabled: disabledTab === ButtonGroupTabKey.YourAddress,
     },
   ];
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(
-    ButtonGroupTabKey.Whitelisted
+    disabledTab === ButtonGroupTabKey.Whitelisted
+      ? ButtonGroupTabKey.YourAddress
+      : ButtonGroupTabKey.Whitelisted
   );
 
   useEffect(() => {
@@ -194,7 +198,10 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
     // sync all store changes to local storage
     const updateLocalStorage = async (): Promise<void> => {
       await dispatch(
-        setUserPreferences({ network, preferences: userPreferencesFromStore })
+        setUserPreferences({
+          network,
+          preferences: userPreferencesFromStore,
+        })
       );
     };
     updateLocalStorage().catch(Logging.error);
@@ -526,7 +533,10 @@ function EmptyDisplay({ onPress }: { onPress: () => void }): JSX.Element {
     >
       <View style={tailwind("items-center pb-8")}>
         <Image
-          style={{ width: 200, height: 136 }}
+          style={{
+            width: 200,
+            height: 136,
+          }}
           source={isLight ? LightEmptyAddress : DarkEmptyAddress}
         />
       </View>

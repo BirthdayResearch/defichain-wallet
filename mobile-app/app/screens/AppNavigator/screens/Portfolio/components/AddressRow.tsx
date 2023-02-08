@@ -15,7 +15,7 @@ import { NetworkName } from "@defichain/jellyfish-network";
 import { fromAddress } from "@defichain/jellyfish-address";
 import { LocalAddress } from "@store/userPreferences";
 import { debounce } from "lodash";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { useWalletAddress } from "@hooks/useWalletAddress";
@@ -32,11 +32,13 @@ export function AddressRow({
   address,
   onMatchedAddress,
   onAddressType,
+  showQrButton = true,
+  onlyLocalAddress,
 }: {
   control: Control;
   networkName: NetworkName;
   onContactButtonPress: () => void;
-  onQrButtonPress: () => void;
+  onQrButtonPress?: () => void;
   onClearButtonPress: () => void;
   onAddressChange: (address: string) => void;
   inputFooter?: React.ReactElement;
@@ -44,6 +46,8 @@ export function AddressRow({
   address: string;
   onMatchedAddress?: (matchedAddress?: LocalAddress) => void;
   onAddressType?: (addressType?: AddressType) => void;
+  showQrButton?: boolean;
+  onlyLocalAddress?: boolean;
 }): JSX.Element {
   const { fetchWalletAddresses } = useWalletAddress();
 
@@ -61,6 +65,15 @@ export function AddressRow({
   >([]);
   const [matchedAddress, setMatchedAddress] = useState<LocalAddress>();
   const [addressType, setAddressType] = useState<AddressType>();
+  const validLocalAddress = useMemo(() => {
+    if (address === "") {
+      return true;
+    }
+    if (onlyLocalAddress) {
+      return addressType === AddressType.WalletAddress;
+    }
+    return true;
+  }, [onlyLocalAddress, addressType, address]);
 
   const debounceMatchAddress = debounce(() => {
     if (
@@ -90,11 +103,15 @@ export function AddressRow({
       setAddressType(AddressType.WalletAddress);
     } else {
       setMatchedAddress(undefined);
-      setAddressType(
-        fromAddress(address, networkName) !== undefined
-          ? AddressType.OthersButValid
-          : undefined
-      );
+      if (onlyLocalAddress) {
+        setAddressType(undefined);
+      } else {
+        setAddressType(
+          fromAddress(address, networkName) !== undefined
+            ? AddressType.OthersButValid
+            : undefined
+        );
+      }
     }
   }, 200);
 
@@ -127,7 +144,7 @@ export function AddressRow({
         defaultValue={defaultValue}
         name="address"
         render={({ field: { value, onChange }, fieldState: { error } }) => {
-          const hasValidAddress = error?.type == null;
+          const hasValidAddress = error?.type == null && validLocalAddress;
           return (
             <View style={tailwind("flex w-full")}>
               <WalletTextInputV2
@@ -167,21 +184,23 @@ export function AddressRow({
                         size={24}
                       />
                     </ThemedTouchableOpacity>
-                    <ThemedTouchableOpacity
-                      dark={tailwind("bg-black")}
-                      light={tailwind("bg-white")}
-                      onPress={onQrButtonPress}
-                      style={tailwind("w-9 p-1.5 rounded")}
-                      testID="qr_code_button"
-                    >
-                      <ThemedIcon
-                        dark={tailwind("text-mono-dark-v2-700")}
-                        light={tailwind("text-mono-light-v2-700")}
-                        iconType="MaterialIcons"
-                        name="qr-code"
-                        size={24}
-                      />
-                    </ThemedTouchableOpacity>
+                    {showQrButton && (
+                      <ThemedTouchableOpacity
+                        dark={tailwind("bg-black")}
+                        light={tailwind("bg-white")}
+                        onPress={onQrButtonPress}
+                        style={tailwind("w-9 p-1.5 rounded")}
+                        testID="qr_code_button"
+                      >
+                        <ThemedIcon
+                          dark={tailwind("text-mono-dark-v2-700")}
+                          light={tailwind("text-mono-light-v2-700")}
+                          iconType="MaterialIcons"
+                          name="qr-code"
+                          size={24}
+                        />
+                      </ThemedTouchableOpacity>
+                    )}
                   </>
                 )}
               </WalletTextInputV2>
@@ -212,65 +231,68 @@ export function AddressRow({
         }}
       />
 
-      <View style={tailwind("ml-5 my-2 items-center flex flex-row")}>
-        {addressType === AddressType.OthersButValid ? (
-          <>
-            <ThemedIcon
-              light={tailwind("text-success-500")}
-              dark={tailwind("text-darksuccess-500")}
-              iconType="MaterialIcons"
-              name="check-circle"
-              size={16}
-            />
-            <ThemedTextV2
-              style={tailwind("text-xs mx-1 font-normal-v2")}
-              light={tailwind("text-mono-light-v2-500")}
-              dark={tailwind("text-mono-dark-v2-500")}
-            >
-              {translate("screens/SendScreen", "Verified")}
-            </ThemedTextV2>
-          </>
-        ) : (
-          addressType !== undefined && (
-            <ThemedViewV2
-              style={tailwind(
-                "flex flex-row items-center overflow-hidden rounded-lg py-0.5",
-                {
-                  "px-1": addressType === AddressType.WalletAddress,
-                  "px-2": addressType === AddressType.Whitelisted,
-                }
-              )}
-              light={tailwind("bg-mono-light-v2-200")}
-              dark={tailwind("bg-mono-dark-v2-200")}
-            >
-              {addressType === AddressType.WalletAddress && (
-                <View style={tailwind("rounded-l-2xl mr-1")}>
-                  <RandomAvatar name={matchedAddress?.address} size={12} />
-                </View>
-              )}
-
+      {addressType !== undefined && (
+        <View style={tailwind("ml-5 my-2 items-center flex flex-row")}>
+          {addressType === AddressType.OthersButValid ? (
+            <>
+              <ThemedIcon
+                light={tailwind("text-success-500")}
+                dark={tailwind("text-darksuccess-500")}
+                iconType="MaterialIcons"
+                name="check-circle"
+                size={16}
+              />
               <ThemedTextV2
-                ellipsizeMode="middle"
-                numberOfLines={1}
-                style={[
-                  tailwind("text-xs font-normal-v2"),
-                  {
-                    minWidth: 10,
-                    maxWidth: 108,
-                  },
-                ]}
+                style={tailwind("text-xs mx-1 font-normal-v2")}
                 light={tailwind("text-mono-light-v2-500")}
                 dark={tailwind("text-mono-dark-v2-500")}
-                testID="address_input_footer"
               >
-                {matchedAddress?.label !== ""
-                  ? matchedAddress?.label
-                  : matchedAddress.address}
+                {translate("screens/SendScreen", "Verified")}
               </ThemedTextV2>
-            </ThemedViewV2>
-          )
-        )}
-      </View>
+            </>
+          ) : (
+            addressType !== undefined &&
+            validLocalAddress && (
+              <ThemedViewV2
+                style={tailwind(
+                  "flex flex-row items-center overflow-hidden rounded-lg py-0.5",
+                  {
+                    "px-1": addressType === AddressType.WalletAddress,
+                    "px-2": addressType === AddressType.Whitelisted,
+                  }
+                )}
+                light={tailwind("bg-mono-light-v2-200")}
+                dark={tailwind("bg-mono-dark-v2-200")}
+              >
+                {addressType === AddressType.WalletAddress && (
+                  <View style={tailwind("rounded-l-2xl mr-1")}>
+                    <RandomAvatar name={matchedAddress?.address} size={12} />
+                  </View>
+                )}
+
+                <ThemedTextV2
+                  ellipsizeMode="middle"
+                  numberOfLines={1}
+                  style={[
+                    tailwind("text-xs font-normal-v2"),
+                    {
+                      minWidth: 10,
+                      maxWidth: 108,
+                    },
+                  ]}
+                  light={tailwind("text-mono-light-v2-500")}
+                  dark={tailwind("text-mono-dark-v2-500")}
+                  testID="address_input_footer"
+                >
+                  {matchedAddress?.label !== ""
+                    ? matchedAddress?.label
+                    : matchedAddress.address}
+                </ThemedTextV2>
+              </ThemedViewV2>
+            )
+          )}
+        </View>
+      )}
     </View>
   );
 }
