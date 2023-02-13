@@ -299,7 +299,7 @@
     "Converted": "Converti",
     "Transaction fee": "Frais de transaction",
     "Amount to convert": "Montant à convertir",
-    "Send": "Send",
+    "Send": "Envoyer",
     "Sending {{amount}} {{displaySymbol}} to {{toAddress}}": "Envoi de {{amount}} {{displaySymbol}} à {{toAddress}}",
     "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.": "Je reconnais que l'envoi de tokens PL à des adresses qui ne sont pas des portefeuilles compatibles DeFiChain peut entraîner une perte irréversible de fonds."
   },
@@ -826,7 +826,7 @@
     "Withdrawing {{amountToWithdraw}} {{sourceSymbol}} from future swap…": "Retrait de {{amountToWithdraw}} {{sourceSymbol}} de l'échange à terme…",
     "Withdrawal completed": "Retrait effectué",
     "Swapped {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Echangé {{amountA}} {{symbolA}} contre {{amountB}} {{symbolB}}",
-    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échange de {{amountA}} {{symbolA}} avec {{amountB}} {{symbolB}}",
+    "Swapping {{amountA}} {{symbolA}} to {{amountB}} {{symbolB}}": "Échange de {{amountA}} {{symbolA}} contre {{amountB}} {{symbolB}}",
     "Swapping {{amountA}} {{fromTokenDisplaySymbol}} to {{toTokenDisplaySymbol}} on settlement block {{settlementBlock}}": "Échanger {{amountA}} {{fromTokenDisplaySymbol}} à {{toTokenDisplaySymbol}} sur le bloc de règlement {{settlementBlock}}",
     "Removing {{amount}} {{symbol}} from liquidity pool": "Retrait de {{amount}} {{symbol}} du pool de liquidité",
     "Paying back loan amount of {{amount}} DUSD": "Remboursement d'un prêt de {{amount}} DUSD",
