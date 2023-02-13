@@ -8,11 +8,12 @@ import {
   wallet,
   announcementWebsiteSlice,
   statusWebsiteSlice,
+  futureSwaps,
 } from "@waveshq/walletkit-ui/dist/store";
 import { authentication } from "./authentication";
 import { loans } from "./loans";
 import { auctions } from "./auctions";
-import { futureSwaps } from "./futureSwap";
+
 /**
  * RootState for DeFiChain Wallet App
  *
