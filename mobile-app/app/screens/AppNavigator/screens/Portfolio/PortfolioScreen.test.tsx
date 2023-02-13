@@ -9,7 +9,7 @@ import {
 } from "@waveshq/walletkit-ui/dist/store";
 import { loans } from "@store/loans";
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
-import { futureSwaps } from "@store/futureSwap";
+import { futureSwaps } from "@waveshq/walletkit-ui/dist/store/futureSwap";
 import { PortfolioScreen } from "./PortfolioScreen";
 jest.mock("@react-navigation/bottom-tabs", () => ({
   useBottomTabBarHeight: () => 49,

@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { RootState } from "@store";
 import { setTokenSymbol, wallet } from "@waveshq/walletkit-ui/dist/store";
-import { futureSwaps } from "@store/futureSwap";
+import { futureSwaps } from "@waveshq/walletkit-ui/dist/store/futureSwap";
 import { ActionButtons } from "./ActionButtons";
 
 jest.mock("@contexts/FeatureFlagContext");

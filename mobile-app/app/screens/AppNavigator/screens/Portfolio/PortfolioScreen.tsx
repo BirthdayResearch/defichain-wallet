@@ -55,7 +55,10 @@ import {
   SkeletonLoaderScreen,
 } from "@components/SkeletonLoader";
 import { LoanVaultActive } from "@defichain/whale-api-client/dist/api/loan";
-import { fetchExecutionBlock, fetchFutureSwaps } from "@store/futureSwap";
+import {
+  fetchExecutionBlock,
+  fetchFutureSwaps,
+} from "@waveshq/walletkit-ui/dist/store/futureSwap";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import {
   AssetsFilterRow,

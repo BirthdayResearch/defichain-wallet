@@ -6,7 +6,7 @@ import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { translate } from "@translations";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import { FutureSwapData } from "@store/futureSwap";
+import { FutureSwapData } from "@waveshq/walletkit-ui/dist/store/futureSwap";
 import { PoolPairIconV2 } from "@screens/AppNavigator/screens/Dex/components/PoolPairCards/PoolPairIconV2";
 import { OraclePriceType } from "@screens/AppNavigator/screens/Dex/hook/FutureSwap";
 import { TextRowV2 } from "@components/TextRowV2";

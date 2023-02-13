@@ -41,7 +41,7 @@ import { BottomSheetToken } from "@components/BottomSheetTokenList";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 
-import { fetchExecutionBlock } from "@store/futureSwap";
+import { fetchExecutionBlock } from "@waveshq/walletkit-ui/dist/store/futureSwap";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { WalletAlert } from "@components/WalletAlert";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
