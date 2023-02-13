@@ -15,7 +15,7 @@ import {
   AuctionBatchProps,
   fetchAuctions,
   getAuctionBatches,
-} from "@store/auctions";
+} from "@waveshq/walletkit-ui/dist/store/auctions";
 import { useIsFocused } from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";

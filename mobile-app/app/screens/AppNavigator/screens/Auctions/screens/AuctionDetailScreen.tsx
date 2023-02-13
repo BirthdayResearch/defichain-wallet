@@ -20,7 +20,10 @@ import {
 } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootState } from "@store";
-import { fetchAuctions, fetchBidHistory } from "@store/auctions";
+import {
+  fetchAuctions,
+  fetchBidHistory,
+} from "@waveshq/walletkit-ui/dist/store/auctions";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { LoanVaultLiquidationBatch } from "@defichain/whale-api-client/dist/api/loan";
 import { ButtonV2 } from "@components/ButtonV2";

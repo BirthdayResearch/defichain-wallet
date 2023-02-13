@@ -7,7 +7,7 @@ import {
   LoanVaultLiquidated,
   LoanVaultLiquidationBatch,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { AuctionBatchProps } from "@store/auctions";
+import { AuctionBatchProps } from "@waveshq/walletkit-ui/dist/store/auctions";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import BigNumber from "bignumber.js";
 import { translate } from "@translations";
