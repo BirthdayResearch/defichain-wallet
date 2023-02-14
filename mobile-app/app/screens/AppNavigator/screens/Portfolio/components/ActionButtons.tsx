@@ -12,7 +12,7 @@ import {
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootState } from "@store";
-import { futureSwapSelector } from "@store/futureSwap";
+import { futureSwapSelector } from "@waveshq/walletkit-ui/dist/store/futureSwap";
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { ScrollView, Text, View } from "react-native";

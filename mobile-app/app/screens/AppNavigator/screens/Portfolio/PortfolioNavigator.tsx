@@ -8,7 +8,7 @@ import { HeaderTitle } from "@components/HeaderTitle";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { LocalAddress } from "@store/userPreferences";
-import { FutureSwapData } from "@store/futureSwap";
+import { FutureSwapData } from "@waveshq/walletkit-ui/dist/store/futureSwap";
 import { TransactionsScreen } from "@screens/AppNavigator/screens/Transactions/TransactionsScreen";
 import { TransactionDetailScreen } from "@screens/AppNavigator/screens/Transactions/screens/TransactionDetailScreen";
 import { VMTransaction } from "@screens/AppNavigator/screens/Transactions/screens/stateProcessor";

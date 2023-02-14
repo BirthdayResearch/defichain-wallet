@@ -16,7 +16,7 @@ import {
   fetchFutureSwaps,
   FutureSwapData,
   futureSwapSelector,
-} from "@store/futureSwap";
+} from "@waveshq/walletkit-ui/dist/store/futureSwap";
 import { useIsFocused } from "@react-navigation/native";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { fetchLoanTokens } from "@store/loans";
