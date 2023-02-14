@@ -12,7 +12,10 @@ import { RootState } from "@store";
 import { StackScreenProps } from "@react-navigation/stack";
 import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { VaultAuctionBatchHistory } from "@defichain/whale-api-client/dist/api/loan";
-import { auctions, fetchBidHistory } from "@store/auctions";
+import {
+  auctions,
+  fetchBidHistory,
+} from "@waveshq/walletkit-ui/dist/store/auctions";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import BigNumber from "bignumber.js";
 import { NumericFormat as NumberFormat } from "react-number-format";
