@@ -47,7 +47,7 @@ export function CfpDfipProposalsFaq(): JSX.Element {
         {
           text: translate(
             "components/CfpDfipProposalsFaq",
-            "You may find all on-chain proposals on DeFiScan, under On-Chain Governance tab."
+            "You may find all on-chain proposals on DeFiScan, under Governance tab."
           ),
           type: "paragraph",
         },
@@ -62,7 +62,7 @@ export function CfpDfipProposalsFaq(): JSX.Element {
         {
           text: translate(
             "components/CfpDfipProposalsFaq",
-            "No, only proposal submissions can be done through Light Wallet. Currently, voting can only be submitted on chain using commands via CLI. Voting commands can be generated on DeFiScan via On-Chain Governance tab > Proposal details > Submit vote.\nYou will need to own a full node wallet and at least one masternode to vote."
+            "No, only proposal submissions can be done through Light Wallet. Currently, voting can only be submitted on chain using commands via CLI. Voting commands can be generated on DeFiScan via Governance tab > Proposal details > Submit vote.\nYou will need to own a full node wallet and at least one masternode to vote."
           ),
           type: "paragraph",
         },
@@ -71,13 +71,13 @@ export function CfpDfipProposalsFaq(): JSX.Element {
     {
       title: translate(
         "components/CfpDfipProposalsFaq",
-        "Are they other ways to submit proposals?"
+        "Are there other ways to submit proposals?"
       ),
       content: [
         {
           text: translate(
             "components/CfpDfipProposalsFaq",
-            "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under On-Chain Governance tab > Submit proposal."
+            "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under Governance tab > Submit proposal."
           ),
           type: "paragraph",
         },
@@ -94,7 +94,7 @@ export function CfpDfipProposalsFaq(): JSX.Element {
       <ThemedTextV2 style={tailwind("text-base font-normal-v2 px-5")}>
         {translate(
           "components/CfpDfipProposalsFaq",
-          "On-chain governance (OCG) is a system for managing verified community proposals for DeFiChain. Proposals can now be submitted using the mobile Light Wallet."
+          "Governance on DeFiChain is a system for managing verified community proposals. Proposals can now be submitted using the mobile Light Wallet."
         )}
       </ThemedTextV2>
 

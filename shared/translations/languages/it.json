@@ -467,7 +467,7 @@
     "Liquidity Mining": "Estrazione di liquidità",
     "Liquidity mining": "Estrazione di liquidità",
     "UTXO and Tokens": "UTXO and Tokens",
-    "On-Chain Governance": "On-Chain Governance"
+    "Governance": "Governance"
   },
   "components/UtxoVsTokenFaq": {
     "About UTXO And Tokens": "About UTXO And Tokens",
@@ -536,19 +536,19 @@
     "The minimum next bid is 1% above the previous bid price.": "L'offerta minima successiva è dell'1% sopra il prezzo dell'offerta precedente."
   },
   "components/CfpDfipProposalsFaq": {
-    "About On-Chain Governance": "About On-Chain Governance",
+    "About Governance": "About Governance",
     "FREQUENTLY ASKED QUESTIONS": "DOMANDE FREQUENTI",
-    "On-chain governance (OCG) is a system for managing verified community proposals for DeFiChain. Proposals can now be submitted using the mobile Light Wallet.": "On-chain governance (OCG) is a system for managing verified community proposals for DeFiChain. Proposals can now be submitted using the mobile Light Wallet.",
+    "Governance on DeFiChain is a system for managing verified community proposals. Proposals can now be submitted using the mobile Light Wallet.": "Governance on DeFiChain is a system for managing verified community proposals. Proposals can now be submitted using the mobile Light Wallet.",
     "What is the difference between a DFIP and CFP?": "What is the difference between a DFIP and CFP?",
     "DeFiChain Improvement proposal (DFIP) aims to improve the key function(s) on DeFiChain.\nCommunity Funding Proposal (CFP) are community projects that build on top of DeFiChain. All approved CFPs are funded by the Community Development fund.": "DeFiChain Improvement proposal (DFIP) aims to improve the key function(s) on DeFiChain.\nCommunity Funding Proposal (CFP) are community projects that build on top of DeFiChain. All approved CFPs are funded by the Community Development fund.",
     "How are proposal fees calculated?": "How are proposal fees calculated?",
     "Proposal fees differ between DFIPs and CFPs. The cost of a DFIP proposal (vote of confidence) will be 50 DFI. Subsequently, a CFP proposal will cost 1% of the requested amount (DFI) or 10 DFI, whichever is larger. Proposal fee are automatically calculated and shown in the confirmation page.": "Proposal fees differ between DFIPs and CFPs. The cost of a DFIP proposal (vote of confidence) will be 50 DFI. Subsequently, a CFP proposal will cost 1% of the requested amount (DFI) or 10 DFI, whichever is larger. Proposal fee are automatically calculated and shown in the confirmation page.",
     "Where can I find more details for all submitted proposals?": "Where can I find more details for all submitted proposals?",
-    "You may find all on-chain proposals on DeFiScan, under On-Chain Governance tab.": "You may find all on-chain proposals on DeFiScan, under On-Chain Governance tab.",
+    "You may find all on-chain proposals on DeFiScan, under Governance tab.": "You may find all on-chain proposals on DeFiScan, under Governance tab.",
     "Can I vote on proposals using Light Wallet?": "Can I vote on proposals using Light Wallet?",
-    "No, only proposal submissions can be done through Light Wallet. Currently, voting can only be submitted on chain using commands via CLI. Voting commands can be generated on DeFiScan via On-Chain Governance tab > Proposal details > Submit vote.\nYou will need to own a full node wallet and at least one masternode to vote.": "No, only proposal submissions can be done through Light Wallet. Currently, voting can only be submitted on chain using commands via CLI. Voting commands can be generated on DeFiScan via On-Chain Governance tab > Proposal details > Submit vote.\nYou will need to own a full node wallet and at least one masternode to vote.",
-    "Are they other ways to submit proposals?": "Are they other ways to submit proposals?",
-    "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under On-Chain Governance tab > Submit proposal.": "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under On-Chain Governance tab > Submit proposal."
+    "No, only proposal submissions can be done through Light Wallet. Currently, voting can only be submitted on chain using commands via CLI. Voting commands can be generated on DeFiScan via Governance tab > Proposal details > Submit vote.\nYou will need to own a full node wallet and at least one masternode to vote.": "No, only proposal submissions can be done through Light Wallet. Currently, voting can only be submitted on chain using commands via CLI. Voting commands can be generated on DeFiScan via Governance tab > Proposal details > Submit vote.\nYou will need to own a full node wallet and at least one masternode to vote.",
+    "Are there other ways to submit proposals?": "Are there other ways to submit proposals?",
+    "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under Governance tab > Submit proposal.": "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under Governance tab > Submit proposal."
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "RETE",
@@ -2246,12 +2246,12 @@
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
   },
   "screens/OCGProposalsScreen": {
-    "Proposals": "Proposals",
+    "Governance": "Governance",
     "Community Funding Proposal": "Community Funding Proposal",
     "Proposal to build on top of the DeFiChain blockchain, and funded by the Community Development Fund.": "Proposal to build on top of the DeFiChain blockchain, and funded by the Community Development Fund.",
     "DeFiChain Improvement Proposal": "DeFiChain Improvement Proposal",
     "Proposal to improve the key function(s) on DeFiChain.": "Proposal to improve the key function(s) on DeFiChain.",
-    "An active discussion on Github is required in creating a proposal. Click here if you haven’t created one yet.": "An active discussion on Github is required in creating a proposal. Click here if you haven’t created one yet.",
+    "An active discussion on GitHub or Reddit is encouraged before creating a proposal.": "An active discussion on GitHub or Reddit is encouraged before creating a proposal.",
     "PROPOSAL TYPE": "PROPOSAL TYPE",
     "Continue": "Continua"
   },
@@ -2260,7 +2260,7 @@
     "DFIP Details": "DFIP Details",
     "PROPOSAL TITLE": "PROPOSAL TITLE",
     "Title": "Title",
-    "Make sure this matches the title from Github.": "Make sure this matches the title from Github.",
+    "Make sure that the name added here is the same as from the one posted in GitHub or Reddit.": "Make sure that the name added here is the same as from the one posted in GitHub or Reddit.",
     "AMOUNT REQUESTED IN DFI": "AMOUNT REQUESTED IN DFI",
     "RECEIVING ADDRESS": "RECEIVING ADDRESS",
     "Review full proposal details in the next screen": "Review full proposal details in the next screen",
@@ -2269,17 +2269,18 @@
     "Voting Cycle(s)": "Voting Cycle(s)",
     "Cycle(s) should be 1-100 only": "Cycle(s) should be 1-100 only",
     "Scan Github URL": "Scan Github URL",
-    "GITHUB DISCUSSION": "GITHUB DISCUSSION",
+    "DISCUSSION": "DISCUSSION",
     "Paste URL": "Paste URL",
     "Verified": "Verified",
-    "URL should be a valid Github URL": "URL should be a valid Github URL",
-    "Add URL here to get started": "Add URL here to get started",
+    "URL should be a valid GitHub or Reddit URL": "URL should be a valid GitHub or Reddit URL",
+    "Add GitHub or Reddit link to get started": "Add GitHub or Reddit link to get started",
     "Cycle(s) determine the duration for which a proposal can accept votes.": "Cycle(s) determine the duration for which a proposal can accept votes.",
     "Title exceeds max character limit of 128.": "Title exceeds max character limit of 128."
   },
   "screens/OCGConfirmScreen": {
     "Confirm": "Confirm",
     "Proposal type": "Proposal type",
+    "Discussion": "Discussion",
     "Submit": "Submit",
     "You are proposing": "You are proposing",
     "Amount to convert": "Importo da convertire",

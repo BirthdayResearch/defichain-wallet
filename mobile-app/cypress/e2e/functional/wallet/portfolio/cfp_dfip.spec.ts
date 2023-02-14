@@ -47,7 +47,9 @@ function selectOwnAddress() {
 
 function verifyDefaultInputState(isDfip: boolean) {
   const type = isDfip ? "dfip" : "cfp";
-  cy.getByTestID("url_status_text").contains("Add URL here to get started");
+  cy.getByTestID("url_status_text").contains(
+    "Add GitHub or Reddit link to get started"
+  );
   cy.getByTestID("detail_container").should("not.exist");
   cy.getByTestID(`${type}_continue_button`).should("not.be.enabled");
 }
@@ -62,7 +64,7 @@ function verifyConfirmScreen(
 ) {
   cy.getByTestID("proposal_title").contains(title);
   cy.getByTestID("proposal_type_value").contains(isDfip ? "DFIP" : "CFP");
-  cy.getByTestID("github_value").contains(githubUrl);
+  cy.getByTestID("discussion_value").contains(githubUrl);
   cy.getByTestID("proposal_fee_value").contains(proposalFee);
   cy.getByTestID("transaction_fee_value").should("exist");
   if (requestedAmount !== undefined) {
@@ -98,28 +100,31 @@ context("QA-780-2: Wallet - Submit CFP", () => {
 
   it("should display active discussion banner and navigate", () => {
     cy.getByTestID("ocg_proposal_banner").should("exist");
-    cy.getByTestID("ocg_proposal_banner_url_button")
+    cy.getByTestID("ocg_proposal_banner_github")
       .invoke("text")
       .then(() => {
-        cy.getByTestID("ocg_proposal_banner_url_button")
-          .filter(":visible")
-          .click();
+        cy.getByTestID("ocg_proposal_banner_github").filter(":visible").click();
+      });
+    cy.getByTestID("ocg_proposal_banner_reddit")
+      .invoke("text")
+      .then(() => {
+        cy.getByTestID("ocg_proposal_banner_reddit").filter(":visible").click();
       });
   });
 
-  it("should verify github url and title", () => {
+  it("should verify url and title", () => {
     cy.getByTestID("proposal_continue_button").click();
     verifyDefaultInputState(false);
     cy.getByTestID("input_url").type("s:").wait(1000);
     cy.getByTestID("url_status_text").contains(
-      "URL should be a valid Github URL"
+      "URL should be a valid GitHub or Reddit URL"
     );
     cy.getByTestID("input_url_clear_button").click().wait(1000);
     cy.getByTestID("input_url").type(CfpData.githubUrl).wait(1000);
     cy.getByTestID("url_valid_text").should("exist");
     cy.getByTestID("detail_container").should("exist");
     cy.getByTestID("input_title_error").contains(
-      "Make sure this matches the title from Github."
+      "Make sure that the name added here is the same as from the one posted in GitHub or Reddit."
     );
     cy.getByTestID("input_title").type(CfpData.title);
   });
@@ -243,18 +248,18 @@ context("QA-780-4: Wallet - Submit DFIP", () => {
     cy.getByTestID("proposal_continue_button").click();
   });
 
-  it("should verify github url and title", () => {
+  it("should verify url and title", () => {
     verifyDefaultInputState(true);
     cy.getByTestID("input_url").type("s:").wait(1000);
     cy.getByTestID("url_status_text").contains(
-      "URL should be a valid Github URL"
+      "URL should be a valid GitHub or Reddit URL"
     );
     cy.getByTestID("input_url_clear_button").click().wait(1000);
     cy.getByTestID("input_url").type(DfipData.githubUrl).wait(1000);
     cy.getByTestID("url_valid_text").should("exist");
     cy.getByTestID("detail_container").should("exist");
     cy.getByTestID("input_title_error").contains(
-      "Make sure this matches the title from Github."
+      "Make sure that the name added here is the same as from the one posted in GitHub or Reddit."
     );
     cy.getByTestID("input_title").type(DfipData.title);
   });

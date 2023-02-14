@@ -157,7 +157,7 @@ export function DFIPDetailScreen(): JSX.Element {
                   "screens/OCGDetailScreen",
                   titleStatus.shouldShowError
                     ? "Title exceeds max character limit of 128."
-                    : "Make sure this matches the title from Github."
+                    : "Make sure that the name added here is the same as from the one posted in GitHub or Reddit."
                 ),
                 style: tailwind("pl-5", {
                   "text-red-v2": titleStatus.shouldShowError,
@@ -206,7 +206,6 @@ export function DFIPDetailScreen(): JSX.Element {
 function getDFIPFee(network: EnvironmentNetwork): BigNumber {
   switch (network) {
     case EnvironmentNetwork.MainNet:
-      return new BigNumber(100);
     case EnvironmentNetwork.TestNet:
     case EnvironmentNetwork.DevNet:
       return new BigNumber(50);

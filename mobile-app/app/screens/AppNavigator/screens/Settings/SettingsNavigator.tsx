@@ -24,7 +24,10 @@ import { AuctionsFaq } from "../Auctions/screens/AuctionsFaq";
 import { LoansFaq } from "../Loans/screens/LoansFaq";
 import { TokensVsUtxoFaq } from "../Portfolio/screens/TokensVsUtxoFaq";
 import { RecoveryWordsScreen } from "./screens/RecoveryWordsScreen";
-import { AddressBookScreen } from "../Portfolio/screens/AddressBookScreen";
+import {
+  AddressBookScreen,
+  ButtonGroupTabKey,
+} from "../Portfolio/screens/AddressBookScreen";
 import { AddOrEditAddressBookScreen } from "../Portfolio/screens/AddOrEditAddressBookScreen";
 
 export interface SettingsParamList {
@@ -38,6 +41,7 @@ export interface SettingsParamList {
   AddressBookScreen: {
     selectedAddress?: string;
     onAddressSelect?: (address: string) => void;
+    disabledTab?: ButtonGroupTabKey;
   };
   AddOrEditAddressBookScreen: {
     title: string;
@@ -268,7 +272,7 @@ export function SettingsNavigator(): JSX.Element {
         options={{
           headerTitle: translate(
             "components/CfpDfipProposalsFaq",
-            "About On-Chain Governance"
+            "About Governance"
           ),
         }}
       />

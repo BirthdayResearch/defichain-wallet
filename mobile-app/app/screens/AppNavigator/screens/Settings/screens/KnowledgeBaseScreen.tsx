@@ -62,7 +62,7 @@ export function KnowledgeBaseScreen({ navigation }: Props): JSX.Element {
     ...(isFeatureAvailable("ocg_cfp_dfip")
       ? [
           {
-            label: "On-Chain Governance",
+            label: "Governance",
             testID: "on_chain_governance_faq",
             onPress: () => navigation.navigate("CfpDfipProposalsFaq"),
           },

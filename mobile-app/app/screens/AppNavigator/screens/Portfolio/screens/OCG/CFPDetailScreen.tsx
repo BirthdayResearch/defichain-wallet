@@ -31,6 +31,7 @@ import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { OCGProposalType } from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
 import { AddressRow } from "@screens/AppNavigator/screens/Portfolio/components/AddressRow";
+import { ButtonGroupTabKey } from "@screens/AppNavigator/screens/Portfolio/screens/AddressBookScreen";
 
 export function CFPDetailScreen(): JSX.Element {
   const logger = useLogger();
@@ -79,7 +80,7 @@ export function CFPDetailScreen(): JSX.Element {
 
   const [url, setUrl] = useState<string>("");
   const [title, setTitle] = useState<string>("");
-  const [cycle, setCycle] = useState<number>(1);
+  const [cycle, setCycle] = useState<string>("1");
   const [minCycle, maxCycle] = [1, 100];
   const address = getValues("address");
 
@@ -120,7 +121,7 @@ export function CFPDetailScreen(): JSX.Element {
       url: url,
       title: title,
       amountRequest: BigNumber(amount),
-      cycle: cycle,
+      cycle: Number(cycle),
       receivingAddress: address,
       ...(isConversionRequired && {
         conversion: {
@@ -206,7 +207,7 @@ export function CFPDetailScreen(): JSX.Element {
                   "screens/OCGDetailScreen",
                   titleStatus.shouldShowError
                     ? "Title exceeds max character limit of 128."
-                    : "Make sure this matches the title from Github."
+                    : "Make sure that the name added here is the same as from the one posted in GitHub or Reddit."
                 ),
                 style: tailwind("pl-5", {
                   "text-red-v2": titleStatus.shouldShowError,
@@ -249,22 +250,12 @@ export function CFPDetailScreen(): JSX.Element {
                   params: {
                     selectedAddress: getValues("address"),
                     onAddressSelect,
+                    disabledTab: ButtonGroupTabKey.Whitelisted,
                   },
                   merge: true,
                 })
               }
-              onQrButtonPress={() =>
-                navigation.navigate({
-                  name: "BarCodeScanner",
-                  params: {
-                    onQrScanned: async (value: any) => {
-                      setValue("address", value, { shouldDirty: true });
-                      await trigger("address");
-                    },
-                  },
-                  merge: true,
-                })
-              }
+              showQrButton={false}
               onClearButtonPress={async () => {
                 setValue("address", "");
                 await trigger("address");
@@ -274,6 +265,7 @@ export function CFPDetailScreen(): JSX.Element {
                 await trigger("address");
               }}
               address={address}
+              onlyLocalAddress
             />
           </View>
         )}
@@ -309,8 +301,8 @@ function VotingCycles({
   minCycle,
   maxCycle,
 }: {
-  cycle: number;
-  setCycle: (cycle: number) => void;
+  cycle: string;
+  setCycle: (cycle: string) => void;
   minCycle: number;
   maxCycle: number;
 }): JSX.Element {
@@ -352,11 +344,12 @@ function VotingCycles({
         testID="input_cycle"
         inputContainerStyle={tailwind("pl-5 pr-4 py-2.5")}
         value={cycle.toString()}
-        onChangeText={(text: string) => {
-          const value = Number(text);
-          setCycle(isNaN(value) ? 0 : value);
-        }}
-        valid={cycle >= minCycle && cycle <= maxCycle}
+        onChangeText={setCycle}
+        valid={
+          Number(cycle) >= minCycle &&
+          Number(cycle) <= maxCycle &&
+          Number.isInteger(Number(cycle))
+        }
         inlineText={{
           type: "error",
           text: translate(
@@ -368,10 +361,18 @@ function VotingCycles({
       >
         <LoanAddRemoveActionButton
           token="cycle"
-          onAdd={() => setCycle(Math.min(cycle + 1, maxCycle))}
-          onRemove={() => setCycle(Math.max(cycle - 1, minCycle))}
-          leftDisabled={cycle <= minCycle}
-          rightDisabled={cycle >= maxCycle}
+          onAdd={() =>
+            setCycle(
+              Math.min(Math.floor(Number(cycle) + 1), maxCycle).toString()
+            )
+          }
+          onRemove={() =>
+            setCycle(
+              Math.max(Math.floor(Number(cycle) - 1), minCycle).toString()
+            )
+          }
+          leftDisabled={Number(cycle) <= minCycle}
+          rightDisabled={Number(cycle) >= maxCycle}
         />
       </WalletTextInputV2>
     </View>

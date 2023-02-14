@@ -453,7 +453,7 @@
     "Liquidity Mining": "流动性挖矿",
     "Liquidity mining": "流动性挖矿",
     "UTXO and Tokens": "UTXO and Tokens",
-    "On-Chain Governance": "链上治理"
+    "Governance": "链上治理"
   },
   "components/UtxoVsTokenFaq": {
     "About UTXO And Tokens": "About UTXO And Tokens",
@@ -522,19 +522,19 @@
     "The minimum next bid is 1% above the previous bid price.": "下一次的最低出价是要比上一次的出价高1%。"
   },
   "components/CfpDfipProposalsFaq": {
-    "About On-Chain Governance": "关于链上治理",
+    "About Governance": "关于链上治理",
     "FREQUENTLY ASKED QUESTIONS": "常见问题",
-    "On-chain governance (OCG) is a system for managing verified community proposals for DeFiChain. Proposals can now be submitted using the mobile Light Wallet.": "链上治理（On-Chain Governance, OCG）是个用于管理经过验证DeFiChain社区提案的系统。现已可以使用移动端Light Wallet提交提案。",
+    "Governance on DeFiChain is a system for managing verified community proposals. Proposals can now be submitted using the mobile Light Wallet.": "Governance on DeFiChain is a system for managing verified community proposals. Proposals can now be submitted using the mobile Light Wallet.",
     "What is the difference between a DFIP and CFP?": "DFIP和CFP有什么区别呢？",
     "DeFiChain Improvement proposal (DFIP) aims to improve the key function(s) on DeFiChain.\nCommunity Funding Proposal (CFP) are community projects that build on top of DeFiChain. All approved CFPs are funded by the Community Development fund.": "DeFiChain 改进提案（DeFiChain Improvement Proposal, DFIP）旨在改进DeFiChain链上的关键功能。\n社区资助提案（Community Funding Proposal, CFP）则是在DeFiChain生态上建立社区项目。所有获批的CFP均由社区发展基金资助。",
     "How are proposal fees calculated?": "提案费用是如何计算的？",
     "Proposal fees differ between DFIPs and CFPs. The cost of a DFIP proposal (vote of confidence) will be 50 DFI. Subsequently, a CFP proposal will cost 1% of the requested amount (DFI) or 10 DFI, whichever is larger. Proposal fee are automatically calculated and shown in the confirmation page.": "DFIP和CFP的提案费用不同。每一个DFIP（信任投票）需要花费50 DFI。此外，CFP则花费请求金额的1% 或 10 DFI，视何者为高。提案费用会自动计算并显示在确认页面中。",
     "Where can I find more details for all submitted proposals?": "在哪里可以找到所有已提交提案的详细资料？",
-    "You may find all on-chain proposals on DeFiScan, under On-Chain Governance tab.": "你可以在DeFiScan里的On-Chain Governance选项查看所有链上的提案。",
+    "You may find all on-chain proposals on DeFiScan, under Governance tab.": "你可以在DeFiScan里的Governance选项查看所有链上的提案。",
     "Can I vote on proposals using Light Wallet?": "是否可以使用Light Wallet对提案进行投票？",
-    "No, only proposal submissions can be done through Light Wallet. Currently, voting can only be submitted on chain using commands via CLI. Voting commands can be generated on DeFiScan via On-Chain Governance tab > Proposal details > Submit vote.\nYou will need to own a full node wallet and at least one masternode to vote.": "不行。Light Wallet只能提交提案。目前只能通过CLI命令行界面在链上进行投票。可以在DeFiScan里的 \"On-Chain Governance\" 选项 > \"Proposal details\" > \"Submit vote\" 生成投票命令。\n您需要拥有一个全节点钱包和至少一个主节点才能投票。",
-    "Are they other ways to submit proposals?": "还有其他的方式提交提案吗？",
-    "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under On-Chain Governance tab > Submit proposal.": "如果您拥有全节点钱包，你可以选择通过CLI界面使用命令进行提交。该命令可以在DeFiScan上生成，在\"On-Chain Governance\" > \"Submit proposal\" 选项里。"
+    "No, only proposal submissions can be done through Light Wallet. Currently, voting can only be submitted on chain using commands via CLI. Voting commands can be generated on DeFiScan via Governance tab > Proposal details > Submit vote.\nYou will need to own a full node wallet and at least one masternode to vote.": "不行。Light Wallet只能提交提案。目前只能通过CLI命令行界面在链上进行投票。可以在DeFiScan里的 \"Governance\" 选项 > \"Proposal details\" > \"Submit vote\" 生成投票命令。\n您需要拥有一个全节点钱包和至少一个主节点才能投票。",
+    "Are there other ways to submit proposals?": "还有其他的方式提交提案吗？",
+    "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under Governance tab > Submit proposal.": "如果您拥有全节点钱包，你可以选择通过CLI界面使用命令进行提交。该命令可以在DeFiScan上生成，在\"Governance\" > \"Submit proposal\" 选项里。"
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "网络",
@@ -2228,12 +2228,12 @@
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
   },
   "screens/OCGProposalsScreen": {
-    "Proposals": "提案书",
+    "Governance": "Governance",
     "Community Funding Proposal": "社区资助提案 (CFP)",
     "Proposal to build on top of the DeFiChain blockchain, and funded by the Community Development Fund.": "该选项是用于搭建在DeFiChain区块链之上且由社区发展基金资助",
     "DeFiChain Improvement Proposal": "DeFiChain 改进提案 (DFIP)",
     "Proposal to improve the key function(s) on DeFiChain.": "该选项用于改进DeFiChain关键功能",
-    "An active discussion on Github is required in creating a proposal. Click here if you haven’t created one yet.": "创建提案需要在Github上有活跃的讨论帖子。如还未创建可以点击这里创建。",
+    "An active discussion on GitHub or Reddit is encouraged before creating a proposal.": "An active discussion on GitHub or Reddit is encouraged before creating a proposal.",
     "PROPOSAL TYPE": "提案类型",
     "Continue": "继续"
   },
@@ -2242,7 +2242,7 @@
     "DFIP Details": "DFIP 详情",
     "PROPOSAL TITLE": "提案标题",
     "Title": "标题",
-    "Make sure this matches the title from Github.": "请确保这标题和Github的一致",
+    "Make sure that the name added here is the same as from the one posted in GitHub or Reddit.": "Make sure that the name added here is the same as from the one posted in GitHub or Reddit.",
     "AMOUNT REQUESTED IN DFI": "要求的DFI数量",
     "RECEIVING ADDRESS": "收款地址",
     "Review full proposal details in the next screen": "在下一个界面中查看提案的详细信息",
@@ -2251,17 +2251,18 @@
     "Voting Cycle(s)": "投票周期",
     "Cycle(s) should be 1-100 only": "只可以选择1-100 周期",
     "Scan Github URL": "Scan Github URL",
-    "GITHUB DISCUSSION": "GITHUB讨论连接",
+    "DISCUSSION": "DISCUSSION",
     "Paste URL": "粘贴网址",
     "Verified": "审核通过",
-    "URL should be a valid Github URL": "该地址必须是有效的Github地址",
-    "Add URL here to get started": "请添加网址",
+    "URL should be a valid GitHub or Reddit URL": "URL should be a valid GitHub or Reddit URL",
+    "Add GitHub or Reddit link to get started": "Add GitHub or Reddit link to get started",
     "Cycle(s) determine the duration for which a proposal can accept votes.": "投票周期决定了提案接受投票的时长。",
     "Title exceeds max character limit of 128.": "Title exceeds max character limit of 128."
   },
   "screens/OCGConfirmScreen": {
     "Confirm": "确认",
     "Proposal type": "提案类型",
+    "Discussion": "Discussion",
     "Submit": "提交",
     "You are proposing": "你正在提案",
     "Amount to convert": "要转换的金额",
