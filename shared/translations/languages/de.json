@@ -325,7 +325,8 @@
     "A small amount of UTXO is reserved for fees": "Ein geringer UTXO-Betrag ist für Gebühren reserviert",
     "Available {{unit}}": "Verfügbare {{unit}}",
     "Resulting {{unit}}": "Resultierende {{unit}}",
-    "TO RECEIVE": "ZU ERHALTEN"
+    "TO RECEIVE": "ZU ERHALTEN",
+    "tokens": "Token"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm": "Bestätigen",
@@ -342,11 +343,13 @@
     "Convert": "Umwandeln",
     "{{token}} to receive": "Verbleibende {{token}}",
     "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN",
-    "You are converting to {{unit}}": "Du wandelst Folgendes in {{unit}} um",
+    "You are converting to {{unit}}": "Du wandelst in {{unit}} um",
     "Transaction fee": "Transaktionsgebühren",
     "Resulting Tokens": "Resultierende Token",
     "Resulting UTXO": "Resultierende UTXO",
-    "Convert {{amount}} DFI to {{target}}": "Wandle {{amount}} DFI in {{target}} um"
+    "Convert {{amount}} DFI to {{target}}": "Wandle {{amount}} DFI in {{target}} um",
+    "Converting": "Umwandeln",
+    "Converted": "Umgewandelt"
   },
   "screens/SettingsNavigator": {
     "Settings": "Einstellungen"
@@ -819,12 +822,13 @@
     "Removing {{amount}} {{symbol}} from liquidity pool": "Entfernen von {{amount}} {{symbol}} aus dem Liquiditätspool",
     "Paying back loan amount of {{amount}} DUSD": "Rückzahlung des Darlehensbetrages von {{amount}} DUSD",
     "Paid loan amount of {{amount}} DUSD": "Getilgter Darlehensbetrag von {{amount}} DUSD",
-    "Editing vault {{vaultId}}": "Vault bearbeiten {{vaultId}}",
+    "Editing vault {{vaultId}}": "Vault rbearbeiten {{vaultId}}",
     "Edited vault {{vaultId}}": "Vault bearbeitet {{vaultId}}",
     "Borrowing {{amount}} {{symbol}}": "{{amount}} {{symbol}} ausleihen",
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Darlehensaufnahme von {{amount}} {{symbol}} mit Vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "{{amount}} {{symbol}} ausgeliehen",
-    "Requested amount is higher than available amount.": "Der beantragte Betrag ist höher als der verfügbare Betrag."
+    "Requested amount is higher than available amount.": "Der beantragte Betrag ist höher als der verfügbare Betrag.",
+    "tokens": "Token"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Kameranutzung erlauben",
@@ -1424,7 +1428,8 @@
     "You are the highest bidder": "Du bist Höchstbietender",
     "From your vault": "Aus deinem Vault",
     "Waiting for first bid": "Warten auf das erste Gebot",
-    "Quick bid": "Schnelles Gebot"
+    "Quick bid": "Schnelles Gebot",
+    "Quick rebid": "Schnelles Nachgebot"
   },
   "components/BatchHistory": {
     "{{h}}h {{m}}m ago": "Vor {{h}}h {{m}}min",

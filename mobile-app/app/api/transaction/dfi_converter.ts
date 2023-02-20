@@ -60,7 +60,9 @@ export function dfiConversionCrafter(
   submitButtonLabel?: string
 ): DfTxSigner {
   const [symbolA, symbolB] =
-    mode === "utxosToAccount" ? ["UTXO", "tokens"] : ["tokens", "UTXO"];
+    mode === "utxosToAccount"
+      ? ["UTXO", translate("screens/OceanInterface", "tokens")]
+      : [translate("screens/OceanInterface", "tokens"), "UTXO"];
   return {
     sign: async (account: WhaleWalletAccount) =>
       await dfiConversionSigner(account, amount, mode),
@@ -69,7 +71,10 @@ export function dfiConversionCrafter(
       "Convert {{amount}} DFI to {{target}}",
       {
         amount: amount.toFixed(8),
-        target: mode === "utxosToAccount" ? "tokens" : "UTXO",
+        target:
+          mode === "utxosToAccount"
+            ? translate("screens/ConvertScreen", "tokens")
+            : "UTXO",
       }
     ),
     drawerMessages: {
