@@ -822,7 +822,7 @@
     "Removing {{amount}} {{symbol}} from liquidity pool": "Entfernen von {{amount}} {{symbol}} aus dem Liquiditätspool",
     "Paying back loan amount of {{amount}} DUSD": "Rückzahlung des Darlehensbetrages von {{amount}} DUSD",
     "Paid loan amount of {{amount}} DUSD": "Getilgter Darlehensbetrag von {{amount}} DUSD",
-    "Editing vault {{vaultId}}": "Vault rbearbeiten {{vaultId}}",
+    "Editing vault {{vaultId}}": "Vault bearbeiten {{vaultId}}",
     "Edited vault {{vaultId}}": "Vault bearbeitet {{vaultId}}",
     "Borrowing {{amount}} {{symbol}}": "{{amount}} {{symbol}} ausleihen",
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Darlehensaufnahme von {{amount}} {{symbol}} mit Vault {{vaultId}}",
