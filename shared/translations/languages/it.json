@@ -1382,6 +1382,7 @@
   },
   "components/EmptyAuctions": {
     "No auctions": "No auctions",
+    "No Auctions": "No Auctions",
     "There are currently no collaterals available for auction.": "There are currently no collaterals available for auction.",
     "No Outbid Auctions": "No Outbid Auctions",
     "You have no outbids yet": "You have no outbids yet",

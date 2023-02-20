@@ -1386,6 +1386,7 @@
   },
   "components/EmptyAuctions": {
     "No auctions": "No hay subastas",
+    "No Auctions": "No hay subastas",
     "There are currently no collaterals available for auction.": "There are currently no collaterals available for auction.",
     "No Outbid Auctions": "No hay subastas sobrepujadas",
     "You have no outbids yet": "No tienes sobrepujas todavía",
