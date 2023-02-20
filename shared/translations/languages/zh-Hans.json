@@ -1428,7 +1428,8 @@
     "You are the highest bidder": "您目前是出价最高的人",
     "From your vault": "来自您的金库",
     "Waiting for first bid": "等待第一次标价",
-    "Quick bid": "快速标价"
+    "Quick bid": "快速标价",
+    "Quick rebid": "快速再投标"
   },
   "components/BatchHistory": {
     "{{h}}h {{m}}m ago": "{{h}}时 {{m}}分前",
@@ -2160,7 +2161,7 @@
     "Min. next bid": "最低标价",
     "Current balance": "目前余额",
     "Leading bid": "Leading bid",
-    "Quick rebid": "Quick rebid",
+    "Quick rebid": "快速再投标",
     "Outbid": "Outbid",
     "Min. bid": "最低标价",
     "Insufficient {{symbol}} balance": "Insufficient {{symbol}} balance",

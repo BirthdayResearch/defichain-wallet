@@ -1453,7 +1453,8 @@
     "You are the highest bidder": "Tu has hecho la oferta más alta",
     "From your vault": "De tu Vault",
     "Waiting for first bid": "Esperando a tu primera oferta",
-    "Quick bid": "Oferta rápida"
+    "Quick bid": "Oferta rápida",
+    "Quick rebid": "Quick rebid"
   },
   "components/BatchHistory": {
     "{{h}}h {{m}}m ago": "hace {{h}}h {{m}}min",
