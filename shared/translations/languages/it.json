@@ -263,7 +263,7 @@
     "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
     "*Registered address": "*Indirizzo registrato",
     "There is a minimal fee for the transaction": "There is a minimal fee for the transaction",
-    "A small amount of UTXO is reserved for fees": "A small amount of UTXO is reserved for fees",
+    "A small amount of UTXO is reserved for fees": "Une petite quantité d'UTXO est réservée aux frais.",
     "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds": "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds",
     "Insufficient balance": "Insufficient balance",
     "SEND TO": "SEND TO",
@@ -333,7 +333,7 @@
     "Review full details in the next screen": "Review full details in the next screen",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
-    "A small amount of UTXO is reserved for fees": "A small amount of UTXO is reserved for fees",
+    "A small amount of UTXO is reserved for fees": "Une petite quantité d'UTXO est réservée aux frais.",
     "Available {{unit}}": "Disponibile {{unit}}",
     "Resulting {{unit}}": "Risultato {{unit}}",
     "TO RECEIVE": "TO RECEIVE"
@@ -357,7 +357,9 @@
     "Transaction fee": "Transaction fee",
     "Resulting Tokens": "Risultato Tokens",
     "Resulting UTXO": "Risultato UTXO",
-    "Convert {{amount}} DFI to {{target}}": "Conversione {{amount}} DFI in {{target}}"
+    "Convert {{amount}} DFI to {{target}}": "Conversione {{amount}} DFI in {{target}}",
+    "Converting": "Conversione",
+    "Converted": "Converted"
   },
   "screens/SettingsNavigator": {
     "Settings": "Impostazioni"
@@ -1096,7 +1098,9 @@
     "Settlement block is the pre-determined block height that this transaction will be executed.": "Settlement block is the pre-determined block height that this transaction will be executed.",
     "Settlement value is based on the oracle price at the settlement block.": "Settlement value is based on the oracle price at the settlement block.",
     "Users will be able to cancel this transaction as long as the settlement block has not been executed.": "Users will be able to cancel this transaction as long as the settlement block has not been executed.",
-    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)"
+    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)",
+    "A small amount of UTXO is reserved for fees": "Une petite quantité d'UTXO est réservée aux frais.",
+    "Insufficient Balance": "Insufficient Balance"
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Select",
@@ -1757,7 +1761,7 @@
     "I WANT TO REMOVE": "I WANT TO REMOVE",
     "Available: {{amount}} {{symbol}}": "Disponibile: {{amount}} {{symbol}}",
     "Available: {{amount}} {{symbol}} collateral": "Available: {{amount}} {{symbol}} collateral",
-    "A small amount of UTXO is reserved for fees": "A small amount of UTXO is reserved for fees",
+    "A small amount of UTXO is reserved for fees": "Une petite quantité d'UTXO est réservée aux frais.",
     "Insufficient Balance": "Insufficient Balance",
     "Amount entered is higher than collateral": "Amount entered is higher than collateral",
     "Vault does not meet min. collateral ratio": "Vault does not meet min. collateral ratio",

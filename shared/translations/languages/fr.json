@@ -356,7 +356,9 @@
     "Transaction fee": "Frais de transaction",
     "Resulting Tokens": "Tokens restants",
     "Resulting UTXO": "UTXO restants",
-    "Convert {{amount}} DFI to {{target}}": "Conversion de {{amount}} DFI en {{target}}"
+    "Convert {{amount}} DFI to {{target}}": "Conversion de {{amount}} DFI en {{target}}",
+    "Converting": "Conversion",
+    "Converted": "Converti"
   },
   "screens/SettingsNavigator": {
     "Settings": "Paramètres"

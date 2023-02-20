@@ -252,7 +252,7 @@
     "TRANSACTION DETAILS": "交易明細",
     "*Registered address": "*已註冊地址",
     "There is a minimal fee for the transaction": "There is a minimal fee for the transaction",
-    "A small amount of UTXO is reserved for fees": "A small amount of UTXO is reserved for fees",
+    "A small amount of UTXO is reserved for fees": "保留少量 UTXO 用於交易費用",
     "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds": "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds",
     "Insufficient balance": "Insufficient balance",
     "SEND TO": "SEND TO",
@@ -285,7 +285,7 @@
     "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "請注意，流動性挖礦的代幣只能發送到其他遞飛鏈錢包地址。若您發送到其他交易所或不支持遞飛鏈流動性池代幣的平台會導致無法還原的資金損失。",
     "Transaction type": "交易類型",
     "Amount to send": "發送金額",
-    "Converting": "Converting",
+    "Converting": "轉換中",
     "Converted": "Converted",
     "Transaction fee": "交易費用",
     "Amount to convert": "要轉換的金額",
@@ -346,7 +346,9 @@
     "Transaction fee": "交易費用",
     "Resulting Tokens": "轉換後 Tokens",
     "Resulting UTXO": "轉換後 UTXO",
-    "Convert {{amount}} DFI to {{target}}": "轉換 {{amount}} DFI 至 {{target}}"
+    "Convert {{amount}} DFI to {{target}}": "轉換 {{amount}} DFI 至 {{target}}",
+    "Converting": "轉換中",
+    "Converted": "Converted"
   },
   "screens/SettingsNavigator": {
     "Settings": "設定"
@@ -1078,7 +1080,9 @@
     "Settlement block is the pre-determined block height that this transaction will be executed.": "Settlement block is the pre-determined block height that this transaction will be executed.",
     "Settlement value is based on the oracle price at the settlement block.": "Settlement value is based on the oracle price at the settlement block.",
     "Users will be able to cancel this transaction as long as the settlement block has not been executed.": "Users will be able to cancel this transaction as long as the settlement block has not been executed.",
-    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)"
+    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)",
+    "A small amount of UTXO is reserved for fees": "保留少量 UTXO 用於交易費用",
+    "Insufficient balance": "Insufficient balance"
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Select",
