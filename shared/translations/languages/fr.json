@@ -1369,6 +1369,7 @@
   },
   "components/EmptyAuctions": {
     "No auctions": "Pas d'enchères",
+    "No Auctions": "Pas d'enchères",
     "There are currently no collaterals available for auction.": "Aucune garantie n'est actuellement disponible pour la vente aux enchères.",
     "No Outbid Auctions": "Enchères sans surenchères",
     "You have no outbids yet": "Vous n'avez pas encore de surenchères",

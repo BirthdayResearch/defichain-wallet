@@ -1361,6 +1361,7 @@
   },
   "components/EmptyAuctions": {
     "No auctions": "Keine Auktionen",
+    "No Auctions": "Keine Auktionen",
     "There are currently no collaterals available for auction.": "Derzeit sind keine Sicherheiten zur Versteigerung verfügbar.",
     "No Outbid Auctions": "Keine überbotenen Auktionen",
     "You have no outbids yet": "Du hast noch keine überbotenen Gebote",
