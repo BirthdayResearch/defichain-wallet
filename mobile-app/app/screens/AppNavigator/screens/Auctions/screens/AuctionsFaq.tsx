@@ -77,6 +77,7 @@ export function AuctionsFaq(): JSX.Element {
 
       <WalletAccordionV2
         testID="auctions_faq_accordion"
+        activeSections={[0]}
         title={translate(
           "components/AuctionsFaq",
           "FREQUENTLY ASKED QUESTIONS"
