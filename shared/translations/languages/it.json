@@ -336,7 +336,8 @@
     "A small amount of UTXO is reserved for fees": "Une petite quantité d'UTXO est réservée aux frais.",
     "Available {{unit}}": "Disponibile {{unit}}",
     "Resulting {{unit}}": "Risultato {{unit}}",
-    "TO RECEIVE": "TO RECEIVE"
+    "TO RECEIVE": "TO RECEIVE",
+    "tokens": "tokens"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm": "Confirm",
@@ -844,7 +845,8 @@
     "Borrowing {{amount}} {{symbol}}": "Borrowing {{amount}} {{symbol}}",
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "Borrowed {{amount}} {{symbol}}",
-    "Requested amount is higher than available amount.": "Requested amount is higher than available amount."
+    "Requested amount is higher than available amount.": "Requested amount is higher than available amount.",
+    "tokens": "tokens"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Richiesta di accesso alla fotocamera",
@@ -1100,7 +1102,7 @@
     "Users will be able to cancel this transaction as long as the settlement block has not been executed.": "Users will be able to cancel this transaction as long as the settlement block has not been executed.",
     "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)",
     "A small amount of UTXO is reserved for fees": "Une petite quantité d'UTXO est réservée aux frais.",
-    "Insufficient Balance": "Insufficient Balance"
+    "Insufficient balance": "Insufficient balance"
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Select",

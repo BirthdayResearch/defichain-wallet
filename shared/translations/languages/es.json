@@ -335,7 +335,8 @@
     "A small amount of UTXO is reserved for fees": "Una cantidad pequeña de UTXO es reservada para las tarifas",
     "Available {{unit}}": "Disponible {{unit}}",
     "Resulting {{unit}}": "Resultando {{unit}}",
-    "TO RECEIVE": "A RECIBIR"
+    "TO RECEIVE": "A RECIBIR",
+    "tokens": "tokens"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm": "Confirmar",
@@ -845,7 +846,8 @@
     "Borrowing {{amount}} {{symbol}}": "Borrowing {{amount}} {{symbol}}",
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "Borrowed {{amount}} {{symbol}}",
-    "Requested amount is higher than available amount.": "Requested amount is higher than available amount."
+    "Requested amount is higher than available amount.": "Requested amount is higher than available amount.",
+    "tokens": "tokens"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Pidiendo acceso a la cámara",

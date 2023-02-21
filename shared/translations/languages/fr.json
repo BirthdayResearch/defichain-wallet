@@ -335,7 +335,8 @@
     "A small amount of UTXO is reserved for fees": "Une petite quantité d'UTXO est réservée aux frais.",
     "Available {{unit}}": "{{unit}} Disponible",
     "Resulting {{unit}}": "{{unit}} Restants",
-    "TO RECEIVE": "A RECEVOIR"
+    "TO RECEIVE": "A RECEVOIR",
+    "tokens": "tokens"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm": "Confirmer",
@@ -838,7 +839,8 @@
     "Borrowing {{amount}} {{symbol}}": "Emprunt de {{amount}} {{symbol}}",
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Emprunt de {{amount}} {{symbol}} avec le vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "{{amount}} {{symbol}} empruntés",
-    "Requested amount is higher than available amount.": "Le montant demandé est supérieur au montant disponible."
+    "Requested amount is higher than available amount.": "Le montant demandé est supérieur au montant disponible.",
+    "tokens": "tokens"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Demande d'accès à votre caméra",

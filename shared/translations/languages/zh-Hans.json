@@ -325,7 +325,8 @@
     "A small amount of UTXO is reserved for fees": "保留少量 UTXO 用于交易费用",
     "Available {{unit}}": "可转换资金 {{unit}}",
     "Resulting {{unit}}": "转换后 {{unit}}",
-    "TO RECEIVE": "TO RECEIVE"
+    "TO RECEIVE": "TO RECEIVE",
+    "tokens": "代币"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm": "确认",
@@ -829,7 +830,8 @@
     "Borrowing {{amount}} {{symbol}}": "Borrowing {{amount}} {{symbol}}",
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "Borrowed {{amount}} {{symbol}}",
-    "Requested amount is higher than available amount.": "您请求的金额高于可用金额。"
+    "Requested amount is higher than available amount.": "您请求的金额高于可用金额。",
+    "tokens": "代币"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "请许可程序使用相机",
