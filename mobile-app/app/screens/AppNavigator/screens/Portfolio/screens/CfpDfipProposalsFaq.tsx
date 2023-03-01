@@ -100,6 +100,7 @@ export function CfpDfipProposalsFaq(): JSX.Element {
 
       <WalletAccordionV2
         testID="loans_faq_accordion"
+        activeSections={[0]}
         title={translate(
           "components/CfpDfipProposalsFaq",
           "FREQUENTLY ASKED QUESTIONS"
