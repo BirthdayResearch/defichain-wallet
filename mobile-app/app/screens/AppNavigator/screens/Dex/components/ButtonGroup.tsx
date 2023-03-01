@@ -6,7 +6,7 @@ import {
   StyleProp,
   TextStyle,
   TouchableOpacity,
-  TouchableOpacityProps,
+  ViewStyle,
 } from "react-native";
 
 interface ButtonGroupProps {
@@ -18,7 +18,7 @@ interface ButtonGroupProps {
   modalStyle?: StyleProp<TextStyle>;
   lightThemeStyle?: { [key: string]: string };
   darkThemeStyle?: { [key: string]: string };
-  customButtonGroupStyle?: StyleProp<TouchableOpacityProps>;
+  customButtonGroupStyle?: StyleProp<ViewStyle>;
   customActiveStyle?: ThemedProps;
 }
 
@@ -66,7 +66,7 @@ interface ButtonGroupItemProps {
   testID: string;
   labelStyle?: StyleProp<TextStyle>;
   modalStyle?: StyleProp<TextStyle>;
-  customButtonGroupStyle?: StyleProp<TouchableOpacityProps>;
+  customButtonGroupStyle?: StyleProp<ViewStyle>;
   customActiveStyle?: ThemedProps;
   isDisabled?: boolean;
 }

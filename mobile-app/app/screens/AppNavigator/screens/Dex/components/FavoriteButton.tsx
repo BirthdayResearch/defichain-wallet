@@ -1,7 +1,7 @@
 import { ThemedProps, ThemedTouchableOpacityV2 } from "@components/themed";
 import { getColor, tailwind } from "@tailwind";
 import { FavoriteCheckIcon } from "@screens/AppNavigator/screens/Settings/assets/FavoriteIcon";
-import { StyleProp, ViewProps } from "react-native";
+import { StyleProp, ViewStyle } from "react-native";
 
 interface FavoriteIconsProps {
   pairId: string;
@@ -9,7 +9,7 @@ interface FavoriteIconsProps {
   onPress: () => void;
   customSize?: number;
   themedStyle?: ThemedProps;
-  additionalStyle?: StyleProp<ViewProps>;
+  additionalStyle?: StyleProp<ViewStyle>;
 }
 export function FavoriteButton({
   pairId,
