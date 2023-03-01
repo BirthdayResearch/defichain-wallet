@@ -335,7 +335,8 @@
     "A small amount of UTXO is reserved for fees": "Una cantidad pequeña de UTXO es reservada para las tarifas",
     "Available {{unit}}": "Disponible {{unit}}",
     "Resulting {{unit}}": "Resultando {{unit}}",
-    "TO RECEIVE": "A RECIBIR"
+    "TO RECEIVE": "A RECIBIR",
+    "tokens": "tokens"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm": "Confirmar",
@@ -356,7 +357,9 @@
     "Transaction fee": "Comisión de transacción",
     "Resulting Tokens": "Resultando Tokens",
     "Resulting UTXO": "Resultando UTXO",
-    "Convert {{amount}} DFI to {{target}}": "Convirtiendo {{amount}} DFI a {{target}}"
+    "Convert {{amount}} DFI to {{target}}": "Convirtiendo {{amount}} DFI a {{target}}",
+    "Converting": "Convirtiendo",
+    "Converted": "Convertido"
   },
   "screens/SettingsNavigator": {
     "Settings": "Configuración"
@@ -843,7 +846,8 @@
     "Borrowing {{amount}} {{symbol}}": "Borrowing {{amount}} {{symbol}}",
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "Borrowed {{amount}} {{symbol}}",
-    "Requested amount is higher than available amount.": "Requested amount is higher than available amount."
+    "Requested amount is higher than available amount.": "Requested amount is higher than available amount.",
+    "tokens": "tokens"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Pidiendo acceso a la cámara",
@@ -1098,7 +1102,9 @@
     "Settlement block is the pre-determined block height that this transaction will be executed.": "El bloque de asentamiento es el bloque predeterminado en el que la transación será ejecutada",
     "Settlement value is based on the oracle price at the settlement block.": "El valor de asentamiento se basa en el precio del oráculo en el bloque de asentamiento",
     "Users will be able to cancel this transaction as long as the settlement block has not been executed.": "Los usuarios podrán cancelar esta transacción, siempre que no se haya alcanzado el bloque de asentamiento",
-    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Las comisiones son aplicadas dependiendo del tipo de intercambio y de los tokens seleccionados. Se componen de: \n\n1. Comisiones del intercambio.\n2. Comisión de transacción\n3. Comisiones relacionadas con el DEX como la comisión de estabilización o de quemado (si aplica)"
+    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Las comisiones son aplicadas dependiendo del tipo de intercambio y de los tokens seleccionados. Se componen de: \n\n1. Comisiones del intercambio.\n2. Comisión de transacción\n3. Comisiones relacionadas con el DEX como la comisión de estabilización o de quemado (si aplica)",
+    "Insufficient balance": "Balance insuficiente",
+    "A small amount of UTXO is reserved for fees": "Una cantidad pequeña de UTXO se reserva para comisiones"
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Seleccionar",
@@ -1386,6 +1392,7 @@
   },
   "components/EmptyAuctions": {
     "No auctions": "No hay subastas",
+    "No Auctions": "No hay subastas",
     "There are currently no collaterals available for auction.": "There are currently no collaterals available for auction.",
     "No Outbid Auctions": "No hay subastas sobrepujadas",
     "You have no outbids yet": "No tienes sobrepujas todavía",
@@ -1453,7 +1460,8 @@
     "You are the highest bidder": "Tu has hecho la oferta más alta",
     "From your vault": "De tu Vault",
     "Waiting for first bid": "Esperando a tu primera oferta",
-    "Quick bid": "Oferta rápida"
+    "Quick bid": "Oferta rápida",
+    "Quick rebid": "Quick rebid"
   },
   "components/BatchHistory": {
     "{{h}}h {{m}}m ago": "hace {{h}}h {{m}}min",

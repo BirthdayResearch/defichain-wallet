@@ -123,7 +123,12 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
           title={translate(
             "screens/ConvertConfirmScreen",
             "You are converting to {{unit}}",
-            { unit: getDisplayUnit(targetUnit) }
+            {
+              unit: translate(
+                "screens/ConvertScreen",
+                getDisplayUnit(targetUnit)
+              ),
+            }
           )}
           amount={amount}
           testID="text_convert_amount"

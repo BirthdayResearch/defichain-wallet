@@ -252,7 +252,7 @@
     "TRANSACTION DETAILS": "交易明细",
     "*Registered address": "*已注册地址",
     "There is a minimal fee for the transaction": "There is a minimal fee for the transaction",
-    "A small amount of UTXO is reserved for fees": "A small amount of UTXO is reserved for fees",
+    "A small amount of UTXO is reserved for fees": "保留少量 UTXO 用于交易费用",
     "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds": "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds",
     "Insufficient balance": "Insufficient balance",
     "SEND TO": "SEND TO",
@@ -285,7 +285,7 @@
     "Send Liquidity Pool tokens only to DeFiChain Wallet addresses. Sending to an exchange or a central entity will result in irreversible loss of funds.": "请注意，流动性挖矿的代币只能发送到其他递飞链钱包地址。若您发送到其他交易所或不支持递飞链流动性池代币的平台会导致无法还原的资金损失。",
     "Transaction type": "交易类型",
     "Amount to send": "发送金额",
-    "Converting": "Converting",
+    "Converting": "转换中",
     "Converted": "Converted",
     "Transaction fee": "交易費用",
     "Amount to convert": "要转换的金额",
@@ -325,7 +325,8 @@
     "A small amount of UTXO is reserved for fees": "保留少量 UTXO 用于交易费用",
     "Available {{unit}}": "可转换资金 {{unit}}",
     "Resulting {{unit}}": "转换后 {{unit}}",
-    "TO RECEIVE": "TO RECEIVE"
+    "TO RECEIVE": "TO RECEIVE",
+    "tokens": "代币"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm": "确认",
@@ -346,7 +347,9 @@
     "Transaction fee": "交易費用",
     "Resulting Tokens": "转换后 Tokens",
     "Resulting UTXO": "转换后 UTXO",
-    "Convert {{amount}} DFI to {{target}}": "转换 {{amount}} DFI 至 {{target}}"
+    "Convert {{amount}} DFI to {{target}}": "转换 {{amount}} DFI 至 {{target}}",
+    "Converting": "转换中",
+    "Converted": "Converted"
   },
   "screens/SettingsNavigator": {
     "Settings": "设置"
@@ -827,7 +830,8 @@
     "Borrowing {{amount}} {{symbol}}": "Borrowing {{amount}} {{symbol}}",
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "Borrowed {{amount}} {{symbol}}",
-    "Requested amount is higher than available amount.": "您请求的金额高于可用金额。"
+    "Requested amount is higher than available amount.": "您请求的金额高于可用金额。",
+    "tokens": "代币"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "请许可程序使用相机",
@@ -1078,7 +1082,9 @@
     "Settlement block is the pre-determined block height that this transaction will be executed.": "Settlement block is the pre-determined block height that this transaction will be executed.",
     "Settlement value is based on the oracle price at the settlement block.": "Settlement value is based on the oracle price at the settlement block.",
     "Users will be able to cancel this transaction as long as the settlement block has not been executed.": "Users will be able to cancel this transaction as long as the settlement block has not been executed.",
-    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)"
+    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)",
+    "A small amount of UTXO is reserved for fees": "保留少量 UTXO 用于交易费用",
+    "Insufficient balance": "Insufficient balance"
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Select",
@@ -1361,6 +1367,7 @@
   },
   "components/EmptyAuctions": {
     "No auctions": "No auctions",
+    "No Auctions": "No Auctions",
     "There are currently no collaterals available for auction.": "There are currently no collaterals available for auction.",
     "No Outbid Auctions": "No Outbid Auctions",
     "You have no outbids yet": "You have no outbids yet",
@@ -1428,7 +1435,8 @@
     "You are the highest bidder": "您目前是出价最高的人",
     "From your vault": "来自您的金库",
     "Waiting for first bid": "等待第一次标价",
-    "Quick bid": "快速标价"
+    "Quick bid": "快速标价",
+    "Quick rebid": "快速再投标"
   },
   "components/BatchHistory": {
     "{{h}}h {{m}}m ago": "{{h}}时 {{m}}分前",
@@ -2160,7 +2168,7 @@
     "Min. next bid": "最低标价",
     "Current balance": "目前余额",
     "Leading bid": "Leading bid",
-    "Quick rebid": "Quick rebid",
+    "Quick rebid": "快速再投标",
     "Outbid": "Outbid",
     "Min. bid": "最低标价",
     "Insufficient {{symbol}} balance": "Insufficient {{symbol}} balance",
