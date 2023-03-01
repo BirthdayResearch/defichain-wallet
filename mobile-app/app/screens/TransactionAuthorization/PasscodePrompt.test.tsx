@@ -2,7 +2,6 @@ import { render } from "@testing-library/react-native";
 import { TransactionStatus } from "@screens/TransactionAuthorization/api/transaction_types";
 import { PasscodePrompt } from "./PasscodePrompt";
 
-jest.mock("@shared-contexts/ThemeProvider");
 jest.mock("react-native/Libraries/Utilities/Platform", () => ({
   OS: "web",
   select: () => jest.fn,

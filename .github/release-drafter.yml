@@ -1,26 +1,26 @@
-name-template: 'v$RESOLVED_VERSION'
-tag-template: 'v$RESOLVED_VERSION'
+name-template: "v$RESOLVED_VERSION"
+tag-template: "v$RESOLVED_VERSION"
 categories:
-  - title: '🚀 Features'
+  - title: "🚀 Features"
     labels:
-      - 'kind/feature'
-  - title: '🐛 Bug Fixes'
+      - "kind/feature"
+  - title: "🐛 Bug Fixes"
     labels:
-      - 'kind/fix'
-  - title: 'Maintenance'
+      - "kind/fix"
+  - title: "Maintenance"
     labels:
-      - 'kind/refactor'
-      - 'kind/chore'
-      - 'kind/docs'
-  - title: 'Dependencies'
+      - "kind/refactor"
+      - "kind/chore"
+      - "kind/docs"
+  - title: "Dependencies"
     labels:
-      - 'kind/dependencies'
-change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+      - "kind/dependencies"
+change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
 change-title-escapes: '\<*_&'
 version-resolver:
   minor:
     labels:
-      - 'kind/feature'
+      - "kind/feature"
   default: patch
 template: |
   ## What’s Changed

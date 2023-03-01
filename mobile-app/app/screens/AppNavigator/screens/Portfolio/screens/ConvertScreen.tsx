@@ -3,7 +3,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 import BigNumber from "bignumber.js";
 import React, { useEffect, useState } from "react";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useSelector } from "react-redux";
 import { View } from "@components";
 import {
@@ -14,14 +14,16 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { RootState } from "@store";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
-import { hasTxQueued } from "@store/transaction_queue";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+  tokensSelector,
+} from "@waveshq/walletkit-ui/dist/store";
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { tokensSelector } from "@store/wallet";
 import { getNativeIcon } from "@components/icons/assets";
 import { ButtonV2 } from "@components/ButtonV2";
 import {
@@ -69,7 +71,7 @@ export function ConvertScreen(props: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const [mode, setMode] = useState(props.route.params.mode);
@@ -159,7 +161,10 @@ export function ConvertScreen(props: Props): JSX.Element {
       ? "Max available {{unit}} entered"
       : "{{percent}} of available {{unit}} entered";
     const toastOption = {
-      unit: getDisplayUnit(sourceToken.unit),
+      unit: translate(
+        "screens/ConvertScreen",
+        getDisplayUnit(sourceToken.unit)
+      ),
       percent: type,
     };
     toast.show(translate("screens/ConvertScreen", toastMessage, toastOption), {
@@ -468,7 +473,7 @@ function ConvertToggleButton(props: { onPress: () => void }): JSX.Element {
 }
 
 function ConversionResultCard(props: {
-  unit: string | undefined;
+  unit: string;
   oriTargetAmount: string;
   totalTargetAmount: string;
 }): JSX.Element {
@@ -487,7 +492,7 @@ function ConversionResultCard(props: {
           dark={tailwind("text-mono-dark-v2-500")}
         >
           {`${translate("screens/ConvertScreen", "Available {{unit}}", {
-            unit: props.unit,
+            unit: translate("screens/ConvertScreen", props.unit),
           })}`}
         </ThemedTextV2>
         <NumberFormat
@@ -518,7 +523,7 @@ function ConversionResultCard(props: {
           dark={tailwind("text-mono-dark-v2-500")}
         >
           {`${translate("screens/ConvertScreen", "Resulting {{unit}}", {
-            unit: props.unit,
+            unit: translate("screens/ConvertScreen", props.unit),
           })}`}
         </ThemedTextV2>
         <NumberFormat

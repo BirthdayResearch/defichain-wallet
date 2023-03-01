@@ -1,15 +1,21 @@
 import React, { useEffect, PropsWithChildren } from "react";
 import { batch, useSelector } from "react-redux";
 import { RootState } from "@store";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
-import { fetchDexPrice, fetchPoolPairs, fetchTokens } from "@store/wallet";
+import {
+  useNetworkContext,
+  useWalletPersistenceContext,
+} from "@waveshq/walletkit-ui";
+import {
+  fetchDexPrice,
+  fetchPoolPairs,
+  fetchTokens,
+} from "@waveshq/walletkit-ui/dist/store";
 import { fetchUserPreferences } from "@store/userPreferences";
-import { useWalletPersistenceContext } from "@shared-contexts/WalletPersistenceContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { fetchVaults } from "@store/loans";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
-import { useWhaleApiClient } from "./WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 
 export function WalletDataProvider(
   props: PropsWithChildren<any>

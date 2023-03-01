@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { getReleaseChannel } from "@api/releaseChannel";
-import { getEnvironment } from "@environment";
+import { getEnvironment } from "@waveshq/walletkit-core";
 import dayjs from "dayjs";
 import {
   useGetBlockchainStatusQuery,
   useGetOceanStatusQuery,
-} from "@store/website";
+} from "@waveshq/walletkit-ui/dist/store";
 
 // MAX_TIME_DIFF set to 45 mins to display warning message (in AnnouncementBanner) when blockchain is down only in Production mode, else 5 seconds for local runs
 const MAX_TIME_DIFF = getEnvironment(getReleaseChannel()).debug

@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import BigNumber from "bignumber.js";
 import { HeaderFont } from "@components/Text";
 import { translate } from "@translations";
-import { WalletToken } from "@store/wallet";
+import { WalletToken } from "@waveshq/walletkit-ui/dist/store";
 import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
 import { tailwind } from "@tailwind";
@@ -145,7 +145,7 @@ export function DexNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>();
   const screenOptions = useNavigatorScreenOptions();
   const goToNetworkSelect = (): void => {
-    navigation.navigate("NetworkSelectionScreen");
+    navigation.navigate("NetworkSelectionScreenDex");
   };
 
   return (
@@ -186,7 +186,7 @@ export function DexNavigator(): JSX.Element {
 
       <DexStack.Screen
         component={NetworkSelectionScreen}
-        name="NetworkSelectionScreen"
+        name="NetworkSelectionScreenDex"
         options={{
           ...screenOptions,
           headerTitle: translate("screens/NetworkSelectionScreen", "Network"),

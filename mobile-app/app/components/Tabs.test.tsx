@@ -2,8 +2,6 @@ import { render } from "@testing-library/react-native";
 
 import { Tabs } from "./Tabs";
 
-jest.mock("@shared-contexts/ThemeProvider");
-
 describe("Tabs component", () => {
   it("should match snapshot with 2 tabs", async () => {
     const tabsList = [

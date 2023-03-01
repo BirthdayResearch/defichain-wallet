@@ -41,8 +41,8 @@ export function AppStateContextProvider(
         emit("active");
       }
     };
-    AppState.addEventListener("change", handler);
-    return () => AppState.removeEventListener("change", handler);
+    const appStateListener = AppState.addEventListener("change", handler);
+    return () => appStateListener.remove();
   }, []);
 
   const context: AppStateContextI = {

@@ -2,12 +2,12 @@ import { render } from "@testing-library/react-native";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import { RootState } from "@store";
-import { block } from "@store/block";
+import { block } from "@waveshq/walletkit-ui/dist/store/block";
 import {
   LoanVaultLiquidated,
   LoanVaultState,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { wallet } from "@store/wallet";
+import { wallet } from "@waveshq/walletkit-ui/dist/store";
 import BigNumber from "bignumber.js";
 import { BatchCard } from "./BatchCard";
 
@@ -22,8 +22,6 @@ const useAuctionBidValue = () => {
   };
 };
 
-jest.mock("@shared-contexts/ThemeProvider");
-jest.mock("@shared-contexts/NetworkContext");
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
 }));

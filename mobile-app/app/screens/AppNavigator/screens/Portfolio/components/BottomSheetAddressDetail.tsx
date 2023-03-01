@@ -22,13 +22,15 @@ import {
 } from "@shared-contexts/WalletContext";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { wallet as walletReducer } from "@store/wallet";
+import { useThemeContext, useNetworkContext } from "@waveshq/walletkit-ui";
+import {
+  wallet as walletReducer,
+  hasTxQueued,
+  hasOceanTXQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 import { useSelector } from "react-redux";
 import { loans } from "@store/loans";
 import { RootState } from "@store";
-import { hasTxQueued } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { BottomSheetWithNavRouteParam } from "@components/BottomSheetWithNav";
 import {
@@ -36,7 +38,6 @@ import {
   setAddresses,
   setUserPreferences,
 } from "@store/userPreferences";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useWalletAddress } from "@hooks/useWalletAddress";
@@ -87,7 +88,7 @@ export const BottomSheetAddressDetail = (
       hasTxQueued(state.transactionQueue)
     );
     const hasPendingBroadcastJob = useSelector((state: RootState) =>
-      hasBroadcastQueued(state.ocean)
+      hasOceanTXQueued(state.ocean)
     );
     const [isEditing, setIsEditing] = useState(false);
     const navigation =
@@ -203,6 +204,7 @@ export const BottomSheetAddressDetail = (
     };
 
     const AddressListItem = useCallback(
+      // eslint-disable-next-line react/no-unused-prop-types
       ({ item, index }: { item: string; index: number }): JSX.Element => {
         return (
           <ThemedTouchableOpacity

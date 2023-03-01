@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { tailwind } from "@tailwind";
 
 import { FlatList } from "react-native";

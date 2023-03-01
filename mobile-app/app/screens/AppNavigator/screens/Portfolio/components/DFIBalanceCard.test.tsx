@@ -1,15 +1,13 @@
 import { render } from "@testing-library/react-native";
 import { RootState } from "@store";
-import { setTokenSymbol, wallet } from "@store/wallet";
+import { setTokenSymbol, wallet } from "@waveshq/walletkit-ui/dist/store";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { block } from "@store/block";
+import { block } from "@waveshq/walletkit-ui/dist/store/block";
 import { loans } from "@store/loans";
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
 import { DFIBalanceCard } from "./DFIBalanceCard";
 
-jest.mock("@shared-contexts/ThemeProvider");
-jest.mock("@shared-contexts/NetworkContext");
 jest.mock("../../../../../contexts/DisplayBalancesContext");
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),

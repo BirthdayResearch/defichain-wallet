@@ -1,12 +1,11 @@
 import { render } from "@testing-library/react-native";
-import { EnvironmentNetwork } from "@environment";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import {
   FeatureFlagScreen,
   FeatureFlagItem,
   BetaFeaturesI,
 } from "./FeatureFlagScreen";
 
-jest.mock("@shared-contexts/ThemeProvider");
 jest.mock("@contexts/FeatureFlagContext");
 
 describe("feature flag screen", () => {

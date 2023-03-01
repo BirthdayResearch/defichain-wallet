@@ -8,8 +8,8 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { tailwind } from "@tailwind";
-import { useGetAnnouncementsQuery } from "@store/website";
-import { AnnouncementData } from "@shared-types/website";
+import { useGetAnnouncementsQuery } from "@waveshq/walletkit-ui/dist/store";
+import { AnnouncementData } from "@waveshq/walletkit-core";
 import { satisfies } from "semver";
 import { useLanguageContext } from "@shared-contexts/LanguageProvider";
 import { openURL } from "@api/linking";
@@ -21,8 +21,10 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { useApiStatus } from "@hooks/useApiStatus";
 import { IconProps } from "@expo/vector-icons/build/createIconSet";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { useServiceProviderContext } from "@contexts/StoreServiceProvider";
+import {
+  useServiceProviderContext,
+  useThemeContext,
+} from "@waveshq/walletkit-ui";
 import {
   blockChainIsDownContent,
   useDeFiChainStatus,
@@ -132,6 +134,7 @@ interface AnnouncementBannerProps {
   hideAnnouncement?: (id: string) => void;
   announcement: Announcement;
   testID: string;
+  // eslint-disable-next-line react/no-unused-prop-types
   containerStyle?: ThemedProps & { style?: ThemedProps & StyleProp<ViewStyle> };
 }
 
@@ -287,6 +290,7 @@ export function AnnouncementBannerV2({
         <ThemedTouchableOpacityV2
           onPress={async () => await openURL(announcement.url)}
           style={tailwind("ml-3.5 pl-1 py-1")}
+          testID={`${testID}_url_button`}
         >
           <ThemedIcon
             iconType="Feather"

@@ -11,13 +11,13 @@ import {
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { RootState } from "@store";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
-import { hasTxQueued } from "@store/transaction_queue";
 import {
+  hasTxQueued,
+  hasOceanTXQueued,
   DFITokenSelector,
   DFIUtxoSelector,
   tokensSelector,
-} from "@store/wallet";
+} from "@waveshq/walletkit-ui/dist/store";
 import {
   queueConvertTransaction,
   useConversion,
@@ -26,7 +26,7 @@ import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import {
   useWhaleApiClient,
   useWhaleRpcClient,
-} from "@shared-contexts/WhaleContext";
+} from "@waveshq/walletkit-ui/dist/contexts";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { StackScreenProps } from "@react-navigation/stack";
 import {
@@ -45,7 +45,7 @@ import { fetchExecutionBlock } from "@store/futureSwap";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { WalletAlert } from "@components/WalletAlert";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import {
   BottomSheetNavScreen,
@@ -128,7 +128,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const DFIToken = useSelector((state: RootState) =>
     DFITokenSelector(state.wallet)

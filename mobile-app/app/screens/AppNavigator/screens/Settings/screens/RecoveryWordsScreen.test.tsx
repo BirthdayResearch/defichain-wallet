@@ -1,8 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { RecoveryWordsScreen } from "./RecoveryWordsScreen";
 
-jest.mock("@shared-contexts/ThemeProvider");
-
 describe("recovery word screen", () => {
   it("should match snapshot", async () => {
     const navigation: any = {

@@ -2,7 +2,6 @@ import { render } from "@testing-library/react-native";
 
 import { VaultInfo } from "./VaultInfo";
 
-jest.mock("@shared-contexts/ThemeProvider");
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
 }));

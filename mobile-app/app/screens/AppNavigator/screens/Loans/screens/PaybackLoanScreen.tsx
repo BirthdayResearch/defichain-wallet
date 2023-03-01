@@ -18,11 +18,13 @@ import {
 } from "@defichain/whale-api-client/dist/api/loan";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { hasTxQueued } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+  tokensSelector,
+} from "@waveshq/walletkit-ui/dist/store";
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
 import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
-import { tokensSelector } from "@store/wallet";
 import {
   activeVaultsSelector,
   fetchCollateralTokens,
@@ -37,12 +39,12 @@ import {
   TokenDropdownButtonStatus,
 } from "@components/TokenDropdownButton";
 import { Controller, useForm } from "react-hook-form";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { TextRowV2 } from "@components/TextRowV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { useToast } from "react-native-toast-notifications";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { getTokenAmount } from "../hooks/LoanPaymentTokenRate";
@@ -146,14 +148,18 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
   const loanTokenActivePriceInUSD = getActivePrice(
     loanTokenAmount.symbol,
     loanTokenAmount.activePrice,
-    collateralFactor
+    routeParams.isPaybackDUSDUsingCollateral === true
+      ? collateralFactor
+      : undefined,
+    undefined,
+    routeParams.isPaybackDUSDUsingCollateral === true ? "COLLATERAL" : undefined
   );
 
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
 
   const getCollateralValue = (collateralValue: string) => {

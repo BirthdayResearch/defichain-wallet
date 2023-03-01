@@ -1,6 +1,12 @@
-import { getEnvironment } from "@environment";
-import { FeatureFlag, FEATURE_FLAG_ID } from "@shared-types/website";
-import { useGetFeatureFlagsQuery, usePrefetch } from "@store/website";
+import {
+  getEnvironment,
+  FeatureFlag,
+  FeatureFlagID,
+} from "@waveshq/walletkit-core";
+import {
+  useGetFeatureFlagsQuery,
+  usePrefetch,
+} from "@waveshq/walletkit-ui/dist/store";
 import { nativeApplicationVersion } from "expo-application";
 import {
   createContext,
@@ -15,16 +21,18 @@ import { satisfies } from "semver";
 import { FeatureFlagPersistence } from "@api";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { getReleaseChannel } from "@api/releaseChannel";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
-import { useServiceProviderContext } from "./StoreServiceProvider";
+import {
+  useNetworkContext,
+  useServiceProviderContext,
+} from "@waveshq/walletkit-ui";
 
 const MAX_RETRY = 3;
 export interface FeatureFlagContextI {
   featureFlags: FeatureFlag[];
-  enabledFeatures: FEATURE_FLAG_ID[];
-  updateEnabledFeatures: (features: FEATURE_FLAG_ID[]) => void;
-  isFeatureAvailable: (featureId: FEATURE_FLAG_ID) => boolean;
-  isBetaFeature: (featureId: FEATURE_FLAG_ID) => boolean;
+  enabledFeatures: FeatureFlagID[];
+  updateEnabledFeatures: (features: FeatureFlagID[]) => void;
+  isFeatureAvailable: (featureId: FeatureFlagID) => boolean;
+  isBetaFeature: (featureId: FeatureFlagID) => boolean;
   hasBetaFeatures: boolean;
 }
 
@@ -49,7 +57,7 @@ export function FeatureFlagProvider(
 
   const prefetchPage = usePrefetch("getFeatureFlags");
   const appVersion = nativeApplicationVersion ?? "0.0.0";
-  const [enabledFeatures, setEnabledFeatures] = useState<FEATURE_FLAG_ID[]>([]);
+  const [enabledFeatures, setEnabledFeatures] = useState<FeatureFlagID[]>([]);
   const [retries, setRetries] = useState(0);
 
   useEffect(() => {
@@ -67,7 +75,7 @@ export function FeatureFlagProvider(
     refetch();
   }, [network]);
 
-  function isBetaFeature(featureId: FEATURE_FLAG_ID): boolean {
+  function isBetaFeature(featureId: FeatureFlagID): boolean {
     return featureFlags.some(
       (flag: FeatureFlag) =>
         satisfies(appVersion, flag.version) &&
@@ -77,7 +85,7 @@ export function FeatureFlagProvider(
     );
   }
 
-  function isFeatureAvailable(featureId: FEATURE_FLAG_ID): boolean {
+  function isFeatureAvailable(featureId: FeatureFlagID): boolean {
     return featureFlags.some((flag: FeatureFlag) => {
       if (
         flag.networks?.includes(network) &&
@@ -111,7 +119,7 @@ export function FeatureFlagProvider(
   }
 
   const updateEnabledFeatures = async (
-    flags: FEATURE_FLAG_ID[]
+    flags: FeatureFlagID[]
   ): Promise<void> => {
     setEnabledFeatures(flags);
     await FeatureFlagPersistence.set(flags);
@@ -164,7 +172,7 @@ export function FeatureGate({
   feature,
 }: {
   children: ReactElement;
-  feature: FEATURE_FLAG_ID;
+  feature: FeatureFlagID;
 }): JSX.Element | null {
   const { isFeatureAvailable } = useFeatureFlagContext();
   return isFeatureAvailable(feature) ? children : null;

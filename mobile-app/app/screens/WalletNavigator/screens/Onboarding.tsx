@@ -9,7 +9,7 @@ import GridBackgroundImageLight from "@assets/images/onboarding/grid-background-
 import GridBackgroundImageDark from "@assets/images/onboarding/grid-background-dark.png";
 import { VersionTag } from "@components/VersionTag";
 import { OnboardingCarousel } from "@screens/WalletNavigator/screens/components/OnboardingCarousel";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useEffect } from "react";
 import * as SplashScreen from "expo-splash-screen";

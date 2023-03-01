@@ -7,8 +7,11 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import BigNumber from "bignumber.js";
 import { tailwind } from "@tailwind";
 import { RootState } from "@store";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
-import { hasTxQueued } from "@store/transaction_queue";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+  tokensSelector,
+} from "@waveshq/walletkit-ui/dist/store";
 import { translate } from "@translations";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { NumericFormat as NumberFormat } from "react-number-format";
@@ -23,13 +26,12 @@ import {
   BottomSheetWithNav,
 } from "@components/BottomSheetWithNav";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import {
   TokenDropdownButton,
   TokenDropdownButtonStatus,
 } from "@components/TokenDropdownButton";
-import { tokensSelector } from "@store/wallet";
 import { getPrecisedTokenValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useToast } from "react-native-toast-notifications";
 import { NumberRowV2 } from "@components/NumberRowV2";
@@ -62,7 +64,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0;
   const { blocksRemaining } = useAuctionTime(

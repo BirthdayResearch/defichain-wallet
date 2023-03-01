@@ -13,17 +13,19 @@ import { translate } from "@translations";
 import { WalletTextInput } from "@components/WalletTextInput";
 import { LabeledAddress, LocalAddress } from "@store/userPreferences";
 import { fromAddress } from "@defichain/jellyfish-address";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import {
+  useNetworkContext,
+  useThemeContext,
+  useWalletNodeContext,
+} from "@waveshq/walletkit-ui";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { authentication, Authentication } from "@store/authentication";
 import { MnemonicStorage } from "@api/wallet/mnemonic_storage";
-import { useWalletNodeContext } from "@shared-contexts/WalletNodeProvider";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { RandomAvatar } from "./RandomAvatar";
 
 export interface CreateOrEditAddressLabelFormProps {

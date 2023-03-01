@@ -2,9 +2,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Theme } from "@react-navigation/native/lib/typescript/src/types";
 
 import { StyleSheet, View } from "react-native";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { tailwind } from "@tailwind";
-import { EnvironmentName, getEnvironment } from "@environment";
+import { EnvironmentName, getEnvironment } from "@waveshq/walletkit-core";
 import { getReleaseChannel } from "@api/releaseChannel";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { getDefaultTheme } from "@constants/Theme";

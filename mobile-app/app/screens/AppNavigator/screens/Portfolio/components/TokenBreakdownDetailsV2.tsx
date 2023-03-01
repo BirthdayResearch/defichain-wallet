@@ -4,7 +4,7 @@ import { ThemedProps, ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { AddressToken } from "@defichain/whale-api-client/dist/api/address";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { RootState } from "@store";
-import { WalletToken } from "@store/wallet";
+import { WalletToken } from "@waveshq/walletkit-ui/dist/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";

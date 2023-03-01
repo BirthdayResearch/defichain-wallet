@@ -1,6 +1,6 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { AddressType, WalletToken } from "@store/wallet";
+import { AddressType, WalletToken } from "@waveshq/walletkit-ui/dist/store";
 import BigNumber from "bignumber.js";
 import { Image, Platform } from "react-native";
 import { BarCodeScanner } from "@components/BarCodeScanner";
@@ -13,7 +13,7 @@ import { TransactionsScreen } from "@screens/AppNavigator/screens/Transactions/T
 import { TransactionDetailScreen } from "@screens/AppNavigator/screens/Transactions/screens/TransactionDetailScreen";
 import { VMTransaction } from "@screens/AppNavigator/screens/Transactions/screens/stateProcessor";
 import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import GridBackgroundImageLight from "@assets/images/onboarding/grid-background-light.png";
 import GridBackgroundImageDark from "@assets/images/onboarding/grid-background-dark.png";
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
@@ -55,6 +55,13 @@ import { AddLiquidityScreen } from "../Dex/DexAddLiquidity";
 import { ConfirmAddLiquidityScreen } from "../Dex/DexConfirmAddLiquidity";
 import { CompositeSwapScreen } from "../Dex/CompositeSwap/CompositeSwapScreen";
 import { ConfirmCompositeSwapScreen } from "../Dex/CompositeSwap/ConfirmCompositeSwapScreen";
+import {
+  OCGProposalsScreen,
+  OCGProposalType,
+} from "./screens/OCG/OCGProposalsScreen";
+import { CFPDetailScreen } from "./screens/OCG/CFPDetailScreen";
+import { DFIPDetailScreen } from "./screens/OCG/DFIPDetailScreen";
+import { OCGConfirmScreen } from "./screens/OCG/OCGConfirmScreen";
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined;
@@ -84,7 +91,10 @@ export interface PortfolioParamList {
     fee: BigNumber;
     originScreen: ScreenName;
   };
-  BarCodeScanner: { onQrScanned: (value: string) => void };
+  BarCodeScanner: {
+    onQrScanned: (value: string) => void;
+    title?: string;
+  };
   TokenVsUtxoScreen: undefined;
   AddressBookScreen: {
     selectedAddress?: string;
@@ -127,7 +137,7 @@ export interface PortfolioParamList {
   TransactionDetailScreen: {
     tx: VMTransaction;
   };
-  GetDFIScreen: {};
+  GetDFIScreen: undefined;
   SwapTokenSelectionScreen: {
     fromToken: {
       symbol?: string;
@@ -138,6 +148,17 @@ export interface PortfolioParamList {
     onTokenPress: (item: SelectionToken) => {};
     isFutureSwap?: boolean;
     isSearchDTokensOnly?: boolean;
+  };
+  OCGConfirmScreen: {
+    type: OCGProposalType;
+    fee: BigNumber;
+    proposalFee: BigNumber;
+    url: string;
+    title: string;
+    amountRequest?: BigNumber;
+    cycle?: number;
+    receivingAddress?: string;
+    conversion?: ConversionParam;
   };
 
   [key: string]: undefined | object;
@@ -157,7 +178,7 @@ export function PortfolioNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const { isLight } = useThemeContext();
   const goToNetworkSelect = (): void => {
-    navigation.navigate("NetworkSelectionScreen");
+    navigation.navigate("NetworkSelectionScreenPortfolio");
   };
   const screenOptions = useNavigatorScreenOptions();
   return (
@@ -372,7 +393,7 @@ export function PortfolioNavigator(): JSX.Element {
 
       <PortfolioStack.Screen
         component={NetworkSelectionScreen}
-        name="NetworkSelectionScreen"
+        name="NetworkSelectionScreenPortfolio"
         options={{
           ...screenOptions,
           headerTitle: translate("screens/NetworkSelectionScreen", "Network"),
@@ -591,6 +612,50 @@ export function PortfolioNavigator(): JSX.Element {
             "components/UtxoVsTokenFaq",
             "About UTXO And Tokens"
           ),
+        }}
+      />
+      <PortfolioStack.Screen
+        component={OCGProposalsScreen}
+        name="OCGProposalsScreen"
+        options={{
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate("screens/OCGProposalsScreen", "Governance"),
+        }}
+      />
+      <PortfolioStack.Screen
+        component={CFPDetailScreen}
+        name="CFPDetailScreen"
+        options={{
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate("screens/OCGDetailScreen", "CFP Details"),
+        }}
+      />
+      <PortfolioStack.Screen
+        component={DFIPDetailScreen}
+        name="DFIPDetailScreen"
+        options={{
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate("screens/OCGDetailScreen", "DFIP Details"),
+        }}
+      />
+      <PortfolioStack.Screen
+        component={OCGConfirmScreen}
+        name="OCGConfirmScreen"
+        options={{
+          ...screenOptions,
+          headerRight: () => (
+            <HeaderNetworkStatus onPress={goToNetworkSelect} />
+          ),
+          headerTitle: translate("screens/OCGConfirmScreen", "Confirm"),
         }}
       />
     </PortfolioStack.Navigator>

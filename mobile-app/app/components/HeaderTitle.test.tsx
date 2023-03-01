@@ -2,14 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import { render } from "@testing-library/react-native";
 import { RootState } from "@store";
-import { block } from "@store/block";
-import { StoreServiceProvider } from "@contexts/StoreServiceProvider";
-import { ServiceProviderPersistence } from "@api/wallet/service_provider";
-import { WhaleProvider } from "@shared-contexts/WhaleContext";
+import { block } from "@waveshq/walletkit-ui/dist/store/block";
 import { HeaderTitle } from "./HeaderTitle";
 
-jest.mock("@shared-contexts/ThemeProvider");
-jest.mock("@shared-contexts/NetworkContext");
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
 }));
@@ -31,16 +26,12 @@ describe("Header title", () => {
     });
     const component = (
       <Provider store={store}>
-        <StoreServiceProvider api={ServiceProviderPersistence}>
-          <WhaleProvider>
-            <HeaderTitle
-              text="Foo"
-              subHeadingType="Status"
-              onPress={jest.fn()}
-              disabled={false}
-            />
-          </WhaleProvider>
-        </StoreServiceProvider>
+        <HeaderTitle
+          text="Foo"
+          subHeadingType="Status"
+          onPress={jest.fn()}
+          disabled={false}
+        />
       </Provider>
     );
     const rendered = render(component);

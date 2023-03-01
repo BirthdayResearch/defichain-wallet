@@ -1,6 +1,6 @@
 import Svg, { Path } from "react-native-svg";
 import { getColor } from "@tailwind";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 
 interface FavoriteIconI {
   size: number;

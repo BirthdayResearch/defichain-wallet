@@ -1,8 +1,8 @@
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
-import { EnvironmentNetwork } from "@environment";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { RootState } from "@store";
-import { tokenSelectorByDisplaySymbol } from "@store/wallet";
+import { tokenSelectorByDisplaySymbol } from "@waveshq/walletkit-ui/dist/store";
 import BigNumber from "bignumber.js";
 import dayjs from "dayjs";
 import { useSelector } from "react-redux";
@@ -86,7 +86,8 @@ export function useFutureSwapDate(
   const { network } = useNetworkContext();
   const secondsPerBlock =
     network === EnvironmentNetwork.MainNet ||
-    network === EnvironmentNetwork.TestNet
+    network === EnvironmentNetwork.TestNet ||
+    network === EnvironmentNetwork.DevNet
       ? 30
       : 3;
   const blocksRemaining = BigNumber.max(

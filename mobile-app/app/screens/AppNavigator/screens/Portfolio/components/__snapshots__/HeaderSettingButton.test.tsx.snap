@@ -64,7 +64,12 @@ exports[`Header Setting Button should match snapshot 1`] = `
             "strokeLinejoin",
           ]
         }
-        stroke={4279374354}
+        stroke={
+          {
+            "payload": 4279374354,
+            "type": 0,
+          }
+        }
         strokeLinecap={1}
         strokeLinejoin={1}
         strokeWidth="1.5"

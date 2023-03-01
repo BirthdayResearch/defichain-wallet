@@ -2,7 +2,7 @@ name: OSS Governance
 
 on:
   pull_request_target:
-    types: [ opened, edited, synchronize ]
+    types: [opened, edited, synchronize]
 
 permissions:
   contents: read
@@ -15,6 +15,6 @@ jobs:
   Labeler:
     runs-on: ubuntu-latest
     steps:
-      - uses: fuxingloh/multi-labeler@fb9bc28b2d65e406ffd208384c5095793c3fd59a # tag=v1.8.0
+      - uses: fuxingloh/multi-labeler@6704db0bcba106d07482efabbc79d3092af74fa2 # v2.0.3
         with:
           config-path: .github/labeler.yml

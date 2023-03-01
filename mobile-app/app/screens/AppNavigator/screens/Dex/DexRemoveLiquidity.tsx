@@ -11,19 +11,21 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { RootState } from "@store";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
-import { hasTxQueued } from "@store/transaction_queue";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+  tokenSelector,
+} from "@waveshq/walletkit-ui/dist/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { tokenSelector } from "@store/wallet";
 import {
   BottomSheetWebWithNavV2,
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { WalletTransactionCardTextInput } from "@components/WalletTransactionCardTextInput";
 import {
   AmountButtonTypes,
@@ -52,7 +54,7 @@ export function RemoveLiquidityScreen(props: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const { getTokenPrice } = useTokenPrice();
   // this component state
@@ -401,6 +403,7 @@ function RemoveLiquidityInputCard(props: {
   tokenA: string;
   tokenB: string;
   balance: BigNumber;
+  // eslint-disable-next-line react/no-unused-prop-types
   symbol: string;
   onPercentageChange: (amount: string, type: AmountButtonTypes) => void;
   onChange: (amount: string) => void;

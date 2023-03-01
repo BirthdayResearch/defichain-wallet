@@ -1,5 +1,5 @@
-import { EnvironmentNetwork } from "@environment";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import dayjs from "dayjs";
 import BigNumber from "bignumber.js";
 import { secondsToDhmsDisplay } from "../helpers/SecondstoHm";
@@ -20,12 +20,14 @@ export function useAuctionTime(
   const { network } = useNetworkContext();
   const blocksPerAuction =
     network === EnvironmentNetwork.MainNet ||
-    network === EnvironmentNetwork.TestNet
+    network === EnvironmentNetwork.TestNet ||
+    network === EnvironmentNetwork.DevNet
       ? 720
       : 36;
   const secondsPerBlock =
     network === EnvironmentNetwork.MainNet ||
-    network === EnvironmentNetwork.TestNet
+    network === EnvironmentNetwork.TestNet ||
+    network === EnvironmentNetwork.DevNet
       ? 30
       : 3;
   const blocksRemaining = BigNumber.max(

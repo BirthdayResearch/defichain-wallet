@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { View } from "@components/index";
-import { usePlaygroundContext } from "@contexts/PlaygroundContext";
+import { View } from "@components";
+import { usePlaygroundContext } from "@waveshq/walletkit-ui";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { WalletAddressIndexPersistence } from "@api/wallet/address_index";
 import {

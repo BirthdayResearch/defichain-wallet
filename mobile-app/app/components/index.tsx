@@ -1,5 +1,5 @@
 import { Switch as DefaultSwitch, View as DefaultView } from "react-native";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 
 export function View(props: DefaultView["props"]): JSX.Element {
   const { style, ...otherProps } = props;

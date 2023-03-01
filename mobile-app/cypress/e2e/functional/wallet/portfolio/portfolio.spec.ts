@@ -156,6 +156,7 @@ const getDexPrice = (price: {
       id: "3",
       symbol: "USDT",
       displaySymbol: "dUSDT",
+      name: "Playground USDT",
     },
     dexPrices: {
       DUSD: {
@@ -163,6 +164,7 @@ const getDexPrice = (price: {
           id: "12",
           symbol: "DUSD",
           displaySymbol: "DUSD",
+          name: "Decentralized USD",
         },
         denominationPrice: price.dusd,
       },
@@ -171,6 +173,7 @@ const getDexPrice = (price: {
           id: "5",
           symbol: "USDC",
           displaySymbol: "dUSDC",
+          name: "Playground USDC",
         },
         denominationPrice: price.usdc,
       },
@@ -179,6 +182,7 @@ const getDexPrice = (price: {
           id: "2",
           symbol: "ETH",
           displaySymbol: "dETH",
+          name: "Playground ETH",
         },
         denominationPrice: price.eth,
       },
@@ -187,6 +191,7 @@ const getDexPrice = (price: {
           id: "1",
           symbol: "BTC",
           displaySymbol: "dBTC",
+          name: "Playground BTC",
         },
         denominationPrice: price.btc,
       },
@@ -195,6 +200,7 @@ const getDexPrice = (price: {
           id: "0",
           symbol: "DFI",
           displaySymbol: "DFI",
+          name: "Default Defi token",
         },
         denominationPrice: price.dfi,
       },
@@ -524,6 +530,12 @@ context("Wallet - Portfolio", () => {
     });
   });
 
+  it("should redirect to get DFI page", () => {
+    cy.getByTestID("bottom_tab_portfolio").click();
+    cy.getByTestID("get_DFI_action_btn").click();
+    cy.url().should("include", "app/GetDFIScreen");
+  });
+
   it("should redirect to send page", () => {
     cy.getByTestID("bottom_tab_portfolio").click();
     cy.getByTestID("send_balance_button").click();
@@ -594,7 +606,11 @@ context("Wallet - Portfolio - No balance", () => {
     cy.getByTestID("empty_portfolio").should("exist");
   });
 
-  it("should show get DFI", () => {
+  it("should not show get DFI action button when there is no existing DFI", () => {
+    cy.getByTestID("get_DFI_action_btn").should("not.exist");
+  });
+
+  it("should show get DFI now tag", () => {
     cy.getByTestID("get_DFI_btn").should("exist").click();
     cy.url().should("include", "app/GetDFIScreen");
   });

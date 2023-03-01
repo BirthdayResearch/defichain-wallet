@@ -2,27 +2,25 @@ import { configureStore } from "@reduxjs/toolkit";
 import { fireEvent, render } from "@testing-library/react-native";
 import { Provider } from "react-redux";
 import { RootState } from "@store";
-import { wallet, setTokenSymbol } from "@store/wallet";
-import { block } from "@store/block";
+import {
+  block,
+  wallet,
+  setTokenSymbol,
+} from "@waveshq/walletkit-ui/dist/store";
 import { loans } from "@store/loans";
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
 import { futureSwaps } from "@store/futureSwap";
-import { WhaleProvider } from "@shared-contexts/WhaleContext";
-import { ServiceProviderPersistence } from "@api/wallet/service_provider";
-import { StoreServiceProvider } from "@contexts/StoreServiceProvider";
 import { PortfolioScreen } from "./PortfolioScreen";
-
 jest.mock("@react-navigation/bottom-tabs", () => ({
   useBottomTabBarHeight: () => 49,
 }));
 jest.mock("@contexts/FeatureFlagContext");
 jest.mock("randomcolor", () => jest.fn().mockReturnValue("#ffffff"));
-jest.mock("@shared-contexts/ThemeProvider");
+
 jest.mock("@shared-contexts/LanguageProvider");
 jest.mock("@shared-contexts/DeFiScanContext");
 jest.mock("@shared-contexts/WalletContext");
-jest.mock("@shared-contexts/WalletPersistenceContext");
-jest.mock("@shared-contexts/NetworkContext");
+
 jest.mock("@contexts/DisplayBalancesContext");
 
 jest.mock("@react-navigation/native", () => ({
@@ -43,7 +41,7 @@ jest.mock("react-native/Libraries/Utilities/Platform", () => ({
   select: () => jest.fn,
 }));
 
-jest.mock("@store/website", () => ({
+jest.mock("@waveshq/walletkit-ui/dist/store/website", () => ({
   useGetAnnouncementsQuery: () => ({ data: [], isSuccess: true }),
   useGetStatusQuery: () => jest.fn(),
 }));
@@ -204,11 +202,7 @@ describe("portfolio page", () => {
     const route: any = {};
     const component = (
       <Provider store={store}>
-        <StoreServiceProvider api={ServiceProviderPersistence}>
-          <WhaleProvider>
-            <PortfolioScreen navigation={navigation} route={route} />
-          </WhaleProvider>
-        </StoreServiceProvider>
+        <PortfolioScreen navigation={navigation} route={route} />
       </Provider>
     );
     const rendered = render(component);
@@ -326,11 +320,7 @@ describe("portfolio page", () => {
 
     const component = (
       <Provider store={store}>
-        <StoreServiceProvider api={ServiceProviderPersistence}>
-          <WhaleProvider>
-            <PortfolioScreen navigation={navigation} route={route} />
-          </WhaleProvider>
-        </StoreServiceProvider>
+        <PortfolioScreen navigation={navigation} route={route} />
       </Provider>
     );
     const rendered = render(component);

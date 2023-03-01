@@ -6,7 +6,10 @@ import {
   ThemedScrollViewV2,
   ThemedTextV2,
 } from "@components/themed";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import {
+  useNetworkContext,
+  WalletPersistenceDataI,
+} from "@waveshq/walletkit-ui";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { WalletParamList } from "@screens/WalletNavigator/WalletNavigator";
@@ -17,7 +20,6 @@ import {
 } from "@components/CreateWalletStepIndicator";
 import { PinTextInputV2 } from "@components/PinTextInputV2";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { WalletPersistenceDataI } from "@shared-contexts/WalletPersistenceContext";
 import { EncryptedProviderData } from "@defichain/jellyfish-wallet-encrypted";
 import { MnemonicEncrypted } from "@api/wallet";
 import { MnemonicStorage } from "@api/wallet/mnemonic_storage";

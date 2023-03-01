@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { RootState } from "@store";
-import { block } from "@store/block";
-import { ocean } from "@store/ocean";
-import { transactionQueue } from "@store/transaction_queue";
+import {
+  ocean,
+  block,
+  transactionQueue,
+} from "@waveshq/walletkit-ui/dist/store";
 import { render } from "@testing-library/react-native";
 import { Provider } from "react-redux";
 import { NetworkSelectionScreen } from "./NetworkSelectionScreen";
@@ -13,8 +15,6 @@ jest.mock("@react-navigation/native", () => ({
 jest.mock("@shared-contexts/DeFiScanContext", () => ({
   useDeFiScanContext: () => ({ getblocksUrl: jest.fn() }),
 }));
-jest.mock("@shared-contexts/NetworkContext");
-jest.mock("@shared-contexts/ThemeProvider");
 
 describe("onboarding network selection screen", () => {
   it("should render", async () => {

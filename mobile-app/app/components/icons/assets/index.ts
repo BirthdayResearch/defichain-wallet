@@ -10,6 +10,7 @@ import { dLTC } from "./dLTC";
 import { dUSDC } from "./dUSDC";
 import { dUSDT } from "./dUSDT";
 import { dUSD } from "./dUSD";
+import { DFIlogo } from "./plainDFI";
 
 const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   _UTXO: DFI,
@@ -27,6 +28,7 @@ const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   dUSDC: dUSDC,
   dDUSD: dUSD,
   DUSD: dUSD,
+  DFIlogo: DFIlogo,
 };
 
 /**

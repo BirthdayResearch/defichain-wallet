@@ -1,6 +1,4 @@
 {
-    "schedule": "daily",
-    "ignoredFiles": [
-    	"cypress/**"
-    ]
+  "schedule": "daily",
+  "ignoredFiles": ["cypress/**"]
 }

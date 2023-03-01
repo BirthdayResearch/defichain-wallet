@@ -1,4 +1,4 @@
-import { EnvironmentNetwork } from "../../../../../../shared/environment";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 
 context("Wallet - Feature Gate", () => {
   const flags = [

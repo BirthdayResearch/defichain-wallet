@@ -15,18 +15,18 @@ import { StackScreenProps } from "@react-navigation/stack";
 import CoinImageCreate from "@assets/images/create-success-coin.png";
 import CoinImageRestore from "@assets/images/restore-success-coin.png";
 import { ButtonV2 } from "@components/ButtonV2";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { initJellyfishWallet, MnemonicEncrypted } from "@api/wallet";
 import {
   useWalletPersistenceContext,
   WalletPersistenceDataI,
-} from "@shared-contexts/WalletPersistenceContext";
+  useNetworkContext,
+  useThemeContext,
+  useWhaleApiClient,
+} from "@waveshq/walletkit-ui";
 import { EncryptedProviderData } from "@defichain/jellyfish-wallet-encrypted";
 import { MAX_ALLOWED_ADDRESSES } from "@shared-contexts/WalletContext";
 import { WalletAddressIndexPersistence } from "@api/wallet/address_index";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
 
 type Props = StackScreenProps<WalletParamList, "WalletCreateRestoreSuccess">;
 

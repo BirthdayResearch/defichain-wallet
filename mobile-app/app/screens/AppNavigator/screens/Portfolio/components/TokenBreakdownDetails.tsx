@@ -1,7 +1,7 @@
 import { View } from "@components";
 import { TextSkeletonLoader } from "@components/TextSkeletonLoader";
 import { ThemedProps, ThemedText } from "@components/themed";
-import { WalletToken } from "@store/wallet";
+import { WalletToken } from "@waveshq/walletkit-ui/dist/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";

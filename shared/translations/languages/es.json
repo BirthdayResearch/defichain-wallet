@@ -335,7 +335,8 @@
     "A small amount of UTXO is reserved for fees": "Una cantidad pequeña de UTXO es reservada para las tarifas",
     "Available {{unit}}": "Disponible {{unit}}",
     "Resulting {{unit}}": "Resultando {{unit}}",
-    "TO RECEIVE": "A RECIBIR"
+    "TO RECEIVE": "A RECIBIR",
+    "tokens": "tokens"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm": "Confirmar",
@@ -356,7 +357,9 @@
     "Transaction fee": "Comisión de transacción",
     "Resulting Tokens": "Resultando Tokens",
     "Resulting UTXO": "Resultando UTXO",
-    "Convert {{amount}} DFI to {{target}}": "Convirtiendo {{amount}} DFI a {{target}}"
+    "Convert {{amount}} DFI to {{target}}": "Convirtiendo {{amount}} DFI a {{target}}",
+    "Converting": "Convirtiendo",
+    "Converted": "Convertido"
   },
   "screens/SettingsNavigator": {
     "Settings": "Configuración"
@@ -465,7 +468,8 @@
     "Auctions": "Subastas",
     "Liquidity Mining": "Minería de Liquidez (pool de liquidez)",
     "Liquidity mining": "Minería de Liquidez (pool de liquidez)",
-    "UTXO and Tokens": "UTXO and Tokens"
+    "UTXO and Tokens": "UTXO and Tokens",
+    "Governance": "Governance"
   },
   "components/UtxoVsTokenFaq": {
     "About UTXO And Tokens": "Más sobre UTXO y Tokens",
@@ -534,6 +538,21 @@
     "The minimum starting bid is 105% of the batch's outstanding loan value. The additional 5% is included to cover the liquidation penalty, which is incurred upon vault liquidation.": "La mínima oferta de inicio es el 105% del valor pendiente del Vault de ese lote. El 5% adicional se incluye para cubrir la sanción por la liquidación, la cúal se sufre cuando se ejecuta la liquidación.",
     "How is the minimum next bid determined?": "¿Cómo se determina el mínimo para la siguiente oferta?",
     "The minimum next bid is 1% above the previous bid price.": "El mínimo para la siguiente oferta es el 1% sobre el precio de oferta anterior."
+  },
+  "components/CfpDfipProposalsFaq": {
+    "About Governance": "About Governance",
+    "FREQUENTLY ASKED QUESTIONS": "PREGUNTAS FRECUENTES",
+    "Governance on DeFiChain is a system for managing verified community proposals. Proposals can now be submitted using the mobile Light Wallet.": "Governance on DeFiChain is a system for managing verified community proposals. Proposals can now be submitted using the mobile Light Wallet.",
+    "What is the difference between a DFIP and CFP?": "What is the difference between a DFIP and CFP?",
+    "DeFiChain Improvement proposal (DFIP) aims to improve the key function(s) on DeFiChain.\nCommunity Funding Proposal (CFP) are community projects that build on top of DeFiChain. All approved CFPs are funded by the Community Development fund.": "DeFiChain Improvement proposal (DFIP) aims to improve the key function(s) on DeFiChain.\nCommunity Funding Proposal (CFP) are community projects that build on top of DeFiChain. All approved CFPs are funded by the Community Development fund.",
+    "How are proposal fees calculated?": "How are proposal fees calculated?",
+    "Proposal fees differ between DFIPs and CFPs. The cost of a DFIP proposal (vote of confidence) will be 50 DFI. Subsequently, a CFP proposal will cost 1% of the requested amount (DFI) or 10 DFI, whichever is larger. Proposal fee are automatically calculated and shown in the confirmation page.": "Proposal fees differ between DFIPs and CFPs. The cost of a DFIP proposal (vote of confidence) will be 50 DFI. Subsequently, a CFP proposal will cost 1% of the requested amount (DFI) or 10 DFI, whichever is larger. Proposal fee are automatically calculated and shown in the confirmation page.",
+    "Where can I find more details for all submitted proposals?": "Where can I find more details for all submitted proposals?",
+    "You may find all on-chain proposals on DeFiScan, under Governance tab.": "You may find all on-chain proposals on DeFiScan, under Governance tab.",
+    "Can I vote on proposals using Light Wallet?": "Can I vote on proposals using Light Wallet?",
+    "No, only proposal submissions can be done through Light Wallet. Currently, voting can only be submitted on chain using commands via CLI. Voting commands can be generated on DeFiScan via Governance tab > Proposal details > Submit vote.\nYou will need to own a full node wallet and at least one masternode to vote.": "No, only proposal submissions can be done through Light Wallet. Currently, voting can only be submitted on chain using commands via CLI. Voting commands can be generated on DeFiScan via Governance tab > Proposal details > Submit vote.\nYou will need to own a full node wallet and at least one masternode to vote.",
+    "Are there other ways to submit proposals?": "Are there other ways to submit proposals?",
+    "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under Governance tab > Submit proposal.": "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under Governance tab > Submit proposal."
   },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "RED",
@@ -732,7 +751,10 @@
     "Feature is still in Beta. Use at your own risk.": "Estas características están aún en prueba. Úsalas a tu propio riesgo.",
     "Allows the usage of custom server provider url": "Permite el uso de urls de servidores de proveedores personalizados",
     "Unloop DUSD loan": "Desatar préstamo de DUSD",
-    "Display payback DUSD loan with DUSD collateral": "Mostrar pago de préstamo de DUSD con el DUSD del colateral"
+    "Display payback DUSD loan with DUSD collateral": "Mostrar pago de préstamo de DUSD con el DUSD del colateral",
+    "CFP/DFIP proposal(s)": "CFP/DFIP proposal(s)",
+    "Allows the submission of CFP/DFIP proposals": "Allows the submission of CFP/DFIP proposals",
+    "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?": "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?"
   },
   "BottomTabNavigator": {
     "Balances": "Saldos",
@@ -823,7 +845,9 @@
     "Edited vault {{vaultId}}": "Edited vault {{vaultId}}",
     "Borrowing {{amount}} {{symbol}}": "Borrowing {{amount}} {{symbol}}",
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}",
-    "Borrowed {{amount}} {{symbol}}": "Borrowed {{amount}} {{symbol}}"
+    "Borrowed {{amount}} {{symbol}}": "Borrowed {{amount}} {{symbol}}",
+    "Requested amount is higher than available amount.": "Requested amount is higher than available amount.",
+    "tokens": "tokens"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Pidiendo acceso a la cámara",
@@ -1078,7 +1102,9 @@
     "Settlement block is the pre-determined block height that this transaction will be executed.": "El bloque de asentamiento es el bloque predeterminado en el que la transación será ejecutada",
     "Settlement value is based on the oracle price at the settlement block.": "El valor de asentamiento se basa en el precio del oráculo en el bloque de asentamiento",
     "Users will be able to cancel this transaction as long as the settlement block has not been executed.": "Los usuarios podrán cancelar esta transacción, siempre que no se haya alcanzado el bloque de asentamiento",
-    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Las comisiones son aplicadas dependiendo del tipo de intercambio y de los tokens seleccionados. Se componen de: \n\n1. Comisiones del intercambio.\n2. Comisión de transacción\n3. Comisiones relacionadas con el DEX como la comisión de estabilización o de quemado (si aplica)"
+    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Las comisiones son aplicadas dependiendo del tipo de intercambio y de los tokens seleccionados. Se componen de: \n\n1. Comisiones del intercambio.\n2. Comisión de transacción\n3. Comisiones relacionadas con el DEX como la comisión de estabilización o de quemado (si aplica)",
+    "Insufficient balance": "Balance insuficiente",
+    "A small amount of UTXO is reserved for fees": "Una cantidad pequeña de UTXO se reserva para comisiones"
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Seleccionar",
@@ -1366,6 +1392,7 @@
   },
   "components/EmptyAuctions": {
     "No auctions": "No hay subastas",
+    "No Auctions": "No hay subastas",
     "There are currently no collaterals available for auction.": "There are currently no collaterals available for auction.",
     "No Outbid Auctions": "No hay subastas sobrepujadas",
     "You have no outbids yet": "No tienes sobrepujas todavía",
@@ -1433,7 +1460,8 @@
     "You are the highest bidder": "Tu has hecho la oferta más alta",
     "From your vault": "De tu Vault",
     "Waiting for first bid": "Esperando a tu primera oferta",
-    "Quick bid": "Oferta rápida"
+    "Quick bid": "Oferta rápida",
+    "Quick rebid": "Quick rebid"
   },
   "components/BatchHistory": {
     "{{h}}h {{m}}m ago": "hace {{h}}h {{m}}min",
@@ -2198,7 +2226,8 @@
     "Receive": "Recibir",
     "Swap": "Cambiar",
     "Transactions": "Transacciones",
-    "Future swap": "Cambio a futuros"
+    "Future swap": "Cambio a futuros",
+    "Get DFI": "Obtener DFI"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "{{poolPair}} Pool",
@@ -2228,5 +2257,55 @@
     "Select Token": "Select Token",
     "Search with token name": "Buscar por nombre de token",
     "Search results for “{{searchTerm}}”": "Buscar resultados para “{{searchTerm}}”"
+  },
+  "screens/OCGProposalsScreen": {
+    "Governance": "Governance",
+    "Community Funding Proposal": "Community Funding Proposal",
+    "Proposal to build on top of the DeFiChain blockchain, and funded by the Community Development Fund.": "Proposal to build on top of the DeFiChain blockchain, and funded by the Community Development Fund.",
+    "DeFiChain Improvement Proposal": "DeFiChain Improvement Proposal",
+    "Proposal to improve the key function(s) on DeFiChain.": "Proposal to improve the key function(s) on DeFiChain.",
+    "An active discussion on GitHub or Reddit is encouraged before creating a proposal.": "An active discussion on GitHub or Reddit is encouraged before creating a proposal.",
+    "PROPOSAL TYPE": "PROPOSAL TYPE",
+    "Continue": "Continuar"
+  },
+  "screens/OCGDetailScreen": {
+    "CFP Details": "CFP Details",
+    "DFIP Details": "DFIP Details",
+    "PROPOSAL TITLE": "PROPOSAL TITLE",
+    "Title": "Title",
+    "Make sure that the name added here is the same as from the one posted in GitHub or Reddit.": "Make sure that the name added here is the same as from the one posted in GitHub or Reddit.",
+    "AMOUNT REQUESTED IN DFI": "AMOUNT REQUESTED IN DFI",
+    "RECEIVING ADDRESS": "RECEIVING ADDRESS",
+    "Review full proposal details in the next screen": "Review full proposal details in the next screen",
+    "Continue": "Continuar",
+    "CYCLE(S)": "CYCLE(S)",
+    "Voting Cycle(s)": "Voting Cycle(s)",
+    "Cycle(s) should be 1-100 only": "Cycle(s) should be 1-100 only",
+    "Scan Github URL": "Scan Github URL",
+    "DISCUSSION": "DISCUSSION",
+    "Paste URL": "Paste URL",
+    "Verified": "Verified",
+    "URL should be a valid GitHub or Reddit URL": "URL should be a valid GitHub or Reddit URL",
+    "Add GitHub or Reddit link to get started": "Add GitHub or Reddit link to get started",
+    "Cycle(s) determine the duration for which a proposal can accept votes.": "Cycle(s) determine the duration for which a proposal can accept votes.",
+    "Title exceeds max character limit of 128.": "Title exceeds max character limit of 128."
+  },
+  "screens/OCGConfirmScreen": {
+    "Confirm": "Confirmar",
+    "Proposal type": "Proposal type",
+    "Discussion": "Discussion",
+    "Submit": "Submit",
+    "You are proposing": "You are proposing",
+    "Amount to convert": "Cantidad a convertir",
+    "Amount requested": "Amount requested",
+    "Cycle(s)": "Cycle(s)",
+    "Receiving address": "Receiving address",
+    "Proposal fee": "Proposal fee",
+    "Proposal Fees": "Proposal Fees",
+    "Transaction fee": "Comision de transacción",
+    "I acknowledge all proposal details to be correct and final. Once submitted, the proposal is no longer editable. View your posted proposal in DeFiScan.": "I acknowledge all proposal details to be correct and final. Once submitted, the proposal is no longer editable. View your posted proposal in DeFiScan.",
+    "Submitting proposal": "Submitting proposal",
+    "Proposal Submitted": "Proposal Submitted",
+    "Proposals fees are implemented to encourage more responsible submissions.\nProposal fees are calculated based on the type of proposal selected, and the requested amount (only for CFP).\nRefer to our FAQ section for more detailed breakdown.": "Proposals fees are implemented to  encourage more responsible submissions.\nProposal fees are calculated based on the type of proposal selected, and the requested amount (only for CFP).\nRefer to our FAQ section for more detailed breakdown."
   }
 }

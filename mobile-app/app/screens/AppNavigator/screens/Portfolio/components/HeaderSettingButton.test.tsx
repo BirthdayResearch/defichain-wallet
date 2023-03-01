@@ -1,7 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { HeaderSettingButton } from "./HeaderSettingButton";
 
-jest.mock("@shared-contexts/ThemeProvider");
 jest.mock("@react-navigation/native", () => ({
   useNavigation: () => ({
     setOptions: jest.fn(),

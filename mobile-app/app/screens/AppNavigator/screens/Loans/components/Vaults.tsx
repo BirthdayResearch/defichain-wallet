@@ -14,7 +14,7 @@ import {
   LoanVault,
   vaultsSelector,
 } from "@store/loans";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import {
   NavigationProp,
@@ -30,7 +30,7 @@ import { SearchInput } from "@components/SearchInput";
 import { translate } from "@translations";
 import { Platform, TextInput, View } from "react-native";
 import { useDebounce } from "@hooks/useDebounce";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { LoanParamList } from "@screens/AppNavigator/screens/Loans/LoansNavigator";
 import {
   BottomSheetNavScreen,

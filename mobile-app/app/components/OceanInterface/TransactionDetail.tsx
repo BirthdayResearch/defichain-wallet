@@ -8,7 +8,7 @@ import {
   ThemedTextV2,
   ThemedViewV2,
 } from "@components/themed";
-import { TransactionStatusCode } from "@store/ocean";
+import { TransactionStatusCode } from "@waveshq/walletkit-ui/dist/store";
 import { TransactionCloseButton } from "./TransactionCloseButton";
 import { TransactionIDButton } from "./TransactionIDButton";
 

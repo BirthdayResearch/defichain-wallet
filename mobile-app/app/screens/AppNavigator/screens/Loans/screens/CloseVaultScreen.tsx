@@ -2,16 +2,19 @@ import { Dispatch, useEffect, useState } from "react";
 import { Image } from "react-native";
 import { useSelector } from "react-redux";
 import { StackScreenProps } from "@react-navigation/stack";
-import { EnvironmentNetwork } from "@environment";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { RootState } from "@store";
-import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasOceanTXQueued,
+  hasTxQueued,
+  transactionQueue,
+} from "@waveshq/walletkit-ui/dist/store";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import {
   NativeLoggingProps,
@@ -39,7 +42,7 @@ export function CloseVaultScreen({ route, navigation }: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const dispatch = useAppDispatch();
   const logger = useLogger();
@@ -77,7 +80,7 @@ export function CloseVaultScreen({ route, navigation }: Props): JSX.Element {
 
   return (
     <ThemedScrollViewV2
-      contentContainerStyle={tailwind("mt-16 h-full justify-between")}
+      contentContainerStyle={tailwind("mt-16 justify-between")}
       style={tailwind("px-5")}
     >
       <View style={tailwind("items-center")}>
@@ -85,7 +88,10 @@ export function CloseVaultScreen({ route, navigation }: Props): JSX.Element {
           source={CloseVaultImg}
           style={[
             tailwind("items-center justify-center"),
-            { width: 122, height: 95 },
+            {
+              width: 122,
+              height: 95,
+            },
           ]}
           resizeMode="contain"
         />
@@ -203,7 +209,8 @@ function SummaryDetails(props: {
         rhs={{
           value:
             network === EnvironmentNetwork.MainNet ||
-            network === EnvironmentNetwork.TestNet
+            network === EnvironmentNetwork.TestNet ||
+            network === EnvironmentNetwork.DevNet
               ? 1
               : 0.5,
           testID: "fees_to_return_text_rhs",
@@ -226,7 +233,8 @@ function SummaryDetails(props: {
         rhs={{
           value:
             network === EnvironmentNetwork.MainNet ||
-            network === EnvironmentNetwork.TestNet
+            network === EnvironmentNetwork.TestNet ||
+            network === EnvironmentNetwork.DevNet
               ? 1
               : 0.5,
           testID: "fees_to_burn_text_rhs",

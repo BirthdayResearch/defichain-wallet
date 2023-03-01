@@ -16,8 +16,11 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { RootState } from "@store";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
-import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+  transactionQueue,
+} from "@waveshq/walletkit-ui/dist/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
@@ -42,7 +45,7 @@ export function ConfirmAddLiquidityScreen({ route }: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const {
     pair,

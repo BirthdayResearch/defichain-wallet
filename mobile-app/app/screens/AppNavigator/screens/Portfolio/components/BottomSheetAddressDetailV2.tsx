@@ -20,13 +20,15 @@ import {
 } from "@shared-contexts/WalletContext";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
-import { wallet as walletReducer } from "@store/wallet";
+import { useThemeContext, useNetworkContext } from "@waveshq/walletkit-ui";
+import {
+  wallet as walletReducer,
+  hasTxQueued,
+  hasOceanTXQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 import { useSelector } from "react-redux";
 import { loans } from "@store/loans";
 import { RootState } from "@store";
-import { hasTxQueued } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { BottomSheetWithNavRouteParam } from "@components/BottomSheetWithNav";
 import {
@@ -34,7 +36,6 @@ import {
   setAddresses,
   setUserPreferences,
 } from "@store/userPreferences";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { openURL } from "@api/linking";
@@ -87,7 +88,7 @@ export const BottomSheetAddressDetailV2 = (
       hasTxQueued(state.transactionQueue)
     );
     const hasPendingBroadcastJob = useSelector((state: RootState) =>
-      hasBroadcastQueued(state.ocean)
+      hasOceanTXQueued(state.ocean)
     );
     const navigation =
       useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>();
@@ -187,6 +188,7 @@ export const BottomSheetAddressDetailV2 = (
     };
 
     const AddressListItem = useCallback(
+      // eslint-disable-next-line react/no-unused-prop-types
       ({ item, index }: { item: string; index: number }): JSX.Element => {
         const isSelected = item === props.address;
         const hasLabel =
@@ -357,7 +359,7 @@ export const BottomSheetAddressDetailV2 = (
               "mt-12 px-5 flex flex-row items-center justify-between w-full"
             )}
           >
-            <WalletCounterDisplay addressLength={addressLength} />
+            <WalletCounterDisplay />
             <DiscoverWalletAddress onPress={discoverWalletAddresses} />
           </View>
         </ThemedViewV2>
@@ -409,11 +411,7 @@ function ActiveAddress({
   );
 }
 
-function WalletCounterDisplay({
-  addressLength,
-}: {
-  addressLength: number;
-}): JSX.Element {
+function WalletCounterDisplay(): JSX.Element {
   return (
     <ThemedText
       light={tailwind("text-mono-light-v2-500")}

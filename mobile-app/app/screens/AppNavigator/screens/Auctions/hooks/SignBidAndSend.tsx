@@ -5,14 +5,15 @@ import {
 } from "@defichain/jellyfish-transaction/dist";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import {
+  hasTxQueued,
+  transactionQueue,
   firstTransactionSelector,
-  hasTxQueued as hasBroadcastQueued,
+  hasOceanTXQueued,
   OceanTransaction,
-} from "@store/ocean";
+} from "@waveshq/walletkit-ui/dist/store";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 
 interface ConstructSignedBidAndSendProps {
@@ -37,7 +38,7 @@ export const useSignBidAndSend = (): {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const currentBroadcastJob = useSelector((state: RootState) =>
     firstTransactionSelector(state.ocean)

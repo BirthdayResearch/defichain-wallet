@@ -17,11 +17,11 @@ import {
   DFIUtxoSelector,
   tokensSelector,
   WalletToken,
-} from "@store/wallet";
+  hasTxQueued,
+  hasOceanTXQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { hasTxQueued } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
 import {
   queueConvertTransaction,
   useConversion,
@@ -36,7 +36,7 @@ import {
   BottomSheetWebWithNavV2,
   BottomSheetWithNavV2,
 } from "@components/BottomSheetWithNavV2";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { ButtonV2 } from "@components/ButtonV2";
 import { useToast } from "react-native-toast-notifications";
 import { useBottomSheet } from "@hooks/useBottomSheet";
@@ -72,7 +72,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs);
   const tokens = useSelector((state: RootState) =>

@@ -11,11 +11,13 @@ import React, { memo, useCallback, useMemo, useState } from "react";
 import { Platform, TouchableOpacity } from "react-native";
 import { tailwind } from "@tailwind";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useNetworkContext, useThemeContext } from "@waveshq/walletkit-ui";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { hasTxQueued } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { BottomSheetWithNavRouteParam } from "@components/BottomSheetWithNav";
 import {
@@ -23,7 +25,6 @@ import {
   setAddressBook,
   setUserPreferences,
 } from "@store/userPreferences";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { RandomAvatar } from "./RandomAvatar";
 
@@ -54,7 +55,7 @@ export const BottomSheetAddressBook = (
       hasTxQueued(state.transactionQueue)
     );
     const hasPendingBroadcastJob = useSelector((state: RootState) =>
-      hasBroadcastQueued(state.ocean)
+      hasOceanTXQueued(state.ocean)
     );
     const [isEditing, setIsEditing] = useState(false);
     const navigation =
@@ -179,6 +180,7 @@ export const BottomSheetAddressBook = (
     }, [isEditing, addresses]);
 
     const AddressListItem = useCallback(
+      // eslint-disable-next-line react/no-unused-prop-types
       ({ item, index }: { item: string; index: number }): JSX.Element => {
         return (
           <ThemedTouchableOpacity

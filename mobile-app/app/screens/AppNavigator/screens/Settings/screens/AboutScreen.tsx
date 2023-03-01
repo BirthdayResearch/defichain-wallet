@@ -15,7 +15,7 @@ import { translate } from "@translations";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { openURL } from "@api/linking";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import DeFiChainWalletImageLight from "@assets/images/DeFiChainWallet-light.png";
 import DeFiChainWalletImageDark from "@assets/images/DeFiChainWallet-dark.png";
 import GridBackgroundImageLight from "@assets/images/about-grid-bg-light.png";

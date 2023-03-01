@@ -2,7 +2,10 @@ import { useCallback } from "react";
 import BigNumber from "bignumber.js";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { DFITokenSelector, DFIUtxoSelector } from "@store/wallet";
+import {
+  DFITokenSelector,
+  DFIUtxoSelector,
+} from "@waveshq/walletkit-ui/dist/store";
 
 export function useDisplayUtxoWarning(): {
   getDisplayUtxoWarningStatus: (

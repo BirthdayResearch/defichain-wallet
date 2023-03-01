@@ -12,10 +12,12 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { hasTxQueued } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+} from "@waveshq/walletkit-ui/dist/store";
 import { RootState } from "@store";
 import { useSelector } from "react-redux";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -31,7 +33,7 @@ import { InputHelperTextV2 } from "@components/InputHelperText";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { ButtonV2 } from "@components/ButtonV2";
 import { useBottomSheet } from "@hooks/useBottomSheet";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { ViewSwapInfo } from "@screens/AppNavigator/screens/Portfolio/screens/ViewSwapInfo";
 import { Platform, View } from "react-native";
 import {
@@ -58,7 +60,7 @@ export function WithdrawFutureSwapScreen(props: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const blockCount = useSelector((state: RootState) => state.block.count ?? 0);
   const { isEnded, transactionDate } = useFutureSwapDate(

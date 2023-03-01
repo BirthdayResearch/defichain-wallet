@@ -7,11 +7,11 @@ import {
   fetchDexPrice,
   fetchSwappableTokens,
   tokensSelector,
-} from "@store/wallet";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+} from "@waveshq/walletkit-ui/dist/store";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { BottomSheetToken } from "@components/BottomSheetTokenList";
 import { CacheApi } from "@api/cache";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useFocusEffect } from "@react-navigation/core";
 import { AllSwappableTokensResult } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { useAppDispatch } from "@hooks/useAppDispatch";

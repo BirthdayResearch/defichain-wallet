@@ -2,7 +2,6 @@ import { render } from "@testing-library/react-native";
 import BigNumber from "bignumber.js";
 import { AmountButtonTypes, SetAmountButton } from "./SetAmountButton";
 
-jest.mock("@shared-contexts/ThemeProvider");
 const buttonType: AmountButtonTypes[] = [
   AmountButtonTypes.half,
   AmountButtonTypes.max,

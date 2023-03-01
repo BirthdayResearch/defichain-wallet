@@ -1,8 +1,8 @@
-version: '3.7'
+version: "3.7"
 
 services:
   traefik:
-    image: traefik:v2.9
+    image: traefik:v3.0
     command:
       - "--api.insecure=true"
       - "--providers.docker=true"
@@ -17,7 +17,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:2.11.1
+    image: defi/defichain:3.2.6
     command: >
       defid
       -printtoconsole
@@ -27,6 +27,9 @@ services:
       -rpcpassword=playground
       -rpcworkqueue=512
       -masternode_operator=mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy
+      -masternode_operator=mps7BdmwEF2vQ9DREDyNPibqsuSRZ8LuwQ
+      -masternode_operator=bcrt1qmfvw3dp3u6fdvqkdc0y3lr0e596le9cf22vtsv
+      -masternode_operator=bcrt1qurwyhta75n2g75u2u5nds9p6w9v62y8wr40d2r
       -regtest=1
       -jellyfish_regtest=1
       -txnotokens=0
@@ -49,9 +52,10 @@ services:
       -fortcanningspringheight=13
       -fortcanninggreatworldheight=14
       -fortcanningepilogueheight=15
+      -grandcentralheight=16
 
   defi-playground:
-    image: ghcr.io/jellyfishsdk/playground-api:2.69.0
+    image: ghcr.io/jellyfishsdk/playground-api:3.29.1
     depends_on:
       - defi-blockchain
     ports:
@@ -64,7 +68,7 @@ services:
       - "traefik.http.routers.playground.entrypoints=web"
 
   defi-whale:
-    image: ghcr.io/jellyfishsdk/whale-api:2.69.0
+    image: ghcr.io/jellyfishsdk/whale-api:3.29.1
     depends_on:
       - defi-blockchain
     ports:

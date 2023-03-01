@@ -9,8 +9,12 @@ import BigNumber from "bignumber.js";
 import { Dispatch, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+  transactionQueue,
+  AddressType,
+} from "@waveshq/walletkit-ui/dist/store";
 import { StackScreenProps } from "@react-navigation/stack";
 import {
   NativeLoggingProps,
@@ -25,14 +29,13 @@ import {
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { fetchVaults } from "@store/loans";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { SummaryTitle } from "@components/SummaryTitle";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { TextRowV2 } from "@components/TextRowV2";
-import { AddressType } from "@store/wallet";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { LoanParamList } from "../LoansNavigator";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
@@ -56,7 +59,7 @@ export function ConfirmBorrowLoanTokenScreen({
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const dispatch = useAppDispatch();
   const logger = useLogger();

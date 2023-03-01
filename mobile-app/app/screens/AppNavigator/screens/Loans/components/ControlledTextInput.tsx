@@ -1,5 +1,5 @@
 import { ThemedProps, ThemedTextInputV2 } from "@components/themed";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { getColor, tailwind } from "@tailwind";
 import { Control, Controller } from "react-hook-form";
 import { TextInputProps } from "react-native";

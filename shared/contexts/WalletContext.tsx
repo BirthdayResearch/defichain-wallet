@@ -10,9 +10,11 @@ import { JellyfishWallet, WalletHdNode } from "@defichain/jellyfish-wallet";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { initJellyfishWallet } from "@api/wallet";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { useNetworkContext } from "./NetworkContext";
-import { useWhaleApiClient } from "./WhaleContext";
-import { useWalletNodeContext } from "./WalletNodeProvider";
+import {
+  useNetworkContext,
+  useWalletNodeContext,
+  useWhaleApiClient,
+} from "@waveshq/walletkit-ui";
 
 interface WalletContextI {
   /**

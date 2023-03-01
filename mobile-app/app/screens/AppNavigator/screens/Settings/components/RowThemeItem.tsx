@@ -4,7 +4,7 @@ import { Platform, View } from "react-native";
 import { ThemePersistence } from "@api";
 import { Switch } from "@components";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 

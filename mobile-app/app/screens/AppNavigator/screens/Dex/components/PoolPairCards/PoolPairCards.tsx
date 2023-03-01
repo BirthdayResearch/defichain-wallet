@@ -8,10 +8,9 @@ import {
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { useTokenBestPath } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenBestPath";
 import React, { useEffect, useRef, useState } from "react";
 import { useScrollToTop } from "@react-navigation/native";
-import { WalletToken } from "@store/wallet";
+import { WalletToken } from "@waveshq/walletkit-ui";
 import { useDebounce } from "@hooks/useDebounce";
 import { AddressToken } from "@defichain/whale-api-client/dist/api/address";
 import { useSelector } from "react-redux";
@@ -238,38 +237,15 @@ function PoolCard({
   onAdd,
   onRemove,
 }: PoolCardProps): JSX.Element {
-  const { calculatePriceRates } = useTokenBestPath();
   const { getTokenPrice } = useTokenPrice();
   const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet);
-  const blockCount = useSelector((state: RootState) => state.block.count);
   const { data: yourPair } = item;
   const isFavoritePair = isFavouritePoolpair(yourPair.id);
-
-  const [priceRates, setPriceRates] = useState({
-    aToBPrice: new BigNumber(""),
-    bToAPrice: new BigNumber(""),
-    estimated: new BigNumber(""),
-  });
 
   const poolPairData = pairs.find(
     (pr) => pr.data.symbol === (yourPair as AddressToken).symbol
   );
   const mappedPair = poolPairData?.data;
-
-  useEffect(() => {
-    void getPriceRates();
-  }, [mappedPair, blockCount]);
-
-  const getPriceRates = async (): Promise<void> => {
-    if (mappedPair !== undefined) {
-      const priceRates = await calculatePriceRates(
-        mappedPair.tokenA.id,
-        mappedPair.tokenB.id,
-        new BigNumber("1")
-      );
-      setPriceRates(priceRates);
-    }
-  };
 
   const [symbolA, symbolB] =
     mappedPair?.tokenA != null && mappedPair?.tokenB != null
@@ -295,8 +271,8 @@ function PoolCard({
               symbolB={symbolB}
               pair={mappedPair}
               onSwap={() => onSwap(mappedPair, yourPair as WalletToken)}
-              aToBPrice={priceRates.aToBPrice}
-              bToAPrice={priceRates.bToAPrice}
+              aToBPrice={new BigNumber(mappedPair.priceRatio.ab)}
+              bToAPrice={new BigNumber(mappedPair.priceRatio.ba)}
               isFavouritePair={isFavoritePair}
               setFavouritePoolpair={setFavouritePoolpair}
               status={mappedPair.status}
@@ -507,12 +483,12 @@ function getSortedPriceRates({
   const tokenA = {
     symbol: mappedPair.tokenA.symbol,
     displaySymbol: mappedPair.tokenA.displaySymbol,
-    priceRate: aToBPrice,
+    priceRate: bToAPrice,
   };
   const tokenB = {
     symbol: mappedPair.tokenB.symbol,
     displaySymbol: mappedPair.tokenB.displaySymbol,
-    priceRate: bToAPrice,
+    priceRate: aToBPrice,
   };
 
   return {

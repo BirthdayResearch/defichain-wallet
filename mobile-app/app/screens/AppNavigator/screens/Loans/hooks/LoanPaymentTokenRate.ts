@@ -6,7 +6,7 @@ import {
   tokenSelectorByDisplaySymbol,
   tokensSelector,
   WalletToken,
-} from "@store/wallet";
+} from "@waveshq/walletkit-ui/dist/store";
 import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";

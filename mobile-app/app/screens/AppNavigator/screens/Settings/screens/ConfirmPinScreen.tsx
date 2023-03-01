@@ -10,11 +10,11 @@ import {
   ThemedScrollViewV2,
   ThemedTextV2,
 } from "@components/themed";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
 import {
+  useNetworkContext,
   useWalletPersistenceContext,
   WalletPersistenceDataI,
-} from "@shared-contexts/WalletPersistenceContext";
+} from "@waveshq/walletkit-ui";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";

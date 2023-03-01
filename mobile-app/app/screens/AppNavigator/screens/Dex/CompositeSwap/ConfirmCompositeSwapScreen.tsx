@@ -6,9 +6,12 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import BigNumber from "bignumber.js";
 import { RootState } from "@store";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+  transactionQueue,
+} from "@waveshq/walletkit-ui/dist/store";
 import { translate } from "@translations";
-import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import {
   CompositeSwap,
   CTransactionSegWit,
@@ -78,7 +81,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const blockCount = useSelector((state: RootState) => state.block.count ?? 0);
 

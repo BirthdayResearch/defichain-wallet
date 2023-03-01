@@ -22,6 +22,7 @@ import { tailwind } from "@tailwind";
 import { ThemedTextV2 } from "@components/themed";
 import { StyleProp, ViewStyle } from "react-native";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
+import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import {
   CollateralItem,
   EditCollateralScreen,
@@ -122,7 +123,7 @@ export function LoansNavigator(): JSX.Element {
   const headerContainerTestId = "loans_header_container";
   const screenOptions = useNavigatorScreenOptions();
   const goToNetworkSelect = (): void => {
-    navigation.navigate("NetworkSelectionScreen");
+    navigation.navigate("NetworkSelectionScreenLoans");
   };
 
   return (
@@ -161,6 +162,17 @@ export function LoansNavigator(): JSX.Element {
           ),
         }}
       />
+
+      <LoansStack.Screen
+        component={NetworkSelectionScreen}
+        name="NetworkSelectionScreenLoans"
+        options={{
+          ...screenOptions,
+          headerTitle: translate("screens/NetworkSelectionScreen", "Network"),
+          headerRight: undefined,
+        }}
+      />
+
       <LoansStack.Screen
         component={NetworkDetails}
         name="NetworkDetails"

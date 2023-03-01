@@ -24,7 +24,7 @@ import { useVaultStatus } from "@screens/AppNavigator/screens/Loans/components/V
 import { useNextCollateralizationRatio } from "@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio";
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { useIsFocused } from "@react-navigation/native";
 import { VaultDetailStatus } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailStatus";
 import { VaultActionButtons } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultActionButtons";
@@ -34,7 +34,7 @@ import {
 } from "@components/BottomSheetWithNavV2";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { BottomSheetLoanTokensList } from "@screens/AppNavigator/screens/Loans/components/BottomSheetLoanTokensList";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { CloseVaultButton } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/CloseVaultButton";
 import { VaultDetailSummary } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailSummary";
 import { useMaxLoan } from "@screens/AppNavigator/screens/Loans/hooks/MaxLoanAmount";

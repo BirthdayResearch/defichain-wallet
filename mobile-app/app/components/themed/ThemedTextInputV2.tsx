@@ -7,7 +7,7 @@ import {
   TextInput,
   TextInputProps,
 } from "react-native";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { getColor, tailwind } from "@tailwind";
 import { ThemedProps } from "./";
 

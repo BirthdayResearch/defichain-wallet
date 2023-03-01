@@ -1,5 +1,7 @@
-import { useServiceProviderContext } from "@contexts/StoreServiceProvider";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import {
+  useNetworkContext,
+  useServiceProviderContext,
+} from "@waveshq/walletkit-ui";
 import { RootState } from "@store";
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";

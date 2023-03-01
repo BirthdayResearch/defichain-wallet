@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   useBottomSheetModal,
 } from "@gorhom/bottom-sheet";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { ScrollView } from "react-native-gesture-handler";
 import { ThemedIcon, ThemedProps } from "./themed";
 import { WalletAlert } from "./WalletAlert";

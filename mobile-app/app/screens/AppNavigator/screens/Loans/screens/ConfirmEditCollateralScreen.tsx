@@ -7,11 +7,13 @@ import { Dispatch, useEffect, useState } from "react";
 import { View } from "react-native";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
 import {
   firstTransactionSelector,
-  hasTxQueued as hasBroadcastQueued,
-} from "@store/ocean";
+  hasTxQueued,
+  hasOceanTXQueued,
+  transactionQueue,
+  AddressType,
+} from "@waveshq/walletkit-ui/dist/store";
 import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
 import {
   NativeLoggingProps,
@@ -26,13 +28,12 @@ import { getCollateralValue } from "@screens/AppNavigator/screens/Loans/hooks/Co
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { fetchVaults } from "@store/loans";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { SummaryTitle } from "@components/SummaryTitle";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import { AddressType } from "@store/wallet";
 import { TextRowV2 } from "@components/TextRowV2";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { WalletAlert } from "@components/WalletAlert";
@@ -65,7 +66,7 @@ export function ConfirmEditCollateralScreen({
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const currentBroadcastJob = useSelector((state: RootState) =>
     firstTransactionSelector(state.ocean)

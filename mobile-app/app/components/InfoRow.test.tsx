@@ -1,8 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { InfoRow, InfoType } from "./InfoRow";
 
-jest.mock("@shared-contexts/ThemeProvider");
-
 jest.mock("./BottomSheetModal", () => ({
   BottomSheetModal: () => <></>,
 }));

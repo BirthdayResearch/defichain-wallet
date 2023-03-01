@@ -51,7 +51,7 @@ export function AuctionsNavigator(): JSX.Element {
 
   const screenOptions = useNavigatorScreenOptions({ isRounded: true });
   const goToNetworkSelect = (): void => {
-    navigation.navigate("NetworkSelectionScreen");
+    navigation.navigate("NetworkSelectionScreenAuction");
   };
   return (
     <AuctionsStack.Navigator
@@ -105,7 +105,7 @@ export function AuctionsNavigator(): JSX.Element {
 
       <AuctionsStack.Screen
         component={NetworkSelectionScreen}
-        name="NetworkSelectionScreen"
+        name="NetworkSelectionScreenAuction"
         options={{
           headerTitle: translate("screens/NetworkSelectionScreen", "Network"),
           headerRight: undefined,

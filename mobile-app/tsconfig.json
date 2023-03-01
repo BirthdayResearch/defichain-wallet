@@ -3,8 +3,5 @@
   "compilerOptions": {
     "allowJs": false // solves type clash between jest and cypress
   },
-  "exclude": [
-    "node_modules",
-    "cypress/*"
-  ]
+  "exclude": ["node_modules", "cypress/*"]
 }

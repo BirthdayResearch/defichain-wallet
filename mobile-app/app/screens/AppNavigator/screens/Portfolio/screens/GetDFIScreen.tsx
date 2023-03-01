@@ -11,7 +11,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { useToast } from "react-native-toast-notifications";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
@@ -26,7 +26,7 @@ import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
 
 export async function onShare(

@@ -2,7 +2,7 @@ import * as Linking from "expo-linking";
 import { LinkingOptions, NavigationContainer } from "@react-navigation/native";
 import { Theme } from "@react-navigation/native/lib/typescript/src/types";
 import { createStackNavigator } from "@react-navigation/stack";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { getDefaultTheme } from "@constants/Theme";
 import { PlaygroundNavigator } from "../PlaygroundNavigator/PlaygroundNavigator";
 import { AppLinking, BottomTabNavigator } from "./BottomTabNavigator";

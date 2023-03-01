@@ -1,10 +1,7 @@
 import { EncryptedProviderData } from "@defichain/jellyfish-wallet-encrypted";
 import { MnemonicEncrypted } from "@api/wallet";
-import { EnvironmentNetwork } from "@environment";
-import {
-  WalletPersistenceDataI,
-  WalletType,
-} from "@shared-contexts/WalletPersistenceContext";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
+import { WalletPersistenceDataI, WalletType } from "@waveshq/walletkit-ui";
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -25,6 +22,6 @@ describe("getMnemonicHdNodeProvider for encrypted mnemonic", () => {
     const prompt = { prompt: jest.fn() };
     expect(() => {
       MnemonicEncrypted.initProvider(data, options, prompt);
-    }).toThrowError("Unexpected WalletPersistenceDataI");
+    }).toThrow("Unexpected WalletPersistenceDataI");
   });
 });

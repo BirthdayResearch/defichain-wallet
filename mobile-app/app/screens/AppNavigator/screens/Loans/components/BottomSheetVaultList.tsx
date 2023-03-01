@@ -10,7 +10,7 @@ import {
   LoanVaultState,
 } from "@defichain/whale-api-client/dist/api/loan";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { LoanVault } from "@store/loans";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";

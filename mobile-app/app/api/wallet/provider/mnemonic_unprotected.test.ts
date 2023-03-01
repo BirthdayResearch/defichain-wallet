@@ -1,9 +1,6 @@
 import { MnemonicProviderData } from "@defichain/jellyfish-wallet-mnemonic";
-import { EnvironmentNetwork } from "@environment";
-import {
-  WalletPersistenceDataI,
-  WalletType,
-} from "@shared-contexts/WalletPersistenceContext";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
+import { WalletPersistenceDataI, WalletType } from "@waveshq/walletkit-ui";
 import { MnemonicUnprotected } from "@api/wallet";
 
 beforeEach(() => {
@@ -24,7 +21,7 @@ describe("getMnemonicHdNodeProvider", () => {
     const options = EnvironmentNetwork.LocalPlayground;
     expect(() => {
       MnemonicUnprotected.initProvider(data, options);
-    }).toThrowError("Unexpected WalletPersistenceDataI");
+    }).toThrow("Unexpected WalletPersistenceDataI");
   });
 
   it("should get provider (abandon x23)", async () => {

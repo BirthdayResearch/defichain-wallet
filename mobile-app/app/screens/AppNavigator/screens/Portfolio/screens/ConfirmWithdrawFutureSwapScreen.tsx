@@ -5,8 +5,12 @@ import BigNumber from "bignumber.js";
 import { Dispatch, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+  transactionQueue,
+  AddressType,
+} from "@waveshq/walletkit-ui/dist/store";
 import { StackScreenProps } from "@react-navigation/stack";
 import {
   NativeLoggingProps,
@@ -19,7 +23,6 @@ import { useAppDispatch } from "@hooks/useAppDispatch";
 import { SummaryTitle } from "@components/SummaryTitle";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
-import { AddressType } from "@store/wallet";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { View } from "react-native";
@@ -44,7 +47,7 @@ export function ConfirmWithdrawFutureSwapScreen({
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const blockCount = useSelector((state: RootState) => state.block.count ?? 0);
   const { isEnded } = useFutureSwapDate(executionBlock, blockCount);

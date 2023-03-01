@@ -16,16 +16,19 @@ import {
 } from "@defichain/jellyfish-transaction/dist";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import {
   NativeLoggingProps,
   useLogger,
 } from "@shared-contexts/NativeLoggingProvider";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { RootState } from "@store";
-import { WalletToken } from "@store/wallet";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
-import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
+import {
+  WalletToken,
+  hasTxQueued,
+  hasOceanTXQueued,
+  transactionQueue,
+} from "@waveshq/walletkit-ui/dist/store";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { View } from "@components";
@@ -65,7 +68,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const dispatch = useAppDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);

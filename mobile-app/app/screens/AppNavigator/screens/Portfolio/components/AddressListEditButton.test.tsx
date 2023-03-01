@@ -5,8 +5,6 @@ import { render } from "@testing-library/react-native";
 import { Provider } from "react-redux";
 import { AddressListEditButton } from "./AddressListEditButton";
 
-jest.mock("@shared-contexts/ThemeProvider");
-
 describe("Address List Edit Button", () => {
   it("should match snapshot", async () => {
     const initialState: Partial<RootState> = {

@@ -1,10 +1,10 @@
 ---
 name: Translation improvements
 about: Suggest a translation improvement for DeFiChain Wallet
-labels: 'kind/chore,area/translations'
+labels: "kind/chore,area/translations"
 ---
 
-<!-- 
+<!--
 Please only use this template for submitting translation improvements
 
 If you can create a pull request, I opt you to create it instead.

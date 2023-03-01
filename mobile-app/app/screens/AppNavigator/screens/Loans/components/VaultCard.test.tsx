@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
 import { configureStore } from "@reduxjs/toolkit";
-import { wallet } from "@store/wallet";
+import { wallet } from "@waveshq/walletkit-ui/dist/store";
 import { loans } from "@store/loans";
 import { RootState } from "@store";
 import { Provider } from "react-redux";
@@ -12,7 +12,7 @@ jest.mock(
   "react-native-circular-progress-indicator",
   () => "react-native-circular-progress-indicator/mock"
 );
-jest.mock("@shared-contexts/ThemeProvider");
+
 jest.mock("@shared-contexts/DeFiScanContext");
 jest.mock("@components/BottomSheetInfo", () => ({
   BottomSheetInfo: () => <></>,

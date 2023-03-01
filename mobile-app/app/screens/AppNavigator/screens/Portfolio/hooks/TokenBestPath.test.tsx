@@ -3,71 +3,11 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { renderHook } from "@testing-library/react-native";
 import BigNumber from "bignumber.js";
-import { DexItem, wallet } from "@store/wallet";
-import { block } from "@store/block";
+import { block, DexItem, wallet } from "@waveshq/walletkit-ui/dist/store";
 import { useTokenBestPath } from "./TokenBestPath";
 
-jest.mock("@shared-contexts/NetworkContext");
 jest.mock("@react-navigation/native", () => ({
   useIsFocused: jest.fn(),
-}));
-jest.mock("@shared-contexts/WhaleContext", () => ({
-  useWhaleApiClient: () => ({
-    poolpairs: {
-      getBestPath: () => ({
-        fromToken: {
-          id: "1",
-          symbol: "BTC",
-          displaySymbol: "dBTC",
-        },
-        toToken: {
-          id: "3",
-          symbol: "USDT",
-          displaySymbol: "dUSDT",
-        },
-        bestPath: [
-          {
-            poolPairId: "17",
-            symbol: "BTC-DFI",
-            tokenA: {
-              id: "1",
-              symbol: "BTC",
-              displaySymbol: "dBTC",
-            },
-            tokenB: {
-              id: "0",
-              symbol: "DFI",
-              displaySymbol: "DFI",
-            },
-            priceRatio: {
-              ab: "1.00000000",
-              ba: "1.00000000",
-            },
-          },
-          {
-            poolPairId: "19",
-            symbol: "USDT-DFI",
-            tokenA: {
-              id: "3",
-              symbol: "USDT",
-              displaySymbol: "dUSDT",
-            },
-            tokenB: {
-              id: "0",
-              symbol: "DFI",
-              displaySymbol: "DFI",
-            },
-            priceRatio: {
-              ab: "10000.00000000",
-              ba: "0.00010000",
-            },
-          },
-        ],
-        estimatedReturn: "10000.00000000",
-        estimatedReturnLessDexFees: "1.0",
-      }),
-    },
-  }),
 }));
 
 describe("Token Best Path - Get Best Path (DEX)", () => {

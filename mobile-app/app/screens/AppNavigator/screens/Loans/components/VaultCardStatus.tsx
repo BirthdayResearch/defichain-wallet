@@ -13,7 +13,7 @@ import {
   getVaultStatusColor,
   getVaultStatusText,
 } from "@screens/AppNavigator/screens/Loans/hooks/CollateralizationRatio";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
 import { useUnitSuffix } from "@hooks/useUnitSuffix";
 

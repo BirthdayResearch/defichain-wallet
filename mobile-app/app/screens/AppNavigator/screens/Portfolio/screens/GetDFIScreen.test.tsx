@@ -3,8 +3,8 @@ import { fireEvent, render } from "@testing-library/react-native";
 import * as Clipboard from "expo-clipboard";
 import { Provider } from "react-redux";
 import { RootState } from "@store";
-import { wallet } from "@store/wallet";
-import { block } from "@store/block";
+import { wallet } from "@waveshq/walletkit-ui/dist/store";
+import { block } from "@waveshq/walletkit-ui/dist/store/block";
 import { GetDFIScreen } from "./GetDFIScreen";
 
 jest.mock("@shared-contexts/WalletContext");
@@ -14,7 +14,7 @@ jest.mock("expo-clipboard", () => ({
   setStringAsync: jest.fn(),
 }));
 
-jest.mock("@shared-contexts/WhaleContext", () => ({
+jest.mock("@waveshq/walletkit-ui/dist/contexts", () => ({
   useWhaleApiClient: () => ({
     prices: {
       get: async () => ({
@@ -54,7 +54,6 @@ jest.mock("react-native-toast-notifications", () => ({
   }),
 }));
 
-jest.mock("@shared-contexts/ThemeProvider");
 const navigation: any = {
   navigate: jest.fn(),
 };

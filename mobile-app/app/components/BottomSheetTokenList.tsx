@@ -6,7 +6,7 @@ import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
+import { useThemeContext } from "@waveshq/walletkit-ui";
 import { AddOrRemoveCollateralResponse } from "@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm";
 import { CollateralItem } from "@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen";
 import { LoanVaultActive } from "@defichain/whale-api-client/dist/api/loan";

@@ -1,16 +1,25 @@
 import * as SplashScreen from "expo-splash-screen";
 import "./_shim";
-import { SecuredStoreAPI, LanguagePersistence, ThemePersistence } from "@api";
+import {
+  SecuredStoreAPI,
+  LanguagePersistence,
+  ThemePersistence,
+  Logging,
+} from "@api";
 import { AppStateContextProvider } from "@contexts/AppStateContext";
 import { DeFiScanProvider } from "@shared-contexts/DeFiScanContext";
 import { DisplayBalancesProvider } from "@contexts/DisplayBalancesContext";
 import { PrivacyLockContextProvider } from "@contexts/LocalAuthContext";
-import { NetworkProvider } from "@shared-contexts/NetworkContext";
+import {
+  NetworkProvider,
+  StoreServiceProvider,
+  ThemeProvider,
+  useTheme,
+  WhaleProvider,
+  WalletPersistenceProvider,
+} from "@waveshq/walletkit-ui";
 import { StatsProvider } from "@shared-contexts/StatsProvider";
 import { StoreProvider } from "@contexts/StoreProvider";
-import { ThemeProvider, useTheme } from "@shared-contexts/ThemeProvider";
-import { WalletPersistenceProvider } from "@shared-contexts/WalletPersistenceContext";
-import { WhaleProvider } from "@shared-contexts/WhaleContext";
 import { useCachedResources } from "@hooks/useCachedResources";
 import ConnectionBoundary from "@screens/ConnectionBoundary/ConnectionBoundary";
 import ErrorBoundary from "@screens/ErrorBoundary/ErrorBoundary";
@@ -33,7 +42,6 @@ import { tailwind } from "@tailwind";
 import { ToastProvider } from "react-native-toast-notifications";
 import { ToastProps } from "react-native-toast-notifications/lib/typescript/toast";
 import { WalletToast } from "@components/WalletToast";
-import { StoreServiceProvider } from "@contexts/StoreServiceProvider";
 import { ServiceProviderPersistence } from "@api/wallet/service_provider";
 import { FavouritePoolpairProvider } from "@contexts/FavouritePoolpairContext";
 import BigNumber from "bignumber.js";
@@ -55,6 +63,7 @@ export default function App(): JSX.Element | null {
   const { isThemeLoaded } = useTheme({
     api: ThemePersistence,
     colorScheme,
+    logger: Logging,
   });
   const { isLanguageLoaded } = useLanguage({
     api: LanguagePersistence,
@@ -75,8 +84,11 @@ export default function App(): JSX.Element | null {
       <ErrorBoundary>
         <AppStateContextProvider>
           <PrivacyLockContextProvider>
-            <NetworkProvider api={SecuredStoreAPI}>
-              <StoreServiceProvider api={ServiceProviderPersistence}>
+            <NetworkProvider api={SecuredStoreAPI} logger={Logging}>
+              <StoreServiceProvider
+                api={ServiceProviderPersistence}
+                logger={Logging}
+              >
                 <WhaleProvider>
                   <DeFiScanProvider>
                     <WalletPersistenceProvider
@@ -84,6 +96,7 @@ export default function App(): JSX.Element | null {
                         ...WalletPersistence,
                         ...WalletAddressIndexPersistence,
                       }}
+                      logger={Logging}
                     >
                       <StoreProvider>
                         <StatsProvider>
@@ -91,6 +104,7 @@ export default function App(): JSX.Element | null {
                             <ThemeProvider
                               api={ThemePersistence}
                               colorScheme={colorScheme}
+                              logger={Logging}
                             >
                               <LanguageProvider
                                 api={LanguagePersistence}

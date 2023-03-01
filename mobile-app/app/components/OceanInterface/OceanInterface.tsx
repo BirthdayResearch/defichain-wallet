@@ -1,17 +1,17 @@
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
 import { WhaleApiClient } from "@defichain/whale-api-client";
 import { Transaction } from "@defichain/whale-api-client/dist/api/transactions";
-import { getEnvironment } from "@environment";
+import { getEnvironment } from "@waveshq/walletkit-core";
 import { RootState } from "@store";
 import {
   firstTransactionSelector,
   ocean,
   OceanTransaction,
   TransactionStatusCode,
-} from "@store/ocean";
+} from "@waveshq/walletkit-ui/dist/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useCallback, useEffect, useRef, useState } from "react";

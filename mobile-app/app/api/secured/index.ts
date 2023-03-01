@@ -1,4 +1,4 @@
-import { EnvironmentNetwork, getEnvironment } from "@environment";
+import { EnvironmentNetwork, getEnvironment } from "@waveshq/walletkit-core";
 import { getReleaseChannel } from "@api/releaseChannel";
 import { StorageProvider } from "./provider";
 

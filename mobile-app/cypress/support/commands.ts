@@ -3,7 +3,7 @@ import "@testing-library/cypress/add-commands";
 import "./onboardingCommands";
 import "./walletCommands";
 import "./loanCommands";
-import { EnvironmentNetwork } from "../../../shared/environment";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const compareSnapshotCommand = require("cypress-image-diff-js/dist/command");
@@ -232,7 +232,7 @@ Cypress.Commands.add("setFeatureFlags", (flags: string[], stage?: string) => {
   const body = flags.map((flag) => ({
     id: flag,
     name: flag,
-    stage: stage ?? "public",
+    stage: stage ? stage : "public",
     version: ">0.0.0",
     description: `Display ${flag} features`,
     networks: [

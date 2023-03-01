@@ -3,11 +3,10 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { renderHook } from "@testing-library/react-native";
 import BigNumber from "bignumber.js";
-import { DexItem, wallet } from "@store/wallet";
-import { block } from "@store/block";
+import { DexItem, wallet } from "@waveshq/walletkit-ui/dist/store";
+import { block } from "@waveshq/walletkit-ui/dist/store/block";
 import { useTokenPrice } from "./TokenPrice";
 
-jest.mock("@shared-contexts/NetworkContext");
 jest.mock("@react-navigation/native", () => ({
   useIsFocused: jest.fn(),
 }));

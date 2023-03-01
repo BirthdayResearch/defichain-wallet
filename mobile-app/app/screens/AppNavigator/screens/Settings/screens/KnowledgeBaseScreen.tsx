@@ -9,11 +9,14 @@ import {
 import { StackScreenProps } from "@react-navigation/stack";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
+import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { SettingsParamList } from "../SettingsNavigator";
 
 type Props = StackScreenProps<SettingsParamList, "KnowledgeBaseScreen">;
 
 export function KnowledgeBaseScreen({ navigation }: Props): JSX.Element {
+  const { isFeatureAvailable } = useFeatureFlagContext();
+
   const knowledgeBaseItems = [
     {
       label: "Auctions",
@@ -56,6 +59,15 @@ export function KnowledgeBaseScreen({ navigation }: Props): JSX.Element {
       testID: "utxo_and_token_faq",
       onPress: () => navigation.navigate("TokensVsUtxo"),
     },
+    ...(isFeatureAvailable("ocg_cfp_dfip")
+      ? [
+          {
+            label: "Governance",
+            testID: "on_chain_governance_faq",
+            onPress: () => navigation.navigate("CfpDfipProposalsFaq"),
+          },
+        ]
+      : []),
   ];
 
   return (

@@ -160,19 +160,20 @@ export const WalletTransactionCardTextInput = forwardRef<
           {inlineText?.text}
         </Text>
       )}
-      {inlineText?.type === "helper" && typeof inlineText?.text === "string" && (
-        <Text
-          style={[
-            tailwind("text-xs text-red-v2 mt-2 font-normal-v2"),
-            inlineText.style,
-          ]}
-          testID={
-            props.testID !== undefined ? `${props.testID}_error` : undefined
-          }
-        >
-          {inlineText?.text}
-        </Text>
-      )}
+      {inlineText?.type === "helper" &&
+        typeof inlineText?.text === "string" && (
+          <Text
+            style={[
+              tailwind("text-xs text-red-v2 mt-2 font-normal-v2"),
+              inlineText.style,
+            ]}
+            testID={
+              props.testID !== undefined ? `${props.testID}_error` : undefined
+            }
+          >
+            {inlineText?.text}
+          </Text>
+        )}
 
       {inlineText?.type === "helper" &&
         typeof inlineText?.text !== "string" &&

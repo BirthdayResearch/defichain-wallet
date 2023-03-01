@@ -12,21 +12,22 @@ import {
 } from "@components/themed";
 import { useDisplayBalancesContext } from "@contexts/DisplayBalancesContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { useWalletPersistenceContext } from "@shared-contexts/WalletPersistenceContext";
 import {
+  useWalletPersistenceContext,
+  useThemeContext,
   useWhaleApiClient,
   useWhaleRpcClient,
-} from "@shared-contexts/WhaleContext";
+} from "@waveshq/walletkit-ui";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { StackScreenProps } from "@react-navigation/stack";
-import { ocean } from "@store/ocean";
 import {
+  ocean,
   dexPricesSelectorByDenomination,
   fetchDexPrice,
   fetchTokens,
   tokensSelector,
   WalletToken,
-} from "@store/wallet";
+} from "@waveshq/walletkit-ui/dist/store";
 import { tailwind } from "@tailwind";
 import BigNumber from "bignumber.js";
 import React, {
@@ -49,7 +50,6 @@ import {
   fetchLoanTokens,
   fetchVaults,
 } from "@store/loans";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import {
   SkeletonLoader,
   SkeletonLoaderScreen,
@@ -632,7 +632,9 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           isSorted={isSorted}
           denominationCurrency={denominationCurrency}
         />
-        <DFIBalanceCard denominationCurrency={denominationCurrency} />
+        {activeButtonGroup === ButtonGroupTabKey.AllTokens && (
+          <DFIBalanceCard denominationCurrency={denominationCurrency} />
+        )}
         {!hasFetchedToken ? (
           <View style={tailwind("px-5")}>
             <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Portfolio} />

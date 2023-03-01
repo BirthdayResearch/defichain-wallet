@@ -1,13 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { RootState } from "@store";
-import { wallet } from "@store/wallet";
+import { wallet } from "@waveshq/walletkit-ui/dist/store";
 import { render, RenderAPI } from "@testing-library/react-native";
 import { Provider } from "react-redux";
 import { AppIcon } from "../AppIcon";
 import { getNativeIcon } from "./index";
 
 jest.mock("randomcolor", () => jest.fn().mockReturnValue("#ffffff"));
-jest.mock("@shared-contexts/ThemeProvider");
 
 const icons = [
   "_UTXO",

@@ -1,13 +1,10 @@
 import { RootState } from "@store";
-import { block } from "@store/block";
+import { block } from "@waveshq/walletkit-ui/dist/store/block";
 import { render } from "@testing-library/react-native";
 
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { BidCard } from "./BidCard";
-
-jest.mock("@shared-contexts/ThemeProvider");
-jest.mock("@shared-contexts/NetworkContext");
 
 describe("Bid Card", () => {
   it("should match snapshot", async () => {

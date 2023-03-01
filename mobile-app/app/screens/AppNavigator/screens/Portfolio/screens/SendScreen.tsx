@@ -1,46 +1,38 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Platform, TextInput, View } from "react-native";
 import BigNumber from "bignumber.js";
-import { Control, Controller, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useToast } from "react-native-toast-notifications";
 import { StackScreenProps } from "@react-navigation/stack";
 import { getColor, tailwind } from "@tailwind";
-import { debounce } from "lodash";
-import { fromAddress } from "@defichain/jellyfish-address";
-import { NetworkName } from "@defichain/jellyfish-network";
 import { translate } from "@translations";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useNetworkContext, useThemeContext } from "@waveshq/walletkit-ui";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { useThemeContext } from "@shared-contexts/ThemeProvider";
 import { RootState } from "@store";
 import {
   AddressType,
   DFITokenSelector,
   DFIUtxoSelector,
+  hasOceanTXQueued,
+  hasTxQueued,
   tokensSelector,
   WalletToken,
-} from "@store/wallet";
+} from "@waveshq/walletkit-ui/dist/store";
 import { LocalAddress } from "@store/userPreferences";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
-import { hasTxQueued } from "@store/transaction_queue";
 import { useDisplayUtxoWarning } from "@hooks/wallet/DisplayUtxoWarning";
 import {
   queueConvertTransaction,
   useConversion,
 } from "@hooks/wallet/Conversion";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { useWalletAddress } from "@hooks/useWalletAddress";
 import {
   ThemedIcon,
   ThemedTextInputV2,
   ThemedTextV2,
-  ThemedTouchableOpacity,
   ThemedTouchableOpacityV2,
-  ThemedViewV2,
 } from "@components/themed";
-import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import {
   AmountButtonTypes,
@@ -49,10 +41,10 @@ import {
 } from "@components/TransactionCard";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { AddressRow } from "@screens/AppNavigator/screens/Portfolio/components/AddressRow";
 import { useTokenPrice } from "../hooks/TokenPrice";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import { PortfolioParamList } from "../PortfolioNavigator";
-import { RandomAvatar } from "../components/RandomAvatar";
 import { TokenIcon } from "../components/TokenIcon";
 
 type Props = StackScreenProps<PortfolioParamList, "SendScreen">;
@@ -77,7 +69,6 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
   const client = useWhaleApiClient();
   const { isLight } = useThemeContext();
   const { getTokenPrice } = useTokenPrice();
-  const { fetchWalletAddresses } = useWalletAddress();
   const { getDisplayUtxoWarningStatus } = useDisplayUtxoWarning();
   const toast = useToast();
   const TOAST_DURATION = 2000;
@@ -87,17 +78,11 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
   const tokens = useSelector((state: RootState) =>
     tokensSelector(state.wallet)
   );
-  const addressBook = useSelector(
-    (state: RootState) => state.userPreferences.addressBook
-  );
-  const walletAddress = useSelector(
-    (state: RootState) => state.userPreferences.addresses
-  );
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const DFIUtxo = useSelector((state: RootState) =>
     DFIUtxoSelector(state.wallet)
@@ -109,9 +94,6 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
   const [token, setToken] = useState(route.params?.token);
   const [matchedAddress, setMatchedAddress] = useState<LocalAddress>();
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
-  const [jellyfishWalletAddress, setJellyfishWalletAddresses] = useState<
-    string[]
-  >([]);
   const [transactionCardStatus, setTransactionCardStatus] = useState(
     TransactionCardStatus.Default
   );
@@ -131,42 +113,6 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
     },
     deps: [amountToSend, JSON.stringify(token)],
   });
-
-  const debounceMatchAddress = debounce(() => {
-    if (
-      address !== undefined &&
-      addressBook !== undefined &&
-      addressBook[address] !== undefined
-    ) {
-      setMatchedAddress(addressBook[address]);
-      setAddressType(AddressType.Whitelisted);
-    } else if (
-      address !== undefined &&
-      walletAddress !== undefined &&
-      walletAddress[address] !== undefined
-    ) {
-      setMatchedAddress(walletAddress[address]);
-      setAddressType(AddressType.WalletAddress);
-    } else if (
-      address !== undefined &&
-      jellyfishWalletAddress.includes(address)
-    ) {
-      // wallet address that does not have a label
-      setMatchedAddress({
-        address,
-        label: "",
-        isMine: true,
-      });
-      setAddressType(AddressType.WalletAddress);
-    } else {
-      setMatchedAddress(undefined);
-      setAddressType(
-        fromAddress(address, networkName) !== undefined
-          ? AddressType.OthersButValid
-          : undefined
-      );
-    }
-  }, 200);
 
   const reservedDFI = 0.1;
   const isReservedUtxoUsed = getDisplayUtxoWarningStatus(
@@ -243,12 +189,6 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
   }, []);
 
   useEffect(() => {
-    void fetchWalletAddresses().then((walletAddresses) =>
-      setJellyfishWalletAddresses(walletAddresses)
-    );
-  }, [fetchWalletAddresses]);
-
-  useEffect(() => {
     client.fee
       .estimate()
       .then((f) => setFee(new BigNumber(f)))
@@ -270,10 +210,6 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
       });
     }
   }, [JSON.stringify(tokens)]);
-
-  useEffect(() => {
-    debounceMatchAddress();
-  }, [address, addressBook]);
 
   function showToast(type: AmountButtonTypes): void {
     if (token?.displaySymbol === undefined) {
@@ -469,6 +405,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
             <AddressRow
               control={control}
               networkName={networkName}
+              title={translate("screens/SendScreen", "SEND TO")}
               onContactButtonPress={() =>
                 navigation.navigate({
                   name: "AddressBookScreen",
@@ -499,70 +436,10 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
                 setValue("address", address, { shouldDirty: true });
                 await trigger("address");
               }}
+              address={address}
+              onMatchedAddress={setMatchedAddress}
+              onAddressType={setAddressType}
             />
-
-            <View style={tailwind("ml-5 my-2 items-center flex flex-row")}>
-              {addressType === AddressType.OthersButValid ? (
-                <>
-                  <ThemedIcon
-                    light={tailwind("text-success-500")}
-                    dark={tailwind("text-darksuccess-500")}
-                    iconType="MaterialIcons"
-                    name="check-circle"
-                    size={16}
-                  />
-                  <ThemedTextV2
-                    style={tailwind("text-xs mx-1 font-normal-v2")}
-                    light={tailwind("text-mono-light-v2-500")}
-                    dark={tailwind("text-mono-dark-v2-500")}
-                  >
-                    {translate("screens/SendScreen", "Verified")}
-                  </ThemedTextV2>
-                </>
-              ) : (
-                addressType !== undefined && (
-                  <ThemedViewV2
-                    style={tailwind(
-                      "flex flex-row items-center overflow-hidden rounded-lg py-0.5",
-                      {
-                        "px-1": addressType === AddressType.WalletAddress,
-                        "px-2": addressType === AddressType.Whitelisted,
-                      }
-                    )}
-                    light={tailwind("bg-mono-light-v2-200")}
-                    dark={tailwind("bg-mono-dark-v2-200")}
-                  >
-                    {addressType === AddressType.WalletAddress && (
-                      <View style={tailwind("rounded-l-2xl mr-1")}>
-                        <RandomAvatar
-                          name={matchedAddress?.address}
-                          size={12}
-                        />
-                      </View>
-                    )}
-
-                    <ThemedTextV2
-                      ellipsizeMode="middle"
-                      numberOfLines={1}
-                      style={[
-                        tailwind("text-xs font-normal-v2"),
-                        {
-                          minWidth: 10,
-                          maxWidth: 108,
-                        },
-                      ]}
-                      light={tailwind("text-mono-light-v2-500")}
-                      dark={tailwind("text-mono-dark-v2-500")}
-                      testID="address_input_footer"
-                    >
-                      {matchedAddress?.label !== ""
-                        ? matchedAddress?.label
-                        : matchedAddress.address}
-                    </ThemedTextV2>
-                  </ThemedViewV2>
-                )
-              )}
-            </View>
           </View>
         )}
 
@@ -601,117 +478,6 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
         </View>
       </KeyboardAwareScrollView>
     </View>
-  );
-}
-
-function AddressRow({
-  control,
-  networkName,
-  onContactButtonPress,
-  onQrButtonPress,
-  onClearButtonPress,
-  onAddressChange,
-  inputFooter,
-}: {
-  control: Control;
-  networkName: NetworkName;
-  onContactButtonPress: () => void;
-  onQrButtonPress: () => void;
-  onClearButtonPress: () => void;
-  onAddressChange: (address: string) => void;
-  inputFooter?: React.ReactElement;
-}): JSX.Element {
-  const defaultValue = "";
-  return (
-    <Controller
-      control={control}
-      defaultValue={defaultValue}
-      name="address"
-      render={({ field: { value, onChange }, fieldState: { error } }) => {
-        const hasValidAddress = error?.type == null;
-        return (
-          <View style={tailwind("flex w-full")}>
-            <WalletTextInputV2
-              autoCapitalize="none"
-              multiline
-              onBlur={async () => {
-                await onAddressChange(value?.trim());
-              }}
-              onChangeText={onChange}
-              placeholder={translate("screens/SendScreen", "Paste address")}
-              style={tailwind("w-3/5 flex-grow pb-1 font-normal-v2")}
-              testID="address_input"
-              value={value}
-              displayClearButton={value !== defaultValue}
-              onClearButtonPress={onClearButtonPress}
-              title={translate("screens/SendScreen", "SEND TO")}
-              titleTestID="title_to_address"
-              inputType="default"
-              inputFooter={inputFooter}
-              valid={hasValidAddress}
-            >
-              {value !== "" && <View style={tailwind("mr-2")} />}
-              {value === "" && (
-                <>
-                  <ThemedTouchableOpacity
-                    dark={tailwind("bg-black")}
-                    light={tailwind("bg-white")}
-                    onPress={onContactButtonPress}
-                    style={tailwind("w-9 p-1.5 rounded")}
-                    testID="address_book_button"
-                  >
-                    <ThemedIcon
-                      iconType="Feather"
-                      dark={tailwind("text-mono-dark-v2-700")}
-                      light={tailwind("text-mono-light-v2-700")}
-                      name="users"
-                      size={24}
-                    />
-                  </ThemedTouchableOpacity>
-                  <ThemedTouchableOpacity
-                    dark={tailwind("bg-black")}
-                    light={tailwind("bg-white")}
-                    onPress={onQrButtonPress}
-                    style={tailwind("w-9 p-1.5 rounded")}
-                    testID="qr_code_button"
-                  >
-                    <ThemedIcon
-                      dark={tailwind("text-mono-dark-v2-700")}
-                      light={tailwind("text-mono-light-v2-700")}
-                      iconType="MaterialIcons"
-                      name="qr-code"
-                      size={24}
-                    />
-                  </ThemedTouchableOpacity>
-                </>
-              )}
-            </WalletTextInputV2>
-            {/* TODO: Replace with inline comment if possible @pierregee */}
-            {/* TODO: Update with required error message also */}
-            {!hasValidAddress && (
-              <ThemedTextV2
-                style={tailwind("text-xs mt-2 ml-5 font-normal-v2")}
-                dark={tailwind("text-red-v2")}
-                light={tailwind("text-red-v2")}
-                testID="address_error_text"
-              >
-                {translate(
-                  "screens/SendScreen",
-                  "Invalid address. Make sure the address is correct to avoid irrecoverable losses"
-                )}
-              </ThemedTextV2>
-            )}
-          </View>
-        );
-      }}
-      rules={{
-        required: true,
-        validate: {
-          isValidAddress: (address) =>
-            fromAddress(address, networkName) !== undefined,
-        },
-      }}
-    />
   );
 }
 

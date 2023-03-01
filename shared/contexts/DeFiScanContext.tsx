@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useMemo } from "react";
-import { EnvironmentNetwork } from "@environment";
-import { useNetworkContext } from "./NetworkContext";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 
 interface DeFiScanContextI {
   getTransactionUrl: (txid: string, rawtx?: string) => string;
@@ -64,6 +64,8 @@ function getNetworkParams(network: EnvironmentNetwork): string {
       return "";
     case EnvironmentNetwork.TestNet:
       return `?network=${EnvironmentNetwork.TestNet}`;
+    case EnvironmentNetwork.DevNet:
+      return `?network=${EnvironmentNetwork.DevNet}`;
 
     case EnvironmentNetwork.LocalPlayground:
     case EnvironmentNetwork.RemotePlayground:

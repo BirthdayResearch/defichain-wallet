@@ -1,4 +1,4 @@
-import { DfTxSigner } from "@store/transaction_queue";
+import { DfTxSigner } from "@waveshq/walletkit-ui/dist/store";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction";
 import { Authentication } from "@store/authentication";

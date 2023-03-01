@@ -1,7 +1,7 @@
 import { View } from "@components";
 import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { Dispatch, useEffect, useState } from "react";
@@ -18,9 +18,12 @@ import {
   fetchVaults,
 } from "@store/loans";
 import { RootState } from "@store";
-import { hasTxQueued, transactionQueue } from "@store/transaction_queue";
-import { hasTxQueued as hasBroadcastQueued } from "@store/ocean";
-import { DFIUtxoSelector } from "@store/wallet";
+import {
+  hasTxQueued,
+  hasOceanTXQueued,
+  transactionQueue,
+  DFIUtxoSelector,
+} from "@waveshq/walletkit-ui/dist/store";
 import { queueConvertTransaction } from "@hooks/wallet/Conversion";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { LoanSchemeOptions } from "@screens/AppNavigator/screens/Loans/components/LoanSchemeOptions";
@@ -29,8 +32,8 @@ import {
   ConversionStatus,
   CreateVaultSummary,
 } from "@screens/AppNavigator/screens/Loans/components/CreateVaultSummary";
-import { EnvironmentNetwork } from "@environment";
-import { useNetworkContext } from "@shared-contexts/NetworkContext";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction";
@@ -55,7 +58,7 @@ export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
     hasTxQueued(state.transactionQueue)
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasBroadcastQueued(state.ocean)
+    hasOceanTXQueued(state.ocean)
   );
   const DFIUtxo = useSelector((state: RootState) =>
     DFIUtxoSelector(state.wallet)
@@ -78,7 +81,8 @@ export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
 
   const vaultFee = new BigNumber(
     network === EnvironmentNetwork.MainNet ||
-    network === EnvironmentNetwork.TestNet
+    network === EnvironmentNetwork.TestNet ||
+    network === EnvironmentNetwork.DevNet
       ? 2
       : 1
   );

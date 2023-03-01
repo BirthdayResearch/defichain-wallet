@@ -4,7 +4,7 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { RootState } from "@store";
 import { fetchLoanSchemes, fetchLoanTokens, fetchVaults } from "@store/loans";
-import { useWhaleApiClient } from "@shared-contexts/WhaleContext";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useIsFocused, useScrollToTop } from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/useAppDispatch";

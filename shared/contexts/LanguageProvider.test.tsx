@@ -6,8 +6,6 @@ import {
   useLanguageContext,
 } from "./LanguageProvider";
 
-jest.mock("@shared-contexts/NetworkContext");
-
 describe.skip("useLanguage hook test", () => {
   it("should pass when it uses users devices locale on first app install", async () => {
     const api = {
