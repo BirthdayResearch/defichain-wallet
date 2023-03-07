@@ -208,7 +208,7 @@ export function AddressRow({
               {/* TODO: Update with required error message also */}
               {!hasValidAddress && (
                 <ThemedTextV2
-                  style={tailwind("text-xs mt-2 ml-5 font-normal-v2")}
+                  style={tailwind("text-xs mt-2 mx-5 font-normal-v2")}
                   dark={tailwind("text-red-v2")}
                   light={tailwind("text-red-v2")}
                   testID="address_error_text"
@@ -226,7 +226,11 @@ export function AddressRow({
           required: true,
           validate: {
             isValidAddress: (address) =>
-              fromAddress(address, networkName) !== undefined,
+              fromAddress(address, networkName) !== undefined &&
+              (!onlyLocalAddress ||
+                jellyfishWalletAddress.includes(address) ||
+                (walletAddress !== undefined &&
+                  walletAddress[address] !== undefined)),
           },
         }}
       />
