@@ -317,6 +317,12 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
       handleOnPress: () =>
         onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.USDC),
     },
+    {
+      id: PortfolioButtonGroupTabKey.EUROC,
+      label: translate("screens/PortfolioScreen", "EUROC"),
+      handleOnPress: () =>
+        onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.EUROC),
+    },
   ];
 
   // Asset sort bottom sheet list

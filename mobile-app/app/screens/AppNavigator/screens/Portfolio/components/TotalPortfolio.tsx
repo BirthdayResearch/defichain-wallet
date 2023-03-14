@@ -23,6 +23,7 @@ export enum PortfolioButtonGroupTabKey {
   BTC = "BTC",
   DUSD = "DUSD",
   USDC = "USDC",
+  EUROC = "EUROC",
 }
 
 interface TotalPortfolioProps {
