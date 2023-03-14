@@ -77,6 +77,8 @@ export function useDexStabilization(
     tokenADisplaySymbol: string,
     tokenBDisplaySymbol: string
   ): string => {
+    // TODO: Replace with more robust logic, store in wallet-website-api
+
     let fee;
     const dusdDFIPair = pairs.find((p) => p.data.displaySymbol === "DUSD-DFI");
     const dUSDCDUSDPair = pairs.find(
@@ -84,6 +86,9 @@ export function useDexStabilization(
     );
     const dUSDTDUSDPair = pairs.find(
       (p) => p.data.displaySymbol === "dUSDT-DUSD"
+    );
+    const dEUROCDUSDPair = pairs.find(
+      (p) => p.data.displaySymbol === "dEUROC-DUSD"
     );
 
     if (
@@ -104,6 +109,12 @@ export function useDexStabilization(
       tokenBDisplaySymbol === "dUSDT"
     ) {
       fee = dUSDTDUSDPair.data.tokenB.fee?.pct;
+    } else if (
+      dEUROCDUSDPair !== undefined &&
+      tokenADisplaySymbol === "DUSD" &&
+      tokenBDisplaySymbol === "dEUROC"
+    ) {
+      fee = dEUROCDUSDPair.data.tokenB.fee?.pct;
     }
 
     return fee === undefined
