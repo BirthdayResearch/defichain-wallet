@@ -1,5 +1,6 @@
 import {
   AnnouncementData,
+  EnvironmentNetwork,
   PoolpairWithStabInfo,
 } from "@waveshq/walletkit-core";
 import {
@@ -33,10 +34,10 @@ interface DexStabilization {
   dexStabilizationType: DexStabilizationType;
   dexStabilizationFee: string;
   pair: {
+    displaySymbol: string;
     tokenADisplaySymbol: string;
     tokenBDisplaySymbol: string;
   };
-  highFeeScanUrl: string;
 }
 
 export function useDexStabilization(
@@ -58,9 +59,12 @@ export function useDexStabilization(
     useState<AnnouncementData[]>();
   const [dexStabilization, setDexStabilization] = useState<DexStabilization>({
     dexStabilizationType: "none",
-    pair: { tokenADisplaySymbol: "", tokenBDisplaySymbol: "" },
+    pair: {
+      displaySymbol: "",
+      tokenADisplaySymbol: "",
+      tokenBDisplaySymbol: "",
+    },
     dexStabilizationFee: "0",
-    highFeeScanUrl: "",
   });
 
   const swapAnnouncement = findDisplayedAnnouncementForVersion(
@@ -82,6 +86,21 @@ export function useDexStabilization(
     }, [tokenA, tokenB, poolpairsWithDexFee])
   );
 
+  const getHighFeesUrl = (pairDisplaySymbol: string): string => {
+    let highFeeScanUrl = `https://defiscan.live/dex/${pairDisplaySymbol}`;
+    if (
+      [
+        EnvironmentNetwork.DevNet,
+        EnvironmentNetwork.LocalPlayground,
+        EnvironmentNetwork.RemotePlayground,
+        EnvironmentNetwork.TestNet,
+      ].includes(network)
+    ) {
+      highFeeScanUrl = `https://defiscan.live/dex/${pairDisplaySymbol}?network=${network}`;
+    }
+    return highFeeScanUrl;
+  };
+
   const _getHighDexStabilizationFeeAnnouncement = useCallback(
     async (
       tokenA: DexStabilizationTokenA,
@@ -99,8 +118,8 @@ export function useDexStabilization(
         dexStabilizationType,
         pair,
         dexStabilizationFee: fee,
-        highFeeScanUrl,
       } = dexStabilization;
+      const highFeesUrl = getHighFeesUrl(pair.displaySymbol);
 
       if (dexStabilizationType === "direct-dusd-with-fee") {
         announcement = [
@@ -116,11 +135,11 @@ export function useDexStabilization(
             },
             version: ">=1.16.1",
             url: {
-              ios: highFeeScanUrl,
-              android: highFeeScanUrl,
-              windows: highFeeScanUrl,
-              web: highFeeScanUrl,
-              macos: highFeeScanUrl,
+              ios: highFeesUrl,
+              android: highFeesUrl,
+              windows: highFeesUrl,
+              web: highFeesUrl,
+              macos: highFeesUrl,
             },
             type: "OUTAGE",
           },
@@ -139,11 +158,11 @@ export function useDexStabilization(
             },
             version: ">=1.16.1",
             url: {
-              ios: highFeeScanUrl,
-              android: highFeeScanUrl,
-              windows: highFeeScanUrl,
-              web: highFeeScanUrl,
-              macos: highFeeScanUrl,
+              ios: highFeesUrl,
+              android: highFeesUrl,
+              windows: highFeesUrl,
+              web: highFeesUrl,
+              macos: highFeesUrl,
             },
             type: "OUTAGE",
           },
@@ -213,26 +232,28 @@ export function useDexStabilization(
     */
       let pairWithDexFee: PoolpairWithStabInfo | undefined;
       for (let i = 0; i <= bestPathNodes.length; i++) {
-        pairWithDexFee = poolpairsWithDexFee?.find(
-          (p) =>
-            p.tokenADisplaySymbol === bestPathNodes[i] &&
-            p.tokenBDisplaySymbol === bestPathNodes[i + 1]
-        );
+        pairWithDexFee =
+          poolpairsWithDexFee?.find(
+            (p) =>
+              p.tokenADisplaySymbol === bestPathNodes[i] &&
+              p.tokenBDisplaySymbol === bestPathNodes[i + 1]
+          ) ?? pairWithDexFee;
       }
 
       if (pairWithDexFee === undefined) {
         return undefined;
       }
 
-      const { tokenADisplaySymbol, tokenBDisplaySymbol } = pairWithDexFee;
+      const { tokenADisplaySymbol, tokenBDisplaySymbol, pairDisplaySymbol } =
+        pairWithDexFee;
       return {
         dexStabilizationType: "composite-dusd-with-fee",
         pair: {
+          displaySymbol: pairDisplaySymbol,
           tokenADisplaySymbol,
           tokenBDisplaySymbol,
         },
         dexStabilizationFee: pairWithDexFee.dexStabilizationFee,
-        highFeeScanUrl: pairWithDexFee.highFeeScanUrl,
       };
     },
     [poolpairsWithDexFee]
@@ -245,11 +266,11 @@ export function useDexStabilization(
     const _dexStabilization: DexStabilization = {
       dexStabilizationType: "none",
       pair: {
+        displaySymbol: "",
         tokenADisplaySymbol: "",
         tokenBDisplaySymbol: "",
       },
       dexStabilizationFee: "0",
-      highFeeScanUrl: "",
     };
 
     if (tokenA === undefined || tokenB === undefined) {
@@ -273,11 +294,11 @@ export function useDexStabilization(
       return {
         dexStabilizationType: "direct-dusd-with-fee",
         pair: {
+          displaySymbol: pairWithDexFee.pairDisplaySymbol,
           tokenADisplaySymbol: tokenA.displaySymbol,
           tokenBDisplaySymbol: tokenB.displaySymbol,
         },
         dexStabilizationFee: pairWithDexFee.dexStabilizationFee,
-        highFeeScanUrl: pairWithDexFee.highFeeScanUrl,
       };
     }
 
