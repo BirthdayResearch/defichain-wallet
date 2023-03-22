@@ -77,6 +77,7 @@ export function PoolPairCards({
   const { isFavouritePoolpair, setFavouritePoolpair } =
     useFavouritePoolpairContext();
 
+  // remove BURN2 from pools as BURN2-DUSD is not a LP that users can swap with
   availablePairs = availablePairs.filter((pair) => {
     return !pair.data.displaySymbol.includes("BURN2");
   });
