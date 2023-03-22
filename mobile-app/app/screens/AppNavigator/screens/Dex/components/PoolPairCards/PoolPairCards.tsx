@@ -76,6 +76,11 @@ export function PoolPairCards({
 }: PoolPairCardProps): JSX.Element {
   const { isFavouritePoolpair, setFavouritePoolpair } =
     useFavouritePoolpairContext();
+
+  availablePairs = availablePairs.filter((pair) => {
+    return !pair.data.displaySymbol.includes("BURN2");
+  });
+
   const sortedPairs = sortPoolpairsByFavourite(
     availablePairs,
     isFavouritePoolpair
