@@ -4,6 +4,7 @@ import {
   ThemedFlatListV2,
   ThemedTextV2,
   ThemedTouchableOpacityV2,
+  ThemedViewV2,
 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { ListRenderItemInfo, TextInput, View } from "react-native";
@@ -82,23 +83,66 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
     return text;
   };
 
+  let unavailbleTokens: SelectionToken[];
+  let availableTokens: SelectionToken[];
+
+  if (listType === TokenListType.To) {
+    unavailbleTokens = filteredTokensWithBalance.filter((token) => {
+      return token.available.isEqualTo(0);
+    });
+
+    availableTokens = filteredTokensWithBalance.filter((token) => {
+      return !token.available.isEqualTo(0);
+    });
+  } else {
+    availableTokens = filteredTokensWithBalance;
+    unavailbleTokens = [];
+  }
+
   return (
     <ThemedFlatListV2
       contentContainerStyle={tailwind("px-5 pb-12")}
       testID="swap_token_selection_screen"
-      data={filteredTokensWithBalance}
-      keyExtractor={(item) => item.tokenId}
-      renderItem={({
-        item,
-      }: ListRenderItemInfo<SelectionToken>): JSX.Element => {
+      data={[availableTokens, unavailbleTokens]}
+      renderItem={({ item, index }): JSX.Element => {
         return (
-          <TokenItem
-            fromToken={fromToken}
-            item={item}
-            onPress={() => onTokenPress(item)}
-            getTokenPrice={getTokenPrice}
-            listType={listType}
-          />
+          <ThemedViewV2>
+            <ThemedFlatListV2
+              data={item}
+              keyExtractor={(item) => item.tokenId}
+              renderItem={({
+                item,
+              }: ListRenderItemInfo<SelectionToken>): JSX.Element => {
+                return (
+                  <TokenItem
+                    disabled={index === 1}
+                    fromToken={fromToken}
+                    customStyle={index === 1 ? "opacity-70" : "opacity-100"}
+                    item={item}
+                    onPress={() => onTokenPress(item)}
+                    getTokenPrice={getTokenPrice}
+                    listType={listType}
+                  />
+                );
+              }}
+            />
+
+            {index !== undefined &&
+              index === 0 &&
+              unavailbleTokens.length !== 0 && (
+                <>
+                  {debouncedSearchTerm.trim() === "" && !isSearchFocus && (
+                    <ThemedTextV2
+                      style={tailwind("text-xs pl-5 mt-6 mb-2 font-normal-v2")}
+                      light={tailwind("text-mono-light-v2-500")}
+                      dark={tailwind("text-mono-dark-v2-500")}
+                    >
+                      UNAVAILABLE FOR SWAP
+                    </ThemedTextV2>
+                  )}
+                </>
+              )}
+          </ThemedViewV2>
         );
       }}
       ListHeaderComponent={
@@ -187,6 +231,8 @@ interface TokenItemProps {
   onPress: any;
   getTokenPrice: TokenPrice;
   listType: TokenListType;
+  disabled?: boolean;
+  customStyle?: string;
 }
 
 function TokenItem({
@@ -195,6 +241,8 @@ function TokenItem({
   onPress,
   getTokenPrice,
   listType,
+  disabled = false,
+  customStyle,
 }: TokenItemProps): JSX.Element {
   const activePriceUSDT = getTokenPrice(
     item.token.symbol,
@@ -204,8 +252,10 @@ function TokenItem({
 
   return (
     <ThemedTouchableOpacityV2
+      disabled={disabled}
       style={tailwind(
-        "flex flex-row p-5 mb-2 border-0 rounded-lg-v2 items-center justify-between"
+        "flex flex-row p-5 mb-2 border-0 rounded-lg-v2 items-center justify-between",
+        customStyle
       )}
       light={tailwind("bg-mono-light-v2-00")}
       dark={tailwind("bg-mono-dark-v2-00")}
