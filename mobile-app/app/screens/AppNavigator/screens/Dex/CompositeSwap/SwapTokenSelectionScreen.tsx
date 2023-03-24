@@ -129,7 +129,7 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
 
             {index !== undefined &&
               index === 0 &&
-              unavailbleTokens.length !== 0 && (
+              unavailableTokens.length !== 0 && (
                 <>
                   {debouncedSearchTerm.trim() === "" && !isSearchFocus && (
                     <ThemedTextV2
