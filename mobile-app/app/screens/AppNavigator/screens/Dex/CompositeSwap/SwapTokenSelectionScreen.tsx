@@ -83,11 +83,11 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
     return text;
   };
 
-  let unavailbleTokens: SelectionToken[];
+  let unavailableTokens: SelectionToken[];
   let availableTokens: SelectionToken[];
 
   if (listType === TokenListType.To) {
-    unavailbleTokens = filteredTokensWithBalance.filter((token) => {
+    unavailableTokens = filteredTokensWithBalance.filter((token) => {
       return token.available.isEqualTo(0);
     });
 
@@ -96,14 +96,14 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
     });
   } else {
     availableTokens = filteredTokensWithBalance;
-    unavailbleTokens = [];
+    unavailableTokens = [];
   }
 
   return (
     <ThemedFlatListV2
       contentContainerStyle={tailwind("px-5 pb-12")}
       testID="swap_token_selection_screen"
-      data={[availableTokens, unavailbleTokens]}
+      data={[availableTokens, unavailableTokens]}
       renderItem={({ item, index }): JSX.Element => {
         return (
           <ThemedViewV2>
