@@ -19,6 +19,7 @@ import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/Tok
 import { translate } from "@translations";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
+import { InfoIconTooltip } from "@components/tooltip/InfoIconTooltip";
 
 export enum TokenListType {
   From = "FROM",
@@ -132,13 +133,22 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
               unavailableTokens.length !== 0 && (
                 <>
                   {debouncedSearchTerm.trim() === "" && !isSearchFocus && (
-                    <ThemedTextV2
-                      style={tailwind("text-xs pl-5 mt-6 mb-2 font-normal-v2")}
-                      light={tailwind("text-mono-light-v2-500")}
-                      dark={tailwind("text-mono-dark-v2-500")}
+                    <ThemedViewV2
+                      style={tailwind("flex flex-row items-center")}
                     >
-                      UNAVAILABLE FOR SWAP
-                    </ThemedTextV2>
+                      <ThemedTextV2
+                        style={tailwind(
+                          "text-xs pl-5 mt-6 mb-2 font-normal-v2"
+                        )}
+                        light={tailwind("text-mono-light-v2-500")}
+                        dark={tailwind("text-mono-dark-v2-500")}
+                      >
+                        UNAVAILABLE FOR SWAP
+                      </ThemedTextV2>
+                      <ThemedViewV2 style={tailwind("mt-3 ml-3")}>
+                        <InfoIconTooltip text="Tokens that are unavailable for swap" />
+                      </ThemedViewV2>
+                    </ThemedViewV2>
                   )}
                 </>
               )}
