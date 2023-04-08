@@ -64,7 +64,7 @@
     "lru-cache": "^7.14.1",
     "react": "18.1.0",
     "react-content-loader": "^6.2.0",
-    "react-devtools": "^4.27.1",
+    "react-devtools": "^4.27.4",
     "react-dom": "18.1.0",
     "react-hook-form": "^7.42.0",
     "react-native": "0.70.5",
