@@ -96,7 +96,7 @@
     "@babel/core": "^7.20.12",
     "@cypress/code-coverage": "^3.10.0",
     "@expo/metro-config": "0.5.1",
-    "@expo/webpack-config": "^0.17.3",
+    "@expo/webpack-config": "^18.0.4",
     "@testing-library/cypress": "^8.0.7",
     "@testing-library/react-native": "^11.5.0",
     "@types/find-in-files": "^0.5.1",
