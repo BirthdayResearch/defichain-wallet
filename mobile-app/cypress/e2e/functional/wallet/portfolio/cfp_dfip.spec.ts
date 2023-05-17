@@ -131,6 +131,7 @@ context("QA-780-2: Wallet - Submit CFP", () => {
 
   it("should be able to key in amount", () => {
     cy.getByTestID("input_amount").type(CfpData.amount);
+    cy.getByTestID("cfp_continue_button").should("not.be.enabled");
   });
 
   it("should be able to key in cycles", () => {
@@ -145,6 +146,7 @@ context("QA-780-2: Wallet - Submit CFP", () => {
     cy.getByTestID("input_cycle_error").should("exist");
     cy.getByTestID("input_cycle").clear().type("2");
     cy.getByTestID("input_cycle_error").should("not.exist");
+    cy.getByTestID("cfp_continue_button").should("not.be.enabled");
   });
 
   it("should be able to check invalid receiving address", () => {
@@ -154,6 +156,7 @@ context("QA-780-2: Wallet - Submit CFP", () => {
       "Invalid address. Make sure the address is correct to avoid irrecoverable losses"
     );
     cy.getByTestID("address_input_clear_button").click();
+    cy.getByTestID("cfp_continue_button").should("not.be.enabled");
   });
 
   it("should verify confirm screen", () => {

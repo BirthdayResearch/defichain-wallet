@@ -77,6 +77,8 @@ export function useDexStabilization(
     tokenADisplaySymbol: string,
     tokenBDisplaySymbol: string
   ): string => {
+    // TODO: Replace with more robust logic, store in wallet-website-api
+
     let fee;
     const dusdDFIPair = pairs.find((p) => p.data.displaySymbol === "DUSD-DFI");
     const dUSDCDUSDPair = pairs.find(
@@ -84,6 +86,9 @@ export function useDexStabilization(
     );
     const dUSDTDUSDPair = pairs.find(
       (p) => p.data.displaySymbol === "dUSDT-DUSD"
+    );
+    const dEUROCDUSDPair = pairs.find(
+      (p) => p.data.displaySymbol === "dEUROC-DUSD"
     );
 
     if (
@@ -104,6 +109,12 @@ export function useDexStabilization(
       tokenBDisplaySymbol === "dUSDT"
     ) {
       fee = dUSDTDUSDPair.data.tokenB.fee?.pct;
+    } else if (
+      dEUROCDUSDPair !== undefined &&
+      tokenADisplaySymbol === "DUSD" &&
+      tokenBDisplaySymbol === "dEUROC"
+    ) {
+      fee = dEUROCDUSDPair.data.tokenB.fee?.pct;
     }
 
     return fee === undefined
@@ -132,6 +143,11 @@ export function useDexStabilization(
       pair.tokenBDisplaySymbol === "dUSDC"
     ) {
       highFeesUrl = "https://defiscan.live/dex/dUSDC-DUSD";
+    } else if (
+      pair.tokenADisplaySymbol === "DUSD" &&
+      pair.tokenBDisplaySymbol === "dEUROC"
+    ) {
+      highFeesUrl = "https://defiscan.live/dex/dEUROC-DUSD";
     }
 
     return highFeesUrl;
@@ -333,7 +349,8 @@ export function useDexStabilization(
       bestPath.length === 1 &&
       ((tokenA.displaySymbol === "DUSD" && tokenB.displaySymbol === "DFI") ||
         (tokenA.displaySymbol === "DUSD" && tokenB.displaySymbol === "dUSDT") ||
-        (tokenA.displaySymbol === "DUSD" && tokenB.displaySymbol === "dUSDC"))
+        (tokenA.displaySymbol === "DUSD" && tokenB.displaySymbol === "dUSDC") ||
+        (tokenA.displaySymbol === "DUSD" && tokenB.displaySymbol === "dEUROC"))
     ) {
       return {
         dexStabilizationType: "direct-dusd-with-fee",
@@ -350,9 +367,9 @@ export function useDexStabilization(
 
     /*
       Otherwise, check for composite swap
-        1. Get index of DUSD-(DFI | USDT | USDC) pair
-        2. If index === 0 Check if first leg in best path is DUSD-(DFI | USDT | USDC) and second leg is (DFI | USDT | USDC) respectively
-        3. Else check if the previous pair tokenB is DUSD to ensure that the direction of DUSD-DFI is DUSD -> DFI | USDT | USDC
+        1. Get index of DUSD-(DFI | USDT | USDC | EUROC) pair
+        2. If index === 0 Check if first leg in best path is DUSD-(DFI | USDT | USDC) and second leg is (DFI | USDT | USDC | EUROC) respectively
+        3. Else check if the previous pair tokenB is DUSD to ensure that the direction of DUSD-DFI is DUSD -> DFI | USDT | USDC | EUROC
     */
     const compositeSwapDexStabilization = getCompositeSwapDexStabilization(
       bestPath,
@@ -360,6 +377,7 @@ export function useDexStabilization(
         { tokenADisplaySymbol: "DUSD", tokenBDisplaySymbol: "DFI" },
         { tokenADisplaySymbol: "DUSD", tokenBDisplaySymbol: "dUSDT" },
         { tokenADisplaySymbol: "DUSD", tokenBDisplaySymbol: "dUSDC" },
+        { tokenADisplaySymbol: "DUSD", tokenBDisplaySymbol: "dEUROC" },
       ]
     );
 
