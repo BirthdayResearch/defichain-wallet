@@ -56,7 +56,7 @@ export interface WalletContextProviderProps extends PropsWithChildren<{}> {
   };
 }
 
-export const MAX_ALLOWED_ADDRESSES = 10;
+export const MAX_ALLOWED_ADDRESSES = 50;
 
 const WalletContext = createContext<WalletContextI>(undefined as any);
 
