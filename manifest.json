@@ -1,0 +1,16 @@
+{
+  "description": "DeFi Blockchain Light Wallet for iOS, Android, Desktop & Chrome.",
+  "name": "DeFiChain Wallet",
+  "short_name": "DeFiChain Wallet",
+  "browser_action": {
+    "default_popup": "index.html",
+    "default_title": "DeFiChain Wallet"
+  },
+  "manifest_version": 2,
+  "version": "0.0.0",
+  "icons": {
+    "16": "icon-512.png",
+    "48": "icon-512.png",
+    "128": "icon-512.png"
+  }
+}

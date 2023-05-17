@@ -10,6 +10,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { getDefaultTheme } from "@constants/Theme";
 import { RootNavigator } from "./RootNavigator";
 import { PlaygroundNavigator } from "./PlaygroundNavigator/PlaygroundNavigator";
+import Constants from 'expo-constants'
 
 export function Main(): JSX.Element {
   const env = getEnvironment(getReleaseChannel());
@@ -42,7 +43,7 @@ export function Main(): JSX.Element {
  */
 const styles = StyleSheet.create({
   phone: {
-    height: 667,
-    width: 375,
-  },
-});
+    height: Constants?.manifest?.extra?.appType === 'extension' ? 600 : 667,
+    width: 375
+  }
+})
