@@ -47,7 +47,7 @@ jobs:
         working-directory: ./desktop-app
         run: npm run publish
         env:
-          GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   create-linux-checksum:
     needs: [ version, publish_linux_app ]
@@ -74,7 +74,7 @@ jobs:
         with:
           fail_on_unmatched_files: true
           files: ./DeFiChain-Wallet-${{needs.version.outputs.version}}.AppImage.SHA256
-          token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
   publish_mac_app:
     environment: Electron Release
@@ -97,7 +97,7 @@ jobs:
         working-directory: ./desktop-app
         run: npm run publish
         env:
-          GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CSC_LINK: ${{ secrets.CSC_LINK }}
           CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
           CI: true
@@ -129,7 +129,7 @@ jobs:
         with:
           fail_on_unmatched_files: true
           files: ./DeFiChain-Wallet-${{needs.version.outputs.version}}.dmg.SHA256
-          token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
   publish_windows_app:
     runs-on: windows-latest
@@ -152,7 +152,7 @@ jobs:
         run: npm run publish
         shell: powershell
         env:
-          GITHUB_TOKEN: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   create-windows-checksum:
     needs: [ version, publish_windows_app ]
@@ -179,4 +179,4 @@ jobs:
         with:
           fail_on_unmatched_files: true
           files: ./DeFiChain-Wallet-Setup-${{ needs.version.outputs.version }}.exe.SHA256
-          token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
