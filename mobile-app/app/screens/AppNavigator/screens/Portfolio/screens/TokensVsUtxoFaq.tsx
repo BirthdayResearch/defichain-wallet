@@ -116,6 +116,7 @@ export function TokensVsUtxoFaq(): JSX.Element {
 
       <WalletAccordionV2
         testID="loans_faq_accordion"
+        activeSections={[0]}
         title={translate(
           "components/UtxoVsTokenFaq",
           "FREQUENTLY ASKED QUESTIONS"

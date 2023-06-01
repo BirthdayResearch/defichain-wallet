@@ -161,7 +161,10 @@ export function ConvertScreen(props: Props): JSX.Element {
       ? "Max available {{unit}} entered"
       : "{{percent}} of available {{unit}} entered";
     const toastOption = {
-      unit: getDisplayUnit(sourceToken.unit),
+      unit: translate(
+        "screens/ConvertScreen",
+        getDisplayUnit(sourceToken.unit)
+      ),
       percent: type,
     };
     toast.show(translate("screens/ConvertScreen", toastMessage, toastOption), {
@@ -470,7 +473,7 @@ function ConvertToggleButton(props: { onPress: () => void }): JSX.Element {
 }
 
 function ConversionResultCard(props: {
-  unit: string | undefined;
+  unit: string;
   oriTargetAmount: string;
   totalTargetAmount: string;
 }): JSX.Element {
@@ -489,7 +492,7 @@ function ConversionResultCard(props: {
           dark={tailwind("text-mono-dark-v2-500")}
         >
           {`${translate("screens/ConvertScreen", "Available {{unit}}", {
-            unit: props.unit,
+            unit: translate("screens/ConvertScreen", props.unit),
           })}`}
         </ThemedTextV2>
         <NumberFormat
@@ -520,7 +523,7 @@ function ConversionResultCard(props: {
           dark={tailwind("text-mono-dark-v2-500")}
         >
           {`${translate("screens/ConvertScreen", "Resulting {{unit}}", {
-            unit: props.unit,
+            unit: translate("screens/ConvertScreen", props.unit),
           })}`}
         </ThemedTextV2>
         <NumberFormat

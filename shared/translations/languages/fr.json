@@ -335,7 +335,8 @@
     "A small amount of UTXO is reserved for fees": "Une petite quantité d'UTXO est réservée aux frais.",
     "Available {{unit}}": "{{unit}} Disponible",
     "Resulting {{unit}}": "{{unit}} Restants",
-    "TO RECEIVE": "A RECEVOIR"
+    "TO RECEIVE": "A RECEVOIR",
+    "tokens": "tokens"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm": "Confirmer",
@@ -356,7 +357,9 @@
     "Transaction fee": "Frais de transaction",
     "Resulting Tokens": "Tokens restants",
     "Resulting UTXO": "UTXO restants",
-    "Convert {{amount}} DFI to {{target}}": "Conversion de {{amount}} DFI en {{target}}"
+    "Convert {{amount}} DFI to {{target}}": "Conversion de {{amount}} DFI en {{target}}",
+    "Converting": "Conversion",
+    "Converted": "Converti"
   },
   "screens/SettingsNavigator": {
     "Settings": "Paramètres"
@@ -698,7 +701,7 @@
     "Verify words": "Vérifier les mots",
     "All questions must be answered correctly.": "Il faut répondre correctement à toutes les questions.",
     "word": "mot",
-    "{{number}}st": "{{number}}ème",
+    "{{number}}st": "{{number}}er",
     "{{number}}nd": "{{number}}ème",
     "{{number}}rd": "{{number}}ème",
     "{{number}}th": "{{number}}ème"
@@ -836,7 +839,8 @@
     "Borrowing {{amount}} {{symbol}}": "Emprunt de {{amount}} {{symbol}}",
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Emprunt de {{amount}} {{symbol}} avec le vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "{{amount}} {{symbol}} empruntés",
-    "Requested amount is higher than available amount.": "Le montant demandé est supérieur au montant disponible."
+    "Requested amount is higher than available amount.": "Le montant demandé est supérieur au montant disponible.",
+    "tokens": "tokens"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Demande d'accès à votre caméra",
@@ -851,7 +855,7 @@
     "Cancel": "Annuler",
     "TRY AGAIN": "RÉESSAYER",
     "From": "du",
-    "To": "Contre des",
+    "To": "au",
     "Converting": "Conversion",
     "Converted": "Converti",
     "for": "à",
@@ -1086,7 +1090,9 @@
     "Settlement block is the pre-determined block height that this transaction will be executed.": "Le bloc de règlement est la hauteur de bloc prédéterminée à laquelle cette transaction sera exécutée.",
     "Settlement value is based on the oracle price at the settlement block.": "La valeur de règlement est basée sur le prix oracle au bloc de règlement.",
     "Users will be able to cancel this transaction as long as the settlement block has not been executed.": "Les utilisateurs pourront annuler cette transaction tant que le bloc de règlement n'aura pas été exécuté.",
-    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Les frais totaux sont facturés en fonction du type d'échange et des tokens sélectionnés. Ils se composeent de: \n\n 1. Frais de commission\n 2. Frais de transaction\n 3. Frais liés au DEX tels que les frais de stabilisation et les frais de brûlure (le cas échéant)"
+    "Total fees are charged based on the type of swap, and tokens selected. It comprises of: \n\n1. Commission Fee\n2. Transaction fee\n3. DEX related fee such as stabilization fee and burn fee (if applicable)": "Les frais totaux sont facturés en fonction du type d'échange et des tokens sélectionnés. Ils se composeent de: \n\n 1. Frais de commission\n 2. Frais de transaction\n 3. Frais liés au DEX tels que les frais de stabilisation et les frais de brûlure (le cas échéant)",
+    "A small amount of UTXO is reserved for fees": "Une petite quantité d'UTXO est réservée aux frais.",
+    "Insufficient balance": "Solde insuffisant"
   },
   "screens/SwapTokenSelectionScreen": {
     "Select": "Sélectionner",
@@ -1369,6 +1375,7 @@
   },
   "components/EmptyAuctions": {
     "No auctions": "Pas d'enchères",
+    "No Auctions": "Pas d'enchères",
     "There are currently no collaterals available for auction.": "Aucune garantie n'est actuellement disponible pour la vente aux enchères.",
     "No Outbid Auctions": "Enchères sans surenchères",
     "You have no outbids yet": "Vous n'avez pas encore de surenchères",
@@ -1436,7 +1443,8 @@
     "You are the highest bidder": "Vous êtes le plus offrant",
     "From your vault": "De votre vault",
     "Waiting for first bid": "En attente de la première offre",
-    "Quick bid": "Enchère rapide"
+    "Quick bid": "Enchère rapide",
+    "Quick rebid": "Réenchère rapide"
   },
   "components/BatchHistory": {
     "{{h}}h {{m}}m ago": "Il y a {{h}}h {{m}}m ",
