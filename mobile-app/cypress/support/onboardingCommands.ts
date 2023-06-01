@@ -120,7 +120,7 @@ Cypress.Commands.add("restoreMnemonicWords", (recoveryWords: string[]) => {
     cy.getByTestID(`recover_word_${index + 1}`).should(
       "have.css",
       "color",
-      "rgb(43, 43, 43)"
+      "rgb(217, 217, 217)"
     );
   });
   cy.getByTestID("recover_wallet_button").should("not.have.attr", "disabled");
