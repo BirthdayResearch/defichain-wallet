@@ -15,9 +15,9 @@ module.exports = defineConfig({
   e2e: {
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
-    // setupNodeEvents(on, config) {
-    //   return require("./cypress/plugins/index.js")(on, config);
-    // },
+    setupNodeEvents(on, config) {
+      return require("./cypress/plugins/index.js")(on, config);
+    },
     baseUrl: "http://localhost:19006",
     specPattern: "mobile-app/cypress/e2e/**/*.{js,jsx,ts,tsx}",
     supportFile: "mobile-app/cypress/support/e2e.ts",
