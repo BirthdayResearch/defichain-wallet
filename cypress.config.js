@@ -30,6 +30,7 @@ module.exports = defineConfig({
       //Functional/Wallet/Dex
       "mobile-app/cypress/e2e/functional/wallet/dex/add_liquidity.spec.ts",
       "mobile-app/cypress/e2e/functional/wallet/dex/dex_poolpairs.spec.ts",
+      "cypress/e2e/functional/wallet/dex/dex_features.spec.ts",
       //Functional/Wallet/Dex/Swap
       "mobile-app/cypress/e2e/functional/wallet/dex/swap/swap_future.spec.ts",
       "mobile-app/cypress/e2e/functional/wallet/dex/swap/swap_future_withdraw.spec.ts",
@@ -43,7 +44,7 @@ module.exports = defineConfig({
       // Functional/Wallet/Settings
       "mobile-app/cypress/e2e/functional/wallet/settings/serviceProvider.spec.ts",
       //Functional/Wallet/Transaction
-      "mobile-app/cypress/e2e/functional/wallet/transaction/list_empty.spec.spec.ts"
+      "mobile-app/cypress/e2e/functional/wallet/transaction/list_empty.spec.ts"
       
 
 
