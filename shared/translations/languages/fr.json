@@ -701,7 +701,7 @@
     "Verify words": "Vérifier les mots",
     "All questions must be answered correctly.": "Il faut répondre correctement à toutes les questions.",
     "word": "mot",
-    "{{number}}st": "{{number}}ème",
+    "{{number}}st": "{{number}}er",
     "{{number}}nd": "{{number}}ème",
     "{{number}}rd": "{{number}}ème",
     "{{number}}th": "{{number}}ème"
@@ -855,7 +855,7 @@
     "Cancel": "Annuler",
     "TRY AGAIN": "RÉESSAYER",
     "From": "du",
-    "To": "Contre des",
+    "To": "au",
     "Converting": "Conversion",
     "Converted": "Converti",
     "for": "à",
