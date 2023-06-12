@@ -1,11 +1,11 @@
-import Cache from "lru-cache";
+import { LRUCache } from "lru-cache";
 
 class LruCache {
-  private readonly cache: Cache<string, any>;
+  private readonly cache: LRUCache<string, any>;
 
   constructor() {
     // setting maxAge to 10 min
-    this.cache = new Cache({
+    this.cache = new LRUCache({
       max: 1000,
       ttl: 1000 * 60 * 5,
     });
