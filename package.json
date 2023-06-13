@@ -105,7 +105,7 @@
     "@types/find-in-files": "^0.5.1",
     "@types/i18n-js": "^3.8.4",
     "@types/jest": "^29.2.5",
-    "@types/lodash": "^4.14.191",
+    "@types/lodash": "^4.14.195",
     "@types/randomcolor": "^0.5.7",
     "@types/react-native": "~0.70.14",
     "@types/react-native-loading-spinner-overlay": "^0.5.3",
