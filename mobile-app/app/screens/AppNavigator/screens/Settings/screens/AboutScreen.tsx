@@ -112,7 +112,7 @@ const SOCIAL_LINKS: AboutScreenSocialLinks[] = [
   {
     testID: "github",
     iconName: "github",
-    url: "https://github.com/DeFiCh/wallet",
+    url: "https://github.com/BirthdayResearch/defichain-wallet",
   },
 ];
 
