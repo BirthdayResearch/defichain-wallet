@@ -1,4 +1,5 @@
-import { ImageSourcePropType, View, Image } from "react-native";
+import { ImageSourcePropType, View } from "react-native";
+import { Image } from "expo-image";
 import {
   ThemedIcon,
   ThemedSectionTitleV2,

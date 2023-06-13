@@ -61,7 +61,7 @@ const Communities: CommunityItem[] = [
   {
     id: "gh",
     title: "Report issue on GitHub",
-    url: "https://github.com/DeFiCh/wallet/issues",
+    url: "https://github.com/BirthdayResearch/defichain-wallet/issues",
     icon: "flag",
   },
   {

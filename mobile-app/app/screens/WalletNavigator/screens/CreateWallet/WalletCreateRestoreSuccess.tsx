@@ -1,13 +1,8 @@
 import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import {
-  ImageBackground,
-  Image,
-  Dimensions,
-  Platform,
-  View,
-} from "react-native";
+import { Image } from "expo-image";
+import { ImageBackground, Dimensions, Platform, View } from "react-native";
 import GridBackgroundDark from "@assets/images/onboarding/grid-background-dark.png";
 import GridBackgroundLight from "@assets/images/onboarding/grid-background-light.png";
 import { WalletParamList } from "@screens/WalletNavigator/WalletNavigator";

@@ -2,7 +2,8 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { AddressType, WalletToken } from "@waveshq/walletkit-ui/dist/store";
 import BigNumber from "bignumber.js";
-import { Image, Platform } from "react-native";
+import { Image } from "expo-image";
+import { Platform } from "react-native";
 import { BarCodeScanner } from "@components/BarCodeScanner";
 import { HeaderTitle } from "@components/HeaderTitle";
 import { tailwind } from "@tailwind";
@@ -214,7 +215,7 @@ export function PortfolioNavigator(): JSX.Element {
                 height: 220,
                 width: "100%",
               }}
-              resizeMode="cover"
+              contentFit="cover"
             />
           ),
           headerLeft: () => <HeaderSettingButton />,

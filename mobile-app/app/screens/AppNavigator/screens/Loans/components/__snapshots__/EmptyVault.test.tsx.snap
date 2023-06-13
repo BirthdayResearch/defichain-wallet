@@ -58,14 +58,33 @@ exports[`Empty vault should match snapshot 1`] = `
           }
         }
       >
-        <Image
-          source={1}
+        <ViewManagerAdapter_ExpoImage
+          height={136}
+          onError={[Function]}
+          onLoad={[Function]}
+          onLoadStart={[Function]}
+          onProgress={[Function]}
+          proxiedProperties={
+            {
+              "accessibilityLabel": undefined,
+              "contentFit": "cover",
+              "contentPosition": {
+                "left": "50%",
+                "top": "50%",
+              },
+              "placeholder": [],
+              "source": [],
+              "tintColor": undefined,
+              "transition": null,
+            }
+          }
           style={
             {
               "height": 136,
               "width": 204,
             }
           }
+          width={204}
         />
       </View>
       <Text
