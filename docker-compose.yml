@@ -55,7 +55,7 @@ services:
       -grandcentralheight=16
 
   defi-playground:
-    image: ghcr.io/jellyfishsdk/playground-api:3.30.4
+    image: ghcr.io/jellyfishsdk/playground-api:3.29.1
     depends_on:
       - defi-blockchain
     ports:
@@ -68,7 +68,7 @@ services:
       - "traefik.http.routers.playground.entrypoints=web"
 
   defi-whale:
-    image: ghcr.io/jellyfishsdk/whale-api:3.30.4
+    image: ghcr.io/jellyfishsdk/whale-api:3.29.1
     depends_on:
       - defi-blockchain
     ports:
