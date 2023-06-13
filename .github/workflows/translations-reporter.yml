@@ -13,7 +13,7 @@ jobs:
     name: Missing Report
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
         with:
           node-version: 16
@@ -39,7 +39,7 @@ jobs:
             ```
       - name: Send missing translations to Slack workflow
         if: ${{ fromJson(steps.translations.outputs.content).totalMissingCount != 0 }}
-        uses: slackapi/slack-github-action@007b2c3c751a190b6f0f040e47ed024deaa72844 # tag=v1.23.0
+        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117 # v1.24.0
         id: slack_missing_translation_workflow
         with:
           payload-file-path: "./missing_translations.json"
