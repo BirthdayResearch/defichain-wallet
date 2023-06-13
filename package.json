@@ -94,7 +94,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
-    "@cypress/code-coverage": "^3.10.0",
+    "@cypress/code-coverage": "^3.10.7",
     "@expo/metro-config": "0.5.1",
     "@expo/webpack-config": "^0.17.3",
     "@testing-library/cypress": "^8.0.7",
