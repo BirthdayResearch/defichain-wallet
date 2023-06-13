@@ -119,6 +119,14 @@ exports[`Liquidity Mining FAQ screen should match snapshot 1`] = `
                   "expanded": true,
                 }
               }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
               accessible={true}
               focusable={true}
               onClick={[Function]}
@@ -271,6 +279,14 @@ Once an amount is entered on one side of the pair, the app automatically balance
               accessibilityState={
                 {
                   "expanded": false,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
                 }
               }
               accessible={true}
@@ -428,6 +444,14 @@ Similarly, liquidity tokens can only be sent to another DFI wallet address.
               accessibilityState={
                 {
                   "expanded": false,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
                 }
               }
               accessible={true}
@@ -590,6 +614,14 @@ View more at DeFiChain.com
                   "expanded": false,
                 }
               }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
               accessible={true}
               focusable={true}
               onClick={[Function]}
@@ -743,6 +775,14 @@ View more at DeFiChain.com
               accessibilityState={
                 {
                   "expanded": false,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
                 }
               }
               accessible={true}

@@ -1,5 +1,5 @@
 import { tailwind } from "@tailwind";
-import { StyleProp, ViewProps } from "react-native";
+import { StyleProp, ViewProps, ViewStyle } from "react-native";
 import {
   ThemedIcon,
   ThemedProps,
@@ -11,7 +11,7 @@ import {
 interface Props {
   headerText: string;
   onClose: () => void;
-  containerStyle?: StyleProp<ViewProps>;
+  containerStyle?: StyleProp<ViewStyle>;
   headerStyle?: {
     style: StyleProp<ViewProps>;
   } & ThemedProps;

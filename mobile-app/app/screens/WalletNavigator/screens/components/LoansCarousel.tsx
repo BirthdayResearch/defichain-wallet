@@ -1,11 +1,6 @@
-import {
-  Dimensions,
-  Image,
-  ImageSourcePropType,
-  Platform,
-  View,
-} from "react-native";
-import SwiperFlatList from "react-native-swiper-flatlist";
+import { Dimensions, ImageSourcePropType, Platform, View } from "react-native";
+import { Image } from "expo-image";
+import { SwiperFlatList } from "react-native-swiper-flatlist";
 import ImageADark from "@assets/images/loans/loans_1_dark.png";
 import ImageBDark from "@assets/images/loans/loans_2_dark.png";
 import ImageCDark from "@assets/images/loans/loans_3_dark.png";

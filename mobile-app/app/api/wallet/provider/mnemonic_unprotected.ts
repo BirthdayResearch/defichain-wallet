@@ -3,7 +3,7 @@ import {
   MnemonicHdNodeProvider,
   MnemonicProviderData,
 } from "@defichain/jellyfish-wallet-mnemonic";
-import * as Random from "expo-random";
+import * as Crypto from "expo-crypto";
 import { EnvironmentNetwork, getBip32Option } from "@waveshq/walletkit-core";
 import { WalletPersistenceDataI, WalletType } from "@waveshq/walletkit-ui";
 
@@ -35,7 +35,7 @@ function toData(
 
 function generateWords(): string[] {
   return generateMnemonicWords(24, (numOfBytes) => {
-    const bytes = Random.getRandomBytes(numOfBytes);
+    const bytes = Crypto.getRandomBytes(numOfBytes);
     return Buffer.from(bytes);
   });
 }

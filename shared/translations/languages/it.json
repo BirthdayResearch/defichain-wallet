@@ -263,7 +263,7 @@
     "TRANSACTION DETAILS": "DETTAGLI DELLA TRANSAZIONE",
     "*Registered address": "*Indirizzo registrato",
     "There is a minimal fee for the transaction": "There is a minimal fee for the transaction",
-    "A small amount of UTXO is reserved for fees": "Une petite quantité d'UTXO est réservée aux frais.",
+    "A small amount of UTXO is reserved for fees": "Una piccola quantità di UTXO è riservata alle spese.",
     "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds": "Make sure to send your LP Tokens to only DeFiChain-compatible wallets. Failing to do so may lead to irreversible loss of funds",
     "Insufficient balance": "Insufficient balance",
     "SEND TO": "SEND TO",

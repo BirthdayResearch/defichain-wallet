@@ -1,5 +1,6 @@
 import { useRef, useState, useMemo } from "react";
-import { View, Image, TextInput } from "react-native";
+import { Image } from "expo-image";
+import { View, TextInput } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import BigNumber from "bignumber.js";

@@ -91,7 +91,6 @@ export const BottomSheetWebWithNavV2 = React.memo(
   ): JSX.Element => {
     return (
       <BottomSheetModalWeb
-        screenList={props.screenList}
         ref={props.modalRef}
         isModalDisplayed={props.isModalDisplayed}
         modalStyle={props.modalStyle}

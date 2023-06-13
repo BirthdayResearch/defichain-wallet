@@ -2,7 +2,8 @@ import { Feather } from "@expo/vector-icons";
 import { StackScreenProps } from "@react-navigation/stack";
 import { useState } from "react";
 import * as React from "react";
-import { View, Image } from "react-native";
+import { Image } from "expo-image";
+import { View } from "react-native";
 import Checkbox from "expo-checkbox";
 import {
   ThemedIcon,

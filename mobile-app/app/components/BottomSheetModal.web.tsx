@@ -3,11 +3,9 @@ import * as React from "react";
 import { View } from "react-native";
 import Modal from "react-overlays/Modal";
 import { ThemedProps } from "./themed";
-import { BottomSheetNavScreen } from "./BottomSheetWithNav";
 
 type Props = ThemedProps & {
   children: ReactElement;
-  screenList: BottomSheetNavScreen[];
   isModalDisplayed: boolean;
   modalStyle?: {
     [other: string]: any;

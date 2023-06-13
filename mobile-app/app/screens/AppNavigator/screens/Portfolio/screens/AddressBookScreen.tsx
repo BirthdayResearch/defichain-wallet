@@ -22,7 +22,6 @@ import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { createRef, useCallback, useEffect, useState } from "react";
 import {
-  Image,
   Platform,
   ScrollView,
   StyleProp,
@@ -30,6 +29,7 @@ import {
   TouchableOpacity,
   ViewStyle,
 } from "react-native";
+import { Image } from "expo-image";
 import { useSelector } from "react-redux";
 import { useNetworkContext, useThemeContext } from "@waveshq/walletkit-ui";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";

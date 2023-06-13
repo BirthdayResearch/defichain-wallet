@@ -13,9 +13,9 @@ jobs:
     environment: EAS Release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
-      - uses: actions/github-script@d556feaca394842dc55e4734bf3bb9f685482fa0 # tag=v6.3.3
+      - uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1
         id: version
         with:
           script: |
@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: 16
 
-      - uses: expo/expo-github-action@f98a64c8874c4a163514273f34306f403e962350 # tag=v7.2.0
+      - uses: expo/expo-github-action@4479f0b3692e25169fa71a02c30d6586ec2f5601 # tag=v7.2.0
         with:
           eas-version: latest
           expo-version: 4.x

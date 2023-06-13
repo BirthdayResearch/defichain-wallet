@@ -5,7 +5,7 @@ import {
   PromptPassphrase,
   Scrypt,
 } from "@defichain/jellyfish-wallet-encrypted";
-import * as Random from "expo-random";
+import * as Crypto from "expo-crypto";
 import { EnvironmentNetwork, getBip32Option } from "@waveshq/walletkit-core";
 import { WalletPersistenceDataI, WalletType } from "@waveshq/walletkit-ui";
 
@@ -36,7 +36,7 @@ const DEFAULT_SCRYPT_N_R_P = [
 const encryption = new PrivateKeyEncryption(
   new Scrypt(...DEFAULT_SCRYPT_N_R_P),
   (numOfBytes) => {
-    const bytes = Random.getRandomBytes(numOfBytes);
+    const bytes = Crypto.getRandomBytes(numOfBytes);
     return Buffer.from(bytes);
   }
 );

@@ -128,14 +128,33 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
             ]
           }
         />
-        <Image
-          source={1}
+        <ViewManagerAdapter_ExpoImage
+          height={332}
+          onError={[Function]}
+          onLoad={[Function]}
+          onLoadStart={[Function]}
+          onProgress={[Function]}
+          proxiedProperties={
+            {
+              "accessibilityLabel": undefined,
+              "contentFit": "cover",
+              "contentPosition": {
+                "left": "50%",
+                "top": "50%",
+              },
+              "placeholder": [],
+              "source": [],
+              "tintColor": undefined,
+              "transition": null,
+            }
+          }
           style={
             {
               "height": 332,
               "width": 750,
             }
           }
+          width={750}
         />
         <View
           style={
@@ -146,6 +165,23 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
           }
         >
           <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
             accessible={true}
             collapsable={false}
             focusable={true}
@@ -328,14 +364,33 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
             ]
           }
         />
-        <Image
-          source={1}
+        <ViewManagerAdapter_ExpoImage
+          height={332}
+          onError={[Function]}
+          onLoad={[Function]}
+          onLoadStart={[Function]}
+          onProgress={[Function]}
+          proxiedProperties={
+            {
+              "accessibilityLabel": undefined,
+              "contentFit": "cover",
+              "contentPosition": {
+                "left": "50%",
+                "top": "50%",
+              },
+              "placeholder": [],
+              "source": [],
+              "tintColor": undefined,
+              "transition": null,
+            }
+          }
           style={
             {
               "height": 332,
               "width": 750,
             }
           }
+          width={750}
         />
         <View
           style={
@@ -346,6 +401,23 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
           }
         >
           <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
             accessible={true}
             collapsable={false}
             focusable={true}

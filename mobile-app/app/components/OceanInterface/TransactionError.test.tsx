@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react-native";
-import { TransactionError, ErrorCodes, ErrorMapping } from "./TransactionError";
+import { ErrorCodes, ErrorMapping, TransactionError } from "./TransactionError";
 
 jest.mock("@shared-contexts/NativeLoggingProvider");
 
@@ -48,7 +48,7 @@ describe("info text", () => {
         "Vault does not have enough collateralization ratio defined by loan scheme",
     },
     {
-      code: 404,
+      code: ErrorCodes.Error404,
       message: "Error: Not found, code: 404, message: Page not found",
     },
   ];

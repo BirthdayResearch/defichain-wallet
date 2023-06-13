@@ -8,7 +8,7 @@
 2. Stable network
 3. Expo Go test URL & TestFlight invitation code
 
-The test will run on [DeFi Playground](https://github.com/DeFiCh/wallet#testing). To begin, refer to the steps below based on your mobile device's operating system.
+The test will run on [DeFi Playground](https://github.com/BirthdayResearch/defichain-wallet#testing). To begin, refer to the steps below based on your mobile device's operating system.
 
 ### Android
 
@@ -16,7 +16,7 @@ The test will run on [DeFi Playground](https://github.com/DeFiCh/wallet#testing)
 2. If you have Expo Go installed on your device, kindly ensure that you have the latest version via Play Store for ideal
    compatibility with DeFiChain Wallet
 3. Go to DeFiCh/wallet Discussions and select
-   the [latest version](https://github.com/DeFiCh/wallet/discussions/categories/beta-testing)
+   the [latest version](https://github.com/BirthdayResearch/defichain-wallet/discussions/categories/beta-testing)
 4. Scan the QR code using your mobile device
 5. Alternatively, copy and paste the Expo URL in your Expo Go App
 6. DeFiChain Wallet should reflect in Expo Go
@@ -56,7 +56,7 @@ Should you need utxoDFI or Tokens for testing, you may generate them using DeFi 
 ## Test Results
 
 Select the respective DeFiChain Wallet version thread
-via [GitHub Discussions](https://github.com/DeFiCh/wallet/discussions/categories/beta-testing) and post your feedback(s)
+via [GitHub Discussions](https://github.com/BirthdayResearch/defichain-wallet/discussions/categories/beta-testing) and post your feedback(s)
 .
 
 **Do include the following before leaving a comment / post:**

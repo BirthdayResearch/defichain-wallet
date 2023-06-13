@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleProp, View, ViewProps } from "react-native";
+import { StyleProp, View, ViewStyle } from "react-native";
 import { tailwind } from "@tailwind";
 import { getNativeIcon } from "@components/icons/assets";
 
@@ -7,7 +7,7 @@ interface PoolPairIconV2Props {
   symbolA: string;
   symbolB: string;
   customSize?: number;
-  iconBStyle?: StyleProp<ViewProps>;
+  iconBStyle?: StyleProp<ViewStyle>;
   testID?: string;
 }
 
