@@ -1,6 +1,6 @@
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
-
-import { Image, ImageBackground, View } from "react-native";
+import { Image } from "expo-image";
+import { ImageBackground, View } from "react-native";
 import { AppIcon } from "@components/icons/AppIcon";
 import {
   ThemedIcon,
@@ -131,7 +131,7 @@ export function AboutScreen(): JSX.Element {
             isLight ? DeFiChainWalletImageLight : DeFiChainWalletImageDark
           }
           style={tailwind("flex-wrap w-64 h-6 mt-5")}
-          resizeMode="contain"
+          contentFit="contain"
         />
 
         <View style={tailwind("mt-3")}>

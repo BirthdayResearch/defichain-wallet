@@ -5,7 +5,8 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { tailwind } from "@tailwind";
-import { Image, View } from "react-native";
+import { Image } from "expo-image";
+import { View } from "react-native";
 import EmptyCollateral from "@assets/images/loans/empty_collateral.png";
 import LiquidatedVault from "@assets/images/loans/liquidated_vault.png";
 import { translate } from "@translations";
@@ -58,7 +59,7 @@ export function VaultBanner({
                 width: 74,
                 height: 64,
               }}
-              resizeMode="contain"
+              contentFit="contain"
               testID={`${testID}_liquidated_vault_image`}
             />
           ) : (
@@ -68,7 +69,7 @@ export function VaultBanner({
                 width: 74,
                 height: 64,
               }}
-              resizeMode="contain"
+              contentFit="contain"
               testID={`${testID}_empty_vault_image`}
             />
           )}

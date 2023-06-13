@@ -1,4 +1,5 @@
-import { Image, Platform, RefreshControl } from "react-native";
+import { Platform, RefreshControl } from "react-native";
+import { Image } from "expo-image";
 import {
   ThemedIcon,
   ThemedScrollViewV2,

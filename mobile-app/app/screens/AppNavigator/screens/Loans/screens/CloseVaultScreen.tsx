@@ -1,5 +1,5 @@
 import { Dispatch, useEffect, useState } from "react";
-import { Image } from "react-native";
+import { Image } from "expo-image";
 import { useSelector } from "react-redux";
 import { StackScreenProps } from "@react-navigation/stack";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
@@ -93,7 +93,7 @@ export function CloseVaultScreen({ route, navigation }: Props): JSX.Element {
               height: 95,
             },
           ]}
-          resizeMode="contain"
+          contentFit="contain"
         />
         <ThemedTextV2
           style={tailwind(

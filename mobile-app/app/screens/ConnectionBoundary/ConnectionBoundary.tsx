@@ -1,5 +1,6 @@
 import { useNetInfo, fetch } from "@react-native-community/netinfo";
-import { View, Image } from "react-native";
+import { View } from "react-native";
+import { Image } from "expo-image";
 import ImageConnectionProblem from "@assets/images/misc/connection_problem.png";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
