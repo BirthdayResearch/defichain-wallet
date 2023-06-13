@@ -1,5 +1,5 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { View } from "@components/index";
+import { View } from "@components";
 import { ThemedScrollViewV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";

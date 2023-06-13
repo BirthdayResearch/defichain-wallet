@@ -22,8 +22,7 @@ module.exports = function (api) {
       },
     ],
     "@babel/plugin-proposal-export-namespace-from",
-    "react-native-reanimated/plugin",
-    ["@babel/plugin-transform-private-methods", { "loose": true }]
+    "react-native-reanimated/plugin"
   ];
 
   if (process.env.CYPRESS_E2E) {
