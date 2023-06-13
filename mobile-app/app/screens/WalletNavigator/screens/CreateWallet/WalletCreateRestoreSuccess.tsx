@@ -43,7 +43,7 @@ export function WalletCreateRestoreSuccess({ route }: Props): JSX.Element {
       ? { width: "375px", height: "100%" }
       : Dimensions.get("window");
   // show all content for small screen and web to adjust margins and paddings
-  const isSmallScreen = (height <= 667 || Platform.OS === "web") as any;
+  const isSmallScreen = (height as number) <= 667 || Platform.OS === "web";
 
   async function handleOnPress(): Promise<void> {
     if (isWalletRestored) {
