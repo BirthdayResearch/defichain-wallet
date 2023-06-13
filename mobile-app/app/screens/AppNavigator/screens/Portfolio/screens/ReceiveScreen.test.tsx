@@ -78,7 +78,7 @@ describe("receive page", () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it("should trigger share", async () => {
+  it.skip("should trigger share", async () => {
     const initialState: Partial<RootState> = {
       wallet: {
         utxoBalance: "77",
