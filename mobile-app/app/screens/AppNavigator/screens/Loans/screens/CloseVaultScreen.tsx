@@ -1,5 +1,5 @@
 import { Dispatch, useEffect, useState } from "react";
-import { Image } from "react-native";
+import { Image } from "expo-image";
 import { useSelector } from "react-redux";
 import { StackScreenProps } from "@react-navigation/stack";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";

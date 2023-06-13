@@ -1,5 +1,6 @@
 import { NavigationProp } from "@react-navigation/native";
-import { RefreshControl, Image, View } from "react-native";
+import { Image } from "expo-image";
+import { RefreshControl, View } from "react-native";
 import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";

@@ -1,10 +1,10 @@
 import { Component, ReactElement } from "react";
-import { Image } from "react-native";
+import { Image } from "expo-image";
 import ImageGenericError from "@assets/images/misc/generic_error.png";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { Logging } from "@api";
-import { Text, View } from "../../components";
+import { Text, View } from "@components";
 
 interface Props {
   children: ReactElement;

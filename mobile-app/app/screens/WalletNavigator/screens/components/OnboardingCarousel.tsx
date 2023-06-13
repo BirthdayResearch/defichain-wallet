@@ -1,5 +1,6 @@
-import { Dimensions, Image, ImageSourcePropType, Platform } from "react-native";
-import SwiperFlatList from "react-native-swiper-flatlist";
+import { Dimensions, ImageSourcePropType, Platform } from "react-native";
+import { Image } from "expo-image";
+import { SwiperFlatList } from "react-native-swiper-flatlist";
 import ImageADark from "@assets/images/onboarding/welcome-screen-a-dark.png";
 import ImageBDark from "@assets/images/onboarding/welcome-screen-b-dark.png";
 import ImageCDark from "@assets/images/onboarding/welcome-screen-c-dark.png";
@@ -8,7 +9,7 @@ import ImageALight from "@assets/images/onboarding/welcome-screen-a-light.png";
 import ImageBLight from "@assets/images/onboarding/welcome-screen-b-light.png";
 import ImageCLight from "@assets/images/onboarding/welcome-screen-c-light.png";
 import ImageDLight from "@assets/images/onboarding/welcome-screen-d-light.png";
-import { View } from "@components/index";
+import { View } from "@components";
 import { ThemedTextV2 } from "@components/themed";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import { getColor, tailwind } from "@tailwind";

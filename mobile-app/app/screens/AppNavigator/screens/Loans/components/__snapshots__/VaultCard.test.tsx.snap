@@ -1361,9 +1361,26 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
           }
         }
       >
-        <Image
-          resizeMode="contain"
-          source={1}
+        <ViewManagerAdapter_ExpoImage
+          height={64}
+          onError={[Function]}
+          onLoad={[Function]}
+          onLoadStart={[Function]}
+          onProgress={[Function]}
+          proxiedProperties={
+            {
+              "accessibilityLabel": undefined,
+              "contentFit": "contain",
+              "contentPosition": {
+                "left": "50%",
+                "top": "50%",
+              },
+              "placeholder": [],
+              "source": [],
+              "tintColor": undefined,
+              "transition": null,
+            }
+          }
           style={
             {
               "height": 64,
@@ -1371,6 +1388,7 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
             }
           }
           testID="vault_IN LIQUIDATION_liquidated_vault_image"
+          width={74}
         />
         <View
           style={

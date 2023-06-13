@@ -74,9 +74,28 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
           />
         </RNSVGGroup>
       </RNSVGSvgView>
-      <Image
-        resizeMode="contain"
-        source={1}
+      <ViewManagerAdapter_ExpoImage
+        flexWrap="wrap"
+        height={24}
+        marginTop={20}
+        onError={[Function]}
+        onLoad={[Function]}
+        onLoadStart={[Function]}
+        onProgress={[Function]}
+        proxiedProperties={
+          {
+            "accessibilityLabel": undefined,
+            "contentFit": "contain",
+            "contentPosition": {
+              "left": "50%",
+              "top": "50%",
+            },
+            "placeholder": [],
+            "source": [],
+            "tintColor": undefined,
+            "transition": null,
+          }
+        }
         style={
           {
             "flexWrap": "wrap",
@@ -85,6 +104,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
             "width": 256,
           }
         }
+        width={256}
       />
       <View
         style={

@@ -1,6 +1,6 @@
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
-
-import { Image, ImageBackground, View } from "react-native";
+import { Image } from "expo-image";
+import { ImageBackground, View } from "react-native";
 import { AppIcon } from "@components/icons/AppIcon";
 import {
   ThemedIcon,
@@ -112,7 +112,7 @@ const SOCIAL_LINKS: AboutScreenSocialLinks[] = [
   {
     testID: "github",
     iconName: "github",
-    url: "https://github.com/DeFiCh/wallet",
+    url: "https://github.com/BirthdayResearch/defichain-wallet",
   },
 ];
 
