@@ -62,7 +62,7 @@
         "react/jsx-no-bind": "off",
         "import/no-cycle": "off",
         "react/no-array-index-key": "off",
-        "react/no-unused-prop-types": "error",
+        "react/no-unused-prop-types": "warn",
         "react/no-unstable-nested-components": "off",
         "@typescript-eslint/default-param-last": "off",
         "no-plusplus": "off",

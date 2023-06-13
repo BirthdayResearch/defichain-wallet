@@ -1,5 +1,5 @@
 import { getNativeIcon } from "@components/icons/assets";
-import { StyleProp, ViewProps } from "react-native";
+import { StyleProp, ViewStyle } from "react-native";
 import { PoolPairIconV2 } from "../../Dex/components/PoolPairCards/PoolPairIconV2";
 
 interface TokenIconProps {
@@ -9,7 +9,7 @@ interface TokenIconProps {
     displaySymbol: string;
   };
   size: number;
-  iconBStyle?: StyleProp<ViewProps>;
+  iconBStyle?: StyleProp<ViewStyle>;
 }
 
 export function TokenIcon(props: TokenIconProps): JSX.Element {

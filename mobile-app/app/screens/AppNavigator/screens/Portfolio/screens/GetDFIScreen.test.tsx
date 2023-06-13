@@ -54,6 +54,8 @@ jest.mock("react-native-toast-notifications", () => ({
   }),
 }));
 
+jest.mock("@shared-contexts/NativeLoggingProvider");
+
 const navigation: any = {
   navigate: jest.fn(),
 };

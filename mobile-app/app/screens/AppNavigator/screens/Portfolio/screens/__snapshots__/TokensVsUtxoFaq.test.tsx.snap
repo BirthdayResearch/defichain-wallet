@@ -119,6 +119,14 @@ exports[`Tokens vs Utxo FAQ screen should match snapshot 1`] = `
                   "expanded": true,
                 }
               }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
               accessible={true}
               focusable={true}
               onClick={[Function]}
@@ -269,6 +277,14 @@ exports[`Tokens vs Utxo FAQ screen should match snapshot 1`] = `
               accessibilityState={
                 {
                   "expanded": false,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
                 }
               }
               accessible={true}
@@ -618,6 +634,14 @@ exports[`Tokens vs Utxo FAQ screen should match snapshot 1`] = `
                   "expanded": false,
                 }
               }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
               accessible={true}
               focusable={true}
               onClick={[Function]}
@@ -771,6 +795,14 @@ exports[`Tokens vs Utxo FAQ screen should match snapshot 1`] = `
               accessibilityState={
                 {
                   "expanded": false,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
                 }
               }
               accessible={true}

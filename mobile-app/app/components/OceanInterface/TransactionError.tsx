@@ -24,6 +24,7 @@ export enum ErrorCodes {
   DustValue = 9,
   ZeroBalance = 10,
   CfpProposalExceedAmount = 11,
+  Error404 = 404,
 }
 
 export interface ErrorMapping {

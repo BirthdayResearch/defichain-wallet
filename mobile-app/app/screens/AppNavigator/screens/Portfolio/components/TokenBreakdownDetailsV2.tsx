@@ -9,7 +9,7 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { useMemo } from "react";
-import { StyleProp, TextProps, ViewProps } from "react-native";
+import { StyleProp, TextProps, ViewStyle } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import { getPrecisedCurrencyValue } from "../../Auctions/helpers/precision-token-value";
@@ -296,7 +296,7 @@ interface TokenBreakdownDetailsRowProps {
   labelTextStyle?: StyleProp<TextProps>;
   valueTextStyle?: StyleProp<TextProps>;
   valueThemeProps?: ThemedProps;
-  containerStyle?: StyleProp<ViewProps>;
+  containerStyle?: StyleProp<ViewStyle>;
   prefix?: string;
   suffix?: string;
   border?: boolean;

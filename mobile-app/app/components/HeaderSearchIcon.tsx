@@ -1,15 +1,11 @@
 import { tailwind } from "@tailwind";
-import {
-  StyleProp,
-  TouchableOpacity,
-  TouchableOpacityProps,
-} from "react-native";
+import { StyleProp, TouchableOpacity, ViewStyle } from "react-native";
 import { ThemedIcon } from "./themed";
 
 interface HeaderSearchIconProps {
   onPress: () => void;
   testID?: string;
-  style?: StyleProp<TouchableOpacityProps>;
+  style?: StyleProp<ViewStyle>;
 }
 
 export function HeaderSearchIcon(props: HeaderSearchIconProps): JSX.Element {

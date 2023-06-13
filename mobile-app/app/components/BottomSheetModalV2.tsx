@@ -1,6 +1,6 @@
 import { ReactElement, useCallback, useEffect, useRef } from "react";
 import { tailwind } from "@tailwind";
-import { Platform, StyleProp, View, ViewProps } from "react-native";
+import { Platform, StyleProp, View, ViewStyle } from "react-native";
 import {
   BottomSheetBackgroundProps,
   BottomSheetModal as Modal,
@@ -18,7 +18,7 @@ type Props = ThemedProps &
     triggerComponent: ReactElement;
     children: ReactElement;
     alertInfo?: { title: string; message: string };
-    closeButtonStyle?: StyleProp<ViewProps>;
+    closeButtonStyle?: StyleProp<ViewStyle>;
     enableScroll?: boolean;
   };
 
