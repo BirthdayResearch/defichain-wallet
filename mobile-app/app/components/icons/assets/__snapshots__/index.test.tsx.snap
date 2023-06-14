@@ -1905,16 +1905,6 @@ exports[`token icons getNativeIcon("dDOGE") should get <IcondDOGE /> snapshot 1`
         }
         height="100%"
         maskContentUnits={1}
-        maskTransform={
-          [
-            1,
-            0,
-            0,
-            1,
-            0,
-            0,
-          ]
-        }
         maskUnits={0}
         name="dDOGE_svg__b"
         propList={
@@ -1974,16 +1964,6 @@ exports[`token icons getNativeIcon("dDOGE") should get <IcondDOGE /> snapshot 1`
             }
             height="100%"
             maskContentUnits={1}
-            maskTransform={
-              [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
             maskUnits={0}
             name="dDOGE_svg__d"
             propList={
@@ -2042,16 +2022,6 @@ exports[`token icons getNativeIcon("dDOGE") should get <IcondDOGE /> snapshot 1`
             }
             height="100%"
             maskContentUnits={1}
-            maskTransform={
-              [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
             maskUnits={0}
             name="dDOGE_svg__f"
             propList={
@@ -2142,16 +2112,6 @@ exports[`token icons getNativeIcon("dDOGE") should get <IcondDOGE /> snapshot 1`
             }
             height="100%"
             maskContentUnits={1}
-            maskTransform={
-              [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
             maskUnits={0}
             name="dDOGE_svg__h"
             propList={
@@ -2370,16 +2330,6 @@ exports[`token icons getNativeIcon("dDOGE") should get <IcondDOGE /> snapshot 1`
             }
             height="100%"
             maskContentUnits={1}
-            maskTransform={
-              [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
             maskUnits={0}
             name="dDOGE_svg__j"
             propList={
@@ -2438,16 +2388,6 @@ exports[`token icons getNativeIcon("dDOGE") should get <IcondDOGE /> snapshot 1`
             }
             height="100%"
             maskContentUnits={1}
-            maskTransform={
-              [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
             maskUnits={0}
             name="dDOGE_svg__l"
             propList={
@@ -2602,16 +2542,6 @@ exports[`token icons getNativeIcon("dDOGE") should get <IcondDOGE /> snapshot 1`
             }
             height="100%"
             maskContentUnits={1}
-            maskTransform={
-              [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
             maskUnits={0}
             name="dDOGE_svg__n"
             propList={
@@ -2782,16 +2712,6 @@ exports[`token icons getNativeIcon("dDOGE") should get <IcondDOGE /> snapshot 1`
             }
             height="100%"
             maskContentUnits={1}
-            maskTransform={
-              [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
             maskUnits={0}
             name="dDOGE_svg__p"
             propList={

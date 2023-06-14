@@ -39,7 +39,6 @@ exports[`offline screen should match snapshot when offline 1`] = `
       onProgress={[Function]}
       proxiedProperties={
         {
-          "accessibilityLabel": undefined,
           "contentFit": "cover",
           "contentPosition": {
             "left": "50%",

@@ -25,14 +25,14 @@
     "@gorhom/bottom-sheet": "^4.4.7",
     "@mealection/react-native-boring-avatars": "1.1.2",
     "@react-native-async-storage/async-storage": "1.18.2",
-    "@react-native-community/netinfo": "9.3.10",
+    "@react-native-community/netinfo": "9.3.7",
     "@react-native-community/slider": "4.4.2",
-    "@react-native-masked-view/masked-view": "0.2.9",
+    "@react-native-masked-view/masked-view": "0.2.8",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/stack": "^6.3.16",
     "@reduxjs/toolkit": "^1.9.5",
-    "@shopify/flash-list": "1.4.3",
+    "@shopify/flash-list": "1.4.0",
     "@waveshq/standard-defichain-jellyfishsdk": "^0.53.0",
     "@waveshq/walletkit-core": "^0.48.0",
     "@waveshq/walletkit-ui": "^0.48.0",
@@ -49,7 +49,7 @@
     "expo-crypto": "~12.2.2",
     "expo-file-system": "~15.2.2",
     "expo-font": "~11.1.1",
-    "expo-image": "^1.2.3",
+    "expo-image": "~1.0.1",
     "expo-linear-gradient": "~12.1.2",
     "expo-linking": "~4.0.1",
     "expo-local-authentication": "~13.3.0",
@@ -73,14 +73,14 @@
     "react-native-collapsible": "^1.6.1",
     "react-native-confirmation-code-field": "^7.3.1",
     "react-native-gesture-handler": "~2.9.0",
-    "react-native-get-random-values": "^1.9.0",
+    "react-native-get-random-values": "~1.8.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-popover-view": "^5.1.7",
     "react-native-progress": "^5.0.0",
     "react-native-reanimated": "~2.14.4",
     "react-native-safe-area-context": "4.5.0",
     "react-native-screens": "~3.20.0",
-    "react-native-svg": "13.4.0",
+    "react-native-svg": "13.5.0",
     "react-native-swiper-flatlist": "^3.2.3",
     "react-native-toast-notifications": "^3.3.1",
     "react-native-web": "~0.18.12",
@@ -163,7 +163,7 @@
   },
   "overrides": {
     "react-native-circular-progress-indicator": {
-      "react-native-svg": "13.4.0"
+      "react-native-svg": "13.5.0"
     }
   }
 }
