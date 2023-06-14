@@ -84,7 +84,6 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
         onProgress={[Function]}
         proxiedProperties={
           {
-            "accessibilityLabel": undefined,
             "contentFit": "contain",
             "contentPosition": {
               "left": "50%",
