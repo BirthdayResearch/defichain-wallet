@@ -52,8 +52,8 @@ services:
       -fortcanningspringheight=13
       -fortcanninggreatworldheight=14
       -fortcanningepilogueheight=15
-      -grandcentralheight=16,
-      -grandcentralepilogueheight=17,
+      -grandcentralheight=16
+      -grandcentralepilogueheight=17
       -nextnetworkupgradeheight=18
 
   defi-playground:
