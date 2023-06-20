@@ -97,7 +97,9 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
         <View style={tailwind("flex flex-row items-center justify-between")}>
           <ThemedTouchableOpacityV2
             testID="toggle_balance"
-            style={tailwind("mr-2")}
+            style={tailwind("mr-2", {
+              "mb-2.5": Platform.OS === "android",
+            })}
             light={tailwind("bg-transparent")}
             dark={tailwind("bg-transparent")}
             onPress={onToggleDisplayBalances}
