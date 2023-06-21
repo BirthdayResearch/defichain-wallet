@@ -320,6 +320,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
     },
   ];
 
+  const [isEvmPortfolio, setIsEvmPortfolio] = useState<boolean>(false);
   // Asset sort bottom sheet list
   const [assetSortType, setAssetSortType] = useState<PortfolioSortType>(
     PortfolioSortType.HighestDenominationValue
@@ -591,6 +592,27 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
             addressLength={addressLength}
             onPress={() => expandModal(false)}
           />
+          <ThemedTouchableOpacityV2
+            light={tailwind({
+              "bg-evm-light": isEvmPortfolio,
+              "bg-brand-v2-500": !isEvmPortfolio,
+            })}
+            dark={tailwind({
+              "bg-evm-dark": isEvmPortfolio,
+              "bg-brand-v2-500": !isEvmPortfolio,
+            })}
+            style={tailwind("flex ml-2 rounded-lg py-1 px-1.5")}
+            onPress={() => setIsEvmPortfolio(!isEvmPortfolio)}
+            testID="switch_domain_button"
+          >
+            <ThemedTextV2
+              light={tailwind("text-mono-light-v2-100")}
+              dark={tailwind("text-mono-dark-v2-100")}
+              style={tailwind("text-2xs font-semibold-v2 leading-3")}
+            >
+              {isEvmPortfolio ? "EVM" : "DFI"}
+            </ThemedTextV2>
+          </ThemedTouchableOpacityV2>
         </ThemedViewV2>
 
         <TotalPortfolio

@@ -161,6 +161,8 @@ module.exports = {
         "red-v2": "#E54545",
         "orange-v2": "#D97B01",
         "green-v2": "#00AD1D",
+        "evm-light":"#95B2EB",
+        "evm-dark":"#4D7BC1",
       },
       maxWidth: {
         "1/4": "25%",
