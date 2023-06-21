@@ -41,7 +41,6 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
         onProgress={[Function]}
         proxiedProperties={
           {
-            "accessibilityLabel": undefined,
             "contentFit": "cover",
             "contentPosition": {
               "left": "50%",

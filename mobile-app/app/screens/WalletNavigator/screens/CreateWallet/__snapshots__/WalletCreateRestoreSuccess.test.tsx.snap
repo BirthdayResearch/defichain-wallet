@@ -136,7 +136,6 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
           onProgress={[Function]}
           proxiedProperties={
             {
-              "accessibilityLabel": undefined,
               "contentFit": "cover",
               "contentPosition": {
                 "left": "50%",
@@ -372,7 +371,6 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
           onProgress={[Function]}
           proxiedProperties={
             {
-              "accessibilityLabel": undefined,
               "contentFit": "cover",
               "contentPosition": {
                 "left": "50%",
