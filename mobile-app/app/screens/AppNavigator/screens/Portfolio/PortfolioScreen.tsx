@@ -10,6 +10,7 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
+import { useDisplayBalancesContext } from "@contexts/DisplayBalancesContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import {
   useWalletPersistenceContext,
@@ -115,6 +116,10 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
     string,
     LockedBalance
   >;
+  const {
+    isBalancesDisplayed,
+    toggleDisplayBalances: onToggleDisplayBalances,
+  } = useDisplayBalancesContext();
   const blockCount = useSelector((state: RootState) => state.block.count);
   const vaults = useSelector((state: RootState) =>
     activeVaultsSelector(state.loans)
@@ -593,6 +598,21 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
             onPress={() => expandModal(false)}
           />
           <ThemedTouchableOpacityV2
+            testID="toggle_balance"
+            style={tailwind("ml-2")}
+            light={tailwind("bg-transparent")}
+            dark={tailwind("bg-transparent")}
+            onPress={onToggleDisplayBalances}
+          >
+            <ThemedIcon
+              iconType="MaterialCommunityIcons"
+              dark={tailwind("text-mono-dark-v2-900")}
+              light={tailwind("text-mono-light-v2-900")}
+              name={`${isBalancesDisplayed ? "eye" : "eye-off"}`}
+              size={18}
+            />
+          </ThemedTouchableOpacityV2>
+          <ThemedTouchableOpacityV2
             light={tailwind({
               "bg-evm-light": isEvmPortfolio,
               "bg-brand-v2-500": !isEvmPortfolio,
@@ -623,7 +643,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           denominationCurrency={denominationCurrency}
           setDenominationCurrency={setDenominationCurrency}
         />
-        <ActionButtons />
+        <ActionButtons isEvmPortfolio={isEvmPortfolio} />
         <Announcements />
         <AssetsFilterRow
           activeButtonGroup={activeButtonGroup}

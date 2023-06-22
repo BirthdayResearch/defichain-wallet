@@ -1,11 +1,6 @@
 import { View } from "@components";
 import { TextSkeletonLoader } from "@components/TextSkeletonLoader";
-import {
-  ThemedIcon,
-  ThemedTextV2,
-  ThemedViewV2,
-  ThemedTouchableOpacityV2,
-} from "@components/themed";
+import { ThemedIcon, ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { RootState } from "@store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
@@ -15,7 +10,6 @@ import { useSelector } from "react-redux";
 import { Platform, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
 import { TextSkeletonLoaderV2 } from "@components/TextSkeletonLoaderV2";
-import { useDisplayBalancesContext } from "@contexts/DisplayBalancesContext";
 import {
   getPrecisedCurrencyValue,
   getPrecisedTokenValue,
@@ -73,11 +67,6 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
     props.setDenominationCurrency(props.portfolioButtonGroup[nextIndex].id);
   };
 
-  const {
-    isBalancesDisplayed,
-    toggleDisplayBalances: onToggleDisplayBalances,
-  } = useDisplayBalancesContext();
-
   useEffect(() => {
     setActiveButtonGroup(
       props.portfolioButtonGroup.find(
@@ -95,23 +84,6 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
     >
       {hasFetchedToken && hasFetchedVaultsData ? (
         <View style={tailwind("flex flex-row items-center justify-between")}>
-          <ThemedTouchableOpacityV2
-            testID="toggle_balance"
-            style={tailwind("mr-2", {
-              "mb-2.5": Platform.OS === "android",
-            })}
-            light={tailwind("bg-transparent")}
-            dark={tailwind("bg-transparent")}
-            onPress={onToggleDisplayBalances}
-          >
-            <ThemedIcon
-              iconType="MaterialCommunityIcons"
-              dark={tailwind("text-mono-dark-v2-900")}
-              light={tailwind("text-mono-light-v2-900")}
-              name={`${isBalancesDisplayed ? "eye" : "eye-off"}`}
-              size={16}
-            />
-          </ThemedTouchableOpacityV2>
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={onCurrencySwitch}
