@@ -23,6 +23,7 @@ module.exports = defineConfig({
     baseUrl: "http://localhost:19000",
     specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx}",
     excludeSpecPattern:[
+      
       // Functional/Wallet/Portfolio
       "cypress/e2e/functional/wallet/portfolio/portfolio.spec.ts",
       "cypress/e2e/functional/wallet/portfolio/tokenDetail.spec.ts",
