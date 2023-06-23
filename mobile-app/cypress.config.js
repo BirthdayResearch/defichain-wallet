@@ -23,6 +23,9 @@ module.exports = defineConfig({
     baseUrl: "http://localhost:19000",
     specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx}",
     excludeSpecPattern:[
+      // Functional/Wallet/Portfolio
+      "cypress/e2e/functional/wallet/portfolio/portfolio.spec.ts",
+      "cypress/e2e/functional/wallet/portfolio/tokenDetail.spec.ts",
       // Functional/Wallet/Auctions
       "cypress/e2e/functional/wallet/auctions/auctions.spec.ts",
       "cypress/e2e/functional/wallet/auctions/auctions_bid_with_multiple_wallet.spec.ts",
@@ -38,14 +41,23 @@ module.exports = defineConfig({
       // Functional/Wallet/Loans
       "cypress/e2e/functional/wallet/loans/loans_payback.spec.ts",
       "cypress/e2e/functional/wallet/loans/vault_detail.spec.ts",
+      "cypress/e2e/functional/wallet/loans/collateral.spec.ts",
+      "cypress/e2e/functional/wallet/loans/create_vault.spec.ts",
+      "cypress/e2e/functional/wallet/loans/loans_unloop_dusd.spec.ts",
       // Functional/Wallet/Portfolio
       "cypress/e2e/functional/wallet/portfolio/addresses.spec.ts",
       "cypress/e2e/functional/wallet/portfolio/cfp_dfip.spec.ts",
       "cypress/e2e/functional/wallet/portfolio/send.spec.ts",
+      "cypress/e2e/functional/wallet/portfolio/convert/convert.spec.ts",
+      "cypress/e2e/functional/wallet/portfolio/poolpairRewards.spec.ts",
       // Functional/Wallet/Settings
       "cypress/e2e/functional/wallet/settings/serviceProvider.spec.ts",
+      "cypress/e2e/functional/wallet/settings/networkDetails.spec.ts",
+      "cypress/e2e/functional/wallet/settings/addressBook.spec.ts",
       // Functional/Wallet/Transaction
-      "cypress/e2e/functional/wallet/transaction/list_empty.spec.ts"
+      "cypress/e2e/functional/wallet/transaction/list_empty.spec.ts",
+      // Smoke
+      "cypress/e2e/smoke/smoke.spec.ts"
     ]
 
   },
