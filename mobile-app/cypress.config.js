@@ -23,7 +23,7 @@ module.exports = defineConfig({
     baseUrl: "http://localhost:19000",
     specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx}",
     excludeSpecPattern:[
-      
+
       // Functional/Wallet/Portfolio
       "cypress/e2e/functional/wallet/portfolio/portfolio.spec.ts",
       "cypress/e2e/functional/wallet/portfolio/tokenDetail.spec.ts",
@@ -39,12 +39,15 @@ module.exports = defineConfig({
       // Functional/Wallet/Dex/Swap
       "cypress/e2e/functional/wallet/dex/swap/swap_future.spec.ts",
       "cypress/e2e/functional/wallet/dex/swap/swap_future_withdraw.spec.ts",
+      "cypress/e2e/functional/wallet/dex/swap/swap_future_transaction.spec.ts",
+      "cypress/e2e/functional/wallet/dex/swap/swap_instant_dfi.spec.ts",
       // Functional/Wallet/Loans
       "cypress/e2e/functional/wallet/loans/loans_payback.spec.ts",
       "cypress/e2e/functional/wallet/loans/vault_detail.spec.ts",
       "cypress/e2e/functional/wallet/loans/collateral.spec.ts",
       "cypress/e2e/functional/wallet/loans/create_vault.spec.ts",
       "cypress/e2e/functional/wallet/loans/loans_unloop_dusd.spec.ts",
+      "cypress/e2e/functional/wallet/loans/loans_with_dfi_dusd_vault_share.spec.ts",
       // Functional/Wallet/Portfolio
       "cypress/e2e/functional/wallet/portfolio/addresses.spec.ts",
       "cypress/e2e/functional/wallet/portfolio/cfp_dfip.spec.ts",
