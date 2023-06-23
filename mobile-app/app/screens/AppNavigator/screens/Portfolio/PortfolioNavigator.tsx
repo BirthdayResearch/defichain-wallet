@@ -3,7 +3,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { AddressType, WalletToken } from "@waveshq/walletkit-ui/dist/store";
 import BigNumber from "bignumber.js";
 import { Image } from "expo-image";
-import { Platform } from "react-native";
+import { Platform, View } from "react-native";
+import { DomainSwitch } from "@components/DomainSwitch";
 import { BarCodeScanner } from "@components/BarCodeScanner";
 import { HeaderTitle } from "@components/HeaderTitle";
 import { tailwind } from "@tailwind";
@@ -218,7 +219,21 @@ export function PortfolioNavigator(): JSX.Element {
               contentFit="cover"
             />
           ),
-          headerLeft: () => <HeaderSettingButton />,
+          headerLeft: () => (
+            <View
+              style={tailwind(
+                "flex flex-row bg-transparent items-center w-full"
+              )}
+            >
+              <DomainSwitch
+                // onValueChange={async (v) => {}}
+                // testID="domain_switch"
+                // selectionMode={false}
+                selectionColor="#42F9C2"
+              />
+              <HeaderSettingButton />
+            </View>
+          ),
           headerLeftContainerStyle: tailwind("pl-5", {
             "pb-2": Platform.OS === "ios",
             "pb-1.5": Platform.OS !== "ios",
