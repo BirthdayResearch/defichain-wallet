@@ -27,6 +27,7 @@ export function DomainSwitch({
         backgroundColor: `${isLight ? "#CCCCCC" : "#333333"}`,
         flexDirection: "row",
         justifyContent: "center",
+        marginRight: 16,
       }}
       testID={testID}
     >
@@ -43,6 +44,8 @@ export function DomainSwitch({
           borderRadius: 55,
           alignItems: "center",
           padding: 0,
+          position: "absolute",
+          left: 0,
         }}
       >
         <View
@@ -92,6 +95,8 @@ export function DomainSwitch({
           flexDirection: "row",
           justifyContent: "center",
           alignItems: "center",
+          position: "absolute",
+          right: 0,
         }}
       >
         <View
