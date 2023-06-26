@@ -5,14 +5,10 @@ import { useThemeContext } from "@waveshq/walletkit-ui";
 import React from "react";
 import { useDomainContext } from "@shared-contexts/DomainProvider";
 import { DomainPersistence } from "@api";
+import { tailwind } from "@tailwind";
+import { LinearGradient } from "expo-linear-gradient";
 
-export function DomainSwitch({
-  testID,
-  selectionColor,
-}: {
-  testID: string;
-  selectionColor: string;
-}): JSX.Element {
+export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
   const { isLight } = useThemeContext();
   const { domain, setDomain } = useDomainContext();
   const isEvmDomain = domain !== "DFI";
@@ -20,15 +16,10 @@ export function DomainSwitch({
 
   return (
     <View
-      style={{
-        height: 28,
-        width: 76,
-        borderRadius: 55,
-        backgroundColor: `${isLight ? "#CCCCCC" : "#333333"}`,
-        flexDirection: "row",
-        justifyContent: "center",
-        marginRight: 16,
-      }}
+      style={tailwind("h-7 w-18 rounded-full flex-row justify-center mr-4", {
+        "bg-mono-light-v2-300": isLight,
+        "bg-mono-dark-v2-300": !isLight,
+      })}
       testID={testID}
     >
       <ThemedTouchableOpacityV2
@@ -37,47 +28,33 @@ export function DomainSwitch({
           setDomain(domain === "DFI" ? "EVM" : "DFI");
           await DomainPersistence.set(domain);
         }}
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          justifyContent: "center",
-          borderRadius: 55,
-          alignItems: "center",
-          padding: 0,
-          position: "absolute",
-          left: 0,
-        }}
+        style={tailwind(
+          "flex-1 flex-row justify-center rounded-full items-center p-0 absolute left-0"
+        )}
       >
         <View
-          style={{
-            borderRadius: 55,
-            backgroundColor: isEvmDomain
-              ? "transparent"
-              : isLight
-              ? "#000000"
-              : "#FFFFFF",
-            display: isEvmDomain ? "none" : "flex",
-            padding: 4,
-            flexDirection: "row",
-            alignItems: "center",
-          }}
+          style={tailwind(
+            "rounded-full p-1 flex-row items-center",
+            {
+              "bg-transparent": isEvmDomain,
+              "bg-mono-light-v2-1000": isLight && !isEvmDomain,
+              "bg-mono-dark-v2-1000": !isLight && !isEvmDomain,
+            },
+            {
+              hidden: isEvmDomain,
+              flex: !isEvmDomain,
+            }
+          )}
         >
-          <View
-            style={{
-              backgroundColor: "#FF008C",
-              padding: 4,
-              borderRadius: 50,
-              marginRight: 4,
-            }}
-          >
+          <View style={tailwind("bg-brand-v2-500 p-1 rounded-full mr-1")}>
             <DFIIcon width={12.5} height={12.5} color="#FFFFFF" />
           </View>
 
           <Text
-            style={{
-              color: isLight ? "#FFFFFF" : "#000000",
-              marginRight: 8,
-            }}
+            style={tailwind("mr-2", {
+              "text-white": isLight,
+              "text-black": !isLight,
+            })}
           >
             DFI
           </Text>
@@ -89,44 +66,48 @@ export function DomainSwitch({
           setDomain(domain === "DFI" ? "EVM" : "DFI");
           await DomainPersistence.set(domain);
         }}
-        style={{
-          flex: 1,
-          borderRadius: 55,
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-          position: "absolute",
-          right: 0,
-        }}
+        style={tailwind(
+          "flex-1 rounded-full flex-row justify-center items-center absolute right-0"
+        )}
       >
-        <View
-          style={{
-            borderRadius: 55,
-            backgroundColor: isEvmDomain ? selectionColor : "transparent",
-            display: isEvmDomain ? "flex" : "none",
-            padding: 4,
-            flexDirection: "row",
-            alignItems: "center",
-          }}
+        <LinearGradient
+          colors={["#42F9C2", "#3B57CF"]}
+          start={[0, 0]}
+          end={[1, 1]}
+          style={tailwind("rounded-full")}
         >
           <View
-            style={{
-              backgroundColor: "#FFFFFF",
-              padding: 4,
-              borderRadius: 50,
-              marginRight: 4,
-            }}
+            style={tailwind(
+              "rounded-full p-1 flex-row items-center",
+              {
+                "bg-transparent": !isEvmDomain,
+              },
+              {
+                hidden: !isEvmDomain,
+                flex: isEvmDomain,
+              }
+            )}
           >
-            <DFIIcon width={12.5} height={12.5} color="#FF008C" />
+            <LinearGradient
+              colors={["#42F9C2", "#3B57CF"]}
+              start={[0, 0]}
+              end={[1, 1]}
+              style={tailwind(
+                "flex items-center justify-center rounded-full mr-1 w-5 h-5"
+              )}
+            >
+              <View
+                style={tailwind(
+                  "bg-mono-light-v2-00 flex items-center justify-center rounded-full w-4 h-4"
+                )}
+              >
+                <DFIIcon width={12.5} height={12.5} color="#FF008C" />
+              </View>
+            </LinearGradient>
+
+            <Text style={tailwind("text-mono-light-v2-00")}>EVM</Text>
           </View>
-          <Text
-            style={{
-              color: "#FFFFFF",
-            }}
-          >
-            EVM
-          </Text>
-        </View>
+        </LinearGradient>
       </ThemedTouchableOpacityV2>
     </View>
   );

@@ -225,7 +225,7 @@ export function PortfolioNavigator(): JSX.Element {
                 "flex flex-row bg-transparent items-center w-full"
               )}
             >
-              <DomainSwitch testID="domain_switch" selectionColor="#42F9C2" />
+              <DomainSwitch testID="domain_switch" />
               <HeaderSettingButton />
             </View>
           ),

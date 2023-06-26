@@ -195,6 +195,7 @@ module.exports = {
       },
       width: {
         15: 60,
+        18: 76
       },
       height: {
         15: 60,
