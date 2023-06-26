@@ -8,9 +8,8 @@ module.exports = defineConfig({
   viewportHeight: 900,
   orientation: "portrait",
   retries: {
-    // runMode: 1,
-    // openMode: 0,
-    "retries": 1,
+    runMode: 1,
+    openMode: 1,
   },
   numTestsKeptInMemory: 0,
   chromeWebSecurity: false,
