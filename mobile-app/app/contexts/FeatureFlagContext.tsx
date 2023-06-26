@@ -64,12 +64,11 @@ export function FeatureFlagProvider(
     if (isError && retries < MAX_RETRY) {
       setTimeout(() => {
         prefetchPage({});
-        setRetries(retries + 1);
       }, 10000);
     } else if (!isError) {
       prefetchPage({});
     }
-  }, [isError]);
+  }, [retries]);
 
   useEffect(() => {
     refetch();
@@ -157,6 +156,7 @@ export function FeatureFlagProvider(
   };
 
   if (isError && !isLoading && retries < MAX_RETRY) {
+    setRetries(retries + 1);
     return <></>;
   }
 
