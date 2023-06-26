@@ -18,6 +18,7 @@ interface AssetsFilterRowProps {
   onButtonGroupPress: (key: ButtonGroupTabKey) => void;
   activeButtonGroup: string;
   setActiveButtonGroup: (key: ButtonGroupTabKey) => void;
+  isEvmDomain: boolean;
 }
 
 export function AssetsFilterRow(props: AssetsFilterRowProps): JSX.Element {
@@ -49,28 +50,34 @@ export function AssetsFilterRow(props: AssetsFilterRowProps): JSX.Element {
     },
   ];
   return (
-    <ThemedViewV2 testID="portfolio_button_group" style={tailwind("my-8")}>
-      <ScrollView
-        contentContainerStyle={tailwind("pl-5")}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-      >
-        {filterButtonGroup.map((button, index) => (
-          <AssetsFilterItem
-            key={button.id}
-            label={button.label}
-            onPress={button.handleOnPress}
-            isActive={props.activeButtonGroup === button.id}
-            testID={`portfolio_button_group_${button.id}`}
-            additionalStyles={
-              !(filterButtonGroup.length === index)
-                ? tailwind("mr-3")
-                : undefined
-            }
-          />
-        ))}
-      </ScrollView>
-    </ThemedViewV2>
+    <>
+      {!props.isEvmDomain ? (
+        <ThemedViewV2 testID="portfolio_button_group" style={tailwind("my-8")}>
+          <ScrollView
+            contentContainerStyle={tailwind("pl-5")}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+          >
+            {filterButtonGroup.map((button, index) => (
+              <AssetsFilterItem
+                key={button.id}
+                label={button.label}
+                onPress={button.handleOnPress}
+                isActive={props.activeButtonGroup === button.id}
+                testID={`portfolio_button_group_${button.id}`}
+                additionalStyles={
+                  !(filterButtonGroup.length === index)
+                    ? tailwind("mr-3")
+                    : undefined
+                }
+              />
+            ))}
+          </ScrollView>
+        </ThemedViewV2>
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
 
