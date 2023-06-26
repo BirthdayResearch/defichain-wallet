@@ -70,7 +70,7 @@ services:
       - "traefik.http.routers.playground.entrypoints=web"
 
   defi-whale:
-    image: ghcr.io/birthdayresearch/whale-api:3.31.1
+    image: ghcr.io/birthdayresearch/whale-api:3.32.0
     depends_on:
       - defi-blockchain
     ports:
