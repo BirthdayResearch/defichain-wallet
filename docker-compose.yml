@@ -57,7 +57,7 @@ services:
       -nextnetworkupgradeheight=18
 
   defi-playground:
-    image: ghcr.io/birthdayresearch/playground-api:3.31.1
+    image: ghcr.io/birthdayresearch/playground-api:3.32.0
     depends_on:
       - defi-blockchain
     ports:
