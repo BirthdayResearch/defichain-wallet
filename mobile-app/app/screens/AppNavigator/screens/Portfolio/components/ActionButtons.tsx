@@ -58,7 +58,8 @@ export function ActionButtons(): JSX.Element {
     <View testID="action_button_group">
       <ScrollView
         contentContainerStyle={tailwind(
-          "flex justify-between min-w-full px-5 mt-8"
+          "flex justify-between min-w-full px-5 mt-8",
+          { "max-w-xs px-9": isEvmDomain }
         )}
         showsHorizontalScrollIndicator={false}
         horizontal

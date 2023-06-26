@@ -730,7 +730,9 @@ function AssetSortRow(props: {
 
   return (
     <View
-      style={tailwind("px-10 flex flex-row justify-between")}
+      style={tailwind("px-10 flex flex-row justify-between", {
+        "mt-8": props.isEvmDomain,
+      })}
       testID="toggle_sorting_assets"
     >
       <ThemedTextV2
