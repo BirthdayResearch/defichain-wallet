@@ -5,14 +5,18 @@ import { RootState } from "@store";
 import {
   DFITokenSelector,
   DFIUtxoSelector,
-  unifiedDFISelector,
   transactionQueue,
+  unifiedDFISelector,
 } from "@waveshq/walletkit-ui/dist/store";
 import {
   ConversionMode,
   dfiConversionCrafter,
 } from "@api/transaction/dfi_converter";
-import { NativeLoggingProps } from "@shared-contexts/NativeLoggingProvider";
+import {
+  NativeLoggingProps,
+  useLogger,
+} from "@shared-contexts/NativeLoggingProvider";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 
 interface useConversionProps {
   inputToken: InputToken;
@@ -33,6 +37,8 @@ interface ConversionResult {
 
 export function useConversion(props: useConversionProps): ConversionResult {
   const { type, amount } = props.inputToken;
+  const client = useWhaleApiClient();
+  const logger = useLogger();
   const [isConversionRequired, setIsConversionRequired] = useState(false);
   const [conversionAmount, setConversionAmount] = useState(new BigNumber("0"));
   const DFIUnified = useSelector((state: RootState) =>
@@ -48,6 +54,15 @@ export function useConversion(props: useConversionProps): ConversionResult {
   const reservedDFI = 0.1;
 
   useEffect(() => {
+    function setAmount(transactionFee: BigNumber) {
+      setConversionAmount(
+        amount
+          .minus(type === "utxo" ? DFIUtxo.amount : DFIToken.amount)
+          .plus(type === "utxo" ? reservedDFI : 0)
+          .plus(type === "utxo" ? transactionFee : 0)
+      );
+    }
+
     if (type === "others") {
       setIsConversionRequired(false);
       return;
@@ -60,11 +75,16 @@ export function useConversion(props: useConversionProps): ConversionResult {
         .isGreaterThan(type === "utxo" ? DFIUtxo.amount : DFIToken.amount) &&
       amount.plus(reservedDFI).isLessThanOrEqualTo(unifiedAmount)
     ) {
-      setConversionAmount(
-        amount
-          .minus(type === "utxo" ? DFIUtxo.amount : DFIToken.amount)
-          .plus(type === "utxo" ? reservedDFI : 0)
-      );
+      client.fee
+        .estimate()
+        .then((f) => {
+          setAmount(new BigNumber(f));
+        })
+        .catch((e) => {
+          logger.error(e);
+          setAmount(new BigNumber(0.0001));
+        });
+
       setIsConversionRequired(true);
     } else {
       setIsConversionRequired(false);
