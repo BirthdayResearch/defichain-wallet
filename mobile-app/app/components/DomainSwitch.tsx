@@ -13,6 +13,7 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
   const { domain, setDomain } = useDomainContext();
   const isEvmDomain = domain !== "DFI";
   const DFIIcon = getNativeIcon("DFIlogo");
+  const EvmDFIIcon = getNativeIcon("EvmDFI");
 
   return (
     <View
@@ -88,22 +89,13 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
               }
             )}
           >
-            <LinearGradient
-              colors={["#42F9C2", "#3B57CF"]}
-              start={[0, 0]}
-              end={[1, 1]}
+            <View
               style={tailwind(
-                "flex items-center justify-center rounded-full mr-1 w-5 h-5"
+                "flex items-center justify-center rounded-full w-5 h-5"
               )}
             >
-              <View
-                style={tailwind(
-                  "bg-mono-light-v2-00 flex items-center justify-center rounded-full w-4 h-4"
-                )}
-              >
-                <DFIIcon width={12.5} height={12.5} color="#FF008C" />
-              </View>
-            </LinearGradient>
+              <EvmDFIIcon />
+            </View>
 
             <Text style={tailwind("text-mono-light-v2-00")}>EVM</Text>
           </View>
