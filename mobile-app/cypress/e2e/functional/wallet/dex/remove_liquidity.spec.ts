@@ -147,16 +147,7 @@ function validatePriceSelectionAndSummaryBasedOnPercentage(): void {
 
 context("Wallet - DEX - View pool share information", () => {
   before(() => {
-    let retries = 3;
-    while (retries > 0) {
-      try {
-        createAddLiquidityToWallet();
-
-        break;
-      } catch (error) {
-        retries--;
-      }
-    }
+    createAddLiquidityToWallet();
   });
 
   it("clicking view pool share should open details modal and able to close modal", () => {
@@ -194,22 +185,7 @@ context("Wallet - DEX - View pool share information", () => {
 
 context("Wallet - DEX - Remove Liquidity", () => {
   before(() => {
-    let retries = 3;
-    while (retries > 0) {
-      try {
-        // Code to run before each test
-        createAddLiquidityToWallet();
-
-        // For example, you might have a login operation here
-        // to ensure each test starts with a logged-in state
-
-        // Exit the loop if the setup code succeeds
-        break;
-      } catch (error) {
-        // Retry the setup code if it fails
-        retries--;
-      }
-    }
+    createAddLiquidityToWallet();
   });
 
   after(() => {
@@ -278,24 +254,7 @@ context("Wallet - DEX - Remove Liquidity", () => {
 
 context("Wallet - DEX - Remove Liquidity Confirm Txn", () => {
   beforeEach(() => {
-    let retries = 3;
-    while (retries > 0) {
-      try {
-        // Code to run before each test
-        createAddLiquidityToWallet();
-
-        // For example, you might have a login operation here
-        // to ensure each test starts with a logged-in state
-
-        // Exit the loop if the setup code succeeds
-        break;
-      } catch (error) {
-        // Retry the setup code if it fails
-        retries--;
-      }
-    }
-    // createAddLiquidityToWallet();
-    // });
+    createAddLiquidityToWallet();
   });
 
   afterEach(() => {
