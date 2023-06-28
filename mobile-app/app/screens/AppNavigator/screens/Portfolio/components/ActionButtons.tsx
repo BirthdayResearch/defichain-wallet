@@ -171,7 +171,11 @@ function ActionButton(props: ActionButtonsProps): JSX.Element {
         {props.iconType === undefined ? (
           <>
             {props.isEvmDomain ? (
-              <ConvertIcon />
+              <ConvertIcon
+                color={getColor(
+                  isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
+                )}
+              />
             ) : (
               <DFIIcon
                 width={props.iconSize}

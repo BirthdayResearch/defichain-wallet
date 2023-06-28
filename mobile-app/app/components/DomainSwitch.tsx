@@ -52,7 +52,7 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
           </View>
 
           <Text
-            style={tailwind("mr-2", {
+            style={tailwind("mr-2 text-xs", {
               "text-white": isLight,
               "text-black": !isLight,
             })}
@@ -94,10 +94,12 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
                 "flex items-center justify-center rounded-full w-5 h-5"
               )}
             >
-              <EvmDFIIcon />
+              <EvmDFIIcon width={20} height={20} />
             </View>
 
-            <Text style={tailwind("text-mono-light-v2-00")}>EVM</Text>
+            <Text style={tailwind("text-mono-light-v2-00 text-xs ml-1")}>
+              EVM
+            </Text>
           </View>
         </LinearGradient>
       </ThemedTouchableOpacityV2>
