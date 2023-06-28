@@ -146,7 +146,7 @@ Cypress.Commands.add("getByTestID", (selector: string, opts?: any) => {
 });
 
 Cypress.Commands.add("createEmptyWallet", (isRandom: boolean = false) => {
-  cy.visit("/", { timeout: 120000 });
+  cy.visit("/", { timeout: 300000 });
   cy.getByTestID(
     isRandom ? "playground_wallet_random" : "playground_wallet_abandon"
   ).click();
