@@ -41,6 +41,7 @@ module.exports = defineConfig({
       "cypress/e2e/functional/wallet/dex/swap/swap_future_withdraw.spec.ts",
       "cypress/e2e/functional/wallet/dex/swap/swap_future_transaction.spec.ts",
       "cypress/e2e/functional/wallet/dex/swap/swap_instant_dfi.spec.ts",
+      "cypress/e2e/functional/wallet/dex/swap/swap_instant_non_dfi_confirmation.spec.ts",
       // Functional/Wallet/Loans
       "cypress/e2e/functional/wallet/loans/loans_payback.spec.ts",
       "cypress/e2e/functional/wallet/loans/vault_detail.spec.ts",
@@ -58,6 +59,7 @@ module.exports = defineConfig({
       "cypress/e2e/functional/wallet/settings/serviceProvider.spec.ts",
       "cypress/e2e/functional/wallet/settings/networkDetails.spec.ts",
       "cypress/e2e/functional/wallet/settings/addressBook.spec.ts",
+      "cypress/e2e/functional/wallet/settings/changePasscode.spec.ts",
       // Functional/Wallet/Transaction
       "cypress/e2e/functional/wallet/transaction/list_empty.spec.ts",
       // Smoke
