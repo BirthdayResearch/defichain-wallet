@@ -20,11 +20,12 @@ import { useThemeContext } from "@waveshq/walletkit-ui";
 import { ButtonV2 } from "@components/ButtonV2";
 import { WalletParamList } from "../../WalletNavigator";
 import { LearnMoreCTA } from "../components/LearnModeCTA";
+import { WalletIcon } from "../../../../components/icons/WalletIcon";
 
 type Props = StackScreenProps<WalletParamList, "CreateWalletGuidelines">;
 
 interface GuidelineItem {
-  icon: React.ComponentProps<typeof Feather>["name"];
+  icon?: React.ComponentProps<typeof Feather>["name"];
   title: string;
 }
 
@@ -38,6 +39,10 @@ const guidelines: GuidelineItem[] = [
     title:
       "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.",
     icon: "lock",
+  },
+  {
+    title:
+      "A mapped EVM address will be generated to ensure seamless transfers between DeFiChain and MetaChain.",
   },
 ];
 
@@ -80,13 +85,21 @@ export function CreateWalletGuidelines({ navigation }: Props): JSX.Element {
                 "flex h-6 w-6 flex-row items-center justify-center rounded-full mt-1"
               )}
             >
-              <ThemedIcon
-                light={tailwind("text-mono-light-v2-100")}
-                dark={tailwind("text-mono-dark-v2-100")}
-                iconType="Feather"
-                name={g.icon}
-                size={14}
-              />
+              {g.icon ? (
+                <ThemedIcon
+                  light={tailwind("text-mono-light-v2-100")}
+                  dark={tailwind("text-mono-dark-v2-100")}
+                  iconType="Feather"
+                  name={g.icon}
+                  size={14}
+                />
+              ) : (
+                <WalletIcon
+                  color={getColor(
+                    isLight ? "mono-light-v2-00" : "mono-dark-v2-00"
+                  )}
+                />
+              )}
             </ThemedViewV2>
             <ThemedTextV2
               light={tailwind("text-mono-light-v2-700")}
