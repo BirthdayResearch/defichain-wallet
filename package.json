@@ -100,7 +100,7 @@
     "@cypress/code-coverage": "^3.10.7",
     "@expo/metro-config": "0.5.1",
     "@expo/webpack-config": "^18.1.0",
-    "@testing-library/cypress": "^8.0.7(cypress@12.1.0)",
+    "@testing-library/cypress": "^9.0.0",
     "@testing-library/react-native": "^11.5.4",
     "@types/find-in-files": "^0.5.1",
     "@types/i18n-js": "^3.8.4",
