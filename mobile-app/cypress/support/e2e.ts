@@ -16,10 +16,11 @@
 import "@cypress/code-coverage/support";
 import "./commands";
 
-Cypress.Server.defaults({
-  ignore: (xhr: Request) => {
-    return xhr.url.match(/^.+\/v0\/(playground)\/.+$/);
-  },
+before(() => {
+  cy.intercept(/^.+\/v0\/(playground)\/.+$/, (req) => {
+    // Ignore the requests matching the pattern
+    req.reply({});
+  });
 });
 
 Cypress.on("uncaught:exception", (err) => {
