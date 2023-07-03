@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import "@testing-library/cypress/add-commands";
+// import "@testing-library/cypress/add-commands";
 import "./onboardingCommands";
 import "./walletCommands";
 import "./loanCommands";

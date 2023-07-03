@@ -1,5 +1,5 @@
 import { DeFiAddress } from "@defichain/jellyfish-address";
-import "@testing-library/cypress/add-commands";
+// import "@testing-library/cypress/add-commands";
 import { BalanceTokenDetail } from "../e2e/functional/wallet/portfolio/portfolio.spec";
 import BigNumber from "bignumber.js";
 

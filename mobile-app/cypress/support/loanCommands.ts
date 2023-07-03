@@ -1,4 +1,4 @@
-import "@testing-library/cypress/add-commands";
+// import "@testing-library/cypress/add-commands";
 import BigNumber from "bignumber.js";
 import { VaultStatus } from "../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes";
 import { checkValueWithinRange } from "./walletCommands";
