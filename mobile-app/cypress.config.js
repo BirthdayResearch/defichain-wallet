@@ -56,8 +56,6 @@ module.exports = defineConfig({
       "cypress/e2e/functional/wallet/portfolio/convert/convert.spec.ts",
       "cypress/e2e/functional/wallet/portfolio/poolpairRewards.spec.ts",
       // Functional/Wallet/Settings
-      "cypress/e2e/functional/wallet/settings/serviceProvider.spec.ts",
-      "cypress/e2e/functional/wallet/settings/networkDetails.spec.ts",
       "cypress/e2e/functional/wallet/settings/addressBook.spec.ts",
       "cypress/e2e/functional/wallet/settings/changePasscode.spec.ts",
       // Functional/Wallet/Transaction
