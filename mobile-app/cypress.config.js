@@ -20,6 +20,7 @@ module.exports = defineConfig({
       // eslint-disable-next-line global-require
       return require("./cypress/plugins/index")(on, config);
     },
+    testIsolation: false,
     baseUrl: "http://localhost:19000",
     specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx}",
     excludeSpecPattern:[
