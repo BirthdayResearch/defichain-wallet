@@ -10,6 +10,7 @@ import {
 } from "@components/themed";
 import { useToast } from "react-native-toast-notifications";
 import { useWalletContext } from "@shared-contexts/WalletContext";
+import { DomainSwitch } from "@components/DomainSwitch";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import {
@@ -76,6 +77,10 @@ export function ReceiveScreen(): JSX.Element {
       </ThemedTextV2>
 
       <View style={tailwind("m-2 items-center")} testID="qr_code_container">
+        <View style={tailwind("pb-6")}>
+          <DomainSwitch testID="receive-domain_switch" />
+        </View>
+
         <View style={tailwind("bg-white p-4 rounded-md")}>
           <QRCode size={196} value={address} />
         </View>
