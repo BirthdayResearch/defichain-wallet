@@ -184,6 +184,7 @@ Cypress.Commands.add("closeOceanInterface", (pin?: string) => {
 });
 
 Cypress.Commands.add("exitWallet", () => {
+  cy.wait(4000);
   cy.getByTestID("playground_wallet_clear").click();
 });
 

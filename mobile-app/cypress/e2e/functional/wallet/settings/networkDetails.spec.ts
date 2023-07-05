@@ -4,7 +4,7 @@ context("Wallet - Network detail screen - outside wallet context", () => {
   beforeEach(() => {
     cy.visit("/");
     cy.exitWallet();
-    cy.wait(4000);
+    cy.wait(3000);
     cy.getByTestID("get_started_button").should("be.visible").click();
     cy.getByTestID("guidelines_check").click();
     cy.url().should("include", "wallet/onboarding/guidelines");
