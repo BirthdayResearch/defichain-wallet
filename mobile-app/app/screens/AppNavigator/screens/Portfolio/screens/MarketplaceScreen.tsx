@@ -15,7 +15,6 @@ import Kucoin from "@assets/images/exchanges/Kucoin.png";
 import Bittrex from "@assets/images/exchanges/Bittrex.png";
 import Bitrue from "@assets/images/exchanges/Bitrue.png";
 import Latoken from "@assets/images/exchanges/Latoken.png";
-import DFX from "@assets/images/exchanges/DFX.png";
 import Transak from "@assets/images/exchanges/Transak.png";
 import EasyCrypto from "@assets/images/exchanges/EasyCrypto.png";
 import CakeDeFi from "@assets/images/exchanges/CakeDeFi.png";
@@ -60,11 +59,6 @@ const exchanges: ExchangeProps[] = [
     name: "Latoken",
     image: Latoken,
     url: "https://latoken.com/exchange/DFI_BTC",
-  },
-  {
-    name: "DFX",
-    image: DFX,
-    url: "https://dfx.swiss/en/",
   },
   {
     name: "Transak",
