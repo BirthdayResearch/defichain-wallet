@@ -124,13 +124,14 @@ export function DFIBalanceCard({
         {hasFetchedToken &&
           !new BigNumber(DFIUtxo.amount ?? 0)
             .plus(DFIToken.amount ?? 0)
-            .gt(0) && <GetDFIBtn isEvmDomain={isEvmDomain} />}
+            .gt(0) &&
+          !isEvmDomain && <GetDFIBtn />}
       </View>
     </View>
   );
 }
 
-function GetDFIBtn({ isEvmDomain }: { isEvmDomain: boolean }): JSX.Element {
+function GetDFIBtn(): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   return (
     <LinearGradient
@@ -160,9 +161,7 @@ function GetDFIBtn({ isEvmDomain }: { isEvmDomain: boolean }): JSX.Element {
             "font-semibold-v2 text-sm my-1 text-center text-mono-light-v2-100"
           )}
         >
-          {!isEvmDomain
-            ? translate("screens/GetDFIScreen", "Get DFI now!")
-            : translate("screens/GetDFIScreen", "Get DFI for EVM now!")}
+          {translate("screens/GetDFIScreen", "Get DFI now!")}
         </Text>
       </TouchableOpacity>
     </LinearGradient>
