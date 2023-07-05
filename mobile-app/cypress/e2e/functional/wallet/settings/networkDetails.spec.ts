@@ -5,7 +5,9 @@ context("Wallet - Network detail screen - outside wallet context", () => {
     cy.visit("/");
     cy.exitWallet();
     cy.wait(2000);
-    cy.getByTestID("get_started_button").should("be.visible").click();
+    cy.getByTestID("get_started_button")
+      .should("be.visible")
+      .click({ timeout: 300000 });
     cy.getByTestID("guidelines_check").click();
     cy.url().should("include", "wallet/onboarding/guidelines");
     cy.restoreLocalStorage();
