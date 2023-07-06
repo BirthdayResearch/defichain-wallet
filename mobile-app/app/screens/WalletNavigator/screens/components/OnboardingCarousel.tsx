@@ -78,8 +78,9 @@ export function ImageSlide({
   return (
     <View style={tailwind("flex-1 items-center justify-center px-10")}>
       <Image
+        contentFit="contain"
         source={isLight ? imageLight : imageDark}
-        style={{ width: 209, height: 136 }}
+        style={{ width: 204, height: 136 }}
       />
       <View style={tailwind("items-center justify-center mt-7 mb-5")}>
         <ThemedTextV2 style={tailwind("text-xl font-semibold-v2 text-center")}>
