@@ -32,8 +32,7 @@ const guidelines: GuidelineItem[] = [
   {
     title:
       "Write the words on paper. Take note of their correct spelling and order.",
-    Icon: (): JSX.Element => {
-      return (
+    Icon: (): JSX.Element => (
         <ThemedIcon
           light={tailwind("text-mono-light-v2-100")}
           dark={tailwind("text-mono-dark-v2-100")}
@@ -41,8 +40,7 @@ const guidelines: GuidelineItem[] = [
           name="edit-2"
           size={14}
         />
-      );
-    },
+      ),
   },
   {
     title:
