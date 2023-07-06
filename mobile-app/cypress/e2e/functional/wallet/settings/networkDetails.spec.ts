@@ -4,7 +4,8 @@ context("Wallet - Network detail screen - outside wallet context", () => {
   beforeEach(() => {
     cy.visit("/");
     cy.exitWallet();
-    cy.getByTestID("get_started_button").click();
+    cy.wait(3000);
+    cy.getByTestID("get_started_button").should("be.visible").click();
     cy.getByTestID("guidelines_check").click();
     cy.url().should("include", "wallet/onboarding/guidelines");
     cy.restoreLocalStorage();
@@ -321,6 +322,7 @@ context(
     });
 
     it("should get back to the setting page when network detail called from setting page", () => {
+      cy.wait(1000);
       cy.getByTestID("bottom_tab_portfolio").click().wait(3000);
       cy.getByTestID("header_settings").filter(":visible").click().wait(3000);
       cy.url().should("include", "app/Settings");
