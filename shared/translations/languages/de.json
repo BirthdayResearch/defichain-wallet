@@ -644,7 +644,7 @@
     "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.": "In der nächsten Ansicht werden dir 24 Wiederherstellungswörter angezeigt. Bewahre deine 24 Wiederherstellungswörter sicher auf, denn mit ihnen kannst du den Zugang zur Wallet wiederherstellen.",
     "Write the words on paper. Take note of their correct spelling and order.": "Schreibe die Wörter auf Papier. Achte auf die richtige Schreibweise und Reihenfolge.",
     "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Bewahre sie an einem sicheren Ort auf. Speichere sie offline an einem Ort, zu dem nur du Zugang hast. Schütze sie vor fremden Einblicken und teile sie mit niemandem.",
-    "A mapped EVM address will be generated to ensure seamless transfers between DeFiChain and MetaChain.":"Eine zugeordnete EVM-Adresse wird generiert, um eine nahtlose Übertragung zwischen DeFiChain und MetaChain zu gewährleisten."
+    "A mapped EVM address will be generated to ensure seamless transfers between DeFiChain and MetaChain.": "Eine zugeordnete EVM-Adresse wird generiert, um eine nahtlose Übertragung zwischen DeFiChain und MetaChain zu gewährleisten."
   },
   "screens/GuidelinesRecoveryWords": {
     "What are recovery words?": "Was ist der Wiederherstellungssatz (Seed Phrase)?",
