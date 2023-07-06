@@ -102,7 +102,9 @@ defichainUrlEnvs.forEach((defichainUrlEnv) => {
         cy.getByTestID("pin_authorize").type("000000");
         cy.wait(5000);
         cy.getByTestID("bottom_tab_portfolio").click();
+        cy.wait(4000);
         cy.getByTestID("header_settings").click().wait(1000);
+        cy.wait(4000);
         cy.url().should("include", "app/Settings/SettingsScreen");
         cy.getByTestID("header_custom_active_network").should("exist");
         cy.getByTestID("setting_navigate_service_provider").contains("Custom");
