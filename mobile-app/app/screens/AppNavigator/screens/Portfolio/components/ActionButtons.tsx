@@ -17,7 +17,7 @@ import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { ScrollView, Text, View } from "react-native";
 import { useSelector } from "react-redux";
-import { useDomainContext } from "@shared-contexts/DomainProvider";
+import { useDomainContext, DomainType } from "@shared-contexts/DomainProvider";
 import { getNativeIcon } from "@components/icons/assets";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import BigNumber from "bignumber.js";
@@ -38,7 +38,7 @@ export interface ActionButtonsProps {
 export function ActionButtons(): JSX.Element {
   const { isFeatureAvailable } = useFeatureFlagContext();
   const { domain } = useDomainContext();
-  const isEvmDomain = domain !== "DFI";
+  const isEvmDomain = domain !== DomainType.DFI;
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const futureSwaps = useSelector((state: RootState) =>
     futureSwapSelector(state)

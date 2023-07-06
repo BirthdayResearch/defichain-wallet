@@ -16,7 +16,7 @@ import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/Tok
 import { TextSkeletonLoaderV2 } from "@components/TextSkeletonLoaderV2";
 import BigNumber from "bignumber.js";
 import { translate } from "@translations";
-import { useDomainContext } from "@shared-contexts/DomainProvider";
+import { useDomainContext, DomainType } from "@shared-contexts/DomainProvider";
 import { TokenNameText } from "./TokenNameText";
 import { TokenAmountText } from "./TokenAmountText";
 
@@ -48,7 +48,7 @@ export function DFIBalanceCard({
   const DFIIcon = getNativeIcon("_UTXO");
   const EvmDFIIcon = getNativeIcon("EvmDFI");
 
-  const isEvmDomain = domain !== "DFI";
+  const isEvmDomain = domain !== DomainType.DFI;
 
   return (
     <View style={tailwind("mx-5 mt-2 rounded-lg-v2")} testID="dfi_balance_card">

@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { Platform, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
 import { TextSkeletonLoaderV2 } from "@components/TextSkeletonLoaderV2";
-import { useDomainContext } from "@shared-contexts/DomainProvider";
+import { useDomainContext, DomainType } from "@shared-contexts/DomainProvider";
 import {
   getPrecisedCurrencyValue,
   getPrecisedTokenValue,
@@ -45,7 +45,7 @@ interface PortfolioButtonGroup {
 export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
   const { domain } = useDomainContext();
-  const isEvmDomain = domain !== "DFI";
+  const isEvmDomain = domain !== DomainType.DFI;
   const { hasFetchedVaultsData } = useSelector(
     (state: RootState) => state.loans
   );

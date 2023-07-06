@@ -72,7 +72,7 @@ import { BottomSheetHeader } from "@components/BottomSheetHeader";
 import * as SplashScreen from "expo-splash-screen";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { bottomTabDefaultRoutes } from "@screens/AppNavigator/constants/DefaultRoutes";
-import { useDomainContext } from "@shared-contexts/DomainProvider";
+import { useDomainContext, DomainType } from "@shared-contexts/DomainProvider";
 import { AddressSelectionButtonV2 } from "./components/AddressSelectionButtonV2";
 import { ActionButtons } from "./components/ActionButtons";
 import {
@@ -624,13 +624,13 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           setDenominationCurrency={setDenominationCurrency}
         />
         <ActionButtons />
-        {domain === "DFI" && <Announcements />}
+        {domain === DomainType.DFI && <Announcements />}
 
         <AssetsFilterRow
           activeButtonGroup={activeButtonGroup}
           onButtonGroupPress={handleButtonFilter}
           setActiveButtonGroup={setActiveButtonGroup}
-          isEvmDomain={domain !== "DFI"}
+          isEvmDomain={domain !== DomainType.DFI}
         />
         {/* to show bottom sheet for asset sort */}
         <AssetSortRow
@@ -641,7 +641,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           }}
           isSorted={isSorted}
           denominationCurrency={denominationCurrency}
-          isEvmDomain={domain !== "DFI"}
+          isEvmDomain={domain !== DomainType.DFI}
         />
         {activeButtonGroup === ButtonGroupTabKey.AllTokens && (
           <DFIBalanceCard denominationCurrency={denominationCurrency} />

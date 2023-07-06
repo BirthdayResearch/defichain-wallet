@@ -6,7 +6,7 @@ import { RootState } from "@store";
 import { useSelector } from "react-redux";
 import { Platform } from "react-native";
 import { translate } from "@translations";
-import { useDomainContext } from "@shared-contexts/DomainProvider";
+import { useDomainContext, DomainType } from "@shared-contexts/DomainProvider";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { PortfolioRowToken } from "../PortfolioScreen";
 import { EmptyTokensScreen } from "./EmptyTokensScreen";
@@ -167,10 +167,13 @@ function getEmptyScreenDetails(
     case ButtonGroupTabKey.AllTokens:
     default:
       return {
-        icon: domain === "DFI" ? EmptyPortfolioIcon : EmptyEvmPortfolioIcon,
+        icon:
+          domain === DomainType.DFI
+            ? EmptyPortfolioIcon
+            : EmptyEvmPortfolioIcon,
         title: translate("components/EmptyPortfolio", "Empty portfolio"),
         subtitle:
-          domain === "DFI"
+          domain === DomainType.DFI
             ? translate(
                 "components/EmptyPortfolio",
                 "Add DFI and other tokens to get started"

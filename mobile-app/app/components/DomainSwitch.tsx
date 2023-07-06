@@ -3,7 +3,7 @@ import { ThemedTouchableOpacityV2 } from "@components/themed";
 import { getNativeIcon } from "@components/icons/assets";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import React from "react";
-import { useDomainContext } from "@shared-contexts/DomainProvider";
+import { useDomainContext, DomainType } from "@shared-contexts/DomainProvider";
 import { DomainPersistence } from "@api";
 import { tailwind } from "@tailwind";
 import { LinearGradient } from "expo-linear-gradient";
@@ -11,7 +11,7 @@ import { LinearGradient } from "expo-linear-gradient";
 export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
   const { isLight } = useThemeContext();
   const { domain, setDomain } = useDomainContext();
-  const isEvmDomain = domain !== "DFI";
+  const isEvmDomain = domain !== DomainType.DFI;
   const DFIIcon = getNativeIcon("DFIlogo");
   const EvmDFIIcon = getNativeIcon("EvmDFI");
 
@@ -26,7 +26,9 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
       <ThemedTouchableOpacityV2
         activeOpacity={1}
         onPress={async () => {
-          setDomain(domain === "DFI" ? "EVM" : "DFI");
+          setDomain(
+            domain === DomainType.DFI ? DomainType.EVM : DomainType.DFI
+          );
           await DomainPersistence.set(domain);
         }}
         style={tailwind(
@@ -64,7 +66,9 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
       <ThemedTouchableOpacityV2
         activeOpacity={1}
         onPress={async () => {
-          setDomain(domain === "DFI" ? "EVM" : "DFI");
+          setDomain(
+            domain === DomainType.DFI ? DomainType.EVM : DomainType.DFI
+          );
           await DomainPersistence.set(domain);
         }}
         style={tailwind(
