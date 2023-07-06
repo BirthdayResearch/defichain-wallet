@@ -147,7 +147,7 @@ Cypress.Commands.add("getByTestID", (selector: string, opts?: any) => {
 
 Cypress.Commands.add("createEmptyWallet", (isRandom: boolean = false) => {
   cy.intercept("**").as("requests");
-  cy.visit("/");
+  cy.visit("/", { timeout: 300000 });
   // set longer timeout
   cy.get("@requests.all", { timeout: 30000 });
   //cy.visit("/", { timeout: 300000 });
