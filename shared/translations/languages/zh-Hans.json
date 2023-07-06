@@ -611,7 +611,7 @@
     "Decentralized loans": "去中心化资产贷款",
     "Access financial opportunities with dTokens minted through decentralized vaults.": "透过去中心化金库铸造的 dToken 获得交易机会",
     "EVM compatible":"EVM compatible",
-    "Seamless transfers between DeFiChain and MetaChain via generated EVM address.":"Seamless transfers between DeFiChain and MetaChain via generated EVM address.",
+    "Seamless transfers between DeFiChain and MetaChain via generated EVM address.": "Seamless transfers between DeFiChain and MetaChain via generated EVM address.",
     "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "DeFiChain 钱包是完全非托管的。个人资金只供您私人操作。"
   },
   "screens/CreateMnemonicWallet": {
