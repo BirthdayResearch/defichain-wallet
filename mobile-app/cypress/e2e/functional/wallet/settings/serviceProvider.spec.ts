@@ -6,7 +6,7 @@ const defichainUrls = {
     custom: "https:/custom-mainnet.defichain.com",
   },
   [EnvironmentNetwork.TestNet]: {
-    default: "https://ocean.defichain.com",
+    default: "https://testnet.ocean.jellyfishsdk.com",
     custom: "https:/custom-testnet.defichain.com",
   },
   [EnvironmentNetwork.RemotePlayground]: {

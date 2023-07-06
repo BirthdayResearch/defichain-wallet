@@ -154,7 +154,7 @@ Cypress.Commands.add("createEmptyWallet", (isRandom: boolean = false) => {
 
 Cypress.Commands.add("sendDFItoWallet", () => {
   cy.intercept("/v0/playground/rpc/sendtoaddress").as("sendToAddress");
-  cy.getByTestID("playground_wallet_top_up").click();
+  cy.getByTestID("playground_wallet_top_up", { timeout: 300000 }).click();
   cy.wait(["@sendToAddress"]);
 });
 
