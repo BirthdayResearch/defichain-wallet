@@ -625,8 +625,8 @@
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Intercambia tokens para obtener recompensas del liquidity mining con los tokens descentralizados.",
     "Decentralized loans": "Préstamos descentralizados",
     "Access financial opportunities with dTokens minted through decentralized vaults.": "Crea y accede a nuevos dTokens usando Vaults sobre-colateralizados",
-    "EVM compatible":"EVM compatible",
-    "Seamless transfers between DeFiChain and MetaChain via generated EVM address.":"Seamless transfers between DeFiChain and MetaChain via generated EVM address.",
+    "EVM compatible": "EVM compatible",
+    "Seamless transfers between DeFiChain and MetaChain via generated EVM address.": "Seamless transfers between DeFiChain and MetaChain via generated EVM address.",
     "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "La Billeter DeFiChain es non-custodial. Solo tu tendrás acceso a tus fondos."
   },
   "screens/CreateMnemonicWallet": {
