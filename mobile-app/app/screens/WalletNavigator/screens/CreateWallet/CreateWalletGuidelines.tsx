@@ -33,29 +33,27 @@ const guidelines: GuidelineItem[] = [
     title:
       "Write the words on paper. Take note of their correct spelling and order.",
     Icon: (): JSX.Element => (
-        <ThemedIcon
-          light={tailwind("text-mono-light-v2-100")}
-          dark={tailwind("text-mono-dark-v2-100")}
-          iconType="Feather"
-          name="edit-2"
-          size={14}
-        />
-      ),
+      <ThemedIcon
+        light={tailwind("text-mono-light-v2-100")}
+        dark={tailwind("text-mono-dark-v2-100")}
+        iconType="Feather"
+        name="edit-2"
+        size={14}
+      />
+    ),
   },
   {
     title:
       "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.",
-    Icon: (): JSX.Element => {
-      return (
-        <ThemedIcon
-          light={tailwind("text-mono-light-v2-100")}
-          dark={tailwind("text-mono-dark-v2-100")}
-          iconType="Feather"
-          name="lock"
-          size={14}
-        />
-      );
-    },
+    Icon: (): JSX.Element => (
+      <ThemedIcon
+        light={tailwind("text-mono-light-v2-100")}
+        dark={tailwind("text-mono-dark-v2-100")}
+        iconType="Feather"
+        name="lock"
+        size={14}
+      />
+    ),
   },
   {
     title:
