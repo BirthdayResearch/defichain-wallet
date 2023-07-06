@@ -377,6 +377,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
                 propList={
                   [
                     "stroke",
+                    "strokeWidth",
                   ]
                 }
                 rx="1"
@@ -386,6 +387,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
                     "type": 0,
                   }
                 }
+                strokeWidth="1.5"
                 width="9.53"
                 x="1"
                 y="2"
@@ -395,6 +397,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
                 propList={
                   [
                     "stroke",
+                    "strokeWidth",
                   ]
                 }
                 stroke={
@@ -403,6 +406,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
                     "type": 0,
                   }
                 }
+                strokeWidth="1.5"
               />
             </RNSVGGroup>
           </RNSVGSvgView>
