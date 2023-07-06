@@ -646,7 +646,7 @@
     "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.": "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.",
     "Write the words on paper. Take note of their correct spelling and order.": "Write the words on paper. Take note of their correct spelling and order.",
     "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.",
-    "A mapped EVM address will be generated to ensure seamless transfers between DeFiChain and MetaChain.":"A mapped EVM address will be generated to ensure seamless transfers between DeFiChain and MetaChain."
+    "A mapped EVM address will be generated to ensure seamless transfers between DeFiChain and MetaChain.": "A mapped EVM address will be generated to ensure seamless transfers between DeFiChain and MetaChain."
   },
   "screens/GuidelinesRecoveryWords": {
     "What are recovery words?": "「恢复字组」是什么?",
