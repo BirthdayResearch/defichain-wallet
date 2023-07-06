@@ -146,11 +146,11 @@ Cypress.Commands.add("getByTestID", (selector: string, opts?: any) => {
 });
 
 Cypress.Commands.add("createEmptyWallet", (isRandom: boolean = false) => {
-  // cy.intercept("**").as("requests");
-  // cy.visit("/");
-  // // set longer timeout
-  // cy.get("@requests.all", { timeout: 30000 });
-  cy.visit("/", { timeout: 300000 });
+  cy.intercept("**").as("requests");
+  cy.visit("/");
+  // set longer timeout
+  cy.get("@requests.all", { timeout: 30000 });
+  //cy.visit("/", { timeout: 300000 });
   cy.getByTestID(
     isRandom ? "playground_wallet_random" : "playground_wallet_abandon"
   ).click();
