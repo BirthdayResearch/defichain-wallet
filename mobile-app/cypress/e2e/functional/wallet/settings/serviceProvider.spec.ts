@@ -100,7 +100,7 @@ defichainUrlEnvs.forEach((defichainUrlEnv) => {
         );
         cy.getByTestID("button_submit").click().wait(3000);
         cy.getByTestID("pin_authorize").type("000000");
-        cy.wait(5000);
+        cy.wait(10000);
         cy.getByTestID("bottom_tab_portfolio").click();
         cy.wait(4000);
         cy.getByTestID("header_settings").click().wait(1000);
