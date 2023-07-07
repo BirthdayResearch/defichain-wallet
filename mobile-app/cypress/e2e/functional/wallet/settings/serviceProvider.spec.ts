@@ -11,7 +11,8 @@ const defichainUrls = {
   },
   [EnvironmentNetwork.RemotePlayground]: {
     default: "https://playground.jellyfishsdk.com",
-    custom: "https://custom-remote-playground.defichain.com",
+    // custom: "https://custom-remote-playground.defichain.com",
+    custom: "https:/custom-testnet.defichain.com",
   },
   [EnvironmentNetwork.LocalPlayground]: {
     default: "http://localhost:19553",
