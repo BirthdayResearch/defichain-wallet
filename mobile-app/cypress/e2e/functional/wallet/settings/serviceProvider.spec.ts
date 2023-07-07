@@ -11,8 +11,7 @@ const defichainUrls = {
   },
   [EnvironmentNetwork.RemotePlayground]: {
     default: "https://playground.jellyfishsdk.com",
-    // custom: "https://custom-remote-playground.defichain.com",
-    custom: "https:/custom-testnet.defichain.com",
+    custom: "https://custom-remote-playground.defichain.com",
   },
   [EnvironmentNetwork.LocalPlayground]: {
     default: "http://localhost:19553",
@@ -101,7 +100,7 @@ defichainUrlEnvs.forEach((defichainUrlEnv) => {
         );
         cy.getByTestID("button_submit").click().wait(3000);
         cy.getByTestID("pin_authorize").type("000000", { delay: 3000 });
-        cy.wait(10000);
+        cy.wait(5000);
         cy.url().should("include", "app/portfolio");
         cy.getByTestID("bottom_tab_portfolio").click();
         cy.wait(4000);
