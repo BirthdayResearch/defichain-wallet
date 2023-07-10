@@ -11,7 +11,6 @@ import { LinearGradient } from "expo-linear-gradient";
 export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
   const { isLight } = useThemeContext();
   const { domain, setDomain } = useDomainContext();
-  const isEvmDomain = domain === DomainType.EVM;
   const DFIIcon = getNativeIcon("DFIlogo");
   const EvmDFIIcon = getNativeIcon("EvmDFI");
 
@@ -36,9 +35,8 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
         >
           <View
             style={tailwind("rounded-full p-1 flex-row items-center", {
-              "bg-transparent": isEvmDomain,
-              "bg-mono-light-v2-1000": isLight && !isEvmDomain,
-              "bg-mono-dark-v2-1000": !isLight && !isEvmDomain,
+              "bg-mono-light-v2-1000": isLight,
+              "bg-mono-dark-v2-1000": !isLight,
             })}
           >
             <View style={tailwind("bg-brand-v2-500 p-1 rounded-full mr-1")}>
@@ -73,11 +71,7 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
             end={[1, 1]}
             style={tailwind("rounded-full")}
           >
-            <View
-              style={tailwind("rounded-full p-1 flex-row items-center", {
-                "bg-transparent": !isEvmDomain,
-              })}
-            >
+            <View style={tailwind("rounded-full p-1 flex-row items-center")}>
               <View
                 style={tailwind(
                   "flex items-center justify-center rounded-full w-5 h-5"
