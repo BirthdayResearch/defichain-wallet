@@ -11,7 +11,7 @@ import { LinearGradient } from "expo-linear-gradient";
 export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
   const { isLight } = useThemeContext();
   const { domain, setDomain } = useDomainContext();
-  const isEvmDomain = domain !== DomainType.DFI;
+  const isEvmDomain = domain === DomainType.EVM;
   const DFIIcon = getNativeIcon("DFIlogo");
   const EvmDFIIcon = getNativeIcon("EvmDFI");
 
