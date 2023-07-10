@@ -38,7 +38,7 @@ export interface ActionButtonsProps {
 export function ActionButtons(): JSX.Element {
   const { isFeatureAvailable } = useFeatureFlagContext();
   const { domain } = useDomainContext();
-  const isEvmDomain = domain !== DomainType.DFI;
+  const isEvmDomain = domain === DomainType.EVM;
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const futureSwaps = useSelector((state: RootState) =>
     futureSwapSelector(state)
