@@ -626,12 +626,13 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
         <ActionButtons />
         {domain === DomainType.DFI && <Announcements />}
 
-        <AssetsFilterRow
-          activeButtonGroup={activeButtonGroup}
-          onButtonGroupPress={handleButtonFilter}
-          setActiveButtonGroup={setActiveButtonGroup}
-          isEvmDomain={domain === DomainType.EVM}
-        />
+        {domain === DomainType.DFI && (
+          <AssetsFilterRow
+            activeButtonGroup={activeButtonGroup}
+            onButtonGroupPress={handleButtonFilter}
+            setActiveButtonGroup={setActiveButtonGroup}
+          />
+        )}
         {/* to show bottom sheet for asset sort */}
         <AssetSortRow
           assetSortType={assetSortType}
