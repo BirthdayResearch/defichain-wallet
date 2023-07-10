@@ -86,9 +86,9 @@ const exchanges: ExchangeProps[] = [
     url: "https://swyftx.com/au/buy/defichain/",
   },
   {
-    name: "Cake DeFi",
+    name: "Bake",
     image: CakeDeFi,
-    url: "https://cakedefi.com/",
+    url: "https://bake.io/",
   },
 ];
 
