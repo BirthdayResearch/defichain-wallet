@@ -641,7 +641,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           }}
           isSorted={isSorted}
           denominationCurrency={denominationCurrency}
-          isEvmDomain={domain !== DomainType.DFI}
+          isEvmDomain={domain === DomainType.EVM}
         />
         {activeButtonGroup === ButtonGroupTabKey.AllTokens && (
           <DFIBalanceCard denominationCurrency={denominationCurrency} />
