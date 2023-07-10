@@ -6,14 +6,12 @@ describe("Portfolio Filter Buttons", () => {
     const setActiveButtonGroup = jest.fn();
     const onButtonPress = jest.fn();
     const activeButtonGroup = "ALL TOKENS";
-    const isEvmDomain = false;
 
     const rendered = render(
       <AssetsFilterRow
         setActiveButtonGroup={setActiveButtonGroup}
         onButtonGroupPress={onButtonPress}
         activeButtonGroup={activeButtonGroup}
-        isEvmDomain={isEvmDomain}
       />
     );
     expect(rendered.toJSON()).toMatchSnapshot();
