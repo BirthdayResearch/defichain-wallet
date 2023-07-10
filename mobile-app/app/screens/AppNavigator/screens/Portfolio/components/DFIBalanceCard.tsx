@@ -16,6 +16,7 @@ import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/Tok
 import { TextSkeletonLoaderV2 } from "@components/TextSkeletonLoaderV2";
 import BigNumber from "bignumber.js";
 import { translate } from "@translations";
+import { useDomainContext, DomainType } from "@shared-contexts/DomainProvider";
 import { TokenNameText } from "./TokenNameText";
 import { TokenAmountText } from "./TokenAmountText";
 
@@ -26,6 +27,7 @@ interface DFIBalaceCardProps {
 export function DFIBalanceCard({
   denominationCurrency,
 }: DFIBalaceCardProps): JSX.Element {
+  const { domain } = useDomainContext();
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const DFIToken = useSelector((state: RootState) =>
     DFITokenSelector(state.wallet)
@@ -44,6 +46,9 @@ export function DFIBalanceCard({
     DFIUnified.isLPS
   );
   const DFIIcon = getNativeIcon("_UTXO");
+  const EvmDFIIcon = getNativeIcon("EvmDFI");
+
+  const isEvmDomain = domain === DomainType.EVM;
 
   return (
     <View style={tailwind("mx-5 mt-2 rounded-lg-v2")} testID="dfi_balance_card">
@@ -65,10 +70,14 @@ export function DFIBalanceCard({
           }
         >
           <View style={tailwind("w-7/12 flex-row items-center")}>
-            <DFIIcon width={36} height={36} />
+            {!isEvmDomain ? (
+              <DFIIcon width={36} height={36} />
+            ) : (
+              <EvmDFIIcon width={36} height={36} />
+            )}
             <TokenNameText
               displaySymbol="DFI"
-              name="DeFiChain"
+              name={isEvmDomain ? "DFI for EVM" : "DeFiChain"}
               testID="total_dfi_label"
             />
           </View>
@@ -115,7 +124,8 @@ export function DFIBalanceCard({
         {hasFetchedToken &&
           !new BigNumber(DFIUtxo.amount ?? 0)
             .plus(DFIToken.amount ?? 0)
-            .gt(0) && <GetDFIBtn />}
+            .gt(0) &&
+          !isEvmDomain && <GetDFIBtn />}
       </View>
     </View>
   );

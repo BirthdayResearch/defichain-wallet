@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { Platform, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
 import { TextSkeletonLoaderV2 } from "@components/TextSkeletonLoaderV2";
+import { useDomainContext, DomainType } from "@shared-contexts/DomainProvider";
 import {
   getPrecisedCurrencyValue,
   getPrecisedTokenValue,
@@ -43,6 +44,8 @@ interface PortfolioButtonGroup {
 
 export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
+  const { domain } = useDomainContext();
+  const isEvmDomain = domain !== DomainType.DFI;
   const { hasFetchedVaultsData } = useSelector(
     (state: RootState) => state.loans
   );
@@ -121,20 +124,22 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
               }
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => setIsExpanded(!isExpanded)}
-            style={tailwind("")}
-            testID="toggle_portfolio"
-          >
-            <ThemedIcon
-              light={tailwind("text-mono-light-v2-900")}
-              dark={tailwind("text-mono-dark-v2-900")}
-              iconType="Feather"
-              name={!isExpanded ? "chevron-down" : "chevron-up"}
-              size={30}
-            />
-          </TouchableOpacity>
+          {!isEvmDomain && (
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => setIsExpanded(!isExpanded)}
+              style={tailwind("")}
+              testID="toggle_portfolio"
+            >
+              <ThemedIcon
+                light={tailwind("text-mono-light-v2-900")}
+                dark={tailwind("text-mono-dark-v2-900")}
+                iconType="Feather"
+                name={!isExpanded ? "chevron-down" : "chevron-up"}
+                size={30}
+              />
+            </TouchableOpacity>
+          )}
         </View>
       ) : (
         <View style={tailwind("mt-1")}>

@@ -13,6 +13,8 @@ import { dUSD } from "./dUSD";
 import { DFIlogo } from "./plainDFI";
 import { dEUROC } from "./dEUROC";
 
+import { EvmDFI } from "./EvmDFI";
+
 const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   _UTXO: DFI,
   DFI: DFI,
@@ -31,6 +33,7 @@ const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   DUSD: dUSD,
   dEUROC: dEUROC,
   DFIlogo: DFIlogo,
+  EvmDFI: EvmDFI,
 };
 
 /**

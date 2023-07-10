@@ -72,6 +72,7 @@ import { BottomSheetHeader } from "@components/BottomSheetHeader";
 import * as SplashScreen from "expo-splash-screen";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { bottomTabDefaultRoutes } from "@screens/AppNavigator/constants/DefaultRoutes";
+import { useDomainContext, DomainType } from "@shared-contexts/DomainProvider";
 import { AddressSelectionButtonV2 } from "./components/AddressSelectionButtonV2";
 import { ActionButtons } from "./components/ActionButtons";
 import {
@@ -99,6 +100,7 @@ export interface PortfolioRowToken extends WalletToken {
 
 export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const { isLight } = useThemeContext();
+  const { domain } = useDomainContext();
   const isFocused = useIsFocused();
   const height = useBottomTabBarHeight();
   const client = useWhaleApiClient();
@@ -622,12 +624,15 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           setDenominationCurrency={setDenominationCurrency}
         />
         <ActionButtons />
-        <Announcements />
-        <AssetsFilterRow
-          activeButtonGroup={activeButtonGroup}
-          onButtonGroupPress={handleButtonFilter}
-          setActiveButtonGroup={setActiveButtonGroup}
-        />
+        {domain === DomainType.DFI && <Announcements />}
+
+        {domain === DomainType.DFI && (
+          <AssetsFilterRow
+            activeButtonGroup={activeButtonGroup}
+            onButtonGroupPress={handleButtonFilter}
+            setActiveButtonGroup={setActiveButtonGroup}
+          />
+        )}
         {/* to show bottom sheet for asset sort */}
         <AssetSortRow
           assetSortType={assetSortType}
@@ -637,6 +642,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           }}
           isSorted={isSorted}
           denominationCurrency={denominationCurrency}
+          isEvmDomain={domain === DomainType.EVM}
         />
         {activeButtonGroup === ButtonGroupTabKey.AllTokens && (
           <DFIBalanceCard denominationCurrency={denominationCurrency} />
@@ -702,6 +708,7 @@ function AssetSortRow(props: {
   assetSortType: PortfolioSortType;
   denominationCurrency: string;
   onPress: () => void;
+  isEvmDomain: boolean;
 }): JSX.Element {
   const highestCurrencyValue = translate(
     "screens/PortfolioScreen",
@@ -724,7 +731,9 @@ function AssetSortRow(props: {
 
   return (
     <View
-      style={tailwind("px-10 flex flex-row justify-between")}
+      style={tailwind("px-10 flex flex-row justify-between", {
+        "mt-8": props.isEvmDomain,
+      })}
       testID="toggle_sorting_assets"
     >
       <ThemedTextV2
@@ -734,32 +743,34 @@ function AssetSortRow(props: {
       >
         {translate("screens/PortfolioScreen", "ASSETS")}
       </ThemedTextV2>
-      <ThemedTouchableOpacityV2
-        style={tailwind("flex flex-row items-center")}
-        onPress={props.onPress}
-        testID="your_assets_dropdown_arrow"
-      >
-        <ThemedTextV2
-          light={tailwind("text-mono-light-v2-800")}
-          dark={tailwind("text-mono-dark-v2-800")}
-          style={tailwind("text-xs font-normal-v2")}
+      {!props.isEvmDomain && (
+        <ThemedTouchableOpacityV2
+          style={tailwind("flex flex-row items-center")}
+          onPress={props.onPress}
+          testID="your_assets_dropdown_arrow"
         >
-          {translate(
-            "screens/PortfolioScreen",
-            props.isSorted
-              ? getDisplayedSortText(props.assetSortType)
-              : "Sort by"
-          )}
-        </ThemedTextV2>
-        <ThemedIcon
-          style={tailwind("ml-1 font-medium")}
-          light={tailwind("text-mono-light-v2-800")}
-          dark={tailwind("text-mono-dark-v2-800")}
-          iconType="Feather"
-          name="menu"
-          size={16}
-        />
-      </ThemedTouchableOpacityV2>
+          <ThemedTextV2
+            light={tailwind("text-mono-light-v2-800")}
+            dark={tailwind("text-mono-dark-v2-800")}
+            style={tailwind("text-xs font-normal-v2")}
+          >
+            {translate(
+              "screens/PortfolioScreen",
+              props.isSorted
+                ? getDisplayedSortText(props.assetSortType)
+                : "Sort by"
+            )}
+          </ThemedTextV2>
+          <ThemedIcon
+            style={tailwind("ml-1 font-medium")}
+            light={tailwind("text-mono-light-v2-800")}
+            dark={tailwind("text-mono-dark-v2-800")}
+            iconType="Feather"
+            name="menu"
+            size={16}
+          />
+        </ThemedTouchableOpacityV2>
+      )}
     </View>
   );
 }
