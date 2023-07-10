@@ -48,7 +48,7 @@ export function DFIBalanceCard({
   const DFIIcon = getNativeIcon("_UTXO");
   const EvmDFIIcon = getNativeIcon("EvmDFI");
 
-  const isEvmDomain = domain !== DomainType.DFI;
+  const isEvmDomain = domain === DomainType.EVM;
 
   return (
     <View style={tailwind("mx-5 mt-2 rounded-lg-v2")} testID="dfi_balance_card">
