@@ -5,10 +5,12 @@ import ImageADark from "@assets/images/onboarding/welcome-screen-a-dark.png";
 import ImageBDark from "@assets/images/onboarding/welcome-screen-b-dark.png";
 import ImageCDark from "@assets/images/onboarding/welcome-screen-c-dark.png";
 import ImageDDark from "@assets/images/onboarding/welcome-screen-d-dark.png";
+import ImageEDark from "@assets/images/onboarding/welcome-screen-e-dark.png";
 import ImageALight from "@assets/images/onboarding/welcome-screen-a-light.png";
 import ImageBLight from "@assets/images/onboarding/welcome-screen-b-light.png";
 import ImageCLight from "@assets/images/onboarding/welcome-screen-c-light.png";
 import ImageDLight from "@assets/images/onboarding/welcome-screen-d-light.png";
+import ImageELight from "@assets/images/onboarding/welcome-screen-e-light.png";
 import { View } from "@components";
 import { ThemedTextV2 } from "@components/themed";
 import { useThemeContext } from "@waveshq/walletkit-ui";
@@ -53,6 +55,13 @@ const slides: JSX.Element[] = [
     subtitle="Access financial opportunities with dTokens minted through decentralized vaults."
     title="Decentralized loans"
   />,
+  <ImageSlide
+    imageDark={ImageEDark}
+    imageLight={ImageELight}
+    key={4}
+    subtitle="Seamless transfers between DeFiChain and MetaChain via generated EVM address."
+    title="EVM compatible"
+  />,
 ];
 
 // Needs for it to work on web. Otherwise, it takes full window size
@@ -69,6 +78,7 @@ export function ImageSlide({
   return (
     <View style={tailwind("flex-1 items-center justify-center px-10")}>
       <Image
+        contentFit="contain"
         source={isLight ? imageLight : imageDark}
         style={{ width: 204, height: 136 }}
       />
