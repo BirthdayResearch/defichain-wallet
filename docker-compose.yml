@@ -17,7 +17,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:master-b6fc51097
+    image: defi/defichain:master-91a01aea0
     command: >
       defid
       -printtoconsole
@@ -55,9 +55,10 @@ services:
       -grandcentralheight=16
       -grandcentralepilogueheight=17
       -nextnetworkupgradeheight=18
+      -changiintermediateheight=19
 
   defi-playground:
-    image: ghcr.io/birthdayresearch/playground-api:3.32.0
+    image: ghcr.io/birthdayresearch/playground-api:3.34.0
     depends_on:
       - defi-blockchain
     ports:
