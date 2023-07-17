@@ -113,29 +113,6 @@ defichainUrlEnvs.forEach((defichainUrlEnv) => {
         cy.getByTestID("pin_authorize").type("000000", { delay: 3000 });
         cy.wait(5000);
 
-        // cy.get('button_submit').then(($el) => {
-        //   if ($el) {
-        //     // Element exists, perform an action
-        //     cy.log('Element exists');
-        //     // ...perform additional actions
-        //   } else {
-        //     cy.getByTestID("bottom_tab_portfolio").click();
-        //     cy.wait(4000);
-        //     cy.getByTestID("header_settings").click().wait(1000);
-        //     cy.wait(4000);
-        //     cy.url().should("include", "app/Settings/SettingsScreen");
-        //     cy.getByTestID("header_custom_active_network").should("exist");
-        //     cy.getByTestID("setting_navigate_service_provider").contains(
-        //       "Custom"
-        //     );
-        //     cy.url().should("include", "app/Settings", () => {
-        //       expect(localStorage.getItem("WALLET.SERVICE_PROVIDER_URL")).to.eq(
-        //         url.custom
-        //       );
-        //     });
-        //   }
-        // });
-
         cy.get("body").then(($body) => {
           if ($body.find("div[data-testid=button_submit]").length > 0) {
             // evaluates as true
