@@ -93,17 +93,6 @@ defichainUrlEnvs.forEach((defichainUrlEnv) => {
       });
 
       it(`should submit valid custom service provider on ${defichainUrlEnv}`, () => {
-        // Cypress.on('fail', (error) => {
-
-        //   if (!error.message.includes('app/portfolio')) {
-
-        //     // cy.getByTestID("button_submit").click().wait(3000);
-        //     // cy.getByTestID("pin_authorize").type("000000", { delay: 3000 });
-
-        //     }
-
-        // })
-
         cy.getByTestID("endpoint_url_input").clear().type(url.custom);
         cy.getByTestID("button_submit").should(
           "not.have.attr",
@@ -113,9 +102,9 @@ defichainUrlEnvs.forEach((defichainUrlEnv) => {
         cy.getByTestID("pin_authorize").type("000000", { delay: 3000 });
         cy.wait(5000);
 
+        // handle flaky in CI
         cy.get("body").then(($body) => {
           if ($body.find("div[data-testid=button_submit]").length > 0) {
-            // evaluates as true
             cy.getByTestID("button_submit").click().wait(3000);
             cy.getByTestID("pin_authorize").type("000000", { delay: 3000 });
           } else {
@@ -135,35 +124,20 @@ defichainUrlEnvs.forEach((defichainUrlEnv) => {
             });
           }
         });
-
-        // cy.getByTestID("bottom_tab_portfolio").click();
-        // cy.wait(4000);
-        // cy.getByTestID("header_settings").click().wait(1000);
-        // cy.wait(4000);
-        // cy.url().should("include", "app/Settings/SettingsScreen");
-        // cy.getByTestID("header_custom_active_network").should("exist");
-        // cy.getByTestID("setting_navigate_service_provider").contains(
-        //   "Custom"
-        // );
-        // cy.url().should("include", "app/Settings", () => {
-        //   expect(localStorage.getItem("WALLET.SERVICE_PROVIDER_URL")).to.eq(
-        //     url.custom
-        //   );
-        // });
       });
 
-      // it(`can reset custom provider endpoint on ${defichainUrlEnv}`, () => {
-      //   cy.getByTestID("bottom_tab_portfolio").click();
-      //   cy.getByTestID("header_settings").click();
-      //   cy.getByTestID("setting_navigate_service_provider").click();
-      //   cy.getByTestID("edit_service_provider").click();
-      //   cy.getByTestID("reset_button").should("exist").click().wait(3000);
-      //   cy.getByTestID("pin_authorize").type("000000", { delay: 3000 });
-      //   cy.wait(5000);
-      //   cy.getByTestID("bottom_tab_portfolio").click();
-      //   cy.getByTestID("header_settings").click().wait(1000);
-      //   cy.getByTestID("header_custom_active_network").should("not.exist");
-      // });
+      it(`can reset custom provider endpoint on ${defichainUrlEnv}`, () => {
+        cy.getByTestID("bottom_tab_portfolio").click();
+        cy.getByTestID("header_settings").click();
+        cy.getByTestID("setting_navigate_service_provider").click();
+        cy.getByTestID("edit_service_provider").click();
+        cy.getByTestID("reset_button").should("exist").click().wait(3000);
+        cy.getByTestID("pin_authorize").type("000000", { delay: 3000 });
+        cy.wait(5000);
+        cy.getByTestID("bottom_tab_portfolio").click();
+        cy.getByTestID("header_settings").click().wait(1000);
+        cy.getByTestID("header_custom_active_network").should("not.exist");
+      });
     });
   });
 });
