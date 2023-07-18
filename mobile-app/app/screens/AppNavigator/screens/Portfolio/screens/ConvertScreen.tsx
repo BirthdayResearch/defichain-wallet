@@ -24,6 +24,7 @@ import {
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
+import { useDomainContext, DomainType } from "@shared-contexts/DomainProvider";
 import { getNativeIcon } from "@components/icons/assets";
 import { ButtonV2 } from "@components/ButtonV2";
 import {
@@ -37,7 +38,14 @@ import { PortfolioParamList } from "../PortfolioNavigator";
 import { TokenListType } from "../../Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { useTokenPrice } from "../hooks/TokenPrice";
 
-export type ConversionMode = "utxosToAccount" | "accountToUtxos";
+// EVM env will have EVM DFI <> DVM DFI
+// DVM env will have DVM DFI <> UTXO (existing), DVM DFI <> EVM DFI
+// DVM env when there is no UTXO will have DVM DFI <> EVM DFI
+export type ConversionMode =
+  | "utxosToAccount"
+  | "accountToUtxos"
+  | "accountToEvm"
+  | "evmToAccount";
 type Props = StackScreenProps<PortfolioParamList, "ConvertScreen">;
 
 interface ConversionIO extends AddressToken {
@@ -52,12 +60,15 @@ enum InlineTextStatus {
 
 export enum ConvertTokenUnit {
   UTXO = "UTXO",
-  Token = "Token",
+  Token = "DFI",
+  EVMToken = "DFI",
 }
 
 export function ConvertScreen(props: Props): JSX.Element {
   const { getTokenPrice } = useTokenPrice();
   const { isLight } = useThemeContext();
+  const { domain } = useDomainContext();
+  const isEvmDomain = domain === DomainType.EVM;
   const client = useWhaleApiClient();
   const logger = useLogger();
   const tokens = useSelector((state: RootState) =>
@@ -89,7 +100,7 @@ export function ConvertScreen(props: Props): JSX.Element {
       .estimate()
       .then((f) => setFee(new BigNumber(f)))
       .catch(logger.error);
-  }, []);
+  }, [client.fee, logger.error]);
 
   useEffect(() => {
     const [source, target] = getDFIBalances(mode, tokens);
@@ -191,13 +202,14 @@ export function ConvertScreen(props: Props): JSX.Element {
       >
         {translate(
           "screens/CompositeSwapScreen",
-          "I HAVE {{totalAmount}} {{token}}",
+          "I HAVE {{totalAmount}} {{token}} {{domain}}",
           {
             totalAmount:
               sourceToken != null
                 ? BigNumber(sourceToken.amount).toFixed(8)
                 : "",
             token: sourceToken != null ? sourceToken.unit : "",
+            domain: isEvmDomain ? "(EVM)" : "",
           }
         )}
       </ThemedTextV2>
@@ -573,6 +585,10 @@ function getConvertibleUtxoAmount(
 function isUtxoToAccount(mode: ConversionMode): boolean {
   return mode === "utxosToAccount";
 }
+
+// function getConversionMode(mode: ConversionMode): boolean {
+//   return mode === "utxosToAccount";
+// }
 
 export function getDisplayUnit(unit: ConvertTokenUnit): "UTXO" | "tokens" {
   if (unit === ConvertTokenUnit.Token) {

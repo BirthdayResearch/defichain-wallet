@@ -93,6 +93,7 @@ export interface PortfolioParamList {
     fee: BigNumber;
     originScreen: ScreenName;
   };
+  ConvertDomainScreen: { mode: ConversionMode };
   BarCodeScanner: {
     onQrScanned: (value: string) => void;
     title?: string;
@@ -351,7 +352,7 @@ export function PortfolioNavigator(): JSX.Element {
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerTitle: translate("screens/ConvertScreen", "Convert DFI"),
+          headerTitle: translate("screens/ConvertScreen", "Convert"),
         }}
       />
 

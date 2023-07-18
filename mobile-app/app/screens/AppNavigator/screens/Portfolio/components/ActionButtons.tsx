@@ -114,7 +114,13 @@ export function ActionButtons(): JSX.Element {
           iconSize={28}
           testID="convert_button"
           // TODO: Update to Convert screen
-          onPress={() => navigation.navigate("Receive")}
+          onPress={() =>
+            navigation.navigate({
+              name: "ConvertScreen",
+              params: {},
+              merge: true,
+            })
+          }
           isEvmDomain
         />
 
