@@ -124,7 +124,7 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
               }
             />
           </TouchableOpacity>
-          {!isEvmDomain && (
+          {domain === DomainType.DFI && (
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => setIsExpanded(!isExpanded)}
