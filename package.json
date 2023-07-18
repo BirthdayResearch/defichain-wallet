@@ -33,7 +33,7 @@
     "@react-navigation/stack": "^6.3.16",
     "@reduxjs/toolkit": "^1.9.5",
     "@shopify/flash-list": "1.4.3",
-    "@waveshq/standard-defichain-jellyfishsdk": "^0.54.0",
+    "@waveshq/standard-defichain-jellyfishsdk": "^1.0.12",
     "@waveshq/walletkit-core": "^0.48.0",
     "@waveshq/walletkit-ui": "^0.48.0",
     "bignumber.js": "^9.1.1",
