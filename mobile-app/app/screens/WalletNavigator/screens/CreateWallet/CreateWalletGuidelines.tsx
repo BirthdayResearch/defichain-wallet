@@ -1,4 +1,3 @@
-import { Feather } from "@expo/vector-icons";
 import { StackScreenProps } from "@react-navigation/stack";
 import { useState } from "react";
 import * as React from "react";
@@ -18,26 +17,55 @@ import DarkNewWallet from "@assets/images/dark-wallet-guidelines.png";
 import LightNewWallet from "@assets/images/light-wallet-guidelines.png";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import { ButtonV2 } from "@components/ButtonV2";
+import { WalletIcon } from "@components/icons/WalletIcon";
 import { WalletParamList } from "../../WalletNavigator";
 import { LearnMoreCTA } from "../components/LearnModeCTA";
 
 type Props = StackScreenProps<WalletParamList, "CreateWalletGuidelines">;
 
 interface GuidelineItem {
-  icon: React.ComponentProps<typeof Feather>["name"];
   title: string;
+  Icon?: () => JSX.Element;
 }
 
 const guidelines: GuidelineItem[] = [
   {
     title:
       "Write the words on paper. Take note of their correct spelling and order.",
-    icon: "edit-2",
+    Icon: (): JSX.Element => (
+      <ThemedIcon
+        light={tailwind("text-mono-light-v2-100")}
+        dark={tailwind("text-mono-dark-v2-100")}
+        iconType="Feather"
+        name="edit-2"
+        size={14}
+      />
+    ),
   },
   {
     title:
       "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.",
-    icon: "lock",
+    Icon: (): JSX.Element => (
+      <ThemedIcon
+        light={tailwind("text-mono-light-v2-100")}
+        dark={tailwind("text-mono-dark-v2-100")}
+        iconType="Feather"
+        name="lock"
+        size={14}
+      />
+    ),
+  },
+  {
+    title:
+      "A mapped EVM address will be generated to ensure seamless transfers between DeFiChain and MetaChain.",
+    Icon: (): JSX.Element => {
+      const { isLight } = useThemeContext();
+      return (
+        <WalletIcon
+          color={getColor(isLight ? "mono-light-v2-00" : "mono-dark-v2-00")}
+        />
+      );
+    },
   },
 ];
 
@@ -80,13 +108,7 @@ export function CreateWalletGuidelines({ navigation }: Props): JSX.Element {
                 "flex h-6 w-6 flex-row items-center justify-center rounded-full mt-1"
               )}
             >
-              <ThemedIcon
-                light={tailwind("text-mono-light-v2-100")}
-                dark={tailwind("text-mono-dark-v2-100")}
-                iconType="Feather"
-                name={g.icon}
-                size={14}
-              />
+              {g.Icon?.()}
             </ThemedViewV2>
             <ThemedTextV2
               light={tailwind("text-mono-light-v2-700")}

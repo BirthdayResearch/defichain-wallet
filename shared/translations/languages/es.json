@@ -625,6 +625,8 @@
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Intercambia tokens para obtener recompensas del liquidity mining con los tokens descentralizados.",
     "Decentralized loans": "Préstamos descentralizados",
     "Access financial opportunities with dTokens minted through decentralized vaults.": "Crea y accede a nuevos dTokens usando Vaults sobre-colateralizados",
+    "EVM compatible": "EVM compatible",
+    "Seamless transfers between DeFiChain and MetaChain via generated EVM address.": "Seamless transfers between DeFiChain and MetaChain via generated EVM address.",
     "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "La Billeter DeFiChain es non-custodial. Solo tu tendrás acceso a tus fondos."
   },
   "screens/CreateMnemonicWallet": {
@@ -660,7 +662,8 @@
     "Create wallet": "Crear Billetera",
     "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.": "Vas a ver 24 palabras de recuperación en la siguiente pantalla. Manten estas 24 palabras de recuperación seguras ya que estas te permitiran recuperar el acceso a tu billetera.",
     "Write the words on paper. Take note of their correct spelling and order.": "Escribe las palabras en papel. Manten el orden y la ortografía correctos.",
-    "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Guardalas en un lugar seguro. Mantenlas offline en un sitio al que solo tu tengas acceso. Mantenlas privadas y no las compartas con nadie."
+    "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Guardalas en un lugar seguro. Mantenlas offline en un sitio al que solo tu tengas acceso. Mantenlas privadas y no las compartas con nadie.",
+    "A mapped EVM address will be generated to ensure seamless transfers between DeFiChain and MetaChain.": "A mapped EVM address will be generated to ensure seamless transfers between DeFiChain and MetaChain."
   },
   "screens/GuidelinesRecoveryWords": {
     "What are recovery words?": "Qúe son las palabras de recuperación?(Seed Phrase)",
