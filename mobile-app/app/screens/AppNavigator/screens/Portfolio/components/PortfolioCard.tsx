@@ -6,7 +6,7 @@ import { RootState } from "@store";
 import { useSelector } from "react-redux";
 import { Platform } from "react-native";
 import { translate } from "@translations";
-import { useDomainContext, DomainType } from "@contexts/DomainProvider";
+import { useDomainContext, DomainType } from "@contexts/DomainContext";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { PortfolioRowToken } from "../PortfolioScreen";
 import { EmptyTokensScreen } from "./EmptyTokensScreen";

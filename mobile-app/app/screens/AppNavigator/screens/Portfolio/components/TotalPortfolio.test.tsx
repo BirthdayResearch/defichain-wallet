@@ -9,6 +9,7 @@ import { loans } from "@store/loans";
 import { PortfolioButtonGroupTabKey, TotalPortfolio } from "./TotalPortfolio";
 
 jest.mock("@contexts/DisplayBalancesContext");
+jest.mock("@contexts/DomainProvider");
 
 describe("DFI Total Portfolio Card", () => {
   it("should match snapshot", async () => {

@@ -17,7 +17,7 @@ import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { ScrollView, Text, View } from "react-native";
 import { useSelector } from "react-redux";
-import { useDomainContext, DomainType } from "@contexts/DomainProvider";
+import { useDomainContext, DomainType } from "@contexts/DomainContext";
 import { getNativeIcon } from "@components/icons/assets";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import BigNumber from "bignumber.js";
