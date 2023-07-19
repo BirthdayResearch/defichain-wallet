@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { Platform, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
 import { TextSkeletonLoaderV2 } from "@components/TextSkeletonLoaderV2";
-import { useDomainContext, DomainType } from "@shared-contexts/DomainProvider";
+import { useDomainContext, DomainType } from "@contexts/DomainProvider";
 import {
   getPrecisedCurrencyValue,
   getPrecisedTokenValue,

@@ -48,6 +48,8 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
           collapsable={false}
           focusable={true}
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -178,6 +180,8 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
           collapsable={false}
           focusable={true}
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -261,6 +265,8 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
           collapsable={false}
           focusable={true}
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -344,6 +350,8 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
           collapsable={false}
           focusable={true}
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -427,6 +435,8 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
           collapsable={false}
           focusable={true}
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -563,6 +573,8 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
           collapsable={false}
           focusable={true}
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}

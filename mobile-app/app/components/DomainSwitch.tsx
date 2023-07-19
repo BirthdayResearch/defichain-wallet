@@ -3,7 +3,7 @@ import { ThemedTouchableOpacityV2 } from "@components/themed";
 import { getNativeIcon } from "@components/icons/assets";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import React from "react";
-import { useDomainContext, DomainType } from "@shared-contexts/DomainProvider";
+import { useDomainContext, DomainType } from "@contexts/DomainProvider";
 import { DomainPersistence } from "@api";
 import { tailwind } from "@tailwind";
 import { LinearGradient } from "expo-linear-gradient";

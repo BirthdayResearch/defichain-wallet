@@ -16,7 +16,7 @@ import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/Tok
 import { TextSkeletonLoaderV2 } from "@components/TextSkeletonLoaderV2";
 import BigNumber from "bignumber.js";
 import { translate } from "@translations";
-import { useDomainContext, DomainType } from "@shared-contexts/DomainProvider";
+import { useDomainContext, DomainType } from "@contexts/DomainProvider";
 import { TokenNameText } from "./TokenNameText";
 import { TokenAmountText } from "./TokenAmountText";
 

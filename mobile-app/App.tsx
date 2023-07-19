@@ -29,7 +29,7 @@ import {
   LanguageProvider,
   useLanguage,
 } from "@shared-contexts/LanguageProvider";
-import { DomainProvider } from "@shared-contexts/DomainProvider";
+import { DomainProvider } from "@contexts/DomainProvider";
 import * as Localization from "expo-localization";
 import { useColorScheme } from "react-native";
 import { WalletPersistence } from "@api/wallet";
