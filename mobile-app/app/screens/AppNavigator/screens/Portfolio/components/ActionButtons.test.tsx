@@ -8,7 +8,7 @@ import { StoreProvider } from "@contexts/StoreProvider";
 import { ActionButtons } from "./ActionButtons";
 
 jest.mock("@contexts/FeatureFlagContext");
-jest.mock("@contexts/DomainProvider");
+jest.mock("@contexts/DomainContext");
 
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
