@@ -4,11 +4,32 @@ import { configureStore } from "@reduxjs/toolkit";
 import { RootState } from "@store";
 import { setTokenSymbol, wallet } from "@waveshq/walletkit-ui/dist/store";
 import { futureSwaps } from "@store/futureSwap";
+import { DomainProvider } from "@shared-contexts/DomainProvider";
+import { DomainPersistence } from "@api";
+import { NativeLoggingProvider } from "@shared-contexts/NativeLoggingProvider";
+import { StoreProvider } from "@contexts/StoreProvider";
 import { ActionButtons } from "./ActionButtons";
 
 jest.mock("@contexts/FeatureFlagContext");
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
+}));
+
+const items: any = {};
+jest.mock("react-native", () => ({
+  AsyncStorage: {
+    setItem: jest.fn((item, value) => {
+      return new Promise((resolve) => {
+        items[item] = value;
+        resolve(value);
+      });
+    }),
+    getItem: jest.fn((item) => {
+      return new Promise((resolve) => {
+        resolve(items[item]);
+      });
+    }),
+  },
 }));
 
 describe("DFI Action Buttons", () => {
@@ -51,9 +72,15 @@ describe("DFI Action Buttons", () => {
     });
 
     const rendered = render(
-      <Provider store={store}>
-        <ActionButtons />
-      </Provider>
+      <StoreProvider>
+        <Provider store={store}>
+          <NativeLoggingProvider>
+            <DomainProvider api={DomainPersistence}>
+              <ActionButtons />
+            </DomainProvider>
+          </NativeLoggingProvider>
+        </Provider>
+      </StoreProvider>
     );
     expect(rendered.toJSON()).toMatchSnapshot();
   });
