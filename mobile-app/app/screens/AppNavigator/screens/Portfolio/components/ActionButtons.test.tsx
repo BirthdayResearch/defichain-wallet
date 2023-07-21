@@ -4,11 +4,19 @@ import { configureStore } from "@reduxjs/toolkit";
 import { RootState } from "@store";
 import { setTokenSymbol, wallet } from "@waveshq/walletkit-ui/dist/store";
 import { futureSwaps } from "@store/futureSwap";
+import { StoreProvider } from "@contexts/StoreProvider";
 import { ActionButtons } from "./ActionButtons";
 
 jest.mock("@contexts/FeatureFlagContext");
+jest.mock("@contexts/DomainContext");
+
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
+}));
+
+jest.mock("react-native/Libraries/Utilities/Platform", () => ({
+  OS: "web",
+  select: () => jest.fn,
 }));
 
 describe("DFI Action Buttons", () => {
@@ -51,9 +59,11 @@ describe("DFI Action Buttons", () => {
     });
 
     const rendered = render(
-      <Provider store={store}>
-        <ActionButtons />
-      </Provider>
+      <StoreProvider>
+        <Provider store={store}>
+          <ActionButtons />
+        </Provider>
+      </StoreProvider>
     );
     expect(rendered.toJSON()).toMatchSnapshot();
   });
