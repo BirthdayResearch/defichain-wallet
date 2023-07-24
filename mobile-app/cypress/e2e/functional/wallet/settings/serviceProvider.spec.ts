@@ -104,6 +104,7 @@ defichainUrlEnvs.forEach((defichainUrlEnv) => {
         // handle flaky in CI
         cy.get("body").then(($body) => {
           if ($body.find("div[data-testid=button_submit]").length > 0) {
+            cy.reload();
             cy.getByTestID("button_submit").click().wait(3000);
             cy.getByTestID("pin_authorize").type("000000", { delay: 3000 });
           } else {
