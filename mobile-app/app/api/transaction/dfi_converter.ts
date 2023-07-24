@@ -7,7 +7,11 @@ import {
   TransactionSegWit,
 } from "@defichain/jellyfish-transaction";
 
-export type ConversionMode = "utxosToAccount" | "accountToUtxos";
+export type ConversionMode =
+  | "utxosToAccount"
+  | "accountToUtxos"
+  | "evmToAccount"
+  | "accountToEvm";
 
 export async function dfiConversionSigner(
   account: WhaleWalletAccount,

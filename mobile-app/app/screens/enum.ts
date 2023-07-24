@@ -4,3 +4,10 @@ export enum ScreenName {
   LOANS_screen = "LoansScreen",
   AUCTIONS_screen = "AuctionsScreen",
 }
+
+export enum ConversionMode {
+  utxosToAccount,
+  accountToUtxos,
+  evmToAccount,
+  accountToEvm,
+}

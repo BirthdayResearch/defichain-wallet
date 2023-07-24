@@ -22,6 +22,7 @@ import { getNativeIcon } from "@components/icons/assets";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import BigNumber from "bignumber.js";
 import { ConvertIcon } from "@components/icons/assets/ConvertIcon";
+import { ConversionMode } from "@screens/enum";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
 export interface ActionButtonsProps {
@@ -113,8 +114,17 @@ export function ActionButtons(): JSX.Element {
           name={translate("components/ActionButtons", "Convert")}
           iconSize={28}
           testID="convert_button"
-          // TODO: Update to Convert screen
-          onPress={() => navigation.navigate("Receive")}
+          onPress={() => {
+            navigation.navigate({
+              name: "ConvertScreen",
+              params: {
+                mode: isEvmDomain
+                  ? ConversionMode.accountToEvm
+                  : ConversionMode.utxosToAccount,
+              },
+              merge: true,
+            });
+          }}
           isEvmDomain
         />
 

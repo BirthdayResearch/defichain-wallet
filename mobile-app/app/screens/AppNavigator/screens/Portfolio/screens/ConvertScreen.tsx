@@ -33,11 +33,11 @@ import {
 import { useToast } from "react-native-toast-notifications";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { getNumberFormatValue } from "@api/number-format-value";
+import { ConversionMode } from "@screens/enum";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { TokenListType } from "../../Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { useTokenPrice } from "../hooks/TokenPrice";
 
-export type ConversionMode = "utxosToAccount" | "accountToUtxos";
 type Props = StackScreenProps<PortfolioParamList, "ConvertScreen">;
 
 interface ConversionIO extends AddressToken {
@@ -52,7 +52,8 @@ enum InlineTextStatus {
 
 export enum ConvertTokenUnit {
   UTXO = "UTXO",
-  Token = "Token",
+  DFI = "DFI",
+  EVM = "EVM",
 }
 
 export function ConvertScreen(props: Props): JSX.Element {
@@ -175,7 +176,18 @@ export function ConvertScreen(props: Props): JSX.Element {
   }
 
   function onTogglePress(): void {
-    setMode(isUtxoToAccount(mode) ? "accountToUtxos" : "utxosToAccount");
+    let toggledMode: ConversionMode = mode;
+    if (mode === ConversionMode.accountToEvm) {
+      toggledMode = ConversionMode.evmToAccount;
+    } else if (mode === ConversionMode.evmToAccount) {
+      toggledMode = ConversionMode.accountToEvm;
+    } else if (mode === ConversionMode.accountToUtxos) {
+      toggledMode = ConversionMode.utxosToAccount;
+    } else if (mode === ConversionMode.utxosToAccount) {
+      toggledMode = ConversionMode.accountToUtxos;
+    }
+
+    setMode(toggledMode);
     setAmount("");
   }
 
@@ -417,23 +429,72 @@ export function ConvertScreen(props: Props): JSX.Element {
   );
 }
 
+function getSourceAddressToken(
+  mode: ConversionMode,
+  tokens: AddressToken[]
+): AddressToken {
+  switch (mode) {
+    case ConversionMode.utxosToAccount:
+      return tokens.find((tk) => tk.id === "0_utxo") as AddressToken;
+    case ConversionMode.evmToAccount:
+      return {
+        ...(tokens.find((tk) => tk.id === "0") as AddressToken),
+        amount: "696969", // TODO: GET DFI EVM balance here
+      };
+    default:
+      return tokens.find((tk) => tk.id === "0") as AddressToken;
+  }
+}
+
+function getDestinationAddressToken(
+  mode: ConversionMode,
+  tokens: AddressToken[]
+): AddressToken {
+  switch (mode) {
+    case ConversionMode.utxosToAccount:
+      return tokens.find((tk) => tk.id === "0") as AddressToken;
+    case ConversionMode.evmToAccount:
+      return {
+        ...(tokens.find((tk) => tk.id === "0") as AddressToken),
+        amount: "696969", // TODO: GET DFI EVM balance here
+      };
+    default:
+      return tokens.find((tk) => tk.id === "0_utxo") as AddressToken;
+  }
+}
+
+function getSourceTokenUnit(mode: ConversionMode): ConvertTokenUnit {
+  switch (mode) {
+    case ConversionMode.utxosToAccount:
+      return ConvertTokenUnit.UTXO;
+    case ConversionMode.evmToAccount:
+      return ConvertTokenUnit.EVM;
+    default:
+      return ConvertTokenUnit.DFI;
+  }
+}
+
+function getTargetTokenUnit(mode: ConversionMode): ConvertTokenUnit {
+  switch (mode) {
+    case ConversionMode.accountToEvm:
+      return ConvertTokenUnit.EVM;
+    case ConversionMode.accountToUtxos:
+      return ConvertTokenUnit.UTXO;
+    default:
+      return ConvertTokenUnit.DFI;
+  }
+}
+
 function getDFIBalances(
   mode: ConversionMode,
   tokens: AddressToken[]
 ): [source: ConversionIO, target: ConversionIO] {
-  const source: AddressToken = isUtxoToAccount(mode)
-    ? (tokens.find((tk) => tk.id === "0_utxo") as AddressToken)
-    : (tokens.find((tk) => tk.id === "0") as AddressToken);
-  const sourceUnit = isUtxoToAccount(mode)
-    ? ConvertTokenUnit.UTXO
-    : ConvertTokenUnit.Token;
+  const source: AddressToken = getSourceAddressToken(mode, tokens);
 
-  const target: AddressToken = isUtxoToAccount(mode)
-    ? (tokens.find((tk) => tk.id === "0") as AddressToken)
-    : (tokens.find((tk) => tk.id === "0_utxo") as AddressToken);
-  const targetUnit = isUtxoToAccount(mode)
-    ? ConvertTokenUnit.Token
-    : ConvertTokenUnit.UTXO;
+  const sourceUnit = getSourceTokenUnit(mode);
+
+  const target: AddressToken = getDestinationAddressToken(mode, tokens);
+  const targetUnit = getTargetTokenUnit(mode);
 
   return [
     {
@@ -559,7 +620,7 @@ function getConvertibleUtxoAmount(
   mode: ConversionMode,
   source: AddressToken
 ): string {
-  if (mode === "accountToUtxos") {
+  if (mode === ConversionMode.accountToUtxos) {
     return source.amount;
   }
 
@@ -571,13 +632,14 @@ function getConvertibleUtxoAmount(
 }
 
 function isUtxoToAccount(mode: ConversionMode): boolean {
-  return mode === "utxosToAccount";
+  return mode === ConversionMode.utxosToAccount;
 }
 
-export function getDisplayUnit(unit: ConvertTokenUnit): "UTXO" | "tokens" {
-  if (unit === ConvertTokenUnit.Token) {
-    return "tokens";
+export function getDisplayUnit(unit: ConvertTokenUnit): "UTXO" | "DFI" {
+  if (unit === ConvertTokenUnit.EVM) {
+    return "DFI";
   }
+
   return unit;
 }
 

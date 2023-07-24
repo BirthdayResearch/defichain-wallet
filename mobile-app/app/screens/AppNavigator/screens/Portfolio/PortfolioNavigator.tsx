@@ -20,7 +20,6 @@ import GridBackgroundImageLight from "@assets/images/onboarding/grid-background-
 import GridBackgroundImageDark from "@assets/images/onboarding/grid-background-dark.png";
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
 import {
-  ConversionMode,
   ConvertScreen,
   ConvertTokenUnit,
 } from "@screens/AppNavigator/screens/Portfolio/screens/ConvertScreen";
@@ -33,7 +32,7 @@ import {
   SwapTokenSelectionScreen,
   TokenListType,
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
-import { ScreenName } from "@screens/enum";
+import { ConversionMode, ScreenName } from "@screens/enum";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { PortfolioScreen } from "./PortfolioScreen";
 import { ReceiveScreen } from "./screens/ReceiveScreen";
