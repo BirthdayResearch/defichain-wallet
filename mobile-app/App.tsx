@@ -4,6 +4,7 @@ import {
   SecuredStoreAPI,
   LanguagePersistence,
   ThemePersistence,
+  DomainPersistence,
   Logging,
 } from "@api";
 import { AppStateContextProvider } from "@contexts/AppStateContext";
@@ -28,6 +29,7 @@ import {
   LanguageProvider,
   useLanguage,
 } from "@shared-contexts/LanguageProvider";
+import { DomainProvider } from "@contexts/DomainContext";
 import * as Localization from "expo-localization";
 import { useColorScheme } from "react-native";
 import { WalletPersistence } from "@api/wallet";
@@ -110,19 +112,21 @@ export default function App(): JSX.Element | null {
                                 api={LanguagePersistence}
                                 locale={Localization.locale}
                               >
-                                <DisplayBalancesProvider>
-                                  <ConnectionBoundary>
-                                    <GestureHandlerRootView
-                                      style={tailwind("flex-1")}
-                                    >
-                                      <ToastProvider renderType={customToast}>
-                                        <FavouritePoolpairProvider>
-                                          <Main />
-                                        </FavouritePoolpairProvider>
-                                      </ToastProvider>
-                                    </GestureHandlerRootView>
-                                  </ConnectionBoundary>
-                                </DisplayBalancesProvider>
+                                <DomainProvider api={DomainPersistence}>
+                                  <DisplayBalancesProvider>
+                                    <ConnectionBoundary>
+                                      <GestureHandlerRootView
+                                        style={tailwind("flex-1")}
+                                      >
+                                        <ToastProvider renderType={customToast}>
+                                          <FavouritePoolpairProvider>
+                                            <Main />
+                                          </FavouritePoolpairProvider>
+                                        </ToastProvider>
+                                      </GestureHandlerRootView>
+                                    </ConnectionBoundary>
+                                  </DisplayBalancesProvider>
+                                </DomainProvider>
                               </LanguageProvider>
                             </ThemeProvider>
                           </FeatureFlagProvider>

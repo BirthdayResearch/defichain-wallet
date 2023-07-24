@@ -17,9 +17,11 @@ import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { ScrollView, Text, View } from "react-native";
 import { useSelector } from "react-redux";
+import { useDomainContext, DomainType } from "@contexts/DomainContext";
 import { getNativeIcon } from "@components/icons/assets";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import BigNumber from "bignumber.js";
+import { ConvertIcon } from "@components/icons/assets/ConvertIcon";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
 export interface ActionButtonsProps {
@@ -30,10 +32,13 @@ export interface ActionButtonsProps {
   onPress: () => void;
   testID: string;
   badge?: string | number;
+  isEvmDomain?: boolean;
 }
 
 export function ActionButtons(): JSX.Element {
   const { isFeatureAvailable } = useFeatureFlagContext();
+  const { domain } = useDomainContext();
+  const isEvmDomain = domain === DomainType.EVM;
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const futureSwaps = useSelector((state: RootState) =>
     futureSwapSelector(state)
@@ -53,12 +58,13 @@ export function ActionButtons(): JSX.Element {
     <View testID="action_button_group">
       <ScrollView
         contentContainerStyle={tailwind(
-          "flex justify-between min-w-full px-5 mt-8"
+          "flex justify-between min-w-full px-5 mt-8",
+          { "max-w-xs px-9": isEvmDomain }
         )}
         showsHorizontalScrollIndicator={false}
         horizontal
       >
-        {hasDFIBalance && (
+        {hasDFIBalance && !isEvmDomain && (
           <ActionButton
             name={translate("components/ActionButtons", "Get DFI")}
             iconSize={20}
@@ -88,45 +94,61 @@ export function ActionButtons(): JSX.Element {
           testID="receive_balance_button"
           onPress={() => navigation.navigate("Receive")}
         />
-        {isFeatureAvailable("future_swap") && futureSwaps.length > 0 && (
+        {!isEvmDomain && (
           <ActionButton
-            name={translate("components/ActionButtons", "Future swap")}
-            icon="clock"
+            name={translate("components/ActionButtons", "Swap")}
+            icon="repeat"
             iconType="Feather"
-            badge={futureSwaps.length > 9 ? "9+" : futureSwaps.length}
-            testID="future_swap_button"
-            onPress={() => navigation.navigate("FutureSwapScreen")}
+            testID="swap_tokens_button"
+            onPress={() =>
+              navigation.navigate({
+                name: "CompositeSwap",
+                params: {},
+                merge: true,
+              })
+            }
           />
         )}
         <ActionButton
-          name={translate("components/ActionButtons", "Swap")}
-          icon="repeat"
-          iconType="Feather"
-          testID="swap_tokens_button"
-          onPress={() =>
-            navigation.navigate({
-              name: "CompositeSwap",
-              params: {},
-              merge: true,
-            })
-          }
+          name={translate("components/ActionButtons", "Convert")}
+          iconSize={28}
+          testID="convert_button"
+          // TODO: Update to Convert screen
+          onPress={() => navigation.navigate("Receive")}
+          isEvmDomain
         />
-        {isFeatureAvailable("ocg_cfp_dfip") && (
-          <ActionButton
-            name={translate("components/ActionButtons", "Governance")}
-            icon="file"
-            iconType="Feather"
-            testID="cfp_dfip_button"
-            onPress={() => navigation.navigate("OCGProposalsScreen")}
-          />
+
+        {!isEvmDomain && (
+          <>
+            {isFeatureAvailable("future_swap") && futureSwaps.length > 0 && (
+              <ActionButton
+                name={translate("components/ActionButtons", "Future swap")}
+                icon="clock"
+                iconType="Feather"
+                badge={futureSwaps.length > 9 ? "9+" : futureSwaps.length}
+                testID="future_swap_button"
+                onPress={() => navigation.navigate("FutureSwapScreen")}
+              />
+            )}
+
+            {isFeatureAvailable("ocg_cfp_dfip") && (
+              <ActionButton
+                name={translate("components/ActionButtons", "Governance")}
+                icon="file"
+                iconType="Feather"
+                testID="cfp_dfip_button"
+                onPress={() => navigation.navigate("OCGProposalsScreen")}
+              />
+            )}
+            <ActionButton
+              name={translate("components/ActionButtons", "Transactions")}
+              icon="calendar"
+              testID="transaction_button"
+              iconType="Feather"
+              onPress={() => navigation.navigate("TransactionsScreen")}
+            />
+          </>
         )}
-        <ActionButton
-          name={translate("components/ActionButtons", "Transactions")}
-          icon="calendar"
-          testID="transaction_button"
-          iconType="Feather"
-          onPress={() => navigation.navigate("TransactionsScreen")}
-        />
       </ScrollView>
     </View>
   );
@@ -147,11 +169,23 @@ function ActionButton(props: ActionButtonsProps): JSX.Element {
         testID={props.testID}
       >
         {props.iconType === undefined ? (
-          <DFIIcon
-            width={props.iconSize}
-            height={props.iconSize}
-            color={getColor(isLight ? "mono-light-v2-900" : "mono-dark-v2-900")}
-          />
+          <>
+            {props.isEvmDomain ? (
+              <ConvertIcon
+                color={getColor(
+                  isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
+                )}
+              />
+            ) : (
+              <DFIIcon
+                width={props.iconSize}
+                height={props.iconSize}
+                color={getColor(
+                  isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
+                )}
+              />
+            )}
+          </>
         ) : (
           <ThemedIcon
             dark={tailwind("text-mono-dark-v2-900")}

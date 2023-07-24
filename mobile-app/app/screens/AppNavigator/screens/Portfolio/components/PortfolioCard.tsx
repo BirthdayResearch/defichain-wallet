@@ -6,6 +6,7 @@ import { RootState } from "@store";
 import { useSelector } from "react-redux";
 import { Platform } from "react-native";
 import { translate } from "@translations";
+import { useDomainContext, DomainType } from "@contexts/DomainContext";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { PortfolioRowToken } from "../PortfolioScreen";
 import { EmptyTokensScreen } from "./EmptyTokensScreen";
@@ -17,6 +18,7 @@ import { EmptyCryptoIcon } from "../assets/EmptyCryptoIcon";
 import { EmptyLPTokenIcon } from "../assets/EmptyLPTokenIcon";
 import { EmptyDTokenIcon } from "../assets/EmptyDTokenIcon";
 import { EmptyPortfolioIcon } from "../assets/EmptyPortfolioIcon";
+import { EmptyEvmPortfolioIcon } from "../assets/EmptyEvmPortfolioIcon";
 
 interface PortfolioCardProps {
   isZeroBalance: boolean;
@@ -38,10 +40,13 @@ export function PortfolioCard({
   denominationCurrency,
 }: PortfolioCardProps): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
-
+  const { domain } = useDomainContext();
   // return empty portfolio if no DFI and other tokens
   if (isZeroBalance) {
-    const screenDetails = getEmptyScreenDetails(ButtonGroupTabKey.AllTokens);
+    const screenDetails = getEmptyScreenDetails(
+      ButtonGroupTabKey.AllTokens,
+      domain
+    );
     return <EmptyTokensScreen {...screenDetails} testID="empty_portfolio" />;
   }
 
@@ -52,7 +57,8 @@ export function PortfolioCard({
     buttonGroupOptions?.activeButtonGroup !== "ALL_TOKENS"
   ) {
     const screenDetails = getEmptyScreenDetails(
-      buttonGroupOptions?.activeButtonGroup
+      buttonGroupOptions?.activeButtonGroup,
+      domain
     );
     return <EmptyTokensScreen {...screenDetails} testID="empty_portfolio" />;
   }
@@ -122,7 +128,10 @@ function PortfolioItemRow({
   );
 }
 
-function getEmptyScreenDetails(type?: ButtonGroupTabKey): {
+function getEmptyScreenDetails(
+  type?: ButtonGroupTabKey,
+  domain?: string
+): {
   icon: () => JSX.Element;
   title: string;
   subtitle: string;
@@ -158,12 +167,21 @@ function getEmptyScreenDetails(type?: ButtonGroupTabKey): {
     case ButtonGroupTabKey.AllTokens:
     default:
       return {
-        icon: EmptyPortfolioIcon,
+        icon:
+          domain === DomainType.DFI
+            ? EmptyPortfolioIcon
+            : EmptyEvmPortfolioIcon,
         title: translate("components/EmptyPortfolio", "Empty portfolio"),
-        subtitle: translate(
-          "components/EmptyPortfolio",
-          "Add DFI and other tokens to get started"
-        ),
+        subtitle:
+          domain === DomainType.DFI
+            ? translate(
+                "components/EmptyPortfolio",
+                "Add DFI and other tokens to get started"
+              )
+            : translate(
+                "components/EmptyPortfolio",
+                "Add to your balance by converting DFI to the EVM layer"
+              ),
       };
   }
 }
