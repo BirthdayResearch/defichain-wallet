@@ -24,6 +24,8 @@ import BigNumber from "bignumber.js";
 import { ConvertIcon } from "@components/icons/assets/ConvertIcon";
 import { ConversionMode } from "@screens/enum";
 import { PortfolioParamList } from "../PortfolioNavigator";
+import { TokenListType } from "../../Dex/CompositeSwap/SwapTokenSelectionScreen";
+import { useConvertibleTokens } from "../hooks/ConvertibleTokens";
 
 export interface ActionButtonsProps {
   name: string;
@@ -40,6 +42,8 @@ export function ActionButtons(): JSX.Element {
   const { isFeatureAvailable } = useFeatureFlagContext();
   const { domain } = useDomainContext();
   const isEvmDomain = domain === DomainType.EVM;
+
+  const { fromTokens } = useConvertibleTokens();
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const futureSwaps = useSelector((state: RootState) =>
     futureSwapSelector(state)
@@ -54,6 +58,31 @@ export function ActionButtons(): JSX.Element {
   const hasDFIBalance =
     hasFetchedToken &&
     new BigNumber(DFIUtxo.amount ?? 0).plus(DFIToken.amount ?? 0).gt(0);
+
+  const navigateToTokenSelectionScreen = (listType: TokenListType): void => {
+    navigation.navigate("SwapTokenSelectionScreen", {
+      fromToken: {
+        symbol: undefined,
+        displaySymbol: undefined,
+      },
+      listType: listType,
+      list: fromTokens,
+      onTokenPress: (item) => {
+        navigation.navigate({
+          name: "ConvertScreen",
+          params: {
+            mode:
+              item.tokenId === "0"
+                ? ConversionMode.accountToUtxos
+                : ConversionMode.utxosToAccount,
+          },
+          merge: true,
+        });
+      },
+      isFutureSwap: false,
+      isSearchDTokensOnly: false,
+    });
+  };
 
   return (
     <View testID="action_button_group">
@@ -115,15 +144,17 @@ export function ActionButtons(): JSX.Element {
           iconSize={28}
           testID="convert_button"
           onPress={() => {
-            navigation.navigate({
-              name: "ConvertScreen",
-              params: {
-                mode: isEvmDomain
-                  ? ConversionMode.accountToEvm
-                  : ConversionMode.utxosToAccount,
-              },
-              merge: true,
-            });
+            if (isEvmDomain) {
+              navigation.navigate({
+                name: "ConvertScreen",
+                params: {
+                  mode: ConversionMode.evmToAccount,
+                },
+                merge: true,
+              });
+            } else {
+              navigateToTokenSelectionScreen(TokenListType.From);
+            }
           }}
           isEvmDomain
         />
