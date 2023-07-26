@@ -127,7 +127,7 @@ export const BottomSheetAddressDetailV2 = (
     // Getting addresses
     const fetchAddresses = async (): Promise<void> => {
       const addresses = await fetchWalletAddresses();
-      setAvailableAddresses(addresses);
+      setAvailableAddresses(addresses.map(({ dfi }) => dfi));
       await isNextAddressUsable();
     };
 

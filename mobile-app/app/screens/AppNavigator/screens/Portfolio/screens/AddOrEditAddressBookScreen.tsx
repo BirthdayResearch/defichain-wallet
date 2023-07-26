@@ -232,7 +232,7 @@ export function AddOrEditAddressBookScreen({
     let isSubscribed = true;
     void fetchWalletAddresses().then((walletAddress) => {
       if (isSubscribed) {
-        setWalletAddress(walletAddress);
+        setWalletAddress(walletAddress.map(({ dfi }) => dfi));
       }
     });
     return () => {

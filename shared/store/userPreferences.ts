@@ -13,6 +13,7 @@ export interface LabeledAddress {
 
 export interface LocalAddress {
   address: string;
+  evmAddress: string;
   label: string;
   isMine: boolean;
   isFavourite?: boolean;

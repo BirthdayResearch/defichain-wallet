@@ -120,8 +120,8 @@ export function AddressRow({
   }, [address, addressBook]);
 
   useEffect(() => {
-    void fetchWalletAddresses().then((walletAddresses) =>
-      setJellyfishWalletAddresses(walletAddresses)
+    fetchWalletAddresses().then((walletAddresses) =>
+      setJellyfishWalletAddresses(walletAddresses.map(({ dfi }) => dfi))
     );
   }, [fetchWalletAddresses]);
 
@@ -279,6 +279,7 @@ export function AddressRow({
                   numberOfLines={1}
                   style={[
                     tailwind("text-xs font-normal-v2"),
+                    // eslint-disable-next-line react-native/no-inline-styles
                     {
                       minWidth: 10,
                       maxWidth: 108,
