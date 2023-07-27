@@ -26,12 +26,9 @@ import { View } from "react-native";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import {
-  ConvertTokenUnit,
-  getDisplayUnit,
-} from "@screens/AppNavigator/screens/Portfolio/screens/ConvertScreen";
-import { ScreenName } from "@screens/enum";
-import { ConversionMode } from "./ConvertScreen";
+import { ConvertTokenUnit } from "@screens/AppNavigator/screens/Portfolio/screens/ConvertScreen";
+import { ConversionMode, ScreenName } from "@screens/enum";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
 type Props = StackScreenProps<PortfolioParamList, "ConvertConfirmationScreen">;
@@ -48,6 +45,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
     originScreen,
   } = route.params;
   const { address } = useWalletContext();
+  const { domain } = useDomainContext();
   const addressLabel = useAddressLabel(address);
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
@@ -124,10 +122,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
             "screens/ConvertConfirmScreen",
             "You are converting to {{unit}}",
             {
-              unit: translate(
-                "screens/ConvertScreen",
-                getDisplayUnit(targetUnit)
-              ),
+              unit: translate("screens/ConvertScreen", targetUnit),
             }
           )}
           amount={amount}
@@ -182,7 +177,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
           }}
           rhs={{
             value: getResultingValue(
-              ConvertTokenUnit.Token,
+              ConvertTokenUnit.DFI,
               fee,
               sourceBalance,
               sourceUnit,
@@ -197,7 +192,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
             },
             subValue: {
               value: getResultingPercentage(
-                ConvertTokenUnit.Token,
+                ConvertTokenUnit.DFI,
                 sourceBalance,
                 sourceUnit,
                 targetBalance
@@ -218,7 +213,12 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
             dark: tailwind("bg-transparent border-mono-dark-v2-300"),
           }}
           lhs={{
-            value: translate("screens/ConvertConfirmScreen", "Resulting UTXO"),
+            value: translate(
+              "screens/ConvertConfirmScreen",
+              domain === DomainType.DFI
+                ? "Resulting UTXO"
+                : "Resulting Tokens (EVM)"
+            ),
             testID: "resulting_utxo_label",
             themedProps: {
               light: tailwind("text-mono-light-v2-500"),
@@ -227,14 +227,16 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
           }}
           rhs={{
             value: getResultingValue(
-              ConvertTokenUnit.UTXO,
+              domain === DomainType.DFI
+                ? ConvertTokenUnit.UTXO
+                : ConvertTokenUnit.EVMDFI,
               fee,
               sourceBalance,
               sourceUnit,
               targetBalance,
               targetUnit
             ),
-            suffix: " DFI",
+            suffix: domain === DomainType.DFI ? " DFI" : "",
             testID: "resulting_utxo_value",
             themedProps: {
               light: tailwind("text-mono-light-v2-900 font-semibold-v2"),
@@ -242,7 +244,9 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
             },
             subValue: {
               value: getResultingPercentage(
-                ConvertTokenUnit.UTXO,
+                domain === DomainType.DFI
+                  ? ConvertTokenUnit.UTXO
+                  : ConvertTokenUnit.EVMDFI,
                 sourceBalance,
                 sourceUnit,
                 targetBalance

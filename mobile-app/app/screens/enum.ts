@@ -6,8 +6,8 @@ export enum ScreenName {
 }
 
 export enum ConversionMode {
-  utxosToAccount,
-  accountToUtxos,
-  evmToAccount,
-  accountToEvm,
+  utxosToAccount = "utxosToAccount",
+  accountToUtxos = "accountToUtxos",
+  evmToAccount = "evmToAccount",
+  accountToEvm = "accountToEvm",
 }

@@ -34,9 +34,15 @@ import { useToast } from "react-native-toast-notifications";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { getNumberFormatValue } from "@api/number-format-value";
 import { ConversionMode } from "@screens/enum";
+import {
+  TokenDropdownButton,
+  TokenDropdownButtonStatus,
+} from "@components/TokenDropdownButton";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { TokenListType } from "../../Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { useTokenPrice } from "../hooks/TokenPrice";
+import { useConvertibleTokens } from "../hooks/ConvertibleTokens";
 
 type Props = StackScreenProps<PortfolioParamList, "ConvertScreen">;
 
@@ -53,12 +59,13 @@ enum InlineTextStatus {
 export enum ConvertTokenUnit {
   UTXO = "UTXO",
   DFI = "DFI",
-  EVM = "EVM",
+  EVMDFI = "DFI (EVM)",
 }
 
 export function ConvertScreen(props: Props): JSX.Element {
   const { getTokenPrice } = useTokenPrice();
   const { isLight } = useThemeContext();
+  const { domain } = useDomainContext();
   const client = useWhaleApiClient();
   const logger = useLogger();
   const tokens = useSelector((state: RootState) =>
@@ -84,6 +91,8 @@ export function ConvertScreen(props: Props): JSX.Element {
   const [inlineTextStatus, setInlineTextStatus] = useState<InlineTextStatus>(
     InlineTextStatus.Default
   );
+
+  const { fromTokens } = useConvertibleTokens();
 
   useEffect(() => {
     client.fee
@@ -162,10 +171,7 @@ export function ConvertScreen(props: Props): JSX.Element {
       ? "Max available {{unit}} entered"
       : "{{percent}} of available {{unit}} entered";
     const toastOption = {
-      unit: translate(
-        "screens/ConvertScreen",
-        getDisplayUnit(sourceToken.unit)
-      ),
+      unit: translate("screens/ConvertScreen", sourceToken.unit),
       percent: type,
     };
     toast.show(translate("screens/ConvertScreen", toastMessage, toastOption), {
@@ -177,6 +183,7 @@ export function ConvertScreen(props: Props): JSX.Element {
 
   function onTogglePress(): void {
     let toggledMode: ConversionMode = mode;
+
     if (mode === ConversionMode.accountToEvm) {
       toggledMode = ConversionMode.evmToAccount;
     } else if (mode === ConversionMode.evmToAccount) {
@@ -190,6 +197,23 @@ export function ConvertScreen(props: Props): JSX.Element {
     setMode(toggledMode);
     setAmount("");
   }
+
+  const navigateToTokenSelectionScreen = (listType: TokenListType): void => {
+    navigation.navigate("SwapTokenSelectionScreen", {
+      fromToken: {
+        symbol: sourceToken.symbol,
+        displaySymbol: sourceToken.displaySymbol,
+      },
+      listType: listType,
+      list: fromTokens,
+      onTokenPress: () => {
+        // TODO(Pierre): add token press
+        // onTokenSelect(item, listType);
+      },
+      isFutureSwap: false,
+      isSearchDTokensOnly: false,
+    });
+  };
 
   return (
     <ThemedScrollViewV2 testID="convert_screen">
@@ -267,11 +291,31 @@ export function ConvertScreen(props: Props): JSX.Element {
                 )}
               />
             </View>
-            <FixedTokenButton
-              testID={TokenListType.From}
-              symbol={sourceToken?.displaySymbol}
-              unit={sourceToken.unit}
-            />
+
+            {domain === DomainType.DFI && (
+              <TokenDropdownButton
+                symbol={sourceToken?.displaySymbol}
+                displayedTextSymbol={
+                  sourceToken?.displaySymbol.includes("UTXO") ? "UTXO" : "DFI"
+                }
+                testID={TokenListType.From}
+                onPress={() => {
+                  navigateToTokenSelectionScreen(TokenListType.From);
+                }}
+                status={TokenDropdownButtonStatus.Enabled}
+              />
+            )}
+            {domain === DomainType.EVM && (
+              <FixedTokenButton
+                testID={TokenListType.From}
+                symbol={sourceToken?.displaySymbol}
+                unit={
+                  sourceToken.unit === ConvertTokenUnit.EVMDFI
+                    ? "DFI"
+                    : sourceToken.unit
+                }
+              />
+            )}
           </View>
         </TransactionCard>
 
@@ -300,7 +344,7 @@ export function ConvertScreen(props: Props): JSX.Element {
               : "",
             {
               amount: new BigNumber(sourceToken.amount).toFixed(8),
-              unit: getDisplayUnit(sourceToken.unit),
+              unit: sourceToken.unit,
             }
           )}
         </ThemedTextV2>
@@ -372,16 +416,35 @@ export function ConvertScreen(props: Props): JSX.Element {
               )}
             />
           </View>
-          <FixedTokenButton
-            testID={TokenListType.To}
-            symbol={targetToken?.displaySymbol}
-            unit={targetToken.unit}
-          />
+          {domain === DomainType.DFI && (
+            <TokenDropdownButton
+              symbol={targetToken?.displaySymbol}
+              displayedTextSymbol={
+                targetToken?.displaySymbol.includes("UTXO") ? "UTXO" : "DFI"
+              } // DFI OR UTXO
+              testID={TokenListType.To}
+              onPress={() => {
+                navigateToTokenSelectionScreen(TokenListType.To);
+              }}
+              status={TokenDropdownButtonStatus.Enabled}
+            />
+          )}
+          {domain === DomainType.EVM && (
+            <FixedTokenButton
+              testID={TokenListType.To}
+              symbol={targetToken?.displaySymbol}
+              unit={
+                sourceToken.unit === ConvertTokenUnit.EVMDFI
+                  ? "DFI"
+                  : sourceToken.unit
+              }
+            />
+          )}
         </View>
 
         <View style={tailwind("flex-col w-full")}>
           <ConversionResultCard
-            unit={getDisplayUnit(targetToken.unit)}
+            unit={targetToken.unit}
             oriTargetAmount={targetToken.amount}
             totalTargetAmount={
               amount !== ""
@@ -439,7 +502,8 @@ function getSourceAddressToken(
     case ConversionMode.evmToAccount:
       return {
         ...(tokens.find((tk) => tk.id === "0") as AddressToken),
-        amount: "696969", // TODO: GET DFI EVM balance here
+        displaySymbol: "EvmDFI",
+        amount: "69", // TODO(Pierre): GET DFI EVM balance here
       };
     default:
       return tokens.find((tk) => tk.id === "0") as AddressToken;
@@ -451,15 +515,16 @@ function getDestinationAddressToken(
   tokens: AddressToken[]
 ): AddressToken {
   switch (mode) {
-    case ConversionMode.utxosToAccount:
-      return tokens.find((tk) => tk.id === "0") as AddressToken;
-    case ConversionMode.evmToAccount:
+    case ConversionMode.accountToEvm:
       return {
         ...(tokens.find((tk) => tk.id === "0") as AddressToken),
-        amount: "696969", // TODO: GET DFI EVM balance here
+        displaySymbol: "EvmDFI",
+        amount: "69", // TODO(Pierre): GET DFI EVM balance here
       };
-    default:
+    case ConversionMode.accountToUtxos:
       return tokens.find((tk) => tk.id === "0_utxo") as AddressToken;
+    default:
+      return tokens.find((tk) => tk.id === "0") as AddressToken;
   }
 }
 
@@ -468,7 +533,7 @@ function getSourceTokenUnit(mode: ConversionMode): ConvertTokenUnit {
     case ConversionMode.utxosToAccount:
       return ConvertTokenUnit.UTXO;
     case ConversionMode.evmToAccount:
-      return ConvertTokenUnit.EVM;
+      return ConvertTokenUnit.EVMDFI;
     default:
       return ConvertTokenUnit.DFI;
   }
@@ -477,7 +542,7 @@ function getSourceTokenUnit(mode: ConversionMode): ConvertTokenUnit {
 function getTargetTokenUnit(mode: ConversionMode): ConvertTokenUnit {
   switch (mode) {
     case ConversionMode.accountToEvm:
-      return ConvertTokenUnit.EVM;
+      return ConvertTokenUnit.EVMDFI;
     case ConversionMode.accountToUtxos:
       return ConvertTokenUnit.UTXO;
     default:
@@ -490,7 +555,6 @@ function getDFIBalances(
   tokens: AddressToken[]
 ): [source: ConversionIO, target: ConversionIO] {
   const source: AddressToken = getSourceAddressToken(mode, tokens);
-
   const sourceUnit = getSourceTokenUnit(mode);
 
   const target: AddressToken = getDestinationAddressToken(mode, tokens);
@@ -620,7 +684,13 @@ function getConvertibleUtxoAmount(
   mode: ConversionMode,
   source: AddressToken
 ): string {
-  if (mode === ConversionMode.accountToUtxos) {
+  if (
+    [
+      ConversionMode.accountToUtxos,
+      ConversionMode.accountToEvm,
+      ConversionMode.evmToAccount,
+    ].includes(mode)
+  ) {
     return source.amount;
   }
 
@@ -633,14 +703,6 @@ function getConvertibleUtxoAmount(
 
 function isUtxoToAccount(mode: ConversionMode): boolean {
   return mode === ConversionMode.utxosToAccount;
-}
-
-export function getDisplayUnit(unit: ConvertTokenUnit): "UTXO" | "DFI" {
-  if (unit === ConvertTokenUnit.EVM) {
-    return "DFI";
-  }
-
-  return unit;
 }
 
 function FixedTokenButton(props: {

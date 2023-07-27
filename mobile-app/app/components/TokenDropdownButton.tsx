@@ -16,6 +16,7 @@ export enum TokenDropdownButtonStatus {
 
 export function TokenDropdownButton(props: {
   symbol?: string;
+  displayedTextSymbol?: string;
   testID: string;
   onPress?: () => void;
   status: TokenDropdownButtonStatus;
@@ -61,7 +62,7 @@ export function TokenDropdownButton(props: {
             })}
             testID={`token_select_button_${props.testID}_display_symbol`}
           >
-            {props.symbol}
+            {props.displayedTextSymbol ?? props.symbol}
           </ThemedTextV2>
         </>
       )}
