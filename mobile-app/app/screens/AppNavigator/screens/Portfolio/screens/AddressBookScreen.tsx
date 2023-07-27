@@ -131,7 +131,11 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
               isMine: true,
             });
           } else {
-            addresses.push(storedWalletAddress);
+            addresses.push({
+              ...storedWalletAddress,
+              // to support backward compatibility for already saved address
+              evmAddress: storedWalletAddress.evmAddress ?? address.evm,
+            });
           }
         });
         setWalletAddress(addresses);
@@ -254,6 +258,25 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
           onAddressSelect(address);
         }
       };
+      const onDFIAddressClick = async () => {
+        if (activeButtonGroup === ButtonGroupTabKey.Whitelisted) {
+          setSearchString("");
+          setIsSearchFocus(false);
+          navigation.navigate({
+            name: "AddOrEditAddressBookScreen",
+            params: {
+              title: "Address Details",
+              isAddNew: false,
+              address: item.address,
+              addressLabel: item,
+              onSaveButtonPress: () => {},
+            },
+            merge: true,
+          });
+        } else {
+          await openURL(getAddressUrl(item.address));
+        }
+      };
       return (
         <ThemedTouchableOpacityV2
           key={item.address}
@@ -307,109 +330,46 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                   </ThemedTextV2>
                 )}
                 {/* for DFI address */}
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={async () => {
-                    if (activeButtonGroup === ButtonGroupTabKey.Whitelisted) {
-                      setSearchString("");
-                      setIsSearchFocus(false);
-                      navigation.navigate({
-                        name: "AddOrEditAddressBookScreen",
-                        params: {
-                          title: "Address Details",
-                          isAddNew: false,
-                          address: item.address,
-                          addressLabel: item,
-                          onSaveButtonPress: () => {},
-                        },
-                        merge: true,
-                      });
-                    } else {
-                      await openURL(getAddressUrl(item.address));
-                    }
-                  }}
-                  testID={`address_action_${item.address}`}
-                  style={tailwind("flex flex-row items-center")}
+                <YourAddressLink
+                  address={item.address}
                   disabled={enableAddressSelect}
-                >
-                  <ThemedTextV2
-                    style={tailwind("font-normal-v2 text-xs w-10/12 mt-1")}
-                    light={tailwind("text-mono-light-v2-700")}
-                    dark={tailwind("text-mono-dark-v2-700")}
-                    ellipsizeMode="middle"
-                    numberOfLines={1}
-                    testID={`address_row_text_${index}_${testIDSuffix}`}
-                  >
-                    {item.address}
-                  </ThemedTextV2>
-                  {!enableAddressSelect && (
-                    <View style={tailwind("w-2/12")}>
-                      <ThemedIcon
-                        dark={tailwind("text-mono-dark-v2-700")}
-                        light={tailwind("text-mono-light-v2-700")}
-                        iconType="Feather"
-                        name={
-                          activeButtonGroup === ButtonGroupTabKey.Whitelisted
-                            ? "chevron-right"
-                            : "external-link"
-                        }
-                        size={18}
-                      />
-                    </View>
-                  )}
-                </TouchableOpacity>
-
+                  testIDSuffix={`${index}_${testIDSuffix}`}
+                  displayIcon={
+                    activeButtonGroup !== ButtonGroupTabKey.Whitelisted
+                  }
+                  onClick={onDFIAddressClick}
+                />
                 {/* for EVM address */}
                 {item.evmAddress && (
-                  <TouchableOpacity
-                    activeOpacity={0.7}
-                    onPress={async () => {
-                      //  if (activeButtonGroup === ButtonGroupTabKey.Whitelisted) {
-                      //    setSearchString("");
-                      //    setIsSearchFocus(false);
-                      //    navigation.navigate({
-                      //      name: "AddOrEditAddressBookScreen",
-                      //      params: {
-                      //        title: "Address Details",
-                      //        isAddNew: false,
-                      //        address: item.address,
-                      //        addressLabel: item,
-                      //        onSaveButtonPress: () => {},
-                      //      },
-                      //      merge: true,
-                      //    });
-                      //  } else {
-                      await openURL(getAddressUrl(item.evmAddress));
-                      //  }
-                    }}
-                    testID={`evm_address_action_${item.address}`}
-                    style={tailwind("flex flex-row items-center mt-1")}
+                  <YourAddressLink
+                    testIDSuffix={`${index}_${testIDSuffix}`}
+                    displayIcon={
+                      activeButtonGroup !== ButtonGroupTabKey.Whitelisted
+                    }
+                    address={item.evmAddress}
                     disabled={enableAddressSelect}
-                  >
-                    <ThemedTextV2
-                      style={tailwind("font-normal-v2 text-xs w-10/12 mt-1")}
-                      light={tailwind("text-mono-light-v2-700")}
-                      dark={tailwind("text-mono-dark-v2-700")}
-                      ellipsizeMode="middle"
-                      numberOfLines={1}
-                      testID={`evm_address_row_text_${index}_${testIDSuffix}`}
-                    >
-                      {item.evmAddress}
-                    </ThemedTextV2>
-                    {!enableAddressSelect && (
-                      <View style={tailwind("w-2/12")}>
-                        <ThemedIcon
-                          dark={tailwind("text-mono-dark-v2-700")}
-                          light={tailwind("text-mono-light-v2-700")}
-                          iconType="Feather"
-                          name="external-link"
-                          size={18}
-                        />
-                      </View>
-                    )}
-                  </TouchableOpacity>
+                    onClick={async () => {
+                      await openURL(getAddressUrl(item.evmAddress));
+                    }}
+                  />
                 )}
               </View>
+              {!enableAddressSelect &&
+                activeButtonGroup === ButtonGroupTabKey.Whitelisted && (
+                  <TouchableOpacity
+                    activeOpacity={0.7}
+                    onPress={onDFIAddressClick}
+                    style={tailwind("flex flex-row items-center")}
+                  >
+                    <ThemedIcon
+                      dark={tailwind("text-mono-dark-v2-700")}
+                      light={tailwind("text-mono-light-v2-700")}
+                      iconType="Feather"
+                      name="chevron-right"
+                      size={18}
+                    />
+                  </TouchableOpacity>
+                )}
             </View>
           </View>
         </ThemedTouchableOpacityV2>
@@ -567,7 +527,6 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                 item={item}
                 key={item.address}
                 index={index}
-                type={activeButtonGroup}
                 testIDSuffix={
                   activeButtonGroup === ButtonGroupTabKey.Whitelisted
                     ? "WHITELISTED"
@@ -647,5 +606,51 @@ export function DiscoverWalletAddressV2({
         color={getColor(isLight ? "mono-light-v2-00" : "mono-dark-v2-00")}
       />
     </ThemedTouchableOpacityV2>
+  );
+}
+
+function YourAddressLink({
+  disabled,
+  onClick,
+  address,
+  displayIcon,
+  testIDSuffix,
+}: {
+  disabled: boolean;
+  onClick: () => Promise<void>;
+  address: string;
+  displayIcon: boolean;
+  testIDSuffix: string;
+}) {
+  return (
+    <TouchableOpacity
+      activeOpacity={0.7}
+      onPress={onClick}
+      testID={`address_action_${address}`}
+      style={tailwind("flex flex-row items-center")}
+      disabled={disabled}
+    >
+      <ThemedTextV2
+        style={tailwind("font-normal-v2 text-xs w-10/12 mt-1")}
+        light={tailwind("text-mono-light-v2-700")}
+        dark={tailwind("text-mono-dark-v2-700")}
+        ellipsizeMode="middle"
+        numberOfLines={1}
+        testID={`address_row_text_${testIDSuffix}`}
+      >
+        {address}
+      </ThemedTextV2>
+      {!disabled && displayIcon && (
+        <View style={tailwind("w-2/12")}>
+          <ThemedIcon
+            dark={tailwind("text-mono-dark-v2-700")}
+            light={tailwind("text-mono-light-v2-700")}
+            iconType="Feather"
+            name="external-link"
+            size={16}
+          />
+        </View>
+      )}
+    </TouchableOpacity>
   );
 }

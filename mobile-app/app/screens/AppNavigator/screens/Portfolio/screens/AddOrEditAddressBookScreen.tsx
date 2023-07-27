@@ -141,7 +141,9 @@ export function AddOrEditAddressBookScreen({
       onAuthenticated: async () => {
         const editedAddress = {
           [addressInput]: {
+            // TODO (Harsh) if the address is EVM the make the other address as blank
             address: addressInput,
+            evmAddress: addressInput,
             label: labelInput,
             isMine: false,
             isFavourite: addressLabel?.isFavourite,
