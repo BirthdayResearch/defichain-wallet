@@ -21,6 +21,7 @@ import { openURL } from "@api/linking";
 import { translate } from "@translations";
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { AddressType, getAddressType } from "@waveshq/walletkit-core";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { Text, TouchableOpacity, View } from "react-native";
 import { ButtonV2 } from "@components/ButtonV2";
@@ -139,11 +140,11 @@ export function AddOrEditAddressBookScreen({
     const auth: Authentication<string[]> = {
       consume: async (passphrase) => await MnemonicStorage.get(passphrase),
       onAuthenticated: async () => {
+        const type = getAddressType(addressInput, networkName);
         const editedAddress = {
           [addressInput]: {
-            // TODO (Harsh) if the address is EVM the make the other address as blank
-            address: addressInput,
-            evmAddress: addressInput,
+            address: type !== AddressType.ETH ? addressInput : "",
+            evmAddress: type === AddressType.ETH ? addressInput : "",
             label: labelInput,
             isMine: false,
             isFavourite: addressLabel?.isFavourite,

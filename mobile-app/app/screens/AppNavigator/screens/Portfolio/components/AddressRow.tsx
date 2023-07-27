@@ -3,6 +3,10 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { AddressType } from "@waveshq/walletkit-ui/dist/store";
 import {
+  AddressType as WalletAddressType,
+  getAddressType,
+} from "@waveshq/walletkit-core";
+import {
   ThemedIcon,
   ThemedTextV2,
   ThemedTouchableOpacity,
@@ -94,9 +98,11 @@ export function AddressRow({
       address !== undefined &&
       jellyfishWalletAddress.includes(address)
     ) {
+      const type = getAddressType(address, networkName);
       // wallet address that does not have a label
       setMatchedAddress({
-        address,
+        address: type !== WalletAddressType.ETH ? address : "",
+        evmAddress: type === WalletAddressType.ETH ? address : "",
         label: "",
         isMine: true,
       });
