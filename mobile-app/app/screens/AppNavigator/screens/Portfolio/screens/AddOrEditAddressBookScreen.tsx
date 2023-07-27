@@ -21,7 +21,6 @@ import { openURL } from "@api/linking";
 import { translate } from "@translations";
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { AddressType, getAddressType } from "@waveshq/walletkit-core";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { Text, TouchableOpacity, View } from "react-native";
 import { ButtonV2 } from "@components/ButtonV2";
@@ -29,6 +28,7 @@ import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { useToast } from "react-native-toast-notifications";
 import { debounce } from "lodash";
 import * as Clipboard from "expo-clipboard";
+import { DomainType } from "@contexts/DomainContext";
 import { SettingsParamList } from "../../Settings/SettingsNavigator";
 
 type Props = StackScreenProps<SettingsParamList, "AddOrEditAddressBookScreen">;
@@ -50,6 +50,21 @@ export function AddOrEditAddressBookScreen({
   const [addressInputErrorMessage, setAddressInputErrorMessage] = useState("");
   const { fetchWalletAddresses } = useWalletAddress();
   const [walletAddress, setWalletAddress] = useState<string[]>([]);
+
+  const domainTypes = [
+    {
+      label: "DFI",
+      value: DomainType.DFI,
+    },
+    {
+      label: "Ethereum",
+      value: DomainType.EVM,
+    },
+  ];
+
+  const [selectedDomain, setSelectedDomain] = useState(
+    addressLabel?.evmAddress ? DomainType.EVM : DomainType.DFI
+  );
 
   const validateLabelInput = (input: string): boolean => {
     if (
@@ -140,11 +155,10 @@ export function AddOrEditAddressBookScreen({
     const auth: Authentication<string[]> = {
       consume: async (passphrase) => await MnemonicStorage.get(passphrase),
       onAuthenticated: async () => {
-        const type = getAddressType(addressInput, networkName);
         const editedAddress = {
           [addressInput]: {
-            address: type !== AddressType.ETH ? addressInput : "",
-            evmAddress: type === AddressType.ETH ? addressInput : "",
+            address: selectedDomain === DomainType.DFI ? addressInput : "",
+            evmAddress: selectedDomain === DomainType.EVM ? addressInput : "",
             label: labelInput,
             isMine: false,
             isFavourite: addressLabel?.isFavourite,
@@ -248,6 +262,61 @@ export function AddOrEditAddressBookScreen({
       contentContainerStyle={tailwind("px-5 pb-16")}
       style={tailwind("flex-1")}
     >
+      <ThemedViewV2
+        light={tailwind("bg-transparent")}
+        dark={tailwind("bg-transparent")}
+        style={tailwind("w-full flex-col")}
+      >
+        <ThemedSectionTitleV2
+          testID="address_book_address_type_header"
+          text={translate("screens/AddOrEditAddressBookScreen", "ADDRESS TYPE")}
+        />
+        <ThemedViewV2
+          light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-00")}
+          dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-00")}
+          style={tailwind("flex-col w-full border-0.5 rounded-lg-v2")}
+        >
+          {domainTypes.map((eachDomain, index) => {
+            const isChecked = selectedDomain === eachDomain.value;
+            return (
+              <ThemedTouchableOpacityV2
+                light={tailwind("border-mono-light-v2-300")}
+                dark={tailwind("border-mono-dark-v2-300")}
+                style={[
+                  tailwind("flex flex-row mx-5 py-4"),
+                  index !== domainTypes.length - 1 && tailwind("border-b-0.5"),
+                ]}
+                activeOpacity={0.7}
+                disabled={!isAddNew}
+                onPress={() => {
+                  setSelectedDomain(eachDomain.value);
+                }}
+                testID={`address_book_address_type_${eachDomain.value}`}
+              >
+                <ThemedIcon
+                  size={20}
+                  name={isChecked ? "check-circle" : "radio-button-off"}
+                  light={tailwind(
+                    isChecked ? "text-green-v2 " : "text-mono-light-v2-700"
+                  )}
+                  dark={tailwind(
+                    isChecked ? "text-green-v2" : "text-mono-dark-v2-700"
+                  )}
+                  iconType="MaterialIcons"
+                  testID="address_book_address_type_header"
+                />
+                <ThemedTextV2 style={tailwind("pl-4 text-sm font-normal-v2")}>
+                  {translate(
+                    "screens/AddOrEditAddressBookScreen",
+                    eachDomain.label
+                  )}
+                </ThemedTextV2>
+              </ThemedTouchableOpacityV2>
+            );
+          })}
+        </ThemedViewV2>
+      </ThemedViewV2>
+
       {isAddNew ? (
         <WalletTextInputV2
           value={addressInput}
