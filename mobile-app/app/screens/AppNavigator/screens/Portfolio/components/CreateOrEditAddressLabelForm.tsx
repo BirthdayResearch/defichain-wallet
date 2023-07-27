@@ -13,6 +13,7 @@ import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { WalletAddressI, useWalletAddress } from "@hooks/useWalletAddress";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { RandomAvatar } from "./RandomAvatar";
 
 export interface CreateOrEditAddressLabelFormProps {
@@ -31,6 +32,7 @@ export const CreateOrEditAddressLabelForm = memo(
   ({ route, navigation }: Props): JSX.Element => {
     const { title, address, addressLabel, onSaveButtonPress } = route.params;
     const { isLight } = useThemeContext();
+    const { domain } = useDomainContext();
     const [walletAddress, setWalletAddress] = useState<WalletAddressI[]>([]);
     const { fetchWalletAddresses } = useWalletAddress();
     const walletAddressFromStore = useSelector(
@@ -129,7 +131,12 @@ export const CreateOrEditAddressLabelForm = memo(
             {translate("components/CreateOrEditAddressLabelForm", title)}
           </ThemedTextV2>
         </View>
-        {address !== undefined && <AddressDisplay address={address} />}
+        {address !== undefined && (
+          <AddressDisplay
+            address={address}
+            label={domain === DomainType.DFI ? address : getEVMAddress(address)}
+          />
+        )}
         <ThemedTextV2
           style={tailwind("font-normal-v2 text-xs mt-4 mb-2 ml-5")}
           light={tailwind("text-mono-light-v2-500")}
@@ -199,7 +206,13 @@ export const CreateOrEditAddressLabelForm = memo(
   }
 );
 
-function AddressDisplay({ address }: { address: string }): JSX.Element {
+function AddressDisplay({
+  address,
+  label,
+}: {
+  address: string;
+  label: string;
+}): JSX.Element {
   return (
     <View style={tailwind("flex flex-col mt-8 items-center")}>
       <RandomAvatar name={address} size={64} />
@@ -209,7 +222,7 @@ function AddressDisplay({ address }: { address: string }): JSX.Element {
           { "w-10/12": Platform.OS === "web" }
         )}
       >
-        {address}
+        {label}
       </ThemedTextV2>
     </View>
   );
