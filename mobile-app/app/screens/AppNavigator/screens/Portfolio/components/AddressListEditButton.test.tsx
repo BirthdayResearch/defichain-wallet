@@ -12,6 +12,7 @@ describe("Address List Edit Button", () => {
         addresses: {
           foo: {
             address: "foo",
+            evmAddress: "",
             label: "foo",
             isMine: true,
           },
@@ -19,6 +20,7 @@ describe("Address List Edit Button", () => {
         addressBook: {
           bar: {
             address: "bar",
+            evmAddress: "",
             label: "bar",
             isMine: false,
           },

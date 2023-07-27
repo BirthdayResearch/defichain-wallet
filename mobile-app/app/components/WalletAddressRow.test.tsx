@@ -15,6 +15,7 @@ describe("Wallet Address Row", () => {
         addresses: {
           foo: {
             address: "foo",
+            evmAddress: "",
             label: "foo",
             isMine: true,
           },
@@ -22,6 +23,7 @@ describe("Wallet Address Row", () => {
         addressBook: {
           bar: {
             address: "bar",
+            evmAddress: "",
             label: "bar",
             isMine: false,
           },

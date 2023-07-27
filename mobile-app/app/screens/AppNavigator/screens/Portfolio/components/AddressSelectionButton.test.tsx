@@ -13,6 +13,7 @@ describe("Address Selection Button", () => {
         addresses: {
           foo: {
             address: "foo",
+            evmAddress: "",
             label: "foo",
             isMine: true,
           },
@@ -20,6 +21,7 @@ describe("Address Selection Button", () => {
         addressBook: {
           bar: {
             address: "bar",
+            evmAddress: "",
             label: "bar",
             isMine: false,
           },
