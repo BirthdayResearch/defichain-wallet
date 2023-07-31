@@ -45,6 +45,7 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
 import { SearchInput } from "@components/SearchInput";
 import { RefreshIcon } from "@screens/WalletNavigator/assets/RefreshIcon";
+import { DomainType } from "@contexts/DomainContext";
 import { ButtonGroup } from "../../Dex/components/ButtonGroup";
 import {
   FavoriteCheckIcon,
@@ -61,7 +62,12 @@ export enum ButtonGroupTabKey {
 }
 
 export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
-  const { selectedAddress, onAddressSelect, disabledTab } = route.params;
+  const {
+    selectedAddress,
+    onAddressSelect,
+    disabledTab,
+    addressType = DomainType.DFI,
+  } = route.params;
   const { isLight } = useThemeContext();
   const { network } = useNetworkContext();
   const dispatch = useAppDispatch();
@@ -285,7 +291,9 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
           style={tailwind("py-4.5 pl-5 pr-4 mb-2 rounded-lg-v2")}
           testID={`address_row_${index}_${testIDSuffix}`}
           onPress={async () => {
-            onChangeAddress(item.address);
+            onChangeAddress(
+              addressType === DomainType.EVM ? item.evmAddress : item.address
+            );
           }}
         >
           <View
@@ -330,17 +338,19 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                   </ThemedTextV2>
                 )}
                 {/* for DFI address */}
-                <YourAddressLink
-                  address={item.address}
-                  disabled={enableAddressSelect}
-                  testIDSuffix={`${index}_${testIDSuffix}`}
-                  displayIcon={
-                    activeButtonGroup !== ButtonGroupTabKey.Whitelisted
-                  }
-                  onClick={onDFIAddressClick}
-                />
+                {item.address !== "" && (
+                  <YourAddressLink
+                    address={item.address}
+                    disabled={enableAddressSelect}
+                    testIDSuffix={`${index}_${testIDSuffix}`}
+                    displayIcon={
+                      activeButtonGroup !== ButtonGroupTabKey.Whitelisted
+                    }
+                    onClick={onDFIAddressClick}
+                  />
+                )}
                 {/* for EVM address */}
-                {item.evmAddress && (
+                {item.evmAddress !== "" && (
                   <YourAddressLink
                     testIDSuffix={`${index}_${testIDSuffix}`}
                     displayIcon={

@@ -42,6 +42,7 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AddressRow } from "@screens/AppNavigator/screens/Portfolio/components/AddressRow";
+import { DomainType } from "@contexts/DomainContext";
 import { useTokenPrice } from "../hooks/TokenPrice";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import { PortfolioParamList } from "../PortfolioNavigator";
@@ -411,6 +412,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
                   name: "AddressBookScreen",
                   params: {
                     selectedAddress: getValues("address"),
+                    addressType: DomainType.DFI,
                     onAddressSelect,
                   },
                   merge: true,

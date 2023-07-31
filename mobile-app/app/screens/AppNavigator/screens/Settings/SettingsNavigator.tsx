@@ -12,6 +12,7 @@ import { ConfirmPinScreen } from "@screens/AppNavigator/screens/Settings/screens
 import { LocalAddress } from "@store/userPreferences";
 import { NetworkSelectionScreen } from "@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreen";
 import { CfpDfipProposalsFaq } from "@screens/AppNavigator/screens/Portfolio/screens/CfpDfipProposalsFaq";
+import { DomainType } from "@contexts/DomainContext";
 import { AboutScreen } from "./screens/AboutScreen";
 import { CommunityScreen } from "./screens/CommunityScreen";
 import { LanguageSelectionScreen } from "./screens/LanguageSelectionScreen";
@@ -40,6 +41,7 @@ export interface SettingsParamList {
   ServiceProviderScreen: {};
   AddressBookScreen: {
     selectedAddress?: string;
+    addressType?: DomainType;
     onAddressSelect?: (address: string) => void;
     disabledTab?: ButtonGroupTabKey;
   };
