@@ -8,7 +8,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { fromAddress } from "@defichain/jellyfish-address";
-import { useWalletAddress } from "@hooks/useWalletAddress";
+import { WalletAddressI, useWalletAddress } from "@hooks/useWalletAddress";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { StackScreenProps } from "@react-navigation/stack";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
@@ -49,9 +49,10 @@ export function AddOrEditAddressBookScreen({
   const [labelInputErrorMessage, setLabelInputErrorMessage] = useState("");
   const [addressInputErrorMessage, setAddressInputErrorMessage] = useState("");
   const { fetchWalletAddresses } = useWalletAddress();
+  // array of all wallet addresses
   const [walletAddress, setWalletAddress] = useState<string[]>([]);
 
-  const domainTypes = [
+  const AddressTypes = [
     {
       label: "DFI",
       value: DomainType.DFI,
@@ -62,7 +63,7 @@ export function AddOrEditAddressBookScreen({
     },
   ];
 
-  const [selectedDomain, setSelectedDomain] = useState(
+  const [selectedAddressType, setSelectedAddressType] = useState(
     addressLabel?.evmAddress ? DomainType.EVM : DomainType.DFI
   );
 
@@ -93,11 +94,16 @@ export function AddOrEditAddressBookScreen({
   };
 
   const validateAddressInput = (input: string): boolean => {
-    const decodedAddress = fromAddress(input, networkName);
-    if (decodedAddress === undefined) {
-      setAddressInputErrorMessage("Please enter a valid address");
-      return false;
+    if (selectedAddressType === DomainType.DFI) {
+      const decodedAddress = fromAddress(input, networkName);
+      if (decodedAddress === undefined) {
+        setAddressInputErrorMessage("Please enter a valid address");
+        return false;
+      }
+    } else if (selectedAddressType === DomainType.EVM) {
+      // TODO (Harsh) add evm address validation
     }
+
     if (
       (addressBook?.[input.trim()] !== undefined &&
         (isAddNew || (!isAddNew && input.trim() !== address))) ||
@@ -157,10 +163,9 @@ export function AddOrEditAddressBookScreen({
       onAuthenticated: async () => {
         const editedAddress = {
           [addressInput]: {
-            address: selectedDomain === DomainType.DFI ? addressInput : "",
-            evmAddress: selectedDomain === DomainType.EVM ? addressInput : "",
+            address: addressInput,
+            addressType: selectedAddressType,
             label: labelInput,
-            isMine: false,
             isFavourite: addressLabel?.isFavourite,
           },
         };
@@ -243,13 +248,19 @@ export function AddOrEditAddressBookScreen({
       return;
     }
     validateAddressInput(addressInput);
-  }, [addressInput]);
+  }, [addressInput, selectedAddressType]);
 
   useEffect(() => {
     let isSubscribed = true;
     void fetchWalletAddresses().then((walletAddress) => {
       if (isSubscribed) {
-        setWalletAddress(walletAddress.map(({ dfi }) => dfi));
+        const allWalletAddresses = walletAddress.reduce(
+          (allAddress: string[], each: WalletAddressI) => {
+            return [...allAddress, ...Object.values(each)];
+          },
+          []
+        );
+        setWalletAddress(allWalletAddresses);
       }
     });
     return () => {
@@ -276,20 +287,21 @@ export function AddOrEditAddressBookScreen({
           dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-00")}
           style={tailwind("flex-col w-full border-0.5 rounded-lg-v2")}
         >
-          {domainTypes.map((eachDomain, index) => {
-            const isChecked = selectedDomain === eachDomain.value;
+          {AddressTypes.map((eachDomain, index) => {
+            const isChecked = selectedAddressType === eachDomain.value;
             return (
               <ThemedTouchableOpacityV2
+                key={eachDomain.value}
                 light={tailwind("border-mono-light-v2-300")}
                 dark={tailwind("border-mono-dark-v2-300")}
                 style={[
                   tailwind("flex flex-row mx-5 py-4"),
-                  index !== domainTypes.length - 1 && tailwind("border-b-0.5"),
+                  index !== AddressTypes.length - 1 && tailwind("border-b-0.5"),
                 ]}
                 activeOpacity={0.7}
                 disabled={!isAddNew}
                 onPress={() => {
-                  setSelectedDomain(eachDomain.value);
+                  setSelectedAddressType(eachDomain.value);
                 }}
                 testID={`address_book_address_type_${eachDomain.value}`}
               >

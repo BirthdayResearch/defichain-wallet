@@ -13,6 +13,7 @@ import {
 import { RootState } from "@store";
 import {
   LocalAddress,
+  WhitelistedAddress,
   selectAddressBookArray,
   selectLocalWalletAddressArray,
   setUserPreferences,
@@ -74,7 +75,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   const userPreferencesFromStore = useSelector(
     (state: RootState) => state.userPreferences
   );
-  const addressBook: LocalAddress[] = useSelector((state: RootState) =>
+  const addressBook: WhitelistedAddress[] = useSelector((state: RootState) =>
     selectAddressBookArray(state.userPreferences)
   );
   const walletAddressFromStore: LocalAddress[] = useSelector(
@@ -90,7 +91,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   const searchRef = createRef<TextInput>();
   const { fetchWalletAddresses } = useWalletAddress();
   const [filteredAddressBook, setFilteredAddressBook] =
-    useState<LocalAddress[]>(addressBook);
+    useState<WhitelistedAddress[]>(addressBook);
   const [filteredWalletAddress, setFilteredWalletAddress] =
     useState<LocalAddress[]>(walletAddress);
 
@@ -117,7 +118,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   useEffect(() => {
     // combine redux store and jellyfish wallet
     let isSubscribed = true;
-    void fetchWalletAddresses().then((walletAddresses) => {
+    fetchWalletAddresses().then((walletAddresses) => {
       if (isSubscribed) {
         const addresses: LocalAddress[] = [];
         walletAddresses.forEach((address) => {
@@ -157,12 +158,14 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   const filterAddress = useCallback(
     debounce((searchString: string): void => {
       setFilteredAddressBook(
-        sortByFavourite(addressBook).filter(
+        (sortByFavourite(addressBook) as WhitelistedAddress[]).filter(
           (address) =>
-            address.label
+            // filter address by addressType
+            address.addressType === addressType &&
+            (address.label
               .toLowerCase()
               .includes(searchString?.trim().toLowerCase()) ||
-            address.address.includes(searchString?.trim().toLowerCase())
+              address.address.includes(searchString?.trim().toLowerCase()))
         )
       );
       setFilteredWalletAddress(
@@ -172,7 +175,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
               .toLowerCase()
               .includes(searchString?.trim().toLowerCase()) ||
             address.address.includes(searchString?.trim().toLowerCase())
-        )
+        ) as LocalAddress[]
       );
     }, 200),
     [addressBook, walletAddress, searchString, activeButtonGroup]
@@ -180,7 +183,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
 
   // Favourite
   const onFavouriteAddress = async (
-    localAddress: LocalAddress
+    localAddress: WhitelistedAddress
   ): Promise<void> => {
     const labeledAddress = {
       [localAddress.address]: {
@@ -194,7 +197,9 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
     dispatch(userPreferences.actions.addToAddressBook(labeledAddress));
   };
 
-  const sortByFavourite = (localAddresses: LocalAddress[]): LocalAddress[] => {
+  const sortByFavourite = (
+    localAddresses: (LocalAddress | WhitelistedAddress)[]
+  ): (LocalAddress | WhitelistedAddress)[] => {
     return [...localAddresses].sort((curr, next) => {
       if (curr.isFavourite === true) {
         return -1;
@@ -227,11 +232,23 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
     }
 
     if (activeButtonGroup === ButtonGroupTabKey.Whitelisted) {
-      setFilteredAddressBook(sortByFavourite(addressBook));
+      setFilteredAddressBook(
+        (sortByFavourite(addressBook) as WhitelistedAddress[])
+          // filter address by addressType
+          .filter((address) => address.addressType === addressType)
+      );
     } else {
-      setFilteredWalletAddress(sortByFavourite(walletAddress));
+      setFilteredWalletAddress(
+        sortByFavourite(walletAddress) as LocalAddress[]
+      );
     }
-  }, [addressBook, walletAddress, searchString, activeButtonGroup]);
+  }, [
+    addressBook,
+    walletAddress,
+    searchString,
+    activeButtonGroup,
+    addressType,
+  ]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -249,7 +266,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
       onAddressSelect,
       ...props
     }: {
-      item: LocalAddress;
+      item: LocalAddress | WhitelistedAddress;
       index: number;
       testIDSuffix: string;
       selectedAddress?: string;
@@ -291,9 +308,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
           style={tailwind("py-4.5 pl-5 pr-4 mb-2 rounded-lg-v2")}
           testID={`address_row_${index}_${testIDSuffix}`}
           onPress={async () => {
-            onChangeAddress(
-              addressType === DomainType.EVM ? item.evmAddress : item.address
-            );
+            onChangeAddress(item.address);
           }}
         >
           <View
@@ -301,7 +316,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
               "flex-auto": Platform.OS === "web",
             })}
           >
-            {item.isMine ? (
+            {(item as LocalAddress).isMine ? (
               <View style={tailwind("mr-3")}>
                 <RandomAvatar name={item.address} size={36} />
               </View>
@@ -309,7 +324,9 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
               <TouchableOpacity
                 activeOpacity={0.7}
                 style={tailwind("mr-4")}
-                onPress={async () => await onFavouriteAddress(item)}
+                onPress={async () =>
+                  await onFavouriteAddress(item as WhitelistedAddress)
+                }
                 testID={`address_row_star_${index}_${testIDSuffix}`}
                 disabled={enableAddressSelect}
               >
@@ -350,16 +367,18 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                   />
                 )}
                 {/* for EVM address */}
-                {item.evmAddress !== "" && (
+                {activeButtonGroup === ButtonGroupTabKey.Whitelisted && (
                   <YourAddressLink
                     testIDSuffix={`${index}_${testIDSuffix}`}
                     displayIcon={
                       activeButtonGroup !== ButtonGroupTabKey.Whitelisted
                     }
-                    address={item.evmAddress}
+                    address={(item as LocalAddress).evmAddress}
                     disabled={enableAddressSelect}
                     onClick={async () => {
-                      await openURL(getAddressUrl(item.evmAddress));
+                      await openURL(
+                        getAddressUrl((item as LocalAddress).evmAddress)
+                      );
                     }}
                   />
                 )}
@@ -532,7 +551,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
             {(activeButtonGroup === ButtonGroupTabKey.Whitelisted
               ? filteredAddressBook
               : filteredWalletAddress
-            ).map((item: LocalAddress, index: number) => (
+            ).map((item: LocalAddress | WhitelistedAddress, index: number) => (
               <AddressListItem
                 item={item}
                 key={item.address}
@@ -562,6 +581,7 @@ function EmptyDisplay({ onPress }: { onPress: () => void }): JSX.Element {
     >
       <View style={tailwind("items-center pb-8")}>
         <Image
+          // eslint-disable-next-line react-native/no-inline-styles
           style={{
             width: 200,
             height: 136,

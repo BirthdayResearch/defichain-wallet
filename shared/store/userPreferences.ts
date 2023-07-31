@@ -6,9 +6,17 @@ import {
 } from "@reduxjs/toolkit";
 import { LocalStorageProvider } from "@api/local_storage/provider";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
+import { DomainType } from "@contexts/DomainContext";
 
 export interface LabeledAddress {
-  [address: string]: LocalAddress;
+  [address: string]: LocalAddress | WhitelistedAddress;
+}
+
+export interface WhitelistedAddress {
+  address: string;
+  label: string;
+  addressType: DomainType;
+  isFavourite?: boolean;
 }
 
 export interface LocalAddress {
@@ -105,19 +113,21 @@ export const userPreferences = createSlice({
 
 export const selectAddressBookArray = createSelector(
   (state: UserPreferences) => state.addressBook,
-  (addressBook) => {
-    return prepopulateField(addressBook);
+  (addressBook): WhitelistedAddress[] => {
+    return prePopulateField(addressBook) as WhitelistedAddress[];
   }
 );
 
 export const selectLocalWalletAddressArray = createSelector(
   (state: UserPreferences) => state.addresses,
-  (walletAddress) => {
-    return prepopulateField(walletAddress);
+  (walletAddress): LocalAddress[] => {
+    return prePopulateField(walletAddress) as LocalAddress[];
   }
 );
 
-const prepopulateField = (addresses: LabeledAddress): LocalAddress[] => {
+const prePopulateField = (
+  addresses: LabeledAddress
+): (LocalAddress | WhitelistedAddress)[] => {
   const _addresses: LabeledAddress = { ...addresses };
 
   // pre-populate address and isFavourite flag for older app version, used for UI data model only

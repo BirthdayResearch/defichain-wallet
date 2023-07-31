@@ -211,6 +211,7 @@ export function PortfolioNavigator(): JSX.Element {
               source={
                 isLight ? GridBackgroundImageLight : GridBackgroundImageDark
               }
+              // eslint-disable-next-line react-native/no-inline-styles
               style={{
                 height: 220,
                 width: "100%",

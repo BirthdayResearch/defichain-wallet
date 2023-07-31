@@ -93,7 +93,9 @@ export const CreateOrEditAddressLabelForm = memo(
     };
 
     const getEVMAddress = (address: string) => {
-      const storedWalletAddress = walletAddressFromStore[address];
+      const storedWalletAddress = walletAddressFromStore[
+        address
+      ] as LocalAddress;
       if (storedWalletAddress && storedWalletAddress.evmAddress) {
         return storedWalletAddress.evmAddress;
       }
