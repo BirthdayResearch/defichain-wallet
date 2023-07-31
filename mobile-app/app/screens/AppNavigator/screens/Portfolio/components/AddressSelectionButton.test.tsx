@@ -3,6 +3,7 @@ import { RootState } from "@store";
 import { userPreferences } from "@store/userPreferences";
 import { render } from "@testing-library/react-native";
 import { Provider } from "react-redux";
+import { DomainType } from "@contexts/DomainContext";
 import { AddressSelectionButton } from "./AddressSelectionButton";
 
 describe("Address Selection Button", () => {
@@ -21,9 +22,8 @@ describe("Address Selection Button", () => {
         addressBook: {
           bar: {
             address: "bar",
-            evmAddress: "",
             label: "bar",
-            isMine: false,
+            addressType: DomainType.DFI,
           },
         },
       },
