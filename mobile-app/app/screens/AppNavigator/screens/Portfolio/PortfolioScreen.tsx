@@ -527,7 +527,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
               dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-200")}
               light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-200")}
               style={tailwind(
-                "flex flex-row items-center m-auto rounded-2xl border-0.5 px-4 py-2"
+                "flex flex-row items-center rounded-2xl border-0.5 px-4 py-2"
               )}
             >
               <View
@@ -550,7 +550,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
             </ThemedViewV2>
           </ThemedViewV2>
           <ThemedTouchableOpacityV2
-            style={tailwind("border-0 absolute right-5")}
+            style={tailwind("border-0 absolute right-5 top-6")}
             onPress={() => dismissModal(false)}
             testID="close_bottom_sheet_button"
           >
