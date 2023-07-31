@@ -355,17 +355,15 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                   </ThemedTextV2>
                 )}
                 {/* for DFI address */}
-                {item.address !== "" && (
-                  <YourAddressLink
-                    address={item.address}
-                    disabled={enableAddressSelect}
-                    testIDSuffix={`${index}_${testIDSuffix}`}
-                    displayIcon={
-                      activeButtonGroup !== ButtonGroupTabKey.Whitelisted
-                    }
-                    onClick={onDFIAddressClick}
-                  />
-                )}
+                <YourAddressLink
+                  address={item.address}
+                  disabled={enableAddressSelect}
+                  testIDSuffix={`${index}_${testIDSuffix}`}
+                  displayIcon={
+                    activeButtonGroup !== ButtonGroupTabKey.Whitelisted
+                  }
+                  onClick={onDFIAddressClick}
+                />
                 {/* for EVM address */}
                 {activeButtonGroup === ButtonGroupTabKey.Whitelisted && (
                   <YourAddressLink

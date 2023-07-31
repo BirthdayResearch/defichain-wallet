@@ -17,7 +17,7 @@ import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { Control, Controller } from "react-hook-form";
 import { NetworkName } from "@defichain/jellyfish-network";
 import { fromAddress } from "@defichain/jellyfish-address";
-import { LocalAddress } from "@store/userPreferences";
+import { LocalAddress, WhitelistedAddress } from "@store/userPreferences";
 import { debounce } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
@@ -48,7 +48,9 @@ export function AddressRow({
   inputFooter?: React.ReactElement;
   title: string;
   address: string;
-  onMatchedAddress?: (matchedAddress?: LocalAddress) => void;
+  onMatchedAddress?: (
+    matchedAddress?: LocalAddress | WhitelistedAddress
+  ) => void;
   onAddressType?: (addressType?: AddressType) => void;
   showQrButton?: boolean;
   onlyLocalAddress?: boolean;
@@ -67,7 +69,9 @@ export function AddressRow({
   const [jellyfishWalletAddress, setJellyfishWalletAddresses] = useState<
     string[]
   >([]);
-  const [matchedAddress, setMatchedAddress] = useState<LocalAddress>();
+  const [matchedAddress, setMatchedAddress] = useState<
+    LocalAddress | WhitelistedAddress
+  >();
   const [addressType, setAddressType] = useState<AddressType>();
   const validLocalAddress = useMemo(() => {
     if (address === "") {

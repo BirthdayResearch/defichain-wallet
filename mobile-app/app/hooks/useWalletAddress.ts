@@ -18,7 +18,7 @@ export function useWalletAddress(): {
     for (let i = 0; i <= addressLength; i++) {
       const account = wallet.get(i);
       const dfi = await account.getAddress();
-      // (TODO) Harsh replace it with getEvmAddress
+      // TODO (Harsh) replace it with getEvmAddress
       const evm = "evmaddress"; // await account.getEvmAddress();
       addresses.push({ dfi, evm });
     }
