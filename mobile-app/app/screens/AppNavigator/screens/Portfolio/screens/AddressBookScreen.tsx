@@ -1,4 +1,4 @@
-import { View } from "@components";
+import { View, Text } from "@components";
 import {
   ThemedIcon,
   ThemedSectionTitleV2,
@@ -47,6 +47,7 @@ import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
 import { SearchInput } from "@components/SearchInput";
 import { RefreshIcon } from "@screens/WalletNavigator/assets/RefreshIcon";
 import { DomainType } from "@contexts/DomainContext";
+import { LinearGradient } from "expo-linear-gradient";
 import { ButtonGroup } from "../../Dex/components/ButtonGroup";
 import {
   FavoriteCheckIcon,
@@ -201,21 +202,31 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   const sortByFavourite = (
     localAddresses: WhitelistedAddress[]
   ): WhitelistedAddress[] => {
-    return [...localAddresses].sort((curr, next) => {
-      if (
-        (enableAddressSelect && curr.addressDomainType === addressDomainType) ||
-        curr.isFavourite === true
-      ) {
-        return -1;
-      }
-      if (
-        (enableAddressSelect && curr.addressDomainType === addressDomainType) ||
-        next.isFavourite === true
-      ) {
-        return 1;
-      }
-      return 0;
-    });
+    return [...localAddresses]
+      .sort((curr, next) => {
+        if (curr.isFavourite === true) {
+          return -1;
+        }
+        if (next.isFavourite === true) {
+          return 1;
+        }
+        return 0;
+      })
+      .sort((curr, next) => {
+        if (
+          enableAddressSelect &&
+          curr.addressDomainType === addressDomainType
+        ) {
+          return -1;
+        }
+        if (
+          enableAddressSelect &&
+          next.addressDomainType === addressDomainType
+        ) {
+          return 1;
+        }
+        return 0;
+      });
   };
 
   useEffect(() => {
@@ -373,6 +384,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                   <TouchableOpacity
                     activeOpacity={0.7}
                     onPress={onDFIAddressClick}
+                    style={tailwind("flex flex-row items-center")}
                     disabled={
                       activeButtonGroup === ButtonGroupTabKey.YourAddress
                     }
@@ -383,6 +395,24 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                     >
                       {item.label}
                     </ThemedTextV2>
+                    {activeButtonGroup === ButtonGroupTabKey.Whitelisted &&
+                      (item as WhitelistedAddress).addressDomainType ===
+                        DomainType.EVM && (
+                        <LinearGradient
+                          colors={["#42F9C2", "#3B57CF"]}
+                          start={[0, 0]}
+                          end={[1, 1]}
+                          style={tailwind("rounded-sm-v2 px-1.5 py-1 ml-1")}
+                        >
+                          <Text
+                            style={tailwind(
+                              "text-mono-light-v2-00 text-2xs font-semibold-v2 leading-3"
+                            )}
+                          >
+                            EVM
+                          </Text>
+                        </LinearGradient>
+                      )}
                   </TouchableOpacity>
                 )}
                 {/* for DFI address */}
