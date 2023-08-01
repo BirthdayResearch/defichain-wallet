@@ -97,6 +97,8 @@ export function AddOrEditAddressBookScreen({
     const addressType = getAddressType(input, networkName);
     if (
       addressType === undefined ||
+      (selectedAddressType === DomainType.DFI &&
+        addressType === AddressType.ETH) ||
       (selectedAddressType === DomainType.EVM &&
         addressType !== AddressType.ETH)
     ) {
