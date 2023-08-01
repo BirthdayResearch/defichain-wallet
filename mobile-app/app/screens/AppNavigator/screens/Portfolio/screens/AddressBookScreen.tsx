@@ -287,7 +287,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
       const { item, index, testIDSuffix } = props;
 
       const onChangeAddress = (address: string): void => {
-        if (enableAddressSelect) {
+        if (enableAddressSelect && onAddressSelect) {
           onAddressSelect(address);
         }
       };
