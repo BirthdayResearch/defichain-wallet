@@ -172,12 +172,13 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
         )
       );
       setFilteredWalletAddress(
-        sortByFavourite(walletAddress).filter(
-          (address) =>
+        (sortByFavourite(walletAddress) as LocalAddress[]).filter(
+          (address: LocalAddress) =>
             address.label
               .toLowerCase()
               .includes(searchString?.trim().toLowerCase()) ||
-            address.address.includes(searchString?.trim().toLowerCase())
+            address.address.includes(searchString?.trim().toLowerCase()) ||
+            address.evmAddress.includes(searchString?.trim().toLowerCase())
         ) as LocalAddress[]
       );
     }, 200),
