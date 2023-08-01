@@ -16,7 +16,6 @@ describe("Address Selection Button", () => {
             address: "foo",
             evmAddress: "",
             label: "foo",
-            isMine: true,
           },
         },
         addressBook: {

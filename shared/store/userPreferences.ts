@@ -23,8 +23,6 @@ export interface LocalAddress {
   address: string;
   evmAddress: string;
   label: string;
-  isMine: boolean;
-  isFavourite?: boolean;
 }
 
 export interface UserPreferences {

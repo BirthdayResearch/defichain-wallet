@@ -64,7 +64,7 @@ export function AddOrEditAddressBookScreen({
   ];
 
   const [selectedAddressDomainType, setSelectedAddressDomainType] = useState(
-    addressLabel?.evmAddress ? DomainType.EVM : DomainType.DFI
+    addressLabel?.addressDomainType ?? DomainType.DFI
   );
 
   const validateLabelInput = (input: string): boolean => {

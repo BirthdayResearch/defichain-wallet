@@ -87,7 +87,6 @@ export const CreateOrEditAddressLabelForm = memo(
           address: address,
           evmAddress: getEVMAddress(address),
           label: labelInput.trim(),
-          isMine: true,
         },
       });
     };

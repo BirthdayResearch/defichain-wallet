@@ -138,7 +138,6 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
               address: address.dfi,
               evmAddress: address.evm,
               label: "",
-              isMine: true,
             });
           } else {
             addresses.push({
@@ -161,9 +160,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   const filterAddress = useCallback(
     debounce((searchString: string): void => {
       setFilteredAddressBook(
-        filterByAddressDomainType(
-          sortByFavourite(addressBook) as WhitelistedAddress[]
-        ).filter(
+        sortByFavourite(addressBook).filter(
           (address) =>
             address.label
               .toLowerCase()
@@ -172,7 +169,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
         )
       );
       setFilteredWalletAddress(
-        (sortByFavourite(walletAddress) as LocalAddress[]).filter(
+        walletAddress.filter(
           (address: LocalAddress) =>
             address.label
               .toLowerCase()
@@ -202,28 +199,23 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   };
 
   const sortByFavourite = (
-    localAddresses: (LocalAddress | WhitelistedAddress)[]
-  ): (LocalAddress | WhitelistedAddress)[] => {
+    localAddresses: WhitelistedAddress[]
+  ): WhitelistedAddress[] => {
     return [...localAddresses].sort((curr, next) => {
-      if (curr.isFavourite === true) {
+      if (
+        (enableAddressSelect && curr.addressDomainType === addressDomainType) ||
+        curr.isFavourite === true
+      ) {
         return -1;
       }
-      if (next.isFavourite === true) {
+      if (
+        (enableAddressSelect && curr.addressDomainType === addressDomainType) ||
+        next.isFavourite === true
+      ) {
         return 1;
       }
       return 0;
     });
-  };
-
-  const filterByAddressDomainType = (
-    addresses: WhitelistedAddress[]
-  ): WhitelistedAddress[] => {
-    if (enableAddressSelect) {
-      return addresses.filter(
-        (address) => address.addressDomainType === addressDomainType
-      );
-    }
-    return addresses;
   };
 
   useEffect(() => {
@@ -246,15 +238,9 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
       return;
     }
     if (activeButtonGroup === ButtonGroupTabKey.Whitelisted) {
-      setFilteredAddressBook(
-        filterByAddressDomainType(
-          sortByFavourite(addressBook) as WhitelistedAddress[]
-        )
-      );
+      setFilteredAddressBook(sortByFavourite(addressBook));
     } else {
-      setFilteredWalletAddress(
-        sortByFavourite(walletAddress) as LocalAddress[]
-      );
+      setFilteredWalletAddress(walletAddress);
     }
   }, [
     addressBook,
@@ -341,7 +327,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
               "flex-auto": Platform.OS === "web",
             })}
           >
-            {(item as LocalAddress).isMine ? (
+            {activeButtonGroup === ButtonGroupTabKey.YourAddress ? (
               <View style={tailwind("mr-3")}>
                 <RandomAvatar name={item.address} size={36} />
               </View>
@@ -355,7 +341,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                 testID={`address_row_star_${index}_${testIDSuffix}`}
                 disabled={enableAddressSelect}
               >
-                {item.isFavourite === true ? (
+                {(item as WhitelistedAddress).isFavourite === true ? (
                   <FavoriteCheckIcon
                     size={24}
                     testID={`address_row_${index}_is_favourite_${testIDSuffix}`}
@@ -372,12 +358,20 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
             <View style={tailwind("flex flex-row items-center flex-auto")}>
               <View style={tailwind("flex flex-auto mr-1")}>
                 {item.label !== "" && (
-                  <ThemedTextV2
-                    style={tailwind("font-semibold-v2 text-sm")}
-                    testID={`address_row_label_${index}_${testIDSuffix}`}
+                  <TouchableOpacity
+                    activeOpacity={0.7}
+                    onPress={onDFIAddressClick}
+                    disabled={
+                      activeButtonGroup === ButtonGroupTabKey.YourAddress
+                    }
                   >
-                    {item.label}
-                  </ThemedTextV2>
+                    <ThemedTextV2
+                      style={tailwind("font-semibold-v2 text-sm")}
+                      testID={`address_row_label_${index}_${testIDSuffix}`}
+                    >
+                      {item.label}
+                    </ThemedTextV2>
+                  </TouchableOpacity>
                 )}
                 {/* for DFI address */}
                 <YourAddressLink
@@ -385,7 +379,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                   disabled={enableAddressSelect}
                   testIDSuffix={`${index}_${testIDSuffix}`}
                   displayIcon={
-                    activeButtonGroup !== ButtonGroupTabKey.Whitelisted
+                    activeButtonGroup === ButtonGroupTabKey.YourAddress
                   }
                   onClick={onDFIAddressClick}
                 />

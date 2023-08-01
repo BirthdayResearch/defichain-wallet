@@ -108,7 +108,6 @@ export function AddressRow({
           address: addressObj.dfi,
           evmAddress: addressObj.evm,
           label: "",
-          isMine: true,
         });
         setAddressType(AddressType.WalletAddress);
       } else {

@@ -18,7 +18,6 @@ describe("Wallet Address Row", () => {
             address: "foo",
             evmAddress: "",
             label: "foo",
-            isMine: true,
           },
         },
         addressBook: {

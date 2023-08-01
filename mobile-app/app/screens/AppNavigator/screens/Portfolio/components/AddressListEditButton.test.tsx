@@ -15,7 +15,6 @@ describe("Address List Edit Button", () => {
             address: "foo",
             evmAddress: "",
             label: "foo",
-            isMine: true,
           },
         },
         addressBook: {

@@ -9,7 +9,7 @@ import { DexFaq } from "@screens/WalletNavigator/screens/CreateWallet/DexFaq";
 import { LiquidityMiningFaq } from "@screens/WalletNavigator/screens/CreateWallet/LiquidityMiningFaq";
 import { ChangePinScreen } from "@screens/AppNavigator/screens/Settings/screens/ChangePinScreen";
 import { ConfirmPinScreen } from "@screens/AppNavigator/screens/Settings/screens/ConfirmPinScreen";
-import { LocalAddress } from "@store/userPreferences";
+import { WhitelistedAddress } from "@store/userPreferences";
 import { NetworkSelectionScreen } from "@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreen";
 import { CfpDfipProposalsFaq } from "@screens/AppNavigator/screens/Portfolio/screens/CfpDfipProposalsFaq";
 import { DomainType } from "@contexts/DomainContext";
@@ -48,7 +48,7 @@ export interface SettingsParamList {
   AddOrEditAddressBookScreen: {
     title: string;
     onSaveButtonPress: (address?: string) => void;
-    addressLabel?: LocalAddress;
+    addressLabel?: WhitelistedAddress;
     address?: string;
     isAddNew: boolean;
   };
