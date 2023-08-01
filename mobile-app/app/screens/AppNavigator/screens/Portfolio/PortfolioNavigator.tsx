@@ -33,6 +33,7 @@ import {
   TokenListType,
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { ConversionMode, ScreenName } from "@screens/enum";
+import { DomainType } from "@contexts/DomainContext";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { PortfolioScreen } from "./PortfolioScreen";
 import { ReceiveScreen } from "./screens/ReceiveScreen";
@@ -105,6 +106,7 @@ export interface PortfolioParamList {
     title: string;
     onSaveButtonPress: (address?: string) => void;
     addressLabel?: WhitelistedAddress;
+    addressDomainType?: DomainType;
     address?: string;
     isAddNew: boolean;
   };

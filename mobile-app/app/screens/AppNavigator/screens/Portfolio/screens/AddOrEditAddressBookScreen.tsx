@@ -37,8 +37,14 @@ export function AddOrEditAddressBookScreen({
   route,
   navigation,
 }: Props): JSX.Element {
-  const { title, onSaveButtonPress, address, addressLabel, isAddNew } =
-    route.params;
+  const {
+    title,
+    onSaveButtonPress,
+    address,
+    addressDomainType,
+    addressLabel,
+    isAddNew,
+  } = route.params;
   const [labelInput, setLabelInput] = useState(addressLabel?.label);
   const [addressInput, setAddressInput] = useState<string | undefined>(address);
   const [isEditable, setIsEditable] = useState(isAddNew);
@@ -64,7 +70,7 @@ export function AddOrEditAddressBookScreen({
   ];
 
   const [selectedAddressDomainType, setSelectedAddressDomainType] = useState(
-    addressLabel?.addressDomainType ?? DomainType.DFI
+    addressDomainType ?? DomainType.DFI
   );
 
   const validateLabelInput = (input: string): boolean => {

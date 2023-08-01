@@ -49,6 +49,7 @@ export interface SettingsParamList {
     title: string;
     onSaveButtonPress: (address?: string) => void;
     addressLabel?: WhitelistedAddress;
+    addressDomainType?: DomainType;
     address?: string;
     isAddNew: boolean;
   };

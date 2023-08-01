@@ -273,11 +273,17 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
       onAddressSelect?: (address: string) => void;
     }): JSX.Element => {
       const { item, index, testIDSuffix } = props;
+      // to disable address select of non compatible address type
+      const isDisabledToSelect = !!(
+        enableAddressSelect &&
+        activeButtonGroup === ButtonGroupTabKey.Whitelisted &&
+        (item as WhitelistedAddress).addressDomainType !== addressDomainType
+      );
 
       const onChangeAddress = (
         addressDetail: LocalAddress | WhitelistedAddress
       ): void => {
-        if (enableAddressSelect && onAddressSelect) {
+        if (onAddressSelect) {
           // for whitelisted address
           if (activeButtonGroup === ButtonGroupTabKey.Whitelisted) {
             onAddressSelect(addressDetail.address);
@@ -302,6 +308,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
               title: "Address Details",
               isAddNew: false,
               address: item.address,
+              addressDomainType: (item as WhitelistedAddress).addressDomainType,
               addressLabel: item,
               onSaveButtonPress: () => {},
             },
@@ -311,13 +318,18 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
           await openURL(getAddressUrl(item.address));
         }
       };
+
       return (
         <ThemedTouchableOpacityV2
           key={item.address}
           light={tailwind("bg-mono-light-v2-00")}
           dark={tailwind("bg-mono-dark-v2-00")}
-          style={tailwind("py-4.5 pl-5 pr-4 mb-2 rounded-lg-v2")}
+          style={[
+            tailwind("py-4.5 pl-5 pr-4 mb-2 rounded-lg-v2"),
+            isDisabledToSelect && tailwind("opacity-30"),
+          ]}
           testID={`address_row_${index}_${testIDSuffix}`}
+          disabled={isDisabledToSelect}
           onPress={async () => {
             onChangeAddress(item);
           }}
@@ -428,6 +440,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
       params: {
         title: "Add Address",
         isAddNew: true,
+        addressDomainType,
         onSaveButtonPress: (address?: string) => {
           if (onAddressSelect !== undefined && address !== undefined) {
             onAddressSelect(address);
